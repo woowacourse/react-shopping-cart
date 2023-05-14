@@ -1,43 +1,35 @@
 import { styled } from 'styled-components';
 import { CartIcon } from '../assets/svg';
+import { ProductInfo } from '../types';
 import { useCart } from '../hooks/useCart';
 import Stepper from './Stepper';
 
-interface IProduct {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
-}
-
 interface Props {
-  data: IProduct;
+  info: ProductInfo;
 }
 
-export default function Product({ data }: Props) {
-  const { addToCart, findProductInCart, isSelected } = useCart();
-  const productInCart = findProductInCart(data.id);
-  const isInCart = Boolean(productInCart);
+export default function Product({ info }: Props) {
+  const { id, name, price, imageUrl } = info;
+  const { addToCart, getProductInCart, updateProductQuantity } = useCart(id);
+  const productInCart = getProductInCart();
 
   return (
     <Style.Container>
       <Style.ProductImageWrapper>
-        <Style.ProductImage src={data.imageUrl} alt={data.name} loading="lazy" />
+        <Style.ProductImage src={imageUrl} alt={name} loading="lazy" />
       </Style.ProductImageWrapper>
       <Style.ProductInfo>
         <Style.ProductNameAndStepperContainer>
-          <Style.ProductName title={data.name}>{data.name}</Style.ProductName>
-          {isSelected(data.id) ? (
-            <Style.StepperWrapper isInCart={isInCart}>
-              <Stepper initCount={productInCart?.quantity} productId={data.id} />
-            </Style.StepperWrapper>
+          <Style.ProductName title={name}>{name}</Style.ProductName>
+          {productInCart ? (
+            <Stepper quantity={productInCart.quantity} updateQuantity={updateProductQuantity} />
           ) : (
-            <Style.CartIconWrapper onClick={() => addToCart(data.id)}>
+            <Style.CartIconWrapper onClick={addToCart}>
               <CartIcon fill="#AAAAAA" />
             </Style.CartIconWrapper>
           )}
         </Style.ProductNameAndStepperContainer>
-        <Style.ProductPrice>{data.price.toLocaleString('ko-KR')}원</Style.ProductPrice>
+        <Style.ProductPrice>{price.toLocaleString('ko-KR')}원</Style.ProductPrice>
       </Style.ProductInfo>
     </Style.Container>
   );
@@ -88,16 +80,12 @@ const Style = {
     font-size: 20px;
   `,
 
-  StepperWrapper: styled.div<{ isInCart: boolean }>`
-    animation: ${(props) => !props.isInCart && 'drawStepper 0.3s ease-in-out'};
-  `,
-
   CartIconWrapper: styled.button`
     padding: 0;
     margin: 0;
     border: none;
     background-color: inherit;
-    height: fit-content;
+    height: 30px;
 
     cursor: pointer;
   `,

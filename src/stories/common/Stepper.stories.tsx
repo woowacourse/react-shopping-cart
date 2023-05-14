@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Stepper from '../../components/Stepper';
-import { expect } from '@storybook/jest';
 import { userEvent, within } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
+import { useState } from 'react';
+import Stepper from '../../components/Stepper';
 
 const meta = {
   title: 'ShoppingCart/common/Stepper',
@@ -15,20 +16,19 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {
-    initCount: 1,
-    productId: 1,
-  },
-};
-
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export const ClickPlusButton: Story = {
-  args: {
-    initCount: 1,
-    productId: 1,
+const createStepperStory = () => ({
+  render: () => {
+    const [quantity, setQuantity] = useState(1);
+    return <Stepper quantity={quantity} updateQuantity={setQuantity} />;
   },
+});
+
+export const Default: Story = createStepperStory();
+
+export const ClickPlusButton: Story = {
+  ...createStepperStory(),
 
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -36,57 +36,43 @@ export const ClickPlusButton: Story = {
     const countInput = await canvas.findByRole('textbox');
     const plusButton = await canvas.findByText('+');
 
-    await delay(400);
+    await delay(300);
     userEvent.click(plusButton);
 
+    await delay(300);
     expect(countInput).toHaveValue('2');
   },
 };
 
 export const ClickMinusButton: Story = {
-  args: {
-    initCount: 5,
-    productId: 1,
-  },
+  ...createStepperStory(),
 
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
     const countInput = await canvas.findByRole('textbox');
+    const plusButton = await canvas.findByText('+');
     const minusButton = await canvas.findByText('-');
 
-    await delay(400);
+    await delay(300);
+    userEvent.click(plusButton);
+
+    await delay(300);
+    userEvent.click(plusButton);
+
+    await delay(300);
+    userEvent.click(plusButton);
+
+    await delay(300);
     userEvent.click(minusButton);
 
-    expect(countInput).toHaveValue('4');
-  },
-};
-
-export const ButtonToDisableIfMinCount: Story = {
-  args: {
-    initCount: 2,
-    productId: 1,
-  },
-
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    const countInput = await canvas.findByRole('textbox');
-    const minusButton = await canvas.findByText('-');
-
-    await delay(400);
-    userEvent.click(minusButton);
-
-    expect(countInput).toHaveValue('1');
-    expect(minusButton).toBeDisabled();
+    await delay(300);
+    expect(countInput).toHaveValue('3');
   },
 };
 
 export const ButtonToDisableIfMaxCount: Story = {
-  args: {
-    initCount: 98,
-    productId: 1,
-  },
+  ...createStepperStory(),
 
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -94,19 +80,17 @@ export const ButtonToDisableIfMaxCount: Story = {
     const countInput = await canvas.findByRole('textbox');
     const plusButton = await canvas.findByText('+');
 
-    await delay(400);
-    userEvent.click(plusButton);
+    await delay(300);
+    userEvent.type(countInput, '99');
 
+    await delay(300);
     expect(countInput).toHaveValue('99');
     expect(plusButton).toBeDisabled();
   },
 };
 
 export const CanNotBeOverMaxCount: Story = {
-  args: {
-    initCount: 1,
-    productId: 1,
-  },
+  ...createStepperStory(),
 
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

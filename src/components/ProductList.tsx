@@ -5,9 +5,9 @@ import Product from './Product';
 export default function ProductList() {
   return (
     <Style.Container>
-      {mockData.map((data) => (
-        <li key={data.id}>
-          <Product data={data} />
+      {mockData.map((product) => (
+        <li key={product.id}>
+          <Product info={product} />
         </li>
       ))}
     </Style.Container>

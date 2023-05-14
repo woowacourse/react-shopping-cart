@@ -16,14 +16,12 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <>
-        <GlobalStyle />
-        <RecoilRoot>
-          <BrowserRouter>
-            <Story />
-          </BrowserRouter>
-        </RecoilRoot>
-      </>
+      <RecoilRoot>
+        <BrowserRouter>
+          <GlobalStyle />
+          <Story />
+        </BrowserRouter>
+      </RecoilRoot>
     ),
   ],
 };

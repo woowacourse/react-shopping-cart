@@ -1,10 +1,14 @@
 import { useRecoilState } from 'recoil';
 import { productsInCartState } from '../atom';
 
-export const useCart = () => {
+export const useCart = (productId: number) => {
   const [productsInCart, setProductsInCart] = useRecoilState(productsInCartState);
 
-  const addToCart = (productId: number) => {
+  const getProductInCart = () => {
+    return productsInCart.find((product) => product.id === productId);
+  };
+
+  const addToCart = () => {
     setProductsInCart((prev) => [
       ...prev,
       {
@@ -14,37 +18,20 @@ export const useCart = () => {
     ]);
   };
 
-  const findProductInCart = (productId: number) => {
-    return productsInCart.find((product) => product.id === productId);
+  const deleteFromCart = () => {
+    const curIndex = productsInCart.findIndex((product) => product.id === productId);
+    const newProductsInCart = structuredClone(productsInCart);
+
+    newProductsInCart.splice(curIndex, 1);
+    setProductsInCart(newProductsInCart);
   };
 
-  const isSelected = (productId: number) => {
-    return Boolean(findProductInCart(productId));
-  };
+  const updateProductQuantity = (quantity: number) => {
+    if (quantity <= 0) {
+      deleteFromCart();
+      return;
+    }
 
-  const increaseProductQuantity = (productId: number) => {
-    setProductsInCart((prev) => {
-      return prev.map((productInCart) => {
-        if (productInCart.id === productId)
-          return { ...productInCart, quantity: productInCart.quantity + 1 };
-
-        return productInCart;
-      });
-    });
-  };
-
-  const decreaseProductQuantity = (productId: number) => {
-    setProductsInCart((prev) => {
-      return prev.map((productInCart) => {
-        if (productInCart.id === productId)
-          return { ...productInCart, quantity: productInCart.quantity - 1 };
-
-        return productInCart;
-      });
-    });
-  };
-
-  const updateProductQuantity = (productId: number, quantity: number) => {
     setProductsInCart((prev) => {
       return prev.map((productInCart) => {
         if (productInCart.id === productId) return { ...productInCart, quantity: quantity };
@@ -56,11 +43,9 @@ export const useCart = () => {
 
   return {
     productsInCart,
-    findProductInCart,
+    getProductInCart,
     addToCart,
-    isSelected,
-    increaseProductQuantity,
-    decreaseProductQuantity,
+    deleteFromCart,
     updateProductQuantity,
   };
 };

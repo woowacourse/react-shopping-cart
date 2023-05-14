@@ -1,56 +1,28 @@
-import { ChangeEvent, MouseEvent } from 'react';
 import { styled } from 'styled-components';
-import { useCart } from '../hooks/useCart';
-import { useCountInput } from '../hooks/useCountInput';
+import { PRODUCT } from '../constants';
+import { useStepper } from '../hooks/useStepper';
 import Button from './common/Button';
 
 interface Props {
-  initCount?: number;
-  productId: number;
+  quantity?: number;
+  updateQuantity: (quantity: number) => void;
 }
 
-export default function Stepper({ productId }: Props) {
-  const {
-    findProductInCart,
-    updateProductQuantity,
-    increaseProductQuantity,
-    decreaseProductQuantity,
-  } = useCart();
-
-  const { count, setCount, increaseCount, decreaseCount } = useCountInput(
-    findProductInCart(productId)?.quantity
-  );
-
-  const handleChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-    setCount(value);
-    updateProductQuantity(productId, Number(value));
-  };
-
-  const onClickButton = ({ currentTarget: { id } }: MouseEvent<HTMLButtonElement>) => {
-    if (id === 'increase') {
-      increaseCount();
-      increaseProductQuantity(productId);
-
-      return;
-    }
-
-    decreaseCount();
-    decreaseProductQuantity(productId);
-  };
+export default function Stepper({ quantity = 0, updateQuantity }: Props) {
+  const { handleInputChange, handleButtonClick } = useStepper({ quantity, updateQuantity });
 
   return (
     <Style.Container>
-      <Button
-        id="decrease"
-        bgColor="primary"
-        designType="square"
-        disabled={count === 1}
-        onClick={onClickButton}
-      >
+      <Button name="decrease" designType="square" onClick={handleButtonClick}>
         -
       </Button>
-      <Style.CountInput value={count} onChange={handleChange} />
-      <Button id="increase" designType="square" disabled={count === 99} onClick={onClickButton}>
+      <Style.CountInput value={quantity} onChange={handleInputChange} />
+      <Button
+        name="increase"
+        designType="square"
+        disabled={quantity === PRODUCT.MAX_COUNT}
+        onClick={handleButtonClick}
+      >
         +
       </Button>
     </Style.Container>
