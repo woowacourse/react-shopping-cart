@@ -1,14 +1,14 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import ProductList from 'pages/ProductList';
 
-const CartRouter = () => {
-  return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <Routes>
-        <Route path="/" element={<ProductList />} />
-      </Routes>
-    </BrowserRouter>
-  );
-};
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <ProductList />,
+    },
+  ],
+  { basename: process.env.PUBLIC_URL }
+);
 
-export default CartRouter;
+export default router;
