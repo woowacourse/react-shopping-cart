@@ -1,8 +1,11 @@
 import { useRecoilValue } from 'recoil';
 
-import { cartLengthSelector } from '../../recoil/myCartState';
+import { cartLengthSelector } from '@recoil/myCartState';
 
-import { StyledCartButton, StyledCartLengthDiv } from './CartButton.styled';
+import {
+  StyledCartButton,
+  StyledCartLengthDiv,
+} from '@components/CartButton/CartButton.styled';
 
 const CartButton = () => {
   const cartLength = useRecoilValue(cartLengthSelector);

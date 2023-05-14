@@ -7,6 +7,7 @@
       "@components/*": ["./src/components/*"],
       "@pages/*": ["./src/components/pages/*"],
       "@hooks/*": ["./src/hooks/*"],
+      "@customTypes/*": ["./src/customTypes/*"],
       "@recoil/*": ["./src/recoil/*"]
     }
   }

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import SquareImage from './SquareImage';
+import SquareImage from '@components/commons/SquareImage/SquareImage';
 
 const meta: Meta<typeof SquareImage> = {
   title: 'SquareImage',

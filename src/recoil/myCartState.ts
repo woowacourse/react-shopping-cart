@@ -1,6 +1,6 @@
 import { atom, selector } from 'recoil';
 
-import { MyCart } from '../types/Product';
+import { MyCart } from '@customTypes/Product';
 
 const myCartState = atom<MyCart>({
   key: 'myCartState',

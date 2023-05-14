@@ -4,7 +4,7 @@ import {
   StyledErrorPage,
   StyledErrorSection,
   StyledHomeEntryButton,
-} from './ErrorPage.styled';
+} from '@pages/ErrorPage/ErrorPage.styled';
 
 const ErrorPage = () => {
   return (

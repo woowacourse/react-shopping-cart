@@ -5,7 +5,7 @@ import {
   StyledInput,
   StyledStepperDiv,
   StyledUpButton,
-} from './Stepper.styled';
+} from '@components/commons/Stepper/Stepper.styled';
 
 interface StepperProps {
   productCount: number;

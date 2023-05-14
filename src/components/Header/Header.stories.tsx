@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Header from './Header';
+import Header from '@components/Header/Header';
 
 /**
  * 페이지 헤더 컴포넌트

@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
-import App from './components/App/App';
 import GlobalStyles from './GlobalStyles';
-import ProductsPage from './components/pages/ProductsPage/ProductsPage';
-import ErrorPage from './components/pages/ErrorPage/ErrorPage';
+import App from '@components/App/App';
+import ProductsPage from '@pages/ProductsPage/ProductsPage';
+import ErrorPage from '@pages/ErrorPage/ErrorPage';
 
 const router = createBrowserRouter(
   [

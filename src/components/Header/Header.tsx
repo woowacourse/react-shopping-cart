@@ -1,11 +1,11 @@
-import { LOGO } from '../../assets';
+import { LOGO } from '@assets/index';
 
 import {
   StyledHeader,
   StyledTitleDiv,
   StyledTitleHeading,
-} from './Header.styled';
-import CartButton from '../CartButton/CartButton';
+} from '@components/Header/Header.styled';
+import CartButton from '@components/CartButton/CartButton';
 
 const Header = () => {
   return (

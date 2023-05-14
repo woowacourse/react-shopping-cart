@@ -1,5 +1,6 @@
 import { ButtonHTMLAttributes } from 'react';
-import { CART } from '../../assets';
+
+import { CART } from '@assets/index';
 
 const StepperEntryButton = (props: ButtonHTMLAttributes<HTMLButtonElement>) => {
   const { onClick } = props;

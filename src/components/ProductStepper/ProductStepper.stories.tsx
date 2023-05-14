@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { userEvent, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
-import ProductStepper from './ProductStepper';
+import ProductStepper from '@components/ProductStepper/ProductStepper';
 
 /**
  * Stepper 컴포넌트

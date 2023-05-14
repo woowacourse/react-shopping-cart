@@ -1,13 +1,13 @@
-import { Product } from '../../types/Product';
+import { Product } from '@customTypes/Product';
 
 import {
   StyledNameParagraph,
   StyledPriceParagraph,
   StyledProductDetailDiv,
   StyledProductItem,
-} from './ProductItem.styled';
-import SquareImage from '../commons/SquareImage/SquareImage';
-import ProductStepper from '../ProductStepper/ProductStepper';
+} from '@components/ProductItem/ProductItem.styled';
+import SquareImage from '@components/commons/SquareImage/SquareImage';
+import ProductStepper from '@components/ProductStepper/ProductStepper';
 
 interface ProductItemProps {
   product: Product;

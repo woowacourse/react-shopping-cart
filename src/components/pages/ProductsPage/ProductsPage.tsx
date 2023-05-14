@@ -1,5 +1,5 @@
-import { StyledProductsPage } from './ProductsPage.styled';
-import ProductList from '../../ProductList/ProductList';
+import { StyledProductsPage } from '@pages/ProductsPage/ProductsPage.styled';
+import ProductList from '@components/ProductList/ProductList';
 
 const ProductsPage = () => {
   return (

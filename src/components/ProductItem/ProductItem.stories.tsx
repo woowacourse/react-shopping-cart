@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import catImage from '../../../public/cat0.png';
+import catImage from '@public/cat0.png';
 
-import ProductItem from './ProductItem';
+import ProductItem from '@components/ProductItem/ProductItem';
 
 /**
  * 설명창

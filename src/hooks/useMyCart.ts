@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { useRecoilState } from 'recoil';
-import myCartState from '../recoil/myCartState';
+
+import myCartState from '@recoil/myCartState';
 
 const useMyCart = (productId: number) => {
   const [myCart, setMyCart] = useRecoilState(myCartState);

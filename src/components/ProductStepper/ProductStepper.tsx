@@ -1,8 +1,8 @@
-import useProductCount from '../../hooks/useProductCount';
+import useProductCount from '@hooks/useProductCount';
 
-import { StyledProductStepper } from './ProductStepper.styled';
-import StepperEntryButton from '../StepperEntryButton/StepperEntryButton';
-import Stepper from '../commons/Stepper/Stepper';
+import { StyledProductStepper } from '@components/ProductStepper/ProductStepper.styled';
+import StepperEntryButton from '@components/StepperEntryButton/StepperEntryButton';
+import Stepper from '@components/commons/Stepper/Stepper';
 
 interface ProductStepperProps {
   productId: number;
