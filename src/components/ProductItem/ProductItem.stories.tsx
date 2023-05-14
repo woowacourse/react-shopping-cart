@@ -11,7 +11,13 @@ import ProductItem from '.';
  */
 const meta: Meta<typeof ProductItem> = {
   title: 'ProductItem',
-  decorators: [(storyFn) => <RecoilRoot>{storyFn()}</RecoilRoot>],
+  decorators: [
+    (storyFn) => (
+      <RecoilRoot>
+        <div style={{ width: '250px' }}>{storyFn()}</div>
+      </RecoilRoot>
+    ),
+  ],
   component: ProductItem,
 };
 
