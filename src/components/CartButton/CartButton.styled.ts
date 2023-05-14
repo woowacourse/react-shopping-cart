@@ -5,16 +5,6 @@ export const StyledCartButtonFlexBox = styled.div`
   align-items: center;
   column-gap: 10px;
 
-  text-align: center;
-
-  font-family: 'Noto Sans KR';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 12px;
-
-  color: #ffffff;
-
   @media screen and (max-width: 450px) {
     & > p {
       display: none;
@@ -27,7 +17,7 @@ export const StyledCartButtonFlexBox = styled.div`
   }
 `;
 
-export const StyledCartLengthDiv = styled.div`
+export const StyledCartLengthFlexBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,7 +27,4 @@ export const StyledCartLengthDiv = styled.div`
 
   border-radius: 50%;
   background-color: #04c09e;
-  text-align: center;
-
-  font-size: 16px;
 `;

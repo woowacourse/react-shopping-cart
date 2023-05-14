@@ -4,8 +4,9 @@ import { cartLengthSelector } from '@recoil/myCartState';
 
 import {
   StyledCartButtonFlexBox,
-  StyledCartLengthDiv,
+  StyledCartLengthFlexBox,
 } from '@components/CartButton/CartButton.styled';
+import Text from '@components/commons/Text/Text';
 import Button from '@components/commons/Button/Button';
 
 const CartButton = () => {
@@ -13,9 +14,11 @@ const CartButton = () => {
 
   return (
     <StyledCartButtonFlexBox>
-      <p>장바구니</p>
+      <Text text="장바구니" color="white" fontSize="24px" />
       <Button>
-        <StyledCartLengthDiv>{cartLength}</StyledCartLengthDiv>
+        <StyledCartLengthFlexBox>
+          <Text text={cartLength} color="white" fontSize="16px" />
+        </StyledCartLengthFlexBox>
       </Button>
     </StyledCartButtonFlexBox>
   );

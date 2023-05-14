@@ -18,12 +18,4 @@ export const StyledErrorSection = styled.section`
   padding: 20px;
 
   border-radius: 8px;
-
-  & > h1 {
-    font-size: xx-large;
-  }
-
-  & > p {
-    font-size: larger;
-  }
 `;

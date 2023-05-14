@@ -1,13 +1,12 @@
 import { Product } from '@customTypes/Product';
 
 import {
-  StyledNameParagraph,
-  StyledPriceParagraph,
-  StyledProductDetailDiv,
+  StyledProductFlexBox,
   StyledProductItem,
 } from '@components/ProductItem/ProductItem.styled';
 import SquareImage from '@commons/SquareImage/SquareImage';
 import ProductStepper from '@components/ProductStepper/ProductStepper';
+import Text from '@components/commons/Text/Text';
 
 interface ProductItemProps {
   product: Product;
@@ -20,15 +19,17 @@ const ProductItem = (props: ProductItemProps) => {
   return (
     <StyledProductItem>
       <SquareImage src={imageUrl} alt={name} size="xl" />
-      <StyledProductDetailDiv>
+      <StyledProductFlexBox>
         <div>
-          <StyledNameParagraph>{name}</StyledNameParagraph>
-          <StyledPriceParagraph>
-            {price.toLocaleString('ko-KR')} 원
-          </StyledPriceParagraph>
+          <Text text={name} fontSize="16px" lineHeight="24px" />
+          <Text
+            text={price.toLocaleString('ko-KR') + ' 원'}
+            fontSize="20px"
+            lineHeight="27px"
+          />
         </div>
         <ProductStepper productId={id} />
-      </StyledProductDetailDiv>
+      </StyledProductFlexBox>
     </StyledProductItem>
   );
 };

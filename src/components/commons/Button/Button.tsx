@@ -9,8 +9,6 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   border?: string;
   borderRadius?: string;
   backgroundColor?: string;
-  fontSize?: string;
-  color?: string;
   ariaLabel?: string;
   children?: ReactNode;
 }
@@ -23,8 +21,6 @@ const Button = (props: ButtonProps) => {
     border = '',
     borderRadius = '',
     backgroundColor = '',
-    fontSize = '',
-    color = '',
     type = 'submit',
     name = '',
     ariaLabel = '',
@@ -40,8 +36,6 @@ const Button = (props: ButtonProps) => {
       border={border}
       borderRadius={borderRadius}
       backgroundColor={backgroundColor}
-      fontSize={fontSize}
-      color={color}
       type={type}
       name={name}
       aria-label={ariaLabel}

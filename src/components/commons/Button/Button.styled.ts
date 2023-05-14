@@ -7,8 +7,6 @@ export const StyledButton = styled.button<{
   border: string;
   borderRadius: string;
   backgroundColor: string;
-  fontSize: string;
-  color: string;
 }>`
   width: ${props => props.width};
   height: ${props => props.height};
@@ -19,7 +17,4 @@ export const StyledButton = styled.button<{
   border-radius: ${props => props.borderRadius};
 
   background-color: ${props => props.backgroundColor};
-
-  font-size: ${props => props.fontSize};
-  color: ${props => props.color};
 `;
