@@ -10,6 +10,21 @@ import UserSummaryShoppingCart from '.';
 const meta: Meta<typeof UserSummaryShoppingCart> = {
   title: 'UserSummaryShoppingCart',
   component: UserSummaryShoppingCart,
+  decorators: [
+    (storyFn) => (
+      <div
+        style={{
+          backgroundColor: '#333333',
+          width: '300px',
+          height: '50px',
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        {storyFn()}
+      </div>
+    ),
+  ],
 };
 
 export default meta;
