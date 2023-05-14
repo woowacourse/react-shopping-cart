@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { fetchApi } from 'api';
+import { useToast } from 'components/@common/Toast/hooks/useToast';
 
 export const useFetch = <T>(url: string, initialData: T) => {
   const [data, setData] = useState<T>(initialData);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState({ isError: false, message: '' });
+  const { toast } = useToast();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -21,12 +22,9 @@ export const useFetch = <T>(url: string, initialData: T) => {
     } catch (error) {
       if (!(error instanceof Error)) return;
       setIsLoading(false);
-      setError({
-        isError: true,
-        message: error.message,
-      });
+      toast.error(error.message);
     }
   };
 
-  return { data, error, isLoading };
+  return { data, isLoading };
 };

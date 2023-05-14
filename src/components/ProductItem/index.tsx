@@ -1,9 +1,7 @@
-import { useEffect } from 'react';
 import * as S from './ProductItem.styles';
 import Svg from 'components/@common/Svg';
 import Counter from '../Counter';
 import useProductSelect from 'hooks/useProductSelect';
-import { useToast } from '../@common/Toast/hooks/useToast';
 import { Product } from 'types';
 
 interface ProductItemProps {
@@ -11,14 +9,8 @@ interface ProductItemProps {
 }
 
 const ProductItem = ({ product }: ProductItemProps) => {
-  const { currentCartItem, remove, add, onSelectItem, isFirst } =
+  const { currentCartItem, remove, add, onSelectItem } =
     useProductSelect(product);
-
-  const { toast, renderToast } = useToast();
-
-  useEffect(() => {
-    if (isFirst) toast.success('장바구니에 상품이 담겼습니다.');
-  }, [isFirst]);
 
   const productSelect = currentCartItem ? (
     <Counter
@@ -42,7 +34,6 @@ const ProductItem = ({ product }: ProductItemProps) => {
         </div>
         {productSelect}
       </S.ProductWrapper>
-      {renderToast}
     </S.ItemWrapper>
   );
 };

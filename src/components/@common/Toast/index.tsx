@@ -3,7 +3,7 @@ import Svg from '../Svg';
 import * as S from './Toast.styles';
 import { ToastState } from './hooks/useToast';
 
-const Toast = ({ message, type }: ToastState) => {
+const Toast = ({ message, type }: Omit<ToastState, 'id'>) => {
   const [isShown, setIsShown] = useState(true);
 
   useEffect(() => {

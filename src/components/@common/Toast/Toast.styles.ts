@@ -22,12 +22,20 @@ const fadeOut = keyframes`
   }
 `;
 
+export const ToastContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translate(-50%, 0);
+`;
+
 export const ToastWrapper = styled.div<{
   type: 'error' | 'success';
   $isShown: boolean;
 }>`
-  position: fixed;
-  bottom: 100px;
+  position: relative;
   left: 50%;
 
   display: flex;
@@ -37,6 +45,7 @@ export const ToastWrapper = styled.div<{
 
   width: 300px;
   height: 48px;
+  margin-bottom: 12px;
 
   background: ${(props) => (props.type === 'error' ? '#E53E3E' : '#37A169')};
 

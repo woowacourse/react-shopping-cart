@@ -1,27 +1,61 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { toastAtom } from 'recoil/toast';
+import * as S from '../Toast.styles';
 import Toast from '..';
 
-export type ToastType = 'error' | 'success';
+type ToastType = 'error' | 'success';
 export interface ToastState {
+  id: number;
   message: string;
   type: ToastType;
 }
 
 export const useToast = () => {
-  const [toastState, setToastState] = useState<ToastState | null>(null);
+  const [toastItems, setToastItems] = useRecoilState<ToastState[]>(toastAtom);
 
-  const showToast = (message: string, type: ToastType) => {
-    setToastState({ message: message, type: type });
+  const showToast = (id: number, message: string, type: ToastType) => {
+    setToastItems([...toastItems, { id: id, message: message, type: type }]);
+  };
+
+  const deleteToast = (id: number) => {
+    const toastId = toastItems.findIndex((e) => e.id === id);
+    if (toastId === -1) return;
+
+    const newToastItems = [...toastItems];
+    newToastItems.splice(toastId, 1);
+    setToastItems(newToastItems);
   };
 
   const toast = {
-    success: (message: string) => showToast(message, 'success'),
-    error: (message: string) => showToast(message, 'error'),
+    success: (message: string) =>
+      showToast(Number(Date.now()), message, 'success'),
+    error: (message: string) => showToast(Number(Date.now()), message, 'error'),
   };
 
-  const renderToast = toastState && (
-    <Toast message={toastState.message} type={toastState.type} />
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (toastItems.length > 0) {
+        deleteToast(toastItems[0].id);
+      }
+    }, 2000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  });
+
+  const renderToast = toastItems && (
+    <S.ToastContainer>
+      {toastItems.map((toastItem) => (
+        <Toast
+          key={toastItem.id}
+          message={toastItem.message}
+          type={toastItem.type}
+        />
+      ))}
+    </S.ToastContainer>
   );
 
-  return { showToast, toast, renderToast };
+  return { toast, renderToast };
 };

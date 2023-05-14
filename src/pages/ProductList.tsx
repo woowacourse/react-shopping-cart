@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { styled } from 'styled-components';
 import ContentLayout from 'components/@common/ContentLayout';
 import ProductItem from 'components/ProductItem';
@@ -8,13 +7,10 @@ import { useToast } from 'components/@common/Toast/hooks/useToast';
 import { Product } from 'types';
 
 const ProductList = () => {
-  const { toast, renderToast } = useToast();
-  useEffect(() => {
-    if (error.isError) toast.error(error.message);
-  }, []);
+  const { renderToast } = useToast();
 
-  const { data, error, isLoading } = useFetch<{ choonsik: Product[] }>(
-    process.env.PUBLIC_URL + '/mock/productList.json',
+  const { data, isLoading } = useFetch<{ choonsik: Product[] }>(
+    process.env.PUBLIC_URL + '/mock/roductList.json',
     { choonsik: [] }
   );
 
@@ -32,7 +28,6 @@ const ProductList = () => {
           {loading} {fetchedProductList}
         </ProductListWrapper>
       </ContentLayout>
-
       {renderToast}
     </>
   );
