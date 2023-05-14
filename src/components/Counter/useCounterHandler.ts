@@ -1,22 +1,32 @@
 import { ChangeEventHandler } from 'react';
 import { isNumericString } from '../../utils/isNumericString';
 
-const useCounterHandler = (
-  count: number,
-  updateCount: (count: number) => void,
-  onClickButton?: (quantity: number) => void,
-  onChangeInput?: (quantity: number) => void,
-  onBlurInput?: (quantity: number) => void,
+interface Parameters {
+  count: number;
+  updateCount: (count: number) => void;
+  onClickedButton?: (quantity: number) => void;
+  onChangedInput?: (quantity: number) => void;
+  onBlurredInput?: (quantity: number) => void;
+  min?: number;
+  max?: number;
+}
+
+const useCounterHandler = ({
+  count,
+  updateCount,
+  onClickedButton,
+  onChangedInput,
+  onBlurredInput,
   min = 0,
   max = 99,
-) => {
+}: Parameters) => {
   const handleIncreaseButtonClick = () => {
     const increasedCount = count + 1;
 
     if (increasedCount > max) return;
 
     updateCount(increasedCount);
-    onClickButton?.(increasedCount);
+    onClickedButton?.(increasedCount);
   };
 
   const handleDecreaseButtonClick = () => {
@@ -25,7 +35,7 @@ const useCounterHandler = (
     if (decreasedCount < min) return;
 
     updateCount(decreasedCount);
-    onClickButton?.(decreasedCount);
+    onClickedButton?.(decreasedCount);
   };
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -45,11 +55,11 @@ const useCounterHandler = (
     }
 
     updateCount(valueToNumber);
-    onChangeInput?.(valueToNumber);
+    onChangedInput?.(valueToNumber);
   };
 
   const handleInputBlur = () => {
-    onBlurInput?.(count);
+    onBlurredInput?.(count);
   };
 
   return {

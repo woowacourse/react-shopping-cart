@@ -31,7 +31,7 @@ const Counter = ({
     handleIncreaseButtonClick,
     handleInputBlur,
     handleInputChange,
-  } = useCounterHandler(
+  } = useCounterHandler({
     count,
     updateCount,
     onClickedButton,
@@ -39,7 +39,7 @@ const Counter = ({
     onBlurredInput,
     min,
     max,
-  );
+  });
 
   return (
     <CounterContainer size={size}>
