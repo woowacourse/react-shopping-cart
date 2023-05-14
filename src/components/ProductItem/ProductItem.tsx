@@ -1,9 +1,9 @@
-import * as T from '../../types/types';
+import type { ProductItem } from '../../types/types';
 import CartController from '../CartController';
 import * as S from './ProductItem.style';
 
 interface ProductItemProps {
-  product: T.ProductItem;
+  product: ProductItem;
 }
 
 function ProductItem({ product }: ProductItemProps) {

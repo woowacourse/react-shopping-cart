@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import * as T from '../types/types';
+import type { ProductItem } from '../types/types';
 import mockApi from '../api/mockApi';
 import { cartState } from '../recoil/atoms';
 
@@ -11,7 +11,7 @@ function useCart() {
     return targetCart?.quantity ?? 0;
   };
 
-  const addCart = async (product: T.ProductItem) => {
+  const addCart = async (product: ProductItem) => {
     if (cartList.findIndex((c) => c.id === product.id) !== -1) {
       return;
     }
@@ -22,6 +22,10 @@ function useCart() {
       console.log(response.data);
     }
   };
+
+  const ProductItem = {
+
+  }
 
   const removeCart = async (id: number) => {
     const removedCartList = cartList.filter((cart) => cart.id !== id);

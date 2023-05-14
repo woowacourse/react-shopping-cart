@@ -1,11 +1,11 @@
 import { ChangeEvent } from 'react';
 import * as S from './CartController.style';
-import * as T from '../../types/types';
 import cartIcon from '../../assets/cart.svg';
 import useCart from '../../hooks/useCart';
+import type { ProductItem } from '../../types/types';
 
 interface CartControllerProps {
-  product: T.ProductItem;
+  product: ProductItem;
 }
 
 function CartController({ product }: CartControllerProps) {
