@@ -1,29 +1,33 @@
-import * as S from './Header.style';
 import cartIcon from '../../assets/cart.svg';
 import { useNavigate } from 'react-router-dom';
 import useCart from '../../hooks/useCart';
 import { Container } from '../../style/style';
+import {
+  CartCount, CartCountWrapper, CartIcon,
+  CartTitle, CartWrapper, HeaderWrapper,
+  Logo, LogoWrapper, Navbar
+} from './Header.style';
 
 function Header() {
   const navigate = useNavigate();
   const { cartList } = useCart();
   return (
-    <S.Navbar>
+    <Navbar>
       <Container>
-        <S.HeaderWrapper>
-          <S.LogoWrapper onClick={() => navigate('/')}>
-            <S.CartIcon src={cartIcon} />
-            <S.Logo>SHOP</S.Logo>
-          </S.LogoWrapper>
-          <S.CartWrapper onClick={() => navigate('/cart')}>
-            <S.CartTitle>장바구니</S.CartTitle>
-            <S.CartCountWrapper>
-              <S.CartCount>{cartList.length}</S.CartCount>
-            </S.CartCountWrapper>
-          </S.CartWrapper>
-        </S.HeaderWrapper>
+        <HeaderWrapper>
+          <LogoWrapper onClick={() => navigate('/')}>
+            <CartIcon src={cartIcon} />
+            <Logo>SHOP</Logo>
+          </LogoWrapper>
+          <CartWrapper onClick={() => navigate('/cart')}>
+            <CartTitle>장바구니</CartTitle>
+            <CartCountWrapper>
+              <CartCount>{cartList.length}</CartCount>
+            </CartCountWrapper>
+          </CartWrapper>
+        </HeaderWrapper>
       </Container>
-    </S.Navbar>
+    </Navbar>
   );
 }
 

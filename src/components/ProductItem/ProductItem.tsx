@@ -1,6 +1,9 @@
 import type { ProductItem } from '../../types/types';
 import CartController from '../CartController';
-import * as S from './ProductItem.style';
+import {
+  ProductDetails, ProductInfo, ProductItemBox,
+  ProductItemImage, ProductItemImageBox, ProductName, ProductPrice
+} from './ProductItem.style';
 
 interface ProductItemProps {
   product: ProductItem;
@@ -8,19 +11,20 @@ interface ProductItemProps {
 
 function ProductItem({ product }: ProductItemProps) {
   const { name, price, imageUrl } = product;
+
   return (
-    <S.ProductItemBox>
-      <S.ProductItemImageBox>
-        <S.ProductItemImage src={imageUrl} />
-      </S.ProductItemImageBox>
-      <S.ProductDetails>
-        <S.ProductInfo>
-          <S.ProductName>{name}</S.ProductName>
-          <S.ProductPrice>{price}원</S.ProductPrice>
-        </S.ProductInfo>
+    <ProductItemBox>
+      <ProductItemImageBox>
+        <ProductItemImage src={imageUrl} />
+      </ProductItemImageBox>
+      <ProductDetails>
+        <ProductInfo>
+          <ProductName>{name}</ProductName>
+          <ProductPrice>{price}원</ProductPrice>
+        </ProductInfo>
         <CartController product={product} />
-      </S.ProductDetails>
-    </S.ProductItemBox>
+      </ProductDetails>
+    </ProductItemBox>
   );
 }
 export default ProductItem;

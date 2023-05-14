@@ -1,8 +1,8 @@
 import { ChangeEvent } from 'react';
-import * as S from './CartController.style';
 import cartIcon from '../../assets/cart.svg';
 import useCart from '../../hooks/useCart';
 import type { ProductItem } from '../../types/types';
+import { ButtonBox, CartBox, ControllerWrapper, QuantityControlButton, QuantityInput } from './CartController.style';
 
 interface CartControllerProps {
   product: ProductItem;
@@ -20,27 +20,27 @@ function CartController({ product }: CartControllerProps) {
   };
 
   return (
-    <S.ControllerWrapper>
+    <ControllerWrapper>
       {quantity > 0 ? (
-        <S.CartBox>
-          <S.QuantityInput value={quantity} onChange={handleChangeQuantity} />
-          <S.ButtonBox>
-            <S.QuantityControlButton
+        <CartBox>
+          <QuantityInput value={quantity} onChange={handleChangeQuantity} />
+          <ButtonBox>
+            <QuantityControlButton
               onClick={() => {
                 increaseCart(product.id);
               }}
             >
               ⏶
-            </S.QuantityControlButton>
-            <S.QuantityControlButton
+            </QuantityControlButton>
+            <QuantityControlButton
               onClick={() => {
                 decreaseCart(product.id);
               }}
             >
               ⏷
-            </S.QuantityControlButton>
-          </S.ButtonBox>
-        </S.CartBox>
+            </QuantityControlButton>
+          </ButtonBox>
+        </CartBox>
       ) : (
         <button
           onClick={() => {
@@ -49,7 +49,7 @@ function CartController({ product }: CartControllerProps) {
           <img src={cartIcon}></img>
         </button>
       )}
-    </S.ControllerWrapper>
+    </ControllerWrapper>
   );
 }
 
