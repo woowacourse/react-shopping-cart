@@ -1,11 +1,9 @@
 import { selector } from "recoil";
+import { getProductsData } from "../api/products";
 
-export const products = selector({
-  key: "products",
+export const productData = selector({
+  key: "productData",
   get: async () => {
-    const response = await fetch("./products.json");
-    if (!response.ok) throw new Error();
-    const data = await response.json();
-    return data;
+    return getProductsData();
   },
 });
