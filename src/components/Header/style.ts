@@ -18,6 +18,8 @@ export const LogoWrapper = styled.div`
   color: #ffffff;
   display: flex;
   align-items: center;
+  user-select: none;
+  cursor: pointer;
 `;
 
 export const LogoImg = styled.img`
