@@ -7,7 +7,7 @@ const meta = {
   args: {
     children: '장바구니 텍스트',
     weight: 'normal',
-    $color: '#33333',
+    color: '#33333',
   },
 } satisfies Meta<typeof Typography>;
 

@@ -6,7 +6,7 @@ export const Logo = ({ $color }: { $color: string }) => {
   return (
     <Wrapper>
       <LogoImage fill={$color} />
-      <LogoTitle size="40px" weight="900" $color={$color}>
+      <LogoTitle size="40px" weight="900" color={$color}>
         SHOP
       </LogoTitle>
     </Wrapper>

@@ -23,7 +23,7 @@ export const ProductItem = (props: ProductItemProps) => {
       />
       <ProductInfoWrapper>
         <div>
-          <ProductTitle size="16px">{name}</ProductTitle>
+          <ProductTitle>{name}</ProductTitle>
           <ProductPrice size="20px">
             {`${price.toLocaleString('ko-KR')} 원`}
           </ProductPrice>
