@@ -5,7 +5,7 @@ import type { CounterAction } from "../../type/counter";
 import { DownButtonIc, UpButtonIc } from "../../asset";
 import { ACTION_DECREASE, ACTION_INCREASE } from "../../constants/counter";
 import { ERROR } from "../../constants/error";
-import { isForwardedRef, isRefCurrent } from "../../utils/refTypeGuard";
+import { useRefTypeGuard } from "../../hooks/useRefTypeGuard";
 import { fillBlankInput, validateNumberRange } from "../../utils/validation";
 
 const unknownCountAction = (action: never): never => {
@@ -28,6 +28,7 @@ const changeCount = (current: HTMLInputElement, action: CounterAction) => {
 };
 
 const QuantityCounter = forwardRef<HTMLInputElement>(function (_, quantityRef) {
+  const { isForwardedRef, isRefCurrent } = useRefTypeGuard();
   const increaseQuantity = () => {
     if (!isForwardedRef<HTMLInputElement>(quantityRef)) return;
     if (!isRefCurrent<HTMLInputElement>(quantityRef.current)) return;
