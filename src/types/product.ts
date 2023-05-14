@@ -6,7 +6,8 @@ export type Product = {
 };
 
 export type CartProduct = {
-  id: Product['id'];
   quantity: number;
   product: Product;
 };
+
+export type CartProducts = Map<Product['id'], CartProduct>;
