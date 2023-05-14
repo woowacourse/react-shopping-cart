@@ -4,6 +4,7 @@ import * as T from '../../types/ProductType';
 import cartIcon from '../../assets/cart.svg';
 import useCart from '../../hooks/useCart';
 import { MAX_CART_QUANTITY, MIN_CART_QUANTITY } from '../../constants/cartConstants';
+import QuantityCounter from '../common/QuantityCounter';
 
 interface CartQuantityFieldProps {
   product: T.ProductItem;
@@ -27,31 +28,20 @@ function CartQuantityField({ product }: CartQuantityFieldProps) {
   return (
     <S.ControllerWrapper>
       {isQuantityZero ? (
-        <S.CartBox>
-          <S.QuantityInput value={quantity} onChange={handleChangeQuantity} />
-          <S.ButtonBox>
-            <S.QuantityControlButton
-              onClick={() => {
-                increaseCart(product.id);
-              }}
-              aria-label={`${product.name}의 장바구니에 담긴 개수인 ${quantity}에서 하나 뻬기`}
-              role="button"
-            >
-              ⏶
-            </S.QuantityControlButton>
-            <S.QuantityControlButton
-              onClick={() => {
-                decreaseCart(product.id);
-              }}
-              aria-label={`${product.name}의 장바구니에 담긴 개수인 ${quantity}에서 하나 더하기`}
-              role="button"
-            >
-              ⏷
-            </S.QuantityControlButton>
-          </S.ButtonBox>
-        </S.CartBox>
+        <QuantityCounter
+          quantity={quantity}
+          onChange={handleChangeQuantity}
+          onIncrease={() => {
+            increaseCart(product.id);
+          }}
+          onDecrease={() => {
+            decreaseCart(product.id);
+          }}
+          ariaIncreaseLabel={`${product.name}의 장바구니에 담긴 개수인 ${quantity}에서 하나 더하기`}
+          ariaDecreaseLabel={`${product.name}의 장바구니에 담긴 개수인 ${quantity}에서 하나 빼기`}
+        />
       ) : (
-        <button
+        <S.CartIcon
           onClick={() => {
             addCart(product);
           }}
@@ -60,7 +50,7 @@ function CartQuantityField({ product }: CartQuantityFieldProps) {
           role="button"
         >
           <img src={cartIcon}></img>
-        </button>
+        </S.CartIcon>
       )}
     </S.ControllerWrapper>
   );
