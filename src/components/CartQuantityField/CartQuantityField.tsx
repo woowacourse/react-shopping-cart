@@ -2,7 +2,7 @@ import { ChangeEvent } from 'react';
 import * as S from './CartQuantityField.style';
 import * as T from '../../types/ProductType';
 import cartIcon from '../../assets/cart.svg';
-import useCart from '../../hooks/useCart';
+import useCartList from '../../hooks/useCartList';
 import { MAX_CART_QUANTITY, MIN_CART_QUANTITY } from '../../constants/cartConstants';
 import QuantityCounter from '../common/QuantityCounter';
 
@@ -12,7 +12,7 @@ interface CartQuantityFieldProps {
 
 function CartQuantityField({ product }: CartQuantityFieldProps) {
   const { addCart, increaseCart, getQuantityByProductId, decreaseCart, setCartQuantity } =
-    useCart();
+    useCartList();
 
   const quantity = getQuantityByProductId(product.id);
   const isQuantityZero = quantity > 0;

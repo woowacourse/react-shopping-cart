@@ -1,7 +1,7 @@
-import useCart from '../../hooks/useCart';
+import useCartList from '../../hooks/useCartList';
 
 function Cart() {
-  const { cartList } = useCart();
+  const { cartList } = useCartList();
   console.log(cartList);
   return (
     <>

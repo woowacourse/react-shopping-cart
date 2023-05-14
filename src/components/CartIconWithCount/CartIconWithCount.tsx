@@ -1,10 +1,10 @@
 import * as S from './CartIconWithCount.style';
 import { useNavigate } from 'react-router-dom';
-import useCart from '../../hooks/useCart';
+import useCartList from '../../hooks/useCartList';
 
 function CartIconWithCount() {
   const navigate = useNavigate();
-  const { cartList } = useCart();
+  const { cartList } = useCartList();
 
   return (
     <S.CartWrapper

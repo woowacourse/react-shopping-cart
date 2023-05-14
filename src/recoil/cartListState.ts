@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 import * as T from '../types/ProductType';
 
 const cartListState = atom<T.CartProduct[]>({
-  key: 'cartState',
+  key: 'cartListState',
   default: [],
 });
 

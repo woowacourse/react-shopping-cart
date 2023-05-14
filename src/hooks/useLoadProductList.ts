@@ -1,13 +1,11 @@
 import { useCallback } from 'react';
 import mockApi from '../api/mockApi';
-
-import safeJsonParse from '../utils/safeJsonParse';
-import { useSetRecoilState } from 'recoil';
-import productListState from '../recoil/productListState';
 import * as T from '../types/ProductType';
+import safeJsonParse from '../utils/safeJsonParse';
+import useSetProductList from './useSetProductList';
 
 const useLoadProductList = () => {
-  const setProductList = useSetRecoilState(productListState);
+  const setProductList = useSetProductList();
 
   const loadProductList = useCallback(async () => {
     const response = await mockApi('/products');

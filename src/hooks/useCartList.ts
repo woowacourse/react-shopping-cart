@@ -1,10 +1,9 @@
-import { useRecoilState } from 'recoil';
 import * as T from '../types/ProductType';
 import mockApi from '../api/mockApi';
-import cartState from '../recoil/cartListState';
+import useCartListState from './useCartListState';
 
-function useCart() {
-  const [cartList, setCartList] = useRecoilState(cartState);
+const useCartList = () => {
+  const [cartList, setCartList] = useCartListState();
 
   const getQuantityByProductId = (id: number) => {
     const targetCart = cartList.find((cart) => cart.id === id);
@@ -64,5 +63,5 @@ function useCart() {
     decreaseCart,
     setCartQuantity,
   };
-}
-export default useCart;
+};
+export default useCartList;
