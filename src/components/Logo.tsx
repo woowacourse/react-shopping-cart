@@ -1,4 +1,4 @@
-import { Text as LogoTitle } from './common/Text';
+import { Typography as LogoTitle } from './common/Typography';
 import { LogoImage } from '../types/image';
 import styled from 'styled-components';
 

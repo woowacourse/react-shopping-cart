@@ -7,7 +7,7 @@ interface TextProps {
   $color?: string;
 }
 
-export const Text = ({ children, size, weight, $color }: TextProps) => {
+export const Typography = ({ children, size, weight, $color }: TextProps) => {
   return (
     <StyledParagraph size={size} weight={weight} $color={$color}>
       {children}

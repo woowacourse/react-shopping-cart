@@ -1,4 +1,7 @@
-import { Text as ProductPrice, StyledParagraph } from './common/Text';
+import {
+  Typography as ProductPrice,
+  StyledParagraph,
+} from './common/Typography';
 import { Image as ProductImage } from './common/Image';
 import { AddToCartButton } from './AddToCartButton';
 import { ProductItem as ProductItemProps } from '../types/productType';

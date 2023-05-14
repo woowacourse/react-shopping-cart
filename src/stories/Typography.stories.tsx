@@ -1,10 +1,10 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { Text } from '../components/common/Text';
+import { Typography } from '../components/common/Typography';
 
 const meta = {
-  component: Text,
+  component: Typography,
   title: 'Common/Text',
-} satisfies Meta<typeof Text>;
+} satisfies Meta<typeof Typography>;
 
 export default meta;
 
