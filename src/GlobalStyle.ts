@@ -17,6 +17,7 @@ const GlobalStyle = createGlobalStyle`
 
   :root {
     --primary-color: #5f0080;
+    --toast-box-color: rgba(29, 45, 48, 0.9);
     --grey-100: #ffffff;
     --grey-200: #dddddd;
     --grey-300: #aaaaaa;
@@ -65,17 +66,6 @@ const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'Baemin';
     src: url(${Baemin});
-  }
-
-  @keyframes drawStepper {
-    from {
-      width: 30px;
-      opacity: 0;
-    }
-    to {
-      width: 80px;
-      opacity: 1;
-    }
   }
 `;
 

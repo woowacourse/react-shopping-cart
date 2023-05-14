@@ -2,7 +2,9 @@ import { styled } from 'styled-components';
 import { CartIcon } from '../assets/svg';
 import { ProductInfo } from '../types';
 import { useCart } from '../hooks/useCart';
+import { useToast } from '../hooks/useToast';
 import Stepper from './Stepper';
+import Toast from './common/Toast';
 
 interface Props {
   info: ProductInfo;
@@ -11,7 +13,13 @@ interface Props {
 export default function Product({ info }: Props) {
   const { id, name, price, imageUrl } = info;
   const { addToCart, getProductInCart, updateProductQuantity } = useCart(id);
+  const { isOpenToast, openToast, closeToast } = useToast();
   const productInCart = getProductInCart();
+
+  const handleCartClick = () => {
+    addToCart();
+    openToast();
+  };
 
   return (
     <Style.Container>
@@ -24,13 +32,18 @@ export default function Product({ info }: Props) {
           {productInCart ? (
             <Stepper quantity={productInCart.quantity} updateQuantity={updateProductQuantity} />
           ) : (
-            <Style.CartIconWrapper onClick={addToCart}>
+            <Style.CartIconWrapper onClick={handleCartClick}>
               <CartIcon fill="#AAAAAA" />
             </Style.CartIconWrapper>
           )}
         </Style.ProductNameAndStepperContainer>
         <Style.ProductPrice>{price.toLocaleString('ko-KR')}원</Style.ProductPrice>
       </Style.ProductInfo>
+      <Toast
+        isOpenToast={isOpenToast}
+        closeToast={closeToast}
+        message="✨ 상품을 장바구니에 담았습니다."
+      />
     </Style.Container>
   );
 }
