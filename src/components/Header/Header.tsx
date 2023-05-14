@@ -15,7 +15,7 @@ const Header = ({ children }: HeaderProps) => {
           <Title>SHOP</Title>
         </HomeButton>
       </Link>
-      {children}
+      <Link to='/cart'>{children}</Link>
     </Container>
   );
 };
@@ -31,7 +31,7 @@ const Container = styled.div`
   background: #333333;
 `;
 
-const HomeButton = styled.button`
+const HomeButton = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
