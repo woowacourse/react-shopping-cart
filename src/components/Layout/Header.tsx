@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { ReactComponent as CartIcon } from 'assets/cart-icon.svg';
 import ROUTE_PATH from 'constants/routePath';
 import { useRecoilValue } from 'recoil';
-import { cartProductsState } from 'state/CartAtom';
+import { cartProductsState } from 'state/cartProducts';
 
 const Header = ({ children }: PropsWithChildren) => {
   const cartProductCount = useRecoilValue(cartProductsState).size;

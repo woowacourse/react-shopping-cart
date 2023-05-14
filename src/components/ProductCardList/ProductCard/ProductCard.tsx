@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { ReactComponent as MiniCartIcon } from 'assets/mini-cart-icon.svg';
 import FlexBox from 'components/@common/FlexBox';
-import { cartProductsState } from 'state/CartAtom';
+import { cartProductsState } from 'state/cartProducts';
 import type { Product } from 'types/product';
 
 type ProductCardProps = {
