@@ -6,9 +6,13 @@ import useQuantityUpdater from "../../hooks/useQuantityUpdater";
 
 interface ProductQuantityInputProps {
   productId: number;
+  step?: number;
 }
 
-const ProductQuantityInput = ({ productId }: ProductQuantityInputProps) => {
+const ProductQuantityInput = ({
+  productId,
+  step = 3,
+}: ProductQuantityInputProps) => {
   const {
     inputValue,
     isButtonMode,
@@ -26,13 +30,13 @@ const ProductQuantityInput = ({ productId }: ProductQuantityInputProps) => {
         </ButtonMode>
       ) : (
         <InputMode>
-          <IncreaseButton onClick={() => incrementInputValue(1)} />
+          <IncreaseButton onClick={() => incrementInputValue(step)} />
           <Input
             value={inputValue}
             onChange={updateInputValue}
             onBlur={() => setIsFocused(false)}
           />
-          <DecreaseButton onClick={() => incrementInputValue(-1)} />
+          <DecreaseButton onClick={() => incrementInputValue(-step)} />
         </InputMode>
       )}
     </Container>
