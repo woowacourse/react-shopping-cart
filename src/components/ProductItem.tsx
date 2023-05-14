@@ -4,7 +4,7 @@ import QuantityInput from './QuantityInput';
 import CartIcon from './icons/CartIcon';
 import { useSetCart } from '../hooks/useCart';
 import { useLoadCart } from '../hooks/useLoadCart';
-import { MAX_NUMBER_LENGTH, QUANTITY } from '../constants';
+import { NOT_NUMBER, QUANTITY, MAX_NUMBER_LENGTH } from '../constants';
 
 interface Props {
   id: number;
@@ -32,8 +32,9 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
       return setQuantity(QUANTITY.INITIAL);
     }
 
-    setQuantity(parseInt(value.slice(0, MAX_NUMBER_LENGTH)));
-    addToCart(value);
+    const onlyTwoDigits = parseInt(value.replace(NOT_NUMBER, '').slice(0, MAX_NUMBER_LENGTH));
+    setQuantity(onlyTwoDigits);
+    addToCart(String(onlyTwoDigits));
   };
 
   return (

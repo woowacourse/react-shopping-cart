@@ -36,7 +36,7 @@ export const useSetCart = (id: number) => {
     setCart((prev: CartItem[]) => {
       const { cart, cartItemIndex, alreadyHasCartItem } = findCartItemIndex(prev);
 
-      if (value === '') return removeProduct(cart, cartItemIndex);
+      if (Number.isNaN(Number(value))) return removeProduct(cart, cartItemIndex);
 
       if (alreadyHasCartItem) {
         const updatedItem = { ...prev[cartItemIndex], quantity: Number(value) };
