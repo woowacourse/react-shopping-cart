@@ -34,7 +34,25 @@ const useUpdateCartList = () => {
     setCartList(newCartList);
   };
 
-  return { updateCartList };
+  const increaseQuantity = (itemId: number) => {
+    const item = cartList[itemId];
+    if (item) {
+      updateCartList({ itemId, value: item.quantity + 1 });
+      return;
+    }
+    updateCartList({ itemId, value: 1 });
+  };
+
+  const decreaseQuantity = (itemId: number) => {
+    const item = cartList[itemId];
+    if (item && item.quantity > 1) {
+      updateCartList({ itemId, value: item.quantity - 1 });
+      return;
+    }
+    updateCartList({ itemId, value: 0 });
+  };
+
+  return { updateCartList, increaseQuantity, decreaseQuantity };
 };
 
 export default useUpdateCartList;
