@@ -1,11 +1,11 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { useRecoilValue } from "recoil";
-import { cartAllSelector } from "../recoil/cartState";
+import { cartAllSelector } from "../store/cartState";
 
 const useLocalCart = () => {
   const cart = useRecoilValue(cartAllSelector);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const handleLocalStorage = () => {
       localStorage.setItem("cart", JSON.stringify(cart));
     };
