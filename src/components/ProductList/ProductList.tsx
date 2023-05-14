@@ -3,7 +3,7 @@ import ProductItem from '../ProductItem/ProductItem';
 import useFetchProductList from './useFetchProductList';
 
 const ProductList = () => {
-  const productList = useFetchProductList();
+  const { productList } = useFetchProductList();
 
   return (
     <section>
