@@ -6,8 +6,8 @@ interface ProductInCart {
   quantity: number;
 }
 
-export const productsInCartState = atom({
+export const productsInCartState = atom<{ [key: ProductInCart['id']]: ProductInCart }>({
   key: 'productsInCart',
-  default: [],
-  effects: [localStorageEffect<ProductInCart[]>('productsInCart')],
+  default: {},
+  effects: [localStorageEffect('productsInCart')],
 });

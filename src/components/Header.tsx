@@ -6,6 +6,7 @@ import { productsInCartState } from '../atom';
 
 export default function Header() {
   const [productsInCart] = useRecoilState(productsInCartState);
+  const cartSize = Object.keys(productsInCart).length;
 
   return (
     <Style.Container>
@@ -14,7 +15,7 @@ export default function Header() {
           <CartLogo fill="var(--grey-100)" style={{ width: '40px' }} />
         </Style.Title>
         <Style.CartLink to="/">
-          <Style.CountInCart>{productsInCart.length}</Style.CountInCart>
+          <Style.CountInCart>{cartSize}</Style.CountInCart>
         </Style.CartLink>
       </Style.Content>
     </Style.Container>

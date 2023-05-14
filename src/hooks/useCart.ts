@@ -5,60 +5,55 @@ export const useCart = () => {
   const [productsInCart, setProductsInCart] = useRecoilState(productsInCartState);
 
   const addToCart = (productId: number) => {
-    setProductsInCart((prev) => [
+    setProductsInCart((prev) => ({
       ...prev,
-      {
+      [productId]: {
         id: productId,
         quantity: 1,
       },
-    ]);
+    }));
   };
 
   const findProductInCart = (productId: number) => {
-    return productsInCart.find((product) => product.id === productId);
-  };
-
-  const isSelected = (productId: number) => {
-    return Boolean(findProductInCart(productId));
+    return productsInCart[productId];
   };
 
   const increaseProductQuantity = (productId: number) => {
-    setProductsInCart((prev) => {
-      return prev.map((productInCart) => {
-        if (productInCart.id === productId)
-          return { ...productInCart, quantity: productInCart.quantity + 1 };
-
-        return productInCart;
-      });
-    });
+    setProductsInCart((prev) => ({
+      ...prev,
+      [productId]: {
+        id: productId,
+        quantity: prev[productId].quantity + 1,
+      },
+    }));
   };
 
   const decreaseProductQuantity = (productId: number) => {
-    setProductsInCart((prev) => {
-      return prev.map((productInCart) => {
-        if (productInCart.id === productId)
-          return { ...productInCart, quantity: productInCart.quantity - 1 };
-
-        return productInCart;
-      });
-    });
+    setProductsInCart((prev) => ({
+      ...prev,
+      [productId]: {
+        id: productId,
+        quantity: prev[productId].quantity - 1,
+      },
+    }));
   };
 
   const updateProductQuantity = (productId: number, quantity: number) => {
-    setProductsInCart((prev) => {
-      return prev.map((productInCart) => {
-        if (productInCart.id === productId) return { ...productInCart, quantity: quantity };
+    const count = quantity > 99 ? 99 : quantity;
 
-        return productInCart;
-      });
-    });
+    setProductsInCart((prev) => ({
+      ...prev,
+      [productId]: {
+        id: productId,
+        quantity: count,
+      },
+    }));
   };
 
   return {
     productsInCart,
     findProductInCart,
     addToCart,
-    isSelected,
     increaseProductQuantity,
     decreaseProductQuantity,
     updateProductQuantity,

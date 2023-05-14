@@ -14,25 +14,24 @@ interface Props {
   data: IProduct;
 }
 
-export default function Product({ data }: Props) {
-  const { addToCart, findProductInCart, isSelected } = useCart();
-  const productInCart = findProductInCart(data.id);
-  const isInCart = Boolean(productInCart);
+export default function Product({ data: { id, name, price, imageUrl } }: Props) {
+  const { addToCart, findProductInCart } = useCart();
+  const productInCart = findProductInCart(id);
 
   return (
     <Style.Container>
-      <Style.ProductImage path={data.imageUrl} />
+      <Style.ProductImage path={imageUrl} />
       <Style.ProductInfo>
         <div>
-          <Style.ProductName>{data.name}</Style.ProductName>
-          <Style.ProductPrice>{data.price.toLocaleString('ko-KR')}원</Style.ProductPrice>
+          <Style.ProductName>{name}</Style.ProductName>
+          <Style.ProductPrice>{price.toLocaleString('ko-KR')}원</Style.ProductPrice>
         </div>
-        {isSelected(data.id) ? (
-          <Style.StepperWrapper isInCart={isInCart}>
-            <Stepper initCount={productInCart?.quantity} productId={data.id} />
+        {Boolean(productInCart) ? (
+          <Style.StepperWrapper>
+            <Stepper initCount={productInCart?.quantity} productId={id} />
           </Style.StepperWrapper>
         ) : (
-          <Style.CartIconWrapper onClick={() => addToCart(data.id)}>
+          <Style.CartIconWrapper onClick={() => addToCart(id)}>
             <CartIcon fill="#AAAAAA" />
           </Style.CartIconWrapper>
         )}
@@ -72,9 +71,7 @@ const Style = {
     font-size: 20px;
   `,
 
-  StepperWrapper: styled.div<{ isInCart: boolean }>`
-    animation: ${(props) => !props.isInCart && 'drawStepper 0.3s ease-in-out'};
-  `,
+  StepperWrapper: styled.div``,
 
   CartIconWrapper: styled.button`
     padding: 0;
