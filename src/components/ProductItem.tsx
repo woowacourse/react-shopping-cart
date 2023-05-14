@@ -99,15 +99,11 @@ const S = {
     color: var(--text-color);
 
     & span {
-      font-size: 17px;
       vertical-align: top;
     }
 
     @media (max-width: 1270px) {
       font-size: 16px;
-      & span {
-        font-size: 16px;
-      }
     }
 
     @media (max-width: 768px) {
