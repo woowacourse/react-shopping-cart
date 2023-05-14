@@ -1,14 +1,17 @@
 import styled from 'styled-components';
 
 export const StyledButton = styled.button<{
-  buttonSize: string;
-  buttonColor: string;
+  width: string;
+  height: string;
+  backgroundColor: string;
   fontSize: string;
-  fontColor: string;
+  color: string;
 }>`
+  width: ${props => props.width};
+  height: ${props => props.height};
   border: 1px solid #dddddd;
-  background-color: ${props => props.buttonColor};
+  background-color: ${props => props.backgroundColor};
 
   font-size: ${props => props.fontSize};
-  color: ${props => props.fontColor};
+  color: ${props => props.color};
 `;
