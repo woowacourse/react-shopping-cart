@@ -8,7 +8,7 @@ export const cartState = atom<CartType[]>({
 });
 
 export const totalCartCount = selector({
-  key: "totalCartState",
+  key: "totalCartCount",
   get: ({ get }) => {
     const cart = get(cartState);
     return cart.length;
