@@ -4,7 +4,7 @@ import Skeleton from '../Skeleton/Skeleton';
 
 const ProductItemFallback = () => {
   return (
-    <div role="status">
+    <Container role="status">
       <ImageWrapper size="large">
         <Skeleton />
       </ImageWrapper>
@@ -14,9 +14,13 @@ const ProductItemFallback = () => {
       <PriceWrapper>
         <Skeleton />
       </PriceWrapper>
-    </div>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  height: 358px;
+`;
 
 const ImageWrapper = styled.div<{ size: ImageSize }>`
   ${({ size }) => css`
