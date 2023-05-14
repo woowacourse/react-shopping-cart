@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil';
 import * as T from '../types/ProductType';
 import mockApi from '../api/mockApi';
-import cartState from '../recoil/atoms';
+import cartState from '../recoil/cartListState';
 
 function useCart() {
   const [cartList, setCartList] = useRecoilState(cartState);
