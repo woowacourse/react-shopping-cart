@@ -44,7 +44,9 @@ const useQuantityUpdater = ({ productId }: UseQuantityUpdaterProps) => {
   }, [updateProduct]);
 
   useEffect(() => {
-    setIsButtonMode(() => !isFocused && Number(inputValue) === 0);
+    const newInputValue = Math.max(Number(inputValue), 0);
+
+    setIsButtonMode(() => !isFocused && newInputValue === 0);
   }, [isFocused, inputValue]);
 
   const updateInputValue = (event: React.ChangeEvent<HTMLInputElement>) => {

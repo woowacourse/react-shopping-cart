@@ -11,7 +11,7 @@ interface ProductQuantityInputProps {
 
 const ProductQuantityInput = ({
   productId,
-  step = 3,
+  step = 1,
 }: ProductQuantityInputProps) => {
   const {
     inputValue,
