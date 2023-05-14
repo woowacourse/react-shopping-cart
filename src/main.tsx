@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import GlobalStyle from './style/globalStyle';
-import { ThemeProvider } from 'styled-components';
-import { theme } from './style/theme';
+
+import { RecoilRoot } from 'recoil';
 import { RouterProvider } from 'react-router-dom';
 import router from './router';
-import { RecoilRoot } from 'recoil';
+
+import GlobalStyle from './styles/globalStyle';
+import { ThemeProvider } from 'styled-components';
+import { theme } from './styles/theme';
 import mockData from './assets/mockData.json';
 
 /**

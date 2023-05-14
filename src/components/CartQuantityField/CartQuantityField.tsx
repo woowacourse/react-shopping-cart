@@ -1,10 +1,13 @@
 import { ChangeEvent } from 'react';
+
 import * as S from './CartQuantityField.style';
 import * as T from '../../types/ProductType';
-import cartIcon from '../../assets/cart.svg';
-import useCartList from '../../hooks/useCartList';
-import { MAX_CART_QUANTITY, MIN_CART_QUANTITY } from '../../constants/cartConstants';
+
 import QuantityCounter from '../common/QuantityCounter';
+import useCartList from '../../hooks/useCartList';
+import cartIcon from '../../assets/cart.svg';
+
+import { MAX_CART_QUANTITY, MIN_CART_QUANTITY } from '../../constants/cartConstants';
 
 interface CartQuantityFieldProps {
   product: T.ProductItem;

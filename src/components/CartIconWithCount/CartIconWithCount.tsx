@@ -1,5 +1,6 @@
-import * as S from './CartIconWithCount.style';
 import { useNavigate } from 'react-router-dom';
+
+import * as S from './CartIconWithCount.style';
 import useCartList from '../../hooks/useCartList';
 
 function CartIconWithCount() {

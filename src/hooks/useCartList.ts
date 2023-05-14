@@ -1,6 +1,6 @@
 import * as T from '../types/ProductType';
-import mockApi from '../api/mockApi';
 import useCartListState from './useCartListState';
+import mockApi from '../api/mockApi';
 
 const useCartList = () => {
   const [cartList, setCartList] = useCartListState();

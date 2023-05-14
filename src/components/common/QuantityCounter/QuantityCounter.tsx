@@ -1,4 +1,5 @@
 import { ChangeEvent } from 'react';
+
 import * as S from './QuantityCounter.style';
 
 interface QuantityCounterProps {

@@ -3,8 +3,8 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from 'styled-components';
-import { theme } from '../src/style/theme';
-import GlobalStyle from '../src/style/globalStyle';
+import { theme } from '../src/styles/theme';
+import GlobalStyle from '../src/styles/globalStyle';
 
 const preview: Preview = {
   parameters: {

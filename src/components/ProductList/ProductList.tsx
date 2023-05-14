@@ -1,7 +1,7 @@
-import { Column, Row } from '../../style/style';
 import ProductItem from '../ProductItem/ProductItem';
 import useLoadInitData from '../../hooks/useLoadInitData';
 import useProductListValue from '../../hooks/useProductListValue';
+import { Column, Row } from '../../styles/style';
 
 function ProductList() {
   useLoadInitData();

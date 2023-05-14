@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import cartIcon from '../../assets/cart.svg';
+
 import * as S from './Logo.style';
+import cartIcon from '../../assets/cart.svg';
 
 function Logo() {
   const navigate = useNavigate();
