@@ -32,12 +32,17 @@ const AddCartButton = ({
     }
 
     addProductToCart();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isClicked, flag]);
 
   return (
     <AddCartButtonWrapper>
-      {!isClicked && (
+      {isClicked ? (
+        <BucketCounter
+          removeProductFromCart={removeProductFromCart}
+          setIsClicked={setIsClicked}
+        />
+      ) : (
         <Button
           type="button"
           onClick={addCartAndChangeImage}
@@ -45,12 +50,6 @@ const AddCartButton = ({
         >
           <Image src={BUCKET_BUTTON} alt="장바구니 버튼" />
         </Button>
-      )}
-      {isClicked && (
-        <BucketCounter
-          removeProductFromCart={removeProductFromCart}
-          setIsClicked={setIsClicked}
-        />
       )}
     </AddCartButtonWrapper>
   );
