@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 import { productQuantitySelector } from '../../stores/cartListStore';
-import StepperInput1 from '../@common/StepperInput/StepperInput';
+import StepperInput from '../@common/StepperInput/StepperInput';
 import useUpdateCartList from '../../hooks/useUpdateCartList';
 import * as Styled from './ProductQuantityController.styles';
 import ShoppingCartLogo from '../@common/ShoppingCartLogo/ShoppingCartLogo';
@@ -28,7 +28,7 @@ const ProductQuantityController = ({ productID }: ProductQuantityControllerProps
           <ShoppingCartLogo isFlipped={true} width={24} height={22} fill='#AAAAAA' />
         </Styled.CartButton>
       ) : (
-        <StepperInput1 initialValue={1} getValue={handleStepperInputChange} />
+        <StepperInput initialValue={1} getValue={handleStepperInputChange} />
       )}
     </>
   );

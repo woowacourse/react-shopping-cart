@@ -2,6 +2,7 @@ import UpTriangle from '../../../assets/triangle.svg';
 import DownTriangle from '../../../assets/triangle-down.svg';
 import { ChangeEvent, useEffect, useState } from 'react';
 import * as Styled from './StepperInput.styles';
+import { isNumber } from '../../../utils/validation';
 
 type StepperInputProps = {
   min?: number;
@@ -9,14 +10,6 @@ type StepperInputProps = {
   step?: number;
   initialValue?: number;
   getValue: (value: number) => void;
-};
-
-export const regEx = {
-  Number: /^[0-9]+$/,
-};
-
-export const isNumber = (target: string) => {
-  return regEx.Number.test(target);
 };
 
 const StepperInput = ({ min = 0, max = 99, step = 1, initialValue = 0, getValue }: StepperInputProps) => {
