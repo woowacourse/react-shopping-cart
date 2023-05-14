@@ -1,6 +1,5 @@
 import { useRecoilState } from 'recoil';
 import { cartListAtom } from '../stores/cartListStore.ts';
-import { setCartListInLocalStorage } from '../utils/localStorageCartList.ts';
 
 type UpdateCartListParams = {
   itemId: number;
@@ -26,9 +25,6 @@ const useUpdateCartList = () => {
     if (newCartList[itemId] && value > 0) {
       newCartList[itemId].quantity = value;
     }
-
-    setCartListInLocalStorage(newCartList);
-
     setCartList(newCartList);
   };
 

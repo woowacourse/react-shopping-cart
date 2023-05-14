@@ -1,10 +1,24 @@
-import { atom, selector, selectorFamily } from 'recoil';
+import { AtomEffect, atom, selector, selectorFamily } from 'recoil';
 import { CartList } from '../types/CartList.ts';
-import { getCartListFromLocalStorage } from '../utils/localStorageCartList.ts';
+import { getLocalStorage, setLocalStorage } from '../utils/localStorage.ts';
+import { LOCAL_STORAGE_KEY } from '../constants/index.ts';
+
+const cartItemsLocalStorageEffect: <T>(key: string) => AtomEffect<T> =
+  (key: string) =>
+  ({ setSelf, onSet }) => {
+    const savedValue = getLocalStorage(key, null);
+
+    if (savedValue) setSelf(savedValue);
+
+    onSet((newValue) => {
+      setLocalStorage(key, newValue);
+    });
+  };
 
 export const cartListAtom = atom<CartList>({
   key: 'cartListAtom',
-  default: getCartListFromLocalStorage(),
+  default: {},
+  effects: [cartItemsLocalStorageEffect<CartList>(LOCAL_STORAGE_KEY.CART_ITEMS)],
 });
 
 export const carListTotalQuantitySelector = selector({
