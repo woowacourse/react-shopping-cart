@@ -1,10 +1,14 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+.message.txt
+
+# chromatic
+build-storybook.log
+
 # dependencies
 /node_modules
 /.pnp
 .pnp.js
-.message.txt
 
 # testing
 /coverage
