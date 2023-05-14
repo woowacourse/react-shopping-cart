@@ -1,3 +1,6 @@
+import * as T from '../types/ProductType';
+import safeJsonParse from '../utils/safeJsonParse';
+
 /* eslint-disable no-case-declarations */
 interface Response {
   data: string;
@@ -25,13 +28,22 @@ function mockApi(endpoint: string, options?: Options) {
         case '/cart-items/add':
           if (options) {
             const productJSON = options.body;
-            const product = JSON.parse(productJSON);
+            const product = safeJsonParse<T.CartProduct>(productJSON);
+
+            if (!product) {
+              alert('잘못된 상품입니다. 잠시후 다시 시도해주세요.');
+              return;
+            }
+
             const newCartItem = {
               id: product.id,
               quantity: product.quantity,
               product: product.product,
             };
-            const cartItems = JSON.parse(localStorage.getItem('cart-items') || '[]');
+
+            const cartItems =
+              safeJsonParse<T.CartProduct[]>(localStorage.getItem('cart-items') || '[]') ?? [];
+
             cartItems.push(newCartItem);
             localStorage.setItem('cart-items', JSON.stringify(cartItems));
             resolve({ data: 'success' });
@@ -43,9 +55,18 @@ function mockApi(endpoint: string, options?: Options) {
         case '/cart-items/update-quantity':
           if (options) {
             const body = options.body;
-            const { id, quantity } = JSON.parse(body);
-            const cartItems = JSON.parse(localStorage.getItem('cart-items') || '[]');
-            const itemIndex = cartItems.findIndex((item: any) => item.id === id);
+            const parsedData = safeJsonParse<Pick<T.CartProduct, 'id' | 'quantity'>>(body);
+            if (!parsedData) {
+              alert('잘못된 상품입니다. 잠시후 다시 시도해주세요.');
+              return;
+            }
+
+            const { id, quantity } = parsedData;
+
+            const cartItems =
+              safeJsonParse<T.CartProduct[]>(localStorage.getItem('cart-items') || '[]') ?? [];
+
+            const itemIndex = cartItems.findIndex((item: T.CartProduct) => item.id === id);
             cartItems[itemIndex].quantity = quantity;
             localStorage.setItem('cart-items', JSON.stringify(cartItems));
             resolve({ data: 'success' });
@@ -57,9 +78,19 @@ function mockApi(endpoint: string, options?: Options) {
         case '/cart-items/remove':
           if (options) {
             const body = options.body;
-            const { id } = JSON.parse(body);
-            const cartItems = JSON.parse(localStorage.getItem('cart-items') || '[]');
-            const removedCartItems = cartItems.filter((item: any) => item.id !== id);
+            const parsedData = safeJsonParse<Pick<T.CartProduct, 'id'>>(body);
+
+            if (!parsedData) {
+              alert('잘못된 상품입니다. 잠시후 다시 시도해주세요.');
+              return;
+            }
+
+            const { id } = parsedData;
+
+            const cartItems =
+              safeJsonParse<T.CartProduct[]>(localStorage.getItem('cart-items') || '[]') ?? [];
+
+            const removedCartItems = cartItems.filter((item: T.CartProduct) => item.id !== id);
             localStorage.setItem('cart-items', JSON.stringify(removedCartItems));
             resolve({ data: 'success' });
           } else {

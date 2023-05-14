@@ -8,6 +8,9 @@ import useProduct from '../../hooks/useProduct';
 import mockApi from '../../api/mockApi';
 import cartState from '../../recoil/atoms';
 
+import safeJsonParse from '../../utils/safeJsonParse';
+import { CartProduct } from '../../types/ProductType';
+
 function Home() {
   const { productList, loadProductList } = useProduct();
   const setCartList = useSetRecoilState(cartState);
@@ -15,7 +18,8 @@ function Home() {
   const loadCartList = useCallback(async () => {
     const response = await mockApi('/cart-items');
     const cartList = response.data;
-    setCartList(JSON.parse(cartList));
+
+    setCartList(safeJsonParse<CartProduct[]>(cartList) ?? []);
   }, [setCartList]);
 
   useEffect(() => {

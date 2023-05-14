@@ -15,7 +15,7 @@ function useCart() {
     if (cartList.findIndex((cart) => cart.id === product.id) !== -1) {
       return;
     }
-    const newCartItem = { id: product.id, quantity: 1, product };
+    const newCartItem: T.newCartProduct = { id: product.id, quantity: 1, product };
     setCartList([...cartList, newCartItem]);
     await mockApi('/cart-items/add', { body: JSON.stringify(newCartItem) });
   };
