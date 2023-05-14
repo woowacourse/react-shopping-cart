@@ -1,4 +1,3 @@
-import { ProductCardErrorBoundary } from '../ProductCardErrorBoundary';
 import productThumbnail from 'assets/product-thumbnail.png';
 import FlexBox from 'components/@common/FlexBox';
 import { Stepper } from 'components/ProductCardList/ProductCard/Stepper';

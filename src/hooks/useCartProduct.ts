@@ -17,14 +17,11 @@ export const useCartProduct = (product: Product) => {
 
   const isProductInCart = cart.some((cartProduct) => cartProduct.id === product.id);
 
-  const throwErrorIfProductNotInCart = () => {
-    if (!isProductInCart) {
-      throw new Error('장바구니에 상품이 없어요. 장바구니에 상품을 추가해주세요!');
-    }
-  };
-
   const decreaseQuantity = () => {
-    throwErrorIfProductNotInCart();
+    if (!isProductInCart) {
+      console.error('장바구니에 상품이 없어요! 먼저 상품을 등록해주세요.');
+      return;
+    }
 
     const decreased = cart.map((product) => {
       if (product.id !== id) return product;
@@ -35,7 +32,10 @@ export const useCartProduct = (product: Product) => {
   };
 
   const increaseQuantity = () => {
-    throwErrorIfProductNotInCart();
+    if (!isProductInCart) {
+      console.error('장바구니에 상품이 없어요! 먼저 상품을 등록해주세요.');
+      return;
+    }
 
     const increased = cart.map((product) => {
       if (product.id !== id) return product;
