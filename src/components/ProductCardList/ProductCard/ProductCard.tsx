@@ -12,17 +12,17 @@ type ProductCardProps = {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const [cartProducts, setCartProducts] = useRecoilState(cartProductsState);
-  const [isAddCartButtonActive, setIsAddCartButtonActive] = useState(false);
+  const [isQuantityStepperOpen, setIsQuantityStepperOpen] = useState(false);
   const { id, price, name, imageUrl } = product;
   const targetCartProduct = cartProducts.get(id);
   const isProductAlreadyExistInCart = !!targetCartProduct;
 
   const openQuantityStepper = () => {
-    setIsAddCartButtonActive(true);
+    setIsQuantityStepperOpen(true);
   };
 
   const closeQuantityStepper = () => {
-    setIsAddCartButtonActive(false);
+    setIsQuantityStepperOpen(false);
   };
 
   const initialAddCartProduct = () => {
@@ -68,7 +68,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
     <FlexBox flexDirection="column" justify="flex-start" gap="8px" role="list">
       <ProductImgContainer>
         <ProductImage src={imageUrl} />
-        {isAddCartButtonActive ? (
+        {isQuantityStepperOpen ? (
           <QuantityStepper tabIndex={1} onBlur={handleCloseStepperOnBlur}>
             <DecreaseButton onClick={decreaseQuantity}>-</DecreaseButton>
             <Quantity tabIndex={2}>{targetCartProduct?.quantity}</Quantity>
