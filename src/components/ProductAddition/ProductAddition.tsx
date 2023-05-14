@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { cartAdditionState, cartListState } from '../../store/cart';
+import { useCartList } from '../../hooks/useCartList';
+// import { cartAdditionState, cartListState } from '../../store/cart';
 import { ProductItemType } from '../../types';
 import { priceFormatter } from '../../utils/formatter';
 import StepperButton from '../StepperButton/StepperButton';
@@ -13,8 +13,7 @@ interface ProductAdditionProps {
 }
 
 const ProductAddition = ({ productInformation, closeModalByClick }: ProductAdditionProps) => {
-  const [cartList, setCartList] = useRecoilState(cartListState);
-  const setCartAddition = useSetRecoilState(cartAdditionState);
+  const { cartList, updateCartList, setCartAdditionToTrue, getNewCartItem } = useCartList();
   const [quantity, setQuantity] = useState(1);
 
   const handleCartAdd = useCallback(() => {
@@ -24,25 +23,28 @@ const ProductAddition = ({ productInformation, closeModalByClick }: ProductAddit
     );
 
     if (selectedCartItemIndex === -1) {
-      const newCartId = Number(new Date());
-      const newCartItem = {
-        id: newCartId,
-        quantity,
-        product: productInformation,
-      };
-      setCartList([...cartList, newCartItem]);
+      const newCartItem = getNewCartItem(quantity, productInformation);
+      updateCartList([newCartItem]);
     } else {
       const updatedCartList = [...cartList];
       updatedCartList[selectedCartItemIndex] = {
         ...updatedCartList[selectedCartItemIndex],
         quantity: updatedCartList[selectedCartItemIndex].quantity + quantity,
       };
-      setCartList(updatedCartList);
-      setCartAddition(true);
+      updateCartList(updatedCartList);
+      setCartAdditionToTrue();
     }
 
     closeModalByClick();
-  }, [cartList, closeModalByClick, productInformation, quantity, setCartList, setCartAddition]);
+  }, [
+    productInformation,
+    cartList,
+    quantity,
+    closeModalByClick,
+    updateCartList,
+    setCartAdditionToTrue,
+    getNewCartItem,
+  ]);
 
   return (
     <div className={styles.container}>
