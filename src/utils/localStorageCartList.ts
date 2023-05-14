@@ -10,5 +10,5 @@ export const getCartListFromLocalStorage = () => {
 };
 
 export const setCartListInLocalStorage = (newCartList: CartList) => {
-  localStorage.setItem('cartList', JSON.stringify(newCartList));
+  localStorage.setItem(localStorage.cartList, JSON.stringify(newCartList));
 };
