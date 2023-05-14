@@ -9,9 +9,7 @@ interface Props {
 }
 
 const QuantityInput = ({ value, onChange }: Props) => {
-  const handleScrollPrevent: WheelEventHandler<HTMLInputElement> = ({
-    currentTarget,
-  }) => {
+  const handleScrollPrevent: WheelEventHandler<HTMLInputElement> = ({ currentTarget }) => {
     currentTarget.blur();
   };
 
@@ -26,12 +24,7 @@ const QuantityInput = ({ value, onChange }: Props) => {
         onWheel={handleScrollPrevent}
         onChange={onChange}
         onKeyDown={(event) => {
-          if (
-            event.key === '-' ||
-            event.key === '+' ||
-            event.key === 'e' ||
-            event.key === '.'
-          ) {
+          if (event.key === '-' || event.key === '+' || event.key === 'e' || event.key === '.') {
             event.preventDefault();
           }
         }}
@@ -45,8 +38,6 @@ const QuantityInput = ({ value, onChange }: Props) => {
 
 const S = {
   Wrapper: styled.div`
-    position: absolute;
-
     & svg {
       position: absolute;
       z-index: -1;
@@ -57,11 +48,13 @@ const S = {
     }
 
     & svg:nth-child(2) {
-      top: 0;
+      top: 12px;
+      right: 6px;
     }
 
     & svg:nth-child(3) {
-      top: 16px;
+      top: 28px;
+      right: 6px;
     }
   `,
 };

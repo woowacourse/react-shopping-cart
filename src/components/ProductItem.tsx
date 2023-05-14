@@ -104,10 +104,6 @@ const S = {
     justify-content: space-between;
     padding: 12px 6px 0;
 
-    & > :last-child {
-      right: 6px;
-    }
-
     & > svg:last-child {
       cursor: pointer;
     }

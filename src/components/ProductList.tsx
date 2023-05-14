@@ -35,6 +35,18 @@ const S = {
     max-width: 1270px;
     margin: 0 auto;
     padding: 0 20px 120px;
+
+    @media all and (min-width: 768px) and (max-width: 1023px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media all and (min-width: 480px) and (max-width: 767px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media all and (max-width: 479px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
   `,
 };
 
