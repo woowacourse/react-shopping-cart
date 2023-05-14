@@ -1,12 +1,18 @@
+import { useEffect } from 'react';
+import { styled } from 'styled-components';
 import ContentLayout from 'src/components/@common/ContentLayout';
 import ProductItem from 'src/components/ProductItem';
 import Header from 'src/components/Header';
-import Toast from 'src/components/@common/Toast';
 import { useFetch } from 'src/hooks/useFetch';
+import { useToast } from 'src/components/@common/Toast/hooks/useToast';
 import { Product } from 'src/types';
-import { styled } from 'styled-components';
 
 const ProductList = () => {
+  const { toast, renderToast } = useToast();
+  useEffect(() => {
+    if (error.isError) toast.error(error.message);
+  }, []);
+
   const { data, error } = useFetch<{ choonsik: Product[] }>(
     process.env.PUBLIC_URL + '/mock/productList.json',
     { choonsik: [] }
@@ -22,7 +28,7 @@ const ProductList = () => {
       <ContentLayout>
         <ProductListWrapper>{fetchedProductList}</ProductListWrapper>
       </ContentLayout>
-      {error.isError && <Toast type="error" message={error.message} />}
+      {renderToast()}
     </>
   );
 };

@@ -1,13 +1,9 @@
 import { useEffect, useState } from 'react';
 import Svg from '../Svg';
 import * as S from './Toast.styles';
+import { ToastState } from './hooks/useToast';
 
-interface ToastProps {
-  message: string;
-  type: 'error' | 'success';
-}
-
-const Toast = ({ message, type }: ToastProps) => {
+const Toast = ({ message, type }: ToastState) => {
   const [isShown, setIsShown] = useState(true);
 
   useEffect(() => {

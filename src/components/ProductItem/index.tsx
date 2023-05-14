@@ -1,9 +1,10 @@
-import useProductSelect from 'src/hooks/useProductSelect';
-import { Product } from 'src/types';
-import Svg from '../@common/Svg';
-import Toast from '../@common/Toast';
-import Counter from '../Counter';
+import { useEffect } from 'react';
 import * as S from './ProductItem.styles';
+import Svg from 'src/components/@common/Svg';
+import Counter from '../Counter';
+import useProductSelect from 'src/hooks/useProductSelect';
+import { useToast } from '../@common/Toast/hooks/useToast';
+import { Product } from 'src/types';
 
 interface ProductItemProps {
   product: Product;
@@ -12,6 +13,12 @@ interface ProductItemProps {
 const ProductItem = ({ product }: ProductItemProps) => {
   const { currentCartItem, remove, add, onSelectItem, isFirst } =
     useProductSelect(product);
+
+  const { toast, renderToast } = useToast();
+
+  useEffect(() => {
+    if (isFirst) toast.success('장바구니에 상품이 담겼습니다.');
+  }, [isFirst]);
 
   const productSelect = currentCartItem ? (
     <Counter
@@ -35,7 +42,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
         </div>
         {productSelect}
       </S.ProductWrapper>
-      {isFirst && <Toast type="success" message="장바구니에 추가했습니다." />}
+      {renderToast()}
     </S.ItemWrapper>
   );
 };
