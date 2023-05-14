@@ -1,20 +1,20 @@
 import { useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import FlexBox from 'components/@common/FlexBox';
-import { ReactComponent as MiniCartIcon } from 'assets/mini-cart-icon.svg';
-import type { Product } from 'types/product';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { cartState, getCartProductById } from 'state/CartAtom';
+import { ReactComponent as MiniCartIcon } from 'assets/mini-cart-icon.svg';
+import FlexBox from 'components/@common/FlexBox';
+import { cartProductsState } from 'state/CartAtom';
+import type { Product } from 'types/product';
 
 type ProductCardProps = {
   product: Product;
 };
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const [cart, setCart] = useRecoilState(cartState);
+  const [cartProducts, setCartProducts] = useRecoilState(cartProductsState);
   const [isAddCartButtonActive, setIsAddCartButtonActive] = useState(false);
   const { id, price, name, imageUrl } = product;
-  const targetCartProduct = useRecoilValue(getCartProductById(id));
+  const targetCartProduct = cartProducts.get(id);
   const isProductAlreadyExistInCart = !!targetCartProduct;
 
   const openQuantityStepper = () => {
@@ -28,27 +28,34 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const initialAddCartProduct = () => {
     openQuantityStepper();
 
-    setCart((prev) => [...prev, { id, quantity: 1, product }]);
+    setCartProducts((prev) => {
+      const newCartProducts = new Map(prev.entries());
+
+      return newCartProducts.set(id, { quantity: 1, product });
+    });
   };
 
   const decreaseQuantity = () => {
-    const decreased = cart.map((product) => {
-      if (product.id !== id) return product;
-      return { ...product, quantity: product.quantity - 1 };
+    if (!targetCartProduct) throw new Error('장바구니에 없는 상품의 수량은 조절할 수 없습니다.');
+    if (targetCartProduct.quantity === 1) closeQuantityStepper();
+
+    setCartProducts((prev) => {
+      const newCartProducts = new Map(prev.entries());
+      const prevQuantity = targetCartProduct.quantity;
+
+      return newCartProducts.set(id, { quantity: prevQuantity - 1, product });
     });
-
-    if (targetCartProduct?.quantity === 1) closeQuantityStepper();
-
-    setCart(decreased);
   };
 
   const increaseQuantity = () => {
-    const increased = cart.map((product) => {
-      if (product.id !== id) return product;
-      return { ...product, quantity: product.quantity + 1 };
-    });
+    if (!targetCartProduct) throw new Error('장바구니에 없는 상품의 수량은 조절할 수 없습니다.');
 
-    setCart(increased);
+    setCartProducts((prev) => {
+      const newCartProducts = new Map(prev.entries());
+      const prevQuantity = targetCartProduct.quantity;
+
+      return newCartProducts.set(id, { quantity: prevQuantity + 1, product });
+    });
   };
 
   const handleCloseStepperOnBlur = (e: React.FocusEvent) => {
