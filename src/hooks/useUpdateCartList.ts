@@ -1,6 +1,8 @@
 import { useRecoilState } from 'recoil';
 import { cartListAtom } from '../stores/cartListStore.ts';
 import { setCartListInLocalStorage } from '../utils/localStorageCartList.ts';
+import { CartList } from '../types/CartList.ts';
+import deepCopy from '../utils/deepCopy.ts';
 
 type UpdateCartListParams = {
   itemId: number;
@@ -11,7 +13,7 @@ const useUpdateCartList = () => {
   const [cartList, setCartList] = useRecoilState(cartListAtom);
 
   const updateCartList = ({ itemId, value }: UpdateCartListParams) => {
-    const newCartList = JSON.parse(JSON.stringify(cartList));
+    const newCartList = <CartList>deepCopy(cartList);
 
     if (!newCartList[itemId]) {
       newCartList[itemId] = {
