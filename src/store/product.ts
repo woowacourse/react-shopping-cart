@@ -1,9 +1,9 @@
 import { atom } from 'recoil';
 
 import initialListData from '../data/mockData.json';
-import { ProductItemData } from '../types';
+import { ProductItemType } from '../types';
 
-const productListState = atom<ProductItemData[]>({
+const productListState = atom<ProductItemType[]>({
   key: 'productList',
   default: [],
   effects: [({ setSelf }) => setSelf(initialListData)],

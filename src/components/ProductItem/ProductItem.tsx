@@ -3,14 +3,14 @@ import { useRecoilValue } from 'recoil';
 import { AddIcon } from '../../assets';
 import { useModal } from '../../hooks/useModal';
 import { cartItemQuantityState } from '../../store/cart';
-import { ProductItemData } from '../../types';
+import { ProductItemType } from '../../types';
 import { priceFormatter } from '../../utils/formatter';
 import Modal from '../Modal/Modal';
 import ProductAddition from '../ProductAddition/ProductAddition';
 import styles from './style.module.css';
 
 interface ProductItemProps {
-  information: ProductItemData;
+  information: ProductItemType;
 }
 
 const ProductItem = ({ information }: ProductItemProps) => {

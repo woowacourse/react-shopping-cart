@@ -2,13 +2,13 @@ import { useCallback, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { cartAdditionState, cartListState } from '../../store/cart';
-import { ProductItemData } from '../../types';
+import { ProductItemType } from '../../types';
 import { priceFormatter } from '../../utils/formatter';
 import StepperButton from '../StepperButton/StepperButton';
 import styles from './style.module.css';
 
 interface ProductAdditionProps {
-  productInformation: ProductItemData;
+  productInformation: ProductItemType;
   closeModalByClick: () => void;
 }
 

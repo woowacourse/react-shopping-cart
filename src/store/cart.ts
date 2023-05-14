@@ -1,7 +1,7 @@
 import { atom, selectorFamily } from 'recoil';
 
 import { CART_LIST_LOCAL_STORAGE_KEY } from '../constants';
-import { CartItemData } from '../types';
+import { CartItemType } from '../types';
 
 export const cartAdditionState = atom<boolean>({
   key: 'cartAddition',
@@ -17,7 +17,7 @@ export const cartAdditionState = atom<boolean>({
   ],
 });
 
-export const cartListState = atom<CartItemData[]>({
+export const cartListState = atom<CartItemType[]>({
   key: 'cartList',
   default: [],
   effects: [

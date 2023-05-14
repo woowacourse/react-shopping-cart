@@ -1,14 +1,12 @@
-interface ProductItemData {
+export interface ProductItemType {
   id: number;
   name: string;
   price: number;
   imageUrl: string;
 }
 
-interface CartItemData {
+export interface CartItemType {
   id: number;
   quantity: number;
-  product: ProductItemData;
+  product: ProductItemType;
 }
-
-export type { ProductItemData, CartItemData };
