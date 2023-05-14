@@ -21,7 +21,7 @@ export const cartBadge = selector({
   },
 });
 
-export const hasItemInCart = selectorFamily({
+export const getCartItemById = selectorFamily({
   key: 'hasItemInCart',
   get:
     (id: CartItem['id']) =>

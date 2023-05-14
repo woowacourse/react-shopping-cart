@@ -1,5 +1,5 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { cartState, hasItemInCart } from '../../../recoil/cart';
+import { cartState, getCartItemById } from '../../../recoil/cart';
 import { Dialog } from 'react-tiny-dialog';
 import SHOPPING_CART from '../../../assets/png/cart-icon.png';
 import { Product } from '../../../types/products';
@@ -14,13 +14,13 @@ const ItemCartDialog: React.FC<ItemCartDialogProps> = (props) => {
   const { id, name, price, imageUrl } = props;
   const setCart = useSetRecoilState(cartState);
   const quantityRef = useRef<HTMLInputElement>(null);
-  const alreadyHasItem = useRecoilValue(hasItemInCart(id));
+  const hasItemInCart = Boolean(useRecoilValue(getCartItemById(id)));
 
   const addItemToCart = () => {
     const quantity = Number(quantityRef.current!.value);
 
     setCart((cart) => {
-      if (alreadyHasItem) {
+      if (hasItemInCart) {
         return cart.map((item) =>
           item.id === id
             ? { ...item, quantity: item.quantity + quantity }
