@@ -47,6 +47,34 @@ module.exports = {
         ],
         exclude: /node_modules/,
       },
+      {
+        // 이미지 파일 로더
+        test: /\.(jpg|jpeg|gif|png|svg|ico)?$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000, // 파일 사이즈가 10k보다 작은 경우 문자열로 만들어 사용하는 부분에 직접 삽입(번들로)
+              fallback: 'file-loader', // 파일 사이즈가 10k 보다 큰 경우, file-loader를 이용하여 파일 복사
+              name: 'images/[name].[ext]', // 복사할 때 파일을 이미지(image)폴더에 파일명(name)과 확장자(ext) 형태로 복사합니다.
+            },
+          },
+        ],
+      },
+      {
+        // 폰트 로더
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000, // 파일 사이즈가 10k보다 작은 경우 문자열로 만들어 사용하는 부분에 직접 삽입(번들로)
+              fallback: 'file-loader', // 파일 사이즈가 10k 보다 큰 경우, file-loader를 이용하여 파일 복사
+              name: 'fonts/[name].[ext]', // 복사할 때 파일을 이미지(image)폴더에 파일명(name)과 확장자(ext) 형태로 복사합니다.
+            },
+          },
+        ],
+      },
     ],
   },
 
@@ -60,8 +88,11 @@ module.exports = {
 
     new ForkTsCheckerWebpackPlugin(),
   ],
-
+  devtool: 'inline-source-map',
   devServer: {
+    static: './dist',
+    hot: true,
+    open: true,
     historyApiFallback: true,
   },
 };

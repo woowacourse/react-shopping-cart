@@ -1,13 +1,36 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import styled from 'styled-components';
 
+const Img = React.lazy(() => import('./Img'));
+
 function Check() {
-  return <StyledCheck>checkComponent</StyledCheck>;
+  return (
+    <>
+      <StyledJUA>checkComponent</StyledJUA>
+      <StyledHANNA11yrs>checkComponent</StyledHANNA11yrs>
+      <StyledHANNAAir>checkComponent</StyledHANNAAir>
+      <StyledDoHyeon>checkComponent</StyledDoHyeon>
+      <Suspense fallback={<div>hi</div>}>
+        <Img />
+      </Suspense>
+    </>
+  );
 }
 
-const StyledCheck = styled.div`
-  border: 1px solid yellow;
-  font-size: 32px;
+const StyledJUA = styled.h1`
+  font-family: 'Jua', sans-serif;
+`;
+
+const StyledHANNA11yrs = styled.h1`
+  font-family: 'HANNA-11yrs', sans-serif;
+`;
+
+const StyledHANNAAir = styled.h1`
+  font-family: 'HANNA-Air', sans-serif;
+`;
+
+const StyledDoHyeon = styled.h1`
+  font-family: 'DoHyeon', sans-serif;
 `;
 
 export default Check;
