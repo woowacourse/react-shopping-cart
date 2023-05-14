@@ -2,14 +2,14 @@ import ProductItem from '@Components/ProductItem';
 
 import { Product } from '@Types/index';
 
-import { useMockFetch } from '@Hooks/useMockFetch';
-
 import * as S from './style';
-import MockData from '../../../mockData.json';
 
-function ProductList() {
-  const { data, isLoading } = useMockFetch<Product[]>(MockData);
+type ProductListProps = {
+  data?: Product[];
+  isLoading: boolean;
+};
 
+function ProductList({ data, isLoading }: ProductListProps) {
   return (
     <S.ProductListContainer>
       {data && data.map((data) => <ProductItem product={data} key={data.id} isLoading={isLoading} />)}
