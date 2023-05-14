@@ -1,11 +1,6 @@
 import styled from "styled-components";
 import ProductQuantityInput from "../ProductQuantityInput/ProductQuantityInput";
-interface ProductCardProps {
-  productId: number;
-  productImage: string;
-  productName: string;
-  productPrice: number;
-}
+import type { ProductCardProps } from "../../types";
 
 const ProductCard = ({
   productId,
