@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, ReactNode } from 'react';
 
 interface StepperProps {
   step: number;
@@ -13,7 +13,7 @@ interface StepperProps {
     }: ChangeEvent<HTMLInputElement>) => void;
     handleIncrement: () => void;
     handleDecrement: () => void;
-  }) => React.ReactNode;
+  }) => ReactNode;
 }
 
 const Stepper = (props: StepperProps) => {
