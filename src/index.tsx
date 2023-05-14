@@ -8,6 +8,8 @@ import App from '@components/App/App';
 import ProductsPage from '@pages/ProductsPage/ProductsPage';
 import ErrorPage from '@pages/ErrorPage/ErrorPage';
 
+const basename = process.env.PUBLIC_URL;
+
 const router = createBrowserRouter(
   [
     {
@@ -18,7 +20,7 @@ const router = createBrowserRouter(
     },
   ],
   {
-    basename: '/react-shopping-cart',
+    basename: basename,
   }
 );
 

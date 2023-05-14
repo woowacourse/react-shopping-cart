@@ -47,6 +47,7 @@
     "prettier": "2.8.7",
     "prop-types": "15.8.1",
     "storybook": "7.0.9",
+    "tsconfig-paths-webpack-plugin": "4.0.1",
     "webpack": "5.82.0"
   },
   "scripts": {
@@ -56,7 +57,7 @@
     "eject": "craco eject",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "predeploy": "npm run build && npm run build-storybook && mv storybook-static storybook && mv storybook ./build",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {

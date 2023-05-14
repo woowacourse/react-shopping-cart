@@ -5,7 +5,10 @@ import { StyledProductList } from '@components/ProductList/ProductList.styled';
 import ProductItem from '@components/ProductItem/ProductItem';
 
 const ProductList = () => {
-  const productList = useFetch<Product[]>('./mockData.json', []);
+  const productList = useFetch<Product[]>(
+    process.env.PUBLIC_URL + '/mockData.json',
+    []
+  );
 
   return (
     <StyledProductList>
