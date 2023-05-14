@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-
 import axios from 'axios';
 
 const useFetch = <T>(url: string, initialValue: T): T => {
@@ -11,7 +10,7 @@ const useFetch = <T>(url: string, initialValue: T): T => {
         const response = await axios.get(url);
         setData(response.data);
       } catch (error) {
-        console.error('Error fetching products:', error);
+        console.error('Error fetching data: ', error);
       }
     };
 
