@@ -1,19 +1,20 @@
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { CartLogo } from '../assets/svg';
-import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { productsInCartState } from '../recoil/atoms';
+import { CartLogo } from '../assets/svg';
 
 export default function Header() {
+  const navigate = useNavigate();
   const [productsInCart] = useRecoilState(productsInCartState);
 
   return (
     <Style.Container>
       <Style.Content>
-        <Style.Title to="/">
+        <Style.Title onClick={() => navigate('/')}>
           <CartLogo fill="var(--grey-100)" style={{ width: '40px' }} />
         </Style.Title>
-        <Style.CartLink to="/">
+        <Style.CartLink onClick={() => navigate('/')}>
           <Style.CountInCart>{productsInCart.length}</Style.CountInCart>
         </Style.CartLink>
       </Style.Content>
@@ -69,7 +70,7 @@ const Style = {
     }
   `,
 
-  Title: styled(Link)`
+  Title: styled.button`
     display: flex;
     align-items: center;
 
@@ -82,7 +83,7 @@ const Style = {
     }
   `,
 
-  CartLink: styled(Link)`
+  CartLink: styled.button`
     display: flex;
     align-items: center;
 

@@ -1,8 +1,8 @@
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import type { Preview } from '@storybook/react';
-import GlobalStyle from '../src/GlobalStyle';
 import { RecoilRoot } from 'recoil';
-import { BrowserRouter } from 'react-router-dom';
+import GlobalStyle from '../src/GlobalStyle';
 
 const preview: Preview = {
   parameters: {
@@ -17,10 +17,10 @@ const preview: Preview = {
   decorators: [
     (Story) => (
       <RecoilRoot>
-        <BrowserRouter>
-          <GlobalStyle />
+        <GlobalStyle />
+        <MemoryRouter initialEntries={['/']}>
           <Story />
-        </BrowserRouter>
+        </MemoryRouter>
       </RecoilRoot>
     ),
   ],

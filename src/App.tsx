@@ -1,18 +1,14 @@
+import { RouterProvider } from 'react-router-dom';
 import GlobalStyle from './GlobalStyle';
-import Home from './pages/Home';
-
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import router from './router';
+import { RecoilRoot } from 'recoil';
 
 function App() {
   return (
-    <>
+    <RecoilRoot>
       <GlobalStyle />
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <Routes>
-          <Route path="/" Component={Home} />
-        </Routes>
-      </BrowserRouter>
-    </>
+      <RouterProvider router={router} />
+    </RecoilRoot>
   );
 }
 
