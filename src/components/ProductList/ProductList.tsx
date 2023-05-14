@@ -1,7 +1,7 @@
-import { styled } from 'styled-components';
-import ProductItem from '../ProductItem/ProductItem';
 import { useRecoilValue } from 'recoil';
 import { productListQuery } from '../../recoil/selectors';
+import { styled } from 'styled-components';
+import ProductItem from '../ProductItem/ProductItem';
 
 const ProductList = () => {
   const products = useRecoilValue(productListQuery);
@@ -19,7 +19,7 @@ const ProductList = () => {
   );
 };
 
-const ProductListContainer = styled.ul`
+export const ProductListContainer = styled.ul`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
   grid-column-gap: 30px;

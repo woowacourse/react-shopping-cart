@@ -1,7 +1,7 @@
 import { ImgHTMLAttributes } from 'react';
 import { css, styled } from 'styled-components';
 
-type ImageSize = 'large' | 'medium' | 'small';
+export type ImageSize = 'large' | 'medium' | 'small';
 
 interface ImageProps {
   src: string;
@@ -30,7 +30,7 @@ const ImageWrapper = styled.div`
   overflow: hidden;
 `;
 
-const imageSizeMapper = {
+export const imageSizeMapper = {
   large: '282px',
   medium: '145px',
   small: '70px',
