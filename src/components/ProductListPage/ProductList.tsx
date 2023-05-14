@@ -3,14 +3,14 @@ import styled from "styled-components";
 
 import ProductItem from "./ProductItem";
 import { productData } from "../../atoms/productState";
+import { Product } from "../../type/product";
 
 export default function ProductList() {
-  const products = useRecoilValue(productData);
-  console.log(products);
+  const products: Product[] = useRecoilValue(productData);
 
   return (
     <ProductListContainer>
-      {products.map((product: any) => (
+      {products.map((product) => (
         <ProductItem key={product.id} {...product} />
       ))}
     </ProductListContainer>
