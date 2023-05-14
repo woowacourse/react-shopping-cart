@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import * as Styled from './styles/Typography.styles';
 
 interface TextProps {
   children: string;
@@ -7,27 +7,16 @@ interface TextProps {
   color?: string;
 }
 
-export const Typography = (
-  { children, size, weight, color }: TextProps = {
-    children: '',
-    size: '16px',
-    weight: 'normal',
-    color: '#333333',
-  }
-) => {
+export const Typography = ({ children, size, weight, color }: TextProps) => {
   return (
-    <StyledParagraph size={size} weight={weight} color={color}>
+    <Styled.Paragraph size={size} weight={weight} color={color}>
       {children}
-    </StyledParagraph>
+    </Styled.Paragraph>
   );
 };
 
-export const StyledParagraph = styled.p<{
-  size?: string;
-  weight?: string;
-  color?: string;
-}>`
-  font-size: ${({ size }) => size};
-  font-weight: ${({ weight }) => weight};
-  color: ${({ color }) => color};
-`;
+Typography.defaultProps = {
+  size: '16px',
+  weight: 'normal',
+  color: '#333333',
+};

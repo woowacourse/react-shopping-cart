@@ -1,5 +1,5 @@
 import { ImgHTMLAttributes } from 'react';
-import styled from 'styled-components';
+import * as Styled from './styles/Image.styles';
 
 interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   $width?: string;
@@ -8,18 +8,8 @@ interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
 
 export const Image = ({ $width, $height, src, alt }: ImageProps) => {
   return (
-    <Wrapper $width={$width} $height={$height}>
+    <Styled.Wrapper $width={$width} $height={$height}>
       <img src={`${process.env.PUBLIC_URL}${src}`} alt={alt}></img>
-    </Wrapper>
+    </Styled.Wrapper>
   );
 };
-
-const Wrapper = styled.div<{ $width?: string; $height?: string }>`
-  width: ${({ $width }) => $width || '144px'};
-  height: ${({ $height }) => $height || '144px'};
-
-  img {
-    width: ${({ $width }) => $width || '144px'};
-    height: ${({ $height }) => $height || '144px'};
-  }
-`;

@@ -1,7 +1,7 @@
 import { AddToCartCount } from './AddToCartCount';
 import { useCallback, useState } from 'react';
 import { AddToCartButtonImage } from '../types/image';
-import styled from 'styled-components';
+import * as Styled from './styles/AddToCartButton.styles';
 
 export const AddToCartButton = ({
   handleAddCartState,
@@ -28,12 +28,8 @@ export const AddToCartButton = ({
     return <AddToCartCount id={id} onDeleteCart={handleDeleteCart} />;
 
   return (
-    <AddToCartButtonImageWrapper>
+    <Styled.AddToCartButtonImageWrapper>
       <AddToCartButtonImage onClick={handleAddToCart} />
-    </AddToCartButtonImageWrapper>
+    </Styled.AddToCartButtonImageWrapper>
   );
 };
-
-const AddToCartButtonImageWrapper = styled.div`
-  cursor: pointer;
-`;

@@ -1,24 +1,14 @@
 import { Typography as LogoTitle } from './common/Typography';
 import { LogoImage } from '../types/image';
-import styled from 'styled-components';
+import * as Styled from './styles/Logo.styles';
 
 export const Logo = ({ $color }: { $color: string }) => {
   return (
-    <Wrapper>
+    <Styled.Wrapper>
       <LogoImage fill={$color} />
       <LogoTitle size="40px" weight="900" color={$color}>
         SHOP
       </LogoTitle>
-    </Wrapper>
+    </Styled.Wrapper>
   );
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  p {
-    margin-left: 24px;
-  }
-`;
