@@ -7,8 +7,12 @@ export const useCartList = () => {
   const [cartList, setCartList] = useRecoilState(cartListState);
   const setCartAddition = useSetRecoilState(cartAdditionState);
 
-  const updateCartList = (newCartItem: CartItemType[]) => {
-    setCartList([...cartList, ...newCartItem]);
+  const addCartItem = (newCartItem: CartItemType) => {
+    if (newCartItem) setCartList([...cartList, newCartItem]);
+  };
+
+  const updateCartItem = (newCartItem: CartItemType[]) => {
+    if (newCartItem) setCartList([...newCartItem]);
   };
 
   const setCartAdditionToTrue = () => {
@@ -24,5 +28,5 @@ export const useCartList = () => {
     };
   };
 
-  return { cartList, updateCartList, setCartAdditionToTrue, getNewCartItem };
+  return { cartList, addCartItem, updateCartItem, setCartAdditionToTrue, getNewCartItem };
 };

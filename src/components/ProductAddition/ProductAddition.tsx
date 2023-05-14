@@ -1,7 +1,6 @@
 import { useCallback, useState } from 'react';
 
 import { useCartList } from '../../hooks/useCartList';
-// import { cartAdditionState, cartListState } from '../../store/cart';
 import { ProductItemType } from '../../types';
 import { priceFormatter } from '../../utils/formatter';
 import StepperButton from '../StepperButton/StepperButton';
@@ -13,7 +12,8 @@ interface ProductAdditionProps {
 }
 
 const ProductAddition = ({ productInformation, closeModalByClick }: ProductAdditionProps) => {
-  const { cartList, updateCartList, setCartAdditionToTrue, getNewCartItem } = useCartList();
+  const { cartList, updateCartItem, addCartItem, setCartAdditionToTrue, getNewCartItem } =
+    useCartList();
   const [quantity, setQuantity] = useState(1);
 
   const handleCartAdd = useCallback(() => {
@@ -24,14 +24,14 @@ const ProductAddition = ({ productInformation, closeModalByClick }: ProductAddit
 
     if (selectedCartItemIndex === -1) {
       const newCartItem = getNewCartItem(quantity, productInformation);
-      updateCartList([newCartItem]);
+      addCartItem(newCartItem);
     } else {
       const updatedCartList = [...cartList];
       updatedCartList[selectedCartItemIndex] = {
         ...updatedCartList[selectedCartItemIndex],
         quantity: updatedCartList[selectedCartItemIndex].quantity + quantity,
       };
-      updateCartList(updatedCartList);
+      updateCartItem(updatedCartList);
       setCartAdditionToTrue();
     }
 
@@ -41,7 +41,8 @@ const ProductAddition = ({ productInformation, closeModalByClick }: ProductAddit
     cartList,
     quantity,
     closeModalByClick,
-    updateCartList,
+    updateCartItem,
+    addCartItem,
     setCartAdditionToTrue,
     getNewCartItem,
   ]);
