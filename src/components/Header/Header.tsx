@@ -1,8 +1,9 @@
 import * as S from './Header.style';
-import cartIcon from '../../assets/cart.svg';
 import { useNavigate } from 'react-router-dom';
+
 import useCart from '../../hooks/useCart';
 import { Container } from '../../style/style';
+import Logo from '../Logo';
 
 function Header() {
   const navigate = useNavigate();
@@ -11,15 +12,7 @@ function Header() {
     <S.Navbar>
       <Container>
         <S.HeaderWrapper>
-          <S.LogoWrapper
-            type="button"
-            aria-label="SHOP 홈페이지로 가기"
-            role="button"
-            onClick={() => navigate('/')}
-          >
-            <S.CartIcon src={cartIcon} />
-            <S.Logo>SHOP</S.Logo>
-          </S.LogoWrapper>
+          <Logo />
           <S.CartWrapper
             type="button"
             aria-label="장바구니 페이지로 가기"
