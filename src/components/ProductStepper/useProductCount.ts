@@ -4,9 +4,7 @@ import useMyCart from '@components/ProductStepper/useMyCart';
 
 const useProductCount = (productId: number) => {
   const { myCart, updateCartProductCount } = useMyCart(productId);
-  const [productCount, setProductCount] = useState(
-    () => myCart[productId] ?? 0
-  );
+  const [productCount, setProductCount] = useState(myCart[productId] ?? 0);
 
   useEffect(() => {
     updateCartProductCount(productCount);
