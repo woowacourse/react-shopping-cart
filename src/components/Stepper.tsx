@@ -1,7 +1,7 @@
-import { ChangeEvent, MouseEvent } from 'react';
+import { ChangeEvent } from 'react';
 import { styled } from 'styled-components';
 import { useCart } from '../hooks/useCart';
-import { useCountInput } from '../hooks/useCountInput';
+import { isNumeric } from '../utils';
 import Button from './common/Button';
 
 interface Props {
@@ -17,40 +17,38 @@ export default function Stepper({ productId }: Props) {
     decreaseProductQuantity,
   } = useCart();
 
-  const { count, setCount, increaseCount, decreaseCount } = useCountInput(
-    findProductInCart(productId)?.quantity
-  );
+  const count = findProductInCart(productId).quantity;
 
   const handleChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-    setCount(value);
+    if (!isNumeric(value)) return;
+
     updateProductQuantity(productId, Number(value));
   };
 
-  const onClickButton = ({ currentTarget: { id } }: MouseEvent<HTMLButtonElement>) => {
-    if (id === 'increase') {
-      increaseCount();
-      increaseProductQuantity(productId);
+  const onClickPlusButton = () => {
+    if (count === 99) return;
 
-      return;
-    }
+    increaseProductQuantity(productId);
+  };
 
-    decreaseCount();
+  const onClickMinusButton = () => {
+    if (count === 1) return;
+
     decreaseProductQuantity(productId);
   };
 
   return (
     <Style.Container>
       <Button
-        id="decrease"
         bgColor="primary"
         designType="square"
         disabled={count === 1}
-        onClick={onClickButton}
+        onClick={onClickMinusButton}
       >
         -
       </Button>
       <Style.CountInput value={count} onChange={handleChange} />
-      <Button id="increase" designType="square" disabled={count === 99} onClick={onClickButton}>
+      <Button designType="square" disabled={count === 99} onClick={onClickPlusButton}>
         +
       </Button>
     </Style.Container>
