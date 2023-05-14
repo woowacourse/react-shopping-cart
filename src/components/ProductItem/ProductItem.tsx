@@ -16,7 +16,7 @@ function ProductItem({ product }: ProductItemProps) {
       <S.ProductDetails>
         <S.ProductInfo>
           <S.ProductName>{name}</S.ProductName>
-          <S.ProductPrice>{price}원</S.ProductPrice>
+          <S.ProductPrice>{price.toLocaleString('ko-KR')}원</S.ProductPrice>
         </S.ProductInfo>
         <CartController product={product} />
       </S.ProductDetails>
