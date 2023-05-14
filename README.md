@@ -1,46 +1,84 @@
-# Getting Started with Create React App
+<p align="middle" >
+  <img src="https://techcourse-storage.s3.ap-northeast-2.amazonaws.com/3e6c6f30b11d4b098b5a3e81be19ce3a" width="400">
+</p>
+<h2 align="middle">Level2 - 장바구니</h2>
+<p align="middle">React & Recoil 데스크탑 장바구니 애플리케이션</p>
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 결과물: [장바구니🛒](https://xodms0309.github.io/react-shopping-cart/)
 
-## Available Scripts
+## 🚀 학습 목표
 
-In the project directory, you can run:
+> 다수의 컴포넌트를 페이지로 구성하고 복잡해진 상태를 관리합니다.
 
-### `npm start`
+✔️ `데스크탑 타겟`의 웹 앱을 구현하며 구매로 이어지는 것에 끊김이 없고 `재방문을 고려한 UI/UX`에 대해 고민해봅니다.  
+✔️ 상태 관리를 위해 `Recoil`을 활용합니다.
+✔️ `Router`를 활용해 여러 페이지 전환을 고려합니다.  
+✔️ [배민상회](https://mart.baemin.com) 서비스 참고
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### 📝 1단계 기능 목록
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. 상품 목록 페이지
+   - 상품 목록 페이지에 필요한 UI 마크업
+   - header의 숫자 표시를 통해 장바구니에 담긴 상품 종류의 갯수 표시
+2. 전역 상태 관리
+   - recoil을 사용하여 전역 상태 관리
+3. mock 데이터 활용
+   - Mock 데이터를 활용하여 상품 데이터를 처리한다. 협업 미션을 고려하여 장바구니 API 예상 명세 참고
+4. 테스트 도구 선정
+   - 적합한 테스트 도구를 선택하여 사용하고, 중요한 테스트 케이스를 정의하여 테스트 진행
 
-### `npm test`
+### 💻 페어프로그래밍
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| <img src="https://avatars.githubusercontent.com/u/55427367?v=4" width=150px> | <img src="https://avatars.githubusercontent.com/u/50974359?v=4" width=150px> |
+| :--------------------------------------------------------------------------: | :--------------------------------------------------------------------------: |
+|                     [타미](http://github.com/xodms0309)                      |                     [클린](http://github.com/hozzijeong)                     |
 
-### `npm run build`
+### 🌲 파일 구조
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+📦src
+ ┣ 📂api
+ ┃ ┗ 📜index.ts
+ ┣ 📂components
+ ┃ ┣ 📂@common
+ ┃ ┃ ┣ 📂ContentLayout
+ ┃ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┃ ┣ 📂Svg
+ ┃ ┃ ┃ ┣ 📜SvgSprite.tsx
+ ┃ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┃ ┗ 📂Toast
+ ┃ ┃ ┃ ┣ 📂hooks
+ ┃ ┃ ┃ ┃ ┗ 📜useToast.tsx
+ ┃ ┃ ┃ ┣ 📜Toast.stories.tsx
+ ┃ ┃ ┃ ┣ 📜Toast.styles.ts
+ ┃ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┣ 📂Counter
+ ┃ ┃ ┣ 📜Counter.stories.tsx
+ ┃ ┃ ┣ 📜Counter.styles.ts
+ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┣ 📂Header
+ ┃ ┃ ┣ 📜Header.styles.ts
+ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┗ 📂ProductItem
+ ┃ ┃ ┣ 📜ProductItem.stories.tsx
+ ┃ ┃ ┣ 📜ProductItem.styles.ts
+ ┃ ┃ ┗ 📜index.tsx
+ ┣ 📂hooks
+ ┃ ┣ 📜useFetch.ts
+ ┃ ┗ 📜useProductSelect.ts
+ ┣ 📂pages
+ ┃ ┗ 📜ProductList.tsx
+ ┣ 📂recoil
+ ┃ ┗ 📜cartList.ts
+ ┣ 📂router
+ ┃ ┗ 📜index.tsx
+ ┣ 📂styles
+ ┃ ┣ 📜GlobalStyle.ts
+ ┃ ┣ 📜styles.d.ts
+ ┃ ┗ 📜theme.ts
+ ┣ 📂types
+ ┃ ┗ 📜index.ts
+ ┣ 📜App.tsx
+ ┗ 📜index.tsx
+```
