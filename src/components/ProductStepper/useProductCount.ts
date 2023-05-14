@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import useMyCart from '@hooks/useMyCart';
+import useMyCart from '@components/ProductStepper/useMyCart';
 
 const useProductCount = (productId: number) => {
   const { myCart, updateCartProductCount } = useMyCart(productId);

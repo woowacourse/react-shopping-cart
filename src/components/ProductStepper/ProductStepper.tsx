@@ -1,4 +1,4 @@
-import useProductCount from '@hooks/useProductCount';
+import useProductCount from '@components/ProductStepper/useProductCount';
 
 import { PRODUCT_COUNT, STEP_UNIT } from '@constants/product';
 
