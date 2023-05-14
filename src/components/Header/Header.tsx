@@ -11,14 +11,24 @@ function Header() {
     <S.Navbar>
       <Container>
         <S.HeaderWrapper>
-          <S.LogoWrapper onClick={() => navigate('/')}>
+          <S.LogoWrapper
+            type="button"
+            aria-label="SHOP 홈페이지로 가기"
+            role="button"
+            onClick={() => navigate('/')}
+          >
             <S.CartIcon src={cartIcon} />
             <S.Logo>SHOP</S.Logo>
           </S.LogoWrapper>
-          <S.CartWrapper onClick={() => navigate('/cart')}>
+          <S.CartWrapper
+            type="button"
+            aria-label="장바구니 페이지로 가기"
+            role="button"
+            onClick={() => navigate('/cart')}
+          >
             <S.CartTitle>장바구니</S.CartTitle>
             <S.CartCountWrapper>
-              <S.CartCount>{cartList.length}</S.CartCount>
+              <S.CartCount aria-live="polite">{cartList.length}</S.CartCount>
             </S.CartCountWrapper>
           </S.CartWrapper>
         </S.HeaderWrapper>
