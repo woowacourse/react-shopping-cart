@@ -13,10 +13,12 @@ const ProductList = () => {
     if (error.isError) toast.error(error.message);
   }, []);
 
-  const { data, error } = useFetch<{ choonsik: Product[] }>(
+  const { data, error, isLoading } = useFetch<{ choonsik: Product[] }>(
     process.env.PUBLIC_URL + '/mock/productList.json',
     { choonsik: [] }
   );
+
+  const loading = isLoading && <div>Loading...</div>;
 
   const fetchedProductList = data.choonsik.map((product) => (
     <ProductItem key={product.id} product={product} />
@@ -26,8 +28,11 @@ const ProductList = () => {
     <>
       <Header />
       <ContentLayout>
-        <ProductListWrapper>{fetchedProductList}</ProductListWrapper>
+        <ProductListWrapper>
+          {loading} {fetchedProductList}
+        </ProductListWrapper>
       </ContentLayout>
+
       {renderToast()}
     </>
   );
