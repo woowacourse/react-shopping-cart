@@ -13,26 +13,43 @@ const useShoppingCart = () => {
     const shoppingItem = shoppingCart.find((item) => item.product.id === product.id);
 
     if (!shoppingItem) {
-      const newShoppingItem = {
-        id: Date.now(),
-        quantity,
-        product,
-      };
-      setShoppingCart([...shoppingCart, newShoppingItem]);
-    } else if (quantity !== SHOPPING_QUANTITY.MIN) {
-      setShoppingCart((prev) =>
-        prev.map((item) => {
-          if (item.product.id !== shoppingItem.product.id) return item;
-          return {
-            id: shoppingItem.id,
-            quantity,
-            product,
-          };
-        }),
-      );
-    } else {
-      setShoppingCart((prev) => prev.filter((item) => item.product.id !== shoppingItem.product.id));
+      addNewShoppingItem(product, quantity);
+      return;
     }
+
+    const productId = shoppingItem.product.id;
+
+    if (quantity !== SHOPPING_QUANTITY.MIN) {
+      updateShoppingItem(productId, quantity);
+      return;
+    }
+
+    removeShoppingItem(productId);
+  };
+
+  const addNewShoppingItem: UpdateShoppingCart = (product, quantity) => {
+    const newShoppingItem = {
+      id: Date.now(),
+      quantity,
+      product,
+    };
+    setShoppingCart([...shoppingCart, newShoppingItem]);
+  };
+
+  const removeShoppingItem = (productId: number) => {
+    setShoppingCart((prev) => prev.filter((item) => item.product.id !== productId));
+  };
+
+  const updateShoppingItem = (productId: number, quantity: number) => {
+    setShoppingCart((prev) =>
+      prev.map((item) => {
+        if (item.product.id !== productId) return item;
+        return {
+          ...item,
+          quantity,
+        };
+      }),
+    );
   };
 
   return { shoppingCart, updateShoppingCart };
