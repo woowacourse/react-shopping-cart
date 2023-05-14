@@ -2,24 +2,20 @@ import styled from 'styled-components';
 
 export const StyledErrorModal = styled.div`
   position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
-  width: 100%;
-  height: 100%;
-
-  @media (min-width: 992px) {
-    width: 50%;
-  }
-
-  @media (min-width: 1200px) {
-    width: 30%;
-  }
+  width: 100vw;
+  height: 100vh;
 `;
 
 export const StyledBackdrop = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
   width: 100vw;
   height: 100vh;
 
@@ -29,27 +25,28 @@ export const StyledBackdrop = styled.div`
 
 export const StyledContentSection = styled.section`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  row-gap: 20px;
 
   position: fixed;
-  top: 0;
-  bottom: 0;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
 
   width: 50%;
-  height: 50%;
+  height: 60%;
 
   border-radius: 8px;
 
   background-color: white;
 
-  @media (min-width: 992px) {
-    width: 50%;
+  @media screen and (max-width: 950px) {
+    width: 80%;
   }
 
-  @media (min-width: 1200px) {
-    width: 30%;
+  @media screen and (max-width: 650px) {
+    width: 80%;
   }
 `;
