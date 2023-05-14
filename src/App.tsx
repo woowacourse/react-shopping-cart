@@ -1,11 +1,11 @@
 import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
-import { Outlet } from "react-router-dom";
 
 import CartQuantity from "./components/CartQuantity";
 import Header from "./components/common/Header";
 import { GlobalStyle } from "./style/globalStyle";
 import { theme } from "./style/theme";
+import Router from "./Router";
 
 export default function App() {
   return (
@@ -15,7 +15,7 @@ export default function App() {
         <Header>
           <CartQuantity />
         </Header>
-        <Outlet />
+        <Router />
       </ThemeProvider>
     </RecoilRoot>
   );
