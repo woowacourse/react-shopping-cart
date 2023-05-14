@@ -23,8 +23,11 @@ function QuantityController({
   const [isBlur, setIsBlur] = useState(true);
 
   const handleClickQuantityControlButton = (type: QuantityControlButton) => {
-    if (type === QUANTITY_CONTROL_BUTTON.PLUS) updateShoppingCart(product, quantity + QUANTITY_CONTROL_UNIT.INCREASE);
-    else updateShoppingCart(product, quantity - QUANTITY_CONTROL_UNIT.DECREASE);
+    if (type === QUANTITY_CONTROL_BUTTON.PLUS) {
+      updateShoppingCart(product, quantity + QUANTITY_CONTROL_UNIT.INCREASE);
+    } else {
+      updateShoppingCart(product, quantity - QUANTITY_CONTROL_UNIT.DECREASE);
+    }
   };
 
   const handleClickCartIcon = () => {
@@ -39,13 +42,17 @@ function QuantityController({
     updateShoppingCart(product, Math.floor(newValue));
   };
 
-  return quantity === SHOPPING_QUANTITY.MIN && isBlur ? (
-    <S.ShoppingCartIcon
-      src={ShoppingCart}
-      onClick={handleClickCartIcon}
-      data-testid="shopping-cart-icon"
-    ></S.ShoppingCartIcon>
-  ) : (
+  if (quantity === SHOPPING_QUANTITY.MIN && isBlur) {
+    return (
+      <S.ShoppingCartIcon
+        src={ShoppingCart}
+        onClick={handleClickCartIcon}
+        data-testid="shopping-cart-icon"
+      ></S.ShoppingCartIcon>
+    );
+  }
+
+  return (
     <S.Container>
       <S.QuantityInput
         type="number"
