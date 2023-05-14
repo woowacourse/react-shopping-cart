@@ -1,4 +1,4 @@
-export const isNumber = (value: string) => {
+export const isNumericString = (value: string) => {
   const regex = /^\d*$/;
   return regex.test(value);
 };
