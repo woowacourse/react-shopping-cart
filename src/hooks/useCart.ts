@@ -8,7 +8,7 @@ function useCart() {
 
   const getQuantityByProductId = (id: number) => {
     const targetCart = cartList.find((cart) => cart.id === id);
-    return targetCart ? targetCart.quantity : 0;
+    return targetCart?.quantity ?? 0;
   };
 
   const addCart = async (product: T.ProductItem) => {
