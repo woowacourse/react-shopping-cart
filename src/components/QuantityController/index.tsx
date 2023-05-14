@@ -20,9 +20,9 @@ function QuantityController({
   quantity = SHOPPING_QUANTITY.MIN,
   updateShoppingCart,
 }: QuantityControllerProps) {
-  const [isBlur, setIsBlur] = useState(true);
+  const [isUserWork, setIsUserWork] = useState(false);
 
-  const handleClickQuantityControlButton = (type: QuantityControlButton) => {
+  const controlProductQuantity = (type: QuantityControlButton) => {
     if (type === QUANTITY_CONTROL_BUTTON.PLUS) {
       updateShoppingCart(product, quantity + QUANTITY_CONTROL_UNIT.INCREASE);
     } else {
@@ -30,11 +30,11 @@ function QuantityController({
     }
   };
 
-  const handleClickCartIcon = () => {
+  const addShoppingCart = () => {
     updateShoppingCart(product, SHOPPING_QUANTITY.DEFAULT);
   };
 
-  const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const changeQuantityValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(event.target.value);
 
     if (newValue > SHOPPING_QUANTITY.MAX) return alert(ALERT_MESSAGE.OVER_MAX_QUANTITY);
@@ -42,11 +42,11 @@ function QuantityController({
     updateShoppingCart(product, Math.floor(newValue));
   };
 
-  if (quantity === SHOPPING_QUANTITY.MIN && isBlur) {
+  if (quantity === SHOPPING_QUANTITY.MIN && !isUserWork) {
     return (
       <S.ShoppingCartIcon
         src={ShoppingCart}
-        onClick={handleClickCartIcon}
+        onClick={addShoppingCart}
         data-testid="shopping-cart-icon"
       ></S.ShoppingCartIcon>
     );
@@ -57,24 +57,24 @@ function QuantityController({
       <S.QuantityInput
         type="number"
         value={quantity}
-        onChange={handleChangeInput}
+        onChange={changeQuantityValue}
         onFocus={(event: React.FocusEvent<HTMLInputElement>) => {
           event.target.select();
-          setIsBlur(false);
+          setIsUserWork(true);
         }}
         onBlur={() => {
-          setIsBlur(true);
+          setIsUserWork(false);
         }}
       />
       <S.ButtonWrapper>
         <S.QuantityControlButton
-          onClick={() => handleClickQuantityControlButton(QUANTITY_CONTROL_BUTTON.PLUS)}
+          onClick={() => controlProductQuantity(QUANTITY_CONTROL_BUTTON.PLUS)}
           disabled={quantity >= SHOPPING_QUANTITY.MAX}
         >
           ▲
         </S.QuantityControlButton>
         <S.QuantityControlButton
-          onClick={() => handleClickQuantityControlButton(QUANTITY_CONTROL_BUTTON.MINUS)}
+          onClick={() => controlProductQuantity(QUANTITY_CONTROL_BUTTON.MINUS)}
           disabled={quantity <= SHOPPING_QUANTITY.MIN}
         >
           ▼
