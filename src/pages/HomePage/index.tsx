@@ -3,13 +3,13 @@ import ProductList from '@components/ProductList';
 
 const HomePage = () => {
   return (
-    <Wrapper>
+    <HomePageWrapper>
       <ProductList />
-    </Wrapper>
+    </HomePageWrapper>
   );
 };
 
-const Wrapper = styled.div`
+const HomePageWrapper = styled.div`
   display: flex;
   justify-content: center;
 

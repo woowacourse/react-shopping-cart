@@ -16,7 +16,7 @@ const AddCartButton = ({
   const [flag, setFlag] = useState(true);
   const [isClicked, setIsClicked] = useState(false);
 
-  const toggleCounter = () => {
+  const addCartAndChangeImage = () => {
     setIsClicked(true);
   };
 
@@ -36,11 +36,11 @@ const AddCartButton = ({
   }, [isClicked, flag]);
 
   return (
-    <Wrapper>
+    <AddCartButtonWrapper>
       {!isClicked && (
         <Button
           type="button"
-          onClick={toggleCounter}
+          onClick={addCartAndChangeImage}
           data-testid={ADD_CART_BUTTON}
         >
           <Image src={BUCKET_BUTTON} alt="장바구니 버튼" />
@@ -52,11 +52,11 @@ const AddCartButton = ({
           setIsClicked={setIsClicked}
         />
       )}
-    </Wrapper>
+    </AddCartButtonWrapper>
   );
 };
 
-const Wrapper = styled.div``;
+const AddCartButtonWrapper = styled.div``;
 
 const Button = styled.button`
   border: none;

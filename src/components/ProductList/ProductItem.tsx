@@ -33,7 +33,7 @@ const ProductItem = ({ id, name, price, imageUrl }: ProductItemProps) => {
   }, [cart, id, setCart]);
 
   return (
-    <Wrapper>
+    <ProductItemWrapper>
       <Picture src={imageUrl} alt={name} />
       <InformationWrapper>
         <TitleAndPriceWrapper>
@@ -45,11 +45,11 @@ const ProductItem = ({ id, name, price, imageUrl }: ProductItemProps) => {
           removeProductFromCart={removeProductFromCart}
         />
       </InformationWrapper>
-    </Wrapper>
+    </ProductItemWrapper>
   );
 };
 
-const Wrapper = styled.div`
+const ProductItemWrapper = styled.div`
   width: 282px;
 `;
 

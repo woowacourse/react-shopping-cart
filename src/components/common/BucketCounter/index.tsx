@@ -90,7 +90,7 @@ const BucketCounter = ({
   }, [bucketCount, setIsClicked]);
 
   return (
-    <Wrapper>
+    <BucketCounterWrapper>
       <Count
         inputMode="numeric"
         value={bucketCount === 0 ? '' : bucketCount}
@@ -113,11 +113,11 @@ const BucketCounter = ({
           <Image src={BOTTOM_ARROW} alt="감소" />
         </BottomButton>
       </Counter>
-    </Wrapper>
+    </BucketCounterWrapper>
   );
 };
 
-const Wrapper = styled.div`
+const BucketCounterWrapper = styled.div`
   display: flex;
   align-items: center;
 

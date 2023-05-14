@@ -8,20 +8,20 @@ const Header = () => {
   const cartLength = useRecoilValue(cartItemLengthSelector);
 
   return (
-    <Wrapper>
-      <Container>
+    <HeaderWrapper>
+      <HeaderContainer>
         <Logo src={HEADER_LOGO} alt="헤더 로고" />
         <LogoTitle>SHOP</LogoTitle>
-      </Container>
-      <Container>
+      </HeaderContainer>
+      <HeaderContainer>
         <BucketText>장바구니</BucketText>
         <BucketCount>{cartLength}</BucketCount>
-      </Container>
-    </Wrapper>
+      </HeaderContainer>
+    </HeaderWrapper>
   );
 };
 
-const Wrapper = styled.header`
+const HeaderWrapper = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -39,7 +39,7 @@ const Wrapper = styled.header`
   z-index: 1;
 `;
 
-const Container = styled.div`
+const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
 `;
