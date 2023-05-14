@@ -11,6 +11,8 @@
 
 ## [🛒 장바구니 페이지 링크](https://hyeryongchoi.github.io/react-shopping-cart/) | [📕 스토리북 페이지 링크](https://hyeryongchoi.github.io/react-shopping-cart/storybook)
 
+![장바구니 미션 1단계 실행화면](https://github.com/woowacourse/react-shopping-cart/assets/24777828/a02d7fe5-3cf8-4291-a583-9d0e6f733926)
+
 ## 📍 학습 목표
 
 - 상태 관리 라이브러리를 사용하여 상태 관리를 구현할 수 있으며, 이를 통해 애플리케이션의 안정성과 유지 보수성 향상
