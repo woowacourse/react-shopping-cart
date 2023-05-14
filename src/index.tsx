@@ -7,9 +7,7 @@ import AppRouter from './router/AppRouter';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  <React.StrictMode>
-    <RecoilRoot>
-      <AppRouter />
-    </RecoilRoot>
-  </React.StrictMode>
+  <RecoilRoot>
+    <AppRouter />
+  </RecoilRoot>
 );
