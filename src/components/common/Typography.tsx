@@ -7,18 +7,19 @@ interface TextProps {
   color?: string;
 }
 
-export const Typography = ({ children, size, weight, color }: TextProps) => {
+export const Typography = (
+  { children, size, weight, color }: TextProps = {
+    children: '',
+    size: '16px',
+    weight: 'normal',
+    color: '#333333',
+  }
+) => {
   return (
     <StyledParagraph size={size} weight={weight} color={color}>
       {children}
     </StyledParagraph>
   );
-};
-
-Typography.defaultProps = {
-  size: '16px',
-  weight: 'normal',
-  color: '#333333',
 };
 
 export const StyledParagraph = styled.p<{
