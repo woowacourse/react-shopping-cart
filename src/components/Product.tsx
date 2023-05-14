@@ -28,7 +28,7 @@ export default function Product({ data: { id, name, price, imageUrl } }: Props) 
         </div>
         {Boolean(productInCart) ? (
           <Style.StepperWrapper>
-            <Stepper initCount={productInCart?.quantity} productId={id} />
+            <Stepper productId={id} />
           </Style.StepperWrapper>
         ) : (
           <Style.CartIconWrapper onClick={() => addToCart(id)}>

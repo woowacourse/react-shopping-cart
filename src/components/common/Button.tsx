@@ -22,9 +22,10 @@ const Style = {
 
     border: none;
     border-radius: 7px;
-    background-color: var(--grey-100);
 
+    background-color: inherit;
     color: var(--grey-100);
+
     cursor: pointer;
 
     &.square {
@@ -34,10 +35,10 @@ const Style = {
     &.rectangle {
       width: 388px;
       height: 73px;
-      border: ${(props) => props.bgColor && 'solid 1px var(--grey-300)'};
-      background-color: ${(props) => props.bgColor && 'var(--primary-color)'};
+      border: ${(props) => props.bgColor ?? 'solid 1px var(--grey-300)'};
+      background-color: ${(props) => props.bgColor ?? 'var(--primary-color)'};
 
-      color: ${(props) => props.bgColor && 'var(--grey-100)'};
+      color: ${(props) => props.bgColor ?? 'var(--grey-100)'};
     }
 
     &:disabled {

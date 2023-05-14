@@ -6,7 +6,6 @@ import { isNumeric } from '../utils';
 import Button from './common/Button';
 
 interface Props {
-  initCount?: number;
   productId: number;
 }
 
@@ -18,7 +17,7 @@ export default function Stepper({ productId }: Props) {
     decreaseProductQuantity,
   } = useCart();
 
-  const count = findProductInCart(productId).quantity;
+  const count = findProductInCart(productId).quantity || 1;
 
   const handleChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
     if (!isNumeric(value)) return;
@@ -40,12 +39,7 @@ export default function Stepper({ productId }: Props) {
 
   return (
     <Style.Container>
-      <Button
-        bgColor="primary"
-        designType="square"
-        disabled={count === QUANTITY.MIN}
-        onClick={onClickMinusButton}
-      >
+      <Button designType="square" disabled={count === QUANTITY.MIN} onClick={onClickMinusButton}>
         -
       </Button>
       <Style.CountInput value={count} onChange={handleChange} />
