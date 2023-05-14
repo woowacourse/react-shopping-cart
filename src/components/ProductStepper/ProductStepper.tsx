@@ -2,7 +2,7 @@ import useProductCount from '@hooks/useProductCount';
 
 import { StyledProductStepper } from '@components/ProductStepper/ProductStepper.styled';
 import StepperEntryButton from '@components/StepperEntryButton/StepperEntryButton';
-import Stepper from '@components/commons/Stepper/Stepper';
+import Stepper from '@commons/Stepper/Stepper';
 
 interface ProductStepperProps {
   productId: number;
@@ -19,6 +19,7 @@ const ProductStepper = (props: ProductStepperProps) => {
       ) : (
         <Stepper
           productCount={productCount}
+          step={1}
           setProductCount={setProductCount}
         />
       )}

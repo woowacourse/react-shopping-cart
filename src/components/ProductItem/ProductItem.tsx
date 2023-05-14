@@ -6,7 +6,7 @@ import {
   StyledProductDetailDiv,
   StyledProductItem,
 } from '@components/ProductItem/ProductItem.styled';
-import SquareImage from '@components/commons/SquareImage/SquareImage';
+import SquareImage from '@commons/SquareImage/SquareImage';
 import ProductStepper from '@components/ProductStepper/ProductStepper';
 
 interface ProductItemProps {

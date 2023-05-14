@@ -1,6 +1,6 @@
 import { ImgHTMLAttributes } from 'react';
 
-import { StyledSquareImage } from '@components/commons/SquareImage/SquareImage.styled';
+import { StyledSquareImage } from '@commons/SquareImage/SquareImage.styled';
 
 export interface SquareImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   size: 's' | 'm' | 'l' | 'xl';

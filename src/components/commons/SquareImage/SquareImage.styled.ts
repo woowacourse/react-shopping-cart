@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { SquareImageProps } from '@components/commons/SquareImage/SquareImage';
+import { SquareImageProps } from '@commons/SquareImage/SquareImage';
 
 const sizePixelMap = {
   s: '25px',
