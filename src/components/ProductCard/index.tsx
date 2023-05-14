@@ -8,55 +8,22 @@ import Counter from "../Counter";
 import ProductImg from "./ProductImg";
 import ProductInfo from "./ProductInfo";
 import { targetProductSelector } from "../../recoil/fetchSelectors";
+import useCart from "../../hooks/useCart";
 
 interface ProductCardProps {
   productId: number;
 }
 
 const ProductCard = ({ productId }: ProductCardProps) => {
-  const [cart, setCart] = useRecoilState(cartAtomFamily(productId));
-  const [cartID, setCartID] = useRecoilState(cartIDAtom);
-  const product = useRecoilValue(targetProductSelector)(productId);
-  const { id, name, price, imageUrl } = product;
-  const productInCart = cart ? true : false;
-  const [isCartClicked, setIsCartClicked] = useState(Boolean(productInCart));
-
-  const addToCart = () => {
-    const newProduct: Cart = {
-      id,
-      quantity: 1,
-      product,
-    };
-    setCart(newProduct);
-    setCartID([...cartID, productId]);
-    setIsCartClicked(true);
-  };
-
-  const plusQuantity = () => {
-    const updateProduct: Cart = {
-      id,
-      quantity: cart.quantity + 1,
-      product,
-    };
-
-    setCart(updateProduct);
-  };
-
-  const minusQuantity = () => {
-    const updateProduct: Cart = {
-      id,
-      quantity: cart.quantity - 1,
-      product,
-    };
-
-    if (updateProduct.quantity === 0) {
-      setIsCartClicked(false);
-      const newCartID = cartID.filter((id) => id !== productId);
-      setCartID(newCartID);
-    }
-
-    setCart(updateProduct);
-  };
+  const {
+    cart,
+    product,
+    isCartClicked,
+    addToCart,
+    plusQuantity,
+    minusQuantity,
+  } = useCart(productId);
+  const { name, price, imageUrl } = product;
 
   return (
     <Styled.Container>
