@@ -9,4 +9,4 @@ const productListState = atom<ProductItemType[]>({
   effects: [({ setSelf }) => setSelf(initialListData)],
 });
 
-export { productListState };
+export default productListState;
