@@ -23,7 +23,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   return (
-    <FlexBox flexDirection="column" justify="flex-start" gap="8px" role="list">
+    <FlexBox direction="column" justify="flex-start" gap="8px" role="list">
       <ProductImgContainer>
         <ProductImage src={imageUrl} alt={name} onError={renderDefaultThumbnail} />
         <Stepper
@@ -33,8 +33,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
           onClickIncreaseButton={increaseQuantity}
         />
       </ProductImgContainer>
-      <FlexBox padding="0 4px">
-        <FlexBox flexDirection="column" align="flex-start">
+      <FlexBox justify="flex-start" style={{ padding: '0 4px' }}>
+        <FlexBox direction="column" align="flex-start">
           <Title>{name}</Title>
           <Price>{price.toLocaleString('ko-KR')}원</Price>
         </FlexBox>

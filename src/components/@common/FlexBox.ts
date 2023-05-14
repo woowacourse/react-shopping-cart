@@ -1,24 +1,18 @@
 import styled, { CSSProperties } from 'styled-components';
 
 interface FlexBoxProps {
-  flexDirection?: CSSProperties['flexDirection'];
+  direction?: CSSProperties['flexDirection'];
   justify?: CSSProperties['justifyContent'];
   align?: CSSProperties['alignItems'];
   gap?: CSSProperties['gap'];
-  width?: CSSProperties['width'];
-  height?: CSSProperties['height'];
-  padding?: CSSProperties['padding'];
 }
 
 const FlexBox = styled.div<FlexBoxProps>`
   display: flex;
-  flex-direction: ${({ flexDirection }) => flexDirection};
-  justify-content: ${({ justify = 'center' }) => justify};
-  align-items: ${({ align = 'center' }) => align};
+  flex-direction: ${({ direction }) => direction};
+  justify-content: ${({ justify = 'flex-start' }) => justify};
+  align-items: ${({ align = 'flex-start' }) => align};
   gap: ${({ gap }) => gap};
-  width: ${({ width = '100%' }) => width};
-  height: ${({ height }) => height};
-  padding: ${({ padding }) => padding};
 `;
 
 export default FlexBox;
