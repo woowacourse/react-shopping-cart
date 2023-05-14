@@ -1,10 +1,10 @@
 import { memo } from "react";
-import styled from "styled-components";
 import { ReactComponent as ShoppingCartImg } from "../../assets/icon/shopping-cart.svg";
-import Counter from "../Counter";
-import ProductImg from "./ProductImg";
-import ProductInfo from "./ProductInfo";
+import Counter from "../Counter/Counter";
+import ProductImg from "./ProductImg/ProductImg";
+import ProductInfo from "./ProductInfo/ProductInfo";
 import useCart from "../../hooks/useCart";
+import Styled from "./ProductCardStyled";
 
 interface ProductCardProps {
   productId: number;
@@ -42,24 +42,4 @@ const ProductCard = ({ productId }: ProductCardProps) => {
   );
 };
 
-const Styled = {
-  Container: styled.li`
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-
-    width: 282px;
-  `,
-
-  ProductDetail: styled.div`
-    display: flex;
-    justify-content: space-between;
-  `,
-
-  ShoppingCart: styled.button`
-    display: flex;
-
-    cursor: pointer;
-  `,
-};
 export default memo(ProductCard);

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { BrowserRouter as Router } from "react-router-dom";
-import Header from ".";
-import CartTextButton from "../CartTextButton";
+import Header from "./Header";
+import CartTextButton from "../CartTextButton/CartTextButton";
 
 const meta: Meta<typeof Header> = {
   title: "Header",
