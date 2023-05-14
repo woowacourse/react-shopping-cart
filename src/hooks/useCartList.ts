@@ -1,22 +1,16 @@
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
-import { cartAdditionState, cartListState } from '../store/cart';
+import { cartListState } from '../store/cart';
 import { CartItemType, ProductItemType } from '../types';
 
 export const useCartList = () => {
   const [cartList, setCartList] = useRecoilState(cartListState);
-  const setCartAddition = useSetRecoilState(cartAdditionState);
-
   const addCartItem = (newCartItem: CartItemType) => {
     if (newCartItem) setCartList([...cartList, newCartItem]);
   };
 
   const updateCartItem = (newCartItem: CartItemType[]) => {
     if (newCartItem) setCartList([...newCartItem]);
-  };
-
-  const setCartAdditionToTrue = () => {
-    setCartAddition(true);
   };
 
   const getNewCartItem = (itemQuantity: number, productInformation: ProductItemType) => {
@@ -28,5 +22,5 @@ export const useCartList = () => {
     };
   };
 
-  return { cartList, addCartItem, updateCartItem, setCartAdditionToTrue, getNewCartItem };
+  return { cartList, addCartItem, updateCartItem, getNewCartItem };
 };

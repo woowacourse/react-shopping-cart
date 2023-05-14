@@ -3,20 +3,6 @@ import { atom, selectorFamily } from 'recoil';
 import { CART_LIST_LOCAL_STORAGE_KEY } from '../constants';
 import { CartItemType } from '../types';
 
-export const cartAdditionState = atom<boolean>({
-  key: 'cartAddition',
-  default: false,
-  effects: [
-    ({ setSelf, onSet }) => {
-      onSet(() => {
-        setTimeout(() => {
-          setSelf(false);
-        }, 2500);
-      });
-    },
-  ],
-});
-
 export const cartListState = atom<CartItemType[]>({
   key: 'cartList',
   default: [],

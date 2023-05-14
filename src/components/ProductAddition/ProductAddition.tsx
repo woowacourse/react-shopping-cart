@@ -12,8 +12,7 @@ interface ProductAdditionProps {
 }
 
 const ProductAddition = ({ productInformation, closeModalByClick }: ProductAdditionProps) => {
-  const { cartList, updateCartItem, addCartItem, setCartAdditionToTrue, getNewCartItem } =
-    useCartList();
+  const { cartList, updateCartItem, addCartItem, getNewCartItem } = useCartList();
   const [quantity, setQuantity] = useState(1);
 
   const handleCartAdd = useCallback(() => {
@@ -32,7 +31,6 @@ const ProductAddition = ({ productInformation, closeModalByClick }: ProductAddit
         quantity: updatedCartList[selectedCartItemIndex].quantity + quantity,
       };
       updateCartItem(updatedCartList);
-      setCartAdditionToTrue();
     }
 
     closeModalByClick();
@@ -43,7 +41,6 @@ const ProductAddition = ({ productInformation, closeModalByClick }: ProductAddit
     closeModalByClick,
     updateCartItem,
     addCartItem,
-    setCartAdditionToTrue,
     getNewCartItem,
   ]);
 
