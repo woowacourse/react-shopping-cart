@@ -62,6 +62,7 @@ const ResetStyle = createGlobalStyle`
   textarea,
   select {
     font: inherit;
+    padding: 0;
   }
 
   /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
