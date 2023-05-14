@@ -1,13 +1,13 @@
 import * as Styled from './ShoppingCartStatus.styles.tsx';
 import { useRecoilValue } from 'recoil';
-import { carListTotalQuantitySelector } from '../../../stores/cartListStore.ts';
+import { cartItemsQuantitySelector } from '../../../stores/cartListStore.ts';
 
 const ShoppingCartStatus = () => {
-  const totalNumber = useRecoilValue(carListTotalQuantitySelector);
+  const cartItemsCount = useRecoilValue(cartItemsQuantitySelector);
 
   return (
     <Styled.ShoppingCartQuantity>
-      <span data-cy='totalQuantity'>{totalNumber}</span>
+      <span data-cy='totalQuantity'>{cartItemsCount}</span>
     </Styled.ShoppingCartQuantity>
   );
 };

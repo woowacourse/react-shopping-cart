@@ -18,6 +18,15 @@ export const carListTotalQuantitySelector = selector({
   },
 });
 
+export const cartItemsQuantitySelector = selector({
+  key: 'cartItemsQuantitySelector',
+  get: ({ get }) => {
+    const cartList = get(cartListAtom);
+
+    return Object.keys(cartList).length;
+  },
+});
+
 export const productQuantitySelector = selectorFamily({
   key: 'productQuantitySelector',
   get:
