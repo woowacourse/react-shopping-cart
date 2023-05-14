@@ -1,3 +1,7 @@
+export const PATH: Readonly<Record<string, string>> = {
+  MAIN_PAGE: "/"
+};
+
 export const KEY_CART = 'cart';
 
 export const QUANTITY: Readonly<Record<string, string>> = {
