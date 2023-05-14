@@ -20,5 +20,15 @@ const Style = {
     grid-template-columns: repeat(4, 1fr);
     grid-column-gap: 45px;
     grid-row-gap: 60px;
+
+    /* 태블릿 */
+    @media screen and (max-width: 991px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* 모바일 */
+    @media screen and (max-width: 767px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
   `,
 };

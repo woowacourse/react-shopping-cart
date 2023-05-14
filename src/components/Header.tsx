@@ -39,6 +39,16 @@ const Style = {
     color: var(--grey-100);
 
     z-index: 1000;
+
+    /* 태블릿 */
+    @media screen and (max-width: 991px) {
+      min-width: 768px;
+    }
+
+    /* 모바일 */
+    @media screen and (max-width: 767px) {
+      min-width: 375px;
+    }
   `,
 
   Content: styled.div`
@@ -47,6 +57,16 @@ const Style = {
     align-items: center;
 
     width: 932px;
+
+    /* 태블릿 */
+    @media screen and (max-width: 991px) {
+      width: 708px;
+    }
+
+    /* 모바일 */
+    @media screen and (max-width: 767px) {
+      width: 315px;
+    }
   `,
 
   Title: styled(Link)`
