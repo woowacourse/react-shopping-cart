@@ -20,13 +20,7 @@ export const cartItemAtom = atomFamily<CartItem | null, CartId>({
 export const countCartListSelector = selector({
   key: 'countCartListSelector',
   get: ({ get }) => {
-    const ids = get(cartIdMap);
-    const items = [...ids.values()].map((id) => get(cartItemAtom(id)));
-
-    return items.reduce((acc, cur) => {
-      if (!cur) return acc;
-      return acc + cur.quantity;
-    }, 0);
+    return [...get(cartIdMap)].length;
   },
 });
 
