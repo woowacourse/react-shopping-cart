@@ -1,55 +1,45 @@
 import { ChangeEvent } from 'react';
 
-import {
-  StyledDownButton,
-  StyledInput,
-  StyledStepperDiv,
-  StyledUpButton,
-} from '@components/commons/Stepper/Stepper.styled';
-
 interface StepperProps {
-  productCount: number;
-  setProductCount: (count: number) => void;
+  step: number;
+  setStep: (step: number) => void;
+  stepUnit: number;
+  minStep: number;
+  maxStep: number;
+  children: (props: {
+    step: number;
+    handleNumberInput: ({
+      target: { valueAsNumber },
+    }: ChangeEvent<HTMLInputElement>) => void;
+    handleIncrement: () => void;
+    handleDecrement: () => void;
+  }) => React.ReactNode;
 }
 
 const Stepper = (props: StepperProps) => {
-  const { productCount, setProductCount } = props;
+  const { step, setStep, stepUnit, minStep, maxStep, children } = props;
 
-  const handleNumberInput = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    const value = Number(target.value);
-
-    if (Number.isNaN(value) || value < 0 || value > 99) {
+  const handleNumberInput = ({
+    target: { valueAsNumber },
+  }: ChangeEvent<HTMLInputElement>) => {
+    if (
+      Number.isNaN(valueAsNumber) ||
+      valueAsNumber < minStep ||
+      valueAsNumber > maxStep
+    ) {
       return;
     }
 
-    setProductCount(value);
+    setStep(valueAsNumber);
   };
 
+  const handleIncrement = () => setStep(step + stepUnit);
+  const handleDecrement = () => setStep(step - stepUnit);
+
   return (
-    <StyledStepperDiv>
-      <StyledInput
-        type="text"
-        role="textbox"
-        inputMode="numeric"
-        value={productCount}
-        onChange={handleNumberInput}
-        aria-label="상품 개수 입력"
-      />
-      <StyledUpButton
-        type="button"
-        onClick={() => setProductCount(productCount + 1)}
-        aria-label="상품 1개 추가"
-      >
-        ▲
-      </StyledUpButton>
-      <StyledDownButton
-        type="button"
-        onClick={() => setProductCount(productCount - 1)}
-        aria-label="상품 1개 삭제"
-      >
-        ▼
-      </StyledDownButton>
-    </StyledStepperDiv>
+    <>
+      {children({ step, handleNumberInput, handleIncrement, handleDecrement })}
+    </>
   );
 };
 
