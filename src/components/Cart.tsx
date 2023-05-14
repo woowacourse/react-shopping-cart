@@ -16,7 +16,9 @@ const Cart = () => {
   return (
     <S.Wrapper>
       <S.Button>장바구니</S.Button>
-      <S.Badge>{selectedProducts.size}</S.Badge>
+      <S.Badge role="status" aria-label="장바구니에 담긴 상품 종류의 수">
+        {selectedProducts.size}
+      </S.Badge>
     </S.Wrapper>
   );
 };
@@ -38,7 +40,7 @@ const S = {
     cursor: pointer;
   `,
 
-  Badge: styled.div`
+  Badge: styled.span`
     width: 24px;
     height: 24px;
     background: #04c09e;

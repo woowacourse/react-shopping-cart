@@ -80,6 +80,8 @@ export const QuantityInput: Story = {
     type: 'number',
     inputMode: 'numeric',
     autoComplete: 'on',
+    name: 'quantity',
+    'aria-label': 'quantity-input',
     min: 1,
     max: 99,
     css: QuantityInputStyle,
