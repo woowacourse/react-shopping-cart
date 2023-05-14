@@ -2,12 +2,13 @@ import { styled } from 'styled-components';
 import ProductImg from '../ProductCard/ProductImg/ProductImg';
 import { ReactComponent as TrashCan } from '../../assets/icon/trash-can.svg';
 import Counter from '../common/Counter/Counter';
+import CheckBox from '../common/CheckBox/CheckBox';
 
 const CartItem = () => {
   return (
     <Wrapper>
       <CheckBoxWrapper>
-        <Checkbox type='checkbox'></Checkbox>
+        <CheckBox />
       </CheckBoxWrapper>
 
       <ProductImg
@@ -29,17 +30,12 @@ const CartItem = () => {
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.li`
   display: flex;
   align-items: center;
 
-  width: 780px;
+  width: 680px;
   height: 160px;
-`;
-
-const Checkbox = styled.input`
-  width: 28px;
-  height: 28px;
 `;
 
 const CheckBoxWrapper = styled.div`
