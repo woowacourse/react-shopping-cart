@@ -2,7 +2,6 @@ import { styled } from 'styled-components';
 
 export const Navbar = styled.div`
   background-color: ${({ theme }) => theme.primaryColor};
-  width: 100vw;
   color: ${({ theme }) => theme.lightColor};
 `;
 

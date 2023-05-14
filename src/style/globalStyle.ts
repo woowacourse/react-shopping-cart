@@ -35,9 +35,10 @@ const GlobalStyle = createGlobalStyle`
   html,
   body {
     font-family: sans-serif;
-    
     margin: 0 auto;
     font-size: 62.5%;
+
+    min-width: 400px;
   }
 
   img {
