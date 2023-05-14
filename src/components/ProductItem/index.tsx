@@ -14,7 +14,11 @@ const ProductItem = ({ product }: ProductItemProps) => {
     useProductSelect(product);
 
   const productSelect = currentCartItem ? (
-    <Counter count={currentCartItem.quantity} add={add} remove={remove} />
+    <Counter
+      count={currentCartItem.quantity}
+      increment={add}
+      decrement={remove}
+    />
   ) : (
     <Svg type="cart-icon" width={25} height={22} onClick={onSelectItem} />
   );
