@@ -1,11 +1,13 @@
 import { CART_KEY } from 'constants/storeKey';
-import { AtomEffect, atom, selector, selectorFamily } from 'recoil';
-import { CartProduct } from 'types/product';
+import { AtomEffect, atom } from 'recoil';
+import { CartProducts } from 'types/product';
 import store from 'utils/localStorage';
 
-const zeroQuantityFilterEffect: AtomEffect<CartProduct[]> = ({ onSet, setSelf }) => {
-  onSet((newValue) => {
-    setSelf(newValue.filter((v) => v.quantity > 0));
+const zeroQuantityFilterEffect: AtomEffect<CartProducts> = ({ onSet, setSelf }) => {
+  onSet((cartProducts) => {
+    const filteredCart = [...cartProducts].filter(([id, cartProduct]) => cartProduct.quantity > 0);
+
+    setSelf(new Map(filteredCart));
   });
 };
 
@@ -22,26 +24,8 @@ const localStorageEffect =
     });
   };
 
-export const cartState = atom<CartProduct[]>({
+export const cartProductsState = atom<CartProducts>({
   key: 'cartState',
-  default: [],
-  effects: [zeroQuantityFilterEffect, localStorageEffect<CartProduct[]>(CART_KEY, [])],
-});
-
-export const getCartProductById = selectorFamily({
-  key: 'getCartProductById',
-  get:
-    (id: CartProduct['id']) =>
-    ({ get }) => {
-      const cart = get(cartState);
-
-      return cart.find((product) => product.id === id);
-    },
-});
-
-export const cartProductCountState = selector<number>({
-  key: 'cartProductCountState',
-  get: ({ get }) => {
-    return get(cartState).length;
-  },
+  default: new Map(),
+  effects: [zeroQuantityFilterEffect, localStorageEffect<CartProducts>(CART_KEY, new Map())],
 });
