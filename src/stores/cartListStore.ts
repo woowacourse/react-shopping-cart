@@ -21,17 +21,6 @@ export const cartListAtom = atom<CartList>({
   effects: [cartItemsLocalStorageEffect<CartList>(LOCAL_STORAGE_KEY.CART_ITEMS)],
 });
 
-export const carListTotalQuantitySelector = selector({
-  key: 'carListTotalQuantitySelector',
-  get: ({ get }) => {
-    const cartList = get(cartListAtom);
-
-    return Object.keys(cartList).reduce((acc, curr) => {
-      return acc + cartList[parseInt(curr, 10)].quantity;
-    }, 0);
-  },
-});
-
 export const cartItemsQuantitySelector = selector({
   key: 'cartItemsQuantitySelector',
   get: ({ get }) => {
