@@ -1,17 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const useFetch = <T>(fetcher: () => Promise<T>) => {
   const [data, setData] = useState<T | null>(null);
   const [isLoading, isSetLoading] = useState(false);
   const [errorState, setErrorState] = useState<{ isError: boolean; error: Error } | null>(null);
-  const fetcherRef = useRef(fetcher);
 
   useEffect(() => {
     const fetchData = async () => {
       isSetLoading(true);
 
       try {
-        const data = await fetcherRef.current();
+        const data = await fetcher();
         setData(data);
       } catch (error) {
         setErrorState({ isError: true, error: error as Error });
@@ -21,7 +20,7 @@ const useFetch = <T>(fetcher: () => Promise<T>) => {
     };
 
     fetchData();
-  }, [fetcherRef]);
+  }, [fetcher]);
 
   return { data, isLoading, errorState };
 };

@@ -1,8 +1,10 @@
 import ProductCardList from 'components/ProductCardList/ProductCardList';
-import useProductsFetch from 'hooks/useProductsFetch';
+import useFetch from 'hooks/useFetch';
+import { getProducts } from 'apis/products';
+import { Product } from 'types/product';
 
 const ProductListPage = () => {
-  const { products } = useProductsFetch();
+  const { data: products } = useFetch<Product[]>(getProducts);
 
   return <ProductCardList products={products ?? []} />;
 };
