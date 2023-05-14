@@ -5,13 +5,13 @@ import GlobalStyle from '@/styles/global';
 import { GlobalFontStyles } from '@/styles/font';
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+	document.getElementById('root') as HTMLElement
 );
 
 root.render(
-  <React.StrictMode>
-    <GlobalFontStyles />
-    <GlobalStyle />
-    <App />
-  </React.StrictMode>
+	<React.StrictMode>
+		<GlobalFontStyles />
+		<GlobalStyle />
+		<App />
+	</React.StrictMode>
 );

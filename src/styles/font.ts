@@ -1,8 +1,8 @@
+import { createGlobalStyle } from 'styled-components';
 import JUA from '@/assets/fonts/Jua-Regular.ttf';
 import DoHyeon from '@/assets/fonts/DoHyeon-Regular.ttf';
 import HANNAAir from '@/assets/fonts/HANNA-Air-Regular.ttf';
 import HANNAEleven from '@/assets/fonts/HANNA-11yrs-Regular.ttf';
-import { createGlobalStyle } from 'styled-components';
 
 export const GlobalFontStyles = createGlobalStyle`
   @font-face {
