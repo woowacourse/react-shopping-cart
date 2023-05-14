@@ -29,12 +29,3 @@ export const Quantity = styled.div`
   align-items: center;
   justify-content: center;
 `;
-
-export const PlusIcon = styled.span`
-  position: relative;
-  bottom: 9px;
-  right: 1px;
-
-  color: #ffffff;
-  font-weight: 700;
-`;
