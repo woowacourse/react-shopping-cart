@@ -1,3 +1,1 @@
-import CartController from './CartController';
-
-export default CartController;
+export { default } from './CartController';
