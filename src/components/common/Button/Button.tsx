@@ -7,8 +7,10 @@ interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
 }
 
 const Button = (props: PropsWithChildren<ButtonProps>) => {
+  const { children, ...restProps } = props;
+
   return (
-    <S.Button type="button" {...props}>
+    <S.Button type="button" {...restProps}>
       {props.children}
     </S.Button>
   );
