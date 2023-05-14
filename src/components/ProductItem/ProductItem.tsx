@@ -1,5 +1,5 @@
 import * as T from '../../types/ProductType';
-import CartController from '../CartController';
+import CartController from '../CartQuantityField';
 import * as S from './ProductItem.style';
 
 interface ProductItemProps {

@@ -1,15 +1,15 @@
 import { ChangeEvent } from 'react';
-import * as S from './CartController.style';
+import * as S from './CartQuantityField.style';
 import * as T from '../../types/ProductType';
 import cartIcon from '../../assets/cart.svg';
 import useCart from '../../hooks/useCart';
 import { MAX_CART_QUANTITY, MIN_CART_QUANTITY } from '../../constants/cartConstants';
 
-interface CartControllerProps {
+interface CartQuantityFieldProps {
   product: T.ProductItem;
 }
 
-function CartController({ product }: CartControllerProps) {
+function CartQuantityField({ product }: CartQuantityFieldProps) {
   const { addCart, increaseCart, getQuantityByProductId, decreaseCart, setCartQuantity } =
     useCart();
 
@@ -66,4 +66,4 @@ function CartController({ product }: CartControllerProps) {
   );
 }
 
-export default CartController;
+export default CartQuantityField;

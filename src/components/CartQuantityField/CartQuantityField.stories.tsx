@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import CartController from './CartController';
+import CartQuantityField from './CartQuantityField';
 
 const meta = {
-  component: CartController,
-  title: 'CartController',
-} satisfies Meta<typeof CartController>;
+  component: CartQuantityField,
+  title: 'CartQuantityField',
+} satisfies Meta<typeof CartQuantityField>;
 
 export default meta;
 
