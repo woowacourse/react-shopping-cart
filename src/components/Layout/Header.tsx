@@ -23,15 +23,12 @@ const Header = ({ children }: PropsWithChildren) => {
   );
 };
 
-const FlexLink = styled(Link)`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;
-
 const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
   width: 100%;
   height: var(--header-height);
   padding: 0 16.66%;
@@ -59,6 +56,12 @@ const CartProductCount = styled.span`
   font-size: 16px;
   text-align: center;
   line-height: 24px;
+`;
+
+const FlexLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  gap: 8px;
 `;
 
 export default Header;
