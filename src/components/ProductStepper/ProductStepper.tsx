@@ -48,23 +48,27 @@ const ProductStepper = (props: ProductStepperProps) => {
                 <Button
                   ariaLabel="상품 1개 추가"
                   backgroundColor="#white"
-                  text="▲"
                   fontSize="xx-small"
                   color="#333333"
                   onClick={handleIncrement}
                   type="button"
                   name="상품 추가 버튼"
-                />
+                  border="1px solid #dddddd"
+                >
+                  ▲
+                </Button>
                 <Button
                   ariaLabel="상품 1개 삭제"
                   backgroundColor="#white"
-                  text="▼"
                   fontSize="xx-small"
                   color="#333333"
                   onClick={handleDecrement}
                   type="button"
                   name="상품 삭제 버튼"
-                />
+                  border="1px solid #dddddd"
+                >
+                  ▼
+                </Button>
               </StyledProductStepperButtonFlexBox>
             </StyledProductStepperFlexBox>
           )}

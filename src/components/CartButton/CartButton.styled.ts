@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledCartButton = styled.button`
+export const StyledCartButtonFlexBox = styled.div`
   display: flex;
   align-items: center;
   column-gap: 10px;

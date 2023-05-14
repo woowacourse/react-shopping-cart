@@ -27,16 +27,3 @@ export const StyledErrorSection = styled.section`
     font-size: larger;
   }
 `;
-
-export const StyledHomeEntryButton = styled.button`
-  padding: 20px;
-
-  color: white;
-  background-color: #04c09e;
-
-  border-radius: 8px;
-
-  font-size: larger;
-
-  cursor: pointer;
-`;

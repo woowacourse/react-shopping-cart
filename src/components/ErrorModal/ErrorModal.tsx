@@ -5,8 +5,8 @@ import {
   StyledContentSection,
   StyledErrorModal,
 } from './ErrorModal.styled';
-import { StyledHomeEntryButton } from '@components/pages/ErrorPage/ErrorPage.styled';
 import Modal from '@components/commons/Modal/Modal';
+import Button from '@components/commons/Button/Button';
 
 const ErrorModal = (props: { isError: boolean }) => {
   const { isError } = props;
@@ -19,9 +19,16 @@ const ErrorModal = (props: { isError: boolean }) => {
           <StyledContentSection>
             <h1>데이터를 불러오는 데에 실패했습니다 😢</h1>
             <Link to="/">
-              <StyledHomeEntryButton type="button">
+              <Button
+                padding="20px"
+                borderRadius="8px"
+                backgroundColor="#04c09e"
+                color="white"
+                fontSize="20px"
+                type="button"
+              >
                 다시 불러오기
-              </StyledHomeEntryButton>
+              </Button>
             </Link>
           </StyledContentSection>
         </StyledErrorModal>
