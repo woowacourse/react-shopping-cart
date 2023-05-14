@@ -14,8 +14,9 @@ function CartController({ product }: CartControllerProps) {
   const quantity = getQuantityByProductId(product.id);
 
   const handleChangeQuantity = (event: ChangeEvent<HTMLInputElement>) => {
-    const newQuantity = Number(event.target.value.replaceAll('/', '').replace(/\D/g, ''));
-    setCartQuantity(product.id, newQuantity > 100 ? 100 : newQuantity);
+    const quantityInputValue = Number(event.target.value.replaceAll('/', '').replace(/\D/g, ''));
+    const newQuantity = quantityInputValue > 100 ? 100 : quantityInputValue;
+    setCartQuantity(product.id, newQuantity);
   };
 
   return (
