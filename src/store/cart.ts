@@ -45,6 +45,6 @@ export const cartItemQuantityState = selectorFamily({
     ({ get }) => {
       const cartList = get(cartListState);
 
-      return cartList.find((cartItem) => cartItem.product.id === productId)?.quantity;
+      return cartList.find((cartItem) => cartItem.product.id === productId);
     },
 });

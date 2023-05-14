@@ -15,6 +15,7 @@ interface ProductItemProps {
 
 const ProductItem = ({ information }: ProductItemProps) => {
   const cartItemQuantity = useRecoilValue(cartItemQuantityState(information.id));
+
   const { isModalOpen, handleModalOpen, handleModalClose, handleModalClosePress } = useModal();
 
   return (
@@ -28,7 +29,11 @@ const ProductItem = ({ information }: ProductItemProps) => {
           }`}
           onClick={handleModalOpen}
         >
-          {cartItemQuantity ? cartItemQuantity : <AddIcon width={16} height={16} />}
+          {cartItemQuantity?.quantity ? (
+            cartItemQuantity.quantity
+          ) : (
+            <AddIcon width={16} height={16} />
+          )}
         </button>
       </div>
       <h4 className={styles.name}>{information.name}</h4>
