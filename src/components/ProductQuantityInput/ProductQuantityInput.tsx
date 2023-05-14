@@ -2,76 +2,37 @@ import styled, { keyframes } from "styled-components";
 import cartImage from "../../assets/images/cart.png";
 import arrowUpImage from "../../assets/images/arrow-up.png";
 import arrowDownImage from "../../assets/images/arrow-down.png";
-import { useState } from "react";
-import { useRecoilState } from "recoil";
-import cartProductsState from "../../store/cartProductAtom";
+import useQuantityUpdater from "../../hooks/useQuantityUpdater";
 
 interface ProductQuantityInputProps {
   productId: number;
 }
 
-const removeNaN = (value: string) => {
-  return value.replace(/[^0-9]/g, "");
-};
-
 const ProductQuantityInput = ({ productId }: ProductQuantityInputProps) => {
-  const [quantity, setQuantity] = useState("0");
-  const [cartProducts, setCartProducts] = useRecoilState(cartProductsState);
-
-  const setQuantityToOne = () => {
-    setQuantity(() => "1");
-    submitQuantityByValue("1");
-  };
-
-  const increaseQuantity = () => {
-    const increasedValue = (Number(quantity) + 1).toString();
-    setQuantity(() => {
-      submitQuantityByValue(increasedValue);
-      return increasedValue;
-    });
-  };
-
-  const decreaseQuantity = () => {
-    const decreasedValue = (Number(quantity) - 1).toString();
-    setQuantity(() => {
-      submitQuantityByValue(decreasedValue);
-      return decreasedValue;
-    });
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuantity(() => removeNaN(e.target.value));
-  };
-
-  const submitQuantityByEvent = (e: React.FocusEvent<HTMLInputElement>) => {
-    setCartProducts({
-      ...cartProducts,
-      [productId]: Number(removeNaN(e.target.value)),
-    });
-  };
-
-  const submitQuantityByValue = (value: string) => {
-    setCartProducts({
-      ...cartProducts,
-      [productId]: Number(value),
-    });
-  };
+  const {
+    inputValue,
+    isButtonMode,
+    setIsFocused,
+    updateInputValue,
+    initializeInputValue,
+    incrementInputValue,
+  } = useQuantityUpdater({ productId: productId });
 
   return (
     <Container>
-      {quantity === "0" ? (
-        <ButtonMode type="button" onClick={setQuantityToOne}>
+      {isButtonMode ? (
+        <ButtonMode type="button" onClick={initializeInputValue}>
           <ButtonIcon src={cartImage} />
         </ButtonMode>
       ) : (
         <InputMode>
-          <IncreaseButton onClick={increaseQuantity} />
+          <IncreaseButton onClick={() => incrementInputValue(1)} />
           <Input
-            value={quantity}
-            onChange={handleInputChange}
-            onBlur={submitQuantityByEvent}
+            value={inputValue}
+            onChange={updateInputValue}
+            onBlur={() => setIsFocused(false)}
           />
-          <DecreaseButton onClick={decreaseQuantity} />
+          <DecreaseButton onClick={() => incrementInputValue(-1)} />
         </InputMode>
       )}
     </Container>
