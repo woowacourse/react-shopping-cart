@@ -15,27 +15,17 @@ export const useCartCountState = ({
     setQuantity(quantity + 1);
 
     const addedCartList = addedCartStates.map((item: AddedProductList) => {
-      if (item.id === id)
-        return {
-          ...item,
-          quantity: item.quantity + 1,
-        };
-
-      return item;
+      return item.id === id ? { ...item, quantity: item.quantity + 1 } : item;
     });
+
     setAddedCartStates(addedCartList);
   };
 
   const decreaseCount = () => {
     const addedCartList = addedCartStates.map((item: AddedProductList) => {
-      if (item.id === id)
-        return {
-          ...item,
-          quantity: item.quantity - 1,
-        };
-
-      return item;
+      return item.id === id ? { ...item, quantity: item.quantity - 1 } : item;
     });
+
     setAddedCartStates(addedCartList);
 
     if (quantity === 1) {
