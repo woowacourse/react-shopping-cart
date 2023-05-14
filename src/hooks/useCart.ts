@@ -1,5 +1,6 @@
 import { useRecoilState } from 'recoil';
 import { productsInCartState } from '../atom';
+import { QUANTITY } from '../constants';
 
 export const useCart = () => {
   const [productsInCart, setProductsInCart] = useRecoilState(productsInCartState);
@@ -39,7 +40,7 @@ export const useCart = () => {
   };
 
   const updateProductQuantity = (productId: number, quantity: number) => {
-    const count = quantity > 99 ? 99 : quantity;
+    const count = quantity > QUANTITY.MAX ? QUANTITY.MAX : quantity;
 
     setProductsInCart((prev) => ({
       ...prev,

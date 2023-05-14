@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react';
 import { styled } from 'styled-components';
+import { QUANTITY } from '../constants';
 import { useCart } from '../hooks/useCart';
 import { isNumeric } from '../utils';
 import Button from './common/Button';
@@ -26,13 +27,13 @@ export default function Stepper({ productId }: Props) {
   };
 
   const onClickPlusButton = () => {
-    if (count === 99) return;
+    if (count === QUANTITY.MAX) return;
 
     increaseProductQuantity(productId);
   };
 
   const onClickMinusButton = () => {
-    if (count === 1) return;
+    if (count === QUANTITY.MIN) return;
 
     decreaseProductQuantity(productId);
   };
@@ -42,13 +43,13 @@ export default function Stepper({ productId }: Props) {
       <Button
         bgColor="primary"
         designType="square"
-        disabled={count === 1}
+        disabled={count === QUANTITY.MIN}
         onClick={onClickMinusButton}
       >
         -
       </Button>
       <Style.CountInput value={count} onChange={handleChange} />
-      <Button designType="square" disabled={count === 99} onClick={onClickPlusButton}>
+      <Button designType="square" disabled={count === QUANTITY.MAX} onClick={onClickPlusButton}>
         +
       </Button>
     </Style.Container>
