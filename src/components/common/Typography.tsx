@@ -15,12 +15,18 @@ export const Typography = ({ children, size, weight, $color }: TextProps) => {
   );
 };
 
+Typography.defaultProps = {
+  size: '16px',
+  weight: 'normal',
+  $color: '#333333',
+};
+
 export const StyledParagraph = styled.p<{
   size?: string;
   weight?: string;
   $color?: string;
 }>`
-  font-size: ${({ size }) => size || '16px'};
-  font-weight: ${({ weight }) => weight || 'normal'};
-  color: ${({ $color }) => $color || '#333333'};
+  font-size: ${({ size }) => size};
+  font-weight: ${({ weight }) => weight};
+  color: ${({ $color }) => $color};
 `;
