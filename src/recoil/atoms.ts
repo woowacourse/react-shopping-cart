@@ -1,13 +1,7 @@
 import { atom } from 'recoil';
 import * as T from '../types/ProductType';
 
-interface Cart {
-  id: number;
-  quantity: number;
-  product: T.ProductItem;
-}
-
-const cartState = atom<Cart[]>({
+const cartState = atom<T.CartProduct[]>({
   key: 'cartState',
   default: [],
 });
