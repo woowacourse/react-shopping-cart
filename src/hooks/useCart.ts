@@ -16,7 +16,7 @@ export const useSetCart = (id: number) => {
   };
 
   const removeProduct = (cart: CartItem[], cartItemIndex: number) => {
-    cart.splice(cartItemIndex, ONE_ITEM_IN_CART);
+    if (cartItemIndex >= FIRST_INDEX) cart.splice(cartItemIndex, ONE_ITEM_IN_CART);
 
     return cart;
   };
