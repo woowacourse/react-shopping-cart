@@ -13,6 +13,10 @@ export const QuantityInput = styled.input`
   width: 42px;
   padding: 0px 5px;
   border: 1px solid ${({ theme }) => theme.secondaryColor};
+
+  &:focus {
+    outline: 2px solid ${({ theme }) => theme.infoColor};
+  }
 `;
 
 export const QuantityControlButton = styled.button`

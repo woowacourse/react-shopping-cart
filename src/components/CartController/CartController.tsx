@@ -34,6 +34,8 @@ function CartController({ product }: CartControllerProps) {
               onClick={() => {
                 increaseCart(product.id);
               }}
+              aria-label={`${product.name}의 장바구니에 담긴 개수인 ${quantity}에서 하나 뻬기`}
+              role="button"
             >
               ⏶
             </S.QuantityControlButton>
@@ -41,6 +43,8 @@ function CartController({ product }: CartControllerProps) {
               onClick={() => {
                 decreaseCart(product.id);
               }}
+              aria-label={`${product.name}의 장바구니에 담긴 개수인 ${quantity}에서 하나 더하기`}
+              role="button"
             >
               ⏷
             </S.QuantityControlButton>
@@ -51,6 +55,9 @@ function CartController({ product }: CartControllerProps) {
           onClick={() => {
             addCart(product);
           }}
+          type="button"
+          aria-label={`${product.name}를 장바구니에 담기`}
+          role="button"
         >
           <img src={cartIcon}></img>
         </button>
