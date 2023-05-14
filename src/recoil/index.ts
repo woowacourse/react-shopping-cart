@@ -1,7 +1,7 @@
 import { atom, selector, selectorFamily } from 'recoil';
-import { getDataFromLocalStorage } from '../utils/getAndSetDataInLocalStorage';
 import { KEY_CART } from '../constants';
 import { CartItem, Product } from '../types';
+import { getDataFromLocalStorage } from '../utils/getAndSetDataInLocalStorage';
 
 export const productListState = atom<Product[]>({
   key: 'productListState',

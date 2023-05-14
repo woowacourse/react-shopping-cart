@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
-import { productInCartSelector } from '../recoil';
 import { QUANTITY } from '../constants';
+import { productInCartSelector } from '../recoil';
 
 export const useLoadCart = (id: number) => {
   const foundProductInCart = useRecoilValue(productInCartSelector(id));

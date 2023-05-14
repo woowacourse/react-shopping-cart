@@ -1,6 +1,6 @@
-import Icon from '../common/Icon';
-import { IconProps } from '../../types';
 import { CART_PATH } from '../../constants/svgPath';
+import { IconProps } from '../../types';
+import Icon from '../common/Icon';
 
 const CartIcon = ({ css, ...props }: IconProps) => {
   return (

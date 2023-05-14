@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
+import { KEY_CART } from '../constants';
 import { cartBadgeSelector, cartState } from '../recoil';
 import { setDataInLocalStorage } from '../utils/getAndSetDataInLocalStorage';
-import { KEY_CART } from '../constants';
 
 const Cart = () => {
   const selectedProducts = useRecoilValue(cartBadgeSelector);
@@ -35,6 +35,7 @@ const S = {
     font-weight: 500;
     background: none;
     color: #fff;
+    cursor: pointer;
   `,
 
   Badge: styled.div`

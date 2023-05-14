@@ -1,10 +1,10 @@
 import { ChangeEventHandler } from 'react';
 import { css, styled } from 'styled-components';
-import QuantityInput from './QuantityInput';
-import CartIcon from './icons/CartIcon';
+import { NOT_NUMBER, QUANTITY, MAX_NUMBER_LENGTH } from '../constants';
 import { useSetCart } from '../hooks/useCart';
 import { useLoadCart } from '../hooks/useLoadCart';
-import { NOT_NUMBER, QUANTITY, MAX_NUMBER_LENGTH } from '../constants';
+import CartIcon from './icons/CartIcon';
+import QuantityInput from './QuantityInput';
 
 interface Props {
   id: number;

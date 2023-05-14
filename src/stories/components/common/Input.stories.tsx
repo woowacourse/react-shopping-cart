@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
-import InputComponent from '../../../components/common/Input';
-import { css, styled } from 'styled-components';
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
+import { css, styled } from 'styled-components';
+import InputComponent from '../../../components/common/Input';
 
 const QuantityInputStyle = css`
   position: relative;

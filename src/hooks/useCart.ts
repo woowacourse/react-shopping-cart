@@ -1,7 +1,7 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { FIRST_INDEX, ONE_ITEM_IN_CART } from '../constants';
 import { cartState, productSelector } from '../recoil';
 import { CartItem } from '../types';
-import { FIRST_INDEX, ONE_ITEM_IN_CART } from '../constants';
 
 export const useSetCart = (id: number) => {
   const setCart = useSetRecoilState(cartState);
