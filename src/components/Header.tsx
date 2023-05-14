@@ -12,7 +12,7 @@ export default function Header() {
     <Style.Container>
       <Style.Content>
         <Style.Title onClick={() => navigate('/')}>
-          <CartLogo fill="var(--grey-100)" style={{ width: '40px' }} />
+          <CartLogo />
         </Style.Title>
         <Style.CartLink onClick={() => navigate('/')}>
           <Style.CountInCart>{productsInCart.length}</Style.CountInCart>
