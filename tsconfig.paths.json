@@ -6,8 +6,10 @@
       "@assets/*": ["./src/assets/*"],
       "@components/*": ["./src/components/*"],
       "@pages/*": ["./src/components/pages/*"],
+      "@commons/*": ["./src/components/commons/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@customTypes/*": ["./src/customTypes/*"],
+      "@constants/*": ["./src/constants/*"],
       "@recoil/*": ["./src/recoil/*"]
     }
   }
