@@ -28,7 +28,7 @@ const ProductQuantityController = ({ productID }: ProductQuantityControllerProps
           <ShoppingCartLogo isFlipped={true} width={24} height={22} fill='#AAAAAA' />
         </Styled.CartButton>
       ) : (
-        <StepperInput initialValue={1} getValue={handleStepperInputChange} />
+        <StepperInput initialValue={productQuantity} getValue={handleStepperInputChange} />
       )}
     </>
   );
