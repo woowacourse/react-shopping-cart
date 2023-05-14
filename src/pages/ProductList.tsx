@@ -1,8 +1,6 @@
 import { ProductItem } from '../components/ProductItem';
-import mockData from '../data/mockData.json';
 import styled from 'styled-components';
-
-export const getMockData = mockData;
+import { getMockData } from '../utils/getMockData';
 
 export const ProductList = () => {
   return (
