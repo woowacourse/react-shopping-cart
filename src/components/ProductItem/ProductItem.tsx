@@ -15,7 +15,7 @@ interface ProductItemProps {
 
 const ProductItem = ({ information }: ProductItemProps) => {
   const cartItemQuantity = useRecoilValue(cartItemQuantityState(information.id));
-  const [isModalOpen, handleModalOpen, handleModalClose, handleModalClosePress] = useModal();
+  const { isModalOpen, handleModalOpen, handleModalClose, handleModalClosePress } = useModal();
 
   return (
     <div className={styles.container}>

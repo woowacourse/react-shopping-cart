@@ -19,7 +19,7 @@ const useModal = () => {
     }
   }, []);
 
-  return [isModalOpen, handleModalOpen, handleModalClose, handleModalClosePress] as const;
+  return { isModalOpen, handleModalOpen, handleModalClose, handleModalClosePress };
 };
 
 export { useModal };
