@@ -1,6 +1,6 @@
 import Logo from '../../../assets/png/logo.png';
+import AsyncBoundary from '../../AsyncBoundary/AsyncBoundary';
 import CartBadge from '../CartBadge/CartBadge';
-import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import Flex from '../Flex';
 import * as S from './Header.styles';
 
@@ -14,9 +14,9 @@ const Header = () => {
         </S.LinkToHome>
         <Flex>
           <S.LinkToCart to="/">장바구니</S.LinkToCart>
-          <ErrorBoundary>
+          <AsyncBoundary>
             <CartBadge />
-          </ErrorBoundary>
+          </AsyncBoundary>
         </Flex>
       </Flex>
     </S.Root>
