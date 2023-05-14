@@ -1,13 +1,9 @@
-import React, { memo, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { memo } from "react";
 import styled from "styled-components";
-import { Cart } from "../../types/product";
 import { ReactComponent as ShoppingCartImg } from "../../assets/icon/shopping-cart.svg";
-import { cartAtomFamily, cartIDAtom } from "../../recoil/cartState";
 import Counter from "../Counter";
 import ProductImg from "./ProductImg";
 import ProductInfo from "./ProductInfo";
-import { targetProductSelector } from "../../recoil/fetchSelectors";
 import useCart from "../../hooks/useCart";
 
 interface ProductCardProps {

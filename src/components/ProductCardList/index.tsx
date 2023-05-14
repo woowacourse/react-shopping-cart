@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
 import { styled } from "styled-components";
 import useLocalCart from "../../hooks/useLocalCart";
-import { fetchedProductListSelector } from "../../recoil/fetchSelectors";
+import { fetchedProductListSelector } from "../../globalState/fetchSelectors";
 import ProductCard from "../ProductCard";
 
 const ProductCardList = () => {
