@@ -5,7 +5,7 @@ import { Container } from '../../style/style';
 function HomeLayout() {
   return (
     <>
-      <Header></Header>
+      <Header />
       <Container>
         <Outlet />
       </Container>
