@@ -3,19 +3,23 @@ import useFetch from '@hooks/useFetch';
 
 import { StyledProductList } from '@components/ProductList/ProductList.styled';
 import ProductItem from '@components/ProductItem/ProductItem';
+import ErrorModal from '@components/ErrorModal/ErrorModal';
 
 const ProductList = () => {
-  const productList = useFetch<Product[]>(
+  const [productList, isError] = useFetch<Product[]>(
     process.env.PUBLIC_URL + '/mockData.json',
     []
   );
 
   return (
-    <StyledProductList>
-      {productList.map(data => (
-        <ProductItem key={data.id} product={{ ...data }} />
-      ))}
-    </StyledProductList>
+    <>
+      <ErrorModal isError={isError} />
+      <StyledProductList>
+        {productList.map(data => (
+          <ProductItem key={data.id} product={{ ...data }} />
+        ))}
+      </StyledProductList>
+    </>
   );
 };
 
