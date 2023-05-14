@@ -77,7 +77,7 @@ const AddCartButton = styled.button`
   height: 36px;
   border: none;
   border-radius: 50%;
-  background-color: #2ac1bc;
+  background-color: ${({ theme }) => theme.colors.primary};
   cursor: pointer;
 `;
 
@@ -93,7 +93,7 @@ const StepperContainer = styled.div`
   padding: 5px;
   border: none;
   border-radius: 9999px;
-  background-color: #2ac1bc;
+  background-color: ${({ theme }) => theme.colors.primary};
 `;
 
 const DecreaseButton = styled.button`
@@ -101,8 +101,8 @@ const DecreaseButton = styled.button`
   height: 24px;
   border: none;
   border-radius: 50%;
-  background-color: #2ac1bc;
-  color: #ffffff;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.white};
   font-size: 26px;
   line-height: 20px;
 
@@ -114,7 +114,7 @@ const DecreaseButton = styled.button`
 const Quantity = styled.span`
   margin: 0 auto;
   font-size: 16px;
-  color: #ffffff;
+  color: ${({ theme }) => theme.colors.white};
 `;
 
 const IncreaseButton = styled.button`
@@ -122,8 +122,8 @@ const IncreaseButton = styled.button`
   height: 24px;
   border: none;
   border-radius: 50%;
-  background-color: #2ac1bc;
-  color: #ffffff;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.white};
   font-size: 26px;
   line-height: 20px;
 
