@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const ProductItemBox = styled.div`
-  /*  height: 350px; */
   padding: 8px;
 `;
 
