@@ -19,13 +19,9 @@ export const useToast = () => {
     error: (message: string) => showToast(message, 'error'),
   };
 
-  const renderToast = () => {
-    return (
-      toastState && (
-        <Toast message={toastState.message} type={toastState.type} />
-      )
-    );
-  };
+  const renderToast = toastState && (
+    <Toast message={toastState.message} type={toastState.type} />
+  );
 
   return { showToast, toast, renderToast };
 };

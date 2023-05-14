@@ -42,7 +42,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
         </div>
         {productSelect}
       </S.ProductWrapper>
-      {renderToast()}
+      {renderToast}
     </S.ItemWrapper>
   );
 };

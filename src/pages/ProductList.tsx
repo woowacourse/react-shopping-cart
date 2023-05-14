@@ -33,7 +33,7 @@ const ProductList = () => {
         </ProductListWrapper>
       </ContentLayout>
 
-      {renderToast()}
+      {renderToast}
     </>
   );
 };
