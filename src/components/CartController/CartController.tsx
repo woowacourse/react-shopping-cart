@@ -13,18 +13,6 @@ function CartController({ product }: CartControllerProps) {
     useCart();
   const quantity = getQuantityByProductId(product.id);
 
-  const handleClickCart = () => {
-    addCart(product);
-  };
-
-  const handleIncreaseQuantity = () => {
-    increaseCart(product.id);
-  };
-
-  const handleDecreaseQuantity = () => {
-    decreaseCart(product.id);
-  };
-
   const handleChangeQuantity = (event: ChangeEvent<HTMLInputElement>) => {
     const newQuantity = Number(event.target.value.replaceAll('/', '').replace(/\D/g, ''));
     setCartQuantity(product.id, newQuantity > 100 ? 100 : newQuantity);
@@ -36,12 +24,27 @@ function CartController({ product }: CartControllerProps) {
         <S.CartBox>
           <S.QuantityInput value={quantity} onChange={handleChangeQuantity} />
           <S.ButtonBox>
-            <S.QuantityControlButton onClick={handleIncreaseQuantity}>⏶</S.QuantityControlButton>
-            <S.QuantityControlButton onClick={handleDecreaseQuantity}>⏷</S.QuantityControlButton>
+            <S.QuantityControlButton
+              onClick={() => {
+                increaseCart(product.id);
+              }}
+            >
+              ⏶
+            </S.QuantityControlButton>
+            <S.QuantityControlButton
+              onClick={() => {
+                decreaseCart(product.id);
+              }}
+            >
+              ⏷
+            </S.QuantityControlButton>
           </S.ButtonBox>
         </S.CartBox>
       ) : (
-        <button onClick={handleClickCart}>
+        <button
+          onClick={() => {
+            addCart(product);
+          }}>
           <img src={cartIcon}></img>
         </button>
       )}
