@@ -2,10 +2,11 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 import ProductItem from "./ProductItem";
-import { products as productList } from "../../atoms/productState";
+import { productData } from "../../atoms/productState";
 
 export default function ProductList() {
-  const products = useRecoilValue(productList);
+  const products = useRecoilValue(productData);
+  console.log(products);
 
   return (
     <ProductListContainer>
