@@ -24,16 +24,13 @@ export const AddToCartButton = ({
     handleDeleteCartState();
   }, []);
 
+  if (isAdded)
+    return <AddToCartCount id={id} onDeleteCart={handleDeleteCart} />;
+
   return (
-    <>
-      {isAdded ? (
-        <AddToCartCount id={id} onDeleteCart={handleDeleteCart} />
-      ) : (
-        <AddToCartButtonImageWrapper>
-          <AddToCartButtonImage onClick={handleAddToCart} />
-        </AddToCartButtonImageWrapper>
-      )}
-    </>
+    <AddToCartButtonImageWrapper>
+      <AddToCartButtonImage onClick={handleAddToCart} />
+    </AddToCartButtonImageWrapper>
   );
 };
 
