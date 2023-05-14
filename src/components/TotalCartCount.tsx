@@ -12,10 +12,10 @@ const StyledTotalCartCount = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #04c09e;
+  background-color: var(--count-color);
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  color: #ffffff;
+  color: var(--white-color);
   margin-left: 8px;
 `;

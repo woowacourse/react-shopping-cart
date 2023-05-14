@@ -32,7 +32,7 @@ export const AddToCartCount = ({ id, onDeleteCart }: AddToCartCountProps) => {
 
 const Wrapper = styled.div`
   width: 80px;
-  border: 1px solid #dddddd;
+  border: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -50,9 +50,9 @@ const DecreaseCountButton = styled.div`
   width: 20px;
   height: 15px;
   cursor: pointer;
-  border-left: 1px solid #dddddd;
+  border-left: 1px solid var(--border-color);
 `;
 
 const IncreaseCountButton = styled(DecreaseCountButton)`
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid var(--border-color);
 `;

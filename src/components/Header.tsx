@@ -12,13 +12,13 @@ export const Header = () => {
   return (
     <HeaderWrapper>
       <StyledHeader>
-        <Logo $color="#ffffff" />
+        <Logo $color="var(--white-color)" />
         <CartButton
           onClick={() => {
             return;
           }}
         >
-          <AddToCartTitle size="24px" $color="#ffffff">
+          <AddToCartTitle size="24px" $color="var(--white-color)">
             장바구니
           </AddToCartTitle>
           <TotalCartCountWrapper>
@@ -38,7 +38,7 @@ const HeaderWrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 80px;
-  background-color: #333333;
+  background-color: var(--label-color);
 `;
 
 const StyledHeader = styled.div`

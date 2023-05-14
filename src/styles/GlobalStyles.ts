@@ -22,14 +22,9 @@ export const GlobalStyle = createGlobalStyle`
 
   /* Colors *****************************************/
   :root {
-   
-  }
-
-  #root {
-    
-  }
-
-  .label-text {
-   
+    --white-color:#ffffff;
+    --label-color: #333333;
+    --count-color: #04c09e;
+    --border-color: #dddddd;
   }
 `;

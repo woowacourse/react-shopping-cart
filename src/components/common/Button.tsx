@@ -42,6 +42,7 @@ const StyledButton = styled.button<{
   align-items: center;
   width: ${({ $width }) => $width || '132px'};
   height: ${({ $height }) => $height || '32px'};
-  background-color: ${({ backgroundColor }) => backgroundColor || '#333333'};
+  background-color: ${({ backgroundColor }) =>
+    backgroundColor || 'var(--label-color)'};
   border: 1px solid ${({ borderColor }) => borderColor || 'none'};
 `;

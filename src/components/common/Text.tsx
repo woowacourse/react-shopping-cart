@@ -22,5 +22,5 @@ export const StyledText = styled.p<{
 }>`
   font-size: ${({ size }) => size || '16px'};
   font-weight: ${({ weight }) => weight || 'normal'};
-  color: ${({ $color }) => $color || '#333333'};
+  color: ${({ $color }) => $color || 'var(--label-color)'};
 `;
