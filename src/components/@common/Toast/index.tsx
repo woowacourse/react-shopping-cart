@@ -15,7 +15,7 @@ const Toast = ({ message, type }: ToastProps) => {
   }, []);
 
   return (
-    <S.ToastWrapper type={type} isShown={isShown}>
+    <S.ToastWrapper type={type} $isShown={isShown}>
       <Svg type={type} width={20} height={20} />
       {message}
     </S.ToastWrapper>

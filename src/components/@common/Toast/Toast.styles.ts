@@ -24,7 +24,7 @@ const fadeOut = keyframes`
 
 export const ToastWrapper = styled.div<{
   type: 'error' | 'success';
-  isShown: boolean;
+  $isShown: boolean;
 }>`
   position: fixed;
   bottom: 100px;
@@ -44,7 +44,7 @@ export const ToastWrapper = styled.div<{
   border-radius: 10px;
 
   ${(props) => {
-    return props.isShown
+    return props.$isShown
       ? css`
           transition: transform 0.5s ease, opacity 0.5s ease;
           animation: ${fadeInUp} 0.5s ease-in-out forwards;
