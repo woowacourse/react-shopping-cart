@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { RecoilRoot } from 'recoil';
-import { Product } from 'src/types';
+import { Product } from 'types';
 import ProductItem from '.';
 
 const mock: Product = {

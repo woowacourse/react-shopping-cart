@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { styled } from 'styled-components';
-import ContentLayout from 'src/components/@common/ContentLayout';
-import ProductItem from 'src/components/ProductItem';
-import Header from 'src/components/Header';
-import { useFetch } from 'src/hooks/useFetch';
-import { useToast } from 'src/components/@common/Toast/hooks/useToast';
-import { Product } from 'src/types';
+import ContentLayout from 'components/@common/ContentLayout';
+import ProductItem from 'components/ProductItem';
+import Header from 'components/Header';
+import { useFetch } from 'hooks/useFetch';
+import { useToast } from 'components/@common/Toast/hooks/useToast';
+import { Product } from 'types';
 
 const ProductList = () => {
   const { toast, renderToast } = useToast();

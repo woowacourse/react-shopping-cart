@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import * as S from './ProductItem.styles';
-import Svg from 'src/components/@common/Svg';
+import Svg from 'components/@common/Svg';
 import Counter from '../Counter';
-import useProductSelect from 'src/hooks/useProductSelect';
+import useProductSelect from 'hooks/useProductSelect';
 import { useToast } from '../@common/Toast/hooks/useToast';
-import { Product } from 'src/types';
+import { Product } from 'types';
 
 interface ProductItemProps {
   product: Product;

@@ -5,7 +5,7 @@ import {
   selector,
   selectorFamily,
 } from 'recoil';
-import { CartId, CartItem, ProductId } from 'src/types';
+import { CartId, CartItem, ProductId } from 'types';
 
 export const cartIdMap = atom<Map<ProductId, CartId>>({
   key: 'cartId',
@@ -22,6 +22,7 @@ export const countCartListSelector = selector({
   get: ({ get }) => {
     const ids = get(cartIdMap);
     const items = [...ids.values()].map((id) => get(cartItemAtom(id)));
+
     return items.reduce((acc, cur) => {
       if (!cur) return acc;
       return acc + cur.quantity;
@@ -34,9 +35,9 @@ export const updateCart = selectorFamily({
   get:
     (productId: ProductId) =>
     ({ get }) => {
-      const ids = get(cartIdMap);
-      const cartId = ids.get(productId);
+      const cartId = get(cartIdMap).get(productId);
       if (!cartId) return null;
+
       return get(cartItemAtom(cartId));
     },
 
@@ -44,8 +45,9 @@ export const updateCart = selectorFamily({
     (productId: ProductId) =>
     ({ set, get, reset }, item) => {
       if (!item || item instanceof DefaultValue) return;
-      const ids = get(cartIdMap);
-      const cartId = ids.get(productId) ?? item.id;
+
+      const cartId = get(cartIdMap).get(productId) ?? item.id;
+
       if (item.quantity === 0) {
         reset(cartItemAtom(cartId));
       }

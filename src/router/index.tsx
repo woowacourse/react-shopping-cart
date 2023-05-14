@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import ProductList from 'src/pages/ProductList';
+import ProductList from 'pages/ProductList';
 
 const CartRouter = () => {
   return (

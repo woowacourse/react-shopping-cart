@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import { countCartListSelector } from 'src/recoil/cartList';
+import { countCartListSelector } from 'recoil/cartList';
 import * as S from './Header.styles';
 
 const Header = () => {

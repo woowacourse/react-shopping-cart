@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { cartIdMap, updateCart } from 'src/recoil/cartList';
-import { Product } from 'src/types';
+import { cartIdMap, updateCart } from 'recoil/cartList';
+import { Product } from 'types';
 
 const useProductSelect = (product: Product) => {
   const [isFirst, setIsFirst] = useState(false);
