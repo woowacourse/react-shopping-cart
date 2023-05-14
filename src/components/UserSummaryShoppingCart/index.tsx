@@ -8,10 +8,12 @@ type UserSummaryShoppingCartProps = {
 };
 
 function UserSummaryShoppingCart({ username, quantity }: UserSummaryShoppingCartProps) {
+  const quantityText = quantity > SHOPPING_QUANTITY.MAX ? `${SHOPPING_QUANTITY.MAX}+` : quantity;
+
   return (
     <S.Container>
       <S.Username>{username && `${username}의 `}장바구니</S.Username>
-      <S.Quantity>{quantity > SHOPPING_QUANTITY.MAX ? `${SHOPPING_QUANTITY.MAX}+` : quantity}</S.Quantity>
+      <S.Quantity>{quantityText}</S.Quantity>
     </S.Container>
   );
 }
