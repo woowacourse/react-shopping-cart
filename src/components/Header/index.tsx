@@ -14,8 +14,8 @@ function Header() {
     <S.Container aria-label="페이지 헤더">
       <S.Layout>
         <S.LogoWrapper>
-          <S.LogoImg src={Logo} alt="장바구니 로고" />
-          <S.LogoText>SHOP</S.LogoText>
+          <S.LogoImg src={Logo} alt="장바구니 로고" style={{ userSelect: 'none' }} />
+          <S.LogoText style={{ userSelect: 'none' }}>SHOP</S.LogoText>
         </S.LogoWrapper>
         <UserSummaryShoppingCart quantity={shoppingItemsAmount} />
       </S.Layout>
