@@ -19,19 +19,23 @@ type ProductItemProps = {
 };
 
 function ProductItem({ product, isLoading }: ProductItemProps) {
+  const { imageUrl, name, price, id } = product;
+
   const { updateShoppingCart } = useShoppingCart();
-  const quantity = useRecoilValue(quantityState(product.id));
+
+  const quantity = useRecoilValue(quantityState(id));
+  const priceText = price.toLocaleString();
 
   return (
     <S.Container aria-label="하나의 판매 품목 정보">
-      <S.ProductItemImage src={product.imageUrl} alt={`${product.name} 사진`} />
+      <S.ProductItemImage src={imageUrl} alt={`${name} 사진`} />
       <S.ProductItemContents>
         <S.ProductItemLayout>
           <S.ProductItemName aria-label={'판매 품목 이름'} isLoading={isLoading}>
-            {product.name}
+            {name}
           </S.ProductItemName>
           <S.ProductItemPrice aria-label={'판매 품목 가격'} isLoading={isLoading}>
-            {`${product.price.toLocaleString()} 원`}
+            {`${priceText} 원`}
           </S.ProductItemPrice>
         </S.ProductItemLayout>
         <QuantityController quantity={quantity} updateShoppingCart={updateShoppingCart} product={product} />
