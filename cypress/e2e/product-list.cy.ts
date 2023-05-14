@@ -48,6 +48,10 @@ describe("개별 상품 장바구니 추가 테스트", () => {
     cy.firstProductItem().find("input").clear();
     cy.firstProductItem().find("input").type("-");
     cy.firstProductItem().find("input").should("have.value", "");
+
+    cy.firstProductItem().find("input").clear();
+    cy.firstProductItem().find("input").type("e");
+    cy.firstProductItem().find("input").should("have.value", "");
   });
 
   it("장바구니 수량 카운터에 아무것도 입력되지않고 blur 되면 기본 값으로 설정한다.", () => {
