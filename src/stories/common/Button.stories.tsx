@@ -16,6 +16,7 @@ type Story = StoryObj<typeof meta>;
 export const Square: Story = {
   args: {
     designType: 'square',
+    style: { width: '30px', height: '30px', backgroundColor: 'grey' },
   },
 };
 
