@@ -39,6 +39,7 @@ export const Logo = styled.span`
   background: linear-gradient(to right, #fed777, #ff946f);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  cursor: pointer;
 `;
 
 export const CartTitle = styled.span`

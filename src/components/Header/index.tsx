@@ -1,15 +1,20 @@
-import { useRecoilValue } from 'recoil';
-import { countCartListSelector } from 'recoil/cartList';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { cartIdMap, countCartListSelector } from 'recoil/cartList';
 import * as S from './Header.styles';
 
 const Header = () => {
   const cartCount = useRecoilValue(countCartListSelector);
+  const resetCartAtoms = useResetRecoilState(cartIdMap);
+
+  const onLogoClick = () => {
+    resetCartAtoms();
+  };
 
   return (
     <S.HeaderContainer>
       <S.HeaderContentContainer>
         <S.HeaderWrapper gap={20}>
-          <S.Logo>THE CHOONSIK</S.Logo>
+          <S.Logo onClick={onLogoClick}>THE CHOONSIK</S.Logo>
         </S.HeaderWrapper>
         <S.HeaderWrapper gap={8}>
           <S.CartTitle>장바구니</S.CartTitle>
