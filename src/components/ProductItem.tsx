@@ -1,8 +1,6 @@
 import { useState, ChangeEventHandler } from 'react';
-import { css, styled } from 'styled-components';
+import { styled } from 'styled-components';
 import QuantityInput from './QuantityInput';
-import Icon from './common/Icon';
-import { CART_PATH } from '../constants/svgPath';
 import { INITIAL_QUANTITY, NONE_QUANTITY, NOT_NUMBER } from '../constants';
 import { changeInvalidValueToBlank } from '../utils/changeInvalidValueToBlank';
 import { useRecoilCallback, useRecoilValue } from 'recoil';
@@ -16,6 +14,7 @@ import {
   productFindByIdSelector,
   removeProductItemFromCartSelector,
 } from '../store/CartSelector';
+import CartIconButton from './CartIconButton';
 
 interface Props {
   id: number;
@@ -78,15 +77,7 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
         {isSelected ? (
           <QuantityInput value={quantity} onChange={handleNumberInputChange} />
         ) : (
-          <Icon
-            width="30"
-            height="27"
-            color="#AAA"
-            path={CART_PATH}
-            viewBox="0 0 51 44"
-            svgStyle={svgStyle}
-            onClick={handleCartClick}
-          />
+          <CartIconButton onClick={handleCartClick} />
         )}
       </S.InfoWrapper>
     </div>
@@ -104,7 +95,7 @@ const S = {
     justify-content: space-between;
     padding: 12px 6px 0;
 
-    & > svg:last-child {
+    & > button:last-child {
       cursor: pointer;
     }
   `,
@@ -130,9 +121,5 @@ const S = {
     }
   `,
 };
-
-const svgStyle = css`
-  transform: scaleX(-1);
-`;
 
 export default ProductItem;
