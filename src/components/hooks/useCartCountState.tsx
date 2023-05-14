@@ -18,7 +18,7 @@ export const useCartCountState = ({
     });
 
     setAddedCartStates(addedCartList);
-  }, []);
+  }, [quantity]);
 
   const decreaseCount = useCallback(() => {
     const addedCartList = addedCartStates.map((item) => {
@@ -32,7 +32,7 @@ export const useCartCountState = ({
     }
 
     setQuantity(quantity - 1);
-  }, []);
+  }, [quantity]);
 
   return { increaseCount, decreaseCount, quantity };
 };
