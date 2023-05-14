@@ -18,7 +18,7 @@ export const Header = () => {
             return;
           }}
         >
-          <AddToCartTitle size={'24px'} $color={'#ffffff'}>
+          <AddToCartTitle size="24px" $color="#ffffff">
             장바구니
           </AddToCartTitle>
           <TotalCartCountWrapper>

@@ -13,17 +13,17 @@ export const ProductItem = (props: ProductItemProps) => {
   return (
     <ProductItemWrapper key={id}>
       <ProductImage
-        $width={'282px'}
-        $height={'282px'}
+        $width="282px"
+        $height="282px"
         source={imageUrl}
         alternative="상품 이미지"
       />
       <ProductTextWrapper>
         <div>
-          <ProductTitle size={'16px'} weight={'600'}>
+          <ProductTitle size="16px" weight="600">
             {name}
           </ProductTitle>
-          <ProductPrice size={'20px'} weight={'600'}>
+          <ProductPrice size="20px" weight="600">
             {`${price.toLocaleString('ko-KR')} 원`}
           </ProductPrice>
         </div>
