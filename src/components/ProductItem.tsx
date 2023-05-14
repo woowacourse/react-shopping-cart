@@ -1,15 +1,21 @@
-import { useState, ChangeEventHandler, useEffect } from 'react';
+import { useState, ChangeEventHandler } from 'react';
 import { css, styled } from 'styled-components';
 import QuantityInput from './QuantityInput';
 import Icon from './common/Icon';
 import { CART_PATH } from '../constants/svgPath';
 import { INITIAL_QUANTITY, NONE_QUANTITY, NOT_NUMBER } from '../constants';
 import { changeInvalidValueToBlank } from '../utils/changeInvalidValueToBlank';
-import { atom, useRecoilValue, useRecoilState } from 'recoil';
-import { Product, CartItem } from '../types';
-import { productListState } from './ProductList';
-import { useSetCart } from '../hooks/useSetCart';
+import { useRecoilCallback, useRecoilValue } from 'recoil';
+import { CartItem } from '../types';
 import { setDataInLocalStorage } from '../utils/setDataInLocalStorage';
+import { cartState } from '../store/CartState';
+import {
+  AddToCartSelectorParams,
+  addToCartSelector,
+  isSelectedProductSelector,
+  productFindByIdSelector,
+  removeProductItemFromCartSelector,
+} from '../store/CartSelector';
 
 interface Props {
   id: number;
@@ -18,38 +24,27 @@ interface Props {
   imgUrl: string;
 }
 
-export const cartState = atom<CartItem[]>({
-  key: 'cartState',
-  default: JSON.parse(localStorage.getItem('cart') ?? '[]'),
-});
-
 const ProductItem = ({ id, imgUrl, name, price }: Props) => {
-  const initialProductList = useRecoilValue<Product[]>(productListState);
+  const cart = useRecoilValue(cartState);
+  const addToCart = useRecoilCallback(({ set }) => ({ id, quantity }: AddToCartSelectorParams) => {
+    set(addToCartSelector({ id, quantity }), []);
+  });
 
-  const [cart, setCart] = useRecoilState(cartState);
-  const { addToCart, removeProductItemFromCart } = useSetCart(id);
+  const removeProductItemFromCart = useRecoilCallback(({ set }) => (id: number) => {
+    set(removeProductItemFromCartSelector(id), []);
+  });
 
-  const [isSelected, setIsSelected] = useState(false);
+  const isSelected = useRecoilValue(isSelectedProductSelector(id));
+
+  const productFindById = useRecoilValue(productFindByIdSelector(id));
 
   const [quantity, setQuantity] = useState(
-    cart.find((item: CartItem) => item.id === id)
-      ? cart.find((item: CartItem) => item.id === id)!.quantity
-      : INITIAL_QUANTITY,
+    productFindById ? productFindById.quantity : INITIAL_QUANTITY,
   );
 
-  useEffect(() => {
-    if (cart.filter((item: CartItem) => item.id === id).length) setIsSelected(true);
-  }, [cart, id]);
-
   const handleCartClick = () => {
-    setIsSelected(true);
+    addToCart({ id: id, quantity: quantity });
 
-    const selectedProduct = initialProductList.find((product) => product.id === id);
-    setCart((prev: CartItem[]) => [
-      ...prev,
-      { id: selectedProduct!.id, quantity: quantity, product: selectedProduct! },
-    ]);
-    addToCart(quantity);
     setDataInLocalStorage<CartItem[]>('cart', cart);
   };
 
@@ -57,20 +52,14 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
     const { value } = target;
 
     if (Number(value) === NONE_QUANTITY) {
-      setIsSelected(false);
-
-      removeProductItemFromCart();
-
-      const removeProductFromCart = (prev: CartItem[]) => {
-        return prev.filter((item) => item.id !== id);
-      };
-      setCart((prev: CartItem[]) => removeProductFromCart(prev));
+      removeProductItemFromCart(id);
 
       return setQuantity(INITIAL_QUANTITY);
     }
 
     setQuantity(changeInvalidValueToBlank(value, NOT_NUMBER));
-    addToCart(Number(value));
+
+    addToCart({ id: id, quantity: quantity });
 
     setDataInLocalStorage<CartItem[]>('cart', cart);
   };
