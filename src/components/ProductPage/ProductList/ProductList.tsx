@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import { products } from '../../../recoil/products';
+import { products } from '../../../atoms/products';
 import ProductItem from '../ProductItem/ProductItem';
 import * as S from './ProductList.styles';
 

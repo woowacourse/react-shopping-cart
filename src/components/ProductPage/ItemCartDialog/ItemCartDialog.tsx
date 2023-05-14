@@ -1,5 +1,5 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { cartState, getCartItemById } from '../../../recoil/cart';
+import { cartState, getCartItemById } from '../../../atoms/cart';
 import { Dialog } from 'react-tiny-dialog';
 import SHOPPING_CART from '../../../assets/png/cart-icon.png';
 import { Product } from '../../../types/products';
