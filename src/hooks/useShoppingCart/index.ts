@@ -13,6 +13,8 @@ const useShoppingCart = () => {
     const shoppingItem = shoppingCart.find((item) => item.product.id === product.id);
 
     if (!shoppingItem) {
+      if (quantity === SHOPPING_QUANTITY.MIN) return;
+
       const newShoppingItem = {
         id: Date.now(),
         quantity,
