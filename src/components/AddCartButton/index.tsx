@@ -4,7 +4,6 @@ import styles from './index.module.css';
 import { useSetRecoilState } from 'recoil';
 import { $CartCount } from '../../recoil/atom';
 import CountButton from '../CountButton';
-import { cartItems } from '../../data/mockData';
 
 interface AddCardButtonProps {
   id: number;
@@ -41,7 +40,6 @@ const AddCartButton = ({ id }: AddCardButtonProps) => {
     });
     setClicked(true);
     setCartCount(prev => ({ ...prev, [id]: 1 }));
-    console.log(cartItems);
   };
 
   return (
