@@ -11,7 +11,7 @@ export const ProductItem = (props: ProductItemProps) => {
   const { handleAddCartState, handleDeleteCartState } = useCartState(props);
 
   return (
-    <Wrapper key={id}>
+    <Wrapper>
       <ProductImage
         $width={'282px'}
         $height={'282px'}
