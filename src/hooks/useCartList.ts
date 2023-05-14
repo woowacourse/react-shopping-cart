@@ -6,8 +6,7 @@ const useCartList = () => {
   const [cartList, setCartList] = useCartListState();
 
   const getQuantityByProductId = (id: number) => {
-    const targetCart = cartList.find((cart) => cart.id === id);
-    return targetCart ? targetCart.quantity : 0;
+    return cartList.find((cart) => cart.id === id)?.quantity ?? 0;
   };
 
   const addCart = async (product: T.ProductItem) => {
@@ -20,8 +19,7 @@ const useCartList = () => {
   };
 
   const removeCart = async (id: number) => {
-    const removedCartList = cartList.filter((cart) => cart.id !== id);
-    setCartList(removedCartList);
+    setCartList(cartList.filter((cart) => cart.id !== id));
     await mockApi('/cart-items/remove', { body: JSON.stringify({ id }) });
   };
 
@@ -41,8 +39,7 @@ const useCartList = () => {
     if (quantity === 0) {
       removeCart(id);
     } else {
-      const changedCartList = updateCartListQuantity(id, quantity);
-      setCartList(changedCartList);
+      setCartList(updateCartListQuantity(id, quantity));
       await mockApi('/cart-items/update-quantity', { body: JSON.stringify({ id, quantity }) });
     }
   };
