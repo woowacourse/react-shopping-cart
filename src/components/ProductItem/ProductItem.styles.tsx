@@ -53,11 +53,6 @@ export const ProductItemInfo = styled.div`
 export const ProductItemInfoUpperBoundary = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   height: 56px;
-`;
-
-export const CartButton = styled.button`
-  border: none;
-  background: transparent;
-  cursor: pointer;
 `;
