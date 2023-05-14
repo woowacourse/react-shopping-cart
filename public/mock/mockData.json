@@ -37,7 +37,7 @@
   },
   {
     "id": 7,
-    "name": "PET보틀-원형(500ml)",
+    "name": "PET보틀-딸기(500ml)",
     "price": 61800,
     "imageUrl": "/assets/product7.svg"
   },
@@ -55,7 +55,7 @@
   },
   {
     "id": 10,
-    "name": "PET보틀-원형(500ml)",
+    "name": "PET보틀-동글(400ml)",
     "price": 44500,
     "imageUrl": "/assets/product2.svg"
   },

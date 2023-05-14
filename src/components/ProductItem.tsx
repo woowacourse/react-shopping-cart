@@ -42,16 +42,18 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
       <S.Image src={imgUrl} />
       <S.InfoWrapper>
         <div>
-          <S.Name>{name}</S.Name>
+          <S.Name htmlFor={name}>{name}</S.Name>
           <S.Price>
             {price.toLocaleString()}
             <span>원</span>
           </S.Price>
         </div>
         {isSelected ? (
-          <QuantityInput value={quantity} onChange={handleNumberInputChange} />
+          <QuantityInput id={name} value={quantity} onChange={handleNumberInputChange} />
         ) : (
-          <CartIcon css={svgStyle} onClick={handleCartClick} />
+          <S.Button type="button" onClick={handleCartClick}>
+            <CartIcon css={svgStyle} onClick={handleCartClick} />
+          </S.Button>
         )}
       </S.InfoWrapper>
     </div>
@@ -68,13 +70,15 @@ const S = {
     display: flex;
     justify-content: space-between;
     padding: 12px 6px 0;
-
-    & > svg:last-child {
-      cursor: pointer;
-    }
   `,
 
-  Name: styled.p`
+  Button: styled.button`
+    align-self: flex-start;
+    background: none;
+    cursor: pointer;
+  `,
+
+  Name: styled.label`
     margin-right: 4px;
     font-weight: 400;
     line-height: 1.4;

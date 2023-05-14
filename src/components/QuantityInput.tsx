@@ -4,11 +4,12 @@ import { css, styled } from 'styled-components';
 import Input from './common/Input';
 
 interface Props {
+  id: string;
   value: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
-const QuantityInput = ({ value, onChange }: Props) => {
+const QuantityInput = ({ id, value, onChange }: Props) => {
   const handleScrollPrevent: WheelEventHandler<HTMLInputElement> = ({ currentTarget }) => {
     currentTarget.blur();
   };
@@ -22,10 +23,12 @@ const QuantityInput = ({ value, onChange }: Props) => {
       <Input
         type="number"
         value={value}
+        id={id}
         inputMode="numeric"
         name="quantity"
         aria-label="quantity-input"
         autoComplete="on"
+        autoFocus
         min={0}
         max={99}
         css={QuantityInputStyle}
