@@ -1,3 +1,4 @@
+import { Loading } from 'components/@common/Loading';
 import ProductCardList from 'components/ProductCardList/ProductCardList';
 import useProductsFetch from 'hooks/useProductsFetch';
 
@@ -13,7 +14,7 @@ const ProductListPage = () => {
     );
   }
 
-  return isLoading ? <p>로딩 중입니다..</p> : <ProductCardList products={products} />;
+  return isLoading ? <Loading /> : <ProductCardList products={products} />;
 };
 
 export default ProductListPage;
