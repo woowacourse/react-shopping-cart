@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { productsInCartState } from '../atom';
+import { productsInCartState } from '../recoil/atoms';
 
 export const useCart = (productId: number) => {
   const [productsInCart, setProductsInCart] = useRecoilState(productsInCartState);

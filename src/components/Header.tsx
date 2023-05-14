@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 import { CartLogo } from '../assets/svg';
 import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { productsInCartState } from '../atom';
+import { productsInCartState } from '../recoil/atoms';
 
 export default function Header() {
   const [productsInCart] = useRecoilState(productsInCartState);
