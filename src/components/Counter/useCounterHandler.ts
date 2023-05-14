@@ -1,5 +1,5 @@
 import { ChangeEventHandler } from 'react';
-import { isNumber } from '../../utils/isNumber';
+import { isNumericString } from '../../utils/isNumericString';
 
 const useCounterHandler = (
   count: number,
@@ -11,35 +11,41 @@ const useCounterHandler = (
   max = 99,
 ) => {
   const handleIncreaseButtonClick = () => {
-    if (count + 1 > max) return;
+    const increasedCount = count + 1;
 
-    updateCount(count + 1);
-    onClickButton?.(count + 1);
+    if (increasedCount > max) return;
+
+    updateCount(increasedCount);
+    onClickButton?.(increasedCount);
   };
 
   const handleDecreaseButtonClick = () => {
-    if (count - 1 < min) return;
+    const decreasedCount = count - 1;
 
-    updateCount(count - 1);
-    onClickButton?.(count - 1);
+    if (decreasedCount < min) return;
+
+    updateCount(decreasedCount);
+    onClickButton?.(decreasedCount);
   };
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const value = event.target.value;
 
-    if (!isNumber(value)) return;
+    if (!isNumericString(value)) return;
 
-    if (Number(value) > max) {
+    const valueToNumber = Number(value);
+
+    if (valueToNumber > max) {
       updateCount(max);
       return;
     }
-    if (Number(value) < min) {
+    if (valueToNumber < min) {
       updateCount(min);
       return;
     }
 
-    updateCount(Number(value));
-    onChangeInput?.(Number(value));
+    updateCount(valueToNumber);
+    onChangeInput?.(valueToNumber);
   };
 
   const handleInputBlur = () => {
