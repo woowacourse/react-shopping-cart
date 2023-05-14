@@ -23,14 +23,13 @@
 
 - [x] CartItem
   - [x] 상품 이미지, 상품명, 상품 가격, 체크박스, 삭제버튼, 카운터로 구성
-- [ ] CartItemList
+- [x] CartItemList
   - [ ] 상품 종류수를 확인할 수 있다.
   - [ ] 전체선택을 할 수 있다.
   - [ ] 선택된 상품의 수를 확인 및 삭제할 수 있다.
-- [ ] Bill
+- [x] Bill
   - [ ] 결제예상금액(총 상품가격, 총 배송비, 총 주문금액)을 확인할 수 있다.
-- [ ] CheckBox
-- [ ] OrderButton
+- [x] CheckBox
 
 <br>
 
