@@ -44,6 +44,14 @@ const ProductListWrapper = styled.div`
   place-items: center;
   column-gap: 24px;
   margin-top: 60px;
+
+  @media (min-width: 720px) and (max-width: 1000px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: 480px) and (max-width: 719px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 export default ProductList;

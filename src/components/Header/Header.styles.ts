@@ -7,6 +7,8 @@ export const HeaderContainer = styled.header`
   position: fixed;
   top: 0;
 
+  padding: 0 40px;
+
   background: ${(props) => props.theme.color.white};
   border-bottom: 1px solid rgba(220, 223, 225, 0.7);
 `;
@@ -16,7 +18,7 @@ export const HeaderContentContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  width: 1320px;
+  width: 100%;
   height: 80px;
 
   margin: 0 auto;

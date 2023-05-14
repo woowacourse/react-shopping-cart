@@ -8,6 +8,6 @@ const ContentLayout = ({ children }: PropsWithChildren) => {
 export default ContentLayout;
 
 const ContentSection = styled.section`
-  width: 1200px;
+  width: 100%;
   margin: 140px auto 0 auto;
 `;
