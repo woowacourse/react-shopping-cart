@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "[간편식] 불고기 도시락",
+    "price": 10000,
+    "imageUrl": "https://images.unsplash.com/photo-1616645258469-ec681c17f3ee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80"
+  },
+  {
+    "id": 2,
+    "name": "[밀키트] 을왕리 부대찌개",
+    "price": 12000,
+    "imageUrl": "https://images.unsplash.com/photo-1584509171119-9054d2d7d9a7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80"
+  },
+  {
+    "id": 3,
+    "name": "[밀키트] 바질 베이스로 만든 에그인헬",
+    "price": 8000,
+    "imageUrl": "https://images.unsplash.com/photo-1489391013510-49401c8a3b6c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80"
+  },
+  {
+    "id": 4,
+    "name": "[간편식] 간단한 다진고기 볶음과 웨지감자",
+    "price": 6000,
+    "imageUrl": "https://images.unsplash.com/photo-1518510227856-30619d542ea9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+  },
+  {
+    "id": 5,
+    "name": "[버거킹] 치킨너겟 100봉지",
+    "price": 200000,
+    "imageUrl": "https://images.unsplash.com/photo-1582981760753-b52aae38f237?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+  },
+  {
+    "id": 6,
+    "name": "[호주산 쇠고기] 트리플 패트 버거",
+    "price": 25000,
+    "imageUrl": "https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2097&q=80"
+  },
+  {
+    "id": 7,
+    "name": "[새콤달콤] 자동에이드",
+    "price": 15000,
+    "imageUrl": "https://images.unsplash.com/photo-1592858521880-ce49b8e9194b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
+  },
+  {
+    "id": 8,
+    "name": "[자연 그대로] 오렌지에이드",
+    "price": 18000,
+    "imageUrl": "https://images.unsplash.com/photo-1534353473418-4cfa6c56fd38?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
+  },
+  {
+    "id": 9,
+    "name": "[2+1] 특가 세일 에이드 세트",
+    "price": 18000,
+    "imageUrl": "https://images.unsplash.com/photo-1497534446932-c925b458314e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1372&q=80"
+  },
+  {
+    "id": 10,
+    "name": "[고급선물] 라임+자몽 에이드",
+    "price": 22000,
+    "imageUrl": "https://images.unsplash.com/photo-1609951651556-5334e2706168?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
+  },
+  {
+    "id": 11,
+    "name": "[청량그자체] 탄산수",
+    "price": 5000,
+    "imageUrl": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
+  },
+  {
+    "id": 12,
+    "name": "[세상에] 고수가 들어가 아아",
+    "price": 10000,
+    "imageUrl": "https://images.unsplash.com/photo-1499638673689-79a0b5115d87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1364&q=80"
+  }
+]

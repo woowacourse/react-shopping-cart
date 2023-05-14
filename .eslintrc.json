@@ -1,0 +1,86 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:storybook/recommended",
+    "plugin:import/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["react", "@typescript-eslint", "import"],
+  "rules": {
+    "import/no-unresolved": "off",
+    "react/react-in-jsx-scope": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": ["external", "internal", "builtin", ["parent", "sibling"], "index", "unknown"],
+        "pathGroups": [
+          {
+            "pattern": "react*,react*/**",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "@Components/*",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@Pages/**/*",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@Styles/*",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@Animations/*",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@Types/*",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@Hooks/*",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@Atoms/*",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@Selector/*",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@Constants/*",
+            "group": "internal",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": [],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc"
+        }
+      }
+    ]
+  }
+}
