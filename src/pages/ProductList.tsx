@@ -9,14 +9,14 @@ import { useEffect } from 'react';
 import useToast from 'src/hooks/useToast';
 
 const ProductList = () => {
-  const { data, error } = useFetch<{ choonsik: Product[] }>(
+  const { data, error } = useFetch<{ choonsikProducts: Product[] }>(
     process.env.PUBLIC_URL + '/mock/productList.json',
-    { choonsik: [] }
+    { choonsikProducts: [] }
   );
 
   const {addToast} = useToast();
 
-  const fetchedProductList = data.choonsik.map((product) => (
+  const fetchedProductList = data.choonsikProducts.map((product) => (
     <ProductItem key={product.id} product={product} />
   ));
 
