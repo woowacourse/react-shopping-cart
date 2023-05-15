@@ -12,7 +12,7 @@ function ProductItemList() {
   const setMessageList = useSetRecoilState($ToastMessageList);
 
   useEffect(() => {
-    if (!error) {
+    if (error) {
       setMessageList(prev => [...prev, '제품 리스트를 불러오는 과정에서 에러가 발생했습니다.']);
     }
   }, [error]);
