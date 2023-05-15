@@ -1,13 +1,23 @@
 import styled from "styled-components";
 import cartTitleLogo from "../../assets/images/cart-large.png";
 import CartNotificationButton from "../CartNotificationButton/CartNotificationButton";
+import { Link } from "react-router-dom";
 
-const Header = () => {
+interface HeaderProps {
+  homeUrl: string;
+  cartViewPageUrl: string;
+}
+
+const Header = ({ homeUrl, cartViewPageUrl }: HeaderProps) => {
   return (
     <Container>
-      <CartTitleLogo src={cartTitleLogo} />
-      <Title>Shop</Title>
-      <CartNotificationButton />
+      <TitleLink to={homeUrl}>
+        <CartTitleLogo src={cartTitleLogo} />
+        <Title>Shop</Title>
+      </TitleLink>
+      <CartViewLink to={cartViewPageUrl}>
+        <CartNotificationButton />
+      </CartViewLink>
     </Container>
   );
 };
@@ -42,6 +52,15 @@ const Title = styled.h1`
   line-height: 57px;
   font-family: "Prata";
   font-weight: 100;
+`;
+
+const TitleLink = styled(Link)`
+  display: flex;
+  gap: 25px;
+`;
+
+const CartViewLink = styled(Link)`
+  margin-left: auto;
 `;
 
 export default Header;

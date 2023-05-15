@@ -26,7 +26,6 @@ const Button = styled.button`
   height: 32px;
   border: none;
   background-color: transparent;
-  margin-left: auto;
 `;
 
 const Title = styled.span`

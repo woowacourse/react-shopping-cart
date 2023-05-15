@@ -6,13 +6,11 @@ import Header from "./components/Header/Header";
 const App = () => {
   return (
     <>
-      <Header />
-      <HashRouter>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/cart-view" element={<CartView />} />
-        </Routes>
-      </HashRouter>
+      <Header homeUrl="/" cartViewPageUrl="/cart-view" />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/cart-view" element={<CartView />} />
+      </Routes>
     </>
   );
 };
