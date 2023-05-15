@@ -1,10 +1,10 @@
 import { ProductItem } from '../components/ProductItem';
-import styled from 'styled-components';
+import * as Styled from './styles/ProductList.styles';
 import { getMockData } from '../utils/getMockData';
 
 export const ProductList = () => {
   return (
-    <ProductListWrapper>
+    <Styled.Wrapper>
       {getMockData.map(({ id, name, price, imageUrl }) => (
         <ProductItem
           key={id}
@@ -14,16 +14,6 @@ export const ProductList = () => {
           imageUrl={imageUrl}
         />
       ))}
-    </ProductListWrapper>
+    </Styled.Wrapper>
   );
 };
-
-const ProductListWrapper = styled.div`
-  width: 1200px;
-  margin: 60px auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  justify-items: center;
-  align-items: center;
-  gap: 12px;
-`;
