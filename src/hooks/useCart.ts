@@ -18,10 +18,7 @@ export default function useCart() {
   const updateQuantity = (productId: number, quantity: number) => {
     const orderIndex = cart.findIndex((order) => order.product.id === productId);
     const newCart = [...cart];
-    newCart[orderIndex] = {
-      ...cart[orderIndex],
-      quantity,
-    };
+    newCart.splice(orderIndex, 1, { ...cart[orderIndex], quantity });
 
     setCart(newCart);
   };
