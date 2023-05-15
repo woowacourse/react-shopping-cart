@@ -31,7 +31,12 @@ const Wrapper = () => {
       minStep={1}
       maxStep={99}
     >
-      {({ step, handleNumberInput, handleIncrement, handleDecrement }) => (
+      {({
+        step,
+        handleNumberInputChange,
+        handleIncrementButtonClick,
+        handleDecrementButtonClick,
+      }) => (
         <StyledProductStepperFlexBox>
           <Input
             width="48px"
@@ -41,13 +46,13 @@ const Wrapper = () => {
             inputMode="numeric"
             aria-label="상품 개수 입력"
             alt="상품 개수 입력창"
-            onChange={handleNumberInput}
+            onChange={handleNumberInputChange}
           />
           <StyledProductStepperButtonFlexBox>
             <Button
               ariaLabel="상품 1개 추가"
               backgroundColor="#white"
-              onClick={handleIncrement}
+              onClick={handleIncrementButtonClick}
               type="button"
               name="상품 추가 버튼"
               border="1px solid #333333"
@@ -57,7 +62,7 @@ const Wrapper = () => {
             <Button
               ariaLabel="상품 1개 삭제"
               backgroundColor="#white"
-              onClick={handleDecrement}
+              onClick={handleDecrementButtonClick}
               type="button"
               name="상품 삭제 버튼"
               border="1px solid #333333"

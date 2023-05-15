@@ -1,25 +1,32 @@
-import { ChangeEvent, ReactNode } from 'react';
+import { ChangeEvent, ReactElement } from 'react';
 
 interface StepperProps {
   step: number;
   setStep: (step: number) => void;
-  stepUnit: number;
-  minStep: number;
-  maxStep: number;
+  stepUnit?: number;
+  minStep?: number;
+  maxStep?: number;
   children: (props: {
     step: number;
-    handleNumberInput: ({
+    handleNumberInputChange: ({
       target: { valueAsNumber },
     }: ChangeEvent<HTMLInputElement>) => void;
-    handleIncrement: () => void;
-    handleDecrement: () => void;
-  }) => ReactNode;
+    handleIncrementButtonClick: () => void;
+    handleDecrementButtonClick: () => void;
+  }) => ReactElement;
 }
 
 const Stepper = (props: StepperProps) => {
-  const { step, setStep, stepUnit, minStep, maxStep, children } = props;
+  const {
+    step,
+    setStep,
+    stepUnit = 1,
+    minStep = 0,
+    maxStep = 99,
+    children,
+  } = props;
 
-  const handleNumberInput = ({
+  const handleNumberInputChange = ({
     target: { valueAsNumber },
   }: ChangeEvent<HTMLInputElement>) => {
     if (
@@ -33,14 +40,15 @@ const Stepper = (props: StepperProps) => {
     setStep(valueAsNumber);
   };
 
-  const handleIncrement = () => setStep(step + stepUnit);
-  const handleDecrement = () => setStep(step - stepUnit);
+  const handleIncrementButtonClick = () => setStep(step + stepUnit);
+  const handleDecrementButtonClick = () => setStep(step - stepUnit);
 
-  return (
-    <>
-      {children({ step, handleNumberInput, handleIncrement, handleDecrement })}
-    </>
-  );
+  return children({
+    step,
+    handleNumberInputChange,
+    handleIncrementButtonClick,
+    handleDecrementButtonClick,
+  });
 };
 
 export default Stepper;
