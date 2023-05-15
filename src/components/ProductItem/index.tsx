@@ -14,8 +14,6 @@ const ProductItem = ({ product }: ProductItemProps) => {
   const { currentCartItem, remove, add, onSelectItem } =
     useProductSelect(product);
 
-  const {toastComponent} = useToast();
-
   const productSelect = currentCartItem ? (
     <Counter count={currentCartItem.quantity} add={add} remove={remove} />
   ) : (
@@ -34,7 +32,6 @@ const ProductItem = ({ product }: ProductItemProps) => {
         </div>
         {productSelect}
       </S.ProductWrapper>
-      {/* {toastComponent} */}
     </S.ItemWrapper>
   );
 };

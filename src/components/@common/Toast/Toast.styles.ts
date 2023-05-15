@@ -28,8 +28,9 @@ export const ToastWrapper = styled.div<{ type: 'error' | 'success' , isShow:bool
   align-items: center;
   gap: 8px;
 
-  width: 300px;
+  min-width: 300px;
   height: 48px;
+  padding: 0 10px;
 
   background: ${(props) => (props.type === 'error' ? '#E53E3E' : '#37A169')};
 
