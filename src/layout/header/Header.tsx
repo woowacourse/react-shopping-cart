@@ -58,9 +58,6 @@ const Style = {
   `,
 
   Logo: styled.h1`
-    margin: 0;
-    padding: 0;
-
     font-size: 40px;
     font-weight: 300;
 
