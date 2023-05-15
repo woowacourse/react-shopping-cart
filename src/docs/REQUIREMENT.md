@@ -18,7 +18,7 @@
 - [x] dependencies, devDependencies를 의미있게 구분짓는다.
 - [x] 사용하지 않는 CRA 보일러 플레이트 파일을 삭제한다.
 - [x] isNotNumber를 빌트인 된 기능으로 고쳐본다.
-- [ ] showInputErorrMessage에서 isNotError와 같이 부정형 변수를 긍정형으로 고쳐본다.
+- [x] showInputErorrMessage에서 isNotError와 같이 부정형 변수를 긍정형으로 고쳐본다.
 - [ ] 코드 포맷팅을 보기 좋게 고쳐본다.
 - [ ] 쉽게 계산 가능한 selector을 수정해본다.
 - [ ] 테스트 id를 사용하는 상수에서 테스트 코드를 위한 상수라는 것을 네이밍을 통해 알 수 있도록 고친다.

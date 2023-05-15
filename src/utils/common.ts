@@ -1,9 +1,9 @@
 export const showInputErorrMessage = (
-  isNotError: boolean,
+  isError: boolean,
   inputElement: HTMLInputElement,
   errorMessage: string
 ) => {
-  if (isNotError) {
+  if (!isError) {
     inputElement.setCustomValidity('');
     return;
   }
