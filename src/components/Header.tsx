@@ -13,13 +13,17 @@ const Header = () => {
     navigate(ROUTER_PATH.Main);
   };
 
+  const handleCartClicked = () => {
+    navigate(ROUTER_PATH.Cart);
+  };
+
   return (
     <Wrapper>
       <TitleContainer onClick={handleTitleClicked}>
         <img src={CartIcon} alt="홈카트" />
         <p>SHOP</p>
       </TitleContainer>
-      <CartContainer>
+      <CartContainer onClick={handleCartClicked}>
         장바구니
         {cartItems.length > 0 && (
           <ItemQuantityBox>{cartItems.length}</ItemQuantityBox>
@@ -72,6 +76,8 @@ const CartContainer = styled.section`
   font-size: 24px;
   font-weight: 500;
   color: white;
+
+  cursor: pointer;
 `;
 
 const ItemQuantityBox = styled.div`
