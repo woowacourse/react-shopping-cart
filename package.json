@@ -30,7 +30,6 @@
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
     "@types/styled-components": "^5.1.26",
-    "babel-loader": "^9.1.2",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.1",
     "react-docgen-typescript-plugin": "^1.0.5",
