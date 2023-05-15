@@ -2,7 +2,7 @@ import { rest } from 'msw';
 
 import { CART_LIST_LOCAL_STORAGE_KEY } from '../constants';
 import productListData from '../data/mockData.json';
-import { CartItemData, PostCartItemRequestBody } from '../types';
+import { CartItemData, PostCartItemRequestBody, ProductItemData } from '../types';
 import { getFromLocalStorage, saveToLocalStorage } from '../utils/localStorage';
 
 const getCartData = () => {
@@ -37,23 +37,23 @@ const changeCartItemQuantity = (cartList: CartItemData[], productId: number, qua
 
 const handlers = [
   rest.get('/api/products', (req, res, ctx) => {
-    return res(ctx.delay(2000), ctx.status(200), ctx.json(productListData));
+    return res(ctx.delay(2000), ctx.status(200), ctx.json<ProductItemData[]>(productListData));
   }),
 
   rest.get('/api/carts', (req, res, ctx) => {
-    const cartList = getFromLocalStorage<CartItemData>(CART_LIST_LOCAL_STORAGE_KEY);
+    const cartList = getFromLocalStorage<CartItemData[]>(CART_LIST_LOCAL_STORAGE_KEY);
 
-    return res(ctx.delay(2000), ctx.status(200), ctx.json(cartList));
+    return res(ctx.delay(2000), ctx.status(200), ctx.json<CartItemData[]>(cartList));
   }),
 
-  rest.post<CartItemData>('/api/carts/add', async (req, res, ctx) => {
+  rest.post('/api/carts/add', async (req, res, ctx) => {
     const { productId, quantity } = await req.json<PostCartItemRequestBody>();
     const currentCartData = getCartData();
 
     const newCartList = changeCartItemQuantity(currentCartData, productId, quantity);
     setCartData(newCartList);
 
-    return res(ctx.status(200), ctx.json(newCartList));
+    return res(ctx.status(200), ctx.json<CartItemData[]>(newCartList));
   }),
 ];
 
