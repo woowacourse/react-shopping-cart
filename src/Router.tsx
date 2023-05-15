@@ -4,10 +4,11 @@ import ProductPage from './pages/ProductPage/ProductPage';
 import { Layout } from './components/common/Layout/Layout';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
 import ProductPageError from './pages/ProductPage/ProductPageError';
+import { PAGE_ROUTES } from './constants/routes';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: PAGE_ROUTES.HOME,
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [

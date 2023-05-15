@@ -1,4 +1,5 @@
 export const PAGE_ROUTES = {
+  BASE: '.',
   HOME: '/',
   CART: '/cart',
 } as const;
