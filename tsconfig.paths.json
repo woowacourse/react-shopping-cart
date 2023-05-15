@@ -11,7 +11,8 @@
       "@type/*": ["types/*"],
       "@utils/*": ["utils/*"],
       "@constants/*": ["constants/*"],
-      "@hooks/*": ["hooks/*"]
+      "@hooks/*": ["hooks/*"],
+      "@router": ["router/index.tsx"]
     }
   }
 }
