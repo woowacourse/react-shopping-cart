@@ -18,9 +18,9 @@ const InputStepper = ({ size, quantity, setQuantity }: InputStepperProps) => {
     if (!isInputValueDigit(inputValue)) return;
     if (inputValue.length < 1 || inputValue.length > 2) return;
 
-    if (Number(inputValue) !== quantity) {
-      setQuantity(Number(inputValue));
-    }
+    if (Number(inputValue) === quantity) return;
+
+    setQuantity(Number(inputValue));
   };
 
   const handleOnClickStepperUpButton = () => {
