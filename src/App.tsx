@@ -1,16 +1,17 @@
 import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 import SvgSprite from './components/@common/Svg/SvgSprite';
-import Router from './router';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
+import { RouterProvider } from 'react-router-dom';
+import CartRouter from './router';
 
 function App() {
   return (
     <RecoilRoot>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Router />
+        <RouterProvider router={CartRouter} />
         <SvgSprite />
       </ThemeProvider>
     </RecoilRoot>
