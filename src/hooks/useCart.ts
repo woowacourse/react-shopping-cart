@@ -12,14 +12,13 @@ function useCart() {
   };
 
   const addCart = async (product: ProductItem) => {
-    if (cartList.find((cartItem) => cartItem.id === product.id) !== undefined) {
-      return;
-    }
-    const newCartItem = { id: product.id, quantity: 1, product };
-    setCartList([...cartList, newCartItem]);
-    const response = await mockApi('/cart-items/add', { body: JSON.stringify(newCartItem) });
-    if (response.data !== 'success') {
-      console.log(response.data);
+    if (cartList.find((cartItem) => cartItem.id === product.id) === undefined) {
+      const newCartItem = { id: product.id, quantity: 1, product };
+      setCartList([...cartList, newCartItem]);
+      const response = await mockApi('/cart-items/add', { body: JSON.stringify(newCartItem) });
+      if (response.data !== 'success') {
+        console.log(response.data);
+      }
     }
   };
 
