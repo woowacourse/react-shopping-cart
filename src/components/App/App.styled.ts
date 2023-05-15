@@ -8,7 +8,7 @@ export const StyledApp = styled.div`
   height: 100vh;
 
   & > main {
-    height: calc(100% - 80px);
+    height: calc(100% - 60px);
 
     padding: 40px 0;
 
