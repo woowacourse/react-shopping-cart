@@ -2,6 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { ProductItem } from '../components/ProductItem';
 import { getMockData } from '../utils/getMockData';
 import { userEvent, within } from '@storybook/testing-library';
+import { waitTimeout } from '../utils/waitTimeout';
 
 const meta = {
   component: ProductItem,
@@ -37,45 +38,52 @@ export const InteractionTest: StoryObj<typeof ProductItem> = {
 
     if (!shoppingIcon) return;
 
-    setTimeout(() => {
+    await waitTimeout(() => {
       userEvent.click(shoppingIcon);
-    }, 1000);
+    }, 500);
 
     const increaseButton = await canvas.findByTestId('increase-button');
 
     if (!increaseButton) return;
 
-    setTimeout(() => {
+    await waitTimeout(() => {
       userEvent.click(increaseButton);
     }, 500);
-    setTimeout(() => {
+
+    await waitTimeout(() => {
       userEvent.click(increaseButton);
-    }, 1000);
-    setTimeout(() => {
+    }, 500);
+
+    await waitTimeout(() => {
       userEvent.click(increaseButton);
-    }, 1500);
-    setTimeout(() => {
+    }, 500);
+
+    await waitTimeout(() => {
       userEvent.click(increaseButton);
-    }, 2000);
+    }, 500);
 
     const decreaseButton = await canvas.findByTestId('decrease-button');
 
     if (!decreaseButton) return;
 
-    setTimeout(() => {
+    await waitTimeout(() => {
       userEvent.click(decreaseButton);
-    }, 2500);
-    setTimeout(() => {
+    }, 1000);
+
+    await waitTimeout(() => {
       userEvent.click(decreaseButton);
-    }, 3000);
-    setTimeout(() => {
+    }, 500);
+
+    await waitTimeout(() => {
       userEvent.click(decreaseButton);
-    }, 3500);
-    setTimeout(() => {
+    }, 500);
+
+    await waitTimeout(() => {
       userEvent.click(decreaseButton);
-    }, 4000);
-    setTimeout(() => {
+    }, 500);
+
+    await waitTimeout(() => {
       userEvent.click(decreaseButton);
-    }, 4500);
+    }, 500);
   },
 };
