@@ -39,6 +39,7 @@ const Style = {
 
     background-color: #333333;
   `,
+
   ContentWrapper: styled.div`
     display: flex;
     justify-content: space-between;
@@ -46,6 +47,7 @@ const Style = {
 
     width: 1341px;
   `,
+
   LogoContainer: styled.div`
     display: flex;
     align-items: center;
@@ -54,6 +56,7 @@ const Style = {
 
     cursor: pointer;
   `,
+
   Logo: styled.h1`
     margin: 0;
     padding: 0;
@@ -63,11 +66,13 @@ const Style = {
 
     color: white;
   `,
+
   CartContainer: styled.div`
     display: flex;
 
     gap: 10px;
   `,
+
   Cart: styled.h1`
     margin: 0;
     padding: 0;
@@ -77,6 +82,7 @@ const Style = {
 
     color: white;
   `,
+
   CartAmount: styled.div`
     display: flex;
     justify-content: center;

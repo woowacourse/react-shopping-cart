@@ -15,8 +15,6 @@
   --font-test: "test";
 }
 
-/* 위에가 styled-reset 내용 */
-
 html {
   @media (min-width: 1800px) {
     font-size: 62.5%;

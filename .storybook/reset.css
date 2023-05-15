@@ -80,14 +80,6 @@ summary,
 time,
 mark,
 audio,
-video {
-  margin: 0;
-  border: 0;
-  padding: 0;
-  vertical-align: baseline;
-  font: inherit;
-  font-size: 100%;
-}
 article,
 aside,
 details,
@@ -102,13 +94,8 @@ nav,
 section {
   display: block;
 }
-*[hidden] {
-  display: none;
-}
 body {
-  touch-action: manipulation;
   line-height: 1;
-
   overflow-x: hidden;
 }
 menu,
@@ -117,17 +104,10 @@ ul {
   list-style: none;
 }
 blockquote,
-q {
-  quotes: none;
-}
 blockquote:before,
 blockquote:after,
 q:before,
 q:after {
   content: "";
   content: none;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
 }
