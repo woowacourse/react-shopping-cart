@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { LogoIcon } from "../../assets/ShoppingCartIcon";
+import { LogoIcon } from "../../assets/ShoppingCartIcons";
 import { useCartList } from "../../hooks/useCartList";
 import { useNavigate } from "react-router-dom";
 import { PAGES } from "../../constants";

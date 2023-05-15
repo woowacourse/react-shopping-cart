@@ -1,12 +1,11 @@
-import styled from 'styled-components';
-import { Product } from '../../types/Product';
-import { Counter } from './Counter';
-import { ShoppingCartIcon } from '../../assets/ShoppingCartIcon';
-import { useCartList } from '../../hooks/useCartList';
+import styled from "styled-components";
+import { Product } from "../../types/Product";
+import { Counter } from "./Counter";
+import { AddShoppingCartIcon } from "../../assets/ShoppingCartIcons";
+import { useCartList } from "../../hooks/useCartList";
 
 export const ProductCard = ({ id, name, price, imageUrl }: Product) => {
-  const { cartList, addProductToCartList, removeProductFromCartList } =
-    useCartList(id);
+  const { cartList, addProductToCartList, removeProductFromCartList } = useCartList(id);
 
   return (
     <Style.Container>
@@ -19,7 +18,7 @@ export const ProductCard = ({ id, name, price, imageUrl }: Product) => {
         {cartList.includes(id) ? (
           <Counter removeItemFromCartList={removeProductFromCartList} />
         ) : (
-          <ShoppingCartIcon handleClick={addProductToCartList} />
+          <AddShoppingCartIcon handleClick={addProductToCartList} />
         )}
       </Style.DescriptionContainer>
     </Style.Container>
