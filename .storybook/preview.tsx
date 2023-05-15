@@ -1,9 +1,10 @@
 import React from 'react';
+import { RecoilRoot } from 'recoil';
+import { Preview } from '@storybook/react';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../src/styles/theme';
-import { RecoilRoot } from 'recoil';
 
-const preview = {
+const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
