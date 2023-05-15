@@ -1,18 +1,22 @@
+import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
+import { cartSelector } from '../../store/cart';
 
 const Bill = () => {
+  const { totalAmout } = useRecoilValue(cartSelector);
+
   return (
     <Wrapper>
       <SubTitle>결제예상금액</SubTitle>
       <DetailWrapper>
         <Detail>
-          총 상품가격 <span>21,700원</span>
+          총 상품가격 <span>{totalAmout.toLocaleString()}원</span>
         </Detail>
         <Detail>
           총 배송비 <span>3,000원</span>
         </Detail>
         <TotalAmount>
-          총 주문금액 <span>24,700원</span>
+          총 주문금액 <span>{(totalAmout + 3000).toLocaleString()}원</span>
         </TotalAmount>
         <OrderButton>주문하기</OrderButton>
       </DetailWrapper>

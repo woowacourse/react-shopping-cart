@@ -1,16 +1,16 @@
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import { cartListAtom, cartQuantitySelector } from '../../store/cart';
+import { cartListAtom, cartSelector } from '../../store/cart';
 import CartItem from '../CartItem/CartItem';
 import CheckBox from '../common/CheckBox/CheckBox';
 
 const CartItemList = () => {
   const cartList = useRecoilValue(cartListAtom);
-  const cartListLength = useRecoilValue(cartQuantitySelector);
+  const { cartsQuantity } = useRecoilValue(cartSelector);
 
   return (
     <Wrapper>
-      <SubTitle>든든 배송 상품 ({cartListLength}개)</SubTitle>
+      <SubTitle>든든 배송 상품 ({cartsQuantity}개)</SubTitle>
       <Ul>
         {cartList.map((id) => (
           <CartItem id={id} />
@@ -18,7 +18,7 @@ const CartItemList = () => {
 
         <CheckBoxWrapper>
           <CheckBox />
-          <span>전체선택 (2/{cartListLength})</span>
+          <span>전체선택 (2/{cartsQuantity})</span>
           <DeleteSelectedItemsButton>선택삭제</DeleteSelectedItemsButton>
         </CheckBoxWrapper>
       </Ul>

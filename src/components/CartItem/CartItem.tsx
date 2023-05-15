@@ -57,7 +57,7 @@ const CartItem = ({ id }: CartItemProps) => {
             quantity={productInCart.quantity}
           />
         </CounterWrapper>
-        <Price>{price}</Price>
+        <Price>{price.toLocaleString()}원</Price>
       </DetailWrapper>
     </Wrapper>
   );

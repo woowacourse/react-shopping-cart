@@ -1,14 +1,14 @@
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import { cartQuantitySelector } from '../../store/cart';
+import { cartSelector } from '../../store/cart';
 
 const CartTextButton = () => {
-  const cartQuantity = useRecoilValue(cartQuantitySelector);
+  const { cartsQuantity } = useRecoilValue(cartSelector);
 
   return (
     <Container>
       <ShoppingCart>장바구니</ShoppingCart>
-      {cartQuantity ? <CartQuantity>{cartQuantity}</CartQuantity> : null}
+      {cartsQuantity ? <CartQuantity>{cartsQuantity}</CartQuantity> : null}
     </Container>
   );
 };

@@ -18,10 +18,16 @@ export const cartAtomFamily = atomFamily<Cart, number>({
   effects_UNSTABLE: (id) => [localStorageEffect(`cartItem_${id}`)],
 });
 
-export const cartQuantitySelector = selector({
-  key: 'cartQuantitySelector',
+export const cartSelector = selector({
+  key: 'cartSelector',
   get: ({ get }) => {
-    const cartsQuantity = get(cartListAtom).length;
-    return cartsQuantity;
+    const cartIDList = get(cartListAtom);
+    const cartsQuantity = cartIDList.length;
+    const cartList = cartIDList.map((id) => get(cartAtomFamily(id)));
+    const totalAmout = cartList.reduce(
+      (a, b) => a + b.product.price * b.quantity,
+      0
+    );
+    return { cartsQuantity, totalAmout };
   },
 });
