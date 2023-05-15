@@ -5,11 +5,11 @@ import useCart from '../../hooks/useCart';
 import { isNumeric } from '../../utils/validator';
 import { MAX_QUANTITY } from '../../constants';
 
-interface ProductProps extends ProductType {};
+interface ProductProps extends ProductType {}
 
 export default function Product(props: ProductProps) {
   const { id, name, price, imageUrl } = props;
-  const [cart, addCartItem, removeCartItem, updateQuantity] = useCart();
+  const [cart, { addCartItem, removeCartItem, updateQuantity }] = useCart();
   const [quantityInput, setQuantityInput] = useState('');
   const cartItem = cart.find((item) => item.product.id === id);
 
@@ -19,11 +19,11 @@ export default function Product(props: ProductProps) {
     setQuantityInput('1');
   };
 
-  const handleChangeCounter = ({ target : { value }}: React.ChangeEvent<HTMLInputElement>) => {
-    if (isNumeric(value)) {
-      setQuantityInput(Number(value) > MAX_QUANTITY ? MAX_QUANTITY.toString() : value);
-    } else if (value === '') {
+  const handleChangeCounter = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+    if (value === '') {
       setQuantityInput('');
+    } else if (isNumeric(value)) {
+      setQuantityInput(Math.min(Number(value), MAX_QUANTITY).toString());
     }
   };
 
@@ -57,7 +57,7 @@ export default function Product(props: ProductProps) {
         <ControlBox>
           {cartItem ? (
             <Counter
-              type="number"
+              type="text"
               value={quantityInput}
               onChange={handleChangeCounter}
               onBlur={handleBlurCounter}
