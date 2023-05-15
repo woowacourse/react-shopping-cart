@@ -17,7 +17,7 @@ interface ProductItemProps {
 
 const ProductItem = ({ information }: ProductItemProps) => {
   const cartItemQuantity = useRecoilValue(cartItemQuantityState(information.id));
-  const { isAdded, setCartItemQuantity } = useCartAddition(information.id);
+  const { isAdded, updateCartList } = useCartAddition();
   const { isModalOpen, handleModalOpen, handleModalClose } = useModal();
 
   return (
@@ -41,7 +41,7 @@ const ProductItem = ({ information }: ProductItemProps) => {
             <ProductAddition
               handleModalClose={handleModalClose}
               productInformation={information}
-              setCartItemQuantity={setCartItemQuantity}
+              updateCartList={updateCartList}
             />
           </Modal>
         )}

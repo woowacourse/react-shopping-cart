@@ -3,9 +3,9 @@ import { useRecoilCallback } from 'recoil';
 
 import { TOAST_SHOW_DURATION } from '../constants';
 import { cartListState } from '../store/cart';
-import { ProductItemData } from '../types';
+import { CartItemData } from '../types';
 
-const useCartAddition = (productId: ProductItemData['id']) => {
+const useCartAddition = () => {
   const [isAdded, setIsAdded] = useState(false);
   const timeout = useRef<ReturnType<typeof setTimeout>>();
 
@@ -19,38 +19,16 @@ const useCartAddition = (productId: ProductItemData['id']) => {
     }
   }, [isAdded]);
 
-  const setCartItemQuantity = useRecoilCallback(
+  const updateCartList = useRecoilCallback(
     ({ set }) =>
-      (quantity: number) => {
-        set(cartListState, (cartList) => {
-          setIsAdded(true);
-
-          const selectedCartItemIndex = cartList.findIndex(
-            (cartItem) => cartItem.productId === productId
-          );
-
-          if (selectedCartItemIndex === -1) {
-            const newCartId = Number(new Date());
-
-            return [...cartList, { id: newCartId, quantity, productId }];
-          }
-
-          const updatedCartList = [
-            ...cartList.slice(0, selectedCartItemIndex),
-            {
-              ...cartList[selectedCartItemIndex],
-              quantity,
-            },
-            ...cartList.slice(selectedCartItemIndex + 1),
-          ].filter((cartItem) => cartItem.quantity > 0);
-
-          return updatedCartList;
-        });
+      (newCartList: CartItemData[]) => {
+        set(cartListState, newCartList);
+        setIsAdded(true);
       },
-    [productId]
+    []
   );
 
-  return { isAdded, setCartItemQuantity };
+  return { isAdded, updateCartList };
 };
 
 export { useCartAddition };

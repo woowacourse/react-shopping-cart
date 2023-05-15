@@ -1,8 +1,9 @@
 import { useCallback } from 'react';
 
+import { postCartItem } from '../../api/cartAPI';
 import { DEFAULT_MIN_COUNT } from '../../constants';
 import { useCount } from '../../hooks/useCount';
-import { ProductItemData } from '../../types';
+import { CartItemData, ProductItemData } from '../../types';
 import { priceFormatter } from '../../utils/formatter';
 import Button from '../common/Button/Button';
 import Heading from '../common/Heading/Heading';
@@ -11,13 +12,13 @@ import * as S from './ProductAddition.styles';
 
 interface ProductAdditionProps {
   productInformation: ProductItemData;
-  setCartItemQuantity: (quantity: number) => void;
+  updateCartList: (newCartList: CartItemData[]) => void;
   handleModalClose: () => void;
 }
 
 const ProductAddition = ({
   productInformation,
-  setCartItemQuantity,
+  updateCartList,
   handleModalClose,
 }: ProductAdditionProps) => {
   const {
@@ -26,11 +27,11 @@ const ProductAddition = ({
     handleIncreaseCount,
     handleCountChange,
   } = useCount(DEFAULT_MIN_COUNT);
-
-  const handleCartAdd = useCallback(() => {
-    setCartItemQuantity(quantity);
+  const handleCartAdd = useCallback(async () => {
+    const data = await postCartItem(productInformation.id, quantity);
+    updateCartList(data);
     handleModalClose();
-  }, [handleModalClose, quantity, setCartItemQuantity]);
+  }, [handleModalClose, productInformation.id, quantity, updateCartList]);
 
   return (
     <>
