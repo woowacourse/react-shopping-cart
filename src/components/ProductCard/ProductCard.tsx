@@ -30,6 +30,8 @@ const ProductCardContainer = styled.div`
   flex-direction: column;
   width: 282px;
   height: 358.03px;
+
+  margin: 0 auto;
 `;
 
 const ProductImage = styled.img`
