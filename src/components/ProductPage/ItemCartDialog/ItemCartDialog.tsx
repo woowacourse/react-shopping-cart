@@ -6,6 +6,7 @@ import QuantityStepper from '../../common/QuantityStepper/QuantityStepper';
 import * as S from './ItemCartDialog.styles';
 import { useRef } from 'react';
 import useCart from '../../../hooks/cart/useCart';
+import Flex from '../../common/Flex';
 
 type ItemCartDialogProps = Product;
 
@@ -35,11 +36,18 @@ const ItemCartDialog: React.FC<ItemCartDialogProps> = (props) => {
             <S.Name>{name}</S.Name>
             <S.Price>{price.toLocaleString()} 원</S.Price>
             <QuantityStepper ref={quantityRef} label="item-quantity" />
-            <Dialog.Close asChild onClick={addItemToCart}>
-              <Button size="M" view="dark">
-                추가하기
-              </Button>
-            </Dialog.Close>
+            <Flex width="60%" justify="space-between">
+              <Dialog.Close asChild>
+                <Button size="M" view="dark">
+                  취소하기
+                </Button>
+              </Dialog.Close>
+              <Dialog.Close asChild onClick={addItemToCart}>
+                <Button size="M" view="dark">
+                  추가하기
+                </Button>
+              </Dialog.Close>
+            </Flex>
           </S.Box>
         </Dialog.Content>
       </Dialog.Portal>
