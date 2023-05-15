@@ -1,11 +1,18 @@
+import { HashRouter, Routes, Route } from "react-router-dom";
+import Main from "./pages/Main";
+import CartView from "./pages/CartView";
 import Header from "./components/Header/Header";
-import ProductCardList from "./components/ProductCardList/ProductCardList";
 
 const App = () => {
   return (
     <>
       <Header />
-      <ProductCardList />
+      <HashRouter>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/cart-view" element={<CartView />} />
+        </Routes>
+      </HashRouter>
     </>
   );
 };
