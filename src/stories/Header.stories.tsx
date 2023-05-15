@@ -19,7 +19,7 @@ const meta = {
       );
     },
   ],
-} as Meta;
+} satisfies Meta<typeof Header>;
 
 export default meta;
 

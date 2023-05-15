@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { useCounterInput } from '../../hooks/useCounterInput';
+import { useCounterInput } from "../../hooks/useCounterInput";
 
 interface CounterProps {
   removeItemFromCartList: () => void;
@@ -31,6 +31,7 @@ const Style = {
 
     border: 1px solid lightgray;
   `,
+
   Input: styled.input`
     width: 23px;
 
@@ -44,6 +45,7 @@ const Style = {
       padding: 0;
     }
   `,
+
   Button: styled.button`
     all: unset;
 
