@@ -1,6 +1,9 @@
 import type { ProductType } from '../../types';
+
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import CounterInput from '../leafs/CounterInput';
+
 import useCart from '../../hooks/useCart';
 import { isNumeric } from '../../utils/validator';
 import { MAX_QUANTITY } from '../../constants';
@@ -17,18 +20,6 @@ export default function Product(props: ProductProps) {
     const newCartItem = { id: Date.now(), quantity: 1, product: props };
     addCartItem(newCartItem);
     setQuantityInput('1');
-  };
-
-  const handleChangeCounter = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
-    if (value === '') {
-      setQuantityInput('');
-    } else if (isNumeric(value)) {
-      setQuantityInput(Math.min(Number(value), MAX_QUANTITY).toString());
-    }
-  };
-
-  const handleBlurCounter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === '') removeCartItem(id);
   };
 
   useEffect(() => {
@@ -56,12 +47,7 @@ export default function Product(props: ProductProps) {
         </LabelBox>
         <ControlBox>
           {cartItem ? (
-            <Counter
-              type="text"
-              value={quantityInput}
-              onChange={handleChangeCounter}
-              onBlur={handleBlurCounter}
-            />
+            <CounterInput value={quantityInput} setValue={setQuantityInput} max={MAX_QUANTITY} />
           ) : (
             <CartIcon src="./cart.svg" onClick={handleClickIcon}></CartIcon>
           )}
@@ -124,18 +110,4 @@ const CartIcon = styled.img`
 
 const ControlBox = styled.div`
   width: auto;
-`;
-
-const Counter = styled.input`
-  width: 64px;
-  height: 28px;
-  border: 1px solid #dddddd;
-  border-radius: 0px;
-
-  text-align: center;
-
-  &::-webkit-inner-spin-button {
-    opacity: 1;
-    height: 28px;
-  }
 `;
