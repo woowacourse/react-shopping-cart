@@ -41,8 +41,9 @@ const ContentBox = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  width: 1272px;
+  width: 80%;
   height: 100%;
+  padding: 0 16px;
 `;
 
 const LogoBox = styled.div`
@@ -57,6 +58,10 @@ const LogoTitle = styled.h1`
   margin-left: 24px;
 
   vertical-align: center;
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 `;
 
 const CartBox = styled.div`

@@ -27,7 +27,11 @@ const Wrapper = styled.div`
   padding-top: 80px;
 
   main {
-    width: 1272px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 80%;
     padding: 60px 0;
   }
 `;

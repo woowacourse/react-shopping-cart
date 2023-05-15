@@ -22,4 +22,8 @@ const Wrapper = styled.div`
   grid-template-columns: repeat(4, 282px);
   grid-column-gap: 48px;
   grid-row-gap: 64px;
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(1, 282px);
+  }
 `;
