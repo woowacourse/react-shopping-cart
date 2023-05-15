@@ -5,14 +5,14 @@ import {
   selector,
   selectorFamily,
 } from 'recoil';
-import { CartId, CartItem, ProductId } from 'src/types';
+import { CartItem, ProductId } from 'src/types';
 
-export const cartIdMap = atom<Map<ProductId, CartId>>({
-  key: 'cartId',
-  default: new Map(),
+export const productIds = atom<Array<ProductId>>({
+  key: 'productIds',
+  default: [],
 });
 
-export const cartItemAtom = atomFamily<CartItem | null, CartId>({
+export const cartItemAtom = atomFamily<CartItem | null, ProductId>({
   key: 'cartItem',
   default: null,
 });
@@ -20,12 +20,8 @@ export const cartItemAtom = atomFamily<CartItem | null, CartId>({
 export const countCartListSelector = selector({
   key: 'countCartListSelector',
   get: ({ get }) => {
-    const ids = get(cartIdMap);
-    const items = [...ids.values()].map((id) => get(cartItemAtom(id)));
-    return items.reduce((acc, cur) => {
-      if (!cur) return acc;
-      return acc + cur.quantity;
-    }, 0);
+    const ids = get(productIds);
+    return ids.length;
   },
 });
 
@@ -34,21 +30,19 @@ export const updateCart = selectorFamily({
   get:
     (productId: ProductId) =>
     ({ get }) => {
-      const ids = get(cartIdMap);
-      const cartId = ids.get(productId);
-      if (!cartId) return null;
-      return get(cartItemAtom(cartId));
+      return get(cartItemAtom(productId) ?? null );
     },
 
   set:
     (productId: ProductId) =>
-    ({ set, get, reset }, item) => {
+    ({ set,reset }, item) => {
       if (!item || item instanceof DefaultValue) return;
-      const ids = get(cartIdMap);
-      const cartId = ids.get(productId) ?? item.id;
+      
       if (item.quantity === 0) {
-        reset(cartItemAtom(cartId));
+        reset(cartItemAtom(productId));
+        return;
       }
-      set(cartItemAtom(cartId), item);
+
+      set(cartItemAtom(productId), item);
     },
 });

@@ -1,17 +1,16 @@
 import { useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { cartIdMap, updateCart } from 'src/recoil/cartList';
+import { productIds, updateCart } from 'src/recoil/cartList';
 import { Product } from 'src/types';
 
 const useProductSelect = (product: Product) => {
   const [isFirst, setIsFirst] = useState(false);
-  const setCartIdMap = useSetRecoilState(cartIdMap);
+  const setProductIds = useSetRecoilState(productIds);
   const [cartItem, setCartItem] = useRecoilState(updateCart(product.id));
 
   const onSelectItem: React.MouseEventHandler<SVGElement> = () => {
-    const cartId = Number(new Date());
-    setCartItem({ id: cartId, quantity: 1, product });
-    setCartIdMap((prev) => new Map([...prev, [product.id, cartId]]));
+    setCartItem({ id:product.id , quantity: 1, product });
+    setProductIds((prev) => [...prev, product.id]);
     setIsFirst(true);
   };
 
@@ -22,13 +21,12 @@ const useProductSelect = (product: Product) => {
 
   const remove: React.MouseEventHandler<HTMLButtonElement> = () => {
     if (!cartItem) return;
+
     if (cartItem.quantity === 1) {
       setIsFirst(false);
-      setCartIdMap((prev) => {
-        const newState = new Map(prev);
-        newState.delete(product.id);
-        return newState;
-      });
+      setProductIds((prev) => 
+        prev.filter(id => id !== cartItem.id)
+      );
     }
     setCartItem({ ...cartItem, quantity: cartItem.quantity - 1 });
   };

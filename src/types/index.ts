@@ -1,5 +1,5 @@
 export interface CartItem {
-  id: CartId;
+  id: ProductId;
   quantity: number;
   product: Product;
 }
@@ -11,5 +11,4 @@ export interface Product {
   imageUrl: string;
 }
 
-export type CartId = number;
 export type ProductId = number;
