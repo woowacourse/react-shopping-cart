@@ -1,16 +1,16 @@
 import * as S from './Counter.styles';
 interface CounterProps {
   count: number;
-  add: React.MouseEventHandler<HTMLButtonElement>;
-  remove: React.MouseEventHandler<HTMLButtonElement>;
+  increase: React.MouseEventHandler<HTMLButtonElement>;
+  decrease: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const Counter = ({ count, add, remove }: CounterProps) => {
+const Counter = ({ count, increase, decrease }: CounterProps) => {
   return (
     <S.Wrapper>
-      <S.CalcButton onClick={remove}>-</S.CalcButton>
+      <S.CalcButton onClick={decrease}>-</S.CalcButton>
       <span>{count}</span>
-      <S.CalcButton onClick={add}>+</S.CalcButton>
+      <S.CalcButton onClick={increase}>+</S.CalcButton>
     </S.Wrapper>
   );
 };

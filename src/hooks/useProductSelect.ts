@@ -14,12 +14,12 @@ const useProductSelect = (product: Product) => {
     addToast({id:Number(new Date()), type:"success", message:`${product.name}이(가) 장바구니에 추가됐습니다.`,show:true})
   };
 
-  const add: React.MouseEventHandler<HTMLButtonElement> = () => {
+  const increase: React.MouseEventHandler<HTMLButtonElement> = () => {
     if (!cartItem) return;
     setCartItem({ ...cartItem, quantity: cartItem.quantity + 1 });
   };
 
-  const remove: React.MouseEventHandler<HTMLButtonElement> = () => {
+  const decrease: React.MouseEventHandler<HTMLButtonElement> = () => {
     if (!cartItem) return;
 
     if (cartItem.quantity === 1) {
@@ -30,7 +30,7 @@ const useProductSelect = (product: Product) => {
     setCartItem({ ...cartItem, quantity: cartItem.quantity - 1 });
   };
 
-  return { currentCartItem: cartItem, remove, add, onSelectItem };
+  return { currentCartItem: cartItem, decrease, increase, onSelectItem };
 };
 
 export default useProductSelect;

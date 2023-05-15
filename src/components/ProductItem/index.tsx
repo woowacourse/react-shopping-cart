@@ -9,11 +9,11 @@ interface ProductItemProps {
 }
 
 const ProductItem = ({ product }: ProductItemProps) => {
-  const { currentCartItem, remove, add, onSelectItem } =
+  const { currentCartItem, decrease, increase, onSelectItem } =
     useProductSelect(product);
 
   const productSelect = currentCartItem ? (
-    <Counter count={currentCartItem.quantity} add={add} remove={remove} />
+    <Counter count={currentCartItem.quantity} increase={increase} decrease={decrease} />
   ) : (
     <Svg type="cart-icon" width={25} height={22} onClick={onSelectItem} cursor={"pointer"}/>
   );
