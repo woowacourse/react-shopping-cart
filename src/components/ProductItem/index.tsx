@@ -1,6 +1,6 @@
 import * as S from './ProductItem.styles';
 import Svg from 'components/@common/Svg';
-import Counter from '../Counter';
+import Counter from 'components/@common/Counter';
 import useProductSelect from 'hooks/useProductSelect';
 import { Product } from 'types';
 
