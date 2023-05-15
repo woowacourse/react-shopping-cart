@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { styled } from 'styled-components';
 import BucketCounter from '@components/common/BucketCounter';
 import { TEST_ADD_CART_BUTTON } from '@constants/testId';
@@ -13,44 +13,31 @@ const AddCartButton = ({
   addProductToCart,
   removeProductFromCart,
 }: AddCartButtonProps) => {
-  const [flag, setFlag] = useState(true);
   const [isClicked, setIsClicked] = useState(false);
 
-  const toggleCounter = () => {
+  const addCartAndShowBucketCounter = () => {
     setIsClicked(true);
+    addProductToCart();
   };
 
-  useEffect(() => {
-    if (flag) {
-      setFlag(false);
-      return;
-    }
-
-    if (!isClicked) {
-      removeProductFromCart();
-      return;
-    }
-
-    addProductToCart();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isClicked, flag]);
+  const removeCartAndHideBucketCounter = () => {
+    setIsClicked(false);
+    removeProductFromCart();
+  };
 
   return (
     <Wrapper>
       {!isClicked && (
         <Button
           type="button"
-          onClick={toggleCounter}
+          onClick={addCartAndShowBucketCounter}
           data-testid={TEST_ADD_CART_BUTTON}
         >
           <Image src={BUCKET_BUTTON} alt="장바구니 버튼" />
         </Button>
       )}
       {isClicked && (
-        <BucketCounter
-          removeProductFromCart={removeProductFromCart}
-          setIsClicked={setIsClicked}
-        />
+        <BucketCounter removeProductFromCart={removeCartAndHideBucketCounter} />
       )}
     </Wrapper>
   );

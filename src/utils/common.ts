@@ -1,4 +1,4 @@
-export const showInputErorrMessage = (
+export const showInputErrorMessage = (
   isError: boolean,
   inputElement: HTMLInputElement,
   errorMessage: string
