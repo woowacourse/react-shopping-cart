@@ -1,11 +1,11 @@
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
-import { cartItemLengthSelector } from '@recoil/selectors/cartSelector';
+import { cartAtom } from '@recoil/atoms/cartAtom';
 import { HEADER_LOGO } from '@assets';
 import { theme } from '@styles/theme';
 
 const Header = () => {
-  const cartLength = useRecoilValue(cartItemLengthSelector);
+  const [cart] = useRecoilState(cartAtom);
 
   return (
     <Wrapper>
@@ -15,7 +15,7 @@ const Header = () => {
       </Container>
       <Container>
         <BucketText>장바구니</BucketText>
-        <BucketCount>{cartLength}</BucketCount>
+        <BucketCount>{cart.length}</BucketCount>
       </Container>
     </Wrapper>
   );
