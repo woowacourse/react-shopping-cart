@@ -36,6 +36,10 @@ const GlobalStyle = createGlobalStyle`
     padding-bottom: 72px;
     width: 1080px;
   }
+
+  .hide-overflow {
+    overflow: hidden;
+  }
 `;
 
 export default GlobalStyle;
