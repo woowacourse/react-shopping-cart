@@ -12,7 +12,7 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "test": "react-scripts test",
+    "test": "craco test",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
