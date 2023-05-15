@@ -20,9 +20,5 @@ export default function useCart() {
     setCart(cart.toSpliced(cartItemIndex, 1, { ...cart[cartItemIndex], quantity }));
   };
 
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY.cart, JSON.stringify(cart));
-  }, [cart]);
-
   return [cart, addCartItem, removeCartItem, updateQuantity] as const;
 }
