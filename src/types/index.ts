@@ -5,4 +5,9 @@ interface ProductCardProps {
   productPrice: number;
 }
 
-export type { ProductCardProps };
+interface ProductQuantityInputProps {
+  productId: number;
+  step?: number;
+}
+
+export type { ProductCardProps, ProductQuantityInputProps };

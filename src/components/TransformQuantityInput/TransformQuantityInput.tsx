@@ -3,13 +3,9 @@ import cartImage from "../../assets/images/cart.png";
 import arrowUpImage from "../../assets/images/arrow-up.png";
 import arrowDownImage from "../../assets/images/arrow-down.png";
 import useQuantityUpdater from "../../hooks/useQuantityUpdater";
+import type { ProductQuantityInputProps } from "../../types";
 
-interface ProductQuantityInputProps {
-  productId: number;
-  step?: number;
-}
-
-const ProductQuantityInput = ({
+const TransformQuantityInput = ({
   productId,
   step = 1,
 }: ProductQuantityInputProps) => {
@@ -147,4 +143,4 @@ const DecreaseButton = styled.button`
   animation: ${moveDownAnimation} 0.2s;
 `;
 
-export default ProductQuantityInput;
+export default TransformQuantityInput;

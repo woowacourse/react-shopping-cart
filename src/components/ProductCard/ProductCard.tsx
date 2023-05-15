@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ProductQuantityInput from "../ProductQuantityInput/ProductQuantityInput";
+import ProductQuantityInput from "../TransformQuantityInput/TransformQuantityInput";
 import type { ProductCardProps } from "../../types";
 
 const ProductCard = ({
