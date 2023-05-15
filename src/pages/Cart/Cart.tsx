@@ -12,9 +12,9 @@ function Cart() {
     <>
       {cartList.map((cart) => (
         <div key={cart.id}>
-          <h1>
+          <div style={{ fontSize: '20px' }}>
             {cart.product.name} - ({cart.quantity}개)
-          </h1>
+          </div>
         </div>
       ))}
     </>
