@@ -1,9 +1,7 @@
 import { atom, selector, selectorFamily } from 'recoil';
 
 import { getCartList } from '../api/cartAPI';
-import { CART_LIST_LOCAL_STORAGE_KEY } from '../constants';
 import { CartItemData } from '../types';
-import { removeFromLocalStorage, saveToLocalStorage } from '../utils/localStorage';
 
 const cartListState = atom<CartItemData[]>({
   key: 'cartList',
@@ -23,7 +21,7 @@ const cartItemQuantityState = selectorFamily({
     ({ get }) => {
       const cartList = get(cartListState);
 
-      return cartList.find((cartItem) => cartItem.productId === productId)?.quantity;
+      return cartList.find((cartItem) => cartItem.product.id === productId)?.quantity;
     },
 });
 
