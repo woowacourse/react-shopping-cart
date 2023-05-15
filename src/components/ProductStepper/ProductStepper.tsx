@@ -1,6 +1,7 @@
-import useProductCount from '@components/ProductStepper/useProductCount';
+import { useState } from 'react';
 
 import { PRODUCT_COUNT, STEP_UNIT } from '@constants/product';
+import useUpdateMyCart from './useUpdateCart';
 
 import {
   StyledProductStepper,
@@ -19,7 +20,9 @@ interface ProductStepperProps {
 
 const ProductStepper = (props: ProductStepperProps) => {
   const { productId } = props;
-  const { productCount, setProductCount } = useProductCount(productId);
+  const [productCount, setProductCount] = useState(0);
+
+  useUpdateMyCart(productId, productCount);
 
   return (
     <StyledProductStepper>
