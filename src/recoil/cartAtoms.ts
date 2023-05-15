@@ -14,9 +14,18 @@ export const cartState = atom<Cart[]>({
 });
 
 export const cartCountSelector = selector({
-  key: 'cartLength',
+  key: 'cartCountSelector',
   get: ({ get }) => {
     const cartList = get(cartState);
     return cartList.length;
   }
 });
+
+export const cartQuantitySelector = (id: number) => selector({
+  key: `quantitySelector`,
+  get: ({ get }) => {
+    const cartList = get(cartState);
+    const targetCart = cartList.find((cart) => cart.id === id);
+    return targetCart?.quantity ?? 0;
+  }
+})
