@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import type { NewCartItem, ProductItem } from '../types/types';
+import type { Cart, NewCartItem, ProductItem } from '../types/types';
 import mockApi from '../api/mockApi';
 import { cartState } from '../recoil/atoms';
 
@@ -31,23 +31,22 @@ function useCart() {
     }
   };
 
-  const updateCartListQuantity = (id: number, newQuantity: number) =>
-    cartList.map((cart) => {
-      if (cart.id === id) {
-        return {
-          ...cart,
-          quantity: newQuantity,
-        };
-      } else {
-        return cart;
-      }
-    });
+  const updateCartListQuantity = (cartList: Cart[], id: number, newQuantity: number) => {
+    const targetIndex = cartList.findIndex(cartItem => cartItem.id === id);
+    const targetCart = cartList[targetIndex];
+    const updatedCart = {
+      ...targetCart,
+      quantity: newQuantity
+    }
+    cartList[targetIndex] = updatedCart;
+    return cartList;
+  }
 
   const setCartQuantity = async (id: number, quantity: number) => {
     if (quantity === 0) {
       removeCart(id);
     } else {
-      const changedCartList = updateCartListQuantity(id, quantity);
+      const changedCartList = updateCartListQuantity([...cartList], id, quantity);
       setCartList(changedCartList);
       const response = await mockApi('/cart-items/update-quantity', { body: JSON.stringify({ id, quantity }) });
       if (response.data !== 'success') {
