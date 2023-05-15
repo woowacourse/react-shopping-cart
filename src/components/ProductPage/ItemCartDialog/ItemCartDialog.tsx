@@ -24,7 +24,7 @@ const ItemCartDialog: React.FC<ItemCartDialogProps> = (props) => {
     <Dialog>
       <Dialog.Trigger asChild>
         <S.CartButton>
-          <S.CartImg alt="cart" src={SHOPPING_CART} />
+          <S.CartImg alt="장바구니 아이콘" src={SHOPPING_CART} />
         </S.CartButton>
       </Dialog.Trigger>
       <Dialog.Portal>

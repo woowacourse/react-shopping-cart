@@ -3,9 +3,9 @@ import { cartBadge } from '../../../recoil/cart';
 import * as S from './CartBadge.styles';
 
 const CartBadge = () => {
-  const badge = useRecoilValue(cartBadge);
+  const numberOfItem = useRecoilValue(cartBadge);
 
-  return badge ? <S.Badge>{badge}</S.Badge> : null;
+  return numberOfItem ? <S.Badge>{numberOfItem}</S.Badge> : null;
 };
 
 export default CartBadge;
