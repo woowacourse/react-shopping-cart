@@ -38,7 +38,7 @@ function ProductItem({ product, isLoading }: ProductItemProps) {
             {`${priceText} 원`}
           </S.ProductItemPrice>
         </S.ProductItemLayout>
-        <QuantityController quantity={quantity} updateShoppingCart={updateShoppingCart} product={product} />
+        <QuantityController quantity={quantity} changeProductQuantity={updateShoppingCart(product)} />
       </S.ProductItemContents>
     </S.Container>
   );

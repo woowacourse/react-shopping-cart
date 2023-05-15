@@ -1,25 +1,22 @@
 import ShoppingCart from '@Asset/ShoppingCart.png';
 import { useState } from 'react';
 
-import { Product, UpdateShoppingCart } from '@Types/index';
-
 import { ALERT_MESSAGE, QUANTITY_CONTROL_BUTTON, QUANTITY_CONTROL_UNIT, SHOPPING_QUANTITY } from '@Constants/index';
 
 import * as S from './style';
 
 type QuantityControllerProps = {
-  product: Product;
   quantity: number;
-  updateShoppingCart: UpdateShoppingCart;
+  changeProductQuantity: (quantity: number) => void;
 };
 
 type QuantityControlButton = (typeof QUANTITY_CONTROL_BUTTON)[keyof typeof QUANTITY_CONTROL_BUTTON];
 
-function QuantityController({ product, quantity, updateShoppingCart }: QuantityControllerProps) {
+function QuantityController({ quantity, changeProductQuantity }: QuantityControllerProps) {
   const [proceeding, setProceeding] = useState(Boolean);
 
   const changeQuantityDefault = () => {
-    updateShoppingCart(product, SHOPPING_QUANTITY.DEFAULT);
+    changeProductQuantity(SHOPPING_QUANTITY.DEFAULT);
   };
   if (quantity === SHOPPING_QUANTITY.MIN && !proceeding)
     return (
@@ -32,23 +29,23 @@ function QuantityController({ product, quantity, updateShoppingCart }: QuantityC
 
   const updateQuantityWithButton = (type: QuantityControlButton) => {
     if (type === QUANTITY_CONTROL_BUTTON.PLUS) {
-      updateShoppingCart(product, quantity + QUANTITY_CONTROL_UNIT.INCREASE);
+      changeProductQuantity(quantity + QUANTITY_CONTROL_UNIT.INCREASE);
       return;
     }
 
-    updateShoppingCart(product, quantity - QUANTITY_CONTROL_UNIT.DECREASE);
+    changeProductQuantity(quantity - QUANTITY_CONTROL_UNIT.DECREASE);
   };
 
   const updateQuantityWithInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Math.floor(Number(event.target.value));
 
     if (newValue > SHOPPING_QUANTITY.MAX) {
-      updateShoppingCart(product, SHOPPING_QUANTITY.MAX);
+      changeProductQuantity(SHOPPING_QUANTITY.MAX);
       alert(ALERT_MESSAGE.OVER_MAX_QUANTITY);
       return;
     }
 
-    updateShoppingCart(product, newValue);
+    changeProductQuantity(newValue);
   };
 
   return (

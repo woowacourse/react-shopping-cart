@@ -11,4 +11,4 @@ export type ShoppingCartProduct = {
   product: Product;
 };
 
-export type UpdateShoppingCart = (product: Product, quantity: number) => void;
+export type UpdateShoppingCart = (product: Product) => (quantity: number) => void;
