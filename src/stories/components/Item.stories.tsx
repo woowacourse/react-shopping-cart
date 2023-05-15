@@ -1,5 +1,6 @@
 import { StoryFn, Meta } from "@storybook/react";
 import { Item } from "../../components";
+import { MIN_QUANTITY } from "../../constants";
 
 export default {
   title: "Item",
@@ -12,7 +13,7 @@ const Template: StoryFn = () => {
     name: "PET보틀-정사각(420ml)",
     price: 10000,
     imageUrl: "items/item-001.svg",
-    quantity: "0",
+    quantity: MIN_QUANTITY.toString(),
   };
 
   return <Item {...item} />;

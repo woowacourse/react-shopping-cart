@@ -3,7 +3,11 @@ import { itemsState } from "../recoil/atom";
 import React, { useEffect, useState } from "react";
 import { ItemType } from "../types/domain";
 import { cartItemsSelector } from "../recoil/selector";
-import { MAX_QUANTITY, MIN_QUANTITY } from "../constants";
+import {
+  KEY_LOCALSTORAGE_CART,
+  MAX_QUANTITY,
+  MIN_QUANTITY,
+} from "../constants";
 
 export const useQuantity = (itemId: number) => {
   const totalItems = useRecoilValue(itemsState);
@@ -13,7 +17,7 @@ export const useQuantity = (itemId: number) => {
   );
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cartItems));
+    localStorage.setItem(KEY_LOCALSTORAGE_CART, JSON.stringify(cartItems));
   }, [cartItems]);
 
   const setNewQuantity = (newQuantity: number) => {
