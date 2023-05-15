@@ -10,7 +10,7 @@ interface TextProps extends HTMLAttributes<HTMLParagraphElement> {
   lineHeight?: string;
 }
 
-const BaseText = (props: TextProps) => {
+export const BaseText = (props: TextProps) => {
   const {
     children = null,
     color,

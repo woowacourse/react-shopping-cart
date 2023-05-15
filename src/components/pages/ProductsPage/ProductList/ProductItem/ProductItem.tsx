@@ -19,15 +19,13 @@ const ProductItem = (props: ProductItemProps) => {
   return (
     <StyledProductItem>
       <SquareImage src={imageUrl} alt={name} size="xl" />
-      <StyledProductFlexBox>
-        <div>
+      <div>
+        <StyledProductFlexBox>
           <Text.Description>{name}</Text.Description>
-          <Text.Paragraph>
-            {price.toLocaleString('ko-KR') + ' 원'}
-          </Text.Paragraph>
-        </div>
-        <ProductStepper productId={id} />
-      </StyledProductFlexBox>
+          <ProductStepper productId={id} />
+        </StyledProductFlexBox>
+        <Text.Paragraph>{price.toLocaleString('ko-KR') + ' 원'}</Text.Paragraph>
+      </div>
     </StyledProductItem>
   );
 };

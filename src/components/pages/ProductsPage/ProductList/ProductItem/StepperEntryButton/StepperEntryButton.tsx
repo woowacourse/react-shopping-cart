@@ -9,6 +9,7 @@ const StepperEntryButton = (props: ButtonHTMLAttributes<HTMLButtonElement>) => {
 
   return (
     <Button
+      height="28px"
       type="button"
       aria-label="장바구니에 상품 추가하기"
       onClick={onClick}

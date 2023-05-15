@@ -4,7 +4,6 @@ import { PRODUCT_COUNT, STEP_UNIT } from '@constants/product';
 import useUpdateMyCart from './useUpdateCart';
 
 import {
-  StyledProductStepper,
   StyledProductStepperButtonFlexBox,
   StyledProductStepperFlexBox,
 } from '@components/pages/ProductsPage/ProductList/ProductItem/ProductStepper/ProductStepper.styled';
@@ -25,7 +24,7 @@ const ProductStepper = (props: ProductStepperProps) => {
   useUpdateMyCart(productId, productCount);
 
   return (
-    <StyledProductStepper>
+    <>
       {productCount === 0 ? (
         <StepperEntryButton onClick={() => setProductCount(prev => prev + 1)} />
       ) : (
@@ -54,6 +53,8 @@ const ProductStepper = (props: ProductStepperProps) => {
               />
               <StyledProductStepperButtonFlexBox>
                 <Button
+                  width="28px"
+                  height="14px"
                   aria-label="상품 1개 추가"
                   backgroundColor="#white"
                   onClick={handleIncrementButtonClick}
@@ -61,9 +62,17 @@ const ProductStepper = (props: ProductStepperProps) => {
                   name="상품 추가 버튼"
                   border="1px solid #dddddd"
                 >
-                  <Text.Paragraph color="#333333">▲</Text.Paragraph>
+                  <Text.BaseText
+                    color="#333333"
+                    fontSize="xx-small"
+                    lineHeight="none"
+                  >
+                    ▲
+                  </Text.BaseText>
                 </Button>
                 <Button
+                  width="28px"
+                  height="14px"
                   aria-label="상품 1개 삭제"
                   backgroundColor="#white"
                   onClick={handleDecrementButtonClick}
@@ -71,14 +80,20 @@ const ProductStepper = (props: ProductStepperProps) => {
                   name="상품 삭제 버튼"
                   border="1px solid #dddddd"
                 >
-                  <Text.Paragraph color="#333333">▼</Text.Paragraph>
+                  <Text.BaseText
+                    color="#333333"
+                    fontSize="xx-small"
+                    lineHeight="none"
+                  >
+                    ▼
+                  </Text.BaseText>
                 </Button>
               </StyledProductStepperButtonFlexBox>
             </StyledProductStepperFlexBox>
           )}
         </Stepper>
       )}
-    </StyledProductStepper>
+    </>
   );
 };
 
