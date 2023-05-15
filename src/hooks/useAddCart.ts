@@ -1,11 +1,12 @@
-import { useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRef, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 
-import { cartState } from "../atoms/cartState";
-import { CartType } from "../type/cart";
+import { cartState } from '../atoms/cartState';
+import { CartType } from '../type/cart';
 
 export function useAddCart() {
   const [isSelected, setIsSelected] = useState(false);
+  const quantityRef = useRef<HTMLInputElement>(null);
   const setCart = useSetRecoilState<CartType[]>(cartState);
 
   const selectProductItem = () => {
@@ -25,10 +26,7 @@ export function useAddCart() {
     ];
   };
 
-  const addCartProductItem = (
-    id: number,
-    quantityRef: React.RefObject<HTMLInputElement>
-  ) => {
+  const addCartProductItem = (id: number) => {
     setIsSelected(false);
     const cartItem: CartType = {
       productId: id,
@@ -42,5 +40,5 @@ export function useAddCart() {
     setCart((prev) => createChangedCart(prev, cartItem));
   };
 
-  return { isSelected, selectProductItem, addCartProductItem };
+  return { isSelected, selectProductItem, addCartProductItem, quantityRef };
 }
