@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValueLoadable } from 'recoil';
 
 import CartIcon from '../../../assets/cart-icon.svg';
 import Logo from '../../../assets/logo.png';
@@ -8,7 +8,7 @@ import { cartListItemCountState } from '../../../store/cart';
 import * as S from './Header.styles';
 
 const Header = () => {
-  const cartListItemCount = useRecoilValue(cartListItemCountState);
+  const cartListItemCount = useRecoilValueLoadable(cartListItemCountState);
   const navigate = useNavigate();
 
   return (
@@ -21,7 +21,9 @@ const Header = () => {
           variant="textButton"
           onClick={() => navigate(PATH.CARTS)}
         >
-          {cartListItemCount > 0 && <S.CartItemCount>{cartListItemCount}</S.CartItemCount>}
+          {cartListItemCount.contents > 0 && (
+            <S.CartItemCount>{cartListItemCount.contents}</S.CartItemCount>
+          )}
           <S.CartIcon src={CartIcon} alt="cart icon" />
           <S.HeaderButtonLabel>장바구니</S.HeaderButtonLabel>
         </S.CartButton>
