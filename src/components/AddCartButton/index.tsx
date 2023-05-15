@@ -4,22 +4,27 @@ import CountButton from '../Common/CountButton';
 import useMutationQuery from '../../hooks/useMutationQuery';
 import { useState } from 'react';
 import type { CartItem } from '../../types';
-import { useRecoilState } from 'recoil';
-import { $Cart } from '../../recoil/atom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { $Cart, $ToastMessageList } from '../../recoil/atom';
 
 interface AddCardButtonProps {
   id: number;
 }
 
 function AddCartButton({ id }: AddCardButtonProps) {
+  const setMessageList = useSetRecoilState($ToastMessageList);
   const [count, setCount] = useState(0);
   const [cart, setCart] = useRecoilState($Cart);
-  const { mutateQuery } = useMutationQuery<Record<string, number>, CartItem>('/cart-items');
+  const { mutateQuery, loading, error } = useMutationQuery<Record<string, number>, CartItem>('/cart-items');
 
   const handleClick = async () => {
     await mutateQuery('POST', { productId: id });
     setCart(prev => [...prev, id]);
     setCount(prev => prev + 1);
+
+    if (!(loading || error)) {
+      setMessageList(prev => [...prev, '장바구니에 등록되었습니다.']);
+    }
   };
 
   const handleUpButton = async () => {
@@ -31,7 +36,11 @@ function AddCartButton({ id }: AddCardButtonProps) {
     await mutateQuery('PATCH', { quantity: count - 1 }, String(id));
 
     if (count === 1) {
+      await mutateQuery('DELETE', undefined, String(id));
       setCart(prev => prev.filter(item => item !== id));
+      if (!(loading || error)) {
+        setMessageList(prev => [...prev, '장바구니에서 삭제되었습니다.']);
+      }
     }
 
     setCount(prev => prev - 1);

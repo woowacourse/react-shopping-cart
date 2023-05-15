@@ -28,7 +28,10 @@ const useMutationQuery = <BodyData, ResponseData>(
         body,
         headers,
       })
-        .then(res => res.json())
+        .then(res => {
+          if (method === 'DELETE') return res.text();
+          else return res.json();
+        })
         .then(data => setResponseData(data))
         .catch((error: Error) => setError(error.message))
         .finally(() => setLoading(false));
