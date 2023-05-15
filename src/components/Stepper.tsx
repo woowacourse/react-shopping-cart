@@ -34,7 +34,7 @@ type StepperProps = {
   min?: number;
   max?: number;
   value: number;
-  onChange?: (value: number) => void;
+  onChange: (value: number) => void;
 };
 
 const Stepper = (props: StepperProps) => {
@@ -46,12 +46,16 @@ const Stepper = (props: StepperProps) => {
     if (min !== undefined && newValue < min) return;
     if (max !== undefined && newValue > max) return;
 
-    onChange?.(newValue);
+    onChange(newValue);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(Number(e.target.value));
   };
 
   return (
     <InputContainer>
-      <Input value={value} readOnly />
+      <Input value={value} onChange={handleChange} />
       <div>
         <InputButton onClick={handleClick('increase')}>
           <ArrowUp width="5" />
