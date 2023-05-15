@@ -66,7 +66,6 @@
     "@types/react-dom": "^18.2.4",
     "@types/styled-components": "^5.1.26",
     "babel-plugin-named-exports-order": "^0.0.2",
-    "prop-types": "^15.8.1",
     "storybook": "^7.0.10",
     "typescript": "^4.9.5",
     "webpack": "^5.82.1"
