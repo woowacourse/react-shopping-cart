@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useRecoilValue } from 'recoil';
 
-import ProductList from '@components/ProductList/ProductList';
+import ProductList from '@components/pages/ProductsPage/ProductList/ProductList';
 import { cartLengthSelector } from '@recoil/myCartState';
 
 /**

@@ -2,7 +2,7 @@ import { LOGO } from '@assets/index';
 
 import { StyledHeader, StyledTitleDiv } from '@components/Header/Header.styled';
 import Heading from '@components/commons/Heading/Heading';
-import CartButton from '@components/CartButton/CartButton';
+import CartButton from '@components/Header/CartButton/CartButton';
 
 const Header = () => {
   return (

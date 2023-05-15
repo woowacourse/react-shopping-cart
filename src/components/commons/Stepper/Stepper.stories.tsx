@@ -5,7 +5,7 @@ import Stepper from '@commons/Stepper/Stepper';
 import {
   StyledProductStepperButtonFlexBox,
   StyledProductStepperFlexBox,
-} from '@components/ProductStepper/ProductStepper.styled';
+} from '@components/pages/ProductsPage/ProductList/ProductItem/ProductStepper/ProductStepper.styled';
 import Input from '@commons/Input/Input';
 import Button from '@commons/Button/Button';
 import Text from '../Text/Text';

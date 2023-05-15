@@ -5,7 +5,7 @@ import { cartLengthSelector } from '@recoil/myCartState';
 import {
   StyledCartButtonFlexBox,
   StyledCartLengthFlexBox,
-} from '@components/CartButton/CartButton.styled';
+} from '@components/Header/CartButton/CartButton.styled';
 import Text from '@components/commons/Text/Text';
 import Button from '@components/commons/Button/Button';
 

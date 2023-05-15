@@ -3,9 +3,9 @@ import { Product } from '@customTypes/Product';
 import {
   StyledProductFlexBox,
   StyledProductItem,
-} from '@components/ProductItem/ProductItem.styled';
+} from '@components/pages/ProductsPage/ProductList/ProductItem/ProductItem.styled';
 import SquareImage from '@commons/SquareImage/SquareImage';
-import ProductStepper from '@components/ProductStepper/ProductStepper';
+import ProductStepper from '@components/pages/ProductsPage/ProductList/ProductItem/ProductStepper/ProductStepper';
 import Text from '@components/commons/Text/Text';
 
 interface ProductItemProps {

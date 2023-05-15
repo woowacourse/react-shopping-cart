@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import catImage from '@public/cat0.png';
 
-import ProductItem from '@components/ProductItem/ProductItem';
+import ProductItem from '@components/pages/ProductsPage/ProductList/ProductItem/ProductItem';
 
 /**
  * 설명창

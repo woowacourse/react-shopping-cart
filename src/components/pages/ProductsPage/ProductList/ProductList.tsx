@@ -1,9 +1,9 @@
 import { Product } from '@customTypes/Product';
 import useFetch from '@hooks/useFetch';
 
-import { StyledProductList } from '@components/ProductList/ProductList.styled';
-import ProductItem from '@components/ProductItem/ProductItem';
-import ErrorModal from '@components/ErrorModal/ErrorModal';
+import { StyledProductList } from '@components/pages/ProductsPage/ProductList/ProductList.styled';
+import ProductItem from '@components/pages/ProductsPage/ProductList/ProductItem/ProductItem';
+import ErrorModal from '@components/pages/ErrorPage/ErrorModal/ErrorModal';
 
 const ProductList = () => {
   const [productList, isError] = useFetch<Product[]>(

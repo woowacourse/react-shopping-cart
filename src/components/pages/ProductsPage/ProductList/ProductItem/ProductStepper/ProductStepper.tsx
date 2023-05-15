@@ -7,8 +7,8 @@ import {
   StyledProductStepper,
   StyledProductStepperButtonFlexBox,
   StyledProductStepperFlexBox,
-} from '@components/ProductStepper/ProductStepper.styled';
-import StepperEntryButton from '@components/StepperEntryButton/StepperEntryButton';
+} from '@components/pages/ProductsPage/ProductList/ProductItem/ProductStepper/ProductStepper.styled';
+import StepperEntryButton from '@components/pages/ProductsPage/ProductList/ProductItem/StepperEntryButton/StepperEntryButton';
 import Stepper from '@commons/Stepper/Stepper';
 import Input from '@components/commons/Input/Input';
 import Button from '@components/commons/Button/Button';
