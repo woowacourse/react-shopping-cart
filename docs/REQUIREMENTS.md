@@ -25,7 +25,7 @@
   - [x] AmountCounter
 - [ ] 장바구니 페이지에 필요한 UI 마크업
   - [ ] PageTitle
-  - [ ] CartProductList
+  - [x] CartProductList
   - [x] CartProductItem
   - [ ] ExpectedPaymentBox
   - [ ] CheckBox
