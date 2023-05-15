@@ -1,5 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
+import { skeleton } from './animations';
+
 const GlobalStyle = createGlobalStyle`
    * {
     padding: 0;
@@ -39,6 +41,19 @@ const GlobalStyle = createGlobalStyle`
 
   .hide-overflow {
     overflow: hidden;
+  }
+
+  .skeleton {
+    background: linear-gradient(
+      -90deg,
+      ${({ theme }) => theme.color.gray3},
+      ${({ theme }) => theme.color.gray2},
+      ${({ theme }) => theme.color.gray3},
+      ${({ theme }) => theme.color.gray2}
+    );
+    background-size: 400%;
+    border-radius: ${({ theme }) => theme.borderRadius.small};
+    animation: ${skeleton} 5s infinite ease-out;
   }
 `;
 
