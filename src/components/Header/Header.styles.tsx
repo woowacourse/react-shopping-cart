@@ -5,6 +5,9 @@ export const HeaderContainer = styled.div`
   height: 80px;
   display: flex;
   justify-content: center;
+  position: sticky;
+  top: 0px;
+  z-index: 999;
 
   @media screen and (max-width: 1750px) {
     padding: 0 80px;
