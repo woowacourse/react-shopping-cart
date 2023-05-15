@@ -12,7 +12,7 @@ export default function CartQuantity({ user }: CartQuantityProps) {
 
   return (
     <CartQuantityContainer>
-      {user ? <div>{user}의 장바구니</div> : <div>장바구니</div>}
+      <div>{user && `${user}의 `}장바구니</div>
       <Quantity>{totalCart}</Quantity>
     </CartQuantityContainer>
   );
