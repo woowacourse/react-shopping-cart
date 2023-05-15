@@ -1,9 +1,9 @@
 import { atom } from 'recoil';
 import { AddedProductList } from '../types/productType';
 
-const addedProductList: AddedProductList[] = [];
+const cartState: AddedProductList[] = [];
 
-export const addedCartState = atom({
-  key: 'addedCartState',
-  default: addedProductList,
+export const CartState = atom({
+  key: 'cartState',
+  default: cartState,
 });

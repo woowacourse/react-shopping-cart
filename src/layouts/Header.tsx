@@ -2,12 +2,12 @@ import { Button as CartButton } from '../ui/Button';
 import { Typography as AddToCartTitle } from '../ui/Typography';
 import { Logo } from '../components/Logo';
 import { TotalCartCount } from '../components/TotalCartCount';
-import { addedCartState } from '../atoms/AddedCartState';
+import { CartState } from '../atoms/AddedCartState';
 import { useRecoilValue } from 'recoil';
 import * as Styled from './styles/Header.styles';
 
 export const Header = () => {
-  const AddedCardState = useRecoilValue(addedCartState);
+  const AddedCardState = useRecoilValue(CartState);
 
   return (
     <Styled.Wrapper>

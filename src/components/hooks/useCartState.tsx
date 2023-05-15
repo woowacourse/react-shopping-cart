@@ -1,10 +1,10 @@
 import { useRecoilState } from 'recoil';
-import { addedCartState } from '../../atoms/AddedCartState';
+import { CartState } from '../../atoms/AddedCartState';
 import { AddedProductList, ProductItem } from '../../types/productType';
 
 export const useCartState = (props: ProductItem) => {
   const { id } = props;
-  const [addedCartStates, setAddedCartStates] = useRecoilState(addedCartState);
+  const [addedCartStates, setAddedCartStates] = useRecoilState(CartState);
 
   const handleAddCartState = () => {
     setAddedCartStates([

@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { addedCartState } from '../../atoms/AddedCartState';
+import { CartState } from '../../atoms/AddedCartState';
 import { AddToCartCountProps } from '../../types/addToCartCountType';
 
 export const useCartCountState = ({
@@ -8,7 +8,7 @@ export const useCartCountState = ({
   onDeleteCart,
 }: AddToCartCountProps) => {
   const [quantity, setQuantity] = useState<number>(1);
-  const [addedCartStates, setAddedCartStates] = useRecoilState(addedCartState);
+  const [addedCartStates, setAddedCartStates] = useRecoilState(CartState);
 
   const increaseCount = useCallback(() => {
     setQuantity(quantity + 1);
