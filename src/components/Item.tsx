@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import type { ItemType } from "../types/domain";
 import { useQuantity } from "../hooks/useQuantity";
-import { CartGrayIcon } from "../assets";
 import Counter from "./Counter";
 import { MIN_QUANTITY } from "../constants";
 
@@ -19,7 +18,11 @@ const Item = ({ id, name, price, imageUrl }: ItemType) => {
       <PriceBox>{price.toLocaleString()}원</PriceBox>
       <IconContainer>
         {quantity === MIN_QUANTITY.toString() ? (
-          <img src={CartGrayIcon} alt={"카트"} onClick={handleCartClicked} />
+          <img
+            src={process.env.PUBLIC_URL + "assets/cart-gray-icon.svg"}
+            alt={"카트"}
+            onClick={handleCartClicked}
+          />
         ) : (
           <Counter itemId={id} />
         )}
