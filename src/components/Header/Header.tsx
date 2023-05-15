@@ -1,16 +1,17 @@
 import cartIcon from '../../assets/cart.svg';
 import { useNavigate } from 'react-router-dom';
-import useCart from '../../hooks/useCart';
 import { Container } from '../../style/style';
 import {
   CartCount, CartCountWrapper, CartIcon,
   CartTitle, CartWrapper, HeaderWrapper,
   Logo, LogoWrapper, Navbar
 } from './Header.style';
+import { useRecoilValue } from 'recoil';
+import { cartCountState } from '../../recoil/cartAtoms';
 
 function Header() {
   const navigate = useNavigate();
-  const { cartList } = useCart();
+  const cartCount = useRecoilValue(cartCountState);
   return (
     <Navbar>
       <Container>
@@ -22,7 +23,7 @@ function Header() {
           <CartWrapper onClick={() => navigate('/cart')}>
             <CartTitle>장바구니</CartTitle>
             <CartCountWrapper>
-              <CartCount>{cartList.length}</CartCount>
+              <CartCount>{cartCount}</CartCount>
             </CartCountWrapper>
           </CartWrapper>
         </HeaderWrapper>

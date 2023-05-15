@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 import { Cart } from '../types/types';
 import { recoilPersist } from 'recoil-persist';
 
@@ -12,3 +12,11 @@ export const cartState = atom<Cart[]>({
   default: [],
   effects_UNSTABLE: [persistAtom],
 });
+
+export const cartCountState = selector({
+  key: 'cartLength',
+  get: ({ get }) => {
+    const cartList = get(cartState);
+    return cartList.length;
+  }
+})
