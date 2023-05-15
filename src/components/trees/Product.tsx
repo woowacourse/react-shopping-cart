@@ -15,7 +15,7 @@ export default function Product(props: ProductProps) {
   const [quantityInput, setQuantityInput] = useState('');
   const cartItem = cart.find((item) => item.product.id === id);
 
-  const handleClickIcon = () => {
+  const onAddCartItem = () => {
     const newCartItem = { id: Date.now(), quantity: 1, product: props };
     addCartItem(newCartItem);
     setQuantityInput('1');
@@ -48,7 +48,7 @@ export default function Product(props: ProductProps) {
           {cartItem ? (
             <CounterInput count={quantityInput} setCount={setQuantityInput} max={MAX_QUANTITY} />
           ) : (
-            <CartIcon src="./cart.svg" onClick={handleClickIcon}></CartIcon>
+            <CartIcon src="./cart.svg" onClick={onAddCartItem}></CartIcon>
           )}
         </ControlBox>
       </InfoBox>
