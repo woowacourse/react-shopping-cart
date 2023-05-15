@@ -2,10 +2,10 @@
 import ProductItem from '../ProductItem';
 import styles from './index.module.scss';
 import { Product } from '../../types';
-import useGetApi from '../../hooks/useGetApi';
+import useGetQuery from '../../hooks/useGetQuery';
 
 function ProductItemList() {
-  const { data: productsData } = useGetApi<Product[]>('./products');
+  const { data: productsData } = useGetQuery<Product[]>('./products');
 
   return (
     <section className={styles.container}>

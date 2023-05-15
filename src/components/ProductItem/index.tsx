@@ -8,6 +8,7 @@ interface ProductItemProps {
 
 function ProductItem({ product }: ProductItemProps) {
   const { name, imageUrl, price, id } = product;
+
   return (
     <div className={styles.container}>
       <img src={imageUrl} alt={name} className={styles.image} />

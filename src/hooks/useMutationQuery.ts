@@ -1,7 +1,8 @@
 import { useCallback, useState } from 'react';
+import type { MutationFetchMethod } from '../types';
 
 interface Return<BodyData, ResponseData> {
-  mutateQuery: (method: 'POST' | 'PUT' | 'PATCH' | 'DELETE', data?: BodyData, id?: string) => Promise<void>;
+  mutateQuery: (method: MutationFetchMethod, data?: BodyData, id?: string) => Promise<void>;
   loading: boolean;
   error: string | null;
   responseData: ResponseData | null;
@@ -16,7 +17,7 @@ const useMutationQuery = <BodyData, ResponseData>(
   const [error, setError] = useState<string | null>(null);
 
   const mutateQuery = useCallback(
-    async (method: 'POST' | 'PUT' | 'PATCH' | 'DELETE', data?: BodyData, id = '') => {
+    async (method: MutationFetchMethod, data?: BodyData, id = '') => {
       setLoading(true);
       setError(null);
 

@@ -11,4 +11,6 @@ interface CartItem {
   product: Product;
 }
 
-export type { Product, CartItem };
+type MutationFetchMethod = 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+
+export type { Product, CartItem, MutationFetchMethod };
