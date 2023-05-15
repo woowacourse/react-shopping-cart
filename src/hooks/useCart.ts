@@ -26,7 +26,7 @@ const useCartProduct = (productId: Product['id']) => {
           return newCart;
         });
       },
-    [],
+    [productId],
   );
 
   return { setQuantity };
