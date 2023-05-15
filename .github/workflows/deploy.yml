@@ -42,6 +42,11 @@ jobs:
           PUBLIC_URL=$(echo $GITHUB_REPOSITORY | sed -r 's/^.+\/(.+)$/\/\1\//')
           echo PUBLIC_URL=$PUBLIC_URL > .env
 
+      - name: Test
+        uses: skx/github-action-tester@master
+        with:
+          script: yarn test
+
       - name: Build app
         run: |
           yarn build

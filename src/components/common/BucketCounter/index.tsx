@@ -24,6 +24,7 @@ const BucketCounter = ({ removeProductFromCart }: BucketCounterProps) => {
     errorMessage: '장바구니 수량은 1000개 이하까지 가능합니다.',
     maximumCount: 1000,
   });
+
   return (
     <Wrapper>
       <Count
