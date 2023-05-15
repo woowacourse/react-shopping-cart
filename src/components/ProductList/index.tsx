@@ -1,4 +1,4 @@
-import { useControlCart } from 'hooks/useControlCart';
+import useControlCart from 'hooks/useControlCart';
 import styled from 'styled-components';
 import { PRODUCT_LIST } from '../../mockData/productList';
 import ProductItem from './ProductItem';

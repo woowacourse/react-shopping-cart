@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
+import useBucketCount from 'hooks/useBucketCount';
 import { styled } from 'styled-components';
-import { isNotNumber, showInputErorrMessage } from '@utils/common';
 import {
   BUCKET_COUNTER_BOTTOM_BUTTON,
   BUCKET_COUNTER_TOP_BUTTON,
@@ -10,87 +10,24 @@ import { BOTTOM_ARROW, TOP_ARROW } from '@assets';
 
 interface BucketCounterProps {
   removeProductFromCart: () => void;
-  setIsClicked?: (value:boolean) => void
 }
 
 const MAX_BUCKET_COUNT = 1000;
-const MAX_WRITE_INPUT_BUCKET_COUNT = 10000;
 const ERROR_MESSAGE = '장바구니 수량은 1000개 이하까지 가능합니다.';
 
-const BucketCounter = ({
-  removeProductFromCart,
-  setIsClicked,
-}: BucketCounterProps) => {
-  const [bucketCount, setBucketCount] = useState(1);
-  const countRef = useRef<HTMLInputElement>(null);
-
-  const changeCountEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    const count = Number(value);
-
-    if (isNotNumber(value)) return;
-
-    showInputErorrMessage(isNotError(count), event.target, ERROR_MESSAGE);
-
-    if (count >= MAX_WRITE_INPUT_BUCKET_COUNT) return;
-
-    setBucketCount(count);
-  };
-
-  const showCounterErrorMessage = useCallback(() => {
-    if (!countRef.current) return;
-
-    showInputErorrMessage(
-      isNotError(bucketCount),
-      countRef.current,
-      ERROR_MESSAGE
-    );
-  }, [bucketCount]);
-
-  const increaseCount = () => {
-    if (bucketCount + 1 >= MAX_WRITE_INPUT_BUCKET_COUNT) {
-      showCounterErrorMessage();
-      return;
-    }
-
-    setBucketCount((prev) => prev + 1);
-  };
-
-  const decreaseCount = () => {
-    if (bucketCount - 1 === 0) {
-      if (!setIsClicked) return;
-      setIsClicked(false);
-      removeProductFromCart();
-    }
-    setBucketCount((prev) => prev - 1);
-  };
-
-  const onBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    const { relatedTarget, target } = event;
-
-    if (relatedTarget?.parentElement?.parentElement === target.parentElement)
-      return;
-
-    if (bucketCount === 0) {
-      if (!setIsClicked) return;
-
-      setIsClicked(false);
-      removeProductFromCart();
-    }
-  };
-
-  const isNotError = (count: number) => {
-    return count <= MAX_BUCKET_COUNT;
-  };
-
-  useEffect(() => {
-    showCounterErrorMessage();
-  }, [bucketCount, showCounterErrorMessage]);
-
-  useEffect(() => {
-    if (!setIsClicked) return;
-    if (bucketCount < 0) setIsClicked(false);
-  }, [bucketCount, setIsClicked]);
+const BucketCounter = ({ removeProductFromCart }: BucketCounterProps) => {
+  const {
+    onBlur,
+    bucketCount,
+    onChange: changeCountEvent,
+    increaseCount,
+    decreaseCount,
+    countRef,
+  } = useBucketCount(1, {
+    removeProductFromCart,
+    errorMessage: ERROR_MESSAGE,
+    maximumCount: MAX_BUCKET_COUNT,
+  });
 
   return (
     <BucketCounterWrapper>

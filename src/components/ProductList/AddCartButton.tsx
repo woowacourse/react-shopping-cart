@@ -28,12 +28,16 @@ const AddCartButton = ({
     addProductToCart();
   };
 
+  const removeAndChangeCart = () => {
+    setIsClicked(false);
+    removeProductFromCart();
+  };
+
   return (
     <AddCartButtonWrapper>
       {isClicked ? (
         <BucketCounter
-          removeProductFromCart={removeProductFromCart}
-          setIsClicked={momoizedSetIsClicked}
+          removeProductFromCart={removeAndChangeCart}
         />
       ) : (
         <Button

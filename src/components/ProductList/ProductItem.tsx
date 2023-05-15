@@ -15,7 +15,7 @@ const ProductItem = ({
   addProductToCart,
   removeProductFromCart,
 }: ProductItemProps) => {
-  const { id, name, price, imageUrl } = product;
+  const { name, price, imageUrl } = product;
   return (
     <ProductItemWrapper>
       <Picture src={imageUrl} alt={name} />

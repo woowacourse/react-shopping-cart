@@ -2,7 +2,7 @@ import { useRecoilState } from 'recoil';
 import { cartAtom } from '@recoil/atoms/cartAtom';
 import { CartInformation, ProductInformation } from '@type/types';
 
-export const useControlCart = () => {
+const useControlCart = () => {
   const [cart, setCart] = useRecoilState(cartAtom);
 
   const addProductToCart = ({
@@ -27,3 +27,5 @@ export const useControlCart = () => {
 
   return { addProductToCart, removeProductFromCart };
 };
+
+export default useControlCart;
