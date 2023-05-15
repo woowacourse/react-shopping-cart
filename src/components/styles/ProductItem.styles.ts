@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Paragraph } from '../common/styles/Typography.styles';
+import { Paragraph } from '../../ui/styles/Typography.styles';
 
 export const Wrapper = styled.div`
   height: 352px;

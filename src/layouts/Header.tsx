@@ -1,5 +1,5 @@
-import { Button as CartButton } from '../components/common/Button';
-import { Typography as AddToCartTitle } from '../components/common/Typography';
+import { Button as CartButton } from '../ui/Button';
+import { Typography as AddToCartTitle } from '../ui/Typography';
 import { Logo } from '../components/Logo';
 import { TotalCartCount } from '../components/TotalCartCount';
 import { addedCartState } from '../atoms/AddedCartState';

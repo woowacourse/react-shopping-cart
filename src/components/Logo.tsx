@@ -1,4 +1,4 @@
-import { Typography as LogoTitle } from './common/Typography';
+import { Typography as LogoTitle } from '../ui/Typography';
 import { LogoImage } from '../types/image';
 import * as Styled from './styles/Logo.styles';
 

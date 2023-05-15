@@ -1,5 +1,5 @@
-import { Typography as ProductPrice } from './common/Typography';
-import { Image as ProductImage } from './common/Image';
+import { Typography as ProductPrice } from '../ui/Typography';
+import { Image as ProductImage } from '../ui/Image';
 import { AddToCartButton } from './AddToCartButton';
 import { ProductItem as ProductItemProps } from '../types/productType';
 import { useCartState } from './hooks/useCartState';
