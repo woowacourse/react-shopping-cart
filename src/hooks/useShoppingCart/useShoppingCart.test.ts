@@ -21,7 +21,7 @@ describe('장바구니에 넣은 물품 품목 훅 테스트', () => {
     const { result } = renderHook(() => useShoppingCart(), { wrapper: RecoilRoot });
 
     act(() => {
-      result.current.updateShoppingCart(exampleProduct, 5);
+      result.current.updateShoppingCart(exampleProduct)(5);
     });
 
     expect(result.current.shoppingCart.length).toBe(1);
@@ -31,11 +31,11 @@ describe('장바구니에 넣은 물품 품목 훅 테스트', () => {
     const { result } = renderHook(() => useShoppingCart(), { wrapper: RecoilRoot });
 
     act(() => {
-      result.current.updateShoppingCart(exampleProduct, 5);
+      result.current.updateShoppingCart(exampleProduct)(5);
     });
 
     act(() => {
-      result.current.updateShoppingCart(exampleProduct, 1);
+      result.current.updateShoppingCart(exampleProduct)(1);
     });
 
     expect(result.current.shoppingCart.length).toBe(1);
@@ -45,11 +45,11 @@ describe('장바구니에 넣은 물품 품목 훅 테스트', () => {
     const { result } = renderHook(() => useShoppingCart(), { wrapper: RecoilRoot });
 
     act(() => {
-      result.current.updateShoppingCart(exampleProduct, 5);
+      result.current.updateShoppingCart(exampleProduct)(5);
     });
 
     act(() => {
-      result.current.updateShoppingCart(exampleProduct, 0);
+      result.current.updateShoppingCart(exampleProduct)(0);
     });
 
     expect(result.current.shoppingCart.length).toBe(0);
