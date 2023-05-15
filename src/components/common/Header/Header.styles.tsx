@@ -23,7 +23,7 @@ export const Logo = styled.img`
   margin-right: 2rem;
 `;
 
-export const Title = styled.div`
+export const Title = styled.h1`
   font-size: 4rem;
   font-weight: 900;
   color: white;
@@ -37,4 +37,3 @@ export const LinkToCart = styled(Link)`
 
   color: white;
 `;
-

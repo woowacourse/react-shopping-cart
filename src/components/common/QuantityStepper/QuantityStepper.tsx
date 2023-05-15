@@ -16,11 +16,21 @@ const QuantityStepper = forwardRef<HTMLInputElement, QuantityStepperProps>(
 
     return (
       <Flex>
-        <Button size="S" view="light" onClick={decrease}>
+        <Button
+          aria-label="add one item in cart"
+          size="S"
+          view="light"
+          onClick={decrease}
+        >
           ▼
         </Button>
         <S.Quantity ref={ref} value={quantity} disabled name={label} />
-        <Button size="S" view="light" onClick={increase}>
+        <Button
+          aria-label="minus one item from cart"
+          size="S"
+          view="light"
+          onClick={increase}
+        >
           ▲
         </Button>
       </Flex>

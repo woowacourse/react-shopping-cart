@@ -13,6 +13,6 @@ export const Root = styled.div`
   border-bottom: solid 5px black;
 `;
 
-export const Name = styled.div`
+export const Name = styled.h1`
   font-size: 3.2rem;
 `;
