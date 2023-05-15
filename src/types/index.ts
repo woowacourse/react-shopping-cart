@@ -11,4 +11,9 @@ interface CartItemData {
   product: ProductItemData;
 }
 
-export type { ProductItemData, CartItemData };
+interface PostCartItemRequestBody {
+  productId: number;
+  quantity: number;
+}
+
+export type { ProductItemData, CartItemData, PostCartItemRequestBody };
