@@ -8,7 +8,8 @@ interface fetchProductDataRes extends AxiosError {
 
 export const fetchProductData = async (): Promise<fetchProductDataRes> => {
   try {
-    const res = await client('/data/mockProducts.json');
+    const res = await client('/data/mockPdroducts.json');
+
     return res.data;
   } catch {
     throw new Error('상품 목록을 찾아오지 못했습니다.');

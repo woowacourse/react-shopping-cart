@@ -1,5 +1,4 @@
 import { selector, atom, selectorFamily } from 'recoil';
-import { CartItem } from '../types/cart';
 import { fetchCart } from '../apis/cart';
 
 export const cartState = atom({
@@ -20,13 +19,4 @@ export const cartBadge = selector({
     const numberOfItem = get(cartState).length;
     return numberOfItem > 99 ? '99+' : numberOfItem;
   },
-});
-
-export const hasItemInCart = selectorFamily({
-  key: 'hasItemInCart',
-  get:
-    (id: CartItem['id']) =>
-    ({ get }) => {
-      return get(cartState).find((item) => item.id === id);
-    },
 });
