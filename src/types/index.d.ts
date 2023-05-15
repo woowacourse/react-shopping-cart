@@ -1,5 +1,11 @@
 declare module '*.png';
 
+declare global {
+  interface Array<T> {
+    toSpliced: (start: number, deleteCount: number, ...items: T[]) => Array<T>;
+  }
+}
+
 export interface ProductType {
   id: number;
   name: string;

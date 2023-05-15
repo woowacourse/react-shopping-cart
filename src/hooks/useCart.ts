@@ -16,14 +16,8 @@ export default function useCart() {
   };
 
   const updateQuantity = (productId: number, quantity: number) => {
-    const orderIndex = cart.findIndex((order) => order.product.id === productId);
-    const newCart = [...cart];
-    newCart[orderIndex] = {
-      ...cart[orderIndex],
-      quantity,
-    };
-
-    setCart(newCart);
+    const cartItemIndex = cart.findIndex((order) => order.product.id === productId);
+    setCart(cart.toSpliced(cartItemIndex, 1, { ...cart[cartItemIndex], quantity }));
   };
 
   useEffect(() => {
