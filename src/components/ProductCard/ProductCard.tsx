@@ -11,7 +11,7 @@ import ProductInfo from './ProductInfo/ProductInfo';
 const ProductCard = ({ id, name, price, imageUrl }: Product) => {
   const setCart = useSetRecoilState(cartListAtom);
   const [productInCart, setProductInCart] = useRecoilState(cartAtomFamily(id));
-  const setProductInCart2 = useResetRecoilState(cartAtomFamily(id));
+  const resetProductInCart = useResetRecoilState(cartAtomFamily(id));
   const [isCartClicked, setIsCartClicked] = useState(
     Boolean(productInCart.quantity)
   );
@@ -40,7 +40,7 @@ const ProductCard = ({ id, name, price, imageUrl }: Product) => {
 
     if (productInCart.quantity <= 1) {
       setCart((prev) => prev.filter((item) => item !== id));
-      setProductInCart2();
+      resetProductInCart();
       setIsCartClicked(false);
       return;
     }

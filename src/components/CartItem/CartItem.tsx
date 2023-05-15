@@ -3,8 +3,37 @@ import ProductImg from '../ProductCard/ProductImg/ProductImg';
 import { ReactComponent as TrashCan } from '../../assets/icon/trash-can.svg';
 import Counter from '../common/Counter/Counter';
 import CheckBox from '../common/CheckBox/CheckBox';
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { cartAtomFamily, cartListAtom } from '../../store/cart';
 
-const CartItem = () => {
+interface CartItemProps {
+  id: number;
+}
+
+const CartItem = ({ id }: CartItemProps) => {
+  const setCart = useSetRecoilState(cartListAtom);
+  const [productInCart, setProductInCart] = useRecoilState(cartAtomFamily(id));
+  const resetProductInCart = useResetRecoilState(cartAtomFamily(id));
+
+  const { name, imageUrl, price } = productInCart.product;
+
+  const plusOne = () => {
+    setProductInCart((prev) => ({ ...prev, quantity: prev.quantity + 1 }));
+  };
+
+  const minusOne = () => {
+    setProductInCart((prev) => ({
+      ...prev,
+      quantity: prev.quantity - 1,
+    }));
+
+    if (productInCart.quantity <= 1) {
+      setCart((prev) => prev.filter((item) => item !== id));
+      resetProductInCart();
+      return;
+    }
+  };
+
   return (
     <Wrapper>
       <CheckBoxWrapper>
@@ -12,19 +41,23 @@ const CartItem = () => {
       </CheckBoxWrapper>
 
       <ProductImg
-        imageUrl='https://s3-alpha-sig.figma.com/img/c91b/8c58/919fc1af3ddd4c1bba09101cf51013cb?Expires=1684713600&Signature=gJXoDh3Kff5YuZh~dwngjm~n7o37JjnnftCnctPE5Y-QYKTWJAa6~laE1rxwy1s1FhgaJmU1IKg9OAHq0iwUob-hH9TEy3RUYgz-HyXqetKOgEw8Wp4937mBA~2cWyMJjp56bjQgLLbBqM8up2ddQQJLPsyfVdDHr-~jZFL-JEDT72NnlNfyO2qG~W6clycdMfrtkB~YxPPiwHSai1bTEKx6b7vaR79k7OtXO3F3kq9TzQH9vNXM6X9GQtRsw9zjc35JDS2CDoFsAh5u~xThB1udtnHfmTQMdm-lqB0NpwewqYB0GF8qov4mbSCPh20HtPIpLkM5-V1QPEXvyiUbiA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+        imageUrl={imageUrl}
         size={{ width: '144px', height: '144px' }}
       />
 
       <DetailWrapper>
-        <ProductName>[든든] 야채바삭 김말이 700g</ProductName>
+        <ProductName>{name}</ProductName>
         <DeleteButton>
           <TrashCan />
         </DeleteButton>
         <CounterWrapper>
-          <Counter plusOne={() => {}} minusOne={() => {}} />
+          <Counter
+            plusOne={plusOne}
+            minusOne={minusOne}
+            quantity={productInCart.quantity}
+          />
         </CounterWrapper>
-        <Price>7200원</Price>
+        <Price>{price}</Price>
       </DetailWrapper>
     </Wrapper>
   );
@@ -60,6 +93,8 @@ const DeleteButton = styled.button`
 
   top: 12px;
   right: 12px;
+
+  cursor: pointer;
 `;
 
 const CounterWrapper = styled.div`
