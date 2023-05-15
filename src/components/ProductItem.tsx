@@ -55,19 +55,19 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
 
   return (
     <div>
-      <S.Image src={imgUrl} />
+      <S.Image src={imgUrl} alt={`img${id}`} />
       <S.InfoWrapper>
         <div>
-          <S.Name>{name}</S.Name>
+          <S.Name htmlFor={`product${id}`}>{name}</S.Name>
           <S.Price>
             {price.toLocaleString()}
             <span>원</span>
           </S.Price>
         </div>
         {isSelected ? (
-          <QuantityInput value={quantity} onChange={handleNumberInputChange} />
+          <QuantityInput value={quantity} onChange={handleNumberInputChange} id={`product${id}`} />
         ) : (
-          <CartIconButton onClick={handleCartClick} />
+          <CartIconButton onClick={handleCartClick} ariaLabel={id} />
         )}
       </S.InfoWrapper>
     </div>
@@ -91,7 +91,7 @@ const S = {
     }
   `,
 
-  Name: styled.p`
+  Name: styled.label`
     display: -webkit-box;
     font-size: 16px;
     font-weight: 400;

@@ -4,12 +4,13 @@ import Icon from './common/Icon';
 import { MouseEventHandler } from 'react';
 
 type Props = {
+  ariaLabel: number;
   onClick: MouseEventHandler<SVGSVGElement>;
 };
 
-export const CartIconButton = ({ onClick }: Props) => {
+export const CartIconButton = ({ ariaLabel, onClick }: Props) => {
   return (
-    <S.IconButton>
+    <S.IconButton aria-label={`iconButton${ariaLabel}`}>
       <Icon
         width="30"
         height="27"

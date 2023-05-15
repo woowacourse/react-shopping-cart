@@ -4,11 +4,12 @@ import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
 import { WheelEventHandler, ChangeEventHandler } from 'react';
 
 interface Props {
+  id: string;
   value: number;
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
-const QuantityInput = ({ value, onChange }: Props) => {
+const QuantityInput = ({ value, onChange, id }: Props) => {
   const handleScrollPrevent: WheelEventHandler<HTMLInputElement> = ({ currentTarget }) => {
     currentTarget.blur();
   };
@@ -16,6 +17,7 @@ const QuantityInput = ({ value, onChange }: Props) => {
   return (
     <S.Wrapper>
       <Input
+        id={id}
         type="number"
         value={value}
         styled={QuantityInputStyle}
