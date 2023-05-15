@@ -1,10 +1,12 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { totalAmountState } from '../../atoms/cart';
+import { cartState } from '../../atoms/cart';
+import { sum } from '../../utils/utils';
 
 const Header: React.FC = () => {
-  const totalAmount = useRecoilValue(totalAmountState);
+  const cart = useRecoilValue(cartState);
+  const totalAmount = sum([...cart.map((item) => item.quantity)]);
 
   return (
     <StyledHeaderWrapper>
@@ -12,7 +14,9 @@ const Header: React.FC = () => {
         <StyledTitle>SHOP</StyledTitle>
         <StyledCartWrapper>
           <StyledCart>장바구니</StyledCart>
-          <StyledCartAmount data-cy="cart-amount">{totalAmount}</StyledCartAmount>
+          <StyledCartAmount data-cy="cart-amount">
+            {totalAmount}
+          </StyledCartAmount>
         </StyledCartWrapper>
       </StyledHeaderBox>
     </StyledHeaderWrapper>
