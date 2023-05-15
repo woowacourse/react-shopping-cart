@@ -2,7 +2,8 @@ import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import { ReactComponent as Cart } from '../assets/icons/cart.svg';
 import useCartProduct from '../hooks/useCart';
-import cartState from '../recoil/atoms/cartState';
+import { cartItemFamily } from '../recoil/selectors/cartItemFamily';
+import { productFamily } from '../recoil/selectors/productFamily';
 import type { Product } from '../type';
 import Stepper from './Stepper';
 
@@ -54,15 +55,18 @@ const AddCartButton = styled.button`
 `;
 
 type ProductItemProps = {
-  product: Product;
+  productId: Product['id'];
 };
 
 const ProductItem = (props: ProductItemProps) => {
-  const { product } = props;
-  const { setQuantity } = useCartProduct(product.id);
-  const cart = useRecoilValue(cartState);
+  const { productId } = props;
 
-  const cartProduct = cart.find((it) => it.productId === product.id) ?? null;
+  const product = useRecoilValue(productFamily(productId));
+  const cartProduct = useRecoilValue(cartItemFamily(productId));
+
+  const { setQuantity } = useCartProduct(productId);
+
+  if (!product) return <div>ERROR: No product!!</div>;
 
   return (
     <ProductItemContainer>
