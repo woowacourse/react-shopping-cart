@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "name": "치킨",
+    "price": 10000,
+    "imageUrl": "https://www.asiaa.co.kr/news/photo/202204/83451_94243_5547.png"
+  },
+  {
+    "id": 2,
+    "name": "삼겹살",
+    "price": 10000,
+    "imageUrl": "https://sitem.ssgcdn.com/04/30/92/item/1000047923004_i1_1100.jpg"
+  },
+  {
+    "id": 3,
+    "name": "맛있는 삼겹살",
+    "price": 10000,
+    "imageUrl": "https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201702/27/117f5b49-1d09-4550-8ab7-87c0d82614de.jpg"
+  },
+  {
+    "id": 4,
+    "name": "소고기",
+    "price": 10000,
+    "imageUrl": "https://wimg.mk.co.kr/meet/neds/2022/04/image_readtop_2022_335775_16499382115010203.jpg"
+  },
+  {
+    "id": 5,
+    "name": "장어",
+    "price": 10000,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0585/8495/7094/products/1_2da31eb6-ab29-43fd-a2f0-6b0ef7aa7a42.jpg?v=1674838451"
+  },
+  {
+    "id": 6,
+    "name": "곱창",
+    "price": 10000,
+    "imageUrl": "https://th4.tmon.kr/thumbs/image/e90/922/582/c30fa8436_700x700_95_FIT.jpg"
+  },
+  {
+    "id": 7,
+    "name": "맛있는곱창",
+    "price": 10000,
+    "imageUrl": "https://blog.kakaocdn.net/dn/camqfc/btq3UGEzTAV/8A6U74KcTbIIFV3jTCEwE1/img.jpg"
+  },
+  {
+    "id": 8,
+    "name": "참치회",
+    "price": 10000,
+    "imageUrl": "https://contents.sixshop.com/thumbnails/uploadedFiles/97379/product/image_1588817619594_1500.jpg"
+  },
+  {
+    "id": 9,
+    "name": "곱창전골",
+    "price": 10000,
+    "imageUrl": "https://mp-seoul-image-production-s3.mangoplate.com/46651_1651757767825116.jpg?fit=around|738:738&crop=738:738;*,*&output-format=jpg&output-quality=80"
+  },
+  {
+    "id": 10,
+    "name": "맛있는김치찜",
+    "price": 10000,
+    "imageUrl": "https://recipe1.ezmember.co.kr/cache/recipe/2017/11/21/0a09214720ddf173d39103262f06ebf11.jpg"
+  },
+  {
+    "id": 11,
+    "name": "닭갈비",
+    "price": 10000,
+    "imageUrl": "https://recipe1.ezmember.co.kr/cache/recipe/2019/10/30/33398b219faa7448ed4130b8b70e18c01.jpg"
+  },
+  {
+    "id": 12,
+    "name": "팟타이",
+    "price": 10000,
+    "imageUrl": "https://mblogthumb-phinf.pstatic.net/MjAxNzEyMjJfOTQg/MDAxNTEzOTIxOTkzMjM5.rqWI3PKKd01nJbKt0sSppwesVo-JusnsEQpGWZTrwCsg.8IlSL99sOZBjAVTsZygMTkl9WDOdqRehvQuFd6HwnjUg.JPEG.kjin8282/%ED%8C%9F%ED%83%80%EC%9D%B4.jpg?type=w800"
+  },
+  {
+    "id": 13,
+    "name": "신라면",
+    "price": 10000,
+    "imageUrl": "https://contents.lotteon.com/itemimage/_v094651/LM/88/01/04/30/14/83/0_/00/1/LM8801043014830_001_1.jpg/dims/optimize/dims/resizemc/400x400"
+  },
+  {
+    "id": 14,
+    "name": "불막창",
+    "price": 10000,
+    "imageUrl": "https://sitem.ssgcdn.com/96/52/03/item/1000019035296_i1_1100.jpg"
+  },
+  {
+    "id": 15,
+    "name": "쿠시카츠",
+    "price": 10000,
+    "imageUrl": "https://www.newstap.co.kr/news/photo/202106/138774_228175_4646.jpg"
+  }
+]

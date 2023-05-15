@@ -1,0 +1,80 @@
+.header {
+  text-align: center;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.informationContainer {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.informationContainer img {
+  width: 102px;
+  height: 102px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.informationContainer > div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.productName {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.totalPriceContainer {
+  margin-top: 36px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.totalPriceContainer h5 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.totalPriceContainer h3 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.buttonContainer {
+  margin-top: 18px;
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.buttonContainer button {
+  width: 100%;
+  padding: 16px;
+  font-size: 16px;
+  border-radius: 4px;
+  transition: all 0.2s ease-in;
+}
+
+.addButton {
+  background-color: #04c09e;
+  color: white;
+  transition: all 0.2s ease-in;
+}
+
+.addButton:hover {
+  background-color: #05b696;
+}
+
+.cancelButton {
+  border: 1px solid #e9e9e9;
+}
+
+.cancelButton:hover {
+  background-color: #e9e9e9;
+}
