@@ -1,12 +1,14 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
-import useCartProductStorage from './useCartProductStorage';
 import { cartProductState } from '../states/cartProductState';
+import {
+  storedCartProducts,
+  setStoredCartProducts,
+} from './../utils/localStorage';
 
 const useCartProductUpdate = () => {
   const [cartProducts, setCartProducts] = useRecoilState(cartProductState);
-  const [storedCartProducts, setStoredCartProducts] = useCartProductStorage();
 
   useEffect(() => {
     if (cartProducts.length >= 0) {
