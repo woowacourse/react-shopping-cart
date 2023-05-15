@@ -30,9 +30,7 @@ export default function ProductItem({
           <Price>{price.toLocaleString()}원</Price>
         </ProductInfo>
         {isSelected ? (
-          <>
-            <QuantityCounter ref={quantityRef} />
-          </>
+          <QuantityCounter ref={quantityRef} />
         ) : (
           <CartButton onClick={selectProductItem}>
             <AddCartIc />
