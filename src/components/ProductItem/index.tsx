@@ -4,14 +4,17 @@ import Svg from '../@common/Svg';
 import Toast from '../@common/Toast';
 import Counter from '../Counter';
 import * as S from './ProductItem.styles';
+import useToast from 'src/hooks/useToast';
 
 interface ProductItemProps {
   product: Product;
 }
 
 const ProductItem = ({ product }: ProductItemProps) => {
-  const { currentCartItem, remove, add, onSelectItem, isFirst } =
+  const { currentCartItem, remove, add, onSelectItem } =
     useProductSelect(product);
+
+  const {toastComponent} = useToast();
 
   const productSelect = currentCartItem ? (
     <Counter count={currentCartItem.quantity} add={add} remove={remove} />
@@ -31,7 +34,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
         </div>
         {productSelect}
       </S.ProductWrapper>
-      {isFirst && <Toast type="success" message="장바구니에 추가했습니다." />}
+      {/* {toastComponent} */}
     </S.ItemWrapper>
   );
 };

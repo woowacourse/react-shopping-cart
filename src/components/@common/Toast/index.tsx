@@ -1,18 +1,14 @@
-import { useEffect, useState } from 'react';
 import Svg from '../Svg';
 import * as S from './Toast.styles';
 
-interface ToastProps {
+export interface ToastProps {
+  id:number
   message: string;
   type: 'error' | 'success';
+  show:boolean;
 }
 
-const Toast = ({ message, type }: ToastProps) => {
-  const [show, setShow] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => setShow(false), 2000);
-  }, []);
+const Toast = ({ message, type,show }: ToastProps) => {
 
   return (
       <S.ToastWrapper type={type} isShow={show}>

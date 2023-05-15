@@ -23,10 +23,6 @@ const fadeOut = keyframes`
 `;
 
 export const ToastWrapper = styled.div<{ type: 'error' | 'success' , isShow:boolean}>`
-  position: fixed;
-  bottom: 100px;
-  left: 50%;
-
   display: flex;
   justify-content: center;
   align-items: center;

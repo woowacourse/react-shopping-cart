@@ -1,17 +1,17 @@
-import { useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { productIds, updateCart } from 'src/recoil/cartList';
 import { Product } from 'src/types';
+import useToast from './useToast';
 
 const useProductSelect = (product: Product) => {
-  const [isFirst, setIsFirst] = useState(false);
+  const { addToast } = useToast();
   const setProductIds = useSetRecoilState(productIds);
   const [cartItem, setCartItem] = useRecoilState(updateCart(product.id));
 
   const onSelectItem: React.MouseEventHandler<SVGElement> = () => {
     setCartItem({ id:product.id , quantity: 1, product });
     setProductIds((prev) => [...prev, product.id]);
-    setIsFirst(true);
+    addToast({id:Number(new Date()), type:"success", message:"장바구니에 추가됏습니다.",show:true})
   };
 
   const add: React.MouseEventHandler<HTMLButtonElement> = () => {
@@ -23,7 +23,6 @@ const useProductSelect = (product: Product) => {
     if (!cartItem) return;
 
     if (cartItem.quantity === 1) {
-      setIsFirst(false);
       setProductIds((prev) => 
         prev.filter(id => id !== cartItem.id)
       );
@@ -31,7 +30,7 @@ const useProductSelect = (product: Product) => {
     setCartItem({ ...cartItem, quantity: cartItem.quantity - 1 });
   };
 
-  return { currentCartItem: cartItem, remove, add, onSelectItem, isFirst };
+  return { currentCartItem: cartItem, remove, add, onSelectItem };
 };
 
 export default useProductSelect;

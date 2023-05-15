@@ -5,6 +5,7 @@ import Toast from 'src/components/@common/Toast';
 import { useFetch } from 'src/hooks/useFetch';
 import { Product } from 'src/types';
 import { styled } from 'styled-components';
+import ToastPortal from 'src/components/@common/Toast/ToastPortal';
 
 const ProductList = () => {
   const { data, error } = useFetch<{ choonsik: Product[] }>(
@@ -22,7 +23,8 @@ const ProductList = () => {
       <ContentLayout>
         <ProductListWrapper>{fetchedProductList}</ProductListWrapper>
       </ContentLayout>
-      {error.isError && <Toast type="error" message={error.message} />}
+      <ToastPortal/>
+      {/* {error.isError && <Toast type="error" message={error.message} show={true}/>} */}
     </>
   );
 };
