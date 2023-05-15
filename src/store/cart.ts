@@ -1,23 +1,21 @@
 import { atom, selector, selectorFamily } from 'recoil';
 
+import { getCartList } from '../api/cartAPI';
 import { CART_LIST_LOCAL_STORAGE_KEY } from '../constants';
 import { CartItemData } from '../types';
+import { removeFromLocalStorage, saveToLocalStorage } from '../utils/localStorage';
 
 const cartListState = atom<CartItemData[]>({
   key: 'cartList',
   default: [],
   effects: [
     ({ setSelf, onSet }) => {
-      const savedValue = localStorage.getItem(CART_LIST_LOCAL_STORAGE_KEY);
-
-      if (savedValue !== null) {
-        setSelf(JSON.parse(savedValue));
-      }
+      setSelf(getCartList().then((savedValue) => savedValue ?? []));
 
       onSet((newValue, _, isReset) => {
         isReset
-          ? localStorage.removeItem(CART_LIST_LOCAL_STORAGE_KEY)
-          : localStorage.setItem(CART_LIST_LOCAL_STORAGE_KEY, JSON.stringify(newValue));
+          ? removeFromLocalStorage(CART_LIST_LOCAL_STORAGE_KEY)
+          : saveToLocalStorage(CART_LIST_LOCAL_STORAGE_KEY, newValue);
       });
     },
   ],
