@@ -9,10 +9,10 @@ interface useBucketCountOptions {
 
 const useBucketCount = (
   initialValue: number,
-  options: useBucketCountOptions
+  { removeProductFromCart, errorMessage, maximumCount }: useBucketCountOptions
 ) => {
-  const { removeProductFromCart, errorMessage, maximumCount } = options;
   const maximumWriteInput = maximumCount * 10;
+
   const [bucketCount, setBucketCount] = useState(initialValue);
   const countRef = useRef<HTMLInputElement>(null);
 
