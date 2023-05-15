@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 import CartIcon from '../../assets/CartIcon';
 import { useRecoilValue } from 'recoil';
-import { totalCartProductState } from '../../states/cartProductState';
+import { totalCartProductSelect } from '../../data/cartProductData';
 
 const Header = () => {
-  const totalCartProduct = useRecoilValue(totalCartProductState);
+  const totalCartProduct = useRecoilValue(totalCartProductSelect);
 
   return (
     <HeaderContainer>

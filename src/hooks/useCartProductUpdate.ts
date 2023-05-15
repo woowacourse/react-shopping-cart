@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
-import { cartProductState } from '../states/cartProductState';
+import { cartProductAtom } from '../data/cartProductData';
 import {
   storedCartProducts,
   setStoredCartProducts,
 } from './../utils/localStorage';
 
 const useCartProductUpdate = () => {
-  const [cartProducts, setCartProducts] = useRecoilState(cartProductState);
+  const [cartProducts, setCartProducts] = useRecoilState(cartProductAtom);
 
   useEffect(() => {
     if (cartProducts.length >= 0) {

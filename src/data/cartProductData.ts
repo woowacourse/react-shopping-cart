@@ -2,15 +2,15 @@ import { atom, selector } from 'recoil';
 
 import type { CartProduct } from '../types/product';
 
-export const cartProductState = atom<CartProduct[]>({
+export const cartProductAtom = atom<CartProduct[]>({
   key: 'cartProductState',
   default: [],
 });
 
-export const totalCartProductState = selector<number>({
+export const totalCartProductSelect = selector<number>({
   key: 'totalCartProductState',
   get: ({ get }) => {
-    const cartProducts = get(cartProductState);
+    const cartProducts = get(cartProductAtom);
 
     return cartProducts.length;
   },

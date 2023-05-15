@@ -1,6 +1,6 @@
 import { useSetRecoilState } from 'recoil';
 
-import { cartProductState } from '../states/cartProductState';
+import { cartProductAtom } from '../data/cartProductData';
 import type { CartProduct } from '../types/product';
 
 const addTargetQuantity = (cartProducts: CartProduct[], id: number) =>
@@ -20,7 +20,7 @@ const subtractTargetQuantity = (cartProducts: CartProduct[], id: number) =>
   });
 
 const useProductQuantity = (id: number) => {
-  const setCartProducts = useSetRecoilState(cartProductState);
+  const setCartProducts = useSetRecoilState(cartProductAtom);
 
   const addCount = () => {
     setCartProducts((prev) => addTargetQuantity(prev, id));
