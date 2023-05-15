@@ -44,8 +44,8 @@ export const Button = styled.button<{
       case 'light': {
         return css`
           background-color: white;
-          border: 1px solid #bbbbbb;
-          color: #bbbbbb;
+          border: 1px solid #bbb;
+          color: #bbb;
         `;
       }
       case 'dark': {

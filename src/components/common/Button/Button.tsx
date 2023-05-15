@@ -6,10 +6,15 @@ interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
   view: 'light' | 'dark';
 }
 
-const Button = (props: PropsWithChildren<ButtonProps>) => {
+const Button = ({
+  size,
+  view,
+  type = 'submit',
+  children,
+}: PropsWithChildren<ButtonProps>) => {
   return (
-    <S.Button type="button" {...props}>
-      {props.children}
+    <S.Button type={type} size={size} view={view}>
+      {children}
     </S.Button>
   );
 };
