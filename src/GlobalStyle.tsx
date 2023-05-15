@@ -1,8 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import BMEULJIRO from "./assets/BMEULJIROTTF.ttf";
 
-console.log(BMEULJIRO);
-
 export const GlobalStyle = createGlobalStyle`
     @font-face {
         font-family: 'baemin';
