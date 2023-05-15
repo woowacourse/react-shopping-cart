@@ -7,17 +7,14 @@ import { RecoilRoot } from 'recoil';
 
 function Providers({ children }: { children: ReactNode }) {
   return (
-    <>
-      <RecoilRoot>
-        <BrowserRouter>
-          <ThemeProvider theme={theme}>
-            <GlobalStyle />
-
-            {children}
-          </ThemeProvider>
-        </BrowserRouter>
-      </RecoilRoot>
-    </>
+    <RecoilRoot>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          {children}
+        </ThemeProvider>
+      </BrowserRouter>
+    </RecoilRoot>
   );
 }
 
