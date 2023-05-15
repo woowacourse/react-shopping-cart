@@ -3,15 +3,17 @@ import { useCallback, useState } from 'react';
 import { AddToCartButtonImage } from '../types/image';
 import * as Styled from './styles/AddToCartButton.styles';
 
+interface AddToCartButtonProps {
+  handleAddCartState: () => void;
+  handleDeleteCartState: () => void;
+  id: number;
+}
+
 export const AddToCartButton = ({
   handleAddCartState,
   handleDeleteCartState,
   id,
-}: {
-  handleAddCartState: () => void;
-  handleDeleteCartState: () => void;
-  id: number;
-}) => {
+}: AddToCartButtonProps) => {
   const [isAdded, setIsAdded] = useState(false);
 
   const handleAddToCart = useCallback(() => {
