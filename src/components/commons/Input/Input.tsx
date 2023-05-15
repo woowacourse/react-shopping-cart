@@ -15,7 +15,7 @@ const Input = (props: InputHTMLAttributes<HTMLInputElement>) => {
       alt={alt}
       size={size}
       onChange={onChange}
-    ></StyledInput>
+    />
   );
 };
 
