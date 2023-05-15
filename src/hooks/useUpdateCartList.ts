@@ -10,25 +10,22 @@ const useUpdateCartList = () => {
   const [cartList, setCartList] = useRecoilState(cartListAtom);
 
   const updateCartList = ({ itemId, value }: UpdateCartListParams) => {
-    const newCartList = JSON.parse(JSON.stringify(cartList));
+    const { [itemId]: targetItem, ...restItems } = cartList;
 
-    if (!newCartList[itemId]) {
-      newCartList[itemId] = {
-        quantity: 1,
-      };
+    if (targetItem && value <= 0) {
+      setCartList(restItems);
     }
 
-    if (newCartList[itemId] && value <= 0) {
-      delete newCartList[itemId];
+    if (targetItem && value > 0) {
+      setCartList((prev) => ({ ...prev, [itemId]: { quantity: value } }));
     }
-
-    if (newCartList[itemId] && value > 0) {
-      newCartList[itemId].quantity = value;
-    }
-    setCartList(newCartList);
   };
 
-  return { updateCartList };
+  const addCartItem = (itemId: number) => {
+    setCartList((prev) => ({ ...prev, [itemId]: { quantity: 1 } }));
+  };
+
+  return { updateCartList, addCartItem };
 };
 
 export default useUpdateCartList;
