@@ -3,29 +3,29 @@ import { cartListAtom } from '../stores/cartListStore.ts';
 
 type UpdateCartListParams = {
   itemId: number;
-  value: number;
+  itemCount: number;
 };
 
 const useUpdateCartList = () => {
   const [cartList, setCartList] = useRecoilState(cartListAtom);
 
-  const updateCartList = ({ itemId, value }: UpdateCartListParams) => {
+  const updateCartList = ({ itemId, itemCount }: UpdateCartListParams) => {
     const { [itemId]: targetItem, ...restItems } = cartList;
 
-    if (targetItem && value <= 0) {
+    if (targetItem && itemCount <= 0) {
       setCartList(restItems);
     }
 
-    if (targetItem && value > 0) {
-      setCartList((prev) => ({ ...prev, [itemId]: { quantity: value } }));
+    if (targetItem && itemCount > 0) {
+      setCartList((prev) => ({ ...prev, [itemId]: { quantity: itemCount } }));
     }
   };
 
-  const addCartItem = (itemId: number) => {
+  const addNewCartItem = (itemId: number) => {
     setCartList((prev) => ({ ...prev, [itemId]: { quantity: 1 } }));
   };
 
-  return { updateCartList, addCartItem };
+  return { updateCartList, addNewCartItem };
 };
 
 export default useUpdateCartList;

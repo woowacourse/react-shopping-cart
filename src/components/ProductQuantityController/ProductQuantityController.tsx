@@ -11,14 +11,14 @@ type ProductQuantityControllerProps = {
 
 const ProductQuantityController = ({ productID }: ProductQuantityControllerProps) => {
   const productQuantity = useRecoilValue(productQuantitySelector(productID));
-  const { updateCartList, addCartItem } = useUpdateCartList();
+  const { updateCartList, addNewCartItem } = useUpdateCartList();
 
   const handleAddToCartButton = () => {
-    addCartItem(productID);
+    addNewCartItem(productID);
   };
 
   const handleStepperInputChange = (value: number) => {
-    if (value !== productQuantity) updateCartList({ itemId: productID, value });
+    if (value !== productQuantity) updateCartList({ itemId: productID, itemCount: value });
   };
 
   return (
