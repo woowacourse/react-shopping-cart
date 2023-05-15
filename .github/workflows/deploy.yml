@@ -43,9 +43,7 @@ jobs:
           echo PUBLIC_URL=$PUBLIC_URL > .env
 
       - name: Test
-        uses: skx/github-action-tester@master
-        with:
-          script: yarn test
+        run: yarn test
 
       - name: Build app
         run: |
