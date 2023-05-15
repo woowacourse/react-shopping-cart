@@ -20,5 +20,5 @@ export default function useCart() {
     setCart(cart.toSpliced(cartItemIndex, 1, { ...cart[cartItemIndex], quantity }));
   };
 
-  return [cart, addCartItem, removeCartItem, updateQuantity] as const;
+  return [cart, { addCartItem, removeCartItem, updateQuantity }] as const;
 }
