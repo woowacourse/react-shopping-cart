@@ -55,6 +55,7 @@ function useCart() {
 
   return {
     cartList,
+    getQuantityByProductId,
     addCart,
     increaseCart,
     decreaseCart,

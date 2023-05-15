@@ -3,18 +3,16 @@ import cartIcon from '../../assets/cart.svg';
 import useCart from '../../hooks/useCart';
 import type { ProductItem } from '../../types/types';
 import { ButtonBox, CartBox, ControllerWrapper, QuantityControlButton, QuantityInput } from './CartController.style';
-import { cartQuantitySelector } from '../../recoil/cartAtoms';
-import { useRecoilValue } from 'recoil';
 
 interface CartControllerProps {
   product: ProductItem;
 }
 
 function CartController({ product }: CartControllerProps) {
-  const { addCart, increaseCart, decreaseCart, setCartQuantity } =
+  const { addCart, getQuantityByProductId, increaseCart, decreaseCart, setCartQuantity } =
     useCart();
 
-  const quantity = useRecoilValue(cartQuantitySelector(product.id));
+  const quantity = getQuantityByProductId(product.id);
 
   const handleChangeQuantity = (event: ChangeEvent<HTMLInputElement>) => {
     const quantityInputValue = Number(event.target.value.replaceAll('/', '').replace(/\D/g, ''));
