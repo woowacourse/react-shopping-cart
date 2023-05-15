@@ -1,11 +1,15 @@
 import type { Preview } from '@storybook/react';
-import React from 'react';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
+import React, { Suspense } from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 
+import { handlers } from '../src/mocks/handlers';
 import GlobalStyle from '../src/styles/GlobalStyle';
 import theme from '../src/styles/theme';
+
+initialize();
 
 const customViewports = {
   Default: {
@@ -30,6 +34,9 @@ const preview: Preview = {
       viewports: { ...customViewports },
       defaultViewport: 'Default',
     },
+    msw: {
+      handlers: [...handlers],
+    },
   },
 };
 
@@ -45,11 +52,14 @@ export const decorators = [
     <MemoryRouter initialEntries={['/']}>
       <RecoilRoot>
         <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <Story />
+          <Suspense>
+            <GlobalStyle />
+            <Story />
+          </Suspense>
         </ThemeProvider>
       </RecoilRoot>
     </MemoryRouter>
   ),
   localStorageResetDecorator,
+  mswDecorator,
 ];

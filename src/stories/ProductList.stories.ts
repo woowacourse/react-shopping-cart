@@ -21,6 +21,8 @@ export const Interaction: Story = {
 
     window.localStorage.clear();
 
+    await delay(3000);
+
     const buyButton = canvas.queryAllByRole('button')[0];
     await userEvent.click(buyButton);
 
