@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   framework: '@storybook/react',
-  addons: ['@storybook/addon-controls'],
+  addons: ['@storybook/addon-controls', '@storybook/addon-styled-component-theme'],
   core: {
     builder: '@storybook/builder-webpack5',
   },
