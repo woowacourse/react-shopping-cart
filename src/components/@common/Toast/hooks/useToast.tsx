@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useRecoilState } from 'recoil';
 import { toastAtom } from 'recoil/toast';
 import * as S from '../Toast.styles';
@@ -33,29 +33,19 @@ export const useToast = () => {
     error: (message: string) => showToast(Number(Date.now()), message, 'error'),
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (toastItems.length > 0) {
-        deleteToast(toastItems[0].id);
-      }
-    }, 2000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  });
-
-  const renderToast = toastItems && (
+  const renderToast = createPortal(
     <S.ToastContainer>
       {toastItems.map((toastItem) => (
         <Toast
           key={toastItem.id}
+          id={toastItem.id}
           message={toastItem.message}
           type={toastItem.type}
         />
       ))}
-    </S.ToastContainer>
+    </S.ToastContainer>,
+    document.getElementById('toast-container') as HTMLElement
   );
 
-  return { toast, renderToast };
+  return { toast, deleteToast, renderToast };
 };
