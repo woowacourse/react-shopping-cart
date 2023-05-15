@@ -21,12 +21,22 @@ export const StyledTitleDiv = styled.div`
   display: flex;
   align-items: center;
   column-gap: 28px;
+
+  cursor: pointer;
+
+  @media screen and (max-width: 450px) {
+    & > h1 {
+      display: none;
+    }
+  }
 `;
 
 export const StyledCartFlexBox = styled.div`
   display: flex;
   align-items: center;
   column-gap: 8px;
+
+  cursor: pointer;
 
   @media screen and (max-width: 450px) {
     & > p {
