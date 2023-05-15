@@ -1,7 +1,7 @@
 import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { PATH } from '../constants/path';
-import CartPage from '../pages/CartPage';
+import CartPage from '../pages/CartPage/CartPage';
 import ProductListPage from '../pages/ProductListPage';
 
 const router = createBrowserRouter(
