@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from 'react';
+import type { ErrorInfo, PropsWithChildren } from 'react';
 import React from 'react';
 
 type ErrorBoundaryState = {
@@ -7,6 +7,7 @@ type ErrorBoundaryState = {
 
 type ErrorBoundaryProps = PropsWithChildren<{
   fallback?: React.ReactNode;
+  onRetry?: () => void;
 }>;
 
 class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
@@ -19,13 +20,25 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     return { hasError: true };
   }
 
+  override componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error('ErrorBoundary caught an error:', error, errorInfo);
+  }
+
   override render() {
-    const { fallback, children } = this.props;
+    const { fallback, children, onRetry } = this.props;
     const { hasError } = this.state;
 
     if (hasError) {
-      // You can render any custom fallback UI
-      return fallback;
+      return (
+        <div>
+          {fallback}
+          {onRetry && (
+            <button type="button" onClick={onRetry}>
+              Retry
+            </button>
+          )}
+        </div>
+      );
     }
 
     return children;
