@@ -1,6 +1,7 @@
+import { ImgHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-interface ImageProps {
+interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   source: string;
   alternative: string;
   $width?: string;
@@ -9,13 +10,13 @@ interface ImageProps {
 
 export const Image = ({ $width, $height, source, alternative }: ImageProps) => {
   return (
-    <StyledImage $width={$width} $height={$height}>
+    <StyledDiv $width={$width} $height={$height}>
       <img src={`${process.env.PUBLIC_URL}${source}`} alt={alternative}></img>
-    </StyledImage>
+    </StyledDiv>
   );
 };
 
-const StyledImage = styled.div<{ $width?: string; $height?: string }>`
+const StyledDiv = styled.div<{ $width?: string; $height?: string }>`
   width: ${({ $width }) => $width || '144px'};
   height: ${({ $height }) => $height || '144px'};
 
