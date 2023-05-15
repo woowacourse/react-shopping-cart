@@ -7,11 +7,11 @@ import {
   Logo, LogoWrapper, Navbar
 } from './Header.style';
 import { useRecoilValue } from 'recoil';
-import { cartCountState } from '../../recoil/cartAtoms';
+import { cartCountSelector } from '../../recoil/cartAtoms';
 
 function Header() {
   const navigate = useNavigate();
-  const cartCount = useRecoilValue(cartCountState);
+  const cartCount = useRecoilValue(cartCountSelector);
   return (
     <Navbar>
       <Container>

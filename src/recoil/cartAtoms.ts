@@ -13,10 +13,10 @@ export const cartState = atom<Cart[]>({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const cartCountState = selector({
+export const cartCountSelector = selector({
   key: 'cartLength',
   get: ({ get }) => {
     const cartList = get(cartState);
     return cartList.length;
   }
-})
+});
