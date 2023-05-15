@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
-import { isNotNumber, showInputErorrMessage } from '@utils/common';
+import { showInputErorrMessage } from '@utils/common';
 import {
   BUCKET_COUNTER_BOTTOM_BUTTON,
   BUCKET_COUNTER_TOP_BUTTON,
@@ -17,9 +17,7 @@ const MAX_BUCKET_COUNT = 1000;
 const MAX_WRITE_INPUT_BUCKET_COUNT = 10000;
 const ERROR_MESSAGE = '장바구니 수량은 1000개 이하까지 가능합니다.';
 
-const BucketCounter = ({
-  setIsClicked,
-}: BucketCounterProps) => {
+const BucketCounter = ({ setIsClicked }: BucketCounterProps) => {
   const [bucketCount, setBucketCount] = useState(1);
   const countRef = useRef<HTMLInputElement>(null);
 
@@ -27,7 +25,7 @@ const BucketCounter = ({
     const { value } = event.target;
     const count = Number(value);
 
-    if (isNotNumber(value)) return;
+    if (isNaN(count)) return;
 
     showInputErorrMessage(isNotError(count), event.target, ERROR_MESSAGE);
 
