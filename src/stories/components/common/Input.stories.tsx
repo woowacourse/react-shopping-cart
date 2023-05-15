@@ -22,11 +22,10 @@ const meta = {
 
   argTypes: {
     css: {
-      options: {},
       control: {
         type: 'radio',
       },
-      description: 'input style을 선택할 수 있습니다.',
+      description: 'input을 꾸밀 수 있습니다.',
     },
 
     onChange: {

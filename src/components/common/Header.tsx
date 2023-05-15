@@ -10,7 +10,7 @@ const Header = ({ title }: Props) => {
   return (
     <S.Header>
       <S.Wrapper>
-        <CartIcon fill="#fff" aria-label="logo-cart-icon" />
+        <CartIcon aria-label="logo-cart-icon" />
         <span>{title}</span>
         <Cart />
       </S.Wrapper>
@@ -34,6 +34,7 @@ const S = {
       width: 44px;
       height: 36px;
       margin-right: 20px;
+      fill: #fff;
     }
 
     @media (max-width: 768px) {
