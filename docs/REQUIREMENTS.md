@@ -26,7 +26,7 @@
 - [ ] 장바구니 페이지에 필요한 UI 마크업
   - [ ] PageTitle
   - [ ] CartProductList
-  - [ ] CartProductItem
+  - [x] CartProductItem
   - [ ] ExpectedPaymentBox
   - [ ] CheckBox
   - [ ] Button
