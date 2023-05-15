@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { isNumeric } from '../../utils/validator';
+import { useEffect } from 'react';
 
 interface Props {
   count: string;
@@ -12,8 +13,6 @@ export default function CounterInput({ count, setCount, max }: Props) {
   const onChangeInput = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
     if (value === '') {
       setCount('');
-    } else if (max !== undefined && isNumeric(value)) {
-      setCount(Math.min(Number(value), max).toString());
     } else if (isNumeric(value)) {
       setCount(value);
     }
@@ -38,7 +37,7 @@ export default function CounterInput({ count, setCount, max }: Props) {
         <Counter onClick={onCountUp}>
           <img src="./arrowUp.svg" />
         </Counter>
-        <Counter onClick={onCountDown}>
+        <Counter onClick={onCountDown} disabled={count === '0'}>
           <img src="./arrowDown.svg" />
         </Counter>
       </CounterBox>
