@@ -2,9 +2,9 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
 import { showInputErorrMessage } from '@utils/common';
 import {
-  BUCKET_COUNTER_BOTTOM_BUTTON,
-  BUCKET_COUNTER_TOP_BUTTON,
-  CART_COUNT_INPUT,
+  TEST_BUCKET_COUNTER_BOTTOM_BUTTON,
+  TEST_BUCKET_COUNTER_TOP_BUTTON,
+  TEST_CART_COUNT_INPUT,
 } from '@constants/testId';
 import { BOTTOM_ARROW, TOP_ARROW } from '@assets';
 
@@ -95,17 +95,17 @@ const BucketCounter = ({ setIsClicked }: BucketCounterProps) => {
         onChange={changeCountEvent}
         ref={countRef}
         onBlur={onBlur}
-        data-testid={CART_COUNT_INPUT}
+        data-testid={TEST_CART_COUNT_INPUT}
       />
       <Counter>
         <TopButton
-          data-testid={BUCKET_COUNTER_TOP_BUTTON}
+          data-testid={TEST_BUCKET_COUNTER_TOP_BUTTON}
           onClick={increaseCount}
         >
           <Image src={TOP_ARROW} alt="증가" />
         </TopButton>
         <BottomButton
-          data-testid={BUCKET_COUNTER_BOTTOM_BUTTON}
+          data-testid={TEST_BUCKET_COUNTER_BOTTOM_BUTTON}
           onClick={decreaseCount}
         >
           <Image src={BOTTOM_ARROW} alt="감소" />

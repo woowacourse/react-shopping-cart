@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import BucketCounter from '@components/common/BucketCounter';
-import { ADD_CART_BUTTON } from '@constants/testId';
+import { TEST_ADD_CART_BUTTON } from '@constants/testId';
 import { BUCKET_BUTTON } from '@assets';
 
 interface AddCartButtonProps {
@@ -41,7 +41,7 @@ const AddCartButton = ({
         <Button
           type="button"
           onClick={toggleCounter}
-          data-testid={ADD_CART_BUTTON}
+          data-testid={TEST_ADD_CART_BUTTON}
         >
           <Image src={BUCKET_BUTTON} alt="장바구니 버튼" />
         </Button>
