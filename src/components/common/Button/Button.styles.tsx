@@ -12,17 +12,17 @@ export const Button = styled.button<{
     switch (size) {
       case 'SS':
         return css`
-          width: 2.4rem;
+          min-width: 2.4rem;
           height: 1.4rem;
         `;
       case 'S':
         return css`
-          width: 4.2rem;
+          min-width: 4.2rem;
           height: 3rem;
         `;
       case 'M':
         return css`
-          width: 9.8rem;
+          min-width: 9.8rem;
           height: 3.5rem;
 
           font-weight: 400;
