@@ -4,24 +4,24 @@ import { AddToCartButtonImage } from '../types/image';
 import styled from 'styled-components';
 
 export const AddToCartButton = ({
-  handleAddCartState,
-  handleDeleteCartState,
+  addToCartState,
+  deleteCartState,
   id,
 }: {
-  handleAddCartState: () => void;
-  handleDeleteCartState: () => void;
+  addToCartState: () => void;
+  deleteCartState: () => void;
   id: number;
 }) => {
   const [isAdded, setIsAdded] = useState(false);
 
   const handleAddToCart = () => {
     setIsAdded(true);
-    handleAddCartState();
+    addToCartState();
   };
 
   const handleDeleteCart = () => {
     setIsAdded(false);
-    handleDeleteCartState();
+    deleteCartState();
   };
 
   return (

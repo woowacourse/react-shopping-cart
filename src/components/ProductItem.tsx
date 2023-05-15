@@ -8,7 +8,7 @@ import styled from 'styled-components';
 export const ProductItem = (props: ProductItemProps) => {
   const { id, name, price, imageUrl } = props;
 
-  const { handleAddCartState, handleDeleteCartState } = useCartState(props);
+  const { addToCartState, deleteCartState } = useCartState(props);
 
   return (
     <ProductItemWrapper key={id}>
@@ -29,8 +29,8 @@ export const ProductItem = (props: ProductItemProps) => {
         </div>
         <AddToCartButton
           id={id}
-          handleAddCartState={handleAddCartState}
-          handleDeleteCartState={handleDeleteCartState}
+          addToCartState={addToCartState}
+          deleteCartState={deleteCartState}
         />
       </ProductTextWrapper>
     </ProductItemWrapper>

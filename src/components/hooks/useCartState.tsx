@@ -6,7 +6,7 @@ export const useCartState = (props: ProductItem) => {
   const { id } = props;
   const [cartProductList, setCartProductList] = useRecoilState(cartState);
 
-  const handleAddCartState = () => {
+  const addToCartState = () => {
     setCartProductList([
       ...cartProductList,
       {
@@ -17,12 +17,12 @@ export const useCartState = (props: ProductItem) => {
     ]);
   };
 
-  const handleDeleteCartState = () => {
+  const deleteCartState = () => {
     const deleteItemId = cartProductList.filter(
       (item: CartProductList) => item.id !== id
     );
     setCartProductList(deleteItemId);
   };
 
-  return { handleAddCartState, handleDeleteCartState };
+  return { addToCartState, deleteCartState };
 };
