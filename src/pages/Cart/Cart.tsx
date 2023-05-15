@@ -1,0 +1,18 @@
+import useCartList from '../../hooks/useCartList';
+
+function Cart() {
+  const { cartList } = useCartList();
+  console.log(cartList);
+  return (
+    <>
+      {cartList.map((cart) => (
+        <div key={cart.id}>
+          <h1>
+            {cart.product.name} - ({cart.quantity}개)
+          </h1>
+        </div>
+      ))}
+    </>
+  );
+}
+export default Cart;
