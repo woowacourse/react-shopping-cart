@@ -7,12 +7,12 @@ export default function ProductListPage() {
   const products = mockProduct;
 
   return (
-    <S.Wrapper>
+    <Wrapper>
       <Header />
       <main>
         <ProductList products={products} />
       </main>
-    </S.Wrapper>
+    </Wrapper>
   );
 }
 
@@ -31,7 +31,3 @@ const Wrapper = styled.div`
     padding: 60px 0;
   }
 `;
-
-const S = {
-  Wrapper,
-};
