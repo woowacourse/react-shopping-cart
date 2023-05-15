@@ -12,7 +12,7 @@ function useCart() {
   };
 
   const addCart = async (product: ProductItem) => {
-    if (cartList.findIndex((c) => c.id === product.id) !== -1) {
+    if (cartList.find((cartItem) => cartItem.id === product.id) !== undefined) {
       return;
     }
     const newCartItem = { id: product.id, quantity: 1, product };
@@ -22,10 +22,6 @@ function useCart() {
       console.log(response.data);
     }
   };
-
-  const ProductItem = {
-
-  }
 
   const removeCart = async (id: number) => {
     const removedCartList = cartList.filter((cart) => cart.id !== id);
