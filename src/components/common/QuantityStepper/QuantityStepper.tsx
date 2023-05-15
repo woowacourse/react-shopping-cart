@@ -16,11 +16,11 @@ const QuantityStepper = forwardRef<HTMLInputElement, QuantityStepperProps>(
 
     return (
       <Flex>
-        <Button size="S" view="white" onClick={decrease}>
+        <Button size="S" view="light" onClick={decrease}>
           ▼
         </Button>
         <S.Quantity ref={ref} value={quantity} disabled name={label} />
-        <Button size="S" view="white" onClick={increase}>
+        <Button size="S" view="light" onClick={increase}>
           ▲
         </Button>
       </Flex>

@@ -17,27 +17,27 @@ type Story = StoryObj<typeof meta>;
 export const Size_SS: Story = {
   args: {
     size: 'SS',
-    view: 'white',
+    view: 'light',
   },
 };
 
 export const Size_S: Story = {
   args: {
     size: 'S',
-    view: 'white',
+    view: 'light',
   },
 };
 
 export const Size_M: Story = {
   args: {
     size: 'M',
-    view: 'white',
+    view: 'light',
   },
 };
 
 export const Size_L: Story = {
   args: {
     size: 'L',
-    view: 'black',
+    view: 'dark',
   },
 };

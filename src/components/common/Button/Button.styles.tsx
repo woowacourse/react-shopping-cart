@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 export const Button = styled.button<{
   size: 'SS' | 'S' | 'M' | 'L';
-  view: 'white' | 'black';
+  view: 'light' | 'dark';
 }>`
   padding: 0;
 
@@ -41,14 +41,14 @@ export const Button = styled.button<{
 
   ${({ view }) => {
     switch (view) {
-      case 'white': {
+      case 'light': {
         return css`
           background-color: white;
           border: 1px solid #bbbbbb;
           color: #bbbbbb;
         `;
       }
-      case 'black': {
+      case 'dark': {
         return css`
           background-color: #333333;
           border: 1px solid #333333;

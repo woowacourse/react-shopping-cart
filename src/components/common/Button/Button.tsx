@@ -3,7 +3,7 @@ import * as S from './Button.styles';
 
 interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
   size: 'SS' | 'S' | 'M' | 'L';
-  view: 'white' | 'black';
+  view: 'light' | 'dark';
 }
 
 const Button = (props: PropsWithChildren<ButtonProps>) => {
