@@ -1,49 +1,49 @@
-import { useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { AddToCartCountProps } from '../../types/addToCartCountType';
+import { useSetRecoilState } from 'recoil';
 import { CartProductList } from '../../types/productType';
 import { cartState } from '../../atoms/CartState';
 
-export const useCartCountState = ({
-  id,
-  onDeleteCart,
-}: AddToCartCountProps) => {
-  const [quantity, setQuantity] = useState<number>(1);
-  const [cartProductList, setCartProductList] = useRecoilState(cartState);
+const getIndex = (list: CartProductList[], id: number) => {
+  return list.findIndex((item: CartProductList) => item.id === id);
+};
+
+export const useCartCountState = (id: number) => {
+  const setCartProductState = useSetRecoilState(cartState);
 
   const increaseCount = () => {
-    setQuantity(quantity + 1);
+    setCartProductState((prev) => {
+      const index = getIndex(prev, id);
 
-    const updatedCartList = cartProductList.map((item: CartProductList) => {
-      if (item.id === id)
-        return {
-          ...item,
-          quantity: item.quantity + 1,
-        };
+      const updatedCartList = [...prev];
 
-      return item;
+      updatedCartList[index] = {
+        ...updatedCartList[index],
+        quantity: updatedCartList[index].quantity + 1,
+      };
+
+      return updatedCartList;
     });
-    setCartProductList(updatedCartList);
   };
 
   const decreaseCount = () => {
-    const updatedCartList = cartProductList.map((item: CartProductList) => {
-      if (item.id === id)
-        return {
-          ...item,
-          quantity: item.quantity - 1,
-        };
+    setCartProductState((prev) => {
+      const index = getIndex(prev, id);
 
-      return item;
+      const updatedCartList = [...prev];
+
+      updatedCartList[index] = {
+        ...updatedCartList[index],
+        quantity: updatedCartList[index].quantity - 1,
+      };
+
+      if (updatedCartList[index].quantity === 0) {
+        return updatedCartList.filter(
+          (item: CartProductList) => item.id !== id
+        );
+      }
+
+      return updatedCartList;
     });
-    setCartProductList(updatedCartList);
-
-    if (quantity === 1) {
-      onDeleteCart();
-    }
-
-    setQuantity(quantity - 1);
   };
 
-  return { increaseCount, decreaseCount, quantity };
+  return { increaseCount, decreaseCount };
 };

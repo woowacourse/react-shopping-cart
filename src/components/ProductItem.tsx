@@ -8,7 +8,7 @@ import styled from 'styled-components';
 export const ProductItem = (props: ProductItemProps) => {
   const { id, name, price, imageUrl } = props;
 
-  const { addToCartState, deleteCartState } = useCartState(props);
+  const { addToCartState } = useCartState(props);
 
   return (
     <ProductItemWrapper key={id}>
@@ -27,11 +27,7 @@ export const ProductItem = (props: ProductItemProps) => {
             {`${price.toLocaleString('ko-KR')} 원`}
           </ProductPrice>
         </div>
-        <AddToCartButton
-          id={id}
-          addToCartState={addToCartState}
-          deleteCartState={deleteCartState}
-        />
+        <AddToCartButton id={id} addToCartState={addToCartState} />
       </ProductTextWrapper>
     </ProductItemWrapper>
   );

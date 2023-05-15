@@ -1,36 +1,30 @@
 import { AddToCartCount } from './AddToCartCount';
-import { useState } from 'react';
 import { AddToCartButtonImage } from '../types/image';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { cartState } from '../atoms/CartState';
+import { CartProductList } from '../types/productType';
 
 export const AddToCartButton = ({
   addToCartState,
-  deleteCartState,
   id,
 }: {
   addToCartState: () => void;
-  deleteCartState: () => void;
   id: number;
 }) => {
-  const [isAdded, setIsAdded] = useState(false);
+  const cartProductState = useRecoilValue(cartState);
 
-  const handleAddToCart = () => {
-    setIsAdded(true);
-    addToCartState();
-  };
-
-  const handleDeleteCart = () => {
-    setIsAdded(false);
-    deleteCartState();
-  };
+  const quantity = cartProductState.find(
+    (item: CartProductList) => item.id === id
+  )?.quantity;
 
   return (
     <>
-      {isAdded ? (
-        <AddToCartCount id={id} onDeleteCart={handleDeleteCart} />
+      {quantity ? (
+        <AddToCartCount id={id} quantity={quantity} />
       ) : (
         <AddToCartButtonImageWrapper>
-          <AddToCartButtonImage onClick={handleAddToCart} />
+          <AddToCartButtonImage onClick={addToCartState} />
         </AddToCartButtonImageWrapper>
       )}
     </>

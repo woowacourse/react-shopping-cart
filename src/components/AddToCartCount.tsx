@@ -3,11 +3,8 @@ import { AddToCartCountProps } from '../types/addToCartCountType';
 import { DecreaseButtonImage, IncreaseButtonImage } from '../types/image';
 import styled from 'styled-components';
 
-export const AddToCartCount = ({ id, onDeleteCart }: AddToCartCountProps) => {
-  const { increaseCount, decreaseCount, quantity } = useCartCountState({
-    id,
-    onDeleteCart,
-  });
+export const AddToCartCount = ({ id, quantity }: AddToCartCountProps) => {
+  const { increaseCount, decreaseCount } = useCartCountState(id);
 
   return (
     <Wrapper>

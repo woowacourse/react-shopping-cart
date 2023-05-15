@@ -15,9 +15,6 @@ export const Default: Story = {
     addToCartState: () => {
       return;
     },
-    deleteCartState: () => {
-      return;
-    },
     id: 0,
   },
 };
