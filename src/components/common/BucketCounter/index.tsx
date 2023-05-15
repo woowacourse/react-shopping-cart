@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
-import { showInputErrorMessage } from '@utils/common';
+import useBucketCount from '@hooks/useBucketCount';
 import {
   TEST_BUCKET_COUNTER_BOTTOM_BUTTON,
   TEST_BUCKET_COUNTER_TOP_BUTTON,
@@ -12,82 +11,25 @@ interface BucketCounterProps {
   removeProductFromCart: () => void;
 }
 
-const MAX_BUCKET_COUNT = 1000;
-const MAX_WRITE_INPUT_BUCKET_COUNT = 10000;
-const ERROR_MESSAGE = '장바구니 수량은 1000개 이하까지 가능합니다.';
-
 const BucketCounter = ({ removeProductFromCart }: BucketCounterProps) => {
-  const [bucketCount, setBucketCount] = useState(1);
-  const countRef = useRef<HTMLInputElement>(null);
-
-  const changeCountEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    const count = Number(value);
-
-    if (isNaN(count)) return;
-
-    showInputErrorMessage(isCountError(count), event.target, ERROR_MESSAGE);
-
-    if (count >= MAX_WRITE_INPUT_BUCKET_COUNT) return;
-
-    setBucketCount(count);
-  };
-
-  const showCounterErrorMessage = useCallback(() => {
-    if (!countRef.current) return;
-
-    showInputErrorMessage(
-      isCountError(bucketCount),
-      countRef.current,
-      ERROR_MESSAGE
-    );
-  }, [bucketCount]);
-
-  const increaseCount = () => {
-    if (bucketCount + 1 >= MAX_WRITE_INPUT_BUCKET_COUNT) {
-      showCounterErrorMessage();
-      return;
-    }
-
-    setBucketCount((prev) => prev + 1);
-  };
-
-  const decreaseCount = () => {
-    if (bucketCount - 1 === 0) {
-      removeProductFromCart();
-    }
-    setBucketCount((prev) => prev - 1);
-  };
-
-  const onBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    const { relatedTarget, target } = event;
-
-    if (relatedTarget?.parentElement?.parentElement === target.parentElement)
-      return;
-
-    if (bucketCount === 0) {
-      removeProductFromCart();
-    }
-  };
-
-  const isCountError = (count: number) => {
-    return count > MAX_BUCKET_COUNT;
-  };
-
-  useEffect(() => {
-    showCounterErrorMessage();
-  }, [bucketCount, showCounterErrorMessage]);
-
-  useEffect(() => {
-    if (bucketCount < 0) removeProductFromCart();
-  }, [bucketCount, removeProductFromCart]);
-
+  const {
+    bucketCount,
+    onBlur,
+    onChange,
+    increaseCount,
+    decreaseCount,
+    countRef,
+  } = useBucketCount(1, {
+    removeProductFromCart,
+    errorMessage: '장바구니 수량은 1000개 이하까지 가능합니다.',
+    maximumCount: 1000,
+  });
   return (
     <Wrapper>
       <Count
         inputMode="numeric"
         value={bucketCount === 0 ? '' : bucketCount}
-        onChange={changeCountEvent}
+        onChange={onChange}
         ref={countRef}
         onBlur={onBlur}
         data-testid={TEST_CART_COUNT_INPUT}
