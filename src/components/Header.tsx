@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import { ReactComponent as HomeIcon } from '../assets/icons/home-icon.svg';
+import HomeIcon from '../assets/icons/home-icon.svg';
 import cartCountState from '../recoil/selectors/cartCountState';
 import Badge from './Badge';
 
@@ -60,7 +60,7 @@ const Header = () => {
     <HeaderContainer>
       <HeaderContent>
         <HomeButton>
-          <HomeIcon width={44} />
+          <img alt="홈" src={HomeIcon} width={44} />
           <HomeButtonText>SHOP</HomeButtonText>
         </HomeButton>
         <Menu>

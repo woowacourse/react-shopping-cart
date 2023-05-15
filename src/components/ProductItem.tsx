@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import { ReactComponent as Cart } from '../assets/icons/cart.svg';
+import CartIcon from '../assets/icons/cart.svg';
 import useCartProduct from '../hooks/useCart';
 import cartState from '../recoil/atoms/cartState';
 import type { Product } from '../type';
@@ -75,7 +75,7 @@ const ProductItem = (props: ProductItemProps) => {
         <StepperContainer>
           {cartProduct === null ? (
             <AddCartButton onClick={() => setQuantity(1)}>
-              <Cart />
+              <img alt="카트" src={CartIcon} />
             </AddCartButton>
           ) : (
             <Stepper min={0} value={cartProduct.quantity} onChange={setQuantity} />

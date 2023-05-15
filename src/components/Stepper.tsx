@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
-import { ReactComponent as ArrowDown } from '../assets/icons/arrow-down.svg';
-import { ReactComponent as ArrowUp } from '../assets/icons/arrow-up.svg';
+import ArrowDown from '../assets/icons/arrow-down.svg';
+import ArrowUp from '../assets/icons/arrow-up.svg';
 
 const InputContainer = styled.div`
   display: flex;
@@ -54,10 +54,10 @@ const Stepper = (props: StepperProps) => {
       <Input value={value} readOnly />
       <div>
         <InputButton onClick={handleClick('increase')}>
-          <ArrowUp width="5" />
+          <img alt="증가" src={ArrowUp} width="5" />
         </InputButton>
         <InputButton onClick={handleClick('decrease')}>
-          <ArrowDown width="5" />
+          <img alt="감소" src={ArrowDown} width="5" />
         </InputButton>
       </div>
     </InputContainer>
