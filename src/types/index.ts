@@ -8,7 +8,7 @@ interface ProductItemData {
 interface CartItemData {
   id: number;
   quantity: number;
-  productId: ProductItemData['id'];
+  product: ProductItemData;
 }
 
 export type { ProductItemData, CartItemData };
