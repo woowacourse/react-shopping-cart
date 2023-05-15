@@ -1,14 +1,14 @@
-import { useRecoilValue } from "recoil";
-import styled from "styled-components";
+import { useRecoilValue } from 'recoil';
+import styled from 'styled-components';
 
-import { totalCartCount } from "../atoms/cartState";
+import { totalCartCountState } from '../atoms/cartState';
 
 interface CartQuantityProps {
   user?: string;
 }
 
 export default function CartQuantity({ user }: CartQuantityProps) {
-  const totalCart = useRecoilValue(totalCartCount);
+  const totalCart = useRecoilValue(totalCartCountState);
 
   return (
     <CartQuantityContainer>
