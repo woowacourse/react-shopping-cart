@@ -39,10 +39,12 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
 
   return (
     <div>
-      <S.Image src={imgUrl} />
+      <S.Image src={imgUrl} alt={name} />
       <S.InfoWrapper>
         <div>
-          <S.Name htmlFor={name}>{name}</S.Name>
+          <S.Name htmlFor={name} title={name}>
+            {name}
+          </S.Name>
           <S.Price>
             {price.toLocaleString()}
             <span>원</span>
@@ -79,12 +81,17 @@ const S = {
   `,
 
   Name: styled.label`
+    display: -webkit-box;
     margin-right: 4px;
     font-weight: 400;
     line-height: 1.4;
     letter-spacing: 0.5px;
     color: var(--text-color);
     opacity: 0.9;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
 
     @media (max-width: 1270px) {
       font-size: 15px;
