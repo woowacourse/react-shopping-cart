@@ -8,7 +8,7 @@ import {
 import Modal from '@components/commons/Modal/Modal';
 import Heading from '@components/commons/Heading/Heading';
 import Button from '@components/commons/Button/Button';
-import Text from '@components/commons/Text/Text';
+import * as Text from '@components/commons/Text/Text';
 
 const ErrorModal = (props: { isError: boolean }) => {
   const { isError } = props;
@@ -27,7 +27,7 @@ const ErrorModal = (props: { isError: boolean }) => {
                 backgroundColor="#04c09e"
                 type="button"
               >
-                <Text text="다시 불러오기" color="white" fontSize="24px" />
+                <Text.Paragraph color="white">다시 불러오기</Text.Paragraph>
               </Button>
             </Link>
           </StyledContentSection>

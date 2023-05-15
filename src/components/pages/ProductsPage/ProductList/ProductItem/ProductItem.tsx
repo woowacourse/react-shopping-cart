@@ -6,7 +6,7 @@ import {
 } from '@components/pages/ProductsPage/ProductList/ProductItem/ProductItem.styled';
 import SquareImage from '@commons/SquareImage/SquareImage';
 import ProductStepper from '@components/pages/ProductsPage/ProductList/ProductItem/ProductStepper/ProductStepper';
-import Text from '@components/commons/Text/Text';
+import * as Text from '@components/commons/Text/Text';
 
 interface ProductItemProps {
   product: Product;
@@ -21,12 +21,10 @@ const ProductItem = (props: ProductItemProps) => {
       <SquareImage src={imageUrl} alt={name} size="xl" />
       <StyledProductFlexBox>
         <div>
-          <Text text={name} fontSize="16px" lineHeight="24px" />
-          <Text
-            text={price.toLocaleString('ko-KR') + ' 원'}
-            fontSize="20px"
-            lineHeight="27px"
-          />
+          <Text.Description>{name}</Text.Description>
+          <Text.Paragraph>
+            {price.toLocaleString('ko-KR') + ' 원'}
+          </Text.Paragraph>
         </div>
         <ProductStepper productId={id} />
       </StyledProductFlexBox>

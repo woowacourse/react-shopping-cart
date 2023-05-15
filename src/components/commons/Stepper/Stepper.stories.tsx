@@ -8,7 +8,7 @@ import {
 } from '@components/pages/ProductsPage/ProductList/ProductItem/ProductStepper/ProductStepper.styled';
 import Input from '@commons/Input/Input';
 import Button from '@commons/Button/Button';
-import Text from '../Text/Text';
+import * as Text from '../Text/Text';
 
 const meta: Meta<typeof Stepper> = {
   title: 'Stepper',
@@ -57,7 +57,9 @@ const Wrapper = () => {
               name="상품 추가 버튼"
               border="1px solid #333333"
             >
-              <Text text="▲" fontSize="xx-small" color="#333333" />
+              <Text.Paragraph fontSize="xx-small" color="#333333">
+                ▲
+              </Text.Paragraph>
             </Button>
             <Button
               ariaLabel="상품 1개 삭제"
@@ -67,7 +69,9 @@ const Wrapper = () => {
               name="상품 삭제 버튼"
               border="1px solid #333333"
             >
-              <Text text="▼" fontSize="xx-small" color="#333333" />
+              <Text.Paragraph fontSize="xx-small" color="#333333">
+                ▼
+              </Text.Paragraph>
             </Button>
           </StyledProductStepperButtonFlexBox>
         </StyledProductStepperFlexBox>
