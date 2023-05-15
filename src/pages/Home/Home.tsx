@@ -1,14 +1,11 @@
-import ProductItem from '../../components/ProductItem';
 import { useCallback, useEffect } from 'react';
-import useProduct from '../../hooks/useProduct';
-import { Column, Row } from '../../style/style';
 import { useSetRecoilState } from 'recoil';
-import { cartState } from '../../recoil/atoms';
+import { cartState } from '../../recoil/cartAtoms';
+import ProductList from '../../components/ProductList';
+
 
 function Home() {
-  const { productList, loadProductList } = useProduct();
   const setCartList = useSetRecoilState(cartState);
-
   const loadCartList = useCallback(async () => {
     // fetch('/cart-items');
   }, [setCartList]);
@@ -17,18 +14,8 @@ function Home() {
     loadCartList();
   }, [loadCartList]);
 
-  useEffect(() => {
-    loadProductList();
-  }, [loadProductList]);
-
   return (
-    <Row>
-      {productList.map((product) => (
-        <Column key={product.id}>
-          <ProductItem product={product} />
-        </Column>
-      ))}
-    </Row>
+    <ProductList />
   );
 }
 
