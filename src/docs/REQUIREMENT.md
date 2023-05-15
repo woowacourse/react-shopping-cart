@@ -15,8 +15,8 @@
 
 ### 리팩터링 목록
 
-- [ ] dependencies, devDependencies를 의미있게 구분짓는다.
-- [ ] 사용하지 않는 CRA 보일러 플레이트 파일을 삭제한다.
+- [x] dependencies, devDependencies를 의미있게 구분짓는다.
+- [x] 사용하지 않는 CRA 보일러 플레이트 파일을 삭제한다.
 - [ ] isNotNumber를 빌트인 된 기능으로 고쳐본다.
 - [ ] showInputErorrMessage에서 isNotError와 같이 부정형 변수를 긍정형으로 고쳐본다.
 - [ ] 코드 포맷팅을 보기 좋게 고쳐본다.
