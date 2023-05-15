@@ -9,55 +9,56 @@ import * as S from './style';
 
 type QuantityControllerProps = {
   product: Product;
-  quantity?: number;
+  quantity: number;
   updateShoppingCart: UpdateShoppingCart;
 };
 
 type QuantityControlButton = (typeof QUANTITY_CONTROL_BUTTON)[keyof typeof QUANTITY_CONTROL_BUTTON];
 
-function QuantityController({
-  product,
-  quantity = SHOPPING_QUANTITY.MIN,
-  updateShoppingCart,
-}: QuantityControllerProps) {
-  const [isBlur, setIsBlur] = useState(true);
-
-  const handleClickQuantityControlButton = (type: QuantityControlButton) => {
-    if (type === QUANTITY_CONTROL_BUTTON.PLUS) updateShoppingCart(product, quantity + QUANTITY_CONTROL_UNIT.INCREASE);
-    else updateShoppingCart(product, quantity - QUANTITY_CONTROL_UNIT.DECREASE);
-  };
+function QuantityController({ product, quantity, updateShoppingCart }: QuantityControllerProps) {
+  const [proceeding, setProceeding] = useState(Boolean);
 
   const handleClickCartIcon = () => {
     updateShoppingCart(product, SHOPPING_QUANTITY.DEFAULT);
   };
+  if (quantity === SHOPPING_QUANTITY.MIN && !proceeding)
+    return (
+      <S.ShoppingCartIcon
+        src={ShoppingCart}
+        onClick={handleClickCartIcon}
+        data-testid="shopping-cart-icon"
+      ></S.ShoppingCartIcon>
+    );
 
-  const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = Number(event.target.value);
+  const handleClickQuantityControlButton = (type: QuantityControlButton) => {
+    if (type === QUANTITY_CONTROL_BUTTON.PLUS) {
+      updateShoppingCart(product, quantity + QUANTITY_CONTROL_UNIT.INCREASE);
+      return;
+    }
 
-    if (newValue > SHOPPING_QUANTITY.MAX) return alert(ALERT_MESSAGE.OVER_MAX_QUANTITY);
-
-    updateShoppingCart(product, Math.floor(newValue));
+    updateShoppingCart(product, quantity - QUANTITY_CONTROL_UNIT.DECREASE);
   };
 
-  return quantity === SHOPPING_QUANTITY.MIN && isBlur ? (
-    <S.ShoppingCartIcon
-      src={ShoppingCart}
-      onClick={handleClickCartIcon}
-      data-testid="shopping-cart-icon"
-    ></S.ShoppingCartIcon>
-  ) : (
+  const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = Math.floor(Number(event.target.value));
+
+    if (newValue > SHOPPING_QUANTITY.MAX) {
+      updateShoppingCart(product, SHOPPING_QUANTITY.MAX);
+      alert(ALERT_MESSAGE.OVER_MAX_QUANTITY);
+      return;
+    }
+
+    updateShoppingCart(product, newValue);
+  };
+
+  return (
     <S.Container>
       <S.QuantityInput
         type="number"
-        value={quantity}
+        value={`${quantity}`}
         onChange={handleChangeInput}
-        onFocus={(event: React.FocusEvent<HTMLInputElement>) => {
-          event.target.select();
-          setIsBlur(false);
-        }}
-        onBlur={() => {
-          setIsBlur(true);
-        }}
+        onFocus={() => setProceeding(true)}
+        onBlur={() => setProceeding(false)}
       />
       <S.ButtonWrapper>
         <S.QuantityControlButton
