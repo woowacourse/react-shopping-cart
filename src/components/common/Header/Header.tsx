@@ -3,6 +3,7 @@ import { useRecoilValue } from 'recoil';
 
 import CartIcon from '../../../assets/cart-icon.svg';
 import Logo from '../../../assets/logo.png';
+import { PATH } from '../../../constants/path';
 import { cartListItemCountState } from '../../../store/cart';
 import * as S from './Header.styles';
 
@@ -13,8 +14,13 @@ const Header = () => {
   return (
     <S.HeaderContainer>
       <S.HeaderContentContainer>
-        <S.Logo src={Logo} alt="logo" onClick={() => navigate('/')} />
-        <S.CartButton type="button" aria-label="cart" variant="textButton">
+        <S.Logo src={Logo} alt="logo" onClick={() => navigate(PATH.ROOT)} />
+        <S.CartButton
+          type="button"
+          aria-label="cart"
+          variant="textButton"
+          onClick={() => navigate(PATH.CARTS)}
+        >
           {cartListItemCount > 0 && <S.CartItemCount>{cartListItemCount}</S.CartItemCount>}
           <S.CartIcon src={CartIcon} alt="cart icon" />
           <S.HeaderButtonLabel>장바구니</S.HeaderButtonLabel>
