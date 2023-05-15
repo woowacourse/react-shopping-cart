@@ -26,7 +26,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
         </dl>
         {!target || target.quantity === 0 ? (
           <ProductCartBtn type='button' onClick={addProduct}>
-            <CartIcon width={25} height={22} color='var(--gray-400)' />
+            <CartIcon width={25} height={22} color='gray400' />
           </ProductCartBtn>
         ) : (
           <AmountCounter

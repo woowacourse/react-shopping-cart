@@ -36,7 +36,7 @@ const InputGroup = styled.div`
 
 const CounterInput = styled.input`
   width: 42px;
-  border: 1px solid var(--gray-100);
+  border: 1px solid ${({ theme }) => theme.colors.gray100};
   text-align: center;
   outline: none;
 
@@ -55,7 +55,7 @@ const CountBtnContainer = styled.div`
 const CountBtn = styled.button`
   width: 24px;
   height: 14px;
-  border: 1px solid var(--gray-100);
+  border: 1px solid ${({ theme }) => theme.colors.gray100};
   flex-wrap: 1;
 `;
 
