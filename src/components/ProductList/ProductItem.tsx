@@ -1,30 +1,21 @@
-import React, { useCallback } from 'react';
-import { useRecoilState } from 'recoil';
+import React from 'react';
 import styled from 'styled-components';
-import { cartAtom } from '@recoil/atoms/cartAtom';
-import { CartInformation, ProductInformation } from '@type/types';
+import { ProductInformation } from '@type/types';
 import { theme } from '@styles/theme';
 import AddCartButton from './AddCartButton';
 
-const ProductItem = ({ id, name, price, imageUrl }: ProductInformation) => {
-  const [cart, setCart] = useRecoilState(cartAtom);
+interface ProductItemProps {
+  product: ProductInformation;
+  addProductToCart: () => void;
+  removeProductFromCart: () => void;
+}
 
-  const addProductToCart = useCallback(() => {
-    const product: CartInformation = {
-      id,
-      product: { name, price, imageUrl, id },
-      quantity: 1,
-    };
-
-    setCart([...cart, product]);
-  }, [cart, id, imageUrl, name, price, setCart]);
-
-  const removeProductFromCart = useCallback(() => {
-    const updatedCart = cart.filter((product) => id !== product.id);
-
-    setCart(updatedCart);
-  }, [cart, id, setCart]);
-
+const ProductItem = ({
+  product,
+  addProductToCart,
+  removeProductFromCart,
+}: ProductItemProps) => {
+  const { id, name, price, imageUrl } = product;
   return (
     <ProductItemWrapper>
       <Picture src={imageUrl} alt={name} />

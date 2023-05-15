@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { styled } from 'styled-components';
 import BucketCounter from '@components/common/BucketCounter';
 import { ADD_CART_BUTTON } from '@constants/testId';
@@ -13,34 +13,27 @@ const AddCartButton = ({
   addProductToCart,
   removeProductFromCart,
 }: AddCartButtonProps) => {
-  const [flag, setFlag] = useState(true);
   const [isClicked, setIsClicked] = useState(false);
 
+  const momoizedSetIsClicked = useCallback(
+    (value: boolean) => {
+      setIsClicked(value);
+    },
+    [setIsClicked]
+  );
+
   const addCartAndChangeImage = () => {
-    setIsClicked(true);
-  };
-
-  useEffect(() => {
-    if (flag) {
-      setFlag(false);
-      return;
-    }
-
-    if (!isClicked) {
-      removeProductFromCart();
-      return;
-    }
+    momoizedSetIsClicked(true);
 
     addProductToCart();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isClicked, flag]);
+  };
 
   return (
     <AddCartButtonWrapper>
       {isClicked ? (
         <BucketCounter
           removeProductFromCart={removeProductFromCart}
-          setIsClicked={setIsClicked}
+          setIsClicked={momoizedSetIsClicked}
         />
       ) : (
         <Button

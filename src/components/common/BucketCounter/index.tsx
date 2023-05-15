@@ -10,7 +10,7 @@ import { BOTTOM_ARROW, TOP_ARROW } from '@assets';
 
 interface BucketCounterProps {
   removeProductFromCart: () => void;
-  setIsClicked?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsClicked?: (value:boolean) => void
 }
 
 const MAX_BUCKET_COUNT = 1000;
@@ -18,6 +18,7 @@ const MAX_WRITE_INPUT_BUCKET_COUNT = 10000;
 const ERROR_MESSAGE = '장바구니 수량은 1000개 이하까지 가능합니다.';
 
 const BucketCounter = ({
+  removeProductFromCart,
   setIsClicked,
 }: BucketCounterProps) => {
   const [bucketCount, setBucketCount] = useState(1);
@@ -59,6 +60,7 @@ const BucketCounter = ({
     if (bucketCount - 1 === 0) {
       if (!setIsClicked) return;
       setIsClicked(false);
+      removeProductFromCart();
     }
     setBucketCount((prev) => prev - 1);
   };
@@ -73,6 +75,7 @@ const BucketCounter = ({
       if (!setIsClicked) return;
 
       setIsClicked(false);
+      removeProductFromCart();
     }
   };
 
