@@ -1,9 +1,9 @@
 import { useRecoilValue } from 'recoil';
-import { productQuantitySelector } from '../../stores/cartListStore';
+import { productQuantitySelector } from '../../stores/cartItemsStore';
 import StepperInput from '../@common/StepperInput/StepperInput';
-import useUpdateCartList from '../../hooks/useUpdateCartList';
 import * as Styled from './ProductQuantityController.styles';
 import ShoppingCartLogo from '../@common/ShoppingCartLogo/ShoppingCartLogo';
+import useUpdateCartItems from '../../hooks/useUpdateCartItems';
 
 type ProductQuantityControllerProps = {
   productID: number;
@@ -11,14 +11,14 @@ type ProductQuantityControllerProps = {
 
 const ProductQuantityController = ({ productID }: ProductQuantityControllerProps) => {
   const productQuantity = useRecoilValue(productQuantitySelector(productID));
-  const { updateCartList, addNewCartItem } = useUpdateCartList();
+  const { updateCartItems, addNewCartItem } = useUpdateCartItems();
 
   const handleAddToCartButton = () => {
     addNewCartItem(productID);
   };
 
   const handleStepperInputChange = (value: number) => {
-    if (value !== productQuantity) updateCartList({ itemId: productID, itemCount: value });
+    if (value !== productQuantity) updateCartItems({ itemId: productID, itemCount: value });
   };
 
   return (

@@ -1,5 +1,5 @@
 import { AtomEffect, atom, selector, selectorFamily } from 'recoil';
-import { CartList } from '../types/CartList.ts';
+import type { CartItems } from '../types/CartItems.ts';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage.ts';
 import { LOCAL_STORAGE_KEY } from '../constants/index.ts';
 
@@ -15,18 +15,18 @@ const cartItemsLocalStorageEffect: <T>(key: string) => AtomEffect<T> =
     });
   };
 
-export const cartListAtom = atom<CartList>({
-  key: 'cartListAtom',
+export const cartItemsAtom = atom<CartItems>({
+  key: 'cartItemsAtom',
   default: {},
-  effects: [cartItemsLocalStorageEffect<CartList>(LOCAL_STORAGE_KEY.CART_ITEMS)],
+  effects: [cartItemsLocalStorageEffect<CartItems>(LOCAL_STORAGE_KEY.CART_ITEMS)],
 });
 
 export const cartItemsQuantitySelector = selector({
   key: 'cartItemsQuantitySelector',
   get: ({ get }) => {
-    const cartList = get(cartListAtom);
+    const cartItems = get(cartItemsAtom);
 
-    return Object.keys(cartList).length;
+    return Object.keys(cartItems).length;
   },
 });
 
@@ -35,8 +35,8 @@ export const productQuantitySelector = selectorFamily({
   get:
     (itemId: number) =>
     ({ get }) => {
-      const cartList = get(cartListAtom);
+      const cartItems = get(cartItemsAtom);
 
-      return cartList[itemId]?.quantity ?? 0;
+      return cartItems[itemId]?.quantity ?? 0;
     },
 });
