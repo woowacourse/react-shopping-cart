@@ -13,31 +13,31 @@ const ProductQuantityInput = ({ productId }: ProductQuantityInputProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [cartProducts, setCartProducts] = useRecoilState(cartProductsState);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const updateInputQuantity = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuantity(() => Number(e.target.value));
   };
 
-  const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+  const updateCartProducts = (e: React.FocusEvent<HTMLInputElement>) => {
     setIsEditing(false);
     setCartProducts({ ...cartProducts, [productId]: Number(e.target.value) });
   };
 
-  const handleButtonClick = () => {
+  const updateIsEditing = () => {
     setIsEditing(true);
   };
 
   return (
     <ButtonContainer>
       {!isEditing && quantity === 0 ? (
-        <Button type="button" onClick={handleButtonClick}>
+        <Button type="button" onClick={updateIsEditing}>
           <ButtonIcon src={cartImage} />
         </Button>
       ) : (
         <Input
           type="number"
           value={quantity}
-          onChange={handleInputChange}
-          onBlur={handleInputBlur}
+          onChange={updateInputQuantity}
+          onBlur={updateCartProducts}
         />
       )}
     </ButtonContainer>
