@@ -3,9 +3,6 @@ import styled from 'styled-components';
 import { AddCartIc } from '../../asset';
 import { useAddCart } from '../../hooks/useAddCart';
 import QuantityCounter from '../common/QuantityCounter';
-import { AddCartIc } from '../../asset';
-import { useAddCart } from '../../hooks/useAddCart';
-import QuantityCounter from '../common/QuantityCounter';
 
 interface ProductItemProps {
   id: number;
@@ -20,8 +17,6 @@ export default function ProductItem({
   name,
   price,
 }: ProductItemProps) {
-  const { isSelected, selectProductItem, addCartProductItem, quantityRef } =
-    useAddCart();
   const { isSelected, selectProductItem, addCartProductItem, quantityRef } =
     useAddCart();
 
@@ -42,7 +37,6 @@ export default function ProductItem({
         )}
       </InfoBox>
       {isSelected && (
-        <AddCartButton onClick={() => addCartProductItem(id)}>
         <AddCartButton onClick={() => addCartProductItem(id)}>
           장바구니 추가
         </AddCartButton>
