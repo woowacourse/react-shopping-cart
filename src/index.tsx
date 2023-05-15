@@ -4,7 +4,7 @@ import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 
 import { worker } from './mocks/worker';
-import AppRouter from './router/AppRouter';
+import AppRouter from './router/routes';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
 
