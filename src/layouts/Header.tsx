@@ -1,6 +1,6 @@
 import { Button as CartButton } from '../ui/Button';
 import { Typography as AddToCartTitle } from '../ui/Typography';
-import { Logo } from '../components/Logo';
+import { Logo } from './Logo';
 import { TotalCartCount } from '../components/TotalCartCount';
 import { cartState } from '../atoms/CartState';
 import { useRecoilValue } from 'recoil';
