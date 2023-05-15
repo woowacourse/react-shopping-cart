@@ -23,6 +23,7 @@ export const handlers = [
     const { id } = req.params;
     const product = products.find(item => item.id === Number(id));
     const responseWithId = { ...product, id };
+
     if (responseWithId) {
       return res(ctx.status(200), ctx.json(responseWithId));
     }
@@ -33,6 +34,7 @@ export const handlers = [
   rest.delete('/products/:id', (req, res, ctx) => {
     const { id } = req.params;
     const index = products.findIndex(item => item.id === Number(id));
+
     if (index !== -1) {
       products.splice(index, 1);
       return res(ctx.status(204));
@@ -44,6 +46,7 @@ export const handlers = [
   rest.put('/products/:id', (req, res, ctx) => {
     const { id } = req.params;
     const index = products.findIndex(item => item.id === Number(id));
+
     if (index !== -1) {
       products[index] = req.json() as unknown as Product;
       return res(ctx.json(products[index]));
