@@ -1,14 +1,14 @@
 import { atom } from 'recoil';
-import { Cart, ProductItem } from '../types/types';
-import mockData from '../assets/mockData.json';
+import { Cart } from '../types/types';
+import { recoilPersist } from 'recoil-persist'
 
-export const productListState = atom<ProductItem[]>({
-  key: 'productListState',
-  default: mockData as ProductItem[],
+const { persistAtom } = recoilPersist({
+  key: 'recoil-persist',
+  storage: sessionStorage,
 });
 
 export const cartState = atom<Cart[]>({
   key: 'cartState',
   default: [],
+  effects_UNSTABLE: [persistAtom],
 });
-

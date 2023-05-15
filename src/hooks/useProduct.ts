@@ -1,14 +1,13 @@
 import { useCallback, useState } from 'react';
-import mockApi from '../api/mockApi';
 import type { ProductItem } from '../types/types';
+import mockData from '../assets/mockData.json';
 
 function useProduct() {
   const [productList, setProductList] = useState<ProductItem[]>([]);
 
   const loadProductList = useCallback(async () => {
-    const result = await mockApi('/products');
-    const productList = JSON.parse(result.data);
-    setProductList(productList);
+    // fetch('/products');
+    setProductList(mockData);
   }, []);
 
   return {

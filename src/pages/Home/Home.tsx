@@ -3,7 +3,6 @@ import { useCallback, useEffect } from 'react';
 import useProduct from '../../hooks/useProduct';
 import { Column, Row } from '../../style/style';
 import { useSetRecoilState } from 'recoil';
-import mockApi from '../../api/mockApi';
 import { cartState } from '../../recoil/atoms';
 
 function Home() {
@@ -11,9 +10,7 @@ function Home() {
   const setCartList = useSetRecoilState(cartState);
 
   const loadCartList = useCallback(async () => {
-    const response = await mockApi('/cart-items');
-    const cartList = response.data;
-    setCartList(JSON.parse(cartList));
+    // fetch('/cart-items');
   }, [setCartList]);
 
   useEffect(() => {

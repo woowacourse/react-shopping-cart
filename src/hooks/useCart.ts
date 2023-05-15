@@ -1,6 +1,5 @@
 import { useRecoilState } from 'recoil';
 import type { Cart, NewCartItem, ProductItem } from '../types/types';
-import mockApi from '../api/mockApi';
 import { cartState } from '../recoil/atoms';
 
 function useCart() {
@@ -15,20 +14,14 @@ function useCart() {
     if (cartList.find((cartItem) => cartItem.id === product.id) === undefined) {
       const newCartItem: NewCartItem = { id: product.id, quantity: 1, product };
       setCartList([...cartList, newCartItem]);
-      const response = await mockApi('/cart-items/add', { body: JSON.stringify(newCartItem) });
-      if (response.data !== 'success') {
-        console.log(response.data);
-      }
+      // fetch('/cart-items');
     }
   };
 
   const removeCart = async (id: number) => {
     const removedCartList = cartList.filter((cart) => cart.id !== id);
     setCartList(removedCartList);
-    const response = await mockApi('/cart-items/remove', { body: JSON.stringify({ id }) });
-    if (response.data !== 'success') {
-      console.log(response.data);
-    }
+    // fetch(`/cart-items/{cartItemId}`);
   };
 
   const updateCartListQuantity = (cartList: Cart[], id: number, newQuantity: number) => {
@@ -48,11 +41,7 @@ function useCart() {
     } else {
       const changedCartList = updateCartListQuantity([...cartList], id, quantity);
       setCartList(changedCartList);
-      const response = await mockApi('/cart-items/update-quantity', { body: JSON.stringify({ id, quantity }) });
-      if (response.data !== 'success') {
-        console.log(response.data);
-      }
-
+      // fetch(`/cart-items/{cartItemId}`);
     }
   };
 
