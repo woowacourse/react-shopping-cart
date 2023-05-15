@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { Header, Page } from "../components";
+import { Header, Page, CartProductList } from "../components";
 
 const Cart = () => {
   return (
@@ -7,14 +7,17 @@ const Cart = () => {
       <Header />
       <Page>
         <TitleBox>장바구니</TitleBox>
-        <Container></Container>
+        <Container>
+          <CartProductList />
+        </Container>
       </Page>
     </>
   );
 };
 
 const TitleBox = styled.div`
-  width: 100%;
+  align-self: center;
+  width: 85%;
   height: 40px;
 
   font-weight: 700;
@@ -25,6 +28,7 @@ const TitleBox = styled.div`
 
 const Container = styled.section`
   display: flex;
+  padding: 40px 8%;
 `;
 
 export default Cart;

@@ -18,10 +18,7 @@ export const useQuantity = (ProductId: number) => {
   );
 
   useEffect(() => {
-    localStorage.setProduct(
-      KEY_LOCALSTORAGE_CART,
-      JSON.stringify(cartProducts)
-    );
+    localStorage.setItem(KEY_LOCALSTORAGE_CART, JSON.stringify(cartProducts));
   }, [cartProducts]);
 
   const setNewQuantity = (newQuantity: number) => {

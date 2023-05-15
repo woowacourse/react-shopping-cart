@@ -1,14 +1,13 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
 
-const Page = ({ children }: { children: ReactNode }) => {
+export const Page = ({ children }: { children: ReactNode }) => {
   return <Wrapper>{children}</Wrapper>;
 };
 
 const Wrapper = styled.section`
   display: flex;
+  flex-direction: column;
 
   padding: 110px 5%;
 `;
-
-export default Page;

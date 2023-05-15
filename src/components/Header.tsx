@@ -5,7 +5,7 @@ import { cartProductsSelector } from "../recoil/selector";
 import { useNavigate } from "react-router-dom";
 import { ROUTER_PATH } from "../router";
 
-const Header = () => {
+export const Header = () => {
   const navigate = useNavigate();
   const cartItems = useRecoilValue(cartProductsSelector);
 
@@ -94,5 +94,3 @@ const ItemQuantityBox = styled.div`
   font-weight: 500;
   color: white;
 `;
-
-export default Header;

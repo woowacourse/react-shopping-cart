@@ -6,7 +6,7 @@ interface CounterProps {
   itemId: number;
 }
 
-const Counter = ({ itemId }: CounterProps) => {
+export const Counter = ({ itemId }: CounterProps) => {
   const {
     quantity,
     setNewQuantity,
@@ -93,5 +93,3 @@ const ArrowBox = styled.button`
 
   font-size: 5px;
 `;
-
-export default Counter;
