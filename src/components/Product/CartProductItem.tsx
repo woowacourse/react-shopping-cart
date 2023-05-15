@@ -8,14 +8,14 @@ interface CartProductItemProps {
 }
 
 const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
-  const { quantity, product } = cartProduct;
+  const { id, quantity, product } = cartProduct;
   const { name, price, imageUrl } = product;
 
   return (
     <CartProductContainer>
       <div>
-        <CheckBox type='checkbox' id='cart-product-check' />
-        <label htmlFor='cart-product-check'></label>
+        <CheckBox type='checkbox' id={`cart-product-check-${id}`} />
+        <label htmlFor={`cart-product-check-${id}`}></label>
       </div>
       <ProductImage
         src={`${process.env.PUBLIC_URL}/${imageUrl}`}
