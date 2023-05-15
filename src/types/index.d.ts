@@ -12,5 +12,3 @@ export interface CartItemType {
   quantity: number;
   product: ProductType;
 }
-
-export interface CartType extends Array<CartItemType> {}
