@@ -48,17 +48,19 @@ export const Stepper = ({ value, onClickClosed, onClickDecreaseButton, onClickIn
       {isActive ? (
         <StepperContainer tabIndex={0} onBlur={handleCloseStepperOnBlur}>
           <DecreaseButton onClick={handleClickDecreaseButton}>-</DecreaseButton>
-          <Quantity tabIndex={0}>{value}</Quantity>
+          <Quantity tabIndex={0} data-testid="quantity">
+            {value}
+          </Quantity>
           <IncreaseButton autoFocus onClick={handleClickIncreaseButton}>
             +
           </IncreaseButton>
         </StepperContainer>
       ) : hasPositiveValue ? (
         <AddCartButton onClick={openStepper}>
-          <Quantity>{value}</Quantity>
+          <Quantity data-testid="quantity">{value}</Quantity>
         </AddCartButton>
       ) : (
-        <AddCartButton onClick={handleClickAddCartButton}>
+        <AddCartButton onClick={handleClickAddCartButton} data-testid="addCartButton">
           <MiniCartIcon />
         </AddCartButton>
       )}
