@@ -1,0 +1,10 @@
+# dependencies
+/node_modules
+
+# testing
+
+# production
+/build
+
+# misc
+.DS_Store
