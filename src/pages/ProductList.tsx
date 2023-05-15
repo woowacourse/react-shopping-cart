@@ -1,11 +1,12 @@
 import ContentLayout from 'src/components/@common/ContentLayout';
 import ProductItem from 'src/components/ProductItem';
 import Header from 'src/components/Header';
-import Toast from 'src/components/@common/Toast';
 import { useFetch } from 'src/hooks/useFetch';
 import { Product } from 'src/types';
 import { styled } from 'styled-components';
 import ToastPortal from 'src/components/@common/Toast/ToastPortal';
+import { useEffect } from 'react';
+import useToast from 'src/hooks/useToast';
 
 const ProductList = () => {
   const { data, error } = useFetch<{ choonsik: Product[] }>(
@@ -13,9 +14,20 @@ const ProductList = () => {
     { choonsik: [] }
   );
 
+  const {addToast} = useToast();
+
   const fetchedProductList = data.choonsik.map((product) => (
     <ProductItem key={product.id} product={product} />
   ));
+
+  useEffect(() => {
+    if(error.isError){
+      addToast({
+        id: Number(new Date()), message: error.message, show: true,
+        type: 'error'
+      })
+    }
+  },[error])
 
   return (
     <>
@@ -24,7 +36,6 @@ const ProductList = () => {
         <ProductListWrapper>{fetchedProductList}</ProductListWrapper>
       </ContentLayout>
       <ToastPortal/>
-      {/* {error.isError && <Toast type="error" message={error.message} show={true}/>} */}
     </>
   );
 };
