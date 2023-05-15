@@ -10,11 +10,13 @@ const useShoppingCart = () => {
   const [shoppingCart, setShoppingCart] = useRecoilState<ShoppingCartProduct[]>(shoppingCartState);
 
   const updateShoppingCart: UpdateShoppingCart = (product, quantity) => {
+    if (quantity === SHOPPING_QUANTITY.MIN) {
+      setShoppingCart((prev) => prev.filter((item) => item.product.id !== product.id));
+      return;
+    }
+
     const shoppingItem = shoppingCart.find((item) => item.product.id === product.id);
-
     if (!shoppingItem) {
-      if (quantity === SHOPPING_QUANTITY.MIN) return;
-
       const newShoppingItem = {
         id: Date.now(),
         quantity,
@@ -24,23 +26,17 @@ const useShoppingCart = () => {
       return;
     }
 
-    if (quantity !== SHOPPING_QUANTITY.MIN) {
-      setShoppingCart((prev) =>
-        prev.map((item) => {
-          if (item.product.id !== shoppingItem.product.id) return item;
-          return {
-            id: shoppingItem.id,
-            quantity,
-            product,
-          };
-        }),
-      );
-      return;
-    }
-
-    setShoppingCart((prev) => prev.filter((item) => item.product.id !== shoppingItem.product.id));
+    setShoppingCart((prev) =>
+      prev.map((item) => {
+        if (item.product.id !== shoppingItem.product.id) return item;
+        return {
+          id: shoppingItem.id,
+          quantity,
+          product,
+        };
+      }),
+    );
   };
-
   return { shoppingCart, updateShoppingCart };
 };
 
