@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import { ProductInformation } from '@type/types';
 import { theme } from '@styles/theme';
@@ -76,4 +77,4 @@ const Price = styled.span`
   color: ${theme.colors.primaryBlack};
 `;
 
-export default ProductItem;
+export default React.memo(ProductItem);
