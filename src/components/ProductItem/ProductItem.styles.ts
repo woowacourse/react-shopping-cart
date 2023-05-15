@@ -1,11 +1,25 @@
 import styled from 'styled-components';
 
+import { skeleton } from '../../styles/animations';
 import { Button } from '../common/Button/Button.styles';
 import { Text } from '../common/Text/Text.styles';
 
 const ProductItemContainer = styled.li`
   display: flex;
   flex-direction: column;
+
+  & .skeleton {
+    background: linear-gradient(
+      -90deg,
+      ${({ theme }) => theme.color.gray3},
+      ${({ theme }) => theme.color.gray2},
+      ${({ theme }) => theme.color.gray3},
+      ${({ theme }) => theme.color.gray2}
+    );
+    background-size: 400%;
+    border-radius: ${({ theme }) => theme.borderRadius.small};
+    animation: ${skeleton} 5s infinite ease-out;
+  }
 `;
 
 const ItemImageContainer = styled.div`
@@ -53,12 +67,22 @@ const ItemImage = styled.img`
 
 const ItemName = styled(Text)`
   margin-top: 2px;
+
+  &.skeleton::after {
+    font-size: 0;
+    content: 'loading';
+  }
 `;
 
 const ItemPrice = styled(Text)`
   margin-top: 2px;
   font-weight: 600;
   letter-spacing: -0.2px;
+
+  &.skeleton::after {
+    font-size: 0;
+    content: 'loading';
+  }
 `;
 
 export { ProductItemContainer, ItemImageContainer, ItemButton, ItemImage, ItemName, ItemPrice };
