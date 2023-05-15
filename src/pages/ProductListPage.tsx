@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
 
 import ProductList from '../components/ProductList/ProductList';
-import { ProductListSkeleton } from '../components/ProductList/ProductListSkeleton';
 import Header from '../components/common/Header/Header';
 
 const ProductListPage = () => {
@@ -9,7 +8,7 @@ const ProductListPage = () => {
     <>
       <Header />
       <main>
-        <Suspense fallback={<ProductListSkeleton />}>
+        <Suspense fallback={<ProductList.Skeleton />}>
           <ProductList />
         </Suspense>
       </main>

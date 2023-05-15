@@ -1,12 +1,12 @@
 import { PRODUCT_LIST_SKELETON_ITEM_LENGTH } from '../../constants';
-import ProductItemSkeleton from '../ProductItem/ProductItemSkeleton';
+import ProductItem from '../ProductItem/ProductItem';
 import * as S from './ProductList.styles';
 
 const ProductListSkeleton = () => {
   return (
     <S.ProductListContainer>
       {Array.from({ length: PRODUCT_LIST_SKELETON_ITEM_LENGTH }, (_, index) => (
-        <ProductItemSkeleton key={index} />
+        <ProductItem.Skeleton key={index} />
       ))}
     </S.ProductListContainer>
   );
