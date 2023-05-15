@@ -1,8 +1,9 @@
 import { selector, selectorFamily } from 'recoil';
-import { CartItem } from '../types';
+import { CartItem, Product } from '../types';
 import { cartState } from './CartState';
 import { CART_ITEM_EXISTS } from '../constants';
 import { productListState } from './ProductListState';
+import { setDataInLocalStorage } from '../utils/setDataInLocalStorage';
 
 export type AddToCartSelectorParams = {
   id: number;
@@ -37,6 +38,16 @@ export const isSelectedProductSelector = selectorFamily<boolean, number>({
   },
 });
 
+export const selectedProductSelector = selectorFamily<Product, number>({
+  key: 'selectedProductSelector',
+  get: (id: number) => ({ get }) => {
+    const productList = get(productListState);
+    const selectedProduct = productList.find((item) => item.id === id)!;
+
+    return selectedProduct;
+  },
+});
+
 export const addToCartSelector = selectorFamily<CartItem[], AddToCartSelectorParams>({
   key: 'addToCartSelector',
   get: () => ({ get }) => get(cartState),
@@ -59,6 +70,8 @@ export const addToCartSelector = selectorFamily<CartItem[], AddToCartSelectorPar
               product: productList.find((item) => item.id === id)!,
             },
           ];
+    setDataInLocalStorage<CartItem[]>('cart', cart);
+
     set(cartState, updatedCart);
   },
 });
@@ -71,6 +84,8 @@ export const removeProductItemFromCartSelector = selectorFamily<CartItem[], numb
     const cartItemIndex = cart.findIndex((item) => item.id === id);
     if (cartItemIndex >= CART_ITEM_EXISTS) {
       const updatedCart = cart.filter((item) => item.id !== id);
+      setDataInLocalStorage<CartItem[]>('cart', cart);
+
       set(cartState, updatedCart);
     }
   },

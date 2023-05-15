@@ -4,9 +4,6 @@ import QuantityInput from './QuantityInput';
 import { INITIAL_QUANTITY, NONE_QUANTITY, NOT_NUMBER } from '../constants';
 import { changeInvalidValueToBlank } from '../utils/changeInvalidValueToBlank';
 import { useRecoilCallback, useRecoilValue } from 'recoil';
-import { CartItem } from '../types';
-import { setDataInLocalStorage } from '../utils/setDataInLocalStorage';
-import { cartState } from '../store/CartState';
 import {
   AddToCartSelectorParams,
   addToCartSelector,
@@ -24,7 +21,6 @@ interface Props {
 }
 
 const ProductItem = ({ id, imgUrl, name, price }: Props) => {
-  const cart = useRecoilValue(cartState);
   const addToCart = useRecoilCallback(({ set }) => ({ id, quantity }: AddToCartSelectorParams) => {
     set(addToCartSelector({ id, quantity }), []);
   });
@@ -43,8 +39,6 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
 
   const handleCartClick = () => {
     addToCart({ id: id, quantity: quantity });
-
-    setDataInLocalStorage<CartItem[]>('cart', cart);
   };
 
   const handleNumberInputChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
@@ -52,15 +46,11 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
 
     if (Number(value) === NONE_QUANTITY) {
       removeProductItemFromCart(id);
-
       return setQuantity(INITIAL_QUANTITY);
     }
 
     setQuantity(changeInvalidValueToBlank(value, NOT_NUMBER));
-
     addToCart({ id: id, quantity: quantity });
-
-    setDataInLocalStorage<CartItem[]>('cart', cart);
   };
 
   return (
@@ -87,6 +77,7 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
 const S = {
   Image: styled.img`
     width: 100%;
+    height: auto;
   `,
 
   InfoWrapper: styled.div`
@@ -101,11 +92,18 @@ const S = {
   `,
 
   Name: styled.p`
+    display: -webkit-box;
+    font-size: 16px;
     font-weight: 400;
     line-height: 1.4;
     letter-spacing: 0.5px;
+    margin-right: 4px;
     color: var(--text-color);
     opacity: 0.9;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
   `,
 
   Price: styled.p`
