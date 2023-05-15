@@ -70,6 +70,7 @@
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",
     "@types/styled-components": "^5.1.26",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "msw": "^1.2.1",
     "prop-types": "^15.8.1",
     "storybook": "^7.0.9",
     "webpack": "^5.82.0"
