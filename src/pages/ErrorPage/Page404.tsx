@@ -1,7 +1,7 @@
-import * as S from './ErrorPage.styles';
+import * as S from './Page404.styles';
 import Flex from '../../components/common/Flex';
 
-const ErrorPage = () => {
+const Page404 = () => {
   return (
     <Flex dir="column">
       <S.ErrorMessage>
@@ -12,4 +12,4 @@ const ErrorPage = () => {
   );
 };
 
-export default ErrorPage;
+export default Page404;

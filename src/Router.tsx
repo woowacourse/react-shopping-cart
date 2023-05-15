@@ -2,15 +2,14 @@ import React from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import ProductPage from './pages/ProductPage/ProductPage';
 import { Layout } from './components/common/Layout/Layout';
-import ErrorPage from './pages/ErrorPage/ErrorPage';
 import ProductPageError from './pages/ProductPage/ProductPageError';
 import { PAGE_ROUTES } from './constants/routes';
+import Page404 from './pages/ErrorPage/Page404';
 
 const router = createBrowserRouter([
   {
     path: PAGE_ROUTES.HOME,
     element: <Layout />,
-    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -18,6 +17,10 @@ const router = createBrowserRouter([
         errorElement: <ProductPageError />,
       },
     ],
+  },
+  {
+    path: '*',
+    element: <Page404 />,
   },
 ]);
 
