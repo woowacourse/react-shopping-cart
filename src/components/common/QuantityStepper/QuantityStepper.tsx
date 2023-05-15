@@ -20,6 +20,7 @@ const QuantityStepper = forwardRef<HTMLInputElement, QuantityStepperProps>(
           aria-label="add one item in cart"
           size="S"
           view="light"
+          type="button"
           onClick={decrease}
         >
           ▼
@@ -29,6 +30,7 @@ const QuantityStepper = forwardRef<HTMLInputElement, QuantityStepperProps>(
           aria-label="minus one item from cart"
           size="S"
           view="light"
+          type="button"
           onClick={increase}
         >
           ▲

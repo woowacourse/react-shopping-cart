@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, PropsWithChildren } from 'react';
+import React, { ComponentPropsWithoutRef, PropsWithChildren } from 'react';
 import * as S from './Button.styles';
 
 interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
@@ -6,14 +6,15 @@ interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
   view: 'light' | 'dark';
 }
 
-const Button = ({
+const Button: React.FC<ButtonProps> = ({
+  type = 'submit',
   size,
   view,
-  type = 'submit',
+  onClick,
   children,
-}: PropsWithChildren<ButtonProps>) => {
+}) => {
   return (
-    <S.Button type={type} size={size} view={view}>
+    <S.Button type={type} size={size} view={view} onClick={onClick}>
       {children}
     </S.Button>
   );

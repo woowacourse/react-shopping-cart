@@ -13,11 +13,11 @@ const useCounter = (
   const [count, setCount] = useState(1);
 
   const increase = useCallback(() => {
-    setCount((prev) => (prev < max ? prev + step : prev));
+    setCount((prev) => Math.min(prev + 1, max));
   }, []);
 
   const decrease = useCallback(() => {
-    setCount((prev) => (prev > min ? prev - step : prev));
+    setCount((prev) => Math.max(prev - 1, min));
   }, []);
 
   return [count, increase, decrease];
