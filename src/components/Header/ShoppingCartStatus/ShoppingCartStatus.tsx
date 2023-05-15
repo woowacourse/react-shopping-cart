@@ -6,9 +6,13 @@ const ShoppingCartStatus = () => {
   const cartItemsCount = useRecoilValue(cartItemsQuantitySelector);
 
   return (
-    <Styled.ShoppingCartQuantity>
-      <span data-cy='totalQuantity'>{cartItemsCount}</span>
-    </Styled.ShoppingCartQuantity>
+    <>
+      {cartItemsCount !== 0 && (
+        <Styled.ShoppingCartQuantity>
+          <span data-cy='totalQuantity'>{cartItemsCount}</span>{' '}
+        </Styled.ShoppingCartQuantity>
+      )}
+    </>
   );
 };
 
