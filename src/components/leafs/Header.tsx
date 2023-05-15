@@ -56,7 +56,7 @@ const LogoTitle = styled.h1`
 const CartBox = styled.div`
   display: flex;
 
-  margin-top: 25px;
+  margin-top: 28px;
 
   font-size: 24px;
   font-weight: 500;
