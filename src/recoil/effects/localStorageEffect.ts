@@ -1,7 +1,7 @@
 import type { AtomEffect } from 'recoil';
 
 const localStorageEffect: <T>(key: string) => AtomEffect<T> =
-  (key: string) =>
+  (key) =>
   ({ setSelf, onSet }) => {
     const savedValue = localStorage.getItem(key);
     if (savedValue != null) {

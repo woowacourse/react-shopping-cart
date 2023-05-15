@@ -2,7 +2,7 @@ import type { PropsWithChildren } from 'react';
 import { styled } from 'styled-components';
 
 type BadgeContainerProps = {
-  $show?: boolean;
+  $show: boolean;
 };
 
 const BadgeContainer = styled.div<BadgeContainerProps>`
@@ -23,7 +23,7 @@ const BadgeContainer = styled.div<BadgeContainerProps>`
 `;
 
 type BadgeProps = PropsWithChildren<{
-  show?: boolean;
+  show: boolean;
 }>;
 
 const Badge = (props: BadgeProps) => {
