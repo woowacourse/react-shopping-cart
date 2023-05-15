@@ -70,9 +70,6 @@ const AddCartButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  bottom: 12px;
-  right: 8px;
   width: 36px;
   height: 36px;
   border: none;
@@ -85,9 +82,6 @@ const StepperContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  bottom: 12px;
-  right: 8px;
   width: 100px;
   height: 36px;
   padding: 5px;

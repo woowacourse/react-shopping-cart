@@ -26,12 +26,14 @@ const ProductCard = ({ product }: ProductCardProps) => {
     <FlexBox direction="column" justify="flex-start" gap="8px" role="list">
       <ProductImgContainer>
         <ProductImage src={imageUrl} alt={name} onError={renderDefaultThumbnail} />
-        <Stepper
-          value={filteredCartProductQuantity}
-          onClickClosed={addCartProduct}
-          onClickDecreaseButton={decreaseQuantity}
-          onClickIncreaseButton={increaseQuantity}
-        />
+        <StepperWrapper>
+          <Stepper
+            value={filteredCartProductQuantity}
+            onClickClosed={addCartProduct}
+            onClickDecreaseButton={decreaseQuantity}
+            onClickIncreaseButton={increaseQuantity}
+          />
+        </StepperWrapper>
       </ProductImgContainer>
       <FlexBox justify="flex-start" style={{ padding: '0 4px' }}>
         <FlexBox direction="column" align="flex-start">
@@ -45,13 +47,21 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
 const ProductImgContainer = styled.div`
   position: relative;
+  width: 200px;
+  height: 200px;
 `;
 
 const ProductImage = styled.img`
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
   border-radius: 4px;
   filter: brightness(96%);
+`;
+
+const StepperWrapper = styled.div`
+  position: absolute;
+  bottom: 12px;
+  right: 8px;
 `;
 
 const Title = styled.span`
