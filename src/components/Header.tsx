@@ -1,4 +1,4 @@
-import { cartState } from '../atoms/CartState';
+import { cartCountState } from '../atoms/CartState';
 import { Button as CartButton } from './common/Button';
 import { Text as AddToCartTitle } from './common/Text';
 import { Logo } from './Logo';
@@ -7,7 +7,7 @@ import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
 export const Header = () => {
-  const cartProductList = useRecoilValue(cartState);
+  const cartProductCount = useRecoilValue(cartCountState);
 
   return (
     <HeaderWrapper>
@@ -22,8 +22,8 @@ export const Header = () => {
             장바구니
           </AddToCartTitle>
           <TotalCartCountWrapper>
-            {cartProductList.length !== 0 && (
-              <TotalCartCount count={cartProductList.length} />
+            {cartProductCount !== 0 && (
+              <TotalCartCount count={cartProductCount} />
             )}
           </TotalCartCountWrapper>
         </CartButton>
