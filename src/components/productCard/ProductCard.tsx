@@ -9,7 +9,7 @@ export const ProductCard = ({ id, name, price, imageUrl }: Product) => {
 
   return (
     <Style.Container>
-      <Style.Image src={imageUrl} alt="상품 이미지" />
+      <Style.Image src={imageUrl} alt={`${name}`} />
       <Style.DescriptionContainer>
         <Style.NamePriceContainer>
           <Style.Name>{name}</Style.Name>
