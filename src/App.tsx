@@ -1,8 +1,10 @@
+import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { styled } from 'styled-components';
 import CartTextButton from './components/CartTextButton/CartTextButton';
 import Header from './components/Header/Header';
+import OnLoading from './components/OnLoading/OnLoading';
 
 const App = () => {
   return (
@@ -11,7 +13,9 @@ const App = () => {
         <CartTextButton />
       </Header>
       <Layout>
-        <Outlet />
+        <React.Suspense fallback={<OnLoading />}>
+          <Outlet />
+        </React.Suspense>
       </Layout>
     </RecoilRoot>
   );

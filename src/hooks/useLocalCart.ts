@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
-import { cartAtom } from '../recoil/cartState';
+import { cartListAtom } from '../store/cart';
 
 const useLocalCart = () => {
-  const cart = useRecoilValue(cartAtom);
+  const cart = useRecoilValue(cartListAtom);
 
   useEffect(() => {
     const handleLocalStorage = () => {

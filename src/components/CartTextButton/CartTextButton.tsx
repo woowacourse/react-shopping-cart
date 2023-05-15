@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import { cartQuantitySelector } from '../../recoil/cartState';
+import { cartQuantitySelector } from '../../store/cart';
 
 const CartTextButton = () => {
   const cartQuantity = useRecoilValue(cartQuantitySelector);
