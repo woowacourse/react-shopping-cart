@@ -1,6 +1,6 @@
 import { Typography as ProductPrice } from '../ui/Typography';
 import { Image as ProductImage } from '../ui/Image';
-import { AddToCartButton } from './AddToCartButton';
+import { CartButton } from './CartButton';
 import { ProductItem as ProductItemProps } from '../types/productType';
 import { useCartState } from './hooks/useCartState';
 import * as Styled from './styles/ProductItem.styles';
@@ -25,7 +25,7 @@ export const ProductItem = (props: ProductItemProps) => {
             {`${price.toLocaleString('ko-KR')} 원`}
           </ProductPrice>
         </div>
-        <AddToCartButton
+        <CartButton
           id={id}
           handleAddCartState={handleAddCartState}
           handleDeleteCartState={handleDeleteCartState}

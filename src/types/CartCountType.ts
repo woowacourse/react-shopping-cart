@@ -1,4 +1,4 @@
-export interface AddToCartCountProps {
+export interface CartCountProps {
   id: number;
   onDeleteCart: () => void;
 }

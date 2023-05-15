@@ -1,10 +1,10 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { AddToCartButton } from '../components/AddToCartButton';
+import { CartButton } from '../components/CartButton';
 
 const meta = {
-  component: AddToCartButton,
-  title: 'Components/AddToCartButton',
-} satisfies Meta<typeof AddToCartButton>;
+  component: CartButton,
+  title: 'Components/CartButton',
+} satisfies Meta<typeof CartButton>;
 
 export default meta;
 
