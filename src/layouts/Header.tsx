@@ -2,12 +2,12 @@ import { Button as CartButton } from '../ui/Button';
 import { Typography as AddToCartTitle } from '../ui/Typography';
 import { Logo } from './Logo';
 import { TotalCartCount } from '../components/TotalCartCount';
-import { cartState } from '../atoms/CartState';
+import { cartStateLength } from '../atoms/CartState';
 import { useRecoilValue } from 'recoil';
 import * as Styled from './styles/Header.styles';
 
 export const Header = () => {
-  const AddedCardState = useRecoilValue(cartState);
+  const cardStateLength = useRecoilValue(cartStateLength);
 
   return (
     <Styled.Wrapper>
@@ -22,8 +22,8 @@ export const Header = () => {
             장바구니
           </AddToCartTitle>
           <Styled.TotalCartCountWrapper>
-            {AddedCardState.length !== 0 && (
-              <TotalCartCount count={AddedCardState.length} />
+            {cardStateLength !== 0 && (
+              <TotalCartCount count={cardStateLength} />
             )}
           </Styled.TotalCartCountWrapper>
         </CartButton>
