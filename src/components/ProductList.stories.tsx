@@ -1,39 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import ProductItem from './ProductItem';
+import { selector } from 'recoil';
+import client from '../api';
+import type { Product } from '../type';
 import ProductList from './ProductList';
-
-const mockProducts = [
-  {
-    id: 1,
-    name: '치킨',
-    price: 10000,
-    imageUrl: 'http://example.com/chicken.jpg',
-  },
-  {
-    id: 2,
-    name: '피자',
-    price: 20000,
-    imageUrl: 'http://example.com/pizza.jpg',
-  },
-  {
-    id: 3,
-    name: '짜장면',
-    price: 30000,
-    imageUrl: 'http://example.com/pizza.jpg',
-  },
-  {
-    id: 4,
-    name: '도넛',
-    price: 40000,
-    imageUrl: 'http://example.com/pizza.jpg',
-  },
-  {
-    id: 5,
-    name: '도넛',
-    price: 40000,
-    imageUrl: 'http://example.com/pizza.jpg',
-  },
-];
 
 const meta = {
   title: 'ProductList',
@@ -44,8 +13,16 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+const productsQuery = selector<Product[]>({
+  key: `productsQuery`,
+  get: async () => {
+    const data = await client.get('/products');
+    return data;
+  },
+});
+
 export const Default: Story = {
   args: {
-    children: mockProducts.map((product) => <ProductItem product={product} />),
+    productsQuery,
   },
 };
