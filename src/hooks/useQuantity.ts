@@ -1,30 +1,34 @@
 import { useRecoilState, useRecoilValue } from "recoil";
-import { itemsState } from "../recoil/atom";
+import { productsState } from "../recoil/atom";
 import React, { useEffect, useState } from "react";
-import { ItemType } from "../types/domain";
-import { cartItemsSelector } from "../recoil/selector";
+import { ProductType } from "../types/domain";
+import { cartProductsSelector } from "../recoil/selector";
 import {
   KEY_LOCALSTORAGE_CART,
   MAX_QUANTITY,
   MIN_QUANTITY,
 } from "../constants";
 
-export const useQuantity = (itemId: number) => {
-  const totalItems = useRecoilValue(itemsState);
-  const [cartItems, setCartItems] = useRecoilState(cartItemsSelector);
+export const useQuantity = (ProductId: number) => {
+  const totalProducts = useRecoilValue(productsState);
+  const [cartProducts, setCartProducts] = useRecoilState(cartProductsSelector);
   const [quantity, setQuantity] = useState<string>(
-    totalItems.find((item: ItemType) => item.id === itemId).quantity
+    totalProducts.find((Product: ProductType) => Product.id === ProductId)
+      .quantity
   );
 
   useEffect(() => {
-    localStorage.setItem(KEY_LOCALSTORAGE_CART, JSON.stringify(cartItems));
-  }, [cartItems]);
+    localStorage.setProduct(
+      KEY_LOCALSTORAGE_CART,
+      JSON.stringify(cartProducts)
+    );
+  }, [cartProducts]);
 
   const setNewQuantity = (newQuantity: number) => {
     if (newQuantity > MAX_QUANTITY || newQuantity < MIN_QUANTITY) return;
 
     setQuantity(newQuantity.toString());
-    setCartItems({ id: itemId, quantity: newQuantity.toString() });
+    setCartProducts({ id: ProductId, quantity: newQuantity.toString() });
   };
 
   const handleQuantityChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,7 +41,7 @@ export const useQuantity = (itemId: number) => {
     if (Number(quantity) > MAX_QUANTITY)
       e.target.value = MAX_QUANTITY.toString();
 
-    setCartItems({ id: itemId, quantity: e.target.value });
+    setCartProducts({ id: ProductId, quantity: e.target.value });
   };
 
   return {

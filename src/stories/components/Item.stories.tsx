@@ -1,22 +1,22 @@
 import { StoryFn, Meta } from "@storybook/react";
-import { Item } from "../../components";
+import { Product } from "../../components";
 import { MIN_QUANTITY } from "../../constants";
 
 export default {
-  title: "Item",
-  component: Item,
+  title: "Product",
+  component: Product,
 } as Meta;
 
 const Template: StoryFn = () => {
-  const item = {
+  const product = {
     id: 1,
     name: "PET보틀-정사각(420ml)",
     price: 10000,
-    imageUrl: "items/item-001.svg",
+    imageUrl: "Products/Product-001.svg",
     quantity: MIN_QUANTITY.toString(),
   };
 
-  return <Item {...item} />;
+  return <Product {...product} />;
 };
 
-export const ItemSample = Template.bind({});
+export const ProductSample = Template.bind({});

@@ -1,4 +1,4 @@
-export interface ItemType {
+export interface ProductType {
   id: number;
   name: string;
   price: number;
@@ -6,4 +6,4 @@ export interface ItemType {
   quantity: string;
 }
 
-export interface ItemListType extends Array<ItemType> {}
+export interface ProductListType extends Array<ProductType> {}

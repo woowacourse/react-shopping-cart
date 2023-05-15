@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { CartIcon } from "../assets";
 import { useRecoilValue } from "recoil";
-import { cartItemsSelector } from "../recoil/selector";
+import { cartProductsSelector } from "../recoil/selector";
 import { useNavigate } from "react-router-dom";
 import { ROUTER_PATH } from "../router";
 
 const Header = () => {
   const navigate = useNavigate();
-  const cartItems = useRecoilValue(cartItemsSelector);
+  const cartItems = useRecoilValue(cartProductsSelector);
 
   const handleTitleClicked = () => {
     navigate(ROUTER_PATH.Main);

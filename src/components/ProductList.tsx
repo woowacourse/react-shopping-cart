@@ -1,16 +1,16 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { itemsState } from "../recoil/atom";
-import type { ItemListType } from "../types/domain";
-import Item from "./Item";
+import { productsState } from "../recoil/atom";
+import type { ProductListType } from "../types/domain";
+import Product from "./Product";
 
-const ItemList = () => {
-  const items = useRecoilValue<ItemListType>(itemsState);
+const ProductList = () => {
+  const products = useRecoilValue<ProductListType>(productsState);
 
   return (
     <Wrapper>
-      {items.map((item) => (
-        <Item key={crypto.randomUUID()} {...item} />
+      {products.map((product) => (
+        <Product key={crypto.randomUUID()} {...product} />
       ))}
     </Wrapper>
   );
@@ -33,4 +33,4 @@ const Wrapper = styled.div`
   }
 `;
 
-export default ItemList;
+export default ProductList;

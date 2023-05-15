@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import type { ItemType } from "../types/domain";
+import type { ProductType } from "../types/domain";
 import { useQuantity } from "../hooks/useQuantity";
 import { CartGrayIcon } from "../assets";
 import Counter from "./Counter";
 import { MIN_QUANTITY } from "../constants";
 
-const Item = ({ id, name, price, imageUrl }: ItemType) => {
+const Product = ({ id, name, price, imageUrl }: ProductType) => {
   const { quantity, setNewQuantity } = useQuantity(id);
 
   const handleCartClicked = () => {
@@ -97,4 +97,4 @@ const IconContainer = styled.div`
   }
 `;
 
-export default Item;
+export default Product;

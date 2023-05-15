@@ -1,22 +1,22 @@
 import { selector } from "recoil";
-import { ItemType } from "../types/domain";
-import { itemsState } from "./atom";
+import { ProductType } from "../types/domain";
+import { productsState } from "./atom";
 import { MIN_QUANTITY } from "../constants";
 
-export const cartItemsSelector = selector({
-  key: "cartItems",
+export const cartProductsSelector = selector({
+  key: "cartProducts",
   get: ({ get }) => {
-    return get(itemsState).filter(
-      (item: ItemType) => item.quantity !== MIN_QUANTITY.toString()
+    return get(productsState).filter(
+      (Product: ProductType) => Product.quantity !== MIN_QUANTITY.toString()
     );
   },
-  set: ({ get, set }, newItem) => {
-    const items = get(itemsState);
-    const newItems = items.map((item: ItemType) =>
-      item.id === newItem.id
-        ? { ...item, quantity: newItem.quantity.toString() }
-        : item
+  set: ({ get, set }, newProduct) => {
+    const products = get(productsState);
+    const newProducts = products.map((Product: ProductType) =>
+      Product.id === newProduct.id
+        ? { ...Product, quantity: newProduct.quantity.toString() }
+        : Product
     );
-    return set(itemsState, newItems);
+    return set(productsState, newProducts);
   },
 });
