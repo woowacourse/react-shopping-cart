@@ -1,4 +1,5 @@
 import type { StoryFn } from '@storybook/react';
+
 import Product from './Product';
 
 export default {

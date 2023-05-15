@@ -1,9 +1,10 @@
-import type { StoryFn } from "@storybook/react";
-import ProductList from "./ProductList";
-import mockProduct from "../../../public/assets/mockProducts.json";
+import type { StoryFn } from '@storybook/react';
+
+import ProductList from './ProductList';
+import mockProduct from '../../../public/assets/mockProducts.json';
 
 export default {
-  title: "ProductList",
+  title: 'ProductList',
   component: ProductList,
 };
 

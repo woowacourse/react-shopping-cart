@@ -1,7 +1,7 @@
-import React from 'react';
-import GlobalStyle from './GlobalStyle';
-import { RecoilRoot } from 'recoil';
 import { RouterProvider } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
+import GlobalStyle from './GlobalStyle';
+
 import { router } from './router';
 
 function App() {

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { isNumeric } from '../../utils/validator';
 
 interface Props {

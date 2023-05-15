@@ -1,6 +1,7 @@
 import type { ProductType } from '../../types';
+
 import styled from 'styled-components';
-import Product from '../leafs/Product';
+import Product from './Product';
 
 interface ProductListProps {
   products: ProductType[];

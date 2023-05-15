@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Header, ProductList } from '../../components';
+
 import mockProduct from '../../../public/assets/mockProducts.json';
 
 export default function ProductListPage() {
