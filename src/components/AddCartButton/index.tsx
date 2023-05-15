@@ -4,6 +4,10 @@ import styles from './index.module.css';
 import { useSetRecoilState } from 'recoil';
 import { $CartCount } from '../../recoil/atom';
 import CountButton from '../CountButton';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { addToCart, deleteCartItem, updateCartItem } from '../../api/cartApi';
+import errorMessage from '../../constant/errorMessage';
 
 interface AddCardButtonProps {
   id: number;
@@ -14,32 +18,28 @@ const AddCartButton = ({ id }: AddCardButtonProps) => {
   const setCartCount = useSetRecoilState($CartCount);
 
   const getCount = async (count: number) => {
-    setCartCount(prev => ({ ...prev, [id]: count }));
-    if (count === 0) {
-      await fetch(`/cart-items/${id}`, {
-        method: 'DELETE',
-      });
-      setClicked(false);
-      return;
-    }
+    try {
+      setCartCount(prev => ({ ...prev, [id]: count }));
+      if (count === 0) {
+        await deleteCartItem(id);
+        setClicked(false);
+        return;
+      }
 
-    await fetch(`/cart-items/${id}`, {
-      method: 'PATCH',
-      body: JSON.stringify({
-        quantity: count,
-      }),
-    });
+      await updateCartItem(id, count);
+    } catch (e) {
+      toast.error(errorMessage);
+    }
   };
 
   const handleClick = async () => {
-    await fetch('/cart-items', {
-      method: 'POST',
-      body: JSON.stringify({
-        productId: id,
-      }),
-    });
-    setClicked(true);
-    setCartCount(prev => ({ ...prev, [id]: 1 }));
+    try {
+      await addToCart(id);
+      setClicked(true);
+      setCartCount(prev => ({ ...prev, [id]: 1 }));
+    } catch (e) {
+      toast.error(errorMessage);
+    }
   };
 
   return (
@@ -51,6 +51,7 @@ const AddCartButton = ({ id }: AddCardButtonProps) => {
           <ShopIcon />
         </button>
       )}
+      <ToastContainer />
     </div>
   );
 };
