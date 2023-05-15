@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import type { ProductItem } from '../types/types';
+import type { NewCartItem, ProductItem } from '../types/types';
 import mockApi from '../api/mockApi';
 import { cartState } from '../recoil/atoms';
 
@@ -13,7 +13,7 @@ function useCart() {
 
   const addCart = async (product: ProductItem) => {
     if (cartList.find((cartItem) => cartItem.id === product.id) === undefined) {
-      const newCartItem = { id: product.id, quantity: 1, product };
+      const newCartItem: NewCartItem = { id: product.id, quantity: 1, product };
       setCartList([...cartList, newCartItem]);
       const response = await mockApi('/cart-items/add', { body: JSON.stringify(newCartItem) });
       if (response.data !== 'success') {
