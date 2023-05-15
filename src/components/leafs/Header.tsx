@@ -29,7 +29,7 @@ const Wrapper = styled.header`
   width: 100%;
   height: 80px;
 
-  background: #333333;
+  background: ${(props) => props.theme.color.black};
 
   color: white;
 `;
@@ -77,7 +77,7 @@ const CartCount = styled.div`
   margin-left: 8px;
   border-radius: 50%;
 
-  background: #04c09e;
+  background: ${(props) => props.theme.color.green100};
 
   font-size: 14px;
   font-weight: 700;

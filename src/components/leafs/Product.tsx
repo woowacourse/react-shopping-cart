@@ -76,7 +76,7 @@ const Wrapper = styled.div`
   width: 200px;
   height: 282px;
 
-  color: #333333;
+  color: ${(props) => props.theme.color.black};
 
   @media screen and (max-width: 767px) {
     width: 150px;

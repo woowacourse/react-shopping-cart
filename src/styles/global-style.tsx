@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
-const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
   ${reset}
   
   * {
@@ -22,5 +22,3 @@ const GlobalStyle = createGlobalStyle`
     font-size: 62.5%;
   }
 `;
-
-export default GlobalStyle;
