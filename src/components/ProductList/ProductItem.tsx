@@ -1,19 +1,12 @@
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { cartAtom } from '@recoil/atoms/cartAtom';
-import { CartInformation } from '@type/types';
+import { CartInformation, ProductInformation } from '@type/types';
 import { theme } from '@styles/theme';
 import AddCartButton from './AddCartButton';
 
-interface ProductItemProps {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
-}
-
-const ProductItem = ({ id, name, price, imageUrl }: ProductItemProps) => {
+const ProductItem = ({ id, name, price, imageUrl }: ProductInformation) => {
   const [cart, setCart] = useRecoilState(cartAtom);
 
   const addProductToCart = useCallback(() => {
@@ -92,4 +85,4 @@ const Price = styled.span`
   color: ${theme.colors.primaryBlack};
 `;
 
-export default ProductItem;
+export default React.memo(ProductItem);
