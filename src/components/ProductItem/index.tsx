@@ -57,9 +57,9 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
           <StyledProductTitle>{name}</StyledProductTitle>
           <StyledProductPrice>{price}원</StyledProductPrice>
         </div>
-        <StyledAddToCart>
+        <StyledAddToCart data-cy="add-cart">
           {count === 0 ? (
-            <Cart data-cy="add-cart" onClick={handleCartAmount} />
+            <Cart onClick={handleCartAmount} />
           ) : (
             <StyledCountInput
               type="number"
