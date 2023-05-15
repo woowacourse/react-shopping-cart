@@ -3,37 +3,37 @@ import styled from 'styled-components';
 import { isNumeric } from '../../utils/validator';
 
 interface Props {
-  value: string;
-  setValue: (value: string) => void;
+  count: string;
+  setCount: (value: string) => void;
   max?: number;
 }
 
-export default function CounterInput({ value, setValue, max }: Props) {
+export default function CounterInput({ count, setCount, max }: Props) {
   const onChangeInput = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
     if (value === '') {
-      setValue('');
+      setCount('');
     } else if (max !== undefined && isNumeric(value)) {
-      setValue(Math.min(Number(value), max).toString());
+      setCount(Math.min(Number(value), max).toString());
     } else if (isNumeric(value)) {
-      setValue(value);
+      setCount(value);
     }
   };
 
   const onBlurInput = () => {
-    if (value === '') setValue('0');
+    if (count === '') setCount('0');
   };
 
   const onCountUp = () => {
-    setValue(String(Number(value) + 1));
+    setCount(String(Number(count) + 1));
   };
 
   const onCountDown = () => {
-    setValue(String(Number(value) - 1));
+    setCount(String(Number(count) - 1));
   };
 
   return (
     <Wrapper>
-      <Input type="text" value={value} onChange={onChangeInput} onBlur={onBlurInput} />
+      <Input type="text" value={count} onChange={onChangeInput} onBlur={onBlurInput} />
       <CounterBox>
         <Counter onClick={onCountUp}>
           <img src="./arrowUp.svg" />

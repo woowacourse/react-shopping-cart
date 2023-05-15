@@ -47,7 +47,7 @@ export default function Product(props: ProductProps) {
         </LabelBox>
         <ControlBox>
           {cartItem ? (
-            <CounterInput value={quantityInput} setValue={setQuantityInput} max={MAX_QUANTITY} />
+            <CounterInput count={quantityInput} setCount={setQuantityInput} max={MAX_QUANTITY} />
           ) : (
             <CartIcon src="./cart.svg" onClick={handleClickIcon}></CartIcon>
           )}
