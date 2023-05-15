@@ -4,12 +4,11 @@ interface SvgProps extends React.SVGAttributes<SVGElement> {
   type: SvgIdProps;
   width: number;
   height: number;
-  isClickable:boolean;
 }
 
-const Svg = ({ type, width, height,isClickable, ...props }: SvgProps) => {
+const Svg = ({ type, width, height, ...props }: SvgProps) => {
   return (
-    <svg width={width} height={height} cursor={isClickable ? "cursor" : "default"} {...props}>
+    <svg width={width} height={height} {...props}>
       <use href={`#${type}`} />
     </svg>
   );

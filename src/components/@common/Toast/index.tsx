@@ -8,11 +8,11 @@ export interface ToastProps {
   show:boolean;
 }
 
-const Toast = ({ message, type,show }: ToastProps) => {
+const Toast = ({ message, type, show }: ToastProps) => {
 
   return (
-      <S.ToastWrapper type={type} isShow={show}>
-        <Svg type={type} width={20} height={20} isClickable={false} />
+      <S.ToastWrapper type={type} show={show}>
+        <Svg type={type} width={20} height={20} />
         {message}
       </S.ToastWrapper>
   );

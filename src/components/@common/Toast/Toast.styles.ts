@@ -22,7 +22,7 @@ const fadeOut = keyframes`
   }
 `;
 
-export const ToastWrapper = styled.div<{ type: 'error' | 'success' , isShow:boolean}>`
+export const ToastWrapper = styled.div<{ type: 'error' | 'success' , show:boolean}>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,6 +38,6 @@ export const ToastWrapper = styled.div<{ type: 'error' | 'success' , isShow:bool
   border-radius: 10px;
 
   transition: transform 0.3s ease, opacity 0.3s ease;
-  animation: ${(props) => props.isShow ? fadeInUp : fadeOut} 0.3s ease-in-out forwards;
+  animation: ${(props) => props.show ? fadeInUp : fadeOut} 0.3s ease-in-out forwards;
 }
 `;

@@ -1,10 +1,8 @@
 import useProductSelect from 'src/hooks/useProductSelect';
 import { Product } from 'src/types';
 import Svg from '../@common/Svg';
-import Toast from '../@common/Toast';
 import Counter from '../Counter';
 import * as S from './ProductItem.styles';
-import useToast from 'src/hooks/useToast';
 
 interface ProductItemProps {
   product: Product;
@@ -17,7 +15,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
   const productSelect = currentCartItem ? (
     <Counter count={currentCartItem.quantity} add={add} remove={remove} />
   ) : (
-    <Svg type="cart-icon" width={25} height={22} onClick={onSelectItem} isClickable={true}/>
+    <Svg type="cart-icon" width={25} height={22} onClick={onSelectItem} cursor={"pointer"}/>
   );
 
   return (
