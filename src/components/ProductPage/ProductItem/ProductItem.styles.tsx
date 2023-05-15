@@ -19,12 +19,12 @@ export const Info = styled(Flex)`
 
 export const Name = styled.div`
   font-size: 1.6rem;
-  color: #33333;
+  color: '#33333';
 `;
 
 export const Price = styled.div`
   font-size: 2rem;
-  color: #33333;
+  color: '#33333';
 `;
 
 export const CartButton = styled.button`

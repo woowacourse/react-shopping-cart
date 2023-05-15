@@ -1,12 +1,9 @@
-import React, { Component, ReactElement, ReactNode, Suspense } from 'react';
+import React, { Component, ReactElement, ReactNode } from 'react';
 import { AxiosError } from 'axios';
-import ErrorPage from '../../../pages/ErrorPage/ErrorPage';
 
 interface Props {
   children: ReactNode;
-  loadingFallback?: ReactElement | null;
   errorFallback?: ReactElement | null;
-  page?: boolean;
 }
 
 interface State {
@@ -29,19 +26,14 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   render() {
-    const { hasError, status } = this.state;
-    const {
-      loadingFallback = null,
-      errorFallback = null,
-      page = false,
-      children,
-    } = this.props;
+    const { hasError } = this.state;
+    const { errorFallback = null, children } = this.props;
 
     if (hasError) {
-      return page ? <ErrorPage status={status} /> : <>{errorFallback}</>;
+      return errorFallback;
     }
 
-    return <Suspense fallback={loadingFallback}>{children}</Suspense>;
+    return children;
   }
 }
 

@@ -1,14 +1,18 @@
+import { AxiosError } from 'axios';
 import { CartItem } from '../types/cart';
 import { client } from './index';
 
-interface FetchCartRes {
+interface FetchCartRes extends AxiosError {
   cart: CartItem[];
 }
 
 export const fetchCart: () => Promise<FetchCartRes> = async () => {
-  const { data } = await client('/data/mockCart.json');
-
-  return data;
+  try {
+    const res = await client('/data/mockCart.json');
+    return res.data;
+  } catch {
+    throw new Error('장바구니 목록을 불러오지 못했습니다.');
+  }
 };
 
 interface AddCartDataReq {

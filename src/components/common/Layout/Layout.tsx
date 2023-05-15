@@ -5,20 +5,14 @@ import Header from '../Header/Header';
 import PageTitle from '../PageTitle/PageTitle';
 import * as S from './Layout.styles';
 
-export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
+export const Layout: React.FC<PropsWithChildren> = () => {
   return (
     <S.Root>
       <Header />
-      {children}
+      <Flex dir="column" width="80%" style={{ margin: '0 auto' }}>
+        <PageTitle />
+        <Outlet />
+      </Flex>
     </S.Root>
-  );
-};
-
-export const Content = () => {
-  return (
-    <Flex dir="column" width="80%" style={{ margin: '0 auto' }}>
-      <PageTitle />
-      <Outlet />
-    </Flex>
   );
 };

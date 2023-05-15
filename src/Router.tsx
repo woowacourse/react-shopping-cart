@@ -1,23 +1,27 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import ProductPage from './pages/ProductPage/ProductPage';
-import { Content, Layout } from './components/common/Layout/Layout';
-import ErrorBoundary from './components/common/ErrorBoundary/ErrorBoundary';
+import { Layout } from './components/common/Layout/Layout';
+import ErrorPage from './pages/ErrorPage/ErrorPage';
+import ProductPageError from './pages/ProductPage/ProductPageError';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <ProductPage />,
+        errorElement: <ProductPageError />,
+      },
+    ],
+  },
+]);
 
 const Router = () => {
-  return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <ErrorBoundary page loadingFallback={<h1>Loading...</h1>}>
-        <Layout>
-          <Routes>
-            <Route element={<Content />}>
-              <Route index element={<ProductPage />} />
-            </Route>
-          </Routes>
-        </Layout>
-      </ErrorBoundary>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default Router;
