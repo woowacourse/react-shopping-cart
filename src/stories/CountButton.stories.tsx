@@ -10,9 +10,7 @@ const meta: Meta<typeof CountButton> = {
 export default meta;
 
 export const Default: Story = {
-  args: {
-    getCount: () => {},
-  },
+  args: {},
   play: async () => {
     userEvent.tab();
     await new Promise(resolve => {
