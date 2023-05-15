@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import CounterInput from '../leafs/CounterInput';
 
 import useCart from '../../hooks/useCart';
-import { isNumeric } from '../../utils/validator';
 import { MAX_QUANTITY } from '../../constants';
 
 interface ProductProps extends ProductType {}
@@ -23,7 +22,7 @@ export default function Product(props: ProductProps) {
   };
 
   useEffect(() => {
-    if (!isNumeric(quantityInput)) return;
+    if (quantityInput === '') return;
 
     const quantity = Number(quantityInput);
     if (quantity === 0) {
