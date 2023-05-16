@@ -3,7 +3,12 @@ import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
+import { worker } from './mocks/broswer';
 import router from './router';
+
+if (process.env.NODE_ENV === 'development') {
+  worker.start();
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
