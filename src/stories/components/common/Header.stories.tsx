@@ -1,4 +1,5 @@
 import { Meta } from '@storybook/react';
+import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import HeaderComponent from '../../../components/common/Header';
 
@@ -9,11 +10,13 @@ const meta = {
   decorators: [
     (Story) => {
       return (
-        <RecoilRoot>
-          <div style={{ width: 'calc(100vw - 32vw)' }}>
-            <Story />
-          </div>
-        </RecoilRoot>
+        <BrowserRouter>
+          <RecoilRoot>
+            <div style={{ width: 'calc(100vw - 32vw)' }}>
+              <Story />
+            </div>
+          </RecoilRoot>
+        </BrowserRouter>
       );
     },
   ],

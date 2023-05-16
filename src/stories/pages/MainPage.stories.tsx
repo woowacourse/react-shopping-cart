@@ -1,4 +1,5 @@
 import { Meta } from '@storybook/react';
+import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import MainPage from '../../pages/MainPage';
 
@@ -11,8 +12,10 @@ export default meta;
 
 export const Main = () => {
   return (
-    <RecoilRoot>
-      <MainPage />
-    </RecoilRoot>
+    <BrowserRouter>
+      <RecoilRoot>
+        <MainPage />
+      </RecoilRoot>
+    </BrowserRouter>
   );
 };
