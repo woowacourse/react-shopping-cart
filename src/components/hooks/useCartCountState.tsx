@@ -1,28 +1,32 @@
 import { useCallback, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { cartState } from '../../atoms/CartState';
 import { CartCountProps } from '../../types/CartCountType';
 
 export const useCartCountState = ({ id, onDeleteCart }: CartCountProps) => {
   const [quantity, setQuantity] = useState<number>(1);
-  const [addedCartStates, setAddedCartStates] = useRecoilState(cartState);
+  const setAddedCartStates = useSetRecoilState(cartState);
 
   const increaseCount = useCallback(() => {
     setQuantity(quantity + 1);
 
-    const cartList = addedCartStates.map((item) => {
-      return item.id === id ? { ...item, quantity: item.quantity + 1 } : item;
-    });
-
-    setAddedCartStates(cartList);
+    setAddedCartStates((prev) =>
+      prev.map((product) =>
+        product.id === id
+          ? { ...product, quantity: product.quantity + 1 }
+          : product
+      )
+    );
   }, [quantity]);
 
   const decreaseCount = useCallback(() => {
-    const cartList = addedCartStates.map((item) => {
-      return item.id === id ? { ...item, quantity: item.quantity - 1 } : item;
-    });
-
-    setAddedCartStates(cartList);
+    setAddedCartStates((prev) =>
+      prev.map((product) =>
+        product.id === id
+          ? { ...product, quantity: product.quantity - 1 }
+          : product
+      )
+    );
 
     if (quantity === 1) {
       onDeleteCart();
