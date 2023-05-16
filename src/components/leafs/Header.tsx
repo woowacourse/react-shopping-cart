@@ -34,6 +34,7 @@ const Wrapper = styled.header`
 
   display: flex;
   justify-content: space-around;
+  gap: 430px;
 
   width: 100%;
   height: 80px;
@@ -41,6 +42,14 @@ const Wrapper = styled.header`
   background: ${(props) => props.theme.color.black};
 
   color: white;
+
+  @media screen and (max-width: 1025px) {
+    gap: 280px;
+  }
+
+  @media screen and (max-width: 767px) {
+    gap: 0px;
+  }
 `;
 
 const LogoBox = styled.div`
@@ -74,7 +83,6 @@ const CartBox = styled.div`
 
 const Title = styled.div`
   @media screen and (max-width: 767px) {
-    visibility: hidden;
   }
 `;
 
