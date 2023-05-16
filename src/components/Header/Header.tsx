@@ -8,7 +8,7 @@ import {
   StyledTitleDiv,
 } from '@components/Header/Header.styled';
 import * as Text from '@components/commons/Text/Text';
-import CartButton from '@components/Header/CartButton/CartButton';
+import CartLengthButton from '@components/Header/CartLengthButton/CartLengthButtonButton';
 
 const Header = () => {
   return (
@@ -21,7 +21,7 @@ const Header = () => {
       </Link>
       <StyledCartFlexBox>
         <Text.Paragraph color="white">장바구니</Text.Paragraph>
-        <CartButton />
+        <CartLengthButton />
       </StyledCartFlexBox>
     </StyledHeader>
   );

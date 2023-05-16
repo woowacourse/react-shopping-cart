@@ -7,7 +7,7 @@ import {
   StyledProductStepperFlexBox,
 } from '@components/pages/ProductsPage/ProductList/ProductItem/ProductStepper/ProductStepper.styled';
 import Input from '@commons/Input/Input';
-import Button from '@commons/Button/Button';
+import { Button as StepperHandleButton } from '@commons/Button/Button';
 import * as Text from '../Text/Text';
 
 const meta: Meta<typeof Stepper> = {
@@ -49,7 +49,7 @@ const Wrapper = () => {
             onChange={handleNumberInputChange}
           />
           <StyledProductStepperButtonFlexBox>
-            <Button
+            <StepperHandleButton
               ariaLabel="상품 1개 추가"
               backgroundColor="#white"
               onClick={handleIncrementButtonClick}
@@ -60,8 +60,8 @@ const Wrapper = () => {
               <Text.Paragraph fontSize="xx-small" color="#333333">
                 ▲
               </Text.Paragraph>
-            </Button>
-            <Button
+            </StepperHandleButton>
+            <StepperHandleButton
               ariaLabel="상품 1개 삭제"
               backgroundColor="#white"
               onClick={handleDecrementButtonClick}
@@ -72,7 +72,7 @@ const Wrapper = () => {
               <Text.Paragraph fontSize="xx-small" color="#333333">
                 ▼
               </Text.Paragraph>
-            </Button>
+            </StepperHandleButton>
           </StyledProductStepperButtonFlexBox>
         </StyledProductStepperFlexBox>
       )}

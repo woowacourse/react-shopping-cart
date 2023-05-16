@@ -1,13 +1,7 @@
 import styled from 'styled-components';
+import { ButtonProps } from './Button';
 
-export const StyledButton = styled.button<{
-  width: string;
-  height: string;
-  padding: string;
-  border: string;
-  borderRadius: string;
-  backgroundColor: string;
-}>`
+export const StyledButton = styled.button<ButtonProps>`
   width: ${props => props.width};
   height: ${props => props.height};
 

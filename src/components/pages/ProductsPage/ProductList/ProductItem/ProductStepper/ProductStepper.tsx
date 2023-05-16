@@ -10,7 +10,7 @@ import {
 import StepperEntryButton from '@components/pages/ProductsPage/ProductList/ProductItem/StepperEntryButton/StepperEntryButton';
 import Stepper from '@commons/Stepper/Stepper';
 import Input from '@components/commons/Input/Input';
-import Button from '@components/commons/Button/Button';
+import { Button as StepperHandleButton } from '@components/commons/Button/Button';
 import * as Text from '@components/commons/Text/Text';
 
 interface ProductStepperProps {
@@ -53,7 +53,7 @@ const ProductStepper = (props: ProductStepperProps) => {
                   onChange={handleNumberInputChange}
                 />
                 <StyledProductStepperButtonFlexBox>
-                  <Button
+                  <StepperHandleButton
                     width="28px"
                     height="14px"
                     aria-label="상품 1개 추가"
@@ -66,8 +66,8 @@ const ProductStepper = (props: ProductStepperProps) => {
                     <Text.Paragraph color="#333333" fontSize="xx-small">
                       ▲
                     </Text.Paragraph>
-                  </Button>
-                  <Button
+                  </StepperHandleButton>
+                  <StepperHandleButton
                     width="28px"
                     height="14px"
                     aria-label="상품 1개 삭제"
@@ -80,7 +80,7 @@ const ProductStepper = (props: ProductStepperProps) => {
                     <Text.Paragraph color="#333333" fontSize="xx-small">
                       ▼
                     </Text.Paragraph>
-                  </Button>
+                  </StepperHandleButton>
                 </StyledProductStepperButtonFlexBox>
               </StyledProductStepperFlexBox>
             );
