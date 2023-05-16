@@ -46,7 +46,7 @@ const S = {
   Badge: styled.span`
     width: 24px;
     height: 24px;
-    background: #04c09e;
+    background: var(--highlight-color);
     border-radius: 50%;
     font-size: 13px;
     font-weight: 400;
