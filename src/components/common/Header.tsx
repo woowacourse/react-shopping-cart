@@ -1,4 +1,6 @@
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { PATH } from '../../constants/';
 import Cart from '../Cart';
 import CartIcon from '../icons/CartIcon';
 
@@ -7,11 +9,20 @@ interface Props {
 }
 
 const Header = ({ title }: Props) => {
+  const navigator = useNavigate();
+  const location = useLocation().pathname;
+
+  const goToMainPage = () => {
+    if (location !== PATH.MAIN_PAGE) navigator(PATH.MAIN_PAGE);
+  };
+
   return (
     <S.Header>
       <S.Wrapper>
-        <CartIcon aria-label="logo-cart-icon" />
-        <span>{title}</span>
+        <S.Button onClick={goToMainPage}>
+          <CartIcon aria-label="logo-cart-icon" />
+          <span>{title}</span>
+        </S.Button>
         <Cart />
       </S.Wrapper>
     </S.Header>
@@ -28,7 +39,6 @@ const S = {
     font-weight: 900;
     line-height: 80px;
     letter-spacing: 0.2px;
-    color: #fff;
 
     & svg {
       width: 44px;
@@ -54,6 +64,12 @@ const S = {
         margin-right: 8px;
       }
     }
+  `,
+
+  Button: styled.button`
+    color: #fff;
+    background: none;
+    cursor: pointer;
   `,
 
   Wrapper: styled.div`
