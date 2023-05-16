@@ -12,7 +12,7 @@ function Header() {
   const navigate = useNavigate();
   const shoppingCartAmount = useRecoilValue(shoppingCartAmountState);
 
-  const moveMain = () => navigate('/product-list');
+  const moveMain = () => navigate('/');
 
   return (
     <S.Container aria-label="페이지 헤더">
