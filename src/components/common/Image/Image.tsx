@@ -17,17 +17,21 @@ const Image = ({
   size = 'medium',
 }: ImageProps) => {
   return (
-    <ImageWrapper>
-      <Img src={src} loading={loading} alt={alt} size={size} />
+    <ImageWrapper size={size}>
+      <img src={src} loading={loading} alt={alt} />
       <ImageBackground />
     </ImageWrapper>
   );
 };
 
-const ImageWrapper = styled.div`
+const ImageWrapper = styled.div<{ size: ImageSize }>`
   display: flex;
   position: relative;
   overflow: hidden;
+  ${({ size }) => css`
+    width: ${imageSizeMapper[size]};
+    height: ${imageSizeMapper[size]};
+  `}
 `;
 
 export const imageSizeMapper = {
@@ -35,13 +39,6 @@ export const imageSizeMapper = {
   medium: '145px',
   small: '70px',
 };
-
-const Img = styled.img<{ size: ImageSize }>`
-  ${({ size }) => css`
-    width: ${imageSizeMapper[size]};
-    height: ${imageSizeMapper[size]};
-  `}
-`;
 
 const ImageBackground = styled.div`
   pointer-events: none;
