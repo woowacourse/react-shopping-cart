@@ -23,7 +23,7 @@ const meta = {
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Stepper>;
 
 const StepperWithHooks = () => {
   const [value, setValue] = useState(0);
@@ -51,56 +51,64 @@ export const Default: Story = {
 };
 
 export const Interaction_Increase_And_Decrease: Story = {
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
 
     const cartButton = canvas.getByRole('button');
-    await delayClick(cartButton);
+    await step('장바구니 버튼을 클릭하여 상품 하나를 장바구니에 넣는다.', async () => {
+      await delayClick(cartButton);
+    });
 
     const decreaseButton = canvas.getAllByRole('button')[0];
     const increaseButton = canvas.getAllByRole('button')[1];
-
-    await delayClick(increaseButton);
-    await delayClick(increaseButton);
-    await delayClick(increaseButton);
+    await step('상품 세개를 추가로 장바구니에 넣는다', async () => {
+      await delayClick(increaseButton);
+      await delayClick(increaseButton);
+      await delayClick(increaseButton);
+    });
 
     const quantity = canvas.getByTestId('quantity');
-
     expect(quantity).toHaveTextContent('4');
 
-    await delayClick(decreaseButton);
-    await delayClick(decreaseButton);
-    await delayClick(decreaseButton);
-    await delayClick(decreaseButton);
+    await step('상품 네개를 장바구니에서 뺀다', async () => {
+      await delayClick(decreaseButton);
+      await delayClick(decreaseButton);
+      await delayClick(decreaseButton);
+      await delayClick(decreaseButton);
+    });
 
     const addCartButton = canvas.getByTestId('addCartButton');
-
     expect(addCartButton).toBeInTheDocument();
   },
   render: () => <StepperWithHooks />,
 };
 
 export const Interaction_Click_Outside_When_Opened: Story = {
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
 
     const cartButton = canvas.getByRole('button');
-    await delayClick(cartButton);
+    await step('장바구니 버튼을 클릭하여 상품 하나를 장바구니에 넣는다.', async () => {
+      await delayClick(cartButton);
+    });
 
-    let decreaseButton = canvas.getAllByRole('button')[0];
     const increaseButton = canvas.getAllByRole('button')[1];
-
-    await delayClick(increaseButton);
-    await delayClick(increaseButton);
-    await delayClick(increaseButton);
+    await step('상품 세개를 추가로 장바구니에 넣는다', async () => {
+      await delayClick(increaseButton);
+      await delayClick(increaseButton);
+      await delayClick(increaseButton);
+    });
 
     const outsideArea = canvas.getByTestId('outsideArea');
-    await delayClick(outsideArea);
-
-    decreaseButton = canvas.getAllByRole('button')[0];
+    await step('Stepper 바깥영역을 클릭하여 Stepper를 접는다.', async () => {
+      await delayClick(outsideArea);
+    });
 
     const quantityButton = canvas.getByText('4');
-    await delayClick(quantityButton);
+
+    await step('접혀있는 Stepper를 클릭하여 연다.', async () => {
+      await delayClick(quantityButton);
+    });
   },
   render: () => <StepperWithHooks />,
 };

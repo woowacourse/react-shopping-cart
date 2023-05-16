@@ -162,18 +162,24 @@ export const Interaction: Story = {
   args: {
     products: mockProducts,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
 
     const addCartButton0 = canvas.getAllByTestId('addCartButton')[0];
     const addCartButton1 = canvas.getAllByTestId('addCartButton')[1];
 
-    await delayClick(addCartButton0);
+    await step('첫번째 상품의 장바구니 버튼을 클릭하여 상품 하나를 장바구니에 넣는다.', async () => {
+      await delayClick(addCartButton0);
+    });
 
     const increaseButton = canvas.getAllByRole('button')[1];
-    await delayClick(increaseButton);
-    await delayClick(increaseButton);
+    await step('첫번째 상품을 두개를 추가로 장바구니에 넣는다.', async () => {
+      await delayClick(increaseButton);
+      await delayClick(increaseButton);
+    });
 
-    await delayClick(addCartButton1);
+    await step('두번째 상품의 장바구니 버튼을 클릭하여 상품 하나를 장바구니에 넣는다.', async () => {
+      await delayClick(addCartButton1);
+    });
   },
 };
