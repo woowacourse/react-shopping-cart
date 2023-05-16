@@ -1,11 +1,15 @@
 import { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import { KEY_CART } from '../constants';
+import { KEY_CART, PATH } from '../constants';
 import { cartBadgeSelector, cartState } from '../recoil';
 import { setDataInLocalStorage } from '../utils/getAndSetDataInLocalStorage';
 
 const Cart = () => {
+  const navigator = useNavigate();
+  const location = useLocation().pathname;
+
   const selectedProducts = useRecoilValue(cartBadgeSelector);
   const cart = useRecoilValue(cartState);
 
@@ -13,9 +17,13 @@ const Cart = () => {
     setDataInLocalStorage(KEY_CART, cart);
   }, [cart]);
 
+  const goToCartPage = () => {
+    if (location !== PATH.CART_PAGE) navigator(PATH.CART_PAGE);
+  };
+
   return (
     <S.Wrapper>
-      <S.Button>장바구니</S.Button>
+      <S.Button onClick={goToCartPage}>장바구니</S.Button>
       <S.Badge role="status" aria-label="장바구니에 담긴 상품 종류의 수">
         {selectedProducts.size}
       </S.Badge>

@@ -1,5 +1,6 @@
 export const PATH: Readonly<Record<string, string>> = {
-  MAIN_PAGE: "/"
+  MAIN_PAGE: '/',
+  CART_PAGE: '/cart-page',
 };
 
 export const KEY_CART = 'cart';
