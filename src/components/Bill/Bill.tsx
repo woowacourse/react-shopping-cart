@@ -34,7 +34,7 @@ const Wrapper = styled.div`
   width: 448px;
 
   border: 1px solid #dddddd;
-  margin-bottom: 128px;
+  margin-top: 64px;
 `;
 
 const SubTitle = styled.div`

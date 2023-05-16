@@ -34,6 +34,8 @@ const Wrapper = styled.div`
   align-items: center;
 
   width: 720px;
+
+  margin-top: 16px;
 `;
 
 const SubTitle = styled.div`

@@ -38,10 +38,10 @@ const Title = styled.div`
 
 const MainInfo = styled.div`
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: space-between;
 
-  width: 75%;
+  width: 80%;
 
   padding: 24px;
 `;
