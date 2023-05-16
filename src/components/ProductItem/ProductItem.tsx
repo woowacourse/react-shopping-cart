@@ -4,18 +4,19 @@ import {
   ProductDetails, ProductInfo, ProductItemBox,
   ProductItemImage, ProductItemImageBox, ProductName, ProductPrice
 } from './ProductItem.style';
+import mockImage from '../../assets/200x200.png';
 
 interface ProductItemProps {
   product: ProductItem;
 }
 
 function ProductItem({ product }: ProductItemProps) {
-  const { name, price, imageUrl } = product;
+  const { name, price } = product;
 
   return (
     <ProductItemBox>
       <ProductItemImageBox>
-        <ProductItemImage src={imageUrl} />
+        <ProductItemImage src={mockImage} />
       </ProductItemImageBox>
       <ProductDetails>
         <ProductInfo>
