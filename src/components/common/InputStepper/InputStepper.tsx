@@ -9,7 +9,8 @@ interface InputStepperProps {
 
 const InputStepper = ({ size, quantity, setQuantity }: InputStepperProps) => {
   const changeText = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!/^\d{1,2}$/.test(e.target.value)) return;
+    const checkNumberRegExp = /^\d{1,2}$/;
+    if (!checkNumberRegExp.test(e.target.value)) return;
 
     if (Number(e.target.value) !== quantity) {
       setQuantity(Number(e.target.value));
