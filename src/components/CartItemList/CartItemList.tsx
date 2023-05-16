@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
+import { v1 } from 'uuid';
 import { cartListAtom, cartSelector } from '../../store/cart';
 import CartItem from '../CartItem/CartItem';
 import CheckBox from '../common/CheckBox/CheckBox';
@@ -47,16 +48,21 @@ const CartItemList = () => {
     <Wrapper>
       <SubTitle>든든 배송 상품 ({cartsQuantity}개)</SubTitle>
       <Ul>
-        {cartList.map((id) => (
-          <CartItem
-            id={id}
-            selectState={
-              selectedState.find((state) => state.id === id) as Select
-            }
-            setSelectedState={setSelectedState}
-            setIsAllSelected={setIsAllSelected}
-          />
-        ))}
+        {cartList.map((id) => {
+          const uuid = v1();
+
+          return (
+            <CartItem
+              key={uuid}
+              id={id}
+              selectState={
+                selectedState.find((state) => state.id === id) as Select
+              }
+              setSelectedState={setSelectedState}
+              setIsAllSelected={setIsAllSelected}
+            />
+          );
+        })}
 
         <CheckBoxWrapper>
           <CheckBox onClick={toggleSelectAll} checked={isAllSelected} />
