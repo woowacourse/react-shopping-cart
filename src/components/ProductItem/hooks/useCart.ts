@@ -1,16 +1,16 @@
-import { RecoilState, useRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { deleteItemIndexAt, replaceItemIndexAt } from '../../../utils/array';
 import { Product } from '../../../types/product';
-import { Cart } from '../../../types/cart';
+import { cartState } from '../../../atoms/cart';
 
-const useCart = (cartState: RecoilState<Cart[]>, product: Product) => {
+const useCart = () => {
   const [cart, setCart] = useRecoilState(cartState);
 
-  const addCart = () => setCart((prev) => [...prev, { id: Date.now(), quantity: 1, product }]);
+  const addCart = (product: Product) =>
+    setCart((prev) => [...prev, { id: Date.now(), quantity: 1, product }]);
 
-  const updateCart = (quantity: number) => {
+  const updateCart = (quantity: number, product: Product) => {
     const index = cart.findIndex((item) => item.product.id === product.id);
-
     const newCart = replaceItemIndexAt(cart, index, {
       ...cart[index],
       quantity,
@@ -19,9 +19,8 @@ const useCart = (cartState: RecoilState<Cart[]>, product: Product) => {
     setCart(newCart);
   };
 
-  const deleteCart = () => {
+  const deleteCart = (product: Product) => {
     const index = cart.findIndex((item) => item.product.id === product.id);
-
     const newCart = deleteItemIndexAt(cart, index);
 
     setCart(newCart);

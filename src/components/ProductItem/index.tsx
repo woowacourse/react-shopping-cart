@@ -3,14 +3,13 @@ import styled from 'styled-components';
 import { ReactComponent as Cart } from '../../assets/cart.svg';
 import { Product } from '../../types/product';
 import useCart from './hooks/useCart';
-import { cartState } from '../../atoms/cart';
 
 type ProductItemProps = {
   product: Product;
 };
 
 const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
-  const { cart, addCart, updateCart, deleteCart } = useCart(cartState, product);
+  const { cart, addCart, updateCart, deleteCart } = useCart();
   const productItemQuantity = cart.find(
     (c) => c.product.id === product.id
   )?.quantity;
@@ -20,7 +19,7 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
   const { name, price, imageUrl } = product;
 
   const handleCartAmount = () => {
-    addCart();
+    addCart(product);
     setCount(1);
   };
 
@@ -36,16 +35,16 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
     limitInputNumber(e);
     const newCount = Number(e.target.value);
 
-    updateCart(newCount);
+    updateCart(newCount, product);
     setCount(newCount);
 
-    if (newCount === 0) deleteCart();
+    if (newCount === 0) deleteCart(product);
   };
 
   const handleBlur: React.FocusEventHandler<HTMLInputElement> = (e) => {
     if (Number(e.target.value) < 1) {
       setCount(0);
-      deleteCart();
+      deleteCart(product);
     }
   };
 
