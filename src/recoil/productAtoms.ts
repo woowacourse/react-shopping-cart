@@ -11,7 +11,7 @@ export const fetchProductList = selector<ProductItem[]>({
       return data;
     } catch (error) {
       console.error(error);
-      throw new Error('Failed to fetch product list. Please try again later.');
+      throw new Error();
     }
   },
 });

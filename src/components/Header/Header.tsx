@@ -6,12 +6,30 @@ import {
   CartTitle, CartWrapper, HeaderWrapper,
   Logo, LogoWrapper, Navbar
 } from './Header.style';
-import { useRecoilValue } from 'recoil';
-import { cartCountSelector } from '../../recoil/cartAtoms';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { cartCountSelector, cartState } from '../../recoil/cartAtoms';
+import { useEffect } from 'react';
 
 function Header() {
   const navigate = useNavigate();
   const cartCount = useRecoilValue(cartCountSelector);
+  const setCartList = useSetRecoilState(cartState);
+
+  const loadCartList = async () => {
+    try {
+      const response = await fetch('/cart-items');
+      const data = await response.json();
+      setCartList(data);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
+  }
+
+  useEffect(() => {
+    loadCartList();
+  }, []);
+
   return (
     <Navbar>
       <Container>

@@ -13,4 +13,14 @@ export const handlers = [
     )
   }),
 
+  rest.get('/cart-items', (req, res, ctx) => {
+
+
+    return res(
+      ctx.delay(100),
+      ctx.status(200),
+      ctx.json([]),
+    )
+  }),
+
 ];
