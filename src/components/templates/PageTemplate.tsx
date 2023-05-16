@@ -1,8 +1,24 @@
 import styled from '@emotion/styled';
 import type { PropsWithChildren } from 'react';
+import { Helmet } from 'react-helmet';
 
-const PageTemplate = ({ children }: PropsWithChildren) => {
-  return <PageWrapper>{children}</PageWrapper>;
+type PagePropsType = PropsWithChildren<{ title: string; description: string }>;
+
+const PageTemplate = ({ children, title, description }: PagePropsType) => {
+  return (
+    <>
+      <Helmet
+        title={title}
+        meta={[
+          { name: 'description', content: description },
+          { property: 'og:type', content: 'website' },
+          { property: 'og:title', content: title },
+          { property: 'og:description', content: description },
+        ]}
+      />
+      <PageWrapper>{children}</PageWrapper>
+    </>
+  );
 };
 
 export default PageTemplate;
