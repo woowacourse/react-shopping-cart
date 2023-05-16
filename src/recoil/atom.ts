@@ -16,7 +16,7 @@ const getCartItemsFromLocalStorage = (): Product[] => {
 
 const cartItems = getCartItemsFromLocalStorage();
 
-export const productListState = atom({
+export const productListState = atom<Product[]>({
   key: "productList",
   default: structuredClone(mockData).map((item: Product) => {
     const targetItem = cartItems.find((cartItem) => cartItem.id === item.id);

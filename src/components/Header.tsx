@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
-import { cartItemSelector } from "../recoil/selector";
 import { useNavigate } from "react-router-dom";
 import { ROUTER_PATH } from "../router";
+import { cartListSelector } from "../recoil/selector";
 
 const Header = () => {
   const navigate = useNavigate();
-  const cartItems = useRecoilValue(cartItemSelector);
+  const cartList = useRecoilValue(cartListSelector);
 
   const handleTitleClicked = () => {
     navigate(ROUTER_PATH.Main);
@@ -21,7 +21,7 @@ const Header = () => {
       </TitleContainer>
       <CartContainer>
         장바구니
-        {cartItems.length > 0 && <ItemQuantityBox>{cartItems.length}</ItemQuantityBox>}
+        {cartList.length > 0 && <ItemQuantityBox>{cartList.length}</ItemQuantityBox>}
       </CartContainer>
     </Wrapper>
   );
