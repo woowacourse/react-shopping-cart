@@ -30,22 +30,26 @@ const ProductItem = ({ product }: { product: Product }) => {
     const existItemIndex = cartList.findIndex((cartItem) => cartItem.product.id === product.id);
 
     if (existItemIndex !== -1) {
-      const newCartList = cartList.slice();
-      newCartList.splice(existItemIndex, 1, newCartItem);
-      setCartList(newCartList);
+      setCartList((prev) =>
+        prev.map((cartItem, index) =>
+          index === existItemIndex ? { ...cartItem, quantity } : cartItem,
+        ),
+      );
       return;
     }
 
-    setCartList([...cartList, newCartItem]);
+    setCartList((prev) => [...prev, newCartItem]);
   };
 
   const deleteCartItem = () => {
     const existItemIndex = cartList.findIndex((cartItem) => cartItem.product.id === product.id);
 
     if (existItemIndex !== -1) {
-      const newCartList = cartList.slice();
-      newCartList.splice(existItemIndex, 1);
-      setCartList(newCartList);
+      setCartList((prev) => {
+        const newCartList = [...prev];
+        newCartList.splice(existItemIndex, 1);
+        return newCartList;
+      });
     }
   };
 
