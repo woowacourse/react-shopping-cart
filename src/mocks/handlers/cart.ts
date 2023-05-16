@@ -13,12 +13,12 @@ const isInCart = (id: number) =>
   cart.some((cartItem) => cartItem.product.id === id);
 
 export const cartHandlers = [
-  // 장바구니 목록 조회 API
+  // 장바구니 목록 조회
   rest.get(CART_BASE_URL, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(cart));
   }),
 
-  // 장바구니 아이템 추가 API
+  // 장바구니 아이템 추가
   rest.post(CART_BASE_URL, async (req, res, ctx) => {
     const productId = Number(await req.text());
     const isAlreadyExists = isInCart(productId);
