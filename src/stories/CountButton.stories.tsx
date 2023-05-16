@@ -11,7 +11,9 @@ export default meta;
 
 export const Default: Story = {
   args: {
-    getCount: () => {},
+    count: 5,
+    handleUpButton: () => {},
+    handleDownButton: () => {},
   },
   play: async () => {
     userEvent.tab();
