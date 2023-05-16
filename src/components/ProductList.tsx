@@ -27,7 +27,7 @@ const ProductList = () => {
 };
 
 const S = {
-  Wrapper: styled.div`
+  Wrapper: styled.main`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 86px 4%;
