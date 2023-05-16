@@ -1,14 +1,18 @@
 import { styled } from 'styled-components';
 import { useRecoilValue } from 'recoil';
-import { cartBadgeSelector } from '../store/CartSelector';
+import { cartBadgeSelector } from '../../store/CartSelector';
 
-const Cart = () => {
-  const selectedProducts = useRecoilValue(cartBadgeSelector);
+interface Props {
+  onClick: () => void;
+}
+
+const Cart = ({ onClick }: Props) => {
+  const selectedProductsSize = useRecoilValue(cartBadgeSelector);
 
   return (
-    <S.Wrapper>
+    <S.Wrapper onClick={onClick}>
       <S.Button>장바구니</S.Button>
-      <S.Badge>{selectedProducts.size}</S.Badge>
+      <S.Badge>{selectedProductsSize}</S.Badge>
     </S.Wrapper>
   );
 };
@@ -27,6 +31,7 @@ const S = {
     font-weight: 500;
     background: none;
     color: #fff;
+    cursor: pointer;
   `,
 
   Badge: styled.div`

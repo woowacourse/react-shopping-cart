@@ -1,4 +1,4 @@
-import Input from './common/Input';
+import Input from '../common/Input';
 import { css, styled } from 'styled-components';
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
 import { WheelEventHandler, ChangeEventHandler } from 'react';

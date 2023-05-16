@@ -1,6 +1,6 @@
 import { css, styled } from 'styled-components';
-import { CART_PATH } from '../constants/svgPath';
-import Icon from './common/Icon';
+import { CART_PATH } from '../../constants/svgPath';
+import Icon from '../common/Icon';
 import { MouseEventHandler } from 'react';
 
 type Props = {

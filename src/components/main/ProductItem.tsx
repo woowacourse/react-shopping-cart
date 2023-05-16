@@ -1,15 +1,15 @@
 import { ChangeEventHandler } from 'react';
 import { styled } from 'styled-components';
 import QuantityInput from './QuantityInput';
-import { INITIAL_QUANTITY, NONE_QUANTITY, NOT_NUMBER } from '../constants';
-import { changeInvalidValueToBlank } from '../utils/changeInvalidValueToBlank';
+import { INITIAL_QUANTITY, NONE_QUANTITY, NOT_NUMBER } from '../../constants';
+import { changeInvalidValueToBlank } from '../../utils/changeInvalidValueToBlank';
 import { useRecoilCallback, useRecoilValue } from 'recoil';
 import {
   SelectorParams,
   updateCartSelector,
   isSelectedProductSelector,
   removeProductItemFromCartSelector,
-} from '../store/CartSelector';
+} from '../../store/CartSelector';
 import CartIconButton from './CartIconButton';
 
 interface Props {
@@ -32,7 +32,7 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
   });
 
   const handleCartClick = () => {
-    updateCart({ id: id, quantity: INITIAL_QUANTITY });
+    updateCart({ id, quantity: INITIAL_QUANTITY });
   };
 
   const handleNumberInputChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
@@ -44,7 +44,7 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
     }
 
     const newQuantity = changeInvalidValueToBlank(value, NOT_NUMBER);
-    updateCart({ id: id, quantity: newQuantity });
+    updateCart({ id, quantity: newQuantity });
   };
 
   return (
