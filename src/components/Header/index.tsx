@@ -24,13 +24,6 @@ const Header: React.FC = () => {
   );
 };
 
-const StyledLinkTitle = styled(Link)`
-  display: flex;
-  align-items: center;
-
-  color: inherit;
-`;
-
 const StyledHeaderWrapper = styled.header`
   display: flex;
   justify-content: center;
@@ -41,12 +34,19 @@ const StyledHeaderWrapper = styled.header`
 `;
 
 const StyledHeaderBox = styled.div`
-  width: 900px;
+  width: 1000px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   color: white;
+`;
+
+const StyledLinkTitle = styled(Link)`
+  display: flex;
+  align-items: center;
+
+  color: inherit;
 `;
 
 const StyledTitle = styled.div`
