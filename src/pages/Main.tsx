@@ -1,16 +1,16 @@
 import { useRecoilValue } from "recoil";
-import { itemsState } from "../recoil/atom";
+import { productListState } from "../recoil/atom";
 import { Header, Page, ItemList } from "../components";
-import type { ItemType } from "../types/domain";
+import type { Product } from "../types/domain";
 
 const Main = () => {
-  const items = useRecoilValue<ItemType[]>(itemsState);
+  const productList = useRecoilValue<Product[]>(productListState);
 
   return (
     <>
       <Header />
       <Page>
-        <ItemList items={items} />
+        <ItemList items={productList} />
       </Page>
     </>
   );

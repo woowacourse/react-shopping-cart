@@ -3,7 +3,7 @@ import Main from "../../pages/Main";
 import { within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useResetRecoilState } from "recoil";
-import { itemsState } from "../../recoil/atom";
+import { productListState } from "../../recoil/atom";
 import { expect } from "@storybook/jest";
 
 export default {
@@ -17,7 +17,7 @@ function sleep(ms: number) {
 
 const Template: StoryFn = () => {
   localStorage.clear();
-  const reset = useResetRecoilState(itemsState);
+  const reset = useResetRecoilState(productListState);
   reset();
 
   return <Main />;

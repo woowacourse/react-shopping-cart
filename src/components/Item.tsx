@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import type { ItemType } from "../types/domain";
+import type { Product } from "../types/domain";
 import { useQuantity } from "../hooks/useQuantity";
 import Counter from "./Counter";
 import { MIN_QUANTITY } from "../constants";
 
-const Item = ({ id, name, price, imageUrl }: ItemType) => {
+const Item = ({ id, name, price, imageUrl }: Product) => {
   const { quantity, setNewQuantity } = useQuantity(id);
 
   const handleCartClicked = () => {
