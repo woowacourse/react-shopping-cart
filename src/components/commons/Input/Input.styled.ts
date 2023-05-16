@@ -1,8 +1,8 @@
-import { InputHTMLAttributes } from 'react';
-
 import styled from 'styled-components';
 
-export const StyledInput = styled.input<InputHTMLAttributes<HTMLInputElement>>`
+import { InputProps } from './Input';
+
+export const StyledInput = styled.input<InputProps>`
   border: 1px solid #dddddd;
   text-align: center;
 

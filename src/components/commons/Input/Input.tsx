@@ -2,6 +2,8 @@ import { InputHTMLAttributes } from 'react';
 
 import { StyledInput } from '@commons/Input/Input.styled';
 
-export const Input = (props: InputHTMLAttributes<HTMLInputElement>) => {
+export type InputProps = InputHTMLAttributes<HTMLInputElement>;
+
+export const Input = (props: InputProps) => {
   return <StyledInput {...props} />;
 };
