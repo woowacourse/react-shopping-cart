@@ -64,7 +64,7 @@ const useQuantityUpdater = ({ productId }: UseQuantityUpdaterProps) => {
 
   const incrementInputValue = (incrementValue: number) => {
     setInputValue((previousInputValue) =>
-      (Number(previousInputValue) + incrementValue).toString()
+      Math.max(Number(previousInputValue) + incrementValue, 0).toString()
     );
   };
 
