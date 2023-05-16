@@ -20,7 +20,7 @@ const CartItem = ({
   setSelectedState,
   setIsAllSelected,
 }: CartItemProps) => {
-  const setCart = useSetRecoilState(cartListAtom);
+  const setCartList = useSetRecoilState(cartListAtom);
   const [productInCart, setProductInCart] = useRecoilState(cartAtomFamily(id));
   const resetProductInCart = useResetRecoilState(cartAtomFamily(id));
 
@@ -37,14 +37,20 @@ const CartItem = ({
     }));
 
     if (productInCart.quantity <= 1) {
-      setCart((prev) => prev.filter((item) => item !== id));
+      setCartList((prev) => prev.filter((item) => item !== id));
       resetProductInCart();
       return;
     }
   };
 
+  if (selectState.isDeleted) {
+    resetProductInCart();
+    setCartList((prev) => prev.filter((productid) => productid !== id));
+    setSelectedState((prev) => prev.filter((item) => item.isDeleted === false));
+  }
+
   const deleteCartItem = () => {
-    setCart((prev) => prev.filter((item) => item !== id));
+    setCartList((prev) => prev.filter((item) => item !== id));
     resetProductInCart();
   };
 

@@ -8,6 +8,7 @@ import CheckBox from '../common/CheckBox/CheckBox';
 export type Select = {
   id: number;
   isSelected: boolean;
+  isDeleted: boolean;
 };
 
 const CartItemList = () => {
@@ -15,18 +16,31 @@ const CartItemList = () => {
   const { cartsQuantity } = useRecoilValue(cartSelector);
   const [isAllSelected, setIsAllSelected] = useState<boolean>(false);
   const [selectedState, setSelectedState] = useState<Select[]>(
-    cartList.map((id) => ({ id, isSelected: false }))
+    cartList.map((id) => ({ id, isSelected: false, isDeleted: false }))
   );
 
   const toggleSelectAll = () => {
     setIsAllSelected(!isAllSelected);
     setSelectedState(
-      cartList.map((id) => ({ id, isSelected: !isAllSelected }))
+      cartList.map((id) => ({
+        id,
+        isSelected: !isAllSelected,
+        isDeleted: false,
+      }))
     );
   };
 
   const countSelectedItems = () => {
     return selectedState.filter((item) => item.isSelected === true).length;
+  };
+
+  const deleteSelectedItems = () => {
+    setSelectedState((prev) =>
+      prev.map((item) => {
+        if (item.isSelected === true) return { ...item, isDeleted: true };
+        return item;
+      })
+    );
   };
 
   return (
@@ -49,7 +63,9 @@ const CartItemList = () => {
           <span>
             전체선택 ({countSelectedItems()}/{cartsQuantity})
           </span>
-          <DeleteSelectedItemsButton>선택삭제</DeleteSelectedItemsButton>
+          <DeleteSelectedItemsButton onClick={deleteSelectedItems}>
+            선택삭제
+          </DeleteSelectedItemsButton>
         </CheckBoxWrapper>
       </Ul>
     </Wrapper>
