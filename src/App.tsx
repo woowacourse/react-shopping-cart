@@ -1,25 +1,25 @@
-import { styled } from 'styled-components';
+import { RouterProvider, createHashRouter } from 'react-router-dom';
 import Header from './components/Header/Header';
-import ProductList from './components/ProductList/ProductList';
+import ProductListPage from './pages/ProductListPage/ProductListPage';
+
+const router = createHashRouter([
+  {
+    path: '/',
+    element: <ProductListPage />,
+  },
+  {
+    path: '/cart',
+    element: <div>asd</div>,
+  },
+]);
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <Layout>
-        <ProductList />
-      </Layout>
+      <RouterProvider router={router} />
     </div>
   );
 }
-
-const Layout = styled.main`
-  padding: 140px 0 60px 0;
-
-  @media screen and (min-width: 1200px) {
-    display: flex;
-    justify-content: center;
-  }
-`;
 
 export default App;
