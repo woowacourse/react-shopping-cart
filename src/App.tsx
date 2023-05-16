@@ -1,6 +1,6 @@
 import { RouterProvider, createHashRouter } from 'react-router-dom';
-import Header from './components/Header/Header';
 import ProductListPage from './pages/ProductListPage/ProductListPage';
+import CartPage from './pages/CartPage/CartPages';
 
 const router = createHashRouter([
   {
@@ -9,14 +9,13 @@ const router = createHashRouter([
   },
   {
     path: '/cart',
-    element: <div>asd</div>,
+    element: <CartPage />,
   },
 ]);
 
 function App() {
   return (
     <div className="App">
-      <Header />
       <RouterProvider router={router} />
     </div>
   );

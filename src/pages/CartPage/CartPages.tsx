@@ -1,5 +1,17 @@
+import { styled } from 'styled-components';
+import Header from '../../components/Header/Header';
+
 const CartPage = () => {
-  return <></>;
+  return (
+    <>
+      <Header />
+      <Layout>CartPage</Layout>
+    </>
+  );
 };
+
+const Layout = styled.main`
+  padding: 130px 300px;
+`;
 
 export default CartPage;

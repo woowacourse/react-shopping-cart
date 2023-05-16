@@ -1,11 +1,15 @@
 import { styled } from 'styled-components';
 import ProductList from '../../components/ProductList/ProductList';
+import Header from '../../components/Header/Header';
 
 const ProductListPage = () => {
   return (
-    <Layout>
-      <ProductList />;
-    </Layout>
+    <>
+      <Header />
+      <Layout>
+        <ProductList />;
+      </Layout>
+    </>
   );
 };
 
