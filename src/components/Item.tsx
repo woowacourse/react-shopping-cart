@@ -13,7 +13,7 @@ const Item = ({ id, name, price, imageUrl }: Product) => {
 
   return (
     <Wrapper>
-      <img src={imageUrl} alt="상품이미지" />
+      <img src={imageUrl} alt={`${name} 상품 이미지`} />
       <NameBox>{name}</NameBox>
       <PriceBox>{price.toLocaleString()}원</PriceBox>
       <IconContainer>
