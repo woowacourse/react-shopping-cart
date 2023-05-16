@@ -7,6 +7,10 @@ interface InputStepperProps {
   setQuantity: (value: number) => void;
 }
 
+interface InputStepperStyleProps {
+  $size: InputStepperProps['size'];
+}
+
 const InputStepper = ({ size, quantity, setQuantity }: InputStepperProps) => {
   const changeText = (e: ChangeEvent<HTMLInputElement>) => {
     const checkNumberRegExp = /^\d{1,2}$/;
@@ -39,7 +43,7 @@ const InputStepperWrapper = styled.div`
   flex-direction: row;
 `;
 
-const InputStyle = styled.input<{ $size: InputStepperProps['size'] }>`
+const InputStyle = styled.input<InputStepperStyleProps>`
   &::-webkit-inner-spin-button,
   &::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -47,16 +51,16 @@ const InputStyle = styled.input<{ $size: InputStepperProps['size'] }>`
     appearance: none;
   }
 
-  width: ${({ $size }) => ($size === 'small' ? '41.6' : '73')}px;
-  height: ${({ $size }) => ($size === 'small' ? '28' : '60')}px;
+  ${({ $size }) =>
+    $size === 'small'
+      ? 'width: 41.6px; height: 28px; font-size: 12px;'
+      : 'width: 73px; height: 60px; font-size: 24px; '}
 
   border: 1px solid #dddddd;
-  text-align: center;
-
   outline: none;
 
+  text-align: center;
   font-weight: 400;
-  font-size: ${({ $size }) => ($size === 'small' ? '12' : '24')}px;
   line-height: 19px;
   letter-spacing: 0.5px;
   color: #333333;
@@ -68,17 +72,17 @@ const StepperButtonWrapper = styled.div`
   flex-direction: column;
 `;
 
-const StepperDownButton = styled.button<{ $size: InputStepperProps['size'] }>`
-  width: ${({ $size }) => ($size === 'small' ? '23.93' : '42')}px;
-  height: ${({ $size }) => ($size === 'small' ? '14' : '30')}px;
-  border: 1px solid #dddddd;
+const StepperDownButton = styled.button<InputStepperStyleProps>`
+  ${({ $size }) =>
+    $size === 'small'
+      ? 'width: 23.93px; height: 14px; font-size: 12px;'
+      : 'width: 42px; height: 30px; font-size: 24px; '}
 
+  border: 1px solid #dddddd;
   display: flex;
   align-items: center;
   justify-content: center;
-
   font-weight: 400;
-  font-size: ${({ $size }) => ($size === 'small' ? '12' : '24')}px;
 `;
 
 const StepperUpButton = styled(StepperDownButton)`
