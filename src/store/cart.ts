@@ -25,4 +25,13 @@ const cartItemQuantityState = selectorFamily({
     },
 });
 
-export { cartListItemCountState, cartListState, cartItemQuantityState };
+const cartListSubTotalState = selector({
+  key: 'cartListSubTotal',
+  get: ({ get }) => {
+    const cartList = get(cartListState);
+
+    return cartList.reduce((acc, curr) => acc + curr.product.price * curr.quantity, 0);
+  },
+});
+
+export { cartListItemCountState, cartListState, cartItemQuantityState, cartListSubTotalState };
