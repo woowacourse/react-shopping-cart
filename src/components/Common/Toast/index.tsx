@@ -16,7 +16,7 @@ function Toast({ message, showTime = 2000, error = false }: ToastProps) {
     }, showTime);
   }, []);
 
-  return <>{show && <div className={`${styles.container} ${error && styles.error}`}>{message}</div>}</>;
+  return <>{show && <div className={`${styles.toast} ${error && styles.error}`}>{message}</div>}</>;
 }
 
 export default Toast;

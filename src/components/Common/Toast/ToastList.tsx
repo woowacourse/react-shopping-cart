@@ -7,7 +7,7 @@ const ToastList = () => {
   const messageList = useRecoilValue($ToastMessageList);
 
   return (
-    <div className={styles.toastList}>
+    <div className={styles['toast-list-container']}>
       {messageList.map(message => (
         <Toast message={message} />
       ))}
