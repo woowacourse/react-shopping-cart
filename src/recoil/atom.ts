@@ -1,19 +1,22 @@
 import { atom } from "recoil";
 import { KEY_LOCALSTORAGE_CART, MIN_QUANTITY } from "../constants";
 import mockData from "../mockData.json";
-import { ProductType } from "../types/domain";
+import { ProductListType, ProductType } from "../types/domain";
 import { getLocalStorage } from "../utils";
 
-const cartProducts = getLocalStorage<ProductType[]>(KEY_LOCALSTORAGE_CART, []);
+const cartProducts = getLocalStorage<ProductListType>(
+  KEY_LOCALSTORAGE_CART,
+  []
+);
 
 export const productsState = atom({
   key: "products",
-  default: structuredClone(mockData).map((Product: ProductType) => {
+  default: structuredClone(mockData).map((product: ProductType) => {
     const targetProduct = cartProducts.find(
-      (cartProduct) => cartProduct.id === Product.id
+      (cartProduct) => cartProduct.id === product.id
     );
     return {
-      ...Product,
+      ...product,
       quantity: targetProduct
         ? targetProduct.quantity
         : MIN_QUANTITY.toString(),

@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { Header, Page } from "../components";
+import { Button, Header, Page } from "../components";
 import { useNavigate } from "react-router";
 import { ROUTER_PATH } from "../router";
 
@@ -17,7 +17,7 @@ const NotFound = () => {
         <ErrorBox>
           <h2>Sorry</h2>
           <p>요청하신 페이지를 찾을 수 없어요 🥲</p>
-          <HomeButton onClick={handleHomeButtonClicked}>홈으로</HomeButton>
+          <Button onClick={handleHomeButtonClicked}>홈으로</Button>
         </ErrorBox>
       </Page>
     </>
@@ -27,7 +27,8 @@ const NotFound = () => {
 const ErrorBox = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  align-self: center;
+  width: 30%;
   height: 100%;
   padding: 200px 0;
 
@@ -39,21 +40,6 @@ const ErrorBox = styled.div`
     font-size: 50px;
     font-weight: 700;
     margin-bottom: 30px;
-  }
-`;
-
-const HomeButton = styled.button`
-  margin-top: 20px;
-  border-radius: 5px;
-  width: 20%;
-  height: 40px;
-  background: var(--dark-gray);
-  color: white;
-  cursor: pointer;
-
-  &:hover {
-    box-shadow: 0 10px 10px -3px var(--shadow-gray);
-    transition: all 0.3s ease;
   }
 `;
 

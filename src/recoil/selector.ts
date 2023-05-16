@@ -12,10 +12,10 @@ export const cartProductsSelector = selector({
   },
   set: ({ get, set }, newProduct) => {
     const products = get(productsState);
-    const newProducts = products.map((Product: ProductType) =>
-      Product.id === newProduct.id
-        ? { ...Product, quantity: newProduct.quantity.toString() }
-        : Product
+    const newProducts = products.map((product: ProductType) =>
+      product.id === newProduct.id
+        ? { ...product, quantity: newProduct.quantity.toString() }
+        : product
     );
     return set(productsState, newProducts);
   },
