@@ -71,7 +71,6 @@
       "last 1 safari version"
     ]
   },
-  "homepage": ".",
   "msw": {
     "workerDirectory": "public"
   }
