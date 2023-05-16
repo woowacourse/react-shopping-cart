@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil';
 import { productsInCartState } from '../recoil/atoms';
 
-export const useCart = (productId: number) => {
+export const useCart = (productId?: number) => {
   const [productsInCart, setProductsInCart] = useRecoilState(productsInCartState);
 
   const getProductInCart = () => {
@@ -9,6 +9,8 @@ export const useCart = (productId: number) => {
   };
 
   const addToCart = () => {
+    if (!productId) return;
+
     setProductsInCart((prev) => [
       ...prev,
       {
@@ -43,6 +45,7 @@ export const useCart = (productId: number) => {
 
   return {
     productsInCart,
+    setProductsInCart,
     getProductInCart,
     addToCart,
     deleteFromCart,

@@ -6,3 +6,7 @@ export const PRODUCT = {
 export const LOCAL_STORAGE_KEY = {
   CART: 'cart',
 } as const;
+
+export const URL = {
+  PRODUCT_LIST: `${process.env.PUBLIC_URL}/mock/productList.json`,
+} as const;

@@ -1,11 +1,18 @@
 import { styled } from 'styled-components';
-import mockData from '../assets/mock.json';
+import { useRecoilState } from 'recoil';
+import { productListState } from '../recoil/atoms';
+import { ProductInfo } from '../types';
+import { URL } from '../constants';
+import { useSetFetchedData } from '../hooks/useFetch';
 import Product from './Product';
 
 export default function ProductList() {
+  const [productList, setProductList] = useRecoilState(productListState);
+  useSetFetchedData<ProductInfo[]>(URL.PRODUCT_LIST, setProductList);
+
   return (
     <Style.Container>
-      {mockData.map((product) => (
+      {productList.map((product) => (
         <li key={product.id}>
           <Product info={product} />
         </li>
