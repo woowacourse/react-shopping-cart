@@ -2,7 +2,6 @@ import { ReactComponent as TrashBox } from '../../assets/trash-box.svg';
 import styles from './index.module.scss';
 import type { CartItem } from '../../types';
 import CountButton from '../Common/CountButton';
-import { MouseEvent } from 'react';
 
 interface CartProductItemProps {
   cartItem: CartItem;

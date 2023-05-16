@@ -18,11 +18,19 @@ function CartProductItemList() {
   }, [error]);
 
   return (
-    <section className={styles.container}>
-      {cartProductsData?.map((item: CartItem) => (
-        <CartProductItem key={item.id} cartItem={item} />
-      ))}
-    </section>
+    <div className={styles.container}>
+      <h3 className={styles.title}>배송 상품 {'(3개)'}</h3>
+      <section className={styles['cart-container']}>
+        {cartProductsData?.map((item: CartItem) => (
+          <CartProductItem key={item.id} cartItem={item} />
+        ))}
+      </section>
+      <div className={styles['check-menu']}>
+        <input type="checkbox" className={styles['check-box']} />
+        <div>전체 선택 (2/3)</div>
+        <button>선택 삭제</button>
+      </div>
+    </div>
   );
 }
 

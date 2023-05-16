@@ -1,6 +1,27 @@
 .container {
+  letter-spacing: 0.5px;
+
+  color: #333333;
+}
+
+.title {
+  font-size: 20px;
+  line-height: 33px;
+  width: 100%;
+  padding-bottom: 12px;
+
+  border-bottom: 4px solid #aaaaaa;
+}
+
+.cart-container {
   display: flex;
   flex-direction: column;
+  height: 60vh;
+  overflow-y: scroll;
+
+  & > div:first-child {
+    padding-bottom: 30px;
+  }
 
   & > div {
     border-bottom: 1.5px solid #cccccc;
@@ -11,4 +32,29 @@
     border-bottom: none;
     padding: 30px 0;
   }
+}
+
+.check-menu {
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+  height: 36px;
+  margin-top: 16px;
+
+  & > button {
+    width: 100px;
+    height: 100%;
+    font-size: 16px;
+    line-height: 21px;
+
+    border: 1px solid #bbbbbb;
+  }
+}
+
+.check-box {
+  width: 28px;
+  height: 28px;
+  background: var(--white-color);
+  border: 4px solid #22a6a2;
+  border-radius: 2px;
 }
