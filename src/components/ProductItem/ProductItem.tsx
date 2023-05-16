@@ -11,12 +11,12 @@ interface ProductItemProps {
 }
 
 function ProductItem({ product }: ProductItemProps) {
-  const { name, price } = product;
+  const { name, price, imageUrl } = product;
 
   return (
     <ProductItemBox>
       <ProductItemImageBox>
-        <ProductItemImage src={mockImage} />
+        <ProductItemImage src={imageUrl} />
       </ProductItemImageBox>
       <ProductDetails>
         <ProductInfo>
