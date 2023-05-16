@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { LogoIcon } from '../../assets/ShoppingCartIcon';
-import { useCartList } from '../../hooks/useCartList';
+import { useCartIdList } from '../../hooks/useCartIdList';
 import { useNavigate } from 'react-router-dom';
 
 export const Header = () => {
   const navigate = useNavigate();
 
-  const { cartList } = useCartList();
+  const { cartIdList } = useCartIdList();
 
   return (
     <Style.Container>
@@ -17,7 +17,7 @@ export const Header = () => {
         </Style.LogoContainer>
         <Style.CartContainer>
           <Style.Cart onClick={() => navigate('/test')}>장바구니</Style.Cart>
-          <Style.CartAmount>{cartList.length}</Style.CartAmount>
+          <Style.CartAmount>{cartIdList.length}</Style.CartAmount>
         </Style.CartContainer>
       </Style.ContentWrapper>
     </Style.Container>
