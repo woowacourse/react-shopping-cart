@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import cartImage from "../../assets/images/cart.png";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import cartProductsState from "../../store/cartProductAtom";
 import { useRecoilState } from "recoil";
 
@@ -10,25 +10,25 @@ interface ProductQuantityInputProps {
 
 const ProductQuantityInput = ({ productId }: ProductQuantityInputProps) => {
   const [quantity, setQuantity] = useState(0);
-  const [isEditing, setIsEditing] = useState(false);
+  const isEditingRef = useRef(false);
   const [cartProducts, setCartProducts] = useRecoilState(cartProductsState);
 
-  const updateInputQuantity = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const updateInputQuantity = (e: React.ChangeEvent<HTMLInputElement>) =>
     setQuantity(() => Number(e.target.value));
-  };
 
   const updateCartProducts = (e: React.FocusEvent<HTMLInputElement>) => {
-    setIsEditing(false);
+    isEditingRef.current = false;
     setCartProducts({ ...cartProducts, [productId]: Number(e.target.value) });
   };
 
   const updateIsEditing = () => {
-    setIsEditing(true);
+    isEditingRef.current = true;
+    setQuantity((prevQuantity) => prevQuantity + 1);
   };
 
   return (
     <ButtonContainer>
-      {!isEditing && quantity === 0 ? (
+      {!isEditingRef.current && quantity === 0 ? (
         <Button type="button" onClick={updateIsEditing}>
           <ButtonIcon src={cartImage} />
         </Button>
