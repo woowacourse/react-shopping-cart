@@ -6,6 +6,7 @@ const CartItemSkeleton = () => {
       <S.CartItemImageWrapper className="skeleton" />
       <S.CartItemName className="skeleton" />
       <S.CartItemPrice className="skeleton" />
+      <S.CartItemPrice className="skeleton" />
       <S.CartItemDeleteButton className="skeleton" />
     </S.CartItemContainer>
   );
