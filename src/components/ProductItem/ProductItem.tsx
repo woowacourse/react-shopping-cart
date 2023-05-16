@@ -20,7 +20,7 @@ const ProductItem = (product: Product) => {
   const quantityInCart = useRecoilValue(productQuantityInCart(id));
 
   const handleClickCartButton = () => {
-    addProductToCart(product);
+    addProductToCart(id);
   };
 
   const handleChangeQuantity = (quantity: number) => {
