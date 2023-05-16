@@ -1,16 +1,20 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { itemsState } from "../recoil/atom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ItemType } from "../types/domain";
 import { itemQuantitySelector } from "../recoil/selector";
 import { MAX_QUANTITY, MIN_QUANTITY } from "../constants";
 
 export const useQuantity = (itemId: number) => {
-  const setItemQuantity = useSetRecoilState(itemQuantitySelector);
+  const [itemQuantity, setItemQuantity] = useRecoilState(itemQuantitySelector);
   const items = useRecoilValue(itemsState);
   const [quantity, setQuantity] = useState<string>(
     items.find((item: ItemType) => item.id === itemId).quantity
   );
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(itemQuantity));
+  }, [itemQuantity]);
 
   const setNewQuantity = (newQuantity: number) => {
     if (newQuantity > MAX_QUANTITY || newQuantity < MIN_QUANTITY) return;

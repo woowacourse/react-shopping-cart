@@ -11,13 +11,9 @@ export const itemQuantitySelector = selector({
   set: ({ get, set }, newItem) => {
     const items = get(itemsState);
     const newItems = items.map((item: ItemType) =>
-      item.id === newItem.id
-        ? { ...item, quantity: newItem.quantity.toString() }
-        : item
+      item.id === newItem.id ? { ...item, quantity: newItem.quantity.toString() } : item
     );
-    
-    const cartItems = newItems.filter((item: ItemType) => item.quantity !== MIN_QUANTITY.toString());
-    localStorage.setItem("cart", JSON.stringify(cartItems));
+
     return set(itemsState, newItems);
   },
 });
