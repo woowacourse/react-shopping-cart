@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
-import ProductList from '../../components/ProductList/ProductList';
-import Header from '../../components/Header/Header';
+import ProductList from '../../components/Product/ProductList/ProductList';
+import Header from '../../components/common/Header/Header';
 
 const ProductListPage = () => {
   return (

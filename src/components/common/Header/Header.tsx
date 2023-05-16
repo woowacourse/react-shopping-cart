@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import CartIcon from '../../assets/icons/CartIcon';
-import cartState from '../../globalState/atoms/cartState';
+import CartIcon from '../../../assets/icons/CartIcon';
+import cartState from '../../../globalState/atoms/cartState';
 import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
