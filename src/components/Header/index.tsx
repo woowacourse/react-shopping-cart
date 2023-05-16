@@ -2,6 +2,8 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { totalAmountState } from '../../atoms/cart';
+import { ReactComponent as Cart } from '../../assets/header-cart.svg';
+import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
   const totalAmount = useRecoilValue(totalAmountState);
@@ -9,7 +11,10 @@ const Header: React.FC = () => {
   return (
     <StyledHeaderWrapper>
       <StyledHeaderBox>
-        <StyledTitle>SHOP</StyledTitle>
+        <StyledLinkTitle to="/">
+          <Cart width="35px" height="35px" />
+          <StyledTitle>SHOP</StyledTitle>
+        </StyledLinkTitle>
         <StyledCartWrapper>
           <StyledCart>장바구니</StyledCart>
           <StyledCartAmount data-cy="cart-amount">{totalAmount}</StyledCartAmount>
@@ -18,6 +23,13 @@ const Header: React.FC = () => {
     </StyledHeaderWrapper>
   );
 };
+
+const StyledLinkTitle = styled(Link)`
+  display: flex;
+  align-items: center;
+
+  color: inherit;
+`;
 
 const StyledHeaderWrapper = styled.header`
   display: flex;
@@ -39,8 +51,9 @@ const StyledHeaderBox = styled.div`
 
 const StyledTitle = styled.div`
   font-size: 40px;
-  font-weight: 900;
-  line-height: 57.92px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  margin-left: 5px;
 `;
 
 const StyledCartWrapper = styled.div`
@@ -59,8 +72,8 @@ const StyledCartAmount = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 26px;
-  height: 26px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
 
   background-color: #04c09e;
