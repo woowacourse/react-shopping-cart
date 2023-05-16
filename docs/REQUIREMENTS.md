@@ -1,29 +1,56 @@
 # 컴포넌트 & 기능 요구사항
 
-- [x] Header
-  - [x] 홈 버튼을 누르면 메인페이지로 이동한다.
-- [x] CartTextButton
-  - [x] 장바구니에 담긴 수량을 확인할 수 있다.
-- [x] CartIconButton
-  - [x] 클릭 시 QuantityInput으로 스위치된다.
-  - [x] 클릭 시 CartTextButton의 수량이 올라간다.
-- [x] ProductCard
-  - [x] 상품 이미지, 상품명, 가격을 확인할 수 있다.
-- [x] ProductCardList
-  - [x] 12개의 상품을 확인할 수 있다.
-- [x] Counter
-  - [x] 수량을 조절할 수 있다.
-  - [x] 수량이 0일때 CartIconButton으로 돌아온다.
-- [x] LocalStorage 저장
-  - [x] 새로고침 해도 장바구니에 담긴 수량이 유지된다.
+- [ ] 주요 컴포넌트
+
+  - [ ] ShoppingTitle
+    - [ ] 장바구니 메인 타이틀이 있다.
+    - [ ] 총 상품 수량을 확인할 수 있다.
+  - [ ] ShoppingCardList
+    - [ ] 장바구니 물품들을 확인할 수 있다.
+  - [ ] ShoppingCard
+    - [ ] 장바구니에 담긴 물품을 보여준다.
+  - [ ] ShoppingPreview
+    - [ ] 결제 예상 금액을 보여준다.
+
+- [ ] 컴포넌트 재사용성 높이기
+  - [ ] 분리 & 구현
+    - [ ] ProductName
+      - [ ] ProductInfo와 ShoppingCard에서 재사용
+    - [ ] ProductPrice
+      - [ ] ProductInfo, ShoppingCard, ShoppingPreview에서 재사용
+    - [ ] Quantity
+      - [ ] CartTextButton과 ShoppingTitle에서 재사용
+    - [ ] CheckBox
+    - [ ] IconButton
+      - [ ] ProductCard의 쇼핑 아이콘 버튼과 ShoppingCardList의 삭제 아이콘 버튼으로 재사용
+    - [ ] Button
+      - [ ] 선택삭제 버튼과, 주문하기 버튼으로 재사용
+  - [ ] 재사용
+    - [ ] Counter
+      - [ ] 스타일 컴포넌트 theme 적용
+    - [ ] ProductImg
+      - [ ] 스타일 컴포넌트 theme 적용
+
+# 프로그래밍 요구사항
+
+Readability
+[ ] API 요청을 처리하는 공통 함수나 커스텀 훅을 작성하여 재사용 가능하게 만든다.
+[ ]페이지간 공통 스타일이 있는 경우 재사용한다.
+Reusability
+[ ]서버와의 통신을 담당하는 코드와 UI를 렌더링 하는 코드를 분리하여 관심사를 분리한다.
+[ ]에러 처리 로직을 명확하게 작성하여 코드의 가독성을 높인다.
+Performance
+[ ]불필요한 상태 관리를 최소화하고, 상태 업데이트를 최적화한다.
+[ ]컴포넌트의 리렌더링을 최소화하기 위해 memoization을 적용한다.
 
 # 필수 요구사항
 
-1. 상품 목록 페이지에 필요한 UI 마크업
-   header의 숫자 표시를 통해 장바구니에 담긴 품목의 갯수 표시
-2. 전역 상태 관리
-   recoil을 사용하여 전역 상태 관리
-3. mock 데이터 활용
-   Mock 데이터를 활용하여 상품 데이터를 처리한다. 협업 미션을 고려하여 장바구니 API 예상 명세 참고
-4. 테스트 도구 선정
-   적합한 테스트 도구를 선택하여 사용하고, 중요한 테스트 케이스를 정의하여 테스트 진행
+1. 장바구니 페이지
+   장바구니 페이지 마크업을 완성하고, 상품 목록 페이지와 함께 모바일 환경 대응
+2. MSW를 활용한 API Mocking
+   MSW를 활용하여 실제 서버와 연동될 수 있는 API Mocking을 구현
+   단순한 Endpoint 변경으로 실제 API 사용이 가능하도록 작업
+3. 테스트
+   장바구니 페이지에서 다양한 사용자 인터렉션에 대한 테스트 케이스를 고민하고, 선택한 테스트 도구를 이용하여 검증
+4. 사용자 경험
+   새로고침 해도, 장바구니에 담은 상품 유지
