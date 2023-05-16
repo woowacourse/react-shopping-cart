@@ -58,3 +58,9 @@ export const Default: Story = {
 };
 
 export const Empty: Story = {};
+
+export const Skeleton: Story = {
+  render: () => {
+    return <CartList.Skeleton />;
+  },
+};
