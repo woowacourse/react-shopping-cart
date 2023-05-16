@@ -1,0 +1,19 @@
+.counter-container {
+  display: grid;
+  max-height: 26px;
+  grid-template-columns: 40px 20px;
+  grid-template-rows: 13px 13px;
+
+  & > * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+
+    border: 1px solid #dddddd;
+  }
+
+  & > div {
+    grid-row: 1 / 3;
+  }
+}
