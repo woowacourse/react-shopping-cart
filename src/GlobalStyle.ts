@@ -24,8 +24,42 @@ const GlobalStyle = createGlobalStyle`
 
   }
 
-  body{
+  body {
     font-family: 'Baemin';
+    background-color: red;
+  }
+
+  input[type="checkbox"] {
+    -webkit-appearance: none;
+    position: relative;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    outline: none !important;
+    border: 1px solid #22a6a2;
+    border-radius: 2px;
+    background: #fbfbfb;
+  }
+
+  input[type="checkbox"]::before {
+    content: url('data:image/svg+xml,<svg width="23" height="17" viewBox="0 0 23 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 7L9.11069 14.1107L21.8318 1.38956" stroke="white" stroke-width="3"/></svg>');
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    overflow: hidden;
+    transform: scale(0) translate(-50%, -50%);
+    line-height: 1;
+  }
+ 
+  input[type="checkbox"]:checked {
+    background-color: var(--grey-400);
+    color: var(--grey-100);
+    border: 1px solid #3288ff;
+  }
+ 
+  input[type="checkbox"]:checked::before {
+    border-radius: 2px;
+    transform: scale(1) translate(-50%, -50%)
   }
 
   a {
