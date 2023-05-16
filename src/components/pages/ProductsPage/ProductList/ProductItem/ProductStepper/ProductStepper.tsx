@@ -49,6 +49,7 @@ const ProductStepper = (props: ProductStepperProps) => {
                   type="number"
                   value={step}
                   inputMode="numeric"
+                  role="textbox"
                   aria-label="상품 개수 입력"
                   onChange={handleNumberInputChange}
                 />

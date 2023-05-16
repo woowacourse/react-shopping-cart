@@ -45,7 +45,7 @@ export const StepperTest: Story = {
       expect(entryButton).not.toBeVisible();
     });
 
-    const input = canvas.getByRole('textbox') as HTMLInputElement;
+    const input = canvas.getByRole<HTMLInputElement>('textbox');
     const upButton = canvas.getByLabelText('상품 1개 추가');
     const downButton = canvas.getByLabelText('상품 1개 삭제');
 
