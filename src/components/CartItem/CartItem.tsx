@@ -34,6 +34,11 @@ const CartItem = ({ id }: CartItemProps) => {
     }
   };
 
+  const deleteCartItem = () => {
+    setCart((prev) => prev.filter((item) => item !== id));
+    resetProductInCart();
+  };
+
   return (
     <Wrapper>
       <CheckBoxWrapper>
@@ -47,7 +52,7 @@ const CartItem = ({ id }: CartItemProps) => {
 
       <DetailWrapper>
         <ProductName>{name}</ProductName>
-        <DeleteButton>
+        <DeleteButton onClick={deleteCartItem}>
           <TrashCan />
         </DeleteButton>
         <CounterWrapper>
@@ -57,7 +62,7 @@ const CartItem = ({ id }: CartItemProps) => {
             quantity={productInCart.quantity}
           />
         </CounterWrapper>
-        <Price>{price.toLocaleString()}원</Price>
+        <Price>{(price * productInCart.quantity).toLocaleString()}원</Price>
       </DetailWrapper>
     </Wrapper>
   );
