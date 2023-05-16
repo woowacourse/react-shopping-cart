@@ -51,7 +51,14 @@ function useCart() {
     } else {
       const changedCartList = updateCartListQuantity([...cartList], id, quantity);
       setCartList(changedCartList);
-      // fetch(`/cart-items/{cartItemId}`);
+      const response = await fetch(`/cart-items/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          quantity
+        })
+      });
+      const result = await response.json();
+      console.log(result);
     }
   };
 

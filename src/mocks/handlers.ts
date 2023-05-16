@@ -38,7 +38,16 @@ export const handlers = [
     return res(
       ctx.delay(100),
       ctx.status(204),
-      // ctx.json(true),
+    )
+  }),
+
+  rest.patch('/cart-items/:id', (req, res, ctx) => {
+    console.log(req.params.id);
+
+    return res(
+      ctx.delay(100),
+      ctx.status(200),
+      ctx.json(true),
     )
   }),
 ];
