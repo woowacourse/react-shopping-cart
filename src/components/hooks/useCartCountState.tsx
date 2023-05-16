@@ -5,13 +5,13 @@ import { CartCountProps } from '../../types/CartCountType';
 
 export const useCartCountState = ({ id, onDeleteCart }: CartCountProps) => {
   const [quantity, setQuantity] = useState<number>(1);
-  const setAddedCartStates = useSetRecoilState(cartState);
+  const setCartStates = useSetRecoilState(cartState);
 
   const increaseCount = useCallback(() => {
     setQuantity(quantity + 1);
 
-    setAddedCartStates((prev) =>
-      prev.map((product) =>
+    setCartStates((prevCartStates) =>
+      prevCartStates.map((product) =>
         product.id === id
           ? { ...product, quantity: product.quantity + 1 }
           : product
@@ -20,8 +20,8 @@ export const useCartCountState = ({ id, onDeleteCart }: CartCountProps) => {
   }, [quantity]);
 
   const decreaseCount = useCallback(() => {
-    setAddedCartStates((prev) =>
-      prev.map((product) =>
+    setCartStates((prevCartStates) =>
+      prevCartStates.map((product) =>
         product.id === id
           ? { ...product, quantity: product.quantity - 1 }
           : product
