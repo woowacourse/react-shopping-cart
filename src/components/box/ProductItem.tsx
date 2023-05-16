@@ -10,10 +10,7 @@ import { useLocalStorage } from '../../hooks/useLocalStorage';
 import getPriceFormat from '../../utils/getPriceFormat';
 
 const ProductItem = ({ product }: { product: Product }) => {
-  const { localStorageData, internalSetLocalStorageData } = useLocalStorage<CartItem[]>(
-    'cartList',
-    [],
-  );
+  const { localStorageData } = useLocalStorage<CartItem[]>('cartList', []);
 
   const [quantity, setQuantity] = useState<number>(
     localStorageData.find((data) => data.product.id === product.id)?.quantity ?? 0,
@@ -21,13 +18,11 @@ const ProductItem = ({ product }: { product: Product }) => {
 
   const [cartList, setCartList] = useRecoilState(cartListState);
 
-  const updateCartList = () => {
+  const updateCartList = (existItemIndex: number) => {
     const newCartItem: CartItem = {
       quantity,
       product,
     };
-
-    const existItemIndex = cartList.findIndex((cartItem) => cartItem.product.id === product.id);
 
     if (existItemIndex !== -1) {
       setCartList((prev) =>
@@ -41,9 +36,7 @@ const ProductItem = ({ product }: { product: Product }) => {
     setCartList((prev) => [...prev, newCartItem]);
   };
 
-  const deleteCartItem = () => {
-    const existItemIndex = cartList.findIndex((cartItem) => cartItem.product.id === product.id);
-
+  const deleteCartItem = (existItemIndex: number) => {
     if (existItemIndex !== -1) {
       setCartList((prev) => {
         const newCartList = [...prev];
@@ -54,16 +47,14 @@ const ProductItem = ({ product }: { product: Product }) => {
   };
 
   useEffect(() => {
+    const existItemIndex = cartList.findIndex((cartItem) => cartItem.product.id === product.id);
+
     if (quantity !== 0) {
-      updateCartList();
+      updateCartList(existItemIndex);
       return;
     }
-    deleteCartItem();
+    deleteCartItem(existItemIndex);
   }, [quantity]);
-
-  useEffect(() => {
-    internalSetLocalStorageData(cartList);
-  }, [cartList]);
 
   return (
     <ProductWrapper>
