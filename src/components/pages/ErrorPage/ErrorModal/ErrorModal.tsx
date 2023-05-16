@@ -6,7 +6,6 @@ import {
   StyledErrorModal,
 } from './ErrorModal.styled';
 import Modal from '@components/commons/Modal/Modal';
-import Heading from '@components/commons/Heading/Heading';
 import Button from '@components/commons/Button/Button';
 import * as Text from '@components/commons/Text/Text';
 
@@ -19,7 +18,7 @@ const ErrorModal = (props: { isError: boolean }) => {
         <StyledErrorModal>
           <StyledBackdrop onClick={() => handleModalClose()} />
           <StyledContentSection>
-            <Heading text="데이터를 불러오는 데에 실패했습니다 😢" />
+            <Text.Title>데이터를 불러오는 데에 실패했습니다 😢</Text.Title>
             <Link to="/">
               <Button
                 padding="20px"

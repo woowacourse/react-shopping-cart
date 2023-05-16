@@ -1,6 +1,6 @@
 import { HTMLAttributes, ReactNode } from 'react';
 
-import { StyledText } from './Text.styled';
+import { StyledTitle, StyledText } from './Text.styled';
 
 interface TextProps extends HTMLAttributes<HTMLParagraphElement> {
   children?: ReactNode;
@@ -10,14 +10,41 @@ interface TextProps extends HTMLAttributes<HTMLParagraphElement> {
   lineHeight?: string;
 }
 
-export const BaseText = (props: TextProps) => {
+const BaseTitle = (props: TextProps) => {
   const {
     children = null,
     color = 'black',
     fontStyle = 'normal',
-    fontSize = '16px',
+    fontSize = '40px',
+    fontWeight = '700',
+    lineHeight = 'none',
+  } = props;
+
+  return (
+    <StyledTitle
+      color={color}
+      fontStyle={fontStyle}
+      fontSize={fontSize}
+      fontWeight={fontWeight}
+      lineHeight={lineHeight}
+    >
+      {children}
+    </StyledTitle>
+  );
+};
+
+export const Title = (props: TextProps) => {
+  return <BaseTitle fontSize="40px" fontWeight="700" {...props} />;
+};
+
+const BaseText = (props: TextProps) => {
+  const {
+    children = null,
+    color = 'black',
+    fontStyle = 'normal',
+    fontSize = '20px',
     fontWeight = '500',
-    lineHeight = '',
+    lineHeight = 'none',
   } = props;
 
   return (
@@ -31,10 +58,6 @@ export const BaseText = (props: TextProps) => {
       {children}
     </StyledText>
   );
-};
-
-export const Title = (props: TextProps) => {
-  return <BaseText fontSize="32px" fontWeight="700" {...props} />;
 };
 
 export const Paragraph = (props: TextProps) => {
