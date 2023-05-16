@@ -8,7 +8,7 @@ import {
   StyledTitleDiv,
 } from '@components/Header/Header.styled';
 import * as Text from '@components/commons/Text/Text';
-import CartButton from './CartButton/CartButton';
+import CartButton from '@components/Header/CartButton/CartButton';
 
 const Header = () => {
   return (

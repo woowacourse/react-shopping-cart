@@ -1,9 +1,9 @@
 import React from 'react';
 import { RecoilRoot } from 'recoil';
 import type { Preview } from '@storybook/react';
+import { withRouter } from 'storybook-addon-react-router-v6';
 
 import GlobalStyles from '../src/GlobalStyles';
-// import { withThemeFromJSXProvider } from '@storybook/addon-styling';
 
 const preview: Preview = {
   parameters: {
@@ -15,8 +15,8 @@ const preview: Preview = {
       },
     },
   },
-  // decorators: [withThemeFromJSXProvider({ GlobalStyles })],
   decorators: [
+    withRouter,
     Story => (
       <RecoilRoot>
         <GlobalStyles />

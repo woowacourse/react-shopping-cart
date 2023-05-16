@@ -5,10 +5,8 @@ import { RecoilRoot } from 'recoil';
 
 import GlobalStyles from './GlobalStyles';
 import App from '@components/App/App';
-import ProductsPage from '@pages/ProductsPage/ProductsPage';
 import ErrorPage from '@pages/ErrorPage/ErrorPage';
-
-const basename = process.env.PUBLIC_URL;
+import ProductsPage from '@pages/ProductsPage/ProductsPage';
 
 const router = createBrowserRouter(
   [
@@ -20,7 +18,7 @@ const router = createBrowserRouter(
     },
   ],
   {
-    basename: basename,
+    basename: process.env.PUBLIC_URL,
   }
 );
 
