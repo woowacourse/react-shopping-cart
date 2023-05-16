@@ -4,9 +4,11 @@ import { Text } from '../../common/Text/Text.styles';
 
 const CartListContainer = styled.section`
   margin-top: 24px;
+  width: 760px;
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacer.spacing4};
+  justify-self: start;
 
   &.center {
     margin: 0;
