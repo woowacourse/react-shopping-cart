@@ -36,7 +36,7 @@ function useCart() {
     return cartList;
   }
 
-  const setCartQuantity = async (id: number, quantity: number) => {
+  const setCartQuantity = (id: number, quantity: number) => {
     if (quantity === 0) {
       removeCart(id);
     } else {
@@ -46,11 +46,11 @@ function useCart() {
     }
   };
 
-  const increaseCart = async (id: number) => {
+  const increaseCart = (id: number) => {
     setCartQuantity(id, getQuantityByProductId(id) + 1);
   };
 
-  const decreaseCart = async (id: number) => {
+  const decreaseCart = (id: number) => {
     setCartQuantity(id, getQuantityByProductId(id) - 1);
   };
 
