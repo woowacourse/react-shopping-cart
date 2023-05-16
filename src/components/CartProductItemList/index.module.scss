@@ -16,7 +16,8 @@
 .cart-container {
   display: flex;
   flex-direction: column;
-  height: 60vh;
+  max-height: 60vh;
+  height: 100%;
   overflow-y: scroll;
 
   & > div:first-child {
