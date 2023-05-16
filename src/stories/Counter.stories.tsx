@@ -1,3 +1,5 @@
+import { createRef } from 'react';
+
 import { GlobalStyle } from '../GlobalStyle';
 import { Counter } from '../components/productCard/Counter';
 import { Meta, StoryObj } from '@storybook/react';
@@ -18,10 +20,28 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const inputRef = createRef<HTMLInputElement>();
+
+const handleIncrease = () => {
+  if (inputRef === null) return;
+  if (!(inputRef.current instanceof HTMLInputElement)) return;
+
+  inputRef.current.stepUp();
+};
+
+const handleDecrease = () => {
+  if (inputRef === null) return;
+  if (!(inputRef.current instanceof HTMLInputElement)) return;
+
+  if (Number(inputRef.current.value) <= 0) return;
+
+  inputRef.current.stepDown();
+};
+
 export const CounterComponent: Story = {
   args: {
-    removeItemFromCartList: () => {
-      alert('카운터 숫자가 0이 되면 장바구니에서 상품이 제거됩니다.');
-    },
+    ref: inputRef,
+    handleDecrease: handleDecrease,
+    handleIncrease: handleIncrease,
   },
 };
