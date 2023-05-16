@@ -1,27 +1,27 @@
 [
   {
     "id": 1,
-    "name": "정사각(420ml)",
-    "price": 43400,
-    "imageUrl": "https://item.kakaocdn.net/do/d0abc6fe74e616536cf07626699bbc707154249a3890514a43687a85e6b6cc82"
+    "name": "1억원 짜리 상품",
+    "price": 100000000,
+    "imageUrl": "https://images.unsplash.com/photo-1598561222812-63429c3eee2f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=60"
   },
   {
     "id": 2,
-    "name": "밀크티(370ml)",
-    "price": 73400,
-    "imageUrl": "https://item.kakaocdn.net/do/d0abc6fe74e616536cf07626699bbc707154249a3890514a43687a85e6b6cc82"
+    "name": "수제 닭가슴살",
+    "price": 122000,
+    "imageUrl": "https://images.unsplash.com/photo-1676471759564-8426f19510c0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=60"
   },
   {
     "id": 3,
-    "name": "정사각(370ml)",
-    "price": 41000,
-    "imageUrl": "https://item.kakaocdn.net/do/d0abc6fe74e616536cf07626699bbc707154249a3890514a43687a85e6b6cc82"
+    "name": "[허닭] 닭가슴살 소시지 그릴후랑크 100g 혼합 5종 10팩",
+    "price": 13900,
+    "imageUrl": "http://cdn2-aka.makeshop.co.kr/shopimages/heodak/0050020005902.jpg?1676939822"
   },
   {
     "id": 4,
-    "name": "납작(450ml)",
-    "price": 39900,
-    "imageUrl": "https://item.kakaocdn.net/do/d0abc6fe74e616536cf07626699bbc707154249a3890514a43687a85e6b6cc82"
+    "name": "[한끼통살] K-입맛을 저격할 10가지 특제 소스 닭가슴살, 소시지 증정!",
+    "price": 36900,
+    "imageUrl": "https://file.rankingdak.com/image/RANK/PRODUCT/RANKING/20230407/IMG1680OLw865642827.jpg"
   },
   {
     "id": 5,
