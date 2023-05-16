@@ -58,6 +58,16 @@ const GlobalStyle = createGlobalStyle`
   li {
     list-style-type: none;
   }
+
+  button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  body {
+    font-family: Pretendard;
+  }
 `;
 
 export default GlobalStyle;
