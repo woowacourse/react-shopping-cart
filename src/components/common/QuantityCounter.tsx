@@ -6,11 +6,7 @@ import { DownButtonIc, UpButtonIc } from '../../asset';
 import { ACTION_DECREASE, ACTION_INCREASE } from '../../constants/counter';
 import { ERROR } from '../../constants/error';
 import { isForwardedRef, isRefCurrent } from '../../utils/refTypeGuard';
-import {
-  fillBlankInput,
-  handleInvalidQuantity,
-  isZeroValue,
-} from '../../utils/validation';
+import { handleInvalidQuantity, isZeroValue } from '../../utils/validation';
 
 const unknownCountAction = (action: never): never => {
   throw new Error(ERROR.INVALID_ACTION);
@@ -50,7 +46,6 @@ const QuantityCounter = forwardRef<HTMLInputElement>(function (_, quantityRef) {
           ref={quantityRef}
           onChange={onChangeInput}
           defaultValue='1'
-          onBlur={fillBlankInput}
         />
         <ButtonWrapper>
           <CountButton onClick={() => changeQuantityByAction(ACTION_INCREASE)}>

@@ -35,11 +35,6 @@ describe('개별 상품 장바구니 추가 테스트', () => {
     cy.typingFirstProduct('+', '');
     cy.typingFirstProduct('e', '');
   });
-
-  it('장바구니 수량 카운터에 아무것도 입력되지않고 blur 되면 기본 값으로 설정한다.', () => {
-    cy.get('@firstProductItem').find('input').clear().blur();
-    cy.get('@firstProductItem').find('input').should('have.value', '1');
-  });
 });
 
 describe('장바구니 수량 변경 테스트', () => {
