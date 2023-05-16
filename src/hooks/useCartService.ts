@@ -21,15 +21,16 @@ const useCartService = () => {
   };
 
   const updateProductQuantity = (targetId: number, quantity: number) => {
-    setCart((prevCart) => {
-      return prevCart.map((cartItem) => {
-        if (cartItem.product.id !== targetId) return cartItem;
-
-        return {
-          ...cartItem,
-          quantity,
-        };
-      });
+    fetch(`${CART_BASE_URL}/${targetId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(quantity),
+    }).then(() => {
+      fetch(CART_BASE_URL)
+        .then((res) => res.json())
+        .then((data) => setCart(data));
     });
   };
 

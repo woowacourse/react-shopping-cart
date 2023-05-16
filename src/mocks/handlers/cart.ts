@@ -48,4 +48,30 @@ export const cartHandlers = [
       ctx.set('Location', `/cart-items/${cart.at(-1)?.id}`),
     );
   }),
+
+  // 장바구니 아이템 수량 변경
+  rest.patch(`${CART_BASE_URL}/:id`, async (req, res, ctx) => {
+    const cartItemId = Number(req.params.id);
+    const isExists = isInCart(cartItemId);
+
+    if (!isExists) {
+      return res(
+        ctx.status(404),
+        ctx.json({ message: '장바구니에 해당 상품이 존재하지 않습니다.' }),
+      );
+    }
+
+    const quantity = Number(await req.text());
+
+    cart = cart.map((cartItem) => {
+      if (cartItem.product.id !== cartItemId) return cartItem;
+
+      return {
+        ...cartItem,
+        quantity,
+      };
+    });
+
+    return res(ctx.status(200));
+  }),
 ];
