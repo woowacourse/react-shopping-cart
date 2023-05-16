@@ -1,6 +1,6 @@
 import { RouterProvider, createHashRouter } from 'react-router-dom';
-import ProductListPage from './pages/ProductListPage/ProductListPage';
-import CartPage from './pages/CartPage/CartPages';
+import ProductListPage from './pages/ProductListPage';
+import CartPage from './pages/CartPages';
 
 const router = createHashRouter([
   {
