@@ -77,13 +77,15 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "msw": "^1.2.1",
+    "msw-storybook-addon": "^1.8.0",
     "node-sass": "^8.0.0",
     "prop-types": "^15.8.1",
     "react-router-dom": "^6.11.1",
     "storybook": "^7.0.9",
+    "storybook-addon-react-router-v6": "^1.0.0",
     "webpack": "^5.82.0"
   },
   "msw": {
-    "workerDirectory": "public"
+    "workerDirectory": ".storybook/public"
   }
 }
