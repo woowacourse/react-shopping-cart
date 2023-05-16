@@ -1,17 +1,9 @@
 import { styled } from 'styled-components';
-import { cartState } from '../store/CartState';
 import { useRecoilValue } from 'recoil';
-import { useEffect } from 'react';
-import { setDataInLocalStorage } from '../utils/setDataInLocalStorage';
 import { cartBadgeSelector } from '../store/CartSelector';
 
 const Cart = () => {
   const selectedProducts = useRecoilValue(cartBadgeSelector);
-  const cart = useRecoilValue(cartState);
-
-  useEffect(() => {
-    setDataInLocalStorage('cart', cart);
-  }, [cart]);
 
   return (
     <S.Wrapper>
