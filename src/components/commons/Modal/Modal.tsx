@@ -6,7 +6,7 @@ interface ModalProps {
   children: (handleModalClose: () => void) => ReactNode;
 }
 
-const Modal = (props: ModalProps) => {
+export const Modal = (props: ModalProps) => {
   const { initIsOpenModal, children } = props;
   const [isOpenModal, setIsOpenModal] = useState(initIsOpenModal);
 
@@ -22,5 +22,3 @@ const Modal = (props: ModalProps) => {
 
   return createPortal(children(handleModalClose), document.body);
 };
-
-export default Modal;

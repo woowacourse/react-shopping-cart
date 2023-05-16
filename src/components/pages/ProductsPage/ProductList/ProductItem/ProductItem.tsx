@@ -4,7 +4,7 @@ import {
   StyledProductFlexBox,
   StyledProductItem,
 } from '@components/pages/ProductsPage/ProductList/ProductItem/ProductItem.styled';
-import SquareImage from '@commons/SquareImage/SquareImage';
+import { SquareImage as ProductImage } from '@commons/SquareImage/SquareImage';
 import ProductStepper from '@components/pages/ProductsPage/ProductList/ProductItem/ProductStepper/ProductStepper';
 import * as Text from '@components/commons/Text/Text';
 
@@ -18,7 +18,7 @@ const ProductItem = (props: ProductItemProps) => {
 
   return (
     <StyledProductItem>
-      <SquareImage src={imageUrl} alt={name} size="xl" />
+      <ProductImage src={imageUrl} alt={name} size="xl" />
       <div>
         <StyledProductFlexBox>
           <Text.Description>{name}</Text.Description>

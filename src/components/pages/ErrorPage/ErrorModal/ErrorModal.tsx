@@ -5,7 +5,7 @@ import {
   StyledContentSection,
   StyledErrorModal,
 } from './ErrorModal.styled';
-import Modal from '@components/commons/Modal/Modal';
+import { Modal } from '@components/commons/Modal/Modal';
 import { Button as MoveToHomeButton } from '@components/commons/Button/Button';
 import * as Text from '@components/commons/Text/Text';
 

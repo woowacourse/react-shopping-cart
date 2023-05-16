@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Stepper from '@commons/Stepper/Stepper';
+import { Stepper } from '@commons/Stepper/Stepper';
 import {
   StyledProductStepperButtonFlexBox,
   StyledProductStepperFlexBox,

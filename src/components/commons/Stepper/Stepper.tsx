@@ -16,7 +16,7 @@ interface StepperProps {
   }) => ReactElement;
 }
 
-const Stepper = (props: StepperProps) => {
+export const Stepper = (props: StepperProps) => {
   const {
     step,
     setStep,
@@ -50,5 +50,3 @@ const Stepper = (props: StepperProps) => {
     handleDecrementButtonClick,
   });
 };
-
-export default Stepper;
