@@ -4,15 +4,13 @@ import { Product } from '@Types/index';
 
 import useFetch from '@Hooks/useFetch';
 
-import { MOCK_DATA_URL } from '@Constants/index';
+import { PRODUCTS_URL } from '@Constants/index';
 
 function ProductListPage() {
-  const { data, isLoading } = useFetch<Product[]>(MOCK_DATA_URL);
-  return (
-    <>
-      <ProductList data={data} isLoading={isLoading} />
-    </>
-  );
+  const { data, status } = useFetch<Product[]>(PRODUCTS_URL);
+
+  if (status === 'error') return <div>에러 발생!</div>;
+  return <ProductList data={data} isLoading={status === 'loading'} />;
 }
 
 export default ProductListPage;

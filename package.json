@@ -89,8 +89,6 @@
     "tsconfig-paths-webpack-plugin": "^4.0.1",
     "webpack": "^5.82.0"
   },
-  "readme": "ERROR: No README data found!",
-  "_id": "my@0.1.0",
   "msw": {
     "workerDirectory": "public"
   }

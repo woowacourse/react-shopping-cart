@@ -4,6 +4,12 @@ import Header from '@Components/Header';
 
 import GlobalStyle, { CommonPageStyle } from '@Styles/GlobalStyle';
 
+import { worker } from './mocks/browser';
+
+if (process.env.NODE_ENV === 'development') {
+  worker.start();
+}
+
 function App() {
   return (
     <>

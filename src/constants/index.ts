@@ -18,4 +18,4 @@ export const QUANTITY_CONTROL_UNIT = {
   DECREASE: 1,
 } as const;
 
-export const MOCK_DATA_URL = '/products';
+export const PRODUCTS_URL = '/api/products';

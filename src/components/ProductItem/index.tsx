@@ -16,11 +16,11 @@ type ProductItemProps = {
     name: string;
     imageUrl: string;
   };
-  isLoading: boolean;
+  isLoading?: boolean;
   width?: string;
 };
 
-function ProductItem({ product, isLoading, width }: ProductItemProps) {
+function ProductItem({ product, isLoading = false, width }: ProductItemProps) {
   const { updateShoppingCart } = useShoppingCart();
   const { name, price, image, imageDescription } = useProduct(product);
   const quantity = product && useRecoilValue(quantityState(product.id));
