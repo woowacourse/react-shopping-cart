@@ -16,7 +16,7 @@ const Header = () => {
   return (
     <Wrapper>
       <TitleContainer onClick={handleTitleClicked}>
-        <img src={process.env.PUBLIC_URL + "assets/cart-icon.svg"} alt="홈카트" />
+        <img src={process.env.PUBLIC_URL + "/assets/cart-icon.svg"} alt="홈카트" />
         <p>SHOP</p>
       </TitleContainer>
       <CartContainer>

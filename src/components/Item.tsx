@@ -19,7 +19,7 @@ const Item = ({ id, name, price, imageUrl }: Product) => {
       <IconContainer>
         {quantity === MIN_QUANTITY.toString() ? (
           <img
-            src={process.env.PUBLIC_URL + "assets/cart-gray-icon.svg"}
+            src={process.env.PUBLIC_URL + "/assets/cart-gray-icon.svg"}
             alt={"카트"}
             onClick={handleCartClicked}
           />
