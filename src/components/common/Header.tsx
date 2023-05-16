@@ -1,19 +1,21 @@
 import styled from 'styled-components';
 import Icon from './Icon';
 import { CART_PATH } from '../../constants/svgPath';
-import Cart from '../Cart';
+import Cart from '../main/Cart';
 
 interface Props {
   title: string;
+  onClickCartButton?: () => void;
+  onClickTitle?: () => void;
 }
 
-const Header = ({ title }: Props) => {
+const Header = ({ title, onClickTitle, onClickCartButton }: Props) => {
   return (
     <S.Header>
       <S.Wrapper>
         <Icon width="44" height="36" color="#FFF" path={CART_PATH} viewBox="0 0 51 44" />
-        <span>{title}</span>
-        <Cart />
+        <S.TitleButton onClick={onClickTitle}>{title}</S.TitleButton>
+        <Cart onClick={onClickCartButton!} />
       </S.Wrapper>
     </S.Header>
   );
@@ -29,7 +31,6 @@ const S = {
     font-weight: 900;
     line-height: 80px;
     letter-spacing: 0.1px;
-    color: #fff;
 
     & svg {
       margin-right: 20px;
@@ -43,6 +44,11 @@ const S = {
     max-width: 1270px;
     margin: 0 auto;
     padding: 0 20px;
+  `,
+  TitleButton: styled.button`
+    color: #fff;
+    background-color: transparent;
+    cursor: pointer;
   `,
 };
 
