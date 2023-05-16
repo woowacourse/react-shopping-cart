@@ -15,7 +15,7 @@ const CounterWithState = ({ size }: CounterWithStateProps) => {
 };
 
 const meta = {
-  title: 'Counter',
+  title: 'common/Counter',
   component: CounterWithState,
   tags: ['autodocs'],
 } satisfies Meta<typeof CounterWithState>;

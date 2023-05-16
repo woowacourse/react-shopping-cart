@@ -3,7 +3,7 @@ import ProductList from './ProductList';
 import { handlers } from '../../../mocks/handlers';
 
 const meta = {
-  title: 'ProductList',
+  title: 'product/ProductList',
   component: ProductList,
   tags: ['autodocs'],
 } satisfies Meta<typeof ProductList>;

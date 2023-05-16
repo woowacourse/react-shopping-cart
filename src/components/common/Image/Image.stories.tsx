@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import Image from './Image';
 
 const meta = {
-  title: 'Image',
+  title: 'common/Image',
   component: Image,
   tags: ['autodocs'],
 } satisfies Meta<typeof Image>;
