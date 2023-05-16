@@ -1,90 +1,64 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as Cart } from '../../assets/카트.svg';
 import { Product } from '../../types/product';
-import useCart from './hooks/useCart';
-import { cartState } from '../../atoms/cart';
+import Counter from '../Counter';
 
 type ProductItemProps = {
   product: Product;
 };
 
 const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
-  const { cart, addCart, updateCart, deleteCart } = useCart(cartState, product);
-  const productItemQuantity = cart.find((c) => c.product.id === product.id)?.quantity;
-
-  const [count, setCount] = useState(productItemQuantity || 0);
-
   const { name, price, imageUrl } = product;
-
-  const handleCartAmount = () => {
-    addCart();
-    setCount(1);
-  };
-
-  const limitInputNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length > 3) {
-      e.target.value = e.target.value.slice(0, 3);
-    }
-  };
-
-  const handleCartAmountChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    limitInputNumber(e);
-    const newCount = Number(e.target.value);
-
-    updateCart(newCount);
-    setCount(newCount);
-
-    if (newCount === 0) deleteCart();
-  };
-
-  const handleBlur: React.FocusEventHandler<HTMLInputElement> = (e) => {
-    if (Number(e.target.value) < 1) {
-      setCount(0);
-      deleteCart();
-    }
-  };
 
   return (
     <StyledProductItemWrapper data-cy="product-item">
-      <StyledThumbnail src={imageUrl} alt="납작" />
+      <StyledThumbnailWrapper>
+        <StyledThumbnail src={imageUrl} alt={name} />
+        <Counter product={product} />
+      </StyledThumbnailWrapper>
       <StyledInfoWrapper>
         <div>
           <StyledProductTitle>{name}</StyledProductTitle>
-          <StyledProductPrice>{price}원</StyledProductPrice>
+          <StyledProductPrice>{price.toLocaleString('ko-KR')}원</StyledProductPrice>
         </div>
-        <StyledAddToCart>
-          {count === 0 ? (
-            <Cart data-cy="add-cart" onClick={handleCartAmount} />
-          ) : (
-            <StyledCountInput
-              type="number"
-              value={count}
-              onChange={handleCartAmountChange}
-              min={0}
-              max={100}
-              onBlur={handleBlur}
-            />
-          )}
-        </StyledAddToCart>
       </StyledInfoWrapper>
     </StyledProductItemWrapper>
   );
 };
 
 const StyledProductItemWrapper = styled.li`
-  width: 282px;
-  height: 360px;
+  width: 200px;
+`;
+
+const StyledThumbnailWrapper = styled.div`
+  width: 200px;
+  height: 200px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  overflow: clip;
+  position: relative;
+
+  & > div {
+    position: absolute;
+    right: 5px;
+    bottom: 10px;
+  }
 `;
 
 const StyledThumbnail = styled.img`
-  width: 282px;
-  height: 282px;
+  width: 200px;
+  height: 200px;
+  padding: 10px;
+  transition: all 0.3s ease 0s;
+
+  &:hover {
+    transform: scale(1.15);
+  }
 `;
 
 const StyledInfoWrapper = styled.div`
   margin-top: 18px;
-  padding: 0 12px;
+  padding: 0 10px;
 
   display: flex;
   justify-content: space-between;
@@ -93,18 +67,26 @@ const StyledInfoWrapper = styled.div`
   letter-spacing: 0.5px;
 `;
 
-const StyledProductTitle = styled.div``;
+const StyledProductTitle = styled.div`
+  width: 180px;
+  height: 44px;
 
-const StyledProductPrice = styled.div`
-  font-size: 20px;
-  line-height: 27px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
-const StyledAddToCart = styled.div``;
+const StyledProductPrice = styled.div`
+  width: 180px;
+  height: 27px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 
-const StyledCountInput = styled.input`
-  width: 50px;
-  text-align: center;
+  font-size: 20px;
+  line-height: 27px;
 `;
 
 export default ProductItem;
