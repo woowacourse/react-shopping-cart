@@ -16,7 +16,9 @@ const Header = () => {
       <Link to="/" reloadDocument={true}>
         <StyledTitleDiv>
           <LOGO />
-          <Text.Title color="white">SHOP</Text.Title>
+          <Text.Title fontSize="40px" color="white">
+            SHOP
+          </Text.Title>
         </StyledTitleDiv>
       </Link>
       <StyledCartFlexBox>

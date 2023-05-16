@@ -13,11 +13,11 @@ interface TextProps extends HTMLAttributes<HTMLParagraphElement> {
 export const BaseText = (props: TextProps) => {
   const {
     children = null,
-    color,
+    color = 'black',
     fontStyle = 'normal',
     fontSize = '16px',
     fontWeight = '500',
-    lineHeight = '24px',
+    lineHeight = '',
   } = props;
 
   return (
@@ -34,13 +34,13 @@ export const BaseText = (props: TextProps) => {
 };
 
 export const Title = (props: TextProps) => {
-  return <BaseText {...props} fontSize="32px" fontWeight="700" />;
+  return <BaseText fontSize="32px" fontWeight="700" {...props} />;
 };
 
 export const Paragraph = (props: TextProps) => {
-  return <BaseText {...props} fontSize="20px" fontWeight="500" />;
+  return <BaseText fontSize="20px" fontWeight="500" {...props} />;
 };
 
 export const Description = (props: TextProps) => {
-  return <BaseText {...props} fontSize="16px" fontWeight="400" />;
+  return <BaseText fontSize="16px" fontWeight="400" {...props} />;
 };

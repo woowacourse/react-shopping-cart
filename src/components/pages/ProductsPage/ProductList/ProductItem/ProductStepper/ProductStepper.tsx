@@ -40,57 +40,51 @@ const ProductStepper = (props: ProductStepperProps) => {
             handleNumberInputChange,
             handleIncrementButtonClick,
             handleDecrementButtonClick,
-          }) => (
-            <StyledProductStepperFlexBox>
-              <Input
-                width="48px"
-                height="28px"
-                type="number"
-                value={step}
-                inputMode="numeric"
-                aria-label="상품 개수 입력"
-                onChange={handleNumberInputChange}
-              />
-              <StyledProductStepperButtonFlexBox>
-                <Button
-                  width="28px"
-                  height="14px"
-                  aria-label="상품 1개 추가"
-                  backgroundColor="#white"
-                  onClick={handleIncrementButtonClick}
-                  type="button"
-                  name="상품 추가 버튼"
-                  border="1px solid #dddddd"
-                >
-                  <Text.BaseText
-                    color="#333333"
-                    fontSize="xx-small"
-                    lineHeight="none"
+          }) => {
+            return (
+              <StyledProductStepperFlexBox>
+                <Input
+                  width="48px"
+                  height="28px"
+                  type="number"
+                  value={step}
+                  inputMode="numeric"
+                  aria-label="상품 개수 입력"
+                  onChange={handleNumberInputChange}
+                />
+                <StyledProductStepperButtonFlexBox>
+                  <Button
+                    width="28px"
+                    height="14px"
+                    aria-label="상품 1개 추가"
+                    backgroundColor="#white"
+                    onClick={handleIncrementButtonClick}
+                    type="button"
+                    name="상품 추가 버튼"
+                    border="1px solid #dddddd"
                   >
-                    ▲
-                  </Text.BaseText>
-                </Button>
-                <Button
-                  width="28px"
-                  height="14px"
-                  aria-label="상품 1개 삭제"
-                  backgroundColor="#white"
-                  onClick={handleDecrementButtonClick}
-                  type="button"
-                  name="상품 삭제 버튼"
-                  border="1px solid #dddddd"
-                >
-                  <Text.BaseText
-                    color="#333333"
-                    fontSize="xx-small"
-                    lineHeight="none"
+                    <Text.Paragraph color="#333333" fontSize="xx-small">
+                      ▲
+                    </Text.Paragraph>
+                  </Button>
+                  <Button
+                    width="28px"
+                    height="14px"
+                    aria-label="상품 1개 삭제"
+                    backgroundColor="#white"
+                    onClick={handleDecrementButtonClick}
+                    type="button"
+                    name="상품 삭제 버튼"
+                    border="1px solid #dddddd"
                   >
-                    ▼
-                  </Text.BaseText>
-                </Button>
-              </StyledProductStepperButtonFlexBox>
-            </StyledProductStepperFlexBox>
-          )}
+                    <Text.Paragraph color="#333333" fontSize="xx-small">
+                      ▼
+                    </Text.Paragraph>
+                  </Button>
+                </StyledProductStepperButtonFlexBox>
+              </StyledProductStepperFlexBox>
+            );
+          }}
         </Stepper>
       )}
     </>
