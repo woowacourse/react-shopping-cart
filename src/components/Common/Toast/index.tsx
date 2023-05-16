@@ -14,7 +14,7 @@ function Toast({ message, showTime = 2000, error = false }: ToastProps) {
     setTimeout(() => {
       setShow(false);
     }, showTime);
-  }, []);
+  }, [showTime]);
 
   return <>{show && <div className={`${styles.container} ${error && styles.error}`}>{message}</div>}</>;
 }

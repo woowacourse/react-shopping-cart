@@ -15,8 +15,9 @@ function AddCartButton({ product, id }: AddCardButtonProps) {
   const handleClick = async () => await addCartItem(product);
   const handleUpButton = async () => await addQuantity(1);
   const handleDownButton = async () => {
-    if (cartItemState.quantity === 1) {
+    if (cartItemState.quantity <= 1) {
       await deleteCartItem();
+      return;
     }
     await addQuantity(-1);
   };
