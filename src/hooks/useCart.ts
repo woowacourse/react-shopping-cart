@@ -28,7 +28,10 @@ function useCart() {
   const removeCart = async (id: number) => {
     const removedCartList = cartList.filter((cart) => cart.id !== id);
     setCartList(removedCartList);
-    // fetch(`/cart-items/{cartItemId}`);
+    const response = await fetch(`/cart-items/${id}`, {
+      method: 'DELETE',
+    });
+    console.log(response);
   };
 
   const updateCartListQuantity = (cartList: Cart[], id: number, newQuantity: number) => {

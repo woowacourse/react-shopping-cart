@@ -31,4 +31,14 @@ export const handlers = [
       ctx.json(true),
     )
   }),
+
+  rest.delete('/cart-items/:id', (req, res, ctx) => {
+    console.log(req.params.id);
+
+    return res(
+      ctx.delay(100),
+      ctx.status(204),
+      // ctx.json(true),
+    )
+  }),
 ];
