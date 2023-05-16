@@ -1,24 +1,54 @@
+import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import { cartListAtom, cartSelector } from '../../store/cart';
 import CartItem from '../CartItem/CartItem';
 import CheckBox from '../common/CheckBox/CheckBox';
 
+export type Select = {
+  id: number;
+  isSelected: boolean;
+};
+
 const CartItemList = () => {
   const cartList = useRecoilValue(cartListAtom);
   const { cartsQuantity } = useRecoilValue(cartSelector);
+  const [isAllSelected, setIsAllSelected] = useState<boolean>(false);
+  const [selectedState, setSelectedState] = useState<Select[]>(
+    cartList.map((id) => ({ id, isSelected: false }))
+  );
+
+  const toggleSelectAll = () => {
+    setIsAllSelected(!isAllSelected);
+    setSelectedState(
+      cartList.map((id) => ({ id, isSelected: !isAllSelected }))
+    );
+  };
+
+  const countSelectedItems = () => {
+    return selectedState.filter((item) => item.isSelected === true).length;
+  };
 
   return (
     <Wrapper>
       <SubTitle>든든 배송 상품 ({cartsQuantity}개)</SubTitle>
       <Ul>
         {cartList.map((id) => (
-          <CartItem id={id} />
+          <CartItem
+            id={id}
+            selectState={
+              selectedState.find((state) => state.id === id) as Select
+            }
+            setSelectedState={setSelectedState}
+            setIsAllSelected={setIsAllSelected}
+          />
         ))}
 
         <CheckBoxWrapper>
-          <CheckBox />
-          <span>전체선택 (2/{cartsQuantity})</span>
+          <CheckBox onClick={toggleSelectAll} checked={isAllSelected} />
+          <span>
+            전체선택 ({countSelectedItems()}/{cartsQuantity})
+          </span>
           <DeleteSelectedItemsButton>선택삭제</DeleteSelectedItemsButton>
         </CheckBoxWrapper>
       </Ul>

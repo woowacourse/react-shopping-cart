@@ -5,12 +5,21 @@ import Counter from '../common/Counter/Counter';
 import CheckBox from '../common/CheckBox/CheckBox';
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { cartAtomFamily, cartListAtom } from '../../store/cart';
+import { Select } from '../CartItemList/CartItemList';
 
 interface CartItemProps {
   id: number;
+  selectState: Select;
+  setSelectedState: React.Dispatch<React.SetStateAction<Select[]>>;
+  setIsAllSelected: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CartItem = ({ id }: CartItemProps) => {
+const CartItem = ({
+  id,
+  selectState,
+  setSelectedState,
+  setIsAllSelected,
+}: CartItemProps) => {
   const setCart = useSetRecoilState(cartListAtom);
   const [productInCart, setProductInCart] = useRecoilState(cartAtomFamily(id));
   const resetProductInCart = useResetRecoilState(cartAtomFamily(id));
@@ -39,10 +48,19 @@ const CartItem = ({ id }: CartItemProps) => {
     resetProductInCart();
   };
 
+  const toggleSelect = () => {
+    setIsAllSelected(false);
+
+    setSelectedState((prev) => [
+      ...prev.filter((item) => item.id !== id),
+      { ...selectState, isSelected: !selectState.isSelected },
+    ]);
+  };
+
   return (
     <Wrapper>
       <CheckBoxWrapper>
-        <CheckBox />
+        <CheckBox checked={selectState.isSelected} onClick={toggleSelect} />
       </CheckBoxWrapper>
 
       <ProductImg
