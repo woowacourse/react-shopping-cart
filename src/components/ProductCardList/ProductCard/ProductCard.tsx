@@ -23,6 +23,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           initialIncrement={initialAddCart}
           increaseQuantity={increaseQuantity}
           decreaseQuantity={decreaseQuantity}
+          $position={{ $bottom: '12px', $right: '8px' }}
         />
       </ProductImgContainer>
       <FlexBox>
