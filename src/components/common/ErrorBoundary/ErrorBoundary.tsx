@@ -1,5 +1,4 @@
 import React, { Component, ReactElement, ReactNode } from 'react';
-import { AxiosError } from 'axios';
 
 interface Props {
   children: ReactNode;
@@ -17,11 +16,7 @@ class ErrorBoundary extends Component<Props, State> {
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error: Error): State {
-    if (error instanceof AxiosError) {
-      return { hasError: true, status: error.response?.status };
-    }
-
+  static getDerivedStateFromError(): State {
     return { hasError: true };
   }
 
