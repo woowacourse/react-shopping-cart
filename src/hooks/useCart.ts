@@ -14,7 +14,14 @@ function useCart() {
     if (cartList.find((cartItem) => cartItem.id === product.id) === undefined) {
       const newCartItem: NewCartItem = { id: product.id, quantity: 1, product };
       setCartList([...cartList, newCartItem]);
-      // fetch('/cart-items');
+      const response = await fetch('/cart-items', {
+        method: 'POST',
+        body: JSON.stringify({
+          productId: newCartItem.id
+        })
+      });
+      const result = await response.json();
+      console.log(result);
     }
   };
 
