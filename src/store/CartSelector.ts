@@ -1,13 +1,13 @@
 import { selector, selectorFamily } from 'recoil';
 import { CartItem, Product } from '../types';
 import { cartState } from './CartState';
-import { CART_ITEM_EXISTS } from '../constants';
+import { CART_ITEM_EXISTS, NONE_QUANTITY } from '../constants';
 import { productListState } from './ProductListState';
 import { setDataInLocalStorage } from '../utils/setDataInLocalStorage';
 
-export type AddToCartSelectorParams = {
+export type SelectorParams = {
   id: number;
-  quantity: number;
+  quantity?: number;
 };
 
 export const productFindByIdSelector = selectorFamily<CartItem | undefined, number>({
@@ -32,9 +32,8 @@ export const isSelectedProductSelector = selectorFamily<boolean, number>({
   key: 'isSelectedProductSelector',
   get: (id: number) => ({ get }) => {
     const cart = get(cartState);
-    const isSelected = cart.find((item) => item.id === id) ? true : false;
 
-    return isSelected;
+    return cart.some((item) => item.id === id);
   },
 });
 
@@ -48,10 +47,16 @@ export const selectedProductSelector = selectorFamily<Product, number>({
   },
 });
 
-export const addToCartSelector = selectorFamily<CartItem[], AddToCartSelectorParams>({
+export const updateCartSelector = selectorFamily<number, SelectorParams>({
   key: 'addToCartSelector',
-  get: () => ({ get }) => get(cartState),
-  set: ({ id, quantity }) => ({ get, set }) => {
+  get: ({ id }) => ({ get }): number => {
+    const cart = get(cartState);
+
+    return cart.some((item) => item.id === id)
+      ? cart.find((item) => item.id === id)!.quantity
+      : NONE_QUANTITY;
+  },
+  set: ({ id, quantity = 0 }) => ({ get, set }) => {
     const cart = get(cartState);
     const productList = get(productListState);
     const cartItemIndex = cart.findIndex((item) => item.id === id);

@@ -1,14 +1,13 @@
-import { useState, ChangeEventHandler } from 'react';
+import { ChangeEventHandler } from 'react';
 import { styled } from 'styled-components';
 import QuantityInput from './QuantityInput';
 import { INITIAL_QUANTITY, NONE_QUANTITY, NOT_NUMBER } from '../constants';
 import { changeInvalidValueToBlank } from '../utils/changeInvalidValueToBlank';
 import { useRecoilCallback, useRecoilValue } from 'recoil';
 import {
-  AddToCartSelectorParams,
-  addToCartSelector,
+  SelectorParams,
+  updateCartSelector,
   isSelectedProductSelector,
-  productFindByIdSelector,
   removeProductItemFromCartSelector,
 } from '../store/CartSelector';
 import CartIconButton from './CartIconButton';
@@ -21,24 +20,19 @@ interface Props {
 }
 
 const ProductItem = ({ id, imgUrl, name, price }: Props) => {
-  const addToCart = useRecoilCallback(({ set }) => ({ id, quantity }: AddToCartSelectorParams) => {
-    set(addToCartSelector({ id, quantity }), []);
+  const isSelected = useRecoilValue(isSelectedProductSelector(id));
+  const newQuantity = useRecoilValue(updateCartSelector({ id }));
+
+  const updateCart = useRecoilCallback(({ set }) => ({ id, quantity }: SelectorParams) => {
+    set(updateCartSelector({ id, quantity }), 0);
   });
 
   const removeProductItemFromCart = useRecoilCallback(({ set }) => (id: number) => {
     set(removeProductItemFromCartSelector(id), []);
   });
 
-  const isSelected = useRecoilValue(isSelectedProductSelector(id));
-
-  const productFindById = useRecoilValue(productFindByIdSelector(id));
-
-  const [quantity, setQuantity] = useState(
-    productFindById ? productFindById.quantity : INITIAL_QUANTITY,
-  );
-
   const handleCartClick = () => {
-    addToCart({ id: id, quantity: quantity });
+    updateCart({ id: id, quantity: INITIAL_QUANTITY });
   };
 
   const handleNumberInputChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
@@ -46,11 +40,11 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
 
     if (Number(value) === NONE_QUANTITY) {
       removeProductItemFromCart(id);
-      return setQuantity(INITIAL_QUANTITY);
+      return;
     }
 
-    setQuantity(changeInvalidValueToBlank(value, NOT_NUMBER));
-    addToCart({ id: id, quantity: quantity });
+    const newQuantity = changeInvalidValueToBlank(value, NOT_NUMBER);
+    updateCart({ id: id, quantity: newQuantity });
   };
 
   return (
@@ -65,7 +59,11 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
           </S.Price>
         </div>
         {isSelected ? (
-          <QuantityInput value={quantity} onChange={handleNumberInputChange} id={`product${id}`} />
+          <QuantityInput
+            value={newQuantity}
+            onChange={handleNumberInputChange}
+            id={`product${id}`}
+          />
         ) : (
           <CartIconButton onClick={handleCartClick} ariaLabel={id} />
         )}
