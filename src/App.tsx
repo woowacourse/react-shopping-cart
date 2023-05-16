@@ -1,7 +1,7 @@
 import { RecoilRoot } from "recoil";
 import { styled } from "styled-components";
 import CartTextButton from "./components/CartTextButton/CartTextButton";
-import Header from "./components/common/Header/Header";
+import Header from "./components/Header/Header";
 import { Outlet } from "react-router-dom";
 
 function App() {
