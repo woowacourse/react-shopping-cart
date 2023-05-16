@@ -1,27 +1,22 @@
 import { useRecoilState } from 'recoil';
 import { cartState } from '../recoil/atoms';
-import { uuid } from '../utils/uuid';
+import { CART_BASE_URL } from '../constants';
 import type { Product } from '../types/product';
 
 const useCartService = () => {
   const [cart, setCart] = useRecoilState(cartState);
 
-  const addProductToCart = (product: Product) => {
-    const isAlreadyExists = cart.some(
-      (cartItem) => cartItem.product.id === product.id,
-    );
-
-    if (isAlreadyExists) return;
-
-    setCart((prevCart) => {
-      return [
-        ...prevCart,
-        {
-          id: uuid(),
-          quantity: 1,
-          product,
-        },
-      ];
+  const addProductToCart = (productId: Product['id']) => {
+    fetch(CART_BASE_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(productId),
+    }).then(() => {
+      fetch(CART_BASE_URL)
+        .then((res) => res.json())
+        .then((data) => setCart(data));
     });
   };
 
@@ -51,4 +46,5 @@ const useCartService = () => {
     removeProductFromCart,
   } as const;
 };
+
 export default useCartService;
