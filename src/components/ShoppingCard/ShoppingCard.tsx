@@ -1,5 +1,6 @@
 import { memo } from "react";
-import styled, { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
+import Styled from "./ShoppingCardStyled";
 import useCart from "../../hooks/useCart";
 import ProductImg from "../common/ProductImg/ProductImg";
 import ProductName from "../common/ProductName/ProductName";
@@ -13,7 +14,8 @@ interface ShoppingCardProps {
 }
 
 const ShoppingCard = ({ cartId }: ShoppingCardProps) => {
-  const { cart, product, plusQuantity, minusQuantity } = useCart(cartId);
+  const { cart, plusQuantity, minusQuantity } = useCart(cartId);
+  const { quantity, product } = cart;
   const { name, price, imageUrl } = product;
   const imgTheme = {
     width: "144px",
@@ -50,7 +52,7 @@ const ShoppingCard = ({ cartId }: ShoppingCardProps) => {
           <Counter
             plusQuantity={plusQuantity}
             minusQuantity={minusQuantity}
-            quantity={1}
+            quantity={quantity}
           />
         </ThemeProvider>
         <ThemeProvider theme={priceTheme}>
@@ -59,29 +61,6 @@ const ShoppingCard = ({ cartId }: ShoppingCardProps) => {
       </Styled.InfoContainer>
     </Styled.Container>
   );
-};
-
-const Styled = {
-  Container: styled.div`
-    display: flex;
-    width: 100%;
-    gap: 15px;
-  `,
-  Checkbox: styled.input`
-    width: 28px;
-    height: 28px;
-  `,
-  InfoContainer: styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 23px;
-
-    width: 100%;
-  `,
-  TopSection: styled.section`
-    display: flex;
-    justify-content: space-between;
-  `,
 };
 
 export default memo(ShoppingCard);
