@@ -7,6 +7,7 @@ import { Text } from '../common/Text/Text';
 import InputStepper from '../common/InputStepper/InputStepper';
 import { cartListState } from '../../service/atom';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
+import getPriceFormat from '../../utils/getPriceFormat';
 
 const ProductItem = ({ product }: { product: Product }) => {
   const { localStorageData, internalSetLocalStorageData } = useLocalStorage<CartItem[]>(
@@ -69,7 +70,7 @@ const ProductItem = ({ product }: { product: Product }) => {
             {product.name}
           </Text>
           <Text size="small" weight="light" color="#333333" lineHeight="33px">
-            {product.price} 원
+            {getPriceFormat(product.price)} 원
           </Text>
         </ProductTextWrapper>
         {quantity === 0 ? (
