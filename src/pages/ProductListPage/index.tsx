@@ -2,12 +2,12 @@ import ProductList from '@Components/ProductList';
 
 import { Product } from '@Types/index';
 
-import { useMockFetch } from '@Hooks/useMockFetch';
+import useFetch from '@Hooks/useFetch';
 
-import MockData from '../../mockData.json';
+import { MOCK_DATA_URL } from '@Constants/index';
 
 function ProductListPage() {
-  const { data, isLoading } = useMockFetch<Product[]>(MockData);
+  const { data, isLoading } = useFetch<Product[]>(MOCK_DATA_URL);
   return (
     <>
       <ProductList data={data} isLoading={isLoading} />

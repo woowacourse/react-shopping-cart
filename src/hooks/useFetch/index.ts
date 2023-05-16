@@ -9,7 +9,9 @@ const useFetch = <T>(url: string) => {
 
     async function fetchData() {
       await fetch(url)
-        .then((res) => res.json())
+        .then((res) => {
+          return res.json();
+        })
         .then((json: T) => {
           setData(json);
           setIsLoading(false);
