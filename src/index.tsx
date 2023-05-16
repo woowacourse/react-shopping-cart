@@ -2,8 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
-import ProductPage from "./pages/ProductPage";
 import GlobalStyle from "./styles/GlobalStyle";
+import ProductPage from "./pages/ProductPage";
+import ShoppingCartPage from "./pages/ShoppingCartPage";
 
 const router = createBrowserRouter(
   [
@@ -14,6 +15,10 @@ const router = createBrowserRouter(
         {
           index: true,
           element: <ProductPage />,
+        },
+        {
+          path: "shopping-cart",
+          element: <ShoppingCartPage />,
         },
       ],
     },
