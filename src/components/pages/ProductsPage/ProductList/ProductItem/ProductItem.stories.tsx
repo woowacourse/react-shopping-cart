@@ -26,19 +26,8 @@ export const Default: Story = {
   args: {
     product: {
       id: 1,
-      name: '1',
-      price: 1,
-      imageUrl: catImage,
-    },
-  },
-};
-
-export const Clicked: Story = {
-  args: {
-    product: {
-      id: 1,
-      name: '1',
-      price: 1,
+      name: '귀여운 고양이',
+      price: 1000,
       imageUrl: catImage,
     },
   },
