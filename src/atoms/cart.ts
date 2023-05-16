@@ -15,10 +15,12 @@ const localStorageEffect: <T>(key: string) => AtomEffect<T> =
     });
   };
 
+const CART_LOCAL_STORAGE_KEY = 'CART';
+
 export const cartState = atom<Cart[]>({
   key: 'CartListState',
   default: [],
-  effects: [localStorageEffect<Cart[]>('CART')],
+  effects: [localStorageEffect<Cart[]>(CART_LOCAL_STORAGE_KEY)],
 });
 
 export const totalAmountState = selector({
