@@ -1,16 +1,15 @@
 import { styled } from 'styled-components';
 import Image from '../../common/Image/Image';
-import type { CartItem } from '../../../types/product';
-import { useId } from 'react';
 import Counter from '../../common/Counter/Counter';
+import Checkbox from '../../common/Checkbox/Checkbox';
 import useCartService from '../../../hooks/useCartService';
 import { formatPrice } from '../../../utils/formatPrice';
+import type { CartItem } from '../../../types/product';
 
 const CartListItem = (cartItem: CartItem) => {
   const { quantity, product } = cartItem;
   const { id, name, price, imageSrc } = product;
   const { updateProductQuantity, removeProductFromCart } = useCartService();
-  const checkboxId = useId();
 
   const handleChangeQuantity = (quantity: number) => {
     updateProductQuantity(id, quantity);
@@ -24,8 +23,7 @@ const CartListItem = (cartItem: CartItem) => {
 
   return (
     <Container>
-      <CartCheckbox type="checkbox" id={checkboxId} />
-      <label htmlFor={checkboxId}></label>
+      <Checkbox />
 
       <Image src={imageSrc} loading="lazy" alt={name} />
       <Title>{name}</Title>
@@ -65,29 +63,9 @@ const Container = styled.div`
   height: 180px;
 `;
 
-const CartCheckbox = styled.input`
-  appearance: none;
-  width: 28px;
-  height: 28px;
-  border: 1px solid #22a6a2;
-  border-radius: 2px;
-  cursor: pointer;
-  margin-right: 15px;
-
-  &:checked {
-    border: 1px solid #3288ff;
-    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
-    background-size: 100% 100%;
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-color: #333;
-  }
-`;
-
 const Title = styled.p`
   margin-left: 20px;
   font-family: 'Noto Sans KR';
-  font-style: normal;
   font-size: 20px;
   line-height: 24px;
   letter-spacing: 0.5px;
@@ -113,7 +91,6 @@ const DeleteButton = styled.button`
 
 const Price = styled.p`
   font-family: 'Noto Sans KR';
-  font-style: normal;
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0.5px;
