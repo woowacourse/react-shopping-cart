@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { LogoIcon } from '../../assets/ShoppingCartIcon';
-import { useCartIdList } from '../../hooks/useCartIdList';
+import { useCartIdList } from '../../hooks/recoil/useCartIdList';
 import { useNavigate } from 'react-router-dom';
 
 export const Header = () => {

@@ -1,6 +1,6 @@
 import { useRecoilState } from 'recoil';
-import { useLocalStorage } from './useLocalStorage';
-import { cartIdListState } from '../components/atoms/cartIdListAtom';
+import { useLocalStorage } from '../useLocalStorage';
+import { cartIdListState } from '../../components/atoms/cartIdListAtom';
 
 export const useCartIdList = () => {
   const [cartIdList, setCartIdList] = useRecoilState(cartIdListState);

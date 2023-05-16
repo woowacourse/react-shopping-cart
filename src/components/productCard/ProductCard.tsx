@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Product } from '../../types/Product';
 import { Counter } from './Counter';
 import { ShoppingCartIcon } from '../../assets/ShoppingCartIcon';
-import { useCartIdList } from '../../hooks/useCartIdList';
+import { useCartIdList } from '../../hooks/recoil/useCartIdList';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { useCounterInput } from '../../hooks/useCounterInput';
 
