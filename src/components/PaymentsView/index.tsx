@@ -12,15 +12,15 @@ function PaymentsView({ priceTotal, parcelPrice }: PaymentsViewProps) {
       <li className={styles['payments-info']}>
         <ul>
           <span>총 상품가격</span>
-          <span>{priceTotal}</span>
+          <span>{priceTotal.toLocaleString()} 원</span>
         </ul>
         <ul>
           <span>총 배송비</span>
-          <span>{parcelPrice}</span>
+          <span>{parcelPrice.toLocaleString()} 원</span>
         </ul>
         <ul>
           <span>총 주문금액</span>
-          <span>{priceTotal + parcelPrice}</span>
+          <span>{(priceTotal + parcelPrice).toLocaleString()} 원</span>
         </ul>
       </li>
       <button className={styles['payments-button']}>주문하기</button>
