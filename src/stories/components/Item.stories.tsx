@@ -11,7 +11,7 @@ const Template: StoryFn = () => {
     id: 1,
     name: "PET보틀-정사각(420ml)",
     price: 10000,
-    imageUrl: "items/item-001.svg",
+    imageUrl: process.env.PUBLIC_URL + "/assets/product-001.svg",
     quantity: "0",
   };
 
