@@ -1,6 +1,7 @@
 import { useRecoilState } from 'recoil';
 import type { Cart, NewCartItem, ProductItem } from '../types/types';
 import { cartState } from '../recoil/cartAtoms';
+import { fetchAddCart, fetchDeleteCart, fetchUpdateCart } from '../api/api';
 
 function useCart() {
   const [cartList, setCartList] = useRecoilState(cartState);
@@ -10,28 +11,18 @@ function useCart() {
     return targetCart?.quantity ?? 0;
   };
 
-  const addCart = async (product: ProductItem) => {
+  const addCart = (product: ProductItem) => {
     if (cartList.find((cartItem) => cartItem.id === product.id) === undefined) {
       const newCartItem: NewCartItem = { id: product.id, quantity: 1, product };
       setCartList([...cartList, newCartItem]);
-      const response = await fetch('/cart-items', {
-        method: 'POST',
-        body: JSON.stringify({
-          productId: newCartItem.id
-        })
-      });
-      const result = await response.json();
-      console.log(result);
+      fetchAddCart(newCartItem);
     }
   };
 
-  const removeCart = async (id: number) => {
+  const removeCart = (id: number) => {
     const removedCartList = cartList.filter((cart) => cart.id !== id);
     setCartList(removedCartList);
-    const response = await fetch(`/cart-items/${id}`, {
-      method: 'DELETE',
-    });
-    console.log(response);
+    fetchDeleteCart(id);
   };
 
   const updateCartListQuantity = (cartList: Cart[], id: number, newQuantity: number) => {
@@ -51,14 +42,7 @@ function useCart() {
     } else {
       const changedCartList = updateCartListQuantity([...cartList], id, quantity);
       setCartList(changedCartList);
-      const response = await fetch(`/cart-items/${id}`, {
-        method: 'PATCH',
-        body: JSON.stringify({
-          quantity
-        })
-      });
-      const result = await response.json();
-      console.log(result);
+      fetchUpdateCart(id, quantity);
     }
   };
 
