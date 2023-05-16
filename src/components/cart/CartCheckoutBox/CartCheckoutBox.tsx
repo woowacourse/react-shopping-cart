@@ -24,7 +24,12 @@ const CartCheckoutBox = () => {
         </S.CheckoutInformationTextContainer>
         <S.CheckoutInformationTextContainer>
           <Text>총 배송비</Text>
-          <S.CheckoutValueText>{priceFormatter(SHIPPING_FEE)}원</S.CheckoutValueText>
+          <S.CheckoutValueText>
+            {cartListSubTotal.state === 'hasValue' && cartListSubTotal.contents > 0
+              ? priceFormatter(SHIPPING_FEE)
+              : 0}
+            원
+          </S.CheckoutValueText>
         </S.CheckoutInformationTextContainer>
         <S.CheckoutTotalPriceContainer>
           <Text>결제 예상 금액</Text>
