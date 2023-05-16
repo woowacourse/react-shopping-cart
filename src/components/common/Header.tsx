@@ -1,6 +1,6 @@
-import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { PATH } from '../../constants/';
+import { useGoToAnotherPage } from '../../hooks/useGoToAnotherPage';
 import Cart from '../Cart';
 import CartIcon from '../icons/CartIcon';
 
@@ -9,17 +9,12 @@ interface Props {
 }
 
 const Header = ({ title }: Props) => {
-  const navigator = useNavigate();
-  const location = useLocation().pathname;
-
-  const goToMainPage = () => {
-    if (location !== PATH.MAIN_PAGE) navigator(PATH.MAIN_PAGE);
-  };
+  const goToPage = useGoToAnotherPage();
 
   return (
     <S.Header>
       <S.Wrapper>
-        <S.Button onClick={goToMainPage}>
+        <S.Button onClick={() => goToPage(PATH.MAIN_PAGE)}>
           <CartIcon aria-label="logo-cart-icon" />
           <span>{title}</span>
         </S.Button>
