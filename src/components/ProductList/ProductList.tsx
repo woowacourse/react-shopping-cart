@@ -12,7 +12,7 @@ function ProductList() {
     case 'hasValue':
       return (
         <Row>
-          {productLoadable.contents.map((product: ProductItemType) => (
+          {productLoadable?.contents?.map((product: ProductItemType) => (
             <Column key={product.id}>
               <ProductItem product={product} />
             </Column>
@@ -22,7 +22,7 @@ function ProductList() {
     case 'loading':
       return <div>Loading...</div>;
     case 'hasError':
-      return <div>Error: {productLoadable.contents}</div>;
+      throw productLoadable?.contents?.message;
     default:
       return null;
   }
