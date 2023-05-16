@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 const useDataFetching = <T>(path: string) => {
@@ -8,9 +7,8 @@ const useDataFetching = <T>(path: string) => {
 
   const getData = async () => {
     setIsLoading(true);
-    await axios
-      .get(path)
-      .then((result) => setData(result.data))
+    await fetch(path, { method: 'get' })
+      .then(async (result) => setData(await result.json()))
       .catch((error) => {
         console.log(error);
       });
@@ -21,7 +19,7 @@ const useDataFetching = <T>(path: string) => {
     getData();
   }, []);
 
-  return { data, isLoading };
+  return { data, isLoading, refetch: getData };
 };
 
 export default useDataFetching;
