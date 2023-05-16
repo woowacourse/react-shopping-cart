@@ -1,16 +1,12 @@
+import { Product } from './../types/product';
 import { selector } from 'recoil';
-import { MOCK_API_URL } from '../constant';
-import { Product } from '../types/product';
+import mockData from '../data/mockProducts.json';
 
 export const fetchProductSelector = selector({
   key: 'FetchProductSelector',
   get: async () => {
-    const response = await fetch(MOCK_API_URL);
+    const products = mockData as Product[];
 
-    if (!response.ok) throw new Error('foo');
-
-    const products = await response.json();
-
-    return products as Product[];
+    return products;
   },
 });
