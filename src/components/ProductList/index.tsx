@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 import useControlCart from '@hooks/useControlCart';
-import { PRODUCT_LIST } from '../../mockData/productList';
+import useProductList from '@hooks/useProductList';
 import ProductItem from './ProductItem';
 
 const ProductList = () => {
   const { addProductToCart, removeProductFromCart } = useControlCart();
+  const productList = useProductList();
 
   return (
     <Container>
-      {PRODUCT_LIST.productList.map((product) => (
+      {productList.map((product) => (
         <ProductItem
           product={product}
           addProductToCart={() => addProductToCart(product)}
