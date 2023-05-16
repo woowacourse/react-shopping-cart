@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
-import Baemin from './fonts/Baemin.ttf';
+import Baemin from './assets/fonts/Baemin.ttf';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
