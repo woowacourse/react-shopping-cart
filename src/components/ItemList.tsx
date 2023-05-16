@@ -1,11 +1,14 @@
 import styled from "styled-components";
-import type { Product } from "../types/domain";
 import Item from "./Item";
+import { useRecoilValue } from "recoil";
+import { productListState } from "../recoil/atom";
 
-const ItemList = ({ items }: { items: Product[] }) => {
+const ItemList = () => {
+  const productList = useRecoilValue(productListState);
+
   return (
     <Wrapper>
-      {items.map((item) => (
+      {productList.map((item) => (
         <Item key={crypto.randomUUID()} {...item} />
       ))}
     </Wrapper>
