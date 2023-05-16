@@ -9,20 +9,6 @@ const Styled = {
 
     padding-left: 16px;
   `,
-
-  ProductName: styled.span`
-    font-weight: 400;
-    font-size: 16px;
-
-    letter-spacing: 0.5px;
-  `,
-
-  ProductPrice: styled.span`
-    font-weight: 400;
-    font-size: 20px;
-
-    letter-spacing: 0.5px;
-  `,
 };
 
 export default Styled;

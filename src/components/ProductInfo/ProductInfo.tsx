@@ -1,15 +1,17 @@
 import { memo } from "react";
+import ProductName from "../common/ProductName/ProductName";
+import ProductPrice from "../common/ProductPrice/ProductPrice";
 import Styled from "./ProductInfoStyled";
 
 interface ProductInfoProps {
-  name: String;
+  name: string;
   price: number;
 }
 const ProductInfo = ({ name, price }: ProductInfoProps) => {
   return (
     <Styled.ProductInfo>
-      <Styled.ProductName>{name}</Styled.ProductName>
-      <Styled.ProductPrice>{price.toLocaleString()}원</Styled.ProductPrice>
+      <ProductName name={name}></ProductName>
+      <ProductPrice price={price}></ProductPrice>
     </Styled.ProductInfo>
   );
 };
