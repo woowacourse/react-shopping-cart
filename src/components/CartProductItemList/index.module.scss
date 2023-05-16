@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  & > div {
+    border-bottom: 1.5px solid #cccccc;
+    padding: 30px 0;
+  }
+
+  & > div:last-child {
+    border-bottom: none;
+    padding: 30px 0;
+  }
+}
