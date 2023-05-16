@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
+import Order from '../components/cart/Order';
+import SelectedProductList from '../components/cart/SelectedProductList';
 import Header from '../components/common/Header';
-import Order from '../components/Order';
 
 const CartPage = () => {
   return (
@@ -8,7 +9,10 @@ const CartPage = () => {
       <Header title="STORE" />
       <S.Main>
         <S.Title>장바구니</S.Title>
-        <Order />
+        <S.Wrapper>
+          <SelectedProductList />
+          <Order />
+        </S.Wrapper>
       </S.Main>
     </>
   );
@@ -29,6 +33,16 @@ const S = {
     font-weight: 700;
     text-align: center;
     color: var(--text-color);
+  `,
+
+  Wrapper: styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin: 36px 30px 0 0;
+
+    &:last-child {
+      padding-top: 50px;
+    }
   `,
 };
 

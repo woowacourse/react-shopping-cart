@@ -67,7 +67,7 @@ const S = {
     width: 100%;
   `,
 
-  InfoWrapper: styled.div`
+  InfoWrapper: styled.fieldset`
     position: relative;
     display: flex;
     justify-content: space-between;
