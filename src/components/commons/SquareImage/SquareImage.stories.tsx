@@ -2,6 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { SquareImage } from '@commons/SquareImage/SquareImage';
 
+/**
+ * 정사각형 이미지 컴포넌트
+ */
+
 const meta: Meta<typeof SquareImage> = {
   title: 'SquareImage',
   component: SquareImage,

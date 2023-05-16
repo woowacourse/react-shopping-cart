@@ -5,7 +5,7 @@ import { expect } from '@storybook/jest';
 import ProductStepper from '@components/pages/ProductsPage/ProductList/ProductItem/ProductStepper/ProductStepper';
 
 /**
- * Stepper 컴포넌트
+ * 상품 스탭퍼
  */
 
 const meta: Meta<typeof ProductStepper> = {
@@ -18,10 +18,6 @@ export default meta;
 
 type Story = StoryObj<typeof ProductStepper>;
 
-/**
- * Default 스토리
- */
-
 export const Default: Story = {
   args: {
     productId: 1,
@@ -29,7 +25,7 @@ export const Default: Story = {
 };
 
 /**
- * 상품을 추가하고 삭제하는 스토리
+ * 상품을 추가하고 삭제하는 상호작용 테스트
  */
 
 export const StepperTest: Story = {

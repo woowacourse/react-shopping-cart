@@ -10,6 +10,10 @@ import { Input as StepInput } from '@commons/Input/Input';
 import { Button as StepperHandleButton } from '@commons/Button/Button';
 import * as Text from '../Text/Text';
 
+/**
+ * 스탭퍼
+ */
+
 const meta: Meta<typeof Stepper> = {
   title: 'Stepper',
   component: Stepper,

@@ -5,11 +5,11 @@ import catImage from '@public/cat0.png';
 import ProductItem from '@components/pages/ProductsPage/ProductList/ProductItem/ProductItem';
 
 /**
- * 상품목록 아이템
+ * 장바구니 아이템
  */
 
 const meta: Meta<typeof ProductItem> = {
-  title: 'ProductItem',
+  title: 'CartProductItem',
   component: ProductItem,
   tags: ['autodocs'],
 };

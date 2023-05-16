@@ -4,6 +4,10 @@ import { Checkbox } from '@commons/Checkbox/Checkbox';
 import { userEvent, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
+/**
+ * 체크박스
+ */
+
 const meta: Meta<typeof Checkbox> = {
   title: 'Checkbox',
   component: Checkbox,
@@ -19,6 +23,10 @@ export const Default: Story = {
     'aria-label': '체크박스',
   },
 };
+
+/**
+ * 체크박스 클릭 상호작용 테스트
+ */
 
 export const Test: Story = {
   ...Default,
