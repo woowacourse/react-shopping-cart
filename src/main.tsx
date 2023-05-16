@@ -7,14 +7,26 @@ import { RouterProvider } from 'react-router-dom';
 import router from './router';
 import { RecoilRoot } from 'recoil';
 import './configs/recoil';
+import { worker } from "./mocks/browser";
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <RecoilRoot>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <RouterProvider router={router} />
-      </ThemeProvider>
-    </RecoilRoot>
-  </React.StrictMode>
-);
+async function main() {
+
+  await worker.start({
+    serviceWorker: {
+      url: '/react-shopping-cart/mockServiceWorker.js',
+    },
+  })
+
+  ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+    <React.StrictMode>
+      <RecoilRoot>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <RouterProvider router={router} />
+        </ThemeProvider>
+      </RecoilRoot>
+    </React.StrictMode>
+  )
+}
+
+main();
