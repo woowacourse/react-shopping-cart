@@ -27,7 +27,7 @@ const CartItemImage = styled.img`
 `;
 
 const CartItemName = styled(Text)`
-  width: 342px;
+  width: 340px;
   margin-right: ${({ theme }) => theme.spacer.spacing4};
   overflow: hidden;
   white-space: nowrap;
@@ -40,7 +40,7 @@ const CartItemName = styled(Text)`
 `;
 
 const CartItemPrice = styled(Text)`
-  width: 130px;
+  width: 128px;
   margin-right: 12px;
   text-align: right;
   letter-spacing: -0.2px;
