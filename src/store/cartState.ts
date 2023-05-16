@@ -26,6 +26,7 @@ export const cartAllSelector = selector<Cart[]>({
     return cart;
   },
 });
+
 export const cartQuantitySelector = selector({
   key: "cartQuantitySelector",
   get: ({ get }) => {
