@@ -1,30 +1,30 @@
 import styled from 'styled-components';
 
-import { useCounterInput } from '../../hooks/useCounterInput';
+import { forwardRef } from 'react';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 interface CounterProps {
-  removeItemFromCartList: () => void;
+  handleIncrease: () => void;
+  handleDecrease: () => void;
+  initialValue?: number;
 }
 
-export const Counter = ({ removeItemFromCartList }: CounterProps) => {
-  const { inputRef, handleDecrease, handleIncrease } = useCounterInput({
-    min: 0,
-    handleMinValueExceeded: removeItemFromCartList,
-  });
-
-  return (
-    <Style.Container>
-      <Style.Button onClick={handleDecrease}>➖</Style.Button>
-      <Style.Input
-        value={inputRef.current?.value ? inputRef.current.value : 1}
-        ref={inputRef}
-        type="number"
-        readOnly
-      />
-      <Style.Button onClick={handleIncrease}>➕</Style.Button>
-    </Style.Container>
-  );
-};
+export const Counter = forwardRef<HTMLInputElement, CounterProps>(
+  ({ handleIncrease, handleDecrease, initialValue }, ref) => {
+    return (
+      <Style.Container>
+        <Style.Button onClick={handleDecrease}>➖</Style.Button>
+        <Style.Input
+          value={initialValue ?? 1}
+          ref={ref}
+          type="number"
+          readOnly
+        />
+        <Style.Button onClick={handleIncrease}>➕</Style.Button>
+      </Style.Container>
+    );
+  }
+);
 
 const Style = {
   Container: styled.div`
