@@ -6,16 +6,16 @@ import ErrorBox from '../common/ErrorBox/ErrorBox';
 import { Text } from '../common/Text/Text';
 
 const ProductList = () => {
-  const { data, isLoading } = useDataFetching<Product[]>('./mock/mockData.json');
+  const { fetchingData, isLoading } = useDataFetching<Product[]>('/api/products');
   if (isLoading) return <Text>로딩중...</Text>;
 
-  if (!data) return <ErrorBox errorType="network" />;
+  if (!fetchingData) return <ErrorBox errorType="network" />;
 
-  if (data.length === 0) return <ErrorBox errorType="emptyList" />;
+  if (fetchingData.length === 0) return <ErrorBox errorType="emptyList" />;
 
   return (
     <ProductListWrapper>
-      {data.map((product) => (
+      {fetchingData.map((product) => (
         <ProductItem key={product.id} product={product} />
       ))}
     </ProductListWrapper>

@@ -1,20 +1,23 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 const useDataFetching = <T>(path: string) => {
-  const [data, setData] = useState<T | undefined>();
+  const [fetchingData, setFetchingData] = useState<T | undefined>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const getData = async () => {
     setIsLoading(true);
 
-    await axios
-      .get(path)
-      .then((result) => setData(result.data))
+    fetch(path)
+      .then((response) => {
+        if (!response.ok) throw new Error(`${response.status} 에러 발생`);
+
+        return response.json();
+      })
+      .then((data) => setFetchingData(data))
       .catch((error) => {
         // netWork error 확인하기 위해
         // eslint-disable-next-line no-console
-        console.log(error);
+        console.log(error.message);
       });
 
     setIsLoading(false);
@@ -24,7 +27,7 @@ const useDataFetching = <T>(path: string) => {
     getData();
   }, []);
 
-  return { data, isLoading };
+  return { fetchingData, isLoading };
 };
 
 export default useDataFetching;
