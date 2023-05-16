@@ -29,6 +29,7 @@ export const OrderSummary = () => {
 const Style = {
   OrderSummary: styled.div`
     width: 448px;
+    height: fit-content;
 
     border: 1px solid var(--grey-200);
   `,
