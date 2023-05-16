@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import type { Product } from "../types/domain";
 import { useQuantity } from "../hooks/useQuantity";
-import Counter from "./Counter";
 import { MIN_QUANTITY } from "../constants";
+import QuantityCounter from "./QuantityCounter";
 
 const Item = ({ id, name, price, imageUrl }: Product) => {
   const { quantity, setNewQuantity } = useQuantity(id);
 
   const handleCartClicked = () => {
-    setNewQuantity(Number(quantity) + 1);
+    setNewQuantity((Number(quantity) + 1).toString());
   };
 
   return (
@@ -24,7 +24,7 @@ const Item = ({ id, name, price, imageUrl }: Product) => {
             onClick={handleCartClicked}
           />
         ) : (
-          <Counter itemId={id} />
+          <QuantityCounter itemId={id} />
         )}
       </IconContainer>
     </Wrapper>

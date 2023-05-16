@@ -1,37 +1,34 @@
 import React from "react";
 import styled from "styled-components";
-import { useQuantity } from "../hooks/useQuantity";
 
-interface CounterProps {
-  itemId: number;
+interface CounterProps extends React.HTMLProps<HTMLInputElement> {
+  value: string;
+  setValue: (newValue: string) => void;
 }
 
-const Counter = ({ itemId }: CounterProps) => {
-  const { quantity, setNewQuantity, handleQuantityChanged, handleQuantityBlured } =
-    useQuantity(itemId);
-
-  const handleCountInputKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+const Counter = (props: CounterProps) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (!(e.target instanceof HTMLInputElement) || e.key !== "Enter") return;
     e.target.blur();
   };
 
   const handleUpArrowBox = () => {
-    setNewQuantity(Number(quantity) + 1);
+    props.setValue((Number(props.value) + 1).toString());
   };
 
   const handleDownArrowBox = () => {
-    setNewQuantity(Number(quantity) - 1);
+    props.setValue((Number(props.value) - 1).toString());
   };
 
   return (
     <Wrapper>
       <CountInput
         type="number"
-        value={quantity}
-        onChange={handleQuantityChanged}
-        onKeyDown={handleCountInputKey}
-        onBlur={handleQuantityBlured}
-        placeholder="수량"
+        value={props.value}
+        onChange={props.onChange}
+        onKeyDown={handleKeyDown}
+        onBlur={props.onBlur}
+        placeholder={props.placeholder}
       />
       <ArrowBoxContainer>
         <ArrowBox onClick={handleUpArrowBox}>▾</ArrowBox>

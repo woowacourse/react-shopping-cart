@@ -15,8 +15,8 @@ export const useQuantity = (itemID: number) => {
     localStorage.setItem(CART_LIST_LOCAL_STORAGE_KEY, JSON.stringify(cartList));
   }, [cartList]);
 
-  const setNewQuantity = (newQuantity: number) => {
-    if (newQuantity > MAX_QUANTITY || newQuantity < MIN_QUANTITY) return;
+  const setNewQuantity = (newQuantity: string) => {
+    if (Number(newQuantity) > MAX_QUANTITY || Number(newQuantity) < MIN_QUANTITY) return;
 
     setQuantity(newQuantity.toString());
 
@@ -33,7 +33,7 @@ export const useQuantity = (itemID: number) => {
       e.target.value = MIN_QUANTITY.toString();
     if (Number(quantity) > MAX_QUANTITY) e.target.value = MAX_QUANTITY.toString();
 
-    setNewQuantity(Number(e.target.value));
+    setNewQuantity(e.target.value);
   };
 
   return {
