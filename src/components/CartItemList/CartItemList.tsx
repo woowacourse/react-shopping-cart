@@ -120,6 +120,4 @@ const DeleteSelectedItemsButton = styled.button`
   border: 1px solid #bbbbbb;
 
   padding: 8px 12px;
-
-  cursor: pointer;
 `;

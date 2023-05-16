@@ -46,7 +46,6 @@ const Button = styled.button`
   height: 100%;
 
   text-align: center;
-  cursor: pointer;
 `;
 
 export default Counter;

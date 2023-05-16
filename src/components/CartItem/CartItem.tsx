@@ -122,8 +122,6 @@ const DeleteButton = styled.button`
 
   top: 12px;
   right: 12px;
-
-  cursor: pointer;
 `;
 
 const CounterWrapper = styled.div`
