@@ -1,13 +1,9 @@
 import { styled } from 'styled-components';
 import { CartLogo } from '../assets/svg';
 import { Link } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { productsInCartState } from '../atom';
+import { CartSize } from './CartSize';
 
 export default function Header() {
-  const [productsInCart] = useRecoilState(productsInCartState);
-  const cartSize = Object.keys(productsInCart).length;
-
   return (
     <Style.Container>
       <Style.Content>
@@ -15,7 +11,7 @@ export default function Header() {
           <CartLogo fill="var(--grey-100)" style={{ width: '40px' }} />
         </Style.Title>
         <Style.CartLink to="/">
-          <Style.CountInCart>{cartSize}</Style.CountInCart>
+          <CartSize />
         </Style.CartLink>
       </Style.Content>
     </Style.Container>
@@ -66,18 +62,5 @@ const Style = {
       content: '장바구니';
       padding-right: 6px;
     }
-  `,
-
-  CountInCart: styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 30px;
-    height: 30px;
-
-    border-radius: 50%;
-
-    background-color: #04c09e;
   `,
 };
