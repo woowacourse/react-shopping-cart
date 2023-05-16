@@ -23,16 +23,18 @@ export const CartProductList = () => {
 const CartProduct = ({ id, name, price, imageUrl }: ProductType) => {
   const { quantity, setNewQuantity } = useQuantity(id);
 
-  const handleCartClicked = () => {
-    setNewQuantity(Number(quantity) + 1);
+  const handleTrashCanClicked = () => {
+    //delete로직
   };
 
   return (
     <ProductWrapper>
       <TrashCanIconBox>
-        <img src={TrashCanIcon} alt="휴지통" />
+        <img src={TrashCanIcon} alt="휴지통" onClick={handleTrashCanClicked} />
       </TrashCanIconBox>
-      <CheckBox type="checkbox" />
+      <CheckBoxLabel htmlFor="checkProduct">
+        <CheckBox id="checkProduct" type="checkbox" />
+      </CheckBoxLabel>
       <img src={imageUrl} alt="상품이미지" />
       <Container>
         <NameBox>{name}</NameBox>
@@ -47,8 +49,8 @@ const CartProduct = ({ id, name, price, imageUrl }: ProductType) => {
 
 const Wrapper = styled.div`
   display: flex;
-  width: 55%;
   flex-direction: column;
+  max-width: 600px;
 `;
 
 const TitleBox = styled.div`
@@ -93,15 +95,29 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const CheckBox = styled.input`
+const CheckBoxLabel = styled.label`
   align-self: flex-start;
-  width: 20px;
-  height: 20px;
   margin-right: 10px;
 `;
 
+const CheckBox = styled.input`
+  appearance: none;
+  border: 1.5px solid #22a6a2;
+  border-radius: 2px;
+  width: 24px;
+  height: 24px;
+
+  &:checked {
+    color: white;
+    background-color: var(--dark-gray);
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
+    border: 1px solid #3288ff;
+  }
+`;
+
 const NameBox = styled.div`
-  width: 350px;
+  max-width: 360px;
+  min-width: 200px;
   margin: 5px 15px;
 
   font-size: 18px;
@@ -113,11 +129,11 @@ const NameBox = styled.div`
 `;
 
 const PriceBox = styled.p`
-  align-self: flex-end;
+  align-self: end;
 
   font-size: 14px;
 `;
 
 const CounterBox = styled.div`
-  align-self: flex-end;
+  align-self: end;
 `;
