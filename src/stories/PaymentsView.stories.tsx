@@ -10,7 +10,7 @@ export default meta;
 
 export const Default: Story = {
   args: {
-    priceList: [1200, 12000, 23000],
+    priceTotal: 500000,
     parcelPrice: 3000,
   },
 };
