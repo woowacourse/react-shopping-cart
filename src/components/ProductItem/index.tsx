@@ -15,10 +15,9 @@ type ProductItemProps = {
     name: string;
     imageUrl: string;
   };
-  isLoading: false;
 };
 
-function ProductItem({ product, isLoading }: ProductItemProps) {
+function ProductItem({ product }: ProductItemProps) {
   const { imageUrl, name, price, id } = product;
 
   const { updateShoppingCart } = useShoppingCart();
@@ -31,10 +30,10 @@ function ProductItem({ product, isLoading }: ProductItemProps) {
       <S.ProductItemImage src={imageUrl} alt={`${name} 사진`} />
       <S.ProductItemContents>
         <S.ProductItemLayout>
-          <S.ProductItemName aria-label={'판매 품목 이름'} isLoading={isLoading}>
+          <S.ProductItemName aria-label={'판매 품목 이름'} isLoading={false}>
             {name}
           </S.ProductItemName>
-          <S.ProductItemPrice aria-label={'판매 품목 가격'} isLoading={isLoading}>
+          <S.ProductItemPrice aria-label={'판매 품목 가격'} isLoading={false}>
             {`${priceText} 원`}
           </S.ProductItemPrice>
         </S.ProductItemLayout>
