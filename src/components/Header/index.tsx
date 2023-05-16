@@ -34,10 +34,12 @@ const StyledHeaderWrapper = styled.header`
 `;
 
 const StyledHeaderBox = styled.div`
-  width: 1000px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  margin: 0 20px;
+  width: 1080px;
 
   color: white;
 `;

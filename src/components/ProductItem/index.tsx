@@ -48,7 +48,6 @@ const StyledThumbnailWrapper = styled.div`
 const StyledThumbnail = styled.img`
   width: 200px;
   height: 200px;
-  padding: 10px;
   transition: all 0.3s ease 0s;
 
   &:hover {

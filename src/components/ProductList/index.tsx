@@ -17,12 +17,12 @@ const ProductList: React.FC = () => {
 };
 
 const StyledProductListWrapper = styled.div`
-  padding: 100px 200px;
+  margin: 50px 12%;
   display: grid;
   justify-content: space-between;
   grid-template-columns: repeat(auto-fill, minmax(200px, auto));
   grid-column-gap: 20px;
-  grid-row-gap: 85px;
+  grid-row-gap: 50px;
 `;
 
 export default ProductList;
