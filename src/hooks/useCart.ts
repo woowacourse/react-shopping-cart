@@ -23,9 +23,5 @@ export default function useCart() {
     setCart(newCart);
   };
 
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY.cart, JSON.stringify(cart));
-  }, [cart]);
-
   return [cart, addCartItem, removeCartItem, updateQuantity] as const;
 }
