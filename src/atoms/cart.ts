@@ -24,7 +24,6 @@ export const cartState = atom<Cart[]>({
 export const totalAmountState = selector({
   key: 'TotalAmountState',
   get: ({ get }) => {
-    const cart = get(cartState);
-    return cart.reduce((acc, cur) => acc + cur.quantity, 0);
+    return get(cartState).length;
   },
 });
