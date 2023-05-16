@@ -5,6 +5,7 @@ import ProductImg from "../common/ProductImg/ProductImg";
 import ProductInfo from "./ProductInfo/ProductInfo";
 import useCart from "../../hooks/useCart";
 import Styled from "./ProductCardStyled";
+import IconButton from "../common/IconButton/IconButton";
 
 interface ProductCardProps {
   productId: number;
@@ -33,9 +34,9 @@ const ProductCard = ({ productId }: ProductCardProps) => {
             quantity={cart.quantity}
           />
         ) : (
-          <Styled.ShoppingCart onClick={addToCart}>
+          <IconButton onClick={addToCart}>
             <ShoppingCartImg />
-          </Styled.ShoppingCart>
+          </IconButton>
         )}
       </Styled.ProductDetail>
     </Styled.Container>

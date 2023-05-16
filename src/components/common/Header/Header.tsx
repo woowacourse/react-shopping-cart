@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ReactComponent as ShoppingCartIcon } from "../../assets/icon/logo.svg";
+import { ReactComponent as ShoppingCartIcon } from "../../../assets/icon/logo.svg";
 import Styled from "./HeaderStyled";
 
 interface HeaderProps {

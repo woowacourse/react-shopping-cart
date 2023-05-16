@@ -13,11 +13,5 @@ const Styled = {
     display: flex;
     justify-content: space-between;
   `,
-
-  ShoppingCart: styled.button`
-    display: flex;
-
-    cursor: pointer;
-  `,
 };
 export default Styled;

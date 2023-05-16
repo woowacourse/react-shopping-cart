@@ -19,8 +19,6 @@
       - [ ] ProductInfo와 ShoppingCard에서 재사용
     - [x] ProductPrice
       - [ ] ProductInfo, ShoppingCard, ShoppingPreview에서 재사용
-    - [ ] Quantity
-      - [ ] CartTextButton과 ShoppingTitle에서 재사용
     - [ ] CheckBox
     - [ ] IconButton
       - [ ] ProductCard의 쇼핑 아이콘 버튼과 ShoppingCardList의 삭제 아이콘 버튼으로 재사용
@@ -29,8 +27,8 @@
   - [ ] 재사용
     - [ ] Counter
       - [ ] 스타일 컴포넌트 theme 적용
-    - [ ] ProductImg
-      - [ ] 스타일 컴포넌트 theme 적용
+    - [x] ProductImg
+      - [x] 스타일 컴포넌트 theme 적용
 
 # 프로그래밍 요구사항
 
