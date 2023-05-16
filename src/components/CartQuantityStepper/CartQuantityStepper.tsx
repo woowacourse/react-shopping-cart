@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as MiniCartIcon } from 'assets/mini-cart-icon.svg';
+import useCartQuantityStepper from './hooks/useCartQuantityStepper';
 
 type CartQuantityStepperProps = {
   quantity: number;
@@ -15,16 +15,9 @@ const CartQuantityStepper = ({
   increaseQuantity,
   decreaseQuantity,
 }: CartQuantityStepperProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, openStepper, closeStepper } = useCartQuantityStepper();
+
   const isPositiveQuantity = quantity > 0;
-
-  const openStepper = () => {
-    setIsOpen(true);
-  };
-
-  const closeStepper = () => {
-    setIsOpen(false);
-  };
 
   const handleInitialIncrement = () => {
     openStepper();
