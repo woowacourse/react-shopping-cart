@@ -24,7 +24,7 @@ export const cartBadgeSelector = selector({
     const cart = get(cartState);
     const selectedProducts = new Set(cart);
 
-    return selectedProducts;
+    return selectedProducts.size;
   },
 });
 
@@ -93,5 +93,20 @@ export const removeProductItemFromCartSelector = selectorFamily<CartItem[], numb
 
       set(cartState, updatedCart);
     }
+  },
+});
+
+export const totalPriceSelector = selector<number>({
+  key: 'totalPriceSelector',
+  get: ({ get }) => {
+    const cart = get(cartState);
+    const totalPrice = cart.reduce((total, item) => {
+      const quantity = item.quantity;
+      const price = item.product.price;
+
+      return total + quantity * price;
+    }, 0);
+
+    return totalPrice;
   },
 });
