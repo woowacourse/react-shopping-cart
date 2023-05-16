@@ -29,6 +29,7 @@ const Styled = {
   `,
 
   Title: styled.h1`
+    font-size: 40px;
     padding-top: 4px;
     letter-spacing: 1px;
     color: #fff;

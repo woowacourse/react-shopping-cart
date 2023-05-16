@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 const Styled = {
   Price: styled.span`
+    align-self: ${(props) => props.theme.alignSelf};
+
     font-weight: ${(props) => props.theme.fontWeight};
     font-size: ${(props) => props.theme.fontSizes};
 
@@ -11,6 +13,7 @@ const Styled = {
 
 Styled.Price.defaultProps = {
   theme: {
+    alignSelf: "auto",
     fontWeight: "Regular",
     fontSize: "20px",
   },

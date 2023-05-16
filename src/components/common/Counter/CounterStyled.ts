@@ -5,9 +5,10 @@ const Styled = {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    align-self: ${(props) => props.theme.alignSelf};
 
-    width: 72px;
-    height: 32px;
+    width: ${(props) => props.theme.width};
+    height: ${(props) => props.theme.height};
 
     border: 1px solid grey;
     border-radius: 3px;
@@ -35,4 +36,11 @@ const Styled = {
   `,
 };
 
+Styled.Container.defaultProps = {
+  theme: {
+    alignSelf: "auto",
+    width: "72px",
+    height: "32px",
+  },
+};
 export default Styled;

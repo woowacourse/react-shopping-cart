@@ -2,13 +2,13 @@
 
 - [ ] 주요 컴포넌트
 
-  - [ ] ShoppingTitle
-    - [ ] 장바구니 메인 타이틀이 있다.
-    - [ ] 총 상품 수량을 확인할 수 있다.
+  - [x] ShoppingTitle
+    - [x] 장바구니 메인 타이틀이 있다.
   - [ ] ShoppingCardList
+    - [ ] 총 상품 수량을 확인할 수 있다.
     - [ ] 장바구니 물품들을 확인할 수 있다.
-  - [ ] ShoppingCard
-    - [ ] 장바구니에 담긴 물품을 보여준다.
+  - [x] ShoppingCard
+    - [x] 장바구니에 담긴 물품을 보여준다.
   - [ ] ShoppingPreview
     - [ ] 결제 예상 금액을 보여준다.
 
@@ -16,17 +16,16 @@
 
   - [ ] 분리 & 구현
     - [x] ProductName
-      - [ ] ProductInfo와 ShoppingCard에서 재사용
+      - [x] ProductInfo와 ShoppingCard에서 재사용
     - [x] ProductPrice
       - [ ] ProductInfo, ShoppingCard, ShoppingPreview에서 재사용
-    - [ ] CheckBox
-    - [ ] IconButton
-      - [ ] ProductCard의 쇼핑 아이콘 버튼과 ShoppingCardList의 삭제 아이콘 버튼으로 재사용
+    - [x] IconButton
+      - [x] ProductCard의 쇼핑 아이콘 버튼과 ShoppingCardList의 삭제 아이콘 버튼으로 재사용
     - [ ] Button
       - [ ] 선택삭제 버튼과, 주문하기 버튼으로 재사용
-  - [ ] 재사용
-    - [ ] Counter
-      - [ ] 스타일 컴포넌트 theme 적용
+  - [x] 재사용
+    - [x] Counter
+      - [x] 스타일 컴포넌트 theme 적용
     - [x] ProductImg
       - [x] 스타일 컴포넌트 theme 적용
 
@@ -35,7 +34,7 @@
 Readability
 
 - [ ] API 요청을 처리하는 공통 함수나 커스텀 훅을 작성하여 재사용 가능하게 만든다.
-- [ ]페이지간 공통 스타일이 있는 경우 재사용한다.
+- [ ] 페이지간 공통 스타일이 있는 경우 재사용한다.
 
 Reusability
 
