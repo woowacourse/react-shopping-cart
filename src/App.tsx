@@ -1,17 +1,13 @@
 import { styled } from 'styled-components';
+import { Outlet } from 'react-router-dom';
 import Header from './components/common/Header/Header';
-import ProductList from './components/product/ProductList/ProductList';
-import { Suspense } from 'react';
-import ProductListFallback from './components/product/ProductList/ProductListFallback';
 
 function App() {
   return (
     <div className="App">
       <Header />
       <Layout>
-        <Suspense fallback={<ProductListFallback />}>
-          <ProductList />
-        </Suspense>
+        <Outlet />
       </Layout>
     </div>
   );

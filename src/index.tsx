@@ -6,6 +6,7 @@ import { worker } from './mocks/browser';
 import App from './App';
 import GlobalStyle from './GlobalStyle';
 import ProductPage from './components/product/ProductPage/ProductPage';
+import CartPage from './components/cart/CartPage/CartPage';
 
 if (process.env.NODE_ENV === 'development') {
   worker.start();
@@ -19,6 +20,10 @@ const router = createHashRouter([
       {
         path: '',
         element: <ProductPage />,
+      },
+      {
+        path: 'cart',
+        element: <CartPage />,
       },
     ],
   },
