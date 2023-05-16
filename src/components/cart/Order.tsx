@@ -1,5 +1,5 @@
 import { css, styled } from 'styled-components';
-import Button from '../components/common/Button';
+import Button from '../common/Button';
 
 const Order = () => {
   return (
@@ -24,6 +24,7 @@ const Order = () => {
 const S = {
   Wrapper: styled.div`
     max-width: 448px;
+    margin-top: 50px;
     padding-bottom: 38px;
     border: 1px solid var(--gray-color-100);
   `,

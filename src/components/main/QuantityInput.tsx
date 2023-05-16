@@ -1,7 +1,7 @@
 import { WheelEventHandler, ChangeEventHandler, KeyboardEventHandler } from 'react';
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
 import { css, styled } from 'styled-components';
-import Input from './common/Input';
+import Input from '../common/Input';
 
 interface Props {
   id: string;

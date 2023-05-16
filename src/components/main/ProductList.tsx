@@ -1,9 +1,9 @@
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
-import { PRODUCT_LIST_URL } from '../constants/url';
-import { useSetFetchedData } from '../hooks/useSetFetchedData';
-import { productListState } from '../recoil';
-import { Product } from '../types';
+import { PRODUCT_LIST_URL } from '../../constants/url';
+import { useSetFetchedData } from '../../hooks/useSetFetchedData';
+import { productListState } from '../../recoil';
+import { Product } from '../../types';
 import ProductItem from './ProductItem';
 
 const ProductList = () => {
