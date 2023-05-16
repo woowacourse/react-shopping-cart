@@ -1,5 +1,7 @@
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { cartAtom } from '@recoil/atoms/cartAtom';
 import { ProductInformation } from '@type/types';
 import { theme } from '@styles/theme';
 import AddCartButton from './AddCartButton';
@@ -15,7 +17,11 @@ const ProductItem = ({
   addProductToCart,
   removeProductFromCart,
 }: ProductItemProps) => {
-  const { name, price, imageUrl } = product;
+  const cart = useRecoilValue(cartAtom);
+
+  const { id, name, price, imageUrl } = product;
+
+  const savedCartData = cart.find((item) => item.id === id);
 
   return (
     <Wrapper>
@@ -26,6 +32,7 @@ const ProductItem = ({
           <Price>{price.toLocaleString('ko-KR')} 원</Price>
         </TitleAndPriceWrapper>
         <AddCartButton
+          quantity={savedCartData?.quantity}
           addProductToCart={addProductToCart}
           removeProductFromCart={removeProductFromCart}
         />

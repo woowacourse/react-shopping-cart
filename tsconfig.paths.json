@@ -10,6 +10,7 @@
       "@recoil/*": ["recoil/*"],
       "@type/*": ["types/*"],
       "@utils/*": ["utils/*"],
+      "@constants": ["constants/index.ts"],
       "@constants/*": ["constants/*"],
       "@hooks/*": ["hooks/*"],
       "@router": ["router/index.tsx"]

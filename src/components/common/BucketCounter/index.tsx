@@ -9,9 +9,13 @@ import { BOTTOM_ARROW, TOP_ARROW } from '@assets';
 
 interface BucketCounterProps {
   removeProductFromCart: () => void;
+  quantity?: number;
 }
 
-const BucketCounter = ({ removeProductFromCart }: BucketCounterProps) => {
+const BucketCounter = ({
+  quantity = 1,
+  removeProductFromCart,
+}: BucketCounterProps) => {
   const {
     bucketCount,
     onBlur,
@@ -19,7 +23,7 @@ const BucketCounter = ({ removeProductFromCart }: BucketCounterProps) => {
     increaseCount,
     decreaseCount,
     countRef,
-  } = useBucketCount(1, {
+  } = useBucketCount(quantity, {
     removeProductFromCart,
     errorMessage: '장바구니 수량은 1000개 이하까지 가능합니다.',
     maximumCount: 1000,
