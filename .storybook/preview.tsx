@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { RecoilRoot } from 'recoil';
 import GlobalStyle from '../src/GlobalStyle';
 import { initialize, mswDecorator } from 'msw-storybook-addon';
@@ -22,7 +22,9 @@ export const decorators = [
   (Story) => (
     <RecoilRoot>
       <GlobalStyle />
-      <Story />
+      <Suspense>
+        <Story />
+      </Suspense>
     </RecoilRoot>
   ),
   mswDecorator,

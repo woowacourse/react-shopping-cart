@@ -1,12 +1,21 @@
+import React, { Suspense } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import ProductList from './ProductList';
 import { handlers } from '../../../mocks/handlers';
+import ProductListFallback from './ProductListFallback';
 
-const meta = {
+const meta: Meta<typeof ProductList> = {
   title: 'product/ProductList',
   component: ProductList,
   tags: ['autodocs'],
-} satisfies Meta<typeof ProductList>;
+  decorators: [
+    (Story) => (
+      <Suspense fallback={<ProductListFallback />}>
+        <Story />
+      </Suspense>
+    ),
+  ],
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
