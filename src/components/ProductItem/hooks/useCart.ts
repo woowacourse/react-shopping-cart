@@ -1,5 +1,4 @@
 import { RecoilState, useRecoilState } from 'recoil';
-import { deleteItemIndexAt, replaceItemIndexAt } from '../../../utils/array';
 import { Product } from '../../../types/product';
 import { Cart } from '../../../types/cart';
 
@@ -11,7 +10,7 @@ const useCart = (cartState: RecoilState<Cart[]>, product: Product) => {
   const updateCart = (quantity: number) => {
     const index = cart.findIndex((item) => item.product.id === product.id);
 
-    const newCart = replaceItemIndexAt(cart, index, {
+    const newCart = cart.toSpliced(index, 1, {
       ...cart[index],
       quantity,
     });
@@ -22,7 +21,7 @@ const useCart = (cartState: RecoilState<Cart[]>, product: Product) => {
   const deleteCart = () => {
     const index = cart.findIndex((item) => item.product.id === product.id);
 
-    const newCart = deleteItemIndexAt(cart, index);
+    const newCart = cart.toSpliced(index, 1);
 
     setCart(newCart);
   };
