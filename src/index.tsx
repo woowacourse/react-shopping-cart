@@ -8,9 +8,7 @@ import GlobalStyle from './GlobalStyle';
 import ProductPage from './components/product/ProductPage/ProductPage';
 import CartPage from './components/cart/CartPage/CartPage';
 
-if (process.env.NODE_ENV === 'development') {
-  worker.start();
-}
+worker.start();
 
 const router = createHashRouter([
   {
