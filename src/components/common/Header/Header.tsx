@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import useCartService from '../../hooks/useCartService';
-import { CartIcon } from '../../assets';
+import useCartService from '../../../hooks/useCartService';
+import { CartIcon } from '../../../assets';
 
 const Header = () => {
   const { cart } = useCartService();

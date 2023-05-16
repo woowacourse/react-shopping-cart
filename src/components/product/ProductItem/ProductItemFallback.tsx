@@ -1,6 +1,6 @@
 import { css, styled } from 'styled-components';
-import { ImageSize, imageSizeMapper } from '../Image/Image';
-import Skeleton from '../Skeleton/Skeleton';
+import { ImageSize, imageSizeMapper } from '../../common/Image/Image';
+import Skeleton from '../../Skeleton/Skeleton';
 
 const ProductItemFallback = () => {
   return (

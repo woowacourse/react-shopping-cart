@@ -1,8 +1,8 @@
 import { styled } from 'styled-components';
-import Header from './components/Header/Header';
-import ProductList from './components/ProductList/ProductList';
+import Header from './components/common/Header/Header';
+import ProductList from './components/product/ProductList/ProductList';
 import { Suspense } from 'react';
-import ProductListFallback from './components/ProductList/ProductListFallback';
+import ProductListFallback from './components/product/ProductList/ProductListFallback';
 
 function App() {
   return (

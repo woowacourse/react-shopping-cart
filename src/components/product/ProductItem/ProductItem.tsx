@@ -1,12 +1,12 @@
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import Counter from '../Counter/Counter';
-import Image from '../Image/Image';
-import { formatPrice } from '../../utils/formatPrice';
-import useCartService from '../../hooks/useCartService';
-import { productQuantityInCart } from '../../recoil/selectors';
-import { SmallCartIcon } from '../../assets';
-import type { Product } from '../../types/product';
+import Counter from '../../common/Counter/Counter';
+import Image from '../../common/Image/Image';
+import { formatPrice } from '../../../utils/formatPrice';
+import useCartService from '../../../hooks/useCartService';
+import { productQuantityInCart } from '../../../recoil/selectors';
+import { SmallCartIcon } from '../../../assets';
+import type { Product } from '../../../types/product';
 
 const ProductItem = (product: Product) => {
   const { id, name, price, imageSrc } = product;
@@ -65,7 +65,7 @@ const ProductItem = (product: Product) => {
   );
 };
 
-const ItemContainer = styled.div`
+export const ItemContainer = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 18px;
@@ -86,8 +86,6 @@ const CartButtonWrapper = styled.div`
 const Contents = styled.div`
   display: flex;
   justify-content: space-between;
-
-  padding: 0 12px;
 `;
 
 const Title = styled.p`

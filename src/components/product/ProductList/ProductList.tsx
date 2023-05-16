@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import { productListQuery } from '../../recoil/selectors';
+import { productListQuery } from '../../../recoil/selectors';
 import { styled } from 'styled-components';
 import ProductItem from '../ProductItem/ProductItem';
 
