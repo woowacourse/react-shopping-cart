@@ -64,15 +64,17 @@ const CartItemList = () => {
           );
         })}
 
-        <CheckBoxWrapper>
-          <CheckBox onClick={toggleSelectAll} checked={isAllSelected} />
-          <span>
-            전체선택 ({countSelectedItems()}/{cartsQuantity})
-          </span>
-          <DeleteSelectedItemsButton onClick={deleteSelectedItems}>
-            선택삭제
-          </DeleteSelectedItemsButton>
-        </CheckBoxWrapper>
+        {Boolean(cartsQuantity) && (
+          <CheckBoxWrapper>
+            <CheckBox onClick={toggleSelectAll} checked={isAllSelected} />
+            <span>
+              전체선택 ({countSelectedItems()}/{cartsQuantity})
+            </span>
+            <DeleteSelectedItemsButton onClick={deleteSelectedItems}>
+              선택삭제
+            </DeleteSelectedItemsButton>
+          </CheckBoxWrapper>
+        )}
       </Ul>
     </Wrapper>
   );
