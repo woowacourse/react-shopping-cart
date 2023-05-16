@@ -9,7 +9,7 @@ import {
 } from '@components/pages/ProductsPage/ProductList/ProductItem/ProductStepper/ProductStepper.styled';
 import StepperEntryButton from '@components/pages/ProductsPage/ProductList/ProductItem/StepperEntryButton/StepperEntryButton';
 import Stepper from '@commons/Stepper/Stepper';
-import Input from '@components/commons/Input/Input';
+import { Input as StepInput } from '@components/commons/Input/Input';
 import { Button as StepperHandleButton } from '@components/commons/Button/Button';
 import * as Text from '@components/commons/Text/Text';
 
@@ -43,7 +43,7 @@ const ProductStepper = (props: ProductStepperProps) => {
           }) => {
             return (
               <StyledProductStepperFlexBox>
-                <Input
+                <StepInput
                   width="48px"
                   height="28px"
                   type="number"

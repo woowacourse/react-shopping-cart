@@ -6,7 +6,7 @@ import {
   StyledProductStepperButtonFlexBox,
   StyledProductStepperFlexBox,
 } from '@components/pages/ProductsPage/ProductList/ProductItem/ProductStepper/ProductStepper.styled';
-import Input from '@commons/Input/Input';
+import { Input as StepInput } from '@commons/Input/Input';
 import { Button as StepperHandleButton } from '@commons/Button/Button';
 import * as Text from '../Text/Text';
 
@@ -38,7 +38,7 @@ const Wrapper = () => {
         handleDecrementButtonClick,
       }) => (
         <StyledProductStepperFlexBox>
-          <Input
+          <StepInput
             width="48px"
             height="28px"
             type="number"
