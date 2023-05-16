@@ -11,9 +11,23 @@
   justify-content: center;
   font-size: 12px;
 
-  border: 1px solid #dddddd;
+  border: 1px solid var(--white-color-003);
 }
 
 .counter-container > div {
   grid-row: 1 / 3;
+}
+
+input {
+  width: 30px;
+  height: 20px;
+  border: none;
+  color: var(--white-color-004);
+  font-size: 5px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
