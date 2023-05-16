@@ -3,17 +3,11 @@ import { css, styled } from 'styled-components';
 import { NOT_NUMBER, QUANTITY, MAX_NUMBER_LENGTH } from '../../constants';
 import { useSetCart } from '../../hooks/useCart';
 import { useLoadCart } from '../../hooks/useLoadCart';
+import { Product } from '../../types';
 import CartIcon from '../icons/CartIcon';
 import QuantityInput from './QuantityInput';
 
-interface Props {
-  id: number;
-  name: string;
-  price: number;
-  imgUrl: string;
-}
-
-const ProductItem = ({ id, imgUrl, name, price }: Props) => {
+const ProductItem = ({ id, imageUrl, name, price }: Product) => {
   const { isSelected, setIsSelected, quantity, setQuantity } = useLoadCart(id);
   const { addToCart, removeItemFromCart } = useSetCart(id);
 
@@ -39,7 +33,7 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
 
   return (
     <div>
-      <S.Image src={imgUrl} alt={name} />
+      <S.Image src={imageUrl} alt={name} />
       <S.InfoWrapper>
         <div>
           <S.Name htmlFor={name} title={name}>
@@ -75,7 +69,7 @@ const S = {
   `,
 
   Button: styled.button`
-    align-self: flex-start;
+    align-self: start;
     background: none;
     cursor: pointer;
   `,
