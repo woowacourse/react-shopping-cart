@@ -7,17 +7,11 @@ import Button from './common/Button';
 
 interface Props {
   productId: number;
+  count: number;
 }
 
-export default function Stepper({ productId }: Props) {
-  const {
-    findProductInCart,
-    updateProductQuantity,
-    increaseProductQuantity,
-    decreaseProductQuantity,
-  } = useCart();
-
-  const count = findProductInCart(productId).quantity || 1;
+export default function Stepper({ productId, count }: Props) {
+  const { updateProductQuantity, increaseProductQuantity, decreaseProductQuantity } = useCart();
 
   const handleChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
     if (!isNumeric(value)) return;
