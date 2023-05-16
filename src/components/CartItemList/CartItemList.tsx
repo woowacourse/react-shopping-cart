@@ -16,13 +16,13 @@ const CartItemList = () => {
   const cartList = useRecoilValue(cartListAtom);
   const { cartsQuantity } = useRecoilValue(cartSelector);
   const [isAllSelected, setIsAllSelected] = useState<boolean>(false);
-  const [selectedState, setSelectedState] = useState<Select[]>(
+  const [cartItemsState, setCartItemsState] = useState<Select[]>(
     cartList.map((id) => ({ id, isSelected: false, isDeleted: false }))
   );
 
   const toggleSelectAll = () => {
     setIsAllSelected(!isAllSelected);
-    setSelectedState(
+    setCartItemsState(
       cartList.map((id) => ({
         id,
         isSelected: !isAllSelected,
@@ -32,11 +32,11 @@ const CartItemList = () => {
   };
 
   const countSelectedItems = () => {
-    return selectedState.filter((item) => item.isSelected === true).length;
+    return cartItemsState.filter((item) => item.isSelected === true).length;
   };
 
   const deleteSelectedItems = () => {
-    setSelectedState((prev) =>
+    setCartItemsState((prev) =>
       prev.map((item) => {
         if (item.isSelected === true) return { ...item, isDeleted: true };
         return item;
@@ -55,10 +55,10 @@ const CartItemList = () => {
             <CartItem
               key={uuid}
               id={id}
-              selectState={
-                selectedState.find((state) => state.id === id) as Select
+              cartItemState={
+                cartItemsState.find((state) => state.id === id) as Select
               }
-              setSelectedState={setSelectedState}
+              setCartItemsState={setCartItemsState}
               setIsAllSelected={setIsAllSelected}
             />
           );

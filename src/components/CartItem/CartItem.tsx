@@ -9,15 +9,15 @@ import { Select } from '../CartItemList/CartItemList';
 
 interface CartItemProps {
   id: number;
-  selectState: Select;
-  setSelectedState: React.Dispatch<React.SetStateAction<Select[]>>;
+  cartItemState: Select;
+  setCartItemsState: React.Dispatch<React.SetStateAction<Select[]>>;
   setIsAllSelected: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CartItem = ({
   id,
-  selectState,
-  setSelectedState,
+  cartItemState,
+  setCartItemsState,
   setIsAllSelected,
 }: CartItemProps) => {
   const setCartList = useSetRecoilState(cartListAtom);
@@ -43,10 +43,12 @@ const CartItem = ({
     }
   };
 
-  if (selectState.isDeleted) {
+  if (cartItemState.isDeleted) {
     resetProductInCart();
     setCartList((prev) => prev.filter((productid) => productid !== id));
-    setSelectedState((prev) => prev.filter((item) => item.isDeleted === false));
+    setCartItemsState((prev) =>
+      prev.filter((item) => item.isDeleted === false)
+    );
   }
 
   const deleteCartItem = () => {
@@ -57,16 +59,16 @@ const CartItem = ({
   const toggleSelect = () => {
     setIsAllSelected(false);
 
-    setSelectedState((prev) => [
+    setCartItemsState((prev) => [
       ...prev.filter((item) => item.id !== id),
-      { ...selectState, isSelected: !selectState.isSelected },
+      { ...cartItemState, isSelected: !cartItemState.isSelected },
     ]);
   };
 
   return (
     <Wrapper>
       <CheckBoxWrapper>
-        <CheckBox checked={selectState.isSelected} onClick={toggleSelect} />
+        <CheckBox checked={cartItemState.isSelected} onClick={toggleSelect} />
       </CheckBoxWrapper>
 
       <ProductImg

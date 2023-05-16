@@ -22,8 +22,10 @@ export const cartSelector = selector({
   key: 'cartSelector',
   get: ({ get }) => {
     const cartIDList = get(cartListAtom);
-    const cartsQuantity = cartIDList.length;
     const cartList = cartIDList.map((id) => get(cartAtomFamily(id)));
+
+    const cartsQuantity = cartIDList.length;
+
     const totalAmout = cartList.reduce(
       (a, b) => a + b.product.price * b.quantity,
       0
