@@ -1,39 +1,26 @@
 import styled from 'styled-components';
 
-import { useRef } from 'react';
-
 import { Product } from '../../types/Product';
 import { Counter } from './Counter';
 import { ShoppingCartIcon } from '../../assets/ShoppingCartIcon';
 import { useCartList } from '../../hooks/useCartList';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { useCounterInput } from '../../hooks/useCounterInput';
 
 export const ProductCard = ({ id, name, price, imageUrl }: Product) => {
   const { cartList, addProductToCartList, removeProductFromCartList } =
     useCartList();
+
   const { getProductQuantityById, patchProductQuantity } = useLocalStorage();
 
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const handleIncrease = () => {
-    if (!(inputRef.current instanceof HTMLInputElement)) return;
-
-    inputRef.current.stepUp();
-    patchProductQuantity(id, Number(inputRef.current.value));
-  };
-
-  const handleDecrease = () => {
-    if (!(inputRef.current instanceof HTMLInputElement)) return;
-
-    inputRef.current.stepDown();
-
-    if (Number(inputRef.current.value) <= 0) {
-      removeProductFromCartList(id);
-      return;
-    }
-
-    patchProductQuantity(id, Number(inputRef.current.value));
-  };
+  const { inputRef, handleDecrease, handleIncrease } = useCounterInput({
+    minLimit: 0,
+    handleMinValueExceeded: () => removeProductFromCartList(id),
+    increaseCallback: () =>
+      patchProductQuantity(id, Number(inputRef.current?.value)),
+    decreaseCallback: () =>
+      patchProductQuantity(id, Number(inputRef.current?.value)),
+  });
 
   return (
     <Style.Container>

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 import { forwardRef } from 'react';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 interface CounterProps {
   handleIncrease: () => void;
