@@ -44,7 +44,20 @@ export const useCartList = () => {
           id: item.id,
           quantity: item.quantity,
           product: item.product,
-          isChecked: !item.isChecked,
+          isChecked: true,
+        };
+      })
+    );
+  };
+
+  const resetCartCheckStatusToFalse = () => {
+    setCartList(
+      cartList.map((item) => {
+        return {
+          id: item.id,
+          quantity: item.quantity,
+          product: item.product,
+          isChecked: false,
         };
       })
     );
@@ -72,7 +85,7 @@ export const useCartList = () => {
           id,
           quantity: item.quantity,
           product: item.product,
-          isChecked: !item.isChecked,
+          isChecked: true,
         };
       })
     );
@@ -103,5 +116,6 @@ export const useCartList = () => {
     getCartItemSum,
     cartListCheckedLength,
     resetCartCheckStatusToTrue,
+    resetCartCheckStatusToFalse,
   };
 };

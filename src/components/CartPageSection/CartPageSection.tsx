@@ -13,6 +13,7 @@ const CartPageSection = () => {
     getCartItemSum,
     reverseCheckCartItem,
     resetCartCheckStatusToTrue,
+    resetCartCheckStatusToFalse,
     cartListCheckedLength,
   } = useCartList();
 
@@ -27,7 +28,11 @@ const CartPageSection = () => {
         <input
           type="checkbox"
           className={styles.deleteChecker}
-          onClick={resetCartCheckStatusToTrue}
+          onClick={
+            cartListCheckedLength() === cartList.length
+              ? resetCartCheckStatusToFalse
+              : resetCartCheckStatusToTrue
+          }
           checked={cartListCheckedLength() === cartList.length}
         />
         <p>
