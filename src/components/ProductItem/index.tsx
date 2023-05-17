@@ -2,6 +2,8 @@ import { useRecoilValue } from 'recoil';
 
 import QuantityController from '@Components/QuantityController';
 
+import { Product } from '@Types/index';
+
 import useShoppingCart from '@Hooks/useShoppingCart';
 
 import quantityState from '@Selector/quantityState';
@@ -9,12 +11,7 @@ import quantityState from '@Selector/quantityState';
 import * as S from './style';
 
 type ProductItemProps = {
-  product: {
-    id: number;
-    price: number;
-    name: string;
-    imageUrl: string;
-  };
+  product: Product;
 };
 
 function ProductItem({ product }: ProductItemProps) {
