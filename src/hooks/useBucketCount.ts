@@ -30,7 +30,6 @@ const useBucketCount = (
     if (count >= maximumWriteInput) return;
 
     setBucketCount(count);
-    updateQuantityOfCartItem(id, count);
   };
 
   const increaseCount = () => {
@@ -60,7 +59,12 @@ const useBucketCount = (
     if (relatedTarget?.parentElement?.parentElement === target.parentElement)
       return;
 
-    if (bucketCount === 0) removeProductFromCart(id);
+    if (bucketCount === 0) {
+      removeProductFromCart(id);
+      return;
+    }
+
+    updateQuantityOfCartItem(id, bucketCount);
   };
 
   const isCountError = useCallback(
