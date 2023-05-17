@@ -16,4 +16,5 @@ export const Checkbox = styled.div<CheckboxProps>`
   border: ${(props) => (props.isChecked ? '#3288FF' : '#22A6A2')} 1px solid;
   color: ${(props) => (!props.isChecked ? 'transparent' : '#ffffff')};
   background-color: ${(props) => props.isChecked && '#333333'};
+  cursor: pointer;
 `;

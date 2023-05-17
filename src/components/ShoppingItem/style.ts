@@ -32,6 +32,7 @@ export const RightContents = styled.div`
 
 export const DeleteButton = styled.img`
   align-self: flex-start;
+  cursor: pointer;
 `;
 
 export const ShoppingItemPrice = styled.div`
