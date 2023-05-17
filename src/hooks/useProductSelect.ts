@@ -3,7 +3,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { cartIdMap, updateCart } from 'recoil/cartList';
 import { Product } from 'types';
 
-const useProductSelect = (product: Product) => {
+export const useProductSelect = (product: Product) => {
   const setCartIdMap = useSetRecoilState(cartIdMap);
   const [cartItem, setCartItem] = useRecoilState(updateCart(product.id));
   const { toast } = useToast();
@@ -34,5 +34,3 @@ const useProductSelect = (product: Product) => {
 
   return { currentCartItem: cartItem, remove, add, onSelectItem };
 };
-
-export default useProductSelect;

@@ -1,6 +1,6 @@
 import * as S from './CartItem.styles';
 import Counter from 'components/@common/Counter';
-import useProductSelect from 'hooks/useProductSelect';
+import { useProductSelect } from 'hooks/useProductSelect';
 import { Product } from 'types';
 import Svg from 'components/@common/Svg';
 
