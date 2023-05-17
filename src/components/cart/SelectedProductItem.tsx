@@ -11,6 +11,8 @@ interface Props extends Product {
 }
 
 const SelectedProductItem = ({ id, imageUrl, name, price, quantity }: Props) => {
+  const calculatePrice = () => price * quantity;
+
   return (
     <div>
       <S.Fieldset>
@@ -22,7 +24,7 @@ const SelectedProductItem = ({ id, imageUrl, name, price, quantity }: Props) => 
           <Button css={trashCanButtonStyle}>
             <TrashCanIcon patternId={id} imageSize={{ width: '40', height: '40' }} />
           </Button>
-          <Price price={price} />
+          <Price price={calculatePrice()} />
         </S.Wrapper>
       </S.Fieldset>
     </div>
