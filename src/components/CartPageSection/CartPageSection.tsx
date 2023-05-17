@@ -1,11 +1,16 @@
 import { useRecoilValue } from 'recoil';
 
 import { cartListState } from '../../store/cart';
+import { priceFormatter } from '../../utils/formatter';
 import CartItem from '../CartItem/CartItem';
 import styles from './style.module.css';
 
 const CartPageSection = () => {
   const cartItemList = useRecoilValue(cartListState);
+  const deliveryPrice = 3000;
+  const resultPrice = cartItemList.reduce((acc, item) => {
+    return acc + item.product.price * item.quantity;
+  }, 0);
 
   return (
     <>
@@ -25,17 +30,17 @@ const CartPageSection = () => {
             <div>
               <div className={styles.resultText}>
                 <div>총 상품가격</div>
-                <div>21,700원</div>
+                <div>{priceFormatter(resultPrice)}원</div>
               </div>
               <div className={styles.resultText}>
                 <div>총 배송비</div>
-                <div>3,000원</div>
+                <div>{priceFormatter(deliveryPrice)}원</div>
               </div>
             </div>
             <div>
               <div className={styles.resultPrice}>
                 <div>총 주문금액</div>
-                <div>24,700원</div>
+                <div>{priceFormatter(resultPrice + deliveryPrice)}원</div>
               </div>
               <button className={styles.orderButton} type="button">
                 주문하기
