@@ -1,4 +1,4 @@
-import { ImageSkeletonStyle, TextSkeletonStyle } from '@Styles/common/skeleton';
+import { ImageSkeletonStyle, TextSkeletonStyle } from '@Styles/common/skeletonProductItem';
 import styled from 'styled-components';
 
 type ContainerProps = {
