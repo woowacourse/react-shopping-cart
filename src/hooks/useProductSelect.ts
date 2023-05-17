@@ -4,14 +4,14 @@ import { Product } from 'src/types';
 import useToast from './useToast';
 
 const useProductSelect = (product: Product) => {
-  const { addToast } = useToast();
+  const { toast } = useToast();
   const setProductIds = useSetRecoilState(productIds);
   const [cartItem, setCartItem] = useRecoilState(updateCart(product.id));
 
   const onSelectItem: React.MouseEventHandler<SVGElement> = () => {
     setCartItem({ id:product.id , quantity: 1, product });
     setProductIds((prev) => [...prev, product.id]);
-    addToast({id:Number(new Date()), type:"success", message:`${product.name}이(가) 장바구니에 추가됐습니다.`})
+    toast.success(`${product.name}이(가) 장바구니에 추가됐습니다.`);
   };
 
   const increase: React.MouseEventHandler<HTMLButtonElement> = () => {

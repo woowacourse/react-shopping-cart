@@ -6,6 +6,19 @@ import { toastAtom } from "src/recoil/toast"
 const useToast = () =>{
     const [toasts,setToasts] = useRecoilState(toastAtom)
 
+    const toast = {
+        success:(message:string) => addToast({
+            id: Number(Date.now()),
+            message,
+            type: "success"
+        }),
+        error :(message:string) => addToast({
+            id: Number(Date.now()),
+            message,
+            type: "error"
+        }),
+    }
+
     const addToast = (toastState:ToastProps) => addToastCallback(toastState)
     
     const deleteToast = (id:number) => setToasts((prev)=> prev.filter(e => e.id !== id));
@@ -18,7 +31,7 @@ const useToast = () =>{
 
     return {
         toastComponent,
-        addToast,
+        toast,
         deleteToast
     }
 }
