@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const useFetch = <T>(url: string, initialValue: T): [T, boolean] => {
   const [data, setData] = useState<T>(initialValue);
-  const [isError, setIsError] = useState<boolean>(false);
+  const [errorStatus, setErrorStatus] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -12,14 +12,14 @@ const useFetch = <T>(url: string, initialValue: T): [T, boolean] => {
         setData(response.data);
       } catch (error) {
         console.error('Error fetching data: ', error);
-        setIsError(true);
+        setErrorStatus(true);
       }
     };
 
     fetchData();
   }, [url]);
 
-  return [data, isError];
+  return [data, errorStatus];
 };
 
 export default useFetch;
