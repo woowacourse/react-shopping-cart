@@ -2,12 +2,13 @@ import styled from 'styled-components';
 
 type CheckboxProps = {
   isChecked: boolean;
+  size: string;
 };
 
 export const Checkbox = styled.div<CheckboxProps>`
   font-size: 24px;
-  width: 30px;
-  height: 30px;
+  width: ${(props) => props.size};
+  height: ${(props) => props.size};
   display: flex;
   justify-content: center;
   align-items: center;
