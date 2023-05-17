@@ -1,4 +1,10 @@
-// src/mocks/handlers.js
+import mockProducts from './mockProducts.json';
 import { rest } from 'msw';
 
-export const handlers = [];
+const BASE = 'api';
+
+export const handlers = [
+  rest.get(`${BASE}/products`, (req, res, ctx) => {
+    return res(ctx.json(mockProducts));
+  }),
+];

@@ -9,20 +9,19 @@ const useProductsFetch = () => {
   const fetchProducts = async () => {
     setIsLoading(true);
     setError(null);
-    setTimeout(async () => {
-      try {
-        const response = await fetch(`${process.env.PUBLIC_URL}/data/mockProducts.json`);
-        const products = await response.json();
 
-        if (!response.ok) throw response;
+    try {
+      const response = await fetch(`api/products`);
+      const products = await response.json();
 
-        setProducts(products);
-      } catch (error) {
-        if (error instanceof Error) setError(error);
-      } finally {
-        setIsLoading(false);
-      }
-    }, 1000);
+      if (!response.ok) throw response;
+
+      setProducts(products);
+    } catch (error) {
+      if (error instanceof Error) setError(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
