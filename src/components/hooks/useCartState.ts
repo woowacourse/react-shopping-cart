@@ -9,14 +9,25 @@ export const useCartState = (id: number) => {
   const [quantity, setQuantity] = useState<number>(1);
 
   const handleAddCartState = () => {
-    setCartStates((prevCartStates) => [
-      ...prevCartStates,
-      {
-        id,
-        quantity: 1,
-        product: productItem,
-      },
-    ]);
+    setCartStates((prevCartStates) => {
+      if (
+        prevCartStates.length !== 0 &&
+        prevCartStates
+          .map((cartItem) => (cartItem.id === id ? true : false))
+          .includes(true)
+      ) {
+        return [...prevCartStates];
+      }
+
+      return [
+        ...prevCartStates,
+        {
+          id,
+          quantity: 1,
+          product: productItem,
+        },
+      ];
+    });
   };
 
   const handleDeleteCartState = () => {
