@@ -15,7 +15,7 @@ interface CartItemProps {
 const CartItem = ({ cartItem, updateCheckedCartList }: CartItemProps) => {
   const { id, imageSrc, name, price } = cartItem.product;
 
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(cartItem.quantity);
   return (
     <CartItemContainer>
       <ItemContents>
@@ -25,7 +25,7 @@ const CartItem = ({ cartItem, updateCheckedCartList }: CartItemProps) => {
       </ItemContents>
       <ItemControllers>
         <TrashCanIcon />
-        <Counter count={count} updateCount={() => setCount(count + 1)} />
+        <Counter count={count} updateCount={setCount} />
         <Price>{formatPrice(price)}</Price>
       </ItemControllers>
     </CartItemContainer>
