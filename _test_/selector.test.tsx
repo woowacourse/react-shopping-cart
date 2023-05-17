@@ -20,4 +20,15 @@ describe("Selector Option의 Content 랜더링 테스트", () => {
 
     expect(content).toBeInTheDocument();
   });
+
+  test("custom된 children요소가 있으면 기본 스타일의 custom된 child가 랜더링 된다", () => {
+    render(
+      <OptionGroup>
+        <OptionContent asChild />
+      </OptionGroup>
+    );
+    const content = screen.getByTestId("content");
+
+    expect(content).toBeInTheDocument();
+  });
 });
