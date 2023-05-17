@@ -9,9 +9,9 @@ const MAXIMUM_COUNT = 1000;
 test('useBucketCounter의 초기값이 올바르게 작동하는 지 테스트', () => {
   const { result } = renderHook(() =>
     useBucketCount(INITIAL_VALUE, {
-      removeProductFromCart: () => {},
       errorMessage: ERROR_MESSAGE,
       maximumCount: MAXIMUM_COUNT,
+      id: 1,
     })
   );
 
@@ -21,9 +21,9 @@ test('useBucketCounter의 초기값이 올바르게 작동하는 지 테스트',
 test('increaseCount를 실행했을 때 bucketCount가 증가하는 지 확인하는 테스트', () => {
   const { result } = renderHook(() =>
     useBucketCount(INITIAL_VALUE, {
-      removeProductFromCart: () => {},
       errorMessage: ERROR_MESSAGE,
       maximumCount: MAXIMUM_COUNT,
+      id: 1,
     })
   );
 
@@ -37,9 +37,9 @@ test('increaseCount를 실행했을 때 bucketCount가 증가하는 지 확인�
 test('decreaseCount 실행했을 때 bucketCount가 감소하는 지 확인하는 테스트', () => {
   const { result } = renderHook(() =>
     useBucketCount(INITIAL_VALUE, {
-      removeProductFromCart: () => {},
       errorMessage: ERROR_MESSAGE,
       maximumCount: MAXIMUM_COUNT,
+      id: 1,
     })
   );
 
@@ -53,9 +53,9 @@ test('decreaseCount 실행했을 때 bucketCount가 감소하는 지 확인하�
 test('bucketCount가 maximumCount보다 큰 수라면 사용자에게 에러를 보여주는 지 확인하는 테스트', () => {
   const { result } = renderHook(() =>
     useBucketCount(MAXIMUM_COUNT, {
-      removeProductFromCart: () => {},
       errorMessage: ERROR_MESSAGE,
       maximumCount: MAXIMUM_COUNT,
+      id: 1,
     })
   );
 

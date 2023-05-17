@@ -1,23 +1,23 @@
+import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
+import { cartAtom } from '@recoil/atoms/cartAtom';
 import BucketCounter from '@components/common/BucketCounter';
 import { TEST_ADD_CART_BUTTON } from '@constants/testId';
 import { BUCKET_BUTTON } from '@assets';
 
 interface AddCartButtonProps {
-  quantity?: number;
+  id: number;
   addProductToCart: () => void;
-  removeProductFromCart: () => void;
 }
 
-const AddCartButton = ({
-  quantity,
-  addProductToCart,
-  removeProductFromCart,
-}: AddCartButtonProps) => {
+const AddCartButton = ({ id, addProductToCart }: AddCartButtonProps) => {
+  const cart = useRecoilValue(cartAtom);
+  const savedCartData = cart.find((item) => item.id === id);
+
   return (
     <Wrapper>
-      {quantity ? (
-        <BucketCounter removeProductFromCart={removeProductFromCart} />
+      {savedCartData ? (
+        <BucketCounter id={id} quantity={savedCartData.quantity} />
       ) : (
         <Button
           type="button"

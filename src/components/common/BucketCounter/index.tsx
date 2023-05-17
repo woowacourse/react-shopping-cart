@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { styled } from 'styled-components';
 import useBucketCount from '@hooks/useBucketCount';
+import useControlCart from '@hooks/useControlCart';
 import {
   TEST_BUCKET_COUNTER_BOTTOM_BUTTON,
   TEST_BUCKET_COUNTER_TOP_BUTTON,
@@ -8,14 +10,11 @@ import {
 import { BOTTOM_ARROW, TOP_ARROW } from '@assets';
 
 interface BucketCounterProps {
-  removeProductFromCart: () => void;
+  id: number;
   quantity?: number;
 }
 
-const BucketCounter = ({
-  quantity = 1,
-  removeProductFromCart,
-}: BucketCounterProps) => {
+const BucketCounter = ({ id, quantity = 1 }: BucketCounterProps) => {
   const {
     bucketCount,
     onBlur,
@@ -24,9 +23,9 @@ const BucketCounter = ({
     decreaseCount,
     countRef,
   } = useBucketCount(quantity, {
-    removeProductFromCart,
     errorMessage: '장바구니 수량은 1000개 이하까지 가능합니다.',
     maximumCount: 1000,
+    id,
   });
 
   return (

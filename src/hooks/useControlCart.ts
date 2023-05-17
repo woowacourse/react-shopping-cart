@@ -9,6 +9,17 @@ const useControlCart = () => {
     CART_LIST_LOCAL_KEY
   );
 
+  const updateQuantityOfCartItem = (id: number, quantity: number) => {
+    const updateCart = cart.map((product) => {
+      if (product.id === id) {
+        return { ...product, quantity };
+      }
+      return product;
+    });
+
+    setCart(updateCart);
+  };
+
   const addProductToCart = ({
     name,
     id,
@@ -32,7 +43,7 @@ const useControlCart = () => {
     setCart(updatedCart);
   };
 
-  return { addProductToCart, removeProductFromCart };
+  return { addProductToCart, removeProductFromCart, updateQuantityOfCartItem };
 };
 
 export default useControlCart;

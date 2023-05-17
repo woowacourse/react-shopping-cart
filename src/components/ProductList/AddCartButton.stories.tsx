@@ -13,10 +13,7 @@ import AddCartButton from './AddCartButton';
 const AddCartStory = () => {
   return (
     <>
-      <AddCartButton
-        addProductToCart={() => {}}
-        removeProductFromCart={() => {}}
-      />
+      <AddCartButton addProductToCart={() => {}} id={1} />
       <Circle data-testid="circle" />
     </>
   );

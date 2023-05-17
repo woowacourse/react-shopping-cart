@@ -1,17 +1,20 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { showInputErrorMessage } from '@utils/common';
+import useControlCart from './useControlCart';
 
 interface useBucketCountOptions {
-  removeProductFromCart: () => void;
   errorMessage: string;
   maximumCount: number;
+  id: number;
 }
 
 const useBucketCount = (
   initialValue: number,
-  { removeProductFromCart, errorMessage, maximumCount }: useBucketCountOptions
+  { errorMessage, maximumCount, id }: useBucketCountOptions
 ) => {
   const maximumWriteInput = maximumCount * 10;
+
+  const { removeProductFromCart, updateQuantityOfCartItem } = useControlCart();
 
   const [bucketCount, setBucketCount] = useState(initialValue);
   const countRef = useRef<HTMLInputElement>(null);
@@ -27,6 +30,7 @@ const useBucketCount = (
     if (count >= maximumWriteInput) return;
 
     setBucketCount(count);
+    updateQuantityOfCartItem(id, count);
   };
 
   const increaseCount = () => {
@@ -36,12 +40,17 @@ const useBucketCount = (
     }
 
     setBucketCount((prev) => prev + 1);
+    updateQuantityOfCartItem(id, bucketCount + 1);
   };
 
   const decreaseCount = () => {
     if (bucketCount <= 1) {
-      removeProductFromCart();
+      removeProductFromCart(id);
+      return;
     }
+
+    updateQuantityOfCartItem(id, bucketCount - 1);
+
     setBucketCount((prev) => prev - 1);
   };
 
@@ -51,7 +60,7 @@ const useBucketCount = (
     if (relatedTarget?.parentElement?.parentElement === target.parentElement)
       return;
 
-    if (bucketCount === 0) removeProductFromCart();
+    if (bucketCount === 0) removeProductFromCart(id);
   };
 
   const isCountError = useCallback(

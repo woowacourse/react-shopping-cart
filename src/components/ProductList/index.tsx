@@ -4,18 +4,12 @@ import useProductList from '@hooks/useProductList';
 import ProductItem from './ProductItem';
 
 const ProductList = () => {
-  const { addProductToCart, removeProductFromCart } = useControlCart();
   const productList = useProductList();
 
   return (
     <Container>
       {productList.map((product) => (
-        <ProductItem
-          product={product}
-          addProductToCart={() => addProductToCart(product)}
-          removeProductFromCart={() => removeProductFromCart(product.id)}
-          key={product.id}
-        />
+        <ProductItem product={product} key={product.id} />
       ))}
     </Container>
   );

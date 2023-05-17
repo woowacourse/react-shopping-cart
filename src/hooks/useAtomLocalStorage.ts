@@ -14,7 +14,6 @@ const useAtomLocalStorage = <T>(
 
   useEffect(() => {
     const saveData = JSON.parse(localStorage.getItem(key) || '[]');
-
     if (saveData && saveData.length > 0) {
       setData(saveData);
     }
