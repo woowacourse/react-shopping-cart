@@ -16,17 +16,22 @@ export default function SubTotal() {
         <Text>총 주문금액</Text>
         <Text>???원</Text>
       </Paragraph>
-      <button>주문하기</button>
+      <CheckoutButton>주문하기</CheckoutButton>
     </SubTotalContainer>
   );
 }
 
 const SubTotalContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   border: 1px solid #ddd;
   width: 35%;
+  align-items: center;
 `;
 
 const Title = styled.h3`
+  width: 100%;
+  text-align: center;
   ${({ theme }) => theme.fonts.cartHeading};
   padding: 1rem 2rem;
   border-bottom: 3px solid ${({ theme }) => theme.colors.gray100};
@@ -39,6 +44,16 @@ const Text = styled.span`
 const Paragraph = styled.p`
   display: flex;
   justify-content: space-between;
-  padding: 0 2rem;
-  width: 100%;
+  width: 80%;
+  margin: 1.3rem 0;
+`;
+
+const CheckoutButton = styled.button`
+  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.primary};
+  width: 80%;
+  padding: 2rem 0;
+  margin: 4rem 0;
+  ${({ theme }) => theme.fonts.cartHeading};
+  cursor: pointer;
 `;

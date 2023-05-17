@@ -71,7 +71,7 @@ const SelectBox = styled.input`
   appearance: none;
   width: 2.8rem;
   height: 2.8rem;
-  border: 1px solid #22a6a2;
+  border: 1px solid ${({ theme }) => theme.colors.blue_green};
   border-radius: 2px;
   cursor: pointer;
 

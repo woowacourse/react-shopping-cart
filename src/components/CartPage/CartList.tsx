@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import CartListItem from './CartListItem';
+import SelectCartItem from './SelectCartItem';
 
 export default function CartList() {
   const mock = {
@@ -13,6 +14,7 @@ export default function CartList() {
     <CartListContainer>
       <CartListHeader>든든 배송 상품 (n개)</CartListHeader>
       <CartListItem {...mock} />
+      <SelectCartItem />
     </CartListContainer>
   );
 }
