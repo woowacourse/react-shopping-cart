@@ -28,11 +28,12 @@ export const CheckboxInput = styled.input`
 `;
 
 export const ProductName = styled(Paragraph)`
-  width: 380px;
+  width: 360px;
   margin: 16px 0 0 16px;
 `;
 
 export const CountInteractionWrapper = styled.div`
+  width: 108px;
   height: 180px;
   display: flex;
   flex-direction: column;
