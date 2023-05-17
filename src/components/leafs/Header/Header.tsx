@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { cartCountState } from '../../recoil/state';
-import Logo from './Logo';
+import { cartCountState } from '../../../recoil/state';
+import Logo from '../Logo';
 
 export default function Header() {
   const cartCount = useRecoilValue(cartCountState);

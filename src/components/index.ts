@@ -1,3 +1,3 @@
-export { default as Header } from './leafs/Header';
-export { default as Product } from './leafs/Product';
-export { default as ProductList } from './trees/ProductList';
+export { default as Header } from './leafs/Header/Header';
+export { default as Product } from './leafs/Product/Product';
+export { default as ProductList } from './trees/ProductList/ProductList';

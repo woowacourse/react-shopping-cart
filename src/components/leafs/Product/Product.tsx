@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import useCart from '../../hooks/useCart';
-import { isNumeric } from '../../utils/validator';
-import { MAX_QUANTITY } from '../../constants';
-import { ProductType } from '../../types';
+import useCart from '../../../hooks/useCart';
+import { isNumeric } from '../../../utils/validator';
+import { MAX_QUANTITY } from '../../../constants';
+import { ProductType } from '../../../types';
 
 type ProductProps = ProductType;
 

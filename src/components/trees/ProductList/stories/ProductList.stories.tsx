@@ -1,6 +1,6 @@
 import type { StoryFn } from '@storybook/react';
-import ProductList from '../components/trees/ProductList';
-import mockProduct from '../../public/assets/mockProducts.json';
+import ProductList from '../ProductList';
+import mockProduct from '../../../../../public/assets/mockProducts.json';
 
 export default {
   title: 'ProductList',
