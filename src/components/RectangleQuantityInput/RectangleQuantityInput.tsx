@@ -4,11 +4,17 @@ import useQuantityUpdater from "../../hooks/useQuantityUpdater";
 import type { ProductQuantityInputProps } from "../../types";
 
 const RectangleQuantityInput = ({
+  initialValue,
   productId,
   step = 1,
+  notifyFunction,
 }: ProductQuantityInputProps) => {
   const { inputValue, setIsFocused, updateInputValue, incrementInputValue } =
-    useQuantityUpdater({ productId: productId });
+    useQuantityUpdater({
+      productId: productId,
+      initialValue: initialValue,
+      notifyFunction: notifyFunction,
+    });
 
   return (
     <Container>

@@ -8,6 +8,7 @@ import type { ProductQuantityInputProps } from "../../types";
 const TransformQuantityInput = ({
   productId,
   step = 1,
+  initialValue,
 }: ProductQuantityInputProps) => {
   const {
     inputValue,
@@ -16,7 +17,7 @@ const TransformQuantityInput = ({
     updateInputValue,
     initializeInputValue,
     incrementInputValue,
-  } = useQuantityUpdater({ productId: productId });
+  } = useQuantityUpdater({ productId: productId, initialValue: initialValue });
 
   return (
     <Container>
