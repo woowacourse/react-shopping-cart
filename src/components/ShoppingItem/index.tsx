@@ -27,7 +27,7 @@ function ShoppingItem({ product, width = '100%' }: ShoppingItemProps) {
   const quantity = product && useRecoilValue(quantityState(product.id));
   return (
     <S.Container aria-label="장바구니 상품" width={width}>
-      <Checkbox isChecked={isChecked} />
+      <Checkbox isChecked={isChecked} size="small" />
       <S.ShoppingItemImage src={image} alt={imageDescription} aria-label="장바구니 상품 이미지" />
       <S.ShoppingItemName aria-label="장바구니 상품 이름">{name}</S.ShoppingItemName>
       <S.RightContents>

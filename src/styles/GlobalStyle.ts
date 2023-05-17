@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
 
 export const CommonPageStyle = styled.div`
   width: 60%;
-  min-width: 1024px;
+  min-width: 1200px;
   margin: auto;
   padding-top: 120px;
 `;

@@ -9,6 +9,8 @@ export const Container = styled.div<ContainerProps>`
   grid-template-columns: auto auto 1fr auto;
   column-gap: 20px;
   width: ${(props) => props.width};
+  background-color: #ffffff;
+  padding: 20px 0px 30px 0px;
 `;
 
 export const ShoppingItemImage = styled.img`
@@ -18,7 +20,7 @@ export const ShoppingItemImage = styled.img`
 
 export const ShoppingItemName = styled.div`
   color: #333333;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 24px;
 `;
