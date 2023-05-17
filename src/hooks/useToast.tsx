@@ -7,26 +7,19 @@ const useToast = () =>{
     const [toasts,setToasts] = useRecoilState(toastAtom)
 
     const addToast = (toastState:ToastProps) => addToastCallback(toastState)
+    
+    const deleteToast = (id:number) => setToasts((prev)=> prev.filter(e => e.id !== id));
 
-    const toastComponent = toasts.map(({type,message,id, show}) =>  <Toast key={id} id={id} type={type} message={message} show={show} />)
+    const toastComponent = toasts.map(({type,message,id}) =>  <Toast key={id} id={id} type={type} message={message} />)
 
     const addToastCallback = useCallback((toastState:ToastProps) =>{
         setToasts((prev) => [...prev,toastState]);
-        new Promise<void>((resolve) =>
-            setTimeout(() =>{
-                setToasts((prev) => prev.map((prev) => prev.id === toastState.id ? {...prev, show:false} : prev))
-                resolve();
-            },2000)
-        ).then(() => {
-            setTimeout(() =>
-                setToasts(prev => prev.filter(({show}) => show))
-            ,500)
-        });
     },[toasts]);
 
     return {
         toastComponent,
-        addToast
+        addToast,
+        deleteToast
     }
 }
 

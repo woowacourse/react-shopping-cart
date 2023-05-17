@@ -11,7 +11,7 @@ const useProductSelect = (product: Product) => {
   const onSelectItem: React.MouseEventHandler<SVGElement> = () => {
     setCartItem({ id:product.id , quantity: 1, product });
     setProductIds((prev) => [...prev, product.id]);
-    addToast({id:Number(new Date()), type:"success", message:`${product.name}이(가) 장바구니에 추가됐습니다.`,show:true})
+    addToast({id:Number(new Date()), type:"success", message:`${product.name}이(가) 장바구니에 추가됐습니다.`})
   };
 
   const increase: React.MouseEventHandler<HTMLButtonElement> = () => {

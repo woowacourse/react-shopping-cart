@@ -15,7 +15,6 @@ export const Error: Story = {
     id:Number(new Date()),
     message: '에러입니다 하하',
     type: 'error',
-    show:true
   
   },
 };
@@ -25,6 +24,5 @@ export const Success: Story = {
     id:Number(new Date()),
     message: '성공입니다 하하',
     type: 'success',
-    show:true
   },
 };

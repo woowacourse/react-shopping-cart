@@ -14,7 +14,7 @@ const ProductList = () => {
     { choonsikProducts: [] }
   );
 
-  const {addToast} = useToast();
+  const { addToast } = useToast();
 
   const fetchedProductList = data.choonsikProducts.map((product) => (
     <ProductItem key={product.id} product={product} />
@@ -23,7 +23,7 @@ const ProductList = () => {
   useEffect(() => {
     if(error.isError){
       addToast({
-        id: Number(new Date()), message: error.message, show: true,
+        id: Number(new Date()), message: error.message,
         type: 'error'
       })
     }
