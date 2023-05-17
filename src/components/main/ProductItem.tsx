@@ -5,6 +5,7 @@ import { useSetCart } from '../../hooks/useCart';
 import { useLoadCart } from '../../hooks/useLoadCart';
 import { Product } from '../../types';
 import CartIcon from '../icons/CartIcon';
+import Price from '../Price';
 import QuantityInput from './QuantityInput';
 
 const ProductItem = ({ id, imageUrl, name, price }: Product) => {
@@ -39,10 +40,7 @@ const ProductItem = ({ id, imageUrl, name, price }: Product) => {
           <S.Name htmlFor={name} title={name}>
             {name}
           </S.Name>
-          <S.Price>
-            {price.toLocaleString()}
-            <span>원</span>
-          </S.Price>
+          <Price price={price} css={priceStyle} />
         </div>
         {isSelected ? (
           <QuantityInput id={name} value={quantity} onChange={handleNumberInputChange} />
@@ -95,30 +93,15 @@ const S = {
       font-size: 14px;
     }
   `,
-
-  Price: styled.p`
-    margin-top: 8px;
-    font-size: 17px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    color: var(--text-color);
-
-    & span {
-      vertical-align: top;
-    }
-
-    @media (max-width: 1270px) {
-      font-size: 16px;
-    }
-
-    @media (max-width: 768px) {
-      font-size: 15px;
-    }
-  `,
 };
 
 const svgStyle = css`
   transform: scaleX(-1);
+`;
+
+const priceStyle = css`
+  margin-top: 8px;
+  font-weight: 500;
 `;
 
 export default ProductItem;

@@ -4,6 +4,7 @@ import Button from '../common/Button';
 import { Checkbox } from '../common/CheckboxStyle';
 import TrashCanIcon from '../icons/TrashCanIcon';
 import QuantityInput from '../main/QuantityInput';
+import Price from '../Price';
 
 interface Props extends Product {
   quantity: number;
@@ -21,7 +22,7 @@ const SelectedProductItem = ({ id, imageUrl, name, price, quantity }: Props) => 
           <Button css={trashCanButtonStyle}>
             <TrashCanIcon patternId={id} imageSize={{ width: '40', height: '40' }} />
           </Button>
-          <p>{price.toLocaleString()}원</p>
+          <Price price={price} />
         </S.Wrapper>
       </S.Fieldset>
     </div>
