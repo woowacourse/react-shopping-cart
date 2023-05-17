@@ -6,6 +6,7 @@ import AmountCounter from '../Common/AmountCounter';
 
 import useCartProducts from '../../hooks/useCartProducts';
 import useProductQuantity from '../../hooks/useProductQuantity';
+import Image from '../Common/Image';
 
 interface ProductItemProps {
   product: Product;
@@ -18,7 +19,12 @@ const ProductItem = ({ product }: ProductItemProps) => {
 
   return (
     <ProductContainer>
-      <ProductImage src={`${process.env.PUBLIC_URL}/${imageUrl}`} alt={name} />
+      <Image
+        src={`${process.env.PUBLIC_URL}/${imageUrl}`}
+        alt={name}
+        loading='lazy'
+        size='medium'
+      />
       <ProductInfoContainer>
         <dl>
           <ProductName>{name}</ProductName>
@@ -42,11 +48,6 @@ const ProductItem = ({ product }: ProductItemProps) => {
 
 const ProductContainer = styled.div`
   width: 282px;
-`;
-
-const ProductImage = styled.img`
-  width: 282px;
-  height: 282px;
 `;
 
 const ProductInfoContainer = styled.div`
