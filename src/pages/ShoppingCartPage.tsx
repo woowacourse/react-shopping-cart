@@ -2,14 +2,25 @@ import CheckBox from 'components/@common/CheckBox/CheckBox';
 import FlexBox from 'components/@common/FlexBox';
 import CartProductCardList from 'components/CartProductCardList/CartProductCardList';
 import useCartCheckBox from 'hooks/useCartCheckBox';
+import { useRecoilValue } from 'recoil';
+import { cartProductsState, cartTotalPriceState } from 'state/cartProducts';
 import styled from 'styled-components';
 
 const SHIPPING_FEE = 3000;
 
 const ShoppingCartPage = () => {
   const { checkedBoxes, isAllChecked, toggleCheckAllBox } = useCartCheckBox();
+  const cartProducts = useRecoilValue(cartProductsState);
+  const cartTotalPrice = useRecoilValue(cartTotalPriceState);
+  const cartProductsCount = cartProducts.size;
+  const cartTotalPriceWithFee = cartTotalPrice + SHIPPING_FEE;
 
   const checkBoxText = isAllChecked ? '선택해제' : '전체선택';
+  const productTotalPriceText = `${cartTotalPrice.toLocaleString('ko-KR')}원`;
+  const shippingFeeText = `+${SHIPPING_FEE.toLocaleString('ko-KR')}원`;
+  const wholePriceText = `${cartTotalPriceWithFee.toLocaleString('ko-KR')}원`;
+  const orderConfirmButtonText = `총 ${cartProductsCount}건 주문하기
+  (${cartTotalPriceWithFee.toLocaleString('ko-KR')}원)`;
 
   return (
     <>
@@ -27,17 +38,17 @@ const ShoppingCartPage = () => {
         <WholePriceContainer flexDirection="column" gap="10px">
           <Container justify="space-between">
             <SubTitle>총 상품가격</SubTitle>
-            <ProductTotalPrice>21,700원</ProductTotalPrice>
+            <ProductTotalPrice>{productTotalPriceText}</ProductTotalPrice>
           </Container>
           <Container justify="space-between">
             <SubTitle>배송비</SubTitle>
-            <ShippingFee>{`+${SHIPPING_FEE.toLocaleString('ko-KR')}원`}</ShippingFee>
+            <ShippingFee>{shippingFeeText}</ShippingFee>
           </Container>
           <Container justify="space-between">
             <SubTitle>예상 주문금액</SubTitle>
-            <WholePrice>24,700원</WholePrice>
+            <WholePrice>{wholePriceText}</WholePrice>
           </Container>
-          <OrderConfirmButton>{`총 ${1}건 주문하기(${24700}원)`}</OrderConfirmButton>
+          <OrderConfirmButton>{orderConfirmButtonText}</OrderConfirmButton>
         </WholePriceContainer>
       </FlexBox>
     </>
