@@ -11,7 +11,7 @@ export default function ProductList() {
   return (
     <ProductListContainer>
       {products.map((product) => (
-        <ProductItem {...product} />
+        <ProductItem key={product.id} {...product} />
       ))}
     </ProductListContainer>
   );
