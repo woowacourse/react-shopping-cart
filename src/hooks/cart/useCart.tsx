@@ -4,17 +4,17 @@ import { CartItem } from '../../types/cart';
 import { Product } from '../../types/products';
 
 const useCart = () => {
-  const [cart, setCart] = useRecoilState(cartState);
+  const [cartItems, setCartItems] = useRecoilState(cartState);
 
   const hasItemInCart = (id: CartItem['id']) => {
-    return cart.find((item) => item.id === id);
+    return cartItems.find((item) => item.id === id);
   };
 
   const addInCart = (product: Product, quantity: number) => {
     const { id } = product;
 
     if (hasItemInCart(id)) {
-      setCart((cart) =>
+      setCartItems((cart) =>
         cart.map((item) =>
           item.id === id
             ? { ...item, quantity: item.quantity + quantity }
@@ -24,23 +24,23 @@ const useCart = () => {
       return;
     }
 
-    setCart((cart) => [...cart, { id, quantity, product }]);
+    setCartItems((cart) => [...cart, { id, quantity, product }]);
   };
 
   const adjustQuantityInCart = (
     id: CartItem['id'],
     quantity: CartItem['quantity']
   ) => {
-    setCart((cart) =>
+    setCartItems((cart) =>
       cart.map((item) => (item.id === id ? { ...item, quantity } : item))
     );
   };
 
   const deleteInCart = (id: CartItem['id']) => {
-    setCart((cart) => cart.filter((item) => item.id !== id));
+    setCartItems((cart) => cart.filter((item) => item.id !== id));
   };
 
-  return { cart, addInCart, adjustQuantityInCart, deleteInCart };
+  return { cart: cartItems, addInCart, adjustQuantityInCart, deleteInCart };
 };
 
 export default useCart;
