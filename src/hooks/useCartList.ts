@@ -1,11 +1,6 @@
 import { atom, useRecoilState } from "recoil";
 
-export const cartListState = atom<number[]>({
-  key: "cartListState",
-  default: [],
-});
-
-export const useCartList = (id?: number) => {
+export const useCartList = (id: number) => {
   const [cartList, setCartList] = useRecoilState(cartListState);
 
   const addProductToCartList = () => {
