@@ -1,22 +1,21 @@
 import { useState } from 'react';
 import { styled } from 'styled-components';
-import { useRecoilValue } from 'recoil';
 import CartListItem from '../CartListItem/CartListItem';
 import Spacer from '../../common/Spacer/Spacer';
 import CartTotal from '../CartTotal/CartTotal';
 import Checkbox from '../../common/Checkbox/Checkbox';
-import { cartState } from '../../../recoil/atoms';
+import useCartService from '../../../hooks/useCartService';
 
 const CartPage = () => {
-  const cartItems = useRecoilValue(cartState);
+  const { cart } = useCartService();
 
   const [checkedItemIds, setCheckedItemIds] = useState(
-    cartItems.map((cartItem) => cartItem.id),
+    cart.map((cartItem) => cartItem.id),
   );
-  const isAllChecked = checkedItemIds.length === cartItems.length;
+  const isAllChecked = checkedItemIds.length === cart.length;
 
   const calcTotalPrice = () => {
-    const checkedItems = cartItems.filter((cartItem) =>
+    const checkedItems = cart.filter((cartItem) =>
       checkedItemIds.includes(cartItem.id),
     );
 
@@ -38,7 +37,7 @@ const CartPage = () => {
     if (isAllChecked) {
       setCheckedItemIds(() => []);
     } else {
-      setCheckedItemIds(() => cartItems.map((cartItem) => cartItem.id));
+      setCheckedItemIds(() => cart.map((cartItem) => cartItem.id));
     }
   };
 
@@ -50,8 +49,8 @@ const CartPage = () => {
       <Spacer height={34} />
       <Inner>
         <CartList>
-          <ListTitle>든든배송 상품 ({cartItems.length}개)</ListTitle>
-          {cartItems.map((cartItem) => (
+          <ListTitle>든든배송 상품 ({cart.length}개)</ListTitle>
+          {cart.map((cartItem) => (
             <CartListItem
               key={cartItem.id}
               cartItem={cartItem}
@@ -66,7 +65,7 @@ const CartPage = () => {
               onChange={handleAllCheckboxChange}
             />
             <span>
-              전체선택 ({checkedItemIds.length} / {cartItems.length})
+              전체선택 ({checkedItemIds.length} / {cart.length})
             </span>
             <DeleteButton>선택삭제</DeleteButton>
           </AllCheckBoxContainer>
