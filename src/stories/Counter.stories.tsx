@@ -11,7 +11,7 @@ type Story = StoryObj<typeof meta>;
 
 export const CounterComponent: Story = {
   args: {
-    removeItemFromCartList: () => {
+    handleMinValueExceeded: () => {
       alert("카운터 숫자가 0이 되면 장바구니에서 상품이 제거됩니다.");
     },
   },

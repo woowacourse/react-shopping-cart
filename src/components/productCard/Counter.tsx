@@ -3,13 +3,15 @@ import styled from "styled-components";
 import { useCounterInput } from "../../hooks/useCounterInput";
 
 interface CounterProps {
-  removeItemFromCartList: () => void;
+  handleMinValueExceeded?: () => void;
+  handleValueChanged?: () => void;
 }
 
-export const Counter = ({ removeItemFromCartList }: CounterProps) => {
+export const Counter = ({ handleMinValueExceeded, handleValueChanged }: CounterProps) => {
   const { inputRef, handleDecrease, handleIncrease } = useCounterInput({
     min: 0,
-    handleMinValueExceeded: removeItemFromCartList,
+    handleMinValueExceeded,
+    handleValueChanged,
   });
 
   return (

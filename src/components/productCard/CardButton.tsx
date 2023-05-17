@@ -13,7 +13,7 @@ export const CardButton = ({ id }: CardButton) => {
   return (
     <>
       {isInCart() ? (
-        <Counter {...{ removeItemFromCartList }} />
+        <Counter handleMinValueExceeded={removeItemFromCartList} />
       ) : (
         <AddShoppingCartIcon handleClick={addItemToCartList} />
       )}
