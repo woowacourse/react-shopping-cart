@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 export const Navbar = styled.div`
   background-color: ${({ theme }) => theme.primaryColor};
   color: ${({ theme }) => theme.lightColor};
+  margin-bottom: 3rem;
 `;
 
 export const HeaderWrapper = styled.div`

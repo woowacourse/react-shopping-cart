@@ -13,6 +13,7 @@ export const ProductItemImageBox = styled.div`
 export const ProductItemImage = styled.img`
   width: 100%;
   aspect-ratio: 1/1;
+  border-radius: 8px;
 `;
 
 export const ProductDetails = styled.div`

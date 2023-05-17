@@ -9,11 +9,14 @@ import GlobalStyle from './styles/globalStyle';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
 import mockData from './assets/mockData.json';
+import { worker } from './mocks/browser';
 
 /**
  * 프로젝트 시작할 때 products mock data 준비하도록 설정
  */
+
 localStorage.setItem('products', JSON.stringify(mockData));
+worker.start();
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
