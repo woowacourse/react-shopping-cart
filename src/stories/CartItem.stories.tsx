@@ -17,6 +17,15 @@ const meta = {
       </div>
     ),
   ],
+  args: {
+    quantity: 3,
+    product: {
+      id: 2,
+      price: 20000,
+      name: '피자',
+      imageUrl: 'https://cdn.pixabay.com/photo/2011/12/13/14/30/mars-11012__480.jpg',
+    },
+  },
 } satisfies Meta<typeof CartItem>;
 
 export default meta;

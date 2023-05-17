@@ -1,12 +1,11 @@
-import { useRecoilState } from 'recoil';
-import { productsInCartState } from '../atom';
 import { QUANTITY } from '../constants';
+import { useCartState } from '../recoilCart';
 
 export const useCart = () => {
-  const [productsInCart, setProductsInCart] = useRecoilState(productsInCartState);
+  const [cart, setCart] = useCartState();
 
   const addToCart = (productId: number) => {
-    setProductsInCart((prev) => ({
+    setCart((prev) => ({
       ...prev,
       [productId]: {
         id: productId,
@@ -16,11 +15,11 @@ export const useCart = () => {
   };
 
   const findProductInCart = (productId: number) => {
-    return productsInCart[productId];
+    return cart[productId];
   };
 
   const increaseProductQuantity = (productId: number) => {
-    setProductsInCart((prev) => ({
+    setCart((prev) => ({
       ...prev,
       [productId]: {
         id: productId,
@@ -30,7 +29,7 @@ export const useCart = () => {
   };
 
   const decreaseProductQuantity = (productId: number) => {
-    setProductsInCart((prev) => ({
+    setCart((prev) => ({
       ...prev,
       [productId]: {
         id: productId,
@@ -42,7 +41,7 @@ export const useCart = () => {
   const updateProductQuantity = (productId: number, quantity: number) => {
     const count = quantity > QUANTITY.MAX ? QUANTITY.MAX : quantity;
 
-    setProductsInCart((prev) => ({
+    setCart((prev) => ({
       ...prev,
       [productId]: {
         id: productId,
@@ -52,7 +51,7 @@ export const useCart = () => {
   };
 
   return {
-    productsInCart,
+    cart,
     findProductInCart,
     addToCart,
     increaseProductQuantity,

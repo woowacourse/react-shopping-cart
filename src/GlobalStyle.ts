@@ -26,7 +26,6 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: 'Baemin';
-    background-color: red;
   }
 
   input[type="checkbox"] {
@@ -60,6 +59,12 @@ const GlobalStyle = createGlobalStyle`
   input[type="checkbox"]:checked::before {
     border-radius: 2px;
     transform: scale(1) translate(-50%, -50%)
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+    margin:0;
   }
 
   a {

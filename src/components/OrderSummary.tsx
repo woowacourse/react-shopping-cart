@@ -27,7 +27,12 @@ export const OrderSummary = () => {
 };
 
 const Style = {
-  OrderSummary: styled.div`
+  OrderSummary: styled.section`
+    position: -webkit-sticky;
+    position: sticky;
+
+    top: 100px;
+
     width: 448px;
     height: fit-content;
 
