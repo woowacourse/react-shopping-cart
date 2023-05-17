@@ -1,0 +1,23 @@
+name: Check the source code
+on:
+  pull_request:
+    branches:
+      - "develop"
+jobs:
+  test:
+    name: Check the source code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+    
+    # yarn install
+    - name: Install Dependencies
+      run: npm ci
+    
+    # prettier test
+    - name: Prettier Test
+      run: npm run format
+
+    # eslint test
+    - name: Lint
+      run: npm run lint
