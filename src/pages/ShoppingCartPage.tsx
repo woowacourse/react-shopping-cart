@@ -85,7 +85,8 @@ const CheckBoxTab = styled(FlexBox)`
 
 const Container = styled(FlexBox)`
   width: 100%;
-  height: 60px;
+  height: 50px;
+  border-bottom: solid 1px #dddddd;
 `;
 
 const CheckedProductDeleteButton = styled.button`
