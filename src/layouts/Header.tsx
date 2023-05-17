@@ -1,21 +1,22 @@
-import { Button as CartButton } from '../ui/Button';
 import { Typography as AddToCartTitle } from '../ui/Typography';
 import { Logo } from './Logo';
 import { TotalCartCount } from '../components/TotalCartCount';
 import { cartStateLength } from '../atoms/CartState';
 import { useRecoilValue } from 'recoil';
 import * as Styled from './styles/Header.styles';
+import { useNavigate } from 'react-router-dom';
 
 export const Header = () => {
   const cardStateLength = useRecoilValue(cartStateLength);
+  const navigator = useNavigate();
 
   return (
     <Styled.Wrapper>
       <Styled.HeaderWrapper>
         <Logo $color="#ffffff" />
-        <CartButton
+        <Styled.CartNavigator
           onClick={() => {
-            return;
+            navigator('/cart-list');
           }}
         >
           <AddToCartTitle size="24px" color="#ffffff">
@@ -26,7 +27,7 @@ export const Header = () => {
               <TotalCartCount count={cardStateLength} />
             )}
           </Styled.TotalCartCountWrapper>
-        </CartButton>
+        </Styled.CartNavigator>
       </Styled.HeaderWrapper>
     </Styled.Wrapper>
   );
