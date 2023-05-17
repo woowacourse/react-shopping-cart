@@ -7,7 +7,7 @@ const meta = {
   title: 'CartQuantityStepper',
   decorators: [
     (Story) => (
-      <div style={{ width: '50px', height: '50px', position: 'relative' }}>
+      <div style={{ width: '50px', height: '50px' }}>
         <Story />
       </div>
     ),
@@ -24,9 +24,6 @@ const meta = {
     },
     quantity: {
       description: '장바구니에 담긴 상품의 수량입니다.',
-    },
-    $position: {
-      description: 'stepper의 랜더링 위치를 나타내는 객체입니다.',
     },
   },
 } satisfies Meta<typeof CartQuantityStepper>;
@@ -52,7 +49,6 @@ const CartQuantityStepperWithHooks = () => {
       initialIncrement={increaseQuantity}
       decreaseQuantity={decreaseQuantity}
       increaseQuantity={increaseQuantity}
-      $position={{ $left: '10px', $top: '10px' }}
     ></CartQuantityStepper>
   );
 };

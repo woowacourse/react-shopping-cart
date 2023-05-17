@@ -1,25 +1,12 @@
-import styled, { CSSProperties } from 'styled-components';
+import styled from 'styled-components';
 import { ReactComponent as MiniCartIcon } from 'assets/mini-cart-icon.svg';
 import useCartQuantityStepper from './hooks/useCartQuantityStepper';
-
-type $Position = {
-  $top?: CSSProperties['top'];
-  $bottom?: CSSProperties['bottom'];
-  $left?: CSSProperties['left'];
-  $right?: CSSProperties['right'];
-} & (
-  | { $top: CSSProperties['top']; $left: CSSProperties['left'] }
-  | { $top: CSSProperties['top']; $right: CSSProperties['right'] }
-  | { $bottom: CSSProperties['bottom']; $left: CSSProperties['left'] }
-  | { $bottom: CSSProperties['bottom']; $right: CSSProperties['right'] }
-);
 
 type CartQuantityStepperProps = {
   quantity: number;
   initialIncrement: () => void;
   increaseQuantity: () => void;
   decreaseQuantity: () => void;
-  $position: $Position;
 };
 
 const CartQuantityStepper = ({
@@ -27,7 +14,6 @@ const CartQuantityStepper = ({
   initialIncrement,
   increaseQuantity,
   decreaseQuantity,
-  $position,
 }: CartQuantityStepperProps) => {
   const { isOpen, openStepper, closeStepper } = useCartQuantityStepper();
   const isPositiveQuantity = quantity > 0;
@@ -52,7 +38,7 @@ const CartQuantityStepper = ({
   return (
     <>
       {isOpen ? (
-        <Stepper tabIndex={0} onBlur={handleCloseStepperOnBlur} $position={$position}>
+        <Stepper tabIndex={0} onBlur={handleCloseStepperOnBlur}>
           <DecreaseButton onClick={handleDecreaseQuantity}>-</DecreaseButton>
           <Quantity tabIndex={0}>{quantity}</Quantity>
           <IncreaseButton onClick={increaseQuantity} autoFocus>
@@ -60,11 +46,11 @@ const CartQuantityStepper = ({
           </IncreaseButton>
         </Stepper>
       ) : isPositiveQuantity ? (
-        <ClosedStepper onClick={openStepper} $position={$position}>
+        <ClosedStepper onClick={openStepper}>
           <Quantity>{quantity}</Quantity>
         </ClosedStepper>
       ) : (
-        <ClosedStepper onClick={handleInitialIncrement} $position={$position}>
+        <ClosedStepper onClick={handleInitialIncrement}>
           <MiniCartIcon />
         </ClosedStepper>
       )}
@@ -74,16 +60,10 @@ const CartQuantityStepper = ({
 
 export default CartQuantityStepper;
 
-const ClosedStepper = styled.button<{ $position: $Position }>`
+const ClosedStepper = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
-
-  bottom: ${({ $position }) => $position.$bottom};
-  top: ${({ $position }) => $position.$top};
-  right: ${({ $position }) => $position.$right};
-  left: ${({ $position }) => $position.$left};
   width: 36px;
   height: 36px;
   border: none;
@@ -92,15 +72,10 @@ const ClosedStepper = styled.button<{ $position: $Position }>`
   cursor: pointer;
 `;
 
-const Stepper = styled.div<{ $position: $Position }>`
+const Stepper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  bottom: ${({ $position }) => $position.$bottom};
-  top: ${({ $position }) => $position.$top};
-  right: ${({ $position }) => $position.$right};
-  left: ${({ $position }) => $position.$left};
   width: 100px;
   height: 36px;
   padding: 5px;
