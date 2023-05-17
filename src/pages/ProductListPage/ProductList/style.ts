@@ -7,3 +7,12 @@ export const ProductListContainer = styled.ul`
   row-gap: 80px;
   margin-bottom: 100px;
 `;
+
+export const ProductListErrorContainer = styled.div`
+  height: 500px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+`;
