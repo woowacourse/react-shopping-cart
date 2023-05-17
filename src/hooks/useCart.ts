@@ -8,7 +8,7 @@ const useCart = (productId: number) => {
   const [cart, setCart] = useRecoilState(cartAtomFamily(productId));
   const [cartID, setCartID] = useRecoilState(cartIDAtom);
   const product = useRecoilValue(targetProductSelector)(productId);
-  const productInCart = cart ? true : false;
+  const productInCart = cart.quantity ? true : false;
   const [isCartClicked, setIsCartClicked] = useState(Boolean(productInCart));
 
   const addToCart = () => {

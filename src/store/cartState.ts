@@ -1,20 +1,21 @@
 import { atom, atomFamily, selector } from "recoil";
 import { Cart } from "../types/product";
+import localStorageEffect from "./localStorageEffect";
 
 export const cartAtomFamily = atomFamily<Cart, number>({
   key: "cart",
-  default: (id) => {
-    return JSON.parse(localStorage.getItem(`cart`) || "[]").find(
-      (cart: Cart) => cart.id === id
-    );
+  default: {
+    id: 0,
+    quantity: 0,
+    product: { id: 0, name: "", price: 0, imageUrl: "" },
   },
+  effects: (id) => [localStorageEffect(`cart_${id}`)],
 });
 
 export const cartIDAtom = atom<number[]>({
   key: "cartID",
-  default: JSON.parse(localStorage.getItem(`cart`) || "[]").map(
-    (cart: Cart) => cart.id
-  ),
+  default: [],
+  effects: [localStorageEffect("cartID")],
 });
 
 export const cartAllSelector = selector<Cart[]>({
