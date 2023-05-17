@@ -1,4 +1,9 @@
-type SvgIdProps = 'header-cart' | 'cart-icon' | 'error' | 'success';
+type SvgIdProps =
+  | 'header-cart'
+  | 'cart-icon'
+  | 'error'
+  | 'success'
+  | 'trash-can';
 
 interface SvgProps extends React.SVGAttributes<SVGElement> {
   type: SvgIdProps;
