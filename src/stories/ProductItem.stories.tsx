@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { ProductItem } from '../components/ProductItem';
-import { getMockData } from '../pages/ProductList';
+import { getMockData } from '../pages/ProductListPage';
 import { userEvent, within } from '@storybook/testing-library';
 
 const meta = {

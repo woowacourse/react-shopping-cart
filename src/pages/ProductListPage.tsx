@@ -4,9 +4,9 @@ import styled from 'styled-components';
 
 export const getMockData = mockData;
 
-export const ProductList = () => {
+export const ProductListPage = () => {
   return (
-    <ProductListWrapper>
+    <ProductListPageWrapper>
       {getMockData.map(({ id, name, price, imageUrl }) => (
         <ProductItem
           key={id}
@@ -16,11 +16,11 @@ export const ProductList = () => {
           imageUrl={imageUrl}
         />
       ))}
-    </ProductListWrapper>
+    </ProductListPageWrapper>
   );
 };
 
-const ProductListWrapper = styled.div`
+const ProductListPageWrapper = styled.div`
   width: 1200px;
   margin: 60px auto;
   display: grid;
