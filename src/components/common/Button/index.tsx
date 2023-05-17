@@ -14,10 +14,15 @@ interface ButtonStyleProps {
 
 interface ButtonProps extends ButtonStyleProps {
   text: string;
+  onClick: () => void;
 }
 
-const Button = ({ text, ...rest }: ButtonProps) => {
-  return <Wrapper {...rest}>{text}</Wrapper>;
+const Button = ({ text, onClick, ...rest }: ButtonProps) => {
+  return (
+    <Wrapper onClick={onClick} {...rest}>
+      {text}
+    </Wrapper>
+  );
 };
 
 export default Button;
