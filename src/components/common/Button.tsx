@@ -40,8 +40,8 @@ const StyledButton = styled.button<{
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${({ $width }) => $width || '132px'};
-  height: ${({ $height }) => $height || '32px'};
+  width: ${({ $width }) => $width || '100%'};
+  height: ${({ $height }) => $height || '100%'};
   background-color: ${({ $backgroundColor }) =>
     $backgroundColor || 'var(--label-color)'};
   border: 1px solid ${({ $borderColor }) => $borderColor || 'none'};

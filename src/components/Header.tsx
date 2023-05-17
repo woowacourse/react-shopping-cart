@@ -14,6 +14,8 @@ export const Header = () => {
       <StyledHeader>
         <Logo $color="var(--white-color)" />
         <CartButton
+          width="132px"
+          height="28px"
           onClick={() => {
             return;
           }}
