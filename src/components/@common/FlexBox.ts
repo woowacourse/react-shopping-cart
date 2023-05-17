@@ -5,6 +5,9 @@ interface FlexBoxProps {
   justify?: CSSProperties['justifyContent'];
   align?: CSSProperties['alignItems'];
   gap?: CSSProperties['gap'];
+  width?: CSSProperties['width'];
+  padding?: CSSProperties['padding'];
+  margin?: CSSProperties['margin'];
 }
 
 const FlexBox = styled.div<FlexBoxProps>`
@@ -13,6 +16,9 @@ const FlexBox = styled.div<FlexBoxProps>`
   justify-content: ${({ justify = 'flex-start' }) => justify};
   align-items: ${({ align = 'flex-start' }) => align};
   gap: ${({ gap }) => gap};
+  width: ${({ width }) => width};
+  padding: ${({ padding }) => padding};
+  margin: ${({ margin }) => margin};
 `;
 
 export default FlexBox;
