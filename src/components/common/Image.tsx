@@ -21,6 +21,7 @@ const StyledDiv = styled.div<{ $width?: string; $height?: string }>`
   height: ${({ $height }) => $height || '144px'};
 
   img {
+    border-radius: 8px;
     width: ${({ $width }) => $width || '144px'};
     height: ${({ $height }) => $height || '144px'};
   }

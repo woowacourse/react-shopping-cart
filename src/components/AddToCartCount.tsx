@@ -28,7 +28,7 @@ export const AddToCartCount = ({ id, quantity }: AddToCartCountProps) => {
 };
 
 const Wrapper = styled.div`
-  width: 80px;
+  width: 60px;
   border: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;

@@ -13,8 +13,8 @@ export const ProductItem = (props: ProductItemProps) => {
   return (
     <ProductItemWrapper key={id}>
       <ProductImage
-        $width="282px"
-        $height="282px"
+        $width="260px"
+        $height="260px"
         source={imageUrl}
         alternative="상품 이미지"
       />
@@ -38,7 +38,6 @@ const ProductItemWrapper = styled.div`
 `;
 
 const ProductTextWrapper = styled.div`
-  width: 282px;
   display: flex;
   justify-content: space-between;
   align-items: center;
