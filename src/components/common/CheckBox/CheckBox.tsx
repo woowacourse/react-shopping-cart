@@ -38,6 +38,9 @@ const Label = styled.label`
 
 const InputWrapper = styled.span`
   position: relative;
+
+  width: 28px;
+  height: 28px;
 `;
 
 const Input = styled.input.attrs({ type: 'checkbox' })`
