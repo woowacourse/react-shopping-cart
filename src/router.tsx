@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import ProductListPage from '@Pages/ProductListPage';
+import Home from '@Pages/Home';
 import ShoppingList from '@Pages/ShoppingList';
 
 import App from './App';
@@ -12,7 +12,7 @@ const router = createBrowserRouter(
       children: [
         {
           index: true,
-          element: <ProductListPage />,
+          element: <Home />,
         },
         {
           path: '/shopping-list',
