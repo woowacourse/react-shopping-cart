@@ -10,13 +10,17 @@ const useCart = (id: number) => {
   const setMessageList = useSetRecoilState($ToastMessageList);
 
   const addQuantity = async (quantity: number) => {
-    await mutateQuery('PATCH', { quantity: cartItemState.quantity + quantity }, String(id));
-    setCartItemState(prev => ({ id, quantity: prev.quantity + quantity, product: prev.product }));
+    if (cartItemState) {
+      await mutateQuery('PATCH', { quantity: cartItemState.quantity + quantity }, String(id));
+    }
+    setCartItemState(prev => prev && { id, quantity: prev.quantity + quantity, product: prev.product });
   };
 
   const deleteCartItem = async () => {
     await mutateQuery('DELETE', undefined, String(id));
     setCartIdList(prev => prev.filter(item => item !== id));
+    setCartItemState(null);
+
     if (!(loading || error)) {
       setMessageList(prev => [...prev, '장바구니에서 삭제되었습니다.']);
     }

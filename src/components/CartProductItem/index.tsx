@@ -7,21 +7,26 @@ import useCart from '../../hooks/useCart';
 
 interface CartProductItemProps {
   cartItem: CartItem;
-  deleteCart: React.MouseEventHandler<HTMLButtonElement>;
+  refresh: () => void;
   toggleCheck: ChangeEventHandler<HTMLInputElement>;
   checked: boolean;
 }
 
-function CartProductItem({ cartItem, deleteCart, toggleCheck, checked }: CartProductItemProps) {
+function CartProductItem({ cartItem, refresh, toggleCheck, checked }: CartProductItemProps) {
   const { product } = cartItem;
   const { id, name, imageUrl, price } = product;
-  const { cartItemState, addQuantity } = useCart(id);
+  const { cartItemState, addQuantity, deleteCartItem } = useCart(id);
 
   const handleUpButton = async () => await addQuantity(1);
   const handleDownButton = async () => {
-    if (cartItemState.quantity > 0) {
+    if (cartItemState && cartItemState.quantity > 0) {
       await addQuantity(-1);
     }
+  };
+
+  const handleDeleteButton = async () => {
+    await deleteCartItem();
+    refresh();
   };
 
   return (
@@ -31,13 +36,13 @@ function CartProductItem({ cartItem, deleteCart, toggleCheck, checked }: CartPro
       <div className={styles['item-info']}>
         <div>
           <div className={styles['product-title']}>{name}</div>
-          <button onClick={deleteCart}>
+          <button onClick={handleDeleteButton}>
             <TrashBox size={24} />
           </button>
         </div>
         <CountButton
           large
-          count={cartItemState.quantity}
+          count={cartItemState ? cartItemState.quantity : 0}
           handleUpButton={handleUpButton}
           handleDownButton={handleDownButton}
         />
