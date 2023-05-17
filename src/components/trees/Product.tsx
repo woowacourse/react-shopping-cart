@@ -16,8 +16,7 @@ export default function Product(props: ProductProps) {
   const cartItem = cart.find((item) => item.product.id === id);
 
   const onAddCartItem = () => {
-    const newCartItem = { id: Date.now(), quantity: 1, product: props };
-    addCartItem(newCartItem);
+    addCartItem({ id: Date.now(), quantity: 1, product: props });
     setQuantityInput('1');
   };
 
@@ -38,7 +37,7 @@ export default function Product(props: ProductProps) {
 
   return (
     <Wrapper>
-      <Img src={imageUrl} />
+      <Image src={imageUrl} />
       <InfoBox>
         <LabelBox>
           <Name>{name}</Name>
@@ -46,7 +45,12 @@ export default function Product(props: ProductProps) {
         </LabelBox>
         <ControlBox>
           {cartItem ? (
-            <CounterInput count={quantityInput} setCount={setQuantityInput} max={MAX_QUANTITY} />
+            <CounterInput
+              count={quantityInput}
+              setCount={setQuantityInput}
+              min={0}
+              max={MAX_QUANTITY}
+            />
           ) : (
             <CartIcon src="./cart.svg" onClick={onAddCartItem}></CartIcon>
           )}
@@ -63,7 +67,7 @@ const Wrapper = styled.div`
   color: #333333;
 `;
 
-const Img = styled.img`
+const Image = styled.img`
   width: 100%;
   height: 282px;
 `;

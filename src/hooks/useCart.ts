@@ -3,10 +3,14 @@ import type { CartItemType } from '../types';
 import { useRecoilState } from 'recoil';
 import { cartState } from '../recoil/state';
 
+interface NewCartItemType extends CartItemType {
+  quantity: 1;
+}
+
 export default function useCart() {
   const [cart, setCart] = useRecoilState(cartState);
 
-  const addCartItem = (cartItem: CartItemType) => {
+  const addCartItem = (cartItem: NewCartItemType) => {
     setCart([...cart, cartItem]);
   };
 
