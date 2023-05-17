@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Button } from '../../ui/styles/Button.styles';
 
 export const Wrapper = styled.div`
   width: 80px;
@@ -14,14 +15,16 @@ export const QuantityText = styled.div`
   text-align: center;
 `;
 
-export const DecreaseCountButton = styled.div`
+export const DecreaseCountButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 20px;
   height: 20px;
   cursor: pointer;
+  border: none;
   border-left: 1px solid #dddddd;
+  background-color: transparent;
 `;
 
 export const IncreaseCountButton = styled(DecreaseCountButton)`
