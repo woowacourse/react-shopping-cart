@@ -2,6 +2,7 @@ import React from 'react';
 import type { Preview } from '@storybook/react';
 import { GlobalStyle } from '../src/styles/GlobalStyles';
 import { RecoilRoot } from 'recoil';
+import { MemoryRouter } from 'react-router';
 
 const preview: Preview = {
   parameters: {
@@ -15,10 +16,12 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <RecoilRoot>
+      <MemoryRouter>
         <GlobalStyle />
-        <Story />
-      </RecoilRoot>
+        <RecoilRoot>
+          <Story />
+        </RecoilRoot>
+      </MemoryRouter>
     ),
   ],
 };
