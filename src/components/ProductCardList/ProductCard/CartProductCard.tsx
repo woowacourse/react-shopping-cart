@@ -14,14 +14,14 @@ export const CartProductCard = ({ cartProduct }: Props) => {
   const { name, price, imageUrl } = product;
 
   return (
-    <FlexBox height="140px" padding="10px 0" gap="10px">
+    <FlexBox height="140px" width="100%" padding="10px 0" gap="10px">
       <FlexBox>
         <Checkbox type="checkbox" />
       </FlexBox>
       <FlexBox width="120px">
         <ProductImage src={imageUrl} alt={name} onError={renderDefaultThumbnail} />
       </FlexBox>
-      <FlexBox margin="0 70px 0 0">
+      <FlexBox flex={1}>
         <ProductTitle>{name}</ProductTitle>
       </FlexBox>
       <FlexBox direction="column" height="100%" gap="5px" justify="space-around" align="flex-end">
