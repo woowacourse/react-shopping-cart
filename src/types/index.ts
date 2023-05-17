@@ -12,3 +12,9 @@ export type ShoppingCartProduct = {
 };
 
 export type UpdateShoppingCart = (product: Product) => (quantity: number) => void;
+
+export type Error = {
+  message: string;
+  imgSrc: string;
+  imgAlt: string;
+};
