@@ -40,7 +40,11 @@ const CartListItem = ({
         <Image src={imageSrc} loading="lazy" alt={name} />
         <Title>{name}</Title>
         <Right>
-          <DeleteButton type="button" aria-label="장바구니에서 삭제하기">
+          <DeleteButton
+            type="button"
+            aria-label="장바구니에서 삭제하기"
+            onClick={() => removeProductFromCart(id)}
+          >
             <svg
               fill="none"
               width="24"
