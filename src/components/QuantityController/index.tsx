@@ -21,6 +21,7 @@ function QuantityController({ quantity, changeProductQuantity }: QuantityControl
   if (quantity === SHOPPING_QUANTITY.MIN && !proceeding)
     return (
       <S.ShoppingCartIcon
+        tab-index="0"
         src={ShoppingCart}
         onClick={changeQuantityDefault}
         data-testid="shopping-cart-icon"
