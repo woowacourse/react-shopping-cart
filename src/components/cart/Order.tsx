@@ -1,8 +1,10 @@
 import { useRecoilValue } from 'recoil';
 import { css, styled } from 'styled-components';
+import { DELIVERY_FEE } from '../../constants';
 import { cartState } from '../../recoil';
 import { CartItem } from '../../types';
 import Button from '../common/Button';
+import Price from '../Price';
 
 const Order = () => {
   const cart = useRecoilValue(cartState);
@@ -14,17 +16,11 @@ const Order = () => {
   return (
     <S.Wrapper>
       <S.Title>결제예상금액</S.Title>
-      <ul>
-        <S.List>
-          총 상품가격<span>{`${totalPrice.toLocaleString()}원`}</span>
-        </S.List>
-        <S.List>
-          총 배송비 <span>3,000원</span>
-        </S.List>
-        <S.List>
-          총 주문금액<span>{`${(totalPrice + 3000).toLocaleString()}원`}</span>
-        </S.List>
-      </ul>
+      <S.List>
+        <Price price={totalPrice} tag="li" description="총 상품가격" />
+        <Price price={DELIVERY_FEE} tag="li" description="총 배송비" />
+        <Price price={totalPrice + DELIVERY_FEE} tag="li" description="총 주문금액" />
+      </S.List>
       <Button css={orderButtonStyle}>주문하기</Button>
     </S.Wrapper>
   );
@@ -45,15 +41,17 @@ const S = {
     font-size: 24px;
   `,
 
-  List: styled.li`
-    display: flex;
-    justify-content: space-between;
-    margin: 0 30px 20px;
-    font-size: 20px;
-    font-weight: 700;
+  List: styled.ul`
+    & > li {
+      display: flex;
+      justify-content: space-between;
+      margin: 0 30px 20px;
+      font-size: 20px;
+      font-weight: 700;
 
-    &:last-child {
-      margin: 42px 30px 44px;
+      &:last-child {
+        margin: 42px 30px 44px;
+      }
     }
   `,
 };
