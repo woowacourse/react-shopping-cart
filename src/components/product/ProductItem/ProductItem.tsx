@@ -4,7 +4,6 @@ import Counter from '../../common/Counter/Counter';
 import Image from '../../common/Image/Image';
 import { formatPrice } from '../../../utils/formatPrice';
 import useCartService from '../../../hooks/useCartService';
-import { productQuantityInCart } from '../../../recoil/selectors';
 import { SmallCartIcon } from '../../../assets';
 import type { Product } from '../../../types/product';
 
@@ -17,7 +16,7 @@ const ProductItem = (product: Product) => {
     removeProductFromCart,
   } = useCartService();
   const productInCart = cart.find((cartItem) => cartItem.product.id === id);
-  const quantityInCart = useRecoilValue(productQuantityInCart(id));
+  const quantityInCart = productInCart?.quantity ?? 0;
 
   const handleClickCartButton = () => {
     addProductToCart(id);
