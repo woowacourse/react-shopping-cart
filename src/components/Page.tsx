@@ -9,5 +9,5 @@ const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
 
-  padding: 110px 5%;
+  padding: 110px 10px;
 `;

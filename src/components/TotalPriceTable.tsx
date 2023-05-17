@@ -28,6 +28,7 @@ const Wrapper = styled.section`
   align-items: center;
 
   width: 390px;
+  height: 330px;
   padding-bottom: 30px;
 
   margin-top: 35px;
