@@ -22,7 +22,7 @@ export const PRODUCT_LIST: ProductListProps = {
   productList: [
     {
       id: 1,
-      name: 'PET보틀-정사각(420ml)',
+      name: '더마독 관절 강아지 사료 2kg 가수분해 슬개골 개사료',
       price: 43400,
       imageUrl: A_MOCK,
     },
@@ -35,7 +35,7 @@ export const PRODUCT_LIST: ProductListProps = {
     {
       id: 3,
       name: 'PET보틀-정사각(370ml)',
-      price: 24400,
+      price: 28497140112312324400,
       imageUrl: C_MOCK,
     },
     {

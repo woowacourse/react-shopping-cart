@@ -9,17 +9,25 @@ interface ProductItemProps {
   product: ProductInformation;
 }
 
+const MAX_PRICE_LIMIT = 15;
+
 const ProductItem = ({ product }: ProductItemProps) => {
   const { id, name, price, imageUrl } = product;
   const { addProductToCart } = useControlCart();
 
+  const localePrice = price.toLocaleString('ko-KR');
+  const slicedPrice =
+    localePrice.length > MAX_PRICE_LIMIT
+      ? `${localePrice.slice(0, MAX_PRICE_LIMIT)}...`
+      : localePrice;
+
   return (
     <Wrapper>
-      <Picture src={imageUrl} alt={name} />
+      <Picture title={name} src={imageUrl} alt={name} />
       <InformationWrapper>
         <TitleAndPriceWrapper>
-          <Title>{name}</Title>
-          <Price>{price.toLocaleString('ko-KR')} 원</Price>
+          <Title title={name}>{name}</Title>
+          <Price title={`${localePrice} 원`}>{slicedPrice} 원</Price>
         </TitleAndPriceWrapper>
         <AddCartButton
           id={id}
@@ -31,12 +39,11 @@ const ProductItem = ({ product }: ProductItemProps) => {
 };
 
 const Wrapper = styled.div`
-  width: 100%;
+  width: 282px;
+  cursor: pointer;
 `;
 
 const Picture = styled.img`
-  width: 100%;
-
   margin-bottom: 18px;
 `;
 
@@ -50,6 +57,7 @@ const InformationWrapper = styled.div`
 const TitleAndPriceWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  max-width: calc(100% - 80px);
 `;
 
 const Title = styled.span`
@@ -58,6 +66,9 @@ const Title = styled.span`
   line-height: 22px;
 
   letter-spacing: 0.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 
   color: ${theme.colors.primaryBlack};
 `;

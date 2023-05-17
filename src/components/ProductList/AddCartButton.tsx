@@ -19,6 +19,7 @@ const AddCartButton = ({ id, addProductToCart }: AddCartButtonProps) => {
         <BucketCounter id={id} quantity={savedCartData.quantity} />
       ) : (
         <Button
+          title="장바구니 추가"
           type="button"
           onClick={addProductToCart}
           aria-label="장바구니 버튼"
