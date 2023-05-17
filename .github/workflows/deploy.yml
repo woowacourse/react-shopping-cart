@@ -25,6 +25,15 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+
+      # $GITHUB_REPOSITORY 환경 변수는 solo5star/react-payments 형태의
+      # owner과 repository 값입니다. 이를 .env에 PUBLIC_URL=/react-payments/ 형태로
+      # 저장하기 위한 명령입니다.
+      - name: Set PUBLIC_URL
+        run: |
+          PUBLIC_URL=$(echo $GITHUB_REPOSITORY | sed -r 's/^.+\/(.+)$/\/\1\//')
+          echo PUBLIC_URL=$PUBLIC_URL > .env
+
       - run: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
 
