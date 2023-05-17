@@ -1,8 +1,9 @@
 import { Typography as LogoTitle } from '../ui/Typography';
 import { LogoImage } from '../types/image';
 import * as Styled from './styles/Logo.styles';
+import { memo } from 'react';
 
-export const Logo = ({ $color }: { $color: string }) => {
+export const Logo = memo(({ $color }: { $color: string }) => {
   return (
     <Styled.Wrapper>
       <LogoImage fill={$color} />
@@ -11,4 +12,4 @@ export const Logo = ({ $color }: { $color: string }) => {
       </LogoTitle>
     </Styled.Wrapper>
   );
-};
+});
