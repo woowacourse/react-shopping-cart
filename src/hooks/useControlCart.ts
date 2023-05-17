@@ -1,5 +1,10 @@
 import { cartAtom } from '@recoil/atoms/cartAtom';
 import { CartInformation, ProductInformation } from '@type/types';
+import {
+  createCartItem,
+  removedItemCart,
+  changedQuantityCart,
+} from '@utils/cart';
 import { CART_LIST_LOCAL_KEY } from '@constants/common';
 import useAtomLocalStorage from './useAtomLocalStorage';
 
@@ -10,14 +15,9 @@ const useControlCart = () => {
   );
 
   const updateQuantityOfCartItem = (id: number, quantity: number) => {
-    const updateCart = cart.map((product) => {
-      if (product.id === id) {
-        return { ...product, quantity };
-      }
-      return product;
-    });
+    const updatedCart = changedQuantityCart({ quantity, id, cart });
 
-    setCart(updateCart);
+    setCart(updatedCart);
   };
 
   const addProductToCart = ({
@@ -26,19 +26,13 @@ const useControlCart = () => {
     price,
     imageUrl,
   }: ProductInformation) => {
-    const product: CartInformation = {
-      id,
-      product: { name, price, imageUrl, id },
-      quantity: 1,
-    };
+    const cartItem = createCartItem({ id, name, price, imageUrl });
 
-    const updatedCart = [...cart, product];
-
-    setCart(updatedCart);
+    setCart([...cart, cartItem]);
   };
 
   const removeProductFromCart = (id: number) => {
-    const updatedCart = cart.filter((product) => id !== product.id);
+    const updatedCart = removedItemCart(cart, id);
 
     setCart(updatedCart);
   };
