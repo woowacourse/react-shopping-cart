@@ -1,5 +1,4 @@
-import { selector, selectorFamily } from 'recoil';
-import { cartState } from '../atoms';
+import { selector } from 'recoil';
 import { CartItem, Product } from '../../types/product';
 import { CART_BASE_URL, PRODUCTS_BASE_URL } from '../../constants';
 
