@@ -13,8 +13,12 @@ const meta = {
 
 type Story = StoryObj<typeof meta>;
 
-export const Standard: Story = {
-  args: { productId: 8 },
+export const ButtonMode: Story = {
+  args: { productId: 1, initialValue: 0 },
+};
+
+export const InputMode: Story = {
+  args: { productId: 2, initialValue: 7 },
 };
 
 export default meta;

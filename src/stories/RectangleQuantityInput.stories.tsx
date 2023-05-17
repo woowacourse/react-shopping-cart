@@ -5,7 +5,6 @@ import RectangleQuantityInput from "../components/RectangleQuantityInput/Rectang
  * `RectangleQuantityInput` 컴포넌트는 품목의 수량을 지정할 수 있는 인풋 형태의 컴포넌트입니다.
  * 수량과 관계없이 인풋을 보여줍니다.
  */
-
 const meta = {
   title: "RectangleQuantityInput",
   component: RectangleQuantityInput,
@@ -14,7 +13,7 @@ const meta = {
 type Story = StoryObj<typeof meta>;
 
 export const Standard: Story = {
-  args: { productId: 8 },
+  args: { productId: 8, initialValue: 0 },
 };
 
 export default meta;

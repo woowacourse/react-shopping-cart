@@ -18,6 +18,7 @@ export const Standard: Story = {
       "https://user-images.githubusercontent.com/87642422/237034991-962fecb7-42cb-499f-b9c4-32ef863031ee.png",
     productName: "프리미엄 초콜릿 조각 케이크",
     productPrice: 9800,
+    productQuantity: 0,
   },
 };
 
