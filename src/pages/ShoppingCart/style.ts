@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  margin-bottom: 60px;
+`;
 
 export const Title = styled.h2`
   font-weight: 700;
@@ -24,4 +26,9 @@ export const ShoppingCartContentsLayout = styled.div`
   display: grid;
   grid-template-columns: auto 360px;
   column-gap: 100px;
+  @media only screen and (max-width: 1200px) {
+    // 테블릿
+    grid-template-columns: auto;
+    row-gap: 40px;
+  }
 `;
