@@ -10,13 +10,13 @@ const ProductList = () => {
   const { renderToast } = useToast();
 
   const { data, isLoading } = useFetch<{ choonsik: Product[] }>(
-    process.env.PUBLIC_URL + '/mock/productList.json',
+    '/api/products',
     { choonsik: [] }
   );
 
   const loading = isLoading && <div>Loading...</div>;
 
-  const fetchedProductList = data.choonsik.map((product) => (
+  const fetchedProductList = data.choonsik?.map((product) => (
     <ProductItem key={product.id} product={product} />
   ));
 
