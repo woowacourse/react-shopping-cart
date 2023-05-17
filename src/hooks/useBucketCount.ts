@@ -64,6 +64,12 @@ const useBucketCount = (
       return;
     }
 
+    if (bucketCount > maximumCount) {
+      setBucketCount(maximumCount);
+      updateQuantityOfCartItem(id, maximumCount);
+      return;
+    }
+
     updateQuantityOfCartItem(id, bucketCount);
   };
 
