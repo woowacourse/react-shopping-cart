@@ -74,4 +74,23 @@ export const cartHandlers = [
 
     return res(ctx.status(200));
   }),
+
+  // 장바구니 아이템 삭제
+  rest.post(`${CART_BASE_URL}/:id`, (req, res, ctx) => {
+    const cartItemId = Number(req.params.id);
+    const isExists = isInCart(cartItemId);
+
+    if (!isExists) {
+      return res(
+        ctx.status(404),
+        ctx.json({ message: '장바구니에 해당 상품이 존재하지 않습니다.' }),
+      );
+    }
+
+    cart = cart.filter((cartItem) => cartItem.product.id !== cartItemId);
+
+    updateLocalStorage();
+
+    return res(ctx.status(204));
+  }),
 ];
