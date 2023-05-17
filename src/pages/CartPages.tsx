@@ -5,13 +5,26 @@ const CartPage = () => {
   return (
     <>
       <Header />
-      <Layout>CartPage</Layout>
+      <Layout>
+        <Title>장바구니</Title>
+      </Layout>
     </>
   );
 };
 
 const Layout = styled.main`
-  padding: 130px 300px;
+  padding: 80px;
+  width: 1320px;
+`;
+
+const Title = styled.h2`
+  font-weight: 700;
+  font-size: 32px;
+
+  padding: 30px 0;
+  border-bottom: 4px solid #333333;
+
+  text-align: center;
 `;
 
 export default CartPage;
