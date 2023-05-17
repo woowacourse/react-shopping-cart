@@ -1,27 +1,9 @@
 import styled from 'styled-components';
 
 import { Product } from '../../types/Product';
-import { Counter } from './Counter';
-import { ShoppingCartIcon } from '../../assets/ShoppingCartIcon';
-import { useCartIdList } from '../../hooks/recoil/useCartIdList';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { useCounterInput } from '../../hooks/useCounterInput';
+import { AddCartButton } from './AddCartButton';
 
 export const ProductCard = ({ id, name, price, imageUrl }: Product) => {
-  const { cartIdList, addProductToCartIdList, removeProductFromCartIdList } =
-    useCartIdList();
-
-  const { getProductQuantityById, patchProductQuantity } = useLocalStorage();
-
-  const { inputRef, handleDecrease, handleIncrease } = useCounterInput({
-    minLimit: 0,
-    handleMinValueExceeded: () => removeProductFromCartIdList(id),
-    increaseCallback: () =>
-      patchProductQuantity(id, Number(inputRef.current?.value)),
-    decreaseCallback: () =>
-      patchProductQuantity(id, Number(inputRef.current?.value)),
-  });
-
   return (
     <Style.Container>
       <Style.Image src={imageUrl} alt="상품 이미지" />
@@ -30,16 +12,7 @@ export const ProductCard = ({ id, name, price, imageUrl }: Product) => {
           <Style.Name>{name}</Style.Name>
           <Style.Price>{price}원</Style.Price>
         </Style.NamePriceContainer>
-        {cartIdList.includes(id) ? (
-          <Counter
-            ref={inputRef}
-            handleIncrease={handleIncrease}
-            handleDecrease={handleDecrease}
-            initialValue={getProductQuantityById(id)}
-          />
-        ) : (
-          <ShoppingCartIcon handleClick={() => addProductToCartIdList(id)} />
-        )}
+        <AddCartButton id={id} />
       </Style.DescriptionContainer>
     </Style.Container>
   );

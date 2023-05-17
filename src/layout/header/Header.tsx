@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 import { LogoIcon } from '../../assets/ShoppingCartIcon';
-import { useCartIdList } from '../../hooks/recoil/useCartIdList';
 import { useNavigate } from 'react-router-dom';
+import { CartListLengthViewer } from './CartListLengthViewer';
 
 export const Header = () => {
   const navigate = useNavigate();
-
-  const { cartIdList } = useCartIdList();
 
   return (
     <Style.Container>
@@ -17,7 +15,7 @@ export const Header = () => {
         </Style.LogoContainer>
         <Style.CartContainer>
           <Style.Cart onClick={() => navigate('/test')}>장바구니</Style.Cart>
-          <Style.CartAmount>{cartIdList.length}</Style.CartAmount>
+          <CartListLengthViewer />
         </Style.CartContainer>
       </Style.ContentWrapper>
     </Style.Container>
@@ -43,7 +41,7 @@ const Style = {
     justify-content: space-between;
     align-items: center;
 
-    width: 1341px;
+    width: 1320px;
   `,
   LogoContainer: styled.div`
     display: flex;
@@ -75,20 +73,5 @@ const Style = {
     font-weight: 300;
 
     color: white;
-  `,
-  CartAmount: styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 26px;
-    height: 26px;
-    border-radius: 26px;
-
-    padding-top: 3px;
-
-    background-color: #04c09e;
-    color: white;
-    font-size: 16px;
   `,
 };

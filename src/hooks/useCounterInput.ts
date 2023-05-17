@@ -3,8 +3,8 @@ import { useRef } from 'react';
 interface useCounterInputProps {
   maxLimit?: number;
   minLimit?: number;
-  handleMaxvalueExceeded?: () => void;
-  handleMinValueExceeded?: () => void;
+  handleMaxLimitExceeded?: () => void;
+  handleMinLimitExceeded?: () => void;
   increaseCallback?: () => void;
   decreaseCallback?: () => void;
 }
@@ -12,8 +12,8 @@ interface useCounterInputProps {
 export const useCounterInput = ({
   maxLimit,
   minLimit,
-  handleMaxvalueExceeded,
-  handleMinValueExceeded,
+  handleMaxLimitExceeded,
+  handleMinLimitExceeded,
   increaseCallback,
   decreaseCallback,
 }: useCounterInputProps) => {
@@ -26,8 +26,8 @@ export const useCounterInput = ({
 
     if (maxLimit === undefined) return;
 
-    if (Number(inputRef.current?.value) === maxLimit && handleMaxvalueExceeded)
-      return handleMaxvalueExceeded();
+    if (Number(inputRef.current?.value) === maxLimit && handleMaxLimitExceeded)
+      return handleMaxLimitExceeded();
   };
 
   const handleDecrease = () => {
@@ -37,8 +37,8 @@ export const useCounterInput = ({
 
     if (minLimit === undefined) return;
 
-    if (Number(inputRef.current?.value) === minLimit && handleMinValueExceeded)
-      return handleMinValueExceeded();
+    if (Number(inputRef.current?.value) === minLimit && handleMinLimitExceeded)
+      return handleMinLimitExceeded();
   };
 
   return { handleIncrease, handleDecrease, inputRef };
