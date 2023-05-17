@@ -1,19 +1,9 @@
 import type { CartType } from '../types';
-import type { AtomEffect } from 'recoil';
 
 import { atom, selector } from 'recoil';
+
+import { localStorageEffect } from './effect';
 import { LOCAL_STORAGE_KEY } from '../constants';
-
-const localStorageEffect: <T>(key: string) => AtomEffect<T> =
-  (key) =>
-  ({ setSelf, onSet }) => {
-    const localStorageValue = localStorage.getItem(key);
-    if (localStorageValue !== null) setSelf(JSON.parse(localStorageValue));
-
-    onSet((newValue, _, isReset) => {
-      isReset ? localStorage.removeItem(key) : localStorage.setItem(key, JSON.stringify(newValue));
-    });
-  };
 
 export const cartState = atom<CartType>({
   key: 'cartState',
@@ -24,4 +14,12 @@ export const cartState = atom<CartType>({
 export const cartCountState = selector({
   key: 'cartCountState',
   get: ({ get }) => get(cartState).length,
+});
+
+export const cartTotalPriceState = selector({
+  key: 'cartTotalPriceState',
+  get: ({ get }) => {
+    const cart = get(cartState);
+    return cart.reduce((total, { product, quantity }) => total + product.price * quantity, 0);
+  },
 });
