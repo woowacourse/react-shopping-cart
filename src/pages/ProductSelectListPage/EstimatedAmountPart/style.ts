@@ -4,16 +4,20 @@ export const EstimatedAmountPartContainer = styled.div`
   padding: 4% 6%;
   border: 1px solid #dddddd;
 
+  width: 348px;
+  height: 310px;
+
   display: grid;
-  grid-template-rows: 80px 50px 50px 90px 120px;
+  grid-template-rows: 25% 15% 15% 25% 20%;
   align-items: center;
+  justify-content: center;
 `;
 
 export const EstimatedAmountTitle = styled.p`
   border-bottom: 1.5px solid #dddddd;
 
   font-weight: 400;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 33px;
 
   letter-spacing: 0.5px;
@@ -29,7 +33,7 @@ export const EstimatedAmountTextLine = styled.div`
 
 export const EstimatedAmountText = styled.span`
   font-weight: 700;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 27px;
 
   letter-spacing: 0.5px;
@@ -40,7 +44,8 @@ export const PurchaseButton = styled.button`
   margin: 0 auto;
 
   width: 388px;
-  height: 73px;
+  height: 100%;
+  max-height: 73px;
 
   background: #333333;
 
