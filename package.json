@@ -73,5 +73,6 @@
   },
   "msw": {
     "workerDirectory": "public"
-  }
+  },
+  "homepage": "."
 }
