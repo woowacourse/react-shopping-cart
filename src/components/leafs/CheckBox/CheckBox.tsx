@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 export type CheckBoxProps = InputHTMLAttributes<HTMLInputElement>;
 
-export default function CheckBox({ checked, onClick }: CheckBoxProps) {
-  return <CheckInput onClick={onClick} type="checkbox" checked={checked} />;
+export default function CheckBox(props: CheckBoxProps) {
+  return <Input type="checkbox" {...props} />;
 }
 
-const CheckInput = styled.input<CheckBoxProps>`
+const Input = styled.input<CheckBoxProps>`
   width: 28px;
   height: 28px;
 
