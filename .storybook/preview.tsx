@@ -2,8 +2,8 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import type { Preview } from '@storybook/react';
 import { RecoilRoot } from 'recoil';
-import GlobalStyle from '../src/GlobalStyle';
 import { initialize, mswDecorator } from 'msw-storybook-addon';
+import GlobalStyle from '../src/GlobalStyle';
 
 let options = {};
 if (location.hostname === 'hyeryongchoi.github.io') {
