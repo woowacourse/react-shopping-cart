@@ -28,7 +28,7 @@ const Header = () => {
           '<div class="added-message">장바구니에 상품을 추가했습니다.</div>';
       }
     };
-  }, [cartItemList]);
+  }, [cartItemList.length]);
 
   return (
     <header>

@@ -19,20 +19,11 @@ export const useCartList = () => {
       id: newCartId,
       quantity: itemQuantity,
       product: productInformation,
+      isChecked: true,
     };
   };
 
   const updateCartItemQuantityIncrease = (id: number) => {
-    console.log(
-      cartList.map((item) => {
-        if (item.id !== id) return item;
-        return {
-          id,
-          quantity: item.quantity + 1,
-          product: item.product,
-        };
-      })
-    );
     setCartList(
       cartList.map((item) => {
         if (item.id !== id) return item;
@@ -40,6 +31,48 @@ export const useCartList = () => {
           id,
           quantity: item.quantity + 1,
           product: item.product,
+          isChecked: true,
+        };
+      })
+    );
+  };
+
+  const resetCartCheckStatusToTrue = () => {
+    setCartList(
+      cartList.map((item) => {
+        return {
+          id: item.id,
+          quantity: item.quantity,
+          product: item.product,
+          isChecked: !item.isChecked,
+        };
+      })
+    );
+  };
+
+  const cartListCheckedLength = () => {
+    const isAllChecked = cartList.filter((item) => {
+      return item.isChecked === true;
+    });
+    return isAllChecked.length;
+  };
+
+  const getCartItemSum = () => {
+    return cartList.reduce((acc, item) => {
+      if (item.isChecked) return acc + item.quantity * item.product.price;
+      return acc;
+    }, 0);
+  };
+
+  const reverseCheckCartItem = (id: number) => {
+    setCartList(
+      cartList.map((item) => {
+        if (item.id !== id) return item;
+        return {
+          id,
+          quantity: item.quantity,
+          product: item.product,
+          isChecked: !item.isChecked,
         };
       })
     );
@@ -53,6 +86,7 @@ export const useCartList = () => {
           id,
           quantity: item.quantity - 1,
           product: item.product,
+          isChecked: true,
         };
       })
     );
@@ -65,5 +99,9 @@ export const useCartList = () => {
     getNewCartItem,
     updateCartItemQuantityIncrease,
     updateCartItemQuantityDecrease,
+    reverseCheckCartItem,
+    getCartItemSum,
+    cartListCheckedLength,
+    resetCartCheckStatusToTrue,
   };
 };

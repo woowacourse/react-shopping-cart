@@ -1,5 +1,6 @@
 import { useRecoilValue } from 'recoil';
 
+import { useCartList } from '../../hooks/useCartList';
 import { cartListState } from '../../store/cart';
 import { priceFormatter } from '../../utils/formatter';
 import CartItem from '../CartItem/CartItem';
@@ -7,10 +8,15 @@ import styles from './style.module.css';
 
 const CartPageSection = () => {
   const cartItemList = useRecoilValue(cartListState);
+  const {
+    cartList,
+    getCartItemSum,
+    reverseCheckCartItem,
+    resetCartCheckStatusToTrue,
+    cartListCheckedLength,
+  } = useCartList();
+
   const deliveryPrice = 3000;
-  const resultPrice = cartItemList.reduce((acc, item) => {
-    return acc + item.product.price * item.quantity;
-  }, 0);
 
   return (
     <>
@@ -18,8 +24,15 @@ const CartPageSection = () => {
       <hr />
 
       <div className={styles.deleteBox}>
-        <input type="checkbox" className={styles.deleteChecker} />
-        <p>전체 선택(0/{cartItemList.length})</p>
+        <input
+          type="checkbox"
+          className={styles.deleteChecker}
+          onClick={resetCartCheckStatusToTrue}
+          checked={cartListCheckedLength() === cartList.length}
+        />
+        <p>
+          전체 선택({cartListCheckedLength()}/{cartItemList.length})
+        </p>
         <button type="button" className={styles.deleteButton}>
           선택 삭제
         </button>
@@ -32,6 +45,8 @@ const CartPageSection = () => {
               itemId={item.id}
               key={item.id}
               product={item.product}
+              isChecked={item.isChecked}
+              checkHandler={reverseCheckCartItem}
             />
           ))}
         </div>
@@ -42,7 +57,7 @@ const CartPageSection = () => {
             <div>
               <div className={styles.resultText}>
                 <div>총 상품가격</div>
-                <div>{priceFormatter(resultPrice)}원</div>
+                <div>{priceFormatter(getCartItemSum())}원</div>
               </div>
               <div className={styles.resultText}>
                 <div>총 배송비</div>
@@ -52,7 +67,7 @@ const CartPageSection = () => {
             <div>
               <div className={styles.resultPrice}>
                 <div>총 주문금액</div>
-                <div>{priceFormatter(resultPrice + deliveryPrice)}원</div>
+                <div>{priceFormatter(getCartItemSum() + deliveryPrice)}원</div>
               </div>
               <button className={styles.orderButton} type="button">
                 주문하기

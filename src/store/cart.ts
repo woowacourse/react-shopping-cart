@@ -30,7 +30,6 @@ export const cartItemQuantityState = selectorFamily({
     (productId) =>
     ({ get }) => {
       const cartList = get(cartListState);
-
       return cartList.find((cartItem) => cartItem.product.id === productId);
     },
 });

@@ -9,15 +9,25 @@ interface CartItemProps {
   quantity: number;
   product: ProductItemType;
   itemId: number;
+  isChecked: boolean;
+  checkHandler: (id: number) => void;
 }
 
-const CartItem = ({ quantity, product, itemId }: CartItemProps) => {
+const CartItem = ({ quantity, product, itemId, isChecked, checkHandler }: CartItemProps) => {
   const { updateCartItemQuantityIncrease, updateCartItemQuantityDecrease } = useCartList();
   return (
     <>
       <div className={styles.cartItem}>
         <div className={styles.deleteCheckerBox}>
-          <input className={styles.deleteChecker} type="checkbox" name="willDeleted" />
+          <input
+            className={styles.deleteChecker}
+            type="checkbox"
+            name="willDeleted"
+            checked={isChecked}
+            onClick={() => {
+              checkHandler(itemId);
+            }}
+          />
         </div>
         <img className={styles.cartImage} src={product.imageUrl} alt="고기임" />
         <div className={styles.productName}>
