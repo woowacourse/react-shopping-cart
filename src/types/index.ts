@@ -1,3 +1,5 @@
+import { BOX_SIZE } from '@Constants/index';
+
 export type Product = {
   id: number;
   name: string;
@@ -12,3 +14,5 @@ export type ShoppingCartProduct = {
 };
 
 export type UpdateShoppingCart = (product: Product, quantity: number) => void;
+
+export type BoxSize = keyof typeof BOX_SIZE;

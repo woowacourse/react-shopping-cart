@@ -19,3 +19,9 @@ export const QUANTITY_CONTROL_UNIT = {
 } as const;
 
 export const PRODUCTS_URL = '/api/products';
+
+export const BOX_SIZE = {
+  small: '24px',
+  medium: '30px',
+  larger: '36px',
+} as const;

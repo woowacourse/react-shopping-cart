@@ -1,7 +1,7 @@
-import { Checkbox } from '@Components/Checkbox/style';
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
+import Checkbox from '@Components/Checkbox';
 import QuantityController from '@Components/QuantityController';
 
 import { Product } from '@Types/index';

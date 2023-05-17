@@ -1,15 +1,13 @@
+import { BoxSize } from '@Types/index';
+
+import { BOX_SIZE } from '@Constants/index';
+
 import * as S from './style';
 
 type CheckboxProps = {
   isChecked: boolean;
-  size: keyof typeof BOX_SIZE;
+  size?: BoxSize;
 };
-
-export const BOX_SIZE = {
-  small: '24px',
-  medium: '30px',
-  larger: '36px',
-} as const;
 
 function Checkbox({ isChecked, size = 'medium' }: CheckboxProps) {
   console.log(BOX_SIZE[size]);
