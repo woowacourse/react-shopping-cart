@@ -14,6 +14,17 @@ const CartPage = () => {
   );
   const isAllChecked = checkedItemIds.length === cartItems.length;
 
+  const calcTotalPrice = () => {
+    const checkedItems = cartItems.filter((cartItem) =>
+      checkedItemIds.includes(cartItem.id),
+    );
+
+    return checkedItems.reduce(
+      (prev, item) => prev + item.product.price * item.quantity,
+      0,
+    );
+  };
+
   const handleCheckboxChange = (clickedItemId: string) => {
     if (checkedItemIds.includes(clickedItemId)) {
       setCheckedItemIds((prev) => prev.filter((id) => id !== clickedItemId));
@@ -38,7 +49,7 @@ const CartPage = () => {
       <Spacer height={34} />
       <Inner>
         <CartList>
-          <ListTitle>든든배송 상품 (3개)</ListTitle>
+          <ListTitle>든든배송 상품 ({cartItems.length}개)</ListTitle>
           {cartItems.map((cartItem) => (
             <CartListItem
               key={cartItem.id}
@@ -60,7 +71,7 @@ const CartPage = () => {
           </AllCheckBoxContainer>
         </CartList>
         <TotalWrapper>
-          <CartTotal />
+          <CartTotal totalProductPrice={calcTotalPrice()} />
         </TotalWrapper>
       </Inner>
     </Container>

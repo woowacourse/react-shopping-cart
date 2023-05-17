@@ -63,7 +63,7 @@ const CartListItem = ({
             onChange={handleChangeQuantity}
             onBlur={handleRemoveProduct}
           />
-          <Price>{formatPrice(price)}</Price>
+          <Price>{formatPrice(quantity * price)}</Price>
         </Right>
       </Inner>
     </Container>
