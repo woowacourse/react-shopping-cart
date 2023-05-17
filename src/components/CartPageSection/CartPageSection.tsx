@@ -1,7 +1,13 @@
+import { useRecoilValue } from 'recoil';
+
+import { cartListState } from '../../store/cart';
 import CartItem from '../CartItem/CartItem';
 import styles from './style.module.css';
 
 const CartPageSection = () => {
+  const cartItemList = useRecoilValue(cartListState);
+  console.log(cartItemList);
+
   return (
     <>
       <div className={styles.cartLstHeader}>장바구니</div>
@@ -9,11 +15,9 @@ const CartPageSection = () => {
       <div className={styles.listCount}>든든 배송 상품 (5개)</div>
       <section className={styles.section}>
         <div className={styles.cartList}>
-          <CartItem />
-          <CartItem />
-          <CartItem />
-          <CartItem />
-          <CartItem />
+          {cartItemList.map((item) => (
+            <CartItem quantity={item.quantity} key={item.id} product={item.product} />
+          ))}
         </div>
         <div className={styles.orderBox}>
           <div className={styles.orderBoxHeader}>결제예상금액</div>
