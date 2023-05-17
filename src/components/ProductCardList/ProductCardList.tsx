@@ -1,11 +1,16 @@
+// @ts-nocheck
+
 import styled from "styled-components";
 import ProductCard from "../ProductCard/ProductCard";
-import mockData from "../../mockData/mockData.json";
+import { useRecoilValue } from "recoil";
+import { fetchProductsSelector } from "../../store/apiProductSelector";
 
 const ProductCardList = () => {
+  const products = useRecoilValue(fetchProductsSelector);
+
   return (
     <ProductCardListContainer>
-      {mockData.map((product) => (
+      {products.map((product) => (
         <ProductCard
           key={product.id}
           productId={product.id}

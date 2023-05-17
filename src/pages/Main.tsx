@@ -1,7 +1,13 @@
 import ProductCardList from "../components/ProductCardList/ProductCardList";
+import Loading from "../components/common/Loading/Loading";
+import { Suspense } from "react";
 
 const Main = () => {
-  return <ProductCardList />;
+  return (
+    <Suspense fallback={<Loading />}>
+      <ProductCardList />
+    </Suspense>
+  );
 };
 
 export default Main;
