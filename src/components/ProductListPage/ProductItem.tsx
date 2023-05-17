@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { AddCartIc } from '../../asset';
 import { useAddCart } from '../../hooks/useAddCart';
 import QuantityCounter from '../common/QuantityCounter';
-import { isForwardedRef, isRefCurrent } from '../../utils/refTypeGuard';
 
 interface ProductItemProps {
   id: number;
@@ -18,17 +17,8 @@ export default function ProductItem({
   name,
   price,
 }: ProductItemProps) {
-  const { isSelected, selectProductItem, addCartProductItem, quantityRef } =
+  const { isSelected, selectProductItem, addCartProductItem, count, setCount } =
     useAddCart();
-
-  // TODO: 컴포넌트 밖으로 빼기
-  const onClickAddCartButton = () => {
-    if (!isForwardedRef(quantityRef)) return;
-    if (!isRefCurrent(quantityRef.current)) return;
-    // TODO: 조금 더 명확한 표현 찾기
-    if (!+quantityRef.current.value) return;
-    addCartProductItem(id);
-  };
 
   return (
     <ProductItemContainer>
@@ -39,7 +29,7 @@ export default function ProductItem({
           <Price>{price.toLocaleString()}원</Price>
         </ProductInfo>
         {isSelected ? (
-          <QuantityCounter ref={quantityRef} />
+          <QuantityCounter count={count} setCount={setCount} />
         ) : (
           <CartButton onClick={selectProductItem}>
             <AddCartIc />
@@ -47,7 +37,7 @@ export default function ProductItem({
         )}
       </InfoBox>
       {isSelected && (
-        <AddCartButton onClick={onClickAddCartButton}>
+        <AddCartButton onClick={() => addCartProductItem(id)}>
           장바구니 추가
         </AddCartButton>
       )}
