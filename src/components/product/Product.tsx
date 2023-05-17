@@ -1,10 +1,10 @@
 import { styled } from 'styled-components';
-import { CartIcon } from '../assets/svg';
-import { ProductInfo } from '../types';
-import { useCart } from '../hooks/useCart';
-import { useToast } from '../hooks/useToast';
-import Stepper from './Stepper';
-import Toast from './common/Toast';
+import { CartIcon } from '../../assets/svg';
+import { ProductInfo } from '../../types';
+import { useCart } from '../../hooks/useCart';
+import { useToast } from '../../hooks/useToast';
+import Stepper from '../Stepper';
+import Toast from '../common/Toast';
 
 interface Props {
   info: ProductInfo;

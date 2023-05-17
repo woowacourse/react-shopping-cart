@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import ProductList from '../components/ProductList';
+import ProductList from '../components/product/ProductList';
 import { handlers } from '../mocks/handlers';
 
 const meta = {

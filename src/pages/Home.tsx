@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import Header from '../components/Header';
-import ProductList from '../components/ProductList';
+import ProductList from '../components/product/ProductList';
 
 export default function Home() {
   return (

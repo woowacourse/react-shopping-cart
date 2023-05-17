@@ -1,8 +1,8 @@
 import { styled } from 'styled-components';
 import { useRecoilState } from 'recoil';
-import { productListState } from '../recoil/atoms';
-import { ProductInfo } from '../types';
-import { useSetFetchedData } from '../hooks/useSetFetchedData';
+import { productListState } from '../../recoil/atoms';
+import { ProductInfo } from '../../types';
+import { useSetFetchedData } from '../../hooks/useSetFetchedData';
 import Product from './Product';
 
 export default function ProductList() {
