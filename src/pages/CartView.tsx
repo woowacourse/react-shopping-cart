@@ -1,10 +1,22 @@
 import { styled } from "styled-components";
 import FullWidthTitle from "../components/common/FullWidthTitle/FullWidthTitle";
+import CartProductList from "../components/CartProductList/CartProductList";
+import { Suspense } from "react";
+import Loading from "../components/common/Loading/Loading";
+import OrderSummary from "../components/OrderSummary/OrderSummary";
 
 const CartView = () => {
   return (
     <Container>
       <FullWidthTitle>장바구니</FullWidthTitle>
+      <Suspense fallback={<Loading />}>
+        <MenuContainer>
+          <CartProductList />
+          <OrderSummaryContainer>
+            <OrderSummary />
+          </OrderSummaryContainer>
+        </MenuContainer>
+      </Suspense>
     </Container>
   );
 };
