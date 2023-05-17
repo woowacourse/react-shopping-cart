@@ -4,7 +4,7 @@ import { RecoilRoot } from 'recoil';
 import CartProductItem from '../components/Cart/CartProductItem';
 
 const meta = {
-  title: 'Product/CartProductItem',
+  title: 'Cart/CartProductItem',
   component: CartProductItem,
   tags: ['autodocs'],
   argTypes: {},
