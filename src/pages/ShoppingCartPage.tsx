@@ -26,15 +26,15 @@ const ShoppingCartPage = () => {
     <>
       <PageTitle>장바구니</PageTitle>
       <FlexBox gap="100px" align="flex-start" role="region">
-        <CartProductListSection flexDirection="column" align="flex-start">
-          <Container justify="space-between">
+        <CartProductSection flexDirection="column" align="flex-start">
+          <CheckBoxTab justify="space-between" align="flex-end">
             <CheckBox checked={isAllChecked} onChange={toggleCheckAllBox}>
               {checkBoxText}
             </CheckBox>
-            <CartProductDeleteButton>선택 삭제</CartProductDeleteButton>
-          </Container>
+            <CheckedProductDeleteButton>선택 삭제</CheckedProductDeleteButton>
+          </CheckBoxTab>
           <CartProductCardList />
-        </CartProductListSection>
+        </CartProductSection>
         <PriceSection flexDirection="column" gap="10px">
           <Container justify="space-between">
             <SubTitle>총 상품가격</SubTitle>
@@ -57,7 +57,7 @@ const ShoppingCartPage = () => {
 
 export default ShoppingCartPage;
 
-const CartProductListSection = styled(FlexBox)`
+const CartProductSection = styled(FlexBox)`
   position: relative;
   width: 70%;
 `;
@@ -72,12 +72,23 @@ const PriceSection = styled(FlexBox)`
   background-color: #f2f2f2;
 `;
 
+const CheckBoxTab = styled(FlexBox)`
+  position: sticky;
+  top: 80px;
+  z-index: 10;
+  width: 100%;
+  height: 60px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #dddddd;
+  background-color: #ffffff;
+`;
+
 const Container = styled(FlexBox)`
   width: 100%;
   height: 60px;
 `;
 
-const CartProductDeleteButton = styled.button`
+const CheckedProductDeleteButton = styled.button`
   width: 100px;
   height: 30px;
   border: solid 1px #dddddd;

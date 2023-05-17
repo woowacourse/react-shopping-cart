@@ -21,5 +21,4 @@ const CartProductFlex = styled.ul`
   display: flex;
   flex-direction: column;
   width: 100%;
-  border-top: 3px solid #dddddd;
 `;

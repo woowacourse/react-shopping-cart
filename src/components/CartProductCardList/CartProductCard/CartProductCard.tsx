@@ -19,8 +19,10 @@ const CartProductCard = ({ cartProduct }: CartProductCardProps) => {
   return (
     <CartProductCardContainer justify="flex-start" gap="16px" role="list">
       <CheckBox checked={true} onChange={() => {}} />
-      <ProductImage src={imageUrl} />
-      <ProductInfoContainer>
+      <ProductImageWrapper>
+        <ProductImage src={imageUrl} />
+      </ProductImageWrapper>
+      <ProductInfoContainer flexDirection="column" justify="space-between">
         <Container>
           <Title>{name}</Title>
           <ProductDeleteButton />
@@ -41,10 +43,10 @@ const CartProductCard = ({ cartProduct }: CartProductCardProps) => {
 
 const Container = styled(FlexBox)`
   width: 100%;
-  height: 100px;
+  height: 100%;
 `;
 
-const ProductInfoContainer = styled.div`
+const ProductInfoContainer = styled(FlexBox)`
   position: relative;
   width: 100%;
   min-height: 150px;
@@ -52,8 +54,13 @@ const ProductInfoContainer = styled.div`
 
 const CartProductCardContainer = styled(FlexBox)`
   width: 100%;
+  height: 100%;
   padding: 20px 0;
   border-top: 1px solid #dddddd;
+`;
+
+const ProductImageWrapper = styled.div`
+  width: 150px;
 `;
 
 const ProductImage = styled.img`
