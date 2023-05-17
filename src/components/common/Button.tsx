@@ -36,6 +36,7 @@ const StyledButton = styled.button<{
   backgroundColor?: string;
   borderColor?: string;
 }>`
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -17,6 +17,6 @@ const PageContainer = styled.div`
   align-items: center;
   justify-content: center;
   width: 1200px;
-  margin: 58px auto 0;
+  margin: 58px auto;
   padding: 20px 30px;
 `;
