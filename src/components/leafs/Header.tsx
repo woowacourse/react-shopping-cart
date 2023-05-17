@@ -1,5 +1,7 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
+
 import { cartCountState } from '../../recoil/state';
 
 export default function Header() {
@@ -8,14 +10,14 @@ export default function Header() {
   return (
     <Wrapper>
       <ContentBox>
-        <LogoBox>
+        <HomeLink to="/">
           <img src="./logo.svg" />
           <LogoTitle>SHOP</LogoTitle>
-        </LogoBox>
-        <CartBox>
+        </HomeLink>
+        <CartLink to="/cart">
           장바구니
           <CartCount>{cartCount}</CartCount>
-        </CartBox>
+        </CartLink>
       </ContentBox>
     </Wrapper>
   );
@@ -46,7 +48,7 @@ const ContentBox = styled.div`
   padding: 0 16px;
 `;
 
-const LogoBox = styled.div`
+const HomeLink = styled(Link)`
   display: flex;
   align-items: center;
 
@@ -64,7 +66,7 @@ const LogoTitle = styled.h1`
   }
 `;
 
-const CartBox = styled.div`
+const CartLink = styled(Link)`
   display: flex;
 
   font-size: 24px;

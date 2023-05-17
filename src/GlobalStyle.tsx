@@ -21,6 +21,17 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Noto Sans KR', sans-serif;    
     font-size: 62.5%;
   }
+
+  button {
+    cursor: pointer;
+  }
+
+  a:-webkit-any-link {
+    text-decoration: none;
+    color: inherit;
+
+    cursor: pointer;
+  }
 `;
 
 export default GlobalStyle;
