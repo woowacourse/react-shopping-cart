@@ -7,6 +7,7 @@ import Theme from '../src/styles/theme';
 
 import '../public/assets/cart.svg';
 import '../public/assets/logo.svg';
+import '../public/assets/delete.svg';
 
 export const decorators = [
   (Story) => (
