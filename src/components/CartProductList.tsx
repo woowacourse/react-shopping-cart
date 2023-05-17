@@ -21,10 +21,10 @@ export const CartProductList = () => {
 };
 
 const CartProduct = ({ id, name, price, imageUrl }: ProductType) => {
-  const { quantity, setNewQuantity } = useQuantity(id);
+  const { setNewQuantity } = useQuantity(id);
 
   const handleTrashCanClicked = () => {
-    //delete로직
+    setNewQuantity(0);
   };
 
   return (
@@ -50,6 +50,7 @@ const CartProduct = ({ id, name, price, imageUrl }: ProductType) => {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  min-width: 55%;
   max-width: 600px;
 `;
 
@@ -85,6 +86,8 @@ const TrashCanIconBox = styled.div`
   & > img {
     width: 20px;
     height: 20px;
+
+    cursor: pointer;
   }
 `;
 
