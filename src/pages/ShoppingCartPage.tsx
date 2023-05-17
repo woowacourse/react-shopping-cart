@@ -9,7 +9,7 @@ import styled from 'styled-components';
 const SHIPPING_FEE = 3000;
 
 const ShoppingCartPage = () => {
-  const { checkedBoxes, isAllChecked, toggleCheckAllBox } = useCartCheckBox();
+  const { isChecked, isAllChecked, toggleCheck, toggleCheckAllBox } = useCartCheckBox();
   const cartProducts = useRecoilValue(cartProductsState);
   const cartTotalPrice = useRecoilValue(cartTotalPriceState);
   const cartProductsCount = cartProducts.size;
@@ -33,7 +33,7 @@ const ShoppingCartPage = () => {
             </CheckBox>
             <CheckedProductDeleteButton>선택 삭제</CheckedProductDeleteButton>
           </CheckBoxTab>
-          <CartProductCardList />
+          <CartProductCardList toggleCheck={toggleCheck} isChecked={isChecked} />
         </CartProductSection>
         <PriceSection flexDirection="column" gap="10px">
           <Container justify="space-between">

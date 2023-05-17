@@ -3,22 +3,24 @@ import FlexBox from 'components/@common/FlexBox';
 import CartQuantityStepper from 'components/CartQuantityStepper/CartQuantityStepper';
 import useShoppingCart from 'hooks/useShoppingCart';
 import styled from 'styled-components';
-import { CartProduct } from 'types/product';
+import { CartProduct, Product } from 'types/product';
 import { ReactComponent as RecycleBinIcon } from 'assets/recycle-bin-icon.svg';
 
 type CartProductCardProps = {
   cartProduct: CartProduct;
+  toggleCheck: (id: Product['id']) => void;
+  isChecked: (id: Product['id']) => boolean;
 };
 
-const CartProductCard = ({ cartProduct }: CartProductCardProps) => {
+const CartProductCard = ({ cartProduct, toggleCheck, isChecked }: CartProductCardProps) => {
   const { product, quantity } = cartProduct;
-  const { name, price, imageUrl } = product;
+  const { id, name, price, imageUrl } = product;
   const { initialAddCart, decreaseQuantity, increaseQuantity } = useShoppingCart(product);
   const totalPrice = price * quantity;
 
   return (
     <CartProductCardContainer justify="flex-start" gap="16px" role="list">
-      <CheckBox checked={true} onChange={() => {}} />
+      <CheckBox checked={isChecked(id)} onChange={() => toggleCheck(id)} />
       <ProductImageWrapper>
         <ProductImage src={imageUrl} />
       </ProductImageWrapper>
