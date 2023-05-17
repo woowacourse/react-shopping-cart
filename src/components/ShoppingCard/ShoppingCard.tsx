@@ -18,23 +18,6 @@ const ShoppingCard = ({ cartId }: ShoppingCardProps) => {
   const { quantity, product } = cart;
   const { name, price, imageUrl } = product;
 
-  const imgTheme = {
-    width: "144px",
-    height: "144px",
-  };
-  const nameTheme = {
-    fontSize: "24px",
-  };
-  const counterTheme = {
-    alignSelf: "end",
-    width: "100px",
-    height: "40px",
-  };
-  const priceTheme = {
-    alignSelf: "end",
-    fontSize: "16px",
-  };
-
   return (
     <Styled.Container>
       <Styled.Checkbox type="checkbox"></Styled.Checkbox>
@@ -63,6 +46,23 @@ const ShoppingCard = ({ cartId }: ShoppingCardProps) => {
       </Styled.InfoContainer>
     </Styled.Container>
   );
+};
+
+const imgTheme = {
+  width: "144px",
+  height: "144px",
+};
+const nameTheme = {
+  fontSize: "24px",
+};
+const counterTheme = {
+  alignSelf: "end",
+  width: "100px",
+  height: "40px",
+};
+const priceTheme = {
+  alignSelf: "end",
+  fontSize: "16px",
 };
 
 export default memo(ShoppingCard);
