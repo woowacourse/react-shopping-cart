@@ -1,12 +1,5 @@
-import { useEffect } from 'react';
 import { styled } from 'styled-components';
 import useBucketCount from '@hooks/useBucketCount';
-import useControlCart from '@hooks/useControlCart';
-import {
-  TEST_BUCKET_COUNTER_BOTTOM_BUTTON,
-  TEST_BUCKET_COUNTER_TOP_BUTTON,
-  TEST_CART_COUNT_INPUT,
-} from '@constants/testId';
 import { BOTTOM_ARROW, TOP_ARROW } from '@assets';
 
 interface BucketCounterProps {
@@ -36,17 +29,14 @@ const BucketCounter = ({ id, quantity = 1 }: BucketCounterProps) => {
         onChange={onChange}
         ref={countRef}
         onBlur={onBlur}
-        data-testid={TEST_CART_COUNT_INPUT}
+        aria-label="장바구니 수량 입력 창"
       />
       <Counter>
-        <TopButton
-          data-testid={TEST_BUCKET_COUNTER_TOP_BUTTON}
-          onClick={increaseCount}
-        >
+        <TopButton aria-label="장바구니 수량 증가 버튼" onClick={increaseCount}>
           <Image src={TOP_ARROW} alt="증가" />
         </TopButton>
         <BottomButton
-          data-testid={TEST_BUCKET_COUNTER_BOTTOM_BUTTON}
+          aria-label="장바구니 수량 감소 버튼"
           onClick={decreaseCount}
         >
           <Image src={BOTTOM_ARROW} alt="감소" />

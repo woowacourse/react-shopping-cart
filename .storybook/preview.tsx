@@ -1,6 +1,6 @@
 import React from 'react';
 import { RecoilRoot } from 'recoil';
-import { Preview } from '@storybook/react';
+import { Decorator, Preview } from '@storybook/react';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../src/styles/theme';
 
@@ -16,14 +16,17 @@ const preview: Preview = {
   },
 };
 
-export const decorators = [
-  (Story) => (
+const localStorageResetDecorator: Decorator = (Story) => {
+  window.localStorage.clear();
+  return (
     <ThemeProvider theme={theme}>
       <RecoilRoot>
         <Story />
       </RecoilRoot>
     </ThemeProvider>
-  ),
-];
+  );
+};
+
+export const decorators: Decorator[] = [localStorageResetDecorator];
 
 export default preview;

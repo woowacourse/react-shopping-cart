@@ -1,7 +1,5 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { cartAtom } from '@recoil/atoms/cartAtom';
 import useControlCart from '@hooks/useControlCart';
 import { ProductInformation } from '@type/types';
 import { theme } from '@styles/theme';
