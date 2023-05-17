@@ -1,19 +1,14 @@
-import { useState } from 'react';
 import { Image } from '../ui/Image';
 import { Typography as ProductPrice } from '../ui/Typography';
 import { CartCount } from './CartCount';
 import { DeleteCartButton } from '../types/image';
 import * as Styled from './styles/CartItem.styles';
 import { CartItemProps } from '../types/CartItemType';
+import { useCartState } from './hooks/useCartState';
 
-export const CartItem = ({
-  id,
-  imageUrl,
-  name,
-  price,
-  quantity,
-}: CartItemProps) => {
-  const [itemQuantity, setItemQuantity] = useState(quantity);
+export const CartItem = ({ id, imageUrl, name, price }: CartItemProps) => {
+  const { quantity, increaseProductCount, decreaseProductCount } =
+    useCartState(id);
 
   return (
     <Styled.Wrapper>
@@ -23,16 +18,12 @@ export const CartItem = ({
       <Styled.CountInteractionWrapper>
         <DeleteCartButton />
         <CartCount
-          quantity={itemQuantity}
+          quantity={quantity}
           handleDeleteCart={() => {
             return;
           }}
-          increaseProductCount={() => {
-            return;
-          }}
-          decreaseProductCount={() => {
-            return;
-          }}
+          increaseProductCount={increaseProductCount}
+          decreaseProductCount={decreaseProductCount}
         />
         <ProductPrice>{`${(price * quantity).toLocaleString(
           'ko-KR'
