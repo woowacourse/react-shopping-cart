@@ -1,11 +1,11 @@
 import { styled } from 'styled-components';
-import type { CartProduct } from '../../types/product';
-import CheckBox from '../common/CheckBox/CheckBox';
-import Image from '../common/Image/Image';
-import TrashCanIcon from '../../assets/icons/TrashCanIcon';
-import Counter from '../common/Counter/Counter';
+import type { CartProduct } from '../../../types/product';
+import CheckBox from '../../common/CheckBox/CheckBox';
+import Image from '../../common/Image/Image';
+import TrashCanIcon from '../../../assets/icons/TrashCanIcon';
+import Counter from '../../common/Counter/Counter';
 import { useState } from 'react';
-import { formatPrice } from '../../utils/formatPrice';
+import { formatPrice } from '../../../utils/formatPrice';
 
 interface CartItemProps {
   cartItem: CartProduct;
