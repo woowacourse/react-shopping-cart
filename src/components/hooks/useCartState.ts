@@ -1,18 +1,14 @@
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { cartQuantityState, cartState } from '../../atoms/CartState';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { cartItemQuantityStateFamily, cartState } from '../../atoms/CartState';
 import { productItemStateFamily } from '../../atoms/ProductItemState';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 
 export const useCartState = (id: number) => {
   const productItem = useRecoilValue(productItemStateFamily(id));
-  // const setCartStates = useSetRecoilState(cartState);
-  // const cartQuantities = useRecoilValue(cartState);
-  const [cartStates, setCartStates] = useRecoilState(cartState);
-  const [quantity, setQuantity] = useState<number>(0);
+  const quantity = useRecoilValue(cartItemQuantityStateFamily(id));
+  const setCartStates = useSetRecoilState(cartState);
 
   const handleAddCartState = () => {
-    setQuantity(quantity + 1);
-
     setCartStates((prevCartStates) => {
       if (
         prevCartStates.length !== 0 &&
@@ -48,8 +44,6 @@ export const useCartState = (id: number) => {
           : product
       )
     );
-
-    setQuantity(quantity + 1);
   }, [quantity]);
 
   const decreaseProductCount = useCallback(() => {
@@ -60,8 +54,6 @@ export const useCartState = (id: number) => {
           : product
       )
     );
-
-    setQuantity(quantity - 1);
   }, [quantity]);
 
   return {
