@@ -1,13 +1,17 @@
 import styled from '@emotion/styled';
 import CartList from '../list/CartList';
 import PriceBox from '../box/PriceBox';
+import { Text } from '../common/Text/Text';
 
 const CartListSection = () => {
   return (
-    <CartListSectionWrapper>
-      <CartList />
-      <PriceBox />
-    </CartListSectionWrapper>
+    <>
+      <Text size="large">장바구니</Text>
+      <CartListSectionWrapper>
+        <CartList />
+        <PriceBox />
+      </CartListSectionWrapper>
+    </>
   );
 };
 
