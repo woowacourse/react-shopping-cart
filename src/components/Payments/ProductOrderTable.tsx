@@ -2,9 +2,11 @@ import FlexBox from 'components/@common/FlexBox';
 import styled from 'styled-components';
 import { flexColumn } from 'styles/mixin';
 
-type Props = {};
+type Props = {
+  onClickOrderButton: () => void;
+};
 
-export const ProductOrderTable = ({}: Props) => {
+export const ProductOrderTable = ({ onClickOrderButton }: Props) => {
   return (
     <Container>
       <TitleWrapper>
@@ -25,7 +27,7 @@ export const ProductOrderTable = ({}: Props) => {
             <TotalOrderPrice>24,700원</TotalOrderPrice>
           </FlexBox>
         </FlexBox>
-        <OrderButton>주문하기</OrderButton>
+        <OrderButton onClick={onClickOrderButton}>주문하기</OrderButton>
       </FlexBox>
     </Container>
   );
