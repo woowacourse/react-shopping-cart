@@ -5,13 +5,25 @@ import {
   selector,
   selectorFamily,
 } from 'recoil';
-import { fetchAPI } from 'src/api';
 import { CartItem, ProductId } from 'src/types';
 
 export const cartListAtom = atom<CartItem[]>({
-  //  장바구니 리스트
   key: 'cartItem',
   default: [],
+  effects: [
+    ({ setSelf, onSet }) => {
+      const savedValue = localStorage.getItem('cartItem');
+      if (savedValue != null) {
+        setSelf(JSON.parse(savedValue));
+      }
+
+      onSet((newValue, _, isReset) => {
+        isReset
+          ? localStorage.removeItem('cartItem')
+          : localStorage.setItem('cartItem', JSON.stringify(newValue));
+      });
+    },
+  ],
 });
 
 export const countCartListSelector = selector({
