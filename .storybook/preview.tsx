@@ -19,6 +19,7 @@ const preview: Preview = {
 
 const localStorageResetDecorator: Decorator = (Story) => {
   window.localStorage.clear();
+
   return (
     <ThemeProvider theme={theme}>
       <RecoilRoot>
