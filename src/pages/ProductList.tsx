@@ -1,7 +1,7 @@
 import ContentLayout from 'src/components/@common/ContentLayout';
 import ProductItem from 'src/components/ProductItem';
 import Header from 'src/components/Header';
-import { useFetch } from 'src/hooks/useFetch';
+import { useGetFetch } from 'src/hooks/useFetch';
 import { Product } from 'src/types';
 import { styled } from 'styled-components';
 import ToastPortal from 'src/components/@common/Toast/ToastPortal';
@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import useToast from 'src/hooks/useToast';
 
 const ProductList = () => {
-  const { data, error } = useFetch<Product[]>('/api/products', []);
+  const { data, error } = useGetFetch<Product[]>('/api/products', []);
 
   const { toast } = useToast();
 
