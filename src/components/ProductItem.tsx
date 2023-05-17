@@ -1,4 +1,4 @@
-import { Text as ProductPrice, StyledText } from './common/Text';
+import { StyledText } from './common/Text';
 import { Image as ProductImage } from './common/Image';
 import { AddToCartButton } from './AddToCartButton';
 import { ProductItem as ProductItemProps } from '../types/productType';
@@ -47,4 +47,7 @@ const ProductTextWrapper = styled.div`
 
 const ProductTitle = styled(StyledText)`
   margin: 0 0 10px 0;
+`;
+const ProductPrice = styled(StyledText)`
+  margin: 0 0 6px 0;
 `;
