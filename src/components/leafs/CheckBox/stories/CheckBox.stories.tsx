@@ -11,10 +11,7 @@ export default {
 const Template: StoryFn<React.ComponentProps<typeof CheckBox>> = (props) => <CheckBox {...props} />;
 
 export const DefaultCheckBox = Template.bind({});
-DefaultCheckBox.args = {
-  checked: false,
-  onClick: () => undefined,
-};
+DefaultCheckBox.args = {};
 
 export const CheckedCheckBox = Template.bind({});
 CheckedCheckBox.args = {
