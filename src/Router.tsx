@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import ProductListPage from 'pages/ProductListPage';
 import ROUTE_PATH from 'constants/routePath';
 import Layout from 'components/Layout/Layout';
+import ShoppingCartPage from 'pages/ShoppingCartPage';
 
 const router = createBrowserRouter([
   {
@@ -14,7 +15,7 @@ const router = createBrowserRouter([
       },
       {
         path: ROUTE_PATH.cart,
-        element: <div>cart</div>,
+        element: <ShoppingCartPage />,
       },
     ],
   },
