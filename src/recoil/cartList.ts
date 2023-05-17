@@ -5,23 +5,20 @@ import {
   selector,
   selectorFamily,
 } from 'recoil';
+import { fetchAPI } from 'src/api';
 import { CartItem, ProductId } from 'src/types';
 
-export const productIds = atom<Array<ProductId>>({
-  key: 'productIds',
-  default: [],
-});
-
-export const cartItemAtom = atomFamily<CartItem | null, ProductId>({
+export const cartListAtom = atom<CartItem[]>({
+  //  장바구니 리스트
   key: 'cartItem',
-  default: null,
+  default: [],
 });
 
 export const countCartListSelector = selector({
   key: 'countCartListSelector',
   get: ({ get }) => {
-    const ids = get(productIds);
-    return ids.length;
+    const list = get(cartListAtom);
+    return list.length;
   },
 });
 
@@ -30,19 +27,33 @@ export const updateCart = selectorFamily({
   get:
     (productId: ProductId) =>
     ({ get }) => {
-      return get(cartItemAtom(productId) ?? null );
+      const list = get(cartListAtom);
+      const cartInfo = list.find(({ id }) => id === productId);
+      return cartInfo ?? null;
     },
 
   set:
     (productId: ProductId) =>
-    ({ set,reset }, item) => {
+    ({ set, get }, item) => {
       if (!item || item instanceof DefaultValue) return;
-      
-      if (item.quantity === 0) {
-        reset(cartItemAtom(productId));
+
+      const list = get(cartListAtom);
+      const cartInfo = list.find(({ id }) => id === productId);
+
+      if (!cartInfo) {
+        set(cartListAtom, [...list, item]);
+
         return;
       }
 
-      set(cartItemAtom(productId), item);
+      if (item.quantity === 0) {
+        const updated = list.filter(({ id }) => id !== productId);
+        set(cartListAtom, updated);
+        return;
+      }
+
+      const updated = list.map((prev) => (prev.id === productId ? item : prev));
+
+      set(cartListAtom, updated);
     },
 });

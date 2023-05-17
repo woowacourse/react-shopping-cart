@@ -2,6 +2,7 @@ export interface CartItem {
   id: ProductId;
   quantity: number;
   product: Product;
+  isSelected: boolean;
 }
 
 export interface Product {
