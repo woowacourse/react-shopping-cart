@@ -16,19 +16,16 @@ const { MIN, MAX, STEP } = StepperSettings;
 
 const ProductStepper = (props: ProductStepperProps) => {
   const { productId } = props;
-  
-  const { value, increaseValue } = useMyCartUpdater(
-    productId, 
-    { min: MIN, max: MAX, step: STEP },
-  );
+
+  const { value, increaseValue } = useMyCartUpdater(productId, { min: MIN, max: MAX, step: STEP });
 
   return (
     <Styled.ProductStepper>
-      {
-        value
-        ? <Stepper productId={productId} min={MIN} max={MAX} step={STEP} />
-        : <StepperEntryButton onClick={increaseValue} />
-      }
+      {value ? (
+        <Stepper productId={productId} min={MIN} max={MAX} step={STEP} />
+      ) : (
+        <StepperEntryButton onClick={increaseValue} />
+      )}
     </Styled.ProductStepper>
   );
 };

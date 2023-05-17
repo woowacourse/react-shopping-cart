@@ -1,6 +1,6 @@
-import { useCallback } from "react";
-import { productCountSelector } from "../recoil/myCartState";
-import { useRecoilState } from "recoil";
+import { useCallback } from 'react';
+import { useRecoilState } from 'recoil';
+import { productCountSelector } from '../recoil/myCartState';
 
 const defaultOptions = {
   min: 0,
@@ -14,9 +14,9 @@ const useMyCartUpdater = (
     min?: number;
     max?: number;
     step?: number;
-  },
+  }
 ) => {
-  const { min, max, step } = Object.assign({}, defaultOptions, options);
+  const { min, max, step } = { ...defaultOptions, ...options };
 
   const [value, setValue] = useRecoilState(productCountSelector(productId));
 
@@ -28,11 +28,14 @@ const useMyCartUpdater = (
     setValue((prev) => Math.max(prev - step, min));
   }, [step, min, setValue]);
 
-  const setValueToNearestStep = useCallback((newValue: number) => {
-    if (Number.isNaN(newValue) || newValue < min || newValue > max) return;
-    
-    setValue(Math.round(newValue / step) * step);
-  }, [step, max, min, setValue]);
+  const setValueToNearestStep = useCallback(
+    (newValue: number) => {
+      if (Number.isNaN(newValue) || newValue < min || newValue > max) return;
+
+      setValue(Math.round(newValue / step) * step);
+    },
+    [step, max, min, setValue]
+  );
 
   return {
     value,

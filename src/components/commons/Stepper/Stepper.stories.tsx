@@ -1,14 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Stepper from './Stepper';
 import { RecoilRoot } from 'recoil';
+import Stepper from './Stepper';
 
 const meta: Meta<typeof Stepper> = {
   title: 'Stepper',
   component: Stepper,
   tags: ['autodocs'],
   decorators: [
-    (Story) => <RecoilRoot><Story/></RecoilRoot>
+    (Story) => (
+      <RecoilRoot>
+        <Story />
+      </RecoilRoot>
+    ),
   ],
 };
 

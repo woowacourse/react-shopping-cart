@@ -18,9 +18,7 @@ const ProductItem = (props: ProductItemProps) => {
       <Styled.ProductDetailDiv>
         <div>
           <Styled.NameParagraph>{name}</Styled.NameParagraph>
-          <Styled.PriceParagraph>
-            {price.toLocaleString('ko-KR')} 원
-          </Styled.PriceParagraph>
+          <Styled.PriceParagraph>{price.toLocaleString('ko-KR')} 원</Styled.PriceParagraph>
         </div>
         <ProductStepper productId={id} />
       </Styled.ProductDetailDiv>

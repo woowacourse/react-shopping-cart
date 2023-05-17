@@ -8,7 +8,8 @@ import LoadingPage from '../../LoadingPage/LoadingPage';
 
 const ProductList = () => {
   const { data: productList, status } = useFetchData<Product[]>(
-    `${process.env.PUBLIC_URL}/mockData.json`, []
+    `${process.env.PUBLIC_URL}/mockData.json`,
+    []
   );
 
   if (status === 0) {
@@ -21,7 +22,7 @@ const ProductList = () => {
 
   return (
     <Styled.ProductList>
-      {productList.map(data => (
+      {productList.map((data) => (
         <ProductItem key={data.id} product={{ ...data }} />
       ))}
     </Styled.ProductList>

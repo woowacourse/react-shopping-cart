@@ -15,19 +15,24 @@ export const cartLengthSelector = selector({
 export const productCountSelector = selectorFamily<number, number>({
   key: 'productCountSelector',
 
-  get: (productId) => ({ get }) => get(myCartState)[productId] ?? 0,
+  get:
+    (productId) =>
+    ({ get }) =>
+      get(myCartState)[productId] ?? 0,
 
-  set: (productId) => ({ get, set }, newCount) => {
-    const newCart = { ...get(myCartState) };
+  set:
+    (productId) =>
+    ({ get, set }, newCount) => {
+      const newCart = { ...get(myCartState) };
 
-    if (newCount === 0 || newCount instanceof DefaultValue) {
-      delete newCart[productId];
-    } else {
-      newCart[productId] = newCount;
-    }
+      if (newCount === 0 || newCount instanceof DefaultValue) {
+        delete newCart[productId];
+      } else {
+        newCart[productId] = newCount;
+      }
 
-    set(myCartState, newCart);
-  }
-})
+      set(myCartState, newCart);
+    },
+});
 
 export default myCartState;

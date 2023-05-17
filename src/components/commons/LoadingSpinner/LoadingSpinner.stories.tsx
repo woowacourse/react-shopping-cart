@@ -14,8 +14,8 @@ const meta: Meta<typeof LoadingSpinner> = {
   },
 
   argTypes: {
-    diameter: { control: 'text'},
-    spinnerWidth: { control: 'text'},
+    diameter: { control: 'text' },
+    spinnerWidth: { control: 'text' },
     color: { control: 'color' },
   },
 };
@@ -30,4 +30,4 @@ export const AppHighlightColored: Story = {
   args: {
     color: Colors.PRIMARY_COLOR_HIGHLIGHT,
   },
-}
+};

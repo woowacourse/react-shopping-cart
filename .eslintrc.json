@@ -37,6 +37,11 @@
     "class-methods-use-this": "off",
     "import/extensions": "off",
     "import/no-named-as-default": "off",
+    "import/prefer-default-export": 0,
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies": ["**/*.stories.ts", "**/*.stories.tsx", "src/setupTests.ts"]
+      }
+    ],
     "no-underscore-dangle": "off",
     "no-console": "off",
     "no-alert": "off",
@@ -45,6 +50,7 @@
     "react/react-in-jsx-scope": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "react/function-component-definition": 0
+    "react/function-component-definition": 0,
+    "react/require-default-props": 0
   }
 }

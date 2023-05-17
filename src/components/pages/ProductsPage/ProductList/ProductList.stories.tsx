@@ -13,7 +13,7 @@ const meta: Meta<typeof ProductList> = {
   tags: ['autodocs'],
 
   decorators: [
-    Story => (
+    (Story) => (
       <RecoilRoot>
         <Story />
       </RecoilRoot>
