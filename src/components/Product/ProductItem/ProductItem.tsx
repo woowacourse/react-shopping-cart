@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import Counter from '../../common/Counter/Counter';
-import ProductImage from '../ProductImage/ProductImage';
+import Image from '../../common/Image/Image';
 import SmallCartIcon from '../../../assets/icons/SmallCartIcon';
 import { formatPrice } from '../../../utils/formatPrice';
 import useCartService from '../../../hooks/useCartService';
@@ -31,7 +31,7 @@ const ProductItem = (product: Product) => {
   return (
     <ItemContainer>
       <ProductImageWrapper>
-        <ProductImage src={imageSrc} alt={name} size="large" />
+        <Image src={imageSrc} alt={name} size="large" />
         <CartButtonWrapper>
           {isDisplayCounter ? (
             <Counter
