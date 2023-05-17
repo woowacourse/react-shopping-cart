@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { cartCountState } from '../../../recoil/state';
 import Logo from '../Logo';
+import { PATH } from '../../../constants/path';
 
 export default function Header() {
   const cartCount = useRecoilValue(cartCountState);
@@ -11,7 +12,11 @@ export default function Header() {
   const navigate = useNavigate();
 
   function moveProductListPage() {
-    navigate('/');
+    navigate(PATH.PRODUCT_LIST);
+  }
+
+  function moveCartListPage() {
+    navigate(PATH.CART_LIST);
   }
 
   return (
@@ -20,7 +25,7 @@ export default function Header() {
         <Logo />
         <LogoTitle>SHOP</LogoTitle>
       </LogoBox>
-      <CartBox>
+      <CartBox onClick={moveCartListPage}>
         <Title>장바구니</Title>
         <CartCount>{cartCount}</CartCount>
       </CartBox>
@@ -79,6 +84,8 @@ const CartBox = styled.div`
 
   font-size: 24px;
   font-weight: 500;
+
+  cursor: pointer;
 `;
 
 const Title = styled.div`
