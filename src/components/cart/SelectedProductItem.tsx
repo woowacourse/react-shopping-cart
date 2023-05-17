@@ -1,4 +1,8 @@
+import { ChangeEventHandler } from 'react';
 import { css, styled } from 'styled-components';
+import { MAX_NUMBER_LENGTH, NOT_NUMBER, QUANTITY } from '../../constants';
+import { useSetCart } from '../../hooks/useCart';
+import { useLoadCart } from '../../hooks/useLoadCart';
 import { Product } from '../../types';
 import Button from '../common/Button';
 import { Checkbox } from '../common/CheckboxStyle';
@@ -11,7 +15,23 @@ interface Props extends Product {
 }
 
 const SelectedProductItem = ({ id, imageUrl, name, price, quantity }: Props) => {
-  const calculatePrice = () => price * quantity;
+  const { setIsSelected, setQuantity } = useLoadCart(id);
+  const { addToCart, removeItemFromCart } = useSetCart(id);
+
+  const handleNumberInputChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
+    const { value } = target;
+
+    if (value === QUANTITY.NONE) {
+      setIsSelected(false);
+      removeItemFromCart();
+
+      return setQuantity(QUANTITY.INITIAL);
+    }
+
+    const onlyTwoDigits = parseInt(value.replace(NOT_NUMBER, '').slice(0, MAX_NUMBER_LENGTH));
+    setQuantity(onlyTwoDigits);
+    addToCart(String(onlyTwoDigits));
+  };
 
   return (
     <div>
@@ -20,11 +40,11 @@ const SelectedProductItem = ({ id, imageUrl, name, price, quantity }: Props) => 
         <S.Image src={`${imageUrl}`} alt={name} />
         <label htmlFor={`${id}-checkbox`}>{name}</label>
         <S.Wrapper>
-          <QuantityInput id={name} value={String(quantity)} onChange={() => {}} />
+          <QuantityInput id={name} value={String(quantity)} onChange={handleNumberInputChange} />
           <Button css={trashCanButtonStyle}>
             <TrashCanIcon patternId={id} imageSize={{ width: '40', height: '40' }} />
           </Button>
-          <Price price={calculatePrice()} />
+          <Price price={price * quantity} />
         </S.Wrapper>
       </S.Fieldset>
     </div>
