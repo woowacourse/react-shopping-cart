@@ -18,10 +18,12 @@ export const QUANTITY_CONTROL_UNIT = {
   DECREASE: 1,
 } as const;
 
-export const PRODUCTS_URL = '/api/products';
-
 export const BOX_SIZE = {
   small: '24px',
   medium: '30px',
   large: '36px',
 } as const;
+
+export const PRODUCTS_URL = '/api/products';
+
+export const CART_ITEMS_URL = '/api/cart-item';
