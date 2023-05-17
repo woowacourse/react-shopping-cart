@@ -10,6 +10,7 @@ declare module 'styled-components' {
       product: string;
       header: string;
       price: string;
+      title: string;
     };
   }
 }
