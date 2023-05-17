@@ -1,4 +1,4 @@
-import { atom, selector } from 'recoil';
+import { atom, selector, selectorFamily } from 'recoil';
 import { CartProductList } from '../types/productType';
 
 const cartStateInit: CartProductList[] = [];
@@ -15,4 +15,26 @@ export const cartStateLength = selector({
 
     return cartStateLength;
   },
+});
+
+export const cartQuantityState = selector({
+  key: 'cartQuantity',
+  get: ({ get }) => {
+    const cartQuantities = get(cartState).map((cartItem) => cartItem.quantity);
+
+    return cartQuantities;
+  },
+});
+
+export const cartItemQuantityStateFamily = selectorFamily({
+  key: 'CartItemQuantityStateFamily',
+  get:
+    (id) =>
+    ({ get }) => {
+      const cartItemQuantity = get(cartState).filter(
+        (cartItem) => cartItem.id === id
+      )[0];
+
+      return cartItemQuantity;
+    },
 });
