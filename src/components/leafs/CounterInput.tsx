@@ -1,25 +1,32 @@
 import styled from 'styled-components';
 
 import { isNumeric } from '../../utils/validator';
-import { useEffect } from 'react';
 
 interface Props {
   count: string;
   setCount: (value: string) => void;
+  min?: number;
   max?: number;
+  style?: React.CSSProperties;
 }
 
-export default function CounterInput({ count, setCount, max }: Props) {
+export default function CounterInput({ count, setCount, min = 0, max, style }: Props) {
+  const getRangeNumber = (number: number) => {
+    if (min > number) return min;
+    if (max && max < number) return max;
+    return number;
+  };
+
   const onChangeInput = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
-    if (value === '') {
+    if (isNumeric(value)) {
+      setCount(getRangeNumber(Number(value)).toString());
+    } else if (value === '') {
       setCount('');
-    } else if (isNumeric(value)) {
-      setCount(value);
     }
   };
 
   const onBlurInput = () => {
-    if (count === '') setCount('0');
+    if (count === '') setCount(min.toString());
   };
 
   const onCountUp = () => {
@@ -31,13 +38,13 @@ export default function CounterInput({ count, setCount, max }: Props) {
   };
 
   return (
-    <Wrapper>
+    <Wrapper style={style}>
       <Input type="text" value={count} onChange={onChangeInput} onBlur={onBlurInput} />
       <CounterBox>
-        <Counter onClick={onCountUp}>
+        <Counter onClick={onCountUp} disabled={Number(count) === max}>
           <img src="./arrowUp.svg" />
         </Counter>
-        <Counter onClick={onCountDown} disabled={count === '0'}>
+        <Counter onClick={onCountDown} disabled={Number(count) === min}>
           <img src="./arrowDown.svg" />
         </Counter>
       </CounterBox>
@@ -52,6 +59,7 @@ const Wrapper = styled.div`
   height: 28px;
 
   text-align: center;
+  font-size: 12px;
 `;
 
 const Input = styled.input`
@@ -60,6 +68,8 @@ const Input = styled.input`
   border: 1px solid #dddddd;
 
   text-align: center;
+  font-size: inherit;
+  color: #333333;
 `;
 
 const CounterBox = styled.div`
@@ -80,11 +90,17 @@ const Counter = styled.button`
   border: 1px solid #dddddd;
   background: transparent;
 
-  cursor: pointer;
-
   & > img {
     width: 48%;
     height: 32%;
-    color: #333333;
+  }
+
+  &:disabled {
+    background: rgba(0, 0, 0, 0.1);
+    cursor: default;
+  }
+
+  &:disabled > img {
+    visibility: hidden;
   }
 `;

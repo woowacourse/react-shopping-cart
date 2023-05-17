@@ -8,9 +8,14 @@ export default {
   component: CounterInput,
 };
 
-const Template: StoryFn<React.ComponentProps<typeof CounterInput>> = () => {
-  const [count, setCount] = useState('5');
-  return <CounterInput count={count} setCount={setCount} max={100} />;
+const Template: StoryFn<React.ComponentProps<typeof CounterInput>> = (props) => {
+  const [count, setCount] = useState('0');
+  return <CounterInput {...props} count={count} setCount={setCount} />;
 };
+
 export const Controls = Template.bind({});
-Controls.args = {};
+Controls.args = {
+  min: 0,
+  max: 10,
+  style: {},
+};
