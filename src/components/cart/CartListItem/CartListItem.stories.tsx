@@ -10,7 +10,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const defaultArgs = {
+const cartItem = {
   id: '0',
   quantity: 1,
   product: {
@@ -23,5 +23,8 @@ const defaultArgs = {
 };
 
 export const Default: Story = {
-  args: defaultArgs,
+  args: {
+    cartItem,
+    checked: true,
+  },
 };
