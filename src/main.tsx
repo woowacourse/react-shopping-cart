@@ -15,23 +15,31 @@ import { worker } from './mocks/browser';
  * 프로젝트 시작할 때 products mock data 준비하도록 설정
  */
 
-localStorage.setItem('products', JSON.stringify(mockData));
-async function prepare() {
-  if (import.meta.env.DEV) {
-    await import('./mockServiceWorker.js?worker');
+async function main() {
+  localStorage.setItem('products', JSON.stringify(mockData));
+  await worker.start({
+    serviceWorker: {
+      url: '/react-shopping-cart/mockServiceWorker.js',
+    },
+  });
 
-    return worker.start();
-  }
+  ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+    <React.StrictMode>
+      <RecoilRoot>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <RouterProvider router={router} />
+        </ThemeProvider>
+      </RecoilRoot>
+    </React.StrictMode>
+  );
 }
-await prepare;
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <RecoilRoot>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <RouterProvider router={router} />
-      </ThemeProvider>
-    </RecoilRoot>
-  </React.StrictMode>
-);
+// worker.start();
+// async function prepare() {
+//   await import('./mockServiceWorker.js?worker');
+
+//   return worker.start();
+// }
+
+main();
