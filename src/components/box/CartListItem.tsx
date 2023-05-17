@@ -4,8 +4,9 @@ import { Text } from '../common/Text/Text';
 import { TrashCanIcon } from '../../assets';
 import InputStepper from '../common/InputStepper/InputStepper';
 import { CheckBox } from '../list/CartList';
+import type { CartItem } from '../../types/types';
 
-const CartItem = () => {
+const CartListItem = ({ cartItem }: { cartItem: CartItem }) => {
   const [quantity, setQuantity] = useState(0);
 
   const handleSetQuantityOnInputStepper = (value: number) => {
@@ -13,30 +14,30 @@ const CartItem = () => {
   };
 
   return (
-    <CartItemWrapper>
+    <CartListItemWrapper>
       <CheckBox type="checkbox" />
-      <CartItemImage />
+      <CartItemImage src={cartItem.product.imageUrl}/>
       <Text size="smallest" weight="light" color="#333333">
-        [든든] 야채바삭 김말이 700g
+        {cartItem.product.name}
       </Text>
       <CartItemControllerWrapper>
         <TrashCanIcon width={24} height={24} cursor="pointer" />
         <InputStepper
           size="big"
-          quantity={quantity}
+          quantity={cartItem.quantity}
           setQuantity={handleSetQuantityOnInputStepper}
         />
         <Text size="minimum" weight="light" color="#333333">
-          8,000원
+          {cartItem.product.price}원
         </Text>
       </CartItemControllerWrapper>
-    </CartItemWrapper>
+    </CartListItemWrapper>
   );
 };
 
-export default CartItem;
+export default CartListItem;
 
-const CartItemWrapper = styled.div`
+const CartListItemWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 
