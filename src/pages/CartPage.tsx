@@ -39,10 +39,6 @@ const S = {
     display: flex;
     justify-content: space-between;
     margin: 36px 30px 0 0;
-
-    &:last-child {
-      padding-top: 50px;
-    }
   `,
 };
 

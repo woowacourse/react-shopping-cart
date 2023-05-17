@@ -1,13 +1,31 @@
+import { useRecoilValue } from 'recoil';
 import { css, styled } from 'styled-components';
+import { cartState } from '../../recoil';
+import { CartItem } from '../../types';
 import Button from '../common/Button';
+import { Checkbox } from '../common/CheckboxStyle';
+import SelectedProductItem from './SelectedProductItem';
 
 const SelectedProductList = () => {
+  const cart = useRecoilValue(cartState);
+
   return (
     <S.Wrapper>
       <S.Title>든든배송 상품 (3개)</S.Title>
+      {cart.map((item: CartItem) => (
+        <SelectedProductItem
+          key={item.product.id}
+          id={item.product.id}
+          name={item.product.name}
+          price={item.product.price}
+          imageUrl={`${process.env.PUBLIC_URL}${item.product.imageUrl}`}
+          quantity={item.quantity}
+        />
+      ))}
+
       <S.Fieldset>
-        <S.Checkbox type="checkbox" id="horns" name="horns" />
-        <label htmlFor="horns">전체선택 (2/3)</label>
+        <Checkbox type="checkbox" id="select-all" name="select-all" />
+        <label htmlFor="select-all">전체선택 (2/3)</label>
         <Button css={deleteButtonStyle}>선택삭제</Button>
       </S.Fieldset>
     </S.Wrapper>
@@ -18,29 +36,27 @@ const S = {
   Wrapper: styled.div`
     width: 100%;
     max-width: 736px;
+    max-height: 410px;
+    font-size: 20px;
+    color: var(--text-color);
   `,
 
   Title: styled.h3`
     padding-bottom: 24px;
-    font-size: 20px;
     border-bottom: 4px solid var(--gray-color-300);
   `,
 
   Fieldset: styled.fieldset`
     display: flex;
     align-items: center;
-  `,
-
-  Checkbox: styled.input`
-    width: 28px;
-    height: 28px;
-    margin-right: 14px;
+    padding: 36px 0 100px;
+    font-size: 16px;
   `,
 };
 
 const deleteButtonStyle = css`
   margin-left: 20px;
-  padding: 6px 12px 10px;
+  padding: 6px 12px 7px;
   background: none;
   border: 1px solid var(--gray-color-100);
 `;
