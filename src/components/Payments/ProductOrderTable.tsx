@@ -12,7 +12,7 @@ export const ProductOrderTable = ({ onClickOrderButton }: Props) => {
       <TitleWrapper>
         <Title>결제예상금액</Title>
       </TitleWrapper>
-      <FlexBox direction="column" gap="40px" width="100%" padding="30px">
+      <OrderDetailContainer>
         <FlexBox direction="column" width="100%" gap="10px">
           <FlexBox justify="space-between" width="100%">
             <PartialTitle>총 상품가격</PartialTitle>
@@ -28,7 +28,7 @@ export const ProductOrderTable = ({ onClickOrderButton }: Props) => {
           </FlexBox>
         </FlexBox>
         <OrderButton onClick={onClickOrderButton}>주문하기</OrderButton>
-      </FlexBox>
+      </OrderDetailContainer>
     </Container>
   );
 };
@@ -38,6 +38,7 @@ const Container = styled.div`
 
   width: 450px;
   border: 1px solid ${({ theme }) => theme.colors.gray_4};
+  border-radius: 10px;
 `;
 
 const TitleWrapper = styled.div`
@@ -47,7 +48,7 @@ const TitleWrapper = styled.div`
 
 const Title = styled.span`
   font-size: 24px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 33px;
   padding-bottom: 20px;
 `;
@@ -55,6 +56,15 @@ const Title = styled.span`
 const PartialTitle = styled.span`
   font-size: 20px;
   line-height: 27px;
+`;
+
+const OrderDetailContainer = styled.div`
+  ${flexColumn}
+
+  gap:40px;
+  width: 100%;
+  padding: 30px;
+  background-color: ${({ theme }) => theme.colors.gray_2};
 `;
 
 const TotalProductPrice = styled.span``;
