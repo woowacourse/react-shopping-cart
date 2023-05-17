@@ -1,0 +1,50 @@
+[
+  {
+    "id": 96,
+    "name": "SONY 컨트롤러",
+    "price": 104000,
+    "imageUrl": "https://picsum.photos/id/96/300"
+  },
+  {
+    "id": 493,
+    "name": "빙그레 딸기 요거트",
+    "price": 4200,
+    "imageUrl": "https://picsum.photos/id/493/300"
+  },
+  {
+    "id": 60,
+    "name": "데스크탑 악세서리 세트",
+    "price": 300000,
+    "imageUrl": "https://picsum.photos/id/60/300"
+  },
+  {
+    "id": 674,
+    "name": "프랑스산 포도",
+    "price": 7000,
+    "imageUrl": "https://picsum.photos/id/674/300"
+  },
+  {
+    "id": 63,
+    "name": "다이소 커피잔",
+    "price": 5200,
+    "imageUrl": "https://picsum.photos/id/63/300"
+  },
+  {
+    "id": 157,
+    "name": "애일리언 스케이트 보드",
+    "price": 79000,
+    "imageUrl": "https://picsum.photos/id/157/300"
+  },
+  {
+    "id": 488,
+    "name": "백종원 샐러드 밀키드",
+    "price": 4550,
+    "imageUrl": "https://picsum.photos/id/488/300"
+  },
+  {
+    "id": 627,
+    "name": "풀무원 완두콩",
+    "price": 200,
+    "imageUrl": "https://picsum.photos/id/627/300"
+  }
+]
