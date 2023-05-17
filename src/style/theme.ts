@@ -56,11 +56,23 @@ const fonts: StyleType = {
     size: 3.2,
     lineHeight: 3.7,
   }),
-  subtotalHeading: FONT({
+  cartHeading: FONT({
     family: 'Noto Sans KR, sans-serif',
     weight: 400,
     size: 2.4,
     lineHeight: 3.3,
+  }),
+  cartProductName: FONT({
+    family: 'Noto Sans KR, sans-serif',
+    weight: 400,
+    size: 2.0,
+    lineHeight: 2.4,
+  }),
+  cartProductPrice: FONT({
+    family: 'Noto Sans KR, sans-serif',
+    weight: 400,
+    size: 1.6,
+    lineHeight: 2.4,
   }),
   subtotalContent: FONT({
     family: 'Noto Sans KR, sans-serif',
