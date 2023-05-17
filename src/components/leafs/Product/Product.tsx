@@ -4,6 +4,7 @@ import useCart from '../../../hooks/useCart';
 import { isNumeric } from '../../../utils/validator';
 import { MAX_QUANTITY } from '../../../constants';
 import { ProductType } from '../../../types';
+import Counter from '../Counter/Counter';
 
 type ProductProps = ProductType;
 
@@ -138,18 +139,4 @@ const CartIcon = styled.img`
 
 const ControlBox = styled.div`
   width: auto;
-`;
-
-const Counter = styled.input`
-  width: 64px;
-  height: 28px;
-  border: 1px solid #dddddd;
-  border-radius: 0px;
-
-  text-align: center;
-
-  &::-webkit-inner-spin-button {
-    opacity: 1;
-    height: 28px;
-  }
 `;
