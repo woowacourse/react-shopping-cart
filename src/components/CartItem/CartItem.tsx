@@ -1,5 +1,6 @@
 import { TrashCan } from '../../assets';
 import { ProductItemType } from '../../types';
+import { priceFormatter } from '../../utils/formatter';
 import StepperButton from '../StepperButton/StepperButton';
 import styles from './style.module.css';
 
@@ -21,8 +22,8 @@ const CartItem = ({ quantity, product }: CartItemProps) => {
         </div>
         <div className={styles.itemCountDatas}>
           <TrashCan width={16} height={16} />
-          <StepperButton count={1} setCount={() => {}} />
-          <div>{product.price}원</div>
+          <StepperButton count={quantity} setCount={() => {}} />
+          <div className={styles.resultPrice}>{priceFormatter(product.price * quantity)}원</div>
         </div>
       </div>
     </>

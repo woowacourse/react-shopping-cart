@@ -6,13 +6,12 @@ import styles from './style.module.css';
 
 const CartPageSection = () => {
   const cartItemList = useRecoilValue(cartListState);
-  console.log(cartItemList);
 
   return (
     <>
       <div className={styles.cartLstHeader}>장바구니</div>
       <hr />
-      <div className={styles.listCount}>든든 배송 상품 (5개)</div>
+      <div className={styles.listCount}>든든 배송 상품 ({cartItemList.length}개)</div>
       <section className={styles.section}>
         <div className={styles.cartList}>
           {cartItemList.map((item) => (
