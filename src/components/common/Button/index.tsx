@@ -1,8 +1,6 @@
 import { styled } from 'styled-components';
 
-interface ButtonProps {
-  text: string;
-  onClick: () => void;
+interface ButtonStyle {
   width?: string;
   height?: string;
   fontSize?: string;
@@ -10,33 +8,26 @@ interface ButtonProps {
   color?: string;
 }
 
-const Button = (props: ButtonProps) => {
-  return (
-    <ButtonWrapper
-      onClick={props.onClick}
-      style={{
-        width: props.width,
-        height: props.height,
-        fontSize: props.fontSize,
-        color: props.color,
-        background: props.background,
-      }}
-    >
-      {props.text}
-    </ButtonWrapper>
-  );
+interface ButtonProps extends  ButtonStyle{
+    text: string;
+    onClick: () => void;
+  }
+
+const Button = ({ text, onClick, ...rest }: ButtonProps) => {
+  return <ButtonWrapper {...rest}>{text}</ButtonWrapper>;
 };
 
-const ButtonWrapper = styled.button`
-  width: 388px;
-  height: 73px;
+const ButtonWrapper = styled.button<ButtonStyle>`
+  width: ${({ width }) => width ?? '388px'};
+  height: ${({ height }) => height ?? '73px'};
 
-  font-size: 24px;
+  font-size: ${({ fontSize }) => fontSize ?? '24px'};
+  font-weight: 400;
 
-  background: #333333;
-  color: #ffffff;
-
-  border: 1px solid #bbbbbb;
+  background: ${({ background }) => background ?? '#333333'};
+  color: ${({ color }) => color ?? '#FFFFFF'};
+  
+  border: 1px solid #BBBBBB;;
 `;
 
 export default Button;
