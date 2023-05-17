@@ -1,17 +1,19 @@
 import styled from 'styled-components';
 import useCartService from '../../../hooks/useCartService';
 import { CartIcon } from '../../../assets';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const { cart } = useCartService();
 
   return (
     <HeaderContainer>
-      <Logo>
+      <Logo to="/">
         <CartIcon />
         <Title>SHOP</Title>
       </Logo>
-      <CartButton>
+
+      <CartButton to="/cart">
         장바구니
         {cart.length > 0 && (
           <CartTotalQuantity>{cart.length}</CartTotalQuantity>
@@ -40,7 +42,7 @@ const HeaderContainer = styled.header`
   z-index: 1;
 `;
 
-const Logo = styled.div`
+const Logo = styled(Link)`
   display: flex;
   align-items: center;
   column-gap: 15px;
@@ -54,7 +56,7 @@ const Title = styled.h1`
   padding-top: 8px;
 `;
 
-const CartButton = styled.div`
+const CartButton = styled(Link)`
   display: flex;
   column-gap: 6px;
   font-size: 24px;
