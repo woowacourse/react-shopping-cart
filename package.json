@@ -76,10 +76,14 @@
     "eslint": "^8.40.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-storybook": "^0.6.12",
+    "msw": "^1.2.1",
     "prop-types": "^15.8.1",
     "storybook": "^7.0.9",
     "webpack": "^5.82.0"
   },
   "readme": "ERROR: No README data found!",
-  "_id": "react-shopping-cart@0.1.0"
+  "_id": "react-shopping-cart@0.1.0",
+  "msw": {
+    "workerDirectory": "public"
+  }
 }
