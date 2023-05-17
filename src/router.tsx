@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import ProductListPage from '@Pages/ProductListPage';
+import ShoppingList from '@Pages/ShoppingList';
 
 import App from './App';
 
@@ -12,6 +13,10 @@ const router = createBrowserRouter(
         {
           index: true,
           element: <ProductListPage />,
+        },
+        {
+          path: '/shopping-list',
+          element: <ShoppingList />,
         },
       ],
     },
