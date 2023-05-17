@@ -63,6 +63,7 @@ export default function Product(props: ProductProps) {
               value={quantityInput}
               onChange={handleChangeCounter}
               onBlur={handleBlurCounter}
+              counterSize="default"
             />
           ) : (
             <CartIcon src="./cart.svg" onClick={handleClickIcon}></CartIcon>

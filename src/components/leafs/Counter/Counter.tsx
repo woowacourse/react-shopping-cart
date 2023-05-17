@@ -15,12 +15,12 @@ const Input = styled.input<CounterProps>`
   border: 1px solid #dddddd;
   border-radius: 0px;
 
-  font-size: ${(props) => (props.counterSize === 'large' ? '20px' : '16px')};
+  font-size: ${(props) => (props.counterSize === 'large' ? '20px' : '14px')};
 
   text-align: center;
 
   &::-webkit-inner-spin-button {
-    width: ${(props) => (props.counterSize === 'large' ? '32px' : '5px')};
+    width: ${(props) => (props.counterSize === 'large' ? '32px' : '15px')};
     opacity: 0.5;
 
     height: ${(props) => (props.counterSize === 'large' ? '60px' : '28px')};
