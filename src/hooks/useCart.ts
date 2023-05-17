@@ -1,35 +1,19 @@
-import { useRecoilCallback } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import client from '../api';
 import cartState from '../recoil/atoms/cartState';
-import type { Product } from '../type';
+import type { CartItem } from '../type';
+import useMutation from './useMutation';
 
-const useCartProduct = (productId: Product['id']) => {
-  const setQuantity = useRecoilCallback(
-    ({ set }) =>
-      (quantity: number) => {
-        set(cartState, (cart) => {
-          const cartProduct = cart.find((it) => it.productId === productId) ?? null;
+const useCart = () => {
+  const [cart, setCart] = useRecoilState(cartState);
 
-          if (cartProduct === null) {
-            return [...cart, { id: Math.round(Math.random() * 100000), quantity, productId }];
-          }
+  const { mutate: deleteCartItems } = useMutation(async (cartItemIds: Array<CartItem['id']>) => {
+    setCart((cart) => cart.filter((cartItem) => !cartItemIds.includes(cartItem.id)));
 
-          const cartProductIndex = cart.findIndex((it) => it.id === cartProduct.id);
-          const newCart = [
-            ...cart.slice(0, cartProductIndex),
-            {
-              ...cartProduct,
-              quantity,
-            },
-            ...cart.slice(cartProductIndex + 1),
-          ].filter((it) => it.quantity > 0);
+    await Promise.all(cartItemIds.map((cartItemId) => client.delete(`/cart-items/${cartItemId}`)));
+  });
 
-          return newCart;
-        });
-      },
-    [],
-  );
-
-  return { setQuantity };
+  return { cart, deleteCartItems };
 };
 
-export default useCartProduct;
+export default useCart;

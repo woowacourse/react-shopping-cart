@@ -1,11 +1,10 @@
 import { atom } from 'recoil';
+import client from '../../api';
 import type { Cart } from '../../type';
-import localStorageEffect from '../effects/localStorageEffect';
 
 const cartState = atom<Cart>({
   key: 'cartState',
-  default: [],
-  effects: [localStorageEffect('cartState')],
+  default: client.get('/cart-items').then((res) => res.json()),
 });
 
 export default cartState;

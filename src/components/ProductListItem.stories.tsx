@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { styled } from 'styled-components';
-import ProductItem from './ProductItem';
+import ProductListItem from './ProductListItem';
 
 const Container = styled.div`
   width: 300px;
@@ -8,7 +8,7 @@ const Container = styled.div`
 
 const meta = {
   title: 'ProductItem',
-  component: ProductItem,
+  component: ProductListItem,
   decorators: [
     (Story) => (
       <Container>
@@ -16,7 +16,7 @@ const meta = {
       </Container>
     ),
   ],
-} satisfies Meta<typeof ProductItem>;
+} satisfies Meta<typeof ProductListItem>;
 
 export default meta;
 

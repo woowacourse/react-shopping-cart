@@ -1,17 +1,15 @@
-import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import CartIcon from '../assets/icons/cart.svg';
-import useCartProduct from '../hooks/useCart';
-import cartState from '../recoil/atoms/cartState';
+import useCartItem from '../hooks/useCartItem';
 import type { Product } from '../type';
 import Stepper from './Stepper';
 
-const ProductItemContainer = styled.div`
+const ProductListItemContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const ProductItemInfo = styled.div`
+const ProductInfo = styled.div`
   flex: 1;
   padding: 18px 8px;
   padding-bottom: 0;
@@ -32,11 +30,11 @@ const ProductInfoContainer = styled.div`
   }
 `;
 
-const ProductItemName = styled.p`
+const ProductName = styled.p`
   font-size: 16px;
 `;
 
-const ProductItemPrice = styled.p`
+const ProductPrice = styled.p`
   font-size: 20px;
 
   &::after {
@@ -53,37 +51,34 @@ const AddCartButton = styled.button`
   padding: 0 10px 10px 10px;
 `;
 
-type ProductItemProps = {
+type ProductListItemProps = {
   product: Product;
 };
 
-const ProductItem = (props: ProductItemProps) => {
+const ProductListItem = (props: ProductListItemProps) => {
   const { product } = props;
-  const { setQuantity } = useCartProduct(product.id);
-  const cart = useRecoilValue(cartState);
-
-  const cartProduct = cart.find((it) => it.productId === product.id) ?? null;
+  const { cartItem, setQuantity } = useCartItem(product);
 
   return (
-    <ProductItemContainer>
+    <ProductListItemContainer>
       <ProductImage src={product.imageUrl} alt={product.name} />
       <ProductInfoContainer>
-        <ProductItemInfo>
-          <ProductItemName>{product.name}</ProductItemName>
-          <ProductItemPrice>{product.price.toLocaleString('ko-KR')}</ProductItemPrice>
-        </ProductItemInfo>
+        <ProductInfo>
+          <ProductName>{product.name}</ProductName>
+          <ProductPrice>{product.price.toLocaleString('ko-KR')}</ProductPrice>
+        </ProductInfo>
         <StepperContainer>
-          {cartProduct === null ? (
+          {cartItem === null ? (
             <AddCartButton onClick={() => setQuantity(1)}>
               <img alt="카트" src={CartIcon} />
             </AddCartButton>
           ) : (
-            <Stepper min={0} value={cartProduct.quantity} onChange={setQuantity} />
+            <Stepper min={0} value={cartItem.quantity} onChange={setQuantity} />
           )}
         </StepperContainer>
       </ProductInfoContainer>
-    </ProductItemContainer>
+    </ProductListItemContainer>
   );
 };
 
-export default ProductItem;
+export default ProductListItem;

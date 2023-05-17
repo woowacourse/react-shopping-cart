@@ -63,6 +63,7 @@ const Header = () => {
           <img alt="홈" src={HomeIcon} width={44} />
           <HomeButtonText>SHOP</HomeButtonText>
         </HomeButton>
+
         <Menu>
           <MenuButton>
             장바구니 <Badge show={cartCount > 0}>{cartCount}</Badge>
