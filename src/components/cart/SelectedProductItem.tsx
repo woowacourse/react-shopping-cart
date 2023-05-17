@@ -41,7 +41,7 @@ const SelectedProductItem = ({ id, imageUrl, name, price, quantity }: Props) => 
         <label htmlFor={`${id}-checkbox`}>{name}</label>
         <S.Wrapper>
           <QuantityInput id={name} value={String(quantity)} onChange={handleNumberInputChange} />
-          <Button css={trashCanButtonStyle}>
+          <Button css={trashCanButtonStyle} onClick={removeItemFromCart}>
             <TrashCanIcon patternId={id} imageSize={{ width: '40', height: '40' }} />
           </Button>
           <Price price={price * quantity} />
