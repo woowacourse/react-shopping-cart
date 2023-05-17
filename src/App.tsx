@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Main from "./pages/Main";
 import CartView from "./pages/CartView";
 import Header from "./components/Header/Header";
