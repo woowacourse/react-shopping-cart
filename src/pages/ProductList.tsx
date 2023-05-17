@@ -10,7 +10,6 @@ import useToast from 'src/hooks/useToast';
 
 const ProductList = () => {
   const { data, error } = useGetFetch<Product[]>('/api/products', []);
-
   const { toast } = useToast();
 
   const fetchedProductList = data.map((product) => (
@@ -29,7 +28,6 @@ const ProductList = () => {
       <ContentLayout>
         <ProductListWrapper>{fetchedProductList}</ProductListWrapper>
       </ContentLayout>
-      <ToastPortal />
     </>
   );
 };
