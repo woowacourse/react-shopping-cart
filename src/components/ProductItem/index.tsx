@@ -3,6 +3,7 @@ import { Product } from 'src/types';
 import Svg from '../@common/Svg';
 import Counter from '../Counter';
 import * as S from './ProductItem.styles';
+import { convertKORWon } from 'src/utils';
 
 interface ProductItemProps {
   product: Product;
@@ -13,9 +14,19 @@ const ProductItem = ({ product }: ProductItemProps) => {
     useProductSelect(product);
 
   const productSelect = currentCartItem ? (
-    <Counter count={currentCartItem.quantity} increase={increase} decrease={decrease} />
+    <Counter
+      count={currentCartItem.quantity}
+      increase={increase}
+      decrease={decrease}
+    />
   ) : (
-    <Svg type="cart-icon" width={25} height={22} onClick={onSelectItem} cursor={"pointer"}/>
+    <Svg
+      type="cart-icon"
+      width={25}
+      height={22}
+      onClick={onSelectItem}
+      cursor={'pointer'}
+    />
   );
 
   return (
@@ -24,9 +35,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
       <S.ProductWrapper>
         <div>
           <S.ProductName>{product.name}</S.ProductName>
-          <S.ProductPrice>
-            {product.price.toLocaleString('KR')} 원
-          </S.ProductPrice>
+          <S.ProductPrice>{convertKORWon(product.price)} </S.ProductPrice>
         </div>
         {productSelect}
       </S.ProductWrapper>
