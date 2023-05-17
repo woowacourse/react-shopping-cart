@@ -21,7 +21,11 @@ const main = async () => {
   });
 };
 
-main();
+if (process.env.NODE_ENV === 'development') {
+  worker.start();
+} else {
+  main();
+}
 
 const router = createHashRouter([
   {
