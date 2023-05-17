@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import useBucketCount from '@hooks/useBucketCount';
-import { BOTTOM_ARROW, TOP_ARROW } from '@assets';
+import { BOTTOM_ARROW, TOP_ARROW } from '@assets/images';
 
 interface BucketCounterProps {
   id: number;

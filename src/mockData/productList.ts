@@ -12,7 +12,7 @@ import {
   J_MOCK,
   K_MOCK,
   L_MOCK,
-} from '@assets';
+} from '@assets/images';
 
 interface ProductListProps {
   productList: ProductInformation[];

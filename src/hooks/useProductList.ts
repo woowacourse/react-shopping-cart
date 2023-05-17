@@ -1,4 +1,4 @@
-import { PRODUCT_LIST } from 'mockData/productList';
+import { PRODUCT_LIST } from '@mockData/productList';
 
 const useProductList = () => {
   const apiProduct = PRODUCT_LIST.productList;

@@ -2,7 +2,7 @@ import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import { cartAtom } from '@recoil/atoms/cartAtom';
 import BucketCounter from '@components/common/BucketCounter';
-import { BUCKET_BUTTON } from '@assets';
+import { BUCKET_BUTTON } from '@assets/images';
 
 interface AddCartButtonProps {
   id: number;

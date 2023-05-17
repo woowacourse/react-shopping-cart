@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 import { cartAtom } from '@recoil/atoms/cartAtom';
-import { HEADER_LOGO } from '@assets';
+import { HEADER_LOGO } from '@assets/images';
 import { theme } from '@styles/theme';
 
 const Header = () => {
