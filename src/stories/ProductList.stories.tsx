@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import ProductList from '../components/ProductList';
+import { handlers } from '../mocks/handlers';
 
 const meta = {
   title: 'ShoppingCart/ProductList',
@@ -13,4 +14,8 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  parameters: {
+    msw: handlers,
+  },
+};

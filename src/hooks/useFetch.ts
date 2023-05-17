@@ -11,7 +11,7 @@ export const useSetFetchedData = <T>(url: string, setData: SetData<T>) => {
   }, [url, setData]);
 
   useEffect(() => {
-    const timerId = setTimeout(() => setFetchedData(), 3000);
+    const timerId = setTimeout(() => setFetchedData(), 0);
     return () => clearTimeout(timerId);
   }, [setFetchedData]);
 };

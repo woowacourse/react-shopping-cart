@@ -3,6 +3,13 @@ import { MemoryRouter } from 'react-router-dom';
 import type { Preview } from '@storybook/react';
 import { RecoilRoot } from 'recoil';
 import GlobalStyle from '../src/GlobalStyle';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
+
+// Initialize MSW
+initialize();
+
+// Provide the MSW addon decorator globally
+export const decorators = [mswDecorator];
 
 const preview: Preview = {
   parameters: {
@@ -14,6 +21,7 @@ const preview: Preview = {
       },
     },
   },
+
   decorators: [
     (Story) => (
       <RecoilRoot>
@@ -23,6 +31,7 @@ const preview: Preview = {
         </MemoryRouter>
       </RecoilRoot>
     ),
+    mswDecorator,
   ],
 };
 
