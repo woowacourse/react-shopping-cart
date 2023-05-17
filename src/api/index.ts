@@ -1,5 +1,5 @@
-import FixtureClient from './FixtureClient';
+import Client from './Client';
 
-const client = new FixtureClient();
+const client = new Client();
 
 export default client;
