@@ -1,20 +1,22 @@
+import { Suspense } from 'react';
+
 import ProductItem from '../ProductItem/ProductItem';
-import useLoadInitData from '../../hooks/useLoadInitData';
-import useProductListValue from '../../hooks/useProductListValue';
 import { Column, Row } from '../../styles/style';
+import { useReadOnlyProductList } from '../../hooks/productListState/productListState';
 
 function ProductList() {
-  useLoadInitData();
-  const productList = useProductListValue();
+  const productList = useReadOnlyProductList();
 
   return (
-    <Row>
-      {productList.map((product) => (
-        <Column key={product.id}>
-          <ProductItem product={product} />
-        </Column>
-      ))}
-    </Row>
+    <Suspense fallback={<h2>로딩중입니다...</h2>}>
+      <Row>
+        {productList.map((product) => (
+          <Column key={product.id}>
+            <ProductItem product={product} />
+          </Column>
+        ))}
+      </Row>
+    </Suspense>
   );
 }
 
