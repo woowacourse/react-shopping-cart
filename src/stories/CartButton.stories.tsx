@@ -12,12 +12,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    handleAddCartState: () => {
-      return;
-    },
-    handleDeleteCartState: () => {
-      return;
-    },
     id: 0,
   },
 };
