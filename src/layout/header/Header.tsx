@@ -1,13 +1,11 @@
 import styled from "styled-components";
 import { LogoIcon } from "../../assets/ShoppingCartIcons";
-import { useCartList } from "../../hooks/useCartList";
 import { useNavigate } from "react-router-dom";
 import { PAGES } from "../../constants";
+import { CartAmount } from "./CartAmount";
 
 export const Header = () => {
   const navigate = useNavigate();
-
-  const { cartList } = useCartList();
 
   return (
     <Style.Container>
@@ -18,7 +16,7 @@ export const Header = () => {
         </Style.LogoContainer>
         <Style.CartContainer>
           <Style.Cart onClick={() => navigate(PAGES.CART)}>장바구니</Style.Cart>
-          <Style.CartAmount>{cartList.length}</Style.CartAmount>
+          <CartAmount />
         </Style.CartContainer>
       </Style.ContentWrapper>
     </Style.Container>
