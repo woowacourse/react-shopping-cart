@@ -11,7 +11,7 @@ const useLoadCartList = () => {
   const loadCartList = useCallback(async () => {
     const response = await mockApi('/cart-items');
 
-    setCartList(safeJsonParse<T.CartProduct[]>(response.data) ?? []);
+    setCartList(safeJsonParse<T.CartItem[]>(response.data) ?? []);
   }, [setCartList]);
 
   return { loadCartList };

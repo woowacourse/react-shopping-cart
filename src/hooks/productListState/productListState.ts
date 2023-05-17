@@ -1,4 +1,4 @@
-import { atom, selector, useRecoilState, useRecoilValue } from 'recoil';
+import { atom, selector, useRecoilValue } from 'recoil';
 import type { ProductItem } from '../../types/ProductType';
 
 // private atom

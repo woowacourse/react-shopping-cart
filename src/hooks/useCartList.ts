@@ -13,7 +13,7 @@ const useCartList = () => {
     if (cartList.findIndex((cart) => cart.id === product.id) !== -1) {
       return;
     }
-    const newCartItem: T.newCartProduct = { id: product.id, quantity: 1, product };
+    const newCartItem: T.NewCartItem = { id: product.id, quantity: 1, product };
     setCartList([...cartList, newCartItem]);
     await mockApi('/cart-items/add', { body: JSON.stringify(newCartItem) });
   };

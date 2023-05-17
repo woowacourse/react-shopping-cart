@@ -2,7 +2,7 @@ import useCartList from '../../hooks/useCartList';
 
 function Cart() {
   const { cartList } = useCartList();
-  console.log(cartList);
+
   return (
     <>
       {cartList.map((cart) => (

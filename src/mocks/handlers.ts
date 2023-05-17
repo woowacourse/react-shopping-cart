@@ -1,5 +1,5 @@
 import { rest } from 'msw';
-import { CartProduct, ProductItem } from '../types/ProductType';
+import { CartItemWithProduct, ProductItem } from '../types/ProductType';
 
 const productList: ProductItem[] = [
   {
@@ -76,7 +76,7 @@ const productList: ProductItem[] = [
   },
 ];
 
-let cartList: CartProduct[] = [
+let cartList: CartItemWithProduct[] = [
   {
     id: 3,
     quantity: 5,
@@ -101,11 +101,11 @@ let cartList: CartProduct[] = [
 
 export const handlers = [
   rest.get('/products', (req, res, ctx) => {
-    return res(ctx.delay(1000), ctx.status(200), ctx.json(productList));
+    return res(ctx.delay(100), ctx.status(200), ctx.json(productList));
   }),
 
   rest.get('/cart-items', (req, res, ctx) => {
-    return res(ctx.delay(1000), ctx.status(200), ctx.json(cartList));
+    return res(ctx.delay(100), ctx.status(200), ctx.json(cartList));
   }),
 
   rest.post('/cart-items', async (req, res, ctx) => {
@@ -129,11 +129,10 @@ export const handlers = [
   }),
 
   rest.delete('/cart-items/:productId', async (req, res, ctx) => {
-    const { productId: idData } = await req.params;
+    const { productId: idData } = req.params;
     const productId = Number(idData);
 
     cartList = cartList.filter((product) => product.id !== productId);
-    console.log('>>> cartList:', cartList);
 
     return res(ctx.delay(2000), ctx.status(200), ctx.json('SUCCESS'));
   }),
@@ -155,6 +154,7 @@ export const handlers = [
         return cartProduct;
       }
     });
-    return res(ctx.delay(1000), ctx.status(200), ctx.json('SUCCESS'));
+
+    return res(ctx.delay(100), ctx.status(200), ctx.json('SUCCESS'));
   }),
 ];

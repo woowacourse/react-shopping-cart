@@ -28,7 +28,7 @@ function mockApi(endpoint: string, options?: Options) {
         case '/cart-items/add':
           if (options) {
             const productJSON = options.body;
-            const product = safeJsonParse<T.CartProduct>(productJSON);
+            const product = safeJsonParse<T.CartItem>(productJSON);
 
             if (!product) {
               alert('잘못된 상품입니다. 잠시후 다시 시도해주세요.');
@@ -42,7 +42,7 @@ function mockApi(endpoint: string, options?: Options) {
             };
 
             const cartItems =
-              safeJsonParse<T.CartProduct[]>(localStorage.getItem('cart-items') || '[]') ?? [];
+              safeJsonParse<T.CartItem[]>(localStorage.getItem('cart-items') || '[]') ?? [];
 
             cartItems.push(newCartItem);
             localStorage.setItem('cart-items', JSON.stringify(cartItems));
@@ -55,7 +55,7 @@ function mockApi(endpoint: string, options?: Options) {
         case '/cart-items/update-quantity':
           if (options) {
             const body = options.body;
-            const parsedData = safeJsonParse<Pick<T.CartProduct, 'id' | 'quantity'>>(body);
+            const parsedData = safeJsonParse<Pick<T.CartItem, 'id' | 'quantity'>>(body);
             if (!parsedData) {
               alert('잘못된 상품입니다. 잠시후 다시 시도해주세요.');
               return;
@@ -64,9 +64,9 @@ function mockApi(endpoint: string, options?: Options) {
             const { id, quantity } = parsedData;
 
             const cartItems =
-              safeJsonParse<T.CartProduct[]>(localStorage.getItem('cart-items') || '[]') ?? [];
+              safeJsonParse<T.CartItem[]>(localStorage.getItem('cart-items') || '[]') ?? [];
 
-            const itemIndex = cartItems.findIndex((item: T.CartProduct) => item.id === id);
+            const itemIndex = cartItems.findIndex((item: T.CartItem) => item.id === id);
             cartItems[itemIndex].quantity = quantity;
             localStorage.setItem('cart-items', JSON.stringify(cartItems));
             resolve({ data: 'success' });
@@ -78,7 +78,7 @@ function mockApi(endpoint: string, options?: Options) {
         case '/cart-items/remove':
           if (options) {
             const body = options.body;
-            const parsedData = safeJsonParse<Pick<T.CartProduct, 'id'>>(body);
+            const parsedData = safeJsonParse<Pick<T.CartItem, 'id'>>(body);
 
             if (!parsedData) {
               alert('잘못된 상품입니다. 잠시후 다시 시도해주세요.');
@@ -88,9 +88,9 @@ function mockApi(endpoint: string, options?: Options) {
             const { id } = parsedData;
 
             const cartItems =
-              safeJsonParse<T.CartProduct[]>(localStorage.getItem('cart-items') || '[]') ?? [];
+              safeJsonParse<T.CartItem[]>(localStorage.getItem('cart-items') || '[]') ?? [];
 
-            const removedCartItems = cartItems.filter((item: T.CartProduct) => item.id !== id);
+            const removedCartItems = cartItems.filter((item: T.CartItem) => item.id !== id);
             localStorage.setItem('cart-items', JSON.stringify(removedCartItems));
             resolve({ data: 'success' });
           } else {

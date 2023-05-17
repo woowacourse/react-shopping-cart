@@ -31,11 +31,10 @@ const cartItemState = selectorFamily<number, number>({
     (id) =>
     ({ get, set }, quantity) => {
       // TODO: 분리하기
-
       if (!(quantity instanceof DefaultValue) && quantity < 99 && quantity >= 0) {
         const cartList = get(cartListState);
 
-        // TODO: add
+        // TODO: post
         if (!cartList.some((item) => item.id === id)) {
           set(cartListState, (prevCartList) => [
             ...prevCartList,
@@ -45,6 +44,13 @@ const cartItemState = selectorFamily<number, number>({
             },
           ]);
 
+          fetch('/cart-items', {
+            method: 'POST',
+            body: JSON.stringify({
+              productId: id,
+            }),
+          });
+
           return;
         }
 
@@ -52,10 +58,14 @@ const cartItemState = selectorFamily<number, number>({
         if (quantity === 0) {
           set(cartListState, (prevCartList) => prevCartList.filter((item) => item.id !== id));
 
+          fetch(`/cart-items/${id}`, {
+            method: 'DELETE',
+          });
+
           return;
         }
 
-        // TODO: post
+        // TODO: patch
         set(cartListState, (prevCartList) => {
           return prevCartList.map((item) => {
             if (item.id === id) {
@@ -68,15 +78,15 @@ const cartItemState = selectorFamily<number, number>({
             }
           });
         });
+
+        fetch(`/cart-items/${id}`, {
+          method: 'PATCH',
+          body: JSON.stringify({
+            quantity,
+          }),
+        });
       }
     },
 });
-
-// fetch(`/cart-items/`, {
-//   method: 'POST',
-//   body: JSON.stringify({
-//     id,
-//   }),
-// });
 
 export const useCartItemById = (id: number) => useRecoilState(cartItemState(id));
