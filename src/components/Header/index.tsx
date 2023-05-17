@@ -16,8 +16,10 @@ const Header: React.FC = () => {
           <StyledTitle>SHOP</StyledTitle>
         </StyledLinkTitle>
         <StyledCartWrapper>
-          <StyledCart>장바구니</StyledCart>
-          <StyledCartAmount data-cy="cart-amount">{totalAmount}</StyledCartAmount>
+          <StyledLinkTitle to="/cart">
+            <StyledCart>장바구니</StyledCart>
+            <StyledCartAmount data-cy="cart-amount">{totalAmount}</StyledCartAmount>
+          </StyledLinkTitle>
         </StyledCartWrapper>
       </StyledHeaderBox>
     </StyledHeaderWrapper>
@@ -47,6 +49,7 @@ const StyledHeaderBox = styled.div`
 const StyledLinkTitle = styled(Link)`
   display: flex;
   align-items: center;
+  gap: 5px;
 
   color: inherit;
 `;
