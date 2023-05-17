@@ -32,3 +32,17 @@ export const SmallCheckbox: Story = {
     size: 'small',
   },
 };
+
+export const MediumCheckbox: Story = {
+  args: {
+    isChecked: false,
+    size: 'medium',
+  },
+};
+
+export const LargeCheckbox: Story = {
+  args: {
+    isChecked: false,
+    size: 'large',
+  },
+};
