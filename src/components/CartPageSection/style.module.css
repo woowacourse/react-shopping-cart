@@ -1,0 +1,87 @@
+.section {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  gap: 30px;
+}
+
+.listCount {
+  margin-top: 3%;
+  margin-bottom: 1%;
+  color: #333333;
+}
+
+.cartList {
+  display: flex;
+  flex-direction: column;
+  width: 736px;
+  height: 500px;
+  overflow: scroll;
+  border-top: 4px solid #aaaaaa;
+}
+
+.orderBox {
+  border: 1px solid #dddddd;
+  max-width: 448px;
+  width: 100%;
+  max-height: 346px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+}
+
+.cartLstHeader {
+  text-align: center;
+  font-weight: 700;
+  font-size: 32px;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+}
+
+.orderBoxHeader {
+  width: 100%;
+  border-bottom: 1px solid #dddddd;
+  padding: 22px;
+}
+
+.priceBox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.orderPrice {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: fit-content;
+  padding: 30px;
+  height: 100%;
+}
+
+.resultText {
+  display: flex;
+  justify-content: space-between;
+}
+
+.resultPrice {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.orderButton {
+  margin-top: 10%;
+  width: 100%;
+  height: fit-content;
+  background-color: #04c09e;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  transition: all 0.2s ease-in;
+}
+
+.orderButton:hover {
+  background-color: #05b696;
+}
