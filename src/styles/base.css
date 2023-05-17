@@ -1,0 +1,46 @@
+:root {
+  --primary-color: #333333;
+  --mint-color: #04c092;
+  --mint-color-hover: #439a97;
+  --white-color: #ffffff;
+  --white-color-001: #f2f2f2;
+  --white-color-002: #f6f1f1;
+  --white-color-003: #cdcdcd;
+  --black-color: #2d2d2d;
+}
+
+html {
+  width: 100%;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box !important;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+*:focus {
+  outline: none;
+}
+body {
+  margin: 0;
+  font-family: ‘Roboto’, -apple-system, BlinkMacSystemFont, ‘Segoe UI’, ‘Oxygen’, ‘Ubuntu’, ‘Cantarell’, ‘Fira Sans’,
+    ‘Droid Sans’, ‘Helvetica Neue’, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  min-width: 572px;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, ‘Courier New’, monospace;
+}
+#root {
+  margin: 0 auto;
+}
