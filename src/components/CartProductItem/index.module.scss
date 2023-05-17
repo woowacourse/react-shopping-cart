@@ -16,11 +16,33 @@
 }
 
 .check-box {
-  width: 28px;
-  height: 28px;
+  appearance: none;
+  -webkit-appearance: none;
+
+  min-width: 24px;
+  height: 24px;
   background: var(--white-color);
-  border: 4px solid #22a6a2;
+  border: 1px solid #22a6a2;
   border-radius: 2px;
+  transform: translateY(0%);
+
+  &:checked {
+    background: #333333;
+    border: 1px solid #3288ff;
+  }
+
+  &:after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-image: url('../../assets/checked.svg');
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 }
 
 .item-info {
