@@ -7,7 +7,9 @@ import ErrorPage from '../../ErrorPage/ErrorPage';
 import LoadingPage from '../../LoadingPage/LoadingPage';
 
 const ProductList = () => {
-  const { data: productList, status } = useFetchData<Product[]>('./mockData.json', []);
+  const { data: productList, status } = useFetchData<Product[]>(
+    `${process.env.PUBLIC_URL}/mockData.json`, []
+  );
 
   if (status === 0) {
     return <LoadingPage />;
