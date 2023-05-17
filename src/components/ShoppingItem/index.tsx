@@ -21,10 +21,11 @@ type ShoppingItemProps = {
 };
 
 function ShoppingItem({ product, width = '100%' }: ShoppingItemProps) {
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(true);
   const { updateShoppingCart } = useShoppingCart();
   const { name, price, image, imageDescription } = useProduct(product);
   const quantity = product && useRecoilValue(quantityState(product.id));
+
   return (
     <S.Container aria-label="장바구니 상품" width={width}>
       <Checkbox isChecked={isChecked} size="small" />

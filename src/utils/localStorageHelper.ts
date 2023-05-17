@@ -6,6 +6,10 @@ const localStorageHelper = {
     return JSON.parse(localStorage.getItem(key) as string);
   },
 
+  setValue: <T>(key: string, value: T) => {
+    localStorage.setItem(key, JSON.stringify(value));
+  },
+
   setInitValue: <T>(key: string, value: T) => {
     localStorage.setItem(key, JSON.stringify(value));
   },

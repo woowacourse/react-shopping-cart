@@ -1,10 +1,10 @@
 import { rest } from 'msw';
 
-import { Product } from '@Types/index';
+import { Product, ShoppingCartProduct } from '@Types/index';
 
 import localStorageHelper from '@Utils/localStorageHelper';
 
-import { PRODUCTS_URL } from '@Constants/index';
+import { CART_ITEMS_URL, PRODUCTS_URL } from '@Constants/index';
 
 import mockData from './mockData.json';
 
@@ -15,5 +15,34 @@ export const handlers = [
     const products = localStorageHelper.getValue<Product[]>('products');
 
     return res(ctx.status(200), ctx.json(products));
+  }),
+
+  rest.get(CART_ITEMS_URL, (_, res, ctx) => {
+    if (!localStorageHelper.hasKey('cartItems')) localStorageHelper.setInitValue('cartItems', []);
+
+    const cartItems = localStorageHelper.getValue<ShoppingCartProduct[]>('cartItems');
+
+    return res(ctx.status(200), ctx.json(cartItems));
+  }),
+
+  rest.post('/cart-items', async (req, res, ctx) => {
+    if (!localStorageHelper.hasKey('cartItems')) localStorageHelper.setInitValue('cartItems', []);
+
+    const body = (await req.json()) as { productId: number };
+    const productId = body.productId;
+
+    const products = localStorageHelper.getValue<Product[]>('products');
+    const cartItems = localStorageHelper.getValue<ShoppingCartProduct[]>('cartItems');
+
+    const newShoppingItem = {
+      id: Date.now(),
+      quantity: 1,
+      product: products.find((product) => product.id === productId),
+    };
+    const newCartItems = [...cartItems, newShoppingItem];
+
+    localStorageHelper.setValue('cartItems', newCartItems);
+
+    res(ctx.status(201));
   }),
 ];

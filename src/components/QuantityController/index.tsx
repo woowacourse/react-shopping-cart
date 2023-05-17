@@ -32,6 +32,10 @@ function QuantityController({
   };
 
   const addShoppingCart = () => {
+    fetch('/cart-items', {
+      method: 'POST',
+      body: JSON.stringify({ productId: product.id }),
+    });
     updateShoppingCart(product, SHOPPING_QUANTITY.DEFAULT);
   };
 
