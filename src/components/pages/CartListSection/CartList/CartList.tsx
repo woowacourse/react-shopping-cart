@@ -7,10 +7,7 @@ import CartItem from '@components/pages/CartListSection/CartList/CartItem/CartIt
 
 const CartList = () => {
   return (
-    <FetchedDataList<Product[]>
-      endpoint={process.env.PUBLIC_URL + '/mockData.json'}
-      initialValue={[]}
-    >
+    <FetchedDataList<Product[]> endpoint={'/cart-items'} initialValue={[]}>
       {({ data, fetchStatus }) => {
         return (
           <>

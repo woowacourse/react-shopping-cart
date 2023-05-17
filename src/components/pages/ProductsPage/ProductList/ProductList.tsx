@@ -6,7 +6,7 @@ import { Product } from '@customTypes/Product';
 
 const ProductList = () => {
   return (
-    <FetchedDataList<Product[]> endpoint={'api/productList'} initialValue={[]}>
+    <FetchedDataList<Product[]> endpoint={'/products'} initialValue={[]}>
       {({ data, fetchStatus }) => {
         return (
           <>
