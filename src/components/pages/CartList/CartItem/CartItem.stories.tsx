@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import catImage from '@public/cat0.png';
 
-import CartItem from '@components/pages/CartItem/CartItem';
+import CartItem from '@components/pages/CartList/CartItem/CartItem';
 
 /**
  * 장바구니 아이템
