@@ -11,6 +11,8 @@
       "@type/*": ["types/*"],
       "@utils/*": ["utils/*"],
       "@constants/*": ["constants/*"],
+      "@hooks/*": ["hooks/*"],
+      "@router/*": ["router/*"]
     }
   }
 }

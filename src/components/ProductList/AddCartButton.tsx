@@ -36,9 +36,7 @@ const AddCartButton = ({
   return (
     <AddCartButtonWrapper>
       {isClicked ? (
-        <BucketCounter
-          removeProductFromCart={removeAndChangeCart}
-        />
+        <BucketCounter removeProductFromCart={removeAndChangeCart} />
       ) : (
         <Button
           type="button"

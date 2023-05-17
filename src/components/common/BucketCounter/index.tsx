@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
-import useBucketCount from 'hooks/useBucketCount';
 import { styled } from 'styled-components';
+import useBucketCount from 'hooks/useBucketCount';
 import {
   BUCKET_COUNTER_BOTTOM_BUTTON,
   BUCKET_COUNTER_TOP_BUTTON,

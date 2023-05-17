@@ -1,5 +1,5 @@
-import useControlCart from 'hooks/useControlCart';
 import styled from 'styled-components';
+import useControlCart from 'hooks/useControlCart';
 import { PRODUCT_LIST } from '../../mockData/productList';
 import ProductItem from './ProductItem';
 

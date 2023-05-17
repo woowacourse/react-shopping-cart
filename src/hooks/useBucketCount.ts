@@ -2,12 +2,15 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { isNotNumber, showInputErorrMessage } from '@utils/common';
 
 interface useBucketCountOptions {
-    removeProductFromCart: () => void;
-    errorMessage: string;
-    maximumCount: number;
+  removeProductFromCart: () => void;
+  errorMessage: string;
+  maximumCount: number;
 }
 
-const useBucketCount = (initialValue:number, options:useBucketCountOptions)=> {
+const useBucketCount = (
+  initialValue: number,
+  options: useBucketCountOptions
+) => {
   const { removeProductFromCart, errorMessage, maximumCount } = options;
   const maximumWriteInput = maximumCount * 10;
   const [bucketCount, setBucketCount] = useState(initialValue);
@@ -68,7 +71,7 @@ const useBucketCount = (initialValue:number, options:useBucketCountOptions)=> {
     if (bucketCount === 0) removeProductFromCart();
   };
 
-   useEffect(() => {
+  useEffect(() => {
     showCounterErrorMessage();
   }, [bucketCount, showCounterErrorMessage]);
 
