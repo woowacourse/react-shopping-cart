@@ -5,9 +5,20 @@ import Checkbox from '../../common/Checkbox/Checkbox';
 import useCartService from '../../../hooks/useCartService';
 import { formatPrice } from '../../../utils/formatPrice';
 import type { CartItem } from '../../../types/product';
+import Spacer from '../../common/Spacer/Spacer';
 
-const CartListItem = (cartItem: CartItem) => {
-  const { quantity, product } = cartItem;
+interface CartListItemProps {
+  cartItem: CartItem;
+  checked?: boolean;
+  onChange?: (id: string) => void;
+}
+
+const CartListItem = ({
+  cartItem,
+  checked = false,
+  onChange,
+}: CartListItemProps) => {
+  const { id: cartItemId, quantity, product } = cartItem;
   const { id, name, price, imageSrc } = product;
   const { updateProductQuantity, removeProductFromCart } = useCartService();
 
@@ -24,7 +35,8 @@ const CartListItem = (cartItem: CartItem) => {
   return (
     <Container>
       <Inner>
-        <Checkbox />
+        <Checkbox id={`${cartItemId}`} checked={checked} onChange={onChange} />
+        <Spacer width={15} />
         <Image src={imageSrc} loading="lazy" alt={name} />
         <Title>{name}</Title>
         <Right>

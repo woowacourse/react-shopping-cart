@@ -1,12 +1,25 @@
-import { useId } from 'react';
+import { ChangeEventHandler } from 'react';
 import { styled } from 'styled-components';
 
-const Checkbox = ({ checked = false }: { checked?: boolean }) => {
-  const id = useId();
+interface CheckboxProps {
+  id?: string;
+  checked?: boolean;
+  onChange?: (id: string) => void;
+}
+
+const Checkbox = ({ id = '', checked = false, onChange }: CheckboxProps) => {
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    onChange?.(e.target.id);
+  };
 
   return (
     <>
-      <StyledCheckbox type="checkbox" id={id} checked={checked} />
+      <StyledCheckbox
+        type="checkbox"
+        id={id}
+        checked={checked}
+        onChange={handleChange}
+      />
       <label htmlFor={id}></label>
     </>
   );
@@ -19,7 +32,6 @@ const StyledCheckbox = styled.input`
   border: 1px solid #22a6a2;
   border-radius: 2px;
   cursor: pointer;
-  margin-right: 15px;
 
   &:checked {
     border: 1px solid #3288ff;

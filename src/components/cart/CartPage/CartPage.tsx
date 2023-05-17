@@ -2,20 +2,34 @@ import { styled } from 'styled-components';
 import CartListItem from '../CartListItem/CartListItem';
 import Spacer from '../../common/Spacer/Spacer';
 import CartTotal from '../CartTotal/CartTotal';
-
-const defaultArgs = {
-  id: '0',
-  quantity: 1,
-  product: {
-    id: 1,
-    name: '순살치킨 1KG',
-    price: 9900,
-    imageSrc:
-      'https://cdn-mart.baemin.com/sellergoods/main/c6f2f083-a8b8-4799-834b-444b5eaeb532.png?h=400&w=400',
-  },
-};
+import { cartItemsQuery } from '../../../recoil/selectors';
+import { useRecoilValue } from 'recoil';
+import Checkbox from '../../common/Checkbox/Checkbox';
+import { useState } from 'react';
 
 const CartPage = () => {
+  const cartItems = useRecoilValue(cartItemsQuery);
+  const [checkedItemIds, setCheckedItemIds] = useState(
+    cartItems.map((cartItem) => cartItem.id),
+  );
+  const isAllChecked = checkedItemIds.length === cartItems.length;
+
+  const handleCheckboxChange = (clickedItemId: string) => {
+    if (checkedItemIds.includes(clickedItemId)) {
+      setCheckedItemIds((prev) => prev.filter((id) => id !== clickedItemId));
+    } else {
+      setCheckedItemIds((prev) => [...prev, clickedItemId]);
+    }
+  };
+
+  const handleAllCheckboxChange = () => {
+    if (isAllChecked) {
+      setCheckedItemIds(() => []);
+    } else {
+      setCheckedItemIds(() => cartItems.map((cartItem) => cartItem.id));
+    }
+  };
+
   return (
     <Container>
       <TitleWrapper>
@@ -25,9 +39,25 @@ const CartPage = () => {
       <Inner>
         <CartList>
           <ListTitle>든든배송 상품 (3개)</ListTitle>
-          <CartListItem {...defaultArgs} />
-          <CartListItem {...defaultArgs} />
-          <CartListItem {...defaultArgs} />
+          {cartItems.map((cartItem) => (
+            <CartListItem
+              key={cartItem.id}
+              cartItem={cartItem}
+              checked={checkedItemIds.includes(cartItem.id)}
+              onChange={handleCheckboxChange}
+            />
+          ))}
+          <Spacer height={20} />
+          <AllCheckBoxContainer>
+            <Checkbox
+              checked={isAllChecked}
+              onChange={handleAllCheckboxChange}
+            />
+            <span>
+              전체선택 ({checkedItemIds.length} / {cartItems.length})
+            </span>
+            <DeleteButton>선택삭제</DeleteButton>
+          </AllCheckBoxContainer>
         </CartList>
         <TotalWrapper>
           <CartTotal />
@@ -79,6 +109,23 @@ const ListTitle = styled.div`
 const Inner = styled.div`
   display: flex;
   column-gap: 104px;
+`;
+
+const AllCheckBoxContainer = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+`;
+
+const DeleteButton = styled.button`
+  width: 98px;
+  height: 35px;
+  font-family: 'Noto Sans KR';
+  font-size: 16px;
+  line-height: 21px;
+  text-align: center;
+  color: #333;
+  border: 1px solid #bbb;
 `;
 
 const TotalWrapper = styled.div`
