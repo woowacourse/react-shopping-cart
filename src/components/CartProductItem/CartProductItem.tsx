@@ -3,13 +3,17 @@ import CheckBox from "../common/CheckBox/CheckBox";
 import DeleteButton from "../common/DeleteButton/DeleteButton";
 import RectangleQuantityInput from "../RectangleQuantityInput/RectangleQuantityInput";
 import type { ProductCardProps } from "../../types";
+import { useState } from "react";
 
 const CartProductItem = ({
   productId,
   productImage,
   productName,
   productPrice,
+  productQuantity,
 }: ProductCardProps) => {
+  const [quantity, setQuantity] = useState(productQuantity);
+
   return (
     <Container>
       <ProductCheckBox notifyParentWhenCheckedChanged={() => {}} />
@@ -22,9 +26,15 @@ const CartProductItem = ({
         />
       </DeleteButtonContainer>
       <QuantityInputContainer>
-        <RectangleQuantityInput productId={productId} />
+        <RectangleQuantityInput
+          productId={productId}
+          initialValue={productQuantity}
+          notifyFunction={setQuantity}
+        />
       </QuantityInputContainer>
-      <ProductPrice>₩ {productPrice.toLocaleString()}</ProductPrice>
+      <ProductPrice>
+        ₩ {(productPrice * quantity).toLocaleString()}
+      </ProductPrice>
     </Container>
   );
 };
