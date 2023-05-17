@@ -32,20 +32,3 @@ export const cartItemsQuery = selector<CartItem[]>({
     return cartItems;
   },
 });
-
-export const productQuantityInCart = selectorFamily({
-  key: 'productQuantityInCart',
-  get:
-    (productId: number) =>
-    ({ get }) => {
-      const cart = get(cartState);
-
-      const product = cart.find(
-        (cartItem) => cartItem.product.id === productId,
-      );
-
-      if (!product) return 0;
-
-      return product.quantity;
-    },
-});
