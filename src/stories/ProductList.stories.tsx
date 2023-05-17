@@ -3,12 +3,9 @@ import ProductList from '../components/product/ProductList';
 import { handlers } from '../mocks/handlers';
 
 const meta = {
-  title: 'ShoppingCart/ProductList',
+  title: 'ShoppingCart/product/ProductList',
   component: ProductList,
   tags: ['autodocs'],
-  parameters: {
-    layout: 'fullscreen',
-  },
 } satisfies Meta<typeof ProductList>;
 
 export default meta;

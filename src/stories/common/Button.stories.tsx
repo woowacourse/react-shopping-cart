@@ -5,9 +5,6 @@ const meta = {
   title: 'ShoppingCart/common/Button',
   component: Button,
   tags: ['autodocs'],
-  parameters: {
-    layout: 'fullscreen',
-  },
 } satisfies Meta<typeof Button>;
 
 export default meta;

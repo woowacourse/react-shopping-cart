@@ -3,12 +3,9 @@ import Product from '../components/product/Product';
 import { styled } from 'styled-components';
 
 const meta = {
-  title: 'ShoppingCart/Product',
+  title: 'ShoppingCart/product/Product',
   component: Product,
   tags: ['autodocs'],
-  parameters: {
-    layout: 'fullscreen',
-  },
 } satisfies Meta<typeof Product>;
 
 export default meta;

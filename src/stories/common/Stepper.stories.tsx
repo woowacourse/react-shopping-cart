@@ -8,9 +8,6 @@ const meta = {
   title: 'ShoppingCart/common/Stepper',
   component: Stepper,
   tags: ['autodocs'],
-  parameters: {
-    layout: 'fullscreen',
-  },
 } satisfies Meta<typeof Stepper>;
 
 export default meta;

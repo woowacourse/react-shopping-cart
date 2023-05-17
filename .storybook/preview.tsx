@@ -17,14 +17,29 @@ if (location.hostname === 'hyeryongchoi.github.io') {
 // Initialize MSW
 initialize(options);
 
+const customViewports = {
+  Default: {
+    name: 'Default',
+    styles: {
+      width: '992px',
+      height: '700px',
+    },
+  },
+};
+
 const preview: Preview = {
   parameters: {
+    layout: 'centered',
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/,
       },
+    },
+    viewport: {
+      viewports: { ...customViewports },
+      defaultViewport: 'Default',
     },
   },
 

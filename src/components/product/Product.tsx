@@ -5,6 +5,7 @@ import { useCart } from '../../hooks/useCart';
 import { useToast } from '../../hooks/useToast';
 import Stepper from '../Stepper';
 import Toast from '../common/Toast';
+import Price from '../common/Price';
 
 interface Props {
   info: ProductInfo;
@@ -37,7 +38,7 @@ export default function Product({ info }: Props) {
             </Style.CartIconWrapper>
           )}
         </Style.ProductNameAndStepperContainer>
-        <Style.ProductPrice>{price.toLocaleString('ko-KR')}원</Style.ProductPrice>
+        <Price price={price} size={'large'} />
       </Style.ProductInfo>
       <Toast
         isOpenToast={isOpenToast}
@@ -87,10 +88,6 @@ const Style = {
     font-size: 16px;
     white-space: nowrap;
     text-overflow: ellipsis;
-  `,
-
-  ProductPrice: styled.p`
-    font-size: 20px;
   `,
 
   CartIconWrapper: styled.button`
