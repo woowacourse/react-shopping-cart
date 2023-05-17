@@ -7,23 +7,37 @@ interface StepperButtonProps {
   count: number;
   minCount?: number;
   maxCount?: number;
-  setCount: React.Dispatch<React.SetStateAction<number>>;
+  itemId?: number;
+  setCount?: React.Dispatch<React.SetStateAction<number>>;
+  increaseCount?: (id: number) => void;
+  decreaseCount?: (id: number) => void;
 }
 
-const StepperButton = ({ count, minCount = 1, maxCount = 99, setCount }: StepperButtonProps) => {
+const StepperButton = ({
+  count,
+  minCount = 1,
+  maxCount = 99,
+  itemId,
+  setCount,
+  increaseCount,
+  decreaseCount,
+}: StepperButtonProps) => {
   const handleDecrease = useCallback(() => {
-    setCount((prevCount) => prevCount - 1);
-  }, [setCount]);
+    if (setCount) setCount((prevCount) => prevCount - 1);
+
+    if (decreaseCount && itemId) decreaseCount(itemId);
+  }, [setCount, decreaseCount, itemId]);
 
   const handleIncrease = useCallback(() => {
-    setCount((prevCount) => prevCount + 1);
-  }, [setCount]);
+    if (setCount) setCount((prevCount) => prevCount + 1);
+    if (increaseCount && itemId) increaseCount(itemId);
+  }, [setCount, increaseCount, itemId]);
 
   const handleCountChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       if (Number(event.target.value) < minCount || Number(event.target.value) > maxCount) return;
 
-      setCount(Number(event.target.value));
+      if (setCount) setCount(Number(event.target.value));
     },
     [maxCount, minCount, setCount]
   );

@@ -2,7 +2,6 @@
   display: flex;
   margin-top: 10px;
   padding-bottom: 10px;
-
   background-color: #ffffff;
   border-bottom: 0.5px solid #dddddd;
 }
@@ -27,6 +26,7 @@
 
 .productName {
   width: 100%;
+  margin-top: 10px;
 }
 
 .itemCountDatas {

@@ -1,7 +1,7 @@
 .section {
   display: flex;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   gap: 30px;
 }
 
@@ -16,11 +16,12 @@
   flex-direction: column;
   width: 736px;
   height: 500px;
-  overflow: scroll;
   border-top: 4px solid #aaaaaa;
 }
 
 .orderBox {
+  position: sticky;
+  top: 20%;
   border: 1px solid #dddddd;
   max-width: 448px;
   width: 100%;
@@ -84,4 +85,26 @@
 
 .orderButton:hover {
   background-color: #05b696;
+}
+
+.deleteChecker {
+  display: flex;
+
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+}
+
+.deleteButton {
+  border: 1px solid #dddddd;
+  padding: 5px 10px;
+  border-radius: 2px;
+}
+
+.deleteBox {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }

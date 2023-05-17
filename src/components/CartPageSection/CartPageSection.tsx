@@ -16,11 +16,23 @@ const CartPageSection = () => {
     <>
       <div className={styles.cartLstHeader}>장바구니</div>
       <hr />
-      <div className={styles.listCount}>든든 배송 상품 ({cartItemList.length}개)</div>
+
+      <div className={styles.deleteBox}>
+        <input type="checkbox" className={styles.deleteChecker} />
+        <p>전체 선택(0/{cartItemList.length})</p>
+        <button type="button" className={styles.deleteButton}>
+          선택 삭제
+        </button>
+      </div>
       <section className={styles.section}>
         <div className={styles.cartList}>
           {cartItemList.map((item) => (
-            <CartItem quantity={item.quantity} key={item.id} product={item.product} />
+            <CartItem
+              quantity={item.quantity}
+              itemId={item.id}
+              key={item.id}
+              product={item.product}
+            />
           ))}
         </div>
         <div className={styles.orderBox}>

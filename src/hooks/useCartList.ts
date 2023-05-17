@@ -22,5 +22,48 @@ export const useCartList = () => {
     };
   };
 
-  return { cartList, addCartItem, updateCartItem, getNewCartItem };
+  const updateCartItemQuantityIncrease = (id: number) => {
+    console.log(
+      cartList.map((item) => {
+        if (item.id !== id) return item;
+        return {
+          id,
+          quantity: item.quantity + 1,
+          product: item.product,
+        };
+      })
+    );
+    setCartList(
+      cartList.map((item) => {
+        if (item.id !== id) return item;
+        return {
+          id,
+          quantity: item.quantity + 1,
+          product: item.product,
+        };
+      })
+    );
+  };
+
+  const updateCartItemQuantityDecrease = (id: number) => {
+    setCartList(
+      cartList.map((item) => {
+        if (item.id !== id) return item;
+        return {
+          id,
+          quantity: item.quantity - 1,
+          product: item.product,
+        };
+      })
+    );
+  };
+
+  return {
+    cartList,
+    addCartItem,
+    updateCartItem,
+    getNewCartItem,
+    updateCartItemQuantityIncrease,
+    updateCartItemQuantityDecrease,
+  };
 };
