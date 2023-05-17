@@ -23,17 +23,17 @@ describe('개별 상품 장바구니 추가 테스트', () => {
   });
 
   it('장바구니 수량 카운터에 영어는 입력되지 않는다.', () => {
-    cy.typingFirstProduct('nave', '');
+    cy.typingFirstProduct('nave', '0');
   });
 
   it('장바구니 수량 카운터에 한국어는 입력되지 않는다.', () => {
-    cy.typingFirstProduct('네이브', '');
+    cy.typingFirstProduct('네이브', '0');
   });
 
   it('장바구니 수량 카운터에 숫자 기호도 입력되지 않는다.', () => {
-    cy.typingFirstProduct('-', '');
-    cy.typingFirstProduct('+', '');
-    cy.typingFirstProduct('e', '');
+    cy.typingFirstProduct('-', '0');
+    cy.typingFirstProduct('+', '0');
+    cy.typingFirstProduct('e', '0');
   });
 });
 
