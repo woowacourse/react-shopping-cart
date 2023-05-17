@@ -20,7 +20,10 @@ const useCartService = () => {
     });
   };
 
-  const updateProductQuantity = (targetId: number, quantity: number) => {
+  const updateProductQuantity = (
+    targetId: Product['id'],
+    quantity: CartItem['quantity'],
+  ) => {
     fetch(`${CART_BASE_URL}/${targetId}`, {
       method: 'PATCH',
       headers: {
@@ -34,7 +37,7 @@ const useCartService = () => {
     });
   };
 
-  const removeProductFromCart = (targetId: number) => {
+  const removeProductFromCart = (targetId: Product['id']) => {
     fetch(`${CART_BASE_URL}/${targetId}`, {
       method: 'POST',
       headers: {
