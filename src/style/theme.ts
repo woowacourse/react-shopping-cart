@@ -50,6 +50,24 @@ const fonts: StyleType = {
     size: 1.2,
     lineHeight: 1.6,
   }),
+  pageTitle: FONT({
+    family: 'Noto Sans KR, sans-serif',
+    weight: 700,
+    size: 3.2,
+    lineHeight: 3.7,
+  }),
+  subtotalHeading: FONT({
+    family: 'Noto Sans KR, sans-serif',
+    weight: 400,
+    size: 2.4,
+    lineHeight: 3.3,
+  }),
+  subtotalContent: FONT({
+    family: 'Noto Sans KR, sans-serif',
+    weight: 700,
+    size: 2.0,
+    lineHeight: 2.7,
+  }),
 };
 
 export const theme: DefaultTheme = {
