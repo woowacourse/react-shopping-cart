@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "PET보틀-정사각(420ml)길고싸고맛있는머시기어나ㅓ라너라널",
+    "price": 10000,
+    "imageUrl": "assets/product-001.svg"
+  },
+  {
+    "id": 2,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 10000,
+    "imageUrl": "assets/product-002.svg"
+  },
+  {
+    "id": 3,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 10000,
+    "imageUrl": "assets/product-003.svg"
+  },
+  {
+    "id": 4,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 10000,
+    "imageUrl": "assets/product-004.svg"
+  },
+  {
+    "id": 5,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 10000,
+    "imageUrl": "assets/product-005.svg"
+  },
+  {
+    "id": 6,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 10000,
+    "imageUrl": "assets/product-006.svg"
+  },
+  {
+    "id": 7,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 10000,
+    "imageUrl": "assets/product-007.svg"
+  },
+  {
+    "id": 8,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 10000,
+    "imageUrl": "assets/product-008.svg"
+  },
+  {
+    "id": 9,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 10000,
+    "imageUrl": "assets/product-009.svg"
+  },
+  {
+    "id": 10,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 33900,
+    "imageUrl": "assets/product-010.svg"
+  },
+  {
+    "id": 11,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 10000,
+    "imageUrl": "assets/product-011.svg"
+  },
+  {
+    "id": 12,
+    "name": "PET보틀-원형(420ml)",
+    "price": 44500,
+    "imageUrl": "assets/product-012.svg"
+  }
+]
