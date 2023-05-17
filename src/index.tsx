@@ -8,7 +8,20 @@ import GlobalStyle from './GlobalStyle';
 import ProductPage from './components/product/ProductPage/ProductPage';
 import CartPage from './components/cart/CartPage/CartPage';
 
-worker.start();
+const main = async () => {
+  if (window.location.pathname === '/react-shopping-cart') {
+    window.location.pathname = '/react-shopping-cart/';
+    return;
+  }
+
+  await worker.start({
+    serviceWorker: {
+      url: '/react-shopping-cart/mockServiceWorker.js',
+    },
+  });
+};
+
+main();
 
 const router = createHashRouter([
   {
