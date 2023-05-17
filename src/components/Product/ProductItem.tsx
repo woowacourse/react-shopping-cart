@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 
 import CartIcon from '../../assets/CartIcon';
-import type { Product } from '../../types/product';
+import Image from '../Common/Image';
 import AmountCounter from '../Common/AmountCounter';
+
+import type { Product } from '../../types/product';
 
 import useCartProducts from '../../hooks/useCartProducts';
 import useProductQuantity from '../../hooks/useProductQuantity';
-import Image from '../Common/Image';
 
 interface ProductItemProps {
   product: Product;
