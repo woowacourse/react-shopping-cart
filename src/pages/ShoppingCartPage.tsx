@@ -15,7 +15,7 @@ const ShoppingCartPage = () => {
   const cartProductsCount = cartProducts.size;
   const cartTotalPriceWithFee = cartTotalPrice + SHIPPING_FEE;
 
-  const checkBoxText = isAllChecked ? '선택해제' : '전체선택';
+  const checkBoxLabel = isAllChecked ? '선택해제' : '전체선택';
   const productTotalPriceText = `${cartTotalPrice.toLocaleString('ko-KR')}원`;
   const shippingFeeText = `+${SHIPPING_FEE.toLocaleString('ko-KR')}원`;
   const cartTotalPriceText = `${cartTotalPriceWithFee.toLocaleString('ko-KR')}원`;
@@ -29,7 +29,7 @@ const ShoppingCartPage = () => {
         <CartProductSection flexDirection="column" align="flex-start">
           <CheckBoxTab justify="space-between" align="flex-end">
             <CheckBox checked={isAllChecked} onChange={toggleCheckAllBox}>
-              {checkBoxText}
+              {checkBoxLabel}
             </CheckBox>
             <CheckedProductDeleteButton>선택 삭제</CheckedProductDeleteButton>
           </CheckBoxTab>
