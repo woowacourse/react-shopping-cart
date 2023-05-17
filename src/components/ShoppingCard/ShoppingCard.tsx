@@ -14,7 +14,7 @@ interface ShoppingCardProps {
 }
 
 const ShoppingCard = ({ cartId }: ShoppingCardProps) => {
-  const { cart, plusQuantity, minusQuantity } = useCart(cartId);
+  const { cart, deleteToCart, plusQuantity, minusQuantity } = useCart(cartId);
   const { quantity, product } = cart;
   const { name, price, imageUrl } = product;
 
@@ -46,7 +46,7 @@ const ShoppingCard = ({ cartId }: ShoppingCardProps) => {
           <ThemeProvider theme={nameTheme}>
             <ProductName name={name} />
           </ThemeProvider>
-          <IconButton onClick={() => {}}>
+          <IconButton onClick={deleteToCart}>
             <DeleteIcon />
           </IconButton>
         </Styled.TopSection>

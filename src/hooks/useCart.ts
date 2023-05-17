@@ -22,6 +22,18 @@ const useCart = (productId: number) => {
     setIsCartClicked(true);
   };
 
+  const deleteToCart = () => {
+    const updateProduct: Cart = {
+      id: productId,
+      quantity: 0,
+      product,
+    };
+    setCart(updateProduct);
+    setIsCartClicked(false);
+    const newCartID = cartID.filter((id) => id !== productId);
+    setCartID(newCartID);
+  };
+
   const plusQuantity = () => {
     const updateProduct: Cart = {
       id: productId,
@@ -53,6 +65,7 @@ const useCart = (productId: number) => {
     product,
     isCartClicked,
     addToCart,
+    deleteToCart,
     plusQuantity,
     minusQuantity,
   };
