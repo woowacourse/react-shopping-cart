@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import useControlCart from '@hooks/useControlCart';
 import useProductList from '@hooks/useProductList';
 import ProductItem from './ProductItem';
 
