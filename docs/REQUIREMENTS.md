@@ -28,7 +28,7 @@
   - [ ] CheckBox
   - [x] Image
   - [ ] CartItemProduct
-  - [ ] Button
+  - [x] Button
   - [ ] EstimatedPaymentBox
 
 ## 🐧 기타
