@@ -35,7 +35,7 @@ const HeaderContainer = styled.header`
   width: 100%;
   height: var(--header-height);
   padding: 0 16.66%;
-  background-color: ${({ theme }) => theme.colors.gray_3};
+  background-color: ${({ theme }) => theme.colors.gray.warm_5};
 `;
 
 const Title = styled.h1`
