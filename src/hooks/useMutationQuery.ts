@@ -29,11 +29,15 @@ const useMutationQuery = <BodyData, ResponseData>(
         headers,
       })
         .then(res => {
-          if (method === 'DELETE') return res.text();
+          if (method === 'DELETE' || 'PATCH') return res.text();
           else return res.json();
         })
-        .then(data => setResponseData(data))
-        .catch((error: Error) => setError(error.message))
+        .then(data => {
+          return setResponseData(data);
+        })
+        .catch((error: Error) => {
+          return setError(error.message);
+        })
         .finally(() => setLoading(false));
     },
     [fetchUrl, headers]
