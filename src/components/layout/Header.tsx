@@ -35,18 +35,18 @@ const HeaderContainer = styled.header`
   width: 100%;
   height: var(--header-height);
   padding: 0 16.66%;
-  background-color: ${({ theme }) => theme.colors.gray.warm_5};
+  background-color: ${({ theme }) => theme.colors.gray_10};
 `;
 
 const Title = styled.h1`
   font-size: 40px;
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.gray_0};
 `;
 
 const CartTitle = styled.span`
   border: none;
   background-color: transparent;
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.gray_0};
   font-size: 24px;
 `;
 
@@ -55,7 +55,7 @@ const CartProductCount = styled.span`
   height: 26px;
   border-radius: 50%;
   background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.gray_0};
   font-size: 16px;
   text-align: center;
   line-height: 24px;

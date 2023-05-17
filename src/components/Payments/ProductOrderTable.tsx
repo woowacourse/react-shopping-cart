@@ -35,12 +35,12 @@ const Container = styled.div`
   ${flexColumn}
 
   width: 450px;
-  border: 1px solid ${({ theme }) => theme.colors.gray.warm_1};
+  border: 1px solid ${({ theme }) => theme.colors.gray_4};
 `;
 
 const TitleWrapper = styled.div`
   padding: 24px;
-  border-bottom: 2px solid ${({ theme }) => theme.colors.gray.warm_1};
+  border-bottom: 2px solid ${({ theme }) => theme.colors.gray_4};
 `;
 
 const Title = styled.span`
@@ -64,8 +64,8 @@ const TotalOrderPrice = styled.span``;
 const OrderButton = styled.button`
   padding: 20px;
   font-size: 24px;
-  color: ${({ theme }) => theme.colors.white};
-  background-color: ${({ theme }) => theme.colors.gray.warm_5};
+  color: ${({ theme }) => theme.colors.gray_1};
+  background-color: ${({ theme }) => theme.colors.gray_10};
   cursor: pointer;
   width: 100%;
 `;

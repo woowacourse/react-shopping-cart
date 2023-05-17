@@ -1,18 +1,18 @@
 const colors = {
   primary: '#2AC1BC',
-  white: '#ffffff',
-  gray: {
-    warm_6: '#1E1E25',
-    warm_5: '#3B3B46',
-    warm_4: '#585865',
-    warm_3: '#747481',
-    warm_2: '#93939F',
-    warm_1: '#D6D6DD',
-    warm_0: '#F9FAFC',
-    scale_2: '#9BA0A9',
-    scale_1: '#E2E4E6',
-    scale_0: '#F2F2F5',
-  },
+
+  gray_11: '#000000',
+  gray_10: '#222222',
+  gray_9: '#434343',
+  gray_8: '#656565',
+  gray_7: '#8D8D8D',
+  gray_6: '#AAAAAA',
+  gray_5: '#BBBBBB',
+  gray_4: '#DDDDDD',
+  gray_3: '#EDEDED',
+  gray_2: '#F1F1F1',
+  gray_1: '#F8F8F8',
+  gray_0: '#FFFFFF',
 };
 
 const theme = { colors };
