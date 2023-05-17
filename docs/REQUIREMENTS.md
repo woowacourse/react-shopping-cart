@@ -27,7 +27,7 @@
   - [x] AmountCounter
   - [x] CheckBox
   - [x] Image
-  - [ ] CartItemProduct
+  - [x] CartItemProduct
   - [x] Button
   - [ ] EstimatedPaymentBox
 
