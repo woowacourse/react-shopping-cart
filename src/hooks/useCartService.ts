@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil';
 import { cartState } from '../recoil/atoms';
 import { CART_BASE_URL } from '../constants';
-import type { Product } from '../types/product';
+import type { CartItem, Product } from '../types/product';
 
 const useCartService = () => {
   const [cart, setCart] = useRecoilState(cartState);

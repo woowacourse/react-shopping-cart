@@ -1,6 +1,6 @@
 import { selector } from 'recoil';
-import { CartItem, Product } from '../../types/product';
 import { CART_BASE_URL, PRODUCTS_BASE_URL } from '../../constants';
+import type { CartItem, Product } from '../../types/product';
 
 export const productListQuery = selector<Product[]>({
   key: 'productList',
