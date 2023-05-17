@@ -5,7 +5,7 @@ import {
   StyledCartItemFlexBox,
   StyledFlexBox,
   StyledName,
-} from '@components/pages/CartList/CartItem/CartItem.styled';
+} from '@components/pages/CartListSection/CartList/CartItem/CartItem.styled';
 import { Checkbox } from '@commons/Checkbox/Checkbox';
 import { SquareImage as CartImage } from '@commons/SquareImage/SquareImage';
 import * as Text from '@components/commons/Text/Text';

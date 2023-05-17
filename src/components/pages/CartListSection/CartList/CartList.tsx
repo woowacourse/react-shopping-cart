@@ -1,9 +1,9 @@
 import { Product } from '@customTypes/Product';
 
-import { StyledCartList } from '@pages/CartList/CartList.styled';
-import { FetchedDataList } from '@components/commons/FetchedData/FetchedDataList';
+import { StyledCartList } from '@components/pages/CartListSection/CartList/CartList.styled';
+import { FetchedDataList } from '@components/commons/FetchedDataList/FetchedDataList';
 import ErrorModal from '@pages/ErrorPage/ErrorModal/ErrorModal';
-import CartItem from '@pages/CartList/CartItem/CartItem';
+import CartItem from '@components/pages/CartListSection/CartList/CartItem/CartItem';
 
 const CartList = () => {
   return (
@@ -11,10 +11,10 @@ const CartList = () => {
       endpoint={process.env.PUBLIC_URL + '/mockData.json'}
       initialValue={[]}
     >
-      {({ data, errorStatus }) => {
+      {({ data, fetchStatus }) => {
         return (
           <>
-            <ErrorModal errorStatus={errorStatus} />
+            <ErrorModal fetchStatus={fetchStatus} />
             <StyledCartList>
               {data.map((item: Product) => (
                 <CartItem key={item.id} product={{ ...item }} />

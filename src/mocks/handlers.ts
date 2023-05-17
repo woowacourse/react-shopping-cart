@@ -102,11 +102,11 @@ const productList = [
 const cartList = [];
 
 export const handlers = [
-  rest.get('/productList', (req, res, ctx) => {
+  rest.get('api/productList', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(productList));
   }),
 
-  rest.post('/productList', (req, res, ctx) => {
+  rest.post('api/cartList', (req, res, ctx) => {
     const newCartItem = req.json();
 
     cartList.push(newCartItem);

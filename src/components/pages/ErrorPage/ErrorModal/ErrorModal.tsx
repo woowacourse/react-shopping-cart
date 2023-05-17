@@ -10,13 +10,14 @@ import { Modal } from '@components/commons/Modal/Modal';
 import { Button as MoveToHomeButton } from '@components/commons/Button/Button';
 import * as Text from '@components/commons/Text/Text';
 
-const ErrorModal = (props: { errorStatus?: boolean }) => {
-  const { errorStatus } = props;
-  const [isError, setIsError] = useState(errorStatus);
+const ErrorModal = (props: { fetchStatus?: number }) => {
+  const { fetchStatus } = props;
+  const [isError, setIsError] = useState(fetchStatus === 0 ? false : true);
 
   useEffect(() => {
-    setIsError(errorStatus);
-  }, [errorStatus]);
+    setIsError(fetchStatus === 0 ? false : true);
+  }, [fetchStatus]);
+
   if (!isError) return null;
 
   return (

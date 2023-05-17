@@ -5,4 +5,8 @@ export const StyledCartList = styled.ul`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  & > *:not(:last-child) {
+    border-bottom: 1px solid #cccccc;
+  }
 `;
