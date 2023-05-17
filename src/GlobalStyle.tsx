@@ -11,6 +11,17 @@ const GlobalStyle = createGlobalStyle`
   li {
     list-style: none;
   }
+
+  a {
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+  }
+
+  a:hover, a:active, a:visited {
+    text-decoration: none;
+    color: #fff;
+  }
 `;
 
 export default GlobalStyle;
