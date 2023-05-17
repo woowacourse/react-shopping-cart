@@ -1,5 +1,5 @@
 import { CART_KEY } from 'constants/storeKey';
-import { AtomEffect, atom } from 'recoil';
+import { AtomEffect, atom, selector } from 'recoil';
 import { CartProducts } from 'types/product';
 import persistAtomEffect from './effects/persistAtomEffect';
 
@@ -30,4 +30,13 @@ export const cartProductsState = atom<CartProducts>({
       options: { serializer: mapToString, deserializer: stringToMap },
     }),
   ],
+});
+
+export const cartTotalPriceState = selector<number>({
+  key: 'cartTotalPriceState',
+  get: ({ get }) => {
+    const cartProducts = get(cartProductsState);
+
+    return [...cartProducts.values()].reduce((acc, { product, quantity }) => acc + product.price * quantity, 0);
+  },
 });
