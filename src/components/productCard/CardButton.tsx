@@ -1,6 +1,6 @@
 import { Counter } from "./Counter";
 import { AddShoppingCartIcon } from "../../assets/ShoppingCartIcons";
-import { useCartList } from "../../hooks/useCartList";
+import { useCartItem } from "../../hooks/useCartItem";
 import { Id } from "../../types/Product";
 
 interface CardButton {
@@ -8,7 +8,7 @@ interface CardButton {
 }
 
 export const CardButton = ({ id }: CardButton) => {
-  const { addItemToCartList, removeItemFromCartList, isInCart } = useCartList(id);
+  const { addItemToCartList, removeItemFromCartList, isInCart } = useCartItem(id);
 
   return (
     <>

@@ -2,7 +2,7 @@ import { useRecoilState } from "recoil";
 import { cartListState } from "../atoms";
 import { Id } from "../types/Product";
 
-export const useCartList = (id: Id) => {
+export const useCartItem = (id: Id) => {
   const [cartList, setCartList] = useRecoilState(cartListState);
 
   const addItemToCartList = () => {
