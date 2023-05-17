@@ -4,8 +4,8 @@ import Counter from '../../common/Counter/Counter';
 import Checkbox from '../../common/Checkbox/Checkbox';
 import useCartService from '../../../hooks/useCartService';
 import { formatPrice } from '../../../utils/formatPrice';
-import type { CartItem } from '../../../types/product';
 import Spacer from '../../common/Spacer/Spacer';
+import type { CartItem } from '../../../types/product';
 
 interface CartListItemProps {
   cartItem: CartItem;
@@ -35,7 +35,7 @@ const CartListItem = ({
   return (
     <Container>
       <Inner>
-        <Checkbox id={`${cartItemId}`} checked={checked} onChange={onChange} />
+        <Checkbox id={cartItemId} checked={checked} onChange={onChange} />
         <Spacer width={15} />
         <Image src={imageSrc} loading="lazy" alt={name} />
         <Title>{name}</Title>
