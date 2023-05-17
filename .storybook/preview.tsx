@@ -3,13 +3,15 @@ import { Preview } from '@storybook/react';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 
 import GlobalStyle from '../src/GlobalStyle';
+import { ThemeProvider } from 'styled-components';
+import theme from '../src/styles/theme';
 
 export const decorators = [
   (Story) => (
-    <>
+    <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Story />
-    </>
+    </ThemeProvider>
   ),
 ];
 
