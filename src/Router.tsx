@@ -5,7 +5,7 @@ import ProductListPage from 'pages/ProductListPage';
 import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 
 const ROUTE_PATH = {
-  root: '/',
+  root: '/react-shopping-cart',
   cart: 'cart',
   notFound: '*',
 };
