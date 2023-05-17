@@ -1,4 +1,3 @@
-import warning from '@Asset/warning.png';
 import SkeletonProductItem from '@Components/ProductItem/Skeleton';
 import ProductItem from '@Components/ProductItem/index';
 
@@ -6,22 +5,20 @@ import { Product } from '@Types/index';
 
 import useFetch from '@Hooks/useFetch';
 
-import { MOCK_DATA_URL } from '@Constants/index';
+import { ERROR, MOCK_DATA_URL } from '@Constants/index';
 
 import * as S from './style';
-import { ErrorImg } from '../../../styles/common/ErrorImg';
-import { ErrorMessage } from '../../../styles/common/ErrorMessage';
+import ErrorContainer from '../ErrorContainer';
 
 function ProductList() {
-  const { data, isLoading, currentErrorMessage } = useFetch<Product[]>(MOCK_DATA_URL);
+  const { data, isLoading, currentHttpStatus } = useFetch<Product[]>(MOCK_DATA_URL);
 
   if (!isLoading && !data) {
-    return (
-      <S.ProductListErrorContainer>
-        <ErrorImg src={warning} alt="경고 이미지" />
-        <ErrorMessage>{currentErrorMessage}</ErrorMessage>
-      </S.ProductListErrorContainer>
-    );
+    return <ErrorContainer error={currentHttpStatus} />;
+  }
+
+  if (!isLoading && data?.length === 0) {
+    return <ErrorContainer error={ERROR.dataEmpty} />;
   }
 
   return (

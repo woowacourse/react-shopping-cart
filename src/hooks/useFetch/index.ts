@@ -2,12 +2,16 @@
 
 import { useState, useEffect, useRef } from 'react';
 
+import { Error } from '@Types/index';
+
+import { ERROR } from '@Constants/index';
+
 import { isHttpStatusError } from '../../utils/isHttpStatusError';
 
 const useFetch = <T>(url: string) => {
   const [data, setData] = useState<T>();
   const [isLoading, setIsLoading] = useState(false);
-  const errorMessage = useRef('');
+  const httpStatusError = useRef<Error>(ERROR.httpUnknown);
 
   useEffect(() => {
     setIsLoading(true);
@@ -18,7 +22,7 @@ const useFetch = <T>(url: string) => {
           try {
             isHttpStatusError(res.status);
           } catch (error) {
-            if (error instanceof Error) errorMessage.current = error.message;
+            httpStatusError.current = error as Error;
             return undefined;
           }
           return res.json();
@@ -32,8 +36,8 @@ const useFetch = <T>(url: string) => {
     fetchData();
   }, []);
 
-  const currentErrorMessage = errorMessage.current;
-  return { data, isLoading, currentErrorMessage };
+  const currentHttpStatus = httpStatusError.current;
+  return { data, isLoading, currentHttpStatus };
 };
 
 export default useFetch;
