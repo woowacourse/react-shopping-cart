@@ -27,6 +27,10 @@ export const CheckboxInput = styled.input`
   }
 `;
 
+export const DeleteCartButtonWrapper = styled.div`
+  cursor: pointer;
+`;
+
 export const ProductName = styled(Paragraph)`
   width: 360px;
   margin: 16px 0 0 16px;

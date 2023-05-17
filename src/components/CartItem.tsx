@@ -7,8 +7,12 @@ import { CartItemProps } from '../types/CartItemType';
 import { useCartState } from './hooks/useCartState';
 
 export const CartItem = ({ id, imageUrl, name, price }: CartItemProps) => {
-  const { quantity, increaseProductCount, decreaseProductCount } =
-    useCartState(id);
+  const {
+    quantity,
+    handleDeleteCartState,
+    increaseProductCount,
+    decreaseProductCount,
+  } = useCartState(id);
 
   return (
     <Styled.Wrapper>
@@ -16,7 +20,9 @@ export const CartItem = ({ id, imageUrl, name, price }: CartItemProps) => {
       <Image src={imageUrl} width="148px" height="180px" />
       <Styled.ProductName size="18px">{name}</Styled.ProductName>
       <Styled.CountInteractionWrapper>
-        <DeleteCartButton />
+        <Styled.DeleteCartButtonWrapper>
+          <DeleteCartButton onClick={handleDeleteCartState} />
+        </Styled.DeleteCartButtonWrapper>
         <CartCount
           quantity={quantity}
           handleDeleteCart={() => {
