@@ -1,9 +1,13 @@
 import { rest } from 'msw';
-import { CART_BASE_URL, PRODUCTS_BASE_URL } from '../../constants';
+import {
+  CART_BASE_URL,
+  CART_LOCAL_STORAGE_KEY,
+  PRODUCTS_BASE_URL,
+} from '../../constants';
 import { uuid } from '../../utils/uuid';
 import type { CartItem } from '../../types/product';
 
-const localStorageCartData = localStorage.getItem('cart');
+const localStorageCartData = localStorage.getItem(CART_LOCAL_STORAGE_KEY);
 // eslint-disable-next-line prefer-const
 let cart: CartItem[] = localStorageCartData
   ? JSON.parse(localStorageCartData)
@@ -11,6 +15,9 @@ let cart: CartItem[] = localStorageCartData
 
 const isInCart = (id: number) =>
   cart.some((cartItem) => cartItem.product.id === id);
+
+const updateLocalStorage = () =>
+  localStorage.setItem(CART_LOCAL_STORAGE_KEY, JSON.stringify(cart));
 
 export const cartHandlers = [
   // 장바구니 목록 조회
@@ -43,6 +50,8 @@ export const cartHandlers = [
       },
     ];
 
+    updateLocalStorage();
+
     return res(
       ctx.status(201),
       ctx.set('Location', `/cart-items/${cart.at(-1)?.id}`),
@@ -71,6 +80,8 @@ export const cartHandlers = [
         quantity,
       };
     });
+
+    updateLocalStorage();
 
     return res(ctx.status(200));
   }),
