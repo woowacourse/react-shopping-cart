@@ -7,7 +7,7 @@ import Product from './Product';
 
 export default function ProductList() {
   const [productList, setProductList] = useRecoilState(productListState);
-  useSetFetchedData<ProductInfo[]>('/products', setProductList);
+  useSetFetchedData<ProductInfo[]>('/api/products', setProductList);
 
   return (
     <Style.Container>

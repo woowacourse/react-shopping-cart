@@ -5,8 +5,17 @@ import { RecoilRoot } from 'recoil';
 import GlobalStyle from '../src/GlobalStyle';
 import { initialize, mswDecorator } from 'msw-storybook-addon';
 
+let options = {};
+if (location.hostname === 'hyeryongchoi.github.io') {
+  options = {
+    serviceWorker: {
+      url: '/react-shopping-cart/mockServiceWorker.js',
+    },
+  };
+}
+
 // Initialize MSW
-initialize();
+initialize(options);
 
 const preview: Preview = {
   parameters: {
