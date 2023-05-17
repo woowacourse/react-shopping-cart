@@ -85,7 +85,7 @@ export const useCartList = () => {
           id,
           quantity: item.quantity,
           product: item.product,
-          isChecked: true,
+          isChecked: !item.isChecked,
         };
       })
     );
