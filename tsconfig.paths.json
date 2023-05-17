@@ -11,7 +11,8 @@
       "@Types/*": ["./types/*"],
       "@Asset/*": ["./assets/*"],
       "@Styles/*": ["./styles/*"],
-      "@Animations/*": ["./animations/*"]
+      "@Animations/*": ["./animations/*"],
+      "@Utils/*": ["./utils/*"]
     }
   }
 }
