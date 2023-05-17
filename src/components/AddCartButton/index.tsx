@@ -10,23 +10,22 @@ interface AddCardButtonProps {
 }
 
 function AddCartButton({ product, id }: AddCardButtonProps) {
-  const { cartIdList, cartItemState, addCartItem, addQuantity, deleteCartItem } = useCart(id);
+  const { cartItemState, addCartItem, addQuantity, deleteCartItem } = useCart(id);
 
   const handleClick = async () => await addCartItem(product);
   const handleUpButton = async () => await addQuantity(1);
   const handleDownButton = async () => {
-    if (cartItemState.quantity <= 1) {
-      await deleteCartItem();
-      return;
+    if (cartItemState && cartItemState.quantity <= 1) {
+      return await deleteCartItem();
     }
-    await addQuantity(-1);
+    return await addQuantity(-1);
   };
 
   return (
     <div className={styles['container']}>
-      {cartIdList.includes(id) ? (
+      {cartItemState?.product.id === id ? (
         <CountButton
-          count={cartItemState.quantity}
+          count={cartItemState ? cartItemState.quantity : 0}
           handleUpButton={handleUpButton}
           handleDownButton={handleDownButton}
         />

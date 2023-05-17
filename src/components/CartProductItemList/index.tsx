@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilCallback, useRecoilState, useSetRecoilState } from 'recoil';
 import CartProductItem from '../CartProductItem';
 import useGetQuery from '../../hooks/useGetQuery';
-import { $CartIdList, $ToastMessageList } from '../../recoil/atom';
+import { $CartIdList, $CartItemState, $ToastMessageList } from '../../recoil/atom';
 import styles from './index.module.scss';
 import type { CartItem } from '../../types';
 import useMutationQuery from '../../hooks/useMutationQuery';
@@ -36,20 +36,14 @@ function CartProductItemList() {
       return setCartIdList(prev => [...prev, id]);
     };
 
-  const deleteCartItem = (id: number) => async () => {
-    await mutateQuery('DELETE', undefined, String(id));
-    refreshQuery();
-
-    setCartIdList(prev => prev.filter(cartId => cartId !== id));
-  };
-
-  const deleteCheckedCartItem = () => {
+  const deleteCheckedCartItem = useRecoilCallback(({ set }) => () => {
     cartIdList.forEach(async id => {
       await mutateQuery('DELETE', undefined, String(id));
+      set($CartItemState(id), null);
     });
     refreshQuery();
     setCartIdList([]);
-  };
+  });
 
   return (
     <div className={styles.container}>
@@ -59,7 +53,7 @@ function CartProductItemList() {
           <CartProductItem
             key={item.id}
             cartItem={item}
-            deleteCart={deleteCartItem(item.product.id)}
+            refresh={refreshQuery}
             toggleCheck={checkCartItem(item.product.id)}
             checked={cartIdList.includes(item.product.id)}
           />
