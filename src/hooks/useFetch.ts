@@ -1,30 +1,35 @@
-import { useEffect, useState } from 'react';
-import { fetchApi } from 'api';
+import { useState } from 'react';
 import { useToast } from 'components/@common/Toast/hooks/useToast';
+import { fetchApi } from 'api';
 
-export const useFetch = <T>(url: string, initialData: T) => {
-  const [data, setData] = useState<T>(initialData);
+export const useFetch = <T>() => {
+  const [data, setData] = useState<T>();
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      fetchData();
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const fetchData = async () => {
+  const fetchData = async (url: string, options: RequestInit) => {
     try {
-      const data = await fetchApi(url);
+      const data = await fetchApi(url, options);
       setData(data);
-      setIsLoading(false);
     } catch (error) {
       if (!(error instanceof Error)) return;
       setIsLoading(false);
       toast.error(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  return { data, isLoading };
+  const api = {
+    get: (url: string) => {
+      fetchData(url, { method: 'GET' });
+    },
+    post: <T>(url: string, body: T) =>
+      fetchData(url, {
+        method: 'POST',
+        body: JSON.stringify(body),
+      }),
+  };
+
+  return { data, isLoading, api };
 };

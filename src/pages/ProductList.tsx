@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { styled } from 'styled-components';
 import ContentLayout from 'components/@common/ContentLayout';
 import ProductItem from 'components/ProductItem';
@@ -8,17 +9,19 @@ import { Product } from 'types';
 
 const ProductList = () => {
   const { renderToast } = useToast();
+  const { data, isLoading, api } = useFetch<{ choonsik: Product[] }>();
 
-  const { data, isLoading } = useFetch<{ choonsik: Product[] }>(
-    '/api/products',
-    { choonsik: [] }
-  );
+  useEffect(() => {
+    api.get('/api/products');
+  }, []);
 
   const loading = isLoading && <div>Loading...</div>;
 
-  const fetchedProductList = data.choonsik?.map((product) => (
-    <ProductItem key={product.id} product={product} />
-  ));
+  const fetchedProductList =
+    data &&
+    data.choonsik.map((product) => (
+      <ProductItem key={product.id} product={product} />
+    ));
 
   return (
     <>
