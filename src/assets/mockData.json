@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "잘나가요 세트",
+    "price": 15000,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/212310b6-6560-4895-8171-afce97bc526d.png"
+  },
+  {
+    "id": 2,
+    "name": "배달이친구들 손바닥양면노트 2종",
+    "price": 2000,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/f3c94ea1-da31-400a-8b8f-9cd66909b308.png"
+  },
+  {
+    "id": 3,
+    "name": "배달이친구들 팝업카드 2종",
+    "price": 4000,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/5b07a1cf-6453-4f7f-a0f8-7e86eed26e48.png"
+  },
+  {
+    "id": 4,
+    "name": "배달이친구들 대문짝얼굴노트 4종",
+    "price": 3000,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/b409a10c-20aa-4cd3-a990-6ccefa713919.png"
+  },
+  {
+    "id": 5,
+    "name": "재생지에 콩기름으로 인쇄한 일기장",
+    "price": 3500,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/00bfb006-688b-4911-a5de-5eca9a55b156.png"
+  },
+  {
+    "id": 6,
+    "name": "화학표백을 하지 않은 재생지로 만든 메모잇",
+    "price": 2300,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/843d0126-19aa-4305-995f-3e16814839d8.png"
+  },
+  {
+    "id": 7,
+    "name": "유해물질이 나오지 않는 지우개",
+    "price": 1500,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/6b920a09-8226-47e9-a943-4398261787df.png"
+  },
+  {
+    "id": 8,
+    "name": "커피찌꺼기를 재활용해 손으로 만든 연필",
+    "price": 3000,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/48af2d03-05f0-4ba6-aca0-ae628dc77240.png"
+  },
+  {
+    "id": 9,
+    "name": "볼펜세트. 어머펜이에요",
+    "price": 3500,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/4add3eb8-357f-4b40-ac6a-3f96011aa1ae.png"
+  },
+  {
+    "id": 10,
+    "name": "큰 쇼핑백. 뭘 이런걸 다",
+    "price": 2300,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/2812844c-4a75-4332-8a70-2113e36472e2.png"
+  },
+  {
+    "id": 11,
+    "name": "엽서. 축",
+    "price": 1000,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/1a750a78-1ce5-441e-baa9-c1542cba5e72.png"
+  },
+  {
+    "id": 12,
+    "name": "엽서. 굿",
+    "price": 1000,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/301029d4-007e-4d3c-a983-789e534dbe30.png"
+  }
+]
