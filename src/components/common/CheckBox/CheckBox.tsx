@@ -26,7 +26,7 @@ const CheckBox = ({ defaultChecked, labelText, onChange }: CheckBoxProps) => {
           </IconWrapper>
         )}
       </InputWrapper>
-      <LabelText>{labelText}</LabelText>
+      {labelText && <LabelText>{labelText}</LabelText>}
     </Label>
   );
 };
