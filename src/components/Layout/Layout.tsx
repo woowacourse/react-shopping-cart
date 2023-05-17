@@ -15,7 +15,6 @@ const Layout = () => {
 
 const MainContainer = styled.main`
   width: 100%;
-  height: calc(100vh - var(--header-height));
   margin: 60px 0;
   padding: 0 16.66%;
 `;
