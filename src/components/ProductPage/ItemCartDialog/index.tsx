@@ -1,6 +1,6 @@
 import { Product } from '../../../types/products';
 import { Button } from '../../common/Button/Button.styles';
-import QuantityStepper from '../../common/QuantityStepper/QuantityStepper';
+import QuantityStepper from '../../common/QuantityStepper';
 import * as S from './ItemCartDialog.styles';
 import { useRef } from 'react';
 import useCart from '../../../hooks/cart/useCart';
@@ -32,7 +32,11 @@ const ItemCartDialog: React.FC<ItemCartDialogProps> = (props) => {
           <S.Thumbnail src={imageUrl} alt={name} />
           <S.Name>{name}</S.Name>
           <S.Price>{price.toLocaleString()} 원</S.Price>
-          <QuantityStepper ref={quantityRef} label="item-quantity" />
+          <QuantityStepper
+            ref={quantityRef}
+            label="item-quantity"
+            initialValue={1}
+          />
           <Flex width="60%" justify="space-between">
             <Button size="M" view="dark" type="button" onClick={closeModal}>
               취소하기

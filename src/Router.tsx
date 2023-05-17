@@ -1,7 +1,7 @@
 import React from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import ProductPage from './pages/ProductPage/ProductPage';
-import { Layout } from './components/common/Layout/Layout';
+import { Layout } from './components/common/Layout';
 import ProductPageError from './pages/ProductPage/ProductPageError';
 import { PAGE_ROUTES } from './constants/routes';
 import Page404 from './pages/ErrorPage/Page404';

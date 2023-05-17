@@ -1,7 +1,7 @@
 import Logo from '../../../assets/png/logo.png';
 import { PAGE_ROUTES } from '../../../constants/routes';
-import CartBadge from '../CartBadge/CartBadge';
-import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+import CartBadge from '../CartBadge';
+import ErrorBoundary from '../ErrorBoundary';
 import Flex from '../Flex';
 import * as S from './Header.styles';
 

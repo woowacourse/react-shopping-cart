@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { RecoilRoot } from 'recoil';
-import ProductItem from './ProductItem';
+import ProductItem from '.';
 
 const meta = {
   title: 'Example/ProductItem',

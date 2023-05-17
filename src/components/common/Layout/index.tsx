@@ -1,8 +1,8 @@
 import React, { PropsWithChildren } from 'react';
 import { Outlet } from 'react-router-dom';
 import Flex from '../Flex';
-import Header from '../Header/Header';
-import PageTitle from '../PageTitle/PageTitle';
+import Header from '../Header';
+import PageTitle from '../PageTitle';
 import * as S from './Layout.styles';
 
 export const Layout: React.FC<PropsWithChildren> = () => {

@@ -1,10 +1,10 @@
 import { Product } from '../../../types/products';
 import Flex from '../../common/Flex';
 import SHOPPING_CART from '../../../assets/png/cart-icon.png';
-import ItemCartDialog from '../ItemCartDialog/ItemCartDialog';
+import ItemCartDialog from '../ItemCartDialog';
 import * as S from './ProductItem.styles';
 import useModal from '../../../hooks/common/useModal';
-import ErrorBoundary from '../../common/ErrorBoundary/ErrorBoundary';
+import ErrorBoundary from '../../common/ErrorBoundary';
 
 type ProductItemProps = Product;
 

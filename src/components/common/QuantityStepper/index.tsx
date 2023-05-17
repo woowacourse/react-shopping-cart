@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import useCounter from '../../../hooks/common/useCounter';
-import Button from '../Button/Button';
+import Button from '../Button';
 import Flex from '../Flex';
 import * as S from './QuantityStepper.styles';
 
