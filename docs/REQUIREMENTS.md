@@ -29,7 +29,7 @@
   - [x] Image
   - [x] CartItemProduct
   - [x] Button
-  - [ ] EstimatedPaymentBox
+  - [x] EstimatedPaymentBox
 
 ## 🐧 기타
 
