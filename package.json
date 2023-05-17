@@ -49,6 +49,10 @@
     "@types/styled-components": "^5.1.26",
     "cypress": "^12.12.0",
     "jest-environment-jsdom": "^29.5.0",
+    "msw": "^1.2.1",
     "ts-jest": "^29.1.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
