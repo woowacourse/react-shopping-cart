@@ -6,6 +6,7 @@ import ProductCard from '../ProductCard/ProductCard';
 
 const ProductCardList = () => {
   const fetchedProductList = useRecoilValue(fetchedProductListSelector);
+
   useLocalCart();
 
   return (

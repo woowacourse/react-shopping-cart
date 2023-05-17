@@ -2,9 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
+import { worker } from './mocks/browser';
 import CartPage from './pages/CartPage';
 import ProductPage from './pages/ProductPage';
 import GlobalStyle from './styles/GlobalStyle';
+
+if (process.env.NODE_ENV === 'development') worker.start();
 
 const router = createBrowserRouter(
   [
