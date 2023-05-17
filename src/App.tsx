@@ -2,7 +2,7 @@ import { RecoilRoot } from 'recoil';
 import { Header } from './layouts/Header';
 import { ProductList } from './pages/ProductList';
 
-function App() {
+export const App = () => {
   return (
     <div className="App">
       <RecoilRoot>
@@ -11,6 +11,4 @@ function App() {
       </RecoilRoot>
     </div>
   );
-}
-
-export default App;
+};
