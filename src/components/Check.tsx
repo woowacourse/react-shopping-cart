@@ -1,5 +1,7 @@
-import React, { Suspense } from 'react';
+import React, { ChangeEventHandler, Suspense } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { textState } from '@/atoms/textState';
 
 const Img = React.lazy(() => import('@/components/Img'));
 
@@ -20,8 +22,16 @@ const StyledDoHyeon = styled.h1`
 `;
 
 function Check() {
+	const [text, setText] = useRecoilState(textState);
+
+	const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+		setText(e.target.value);
+	};
+
 	return (
 		<>
+			<div>{text}</div>
+			<input type="text" value={text} onChange={onChange} />
 			<StyledJUA>checkComponent</StyledJUA>
 			<StyledHANNA11yrs>checkComponent</StyledHANNA11yrs>
 			<StyledHANNAAir>checkComponent</StyledHANNAAir>
