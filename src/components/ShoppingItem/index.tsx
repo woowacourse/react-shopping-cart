@@ -1,3 +1,4 @@
+import { Checkbox } from '@Components/Checkbox/style';
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
@@ -26,9 +27,7 @@ function ShoppingItem({ product, width = '100%' }: ShoppingItemProps) {
   const quantity = product && useRecoilValue(quantityState(product.id));
   return (
     <S.Container aria-label="장바구니 상품" width={width}>
-      <S.Checkbox isChecked={isChecked} aria-label="장바구니 상품 선택 버튼">
-        ✓
-      </S.Checkbox>
+      <Checkbox isChecked={isChecked} />
       <S.ShoppingItemImage src={image} alt={imageDescription} aria-label="장바구니 상품 이미지" />
       <S.ShoppingItemName aria-label="장바구니 상품 이름">{name}</S.ShoppingItemName>
       <S.RightContents>
