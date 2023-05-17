@@ -4,6 +4,7 @@ import { styled } from 'styled-components';
 import useControlCart from '@hooks/useControlCart';
 import { ProductInformation } from '@type/types';
 import AddCartButton from './AddCartButton';
+
 const product: ProductInformation = {
   id: 1,
   name: 'ad',

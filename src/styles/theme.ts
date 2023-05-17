@@ -17,6 +17,10 @@ export const colors = {
    *  gray: '#BBBBBB',
    */
   gray: '#BBBBBB',
+  /**
+   * whiteGray: '#DDDDDD',
+   */
+  whiteGray: '#DDDDDD',
 };
 
 const size = {

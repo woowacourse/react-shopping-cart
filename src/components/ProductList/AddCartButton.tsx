@@ -16,7 +16,7 @@ const AddCartButton = ({ id, addProductToCart }: AddCartButtonProps) => {
   return (
     <Wrapper>
       {savedCartData ? (
-        <BucketCounter id={id} quantity={savedCartData.quantity} />
+        <BucketCounter kind="small" id={id} quantity={savedCartData.quantity} />
       ) : (
         <Button
           title="장바구니 추가"

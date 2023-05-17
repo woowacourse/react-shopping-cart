@@ -1,13 +1,16 @@
 import { styled } from 'styled-components';
 import useBucketCount from '@hooks/useBucketCount';
 import { BOTTOM_ARROW, TOP_ARROW } from '@assets/images';
+import { theme } from '@styles/theme';
 
+type CounterStyleType = 'small' | 'cart';
 interface BucketCounterProps {
+  kind: CounterStyleType;
   id: number;
   quantity?: number;
 }
 
-const BucketCounter = ({ id, quantity = 1 }: BucketCounterProps) => {
+const BucketCounter = ({ kind, id, quantity = 1 }: BucketCounterProps) => {
   const {
     bucketCount,
     onBlur,
@@ -22,8 +25,9 @@ const BucketCounter = ({ id, quantity = 1 }: BucketCounterProps) => {
   });
 
   return (
-    <Wrapper>
+    <Wrapper kind={kind}>
       <Count
+        kind={kind}
         inputMode="numeric"
         value={bucketCount === 0 ? '' : bucketCount}
         onChange={onChange}
@@ -32,40 +36,50 @@ const BucketCounter = ({ id, quantity = 1 }: BucketCounterProps) => {
         aria-label="장바구니 수량 입력 창"
       />
       <Counter>
-        <TopButton aria-label="장바구니 수량 증가 버튼" onClick={increaseCount}>
-          <Image src={TOP_ARROW} alt="증가" />
+        <TopButton
+          kind={kind}
+          aria-label="장바구니 수량 증가 버튼"
+          onClick={increaseCount}
+        >
+          <Image kind={kind} src={TOP_ARROW} alt="증가" />
         </TopButton>
         <BottomButton
+          kind={kind}
           aria-label="장바구니 수량 감소 버튼"
           onClick={decreaseCount}
         >
-          <Image src={BOTTOM_ARROW} alt="감소" />
+          <Image kind={kind} src={BOTTOM_ARROW} alt="감소" />
         </BottomButton>
       </Counter>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ kind: CounterStyleType }>`
   display: flex;
   align-items: center;
 
-  width: 65px;
-  height: 28px;
+  width: ${({ kind }) => (kind === 'small' ? '65px' : '115px')};
+  height: ${({ kind }) => (kind === 'small' ? '28px' : '60px')};
 
-  border: 1px solid #dddddd;
+  border: 1px solid ${theme.colors.whiteGray};
 `;
 
-const Count = styled.input`
+const Count = styled.input<{ kind: CounterStyleType }>`
   display: flex;
   justify-content: center;
   align-items: center;
 
-  width: 42px;
-  height: 28px;
+  width: ${({ kind }) => (kind === 'small' ? '42px;' : '73px')};
+  height: ${({ kind }) => (kind === 'small' ? '28px;' : '60px')};
 
-  border: 1px solid #dddddd;
+  border: 1px solid ${theme.colors.whiteGray};
 
+  font-size: ${({ kind }) => (kind === 'small' ? '12px' : '24px')};
+  font-weight: 400;
+  text-align: center;
+
+  color: ${theme.colors.primaryBlack};
   outline: none;
 `;
 
@@ -74,24 +88,29 @@ const Counter = styled.div`
   flex-direction: column;
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ kind: CounterStyleType }>`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  width: ${({ kind }) => (kind === 'small' ? '24px' : '42px')};
+  height: ${({ kind }) => (kind === 'small' ? '14px' : '30px')};
   border: none;
+
   background: none;
-  width: 24px;
-  height: 14px;
+  cursor: pointer;
 `;
 
 const TopButton = styled(Button)`
-  border-bottom: 0.5px solid #dddddd;
+  border-bottom: 0.5px solid ${theme.colors.whiteGray};
 `;
 
 const BottomButton = styled(Button)`
-  border-top: 0.5px solid #dddddd;
+  border-top: 0.5px solid ${theme.colors.whiteGray};
 `;
 
-const Image = styled.img``;
+const Image = styled.img<{ kind: CounterStyleType }>`
+  width: ${({ kind }) => (kind === 'small' ? '5px' : '9px')};
+`;
 
 export default BucketCounter;
