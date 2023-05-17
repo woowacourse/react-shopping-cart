@@ -35,9 +35,16 @@ const useCartService = () => {
   };
 
   const removeProductFromCart = (targetId: number) => {
-    setCart((prevCart) =>
-      prevCart.filter((cartItem) => cartItem.product.id !== targetId),
-    );
+    fetch(`${CART_BASE_URL}/${targetId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then(() => {
+      fetch(CART_BASE_URL)
+        .then((res) => res.json())
+        .then((data) => setCart(data));
+    });
   };
 
   return {
