@@ -15,14 +15,15 @@ const product: ProductInformation = {
 
 const AddCartStory = () => {
   const { addProductToCart } = useControlCart();
+
   return (
-    <>
+    <div>
       <AddCartButton
         addProductToCart={() => addProductToCart(product)}
         id={product.id}
       />
       <Circle aria-label="circle" />
-    </>
+    </div>
   );
 };
 
@@ -45,8 +46,6 @@ export default meta;
 type Story = StoryObj<typeof AddCartStory>;
 
 export const Default: Story = {
-  args: { addProductToCart: () => {}, removeProductFromCart: () => {} },
-
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
 
@@ -72,8 +71,6 @@ export const Default: Story = {
 };
 
 export const ShowErrorMessage: Story = {
-  args: { addProductToCart: () => {}, removeProductFromCart: () => {} },
-
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
 
@@ -103,8 +100,6 @@ export const ShowErrorMessage: Story = {
 };
 
 export const FocusOff: Story = {
-  args: { addProductToCart: () => {}, removeProductFromCart: () => {} },
-
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
 
