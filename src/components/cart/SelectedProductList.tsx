@@ -8,10 +8,11 @@ import SelectedProductItem from './SelectedProductItem';
 
 const SelectedProductList = () => {
   const cart = useRecoilValue(cartState);
+  const productCountInCart = cart.length;
 
   return (
     <S.Wrapper>
-      <S.Title>든든배송 상품 (3개)</S.Title>
+      <S.Title>{`든든배송 상품 (${productCountInCart}개)`}</S.Title>
       {cart.map((item: CartItem) => (
         <SelectedProductItem
           key={item.product.id}
@@ -25,7 +26,7 @@ const SelectedProductList = () => {
 
       <S.Fieldset>
         <Checkbox type="checkbox" id="select-all" name="select-all" />
-        <label htmlFor="select-all">전체선택 (2/3)</label>
+        <label htmlFor="select-all">{`전체선택 (2/${productCountInCart})`}</label>
         <Button css={deleteButtonStyle}>선택삭제</Button>
       </S.Fieldset>
     </S.Wrapper>
