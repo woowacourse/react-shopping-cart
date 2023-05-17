@@ -25,8 +25,8 @@ export const CartProductList = () => {
           onClick={() => {
             return;
           }}
-          $width="98px"
-          $height="35px"
+          width="98px"
+          height="35px"
           backgroundColor="var(--white-color)"
           borderColor="var(--label-color)"
         >
@@ -47,7 +47,7 @@ const ProductCountText = styled(StyledText)`
 `;
 
 const ProductCountTextWrapper = styled.div`
-  width: 736px;
+  width: 680px;
 `;
 
 const ProductItemContainer = styled.div`
