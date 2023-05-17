@@ -1,5 +1,5 @@
 import { CartCount } from './CartCount';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { CartButtonImage } from '../types/image';
 import * as Styled from './styles/CartButton.styles';
 import { useCartState } from './hooks/useCartState';
@@ -9,7 +9,6 @@ interface CartButtonProps {
 }
 
 export const CartButton = ({ id }: CartButtonProps) => {
-  const [isAdded, setIsAdded] = useState(false);
   const {
     quantity,
     handleAddCartState,
@@ -19,16 +18,14 @@ export const CartButton = ({ id }: CartButtonProps) => {
   } = useCartState(id);
 
   const handleCart = useCallback(() => {
-    setIsAdded(true);
     handleAddCartState();
   }, []);
 
   const handleDeleteCart = useCallback(() => {
-    setIsAdded(false);
     handleDeleteCartState();
   }, []);
 
-  if (isAdded)
+  if (quantity > 0)
     return (
       <CartCount
         quantity={quantity}
