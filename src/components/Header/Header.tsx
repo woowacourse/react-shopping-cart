@@ -1,4 +1,5 @@
-import { memo, useEffect, useRef } from 'react';
+import { memo, useCallback, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
 import CartIcon from '../../assets/cart-icon.svg';
@@ -7,8 +8,17 @@ import { cartListState } from '../../store/cart';
 import styles from './style.module.css';
 
 const Header = () => {
+  const navigate = useNavigate();
   const cartItemList = useRecoilValue(cartListState);
   const headerDiv = useRef<HTMLDivElement>(null);
+
+  const navigateToMainPage = useCallback(() => {
+    navigate('/');
+  }, [navigate]);
+
+  const navigateToCartPage = useCallback(() => {
+    navigate('/cartlist');
+  }, [navigate]);
 
   useEffect(() => {
     return () => {
@@ -24,12 +34,17 @@ const Header = () => {
     <header>
       <div ref={headerDiv}></div>
       <div className={styles.container}>
-        <img src={Logo} alt="logo" className={styles.logo} />
+        <img src={Logo} alt="logo" className={styles.logo} onClick={navigateToMainPage} />
         <button type="button">
           {cartItemList.length > 0 && (
             <span className={styles.cartItemCount}>{cartItemList.length}</span>
           )}
-          <img src={CartIcon} alt="cart icon" className={styles.cartIcon} />
+          <img
+            src={CartIcon}
+            alt="cart icon"
+            className={styles.cartIcon}
+            onClick={navigateToCartPage}
+          />
           <span className={styles.label}>장바구니</span>
         </button>
       </div>

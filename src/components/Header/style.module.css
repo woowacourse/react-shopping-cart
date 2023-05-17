@@ -19,6 +19,7 @@ header {
 
 .logo {
   height: 48px;
+  cursor: pointer;
 }
 
 .container button {
