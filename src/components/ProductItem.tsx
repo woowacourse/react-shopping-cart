@@ -13,8 +13,8 @@ export const ProductItem = (props: ProductItemProps) => {
   return (
     <Styled.Wrapper>
       <ProductImage
-        $width={'282px'}
-        $height={'282px'}
+        width={'282px'}
+        height={'282px'}
         src={imageUrl}
         alt="상품 이미지"
       />
