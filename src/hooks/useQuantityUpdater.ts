@@ -4,6 +4,8 @@ import cartProductsState from "../store/cartProductAtom";
 
 interface UseQuantityUpdaterProps {
   productId: number;
+  initialValue: number;
+  notifyFunction?: (value: number) => void;
 }
 
 const removeNonDigits = (value: string) => {
@@ -24,20 +26,30 @@ const removeNonDigits = (value: string) => {
  * @returns initializeInputValue - Input의 값을 1로 초기화시키면서, 컴포넌트를 카운터 형태로 표시합니다.
  * @returns incrementInputValue - Input의 값을 지정된 값만큼 변경시킵니다.
  */
-const useQuantityUpdater = ({ productId }: UseQuantityUpdaterProps) => {
-  const [inputValue, setInputValue] = useState("0");
+const useQuantityUpdater = ({
+  productId,
+  initialValue,
+  notifyFunction,
+}: UseQuantityUpdaterProps) => {
+  const [inputValue, setInputValue] = useState(initialValue.toString());
   const [isFocused, setIsFocused] = useState(false);
   const [isButtonMode, setIsButtonMode] = useState(false);
   const setCartProducts = useSetRecoilState(cartProductsState);
 
   const updateProduct = useCallback(() => {
     if (!isFocused) {
+      const newValue = Number(inputValue);
+
+      if (notifyFunction) {
+        notifyFunction(newValue);
+      }
+
       setCartProducts((previousCartProducts) => ({
         ...previousCartProducts,
-        [productId]: Number(inputValue),
+        [productId]: newValue,
       }));
     }
-  }, [isFocused, setCartProducts, productId, inputValue]);
+  }, [isFocused, setCartProducts, productId, inputValue, notifyFunction]);
 
   useEffect(() => {
     updateProduct();
@@ -67,6 +79,8 @@ const useQuantityUpdater = ({ productId }: UseQuantityUpdaterProps) => {
       Math.max(Number(previousInputValue) + incrementValue, 0).toString()
     );
   };
+
+  console.log("cur", isButtonMode);
 
   return {
     inputValue,
