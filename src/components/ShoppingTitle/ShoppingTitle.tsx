@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Styled from "./ShoppingTitleStyled";
 
 const ShoppingTitle = () => {
@@ -9,4 +10,4 @@ const ShoppingTitle = () => {
   );
 };
 
-export default ShoppingTitle;
+export default memo(ShoppingTitle);

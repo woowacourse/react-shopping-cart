@@ -17,6 +17,7 @@ const ShoppingCard = ({ cartId }: ShoppingCardProps) => {
   const { cart, plusQuantity, minusQuantity } = useCart(cartId);
   const { quantity, product } = cart;
   const { name, price, imageUrl } = product;
+
   const imgTheme = {
     width: "144px",
     height: "144px",
@@ -26,13 +27,14 @@ const ShoppingCard = ({ cartId }: ShoppingCardProps) => {
   };
   const counterTheme = {
     alignSelf: "end",
-    width: "124px",
-    height: "50px",
+    width: "100px",
+    height: "40px",
   };
   const priceTheme = {
     alignSelf: "end",
     fontSize: "16px",
   };
+
   return (
     <Styled.Container>
       <Styled.Checkbox type="checkbox"></Styled.Checkbox>

@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
 const Styled = {
-  Container: styled.div`
+  Container: styled.li`
     display: flex;
     width: 100%;
+    padding: 24px 0;
+
     gap: 15px;
   `,
   Checkbox: styled.input`
