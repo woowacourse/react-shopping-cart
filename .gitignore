@@ -11,6 +11,9 @@
 # production
 /build
 
+# msw
+/public/mockServiceWorker.js
+
 # misc
 .DS_Store
 .env.local

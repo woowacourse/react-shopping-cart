@@ -1,6 +1,6 @@
 {
   "name": "react-shopping-cart",
-  "homepage": "https://wzrabbit.github.io/react-shopping-cart",
+  "homepage": "https://wzrabbit.github.io/react-shopping-cart/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -67,8 +67,12 @@
     "@storybook/react-webpack5": "^7.0.9",
     "@storybook/testing-library": "^0.0.14-next.2",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "msw": "^1.2.1",
     "prop-types": "^15.8.1",
     "storybook": "^7.0.9",
     "webpack": "^5.82.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "quantity": 5,
+    "product": {
+      "id": 1,
+      "name": "초콜릿 블리츠 케이크",
+      "price": 38000,
+      "imageUrl": "https://user-images.githubusercontent.com/87642422/237034529-5ca0aa1a-c835-48cc-95f9-03734fba1834.png"
+    }
+  },
+  {
+    "id": 2,
+    "quantity": 12,
+    "product": {
+      "id": 2,
+      "name": "삼양 유어스 슈넬치킨 220g x 3개",
+      "price": 23800,
+      "imageUrl": "https://user-images.githubusercontent.com/87642422/237034940-e821ce4f-ce20-4a37-9670-d6bec1983580.png"
+    }
+  }
+]
