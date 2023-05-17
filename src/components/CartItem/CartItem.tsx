@@ -11,9 +11,17 @@ interface CartItemProps {
   itemId: number;
   isChecked: boolean;
   checkHandler: (id: number) => void;
+  removeItem: (id: number) => void;
 }
 
-const CartItem = ({ quantity, product, itemId, isChecked, checkHandler }: CartItemProps) => {
+const CartItem = ({
+  quantity,
+  product,
+  itemId,
+  isChecked,
+  checkHandler,
+  removeItem,
+}: CartItemProps) => {
   const { updateCartItemQuantityIncrease, updateCartItemQuantityDecrease } = useCartList();
   return (
     <>
@@ -34,7 +42,13 @@ const CartItem = ({ quantity, product, itemId, isChecked, checkHandler }: CartIt
           <p>{product.name}</p>
         </div>
         <div className={styles.itemCountDatas}>
-          <TrashCan width={16} height={16} />
+          <TrashCan
+            width={16}
+            height={16}
+            onClick={() => {
+              removeItem(itemId);
+            }}
+          />
           <StepperButton
             count={quantity}
             setCount={() => {}}

@@ -77,6 +77,22 @@ export const useCartList = () => {
     }, 0);
   };
 
+  const checkedItemRemove = () => {
+    setCartList(
+      cartList.filter((item) => {
+        return !item.isChecked;
+      })
+    );
+  };
+
+  const selectedItemRemove = (id: number) => {
+    setCartList(
+      cartList.filter((item) => {
+        return item.id !== id;
+      })
+    );
+  };
+
   const reverseCheckCartItem = (id: number) => {
     setCartList(
       cartList.map((item) => {
@@ -113,6 +129,8 @@ export const useCartList = () => {
     updateCartItemQuantityIncrease,
     updateCartItemQuantityDecrease,
     reverseCheckCartItem,
+    checkedItemRemove,
+    selectedItemRemove,
     getCartItemSum,
     cartListCheckedLength,
     resetCartCheckStatusToTrue,

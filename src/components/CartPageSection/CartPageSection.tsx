@@ -15,6 +15,8 @@ const CartPageSection = () => {
     resetCartCheckStatusToTrue,
     resetCartCheckStatusToFalse,
     cartListCheckedLength,
+    checkedItemRemove,
+    selectedItemRemove,
   } = useCartList();
 
   const deliveryPrice = 3000;
@@ -38,7 +40,7 @@ const CartPageSection = () => {
         <p>
           전체 선택({cartListCheckedLength()}/{cartItemList.length})
         </p>
-        <button type="button" className={styles.deleteButton}>
+        <button type="button" className={styles.deleteButton} onClick={checkedItemRemove}>
           선택 삭제
         </button>
       </div>
@@ -52,6 +54,7 @@ const CartPageSection = () => {
               product={item.product}
               isChecked={item.isChecked}
               checkHandler={reverseCheckCartItem}
+              removeItem={selectedItemRemove}
             />
           ))}
         </div>
