@@ -15,10 +15,15 @@ import * as Text from '@components/commons/Text/Text';
 
 interface ProductStepperProps {
   productId: number;
+  inputWidth?: string | undefined;
+  inputHeight?: string | undefined;
+  buttonWidth?: string | undefined;
+  buttonHeight?: string | undefined;
 }
 
 const ProductStepper = (props: ProductStepperProps) => {
-  const { productId } = props;
+  const { productId, inputWidth, inputHeight, buttonWidth, buttonHeight } =
+    props;
   const [productCount, setProductCount] = useState(0);
 
   useUpdateMyCart(productId, productCount);
@@ -44,8 +49,8 @@ const ProductStepper = (props: ProductStepperProps) => {
             return (
               <StyledProductStepperFlexBox>
                 <StepInput
-                  width="48px"
-                  height="28px"
+                  width={inputWidth ?? '48px'}
+                  height={inputHeight ?? '28px'}
                   type="number"
                   value={step}
                   inputMode="numeric"
@@ -55,8 +60,8 @@ const ProductStepper = (props: ProductStepperProps) => {
                 />
                 <StyledProductStepperButtonFlexBox>
                   <StepperHandleButton
-                    width="28px"
-                    height="14px"
+                    width={buttonWidth ?? '28px'}
+                    height={buttonHeight ?? '14px'}
                     aria-label="상품 1개 추가"
                     backgroundColor="#white"
                     onClick={handleIncrementButtonClick}
@@ -69,8 +74,8 @@ const ProductStepper = (props: ProductStepperProps) => {
                     </Text.Paragraph>
                   </StepperHandleButton>
                   <StepperHandleButton
-                    width="28px"
-                    height="14px"
+                    width={buttonWidth ?? '28px'}
+                    height={buttonHeight ?? '14px'}
                     aria-label="상품 1개 삭제"
                     backgroundColor="#white"
                     onClick={handleDecrementButtonClick}

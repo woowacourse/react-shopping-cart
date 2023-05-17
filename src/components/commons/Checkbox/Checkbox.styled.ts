@@ -8,7 +8,7 @@ export const StyledOuterCheckbox = styled.div<CheckboxProps>`
   width: ${props => (props.width ? `${Number(props.width)}px` : '28px')};
   height: ${props => (props.height ? `${Number(props.height)}px` : '28px')};
 
-  border: ${props => props.border ?? '2px solid #22A6A2'};
+  border: ${props => props.border ?? '1px solid #22A6A2'};
   border-radius: ${props =>
     props.borderRadius ? `${Number(props.borderRadius)}px` : '4px'};
 

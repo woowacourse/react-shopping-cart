@@ -4,8 +4,8 @@ import { SquareImageProps } from '@commons/SquareImage/SquareImage';
 const sizePixelMap = {
   s: '25px',
   m: '50px',
-  l: '147px',
-  xl: '282px',
+  l: '150px',
+  xl: '300px',
 };
 
 export const StyledSquareImage = styled.img<SquareImageProps>`
