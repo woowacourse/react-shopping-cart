@@ -16,7 +16,14 @@ import { worker } from './mocks/browser';
  */
 
 localStorage.setItem('products', JSON.stringify(mockData));
-worker.start();
+async function prepare() {
+  if (import.meta.env.DEV) {
+    await import('./mockServiceWorker.js?worker');
+
+    return worker.start();
+  }
+}
+await prepare;
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

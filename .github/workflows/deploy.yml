@@ -40,8 +40,8 @@ jobs:
       - name: Build
         run: npm run build
       - name: MSW public setting
-        run: npx msw init ./dist/public --save
-      - name: Setup Pages
+        #   run: npx msw init ./dist/public --save
+        # - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
