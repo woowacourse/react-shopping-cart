@@ -18,4 +18,9 @@ export const QUANTITY_CONTROL_UNIT = {
   DECREASE: 1,
 } as const;
 
-export const MOCK_DATA_URL = './mockData.json';
+export const MOCK_DATA_URL = '/api/mockData';
+
+export const ERROR_MESSAGE = {
+  CLIENT: `잘못된 요청입니다.\n다시 확인해주세요.\n(error: 400번)`,
+  SERVER: `지금은 접근할 수 없습니다.\n잠시후 다시 시도해주세요.\n(error: 500번)`,
+};
