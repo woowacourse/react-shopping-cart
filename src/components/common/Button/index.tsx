@@ -8,6 +8,8 @@ interface ButtonStyleProps {
   color?: string;
   backgroundColor?: string;
   borderRadius?: string;
+  fontSize?: string;
+  fontWeight?: string;
 }
 
 interface ButtonProps extends ButtonStyleProps {
@@ -30,5 +32,7 @@ const Wrapper = styled.button<ButtonStyleProps>`
   border-radius: ${({ borderRadius }) => borderRadius ?? '0'};
 
   background-color: ${({ backgroundColor }) => backgroundColor ?? ''};
+  font-weight: ${({ fontWeight }) => fontWeight ?? '400'};
+  font-size: ${({ fontSize }) => fontSize ?? '16px'};
   cursor: pointer;
 `;
