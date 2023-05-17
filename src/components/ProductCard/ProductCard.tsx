@@ -7,6 +7,7 @@ const ProductCard = ({
   productImage,
   productName,
   productPrice,
+  productQuantity,
 }: ProductCardProps) => {
   return (
     <ProductCardContainer>
@@ -14,7 +15,10 @@ const ProductCard = ({
       <ProductDetailWrapper>
         <ProductName title={productName}>{productName}</ProductName>
         <InputWrapper>
-          <ProductQuantityInput productId={productId} />
+          <ProductQuantityInput
+            productId={productId}
+            initialValue={productQuantity}
+          />
         </InputWrapper>
         <ProductPrice>₩ {productPrice.toLocaleString()}</ProductPrice>
       </ProductDetailWrapper>
