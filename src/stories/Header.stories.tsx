@@ -1,10 +1,19 @@
 import type { StoryFn } from '@storybook/react';
+import { BrowserRouter } from 'react-router-dom';
 
 import Header from '../components/leafs/Header';
 
 export default {
   title: 'Header',
   component: Header,
+  tags: ['autodocs'],
+  decorators: [
+    (Story: StoryFn) => (
+      <BrowserRouter>
+        <Story />
+      </BrowserRouter>
+    ),
+  ],
 };
 
 const Template: StoryFn<React.ComponentProps<typeof Header>> = () => <Header />;
