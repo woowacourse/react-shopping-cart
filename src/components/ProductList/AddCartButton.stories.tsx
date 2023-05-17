@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { within, userEvent } from '@storybook/testing-library'
 import { styled } from 'styled-components';
 import {
   ADD_CART_BUTTON,
