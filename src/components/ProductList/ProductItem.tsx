@@ -31,12 +31,11 @@ const ProductItem = ({ product }: ProductItemProps) => {
 };
 
 const Wrapper = styled.div`
-  width: 282px;
+  width: 100%;
 `;
 
 const Picture = styled.img`
-  width: 282px;
-  height: 282px;
+  width: 100%;
 
   margin-bottom: 18px;
 `;
