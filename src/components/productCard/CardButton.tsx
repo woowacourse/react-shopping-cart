@@ -1,9 +1,10 @@
 import { Counter } from "./Counter";
 import { AddShoppingCartIcon } from "../../assets/ShoppingCartIcons";
 import { useCartList } from "../../hooks/useCartList";
+import { Id } from "../../types/Product";
 
 interface CardButton {
-  id: number;
+  id: Id;
 }
 
 export const CardButton = ({ id }: CardButton) => {
@@ -11,7 +12,11 @@ export const CardButton = ({ id }: CardButton) => {
 
   return (
     <>
-      {isInCart ? <Counter {...{ removeItemFromCartList }} /> : <AddShoppingCartIcon handleClick={addItemToCartList} />}
+      {isInCart() ? (
+        <Counter {...{ removeItemFromCartList }} />
+      ) : (
+        <AddShoppingCartIcon handleClick={addItemToCartList} />
+      )}
     </>
   );
 };

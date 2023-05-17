@@ -1,5 +1,7 @@
+export type Id = number;
+
 export interface Product {
-  id: number;
+  id: Id;
   name: string;
   price: number;
   imageUrl: string;

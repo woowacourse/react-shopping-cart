@@ -1,23 +1,29 @@
-import { atom, useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
+import { cartListState } from "../atoms";
+import { Id } from "../types/Product";
 
-export const useCartList = (id: number) => {
+export const useCartList = (id: Id) => {
   const [cartList, setCartList] = useRecoilState(cartListState);
 
-  const addProductToCartList = () => {
+  const addItemToCartList = () => {
     if (!id) return;
 
     if (!cartList.includes(id)) setCartList((current) => [...current, id]);
   };
 
-  const removeProductFromCartList = () => {
+  const removeItemFromCartList = () => {
     if (!id === undefined) return;
 
     setCartList((current) => current.filter((productId) => productId !== id));
   };
 
+  const isInCart = () => {
+    return cartList.includes(id);
+  };
+
   return {
-    addProductToCartList,
-    removeProductFromCartList,
-    cartList,
+    addItemToCartList,
+    removeItemFromCartList,
+    isInCart,
   };
 };
