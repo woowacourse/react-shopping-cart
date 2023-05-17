@@ -61,8 +61,8 @@ const InputStyle = styled.input<{ $size: InputStepperProps['size'] }>`
     appearance: none;
   }
 
-  width: ${({ $size }) => ($size === 'small' ? '41.6' : '73')}px;
-  height: ${({ $size }) => ($size === 'small' ? '28' : '60')}px;
+  width: ${({ $size }) => ($size === 'small' ? '41.6' : '66')}px;
+  height: ${({ $size }) => ($size === 'small' ? '28' : '50')}px;
 
   border: 1px solid #dddddd;
   text-align: center;
@@ -83,8 +83,8 @@ const StepperButtonWrapper = styled.div`
 `;
 
 const StepperDownButton = styled.button<{ $size: InputStepperProps['size'] }>`
-  width: ${({ $size }) => ($size === 'small' ? '23.93' : '42')}px;
-  height: ${({ $size }) => ($size === 'small' ? '14' : '30')}px;
+  width: ${({ $size }) => ($size === 'small' ? '23.93' : '33')}px;
+  height: ${({ $size }) => ($size === 'small' ? '14' : '25')}px;
   border: 1px solid #dddddd;
 
   display: flex;
