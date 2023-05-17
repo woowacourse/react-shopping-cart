@@ -1,9 +1,22 @@
 import { DefaultTheme } from 'styled-components';
 
 export const colors = {
+  /**
+   *  primaryBlack: '#333333',
+   */
   primaryBlack: '#333333',
+  /**
+   *  white: '#ffffff',
+   */
   white: '#ffffff',
+  /**
+   *  green: '#04c09e',
+   */
   green: '#04c09e',
+  /**
+   *  gray: '#BBBBBB',
+   */
+  gray: '#BBBBBB',
 };
 
 const size = {

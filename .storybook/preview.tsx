@@ -3,6 +3,7 @@ import { RecoilRoot } from 'recoil';
 import { Decorator, Preview } from '@storybook/react';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../src/styles/theme';
+import GlobalStyle from '../src/styles/globalStyle';
 
 const preview: Preview = {
   parameters: {
@@ -21,6 +22,7 @@ const localStorageResetDecorator: Decorator = (Story) => {
   return (
     <ThemeProvider theme={theme}>
       <RecoilRoot>
+        <GlobalStyle />
         <Story />
       </RecoilRoot>
     </ThemeProvider>
