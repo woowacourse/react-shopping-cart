@@ -3,6 +3,7 @@ import { RecoilRoot } from 'recoil';
 import GlobalStyle from '../src/GlobalStyle';
 import { initialize, mswDecorator } from 'msw-storybook-addon';
 import type { Preview } from '@storybook/react';
+import { handlers } from '../src/mocks/handlers/index';
 
 initialize();
 
@@ -15,6 +16,7 @@ const preview: Preview = {
         date: /Date$/,
       },
     },
+    msw: handlers,
   },
 };
 
