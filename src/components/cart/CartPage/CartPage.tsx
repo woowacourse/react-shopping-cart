@@ -1,14 +1,15 @@
+import { useState } from 'react';
 import { styled } from 'styled-components';
+import { useRecoilValue } from 'recoil';
 import CartListItem from '../CartListItem/CartListItem';
 import Spacer from '../../common/Spacer/Spacer';
 import CartTotal from '../CartTotal/CartTotal';
-import { cartItemsQuery } from '../../../recoil/selectors';
-import { useRecoilValue } from 'recoil';
 import Checkbox from '../../common/Checkbox/Checkbox';
-import { useState } from 'react';
+import { cartState } from '../../../recoil/atoms';
 
 const CartPage = () => {
-  const cartItems = useRecoilValue(cartItemsQuery);
+  const cartItems = useRecoilValue(cartState);
+
   const [checkedItemIds, setCheckedItemIds] = useState(
     cartItems.map((cartItem) => cartItem.id),
   );
@@ -42,7 +43,7 @@ const CartPage = () => {
   };
 
   return (
-    <Container>
+    <div>
       <TitleWrapper>
         <Title>장바구니</Title>
       </TitleWrapper>
@@ -74,11 +75,9 @@ const CartPage = () => {
           <CartTotal totalProductPrice={calcTotalPrice()} />
         </TotalWrapper>
       </Inner>
-    </Container>
+    </div>
   );
 };
-
-const Container = styled.div``;
 
 const TitleWrapper = styled.div`
   height: 67px;
