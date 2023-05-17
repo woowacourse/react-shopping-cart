@@ -1,0 +1,34 @@
+{
+  "cartList": [
+    {
+      "id": 1,
+      "quantity": 1,
+      "product": {
+        "id": 1,
+        "price": 10000,
+        "name": "똥 춘식이",
+        "imageUrl": "https://item.kakaocdn.net/do/91481c46c6ee38c33e20deba29e1f73f82f3bd8c9735553d03f6f982e10ebe70"
+      }
+    },
+    {
+      "id": 2,
+      "quantity": 1,
+      "product": {
+        "id": 2,
+        "price": 10000,
+        "name": "힝 춘식이",
+        "imageUrl": "https://item.kakaocdn.net/do/91481c46c6ee38c33e20deba29e1f73f15b3f4e3c2033bfd702a321ec6eda72c"
+      }
+    },
+    {
+      "id": 3,
+      "quantity": 1,
+      "product": {
+        "id": 3,
+        "price": 10000,
+        "name": "생일 춘식이",
+        "imageUrl": "https://item.kakaocdn.net/do/91481c46c6ee38c33e20deba29e1f73f9f17e489affba0627eb1eb39695f93dd"
+      }
+    }
+  ]
+}

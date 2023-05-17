@@ -1,7 +1,9 @@
 import { rest } from 'msw';
-import json from './productList.json';
+import productJson from './data/productList.json';
+import cartListJson from './data/cartList.json';
 // 초기 상품 목록
-const products = json.choonsikProducts;
+const products = productJson.choonsikProducts;
+const cartLists = cartListJson.cartList;
 
 export const handlers = [
   // 상품 목록 조회 API
@@ -10,13 +12,26 @@ export const handlers = [
   }),
 
   // 상품 조회 API
-  rest.get('/api/products/:productId}', (req, res, ctx) => {
-    const { productId } = req.params;
+  // rest.get('/api/products/:productId}', (req, res, ctx) => {
+  //   const { productId } = req.params;
 
-    const product = products.find(({ id }) => id === Number(productId)) ?? null;
+  //   const product = products.find(({ id }) => id === Number(productId)) ?? null;
 
-    return res(product ? ctx.status(200) : ctx.status(401), ctx.json(product));
-  }),
+  //   if (product) {
+  //     return res(
+  //       ctx.status(403),
+  //       ctx.json({
+  //         message: `${productId} product can not found`,
+  //       })
+  //     );
+  //   }
+
+  //   return res(ctx.status(200), ctx.json(product));
+  // }),
   // 상품 추가 API
-  // rest.post("/")
+  // rest.post("/"),
+  // 장바구니 조회 API
+  rest.get('/cart-items', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(cartLists));
+  }),
 ];
