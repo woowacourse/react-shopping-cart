@@ -18,7 +18,7 @@ const ShoppingCartPage = () => {
   const checkBoxText = isAllChecked ? '선택해제' : '전체선택';
   const productTotalPriceText = `${cartTotalPrice.toLocaleString('ko-KR')}원`;
   const shippingFeeText = `+${SHIPPING_FEE.toLocaleString('ko-KR')}원`;
-  const wholePriceText = `${cartTotalPriceWithFee.toLocaleString('ko-KR')}원`;
+  const cartTotalPriceText = `${cartTotalPriceWithFee.toLocaleString('ko-KR')}원`;
   const orderConfirmButtonText = `총 ${cartProductsCount}건 주문하기
   (${cartTotalPriceWithFee.toLocaleString('ko-KR')}원)`;
 
@@ -26,7 +26,7 @@ const ShoppingCartPage = () => {
     <>
       <PageTitle>장바구니</PageTitle>
       <FlexBox gap="100px" align="flex-start" role="region">
-        <CartProductListContainer flexDirection="column" align="flex-start">
+        <CartProductListSection flexDirection="column" align="flex-start">
           <Container justify="space-between">
             <CheckBox checked={isAllChecked} onChange={toggleCheckAllBox}>
               {checkBoxText}
@@ -34,8 +34,8 @@ const ShoppingCartPage = () => {
             <CartProductDeleteButton>선택 삭제</CartProductDeleteButton>
           </Container>
           <CartProductCardList />
-        </CartProductListContainer>
-        <WholePriceContainer flexDirection="column" gap="10px">
+        </CartProductListSection>
+        <PriceSection flexDirection="column" gap="10px">
           <Container justify="space-between">
             <SubTitle>총 상품가격</SubTitle>
             <ProductTotalPrice>{productTotalPriceText}</ProductTotalPrice>
@@ -46,10 +46,10 @@ const ShoppingCartPage = () => {
           </Container>
           <Container justify="space-between">
             <SubTitle>예상 주문금액</SubTitle>
-            <WholePrice>{wholePriceText}</WholePrice>
+            <CartTotalPrice>{cartTotalPriceText}</CartTotalPrice>
           </Container>
           <OrderConfirmButton>{orderConfirmButtonText}</OrderConfirmButton>
-        </WholePriceContainer>
+        </PriceSection>
       </FlexBox>
     </>
   );
@@ -57,12 +57,12 @@ const ShoppingCartPage = () => {
 
 export default ShoppingCartPage;
 
-const CartProductListContainer = styled(FlexBox)`
+const CartProductListSection = styled(FlexBox)`
   position: relative;
   width: 70%;
 `;
 
-const WholePriceContainer = styled(FlexBox)`
+const PriceSection = styled(FlexBox)`
   position: sticky;
   top: 140px;
   width: 30%;
@@ -103,7 +103,7 @@ const ShippingFee = styled.span`
   font-weight: 700;
 `;
 
-const WholePrice = styled.span`
+const CartTotalPrice = styled.span`
   font-size: 18px;
   font-weight: 700;
 `;
