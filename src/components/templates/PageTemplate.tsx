@@ -8,8 +8,10 @@ const PageTemplate = ({ children }: PropsWithChildren) => {
 export default PageTemplate;
 
 const PageWrapper = styled.div`
-  width: 100%;
-  margin: 62px 0;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+
+  margin: 62px 0;
 `;
