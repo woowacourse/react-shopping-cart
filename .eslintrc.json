@@ -34,6 +34,7 @@
     }
   },
   "rules": {
+    "linebreak-style": ["error", "windows"],
     "class-methods-use-this": "off",
     "import/extensions": "off",
     "import/no-named-as-default": "off",
