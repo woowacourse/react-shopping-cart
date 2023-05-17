@@ -18,13 +18,14 @@ const ProductCard = ({ product }: ProductCardProps) => {
     <FlexBox flexDirection="column" justify="flex-start" gap="8px" role="list">
       <ProductImgContainer>
         <ProductImage src={imageUrl} />
-        <CartQuantityStepper
-          quantity={cartProductQuantity}
-          initialIncrement={initialAddCart}
-          increaseQuantity={increaseQuantity}
-          decreaseQuantity={decreaseQuantity}
-          $position={{ $bottom: '12px', $right: '8px' }}
-        />
+        <StepperWrapper>
+          <CartQuantityStepper
+            quantity={cartProductQuantity}
+            initialIncrement={initialAddCart}
+            increaseQuantity={increaseQuantity}
+            decreaseQuantity={decreaseQuantity}
+          />
+        </StepperWrapper>
       </ProductImgContainer>
       <FlexBox>
         <FlexBox flexDirection="column" align="flex-start">
@@ -55,6 +56,12 @@ const Price = styled.span`
   font-size: 18px;
   font-weight: 700;
   letter-spacing: -0.4px;
+`;
+
+const StepperWrapper = styled.div`
+  position: absolute;
+  bottom: 12px;
+  right: 8px;
 `;
 
 export default ProductCard;
