@@ -5,7 +5,7 @@ import QuantityController from '@Components/QuantityController';
 import useProduct from '@Hooks/useProduct';
 import useShoppingCart from '@Hooks/useShoppingCart';
 
-import quantityState from '@Selector/quantityState';
+import cartItemState from '@Selector/cartItemState';
 
 import * as S from './style';
 
@@ -23,7 +23,7 @@ type ProductItemProps = {
 function ProductItem({ product, isLoading = false, width }: ProductItemProps) {
   const { updateShoppingCart } = useShoppingCart();
   const { name, price, image, imageDescription } = useProduct(product);
-  const quantity = product && useRecoilValue(quantityState(product.id));
+  const cartItem = product && useRecoilValue(cartItemState(product.id));
 
   return (
     <S.Container aria-label="하나의 판매 품목 정보" width={width}>
@@ -38,7 +38,12 @@ function ProductItem({ product, isLoading = false, width }: ProductItemProps) {
           </S.ProductItemPrice>
         </S.ProductItemLayout>
         {product && (
-          <QuantityController quantity={quantity} updateShoppingCart={updateShoppingCart} product={product} />
+          <QuantityController
+            quantity={cartItem?.quantity}
+            cartItemId={cartItem?.cartItemId}
+            updateShoppingCart={updateShoppingCart}
+            product={product}
+          />
         )}
       </S.ProductItemContents>
     </S.Container>

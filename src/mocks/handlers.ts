@@ -10,7 +10,10 @@ import mockData from './mockData.json';
 
 export const handlers = [
   rest.get(PRODUCTS_URL, (_, res, ctx) => {
-    if (!localStorageHelper.hasKey('products')) localStorageHelper.setInitValue('products', mockData);
+    if (!localStorageHelper.hasKey('products')) {
+      localStorageHelper.setInitValue('products', mockData);
+      localStorageHelper.setInitValue('cartItems', []);
+    }
 
     const products = localStorageHelper.getValue<Product[]>('products');
 
@@ -18,16 +21,12 @@ export const handlers = [
   }),
 
   rest.get(CART_ITEMS_URL, (_, res, ctx) => {
-    if (!localStorageHelper.hasKey('cartItems')) localStorageHelper.setInitValue('cartItems', []);
-
     const cartItems = localStorageHelper.getValue<ShoppingCartProduct[]>('cartItems');
 
     return res(ctx.status(200), ctx.json(cartItems));
   }),
 
   rest.post('/cart-items', async (req, res, ctx) => {
-    if (!localStorageHelper.hasKey('cartItems')) localStorageHelper.setInitValue('cartItems', []);
-
     const body = (await req.json()) as { productId: number };
     const productId = body.productId;
 

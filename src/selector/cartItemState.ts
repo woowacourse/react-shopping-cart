@@ -4,8 +4,8 @@ import shoppingCartState from '@Atoms/shoppingCartState';
 
 import { SHOPPING_QUANTITY } from '@Constants/index';
 
-const quantityState = selectorFamily({
-  key: 'quantityState',
+const cartItemState = selectorFamily({
+  key: 'cartItemState',
 
   get:
     (productId: number) =>
@@ -14,9 +14,9 @@ const quantityState = selectorFamily({
 
       const shoppingItem = shoppingCart.find((item) => item.product.id === productId);
 
-      if (shoppingItem) return shoppingItem.quantity;
-      return SHOPPING_QUANTITY.MIN;
+      if (shoppingItem) return { cartItemId: shoppingItem.id, quantity: shoppingItem.quantity };
+      return { cartItemId: undefined, quantity: SHOPPING_QUANTITY.MIN };
     },
 });
 
-export default quantityState;
+export default cartItemState;

@@ -9,7 +9,7 @@ import { Product } from '@Types/index';
 import useProduct from '@Hooks/useProduct';
 import useShoppingCart from '@Hooks/useShoppingCart';
 
-import quantityState from '@Selector/quantityState';
+import cartItemState from '@Selector/cartItemState';
 
 import Trash from '@Asset/Trash.png';
 
@@ -24,7 +24,7 @@ function ShoppingItem({ product, width = '100%' }: ShoppingItemProps) {
   const [isChecked, setIsChecked] = useState(true);
   const { updateShoppingCart } = useShoppingCart();
   const { name, price, image, imageDescription } = useProduct(product);
-  const quantity = product && useRecoilValue(quantityState(product.id));
+  const cartItem = product && useRecoilValue(cartItemState(product.id));
 
   return (
     <S.Container aria-label="장바구니 상품" width={width}>
@@ -33,7 +33,7 @@ function ShoppingItem({ product, width = '100%' }: ShoppingItemProps) {
       <S.ShoppingItemName aria-label="장바구니 상품 이름">{name}</S.ShoppingItemName>
       <S.RightContents>
         <S.DeleteButton src={Trash} />
-        <QuantityController product={product} updateShoppingCart={updateShoppingCart} quantity={quantity} />
+        <QuantityController product={product} updateShoppingCart={updateShoppingCart} quantity={cartItem.quantity} />
         <S.ShoppingItemPrice aria-label="장바구니 상품 가격">{price}</S.ShoppingItemPrice>
       </S.RightContents>
     </S.Container>

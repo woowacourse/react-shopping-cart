@@ -11,6 +11,7 @@ import * as S from './style';
 type QuantityControllerProps = {
   product: Product;
   quantity?: number;
+  cartItemId?: number;
   updateShoppingCart: UpdateShoppingCart;
 };
 
@@ -19,6 +20,7 @@ type QuantityControlButton = (typeof QUANTITY_CONTROL_BUTTON)[keyof typeof QUANT
 function QuantityController({
   product,
   quantity = SHOPPING_QUANTITY.MIN,
+  cartItemId,
   updateShoppingCart,
 }: QuantityControllerProps) {
   const [isUserWork, setIsUserWork] = useState(false);
@@ -43,6 +45,17 @@ function QuantityController({
     const newValue = Number(event.target.value);
 
     if (newValue > SHOPPING_QUANTITY.MAX) return alert(ALERT_MESSAGE.OVER_MAX_QUANTITY);
+
+    if (newValue === 0) {
+      fetch(`/cart-items/${cartItemId}`, {
+        method: 'DELETE',
+      });
+    } else {
+      fetch(`/cart-items/${cartItemId}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ quantity: newValue }),
+      });
+    }
 
     updateShoppingCart(product, Math.floor(newValue));
   };
