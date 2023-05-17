@@ -4,11 +4,21 @@ import Cart from './storage/Cart';
 
 const handlers = [
   rest.get('/products', (req, res, ctx) =>
-    res(ctx.delay(2222), ctx.status(200), ctx.json(products))
+    res(
+      ctx.delay(2222),
+      ctx.status(200),
+      ctx.set('Content-Type', 'application/json'),
+      ctx.json(products)
+    )
   ),
 
   rest.get('/cart-items', (req, res, ctx) =>
-    res(ctx.delay(2222), ctx.status(200), ctx.json(Cart.getList()))
+    res(
+      ctx.delay(2222),
+      ctx.status(200),
+      ctx.set('Content-Type', 'application/json'),
+      ctx.json(Cart.getList())
+    )
   ),
 
   rest.post('/cart-items', async (req, res, ctx) => {
@@ -16,7 +26,7 @@ const handlers = [
 
     Cart.setItem(productId, 1);
 
-    return res(ctx.status(200));
+    return res(ctx.status(201), ctx.set('Content-Location', `/cart-items/${productId}`));
   }),
 
   rest.post('/cart-items/:productId', async (req, res, ctx) => {
@@ -33,7 +43,7 @@ const handlers = [
 
     Cart.setItem(Number(productId), 0);
 
-    return res(ctx.status(200));
+    return res(ctx.status(204));
   }),
 ];
 
