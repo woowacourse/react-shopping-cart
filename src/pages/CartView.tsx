@@ -29,4 +29,24 @@ const Container = styled.div`
   margin: auto;
 `;
 
+const MenuContainer = styled.div`
+  display: flex;
+  gap: 75px;
+  max-width: 1320px;
+  height: auto;
+
+  @media (max-width: 1320px) {
+    flex-direction: column;
+    gap: 0px;
+  }
+`;
+
+const OrderSummaryContainer = styled.div`
+  margin-top: 70px;
+
+  @media (max-width: 1320px) {
+    margin-top: 25px;
+  }
+`;
+
 export default CartView;
