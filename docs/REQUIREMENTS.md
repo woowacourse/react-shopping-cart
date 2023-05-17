@@ -28,6 +28,7 @@
   - [x] CheckBox
   - [x] Image
   - [x] CartItemProduct
+  - [x] CartItemProductList
   - [x] Button
   - [x] EstimatedPaymentBox
 
