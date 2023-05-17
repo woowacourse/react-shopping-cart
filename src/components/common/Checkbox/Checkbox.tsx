@@ -1,12 +1,12 @@
 import { useId } from 'react';
 import { styled } from 'styled-components';
 
-const Checkbox = () => {
+const Checkbox = ({ checked = false }: { checked?: boolean }) => {
   const id = useId();
 
   return (
     <>
-      <StyledCheckbox type="checkbox" id={id} />
+      <StyledCheckbox type="checkbox" id={id} checked={checked} />
       <label htmlFor={id}></label>
     </>
   );
