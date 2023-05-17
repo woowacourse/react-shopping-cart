@@ -1,4 +1,3 @@
-import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import Counter from '../../common/Counter/Counter';
 import Image from '../../common/Image/Image';
