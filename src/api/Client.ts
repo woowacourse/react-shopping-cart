@@ -7,8 +7,36 @@ class Client {
 
   async get(path: string) {
     const response = await fetch(this.getUrl(path));
-    const data = await response.json();
-    return data;
+    return response;
+  }
+
+  async post(path: string, body: object) {
+    const response = await fetch(this.getUrl(path), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+    return response;
+  }
+
+  async patch(path: string, body: object) {
+    const response = await fetch(this.getUrl(path), {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+    return response;
+  }
+
+  async delete(path: string) {
+    const response = await fetch(this.getUrl(path), {
+      method: 'DELETE',
+    });
+    return response;
   }
 }
 
