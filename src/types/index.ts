@@ -12,3 +12,5 @@ export interface Product {
 }
 
 export type ProductId = number;
+
+export const PATH_KEY = ['HOME', 'SHOPPING_BASKET'] as const;

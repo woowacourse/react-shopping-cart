@@ -1,16 +1,17 @@
 import { createBrowserRouter } from 'react-router-dom';
-import CartList from 'src/pages/CartList';
+import ShoppingBasket from 'src/pages/ShoppingBasket';
 import ProductList from 'src/pages/ProductList';
+import { PATH } from 'src/utils/constants';
 
 const CartRouter = createBrowserRouter(
   [
     {
-      path: '/',
+      path: PATH.HOME,
       element: <ProductList />,
     },
     {
-      path: '/cart-list',
-      element: <CartList />,
+      path: PATH.SHOPPING_BASKET,
+      element: <ShoppingBasket />,
     },
   ],
   { basename: process.env.PUBLIC_URL }
