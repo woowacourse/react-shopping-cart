@@ -29,7 +29,7 @@ const Order = () => {
 const S = {
   Wrapper: styled.div`
     max-width: 448px;
-    margin-top: 50px;
+    margin-top: 40px;
     padding-bottom: 38px;
     border: 1px solid var(--gray-color-100);
   `,

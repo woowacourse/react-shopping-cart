@@ -1,7 +1,7 @@
-import { ChangeEventHandler } from 'react';
 import { css, styled } from 'styled-components';
-import { NOT_NUMBER, QUANTITY, MAX_NUMBER_LENGTH } from '../../constants';
+import { QUANTITY } from '../../constants';
 import { useSetCart } from '../../hooks/useCart';
+import { useHandleQuantityInput } from '../../hooks/useHandleQuantityInput';
 import { useLoadCart } from '../../hooks/useLoadCart';
 import { Product } from '../../types';
 import CartIcon from '../icons/CartIcon';
@@ -17,20 +17,12 @@ const ProductItem = ({ id, imageUrl, name, price }: Product) => {
     addToCart(QUANTITY.INITIAL);
   };
 
-  const handleNumberInputChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
-    const { value } = target;
-
-    if (value === QUANTITY.NONE) {
-      setIsSelected(false);
-      removeItemFromCart();
-
-      return setQuantity(QUANTITY.INITIAL);
-    }
-
-    const onlyTwoDigits = parseInt(value.replace(NOT_NUMBER, '').slice(0, MAX_NUMBER_LENGTH));
-    setQuantity(onlyTwoDigits);
-    addToCart(String(onlyTwoDigits));
-  };
+  const handleNumberInputChange = useHandleQuantityInput({
+    setIsSelected,
+    removeItemFromCart,
+    setQuantity,
+    addToCart,
+  });
 
   return (
     <div>
