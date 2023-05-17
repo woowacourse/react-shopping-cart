@@ -22,6 +22,12 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     color: #fff;
   }
+
+  button {
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
 `;
 
 export default GlobalStyle;
