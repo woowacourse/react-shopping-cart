@@ -30,8 +30,9 @@ export const handlers = [
   // }),
   // 상품 추가 API
   // rest.post("/"),
+
   // 장바구니 조회 API
-  rest.get('/cart-items', (req, res, ctx) => {
+  rest.get('/api/cart-items', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(cartLists));
   }),
 ];

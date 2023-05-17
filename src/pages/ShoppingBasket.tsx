@@ -7,7 +7,7 @@ import { CartItem } from 'src/types';
 import { styled } from 'styled-components';
 
 const ShoppingBasket = () => {
-  const { data } = useGetFetch<CartItem[]>('/cart-items', []);
+  const { data } = useGetFetch<CartItem[]>('/api/cart-items', []);
 
   return (
     <>
