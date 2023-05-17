@@ -44,7 +44,7 @@ const S = {
     margin-right: 20px;
 
     & + label {
-      font-size: 18px;
+      font-size: 16px;
     }
   `,
 
@@ -72,7 +72,7 @@ const trashCanButtonStyle = css`
   background: none;
 
   & + p {
-    font-size: 16px;
+    font-size: 15px;
   }
 `;
 

@@ -38,13 +38,13 @@ const S = {
     width: 100%;
     max-width: 736px;
     max-height: 410px;
-    font-size: 20px;
+    font-size: 18px;
     color: var(--text-color);
   `,
 
   Title: styled.h3`
     padding-bottom: 24px;
-    border-bottom: 4px solid var(--gray-color-300);
+    border-bottom: 2px solid var(--gray-color-300);
   `,
 
   Fieldset: styled.fieldset`

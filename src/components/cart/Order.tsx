@@ -38,7 +38,7 @@ const S = {
     padding: 24px 30px;
     margin-bottom: 34px;
     border-bottom: 3px solid var(--gray-color-100);
-    font-size: 24px;
+    font-size: 20px;
   `,
 
   List: styled.ul`
@@ -46,8 +46,8 @@ const S = {
       display: flex;
       justify-content: space-between;
       margin: 0 30px 20px;
-      font-size: 20px;
-      font-weight: 700;
+      font-size: 18px;
+      font-weight: 500;
 
       &:last-child {
         margin: 42px 30px 44px;
@@ -61,7 +61,7 @@ const orderButtonStyle = css`
   padding: 26px 120px;
   margin: 0 30px;
   background: var(--text-color);
-  font-size: 24px;
+  font-size: 22px;
   color: #fff;
 `;
 
