@@ -45,22 +45,29 @@ const QuantityInput = ({ id, value, onChange }: Props) => {
 
 const S = {
   Wrapper: styled.div`
+    position: relative;
+    width: 80px;
+
     & svg {
       position: absolute;
-      z-index: -1;
+      right: 0;
+      z-index: 1;
       width: 26px;
       max-width: 26px;
-      right: 6px;
       border: 1px solid var(--gray-color-200);
+      font-size: 16px;
     }
 
     & svg:nth-child(3) {
-      top: 28px;
+      top: 16px;
     }
   `,
 };
 
 const QuantityInputStyle = css`
+  position: absolute;
+  right: 0;
+  z-index: 2;
   width: 80px;
   height: 32px;
   font-size: 13px;
