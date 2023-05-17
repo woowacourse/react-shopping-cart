@@ -15,6 +15,13 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Noto Sans KR", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    position: relative;
+  }
+  
+  input,
+  button {
+    border: none;
+    background-color: none;
   }
   
   input:focus {
@@ -30,7 +37,8 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
   }
   
-  a * {
+  a,
+  button {
     cursor: pointer;
   }
 `;
