@@ -25,7 +25,7 @@
   - [x] ProductList
   - [x] ProductItem
   - [x] AmountCounter
-  - [ ] CheckBox
+  - [x] CheckBox
   - [x] Image
   - [ ] CartItemProduct
   - [x] Button
