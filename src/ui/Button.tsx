@@ -21,8 +21,8 @@ export const Button = ({
       onClick={onClick}
       width={width}
       height={height}
-      backgroundColor={backgroundColor}
-      borderColor={borderColor}
+      backgroundcolor={backgroundColor}
+      bordercolor={borderColor}
     >
       {children}
     </Styled.Button>
