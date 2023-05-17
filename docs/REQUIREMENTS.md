@@ -81,11 +81,11 @@
 
 - [x] msw를 이용한 api mocking
 
-- [ ] 에러 처리
+- [x] 에러 처리
 
-  - [ ] api status = 400
-  - [ ] api status = 500
-  - [ ] api status = 200이지만 안에 상품이 없는 경우
+  - [x] api status = 400
+  - [x] api status = 500
+  - [x] api status = 200이지만 안에 상품이 없는 경우
 
 - [ ] 상품 목록 페이지와 함께 모바일 환경 대응
 
