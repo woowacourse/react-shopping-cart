@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import { Header } from '../../../components';
+import { Header, Estimate } from '../../../components';
 import CartList from '../../trees/CartList/CartList';
 import mockCartItems from '../../../../public/assets/mockCartItems.json';
-import Estimate from '../../Estimate/Estimate';
 
 export default function CartListPage() {
   const cartItems = mockCartItems;

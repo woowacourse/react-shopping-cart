@@ -1,6 +1,6 @@
 import type { StoryFn } from '@storybook/react';
 import { MemoryRouter } from 'react-router-dom';
-import Estimate from '../Estimate';
+import Estimate from './Estimate';
 
 export default {
   title: 'Estimate',

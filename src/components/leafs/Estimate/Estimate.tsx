@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { SHIPPING_FEE } from '../../constants';
+import { SHIPPING_FEE } from '../../../constants';
 
 interface EstimateProps {
   total_price: number;
