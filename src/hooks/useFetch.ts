@@ -29,6 +29,11 @@ export const useFetch = <T>() => {
         method: 'POST',
         body: JSON.stringify(body),
       }),
+    patch: <T>(url: string, body: T) =>
+      fetchData(url, {
+        method: 'PATCH',
+        body: JSON.stringify(body),
+      }),
   };
 
   return { data, isLoading, api };
