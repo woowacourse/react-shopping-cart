@@ -3,6 +3,7 @@ import { LogoIcon } from "../../assets/ShoppingCartIcons";
 import { useNavigate } from "react-router-dom";
 import { PAGES } from "../../constants";
 import { CartAmount } from "./CartAmount";
+import { Suspense } from "react";
 
 export const Header = () => {
   const navigate = useNavigate();
@@ -16,7 +17,9 @@ export const Header = () => {
         </Style.LogoContainer>
         <Style.CartContainer>
           <Style.Cart onClick={() => navigate(PAGES.CART)}>장바구니</Style.Cart>
-          <CartAmount />
+          <Suspense fallback={<h1>로딩중....</h1>}>
+            <CartAmount />
+          </Suspense>
         </Style.CartContainer>
       </Style.ContentWrapper>
     </Style.Container>

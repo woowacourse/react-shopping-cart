@@ -8,12 +8,16 @@ interface CardButton {
 }
 
 export const CardButton = ({ id }: CardButton) => {
-  const { addItemToCartList, removeItemFromCartList, isInCart } = useCartItem(id);
+  const { addItemToCartList, removeItemFromCartList, changeCartItemQuantity, isInCart, quantity } = useCartItem(id);
 
   return (
     <>
       {isInCart() ? (
-        <Counter handleMinValueExceeded={removeItemFromCartList} />
+        <Counter
+          handleMinValueExceeded={removeItemFromCartList}
+          handleValueChanged={changeCartItemQuantity}
+          quantity={quantity}
+        />
       ) : (
         <AddShoppingCartIcon handleClick={addItemToCartList} />
       )}

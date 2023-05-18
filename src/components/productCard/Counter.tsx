@@ -4,10 +4,11 @@ import { useCounterInput } from "../../hooks/useCounterInput";
 
 interface CounterProps {
   handleMinValueExceeded?: () => void;
-  handleValueChanged?: () => void;
+  handleValueChanged?: (quantity: number) => void;
+  quantity?: number;
 }
 
-export const Counter = ({ handleMinValueExceeded, handleValueChanged }: CounterProps) => {
+export const Counter = ({ handleMinValueExceeded, handleValueChanged, quantity = 1 }: CounterProps) => {
   const { inputRef, handleDecrease, handleIncrease } = useCounterInput({
     min: 0,
     handleMinValueExceeded,
@@ -17,7 +18,7 @@ export const Counter = ({ handleMinValueExceeded, handleValueChanged }: CounterP
   return (
     <Style.Container>
       <Style.Button onClick={handleDecrease}>➖</Style.Button>
-      <Style.Input value={1} ref={inputRef} type="number" readOnly />
+      <Style.Input value={quantity} ref={inputRef} type="number" readOnly />
       <Style.Button onClick={handleIncrease}>➕</Style.Button>
     </Style.Container>
   );

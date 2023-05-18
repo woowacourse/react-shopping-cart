@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Product } from "../../types/Product";
 import { CardButton } from "./CardButton";
+import { Suspense } from "react";
 
 export const ProductCard = ({ id, name, price, imageUrl }: Product) => {
   return (
@@ -11,7 +12,9 @@ export const ProductCard = ({ id, name, price, imageUrl }: Product) => {
           <Style.Name>{name}</Style.Name>
           <Style.Price>{price}원</Style.Price>
         </Style.NamePriceContainer>
-        <CardButton id={id} />
+        <Suspense fallback={<h1>로딩중....</h1>}>
+          <CardButton id={id} />
+        </Suspense>
       </Style.DescriptionContainer>
     </Style.Container>
   );

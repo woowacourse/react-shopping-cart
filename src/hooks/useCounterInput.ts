@@ -5,7 +5,7 @@ interface useCounterInputProps {
   min?: number;
   handleMinValueExceeded?: () => void;
   handleMaxvalueExceeded?: () => void;
-  handleValueChanged?: () => void;
+  handleValueChanged?: (quantity: number) => void;
 }
 
 export const useCounterInput = ({
@@ -19,7 +19,7 @@ export const useCounterInput = ({
 
   const handleIncrease = () => {
     inputRef.current?.stepUp();
-    if (handleValueChanged) handleValueChanged();
+    if (handleValueChanged) handleValueChanged(Number(inputRef.current?.value));
 
     if (max === undefined) return;
 
@@ -28,7 +28,7 @@ export const useCounterInput = ({
 
   const handleDecrease = () => {
     inputRef.current?.stepDown();
-    if (handleValueChanged) handleValueChanged();
+    if (handleValueChanged) handleValueChanged(Number(inputRef.current?.value));
 
     if (min === undefined) return;
 
