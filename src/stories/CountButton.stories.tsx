@@ -9,5 +9,5 @@ const meta: Meta<typeof CountButton> = {
 export default meta;
 
 export const Default: Story = {
-  args: {},
+  args: { count: 1 },
 };
