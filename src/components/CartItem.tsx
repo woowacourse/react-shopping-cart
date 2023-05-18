@@ -17,7 +17,7 @@ export const CartItem = ({ id, imageUrl, name, price }: CartItemProps) => {
   return (
     <Styled.Wrapper>
       <Styled.CheckboxInput type="checkbox" />
-      <Image src={imageUrl} width="148px" height="180px" />
+      <Image src={imageUrl} width="148px" height="179px" />
       <Styled.ProductName size="18px">{name}</Styled.ProductName>
       <Styled.CountInteractionWrapper>
         <Styled.DeleteCartButtonWrapper>
