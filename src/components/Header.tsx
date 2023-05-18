@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { cartCountState } from '../atoms/CartState';
 import { Button as CartButton } from './common/Button';
 import { Text as AddToCartTitle } from './common/Text';
@@ -12,23 +13,21 @@ export const Header = () => {
   return (
     <HeaderWrapper>
       <StyledHeader>
-        <Logo $color="var(--white-color)" />
-        <CartButton
-          width="132px"
-          height="28px"
-          onClick={() => {
-            return;
-          }}
-        >
-          <AddToCartTitle size="24px" $color="var(--white-color)">
-            장바구니
-          </AddToCartTitle>
-          <TotalCartCountWrapper>
-            {cartProductCount !== 0 && (
-              <TotalCartCount count={cartProductCount} />
-            )}
-          </TotalCartCountWrapper>
-        </CartButton>
+        <Link to="/">
+          <Logo $color="var(--white-color)" />
+        </Link>
+        <Link to="/cart">
+          <CartButton width="132px" height="28px">
+            <AddToCartTitle size="24px" $color="var(--white-color)">
+              장바구니
+            </AddToCartTitle>
+            <TotalCartCountWrapper>
+              {cartProductCount !== 0 && (
+                <TotalCartCount count={cartProductCount} />
+              )}
+            </TotalCartCountWrapper>
+          </CartButton>
+        </Link>
       </StyledHeader>
     </HeaderWrapper>
   );
