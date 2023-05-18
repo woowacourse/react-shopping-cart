@@ -1,7 +1,8 @@
+import { InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-const CheckBox = () => {
-  return <InputCheckBox />;
+const CheckBox = (props: InputHTMLAttributes<HTMLInputElement>) => {
+  return <InputCheckBox {...props} />;
 };
 
 const InputCheckBox = styled.input.attrs({ type: 'checkbox' })`
