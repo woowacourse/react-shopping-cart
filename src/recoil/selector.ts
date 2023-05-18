@@ -7,7 +7,7 @@ export const cartProductsSelector = selector<ProductListType>({
   key: "cartProducts",
   get: ({ get }) => {
     return get(productsState).filter(
-      (product: ProductType) => product.quantity !== MIN_QUANTITY.toString()
+      (product: ProductType) => product.quantity !== MIN_QUANTITY
     );
   },
 });

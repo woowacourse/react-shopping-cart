@@ -8,7 +8,7 @@ export const TotalPriceTable = () => {
 
   const totalPrice = selectedProducts.reduce(
     (accumulator: number, currentValue) =>
-      accumulator + currentValue.price * Number(currentValue.quantity),
+      accumulator + currentValue.price * currentValue.quantity,
     0
   );
 

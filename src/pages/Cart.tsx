@@ -1,6 +1,7 @@
 import { useRecoilValue } from "recoil";
 import { styled } from "styled-components";
 import { useFetch } from "../hooks/useFetch";
+import { useRouter } from "../hooks/useRouter";
 import { cartProductsSelector } from "../recoil/selector";
 import { ROUTER_PATH } from "../router";
 import {
@@ -11,7 +12,6 @@ import {
   Button,
   Loading,
 } from "../components";
-import { useRouter } from "../hooks/useRouter";
 
 const Cart = () => {
   const { goPage } = useRouter();

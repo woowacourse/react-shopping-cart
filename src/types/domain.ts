@@ -10,12 +10,12 @@ export interface ProductType {
   name: string;
   price: number;
   imageUrl: string;
-  quantity: string;
+  quantity: number;
 }
 
 export interface CartItemType {
   id: number;
-  quantity: string;
+  quantity: number;
   product: ProductType;
 }
 
