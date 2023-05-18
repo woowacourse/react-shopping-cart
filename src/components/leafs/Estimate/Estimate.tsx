@@ -24,11 +24,9 @@ export default function Estimate({ total_price }: EstimateProps) {
           <p>{(total_price + SHIPPING_FEE).toLocaleString()}원</p>
         </Total>
       </InfoBox>
-      <OrderButton>
-        <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
-          주문하기
-        </Link>
-      </OrderButton>
+      <Link to="/">
+        <OrderButton>주문하기</OrderButton>
+      </Link>
     </Wrapper>
   );
 }
