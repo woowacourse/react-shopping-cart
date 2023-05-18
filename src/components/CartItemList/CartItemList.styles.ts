@@ -1,0 +1,55 @@
+import styled from 'styled-components';
+
+export const ItemWrapper = styled.div`
+  width: 600px;
+  margin: 0 60px;
+`;
+
+export const Title = styled.h1`
+  height: 60px;
+  margin-bottom: 32px;
+  text-align: center;
+  font: ${(props) => props.theme.font.large};
+  border-bottom: 4px solid ${(props) => props.theme.color.primary};
+`;
+
+export const CartItemTitle = styled.p`
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+  font: ${(props) => props.theme.font.medium};
+  border-bottom: 4px solid ${(props) => props.theme.color.gray};
+`;
+
+export const CheckBoxWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const Text = styled.p`
+  margin: 0 12px;
+  font: ${(props) => props.theme.font.small};
+`;
+
+export const SelectAllCheckBox = styled.input`
+  width: 28px;
+  height: 28px;
+  border: 1px solid ${(props) => props.theme.color.primary};
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:checked {
+    background-image: url("data:image/svg+xml,%3Csvg width='23' height='17' viewBox='0 0 23 17' fill='none' xmlns='http://www.w3.org/2000/svg'%0A%3E%3Cpath d='M2 7L9.11069 14.1107L21.8318 1.38956' stroke='white' stroke-width='3' /%3E%3C/svg%3E");
+    background-size: 100% 100%;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-color: ${(props) => props.theme.color.primary};
+  }
+`;
+
+export const SelectDeleteButton = styled.button`
+  width: 100px;
+  height: 36px;
+  font: ${(props) => props.theme.font.small};
+  text-align: center;
+  border: 1px solid ${(props) => props.theme.color.gray};
+`;

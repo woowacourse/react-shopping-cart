@@ -27,6 +27,11 @@ export const cartItemAtom = atomFamily<Cart | null, CartId>({
   },
 });
 
+export const checkedItemsIdAtom = atom<CartId[]>({
+  key: 'checkedItemsIdAtom',
+  default: [],
+});
+
 export const countCartListSelector = selector({
   key: 'countCartListSelector',
   get: ({ get }) => {
