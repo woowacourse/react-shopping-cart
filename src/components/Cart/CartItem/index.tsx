@@ -2,7 +2,7 @@ import { CartItem } from 'src/types';
 import { SelectInput, SelectLabel } from '../CartList/CartList.styles';
 import Counter from 'src/components/Counter';
 import { convertKORWon } from 'src/utils';
-import useProductSelect from 'src/hooks/useProductSelect';
+import useProductSelect from 'src/hooks/useCartUpdate';
 import * as S from './CartItem.styles';
 import Svg from 'src/components/@common/Svg';
 import { useRecoilValue } from 'recoil';
@@ -15,13 +15,19 @@ interface ItemProps {
 const Item = ({ item }: ItemProps) => {
   const { id, product, quantity, isSelected } = item;
 
-  const { increase, decrease } = useProductSelect(product);
+  const { increase, decrease, onChangeSelectToggle, onDeleteClick } =
+    useProductSelect(product);
   const itemTotalPrice = useRecoilValue(quantityTimesNumber(id));
 
   return (
     <S.ItemWrapper>
       <SelectLabel htmlFor={`${id}`}>
-        <SelectInput type="checkbox" id={`${id}`} checked={isSelected} />
+        <SelectInput
+          type="checkbox"
+          id={`${id}`}
+          checked={isSelected}
+          onChange={onChangeSelectToggle}
+        />
       </SelectLabel>
       <S.ProductImage src={product.imageUrl} alt={product.name} />
       <S.ProductNameConatiner>
@@ -36,7 +42,13 @@ const Item = ({ item }: ItemProps) => {
       <S.ProductPriceContainer>
         <S.ProductPrice>{convertKORWon(itemTotalPrice)}</S.ProductPrice>
       </S.ProductPriceContainer>
-      <Svg type="delete-icon" width={20} height={20} cursor="pointer" />
+      <Svg
+        type="delete-icon"
+        width={20}
+        height={20}
+        cursor="pointer"
+        onClick={onDeleteClick}
+      />
     </S.ItemWrapper>
   );
 };

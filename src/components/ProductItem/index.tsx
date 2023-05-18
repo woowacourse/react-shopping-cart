@@ -1,4 +1,4 @@
-import useProductSelect from 'src/hooks/useProductSelect';
+import useProductSelect from 'src/hooks/useCartUpdate';
 import { Product } from 'src/types';
 import Svg from '../@common/Svg';
 import Counter from '../Counter';
