@@ -1,10 +1,12 @@
 import { CartItem } from 'src/types';
 import Item from '../CartItem';
 import * as S from './CartList.styles';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   countCartListSelector,
   countSelectedCartItemsSelector,
+  deleteCartItemSelector,
+  wholeCartITemToggleSelector,
 } from 'src/recoil/cartList';
 
 interface CartListProps {
@@ -12,11 +14,26 @@ interface CartListProps {
 }
 
 const CartList = ({ cartList }: CartListProps) => {
-  // 카트 리스트를 받아서 쓰지만 사실은 전역 상태 관리로 관리가 되어야 하는 부분임.
   const wholeCartItemsCount = useRecoilValue(countCartListSelector);
-  const selectedCartItemsCount = useRecoilValue(countSelectedCartItemsSelector);
+  const selectedCartItems = useRecoilValue(countSelectedCartItemsSelector);
 
-  const wholeSelected = wholeCartItemsCount === selectedCartItemsCount;
+  const setDeleteCartList = useSetRecoilState(deleteCartItemSelector);
+
+  const [wholeSelected, setWholeSelected] = useRecoilState(
+    wholeCartITemToggleSelector
+  );
+
+  const onChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    const { checked } = event.currentTarget;
+    setWholeSelected(checked);
+  };
+
+  const onClickDeleteHandler: React.MouseEventHandler<
+    HTMLButtonElement
+  > = () => {
+    const selectedIds = selectedCartItems.map((item) => item.id);
+    setDeleteCartList([...selectedIds]);
+  };
 
   return (
     <S.CartListWrapper>
@@ -26,15 +43,16 @@ const CartList = ({ cartList }: CartListProps) => {
             id="whole-select"
             type="checkbox"
             checked={wholeSelected}
+            onChange={onChange}
           />
-          <S.SelectText>{`전체 선택 (${selectedCartItemsCount}/${wholeCartItemsCount}개)`}</S.SelectText>
+          <S.SelectText>{`전체 선택 (${selectedCartItems.length}/${wholeCartItemsCount}개)`}</S.SelectText>
         </S.SelectLabel>
         <span>|</span>
-        <button>선택 삭제</button>
+        <button onClick={onClickDeleteHandler}>선택 삭제</button>
       </S.CartListHeader>
       <ul>
         {cartList.map((item) => (
-          <Item item={item} />
+          <Item key={item.id} item={item} />
         ))}
       </ul>
     </S.CartListWrapper>

@@ -1,10 +1,4 @@
-import {
-  atom,
-  atomFamily,
-  DefaultValue,
-  selector,
-  selectorFamily,
-} from 'recoil';
+import { atom, DefaultValue, selector, selectorFamily } from 'recoil';
 import { CartItem, ProductId } from 'src/types';
 
 export const cartListAtom = atom<CartItem[]>({
@@ -39,7 +33,7 @@ export const countSelectedCartItemsSelector = selector({
   get: ({ get }) => {
     const list = get(cartListAtom);
 
-    return list.filter((data) => data.isSelected).length;
+    return list.filter((data) => data.isSelected);
   },
 });
 
@@ -75,6 +69,39 @@ export const selectedCartItemTotal = selector({
   },
 });
 
+export const wholeCartITemToggleSelector = selector({
+  key: 'wholeCartITemToggleSelector',
+  get: ({ get }) => {
+    const selectedList = get(countSelectedCartItemsSelector);
+    return get(countCartListSelector) === selectedList.length;
+  },
+  set: ({ get, set }, select) => {
+    if (select instanceof DefaultValue) return;
+    const selectedList = get(cartListAtom).map((item) => ({
+      ...item,
+      isSelected: select,
+    }));
+
+    set(cartListAtom, selectedList);
+  },
+});
+
+export const deleteCartItemSelector = selector({
+  key: 'deleteCartItemSelector',
+  get: ({ get }) => {
+    return get(cartListAtom)
+      .filter((item) => !item.isSelected)
+      .map((item) => item.id);
+  },
+  set: ({ get, set }, productIds) => {
+    if (productIds instanceof DefaultValue) return;
+    const cartList = get(cartListAtom);
+    const updateList = cartList.filter(({ id }) => !productIds.includes(id));
+
+    set(cartListAtom, updateList);
+  },
+});
+
 export const updateCart = selectorFamily({
   key: 'updateCart',
   get:
@@ -100,8 +127,7 @@ export const updateCart = selectorFamily({
       }
 
       if (item.quantity === 0) {
-        const updated = list.filter(({ id }) => id !== productId);
-        set(cartListAtom, updated);
+        set(deleteCartItemSelector, [productId]);
         return;
       }
 
