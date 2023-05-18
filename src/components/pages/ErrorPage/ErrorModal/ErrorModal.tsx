@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import {
@@ -10,13 +9,8 @@ import { Modal } from '@components/commons/Modal/Modal';
 import { Button as MoveToHomeButton } from '@components/commons/Button/Button';
 import * as Text from '@components/commons/Text/Text';
 
-const ErrorModal = (props: { fetchStatus?: number }) => {
-  const { fetchStatus } = props;
-  const [isError, setIsError] = useState(fetchStatus === 0 ? false : true);
-
-  useEffect(() => {
-    setIsError(fetchStatus === 0 ? false : true);
-  }, [fetchStatus]);
+const ErrorModal = (props: { isError: boolean }) => {
+  const { isError } = props;
 
   if (!isError) return null;
 
@@ -33,7 +27,6 @@ const ErrorModal = (props: { fetchStatus?: number }) => {
                 borderRadius="8px"
                 backgroundColor="#04c09e"
                 type="button"
-                onClick={() => setIsError(false)}
               >
                 <Text.Paragraph color="white">다시 불러오기</Text.Paragraph>
               </MoveToHomeButton>

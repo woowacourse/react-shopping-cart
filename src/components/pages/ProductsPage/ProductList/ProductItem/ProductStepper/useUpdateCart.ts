@@ -10,11 +10,15 @@ const useUpdateMyCart = (productId: number, productCount: number) => {
     setMyCart(prev => {
       const newCart = { ...prev };
 
-      if (productCount !== 0 && productCount !== 1) return newCart;
+      if (!productId || (productCount !== 0 && productCount !== 1)) {
+        return newCart;
+      }
 
       newCart[productId] = productCount;
 
-      if (productCount === 0) delete newCart[productId];
+      if (productCount === 0) {
+        delete newCart[productId];
+      }
 
       return newCart;
     });

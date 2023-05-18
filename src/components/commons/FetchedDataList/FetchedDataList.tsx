@@ -1,17 +1,32 @@
-import { ReactElement } from 'react';
+import { ReactElement, useCallback, useEffect, useState } from 'react';
 
 import useFetch from '@hooks/useFetch';
 
 interface FetchedDataListProps<T> {
   endpoint: string;
   initialValue: T;
-  children: (props: { data: T; fetchStatus: number }) => ReactElement;
+  children: (props: { data: T; isError: boolean }) => ReactElement;
 }
 
 export const FetchedDataList = <T,>(props: FetchedDataListProps<T>) => {
   const { endpoint, initialValue, children } = props;
+  const [data, setData] = useState(initialValue);
+  const [isError, setIsError] = useState(false);
 
-  const [data, fetchStatus] = useFetch<T>(endpoint, initialValue);
+  const { getData } = useFetch(endpoint);
 
-  return children({ data, fetchStatus });
+  const fetchData = useCallback(async () => {
+    try {
+      setData(await getData<T>());
+    } catch (error) {
+      setIsError(true);
+      console.log(error);
+    }
+  }, [getData]);
+
+  useEffect(() => {
+    fetchData();
+  }, [endpoint, fetchData]);
+
+  return children({ data, isError });
 };

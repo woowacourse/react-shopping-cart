@@ -1,29 +1,62 @@
-import { useEffect, useState } from 'react';
+import { useCallback } from 'react';
 
-const useFetch = <T>(url: string, initialValue: T): [T, number] => {
-  const [data, setData] = useState<T>(initialValue);
-  const [fetchStatus, setFetchStatus] = useState<number>(0);
+const useFetch = (entrypoint: string) => {
+  const getData = useCallback(
+    async <T>(endpoint = ''): Promise<T> => {
+      const response = await fetch(entrypoint + endpoint);
+      const data = await response.json();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          setFetchStatus(response.status);
-          throw new Error();
-        }
+      if (!response.ok) throw new Error(data.message);
 
-        const fetchedData = await response.json();
-        setData(fetchedData);
-      } catch (error) {
-        console.error('Error fetching data: ', error);
-      }
-    };
+      return data;
+    },
+    [entrypoint]
+  );
 
-    fetchData();
-  }, [url]);
+  const postData = useCallback(
+    async <T>(postingData: T, endpoint = ''): Promise<T> => {
+      const response = await fetch(entrypoint + endpoint, {
+        method: 'POST',
+        body: JSON.stringify(postingData),
+      });
+      const data = await response.json();
 
-  return [data, fetchStatus];
+      if (!response.ok) throw new Error(data.message);
+
+      return data;
+    },
+    [entrypoint]
+  );
+
+  const patchData = useCallback(
+    async <T>(endpoint = ''): Promise<T> => {
+      const response = await fetch(entrypoint + endpoint, {
+        method: 'PATCH',
+      });
+      const data = await response.json();
+
+      if (!response.ok) throw new Error(data.message);
+
+      return data;
+    },
+    [entrypoint]
+  );
+
+  const deleteData = useCallback(
+    async <T>(endpoint = ''): Promise<T> => {
+      const response = await fetch(entrypoint + endpoint, {
+        method: 'DELETE',
+      });
+      const data = await response.json();
+
+      if (!response.ok) throw new Error(data.message);
+
+      return data;
+    },
+    [entrypoint]
+  );
+
+  return { getData, postData, patchData, deleteData };
 };
 
 export default useFetch;

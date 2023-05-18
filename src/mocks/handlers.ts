@@ -122,8 +122,8 @@ export const handlers = [
   }),
 
   rest.post('/cart-items', async (req, res, ctx) => {
-    const productId = await req.json();
-    const product = products.find(product => product.id === productId);
+    const data = await req.json();
+    const product = products.find(product => product.id === data.productId);
 
     if (!product) {
       return res(ctx.status(404), ctx.json({ message: 'Product not found' }));

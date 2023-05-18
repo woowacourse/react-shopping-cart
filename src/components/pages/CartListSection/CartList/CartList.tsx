@@ -8,10 +8,10 @@ import CartItem from '@components/pages/CartListSection/CartList/CartItem/CartIt
 const CartList = () => {
   return (
     <FetchedDataList<Product[]> endpoint={'/cart-items'} initialValue={[]}>
-      {({ data, fetchStatus }) => {
+      {({ data, isError }) => {
         return (
           <>
-            <ErrorModal fetchStatus={fetchStatus} />
+            <ErrorModal isError={isError} />
             <StyledCartList>
               {data.map((item: Product) => (
                 <CartItem key={item.id} product={{ ...item }} />
