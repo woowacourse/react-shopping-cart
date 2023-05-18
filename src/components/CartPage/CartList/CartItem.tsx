@@ -6,21 +6,26 @@ import CheckBox from '@components/common/CheckBox';
 import { TRASH_LOGO } from '@assets/images';
 import { theme } from '@styles/theme';
 
-const CartItem = () => {
+interface CartItmeProps {
+  id: number;
+  name: string;
+  imageUrl: string;
+  price: number;
+  quantity: number;
+}
+
+const CartItem = ({ id, name, imageUrl, price, quantity }: CartItmeProps) => {
   return (
     <Wrapper>
       <LeftInformationWrapper>
         <CheckBox isChecked={false} onClick={() => {}} />
-        <Image
-          src={PRODUCT_LIST.productList[0].imageUrl}
-          alt="장바구니 아이템"
-        />
-        <Title>[든든] 야채바삭 김말이 700g</Title>
+        <Image src={imageUrl} alt="장바구니 아이템" />
+        <Title>{name}</Title>
       </LeftInformationWrapper>
       <RightInformationWrapper>
         <TrashLogo src={TRASH_LOGO} alt="장바구니 아이템 삭제/" />
-        <BucketCounter kind="large" id={1} quantity={4} />
-        <Price>8,440원</Price>
+        <BucketCounter kind="large" id={id} quantity={quantity} />
+        <Price>{price.toLocaleString('ko-KR')} 원</Price>
       </RightInformationWrapper>
     </Wrapper>
   );
