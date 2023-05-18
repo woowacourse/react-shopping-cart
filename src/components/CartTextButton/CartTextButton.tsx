@@ -11,7 +11,9 @@ const CartTextButton = () => {
       <Styled.Container>
         <Styled.ShoppingCart>장바구니</Styled.ShoppingCart>
         {cartQuantity && (
-          <Styled.CartQuantity>{cartQuantity}</Styled.CartQuantity>
+          <Styled.CartQuantity>
+            {cartQuantity < 100 ? cartQuantity : 99}
+          </Styled.CartQuantity>
         )}
       </Styled.Container>
     </Link>

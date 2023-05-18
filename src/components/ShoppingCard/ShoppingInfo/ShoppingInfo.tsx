@@ -11,9 +11,10 @@ import ProductPrice from "../../common/ProductPrice/ProductPrice";
 
 interface ShoppingInfoProps {
   cartId: number;
+  deleteChecked: () => void;
 }
 
-const ShoppingInfo = ({ cartId }: ShoppingInfoProps) => {
+const ShoppingInfo = ({ cartId, deleteChecked }: ShoppingInfoProps) => {
   const { cart, deleteToCart, plusQuantity, minusQuantity } = useCart(cartId);
   const { quantity, product } = cart;
   const { name, price, imageUrl } = product;
@@ -28,7 +29,12 @@ const ShoppingInfo = ({ cartId }: ShoppingInfoProps) => {
           <ThemeProvider theme={nameTheme}>
             <ProductName name={name} />
           </ThemeProvider>
-          <IconButton onClick={deleteToCart}>
+          <IconButton
+            onClick={() => {
+              deleteToCart();
+              deleteChecked();
+            }}
+          >
             <DeleteIcon />
           </IconButton>
         </Styled.TopSection>

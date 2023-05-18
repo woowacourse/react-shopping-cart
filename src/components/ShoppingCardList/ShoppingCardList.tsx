@@ -14,7 +14,8 @@ const ShoppingCardList = () => {
     countIsChecked,
     changeIsChecked,
     changeIsCheckedAll,
-    deleteCheckedItem,
+    deleteChecked,
+    deleteCheckedAll,
   } = useCheckedItem(shoppingList.length);
 
   return (
@@ -29,6 +30,9 @@ const ShoppingCardList = () => {
                 key={id}
                 cartId={id}
                 isChecked={isChecked[index]}
+                deleteChecked={() => {
+                  deleteChecked(index);
+                }}
                 changeIsChecked={() => {
                   changeIsChecked(index);
                 }}
@@ -42,7 +46,7 @@ const ShoppingCardList = () => {
         <div>
           전체선택 ({countIsChecked}/{shoppingList.length})
         </div>
-        <Styled.Button onClick={deleteCheckedItem}>선택삭제</Styled.Button>
+        <Styled.Button onClick={deleteCheckedAll}>선택삭제</Styled.Button>
       </Styled.AllCheckContainer>
     </Styled.Container>
   );

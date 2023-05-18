@@ -24,7 +24,13 @@ const useCheckedItem = (length: number) => {
     });
   };
 
-  const deleteCheckedItem = () => {
+  const deleteChecked = (index: number) => {
+    const newIsChecked = [...isChecked];
+    newIsChecked.splice(index, 1);
+    setIsChecked(newIsChecked);
+  };
+
+  const deleteCheckedAll = () => {
     isChecked.map((isChecked, index) => {
       if (isChecked) {
         console.log("지우는 로직을 작성해야해요~~", index);
@@ -43,7 +49,8 @@ const useCheckedItem = (length: number) => {
     countIsChecked,
     changeIsChecked,
     changeIsCheckedAll,
-    deleteCheckedItem,
+    deleteChecked,
+    deleteCheckedAll,
   };
 };
 
