@@ -1,10 +1,10 @@
 import { styled } from 'styled-components';
 
 export const CheckBox = () => {
-  return <StyledCheckBox></StyledCheckBox>;
+  return <StyledCheckBoxInput type="checkbox"></StyledCheckBoxInput>;
 };
 
-const StyledCheckBox = styled.div`
+const StyledCheckBoxInput = styled.input`
   width: 28px;
   height: 28px;
   background-color: var(--white-color);
