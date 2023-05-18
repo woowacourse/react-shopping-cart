@@ -3,6 +3,9 @@ import styled from 'styled-components';
 export const ItemWrapper = styled.div`
   width: 600px;
   margin-bottom: 60px;
+  @media (min-width: 320px) and (max-width: 1100px) {
+    width: 100%;
+  }
 `;
 
 export const CartItemTitle = styled.p`
@@ -35,6 +38,11 @@ export const SelectAllCheckBox = styled.input`
     background-position: 50%;
     background-repeat: no-repeat;
     background-color: ${(props) => props.theme.color.secondary};
+  }
+
+  @media (min-width: 320px) and (max-width: 479px) {
+    width: 20px;
+    height: 20px;
   }
 `;
 

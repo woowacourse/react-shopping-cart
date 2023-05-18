@@ -25,6 +25,11 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 0 60px;
+
+  @media (min-width: 320px) and (max-width: 1100px) {
+    flex-direction: column;
+    margin: 0 20px;
+  }
 `;
 
 const Title = styled.h1`
@@ -38,6 +43,11 @@ const Title = styled.h1`
 const PaymentDetailWrapper = styled.div`
   position: fixed;
   right: 60px;
+  @media (min-width: 320px) and (max-width: 1100px) {
+    position: unset;
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 export default CartList;

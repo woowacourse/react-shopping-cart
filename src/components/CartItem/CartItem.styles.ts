@@ -7,6 +7,9 @@ export const CartItemWrapper = styled.div`
   margin-bottom: 24px;
   padding: 8px;
   border-bottom: 1px solid ${(props) => props.theme.color.gray};
+  @media (min-width: 320px) and (max-width: 1100px) {
+    width: 100%;
+  }
 `;
 
 export const CheckBox = styled.input`
@@ -23,17 +26,31 @@ export const CheckBox = styled.input`
     background-repeat: no-repeat;
     background-color: ${(props) => props.theme.color.secondary};
   }
+
+  @media (min-width: 320px) and (max-width: 479px) {
+    width: 20px;
+    height: 20px;
+  }
 `;
 
 export const CartItemImage = styled.img`
   width: 144px;
   height: 144px;
   margin: 0 20px;
+  @media (min-width: 320px) and (max-width: 1100px) {
+    width: 100px;
+    height: 100px;
+    margin: 0;
+  }
 `;
 
 export const CartProductName = styled.p`
-  font: ${(props) => props.theme.font.medium};
   width: 50%;
+  font: ${(props) => props.theme.font.medium};
+  @media (min-width: 320px) and (max-width: 479px) {
+    width: 30%;
+    font: ${(props) => props.theme.font.small};
+  }
 `;
 
 export const CartProductPrice = styled.p`
