@@ -7,28 +7,55 @@ import { TrashCanIcon } from "../assets";
 import { Counter } from "./Counter";
 import { cartProductsSelector } from "../recoil/selector";
 import { MIN_QUANTITY } from "../constants";
+import { useCheckBox } from "../hooks/useCheckBox";
 
 export const CartProductList = () => {
   const cartProducts = useRecoilValue<ProductListType>(cartProductsSelector);
+  const { checkedArray, allChecked, handleCheckBox, handleAllCheckBox } =
+    useCheckBox(cartProducts.length);
 
   return (
     <Wrapper>
       <TitleBox>든든배송 상품 ({cartProducts.length}개)</TitleBox>
-      {cartProducts.map((product) => (
-        <CartProduct key={crypto.randomUUID()} {...product} />
+      {cartProducts.map((product, index) => (
+        <CartProduct
+          key={crypto.randomUUID()}
+          {...product}
+          checked={checkedArray[index]}
+          onChangeHandler={handleCheckBox(index)}
+        />
       ))}
       <AllCheckContainer>
         <CheckBoxLabel htmlFor="allProduct">
-          <CheckBox id="allProduct" type="checkbox" />
+          <CheckBox
+            id="allProduct"
+            type="checkbox"
+            checked={allChecked}
+            onClick={handleAllCheckBox}
+          />
         </CheckBoxLabel>
-        <p>전체선택 (2/{cartProducts.length})</p>
+        <p>
+          전체선택 ({checkedArray.length}/{cartProducts.length})
+        </p>
         <button>선택삭제</button>
       </AllCheckContainer>
     </Wrapper>
   );
 };
 
-const CartProduct = ({ id, name, price, imageUrl }: ProductType) => {
+interface CartProductType extends ProductType {
+  checked: boolean;
+  onChangeHandler: () => void;
+}
+
+const CartProduct = ({
+  id,
+  name,
+  price,
+  imageUrl,
+  checked,
+  onChangeHandler,
+}: CartProductType) => {
   const { setNewQuantity } = useQuantity(id);
 
   const handleTrashCanClicked = () => {
@@ -41,7 +68,12 @@ const CartProduct = ({ id, name, price, imageUrl }: ProductType) => {
         <img src={TrashCanIcon} alt="휴지통" onClick={handleTrashCanClicked} />
       </TrashCanIconBox>
       <CheckBoxLabel htmlFor="checkProduct">
-        <CheckBox id="checkProduct" type="checkbox" />
+        <CheckBox
+          id="checkProduct"
+          type="checkbox"
+          checked={checked}
+          onChange={onChangeHandler}
+        />
       </CheckBoxLabel>
       <img src={imageUrl} alt="상품이미지" />
       <Container>
@@ -156,7 +188,7 @@ const CounterBox = styled.div`
 const AllCheckContainer = styled.div`
   display: flex;
   align-items: center;
-  padding: 13px 0;
+  padding: 15px 0;
 
   & > label {
     margin-top: 5px;
