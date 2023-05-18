@@ -7,20 +7,14 @@ import { RecoilRoot } from 'recoil';
 import React from 'react';
 
 export const decorators = [
-  withThemeFromJSXProvider({
-    GlobalStyles: GlobalStyle, // Adds your GlobalStyle component to all stories
-    themes: {
-      theme: theme,
-    },
-    Provider: ThemeProvider,
-  }),
-  (Story) => {
-    return (
-      <RecoilRoot>
+  (Story) => (
+    <RecoilRoot>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
         <Story />
-      </RecoilRoot>
-    );
-  },
+      </ThemeProvider>
+    </RecoilRoot>
+  ),
 ];
 
 const preview: Preview = {
