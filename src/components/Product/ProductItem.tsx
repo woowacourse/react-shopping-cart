@@ -38,6 +38,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
             count={targetProduct.quantity}
             addCount={addCount}
             subtractCount={subtractCount}
+            variant='small'
           />
         )}
       </ProductInfoContainer>
