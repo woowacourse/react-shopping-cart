@@ -1,11 +1,10 @@
-import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
-import cartState from '../../../globalState/atoms/cartState';
 import CartItem from '../CartItem/CartItem';
 import CheckBox from '../../common/CheckBox/CheckBox';
+import useCartService from '../../../hooks/useCartService';
 
 const CartList = () => {
-  const [cartList] = useRecoilState(cartState);
+  const { cartList } = useCartService();
 
   return (
     <CartListContainer>

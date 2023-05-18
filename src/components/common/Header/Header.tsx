@@ -1,12 +1,11 @@
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import CartIcon from '../../../assets/icons/CartIcon';
-import cartState from '../../../globalState/atoms/cartState';
 import { useNavigate } from 'react-router-dom';
+import useCartService from '../../../hooks/useCartService';
 
 const Header = () => {
   const navigate = useNavigate();
-  const numberOfCartItem = useRecoilValue(cartState).length;
+  const { cartList } = useCartService();
 
   const onLogoClick = () => {
     navigate('/');
@@ -24,7 +23,7 @@ const Header = () => {
       </Logo>
       <CartButton onClick={onCartButtonClick}>
         장바구니
-        <CartTotalQuantity>{numberOfCartItem}</CartTotalQuantity>
+        <CartTotalQuantity>{cartList.length}</CartTotalQuantity>
       </CartButton>
     </HeaderContainer>
   );

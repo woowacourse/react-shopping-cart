@@ -16,6 +16,7 @@ const CartItem = ({ cartItem, updateCheckedCartList }: CartItemProps) => {
   const { id, imageSrc, name, price } = cartItem.product;
 
   const [count, setCount] = useState(cartItem.quantity);
+
   return (
     <CartItemContainer>
       <ItemContents>

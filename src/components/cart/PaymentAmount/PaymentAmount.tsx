@@ -1,10 +1,9 @@
-import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
-import cartState from '../../../globalState/atoms/cartState';
 import { formatPrice } from '../../../utils/formatPrice';
+import useCartService from '../../../hooks/useCartService';
 
 const PaymentAmount = () => {
-  const [cartList] = useRecoilState(cartState);
+  const { cartList } = useCartService();
   const cartListAmount = cartList.reduce(
     (acc, cartItem) => acc + cartItem.product.price,
     0,

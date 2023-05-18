@@ -4,7 +4,7 @@ import { uuid } from '../utils/uuid';
 import type { Product } from '../types/product';
 
 const useCartService = () => {
-  const [cart, setCart] = useRecoilState(cartState);
+  const [cartList, setCartList] = useRecoilState(cartState);
 
   const getNewCartItem = (product: Product) => {
     return {
@@ -15,7 +15,7 @@ const useCartService = () => {
   };
 
   const addCartItem = (product: Product) => {
-    setCart((prevCart) => {
+    setCartList((prevCart) => {
       const newCartItem = getNewCartItem(product);
 
       return [...prevCart, newCartItem];
@@ -23,7 +23,7 @@ const useCartService = () => {
   };
 
   const updateCartItemQuantity = (targetId: number) => (quantity: number) => {
-    setCart((prevCart) => {
+    setCartList((prevCart) => {
       return prevCart.map((cartItem) => {
         if (cartItem.product.id !== targetId) return cartItem;
 
@@ -36,13 +36,13 @@ const useCartService = () => {
   };
 
   const removeCartItem = (targetId: number) => {
-    setCart((prevCart) =>
+    setCartList((prevCart) =>
       prevCart.filter((cartItem) => cartItem.product.id !== targetId),
     );
   };
 
   return {
-    cart,
+    cartList,
     addCartItem,
     updateCartItemQuantity,
     removeCartItem,
