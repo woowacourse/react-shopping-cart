@@ -44,5 +44,5 @@ const StyledButton = styled.button<{
   height: ${({ $height }) => $height || '100%'};
   background-color: ${({ $backgroundColor }) =>
     $backgroundColor || 'var(--label-color)'};
-  border: 1px solid ${({ $borderColor }) => $borderColor || ''};
+  border: ${({ $borderColor }) => `1px solid ${$borderColor}`};
 `;
