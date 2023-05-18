@@ -17,6 +17,7 @@ const CartItem = ({ cartItem }: { cartItem: Cart }) => {
         <Svg type="trash-can" width={24} height={24} />
         <Counter
           count={currentCartItem?.quantity || 0}
+          min={1}
           increment={add}
           decrement={remove}
         />

@@ -15,6 +15,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
   const productSelect = currentCartItem ? (
     <Counter
       count={currentCartItem.quantity}
+      min={1}
       increment={add}
       decrement={remove}
     />
