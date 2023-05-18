@@ -9,17 +9,21 @@ const Header = () => {
   const navigate = useNavigate();
   const cartList = useRecoilValue(cartListSelector);
 
-  const handleTitleClicked = () => {
+  const goToMain = () => {
     navigate(ROUTER_PATH.Main);
+  };
+
+  const goToCart = () => {
+    navigate(ROUTER_PATH.Cart);
   };
 
   return (
     <Wrapper>
-      <TitleContainer onClick={handleTitleClicked}>
+      <TitleContainer onClick={goToMain}>
         <img src={process.env.PUBLIC_URL + "/assets/cart-icon.svg"} alt="홈카트" />
         <p>SHOP</p>
       </TitleContainer>
-      <CartContainer>
+      <CartContainer onClick={goToCart}>
         장바구니
         {cartList.length > 0 && <ItemQuantityBox>{cartList.length}</ItemQuantityBox>}
       </CartContainer>
@@ -70,6 +74,8 @@ const CartContainer = styled.section`
   font-size: 24px;
   font-weight: 500;
   color: white;
+
+  cursor: pointer;
 `;
 
 const ItemQuantityBox = styled.div`
