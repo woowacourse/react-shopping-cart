@@ -1,13 +1,9 @@
 import { styled } from 'styled-components';
 import { formatPrice } from '../../../utils/formatPrice';
-import useCartService from '../../../hooks/useCartService';
+import usePaymentAmount from './usePaymentAmount';
 
 const PaymentAmount = () => {
-  const { cartList } = useCartService();
-  const cartListAmount = cartList.reduce(
-    (acc, cartItem) => acc + cartItem.product.price * cartItem.quantity,
-    0,
-  );
+  const { paymentAmount, deliveryFee } = usePaymentAmount();
 
   return (
     <PaymentAmountContainer>
@@ -15,15 +11,15 @@ const PaymentAmount = () => {
       <Contents>
         <AmountTextContainer marginbottom="20px">
           <AmountText>총 상품가격</AmountText>
-          <AmountText>{formatPrice(cartListAmount)}</AmountText>
+          <AmountText>{formatPrice(paymentAmount)}</AmountText>
         </AmountTextContainer>
         <AmountTextContainer marginbottom="40px">
           <AmountText>총 배송비</AmountText>
-          <AmountText>{formatPrice(3000)}</AmountText>
+          <AmountText>{formatPrice(deliveryFee)}</AmountText>
         </AmountTextContainer>
         <AmountTextContainer marginbottom="45px">
           <AmountText>총 주문금액</AmountText>
-          <AmountText>{formatPrice(cartListAmount + 3000)}</AmountText>
+          <AmountText>{formatPrice(paymentAmount + deliveryFee)}</AmountText>
         </AmountTextContainer>
         <OrderButton>주문하기</OrderButton>
       </Contents>
