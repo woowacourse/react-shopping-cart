@@ -1,5 +1,5 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { $CartIdList, $CartItemState, $CheckedCartIdList, $ToastMessageList } from '../recoil/atom';
+import { $CartIdList, $CartItemState, $CheckedCartIdList, $ToastStateList } from '../recoil/atom';
 import useMutationQuery from './useMutationQuery';
 import type { CartItem, Product } from '../types';
 
@@ -8,7 +8,7 @@ const useCart = (id: number) => {
   const [cartItemState, setCartItemState] = useRecoilState($CartItemState(id));
   const setCheckedCartIdList = useSetRecoilState($CheckedCartIdList);
   const [cartIdList, setCartIdList] = useRecoilState($CartIdList);
-  const setMessageList = useSetRecoilState($ToastMessageList);
+  const setToastStateList = useSetRecoilState($ToastStateList);
 
   const addQuantity = async (quantity: number) => {
     if (cartItemState) {
@@ -24,7 +24,7 @@ const useCart = (id: number) => {
     setCartItemState(null);
 
     if (!(loading || error)) {
-      setMessageList(prev => [...prev, '장바구니에서 삭제되었습니다.']);
+      setToastStateList(prev => [...prev, { type: 'success', message: '장바구니에서 삭제되었습니다.' }]);
     }
   };
 
@@ -35,7 +35,7 @@ const useCart = (id: number) => {
     setCartItemState({ id, quantity: 1, product });
 
     if (!(loading || error)) {
-      setMessageList(prev => [...prev, '장바구니에 등록되었습니다.']);
+      setToastStateList(prev => [...prev, { type: 'success', message: '장바구니에 등록되었습니다.' }]);
     }
   };
 

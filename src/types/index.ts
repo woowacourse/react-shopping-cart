@@ -11,6 +11,11 @@ interface CartItem {
   product: Product;
 }
 
+interface ToastState {
+  type: 'success' | 'error' | 'warning';
+  message: string;
+}
+
 type MutationFetchMethod = 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
-export type { Product, CartItem, MutationFetchMethod };
+export type { Product, CartItem, ToastState, MutationFetchMethod };

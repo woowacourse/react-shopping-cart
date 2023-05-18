@@ -3,17 +3,20 @@ import ProductItem from '../ProductItem';
 import styles from './index.module.scss';
 import { Product } from '../../types';
 import useGetQuery from '../../hooks/useGetQuery';
-import { $ToastMessageList } from '../../recoil/atom';
+import { $ToastStateList } from '../../recoil/atom';
 import { useSetRecoilState } from 'recoil';
 import { useEffect } from 'react';
 
 function ProductItemList() {
   const { data: productsData, error } = useGetQuery<Product[]>('./products');
-  const setMessageList = useSetRecoilState($ToastMessageList);
+  const setToastStateList = useSetRecoilState($ToastStateList);
 
   useEffect(() => {
     if (error) {
-      setMessageList(prev => [...prev, '제품 리스트를 불러오는 과정에서 에러가 발생했습니다.']);
+      setToastStateList(prev => [
+        ...prev,
+        { type: 'error', message: '제품 목록을 불러오는 과정에서 문제가 생겼습니다.' },
+      ]);
     }
   }, [error]);
 
