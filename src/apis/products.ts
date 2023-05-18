@@ -1,6 +1,6 @@
 import type { Product } from '../types/product';
 
-const URL = `${process.env.PUBLIC_URL}/data/products.json`;
+const URL = `/products`;
 
 export const fetchProducts = async () => {
   const response = await fetch(URL);

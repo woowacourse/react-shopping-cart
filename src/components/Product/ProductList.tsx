@@ -6,6 +6,7 @@ import ProductItem from './ProductItem';
 import { fetchProducts } from '../../apis/products';
 import type { Product } from '../../types/product';
 import useCartProductUpdate from '../../hooks/useCartProductUpdate';
+import AbnormalMessage from '../Common/AbnormalMessage';
 
 const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -20,6 +21,10 @@ const ProductList = () => {
   }, []);
 
   useCartProductUpdate();
+
+  if (products.length === 0) {
+    return <AbnormalMessage abnormalState='empty' />;
+  }
 
   return (
     <ProductListContainer>

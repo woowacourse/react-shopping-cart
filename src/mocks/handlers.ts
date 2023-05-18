@@ -6,6 +6,16 @@ export const handlers = [
     await sleep(200);
     return res(ctx.status(200), ctx.json(products));
   }),
+
+  rest.get('/products/empty', async (req, res, ctx) => {
+    await sleep(200);
+    return res(ctx.status(200), ctx.json([]));
+  }),
+
+  rest.get('/products/error', async (req, res, ctx) => {
+    await sleep(200);
+    return res(ctx.status(200), ctx.json(products));
+  }),
 ];
 
 async function sleep(timeout: number) {
