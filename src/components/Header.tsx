@@ -1,12 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { useRecoilValue } from 'recoil';
-import { cartListState } from '../recoil/atoms';
 import { CartLogo } from '../assets/svg';
+import CartCountBadge from './cart/CartCountBadge';
 
 export default function Header() {
   const navigate = useNavigate();
-  const cartList = useRecoilValue(cartListState);
 
   return (
     <Style.Container>
@@ -14,9 +12,9 @@ export default function Header() {
         <Style.Title onClick={() => navigate('/')}>
           <CartLogo />
         </Style.Title>
-        <Style.CartLink onClick={() => navigate('/')}>
-          <Style.CountInCart>{cartList.length}</Style.CountInCart>
-        </Style.CartLink>
+        <Style.CartButton onClick={() => navigate('/')}>
+          <CartCountBadge />
+        </Style.CartButton>
       </Style.Content>
     </Style.Container>
   );
@@ -83,7 +81,7 @@ const Style = {
     }
   `,
 
-  CartLink: styled.button`
+  CartButton: styled.button`
     display: flex;
     align-items: center;
 
@@ -93,18 +91,5 @@ const Style = {
       content: '장바구니';
       padding-right: 6px;
     }
-  `,
-
-  CountInCart: styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 30px;
-    height: 30px;
-
-    border-radius: 50%;
-
-    background-color: #04c09e;
   `,
 };
