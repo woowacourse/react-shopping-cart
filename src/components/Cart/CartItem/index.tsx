@@ -24,7 +24,12 @@ const Item = ({ item }: ItemProps) => {
       <S.ProductNameConatiner>
         <S.ProductName>{product.name}</S.ProductName>
       </S.ProductNameConatiner>
-      <Counter count={quantity} increase={increase} decrease={decrease} />
+      <Counter
+        count={quantity}
+        increase={increase}
+        decrease={decrease}
+        isOnlyOverOne={true}
+      />
       <S.ProductPriceContainer>
         <S.ProductPrice>{convertKORWon(product.price)}</S.ProductPrice>
       </S.ProductPriceContainer>
