@@ -2,10 +2,11 @@ import { styled } from 'styled-components';
 import Header from '../components/common/Header/Header';
 import CartList from '../components/cart/CartList/CartList';
 import PaymentAmount from '../components/cart/PaymentAmount/PaymentAmount';
+import CheckedCartListProvider from '../provider/CheckedListProvider';
 
 const CartPage = () => {
   return (
-    <>
+    <CheckedCartListProvider>
       <Header />
       <Layout>
         <Title>장바구니</Title>
@@ -14,7 +15,7 @@ const CartPage = () => {
           <PaymentAmount />
         </Contents>
       </Layout>
-    </>
+    </CheckedCartListProvider>
   );
 };
 
