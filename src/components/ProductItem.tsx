@@ -42,6 +42,7 @@ export const ProductItem = ({ product }: ProductItemProps) => {
 };
 
 const ProductItemWrapper = styled.div`
+  width: 260px;
   margin-bottom: 20px;
 `;
 
