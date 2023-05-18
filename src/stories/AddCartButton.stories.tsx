@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 type Story = StoryObj<typeof AddCartButton>;
 const meta: Meta<typeof AddCartButton> = {
-  title: 'AddCartButton',
+  title: 'Common/AddCartButton',
   component: AddCartButton,
 };
 export default meta;

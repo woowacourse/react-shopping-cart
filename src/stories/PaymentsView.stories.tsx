@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 type Story = StoryObj<typeof PaymentsView>;
 const meta: Meta<typeof PaymentsView> = {
-  title: 'PaymentsView',
+  title: 'Common/PaymentsView',
   component: PaymentsView,
 };
 export default meta;

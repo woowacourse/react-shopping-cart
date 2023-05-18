@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 
 type Story = StoryObj<typeof CountButton>;
 const meta: Meta<typeof CountButton> = {
-  title: 'CountButton',
+  title: 'Common/CountButton',
   component: CountButton,
 };
 export default meta;
