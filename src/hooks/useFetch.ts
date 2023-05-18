@@ -14,45 +14,40 @@ const useFetch = (entrypoint: string) => {
   );
 
   const postData = useCallback(
-    async <T>(postingData: T, endpoint = ''): Promise<T> => {
+    async <T>(postingData: T, endpoint = '') => {
       const response = await fetch(entrypoint + endpoint, {
         method: 'POST',
         body: JSON.stringify(postingData),
       });
-      const data = await response.json();
 
-      if (!response.ok) throw new Error(data.message);
+      if (!response.ok) throw new Error();
 
-      return data;
+      const location = response.url;
+
+      return location;
     },
     [entrypoint]
   );
 
   const patchData = useCallback(
-    async <T>(patchingData: T, endpoint = ''): Promise<T> => {
+    async <T>(patchingData: T, endpoint = '') => {
       const response = await fetch(entrypoint + endpoint, {
         method: 'PATCH',
         body: JSON.stringify(patchingData),
       });
-      const data = await response.json();
 
-      if (!response.ok) throw new Error(data.message);
-
-      return data;
+      if (!response.ok) throw new Error();
     },
     [entrypoint]
   );
 
   const deleteData = useCallback(
-    async <T>(endpoint = ''): Promise<T> => {
+    async (endpoint = '') => {
       const response = await fetch(entrypoint + endpoint, {
         method: 'DELETE',
       });
-      const data = await response.json();
 
-      if (!response.ok) throw new Error(data.message);
-
-      return data;
+      if (!response.ok) throw new Error();
     },
     [entrypoint]
   );
