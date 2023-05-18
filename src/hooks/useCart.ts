@@ -22,11 +22,9 @@ export const useCart = (productInfo?: ProductInfo) => {
     ]);
   };
 
-  const deleteFromCart = () => {
-    const curIndex = cartList.findIndex((cartItem) => cartItem.id === productInfo?.id);
-    const newCartList = structuredClone(cartList);
-    newCartList.splice(curIndex, 1);
-    setCartList(newCartList);
+  const deleteFromCart = (productId?: number) => {
+    const curProductId = productId ? productId : productInfo?.id;
+    setCartList((cartList) => cartList.filter((cartItem) => cartItem.id !== curProductId));
   };
 
   const updateProductQuantity = (quantity: number) => {

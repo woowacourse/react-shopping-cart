@@ -4,11 +4,12 @@ import { styled } from 'styled-components';
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   bgColor: string;
   designType: 'text' | 'square' | 'rectangle';
+  fontSize: string;
 }
 
-export default function Button({ bgColor, designType, ...props }: Partial<Props>) {
+export default function Button({ bgColor, designType, fontSize, ...props }: Partial<Props>) {
   return (
-    <Style.Button className={designType} bgColor={bgColor} {...props}>
+    <Style.Button className={designType} bgColor={bgColor} fontSize={fontSize} {...props}>
       {props.children}
     </Style.Button>
   );
@@ -24,6 +25,7 @@ const Style = {
     border-radius: 7px;
     background-color: ${(props) => (props.bgColor ? props.bgColor : 'var(--grey-100)')};
 
+    font-size: ${(props) => (props.fontSize ? props.fontSize : '16px')};
     color: var(--grey-100);
     cursor: pointer;
 

@@ -1,24 +1,30 @@
 import { styled } from 'styled-components';
-import { TrashCanIcon } from '../../assets/svg';
-import Stepper from '../Stepper';
-import { useCart } from '../../hooks/useCart';
-import Price from '../common/Price';
 import { CartItemInfo } from '../../types';
+import { useCart } from '../../hooks/useCart';
+import { TrashCanIcon } from '../../assets/svg';
+import Price from '../common/Price';
+import Stepper from '../Stepper';
 
 interface Props {
   cartItemInfo: CartItemInfo;
+  deleteCheckedItem: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
-export default function CartItem({ cartItemInfo }: Props) {
+export default function CartItem({ cartItemInfo, deleteCheckedItem }: Props) {
   const { name, price, imageUrl } = cartItemInfo.product;
   const { updateProductQuantity, deleteFromCart } = useCart(cartItemInfo.product);
+
+  const handleDeleteCartItem = () => {
+    deleteCheckedItem((prev) => prev.filter((itemId) => itemId !== cartItemInfo.id));
+    deleteFromCart();
+  };
 
   return (
     <>
       <Style.ProductImage src={imageUrl} alt={name} />
-      <Style.ProductName>{name}</Style.ProductName>
+      <Style.ProductName htmlFor={`${name}-checkbox`}>{name}</Style.ProductName>
       <Style.TrashCanIConAndStepperAndPriceContainer>
-        <Style.DeleteCartItemButton onClick={deleteFromCart}>
+        <Style.DeleteCartItemButton onClick={handleDeleteCartItem}>
           <TrashCanIcon />
         </Style.DeleteCartItemButton>
         <Stepper
@@ -40,11 +46,13 @@ const Style = {
     margin-right: 20px;
   `,
 
-  ProductName: styled.h2`
+  ProductName: styled.label`
     width: 170px;
 
     font-size: 18px;
     color: var(--grey-400);
+
+    cursor: pointer;
   `,
 
   TrashCanIConAndStepperAndPriceContainer: styled.div`

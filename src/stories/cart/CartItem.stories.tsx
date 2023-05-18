@@ -43,5 +43,7 @@ const Style = {
 
     padding: 20px;
     border-bottom: 1px ridge;
+
+    pointer-events: none;
   `,
 };

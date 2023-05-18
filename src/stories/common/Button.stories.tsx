@@ -13,6 +13,7 @@ type Story = StoryObj<typeof meta>;
 export const Text: Story = {
   args: {
     designType: 'text',
+    fontSize: '20px',
     children: 'Button',
   },
 };
