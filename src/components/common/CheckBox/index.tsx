@@ -15,6 +15,8 @@ const Wrapper = styled.input`
   width: 28px;
   height: 28px;
 
+  cursor: pointer;
+
   accent-color: ${theme.colors.primaryBlack};
 `;
 

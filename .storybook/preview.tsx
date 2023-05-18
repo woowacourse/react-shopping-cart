@@ -4,6 +4,7 @@ import { Decorator, Preview } from '@storybook/react';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../src/styles/theme';
 import GlobalStyle from '../src/styles/globalStyle';
+import { MemoryRouter } from 'react-router-dom';
 
 const preview: Preview = {
   parameters: {
@@ -21,12 +22,14 @@ const localStorageResetDecorator: Decorator = (Story) => {
   window.localStorage.clear();
 
   return (
-    <ThemeProvider theme={theme}>
-      <RecoilRoot>
-        <GlobalStyle />
-        <Story />
-      </RecoilRoot>
-    </ThemeProvider>
+    <MemoryRouter initialEntries={['/']}>
+      <ThemeProvider theme={theme}>
+        <RecoilRoot>
+          <GlobalStyle />
+          <Story />
+        </RecoilRoot>
+      </ThemeProvider>
+    </MemoryRouter>
   );
 };
 

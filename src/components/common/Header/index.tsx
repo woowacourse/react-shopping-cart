@@ -1,6 +1,8 @@
+import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 import { cartAtom } from '@recoil/atoms/cartAtom';
+import { PAGE_PATH } from '@router';
 import { HEADER_LOGO } from '@assets/images';
 import { device, theme } from '@styles/theme';
 
@@ -9,14 +11,18 @@ const Header = () => {
 
   return (
     <Wrapper>
-      <Container>
-        <Logo src={HEADER_LOGO} alt="헤더 로고" />
-        <LogoTitle>SHOP</LogoTitle>
-      </Container>
-      <Container>
-        <BucketText>장바구니</BucketText>
-        <BucketCount>{cart.length}</BucketCount>
-      </Container>
+      <StyledLink to={PAGE_PATH.HOME}>
+        <Container>
+          <Logo src={HEADER_LOGO} alt="헤더 로고" />
+          <LogoTitle>SHOP</LogoTitle>
+        </Container>
+      </StyledLink>
+      <StyledLink to={PAGE_PATH.CART}>
+        <Container>
+          <BucketText>장바구니</BucketText>
+          <BucketCount>{cart.length}</BucketCount>
+        </Container>
+      </StyledLink>
     </Wrapper>
   );
 };
@@ -122,4 +128,7 @@ const BucketCount = styled.div`
   }
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration-line: none;
+`;
 export default Header;

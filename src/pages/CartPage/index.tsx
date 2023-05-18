@@ -2,7 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 import CartList from '@components/CartPage/CartList';
 import EstimatedPayment from '@components/CartPage/EstimatedPayment';
-import { theme } from '@styles/theme';
+import { device, theme } from '@styles/theme';
 
 const CartPage = () => {
   return (
@@ -21,8 +21,16 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  padding: 30px 0;
+  padding: 30px 20%;
+
   border-bottom: 4px solid ${theme.colors.primaryBlack};
+  @media ${device.mobileS} {
+    padding: 61px 5%;
+  }
+
+  @media ${device.laptopL} {
+    padding: 61px 10%;
+  }
 `;
 
 const Title = styled.h3`
@@ -52,7 +60,15 @@ const Main = styled.main`
   display: grid;
   grid-template-columns: 5fr 2fr;
 
+  justify-content: space-between;
+
   gap: 100px;
+
+  @media ${device.laptopL} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export default CartPage;

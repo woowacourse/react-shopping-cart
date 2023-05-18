@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 import Button from '@components/common/Button';
-import { theme } from '@styles/theme';
+import { device, theme } from '@styles/theme';
 
 const EstimatedPayment = () => {
   return (
@@ -25,7 +25,7 @@ const EstimatedPayment = () => {
           </ContentWrapper>
           <Button
             text="주문하기"
-            width="388px"
+            width="100%"
             height="73px"
             fontSize="24px"
             backgroundColor={theme.colors.primaryBlack}
@@ -39,8 +39,9 @@ const EstimatedPayment = () => {
 };
 
 const Wrapper = styled.div`
-  width: 448px;
+  width: 100%;
   max-height: 410px;
+
   border: 1px solid ${theme.colors.whiteGray};
 `;
 
@@ -90,6 +91,10 @@ const ContentText = styled.span`
   letter-spacing: 0.5px;
 
   color: ${theme.colors.primaryBlack};
+
+  @media ${device.mobileM} {
+    font-size: 16px;
+  }
 `;
 
 export default EstimatedPayment;

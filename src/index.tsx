@@ -1,8 +1,9 @@
 import React from 'react';
-import App from 'App';
+import { RouterProvider } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from 'styled-components';
+import { router } from '@router';
 import GlobalStyle from '@styles/globalStyle';
 import { theme } from '@styles/theme';
 
@@ -14,7 +15,7 @@ root.render(
     <ThemeProvider theme={theme}>
       <RecoilRoot>
         <GlobalStyle />
-        <App />
+        <RouterProvider router={router} />
       </RecoilRoot>
     </ThemeProvider>
   </React.StrictMode>
