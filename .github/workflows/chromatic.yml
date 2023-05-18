@@ -1,22 +1,62 @@
-# Workflow name
-name: "Chromatic Deployment"
+name: Deploy
 
-# Event for the workflow
-on: push
+on:
+  push:
+    branches: ['step1']
 
-# List of jobs
+  workflow_dispatch:
+
 jobs:
-  test:
-    # Operating System
+  deploy:
     runs-on: ubuntu-latest
-    # Job steps
+    permissions:
+      contents: write
+    concurrency:
+      group: ${{ github.workflow }}
+      cancel-in-progress: true
+
     steps:
-      - uses: actions/checkout@v1
-      - run: yarn
-        #👇 Adds Chromatic as a step in the workflow
-      - uses: chromaui/action@v1
-        # Options required for Chromatic's GitHub Action
+      - name: Use repository source
+        uses: actions/checkout@v3
+
+      - name: Use node.js
+        uses: actions/setup-node@v3
         with:
-          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/ko/deploy/ to obtain it
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          node-version: 18
+
+      - name: Cache node_modules
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm ci
+        if: steps.cache.outputs.cache-hit != 'true'
+
+      - name: Set PUBLIC_URL
+        run: |
+          PUBLIC_URL=$(echo $GITHUB_REPOSITORY | sed -r 's/^.+\/(.+)$/\/\1\//')
+          echo PUBLIC_URL=$PUBLIC_URL > .env
+
+      - name: Build app
+        run: |
+          npm run build
+          cp ./build/index.html ./build/404.html
+
+      # 이 부분입니다.
+      # -----------------------------------------
+      - name: Build storybook
+        run: |
+          npm run build-storybook
+          mv ./storybook-static ./build/storybook
+      # -----------------------------------------
+
+      - name: Deploy to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
