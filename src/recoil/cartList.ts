@@ -34,6 +34,22 @@ export const countCartListSelector = selector({
   },
 });
 
+export const totalPriceSelector = selector({
+  key: 'totalPriceSelector',
+  get: ({ get }) => {
+    const ids = get(checkedItemsIdAtom);
+    const totalPrice = ids
+      .map((id) => get(cartItemAtom(id)))
+      .reduce((acc, item) => {
+        if (!item) return acc;
+        const { price } = item.product;
+        const { quantity } = item;
+        return acc + price * quantity;
+      }, 0);
+    return totalPrice;
+  },
+});
+
 export const updateCart = selectorFamily({
   key: 'updateCart',
   get:

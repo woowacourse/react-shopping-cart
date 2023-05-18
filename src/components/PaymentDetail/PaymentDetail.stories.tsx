@@ -11,14 +11,4 @@ export default paymentDetail;
 
 type Story = StoryObj<typeof paymentDetail>;
 
-export const Default: Story = {
-  args: {
-    totalPrice: 1000,
-  },
-};
-
-export const Empty: Story = {
-  args: {
-    totalPrice: 0,
-  },
-};
+export const Default: Story = {};

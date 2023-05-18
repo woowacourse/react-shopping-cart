@@ -1,7 +1,10 @@
+import { useRecoilValue } from 'recoil';
+import { totalPriceSelector } from 'recoil/cartList';
 import * as S from './PaymentDetail.styles';
 
-const PaymentDetail = ({ totalPrice }: { totalPrice: number }) => {
+const PaymentDetail = () => {
   const deliveryPrice = 3000;
+  const totalPrice = useRecoilValue(totalPriceSelector);
   const orderPrice = totalPrice === 0 ? 0 : totalPrice + deliveryPrice;
 
   return (
