@@ -1,5 +1,5 @@
 import { CartItem } from '../types/cart';
-import fetcher from '.';
+import { fetcher } from '.';
 
 interface FetchCartRes {
   cart: CartItem[];
