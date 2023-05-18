@@ -38,9 +38,9 @@ describe("Selector Option의 Group 랜더링 테스트", () => {
 
   test("custom된 children요소가 있으면 기본 스타일의 custom된 child가 랜더링 된다", () => {
     render(
-      <OptionContent asChild>
-        <div>content custom</div>
-      </OptionContent>
+      <OptionGroup asChild>
+        <div>content group</div>
+      </OptionGroup>
     );
     const customContent = screen.getByTestId("custom-group");
 
