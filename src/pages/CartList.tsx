@@ -1,18 +1,21 @@
 import { useEffect } from 'react';
 import { styled } from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { cartIds } from 'recoil/cartList';
 import ContentLayout from 'components/@common/ContentLayout';
 import CartItem from 'components/CartItem';
 import Header from 'components/Header';
+import PaymentDetail from 'components/PaymentDetail';
 import { useFetch } from 'hooks/useFetch';
 import { type Cart } from 'types';
-import PaymentDetail from 'components/PaymentDetail';
 
 const CartList = () => {
+  const cartIdArray = useRecoilValue(cartIds);
   const { data, api } = useFetch<{ cartList: Cart[] }>();
 
   useEffect(() => {
     api.get('/api/cart-items');
-  }, []);
+  }, [cartIdArray]);
 
   const fetchedCartList =
     data &&

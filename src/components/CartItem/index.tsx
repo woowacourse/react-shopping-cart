@@ -5,7 +5,9 @@ import { Cart } from 'types';
 import Svg from 'components/@common/Svg';
 
 const CartItem = ({ cartItem }: { cartItem: Cart }) => {
-  const { currentCartItem, remove, add } = useProductSelect(cartItem.product);
+  const { currentCartItem, remove, add, onDeleteItem } = useProductSelect(
+    cartItem.product
+  );
   const { product } = cartItem;
 
   return (
@@ -14,7 +16,9 @@ const CartItem = ({ cartItem }: { cartItem: Cart }) => {
       <S.CartItemImage src={product.imageUrl} alt={product.name} />
       <S.CartProductName>{product.name}</S.CartProductName>
       <S.CounterWrapper>
-        <Svg type="trash-can" width={24} height={24} />
+        <button onClick={onDeleteItem}>
+          <Svg type="trash-can" width={24} height={24} />
+        </button>
         <Counter
           count={currentCartItem?.quantity || 0}
           min={1}

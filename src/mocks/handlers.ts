@@ -52,4 +52,15 @@ export const handlers = [
 
     return res(ctx.status(200));
   }),
+
+  rest.delete('/api/cart-items/:cartId', async (req, res, ctx) => {
+    const cartId = Number(req.params.cartId);
+
+    cartData.cartList = cartData.cartList.filter(
+      (cartItem) => cartItem.id !== cartId
+    );
+    setLocalStorageData<Cart[]>('cartList', cartData.cartList);
+
+    return res(ctx.status(204));
+  }),
 ];

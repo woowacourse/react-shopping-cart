@@ -39,5 +39,10 @@ export const useProductSelect = (product: Product) => {
     });
   };
 
-  return { currentCartItem: cartItem, remove, add, onSelectItem };
+  const onDeleteItem: React.MouseEventHandler<HTMLButtonElement> = () => {
+    api.delete(`/api/cart-items/${product.id}`);
+    setCartIds((prev) => prev.filter((id) => id !== product.id));
+  };
+
+  return { currentCartItem: cartItem, remove, add, onDeleteItem, onSelectItem };
 };
