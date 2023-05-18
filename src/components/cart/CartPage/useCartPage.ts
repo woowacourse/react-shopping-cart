@@ -5,13 +5,13 @@ import type { CartItem } from '../../../types/product';
 const useCartPage = () => {
   const { cart, removeAllProductsFromCart } = useCartService();
   const [checkedItemIds, setCheckedItemIds] = useState(
-    cart.map((cartItem) => cartItem.id),
+    new Set(cart.map((cartItem) => cartItem.id)),
   );
-  const isAllChecked = cart.length > 0 && checkedItemIds.length === cart.length;
+  const isAllChecked = cart.length > 0 && checkedItemIds.size === cart.length;
 
   const calcTotalPrice = () => {
     const checkedItems = cart.filter((cartItem) =>
-      checkedItemIds.includes(cartItem.id),
+      checkedItemIds.has(cartItem.id),
     );
 
     return checkedItems.reduce(
@@ -21,24 +21,28 @@ const useCartPage = () => {
   };
 
   const handleCheckboxChange = (clickedItemId: CartItem['id']) => {
-    if (checkedItemIds.includes(clickedItemId)) {
-      setCheckedItemIds((prev) => prev.filter((id) => id !== clickedItemId));
+    const nextIds = new Set(checkedItemIds);
+
+    if (checkedItemIds.has(clickedItemId)) {
+      nextIds.delete(clickedItemId);
     } else {
-      setCheckedItemIds((prev) => [...prev, clickedItemId]);
+      nextIds.add(clickedItemId);
     }
+
+    setCheckedItemIds(nextIds);
   };
 
   const handleAllCheckboxChange = () => {
     if (isAllChecked) {
-      setCheckedItemIds(() => []);
+      setCheckedItemIds(() => new Set());
     } else {
-      setCheckedItemIds(() => cart.map((cartItem) => cartItem.id));
+      setCheckedItemIds(() => new Set(cart.map((cartItem) => cartItem.id)));
     }
   };
 
   const handleSelectedItemDelete = () => {
     const selectedProductIds = cart
-      .filter((cartItem) => checkedItemIds.includes(cartItem.id))
+      .filter((cartItem) => checkedItemIds.has(cartItem.id))
       .map((cartItem) => cartItem.product.id);
 
     removeAllProductsFromCart(selectedProductIds);
@@ -46,10 +50,11 @@ const useCartPage = () => {
 
   useEffect(() => {
     const cartItemIds = cart.map((cartItem) => cartItem.id);
-
-    setCheckedItemIds((prev) =>
-      prev.filter((checkedItemId) => cartItemIds.includes(checkedItemId)),
+    const nextIds = Array.from(checkedItemIds).filter((checkedItemId) =>
+      cartItemIds.includes(checkedItemId),
     );
+
+    setCheckedItemIds(new Set(nextIds));
   }, [cart]);
 
   return {
@@ -62,4 +67,5 @@ const useCartPage = () => {
     handleSelectedItemDelete,
   } as const;
 };
+
 export default useCartPage;

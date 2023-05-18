@@ -29,7 +29,7 @@ const CartPage = () => {
             <CartListItem
               key={cartItem.id}
               cartItem={cartItem}
-              checked={checkedItemIds.includes(cartItem.id)}
+              checked={checkedItemIds.has(cartItem.id)}
               onChange={handleCheckboxChange}
             />
           ))}
@@ -40,10 +40,10 @@ const CartPage = () => {
               onChange={handleAllCheckboxChange}
             />
             <span>
-              전체선택 ({checkedItemIds.length} / {cart.length})
+              전체선택 ({checkedItemIds.size} / {cart.length})
             </span>
             <DeleteButton
-              disabled={checkedItemIds.length === 0}
+              disabled={checkedItemIds.size === 0}
               onClick={handleSelectedItemDelete}
             >
               선택삭제
