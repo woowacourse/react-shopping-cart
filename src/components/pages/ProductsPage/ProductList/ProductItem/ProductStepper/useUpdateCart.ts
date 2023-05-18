@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 
-import cartState from '@recoil/cartState';
+import { cartItemsState } from '@recoil/atom';
 
 const useUpdateCart = (productId: number, productCount: number) => {
-  const setCartItems = useSetRecoilState(cartState);
+  const setCartItems = useSetRecoilState(cartItemsState);
 
   useEffect(() => {
     setCartItems(prev => {

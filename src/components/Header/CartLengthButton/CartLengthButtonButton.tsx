@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 
-import { cartItemsLengthSelector } from '@recoil/cartState';
+import { cartItemsLengthSelector } from '@recoil/selector';
 
 import * as Text from '@components/commons/Text/Text';
 import { Button as CircleButton } from '@components/commons/Button/Button';
