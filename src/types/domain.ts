@@ -5,3 +5,7 @@ export interface Product {
   imageUrl: string;
   quantity: string;
 }
+
+export interface ProductWithChecked extends Product {
+  isChecked: boolean;
+}

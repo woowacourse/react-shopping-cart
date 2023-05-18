@@ -1,11 +1,29 @@
 import styled from "styled-components";
 import type { Product } from "types/domain";
 import QuantityCounter from "components/QuantityCounter";
+import React from "react";
+import { useRecoilState } from "recoil";
+import { checkedCartItemSelector } from "recoil/selector";
 
-const CartItem = ({ id, name, price, imageUrl, quantity }: Product) => {
+const CartItem = (product: Product) => {
+  const { id, name, price, imageUrl, quantity } = product;
+  const [checkedCartItem, setcheckedCartItem] = useRecoilState(checkedCartItemSelector(id));
+
+  const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setcheckedCartItem({
+      ...product,
+      isChecked: e.currentTarget.checked,
+    });
+  };
+
   return (
     <Wrapper>
-      <input type="checkbox" />
+      <input
+        type="checkbox"
+        value={id}
+        checked={checkedCartItem?.isChecked}
+        onChange={handleCheckbox}
+      />
       <img src={imageUrl} alt={`${name} 상품 이미지`} />
       <NameBox>{name}</NameBox>
       <button>🗑️</button>

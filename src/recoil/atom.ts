@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 import mockData from "mockData.json";
-import { Product } from "types/domain";
+import { Product, ProductWithChecked } from "types/domain";
 import { CART_LIST_LOCAL_STORAGE_KEY } from "constants/";
 
 const getCartItemsFromLocalStorage = (): Product[] => {
@@ -22,5 +22,12 @@ export const productListState = atom<Product[]>({
   default: structuredClone(mockData).map((item: Product) => {
     const targetItem = cartItems.find((cartItem) => cartItem.id === item.id);
     return { ...item, quantity: targetItem ? targetItem.quantity : "0" };
+  }),
+});
+
+export const checkedCartItemList = atom<ProductWithChecked[]>({
+  key: "checkedCartItemList",
+  default: cartItems.map((item) => {
+    return { ...item, isChecked: true };
   }),
 });

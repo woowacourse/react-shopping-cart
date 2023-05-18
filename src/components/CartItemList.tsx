@@ -1,25 +1,81 @@
 import { styled } from "styled-components";
-import { cartListSelector } from "recoil/selector";
-import { useRecoilState } from "recoil";
+import {
+  allCheckedCartItemSelector,
+  cartListSelector,
+  checkedCartItemCountSelector,
+} from "recoil/selector";
+import { useRecoilState, useRecoilValue } from "recoil";
 import CartItem from "components/CartItem";
 
 const CartItemList = () => {
-  const [cartList, setCartList] = useRecoilState(cartListSelector);
+  const cartList = useRecoilValue(cartListSelector);
+  const checkedCount = useRecoilValue(checkedCartItemCountSelector);
+  const [isAllChecked, setAllCheckedCartItem] = useRecoilState(allCheckedCartItemSelector);
+
+  const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.currentTarget.checked && setAllCheckedCartItem(true);
+    !e.currentTarget.checked && setAllCheckedCartItem(false);
+  };
 
   return (
     <Wrapper>
-      {cartList.map((item) => (
-        <CartItem key={item.id} {...item} />
-      ))}
+      <SelectorContainer>
+        <input type="checkbox" checked={isAllChecked} onChange={handleCheckbox} />
+        전체선택
+        {checkedCount}/{cartList.length}
+        <button>선택삭제</button>
+      </SelectorContainer>
+      <ListBox>
+        {cartList.map((item) => (
+          <CartItem key={item.id} {...item} />
+        ))}
+      </ListBox>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.li`
+const Wrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  width: 65%;
+`;
+
+const SelectorContainer = styled.section`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  padding-bottom: 10px;
+  border-bottom: 3px solid rgba(170, 170, 170, 1);
+
+  font-size: 13px;
+
+  & > input[type="checkbox"] {
+    top: 15px;
+    width: 40px;
+    height: fit-content;
+
+    transform: scale(1.6);
+  }
+
+  & > button {
+    border: 1px solid rgba(187, 187, 187, 1);
+
+    padding: 6px;
+
+    background: inherit;
+  }
+`;
+
+const ListBox = styled.li`
   list-style: none;
   row-gap: 10px;
 
-  width: 60%;
+  ul:first-child {
+    border-top: none;
+  }
 `;
 
 export default CartItemList;
