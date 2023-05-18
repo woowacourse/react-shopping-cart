@@ -1,6 +1,6 @@
 import { CART_KEY } from 'constants/storeKey';
-import { AtomEffect, atom, selector } from 'recoil';
-import { CartProducts } from 'types/product';
+import { AtomEffect, atom, selectorFamily } from 'recoil';
+import { CartProducts, Product } from 'types/product';
 import persistAtomEffect from './effects/persistAtomEffect';
 
 const zeroQuantityFilterEffect: AtomEffect<CartProducts> = ({ onSet, setSelf }) => {
@@ -32,11 +32,17 @@ export const cartProductsState = atom<CartProducts>({
   ],
 });
 
-export const cartTotalPriceState = selector<number>({
+export const checkedCartProductsTotalPrice = selectorFamily<number, Set<Product['id']>>({
   key: 'cartTotalPriceState',
-  get: ({ get }) => {
-    const cartProducts = get(cartProductsState);
+  get:
+    (checkedBoxes) =>
+    ({ get }) => {
+      const cartProducts = get(cartProductsState);
 
-    return [...cartProducts.values()].reduce((acc, { product, quantity }) => acc + product.price * quantity, 0);
-  },
+      return [...cartProducts.values()].reduce((acc, { product, quantity }) => {
+        if (!checkedBoxes.has(product.id)) return acc;
+
+        return acc + product.price * quantity;
+      }, 0);
+    },
 });
