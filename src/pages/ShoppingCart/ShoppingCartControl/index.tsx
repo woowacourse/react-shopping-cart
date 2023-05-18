@@ -1,18 +1,31 @@
+import { useRecoilValue } from 'recoil';
+
 import Checkbox from '@Components/Checkbox';
+
+import useSelectedShoppingItem from '@Hooks/useSelectedShoppingItem';
+import useShoppingCart from '@Hooks/useShoppingCart';
+
+import shoppingCartAmountState from '@Selector/shoppingCartAmountState';
 
 import * as S from './style';
 
 function ShoppingCartControl() {
+  const { isAllSelected, selectedItemAmount, updateAllSelectedShoppingItem } = useSelectedShoppingItem();
+  const { shoppingCart } = useShoppingCart();
+  const shoppingCartAmount = useRecoilValue(shoppingCartAmountState);
+
   return (
     <S.Container>
       <Checkbox
-        isChecked={true}
+        isChecked={isAllSelected(Number(shoppingCartAmount))}
         updateSelectedState={() => {
-          console.log('#');
+          updateAllSelectedShoppingItem(shoppingCart);
         }}
         size="small"
       />
-      <S.SelectedSituation>전체선택(2/3)</S.SelectedSituation>
+      <S.SelectedSituation>
+        전체선택({selectedItemAmount}/{shoppingCartAmount})
+      </S.SelectedSituation>
       <S.DeleteButton>선택삭제</S.DeleteButton>
     </S.Container>
   );

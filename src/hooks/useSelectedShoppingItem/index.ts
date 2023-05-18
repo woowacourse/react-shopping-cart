@@ -12,7 +12,22 @@ const useSelectedShoppingItem = () => {
 
   const isSelected = (id: number) => itemId.includes(id);
 
+  const isAllSelected = (itemAmount: number) => {
+    return itemId.length === itemAmount;
+  };
+
+  const selectedItemAmount = itemId.length;
+
+  const updateAllSelectedShoppingItem = (shoppingCart: ShoppingCartProduct[]) => {
+    if (itemId.length === 0) {
+      setItemId(shoppingCart.map((item) => item.id));
+    } else {
+      setItemId([]);
+    }
+  };
+
   const updateSelectedShoppingItem = (id: number) => {
+    console.log(id);
     if (isSelected(id)) setItemId((prev) => prev.filter((_id) => _id !== id));
     else setItemId((prev) => [...prev, id]);
   };
@@ -27,7 +42,7 @@ const useSelectedShoppingItem = () => {
     setInitValue();
   }, []);
 
-  return { isSelected, updateSelectedShoppingItem };
+  return { isSelected, isAllSelected, selectedItemAmount, updateSelectedShoppingItem, updateAllSelectedShoppingItem };
 };
 
 export default useSelectedShoppingItem;
