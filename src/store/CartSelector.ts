@@ -10,6 +10,11 @@ export type SelectorParams = {
   quantity?: number;
 };
 
+export type CheckedParams = {
+  id: number;
+  isChecked?: boolean;
+};
+
 export const productFindByIdSelector = selectorFamily<CartItem | undefined, number>({
   key: 'productFindByIdFamily',
   get: (id: number) => ({ get }) => {
@@ -51,10 +56,10 @@ export const updateCartSelector = selectorFamily<number, SelectorParams>({
   key: 'addToCartSelector',
   get: ({ id }) => ({ get }): number => {
     const cart = get(cartState);
+    const product = cart.find((item) => item.id === id);
+    if (!product) return NONE_QUANTITY;
 
-    return cart.some((item) => item.id === id)
-      ? cart.find((item) => item.id === id)!.quantity
-      : NONE_QUANTITY;
+    return product.quantity;
   },
   set: ({ id, quantity = 0 }) => ({ get, set }) => {
     const cart = get(cartState);
@@ -96,11 +101,12 @@ export const removeProductItemFromCartSelector = selectorFamily<CartItem[], numb
   },
 });
 
-export const totalPriceSelector = selector<number>({
+export const totalPriceSelector = selectorFamily<number, number[]>({
   key: 'totalPriceSelector',
-  get: ({ get }) => {
+  get: (selectedItems: number[]) => ({ get }) => {
     const cart = get(cartState);
-    const totalPrice = cart.reduce((total, item) => {
+    const selectedProducts = cart.filter((item) => selectedItems.includes(item.id));
+    const totalPrice = selectedProducts.reduce((total, item) => {
       const quantity = item.quantity;
       const price = item.product.price;
 

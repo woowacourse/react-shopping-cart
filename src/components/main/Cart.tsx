@@ -7,12 +7,12 @@ interface Props {
 }
 
 const Cart = ({ onClick }: Props) => {
-  const selectedProductsSize = useRecoilValue(cartBadgeSelector);
+  const selectedProductsCount = useRecoilValue(cartBadgeSelector);
 
   return (
     <S.Wrapper onClick={onClick}>
       <S.Button>장바구니</S.Button>
-      <S.Badge>{selectedProductsSize}</S.Badge>
+      <S.Badge>{selectedProductsCount}</S.Badge>
     </S.Wrapper>
   );
 };
