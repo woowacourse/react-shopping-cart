@@ -13,7 +13,6 @@ export const $CartItemState = atomFamily<CartItem | null, number | null>({
   default: id => {
     if (id) {
       const localData = getLocalStorage<CartItem[]>(LOCAL_STORAGE_KEY.CART_ITEM, []);
-      console.log(localData);
       return localData.find(cart => cart.product.id === id) as CartItem;
     }
     return null;
