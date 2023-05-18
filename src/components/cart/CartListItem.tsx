@@ -1,45 +1,25 @@
-import { ChangeEventHandler } from 'react';
-import QuantityInput from '../main/QuantityInput';
+import QuantityInput from '../QuantityInput';
 import { CartItem } from '../../types';
-import { changeInvalidValueToBlank } from '../../utils/changeInvalidValueToBlank';
-import { useRecoilCallback } from 'recoil';
-import {
-  SelectorParams,
-  removeProductItemFromCartSelector,
-  updateCartSelector,
-} from '../../store/CartSelector';
-import { NOT_NUMBER } from '../../constants';
 import { styled } from 'styled-components';
 import { BsFillTrash3Fill } from 'react-icons/bs';
+import { useHandleProduct } from '../../hooks/useHandleProduct';
 
 interface Props {
   item: CartItem;
 }
 
 const CartListItem = ({ item }: Props) => {
-  const updateCart = useRecoilCallback(({ set }) => ({ id, quantity }: SelectorParams) => {
-    set(updateCartSelector({ id, quantity }), 0);
-  });
-
-  const removeProductItemFromCart = useRecoilCallback(({ set }) => (id: number) => {
-    set(removeProductItemFromCartSelector(id), []);
-  });
-
-  const handleNumberInputChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
-    const { value } = target;
-
-    const newQuantity = changeInvalidValueToBlank(value, NOT_NUMBER);
-    updateCart({ id: item.id, quantity: newQuantity });
-  };
-
-  const removeFromCart = () => {
-    removeProductItemFromCart(item.id);
-  };
+  const {
+    handleNumberInputChange,
+    removeFromCart,
+    handleIncreaseItem,
+    handleDecreaseCartItem,
+  } = useHandleProduct(item.id);
 
   return (
     <S.Wrapper>
       <img src={`${process.env.PUBLIC_URL}${item.product.imageUrl}`} alt={String(item.id)} />
-      <p>{item.product.name}</p>
+      <S.Name>{item.product.name}</S.Name>
       <S.RemoveButton onClick={removeFromCart}>
         <BsFillTrash3Fill size={24} />
       </S.RemoveButton>
@@ -47,7 +27,10 @@ const CartListItem = ({ item }: Props) => {
         id={String(item.id)}
         value={item.quantity}
         onChange={handleNumberInputChange}
+        onIncrement={handleIncreaseItem}
+        onDecrement={handleDecreaseCartItem}
       />
+      <S.Price>{item.product.price}원</S.Price>
     </S.Wrapper>
   );
 };
@@ -57,6 +40,7 @@ const S = {
     display: flex;
     flex-direction: row;
     position: relative;
+    width: 735px;
     padding: 30px;
 
     img {
@@ -66,18 +50,36 @@ const S = {
 
     & > :nth-child(3) {
       position: absolute;
-      right: 0px;
+      right: 40px;
     }
 
     & > :nth-child(4) {
       position: absolute;
-      top: 60px;
-      right: 0px;
+      top: 70px;
+      right: 40px;
     }
   `,
+
+  CheckBox: styled.input`
+    width: 28px;
+    height: 28px;
+    margin-right: 15px;
+  `,
+
   RemoveButton: styled.button`
     background-color: transparent;
     cursor: pointer;
+  `,
+
+  Name: styled.p`
+    margin-left: 20px;
+    font-size: 20px;
+  `,
+
+  Price: styled.p`
+    position: absolute;
+    right: 40px;
+    bottom: 30px;
   `,
 };
 
