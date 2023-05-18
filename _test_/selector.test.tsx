@@ -3,6 +3,7 @@ import "@testing-library/jest-dom";
 import OptionContent from "../src/components/common/selector/optionContent";
 import OptionGroup from "../src/components/common/selector/optionGroup";
 import OptionIcon from "../src/components/common/selector/optionIcon";
+import Option from "../src/components/common/selector/option";
 
 import React from "react";
 
@@ -72,7 +73,7 @@ describe("Selector Option의 Icon 랜더링 테스트", () => {
 
 describe("Selector Option 랜더링 테스트", () => {
   test("custom된 children요소가 없으면 기본 스타일의 Selector Option이 랜더링 된다", () => {
-    const { getByAltText } = render(<Option />);
+    render(<Option />);
     const content = screen.getByTestId("option");
 
     expect(content).toBeInTheDocument();
