@@ -13,16 +13,18 @@ import CartLengthButton from '@components/Header/CartLengthButton/CartLengthButt
 const Header = () => {
   return (
     <StyledHeader>
-      <Link to="/" reloadDocument={true}>
+      <Link to="/">
         <StyledTitleDiv>
           <LOGO />
           <Text.Title color="white">SHOP</Text.Title>
         </StyledTitleDiv>
       </Link>
-      <StyledCartFlexBox>
-        <Text.Paragraph color="white">장바구니</Text.Paragraph>
-        <CartLengthButton />
-      </StyledCartFlexBox>
+      <Link to="/cart">
+        <StyledCartFlexBox>
+          <Text.Paragraph color="white">장바구니</Text.Paragraph>
+          <CartLengthButton />
+        </StyledCartFlexBox>
+      </Link>
     </StyledHeader>
   );
 };

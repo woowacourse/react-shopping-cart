@@ -4,10 +4,13 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
 import GlobalStyles from './GlobalStyles';
+
+import { worker } from '@mocks/browser';
+
 import App from '@components/App/App';
 import ErrorPage from '@pages/ErrorPage/ErrorPage';
 import ProductsPage from '@pages/ProductsPage/ProductsPage';
-import { worker } from '@mocks/browser';
+import CartPage from '@pages/CartPage/CartPage';
 
 const main = async () => {
   if (window.location.pathname === '/react-shopping-cart') {
@@ -27,7 +30,10 @@ const main = async () => {
         path: '/',
         element: <App />,
         errorElement: <ErrorPage />,
-        children: [{ path: '', element: <ProductsPage /> }],
+        children: [
+          { path: '', element: <ProductsPage /> },
+          { path: '/cart', element: <CartPage /> },
+        ],
       },
     ],
     {
