@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import QuantityController from '@Components/QuantityController';
@@ -23,6 +24,7 @@ type ProductItemProps = {
 };
 
 function ProductItem({ product, isLoading = false, width }: ProductItemProps) {
+  const { updateShoppingCart } = useShoppingCart();
   const { name, price, image, imageDescription } = useProduct(product);
   const cartItem = product && useRecoilValue(cartItemState(product.id));
 
@@ -39,7 +41,12 @@ function ProductItem({ product, isLoading = false, width }: ProductItemProps) {
           </S.ProductItemPrice>
         </S.ProductItemLayout>
         {product && (
-          <QuantityController quantity={cartItem?.quantity} cartItemId={cartItem?.cartItemId} product={product} />
+          <QuantityController
+            quantity={cartItem?.quantity}
+            cartItemId={cartItem?.cartItemId}
+            product={product}
+            updateShoppingCart={updateShoppingCart}
+          />
         )}
       </S.ProductItemContents>
     </S.Container>

@@ -4,12 +4,12 @@ import { Product, ShoppingCartProduct } from '@Types/index';
 
 import useFetch from '@Hooks/useFetch';
 
-import { CART_ITEMS_URL } from '@Constants/index';
+import { FETCH_URL } from '@Constants/index';
 
 import * as S from './style';
 
 function ShoppingList() {
-  const { data, status } = useFetch<ShoppingCartProduct[]>(CART_ITEMS_URL);
+  const { data, status } = useFetch<ShoppingCartProduct[]>(FETCH_URL.cartItems);
   return (
     <S.Container>
       <S.ShoppingListLayout>

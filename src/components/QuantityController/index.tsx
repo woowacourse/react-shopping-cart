@@ -1,13 +1,15 @@
 import { useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { Product, UpdateShoppingCart } from '@Types/index';
 
-import localStorageHelper from '@Utils/localStorageHelper';
-
-import shoppingCartState from '@Atoms/shoppingCartState';
-
-import { ALERT_MESSAGE, QUANTITY_CONTROL_BUTTON, QUANTITY_CONTROL_UNIT, SHOPPING_QUANTITY } from '@Constants/index';
+import {
+  ALERT_MESSAGE,
+  FETCH_METHOD,
+  FETCH_URL,
+  QUANTITY_CONTROL_BUTTON,
+  QUANTITY_CONTROL_UNIT,
+  SHOPPING_QUANTITY,
+} from '@Constants/index';
 
 import ShoppingCart from '@Asset/ShoppingCart.png';
 
@@ -17,62 +19,54 @@ type QuantityControllerProps = {
   product: Product;
   quantity?: number;
   cartItemId?: number;
+  updateShoppingCart: UpdateShoppingCart;
 };
 
 type QuantityControlButton = (typeof QUANTITY_CONTROL_BUTTON)[keyof typeof QUANTITY_CONTROL_BUTTON];
 
-function QuantityController({ product, quantity = SHOPPING_QUANTITY.MIN, cartItemId }: QuantityControllerProps) {
+function QuantityController({
+  product,
+  quantity = SHOPPING_QUANTITY.MIN,
+  cartItemId,
+  updateShoppingCart,
+}: QuantityControllerProps) {
   const [isUserWork, setIsUserWork] = useState(false);
-  const updateShoppingCart = useSetRecoilState(shoppingCartState);
 
-  const controlProductQuantity = async (type: QuantityControlButton) => {
-    if (type === QUANTITY_CONTROL_BUTTON.PLUS) {
-      await fetch(`/cart-items/${cartItemId}`, {
-        method: 'PATCH',
-        body: JSON.stringify({ quantity: quantity + QUANTITY_CONTROL_UNIT.DECREASE }),
-      });
-      updateShoppingCart(localStorageHelper.getValue('cartItems'));
-    } else {
-      if (quantity - QUANTITY_CONTROL_UNIT.DECREASE === 0) {
-        await fetch(`/cart-items/${cartItemId}`, {
-          method: 'DELETE',
-        });
-        updateShoppingCart(localStorageHelper.getValue('cartItems'));
-      } else {
-        await fetch(`/cart-items/${cartItemId}`, {
-          method: 'PATCH',
-          body: JSON.stringify({ quantity: quantity - QUANTITY_CONTROL_UNIT.DECREASE }),
-        });
-        updateShoppingCart(localStorageHelper.getValue('cartItems'));
-      }
-    }
+  const controlProductQuantity = (type: QuantityControlButton) => {
+    const newValue =
+      type === QUANTITY_CONTROL_BUTTON.PLUS
+        ? quantity + QUANTITY_CONTROL_UNIT.DECREASE
+        : quantity - QUANTITY_CONTROL_UNIT.DECREASE;
+
+    const method = newValue ? FETCH_METHOD.PATCH : FETCH_METHOD.DELETE;
+    const body = newValue ? JSON.stringify({ quantity: newValue }) : null;
+    updateShoppingCart(`${FETCH_URL.cartItems}/${cartItemId}`, method, body);
   };
 
-  const addShoppingCart = async () => {
-    await fetch('/api/cart-items', {
-      method: 'POST',
-      body: JSON.stringify({ productId: product.id }),
-    });
-    updateShoppingCart(localStorageHelper.getValue('cartItems'));
+  const addShoppingCart = () => {
+    updateShoppingCart(FETCH_URL.cartItems, FETCH_METHOD.POST, JSON.stringify({ productId: product.id }));
   };
 
-  const changeQuantityValue = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const changeQuantityValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(event.target.value);
-
     if (newValue > SHOPPING_QUANTITY.MAX) return alert(ALERT_MESSAGE.OVER_MAX_QUANTITY);
+    updateShoppingCart(
+      `${FETCH_URL.cartItems}/${cartItemId}`,
+      FETCH_METHOD.PATCH,
+      JSON.stringify({ quantity: newValue }),
+    );
+  };
 
-    if (newValue === 0) {
-      await fetch(`/cart-items/${cartItemId}`, {
-        method: 'DELETE',
-      });
-      updateShoppingCart(localStorageHelper.getValue('cartItems'));
-    } else {
-      await fetch(`/cart-items/${cartItemId}`, {
-        method: 'PATCH',
-        body: JSON.stringify({ quantity: newValue }),
-      });
-      updateShoppingCart(localStorageHelper.getValue('cartItems'));
-    }
+  const focusInButton = (event: React.FocusEvent<HTMLInputElement>) => {
+    event.target.select();
+    setIsUserWork(true);
+  };
+
+  const focusOutButton = () => {
+    setIsUserWork(false);
+    if (quantity) return;
+
+    updateShoppingCart(`${FETCH_URL.cartItems}/${cartItemId}`, FETCH_METHOD.DELETE);
   };
 
   if (quantity === SHOPPING_QUANTITY.MIN && !isUserWork) {
@@ -91,13 +85,8 @@ function QuantityController({ product, quantity = SHOPPING_QUANTITY.MIN, cartIte
         type="number"
         value={quantity}
         onChange={changeQuantityValue}
-        onFocus={(event: React.FocusEvent<HTMLInputElement>) => {
-          event.target.select();
-          setIsUserWork(true);
-        }}
-        onBlur={() => {
-          setIsUserWork(false);
-        }}
+        onFocus={focusInButton}
+        onBlur={focusOutButton}
       />
       <S.ButtonWrapper>
         <S.QuantityControlButton

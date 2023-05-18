@@ -33,7 +33,7 @@ function ShoppingItem({ product, width = '100%' }: ShoppingItemProps) {
       <S.ShoppingItemName aria-label="장바구니 상품 이름">{name}</S.ShoppingItemName>
       <S.RightContents>
         <S.DeleteButton src={Trash} />
-        <QuantityController product={product} quantity={cartItem.quantity} />
+        <QuantityController product={product} quantity={cartItem.quantity} updateShoppingCart={updateShoppingCart} />
         <S.ShoppingItemPrice aria-label="장바구니 상품 가격">{price}</S.ShoppingItemPrice>
       </S.RightContents>
     </S.Container>

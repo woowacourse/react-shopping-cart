@@ -24,6 +24,14 @@ export const BOX_SIZE = {
   large: '36px',
 } as const;
 
-export const PRODUCTS_URL = '/api/products';
+export const FETCH_METHOD = {
+  GET: 'GET',
+  POST: 'POST',
+  DELETE: 'DELETE',
+  PATCH: 'PATCH',
+} as const;
 
-export const CART_ITEMS_URL = '/api/cart-item';
+export const FETCH_URL = {
+  products: '/api/products',
+  cartItems: '/api/cart-item',
+};
