@@ -2,6 +2,7 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { totalCartCountState } from '../atoms/cartState';
+import { useNavigate } from 'react-router-dom';
 
 interface CartQuantityProps {
   user?: string;
@@ -9,9 +10,10 @@ interface CartQuantityProps {
 
 export default function CartQuantity({ user }: CartQuantityProps) {
   const totalCart = useRecoilValue(totalCartCountState);
+  const navigate = useNavigate();
 
   return (
-    <CartQuantityContainer>
+    <CartQuantityContainer onClick={() => navigate('/cart')}>
       <div>{user && `${user}의 `}장바구니</div>
       <Quantity>{totalCart}</Quantity>
     </CartQuantityContainer>
@@ -22,6 +24,7 @@ const CartQuantityContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 
   ${({ theme }) => theme.fonts.h2}
   color : ${({ theme }) => theme.colors.white}

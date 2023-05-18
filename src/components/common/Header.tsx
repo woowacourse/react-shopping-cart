@@ -1,12 +1,15 @@
-import { PropsWithChildren } from "react";
-import styled from "styled-components";
+import { PropsWithChildren } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { HeaderIc } from "../../asset";
+import { HeaderIc } from '../../asset';
 
 export default function Header({ children }: PropsWithChildren) {
+  const navigate = useNavigate();
+
   return (
     <HeaderContainer>
-      <TitleWrapper>
+      <TitleWrapper onClick={() => navigate('/')}>
         <HeaderIc />
         <Title>WOOSINSA</Title>
       </TitleWrapper>
@@ -32,4 +35,5 @@ const Title = styled.h1`
 
 const TitleWrapper = styled.div`
   display: flex;
+  cursor: pointer;
 `;
