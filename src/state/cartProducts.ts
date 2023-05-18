@@ -35,12 +35,12 @@ export const cartProductsState = atom<CartProducts>({
 export const checkedCartProductsTotalPrice = selectorFamily<number, Set<Product['id']>>({
   key: 'cartTotalPriceState',
   get:
-    (checkedBoxes) =>
+    (checkedProducts) =>
     ({ get }) => {
       const cartProducts = get(cartProductsState);
 
       return [...cartProducts.values()].reduce((acc, { product, quantity }) => {
-        if (!checkedBoxes.has(product.id)) return acc;
+        if (!checkedProducts.has(product.id)) return acc;
 
         return acc + product.price * quantity;
       }, 0);

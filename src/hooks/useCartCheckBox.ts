@@ -5,17 +5,16 @@ import { Product } from 'types/product';
 
 const useCartCheckBox = () => {
   const cartProducts = useRecoilValue(cartProductsState);
-  const cartProductsCount = cartProducts.size;
-  const [checkedBoxes, setCheckedBoxes] = useState(new Set<Product['id']>(cartProducts.keys()));
-  const isAllChecked = checkedBoxes.size === cartProductsCount;
-  const isChecked = (id: Product['id']) => checkedBoxes.has(id);
+  const [checkedProducts, setCheckedProducts] = useState(new Set<Product['id']>(cartProducts.keys()));
+  const isAllChecked = cartProducts.size === checkedProducts.size;
+  const isChecked = (id: Product['id']) => checkedProducts.has(id);
 
   const check = (id: Product['id']) => {
-    setCheckedBoxes((prev) => new Set([...prev.add(id)]));
+    setCheckedProducts((prev) => new Set([...prev.add(id)]));
   };
 
   const unCheck = (id: Product['id']) => {
-    setCheckedBoxes((prev) => {
+    setCheckedProducts((prev) => {
       prev.delete(id);
 
       return new Set([...prev]);
@@ -30,11 +29,11 @@ const useCartCheckBox = () => {
   const checkAllBox = () => {
     const allChecked = [...cartProducts.keys()];
 
-    setCheckedBoxes(new Set(allChecked));
+    setCheckedProducts(new Set(allChecked));
   };
 
   const unCheckAllBox = () => {
-    setCheckedBoxes(new Set([]));
+    setCheckedProducts(new Set([]));
   };
 
   const toggleCheckAllBox = () => {
@@ -42,7 +41,7 @@ const useCartCheckBox = () => {
     else checkAllBox();
   };
 
-  return { isAllChecked, isChecked, toggleCheck, toggleCheckAllBox };
+  return { checkedProducts, isAllChecked, isChecked, toggleCheck, toggleCheckAllBox };
 };
 
 export default useCartCheckBox;
