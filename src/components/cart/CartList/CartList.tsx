@@ -2,9 +2,39 @@ import { styled } from 'styled-components';
 import CartItem from '../CartItem/CartItem';
 import CheckBox from '../../common/CheckBox/CheckBox';
 import useCartService from '../../../hooks/useCartService';
+import { useCheckedCartListValue } from '../../../provider/CheckedListProvider';
 
 const CartList = () => {
-  const { cartList } = useCartService();
+  const {
+    checkedCartList,
+    addAllCheckedItem,
+    deleteAllCheckedItem,
+    isAllChecked,
+  } = useCheckedCartListValue();
+  const { cartList, deleteCartItem } = useCartService();
+
+  const handleAllCheckBoxChange = () => {
+    if (isAllChecked()) {
+      deleteAllCheckedItem();
+      return;
+    }
+
+    addAllCheckedItem();
+  };
+
+  const handleDeleteCheckedListButtonClick = () => {
+    if (
+      !window.confirm(
+        `${checkedCartList.length}개의 선택한 품목들을 삭제하시겠습니까?`,
+      )
+    )
+      return;
+
+    checkedCartList.forEach((checkedCartItem) =>
+      deleteCartItem(checkedCartItem),
+    );
+    deleteAllCheckedItem();
+  };
 
   return (
     <CartListContainer>
@@ -12,14 +42,22 @@ const CartList = () => {
       <ul>
         {cartList.map((cartItem, index) => (
           <li key={cartItem.id}>
-            <CartItem cartItem={cartItem} updateCheckedCartList={() => {}} />
+            <CartItem cartItem={cartItem} />
             {index !== cartList.length - 1 && <Seperator />}
           </li>
         ))}
       </ul>
       <AllCheckContainer>
-        <CheckBox labelText={`전체 선택 (2/${cartList.length})`} />
-        <DeleteButton>선택 삭제</DeleteButton>
+        <CheckBox
+          isChecked={isAllChecked()}
+          labelText={`전체 선택 (${checkedCartList.length}/${cartList.length})`}
+          onChange={handleAllCheckBoxChange}
+        />
+        {!!checkedCartList.length && (
+          <DeleteCheckedListButton onClick={handleDeleteCheckedListButtonClick}>
+            선택 삭제
+          </DeleteCheckedListButton>
+        )}
       </AllCheckContainer>
     </CartListContainer>
   );
@@ -47,9 +85,11 @@ const AllCheckContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 15px;
+
+  height: 30px;
 `;
 
-const DeleteButton = styled.button`
+const DeleteCheckedListButton = styled.button`
   width: 98px;
   height: 35px;
 
