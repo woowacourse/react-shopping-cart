@@ -9,11 +9,12 @@ import ProductStepper from '@components/pages/ProductsPage/ProductList/ProductIt
 import * as Text from '@components/commons/Text/Text';
 
 interface ProductItemProps {
+  initQuantity: number;
   product: Product;
 }
 
 const ProductItem = (props: ProductItemProps) => {
-  const { product: thisProduct } = props;
+  const { initQuantity, product: thisProduct } = props;
   const { id, name, price, imageUrl } = thisProduct;
 
   return (
@@ -22,7 +23,7 @@ const ProductItem = (props: ProductItemProps) => {
       <div>
         <StyledProductFlexBox>
           <Text.Description>{name}</Text.Description>
-          <ProductStepper productId={id} />
+          <ProductStepper productId={id} initQuantity={initQuantity} />
         </StyledProductFlexBox>
         <Text.Paragraph>{price.toLocaleString('ko-KR') + ' 원'}</Text.Paragraph>
       </div>

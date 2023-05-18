@@ -17,7 +17,8 @@ export const FetchedDataList = <T,>(props: FetchedDataListProps<T>) => {
 
   const fetchData = useCallback(async () => {
     try {
-      setData(await getData<T>());
+      const data = await getData<T>();
+      setData(data);
     } catch (error) {
       setIsError(true);
       console.log(error);

@@ -15,6 +15,7 @@ import * as Text from '@components/commons/Text/Text';
 
 interface ProductStepperProps {
   productId: number;
+  initQuantity: number;
   inputWidth?: string | undefined;
   inputHeight?: string | undefined;
   buttonWidth?: string | undefined;
@@ -22,20 +23,26 @@ interface ProductStepperProps {
 }
 
 const ProductStepper = (props: ProductStepperProps) => {
-  const { productId, inputWidth, inputHeight, buttonWidth, buttonHeight } =
-    props;
-  const [productCount, setProductCount] = useState(0);
+  const {
+    productId,
+    initQuantity,
+    inputWidth,
+    inputHeight,
+    buttonWidth,
+    buttonHeight,
+  } = props;
+  const [quantity, setQuantity] = useState(initQuantity);
 
-  useUpdateCart(productId, productCount);
+  useUpdateCart(productId, quantity);
 
   return (
     <>
-      {productCount === 0 ? (
-        <StepperEntryButton onClick={() => setProductCount(prev => prev + 1)} />
+      {quantity === 0 ? (
+        <StepperEntryButton onClick={() => setQuantity(prev => prev + 1)} />
       ) : (
         <Stepper
-          step={productCount}
-          setStep={setProductCount}
+          step={quantity}
+          setStep={setQuantity}
           stepUnit={STEP_UNIT}
           minStep={PRODUCT_COUNT.MIN}
           maxStep={PRODUCT_COUNT.MAX}

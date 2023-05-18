@@ -13,13 +13,21 @@ import ProductStepper from '@components/pages/ProductsPage/ProductList/ProductIt
 import { Button as DeleteButton } from '@commons/Button/Button';
 import { TrashCan } from '@assets/index';
 
-interface CartItemProps {
+export interface CartItemInterface {
+  id: number;
+  quantity: number;
   product: Product;
 }
 
+interface CartItemProps {
+  cartItem: CartItemInterface;
+}
+
 const CartItem = (props: CartItemProps) => {
-  const { product: thisProduct } = props;
-  const { id, name, price, imageUrl } = thisProduct;
+  const {
+    cartItem: { product, quantity },
+  } = props;
+  const { id, name, price, imageUrl } = product;
 
   return (
     <StyledCartItem>
@@ -36,6 +44,7 @@ const CartItem = (props: CartItemProps) => {
         </DeleteButton>
         <ProductStepper
           productId={id}
+          initQuantity={quantity}
           inputWidth="72px"
           inputHeight="60px"
           buttonWidth="40px"
