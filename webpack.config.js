@@ -10,6 +10,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 // ts-loader의 성능 향상을 위한 라이브러리
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
+const { DefinePlugin, EnvironmentPlugin } = require('webpack');
+
 module.exports = {
 	mode: process.env.NODE_ENV,
 	// Bundle(하나로 합치기)을 만들기 위한 시작 파일
@@ -90,10 +92,16 @@ module.exports = {
 		}),
 
 		new ForkTsCheckerWebpackPlugin(),
+		new DefinePlugin({
+			'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+		}),
+		new EnvironmentPlugin(['NODE_ENV']),
 	],
 	devtool: 'inline-source-map',
 	devServer: {
-		static: './dist',
+		static: {
+			directory: path.resolve(__dirname, 'public'),
+		},
 		hot: true,
 		open: true,
 		historyApiFallback: true,
