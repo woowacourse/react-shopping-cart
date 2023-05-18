@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+
 import { CartItemType } from '../../../types';
 import CheckBox from '../CheckBox/CheckBox';
 import DeleteIcon from '../DeleteIcon';
@@ -12,7 +13,7 @@ type CartItemProps = CartItemType;
 
 export default function CartItem({ id, quantity, product }: CartItemProps) {
   const { name, price, imageUrl } = product;
-  const [cart, addCartItem, removeCartItem, updateQuantity] = useCart();
+  const [, , removeCartItem, updateQuantity] = useCart();
 
   const [quantityInput, setQuantityInput] = useState(String(quantity));
 
@@ -28,18 +29,30 @@ export default function CartItem({ id, quantity, product }: CartItemProps) {
   const handleBlurCounter = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === '') removeCartItem(id);
   };
+
+  useEffect(() => {
+    if (!isNumeric(quantityInput)) return;
+
+    const quantity = Number(quantityInput);
+    if (quantity === 0) {
+      removeCartItem(product.id);
+    } else {
+      updateQuantity(product.id, quantity);
+    }
+  }, [quantityInput]);
+
   return (
     <Wrapper>
       <LeftBox>
-        <CheckBox />
+        <CheckBox id={String(product.id)} />
         <Img src={imageUrl} />
         <Name>{name}</Name>
       </LeftBox>
       <RightBox>
-        <DeleteIcon />
+        <DeleteIcon cartItemId={product.id} handleClick={removeCartItem} />
         <Counter
           type="number"
-          value={quantity}
+          value={quantityInput}
           onChange={handleChangeCounter}
           onBlur={handleBlurCounter}
           counterSize="large"
