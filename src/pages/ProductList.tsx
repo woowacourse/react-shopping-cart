@@ -1,11 +1,27 @@
 import { ProductItem } from '../components/ProductItem';
 import * as Styled from './styles/ProductList.styles';
-import { getMockData } from '../utils/getMockData';
+import { useEffect, useState } from 'react';
 
 export const ProductList = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/products');
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <Styled.Wrapper>
-      {getMockData.map(({ id, name, price, imageUrl }) => (
+      {products.map(({ id, name, price, imageUrl }) => (
         <ProductItem
           key={id}
           id={id}
