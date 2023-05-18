@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 import { v1 } from 'uuid';
+import { deleteCartItem } from '../../api/cartList';
 import { cartAtom } from '../../store/cart';
 import CartItem from '../CartItem/CartItem';
 import CheckBox from '../common/CheckBox/CheckBox';
@@ -9,7 +10,6 @@ import CheckBox from '../common/CheckBox/CheckBox';
 export type Select = {
   id: number;
   isSelected: boolean;
-  isDeleted: boolean;
 };
 
 const CartItemList = () => {
@@ -17,15 +17,14 @@ const CartItemList = () => {
   const AllNotChecked = cartList.map((item) => ({
     id: item.id,
     isSelected: false,
-    isDeleted: false,
   }));
   const AllChecked = cartList.map((item) => ({
     id: item.id,
     isSelected: true,
-    isDeleted: false,
   }));
   const [isAllSelected, setIsAllSelected] = useState<boolean>(false);
   const [cartItemsState, setCartItemsState] = useState<Select[]>(AllNotChecked);
+  const setCartAtom = useSetRecoilState(cartAtom);
 
   useEffect(() => {
     setCartItemsState(AllNotChecked);
@@ -41,12 +40,12 @@ const CartItemList = () => {
   };
 
   const deleteSelectedItems = () => {
-    setCartItemsState((prev) =>
-      prev.map((item) => {
-        if (item.isSelected === true) return { ...item, isDeleted: true };
-        return item;
-      })
-    );
+    cartItemsState.forEach((item) => {
+      if (item.isSelected) {
+        deleteCartItem(item.id);
+        setCartAtom((prev) => [...prev.filter((cart) => cart.id !== item.id)]);
+      }
+    });
   };
 
   return (

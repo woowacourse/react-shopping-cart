@@ -27,21 +27,16 @@ const CartItem = ({
     minusOneWhenOverOne,
     removeCartItemFromAtom,
   } = useCartAtom(id);
+
   const { product } = productInCart;
   const { name, imageUrl, price } = product;
-
-  if (cartItemState.isDeleted) {
-    setCartItemsState((prev) =>
-      prev.filter((item) => item.isDeleted === false)
-    );
-  }
 
   const toggleSelect = () => {
     setIsAllSelected(false);
 
     setCartItemsState((prev) => [
       ...prev.filter((item) => item.id !== id),
-      { ...cartItemState, isSelected: !cartItemState.isSelected },
+      { id, isSelected: !cartItemState.isSelected },
     ]);
   };
 
