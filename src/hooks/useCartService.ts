@@ -22,10 +22,10 @@ const useCartService = () => {
     });
   };
 
-  const updateCartItemQuantity = (targetId: number) => (quantity: number) => {
+  const updateCartItemQuantity = (cartId: string) => (quantity: number) => {
     setCartList((prevCart) => {
       return prevCart.map((cartItem) => {
-        if (cartItem.product.id !== targetId) return cartItem;
+        if (cartItem.id !== cartId) return cartItem;
 
         return {
           ...cartItem,
@@ -35,10 +35,15 @@ const useCartService = () => {
     });
   };
 
-  const deleteCartItem = (targetId: number) => {
+  const deleteCartItem = (cartId: string) => {
     setCartList((prevCart) =>
-      prevCart.filter((cartItem) => cartItem.product.id !== targetId),
+      prevCart.filter((cartItem) => cartItem.id !== cartId),
     );
+  };
+
+  const getCartId = (productId: number) => {
+    return cartList.filter((cartItem) => cartItem.product.id === productId)[0]
+      .id;
   };
 
   return {
@@ -46,6 +51,7 @@ const useCartService = () => {
     addCartItem,
     updateCartItemQuantity,
     deleteCartItem,
+    getCartId,
   } as const;
 };
 export default useCartService;
