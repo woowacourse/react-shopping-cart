@@ -6,9 +6,11 @@ function Router() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Home />,
       errorElement: <NotFound />,
-      children: [{ path: '/cart', element: <Cart /> }],
+      children: [
+        { index: true, element: <Home /> },
+        { path: '/cart', element: <Cart /> },
+      ],
     },
   ]);
 
