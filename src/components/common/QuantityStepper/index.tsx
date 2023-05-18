@@ -6,14 +6,14 @@ import * as S from './QuantityStepper.styles';
 
 interface QuantityStepperProps {
   label: string;
-  initialValue: number;
+  initialValue?: number;
 }
 const QuantityStepper = forwardRef<HTMLInputElement, QuantityStepperProps>(
-  ({ label, initialValue }, ref) => {
+  ({ label, initialValue = 1 }, ref) => {
     const [quantity, increase, decrease] = useCounter({
       max: 100,
       min: 1,
-      initialValue: initialValue,
+      initialValue,
     });
 
     return (
