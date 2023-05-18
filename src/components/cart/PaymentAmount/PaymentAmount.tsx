@@ -32,6 +32,10 @@ const PaymentAmountContainer = styled.div`
   height: 410px;
 
   border: 1px solid #dddddd;
+
+  @media screen and (max-width: 1320px) {
+    width: 100%;
+  }
 `;
 
 const Title = styled.h4`

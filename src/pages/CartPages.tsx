@@ -40,10 +40,14 @@ const CartPage = () => {
 };
 
 const Layout = styled.main`
-  margin: 0 auto;
-
-  padding: 80px 0;
   width: 1320px;
+
+  margin: 0 auto;
+  padding: 80px 0;
+
+  @media screen and (max-width: 1320px) {
+    width: 90%;
+  }
 `;
 
 const Title = styled.h2`
@@ -61,6 +65,12 @@ const Contents = styled.div`
   justify-content: space-between;
 
   margin-top: 34px;
+
+  @media screen and (max-width: 1320px) {
+    flex-direction: column;
+    justify-content: baseline;
+    gap: 100px;
+  }
 `;
 
 const EmptyCartView = styled.div`

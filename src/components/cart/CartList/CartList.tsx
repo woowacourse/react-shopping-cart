@@ -65,6 +65,10 @@ const CartList = () => {
 
 const CartListContainer = styled.div`
   width: 736px;
+
+  @media screen and (max-width: 1320px) {
+    width: 100%;
+  }
 `;
 
 const NumberOfCartItem = styled.h3`

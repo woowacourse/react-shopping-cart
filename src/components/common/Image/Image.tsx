@@ -10,24 +10,28 @@ interface ImageProps {
 
 const Image = ({ src, alt = '', size = 'medium' }: ImageProps) => {
   return (
-    <ImageWrapper>
+    <ImageWrapper size={size}>
       <Img src={src} loading="lazy" alt={alt} size={size} />
       <ImageBackground />
     </ImageWrapper>
   );
 };
 
-const ImageWrapper = styled.div`
-  display: flex;
-  position: relative;
-  overflow: hidden;
-`;
-
 const imageSizeMapper = {
   large: '282px',
   medium: '145px',
   small: '70px',
 };
+
+const ImageWrapper = styled.div<{ size: ImageSize }>`
+  ${({ size }) => css`
+    width: ${imageSizeMapper[size]};
+    height: ${imageSizeMapper[size]};
+  `}
+
+  display: flex;
+  position: relative;
+`;
 
 const Img = styled.img<{ size: ImageSize }>`
   ${({ size }) => css`

@@ -69,6 +69,10 @@ const CartItemContainer = styled.div`
   height: 200px;
 
   padding: 25px 0;
+
+  @media screen and (max-width: 1320px) {
+    width: 100%;
+  }
 `;
 
 const ItemContents = styled.div`
@@ -77,9 +81,13 @@ const ItemContents = styled.div`
 `;
 
 const Name = styled.div`
+  height: 20px;
+
   font-weight: 400;
   font-size: 20px;
   color: #333;
+
+  text-overflow: ellipsis;
 `;
 
 const ItemControllers = styled.div`
