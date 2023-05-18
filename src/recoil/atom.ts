@@ -1,7 +1,7 @@
 import { atom, atomFamily, selector } from 'recoil';
-import { CartItem } from '../types';
 import { getLocalStorage } from '../utils/localStorage';
 import { LOCAL_STORAGE_KEY } from '../constants';
+import type { CartItem, ToastState } from '../types';
 
 export const $CheckedCartIdList = atom<number[]>({
   key: 'CheckStateList',
@@ -37,7 +37,7 @@ export const $CartTotalPrice = selector<number>({
     }, 0),
 });
 
-export const $ToastMessageList = atom<string[]>({
+export const $ToastStateList = atom<ToastState[]>({
   key: 'ToastMessageList',
   default: [],
 });

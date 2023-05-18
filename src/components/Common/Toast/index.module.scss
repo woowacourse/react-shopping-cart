@@ -18,8 +18,16 @@
   animation: show 0.3s ease-out alternate;
 }
 
+.success {
+  background: var(--mint-color);
+}
+
 .error {
-  background: #d25380;
+  background: #b04759;
+}
+
+.warning {
+  background: #ffd95a;
 }
 
 @keyframes show {

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useRecoilCallback, useRecoilState, useSetRecoilState } from 'recoil';
 import CartProductItem from '../CartProductItem';
 import useGetQuery from '../../hooks/useGetQuery';
-import { $CartIdList, $CartItemState, $CheckedCartIdList, $ToastMessageList } from '../../recoil/atom';
+import { $CartIdList, $CartItemState, $CheckedCartIdList, $ToastStateList } from '../../recoil/atom';
 import styles from './index.module.scss';
 import type { CartItem } from '../../types';
 import useMutationQuery from '../../hooks/useMutationQuery';
@@ -13,11 +13,14 @@ function CartProductItemList() {
   const { mutateQuery } = useMutationQuery<Record<string, number>, CartItem>('./cart-items');
   const [checkedCartIdList, setCheckedCartIdList] = useRecoilState($CheckedCartIdList);
   const [cartIdList, setCartIdList] = useRecoilState($CartIdList);
-  const setMessageList = useSetRecoilState($ToastMessageList);
+  const setToastStateList = useSetRecoilState($ToastStateList);
 
   useEffect(() => {
     if (error) {
-      setMessageList(prev => [...prev, '장바구니 리스트를 불러오는 과정에서 에러가 발생했습니다.']);
+      setToastStateList(prev => [
+        ...prev,
+        { type: 'error', message: '장바구니를 불러오는 과정에서 문제가 생겼습니다.' },
+      ]);
     }
   }, [error]);
 
@@ -44,12 +47,12 @@ function CartProductItemList() {
       setCartIdList(prev => prev.filter(cartId => cartId !== id));
     });
 
-    if (!error) {
-      setMessageList(prev => [...prev, '장바구니 리스트를 불러오는 과정에서 에러가 발생했습니다.']);
-    }
-
     refreshQuery();
     setCheckedCartIdList([]);
+
+    if (!error) {
+      setToastStateList(prev => [...prev, { type: 'error', message: '장바구니가 전부 삭제되었습니다.' }]);
+    }
   });
 
   return (

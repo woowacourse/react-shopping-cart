@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import styles from './index.module.scss';
+import { ToastState } from '../../../types';
 
-interface ToastProps {
-  message: string;
+interface ToastProps extends ToastState {
   showTime?: number;
-  error?: boolean;
 }
 
-function Toast({ message, showTime = 2000, error = false }: ToastProps) {
+function Toast({ type, message, showTime = 2000 }: ToastProps) {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
@@ -16,7 +15,7 @@ function Toast({ message, showTime = 2000, error = false }: ToastProps) {
     }, showTime);
   }, [showTime]);
 
-  return <>{show && <div className={`${styles.toast} ${error && styles.error}`}>{message}</div>}</>;
+  return <>{show && <div className={`${styles.toast} ${styles[type]}`}>{message}</div>}</>;
 }
 
 export default Toast;

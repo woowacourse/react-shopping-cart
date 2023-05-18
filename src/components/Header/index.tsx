@@ -2,14 +2,14 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 import styles from './index.module.scss';
 import { Link } from 'react-router-dom';
-import { $CartIdList, $ToastMessageList } from '../../recoil/atom';
+import { $CartIdList, $ToastStateList } from '../../recoil/atom';
 
 function Header() {
   const cartIdList = useRecoilValue($CartIdList);
-  const setMessageList = useSetRecoilState($ToastMessageList);
+  const setToastStateList = useSetRecoilState($ToastStateList);
 
   const handleClick = () => {
-    setMessageList([]);
+    setToastStateList([]);
   };
 
   return (
