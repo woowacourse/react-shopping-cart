@@ -16,6 +16,6 @@ export const handlers = [
       //   setSelf(JSON.parse(savedValue));
       return res(ctx.status(200), ctx.delay(2000), ctx.json(JSON.parse(savedValue)));
     }
-    return res(ctx.status(200), ctx.delay(1000), ctx.json({}));
+    return res(ctx.status(200), ctx.delay(1000), ctx.json([]));
   }),
 ];

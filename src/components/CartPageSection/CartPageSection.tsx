@@ -12,7 +12,7 @@ import styles from './style.module.css';
 
 const CartPageSection = () => {
   //   const cartItemList = useRecoilValue(cartListState);
-  const [, setCartItemList] = useRecoilState(cartListState);
+  const [cartItem, setCartItemList] = useRecoilState(cartListState);
   const {
     cartList,
     getCartItemSum,
@@ -24,7 +24,7 @@ const CartPageSection = () => {
     selectedItemRemove,
   } = useCartList();
 
-  const { data, fetchApi, isLoading } = useFetch<CartItemType[]>(setCartItemList);
+  const { fetchApi, isLoading } = useFetch<CartItemType[]>(setCartItemList);
   useEffect(() => {
     fetchApi.get('/cartlist');
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -49,7 +49,7 @@ const CartPageSection = () => {
           checked={cartListCheckedLength() === cartList.length}
         />
         <p>
-          전체 선택({cartListCheckedLength()}/{data?.length})
+          전체 선택({cartListCheckedLength()}/{cartItem?.length})
         </p>
         <button type="button" className={styles.deleteButton} onClick={checkedItemRemove}>
           선택 삭제
@@ -58,17 +58,18 @@ const CartPageSection = () => {
       <section className={styles.section}>
         <div className={styles.cartList}>
           {isLoading && <div>loading</div>}
-          {data?.map((item) => (
-            <CartItem
-              quantity={item.quantity}
-              itemId={item.id}
-              key={item.id}
-              product={item.product}
-              isChecked={item.isChecked}
-              checkHandler={reverseCheckCartItem}
-              removeItem={selectedItemRemove}
-            />
-          ))}
+          {!isLoading &&
+            cartItem.map((item) => (
+              <CartItem
+                quantity={item.quantity}
+                itemId={item.id}
+                key={item.id}
+                product={item.product}
+                isChecked={item.isChecked}
+                checkHandler={reverseCheckCartItem}
+                removeItem={selectedItemRemove}
+              />
+            ))}
         </div>
         <div className={styles.orderBox}>
           <div className={styles.orderBoxHeader}>결제예상금액</div>
