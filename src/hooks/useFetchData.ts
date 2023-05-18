@@ -6,7 +6,7 @@ export const useFetchData = <T>(url: string, setData: SetDataType<T>) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(url);
+        const response = await fetch('/api/products');
         const data = await validateResponse(response);
         setData(data);
       } catch (error) {

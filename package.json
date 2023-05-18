@@ -72,10 +72,14 @@
     "babel-plugin-named-exports-order": "^0.0.2",
     "chromatic": "^6.17.4",
     "msw": "^1.2.1",
+    "msw-storybook-addon": "^1.8.0",
     "prop-types": "^15.8.1",
     "storybook": "^7.0.9",
     "webpack": "^5.82.0"
   },
   "readme": "ERROR: No README data found!",
-  "_id": "react-shopping-cart@0.1.0"
+  "_id": "react-shopping-cart@0.1.0",
+  "msw": {
+    "workerDirectory": "public"
+  }
 }
