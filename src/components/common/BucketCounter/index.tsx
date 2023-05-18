@@ -3,7 +3,7 @@ import useBucketCount from '@hooks/useBucketCount';
 import { BOTTOM_ARROW, TOP_ARROW } from '@assets/images';
 import { theme } from '@styles/theme';
 
-type CounterStyleType = 'small' | 'cart';
+type CounterStyleType = 'small' | 'large';
 interface BucketCounterProps {
   kind: CounterStyleType;
   id: number;

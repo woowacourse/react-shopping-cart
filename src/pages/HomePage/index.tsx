@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import ProductList from '@components/ProductList';
+import ProductList from '@components/HomePage';
 import { device } from '@styles/theme';
 
 const HomePage = () => {
