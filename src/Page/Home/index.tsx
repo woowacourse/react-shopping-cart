@@ -1,5 +1,4 @@
 import { useSetRecoilState } from 'recoil';
-import ToastList from '../../components/Common/Toast/ToastList';
 import ProductItemList from '../../components/ProductItemList';
 import styles from './index.module.scss';
 import { $CartIdList } from '../../recoil/atom';
@@ -24,7 +23,6 @@ function Home() {
       <main className={styles['main-container']}>
         <ProductItemList />
       </main>
-      <ToastList />
     </>
   );
 }
