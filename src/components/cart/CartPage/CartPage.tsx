@@ -74,7 +74,9 @@ const CartPage = () => {
             <span>
               전체선택 ({checkedItemIds.length} / {cart.length})
             </span>
-            <DeleteButton>선택삭제</DeleteButton>
+            <DeleteButton disabled={isAllChecked === false}>
+              선택삭제
+            </DeleteButton>
           </AllCheckBoxContainer>
         </CartList>
         <TotalWrapper>
