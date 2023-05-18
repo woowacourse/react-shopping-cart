@@ -3,23 +3,16 @@ import { styled } from 'styled-components';
 import CheckIcon from '../../../assets/icons/CheckIcon';
 
 interface CheckBoxProps {
-  defaultChecked?: boolean;
+  isChecked: boolean;
+  onChange: () => void;
   labelText?: string;
-  onChange?: (isChecked: boolean) => void;
 }
 
-const CheckBox = ({ defaultChecked, labelText, onChange }: CheckBoxProps) => {
-  const [isChecked, setIsChecked] = useState(defaultChecked || false);
-
-  const handleChange = () => {
-    setIsChecked(!isChecked);
-    onChange && onChange(!isChecked);
-  };
-
+const CheckBox = ({ isChecked, onChange, labelText }: CheckBoxProps) => {
   return (
     <Label>
       <InputWrapper>
-        <Input checked={isChecked} onChange={handleChange} />
+        <Input checked={isChecked} onChange={onChange} />
         {isChecked && (
           <IconWrapper>
             <CheckIcon />
