@@ -3,20 +3,20 @@ import checkedIcon from '@Asset/checkedIcon.png';
 import * as S from './style';
 
 type CheckboxProps = {
-  checked: boolean;
-  setChecked: React.Dispatch<React.SetStateAction<boolean>>;
+  isChecked: boolean;
+  changeEvent: () => void;
 };
 
-function Checkbox({ checked, setChecked }: CheckboxProps) {
+function Checkbox({ isChecked, changeEvent }: CheckboxProps) {
   return (
-    <S.ProductItemCheckboxLabel checked={checked}>
+    <S.ProductItemCheckboxLabel checked={isChecked}>
       <S.ProductItemCheckbox
         type="checkbox"
         className="checkbox-product-select-item"
-        onChange={() => setChecked(!checked)}
-        checked={checked}
+        onChange={changeEvent}
+        checked={isChecked}
       />
-      {checked && <S.ProductItemCheckboxCheckIcon src={checkedIcon} />}
+      {isChecked && <S.ProductItemCheckboxCheckIcon src={checkedIcon} />}
     </S.ProductItemCheckboxLabel>
   );
 }
