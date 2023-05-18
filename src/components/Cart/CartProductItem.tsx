@@ -61,6 +61,7 @@ const CheckBoxWrapper = styled.div`
 
 const CartProductName = styled.p`
   margin: 0 155px 0 20px;
+  white-space: nowrap;
 `;
 
 const CartProductRightWrapper = styled.div`
