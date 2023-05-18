@@ -12,6 +12,8 @@ declare module 'styled-components' {
       header: string;
       price: string;
       title: string;
+      emphasizeFont: string;
+      subTitle: string;
     };
   }
 }
