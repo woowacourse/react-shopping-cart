@@ -3,24 +3,24 @@ import FlexBox from 'components/@common/FlexBox';
 import CartProductCardList from 'components/CartProductCardList/CartProductCardList';
 import useCartCheckBox from 'hooks/useCartCheckBox';
 import { useRecoilValue } from 'recoil';
-import { cartProductsState, cartTotalPriceState } from 'state/cartProducts';
+import { checkedCartProductsTotalPrice } from 'state/cartProducts';
 import styled from 'styled-components';
 
 const SHIPPING_FEE = 3000;
 
 const ShoppingCartPage = () => {
-  const { isChecked, isAllChecked, toggleCheck, toggleCheckAllBox } = useCartCheckBox();
-  const cartProducts = useRecoilValue(cartProductsState);
-  const cartTotalPrice = useRecoilValue(cartTotalPriceState);
-  const cartProductsCount = cartProducts.size;
+  const { checkedProducts, isChecked, isAllChecked, toggleCheck, toggleCheckAllBox } = useCartCheckBox();
+  const cartTotalPrice = useRecoilValue(checkedCartProductsTotalPrice(checkedProducts));
+  const isCheckedProductsExist = checkedProducts.size > 0;
   const cartTotalPriceWithFee = cartTotalPrice + SHIPPING_FEE;
 
   const checkBoxLabel = isAllChecked ? '선택해제' : '전체선택';
   const productTotalPriceText = `${cartTotalPrice.toLocaleString('ko-KR')}원`;
-  const shippingFeeText = `+${SHIPPING_FEE.toLocaleString('ko-KR')}원`;
-  const cartTotalPriceText = `${cartTotalPriceWithFee.toLocaleString('ko-KR')}원`;
-  const orderConfirmButtonText = `총 ${cartProductsCount}건 주문하기
-  (${cartTotalPriceWithFee.toLocaleString('ko-KR')}원)`;
+  const shippingFeeText = isCheckedProductsExist ? `+${SHIPPING_FEE.toLocaleString('ko-KR')}원` : '0원';
+  const cartTotalPriceText = isCheckedProductsExist ? `${cartTotalPriceWithFee.toLocaleString('ko-KR')}원` : '0원';
+  const orderConfirmButtonText = isCheckedProductsExist
+    ? `총 ${checkedProducts.size}건 주문하기(${cartTotalPriceWithFee.toLocaleString('ko-KR')}원)`
+    : '주문하기';
 
   return (
     <>
@@ -48,7 +48,7 @@ const ShoppingCartPage = () => {
             <SubTitle>예상 주문금액</SubTitle>
             <CartTotalPrice>{cartTotalPriceText}</CartTotalPrice>
           </Container>
-          <OrderConfirmButton>{orderConfirmButtonText}</OrderConfirmButton>
+          <OrderConfirmButton isActive={isCheckedProductsExist}>{orderConfirmButtonText}</OrderConfirmButton>
         </PriceSection>
       </FlexBox>
     </>
@@ -120,16 +120,17 @@ const CartTotalPrice = styled.span`
   font-weight: 700;
 `;
 
-const OrderConfirmButton = styled.button`
+const OrderConfirmButton = styled.button<{ isActive: boolean }>`
   width: 100%;
   height: 50px;
   margin-top: 20px;
   border: none;
-  color: #fff;
+  color: ${({ isActive }) => (isActive ? '#fff' : '#b1b3b5')};
   font-size: 18px;
   font-weight: 700;
-  background-color: #2ac1bc;
+  background-color: ${({ isActive }) => (isActive ? '#2ac1bc' : '#0000000d')};
   cursor: pointer;
+  pointer-events: ${({ isActive }) => (isActive ? 'initial' : 'none')};
 `;
 
 const PageTitle = styled.h2`
