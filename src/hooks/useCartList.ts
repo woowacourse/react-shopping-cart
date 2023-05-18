@@ -5,14 +5,18 @@ import { CartItemType, ProductItemType } from '../types';
 
 export const useCartList = () => {
   const [cartList, setCartList] = useRecoilState(cartListState);
+
+  // TODO:
   const addCartItem = (newCartItem: CartItemType) => {
     if (newCartItem) setCartList([...cartList, newCartItem]);
   };
 
+  // TODO:
   const updateCartItem = (newCartItem: CartItemType[]) => {
     if (newCartItem) setCartList([...newCartItem]);
   };
 
+  // TODO:
   const getNewCartItem = (itemQuantity: number, productInformation: ProductItemType) => {
     const newCartId = Number(new Date());
     return {
@@ -23,6 +27,7 @@ export const useCartList = () => {
     };
   };
 
+  // TODO:
   const updateCartItemQuantityIncrease = (id: number) => {
     setCartList(
       cartList.map((item) => {
@@ -70,6 +75,7 @@ export const useCartList = () => {
     return isAllChecked.length;
   };
 
+  // TODO:
   const getCartItemSum = () => {
     return cartList.reduce((acc, item) => {
       if (item.isChecked) return acc + item.quantity * item.product.price;
@@ -107,6 +113,7 @@ export const useCartList = () => {
     );
   };
 
+  // TODO:
   const updateCartItemQuantityDecrease = (id: number) => {
     setCartList(
       cartList.map((item) => {
