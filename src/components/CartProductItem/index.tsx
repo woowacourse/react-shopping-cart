@@ -13,14 +13,18 @@ interface CartProductItemProps {
 }
 
 function CartProductItem({ cartItem, refresh, toggleCheck, checked }: CartProductItemProps) {
-  const { product } = cartItem;
+  const { product, quantity } = cartItem;
   const { id, name, imageUrl, price } = product;
   const { cartItemState, addQuantity, deleteCartItem } = useCart(id);
 
-  const handleUpButton = async () => await addQuantity(1);
+  const handleUpButton = async () => {
+    await addQuantity(1);
+    refresh();
+  };
   const handleDownButton = async () => {
-    if (cartItemState && cartItemState.quantity > 0) {
+    if (cartItemState && cartItemState.quantity > 1) {
       await addQuantity(-1);
+      refresh();
     }
   };
 
@@ -46,7 +50,7 @@ function CartProductItem({ cartItem, refresh, toggleCheck, checked }: CartProduc
           handleUpButton={handleUpButton}
           handleDownButton={handleDownButton}
         />
-        <div className={styles['product-price']}>{price.toLocaleString()} 원</div>
+        <div className={styles['product-price']}>{(price * quantity).toLocaleString()} 원</div>
       </div>
     </div>
   );
