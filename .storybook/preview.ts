@@ -5,14 +5,14 @@ import GlobalStyles from '../src/GlobalStyles';
 import { worker } from '../src/mocks/browser';
 
 (async () => {
-  if (window.location.pathname === '/react-shopping-cart') {
+  if (window.location.pathname === '/react-shopping-cart/storybook') {
     window.location.pathname += '/';
     return;
   }
 
   await worker.start({
     serviceWorker: {
-      url: '/mockServiceWorker.js',
+      url: `${process.env.PUBLIC_URL}/mockServiceWorker.js`,
     },
   });
 })();
