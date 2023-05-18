@@ -5,6 +5,7 @@ import Image from '../Common/Image';
 
 import TrashCanIcon from '../../assets/TrashCanIcon';
 import { CartProduct } from '../../types/product';
+import CheckBox from '../Common/CheckBox';
 
 interface CartProductItemProps {
   cartProduct: CartProduct;
@@ -16,10 +17,7 @@ const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
 
   return (
     <CartProductContainer>
-      <div>
-        <CheckBox type='checkbox' id={`cart-product-check-${id}`} />
-        <label htmlFor={`cart-product-check-${id}`}></label>
-      </div>
+      <CheckBox id={`cart-product-check-${id}`} />
       <Image
         src={`${process.env.PUBLIC_URL}/${imageUrl}`}
         alt={name}
@@ -46,35 +44,6 @@ const CartProductContainer = styled.div`
   display: flex;
   column-gap: 15px;
   width: 100%;
-`;
-
-const CheckBox = styled.input`
-  display: none;
-
-  + label {
-    position: relative;
-    display: inline-block;
-    width: 28px;
-    height: 28px;
-    border: 1px solid ${({ theme }) => theme.colors.primary};
-    border-radius: 2px;
-  }
-
-  &:checked + label {
-    background: ${({ theme }) => theme.colors.black};
-  }
-
-  &:checked + label::after {
-    content: '';
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    width: 8px;
-    height: 16px;
-    border: solid ${({ theme }) => theme.colors.white};
-    border-width: 0 3px 3px 0;
-    transform: translate(-50%, -50%) rotate(45deg);
-  }
 `;
 
 const ProductName = styled.p`

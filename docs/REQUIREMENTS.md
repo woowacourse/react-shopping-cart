@@ -28,9 +28,10 @@
   - [ ] PageTitle
   - [x] CartProductList
   - [x] CartProductItem
-  - [ ] ExpectedPaymentBox
-  - [ ] CheckBox
-  - [ ] Button
+  - [x] ExpectedPaymentBox
+  - [x] Image
+  - [x] CheckBox
+  - [x] Button
 
 ## 🐧 기타
 
