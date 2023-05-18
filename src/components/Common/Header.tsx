@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import CartIcon from '../../assets/CartIcon';
 import { useRecoilValue } from 'recoil';
 import { totalCartProductSelect } from '../../data/cartProductData';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const totalCartProduct = useRecoilValue(totalCartProductSelect);
@@ -12,12 +13,16 @@ const Header = () => {
       <HeaderContent>
         <LogoContainer>
           <CartIcon width={51} height={44} color='white' />
-          <Logo>SHOP</Logo>
+          <Link to='/'>
+            <Logo>SHOP</Logo>
+          </Link>
         </LogoContainer>
-        <MoveCartPageBtn>
-          장바구니
-          <ProductCountAlert>{totalCartProduct}</ProductCountAlert>
-        </MoveCartPageBtn>
+        <Link to='/cart'>
+          <MoveCartPageBtn>
+            장바구니
+            <ProductCountAlert>{totalCartProduct}</ProductCountAlert>
+          </MoveCartPageBtn>
+        </Link>
       </HeaderContent>
     </HeaderContainer>
   );
