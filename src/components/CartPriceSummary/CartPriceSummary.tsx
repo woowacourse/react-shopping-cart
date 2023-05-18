@@ -31,6 +31,7 @@ const Wrapper = styled.div`
   border: 1px solid #ddd;
   display: flex;
   flex-direction: column;
+  margin-top: 50px;
 `;
 
 const Title = styled.h3`
