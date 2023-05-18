@@ -1,6 +1,11 @@
 import { useState } from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { Product, UpdateShoppingCart } from '@Types/index';
+
+import localStorageHelper from '@Utils/localStorageHelper';
+
+import shoppingCartState from '@Atoms/shoppingCartState';
 
 import { ALERT_MESSAGE, QUANTITY_CONTROL_BUTTON, QUANTITY_CONTROL_UNIT, SHOPPING_QUANTITY } from '@Constants/index';
 
@@ -12,52 +17,62 @@ type QuantityControllerProps = {
   product: Product;
   quantity?: number;
   cartItemId?: number;
-  updateShoppingCart: UpdateShoppingCart;
 };
 
 type QuantityControlButton = (typeof QUANTITY_CONTROL_BUTTON)[keyof typeof QUANTITY_CONTROL_BUTTON];
 
-function QuantityController({
-  product,
-  quantity = SHOPPING_QUANTITY.MIN,
-  cartItemId,
-  updateShoppingCart,
-}: QuantityControllerProps) {
+function QuantityController({ product, quantity = SHOPPING_QUANTITY.MIN, cartItemId }: QuantityControllerProps) {
   const [isUserWork, setIsUserWork] = useState(false);
+  const updateShoppingCart = useSetRecoilState(shoppingCartState);
 
-  const controlProductQuantity = (type: QuantityControlButton) => {
+  const controlProductQuantity = async (type: QuantityControlButton) => {
     if (type === QUANTITY_CONTROL_BUTTON.PLUS) {
-      updateShoppingCart(product, quantity + QUANTITY_CONTROL_UNIT.INCREASE);
+      await fetch(`/cart-items/${cartItemId}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ quantity: quantity + QUANTITY_CONTROL_UNIT.DECREASE }),
+      });
+      updateShoppingCart(localStorageHelper.getValue('cartItems'));
     } else {
-      updateShoppingCart(product, quantity - QUANTITY_CONTROL_UNIT.DECREASE);
+      if (quantity - QUANTITY_CONTROL_UNIT.DECREASE === 0) {
+        await fetch(`/cart-items/${cartItemId}`, {
+          method: 'DELETE',
+        });
+        updateShoppingCart(localStorageHelper.getValue('cartItems'));
+      } else {
+        await fetch(`/cart-items/${cartItemId}`, {
+          method: 'PATCH',
+          body: JSON.stringify({ quantity: quantity - QUANTITY_CONTROL_UNIT.DECREASE }),
+        });
+        updateShoppingCart(localStorageHelper.getValue('cartItems'));
+      }
     }
   };
 
-  const addShoppingCart = () => {
-    fetch('/cart-items', {
+  const addShoppingCart = async () => {
+    await fetch('/api/cart-items', {
       method: 'POST',
       body: JSON.stringify({ productId: product.id }),
     });
-    updateShoppingCart(product, SHOPPING_QUANTITY.DEFAULT);
+    updateShoppingCart(localStorageHelper.getValue('cartItems'));
   };
 
-  const changeQuantityValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const changeQuantityValue = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(event.target.value);
 
     if (newValue > SHOPPING_QUANTITY.MAX) return alert(ALERT_MESSAGE.OVER_MAX_QUANTITY);
 
     if (newValue === 0) {
-      fetch(`/cart-items/${cartItemId}`, {
+      await fetch(`/cart-items/${cartItemId}`, {
         method: 'DELETE',
       });
+      updateShoppingCart(localStorageHelper.getValue('cartItems'));
     } else {
-      fetch(`/cart-items/${cartItemId}`, {
+      await fetch(`/cart-items/${cartItemId}`, {
         method: 'PATCH',
         body: JSON.stringify({ quantity: newValue }),
       });
+      updateShoppingCart(localStorageHelper.getValue('cartItems'));
     }
-
-    updateShoppingCart(product, Math.floor(newValue));
   };
 
   if (quantity === SHOPPING_QUANTITY.MIN && !isUserWork) {

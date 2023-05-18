@@ -4,9 +4,9 @@ import { ShoppingCartProduct } from '@Types/index';
 
 import localStorageHelper from '@Utils/localStorageHelper';
 
-const shoppingCartState = atom({
+const shoppingCartState = atom<ShoppingCartProduct[]>({
   key: 'shoppingCartState',
-  default: localStorageHelper.getValue('cartItems') as ShoppingCartProduct[],
+  default: localStorageHelper.hasKey('cartItems') ? localStorageHelper.getValue('cartItems') : [],
 });
 
 export default shoppingCartState;
