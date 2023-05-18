@@ -7,7 +7,7 @@ import GlobalStyles from './GlobalStyles';
 import App from '@components/App/App';
 import ErrorPage from '@pages/ErrorPage/ErrorPage';
 import ProductsPage from '@pages/ProductsPage/ProductsPage';
-import { worker } from './mocks/browser';
+import { worker } from '@mocks/browser';
 
 const main = async () => {
   if (window.location.pathname === '/react-shopping-cart') {

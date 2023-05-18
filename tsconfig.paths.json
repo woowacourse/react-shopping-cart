@@ -10,7 +10,8 @@
       "@hooks/*": ["./src/hooks/*"],
       "@customTypes/*": ["./src/customTypes/*"],
       "@constants/*": ["./src/constants/*"],
-      "@recoil/*": ["./src/recoil/*"]
+      "@recoil/*": ["./src/recoil/*"],
+      "@mocks/*": ["./src/mocks/*"]
     }
   }
 }
