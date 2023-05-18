@@ -10,10 +10,11 @@ import * as S from './style';
 
 function ShoppingList() {
   const { data, status } = useFetch<ShoppingCartProduct[]>(FETCH_URL.cartItems);
+
   return (
     <S.Container>
       <S.ShoppingListLayout>
-        {data && data.map((item) => <ShoppingItem product={item.product} key={item.product.id} />)}
+        {data && data.map((item) => <ShoppingItem cartId={item.id} product={item.product} key={item.product.id} />)}
       </S.ShoppingListLayout>
       <div></div>
     </S.Container>

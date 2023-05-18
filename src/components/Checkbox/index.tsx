@@ -7,12 +7,12 @@ import * as S from './style';
 type CheckboxProps = {
   isChecked: boolean;
   size?: BoxSize;
+  updateSelectedState: () => void;
 };
 
-function Checkbox({ isChecked, size = 'medium' }: CheckboxProps) {
-  console.log(BOX_SIZE[size]);
+function Checkbox({ isChecked, size = 'medium', updateSelectedState }: CheckboxProps) {
   return (
-    <S.Checkbox isChecked={isChecked} aria-label="선택 버튼" size={BOX_SIZE[size]}>
+    <S.Checkbox isChecked={isChecked} aria-label="선택 버튼" size={BOX_SIZE[size]} onClick={updateSelectedState}>
       ✓
     </S.Checkbox>
   );
