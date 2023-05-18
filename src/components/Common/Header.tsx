@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import CartIcon from '../../assets/CartIcon';
 import { useRecoilValue } from 'recoil';
-import { totalCartProductSelect } from '../../data/cartProductData';
+import { totalCartProductSelect } from '../../recoil/cartProductData';
 import { Link } from 'react-router-dom';
 
 const Header = () => {

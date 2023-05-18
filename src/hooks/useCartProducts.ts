@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
-import { cartProductAtom } from '../data/cartProductData';
+import { cartProductAtom } from '../recoil/cartProductData';
 import type { CartProduct, Product } from '../types/product';
 
 const findTargetProduct = (cartProducts: CartProduct[], id: number) =>
