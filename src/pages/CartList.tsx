@@ -2,6 +2,7 @@ import React from 'react';
 import { Typography as Title } from '../ui/Typography';
 import * as Styled from './styles/CartList.styles';
 import { CartItemContainer } from '../components/CartItemContainer';
+import { CartTotalPriceContainer } from '../components/CartTotalPriceContainer';
 
 export const CartList = () => {
   return (
@@ -13,6 +14,7 @@ export const CartList = () => {
       </Styled.TitleWrapper>
       <Styled.CartInfoWrapper>
         <CartItemContainer />
+        <CartTotalPriceContainer />
       </Styled.CartInfoWrapper>
     </Styled.Wrapper>
   );

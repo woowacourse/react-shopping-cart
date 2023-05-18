@@ -1,6 +1,7 @@
 export interface CartProductList {
   id: number;
   quantity: number;
+  checked: boolean;
   product: ProductItem;
 }
 
