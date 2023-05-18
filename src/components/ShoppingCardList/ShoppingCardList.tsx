@@ -1,11 +1,11 @@
 import { memo } from "react";
 import { useRecoilValue } from "recoil";
-import { cartIDAtom } from "../../store/cartState";
+import { cartIdAtom } from "../../store/cartState";
 import Styled from "./ShoppingCardListStyled";
 import ShoppingCard from "../ShoppingCard/ShoppingCard";
 
 const ShoppingCardList = () => {
-  const shoppingList = useRecoilValue(cartIDAtom);
+  const shoppingList = useRecoilValue(cartIdAtom);
 
   return (
     <Styled.Container>

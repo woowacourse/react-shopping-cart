@@ -1,12 +1,12 @@
 import { useRecoilState, useRecoilValue } from "recoil";
-import { cartAtomFamily, cartIDAtom } from "../store/cartState";
+import { cartAtomFamily, cartIdAtom } from "../store/cartState";
 import { useState } from "react";
 import { Cart } from "../types/product";
 import { targetProductSelector } from "../store/fetchSelectors";
 
 const useCart = (productId: number) => {
   const [cart, setCart] = useRecoilState(cartAtomFamily(productId));
-  const [cartID, setCartID] = useRecoilState(cartIDAtom);
+  const [cartId, setCartId] = useRecoilState(cartIdAtom);
   const product = useRecoilValue(targetProductSelector)(productId);
   const productInCart = cart.quantity ? true : false;
   const [isCartClicked, setIsCartClicked] = useState(Boolean(productInCart));
@@ -18,7 +18,7 @@ const useCart = (productId: number) => {
       product,
     };
     setCart(newProduct);
-    setCartID([...cartID, productId]);
+    setCartId([...cartId, productId]);
     setIsCartClicked(true);
   };
 
@@ -30,8 +30,8 @@ const useCart = (productId: number) => {
     };
     setCart(updateProduct);
     setIsCartClicked(false);
-    const newCartID = cartID.filter((id) => id !== productId);
-    setCartID(newCartID);
+    const newCartID = cartId.filter((id) => id !== productId);
+    setCartId(newCartID);
   };
 
   const plusQuantity = () => {
@@ -53,8 +53,8 @@ const useCart = (productId: number) => {
 
     if (updateProduct.quantity === 0) {
       setIsCartClicked(false);
-      const newCartID = cartID.filter((id) => id !== productId);
-      setCartID(newCartID);
+      const newCartID = cartId.filter((id) => id !== productId);
+      setCartId(newCartID);
     }
 
     setCart(updateProduct);
