@@ -50,7 +50,7 @@ const CartTotal = ({ totalProductPrice }: { totalProductPrice: number }) => {
         </PriceWrapper>
       </Detail>
       <Spacer height={43} />
-      <OrderButton>주문하기</OrderButton>
+      <OrderButton disabled={totalProductPrice === 0}>주문하기</OrderButton>
     </Container>
   );
 };
