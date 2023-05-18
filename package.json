@@ -66,13 +66,17 @@
     "@storybook/testing-library": "^0.0.14-next.2",
     "@types/recoil": "^0.0.9",
     "@types/styled-components": "^5.1.26",
-    "gh-pages": "^5.0.0",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "gh-pages": "^5.0.0",
+    "msw": "^1.2.1",
     "prop-types": "^15.8.1",
     "react-router-dom": "^6.11.1",
     "recoil": "^0.7.7",
     "storybook": "^7.0.10",
     "styled-components": "^5.3.10",
     "webpack": "^5.82.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
