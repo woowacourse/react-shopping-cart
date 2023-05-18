@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
 import CartProductItem from '../components/CartProductItem';
+import type { Meta, StoryObj } from '@storybook/react';
 
 type Story = StoryObj<typeof CartProductItem>;
 const meta: Meta<typeof CartProductItem> = {

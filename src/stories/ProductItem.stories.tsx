@@ -1,6 +1,6 @@
 import ProductItem from '../components/ProductItem';
+import handlers from '../mocks/handlers';
 import type { Meta, StoryObj } from '@storybook/react';
-import { handlers } from '../mocks/handlers';
 
 type Story = StoryObj<typeof ProductItem>;
 const meta: Meta<typeof ProductItem> = {
