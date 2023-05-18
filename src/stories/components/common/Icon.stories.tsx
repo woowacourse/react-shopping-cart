@@ -77,22 +77,6 @@ export const Cart: Story = {
   },
 };
 
-// export const HeaderIcon = () => {
-//   return (
-//     <div
-//       style={{
-//         display: 'flex',
-//         justifyContent: 'center',
-//         width: 'calc(100vw - 32vw)',
-//         padding: '20px',
-//         background: '#333',
-//       }}
-//     >
-//       <IconComponent width="50" height="40" color="#fff" path={CART_PATH} viewBox="0 0 51 44" />
-//     </div>
-//   );
-// };
-
 export const HeaderCart: Story = {
   decorators: [
     (Story) => {

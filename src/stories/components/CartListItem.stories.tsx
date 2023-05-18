@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/react';
 import CartListItemComponent from '../../components/cart/CartListItem';
-import { RecoilRoot } from 'recoil';
+
 import { styled } from 'styled-components';
 import Checkbox from '../../components/cart/Checkbox';
 import { useHandleCartList } from '../../hooks/useHandleCartList';
@@ -12,11 +12,9 @@ const meta = {
   decorators: [
     (Story) => {
       return (
-        <RecoilRoot>
-          <S.StoryWrapper>
-            <Story />
-          </S.StoryWrapper>
-        </RecoilRoot>
+        <S.StoryWrapper>
+          <Story />
+        </S.StoryWrapper>
       );
     },
   ],
@@ -33,9 +31,9 @@ const meta = {
     },
   },
   argTypes: {
-    item:{
-      description: '카트에 담긴 아이템을 보여줍니다.'
-    }
+    item: {
+      description: '카트에 담긴 아이템을 보여줍니다.',
+    },
   },
 } satisfies Meta<typeof CartListItemComponent>;
 
@@ -46,7 +44,7 @@ export const CartListItem = (args: any) => {
   return (
     <>
       <Checkbox onChange={handleCheckedItem(1)} isChecked={true} />
-      <CartListItemComponent item={args.item} />
+      <CartListItemComponent item={args.item} setCheckItems={() => {}} />
     </>
   );
 };

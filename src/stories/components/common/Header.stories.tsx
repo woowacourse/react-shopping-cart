@@ -1,6 +1,5 @@
 import { Meta } from '@storybook/react';
 import HeaderComponent from '../../../components/common/Header';
-import { RecoilRoot } from 'recoil';
 
 const meta = {
   component: HeaderComponent,
@@ -9,11 +8,9 @@ const meta = {
   decorators: [
     (Story) => {
       return (
-        <RecoilRoot>
-          <div style={{ width: 'calc(100vw - 32vw)' }}>
-            <Story />
-          </div>
-        </RecoilRoot>
+        <div style={{ width: 'calc(100vw - 32vw)' }}>
+          <Story />
+        </div>
       );
     },
   ],
@@ -30,5 +27,5 @@ const meta = {
 export default meta;
 
 export const Cart = (args: any) => {
-  return <HeaderComponent title={args.title} onClickCartButton={()=>{}}/>;
+  return <HeaderComponent title={args.title} onClickCartButton={() => {}} />;
 };

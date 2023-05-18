@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/react';
-import { RecoilRoot } from 'recoil';
+
 import { styled } from 'styled-components';
 import Header from '../../components/common/Header';
 import ProductList from '../../components/main/ProductList';
@@ -11,17 +11,13 @@ const meta = {
   decorators: [
     (Story) => {
       return (
-        <RecoilRoot>
-          <S.StoryWrapper>
-            <Story />
-          </S.StoryWrapper>
-        </RecoilRoot>
+        <S.StoryWrapper>
+          <Story />
+        </S.StoryWrapper>
       );
     },
   ],
-  args: {
-
-  },
+  args: {},
   argTypes: {},
 } satisfies Meta<typeof ProductList>;
 
