@@ -37,7 +37,17 @@ const useShoppingCart = (product: Product) => {
     });
   };
 
-  return { cartProducts, initialAddCart, increaseQuantity, decreaseQuantity };
+  const deleteCartProduct = () => {
+    if (!targetCartProduct) throw new Error('장바구니에 없는 상품의 수량은 조절할 수 없습니다.');
+
+    setCartProducts((prev) => {
+      prev.delete(id);
+
+      return new Map(prev.entries());
+    });
+  };
+
+  return { cartProducts, initialAddCart, increaseQuantity, decreaseQuantity, deleteCartProduct };
 };
 
 export default useShoppingCart;
