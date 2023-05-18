@@ -10,15 +10,27 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+export const Text: Story = {
+  args: {
+    designType: 'text',
+    children: 'Button',
+  },
+};
+
 export const Square: Story = {
   args: {
     designType: 'square',
+    bgColor: 'skyblue',
+    color: 'white',
+    children: '🐾',
   },
 };
 
 export const Rectangle: Story = {
   args: {
-    bgColor: 'primary',
     designType: 'rectangle',
+    bgColor: 'skyblue',
+    color: 'white',
+    children: 'Button',
   },
 };

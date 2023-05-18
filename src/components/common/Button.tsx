@@ -2,13 +2,13 @@ import { ButtonHTMLAttributes } from 'react';
 import { styled } from 'styled-components';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  bgColor: 'primary';
-  designType: 'square' | 'rectangle';
+  bgColor: string;
+  designType: 'text' | 'square' | 'rectangle';
 }
 
 export default function Button({ bgColor, designType, ...props }: Partial<Props>) {
   return (
-    <Style.Button className={designType} {...props}>
+    <Style.Button className={designType} bgColor={bgColor} {...props}>
       {props.children}
     </Style.Button>
   );
@@ -22,12 +22,24 @@ const Style = {
 
     border: none;
     border-radius: 7px;
-    background-color: var(--grey-100);
+    background-color: ${(props) => (props.bgColor ? props.bgColor : 'var(--grey-100)')};
 
     color: var(--grey-100);
     cursor: pointer;
 
+    &.text {
+      color: ${(props) => (props.color ? props.color : 'var(--grey-500)')};
+      background-color: transparent;
+    }
+
     &.square {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 28px;
+      height: 28px;
+
       color: var(--grey-600);
       text-align: center;
       line-height: 28px;
@@ -36,10 +48,8 @@ const Style = {
     &.rectangle {
       width: 388px;
       height: 73px;
-      border: ${(props) => props.bgColor && 'solid 1px var(--grey-300)'};
-      background-color: ${(props) => props.bgColor && 'var(--primary-color)'};
 
-      color: ${(props) => props.bgColor && 'var(--grey-100)'};
+      color: ${(props) => (props.color ? props.color : 'var(--grey-500)')};
     }
 
     &:disabled {
