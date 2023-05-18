@@ -7,6 +7,8 @@ import * as S from './CartItem.styles';
 import Svg from 'src/components/@common/Svg';
 import { useRecoilValue } from 'recoil';
 import { quantityTimesNumber } from 'src/recoil/cartList';
+import CheckBox from 'src/components/@common/CheckBox';
+import theme from 'src/styles/theme';
 
 interface ItemProps {
   item: CartItem;
@@ -21,15 +23,14 @@ const Item = ({ item }: ItemProps) => {
 
   return (
     <S.ItemWrapper>
-      <SelectLabel htmlFor={`${id}`}>
-        <SelectInput
-          type="checkbox"
-          id={`${id}`}
-          checked={isSelected}
-          onChange={onChangeSelectToggle}
-        />
-      </SelectLabel>
-      <S.ProductImage src={product.imageUrl} alt={product.name} />
+      <CheckBox
+        id={`${id}`}
+        checked={isSelected}
+        onChange={onChangeSelectToggle}
+        backgroundColor={theme.color.secondary}
+      >
+        <S.ProductImage src={product.imageUrl} alt={product.name} />
+      </CheckBox>
       <S.ProductNameConatiner>
         <S.ProductName>{product.name}</S.ProductName>
       </S.ProductNameConatiner>

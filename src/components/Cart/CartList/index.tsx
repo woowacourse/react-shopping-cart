@@ -2,6 +2,8 @@ import { CartItem } from 'src/types';
 import Item from '../CartItem';
 import * as S from './CartList.styles';
 import useCartListUpdate from 'src/hooks/useCartListUpdate';
+import CheckBox from 'src/components/@common/CheckBox';
+import theme from 'src/styles/theme';
 
 interface CartListProps {
   cartList: CartItem[];
@@ -29,15 +31,14 @@ const CartList = ({ cartList }: CartListProps) => {
   return (
     <S.CartListWrapper>
       <S.CartListHeader>
-        <S.SelectLabel htmlFor="whole-select">
-          <S.SelectInput
-            id="whole-select"
-            type="checkbox"
-            checked={wholeSelected}
-            onChange={onChange}
-          />
+        <CheckBox
+          id="whole-select"
+          backgroundColor={theme.color.secondary}
+          checked={wholeSelected}
+          onChange={onChange}
+        >
           <S.SelectText>{`전체 선택 (${selectedLength}/${wholeCartItemsCount}개)`}</S.SelectText>
-        </S.SelectLabel>
+        </CheckBox>
         <span>|</span>
         <S.SelectedDeleteButton onClick={onClickDeleteHandler}>
           선택 삭제
