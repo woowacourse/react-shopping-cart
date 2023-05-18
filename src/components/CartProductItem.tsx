@@ -4,23 +4,26 @@ import { styled } from 'styled-components';
 import { StyledText } from './common/Text';
 import { DeleteProductButtonImage } from '../assets/image';
 import { AddToCartCount } from './AddToCartCount';
+import { CartProductList } from '../types/productType';
 
-export const CartProductItem = () => {
+export const CartProductItem = (props: CartProductList) => {
+  const { id, quantity, product } = props;
+
   return (
-    <CartProductItemContainer>
+    <CartProductItemContainer key={id}>
       <LeftSideWrapper>
         <CheckBox />
-        <ProductImage source="/assets/1.png" alternative="상품 이미지" />
+        <ProductImage source={product.imageUrl} alternative="상품 이미지" />
         <ProductTitle size="20px" weight="600">
-          [든든] 야채바삭 김말이 700g
+          {product.name}
         </ProductTitle>
       </LeftSideWrapper>
 
       <RightSideWrapper>
         <DeleteProductButtonImage />
-        <AddToCartCount id={2} quantity={2} />
+        <AddToCartCount id={id} quantity={quantity} />
         <ProductPrice size="18px" weight="600">
-          7,600원
+          {product.price}원
         </ProductPrice>
       </RightSideWrapper>
     </CartProductItemContainer>
