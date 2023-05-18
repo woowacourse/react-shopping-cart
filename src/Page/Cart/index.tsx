@@ -4,7 +4,6 @@ import CartProductItemList from '../../components/CartProductItemList';
 import PaymentsView from '../../components/PaymentsView';
 import styles from './index.module.scss';
 import { $CartIdList, $CartTotalPrice } from '../../recoil/atom';
-import Header from '../../components/Header';
 
 function Cart() {
   const cartTotalPrice = useRecoilValue($CartTotalPrice);
@@ -13,7 +12,6 @@ function Cart() {
   if (cartIdList.length > 0) {
     return (
       <>
-        <Header />
         <main className={styles.container}>
           <h2 className={styles.title}>장바구니</h2>
           <section className={styles['main-view']}>
@@ -27,7 +25,6 @@ function Cart() {
 
   return (
     <>
-      <Header />
       <main className={styles.container}>
         <h2 className={styles.title}>장바구니</h2>
         <section className={styles['main-view-blank']}>
