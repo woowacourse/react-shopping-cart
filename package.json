@@ -53,10 +53,14 @@
     "@storybook/testing-library": "^0.1.0",
     "babel-plugin-named-exports-order": "^0.0.2",
     "eslint-plugin-import": "^2.27.5",
+    "msw": "^1.2.1",
     "prop-types": "^15.8.1",
     "storybook": "^7.0.9",
     "storybook-addon-recoil-flow": "^1.5.1",
     "tsconfig-paths-webpack-plugin": "^4.0.1",
     "webpack": "^5.82.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
