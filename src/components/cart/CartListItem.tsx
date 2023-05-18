@@ -3,24 +3,31 @@ import { CartItem } from '../../types';
 import { styled } from 'styled-components';
 import { BsFillTrash3Fill } from 'react-icons/bs';
 import { useHandleProduct } from '../../hooks/useHandleProduct';
+import { Dispatch, MouseEvent, SetStateAction } from 'react';
 
 interface Props {
   item: CartItem;
+  setCheckItems: Dispatch<SetStateAction<number[]>>;
 }
 
-const CartListItem = ({ item }: Props) => {
+const CartListItem = ({ item, setCheckItems }: Props) => {
   const {
-    handleNumberInputChange,
     removeFromCart,
+    handleNumberInputChange,
     handleIncreaseItem,
     handleDecreaseCartItem,
   } = useHandleProduct(item.id);
+
+  const handleRemoveFromCart = (id: number) => (e: MouseEvent<HTMLButtonElement>) => {
+    setCheckItems((prev) => prev.filter((itemId) => itemId !== id));
+    removeFromCart();
+  };
 
   return (
     <S.Wrapper>
       <img src={`${process.env.PUBLIC_URL}${item.product.imageUrl}`} alt={String(item.id)} />
       <S.Name>{item.product.name}</S.Name>
-      <S.RemoveButton onClick={removeFromCart}>
+      <S.RemoveButton onClick={handleRemoveFromCart(item.id)}>
         <BsFillTrash3Fill size={24} />
       </S.RemoveButton>
       <QuantityInput

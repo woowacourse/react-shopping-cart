@@ -10,6 +10,7 @@ const CartList = () => {
   const cart = useRecoilValue(cartState);
   const {
     checkedItems,
+    setCheckedItems,
     totalPrice,
     handleCheckAllItems,
     handleCheckedItem,
@@ -25,21 +26,21 @@ const CartList = () => {
             <S.CheckboxAll
               type="checkbox"
               id={'all'}
-              onClick={handleCheckAllItems}
+              onChange={handleCheckAllItems}
               checked={checkedItems.length === cart.length}
             />
-            <label htmlFor={'all'}>{`전체 ${cart.length}`}</label>
+            <label htmlFor={'all'}>{`전체선택 ${checkedItems.length}/${cart.length}개`}</label>
             <S.RemoveSelectedButton onClick={handleRemoveCheckedItem}>
               선택 삭제
             </S.RemoveSelectedButton>
           </S.CheckboxAllWrapper>
           {cart.map((cartItem) => (
-            <S.ItemWrapper>
+            <S.ItemWrapper key={cartItem.id}>
               <Checkbox
                 onChange={handleCheckedItem(cartItem.id)}
                 isChecked={checkedItems.includes(cartItem.id)}
               />
-              <CartListItem item={cartItem} />
+              <CartListItem item={cartItem} setCheckItems={setCheckedItems} />
             </S.ItemWrapper>
           ))}
         </S.ItemListWrapper>
@@ -73,7 +74,7 @@ const S = {
     }
 
     & > :nth-child(2) {
-      margin-top: 40px;
+      margin-top: 60px;
       border-top: 4px solid #aaa;
     }
 
@@ -108,16 +109,24 @@ const S = {
   `,
 
   RemoveSelectedButton: styled.button`
-    border: 1px solid black;
+    width: 100px;
+    height: 35px;
     padding: 5px;
+    background-color: white;
+    border: 1px solid #bbb;
     border-radius: 7px;
+    font-size: 16px;
     cursor: pointer;
   `,
 
   Title: styled.h1`
+    width: 1320px;
+    margin: 0px 200px 80px 200px;
     text-align: center;
     font-size: 32px;
     font-weight: 700;
+    padding: 30px;
+    border-bottom: 4px solid #333;
   `,
 
   CheckboxAll: styled(CheckboxStyle)``,
