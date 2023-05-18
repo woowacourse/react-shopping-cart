@@ -13,4 +13,5 @@ export const Button = styled.button<{
   height: ${({ height }) => height};
   background-color: ${({ backgroundcolor }) => backgroundcolor};
   border: 1px solid ${({ bordercolor }) => bordercolor};
+  cursor: pointer;
 `;

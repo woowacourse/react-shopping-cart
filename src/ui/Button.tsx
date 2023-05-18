@@ -13,7 +13,7 @@ export const Button = ({
   onClick,
   width = '132px',
   height = '32px',
-  backgroundColor = '#333333',
+  backgroundColor = 'transparent',
   borderColor = 'none',
 }: ButtonProps) => {
   return (
