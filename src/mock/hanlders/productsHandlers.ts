@@ -1,4 +1,5 @@
 import { rest } from 'msw';
+import { PRODUCTS_BASE_URL } from '../../constant';
 
 const products = [
   {
@@ -87,8 +88,19 @@ const products = [
   },
 ] as const;
 
-export const handlers = [
-  rest.get('/api/products', (req, res, ctx) => {
-    return res(ctx.status(404), ctx.json(products));
+export const productsHandlers = [
+  rest.get(PRODUCTS_BASE_URL, (_, res, ctx) => {
+    return res(ctx.status(200), ctx.json(products));
   }),
-]
+
+  rest.get(`${PRODUCTS_BASE_URL}/:id`, (req, res, ctx) => {
+    const productId = Number(req.params.id);
+    const findedProduct = products.find((item) => item.id === productId);
+
+    if (findedProduct === undefined) {
+      return res(ctx.status(404), ctx.json({ message: '해당 상품이 존재하지 않습니다.' }));
+    }
+
+    return res(ctx.status(200), ctx.json(findedProduct));
+  }),
+];
