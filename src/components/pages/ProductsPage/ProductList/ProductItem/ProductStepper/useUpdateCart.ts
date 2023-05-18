@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 
-import myCartState from '@recoil/myCartState';
+import cartState from '@recoil/cartState';
 
-const useUpdateMyCart = (productId: number, productCount: number) => {
-  const setMyCart = useSetRecoilState(myCartState);
+const useUpdateCart = (productId: number, productCount: number) => {
+  const setCart = useSetRecoilState(cartState);
 
   useEffect(() => {
-    setMyCart(prev => {
+    setCart(prev => {
       const newCart = { ...prev };
 
       if (!productId || (productCount !== 0 && productCount !== 1)) {
@@ -22,7 +22,7 @@ const useUpdateMyCart = (productId: number, productCount: number) => {
 
       return newCart;
     });
-  }, [productCount, productId, setMyCart]);
+  }, [productCount, productId, setCart]);
 };
 
-export default useUpdateMyCart;
+export default useUpdateCart;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { PRODUCT_COUNT, STEP_UNIT } from '@constants/product';
-import useUpdateMyCart from './useUpdateCart';
+import useUpdateCart from './useUpdateCart';
 
 import {
   StyledProductStepperButtonFlexBox,
@@ -26,7 +26,7 @@ const ProductStepper = (props: ProductStepperProps) => {
     props;
   const [productCount, setProductCount] = useState(0);
 
-  useUpdateMyCart(productId, productCount);
+  useUpdateCart(productId, productCount);
 
   return (
     <>
