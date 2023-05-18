@@ -58,10 +58,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "build-storybook": "storybook build --output-dir ./build/storybook",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "predeploy-with-storybook": "npm run build && npm run build-storybook && ren storybook-static storybook && move ./storybook ./build",
+    "predeploy-with-storybook": "npm run build && npm run build-storybook",
     "deploy-with-storybook": "gh-pages -d build"
   },
   "eslintConfig": {
