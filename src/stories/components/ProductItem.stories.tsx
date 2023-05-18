@@ -15,7 +15,7 @@ type Story = StoryObj<typeof ProductItemComponent>;
 export const ProductItem: Story = {
   args: {
     id: 1,
-    imageUrl: '/assets/product1.svg',
+    imageUrl: `${process.env.PUBLIC_URL}/assets/product1.svg`,
     name: 'PET보틀-정사각(420ml)',
     price: 43400,
   },
