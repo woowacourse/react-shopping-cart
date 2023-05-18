@@ -5,6 +5,7 @@ import { Layout } from './components/common/Layout';
 import ProductPageError from './pages/ProductPage/ProductPageError';
 import { PAGE_ROUTES } from './constants/routes';
 import Page404 from './pages/ErrorPage/Page404';
+import CartPage from './pages/CartPage';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
         element: <ProductPage />,
         errorElement: <ProductPageError />,
       },
+      { path: PAGE_ROUTES.CART, element: <CartPage /> },
     ],
   },
   {

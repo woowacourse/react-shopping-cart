@@ -1,4 +1,4 @@
-import { selector, atom, selectorFamily } from 'recoil';
+import { selector, atom } from 'recoil';
 import { fetchCart } from '../apis/cart';
 
 export const cartState = atom({
@@ -6,7 +6,7 @@ export const cartState = atom({
   default: selector({
     key: 'getMockCart',
     get: async () => {
-      const { cart } = await fetchCart();
+      const cart = await fetchCart();
 
       return cart;
     },

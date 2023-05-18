@@ -1,11 +1,7 @@
 import { CartItem } from '../types/cart';
 import { fetcher } from '.';
 
-interface FetchCartRes {
-  cart: CartItem[];
-}
-
-export const fetchCart: () => Promise<FetchCartRes> = async () => {
-  const data = await fetcher<FetchCartRes>('./data/mockCart.json');
+export const fetchCart: () => Promise<CartItem[]> = async () => {
+  const data = await fetcher<CartItem[]>('/cart-items');
   return data;
 };
