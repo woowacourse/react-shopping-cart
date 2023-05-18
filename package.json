@@ -72,9 +72,13 @@
     "@types/styled-components": "^5.1.26",
     "babel-plugin-named-exports-order": "^0.0.2",
     "eslint-plugin-import": "^2.27.5",
+    "msw-storybook-addon": "^1.8.0",
     "prop-types": "^15.8.1",
     "storybook": "^7.0.9",
     "webpack": "^5.82.0"
   },
-  "homepage": "https://feb-dain.github.io/react-shopping-cart/"
+  "homepage": "https://feb-dain.github.io/react-shopping-cart/",
+  "msw": {
+    "workerDirectory": "public"
+  }
 }

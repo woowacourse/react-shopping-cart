@@ -1,12 +1,24 @@
 import type { Preview } from '@storybook/react';
 import { GlobalStyle } from '../src/GlobalStyle';
 import { withThemeFromJSXProvider } from '@storybook/addon-styling';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
 
 export const decorators = [
   withThemeFromJSXProvider({
     GlobalStyles: GlobalStyle,
   }),
 ];
+
+let options = {};
+if (location.hostname === 'feb-dain.github.io') {
+  options = {
+    serviceWorker: {
+      url: '/react-shopping-cart/mockServiceWorker.js',
+    },
+  };
+}
+
+initialize(options);
 
 const preview: Preview = {
   parameters: {
@@ -32,6 +44,8 @@ const preview: Preview = {
       ],
     },
   },
+
+  decorators: [mswDecorator],
 };
 
 export default preview;
