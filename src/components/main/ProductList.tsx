@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 import ProductItem from './ProductItem';
 import { useFetchData } from '../../hooks/useFetchData';
 import { Product } from '../../types';
-import { MOCK_DATA_URL } from '../../constants/url';
+import { MOCK_DATA_URL } from '../../constants/productsUrl';
 import { productListState } from '../../store/ProductListState';
 
 const ProductList = () => {
