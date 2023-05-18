@@ -1,21 +1,20 @@
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { cartState } from '@/atoms/cart';
+import { sum } from '@/utils/utils';
 
 const StyledHeaderWrapper = styled.header`
 	display: flex;
 	justify-content: center;
 
-	padding: 1rem;
-
 	width: 100%;
-	height: 60px;
+	height: 84px;
 	background-color: #333333;
 `;
 
 const StyledHeaderBox = styled.div`
 	width: 900px;
-	height: 100%;
-
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -52,23 +51,23 @@ const StyledCartAmount = styled.div`
 	background-color: #04c09e;
 `;
 
-const StyledLogo = styled.img``;
+const Header: React.FC = () => {
+	const cart = useRecoilValue(cartState);
+	const totalAmount = sum([...cart.map((item) => item.quantity)]);
 
-function Header() {
 	return (
 		<StyledHeaderWrapper>
 			<StyledHeaderBox>
-				<StyledLogo
-					src="https://cdn-mart.baemin.com/front-end/assets-static/bmmart_logo_2021@1x.png"
-					alt="배민 상회"
-				/>
+				<StyledTitle>SHOP</StyledTitle>
 				<StyledCartWrapper>
 					<StyledCart>장바구니</StyledCart>
-					<StyledCartAmount data-cy="cart-amount">1</StyledCartAmount>
+					<StyledCartAmount data-cy="cart-amount">
+						{totalAmount}
+					</StyledCartAmount>
 				</StyledCartWrapper>
 			</StyledHeaderBox>
 		</StyledHeaderWrapper>
 	);
-}
+};
 
 export default Header;

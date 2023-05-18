@@ -1,15 +1,21 @@
 import React from 'react';
-import { RecoilRoot } from 'recoil';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Check from '@/components/Check';
+import { RecoilRoot } from 'recoil';
+import NotFoundPage from '@/page/NotFoundPage';
+import ProductPage from '@/page/ProductPage';
 
 function App() {
 	return (
 		<BrowserRouter>
 			<RecoilRoot>
 				<Routes>
-					<Route path="/" element={<Check />} />
-					<Route path="/test" element={<div>test</div>} />
+					<Route path="/" element={<ProductPage />} />
+					<Route
+						path="*"
+						element={
+							<NotFoundPage>요청하신 페이지를 찾을 수 없습니다.</NotFoundPage>
+						}
+					/>
 				</Routes>
 			</RecoilRoot>
 		</BrowserRouter>

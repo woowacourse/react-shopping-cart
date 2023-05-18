@@ -58,6 +58,12 @@ const GlobalStyle = createGlobalStyle`
   li {
     list-style-type: none;
   }
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
 `;
 
 export default GlobalStyle;
