@@ -1,57 +1,20 @@
-import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import CartListItem from '../CartListItem/CartListItem';
 import Spacer from '../../common/Spacer/Spacer';
 import CartTotal from '../CartTotal/CartTotal';
 import Checkbox from '../../common/Checkbox/Checkbox';
-import useCartService from '../../../hooks/useCartService';
-import { CartItem } from '../../../types/product';
+import useCartPage from './useCartPage';
 
 const CartPage = () => {
-  const { cart, removeAllProductsFromCart } = useCartService();
-  const [checkedItemIds, setCheckedItemIds] = useState(
-    cart.map((cartItem) => cartItem.id),
-  );
-  const isAllChecked = cart.length > 0 && checkedItemIds.length === cart.length;
-
-  const calcTotalPrice = () => {
-    const checkedItems = cart.filter((cartItem) =>
-      checkedItemIds.includes(cartItem.id),
-    );
-
-    return checkedItems.reduce(
-      (prev, item) => prev + item.product.price * item.quantity,
-      0,
-    );
-  };
-
-  const handleCheckboxChange = (clickedItemId: CartItem['id']) => {
-    if (checkedItemIds.includes(clickedItemId)) {
-      setCheckedItemIds((prev) => prev.filter((id) => id !== clickedItemId));
-    } else {
-      setCheckedItemIds((prev) => [...prev, clickedItemId]);
-    }
-  };
-
-  const handleAllCheckboxChange = () => {
-    if (isAllChecked) {
-      setCheckedItemIds(() => []);
-    } else {
-      setCheckedItemIds(() => cart.map((cartItem) => cartItem.id));
-    }
-  };
-
-  const handleSelectedItemDelete = () => {
-    removeAllProductsFromCart(checkedItemIds);
-  };
-
-  useEffect(() => {
-    const cartItemIds = cart.map((cartItem) => cartItem.id);
-
-    setCheckedItemIds((prev) =>
-      prev.filter((checkedItemId) => cartItemIds.includes(checkedItemId)),
-    );
-  }, [cart]);
+  const {
+    cart,
+    checkedItemIds,
+    isAllChecked,
+    calcTotalPrice,
+    handleCheckboxChange,
+    handleAllCheckboxChange,
+    handleSelectedItemDelete,
+  } = useCartPage();
 
   return (
     <div>
