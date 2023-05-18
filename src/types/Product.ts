@@ -4,5 +4,3 @@ export interface Product {
   price: number;
   imageUrl: string;
 }
-
-export type MyCart = Record<number, number>;

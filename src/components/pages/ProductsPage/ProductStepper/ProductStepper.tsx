@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
 
 import * as Styled from './ProductStepper.styled';
 
@@ -7,6 +8,7 @@ import Stepper from '../../../commons/Stepper/Stepper';
 import useStepper from '../../../../hooks/useStepper';
 
 import StepperSettings from '../../../../constants/StepperSettings';
+import { productToggleSelector } from '../../../../recoil/cartToggleState';
 
 interface ProductStepperProps {
   productId: number;
@@ -24,6 +26,14 @@ const ProductStepper = (props: ProductStepperProps) => {
     STEP,
     defaultValue
   );
+
+  const toggleSetter = useSetRecoilState(productToggleSelector(productId));
+  const deleteToggleInfo = useResetRecoilState(productToggleSelector(productId));
+
+  useEffect(() => {
+    if (value) toggleSetter(true);
+    else deleteToggleInfo();
+  }, [value]);
 
   return (
     <Styled.ProductStepper>

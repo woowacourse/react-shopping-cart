@@ -5,3 +5,12 @@ export interface ServerCartItem {
   quantity: number;
   product: Product;
 }
+
+export interface LocalCartItem {
+  price?: number;
+  quantity: number;
+}
+
+export type LocalCart = Record<number, LocalCartItem>;
+
+export type LocalCartToggle = Record<number, boolean>;
