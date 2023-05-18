@@ -1,5 +1,5 @@
 import { AtomEffect, atom, selector, selectorFamily } from 'recoil';
-import type { CartItems } from '../types/CartItems.ts';
+import type { CartItems } from '../types/index.ts';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage.ts';
 import { LOCAL_STORAGE_KEY } from '../constants/index.ts';
 

@@ -2,17 +2,7 @@ import { rest } from 'msw';
 import products from '../data/productList.json';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 import { LOCAL_STORAGE_KEY } from '../constants';
-
-type CartItem = {
-  id: number;
-  quantity: number;
-  product: {
-    id: number;
-    price: number;
-    name: string;
-    imageUrl: string;
-  };
-};
+import { CartItem } from '../types';
 
 export const handlers = [
   /* 상품(Products) */
