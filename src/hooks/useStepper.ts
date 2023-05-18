@@ -1,24 +1,7 @@
-import { useCallback } from 'react';
-import { useRecoilState } from 'recoil';
-import { productCountSelector } from '../recoil/myCartState';
+import { useCallback, useState } from 'react';
 
-const defaultOptions = {
-  min: 0,
-  max: 100,
-  step: 1,
-};
-
-const useMyCartUpdater = (
-  productId: number,
-  options?: {
-    min?: number;
-    max?: number;
-    step?: number;
-  }
-) => {
-  const { min, max, step } = { ...defaultOptions, ...options };
-
-  const [value, setValue] = useRecoilState(productCountSelector(productId));
+const useStepper = (min = 0, max = 100, step = 1, defaultValue = 0) => {
+  const [value, setValue] = useState(defaultValue);
 
   const increaseValue = useCallback(() => {
     setValue((prev) => Math.min(prev + step, max));
@@ -45,4 +28,4 @@ const useMyCartUpdater = (
   };
 };
 
-export default useMyCartUpdater;
+export default useStepper;

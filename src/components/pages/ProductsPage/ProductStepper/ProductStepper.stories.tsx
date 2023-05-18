@@ -34,6 +34,7 @@ type Story = StoryObj<typeof ProductStepper>;
 export const Default: Story = {
   args: {
     productId: 1,
+    defaultValue: 0,
   },
 };
 

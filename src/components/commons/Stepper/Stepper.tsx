@@ -1,22 +1,16 @@
-import useMyCartUpdater from '../../../hooks/useMyCartUpdater';
+import useMyCartUpdater from '../../../hooks/useStepper';
 
 import * as Styled from './Stepper.styled';
 
 interface StepperProps {
-  productId: number;
-  min: number;
-  max: number;
-  step: number;
+  value: number;
+  increaseValue: () => void;
+  decreaseValue: () => void;
+  setValue: (value: number) => void;
 }
 
 const Stepper = (props: StepperProps) => {
-  const { productId, min, max, step } = props;
-
-  const { value, increaseValue, decreaseValue, setValue } = useMyCartUpdater(productId, {
-    min,
-    max,
-    step,
-  });
+  const { value, increaseValue, decreaseValue, setValue } = props;
 
   return (
     <Styled.StepperDiv>
