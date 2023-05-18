@@ -3,6 +3,8 @@ import { withThemeFromJSXProvider } from '@storybook/addon-styling';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from '../src/styles/GlobalStyle';
 import theme from '../src/styles/theme';
+import { RecoilRoot } from 'recoil';
+import React from 'react';
 
 export const decorators = [
   withThemeFromJSXProvider({
@@ -12,6 +14,13 @@ export const decorators = [
     },
     Provider: ThemeProvider,
   }),
+  (Story) => {
+    return (
+      <RecoilRoot>
+        <Story />
+      </RecoilRoot>
+    );
+  },
 ];
 
 const preview: Preview = {
