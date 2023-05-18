@@ -4,25 +4,30 @@ import { useSetRecoilState } from 'recoil';
 import cartState from '@recoil/cartState';
 
 const useUpdateCart = (productId: number, productCount: number) => {
-  const setCart = useSetRecoilState(cartState);
+  const setCartItems = useSetRecoilState(cartState);
 
   useEffect(() => {
-    setCart(prev => {
-      const newCart = { ...prev };
+    setCartItems(prev => {
+      const newCartItems = { ...prev };
 
       if (!productId || (productCount !== 0 && productCount !== 1)) {
-        return newCart;
+        return newCartItems;
       }
 
-      newCart[productId] = productCount;
+      const newCartItemsLength = Object.keys(newCartItems).length;
+      const key = `product${productId}`;
+      const newCartItem = {
+        cartItemId: newCartItemsLength + 1,
+        productId: productId,
+        quantity: productCount,
+      };
+      newCartItems[key] = newCartItem;
 
-      if (productCount === 0) {
-        delete newCart[productId];
-      }
+      if (productCount === 0) delete newCartItems[key];
 
-      return newCart;
+      return newCartItems;
     });
-  }, [productCount, productId, setCart]);
+  }, [productCount, productId, setCartItems]);
 };
 
 export default useUpdateCart;

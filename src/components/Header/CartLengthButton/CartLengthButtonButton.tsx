@@ -1,12 +1,12 @@
 import { useRecoilValue } from 'recoil';
 
-import { cartLengthSelector } from '@recoil/cartState';
+import { cartItemsLengthSelector } from '@recoil/cartState';
 
 import * as Text from '@components/commons/Text/Text';
 import { Button as CircleButton } from '@components/commons/Button/Button';
 
 const CartLengthButton = () => {
-  const cartLength = useRecoilValue(cartLengthSelector);
+  const cartItemsLength = useRecoilValue(cartItemsLengthSelector);
 
   return (
     <CircleButton
@@ -15,7 +15,7 @@ const CartLengthButton = () => {
       borderRadius="50%"
       backgroundColor="#04c09e"
     >
-      <Text.Description color="white">{cartLength}</Text.Description>
+      <Text.Description color="white">{cartItemsLength}</Text.Description>
     </CircleButton>
   );
 };

@@ -1,15 +1,15 @@
 import { atom, selector } from 'recoil';
 
-import { Cart } from '@customTypes/Product';
+import { CartItems } from '@customTypes/Product';
 
-const cartState = atom<Cart[]>({
-  key: 'cartState',
-  default: [],
+const cartItemsState = atom<CartItems>({
+  key: 'cartItemsState',
+  default: {},
 });
 
-export const cartLengthSelector = selector({
-  key: 'cartLengthSelector',
-  get: ({ get }) => get(cartState).length,
+export const cartItemsLengthSelector = selector({
+  key: 'cartItemsLengthSelector',
+  get: ({ get }) => Object.keys(get(cartItemsState)).length,
 });
 
-export default cartState;
+export default cartItemsState;

@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 
-import { cartLengthSelector } from '@recoil/cartState';
+import { cartItemsLengthSelector } from '@recoil/cartState';
 
 import {
   StyledCartListSection,
@@ -13,7 +13,7 @@ import { Checkbox } from '@components/commons/Checkbox/Checkbox';
 import { Button as DeleteButton } from '@components/commons/Button/Button';
 
 const CartListSection = () => {
-  const cartItemLength = useRecoilValue(cartLengthSelector);
+  const cartItemLength = useRecoilValue(cartItemsLengthSelector);
 
   return (
     <StyledCartListSection>

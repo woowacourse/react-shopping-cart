@@ -5,4 +5,10 @@ export interface Product {
   imageUrl: string;
 }
 
-export type Cart = Record<number, number>;
+export interface CartItem {
+  cartItemId: number;
+  productId: number;
+  quantity: number;
+}
+
+export type CartItems = Record<string, CartItem>;
