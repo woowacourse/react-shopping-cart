@@ -1,8 +1,8 @@
 import { Product } from '../types/products';
-import { fetcher } from '.';
+import { getData } from '.';
 
 export const fetchProductData = async (): Promise<Product[]> => {
-  const data = await fetcher<Product[]>('/products');
+  const data = await getData<Product[]>('/products');
 
   return data;
 };
