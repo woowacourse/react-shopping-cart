@@ -1,30 +1,45 @@
-import { useRecoilState } from 'recoil';
-import { updateCart } from 'src/recoil/cartList';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { deleteCartItemSelector, updateCart } from 'src/recoil/cartList';
 import { Product } from 'src/types';
 import useToast from './useToast';
+import { useDeleteFetch, usePatchFetch, usePostFetch } from './useFetch';
+import { countStepOperator } from 'src/utils';
+
+export type CountMethod = 'increase' | 'decrease';
 
 const useCartUpdate = (product: Product) => {
   const { toast } = useToast();
   const [cartItem, setCartItem] = useRecoilState(updateCart(product.id));
+  const deleteCartItem = useSetRecoilState(deleteCartItemSelector);
+
+  const { postData, error: postError } = usePostFetch();
+  const { patchData, error: patchError } = usePatchFetch();
+  const { deleteData, error: deleteError } = useDeleteFetch();
 
   const onSelectItem: React.MouseEventHandler<SVGElement> = () => {
+    postData('/api/cart-items', { productId: product.id });
+
+    if (postError.isError) {
+      toast.error(postError.message);
+      return;
+    }
+
     setCartItem({ id: product.id, quantity: 1, product, isSelected: true });
     toast.success(`${product.name}이(가) 장바구니에 추가됐습니다.`);
   };
 
-  const increase: React.MouseEventHandler<HTMLButtonElement> = () => {
+  const productCountMethod = (_: React.MouseEvent, type: CountMethod) => {
     if (!cartItem) return;
-    setCartItem({ ...cartItem, quantity: cartItem.quantity + 1 });
-  };
+    const quantity = cartItem.quantity + countStepOperator(type, 1);
 
-  const decrease: React.MouseEventHandler<HTMLButtonElement> = () => {
-    if (!cartItem) return;
-    setCartItem({ ...cartItem, quantity: cartItem.quantity - 1 });
-  };
+    patchData(`/api/cart-items/${cartItem.id}`, { quantity });
 
-  const deleteItem = () => {
-    if (!cartItem) return;
-    setCartItem({ ...cartItem, quantity: 0 });
+    if (patchError.isError) {
+      toast.error(postError.message);
+      return;
+    }
+
+    setCartItem({ ...cartItem, quantity });
   };
 
   const onChangeSelectToggle: React.ChangeEventHandler<HTMLInputElement> = (
@@ -38,17 +53,24 @@ const useCartUpdate = (product: Product) => {
     setCartItem(newItem);
   };
 
-  const onDeleteClick: React.MouseEventHandler = () => {
-    deleteItem();
+  const deleteItem = () => {
+    if (!cartItem) return;
+    deleteData(`/api/cart-items/${cartItem.id}`);
+
+    if (deleteError.isError) {
+      toast.error(deleteError.message);
+      return;
+    }
+
+    deleteCartItem([cartItem.id]);
   };
 
   return {
     currentCartItem: cartItem,
-    decrease,
-    increase,
+    productCountMethod,
     onSelectItem,
     onChangeSelectToggle,
-    onDeleteClick,
+    deleteItem,
   };
 };
 

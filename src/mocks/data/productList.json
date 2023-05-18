@@ -1,12 +1,6 @@
 {
   "choonsikProducts": [
     {
-      "id": 0,
-      "price": 8000,
-      "name": "오히려 좋은 춘식이",
-      "imageUrl": "https://item.kakaocdn.net/do/91481c46c6ee38c33e20deba29e1f73ff604e7b0e6900f9ac53a43965300eb9a"
-    },
-    {
       "id": 1,
       "price": 10000,
       "name": "똥 춘식이",
@@ -95,6 +89,12 @@
       "price": 10000,
       "name": "침 흘리는 춘식이",
       "imageUrl": "https://item.kakaocdn.net/do/33548ba84901a6bf370f328872516a42f604e7b0e6900f9ac53a43965300eb9a"
+    },
+    {
+      "id": 16,
+      "price": 8000,
+      "name": "오히려 좋은 춘식이",
+      "imageUrl": "https://item.kakaocdn.net/do/91481c46c6ee38c33e20deba29e1f73ff604e7b0e6900f9ac53a43965300eb9a"
     }
   ]
 }
