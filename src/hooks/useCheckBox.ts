@@ -1,9 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { selectedProductsState } from "../recoil/atom";
+import { ProductListType } from "../types/domain";
 
-export const useCheckBox = (number: number) => {
+export const useCheckBox = (cartProducts: ProductListType) => {
+  const setSelectedProducts = useSetRecoilState(selectedProductsState);
   const [checkedArray, setCheckedArray] = useState(
-    [...Array(number)].map(() => true)
+    [...Array(cartProducts.length)].map(() => true)
   );
+
+  useEffect(() => {
+    setSelectedProducts(
+      cartProducts.filter(
+        (cartProduct, index) => checkedArray[index] && cartProduct
+      )
+    );
+  }, [checkedArray]);
 
   const getAllChecked = () => {
     return checkedArray.every((checked) => checked);

@@ -1,7 +1,6 @@
 import { useRecoilValue } from "recoil";
-import type { ProductListType } from "../types/domain";
+import type { ProductListType, ProductType } from "../types/domain";
 import styled from "styled-components";
-import type { ProductType } from "../types/domain";
 import { useQuantity } from "../hooks/useQuantity";
 import { TrashCanIcon } from "../assets";
 import { Counter } from "./Counter";
@@ -12,7 +11,7 @@ import { useCheckBox } from "../hooks/useCheckBox";
 export const CartProductList = () => {
   const cartProducts = useRecoilValue<ProductListType>(cartProductsSelector);
   const { checkedArray, allChecked, handleCheckBox, handleAllCheckBox } =
-    useCheckBox(cartProducts.length);
+    useCheckBox(cartProducts);
 
   return (
     <Wrapper>
@@ -35,7 +34,8 @@ export const CartProductList = () => {
           />
         </CheckBoxLabel>
         <p>
-          전체선택 ({checkedArray.length}/{cartProducts.length})
+          전체선택 ({checkedArray.filter((checked) => checked).length}/
+          {cartProducts.length})
         </p>
         <button>선택삭제</button>
       </AllCheckContainer>
