@@ -23,7 +23,9 @@ function PaymentsView({ priceTotal, parcelPrice }: PaymentsViewProps) {
           <span>{(priceTotal + parcelPrice).toLocaleString()} 원</span>
         </ul>
       </li>
-      <button className={styles['payments-button']}>주문하기</button>
+      <button type="button" className={styles['payments-button']}>
+        주문하기
+      </button>
     </section>
   );
 }

@@ -1,7 +1,7 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import NotFound from '../Page/NotFound';
-import Home from '../Page/Home';
 import Cart from '../Page/Cart';
+import Home from '../Page/Home';
+import NotFound from '../Page/NotFound';
 import Root from './Root';
 
 function Router() {

@@ -3,11 +3,9 @@ import styles from './index.module.scss';
 
 function Home() {
   return (
-    <>
-      <main className={styles['main-container']}>
-        <ProductItemList />
-      </main>
-    </>
+    <main className={styles['main-container']}>
+      <ProductItemList />
+    </main>
   );
 }
 

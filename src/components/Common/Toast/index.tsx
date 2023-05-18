@@ -1,6 +1,7 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import { ToastState } from '../../../types';
+import type { ToastState } from '../../../types';
 
 interface ToastProps extends ToastState {
   showTime?: number;
@@ -13,11 +14,11 @@ function Toast({ type, message, showTime = 2000 }: ToastProps) {
   const headIcon = () => {
     if (type === 'success') {
       return '✅';
-    } else if (type === 'warning') {
-      return '⚠️';
-    } else {
-      return '❌';
     }
+    if (type === 'warning') {
+      return '⚠️';
+    }
+    return '❌';
   };
 
   useEffect(() => {

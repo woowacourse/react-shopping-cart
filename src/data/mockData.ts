@@ -1,6 +1,6 @@
 import { LOCAL_STORAGE_KEY } from '../constants';
-import type { CartItem, Product } from '../types';
 import { getLocalStorage } from '../utils/localStorage';
+import type { CartItem, Product } from '../types';
 
 export const cartItems: CartItem[] = getLocalStorage<CartItem[]>(LOCAL_STORAGE_KEY.CART_ITEM, []);
 

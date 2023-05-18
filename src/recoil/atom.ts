@@ -1,6 +1,6 @@
 import { atom, atomFamily, selector } from 'recoil';
-import { getLocalStorage } from '../utils/localStorage';
 import { LOCAL_STORAGE_KEY } from '../constants';
+import { getLocalStorage } from '../utils/localStorage';
 import type { CartItem, ToastState } from '../types';
 
 export const $CheckedCartIdList = atom<number[]>({

@@ -55,7 +55,7 @@ const handlers = [
   }),
 
   // 장바구니 아이템 조회
-  rest.get('/cart-items', (req, res, ctx) => res(ctx.delay(1000), ctx.status(200), ctx.json(cartItems))),
+  rest.get('/cart-items', (req, res, ctx) => res(ctx.status(200), ctx.json(cartItems))),
 
   // 장바구니 아이템 추가
   rest.post<CartItem>('/cart-items', async (req, res, ctx) => {

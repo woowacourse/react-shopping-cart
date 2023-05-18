@@ -1,6 +1,6 @@
-import styles from './index.module.scss';
 import { ReactComponent as ArrowDown } from '../../../assets/arrow-down.svg';
 import { ReactComponent as ArrowUp } from '../../../assets/arrow-up.svg';
+import styles from './index.module.scss';
 
 interface CountButtonProps {
   count: number;
@@ -13,10 +13,10 @@ function CountButton({ count, handleUpButton, handleDownButton, large = false }:
   return (
     <div className={`${styles['counter-container']} ${large && styles.large}`}>
       <div>{count}</div>
-      <button onClick={handleUpButton}>
+      <button type="button" onClick={handleUpButton}>
         <ArrowUp />
       </button>
-      <button onClick={handleDownButton}>
+      <button type="button" onClick={handleDownButton}>
         <ArrowDown />
       </button>
     </div>

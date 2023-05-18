@@ -10,7 +10,7 @@ interface Return<BodyData, ResponseData> {
 
 const useMutationQuery = <BodyData, ResponseData>(
   fetchUrl: string,
-  headers?: HeadersInit
+  headers?: HeadersInit,
 ): Return<BodyData, ResponseData> => {
   const [responseData, setResponseData] = useState<ResponseData | null>(null);
   const [loading, setLoading] = useState(false);
@@ -23,24 +23,20 @@ const useMutationQuery = <BodyData, ResponseData>(
 
       const body = data ? JSON.stringify(data) : null;
 
-      return await fetch(`${fetchUrl}/${id}`, {
+      await fetch(`${fetchUrl}/${id}`, {
         method,
         body,
         headers,
       })
         .then(res => {
           if (method === 'DELETE' || 'PATCH') return res.text();
-          else return res.json();
+          return res.json();
         })
-        .then(data => {
-          return setResponseData(data);
-        })
-        .catch((error: Error) => {
-          return setError(error.message);
-        })
+        .then(resData => setResponseData(resData))
+        .catch((e: Error) => setError(e.message))
         .finally(() => setLoading(false));
     },
-    [fetchUrl, headers]
+    [fetchUrl, headers],
   );
 
   return { responseData, loading, error, mutateQuery };
