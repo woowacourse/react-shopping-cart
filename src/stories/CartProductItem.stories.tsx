@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { RecoilRoot } from 'recoil';
 
-import CartProductItem from '../components/Product/CartProductItem';
+import CartProductItem from '../components/Cart/CartProductItem';
 
 const meta = {
   title: 'Product/CartProductItem',

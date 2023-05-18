@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import CartProductList from '../components/Product/CartProductList';
+import CartProductList from '../components/Cart/CartProductList';
 import { RecoilRoot } from 'recoil';
 import { fetchCartProducts } from '../apis/cartProducts';
 
