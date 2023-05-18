@@ -14,7 +14,7 @@ const CartList = () => {
 };
 
 const CartListWrapper = styled.div`
-  width: 740px;
+  width: 55%;
   border-top: 4px solid #aaaaaa;
 `;
 

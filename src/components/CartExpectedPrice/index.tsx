@@ -5,7 +5,7 @@ const CartExpectedPrice = () => {
   return (
     <CartExpectedPriceWrapper>
       <CartExpectedPriceTitle>결제예상금액</CartExpectedPriceTitle>
-      <CartExpectedPriceInformationWrapper>
+      <CartExpectedPriceFirstInformationWrapper>
         <CartPriceWrapper>
           <CartPriceTextWrapper>총 상품가격</CartPriceTextWrapper>
           <CartPriceTextWrapper>21,700</CartPriceTextWrapper>
@@ -14,21 +14,23 @@ const CartExpectedPrice = () => {
           <CartPriceTextWrapper>총 배송비</CartPriceTextWrapper>
           <CartPriceTextWrapper>3,000</CartPriceTextWrapper>
         </CartPriceWrapper>
+      </CartExpectedPriceFirstInformationWrapper>
+      <CartExpectedPriceSecondInformationWrapper>
         <CartPriceWrapper>
           <CartPriceTextWrapper>총 주문금액</CartPriceTextWrapper>
           <CartPriceTextWrapper>24,700</CartPriceTextWrapper>
         </CartPriceWrapper>
-      </CartExpectedPriceInformationWrapper>
-      <CartPriceButtonWrapper>
-        <Button text="주문하기" onClick={() => {}} />
-      </CartPriceButtonWrapper>
+        <CartPriceButtonWrapper>
+          <Button text="주문하기" onClick={() => {}} width="80%" />
+        </CartPriceButtonWrapper>
+      </CartExpectedPriceSecondInformationWrapper>
     </CartExpectedPriceWrapper>
   );
 };
 
 const CartExpectedPriceWrapper = styled.div`
-  width: 448px;
-  height: 410px;
+  width: 30%;
+  max-height: 410px;
 
   border: 1px solid #dddddd;
 `;
@@ -50,14 +52,20 @@ const CartExpectedPriceTitle = styled.div`
   border-bottom: 3px solid #dddddd;
 `;
 
-const CartExpectedPriceInformationWrapper = styled.div`
+const CartExpectedPriceFirstInformationWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  
+  padding: 10%;
+`;
 
-  height: 150px;
+const CartExpectedPriceSecondInformationWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
 
-  padding: 34px 35px;
+  padding: 10%;
 `;
 
 const CartPriceWrapper = styled.div`
@@ -82,6 +90,8 @@ const CartPriceTextWrapper = styled.span`
 const CartPriceButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
+
+  margin-top: 20px;
 `;
 
 export default CartExpectedPrice;

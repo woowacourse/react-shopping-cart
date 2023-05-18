@@ -26,7 +26,8 @@ const CartItemWrapper = styled.div`
   display: flex;
   align-items: flex-start;
 
-  width: 740px;
+  width: 100%;
+  margin: 23px 0;
 `;
 
 const CartItemImg = styled.img`
