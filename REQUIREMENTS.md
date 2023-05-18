@@ -14,7 +14,7 @@
 
 ### 심화
 
-- [] toast 개선
+- [x] toast 개선
 - [x] stories 문제 개선 react-router
 - [] counter input tag로 변경
-- [] 로딩 스켈레톤 구현
+- [x] 로딩 스켈레톤 구현
