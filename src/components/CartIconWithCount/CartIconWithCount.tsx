@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 
 import * as S from './CartIconWithCount.style';
-import useCartList from '../../hooks/useCartList';
+import { useCartListLength } from '../../hooks/cartListState/cartListState';
 
 function CartIconWithCount() {
   const navigate = useNavigate();
-  const { cartList } = useCartList();
+  const cartListLength = useCartListLength();
 
   return (
     <S.CartWrapper
@@ -16,7 +16,7 @@ function CartIconWithCount() {
     >
       <S.CartTitle>장바구니</S.CartTitle>
       <S.CartCountWrapper>
-        <S.CartCount aria-live="polite">{cartList.length}</S.CartCount>
+        <S.CartCount aria-live="polite">{cartListLength}</S.CartCount>
       </S.CartCountWrapper>
     </S.CartWrapper>
   );

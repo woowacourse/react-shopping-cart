@@ -1,4 +1,11 @@
-import { DefaultValue, atom, selector, selectorFamily, useRecoilState } from 'recoil';
+import {
+  DefaultValue,
+  atom,
+  selector,
+  selectorFamily,
+  useRecoilState,
+  useRecoilValue,
+} from 'recoil';
 import { CartItem, CartItemWithProduct } from '../../types/ProductType';
 
 const cartListState = atom<CartItem[]>({
@@ -90,3 +97,4 @@ const cartItemState = selectorFamily<number, number>({
 });
 
 export const useCartItemById = (id: number) => useRecoilState(cartItemState(id));
+export const useCartListLength = () => useRecoilValue(cartListState).length;

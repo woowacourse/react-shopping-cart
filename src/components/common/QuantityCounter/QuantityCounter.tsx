@@ -21,12 +21,20 @@ function QuantityCounter({
 }: QuantityCounterProps) {
   return (
     <S.CartBox>
-      <S.QuantityInput value={quantity} onChange={onChange} />
+      <S.QuantityInput data-testid="quantity-input" value={quantity} onChange={onChange} />
       <S.ButtonBox>
-        <S.QuantityControlButton onClick={onIncrease} aria-label={ariaIncreaseLabel} role="button">
+        <S.QuantityControlButton
+          onClick={onIncrease}
+          aria-label={ariaIncreaseLabel}
+          role="increase"
+        >
           ⏶
         </S.QuantityControlButton>
-        <S.QuantityControlButton onClick={onDecrease} aria-label={ariaDecreaseLabel} role="button">
+        <S.QuantityControlButton
+          onClick={onDecrease}
+          aria-label={ariaDecreaseLabel}
+          role="decrease"
+        >
           ⏷
         </S.QuantityControlButton>
       </S.ButtonBox>
