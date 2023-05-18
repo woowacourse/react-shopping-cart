@@ -8,7 +8,6 @@ import useCartService from '../../../hooks/useCartService';
 
 const CartPage = () => {
   const { cart } = useCartService();
-
   const [checkedItemIds, setCheckedItemIds] = useState(
     cart.map((cartItem) => cartItem.id),
   );
