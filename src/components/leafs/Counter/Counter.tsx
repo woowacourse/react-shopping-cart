@@ -25,4 +25,17 @@ const Input = styled.input<CounterProps>`
 
     height: ${(props) => (props.counterSize === 'large' ? '60px' : '28px')};
   }
+
+  @media screen and (max-width: 767px) {
+    width: 64px;
+    height: 28px;
+    font-size: 14px;
+
+    &::-webkit-inner-spin-button {
+      width: 15px;
+      opacity: 0.5;
+
+      height: 28px;
+    }
+  }
 `;
