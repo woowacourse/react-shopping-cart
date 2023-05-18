@@ -19,7 +19,7 @@ export const Wrapper = styled.div`
 
 export const CartContainerWrapper = styled.div`
   width: 660px;
-  border-top: 2px solid #aaaaaa;
+  border-top: 1px solid #aaaaaa;
   margin-top: 16px;
 `;
 
