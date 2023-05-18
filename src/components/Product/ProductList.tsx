@@ -1,40 +1,38 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import ProductItem from './ProductItem';
-
-import { fetchProducts } from '../../apis/products';
-import type { Product } from '../../types/product';
-import useCartProductUpdate from '../../hooks/useCartProductUpdate';
 import AbnormalMessage from '../Common/AbnormalMessage';
 
+import { useRecoilValueLoadable } from 'recoil';
+import { fetchProductsSelector } from '../../recoil/fetchProductData';
+import type { Product } from '../../types/product';
+
 const ProductList = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const products = useRecoilValueLoadable(fetchProductsSelector);
 
-  useEffect(() => {
-    const getProducts = async () => {
-      const data = await fetchProducts();
-      setProducts(data);
-    };
-
-    getProducts();
-  }, []);
-
-  useCartProductUpdate();
-
-  if (products.length === 0) {
-    return <AbnormalMessage abnormalState='empty' />;
-  }
-
-  return (
-    <ProductListContainer>
-      {products.map((product) => (
-        <li key={product.id}>
-          <ProductItem product={product} />
-        </li>
-      ))}
-    </ProductListContainer>
-  );
+  const productListContent = (() => {
+    switch (products.state) {
+      case 'hasValue':
+        return products.contents.length === 0 ? (
+          <AbnormalMessage abnormalState='empty' />
+        ) : (
+          <ProductListContainer>
+            {products.contents.map((product: Product) => (
+              <li key={product.id}>
+                <ProductItem product={product} />
+              </li>
+            ))}
+          </ProductListContainer>
+        );
+      case 'loading':
+        return <p>로딩중...</p>;
+      case 'hasError':
+        return <AbnormalMessage abnormalState='error' />;
+      default:
+        return <AbnormalMessage abnormalState='notFound' />;
+    }
+  })();
+  return productListContent;
 };
 
 const ProductListContainer = styled.ul`
