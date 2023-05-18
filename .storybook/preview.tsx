@@ -3,6 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import type { Preview } from '@storybook/react';
 import { RecoilRoot } from 'recoil';
 import { initialize, mswDecorator } from 'msw-storybook-addon';
+import { handlers } from '../src/mocks/handlers';
 import GlobalStyle from '../src/GlobalStyle';
 
 let options = {};
@@ -29,6 +30,7 @@ const customViewports = {
 
 const preview: Preview = {
   parameters: {
+    msw: handlers,
     layout: 'centered',
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
