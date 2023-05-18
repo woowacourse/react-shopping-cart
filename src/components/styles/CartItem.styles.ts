@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Paragraph } from '../../ui/styles/Typography.styles';
+import { Input } from '../../ui/styles/Input.styles';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -7,12 +8,13 @@ export const Wrapper = styled.div`
   align-items: start;
   width: 660px;
   height: 180px;
+  border-bottom: 1px solid #aaaaaa;
 `;
 
-export const CheckboxInput = styled.input`
+export const CheckboxInput = styled(Input)`
   width: 20px;
   height: 20px;
-  margin: 16px 16px 0 0;
+  margin: 16px 16px 0 16px;
 
   &::after {
     content: '';
@@ -32,12 +34,12 @@ export const DeleteCartButtonWrapper = styled.div`
 `;
 
 export const ProductName = styled(Paragraph)`
-  width: 360px;
+  width: 344px;
   margin: 16px 0 0 16px;
 `;
 
 export const CountInteractionWrapper = styled.div`
-  width: 108px;
+  width: 100px;
   height: 180px;
   display: flex;
   flex-direction: column;
