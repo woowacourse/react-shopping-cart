@@ -7,7 +7,7 @@ import Header from '../components/Common/Header';
 import CheckBox from '../components/Common/CheckBox';
 import Button from '../components/Common/Button';
 
-const CartProductListPage = () => {
+const CartProductsListPage = () => {
   return (
     <RecoilRoot>
       <Header />
@@ -88,4 +88,4 @@ const EstimatedPaymentBoxWrapper = styled.div`
   margin-top: 170px;
 `;
 
-export default CartProductListPage;
+export default CartProductsListPage;
