@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import CartListItem from '../CartListItem/CartListItem';
 import Spacer from '../../common/Spacer/Spacer';
@@ -11,7 +11,7 @@ const CartPage = () => {
   const [checkedItemIds, setCheckedItemIds] = useState(
     cart.map((cartItem) => cartItem.id),
   );
-  const isAllChecked = checkedItemIds.length === cart.length;
+  const isAllChecked = cart.length > 0 && checkedItemIds.length === cart.length;
 
   const calcTotalPrice = () => {
     const checkedItems = cart.filter((cartItem) =>
@@ -39,6 +39,14 @@ const CartPage = () => {
       setCheckedItemIds(() => cart.map((cartItem) => cartItem.id));
     }
   };
+
+  useEffect(() => {
+    const cartItemIds = cart.map((cartItem) => cartItem.id);
+
+    setCheckedItemIds((prev) =>
+      prev.filter((checkedItemId) => cartItemIds.includes(checkedItemId)),
+    );
+  }, [cart]);
 
   return (
     <div>
