@@ -111,14 +111,30 @@ const cartItems: CartItem[] = [];
 export const handlers = [
   rest.get('/products', (req, res, ctx) => {
     return products
-      ? res(ctx.status(200), ctx.json(products))
-      : res(ctx.status(500), ctx.json({ message: 'Products not found' }));
+      ? res(
+          ctx.status(200),
+          ctx.set('Content-Type', 'application/json'),
+          ctx.json(products)
+        )
+      : res(
+          ctx.status(204),
+          ctx.set('Content-Type', 'application/json'),
+          ctx.json({ message: 'Products not found' })
+        );
   }),
 
   rest.get('/cart-items', (req, res, ctx) => {
     return cartItems
-      ? res(ctx.status(200), ctx.json(cartItems))
-      : res(ctx.status(500), ctx.json({ message: 'Cart items not found' }));
+      ? res(
+          ctx.status(200),
+          ctx.set('Content-Type', 'application/json'),
+          ctx.json(cartItems)
+        )
+      : res(
+          ctx.status(204),
+          ctx.set('Content-Type', 'application/json'),
+          ctx.json({ message: 'Cart items not found' })
+        );
   }),
 
   rest.post('/cart-items', async (req, res, ctx) => {
@@ -126,7 +142,7 @@ export const handlers = [
     const product = products.find(product => product.id === data.productId);
 
     if (!product) {
-      return res(ctx.status(404), ctx.json({ message: 'Product not found' }));
+      return res(ctx.status(204), ctx.json({ message: 'Product not found' }));
     }
 
     const newCartItem = {
@@ -136,7 +152,10 @@ export const handlers = [
     };
     cartItems.push(newCartItem);
 
-    return res(ctx.status(201), ctx.json(newCartItem));
+    return res(
+      ctx.status(201),
+      ctx.set('Location', `/cart-items/${cartItems.length + 1}`)
+    );
   }),
 
   rest.patch('/cart-items:cartItemId', async (req, res, ctx) => {
@@ -149,7 +168,7 @@ export const handlers = [
     }
 
     cartItem.quantity = quantity;
-    return res(ctx.status(200), ctx.json(cartItem));
+    return res(ctx.status(200));
   }),
 
   rest.delete('/cart-items:cartItemId', async (req, res, ctx) => {
@@ -157,11 +176,11 @@ export const handlers = [
     const foundId = cartItems.findIndex(cartItem => cartItem.id === cartItemId);
 
     if (foundId === -1) {
-      return res(ctx.status(504), ctx.json({ message: 'Cart item not found' }));
+      return res(ctx.status(204), ctx.text('No Content'));
     }
 
-    return cartItems.splice(foundId, 1)
-      ? res(ctx.status(204), ctx.json(cartItems))
-      : res(ctx.status(504), ctx.json({ message: 'Cart item not found' }));
+    cartItems.splice(foundId, 1);
+
+    return res(ctx.status(204), ctx.text('No Content'));
   }),
 ];
