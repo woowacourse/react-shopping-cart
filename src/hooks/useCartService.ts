@@ -50,11 +50,22 @@ const useCartService = () => {
     });
   };
 
+  const removeAllProductsFromCart = (
+    targetCartItemIds: Array<CartItem['id']>,
+  ) => {
+    const targetProducts = cart
+      .filter((cartItem) => targetCartItemIds.includes(cartItem.id))
+      .map((cartItem) => cartItem.product);
+
+    targetProducts.forEach((product) => removeProductFromCart(product.id));
+  };
+
   return {
     cart,
     addProductToCart,
     updateProductQuantity,
     removeProductFromCart,
+    removeAllProductsFromCart,
   } as const;
 };
 

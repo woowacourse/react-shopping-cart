@@ -5,9 +5,10 @@ import Spacer from '../../common/Spacer/Spacer';
 import CartTotal from '../CartTotal/CartTotal';
 import Checkbox from '../../common/Checkbox/Checkbox';
 import useCartService from '../../../hooks/useCartService';
+import { CartItem } from '../../../types/product';
 
 const CartPage = () => {
-  const { cart } = useCartService();
+  const { cart, removeAllProductsFromCart } = useCartService();
   const [checkedItemIds, setCheckedItemIds] = useState(
     cart.map((cartItem) => cartItem.id),
   );
@@ -24,7 +25,7 @@ const CartPage = () => {
     );
   };
 
-  const handleCheckboxChange = (clickedItemId: string) => {
+  const handleCheckboxChange = (clickedItemId: CartItem['id']) => {
     if (checkedItemIds.includes(clickedItemId)) {
       setCheckedItemIds((prev) => prev.filter((id) => id !== clickedItemId));
     } else {
@@ -38,6 +39,10 @@ const CartPage = () => {
     } else {
       setCheckedItemIds(() => cart.map((cartItem) => cartItem.id));
     }
+  };
+
+  const handleSelectedItemDelete = () => {
+    removeAllProductsFromCart(checkedItemIds);
   };
 
   useEffect(() => {
@@ -74,7 +79,10 @@ const CartPage = () => {
             <span>
               전체선택 ({checkedItemIds.length} / {cart.length})
             </span>
-            <DeleteButton disabled={isAllChecked === false}>
+            <DeleteButton
+              disabled={checkedItemIds.length === 0}
+              onClick={handleSelectedItemDelete}
+            >
               선택삭제
             </DeleteButton>
           </AllCheckBoxContainer>
