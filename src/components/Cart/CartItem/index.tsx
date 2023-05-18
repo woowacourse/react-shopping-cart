@@ -15,7 +15,7 @@ interface ItemProps {
 const Item = ({ item }: ItemProps) => {
   const { id, product, quantity, isSelected } = item;
 
-  const { increase, decrease, onChangeSelectToggle, onDeleteClick } =
+  const { productCountMethod, onChangeSelectToggle, deleteItem } =
     useProductSelect(product);
   const itemTotalPrice = useRecoilValue(quantityTimesNumber(id));
 
@@ -35,8 +35,7 @@ const Item = ({ item }: ItemProps) => {
       </S.ProductNameConatiner>
       <Counter
         count={quantity}
-        increase={increase}
-        decrease={decrease}
+        productCountMethod={productCountMethod}
         isOnlyOverOne={true}
       />
       <S.ProductPriceContainer>
@@ -47,7 +46,7 @@ const Item = ({ item }: ItemProps) => {
         width={20}
         height={20}
         cursor="pointer"
-        onClick={onDeleteClick}
+        onClick={deleteItem}
       />
     </S.ItemWrapper>
   );

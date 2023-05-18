@@ -10,14 +10,13 @@ interface ProductItemProps {
 }
 
 const ProductItem = ({ product }: ProductItemProps) => {
-  const { currentCartItem, decrease, increase, onSelectItem } =
+  const { currentCartItem, productCountMethod, onSelectItem } =
     useProductSelect(product);
 
   const productSelect = currentCartItem ? (
     <Counter
       count={currentCartItem.quantity}
-      increase={increase}
-      decrease={decrease}
+      productCountMethod={productCountMethod}
     />
   ) : (
     <Svg
