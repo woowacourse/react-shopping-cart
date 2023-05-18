@@ -35,6 +35,8 @@ export const TotalCartList = () => {
 };
 
 const TotalCartListContainer = styled.div`
+  position: sticky;
+  top: 20px;
   width: 400px;
   height: 360px;
   border: 1px solid #dddddd;
