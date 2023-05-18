@@ -8,13 +8,25 @@ import {
 } from 'recoil';
 import { CartItem, CartItemWithProduct } from '../../types/ProductType';
 
+const cartListWithInfoState = atom<CartItemWithProduct[]>({
+  key: 'cartListWithInfoState',
+  default: selector({
+    key: 'cartListWithInfoState/default',
+    get: async () => {
+      const response = await fetch('/cart-items');
+      const cartProducts: CartItemWithProduct[] = await response.json();
+
+      return cartProducts;
+    },
+  }),
+});
+
 const cartListState = atom<CartItem[]>({
   key: 'cartListState',
   default: selector({
     key: 'cartListState/default',
-    get: async () => {
-      const response = await fetch('/cart-items');
-      const cartProducts: CartItemWithProduct[] = await response.json();
+    get: ({ get }) => {
+      const cartProducts = get(cartListWithInfoState);
       const cartItems: CartItem[] = cartProducts.map((productInCart) => ({
         id: productInCart.id,
         quantity: productInCart.quantity,
@@ -96,5 +108,6 @@ const cartItemState = selectorFamily<number, number>({
     },
 });
 
+export const useCartListWithInfo = () => useRecoilValue(cartListWithInfoState);
 export const useCartItemById = (id: number) => useRecoilState(cartItemState(id));
 export const useCartListLength = () => useRecoilValue(cartListState).length;
