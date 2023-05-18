@@ -1,7 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { OptionContent } from "../src/components/common/selector/optionContent";
+import OptionContent from "../src/components/common/selector/optionContent";
 import OptionGroup from "../src/components/common/selector/optionGroup";
+import OptionIcon from "../src/components/common/selector/optionIcon";
+
 import React from "react";
 
 /**
@@ -50,9 +52,9 @@ describe("Selector Option의 Group 랜더링 테스트", () => {
 
 describe("Selector Option의 Icon 랜더링 테스트", () => {
   test("custom된 children요소가 없으면 기본 스타일의 Selector Option CheckIcon 랜더링 된다", () => {
-    render(<OptionIcon />);
-    const content = screen.getByTestId("icon");
+    const { getByAltText } = render(<OptionIcon />);
+    const icon = getByAltText("icon");
 
-    expect(content).toBeInTheDocument();
+    expect(icon).toHaveAttribute("src");
   });
 });
