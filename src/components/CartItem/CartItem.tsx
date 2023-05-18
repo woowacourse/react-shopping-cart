@@ -3,11 +3,9 @@ import ProductImg from '../ProductCard/ProductImg/ProductImg';
 import { ReactComponent as TrashCan } from '../../assets/icon/trash-can.svg';
 import Counter from '../common/Counter/Counter';
 import CheckBox from '../common/CheckBox/CheckBox';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Select } from '../CartItemList/CartItemList';
-import { useState } from 'react';
-import { updateCartItem, deleteCartItem } from '../../api/cartList';
-import { cartAtom, cartSelectorFamily } from '../../store/cart';
+import { deleteCartItem } from '../../api/cartList';
+import useCartAtom from '../../hooks/useCartAtom';
 
 interface CartItemProps {
   id: number;
@@ -22,38 +20,15 @@ const CartItem = ({
   setCartItemsState,
   setIsAllSelected,
 }: CartItemProps) => {
-  const productInCart = useRecoilValue(cartSelectorFamily(id));
-  const { quantity, product } = productInCart;
+  const {
+    count,
+    productInCart,
+    plusOne,
+    minusOneWhenOverOne,
+    removeCartItemFromAtom,
+  } = useCartAtom(id);
+  const { product } = productInCart;
   const { name, imageUrl, price } = product;
-  const [count, setCount] = useState(quantity);
-  const setCart = useSetRecoilState(cartAtom);
-
-  const plusOne = () => {
-    setCount(count + 1);
-    updateCartItem(id, count + 1);
-    setCart((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? { id, quantity: count + 1, product: { id, name, price, imageUrl } }
-          : item
-      )
-    );
-  };
-
-  const minusOne = () => {
-    if (count - 1 === 0) {
-      setCount(1);
-      return;
-    }
-    setCount(count - 1);
-    setCart((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? { id, quantity: count - 1, product: { id, name, price, imageUrl } }
-          : item
-      )
-    );
-  };
 
   if (cartItemState.isDeleted) {
     setCartItemsState((prev) =>
@@ -86,12 +61,16 @@ const CartItem = ({
         <DeleteButton
           onClick={() => {
             deleteCartItem(id);
-            setCart((prev) => [...prev.filter((item) => item.id !== id)]);
+            removeCartItemFromAtom();
           }}>
           <TrashCan />
         </DeleteButton>
         <CounterWrapper>
-          <Counter plusOne={plusOne} minusOne={minusOne} quantity={count} />
+          <Counter
+            plusOne={plusOne}
+            minusOne={minusOneWhenOverOne}
+            quantity={count}
+          />
         </CounterWrapper>
         <Price>{(price * count).toLocaleString()}원</Price>
       </DetailWrapper>

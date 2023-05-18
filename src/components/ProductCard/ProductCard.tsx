@@ -1,61 +1,14 @@
-import { memo, useState } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { memo } from 'react';
 import styled from 'styled-components';
-import {
-  deleteCartItem,
-  postCartItem,
-  updateCartItem,
-} from '../../api/cartList';
 import { ReactComponent as ShoppingCartImg } from '../../assets/icon/shopping-cart.svg';
-import { cartAtom, cartSelectorFamily } from '../../store/cart';
+import useCartAtom from '../../hooks/useCartAtom';
 import { Product } from '../../types/product';
 import Counter from '../common/Counter/Counter';
 import ProductImg from './ProductImg/ProductImg';
 import ProductInfo from './ProductInfo/ProductInfo';
 
 const ProductCard = ({ id, name, price, imageUrl }: Product) => {
-  const setCart = useSetRecoilState(cartAtom);
-  const productInCart = useRecoilValue(cartSelectorFamily(id));
-  const [count, setCount] = useState(productInCart?.quantity);
-
-  const addToCart = () => {
-    setCount(1);
-    postCartItem(id);
-    setCart((prev) => [
-      ...prev,
-      { id, quantity: 1, product: { id, name, price, imageUrl } },
-    ]);
-  };
-
-  const plusOne = async () => {
-    setCount(count + 1);
-    updateCartItem(id, count + 1);
-    setCart((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? { id, quantity: count + 1, product: { id, name, price, imageUrl } }
-          : item
-      )
-    );
-  };
-
-  const minusOne = () => {
-    setCount(count - 1);
-
-    if (count - 1 === 0) {
-      deleteCartItem(id);
-      setCart((prev) => [...prev.filter((item) => item.id !== id)]);
-      return;
-    }
-    updateCartItem(id, count - 1);
-    setCart((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? { id, quantity: count - 1, product: { id, name, price, imageUrl } }
-          : item
-      )
-    );
-  };
+  const { count, addToCart, plusOne, minusOne } = useCartAtom(id);
 
   return (
     <Container>
