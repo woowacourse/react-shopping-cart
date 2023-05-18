@@ -11,7 +11,7 @@ export const Wrapper = styled.section`
 export const TitleWrapper = styled.div`
   width: 1200px;
   height: 68px;
-  border-bottom: 4px solid #333333;
+  border-bottom: 2px solid #333333;
   display: flex;
   justify-content: center;
   align-items: start;
