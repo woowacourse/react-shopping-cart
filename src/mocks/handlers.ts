@@ -1,4 +1,9 @@
-import { deleteCartItem, getCartItems, postCartItem } from './rest/cart';
+import {
+  deleteCartItem,
+  getCartItems,
+  patchCartItem,
+  postCartItem,
+} from './rest/cart';
 import { getProducts, getProduct, putProduct } from './rest/product';
 
 export const handlers = [
@@ -8,4 +13,5 @@ export const handlers = [
   getCartItems,
   postCartItem,
   deleteCartItem,
+  patchCartItem,
 ];
