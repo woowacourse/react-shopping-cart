@@ -1,6 +1,7 @@
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 import cartState from '../../../globalState/atoms/cartState';
+import { formatPrice } from '../../../utils/formatPrice';
 
 const PaymentAmount = () => {
   const [cartList] = useRecoilState(cartState);
@@ -13,17 +14,17 @@ const PaymentAmount = () => {
     <PaymentAmountContainer>
       <Title>결제예상금액</Title>
       <Contents>
-        <AmountTextContainer marginBottom="20px">
+        <AmountTextContainer marginbottom="20px">
           <AmountText>총 상품가격</AmountText>
-          <AmountText>{cartListAmount}</AmountText>
+          <AmountText>{formatPrice(cartListAmount)}</AmountText>
         </AmountTextContainer>
-        <AmountTextContainer marginBottom="40px">
+        <AmountTextContainer marginbottom="40px">
           <AmountText>총 배송비</AmountText>
-          <AmountText>3000</AmountText>
+          <AmountText>{formatPrice(3000)}</AmountText>
         </AmountTextContainer>
-        <AmountTextContainer marginBottom="45px">
+        <AmountTextContainer marginbottom="45px">
           <AmountText>총 주문금액</AmountText>
-          <AmountText>{cartListAmount + 3000}</AmountText>
+          <AmountText>{formatPrice(cartListAmount + 3000)}</AmountText>
         </AmountTextContainer>
         <OrderButton>주문하기</OrderButton>
       </Contents>
@@ -54,12 +55,12 @@ const Contents = styled.div`
   padding: 35px;
 `;
 
-const AmountTextContainer = styled.div<{ marginBottom?: string }>`
+const AmountTextContainer = styled.div<{ marginbottom?: string }>`
   display: flex;
 
   justify-content: space-between;
 
-  margin-bottom: ${({ marginBottom }) => marginBottom || '0'};
+  margin-bottom: ${({ marginbottom }) => marginbottom || '0'};
 `;
 
 const AmountText = styled.p`

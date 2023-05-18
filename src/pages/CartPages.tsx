@@ -1,5 +1,7 @@
 import { styled } from 'styled-components';
 import Header from '../components/common/Header/Header';
+import CartList from '../components/cart/CartList/CartList';
+import PaymentAmount from '../components/cart/PaymentAmount/PaymentAmount';
 
 const CartPage = () => {
   return (
@@ -7,13 +9,19 @@ const CartPage = () => {
       <Header />
       <Layout>
         <Title>장바구니</Title>
+        <Contents>
+          <CartList />
+          <PaymentAmount />
+        </Contents>
       </Layout>
     </>
   );
 };
 
 const Layout = styled.main`
-  padding: 80px;
+  margin: 0 auto;
+
+  padding: 80px 0;
   width: 1320px;
 `;
 
@@ -25,6 +33,13 @@ const Title = styled.h2`
   border-bottom: 4px solid #333333;
 
   text-align: center;
+`;
+
+const Contents = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 34px;
 `;
 
 export default CartPage;
