@@ -42,9 +42,10 @@ export const Logo = styled.span`
   cursor: pointer;
 `;
 
-export const CartTitle = styled.span`
+export const CartRouteButton = styled.button`
   font: normal 500 24px/12px BM-HANNA;
   color: black;
+  cursor: pointer;
 `;
 
 export const CartCounter = styled.div`

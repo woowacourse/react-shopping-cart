@@ -18,7 +18,12 @@ const Header = () => {
           <S.Logo onClick={onLogoClick}>THE CHOONSIK</S.Logo>
         </S.HeaderWrapper>
         <S.HeaderWrapper gap={8}>
-          <S.CartTitle onClick={() => navigate('/cart')}>장바구니</S.CartTitle>
+          <S.CartRouteButton
+            title="장바구니 페이지로 이동"
+            onClick={() => navigate('/cart')}
+          >
+            장바구니
+          </S.CartRouteButton>
           <S.CartCounter>{cartCount}</S.CartCounter>
         </S.HeaderWrapper>
       </S.HeaderContentContainer>
