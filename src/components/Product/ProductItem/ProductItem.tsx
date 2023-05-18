@@ -11,7 +11,7 @@ import type { Product } from '../../../types/product';
 
 const ProductItem = (product: Product) => {
   const { id, name, price, imageSrc } = product;
-  const { addCartItem, updateCartItemQuantity, deleteCartItem } =
+  const { addCartItem, updateCartItemQuantity, deleteCartItem, getCartId } =
     useCartService();
   const quantityInCart = useRecoilValue(productQuantityInCart(id));
   const [isDisplayCounter, setIsDisplayCounter] = useState(!!quantityInCart);
@@ -24,7 +24,8 @@ const ProductItem = (product: Product) => {
   const handleRemoveCartItem = (quantity: number) => {
     if (quantity !== 0) return;
 
-    deleteCartItem(id);
+    const cartId = getCartId(id);
+    deleteCartItem(cartId);
     setIsDisplayCounter(false);
   };
 
@@ -36,7 +37,7 @@ const ProductItem = (product: Product) => {
           {isDisplayCounter ? (
             <Counter
               count={quantityInCart}
-              updateCount={updateCartItemQuantity(id)}
+              updateCount={updateCartItemQuantity(getCartId(id))}
               onClickedButton={handleRemoveCartItem}
               onBlurredInput={handleRemoveCartItem}
             />
