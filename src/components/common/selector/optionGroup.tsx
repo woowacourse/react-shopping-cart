@@ -12,7 +12,10 @@ export default function OptionGroup(props: OptionGroupProps) {
   const customElement = children ? Children.only(children) : null;
 
   if (customElement && hasCustomChild(asChild, customElement)) {
-    return createCustomElement<OptionGroupProps>(customElement, props);
+    return createCustomElement<OptionGroupProps & { "data-testId": string }>(
+      customElement,
+      { ...props, "data-testId": "custom-group" }
+    );
   }
 
   return (
