@@ -15,3 +15,15 @@ export const Default: Story = {
     totalProductPrice: 10000,
   },
 };
+
+export const WithNoPrice: Story = {
+  args: {
+    totalProductPrice: 0,
+  },
+};
+
+export const WithFreeShipping: Story = {
+  args: {
+    totalProductPrice: 30000,
+  },
+};
