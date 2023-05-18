@@ -22,6 +22,8 @@ const CartItemList = () => {
       <CartItem cartItem={cartItem} key={cartItem.id} />
     ));
 
+  const emptyList = <S.EmptyList>장바구니가 비어있습니다.</S.EmptyList>;
+
   const onChangeAllCheckBoxes = () => {
     if (checkedItems.length === cartIdArray.length) {
       setCheckedItems([]);
@@ -38,6 +40,7 @@ const CartItemList = () => {
   return (
     <S.ItemWrapper>
       <S.CartItemTitle>든든배송 상품({checkedItems.length}개)</S.CartItemTitle>
+      {data?.cartList.length === 0 && emptyList}
       {fetchedCartList}
       <S.CheckBoxWrapper>
         <S.SelectAllCheckBox

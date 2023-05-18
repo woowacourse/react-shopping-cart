@@ -53,3 +53,9 @@ export const SelectDeleteButton = styled.button`
   text-align: center;
   border: 1px solid ${(props) => props.theme.color.gray};
 `;
+
+export const EmptyList = styled.div`
+  height: 60px;
+  font: ${(props) => props.theme.font.medium};
+  color: ${(props) => props.theme.color.gray};
+`;
