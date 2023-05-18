@@ -1,4 +1,13 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, keyframes } from "styled-components";
+
+export const skeletonAnimation = keyframes`
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+`;
 
 const GlobalStyle = createGlobalStyle`
   * {
