@@ -4,13 +4,13 @@ import styled from 'styled-components';
 interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   source: string;
   alternative: string;
-  $width?: string;
-  $height?: string;
+  width?: string;
+  height?: string;
 }
 
-export const Image = ({ $width, $height, source, alternative }: ImageProps) => {
+export const Image = ({ width, height, source, alternative }: ImageProps) => {
   return (
-    <StyledDiv $width={$width} $height={$height}>
+    <StyledDiv $width={width} $height={height}>
       <img src={`${process.env.PUBLIC_URL}${source}`} alt={alternative}></img>
     </StyledDiv>
   );

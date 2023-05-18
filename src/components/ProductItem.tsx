@@ -13,8 +13,8 @@ export const ProductItem = (props: ProductItemProps) => {
   return (
     <ProductItemWrapper key={id}>
       <ProductImage
-        $width="260px"
-        $height="260px"
+        width="260px"
+        height="260px"
         source={imageUrl}
         alternative="상품 이미지"
       />
