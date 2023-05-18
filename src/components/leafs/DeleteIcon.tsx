@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 
-export default function DeleteIcon() {
+interface DeleteIconProps {
+  cartItemId: number;
+  handleClick: (cartItemId: number) => void;
+}
+export default function DeleteIcon({ cartItemId, handleClick }: DeleteIconProps) {
   return (
     <>
-      <Img src="./delete.svg" />
+      <Img src="./delete.svg" onClick={() => handleClick(cartItemId)} />
     </>
   );
 }
