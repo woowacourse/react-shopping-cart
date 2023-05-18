@@ -19,7 +19,7 @@ const localStorageEffect =
 export const cartState = atom<CartItemType[]>({
   key: 'cartState',
   default: [],
-  effects: [localStorageEffect(LOCAL_STORAGE_KEY.cart)],
+  effects: [localStorageEffect(LOCAL_STORAGE_KEY.CART)],
 });
 
 export const cartCountState = selector<number>({
