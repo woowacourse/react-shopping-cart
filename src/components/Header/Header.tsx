@@ -6,14 +6,18 @@ const Header = () => {
   return (
     <Styled.HeaderContainer>
       <Styled.HeaderWrapper>
-        <Styled.LogoButton data-cy='headerlogo'>
-          <ShoppingCartLogo fill='#FFF' width={44} height={40} />
-          <Styled.LogoTitle>SHOP</Styled.LogoTitle>
-        </Styled.LogoButton>
-        <Styled.ShoppingCartButton>
-          <Styled.ShoppingCartButtonText>장바구니</Styled.ShoppingCartButtonText>
-          <ShoppingCartStatus />
-        </Styled.ShoppingCartButton>
+        <Styled.LinkWrapper to='/'>
+          <Styled.LogoButton data-cy='headerlogo'>
+            <ShoppingCartLogo fill='#FFF' width={44} height={40} />
+            <Styled.LogoTitle>SHOP</Styled.LogoTitle>
+          </Styled.LogoButton>
+        </Styled.LinkWrapper>
+        <Styled.LinkWrapper to='/cart'>
+          <Styled.ShoppingCartButton>
+            <Styled.ShoppingCartButtonText>장바구니</Styled.ShoppingCartButtonText>
+            <ShoppingCartStatus />
+          </Styled.ShoppingCartButton>
+        </Styled.LinkWrapper>
       </Styled.HeaderWrapper>
     </Styled.HeaderContainer>
   );

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const HeaderContainer = styled.div`
@@ -27,6 +28,7 @@ export const LogoButton = styled.button`
   display: flex;
   align-items: center;
   padding-bottom: 4px;
+  cursor: pointer;
 `;
 
 export const LogoTitle = styled.h1`
@@ -48,6 +50,7 @@ export const ShoppingCartButton = styled.button`
   background: transparent;
   border: none;
   align-items: center;
+  cursor: pointer;
 `;
 
 export const ShoppingCartButtonText = styled.span`
@@ -67,4 +70,11 @@ export const ShoppingCartQuantity = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+export const LinkWrapper = styled(Link)`
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 `;
