@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { styled } from 'styled-components';
 import CheckIcon from '../../../assets/icons/CheckIcon';
 
