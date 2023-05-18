@@ -1,10 +1,12 @@
-import CheckBox from 'components/@common/CheckBox/CheckBox';
+import styled from 'styled-components';
 import FlexBox from 'components/@common/FlexBox';
+import CheckBox from 'components/@common/CheckBox/CheckBox';
+import CartProductDeleteModal from 'components/CartProductDeleteModal/CartProductDeleteModal';
 import CartQuantityStepper from 'components/CartQuantityStepper/CartQuantityStepper';
 import useShoppingCart from 'hooks/useShoppingCart';
-import styled from 'styled-components';
-import { CartProduct, Product } from 'types/product';
+import useModal from 'hooks/useModal';
 import { ReactComponent as RecycleBinIcon } from 'assets/recycle-bin-icon.svg';
+import type { CartProduct, Product } from 'types/product';
 
 type CartProductCardProps = {
   cartProduct: CartProduct;
@@ -15,7 +17,8 @@ type CartProductCardProps = {
 const CartProductCard = ({ cartProduct, toggleCheck, isChecked }: CartProductCardProps) => {
   const { product, quantity } = cartProduct;
   const { id, name, price, imageUrl } = product;
-  const { initialAddCart, decreaseQuantity, increaseQuantity } = useShoppingCart(product);
+  const { initialAddCart, decreaseQuantity, increaseQuantity, deleteCartProduct } = useShoppingCart(product);
+  const { isModalOpen, openModal, closeModal } = useModal();
   const totalPrice = price * quantity;
 
   return (
@@ -27,7 +30,10 @@ const CartProductCard = ({ cartProduct, toggleCheck, isChecked }: CartProductCar
       <ProductInfoContainer flexDirection="column" justify="space-between">
         <Container>
           <Title>{name}</Title>
-          <ProductDeleteButton />
+          <ProductDeleteButton onClick={openModal} />
+          <CartProductDeleteModal isOpen={isModalOpen} closeModal={closeModal} onClickAcceptButton={deleteCartProduct}>
+            해당 상품을 삭제하시겠습니까??
+          </CartProductDeleteModal>
         </Container>
         <Container justify="flex-end">
           <CartQuantityStepper
