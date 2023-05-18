@@ -34,6 +34,11 @@ export const useFetch = <T>() => {
         method: 'PATCH',
         body: JSON.stringify(body),
       }),
+    delete: (url: string) => {
+      fetchData(url, {
+        method: 'DELETE',
+      });
+    },
   };
 
   return { data, isLoading, api };
