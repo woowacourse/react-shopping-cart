@@ -1,14 +1,22 @@
+import { useRecoilValue } from 'recoil';
+
 import styled from 'styled-components';
 import { Header, Estimate } from '../../../components';
 import CartList from '../../trees/CartList/CartList';
-import mockCartItems from '../../../../public/assets/mockCartItems.json';
+import useCart from '../../../hooks/useCart';
+import { selectedCartState } from '../../../recoil/state';
 
 export default function CartListPage() {
-  const cartItems = mockCartItems;
-  const totalPrice = cartItems.reduce(
+  const [cart] = useCart();
+  const allTotalPrice = cart.reduce(
     (accumulator, { product: { price }, quantity }) => accumulator + price * quantity,
     0
   );
+
+  const selectedCart = useRecoilValue(selectedCartState);
+  const selectedTotalPrice = cart
+    .filter((item) => selectedCart.includes(item.product.id))
+    .reduce((total, item) => total + item.product.price * item.quantity, 0);
 
   return (
     <S.Wrapper>
@@ -16,8 +24,14 @@ export default function CartListPage() {
       <S.Main>
         <Title>장바구니</Title>
         <CartInfo>
-          <CartList cartItems={cartItems}></CartList>
-          <Estimate total_price={totalPrice}></Estimate>
+          <CartList cartItems={cart}></CartList>
+          {cart.length !== 0 && (
+            <Estimate
+              totalItemCount={cart.length}
+              selectedItemCount={selectedCart.length}
+              totalPrice={selectedCart.length === 0 ? allTotalPrice : selectedTotalPrice}
+            ></Estimate>
+          )}
         </CartInfo>
       </S.Main>
     </S.Wrapper>

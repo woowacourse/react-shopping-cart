@@ -1,28 +1,49 @@
 import type { CartItemType } from '../../../types';
+import { Link } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import Product from '../../leafs/Product/Product';
 import CartItem from '../../leafs/CartItem/CartItem';
 import CheckBox from '../../leafs/CheckBox/CheckBox';
+import { selectedCartState } from '../../../recoil/state';
 
 interface CartListProps {
   cartItems: CartItemType[];
 }
 
 export default function CartList({ cartItems }: CartListProps) {
+  const [selectedCart, setSelectedCart] = useRecoilState(selectedCartState);
+
+  function handleDeleteClick() {
+    setSelectedCart([]);
+  }
+
   return (
     <S.Wrapper>
       <Title>배송 상품 ({cartItems.length}개)</Title>
       <Container>
+        {cartItems.length === 0 && (
+          <EmptyList>
+            <img src="./baemin-empty.png" />
+            <p>먼저 상품을 담아주세요!</p>
+            <Link to="/">
+              <button>담으러 가기</button>
+            </Link>
+          </EmptyList>
+        )}
         {cartItems.map((item) => (
           <CartItem key={item.id} {...item}></CartItem>
         ))}
       </Container>
-      <CheckWrapper>
-        <CheckBox />
-        <Direction>전체선택 (2/3)</Direction>
-        <CheckDeleteButton>선택삭제</CheckDeleteButton>
-      </CheckWrapper>
+      {cartItems.length !== 0 && (
+        <CheckWrapper>
+          <CheckBox id="all" />
+          <Direction>
+            전체선택 ({selectedCart.length}/{cartItems.length})
+          </Direction>
+          <CheckDeleteButton onClick={handleDeleteClick}>선택삭제</CheckDeleteButton>
+        </CheckWrapper>
+      )}
     </S.Wrapper>
   );
 }
@@ -52,6 +73,19 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 33px;
+`;
+
+const EmptyList = styled.div`
+  width: 80%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+
+  font-size: 20px;
+
+  margin-top: 20px;
 `;
 
 const CheckWrapper = styled.div`
