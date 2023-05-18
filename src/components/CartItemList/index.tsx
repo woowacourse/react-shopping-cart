@@ -36,28 +36,23 @@ const CartItemList = () => {
   };
 
   return (
-    <>
-      <S.ItemWrapper>
-        <S.Title>장바구니</S.Title>
-        <S.CartItemTitle>
-          든든배송 상품({checkedItems.length}개)
-        </S.CartItemTitle>
-        {fetchedCartList}
-        <S.CheckBoxWrapper>
-          <S.SelectAllCheckBox
-            type="checkbox"
-            onChange={onChangeAllCheckBoxes}
-            checked={checkedItems.length === cartIdArray.length}
-          />
-          <S.Text>
-            전체 선택 ({checkedItems.length}/{cartIdArray.length})개
-          </S.Text>
-          <S.SelectDeleteButton onClick={onDeleteSelectedItems}>
-            선택 삭제
-          </S.SelectDeleteButton>
-        </S.CheckBoxWrapper>
-      </S.ItemWrapper>
-    </>
+    <S.ItemWrapper>
+      <S.CartItemTitle>든든배송 상품({checkedItems.length}개)</S.CartItemTitle>
+      {fetchedCartList}
+      <S.CheckBoxWrapper>
+        <S.SelectAllCheckBox
+          type="checkbox"
+          onChange={onChangeAllCheckBoxes}
+          checked={checkedItems.length === cartIdArray.length}
+        />
+        <S.Text>
+          전체 선택 ({checkedItems.length}/{cartIdArray.length})개
+        </S.Text>
+        <S.SelectDeleteButton onClick={onDeleteSelectedItems}>
+          선택 삭제
+        </S.SelectDeleteButton>
+      </S.CheckBoxWrapper>
+    </S.ItemWrapper>
   );
 };
 

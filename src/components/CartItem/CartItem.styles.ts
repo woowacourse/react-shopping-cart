@@ -4,15 +4,15 @@ export const CartItemWrapper = styled.div`
   display: flex;
   justify-content: space-around;
   width: 600px;
-  height: 180px;
   margin-bottom: 24px;
+  padding: 8px;
   border-bottom: 1px solid ${(props) => props.theme.color.gray};
 `;
 
 export const CheckBox = styled.input`
   width: 28px;
   height: 28px;
-  border: 1px solid ${(props) => props.theme.color.primary};
+  border: 1px solid ${(props) => props.theme.color.secondary};
   border-radius: 4px;
   cursor: pointer;
 
@@ -21,7 +21,7 @@ export const CheckBox = styled.input`
     background-size: 100% 100%;
     background-position: 50%;
     background-repeat: no-repeat;
-    background-color: ${(props) => props.theme.color.primary};
+    background-color: ${(props) => props.theme.color.secondary};
   }
 `;
 

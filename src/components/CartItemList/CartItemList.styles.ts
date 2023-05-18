@@ -2,15 +2,7 @@ import styled from 'styled-components';
 
 export const ItemWrapper = styled.div`
   width: 600px;
-  margin: 0 60px;
-`;
-
-export const Title = styled.h1`
-  height: 60px;
-  margin-bottom: 32px;
-  text-align: center;
-  font: ${(props) => props.theme.font.large};
-  border-bottom: 4px solid ${(props) => props.theme.color.primary};
+  margin-bottom: 60px;
 `;
 
 export const CartItemTitle = styled.p`
@@ -33,7 +25,7 @@ export const Text = styled.p`
 export const SelectAllCheckBox = styled.input`
   width: 28px;
   height: 28px;
-  border: 1px solid ${(props) => props.theme.color.primary};
+  border: 1px solid ${(props) => props.theme.color.secondary};
   border-radius: 4px;
   cursor: pointer;
 
@@ -42,7 +34,7 @@ export const SelectAllCheckBox = styled.input`
     background-size: 100% 100%;
     background-position: 50%;
     background-repeat: no-repeat;
-    background-color: ${(props) => props.theme.color.primary};
+    background-color: ${(props) => props.theme.color.secondary};
   }
 `;
 
