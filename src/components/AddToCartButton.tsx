@@ -1,5 +1,5 @@
 import { AddToCartCount } from './AddToCartCount';
-import { AddToCartButtonImage } from '../types/image';
+import { AddToCartButtonImage } from '../assets/image';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { cartState } from '../atoms/CartState';

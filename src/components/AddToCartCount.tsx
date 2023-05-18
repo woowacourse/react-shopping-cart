@@ -1,6 +1,6 @@
 import { useCartCountState } from './hooks/useCartCountState';
 import { AddToCartCountProps } from '../types/addToCartCountType';
-import { DecreaseButtonImage, IncreaseButtonImage } from '../types/image';
+import { DecreaseButtonImage, IncreaseButtonImage } from '../assets/image';
 import styled from 'styled-components';
 
 export const AddToCartCount = ({ id, quantity }: AddToCartCountProps) => {

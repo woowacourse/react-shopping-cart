@@ -2,7 +2,7 @@ import { Image as ProductImage } from './common/Image';
 import { CheckBox } from './common/CheckBox';
 import { styled } from 'styled-components';
 import { StyledText } from './common/Text';
-import { DeleteProductButtonImage } from '../types/image';
+import { DeleteProductButtonImage } from '../assets/image';
 import { AddToCartCount } from './AddToCartCount';
 
 export const CartProductItem = () => {
