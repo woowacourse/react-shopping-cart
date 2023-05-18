@@ -20,11 +20,7 @@ const CartItem = (props: CartItemProps) => {
         <RemoveCardItemImg src={CART_ITEM_REMOVE_BUTTON} />
         <BucketCounter
           removeProductFromCart={() => removeProductFromCart(1)}
-          // totalWidth="110px"
-          // totalHeight="56px"
-          // countWidth="64px"
-          // buttonWidth="37px"
-          // buttonHeight="28px"
+          kind= "big"
         />
         <CartItemMoney>7000</CartItemMoney>
       </CardItemInformationWrapper>
