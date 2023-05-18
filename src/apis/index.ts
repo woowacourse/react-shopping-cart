@@ -1,4 +1,4 @@
-const BASE_URL = `${process.env.PUBLIC_URL}`;
+const BASE_URL = ``;
 
 const fetcher = async <T>(url: string, options?: RequestInit): Promise<T> => {
   const response = await fetch(`${BASE_URL}${url}`, options);
