@@ -15,12 +15,12 @@ const CartItem = (args: CartItemType) => {
 
   return (
     <S.Container>
-      <S.CheckBox type="checkbox" checked />
+      <S.CheckBox type="checkbox" checked={true} />
       <S.Thumbnail src={imageUrl} alt={name} />
       <S.Name>{name}</S.Name>
       <Flex dir="column" height="100%" justify="space-between" align="end">
         <S.DeleteButton type="button">
-          <img src={TRASH_BIN} alt="쓰레기통 아이콘" />
+          <S.DeleteImage src={TRASH_BIN} alt="쓰레기통 아이콘" />
         </S.DeleteButton>
         <QuantityStepper
           ref={quantityRef}

@@ -3,19 +3,21 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 60%;
+  width: 100%;
   height: 18rem;
   border-bottom: 1px solid darkgray;
   padding-bottom: 2rem;
+  margin-bottom: 3rem;
 `;
 
 export const CheckBox = styled.input`
-  width: 1rem;
-  height: 1rem;
+  width: 3rem;
+  height: 3rem;
 `;
 
 export const Thumbnail = styled.img`
   width: 15rem;
+  margin: 0 2rem;
 `;
 
 export const Name = styled.h2`
@@ -23,12 +25,16 @@ export const Name = styled.h2`
 `;
 
 export const DeleteButton = styled.button`
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 4rem;
+  height: 4rem;
   border: none;
   background-color: transparent;
 
   cursor: pointer;
+`;
+
+export const DeleteImage = styled.img`
+  width: 100%;
 `;
 
 export const Price = styled.div`
