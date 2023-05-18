@@ -23,4 +23,9 @@ const Input = styled.input<CheckBoxProps>`
     background-repeat: no-repeat;
     background-color: limegreen;
   }
+
+  @media screen and (max-width: 767px) {
+    width: 23px;
+    height: 20px;
+  }
 `;

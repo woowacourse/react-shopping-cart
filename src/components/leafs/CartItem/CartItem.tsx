@@ -44,7 +44,7 @@ export default function CartItem({ id, quantity, product }: CartItemProps) {
           onBlur={handleBlurCounter}
           counterSize="large"
         />
-        <Price>{price}원</Price>
+        <Price>{price.toLocaleString()}원</Price>
       </RightBox>
     </Wrapper>
   );
@@ -55,10 +55,15 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
 
+  border-bottom: 1px solid #cccccc;
   color: ${(props) => props.theme.color.black};
 
+  @media screen and (max-width: 1025px) {
+    width: 400px;
+  }
+
   @media screen and (max-width: 767px) {
-    width: 300px;
+    width: 320px;
   }
 `;
 
@@ -66,11 +71,22 @@ const LeftBox = styled.div`
   display: flex;
   justify-content: start;
   gap: 24px;
+
+  @media screen and (max-width: 767px) {
+    gap: 10px;
+  }
 `;
 
 const Img = styled.img`
   width: 200px;
   height: 200px;
+
+  margin-bottom: 30px;
+
+  @media screen and (max-width: 767px) {
+    width: 100px;
+    height: 100px;
+  }
 `;
 
 const Name = styled.p`
@@ -78,11 +94,20 @@ const Name = styled.p`
   font-weight: 400;
 
   margin-top: 4px;
+
+  @media screen and (max-width: 767px) {
+    font-size: 12px;
+  }
 `;
 
 const Price = styled.p`
   font-size: 20px;
   font-weight: 400;
+
+  @media screen and (max-width: 767px) {
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
 `;
 
 const RightBox = styled.div`
@@ -90,7 +115,12 @@ const RightBox = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: start;
+  gap: 40px;
 
   align-items: end;
+
+  @media screen and (max-width: 767px) {
+    gap: 20px;
+  }
 `;

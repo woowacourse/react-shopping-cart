@@ -35,14 +35,8 @@ const Wrapper = styled.div`
   jusify-content: start;
   gap: 20px;
 
-  @media screen and (max-width: 1025px) {
-    grid-template-columns: repeat(3, 1fr);
-    grid-column-gap: 38px;
-  }
-
   @media screen and (max-width: 767px) {
-    grid-template-columns: repeat(2, 1fr);
-    grid-column-gap: 28px;
+    width: 320px;
   }
 `;
 
@@ -70,9 +64,10 @@ const CheckWrapper = styled.div`
 const Direction = styled.p`
   font-size: 14px;
 `;
+
 const CheckDeleteButton = styled.button`
   background-color: white;
-  border: 1px solid gray;
+  border: 1px solid #bbbbbb;
 
   padding: 7px;
 `;
