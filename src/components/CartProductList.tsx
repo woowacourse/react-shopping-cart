@@ -6,16 +6,24 @@ import { useQuantity } from "../hooks/useQuantity";
 import { TrashCanIcon } from "../assets";
 import { Counter } from "./Counter";
 import { cartProductsSelector } from "../recoil/selector";
+import { MIN_QUANTITY } from "../constants";
 
 export const CartProductList = () => {
-  const products = useRecoilValue<ProductListType>(cartProductsSelector);
+  const cartProducts = useRecoilValue<ProductListType>(cartProductsSelector);
 
   return (
     <Wrapper>
-      <TitleBox>든든배송 상품 ({products.length}개)</TitleBox>
-      {products.map((product) => (
+      <TitleBox>든든배송 상품 ({cartProducts.length}개)</TitleBox>
+      {cartProducts.map((product) => (
         <CartProduct key={crypto.randomUUID()} {...product} />
       ))}
+      <AllCheckContainer>
+        <CheckBoxLabel htmlFor="allProduct">
+          <CheckBox id="allProduct" type="checkbox" />
+        </CheckBoxLabel>
+        <p>전체선택 (2/{cartProducts.length})</p>
+        <button>선택삭제</button>
+      </AllCheckContainer>
     </Wrapper>
   );
 };
@@ -24,7 +32,7 @@ const CartProduct = ({ id, name, price, imageUrl }: ProductType) => {
   const { setNewQuantity } = useQuantity(id);
 
   const handleTrashCanClicked = () => {
-    setNewQuantity(0);
+    setNewQuantity(MIN_QUANTITY);
   };
 
   return (
@@ -63,7 +71,7 @@ const TitleBox = styled.div`
   border-bottom: 3px solid #aaaaaa;
 `;
 
-const ProductWrapper = styled.div`
+const ProductWrapper = styled.section`
   display: flex;
 
   padding: 15px 0;
@@ -75,6 +83,10 @@ const ProductWrapper = styled.div`
     width: 130px;
     height: 130px;
     border-radius: 5px;
+  }
+
+  &:last-of-type {
+    border: none;
   }
 `;
 
@@ -139,4 +151,28 @@ const PriceBox = styled.p`
 
 const CounterBox = styled.div`
   align-self: end;
+`;
+
+const AllCheckContainer = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 13px 0;
+
+  & > label {
+    margin-top: 5px;
+  }
+
+  & > p {
+    font-size: 16px;
+    margin-right: 10px;
+  }
+
+  & > button {
+    width: 98px;
+    height: 35px;
+    background: transparent;
+    cursor: pointer;
+
+    border: 1px solid #bbbbbb;
+  }
 `;

@@ -7,7 +7,7 @@ import { ROUTER_PATH } from "../router";
 
 export const Header = () => {
   const navigate = useNavigate();
-  const cartItems = useRecoilValue(cartProductsSelector);
+  const cartProducts = useRecoilValue(cartProductsSelector);
 
   const handleTitleClicked = () => {
     navigate(ROUTER_PATH.Main);
@@ -25,8 +25,8 @@ export const Header = () => {
       </TitleContainer>
       <CartContainer onClick={handleCartClicked}>
         장바구니
-        {cartItems.length > 0 && (
-          <ItemQuantityBox>{cartItems.length}</ItemQuantityBox>
+        {cartProducts.length > 0 && (
+          <ItemQuantityBox>{cartProducts.length}</ItemQuantityBox>
         )}
       </CartContainer>
     </Wrapper>

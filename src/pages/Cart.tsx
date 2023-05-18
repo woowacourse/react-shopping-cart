@@ -1,5 +1,5 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
 import { styled } from "styled-components";
 import {
   Header,
@@ -7,36 +7,58 @@ import {
   CartProductList,
   TotalPriceTable,
   Button,
+  Loading,
 } from "../components";
-import { cartProductsSelector } from "../recoil/selector";
 import { ROUTER_PATH } from "../router";
 import { ProductListType } from "../types/domain";
 
 const Cart = () => {
   const navigate = useNavigate();
-  const cartProducts = useRecoilValue<ProductListType>(cartProductsSelector);
+  const [cartProducts, setCartProducts] = useState<ProductListType>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleButtonClicked = () => {
     navigate(ROUTER_PATH.Main);
   };
 
+  useEffect(() => {
+    const fetchCartProducts = async () => {
+      try {
+        const response = await fetch("/cart-items");
+        const data = await response.json();
+
+        setCartProducts(data);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchCartProducts();
+  }, []);
+
   return (
     <>
       <Header />
       <Page>
-        <TitleBox>장바구니</TitleBox>
-
-        {cartProducts.length === 0 ? (
-          <EmptyContainer>
-            <span>🛒</span>
-            <p>장바구니가 텅 비었어요</p>
-            <Button onClick={handleButtonClicked}>상품 담으러 가기</Button>
-          </EmptyContainer>
+        {isLoading ? (
+          <Loading message="장바구니 불러오는 중..." />
         ) : (
-          <Container>
-            <CartProductList />
-            <TotalPriceTable />
-          </Container>
+          <>
+            <TitleBox>장바구니</TitleBox>
+            {cartProducts.length === 0 ? (
+              <EmptyContainer>
+                <span>🛒</span>
+                <p>장바구니가 텅 비었어요</p>
+                <Button onClick={handleButtonClicked}>상품 담으러 가기</Button>
+              </EmptyContainer>
+            ) : (
+              <Container>
+                <CartProductList />
+                <TotalPriceTable />
+              </Container>
+            )}
+          </>
         )}
       </Page>
     </>

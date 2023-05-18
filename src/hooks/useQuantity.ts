@@ -1,7 +1,7 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { productsState } from "../recoil/atom";
 import React, { useEffect, useState } from "react";
-import { ProductType } from "../types/domain";
+import { ProductListType, ProductType } from "../types/domain";
 import { cartProductsSelector } from "../recoil/selector";
 import {
   KEY_LOCALSTORAGE_CART,
@@ -12,22 +12,30 @@ import {
 import { setLocalStorage } from "../utils";
 
 export const useQuantity = (productId: number) => {
-  const products = useRecoilValue(productsState);
-  const [cartProducts, setCartProducts] = useRecoilState(cartProductsSelector);
+  const [products, setProducts] = useRecoilState(productsState);
+  const cartProducts = useRecoilValue(cartProductsSelector);
 
   const [quantity, setQuantity] = useState<string>(
-    products.find((product: ProductType) => product.id === productId).quantity
+    products.find((product) => product.id === productId)?.quantity ||
+      MIN_QUANTITY.toString()
   );
 
   useEffect(() => {
     setLocalStorage(KEY_LOCALSTORAGE_CART, cartProducts);
-  }, [cartProducts]);
+  }, [cartProducts, products, setProducts]);
 
   const setNewQuantity = (newQuantity: number) => {
     if (newQuantity > MAX_QUANTITY || newQuantity < MIN_QUANTITY) return;
 
     setQuantity(newQuantity.toString());
-    setCartProducts({ id: productId, quantity: newQuantity.toString() });
+
+    const newProducts: ProductListType = products.map((product: ProductType) =>
+      product.id === productId
+        ? { ...product, quantity: newQuantity.toString() }
+        : product
+    );
+
+    setProducts(newProducts);
   };
 
   const handleQuantityChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +52,13 @@ export const useQuantity = (productId: number) => {
     )
       e.target.value = MIN_QUANTITY.toString();
 
-    setCartProducts({ id: productId, quantity: e.target.value });
+    const newProducts: ProductListType = products.map((product: ProductType) =>
+      product.id === productId
+        ? { ...product, quantity: e.target.value }
+        : product
+    );
+
+    setProducts(newProducts);
   };
 
   return {

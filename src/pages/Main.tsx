@@ -1,32 +1,51 @@
 import { useEffect, useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { Header, Page, ProductList } from "../components";
+import { useSetRecoilState } from "recoil";
+import { fetchCartItems, fetchProducts } from "../api";
+import { Header, Loading, Page, ProductList } from "../components";
+import { MIN_QUANTITY } from "../constants";
 import { productsState } from "../recoil/atom";
+import { CartItemType, PayloadType } from "../types/domain";
 
 const Main = () => {
-  const [isLoading, setIsLoading] = useState(true);
   const setProducts = useSetRecoilState(productsState);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("*/api/products");
-        const data = await response.json();
-        setProducts(data);
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchProducts();
+    setProductsWithQuantity();
   }, []);
+
+  const setProductsWithQuantity = async () => {
+    try {
+      const products = await fetchProducts();
+      const cartItems = await fetchCartItems();
+
+      const productsWithQuantity = products.map((product: PayloadType) => {
+        const cartProduct = cartItems.find(
+          (cartItem: CartItemType) => cartItem.id === product.id
+        );
+        return {
+          ...product,
+          quantity: cartProduct
+            ? cartProduct.quantity
+            : MIN_QUANTITY.toString(),
+        };
+      });
+      setProducts(productsWithQuantity);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
       <Header />
       <Page>
-        {isLoading ? <div>상품 목록 불러오는 중...</div> : <ProductList />}
+        {isLoading ? (
+          <Loading message="상품 목록 불러오는 중..." />
+        ) : (
+          <ProductList />
+        )}
       </Page>
     </>
   );
