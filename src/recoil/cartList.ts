@@ -6,7 +6,7 @@ import {
   selector,
   selectorFamily,
 } from 'recoil';
-import { CartId, Cart, ProductId } from 'types';
+import { CartId, Cart } from 'types';
 
 const { getLocalStorageData } = useLocalStorage();
 
@@ -19,9 +19,9 @@ export const cartIds = atom<CartId[]>({
 
 export const cartItemAtom = atomFamily<Cart | null, CartId>({
   key: 'cartItem',
-  default: (productId) => {
+  default: (cartId) => {
     const cartListStorage = getLocalStorageData<Cart[]>('cartList');
-    const item = cartListStorage.find((cartItem) => cartItem.id === productId);
+    const item = cartListStorage.find((cartItem) => cartItem.id === cartId);
     if (!item) return null;
     return item;
   },
@@ -37,21 +37,21 @@ export const countCartListSelector = selector({
 export const updateCart = selectorFamily({
   key: 'updateCart',
   get:
-    (productId: ProductId) =>
+    (cartId: CartId) =>
     ({ get }) => {
-      if (!get(cartIds).includes(productId)) return null;
+      if (!get(cartIds).includes(cartId)) return null;
 
-      return get(cartItemAtom(productId));
+      return get(cartItemAtom(cartId));
     },
 
   set:
-    (productId: ProductId) =>
+    (cartId: CartId) =>
     ({ set, reset }, item) => {
       if (!item || item instanceof DefaultValue) return;
 
       if (item.quantity === 0) {
-        reset(cartItemAtom(productId));
+        reset(cartItemAtom(cartId));
       }
-      set(cartItemAtom(productId), item);
+      set(cartItemAtom(cartId), item);
     },
 });
