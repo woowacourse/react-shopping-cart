@@ -18,4 +18,8 @@ export const cartItemIdsSelector = selector({
     Object.values(get(cartItemsState)).map(cartItem => cartItem.cartItemId),
 });
 
-// quantity 뱉는 셀렉터
+export const quantityListSelector = selector({
+  key: 'quantityListSelector',
+  get: ({ get }) =>
+    Object.values(get(cartItemsState)).map(cartItem => cartItem.quantity),
+});
