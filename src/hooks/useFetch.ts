@@ -1,22 +1,22 @@
 import { useCallback } from 'react';
 
 const useFetch = (entrypoint: string) => {
-  const getData = useCallback(
-    async <T>(endpoint = ''): Promise<T> => {
-      const response = await fetch(entrypoint + endpoint);
-      const data = await response.json();
+  const getData = useCallback(async <T>(): Promise<T> => {
+    const response = await fetch(entrypoint);
+    const data = await response.json();
 
-      if (!response.ok) throw new Error(data.message);
+    if (!response.ok) throw new Error(data.message);
 
-      return data;
-    },
-    [entrypoint]
-  );
+    return data;
+  }, [entrypoint]);
 
   const postData = useCallback(
     async <T>(postingData: T, endpoint = '') => {
       const response = await fetch(entrypoint + endpoint, {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(postingData),
       });
 
@@ -33,6 +33,9 @@ const useFetch = (entrypoint: string) => {
     async <T>(patchingData: T, endpoint = '') => {
       const response = await fetch(entrypoint + endpoint, {
         method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(patchingData),
       });
 
