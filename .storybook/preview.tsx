@@ -4,6 +4,7 @@ import { GlobalStyle } from '../src/GlobalStyle';
 import { initialize, mswDecorator } from 'msw-storybook-addon';
 import { RecoilRoot } from 'recoil';
 import { MemoryRouter } from 'react-router-dom';
+import { handlers } from '../src/mock/handler';
 
 let options = {};
 if (location.hostname === 'feb-dain.github.io') {
@@ -18,6 +19,7 @@ initialize(options);
 
 const preview: Preview = {
   parameters: {
+    msw: handlers,
     actions: { argTypesRegex: '^on[A-Z].*' },
     layout: 'centered',
     controls: {
