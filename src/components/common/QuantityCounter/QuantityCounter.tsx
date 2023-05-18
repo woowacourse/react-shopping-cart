@@ -7,8 +7,8 @@ interface QuantityCounterProps {
   onIncrease: () => void;
   onDecrease: () => void;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  ariaIncreaseLabel: string;
-  ariaDecreaseLabel: string;
+  ariaIncreaseLabel?: string;
+  ariaDecreaseLabel?: string;
 }
 
 function QuantityCounter({

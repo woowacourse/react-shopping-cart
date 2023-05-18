@@ -6,7 +6,7 @@ import {
   useRecoilState,
   useRecoilValue,
 } from 'recoil';
-import { CartItem, CartItemWithProduct } from '../../types/ProductType';
+import type { CartItem, CartItemWithProduct, ProductItem } from '../../types/ProductType';
 
 const cartListWithInfoState = atom<CartItemWithProduct[]>({
   key: 'cartListWithInfoState',
@@ -37,8 +37,8 @@ const cartListState = atom<CartItem[]>({
   }),
 });
 
-const cartItemState = selectorFamily<number, number>({
-  key: 'cartItemState',
+const cartItemQuantityState = selectorFamily<number, number>({
+  key: 'cartItemQuantityState',
   get:
     (id) =>
     ({ get }) => {
@@ -108,6 +108,13 @@ const cartItemState = selectorFamily<number, number>({
     },
 });
 
-export const useCartListWithInfo = () => useRecoilValue(cartListWithInfoState);
-export const useCartItemById = (id: number) => useRecoilState(cartItemState(id));
+export const useProductListInCart: () => ProductItem[] = () => {
+  const cartListWithInfo = useRecoilValue(cartListWithInfoState);
+
+  return cartListWithInfo.map(({ product }) => {
+    const productInfo: ProductItem = { ...product };
+    return productInfo;
+  });
+};
+export const useCartItemQuantityById = (id: number) => useRecoilState(cartItemQuantityState(id));
 export const useCartListLength = () => useRecoilValue(cartListState).length;

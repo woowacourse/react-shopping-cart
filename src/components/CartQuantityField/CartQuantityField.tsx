@@ -1,18 +1,16 @@
-import { ChangeEvent } from 'react';
-
 import * as S from './CartQuantityField.style';
 import * as T from '../../types/ProductType';
 
 import QuantityCounter from '../common/QuantityCounter';
 import cartIcon from '../../assets/cart.svg';
-import { useCartItemById } from '../../hooks/cartListState/cartListState';
+import { useCartItemQuantityById } from '../../hooks/cartListState/cartListState';
 
 interface CartQuantityFieldProps {
   product: T.ProductItem;
 }
 
 function CartQuantityField({ product }: CartQuantityFieldProps) {
-  const [quantity, setQuantity] = useCartItemById(product.id);
+  const [quantity, setQuantity] = useCartItemQuantityById(product.id);
 
   const isQuantityZero = quantity > 0;
 
@@ -40,7 +38,7 @@ function CartQuantityField({ product }: CartQuantityFieldProps) {
           }}
           type="button"
           aria-label={`${product.name}를 장바구니에 담기`}
-          role="button"
+          role="cart-icon"
         >
           <img src={cartIcon}></img>
         </S.CartIcon>
