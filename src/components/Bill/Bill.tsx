@@ -4,6 +4,7 @@ import { cartSelector } from '../../store/cart';
 
 const Bill = () => {
   const { totalAmount } = useRecoilValue(cartSelector);
+  const deliveryFee = totalAmount > 30000 ? 0 : 3000;
 
   return (
     <Wrapper>
@@ -13,8 +14,9 @@ const Bill = () => {
           총 상품가격 <span>{totalAmount.toLocaleString()}원</span>
         </Detail>
         <Detail>
-          총 배송비 <span>3,000원</span>
+          총 배송비 <span>{deliveryFee.toLocaleString()}원</span>
         </Detail>
+        <Message>3만원 이상 주문시 무료배송</Message>
         <TotalAmount>
           총 주문금액 <span>{(totalAmount + 3000).toLocaleString()}원</span>
         </TotalAmount>
@@ -68,7 +70,15 @@ const Detail = styled.div`
 `;
 
 const TotalAmount = styled(Detail)`
-  margin: 24px 0px;
+  margin: 12px 0px;
+`;
+
+const Message = styled.div`
+  text-align: right;
+
+  width: 100%;
+
+  color: #747373;
 `;
 
 const OrderButton = styled.button`

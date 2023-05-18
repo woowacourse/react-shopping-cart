@@ -30,7 +30,7 @@ const useCartAtom = (id: number, product?: Product) => {
 
   const plusOne = () => {
     setCount(count + 1);
-    updateCartItem(id, count + 1);
+    updateCartItem(id, count);
     setCart((prev) =>
       prev.map((item) =>
         item.id === id ? { ...item, quantity: count + 1 } : item
@@ -43,10 +43,10 @@ const useCartAtom = (id: number, product?: Product) => {
 
     if (count - 1 === 0) {
       deleteCartItem(id);
-      setCart((prev) => [...prev.filter((item) => item.id !== id)]);
+      removeCartItemFromAtom();
       return;
     }
-    updateCartItem(id, count - 1);
+    updateCartItem(id, count - 2);
     setCart((prev) =>
       prev.map((item) =>
         item.id === id ? { ...item, quantity: count - 1 } : item
@@ -59,12 +59,11 @@ const useCartAtom = (id: number, product?: Product) => {
       setCount(1);
       return;
     }
-    setCount(count - 1);
+    updateCartItem(id, count - 2);
+    setCount(count);
     setCart((prev) =>
       prev.map((item) =>
-        item.id === id
-          ? { id, quantity: count - 1, product: { id, name, price, imageUrl } }
-          : item
+        item.id === id ? { ...item, quantity: count - 1 } : item
       )
     );
   };
