@@ -3,10 +3,14 @@ import { Meta } from '@storybook/react';
 import { styled } from 'styled-components';
 import Header from '../../components/common/Header';
 import ProductList from '../../components/main/ProductList';
+import { handlers } from '../../mocks/handlers';
 
 const meta = {
   component: ProductList,
   title: 'Components/MainPage',
+  parameters:{
+    msw: handlers
+  },
   tags: ['autodocs'],
   decorators: [
     (Story) => {
