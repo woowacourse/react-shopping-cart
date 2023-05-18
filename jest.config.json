@@ -1,0 +1,15 @@
+{
+  "roots": ["<rootDir>/src"],
+  "preset": "ts-jest",
+  "testMatch": ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
+  "testEnvironment": "jsdom",
+  "moduleNameMapper": {
+    "\\.(css|less|svg)$": "identity-obj-proxy"
+  },
+  "setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect"],
+  "transform": {
+    "^.+\\.tsx?$": "ts-jest"
+  },
+
+  "transformIgnorePatterns": ["<rootDir>/node_modules/"]
+}
