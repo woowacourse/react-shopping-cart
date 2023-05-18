@@ -6,6 +6,7 @@ import TrashCanIcon from '../../../assets/icons/TrashCanIcon';
 import Counter from '../../common/Counter/Counter';
 import { useState } from 'react';
 import { formatPrice } from '../../../utils/formatPrice';
+import useCartService from '../../../hooks/useCartService';
 
 interface CartItemProps {
   cartItem: CartProduct;
@@ -14,8 +15,13 @@ interface CartItemProps {
 
 const CartItem = ({ cartItem, updateCheckedCartList }: CartItemProps) => {
   const { id, imageSrc, name, price } = cartItem.product;
-
+  const { updateCartItemQuantity } = useCartService();
   const [count, setCount] = useState(cartItem.quantity);
+
+  const updateQuantity = (quantity: number) => {
+    setCount(quantity);
+    updateCartItemQuantity(id)(quantity);
+  };
 
   return (
     <CartItemContainer>
@@ -26,7 +32,7 @@ const CartItem = ({ cartItem, updateCheckedCartList }: CartItemProps) => {
       </ItemContents>
       <ItemControllers>
         <TrashCanIcon />
-        <Counter count={count} updateCount={setCount} />
+        <Counter count={count} updateCount={updateQuantity} min={1} />
         <Price>{formatPrice(price)}</Price>
       </ItemControllers>
     </CartItemContainer>

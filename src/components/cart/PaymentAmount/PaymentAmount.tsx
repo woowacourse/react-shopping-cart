@@ -5,7 +5,7 @@ import useCartService from '../../../hooks/useCartService';
 const PaymentAmount = () => {
   const { cartList } = useCartService();
   const cartListAmount = cartList.reduce(
-    (acc, cartItem) => acc + cartItem.product.price,
+    (acc, cartItem) => acc + cartItem.product.price * cartItem.quantity,
     0,
   );
 
