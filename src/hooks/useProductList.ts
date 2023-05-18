@@ -1,18 +1,25 @@
-import { PRODUCT_LIST } from 'mockData/productList';
+import { useEffect, useState } from 'react';
 
 const useProductList = () => {
-  const apiProduct = PRODUCT_LIST.productList;
+  const [products, setProducts] = useState([]);
 
-  const productList = apiProduct.map((product) => {
-    return {
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      imageUrl: product.imageUrl,
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/products', { method: 'GET' });
+
+        const data = await response.json();
+
+        setProducts(data);
+      } catch (error) {
+        console.error(error);
+      }
     };
-  });
 
-  return productList;
+    fetchData();
+  }, []);
+
+  return products;
 };
 
 export default useProductList;
