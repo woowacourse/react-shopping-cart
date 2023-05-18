@@ -8,11 +8,16 @@ import * as S from './style';
 type QuantityControllerProps = {
   quantity: number;
   changeProductQuantity: (quantity: number) => void;
+  minCount?: number;
 };
 
 type QuantityControlButton = (typeof QUANTITY_CONTROL_BUTTON)[keyof typeof QUANTITY_CONTROL_BUTTON];
 
-function QuantityController({ quantity, changeProductQuantity }: QuantityControllerProps) {
+function QuantityController({
+  quantity,
+  changeProductQuantity,
+  minCount = SHOPPING_QUANTITY.MIN,
+}: QuantityControllerProps) {
   const [proceeding, setProceeding] = useState(Boolean);
 
   const changeQuantityDefault = () => {
@@ -67,7 +72,7 @@ function QuantityController({ quantity, changeProductQuantity }: QuantityControl
         </S.QuantityControlButton>
         <S.QuantityControlButton
           onClick={() => updateQuantityWithButton(QUANTITY_CONTROL_BUTTON.MINUS)}
-          disabled={quantity <= SHOPPING_QUANTITY.MIN}
+          disabled={quantity <= minCount}
         >
           ▼
         </S.QuantityControlButton>
