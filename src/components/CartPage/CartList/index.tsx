@@ -12,17 +12,21 @@ const CartList = () => {
   return (
     <S.Container>
       <S.Title>든든 배송 상품 ( {cartItems.length}개 )</S.Title>
-      <S.CartList>
-        {cartItems.map((item) => (
-          <li key={item.id}>
-            <CartItem {...item} />
-          </li>
-        ))}
-      </S.CartList>
+      {!cartItems.length ? (
+        <S.EmptyList>장바구니에 담긴 상품이 없습니다.</S.EmptyList>
+      ) : (
+        <S.CartList>
+          {cartItems.map((item) => (
+            <li key={item.id}>
+              <CartItem {...item} />
+            </li>
+          ))}
+        </S.CartList>
+      )}
       <Flex width="100%" justify="space-between" align="center">
         <S.SelectAll>
           <S.CheckBox type="checkbox" />
-          전체 선택
+          전체 선택 ( 2 / {cartItems.length} )
         </S.SelectAll>
         <Button size="S" view="light">
           전체 삭제

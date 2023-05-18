@@ -9,6 +9,13 @@ export const Title = styled.h3`
   padding-bottom: 3rem;
 `;
 
+export const EmptyList = styled.div`
+  text-align: center;
+  color: darkgray;
+  font-size: 2rem;
+  padding: 115px 0;
+`;
+
 export const CartList = styled.ul``;
 
 export const SelectAll = styled.div`
