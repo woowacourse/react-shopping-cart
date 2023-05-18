@@ -1,16 +1,9 @@
-import { ChangeEventHandler } from 'react';
 import { styled } from 'styled-components';
-import QuantityInput from './QuantityInput';
-import { INITIAL_QUANTITY, NONE_QUANTITY, NOT_NUMBER } from '../../constants';
-import { changeInvalidValueToBlank } from '../../utils/changeInvalidValueToBlank';
-import { useRecoilCallback, useRecoilValue } from 'recoil';
-import {
-  SelectorParams,
-  updateCartSelector,
-  isSelectedProductSelector,
-  removeProductItemFromCartSelector,
-} from '../../store/CartSelector';
+import QuantityInput from '../QuantityInput';
+import { useRecoilValue } from 'recoil';
+import { isSelectedProductSelector } from '../../store/CartSelector';
 import CartIconButton from './CartIconButton';
+import { useHandleProduct } from '../../hooks/useHandleProduct';
 
 interface Props {
   id: number;
@@ -21,31 +14,14 @@ interface Props {
 
 const ProductItem = ({ id, imgUrl, name, price }: Props) => {
   const isSelected = useRecoilValue(isSelectedProductSelector(id));
-  const newQuantity = useRecoilValue(updateCartSelector({ id }));
-
-  const updateCart = useRecoilCallback(({ set }) => ({ id, quantity }: SelectorParams) => {
-    set(updateCartSelector({ id, quantity }), 0);
-  });
-
-  const removeProductItemFromCart = useRecoilCallback(({ set }) => (id: number) => {
-    set(removeProductItemFromCartSelector(id), []);
-  });
-
-  const handleCartClick = () => {
-    updateCart({ id, quantity: INITIAL_QUANTITY });
-  };
-
-  const handleNumberInputChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
-    const { value } = target;
-
-    if (Number(value) === NONE_QUANTITY) {
-      removeProductItemFromCart(id);
-      return;
-    }
-
-    const newQuantity = changeInvalidValueToBlank(value, NOT_NUMBER);
-    updateCart({ id, quantity: newQuantity });
-  };
+  const {
+    newQuantity,
+    handleBlurItem,
+    handleCartClick,
+    handleDecreaseItem,
+    handleIncreaseItem,
+    handleNumberInputChange,
+  } = useHandleProduct(id);
 
   return (
     <div>
@@ -62,6 +38,9 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
           <QuantityInput
             value={newQuantity}
             onChange={handleNumberInputChange}
+            onIncrement={handleIncreaseItem}
+            onDecrement={handleDecreaseItem}
+            onBlur={handleBlurItem}
             id={`product${id}`}
           />
         ) : (
