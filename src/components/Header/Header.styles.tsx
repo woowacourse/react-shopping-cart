@@ -23,18 +23,12 @@ export const LogoButton = styled.button`
   border: none;
   display: flex;
   align-items: center;
-`;
-
-export const LogoTitle = styled.h1`
-  color: var(--color-white);
-  font-weight: 900;
-  font-size: 40px;
-  line-height: 58px;
+  cursor: pointer;
 `;
 
 export const LogoImage = styled.img`
-  width: 50px;
-  height: 58px;
+  max-width: 400px;
+  height: 91px;
   margin: 0 16px 14px 0;
 `;
 
@@ -49,7 +43,7 @@ export const ShoppingCartButtonText = styled.span`
   font-weight: 500;
   font-size: 24px;
   line-height: 12px;
-  color: var(--color-white);
+  color: var(--color-brownish-red);
   margin-right: 6px;
 `;
 
