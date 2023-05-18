@@ -2,7 +2,6 @@ import { selector, selectorFamily } from 'recoil';
 import { fetchCartItem, fetchCartList } from '../api/cartList';
 import fetchProductList from '../api/productList';
 import { Cart, Product } from '../types/product';
-import { cartAtom } from './cart';
 
 export const fetchedProductListSelector = selector({
   key: 'fetchedProductList',

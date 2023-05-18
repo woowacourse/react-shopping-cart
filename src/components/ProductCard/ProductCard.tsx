@@ -8,7 +8,12 @@ import ProductImg from './ProductImg/ProductImg';
 import ProductInfo from './ProductInfo/ProductInfo';
 
 const ProductCard = ({ id, name, price, imageUrl }: Product) => {
-  const { count, addToCart, plusOne, minusOne } = useCartAtom(id);
+  const { count, addToCart, plusOne, minusOne } = useCartAtom(id, {
+    id,
+    name,
+    price,
+    imageUrl,
+  });
 
   return (
     <Container>

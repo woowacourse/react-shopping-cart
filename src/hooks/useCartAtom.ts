@@ -2,19 +2,22 @@ import { useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { deleteCartItem, postCartItem, updateCartItem } from '../api/cartList';
 import { cartAtom, cartSelectorFamily } from '../store/cart';
+import { Product } from '../types/product';
 
-const useCartAtom = (id: number) => {
+const useCartAtom = (id: number, product?: Product) => {
+  let name: string;
+  let imageUrl: string;
+  let price: number;
+
+  if (product) {
+    name = product.name;
+    imageUrl = product.imageUrl;
+    price = product.price;
+  }
+
   const setCart = useSetRecoilState(cartAtom);
   const productInCart = useRecoilValue(cartSelectorFamily(id));
   const [count, setCount] = useState(productInCart?.quantity);
-
-  let name: string = '';
-  let imageUrl: string = '';
-  let price: number = 0;
-
-  if (productInCart) {
-    ({ name, imageUrl, price } = productInCart.product);
-  }
 
   const addToCart = () => {
     setCount(1);
@@ -30,15 +33,9 @@ const useCartAtom = (id: number) => {
     updateCartItem(id, count + 1);
     setCart((prev) =>
       prev.map((item) =>
-        item.id === id
-          ? { id, quantity: count + 1, product: { id, name, price, imageUrl } }
-          : item
+        item.id === id ? { ...item, quantity: count + 1 } : item
       )
     );
-  };
-
-  const removeCartItemFromAtom = () => {
-    setCart((prev) => [...prev.filter((item) => item.id !== id)]);
   };
 
   const minusOne = () => {
@@ -46,15 +43,13 @@ const useCartAtom = (id: number) => {
 
     if (count - 1 === 0) {
       deleteCartItem(id);
-      removeCartItemFromAtom();
+      setCart((prev) => [...prev.filter((item) => item.id !== id)]);
       return;
     }
     updateCartItem(id, count - 1);
     setCart((prev) =>
       prev.map((item) =>
-        item.id === id
-          ? { id, quantity: count - 1, product: { id, name, price, imageUrl } }
-          : item
+        item.id === id ? { ...item, quantity: count - 1 } : item
       )
     );
   };
@@ -74,14 +69,18 @@ const useCartAtom = (id: number) => {
     );
   };
 
+  const removeCartItemFromAtom = () => {
+    setCart((prev) => [...prev.filter((item) => item.id !== id)]);
+  };
+
   return {
     count,
     productInCart,
     addToCart,
     plusOne,
     minusOne,
-    minusOneWhenOverOne,
     removeCartItemFromAtom,
+    minusOneWhenOverOne,
   };
 };
 
