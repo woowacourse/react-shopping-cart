@@ -57,4 +57,15 @@ describe("Selector Option의 Icon 랜더링 테스트", () => {
 
     expect(icon).toHaveAttribute("src");
   });
+
+  test("custom된 children요소가 있으면 custom된 child가 랜더링 된다", () => {
+    const { getByAltText } = render(
+      <OptionIcon asChild>
+        <img src="test-file-stub" alt="custom-icon" />
+      </OptionIcon>
+    );
+    const icon = getByAltText("custom-icon");
+
+    expect(icon).toHaveAttribute("src");
+  });
 });
