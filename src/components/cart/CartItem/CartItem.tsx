@@ -7,16 +7,20 @@ import Counter from '../../common/Counter/Counter';
 import { useState } from 'react';
 import { formatPrice } from '../../../utils/formatPrice';
 import useCartService from '../../../hooks/useCartService';
+import { useCheckedCartListValue } from '../../../provider/CheckedListProvider';
 
 interface CartItemProps {
   cartItem: CartProduct;
-  updateCheckedCartList: (id: number) => void;
 }
 
-const CartItem = ({ cartItem, updateCheckedCartList }: CartItemProps) => {
-  const { id, imageSrc, name, price } = cartItem.product;
+const CartItem = ({ cartItem }: CartItemProps) => {
+  const { id, quantity } = cartItem;
+  const { imageSrc, name, price } = cartItem.product;
+
   const { updateCartItemQuantity, deleteCartItem } = useCartService();
-  const [count, setCount] = useState(cartItem.quantity);
+  const [count, setCount] = useState(quantity);
+  const { isChecked, addCheckedItem, deleteCheckedItem } =
+    useCheckedCartListValue();
 
   const updateQuantity = (quantity: number) => {
     setCount(quantity);
@@ -27,12 +31,22 @@ const CartItem = ({ cartItem, updateCheckedCartList }: CartItemProps) => {
     if (!window.confirm('해당 물품을 장바구니에서 삭제 하시겠습니까?')) return;
 
     deleteCartItem(id);
+    deleteCheckedItem(id);
+  };
+
+  const handleCheckBoxChange = () => {
+    if (isChecked(id)) {
+      deleteCheckedItem(id);
+      return;
+    }
+
+    addCheckedItem(id);
   };
 
   return (
     <CartItemContainer>
       <ItemContents>
-        <CheckBox />
+        <CheckBox isChecked={isChecked(id)} onChange={handleCheckBoxChange} />
         <Image src={imageSrc} size="medium" />
         <Name>{name}</Name>
       </ItemContents>
