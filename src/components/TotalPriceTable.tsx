@@ -1,13 +1,23 @@
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { selectedProductsState } from "../recoil/atom";
 import { Button } from "./Button";
 
 export const TotalPriceTable = () => {
+  const selectedProducts = useRecoilValue(selectedProductsState);
+
+  const totalPrice = selectedProducts.reduce(
+    (accumulator: number, currentValue) =>
+      accumulator + currentValue.price * Number(currentValue.quantity),
+    0
+  );
+
   return (
     <Wrapper>
       <TitleBox>결제예상금액</TitleBox>
       <RowContainer>
         <p>총 상품가격</p>
-        <p>21,700원</p>
+        <p>{totalPrice.toLocaleString()}원</p>
       </RowContainer>
       <RowContainer>
         <p>배송비</p>
@@ -15,7 +25,7 @@ export const TotalPriceTable = () => {
       </RowContainer>
       <RowContainer>
         <p>총 주문금액</p>
-        <p>3,000원</p>
+        <p>{(totalPrice + 3000).toLocaleString()}원</p>
       </RowContainer>
       <Button>주문하기</Button>
     </Wrapper>
