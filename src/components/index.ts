@@ -6,4 +6,4 @@ export { default as Root } from './pages/Root';
 export { default as Error } from './pages/Error';
 export { default as NotFound } from './pages/NotFound/NotFound';
 export { default as ProductListPage } from './pages/ProductListPage';
-export { default as CartListPage } from './pages/CartListPage';
+export { default as CartListPage } from './pages/CartListPage/CartListPage';
