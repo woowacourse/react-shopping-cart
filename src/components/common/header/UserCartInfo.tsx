@@ -1,17 +1,16 @@
 import styled from '@emotion/styled';
-import { useRecoilValue } from 'recoil';
 import { Text } from '../Text/Text';
-import { cartListState } from '../../../store/atom';
+import useCartList from '../../../hooks/useCartList';
 
 const UserCartInfo = () => {
-  const cartList = useRecoilValue(cartListState);
+  const { cartList } = useCartList();
 
   return (
     <CardCounterWrapper>
       <Text color="#ffffff" size="large" lineHeight="12px">
         장바구니
       </Text>
-      {cartList.length > 0 && (
+      {cartList?.length > 0 && (
         <CartCounter>
           <Text size="smallest" color="#ffffff">
             {cartList.length > 99 ? 99 : cartList.length}

@@ -1,21 +1,17 @@
 import styled from '@emotion/styled';
+import { useRecoilValue } from 'recoil';
 import ProductItem from '../box/ProductItem';
-import useDataFetching from '../../hooks/useDataFetching';
-import type { Product } from '../../types/types';
 import ErrorBox from '../common/ErrorBox/ErrorBox';
-import { Text } from '../common/Text/Text';
+import { productsQuery } from '../../recoil/selector';
 
 const ProductList = () => {
-  const { fetchingData, isLoading } = useDataFetching<Product[]>('/api/products');
-  if (isLoading) return <Text>로딩중...</Text>;
+  const products = useRecoilValue(productsQuery);
 
-  if (!fetchingData) return <ErrorBox errorType="network" />;
-
-  if (fetchingData.length === 0) return <ErrorBox errorType="emptyList" />;
+  if (products.length === 0) return <ErrorBox errorType="emptyList" />;
 
   return (
     <ProductListWrapper>
-      {fetchingData.map((product) => (
+      {products.map((product) => (
         <ProductItem key={product.id} product={product} />
       ))}
     </ProductListWrapper>

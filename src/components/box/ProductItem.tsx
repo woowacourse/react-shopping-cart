@@ -6,14 +6,17 @@ import InputStepper from '../common/InputStepper/InputStepper';
 import useCartList from '../../hooks/useCartList';
 
 const ProductItem = ({ product }: { product: Product }) => {
-  const { quantity, setQuantity } = useCartList(product);
+  const { cartList, addProductToCartList, updateProductQuantity } = useCartList();
+
+  const productInCart = cartList?.find((cartItem) => cartItem.id === product.id);
+  const quantityOfProductInCart = productInCart?.quantity ?? 0;
 
   const handleOnClickToCartIcon = () => {
-    setQuantity(1);
+    addProductToCartList(product.id);
   };
 
-  const handleSetQuantityOnInputStepper = (value: number) => {
-    setQuantity(value);
+  const handleSetQuantityOnInputStepper = (quantity: number) => {
+    updateProductQuantity(product.id, quantity);
   };
 
   return (
@@ -28,7 +31,7 @@ const ProductItem = ({ product }: { product: Product }) => {
             {product.price} 원
           </Text>
         </ProductTextWrapper>
-        {quantity === 0 ? (
+        {quantityOfProductInCart === 0 ? (
           <CartIcon
             width={25}
             height={22}
@@ -39,7 +42,7 @@ const ProductItem = ({ product }: { product: Product }) => {
         ) : (
           <InputStepper
             size="small"
-            quantity={quantity}
+            quantity={quantityOfProductInCart}
             setQuantity={handleSetQuantityOnInputStepper}
           />
         )}

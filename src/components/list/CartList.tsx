@@ -1,30 +1,27 @@
 import styled from '@emotion/styled';
 import { Text } from '../common/Text/Text';
-import CartItem from '../box/CartItem';
+import CartListItem from '../box/CartListItem';
+import useCartList from '../../hooks/useCartList';
 
 const CartList = () => {
+  const { cartList } = useCartList();
+
   return (
     <CartListWrapper>
       <Text size="smallest" weight="light" color="#333333">
         든든배송 상품 (3개)
       </Text>
       <CartItemListWrapper>
-        <CartItem />
-        <CartItem />
-        <CartItem />
-        <CartItem />
-        <CartItem />
-        <CartItem />
-        <CartItem />
+        {cartList.map((cartItem) => (
+          <CartListItem key={cartItem.id} cartItem={cartItem} />
+        ))}
       </CartItemListWrapper>
       <SelectAllWrapper>
         <CheckBox type="checkbox" />
         <Text size="minimum" weight="light" color="#333333">
           전체선택(2/3)
         </Text>
-        <SelectDeleteButton>
-          선택삭제
-        </SelectDeleteButton>
+        <SelectDeleteButton>선택삭제</SelectDeleteButton>
       </SelectAllWrapper>
     </CartListWrapper>
   );
