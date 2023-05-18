@@ -43,6 +43,38 @@ export const countSelectedCartItemsSelector = selector({
   },
 });
 
+export const quantityTimesNumber = selectorFamily<number, ProductId>({
+  key: 'quantityTimesNumber',
+  get:
+    (productId) =>
+    ({ get }) => {
+      const list = get(cartListAtom);
+
+      const currentItem = list.find(({ id }) => id === productId);
+      if (!currentItem) return 0;
+
+      return currentItem.product.price * currentItem.quantity;
+    },
+});
+
+export const selectedCartItemTotal = selector({
+  key: 'selectedCartItemTotal',
+  get: ({ get }) => {
+    const list = get(cartListAtom);
+
+    const selectedItems = list.filter(({ isSelected }) => isSelected);
+
+    return selectedItems.reduce((acc, cur) => {
+      if (cur.isSelected) {
+        const curTotalPrice = cur.product.price * cur.quantity;
+        return acc + curTotalPrice;
+      }
+
+      return acc;
+    }, 0);
+  },
+});
+
 export const updateCart = selectorFamily({
   key: 'updateCart',
   get:

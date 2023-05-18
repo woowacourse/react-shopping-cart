@@ -6,3 +6,5 @@ export const PATH: Record<PathType, string> = {
   HOME: '/',
   SHOPPING_BASKET: '/shopping-basket',
 };
+
+export const DELEIVERY_COST = 3000;

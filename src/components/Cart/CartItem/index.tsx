@@ -5,6 +5,8 @@ import { convertKORWon } from 'src/utils';
 import useProductSelect from 'src/hooks/useProductSelect';
 import * as S from './CartItem.styles';
 import Svg from 'src/components/@common/Svg';
+import { useRecoilValue } from 'recoil';
+import { quantityTimesNumber } from 'src/recoil/cartList';
 
 interface ItemProps {
   item: CartItem;
@@ -14,6 +16,7 @@ const Item = ({ item }: ItemProps) => {
   const { id, product, quantity, isSelected } = item;
 
   const { increase, decrease } = useProductSelect(product);
+  const itemTotalPrice = useRecoilValue(quantityTimesNumber(id));
 
   return (
     <S.ItemWrapper>
@@ -31,7 +34,7 @@ const Item = ({ item }: ItemProps) => {
         isOnlyOverOne={true}
       />
       <S.ProductPriceContainer>
-        <S.ProductPrice>{convertKORWon(product.price)}</S.ProductPrice>
+        <S.ProductPrice>{convertKORWon(itemTotalPrice)}</S.ProductPrice>
       </S.ProductPriceContainer>
       <Svg type="delete-icon" width={20} height={20} cursor="pointer" />
     </S.ItemWrapper>
