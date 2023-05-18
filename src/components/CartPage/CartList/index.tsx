@@ -1,13 +1,12 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
-import { cartState } from '../../../recoil/cart';
 import CartItem from '../CartItem';
 import * as S from './CartList.styles';
 import Button from '../../common/Button';
 import Flex from '../../common/Flex';
+import useCart from '../../../hooks/cart/useCart';
 
 const CartList = () => {
-  const cartItems = useRecoilValue(cartState);
+  const { cartItems } = useCart();
 
   return (
     <S.Container>
