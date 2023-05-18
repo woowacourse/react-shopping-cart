@@ -27,7 +27,7 @@ function PaymentAmount() {
           <S.AmountCategory>총 주문가격</S.AmountCategory>
           <S.Amount>{totalOrderPrice}</S.Amount>
         </S.AmountWrapper>
-        <Button text="주문하기" />
+        <Button backgroundColor="#22a6a2" text="주문하기" />
       </S.ExpectedAmountLayout>
     </S.Container>
   );

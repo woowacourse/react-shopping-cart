@@ -2,11 +2,12 @@ import styled from 'styled-components';
 
 type ButtonProps = {
   width: string;
+  backgroundColor: string;
 };
 
 export const Button = styled.button<ButtonProps>`
   border: none;
-  background-color: #333333;
+  background-color: ${(props) => props.backgroundColor};
   color: #ffffff;
   width: ${(props) => props.width};
   padding: 20px 0px;

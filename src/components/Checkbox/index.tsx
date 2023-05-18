@@ -13,7 +13,7 @@ type CheckboxProps = {
 function Checkbox({ isChecked, size = 'medium', updateSelectedState }: CheckboxProps) {
   return (
     <S.Checkbox isChecked={isChecked} aria-label="선택 버튼" size={BOX_SIZE[size]} onClick={updateSelectedState}>
-      ✓
+      <S.Check>✓</S.Check>
     </S.Checkbox>
   );
 }

@@ -13,8 +13,13 @@ export const Checkbox = styled.div<CheckboxProps>`
   justify-content: center;
   align-items: center;
   border-radius: 2px;
-  border: ${(props) => (props.isChecked ? '#3288FF' : '#22A6A2')} 1px solid;
+  border: #22a6a2 1px solid;
   color: ${(props) => (!props.isChecked ? 'transparent' : '#ffffff')};
   background-color: ${(props) => props.isChecked && '#333333'};
   cursor: pointer;
+`;
+
+export const Check = styled.div`
+  position: relative;
+  top: 2px;
 `;
