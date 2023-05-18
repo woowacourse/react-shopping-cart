@@ -35,3 +35,5 @@ export const FETCH_URL = {
   products: '/api/products',
   cartItems: '/api/cart-item',
 };
+
+export const DELIVERY_FEE = 3000;

@@ -1,6 +1,6 @@
 import ShoppingItem from '@Components/ShoppingItem';
 
-import { Product, ShoppingCartProduct } from '@Types/index';
+import { ShoppingCartProduct } from '@Types/index';
 
 import useFetch from '@Hooks/useFetch';
 

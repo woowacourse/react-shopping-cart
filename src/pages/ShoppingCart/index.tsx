@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import PaymentAmount from './PaymentAmount';
 import ShoppingList from './ShoppingList';
 import * as S from './style';
