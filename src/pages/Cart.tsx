@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import { styled } from "styled-components";
+import { useFetch } from "../hooks/useFetch";
+import { cartProductsSelector } from "../recoil/selector";
+import { ROUTER_PATH } from "../router";
 import {
   Header,
   Page,
@@ -9,33 +11,12 @@ import {
   Button,
   Loading,
 } from "../components";
-import { ROUTER_PATH } from "../router";
-import { ProductListType } from "../types/domain";
+import { useRouter } from "../hooks/useRouter";
 
 const Cart = () => {
-  const navigate = useNavigate();
-  const [cartProducts, setCartProducts] = useState<ProductListType>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const handleButtonClicked = () => {
-    navigate(ROUTER_PATH.Main);
-  };
-
-  useEffect(() => {
-    const fetchCartProducts = async () => {
-      try {
-        const response = await fetch("/cart-items");
-        const data = await response.json();
-
-        setCartProducts(data);
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchCartProducts();
-  }, []);
+  const { goPage } = useRouter();
+  const cartProducts = useRecoilValue(cartProductsSelector);
+  const { isLoading } = useFetch();
 
   return (
     <>
@@ -50,7 +31,9 @@ const Cart = () => {
               <EmptyContainer>
                 <span>🛒</span>
                 <p>장바구니가 텅 비었어요</p>
-                <Button onClick={handleButtonClicked}>상품 담으러 가기</Button>
+                <Button onClick={goPage(ROUTER_PATH.Main)}>
+                  상품 담으러 가기
+                </Button>
               </EmptyContainer>
             ) : (
               <Container>

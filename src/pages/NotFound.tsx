@@ -1,14 +1,10 @@
 import { styled } from "styled-components";
 import { Button, Header, Page } from "../components";
-import { useNavigate } from "react-router";
 import { ROUTER_PATH } from "../router";
+import { useRouter } from "../hooks/useRouter";
 
 const NotFound = () => {
-  const navigate = useNavigate();
-
-  const handleHomeButtonClicked = () => {
-    navigate(ROUTER_PATH.Main);
-  };
+  const { goPage } = useRouter();
 
   return (
     <>
@@ -17,7 +13,7 @@ const NotFound = () => {
         <ErrorBox>
           <h2>Sorry</h2>
           <p>요청하신 페이지를 찾을 수 없어요 🥲</p>
-          <Button onClick={handleHomeButtonClicked}>홈으로</Button>
+          <Button onClick={goPage(ROUTER_PATH.Main)}>홈으로</Button>
         </ErrorBox>
       </Page>
     </>

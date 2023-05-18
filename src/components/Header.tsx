@@ -2,28 +2,21 @@ import styled from "styled-components";
 import { CartIcon } from "../assets";
 import { useRecoilValue } from "recoil";
 import { cartProductsSelector } from "../recoil/selector";
-import { useNavigate } from "react-router-dom";
 import { ROUTER_PATH } from "../router";
+import { useRouter } from "../hooks/useRouter";
 
 export const Header = () => {
-  const navigate = useNavigate();
+  const { goPage } = useRouter();
+
   const cartProducts = useRecoilValue(cartProductsSelector);
-
-  const handleTitleClicked = () => {
-    navigate(ROUTER_PATH.Main);
-  };
-
-  const handleCartClicked = () => {
-    navigate(ROUTER_PATH.Cart);
-  };
 
   return (
     <Wrapper>
-      <TitleContainer onClick={handleTitleClicked}>
+      <TitleContainer onClick={goPage(ROUTER_PATH.Main)}>
         <img src={CartIcon} alt="홈카트" />
         <p>SHOP</p>
       </TitleContainer>
-      <CartContainer onClick={handleCartClicked}>
+      <CartContainer onClick={goPage(ROUTER_PATH.Cart)}>
         장바구니
         {cartProducts.length > 0 && (
           <ItemQuantityBox>{cartProducts.length}</ItemQuantityBox>
