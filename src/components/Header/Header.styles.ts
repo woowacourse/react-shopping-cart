@@ -9,6 +9,8 @@ export const HeaderContainer = styled.header`
 
   background: ${(props) => props.theme.color.white};
   border-bottom: 1px solid rgba(220, 223, 225, 0.7);
+
+  z-index: 99;
 `;
 
 export const HeaderContentContainer = styled.div`
