@@ -1,0 +1,34 @@
+@font-face {
+  font-family: "notosanskr";
+  src: url(./fonts/NotoSansKR-Regular.otf);
+}
+
+@font-face {
+  font-family: "baemin";
+  src: url(./fonts/BMEULJIRO.otf);
+}
+
+:root {
+  --vh: 100%;
+  --font-notosanskr: "notosanskr";
+  --font-baemin: "baemin";
+  --font-test: "test";
+}
+
+html {
+  @media (min-width: 1800px) {
+    font-size: 62.5%;
+  }
+  @media (min-width: 1420px) and (max-width: 1799px) {
+    font-size: 46.8%;
+  }
+  @media (min-width: 900px) and (max-width: 1419px) {
+    font-size: 42%;
+  }
+  @media (min-width: 768px) and (max-width: 899px) {
+    font-size: 35%;
+  }
+  @media (max-width: 767px) {
+    font-size: 32%;
+  }
+}

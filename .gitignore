@@ -1,0 +1,8 @@
+# Co-authored
+.message.txt
+
+# dependencies
+/node_modules
+
+# production
+/build
