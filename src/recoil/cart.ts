@@ -20,3 +20,14 @@ export const cartBadge = selector({
     return numberOfItem > 99 ? '99+' : numberOfItem;
   },
 });
+
+export const cartPrice = selector({
+  key: 'cartTotalPrice',
+  get: ({ get }) => {
+    const cart = get(cartState);
+    return cart.reduce(
+      (prev, item) => prev + item.product.price * item.quantity,
+      0
+    );
+  },
+});
