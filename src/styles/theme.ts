@@ -6,13 +6,13 @@ export const colors = {
    */
   primaryBlack: '#333333',
   /**
-   *  white: '#ffffff',
+   *  white: '#FFFFFF',
    */
-  white: '#ffffff',
+  white: '#FFFFFF',
   /**
-   *  green: '#04c09e',
+   *  green: '#04C09E',
    */
-  green: '#04c09e',
+  green: '#04C09E',
   /**
    *  gray: '#BBBBBB',
    */
@@ -25,6 +25,10 @@ export const colors = {
    * whiteGray2: '#CCCCCC',
    */
   whiteGray2: '#CCCCCC',
+  /**
+   * whiteGray3: '#AAAAAA',
+   */
+  whiteGray3: '#AAAAAA',
 };
 
 const size = {

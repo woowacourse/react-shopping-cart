@@ -40,7 +40,7 @@ const EstimatedPayment = () => {
 
 const Wrapper = styled.div`
   width: 448px;
-
+  max-height: 410px;
   border: 1px solid ${theme.colors.whiteGray};
 `;
 
