@@ -11,14 +11,14 @@ interface ItemProps {
 }
 
 const Item = ({ item }: ItemProps) => {
-  const { id, product, quantity } = item;
+  const { id, product, quantity, isSelected } = item;
 
   const { increase, decrease } = useProductSelect(product);
 
   return (
     <S.ItemWrapper>
       <SelectLabel htmlFor={`${id}`}>
-        <SelectInput type="checkbox" id={`${id}`} />
+        <SelectInput type="checkbox" id={`${id}`} checked={isSelected} />
       </SelectLabel>
       <S.ProductImage src={product.imageUrl} alt={product.name} />
       <S.ProductNameConatiner>

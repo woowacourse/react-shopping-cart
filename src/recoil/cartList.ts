@@ -34,6 +34,15 @@ export const countCartListSelector = selector({
   },
 });
 
+export const countSelectedCartItemsSelector = selector({
+  key: 'countSelectedCartItemsSelector',
+  get: ({ get }) => {
+    const list = get(cartListAtom);
+
+    return list.filter((data) => data.isSelected).length;
+  },
+});
+
 export const updateCart = selectorFamily({
   key: 'updateCart',
   get:
