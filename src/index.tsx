@@ -4,6 +4,11 @@ import ReactDOM from 'react-dom/client';
 import router from 'Router';
 import { RecoilRoot } from 'recoil';
 import GlobalStyles from 'styles/GlobalStyles';
+import { worker } from 'mocks/browser';
+
+if (process.env.NODE_ENV === 'development') {
+  worker.start();
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
