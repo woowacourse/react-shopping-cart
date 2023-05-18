@@ -1,39 +1,30 @@
 import { CartItem } from 'src/types';
 import Item from '../CartItem';
 import * as S from './CartList.styles';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import {
-  countCartListSelector,
-  countSelectedCartItemsSelector,
-  deleteCartItemSelector,
-  wholeCartITemToggleSelector,
-} from 'src/recoil/cartList';
+import useCartListUpdate from 'src/hooks/useCartListUpdate';
 
 interface CartListProps {
   cartList: CartItem[];
 }
 
 const CartList = ({ cartList }: CartListProps) => {
-  const wholeCartItemsCount = useRecoilValue(countCartListSelector);
-  const selectedCartItems = useRecoilValue(countSelectedCartItemsSelector);
+  const {
+    onChange,
+    onClickDeleteHandler,
+    wholeSelected,
+    wholeCartItemsCount,
+    selectedLength,
+  } = useCartListUpdate();
 
-  const setDeleteCartList = useSetRecoilState(deleteCartItemSelector);
-
-  const [wholeSelected, setWholeSelected] = useRecoilState(
-    wholeCartITemToggleSelector
+  const cartListElement = wholeCartItemsCount ? (
+    <ul>
+      {cartList.map((item) => (
+        <Item key={item.id} item={item} />
+      ))}
+    </ul>
+  ) : (
+    <S.EmptyCartList>장바구니가 비었습니다.</S.EmptyCartList>
   );
-
-  const onChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    const { checked } = event.currentTarget;
-    setWholeSelected(checked);
-  };
-
-  const onClickDeleteHandler: React.MouseEventHandler<
-    HTMLButtonElement
-  > = () => {
-    const selectedIds = selectedCartItems.map((item) => item.id);
-    setDeleteCartList([...selectedIds]);
-  };
 
   return (
     <S.CartListWrapper>
@@ -45,16 +36,14 @@ const CartList = ({ cartList }: CartListProps) => {
             checked={wholeSelected}
             onChange={onChange}
           />
-          <S.SelectText>{`전체 선택 (${selectedCartItems.length}/${wholeCartItemsCount}개)`}</S.SelectText>
+          <S.SelectText>{`전체 선택 (${selectedLength}/${wholeCartItemsCount}개)`}</S.SelectText>
         </S.SelectLabel>
         <span>|</span>
-        <button onClick={onClickDeleteHandler}>선택 삭제</button>
+        <S.SelectedDeleteButton onClick={onClickDeleteHandler}>
+          선택 삭제
+        </S.SelectedDeleteButton>
       </S.CartListHeader>
-      <ul>
-        {cartList.map((item) => (
-          <Item key={item.id} item={item} />
-        ))}
-      </ul>
+      {cartListElement}
     </S.CartListWrapper>
   );
 };
