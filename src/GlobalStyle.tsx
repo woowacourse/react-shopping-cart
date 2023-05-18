@@ -28,6 +28,10 @@ const GlobalStyle = createGlobalStyle`
     border: 0;
     cursor: pointer;
   }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
 `;
 
 export default GlobalStyle;
