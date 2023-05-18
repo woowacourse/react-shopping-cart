@@ -20,7 +20,7 @@ const ProductItem = (props: ProductItemProps) => {
           <Styled.NameParagraph>{name}</Styled.NameParagraph>
           <Styled.PriceParagraph>{price.toLocaleString('ko-KR')} 원</Styled.PriceParagraph>
         </div>
-        <ProductStepper productId={id} />
+        <ProductStepper productId={id} defaultValue={0} />
       </Styled.ProductDetailDiv>
     </Styled.ProductItem>
   );
