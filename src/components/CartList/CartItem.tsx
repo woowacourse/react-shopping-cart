@@ -1,4 +1,3 @@
-import useControlCart from '@hooks/useControlCart';
 import { styled } from 'styled-components';
 import BucketCounter from '@components/common/BucketCounter';
 import CheckBox from '@components/common/CheckBox';
@@ -9,8 +8,6 @@ interface CartItemProps {
 }
 
 const CartItem = (props: CartItemProps) => {
-  const { removeProductFromCart } = useControlCart();
-
   return (
     <CartItemWrapper>
       <CheckBox />
@@ -18,10 +15,7 @@ const CartItem = (props: CartItemProps) => {
       <CartItemName>{props.name}</CartItemName>
       <CartItemInformationWrapper>
         <RemoveCardItemImg src={CART_ITEM_REMOVE_BUTTON} />
-        <BucketCounter
-          removeProductFromCart={() => removeProductFromCart(1)}
-          kind="big"
-        />
+        <BucketCounter id={3} quantity={9} kind="big" />
         <CartItemMoney>7000</CartItemMoney>
       </CartItemInformationWrapper>
     </CartItemWrapper>

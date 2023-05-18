@@ -1,23 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
+import useControlCart from '@hooks/useControlCart';
 import { ProductInformation } from '@type/types';
 import { theme } from '@styles/theme';
 import AddCartButton from './AddCartButton';
 
 interface ProductItemProps {
   product: ProductInformation;
-  addProductToCart: () => void;
-  removeProductFromCart: () => void;
 }
 
-const ProductItem = ({
-  product,
-  addProductToCart,
-  removeProductFromCart,
-}: ProductItemProps) => {
-  const { name, price, imageUrl } = product;
+const ProductItem = ({ product }: ProductItemProps) => {
+  const { id, name, price, imageUrl } = product;
+  const { addProductToCart } = useControlCart();
+
   return (
-    <ProductItemWrapper>
+    <Wrapper>
       <Picture src={imageUrl} alt={name} />
       <InformationWrapper>
         <TitleAndPriceWrapper>
@@ -25,15 +22,15 @@ const ProductItem = ({
           <Price>{price.toLocaleString('ko-KR')} 원</Price>
         </TitleAndPriceWrapper>
         <AddCartButton
-          addProductToCart={addProductToCart}
-          removeProductFromCart={removeProductFromCart}
+          id={id}
+          addProductToCart={() => addProductToCart(product)}
         />
       </InformationWrapper>
-    </ProductItemWrapper>
+    </Wrapper>
   );
 };
 
-const ProductItemWrapper = styled.div`
+const Wrapper = styled.div`
   width: 282px;
 `;
 

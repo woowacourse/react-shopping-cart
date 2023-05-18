@@ -1,50 +1,38 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { isNotNumber, showInputErorrMessage } from '@utils/common';
+import { showInputErrorMessage } from '@utils/common';
+import useControlCart from './useControlCart';
 
 interface useBucketCountOptions {
-  removeProductFromCart: () => void;
   errorMessage: string;
   maximumCount: number;
+  id: number;
 }
 
 const useBucketCount = (
   initialValue: number,
-  options: useBucketCountOptions
+  { errorMessage, maximumCount, id }: useBucketCountOptions
 ) => {
-  const { removeProductFromCart, errorMessage, maximumCount } = options;
   const maximumWriteInput = maximumCount * 10;
+
+  const { removeProductFromCart, updateQuantityOfCartItem } = useControlCart();
+
   const [bucketCount, setBucketCount] = useState(initialValue);
   const countRef = useRef<HTMLInputElement>(null);
 
-  const isNotError = useCallback(
-    (count: number) => {
-      return count <= maximumCount;
-    },
-    [maximumCount]
-  );
-
-  const changeCountEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     const count = Number(value);
 
-    if (isNotNumber(value)) return;
+    console.log(count)
+    if (isNaN(count)) return;
 
-    showInputErorrMessage(isNotError(count), event.target, errorMessage);
+    showInputErrorMessage(isCountError(count), event.target, errorMessage);
 
     if (count >= maximumWriteInput) return;
 
     setBucketCount(count);
+    updateQuantityOfCartItem(id, count);
   };
-
-  const showCounterErrorMessage = useCallback(() => {
-    if (!countRef.current) return;
-
-    showInputErorrMessage(
-      isNotError(bucketCount),
-      countRef.current,
-      errorMessage
-    );
-  }, [bucketCount, isNotError, errorMessage]);
 
   const increaseCount = () => {
     if (bucketCount + 1 >= maximumWriteInput) {
@@ -53,12 +41,17 @@ const useBucketCount = (
     }
 
     setBucketCount((prev) => prev + 1);
+    updateQuantityOfCartItem(id, bucketCount + 1);
   };
 
   const decreaseCount = () => {
     if (bucketCount <= 1) {
-      removeProductFromCart();
+      removeProductFromCart(id);
+      return;
     }
+
+    updateQuantityOfCartItem(id, bucketCount - 1);
+
     setBucketCount((prev) => prev - 1);
   };
 
@@ -68,8 +61,25 @@ const useBucketCount = (
     if (relatedTarget?.parentElement?.parentElement === target.parentElement)
       return;
 
-    if (bucketCount === 0) removeProductFromCart();
+    if (bucketCount === 0) removeProductFromCart(id);
   };
+
+  const isCountError = useCallback(
+    (count: number) => {
+      return count > maximumCount;
+    },
+    [maximumCount]
+  );
+
+  const showCounterErrorMessage = useCallback(() => {
+    if (!countRef.current) return;
+
+    showInputErrorMessage(
+      isCountError(bucketCount),
+      countRef.current,
+      errorMessage
+    );
+  }, [bucketCount, errorMessage, isCountError]);
 
   useEffect(() => {
     showCounterErrorMessage();
@@ -78,7 +88,7 @@ const useBucketCount = (
   return {
     onBlur,
     bucketCount,
-    onChange: changeCountEvent,
+    onChange,
     increaseCount,
     decreaseCount,
     countRef,

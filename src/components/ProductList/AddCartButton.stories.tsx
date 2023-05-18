@@ -13,8 +13,8 @@ const AddCartStory = () => {
   return (
     <>
       <AddCartButton
+      id={3}
         addProductToCart={() => {}}
-        removeProductFromCart={() => {}}
       />
       <Circle data-testid="circle" />
     </>

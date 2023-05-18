@@ -1,56 +1,37 @@
-import { useCallback, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
+import { cartAtom } from '@recoil/atoms/cartAtom';
 import BucketCounter from '@components/common/BucketCounter';
 import { ADD_CART_BUTTON } from '@constants/testId';
 import { BUCKET_BUTTON } from '@assets';
 
 interface AddCartButtonProps {
+  id: number;
   addProductToCart: () => void;
-  removeProductFromCart: () => void;
 }
 
-const AddCartButton = ({
-  addProductToCart,
-  removeProductFromCart,
-}: AddCartButtonProps) => {
-  const [isClicked, setIsClicked] = useState(false);
-
-  const momoizedSetIsClicked = useCallback(
-    (value: boolean) => {
-      setIsClicked(value);
-    },
-    [setIsClicked]
-  );
-
-  const addCartAndChangeImage = () => {
-    momoizedSetIsClicked(true);
-
-    addProductToCart();
-  };
-
-  const removeAndChangeCart = () => {
-    setIsClicked(false);
-    removeProductFromCart();
-  };
+const AddCartButton = ({ id, addProductToCart }: AddCartButtonProps) => {
+  const cart = useRecoilValue(cartAtom);
+  const savedCartData = cart.find((item) => item.id === id);
 
   return (
-    <AddCartButtonWrapper>
-      {isClicked ? (
-        <BucketCounter removeProductFromCart={removeAndChangeCart} />
+    <Wrapper>
+      {savedCartData ? (
+        <BucketCounter id={id} quantity={savedCartData.quantity} kind="small" />
       ) : (
         <Button
           type="button"
-          onClick={addCartAndChangeImage}
+          onClick={addProductToCart}
           data-testid={ADD_CART_BUTTON}
         >
           <Image src={BUCKET_BUTTON} alt="장바구니 버튼" />
         </Button>
       )}
-    </AddCartButtonWrapper>
+    </Wrapper>
   );
 };
 
-const AddCartButtonWrapper = styled.div``;
+const Wrapper = styled.div``;
 
 const Button = styled.button`
   border: none;
