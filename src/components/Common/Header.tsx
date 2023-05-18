@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import CartIcon from '../../assets/CartIcon';
 import useCartProductCount from '../../hooks/useCartProductCount';
@@ -9,14 +10,14 @@ const Header = () => {
   return (
     <HeaderContainer>
       <HeaderContent>
-        <LogoContainer>
+        <LogoContainer to='/'>
           <CartIcon width={51} height={44} color='white' />
           <Logo>SHOP</Logo>
         </LogoContainer>
-        <MoveCartPageBtn>
+        <CartPageLink to='/cart'>
           장바구니
           <ProductCountAlert>{cartProductCount}</ProductCountAlert>
-        </MoveCartPageBtn>
+        </CartPageLink>
       </HeaderContent>
     </HeaderContainer>
   );
@@ -38,9 +39,10 @@ const HeaderContent = styled.div`
   align-items: center;
 `;
 
-const LogoContainer = styled.div`
+const LogoContainer = styled(Link)`
   display: flex;
   align-items: center;
+
   & > svg {
     margin-right: 18px;
     transform: scaleX(-1);
@@ -55,7 +57,7 @@ const Logo = styled.h1`
   padding: 10px 0 0;
 `;
 
-const MoveCartPageBtn = styled.button`
+const CartPageLink = styled(Link)`
   display: flex;
   color: ${({ theme }) => theme.colors.white};
   font-size: 24px;
