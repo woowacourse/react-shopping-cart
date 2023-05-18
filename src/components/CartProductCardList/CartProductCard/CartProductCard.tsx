@@ -4,7 +4,7 @@ import CheckBox from 'components/@common/CheckBox/CheckBox';
 import CartProductDeleteModal from 'components/CartProductDeleteModal/CartProductDeleteModal';
 import CartQuantityStepper from 'components/CartQuantityStepper/CartQuantityStepper';
 import useShoppingCart from 'hooks/useShoppingCart';
-import useModal from 'hooks/useModal';
+import useModal from 'components/@common/Modal/hooks/useModal';
 import { ReactComponent as RecycleBinIcon } from 'assets/recycle-bin-icon.svg';
 import type { CartProduct, Product } from 'types/product';
 
