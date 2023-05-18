@@ -5,23 +5,25 @@ import Layout from './components/@common/Layout/Layout.tsx';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ListPage from './pages/ListPage/ListPage.tsx';
 import { RecoilRoot } from 'recoil';
+import UnloadHandler from './components/@common/UnloadHandler.tsx';
+import CartPage from './pages/CartPage/CartPage.tsx';
 
 const App = () => {
   return (
-    <>
-      <RecoilRoot>
-        <ResetStyle />
-        <GlobalStyle />
+    <RecoilRoot>
+      <ResetStyle />
+      <GlobalStyle />
+      <BrowserRouter>
         <Header />
         <Layout>
-          <BrowserRouter>
-            <Routes>
-              <Route path='/' element={<ListPage />} />
-            </Routes>
-          </BrowserRouter>
+          <Routes>
+            <Route path='/' element={<ListPage />} />
+            <Route path='/cart' element={<CartPage />} />
+          </Routes>
         </Layout>
-      </RecoilRoot>
-    </>
+      </BrowserRouter>
+      <UnloadHandler />
+    </RecoilRoot>
   );
 };
 
