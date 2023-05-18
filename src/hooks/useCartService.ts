@@ -35,7 +35,7 @@ const useCartService = () => {
     });
   };
 
-  const removeCartItem = (targetId: number) => {
+  const deleteCartItem = (targetId: number) => {
     setCartList((prevCart) =>
       prevCart.filter((cartItem) => cartItem.product.id !== targetId),
     );
@@ -45,7 +45,7 @@ const useCartService = () => {
     cartList,
     addCartItem,
     updateCartItemQuantity,
-    removeCartItem,
+    deleteCartItem,
   } as const;
 };
 export default useCartService;

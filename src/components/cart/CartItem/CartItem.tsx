@@ -15,12 +15,18 @@ interface CartItemProps {
 
 const CartItem = ({ cartItem, updateCheckedCartList }: CartItemProps) => {
   const { id, imageSrc, name, price } = cartItem.product;
-  const { updateCartItemQuantity } = useCartService();
+  const { updateCartItemQuantity, deleteCartItem } = useCartService();
   const [count, setCount] = useState(cartItem.quantity);
 
   const updateQuantity = (quantity: number) => {
     setCount(quantity);
     updateCartItemQuantity(id)(quantity);
+  };
+
+  const handleRemoveButtonClick = () => {
+    if (!window.confirm('해당 물품을 장바구니에서 삭제 하시겠습니까?')) return;
+
+    deleteCartItem(id);
   };
 
   return (
@@ -31,7 +37,9 @@ const CartItem = ({ cartItem, updateCheckedCartList }: CartItemProps) => {
         <Name>{name}</Name>
       </ItemContents>
       <ItemControllers>
-        <TrashCanIcon />
+        <RemoveButton onClick={handleRemoveButtonClick}>
+          <TrashCanIcon />
+        </RemoveButton>
         <Counter count={count} updateCount={updateQuantity} min={1} />
         <Price>{formatPrice(price)}</Price>
       </ItemControllers>
@@ -66,6 +74,13 @@ const ItemControllers = styled.div`
 
   align-items: end;
   justify-content: space-between;
+`;
+
+const RemoveButton = styled.button`
+  border: none;
+  background: none;
+
+  cursor: pointer;
 `;
 
 const Price = styled.div`
