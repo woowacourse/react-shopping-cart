@@ -10,7 +10,7 @@ const cartData = { cartList: [...cartListStorage] };
 
 export const handlers = [
   rest.get('/api/products', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(productList));
+    return res(ctx.delay(2000), ctx.status(200), ctx.json(productList));
   }),
 
   rest.get('/api/cart-items', (req, res, ctx) => {

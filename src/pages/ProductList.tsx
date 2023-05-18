@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 import ContentLayout from 'components/@common/ContentLayout';
 import ProductItem from 'components/ProductItem';
 import Header from 'components/Header';
+import LoadingSkeleton from 'components/ProductItem/LoadingSkeleton';
 import { useFetch } from 'hooks/useFetch';
 import { useToast } from 'components/@common/Toast/hooks/useToast';
 import { Product } from 'types';
@@ -15,7 +16,9 @@ const ProductList = () => {
     api.get('/api/products');
   }, []);
 
-  const loading = isLoading && <div>Loading...</div>;
+  const loading =
+    isLoading &&
+    Array.from({ length: 16 }).map((_, idx) => <LoadingSkeleton key={idx} />);
 
   const fetchedProductList =
     data &&
@@ -28,7 +31,8 @@ const ProductList = () => {
       <Header />
       <ContentLayout>
         <ProductListWrapper>
-          {loading} {fetchedProductList}
+          {loading}
+          {fetchedProductList}
         </ProductListWrapper>
       </ContentLayout>
       {renderToast}
