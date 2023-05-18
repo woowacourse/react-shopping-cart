@@ -22,7 +22,7 @@ const useFetch = (entrypoint: string) => {
 
       if (!response.ok) throw new Error();
 
-      const location = response.url;
+      const location = response.headers.get('Location');
 
       return location;
     },
