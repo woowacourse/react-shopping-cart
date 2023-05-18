@@ -19,6 +19,7 @@ export const QUANTITY_CONTROL_UNIT = {
 } as const;
 
 export const BOX_SIZE = {
+  xSmall: '16px',
   small: '24px',
   medium: '30px',
   large: '36px',
