@@ -7,7 +7,7 @@ import { LOCAL_STORAGE_KEY } from '../constants';
 export const handlers = [
   // 제품 목록
   rest.get('/products', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(products));
+    return res(ctx.delay(2000), ctx.status(200), ctx.json(products));
   }),
 
   // 제품 추가
@@ -59,7 +59,7 @@ export const handlers = [
 
   // 장바구니 아이템 조회
   rest.get('/cart-items', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(cartItems));
+    return res(ctx.delay(1000), ctx.status(200), ctx.json(cartItems));
   }),
 
   // 장바구니 아이템 추가

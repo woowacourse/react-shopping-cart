@@ -6,9 +6,10 @@ import useGetQuery from '../../hooks/useGetQuery';
 import { $ToastStateList } from '../../recoil/atom';
 import { useSetRecoilState } from 'recoil';
 import { useEffect } from 'react';
+import LoadingView from '../Common/LoadingView';
 
 function ProductItemList() {
-  const { data: productsData, error } = useGetQuery<Product[]>('./products');
+  const { data: productsData, loading, error } = useGetQuery<Product[]>('./products');
   const setToastStateList = useSetRecoilState($ToastStateList);
 
   useEffect(() => {
@@ -19,6 +20,10 @@ function ProductItemList() {
       ]);
     }
   }, [error]);
+
+  if (loading) {
+    return <LoadingView />;
+  }
 
   return (
     <section className={styles.container}>
