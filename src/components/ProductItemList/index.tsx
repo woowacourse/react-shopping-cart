@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import ProductItem from '../ProductItem';
-import styles from './index.module.scss';
-import { Product } from '../../types';
+import { useEffect } from 'react';
+import { useSetRecoilState } from 'recoil';
 import useGetQuery from '../../hooks/useGetQuery';
 import { $ToastStateList } from '../../recoil/atom';
-import { useSetRecoilState } from 'recoil';
-import { useEffect } from 'react';
+import { Product } from '../../types';
 import LoadingView from '../Common/LoadingView';
+import ProductItem from '../ProductItem';
+import styles from './index.module.scss';
 
 function ProductItemList() {
   const { data: productsData, loading, error } = useGetQuery<Product[]>('./products');

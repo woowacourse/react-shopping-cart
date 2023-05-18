@@ -1,7 +1,7 @@
 import { within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import AddCartButton from '../components/AddCartButton';
 import type { Meta, StoryObj } from '@storybook/react';
-import userEvent from '@testing-library/user-event';
 
 type Story = StoryObj<typeof AddCartButton>;
 const meta: Meta<typeof AddCartButton> = {

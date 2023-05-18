@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
 import { useRecoilCallback, useRecoilState, useSetRecoilState } from 'recoil';
-import CartProductItem from '../CartProductItem';
 import useGetQuery from '../../hooks/useGetQuery';
+import useMutationQuery from '../../hooks/useMutationQuery';
 import { $CartIdList, $CartItemState, $CheckedCartIdList, $ToastStateList } from '../../recoil/atom';
+import CartProductItem from '../CartProductItem';
 import styles from './index.module.scss';
 import type { CartItem } from '../../types';
-import useMutationQuery from '../../hooks/useMutationQuery';
 
 function CartProductItemList() {
   const { data: cartProductsData, error, refreshQuery } = useGetQuery<CartItem[]>('./cart-items');
@@ -77,7 +77,9 @@ function CartProductItemList() {
           checked={cartIdList.length === checkedCartIdList.length}
         />
         <div>전체 선택 ({`${checkedCartIdList.length}/${cartIdList.length}`})</div>
-        <button onClick={deleteCheckedCartItem}>선택 삭제</button>
+        <button type="button" onClick={deleteCheckedCartItem}>
+          선택 삭제
+        </button>
       </div>
     </div>
   );

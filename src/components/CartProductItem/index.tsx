@@ -1,14 +1,13 @@
 import { ReactComponent as TrashBox } from '../../assets/trash-box.svg';
+import useCart from '../../hooks/useCart';
+import CountButton from '../Common/CountButton';
 import styles from './index.module.scss';
 import type { CartItem } from '../../types';
-import CountButton from '../Common/CountButton';
-import { ChangeEventHandler } from 'react';
-import useCart from '../../hooks/useCart';
 
 interface CartProductItemProps {
   cartItem: CartItem;
   refresh: () => void;
-  toggleCheck: ChangeEventHandler<HTMLInputElement>;
+  toggleCheck: React.ChangeEventHandler<HTMLInputElement>;
   checked: boolean;
 }
 
@@ -40,7 +39,7 @@ function CartProductItem({ cartItem, refresh, toggleCheck, checked }: CartProduc
       <div className={styles['item-info']}>
         <div>
           <div className={styles['product-title']}>{name}</div>
-          <button onClick={handleDeleteButton}>
+          <button type="button" onClick={handleDeleteButton}>
             <TrashBox size={24} />
           </button>
         </div>
