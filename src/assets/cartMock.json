@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "quantity": 5,
+    "product": {
+      "id": 1,
+      "price": 10000,
+      "name": "치킨",
+      "imageUrl": "https://cdn.pixabay.com/photo/2011/12/13/14/28/earth-11009__480.jpg"
+    }
+  },
+  {
+    "id": 2,
+    "quantity": 1,
+    "product": {
+      "id": 2,
+      "price": 20000,
+      "name": "피자",
+      "imageUrl": "https://cdn.pixabay.com/photo/2011/12/13/14/30/mars-11012__480.jpg"
+    }
+  },
+  {
+    "id": 3,
+    "quantity": 1,
+    "product": {
+      "id": 3,
+      "price": 20000,
+      "name": "피자",
+      "imageUrl": "https://cdn.pixabay.com/photo/2011/12/13/14/30/mars-11012__480.jpg"
+    }
+  },
+  {
+    "id": 4,
+    "quantity": 1,
+    "product": {
+      "id": 4,
+      "price": 20000,
+      "name": "피자",
+      "imageUrl": "https://cdn.pixabay.com/photo/2011/12/13/14/30/mars-11012__480.jpg"
+    }
+  },
+  {
+    "id": 5,
+    "quantity": 1,
+    "product": {
+      "id": 5,
+      "price": 20000,
+      "name": "피자",
+      "imageUrl": "https://cdn.pixabay.com/photo/2011/12/13/14/30/mars-11012__480.jpg"
+    }
+  },
+  {
+    "id": 6,
+    "quantity": 1,
+    "product": {
+      "id": 6,
+      "price": 20000,
+      "name": "피자",
+      "imageUrl": "https://cdn.pixabay.com/photo/2011/12/13/14/30/mars-11012__480.jpg"
+    }
+  },
+  {
+    "id": 7,
+    "quantity": 1,
+    "product": {
+      "id": 7,
+      "price": 20000,
+      "name": "피자",
+      "imageUrl": "https://cdn.pixabay.com/photo/2011/12/13/14/30/mars-11012__480.jpg"
+    }
+  },
+  {
+    "id": 8,
+    "quantity": 1,
+    "product": {
+      "id": 8,
+      "price": 20000,
+      "name": "피자",
+      "imageUrl": "https://cdn.pixabay.com/photo/2011/12/13/14/30/mars-11012__480.jpg"
+    }
+  },
+  {
+    "id": 9,
+    "quantity": 1,
+    "product": {
+      "id": 9,
+      "price": 20000,
+      "name": "피자",
+      "imageUrl": "https://cdn.pixabay.com/photo/2011/12/13/14/30/mars-11012__480.jpg"
+    }
+  },
+  {
+    "id": 10,
+    "quantity": 1,
+    "product": {
+      "id": 10,
+      "price": 20000,
+      "name": "피자",
+      "imageUrl": "https://cdn.pixabay.com/photo/2011/12/13/14/30/mars-11012__480.jpg"
+    }
+  },
+  {
+    "id": 11,
+    "quantity": 1,
+    "product": {
+      "id": 11,
+      "price": 20000,
+      "name": "피자",
+      "imageUrl": "https://cdn.pixabay.com/photo/2011/12/13/14/30/mars-11012__480.jpg"
+    }
+  }
+]
