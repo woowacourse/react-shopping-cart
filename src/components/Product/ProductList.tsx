@@ -3,9 +3,14 @@ import styled from 'styled-components';
 import ProductItem from './ProductItem';
 
 import useProducts from '../../hooks/useProducts';
+import AbnormalMessage from '../Common/AbnormalMessage';
 
 const ProductList = () => {
   const products = useProducts();
+
+  if (products.length === 0) {
+    return <AbnormalMessage abnormalState='empty' />;
+  }
 
   return (
     <ProductListContainer>
