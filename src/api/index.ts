@@ -18,3 +18,38 @@ export const fetchCartItems = async () => {
     console.log(error);
   }
 };
+
+export const changeQuantity = async (
+  cartItemId: number,
+  newQuantity: number
+) => {
+  try {
+    await fetch(`/cart-items/${cartItemId}`, {
+      method: "PATCH",
+      body: JSON.stringify({ quantity: newQuantity }),
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addCartItem = async (productId: number) => {
+  try {
+    await fetch("/cart-items", {
+      method: "POST",
+      body: JSON.stringify({ productId: productId }),
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteCartItem = async (cartItemId: number) => {
+  try {
+    await fetch(`/cart-items/${cartItemId}`, {
+      method: "DELETE",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
