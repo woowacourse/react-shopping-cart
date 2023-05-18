@@ -97,6 +97,16 @@ let cartList: CartItemWithProduct[] = [
       imageUrl: 'http://placekitten.com/200/200',
     },
   },
+  {
+    id: 10,
+    quantity: 3,
+    product: {
+      id: 10,
+      name: 'PET보틀-밀크티(370ml)',
+      price: 73400,
+      imageUrl: 'http://placekitten.com/200/200',
+    },
+  },
 ];
 
 export const handlers = [
@@ -105,6 +115,8 @@ export const handlers = [
   }),
 
   rest.get('/cart-items', (req, res, ctx) => {
+    console.log('>>> server:', cartList);
+
     return res(ctx.delay(100), ctx.status(200), ctx.json(cartList));
   }),
 
@@ -125,6 +137,7 @@ export const handlers = [
       });
     }
 
+    console.log('>>> server:', cartList);
     return res(ctx.delay(2000), ctx.status(200), ctx.json('SUCCESS'));
   }),
 
@@ -133,6 +146,8 @@ export const handlers = [
     const productId = Number(idData);
 
     cartList = cartList.filter((product) => product.id !== productId);
+
+    console.log('>>> server:', cartList);
 
     return res(ctx.delay(2000), ctx.status(200), ctx.json('SUCCESS'));
   }),
@@ -154,6 +169,8 @@ export const handlers = [
         return cartProduct;
       }
     });
+
+    console.log('>>> server:', cartList);
 
     return res(ctx.delay(100), ctx.status(200), ctx.json('SUCCESS'));
   }),

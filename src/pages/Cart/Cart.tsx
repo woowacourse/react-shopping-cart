@@ -1,18 +1,14 @@
-import useCartList from '../../hooks/useCartList';
+import CartItemList from '../../components/CartItemList/CartItemList';
+import PayingContainer from '../../components/PayingContainer/PayingContainer';
+import { FlexWrapper } from './Cart.style';
 
 function Cart() {
-  const { cartList } = useCartList();
-
   return (
-    <>
-      {cartList.map((cart) => (
-        <div key={cart.id}>
-          <h1>
-            {cart.product.name} - ({cart.quantity}개)
-          </h1>
-        </div>
-      ))}
-    </>
+    <FlexWrapper>
+      <CartItemList></CartItemList>
+      <PayingContainer></PayingContainer>
+    </FlexWrapper>
   );
 }
+
 export default Cart;
