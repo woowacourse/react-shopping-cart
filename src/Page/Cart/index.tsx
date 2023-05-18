@@ -4,6 +4,7 @@ import CartProductItemList from '../../components/CartProductItemList';
 import PaymentsView from '../../components/PaymentsView';
 import styles from './index.module.scss';
 import { $CartIdList, $CartTotalPrice } from '../../recoil/atom';
+import Header from '../../components/Header';
 
 function Cart() {
   const cartTotalPrice = useRecoilValue($CartTotalPrice);
@@ -11,24 +12,30 @@ function Cart() {
 
   if (cartIdList.length > 0) {
     return (
-      <main className={styles.container}>
-        <h2 className={styles.title}>장바구니</h2>
-        <section className={styles['main-view']}>
-          <CartProductItemList />
-          <PaymentsView priceTotal={cartTotalPrice} parcelPrice={3000} />
-        </section>
-      </main>
+      <>
+        <Header />
+        <main className={styles.container}>
+          <h2 className={styles.title}>장바구니</h2>
+          <section className={styles['main-view']}>
+            <CartProductItemList />
+            <PaymentsView priceTotal={cartTotalPrice} parcelPrice={3000} />
+          </section>
+        </main>
+      </>
     );
   }
 
   return (
-    <main className={styles.container}>
-      <h2 className={styles.title}>장바구니</h2>
-      <section className={styles['main-view-blank']}>
-        <AlertBlank />
-        <p>장바구니가 비어있어요!</p>
-      </section>
-    </main>
+    <>
+      <Header />
+      <main className={styles.container}>
+        <h2 className={styles.title}>장바구니</h2>
+        <section className={styles['main-view-blank']}>
+          <AlertBlank />
+          <p>장바구니가 비어있어요!</p>
+        </section>
+      </main>
+    </>
   );
 }
 
