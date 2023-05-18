@@ -3,9 +3,11 @@ import ProductImg from '../ProductCard/ProductImg/ProductImg';
 import { ReactComponent as TrashCan } from '../../assets/icon/trash-can.svg';
 import Counter from '../common/Counter/Counter';
 import CheckBox from '../common/CheckBox/CheckBox';
-import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
-import { cartAtomFamily, cartListAtom } from '../../store/cart';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Select } from '../CartItemList/CartItemList';
+import { useState } from 'react';
+import { updateCartItem, deleteCartItem } from '../../api/cartList';
+import { cartAtom, cartSelectorFamily } from '../../store/cart';
 
 interface CartItemProps {
   id: number;
@@ -20,41 +22,44 @@ const CartItem = ({
   setCartItemsState,
   setIsAllSelected,
 }: CartItemProps) => {
-  const setCartList = useSetRecoilState(cartListAtom);
-  const [productInCart, setProductInCart] = useRecoilState(cartAtomFamily(id));
-  const resetProductInCart = useResetRecoilState(cartAtomFamily(id));
-
-  const { name, imageUrl, price } = productInCart.product;
+  const productInCart = useRecoilValue(cartSelectorFamily(id));
+  const { quantity, product } = productInCart;
+  const { name, imageUrl, price } = product;
+  const [count, setCount] = useState(quantity);
+  const setCart = useSetRecoilState(cartAtom);
 
   const plusOne = () => {
-    setProductInCart((prev) => ({ ...prev, quantity: prev.quantity + 1 }));
+    setCount(count + 1);
+    updateCartItem(id, count + 1);
+    setCart((prev) =>
+      prev.map((item) =>
+        item.id === id
+          ? { id, quantity: count + 1, product: { id, name, price, imageUrl } }
+          : item
+      )
+    );
   };
 
   const minusOne = () => {
-    setProductInCart((prev) => ({
-      ...prev,
-      quantity: prev.quantity - 1,
-    }));
-
-    if (productInCart.quantity <= 1) {
-      setCartList((prev) => prev.filter((item) => item !== id));
-      resetProductInCart();
+    if (count - 1 === 0) {
+      setCount(1);
       return;
     }
+    setCount(count - 1);
+    setCart((prev) =>
+      prev.map((item) =>
+        item.id === id
+          ? { id, quantity: count - 1, product: { id, name, price, imageUrl } }
+          : item
+      )
+    );
   };
 
   if (cartItemState.isDeleted) {
-    resetProductInCart();
-    setCartList((prev) => prev.filter((productid) => productid !== id));
     setCartItemsState((prev) =>
       prev.filter((item) => item.isDeleted === false)
     );
   }
-
-  const deleteCartItem = () => {
-    setCartList((prev) => prev.filter((item) => item !== id));
-    resetProductInCart();
-  };
 
   const toggleSelect = () => {
     setIsAllSelected(false);
@@ -78,17 +83,17 @@ const CartItem = ({
 
       <DetailWrapper>
         <ProductName>{name}</ProductName>
-        <DeleteButton onClick={deleteCartItem}>
+        <DeleteButton
+          onClick={() => {
+            deleteCartItem(id);
+            setCart((prev) => [...prev.filter((item) => item.id !== id)]);
+          }}>
           <TrashCan />
         </DeleteButton>
         <CounterWrapper>
-          <Counter
-            plusOne={plusOne}
-            minusOne={minusOne}
-            quantity={productInCart.quantity}
-          />
+          <Counter plusOne={plusOne} minusOne={minusOne} quantity={count} />
         </CounterWrapper>
-        <Price>{(price * productInCart.quantity).toLocaleString()}원</Price>
+        <Price>{(price * count).toLocaleString()}원</Price>
       </DetailWrapper>
     </Wrapper>
   );

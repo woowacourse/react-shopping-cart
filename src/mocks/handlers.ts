@@ -42,7 +42,10 @@ export const handlers = [
       const data = JSON.parse(localStorage.getItem('cart-items') || '[]');
       const filteredData = data.filter((item: Cart) => item.id !== Number(id));
       const product = products.find((product) => product.id === Number(id));
-      const newData = [...filteredData, { id: Number(id), quantity, product }];
+      const newData = [
+        ...filteredData,
+        { id: Number(id), quantity: quantity + 1, product },
+      ];
 
       localStorage.setItem('cart-items', JSON.stringify(newData));
 

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import { v1 } from 'uuid';
-import { cartListAtom, cartSelector } from '../../store/cart';
+import { cartAtom } from '../../store/cart';
 import CartItem from '../CartItem/CartItem';
 import CheckBox from '../common/CheckBox/CheckBox';
 
@@ -13,22 +13,20 @@ export type Select = {
 };
 
 const CartItemList = () => {
-  const cartList = useRecoilValue(cartListAtom);
-  const { cartsQuantity } = useRecoilValue(cartSelector);
+  const cartList = useRecoilValue(cartAtom);
+  const initCartItemStateValue = cartList.map((item) => ({
+    id: item.id,
+    isSelected: false,
+    isDeleted: false,
+  }));
   const [isAllSelected, setIsAllSelected] = useState<boolean>(false);
   const [cartItemsState, setCartItemsState] = useState<Select[]>(
-    cartList.map((id) => ({ id, isSelected: false, isDeleted: false }))
+    initCartItemStateValue
   );
 
   const toggleSelectAll = () => {
     setIsAllSelected(!isAllSelected);
-    setCartItemsState(
-      cartList.map((id) => ({
-        id,
-        isSelected: !isAllSelected,
-        isDeleted: false,
-      }))
-    );
+    setCartItemsState(initCartItemStateValue);
   };
 
   const countSelectedItems = () => {
@@ -46,17 +44,17 @@ const CartItemList = () => {
 
   return (
     <Wrapper>
-      <SubTitle>든든 배송 상품 ({cartsQuantity}개)</SubTitle>
+      <SubTitle>든든 배송 상품 ({cartList.length}개)</SubTitle>
       <Ul>
-        {cartList.map((id) => {
+        {cartList.map((item) => {
           const uuid = v1();
 
           return (
             <CartItem
               key={uuid}
-              id={id}
+              id={item.id}
               cartItemState={
-                cartItemsState.find((state) => state.id === id) as Select
+                cartItemsState.find((state) => state.id === item.id) as Select
               }
               setCartItemsState={setCartItemsState}
               setIsAllSelected={setIsAllSelected}
@@ -64,11 +62,11 @@ const CartItemList = () => {
           );
         })}
 
-        {Boolean(cartsQuantity) && (
+        {Boolean(cartList.length) && (
           <CheckBoxWrapper>
             <CheckBox onClick={toggleSelectAll} checked={isAllSelected} />
             <span>
-              전체선택 ({countSelectedItems()}/{cartsQuantity})
+              전체선택 ({countSelectedItems()}/{cartList.length})
             </span>
             <DeleteSelectedItemsButton onClick={deleteSelectedItems}>
               선택삭제

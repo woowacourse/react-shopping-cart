@@ -1,35 +1,35 @@
-import { atom, atomFamily, selector } from 'recoil';
+import { atom, selector, selectorFamily } from 'recoil';
 import { Cart } from '../types/product';
-import localStorageEffect from './localStorageEffect';
+import { fetchedCartListSelector } from './fetchSelectors';
 
-export const cartListAtom = atom<number[]>({
-  key: 'cart/IDList',
-  default: [],
-  effects: [localStorageEffect('cart')],
-});
-
-export const cartAtomFamily = atomFamily<Cart, number>({
-  key: 'cart/item',
-  default: {
-    id: 0,
-    quantity: 0,
-    product: { id: 0, name: '', price: 0, imageUrl: '' },
-  },
-  effects_UNSTABLE: (id) => [localStorageEffect(`cartItem_${id}`)],
+export const cartAtom = atom<Cart[]>({
+  key: 'cartAtom',
+  default: fetchedCartListSelector,
 });
 
 export const cartSelector = selector({
   key: 'cartSelector',
   get: ({ get }) => {
-    const cartIDList = get(cartListAtom);
-    const cartList = cartIDList.map((id) => get(cartAtomFamily(id)));
+    const cartList = get(cartAtom);
 
-    const cartsQuantity = cartIDList.length;
+    const cartsQuantity = cartList.length;
 
-    const totalAmout = cartList.reduce(
+    const totalAmount = cartList.reduce(
       (a, b) => a + b.product.price * b.quantity,
       0
     );
-    return { cartsQuantity, totalAmout };
+
+    return { cartsQuantity, totalAmount };
   },
+});
+
+export const cartSelectorFamily = selectorFamily({
+  key: 'select-family',
+  get:
+    (id: number) =>
+    ({ get }) => {
+      const carts = get(cartAtom);
+
+      return carts.find((item) => item.id === id) as Cart;
+    },
 });
