@@ -27,8 +27,29 @@ export const handlers = [
     const cartItem = { id: productId, product: productItem, quantity: 1 };
     cartData.cartList = [...cartData.cartList, cartItem];
 
-    setLocalStorageData<Cart[]>('cartList', cartData.cartList);
+    setLocalStorageData<Cart[]>(
+      'cartList',
+      cartData.cartList.filter((cartItem) => cartItem.quantity !== 0)
+    );
 
     return res(ctx.status(201));
+  }),
+
+  rest.patch('/api/cart-items/:cartId', async (req, res, ctx) => {
+    const cartId = Number(req.params.cartId);
+    const { quantity } = await req.json();
+
+    cartData.cartList = cartData.cartList
+      .map((cartItem) => {
+        if (cartItem.id === cartId) {
+          return { ...cartItem, quantity: quantity };
+        }
+        return cartItem;
+      })
+      .filter((cartItem) => cartItem.quantity !== 0);
+
+    setLocalStorageData<Cart[]>('cartList', cartData.cartList);
+
+    return res(ctx.status(200));
   }),
 ];
