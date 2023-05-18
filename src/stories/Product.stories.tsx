@@ -13,7 +13,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    info: {
+    productInfo: {
       id: 1,
       name: '지구',
       price: 1000,

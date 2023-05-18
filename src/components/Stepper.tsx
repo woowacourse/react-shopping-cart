@@ -1,26 +1,37 @@
 import { styled } from 'styled-components';
-import { PRODUCT } from '../constants';
 import { useStepper } from '../hooks/useStepper';
 import Button from './common/Button';
 
 interface Props {
   quantity?: number;
+  minQuantity?: number;
+  maxQuantity?: number;
   updateQuantity: (quantity: number) => void;
 }
 
-export default function Stepper({ quantity = 0, updateQuantity }: Props) {
+export default function Stepper({
+  quantity = 0,
+  minQuantity = 0,
+  maxQuantity,
+  updateQuantity,
+}: Props) {
   const { handleInputChange, handleButtonClick } = useStepper({ quantity, updateQuantity });
 
   return (
     <Style.Container>
-      <Button name="decrease" designType="square" onClick={handleButtonClick}>
+      <Button
+        name="decrease"
+        designType="square"
+        onClick={handleButtonClick}
+        disabled={quantity === minQuantity}
+      >
         -
       </Button>
       <Style.CountInput value={quantity} onChange={handleInputChange} />
       <Button
         name="increase"
         designType="square"
-        disabled={quantity === PRODUCT.MAX_COUNT}
+        disabled={quantity === maxQuantity}
         onClick={handleButtonClick}
       >
         +

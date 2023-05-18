@@ -13,7 +13,7 @@ export default function ProductList() {
     <Style.Container>
       {productList.map((product) => (
         <li key={product.id}>
-          <Product info={product} />
+          <Product productInfo={product} />
         </li>
       ))}
     </Style.Container>

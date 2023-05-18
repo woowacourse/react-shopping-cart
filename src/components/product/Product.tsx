@@ -6,16 +6,17 @@ import { useToast } from '../../hooks/useToast';
 import Stepper from '../Stepper';
 import Toast from '../common/Toast';
 import Price from '../common/Price';
+import { PRODUCT } from '../../constants';
 
 interface Props {
-  info: ProductInfo;
+  productInfo: ProductInfo;
 }
 
-export default function Product({ info }: Props) {
-  const { id, name, price, imageUrl } = info;
-  const { addToCart, getProductInCart, updateProductQuantity } = useCart(id);
+export default function Product({ productInfo }: Props) {
+  const { name, price, imageUrl } = productInfo;
+  const { addToCart, getCartItem, updateProductQuantity } = useCart(productInfo);
   const { isOpenToast, openToast, closeToast } = useToast();
-  const productInCart = getProductInCart();
+  const cartItem = getCartItem();
 
   const handleCartClick = () => {
     addToCart();
@@ -30,8 +31,12 @@ export default function Product({ info }: Props) {
       <Style.ProductInfo>
         <Style.ProductNameAndStepperContainer>
           <Style.ProductName title={name}>{name}</Style.ProductName>
-          {productInCart ? (
-            <Stepper quantity={productInCart.quantity} updateQuantity={updateProductQuantity} />
+          {cartItem ? (
+            <Stepper
+              quantity={cartItem.quantity}
+              maxQuantity={PRODUCT.MAX_COUNT}
+              updateQuantity={updateProductQuantity}
+            />
           ) : (
             <Style.CartIconWrapper onClick={handleCartClick}>
               <CartIcon fill="#AAAAAA" />

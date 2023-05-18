@@ -1,31 +1,32 @@
 import { useRecoilState } from 'recoil';
-import { productsInCartState } from '../recoil/atoms';
+import { cartListState } from '../recoil/atoms';
+import { ProductInfo } from '../types';
 
-export const useCart = (productId?: number) => {
-  const [productsInCart, setProductsInCart] = useRecoilState(productsInCartState);
+export const useCart = (productInfo?: ProductInfo) => {
+  const [cartList, setCartList] = useRecoilState(cartListState);
 
-  const getProductInCart = () => {
-    return productsInCart.find((product) => product.id === productId);
+  const getCartItem = () => {
+    return cartList.find((cartItem) => cartItem.id === productInfo?.id);
   };
 
   const addToCart = () => {
-    if (!productId) return;
+    if (!productInfo) return;
 
-    setProductsInCart((prev) => [
+    setCartList((prev) => [
       ...prev,
       {
-        id: productId,
+        id: productInfo.id,
         quantity: 1,
+        product: productInfo,
       },
     ]);
   };
 
   const deleteFromCart = () => {
-    const curIndex = productsInCart.findIndex((product) => product.id === productId);
-    const newProductsInCart = structuredClone(productsInCart);
-
-    newProductsInCart.splice(curIndex, 1);
-    setProductsInCart(newProductsInCart);
+    const curIndex = cartList.findIndex((cartItem) => cartItem.id === productInfo?.id);
+    const newCartList = structuredClone(cartList);
+    newCartList.splice(curIndex, 1);
+    setCartList(newCartList);
   };
 
   const updateProductQuantity = (quantity: number) => {
@@ -34,19 +35,19 @@ export const useCart = (productId?: number) => {
       return;
     }
 
-    setProductsInCart((prev) => {
-      return prev.map((productInCart) => {
-        if (productInCart.id === productId) return { ...productInCart, quantity: quantity };
+    setCartList((prev) => {
+      return prev.map((cartItem) => {
+        if (cartItem.id === productInfo?.id) return { ...cartItem, quantity: quantity };
 
-        return productInCart;
+        return cartItem;
       });
     });
   };
 
   return {
-    productsInCart,
-    setProductsInCart,
-    getProductInCart,
+    cartList,
+    setCartList,
+    getCartItem,
     addToCart,
     deleteFromCart,
     updateProductQuantity,

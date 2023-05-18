@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { useRecoilState } from 'recoil';
-import { productsInCartState } from '../recoil/atoms';
+import { useRecoilValue } from 'recoil';
+import { cartListState } from '../recoil/atoms';
 import { CartLogo } from '../assets/svg';
 
 export default function Header() {
   const navigate = useNavigate();
-  const [productsInCart] = useRecoilState(productsInCartState);
+  const cartList = useRecoilValue(cartListState);
 
   return (
     <Style.Container>
@@ -15,7 +15,7 @@ export default function Header() {
           <CartLogo />
         </Style.Title>
         <Style.CartLink onClick={() => navigate('/')}>
-          <Style.CountInCart>{productsInCart.length}</Style.CountInCart>
+          <Style.CountInCart>{cartList.length}</Style.CountInCart>
         </Style.CartLink>
       </Style.Content>
     </Style.Container>

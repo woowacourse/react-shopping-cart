@@ -1,14 +1,14 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 import { LOCAL_STORAGE_KEY } from '../constants';
-import { ProductInCart, ProductInfo } from '../types';
+import { CartItemInfo, ProductInfo } from '../types';
 
 const { persistAtom } = recoilPersist({
   key: LOCAL_STORAGE_KEY.CART,
 });
 
-export const productsInCartState = atom<ProductInCart[]>({
-  key: 'productsInCart',
+export const cartListState = atom<CartItemInfo[]>({
+  key: 'cartList',
   default: [],
   effects_UNSTABLE: [persistAtom],
 });

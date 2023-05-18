@@ -5,7 +5,8 @@ export interface ProductInfo {
   imageUrl: string;
 }
 
-export interface ProductInCart {
+export interface CartItemInfo {
   id: number;
   quantity: number;
+  product: ProductInfo;
 }
