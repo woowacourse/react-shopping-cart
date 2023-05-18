@@ -1,18 +1,18 @@
 import type { CartItemType } from '../types';
-import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { cartState } from '../recoil/state';
-import { LOCAL_STORAGE_KEY } from '../constants';
+import { cartState, selectedCartState } from '../recoil/state';
 
 export default function useCart() {
   const [cart, setCart] = useRecoilState(cartState);
+  const [selectedCart, setSelectedCart] = useRecoilState(selectedCartState);
 
   const addCartItem = (cartItem: CartItemType) => {
     setCart([...cart, cartItem]);
   };
 
   const removeCartItem = (productId: number) => {
-    setCart(cart.filter((order) => order.product.id !== productId));
+    setSelectedCart(selectedCart.filter((id) => id !== productId));
+    setCart(cart.filter((item) => item.product.id !== productId));
   };
 
   const updateQuantity = (productId: number, quantity: number) => {

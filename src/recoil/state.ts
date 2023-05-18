@@ -26,3 +26,9 @@ export const cartCountState = selector<number>({
   key: 'cartCountState',
   get: ({ get }) => get(cartState).length,
 });
+
+export const selectedCartState = atom<number[]>({
+  key: 'selectedCartState',
+  default: [],
+  effects: [localStorageEffect(LOCAL_STORAGE_KEY.SELECTED_CART)],
+});

@@ -3,17 +3,24 @@ import styled from 'styled-components';
 import { SHIPPING_FEE } from '../../../constants';
 
 interface EstimateProps {
-  total_price: number;
+  totalItemCount: number;
+  selectedItemCount: number;
+  totalPrice: number;
 }
 
-export default function Estimate({ total_price }: EstimateProps) {
+export default function Estimate({ totalItemCount, selectedItemCount, totalPrice }: EstimateProps) {
   return (
     <Wrapper>
       <Title>결제 예상 금액</Title>
       <InfoBox>
         <Info>
+          {selectedItemCount === 0
+            ? `전체 상품: ${totalItemCount}개`
+            : `선택 상품: ${selectedItemCount}개`}
+        </Info>
+        <Info>
           <p>총 상품가격</p>
-          <p>{total_price.toLocaleString()}원</p>
+          <p>{totalPrice.toLocaleString()}원</p>
         </Info>
         <Info>
           <p>총 배송비</p>
@@ -21,7 +28,7 @@ export default function Estimate({ total_price }: EstimateProps) {
         </Info>
         <Total>
           <p>총 주문금액</p>
-          <p>{(total_price + SHIPPING_FEE).toLocaleString()}원</p>
+          <p>{(totalPrice + SHIPPING_FEE).toLocaleString()}원</p>
         </Total>
       </InfoBox>
       <Link to="/">

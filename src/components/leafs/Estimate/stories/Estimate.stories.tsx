@@ -19,5 +19,7 @@ const Template: StoryFn<React.ComponentProps<typeof Estimate>> = (props) => <Est
 
 export const DefaultEstimate = Template.bind({});
 DefaultEstimate.args = {
-  total_price: 21700,
+  totalItemCount: 5,
+  selectedItemCount: 0,
+  totalPrice: 21700,
 };
