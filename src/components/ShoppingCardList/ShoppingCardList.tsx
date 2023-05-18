@@ -1,46 +1,21 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 import { useRecoilValue } from "recoil";
 import { cartIdAtom } from "../../store/cartState";
 import Styled from "./ShoppingCardListStyled";
 import ShoppingCard from "../ShoppingCard/ShoppingCard";
 import Checkbox from "../common/Checkbox/Checkbox";
+import useCheckedItem from "../../hooks/useCheckedItem";
 
 const ShoppingCardList = () => {
   const shoppingList = useRecoilValue(cartIdAtom);
-  const [isChecked, setIsChecked] = useState<boolean[]>(
-    new Array(shoppingList.length).fill(false)
-  );
-  const [isCheckedAll, setIsCheckedAll] = useState<boolean>(false);
-
-  const changeIsChecked = (index: number) => {
-    const newIsChecked = [...isChecked];
-    newIsChecked[index] = !newIsChecked[index];
-    if (!newIsChecked[index] && isCheckedAll) setIsCheckedAll(false);
-    if (newIsChecked.every((value) => value === true)) setIsCheckedAll(true);
-
-    setIsChecked(newIsChecked);
-  };
-
-  const changeIsCheckedAll = () => {
-    const newIsCheckedAll = !isCheckedAll;
-
-    setIsCheckedAll(newIsCheckedAll);
-    setIsChecked((prev) => {
-      return prev.map(() => newIsCheckedAll);
-    });
-  };
-
-  const deleteCheckedItem = () => {
-    isChecked.map((isChecked, index) => {
-      if (isChecked) {
-        console.log("지우는 로직을 작성해야해요~~", index);
-      }
-    });
-  };
-
-  const countIsChecked = isChecked.reduce((count, value) => {
-    return value ? count + 1 : count;
-  }, 0);
+  const {
+    isChecked,
+    isCheckedAll,
+    countIsChecked,
+    changeIsChecked,
+    changeIsCheckedAll,
+    deleteCheckedItem,
+  } = useCheckedItem(shoppingList.length);
 
   return (
     <Styled.Container>
