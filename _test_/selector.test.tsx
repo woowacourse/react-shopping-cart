@@ -69,3 +69,12 @@ describe("Selector Option의 Icon 랜더링 테스트", () => {
     expect(icon).toHaveAttribute("src");
   });
 });
+
+describe("Selector Option 랜더링 테스트", () => {
+  test("custom된 children요소가 없으면 기본 스타일의 Selector Option이 랜더링 된다", () => {
+    const { getByAltText } = render(<Option />);
+    const content = screen.getByTestId("option");
+
+    expect(content).toBeInTheDocument();
+  });
+});
