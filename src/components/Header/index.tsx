@@ -1,15 +1,13 @@
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue, useResetRecoilState } from 'recoil';
-import { cartIds, countCartListSelector } from 'recoil/cartList';
+import { useRecoilValue } from 'recoil';
+import { countCartListSelector } from 'recoil/cartList';
 import * as S from './Header.styles';
 
 const Header = () => {
   const cartCount = useRecoilValue(countCartListSelector);
-  const resetCartAtoms = useResetRecoilState(cartIds);
   const navigate = useNavigate();
 
   const onLogoClick = () => {
-    resetCartAtoms();
     navigate('/');
   };
 
