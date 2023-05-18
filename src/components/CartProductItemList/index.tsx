@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useRecoilCallback, useRecoilState, useSetRecoilState } from 'recoil';
 import CartProductItem from '../CartProductItem';
 import useGetQuery from '../../hooks/useGetQuery';
-import { $CartIdList, $CartItemState, $ToastMessageList } from '../../recoil/atom';
+import { $CartIdList, $CartItemState, $CheckedCartIdList, $ToastMessageList } from '../../recoil/atom';
 import styles from './index.module.scss';
 import type { CartItem } from '../../types';
 import useMutationQuery from '../../hooks/useMutationQuery';
@@ -11,6 +11,7 @@ import useMutationQuery from '../../hooks/useMutationQuery';
 function CartProductItemList() {
   const { data: cartProductsData, error, refreshQuery } = useGetQuery<CartItem[]>('./cart-items');
   const { mutateQuery } = useMutationQuery<Record<string, number>, CartItem>('./cart-items');
+  const [checkedCartIdList, setCheckedCartIdList] = useRecoilState($CheckedCartIdList);
   const [cartIdList, setCartIdList] = useRecoilState($CartIdList);
   const setMessageList = useSetRecoilState($ToastMessageList);
 
@@ -22,27 +23,28 @@ function CartProductItemList() {
 
   const checkAllCartItem: React.ChangeEventHandler<HTMLInputElement> = ({ target: { checked } }) => {
     if (checked && cartProductsData) {
-      return setCartIdList(cartProductsData.map(({ product }) => product.id));
+      return setCheckedCartIdList(cartProductsData.map(({ product }) => product.id));
     }
-    return setCartIdList([]);
+    return setCheckedCartIdList([]);
   };
 
   const checkCartItem =
     (id: number) =>
     ({ target: { checked } }: React.ChangeEvent<HTMLInputElement>) => {
       if (!checked) {
-        return setCartIdList(prev => prev.filter(cartId => cartId !== id));
+        return setCheckedCartIdList(prev => prev.filter(cartId => cartId !== id));
       }
-      return setCartIdList(prev => [...prev, id]);
+      return setCheckedCartIdList(prev => [...prev, id]);
     };
 
   const deleteCheckedCartItem = useRecoilCallback(({ set }) => () => {
-    cartIdList.forEach(async id => {
+    checkedCartIdList.forEach(async id => {
       await mutateQuery('DELETE', undefined, String(id));
       set($CartItemState(id), null);
+      setCartIdList(prev => prev.filter(cartId => cartId !== id));
     });
     refreshQuery();
-    setCartIdList([]);
+    setCheckedCartIdList([]);
   });
 
   return (
@@ -55,7 +57,7 @@ function CartProductItemList() {
             cartItem={item}
             refresh={refreshQuery}
             toggleCheck={checkCartItem(item.product.id)}
-            checked={cartIdList.includes(item.product.id)}
+            checked={checkedCartIdList.includes(item.product.id)}
           />
         ))}
       </section>
@@ -64,9 +66,9 @@ function CartProductItemList() {
           type="checkbox"
           className={styles['check-box']}
           onChange={checkAllCartItem}
-          checked={cartIdList.length === cartProductsData?.length}
+          checked={cartIdList.length === checkedCartIdList.length}
         />
-        <div>전체 선택 ({`${cartIdList.length}/${cartProductsData?.length}`})</div>
+        <div>전체 선택 ({`${checkedCartIdList.length}/${cartIdList.length}`})</div>
         <button onClick={deleteCheckedCartItem}>선택 삭제</button>
       </div>
     </div>

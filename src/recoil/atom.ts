@@ -3,6 +3,11 @@ import { CartItem } from '../types';
 import { getLocalStorage } from '../utils/localStorage';
 import { LOCAL_STORAGE_KEY } from '../constants';
 
+export const $CheckedCartIdList = atom<number[]>({
+  key: 'CheckStateList',
+  default: getLocalStorage<CartItem[]>(LOCAL_STORAGE_KEY.CART_ITEM, []).map(({ product }) => product.id),
+});
+
 export const $CartIdList = atom<number[]>({
   key: 'CartIdList',
   default: getLocalStorage<CartItem[]>(LOCAL_STORAGE_KEY.CART_ITEM, []).map(({ product }) => product.id),
@@ -22,9 +27,13 @@ export const $CartItemState = atomFamily<CartItem | null, number | null>({
 export const $CartTotalPrice = selector<number>({
   key: 'CartTotalPrice',
   get: ({ get }) =>
-    get($CartIdList).reduce((acc, id) => {
-      const { quantity, product } = get($CartItemState(id)) as CartItem;
-      return quantity * product.price + acc;
+    get($CheckedCartIdList).reduce((acc, id) => {
+      const data = get($CartItemState(id));
+      if (data !== null) {
+        const { quantity, product } = data;
+        return quantity * product.price + acc;
+      }
+      return acc;
     }, 0),
 });
 
