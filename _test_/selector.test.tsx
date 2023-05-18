@@ -27,3 +27,12 @@ describe("Selector Option의 Content 랜더링 테스트", () => {
     expect(customContent).toBeInTheDocument();
   });
 });
+
+describe("Selector Option의 Group 랜더링 테스트", () => {
+  test("custom된 children요소가 없으면 기본 스타일의 Selector Option Group 랜더링 된다", () => {
+    render(<OptionGroup />);
+    const content = screen.getByTestId("group");
+
+    expect(content).toBeInTheDocument();
+  });
+});
