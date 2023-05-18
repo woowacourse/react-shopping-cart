@@ -13,7 +13,8 @@ const Styled = {
   `,
   ListContainer: styled.div`
     width: 58%;
-    max-height: 580px;
+    height: auto;
+    max-height: 560px;
     overflow-y: auto;
     box-sizing: border-box;
 
@@ -44,6 +45,29 @@ const Styled = {
     height: 2px;
 
     background-color: #aaaaaa;
+  `,
+
+  AllCheckContainer: styled.div`
+    display: flex;
+
+    align-items: center;
+    gap: 13px;
+  `,
+
+  Button: styled.button`
+    text-align: center;
+    align-self: center;
+    padding: 8px 11px;
+
+    border: 1px solid #bbbbbb;
+    border-radius: 4px;
+    cursor: pointer;
+
+    font-size: 14px;
+    color: #333333;
+    letter-spacing: 0.5px;
+
+    background-color: #ffffff;
   `,
 };
 

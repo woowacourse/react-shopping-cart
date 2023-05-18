@@ -4,13 +4,13 @@ const Styled = {
   Container: styled.li`
     display: flex;
     width: 100%;
-    padding: 24px 0;
+    padding: 20px 0;
 
     gap: 15px;
-  `,
-  Checkbox: styled.input`
-    width: 28px;
-    height: 28px;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #aaaaaa;
+    }
   `,
 };
 

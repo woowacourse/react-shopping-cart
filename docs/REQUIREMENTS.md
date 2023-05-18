@@ -4,21 +4,21 @@
 
   - [x] ShoppingTitle
     - [x] 장바구니 메인 타이틀이 있다.
-  - [ ] ShoppingCardList
-    - [ ] 총 상품 수량을 확인할 수 있다.
-    - [ ] 장바구니 물품들을 확인할 수 있다.
+  - [x] ShoppingCardList
+    - [x] 총 상품 수량을 확인할 수 있다.
+    - [x] 장바구니 물품들을 확인할 수 있다.
   - [x] ShoppingCard
     - [x] 장바구니에 담긴 물품을 보여준다.
-  - [ ] ShoppingPreview
-    - [ ] 결제 예상 금액을 보여준다.
+  - [x] ShoppingPreview
+    - [x] 결제 예상 금액을 보여준다.
 
 - [ ] 컴포넌트 재사용성 높이기
 
-  - [ ] 분리 & 구현
+  - [x] 분리 & 구현
     - [x] ProductName
       - [x] ProductInfo와 ShoppingCard에서 재사용
     - [x] ProductPrice
-      - [ ] ProductInfo, ShoppingCard, ShoppingPreview에서 재사용
+      - [x] ProductInfo, ShoppingCard, ShoppingPreview에서 재사용
     - [x] IconButton
       - [x] ProductCard의 쇼핑 아이콘 버튼과 ShoppingCardList의 삭제 아이콘 버튼으로 재사용
     - [ ] Button

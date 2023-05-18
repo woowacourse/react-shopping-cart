@@ -24,7 +24,7 @@ const Styled = {
     display: flex;
     justify-content: center;
 
-    padding: 147px 0px 32px 0px;
+    padding: 147px 0px 10px 0px;
 
     width: 100%;
   `,
