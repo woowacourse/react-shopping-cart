@@ -1,14 +1,19 @@
+import { getCartProducts } from 'apis/cart';
 import CheckBox from 'components/@common/CheckBox/CheckBox';
 import FlexBox from 'components/@common/FlexBox';
 import CartProductCardList from 'components/CartProductCardList/CartProductCardList';
 import useCartCheckBox from 'hooks/useCartCheckBox';
+import useFetch from 'hooks/useFetch';
 import { useRecoilValue } from 'recoil';
 import { checkedCartProductsTotalPrice } from 'state/cartProducts';
 import styled from 'styled-components';
+import { CartProducts } from 'types/product';
 
 const SHIPPING_FEE = 3000;
 
 const ShoppingCartPage = () => {
+  const { data: cartProducts } = useFetch<CartProducts>(getCartProducts) ?? new Map();
+
   const { checkedProducts, isChecked, isAllChecked, toggleCheck, toggleCheckAllBox } = useCartCheckBox();
   const cartTotalPrice = useRecoilValue(checkedCartProductsTotalPrice(checkedProducts));
   const isCheckedProductsExist = checkedProducts.size > 0;

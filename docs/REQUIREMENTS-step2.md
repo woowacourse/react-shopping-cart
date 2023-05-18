@@ -20,9 +20,9 @@
 - MSW 적용
 
   - 등록 상품
-    - [ ] GET
+    - [x] GET
   - 장바구니 상품
-    - [ ] GET
+    - [x] GET
     - [ ] POST
     - [ ] DELETE
 
