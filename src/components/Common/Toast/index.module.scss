@@ -1,4 +1,4 @@
-.toastList {
+.toast-list-container {
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -7,7 +7,7 @@
   row-gap: 8px;
 }
 
-.container {
+.toast {
   padding: 12px 24px;
   border-radius: 8px;
   font-size: 18px;
