@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import Button from '../Common/Button';
 
 const ExpectedPaymentBox = () => {
   return (
@@ -19,7 +20,9 @@ const ExpectedPaymentBox = () => {
         </PaymentInfoItem>
       </ExpectedPaymentInfo>
       <OrderButtonWrapper>
-        <Button type='button'>주문하기</Button>
+        <Button type='button' autoSize>
+          주문하기
+        </Button>
       </OrderButtonWrapper>
     </ExpectedPaymentContainer>
   );
@@ -67,14 +70,6 @@ const PaymentInfoItem = styled.dl`
 const OrderButtonWrapper = styled.div`
   padding: 0 30px 30px;
   margin: 40px 0 0 0;
-`;
-
-const Button = styled.button`
-  width: 100%;
-  height: 75px;
-  color: ${({ theme }) => theme.colors.white};
-  background: ${({ theme }) => theme.colors.black};
-  font-size: 24px;
 `;
 
 export default ExpectedPaymentBox;
