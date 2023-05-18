@@ -6,7 +6,7 @@ const FREE_SHIPPING_PRICE = 30_000;
 const SHIPPING_FEE = 3_000;
 
 const CartTotal = ({ totalProductPrice }: { totalProductPrice: number }) => {
-  const isFreeShipping = totalProductPrice > FREE_SHIPPING_PRICE;
+  const isFreeShipping = totalProductPrice >= FREE_SHIPPING_PRICE;
 
   const calcTotalOrderPrice = () => {
     if (totalProductPrice <= 0) return 0;
