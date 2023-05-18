@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import AmountCounter from '../Common/AmountCounter';
+import Image from '../Common/Image';
 
 import CartIcon from '../../assets/CartIcon';
 import useCartProducts from '../../hooks/useCartProducts';
@@ -18,7 +19,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
 
   return (
     <ProductContainer>
-      <ProductImage
+      <Image
         src={`${process.env.PUBLIC_URL}/${imageUrl}`}
         alt={name}
         loading='lazy'
@@ -46,11 +47,6 @@ const ProductItem = ({ product }: ProductItemProps) => {
 
 const ProductContainer = styled.div`
   width: 282px;
-`;
-
-const ProductImage = styled.img`
-  width: 282px;
-  height: 282px;
 `;
 
 const ProductInfoContainer = styled.div`

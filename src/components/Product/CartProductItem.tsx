@@ -1,7 +1,10 @@
 import { styled } from 'styled-components';
-import { CartProduct } from '../../types/product';
+
 import AmountCounter from '../Common/AmountCounter';
+import Image from '../Common/Image';
+
 import TrashCanIcon from '../../assets/TrashCanIcon';
+import { CartProduct } from '../../types/product';
 
 interface CartProductItemProps {
   cartProduct: CartProduct;
@@ -17,10 +20,11 @@ const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
         <CheckBox type='checkbox' id={`cart-product-check-${id}`} />
         <label htmlFor={`cart-product-check-${id}`}></label>
       </div>
-      <ProductImage
+      <Image
         src={`${process.env.PUBLIC_URL}/${imageUrl}`}
         alt={name}
         loading='lazy'
+        size='small'
       />
       <ProductName>{name}</ProductName>
       <CartInfoContainer>
@@ -61,18 +65,16 @@ const CheckBox = styled.input`
   }
 
   &:checked + label::after {
-    content: '✔️';
+    content: '';
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
-    color: ${({ theme }) => theme.colors.white};
-    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 16px;
+    border: solid ${({ theme }) => theme.colors.white};
+    border-width: 0 3px 3px 0;
+    transform: translate(-50%, -50%) rotate(45deg);
   }
-`;
-
-const ProductImage = styled.img`
-  width: 144px;
-  height: 144px;
 `;
 
 const ProductName = styled.p`
