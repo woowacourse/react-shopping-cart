@@ -1,50 +1,40 @@
 import { useRecoilState } from 'recoil';
-import { useEffect, useState } from 'react';
 import type { CartItem, Product } from '../types/types';
-import { cartListState } from '../store/atom';
+import { cartListState } from '../recoil/atom';
+import { CART_ITEMS_BASE_URL } from '../constant';
 
-const useCartList = (product: Product) => {
+const useCartList = () => {
   const [cartList, setCartList] = useRecoilState(cartListState);
 
-  const existItemIndex = cartList.findIndex((cartItem) => cartItem.product.id === product.id);
-
-  const [quantity, setQuantity] = useState<number>(
-    existItemIndex !== -1 ? cartList[existItemIndex].quantity : 0,
-  );
-
-  const updateCartList = () => {
-    const newCartItem: CartItem = {
-      quantity,
-      product,
-    };
-
-    if (existItemIndex !== -1) {
-      const newCartList = cartList.slice();
-      newCartList.splice(existItemIndex, 1, newCartItem);
-      setCartList(newCartList);
-      return;
-    }
-
-    setCartList([...cartList, newCartItem]);
+  const addProductToCartList = (productId: Product['id']) => {
+    fetch(CART_ITEMS_BASE_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(productId),
+    }).then(() => {
+      fetch(CART_ITEMS_BASE_URL)
+        .then((response) => response.json())
+        .then((data) => setCartList(data));
+    });
   };
 
-  const deleteCartItem = () => {
-    if (existItemIndex !== -1) {
-      const newCartList = cartList.slice();
-      newCartList.splice(existItemIndex, 1);
-      setCartList(newCartList);
-    }
+  const updateProductQuantity = (targetId: Product['id'], quantity: CartItem['quantity']) => {
+    fetch(`${CART_ITEMS_BASE_URL}/${targetId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(quantity),
+    }).then(() => {
+      fetch(CART_ITEMS_BASE_URL)
+        .then((response) => response.json())
+        .then((data) => setCartList(data));
+    });
   };
 
-  useEffect(() => {
-    if (quantity !== 0) {
-      updateCartList();
-      return;
-    }
-    deleteCartItem();
-  }, [quantity]);
-
-  return { quantity, setQuantity };
+  return { cartList, addProductToCartList, updateProductQuantity };
 };
 
 export default useCartList;
