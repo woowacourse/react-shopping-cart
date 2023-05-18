@@ -3,7 +3,7 @@ import CartProductItem from '../components/CartProductItem';
 
 type Story = StoryObj<typeof CartProductItem>;
 const meta: Meta<typeof CartProductItem> = {
-  title: 'CartProductItem',
+  title: 'Cart/CartProductItem',
   component: CartProductItem,
 };
 export default meta;

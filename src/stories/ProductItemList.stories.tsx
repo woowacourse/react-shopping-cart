@@ -4,7 +4,7 @@ import { handlers } from '../mocks/handlers';
 
 type Story = StoryObj<typeof ProductItemList>;
 const meta: Meta<typeof ProductItemList> = {
-  title: 'ProductItemList',
+  title: 'Product/ProductItemList',
   component: ProductItemList,
 };
 export default meta;

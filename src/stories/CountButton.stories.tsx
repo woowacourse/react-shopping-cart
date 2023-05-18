@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 type Story = StoryObj<typeof CountButton>;
 const meta: Meta<typeof CountButton> = {
-  title: 'CountButton',
+  title: 'Common/CountButton',
   component: CountButton,
 };
 export default meta;
