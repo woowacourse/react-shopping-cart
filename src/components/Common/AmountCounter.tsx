@@ -1,33 +1,65 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import ArrowUpIcon from '../../assets/ArrowUpIcon';
 import ArrowDownIcon from '../../assets/ArrowDownIcon';
 
+type DesignType = 'main' | 'cart';
+type DesignProps = Pick<AmountCounterProps, 'designType'>;
+
 interface AmountCounterProps {
-  width?: number;
-  height?: number;
-  buttonWidth?: number;
+  designType: DesignType;
   count: number;
   addCount: () => void;
   subtractCount: () => void;
 }
 
+const counterStyles = {
+  main: {
+    group: css`
+      height: 28px;
+    `,
+    input: css`
+      width: 42px;
+      font-size: 16px;
+    `,
+    button: css`
+      width: 24px;
+      height: 14px;
+    `,
+  },
+  cart: {
+    group: css`
+      height: 45px;
+    `,
+    input: css`
+      width: 53px;
+      font-size: 20px;
+    `,
+    button: css`
+      width: 32px;
+    `,
+  },
+};
+
 const AmountCounter = ({
-  width = 42,
-  height = 28,
-  buttonWidth = 24,
+  designType,
   count,
   addCount,
   subtractCount,
 }: AmountCounterProps) => {
   return (
-    <InputGroup height={height}>
-      <CounterInput type='number' value={count} readOnly width={width} />
+    <InputGroup designType={designType}>
+      <CounterInput
+        type='number'
+        value={count}
+        readOnly
+        designType={designType}
+      />
       <CountBtnContainer>
-        <CountBtn buttonWidth={buttonWidth} onClick={addCount}>
+        <CountBtn designType={designType} onClick={addCount}>
           <ArrowUpIcon />
         </CountBtn>
-        <CountBtn buttonWidth={buttonWidth} onClick={subtractCount}>
+        <CountBtn designType={designType} onClick={subtractCount}>
           <ArrowDownIcon />
         </CountBtn>
       </CountBtnContainer>
@@ -35,17 +67,16 @@ const AmountCounter = ({
   );
 };
 
-const InputGroup = styled.div<{ height: number }>`
+const InputGroup = styled.div<DesignProps>`
   display: flex;
-  height: ${({ height }) => height}px;
+  ${({ designType }) => counterStyles[designType].group}
 `;
 
-const CounterInput = styled.input<{ width: number }>`
-  width: ${({ width }) => width}px;
+const CounterInput = styled.input<DesignProps>`
   border: 1px solid ${({ theme }) => theme.colors.gray100};
   text-align: center;
   outline: none;
-  font-size: ${({ width }) => width - 37}px;
+  ${({ designType }) => counterStyles[designType].input}
 
   &::-webkit-inner-spin-button,
   &::-webkit-outer-spin-button {
@@ -57,13 +88,14 @@ const CountBtnContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+  flex-grow: 1;
 `;
 
-const CountBtn = styled.button<{ buttonWidth: number }>`
-  width: ${({ buttonWidth }) => buttonWidth}px;
-  height: ${({ buttonWidth }) => buttonWidth - 10}px;
+const CountBtn = styled.button<DesignProps>`
   border: 1px solid ${({ theme }) => theme.colors.gray100};
-  flex-wrap: 1;
+  flex: 1;
+
+  ${({ designType }) => counterStyles[designType].button}
 `;
 
 export default AmountCounter;

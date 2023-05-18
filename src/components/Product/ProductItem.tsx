@@ -37,6 +37,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
           </ProductCartBtn>
         ) : (
           <AmountCounter
+            designType='main'
             count={target.quantity}
             addCount={addCount}
             subtractCount={subtractCount}
