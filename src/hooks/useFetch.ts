@@ -29,9 +29,10 @@ const useFetch = (entrypoint: string) => {
   );
 
   const patchData = useCallback(
-    async <T>(endpoint = ''): Promise<T> => {
+    async <T>(patchingData: T, endpoint = ''): Promise<T> => {
       const response = await fetch(entrypoint + endpoint, {
         method: 'PATCH',
+        body: JSON.stringify(patchingData),
       });
       const data = await response.json();
 
