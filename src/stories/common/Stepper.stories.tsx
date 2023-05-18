@@ -3,6 +3,7 @@ import { userEvent, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { useState } from 'react';
 import Stepper from '../../components/Stepper';
+import { PRODUCT } from '../../constants';
 
 const meta = {
   title: 'ShoppingCart/common/Stepper',
@@ -18,7 +19,9 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 const createStepperStory = () => ({
   render: () => {
     const [quantity, setQuantity] = useState(1);
-    return <Stepper quantity={quantity} updateQuantity={setQuantity} />;
+    return (
+      <Stepper quantity={quantity} maxQuantity={PRODUCT.MAX_COUNT} updateQuantity={setQuantity} />
+    );
   },
 });
 
