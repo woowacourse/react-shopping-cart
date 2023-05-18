@@ -1,17 +1,17 @@
 import { rest } from 'msw';
-import { mockProducts } from '../../public/data/mockProducts';
-import { mockCart } from '../../public/data/mockCart';
 import { CartItem } from '../types/cart';
+import { mockProducts } from '../data/mockProducts';
+import { mockCart } from '../data/mockCart';
 
 export const handlers = [
   //상품 리스트 받아오기
   rest.get('/products', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(mockProducts));
+    return res(ctx.status(202), ctx.json(mockProducts));
   }),
 
   //장바구니 리스트 받아오기
   rest.get('/cart-items', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(mockCart));
+    return res(ctx.status(201), ctx.json(mockCart));
   }),
 
   //장바구니 아이템 추가

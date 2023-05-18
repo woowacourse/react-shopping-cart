@@ -1,10 +1,20 @@
-import { useRecoilValue } from 'recoil';
-import { products } from '../../../recoil/products';
 import ProductItem from '../ProductItem';
 import * as S from './ProductList.styles';
+import { useEffect, useState } from 'react';
+import { Product } from '../../../types/products';
+import { fetchProductData } from '../../../apis/products';
 
 const ProductList = () => {
-  const { items } = useRecoilValue(products);
+  const [items, setItems] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await fetchProductData();
+      setItems(data);
+    };
+
+    getData();
+  }, []);
 
   return (
     <S.List>
