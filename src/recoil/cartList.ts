@@ -1,3 +1,4 @@
+import { useLocalStorage } from 'hooks/useLocalStorage';
 import {
   atom,
   atomFamily,
@@ -7,14 +8,23 @@ import {
 } from 'recoil';
 import { CartId, Cart, ProductId } from 'types';
 
+const { getLocalStorageData } = useLocalStorage();
+
 export const cartIds = atom<CartId[]>({
   key: 'cartIds',
-  default: [],
+  default: getLocalStorageData<Cart[]>('cartList').map(
+    (cartItem) => cartItem.id
+  ),
 });
 
 export const cartItemAtom = atomFamily<Cart | null, CartId>({
   key: 'cartItem',
-  default: null,
+  default: (productId) => {
+    const cartListStorage = getLocalStorageData<Cart[]>('cartList');
+    const item = cartListStorage.find((cartItem) => cartItem.id === productId);
+    if (!item) return null;
+    return item;
+  },
 });
 
 export const countCartListSelector = selector({
@@ -36,7 +46,7 @@ export const updateCart = selectorFamily({
 
   set:
     (productId: ProductId) =>
-    ({ set, get, reset }, item) => {
+    ({ set, reset }, item) => {
       if (!item || item instanceof DefaultValue) return;
 
       if (item.quantity === 0) {
