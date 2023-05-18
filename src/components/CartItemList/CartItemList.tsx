@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import { v1 } from 'uuid';
@@ -14,19 +14,26 @@ export type Select = {
 
 const CartItemList = () => {
   const cartList = useRecoilValue(cartAtom);
-  const initCartItemStateValue = cartList.map((item) => ({
+  const AllNotChecked = cartList.map((item) => ({
     id: item.id,
     isSelected: false,
     isDeleted: false,
   }));
+  const AllChecked = cartList.map((item) => ({
+    id: item.id,
+    isSelected: true,
+    isDeleted: false,
+  }));
   const [isAllSelected, setIsAllSelected] = useState<boolean>(false);
-  const [cartItemsState, setCartItemsState] = useState<Select[]>(
-    initCartItemStateValue
-  );
+  const [cartItemsState, setCartItemsState] = useState<Select[]>(AllNotChecked);
+
+  useEffect(() => {
+    setCartItemsState(AllNotChecked);
+  }, [cartList]);
 
   const toggleSelectAll = () => {
     setIsAllSelected(!isAllSelected);
-    setCartItemsState(initCartItemStateValue);
+    setCartItemsState(!isAllSelected ? AllChecked : AllNotChecked);
   };
 
   const countSelectedItems = () => {

@@ -45,6 +45,11 @@ const CartItem = ({
     ]);
   };
 
+  const onClickDelete = () => {
+    deleteCartItem(id);
+    removeCartItemFromAtom();
+  };
+
   return (
     <Wrapper>
       <CheckBoxWrapper>
@@ -58,11 +63,7 @@ const CartItem = ({
 
       <DetailWrapper>
         <ProductName>{name}</ProductName>
-        <DeleteButton
-          onClick={() => {
-            deleteCartItem(id);
-            removeCartItemFromAtom();
-          }}>
+        <DeleteButton onClick={onClickDelete}>
           <TrashCan />
         </DeleteButton>
         <CounterWrapper>
