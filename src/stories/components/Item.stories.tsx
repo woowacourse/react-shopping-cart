@@ -1,5 +1,5 @@
 import { StoryFn, Meta } from "@storybook/react";
-import { Item } from "../../components";
+import Item from "components/Item";
 
 export default {
   title: "Item",

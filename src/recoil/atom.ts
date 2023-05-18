@@ -1,7 +1,7 @@
 import { atom } from "recoil";
-import mockData from "../mockData.json";
-import { Product } from "../types/domain";
-import { CART_LIST_LOCAL_STORAGE_KEY } from "../constants";
+import mockData from "mockData.json";
+import { Product } from "types/domain";
+import { CART_LIST_LOCAL_STORAGE_KEY } from "constants/";
 
 const getCartItemsFromLocalStorage = (): Product[] => {
   const item = localStorage.getItem(CART_LIST_LOCAL_STORAGE_KEY);

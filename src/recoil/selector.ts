@@ -1,7 +1,7 @@
 import { DefaultValue, selector } from "recoil";
-import { Product } from "../types/domain";
-import { productListState } from "./atom";
-import { MIN_QUANTITY } from "../constants";
+import { Product } from "types/domain";
+import { productListState } from "recoil/atom";
+import { MIN_QUANTITY } from "constants/";
 
 export const cartListSelector = selector({
   key: "cartList",

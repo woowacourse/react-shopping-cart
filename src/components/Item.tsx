@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import type { Product } from "../types/domain";
-import { useQuantity } from "../hooks/useQuantity";
-import { MIN_QUANTITY } from "../constants";
-import QuantityCounter from "./QuantityCounter";
+import type { Product } from "types/domain";
+import { useQuantity } from "hooks/useQuantity";
+import { MIN_QUANTITY } from "constants/";
+import QuantityCounter from "components/QuantityCounter";
 
 const Item = ({ id, name, price, imageUrl }: Product) => {
   const { quantity, setNewQuantity } = useQuantity(id);

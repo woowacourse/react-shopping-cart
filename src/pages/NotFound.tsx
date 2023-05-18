@@ -1,7 +1,8 @@
 import { styled } from "styled-components";
-import { Header, Page } from "../components";
 import { useNavigate } from "react-router";
-import { ROUTER_PATH } from "../router";
+import { ROUTER_PATH } from "router";
+import Header from "components/Header";
+import Page from "components/common/Page";
 
 const NotFound = () => {
   const navigate = useNavigate();

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { productListState } from "../recoil/atom";
-import { cartListSelector } from "../recoil/selector";
-import { CART_LIST_LOCAL_STORAGE_KEY, MAX_QUANTITY, MIN_QUANTITY } from "../constants";
+import { productListState } from "recoil/atom";
+import { cartListSelector } from "recoil/selector";
+import { CART_LIST_LOCAL_STORAGE_KEY, MAX_QUANTITY, MIN_QUANTITY } from "constants/";
 
 export const useQuantity = (itemID: number) => {
   const [cartList, setCartList] = useRecoilState(cartListSelector);

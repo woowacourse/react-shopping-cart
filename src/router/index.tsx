@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { RouterProvider } from "react-router-dom";
-import Main from "../pages/Main";
-import NotFound from "../pages/NotFound";
+import Main from "pages/Main";
+import NotFound from "pages/NotFound";
 
 export const ROUTER_PATH = {
   Main: "/",

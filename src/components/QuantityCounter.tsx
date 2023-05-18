@@ -1,6 +1,6 @@
 import React from "react";
-import { useQuantity } from "../hooks/useQuantity";
-import Counter from "./common/Counter";
+import { useQuantity } from "hooks/useQuantity";
+import Counter from "components/common/Counter";
 
 interface QuantityCounterProps {
   itemId: number;

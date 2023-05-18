@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
-import { ROUTER_PATH } from "../router";
-import { cartListSelector } from "../recoil/selector";
+import { useRecoilValue } from "recoil";
+import { ROUTER_PATH } from "router";
+import { cartListSelector } from "recoil/selector";
 
 const Header = () => {
   const navigate = useNavigate();
