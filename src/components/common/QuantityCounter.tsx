@@ -26,7 +26,6 @@ export default function QuantityCounter({
           onChange={(e) =>
             setCount({ action: ACTION_CHANGE, payload: e.target.value })
           }
-          defaultValue='1'
         />
         <ButtonWrapper>
           <CountButton

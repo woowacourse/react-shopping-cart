@@ -1,18 +1,20 @@
 import styled from 'styled-components';
 
-import type { Product } from '../../type/product';
 import DeleteButtonImage from '../../asset/delete_icon.png';
 import QuantityCounter from '../common/QuantityCounter';
 import CheckIconImage from '../../asset/check_icon.svg';
 import useCount from '../../hooks/useCount';
+import { Product } from '../../type/product';
 
-interface CartListItemProps extends Product {}
-export default function CartListItem({
-  imageUrl,
-  name,
-  price,
-}: CartListItemProps) {
-  const { count, setCount } = useCount();
+interface CartListItemProps {
+  quantity: number;
+  product: Omit<Product, 'id'>;
+}
+
+export default function CartListItem({ quantity, product }: CartListItemProps) {
+  const { count, setCount } = useCount(quantity);
+  const { name, imageUrl, price } = product;
+
   return (
     <CartListItemContainer>
       <CartInfoContainer>

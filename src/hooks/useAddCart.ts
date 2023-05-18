@@ -1,40 +1,32 @@
 import { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import { cartState } from '../atoms/cartState';
 import { CartType } from '../type/cart';
 import useCount from './useCount';
+import {
+  cartQuery,
+  patchCartItemQuantityQuery,
+  postCartItemQuery,
+} from '../api/api';
 
 export function useAddCart() {
   const [isSelected, setIsSelected] = useState(false);
-  const setCart = useSetRecoilState<CartType[]>(cartState);
+  const [cart, setCart] = useRecoilState<CartType[]>(cartState);
   const { count, setCount } = useCount();
 
   const selectProductItem = () => {
     setIsSelected(true);
   };
 
-  const createChangedCart = (prevCart: CartType[], cartItem: CartType) => {
-    const index = prevCart.findIndex(
-      (prevItem) => prevItem.productId === cartItem.productId
-    );
-    if (index === -1) return [...prevCart, cartItem];
-
-    return [
-      ...prevCart.slice(0, index),
-      cartItem,
-      ...prevCart.slice(index + 1),
-    ];
-  };
-
-  const addCartProductItem = (id: number) => {
+  const addCartProductItem = async (productId: number) => {
     setIsSelected(false);
-    const cartItem: CartType = {
-      productId: id,
-      quantity: count.value,
-    };
 
-    setCart((prev) => createChangedCart(prev, cartItem));
+    const cartItem = cart.find((cartItem) => cartItem.product.id === productId);
+    let cartId = cartItem ? cartItem.id : await postCartItemQuery(productId);
+    await patchCartItemQuantityQuery(cartId, count.value);
+    const newCart = await cartQuery();
+    setCart(newCart);
   };
 
   return { isSelected, selectProductItem, addCartProductItem, count, setCount };

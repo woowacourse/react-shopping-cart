@@ -1,19 +1,18 @@
 import styled from 'styled-components';
 import CartListItem from './CartListItem';
 import SelectCartItem from './SelectCartItem';
+import { useRecoilValue } from 'recoil';
+import { cartState } from '../../atoms/cartState';
 
 export default function CartList() {
-  const mock = {
-    id: 1,
-    name: '[F/W] 가죽 자켓',
-    price: 110000,
-    imageUrl:
-      'https://image.msscdn.net/images/goods_img/20200901/1576682/1576682_6_320.jpg',
-  };
+  const cart = useRecoilValue(cartState);
   return (
     <CartListContainer>
       <CartListHeader>든든 배송 상품 (n개)</CartListHeader>
-      <CartListItem {...mock} />
+      {cart.map(({ id, quantity, product }) => (
+        <CartListItem key={id} quantity={quantity} product={product} />
+      ))}
+
       <SelectCartItem />
     </CartListContainer>
   );
