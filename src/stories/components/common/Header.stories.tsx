@@ -1,22 +1,20 @@
 import { Meta } from '@storybook/react';
-import { BrowserRouter } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
 import HeaderComponent from '../../../components/common/Header';
+import { handlers } from '../../../mock/handler';
 
 const meta = {
   component: HeaderComponent,
   title: 'Components/Header',
   tags: ['autodocs'],
+  parameters: {
+    msw: handlers,
+  },
   decorators: [
     (Story) => {
       return (
-        <BrowserRouter>
-          <RecoilRoot>
-            <div style={{ width: 'calc(100vw - 32vw)' }}>
-              <Story />
-            </div>
-          </RecoilRoot>
-        </BrowserRouter>
+        <div style={{ width: 'calc(100vw - 32vw)' }}>
+          <Story />
+        </div>
       );
     },
   ],

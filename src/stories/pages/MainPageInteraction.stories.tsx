@@ -1,18 +1,11 @@
 import { expect } from '@storybook/jest';
 import { Meta, StoryObj } from '@storybook/react';
 import { screen, userEvent, waitFor, within } from '@storybook/testing-library';
-import { RecoilRoot } from 'recoil';
 import MainPage from '../../pages/MainPage';
 
 const meta = {
   title: 'Pages/MainPage',
-  decorators: [
-    (Story) => (
-      <RecoilRoot>
-        <Story />
-      </RecoilRoot>
-    ),
-  ],
+  decorators: [(Story) => <Story />],
 } satisfies Meta<typeof MainPage>;
 
 export default meta;

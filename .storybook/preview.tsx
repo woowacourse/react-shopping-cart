@@ -1,13 +1,9 @@
+import React from 'react';
 import type { Preview } from '@storybook/react';
 import { GlobalStyle } from '../src/GlobalStyle';
-import { withThemeFromJSXProvider } from '@storybook/addon-styling';
 import { initialize, mswDecorator } from 'msw-storybook-addon';
-
-export const decorators = [
-  withThemeFromJSXProvider({
-    GlobalStyles: GlobalStyle,
-  }),
-];
+import { RecoilRoot } from 'recoil';
+import { MemoryRouter } from 'react-router-dom';
 
 let options = {};
 if (location.hostname === 'feb-dain.github.io') {
@@ -45,7 +41,17 @@ const preview: Preview = {
     },
   },
 
-  decorators: [mswDecorator],
+  decorators: [
+    (Story) => (
+      <RecoilRoot>
+        <GlobalStyle />
+        <MemoryRouter initialEntries={['/']}>
+          <Story />
+        </MemoryRouter>
+      </RecoilRoot>
+    ),
+    mswDecorator,
+  ],
 };
 
 export default preview;

@@ -1,18 +1,11 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { RecoilRoot } from 'recoil';
 import ProductItemComponent from '../../components/main/ProductItem';
 
 const meta = {
   component: ProductItemComponent,
   title: 'Components/ProductItem',
   tags: ['autodocs'],
-  decorators: [
-    (Story) => (
-      <RecoilRoot>
-        <Story />
-      </RecoilRoot>
-    ),
-  ],
+  decorators: [(Story) => <Story />],
 } satisfies Meta<typeof ProductItemComponent>;
 
 export default meta;
