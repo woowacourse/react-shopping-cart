@@ -15,13 +15,8 @@ export const CartProductList = () => {
         <ProductCountText size="20px">든든배송 상품 (5개)</ProductCountText>
       </ProductCountTextWrapper>
       <ProductItemContainer>
-        {cartProductList.map(({ id, quantity, product }) => (
-          <CartProductItem
-            key={id}
-            id={id}
-            quantity={quantity}
-            product={product}
-          />
+        {cartProductList.map((item) => (
+          <CartProductItem key={item.id} cartProduct={item} />
         ))}
       </ProductItemContainer>
       <BottomSideWrapper>

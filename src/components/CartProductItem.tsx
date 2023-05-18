@@ -6,8 +6,12 @@ import { DeleteProductButtonImage } from '../assets/image';
 import { AddToCartCount } from './AddToCartCount';
 import { CartProductList } from '../types/productType';
 
-export const CartProductItem = (props: CartProductList) => {
-  const { id, quantity, product } = props;
+interface CartProductItemProps {
+  cartProduct: CartProductList;
+}
+
+export const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
+  const { id, quantity, product } = cartProduct;
 
   return (
     <CartProductItemContainer key={id}>
@@ -21,7 +25,7 @@ export const CartProductItem = (props: CartProductList) => {
 
       <RightSideWrapper>
         <DeleteProductButtonImage />
-        <AddToCartCount id={id} quantity={quantity} />
+        <AddToCartCount product={product} id={id} quantity={quantity} />
         <ProductPrice size="18px" weight="600">
           {product.price}원
         </ProductPrice>

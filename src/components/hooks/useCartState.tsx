@@ -1,8 +1,12 @@
 import { useSetRecoilState } from 'recoil';
-import { ProductItem } from '../../types/productType';
+import { CartProductList, Product } from '../../types/productType';
 import { cartState } from '../../atoms/CartState';
 
-export const useCartState = (props: ProductItem) => {
+const getIndex = (list: CartProductList[], id: number) => {
+  return list.findIndex((item: CartProductList) => item.id === id);
+};
+
+export const useCartState = (props: Product) => {
   const { id } = props;
   const setCartProductState = useSetRecoilState(cartState);
 
@@ -17,5 +21,41 @@ export const useCartState = (props: ProductItem) => {
     ]);
   };
 
-  return { addToCartState };
+  const increaseCount = () => {
+    setCartProductState((prev) => {
+      const index = getIndex(prev, id);
+
+      const updatedCartList = [...prev];
+
+      updatedCartList[index] = {
+        ...updatedCartList[index],
+        quantity: updatedCartList[index].quantity + 1,
+      };
+
+      return updatedCartList;
+    });
+  };
+
+  const decreaseCount = () => {
+    setCartProductState((prev) => {
+      const index = getIndex(prev, id);
+
+      const updatedCartList = [...prev];
+
+      updatedCartList[index] = {
+        ...updatedCartList[index],
+        quantity: updatedCartList[index].quantity - 1,
+      };
+
+      if (updatedCartList[index].quantity === 0) {
+        return updatedCartList.filter(
+          (item: CartProductList) => item.id !== id
+        );
+      }
+
+      return updatedCartList;
+    });
+  };
+
+  return { addToCartState, increaseCount, decreaseCount };
 };

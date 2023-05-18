@@ -1,10 +1,10 @@
-import { useCartCountState } from './hooks/useCartCountState';
-import { AddToCartCountProps } from '../types/addToCartCountType';
 import { DecreaseButtonImage, IncreaseButtonImage } from '../assets/image';
 import styled from 'styled-components';
+import { useCartState } from './hooks/useCartState';
+import { CartProductList } from '../types/productType';
 
-export const AddToCartCount = ({ id, quantity }: AddToCartCountProps) => {
-  const { increaseCount, decreaseCount } = useCartCountState(id);
+export const AddToCartCount = ({ id, quantity, product }: CartProductList) => {
+  const { increaseCount, decreaseCount } = useCartState(product);
 
   return (
     <Wrapper>

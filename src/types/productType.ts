@@ -1,10 +1,10 @@
 export interface CartProductList {
   id: number;
   quantity: number;
-  product: ProductItem;
+  product: Product;
 }
 
-export interface ProductItem {
+export interface Product {
   id: number;
   price: number;
   name: string;

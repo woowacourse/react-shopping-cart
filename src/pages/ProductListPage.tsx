@@ -10,14 +10,8 @@ export const ProductListPage = () => {
     <PageContainer>
       <PageTitle>상품 리스트</PageTitle>
       <ProductListPageWrapper>
-        {getMockData.map(({ id, name, price, imageUrl }) => (
-          <ProductItem
-            key={id}
-            id={id}
-            name={name}
-            price={price}
-            imageUrl={imageUrl}
-          />
+        {getMockData.map((item) => (
+          <ProductItem key={item.id} product={item} />
         ))}
       </ProductListPageWrapper>
     </PageContainer>

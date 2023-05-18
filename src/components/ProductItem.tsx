@@ -1,14 +1,18 @@
 import { StyledText } from './common/Text';
 import { Image as ProductImage } from './common/Image';
 import { AddToCartButton } from './AddToCartButton';
-import { ProductItem as ProductItemProps } from '../types/productType';
+import { Product } from '../types/productType';
 import { useCartState } from './hooks/useCartState';
 import styled from 'styled-components';
 
-export const ProductItem = (props: ProductItemProps) => {
-  const { id, name, price, imageUrl } = props;
+interface ProductItemProps {
+  product: Product;
+}
 
-  const { addToCartState } = useCartState(props);
+export const ProductItem = ({ product }: ProductItemProps) => {
+  const { id, name, price, imageUrl } = product;
+
+  const { addToCartState } = useCartState(product);
 
   return (
     <ProductItemWrapper key={id}>
@@ -27,7 +31,11 @@ export const ProductItem = (props: ProductItemProps) => {
             {`${price.toLocaleString('ko-KR')} 원`}
           </ProductPrice>
         </div>
-        <AddToCartButton id={id} addToCartState={addToCartState} />
+        <AddToCartButton
+          product={product}
+          id={id}
+          addToCartState={addToCartState}
+        />
       </ProductTextWrapper>
     </ProductItemWrapper>
   );

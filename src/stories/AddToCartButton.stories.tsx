@@ -15,6 +15,12 @@ export const Default: Story = {
     addToCartState: () => {
       return;
     },
+    product: {
+      id: 2,
+      name: 'PET보틀-밀크티(370ml)',
+      price: 73400,
+      imageUrl: '/assets/2.png',
+    },
     id: 0,
   },
 };
