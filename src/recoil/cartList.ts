@@ -5,14 +5,14 @@ import {
   selector,
   selectorFamily,
 } from 'recoil';
-import { CartId, CartItem, ProductId } from 'types';
+import { CartId, Cart, ProductId } from 'types';
 
-export const cartIdMap = atom<Map<ProductId, CartId>>({
-  key: 'cartId',
-  default: new Map(),
+export const cartIds = atom<CartId[]>({
+  key: 'cartIds',
+  default: [],
 });
 
-export const cartItemAtom = atomFamily<CartItem | null, CartId>({
+export const cartItemAtom = atomFamily<Cart | null, CartId>({
   key: 'cartItem',
   default: null,
 });
@@ -20,7 +20,7 @@ export const cartItemAtom = atomFamily<CartItem | null, CartId>({
 export const countCartListSelector = selector({
   key: 'countCartListSelector',
   get: ({ get }) => {
-    return [...get(cartIdMap)].length;
+    return get(cartIds).length;
   },
 });
 
@@ -29,10 +29,9 @@ export const updateCart = selectorFamily({
   get:
     (productId: ProductId) =>
     ({ get }) => {
-      const cartId = get(cartIdMap).get(productId);
-      if (!cartId) return null;
+      if (!get(cartIds).includes(productId)) return null;
 
-      return get(cartItemAtom(cartId));
+      return get(cartItemAtom(productId));
     },
 
   set:
@@ -40,11 +39,9 @@ export const updateCart = selectorFamily({
     ({ set, get, reset }, item) => {
       if (!item || item instanceof DefaultValue) return;
 
-      const cartId = get(cartIdMap).get(productId) ?? item.id;
-
       if (item.quantity === 0) {
-        reset(cartItemAtom(cartId));
+        reset(cartItemAtom(productId));
       }
-      set(cartItemAtom(cartId), item);
+      set(cartItemAtom(productId), item);
     },
 });
