@@ -2,7 +2,7 @@ import { atom, selector, selectorFamily } from 'recoil';
 import { CartList } from '../types/CartList.ts';
 import { getCartListFromLocalStorage } from '../utils/localStorageCartList.ts';
 
-export const cartListAtom = atom<CartList>({
+export const cartListAtom = atom<CartList | null>({
   key: 'cartListAtom',
   default: getCartListFromLocalStorage(),
 });
@@ -12,8 +12,12 @@ export const carListTotalQuantitySelector = selector({
   get: ({ get }) => {
     const cartList = get(cartListAtom);
 
-    return Object.keys(cartList).reduce((acc, curr) => {
-      return acc + cartList[parseInt(curr, 10)].quantity;
+    if (!cartList) {
+      return 0;
+    }
+
+    return Object.keys(cartList.items).reduce((acc, curr) => {
+      return acc + cartList.items[parseInt(curr, 10)].quantity;
     }, 0);
   },
 });
@@ -25,6 +29,10 @@ export const productQuantitySelector = selectorFamily({
     ({ get }) => {
       const cartList = get(cartListAtom);
 
-      return cartList[itemId]?.quantity ?? 0;
+      if (!cartList) {
+        return 0;
+      }
+
+      return cartList.items[itemId]?.quantity ?? 0;
     },
 });
