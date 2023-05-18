@@ -10,12 +10,18 @@
 .toast {
   padding: 12px 24px;
   border-radius: 8px;
+  font-size: 18px;
 
   color: var(--white-color-001);
   background: var(--primary-color);
 
   transform: translate(-50%, 0);
   animation: show 0.3s ease-out alternate;
+}
+
+.toast-hide {
+  transform: translate(50%, 0);
+  animation: hide 0.3s ease-out alternate;
 }
 
 .success {
@@ -43,11 +49,11 @@
 
 @keyframes hide {
   100% {
-    transform: translateX(-50%) translateY(0%);
+    transform: translateX(-50%) translateY(-50%);
     opacity: 0;
   }
   0% {
-    transform: translateX(-50%) translateY(50%);
+    transform: translateX(-50%) translateY(0%);
     opacity: 1;
   }
 }

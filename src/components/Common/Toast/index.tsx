@@ -7,15 +7,37 @@ interface ToastProps extends ToastState {
 }
 
 function Toast({ type, message, showTime = 2000 }: ToastProps) {
+  const [startHide, setStartHide] = useState(false);
   const [show, setShow] = useState(true);
+
+  const headIcon = () => {
+    if (type === 'success') {
+      return '✅';
+    } else if (type === 'warning') {
+      return '⚠️';
+    } else {
+      return '❌';
+    }
+  };
 
   useEffect(() => {
     setTimeout(() => {
-      setShow(false);
+      setStartHide(true);
     }, showTime);
+    setTimeout(() => {
+      setShow(false);
+    }, showTime + 300);
   }, [showTime]);
 
-  return <>{show && <div className={`${styles.toast} ${styles[type]}`}>{message}</div>}</>;
+  return (
+    <>
+      {show && (
+        <div className={`${styles.toast} ${styles[type]} ${startHide && styles['toast-hide']}`}>
+          {`${headIcon()} ${message}`}
+        </div>
+      )}
+    </>
+  );
 }
 
 export default Toast;
