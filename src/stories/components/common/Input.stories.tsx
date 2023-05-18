@@ -1,19 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import InputComponent from '../../../components/common/Input';
-import { css, styled } from 'styled-components';
-import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
-
-const QuantityInputStyle = css`
-  position: relative;
-  z-index: 1;
-  width: 80px;
-  height: 32px;
-  font-size: 13px;
-  text-align: center;
-  color: var(--text-color);
-  border: 1px solid var(--gray-color-200);
-  background: none;
-`;
+import { RecoilRoot } from 'recoil';
 
 const meta = {
   component: InputComponent,
@@ -67,55 +54,12 @@ export const Input: Story = {
   decorators: [
     (Story) => {
       return (
-        <div style={{ border: '1px solid #000', padding: '6px' }}>
-          <Story />
-        </div>
+        <RecoilRoot>
+          <div style={{ border: '1px solid #000', padding: '6px' }}>
+            <Story />
+          </div>
+        </RecoilRoot>
       );
     },
   ],
-};
-
-export const QuantityInput: Story = {
-  args: {
-    type: 'number',
-    inputMode: 'numeric',
-    styled: QuantityInputStyle,
-    min: 1,
-    max: 99,
-  },
-
-  decorators: [
-    (Story) => {
-      return (
-        <S.InputWrapper>
-          <Story />
-          <FaCaretUp />
-          <FaCaretDown />
-        </S.InputWrapper>
-      );
-    },
-  ],
-};
-
-const S = {
-  InputWrapper: styled.div`
-    position: relative;
-
-    & svg {
-      position: absolute;
-      z-index: 0;
-      width: 26px;
-      max-width: 26px;
-      right: 0;
-      border: 1px solid var(--gray-color-200);
-    }
-
-    & svg:nth-child(2) {
-      top: 0;
-    }
-
-    & svg:nth-child(3) {
-      top: 16px;
-    }
-  `,
 };

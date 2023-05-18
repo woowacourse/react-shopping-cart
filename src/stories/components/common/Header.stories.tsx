@@ -30,5 +30,5 @@ const meta = {
 export default meta;
 
 export const Cart = (args: any) => {
-  return <HeaderComponent title={args.title} />;
+  return <HeaderComponent title={args.title} onClickCartButton={()=>{}}/>;
 };
