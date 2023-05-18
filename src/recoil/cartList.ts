@@ -73,6 +73,8 @@ export const wholeCartITemToggleSelector = selector({
   key: 'wholeCartITemToggleSelector',
   get: ({ get }) => {
     const selectedList = get(countSelectedCartItemsSelector);
+    if (selectedList.length === 0) return false;
+
     return get(countCartListSelector) === selectedList.length;
   },
   set: ({ get, set }, select) => {

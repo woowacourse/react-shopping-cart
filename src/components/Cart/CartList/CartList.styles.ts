@@ -46,3 +46,18 @@ export const SelectLabel = styled.label`
 export const SelectText = styled.p`
   margin-left: 0.25rem;
 `;
+
+export const SelectedDeleteButton = styled.button`
+  &:hover {
+    cursor: pointer;
+    background: #dddddd;
+  }
+`;
+
+export const EmptyCartList = styled.div`
+  display: flex;
+  align-items: center;
+  height: 410px;
+  justify-content: center;
+  font: ${(props) => props.theme.font.title};
+`;
