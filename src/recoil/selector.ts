@@ -6,13 +6,16 @@ export const cartItemsLengthSelector = selector({
   get: ({ get }) => Object.keys(get(cartItemsState)).length,
 });
 
-// product-id 뱉는 셀렉터
 export const productIdsSelector = selector({
   key: 'productIdsSelector',
   get: ({ get }) =>
     Object.values(get(cartItemsState)).map(cartItem => cartItem.productId),
 });
 
-// cart-item-id 뱉는 셀렉터
+export const cartItemIdsSelector = selector({
+  key: 'cartItemIdsSelector',
+  get: ({ get }) =>
+    Object.values(get(cartItemsState)).map(cartItem => cartItem.cartItemId),
+});
 
 // quantity 뱉는 셀렉터
