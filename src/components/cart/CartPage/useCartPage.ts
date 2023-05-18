@@ -37,7 +37,11 @@ const useCartPage = () => {
   };
 
   const handleSelectedItemDelete = () => {
-    removeAllProductsFromCart(checkedItemIds);
+    const selectedProductIds = cart
+      .filter((cartItem) => checkedItemIds.includes(cartItem.id))
+      .map((cartItem) => cartItem.product.id);
+
+    removeAllProductsFromCart(selectedProductIds);
   };
 
   useEffect(() => {
