@@ -144,3 +144,10 @@ export const useCartList = () => {
     resetCartCheckStatusToFalse,
   };
 };
+
+// export const useCartListFetch = () => {
+//   const [, productListStateChange] = useRecoilState(cartListState);
+//   const data = useFetch({ url: '/cartList' });
+//   console.log(data);
+//   productListStateChange(data);
+// };

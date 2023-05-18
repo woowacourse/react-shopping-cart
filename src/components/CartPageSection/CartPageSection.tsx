@@ -1,13 +1,18 @@
-import { useRecoilValue } from 'recoil';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 
+// import { useRecoilValue } from 'recoil';
 import { useCartList } from '../../hooks/useCartList';
+import { useFetch } from '../../hooks/useFetch';
 import { cartListState } from '../../store/cart';
+import { CartItemType } from '../../types';
 import { priceFormatter } from '../../utils/formatter';
 import CartItem from '../CartItem/CartItem';
 import styles from './style.module.css';
 
 const CartPageSection = () => {
-  const cartItemList = useRecoilValue(cartListState);
+  //   const cartItemList = useRecoilValue(cartListState);
+  const [, setCartItemList] = useRecoilState(cartListState);
   const {
     cartList,
     getCartItemSum,
@@ -18,6 +23,12 @@ const CartPageSection = () => {
     checkedItemRemove,
     selectedItemRemove,
   } = useCartList();
+
+  const { data, fetchApi, isLoading } = useFetch<CartItemType[]>(setCartItemList);
+  useEffect(() => {
+    fetchApi.get('/cartlist');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const deliveryPrice = 3000;
 
@@ -38,7 +49,7 @@ const CartPageSection = () => {
           checked={cartListCheckedLength() === cartList.length}
         />
         <p>
-          전체 선택({cartListCheckedLength()}/{cartItemList.length})
+          전체 선택({cartListCheckedLength()}/{data?.length})
         </p>
         <button type="button" className={styles.deleteButton} onClick={checkedItemRemove}>
           선택 삭제
@@ -46,7 +57,8 @@ const CartPageSection = () => {
       </div>
       <section className={styles.section}>
         <div className={styles.cartList}>
-          {cartItemList.map((item) => (
+          {isLoading && <div>loading</div>}
+          {data?.map((item) => (
             <CartItem
               quantity={item.quantity}
               itemId={item.id}
