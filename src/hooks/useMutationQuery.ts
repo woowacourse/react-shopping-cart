@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { FETCH_METHOD } from '../constants';
 import type { MutationFetchMethod } from '../types';
 
 interface Return<BodyData, ResponseData> {
@@ -29,7 +30,7 @@ const useMutationQuery = <BodyData, ResponseData>(
         headers,
       })
         .then(res => {
-          if (method === 'DELETE' || 'PATCH') return res.text();
+          if (method === FETCH_METHOD.DELETE || FETCH_METHOD.PATCH) return res.text();
           return res.json();
         })
         .then(resData => setResponseData(resData))
