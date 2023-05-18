@@ -32,6 +32,10 @@ const ResetStyle = createGlobalStyle`
     list-style: none;
   }
 
+  input[type="checkbox"] {
+    margin: 0;
+  }
+
   /* Set core root defaults */
   html:focus-within {
     scroll-behavior: smooth;
