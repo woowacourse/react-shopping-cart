@@ -34,7 +34,7 @@ const SelectedProductList = () => {
 };
 
 const S = {
-  Wrapper: styled.div`
+  Wrapper: styled.section`
     width: 100%;
     max-width: 736px;
     max-height: 410px;

@@ -27,7 +27,7 @@ const Order = () => {
 };
 
 const S = {
-  Wrapper: styled.div`
+  Wrapper: styled.section`
     max-width: 448px;
     margin-top: 40px;
     padding-bottom: 38px;
