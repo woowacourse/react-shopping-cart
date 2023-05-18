@@ -7,6 +7,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: ButtonSizeType;
   autoSize?: boolean;
   primary?: boolean;
+  border?: boolean;
   children: ReactNode;
 }
 
@@ -14,11 +15,18 @@ const Button = ({
   size = 'medium',
   primary = true,
   autoSize = false,
+  border = false,
   children,
   ...args
 }: ButtonProps) => {
   return (
-    <StyledButton size={size} {...args} primary={primary} autoSize={autoSize}>
+    <StyledButton
+      size={size}
+      primary={primary}
+      autoSize={autoSize}
+      border={border}
+      {...args}
+    >
       {children}
     </StyledButton>
   );
@@ -41,6 +49,7 @@ const StyledButton = styled.button<{
   size: ButtonSizeType;
   primary: boolean;
   autoSize: boolean;
+  border: boolean;
 }>`
   ${({ size }) => buttonStyles[size]}
   width: ${({ size, autoSize }) =>
@@ -49,6 +58,8 @@ const StyledButton = styled.button<{
     primary ? theme.colors.black : theme.colors.white};
   color: ${({ theme, primary }) =>
     primary ? theme.colors.white : theme.colors.black};
+  border: ${({ theme, border }) =>
+    border ? `1px solid ${theme.colors.gray300}` : 'none'};
 `;
 
 export default Button;

@@ -28,5 +28,25 @@
       "price": 41000,
       "imageUrl": "images/정사각-370.jpeg"
     }
+  },
+  {
+    "id": 6,
+    "quantity": 5,
+    "product": {
+      "id": 6,
+      "name": "PET보틀-납작(260ml)",
+      "price": 61800,
+      "imageUrl": "images/납작-260.jpeg"
+    }
+  },
+  {
+    "id": 7,
+    "quantity": 2,
+    "product": {
+      "id": 7,
+      "name": "PET보틀-원형(500ml)",
+      "price": 42200,
+      "imageUrl": "images/원형-500.jpeg"
+    }
   }
 ]
