@@ -4,7 +4,7 @@ export const Button = styled.button<{
   size: 'SS' | 'S' | 'M' | 'L';
   view: 'light' | 'dark';
 }>`
-  padding: 0;
+  padding: 0.5rem;
 
   cursor: pointer;
 
@@ -45,7 +45,7 @@ export const Button = styled.button<{
         return css`
           background-color: white;
           border: 1px solid #bbb;
-          color: #bbb;
+          color: #333;
         `;
       }
       case 'dark': {
