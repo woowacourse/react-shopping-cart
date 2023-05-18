@@ -4,7 +4,7 @@ import { cartSelector } from '../../store/cart';
 
 const Bill = () => {
   const { totalAmount } = useRecoilValue(cartSelector);
-  const deliveryFee = totalAmount > 30000 ? 0 : 3000;
+  const deliveryFee = totalAmount >= 30000 || totalAmount === 0 ? 0 : 3000;
 
   return (
     <Wrapper>
@@ -18,7 +18,8 @@ const Bill = () => {
         </Detail>
         <Message>3만원 이상 주문시 무료배송</Message>
         <TotalAmount>
-          총 주문금액 <span>{(totalAmount + 3000).toLocaleString()}원</span>
+          총 주문금액{' '}
+          <span>{(totalAmount + deliveryFee).toLocaleString()}원</span>
         </TotalAmount>
         <OrderButton>주문하기</OrderButton>
       </DetailWrapper>
