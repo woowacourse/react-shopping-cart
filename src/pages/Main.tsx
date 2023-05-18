@@ -1,4 +1,4 @@
-import { ProductCardList } from '../components/productCardList/ProductCardList';
+import { ProductCardGrid } from '../components/main/productCardList/ProductCardList';
 import { Layout } from '../layout';
 import { useMockData } from '../hooks/useMockData';
 
@@ -7,7 +7,7 @@ function Main() {
 
   return (
     <Layout>
-      <ProductCardList products={mockData} />
+      <ProductCardGrid products={mockData} />
     </Layout>
   );
 }

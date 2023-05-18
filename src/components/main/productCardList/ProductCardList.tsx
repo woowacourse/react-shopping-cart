@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Product } from '../../types/Product';
+import { Product } from '../../../types/Product';
 
 import { ProductCard } from '../productCard/ProductCard';
 
@@ -7,7 +7,7 @@ interface ProductCardListProps {
   products: Product[];
 }
 
-export const ProductCardList = ({ products }: ProductCardListProps) => {
+export const ProductCardGrid = ({ products }: ProductCardListProps) => {
   return (
     <Style.Container>
       {products.map((product) => (

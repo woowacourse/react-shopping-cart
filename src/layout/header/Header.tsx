@@ -62,8 +62,9 @@ const Style = {
   `,
   CartContainer: styled.div`
     display: flex;
-
     gap: 10px;
+
+    cursor: pointer;
   `,
   Cart: styled.h1`
     margin: 0;

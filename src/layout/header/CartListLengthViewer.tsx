@@ -1,6 +1,6 @@
 import { selector, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { cartIdListState } from '../../components/atoms/cartIdListAtom';
+import { cartIdListState } from '../../atoms/cartIdListAtom';
 
 const cartIdListLengthState = selector({
   key: 'cartIdListLengthState',
