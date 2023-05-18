@@ -26,10 +26,7 @@ export const TotalCartList = () => {
         <Hypen></Hypen>
       </TotalPriceWrapper>
       <OrderButtonWrapper>
-        <OrderButton
-          backgroundColor="var(--white-color)"
-          borderColor="var(--label-color)"
-        >
+        <OrderButton height="58px" backgroundColor="var(--label-color)">
           주문하기
         </OrderButton>
       </OrderButtonWrapper>
@@ -38,9 +35,9 @@ export const TotalCartList = () => {
 };
 
 const TotalCartListContainer = styled.div`
-  width: 380px;
-  height: 410px;
-  border: 1px solid var(--label-color);
+  width: 400px;
+  height: 360px;
+  border: 1px solid #dddddd;
   margin: 60px 0 0 30px;
 `;
 
@@ -53,7 +50,7 @@ const TitleWrapper = styled.div`
 `;
 
 const TotalPriceWrapper = styled.div`
-  padding: 28px 16px 0;
+  padding: 28px 20px 0;
 
   & > :nth-child(2) {
     margin-top: 16px;
@@ -76,5 +73,9 @@ const Hypen = styled.div`
 `;
 
 const OrderButtonWrapper = styled.div`
+  font-size: 24px;
   padding: 0px 16px 28px;
+  & > button {
+    color: var(--white-color);
+  }
 `;

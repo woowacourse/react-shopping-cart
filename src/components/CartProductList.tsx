@@ -47,7 +47,7 @@ const ProductCountText = styled(StyledText)`
 `;
 
 const ProductCountTextWrapper = styled.div`
-  width: 680px;
+  width: 640px;
 `;
 
 const ProductItemContainer = styled.div`

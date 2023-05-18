@@ -18,7 +18,6 @@ export const CartProductPage = () => {
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   width: 1200px;
   margin: 58px auto;
@@ -27,4 +26,5 @@ const PageContainer = styled.div`
 
 const CartListContainer = styled.div`
   display: flex;
+  justify-content: space-between;
 `;
