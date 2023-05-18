@@ -9,6 +9,7 @@ import useStepper from '../../../../hooks/useStepper';
 
 import StepperSettings from '../../../../constants/StepperSettings';
 import { productToggleSelector } from '../../../../recoil/cartToggleState';
+import usePreviousValue from '../../../../hooks/usePreviousValue';
 
 interface ProductStepperProps {
   productId: number;
@@ -27,12 +28,28 @@ const ProductStepper = (props: ProductStepperProps) => {
     defaultValue
   );
 
+  const prevValue = usePreviousValue(value);
+
   const toggleSetter = useSetRecoilState(productToggleSelector(productId));
   const deleteToggleInfo = useResetRecoilState(productToggleSelector(productId));
 
   useEffect(() => {
-    if (value) toggleSetter(true);
-    else deleteToggleInfo();
+    if (prevValue === 0 && value > 0) {
+      toggleSetter(true);
+      fetch('/cart-items', { method: 'POST', body: JSON.stringify({ productId }) });
+      return;
+    }
+
+    if (value === 0) {
+      deleteToggleInfo();
+      fetch(`/cart-items/${productId}`, { method: 'DELETE' });
+      return;
+    }
+
+    fetch(`/cart-items/${productId}`, {
+      method: 'POST',
+      body: JSON.stringify({ quantity: value }),
+    });
   }, [value]);
 
   return (
