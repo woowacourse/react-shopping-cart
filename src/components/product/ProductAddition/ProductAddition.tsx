@@ -1,51 +1,49 @@
 import { useCallback } from 'react';
 
-import { postCartItem } from '../../../api/cartAPI';
 import { DEFAULT_MIN_COUNT } from '../../../constants';
 import { useCount } from '../../../hooks/common/useCount';
-import { CartItemData, ProductItemData } from '../../../types';
+import { ProductItemData } from '../../../types';
 import { priceFormatter } from '../../../utils/formatter';
 import Button from '../../common/Button/Button';
 import Heading from '../../common/Heading/Heading';
 import StepperButton from '../../common/StepperButton/StepperButton';
 import * as S from './ProductAddition.styles';
 
-interface ProductAdditionProps {
-  productInformation: ProductItemData;
-  updateCartList: (newCartList: CartItemData[]) => void;
+interface ProductAdditionProps extends ProductItemData {
+  addItemQuantity: (productId: number, quantity: number) => Promise<void>;
   handleModalClose: () => void;
 }
 
 const ProductAddition = ({
-  productInformation,
-  updateCartList,
+  addItemQuantity,
   handleModalClose,
+  ...information
 }: ProductAdditionProps) => {
   const {
-    count: quantity,
+    count: currentQuantity,
     handleDecreaseCount,
     handleIncreaseCount,
     handleCountChange,
   } = useCount(DEFAULT_MIN_COUNT);
+
   const handleCartAdd = useCallback(async () => {
-    const data = await postCartItem(productInformation.id, quantity);
-    updateCartList(data);
+    await addItemQuantity(information.id, currentQuantity);
     handleModalClose();
-  }, [handleModalClose, productInformation.id, quantity, updateCartList]);
+  }, [addItemQuantity, currentQuantity, handleModalClose, information.id]);
 
   return (
     <>
       <S.ProductAdditionContainer>
         <S.Header>장바구니 담기</S.Header>
         <S.ProductInformationContainer>
-          <S.ProductImage src={productInformation.imageUrl} alt={productInformation.name} />
+          <S.ProductImage src={information.imageUrl} alt={information.name} />
           <div>
             <div>
-              <S.ProductName>{productInformation.name}</S.ProductName>
-              <S.ProductPrice>{priceFormatter(productInformation.price)}원</S.ProductPrice>
+              <S.ProductName>{information.name}</S.ProductName>
+              <S.ProductPrice>{priceFormatter(information.price)}원</S.ProductPrice>
             </div>
             <StepperButton
-              count={quantity}
+              count={currentQuantity}
               handleDecreaseCount={handleDecreaseCount}
               handleIncreaseCount={handleIncreaseCount}
               handleCountChange={handleCountChange}
@@ -57,7 +55,7 @@ const ProductAddition = ({
             합계
           </S.TotalPriceLabel>
           <Heading aria-labelledby="total-price-label">
-            {priceFormatter(productInformation.price * quantity)} 원
+            {priceFormatter(information.price * currentQuantity)} 원
           </Heading>
         </S.TotalPriceContainer>
         <S.ButtonContainer>
