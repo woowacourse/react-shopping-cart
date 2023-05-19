@@ -11,7 +11,7 @@ type EstimatedAmountPartProps = {
 function EstimatedAmountPart({ checkedItemsId }: EstimatedAmountPartProps) {
   const estimatedAmount = useRecoilValue(estimatedAmountState(checkedItemsId));
   const estimatedAmountText = estimatedAmount.toLocaleString();
-  const totalEstimatedAmountText = (estimatedAmount + 3000).toLocaleString();
+  const totalEstimatedAmountText = (estimatedAmount && estimatedAmount + 3000).toLocaleString();
 
   return (
     <S.EstimatedAmountPartContainer>
@@ -22,7 +22,7 @@ function EstimatedAmountPart({ checkedItemsId }: EstimatedAmountPartProps) {
       </S.EstimatedAmountTextLine>
       <S.EstimatedAmountTextLine>
         <S.EstimatedAmountText>총 배송비</S.EstimatedAmountText>
-        <S.EstimatedAmountText>3,000원</S.EstimatedAmountText>
+        <S.EstimatedAmountText>{estimatedAmount && '3,000'}원</S.EstimatedAmountText>
       </S.EstimatedAmountTextLine>
       <S.EstimatedAmountTextLine>
         <S.EstimatedAmountText>총 주문금액</S.EstimatedAmountText>
