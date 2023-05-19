@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import BMHANNAPro from '../assets/fonts/BMHANNAPro.ttf';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -25,6 +26,15 @@ const GlobalStyle = createGlobalStyle`
 
   a {
     text-decoration: none;
+  }
+
+  @font-face {
+      font-family: "BMHANNAPro";
+      src: url("${BMHANNAPro}");
+  }
+
+  *{
+    font-family: "BMHANNAPro";
   }
 `;
 
