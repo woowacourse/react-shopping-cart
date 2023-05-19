@@ -2,9 +2,23 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
+import { worker } from "./mocks/browser";
 import GlobalStyle from "./styles/GlobalStyle";
 import ProductPage from "./pages/ProductPage";
 import ShoppingCartPage from "./pages/ShoppingCartPage";
+
+const main = async () => {
+  if (window.location.pathname === "/react-shopping-cart") {
+    window.location.pathname = "/react-shopping-cart/";
+    return;
+  }
+
+  await worker.start({
+    serviceWorker: {
+      url: "/react-shopping-cart/mockServiceWorker.js",
+    },
+  });
+};
 
 const router = createBrowserRouter(
   [
@@ -13,7 +27,7 @@ const router = createBrowserRouter(
       element: <App />,
       children: [
         {
-          index: true,
+          path: "",
           element: <ProductPage />,
         },
         {
@@ -36,3 +50,5 @@ root.render(
     <RouterProvider router={router} />
   </React.StrictMode>
 );
+
+main();
