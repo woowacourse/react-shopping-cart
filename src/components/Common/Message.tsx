@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-type AbnormalState = 'error' | 'empty' | 'notFound';
+type MessageType = 'error' | 'empty' | 'notFound' | 'loading';
 
-interface AbnormalMessageProps {
-  abnormalState: AbnormalState;
+interface MessageProps {
+  type: MessageType;
   link?: boolean;
 }
 
@@ -12,26 +12,36 @@ const message = {
   error: {
     title: '에러가 발생했습니다.',
     description: '새로고침 해주세요.',
+    imageSrc: 'images/error.png',
   },
   empty: {
     title: '상품을 찾을 수 없습니다.',
     description: '새로고침 해주세요.',
+    imageSrc: 'images/error.png',
   },
   notFound: {
     title: '페이지를 찾을 수 없습니다.',
     description: '페이지가 존재하지 않거나 삭제되어 찾을 수 없어요.',
+    imageSrc: 'images/error.png',
+  },
+  loading: {
+    title: '로딩중입니다. ',
+    description: '잠시만 기다려주세요.',
+    imageSrc: 'images/loading.png',
   },
 };
 
-const AbnormalMessage = ({
-  abnormalState,
-  link = false,
-}: AbnormalMessageProps) => {
+const AbnormalMessage = ({ type, link = false }: MessageProps) => {
   return (
     <MessageSection>
-      <img width={160} height={160} src='images/error.png' alt='헐' />
-      <MessageTitle>{message[abnormalState].title}</MessageTitle>
-      <MessageDesc>{message[abnormalState].description}</MessageDesc>
+      <img
+        width={160}
+        height={160}
+        src={message[type].imageSrc}
+        alt={message[type].title}
+      />
+      <MessageTitle>{message[type].title}</MessageTitle>
+      <MessageDesc>{message[type].description}</MessageDesc>
       {link && <HomeLink to='/'>홈으로 가기</HomeLink>}
     </MessageSection>
   );
