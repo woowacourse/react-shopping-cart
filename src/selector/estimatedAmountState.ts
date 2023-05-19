@@ -1,15 +1,19 @@
-import { selector } from 'recoil';
+import { selectorFamily } from 'recoil';
 
 import shoppingCartState from '@Atoms/shoppingCartState';
 
-const estimatedAmountState = selector({
+const estimatedAmountState = selectorFamily({
   key: 'estimatedAmountState',
 
-  get: ({ get }) => {
-    const shoppingCart = get(shoppingCartState);
+  get:
+    (productsId: number[]) =>
+    ({ get }) => {
+      const shoppingCart = get(shoppingCartState);
 
-    return shoppingCart.reduce((a, b) => a + b.product.price * b.quantity, 0);
-  },
+      return shoppingCart
+        .filter((item) => productsId.includes(item.id))
+        .reduce((a, b) => a + b.product.price * b.quantity, 0);
+    },
 });
 
 export default estimatedAmountState;

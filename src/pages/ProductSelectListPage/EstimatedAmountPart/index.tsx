@@ -4,8 +4,12 @@ import estimatedAmountState from '@Selector/estimatedAmountState';
 
 import * as S from './style';
 
-function EstimatedAmountPart() {
-  const estimatedAmount = useRecoilValue(estimatedAmountState);
+type EstimatedAmountPartProps = {
+  checkedItemsId: number[];
+};
+
+function EstimatedAmountPart({ checkedItemsId }: EstimatedAmountPartProps) {
+  const estimatedAmount = useRecoilValue(estimatedAmountState(checkedItemsId));
   const estimatedAmountText = estimatedAmount.toLocaleString();
   const totalEstimatedAmountText = (estimatedAmount + 3000).toLocaleString();
 

@@ -8,17 +8,9 @@ const useCheckedItems = () => {
   const [checkedItemsId, setCheckedItemsId] = useState<number[]>([]);
   const parentCheckbox = useRef(false);
 
-  const getCheckedItemAmount = () => {
-    return checkedItemsId.length;
-  };
-
-  const isCheckedItem = (id: number) => {
-    return checkedItemsId.includes(id);
-  };
-
-  const updateCheckStatus = (id: number) => {
+  const updateEachItemCheckStatus = (id: number) => {
     return () => {
-      if (isCheckedItem(id)) {
+      if (checkedItemsId.includes(id)) {
         parentCheckbox.current = false;
         setCheckedItemsId(checkedItemsId.filter((itemID) => itemID !== id));
       } else {
@@ -28,11 +20,8 @@ const useCheckedItems = () => {
     };
   };
 
-  const changeAllItemToCheckedItem = () => {
-    setCheckedItemsId(itemsId);
-  };
-
-  const changeAllItemToUncheckedItem = () => {
+  const updateAllItemCheckState = (state: 'check' | 'uncheck') => {
+    if (state === 'check') return setCheckedItemsId(itemsId);
     setCheckedItemsId([]);
   };
 
@@ -43,11 +32,8 @@ const useCheckedItems = () => {
   return {
     parentCheckbox,
     checkedItemsId,
-    getCheckedItemAmount,
-    isCheckedItem,
-    updateCheckStatus,
-    changeAllItemToCheckedItem,
-    changeAllItemToUncheckedItem,
+    updateEachItemCheckStatus,
+    updateAllItemCheckState,
   };
 };
 

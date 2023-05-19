@@ -5,7 +5,6 @@ import ProductSelectItem from '@Components/ProductSelectItem';
 
 import { ShoppingCartProduct } from '@Types/index';
 
-import useCheckedItems from '@Hooks/useCheckedItems';
 import useShoppingCart from '@Hooks/useShoppingCart';
 
 import shoppingCartState from '@Atoms/shoppingCartState';
@@ -14,29 +13,32 @@ import shoppingItemsAmountState from '@Selector/shoppingItemsAmountState';
 
 import * as S from './style';
 
-function ProductSelectListPart() {
+type ProductSelectListPartProps = {
+  checkController: {
+    parentCheckbox: React.MutableRefObject<boolean>;
+    checkedItemsId: number[];
+    updateEachItemCheckStatus: (id: number) => () => void;
+    updateAllItemCheckState: (state: 'check' | 'uncheck') => void;
+  };
+};
+
+function ProductSelectListPart({ checkController }: ProductSelectListPartProps) {
   const [shoppingCart] = useRecoilState<ShoppingCartProduct[]>(shoppingCartState);
-  const {
-    checkedItemsId,
-    parentCheckbox,
-    getCheckedItemAmount,
-    isCheckedItem,
-    updateCheckStatus,
-    changeAllItemToCheckedItem,
-    changeAllItemToUncheckedItem,
-  } = useCheckedItems();
+  const { parentCheckbox, checkedItemsId, updateEachItemCheckStatus, updateAllItemCheckState } = checkController;
 
   const shoppingItemAmount = useRecoilValue(shoppingItemsAmountState);
   const { deleteShoppingItems } = useShoppingCart();
 
+  const checkedItemAmount = checkedItemsId.length;
+
   const toggleChecked = () => {
-    if (getCheckedItemAmount() !== shoppingItemAmount) {
-      changeAllItemToCheckedItem();
+    if (checkedItemAmount !== shoppingItemAmount) {
+      updateAllItemCheckState('check');
       parentCheckbox.current = true;
       return;
     }
 
-    changeAllItemToUncheckedItem();
+    updateAllItemCheckState('uncheck');
     parentCheckbox.current = false;
   };
 
@@ -50,18 +52,20 @@ function ProductSelectListPart() {
       <S.ProductSelectController>
         <Checkbox isChecked={parentCheckbox.current} changeEvent={toggleChecked} />
         <S.SelectedProductAmount>
-          전체 선택({getCheckedItemAmount()}/{shoppingItemAmount})
+          전체 선택({checkedItemAmount}/{shoppingItemAmount})
         </S.SelectedProductAmount>
         <S.SelectedProductDeleteButton onClick={deleteCheckedShoppingItem}>선택 삭제</S.SelectedProductDeleteButton>
       </S.ProductSelectController>
       <S.ProductSelectList>
         {shoppingCart.map((elem) => {
+          const isChecked = checkedItemsId.includes(elem.id);
+
           return (
             <ProductSelectItem
               product={elem.product}
               key={elem.id}
-              isChecked={isCheckedItem(elem.id)}
-              updateCheckStatus={updateCheckStatus(elem.id)}
+              isChecked={isChecked}
+              updateCheckStatus={updateEachItemCheckStatus(elem.id)}
             />
           );
         })}
