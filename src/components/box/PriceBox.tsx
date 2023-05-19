@@ -1,7 +1,13 @@
 import styled from '@emotion/styled';
+import { useRecoilValue } from 'recoil';
 import { Text } from '../common/Text/Text';
+import { totalPriceState } from '../../recoil/selector';
+import { formatPrice } from '../../utils/formatPrice';
 
 const PriceBox = () => {
+  const totalPrice = useRecoilValue(totalPriceState);
+  const deliveryCost = 3000;
+
   return (
     <PriceBoxWrapper>
       <PriceBoxHeader>결제예상금액</PriceBoxHeader>
@@ -11,7 +17,7 @@ const PriceBox = () => {
             총 상품가격
           </Text>
           <Text size="small" weight="littlebold" color="#333333">
-            21,700원
+            {formatPrice(totalPrice)}원
           </Text>
         </TextWrapper>
         <TextWrapper>
@@ -19,7 +25,7 @@ const PriceBox = () => {
             총 배송비
           </Text>
           <Text size="small" weight="littlebold" color="#333333">
-            3,000원
+            {formatPrice(deliveryCost)}원
           </Text>
         </TextWrapper>
         <TotalPriceTextWrapper>
@@ -27,7 +33,7 @@ const PriceBox = () => {
             총 주문금액
           </Text>
           <Text size="small" weight="littlebold" color="#333333">
-            21,700원
+            {formatPrice(totalPrice + deliveryCost)}원
           </Text>
         </TotalPriceTextWrapper>
       </PriceTextWrapper>
