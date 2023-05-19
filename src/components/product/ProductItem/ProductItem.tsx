@@ -2,7 +2,7 @@ import { useRecoilValue } from 'recoil';
 
 import { AddIcon } from '../../../assets';
 import { useModal } from '../../../hooks/common/useModal';
-import { useCartAddition } from '../../../hooks/useCartAddition';
+import { useCart } from '../../../hooks/useCart';
 import { cartItemQuantityState } from '../../../store/cart';
 import { ProductItemData } from '../../../types';
 import { priceFormatter } from '../../../utils/formatter';
@@ -17,7 +17,7 @@ interface ProductItemProps {
 
 const ProductItem = ({ information }: ProductItemProps) => {
   const cartItemQuantity = useRecoilValue(cartItemQuantityState(information.id));
-  const { isAdded, updateCartList } = useCartAddition();
+  const { isAdded, updateCartList } = useCart();
   const { isModalOpen, handleModalOpen, handleModalClose } = useModal();
 
   return (

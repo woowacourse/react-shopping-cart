@@ -5,7 +5,7 @@ import { TOAST_SHOW_DURATION } from '../constants';
 import { cartListState } from '../store/cart';
 import { CartItemData } from '../types';
 
-const useCartAddition = () => {
+const useCart = () => {
   const [isAdded, setIsAdded] = useState(false);
   const timeout = useRef<ReturnType<typeof setTimeout>>();
 
@@ -31,4 +31,4 @@ const useCartAddition = () => {
   return { isAdded, updateCartList };
 };
 
-export { useCartAddition };
+export { useCart };
