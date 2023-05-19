@@ -1,15 +1,15 @@
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import ProductItem from './ProductItem';
-
-import useProducts from '../../hooks/useProducts';
-import AbnormalMessage from '../Common/AbnormalMessage';
+import { productSelector } from '../../states/cartProducts/selectors';
+import Message from '../Common/Message';
 
 const ProductList = () => {
-  const products = useProducts();
+  const products = useRecoilValue(productSelector);
 
   if (products.length === 0) {
-    return <AbnormalMessage abnormalState='empty' />;
+    return <Message type='empty' />;
   }
 
   return (
