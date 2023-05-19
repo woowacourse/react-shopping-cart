@@ -20,8 +20,6 @@ const meta = {
     },
   ],
   args: {
-    id: '1',
-    value: 1,
     onChange: () => {},
     onIncrement: () => {},
     onDecrement: () => {},

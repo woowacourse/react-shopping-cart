@@ -1,9 +1,8 @@
 import { Meta } from '@storybook/react';
 import CartListItemComponent from '../../components/cart/CartListItem';
-
 import { styled } from 'styled-components';
 import Checkbox from '../../components/cart/Checkbox';
-import { useHandleCartList } from '../../hooks/useHandleCartList';
+
 
 const meta = {
   component: CartListItemComponent,
@@ -40,10 +39,10 @@ const meta = {
 export default meta;
 
 export const CartListItem = (args: any) => {
-  const { handleCheckedItem } = useHandleCartList();
+
   return (
     <>
-      <Checkbox onChange={handleCheckedItem(1)} isChecked={true} />
+      <Checkbox onChange={()=>{}} isChecked={true} />
       <CartListItemComponent item={args.item} setCheckItems={() => {}} />
     </>
   );
