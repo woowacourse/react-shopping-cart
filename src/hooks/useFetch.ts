@@ -10,7 +10,6 @@ export const useFetch = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    console.log(111);
     setProductsWithQuantity();
   }, []);
 
@@ -25,9 +24,7 @@ export const useFetch = () => {
         );
         return {
           ...product,
-          quantity: cartProduct
-            ? cartProduct.quantity
-            : MIN_QUANTITY.toString(),
+          quantity: cartProduct ? cartProduct.quantity : MIN_QUANTITY,
         };
       });
       setProducts(productsWithQuantity);
@@ -36,5 +33,6 @@ export const useFetch = () => {
       console.log(error);
     }
   };
+
   return { isLoading };
 };

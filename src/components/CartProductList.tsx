@@ -1,12 +1,13 @@
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import type { ProductListType, ProductType } from "../types/domain";
 import styled from "styled-components";
-import { useQuantity } from "../hooks/useQuantity";
 import { TrashCanIcon } from "../assets";
 import { Counter } from "./Counter";
 import { cartProductsSelector } from "../recoil/selector";
-import { MIN_QUANTITY } from "../constants";
 import { useCheckBox } from "../hooks/useCheckBox";
+import { deleteCartItem } from "../api";
+import { getNewProducts } from "../utils/domain";
+import { productsState } from "../recoil/atom";
 
 export const CartProductList = () => {
   const cartProducts = useRecoilValue<ProductListType>(cartProductsSelector);
@@ -56,10 +57,13 @@ const CartProduct = ({
   checked,
   onChangeHandler,
 }: CartProductType) => {
-  const { setNewQuantity } = useQuantity(id);
+  const setProducts = useSetRecoilState(productsState);
 
-  const handleTrashCanClicked = () => {
-    setNewQuantity(MIN_QUANTITY);
+  const handleTrashCanClicked = async () => {
+    deleteCartItem(id);
+
+    const newProducts = await getNewProducts();
+    setProducts(newProducts);
   };
 
   return (

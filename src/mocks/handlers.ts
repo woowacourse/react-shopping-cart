@@ -31,7 +31,7 @@ export const handlers = [
       ...cartItems,
       {
         ...products.find((product: ProductType) => product.id === productId),
-        quantity: 0,
+        quantity: 1,
       },
     ]);
 

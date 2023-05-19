@@ -1,6 +1,10 @@
 import React from "react";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { deleteCartItem } from "../api";
 import { useQuantity } from "../hooks/useQuantity";
+import { productsState } from "../recoil/atom";
+import { getNewProducts } from "../utils/domain";
 
 interface CounterProps {
   itemId: number;
@@ -14,6 +18,8 @@ export const Counter = ({ itemId }: CounterProps) => {
     handleQuantityBlured,
   } = useQuantity(itemId);
 
+  const setProducts = useSetRecoilState(productsState);
+
   const handleCountInputKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (!(e.target instanceof HTMLInputElement) || e.key !== "Enter") return;
     e.target.blur();
@@ -23,7 +29,14 @@ export const Counter = ({ itemId }: CounterProps) => {
     setNewQuantity(Number(quantity) + 1);
   };
 
-  const handleDownArrowBox = () => {
+  const handleDownArrowBox = async () => {
+    if (quantity === "1") {
+      deleteCartItem(itemId);
+
+      const newProducts = await getNewProducts();
+      setProducts(newProducts);
+      return;
+    }
     setNewQuantity(Number(quantity) - 1);
   };
 

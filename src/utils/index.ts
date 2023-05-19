@@ -1,3 +1,9 @@
+import { useSetRecoilState } from "recoil";
+import { fetchProducts, fetchCartItems } from "../api";
+import { MIN_QUANTITY } from "../constants";
+import { productsState } from "../recoil/atom";
+import { PayloadType, CartItemType } from "../types/domain";
+
 export const getLocalStorage = <T>(key: string, defaultValue: T): T => {
   const data = localStorage.getItem(key);
   if (!data) return defaultValue;
