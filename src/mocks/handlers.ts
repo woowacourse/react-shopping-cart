@@ -4,7 +4,7 @@ import mockData from '../assets/mock.json';
 import cartMock from '../assets/cartMock.json';
 
 const minDelay = 300;
-const maxDelay = 2000;
+const maxDelay = 500;
 
 const delay = Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
 
@@ -14,6 +14,10 @@ export const handlers = [
   }),
 
   rest.get('/cart-items', (req, res, ctx) => {
+    return res(ctx.delay(delay), ctx.status(200), ctx.json(cartMock));
+  }),
+
+  rest.patch('/cart-items/:id', (req, res, ctx) => {
     return res(ctx.delay(delay), ctx.status(200), ctx.json(cartMock));
   }),
 ];
