@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const EstimatedAmountPartContainer = styled.div`
-  padding: 4% 0;
+  padding-bottom: 6%;
   border: 1px solid #dddddd;
 
   width: 80%;
@@ -56,4 +56,6 @@ export const PurchaseButton = styled.button`
   line-height: 21px;
 
   color: #ffffff;
+
+  cursor: pointer;
 `;
