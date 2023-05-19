@@ -26,9 +26,9 @@ const ProductAddition = ({
     handleCountChange,
   } = useCount(DEFAULT_MIN_COUNT);
 
-  const handleCartAdd = useCallback(async () => {
-    await addItemQuantity(information.id, currentQuantity);
+  const handleCartAdd = useCallback(() => {
     handleModalClose();
+    addItemQuantity(information.id, currentQuantity);
   }, [addItemQuantity, currentQuantity, handleModalClose, information.id]);
 
   return (
