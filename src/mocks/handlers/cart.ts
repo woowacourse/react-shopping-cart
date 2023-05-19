@@ -7,11 +7,9 @@ import {
 import { uuid } from '../../utils/uuid';
 import type { CartItem } from '../../types/product';
 
-const localStorageCartData = localStorage.getItem(CART_LOCAL_STORAGE_KEY);
+const localStorageCart = localStorage.getItem(CART_LOCAL_STORAGE_KEY);
 // eslint-disable-next-line prefer-const
-let cart: CartItem[] = localStorageCartData
-  ? JSON.parse(localStorageCartData)
-  : [];
+let cart: CartItem[] = localStorageCart ? JSON.parse(localStorageCart) : [];
 
 const isInCart = (id: number) =>
   cart.some((cartItem) => cartItem.product.id === id);
