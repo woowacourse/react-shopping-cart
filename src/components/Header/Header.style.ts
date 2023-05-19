@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const Navbar = styled.div`
-  background-color: ${({ theme }) => theme.primaryColor};
   width: 100vw;
   color: ${({ theme }) => theme.lightColor};
+  border-bottom: 1px solid ${({ theme }) => theme.secondaryColor};
 `;
 
 export const HeaderWrapper = styled.div`
@@ -18,14 +18,8 @@ export const LogoWrapper = styled.div`
   align-items: center;
 `;
 
-export const CartIcon = styled.img`
-  width: 40px;
-  height: 40px;
-`;
-
-export const Logo = styled.h1`
-  font-size: 40px;
-  margin-left: 8px;
+export const LogoImage = styled.img`
+  height: 35px;
 `;
 
 export const CartWrapper = styled.div`
@@ -34,6 +28,7 @@ export const CartWrapper = styled.div`
 
 export const CartTitle = styled.div`
   font-size: 24px;
+  color: ${({ theme }) => theme.darkColor};
 `;
 
 export const CartCountWrapper = styled.div`

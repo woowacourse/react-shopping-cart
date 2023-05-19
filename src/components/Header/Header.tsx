@@ -1,10 +1,8 @@
-import cartIcon from '../../assets/cart.svg';
+import titleLogo from '../../assets/logo.png';
 import { useNavigate } from 'react-router-dom';
 import { Container } from '../../style/style';
 import {
-  CartCount, CartCountWrapper, CartIcon,
-  CartTitle, CartWrapper, HeaderWrapper,
-  Logo, LogoWrapper, Navbar
+  CartCount, CartCountWrapper, CartTitle, CartWrapper, HeaderWrapper, LogoImage, LogoWrapper, Navbar
 } from './Header.style';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { cartCountSelector, cartState } from '../../recoil/cartAtoms';
@@ -35,8 +33,7 @@ function Header() {
       <Container>
         <HeaderWrapper>
           <LogoWrapper onClick={() => navigate('/')}>
-            <CartIcon src={cartIcon} />
-            <Logo>SHOP</Logo>
+            <LogoImage src={titleLogo} />
           </LogoWrapper>
           <CartWrapper onClick={() => navigate('/cart')}>
             <CartTitle>장바구니</CartTitle>
