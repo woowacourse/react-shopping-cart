@@ -10,8 +10,8 @@ interface ProductInfoProps {
 const ProductInfo = ({ name, price }: ProductInfoProps) => {
   return (
     <Styled.ProductInfo>
-      <ProductName name={name}></ProductName>
-      <ProductPrice price={price}></ProductPrice>
+      <ProductName name={name} />
+      <ProductPrice price={price} />
     </Styled.ProductInfo>
   );
 };

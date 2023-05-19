@@ -6,9 +6,10 @@ const Styled = {
     display: flex;
     flex-direction: column;
     gap: 4px;
-
+    overflow: hidden;
     padding-left: 16px;
   `,
+  NameSections: styled.section``,
 };
 
 export default Styled;

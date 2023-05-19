@@ -58,10 +58,13 @@ const imgTheme = {
   height: "144px",
 };
 const nameTheme = {
+  width: "332px",
+  height: "42px",
   fontSize: "24px",
 };
 const counterTheme = {
   alignSelf: "end",
+
   width: "100px",
   height: "40px",
 };

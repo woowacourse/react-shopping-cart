@@ -45,6 +45,6 @@ export const cartQuantitySelector = selector({
   get: ({ get }) => {
     const carts = get(cartAllSelector);
     const quantity = carts.length;
-    return quantity < 100 ? quantity : "99";
+    return quantity;
   },
 });
