@@ -1,14 +1,25 @@
 import { styled } from 'styled-components';
 import Bill from '../components/Bill/Bill';
 import CartItemList from '../components/CartItemList/CartItemList';
+import { ReactComponent as Teung } from '../assets/img/empty-cart.svg';
+import { useRecoilValue } from 'recoil';
+import { cartAtom } from '../store/cart';
 
 const CartPage = () => {
+  const cartList = useRecoilValue(cartAtom);
+
   return (
     <Wrapper>
       <Title>장바구니</Title>
       <MainInfo>
-        <CartItemList />
-        <Bill />
+        {cartList.length ? (
+          <>
+            <CartItemList />
+            <Bill />
+          </>
+        ) : (
+          <Teung />
+        )}
       </MainInfo>
     </Wrapper>
   );
@@ -39,7 +50,7 @@ const Title = styled.div`
 const MainInfo = styled.div`
   display: flex;
   align-items: start;
-  justify-content: space-between;
+  justify-content: center;
 
   width: 80%;
 
