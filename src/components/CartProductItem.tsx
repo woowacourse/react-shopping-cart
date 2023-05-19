@@ -5,6 +5,7 @@ import { StyledText } from './common/Text';
 import { DeleteProductButtonImage } from '../assets/image';
 import { AddToCartCount } from './AddToCartCount';
 import { CartProductList } from '../types/productType';
+import { useCartState } from './hooks/useCartState';
 
 interface CartProductItemProps {
   cartProduct: CartProductList;
@@ -12,6 +13,7 @@ interface CartProductItemProps {
 
 export const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
   const { id, quantity, product } = cartProduct;
+  const { increaseCount, decreaseCount } = useCartState(product);
 
   return (
     <CartProductItemContainer key={id}>
@@ -25,7 +27,11 @@ export const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
 
       <RightSideWrapper>
         <DeleteProductButtonImage />
-        <AddToCartCount product={product} id={id} quantity={quantity} />
+        <AddToCartCount
+          quantity={quantity}
+          increaseCount={increaseCount}
+          decreaseCount={decreaseCount}
+        />
         <ProductPrice size="18px" weight="600">
           {product.price}원
         </ProductPrice>

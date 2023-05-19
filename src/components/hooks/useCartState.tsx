@@ -42,10 +42,29 @@ export const useCartState = (props: Product) => {
 
       const updatedCartList = [...prev];
 
-      updatedCartList[index] = {
-        ...updatedCartList[index],
-        quantity: updatedCartList[index].quantity - 1,
-      };
+      if (updatedCartList[index].quantity > 1) {
+        updatedCartList[index] = {
+          ...updatedCartList[index],
+          quantity: updatedCartList[index].quantity - 1,
+        };
+      }
+
+      return updatedCartList;
+    });
+  };
+
+  const deleteCartItem = () => {
+    setCartProductState((prev) => {
+      const index = getIndex(prev, id);
+
+      const updatedCartList = [...prev];
+
+      if (updatedCartList[index].quantity > 0) {
+        updatedCartList[index] = {
+          ...updatedCartList[index],
+          quantity: updatedCartList[index].quantity - 1,
+        };
+      }
 
       if (updatedCartList[index].quantity === 0) {
         return updatedCartList.filter(
@@ -57,5 +76,5 @@ export const useCartState = (props: Product) => {
     });
   };
 
-  return { addToCartState, increaseCount, decreaseCount };
+  return { addToCartState, increaseCount, decreaseCount, deleteCartItem };
 };

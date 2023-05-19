@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { cartState } from '../atoms/CartState';
 import { CartProductList, Product } from '../types/productType';
+import { useCartState } from './hooks/useCartState';
 
 export const AddToCartButton = ({
   addToCartState,
@@ -20,10 +21,16 @@ export const AddToCartButton = ({
     (item: CartProductList) => item.id === id
   )?.quantity;
 
+  const { increaseCount, deleteCartItem } = useCartState(product);
+
   return (
     <>
       {quantity ? (
-        <AddToCartCount product={product} id={id} quantity={quantity} />
+        <AddToCartCount
+          quantity={quantity}
+          increaseCount={increaseCount}
+          decreaseCount={deleteCartItem}
+        />
       ) : (
         <AddToCartButtonImageWrapper>
           <AddToCartButtonImage onClick={addToCartState} />
