@@ -4,6 +4,7 @@ import { CloseIcon } from '../../../assets';
 import { useCartItem } from '../../../hooks/useCartItem';
 import { ProductItemData } from '../../../types';
 import { priceFormatter } from '../../../utils/formatter';
+import Checkbox from '../../common/Checkbox/Checkbox';
 import StepperButton from '../../common/StepperButton/StepperButton';
 import * as S from './CartItem.styles';
 
@@ -24,6 +25,7 @@ const CartItem = ({ id, quantity, name, price, imageUrl }: CartItemProps) => {
 
   return (
     <S.CartItemContainer>
+      <Checkbox isChecked={true} />
       <S.CartItemImageWrapper>
         <S.CartItemImage src={imageUrl} alt={name} />
       </S.CartItemImageWrapper>

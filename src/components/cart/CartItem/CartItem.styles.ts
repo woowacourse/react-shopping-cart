@@ -15,7 +15,7 @@ const CartItemContainer = styled.li`
 const CartItemImageWrapper = styled.div`
   width: 80px;
   height: 80px;
-  margin-right: ${({ theme }) => theme.spacer.spacing4};
+  margin-left: ${({ theme }) => theme.spacer.spacing3};
 `;
 
 const CartItemImage = styled.img`
@@ -27,7 +27,7 @@ const CartItemImage = styled.img`
 `;
 
 const CartItemName = styled(Text)`
-  width: 340px;
+  width: 300px;
   margin-right: ${({ theme }) => theme.spacer.spacing4};
   overflow: hidden;
   white-space: nowrap;
@@ -40,7 +40,7 @@ const CartItemName = styled(Text)`
 `;
 
 const CartItemPrice = styled(Text)`
-  width: 128px;
+  width: 126px;
   margin-right: 12px;
   text-align: right;
   letter-spacing: -0.2px;
