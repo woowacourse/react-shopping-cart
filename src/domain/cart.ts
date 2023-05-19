@@ -15,58 +15,47 @@ const checkItemInCart = (cartList: CartItemData[], productId: number) => {
   return cartList.some((cartItem) => cartItem.product.id === productId);
 };
 
-const findCartItemIndex = (cartList: CartItemData[], productId: number) => {
-  return cartList.findIndex((cartItem) => cartItem.product.id === productId);
-};
-
 const addCartItemQuantity = (cartList: CartItemData[], productId: number, quantity: number) => {
-  const selectedCartItemIndex = findCartItemIndex(cartList, productId);
+  const hasItem = checkItemInCart(cartList, productId);
 
-  if (selectedCartItemIndex === -1) {
-    const newCartId = Number(new Date());
-    const product = productListData.find((productItem) => productItem.id === productId)!;
+  if (!hasItem) {
+    return cartList.map((cartItem) => {
+      if (cartItem.product.id === productId) {
+        return { ...cartItem, quantity: cartItem.quantity + quantity };
+      }
 
-    return [...cartList, { id: newCartId, quantity, product }];
+      return cartItem;
+    });
   }
 
-  const updatedCartList = [
-    ...cartList.slice(0, selectedCartItemIndex),
-    {
-      ...cartList[selectedCartItemIndex],
-      quantity: quantity + cartList[selectedCartItemIndex].quantity,
-    },
-    ...cartList.slice(selectedCartItemIndex + 1),
-  ];
+  const newCartId = Number(new Date());
+  const product = productListData.find((productItem) => productItem.id === productId);
 
-  return updatedCartList;
+  if (!product) return null;
+
+  return [...cartList, { id: newCartId, quantity, product }];
 };
 
 const updateCartItemQuantity = (cartList: CartItemData[], productId: number, quantity: number) => {
-  const selectedCartItemIndex = findCartItemIndex(cartList, productId);
+  const hasItem = checkItemInCart(cartList, productId);
 
-  const updatedCartList = [
-    ...cartList.slice(0, selectedCartItemIndex),
-    {
-      ...cartList[selectedCartItemIndex],
-      quantity,
-    },
-    ...cartList.slice(selectedCartItemIndex + 1),
-  ];
+  if (!hasItem) return null;
 
-  return updatedCartList;
+  return cartList.map((cartItem) => {
+    if (cartItem.product.id === productId) {
+      return { ...cartItem, quantity: cartItem.quantity + quantity };
+    }
+
+    return cartItem;
+  });
 };
 
 const removeCartItem = (cartList: CartItemData[], productId: number) => {
-  const selectedCartItemIndex = findCartItemIndex(cartList, productId);
+  const hasItem = checkItemInCart(cartList, productId);
 
-  if (selectedCartItemIndex === -1) return [...cartList];
+  if (!hasItem) return null;
 
-  const updatedCartList = [
-    ...cartList.slice(0, selectedCartItemIndex),
-    ...cartList.slice(selectedCartItemIndex + 1),
-  ];
-
-  return updatedCartList;
+  return cartList.filter((cartItem) => cartItem.product.id !== productId);
 };
 
 export {

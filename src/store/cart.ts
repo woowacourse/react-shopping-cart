@@ -44,8 +44,8 @@ const cartItemQuantityState = selectorFamily<number, number>({
         const hasItem = checkItemInCart(prevCartList, productId);
 
         return hasItem
-          ? updateCartItemQuantity(prevCartList, productId, quantity)
-          : addCartItemQuantity(prevCartList, productId, quantity);
+          ? updateCartItemQuantity(prevCartList, productId, quantity)!
+          : addCartItemQuantity(prevCartList, productId, quantity)!;
       });
     },
 });
