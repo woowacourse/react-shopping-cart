@@ -33,14 +33,14 @@ const CartItemList = () => {
   };
 
   const onDeleteSelectedItems = () => {
-    setCartIdArray((prev) => prev.filter((id) => !checkedItems.includes(id)));
     checkedItems.forEach((id) => api.delete(`/api/cart-items/${id}`));
+    setCartIdArray((prev) => prev.filter((id) => !checkedItems.includes(id)));
   };
 
   return (
     <S.ItemWrapper>
       <S.CartItemTitle>든든배송 상품({checkedItems.length}개)</S.CartItemTitle>
-      {data?.cartList.length === 0 && emptyList}
+      {data?.cartList?.length === 0 && emptyList}
       {fetchedCartList}
       <S.CheckBoxWrapper>
         <S.SelectAllCheckBox
