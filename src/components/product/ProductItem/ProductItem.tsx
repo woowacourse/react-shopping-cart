@@ -11,13 +11,11 @@ import Toast from '../../common/Toast/Toast';
 import ProductAddition from '../ProductAddition/ProductAddition';
 import * as S from './ProductItem.styles';
 
-interface ProductItemProps {
-  information: ProductItemData;
-}
+type ProductItemProps = ProductItemData;
 
-const ProductItem = ({ information }: ProductItemProps) => {
+const ProductItem = ({ ...information }: ProductItemProps) => {
   const cartItemQuantity = useRecoilValue(cartItemQuantityState(information.id));
-  const { isAdded, updateCartList } = useCart();
+  const { isAdded, addItemQuantity } = useCart();
   const { isModalOpen, handleModalOpen, handleModalClose } = useModal();
 
   return (
@@ -39,9 +37,9 @@ const ProductItem = ({ information }: ProductItemProps) => {
         {isModalOpen && (
           <Modal handleClose={handleModalClose}>
             <ProductAddition
+              addItemQuantity={addItemQuantity}
               handleModalClose={handleModalClose}
-              productInformation={information}
-              updateCartList={updateCartList}
+              {...information}
             />
           </Modal>
         )}
