@@ -1,23 +1,59 @@
+import { useRecoilValue } from 'recoil';
 import useCart from '../../hooks/useCart';
-
-/**
- * TODO: 
- * STEP 2 에서 구현할 예정입니다.
- * STEP 1 에서는 전역 상태 관리 테스트만 하고 있습니다!
- */
+import { cartCountSelector } from '../../recoil/cartAtoms';
 
 function Cart() {
   const { cartList } = useCart();
+  const cartCount = useRecoilValue(cartCountSelector);
+
   return (
-    <>
-      {cartList.map((cart) => (
-        <div key={cart.id}>
-          <div style={{ fontSize: '20px' }}>
-            {cart.product.name} - ({cart.quantity}개)
+    <div>
+      <div>장바구니</div>
+      <div style={{ display: 'flex' }}>
+        <div>
+          <div>든든배송 상품 ({cartCount}개)</div>
+          {cartList.map((cart) => (
+            <div key={cart.id}>
+              <div style={{ fontSize: '20px' }}>
+                {JSON.stringify(cart)}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div>
+          <div>결제예상금액</div>
+          <div>
+            <div>
+              총 상품가격
+            </div>
+            <div>
+              {0}원
+            </div>
+          </div>
+          <div>
+            <div>
+              총 배송비
+            </div>
+            <div>
+              {0}원
+            </div>
+          </div>
+          <div>
+            <div>
+              총 주문 금액
+            </div>
+            <div>
+              {0}원
+            </div>
+          </div>
+          <div>
+            <button>
+              주문하기
+            </button>
           </div>
         </div>
-      ))}
-    </>
+      </div>
+    </div>
   );
 }
 export default Cart;
