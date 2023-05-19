@@ -47,3 +47,10 @@ export const patchCartItemQuantityQuery = async (
   console.log(response);
   if (!response.ok) throw new Error();
 };
+
+export const deleteItemQuery = async (cartId: number) => {
+  const response = await fetch(`/cart-items/${cartId}`, {
+    method: 'DELETE',
+  });
+  if (!response.ok) throw new Error();
+};

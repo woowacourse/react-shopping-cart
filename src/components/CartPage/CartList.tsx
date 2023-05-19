@@ -5,7 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { cartState } from '../../atoms/cartState';
 
 export default function CartList() {
-  const cart = useRecoilValue(cartState);
+  const cart = useRecoilValue(cartState({ action: 'GET' }));
   return (
     <CartListContainer>
       <CartListHeader>든든 배송 상품 (n개)</CartListHeader>

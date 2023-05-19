@@ -1,21 +1,22 @@
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { totalCartCountState } from '../atoms/cartState';
 import { useNavigate } from 'react-router-dom';
+import QuantityCircle from './ProductListPage/QuantityCircle';
+import { Suspense } from 'react';
 
 interface CartQuantityProps {
   user?: string;
 }
 
 export default function CartQuantity({ user }: CartQuantityProps) {
-  const totalCart = useRecoilValue(totalCartCountState);
   const navigate = useNavigate();
 
   return (
     <CartQuantityContainer onClick={() => navigate('/cart')}>
       <div>{user && `${user}의 `}장바구니</div>
-      <Quantity>{totalCart}</Quantity>
+      <Suspense fallback={<Quantity>..</Quantity>}>
+        <QuantityCircle />
+      </Suspense>
     </CartQuantityContainer>
   );
 }
