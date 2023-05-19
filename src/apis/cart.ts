@@ -1,14 +1,15 @@
 import { CartItem } from '../types/cart';
-import { client } from './index';
+import { waitFor, WaitForOptions } from '../utils/waitFor';
+import { fetchQuery } from './api';
 
 interface FetchCartRes {
   cart: CartItem[];
 }
 
-export const fetchCart: () => Promise<FetchCartRes> = async () => {
-  const { data } = await client('/data/mockCart.json');
+export const fetchCart = (options?: WaitForOptions<FetchCartRes>) => {
+  const promise = fetchQuery.get<FetchCartRes>(`/data/mockCart.json`);
 
-  return data;
+  return waitFor(promise, options);
 };
 
 interface AddCartDataReq {
@@ -20,8 +21,8 @@ interface AddCartDataRes {}
 
 export const addCartData: (
   payload: AddCartDataReq
-) => Promise<AddCartDataRes> = async ({ id, quantity }) => {
-  const { data } = await client.post(`/cart/${id}`, { quantity });
-
-  return data;
+) => Promise<AddCartDataRes> = ({ id, quantity }) => {
+  return fetchQuery.post<AddCartDataRes>(`/cart/${id}`, {
+    body: { id, quantity },
+  });
 };

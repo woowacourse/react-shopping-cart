@@ -1,12 +1,14 @@
 import { Product } from '../types/products';
-import { client } from './index';
+import { fetchQuery } from './api';
 
-interface fetchProductDataRes {
+interface FetchProductDataRes {
   items: Product[];
 }
 
-export const fetchProductData = async (): Promise<fetchProductDataRes> => {
-  const { data } = await client('/data/mockProducts.json');
+export const fetchProductData = async (): Promise<FetchProductDataRes> => {
+  const data = await fetchQuery.get<FetchProductDataRes>(
+    '/data/mockProducts.json'
+  );
 
   return data;
 };
