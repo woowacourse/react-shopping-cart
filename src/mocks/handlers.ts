@@ -1,5 +1,6 @@
 import { rest } from 'msw';
 
+import { API_ENDPOINT } from '../constants/api';
 import productListData from '../data/mockData.json';
 import {
   addCartItemQuantity,
@@ -12,17 +13,17 @@ import { CartItemData, PostCartItemRequestBody, ProductItemData } from '../types
 import { PatchCartItemRequestBody } from '../types/api';
 
 const handlers = [
-  rest.get('/api/products', (req, res, ctx) => {
+  rest.get(API_ENDPOINT.PRODUCTS_GET, (req, res, ctx) => {
     return res(ctx.delay(2000), ctx.status(200), ctx.json<ProductItemData[]>(productListData));
   }),
 
-  rest.get('/api/carts', (req, res, ctx) => {
+  rest.get(API_ENDPOINT.CART_GET, (req, res, ctx) => {
     const cartList = getCartData();
 
     return res(ctx.delay(2000), ctx.status(200), ctx.json<CartItemData[]>(cartList));
   }),
 
-  rest.post('/api/carts/add', async (req, res, ctx) => {
+  rest.post(API_ENDPOINT.CART_POST, async (req, res, ctx) => {
     const { productId, quantity } = await req.json<PostCartItemRequestBody>();
     const currentCartData = getCartData();
 
@@ -32,7 +33,7 @@ const handlers = [
     return res(ctx.delay(1000), ctx.status(200), ctx.json<CartItemData[]>(newCartList));
   }),
 
-  rest.patch('/api/carts/change/:productId', async (req, res, ctx) => {
+  rest.patch(`${API_ENDPOINT.CART_PATCH}/:productId`, async (req, res, ctx) => {
     const { productId } = req.params;
     const { quantity } = await req.json<PatchCartItemRequestBody>();
     const currentCartData = getCartData();
@@ -43,7 +44,7 @@ const handlers = [
     return res(ctx.delay(1000), ctx.status(200), ctx.json<CartItemData[]>(newCartList));
   }),
 
-  rest.delete('api/carts/remove/:productId', (req, res, ctx) => {
+  rest.delete(`${API_ENDPOINT.CART_DELETE}/:productId`, (req, res, ctx) => {
     const { productId } = req.params;
     const currentCartData = getCartData();
 
