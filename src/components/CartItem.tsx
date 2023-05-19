@@ -1,19 +1,50 @@
+import { Dispatch, SetStateAction } from 'react';
 import { styled } from 'styled-components';
 import { GarbageIcon } from '../assets/svg';
-import Button from './common/Button';
-import Stepper from './Stepper';
+import { useProductInCartById } from '../recoils/recoilCart';
+import { useCheckedState } from '../recoils/recoilChecked';
+import { Button } from './common/Button';
+import { Stepper } from './Stepper';
 import { Checkbox } from './styled';
 
 interface CartItemProps {
-  product: any;
-  quantity: number;
+  productId: number;
+  setTotalProductPrice: Dispatch<SetStateAction<number>>;
 }
 
-export const CartItem = ({ product, quantity }: CartItemProps) => {
+export const CartItem = ({ productId, setTotalProductPrice }: CartItemProps) => {
+  const { quantity, product } = useProductInCartById(productId)!;
+  const [checkState, setCheckState] = useCheckedState();
+
+  const onChangeCheckBox = () => {
+    setCheckState((prev) => {
+      if (prev[product.id]) {
+        setTotalProductPrice((prev) => prev - product.price * quantity);
+
+        const { [product.id]: _, ...updatedState } = prev;
+        return {
+          ...updatedState,
+          all: false,
+        };
+      }
+
+      setTotalProductPrice((prev) => prev + product.price * quantity);
+
+      return {
+        ...prev,
+        [product.id]: true,
+      };
+    });
+  };
+
   return (
     <Style.CartItem>
       <Style.LeftInfo>
-        <Style.Checkbox type="checkbox" />
+        <Style.Checkbox
+          type="checkbox"
+          checked={Boolean(checkState[product.id])}
+          onChange={onChangeCheckBox}
+        />
         <Style.ProductImage path={product.imageUrl} />
         <Style.ProductName>{product.name}</Style.ProductName>
       </Style.LeftInfo>
@@ -21,7 +52,7 @@ export const CartItem = ({ product, quantity }: CartItemProps) => {
         <Button designType="square">
           <GarbageIcon />
         </Button>
-        <Stepper productId={product.id} count={quantity} />
+        <Stepper productId={product.id} quantity={quantity} />
         <Style.ProductPrice>{product.price}</Style.ProductPrice>
       </Style.RightInfo>
     </Style.CartItem>

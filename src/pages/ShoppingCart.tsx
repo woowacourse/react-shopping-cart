@@ -1,140 +1,73 @@
+import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { CartItem } from '../components/CartItem';
-import Header from '../components/Header';
+import { Header } from '../components/Header';
 import { OrderSummary } from '../components/OrderSummary';
 import { Checkbox } from '../components/styled';
-
-const mock = [
-  {
-    id: 1,
-    quantity: 5,
-    product: {
-      id: 1,
-      price: 10000,
-      name: '치킨',
-      imageUrl: 'https://cdn.pixabay.com/photo/2011/12/13/14/28/earth-11009__480.jpg',
-    },
-  },
-  {
-    id: 2,
-    quantity: 1,
-    product: {
-      id: 2,
-      price: 20000,
-      name: '피자',
-      imageUrl: 'https://cdn.pixabay.com/photo/2011/12/13/14/30/mars-11012__480.jpg',
-    },
-  },
-  {
-    id: 2,
-    quantity: 1,
-    product: {
-      id: 2,
-      price: 20000,
-      name: '피자',
-      imageUrl: 'https://cdn.pixabay.com/photo/2011/12/13/14/30/mars-11012__480.jpg',
-    },
-  },
-  {
-    id: 2,
-    quantity: 1,
-    product: {
-      id: 2,
-      price: 20000,
-      name: '피자',
-      imageUrl: 'https://cdn.pixabay.com/photo/2011/12/13/14/30/mars-11012__480.jpg',
-    },
-  },
-  {
-    id: 2,
-    quantity: 1,
-    product: {
-      id: 2,
-      price: 20000,
-      name: '피자',
-      imageUrl: 'https://cdn.pixabay.com/photo/2011/12/13/14/30/mars-11012__480.jpg',
-    },
-  },
-  {
-    id: 2,
-    quantity: 1,
-    product: {
-      id: 2,
-      price: 20000,
-      name: '피자',
-      imageUrl: 'https://cdn.pixabay.com/photo/2011/12/13/14/30/mars-11012__480.jpg',
-    },
-  },
-  {
-    id: 2,
-    quantity: 1,
-    product: {
-      id: 2,
-      price: 20000,
-      name: '피자',
-      imageUrl: 'https://cdn.pixabay.com/photo/2011/12/13/14/30/mars-11012__480.jpg',
-    },
-  },
-  {
-    id: 2,
-    quantity: 1,
-    product: {
-      id: 2,
-      price: 20000,
-      name: '피자',
-      imageUrl: 'https://cdn.pixabay.com/photo/2011/12/13/14/30/mars-11012__480.jpg',
-    },
-  },
-  {
-    id: 2,
-    quantity: 1,
-    product: {
-      id: 2,
-      price: 20000,
-      name: '피자',
-      imageUrl: 'https://cdn.pixabay.com/photo/2011/12/13/14/30/mars-11012__480.jpg',
-    },
-  },
-  {
-    id: 2,
-    quantity: 1,
-    product: {
-      id: 2,
-      price: 20000,
-      name: '피자',
-      imageUrl: 'https://cdn.pixabay.com/photo/2011/12/13/14/30/mars-11012__480.jpg',
-    },
-  },
-  {
-    id: 2,
-    quantity: 1,
-    product: {
-      id: 2,
-      price: 20000,
-      name: '피자',
-      imageUrl: 'https://cdn.pixabay.com/photo/2011/12/13/14/30/mars-11012__480.jpg',
-    },
-  },
-];
+import { useCartState } from '../recoils/recoilCart';
+import { useCheckedState } from '../recoils/recoilChecked';
 
 export const ShoppingCart = () => {
+  const [cart] = useCartState();
+  const [checkedState, setCheckedState] = useCheckedState();
+  const [totalProductPrice, setTotalProductPrice] = useState(0);
+
+  useEffect(() => {
+    if (cart === null) return;
+
+    const totalProductPrice = cart.reduce((totalPrice, item) => {
+      if (checkedState[item.id]) {
+        return totalPrice + item.quantity * item.product.price;
+      }
+
+      return totalPrice;
+    }, 0);
+
+    setTotalProductPrice(totalProductPrice);
+  }, [cart]);
+
+  const onChangeAllCheckbox = () => {
+    setCheckedState((prev) => {
+      if (prev.all) setTotalProductPrice(0);
+      else {
+        setTotalProductPrice(cart.reduce((acc, cur) => acc + cur.quantity * cur.product.price, 0));
+      }
+
+      const a: any = {};
+      for (const product of cart) {
+        a[product.id] = !prev.all;
+      }
+
+      return {
+        ...a,
+        all: !prev.all,
+      };
+    });
+  };
+
   return (
     <Style.Layout>
       <Header />
       <Style.ShoppingCart>
         <Style.PageTitle>장바구니</Style.PageTitle>
-        <Style.CountOfCartItems>든든배송 상품 (3개)</Style.CountOfCartItems>
+        <Style.CountOfCartItems>든든배송 상품 ({cart.length}개)</Style.CountOfCartItems>
         <Style.Content>
           <Style.CartItems>
-            {Object.values(mock).map(({ product, quantity }) => (
-              <CartItem key={product.id} product={product} quantity={quantity} />
+            {cart.map(({ id }) => (
+              <CartItem key={id} productId={id} setTotalProductPrice={setTotalProductPrice} />
             ))}
           </Style.CartItems>
-          <OrderSummary />
+          <OrderSummary totalProductPrice={totalProductPrice} />
         </Style.Content>
         <Style.SelectionActions>
-          <Style.Checkbox type="checkbox" />
-          <div>전체선택 (2/3)</div>
+          <Style.Checkbox
+            type="checkbox"
+            checked={checkedState.all}
+            onChange={onChangeAllCheckbox}
+          />
+          <div>
+            전체선택 ({Object.keys(checkedState).length - 1}/{cart.length})
+          </div>
           <button>선택삭제</button>
         </Style.SelectionActions>
       </Style.ShoppingCart>
