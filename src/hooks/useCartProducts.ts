@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 import { cartProductAtom } from '../recoil/cartProductData';
 import type { Product } from '../types/product';
 import { deleteProduct, findTargetProduct } from '../utils/cartProduct';
-import { postCartProducts } from '../apis/cartProducts';
+import { deleteCartProduct, postCartProduct } from '../apis/cartProducts';
 
 const useCartProducts = (product: Product) => {
   const { id } = product;
@@ -12,7 +12,7 @@ const useCartProducts = (product: Product) => {
 
   const addProduct = () => {
     setCartProducts((prev) => [...prev, { id, quantity: 1, product }]);
-    postCartProducts(id);
+    postCartProduct(id);
   };
 
   const target = findTargetProduct(cartProducts, id);
@@ -22,6 +22,7 @@ const useCartProducts = (product: Product) => {
 
     if (target.quantity === 0) {
       setCartProducts((prev) => deleteProduct(prev, id));
+      deleteCartProduct(id);
     }
   }, [id, setCartProducts, target]);
 
