@@ -10,7 +10,6 @@ import ProductAddition from '../ProductAddition/ProductAddition';
 import Modal from '../common/Modal/Modal';
 import Toast from '../common/Toast/Toast';
 import * as S from './ProductItem.styles';
-import ProductItemSkeleton from './ProductItemSkeleton';
 
 interface ProductItemProps {
   information: ProductItemData;
@@ -53,5 +52,3 @@ const ProductItem = ({ information }: ProductItemProps) => {
 };
 
 export default ProductItem;
-
-ProductItem.Skeleton = ProductItemSkeleton;

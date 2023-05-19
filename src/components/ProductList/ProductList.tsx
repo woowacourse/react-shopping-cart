@@ -3,7 +3,6 @@ import { useRecoilValue } from 'recoil';
 import { productListState } from '../../store/product';
 import ProductItem from '../ProductItem/ProductItem';
 import * as S from './ProductList.styles';
-import { ProductListSkeleton } from './ProductListSkeleton';
 
 const ProductList = () => {
   const productList = useRecoilValue(productListState);
@@ -18,5 +17,3 @@ const ProductList = () => {
 };
 
 export default ProductList;
-
-ProductList.Skeleton = ProductListSkeleton;
