@@ -9,7 +9,6 @@ import Button from '../../common/Button/Button';
 import { Divider } from '../../common/Divider/Divider.styles';
 import CartItem from '../CartItem/CartItem';
 import * as S from './CartList.styles';
-import CartListSkeleton from './CartListSkeleton';
 
 const CartList = () => {
   const cartList = useRecoilValue(cartListState);
@@ -41,6 +40,4 @@ const CartList = () => {
   );
 };
 
-export { CartList };
-
-CartList.Skeleton = CartListSkeleton;
+export default CartList;

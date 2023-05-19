@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import { CartList } from '../../components/cart/CartList/CartList';
+import CartList from '../../components/cart/CartList/CartList';
+import CartListSkeleton from '../../components/cart/CartList/CartListSkeleton';
 import { CART_LIST_LOCAL_STORAGE_KEY } from '../../constants';
 import { saveToLocalStorage } from '../../utils/localStorage';
 
@@ -61,6 +62,6 @@ export const Empty: Story = {};
 
 export const Skeleton: Story = {
   render: () => {
-    return <CartList.Skeleton />;
+    return <CartListSkeleton />;
   },
 };
