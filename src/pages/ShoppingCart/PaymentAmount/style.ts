@@ -8,6 +8,10 @@ export const Container = styled.div`
   background-color: #dddddd;
   display: grid;
   row-gap: 2px;
+  @media only screen and (max-width: 1200px) {
+    // 테블릿
+    margin-bottom: 40px;
+  }
 `;
 
 export const Title = styled.div`

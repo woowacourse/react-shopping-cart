@@ -3,6 +3,8 @@ import { useRecoilState } from 'recoil';
 
 import { ShoppingCartProduct, UpdateShoppingCart } from '@Types/index';
 
+import useFetch from '@Hooks/useFetch';
+
 import localStorageHelper from '@Utils/localStorageHelper';
 
 import shoppingCartState from '@Atoms/shoppingCartState';
@@ -11,6 +13,9 @@ import { FETCH_URL } from '@Constants/index';
 
 const useShoppingCart = () => {
   const [shoppingCart, setShoppingCart] = useRecoilState<ShoppingCartProduct[]>(shoppingCartState);
+  const { data, status } = useFetch<ShoppingCartProduct[]>(FETCH_URL.cartItems);
+
+  const isEmpty = !shoppingCart.length;
 
   const updateShoppingCart: UpdateShoppingCart = async (url, method, body) => {
     await fetch(url, {
@@ -22,16 +27,10 @@ const useShoppingCart = () => {
   };
 
   useEffect(() => {
-    const setInitValue = async () => {
-      const response = await fetch(FETCH_URL.cartItems);
-      const savedShoppingCart = (await response.json()) as ShoppingCartProduct[];
-      setShoppingCart(savedShoppingCart);
-    };
+    if (data) setShoppingCart(data);
+  }, [data]);
 
-    setInitValue();
-  }, []);
-
-  return { shoppingCart, updateShoppingCart };
+  return { shoppingCart, status, isEmpty, updateShoppingCart };
 };
 
 export default useShoppingCart;
