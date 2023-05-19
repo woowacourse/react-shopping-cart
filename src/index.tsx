@@ -7,6 +7,11 @@ import '../public/assets/logo.svg';
 import '../public/assets/delete.svg';
 import '../public/assets/baemin-empty.png';
 
+import { worker } from './mocks/worker';
+if (process.env.NODE_ENV === 'development') {
+  worker.start();
+}
+
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>

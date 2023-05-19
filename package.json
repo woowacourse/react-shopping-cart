@@ -34,11 +34,15 @@
     "babel-loader": "^9.1.2",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.1",
+    "msw": "^1.2.1",
     "react-docgen-typescript-plugin": "^1.0.5",
     "storybook-addon-styled-component-theme": "^2.0.0",
     "ts-loader": "^9.4.2",
     "typescript": "^5.0.4",
     "webpack-cli": "^5.1.0",
     "webpack-dev-server": "^4.15.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
