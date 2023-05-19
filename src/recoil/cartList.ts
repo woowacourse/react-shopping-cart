@@ -3,7 +3,7 @@ import { CartItem, ProductId } from 'src/types';
 
 export const cartListAtom = atom<CartItem[]>({
   key: 'cartItem',
-  default: [],
+  default: JSON.parse(localStorage.getItem('cartItem') ?? '[]'),
   effects: [
     ({ setSelf, onSet }) => {
       const savedValue = localStorage.getItem('cartItem');

@@ -4,6 +4,7 @@ import { fetchAPI } from 'src/api';
 export const useGetFetch = <T>(url: string, initialData: T) => {
   const [data, setData] = useState<T>(initialData);
   const [error, setError] = useState({ isError: false, message: '' });
+  const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
     try {
@@ -15,6 +16,8 @@ export const useGetFetch = <T>(url: string, initialData: T) => {
         isError: true,
         message: error.message,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -22,7 +25,7 @@ export const useGetFetch = <T>(url: string, initialData: T) => {
     fetchData();
   }, []);
 
-  return { data, error };
+  return { data, error, loading };
 };
 
 export const usePostFetch = () => {
@@ -88,7 +91,6 @@ export const usePatchFetch = () => {
       });
     } catch (error) {
       if (!(error instanceof Error)) return;
-      console.log(error, 'error occure');
       setError({
         isError: true,
         message: error.message,

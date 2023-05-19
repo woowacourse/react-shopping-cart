@@ -5,12 +5,9 @@ import useCartListUpdate from 'src/hooks/useCartListUpdate';
 import CheckBox from 'src/components/@common/CheckBox';
 import theme from 'src/styles/theme';
 
-interface CartListProps {
-  cartList: CartItem[];
-}
-
-const CartList = ({ cartList }: CartListProps) => {
+const CartList = () => {
   const {
+    cartList,
     onChange,
     onClickDeleteHandler,
     wholeSelected,

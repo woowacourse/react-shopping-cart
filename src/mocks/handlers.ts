@@ -1,12 +1,20 @@
 import { rest } from 'msw';
 import productJson from './data/productList.json';
 import cartListJson from './data/cartList.json';
-import { CartItem, CartItemPatchBody, CartItemPostBody } from 'src/types';
+import {
+  CartItem,
+  CartItemPatchBody,
+  CartItemPostBody,
+  Product,
+} from 'src/types';
 // 초기 상품 목록
 
-const initialData = {
-  products: productJson.choonsikProducts,
-  cartLists: JSON.parse(localStorage.getItem('cartItem') ?? '[]') as CartItem[],
+const initialData: {
+  products: Product[];
+  cartLists: CartItem[];
+} = {
+  products: productJson.choonsikProducts as Product[],
+  cartLists: [] as CartItem[],
 };
 
 export const handlers = [
@@ -16,8 +24,15 @@ export const handlers = [
   }),
 
   // 장바구니 조회 API
-  rest.get('/api/cart-items', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(initialData.cartLists));
+  rest.get('/api/cart-items', async (req, res, ctx) => {
+    const cartItem = localStorage.getItem('cartItem');
+
+    if (cartItem == null) return res(ctx.status(200), ctx.json([]));
+
+    const currentCartItems = (await JSON.parse(cartItem)) as CartItem[];
+    initialData.cartLists = currentCartItems;
+
+    return res(ctx.status(200), ctx.json(currentCartItems));
   }),
 
   // 장바구니 추가 API

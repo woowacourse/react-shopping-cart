@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
+  cartListAtom,
   countCartListSelector,
   countSelectedCartItemsSelector,
   deleteCartItemSelector,
@@ -11,6 +12,7 @@ import useToast from './useToast';
 
 const useCartListUpdate = () => {
   const { toast } = useToast();
+  const cartList = useRecoilValue(cartListAtom);
   const wholeCartItemsCount = useRecoilValue(countCartListSelector);
   const selectedCartItems = useRecoilValue(countSelectedCartItemsSelector);
 
@@ -48,6 +50,7 @@ const useCartListUpdate = () => {
   };
 
   return {
+    cartList,
     onChange,
     onClickDeleteHandler,
     wholeSelected,
