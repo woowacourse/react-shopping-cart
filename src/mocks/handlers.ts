@@ -9,6 +9,27 @@ let cartItems: CartItemType[] = mockCartItems;
 
 //type Request = CartItemType[];
 
+interface AddCartItemRequest {
+  body: {
+    productId: number;
+  };
+}
+
+interface UpdateQuantityRequest {
+  params: {
+    cartItemId: string;
+  };
+  body: {
+    quantity: number;
+  };
+}
+
+interface DeleteCartItemRequest {
+  params: {
+    cartItemId: string;
+  };
+}
+
 export const handlers = [
   rest.get('/products', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(products));
@@ -18,8 +39,8 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(cartItems));
   }),
 
-  rest.post('/cart-items', (req, res, ctx) => {
-    const { productId } = req.body as any;
+  rest.post('/cart-items', (req: AddCartItemRequest, res, ctx) => {
+    const { productId } = req.body;
     const product = products.find((product) => product.id === productId);
 
     if (product) {
@@ -31,14 +52,16 @@ export const handlers = [
     return res(ctx.status(404));
   }),
 
-  rest.patch('/cart-items/:cartItemId', (req, res, ctx) => {
-    const { cartItemId } = req.params as any;
-    const cartItemIndex = cartItems.findIndex((item) => item.id === cartItemId);
+  rest.patch('/cart-items/:cartItemId', (req: UpdateQuantityRequest, res, ctx) => {
+    const { cartItemId } = req.params;
+    const cartItemIndex = cartItems.findIndex((item) => item.id === Number(cartItemId));
 
     if (cartItemIndex) {
       const newCart = [...cartItems];
-      const { quantity } = req.params.cartItemId as any;
-      newCart.splice(cartItemIndex, 1, { ...cartItems[cartItemIndex], quantity });
+      newCart.splice(cartItemIndex, 1, {
+        ...cartItems[cartItemIndex],
+        quantity: req.body.quantity,
+      });
       cartItems = newCart;
 
       return res(ctx.status(200));
@@ -46,12 +69,12 @@ export const handlers = [
     return res(ctx.status(404));
   }),
 
-  rest.delete('/cart-items/:cartItemId', (req, res, ctx) => {
-    const { cartItemId } = req.params as any;
-    const cartItemIndex = cartItems.findIndex((item) => item.id === cartItemId);
+  rest.delete('/cart-items/:cartItemId', (req: DeleteCartItemRequest, res, ctx) => {
+    const { cartItemId } = req.params;
+    const cartItemIndex = cartItems.findIndex((item) => item.id === Number(cartItemId));
 
     if (cartItemIndex) {
-      cartItems = cartItems.filter((item) => item.id !== cartItemId);
+      cartItems = cartItems.filter((item) => item.id !== Number(cartItemId));
 
       return res(ctx.status(204));
     }
