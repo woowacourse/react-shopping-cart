@@ -5,6 +5,7 @@ export const Container = styled.div`
   background-color: #333333;
   padding: 10px 0;
   width: 100%;
+  z-index: 1;
 `;
 
 export const Layout = styled.div`
