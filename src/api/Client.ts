@@ -56,13 +56,21 @@ class Client<TRestAPI extends RestAPI> {
     return this.baseUrl ? new URL(path, this.baseUrl) : path;
   }
 
+  private async parseResponseData(response: Response) {
+    try {
+      return await response.json();
+    } catch {
+      return null;
+    }
+  }
+
   async get<Path extends ExtractPathFromRestAPI<TRestAPI, 'GET'>>(
     path: Path | PathGenerator<TRestAPI, 'GET', Path>,
   ): Promise<ExtractResponseFromRestAPI<TRestAPI, 'GET', Path>> {
     const response = await fetch(this.getUrl(path.toString()));
 
     return {
-      data: await response.json(),
+      data: await this.parseResponseData(response),
       headers: Object.fromEntries(response.headers.entries()),
       statusCode: response.status,
     };
@@ -81,7 +89,7 @@ class Client<TRestAPI extends RestAPI> {
     });
 
     return {
-      data: await response.json(),
+      data: await this.parseResponseData(response),
       headers: Object.fromEntries(response.headers.entries()),
       statusCode: response.status,
     };
@@ -100,7 +108,7 @@ class Client<TRestAPI extends RestAPI> {
     });
 
     return {
-      data: await response.json(),
+      data: await this.parseResponseData(response),
       headers: Object.fromEntries(response.headers.entries()),
       statusCode: response.status,
     };
@@ -114,7 +122,7 @@ class Client<TRestAPI extends RestAPI> {
     });
 
     return {
-      data: await response.json(),
+      data: await this.parseResponseData(response),
       headers: Object.fromEntries(response.headers.entries()),
       statusCode: response.status,
     };
