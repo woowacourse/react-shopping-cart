@@ -2,7 +2,7 @@ import { DefaultValue, atom, selector, selectorFamily } from 'recoil';
 
 import { getCartList } from '../api/cartAPI';
 import { CART_LIST_CHECKBOX_KEY } from '../constants/store';
-import { addCartItemQuantity, updateCartItemQuantity } from '../domain/cart';
+import { addCartItemQuantity, checkItemInCart, updateCartItemQuantity } from '../domain/cart';
 import { CartItemData } from '../types';
 import { checkedListState } from './checkbox';
 
@@ -37,11 +37,11 @@ const cartItemQuantityState = selectorFamily<number, number>({
     },
   set:
     (productId) =>
-    ({ get, set }, quantity) => {
+    ({ set }, quantity) => {
       if (!quantity || quantity instanceof DefaultValue) return;
 
       set(cartListState, (prevCartList) => {
-        const hasItem = get(cartIdListState).includes(productId);
+        const hasItem = checkItemInCart(prevCartList, productId);
 
         return hasItem
           ? updateCartItemQuantity(prevCartList, productId, quantity)
