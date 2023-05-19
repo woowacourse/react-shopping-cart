@@ -42,7 +42,7 @@ export const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
           decreaseCount={handleDecreaseCount}
         />
         <ProductPrice size="18px" weight="600">
-          {product.price}원
+          {`${product.price.toLocaleString('ko-KR')} 원`}
         </ProductPrice>
       </RightSideWrapper>
     </CartProductItemContainer>

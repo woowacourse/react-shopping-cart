@@ -3,16 +3,19 @@ import { StyledText } from './common/Text';
 import { CheckBox } from './common/CheckBox';
 import { Button as SelectedDeleteButton } from './common/Button';
 import { useRecoilValue } from 'recoil';
-import { cartState } from '../atoms/CartState';
+import { cartCountState, cartState } from '../atoms/CartState';
 import { CartProductItem } from './CartProductItem';
 
 export const CartProductList = () => {
   const cartProductList = useRecoilValue(cartState);
+  const cartProductCount = useRecoilValue(cartCountState);
 
   return (
     <CartProductListContainer>
       <ProductCountTextWrapper>
-        <ProductCountText size="20px">든든배송 상품 (5개)</ProductCountText>
+        <ProductCountText size="20px">
+          든든배송 상품 {`(${cartProductCount}개)`}
+        </ProductCountText>
       </ProductCountTextWrapper>
       <ProductItemContainer>
         {cartProductList.map((item) => (
