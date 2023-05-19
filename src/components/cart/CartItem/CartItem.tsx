@@ -1,7 +1,6 @@
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 
 import { CloseIcon } from '../../../assets';
-import { useCount } from '../../../hooks/common/useCount';
 import { useCartItem } from '../../../hooks/useCartItem';
 import { ProductItemData } from '../../../types';
 import { priceFormatter } from '../../../utils/formatter';
@@ -15,17 +14,25 @@ interface CartItemProps extends ProductItemData {
 const CartItem = ({ id, quantity, name, price, imageUrl }: CartItemProps) => {
   const { updateQuantity, removeItem } = useCartItem(id);
 
+  const handleQuantityDecrement = useCallback(() => {
+    updateQuantity(quantity - 1);
+  }, [quantity, updateQuantity]);
+
+  const handleQuantityIncrement = useCallback(() => {
+    updateQuantity(quantity + 1);
+  }, [quantity, updateQuantity]);
+
   return (
     <S.CartItemContainer>
       <S.CartItemImageWrapper>
-        <S.CartItemImage src={product.imageUrl} alt={product.name} loading="lazy" />
+        <S.CartItemImage src={imageUrl} alt={name} />
       </S.CartItemImageWrapper>
-      <S.CartItemName>{product.name}</S.CartItemName>
+      <S.CartItemName>{name}</S.CartItemName>
       <StepperButton
-        count={count}
-        handleDecreaseCount={handleDecreaseCount}
-        handleIncreaseCount={handleIncreaseCount}
-        handleCountChange={handleCountChange}
+        count={quantity}
+        handleDecreaseCount={handleQuantityDecrement}
+        handleIncreaseCount={handleQuantityIncrement}
+        handleCountChange={updateQuantity}
       />
       <S.CartItemPrice>{priceFormatter(price * quantity)}원</S.CartItemPrice>
       <S.CartItemDeleteButton variant="textButton" onClick={removeItem}>
