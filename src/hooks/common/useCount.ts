@@ -1,26 +1,18 @@
 import { useCallback, useState } from 'react';
 
-import { isNumber } from '../../utils/validator';
-
 const useCount = (initialValue: number) => {
   const [count, setCount] = useState(initialValue);
 
-  const handleDecreaseCount = useCallback((step: number) => {
-    setCount((prevCount) => prevCount - step);
+  const handleDecreaseCount = useCallback(() => {
+    setCount((prevCount) => prevCount - 1);
   }, []);
 
-  const handleIncreaseCount = useCallback((step: number) => {
-    setCount((prevCount) => prevCount + step);
+  const handleIncreaseCount = useCallback(() => {
+    setCount((prevCount) => prevCount + 1);
   }, []);
 
-  const handleCountChange = useCallback((input: string, minCount: number, maxCount: number) => {
-    if (!isNumber(input)) return;
-
-    const currCount = Number(input);
-
-    if (currCount < minCount || currCount > maxCount) return;
-
-    setCount(currCount);
+  const handleCountChange = useCallback((count: number) => {
+    setCount(count);
   }, []);
 
   return { count, handleDecreaseCount, handleIncreaseCount, handleCountChange };
