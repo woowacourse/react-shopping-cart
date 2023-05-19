@@ -34,10 +34,12 @@ class PathGenerator<
   }
 
   toString(): string {
-    const path = Object.entries(this.internalParams ?? {}).reduce(
-      (path, [name, value]) => path.replace(`:${name}`, String(value)),
-      this.path as string,
-    );
+    const copiedParams = [...this.internalParams];
+    const path = this.path
+      .split('/')
+      .map((pathToken) => (pathToken.startsWith(':') ? copiedParams.shift() : pathToken))
+      .join('/');
+
     const queryParams =
       Object.keys(this.internalQueryParams ?? {}).length === 0
         ? ''
