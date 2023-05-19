@@ -1,9 +1,9 @@
-import AbnormalMessage from '../components/Common/Message';
+import Message from '../components/Common/Message';
 
 const NotFoundPage = () => {
   return (
     <main>
-      <AbnormalMessage type='notFound' link />
+      <Message type='notFound' link />
     </main>
   );
 };
