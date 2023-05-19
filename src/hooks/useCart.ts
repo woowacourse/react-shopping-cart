@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilCallback } from 'recoil';
 
+import { deleteCartItem, getCartList, patchCartItem } from '../api/cartAPI';
 import { TOAST_SHOW_DURATION } from '../constants';
-import { cartListState } from '../store/cart';
-import { CartItemData } from '../types';
+import { cartItemQuantityState, cartListState } from '../store/cart';
 
 const useCart = () => {
   const [isAdded, setIsAdded] = useState(false);
@@ -19,16 +19,28 @@ const useCart = () => {
     }
   }, [isAdded]);
 
-  const updateCartList = useRecoilCallback(
-    ({ set }) =>
-      (newCartList: CartItemData[]) => {
-        set(cartListState, newCartList);
+  const addItemQuantity = useRecoilCallback(
+    ({ snapshot, set }) =>
+      async (productId: number, quantity: number) => {
         setIsAdded(true);
+        const prevQuantity = await snapshot.getPromise(cartItemQuantityState(productId));
+        set(cartItemQuantityState(productId), prevQuantity + quantity);
+        await patchCartItem(productId, quantity);
       },
     []
   );
 
-  return { isAdded, updateCartList };
+  const removeCheckedItems = useRecoilCallback(
+    ({ set }) =>
+      async (productIds: number[]) => {
+        await Promise.all(productIds.map((productId) => deleteCartItem(productId)));
+        const newCartList = await getCartList();
+        set(cartListState, newCartList);
+      },
+    []
+  );
+
+  return { addItemQuantity, removeCheckedItems };
 };
 
 export { useCart };
