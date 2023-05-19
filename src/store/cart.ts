@@ -9,23 +9,23 @@ const cartListState = atom<CartItemData[]>({
   effects: [({ setSelf }) => setSelf(getCartList().then((savedValue) => savedValue ?? []))],
 });
 
-const cartListItemCountState = selector({
+const cartListItemCountState = selector<number>({
   key: 'cartListItemCount',
   get: ({ get }) => get(cartListState).length,
 });
 
-const cartItemQuantityState = selectorFamily({
+const cartItemQuantityState = selectorFamily<number, number>({
   key: 'cartItemQuantity',
   get:
     (productId) =>
     ({ get }) => {
       const cartList = get(cartListState);
 
-      return cartList.find((cartItem) => cartItem.product.id === productId)?.quantity;
+      return cartList.find((cartItem) => cartItem.product.id === productId)?.quantity ?? 0;
     },
 });
 
-const cartListSubTotalState = selector({
+const cartListSubTotalState = selector<number>({
   key: 'cartListSubTotal',
   get: ({ get }) => {
     const cartList = get(cartListState);
