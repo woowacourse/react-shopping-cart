@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import ProductItem from './ProductItem';
-import AbnormalMessage from '../Common/AbnormalMessage';
+import AbnormalMessage from '../Common/Message';
 
 import { useRecoilValueLoadable } from 'recoil';
 import { fetchProductsSelector } from '../../recoil/fetchProductData';
@@ -14,7 +14,7 @@ const ProductList = () => {
     switch (products.state) {
       case 'hasValue':
         return products.contents.length === 0 ? (
-          <AbnormalMessage abnormalState='empty' />
+          <AbnormalMessage type='empty' />
         ) : (
           <ProductListContainer>
             {products.contents.map((product: Product) => (
@@ -25,11 +25,11 @@ const ProductList = () => {
           </ProductListContainer>
         );
       case 'loading':
-        return <p>로딩중...</p>;
+        return <AbnormalMessage type='loading' />;
       case 'hasError':
-        return <AbnormalMessage abnormalState='error' />;
+        return <AbnormalMessage type='error' />;
       default:
-        return <AbnormalMessage abnormalState='notFound' />;
+        return <AbnormalMessage type='notFound' />;
     }
   })();
   return productListContent;
