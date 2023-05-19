@@ -43,7 +43,7 @@ const handlers = [
     return res(ctx.delay(1000), ctx.status(200), ctx.json<CartItemData[]>(newCartList));
   }),
 
-  rest.delete('api/carts/delete/:productId', (req, res, ctx) => {
+  rest.delete('api/carts/remove/:productId', (req, res, ctx) => {
     const { productId } = req.params;
     const currentCartData = getCartData();
 
@@ -54,7 +54,7 @@ const handlers = [
     const newCartList = removeCartItem(currentCartData, Number(productId));
     setCartData(newCartList);
 
-    return res(ctx.delay(1000), ctx.status(204));
+    return res(ctx.delay(300), ctx.status(204));
   }),
 ];
 
