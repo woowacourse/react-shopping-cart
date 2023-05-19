@@ -3,10 +3,11 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { userEvent, within } from '@storybook/testing-library';
 
 import ProductList from '../../components/product/ProductList/ProductList';
+import ProductListSkeleton from '../../components/product/ProductList/ProductListSkeleton';
 import { delay } from '../../utils/delay';
 
 const meta = {
-  title: 'ShoppingCart/ProductList',
+  title: 'ShoppingCart/Product/ProductList',
   component: ProductList,
 } satisfies Meta<typeof ProductList>;
 
@@ -14,6 +15,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
+export const Skeleton: Story = {
+  render: () => <ProductListSkeleton />,
+};
 
 export const Interaction: Story = {
   play: async ({ canvasElement }) => {
