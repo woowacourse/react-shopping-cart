@@ -16,7 +16,6 @@ function ShoppingList() {
       <S.ShoppingListLayout>
         {data && data.map((item) => <ShoppingItem cartId={item.id} product={item.product} key={item.product.id} />)}
       </S.ShoppingListLayout>
-      <div></div>
     </S.Container>
   );
 }

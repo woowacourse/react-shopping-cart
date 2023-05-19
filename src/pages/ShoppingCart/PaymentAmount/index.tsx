@@ -2,14 +2,18 @@ import { useRecoilValue } from 'recoil';
 
 import Button from '@Components/Button';
 
-import usePaymentAmount from '@Hooks/usePaymentAmount';
-
 import orderAmountState from '@Selector/orderAmountState';
+
+import { DELIVERY_FEE } from '@Constants/index';
 
 import * as S from './style';
 
 function PaymentAmount() {
-  const { orderAmount, deliveryFee, totalOrderPrice } = usePaymentAmount(useRecoilValue(orderAmountState));
+  const allPrice = useRecoilValue(orderAmountState);
+
+  const orderAmount = `${allPrice.toLocaleString()} 원`;
+  const deliveryFee = !allPrice ? `0 원` : `${DELIVERY_FEE.toLocaleString()} 원`;
+  const totalOrderPrice = `${(allPrice + (!allPrice ? 0 : DELIVERY_FEE)).toLocaleString()} 원`;
 
   return (
     <S.Container>

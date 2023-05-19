@@ -24,7 +24,7 @@ function ShoppingCartControl() {
         size="small"
       />
       <S.SelectedSituation>
-        전체선택({selectedItemAmount}/{shoppingCartAmount})
+        {isAllSelected(Number(shoppingCartAmount)) ? '전체해제' : '전체선택'}({selectedItemAmount}/{shoppingCartAmount})
       </S.SelectedSituation>
       <S.DeleteButton>선택삭제</S.DeleteButton>
     </S.Container>
