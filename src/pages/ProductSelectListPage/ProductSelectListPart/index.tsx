@@ -39,7 +39,14 @@ function ProductSelectListPart() {
 
   return (
     <S.ProductSelectListPart>
-      <S.ProductSelectListTitle>장바구니 상품</S.ProductSelectListTitle>
+      <S.ProductSelectListTitle>상품 목록</S.ProductSelectListTitle>
+      <S.ProductSelectController>
+        <Checkbox isChecked={parentCheckbox.current} changeEvent={toggleChecked} />
+        <S.SelectedProductAmount>
+          전체 선택({getCheckedItemAmount()}/{shoppingItemAmount})
+        </S.SelectedProductAmount>
+        <S.SelectedProductDeleteButton>선택 삭제</S.SelectedProductDeleteButton>
+      </S.ProductSelectController>
       <S.ProductSelectList>
         {shoppingCart.map((elem) => {
           return (
@@ -52,13 +59,6 @@ function ProductSelectListPart() {
           );
         })}
       </S.ProductSelectList>
-      <S.ProductSelectListBottom>
-        <Checkbox isChecked={parentCheckbox.current} changeEvent={toggleChecked} />
-        <S.SelectedProductAmount>
-          전체 선택({getCheckedItemAmount()}/{shoppingItemAmount})
-        </S.SelectedProductAmount>
-        <S.SelectedProductDeleteButton>선택 삭제</S.SelectedProductDeleteButton>
-      </S.ProductSelectListBottom>
     </S.ProductSelectListPart>
   );
 }
