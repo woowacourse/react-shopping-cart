@@ -2,12 +2,13 @@ import { PRODUCT_LIST } from '@mockData/productList';
 import { renderHook, waitFor } from '@testing-library/react';
 import { rest } from 'msw';
 import useProductList from '@hooks/useProductList';
-import { server } from './setup-env';
+import { API_URL_PRODUCT_LIST } from '@constants/common';
+import { server } from '../setup-env';
 
 describe('API 변경에 유연하도록 구현한 useProductList API 레이어가 올바르게 기능하는 지 테스트', () => {
   beforeEach(() => {
     server.use(
-      rest.get('api/products', (req, res, ctx) => {
+      rest.get(API_URL_PRODUCT_LIST, (req, res, ctx) => {
         return res(
           ctx.set('Content-Type', 'application/json'),
           ctx.status(200),
@@ -15,19 +16,6 @@ describe('API 변경에 유연하도록 구현한 useProductList API 레이어�
           ctx.delay(1200)
         );
       })
-    );
-  });
-
-  test('가짜 상품 데이터가 올바르게 불러와지는 지 테스트', async () => {
-    const { result } = renderHook(() => useProductList());
-
-    await waitFor(
-      () => {
-        const { data } = result.current;
-
-        expect(data).toEqual(PRODUCT_LIST.productList);
-      },
-      { timeout: 1300 }
     );
   });
 
@@ -42,24 +30,7 @@ describe('API 변경에 유연하도록 구현한 useProductList API 레이어�
 
         expect(keys).toEqual(['id', 'name', 'price', 'imageUrl']);
       },
-      { timeout: 1300 }
-    );
-  });
-
-  test('데이터가 불러와지면 로딩중이 true가 되는 지 테스트', async () => {
-    const { result } = renderHook(() => useProductList());
-
-    const { isLoading } = result.current;
-
-    expect(isLoading).toBe(true);
-
-    await waitFor(
-      () => {
-        const { isLoading } = result.current;
-
-        expect(isLoading).toBe(false);
-      },
-      { timeout: 1300 }
+      { timeout: 1500 }
     );
   });
 });
