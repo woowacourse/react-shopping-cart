@@ -1,13 +1,13 @@
 import { styled } from 'styled-components';
-import type { CartProduct } from '../../../types/product';
+import { useState } from 'react';
 import CheckBox from '../../common/CheckBox/CheckBox';
 import Image from '../../common/Image/Image';
-import TrashCanIcon from '../../../assets/icons/TrashCanIcon';
 import Counter from '../../common/Counter/Counter';
-import { useState } from 'react';
-import { formatPrice } from '../../../utils/formatPrice';
+import TrashCanIcon from '../../../assets/icons/TrashCanIcon';
 import useCartService from '../../../hooks/useCartService';
+import { formatPrice } from '../../../utils/formatPrice';
 import { useCheckedCartListValue } from '../../../provider/CheckedListProvider';
+import type { CartProduct } from '../../../types/product';
 
 interface CartItemProps {
   cartItem: CartProduct;
@@ -18,9 +18,9 @@ const CartItem = ({ cartItem }: CartItemProps) => {
   const { imageSrc, name, price } = cartItem.product;
 
   const { updateCartItemQuantity, deleteCartItem } = useCartService();
-  const [count, setCount] = useState(quantity);
   const { isChecked, addCheckedItem, deleteCheckedItem } =
     useCheckedCartListValue();
+  const [count, setCount] = useState(quantity);
 
   const updateQuantity = (quantity: number) => {
     setCount(quantity);
