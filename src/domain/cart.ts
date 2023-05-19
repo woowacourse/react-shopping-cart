@@ -11,6 +11,10 @@ const setCartData = (newCartList: CartItemData[]) => {
   saveToLocalStorage(CART_LIST_LOCAL_STORAGE_KEY, newCartList);
 };
 
+const checkItemInCart = (cartList: CartItemData[], productId: number) => {
+  return cartList.some((cartItem) => cartItem.product.id === productId);
+};
+
 const findCartItemIndex = (cartList: CartItemData[], productId: number) => {
   return cartList.findIndex((cartItem) => cartItem.product.id === productId);
 };
@@ -65,4 +69,11 @@ const removeCartItem = (cartList: CartItemData[], productId: number) => {
   return updatedCartList;
 };
 
-export { getCartData, setCartData, addCartItemQuantity, updateCartItemQuantity, removeCartItem };
+export {
+  getCartData,
+  setCartData,
+  checkItemInCart,
+  addCartItemQuantity,
+  updateCartItemQuantity,
+  removeCartItem,
+};
