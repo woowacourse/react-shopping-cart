@@ -2,6 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://gilpop8663.github.io/react-shopping-cart/",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -51,6 +52,7 @@
     "babel-plugin-named-exports-order": "^0.0.2",
     "eslint-plugin-import": "^2.27.5",
     "msw": "^1.2.1",
+    "msw-storybook-addon": "^1.8.0",
     "prop-types": "^15.8.1",
     "react-scripts": "5.0.1",
     "storybook": "^7.0.9",

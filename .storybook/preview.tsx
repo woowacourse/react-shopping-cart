@@ -5,6 +5,19 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from '../src/styles/theme';
 import GlobalStyle from '../src/styles/globalStyle';
 import { MemoryRouter } from 'react-router-dom';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
+
+let options = {};
+
+if (location.hostname === 'gilpop8663.github.io') {
+  options = {
+    serviceWorker: {
+      url: '/react-shopping-cart/mockServiceWorker.js',
+    },
+  };
+}
+
+initialize(options);
 
 const preview: Preview = {
   parameters: {
@@ -33,6 +46,9 @@ const localStorageResetDecorator: Decorator = (Story) => {
   );
 };
 
-export const decorators: Decorator[] = [localStorageResetDecorator];
+export const decorators: Decorator[] = [
+  localStorageResetDecorator,
+  mswDecorator,
+];
 
 export default preview;
