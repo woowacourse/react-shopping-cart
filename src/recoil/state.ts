@@ -1,6 +1,9 @@
 import type { CartItemType } from '../types';
 import { atom, selector } from 'recoil';
 import { LOCAL_STORAGE_KEY } from '../constants';
+import { API_URL } from '../constants/api';
+import { getCart } from '../api/cart';
+import { getProducts } from '../api/product';
 
 const localStorageEffect =
   (key: string) =>
@@ -31,4 +34,23 @@ export const selectedCartState = atom<number[]>({
   key: 'selectedCartState',
   default: [],
   effects: [localStorageEffect(LOCAL_STORAGE_KEY.SELECTED_CART)],
+});
+
+export const productState = atom({
+  key: 'productState',
+  default: [],
+});
+
+export const getProductState = selector({
+  key: 'product/get',
+  get: async ({ get }) => {
+    try {
+      return getProducts();
+    } catch (err) {
+      throw err;
+    }
+  },
+  set: ({ set }, newValue) => {
+    set(productState, newValue);
+  },
 });
