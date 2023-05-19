@@ -1,15 +1,18 @@
 import { useRecoilValue } from 'recoil';
 import { css, styled } from 'styled-components';
 import { DELIVERY_FEE } from '../../constants';
-import { cartState } from '../../recoil';
+import { cartState, checkedItemList } from '../../recoil';
 import { CartItem } from '../../types';
 import Button from '../common/Button';
 import Price from '../Price';
 
 const Order = () => {
   const cart = useRecoilValue(cartState);
+  const checkedItems = useRecoilValue(checkedItemList);
 
-  const totalPrice = cart.reduce((acc: 0, cur: CartItem) => {
+  const checkedProductsInCart = cart.filter((item: CartItem) => checkedItems.includes(item.id));
+
+  const totalPrice = checkedProductsInCart.reduce((acc: 0, cur: CartItem) => {
     return acc + cur.product.price * cur.quantity;
   }, 0);
 
