@@ -10,15 +10,15 @@ import {
 const useCartProductUpdate = () => {
   const [cartProducts, setCartProducts] = useRecoilState(cartProductAtom);
 
-  useEffect(() => {
-    if (cartProducts.length >= 0) {
-      setStoredCartProducts(cartProducts);
-    }
-  }, [cartProducts, setStoredCartProducts]);
+  // useEffect(() => {
+  //   if (cartProducts.length >= 0) {
+  //     setStoredCartProducts(cartProducts);
+  //   }
+  // }, [cartProducts, setStoredCartProducts]);
 
-  useEffect(() => {
-    setCartProducts(storedCartProducts);
-  }, []);
+  // useEffect(() => {
+  //   setCartProducts(storedCartProducts);
+  // }, []);
 };
 
 export default useCartProductUpdate;

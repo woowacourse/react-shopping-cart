@@ -2,23 +2,17 @@ import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { cartProductAtom } from '../recoil/cartProductData';
-import type { CartProduct, Product } from '../types/product';
-
-const findTargetProduct = (cartProducts: CartProduct[], id: number) =>
-  cartProducts.find((cartProduct) => id === cartProduct.product.id);
-
-const deleteProduct = (cartProducts: CartProduct[], id: number) =>
-  cartProducts.filter((cartProduct) => cartProduct.product.id !== id);
+import type { Product } from '../types/product';
+import { deleteProduct, findTargetProduct } from '../utils/cartProduct';
+import { postCartProducts } from '../apis/cartProducts';
 
 const useCartProducts = (product: Product) => {
   const { id } = product;
   const [cartProducts, setCartProducts] = useRecoilState(cartProductAtom);
 
   const addProduct = () => {
-    setCartProducts((prev) => [
-      ...prev,
-      { id: Date.now(), quantity: 1, product },
-    ]);
+    setCartProducts((prev) => [...prev, { id, quantity: 1, product }]);
+    postCartProducts(id);
   };
 
   const target = findTargetProduct(cartProducts, id);
