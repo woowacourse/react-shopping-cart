@@ -16,6 +16,7 @@ const CartItemImageWrapper = styled.div`
   width: 80px;
   height: 80px;
   margin-left: ${({ theme }) => theme.spacer.spacing3};
+  margin-right: ${({ theme }) => theme.spacer.spacing4};
 `;
 
 const CartItemImage = styled.img`
