@@ -24,23 +24,21 @@ function CartController({ product }: CartControllerProps) {
     <ControllerWrapper>
       {quantity > 0 ? (
         <CartBox>
+          <QuantityControlButton
+            onClick={() => {
+              decreaseCart(product.id);
+            }}
+          >
+            -
+          </QuantityControlButton>
           <QuantityInput value={quantity} onChange={handleChangeQuantity} />
-          <ButtonBox>
-            <QuantityControlButton
-              onClick={() => {
-                increaseCart(product.id);
-              }}
-            >
-              ⏶
-            </QuantityControlButton>
-            <QuantityControlButton
-              onClick={() => {
-                decreaseCart(product.id);
-              }}
-            >
-              ⏷
-            </QuantityControlButton>
-          </ButtonBox>
+          <QuantityControlButton
+            onClick={() => {
+              increaseCart(product.id);
+            }}
+          >
+            +
+          </QuantityControlButton>
         </CartBox>
       ) : (
         <button
