@@ -1,7 +1,8 @@
 import { ChangeEvent, useCallback } from 'react';
 
 import { AddIcon, MinusIcon } from '../../../assets';
-import { DEFAULT_MAX_COUNT, DEFAULT_MIN_COUNT, DEFAULT_STEP } from '../../../constants';
+import { DEFAULT_MAX_COUNT, DEFAULT_MIN_COUNT } from '../../../constants';
+import { isNumber } from '../../../utils/validator';
 import * as S from './StepperButton.styles';
 
 interface StepperButtonProps {
@@ -9,23 +10,28 @@ interface StepperButtonProps {
   minCount?: number;
   maxCount?: number;
   step?: number;
-  handleDecreaseCount: (step: number) => void;
-  handleIncreaseCount: (step: number) => void;
-  handleCountChange: (input: string, minCount: number, maxCount: number) => void;
+  handleDecreaseCount: () => void;
+  handleIncreaseCount: () => void;
+  handleCountChange: (count: number) => void;
 }
 
 const StepperButton = ({
   count,
   minCount = DEFAULT_MIN_COUNT,
   maxCount = DEFAULT_MAX_COUNT,
-  step = DEFAULT_STEP,
   handleDecreaseCount,
   handleIncreaseCount,
   handleCountChange,
 }: StepperButtonProps) => {
   const onChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      handleCountChange(event.target.value, minCount, maxCount);
+      if (!isNumber(event.target.value)) return;
+
+      const currCount = Number(event.target.value);
+
+      if (currCount < minCount || currCount > maxCount) return;
+
+      handleCountChange(currCount);
     },
     [handleCountChange, minCount, maxCount]
   );
@@ -38,7 +44,7 @@ const StepperButton = ({
         disabled={count === minCount}
         variant="textButton"
         size="small"
-        onClick={() => handleDecreaseCount(step)}
+        onClick={handleDecreaseCount}
       >
         <MinusIcon />
       </S.StepperButton>
@@ -54,7 +60,7 @@ const StepperButton = ({
         disabled={count === maxCount}
         variant="textButton"
         size="small"
-        onClick={() => handleIncreaseCount(step)}
+        onClick={handleIncreaseCount}
       >
         <AddIcon />
       </S.StepperButton>
