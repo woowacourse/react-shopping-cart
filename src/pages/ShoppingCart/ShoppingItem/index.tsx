@@ -52,6 +52,7 @@ function ShoppingItem({ product, width = '100%', cartId }: ShoppingItemProps) {
           quantity={quantity}
           cartItemId={cartItemId}
           updateShoppingCart={updateShoppingCart}
+          isAbleSetZeroState={false}
         />
         <S.ShoppingItemPrice aria-label="장바구니 상품 가격">{price}</S.ShoppingItemPrice>
       </S.RightContents>

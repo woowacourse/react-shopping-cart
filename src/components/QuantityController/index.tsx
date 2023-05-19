@@ -19,6 +19,7 @@ type QuantityControllerProps = {
   product: Product;
   quantity?: number;
   cartItemId?: number;
+  isAbleSetZeroState?: boolean;
   updateShoppingCart: UpdateShoppingCart;
 };
 
@@ -28,6 +29,7 @@ function QuantityController({
   product,
   quantity = SHOPPING_QUANTITY.MIN,
   cartItemId,
+  isAbleSetZeroState = true,
   updateShoppingCart,
 }: QuantityControllerProps) {
   const [isUserWork, setIsUserWork] = useState(false);
@@ -49,6 +51,9 @@ function QuantityController({
 
   const changeQuantityValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(event.target.value);
+
+    if (!isAbleSetZeroState && newValue < 1) return;
+
     if (newValue > SHOPPING_QUANTITY.MAX) return alert(ALERT_MESSAGE.OVER_MAX_QUANTITY);
     updateShoppingCart(
       `${FETCH_URL.cartItems}/${cartItemId}`,
@@ -97,7 +102,7 @@ function QuantityController({
         </S.QuantityControlButton>
         <S.QuantityControlButton
           onClick={() => controlProductQuantity(QUANTITY_CONTROL_BUTTON.MINUS)}
-          disabled={quantity <= SHOPPING_QUANTITY.MIN}
+          disabled={isAbleSetZeroState ? quantity <= SHOPPING_QUANTITY.MIN : quantity <= SHOPPING_QUANTITY.MIN + 1}
         >
           ▼
         </S.QuantityControlButton>
