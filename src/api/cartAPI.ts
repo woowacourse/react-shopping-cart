@@ -20,4 +20,19 @@ const postCartItem = async (productId: number, quantity: number) => {
   });
 };
 
-export { getCartList, postCartItem };
+const patchCartItem = async (productId: number, quantity: number) => {
+  const data = {
+    quantity,
+  };
+  const jsonData = JSON.stringify(data);
+
+  return await fetchAPI(`/api/carts/change/${productId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: jsonData,
+  });
+};
+
+export { getCartList, postCartItem, patchCartItem };
