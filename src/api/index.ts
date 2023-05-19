@@ -1,5 +1,6 @@
 import Client from './Client';
+import type { ShoppingCartRestAPI } from './rest/ShoppingCartRestAPI';
 
-const client = new Client();
+export const client = new Client<ShoppingCartRestAPI>();
 
-export default client;
+export const path = client.path.bind(client);

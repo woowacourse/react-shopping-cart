@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import client from '../api';
+import { client } from '../api';
 import FutureSuspense from '../components/FutureSuspense';
 import ProductListItem from '../components/ProductListItem';
 import useQuery from '../hooks/useQuery';
@@ -30,7 +30,7 @@ const ProductList = (props: ProductListProps) => {
 
 const ProductListPage = () => {
   const { future } = useQuery<Product[]>('products', () =>
-    client.get('/products').then((res) => res.json()),
+    client.get('/products').then((res) => res.data),
   );
 
   return (

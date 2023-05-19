@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useRecoilState } from 'recoil';
-import client from '../api';
+import { client, path } from '../api';
 import cartItemState from '../recoil/selectors/cartItemState';
 import type { Product } from '../type';
 import useMutation from './useMutation';
@@ -11,22 +11,22 @@ const useCartItem = (product: Product) => {
   const { mutate: mutateCartItemQuantity } = useMutation(async (quantity: number) => {
     let cartItemId: number;
     if (cartItem === null) {
-      const response = await client.post(`/cart-items`, { productId: product.id });
+      const response = await client.post('/cart-items', { productId: product.id });
       cartItemId = Number(
-        String(response.headers.get('Location'))
+        String(response.headers.Location)
           .match(/(\d+)$/)
           ?.at(0),
       );
     } else {
       cartItemId = cartItem.id;
     }
-    await client.patch(`/cart-items/${cartItemId}`, { quantity });
+    await client.patch(path('/cart-items/:cartItemId', cartItemId), { quantity });
     return cartItemId;
   });
 
   const { mutate: deleteCartItem } = useMutation(async () => {
     if (cartItem !== null) {
-      await client.delete(`/cart-items/${cartItem.id}`);
+      await client.delete(path('/cart-items/:cartItemId', cartItem.id));
     }
   });
 
