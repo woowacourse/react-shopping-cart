@@ -41,7 +41,7 @@ export const handlers = [
   rest.patch('/cart-items/:id', async (req, res, ctx) => {
     const { id } = req.params;
     const { quantity } = await req.json();
-    console.log(mockCart, id, quantity);
+
     const index = mockCart.findIndex(
       (item: CartItem) => item.id === Number(id)
     );
@@ -62,7 +62,7 @@ export const handlers = [
     const index = mockCart.findIndex(
       (item: CartItem) => item.id === Number(id)
     );
-    console.log(index);
+
     if (index === -1) {
       return res(
         ctx.status(400, '해당 아이템이 장바구니에 존재하지 않습니다.')

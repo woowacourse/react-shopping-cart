@@ -12,10 +12,6 @@ import {
 const useCart = () => {
   const [cartItems, setCartItems] = useRecoilState(cartState);
 
-  const hasItemInCart = (id: CartItem['id']) => {
-    return cartItems.find((item) => item.id === id);
-  };
-
   const updateCart = async () => {
     const newCart = await fetchCart();
     setCartItems(newCart);

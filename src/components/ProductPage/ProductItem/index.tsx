@@ -8,8 +8,12 @@ import ErrorBoundary from '../../common/ErrorBoundary';
 
 type ProductItemProps = Product;
 
-const ProductItem: React.FC<ProductItemProps> = (props) => {
-  const { name, price, imageUrl } = props;
+const ProductItem: React.FC<ProductItemProps> = ({
+  id,
+  name,
+  price,
+  imageUrl,
+}) => {
   const { isModalOpen, openModal, closeModal } = useModal(false);
 
   return (
@@ -30,7 +34,13 @@ const ProductItem: React.FC<ProductItemProps> = (props) => {
       </S.Info>
       {isModalOpen && (
         <ErrorBoundary>
-          <ItemCartDialog {...props} closeModal={closeModal} />
+          <ItemCartDialog
+            id={id}
+            name={name}
+            price={price}
+            imageUrl={imageUrl}
+            closeModal={closeModal}
+          />
         </ErrorBoundary>
       )}
     </S.Root>
