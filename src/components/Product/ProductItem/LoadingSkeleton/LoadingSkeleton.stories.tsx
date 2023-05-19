@@ -3,7 +3,7 @@ import LoadingSkeleton from '.';
 
 const loadingSkeleton = {
   component: LoadingSkeleton,
-  title: 'Cart/ProductItem/LoadingSkeleton',
+  title: 'Product/LoadingSkeleton',
   tags: ['autodocs'],
 } satisfies Meta<typeof LoadingSkeleton>;
 

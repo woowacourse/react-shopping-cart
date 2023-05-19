@@ -1,8 +1,8 @@
 import { styled } from 'styled-components';
 import ContentLayout from 'components/@common/ContentLayout';
-import Header from 'components/Header';
-import PaymentDetail from 'components/PaymentDetail';
-import CartItemList from 'components/CartItemList';
+import Header from 'components/@common/Header';
+import PaymentDetail from 'components/Cart/PaymentDetail';
+import CartItemList from 'components/Cart/CartItemList';
 
 const CartList = () => {
   return (

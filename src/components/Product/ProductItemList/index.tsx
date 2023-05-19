@@ -1,6 +1,6 @@
 import * as S from './ProductItemList.styles';
-import ProductItem from 'components/ProductItem';
-import LoadingSkeleton from 'components/ProductItem/LoadingSkeleton';
+import ProductItem from 'components/Product/ProductItem';
+import LoadingSkeleton from 'components/Product/ProductItem/LoadingSkeleton';
 import { useFetch } from 'hooks/useFetch';
 import { useEffect } from 'react';
 import { Product } from 'types';

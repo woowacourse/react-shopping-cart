@@ -1,6 +1,6 @@
 import ContentLayout from 'components/@common/ContentLayout';
-import Header from 'components/Header';
-import ProductItemList from 'components/ProductItemList';
+import Header from 'components/@common/Header';
+import ProductItemList from 'components/Product/ProductItemList';
 import { useToast } from 'components/@common/Toast/hooks/useToast';
 
 const ProductList = () => {

@@ -3,7 +3,7 @@ import ProductItemList from '.';
 
 const productItemList = {
   component: ProductItemList,
-  title: 'Cart/ProductItemList',
+  title: 'Product/ProductItemList',
   tags: ['autodocs'],
 } satisfies Meta<typeof ProductItemList>;
 

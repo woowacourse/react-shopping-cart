@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import * as S from './CartItemList.styles';
 import { useRecoilState } from 'recoil';
 import { cartIds, checkedItemsIdAtom } from 'recoil/cartList';
-import CartItem from 'components/CartItem';
+import CartItem from 'components/Cart/CartItem';
 import { useFetch } from 'hooks/useFetch';
 import { Cart } from 'types';
 
