@@ -1,48 +1,48 @@
 import { ChangeEvent } from 'react';
 import { styled } from 'styled-components';
-import { QUANTITY } from '../constants';
+
 import { useCart } from '../hooks/useCart';
-import { isNumeric } from '../utils';
-import Button from './common/Button';
+
+import { Button } from './common/Button';
+
+import { QUANTITY } from '../constants';
 
 interface Props {
   productId: number;
-  count: number;
+  quantity: number;
 }
 
-export default function Stepper({ productId, count }: Props) {
-  const { updateProductQuantity, increaseProductQuantity, decreaseProductQuantity } = useCart();
-
-  const handleChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-    if (!isNumeric(value)) return;
-
-    updateProductQuantity(productId, Number(value));
-  };
+export const Stepper = ({ productId, quantity }: Props) => {
+  const { increaseProductQuantity, decreaseProductQuantity, updateProductQuantity } = useCart();
 
   const onClickPlusButton = () => {
-    if (count === QUANTITY.MAX) return;
+    if (quantity === QUANTITY.MAX) return;
 
     increaseProductQuantity(productId);
   };
 
   const onClickMinusButton = () => {
-    if (count === QUANTITY.MIN) return;
+    if (quantity === QUANTITY.MIN) return;
 
     decreaseProductQuantity(productId);
   };
 
+  const onChangeQuantity = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+    updateProductQuantity(productId, Number(value) || 1);
+  };
+
   return (
     <Style.Container>
-      <Button designType="square" disabled={count === QUANTITY.MIN} onClick={onClickMinusButton}>
+      <Button designType="square" disabled={quantity === QUANTITY.MIN} onClick={onClickMinusButton}>
         -
       </Button>
-      <Style.CountInput value={count} onChange={handleChange} />
-      <Button designType="square" disabled={count === QUANTITY.MAX} onClick={onClickPlusButton}>
+      <Style.CountInput value={quantity} onChange={onChangeQuantity} />
+      <Button designType="square" disabled={quantity === QUANTITY.MAX} onClick={onClickPlusButton}>
         +
       </Button>
     </Style.Container>
   );
-}
+};
 
 const Style = {
   Container: styled.div`
