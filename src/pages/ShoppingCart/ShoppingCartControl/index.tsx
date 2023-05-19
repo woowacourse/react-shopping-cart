@@ -2,8 +2,9 @@ import { useRecoilValue } from 'recoil';
 
 import Checkbox from '@Components/Checkbox';
 
+import { ShoppingCartProduct, UpdateShoppingCart } from '@Types/index';
+
 import useSelectedShoppingItem from '@Hooks/useSelectedShoppingItem';
-import useShoppingCart from '@Hooks/useShoppingCart';
 
 import shoppingCartAmountState from '@Selector/shoppingCartAmountState';
 
@@ -11,12 +12,17 @@ import { FETCH_METHOD, FETCH_URL } from '@Constants/index';
 
 import * as S from './style';
 
-function ShoppingCartControl() {
+type ShoppingCartControlProps = {
+  shoppingCart: ShoppingCartProduct[];
+  updateShoppingCart: UpdateShoppingCart;
+};
+
+function ShoppingCartControl({ shoppingCart, updateShoppingCart }: ShoppingCartControlProps) {
   const { itemId, isAllSelected, selectedItemAmount, updateAllSelectedShoppingItem, popSelectedShoppingItem } =
     useSelectedShoppingItem();
-  const { shoppingCart, updateShoppingCart } = useShoppingCart();
+
   const shoppingCartAmount = useRecoilValue(shoppingCartAmountState);
-  console.log(itemId);
+
   const deleteManyShoppingItem = () => {
     if (!window.confirm('선택한 모든 상품을 장바구니에서 삭제하시겠습니까?')) return;
 

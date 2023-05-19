@@ -3,11 +3,10 @@ import { useRecoilValue } from 'recoil';
 import Checkbox from '@Components/Checkbox';
 import QuantityController from '@Components/QuantityController';
 
-import { Product } from '@Types/index';
+import { Product, UpdateShoppingCart } from '@Types/index';
 
 import useProduct from '@Hooks/useProduct';
 import useSelectedShoppingItem from '@Hooks/useSelectedShoppingItem';
-import useShoppingCart from '@Hooks/useShoppingCart';
 
 import cartItemState from '@Selector/cartItemState';
 
@@ -21,11 +20,12 @@ type ShoppingItemProps = {
   product: Product;
   width?: string;
   cartId: number;
+  updateShoppingCart: UpdateShoppingCart;
 };
 
-function ShoppingItem({ product, width = '100%', cartId }: ShoppingItemProps) {
+function ShoppingItem({ product, width = '100%', cartId, updateShoppingCart }: ShoppingItemProps) {
   const { isSelected, updateSelectedShoppingItem, popSelectedShoppingItem } = useSelectedShoppingItem();
-  const { updateShoppingCart } = useShoppingCart();
+
   const { name, price, image, imageDescription } = useProduct(product);
   const { cartItemId, quantity } = product && useRecoilValue(cartItemState(product.id));
 

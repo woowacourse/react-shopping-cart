@@ -30,7 +30,7 @@ const useShoppingCart = () => {
     if (data) setShoppingCart(data);
   }, [data]);
 
-  return { shoppingCart, status, isEmpty, updateShoppingCart };
+  return { shoppingCart, status, isEmpty, setShoppingCart, updateShoppingCart };
 };
 
 export default useShoppingCart;
