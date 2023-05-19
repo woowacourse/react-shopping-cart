@@ -51,7 +51,7 @@ function QuantityController({
       return;
     }
 
-    changeProductQuantity(newValue);
+    changeProductQuantity(newValue <= minCount ? minCount : newValue);
   };
 
   return (
