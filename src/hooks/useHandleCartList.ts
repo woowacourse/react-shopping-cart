@@ -5,10 +5,15 @@ import { removeProductItemFromCartSelector, totalPriceSelector } from '../store/
 
 export const useHandleCartList = () => {
   const cart = useRecoilValue(cartState);
-  const [checkedItems, setCheckedItems] = useState<number[]>([]);
+  const initialCheckedItems = cart.map((item) => item.id);
+  const [checkedItems, setCheckedItems] = useState<number[]>(initialCheckedItems);
   const removeProductItemFromCart = useRecoilCallback(({ set }) => (id: number) => {
     set(removeProductItemFromCartSelector(id), []);
   });
+
+  const isChecked = (id: number) => {
+    return checkedItems.includes(id);
+  };
 
   const totalPrice = useRecoilValue(totalPriceSelector(checkedItems));
 
@@ -35,6 +40,7 @@ export const useHandleCartList = () => {
 
   return {
     checkedItems,
+    isChecked,
     setCheckedItems,
     totalPrice,
     handleRemoveFromCartList,

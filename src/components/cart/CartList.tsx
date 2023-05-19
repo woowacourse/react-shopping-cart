@@ -10,6 +10,7 @@ const CartList = () => {
   const cart = useRecoilValue(cartState);
   const {
     checkedItems,
+    isChecked,
     setCheckedItems,
     totalPrice,
     handleCheckAllItems,
@@ -38,7 +39,7 @@ const CartList = () => {
             <S.ItemWrapper key={cartItem.id}>
               <Checkbox
                 onChange={handleCheckedItem(cartItem.id)}
-                isChecked={checkedItems.includes(cartItem.id)}
+                isChecked={isChecked(cartItem.id)}
               />
               <CartListItem item={cartItem} setCheckItems={setCheckedItems} />
             </S.ItemWrapper>
