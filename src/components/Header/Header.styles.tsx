@@ -37,6 +37,7 @@ export const ShoppingCartButton = styled.button`
   background: transparent;
   border: none;
   align-items: center;
+  cursor: pointer;
 `;
 
 export const ShoppingCartButtonText = styled.span`
