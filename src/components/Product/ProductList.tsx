@@ -1,15 +1,12 @@
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { fetchProductsSelector } from '../../recoil/fetchProductData';
-import useCartProductUpdate from '../../hooks/useCartProductUpdate';
 
 import ProductItem from './ProductItem';
 import Message from '../Common/Message';
 
 const ProductList = () => {
   const products = useRecoilValue(fetchProductsSelector);
-
-  useCartProductUpdate();
 
   if (products.length === 0) return <Message type='empty' />;
 

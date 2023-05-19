@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { fetchCartProducts } from '../../apis/cartProducts';
-import useCartProductUpdate from '../../hooks/useCartProductUpdate';
 
 import type { CartProduct } from '../../types/product';
 import CartProductItem from './CartProductItem';
@@ -18,8 +17,6 @@ const CartProductList = () => {
 
     getCartProducts();
   }, []);
-
-  useCartProductUpdate();
 
   return (
     <CartProductListContainer>
