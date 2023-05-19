@@ -2,15 +2,18 @@ import { memo } from 'react';
 
 import { CloseIcon } from '../../../assets';
 import { useCount } from '../../../hooks/common/useCount';
-import { CartItemData } from '../../../types';
+import { useCartItem } from '../../../hooks/useCartItem';
+import { ProductItemData } from '../../../types';
 import { priceFormatter } from '../../../utils/formatter';
 import StepperButton from '../../common/StepperButton/StepperButton';
 import * as S from './CartItem.styles';
 
-interface CartItemProps extends CartItemData {}
+interface CartItemProps extends ProductItemData {
+  quantity: number;
+}
 
-const CartItem = ({ quantity, product }: CartItemProps) => {
-  const { count, handleDecreaseCount, handleIncreaseCount, handleCountChange } = useCount(quantity);
+const CartItem = ({ id, quantity, name, price, imageUrl }: CartItemProps) => {
+  const { updateQuantity, removeItem } = useCartItem(id);
 
   return (
     <S.CartItemContainer>
@@ -24,8 +27,8 @@ const CartItem = ({ quantity, product }: CartItemProps) => {
         handleIncreaseCount={handleIncreaseCount}
         handleCountChange={handleCountChange}
       />
-      <S.CartItemPrice>{priceFormatter(product.price * count)}원</S.CartItemPrice>
-      <S.CartItemDeleteButton variant="textButton">
+      <S.CartItemPrice>{priceFormatter(price * quantity)}원</S.CartItemPrice>
+      <S.CartItemDeleteButton variant="textButton" onClick={removeItem}>
         <CloseIcon />
       </S.CartItemDeleteButton>
     </S.CartItemContainer>
