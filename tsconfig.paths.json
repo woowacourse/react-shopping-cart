@@ -11,7 +11,8 @@
       "@Types/*": ["./types/*"],
       "@Asset/*": ["./assets/*"],
       "@Styles/*": ["./styles/*"],
-      "@Utils/*": ["./utils/*"]
+      "@Utils/*": ["./utils/*"],
+      "@Api/*": ["./api/*"]
     }
   }
 }

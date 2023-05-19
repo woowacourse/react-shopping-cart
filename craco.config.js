@@ -23,6 +23,7 @@ module.exports = {
         '^\\@Contexts/(.*)$': '<rootDir>/src/contexts/$1',
         '^\\@Atoms/(.*)$': '<rootDir>/src/atoms/$1',
         '^\\@Utils/(.*)$': '<rootDir>/src/utils/$1',
+        '^\\@Api/(.*)$': '<rootDir>/src/api/$1',
       },
     },
   },
