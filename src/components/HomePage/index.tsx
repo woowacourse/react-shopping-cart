@@ -1,16 +1,7 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useProductList from '@hooks/useProductList';
-import { ProductInformation } from '@type/types';
-import { fetchAPI } from '@utils/common';
 import { device } from '@styles/theme';
 import ProductItem from './ProductItem';
-
-const products = async () => {
-  const data = await fetchAPI<ProductInformation[]>('api/products');
-
-  return data;
-};
 
 const ProductList = () => {
   const { data, isLoading } = useProductList();
