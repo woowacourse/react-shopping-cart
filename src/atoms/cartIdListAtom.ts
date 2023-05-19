@@ -1,8 +1,8 @@
-import { atom, selector } from 'recoil';
+import { atom } from 'recoil';
 import { getCartIdList } from '../utils/localStorage';
 import { Product } from '../types/Product';
 
-interface CartProduct {
+interface CartProductDetail {
   id: number;
   quantity: number;
   product: Product;
@@ -13,28 +13,12 @@ export const cartIdListState = atom<number[]>({
   default: getCartIdList(),
 });
 
-// export const cartProductListState = atom<CartProduct[]>({
-//   key: 'cartProductListState',
-//   default: (async () => {
-//     const response = await fetch(`/cart-list`);
-//     const cartProductList = await response.json();
-
-//     return cartProductList;
-//   })(),
-// });
-
-export const cartProductListState = atom<CartProduct[]>({
-  key: 'cartProductListState',
+export const selectedCartIdListState = atom<number[]>({
+  key: 'selectedCartIdListState',
   default: [],
 });
 
-export const asyncCartProductListState = selector<CartProduct[]>({
-  key: 'asyncCartProductListState',
-  get: async ({ get }) => {
-    const cartProductList = get(cartProductListState);
-    const response = await fetch(`/cart-list`);
-    const asyncCartProductList = await response.json();
-
-    return asyncCartProductList;
-  },
+export const cartProductDetailListState = atom<CartProductDetail[]>({
+  key: 'cartProductDetailListState',
+  default: [],
 });

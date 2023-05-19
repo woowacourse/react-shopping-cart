@@ -1,26 +1,18 @@
 import styled from 'styled-components';
 import { ProductSelectItem } from './CartProductItem';
 import { Product } from '../../../types/Product';
-import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import { cartIdListState } from '../../../atoms/cartIdListAtom';
 
-interface CartProductList {
+interface CartProductListType {
   id: number;
   quantity: number;
   product: Product;
 }
 
-export const ProductSelectList = () => {
-  const [cartProductList, setCartProductList] = useState<CartProductList[]>([]);
-  const cartIdList = useRecoilValue(cartIdListState);
+interface CartProductListProps {
+  cartProductList: CartProductListType[];
+}
 
-  useEffect(() => {
-    fetch('/cart-items')
-      .then((res) => res.json())
-      .then((data) => setCartProductList(data));
-  }, [cartIdList]);
-
+export const CartProductList = ({ cartProductList }: CartProductListProps) => {
   return (
     <Style.Container>
       {cartProductList.map((cartProduct) => {

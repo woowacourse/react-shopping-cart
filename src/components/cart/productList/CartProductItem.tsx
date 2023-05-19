@@ -7,6 +7,11 @@ import { getCommaAddedNumber } from '../../../utils/number';
 import { CheckBox } from '../../../layout/checkBox/CheckBox';
 import { useCounterInput } from '../../../hooks/useCounterInput';
 import { useCartProductList } from '../../../hooks/recoil/useCartProductList';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import {
+  cartProductDetailListState,
+  selectedCartIdListState,
+} from '../../../atoms/cartIdListAtom';
 
 interface ProductSelectItemProps {
   id: number;
@@ -21,62 +26,99 @@ export const ProductSelectItem = ({
   price,
   imageUrl,
 }: ProductSelectItemProps) => {
-  const [isChecked, setIsChecked] = useState<boolean>(false);
-  const [productQuantity, setProductQuantity] = useState(1);
+  const selectedCartIdList = useRecoilValue(selectedCartIdListState);
+  const [cartProductDetailList, setCartProductDetailList] = useRecoilState(
+    cartProductDetailListState
+  );
 
   const { removeProductFromCartProductList } = useCartProductList();
+
+  const setQuantity = (quantity: number) => {
+    setCartProductDetailList((current) =>
+      current.map((productDetail) => {
+        if (productDetail.id === id)
+          return {
+            ...productDetail,
+            quantity: quantity,
+          };
+        return productDetail;
+      })
+    );
+  };
+
+  const fetchQuantity = (quantity: number) => {
+    fetch(`/cart-items/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({
+        quantity: quantity,
+      }),
+    });
+  };
+
+  const handleDeleteCartItem = () => {
+    // eslint-disable-next-line no-restricted-globals
+    const isUserWantToDeleteProduct = confirm(`${name}을 삭제하시겠습니까?`);
+
+    if (isUserWantToDeleteProduct) return removeProductFromCartProductList(id);
+  };
 
   const { inputRef, handleIncrease, handleDecrease } = useCounterInput({
     minLimit: 0,
     handleMinLimitExceeded: () => {
-      // eslint-disable-next-line no-restricted-globals
-      const isUserWantToDeleteProduct = confirm(`${name}을 삭제하시겠습니까?`);
+      handleDeleteCartItem();
 
-      if (isUserWantToDeleteProduct)
-        return removeProductFromCartProductList(id);
       inputRef.current?.stepUp();
+
+      setQuantity(Number(inputRef.current?.value));
     },
     increaseCallback: () => {
       const quantity = Number(inputRef.current?.value);
 
-      fetch(`/cart-items/${id}`, {
-        method: 'PATCH',
-        body: JSON.stringify({
-          quantity: quantity,
-        }),
-      });
+      setQuantity(quantity);
+      fetchQuantity(quantity);
     },
     decreaseCallback: () => {
       const quantity = Number(inputRef.current?.value);
 
-      fetch(`/cart-items/${id}`, {
-        method: 'PATCH',
-        body: JSON.stringify({
-          quantity: quantity,
-        }),
-      });
+      setQuantity(quantity);
+      fetchQuantity(quantity);
     },
   });
 
-  useEffect(() => {
-    fetch(`/cart-items/quantity/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setProductQuantity(Number(data));
-      });
-  }, []);
+  const [, setSelectedCartIdList] = useRecoilState(selectedCartIdListState);
+
+  const handleClickCheckBox: React.ChangeEventHandler<HTMLInputElement> = (
+    e
+  ) => {
+    if (e.target.checked)
+      return setSelectedCartIdList((current) => [...current, id]);
+
+    setSelectedCartIdList((current) =>
+      current.filter((selectedCartId) => selectedCartId !== id)
+    );
+  };
 
   return (
     <Style.Container>
       <Style.Content>
-        <CheckBox isChecked={isChecked} setIsChecked={setIsChecked} id={id} />
+        <CheckBox
+          isChecked={selectedCartIdList.includes(id)}
+          handleClickCheckBox={handleClickCheckBox}
+          id={id}
+        />
         <Style.ProductImage src={imageUrl} alt={name} />
         <Style.ProductName>{name}</Style.ProductName>
         <Style.ProductSelectorContainer>
-          <Style.DeleteIcon src={`${process.env.PUBLIC_URL}/trashCan.png`} />
+          <Style.DeleteIcon
+            src={`${process.env.PUBLIC_URL}/trashCan.png`}
+            onClick={handleDeleteCartItem}
+          />
           <Counter
             ref={inputRef}
-            initialValue={productQuantity}
+            initialValue={
+              cartProductDetailList.find((cartProduct) => cartProduct.id === id)
+                ?.quantity ?? 1
+            }
             handleDecrease={handleDecrease}
             handleIncrease={handleIncrease}
           />

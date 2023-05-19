@@ -1,7 +1,41 @@
 import styled from 'styled-components';
 import { getCommaAddedNumber } from '../../../utils/number';
+import { selector, useRecoilValue } from 'recoil';
+import {
+  cartProductDetailListState,
+  selectedCartIdListState,
+} from '../../../atoms/cartIdListAtom';
+
+const priceSummaryState = selector({
+  key: 'priceSummaryState',
+  get: ({ get }) => {
+    const selectedCartItemList = get(selectedCartIdListState);
+    const cartProductDetailList = get(cartProductDetailListState);
+
+    const totalProductPrice = selectedCartItemList.reduce(
+      (acc, selectedCartItemId) => {
+        const product = cartProductDetailList.find(
+          (cartProduct) => cartProduct.id === selectedCartItemId
+        );
+
+        return (acc +=
+          Number(product?.quantity) * Number(product?.product.price));
+      },
+      0
+    );
+
+    const deliveryPrice = 3000;
+
+    const totalPrice = totalProductPrice + deliveryPrice;
+
+    return { totalProductPrice, deliveryPrice, totalPrice };
+  },
+});
 
 export const OrderSummarySection = () => {
+  const { totalProductPrice, deliveryPrice, totalPrice } =
+    useRecoilValue(priceSummaryState);
+
   return (
     <Style.Container>
       <Style.Header>
@@ -10,15 +44,17 @@ export const OrderSummarySection = () => {
       <Style.Content>
         <Style.TotalPriceSummary>
           <Style.Caption>총 상품가격</Style.Caption>
-          <Style.Caption>{getCommaAddedNumber(21700)}원</Style.Caption>
+          <Style.Caption>
+            {getCommaAddedNumber(totalProductPrice)}원
+          </Style.Caption>
         </Style.TotalPriceSummary>
         <Style.TotalDeliveryPriceSummary>
           <Style.Caption>총 배송비</Style.Caption>
-          <Style.Caption>{getCommaAddedNumber(3000)}원</Style.Caption>
+          <Style.Caption>{getCommaAddedNumber(deliveryPrice)}원</Style.Caption>
         </Style.TotalDeliveryPriceSummary>
         <Style.TotalOrderPriceSummary>
           <Style.Caption>총 주문 금액</Style.Caption>
-          <Style.Caption>{getCommaAddedNumber(24700)}원</Style.Caption>
+          <Style.Caption>{getCommaAddedNumber(totalPrice)}원</Style.Caption>
         </Style.TotalOrderPriceSummary>
         <Style.OrderButton>주문하기</Style.OrderButton>
       </Style.Content>
@@ -34,6 +70,8 @@ const Style = {
     margin-top: 49px;
 
     border: 1px solid #dddddd;
+    position: sticky;
+    top: 80px;
   `,
   Header: styled.div`
     width: 448px;

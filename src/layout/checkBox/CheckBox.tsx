@@ -1,14 +1,16 @@
 import styled from 'styled-components';
 
-import { SetStateAction } from 'react';
-
 interface CheckBoxProps {
   id: number;
   isChecked: boolean;
-  setIsChecked: React.Dispatch<SetStateAction<boolean>>;
+  handleClickCheckBox: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-export const CheckBox = ({ isChecked, setIsChecked, id }: CheckBoxProps) => {
+export const CheckBox = ({
+  isChecked,
+  id,
+  handleClickCheckBox,
+}: CheckBoxProps) => {
   return (
     <>
       <Style.CheckBox isChecked={isChecked} htmlFor={`${id}`}>
@@ -19,9 +21,7 @@ export const CheckBox = ({ isChecked, setIsChecked, id }: CheckBoxProps) => {
       <Style.HiddenInput
         type="checkbox"
         checked={isChecked}
-        onChange={(e) => {
-          setIsChecked(e.target.checked);
-        }}
+        onChange={handleClickCheckBox}
         id={`${id}`}
       />
     </>
