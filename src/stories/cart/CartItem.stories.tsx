@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 
 import CartItem from '../../components/cart/CartItem/CartItem';
+import CartItemSkeleton from '../../components/cart/CartItem/CartItemSkeleton';
 
 const meta = {
   title: 'ShoppingCart/Cart/CartItem',
@@ -25,6 +26,6 @@ export const Default: Story = {};
 
 export const Skeleton: Story = {
   render: () => {
-    return <CartItem.Skeleton />;
+    return <CartItemSkeleton />;
   },
 };

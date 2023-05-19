@@ -1,10 +1,11 @@
+import { memo } from 'react';
+
 import { CloseIcon } from '../../../assets';
 import { useCount } from '../../../hooks/useCount';
 import { CartItemData } from '../../../types';
 import { priceFormatter } from '../../../utils/formatter';
 import StepperButton from '../../common/StepperButton/StepperButton';
 import * as S from './CartItem.styles';
-import CartItemSkeleton from './CartItemSkeleton';
 
 interface CartItemProps extends CartItemData {}
 
@@ -31,6 +32,4 @@ const CartItem = ({ quantity, product }: CartItemProps) => {
   );
 };
 
-export default CartItem;
-
-CartItem.Skeleton = CartItemSkeleton;
+export default memo(CartItem);
