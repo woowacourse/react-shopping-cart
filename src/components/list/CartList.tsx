@@ -1,25 +1,53 @@
 import styled from '@emotion/styled';
+import { useRecoilState } from 'recoil';
+import type { ChangeEvent } from 'react';
+import { useEffect } from 'react';
 import { Text } from '../common/Text/Text';
 import CartListItem from '../box/CartListItem';
 import useCartList from '../../hooks/useCartList';
+import { checkedArrayState } from '../../recoil/atom';
+import type { CartItem } from '../../types/types';
 
 const CartList = () => {
-  const { cartList } = useCartList();
+  const { cartList, updateProductQuantity } = useCartList();
+
+  const [checkedProductArray, setCheckedProductArray] = useRecoilState(checkedArrayState);
+
+  const handleCheckedProductArray = (isChecked: boolean, cartItem: CartItem) => {
+    if (isChecked) return setCheckedProductArray((prev) => [...prev, cartItem]);
+
+    return setCheckedProductArray((prev) => prev.filter((product) => product.id !== cartItem.id));
+  };
+
+  const handleOnAllCheckedButton = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) return setCheckedProductArray([...cartList]);
+
+    return setCheckedProductArray([]);
+  };
+
+  useEffect(() => {
+    setCheckedProductArray([]);
+  }, []);
 
   return (
     <CartListWrapper>
       <Text size="smallest" weight="light" color="#333333">
-        든든배송 상품 (3개)
+        든든배송 상품 ({cartList.length}개)
       </Text>
       <CartItemListWrapper>
         {cartList.map((cartItem) => (
-          <CartListItem key={cartItem.id} cartItem={cartItem} />
+          <CartListItem
+            key={cartItem.id}
+            cartItem={cartItem}
+            updateProductQuantity={updateProductQuantity}
+            handleCheckedProductArray={handleCheckedProductArray}
+          />
         ))}
       </CartItemListWrapper>
       <SelectAllWrapper>
-        <CheckBox type="checkbox" />
+        <CheckBox type="checkbox" onChange={handleOnAllCheckedButton}/>
         <Text size="minimum" weight="light" color="#333333">
-          전체선택(2/3)
+          전체선택({checkedProductArray.length}/{cartList.length})
         </Text>
         <SelectDeleteButton>선택삭제</SelectDeleteButton>
       </SelectAllWrapper>
