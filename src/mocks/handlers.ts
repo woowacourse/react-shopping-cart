@@ -19,21 +19,23 @@ export const handlers = [
   rest.get('/cart-items/:id', async (req, res, ctx) => {
     const { id } = req.params;
     const carts = JSON.parse(localStorage.getItem('cart-items') || '[]');
-
     const product = Object.assign(
       carts.find((cart: Cart) => cart.id === Number(id))
     );
+
     return res(ctx.json(product));
   }),
   rest.post<{ id: number }>('/cart-items', async (req, res, ctx) => {
     const { id } = req.body;
     const data = JSON.parse(localStorage.getItem('cart-items') || '[]');
     const product = products.find((product) => product.id === Number(id));
-    const newData = [...data, { id: Number(id), quantity: 1, product }];
 
-    localStorage.setItem('cart-items', JSON.stringify(newData));
-
-    return res(ctx.json(newData));
+    if (product) {
+      const newProduct = [...data, { id: Number(id), quantity: 1, product }];
+      localStorage.setItem('cart-items', JSON.stringify(newProduct));
+      return res(ctx.json(newProduct));
+    }
+    return res(ctx.status(404));
   }),
   rest.patch<PatchRequest, { id: string }>(
     '/cart-items/:id',
@@ -43,14 +45,16 @@ export const handlers = [
       const data = JSON.parse(localStorage.getItem('cart-items') || '[]');
       const filteredData = data.filter((item: Cart) => item.id !== Number(id));
       const product = products.find((product) => product.id === Number(id));
-      const newData = [
-        ...filteredData,
-        { id: Number(id), quantity: quantity + 1, product },
-      ];
 
-      localStorage.setItem('cart-items', JSON.stringify(newData));
-
-      return res(ctx.json(newData));
+      if (product) {
+        const newProduct = [
+          ...filteredData,
+          { id: Number(id), quantity: quantity + 1, product },
+        ];
+        localStorage.setItem('cart-items', JSON.stringify(newProduct));
+        return res(ctx.json(newProduct));
+      }
+      return res(ctx.status(404));
     }
   ),
   rest.delete('/cart-items/:id', async (req, res, ctx) => {
