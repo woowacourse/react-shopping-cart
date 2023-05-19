@@ -3,19 +3,19 @@ type ShoppingItemApiState = 'GET' | 'POST' | 'PUT' | 'DELETE';
 export const getMockShoppingItemApiUrl = (state: ShoppingItemApiState, id?: number) => {
   switch (state) {
     case 'GET':
-      return `${state}/api/mockData`;
+      return `${state}/products`;
     default:
-      return `${state}/api/mockData/${id}`;
+      return `${state}/products/${id}`;
   }
 };
 
-type SelectItemApiState = 'GET' | 'POST' | 'PATCH';
+type SelectItemApiState = 'GET' | 'POST' | 'DELETE';
 
 export const getMockSelectItemApiUrl = (state: SelectItemApiState, id?: number) => {
   switch (state) {
     case 'GET':
-      return `${state}/api/mockData`;
+      return `${state}/cart-items`;
     default:
-      return `${state}/api/mockData/${id}`;
+      return `${state}/cart-items/${id}`;
   }
 };
