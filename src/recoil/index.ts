@@ -46,3 +46,8 @@ export const cartBadgeSelector = selector({
     return selectedProducts;
   },
 });
+
+export const checkedItemList = atom<number[]>({
+  key: 'checkedItems',
+  default: [],
+});

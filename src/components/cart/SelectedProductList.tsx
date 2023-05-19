@@ -1,6 +1,7 @@
-import { useRecoilValue } from 'recoil';
+import { useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { css, styled } from 'styled-components';
-import { cartState } from '../../recoil';
+import { cartState, checkedItemList } from '../../recoil';
 import { CartItem } from '../../types';
 import Button from '../common/Button';
 import { Checkbox } from '../common/CheckboxStyle';
@@ -9,6 +10,19 @@ import SelectedProductItem from './SelectedProductItem';
 const SelectedProductList = () => {
   const cart = useRecoilValue(cartState);
   const productCountInCart = cart.length;
+
+  const initialCheckedItems = cart.map((item: CartItem) => item.id);
+
+  const [checkedItems, setCheckedItems] = useRecoilState<number[]>(checkedItemList);
+
+  useEffect(() => {
+    setCheckedItems(initialCheckedItems);
+  }, []);
+
+  const isAllChecked = checkedItems.length === cart.length;
+  const handleAllItemsCheck = () => {
+    isAllChecked ? setCheckedItems([]) : setCheckedItems(initialCheckedItems);
+  };
 
   return (
     <S.Wrapper>
@@ -25,8 +39,14 @@ const SelectedProductList = () => {
       ))}
 
       <S.Fieldset>
-        <Checkbox type="checkbox" id="select-all" name="select-all" />
-        <label htmlFor="select-all">{`전체선택 (2/${productCountInCart})`}</label>
+        <Checkbox
+          type="checkbox"
+          id="select-all"
+          name="select-all"
+          checked={isAllChecked}
+          onChange={handleAllItemsCheck}
+        />
+        <label htmlFor="select-all">{`전체선택 (${checkedItems.length}/${productCountInCart})`}</label>
         <Button css={deleteButtonStyle}>선택삭제</Button>
       </S.Fieldset>
     </S.Wrapper>

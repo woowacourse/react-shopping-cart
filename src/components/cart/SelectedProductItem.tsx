@@ -1,7 +1,9 @@
+import { useRecoilState } from 'recoil';
 import { css, styled } from 'styled-components';
 import { useSetCart } from '../../hooks/useCart';
 import { useHandleQuantityInput } from '../../hooks/useHandleQuantityInput';
 import { useLoadCart } from '../../hooks/useLoadCart';
+import { checkedItemList } from '../../recoil';
 import { Product } from '../../types';
 import Button from '../common/Button';
 import { Checkbox } from '../common/CheckboxStyle';
@@ -16,6 +18,7 @@ interface Props extends Product {
 const SelectedProductItem = ({ id, imageUrl, name, price, quantity }: Props) => {
   const { setIsSelected, setQuantity } = useLoadCart(id);
   const { addToCart, removeItemFromCart } = useSetCart(id);
+  const [checkedItems, setCheckedItems] = useRecoilState<number[]>(checkedItemList);
 
   const handleNumberInputChange = useHandleQuantityInput({
     setIsSelected,
@@ -24,10 +27,24 @@ const SelectedProductItem = ({ id, imageUrl, name, price, quantity }: Props) => 
     addToCart,
   });
 
+  const isChecked = checkedItems.includes(id);
+
+  const handleCheckedItem = () => {
+    isChecked
+      ? setCheckedItems((prev) => prev.filter((itemId) => itemId !== id))
+      : setCheckedItems((prev) => [...prev, id]);
+  };
+
   return (
     <div>
       <S.Fieldset>
-        <Checkbox type="checkbox" id={`${id}-checkbox`} name={name} />
+        <Checkbox
+          type="checkbox"
+          id={`${id}-checkbox`}
+          name={name}
+          checked={isChecked}
+          onChange={handleCheckedItem}
+        />
         <S.Image src={`${imageUrl}`} alt={name} />
         <label htmlFor={`${id}-checkbox`}>{name}</label>
         <S.Wrapper>
