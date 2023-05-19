@@ -1,7 +1,7 @@
 import { DefaultValue, atom, selector, selectorFamily } from 'recoil';
 
 import { getCartList } from '../api/cartAPI';
-import { updateCartItemQuantity } from '../domain/cart';
+import { addCartItemQuantity, updateCartItemQuantity } from '../domain/cart';
 import { CartItemData } from '../types';
 
 const cartListState = atom<CartItemData[]>({
@@ -35,12 +35,16 @@ const cartItemQuantityState = selectorFamily<number, number>({
     },
   set:
     (productId) =>
-    ({ set }, quantity) => {
+    ({ get, set }, quantity) => {
       if (!quantity || quantity instanceof DefaultValue) return;
 
-      set(cartListState, (prevCartList) =>
-        updateCartItemQuantity(prevCartList, productId, quantity)
-      );
+      set(cartListState, (prevCartList) => {
+        const hasItem = get(cartIdListState).includes(productId);
+
+        return hasItem
+          ? updateCartItemQuantity(prevCartList, productId, quantity)
+          : addCartItemQuantity(prevCartList, productId, quantity);
+      });
     },
 });
 
