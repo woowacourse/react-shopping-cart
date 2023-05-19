@@ -9,5 +9,6 @@ export default ContentLayout;
 
 const ContentSection = styled.section`
   width: 100%;
+  max-width: 1320px;
   margin: 140px auto 0 auto;
 `;

@@ -4,7 +4,8 @@ export const OrderWrapper = styled.div`
   width: 448px;
   height: 410px;
   border: 1px solid #dddddd;
-  margin: 90px auto;
+  margin: 60px auto;
+  background: ${(props) => props.theme.color.white};
 `;
 
 export const OrderTitleContainer = styled.div`

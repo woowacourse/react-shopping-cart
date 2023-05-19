@@ -15,31 +15,39 @@ export const ProductImage = styled.img`
 export const ProductNameConatiner = styled.div`
   display: flex;
   flex-direction: column;
+
   width: 300px;
   margin-right: 20px;
-  overflow: hidden;
-  white-space: nowrap;
-  word-break: break-all;
 `;
+
 export const ProductName = styled.p`
   max-height: 54px;
   padding-top: 8px;
-  overflow: hidden;
-  word-break: break-all;
-  white-space: normal;
+
   font: ${(props) => props.theme.font.product};
+`;
+
+export const ProductOrderControllerContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  gap: 12px;
 `;
 
 export const ProductPriceContainer = styled.div`
   display: flex;
   flex-direction: column;
+
   width: 96px;
-  text-align: right;
-  word-break: break-all;
-  margin-right: 12px;
+  text-align: end;
 `;
 
 export const ProductPrice = styled.span`
   font: ${(props) => props.theme.font.product};
   font-weight: 700;
+`;
+
+export const SVGContainer = styled.div`
+  display: flex;
+  justify-content: end;
 `;

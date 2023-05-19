@@ -36,7 +36,6 @@ const CartList = () => {
         >
           <S.SelectText>{`전체 선택 (${selectedLength}/${wholeCartItemsCount}개)`}</S.SelectText>
         </CheckBox>
-        <span>|</span>
         <S.SelectedDeleteButton onClick={onClickDeleteHandler}>
           선택 삭제
         </S.SelectedDeleteButton>

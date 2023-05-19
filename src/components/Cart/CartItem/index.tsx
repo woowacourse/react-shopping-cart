@@ -39,21 +39,25 @@ const Item = ({ item }: ItemProps) => {
       <S.ProductNameConatiner>
         <S.ProductName>{product.name}</S.ProductName>
       </S.ProductNameConatiner>
-      <Counter
-        count={quantity}
-        productCountMethod={productCountMethod}
-        isOnlyOverOne={true}
-      />
-      <S.ProductPriceContainer>
-        <S.ProductPrice>{convertKORWon(itemTotalPrice)}</S.ProductPrice>
-      </S.ProductPriceContainer>
-      <Svg
-        type="delete-icon"
-        width={20}
-        height={20}
-        cursor="pointer"
-        onClick={deleteItem}
-      />
+      <S.ProductOrderControllerContainer>
+        <S.SVGContainer>
+          <Svg
+            type="delete-icon"
+            width={20}
+            height={20}
+            cursor="pointer"
+            onClick={deleteItem}
+          />
+        </S.SVGContainer>
+        <Counter
+          count={quantity}
+          productCountMethod={productCountMethod}
+          isOnlyOverOne={true}
+        />
+        <S.ProductPriceContainer>
+          <S.ProductPrice>{convertKORWon(itemTotalPrice)}</S.ProductPrice>
+        </S.ProductPriceContainer>
+      </S.ProductOrderControllerContainer>
     </S.ItemWrapper>
   );
 };

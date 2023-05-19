@@ -1,21 +1,26 @@
 import { styled } from 'styled-components';
 
 export const CartListWrapper = styled.div`
-  width: 736px;
-  margin: 36px auto;
+  width: 600px;
+  margin-bottom: 60px;
+
+  @media (min-width: 320px) and (max-width: 1100px) {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+  }
 `;
 
 export const CartListHeader = styled.div`
   display: flex;
+  justify-content: space-between;
+
   font: ${(props) => props.theme.font.price};
   gap: 8px;
 
   border-bottom: 3px solid ${(props) => props.theme.color.primary};
   padding-bottom: 16px;
-  span {
-    opacity: 0.6;
-    font-weight: 300;
-  }
 `;
 
 export const SelectInput = styled.input`
