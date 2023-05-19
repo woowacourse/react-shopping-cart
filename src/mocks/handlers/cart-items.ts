@@ -1,13 +1,13 @@
-import { rest } from 'msw';
 import cart from '../fixtures/cart';
 import products from '../fixtures/products';
+import rest from '../rest';
 
 export const handlers = [
-  rest.get('/cart-items', (req, res, ctx) => {
+  rest.on('GET /cart-items', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(cart));
   }),
 
-  rest.post('/cart-items', async (req, res, ctx) => {
+  rest.on('POST /cart-items', async (req, res, ctx) => {
     const body = await req.json();
     const { productId } = body;
 
@@ -41,7 +41,7 @@ export const handlers = [
     return res(ctx.status(201), ctx.set('Location', `/cart-items/${cartItemId}`));
   }),
 
-  rest.patch('/cart-items/:cartItemId', async (req, res, ctx) => {
+  rest.on('PATCH /cart-items/:cartItemId', async (req, res, ctx) => {
     const { cartItemId } = req.params;
     const body = await req.json();
     const quantity = Number(body.quantity);
@@ -61,7 +61,7 @@ export const handlers = [
     return res(ctx.status(200));
   }),
 
-  rest.delete('/cart-items/:cartItemId', async (req, res, ctx) => {
+  rest.on('DELETE /cart-items/:cartItemId', async (req, res, ctx) => {
     const { cartItemId } = req.params;
 
     const foundIndex = cart.findIndex((it) => it.id === Number(cartItemId));

@@ -1,12 +1,12 @@
-import { rest } from 'msw';
 import products from '../fixtures/products';
+import rest from '../rest';
 
 export const handlers = [
-  rest.get('/products', (req, res, ctx) => {
+  rest.on('GET /products', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(products));
   }),
 
-  rest.get('/products/:productId', (req, res, ctx) => {
+  rest.on('GET /products/:productId', (req, res, ctx) => {
     const { productId } = req.params;
 
     const product = products.find((it) => String(it.id) === productId) ?? null;
