@@ -7,6 +7,7 @@ import GlobalStyle from './GlobalStyle';
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme';
 import { worker } from './mocks/browsers';
+import { RecoilRoot } from 'recoil';
 
 const main = async () => {
   if (window.location.pathname === '/react-shopping-cart') {
@@ -26,10 +27,12 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <App />
-    </ThemeProvider>
+    <RecoilRoot>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <App />
+      </ThemeProvider>
+    </RecoilRoot>
   </React.StrictMode>
 );
 
