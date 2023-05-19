@@ -8,6 +8,8 @@ const fetchAPI = async (endpoint: RequestInfo | URL, option?: RequestInit) => {
       throw new HTTPError(response.status);
     }
 
+    if (response.status === 204) return response;
+
     const data = await response.json();
 
     return data;
