@@ -1,8 +1,6 @@
 import { memo, useEffect } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import type { CartItem } from '../../../../types/Cart';
-
 import { productToggleSelector } from '../../../../recoil/cartToggleState';
 import { SquareImage } from '../../../commons/SquareImage/SquareImage.styled';
 import Stepper from '../../../commons/Stepper/Stepper';
@@ -33,18 +31,13 @@ const CartSingleItem = (props: CartSingleItemProps) => {
   );
   const prevValue = usePreviousValue(value);
 
+  const deleteProduct = () => {
+    fetch(`/cart-items/${id}`, { method: 'DELETE' });
+    updateProductQuantity(0);
+  };
+
   useEffect(() => {
     if (prevValue === value) return;
-
-    if (prevValue === 0 && value > 0) {
-      fetch('/cart-items', { method: 'POST', body: JSON.stringify({ id }) });
-      return;
-    }
-
-    if (value === 0) {
-      fetch(`/cart-items/${id}`, { method: 'DELETE' });
-      return;
-    }
 
     fetch(`/cart-items/${id}`, {
       method: 'POST',
@@ -67,7 +60,9 @@ const CartSingleItem = (props: CartSingleItemProps) => {
       <SquareImage size="m" src={imageUrl} alt="" />
       <p>{name}</p>
       <div>
-        <button type="button">삭제하기</button>
+        <button type="button" onClick={deleteProduct}>
+          삭제하기
+        </button>
         <Stepper
           value={value}
           increaseValue={increaseValue}
