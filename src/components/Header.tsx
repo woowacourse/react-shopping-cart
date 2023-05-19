@@ -3,20 +3,20 @@ import { CartLogo } from '../assets/svg';
 import { Link } from 'react-router-dom';
 import { CartSize } from './CartSize';
 
-export default function Header() {
+export const Header = () => {
   return (
     <Style.Container>
       <Style.Content>
         <Style.Title to="/">
           <CartLogo fill="var(--grey-100)" style={{ width: '40px' }} />
         </Style.Title>
-        <Style.CartLink to="/">
+        <Style.CartLink to="/shopping-cart">
           <CartSize />
         </Style.CartLink>
       </Style.Content>
     </Style.Container>
   );
-}
+};
 
 const Style = {
   Container: styled.div`

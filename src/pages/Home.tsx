@@ -1,8 +1,9 @@
 import { styled } from 'styled-components';
-import Header from '../components/Header';
-import ProductList from '../components/ProductList';
 
-export default function Home() {
+import { Header } from '../components/Header';
+import { ProductList } from '../components/ProductList';
+
+export const Home = () => {
   return (
     <>
       <Header />
@@ -11,7 +12,7 @@ export default function Home() {
       </Style.Main>
     </>
   );
-}
+};
 
 const Style = {
   Main: styled.main`

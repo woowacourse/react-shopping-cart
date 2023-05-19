@@ -1,4 +1,5 @@
 import { ButtonHTMLAttributes } from 'react';
+
 import { styled } from 'styled-components';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -6,13 +7,13 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   designType: 'square' | 'rectangle';
 }
 
-export default function Button({ bgColor, designType, ...props }: Partial<Props>) {
+export const Button = ({ bgColor, designType, ...props }: Partial<Props>) => {
   return (
     <Style.Button className={designType} {...props}>
       {props.children}
     </Style.Button>
   );
-}
+};
 
 const Style = {
   Button: styled.button<Partial<Props>>`

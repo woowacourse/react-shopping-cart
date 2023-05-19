@@ -1,7 +1,13 @@
 import { styled } from 'styled-components';
-import Button from './common/Button';
+import { Button } from './common/Button';
 
-export const OrderSummary = () => {
+interface OrderSummaryProps {
+  totalProductPrice: number;
+}
+
+export const OrderSummary = ({ totalProductPrice }: OrderSummaryProps) => {
+  const DeliveryCharge = 3000;
+
   return (
     <Style.OrderSummary>
       <Style.Title>결제예상금액</Style.Title>
@@ -9,15 +15,15 @@ export const OrderSummary = () => {
         <Style.Prices>
           <Style.Price>
             <span>총 상품가격</span>
-            <span>21,700원</span>
+            <span>{totalProductPrice}원</span>
           </Style.Price>
           <Style.Price>
             <span>총 배송비</span>
-            <span>3,000원</span>
+            <span>{DeliveryCharge}원</span>
           </Style.Price>
           <Style.Price>
             <span>총 주문금액</span>
-            <span>24,700원</span>
+            <span>{totalProductPrice + DeliveryCharge}원</span>
           </Style.Price>
         </Style.Prices>
         <Button designType="rectangle">주문하기</Button>

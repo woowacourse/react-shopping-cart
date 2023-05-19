@@ -1,29 +1,29 @@
 import { useEffect } from 'react';
 import { styled } from 'styled-components';
-import Product from './Product';
 
-import { Product as IProduct } from '../types';
+import { Product } from './Product';
 import { useQuery } from '../hooks/useQuery';
 
-export default function ProductList() {
+import { Product as IProduct } from '../types';
+
+export const ProductList = () => {
   const { isLoading, data: products, fetchData } = useQuery<IProduct[]>();
 
   useEffect(() => {
     fetchData('/products');
-  });
+  }, []);
 
+  // TODO Skeleton
   return (
     <Style.Container>
-      {products?.map((product) => {
-        return (
-          <li key={product.id}>
-            <Product item={product} />
-          </li>
-        );
-      })}
+      {products?.map((product) => (
+        <li key={product.id}>
+          <Product item={product} />
+        </li>
+      ))}
     </Style.Container>
   );
-}
+};
 
 const Style = {
   Container: styled.ul`
