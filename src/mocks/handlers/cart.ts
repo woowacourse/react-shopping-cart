@@ -1,10 +1,8 @@
-import { CART_KEY } from 'constants/storeKey';
 import { rest } from 'msw';
-
-const cartProducts = localStorage.getItem(CART_KEY) ?? [];
+import cartProducts from 'mocks/fixtures/cartProducts.json';
 
 export const cart = [
   rest.get('/cart-items', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(cartProducts));
+    return res(ctx.delay(2000), ctx.status(200), ctx.json(cartProducts));
   }),
 ];
