@@ -1,24 +1,41 @@
 import * as Styled from './ProductItem.styles.tsx';
 import ShoppingCartLogo from '../@common/ShoppingCartLogo/ShoppingCartLogo';
-import useUpdateCartList from '../../hooks/useUpdateCartList.ts';
-import { useRecoilValue } from 'recoil';
-import { productQuantitySelector } from '../../stores/cartListStore.ts';
+import { Item } from '../../types/CartList.ts';
 import StepperInput from '../@common/StepperInput/StepperInput.tsx';
+import { useEffect } from 'react';
+import useCart from '../../hooks/useCart.ts';
+import usePostUpdateCart from '../../hooks/requests/usePostUpdateCart.ts';
 
 export type ProductItemProps = {
+  cartItem?: Item;
   id: number;
   name: string;
   price: number;
   imageUrl: string;
 };
 
-const ProductItem = ({ id, name, price, imageUrl }: ProductItemProps) => {
-  const { updateCartList } = useUpdateCartList();
-  const productQuantity = useRecoilValue(productQuantitySelector(id));
+const ProductItem = ({ cartItem: cartItemProp, id, name, price, imageUrl }: ProductItemProps) => {
+  const { updateCart } = useCart();
+  const { data: cartItem, optimisticUpdate } = usePostUpdateCart(cartItemProp);
 
   const handleAddToCartButton = () => {
-    updateCartList({ itemId: id, value: 1 });
+    const updatedCartItem = { id, quantity: 1, itemInfo: { id, name, imageUrl } };
+    optimisticUpdate(updatedCartItem, { itemId: id, quantity: 1 });
   };
+
+  const handleStepperInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (cartItem) {
+      const targetQuantity = parseInt(e.target.value, 10);
+      const updatedCartItem = { ...cartItem, quantity: targetQuantity };
+      optimisticUpdate(updatedCartItem, { itemId: id, quantity: targetQuantity });
+    }
+  };
+
+  useEffect(() => {
+    if (cartItem) {
+      updateCart(cartItem);
+    }
+  }, [cartItem]);
 
   const CartButton = () => {
     return (
@@ -26,10 +43,6 @@ const ProductItem = ({ id, name, price, imageUrl }: ProductItemProps) => {
         <ShoppingCartLogo isFlipped={true} width={24} height={22} fill='#AAAAAA' />
       </Styled.CartButton>
     );
-  };
-
-  const handleStepperInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateCartList({ itemId: id, value: parseInt(e.target.value, 10) });
   };
 
   return (
@@ -42,7 +55,7 @@ const ProductItem = ({ id, name, price, imageUrl }: ProductItemProps) => {
       <Styled.ProductItemInfo>
         <Styled.ProductItemInfoUpperBoundary>
           <Styled.ProductItemTitle>{name}</Styled.ProductItemTitle>
-          {productQuantity === 0 ? <CartButton /> : <StepperInput value={productQuantity} onChange={handleStepperInputChange} />}
+          {cartItem?.quantity ? <StepperInput value={cartItem?.quantity || 0} onChange={handleStepperInputChange} /> : <CartButton />}
         </Styled.ProductItemInfoUpperBoundary>
         <Styled.ProductItemPrice>{price.toLocaleString()}원</Styled.ProductItemPrice>
       </Styled.ProductItemInfo>
