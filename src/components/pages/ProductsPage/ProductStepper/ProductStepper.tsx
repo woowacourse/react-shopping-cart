@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 
 import * as Styled from './ProductStepper.styled';
 
@@ -10,16 +10,20 @@ import useStepper from '../../../../hooks/useStepper';
 import StepperSettings from '../../../../constants/StepperSettings';
 import { productToggleSelector } from '../../../../recoil/cartToggleState';
 import usePreviousValue from '../../../../hooks/usePreviousValue';
+import cartState, { productCountSelector } from '../../../../recoil/cartState';
+import { Product } from '../../../../types/Product';
 
 interface ProductStepperProps {
   productId: number;
-  defaultValue: number;
+  product: Product;
 }
 
 const { MIN, MAX, STEP } = StepperSettings;
 
 const ProductStepper = (props: ProductStepperProps) => {
-  const { productId, defaultValue } = props;
+  const { productId, product } = props;
+
+  const defaultValue = useRecoilValue(productCountSelector(productId));
 
   const { value, increaseValue, decreaseValue, setValue } = useStepper(
     MIN,
@@ -29,11 +33,15 @@ const ProductStepper = (props: ProductStepperProps) => {
   );
 
   const prevValue = usePreviousValue(value);
+  const updateProductQuantity = useSetRecoilState(productCountSelector(productId));
+  const setCartState = useSetRecoilState(cartState);
 
   const toggleSetter = useSetRecoilState(productToggleSelector(productId));
   const deleteToggleInfo = useResetRecoilState(productToggleSelector(productId));
 
   useEffect(() => {
+    if (prevValue === value) return;
+
     if (prevValue === 0 && value > 0) {
       toggleSetter(true);
       fetch('/cart-items', { method: 'POST', body: JSON.stringify({ productId }) });
@@ -50,6 +58,15 @@ const ProductStepper = (props: ProductStepperProps) => {
       method: 'POST',
       body: JSON.stringify({ quantity: value }),
     });
+  }, [value]);
+
+  useEffect(() => {
+    if (prevValue === 0 && value > 0) {
+      setCartState((prevCart) => [...prevCart, { product, id: productId, quantity: value }]);
+      return;
+    }
+
+    updateProductQuantity(value);
   }, [value]);
 
   return (

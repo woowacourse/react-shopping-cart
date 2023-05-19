@@ -1,40 +1,14 @@
-import { DefaultValue, atom, selector, selectorFamily } from 'recoil';
-import serverCartState from './serverCartState';
-import type { LocalCartToggle } from '../types/Cart';
+import { DefaultValue, atom, selectorFamily } from 'recoil';
 
 const KEY = 'LOCAL_CART_TOGGLES';
 
-const synchronizedCartSelector = selector({
-  key: 'synchronizedCartSelector',
-
-  get: ({ get }) => {
-    const serverCart = get(serverCartState);
-    const localCart: LocalCartToggle = JSON.parse(localStorage.getItem(KEY) ?? '{}');
-
-    const cart: LocalCartToggle = {};
-
-    serverCart.forEach(({ id }) => {
-      if (!localCart[id]) cart[id] = true;
-      else cart[id] = localCart[id];
-    });
-
-    return cart;
-  },
-});
-
 const cartToggleState = atom<Record<number, boolean>>({
   key: 'cartToggleState',
-  default: synchronizedCartSelector,
+  default: JSON.parse(localStorage.getItem(KEY) ?? '{}'),
 
   effects: [
     ({ onSet }) => onSet((newState) => localStorage.setItem(KEY, JSON.stringify(newState))),
   ],
-});
-
-export const localCartLengthSelector = selector({
-  key: 'localCartLengthSelector',
-
-  get: ({ get }) => Object.keys(get(cartToggleState)).length,
 });
 
 export const productToggleSelector = selectorFamily<boolean, number>({

@@ -13,12 +13,7 @@ const handlers = [
   ),
 
   rest.get('/cart-items', (req, res, ctx) =>
-    res(
-      ctx.delay(2222),
-      ctx.status(200),
-      ctx.set('Content-Type', 'application/json'),
-      ctx.json(Cart.getList())
-    )
+    res(ctx.status(200), ctx.set('Content-Type', 'application/json'), ctx.json(Cart.getList()))
   ),
 
   rest.post('/cart-items', async (req, res, ctx) => {

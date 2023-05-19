@@ -1,9 +1,9 @@
-import { ServerCartItem } from '../../types/Cart';
+import { CartItem } from '../../types/Cart';
 import products from '../data/products.json';
 
 const KEY = 'MSW_CART';
 
-const getList = (): ServerCartItem[] => {
+const getList = (): CartItem[] => {
   const storageData = localStorage.getItem(KEY);
   return storageData ? JSON.parse(storageData) : [];
 };

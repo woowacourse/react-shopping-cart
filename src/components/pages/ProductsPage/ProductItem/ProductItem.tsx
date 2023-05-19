@@ -1,8 +1,7 @@
-import { Product } from '../../../../types/Product';
-
 import * as Styled from './ProductItem.styled';
 import SquareImage from '../../../commons/SquareImage/SquareImage';
 import ProductStepper from '../ProductStepper/ProductStepper';
+import { Product } from '../../../../types/Product';
 
 interface ProductItemProps {
   product: Product;
@@ -20,7 +19,7 @@ const ProductItem = (props: ProductItemProps) => {
           <Styled.NameParagraph>{name}</Styled.NameParagraph>
           <Styled.PriceParagraph>{price.toLocaleString('ko-KR')} 원</Styled.PriceParagraph>
         </div>
-        <ProductStepper productId={id} defaultValue={0} />
+        <ProductStepper productId={id} product={thisProduct} />
       </Styled.ProductDetailDiv>
     </Styled.ProductItem>
   );
