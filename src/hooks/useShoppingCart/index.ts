@@ -39,7 +39,12 @@ const useShoppingCart = () => {
       );
     };
   };
-  return { shoppingCart, updateShoppingCart };
+
+  const deleteShoppingItems = (productsId: number[]) => {
+    setShoppingCart(shoppingCart.filter((item) => !productsId.includes(item.id)));
+  };
+
+  return { shoppingCart, updateShoppingCart, deleteShoppingItems };
 };
 
 export default useShoppingCart;

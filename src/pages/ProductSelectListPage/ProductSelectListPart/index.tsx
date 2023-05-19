@@ -6,6 +6,7 @@ import ProductSelectItem from '@Components/ProductSelectItem';
 import { ShoppingCartProduct } from '@Types/index';
 
 import useCheckedItems from '@Hooks/useCheckedItems';
+import useShoppingCart from '@Hooks/useShoppingCart';
 
 import shoppingCartState from '@Atoms/shoppingCartState';
 
@@ -16,6 +17,7 @@ import * as S from './style';
 function ProductSelectListPart() {
   const [shoppingCart] = useRecoilState<ShoppingCartProduct[]>(shoppingCartState);
   const {
+    checkedItemsId,
     parentCheckbox,
     getCheckedItemAmount,
     isCheckedItem,
@@ -25,6 +27,7 @@ function ProductSelectListPart() {
   } = useCheckedItems();
 
   const shoppingItemAmount = useRecoilValue(shoppingItemsAmountState);
+  const { deleteShoppingItems } = useShoppingCart();
 
   const toggleChecked = () => {
     if (getCheckedItemAmount() !== shoppingItemAmount) {
@@ -37,6 +40,10 @@ function ProductSelectListPart() {
     parentCheckbox.current = false;
   };
 
+  const deleteCheckedShoppingItem = () => {
+    deleteShoppingItems(checkedItemsId);
+  };
+
   return (
     <S.ProductSelectListPart>
       <S.ProductSelectListTitle>상품 목록</S.ProductSelectListTitle>
@@ -45,7 +52,7 @@ function ProductSelectListPart() {
         <S.SelectedProductAmount>
           전체 선택({getCheckedItemAmount()}/{shoppingItemAmount})
         </S.SelectedProductAmount>
-        <S.SelectedProductDeleteButton>선택 삭제</S.SelectedProductDeleteButton>
+        <S.SelectedProductDeleteButton onClick={deleteCheckedShoppingItem}>선택 삭제</S.SelectedProductDeleteButton>
       </S.ProductSelectController>
       <S.ProductSelectList>
         {shoppingCart.map((elem) => {
