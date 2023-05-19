@@ -10,8 +10,13 @@ interface ErrorInfo<T extends object = object> {
   payload?: T;
 }
 
-interface ErrorOptions {
-  cause?: unknown;
+interface ErrorCause<T extends object = object> {
+  code: keyof ErrorCode;
+  value: unknown;
+  payload?: T;
+}
+export interface ErrorOptions {
+  cause?: ErrorCause;
 }
 
 export const isValidErrorCode = (code: unknown): code is keyof ErrorCode =>
@@ -23,30 +28,38 @@ const getValueByMessageType = (
   payload = {}
 ): ERROR_MESSAGE => (typeof target === 'function' ? target(payload) : target);
 
-const errorMessageGenerator = (code: unknown, payload = {}): ERROR_MESSAGE =>
+const errorMessageGenerator = ({ code, payload }: ErrorInfo): ERROR_MESSAGE =>
   isValidErrorCode(code)
     ? getValueByMessageType(ERROR_MESSAGE[code], payload)
     : ERROR_MESSAGE.UNEXPECTED_ERROR;
 
-const errorOptionsGenerator = (code: unknown, value: unknown) =>
-  isValidErrorCode(code)
-    ? { cause: { code, value } }
-    : { cause: { code: ERROR_CODE.UNEXPECTED_ERROR, value: code } };
-
-const createErrorParams = (
+const errorOptionsGenerator = (
   { code, payload }: ErrorInfo,
   value: unknown
-): [string, ErrorOptions] => {
-  const message = errorMessageGenerator(code, payload);
-  const options = errorOptionsGenerator(code, value);
+): ErrorOptions =>
+  isValidErrorCode(code)
+    ? { cause: { code, value, payload } }
+    : { cause: { code: ERROR_CODE.UNEXPECTED_ERROR, value: code, payload } };
+
+const createErrorParams = (
+  info: ErrorInfo,
+  value: unknown
+): [ERROR_MESSAGE, ErrorOptions] => {
+  const message = errorMessageGenerator(info);
+  const options = errorOptionsGenerator(info, value);
 
   return [message, options];
 };
 
 export class CustomError extends Error {
-  constructor(info: ErrorInfo, value?: unknown) {
-    super(...createErrorParams(info, value));
+  cause?: ErrorCause;
 
+  constructor(info: ErrorInfo, value?: unknown) {
+    const [message, options] = createErrorParams(info, value);
+
+    super(message, options);
+
+    this.cause = options.cause;
     this.name = isValidErrorCode(info.code)
       ? info.code
       : ERROR_CODE.UNEXPECTED_ERROR;
