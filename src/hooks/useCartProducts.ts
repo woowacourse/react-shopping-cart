@@ -7,6 +7,7 @@ import {
 } from '../states/cartProducts';
 import { deleteTargetProduct } from '../states/cartProducts/util';
 import type { Product } from '../types/product';
+import { postProduct } from '../apis/cartProducts';
 
 const useCartProducts = (product: Product) => {
   const { id } = product;
@@ -14,10 +15,8 @@ const useCartProducts = (product: Product) => {
   const targetProduct = useRecoilValue(targetCartProductState(id));
 
   const addProduct = () => {
-    setCartProducts((prev) => [
-      ...prev,
-      { id: Date.now(), quantity: 1, product },
-    ]);
+    setCartProducts((prev) => [...prev, { id, quantity: 1, product }]);
+    postProduct(id);
   };
 
   useEffect(() => {
