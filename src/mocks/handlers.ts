@@ -2,10 +2,11 @@ import { rest } from 'msw';
 import products from './data/products.json';
 import {
   STORAGE_ID,
+  getStoredCartProducts,
   setStoredCartProducts,
-  storedCartProducts,
 } from '../utils/localStorage';
 import { findTargetProduct } from '../utils/cartProduct';
+import type { CartProduct } from '../types/product';
 
 export const handlers = [
   rest.get('/products', (req, res, ctx) => {
@@ -31,9 +32,7 @@ export const handlers = [
   rest.post<{ productId: number }>('/cart-items', (req, res, ctx) => {
     const { productId } = req.body;
 
-    const storedCartProducts = JSON.parse(
-      localStorage.getItem(STORAGE_ID) ?? '[]'
-    );
+    const storedCartProducts = getStoredCartProducts();
 
     if (findTargetProduct(storedCartProducts, productId)) {
       return res(
@@ -60,10 +59,10 @@ export const handlers = [
 
     const cartProductId = Number(cartItemId as string);
 
-    const currentStoredCartProducts = [...storedCartProducts];
+    const storedCartProducts: CartProduct[] = getStoredCartProducts();
 
     if (
-      !currentStoredCartProducts.find(
+      !storedCartProducts.find(
         (cartProduct) => cartProduct.id === cartProductId
       )
     ) {
@@ -74,7 +73,7 @@ export const handlers = [
     }
 
     setStoredCartProducts(
-      currentStoredCartProducts.filter(
+      storedCartProducts.filter(
         (cartProduct) => cartProduct.id !== cartProductId
       )
     );
