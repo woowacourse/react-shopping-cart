@@ -6,7 +6,13 @@ import Flex from '../../common/Flex';
 import useCart from '../../../hooks/cart/useCart';
 
 const CartList = () => {
-  const { cartItems } = useCart();
+  const { cartItems, deleteInCart } = useCart();
+
+  const deleteAllItems = () => {
+    cartItems.forEach((item) => {
+      deleteInCart(item.id);
+    });
+  };
 
   return (
     <S.Container>
@@ -27,7 +33,7 @@ const CartList = () => {
           <S.CheckBox type="checkbox" />
           전체 선택 ( 2 / {cartItems.length} )
         </S.SelectAll>
-        <Button size="S" view="light">
+        <Button size="S" view="light" onClick={deleteAllItems}>
           전체 삭제
         </Button>
       </Flex>
