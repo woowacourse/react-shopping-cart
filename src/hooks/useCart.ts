@@ -40,7 +40,7 @@ const useCart = () => {
     []
   );
 
-  return { addItemQuantity, removeCheckedItems };
+  return { isAdded, addItemQuantity, removeCheckedItems };
 };
 
 export { useCart };
