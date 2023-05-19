@@ -1,6 +1,57 @@
 import { useRecoilValue } from 'recoil';
 import useCart from '../../hooks/useCart';
 import { cartCountSelector } from '../../recoil/cartAtoms';
+import CartItem from '../../components/CartItem';
+import styled from 'styled-components';
+
+export const CartTitle = styled.div`
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 37px;
+
+  text-align: center;
+  letter-spacing: 0.5px;
+
+  margin: 60px 0px 30px 0px;
+`;
+
+export const FatBorder = styled.hr`
+  border: solid 4px black;
+`;
+
+export const CartWrapper = styled.div`
+  display: flex;
+`;
+
+export const CartList = styled.div`
+
+`;
+
+export const CartListTitle = styled.div`
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 33px;
+
+  letter-spacing: 0.5px;
+
+  margin-top: 40px;
+`;
+
+export const CartListController = styled.div`
+  display: flex;
+`;
+
+export const CartListCheckCounter = styled.div`
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+
+  letter-spacing: 0.5px;
+  margin: 0px 15px 0px 15px;
+`;
 
 function Cart() {
   const { cartList } = useCart();
@@ -8,18 +59,20 @@ function Cart() {
 
   return (
     <div>
-      <div>장바구니</div>
-      <div style={{ display: 'flex' }}>
-        <div>
-          <div>든든배송 상품 ({cartCount}개)</div>
+      <CartTitle>장바구니</CartTitle>
+      <FatBorder />
+      <CartWrapper>
+        <CartList>
+          <CartListTitle>든든배송 상품 ({cartCount}개)</CartListTitle>
           {cartList.map((cart) => (
-            <div key={cart.id}>
-              <div style={{ fontSize: '20px' }}>
-                {JSON.stringify(cart)}
-              </div>
-            </div>
+            <CartItem key={cart.id} cart={cart} />
           ))}
-        </div>
+          <CartListController>
+            <input type='checkbox' />
+            <CartListCheckCounter>전체선택 (2/{cartCount})</CartListCheckCounter>
+            <div><button>선택삭제</button></div>
+          </CartListController>
+        </CartList>
         <div>
           <div>결제예상금액</div>
           <div>
@@ -52,7 +105,7 @@ function Cart() {
             </button>
           </div>
         </div>
-      </div>
+      </CartWrapper>
     </div>
   );
 }
