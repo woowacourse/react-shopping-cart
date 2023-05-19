@@ -31,10 +31,6 @@ export const Default: Story = {
           break;
       }
     };
-    const increase: React.MouseEventHandler<HTMLButtonElement> = () =>
-      setCount((prev) => prev + 1);
-    const decrease: React.MouseEventHandler<HTMLButtonElement> = () =>
-      setCount((prev) => prev - 1);
 
     return <Counter productCountMethod={productCountMethod} count={count} />;
   },
