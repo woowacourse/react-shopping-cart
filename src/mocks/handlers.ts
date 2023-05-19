@@ -6,8 +6,12 @@ import { uuid } from '../utils/uuid';
 const mockProducts = mockData.products;
 const cartList: CartProduct[] = [];
 
-interface PostAddCartRequest {
+interface PostAddCartRequestBody {
   productId: number;
+}
+
+interface PatchUpdateCartRequestBody {
+  quantity: number;
 }
 
 export const productHandler = [
@@ -21,7 +25,7 @@ export const cartHandler = [
     return res(ctx.status(200), ctx.json(cartList));
   }),
 
-  rest.post<PostAddCartRequest>('/cart-items', (req, res, ctx) => {
+  rest.post<PostAddCartRequestBody>('/cart-items', (req, res, ctx) => {
     const { productId } = req.body;
     const product = mockProducts.find((product) => product.id === productId);
 
@@ -38,5 +42,31 @@ export const cartHandler = [
     cartList.push(newCartItem);
 
     return res(ctx.status(201));
+  }),
+
+  rest.patch<PatchUpdateCartRequestBody>(
+    '/cart-items/:cartItemId',
+    (req, res, ctx) => {
+      const { cartItemId } = req.params;
+      const { quantity } = req.body;
+
+      const targetCartItemIndex = cartList.findIndex(
+        (cartItem) => cartItem.id === cartItemId,
+      );
+      cartList[targetCartItemIndex].quantity = quantity;
+
+      return res(ctx.status(200));
+    },
+  ),
+
+  rest.delete('/cart-items/:cartItemId', (req, res, ctx) => {
+    const { cartItemId } = req.params;
+
+    const targetCartItemIndex = cartList.findIndex(
+      (cartItem) => cartItem.id === cartItemId,
+    );
+    cartList.splice(targetCartItemIndex, 1);
+
+    return res(ctx.status(204));
   }),
 ];
