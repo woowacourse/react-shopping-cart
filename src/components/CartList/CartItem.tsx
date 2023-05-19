@@ -1,22 +1,26 @@
 import { styled } from 'styled-components';
 import BucketCounter from '@components/common/BucketCounter';
 import CheckBox from '@components/common/CheckBox';
-import { A_MOCK, CART_ITEM_REMOVE_BUTTON } from '@assets';
+import { CART_ITEM_REMOVE_BUTTON } from '@assets';
 
 interface CartItemProps {
+  id: number;
   name: string;
+  imageUrl: string;
+  quantity: number;
+  price: number;
 }
 
-const CartItem = (props: CartItemProps) => {
+const CartItem = ({id, name, imageUrl, quantity, price}: CartItemProps) => {
   return (
     <CartItemWrapper>
       <CheckBox />
-      <CartItemImg src={A_MOCK} alt="상품 사진" />
-      <CartItemName>{props.name}</CartItemName>
+      <CartItemImg src={imageUrl} alt="상품 사진" />
+      <CartItemName>{name}</CartItemName>
       <CartItemInformationWrapper>
         <RemoveCardItemImg src={CART_ITEM_REMOVE_BUTTON} />
-        <BucketCounter id={3} quantity={9} kind="big" />
-        <CartItemMoney>7000</CartItemMoney>
+        <BucketCounter id={id} quantity={quantity} kind="big" />
+        <CartItemMoney>{price}</CartItemMoney>
       </CartItemInformationWrapper>
     </CartItemWrapper>
   );
