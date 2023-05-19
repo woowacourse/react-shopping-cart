@@ -12,7 +12,7 @@ export type ShoppingCartRestAPI =
     }
   | {
       request: HttpRequest<'POST', '/products', never, Omit<Product, 'id'>>;
-      response: HttpResponse<201, never, { Location: string }>;
+      response: HttpResponse<201, never, { location: string }>;
     }
   | {
       request: HttpRequest<'PUT', '/products/:productId', never, Partial<Omit<Product, 'id'>>>;

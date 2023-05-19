@@ -13,7 +13,7 @@ const useCartItem = (product: Product) => {
     if (cartItem === null) {
       const response = await client.post('/cart-items', { productId: product.id });
       cartItemId = Number(
-        String(response.headers.Location)
+        String(response.headers.location)
           .match(/(\d+)$/)
           ?.at(0),
       );
