@@ -18,8 +18,6 @@ export const QUANTITY_CONTROL_UNIT = {
   DECREASE: 1,
 } as const;
 
-export const MOCK_DATA_URL = '/api/mockData';
-
 import outOfStock from '@Asset/outOfStock.png';
 import warning from '@Asset/warning.png';
 

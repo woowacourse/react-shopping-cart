@@ -5,13 +5,14 @@ import { Product } from '@Types/index';
 
 import useFetch from '@Hooks/useFetch';
 
-import { ERROR, MOCK_DATA_URL } from '@Constants/index';
+import { ERROR } from '@Constants/index';
 
 import * as S from './style';
+import { getMockShoppingItemApiUrl } from '../../../api/index';
 import ErrorContainer from '../ErrorContainer';
 
 function ProductList() {
-  const { data, isLoading, currentHttpStatus } = useFetch<Product[]>(MOCK_DATA_URL);
+  const { data, isLoading, currentHttpStatus } = useFetch<Product[]>(getMockShoppingItemApiUrl('GET'));
 
   if (!isLoading && !data) {
     return <ErrorContainer error={currentHttpStatus} />;
