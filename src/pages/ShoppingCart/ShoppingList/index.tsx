@@ -1,20 +1,16 @@
-import ShoppingItem from '@Components/ShoppingItem';
-
-import { ShoppingCartProduct } from '@Types/index';
-
-import useFetch from '@Hooks/useFetch';
-
-import { FETCH_URL } from '@Constants/index';
+import useShoppingCart from '@Hooks/useShoppingCart';
 
 import * as S from './style';
+import ShoppingItem from '../ShoppingItem';
 
 function ShoppingList() {
-  const { data, status } = useFetch<ShoppingCartProduct[]>(FETCH_URL.cartItems);
+  const { shoppingCart } = useShoppingCart();
 
   return (
     <S.Container>
       <S.ShoppingListLayout>
-        {data && data.map((item) => <ShoppingItem cartId={item.id} product={item.product} key={item.product.id} />)}
+        {shoppingCart &&
+          shoppingCart.map((item) => <ShoppingItem cartId={item.id} product={item.product} key={item.product.id} />)}
       </S.ShoppingListLayout>
     </S.Container>
   );

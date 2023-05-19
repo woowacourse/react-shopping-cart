@@ -1,12 +1,9 @@
-import { useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import QuantityController from '@Components/QuantityController';
 
 import useProduct from '@Hooks/useProduct';
 import useShoppingCart from '@Hooks/useShoppingCart';
-
-import shoppingCartState from '@Atoms/shoppingCartState';
 
 import cartItemState from '@Selector/cartItemState';
 

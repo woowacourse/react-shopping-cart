@@ -27,9 +27,16 @@ const useSelectedShoppingItem = () => {
   };
 
   const updateSelectedShoppingItem = (id: number) => {
-    console.log(id);
-    if (isSelected(id)) setItemId((prev) => prev.filter((_id) => _id !== id));
-    else setItemId((prev) => [...prev, id]);
+    if (isSelected(id)) popSelectedShoppingItem(id);
+    else insertSelectedShoppingItem(id);
+  };
+
+  const popSelectedShoppingItem = (id: number) => {
+    setItemId((prev) => prev.filter((_id) => _id !== id));
+  };
+
+  const insertSelectedShoppingItem = (id: number) => {
+    setItemId((prev) => [...prev, id]);
   };
 
   useEffect(() => {
@@ -42,7 +49,14 @@ const useSelectedShoppingItem = () => {
     setInitValue();
   }, []);
 
-  return { isSelected, isAllSelected, selectedItemAmount, updateSelectedShoppingItem, updateAllSelectedShoppingItem };
+  return {
+    isSelected,
+    isAllSelected,
+    selectedItemAmount,
+    updateSelectedShoppingItem,
+    updateAllSelectedShoppingItem,
+    popSelectedShoppingItem,
+  };
 };
 
 export default useSelectedShoppingItem;
