@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilCallback } from 'recoil';
 
-import { deleteCartItem, getCartList, patchCartItem } from '../api/cartAPI';
+import { deleteCartItem, getCartList, postCartItem } from '../api/cartAPI';
 import { TOAST_SHOW_DURATION } from '../constants';
 import { cartItemQuantityState, cartListState } from '../store/cart';
 
@@ -25,7 +25,7 @@ const useCart = () => {
         setIsAdded(true);
         const prevQuantity = await snapshot.getPromise(cartItemQuantityState(productId));
         set(cartItemQuantityState(productId), prevQuantity + quantity);
-        await patchCartItem(productId, quantity);
+        await postCartItem(productId, quantity);
       },
     []
   );
