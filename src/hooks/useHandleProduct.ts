@@ -1,6 +1,5 @@
 import { ChangeEventHandler, FocusEventHandler } from 'react';
-
-import { INITIAL_QUANTITY, NONE_QUANTITY, NOT_NUMBER } from '../constants';
+import { NONE_QUANTITY, NOT_NUMBER } from '../constants';
 import { changeInvalidValueToBlank } from '../utils/changeInvalidValueToBlank';
 import { useRecoilCallback, useRecoilValue } from 'recoil';
 import {
@@ -8,8 +7,8 @@ import {
   updateCartSelector,
   removeProductItemFromCartSelector,
 } from '../store/CartSelector';
-
 import { validateQuantityInput } from '../utils/validateQuantityInput';
+import { CART_BASE_URL } from '../constants/url';
 
 export const useHandleProduct = (id: number) => {
   const newQuantity = useRecoilValue(updateCartSelector({ id }));
@@ -23,7 +22,18 @@ export const useHandleProduct = (id: number) => {
   });
 
   const handleCartClick = () => {
-    updateCart({ id, quantity: INITIAL_QUANTITY });
+    fetch(CART_BASE_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const { id, quantity } = data;
+        updateCart({ id, quantity });
+      });
   };
 
   const handleNumberInputChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
@@ -35,14 +45,39 @@ export const useHandleProduct = (id: number) => {
     }
 
     const newQuantity = changeInvalidValueToBlank(value, NOT_NUMBER);
-    updateCart({ id, quantity: newQuantity });
+
+    fetch(`${CART_BASE_URL}/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id, quantity: newQuantity }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const { id, quantity } = data;
+        updateCart({ id, quantity });
+      })
+      .catch((error) => console.error(error));
   };
 
   const handleIncreaseItem = () => {
     const newValue = newQuantity + 1;
     if (!validateQuantityInput(newValue)) return;
 
-    updateCart({ id, quantity: newValue });
+    fetch(`${CART_BASE_URL}/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id, quantity: newValue }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const { id, quantity } = data;
+        updateCart({ id, quantity });
+      })
+      .catch((error) => console.error(error));
   };
 
   const handleDecreaseItem = () => {
@@ -50,13 +85,41 @@ export const useHandleProduct = (id: number) => {
     if (!validateQuantityInput(newValue)) return;
 
     if (newValue === NONE_QUANTITY) {
-      removeProductItemFromCart(id);
+      handleRemoveProductItem();
       return;
     }
 
-    updateCart({ id, quantity: newValue });
+    fetch(`${CART_BASE_URL}/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id, quantity: newValue }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const { id, quantity } = data;
+        updateCart({ id, quantity });
+      })
+      .catch((error) => console.error(error));
   };
 
+  const handleRemoveProductItem = () => {
+    fetch(`${CART_BASE_URL}/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(() => {
+        removeProductItemFromCart(id);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  // 리팩터링 필수
   const handleDecreaseCartItem = () => {
     if (newQuantity === 1) return;
     const newValue = newQuantity - 1;

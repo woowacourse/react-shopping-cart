@@ -3,7 +3,7 @@ import { CartItem, Product } from '../types';
 import { cartState } from './CartState';
 import { CART_ITEM_EXISTS, NONE_QUANTITY } from '../constants';
 import { productListState } from './ProductListState';
-import { setDataInLocalStorage } from '../utils/setDataInLocalStorage';
+import { setDataInLocalStorage } from '../utils/localStorage';
 
 export type SelectorParams = {
   id: number;
