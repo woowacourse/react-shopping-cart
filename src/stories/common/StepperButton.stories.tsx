@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { userEvent, within } from '@storybook/testing-library';
 
 import StepperButton from '../../components/common/StepperButton/StepperButton';
-import { useCount } from '../../hooks/useCount';
+import { useCount } from '../../hooks/common/useCount';
 import { delay } from '../../utils/delay';
 
 const meta = {

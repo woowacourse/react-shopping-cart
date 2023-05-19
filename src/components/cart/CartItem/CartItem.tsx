@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 import { CloseIcon } from '../../../assets';
-import { useCount } from '../../../hooks/useCount';
+import { useCount } from '../../../hooks/common/useCount';
 import { CartItemData } from '../../../types';
 import { priceFormatter } from '../../../utils/formatter';
 import StepperButton from '../../common/StepperButton/StepperButton';

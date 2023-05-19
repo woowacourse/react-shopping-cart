@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import { isNumber } from '../utils/validator';
+import { isNumber } from '../../utils/validator';
 
 const useCount = (initialValue: number) => {
   const [count, setCount] = useState(initialValue);

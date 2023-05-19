@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import Button from '../../components/common/Button/Button';
 import Modal from '../../components/common/Modal/Modal';
-import { useModal } from '../../hooks/useModal';
+import { useModal } from '../../hooks/common/useModal';
 
 const meta = {
   title: 'ShoppingCart/Common/Modal',

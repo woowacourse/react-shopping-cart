@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 
 import { postCartItem } from '../../../api/cartAPI';
 import { DEFAULT_MIN_COUNT } from '../../../constants';
-import { useCount } from '../../../hooks/useCount';
+import { useCount } from '../../../hooks/common/useCount';
 import { CartItemData, ProductItemData } from '../../../types';
 import { priceFormatter } from '../../../utils/formatter';
 import Button from '../../common/Button/Button';

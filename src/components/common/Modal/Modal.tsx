@@ -2,7 +2,7 @@ import { KeyboardEvent, PropsWithChildren, useCallback, useEffect, useRef } from
 import { createPortal } from 'react-dom';
 
 import { ESC_KEY } from '../../../constants';
-import { useScrollStop } from '../../../hooks/useScrollStop';
+import { useScrollStop } from '../../../hooks/common/useScrollStop';
 import * as S from './Modal.styles';
 
 interface ModalProps extends PropsWithChildren {

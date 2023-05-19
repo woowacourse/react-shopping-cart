@@ -1,8 +1,8 @@
 import { useRecoilValue } from 'recoil';
 
 import { AddIcon } from '../../../assets';
+import { useModal } from '../../../hooks/common/useModal';
 import { useCartAddition } from '../../../hooks/useCartAddition';
-import { useModal } from '../../../hooks/useModal';
 import { cartItemQuantityState } from '../../../store/cart';
 import { ProductItemData } from '../../../types';
 import { priceFormatter } from '../../../utils/formatter';
