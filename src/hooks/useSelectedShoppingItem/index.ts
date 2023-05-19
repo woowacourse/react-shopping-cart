@@ -50,6 +50,7 @@ const useSelectedShoppingItem = () => {
   }, []);
 
   return {
+    itemId,
     isSelected,
     isAllSelected,
     selectedItemAmount,

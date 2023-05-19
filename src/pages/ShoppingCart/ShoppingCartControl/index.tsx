@@ -7,12 +7,24 @@ import useShoppingCart from '@Hooks/useShoppingCart';
 
 import shoppingCartAmountState from '@Selector/shoppingCartAmountState';
 
+import { FETCH_METHOD, FETCH_URL } from '@Constants/index';
+
 import * as S from './style';
 
 function ShoppingCartControl() {
-  const { isAllSelected, selectedItemAmount, updateAllSelectedShoppingItem } = useSelectedShoppingItem();
-  const { shoppingCart } = useShoppingCart();
+  const { itemId, isAllSelected, selectedItemAmount, updateAllSelectedShoppingItem, popSelectedShoppingItem } =
+    useSelectedShoppingItem();
+  const { shoppingCart, updateShoppingCart } = useShoppingCart();
   const shoppingCartAmount = useRecoilValue(shoppingCartAmountState);
+  console.log(itemId);
+  const deleteManyShoppingItem = () => {
+    if (!window.confirm('선택한 모든 상품을 장바구니에서 삭제하시겠습니까?')) return;
+
+    itemId.forEach((cartId) => {
+      updateShoppingCart(`${FETCH_URL.cartItems}/${cartId}`, FETCH_METHOD.DELETE);
+      popSelectedShoppingItem(cartId);
+    });
+  };
 
   return (
     <S.Container>
@@ -26,7 +38,7 @@ function ShoppingCartControl() {
       <S.SelectedSituation>
         {isAllSelected(Number(shoppingCartAmount)) ? '전체해제' : '전체선택'}({selectedItemAmount}/{shoppingCartAmount})
       </S.SelectedSituation>
-      <S.DeleteButton>선택삭제</S.DeleteButton>
+      <S.DeleteButton onClick={deleteManyShoppingItem}>선택삭제</S.DeleteButton>
     </S.Container>
   );
 }
