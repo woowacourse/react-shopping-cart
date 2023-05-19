@@ -2,7 +2,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { cartAtomFamily, cartIdAtom } from "../store/cartState";
 import { useState } from "react";
 import { Cart } from "../types/product";
-import { targetProductSelector } from "../store/fetchSelectors";
+import { targetProductSelector } from "../store/fetchState";
 
 const useCart = (productId: number) => {
   const [cart, setCart] = useRecoilState(cartAtomFamily(productId));
