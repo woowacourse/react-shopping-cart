@@ -1,6 +1,6 @@
 import { setupWorker } from 'msw';
 
+import { shoppingCartHandler } from './shoppingCartHandler';
 import { shoppingItemListHandler } from './shoppingItemListHandler';
 
-// Configure the Service Worker for in-browser request interception
-export const worker = setupWorker(...shoppingItemListHandler);
+export const worker = setupWorker(...shoppingItemListHandler, ...shoppingCartHandler);
