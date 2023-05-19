@@ -1,7 +1,16 @@
 import { selector, selectorFamily } from 'recoil';
 
-import { cartProductState } from '../atoms';
+import { fetchProducts } from '../../../apis/products';
 import { findTargetProduct } from '../util';
+import { cartProductState } from '../atoms';
+
+export const productSelector = selector({
+  key: 'productSelector',
+  get: async ({ get }) => {
+    const data = await fetchProducts();
+    return data;
+  },
+});
 
 export const cartProductCountState = selector({
   key: 'cartProductCountState',

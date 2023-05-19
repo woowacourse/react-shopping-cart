@@ -1,9 +1,21 @@
 import type { CartProduct } from '../types/product';
 
-const URL = `${process.env.PUBLIC_URL}/data/cartProducts.json`;
+const URL = '/cart-items';
 
 export const fetchCartProducts = async () => {
   const response = await fetch(URL);
   const data: CartProduct[] = await response.json();
+  return data;
+};
+
+export const postProduct = async (id: number) => {
+  const response = await fetch(URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ productId: id }),
+  });
+  const data = await response.json();
   return data;
 };

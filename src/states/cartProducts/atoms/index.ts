@@ -1,11 +1,15 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 
-import { localStorageEffect } from '../../atomEffects';
-import { CART_STORAGE_ID } from '../../../constants/storage';
 import { CartProduct } from '../../../types/product';
+import { fetchCartProducts } from '../../../apis/cartProducts';
 
 export const cartProductState = atom<CartProduct[]>({
   key: 'cartProductState',
-  default: [],
-  effects: [localStorageEffect(CART_STORAGE_ID)],
+  default: selector({
+    key: 'cartProductState/default',
+    get: async () => {
+      const data = await fetchCartProducts();
+      return data;
+    },
+  }),
 });
