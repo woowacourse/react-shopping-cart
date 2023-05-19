@@ -1,14 +1,14 @@
 import { useRecoilValue } from 'recoil';
 
-import { AddIcon } from '../../assets';
-import { useCartAddition } from '../../hooks/useCartAddition';
-import { useModal } from '../../hooks/useModal';
-import { cartItemQuantityState } from '../../store/cart';
-import { ProductItemData } from '../../types';
-import { priceFormatter } from '../../utils/formatter';
+import { AddIcon } from '../../../assets';
+import { useCartAddition } from '../../../hooks/useCartAddition';
+import { useModal } from '../../../hooks/useModal';
+import { cartItemQuantityState } from '../../../store/cart';
+import { ProductItemData } from '../../../types';
+import { priceFormatter } from '../../../utils/formatter';
+import Modal from '../../common/Modal/Modal';
+import Toast from '../../common/Toast/Toast';
 import ProductAddition from '../ProductAddition/ProductAddition';
-import Modal from '../common/Modal/Modal';
-import Toast from '../common/Toast/Toast';
 import * as S from './ProductItem.styles';
 
 interface ProductItemProps {

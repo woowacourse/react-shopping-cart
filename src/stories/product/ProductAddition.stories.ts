@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import ProductAddition from '../components/ProductAddition/ProductAddition';
+import ProductAddition from '../../components/product/ProductAddition/ProductAddition';
 
 const meta = {
   title: 'ShoppingCart/ProductAdditionModal',

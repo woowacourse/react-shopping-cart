@@ -1,4 +1,4 @@
-import { PRODUCT_LIST_SKELETON_ITEM_LENGTH } from '../../constants';
+import { PRODUCT_LIST_SKELETON_ITEM_LENGTH } from '../../../constants';
 import ProductItemSkeleton from '../ProductItem/ProductItemSkeleton';
 import * as S from './ProductList.styles';
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Text } from '../common/Text/Text.styles';
+import { Text } from '../../common/Text/Text.styles';
 
 const ProductAdditionContainer = styled.div`
   width: 450px;

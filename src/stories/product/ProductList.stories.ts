@@ -2,8 +2,8 @@ import { expect } from '@storybook/jest';
 import type { Meta, StoryObj } from '@storybook/react';
 import { userEvent, within } from '@storybook/testing-library';
 
-import ProductList from '../components/ProductList/ProductList';
-import { delay } from '../utils/delay';
+import ProductList from '../../components/product/ProductList/ProductList';
+import { delay } from '../../utils/delay';
 
 const meta = {
   title: 'ShoppingCart/ProductList',

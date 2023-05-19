@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-import { Button } from '../common/Button/Button.styles';
-import { Text } from '../common/Text/Text.styles';
+import { Button } from '../../common/Button/Button.styles';
+import { Text } from '../../common/Text/Text.styles';
 
 const ProductItemContainer = styled.li`
   display: flex;
