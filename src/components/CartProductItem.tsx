@@ -13,7 +13,16 @@ interface CartProductItemProps {
 
 export const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
   const { id, quantity, product } = cartProduct;
-  const { increaseCount, decreaseCount } = useCartState(product);
+  const { increaseCount, decreaseCount, deleteCartItem } =
+    useCartState(product);
+
+  const handleIncreaseCount = () => {
+    increaseCount();
+  };
+
+  const handleDecreaseCount = () => {
+    decreaseCount(false);
+  };
 
   return (
     <CartProductItemContainer key={id}>
@@ -26,11 +35,11 @@ export const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
       </LeftSideWrapper>
 
       <RightSideWrapper>
-        <DeleteProductButtonImage />
+        <DeleteProductButtonImage onClick={deleteCartItem} />
         <AddToCartCount
           quantity={quantity}
-          increaseCount={increaseCount}
-          decreaseCount={decreaseCount}
+          increaseCount={handleIncreaseCount}
+          decreaseCount={handleDecreaseCount}
         />
         <ProductPrice size="18px" weight="600">
           {product.price}원

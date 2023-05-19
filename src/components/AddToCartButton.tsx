@@ -21,15 +21,22 @@ export const AddToCartButton = ({
     (item: CartProductList) => item.id === id
   )?.quantity;
 
-  const { increaseCount, deleteCartItem } = useCartState(product);
+  const { increaseCount, decreaseCount } = useCartState(product);
+
+  const handleIncreaseCount = () => {
+    increaseCount();
+  };
+  const handleDecreaseCount = () => {
+    decreaseCount(true);
+  };
 
   return (
     <>
       {quantity ? (
         <AddToCartCount
           quantity={quantity}
-          increaseCount={increaseCount}
-          decreaseCount={deleteCartItem}
+          increaseCount={handleIncreaseCount}
+          decreaseCount={handleDecreaseCount}
         />
       ) : (
         <AddToCartButtonImageWrapper>

@@ -36,7 +36,7 @@ export const useCartState = (props: Product) => {
     });
   };
 
-  const decreaseCount = () => {
+  const decreaseCount = (shouldDelete: boolean) => {
     setCartProductState((prev) => {
       const index = getIndex(prev, id);
 
@@ -47,26 +47,7 @@ export const useCartState = (props: Product) => {
           ...updatedCartList[index],
           quantity: updatedCartList[index].quantity - 1,
         };
-      }
-
-      return updatedCartList;
-    });
-  };
-
-  const deleteCartItem = () => {
-    setCartProductState((prev) => {
-      const index = getIndex(prev, id);
-
-      const updatedCartList = [...prev];
-
-      if (updatedCartList[index].quantity > 0) {
-        updatedCartList[index] = {
-          ...updatedCartList[index],
-          quantity: updatedCartList[index].quantity - 1,
-        };
-      }
-
-      if (updatedCartList[index].quantity === 0) {
+      } else if (shouldDelete && updatedCartList[index].quantity === 1) {
         return updatedCartList.filter(
           (item: CartProductList) => item.id !== id
         );
@@ -76,5 +57,16 @@ export const useCartState = (props: Product) => {
     });
   };
 
-  return { addToCartState, increaseCount, decreaseCount, deleteCartItem };
+  const deleteCartItem = () => {
+    setCartProductState((prev) => {
+      return [...prev].filter((item: CartProductList) => item.id !== id);
+    });
+  };
+
+  return {
+    addToCartState,
+    increaseCount,
+    decreaseCount,
+    deleteCartItem,
+  };
 };
