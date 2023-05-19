@@ -23,6 +23,8 @@ const CartListItem = ({
   const checkBoxRef = useRef<HTMLInputElement>(null);
 
   const handleSetQuantityOnInputStepper = (quantity: number) => {
+    if (quantity < 1) return;
+
     updateProductQuantity(cartItem.id, quantity);
   };
 
