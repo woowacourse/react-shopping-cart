@@ -37,6 +37,18 @@ export const DeleteImage = styled.img`
   width: 100%;
 `;
 
+export const Quantity = styled.div`
+  width: 4.1rem;
+  height: 3rem;
+  line-height: 2.8rem;
+
+  border-top: 1px solid #bbb;
+  border-bottom: 1px solid #bbb;
+  padding: 0;
+  font-size: 1.4rem;
+  text-align: center;
+`;
+
 export const Price = styled.div`
   font-size: 1.3rem;
 `;
