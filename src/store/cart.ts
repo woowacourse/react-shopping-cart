@@ -1,8 +1,10 @@
 import { DefaultValue, atom, selector, selectorFamily } from 'recoil';
 
 import { getCartList } from '../api/cartAPI';
+import { CART_LIST_CHECKBOX_KEY } from '../constants/store';
 import { addCartItemQuantity, updateCartItemQuantity } from '../domain/cart';
 import { CartItemData } from '../types';
+import { checkedListState } from './checkbox';
 
 const cartListState = atom<CartItemData[]>({
   key: 'cartList',
@@ -48,12 +50,17 @@ const cartItemQuantityState = selectorFamily<number, number>({
     },
 });
 
-const cartListSubTotalState = selector<number>({
+const cartListSubTotalState = selector({
   key: 'cartListSubTotal',
   get: ({ get }) => {
     const cartList = get(cartListState);
+    const checkedCartItemList = get(checkedListState(CART_LIST_CHECKBOX_KEY));
 
-    return cartList.reduce((acc, curr) => acc + curr.product.price * curr.quantity, 0);
+    const subTotal = cartList
+      .filter((cartItem) => checkedCartItemList.has(cartItem.product.id))
+      .reduce((acc, curr) => acc + curr.product.price * curr.quantity, 0);
+
+    return subTotal;
   },
 });
 

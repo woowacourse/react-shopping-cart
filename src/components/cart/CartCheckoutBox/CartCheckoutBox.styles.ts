@@ -15,6 +15,10 @@ const CheckoutInformationContainer = styled.div`
   padding: ${({ theme }) => theme.spacer.spacing4};
   background-color: ${({ theme }) => theme.color.gray1};
   border-radius: ${({ theme }) => theme.borderRadius.small};
+
+  & .loading-button {
+    height: 49.5px;
+  }
 `;
 
 const CheckoutInformationTextContainer = styled.div`
