@@ -10,8 +10,8 @@ export const Cart = () => {
         <Style.HeaderTitle>장바구니</Style.HeaderTitle>
       </Style.Header>
       <Style.Content>
-        <ProductSelectSection></ProductSelectSection>
-        <OrderSummarySection></OrderSummarySection>
+        <ProductSelectSection />
+        <OrderSummarySection />
       </Style.Content>
     </Layout>
   );

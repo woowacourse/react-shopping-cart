@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Counter } from '../../main/productCard/Counter';
 import { getCommaAddedNumber } from '../../../utils/number';
 import { CheckBox } from '../../../layout/checkBox/CheckBox';
-import { useLocalStorage } from '../../../hooks/useLocalStorage';
 import { useCounterInput } from '../../../hooks/useCounterInput';
-import { useCartIdList } from '../../../hooks/recoil/useCartIdList';
+import { useCartProductList } from '../../../hooks/recoil/useCartProductList';
 
 interface ProductSelectItemProps {
   id: number;
@@ -23,21 +22,49 @@ export const ProductSelectItem = ({
   imageUrl,
 }: ProductSelectItemProps) => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [productQuantity, setProductQuantity] = useState(1);
 
-  const { removeProductFromCartIdList } = useCartIdList();
+  const { removeProductFromCartProductList } = useCartProductList();
 
-  const { getProductQuantityById, patchProductQuantity } = useLocalStorage();
   const { inputRef, handleIncrease, handleDecrease } = useCounterInput({
     minLimit: 0,
     handleMinLimitExceeded: () => {
-      removeProductFromCartIdList(id);
-      console.log('삭제됨');
+      // eslint-disable-next-line no-restricted-globals
+      const isUserWantToDeleteProduct = confirm(`${name}을 삭제하시겠습니까?`);
+
+      if (isUserWantToDeleteProduct)
+        return removeProductFromCartProductList(id);
+      inputRef.current?.stepUp();
     },
-    increaseCallback: () =>
-      patchProductQuantity(id, Number(inputRef.current?.value)),
-    decreaseCallback: () =>
-      patchProductQuantity(id, Number(inputRef.current?.value)),
+    increaseCallback: () => {
+      const quantity = Number(inputRef.current?.value);
+
+      fetch(`/cart-items/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          quantity: quantity,
+        }),
+      });
+    },
+    decreaseCallback: () => {
+      const quantity = Number(inputRef.current?.value);
+
+      fetch(`/cart-items/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          quantity: quantity,
+        }),
+      });
+    },
   });
+
+  useEffect(() => {
+    fetch(`/cart-items/quantity/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setProductQuantity(Number(data));
+      });
+  }, []);
 
   return (
     <Style.Container>
@@ -49,7 +76,7 @@ export const ProductSelectItem = ({
           <Style.DeleteIcon src={`${process.env.PUBLIC_URL}/trashCan.png`} />
           <Counter
             ref={inputRef}
-            initialValue={getProductQuantityById(id)}
+            initialValue={productQuantity}
             handleDecrease={handleDecrease}
             handleIncrease={handleIncrease}
           />

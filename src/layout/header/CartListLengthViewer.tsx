@@ -2,8 +2,8 @@ import { selector, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { cartIdListState } from '../../atoms/cartIdListAtom';
 
-const cartIdListLengthState = selector({
-  key: 'cartIdListLengthState',
+const cartProductListLengthState = selector({
+  key: 'cartProductListLengthState',
   get: ({ get }) => {
     const cartList = get(cartIdListState);
 
@@ -12,7 +12,7 @@ const cartIdListLengthState = selector({
 });
 
 export const CartListLengthViewer = () => {
-  const cartListLength = useRecoilValue(cartIdListLengthState);
+  const cartListLength = useRecoilValue(cartProductListLengthState);
   return <Style.CartAmount>{cartListLength}</Style.CartAmount>;
 };
 

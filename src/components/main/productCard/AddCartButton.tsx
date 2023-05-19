@@ -1,7 +1,7 @@
+import { useEffect, useState } from 'react';
 import { ShoppingCartIcon } from '../../../assets/ShoppingCartIcon';
-import { useCartIdList } from '../../../hooks/recoil/useCartIdList';
+import { useCartProductList } from '../../../hooks/recoil/useCartProductList';
 import { useCounterInput } from '../../../hooks/useCounterInput';
-import { useLocalStorage } from '../../../hooks/useLocalStorage';
 import { Counter } from './Counter';
 
 interface AddCartButtonProps {
@@ -9,31 +9,58 @@ interface AddCartButtonProps {
 }
 
 export const AddCartButton = ({ id }: AddCartButtonProps) => {
-  const { cartIdList, addProductToCartIdList, removeProductFromCartIdList } =
-    useCartIdList();
-
-  const { getProductQuantityById, patchProductQuantity } = useLocalStorage();
+  const {
+    cartIdList,
+    addProductIdToCartIdList,
+    removeProductFromCartProductList,
+  } = useCartProductList();
 
   const { inputRef, handleDecrease, handleIncrease } = useCounterInput({
     minLimit: 0,
-    handleMinLimitExceeded: () => removeProductFromCartIdList(id),
-    increaseCallback: () =>
-      patchProductQuantity(id, Number(inputRef.current?.value)),
-    decreaseCallback: () =>
-      patchProductQuantity(id, Number(inputRef.current?.value)),
+    handleMinLimitExceeded: () => removeProductFromCartProductList(id),
+    increaseCallback: () => {
+      const quantity = Number(inputRef.current?.value);
+
+      fetch(`/cart-items/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          quantity: quantity,
+        }),
+      });
+    },
+    decreaseCallback: () => {
+      const quantity = Number(inputRef.current?.value);
+
+      fetch(`/cart-items/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          quantity: quantity,
+        }),
+      });
+    },
   });
+
+  const [initialValue, setInitialValue] = useState(1);
+
+  useEffect(() => {
+    fetch(`/cart-items/quantity/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setInitialValue(Number(data));
+      });
+  }, [cartIdList]);
 
   return (
     <>
-      {cartIdList.includes(id) ? (
+      {cartIdList.some((cartItemId) => cartItemId === id) ? (
         <Counter
           ref={inputRef}
           handleIncrease={handleIncrease}
           handleDecrease={handleDecrease}
-          initialValue={getProductQuantityById(id)}
+          initialValue={initialValue}
         />
       ) : (
-        <ShoppingCartIcon handleClick={() => addProductToCartIdList(id)} />
+        <ShoppingCartIcon handleClick={() => addProductIdToCartIdList(id)} />
       )}
     </>
   );

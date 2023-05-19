@@ -1,7 +1,6 @@
 import { RecoilRoot } from 'recoil';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './pages/Main';
-import { Layout } from './layout';
 import { Cart } from './pages/Cart';
 
 export const App = () => {

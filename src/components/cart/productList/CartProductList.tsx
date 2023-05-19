@@ -1,21 +1,32 @@
 import styled from 'styled-components';
-import { useMockData } from '../../../hooks/useMockData';
-import { useCartIdList } from '../../../hooks/recoil/useCartIdList';
 import { ProductSelectItem } from './CartProductItem';
+import { Product } from '../../../types/Product';
+import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { cartIdListState } from '../../../atoms/cartIdListAtom';
+
+interface CartProductList {
+  id: number;
+  quantity: number;
+  product: Product;
+}
 
 export const ProductSelectList = () => {
-  const { cartIdList } = useCartIdList();
-  const { mockData } = useMockData();
+  const [cartProductList, setCartProductList] = useState<CartProductList[]>([]);
+  const cartIdList = useRecoilValue(cartIdListState);
+
+  useEffect(() => {
+    fetch('/cart-items')
+      .then((res) => res.json())
+      .then((data) => setCartProductList(data));
+  }, [cartIdList]);
 
   return (
     <Style.Container>
-      {cartIdList.map((cartId) => {
-        const product = mockData.find((product) => product.id === cartId);
-
-        if (product === undefined)
-          throw new Error('장바구니에 담긴 id에 해당하는 상품이 없습니다!');
-
-        return <ProductSelectItem key={product.id} {...product} />;
+      {cartProductList.map((cartProduct) => {
+        return (
+          <ProductSelectItem key={cartProduct.id} {...cartProduct.product} />
+        );
       })}
     </Style.Container>
   );
