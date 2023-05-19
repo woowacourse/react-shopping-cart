@@ -9,6 +9,7 @@ const counter = {
   args: {
     count: 0,
   },
+  decorators: [(Story) => <Story />],
 } satisfies Meta<typeof Counter>;
 
 export default counter;
