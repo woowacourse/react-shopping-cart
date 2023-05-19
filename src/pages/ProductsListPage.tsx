@@ -1,5 +1,4 @@
 import { Suspense } from 'react';
-import { RecoilRoot } from 'recoil';
 import { ErrorBoundary } from 'react-error-boundary';
 import styled from 'styled-components';
 
@@ -9,7 +8,7 @@ import ProductList from '../components/Product/ProductList';
 
 const ProductsListPage = () => {
   return (
-    <RecoilRoot>
+    <>
       <Header />
       <Main>
         <ErrorBoundary fallback={<Message type='error' />}>
@@ -18,7 +17,7 @@ const ProductsListPage = () => {
           </Suspense>
         </ErrorBoundary>
       </Main>
-    </RecoilRoot>
+    </>
   );
 };
 

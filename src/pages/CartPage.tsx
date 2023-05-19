@@ -1,5 +1,4 @@
-import { RecoilRoot } from 'recoil';
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 
 import Header from '../components/Common/Header';
 import CartProductList from '../components/Cart/CartProductList';
@@ -9,7 +8,7 @@ import ExpectedPaymentBox from '../components/Cart/ExpectedPaymentBox';
 
 const CartPage = () => {
   return (
-    <RecoilRoot>
+    <>
       <Header />
       <Main>
         <PageTitle>장바구니</PageTitle>
@@ -30,7 +29,7 @@ const CartPage = () => {
           <ExpectedPaymentBox />
         </ExpectedPaymentBoxWrapper>
       </Main>
-    </RecoilRoot>
+    </>
   );
 };
 
