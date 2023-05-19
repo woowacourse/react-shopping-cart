@@ -9,9 +9,12 @@ export const Container = styled.div`
 
 export const Layout = styled.div`
   display: flex;
-  max-width: 1024px;
   margin: auto;
   justify-content: space-between;
+
+  padding: 0 5%;
+
+  min-width: 90%;
 `;
 
 export const LogoWrapper = styled.div`
@@ -30,4 +33,8 @@ export const LogoText = styled.span`
   top: 4px;
   font-size: 40px;
   font-weight: 900;
+
+  @media (max-width: 300px) {
+    display: none;
+  }
 `;

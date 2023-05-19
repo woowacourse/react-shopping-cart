@@ -31,7 +31,9 @@ function ProductSelectItem({ product, isChecked, updateCheckStatus }: ProductSel
   return (
     <S.Container aria-label="하나의 판매 품목 정보">
       <Checkbox isChecked={isChecked} changeEvent={updateCheckStatus} />
-      <S.ProductItemImage src={imageUrl} alt={`${name} 사진`} />
+      <S.ProductItemImageFrame>
+        <S.ProductItemImage src={imageUrl} alt={`${name} 사진`} />
+      </S.ProductItemImageFrame>
       <S.ProductItemName aria-label={'판매 품목 이름'}>{name}</S.ProductItemName>
       <S.ProductItemLayout>
         <S.DeleteItemIcon

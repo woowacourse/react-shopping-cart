@@ -3,8 +3,9 @@ import styled from 'styled-components';
 export const EstimatedAmountPartContainer = styled.div`
   padding-bottom: 6%;
   border: 1px solid #dddddd;
+  margin: auto;
 
-  width: 80%;
+  width: 95%;
   height: 310px;
 
   display: grid;
@@ -12,6 +13,10 @@ export const EstimatedAmountPartContainer = styled.div`
   grid-template-columns: 80%;
   align-items: center;
   justify-content: center;
+
+  @media (min-width: 991px) {
+    width: 80%;
+  }
 `;
 
 export const EstimatedAmountTitle = styled.p`
@@ -39,6 +44,10 @@ export const EstimatedAmountText = styled.span`
   line-height: 27px;
 
   letter-spacing: 0.5px;
+
+  @media (max-width: 300px) {
+    font-size: 15px;
+  }
 `;
 
 export const PurchaseButton = styled.button`

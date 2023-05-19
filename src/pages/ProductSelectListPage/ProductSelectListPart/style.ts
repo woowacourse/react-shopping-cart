@@ -13,6 +13,10 @@ export const ProductSelectListTitle = styled.p`
   line-height: 33px;
 
   letter-spacing: 0.5px;
+
+  @media (max-width: 767px) {
+    display: none;
+  }
 `;
 
 export const ProductSelectList = styled.ul`
