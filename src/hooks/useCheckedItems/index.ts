@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import shoppingCartItemsIdState from '@Selector/shoppingCartItemsIdState';
@@ -35,6 +35,10 @@ const useCheckedItems = () => {
   const changeAllItemToUncheckedItem = () => {
     setCheckedItemsId([]);
   };
+
+  useEffect(() => {
+    setCheckedItemsId(itemsId.filter((id) => checkedItemsId.includes(id)));
+  }, [itemsId]);
 
   return {
     parentCheckbox,
