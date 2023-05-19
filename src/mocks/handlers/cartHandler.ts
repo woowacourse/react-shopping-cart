@@ -1,16 +1,12 @@
 import { rest, RestRequest } from 'msw';
-import { products } from '../components/data/mockData';
-import { Cart } from '../types/product';
+import { products } from '../../components/data/mockData';
+import { Cart } from '../../types/product';
 
 interface PatchRequest extends RestRequest {
   quantity: number;
 }
 
-export const handlers = [
-  rest.get('/products', async (_req, res, ctx) => {
-    return res(ctx.delay(1000), ctx.json(products));
-  }),
-
+export const cartHandler = [
   rest.get('/cart-items', async (_req, res, ctx) => {
     const data = JSON.parse(localStorage.getItem('cart-items') || '[]');
 
