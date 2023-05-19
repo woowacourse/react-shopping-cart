@@ -1,5 +1,3 @@
-// import { isHttpStatusError } from '@Utils/isHttpStatusError';
-
 import { useState, useEffect, useRef } from 'react';
 
 import { Error } from '@Types/index';

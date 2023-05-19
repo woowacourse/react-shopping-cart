@@ -23,7 +23,8 @@ function QuantityController({
   const changeQuantityDefault = () => {
     changeProductQuantity(SHOPPING_QUANTITY.DEFAULT);
   };
-  if (quantity === SHOPPING_QUANTITY.MIN && !proceeding)
+
+  if (quantity === SHOPPING_QUANTITY.MIN && !proceeding) {
     return (
       <S.ShoppingCartIcon
         tab-index="0"
@@ -32,6 +33,7 @@ function QuantityController({
         data-testid="shopping-cart-icon"
       ></S.ShoppingCartIcon>
     );
+  }
 
   const updateQuantityWithButton = (type: QuantityControlButton) => {
     if (type === QUANTITY_CONTROL_BUTTON.PLUS) {
