@@ -26,7 +26,8 @@ const useCheckedItems = () => {
   };
 
   useEffect(() => {
-    if (itemsId.length === 0) parentCheckbox.current = false;
+    const isAllItemSelect = new Set([...itemsId, ...checkedItemsId]).size === itemsId.length;
+    parentCheckbox.current = isAllItemSelect && itemsId.length !== 0;
 
     setCheckedItemsId(itemsId.filter((id) => checkedItemsId.includes(id)));
   }, [itemsId]);
