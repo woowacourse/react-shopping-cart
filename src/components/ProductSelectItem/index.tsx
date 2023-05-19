@@ -34,7 +34,14 @@ function ProductSelectItem({ product, isChecked, updateCheckStatus }: ProductSel
       <S.ProductItemImage src={imageUrl} alt={`${name} 사진`} />
       <S.ProductItemName aria-label={'판매 품목 이름'}>{name}</S.ProductItemName>
       <S.ProductItemLayout>
-        <S.DeleteItemIcon src={trashCan} alt={`목록 삭제하기`} tab-index="0" />
+        <S.DeleteItemIcon
+          typeof="button"
+          src={trashCan}
+          alt={`목록 삭제하기`}
+          role="button"
+          tab-index="0"
+          onClick={() => updateShoppingCart(product)(SHOPPING_QUANTITY.MIN)}
+        />
         <QuantityController
           quantity={quantity}
           changeProductQuantity={updateShoppingCart(product)}
