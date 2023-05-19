@@ -10,6 +10,15 @@ const cartListState = atom<CartItemData[]>({
   effects: [({ setSelf }) => setSelf(getCartList().then((savedValue) => savedValue ?? []))],
 });
 
+const cartIdListState = selector({
+  key: 'cartIdList',
+  get: ({ get }) => {
+    const cartList = get(cartListState);
+
+    return cartList.map((cartItem) => cartItem.product.id);
+  },
+});
+
 const cartListItemCountState = selector<number>({
   key: 'cartListItemCount',
   get: ({ get }) => get(cartListState).length,
@@ -44,4 +53,10 @@ const cartListSubTotalState = selector<number>({
   },
 });
 
-export { cartListItemCountState, cartListState, cartItemQuantityState, cartListSubTotalState };
+export {
+  cartIdListState,
+  cartListState,
+  cartListItemCountState,
+  cartItemQuantityState,
+  cartListSubTotalState,
+};
