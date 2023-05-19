@@ -1,5 +1,6 @@
-import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
+import App from '../App';
 import { PATH } from '../constants/path';
 import CartPage from '../pages/CartPage/CartPage';
 import ProductListPage from '../pages/ProductListPage';
@@ -8,7 +9,7 @@ const router = createBrowserRouter(
   [
     {
       path: PATH.ROOT,
-      element: <Outlet />,
+      element: <App />,
       children: [
         {
           path: '',
