@@ -4,6 +4,7 @@ import productListData from '../data/mockData.json';
 import {
   addCartItemQuantity,
   getCartData,
+  removeCartItem,
   setCartData,
   updateCartItemQuantity,
 } from '../domain/cart';
@@ -39,7 +40,21 @@ const handlers = [
     const newCartList = updateCartItemQuantity(currentCartData, Number(productId), quantity);
     setCartData(newCartList);
 
-    return res(ctx.delay(5000), ctx.status(200), ctx.json<CartItemData[]>(newCartList));
+    return res(ctx.delay(1000), ctx.status(200), ctx.json<CartItemData[]>(newCartList));
+  }),
+
+  rest.delete('api/carts/delete/:productId', (req, res, ctx) => {
+    const { productId } = req.params;
+    const currentCartData = getCartData();
+
+    if (currentCartData.length === 0) {
+      return res(ctx.status(404));
+    }
+
+    const newCartList = removeCartItem(currentCartData, Number(productId));
+    setCartData(newCartList);
+
+    return res(ctx.delay(1000), ctx.status(204));
   }),
 ];
 
