@@ -1,44 +1,50 @@
 import { styled } from 'styled-components';
-import { CartIcon } from '../assets/svg';
-import { useCart } from '../hooks/useCart';
-import Stepper from './Stepper';
 
-interface IProduct {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
-}
+import { useProductInCartById } from '../recoils/recoilCart';
+import { useCart } from '../hooks/useCart';
+
+import { Stepper } from './Stepper';
+
+import { CartIcon } from '../assets/svg';
+import { Product as IProduct } from '../types';
 
 interface Props {
-  data: IProduct;
+  item: IProduct;
 }
 
-export default function Product({ data: { id, name, price, imageUrl } }: Props) {
-  const { addToCart, findProductInCart } = useCart();
-  const productInCart = findProductInCart(id);
+export const Product = ({ item }: Props) => {
+  const { addProductToCart } = useCart();
+  const productInCart = useProductInCartById(item.id);
+
+  const onClickCartIcon = () => {
+    addProductToCart({
+      id: item.id,
+      quantity: 1,
+      product: item,
+    });
+  };
 
   return (
     <Style.Container>
-      <Style.ProductImage path={imageUrl} />
+      <Style.ProductImage path={item.imageUrl} />
       <Style.ProductInfo>
         <div>
-          <Style.ProductName>{name}</Style.ProductName>
-          <Style.ProductPrice>{price.toLocaleString('ko-KR')}원</Style.ProductPrice>
+          <Style.ProductName>{item.name}</Style.ProductName>
+          <Style.ProductPrice>{item.price.toLocaleString('ko-KR')}원</Style.ProductPrice>
         </div>
         {Boolean(productInCart) ? (
           <Style.StepperWrapper>
-            <Stepper productId={id} count={productInCart?.quantity || 1} />
+            <Stepper productId={item.id} quantity={productInCart?.quantity || 1} />
           </Style.StepperWrapper>
         ) : (
-          <Style.CartIconWrapper onClick={() => addToCart(id)}>
+          <Style.CartIconWrapper onClick={onClickCartIcon}>
             <CartIcon fill="#AAAAAA" />
           </Style.CartIconWrapper>
         )}
       </Style.ProductInfo>
     </Style.Container>
   );
-}
+};
 
 const Style = {
   Container: styled.div`
