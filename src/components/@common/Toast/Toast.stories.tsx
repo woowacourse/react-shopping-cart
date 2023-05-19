@@ -1,9 +1,17 @@
 import { Meta, StoryObj } from '@storybook/react';
+import { RecoilRoot } from 'recoil';
 import Toast from '.';
 
 const toastMessage = {
   component: Toast,
   title: 'Common/Toast',
+  decorators: [
+    (Story) => (
+      <RecoilRoot>
+        <Story />
+      </RecoilRoot>
+    ),
+  ],
 } satisfies Meta<typeof Toast>;
 
 export default toastMessage;
