@@ -51,7 +51,7 @@ function CartProductItemList() {
     setCheckedCartIdList([]);
 
     if (!error) {
-      setToastStateList(prev => [...prev, { type: 'success', message: '장바구니가 전부 삭제되었습니다.' }]);
+      setToastStateList(prev => [...prev, { type: 'success', message: '선택한 장바구니가 삭제되었습니다.' }]);
     }
   });
 
