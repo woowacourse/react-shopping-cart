@@ -17,7 +17,7 @@ export const CartButton = ({ id }: CartButtonProps) => {
     decreaseProductCount,
   } = useCartState(id);
 
-  const handleCart = useCallback(() => {
+  const handleAddCart = useCallback(() => {
     handleAddCartState();
   }, []);
 
@@ -37,7 +37,7 @@ export const CartButton = ({ id }: CartButtonProps) => {
 
   return (
     <Styled.CartButtonImageWrapper>
-      <CartButtonImage onClick={handleCart} />
+      <CartButtonImage onClick={handleAddCart} />
     </Styled.CartButtonImageWrapper>
   );
 };
