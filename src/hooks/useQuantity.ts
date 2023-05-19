@@ -2,8 +2,9 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { productsState } from "../recoil/atom";
 import React, { useEffect, useState } from "react";
 import { MAX_LENGTH_QUANTITY, MAX_QUANTITY, MIN_QUANTITY } from "../constants";
-import { changeQuantity } from "../api";
+import { changeQuantity, deleteCartItem } from "../api";
 import { ProductType } from "../types/domain";
+import { getNewProducts } from "../utils/domain";
 
 export const useQuantity = (productId: number) => {
   const [products, setProducts] = useRecoilState(productsState);
@@ -14,7 +15,14 @@ export const useQuantity = (productId: number) => {
     target?.quantity.toString()
   );
 
-  const setNewQuantity = (newQuantity: number) => {
+  const setNewQuantity = async (newQuantity: number) => {
+    if (newQuantity === 0) {
+      deleteCartItem(productId);
+
+      const newProducts = await getNewProducts();
+      setProducts(newProducts);
+      return;
+    }
     if (newQuantity > MAX_QUANTITY || newQuantity < MIN_QUANTITY) return;
 
     setQuantity(newQuantity.toString());
@@ -32,10 +40,12 @@ export const useQuantity = (productId: number) => {
       e.target.value === "" ||
       e.target.value === "-0" ||
       Number(quantity) < MIN_QUANTITY
-    )
+    ) {
       e.target.value = MIN_QUANTITY.toString();
+    }
+    setNewQuantity(Number(e.target.value));
 
-    changeQuantity(productId, Number(quantity));
+    // changeQuantity(productId, Number(e.target.value));
   };
 
   return {
