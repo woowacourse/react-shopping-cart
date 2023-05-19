@@ -1,16 +1,14 @@
-import ProductList from '@Components/ProductList';
-
 import { Product } from '@Types/index';
 
 import useFetch from '@Hooks/useFetch';
 
 import { FETCH_URL } from '@Constants/index';
 
-function Home() {
-  const { data, status } = useFetch<Product[]>(FETCH_URL.products);
-  console.log(status);
+import ProductList from './ProductList';
 
-  if (status === 'error') return <div>에러 발생!</div>;
+function Home() {
+  const { data } = useFetch<Product[]>(FETCH_URL.products);
+
   return <ProductList data={data} isLoading={status === 'loading'} />;
 }
 

@@ -1,8 +1,7 @@
-import ProductItem from '@Components/ProductItem';
-
 import { Product } from '@Types/index';
 
 import * as S from './style';
+import ProductItem from '../ProductItem';
 
 type ProductListProps = {
   data?: Product[];
