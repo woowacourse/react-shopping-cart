@@ -14,7 +14,8 @@
       "@constants/*": ["constants/*"],
       "@hooks/*": ["hooks/*"],
       "@router": ["router/index.tsx"],
-      "@mockData/*": ["mockData/*"]
+      "@mockData/*": ["mockData/*"],
+      "@mocks/*": ["mocks/*"]
     }
   }
 }

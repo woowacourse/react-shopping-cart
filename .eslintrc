@@ -54,6 +54,11 @@
             "position": "after"
           },
           {
+            "pattern": "@mocks/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
             "pattern": "@type/**",
             "group": "internal",
             "position": "after"
