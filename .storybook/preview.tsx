@@ -5,6 +5,7 @@ import theme from '../src/styles/theme';
 import { RecoilRoot } from 'recoil';
 import React from 'react';
 import { handlers } from '../src/mocks/handlers';
+import { worker } from '../src/mocks/browser';
 import { initialize, mswDecorator } from 'msw-storybook-addon';
 
 let options = {};
@@ -30,6 +31,7 @@ const customViewports = {
 };
 
 export const decorators = [
+  mswDecorator,
   (Story) => (
     <RecoilRoot>
       <ThemeProvider theme={theme}>
@@ -38,7 +40,6 @@ export const decorators = [
       </ThemeProvider>
     </RecoilRoot>
   ),
-  mswDecorator,
 ];
 
 const preview: Preview = {
@@ -58,5 +59,13 @@ const preview: Preview = {
     },
   },
 };
+
+if (typeof global.process === 'undefined') {
+  worker.start({
+    serviceWorker: {
+      url: '/mockServiceWorker.js',
+    },
+  });
+}
 
 export default preview;
