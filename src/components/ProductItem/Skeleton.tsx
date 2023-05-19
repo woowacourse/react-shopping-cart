@@ -3,7 +3,9 @@ import * as S from './style';
 function SkeletonProductItem() {
   return (
     <S.Container aria-label="하나의 판매 품목 정보 로딩 중">
-      <S.ProductItemImage />
+      <S.ProductItemImageFrame>
+        <S.ProductItemImage />
+      </S.ProductItemImageFrame>
       <S.ProductItemContents>
         <S.ProductItemLayout>
           <S.ProductItemName aria-label={'판매 품목 이름 로딩 중'} isLoading={true}>

@@ -24,7 +24,9 @@ function ProductItem({ product }: ProductItemProps) {
 
   return (
     <S.Container aria-label="하나의 판매 품목 정보">
-      <S.ProductItemImage src={imageUrl} alt={`${name} 사진`} />
+      <S.ProductItemImageFrame>
+        <S.ProductItemImage src={imageUrl} alt={`${name} 사진`} />
+      </S.ProductItemImageFrame>
       <S.ProductItemContents>
         <S.ProductItemLayout>
           <S.ProductItemName aria-label={'판매 품목 이름'} isLoading={false}>

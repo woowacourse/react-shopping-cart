@@ -15,9 +15,22 @@ type LoadingProps = {
   isLoading?: boolean;
 };
 
+export const ProductItemImageFrame = styled.div`
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
+`;
+
 export const ProductItemImage = styled.img<LoadingProps>`
-  height: 250px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
   margin-bottom: 18px;
+
   ${ImageSkeletonStyle};
 `;
 
