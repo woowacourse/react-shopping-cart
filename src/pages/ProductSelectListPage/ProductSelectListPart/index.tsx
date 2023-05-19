@@ -17,7 +17,6 @@ function ProductSelectListPart() {
   const [shoppingCart] = useRecoilState<ShoppingCartProduct[]>(shoppingCartState);
   const {
     parentCheckbox,
-    checkedItemsId,
     getCheckedItemAmount,
     isCheckedItem,
     updateCheckStatus,
@@ -46,7 +45,6 @@ function ProductSelectListPart() {
           return (
             <ProductSelectItem
               product={elem.product}
-              quantity={elem.quantity}
               key={elem.id}
               isChecked={isCheckedItem(elem.id)}
               updateCheckStatus={updateCheckStatus(elem.id)}

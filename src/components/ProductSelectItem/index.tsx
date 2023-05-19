@@ -1,4 +1,5 @@
 import trashCan from '@Asset/trashCan.png';
+import { useRecoilValue } from 'recoil';
 
 import Checkbox from '@Components/Checkbox';
 import QuantityController from '@Components/QuantityController';
@@ -7,21 +8,25 @@ import { Product } from '@Types/index';
 
 import useShoppingCart from '@Hooks/useShoppingCart';
 
+import quantityState from '@Selector/quantityState';
+
 import { SHOPPING_QUANTITY } from '@Constants/index';
 
 import * as S from './style';
 
 type ProductSelectItemProps = {
   product: Product;
-  quantity: number;
   isChecked: boolean;
   updateCheckStatus: () => void;
 };
 
-function ProductSelectItem({ product, quantity, isChecked, updateCheckStatus }: ProductSelectItemProps) {
-  const { imageUrl, name, price } = product;
-  const priceText = price.toLocaleString();
+function ProductSelectItem({ product, isChecked, updateCheckStatus }: ProductSelectItemProps) {
+  const { imageUrl, name, price, id } = product;
+
   const { updateShoppingCart } = useShoppingCart();
+
+  const quantity = useRecoilValue(quantityState(id));
+  const priceText = price.toLocaleString();
 
   return (
     <S.Container aria-label="하나의 판매 품목 정보">
