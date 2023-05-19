@@ -3,16 +3,16 @@ import Bill from '../components/Bill/Bill';
 import CartItemList from '../components/CartItemList/CartItemList';
 import { ReactComponent as Teung } from '../assets/img/empty-cart.svg';
 import { useRecoilValue } from 'recoil';
-import { cartAtom } from '../store/cart';
+import { cartSelector } from '../store/cart';
 
 const CartPage = () => {
-  const cartList = useRecoilValue(cartAtom);
+  const { cartsQuantity } = useRecoilValue(cartSelector);
 
   return (
     <Wrapper>
       <Title>장바구니</Title>
       <MainInfo>
-        {cartList.length ? (
+        {cartsQuantity ? (
           <>
             <CartItemList />
             <Bill />

@@ -1,5 +1,4 @@
 import { atom, selector, selectorFamily } from 'recoil';
-import { Select } from '../components/CartItemList/CartItemList';
 import { Cart } from '../types/product';
 import { fetchedCartListSelector } from './fetchSelectors';
 
@@ -15,12 +14,7 @@ export const cartSelector = selector({
 
     const cartsQuantity = cartList.length;
 
-    const totalAmount = cartList.reduce(
-      (a, b) => a + b.product.price * b.quantity,
-      0
-    );
-
-    return { cartsQuantity, totalAmount };
+    return { cartsQuantity };
   },
 });
 

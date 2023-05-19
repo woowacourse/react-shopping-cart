@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 import { v1 } from 'uuid';
 import { deleteCartItem } from '../../api/cartList';
@@ -18,7 +18,7 @@ const CartItemList = () => {
   const { ALL_CHECKED, NO_CHECKED } = useRecoilValue(checkedValue);
   const [isAllSelected, setIsAllSelected] = useState<boolean>(false);
   const [isSelectedList, setIsSelectedList] = useState<Select[]>(NO_CHECKED);
-  const [totalAmount, setTotalAmount] = useRecoilState(totalAmountAtom);
+  const setTotalAmount = useSetRecoilState(totalAmountAtom);
 
   useEffect(() => {
     setIsSelectedList(NO_CHECKED);
