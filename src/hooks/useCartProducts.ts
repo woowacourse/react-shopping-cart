@@ -7,7 +7,7 @@ import {
 } from '../states/cartProducts';
 import { deleteTargetProduct } from '../states/cartProducts/util';
 import type { Product } from '../types/product';
-import { postProduct } from '../apis/cartProducts';
+import { deleteCartProduct, postProduct } from '../apis/cartProducts';
 
 const useCartProducts = (product: Product) => {
   const { id } = product;
@@ -24,6 +24,7 @@ const useCartProducts = (product: Product) => {
 
     if (targetProduct.quantity === 0) {
       setCartProducts((prev) => deleteTargetProduct(prev, id));
+      deleteCartProduct(id);
     }
   }, [id, setCartProducts, targetProduct]);
 

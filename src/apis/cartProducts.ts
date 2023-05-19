@@ -19,3 +19,12 @@ export const postProduct = async (id: number) => {
   const data = await response.json();
   return data;
 };
+
+export const deleteCartProduct = async (id: number) => {
+  await fetch(`${URL}/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+};

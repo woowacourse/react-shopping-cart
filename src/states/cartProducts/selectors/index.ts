@@ -6,7 +6,7 @@ import { cartProductState } from '../atoms';
 
 export const productSelector = selector({
   key: 'productSelector',
-  get: async ({ get }) => {
+  get: async () => {
     const data = await fetchProducts();
     return data;
   },

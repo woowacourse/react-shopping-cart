@@ -119,7 +119,7 @@ export const handlers = [
       CART_STORAGE_ID,
       JSON.stringify(
         storedCartProducts.filter(
-          (cartProduct) => cartProduct.id === cartProductId
+          (cartProduct) => cartProduct.id !== cartProductId
         )
       )
     );
