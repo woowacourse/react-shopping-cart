@@ -1,38 +1,27 @@
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { fetchProductsSelector } from '../../recoil/fetchProductData';
+import useCartProductUpdate from '../../hooks/useCartProductUpdate';
 
 import ProductItem from './ProductItem';
-import AbnormalMessage from '../Common/Message';
-
-import { useRecoilValueLoadable } from 'recoil';
-import { fetchProductsSelector } from '../../recoil/fetchProductData';
-import type { Product } from '../../types/product';
+import Message from '../Common/Message';
 
 const ProductList = () => {
-  const products = useRecoilValueLoadable(fetchProductsSelector);
+  const products = useRecoilValue(fetchProductsSelector);
 
-  const productListContent = (() => {
-    switch (products.state) {
-      case 'hasValue':
-        return products.contents.length === 0 ? (
-          <AbnormalMessage type='empty' />
-        ) : (
-          <ProductListContainer>
-            {products.contents.map((product: Product) => (
-              <li key={product.id}>
-                <ProductItem product={product} />
-              </li>
-            ))}
-          </ProductListContainer>
-        );
-      case 'loading':
-        return <AbnormalMessage type='loading' />;
-      case 'hasError':
-        return <AbnormalMessage type='error' />;
-      default:
-        return <AbnormalMessage type='notFound' />;
-    }
-  })();
-  return productListContent;
+  useCartProductUpdate();
+
+  if (products.length === 0) return <Message type='empty' />;
+
+  return (
+    <ProductListContainer>
+      {products.map((product) => (
+        <li key={product.id}>
+          <ProductItem product={product} />
+        </li>
+      ))}
+    </ProductListContainer>
+  );
 };
 
 const ProductListContainer = styled.ul`

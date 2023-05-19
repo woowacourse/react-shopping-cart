@@ -31,7 +31,7 @@ const message = {
   },
 };
 
-const AbnormalMessage = ({ type, link = false }: MessageProps) => {
+const Message = ({ type, link = false }: MessageProps) => {
   return (
     <MessageSection>
       <img
@@ -81,4 +81,4 @@ const HomeLink = styled(Link)`
   border-radius: 4px;
 `;
 
-export default AbnormalMessage;
+export default Message;
