@@ -7,6 +7,11 @@ import '../public/assets/logo.svg';
 import '../public/assets/arrowUp.svg';
 import '../public/assets/arrowDown.svg';
 
+if (process.env.NODE_ENV === 'development') {
+  const { worker } = require('./mocks/worker');
+  worker.start();
+}
+
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
