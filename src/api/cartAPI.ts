@@ -1,10 +1,11 @@
+import { CartItemData } from '../types';
 import { fetchAPI } from './fetchAPI';
 
-const getCartList = async () => {
+const getCartList = async (): Promise<CartItemData[]> => {
   return await fetchAPI('/api/carts');
 };
 
-const postCartItem = async (productId: number, quantity: number) => {
+const postCartItem = async (productId: number, quantity: number): Promise<CartItemData[]> => {
   const data = {
     quantity,
     productId,
@@ -20,7 +21,7 @@ const postCartItem = async (productId: number, quantity: number) => {
   });
 };
 
-const patchCartItem = async (productId: number, quantity: number) => {
+const patchCartItem = async (productId: number, quantity: number): Promise<CartItemData[]> => {
   const data = {
     quantity,
   };
@@ -35,7 +36,7 @@ const patchCartItem = async (productId: number, quantity: number) => {
   });
 };
 
-const deleteCartItem = async (productId: number) => {
+const deleteCartItem = async (productId: number): Promise<Response> => {
   return await fetchAPI(`/api/carts/remove/${productId}`, {
     method: 'DELETE',
   });
