@@ -5,15 +5,21 @@ export const fetchCartList = async <T>(): Promise<T> => {
   return data;
 };
 
-export const fetchCartItem = async <T>(id: number): Promise<T> => {
-  const response = await fetch(`/cart-items/${id}`);
+export const postCartItem = async <T>(id: number): Promise<T> => {
+  const response = await fetch(`/cart-items`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ id }),
+  });
   const data = await response.json();
 
   return data;
 };
 
-export const postCartItem = async <T>(id: number): Promise<T> => {
-  const response = await fetch(`/cart-items/${id}`, { method: 'POST' });
+export const fetchCartItem = async <T>(id: number): Promise<T> => {
+  const response = await fetch(`/cart-items/${id}`);
   const data = await response.json();
 
   return data;

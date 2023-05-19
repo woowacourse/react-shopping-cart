@@ -24,8 +24,8 @@ export const handlers = [
     );
     return res(ctx.json(product));
   }),
-  rest.post('/cart-items/:id', async (req, res, ctx) => {
-    const { id } = req.params;
+  rest.post<{ id: number }>('/cart-items', async (req, res, ctx) => {
+    const { id } = req.body;
     const data = JSON.parse(localStorage.getItem('cart-items') || '[]');
     const product = products.find((product) => product.id === Number(id));
     const newData = [...data, { id: Number(id), quantity: 1, product }];
