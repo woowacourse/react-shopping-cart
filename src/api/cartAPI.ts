@@ -35,4 +35,10 @@ const patchCartItem = async (productId: number, quantity: number) => {
   });
 };
 
-export { getCartList, postCartItem, patchCartItem };
+const deleteCartItem = async (productId: number) => {
+  return await fetchAPI(`/api/carts/remove/${productId}`, {
+    method: 'DELETE',
+  });
+};
+
+export { getCartList, postCartItem, patchCartItem, deleteCartItem };
