@@ -1,5 +1,4 @@
 import { CartItem } from 'src/types';
-import { SelectInput, SelectLabel } from '../CartList/CartList.styles';
 import Counter from 'src/components/Counter';
 import { convertKORWon } from 'src/utils';
 import useProductSelect from 'src/hooks/useCartUpdate';
@@ -15,10 +14,16 @@ interface ItemProps {
 }
 
 const Item = ({ item }: ItemProps) => {
-  const { id, product, quantity, isSelected } = item;
+  const { product } = item;
+  const {
+    currentCartItem,
+    productCountMethod,
+    onChangeSelectToggle,
+    deleteItem,
+  } = useProductSelect(product);
 
-  const { productCountMethod, onChangeSelectToggle, deleteItem } =
-    useProductSelect(product);
+  const { id, isSelected, quantity } = currentCartItem ?? item;
+
   const itemTotalPrice = useRecoilValue(quantityTimesNumber(id));
 
   return (
