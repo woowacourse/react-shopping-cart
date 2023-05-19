@@ -1,13 +1,21 @@
-type ShoppingItemApiState = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+type ShoppingItemApiState = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
-export const getMockShoppingItemApiUrl = (state: ShoppingItemApiState) => {
-  return '/api/mockData';
+export const getMockShoppingItemApiUrl = (state: ShoppingItemApiState, id?: number) => {
+  switch (state) {
+    case 'GET':
+      return `${state}/api/mockData`;
+    default:
+      return `${state}/api/mockData/${id}`;
+  }
 };
 
-type SelectItemApiState = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+type SelectItemApiState = 'GET' | 'POST' | 'PATCH';
 
-export const getMockSelectItemApiUrl = (state: SelectItemApiState) => {
-  return '/api/mockData';
+export const getMockSelectItemApiUrl = (state: SelectItemApiState, id?: number) => {
+  switch (state) {
+    case 'GET':
+      return `${state}/api/mockData`;
+    default:
+      return `${state}/api/mockData/${id}`;
+  }
 };
-
-// MOCK_DATA_URL
