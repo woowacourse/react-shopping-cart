@@ -16,6 +16,8 @@ export const ProductItemCheckboxLabel = styled.label<ProductItemCheckboxLabelPro
   border-radius: 3px;
   background-color: ${(props) => props.checked && '#333333'};
   position: relative;
+
+  cursor: pointer;
 `;
 
 export const ProductItemCheckboxCheckIcon = styled.img`

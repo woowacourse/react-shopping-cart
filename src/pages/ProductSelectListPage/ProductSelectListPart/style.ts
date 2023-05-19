@@ -42,4 +42,6 @@ export const SelectedProductDeleteButton = styled.button`
 
   font-size: 13px;
   height: 30px;
+
+  cursor: pointer;
 `;
