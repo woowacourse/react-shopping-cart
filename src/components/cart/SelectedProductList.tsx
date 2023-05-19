@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { css, styled } from 'styled-components';
+import { useRemoveCheckedItemsFromCart } from '../../hooks/useRemoveCheckedItemsFromCart';
 import { cartState, checkedItemList } from '../../recoil';
 import { CartItem } from '../../types';
 import Button from '../common/Button';
@@ -9,19 +10,25 @@ import SelectedProductItem from './SelectedProductItem';
 
 const SelectedProductList = () => {
   const cart = useRecoilValue(cartState);
-  const productCountInCart = cart.length;
+  const [checkedItems, setCheckedItems] = useRecoilState<number[]>(checkedItemList);
+  const removeCheckedItemsFromCart = useRemoveCheckedItemsFromCart(checkedItems);
 
   const initialCheckedItems = cart.map((item: CartItem) => item.id);
-
-  const [checkedItems, setCheckedItems] = useRecoilState<number[]>(checkedItemList);
 
   useEffect(() => {
     setCheckedItems(initialCheckedItems);
   }, []);
 
-  const isAllChecked = checkedItems.length === cart.length;
+  const productCountInCart = cart.length;
+  const isAllChecked = checkedItems.length === productCountInCart;
+
   const handleAllItemsCheck = () => {
     isAllChecked ? setCheckedItems([]) : setCheckedItems(initialCheckedItems);
+  };
+
+  const handleCheckedItemRemove = () => {
+    removeCheckedItemsFromCart();
+    setCheckedItems([]);
   };
 
   return (
@@ -47,7 +54,9 @@ const SelectedProductList = () => {
           onChange={handleAllItemsCheck}
         />
         <label htmlFor="select-all">{`전체선택 (${checkedItems.length}/${productCountInCart})`}</label>
-        <Button css={deleteButtonStyle}>선택삭제</Button>
+        <Button css={deleteButtonStyle} onClick={handleCheckedItemRemove}>
+          선택삭제
+        </Button>
       </S.Fieldset>
     </S.Wrapper>
   );
