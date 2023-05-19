@@ -5,6 +5,8 @@ export const useQuery = <T>() => {
   const [data, setData] = useState<T | null>(null);
 
   const fetchData = async (url: string) => {
+    setIsLoading(true);
+
     fetch(url)
       .then(async (response) => {
         if (!response.ok) throw new Error('');
