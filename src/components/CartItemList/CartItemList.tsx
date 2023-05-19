@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import { v1 } from 'uuid';
 import { deleteCartItem } from '../../api/cartList';
-import { cartAtom } from '../../store/cart';
+import { cartAtom, checkedValue, totalAmountAtom } from '../../store/cart';
+import { Cart } from '../../types/product';
 import CartItem from '../CartItem/CartItem';
 import CheckBox from '../common/CheckBox/CheckBox';
 
@@ -13,37 +14,41 @@ export type Select = {
 };
 
 const CartItemList = () => {
-  const cartList = useRecoilValue(cartAtom);
-  const AllNotChecked = cartList.map((item) => ({
-    id: item.id,
-    isSelected: false,
-  }));
-  const AllChecked = cartList.map((item) => ({
-    id: item.id,
-    isSelected: true,
-  }));
+  const [cartList, setCartList] = useRecoilState(cartAtom);
+  const { ALL_CHECKED, NO_CHECKED } = useRecoilValue(checkedValue);
   const [isAllSelected, setIsAllSelected] = useState<boolean>(false);
-  const [cartItemsState, setCartItemsState] = useState<Select[]>(AllNotChecked);
-  const setCartAtom = useSetRecoilState(cartAtom);
+  const [isSelectedList, setIsSelectedList] = useState<Select[]>(NO_CHECKED);
+  const [totalAmount, setTotalAmount] = useRecoilState(totalAmountAtom);
 
   useEffect(() => {
-    setCartItemsState(AllNotChecked);
+    setIsSelectedList(NO_CHECKED);
   }, [cartList]);
+
+  useEffect(() => {
+    const total = isSelectedList.reduce((a, b) => {
+      if (b.isSelected) {
+        let cart = cartList.find((item) => item.id === b.id) as Cart;
+        return a + cart.quantity * cart.product.price;
+      }
+      return a;
+    }, 0);
+    setTotalAmount(total);
+  }, [isSelectedList]);
 
   const toggleSelectAll = () => {
     setIsAllSelected(!isAllSelected);
-    setCartItemsState(!isAllSelected ? AllChecked : AllNotChecked);
+    setIsSelectedList(!isAllSelected ? ALL_CHECKED : NO_CHECKED);
   };
 
   const countSelectedItems = () => {
-    return cartItemsState.filter((item) => item.isSelected === true).length;
+    return isSelectedList.filter((item) => item.isSelected === true).length;
   };
 
   const deleteSelectedItems = () => {
-    cartItemsState.forEach((item) => {
+    isSelectedList.forEach((item) => {
       if (item.isSelected) {
         deleteCartItem(item.id);
-        setCartAtom((prev) => [...prev.filter((cart) => cart.id !== item.id)]);
+        setCartList((prev) => [...prev.filter((cart) => cart.id !== item.id)]);
       }
     });
   };
@@ -60,9 +65,9 @@ const CartItemList = () => {
               key={uuid}
               id={item.id}
               cartItemState={
-                cartItemsState.find((state) => state.id === item.id) as Select
+                isSelectedList.find((state) => state.id === item.id) as Select
               }
-              setCartItemsState={setCartItemsState}
+              setIsSelectedList={setIsSelectedList}
               setIsAllSelected={setIsAllSelected}
             />
           );

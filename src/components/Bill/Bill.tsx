@@ -1,9 +1,9 @@
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import { cartSelector } from '../../store/cart';
+import { totalAmountAtom } from '../../store/cart';
 
 const Bill = () => {
-  const { totalAmount } = useRecoilValue(cartSelector);
+  const totalAmount = useRecoilValue(totalAmountAtom);
   const deliveryFee = totalAmount >= 30000 || totalAmount === 0 ? 0 : 3000;
 
   return (

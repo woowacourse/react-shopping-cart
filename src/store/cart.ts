@@ -1,4 +1,5 @@
 import { atom, selector, selectorFamily } from 'recoil';
+import { Select } from '../components/CartItemList/CartItemList';
 import { Cart } from '../types/product';
 import { fetchedCartListSelector } from './fetchSelectors';
 
@@ -28,8 +29,32 @@ export const cartSelectorFamily = selectorFamily({
   get:
     (id: number) =>
     ({ get }) => {
-      const carts = get(cartAtom);
+      const cartList = get(cartAtom);
 
-      return carts.find((item) => item.id === id) as Cart;
+      return cartList.find((item) => item.id === id) as Cart;
     },
+});
+
+export const checkedValue = selector({
+  key: 'checked-value',
+  get: ({ get }) => {
+    const cartList = get(cartAtom);
+
+    const NO_CHECKED = cartList.map((item) => ({
+      id: item.id,
+      isSelected: false,
+    }));
+
+    const ALL_CHECKED = cartList.map((item) => ({
+      id: item.id,
+      isSelected: true,
+    }));
+
+    return { NO_CHECKED, ALL_CHECKED };
+  },
+});
+
+export const totalAmountAtom = atom({
+  key: 'totalAmount',
+  default: 0,
 });

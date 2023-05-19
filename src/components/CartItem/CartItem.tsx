@@ -10,14 +10,14 @@ import useCartAtom from '../../hooks/useCartAtom';
 interface CartItemProps {
   id: number;
   cartItemState: Select;
-  setCartItemsState: React.Dispatch<React.SetStateAction<Select[]>>;
+  setIsSelectedList: React.Dispatch<React.SetStateAction<Select[]>>;
   setIsAllSelected: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CartItem = ({
   id,
   cartItemState,
-  setCartItemsState,
+  setIsSelectedList,
   setIsAllSelected,
 }: CartItemProps) => {
   const {
@@ -34,7 +34,7 @@ const CartItem = ({
   const toggleSelect = () => {
     setIsAllSelected(false);
 
-    setCartItemsState((prev) => [
+    setIsSelectedList((prev) => [
       ...prev.filter((item) => item.id !== id),
       { id, isSelected: !cartItemState.isSelected },
     ]);
