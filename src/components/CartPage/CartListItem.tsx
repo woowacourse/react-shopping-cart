@@ -26,6 +26,9 @@ export default function CartListItem({
   const [cartSelectsState, setCartSelectsState] = useRecoilState(cartSelects);
 
   useEffect(() => {
+    setCheck(cartSelectsState.has(id));
+  }, [cartSelectsState]);
+  useEffect(() => {
     if (check) {
       const newCartSelects = [...cartSelectsState];
       const newCartSelectSet = new Set(newCartSelects);
