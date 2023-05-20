@@ -4,12 +4,14 @@ import { Text } from '../../common/Text/Text.styles';
 
 const ProductAdditionContainer = styled.div`
   width: 450px;
+  margin: ${({ theme }) => theme.spacer.spacing4};
 `;
 
 const Header = styled.div`
-  text-align: center;
   margin-bottom: ${({ theme }) => theme.spacer.spacing3};
   padding-bottom: ${({ theme }) => theme.spacer.spacing3};
+  font-weight: 600;
+  text-align: center;
   border-bottom: 1px solid ${({ theme }) => theme.color.gray3};
 `;
 
