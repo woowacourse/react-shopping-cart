@@ -68,10 +68,14 @@
     "@types/styled-components": "^5.1.26",
     "babel-plugin-named-exports-order": "^0.0.2",
     "chromatic": "^6.17.4",
+    "msw": "^1.2.1",
     "storybook": "^7.0.10",
     "typescript": "^4.9.5",
     "webpack": "^5.82.1"
   },
   "readme": "ERROR: No README data found!",
-  "_id": "react-shopping-cart@0.1.0"
+  "_id": "react-shopping-cart@0.1.0",
+  "msw": {
+    "workerDirectory": "public"
+  }
 }
