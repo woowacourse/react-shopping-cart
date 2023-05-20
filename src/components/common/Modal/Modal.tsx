@@ -6,12 +6,13 @@ import { useScrollStop } from '../../../hooks/common/useScrollStop';
 import * as S from './Modal.styles';
 
 interface ModalProps extends PropsWithChildren {
+  isOpen: boolean;
   handleClose: () => void;
 }
 
-const Modal = ({ children, handleClose }: ModalProps) => {
+const Modal = ({ isOpen, children, handleClose }: ModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
-  useScrollStop(true);
+  useScrollStop(isOpen);
 
   useEffect(() => {
     modalRef.current?.focus();
@@ -26,14 +27,19 @@ const Modal = ({ children, handleClose }: ModalProps) => {
     [handleClose]
   );
 
-  return createPortal(
-    <S.ModalContainer role="dialog" aria-modal>
-      <S.ModalBackdrop onClick={handleClose} />
-      <S.ModalContent ref={modalRef} tabIndex={0} onKeyDown={handleClosePress}>
-        {children}
-      </S.ModalContent>
-    </S.ModalContainer>,
-    document.body
+  return (
+    <>
+      {isOpen &&
+        createPortal(
+          <S.ModalContainer role="dialog" aria-modal>
+            <S.ModalBackdrop onClick={handleClose} />
+            <S.ModalContent ref={modalRef} tabIndex={0} onKeyDown={handleClosePress}>
+              {children}
+            </S.ModalContent>
+          </S.ModalContainer>,
+          document.body
+        )}
+    </>
   );
 };
 

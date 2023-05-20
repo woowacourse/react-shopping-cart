@@ -34,15 +34,13 @@ const ProductItem = ({ ...information }: ProductItemProps) => {
         </S.ItemImageContainer>
         <S.ItemName size="small">{information.name}</S.ItemName>
         <S.ItemPrice size="large">{priceFormatter(information.price)}원</S.ItemPrice>
-        {isModalOpen && (
-          <Modal handleClose={handleModalClose}>
-            <ProductAddition
-              addItemQuantity={addItemQuantity}
-              handleModalClose={handleModalClose}
-              {...information}
-            />
-          </Modal>
-        )}
+        <Modal isOpen={isModalOpen} handleClose={handleModalClose}>
+          <ProductAddition
+            addItemQuantity={addItemQuantity}
+            handleModalClose={handleModalClose}
+            {...information}
+          />
+        </Modal>
       </S.ProductItemContainer>
       {isAdded && <Toast>장바구니에 상품을 추가했습니다.</Toast>}
     </>
