@@ -1,11 +1,11 @@
-import { ChangeEvent, useCallback } from 'react';
+import { ChangeEvent, ComponentPropsWithoutRef, useCallback } from 'react';
 
 import { AddIcon, MinusIcon } from '../../../assets';
 import { DEFAULT_MAX_COUNT, DEFAULT_MIN_COUNT } from '../../../constants';
 import { isNumber } from '../../../utils/validator';
 import * as S from './StepperButton.styles';
 
-interface StepperButtonProps {
+interface StepperButtonProps extends ComponentPropsWithoutRef<'div'> {
   count: number;
   minCount?: number;
   maxCount?: number;
@@ -22,6 +22,7 @@ const StepperButton = ({
   handleDecreaseCount,
   handleIncreaseCount,
   handleCountChange,
+  ...attributes
 }: StepperButtonProps) => {
   const onChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -37,7 +38,7 @@ const StepperButton = ({
   );
 
   return (
-    <S.StepperContainer>
+    <S.StepperContainer {...attributes}>
       <S.StepperButton
         type="button"
         aria-label="decrease"

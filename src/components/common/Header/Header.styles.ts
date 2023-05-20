@@ -6,7 +6,7 @@ const HeaderContainer = styled.header`
   position: fixed;
   top: 0;
   width: 100%;
-  padding: ${({ theme }) => theme.spacer.spacing4} 0;
+  padding: ${({ theme }) => theme.spacer.spacing4};
   background-color: ${({ theme }) => theme.color.white};
   border-bottom: 1px solid ${({ theme }) => theme.color.gray2};
   z-index: 2;
@@ -14,15 +14,19 @@ const HeaderContainer = styled.header`
 
 const HeaderContentContainer = styled.div`
   position: relative;
-  width: 1080px;
+  max-width: 1080px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-width: 600px) {
+    justify-content: space-between;
+  }
 `;
 
 const Logo = styled.img`
-  height: 48px;
+  height: 40px;
 `;
 
 const CartButton = styled(Button)`

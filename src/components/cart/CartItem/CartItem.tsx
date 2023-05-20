@@ -38,6 +38,7 @@ const CartItem = ({ id, quantity, name, price, imageUrl }: CartItemProps) => {
       </S.CartItemImageWrapper>
       <S.CartItemName>{name}</S.CartItemName>
       <StepperButton
+        className="stepper-button"
         count={quantity}
         handleDecreaseCount={handleQuantityDecrement}
         handleIncreaseCount={handleQuantityIncrement}

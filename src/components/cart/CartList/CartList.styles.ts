@@ -12,7 +12,7 @@ const CartListContainer = styled.section`
 
   &.center {
     margin: 0;
-    padding: 72px;
+    padding: 72px 24px;
     justify-content: center;
     align-items: center;
     gap: initial;
@@ -20,6 +20,10 @@ const CartListContainer = styled.section`
     & button {
       width: 200px;
     }
+  }
+
+  @media screen and (max-width: 1200px) {
+    width: calc(100vw - 48px);
   }
 `;
 
@@ -32,6 +36,7 @@ const CartListEmptyImage = styled.img`
 const CartListEmptyMessage = styled(Text)`
   margin-bottom: ${({ theme }) => theme.spacer.spacing4};
   font-weight: 600;
+  text-align: center;
 `;
 
 export { CartListContainer, CartListEmptyImage, CartListEmptyMessage };

@@ -7,6 +7,10 @@ const CartCheckoutBoxWrapper = styled.aside`
   width: 284px;
   min-height: 942px;
   padding-top: 40px;
+
+  @media screen and (max-width: 1200px) {
+    width: calc(100vw - 48px);
+  }
 `;
 
 const CheckoutInformationContainer = styled.div`

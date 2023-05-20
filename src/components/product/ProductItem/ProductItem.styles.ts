@@ -4,6 +4,7 @@ import { Button } from '../../common/Button/Button.styles';
 import { Text } from '../../common/Text/Text.styles';
 
 const ProductItemContainer = styled.li`
+  width: 200px;
   display: flex;
   flex-direction: column;
 `;

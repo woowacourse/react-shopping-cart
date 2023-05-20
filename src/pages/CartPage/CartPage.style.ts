@@ -8,10 +8,9 @@ const CartPageHeading = styled(Heading)`
 `;
 
 const CartInformationContainer = styled.div`
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  grid-template-rows: 1fr;
-  grid-column-gap: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 36px;
 `;
 
 export { CartPageHeading, CartInformationContainer };

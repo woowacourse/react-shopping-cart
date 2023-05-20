@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 
 const ProductListContainer = styled.ol`
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  place-items: center;
-  align-items: start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   row-gap: ${({ theme }) => theme.spacer.spacing4};
-  column-gap: ${({ theme }) => theme.spacer.spacing3};
+  column-gap: 20px;
 `;
 
 export { ProductListContainer };

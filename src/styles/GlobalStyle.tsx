@@ -24,22 +24,22 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     width: 100vw;
-    height: 100vh;
-    background-color: white;
+    min-height: 100vh;
   }
 
   #root {
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
   }
 
   main {
     position: relative;
-    padding-top: 136px;
+    margin: 0 24px;
+    padding-top: 124px;
     padding-bottom: 72px;
-    width: 1080px;
+    max-width: 1080px;
   }
 
   .hide-overflow {
