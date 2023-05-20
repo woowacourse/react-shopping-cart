@@ -1,5 +1,7 @@
 import { useRecoilValue } from 'recoil';
 
+import NotFound from '@Pages/NotFound';
+
 import useShoppingCart from '@Hooks/useShoppingCart';
 
 import shoppingCartAmountState from '@Selector/shoppingCartAmountState';
@@ -15,7 +17,7 @@ function ShoppingCart() {
   const { shoppingCart, status, updateShoppingCart } = useShoppingCart();
 
   if (status === 'error') {
-    return <div>오류</div>;
+    return <NotFound />;
   }
 
   return (

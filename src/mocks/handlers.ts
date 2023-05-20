@@ -13,11 +13,11 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(mockData));
   }),
 
-  rest.get(FETCH_URL.cartItems, (_, res, ctx) => {
+  rest.get(FETCH_URL.cartItems, (req, res, ctx) => {
     if (!localStorageHelper.hasKey('cartItems')) localStorageHelper.setInitValue('cartItems', []);
     const cartItems = localStorageHelper.getValue<ShoppingCartProduct[]>('cartItems');
 
-    return res(ctx.status(200), ctx.json(cartItems));
+    return res(ctx.delay(3000), ctx.status(200), ctx.json(cartItems));
   }),
 
   rest.post(FETCH_URL.cartItems, async (req, res, ctx) => {
