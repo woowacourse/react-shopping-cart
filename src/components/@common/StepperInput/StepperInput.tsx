@@ -18,7 +18,7 @@ const StepperInput = ({ min = 0, max = 99, step = 1, initialValue = 0, $width = 
 
   useEffect(() => {
     if (inputValue !== '') getValue(Number(inputValue));
-  }, [getValue, inputValue]);
+  }, [inputValue]);
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === '') setInputValue('');
