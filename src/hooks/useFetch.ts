@@ -9,13 +9,13 @@ interface useFetchProps<T> {
 
 const useFetch = <T>({ url, method, body, initialState }: useFetchProps<T>) => {
   const [result, setResult] = useState<T>(initialState);
-  const [loading, setLoading] = useState(false);
-  const [statusCode, setCode] = useState(-1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const fetchData = async () => {
-    if (loading) return;
+    if (isLoading) return;
 
-    setLoading(true);
+    setIsLoading(true);
 
     const headers = body && { 'Content-type': 'application/json' };
 
@@ -25,19 +25,23 @@ const useFetch = <T>({ url, method, body, initialState }: useFetchProps<T>) => {
       method: method,
     });
 
-    setCode(response.status);
+    if (!response.ok) {
+      setIsError(true);
+      setIsLoading(false);
+      return;
+    }
 
     const fetchedData = await response.json();
     setResult(fetchedData);
 
-    setLoading(false);
+    setIsLoading(false);
   };
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  return { result, loading, statusCode, fetchData };
+  return { result, isLoading, isError, fetchData };
 };
 
 export default useFetch;
