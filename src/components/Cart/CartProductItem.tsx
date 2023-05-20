@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 
 import AmountCounter from '../Common/AmountCounter';
 import Image from '../Common/Image';
@@ -6,6 +6,8 @@ import Image from '../Common/Image';
 import TrashCanIcon from '../../assets/TrashCanIcon';
 import { CartProduct } from '../../types/product';
 import CheckBox from '../Common/CheckBox';
+import useProductQuantity from '../../hooks/useProductQuantity';
+import useCartProducts from '../../hooks/useCartProducts';
 
 interface CartProductItemProps {
   cartProduct: CartProduct;
@@ -14,6 +16,9 @@ interface CartProductItemProps {
 const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
   const { id, quantity, product } = cartProduct;
   const { name, price, imageUrl } = product;
+
+  const { deleteProduct } = useCartProducts(product);
+  const { addCount, subtractCount } = useProductQuantity(id, quantity);
 
   return (
     <CartProductContainer>
@@ -26,16 +31,19 @@ const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
       />
       <ProductName>{name}</ProductName>
       <CartInfoContainer>
-        <DeleteButton type='button'>
+        <DeleteButton type='button' onClick={deleteProduct}>
           <TrashCanIcon />
         </DeleteButton>
         <AmountCounter
           count={quantity}
-          addCount={() => {}}
-          subtractCount={() => {}}
+          addCount={addCount}
+          subtractCount={subtractCount}
+          minCount={1}
           variant='medium'
         />
-        <ProductPrice>{price.toLocaleString('ko-KR')}원</ProductPrice>
+        <ProductPrice>
+          {(price * quantity).toLocaleString('ko-KR')}원
+        </ProductPrice>
       </CartInfoContainer>
     </CartProductContainer>
   );
