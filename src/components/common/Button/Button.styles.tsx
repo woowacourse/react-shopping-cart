@@ -45,7 +45,7 @@ export const Button = styled.button<{
         return css`
           background-color: white;
           border: 1px solid #bbbbbb;
-          color: #bbbbbb;
+          color: #333333;
         `;
       }
       case 'black': {
