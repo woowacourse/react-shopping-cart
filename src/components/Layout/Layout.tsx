@@ -1,11 +1,14 @@
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from 'components/Layout/Header';
+import { Suspense } from 'react';
 
 const Layout = () => {
   return (
     <>
-      <Header>SHOP</Header>
+      <Suspense fallback={<div>장바구니 상태 로딩중...</div>}>
+        <Header>SHOP</Header>
+      </Suspense>
       <MainContainer>
         <Outlet />
       </MainContainer>
