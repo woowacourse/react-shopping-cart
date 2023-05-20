@@ -1,42 +1,41 @@
-import { AtomEffect, atom, selector, selectorFamily } from 'recoil';
-import type { CartItems } from '../types/index.ts';
-import { getLocalStorage, setLocalStorage } from '../utils/localStorage.ts';
-import { LOCAL_STORAGE_KEY } from '../constants/index.ts';
+import { atom, selector, selectorFamily } from 'recoil';
+import type { CartItem } from '../types/index.ts';
 
-const cartItemsLocalStorageEffect: <T>(key: string) => AtomEffect<T> =
-  (key: string) =>
-  ({ setSelf, onSet }) => {
-    const savedValue = getLocalStorage(key, null);
-
-    if (savedValue) setSelf(savedValue);
-
-    onSet((newValue) => {
-      setLocalStorage(key, newValue);
-    });
-  };
-
-export const cartItemsAtom = atom<CartItems>({
-  key: 'cartItemsAtom',
-  default: {},
-  effects: [cartItemsLocalStorageEffect<CartItems>(LOCAL_STORAGE_KEY.CART_ITEMS)],
+export const cartListAtom = atom<CartItem[]>({
+  key: 'cartListAtom',
+  default: [],
 });
 
-export const cartItemsQuantitySelector = selector({
-  key: 'cartItemsQuantitySelector',
-  get: ({ get }) => {
-    const cartItems = get(cartItemsAtom);
-
-    return Object.keys(cartItems).length;
-  },
-});
-
-export const productQuantitySelector = selectorFamily({
-  key: 'productQuantitySelector',
+export const cartItemQuantitySelector = selectorFamily({
+  key: 'cartItemQuantitySelector',
   get:
-    (itemId: number) =>
+    (productId: number) =>
     ({ get }) => {
-      const cartItems = get(cartItemsAtom);
+      const cartList = get(cartListAtom);
+      const targetItem = cartList.find((item) => item.product.id === productId);
 
-      return cartItems[itemId]?.quantity ?? 0;
+      return targetItem ? targetItem.quantity : 0;
     },
+});
+
+export const cartItemIdSelector = selectorFamily({
+  key: 'cartItemIdSelector',
+  get:
+    (productId: number) =>
+    ({ get }) => {
+      const cartList = get(cartListAtom);
+
+      const targetItem = cartList.find((item) => item.product.id === productId);
+
+      return targetItem ? targetItem.id : null;
+    },
+});
+
+export const cartCountSelector = selector({
+  key: 'cartCountSelector',
+  get: ({ get }) => {
+    const cartList = get(cartListAtom);
+
+    return cartList.length;
+  },
 });
