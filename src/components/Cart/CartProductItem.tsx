@@ -7,6 +7,7 @@ import type { CartProduct } from '../../types/product';
 import TrashCanIcon from '../../assets/TrashCanIcon';
 import AmountCounter from '../Common/AmountCounter';
 import useProductQuantity from '../../hooks/useProductQuantity';
+import useCartProducts from '../../hooks/useCartProducts';
 
 interface CartProductItemProps {
   cartProduct: CartProduct;
@@ -15,6 +16,7 @@ interface CartProductItemProps {
 const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
   const { quantity, product } = cartProduct;
   const { id, name, price, imageUrl } = product;
+  const { removeProduct } = useCartProducts(product);
   const { addCount, subtractCount } = useProductQuantity(id);
 
   return (
@@ -32,7 +34,7 @@ const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
       </CartProductLeftWrapper>
       <CartProductName>{name}</CartProductName>
       <CartProductRightWrapper>
-        <button>
+        <button onClick={removeProduct}>
           <TrashCanIcon />
         </button>
         <AmountCounter

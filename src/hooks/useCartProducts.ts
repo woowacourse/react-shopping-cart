@@ -15,18 +15,22 @@ const useCartProducts = (product: Product) => {
     postCartProduct(id);
   };
 
+  const removeProduct = () => {
+    setCartProducts((prev) => deleteProduct(prev, id));
+    deleteCartProduct(id);
+  };
+
   const target = findTargetProduct(cartProducts, id);
 
   useEffect(() => {
     if (!target) return;
 
     if (target.quantity === 0) {
-      setCartProducts((prev) => deleteProduct(prev, id));
-      deleteCartProduct(id);
+      removeProduct();
     }
   }, [id, setCartProducts, target]);
 
-  return { target, addProduct };
+  return { target, addProduct, removeProduct };
 };
 
 export default useCartProducts;
