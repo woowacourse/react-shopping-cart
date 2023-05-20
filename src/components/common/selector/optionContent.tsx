@@ -1,6 +1,5 @@
-import { Children } from "react";
 import styled from "styled-components";
-import { createCustomElement, hasCustomChild } from "../../../utils/elements";
+import { createCustomElement } from "../../../utils/elements";
 
 interface OptionContentProps {
   asChild?: boolean;
