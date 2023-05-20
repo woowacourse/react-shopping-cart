@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 import BucketCounter from '@components/common/BucketCounter';
 import CheckBox from '@components/common/CheckBox';
-import { CART_ITEM_REMOVE_BUTTON } from '@assets';
+import { CART_ITEM_REMOVE_BUTTON } from '@assets/images';
 
 interface CartItemProps {
   id: number;
@@ -11,7 +11,7 @@ interface CartItemProps {
   price: number;
 }
 
-const CartItem = ({id, name, imageUrl, quantity, price}: CartItemProps) => {
+const CartItem = ({ id, name, imageUrl, quantity, price }: CartItemProps) => {
   return (
     <CartItemWrapper>
       <CheckBox />

@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 import { cartAtom } from '@recoil/atoms/cartAtom';
 import BucketCounter from '@components/common/BucketCounter';
 import { ADD_CART_BUTTON } from '@constants/testId';
-import { BUCKET_BUTTON } from '@assets';
+import { BUCKET_BUTTON } from '@assets/images';
 
 interface AddCartButtonProps {
   id: number;

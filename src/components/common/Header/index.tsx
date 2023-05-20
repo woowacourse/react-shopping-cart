@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import { cartItemLengthSelector } from '@recoil/selectors/cartSelector';
-import { HEADER_LOGO } from '@assets';
+import { HEADER_LOGO } from '@assets/images';
 import { theme } from '@styles/theme';
 
 const Header = () => {
@@ -32,7 +32,7 @@ const HeaderWrapper = styled.header`
   width: 100vw;
   height: 80px;
 
-  padding: 0 300px;
+  padding: 0 20%;
 
   background: ${theme.colors.primaryBlack};
 

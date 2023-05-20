@@ -1,6 +1,6 @@
 import { cartAtom } from '@recoil/atoms/cartAtom';
 import { CartInformation, ProductInformation } from '@type/types';
-import { CART_LIST_LOCAL_KEY } from '@constants';
+import { CART_LIST_LOCAL_KEY } from '@constants/common';
 import useAtomLocalStorage from './useAtomLocalStorage';
 
 const useControlCart = () => {

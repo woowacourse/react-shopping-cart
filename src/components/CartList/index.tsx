@@ -2,11 +2,11 @@ import { styled } from 'styled-components';
 import { cartAtom } from '@recoil/atoms/cartAtom';
 import useAtomLocalStorage from '@hooks/useAtomLocalStorage';
 import { CartInformation } from '@type/types';
-import { CART_LIST_LOCAL_KEY } from '@constants';
+import { CART_LIST_LOCAL_KEY } from '@constants/common';
 import CartItem from './CartItem';
 
 const CartList = () => {
-  const [cart, setCart] = useAtomLocalStorage<CartInformation[]>(
+  const [cart] = useAtomLocalStorage<CartInformation[]>(
     cartAtom,
     CART_LIST_LOCAL_KEY
   );
