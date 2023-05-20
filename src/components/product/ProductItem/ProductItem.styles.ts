@@ -53,6 +53,11 @@ const ItemImage = styled.img`
 
 const ItemName = styled(Text)`
   margin-top: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 
   &.skeleton::after {
     font-size: 0;
