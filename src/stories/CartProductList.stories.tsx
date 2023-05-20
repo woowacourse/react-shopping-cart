@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import { fetchCartProducts } from '../apis/cartProducts';
 import CartProductList from '../components/Cart/CartProductList';
 
 const meta = {
@@ -15,10 +14,19 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const mockProduct = {
+  id: 1,
+  quantity: 2,
+  product: {
+    id: 1,
+    name: 'PET보틀-정사각(420ml)',
+    price: 43400,
+    imageUrl: 'images/정사각-420.jpeg',
+  },
+};
+
 export const Default: Story = {
-  loaders: [
-    async () => ({
-      products: await fetchCartProducts(),
-    }),
-  ],
+  args: {
+    cartProduct: mockProduct,
+  },
 };
