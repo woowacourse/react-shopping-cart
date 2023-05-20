@@ -1,24 +1,30 @@
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { cartTotalPriceSelector } from '@recoil/selectors/cartTotalPriceSelector';
 import Button from '@components/common/Button';
 
 const CartExpectedPrice = () => {
+  const cartTotalPrice = useRecoilValue(cartTotalPriceSelector);
+
   return (
     <CartExpectedPriceWrapper>
       <CartExpectedPriceTitle>결제예상금액</CartExpectedPriceTitle>
       <CartExpectedPriceFirstInformationWrapper>
         <CartPriceWrapper>
           <CartPriceTextWrapper>총 상품가격</CartPriceTextWrapper>
-          <CartPriceTextWrapper>21,700</CartPriceTextWrapper>
+          <CartPriceTextWrapper>{cartTotalPrice}</CartPriceTextWrapper>
         </CartPriceWrapper>
         <CartPriceWrapper>
           <CartPriceTextWrapper>총 배송비</CartPriceTextWrapper>
-          <CartPriceTextWrapper>3,000</CartPriceTextWrapper>
+          <CartPriceTextWrapper>
+            {(!cartTotalPrice ? "0" : "3,000")}
+          </CartPriceTextWrapper>
         </CartPriceWrapper>
       </CartExpectedPriceFirstInformationWrapper>
       <CartExpectedPriceSecondInformationWrapper>
         <CartPriceWrapper>
           <CartPriceTextWrapper>총 주문금액</CartPriceTextWrapper>
-          <CartPriceTextWrapper>24,700</CartPriceTextWrapper>
+          <CartPriceTextWrapper>{!cartTotalPrice ? "0" : cartTotalPrice + 3000}</CartPriceTextWrapper>
         </CartPriceWrapper>
         <CartPriceButtonWrapper>
           <Button text="주문하기" onClick={() => {}} width="80%" />
@@ -56,7 +62,7 @@ const CartExpectedPriceFirstInformationWrapper = styled.div`
   display: flex;
   flex-direction: column;
   /* justify-content: space-between; */
-  
+
   padding: 10%;
 `;
 

@@ -1,6 +1,9 @@
+import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
+import { checkBoxAtom } from '@recoil/atoms/checkBoxAtom';
 import BucketCounter from '@components/common/BucketCounter';
 import CheckBox from '@components/common/CheckBox';
+import useAtomLocalStorage from '@hooks/useAtomLocalStorage';
 import { CART_ITEM_REMOVE_BUTTON } from '@assets/images';
 
 interface CartItemProps {
@@ -12,15 +15,39 @@ interface CartItemProps {
 }
 
 const CartItem = ({ id, name, imageUrl, quantity, price }: CartItemProps) => {
+  const [checkBox, setCheckBox] = useAtomLocalStorage<number[]>(
+    checkBoxAtom,
+    'checkBox'
+  );
+  const [check, setCheck] = useState(false);
+
+  const checkBoxOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      setCheckBox([...checkBox, id]);
+      return;
+    }
+
+    const newCheckBox = checkBox.filter((checkBoxId) => checkBoxId !== id);
+    setCheckBox(newCheckBox);
+  };
+
+  useEffect(()=>{
+    if(!checkBox.includes(id)){
+      setCheck(false);
+      return
+    }
+    setCheck(true);
+  },[checkBox])
+
   return (
     <CartItemWrapper>
-      <CheckBox />
+      <CheckBox onChange={checkBoxOnChange} check={check} />
       <CartItemImg src={imageUrl} alt="상품 사진" />
       <CartItemName>{name}</CartItemName>
       <CartItemInformationWrapper>
         <RemoveCardItemImg src={CART_ITEM_REMOVE_BUTTON} />
         <BucketCounter id={id} quantity={quantity} kind="big" />
-        <CartItemMoney>{price}</CartItemMoney>
+        <CartItemMoney>{price * quantity}</CartItemMoney>
       </CartItemInformationWrapper>
     </CartItemWrapper>
   );

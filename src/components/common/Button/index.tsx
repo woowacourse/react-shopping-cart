@@ -8,13 +8,13 @@ interface ButtonStyle {
   color?: string;
 }
 
-interface ButtonProps extends  ButtonStyle{
-    text: string;
-    onClick: () => void;
-  }
+interface ButtonProps extends ButtonStyle {
+  text: string;
+  onClick: () => void;
+}
 
 const Button = ({ text, onClick, ...rest }: ButtonProps) => {
-  return <ButtonWrapper {...rest}>{text}</ButtonWrapper>;
+  return <ButtonWrapper {...rest} onClick={onClick}>{text}</ButtonWrapper>;
 };
 
 const ButtonWrapper = styled.button<ButtonStyle>`
@@ -26,8 +26,8 @@ const ButtonWrapper = styled.button<ButtonStyle>`
 
   background: ${({ background }) => background ?? '#333333'};
   color: ${({ color }) => color ?? '#FFFFFF'};
-  
-  border: 1px solid #BBBBBB;;
+
+  border: 1px solid #bbbbbb;
 `;
 
 export default Button;

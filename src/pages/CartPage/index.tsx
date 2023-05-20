@@ -1,5 +1,8 @@
+import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { cartAtom } from '@recoil/atoms/cartAtom';
+import { checkBoxAtom } from '@recoil/atoms/checkBoxAtom';
+import { checkBoxTotalIdtAtom } from '@recoil/atoms/checkBoxTotalIdtAtom';
 import CartExpectedPrice from '@components/CartExpectedPrice';
 import CartList from '@components/CartList';
 import CartTitle from '@components/CartTitle';
@@ -10,11 +13,46 @@ import { CartInformation } from '@type/types';
 import { CART_LIST_LOCAL_KEY } from '@constants/common';
 
 const CartPage = () => {
-  const [cart] = useAtomLocalStorage<CartInformation[]>(
+  const [cart, setCart] = useAtomLocalStorage<CartInformation[]>(
     cartAtom,
     CART_LIST_LOCAL_KEY
   );
 
+  const [checkBox, setCheckBox] = useAtomLocalStorage<number[]>(
+    checkBoxAtom,
+    'checkBox'
+  );
+
+  const [checkBoxTotalId, setCheckBoxTotalId] = useAtomLocalStorage<number[]>(
+    checkBoxTotalIdtAtom,
+    'checkBoxTotalId'
+  );
+
+  const [check, setCheck] = useState(false);
+
+  const checkBoxTotalIdOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      setCheck(true);
+      setCheckBox(checkBoxTotalId);
+      return;
+    }
+    setCheckBox([]);
+    setCheck(false);
+  };
+
+  const removeCartOnClick = ()=>{
+    const removedCart = cart.filter((product)=> checkBox.includes(product.id))
+    setCart(removedCart)
+    setCheckBoxTotalId(checkBox)
+  }
+
+  useEffect(() => {
+    if (checkBox.length === checkBoxTotalId.length) {
+      setCheck(true);
+      return
+    }
+    setCheck(false);
+  }, [checkBox,checkBoxTotalId]);
   return (
     <CartPageWrapper>
       <CartTitle />
@@ -24,11 +62,11 @@ const CartPage = () => {
         <CartExpectedPrice />
       </CartInformationWrapper>
       <CartPageBottom>
-        <CheckBox />
-        <CartSelectorText>전체선택(2/3)</CartSelectorText>
+        <CheckBox onChange={checkBoxTotalIdOnChange} check={check} />
+        <CartSelectorText>전체선택({checkBox.length}/{checkBoxTotalId.length})</CartSelectorText>
         <Button
           text="선택삭제"
-          onClick={() => {}}
+          onClick={removeCartOnClick}
           width="100px"
           height="35px"
           fontSize="16px"
