@@ -25,15 +25,25 @@ const cartState = atom<CartItem[]>({
   }),
 });
 
+// if (quantity === 0) {
+//   set(cartState, (prevCartList) => prevCartList.filter((item) => item.id !== id));
+
+//   fetch(`/cart-items/${id}`, {
+//     method: 'DELETE',
+//   });
+
+//   return;
+// }
+
 const cartItemQuantityState = selectorFamily<number, number>({
   key: 'cartItemQuantityState',
   get:
     (id) =>
     ({ get }) => {
-      const cartList = get(cartState);
-      const cartProduct = cartList.filter((cartItem) => cartItem.id === id)[0];
+      const cart = get(cartState);
+      const cartItem = cart.filter((cartItem) => cartItem.id === id)[0];
 
-      return cartProduct?.quantity ?? 0;
+      return cartItem?.quantity ?? 0;
     },
   set:
     (id) =>
@@ -184,18 +194,18 @@ export const useCartTotalPriceReadOnly = () => {
   return { totalPriceReadOnly: useRecoilValue(cartTotalPriceState) };
 };
 
-export const useToggleAllCartItem = () => {
-  const [cartList, setCartList] = useRecoilState(cartState);
+export const useCheckCart = () => {
+  const [cart, setCart] = useRecoilState(cartState);
 
   const toggleMap = useMemo<{ [id: number]: boolean }>(() => {
-    return cartList.reduce((acc, { product, checked }) => {
+    return cart.reduce((acc, { product, checked }) => {
       const { id } = product;
       Object.assign(acc, { [id]: checked });
       return acc;
     }, {});
-  }, [cartList]);
+  }, [cart]);
 
-  const isAllChecked = cartList.every((cartItem) => cartItem.checked);
+  const isAllChecked = cart.every((cartItem) => cartItem.checked);
 
   const checkedCount = Object.values(toggleMap).reduce((acc, cur) => {
     if (cur) {
@@ -208,16 +218,33 @@ export const useToggleAllCartItem = () => {
   const isCheckedById = useCallback((id: number) => toggleMap[id], [toggleMap]);
 
   const toggleAllCartItem = useCallback(() => {
-    setCartList((prevCart) => {
+    setCart((prevCart) => {
       return prevCart.map((item) => ({ ...item, checked: !isAllChecked }));
     });
-  }, [isAllChecked, setCartList]);
+  }, [isAllChecked, setCart]);
 
   return {
     isAllChecked,
     checkedCount,
     isCheckedById,
     toggleAllCartItem,
+  };
+};
+
+export const useDeleteItemList = () => {
+  const [cart, setCart] = useRecoilState(cartState);
+
+  // TODO: DELETE LIST
+  return () => {
+    setCart(cart.filter((item) => item.checked === false));
+
+    cart
+      .filter((item) => item.checked === true)
+      .forEach((item) => {
+        fetch(`/cart-items/${item.id}`, {
+          method: 'DELETE',
+        });
+      });
   };
 };
 

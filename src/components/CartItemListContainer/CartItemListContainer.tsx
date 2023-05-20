@@ -1,15 +1,15 @@
-import { useMemo } from 'react';
 import {
   useProductListInCart,
-  useToggleAllCartItem,
+  useCheckCart,
+  useDeleteItemList,
 } from '../../hooks/cartListState/cartListState';
 import { FlexColWrapper, FlexWrapper } from '../../pages/Cart/Cart.style';
 import CartItemBox from '../CartItemBox/CartItemBox';
 
 function CartItemListContainer() {
   const productListInCart = useProductListInCart();
-
-  const { isAllChecked, checkedCount, toggleAllCartItem } = useToggleAllCartItem();
+  const deleteCheckedList = useDeleteItemList();
+  const { isAllChecked, checkedCount, toggleAllCartItem } = useCheckCart();
 
   const productCount = productListInCart.length;
 
@@ -36,7 +36,7 @@ function CartItemListContainer() {
           }}
         />
         <span>{`${checkedCount} / ${productCount}`}</span>
-        <button>선택삭제</button>
+        <button onClick={deleteCheckedList}>선택삭제</button>
       </FlexWrapper>
     </FlexColWrapper>
   );
