@@ -24,7 +24,7 @@ type ShoppingItemProps = {
 };
 
 function CartItem({ product, width = '100%', cartId, isLoading = false, updateCartItem }: ShoppingItemProps) {
-  const { toggleSelected, deleteUnSelectedCartItem } = useCartItems();
+  const { toggleSelected, deleteSelectedCartItem } = useCartItems();
   const { name, price, image, imageDescription } = useProduct(product);
 
   const isCartItemSelected = product && useRecoilValue(isCartItemSelectedState(cartId));
@@ -33,7 +33,7 @@ function CartItem({ product, width = '100%', cartId, isLoading = false, updateCa
   const deleteShoppingItem = () => {
     if (!window.confirm(`${name} 상품을 장바구니에서 삭제하시겠습니까?`)) return;
 
-    deleteUnSelectedCartItem(cartId);
+    deleteSelectedCartItem(cartId);
   };
 
   return (

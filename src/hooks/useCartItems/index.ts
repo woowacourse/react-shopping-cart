@@ -67,7 +67,7 @@ const useCartItems = () => {
     );
   };
 
-  const deleteUnSelectedCartItem = (id: number) => {
+  const deleteSelectedCartItem = (id: number) => {
     if (!cartItems) return;
 
     updateCartItem(`${FETCH_URL.cartItems}/${id}`, FETCH_METHOD.DELETE);
@@ -75,7 +75,7 @@ const useCartItems = () => {
     setCartItems(cartItems.filter((cartItem) => cartItem.id !== id));
   };
 
-  const deleteAllUnSelectedCartItem = () => {
+  const deleteAllSelectedCartItem = () => {
     if (!cartItems) return;
 
     cartItems.forEach((cartItem) => {
@@ -105,8 +105,8 @@ const useCartItems = () => {
     updateCartItem,
     toggleSelected,
     toggleAllSelected,
-    deleteUnSelectedCartItem,
-    deleteAllUnSelectedCartItem,
+    deleteSelectedCartItem,
+    deleteAllSelectedCartItem,
   };
 };
 

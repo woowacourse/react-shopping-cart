@@ -11,7 +11,7 @@ import selectedCartItemsAmountState from '@Selector/selectedCartItemsAmountState
 import * as S from './style';
 
 function CartListController() {
-  const { toggleAllSelected, deleteAllUnSelectedCartItem } = useCartItems();
+  const { toggleAllSelected, deleteAllSelectedCartItem } = useCartItems();
   const shoppingCartAmount = useRecoilValue(cartItemsAmountState);
   const selectedCartItemsAmount = useRecoilValue(selectedCartItemsAmountState);
   const { isAllCartItemSelected, isAllCartItemUnSelected } = useRecoilValue(isAllCartItemSelectedState);
@@ -21,7 +21,7 @@ function CartListController() {
 
     if (!window.confirm('선택한 모든 상품을 장바구니에서 삭제하시겠습니까?')) return;
 
-    deleteAllUnSelectedCartItem();
+    deleteAllSelectedCartItem();
   };
 
   return (
