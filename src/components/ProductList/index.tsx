@@ -3,7 +3,7 @@ import useFetch from '@hooks/useFetch';
 import ProductItem from './ProductItem';
 
 const ProductList = () => {
-  const { isLoading, data, error } = useFetch('/products', { method: 'GET' });
+  const { data } = useFetch('/products', { method: 'GET' });
   const productsId: number[] = [];
 
   data.forEach((element: {}, index: number) => {

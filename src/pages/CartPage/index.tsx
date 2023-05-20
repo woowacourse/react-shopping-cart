@@ -40,19 +40,26 @@ const CartPage = () => {
     setCheck(false);
   };
 
-  const removeCartOnClick = ()=>{
-    const removedCart = cart.filter((product)=> checkBox.includes(product.id))
-    setCart(removedCart)
-    setCheckBoxTotalId(checkBox)
-  }
+  const removeCartOnClick = () => {
+    const removedCart = cart.filter(
+      (product) =>
+        !checkBox.includes(product.id) && checkBoxTotalId.includes(product.id)
+    );
+    setCart(removedCart);
+    const removedCheckBox = checkBoxTotalId.filter(
+      (id) => !checkBox.includes(id)
+    );
+    setCheckBox(removedCheckBox)
+    setCheckBoxTotalId(removedCheckBox);
+  };
 
   useEffect(() => {
     if (checkBox.length === checkBoxTotalId.length) {
       setCheck(true);
-      return
+      return;
     }
     setCheck(false);
-  }, [checkBox,checkBoxTotalId]);
+  }, [checkBox, checkBoxTotalId]);
   return (
     <CartPageWrapper>
       <CartTitle />
@@ -63,7 +70,9 @@ const CartPage = () => {
       </CartInformationWrapper>
       <CartPageBottom>
         <CheckBox onChange={checkBoxTotalIdOnChange} check={check} />
-        <CartSelectorText>전체선택({checkBox.length}/{checkBoxTotalId.length})</CartSelectorText>
+        <CartSelectorText>
+          전체선택({checkBox.length}/{checkBoxTotalId.length})
+        </CartSelectorText>
         <Button
           text="선택삭제"
           onClick={removeCartOnClick}

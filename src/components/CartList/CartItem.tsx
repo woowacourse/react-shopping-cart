@@ -37,7 +37,7 @@ const CartItem = ({ id, name, imageUrl, quantity, price }: CartItemProps) => {
       return
     }
     setCheck(true);
-  },[checkBox])
+  },[checkBox, id])
 
   return (
     <CartItemWrapper>
