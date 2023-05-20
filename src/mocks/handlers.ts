@@ -63,7 +63,7 @@ export const handlers = [
     const { productId } = await req.json();
 
     const cartItems = getLocalStorage(LOCAL_STORAGE_KEY.CART_ITEMS, []);
-    const newItemId = cartItems ? cartItems.length + 1 : 1;
+    const newItemId = Date.now();
 
     const newItem = {
       id: newItemId,
