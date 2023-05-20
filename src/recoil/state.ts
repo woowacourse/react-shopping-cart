@@ -1,14 +1,10 @@
 import type { CartType } from '../types';
 
-import { atom, selector } from 'recoil';
-
-import { localStorageEffect } from './effect';
-import { LOCAL_STORAGE_KEY } from '../constants';
+import { atom, selector, selectorFamily } from 'recoil';
 
 export const cartState = atom<CartType>({
   key: 'cartState',
   default: [],
-  effects: [localStorageEffect(LOCAL_STORAGE_KEY.cart)],
 });
 
 export const cartCountState = selector({
@@ -16,10 +12,29 @@ export const cartCountState = selector({
   get: ({ get }) => get(cartState).length,
 });
 
-export const cartTotalPriceState = selector({
-  key: 'cartTotalPriceState',
+export const cartItemState = selectorFamily({
+  key: 'cartItemState',
+  get:
+    (cartItemId) =>
+    ({ get }) => {
+      const cart = get(cartState);
+      return cart.find(({ id }) => id === cartItemId);
+    },
+});
+
+export const checkedListState = atom<boolean[]>({
+  key: 'checkedListState',
+  default: [],
+});
+
+export const cartBillTotalPriceState = selector({
+  key: 'cartBillTotalPriceState',
   get: ({ get }) => {
     const cart = get(cartState);
-    return cart.reduce((total, { product, quantity }) => total + product.price * quantity, 0);
+    const checkedList = get(checkedListState);
+
+    const checkedCart = cart.filter((_, index) => checkedList[index]);
+
+    return checkedCart.reduce((acc, { product, quantity }) => acc + product.price * quantity, 0);
   },
 });
