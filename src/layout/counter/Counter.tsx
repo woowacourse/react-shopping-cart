@@ -9,7 +9,12 @@ interface CounterProps {
 
 export const Counter = ({ count, setCount }: CounterProps) => {
   const handleIncrease = () => {
-    setCount((current) => current + 1);
+    setCount((current) => {
+      const increasedValue = current + 1;
+
+      if (increasedValue > 999) return 999;
+      return increasedValue;
+    });
   };
 
   const handleDecrease = () => {
@@ -20,6 +25,7 @@ export const Counter = ({ count, setCount }: CounterProps) => {
     const inputCount = Number(e.target.value);
 
     if (inputCount <= 0) return setCount(1);
+    if (inputCount > 999) return setCount(999);
 
     setCount(Number(e.target.value));
   };

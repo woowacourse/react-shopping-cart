@@ -1,7 +1,7 @@
 import { createRef } from 'react';
 
 import { GlobalStyle } from '../GlobalStyle';
-import { Counter } from '../components/main/productCard/Counter';
+import { Counter } from '../layout/counter/Counter';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta = {

@@ -9,7 +9,7 @@ export const App = () => {
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/test" element={<Cart />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </BrowserRouter>
     </RecoilRoot>

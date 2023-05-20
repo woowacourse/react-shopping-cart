@@ -72,11 +72,8 @@ export const CartItem = ({
   };
 
   useEffect(() => {
-    if (!cartItems.some((cartItem) => cartItem.id === id)) return;
-
-    if (count <= 0) return handleDeleteCartItem();
-
-    setCartItemQuantity(count);
+    if (cartItems.some((cartItem) => cartItem.id === id))
+      setCartItemQuantity(count);
   }, [count]);
 
   return (

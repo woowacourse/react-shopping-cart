@@ -14,7 +14,7 @@ export const Header = () => {
           <Style.Logo>배민문방구</Style.Logo>
         </Style.LogoContainer>
         <Style.CartContainer>
-          <Style.Cart onClick={() => navigate('/test')}>장바구니</Style.Cart>
+          <Style.Cart onClick={() => navigate('/cart')}>장바구니</Style.Cart>
           <CartListLengthViewer />
         </Style.CartContainer>
       </Style.ContentWrapper>
