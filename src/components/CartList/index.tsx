@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import React from 'react';
 import { styled } from 'styled-components';
 import { cartAtom } from '@recoil/atoms/cartAtom';
 import { checkBoxAtom } from '@recoil/atoms/checkBoxAtom';
@@ -6,6 +7,7 @@ import { checkBoxTotalIdtAtom } from '@recoil/atoms/checkBoxTotalIdtAtom';
 import Button from '@components/common/Button';
 import CheckBox from '@components/common/CheckBox';
 import useAtomLocalStorage from '@hooks/useAtomLocalStorage';
+import useFetch from '@hooks/useFetch';
 import { CartInformation } from '@type/types';
 import { CART_LIST_LOCAL_KEY } from '@constants/common';
 import CartItem from './CartItem';
@@ -14,6 +16,13 @@ const CartList = () => {
   const [cart, setCart] = useAtomLocalStorage<CartInformation[]>(
     cartAtom,
     CART_LIST_LOCAL_KEY
+  );
+
+  const { data, isLoading, refetch } = useFetch<CartInformation[]>(
+    '/cart-items',
+    {
+      method: 'POST',
+    }
   );
 
   const [checkBox, setCheckBox] = useAtomLocalStorage<number[]>(
@@ -49,6 +58,7 @@ const CartList = () => {
     );
     setCheckBox(removedCheckBox);
     setCheckBoxTotalId(removedCheckBox);
+    refetch();
   };
 
   useEffect(() => {
@@ -58,24 +68,29 @@ const CartList = () => {
     }
     setCheck(false);
   }, [checkBox, checkBoxTotalId]);
+
+  if (!data) return null;
+
   return (
     <CartListWrapper>
-      {cart &&
-        cart.map((product) => {
-          return (
-            <>
-              <hr />
-              <CartItem
-                key={product.id}
-                id={product.product.id}
-                name={product.product.name}
-                imageUrl={product.product.imageUrl}
-                quantity={product.quantity}
-                price={product.product.price}
-              />
-            </>
-          );
-        })}
+      {isLoading
+        ? '로딩 중'
+        : data.map((product, idx) => {
+            return (
+              <div key={idx}>
+                <hr />
+                <CartItem
+                  key={product.id}
+                  id={product.product.id}
+                  name={product.product.name}
+                  imageUrl={product.product.imageUrl}
+                  quantity={product.quantity}
+                  price={product.product.price}
+                  refetch={refetch}
+                />
+              </div>
+            );
+          })}
       <CartPageBottom>
         <CheckBox onChange={checkBoxTotalIdOnChange} check={check} />
         <CartSelectorText>
@@ -126,4 +141,4 @@ const CartSelectorText = styled.span`
   color: #333333;
 `;
 
-export default CartList;
+export default React.memo(CartList);
