@@ -42,7 +42,7 @@ const CartSingleItem = (props: CartSingleItemProps) => {
     if (prevValue === value) return;
 
     fetch(`/cart-items/${id}`, {
-      method: 'POST',
+      method: 'PATCH',
       body: JSON.stringify({ quantity: value }),
     });
   }, [value]);

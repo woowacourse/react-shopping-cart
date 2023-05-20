@@ -24,7 +24,7 @@ const handlers = [
     return res(ctx.status(201), ctx.set('Content-Location', `/cart-items/${productId}`));
   }),
 
-  rest.post('/cart-items/:productId', async (req, res, ctx) => {
+  rest.patch('/cart-items/:productId', async (req, res, ctx) => {
     const { productId } = req.params;
     const { quantity } = await req.json();
 

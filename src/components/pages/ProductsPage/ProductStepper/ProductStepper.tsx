@@ -55,7 +55,7 @@ const ProductStepper = (props: ProductStepperProps) => {
     }
 
     fetch(`/cart-items/${productId}`, {
-      method: 'POST',
+      method: 'PATCH',
       body: JSON.stringify({ quantity: value }),
     });
   }, [value]);
