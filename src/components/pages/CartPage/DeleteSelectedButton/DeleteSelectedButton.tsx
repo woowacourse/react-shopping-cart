@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import cartToggleState, { toggledProductsSelector } from '../../../../recoil/cartToggleState';
 import cartState from '../../../../recoil/cartState';
 
