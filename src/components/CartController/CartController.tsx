@@ -2,17 +2,21 @@ import { ChangeEvent } from 'react';
 import cartIcon from '../../assets/cart.svg';
 import useCart from '../../hooks/useCart';
 import type { ProductItem } from '../../types/types';
-import { ButtonBox, CartBox, ControllerWrapper, QuantityControlButton, QuantityInput } from './CartController.style';
+import { CartBox, ControllerWrapper, QuantityControlButton, QuantityInput } from './CartController.style';
+import { cartState } from '../../recoil/cartAtoms';
+import { useRecoilValue } from 'recoil';
+import { getQuantityByProductId } from '../../domain/cart';
 
 interface CartControllerProps {
   product: ProductItem;
 }
 
 function CartController({ product }: CartControllerProps) {
-  const { addCart, getQuantityByProductId, increaseCart, decreaseCart, setCartQuantity } =
+  const { addCart, setCartQuantity } =
     useCart();
 
-  const quantity = getQuantityByProductId(product.id);
+  const cartList = useRecoilValue(cartState);
+  const quantity = getQuantityByProductId(cartList, product.id);
 
   const handleChangeQuantity = (event: ChangeEvent<HTMLInputElement>) => {
     const quantityInputValue = Number(event.target.value.replaceAll('/', '').replace(/\D/g, ''));
@@ -26,7 +30,7 @@ function CartController({ product }: CartControllerProps) {
         <CartBox>
           <QuantityControlButton
             onClick={() => {
-              decreaseCart(product.id);
+              setCartQuantity(product.id, quantity - 1);
             }}
           >
             -
@@ -34,7 +38,7 @@ function CartController({ product }: CartControllerProps) {
           <QuantityInput value={quantity} onChange={handleChangeQuantity} />
           <QuantityControlButton
             onClick={() => {
-              increaseCart(product.id);
+              setCartQuantity(product.id, quantity + 1);
             }}
           >
             +
