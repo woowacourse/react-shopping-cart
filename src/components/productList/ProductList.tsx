@@ -4,9 +4,12 @@ import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import * as api from '../../api';
 import Product from './Product';
+import SkeletonProduct from './SkeletonProduct';
+
+import * as api from '../../api';
 import { cartState } from '../../recoil/state';
+import { SKELETONS_LENGTH } from '../../constants';
 
 export default function ProductList() {
   const [products, setProducts] = useState<ProductType[] | null>(null);
@@ -17,12 +20,11 @@ export default function ProductList() {
     api.getCart().then(setCart);
   }, []);
 
-  if (products === null) return <>로딩중!</>;
   return (
     <Wrapper>
-      {products.map((product) => (
-        <Product key={product.id} {...product}></Product>
-      ))}
+      {products === null
+        ? Array.from({ length: SKELETONS_LENGTH }).map(() => <SkeletonProduct />)
+        : products.map((product) => <Product key={product.id} {...product}></Product>)}
     </Wrapper>
   );
 }

@@ -55,7 +55,7 @@ const Name = styled.p`
   height: 16px;
   margin-top: 4px;
 
-  animation: ${skeletonBackground} 0.8s infinite;
+  animation: ${skeletonBackground} 1s infinite;
 `;
 
 const Price = styled.p`
@@ -63,5 +63,5 @@ const Price = styled.p`
   height: 20px;
   margin-top: 10px;
 
-  animation: ${skeletonBackground} 0.8s infinite;
+  animation: ${skeletonBackground} 0.7s infinite;
 `;
