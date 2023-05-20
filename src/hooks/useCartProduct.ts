@@ -17,6 +17,21 @@ export const useCartProduct = (product: Product) => {
     createCartProductFirst();
   };
 
+  const deleteCartProduct = () => {
+    const cartProduct = cart.find((cartProduct) => cartProduct.id === product.id);
+
+    if (!cartProduct) {
+      console.error('장바구니에 상품이 없어요! 먼저 상품을 등록해주세요.');
+      return;
+    }
+
+    const newCart = cart.filter((product) => product.id !== id);
+
+    setCart(newCart);
+
+    api.deleteCartProduct(cartProduct.id);
+  };
+
   const decreaseQuantity = () => {
     const cartProduct = cart.find((cartProduct) => cartProduct.id === product.id);
 
@@ -35,11 +50,7 @@ export const useCartProduct = (product: Product) => {
 
       api.updateCartProductQuantity(cartProduct.id, cartProduct.quantity - 1);
     } else {
-      const newCart = cart.filter((product) => product.id !== id);
-
-      setCart(newCart);
-
-      api.deleteCartProduct(cartProduct.id);
+      deleteCartProduct();
     }
   };
 
@@ -60,5 +71,5 @@ export const useCartProduct = (product: Product) => {
 
     api.updateCartProductQuantity(cartProduct.id, cartProduct.quantity + 1);
   };
-  return { addCartProduct, decreaseQuantity, increaseQuantity };
+  return { addCartProduct, deleteCartProduct, decreaseQuantity, increaseQuantity };
 };

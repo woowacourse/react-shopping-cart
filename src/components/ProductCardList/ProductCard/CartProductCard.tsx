@@ -13,7 +13,7 @@ type Props = {
 export const CartProductCard = ({ cartProduct }: Props) => {
   const { id, quantity, product } = cartProduct;
   const { name, price, imageUrl } = product;
-  const { addCartProduct, decreaseQuantity, increaseQuantity } = useCartProduct(product);
+  const { addCartProduct, deleteCartProduct, decreaseQuantity, increaseQuantity } = useCartProduct(product);
 
   return (
     <FlexBox height="140px" width="100%" padding="10px 0" gap="10px">
@@ -27,7 +27,7 @@ export const CartProductCard = ({ cartProduct }: Props) => {
         <ProductTitle>{name}</ProductTitle>
       </FlexBox>
       <FlexBox direction="column" height="100%" gap="5px" justify="space-around" align="flex-end">
-        <RemoveButton>
+        <RemoveButton onClick={deleteCartProduct}>
           <img src={removeIcon} alt="remove-button" />
         </RemoveButton>
         <StepperWrapper>
