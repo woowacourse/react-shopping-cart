@@ -4,7 +4,7 @@ import CartListItem from './CartListItem';
 import { styled } from 'styled-components';
 import Checkbox from '../common/Checkbox';
 import PriceWrapper from './PriceWrapper';
-import { useHandleCartList } from '../../hooks/useHandleCartList';
+import { useCart } from '../../hooks/useCart';
 import TotalCheckbox from './TotalCheckbox';
 import { useFetchData } from '../../hooks/useFetchData';
 import { CART_BASE_URL } from '../../constants/url';
@@ -28,7 +28,7 @@ const CartList = () => {
     handleCheckAllItems,
     handleCheckedItem,
     handleRemoveCheckedItem,
-  } = useHandleCartList();
+  } = useCart();
 
   const itemList = (
     <S.ItemListWrapper>

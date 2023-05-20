@@ -2,7 +2,7 @@ import QuantityInput from '../QuantityInput';
 import { CartItem } from '../../types';
 import { styled } from 'styled-components';
 import { BsFillTrash3Fill } from 'react-icons/bs';
-import { useHandleProduct } from '../../hooks/useHandleProduct';
+import { useProduct } from '../../hooks/useProduct';
 import { Dispatch, MouseEvent, SetStateAction } from 'react';
 
 interface Props {
@@ -12,15 +12,15 @@ interface Props {
 
 const CartListItem = ({ item, setCheckItems }: Props) => {
   const {
-    removeFromCart,
+    removeItem,
     handleNumberInputChange,
     handleIncreaseItem,
     handleDecreaseCartItem,
-  } = useHandleProduct(item.id);
+  } = useProduct(item.id);
 
   const handleRemoveFromCart = (id: number) => (e: MouseEvent<HTMLButtonElement>) => {
     setCheckItems((prev) => prev.filter((itemId) => itemId !== id));
-    removeFromCart();
+    removeItem();
   };
 
   return (

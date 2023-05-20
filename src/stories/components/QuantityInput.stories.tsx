@@ -2,7 +2,7 @@ import { Meta } from '@storybook/react';
 import QuantityInputComponent from '../../components/QuantityInput';
 import { RecoilRoot } from 'recoil';
 import { styled } from 'styled-components';
-import { useHandleProduct } from '../../hooks/useHandleProduct';
+import { useProduct } from '../../hooks/useProduct';
 
 const meta = {
   component: QuantityInputComponent,
@@ -53,7 +53,7 @@ export const QuantityInput = (args: any) => {
     handleNumberInputChange,
     handleIncreaseItem,
     handleDecreaseItem,
-  } = useHandleProduct(args.id);
+  } = useProduct(args.id);
   return (
     <QuantityInputComponent
       id={args.id}

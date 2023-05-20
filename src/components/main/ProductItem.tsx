@@ -3,7 +3,7 @@ import QuantityInput from '../QuantityInput';
 import { useRecoilValue } from 'recoil';
 import { isSelectedProductSelector } from '../../store/CartSelector';
 import CartIconButton from './CartIconButton';
-import { useHandleProduct } from '../../hooks/useHandleProduct';
+import { useProduct } from '../../hooks/useProduct';
 
 interface Props {
   id: number;
@@ -21,7 +21,7 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
     handleDecreaseItem,
     handleIncreaseItem,
     handleNumberInputChange,
-  } = useHandleProduct(id);
+  } = useProduct(id);
 
   return (
     <div>
