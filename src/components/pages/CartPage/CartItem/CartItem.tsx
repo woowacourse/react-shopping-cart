@@ -1,5 +1,5 @@
 import { memo, useEffect } from 'react';
-import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
 
 import { productToggleSelector } from '../../../../recoil/cartToggleState';
 import { SquareImage } from '../../../commons/SquareImage/SquareImage.styled';
@@ -10,6 +10,7 @@ import usePreviousValue from '../../../../hooks/usePreviousValue';
 import { productCountSelector } from '../../../../recoil/cartState';
 import { Product } from '../../../../types/Product';
 import StepperSettings from '../../../../constants/StepperSettings';
+import CartCheckbox from '../CartCheckbox/CartCheckbox';
 
 interface CartSingleItemProps extends Product {
   quantity: number;
@@ -21,7 +22,6 @@ const CartSingleItem = (props: CartSingleItemProps) => {
   const { id, quantity, name, imageUrl, price } = props;
 
   const updateProductQuantity = useSetRecoilState(productCountSelector(id));
-  const [isToggled, setIsToggled] = useRecoilState(productToggleSelector(id));
   const deleteToggled = useResetRecoilState(productToggleSelector(id));
 
   const { value, increaseValue, decreaseValue, setValue } = useStepper(
@@ -53,12 +53,7 @@ const CartSingleItem = (props: CartSingleItemProps) => {
 
   return (
     <div>
-      <input
-        type="checkbox"
-        aria-label="장바구니에 상품 담기"
-        defaultChecked={isToggled}
-        onClick={() => setIsToggled((prev) => !prev)}
-      />
+      <CartCheckbox productId={id} productName={name} />
       <SquareImage size="l" src={imageUrl} alt="" />
       <p>{name}</p>
       <div>
