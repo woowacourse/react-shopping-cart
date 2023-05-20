@@ -6,9 +6,7 @@ interface FetchProductDataRes {
 }
 
 export const fetchProductData = async (): Promise<FetchProductDataRes> => {
-  const data = await fetchQuery.get<FetchProductDataRes>(
-    '/data/mockProducts.json'
-  );
+  const data = await fetchQuery.get<FetchProductDataRes>('/products');
 
   return data;
 };

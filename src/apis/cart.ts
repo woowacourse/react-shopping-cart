@@ -7,19 +7,19 @@ interface FetchCartRes {
 }
 
 export const fetchCart = (options?: WaitForOptions<FetchCartRes>) => {
-  const promise = fetchQuery.get<FetchCartRes>(`/data/mockCart.json`);
+  const promise = fetchQuery.get<FetchCartRes>(`/cart`);
 
   return waitFor(promise, options);
 };
 
 interface AddCartDataReq {
-  id: string;
-  quantity: string;
+  id: number;
+  quantity: number;
 }
 
 interface AddCartDataRes {}
 
-export const addCartData: (
+export const addToCart: (
   payload: AddCartDataReq
 ) => Promise<AddCartDataRes> = ({ id, quantity }) => {
   return fetchQuery.post<AddCartDataRes>(`/cart/${id}`, {
