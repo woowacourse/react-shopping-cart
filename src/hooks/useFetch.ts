@@ -1,22 +1,19 @@
 import { useEffect, useState } from 'react';
 import { Product } from 'types/product';
 
-const useProductsFetch = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+export const useFetch = <T>(fetcher: () => Promise<T>) => {
+  const [data, setData] = useState<T>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>();
 
-  const fetchProducts = async () => {
+  const fetchData = async () => {
     setIsLoading(true);
     setError(null);
 
     try {
-      const response = await fetch(`api/products`);
-      const products = await response.json();
+      const data = await fetcher();
 
-      if (!response.ok) throw response;
-
-      setProducts(products);
+      setData(data);
     } catch (error) {
       if (error instanceof Error) setError(error);
     } finally {
@@ -25,10 +22,8 @@ const useProductsFetch = () => {
   };
 
   useEffect(() => {
-    fetchProducts();
+    fetchData();
   }, []);
 
-  return { products, isLoading, error, fetchProducts };
+  return { data, isLoading, error, fetchData };
 };
-
-export default useProductsFetch;
