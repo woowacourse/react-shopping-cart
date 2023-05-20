@@ -9,6 +9,7 @@ type AmountCounterStyle = Pick<AmountCounterProps, 'variant'>;
 interface AmountCounterProps {
   variant: AmountCounterSizeType;
   count: number;
+  minCount?: number;
   addCount: () => void;
   subtractCount: () => void;
 }
@@ -16,6 +17,7 @@ interface AmountCounterProps {
 const AmountCounter = ({
   variant,
   count,
+  minCount = 0,
   addCount,
   subtractCount,
 }: AmountCounterProps) => {
@@ -26,7 +28,12 @@ const AmountCounter = ({
         <CountBtn type='button' onClick={addCount} variant={variant}>
           <ArrowUpIcon />
         </CountBtn>
-        <CountBtn type='button' onClick={subtractCount} variant={variant}>
+        <CountBtn
+          type='button'
+          onClick={subtractCount}
+          variant={variant}
+          disabled={count <= minCount}
+        >
           <ArrowDownIcon />
         </CountBtn>
       </CountBtnContainer>
@@ -90,6 +97,13 @@ const CountBtn = styled.button<AmountCounterStyle>`
   ${({ variant }) => amountCounterStyles[variant].button}
   border: 1px solid ${({ theme }) => theme.colors.gray100};
   flex-wrap: 1;
+
+  &:disabled {
+    svg > path {
+      fill: ${({ theme }) => theme.colors.gray200};
+    }
+    cursor: not-allowed;
+  }
 `;
 
 export default AmountCounter;
