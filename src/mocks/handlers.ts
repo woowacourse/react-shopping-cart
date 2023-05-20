@@ -61,8 +61,9 @@ export const handlers = [
   // 장바구니 아이템 추가
   rest.post('/cart-items', async (req, res, ctx) => {
     const { productId } = await req.json();
+
     const cartItems = getLocalStorage(LOCAL_STORAGE_KEY.CART_ITEMS, []);
-    const newItemId = cartItems.length + 1;
+    const newItemId = cartItems ? cartItems.length + 1 : 1;
 
     const newItem = {
       id: newItemId,
@@ -77,13 +78,12 @@ export const handlers = [
 
   // 장바구니 아이템 수량 변경
   rest.patch('/cart-items/:cartItemId', async (req, res, ctx) => {
-    const { productId } = req.params;
-    const { productQuantity } = await req.json();
+    const { cartItemId } = req.params;
+    const { quantity } = await req.json();
 
     const cartItems = getLocalStorage<CartItem[]>(LOCAL_STORAGE_KEY.CART_ITEMS, []);
-    const cartItemIndex = cartItems.findIndex((item) => item.product.id === Number(productId));
-
-    cartItems[cartItemIndex].quantity = productQuantity;
+    const cartItemIndex = cartItems.findIndex((item) => item.id === Number(cartItemId));
+    cartItems[cartItemIndex].quantity = quantity;
 
     setLocalStorage(LOCAL_STORAGE_KEY.CART_ITEMS, cartItems);
 
@@ -92,12 +92,12 @@ export const handlers = [
 
   // 장바구니 아이템 삭제
   rest.delete('/cart-items/:cartItemId', (req, res, ctx) => {
-    const { productId } = req.params;
+    const { cartItemId } = req.params;
     const cartItems = getLocalStorage<CartItem[]>(LOCAL_STORAGE_KEY.CART_ITEMS, []);
 
     setLocalStorage(
       LOCAL_STORAGE_KEY.CART_ITEMS,
-      cartItems.filter((item) => item.product.id !== Number(productId))
+      cartItems.filter((item) => item.id !== Number(cartItemId))
     );
     return res(ctx.status(204));
   }),
