@@ -1,8 +1,5 @@
-import { useRecoilValue } from 'recoil';
-import useCart from '../../hooks/useCart';
-import { cartCountSelector } from '../../recoil/cartAtoms';
-import CartItem from '../../components/CartItem';
 import styled from 'styled-components';
+import CartList from '../../components/CartList';
 
 export const CartTitle = styled.div`
   font-style: normal;
@@ -24,55 +21,15 @@ export const CartWrapper = styled.div`
   display: flex;
 `;
 
-export const CartList = styled.div`
-
-`;
-
-export const CartListTitle = styled.div`
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 33px;
-
-  letter-spacing: 0.5px;
-
-  margin-top: 40px;
-`;
-
-export const CartListController = styled.div`
-  display: flex;
-`;
-
-export const CartListCheckCounter = styled.div`
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 20px;
-
-  letter-spacing: 0.5px;
-  margin: 0px 15px 0px 15px;
-`;
 
 function Cart() {
-  const { cartList } = useCart();
-  const cartCount = useRecoilValue(cartCountSelector);
 
   return (
     <div>
       <CartTitle>장바구니</CartTitle>
       <FatBorder />
       <CartWrapper>
-        <CartList>
-          <CartListTitle>든든배송 상품 ({cartCount}개)</CartListTitle>
-          {cartList.map((cart) => (
-            <CartItem key={cart.id} cart={cart} />
-          ))}
-          <CartListController>
-            <input type='checkbox' />
-            <CartListCheckCounter>전체선택 (2/{cartCount})</CartListCheckCounter>
-            <div><button>선택삭제</button></div>
-          </CartListController>
-        </CartList>
+        <CartList />
         <div>
           <div>결제예상금액</div>
           <div>
