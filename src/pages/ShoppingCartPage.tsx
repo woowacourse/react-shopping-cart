@@ -1,4 +1,4 @@
-import { getCartProducts } from 'apis/cart';
+import { getCartProducts } from 'apis/cart/get';
 import CheckBox from 'components/@common/CheckBox/CheckBox';
 import FlexBox from 'components/@common/FlexBox';
 import CartProductCardList from 'components/CartProductCardList/CartProductCardList';
