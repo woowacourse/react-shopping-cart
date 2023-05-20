@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom, atomFamily } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 import { LOCAL_STORAGE_KEY } from '../constants';
 import { CartItemInfo, ProductInfo } from '../types';
@@ -13,12 +13,14 @@ export const cartListState = atom<CartItemInfo[]>({
   effects_UNSTABLE: [cartListAtom],
 });
 
-export const checkedCartItemsState = atom<number[]>({
-  key: 'checkedCartItems',
-  default: [],
-});
-
 export const productListState = atom<ProductInfo[]>({
   key: 'productList',
   default: [],
+});
+
+export const checkedCartItemIdsState = atomFamily<number[], number[]>({
+  key: 'checkedCartItemIds',
+  default: (cartItemIds) => {
+    return [...cartItemIds];
+  },
 });

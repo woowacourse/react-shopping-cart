@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { checkedCartItemsState } from '../../recoil/atoms';
+import { checkedCartItemIdsState } from '../../recoil/atoms';
 import { totalProductsPriceState } from '../../recoil/selectors';
 import { DELIVERY_FEE } from '../../constants';
 import { useCart } from '../../hooks/useCart';
@@ -12,47 +12,43 @@ import Checkbox from '../common/Checkbox';
 
 export default function CartList() {
   const { cartList, deleteFromCart } = useCart();
+  const cartItemIds = cartList.map((cartItem) => cartItem.id);
+  const [checkedItemIds, setCheckedItemIds] = useRecoilState(checkedCartItemIdsState(cartItemIds));
   const [isAllChecked, setIsAllChecked] = useState(true);
-  const [checkedItems, setCheckedItems] = useRecoilState(checkedCartItemsState);
   const totalProductsPrice = useRecoilValue(totalProductsPriceState);
 
   const handleCheckedItem = (id: number) => {
-    if (checkedItems.includes(id)) {
-      setCheckedItems((prev) => prev.filter((itemId) => itemId !== id));
+    if (checkedItemIds.includes(id)) {
+      setCheckedItemIds((prev) => prev.filter((itemId) => itemId !== id));
       return;
     }
-    setCheckedItems((prev) => [...prev, id]);
+    setCheckedItemIds((prev) => [...prev, id]);
   };
 
   const handleAllChecked = () => {
     if (isAllChecked) {
-      setCheckedItems([]);
+      setCheckedItemIds([]);
       setIsAllChecked(false);
       return;
     }
 
-    setCheckedItems(cartList.map((cartItem) => cartItem.id));
+    setCheckedItemIds(cartList.map((cartItem) => cartItem.id));
     setIsAllChecked(true);
   };
 
   const deleteCheckedItems = () => {
-    checkedItems.forEach((itemId) => deleteFromCart(itemId));
-    setCheckedItems([]);
+    checkedItemIds.forEach((itemId) => deleteFromCart(itemId));
+    setCheckedItemIds([]);
   };
 
   useEffect(() => {
-    setCheckedItems(cartList.map((cartItem) => cartItem.id));
-  }, []);
-
-  useEffect(() => {
-    console.log(checkedItems);
-    if (cartList.length === checkedItems.length) {
+    if (cartList.length === checkedItemIds.length) {
       setIsAllChecked(true);
       return;
     }
 
     if (isAllChecked === true) setIsAllChecked(false);
-  }, [cartList, checkedItems, isAllChecked]);
+  }, [cartList, checkedItemIds, isAllChecked]);
 
   return (
     <Style.CartListContainer>
@@ -68,12 +64,12 @@ export default function CartList() {
                   <Style.CheckBoxWrapper>
                     <Checkbox
                       id={`${cartItemInfo.product.name}-checkbox`}
-                      checked={checkedItems.includes(cartItemInfo.id)}
+                      checked={checkedItemIds.includes(cartItemInfo.id)}
                       itemId={cartItemInfo.id}
                       handleCheckedItem={handleCheckedItem}
                     />
                   </Style.CheckBoxWrapper>
-                  <CartItem cartItemInfo={cartItemInfo} deleteCheckedItem={setCheckedItems} />
+                  <CartItem cartItemInfo={cartItemInfo} deleteCheckedItem={setCheckedItemIds} />
                 </Style.ProductContainer>
               ))}
             </Style.CartItems>
@@ -86,7 +82,7 @@ export default function CartList() {
               onChange={handleAllChecked}
             />
             <Style.TotalSelectCaption htmlFor="total-checkbox">
-              전체선택 ({`${checkedItems.length}/${cartList.length}`})
+              전체선택 ({`${checkedItemIds.length}/${cartList.length}`})
             </Style.TotalSelectCaption>
             <Style.Span aria-hidden>|</Style.Span>
             <Button

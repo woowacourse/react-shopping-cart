@@ -1,5 +1,5 @@
 import { selector } from 'recoil';
-import { cartListState, checkedCartItemsState } from './atoms';
+import { cartListState, checkedCartItemIdsState } from './atoms';
 
 export const cartListLengthState = selector({
   key: 'cartListLength',
@@ -13,7 +13,9 @@ export const totalProductsPriceState = selector({
   key: 'totalProductsPrice',
   get: ({ get }) => {
     const cartList = get(cartListState);
-    const checkedCartItemIds = get(checkedCartItemsState);
+    const cartItemIds = cartList.map((cartItem) => cartItem.id);
+    const checkedCartItemIds = get(checkedCartItemIdsState(cartItemIds));
+
     const checkedCartItems = cartList.filter((cartItem) =>
       checkedCartItemIds.includes(cartItem.id)
     );
