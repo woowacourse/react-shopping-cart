@@ -34,13 +34,12 @@ export const api = {
     return response;
   },
 
-  // 장바구니 아이템 수량 변경
-  updateCartProductQuantity(
-    cartProductId: CartProduct['id'],
-    quantity: CartProduct['quantity']
-  ): Promise<UpdateCartProductResponse> {
-    const response = patch(`${API_BASE}/cart-items/${cartProductId}`, {
-      body: JSON.stringify({ quantity }),
+  // 장바구니 아이템 변경
+  updateCartProduct(cartProduct: CartProduct): Promise<UpdateCartProductResponse> {
+    const { id, quantity, checked } = cartProduct;
+
+    const response = patch(`${API_BASE}/cart-items/${id}`, {
+      body: JSON.stringify({ quantity, checked }),
     });
 
     return response;
