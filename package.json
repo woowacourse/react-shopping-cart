@@ -84,5 +84,8 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --cache --fix"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
