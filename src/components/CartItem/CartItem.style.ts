@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const CartItemLayout = styled.div`
   display: flex;
   justify-content: space-between;
-  border-top: 1px solid ${({theme}) => theme.secondaryColor};
+  border-top: 1px solid ${({ theme }) => theme.color.secondary};
   padding: 25px 0px;
 `;
 
@@ -37,7 +37,7 @@ export const CartItemControllerWrapper = styled.div`
   flex-direction: column;
   align-items: self-end;
   gap: 23px;
-`
+`;
 
 export const CartItemInfo = styled.div`
   display: flex;
