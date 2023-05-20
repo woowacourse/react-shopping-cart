@@ -14,9 +14,11 @@ function CartListController() {
   const { toggleAllSelected, deleteAllUnSelectedCartItem } = useCartItems();
   const shoppingCartAmount = useRecoilValue(cartItemsAmountState);
   const selectedCartItemsAmount = useRecoilValue(selectedCartItemsAmountState);
-  const isAllSelected = useRecoilValue(isAllCartItemSelectedState);
+  const { isAllCartItemSelected, isAllCartItemUnSelected } = useRecoilValue(isAllCartItemSelectedState);
 
   const deleteManyShoppingItem = () => {
+    if (isAllCartItemUnSelected) return window.alert('선택된 상품이 없습니다.');
+
     if (!window.confirm('선택한 모든 상품을 장바구니에서 삭제하시겠습니까?')) return;
 
     deleteAllUnSelectedCartItem();
@@ -25,14 +27,14 @@ function CartListController() {
   return (
     <S.Container>
       <Checkbox
-        isChecked={isAllSelected}
+        isChecked={isAllCartItemSelected}
         updateSelectedState={() => {
           toggleAllSelected();
         }}
         size="small"
       />
       <S.SelectedSituation>
-        {isAllSelected ? '전체해제' : '전체선택'}({selectedCartItemsAmount}/{shoppingCartAmount})
+        {isAllCartItemSelected ? '전체해제' : '전체선택'}({selectedCartItemsAmount}/{shoppingCartAmount})
       </S.SelectedSituation>
       <S.DeleteButton onClick={deleteManyShoppingItem}>선택삭제</S.DeleteButton>
     </S.Container>

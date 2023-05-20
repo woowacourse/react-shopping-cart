@@ -8,8 +8,11 @@ const isAllCartItemSelectedState = selector({
   get: ({ get }) => {
     const cartItems = get(cartItemsState);
 
-    if (!cartItems) return false;
-    return cartItems.every((cartItem) => cartItem.isSelected);
+    if (!cartItems) return { isAllCartItemSelected: false, isAllCartItemUnSelected: false };
+    const isAllCartItemSelected = cartItems.every((cartItem) => cartItem.isSelected);
+    const isAllCartItemUnSelected = cartItems.every((cartItem) => !cartItem.isSelected);
+
+    return { isAllCartItemSelected, isAllCartItemUnSelected };
   },
 });
 
