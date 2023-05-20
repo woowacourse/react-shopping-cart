@@ -36,7 +36,7 @@ export const Row = styled.div`
   margin: 0 -15px;
 `;
 
-export const Column = styled.div`
+export const Col = styled.div`
   width: 100%;
   box-sizing: border-box;
 

@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import type { Cart, NewCartItem, ProductItem } from '../types/types';
+import type { CartItem, NewCartItem, ProductItem } from '../types/types';
 import { cartState } from '../recoil/cartAtoms';
 import { fetchAddCart, fetchDeleteCart, fetchUpdateCart } from '../api/api';
 
@@ -25,7 +25,7 @@ function useCart() {
     fetchDeleteCart(id);
   };
 
-  const updateCartListQuantity = (cartList: Cart[], id: number, newQuantity: number) => {
+  const updateCartListQuantity = (cartList: CartItem[], id: number, newQuantity: number) => {
     const targetIndex = cartList.findIndex(cartItem => cartItem.id === id);
     const targetCart = cartList[targetIndex];
     const updatedCart = {

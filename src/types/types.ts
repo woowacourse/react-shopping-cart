@@ -5,12 +5,12 @@ export interface ProductItem {
   imageUrl: string;
 }
 
-export interface Cart {
+export interface CartItem {
   id: number;
   quantity: number;
   product: ProductItem;
 }
 
-export interface NewCartItem extends Cart {
+export interface NewCartItem extends CartItem {
   quantity: 1;
 }

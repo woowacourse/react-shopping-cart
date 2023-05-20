@@ -2,7 +2,7 @@ import { useRecoilValueLoadable } from "recoil";
 import { fetchProductList } from '../../recoil/productAtoms';
 import type { ProductItem as ProductItemType } from '../../types/types';
 import ProductItem from '../../components/ProductItem';
-import { Column, Row } from '../../style/style';
+import { Col, Row } from '../../style/style';
 
 function ProductList() {
 
@@ -13,9 +13,9 @@ function ProductList() {
       return (
         <Row>
           {productLoadable?.contents?.map((product: ProductItemType) => (
-            <Column key={product.id}>
+            <Col key={product.id}>
               <ProductItem product={product} />
-            </Column>
+            </Col>
           ))}
         </Row>
       );
