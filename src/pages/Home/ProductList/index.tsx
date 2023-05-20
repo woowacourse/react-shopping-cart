@@ -12,6 +12,7 @@ type ProductListProps = {
 
 function ProductList({ data, isLoading }: ProductListProps) {
   const { updateCartItem } = useShoppingCart();
+
   return (
     <S.ProductListContainer>
       {data && data.map((data) => <ProductItem product={data} key={data.id} updateCartItem={updateCartItem} />)}
