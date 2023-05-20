@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
-import { fetchProductsSelector } from '../../recoil/fetchProductData';
+import { fetchProductsSelector } from '../../recoil/productData';
 
 import ProductItem from './ProductItem';
 import Message from '../Common/Message';
