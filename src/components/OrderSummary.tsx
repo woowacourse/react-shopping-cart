@@ -1,16 +1,15 @@
 import { styled } from 'styled-components';
+import { useTotalProductPrice } from '../recoils/recoilTotalPrice';
 import { Button } from './common/Button';
 
-interface OrderSummaryProps {
-  totalProductPrice: number;
-}
+export const OrderSummary = () => {
+  const totalProductPrice = useTotalProductPrice();
 
-export const OrderSummary = ({ totalProductPrice }: OrderSummaryProps) => {
   const DeliveryCharge = 3000;
 
   return (
     <Style.OrderSummary>
-      <Style.Title>결제예상금액</Style.Title>
+      <Style.OrderSummaryHeader>결제예상금액</Style.OrderSummaryHeader>
       <Style.Content>
         <Style.Prices>
           <Style.Price>
@@ -36,16 +35,17 @@ const Style = {
   OrderSummary: styled.section`
     position: -webkit-sticky;
     position: sticky;
-
     top: 100px;
 
     width: 448px;
     height: fit-content;
 
+    margin-top: 45px;
+
     border: 1px solid var(--grey-200);
   `,
 
-  Title: styled.h2`
+  OrderSummaryHeader: styled.h2`
     padding: 22px 30px;
 
     border-bottom: 3px solid var(--grey-200);

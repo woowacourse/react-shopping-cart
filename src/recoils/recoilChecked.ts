@@ -1,12 +1,12 @@
 import { atom, useRecoilState, useSetRecoilState } from 'recoil';
-import { localStorageEffect } from '../hooks/localStorageEffect';
+import { localStorageEffect } from './localStorageEffect';
 
 interface Checked {
   [key: number]: boolean;
   all: boolean;
 }
 
-const CheckedState = atom<Checked>({
+export const CheckedState = atom<Checked>({
   key: 'checked',
   default: {
     all: false,

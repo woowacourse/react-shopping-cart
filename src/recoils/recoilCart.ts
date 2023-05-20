@@ -7,11 +7,11 @@ import {
   useResetRecoilState,
   useSetRecoilState,
 } from 'recoil';
-import { localStorageEffect } from '../hooks/localStorageEffect';
+import { localStorageEffect } from './localStorageEffect';
 
 import { CartItem } from '../types';
 
-const CartState = atom<CartItem[]>({
+export const CartState = atom<CartItem[]>({
   key: 'productsInCart',
   default: [],
   effects: [localStorageEffect('productsInCart')],

@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from 'react';
 import { styled } from 'styled-components';
 import { GarbageIcon } from '../assets/svg';
 import { useProductInCartById } from '../recoils/recoilCart';
@@ -9,30 +8,25 @@ import { Checkbox } from './styled';
 
 interface CartItemProps {
   productId: number;
-  setTotalProductPrice: Dispatch<SetStateAction<number>>;
 }
 
-export const CartItem = ({ productId, setTotalProductPrice }: CartItemProps) => {
+export const CartItem = ({ productId }: CartItemProps) => {
   const { quantity, product } = useProductInCartById(productId)!;
   const [checkState, setCheckState] = useCheckedState();
 
   const onChangeCheckBox = () => {
     setCheckState((prev) => {
-      if (prev[product.id]) {
-        setTotalProductPrice((prev) => prev - product.price * quantity);
-
-        const { [product.id]: _, ...updatedState } = prev;
+      if (prev[productId]) {
+        const { [productId]: _, ...updatedState } = prev;
         return {
           ...updatedState,
           all: false,
         };
       }
 
-      setTotalProductPrice((prev) => prev + product.price * quantity);
-
       return {
         ...prev,
-        [product.id]: true,
+        [productId]: true,
       };
     });
   };
@@ -42,7 +36,7 @@ export const CartItem = ({ productId, setTotalProductPrice }: CartItemProps) => 
       <Style.LeftInfo>
         <Style.Checkbox
           type="checkbox"
-          checked={Boolean(checkState[product.id])}
+          checked={Boolean(checkState[productId])}
           onChange={onChangeCheckBox}
         />
         <Style.ProductImage path={product.imageUrl} />
@@ -52,7 +46,7 @@ export const CartItem = ({ productId, setTotalProductPrice }: CartItemProps) => 
         <Button designType="square">
           <GarbageIcon />
         </Button>
-        <Stepper productId={product.id} quantity={quantity} />
+        <Stepper productId={productId} quantity={quantity} />
         <Style.ProductPrice>{product.price}</Style.ProductPrice>
       </Style.RightInfo>
     </Style.CartItem>
