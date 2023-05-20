@@ -27,6 +27,7 @@ export const Default: Story = {
     cartProduct: {
       id: 1,
       quantity: 1,
+      checked: true,
       product: {
         id: 1,
         name: '순살치킨 해마로 1kg 냉동',

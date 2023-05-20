@@ -10,7 +10,7 @@ export const useCartProduct = (product: Product) => {
 
   const addCartProduct = () => {
     const createCartProductFirst = () => {
-      setCart((prev) => [...prev, { id, quantity: 1, product }]);
+      setCart((prev) => [...prev, { id, quantity: 1, checked: true, product }]);
       api.createCartProduct(product.id);
     };
 

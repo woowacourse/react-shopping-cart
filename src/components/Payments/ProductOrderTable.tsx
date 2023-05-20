@@ -1,4 +1,5 @@
 import FlexBox from 'components/@common/FlexBox';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { flexColumn } from 'styles/mixin';
 
@@ -27,7 +28,7 @@ export const ProductOrderTable = ({ onClickOrderButton }: Props) => {
             <TotalOrderPrice>24,700원</TotalOrderPrice>
           </FlexBox>
         </FlexBox>
-        <OrderButton onClick={onClickOrderButton}>주문하기</OrderButton>
+        <OrderButton onClick={onClickOrderButton}>총 {2}건 주문하기</OrderButton>
       </OrderDetailContainer>
     </Container>
   );
