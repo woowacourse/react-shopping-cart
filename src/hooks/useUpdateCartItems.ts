@@ -1,5 +1,4 @@
-import { useRecoilState } from 'recoil';
-import { cartItemsAtom } from '../stores/cartItemsStore.ts';
+import useFetchData from './useFetchData.ts';
 
 type UpdateCartItemsParams = {
   itemId: number;
@@ -7,22 +6,20 @@ type UpdateCartItemsParams = {
 };
 
 const useUpdateCartItems = () => {
-  const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
+  const { fetchData } = useFetchData();
 
-  const updateCartItems = ({ itemId, itemCount }: UpdateCartItemsParams) => {
-    const { [itemId]: targetItem, ...restItems } = cartItems;
-
-    if (targetItem && itemCount <= 0) {
-      setCartItems(restItems);
+  const updateCartItems = async ({ itemId, itemCount }: UpdateCartItemsParams) => {
+    if (itemCount <= 0) {
+      await fetchData(`/cart-items/${itemId}`, 'DELETE');
     }
 
-    if (targetItem && itemCount > 0) {
-      setCartItems((prev) => ({ ...prev, [itemId]: { quantity: itemCount } }));
+    if (itemCount > 0) {
+      await fetchData(`/cart-items/${itemId}`, 'PATCH', { quantity: itemCount });
     }
   };
 
-  const addNewCartItem = (itemId: number) => {
-    setCartItems((prev) => ({ ...prev, [itemId]: { quantity: 1 } }));
+  const addNewCartItem = async (productId: number) => {
+    await fetchData('/cart-items', 'POST', { productId });
   };
 
   return { updateCartItems, addNewCartItem };
