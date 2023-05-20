@@ -1,8 +1,24 @@
 import { styled } from 'styled-components';
 import CartPriceSummary from '../../components/CartPriceSummary/CartPriceSummary';
 import CartProductSummary from '../../components/CartProductSummary/CartProductSummary';
+import useGetData from '../../hooks/useGetData';
+import { CartItem } from '../../types';
+import { useSetRecoilState } from 'recoil';
+import { cartListAtom } from '../../stores/cartItemsStore';
+import { useEffect } from 'react';
 
 const CartPage = () => {
+  const { data: cartList, getData: getCartList } = useGetData<CartItem[]>('/cart-items');
+  const setCartList = useSetRecoilState(cartListAtom);
+
+  useEffect(() => {
+    getCartList();
+  }, [getCartList]);
+
+  useEffect(() => {
+    if (cartList) setCartList(cartList);
+  }, [cartList, setCartList]);
+
   return (
     <>
       <Title>장바구니</Title>
