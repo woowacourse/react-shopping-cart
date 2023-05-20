@@ -1,16 +1,12 @@
 import * as S from './ProductItemList.styles';
 import ProductItem from 'components/Product/ProductItem';
 import LoadingSkeleton from 'components/Product/ProductItem/LoadingSkeleton';
-import { useFetch } from 'hooks/useFetch';
-import { useEffect } from 'react';
+import { useGet } from 'hooks/useGet';
 import { Product } from 'types';
+import { getProductList } from 'api/requests';
 
 const ProductItemList = () => {
-  const { data, isLoading, api } = useFetch<{ choonsik: Product[] }>();
-
-  useEffect(() => {
-    api.get('/api/products');
-  }, []);
+  const { data, isLoading } = useGet<{ choonsik: Product[] }>(getProductList);
 
   const loading =
     isLoading &&

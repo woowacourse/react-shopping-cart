@@ -76,3 +76,10 @@ export const updateCart = selectorFamily({
       set(cartItemAtom(cartId), item);
     },
 });
+
+export const cartListSelector = selector({
+  key: 'cartList',
+  get: ({ get }) => {
+    return get(cartIds).map((id) => get(cartItemAtom(id)));
+  },
+});
