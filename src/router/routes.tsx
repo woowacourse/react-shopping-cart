@@ -3,6 +3,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import { PATH } from '../constants/path';
 import CartPage from '../pages/CartPage/CartPage';
+import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 import ProductListPage from '../pages/ProductListPage';
 
 const router = createBrowserRouter(
@@ -10,6 +11,7 @@ const router = createBrowserRouter(
     {
       path: PATH.ROOT,
       element: <App />,
+      errorElement: <NotFoundPage />,
       children: [
         {
           path: '',
