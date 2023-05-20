@@ -1,9 +1,13 @@
 import { styled } from 'styled-components';
 import ProductItem from '../ProductItem/ProductItem';
-import useFetchProductList from './useFetchProductList';
+import useFetch from '../../../hooks/useFetch';
+import { Product } from '../../../types/product';
 
 const ProductList = () => {
-  const { productList } = useFetchProductList();
+  const { result: productList } = useFetch<Product[]>({
+    url: './products',
+    initialState: [],
+  });
 
   return (
     <section>

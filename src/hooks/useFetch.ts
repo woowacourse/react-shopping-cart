@@ -1,7 +1,14 @@
 import { useEffect, useState } from 'react';
 
-const useFetch = (url: string, method?: string, data?: object) => {
-  const [result, setResult] = useState<object>();
+interface useFetchProps<T> {
+  url: string;
+  method?: string;
+  body?: object;
+  initialState: T;
+}
+
+const useFetch = <T>({ url, method, body, initialState }: useFetchProps<T>) => {
+  const [result, setResult] = useState<T>(initialState);
   const [loading, setLoading] = useState(false);
   const [statusCode, setCode] = useState(-1);
 
@@ -10,11 +17,11 @@ const useFetch = (url: string, method?: string, data?: object) => {
 
     setLoading(true);
 
-    const headers = data && { 'Content-type': 'application/json' };
+    const headers = body && { 'Content-type': 'application/json' };
 
     const response = await fetch(url, {
       headers,
-      body: JSON.stringify(data || {}),
+      body: body && JSON.stringify(body),
       method: method,
     });
 
