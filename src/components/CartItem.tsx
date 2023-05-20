@@ -4,15 +4,21 @@ import React from "react";
 import { useSetRecoilState } from "recoil";
 import { productSelector } from "recoil/selector";
 import { CartProduct } from "types/domain";
+import { useQuantity } from "hooks/useQuantity";
 
 const CartItem = (product: CartProduct) => {
   const setProduct = useSetRecoilState(productSelector(product.id));
+  const { changeQuantity } = useQuantity(product.id);
 
   const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProduct({
       ...product,
       isChecked: e.currentTarget.checked,
     });
+  };
+
+  const removeItem = () => {
+    changeQuantity("0");
   };
 
   return (
@@ -25,7 +31,7 @@ const CartItem = (product: CartProduct) => {
       />
       <img src={product.imageUrl} alt={`${product.name} 상품 이미지`} />
       <NameBox>{product.name}</NameBox>
-      <button>🗑️</button>
+      <button onClick={removeItem}>🗑️</button>
       <PriceBox>{(product.price * product.quantity).toLocaleString()}원</PriceBox>
       <QuantityCounter itemId={product.id} />
     </Wrapper>
@@ -58,6 +64,8 @@ const Wrapper = styled.ul`
     position: absolute;
     top: 15px;
     right: 10px;
+
+    cursor: pointer;
   }
 
   :last-child {
