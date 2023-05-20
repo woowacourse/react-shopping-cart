@@ -5,7 +5,9 @@ import { MemoryRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 
+import SpinnerContainer from '../src/components/common/SpinnerContainer/SpinnerContainer';
 import { handlers } from '../src/mocks/handlers';
+import { SpinnerContainerWrapper } from '../src/stories/styles';
 import GlobalStyle from '../src/styles/GlobalStyle';
 import theme from '../src/styles/theme';
 
@@ -52,8 +54,14 @@ export const decorators = [
     <MemoryRouter initialEntries={['/']}>
       <RecoilRoot>
         <ThemeProvider theme={theme}>
-          <Suspense>
-            <GlobalStyle />
+          <GlobalStyle />
+          <Suspense
+            fallback={
+              <SpinnerContainerWrapper>
+                <SpinnerContainer message="Loading..." />
+              </SpinnerContainerWrapper>
+            }
+          >
             <Story />
           </Suspense>
         </ThemeProvider>
