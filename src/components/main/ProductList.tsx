@@ -5,23 +5,33 @@ import { useFetchData } from '../../hooks/useFetchData';
 import { Product } from '../../types';
 import { PRODUCT_BASE_URL } from '../../constants/url';
 import { productListState } from '../../store/ProductListState';
+import { useEffect } from 'react';
 
 const ProductList = () => {
   const [productList, setProductList] = useRecoilState<Product[]>(productListState);
 
-  useFetchData<Product[]>(PRODUCT_BASE_URL, setProductList);
+  const { api, isLoading } = useFetchData<Product[]>(setProductList);
+
+  useEffect(() => {
+    api.get(PRODUCT_BASE_URL);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <S.Wrapper>
-      {productList.map((product) => (
-        <ProductItem
-          key={product.id}
-          id={product.id}
-          name={product.name}
-          price={product.price}
-          imgUrl={`${process.env.PUBLIC_URL}${product.imageUrl}`}
-        />
-      ))}
+      {isLoading ? (
+        <p>Loading..</p>
+      ) : (
+        productList.map((product) => (
+          <ProductItem
+            key={product.id}
+            id={product.id}
+            name={product.name}
+            price={product.price}
+            imgUrl={`${process.env.PUBLIC_URL}${product.imageUrl}`}
+          />
+        ))
+      )}
     </S.Wrapper>
   );
 };

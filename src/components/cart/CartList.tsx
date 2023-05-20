@@ -1,4 +1,4 @@
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { cartState } from '../../store/CartState';
 import CartListItem from './CartListItem';
 import { styled } from 'styled-components';
@@ -6,9 +6,20 @@ import Checkbox from '../common/Checkbox';
 import PriceWrapper from './PriceWrapper';
 import { useHandleCartList } from '../../hooks/useHandleCartList';
 import TotalCheckbox from './TotalCheckbox';
+import { useFetchData } from '../../hooks/useFetchData';
+import { CART_BASE_URL } from '../../constants/url';
+import { CartItem } from '../../types';
+import { useEffect } from 'react';
 
 const CartList = () => {
-  const cart = useRecoilValue(cartState);
+  const [cart, setCart] = useRecoilState(cartState);
+  const { api, isLoading } = useFetchData<CartItem[]>(setCart);
+
+  useEffect(() => {
+    api.get(CART_BASE_URL);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const {
     checkedItems,
     isChecked,
@@ -21,12 +32,19 @@ const CartList = () => {
 
   const itemList = (
     <S.ItemListWrapper>
-      {cart.map((cartItem) => (
-        <S.ItemWrapper key={cartItem.id}>
-          <Checkbox onChange={handleCheckedItem(cartItem.id)} isChecked={isChecked(cartItem.id)} />
-          <CartListItem item={cartItem} setCheckItems={setCheckedItems} />
-        </S.ItemWrapper>
-      ))}
+      {isLoading ? (
+        <p>Loading..</p>
+      ) : (
+        cart.map((cartItem) => (
+          <S.ItemWrapper key={cartItem.id}>
+            <Checkbox
+              onChange={handleCheckedItem(cartItem.id)}
+              isChecked={isChecked(cartItem.id)}
+            />
+            <CartListItem item={cartItem} setCheckItems={setCheckedItems} />
+          </S.ItemWrapper>
+        ))
+      )}
     </S.ItemListWrapper>
   );
 
