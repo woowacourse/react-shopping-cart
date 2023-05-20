@@ -1,15 +1,29 @@
 import styled from '@emotion/styled';
+import { useRecoilValue } from 'recoil';
+import { useState } from 'react';
 import CartList from '../list/CartList';
 import PriceBox from '../box/PriceBox';
 import { Text } from '../common/Text/Text';
+import ErrorBox from '../common/ErrorBox/ErrorBox';
+import { cartListState } from '../../recoil/atom';
+import type { CartItem } from '../../types/types';
 
 const CartListSection = () => {
+  const cartList = useRecoilValue(cartListState);
+
+  const [checkedCartItemList, setCheckedCartItemList] = useState<CartItem[]>(cartList);
+
+  if (cartList.length === 0) return <ErrorBox errorType="emptyList" />;
+
   return (
     <>
       <Text size="large">장바구니</Text>
       <CartListSectionWrapper>
-        <CartList />
-        <PriceBox />
+        <CartList
+          checkedCartItemList={checkedCartItemList}
+          setCheckedCartItemList={setCheckedCartItemList}
+        />
+        <PriceBox checkedCartItemList={checkedCartItemList} />
       </CartListSectionWrapper>
     </>
   );

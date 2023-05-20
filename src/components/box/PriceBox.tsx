@@ -1,11 +1,13 @@
 import styled from '@emotion/styled';
-import { useRecoilValue } from 'recoil';
 import { Text } from '../common/Text/Text';
-import { totalPriceState } from '../../recoil/selector';
 import { formatPrice } from '../../utils/formatPrice';
+import type { CartItem } from '../../types/types';
 
-const PriceBox = () => {
-  const totalPrice = useRecoilValue(totalPriceState);
+const PriceBox = ({ checkedCartItemList }: { checkedCartItemList: CartItem[] }) => {
+  const totalPrice = checkedCartItemList.reduce((acc, cur) => {
+    return acc + cur.quantity * cur.product.price;
+  }, 0);
+
   const deliveryCost = 3000;
 
   return (

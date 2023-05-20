@@ -1,45 +1,30 @@
 import styled from '@emotion/styled';
-import { useRecoilState } from 'recoil';
 import type { ChangeEvent } from 'react';
-import { useEffect } from 'react';
 import { Text } from '../common/Text/Text';
 import CartListItem from '../box/CartListItem';
 import useCartList from '../../hooks/useCartList';
-import { checkedArrayState } from '../../recoil/atom';
 import type { CartItem } from '../../types/types';
 
-const CartList = () => {
-  const { cartList, updateProductQuantity } = useCartList();
+const CartList = ({
+  setCheckedCartItemList,
+  checkedCartItemList,
+}: {
+  setCheckedCartItemList: React.Dispatch<React.SetStateAction<CartItem[]>>;
+  checkedCartItemList: CartItem[];
+}) => {
+  const { cartList, updateProductQuantity, removeProductInCartList } = useCartList();
 
-  const [checkedProductArray, setCheckedProductArray] = useRecoilState(checkedArrayState);
+  const handleCheckedCartItemList = (cartItem: CartItem, isChecked: boolean) => {
+    if (isChecked) return setCheckedCartItemList((prev) => [...prev, cartItem]);
 
-  const handleCheckedProductArray = (cartItem: CartItem, isChecked: boolean) => {
-    if (isChecked) {
-      const existProductIndex = checkedProductArray.findIndex(
-        (product) => product.id === cartItem.id,
-      );
-
-      if (existProductIndex !== -1) {
-        const newCheckedProductArray = checkedProductArray.slice();
-        newCheckedProductArray.splice(existProductIndex, 1, cartItem);
-        return setCheckedProductArray(newCheckedProductArray);
-      }
-
-      return setCheckedProductArray((prev) => [...prev, cartItem]);
-    }
-
-    return setCheckedProductArray((prev) => prev.filter((product) => product.id !== cartItem.id));
+    return setCheckedCartItemList((prev) => prev.filter((product) => product.id !== cartItem.id));
   };
 
   const handleOnAllCheckedButton = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) return setCheckedProductArray([...cartList]);
+    if (e.target.checked) return setCheckedCartItemList([...cartList]);
 
-    return setCheckedProductArray([]);
+    return setCheckedCartItemList([]);
   };
-
-  useEffect(() => {
-    setCheckedProductArray([...checkedProductArray]);
-  }, [cartList]);
 
   return (
     <CartListWrapper>
@@ -50,16 +35,19 @@ const CartList = () => {
         {cartList.map((cartItem) => (
           <CartListItem
             key={cartItem.id}
+            checkedCartItemList={checkedCartItemList}
+            setCheckedCartItemList={setCheckedCartItemList}
             cartItem={cartItem}
             updateProductQuantity={updateProductQuantity}
-            handleCheckedProductArray={handleCheckedProductArray}
+            removeProductInCartList={removeProductInCartList}
+            handleCheckedCartItemList={handleCheckedCartItemList}
           />
         ))}
       </CartItemListWrapper>
       <SelectAllWrapper>
         <CheckBox type="checkbox" onChange={handleOnAllCheckedButton} />
         <Text size="minimum" weight="light" color="#333333">
-          전체선택({checkedProductArray.length}/{cartList.length})
+          전체선택({checkedCartItemList.length}/{cartList.length})
         </Text>
         <SelectDeleteButton>선택삭제</SelectDeleteButton>
       </SelectAllWrapper>

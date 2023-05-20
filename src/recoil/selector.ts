@@ -1,5 +1,4 @@
 import { selector } from 'recoil';
-import { checkedArrayState } from './atom';
 import type { CartItem, Product } from '../types/types';
 import { CART_ITEMS_BASE_URL, PRODUCTS_BASE_URL } from '../constant';
 
@@ -26,16 +25,5 @@ export const cartListQuery = selector<CartItem[]>({
     const cartList = await response.json();
 
     return cartList;
-  },
-});
-
-export const totalPriceState = selector({
-  key: 'totalprice',
-  get: ({ get }) => {
-    const checkedArray = get(checkedArrayState);
-
-    return checkedArray.reduce((acc, cur) => {
-      return acc + cur.quantity * cur.product.price;
-    }, 0);
   },
 });
