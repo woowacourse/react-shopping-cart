@@ -1,17 +1,22 @@
 import styled from 'styled-components';
 
-import DeleteButtonImage from '../../asset/delete_icon.png';
 import QuantityCounter from '../common/QuantityCounter';
 import CheckIconImage from '../../asset/check_icon.svg';
 import useCount from '../../hooks/useCount';
 import { Product } from '../../type/product';
+import DeleteButton from './DeleteButton';
 
 interface CartListItemProps {
+  id: number;
   quantity: number;
-  product: Omit<Product, 'id'>;
+  product: Product;
 }
 
-export default function CartListItem({ quantity, product }: CartListItemProps) {
+export default function CartListItem({
+  id,
+  quantity,
+  product,
+}: CartListItemProps) {
   const { count, setCount } = useCount(quantity);
   const { name, imageUrl, price } = product;
 
@@ -23,9 +28,7 @@ export default function CartListItem({ quantity, product }: CartListItemProps) {
         <ProductName>{name}</ProductName>
       </CartInfoContainer>
       <CartOptionContainer>
-        <DeleteButton>
-          <DeleteButtonIcon src={DeleteButtonImage} />
-        </DeleteButton>
+        <DeleteButton cartId={id} />
         <QuantityCounter count={count} setCount={setCount} />
         <ProductPrice>{price.toLocaleString()}원</ProductPrice>
       </CartOptionContainer>
@@ -51,18 +54,6 @@ const ProductImg = styled.img`
 
 const ProductName = styled.p`
   ${({ theme }) => theme.fonts.cartProductName}
-`;
-
-const DeleteButton = styled.button`
-  width: 2.4rem;
-  height: 2.4rem;
-  background-color: transparent;
-  cursor: pointer;
-`;
-
-const DeleteButtonIcon = styled.img`
-  width: 2.4rem;
-  height: 2.4rem;
 `;
 
 const ProductPrice = styled.p`

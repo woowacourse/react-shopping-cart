@@ -50,7 +50,8 @@ export const postCartItem = rest.post('/cart-items', async (req, res, ctx) => {
 export const deleteCartItem = rest.delete(
   '/cart-items/:cartItemId',
   (req, res, ctx) => {
-    cart = cart.filter((cartItem) => cartItem.id === +req.params.cartItemId);
+    cart = cart.filter((cartItem) => cartItem.id !== +req.params.cartItemId);
+    console.log(cart);
 
     return res(ctx.status(204));
   }

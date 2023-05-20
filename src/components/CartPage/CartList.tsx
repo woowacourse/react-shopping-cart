@@ -2,17 +2,18 @@ import styled from 'styled-components';
 import CartListItem from './CartListItem';
 import SelectCartItem from './SelectCartItem';
 import { useRecoilValue } from 'recoil';
-import { cartState } from '../../atoms/cartState';
+import { cartState, cartTotalState } from '../../atoms/cartState';
 
 export default function CartList() {
   const cart = useRecoilValue(cartState({ action: 'GET' }));
+  const cartTotal = useRecoilValue(cartTotalState);
+
   return (
     <CartListContainer>
-      <CartListHeader>든든 배송 상품 (n개)</CartListHeader>
+      <CartListHeader>든든 배송 상품 ({cartTotal}개)</CartListHeader>
       {cart.map(({ id, quantity, product }) => (
-        <CartListItem key={id} quantity={quantity} product={product} />
+        <CartListItem key={id} quantity={quantity} product={product} id={id} />
       ))}
-
       <SelectCartItem />
     </CartListContainer>
   );

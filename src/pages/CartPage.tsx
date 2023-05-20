@@ -1,13 +1,16 @@
 import styled from 'styled-components';
 import CartList from '../components/CartPage/CartList';
 import SubTotal from '../components/CartPage/SubTotal';
+import { Suspense } from 'react';
 
 export default function CartPage() {
   return (
     <CartPageContainer>
       <CartPageHeader>장바구니</CartPageHeader>
       <CartPageBody>
-        <CartList />
+        <Suspense fallback={<div>loading..</div>}>
+          <CartList />
+        </Suspense>
         <SubTotal />
       </CartPageBody>
     </CartPageContainer>
