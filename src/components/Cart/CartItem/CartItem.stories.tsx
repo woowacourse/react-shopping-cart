@@ -21,6 +21,7 @@ const mockData = {
 const cartItem = {
   component: CartItem,
   title: 'Cart/CartItem',
+  tags: ['autodocs'],
 } satisfies Meta<typeof CartItem>;
 
 export default cartItem;

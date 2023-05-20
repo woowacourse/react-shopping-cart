@@ -5,6 +5,7 @@ import theme from 'src/styles/theme';
 const checkBox = {
   component: CheckBox,
   title: 'Common/CheckBox',
+  tags: ['autodocs'],
 } satisfies Meta<typeof CheckBox>;
 
 export default checkBox;
