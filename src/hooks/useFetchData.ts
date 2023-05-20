@@ -1,37 +1,41 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
-const useFetchData = <ResponseData>(fetchUrl: string) => {
-  const [data, setData] = useState<ResponseData | null>(null);
+type MethodType = 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+
+const useFetchData = () => {
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [error, setError] = useState<Error | null>(null);
 
-  useEffect(() => {
-    setLoading(true);
-    setErrorMessage('');
+  const fetchData = useCallback(async <bodyData>(url: string, methodType: MethodType, body?: bodyData) => {
+    try {
+      const response = await fetch(url, {
+        method: methodType,
+        body: JSON.stringify(body),
+      });
 
-    const fetchData = async () => {
-      try {
-        const response = await fetch(fetchUrl);
-        const responseData = await response.json();
-        setData(responseData);
-      } catch (error) {
-        if (error instanceof Error) {
-          setErrorMessage(error.message);
-        } else {
-          console.error(error);
-        }
-      } finally {
-        setLoading(false);
+      const responseData = await response.text();
+      const jsonData = responseData === '' ? {} : JSON.parse(responseData);
+
+      return {
+        data: jsonData,
+        headerData: response.headers,
+      };
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error);
+      } else {
+        console.error(error);
       }
-    };
-
-    fetchData();
-  }, [fetchUrl]);
+    } finally {
+      setLoading(false);
+      setError(null);
+    }
+  }, []);
 
   return {
-    data,
     loading,
-    errorMessage,
+    error,
+    fetchData,
   };
 };
 
