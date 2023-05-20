@@ -22,7 +22,9 @@ export default function CartItem({ cartItemInfo, deleteCheckedItem }: Props) {
 
   return (
     <>
-      <Style.ProductImage src={imageUrl} alt={name} />
+      <Style.ProductImageWrapper>
+        <Style.ProductImage src={imageUrl} alt={name} />
+      </Style.ProductImageWrapper>
       <Style.ProductName htmlFor={`${name}-checkbox`}>{name}</Style.ProductName>
       <Style.TrashCanIConAndStepperAndPriceContainer>
         <Style.DeleteCartItemButton onClick={handleDeleteCartItem}>
@@ -41,11 +43,21 @@ export default function CartItem({ cartItemInfo, deleteCheckedItem }: Props) {
 }
 
 const Style = {
-  ProductImage: styled.img`
+  ProductImageWrapper: styled.div`
     width: 130px;
     height: 130px;
 
+    position: relative;
+    overflow: hidden;
     margin-right: 20px;
+  `,
+
+  ProductImage: styled.img`
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    object-fit: cover;
   `,
 
   ProductName: styled.label`
