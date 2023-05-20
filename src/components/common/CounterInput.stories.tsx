@@ -9,12 +9,12 @@ export default {
 };
 
 const Template: StoryFn<React.ComponentProps<typeof CounterInput>> = (props) => {
-  const [count, setCount] = useState('0');
-  return <CounterInput {...props} count={count} setCount={setCount} />;
+  return <CounterInput {...props} />;
 };
 
 export const Controls = Template.bind({});
 Controls.args = {
+  cartItemId: 1,
   min: 0,
   max: 10,
   style: {},
