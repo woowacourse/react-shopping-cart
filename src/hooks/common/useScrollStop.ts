@@ -10,7 +10,7 @@ const useScrollStop = (
   useEffect(() => {
     const node = ref.current;
 
-    if (!node) return;
+    if (!node || !shouldStop) return;
 
     node.classList.add('hide-overflow');
 
