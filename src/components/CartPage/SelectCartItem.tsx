@@ -19,6 +19,9 @@ export default function SelectCartItem() {
   const [checkAll, setCheckAll] = useState(false);
 
   useEffect(() => {
+    setCheckAll(cartSelectsState.size === cartTotal);
+  }, [cartTotal, cartSelectsState]);
+  useEffect(() => {
     if (checkAll) {
       const newCartSelects = cart.map((cartItem) => cartItem.id);
       setCartSelectsState(new Set(newCartSelects));
