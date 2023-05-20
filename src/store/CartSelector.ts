@@ -64,12 +64,18 @@ export const updateCartSelector = selectorFamily<number, SelectorParams>({
     const cart = get(cartState);
     const productList = get(productListState);
     const cartItemIndex = cart.findIndex((item) => item.id === id);
-
-    const updatedItem = {
-      id,
-      quantity,
-      product: productList.find((item) => item.id === id)!,
-    };
+    const updatedItem =
+      productList.length > 0
+        ? {
+            id,
+            quantity,
+            product: productList.find((item) => item.id === id)!,
+          }
+        : {
+            id,
+            quantity,
+            product: cart.find((item) => item.id === id)!.product,
+          };
 
     const updatedCart =
       cartItemIndex >= CART_ITEM_INDEX
