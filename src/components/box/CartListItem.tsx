@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import type { ChangeEvent } from 'react';
 import { useEffect, useRef } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { Text } from '../common/Text/Text';
 import { TrashCanIcon } from '../../assets';
 import InputStepper from '../common/InputStepper/InputStepper';
@@ -17,19 +17,34 @@ const CartListItem = ({
 }: {
   cartItem: CartItem;
   updateProductQuantity: (id: number, quantity: number) => void;
-  handleCheckedProductArray: (isChecked: boolean, value: CartItem) => void;
+  handleCheckedProductArray: (value: CartItem, isChecked: boolean) => void;
 }) => {
-  const checkedProductArray = useRecoilValue(checkedArrayState);
+  const [checkedProductArray, setCheckedProductArray] = useRecoilState(checkedArrayState);
   const checkBoxRef = useRef<HTMLInputElement>(null);
 
   const handleSetQuantityOnInputStepper = (quantity: number) => {
     if (quantity < 1) return;
 
     updateProductQuantity(cartItem.id, quantity);
+
+    if (checkBoxRef.current?.checked) {
+      const newCartItem = { ...cartItem, quantity };
+
+      const existProductIndex = checkedProductArray.findIndex(
+        (product) => product.id === cartItem.id,
+      );
+
+      if (existProductIndex !== -1) {
+        const newCheckedProductArray = checkedProductArray.slice();
+        newCheckedProductArray.splice(existProductIndex, 1, newCartItem);
+        setCheckedProductArray(newCheckedProductArray);
+      }
+
+    }
   };
 
   const handleOnCheckBox = (e: ChangeEvent<HTMLInputElement>) => {
-    handleCheckedProductArray(e.target.checked, cartItem);
+    handleCheckedProductArray(cartItem, e.target.checked);
   };
 
   useEffect(() => {

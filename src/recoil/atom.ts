@@ -9,5 +9,5 @@ export const cartListState = atom<CartItem[]>({
 
 export const checkedArrayState = atom<CartItem[]>({
   key: 'checkedArrayState',
-  default: [],
+  default: cartListState,
 });

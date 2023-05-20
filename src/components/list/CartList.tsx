@@ -13,8 +13,20 @@ const CartList = () => {
 
   const [checkedProductArray, setCheckedProductArray] = useRecoilState(checkedArrayState);
 
-  const handleCheckedProductArray = (isChecked: boolean, cartItem: CartItem) => {
-    if (isChecked) return setCheckedProductArray((prev) => [...prev, cartItem]);
+  const handleCheckedProductArray = (cartItem: CartItem, isChecked: boolean) => {
+    if (isChecked) {
+      const existProductIndex = checkedProductArray.findIndex(
+        (product) => product.id === cartItem.id,
+      );
+
+      if (existProductIndex !== -1) {
+        const newCheckedProductArray = checkedProductArray.slice();
+        newCheckedProductArray.splice(existProductIndex, 1, cartItem);
+        return setCheckedProductArray(newCheckedProductArray);
+      }
+
+      return setCheckedProductArray((prev) => [...prev, cartItem]);
+    }
 
     return setCheckedProductArray((prev) => prev.filter((product) => product.id !== cartItem.id));
   };
@@ -26,8 +38,8 @@ const CartList = () => {
   };
 
   useEffect(() => {
-    setCheckedProductArray([]);
-  }, []);
+    setCheckedProductArray([...checkedProductArray]);
+  }, [cartList]);
 
   return (
     <CartListWrapper>
@@ -45,7 +57,7 @@ const CartList = () => {
         ))}
       </CartItemListWrapper>
       <SelectAllWrapper>
-        <CheckBox type="checkbox" onChange={handleOnAllCheckedButton}/>
+        <CheckBox type="checkbox" onChange={handleOnAllCheckedButton} />
         <Text size="minimum" weight="light" color="#333333">
           전체선택({checkedProductArray.length}/{cartList.length})
         </Text>
