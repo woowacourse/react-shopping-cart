@@ -42,7 +42,7 @@ const ItemCartDialog: React.FC<ItemCartDialogProps> = (props) => {
             <S.Thumbnail src={imageUrl} alt={name} />
             <S.Name>{name}</S.Name>
             <S.Price>{price.toLocaleString()} 원</S.Price>
-            <QuantityStepper ref={quantityRef} label="item-quantity" />
+            <QuantityStepper ref={quantityRef} />
             <Dialog.Close asChild onClick={addItemToCart}>
               <Button size="M" view="black">
                 추가하기
