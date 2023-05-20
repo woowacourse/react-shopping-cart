@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const useFetch = <T>(url: string, initialState: T) => {
+const useGet = <T>(url: string, initialState: T) => {
   const [result, setResult] = useState<T>(initialState);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -31,4 +31,4 @@ const useFetch = <T>(url: string, initialState: T) => {
   return { result, isLoading, isError, fetchData };
 };
 
-export default useFetch;
+export default useGet;
