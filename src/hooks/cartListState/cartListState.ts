@@ -25,16 +25,6 @@ const cartState = atom<CartItem[]>({
   }),
 });
 
-// if (quantity === 0) {
-//   set(cartState, (prevCartList) => prevCartList.filter((item) => item.id !== id));
-
-//   fetch(`/cart-items/${id}`, {
-//     method: 'DELETE',
-//   });
-
-//   return;
-// }
-
 const cartItemQuantityState = selectorFamily<number, number>({
   key: 'cartItemQuantityState',
   get:
@@ -223,19 +213,7 @@ export const useCheckCart = () => {
     });
   }, [isAllChecked, setCart]);
 
-  return {
-    isAllChecked,
-    checkedCount,
-    isCheckedById,
-    toggleAllCartItem,
-  };
-};
-
-export const useDeleteItemList = () => {
-  const [cart, setCart] = useRecoilState(cartState);
-
-  // TODO: DELETE LIST
-  return () => {
+  const deleteCheckedItems = () => {
     setCart(cart.filter((item) => item.checked === false));
 
     cart
@@ -245,6 +223,14 @@ export const useDeleteItemList = () => {
           method: 'DELETE',
         });
       });
+  };
+
+  return {
+    isAllChecked,
+    checkedCount,
+    isCheckedById,
+    toggleAllCartItem,
+    deleteCheckedItems,
   };
 };
 

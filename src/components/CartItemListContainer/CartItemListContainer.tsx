@@ -1,15 +1,10 @@
-import {
-  useProductListInCart,
-  useCheckCart,
-  useDeleteItemList,
-} from '../../hooks/cartListState/cartListState';
+import { useProductListInCart, useCheckCart } from '../../hooks/cartListState/cartListState';
 import { FlexColWrapper, FlexWrapper } from '../../pages/Cart/Cart.style';
 import CartItemBox from '../CartItemBox/CartItemBox';
 
 function CartItemListContainer() {
   const productListInCart = useProductListInCart();
-  const deleteCheckedList = useDeleteItemList();
-  const { isAllChecked, checkedCount, toggleAllCartItem } = useCheckCart();
+  const { isAllChecked, checkedCount, toggleAllCartItem, deleteCheckedItems } = useCheckCart();
 
   const productCount = productListInCart.length;
 
@@ -36,7 +31,7 @@ function CartItemListContainer() {
           }}
         />
         <span>{`${checkedCount} / ${productCount}`}</span>
-        <button onClick={deleteCheckedList}>선택삭제</button>
+        <button onClick={deleteCheckedItems}>선택삭제</button>
       </FlexWrapper>
     </FlexColWrapper>
   );
