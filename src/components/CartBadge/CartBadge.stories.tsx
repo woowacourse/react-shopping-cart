@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { BrowserRouter } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 import styled from 'styled-components';
 
 import CartBadge from '.';
@@ -14,7 +16,15 @@ const Layout = styled.div`
 const meta: Meta<typeof CartBadge> = {
   title: 'CartBadge',
   component: CartBadge,
-  decorators: [(storyFn) => <Layout>{storyFn()}</Layout>],
+  decorators: [
+    (storyFn) => (
+      <RecoilRoot>
+        <BrowserRouter>
+          <Layout>{storyFn()}</Layout>
+        </BrowserRouter>
+      </RecoilRoot>
+    ),
+  ],
 };
 
 export default meta;
