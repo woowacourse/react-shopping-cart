@@ -25,7 +25,7 @@ export const handlers = [
   }),
 
   rest.get(`${MOCK_URL}/cart-items`, (_req, res, ctx) => {
-    return res(ctx.delay(100), ctx.status(200), ctx.json(getCart()));
+    return res(ctx.status(200), ctx.json(getCart()));
   }),
 
   rest.post(`${MOCK_URL}/cart-items`, async (req, res, ctx) => {
