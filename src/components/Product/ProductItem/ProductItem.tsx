@@ -10,21 +10,31 @@ import productQuantityInCart from '../../../globalState/selectors/productQuantit
 import type { Product } from '../../../types/product';
 
 const ProductItem = (product: Product) => {
-  const { id, name, price, imageSrc } = product;
+  const { id: productId, name, price, imageSrc } = product;
   const { addCartItem, updateCartItemQuantity, deleteCartItem, getCartId } =
     useCartService();
-  const quantityInCart = useRecoilValue(productQuantityInCart(id));
+
+  const quantityInCart = useRecoilValue(productQuantityInCart(productId));
+  const [count, setCount] = useState(quantityInCart);
   const [isDisplayCounter, setIsDisplayCounter] = useState(!!quantityInCart);
 
-  const handleAddCartItem = () => {
-    addCartItem(product);
-    setIsDisplayCounter(true);
+  const updateCount = (quantity: number) => {
+    setCount(quantity);
+
+    if (quantity === 0) return;
+    updateCartItemQuantity(getCartId(productId))(quantity);
   };
 
-  const handleRemoveCartItem = (quantity: number) => {
+  const handleAddCartButtonClick = () => {
+    addCartItem(product);
+    setIsDisplayCounter(true);
+    setCount(1);
+  };
+
+  const handleNoQuantityAction = (quantity: number) => {
     if (quantity !== 0) return;
 
-    const cartId = getCartId(id);
+    const cartId = getCartId(productId);
     deleteCartItem(cartId);
     setIsDisplayCounter(false);
   };
@@ -36,16 +46,16 @@ const ProductItem = (product: Product) => {
         <CartButtonWrapper>
           {isDisplayCounter ? (
             <Counter
-              count={quantityInCart}
-              updateCount={updateCartItemQuantity(getCartId(id))}
-              onClickedButton={handleRemoveCartItem}
-              onBlurredInput={handleRemoveCartItem}
+              count={count}
+              updateCount={updateCount}
+              onClickedButton={handleNoQuantityAction}
+              onBlurredInput={handleNoQuantityAction}
             />
           ) : (
             <CartButton
               type="button"
               aria-label="장바구니에 추가하기"
-              onClick={handleAddCartItem}
+              onClick={handleAddCartButtonClick}
             >
               <SmallCartIcon />
             </CartButton>
