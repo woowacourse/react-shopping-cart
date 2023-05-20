@@ -5,6 +5,7 @@ import { Product } from './Product';
 import { useQuery } from '../hooks/useQuery';
 
 import { Product as IProduct } from '../types';
+import { Skeleton } from './Skeleton';
 
 export const ProductList = () => {
   const { isLoading, data: products, fetchData } = useQuery<IProduct[]>();
@@ -16,11 +17,13 @@ export const ProductList = () => {
   // TODO Skeleton
   return (
     <Style.Container>
-      {products?.map((product) => (
-        <li key={product.id}>
-          <Product item={product} />
-        </li>
-      ))}
+      {isLoading
+        ? Array.from({ length: 12 }).map(() => <Skeleton />)
+        : products?.map((product) => (
+            <li key={product.id}>
+              <Product item={product} />
+            </li>
+          ))}
     </Style.Container>
   );
 };
@@ -31,5 +34,7 @@ const Style = {
     grid-template-columns: repeat(4, 1fr);
     grid-column-gap: 45px;
     grid-row-gap: 60px;
+
+    margin-top: 60px;
   `,
 };
