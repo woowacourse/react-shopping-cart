@@ -1,7 +1,7 @@
 import { rest } from 'msw';
-import mockData from '../../public/mockData.json';
 import { CartProduct } from '../types/product';
 import { uuid } from '../utils/uuid';
+import mockData from './mockData.json';
 
 const mockProducts = mockData.products;
 const cartList: CartProduct[] = [];
@@ -25,8 +25,8 @@ export const cartHandler = [
     return res(ctx.status(200), ctx.json(cartList));
   }),
 
-  rest.post<PostAddCartRequestBody>('/cart-items', (req, res, ctx) => {
-    const { productId } = req.body;
+  rest.post<PostAddCartRequestBody>('/cart-items', async (req, res, ctx) => {
+    const { productId } = await req.json();
     const product = mockProducts.find((product) => product.id === productId);
 
     if (!product) {
@@ -46,9 +46,9 @@ export const cartHandler = [
 
   rest.patch<PatchUpdateCartRequestBody>(
     '/cart-items/:cartItemId',
-    (req, res, ctx) => {
+    async (req, res, ctx) => {
       const { cartItemId } = req.params;
-      const { quantity } = req.body;
+      const { quantity } = await req.json();
 
       const targetCartItemIndex = cartList.findIndex(
         (cartItem) => cartItem.id === cartItemId,
