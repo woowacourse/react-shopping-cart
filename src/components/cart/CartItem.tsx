@@ -1,54 +1,45 @@
-import { CartItemType } from '../../types';
+import type { CartItemType } from '../../types';
 
-import { useEffect, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import CheckBox from '../leafs/CheckBox';
-import CounterInput from '../leafs/CounterInput';
-import useCart from '../../hooks/useCart';
+import * as api from '../../api';
+import CheckBox from '../common/CheckBox';
+import CounterInput from '../common/CounterInput';
+import { cartState } from '../../recoil/state';
 import { MAX_QUANTITY } from '../../constants';
 
 interface Props extends CartItemType {
   checked: boolean;
   toggleChecked: () => void;
+  deleteChecked: () => void;
 }
 
-export default function CartItem({ quantity, product, checked, toggleChecked }: Props) {
-  const { id, name, price, imageUrl } = product;
-  const [, { removeCartItem, updateQuantity }] = useCart();
-  const [quantityInput, setQuantityInput] = useState('');
+export default function CartItem(props: Props) {
+  const { id, product, quantity, checked, toggleChecked, deleteChecked } = props;
+  const setCart = useSetRecoilState(cartState);
 
-  const onRemove = () => {
-    removeCartItem(id);
+  const removeCartItem = () => {
+    deleteChecked();
+    api.deleteCartItem(id).then(api.getCart).then(setCart);
   };
-
-  useEffect(() => {
-    if (quantityInput === '') return;
-
-    updateQuantity(id, Number(quantityInput));
-  }, [quantityInput]);
-
-  useEffect(() => {
-    setQuantityInput(quantity.toString());
-  }, []);
 
   return (
     <Wrapper>
       <CheckBox checked={checked} onClickCheckbox={toggleChecked} />
-      <Image src={imageUrl} />
-      <ProductName>{name}</ProductName>
+      <Image src={product.imageUrl} />
+      <ProductName>{product.name}</ProductName>
       <ControlBox>
-        <RemoveButton onClick={onRemove}>
+        <RemoveButton onClick={removeCartItem}>
           <TrashCanIcon />
         </RemoveButton>
         <CounterInput
-          count={quantityInput}
-          setCount={setQuantityInput}
+          cartItemId={id}
           min={1}
           max={MAX_QUANTITY}
           style={{ width: '114px', height: '60px', fontSize: '24px' }}
         />
-        <Price>{price.toLocaleString()}원</Price>
+        <Price>{(product.price * quantity).toLocaleString()}원</Price>
       </ControlBox>
     </Wrapper>
   );
@@ -116,6 +107,13 @@ const ControlBox = styled.div`
 const RemoveButton = styled.button`
   width: 24px;
   height: 24px;
+  background: transparent;
+
+  transition: width 0.3s;
+
+  &:hover {
+    width: 40px;
+  }
 `;
 
 const Price = styled.div`
