@@ -2,7 +2,12 @@ import FlexBox from 'components/@common/FlexBox';
 import { ProductOrderTable } from 'components/Payments/ProductOrderTable';
 import { CartProductCardList } from 'components/ProductCardList/CartProductCardList';
 import { useRecoilValue } from 'recoil';
-import { cartProductsCheckedCountState, cartProductsCountState, cartState } from 'state/CartAtom';
+import {
+  cartProductsCheckedCountState,
+  cartProductsCountState,
+  cartState,
+  checkedCartProductsPriceSumState,
+} from 'state/CartAtom';
 import styled from 'styled-components';
 import { flexRow } from 'styles/mixin';
 
@@ -10,6 +15,7 @@ export const CartPage = () => {
   const cartProducts = useRecoilValue(cartState);
   const cartProductsCount = useRecoilValue(cartProductsCountState);
   const cartProductsCheckedCount = useRecoilValue(cartProductsCheckedCountState);
+  const checkedCartProductsPriceSum = useRecoilValue(checkedCartProductsPriceSumState);
 
   return (
     <>
@@ -31,7 +37,12 @@ export const CartPage = () => {
           <CartProductCardList cartProducts={cartProducts} />
         </FlexBox>
         <FlexBox margin="30px 0" style={{ position: 'sticky', top: '95px' }}>
-          <ProductOrderTable onClickOrderButton={() => {}} />
+          <ProductOrderTable
+            priceSum={checkedCartProductsPriceSum}
+            deliveryFee={cartProductsCheckedCount > 0 ? 3000 : 0}
+            productsCount={cartProductsCheckedCount}
+            onClickOrderButton={() => {}}
+          />
         </FlexBox>
       </FlexBox>
     </>

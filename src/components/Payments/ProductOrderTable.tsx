@@ -2,12 +2,16 @@ import FlexBox from 'components/@common/FlexBox';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { flexColumn } from 'styles/mixin';
+import { formatKoreanCurrency } from 'utils';
 
 type Props = {
+  priceSum: number;
+  deliveryFee: number;
+  productsCount: number;
   onClickOrderButton: () => void;
 };
 
-export const ProductOrderTable = ({ onClickOrderButton }: Props) => {
+export const ProductOrderTable = ({ priceSum, productsCount, deliveryFee, onClickOrderButton }: Props) => {
   return (
     <Container>
       <TitleWrapper>
@@ -17,18 +21,20 @@ export const ProductOrderTable = ({ onClickOrderButton }: Props) => {
         <FlexBox direction="column" width="100%" gap="10px">
           <FlexBox justify="space-between" width="100%">
             <PartialTitle>총 상품가격</PartialTitle>
-            <TotalProductPrice>21,700원</TotalProductPrice>
+            <TotalProductPrice>{formatKoreanCurrency(priceSum)}원</TotalProductPrice>
           </FlexBox>
           <FlexBox justify="space-between" width="100%">
             <PartialTitle>총 배송비</PartialTitle>
-            <TotalDeliveryFee>3,000원</TotalDeliveryFee>
+            <TotalDeliveryFee>{formatKoreanCurrency(deliveryFee)}원</TotalDeliveryFee>
           </FlexBox>
           <FlexBox justify="space-between" width="100%" margin="20px 0 0 0">
             <PartialTitle>총 주문금액</PartialTitle>
-            <TotalOrderPrice>24,700원</TotalOrderPrice>
+            <TotalOrderPrice>{formatKoreanCurrency(priceSum + deliveryFee)}원</TotalOrderPrice>
           </FlexBox>
         </FlexBox>
-        <OrderButton onClick={onClickOrderButton}>총 {2}건 주문하기</OrderButton>
+        <OrderButton onClick={onClickOrderButton} disabled={!productsCount}>
+          총 {productsCount}건 주문하기
+        </OrderButton>
       </OrderDetailContainer>
     </Container>
   );
