@@ -17,7 +17,7 @@ type ShoppingCartControlProps = {
   updateShoppingCart: UpdateShoppingCart;
 };
 
-function ShoppingCartControl({ cartItems, updateShoppingCart }: ShoppingCartControlProps) {
+function CartListController({ cartItems, updateShoppingCart }: ShoppingCartControlProps) {
   const { itemId, isAllSelected, selectedItemAmount, updateAllSelectedShoppingItem, popSelectedShoppingItem } =
     useSelectedShoppingItem();
 
@@ -49,4 +49,4 @@ function ShoppingCartControl({ cartItems, updateShoppingCart }: ShoppingCartCont
   );
 }
 
-export default ShoppingCartControl;
+export default CartListController;

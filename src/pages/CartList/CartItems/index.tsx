@@ -1,7 +1,7 @@
 import { ShoppingCartProduct, UpdateShoppingCart } from '@Types/index';
 
 import * as S from './style';
-import ShoppingItem from '../ShoppingItem';
+import CartItem from '../CartItem';
 
 type ShoppingListProps = {
   cartItems: ShoppingCartProduct[] | null;
@@ -9,17 +9,17 @@ type ShoppingListProps = {
   updateShoppingCart: UpdateShoppingCart;
 };
 
-function ShoppingList({ cartItems, isLoading, updateShoppingCart }: ShoppingListProps) {
+function CartItems({ cartItems, isLoading, updateShoppingCart }: ShoppingListProps) {
   return (
     <S.Container>
       <S.ShoppingListLayout>
         {isLoading &&
           Array.from({ length: 6 }, (_, index) => (
-            <ShoppingItem key={index} isLoading={isLoading} cartId={index} updateShoppingCart={updateShoppingCart} />
+            <CartItem key={index} isLoading={isLoading} cartId={index} updateShoppingCart={updateShoppingCart} />
           ))}
         {cartItems &&
           cartItems.map((item) => (
-            <ShoppingItem
+            <CartItem
               cartId={item.id}
               product={item.product}
               key={item.product.id}
@@ -32,4 +32,4 @@ function ShoppingList({ cartItems, isLoading, updateShoppingCart }: ShoppingList
   );
 }
 
-export default ShoppingList;
+export default CartItems;

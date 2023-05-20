@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 
+import CartList from '@Pages/CartList';
 import Home from '@Pages/Home';
 import NotFound from '@Pages/NotFound';
-import ShoppingCart from '@Pages/ShoppingCart';
 
 import App from './App';
 
@@ -17,8 +17,8 @@ const router = createBrowserRouter(
           element: <Home />,
         },
         {
-          path: '/shopping-list',
-          element: <ShoppingCart />,
+          path: '/cart-list',
+          element: <CartList />,
         },
       ],
     },

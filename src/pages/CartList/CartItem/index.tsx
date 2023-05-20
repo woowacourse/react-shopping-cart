@@ -24,7 +24,7 @@ type ShoppingItemProps = {
   updateShoppingCart: UpdateShoppingCart;
 };
 
-function ShoppingItem({ product, width = '100%', cartId, isLoading = false, updateShoppingCart }: ShoppingItemProps) {
+function CartItem({ product, width = '100%', cartId, isLoading = false, updateShoppingCart }: ShoppingItemProps) {
   const { isSelected, updateSelectedShoppingItem, popSelectedShoppingItem } = useSelectedShoppingItem();
 
   const { name, price, image, imageDescription } = useProduct(product);
@@ -65,4 +65,4 @@ function ShoppingItem({ product, width = '100%', cartId, isLoading = false, upda
   );
 }
 
-export default ShoppingItem;
+export default CartItem;

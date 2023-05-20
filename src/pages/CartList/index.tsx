@@ -6,13 +6,13 @@ import useShoppingCart from '@Hooks/useShoppingCart';
 
 import shoppingCartAmountState from '@Selector/shoppingCartAmountState';
 
+import CartItems from './CartItems';
+import CartListController from './CartListController';
 import EmptyCart from './EmptyCart';
 import PaymentAmount from './PaymentAmount';
-import ShoppingCartControl from './ShoppingCartControl';
-import ShoppingList from './ShoppingList';
 import * as S from './style';
 
-function ShoppingCart() {
+function CartList() {
   const shoppingCartAmount = useRecoilValue(shoppingCartAmountState);
   const { shoppingCart, status, updateShoppingCart } = useShoppingCart();
 
@@ -29,10 +29,10 @@ function ShoppingCart() {
         <>
           <S.ShoppingCartSubHeader>
             <S.ProductAmount>든든배송 상품 ({shoppingCartAmount}개)</S.ProductAmount>
-            <ShoppingCartControl cartItems={shoppingCart} updateShoppingCart={updateShoppingCart} />
+            <CartListController cartItems={shoppingCart} updateShoppingCart={updateShoppingCart} />
           </S.ShoppingCartSubHeader>
           <S.ShoppingCartContentsLayout>
-            <ShoppingList
+            <CartItems
               cartItems={shoppingCart}
               isLoading={status === 'loading'}
               updateShoppingCart={updateShoppingCart}
@@ -45,4 +45,4 @@ function ShoppingCart() {
   );
 }
 
-export default ShoppingCart;
+export default CartList;

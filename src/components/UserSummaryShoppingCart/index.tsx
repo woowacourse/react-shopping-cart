@@ -12,7 +12,7 @@ type UserShoppingCartBadgeProps = {
 function UserShoppingCartBadge({ username, shoppingCartAmount }: UserShoppingCartBadgeProps) {
   const navigate = useNavigate();
 
-  const moveShoppingList = () => navigate('/shopping-list');
+  const moveShoppingList = () => navigate('/cart-list');
 
   return (
     <S.Container onClick={moveShoppingList}>
