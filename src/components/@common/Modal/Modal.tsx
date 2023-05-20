@@ -29,6 +29,9 @@ const ModalContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  inset: 0;
+  z-index: 203;
 `;
 
 const ModalOverlay = styled.div`
