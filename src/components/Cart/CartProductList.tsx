@@ -7,17 +7,16 @@ import { cartProductAtom } from '../../recoil/cartProductData';
 const CartProductList = () => {
   const cartProducts = useRecoilValue(cartProductAtom);
 
+  if (cartProducts.length === 0)
+    return <EmptyCart>장바구니가 비었어요</EmptyCart>;
+
   return (
     <CartProductListContainer>
-      {cartProducts.length > 0 ? (
-        cartProducts.map((cartProduct) => (
-          <li key={cartProduct.id}>
-            <CartProductItem cartProduct={cartProduct} />
-          </li>
-        ))
-      ) : (
-        <EmptyCart>장바구니가 비었어요</EmptyCart>
-      )}
+      {cartProducts.map((cartProduct) => (
+        <li key={cartProduct.id}>
+          <CartProductItem cartProduct={cartProduct} />
+        </li>
+      ))}
     </CartProductListContainer>
   );
 };
