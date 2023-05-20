@@ -1,6 +1,5 @@
-import { Children } from "react";
 import styled from "styled-components";
-import { createCustomElement, hasCustomChild } from "../../../utils/elements";
+import { createCustomElement } from "../../../utils/elements";
 
 interface OptionProps {
   asChild?: boolean;
@@ -9,12 +8,11 @@ interface OptionProps {
 
 export default function Option(props: OptionProps) {
   const { children, asChild = false } = props;
-  const customElement = children ? Children.only(children) : null;
 
-  if (customElement && hasCustomChild(asChild, customElement)) {
+  if (asChild) {
     return createCustomElement<OptionProps & { "data-testId": string }>(
-      customElement,
-      { ...props, "data-testId": "custom-option" }
+      children,
+      props
     );
   }
 
@@ -23,4 +21,7 @@ export default function Option(props: OptionProps) {
   );
 }
 
-const DefaultOptionStyle = styled.div``;
+const DefaultOptionStyle = styled.div`
+  display: flex;
+  height: 20rem;
+`;

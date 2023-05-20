@@ -1,6 +1,5 @@
-import { Children } from "react";
 import styled from "styled-components";
-import { createCustomElement, hasCustomChild } from "../../../utils/elements";
+import { createCustomElement } from "../../../utils/elements";
 
 interface OptionGroupProps {
   asChild?: boolean;
@@ -9,12 +8,11 @@ interface OptionGroupProps {
 
 export default function OptionGroup(props: OptionGroupProps) {
   const { children, asChild = false } = props;
-  const customElement = children ? Children.only(children) : null;
 
-  if (customElement && hasCustomChild(asChild, customElement)) {
+  if (asChild) {
     return createCustomElement<OptionGroupProps & { "data-testId": string }>(
-      customElement,
-      { ...props, "data-testId": "custom-group" }
+      children,
+      props
     );
   }
 
