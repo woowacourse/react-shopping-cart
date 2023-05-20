@@ -10,7 +10,7 @@ import StepperButton from '../../common/StepperButton/StepperButton';
 import * as S from './ProductAddition.styles';
 
 interface ProductAdditionProps extends ProductItemData {
-  addItemQuantity: (productId: number, quantity: number) => Promise<void>;
+  addItemQuantity: (variables: { productId: number; quantity: number }) => void;
   handleModalClose: () => void;
 }
 
@@ -28,7 +28,7 @@ const ProductAddition = ({
 
   const handleCartAdd = useCallback(() => {
     handleModalClose();
-    addItemQuantity(information.id, currentQuantity);
+    addItemQuantity({ productId: information.id, quantity: currentQuantity });
   }, [addItemQuantity, currentQuantity, handleModalClose, information.id]);
 
   return (
