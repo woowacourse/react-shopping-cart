@@ -45,5 +45,15 @@ const Style = {
     border-bottom: 1px ridge;
 
     pointer-events: none;
+
+    /* 태블릿 */
+    @media screen and (max-width: 991px) {
+      width: 708px;
+    }
+
+    /* 모바일 */
+    @media screen and (max-width: 767px) {
+      width: 315px;
+    }
   `,
 };

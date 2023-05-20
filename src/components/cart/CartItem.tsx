@@ -21,11 +21,13 @@ export default function CartItem({ cartItemInfo, deleteCheckedItem }: Props) {
   };
 
   return (
-    <>
-      <Style.ProductImageWrapper>
-        <Style.ProductImage src={imageUrl} alt={name} />
-      </Style.ProductImageWrapper>
-      <Style.ProductName htmlFor={`${name}-checkbox`}>{name}</Style.ProductName>
+    <Style.Container>
+      <Style.ImageAndNameContainer>
+        <Style.ProductImageWrapper>
+          <Style.ProductImage src={imageUrl} alt={name} />
+        </Style.ProductImageWrapper>
+        <Style.ProductName htmlFor={`${name}-checkbox`}>{name}</Style.ProductName>
+      </Style.ImageAndNameContainer>
       <Style.TrashCanIConAndStepperAndPriceContainer>
         <Style.DeleteCartItemButton onClick={handleDeleteCartItem}>
           <TrashCanIcon />
@@ -38,11 +40,25 @@ export default function CartItem({ cartItemInfo, deleteCheckedItem }: Props) {
         />
         <Price price={price * cartItemInfo?.quantity} />
       </Style.TrashCanIConAndStepperAndPriceContainer>
-    </>
+    </Style.Container>
   );
 }
 
 const Style = {
+  Container: styled.div`
+    display: flex;
+
+    /* 모바일 */
+    @media screen and (max-width: 767px) {
+      flex-direction: column;
+      position: relative;
+    }
+  `,
+
+  ImageAndNameContainer: styled.div`
+    display: flex;
+  `,
+
   ProductImageWrapper: styled.div`
     width: 130px;
     height: 130px;
@@ -50,6 +66,12 @@ const Style = {
     position: relative;
     overflow: hidden;
     margin-right: 20px;
+
+    /* 모바일 */
+    @media screen and (max-width: 767px) {
+      width: 100px;
+      height: 100px;
+    }
   `,
 
   ProductImage: styled.img`
@@ -61,12 +83,25 @@ const Style = {
   `,
 
   ProductName: styled.label`
-    width: 130px;
+    width: 135px;
 
     font-size: 18px;
     color: var(--grey-400);
 
     cursor: pointer;
+
+    /* 태블릿 */
+    @media screen and (max-width: 991px) {
+      width: 308px;
+    }
+
+    /* 모바일 */
+    @media screen and (max-width: 767px) {
+      width: 105px;
+      margin-right: 25px;
+
+      font-size: 14px;
+    }
   `,
 
   TrashCanIConAndStepperAndPriceContainer: styled.div`
@@ -75,11 +110,28 @@ const Style = {
     justify-content: space-between;
     align-items: flex-end;
 
-    width: 175px;
+    width: 170px;
+
+    /* 모바일 */
+    @media screen and (max-width: 767px) {
+      flex-direction: row;
+      justify-content: none;
+      align-items: none;
+
+      margin-top: 20px;
+    }
   `,
 
   DeleteCartItemButton: styled.button`
     all: unset;
+
     cursor: pointer;
+
+    /* 모바일 */
+    @media screen and (max-width: 767px) {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
   `,
 };

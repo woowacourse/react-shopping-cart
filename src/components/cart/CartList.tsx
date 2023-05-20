@@ -51,7 +51,7 @@ export default function CartList() {
   }, [cartList, checkedItemIds, isAllChecked]);
 
   return (
-    <Style.CartListContainer>
+    <Style.Container>
       <h2>든든배송 상품({cartList.length}개)</h2>
       <Style.CartItemsAndPaymentContainer>
         <Style.CartItemsContainer>
@@ -97,12 +97,12 @@ export default function CartList() {
         </Style.CartItemsContainer>
         <TotalPayment totalProductsPrice={totalProductsPrice} deliveryFee={DELIVERY_FEE} />
       </Style.CartItemsAndPaymentContainer>
-    </Style.CartListContainer>
+    </Style.Container>
   );
 }
 
 const Style = {
-  CartListContainer: styled.div`
+  Container: styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -112,6 +112,12 @@ const Style = {
     display: flex;
 
     margin-top: 20px;
+
+    /* 태블릿, 모바일 */
+    @media screen and (max-width: 991px) {
+      flex-direction: column;
+      align-items: center;
+    }
   `,
 
   CartItemsContainer: styled.div`
@@ -119,12 +125,35 @@ const Style = {
 
     border-top: 4px solid var(--grey-200);
     margin-right: 80px;
+
+    /* 태블릿 */
+    @media screen and (max-width: 991px) {
+      width: 708px;
+      margin-right: 0;
+    }
+
+    /* 모바일 */
+    @media screen and (max-width: 767px) {
+      width: 315px;
+    }
   `,
 
   CartItems: styled.ul`
     width: 550px;
     max-height: 540px;
     overflow-y: scroll;
+
+    /* 태블릿, 모바일 */
+    @media screen and (max-width: 991px) {
+      width: 708px;
+      margin-right: 0;
+    }
+
+    /* 모바일 */
+    @media screen and (max-width: 767px) {
+      width: 315px;
+      margin-right: 0;
+    }
   `,
 
   ProductContainer: styled.li`

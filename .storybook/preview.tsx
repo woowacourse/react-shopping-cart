@@ -19,7 +19,7 @@ if (location.hostname === 'hyeryongchoi.github.io') {
 initialize(options);
 
 const customViewports = {
-  Default: {
+  default: {
     name: 'Default',
     styles: {
       width: '1280px',

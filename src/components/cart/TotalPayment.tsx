@@ -34,6 +34,7 @@ export default function TotalPayment({ totalProductsPrice, deliveryFee }: Props)
 
 const Style = {
   TotalPaymentContainer: styled.div`
+    width: 300px;
     height: fit-content;
     border: 1px solid var(--grey-300);
   `,
