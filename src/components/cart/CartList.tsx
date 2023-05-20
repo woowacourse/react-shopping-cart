@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
-import { useCart } from '../../hooks/useCart';
-import CartItem from './CartItem';
-import Checkbox from '../common/Checkbox';
-import Button from '../common/Button';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { checkedCartItemsState } from '../../recoil/atoms';
-import TotalPayment from './TotalPayment';
-import { DELIVERY_FEE } from '../../constants';
 import { totalProductsPriceState } from '../../recoil/selectors';
+import { DELIVERY_FEE } from '../../constants';
+import { useCart } from '../../hooks/useCart';
+import CartItem from './CartItem';
+import TotalPayment from './TotalPayment';
+import Button from '../common/Button';
+import Checkbox from '../common/Checkbox';
 
 export default function CartList() {
   const { cartList, deleteFromCart } = useCart();
@@ -59,21 +59,25 @@ export default function CartList() {
       <h2>든든배송 상품({cartList.length}개)</h2>
       <Style.CartItemsAndPaymentContainer>
         <Style.CartItemsContainer>
-          <Style.CartItems>
-            {cartList.map((cartItemInfo) => (
-              <Style.ProductContainer>
-                <Style.CheckBoxWrapper>
-                  <Checkbox
-                    id={`${cartItemInfo.product.name}-checkbox`}
-                    checked={checkedItems.includes(cartItemInfo.id)}
-                    itemId={cartItemInfo.id}
-                    handleCheckedItem={handleCheckedItem}
-                  />
-                </Style.CheckBoxWrapper>
-                <CartItem cartItemInfo={cartItemInfo} deleteCheckedItem={setCheckedItems} />
-              </Style.ProductContainer>
-            ))}
-          </Style.CartItems>
+          {!cartList.length ? (
+            <Style.Span>장바구니에 담긴 상품이 없습니다.</Style.Span>
+          ) : (
+            <Style.CartItems>
+              {cartList.map((cartItemInfo) => (
+                <Style.ProductContainer>
+                  <Style.CheckBoxWrapper>
+                    <Checkbox
+                      id={`${cartItemInfo.product.name}-checkbox`}
+                      checked={checkedItems.includes(cartItemInfo.id)}
+                      itemId={cartItemInfo.id}
+                      handleCheckedItem={handleCheckedItem}
+                    />
+                  </Style.CheckBoxWrapper>
+                  <CartItem cartItemInfo={cartItemInfo} deleteCheckedItem={setCheckedItems} />
+                </Style.ProductContainer>
+              ))}
+            </Style.CartItems>
+          )}
           <Style.TotalCheckboxAndDeleteButtonContainer>
             <Style.TotalCheckbox
               id="total-checkbox"
@@ -115,20 +119,22 @@ const Style = {
   `,
 
   CartItemsContainer: styled.div`
+    width: 550px;
+
     border-top: 4px solid var(--grey-200);
     margin-right: 80px;
   `,
 
   CartItems: styled.ul`
-    height: 600px;
+    width: 550px;
+    max-height: 540px;
     overflow-y: scroll;
   `,
 
   ProductContainer: styled.li`
     display: flex;
 
-    width: 550px;
-    height: 200px;
+    height: 180px;
 
     padding: 20px;
     border-bottom: 1px ridge;
