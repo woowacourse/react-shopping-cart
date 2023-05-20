@@ -3,7 +3,7 @@ import { useSetRecoilState } from 'recoil';
 import ContentLayout from 'src/components/@common/ContentLayout';
 import CartList from 'src/components/Cart/CartList';
 import OrderInfo from 'src/components/Cart/OrderInfo';
-import Header from 'src/components/Header';
+import Header from 'src/components/@common/Header';
 import { useGetFetch } from 'src/hooks/useFetch';
 import useToast from 'src/hooks/useToast';
 import { cartListAtom } from 'src/recoil/cartList';

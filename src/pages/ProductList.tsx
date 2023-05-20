@@ -1,6 +1,6 @@
 import ContentLayout from 'src/components/@common/ContentLayout';
 import ProductItem from 'src/components/ProductItem';
-import Header from 'src/components/Header';
+import Header from 'src/components/@common/Header';
 import { useGetFetch } from 'src/hooks/useFetch';
 import { Product } from 'src/types';
 import { styled } from 'styled-components';

@@ -1,5 +1,5 @@
 import { CartItem } from 'src/types';
-import Counter from 'src/components/Counter';
+import Counter from 'src/components/@common/Counter';
 import { convertKORWon } from 'src/utils';
 import useProductSelect from 'src/hooks/useCartUpdate';
 import * as S from './CartItem.styles';
