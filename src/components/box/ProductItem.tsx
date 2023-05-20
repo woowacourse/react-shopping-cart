@@ -7,7 +7,8 @@ import useCartList from '../../hooks/useCartList';
 import { formatPrice } from '../../utils/formatPrice';
 
 const ProductItem = ({ product }: { product: Product }) => {
-  const { cartList, addProductToCartList, updateProductQuantity } = useCartList();
+  const { cartList, addProductToCartList, updateProductQuantity, removeProductInCartList } =
+    useCartList();
 
   const productInCart = cartList?.find((cartItem) => cartItem.id === product.id);
   const quantityOfProductInCart = productInCart?.quantity ?? 0;
@@ -18,6 +19,10 @@ const ProductItem = ({ product }: { product: Product }) => {
 
   const handleSetQuantityOnInputStepper = (quantity: number) => {
     updateProductQuantity(product.id, quantity);
+  };
+
+  const handleRemoveProductInCartList = () => {
+    removeProductInCartList(product.id);
   };
 
   return (
@@ -45,6 +50,7 @@ const ProductItem = ({ product }: { product: Product }) => {
             size="small"
             quantity={quantityOfProductInCart}
             setQuantity={handleSetQuantityOnInputStepper}
+            handleRemoveProductInCartList={handleRemoveProductInCartList}
           />
         )}
       </ProductInfoWrapper>

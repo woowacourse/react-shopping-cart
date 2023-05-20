@@ -5,13 +5,19 @@ interface InputStepperProps {
   size: 'small' | 'big';
   quantity: number;
   setQuantity: (value: number) => void;
+  handleRemoveProductInCartList?: () => void;
 }
 
 const isInputValueDigit = (inputValue: string): boolean => {
   return /^\d*$/.test(inputValue);
 };
 
-const InputStepper = ({ size, quantity, setQuantity }: InputStepperProps) => {
+const InputStepper = ({
+  size,
+  quantity,
+  setQuantity,
+  handleRemoveProductInCartList,
+}: InputStepperProps) => {
   const handleOnChangeText = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
 
@@ -28,7 +34,9 @@ const InputStepper = ({ size, quantity, setQuantity }: InputStepperProps) => {
   };
 
   const handleOnClickStepperDownButton = () => {
-    setQuantity(quantity - 1);
+    if (quantity === 1 && handleRemoveProductInCartList) return handleRemoveProductInCartList();
+
+    return setQuantity(quantity - 1);
   };
 
   return (

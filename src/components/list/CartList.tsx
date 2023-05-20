@@ -26,6 +26,11 @@ const CartList = ({
     return setCheckedCartItemList([]);
   };
 
+  const handleOnRemoveSelectedCarItem = () => {
+    checkedCartItemList.forEach((checkedCartItem) => removeProductInCartList(checkedCartItem.id));
+    setCheckedCartItemList([]);
+  };
+
   return (
     <CartListWrapper>
       <Text size="smallest" weight="light" color="#333333">
@@ -49,7 +54,7 @@ const CartList = ({
         <Text size="minimum" weight="light" color="#333333">
           전체선택({checkedCartItemList.length}/{cartList.length})
         </Text>
-        <SelectDeleteButton>선택삭제</SelectDeleteButton>
+        <SelectDeleteButton onClick={handleOnRemoveSelectedCarItem}>선택삭제</SelectDeleteButton>
       </SelectAllWrapper>
     </CartListWrapper>
   );

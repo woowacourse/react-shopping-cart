@@ -34,7 +34,20 @@ const useCartList = () => {
     });
   };
 
-  return { cartList, addProductToCartList, updateProductQuantity };
+  const removeProductInCartList = (targetId: Product['id']) => {
+    fetch(`${CART_ITEMS_BASE_URL}/${targetId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then(() => {
+      fetch(CART_ITEMS_BASE_URL)
+        .then((res) => res.json())
+        .then((data) => setCartList(data));
+    });
+  };
+
+  return { cartList, addProductToCartList, updateProductQuantity, removeProductInCartList };
 };
 
 export default useCartList;

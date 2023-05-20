@@ -55,4 +55,18 @@ export const cartListHandlers = [
     localStorage.setItem(LOCAL_STORAGE_CARTLIST_KEY, JSON.stringify(cartList));
     return res(ctx.status(200));
   }),
+
+  rest.delete(`${CART_ITEMS_BASE_URL}/:id`, (req, res, ctx) => {
+    const productId = Number(req.params.id);
+
+    if (!isInCartList(productId)) {
+      return res((ctx.status(404), ctx.json({ message: '장바구니에 존재하지 않는 상품 입니다.' })));
+    }
+
+    cartList = cartList.filter((cartItem) => cartItem.product.id !== productId);
+
+    localStorage.setItem(LOCAL_STORAGE_CARTLIST_KEY, JSON.stringify(cartList));
+
+    return res(ctx.status(204));
+  }),
 ];
