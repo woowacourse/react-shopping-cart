@@ -1,15 +1,15 @@
 import { styled } from 'styled-components';
 
 export const OrderWrapper = styled.div`
-  width: 448px;
-  height: 410px;
+  width: 360px;
+  height: 332px;
   border: 1px solid #dddddd;
   margin: 60px auto;
   background: ${(props) => props.theme.color.white};
 `;
 
 export const OrderTitleContainer = styled.div`
-  padding: 22px 0 22px 30px;
+  padding: 16px 0 16px 24px;
   border-bottom: 3px solid #dddddd;
 
   p {
@@ -20,10 +20,9 @@ export const OrderTitleContainer = styled.div`
 export const OrderInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
-
-  margin: 30px 0 0 0;
-  padding: 0 30px;
+  gap: 16px;
+  margin: 24px 0 0 0;
+  padding: 0 24px;
 
   div {
     display: flex;
@@ -40,8 +39,8 @@ export const OrderInfoContainer = styled.div`
 `;
 
 export const OrderButtonContainer = styled.div`
-  margin: 40px auto 0 auto;
-  width: 388px;
+  margin: 24px auto 0 auto;
+  width: 80%;
 
   button {
     width: 100%;

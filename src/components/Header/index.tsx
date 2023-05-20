@@ -13,6 +13,7 @@ const Header = () => {
         <Link to={PATH.HOME}>
           <S.HeaderWrapper gap={20}>
             <S.Logo>THE CHOONSIK</S.Logo>
+            <S.MobileLogo />
           </S.HeaderWrapper>
         </Link>
         <Link to={PATH.SHOPPING_BASKET}>

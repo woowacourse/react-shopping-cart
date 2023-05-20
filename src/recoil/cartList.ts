@@ -60,7 +60,7 @@ export const selectedCartItemTotal = selector({
 
     return selectedItems.reduce((acc, cur) => {
       if (cur.isSelected) {
-        const curTotalPrice = cur.product.price * cur.quantity;
+        const curTotalPrice = get(quantityTimesNumber(cur.id));
         return acc + curTotalPrice;
       }
 

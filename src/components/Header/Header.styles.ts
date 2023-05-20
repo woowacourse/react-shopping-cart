@@ -39,6 +39,19 @@ export const Logo = styled.span`
   background: linear-gradient(to right, #fed777, #ff946f);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  @media (min-width: 212px) and (max-width: 532px) {
+    display: none;
+  }
+`;
+
+export const MobileLogo = styled.button`
+  width: 60px;
+  height: 60px;
+  @media (min-width: 212px) and (max-width: 532px) {
+    background-image: url(https://storage.googleapis.com/sticker-prod/7xQJqnltYx72OYNjUAM2/17-1.png);
+    background-size: contain;
+  }
 `;
 
 export const CartTitle = styled.span`

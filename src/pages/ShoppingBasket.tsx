@@ -52,7 +52,7 @@ const BasketTitle = styled.div`
 
   margin: 0 60px 30px 60px;
 
-  @media (min-width: 320px) and (max-width: 1100px) {
+  @media (min-width: 320px) and (max-width: 1116px) {
     margin: 0 20px 30px 20px;
   }
 `;
@@ -64,7 +64,7 @@ const BasketContent = styled.div`
   justify-content: space-between;
   margin: 0 60px;
 
-  @media (min-width: 320px) and (max-width: 1100px) {
+  @media (min-width: 320px) and (max-width: 1116px) {
     flex-direction: column;
     margin: 0 20px;
   }
@@ -77,7 +77,7 @@ const OrderInfoWrapper = styled.div`
 
   right: 60px;
 
-  @media (min-width: 320px) and (max-width: 1100px) {
+  @media (min-width: 320px) and (max-width: 1116px) {
     position: unset;
     display: flex;
     justify-content: center;

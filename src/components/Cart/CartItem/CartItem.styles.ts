@@ -10,6 +10,11 @@ export const ItemWrapper = styled.li`
 export const ProductImage = styled.img`
   width: 144px;
   height: 147px;
+
+  @media (min-width: 320px) and (max-width: 1116px) {
+    width: 100px;
+    height: 100px;
+  }
 `;
 
 export const ProductNameConatiner = styled.div`
@@ -18,6 +23,10 @@ export const ProductNameConatiner = styled.div`
 
   width: 300px;
   margin-right: 20px;
+
+  @media (min-width: 320px) and (max-width: 1116px) {
+    width: 100%;
+  }
 `;
 
 export const ProductName = styled.p`

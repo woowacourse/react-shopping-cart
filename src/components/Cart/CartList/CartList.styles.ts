@@ -4,7 +4,7 @@ export const CartListWrapper = styled.div`
   width: 600px;
   margin-bottom: 60px;
 
-  @media (min-width: 320px) and (max-width: 1100px) {
+  @media (min-width: 320px) and (max-width: 1116px) {
     display: flex;
     justify-content: center;
     flex-direction: column;
