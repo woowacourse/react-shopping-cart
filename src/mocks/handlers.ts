@@ -1,7 +1,7 @@
 import { rest } from 'msw';
 import products from './data/products.json';
 import {
-  STORAGE_ID,
+  CART_PRODUCT_STORAGE_KEY,
   getStoredCartProducts,
   setStoredCartProducts,
 } from '../utils/localStorage';
@@ -25,7 +25,9 @@ export const handlers = [
     return res(
       ctx.delay(200),
       ctx.status(200),
-      ctx.json(JSON.parse(localStorage.getItem(STORAGE_ID) ?? '[]'))
+      ctx.json(
+        JSON.parse(localStorage.getItem(CART_PRODUCT_STORAGE_KEY) ?? '[]')
+      )
     );
   }),
 
