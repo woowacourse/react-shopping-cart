@@ -81,6 +81,7 @@ export const handlers = [
     store.addItem(MOCK_CART_KEY, {
       id: product.id,
       quantity: 1,
+      checked: true,
       product,
     });
 
@@ -91,14 +92,15 @@ export const handlers = [
     );
   }),
 
-  // 장바구니 아이템 수량 변경
+  // 장바구니 아이템 변경
   rest.patch(`${API_BASE}/cart-items/:cartItemId`, async (req, res, ctx) => {
     type RequestBody = {
-      quantity: CartProduct['quantity'];
+      quantity?: CartProduct['quantity'];
+      checked?: CartProduct['checked'];
     };
 
     const { cartItemId } = req.params;
-    const { quantity } = await req.json<RequestBody>();
+    const { quantity, checked } = await req.json<RequestBody>();
 
     const cartProduct = getCart().find((cartProduct) => cartProduct.id === Number(cartItemId));
 
@@ -110,7 +112,12 @@ export const handlers = [
       MOCK_CART_KEY,
       getCart().map((cartProduct) => {
         if (cartProduct.id === Number(cartItemId)) {
-          cartProduct.quantity = quantity;
+          if (quantity !== undefined) {
+            cartProduct.quantity = quantity;
+          }
+          if (checked !== undefined) {
+            cartProduct.checked = checked;
+          }
         }
         return cartProduct;
       })
