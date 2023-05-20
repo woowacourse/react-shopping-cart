@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 
 import { useProductInCartById } from '../recoils/recoilCart';
-import { useCart } from '../hooks/useCart';
+import { useUpdateCart } from '../hooks/useUpdateCart';
 
 import { Stepper } from './Stepper';
 
@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const Product = ({ item }: Props) => {
-  const { addProductToCart } = useCart();
+  const { addProductToCart } = useUpdateCart();
   const productInCart = useProductInCartById(item.id);
 
   const onClickCartIcon = () => {

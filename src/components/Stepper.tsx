@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react';
 import { styled } from 'styled-components';
 
-import { useCart } from '../hooks/useCart';
+import { useUpdateCart } from '../hooks/useUpdateCart';
 
 import { Button } from './common/Button';
 
@@ -13,7 +13,8 @@ interface Props {
 }
 
 export const Stepper = ({ productId, quantity }: Props) => {
-  const { increaseProductQuantity, decreaseProductQuantity, updateProductQuantity } = useCart();
+  const { increaseProductQuantity, decreaseProductQuantity, updateProductQuantity } =
+    useUpdateCart();
 
   const onClickPlusButton = () => {
     if (quantity === QUANTITY.MAX) return;

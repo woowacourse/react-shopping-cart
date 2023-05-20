@@ -1,20 +1,14 @@
 import { QUANTITY } from '../constants';
-import { useCartState } from '../recoils/recoilCart';
+import { useSetCartState } from '../recoils/recoilCart';
 import { CartItem } from '../types';
 
-export const useCart = () => {
-  const [cart, setCart] = useCartState();
+export const useUpdateCart = () => {
+  const setCart = useSetCartState();
 
   const addProductToCart = (product: CartItem) => {
     setCart((prev) => {
       return [product, ...prev];
     });
-  };
-
-  const findProductInCartById = (productId: number) => {
-    const foundProduct = cart.find((item) => item.id === productId);
-
-    return foundProduct || null;
   };
 
   const increaseProductQuantity = (productId: number) => {
@@ -53,8 +47,6 @@ export const useCart = () => {
   };
 
   return {
-    cart,
-    findProductInCartById,
     addProductToCart,
     increaseProductQuantity,
     decreaseProductQuantity,

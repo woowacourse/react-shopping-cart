@@ -5,7 +5,7 @@ import { RecoilRoot } from 'recoil';
 
 import { App } from './App';
 
-import { worker } from './mocks/browser';
+import { worker } from './msw/browser';
 if (process.env.NODE_ENV === 'development') {
   worker.start();
 }

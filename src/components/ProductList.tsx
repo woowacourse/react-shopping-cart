@@ -14,7 +14,6 @@ export const ProductList = () => {
     fetchData('/products');
   }, []);
 
-  // TODO Skeleton
   return (
     <Style.Container>
       {isLoading

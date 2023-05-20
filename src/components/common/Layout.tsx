@@ -6,7 +6,7 @@ import { styled } from 'styled-components';
 export const Layout = ({ children }: PropsWithChildren) => (
   <Style.Layout>
     <Header />
-    {children}
+    <div style={{ width: '1320px' }}>{children}</div>
   </Style.Layout>
 );
 

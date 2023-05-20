@@ -18,6 +18,6 @@ export const handlers = [
   }),
 
   rest.patch('/cart-items/:id', (req, res, ctx) => {
-    return res(ctx.delay(delay), ctx.status(200), ctx.json(cartMock));
+    return res(ctx.delay(delay), ctx.status(200));
   }),
 ];

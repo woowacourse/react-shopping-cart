@@ -6,8 +6,8 @@ import { useQuery } from './hooks/useQuery';
 
 import GlobalStyle from './GlobalStyle';
 
-import { Home } from './pages/Home';
-import { ShoppingCart } from './pages/ShoppingCart';
+import { Home } from './components/pages/Home';
+import { ShoppingCart } from './components/pages/ShoppingCart';
 
 import { CartItem } from './types';
 import { isEqual } from './utils';
