@@ -1,0 +1,59 @@
+import { Component, ComponentType, PropsWithChildren } from 'react';
+
+import HTTPError from '../../../api/HTTPError';
+import { isHTTPErrorMessageCodeType } from '../../../utils/typeGuard';
+import { ErrorProps } from '../Error/Error';
+
+interface ErrorBoundaryProps {
+  Fallback: ComponentType<ErrorProps>;
+  onReset?: (error: Error | HTTPError) => void;
+}
+
+interface State {
+  hasError: boolean;
+  error: Error | null;
+}
+
+const initialState: State = {
+  hasError: false,
+  error: null,
+};
+
+class ErrorBoundary extends Component<PropsWithChildren<ErrorBoundaryProps>, State> {
+  state: State = {
+    hasError: false,
+    error: null,
+  };
+
+  resetErrorBoundary = () => {
+    this.props.onReset?.(this.state.error!);
+    this.setState(initialState);
+  };
+
+  static getDerivedStateFromError(error: Error): State {
+    return { hasError: true, error };
+  }
+
+  render() {
+    const { Fallback } = this.props;
+    const { error } = this.state;
+
+    if (error) {
+      return (
+        <Fallback
+          message={error.message}
+          statusCode={
+            error instanceof HTTPError && isHTTPErrorMessageCodeType(error.statusCode)
+              ? error.statusCode
+              : undefined
+          }
+          resetError={this.resetErrorBoundary}
+        />
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+export default ErrorBoundary;
