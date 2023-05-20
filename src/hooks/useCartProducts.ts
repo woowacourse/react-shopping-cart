@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import {
@@ -22,16 +22,20 @@ const useCartProducts = (product: Product) => {
     postProduct(id);
   };
 
+  const deleteProduct = useCallback(() => {
+    setCartProducts((prev) => deleteTargetProduct(prev, id));
+    deleteCartProduct(id);
+  }, [id, setCartProducts]);
+
   useEffect(() => {
     if (!targetProduct) return;
 
     if (targetProduct.quantity === 0) {
-      setCartProducts((prev) => deleteTargetProduct(prev, id));
-      deleteCartProduct(id);
+      deleteProduct();
     }
-  }, [id, setCartProducts, targetProduct]);
+  }, [deleteProduct, targetProduct]);
 
-  return { targetProduct, addProduct };
+  return { targetProduct, addProduct, deleteProduct };
 };
 
 export default useCartProducts;
