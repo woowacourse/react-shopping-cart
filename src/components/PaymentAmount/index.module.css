@@ -2,6 +2,7 @@
   font-family: 'Noto Sans KR';
   width: 448px;
   height: 380px;
+  margin-top: 36px;
   border: solid var(--gray-color);
 }
 .title {
@@ -35,7 +36,8 @@
 
 .button {
   color: var(--white-color);
-  width: 388px;
+  margin: 0 20px;
+  width: 380px;
   height: 73px;
   background-color: var(--primary-color);
 }
