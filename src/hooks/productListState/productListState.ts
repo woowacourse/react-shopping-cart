@@ -2,7 +2,7 @@ import { atom, selector, useRecoilValue } from 'recoil';
 import type { ProductItem } from '../../types/ProductType';
 
 // private atom
-const productListState = atom<ProductItem[]>({
+export const productListState = atom<ProductItem[]>({
   key: 'productListState',
   default: selector({
     key: 'productListState/selector',

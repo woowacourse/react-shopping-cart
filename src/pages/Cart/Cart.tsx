@@ -1,12 +1,15 @@
-import CartItemList from '../../components/CartItemList/CartItemList';
+import { Suspense } from 'react';
+import CartItemListContainer from '../../components/CartItemListContainer/CartItemListContainer';
 import PayingContainer from '../../components/PayingContainer/PayingContainer';
 import { FlexWrapper } from './Cart.style';
 
 function Cart() {
   return (
     <FlexWrapper>
-      <CartItemList></CartItemList>
-      <PayingContainer></PayingContainer>
+      <Suspense fallback={<h2>로딩중...</h2>}>
+        <CartItemListContainer></CartItemListContainer>
+        <PayingContainer></PayingContainer>
+      </Suspense>
     </FlexWrapper>
   );
 }

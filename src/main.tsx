@@ -8,7 +8,7 @@ import router from './router';
 import GlobalStyle from './styles/globalStyle';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
-import mockData from './assets/mockData.json';
+
 import { worker } from './mocks/browser';
 
 /**
@@ -16,7 +16,7 @@ import { worker } from './mocks/browser';
  */
 
 async function main() {
-  localStorage.setItem('products', JSON.stringify(mockData));
+  // localStorage.setItem('products', JSON.stringify(mockData));
   await worker.start({
     serviceWorker: {
       url: '/react-shopping-cart/mockServiceWorker.js',

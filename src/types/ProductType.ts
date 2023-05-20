@@ -8,13 +8,9 @@ export interface ProductItem {
 export interface CartItem {
   id: number;
   quantity: number;
-}
-
-export interface CartItemWithProduct extends CartItem {
+  checked?: boolean;
   product: ProductItem;
 }
-
-export interface NewCartItem {
-  id: number;
+export interface NewCartItem extends CartItem {
   quantity: 1;
 }

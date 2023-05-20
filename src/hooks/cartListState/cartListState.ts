@@ -6,33 +6,20 @@ import {
   useRecoilState,
   useRecoilValue,
 } from 'recoil';
-import type { CartItem, CartItemWithProduct, ProductItem } from '../../types/ProductType';
+import type { CartItem, ProductItem } from '../../types/ProductType';
+import { productListState } from '../productListState/productListState';
 
-const cartListWithInfoState = atom<CartItemWithProduct[]>({
+const cartListState = atom<CartItem[]>({
   key: 'cartListWithInfoState',
   default: selector({
     key: 'cartListWithInfoState/default',
     get: async () => {
       const response = await fetch('/cart-items');
-      const cartProducts: CartItemWithProduct[] = await response.json();
-
-      return cartProducts;
-    },
-  }),
-});
-
-const cartListState = atom<CartItem[]>({
-  key: 'cartListState',
-  default: selector({
-    key: 'cartListState/default',
-    get: ({ get }) => {
-      const cartProducts = get(cartListWithInfoState);
-      const cartItems: CartItem[] = cartProducts.map((productInCart) => ({
-        id: productInCart.id,
-        quantity: productInCart.quantity,
-      }));
-
-      return cartItems;
+      const cartProducts: CartItem[] = await response.json();
+      return cartProducts.map((cartProduct) => {
+        cartProduct.checked = true;
+        return cartProduct;
+      });
     },
   }),
 });
@@ -43,7 +30,8 @@ const cartItemQuantityState = selectorFamily<number, number>({
     (id) =>
     ({ get }) => {
       const cartList = get(cartListState);
-      const cartProduct = cartList.filter((cartProduct) => cartProduct.id === id)[0];
+      const cartProduct = cartList.filter((cartItem) => cartItem.id === id)[0];
+
       return cartProduct?.quantity ?? 0;
     },
   set:
@@ -55,18 +43,22 @@ const cartItemQuantityState = selectorFamily<number, number>({
 
         // TODO: post
         if (!cartList.some((item) => item.id === id)) {
+          if (quantity === 0) return;
+          const product = get(productListState).filter((product) => product.id === id)[0];
+
           set(cartListState, (prevCartList) => [
             ...prevCartList,
             {
               id,
-              quantity: 1,
+              quantity,
+              product,
             },
           ]);
 
           fetch('/cart-items', {
             method: 'POST',
             body: JSON.stringify({
-              productId: id,
+              productId: product.id,
             }),
           });
 
@@ -109,12 +101,14 @@ const cartItemQuantityState = selectorFamily<number, number>({
 });
 
 export const useProductListInCart: () => ProductItem[] = () => {
-  const cartListWithInfo = useRecoilValue(cartListWithInfoState);
+  const cartListWithInfo = useRecoilValue(cartListState);
 
   return cartListWithInfo.map(({ product }) => {
     const productInfo: ProductItem = { ...product };
     return productInfo;
   });
 };
+
+export const useCartItemList = () => useRecoilState(cartListState);
 export const useCartItemQuantityById = (id: number) => useRecoilState(cartItemQuantityState(id));
 export const useCartListLength = () => useRecoilValue(cartListState).length;
