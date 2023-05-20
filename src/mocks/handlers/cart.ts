@@ -25,8 +25,9 @@ export const cart = [
     }
 
     return res(ctx.status(201), ctx.set('Location', `/cart-items/${productId}`), ctx.json({}));
-    // 아래 명세상 원래는 productId가 아닌, cartItemId가 반환됨
     // https://techcourse.woowahan.com/s/zNFZ8xuU/ls/gRaMDVpX
+    // 명세상 body가 없음...
+    // 명세상 productId가 아닌, cartItemId가 반환됨...
     // Location: /cart-items/{cartItemId}
   }),
 ];
