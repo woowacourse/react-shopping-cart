@@ -11,6 +11,7 @@ import { productCountSelector } from '../../../../recoil/cartState';
 import { Product } from '../../../../types/Product';
 import StepperSettings from '../../../../constants/StepperSettings';
 import CartCheckbox from '../CartCheckbox/CartCheckbox';
+import CartDeleteButton from '../CartDeleteButton/CartDeleteButton';
 
 interface CartSingleItemProps extends Product {
   quantity: number;
@@ -22,7 +23,6 @@ const CartSingleItem = (props: CartSingleItemProps) => {
   const { id, quantity, name, imageUrl, price } = props;
 
   const updateProductQuantity = useSetRecoilState(productCountSelector(id));
-  const deleteToggled = useResetRecoilState(productToggleSelector(id));
 
   const { value, increaseValue, decreaseValue, setValue } = useStepper(
     MIN + 1,
@@ -31,12 +31,6 @@ const CartSingleItem = (props: CartSingleItemProps) => {
     quantity
   );
   const prevValue = usePreviousValue(value);
-
-  const deleteProduct = () => {
-    fetch(`/cart-items/${id}`, { method: 'DELETE' });
-    updateProductQuantity(0);
-    deleteToggled();
-  };
 
   useEffect(() => {
     if (prevValue === value) return;
@@ -57,9 +51,7 @@ const CartSingleItem = (props: CartSingleItemProps) => {
       <SquareImage size="l" src={imageUrl} alt="" />
       <p>{name}</p>
       <div>
-        <button type="button" onClick={deleteProduct}>
-          삭제하기
-        </button>
+        <CartDeleteButton productId={id} productName={name} />
         <Stepper
           value={value}
           increaseValue={increaseValue}
