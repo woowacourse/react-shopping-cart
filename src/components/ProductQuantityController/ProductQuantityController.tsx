@@ -1,25 +1,39 @@
-import { useRecoilValue } from 'recoil';
-import { productQuantitySelector } from '../../stores/cartItemsStore';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { cartItemIdSelector, cartItemQuantitySelector, cartListAtom } from '../../stores/cartItemsStore';
 import StepperInput from '../@common/StepperInput/StepperInput';
 import * as Styled from './ProductQuantityController.styles';
 import ShoppingCartLogo from '../@common/ShoppingCartLogo/ShoppingCartLogo';
 import useUpdateCartItems from '../../hooks/useUpdateCartItems';
+import useGetData from '../../hooks/useGetData';
+import { CartItem } from '../../types';
+import { useEffect } from 'react';
 
 type ProductQuantityControllerProps = {
-  productID: number;
+  productId: number;
 };
 
-const ProductQuantityController = ({ productID }: ProductQuantityControllerProps) => {
-  const productQuantity = useRecoilValue(productQuantitySelector(productID));
+const ProductQuantityController = ({ productId }: ProductQuantityControllerProps) => {
+  const productQuantity = useRecoilValue(cartItemQuantitySelector(productId));
+  const itemId = useRecoilValue(cartItemIdSelector(productId));
+  const setCartList = useSetRecoilState(cartListAtom);
+  const { data: cartList, getData } = useGetData<CartItem[]>('/cart-items');
   const { updateCartItems, addNewCartItem } = useUpdateCartItems();
 
-  const handleAddToCartButton = () => {
-    addNewCartItem(productID);
+  const handleAddToCartButton = async () => {
+    await addNewCartItem(productId);
+    await getData();
   };
 
-  const handleStepperInputChange = (value: number) => {
-    if (value !== productQuantity) updateCartItems({ itemId: productID, itemCount: value });
+  const handleStepperInputChange = async (value: number) => {
+    if (itemId && value !== productQuantity) {
+      await updateCartItems({ itemId, itemCount: value });
+      await getData();
+    }
   };
+
+  useEffect(() => {
+    if (cartList) setCartList(cartList);
+  }, [cartList, setCartList]);
 
   return (
     <>
