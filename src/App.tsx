@@ -6,13 +6,11 @@ import Router from './router/Router.tsx';
 
 const App = () => {
   return (
-    <>
-      <RecoilRoot>
-        <ResetStyle />
-        <GlobalStyle />
-        <Router />
-      </RecoilRoot>
-    </>
+    <RecoilRoot>
+      <ResetStyle />
+      <GlobalStyle />
+      <Router />
+    </RecoilRoot>
   );
 };
 
