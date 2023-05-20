@@ -1,15 +1,24 @@
 import React from 'react';
 import App from 'App';
+import { worker } from 'mocks/browser';
 import ReactDOM from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from '@styles/globalStyle';
 import { theme } from '@styles/theme';
 
-if (process.env.NODE_ENV === 'development') {
-  const { worker } = require('./mocks/browser')
-  worker.start()
-}
+const main = async () => {
+  if (window.location.pathname === '/react-shopping-cart') {
+    window.location.pathname = '/react-shopping-cart/';
+    return;
+  }
+
+  await worker.start({
+    serviceWorker: {
+      url: '/react-shopping-cart/mockServiceWorker.js',
+    },
+  });
+};
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -24,3 +33,5 @@ root.render(
     </ThemeProvider>
   </React.StrictMode>
 );
+
+main()
