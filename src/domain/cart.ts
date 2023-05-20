@@ -43,7 +43,7 @@ const updateCartItemQuantity = (cartList: CartItemData[], productId: number, qua
 
   return cartList.map((cartItem) => {
     if (cartItem.product.id === productId) {
-      return { ...cartItem, quantity: cartItem.quantity + quantity };
+      return { ...cartItem, quantity };
     }
 
     return cartItem;
