@@ -2,13 +2,13 @@ import FlexBox from 'components/@common/FlexBox';
 import { ProductOrderTable } from 'components/Payments/ProductOrderTable';
 import { CartProductCardList } from 'components/ProductCardList/CartProductCardList';
 import { useRecoilValue } from 'recoil';
-import { cartProductCountState, cartState } from 'state/CartAtom';
+import { cartProductsCheckedCountState, cartProductsCountState, cartState } from 'state/CartAtom';
 import styled from 'styled-components';
 import { flexRow } from 'styles/mixin';
 
 export const CartPage = () => {
   const cartProducts = useRecoilValue(cartState);
-  const cartProductsCount = useRecoilValue(cartProductCountState);
+  const cartProductsCount = useRecoilValue(cartProductsCountState);
 
   return (
     <>

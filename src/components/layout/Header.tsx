@@ -3,11 +3,11 @@ import { ReactComponent as CartIcon } from 'assets/cart-icon.svg';
 import { PropsWithChildren } from 'react';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { cartProductCountState } from 'state/CartAtom';
+import { cartProductsCountState } from 'state/CartAtom';
 import styled from 'styled-components';
 
 const Header = ({ children }: PropsWithChildren) => {
-  const cartProductCount = useRecoilValue(cartProductCountState);
+  const cartProductCount = useRecoilValue(cartProductsCountState);
 
   return (
     <HeaderContainer>
