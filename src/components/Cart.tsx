@@ -18,9 +18,11 @@ export const Cart = () => {
 };
 
 const Style = {
-  Main: styled.div``,
-
-  Cart: styled.div``,
+  Cart: styled.div`
+    @media screen and (max-width: 500px) {
+      width: 100%;
+    }
+  `,
 
   CartHeader: styled.div`
     display: flex;
@@ -29,5 +31,15 @@ const Style = {
     justify-content: space-between;
 
     padding: 8px 0;
+
+    @media screen and (max-width: 500px) {
+      width: 100%;
+
+      font-size: 13px;
+
+      & > span {
+        display: none;
+      }
+    }
   `,
 };

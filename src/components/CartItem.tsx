@@ -47,7 +47,7 @@ export const CartItem = ({ productId }: CartItemProps) => {
           <GarbageIcon />
         </Button>
         <Stepper productId={productId} quantity={quantity} />
-        <Style.ProductPrice>{product.price}</Style.ProductPrice>
+        <Style.ProductPrice>{product.price.toLocaleString('ko-KR')}원</Style.ProductPrice>
       </Style.RightInfo>
     </Style.CartItem>
   );
@@ -58,9 +58,6 @@ const Style = {
     display: flex;
     justify-content: space-between;
 
-    width: 735px;
-    padding: 33px 0;
-
     color: var(--grey-400);
 
     &:first-child {
@@ -69,6 +66,15 @@ const Style = {
 
     &:not(:last-child) {
       border-bottom: 1.5px solid var(--grey-400);
+    }
+
+    @media screen and (min-width: 501px) {
+      width: 735px;
+      padding: 33px 0;
+    }
+
+    @media screen and (max-width: 500px) {
+      padding: 20px 0;
     }
   `,
 
@@ -88,12 +94,24 @@ const Style = {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+
+    @media screen and (max-width: 500px) {
+      width: 96px;
+      height: 98px;
+
+      margin: 0 6px;
+    }
   `,
 
   ProductName: styled.div`
     font-size: 20px;
 
     font-weight: 400;
+    padding-top: 5px;
+
+    @media screen and (max-width: 500px) {
+      font-size: 15px;
+    }
   `,
 
   RightInfo: styled.div`
@@ -104,5 +122,9 @@ const Style = {
     align-items: flex-end;
   `,
 
-  ProductPrice: styled.div``,
+  ProductPrice: styled.div`
+    @media screen and (max-width: 500px) {
+      font-size: 15px;
+    }
+  `,
 };

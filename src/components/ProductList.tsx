@@ -29,11 +29,23 @@ export const ProductList = () => {
 
 const Style = {
   Container: styled.ul`
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-column-gap: 45px;
-    grid-row-gap: 60px;
-
     margin-top: 60px;
+
+    @media screen and (min-width: 501px) {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-column-gap: 45px;
+      grid-row-gap: 60px;
+    }
+
+    @media screen and (max-width: 500px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      & > li:not(:last-child) {
+        margin-bottom: 45px;
+      }
+    }
   `,
 };

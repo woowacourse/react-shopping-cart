@@ -20,15 +20,21 @@ export const Header = () => {
 
 const Style = {
   Container: styled.div`
+    position: fixed;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
+    padding: 0px 16px;
 
     width: 100vw;
     height: 80px;
     background-color: var(--grey-500);
 
     color: var(--grey-100);
+
+    z-index: 100;
   `,
 
   Content: styled.div`

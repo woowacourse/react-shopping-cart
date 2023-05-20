@@ -23,6 +23,10 @@ const Style = {
   Skeleton: styled.div`
     display: flex;
     flex-direction: column;
+
+    @media screen and (max-width: 500px) {
+      margin-bottom: 45px;
+    }
   `,
 
   Image: styled(StyledSkeleton)`

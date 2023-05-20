@@ -52,8 +52,8 @@ const Style = {
   `,
 
   ProductImage: styled.div<{ path: string }>`
-    width: 282px;
-    height: 282px;
+    width: 100%;
+    padding-bottom: 100%;
 
     background-image: ${(props) => `url(${props.path})`};
     background-repeat: no-repeat;

@@ -16,14 +16,6 @@ export const ShoppingCart = () => {
 };
 
 const Style = {
-  Main: styled.div`
-    display: flex;
-
-    padding-right: 20px;
-
-    justify-content: space-between;
-  `,
-
   PageTitle: styled.div`
     text-align: center;
 
@@ -34,5 +26,26 @@ const Style = {
     font-weight: 700;
 
     border-bottom: 4px solid var(--grey-400);
+
+    @media screen and (max-width: 500px) {
+      font-size: 20px;
+      padding: 16px 0;
+    }
+  `,
+
+  Main: styled.div`
+    display: flex;
+
+    @media screen and (min-width: 501px) {
+      padding-right: 20px;
+
+      justify-content: space-between;
+    }
+
+    @media screen and (max-width: 500px) {
+      font-size: 20px;
+
+      margin-bottom: 80px;
+    }
   `,
 };
