@@ -21,7 +21,7 @@ const setCart = (cart: CartType) => {
 
 export const handlers = [
   rest.get(`${MOCK_URL}/products`, (_req, res, ctx) => {
-    return res(ctx.delay(300), ctx.status(200), ctx.json(products));
+    return res(ctx.delay(400), ctx.status(200), ctx.json(products));
   }),
 
   rest.get(`${MOCK_URL}/cart-items`, (_req, res, ctx) => {
