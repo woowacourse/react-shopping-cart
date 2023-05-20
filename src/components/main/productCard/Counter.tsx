@@ -1,29 +1,37 @@
 import styled from 'styled-components';
 
-import { forwardRef } from 'react';
+import { SetStateAction } from 'react';
 
 interface CounterProps {
-  handleIncrease: () => void;
-  handleDecrease: () => void;
-  initialValue?: number;
+  count: number;
+  setCount: React.Dispatch<SetStateAction<number>>;
 }
 
-export const Counter = forwardRef<HTMLInputElement, CounterProps>(
-  ({ handleIncrease, handleDecrease, initialValue }, ref) => {
-    return (
-      <Style.Container>
-        <Style.Button onClick={handleDecrease}>➖</Style.Button>
-        <Style.Input
-          value={initialValue ?? 1}
-          ref={ref}
-          type="number"
-          readOnly
-        />
-        <Style.Button onClick={handleIncrease}>➕</Style.Button>
-      </Style.Container>
-    );
-  }
-);
+export const Counter = ({ count, setCount }: CounterProps) => {
+  const handleIncrease = () => {
+    setCount((current) => current + 1);
+  };
+
+  const handleDecrease = () => {
+    setCount((current) => current - 1);
+  };
+
+  const handleChangeInput: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const inputCount = Number(e.target.value);
+
+    if (inputCount <= 0) return setCount(1);
+
+    setCount(Number(e.target.value));
+  };
+
+  return (
+    <Style.Container>
+      <Style.Button onClick={handleDecrease}>➖</Style.Button>
+      <Style.Input value={count} onChange={handleChangeInput} type="number" />
+      <Style.Button onClick={handleIncrease}>➕</Style.Button>
+    </Style.Container>
+  );
+};
 
 const Style = {
   Container: styled.div`

@@ -1,20 +1,30 @@
-export const CART_ID_LIST_KEY = 'cartIDListKey';
-export const CART_ITEM_QUANTITIES_KEY = 'cartItemQuantitiesKey';
+import mockData from '../assets/mockData.json';
 
-export const getCartIdList = () => {
-  const localStorageCartIdList = localStorage.getItem(CART_ID_LIST_KEY) ?? '[]';
-  const cartIdList = JSON.parse(localStorageCartIdList);
+export const CART_ITEMS_KEY = 'cartItemsKey';
+export const PRODUCT_LIST_KEY = 'productListKey';
 
-  if (!Array.isArray(cartIdList))
-    throw new Error('장바구니 리스트가 배열 형식이 아닙니다.');
+export const getCartItems = () => {
+  const localStorageCartItems = localStorage.getItem(CART_ITEMS_KEY) ?? '[]';
+  const cartItems = JSON.parse(localStorageCartItems);
 
-  return cartIdList;
+  if (!Array.isArray(cartItems))
+    throw new Error('장바구니 정보가 배열 형식이 아닙니다!');
+
+  return cartItems;
 };
 
-export const getCartItemQuantities = () => {
-  const localStorageCartItemQuantities =
-    localStorage.getItem(CART_ITEM_QUANTITIES_KEY) ?? '{}';
-  const cartItemQuantities = JSON.parse(localStorageCartItemQuantities);
+export const getProductList = () => {
+  const localStorageProductList =
+    localStorage.getItem(PRODUCT_LIST_KEY) ?? '[]';
+  const productList = JSON.parse(localStorageProductList);
 
-  return cartItemQuantities;
+  if (localStorageProductList === '[]') {
+    localStorage.setItem(PRODUCT_LIST_KEY, JSON.stringify(mockData));
+    return mockData;
+  }
+
+  if (!Array.isArray(productList))
+    throw new Error('상품 목록이 배열 형식이 아닙니다!');
+
+  return productList;
 };

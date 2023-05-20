@@ -13,6 +13,6 @@ export const productHandlers = [
 
     const product = mockData.find((p) => p.id === id);
 
-    return res(ctx.json(JSON.stringify(product)), ctx.status(200));
+    return res(ctx.json(product), ctx.status(200));
   }),
 ];

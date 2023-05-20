@@ -3,19 +3,19 @@ import { Layout } from '../layout';
 import { ProductSelectSection } from '../components/cart/productList/ProductListSection';
 import { OrderSummarySection } from '../components/cart/orderSummarySection/OrderSummarySection';
 import { selector, useRecoilValue } from 'recoil';
-import { cartIdListState } from '../atoms/cartIdListAtom';
+import { cartItemsState } from '../atoms/cartAtom';
 
-const cartIdListLengthState = selector({
+const cartItemsLengthState = selector({
   key: 'cartIdListLengthState',
   get: ({ get }) => {
-    const cartIdList = get(cartIdListState);
+    const cartItems = get(cartItemsState);
 
-    return cartIdList.length;
+    return cartItems.length;
   },
 });
 
 export const Cart = () => {
-  const cartIdListLength = useRecoilValue(cartIdListLengthState);
+  const cartItemsLength = useRecoilValue(cartItemsLengthState);
 
   return (
     <Layout>
@@ -23,7 +23,7 @@ export const Cart = () => {
         <Style.HeaderTitle>장바구니</Style.HeaderTitle>
       </Style.Header>
 
-      {cartIdListLength > 0 ? (
+      {cartItemsLength > 0 ? (
         <Style.Content>
           <ProductSelectSection />
           <OrderSummarySection />

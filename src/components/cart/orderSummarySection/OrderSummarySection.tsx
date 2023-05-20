@@ -2,19 +2,19 @@ import styled from 'styled-components';
 import { getCommaAddedNumber } from '../../../utils/number';
 import { selector, useRecoilValue } from 'recoil';
 import {
-  cartProductDetailListState,
+  cartItemsState,
   selectedCartIdListState,
-} from '../../../atoms/cartIdListAtom';
+} from '../../../atoms/cartAtom';
 
 const priceSummaryState = selector({
   key: 'priceSummaryState',
   get: ({ get }) => {
-    const selectedCartItemList = get(selectedCartIdListState);
-    const cartProductDetailList = get(cartProductDetailListState);
+    const selectedCartItems = get(selectedCartIdListState);
+    const cartItems = get(cartItemsState);
 
-    const totalProductPrice = selectedCartItemList.reduce(
+    const totalProductPrice = selectedCartItems.reduce(
       (acc, selectedCartItemId) => {
-        const product = cartProductDetailList.find(
+        const product = cartItems.find(
           (cartProduct) => cartProduct.id === selectedCartItemId
         );
 

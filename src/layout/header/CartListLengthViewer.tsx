@@ -1,11 +1,11 @@
 import { selector, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { cartIdListState } from '../../atoms/cartIdListAtom';
+import { cartItemsState } from '../../atoms/cartAtom';
 
 const cartProductListLengthState = selector({
   key: 'cartProductListLengthState',
   get: ({ get }) => {
-    const cartList = get(cartIdListState);
+    const cartList = get(cartItemsState);
 
     return cartList.length;
   },

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { ShoppingCartIcon } from '../../../assets/ShoppingCartIcon';
-import { useCartProductList } from '../../../hooks/recoil/useCartProductList';
-import { useCounterInput } from '../../../hooks/useCounterInput';
+import { useCartRecoil } from '../../../hooks/recoil/useCartRecoil';
 import { Counter } from './Counter';
+import { useCartFetch } from '../../../hooks/fetch/useCartFetch';
 
 interface AddCartButtonProps {
   id: number;
@@ -10,57 +10,44 @@ interface AddCartButtonProps {
 
 export const AddCartButton = ({ id }: AddCartButtonProps) => {
   const {
-    cartIdList,
-    addProductIdToCartIdList,
-    removeProductFromCartProductList,
-  } = useCartProductList();
+    cartItems,
+    addRecoilCartById,
+    deleteRecoilCartById,
+    patchRecoilCartItemQuantity,
+  } = useCartRecoil();
+  const { addCartItemById, deleteCartItemById, patchCartItemQuantity } =
+    useCartFetch();
 
-  const { inputRef, handleDecrease, handleIncrease } = useCounterInput({
-    minLimit: 0,
-    handleMinLimitExceeded: () => removeProductFromCartProductList(id),
-    increaseCallback: () => {
-      const quantity = Number(inputRef.current?.value);
-
-      fetch(`/cart-items/${id}`, {
-        method: 'PATCH',
-        body: JSON.stringify({
-          quantity: quantity,
-        }),
-      });
-    },
-    decreaseCallback: () => {
-      const quantity = Number(inputRef.current?.value);
-
-      fetch(`/cart-items/${id}`, {
-        method: 'PATCH',
-        body: JSON.stringify({
-          quantity: quantity,
-        }),
-      });
-    },
-  });
-
-  const [initialValue, setInitialValue] = useState(1);
+  const [count, setCount] = useState<number>(
+    cartItems.find((cartItem) => cartItem.id === id)?.quantity ?? 1
+  );
 
   useEffect(() => {
-    fetch(`/cart-items/quantity/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setInitialValue(Number(data));
-      });
-  }, [cartIdList]);
+    if (!cartItems.some((cartItem) => cartItem.id === id)) return;
+
+    if (count <= 0) {
+      deleteRecoilCartById(id);
+      deleteCartItemById(id);
+      setCount(1);
+
+      return;
+    }
+
+    patchRecoilCartItemQuantity(id, count);
+    patchCartItemQuantity(id, count);
+  }, [count]);
 
   return (
     <>
-      {cartIdList.some((cartItemId) => cartItemId === id) ? (
-        <Counter
-          ref={inputRef}
-          handleIncrease={handleIncrease}
-          handleDecrease={handleDecrease}
-          initialValue={initialValue}
-        />
+      {cartItems.some((cartItem) => cartItem.id === id) ? (
+        <Counter count={count} setCount={setCount} />
       ) : (
-        <ShoppingCartIcon handleClick={() => addProductIdToCartIdList(id)} />
+        <ShoppingCartIcon
+          handleClick={() => {
+            addRecoilCartById(id);
+            addCartItemById(id);
+          }}
+        />
       )}
     </>
   );

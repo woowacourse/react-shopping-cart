@@ -1,87 +1,81 @@
 import { rest } from 'msw';
 import {
-  CART_ID_LIST_KEY,
-  CART_ITEM_QUANTITIES_KEY,
-  getCartIdList,
-  getCartItemQuantities,
+  CART_ITEMS_KEY,
+  getCartItems,
+  getProductList,
 } from '../utils/localStorage';
-import { useMockData } from '../hooks/useMockData';
 
 export const cartHandlers = [
   rest.get('/cart-items', (_, res, ctx) => {
-    const cartIdList = getCartIdList();
-    const cartQuantities = getCartItemQuantities();
-    const { mockData } = useMockData();
+    const cartItems = getCartItems();
 
-    return res(
-      ctx.json(
-        cartIdList.map((cartId) => {
-          const cartItem = mockData.find((product) => product.id === cartId);
-          const quantity = cartQuantities[`${cartId}`];
-
-          return {
-            id: cartItem?.id,
-            product: { ...cartItem },
-            quantity,
-          };
-        })
-      ),
-      ctx.status(200)
-    );
-  }),
-  rest.get('/cart-items/quantity/:id', (req, res, ctx) => {
-    const productId = Number(req.params.id);
-    const cartQuantities = getCartItemQuantities();
-    const quantity = cartQuantities[`${productId}`];
-
-    return res(ctx.json(`${quantity}`), ctx.status(200));
+    return res(ctx.json(cartItems), ctx.status(200));
   }),
   rest.post('/cart-items', async (req, res, ctx) => {
     const requestData = await req.json();
-    const productId = await requestData.id;
-    const cartIdList = getCartIdList();
+    const productId = await requestData.productId;
 
-    if (!cartIdList.includes(productId))
-      localStorage.setItem(
-        CART_ID_LIST_KEY,
-        JSON.stringify([...cartIdList, productId])
-      );
+    const cartItems = getCartItems();
+    const productList = getProductList();
+
+    const product = productList.find((p) => p.id === productId);
+
+    if (cartItems.some((cartItem) => cartItem.id === productId))
+      return res(ctx.json('이미 있는 상품입니다!'), ctx.status(400));
+
+    localStorage.setItem(
+      CART_ITEMS_KEY,
+      JSON.stringify([
+        ...cartItems,
+        {
+          id: productId,
+          quantity: 1,
+          product,
+        },
+      ])
+    );
 
     return res(ctx.json('success'), ctx.status(200));
   }),
   rest.patch('/cart-items/:id', async (req, res, ctx) => {
     const requestData = await req.json();
     const quantity = await requestData.quantity;
-
     const productId = Number(req.params.id);
-    const cartItemQuantities = getCartItemQuantities();
+
+    const cartItems = getCartItems();
+
+    if (!cartItems.some((cartItem) => cartItem.id === productId))
+      return res(
+        ctx.json('수량을 변경하려는 상품이 존재하지 않습니다!'),
+        ctx.status(400)
+      );
 
     localStorage.setItem(
-      CART_ITEM_QUANTITIES_KEY,
-      JSON.stringify({ ...cartItemQuantities, [productId]: quantity })
+      CART_ITEMS_KEY,
+      JSON.stringify(
+        cartItems.map((cartItem) => {
+          if (cartItem.id === productId) return { ...cartItem, quantity };
+          return cartItem;
+        })
+      )
     );
 
     return res(ctx.json('success'), ctx.status(200));
   }),
   rest.delete('/cart-items/:id', (req, res, ctx) => {
     const productId = Number(req.params.id);
-    const cartIdList = getCartIdList();
-    const cartItemQuantities = getCartItemQuantities();
+    const cartItems = getCartItems();
 
-    if (cartIdList.includes(productId))
-      localStorage.setItem(
-        CART_ID_LIST_KEY,
-        JSON.stringify(cartIdList.filter((cartId) => cartId !== productId))
+    if (!cartItems.some((cartItem) => cartItem.id === productId))
+      return res(
+        ctx.json(`삭제하려는 상품이 존재하지 않습니다!`),
+        ctx.status(400)
       );
 
-    if (Object.keys(cartItemQuantities).includes(`${productId}`)) {
-      delete cartItemQuantities[`${productId}`];
-
-      localStorage.setItem(
-        CART_ITEM_QUANTITIES_KEY,
-        JSON.stringify(cartItemQuantities)
-      );
-    }
+    localStorage.setItem(
+      CART_ITEMS_KEY,
+      JSON.stringify(cartItems.filter((cartItem) => cartItem.id !== productId))
+    );
 
     return res(ctx.json('success'), ctx.status(200));
   }),

@@ -1,17 +1,16 @@
 import styled from 'styled-components';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
-import { Counter } from '../../main/productCard/Counter';
-import { getCommaAddedNumber } from '../../../utils/number';
 import { CheckBox } from '../../../layout/checkBox/CheckBox';
-import { useCounterInput } from '../../../hooks/useCounterInput';
-import { useCartProductList } from '../../../hooks/recoil/useCartProductList';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useCartRecoil } from '../../../hooks/recoil/useCartRecoil';
+import { useRecoilState } from 'recoil';
 import {
-  cartProductDetailListState,
+  cartItemsState,
   selectedCartIdListState,
-} from '../../../atoms/cartIdListAtom';
+} from '../../../atoms/cartAtom';
+import { Counter } from '../../main/productCard/Counter';
+import { useCartFetch } from '../../../hooks/fetch/useCartFetch';
 
 interface ProductSelectItemProps {
   id: number;
@@ -26,66 +25,27 @@ export const ProductSelectItem = ({
   price,
   imageUrl,
 }: ProductSelectItemProps) => {
-  const selectedCartIdList = useRecoilValue(selectedCartIdListState);
-  const [cartProductDetailList, setCartProductDetailList] = useRecoilState(
-    cartProductDetailListState
+  const [cartItems, setCartItems] = useRecoilState(cartItemsState);
+  const [selectedCartIdList, setSelectedCartIdList] = useRecoilState(
+    selectedCartIdListState
   );
 
-  const { removeProductFromCartProductList } = useCartProductList();
+  const { deleteRecoilCartById } = useCartRecoil();
+  const { deleteCartItemById } = useCartFetch();
 
-  const setQuantity = (quantity: number) => {
-    setCartProductDetailList((current) =>
-      current.map((productDetail) => {
-        if (productDetail.id === id)
-          return {
-            ...productDetail,
-            quantity: quantity,
-          };
-        return productDetail;
-      })
-    );
-  };
-
-  const fetchQuantity = (quantity: number) => {
-    fetch(`/cart-items/${id}`, {
-      method: 'PATCH',
-      body: JSON.stringify({
-        quantity: quantity,
-      }),
-    });
-  };
+  const [count, setCount] = useState<number>(
+    cartItems.find((cartProduct) => cartProduct.id === id)?.quantity ?? 1
+  );
 
   const handleDeleteCartItem = () => {
     // eslint-disable-next-line no-restricted-globals
     const isUserWantToDeleteProduct = confirm(`${name}을 삭제하시겠습니까?`);
 
-    if (isUserWantToDeleteProduct) return removeProductFromCartProductList(id);
+    if (isUserWantToDeleteProduct) {
+      deleteCartItemById(id);
+      deleteRecoilCartById(id);
+    }
   };
-
-  const { inputRef, handleIncrease, handleDecrease } = useCounterInput({
-    minLimit: 0,
-    handleMinLimitExceeded: () => {
-      handleDeleteCartItem();
-
-      inputRef.current?.stepUp();
-
-      setQuantity(Number(inputRef.current?.value));
-    },
-    increaseCallback: () => {
-      const quantity = Number(inputRef.current?.value);
-
-      setQuantity(quantity);
-      fetchQuantity(quantity);
-    },
-    decreaseCallback: () => {
-      const quantity = Number(inputRef.current?.value);
-
-      setQuantity(quantity);
-      fetchQuantity(quantity);
-    },
-  });
-
-  const [, setSelectedCartIdList] = useRecoilState(selectedCartIdListState);
 
   const handleClickCheckBox: React.ChangeEventHandler<HTMLInputElement> = (
     e
@@ -97,6 +57,23 @@ export const ProductSelectItem = ({
       current.filter((selectedCartId) => selectedCartId !== id)
     );
   };
+
+  const setCartItemQuantity = (quantity: number) => {
+    setCartItems((current) =>
+      current.map((productDetail) => {
+        if (productDetail.id === id)
+          return {
+            ...productDetail,
+            quantity,
+          };
+        return productDetail;
+      })
+    );
+  };
+
+  useEffect(() => {
+    setCartItemQuantity(count);
+  }, [count]);
 
   return (
     <Style.Container>
@@ -113,18 +90,8 @@ export const ProductSelectItem = ({
             src={`${process.env.PUBLIC_URL}/trashCan.png`}
             onClick={handleDeleteCartItem}
           />
-          <Counter
-            ref={inputRef}
-            initialValue={
-              cartProductDetailList.find((cartProduct) => cartProduct.id === id)
-                ?.quantity ?? 1
-            }
-            handleDecrease={handleDecrease}
-            handleIncrease={handleIncrease}
-          />
-          <Style.ProductPrice>
-            {getCommaAddedNumber(price)}원
-          </Style.ProductPrice>
+          <Counter count={count} setCount={setCount} />
+          <Style.ProductPrice>{price}원</Style.ProductPrice>
         </Style.ProductSelectorContainer>
       </Style.Content>
     </Style.Container>
