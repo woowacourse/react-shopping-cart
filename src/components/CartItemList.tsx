@@ -6,7 +6,7 @@ import { useCartCheckbox } from "hooks/useCartCheckbox";
 
 const CartItemList = () => {
   const cartList = useRecoilValue(CartProductList);
-  const { isAllchecked, checkedCount, setAllCheckbox } = useCartCheckbox();
+  const { isAllchecked, checkedCount, setAllCheckbox, removeCheckedItem } = useCartCheckbox();
 
   const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.currentTarget.checked && setAllCheckbox(true);
@@ -19,7 +19,7 @@ const CartItemList = () => {
         <input type="checkbox" checked={isAllchecked} onChange={handleCheckbox} />
         전체선택
         {checkedCount}/{cartList.length}
-        <button>선택삭제</button>
+        <button onClick={removeCheckedItem}>선택삭제</button>
       </SelectorContainer>
       <ListBox>
         {cartList.map((item) => (

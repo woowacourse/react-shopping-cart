@@ -6,13 +6,21 @@ import { ProductType } from "types/domain";
 export const CartProductList = selector({
   key: "CartProductList",
   get: ({ get }) => get(productListState).filter((item) => item.quantity > MIN_QUANTITY),
-  set: ({ set }, newList) => {
-    if (newList instanceof DefaultValue) return;
+  set: ({ get, set }, cartList) => {
+    if (cartList instanceof DefaultValue) return;
 
-    return set(
-      productListState,
-      newList.filter((item) => item.quantity > MIN_QUANTITY)
+    const newList = get(productListState).map((product) => {
+      const cartItem = cartList.find((item) => item.id === product.id);
+
+      return cartItem ? cartItem : { ...product, quantity: 0, isChecked: true };
+    });
+
+    localStorage.setItem(
+      CART_LIST_LOCAL_STORAGE_KEY,
+      JSON.stringify(newList.filter((item) => item.quantity > MIN_QUANTITY))
     );
+
+    return set(productListState, newList);
   },
 });
 
@@ -33,7 +41,10 @@ export const productSelector = selectorFamily<ProductType | null, number>({
 
       newList[idx] = product;
 
-      localStorage.setItem(CART_LIST_LOCAL_STORAGE_KEY, JSON.stringify(newList));
+      localStorage.setItem(
+        CART_LIST_LOCAL_STORAGE_KEY,
+        JSON.stringify(newList.filter((item) => item.quantity > MIN_QUANTITY))
+      );
 
       return set(productListState, newList);
     },

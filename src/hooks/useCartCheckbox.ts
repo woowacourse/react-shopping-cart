@@ -22,5 +22,9 @@ export const useCartCheckbox = () => {
     );
   };
 
-  return { isAllchecked, checkedCount, setAllCheckbox };
+  const removeCheckedItem = () => {
+    setCartList(cartList.filter((item) => !item.isChecked));
+  };
+
+  return { isAllchecked, checkedCount, setAllCheckbox, removeCheckedItem };
 };
