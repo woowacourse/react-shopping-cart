@@ -9,7 +9,12 @@ export const handlers = [
       return res(ctx.status(403), ctx.json(data));
     }
 
-    return res(ctx.status(200), ctx.json(data));
+    return res(
+      ctx.set('Content-Type', 'application/json'),
+      ctx.status(200),
+      ctx.json(data),
+      ctx.delay(1500)
+    );
   }),
 
   rest.post('/products', (req, res, ctx) => {}),
