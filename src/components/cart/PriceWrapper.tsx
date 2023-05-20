@@ -60,7 +60,7 @@ const S = {
   `,
 
   OrderButton: styled.button`
-    width: 390px;
+    width: 80%;
     height: 75px;
     font-size: 24px;
     font-weight: 400;

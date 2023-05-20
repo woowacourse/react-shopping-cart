@@ -2,9 +2,10 @@ import { useRecoilValue } from 'recoil';
 import { cartState } from '../../store/CartState';
 import CartListItem from './CartListItem';
 import { styled } from 'styled-components';
-import Checkbox, { CheckboxStyle } from './Checkbox';
+import Checkbox from '../common/Checkbox';
 import PriceWrapper from './PriceWrapper';
 import { useHandleCartList } from '../../hooks/useHandleCartList';
+import TotalCheckbox from './TotalCheckbox';
 
 const CartList = () => {
   const cart = useRecoilValue(cartState);
@@ -18,34 +19,31 @@ const CartList = () => {
     handleRemoveCheckedItem,
   } = useHandleCartList();
 
+  const itemList = (
+    <S.ItemListWrapper>
+      {cart.map((cartItem) => (
+        <S.ItemWrapper key={cartItem.id}>
+          <Checkbox onChange={handleCheckedItem(cartItem.id)} isChecked={isChecked(cartItem.id)} />
+          <CartListItem item={cartItem} setCheckItems={setCheckedItems} />
+        </S.ItemWrapper>
+      ))}
+    </S.ItemListWrapper>
+  );
+
   return (
     <>
       <S.Title>장바구니</S.Title>
       <S.Wrapper>
-        <S.ItemListWrapper>
-          <S.CheckboxAllWrapper>
-            <S.CheckboxAll
-              type="checkbox"
-              id={'all'}
-              onChange={handleCheckAllItems}
-              checked={checkedItems.length === cart.length}
-            />
-            <label htmlFor={'all'}>{`전체선택 ${checkedItems.length}/${cart.length}개`}</label>
-            <S.RemoveSelectedButton onClick={handleRemoveCheckedItem}>
-              선택 삭제
-            </S.RemoveSelectedButton>
-          </S.CheckboxAllWrapper>
-          {cart.map((cartItem) => (
-            <S.ItemWrapper key={cartItem.id}>
-              <Checkbox
-                onChange={handleCheckedItem(cartItem.id)}
-                isChecked={isChecked(cartItem.id)}
-              />
-              <CartListItem item={cartItem} setCheckItems={setCheckedItems} />
-            </S.ItemWrapper>
-          ))}
-        </S.ItemListWrapper>
-        <PriceWrapper totalPrice={totalPrice} />
+        <TotalCheckbox
+          cartLength={cart.length}
+          checkedItemsCount={checkedItems.length}
+          onChange={handleCheckAllItems}
+          clickRemoveButton={handleRemoveCheckedItem}
+        />
+        <S.ContentWrapper>
+          {itemList}
+          <PriceWrapper totalPrice={totalPrice} />
+        </S.ContentWrapper>
       </S.Wrapper>
     </>
   );
@@ -54,10 +52,10 @@ const CartList = () => {
 const S = {
   Wrapper: styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     position: relative;
-    gap: 100px;
+    width: 90%;
   `,
 
   ItemListWrapper: styled.div`
@@ -65,16 +63,11 @@ const S = {
     flex-direction: column;
     align-items: center;
     position: relative;
-    width: 736px;
+    width: 100%;
     height: 700px;
     overflow: scroll;
 
     & > :first-child {
-      position: absolute;
-      left: 0;
-    }
-
-    & > :nth-child(2) {
       margin-top: 60px;
       border-top: 4px solid #aaa;
     }
@@ -84,18 +77,10 @@ const S = {
     }
   `,
 
-  CheckboxAllWrapper: styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: 40px;
-    gap: 10px;
-    font-size: 24px;
-  `,
-
   ItemWrapper: styled.div`
     display: flex;
     flex-direction: row;
+    width: 100%;
 
     & > :first-child {
       position: relative;
@@ -109,27 +94,24 @@ const S = {
     }
   `,
 
-  RemoveSelectedButton: styled.button`
-    width: 100px;
-    height: 35px;
-    padding: 5px;
-    background-color: white;
-    border: 1px solid #bbb;
-    border-radius: 7px;
-    font-size: 16px;
-    cursor: pointer;
+  ContentWrapper: styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+
+    @media all and (max-width: 1200px) {
+      flex-direction: column;
+      align-items: center;
+    }
   `,
 
   Title: styled.h1`
-    width: 1320px;
-    margin: 0px 200px 80px 200px;
+    width: 80%;
     text-align: center;
     font-size: 32px;
     font-weight: 700;
     padding: 30px;
     border-bottom: 4px solid #333;
   `,
-
-  CheckboxAll: styled(CheckboxStyle)``,
 };
 export default CartList;

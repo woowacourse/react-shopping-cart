@@ -37,7 +37,7 @@ const CartListItem = ({ item, setCheckItems }: Props) => {
         onIncrement={handleIncreaseItem}
         onDecrement={handleDecreaseCartItem}
       />
-      <S.Price>{item.product.price}원</S.Price>
+      <S.Price>{(item.product.price * item.quantity).toLocaleString()}원</S.Price>
     </S.Wrapper>
   );
 };
@@ -47,7 +47,7 @@ const S = {
     display: flex;
     flex-direction: row;
     position: relative;
-    width: 735px;
+    width: 100%;
     padding: 30px;
 
     img {
@@ -65,11 +65,48 @@ const S = {
       top: 70px;
       right: 40px;
     }
+
+    @media all and (max-width: 767px) {
+      flex-direction: column;
+
+      & > :nth-child(2) {
+        margin: 20px 0 0 0;
+      }
+
+      & > :nth-child(3) {
+        position: absolute;
+        bottom: 0;
+      }
+
+      & > :nth-child(4) {
+        position: absolute;
+        bottom: 0;
+        right: 40px;
+      }
+    }
+
+    @media all and (max-width: 479px) {
+      flex-direction: column;
+      align-items: center;
+
+      & > :nth-child(3) {
+        position: absolute;
+        bottom: 5px;
+        right: 80px;
+      }
+
+      & > :nth-child(4) {
+        position: static;
+        margin: 10px;
+      }
+    }
   `,
 
   CheckBox: styled.input`
     width: 28px;
+    min-width: 28px;
     height: 28px;
+    min-height: 28px;
     margin-right: 15px;
   `,
 
@@ -87,6 +124,12 @@ const S = {
     position: absolute;
     right: 40px;
     bottom: 30px;
+
+    @media all and (max-width: 479px) {
+      position: absolute;
+      bottom: 12px;
+      right: 120px;
+    }
   `,
 };
 
