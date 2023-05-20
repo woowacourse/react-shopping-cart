@@ -1,22 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { RecoilRoot } from 'recoil';
 
-import ShoppingItem from '.';
+import CartItem from '.';
 
 /**
- * `ShoppingItem`은 장바구니에 담긴 상품을 나타내는 컴포넌트입니다.
+ * `CartItem`은 장바구니에 담긴 상품을 나타내는 컴포넌트입니다.
  */
-const meta: Meta<typeof ShoppingItem> = {
-  title: 'ShoppingItem',
-  component: ShoppingItem,
+const meta: Meta<typeof CartItem> = {
+  title: 'CartItem',
+  component: CartItem,
   decorators: [(storyFn) => <RecoilRoot>{storyFn()}</RecoilRoot>],
 };
 
 export default meta;
 
-type Story = StoryObj<typeof ShoppingItem>;
+type Story = StoryObj<typeof CartItem>;
 
-export const DefaultShoppingItem: Story = {
+export const DefaultCartItem: Story = {
   args: {
     product: {
       id: 1,
@@ -29,7 +29,7 @@ export const DefaultShoppingItem: Story = {
   },
 };
 
-export const SkeletonShoppingItem: Story = {
+export const SkeletonCartItem: Story = {
   args: {
     width: '600px',
     isLoading: true,
