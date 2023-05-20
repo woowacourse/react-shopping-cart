@@ -1,5 +1,7 @@
 import FixtureClient from './FixtureClient';
+import MswClient from './MswClient';
 
-const client = new FixtureClient();
+export const client = new FixtureClient();
+const mockServerClient = new MswClient();
 
-export default client;
+export default mockServerClient;

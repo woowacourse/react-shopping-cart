@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import ProductItem from './ProductItem';
 import productsQuery from '../recoil/queries/productsQuery';
+import ProductItem from './ProductItem';
 
 const StyledProductList = styled.ul`
   display: grid;
@@ -12,7 +12,7 @@ const StyledProductList = styled.ul`
 
 const ProductList = () => {
   const products = useRecoilValue(productsQuery);
-
+  console.log(products);
   return (
     <StyledProductList>
       {products.map((product) => (

@@ -1,11 +1,11 @@
 import { selector } from 'recoil';
-import client from '../../api';
+import mockServerClient from '../../api';
 import type { Product } from '../../type';
 
 const productsQuery = selector<Product[]>({
   key: 'productsQuery',
   get: async () => {
-    const data = await client.get('/products');
+    const data = await mockServerClient.get('/products');
     return data;
   },
 });

@@ -8,7 +8,7 @@ class Client {
   async get(path: string) {
     const response = await fetch(this.getUrl(path));
     const data = await response.json();
-    return data;
+    return data.response;
   }
 }
 
