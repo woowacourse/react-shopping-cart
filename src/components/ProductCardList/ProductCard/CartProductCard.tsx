@@ -1,6 +1,7 @@
 import { Stepper } from './Stepper';
 import removeIcon from 'assets/remove-icon.png';
 import FlexBox from 'components/@common/FlexBox';
+import { useCartProduct } from 'hooks/useCartProduct';
 import styled from 'styled-components';
 import { CartProduct } from 'types/product';
 import { renderDefaultThumbnail } from 'utils/image';
@@ -12,6 +13,7 @@ type Props = {
 export const CartProductCard = ({ cartProduct }: Props) => {
   const { id, quantity, product } = cartProduct;
   const { name, price, imageUrl } = product;
+  const { addCartProduct, decreaseQuantity, increaseQuantity } = useCartProduct(product);
 
   return (
     <FlexBox height="140px" width="100%" padding="10px 0" gap="10px">
@@ -30,10 +32,10 @@ export const CartProductCard = ({ cartProduct }: Props) => {
         </RemoveButton>
         <StepperWrapper>
           <Stepper
-            value={0}
-            onClickClosed={() => {}}
-            onClickDecreaseButton={() => {}}
-            onClickIncreaseButton={() => {}}
+            value={quantity}
+            onClickClosed={addCartProduct}
+            onClickDecreaseButton={decreaseQuantity}
+            onClickIncreaseButton={increaseQuantity}
           />
         </StepperWrapper>
         <ProductPrice>{price.toLocaleString('ko-KR')}원</ProductPrice>
