@@ -2,6 +2,7 @@ import { useRecoilValue } from 'recoil';
 import CartSingleItem from './CartItem/CartItem';
 import cartState, { totalPriceSelector } from '../../../recoil/cartState';
 import CartAllCheckbox from './CartAllCheckbox/CartAllCheckbox';
+import DeleteSelectedButton from './DeleteSelectedButton/DeleteSelectedButton';
 
 const CartPage = () => {
   const data = useRecoilValue(cartState);
@@ -22,6 +23,7 @@ const CartPage = () => {
         />
       ))}
       <CartAllCheckbox />
+      <DeleteSelectedButton />
     </>
   );
 };
