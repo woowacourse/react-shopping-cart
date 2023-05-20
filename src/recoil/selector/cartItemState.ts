@@ -10,11 +10,11 @@ const cartItemState = selectorFamily({
   get:
     (productId: number) =>
     ({ get }) => {
-      const shoppingCart = get(cartItemsState);
+      const cartItems = get(cartItemsState);
 
-      if (!shoppingCart) return { cartItemId: undefined, quantity: SHOPPING_QUANTITY.MIN };
+      if (!cartItems) return { cartItemId: undefined, quantity: SHOPPING_QUANTITY.MIN };
 
-      const shoppingItem = shoppingCart.find((item) => item.product.id === productId);
+      const shoppingItem = cartItems.find((item) => item.product.id === productId);
 
       if (shoppingItem) return { cartItemId: shoppingItem.id, quantity: shoppingItem.quantity };
       return { cartItemId: undefined, quantity: SHOPPING_QUANTITY.MIN };

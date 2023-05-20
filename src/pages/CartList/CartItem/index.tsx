@@ -5,12 +5,11 @@ import QuantityController from '@Components/QuantityController';
 
 import { Product, UpdateCartItem } from '@Types/index';
 
+import useCartItems from '@Hooks/useCartItems';
 import useProduct from '@Hooks/useProduct';
-import useSelectedShoppingItem from '@Hooks/useSelectedShoppingItem';
 
 import cartItemState from '@Selector/cartItemState';
-
-import { FETCH_METHOD, FETCH_URL } from '@Constants/index';
+import isCartItemSelectedState from '@Selector/isCartItemSelectedState';
 
 import Trash from '@Asset/Trash.png';
 
@@ -25,25 +24,21 @@ type ShoppingItemProps = {
 };
 
 function CartItem({ product, width = '100%', cartId, isLoading = false, updateCartItem }: ShoppingItemProps) {
-  const { isSelected, updateSelectedShoppingItem, popSelectedShoppingItem } = useSelectedShoppingItem();
-
+  const { toggleSelected, deleteUnSelectedCartItem } = useCartItems();
   const { name, price, image, imageDescription } = useProduct(product);
+
+  const isCartItemSelected = product && useRecoilValue(isCartItemSelectedState(cartId));
   const cartItem = product && useRecoilValue(cartItemState(product.id));
 
   const deleteShoppingItem = () => {
     if (!window.confirm(`${name} 상품을 장바구니에서 삭제하시겠습니까?`)) return;
 
-    popSelectedShoppingItem(cartId);
-    updateCartItem(`${FETCH_URL.cartItems}/${cartItem?.cartItemId}`, FETCH_METHOD.DELETE);
+    deleteUnSelectedCartItem(cartId);
   };
 
   return (
     <S.Container aria-label="장바구니 상품" width={width}>
-      <Checkbox
-        isChecked={isSelected(cartId)}
-        size="small"
-        updateSelectedState={() => updateSelectedShoppingItem(cartId)}
-      />
+      <Checkbox isChecked={isCartItemSelected} size="small" updateSelectedState={() => toggleSelected(cartId)} />
       <S.ShoppingItemImage src={image} alt={imageDescription} aria-label="장바구니 상품 이미지" />
       <S.ShoppingItemName aria-label="장바구니 상품 이름" isLoading={isLoading}>
         {name}

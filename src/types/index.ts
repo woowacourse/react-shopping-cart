@@ -11,6 +11,7 @@ export type CartItemType = {
   id: number;
   quantity: number;
   product: Product;
+  isSelected: boolean;
 };
 
 export type fetchMethod = keyof typeof FETCH_METHOD;

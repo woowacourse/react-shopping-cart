@@ -2,47 +2,37 @@ import { useRecoilValue } from 'recoil';
 
 import Checkbox from '@Components/Checkbox';
 
-import { CartItemType, UpdateCartItem } from '@Types/index';
+import useCartItems from '@Hooks/useCartItems';
 
-import useSelectedShoppingItem from '@Hooks/useSelectedShoppingItem';
-
-import shoppingCartAmountState from '@Selector/cartItemsAmountState';
-
-import { FETCH_METHOD, FETCH_URL } from '@Constants/index';
+import cartItemsAmountState from '@Selector/cartItemsAmountState';
+import isAllCartItemSelectedState from '@Selector/isAllCartItemSelectedState';
+import selectedCartItemsAmountState from '@Selector/selectedCartItemsAmountState';
 
 import * as S from './style';
 
-type ShoppingCartControlProps = {
-  cartItems: CartItemType[] | null;
-  updateCartItem: UpdateCartItem;
-};
-
-function CartListController({ cartItems, updateCartItem }: ShoppingCartControlProps) {
-  const { itemId, isAllSelected, selectedItemAmount, updateAllSelectedShoppingItem, popSelectedShoppingItem } =
-    useSelectedShoppingItem();
-
-  const shoppingCartAmount = useRecoilValue(shoppingCartAmountState);
+function CartListController() {
+  const { toggleAllSelected, deleteAllUnSelectedCartItem } = useCartItems();
+  const shoppingCartAmount = useRecoilValue(cartItemsAmountState);
+  const selectedCartItemsAmount = useRecoilValue(selectedCartItemsAmountState);
+  const isAllSelected = useRecoilValue(isAllCartItemSelectedState);
 
   const deleteManyShoppingItem = () => {
     if (!window.confirm('선택한 모든 상품을 장바구니에서 삭제하시겠습니까?')) return;
 
-    itemId.forEach((cartId) => {
-      updateCartItem(`${FETCH_URL.cartItems}/${cartId}`, FETCH_METHOD.DELETE);
-      popSelectedShoppingItem(cartId);
-    });
+    deleteAllUnSelectedCartItem();
   };
 
   return (
     <S.Container>
       <Checkbox
-        isChecked={isAllSelected(Number(shoppingCartAmount))}
+        isChecked={isAllSelected}
         updateSelectedState={() => {
-          updateAllSelectedShoppingItem(cartItems);
+          toggleAllSelected();
         }}
         size="small"
       />
       <S.SelectedSituation>
-        {isAllSelected(Number(shoppingCartAmount)) ? '전체해제' : '전체선택'}({selectedItemAmount}/{shoppingCartAmount})
+        {isAllSelected ? '전체해제' : '전체선택'}({selectedCartItemsAmount}/{shoppingCartAmount})
       </S.SelectedSituation>
       <S.DeleteButton onClick={deleteManyShoppingItem}>선택삭제</S.DeleteButton>
     </S.Container>

@@ -8,11 +8,11 @@ const cartItemsAmountState = selector({
   key: 'cartItemsAmountState',
 
   get: ({ get }) => {
-    const shoppingCart = get(cartItemsState);
-    const shoppingCartAmount = shoppingCart ? shoppingCart.length : 0;
+    const cartItems = get(cartItemsState);
+    const cartItemsAmount = cartItems ? cartItems.length : 0;
 
-    if (shoppingCartAmount > SHOPPING_QUANTITY.MAX) return `${SHOPPING_QUANTITY.MAX}+`;
-    return String(shoppingCartAmount);
+    if (cartItemsAmount > SHOPPING_QUANTITY.MAX) return `${SHOPPING_QUANTITY.MAX}+`;
+    return String(cartItemsAmount);
   },
 });
 

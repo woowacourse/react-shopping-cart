@@ -14,7 +14,7 @@ import * as S from './style';
 
 function CartList() {
   const shoppingCartAmount = useRecoilValue(shoppingCartAmountState);
-  const { shoppingCart, status, updateCartItem } = useShoppingCart();
+  const { cartItems, status, updateCartItem } = useShoppingCart();
 
   if (status === 'error') {
     return <NotFound />;
@@ -23,16 +23,16 @@ function CartList() {
   return (
     <S.Container>
       <S.Title>장바구니</S.Title>
-      {status === 'success' && shoppingCart?.length === 0 ? (
+      {status === 'success' && cartItems?.length === 0 ? (
         <EmptyCart />
       ) : (
         <>
           <S.ShoppingCartSubHeader>
             <S.ProductAmount>든든배송 상품 ({shoppingCartAmount}개)</S.ProductAmount>
-            <CartListController cartItems={shoppingCart} updateCartItem={updateCartItem} />
+            <CartListController />
           </S.ShoppingCartSubHeader>
           <S.ShoppingCartContentsLayout>
-            <CartItems cartItems={shoppingCart} isLoading={status === 'loading'} updateCartItem={updateCartItem} />
+            <CartItems cartItems={cartItems} isLoading={status === 'loading'} updateCartItem={updateCartItem} />
             <PaymentAmount />
           </S.ShoppingCartContentsLayout>
         </>
