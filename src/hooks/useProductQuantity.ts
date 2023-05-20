@@ -3,7 +3,7 @@ import { useSetRecoilState } from 'recoil';
 import { cartProductAtom } from '../recoil/cartProductData';
 import type { CartProduct } from '../types/product';
 import { patchCartProduct } from '../apis/cartProducts';
-import { findTargetProduct } from '../utils/cartProduct';
+import { findTargetProduct } from '../domain/cartProductHandler';
 
 const addTargetQuantity = (cartProducts: CartProduct[], id: number) =>
   cartProducts.map((cartProduct) => {

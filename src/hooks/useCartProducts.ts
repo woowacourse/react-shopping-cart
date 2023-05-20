@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 
 import { cartProductAtom } from '../recoil/cartProductData';
 import type { Product } from '../types/product';
-import { deleteProduct, findTargetProduct } from '../utils/cartProduct';
+import { deleteProduct, findTargetProduct } from '../domain/cartProductHandler';
 import { deleteCartProduct, postCartProduct } from '../apis/cartProducts';
 
 const useCartProducts = (product: Product) => {

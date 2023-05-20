@@ -5,7 +5,7 @@ import {
   getStoredCartProducts,
   setStoredCartProducts,
 } from '../utils/localStorage';
-import { findTargetProduct } from '../utils/cartProduct';
+import { findTargetProduct } from '../domain/cartProductHandler';
 import type { CartProduct } from '../types/product';
 
 export const handlers = [
