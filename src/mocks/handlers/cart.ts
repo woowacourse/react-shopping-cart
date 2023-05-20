@@ -9,6 +9,10 @@ type PostReqBody = {
   productId: number;
 };
 
+type PatchReqBody = {
+  quantity: number;
+};
+
 const authorizationError: ErrorResponse = { message: '인증실패' };
 
 export const cart = [
@@ -29,5 +33,17 @@ export const cart = [
     // 명세상 return되는 body가 없음...
     // 명세상 productId가 아닌, cartItemId가 반환됨...
     // Location: /cart-items/{cartItemId}
+  }),
+
+  rest.patch<PatchReqBody>('/cart-items/:cartItemId', async (req, res, ctx) => {
+    const { quantity } = await req.json<PatchReqBody>();
+    const cartItemId = req.params.cartItemId;
+    const authorization = req.headers.get('Authorization');
+
+    if (authorization !== 'Basic bob:486') {
+      return res(ctx.status(401), ctx.json(authorizationError));
+    }
+
+    return res(ctx.status(200), ctx.json({}));
   }),
 ];
