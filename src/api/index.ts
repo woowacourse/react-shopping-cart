@@ -12,3 +12,27 @@ export const fetchApi = async (url: string, options: RequestInit) => {
   }
   return await response;
 };
+
+export const api = {
+  get: async (url: string) => {
+    const data = await fetchApi(url, { method: 'GET' });
+    return data;
+  },
+  post: <T>(url: string, body: T) => {
+    return fetchApi(url, {
+      method: 'POST',
+      body: JSON.stringify(body),
+    });
+  },
+  patch: <T>(url: string, body: T) => {
+    return fetchApi(url, {
+      method: 'PATCH',
+      body: JSON.stringify(body),
+    });
+  },
+  delete: (url: string) => {
+    return fetchApi(url, {
+      method: 'DELETE',
+    });
+  },
+};
