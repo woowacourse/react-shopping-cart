@@ -10,6 +10,7 @@ export const PriceSection = styled.section`
   height: 410px;
 
   padding: 0;
+  padding-bottom: 38px;
   border: 1px solid ${Colors.STEPPER_BORDER};
 `;
 
