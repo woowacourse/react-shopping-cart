@@ -33,8 +33,8 @@ type Story = StoryObj<typeof ProductStepper>;
 
 export const Default: Story = {
   args: {
-    productId: 1,
-    product: { id: 1, imageUrl: '', price: 0, name: '' },
+    productId: 1234,
+    product: { id: 1234, imageUrl: '', price: 0, name: '' },
   },
 };
 
@@ -43,7 +43,10 @@ export const Default: Story = {
  */
 
 export const StepperTest: Story = {
-  ...Default,
+  args: {
+    productId: 12345,
+    product: { id: 12345, imageUrl: '', price: 0, name: '' },
+  },
 
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);

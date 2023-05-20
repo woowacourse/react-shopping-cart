@@ -1,6 +1,8 @@
+import React from 'react';
 import type { Preview } from '@storybook/react';
 import { withThemeFromJSXProvider } from '@storybook/addon-styling';
 
+import { BrowserRouter } from 'react-router-dom';
 import GlobalStyles from '../src/GlobalStyles';
 import { worker } from '../src/mocks/browser';
 
@@ -27,7 +29,18 @@ const preview: Preview = {
       },
     },
   },
-  decorators: [withThemeFromJSXProvider({ GlobalStyles })],
+  decorators: [
+    withThemeFromJSXProvider({ GlobalStyles }),
+    (Story) => (
+      <>
+        <BrowserRouter>
+          <Story />
+        </BrowserRouter>
+      </>
+    )
+    
+    
+  ],
 };
 
 export default preview;
