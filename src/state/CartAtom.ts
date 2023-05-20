@@ -36,3 +36,13 @@ export const cartProductsCheckedCountState = selector<number>({
     return get(cartState).filter((cartProduct) => cartProduct.checked === true).length;
   },
 });
+
+export const checkedCartProductsPriceSumState = selector<number>({
+  key: 'checkedCartProductsPriceSumState',
+  get: ({ get }) => {
+    return get(cartState).reduce((prev, cartProduct) => {
+      if (cartProduct.checked === false) return prev;
+      return prev + cartProduct.product.price * cartProduct.quantity;
+    }, 0);
+  },
+});
