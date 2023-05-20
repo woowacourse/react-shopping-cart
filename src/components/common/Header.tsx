@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
+import styled from 'styled-components';
 
 import { cartCountState } from '../../recoil/state';
 
