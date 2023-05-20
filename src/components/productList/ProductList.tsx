@@ -1,13 +1,23 @@
 import type { ProductType } from '../../types';
 
+import { useEffect, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
+
+import * as api from '../../api';
 import Product from './Product';
+import { cartState } from '../../recoil/state';
 
-interface ProductListProps {
-  products: ProductType[];
-}
+export default function ProductList() {
+  const [products, setProducts] = useState<ProductType[] | null>(null);
+  const setCart = useSetRecoilState(cartState);
 
-export default function ProductList({ products }: ProductListProps) {
+  useEffect(() => {
+    api.getProducts().then(setProducts);
+    api.getCart().then(setCart);
+  }, []);
+
+  if (products === null) return <>로딩중!</>;
   return (
     <Wrapper>
       {products.map((product) => (
