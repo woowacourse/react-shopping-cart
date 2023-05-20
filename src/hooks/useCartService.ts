@@ -1,49 +1,73 @@
 import { useRecoilState } from 'recoil';
 import cartState from '../globalState/atoms/cartState';
-import { uuid } from '../utils/uuid';
 import type { Product } from '../types/product';
 
 const useCartService = () => {
   const [cartList, setCartList] = useRecoilState(cartState);
 
-  const getNewCartItem = (product: Product) => {
-    return {
-      id: uuid(),
-      quantity: 1,
-      product,
-    };
+  const fetchCartItem = () => {
+    fetch('cart-items')
+      .then((res) => {
+        if (!res.ok) throw new Error('서버에 문제가 발생했습니다.');
+        return res.json();
+      })
+      .then((fetchedCartList) => {
+        setCartList(fetchedCartList);
+      });
   };
 
   const addCartItem = (product: Product) => {
-    setCartList((prevCart) => {
-      const newCartItem = getNewCartItem(product);
+    fetch(`cart-items`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ productId: product.id }),
+    }).then((res) => {
+      if (!res.ok) throw new Error('서버에 문제가 발생했습니다.');
 
-      return [...prevCart, newCartItem];
+      fetchCartItem();
     });
   };
 
   const updateCartItemQuantity = (cartId: string) => (quantity: number) => {
-    setCartList((prevCart) => {
-      return prevCart.map((cartItem) => {
-        if (cartItem.id !== cartId) return cartItem;
+    fetch(`cart-items/${cartId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ quantity: quantity }),
+    }).then((res) => {
+      if (!res.ok) throw new Error('서버에 문제가 발생했습니다.');
 
-        return {
-          ...cartItem,
-          quantity,
-        };
+      setCartList((prevCart) => {
+        return prevCart.map((cartItem) => {
+          if (cartItem.id !== cartId) return cartItem;
+
+          return {
+            ...cartItem,
+            quantity,
+          };
+        });
       });
     });
   };
 
   const deleteCartItem = (cartId: string) => {
-    setCartList((prevCart) =>
-      prevCart.filter((cartItem) => cartItem.id !== cartId),
-    );
+    fetch(`cart-items/${cartId}`, {
+      method: 'DELETE',
+    }).then((res) => {
+      if (!res.ok) throw new Error('서버에 문제가 발생했습니다.');
+
+      setCartList((prevCart) =>
+        prevCart.filter((cartItem) => cartItem.id !== cartId),
+      );
+    });
   };
 
   const getCartId = (productId: number) => {
     return cartList.filter((cartItem) => cartItem.product.id === productId)[0]
-      .id;
+      ?.id;
   };
 
   return {
