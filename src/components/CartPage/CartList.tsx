@@ -11,8 +11,8 @@ export default function CartList() {
   return (
     <CartListContainer>
       <CartListHeader>든든 배송 상품 ({cartTotal}개)</CartListHeader>
-      {cart.map(({ id, quantity, product }) => (
-        <CartListItem key={id} quantity={quantity} product={product} id={id} />
+      {cart.map((cartItem) => (
+        <CartListItem key={cartItem.id} {...cartItem} />
       ))}
       <SelectCartItem />
     </CartListContainer>

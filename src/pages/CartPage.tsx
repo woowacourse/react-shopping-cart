@@ -8,7 +8,7 @@ export default function CartPage() {
     <CartPageContainer>
       <CartPageHeader>장바구니</CartPageHeader>
       <CartPageBody>
-        <Suspense fallback={<div>loading..</div>}>
+        <Suspense fallback={<div>삭제버튼 로딩 인디케이터</div>}>
           <CartList />
         </Suspense>
         <SubTotal />

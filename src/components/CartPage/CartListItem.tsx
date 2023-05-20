@@ -5,6 +5,9 @@ import CheckIconImage from '../../asset/check_icon.svg';
 import useCount from '../../hooks/useCount';
 import { Product } from '../../type/product';
 import DeleteButton from './DeleteButton';
+import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { cartSelects } from '../../atoms/cartSelects';
 
 interface CartListItemProps {
   id: number;
@@ -19,11 +22,32 @@ export default function CartListItem({
 }: CartListItemProps) {
   const { count, setCount } = useCount(quantity);
   const { name, imageUrl, price } = product;
+  const [check, setCheck] = useState(false);
+  const [cartSelectsState, setCartSelectsState] = useRecoilState(cartSelects);
 
+  useEffect(() => {
+    if (check) {
+      const newCartSelects = [...cartSelectsState];
+      const newCartSelectSet = new Set(newCartSelects);
+      newCartSelectSet.add(id);
+      setCartSelectsState(newCartSelectSet);
+    } else {
+      const newCartSelects = [...cartSelectsState];
+      const newCartSelectSet = new Set(newCartSelects);
+      newCartSelectSet.delete(id);
+      setCartSelectsState(new Set(newCartSelectSet));
+    }
+  }, [check]);
   return (
     <CartListItemContainer>
       <CartInfoContainer>
-        <SelectBox type='checkbox' />
+        <SelectBox
+          type='checkbox'
+          checked={check}
+          onChange={() => {
+            setCheck((check) => !check);
+          }}
+        />
         <ProductImg src={imageUrl} />
         <ProductName>{name}</ProductName>
       </CartInfoContainer>

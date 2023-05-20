@@ -1,12 +1,56 @@
 import styled from 'styled-components';
 import CheckIconImage from '../../asset/check_icon.svg';
+import {
+  cartRequestAction,
+  cartState,
+  cartTotalState,
+} from '../../atoms/cartState';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { cartSelects } from '../../atoms/cartSelects';
+import { useEffect, useState } from 'react';
 
 export default function SelectCartItem() {
+  const cart = useRecoilValue(cartState({ action: 'GET' }));
+  const cartTotal = useRecoilValue(cartTotalState);
+  const [cartSelectsState, setCartSelectsState] = useRecoilState(cartSelects);
+  const setRequestAction = useSetRecoilState(
+    cartRequestAction({ action: 'GET' })
+  );
+  const [checkAll, setCheckAll] = useState(false);
+
+  useEffect(() => {
+    if (checkAll) {
+      const newCartSelects = cart.map((cartItem) => cartItem.id);
+      setCartSelectsState(new Set(newCartSelects));
+    } else {
+      setCartSelectsState(new Set());
+    }
+  }, [checkAll]);
   return (
     <SelectCartItemContainer>
-      <SelectBox type='checkbox' />
-      <Text>전체선택(?/??)</Text>
-      <SelectDeleteButton>선택 삭제</SelectDeleteButton>
+      <SelectBox
+        checked={checkAll}
+        type='checkbox'
+        onChange={() => {
+          setCheckAll((checkAll) => !checkAll);
+        }}
+      />
+      <Text>
+        전체선택({cartSelectsState.size}/{cartTotal})
+      </Text>
+      <SelectDeleteButton
+        onClick={() => {
+          cartSelectsState.forEach((cartSelect) => {
+            setRequestAction({
+              action: 'DELETE',
+              payload: { cartId: cartSelect },
+            });
+            setCartSelectsState(new Set());
+          });
+        }}
+      >
+        선택 삭제
+      </SelectDeleteButton>
     </SelectCartItemContainer>
   );
 }
