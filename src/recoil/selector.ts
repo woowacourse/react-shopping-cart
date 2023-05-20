@@ -12,12 +12,6 @@ export const productIdsSelector = selector({
     Object.values(get(cartItemsState)).map(cartItem => cartItem.productId),
 });
 
-export const cartItemIdsSelector = selector({
-  key: 'cartItemIdsSelector',
-  get: ({ get }) =>
-    Object.values(get(cartItemsState)).map(cartItem => cartItem.cartItemId),
-});
-
 export const quantityListSelector = selector({
   key: 'quantityListSelector',
   get: ({ get }) =>

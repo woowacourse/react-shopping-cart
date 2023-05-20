@@ -13,10 +13,8 @@ const useUpdateCart = (productId: number, quantity: number) => {
       }
 
       const newCartItems = { ...prev };
-      const cartItemsLength = Object.keys(prev).length;
       const key = `product${productId}`;
       const newCartItem = {
-        cartItemId: cartItemsLength + 1,
         productId: productId,
         quantity: quantity,
       };
