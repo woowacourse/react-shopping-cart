@@ -1,4 +1,4 @@
-import { DefaultValue, atom, selectorFamily } from 'recoil';
+import { DefaultValue, atom, selector, selectorFamily } from 'recoil';
 
 const KEY = 'LOCAL_CART_TOGGLES';
 
@@ -34,6 +34,24 @@ export const productToggleSelector = selectorFamily<boolean, number>({
 
       set(cartToggleState, newToggleState);
     },
+});
+
+export const toggledProductsSelector = selector<number[]>({
+  key: 'toggledProductSelector',
+
+  get: ({ get }) => {
+    const toggleState = get(cartToggleState);
+    return Object.keys(toggleState)
+      .filter((id) => toggleState[Number(id)])
+      .map(Number);
+  },
+});
+
+export const allCheckedStatusSelector = selector({
+  key: 'allCheckedStatusSelector',
+
+  get: ({ get }) =>
+    get(toggledProductsSelector).length === Object.keys(get(cartToggleState)).length,
 });
 
 export default cartToggleState;

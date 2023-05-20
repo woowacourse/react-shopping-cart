@@ -4,10 +4,11 @@ import * as Styled from './Checkbox.styled';
 
 interface CheckboxProps extends HTMLAttributes<HTMLInputElement> {
   label: string;
+  checked?: boolean;
 }
 
 const Checkbox = (props: CheckboxProps) => {
-  const { defaultChecked, onClick, label } = props;
+  const { defaultChecked, onClick, label, checked, onChange } = props;
 
   return (
     <div>
@@ -16,6 +17,8 @@ const Checkbox = (props: CheckboxProps) => {
         id={label}
         defaultChecked={defaultChecked}
         onClick={onClick}
+        checked={checked}
+        onChange={onChange}
       />
       <Styled.CheckboxLabel htmlFor={label}>
         <Styled.CheckSignDiv aria-hidden />

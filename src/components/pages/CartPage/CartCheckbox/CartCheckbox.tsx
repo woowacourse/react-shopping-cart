@@ -15,8 +15,8 @@ const CartCheckbox = (props: CartCheckboxProps) => {
   return (
     <Checkbox
       label={`${productName} 상품 선택하기`}
-      defaultChecked={isToggled}
-      onClick={() => setIsToggled((prev) => !prev)}
+      checked={isToggled}
+      onChange={() => setIsToggled((prev) => !prev)}
     />
   );
 };
