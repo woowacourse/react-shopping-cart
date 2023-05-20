@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 
-import * as api from '../../api';
-import { isNumeric } from '../../utils/validator';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { cartItemState, cartState } from '../../recoil/state';
+import { useRecoilValue } from 'recoil';
+import { cartItemState } from '../../recoil/state';
+import useQuantityInput from '../../hooks/useQuantityInput';
+import { isNaturalNumberString } from '../../utils/validator';
 
 interface Props {
   cartItemId: number;
@@ -14,59 +14,47 @@ interface Props {
 }
 
 export default function CounterInput({ cartItemId, min = 0, max, style }: Props) {
-  const setCart = useSetRecoilState(cartState);
   const cartItem = useRecoilValue(cartItemState(cartItemId));
-  const [count, setCount] = useState('');
+  const [input, { setQuantityInput, setQuantityInputProxy }] = useQuantityInput(cartItemId);
 
-  const getValidRangeNumber = (number: number) => {
-    if (min > number) return min;
-    if (max && max < number) return max;
-    return number;
-  };
-
-  const setCountWithFetch = (quantity: number) => {
-    const validQuantity = getValidRangeNumber(quantity);
-    setCount(validQuantity.toString());
-
-    if (validQuantity === 0) {
-      api.deleteCartItem(cartItemId).then(api.getCart).then(setCart);
-    } else {
-      api.patchCartItemQuantity(cartItemId, validQuantity).then(api.getCart).then(setCart);
-    }
+  const getValidRange = (quantity: number) => {
+    if (min > quantity) return min;
+    if (max && max < quantity) return max;
+    return quantity;
   };
 
   const onChangeInput = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
-    if (isNumeric(value)) {
-      setCountWithFetch(Number(value));
+    if (isNaturalNumberString(value)) {
+      setQuantityInputProxy(getValidRange(Number(value)));
     } else if (value === '') {
-      setCount('');
+      setQuantityInput('');
     }
   };
 
   const onBlurInput = () => {
-    if (count === '') setCountWithFetch(min);
+    if (input === '') setQuantityInputProxy(min);
   };
 
-  const countUp = () => {
-    setCountWithFetch(Number(count) + 1);
+  const quantityUp = () => {
+    setQuantityInputProxy(Number(input) + 1);
   };
 
-  const countDown = () => {
-    setCountWithFetch(Number(count) - 1);
+  const quantityDown = () => {
+    setQuantityInputProxy(Number(input) - 1);
   };
 
   useEffect(() => {
-    if (cartItem) setCount(cartItem.quantity.toString());
+    if (cartItem) setQuantityInput(cartItem.quantity.toString());
   }, []);
 
   return (
     <Wrapper style={style}>
-      <Input type="text" value={count} onChange={onChangeInput} onBlur={onBlurInput} />
+      <Input type="text" value={input} onChange={onChangeInput} onBlur={onBlurInput} />
       <CounterBox>
-        <Counter onClick={countUp} disabled={Number(count) === max}>
+        <Counter onClick={quantityUp} disabled={Number(input) === max}>
           <img src="./arrowUp.svg" />
         </Counter>
-        <Counter onClick={countDown} disabled={Number(count) === min}>
+        <Counter onClick={quantityDown} disabled={Number(input) === min}>
           <img src="./arrowDown.svg" />
         </Counter>
       </CounterBox>
