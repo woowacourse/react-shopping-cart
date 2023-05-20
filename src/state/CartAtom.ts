@@ -23,9 +23,16 @@ export const filteredCartProductState = selectorFamily({
     },
 });
 
-export const cartProductCountState = selector<number>({
-  key: 'cartProductCountState',
+export const cartProductsCountState = selector<number>({
+  key: 'cartProductsCountState',
   get: ({ get }) => {
     return get(cartState).length;
+  },
+});
+
+export const cartProductsCheckedCountState = selector<number>({
+  key: 'cartProductsCheckedCountState',
+  get: ({ get }) => {
+    return get(cartState).filter((cartProduct) => cartProduct.checked === true).length;
   },
 });

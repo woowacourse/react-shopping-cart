@@ -9,6 +9,7 @@ import { flexRow } from 'styles/mixin';
 export const CartPage = () => {
   const cartProducts = useRecoilValue(cartState);
   const cartProductsCount = useRecoilValue(cartProductsCountState);
+  const cartProductsCheckedCount = useRecoilValue(cartProductsCheckedCountState);
 
   return (
     <>
@@ -18,10 +19,12 @@ export const CartPage = () => {
       <CartListTitleWrapper>
         <FlexBox align="center" gap="10px">
           <CheckAllCheckBox type="checkbox" />
-          <CheckAllCheckBoxText>전체선택(2/{cartProductsCount})</CheckAllCheckBoxText>
+          <CheckAllCheckBoxText>
+            전체선택({cartProductsCheckedCount}/{cartProductsCount})
+          </CheckAllCheckBoxText>
           <RemoveButton>선택삭제</RemoveButton>
         </FlexBox>
-        <CartListTitle>배송 상품 ({cartProductsCount}개)</CartListTitle>
+        <CartListTitle>배송 상품 ({cartProductsCheckedCount}개)</CartListTitle>
       </CartListTitleWrapper>
       <FlexBox justify="space-around" gap="70px">
         <FlexBox direction="column" width="600px" margin="10px 0">
