@@ -2,12 +2,13 @@ import styled from 'styled-components';
 
 import CheckBox from '../Common/CheckBox';
 import Image from '../Common/Image';
+import AmountCounter from '../Common/AmountCounter';
 
 import type { CartProduct } from '../../types/product';
 import TrashCanIcon from '../../assets/TrashCanIcon';
-import AmountCounter from '../Common/AmountCounter';
 import useProductQuantity from '../../hooks/useProductQuantity';
 import useCartProducts from '../../hooks/useCartProducts';
+import useCheckedProducts from '../../hooks/useCheckedProducts';
 
 interface CartProductItemProps {
   cartProduct: CartProduct;
@@ -18,12 +19,13 @@ const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
   const { id, name, price, imageUrl } = product;
   const { removeProduct } = useCartProducts(product);
   const { addCount, subtractCount } = useProductQuantity(id);
+  const { handleCheckBoxChange } = useCheckedProducts();
 
   return (
     <CartProductItemContainer>
       <CartProductLeftWrapper>
         <CheckBoxWrapper>
-          <CheckBox />
+          <CheckBox onChange={() => handleCheckBoxChange(cartProduct)} />
         </CheckBoxWrapper>
         <Image
           src={`${process.env.PUBLIC_URL}/${imageUrl}`}

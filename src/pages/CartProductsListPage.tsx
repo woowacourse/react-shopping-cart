@@ -5,8 +5,16 @@ import EstimatedPaymentBox from '../components/Cart/EstimatedPaymentBox';
 import Header from '../components/Common/Header';
 import CheckBox from '../components/Common/CheckBox';
 import Button from '../components/Common/Button';
+import { useRecoilValue } from 'recoil';
+import { totalCartProductSelect } from '../recoil/cartProductData';
+import { checkedListSelector } from '../recoil/checkedProductData';
+import useCheckedProducts from '../hooks/useCheckedProducts';
 
 const CartProductsListPage = () => {
+  const totalCartProductCount = useRecoilValue(totalCartProductSelect);
+  const checkedCartProductCount = useRecoilValue(checkedListSelector);
+  const { removeCheckedProducts } = useCheckedProducts();
+
   return (
     <>
       <Header />
@@ -14,12 +22,20 @@ const CartProductsListPage = () => {
         <CartProductTitle>장바구니</CartProductTitle>
         <CartProductContent>
           <CartProductInfo>
-            <CartProductListTitle>든든배송 상품 (3개)</CartProductListTitle>
+            <CartProductListTitle>
+              든든배송 상품 ({totalCartProductCount}개)
+            </CartProductListTitle>
             <CartProductList />
             <SelectContainer>
               <CheckBox />
-              <TotalSelectedCount>전체선택 (2/3)</TotalSelectedCount>
-              <Button designType='delete' buttonLabel='선택삭제' />
+              <TotalSelectedCount>
+                전체선택 ({checkedCartProductCount}/{totalCartProductCount})
+              </TotalSelectedCount>
+              <Button
+                designType='delete'
+                buttonLabel='선택삭제'
+                onClick={removeCheckedProducts}
+              />
             </SelectContainer>
           </CartProductInfo>
         </CartProductContent>
