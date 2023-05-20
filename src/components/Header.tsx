@@ -9,10 +9,10 @@ export default function Header() {
   return (
     <Style.Container>
       <Style.Content>
-        <Style.Title onClick={() => navigate('/')}>
+        <Style.Title title="홈으로 이동" onClick={() => navigate('/')}>
           <CartLogo />
         </Style.Title>
-        <Style.CartButton onClick={() => navigate('/')}>
+        <Style.CartButton title="장바구니 페이지로 이동" onClick={() => navigate('/cart')}>
           <CartCountBadge />
         </Style.CartButton>
       </Style.Content>

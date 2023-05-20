@@ -4,13 +4,17 @@ import { useCart } from '../../hooks/useCart';
 import CartItem from './CartItem';
 import Checkbox from '../common/Checkbox';
 import Button from '../common/Button';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { checkedCartItemsState } from '../../recoil/atoms';
+import TotalPayment from './TotalPayment';
+import { DELIVERY_FEE } from '../../constants';
+import { totalProductsPriceState } from '../../recoil/selectors';
 
 export default function CartList() {
   const { cartList, deleteFromCart } = useCart();
   const [isAllChecked, setIsAllChecked] = useState(true);
-  const [checkedItems, setCheckedItems] = useState<number[]>(
-    cartList.map((cartItem) => cartItem.id)
-  );
+  const [checkedItems, setCheckedItems] = useRecoilState(checkedCartItemsState);
+  const totalProductsPrice = useRecoilValue(totalProductsPriceState);
 
   const handleCheckedItem = (id: number) => {
     if (checkedItems.includes(id)) {
@@ -37,6 +41,11 @@ export default function CartList() {
   };
 
   useEffect(() => {
+    setCheckedItems(cartList.map((cartItem) => cartItem.id));
+  }, []);
+
+  useEffect(() => {
+    console.log(checkedItems);
     if (cartList.length === checkedItems.length) {
       setIsAllChecked(true);
       return;
@@ -48,43 +57,77 @@ export default function CartList() {
   return (
     <Style.CartListContainer>
       <h2>든든배송 상품({cartList.length}개)</h2>
-      <ul>
-        {cartList.map((cartItemInfo) => (
-          <Style.ProductContainer>
-            <Style.CheckBoxWrapper>
-              <Checkbox
-                id={`${cartItemInfo.product.name}-checkbox`}
-                checked={checkedItems.includes(cartItemInfo.id)}
-                itemId={cartItemInfo.id}
-                handleCheckedItem={handleCheckedItem}
-              />
-            </Style.CheckBoxWrapper>
-            <CartItem cartItemInfo={cartItemInfo} deleteCheckedItem={setCheckedItems} />
-          </Style.ProductContainer>
-        ))}
-      </ul>
-      <Style.TotalCheckboxAndDeleteButtonContainer>
-        <Style.TotalCheckbox type="checkbox" checked={isAllChecked} onChange={handleAllChecked} />
-        <Style.TotalSelectCaption>
-          전체선택 ({`${checkedItems.length}/${cartList.length}`})
-        </Style.TotalSelectCaption>
-        <Button designType="text" fontSize={'12px'} color={'black'} onClick={deleteCheckedItems}>
-          선택삭제
-        </Button>
-      </Style.TotalCheckboxAndDeleteButtonContainer>
+      <Style.CartItemsAndPaymentContainer>
+        <Style.CartItemsContainer>
+          <Style.CartItems>
+            {cartList.map((cartItemInfo) => (
+              <Style.ProductContainer>
+                <Style.CheckBoxWrapper>
+                  <Checkbox
+                    id={`${cartItemInfo.product.name}-checkbox`}
+                    checked={checkedItems.includes(cartItemInfo.id)}
+                    itemId={cartItemInfo.id}
+                    handleCheckedItem={handleCheckedItem}
+                  />
+                </Style.CheckBoxWrapper>
+                <CartItem cartItemInfo={cartItemInfo} deleteCheckedItem={setCheckedItems} />
+              </Style.ProductContainer>
+            ))}
+          </Style.CartItems>
+          <Style.TotalCheckboxAndDeleteButtonContainer>
+            <Style.TotalCheckbox
+              id="total-checkbox"
+              type="checkbox"
+              checked={isAllChecked}
+              onChange={handleAllChecked}
+            />
+            <Style.TotalSelectCaption htmlFor="total-checkbox">
+              전체선택 ({`${checkedItems.length}/${cartList.length}`})
+            </Style.TotalSelectCaption>
+            <Style.Span aria-hidden>|</Style.Span>
+            <Button
+              designType="text"
+              fontSize={'12px'}
+              color={'black'}
+              onClick={deleteCheckedItems}
+            >
+              선택삭제
+            </Button>
+          </Style.TotalCheckboxAndDeleteButtonContainer>
+        </Style.CartItemsContainer>
+        <TotalPayment totalProductsPrice={totalProductsPrice} deliveryFee={DELIVERY_FEE} />
+      </Style.CartItemsAndPaymentContainer>
     </Style.CartListContainer>
   );
 }
 
 const Style = {
   CartListContainer: styled.div`
-    height: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  `,
+
+  CartItemsAndPaymentContainer: styled.div`
+    display: flex;
+
+    margin-top: 20px;
+  `,
+
+  CartItemsContainer: styled.div`
+    border-top: 4px solid var(--grey-200);
+    margin-right: 80px;
+  `,
+
+  CartItems: styled.ul`
+    height: 600px;
+    overflow-y: scroll;
   `,
 
   ProductContainer: styled.li`
     display: flex;
 
-    width: 735px;
+    width: 550px;
     height: 200px;
 
     padding: 20px;
@@ -113,13 +156,17 @@ const Style = {
     cursor: pointer;
   `,
 
-  TotalSelectCaption: styled.p`
+  TotalSelectCaption: styled.label`
+    width: 90px;
+
     font-size: 12px;
 
-    &::after {
-      content: '|';
-      margin-left: 5px;
-      margin-right: 5px;
-    }
+    cursor: pointer;
+  `,
+
+  Span: styled.span`
+    margin: 0 5px;
+
+    color: var(--grey-200);
   `,
 };
