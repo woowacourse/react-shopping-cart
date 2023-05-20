@@ -22,4 +22,21 @@ export default meta;
 
 type Story = StoryObj<typeof ProductSelectListPart>;
 
-export const DefaultProductSelectListPart: Story = {};
+export const DefaultProductSelectListPart: Story = {
+  args: {
+    checkController: {
+      checkedItemsId: [],
+      updateEachItemCheckStatus: () => {
+        return () => {
+          return;
+        };
+      },
+      updateAllItemCheckState: () => {
+        return;
+      },
+      parentCheckbox: () => {
+        return;
+      },
+    },
+  },
+};
