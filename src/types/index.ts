@@ -1,5 +1,3 @@
-export type CartItems = { [itemID: number]: { quantity: number } };
-
 export type Product = {
   id: number;
   name: string;
