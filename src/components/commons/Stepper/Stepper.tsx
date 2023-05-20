@@ -1,5 +1,3 @@
-import useMyCartUpdater from '../../../hooks/useStepper';
-
 import * as Styled from './Stepper.styled';
 
 interface StepperProps {

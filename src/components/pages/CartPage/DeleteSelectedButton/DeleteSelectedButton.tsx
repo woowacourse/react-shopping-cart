@@ -2,6 +2,8 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import cartToggleState, { toggledProductsSelector } from '../../../../recoil/cartToggleState';
 import cartState from '../../../../recoil/cartState';
 
+import * as Styled from './DeleteSelectedButton.styled';
+
 const DeleteSelectedButton = () => {
   const toggledProducts = useRecoilValue(toggledProductsSelector);
   const setToggles = useSetRecoilState(cartToggleState);
@@ -28,9 +30,9 @@ const DeleteSelectedButton = () => {
   };
 
   return (
-    <button type="button" onClick={deleteToggledProducts}>
-      선택한 상품 삭제하기
-    </button>
+    <Styled.DeleteSelectedButton type="button" onClick={deleteToggledProducts}>
+      선택 삭제
+    </Styled.DeleteSelectedButton>
   );
 };
 

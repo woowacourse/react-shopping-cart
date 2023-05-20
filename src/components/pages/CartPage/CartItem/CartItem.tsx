@@ -14,7 +14,7 @@ const CartSingleItem = (props: CartSingleItemProps) => {
   const { id, quantity, name, imageUrl, price } = props;
 
   return (
-    <Styled.CartItemDiv>
+    <Styled.CartItemLi>
       <Styled.NameDiv>
         <CartCheckbox productId={id} productName={name} />
         <SquareImage size="l" src={imageUrl} alt="" />
@@ -25,7 +25,7 @@ const CartSingleItem = (props: CartSingleItemProps) => {
         <CartStepper productId={id} defaultValue={quantity} />
         <p>{price.toLocaleString('ko-KR')}원</p>
       </Styled.CountDiv>
-    </Styled.CartItemDiv>
+    </Styled.CartItemLi>
   );
 };
 
