@@ -1,11 +1,6 @@
-export interface Product {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
-  quantity: string;
-}
+import { Product } from "hooks/useGet";
 
-export interface ProductWithChecked extends Product {
+export interface ProductType extends Product {
+  quantity: number;
   isChecked: boolean;
 }
