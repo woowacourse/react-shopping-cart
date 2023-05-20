@@ -16,6 +16,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
   const { imageUrl, name, price } = product;
   const { target, addProduct, addCount, subtractCount } =
     useCartProducts(product);
+  const productExistsInCart = target && target.quantity > 0;
 
   return (
     <ProductContainer>
@@ -30,7 +31,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
           <ProductName>{name}</ProductName>
           <ProductPrice>{price.toLocaleString('ko-KR')} 원</ProductPrice>
         </dl>
-        {!target || target.quantity === 0 ? (
+        {!productExistsInCart ? (
           <ProductCartBtn type='button' onClick={addProduct}>
             <CartIcon width={25} height={22} color='gray400' />
           </ProductCartBtn>
