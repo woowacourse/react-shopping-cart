@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import ProductListPage from './components/pages/ProductListPage';
-import CartPage from './components/pages/CartPage';
+import ProductListPage from './components/page/ProductListPage';
+import CartPage from './components/page/CartPage';
 
 const routes = [
   {
