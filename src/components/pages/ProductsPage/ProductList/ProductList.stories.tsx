@@ -5,6 +5,8 @@ import { RecoilRoot } from 'recoil';
 import ProductList from './ProductList';
 
 import mockProducts from '../../../../mocks/data/products.json';
+import { DataFetcher } from '../../../../utils/fetchData';
+import { Product } from '../../../../types/Product';
 
 /**
  * 상품 목록 컴포넌트
@@ -18,9 +20,7 @@ const meta: Meta<typeof ProductList> = {
   decorators: [
     (Story) => (
       <RecoilRoot>
-        <Suspense fallback={<p>msw에서 데이터 불러오는중..</p>}>
-          <Story />
-        </Suspense>
+        <Story />
       </RecoilRoot>
     ),
   ],
@@ -30,6 +30,10 @@ export default meta;
 
 type Story = StoryObj<typeof ProductList>;
 
+const mockFetcher: DataFetcher<Product[]> = {
+  read: () => mockProducts,
+};
+
 export const Default: Story = {
-  args: { list: mockProducts },
+  args: { listFetcher: mockFetcher },
 };
