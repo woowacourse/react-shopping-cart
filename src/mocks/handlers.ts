@@ -3,9 +3,19 @@ import mockProducts from './mockProducts.json';
 import { API_BASE } from 'apis/products/api';
 import { rest } from 'msw';
 import { Product } from 'types/product';
+import store from 'utils/localStorage';
+
+const MOCK_CART_KEY = 'MOCK_CART';
 
 let products: Product[] = mockProducts;
-let cart: CartProduct[] = [];
+
+if (!store.getStorage(MOCK_CART_KEY)) {
+  store.setStorage(MOCK_CART_KEY, []);
+}
+
+const getCart = (): CartProduct[] => {
+  return store.getStorage(MOCK_CART_KEY)!;
+};
 
 export const handlers = [
   // 상품 목록 조회
@@ -30,13 +40,14 @@ export const handlers = [
 
     return res(ctx.json(product));
   }),
+
   // TODO: 상품 추가
   // TODO: 상품 수정
   // TODO: 상품 삭제
 
   // 장바구니 아이템 목록 조회
   rest.get(`${API_BASE}/cart-items`, (req, res, ctx) => {
-    return res(ctx.json(cart));
+    return res(ctx.json(getCart()));
   }),
 
   // 장바구니 아이템 추가
@@ -47,7 +58,7 @@ export const handlers = [
     const { productId } = await req.json<RequestBody>();
 
     const product = products.find((product) => product.id === productId);
-    const cartProduct = cart.find((cartProduct) => cartProduct.id === productId);
+    const cartProduct = getCart().find((cartProduct) => cartProduct.id === productId);
 
     if (!product) {
       return res(
@@ -67,7 +78,7 @@ export const handlers = [
       );
     }
 
-    cart.push({
+    store.addItem(MOCK_CART_KEY, {
       id: product.id,
       quantity: 1,
       product,
@@ -89,13 +100,22 @@ export const handlers = [
     const { cartItemId } = req.params;
     const { quantity } = await req.json<RequestBody>();
 
-    const cartProduct = cart.find((cartProduct) => cartProduct.id === Number(cartItemId));
+    const cartProduct = getCart().find((cartProduct) => cartProduct.id === Number(cartItemId));
 
     if (!cartProduct) {
       return res(ctx.status(404), ctx.json({ error: '상품이 존재하지 않습니다.' }));
     }
 
-    cartProduct.quantity = quantity;
+    store.setStorage(
+      MOCK_CART_KEY,
+      getCart().map((cartProduct) => {
+        if (cartProduct.id === Number(cartItemId)) {
+          cartProduct.quantity = quantity;
+        }
+        return cartProduct;
+      })
+    );
+
     return res(ctx.status(200));
   }),
 
@@ -103,12 +123,17 @@ export const handlers = [
   rest.delete(`${API_BASE}/cart-items/:cartItemId`, (req, res, ctx) => {
     const { cartItemId } = req.params;
 
-    const cartProduct = cart.find((cartProduct) => cartProduct.id === Number(cartItemId));
+    const cartProduct = getCart().find((cartProduct) => cartProduct.id === Number(cartItemId));
 
     if (!cartProduct) {
       return res(ctx.status(404), ctx.json({ error: '상품이 존재하지 않습니다.' }));
     }
 
-    cart = cart.filter((cartProduct) => cartProduct.id !== Number(cartItemId));
+    store.setStorage(
+      MOCK_CART_KEY,
+      getCart().filter((cartProduct) => cartProduct.id !== Number(cartItemId))
+    );
+
+    return res(ctx.status(204));
   }),
 ];
