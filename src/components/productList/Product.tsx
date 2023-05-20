@@ -1,39 +1,23 @@
 import type { ProductType } from '../../types';
 
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import CounterInput from '../leafs/CounterInput';
+import CounterInput from '../common/CounterInput';
 
-import useCart from '../../hooks/useCart';
+import * as api from '../../api';
+import { useRecoilState } from 'recoil';
+import { cartState } from '../../recoil/state';
 import { MAX_QUANTITY } from '../../constants';
 
-interface ProductProps extends ProductType {}
+interface Props extends ProductType {}
 
-export default function Product(props: ProductProps) {
-  const { id, name, price, imageUrl } = props;
-  const [cart, { addCartItem, removeCartItem, updateQuantity }] = useCart();
-  const [quantityInput, setQuantityInput] = useState('');
-  const cartItem = cart.find((item) => item.product.id === id);
+export default function Product({ id, name, price, imageUrl }: Props) {
+  const [cart, setCart] = useRecoilState(cartState);
 
-  const onAddCartItem = () => {
-    addCartItem({ id: Date.now(), quantity: 1, product: props });
-    setQuantityInput('1');
+  const cartItem = cart.find((cartItem) => cartItem.product.id === id);
+
+  const addCartItem = () => {
+    api.postCartItem(id).then(api.getCart).then(setCart);
   };
-
-  useEffect(() => {
-    if (quantityInput === '') return;
-
-    const quantity = Number(quantityInput);
-    if (quantity === 0) {
-      removeCartItem(id);
-    } else {
-      updateQuantity(id, quantity);
-    }
-  }, [quantityInput]);
-
-  useEffect(() => {
-    if (cartItem) setQuantityInput(String(cartItem.quantity));
-  }, []);
 
   return (
     <Wrapper>
@@ -45,14 +29,9 @@ export default function Product(props: ProductProps) {
         </LabelBox>
         <ControlBox>
           {cartItem ? (
-            <CounterInput
-              count={quantityInput}
-              setCount={setQuantityInput}
-              min={0}
-              max={MAX_QUANTITY}
-            />
+            <CounterInput cartItemId={cartItem.id} min={0} max={MAX_QUANTITY} />
           ) : (
-            <CartIcon src="./cart.svg" onClick={onAddCartItem}></CartIcon>
+            <CartIcon src="./cart.svg" onClick={addCartItem}></CartIcon>
           )}
         </ControlBox>
       </InfoBox>
