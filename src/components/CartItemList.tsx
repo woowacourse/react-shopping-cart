@@ -1,5 +1,6 @@
 import { useCartState } from '../recoils/recoilCart';
-import { CartItem } from './CartItem';
+
+import { CartItem } from './exporter';
 
 export const CartItemList = () => {
   const [cart] = useCartState();

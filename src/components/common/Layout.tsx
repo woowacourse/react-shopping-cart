@@ -1,7 +1,8 @@
-import { Header } from '../Header';
-
 import { PropsWithChildren } from 'react';
+
 import { styled } from 'styled-components';
+
+import { Header } from '../exporter';
 
 export const Layout = ({ children }: PropsWithChildren) => (
   <Style.Layout>

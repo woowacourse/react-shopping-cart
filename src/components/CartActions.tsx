@@ -1,7 +1,9 @@
 import { styled } from 'styled-components';
+
 import { useCartState } from '../recoils/recoilCart';
 import { useCheckedState } from '../recoils/recoilChecked';
-import { Checkbox } from './styled';
+
+import { Checkbox } from './exporter';
 
 export const CartActions = () => {
   const [cart] = useCartState();

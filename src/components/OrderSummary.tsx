@@ -1,6 +1,8 @@
 import { styled } from 'styled-components';
+
 import { useTotalProductPrice } from '../recoils/recoilTotalPrice';
-import { Button } from './common/Button';
+
+import { Button } from './exporter';
 
 export const OrderSummary = () => {
   const totalProductPrice = useTotalProductPrice();

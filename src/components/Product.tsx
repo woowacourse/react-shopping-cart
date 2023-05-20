@@ -1,11 +1,11 @@
 import { styled } from 'styled-components';
+import { CartIcon } from '../assets/svg';
 
 import { useProductInCartById } from '../recoils/recoilCart';
 import { useUpdateCart } from '../hooks/useUpdateCart';
 
-import { Stepper } from './Stepper';
+import { Stepper } from './exporter';
 
-import { CartIcon } from '../assets/svg';
 import { Product as IProduct } from '../types';
 
 interface Props {

@@ -1,6 +1,6 @@
 import { rest } from 'msw';
 
-import mockData from '../assets/mock.json';
+import mockData from '../assets/productMock.json';
 import cartMock from '../assets/cartMock.json';
 
 const minDelay = 300;

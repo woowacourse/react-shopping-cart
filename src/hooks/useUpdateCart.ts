@@ -1,5 +1,6 @@
-import { QUANTITY } from '../constants';
 import { useSetCartState } from '../recoils/recoilCart';
+
+import { QUANTITY } from '../constants';
 import { CartItem } from '../types';
 
 export const useUpdateCart = () => {

@@ -1,5 +1,4 @@
-import { Layout } from '../common/Layout';
-import { ProductList } from '../ProductList';
+import { Layout, ProductList } from '../exporter';
 
 export const Home = () => {
   return (

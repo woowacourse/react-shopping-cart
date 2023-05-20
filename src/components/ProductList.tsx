@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { styled } from 'styled-components';
 
-import { Product } from './Product';
 import { useQuery } from '../hooks/useQuery';
 
+import { Product, Skeleton } from './exporter';
+
 import { Product as IProduct } from '../types';
-import { Skeleton } from './Skeleton';
 
 export const ProductList = () => {
   const { isLoading, data: products, fetchData } = useQuery<IProduct[]>();
@@ -42,6 +42,8 @@ const Style = {
       display: flex;
       flex-direction: column;
       align-items: center;
+
+      margin-bottom: 40px;
 
       & > li:not(:last-child) {
         margin-bottom: 45px;

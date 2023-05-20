@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom';
+
 import { styled } from 'styled-components';
 import { CartLogo } from '../assets/svg';
-import { Link } from 'react-router-dom';
-import { CartSize } from './CartSize';
+
+import { CartSize } from './exporter';
 
 export const Header = () => {
   return (
