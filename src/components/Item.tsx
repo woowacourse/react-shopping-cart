@@ -1,21 +1,21 @@
 import styled from "styled-components";
-import type { Product } from "types/domain";
 import { useQuantity } from "hooks/useQuantity";
 import { MIN_QUANTITY } from "constants/";
 import QuantityCounter from "components/QuantityCounter";
+import { ProductType } from "types/domain";
 
-const Item = ({ id, name, price, imageUrl }: Product) => {
-  const { quantity, setNewQuantity } = useQuantity(id);
+const Item = (product: ProductType) => {
+  const { quantity, changeQuantity } = useQuantity(product.id);
 
   const handleCartClicked = () => {
-    setNewQuantity((Number(quantity) + 1).toString());
+    changeQuantity("1");
   };
 
   return (
     <Wrapper>
-      <img src={imageUrl} alt={`${name} 상품 이미지`} />
-      <NameBox>{name}</NameBox>
-      <PriceBox>{price.toLocaleString()}원</PriceBox>
+      <img src={product.imageUrl} alt={`${product.name} 상품 이미지`} />
+      <NameBox>{product.name}</NameBox>
+      <PriceBox>{product.price.toLocaleString()}원</PriceBox>
       <IconContainer>
         {quantity === MIN_QUANTITY.toString() ? (
           <img
@@ -24,7 +24,7 @@ const Item = ({ id, name, price, imageUrl }: Product) => {
             onClick={handleCartClicked}
           />
         ) : (
-          <QuantityCounter itemId={id} />
+          <QuantityCounter itemId={product.id} />
         )}
       </IconContainer>
     </Wrapper>

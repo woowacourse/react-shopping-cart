@@ -1,13 +1,17 @@
+import { useRecoilValue } from "recoil";
+import { cartTotalPrice } from "recoil/selector";
 import styled from "styled-components";
 
 const PurchaseOrder = () => {
+  const totalPrice = useRecoilValue(cartTotalPrice);
+
   return (
     <Wrapper>
       <TitleBox>결제 예상 금액</TitleBox>
       <TotalContainer>
         <AmountBox>
           <p>총 상품 가격</p>
-          <p>21,700원</p>
+          <p>{totalPrice.toLocaleString()}원</p>
         </AmountBox>
         <AmountBox>
           <p>총 배송비</p>
@@ -15,7 +19,7 @@ const PurchaseOrder = () => {
         </AmountBox>
         <AmountBox>
           <p>총 주문 금액</p>
-          <p>24,700원</p>
+          <p>{(totalPrice + 3000).toLocaleString()}원</p>
         </AmountBox>
       </TotalContainer>
       <OrderButton>주문하기</OrderButton>

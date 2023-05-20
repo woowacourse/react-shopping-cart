@@ -1,26 +1,22 @@
 import { styled } from "styled-components";
-import {
-  allCheckedCartItemSelector,
-  cartListSelector,
-  checkedCartItemCountSelector,
-} from "recoil/selector";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { CartProductList } from "recoil/selector";
+import { useRecoilValue } from "recoil";
 import CartItem from "components/CartItem";
+import { useCartCheckbox } from "hooks/useCartCheckbox";
 
 const CartItemList = () => {
-  const cartList = useRecoilValue(cartListSelector);
-  const checkedCount = useRecoilValue(checkedCartItemCountSelector);
-  const [isAllChecked, setAllCheckedCartItem] = useRecoilState(allCheckedCartItemSelector);
+  const cartList = useRecoilValue(CartProductList);
+  const { isAllchecked, checkedCount, setAllCheckbox } = useCartCheckbox();
 
   const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.currentTarget.checked && setAllCheckedCartItem(true);
-    !e.currentTarget.checked && setAllCheckedCartItem(false);
+    e.currentTarget.checked && setAllCheckbox(true);
+    !e.currentTarget.checked && setAllCheckbox(false);
   };
 
   return (
     <Wrapper>
       <SelectorContainer>
-        <input type="checkbox" checked={isAllChecked} onChange={handleCheckbox} />
+        <input type="checkbox" checked={isAllchecked} onChange={handleCheckbox} />
         전체선택
         {checkedCount}/{cartList.length}
         <button>선택삭제</button>

@@ -1,12 +1,12 @@
 import { atom } from "recoil";
-import mockData from "mockData.json";
-import { Product, ProductWithChecked } from "types/domain";
 import { CART_LIST_LOCAL_STORAGE_KEY } from "constants/";
+import { ProductType } from "types/domain";
+import { Product } from "hooks/useGet";
 
-const getCartItemsFromLocalStorage = (): Product[] => {
-  const item = localStorage.getItem(CART_LIST_LOCAL_STORAGE_KEY);
-
+const getCartListFromLocalStorage = (): ProductType[] => {
   try {
+    const item = localStorage.getItem(CART_LIST_LOCAL_STORAGE_KEY);
+
     return item ? JSON.parse(item) : [];
   } catch {
     console.log("로컬 스토리지에서 데이터를 파싱하지 못했습니다!");
@@ -15,19 +15,18 @@ const getCartItemsFromLocalStorage = (): Product[] => {
   }
 };
 
-const cartItems = getCartItemsFromLocalStorage();
+const localCartList = getCartListFromLocalStorage();
 
-export const productListState = atom<Product[]>({
+export const productListState = atom<ProductType[]>({
   key: "productList",
-  default: structuredClone(mockData).map((item: Product) => {
-    const targetItem = cartItems.find((cartItem) => cartItem.id === item.id);
-    return { ...item, quantity: targetItem ? targetItem.quantity : "0" };
-  }),
-});
+  default: localCartList.map((product: Product) => {
+    const targetItem = localCartList.find((item) => item.id === product.id);
+    const newItem: ProductType = {
+      ...product,
+      quantity: targetItem ? targetItem.quantity : 0,
+      isChecked: true,
+    };
 
-export const checkedCartItemList = atom<ProductWithChecked[]>({
-  key: "checkedCartItemList",
-  default: cartItems.map((item) => {
-    return { ...item, isChecked: true };
+    return newItem;
   }),
 });

@@ -1,60 +1,48 @@
+import { CART_LIST_LOCAL_STORAGE_KEY, MIN_QUANTITY } from "constants/index";
 import { DefaultValue, selector, selectorFamily } from "recoil";
-import { Product, ProductWithChecked } from "types/domain";
-import { checkedCartItemList, productListState } from "recoil/atom";
+import { productListState } from "recoil/atom";
+import { ProductType } from "types/domain";
 
-export const cartListSelector = selector({
-  key: "cartList",
-  get: ({ get }) => {
-    return get(productListState).filter((item: Product) => Number(item.quantity) > 0);
-  },
-  set: ({ get, set }, newList) => {
-    if (newList instanceof DefaultValue) return set(productListState, newList);
+export const CartProductList = selector({
+  key: "CartProductList",
+  get: ({ get }) => get(productListState).filter((item) => item.quantity > MIN_QUANTITY),
+  set: ({ set }, newList) => {
+    if (newList instanceof DefaultValue) return;
 
-    const updatedList = get(productListState).map((product) => {
-      const findedItem = newList.find((item) => item.id === product.id);
-
-      return { ...product, quantity: findedItem ? findedItem.quantity : product.quantity };
-    });
-
-    return set(productListState, updatedList);
+    return set(
+      productListState,
+      newList.filter((item) => item.quantity > MIN_QUANTITY)
+    );
   },
 });
 
-export const checkedCartItemSelector = selectorFamily<ProductWithChecked | null, number>({
-  key: "checkedCartItem",
+export const productSelector = selectorFamily<ProductType | null, number>({
+  key: "productSelector",
   get:
     (id) =>
     ({ get }) => {
-      const findedItem = get(checkedCartItemList).find((item) => item.id === id);
-      return findedItem || null;
+      return get(productListState).find((item) => item.id === id) ?? null;
     },
   set:
     (id) =>
-    ({ get, set }, newItem) => {
-      if (newItem instanceof DefaultValue || !newItem) return;
+    ({ get, set }, product) => {
+      const newList = [...get(productListState)];
+      const idx = newList.findIndex((item) => item.id === id);
 
-      const updatedList = get(checkedCartItemList).map((item) => (item.id === id ? newItem : item));
+      if (product instanceof DefaultValue || product === null || idx === -1) return;
 
-      return set(checkedCartItemList, updatedList);
+      newList[idx] = product;
+
+      localStorage.setItem(CART_LIST_LOCAL_STORAGE_KEY, JSON.stringify(newList));
+
+      return set(productListState, newList);
     },
 });
 
-export const allCheckedCartItemSelector = selector<boolean>({
-  key: "checkedCartItem",
+export const cartTotalPrice = selector({
+  key: "cartTotalPrice",
   get: ({ get }) =>
-    get(checkedCartItemList).filter((item) => item.isChecked).length ===
-    get(checkedCartItemList).length,
-  set: ({ get, set }, isChecked) => {
-    const updatedList = get(checkedCartItemList).map((item) => ({
-      ...item,
-      isChecked: isChecked instanceof DefaultValue ? true : isChecked,
-    }));
-
-    return set(checkedCartItemList, updatedList);
-  },
-});
-
-export const checkedCartItemCountSelector = selector({
-  key: "checkedCartItemCount",
-  get: ({ get }) => get(checkedCartItemList).filter((item) => item.isChecked).length,
+    get(productListState)
+      .filter((item) => item.isChecked)
+      .reduce((sum, item) => sum + item.price * item.quantity, 0),
 });

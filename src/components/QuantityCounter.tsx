@@ -7,7 +7,7 @@ interface QuantityCounterProps {
 }
 
 const QuantityCounter = ({ itemId }: QuantityCounterProps) => {
-  const { quantity, setNewQuantity, handleQuantityChanged, handleQuantityBlured } =
+  const { quantity, changeQuantity, handleQuantityChanged, handleQuantityBlured } =
     useQuantity(itemId);
 
   const handleCountInputKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -19,7 +19,7 @@ const QuantityCounter = ({ itemId }: QuantityCounterProps) => {
     <>
       <Counter
         value={quantity}
-        setValue={setNewQuantity}
+        setValue={changeQuantity}
         onChange={handleQuantityChanged}
         onKeyDown={handleCountInputKey}
         onBlur={handleQuantityBlured}

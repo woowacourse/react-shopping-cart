@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { ROUTER_PATH } from "router";
-import { cartListSelector } from "recoil/selector";
+import { CartProductList } from "recoil/selector";
 
 const Header = () => {
   const navigate = useNavigate();
-  const cartList = useRecoilValue(cartListSelector);
+  const cartList = useRecoilValue(CartProductList);
 
   const goToMain = () => {
     navigate(ROUTER_PATH.Main);

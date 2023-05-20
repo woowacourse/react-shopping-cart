@@ -1,16 +1,15 @@
 import styled from "styled-components";
-import type { Product } from "types/domain";
 import QuantityCounter from "components/QuantityCounter";
 import React from "react";
-import { useRecoilState } from "recoil";
-import { checkedCartItemSelector } from "recoil/selector";
+import { useSetRecoilState } from "recoil";
+import { productSelector } from "recoil/selector";
+import { ProductType } from "types/domain";
 
-const CartItem = (product: Product) => {
-  const { id, name, price, imageUrl, quantity } = product;
-  const [checkedCartItem, setcheckedCartItem] = useRecoilState(checkedCartItemSelector(id));
+const CartItem = (product: ProductType) => {
+  const setProduct = useSetRecoilState(productSelector(product.id));
 
   const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setcheckedCartItem({
+    setProduct({
       ...product,
       isChecked: e.currentTarget.checked,
     });
@@ -20,15 +19,15 @@ const CartItem = (product: Product) => {
     <Wrapper>
       <input
         type="checkbox"
-        value={id}
-        checked={checkedCartItem?.isChecked}
+        value={product.id}
+        checked={product.isChecked}
         onChange={handleCheckbox}
       />
-      <img src={imageUrl} alt={`${name} 상품 이미지`} />
-      <NameBox>{name}</NameBox>
+      <img src={product.imageUrl} alt={`${product.name} 상품 이미지`} />
+      <NameBox>{product.name}</NameBox>
       <button>🗑️</button>
-      <PriceBox>{(price * Number(quantity)).toLocaleString()}원</PriceBox>
-      <QuantityCounter itemId={id} />
+      <PriceBox>{(product.price * product.quantity).toLocaleString()}원</PriceBox>
+      <QuantityCounter itemId={product.id} />
     </Wrapper>
   );
 };
