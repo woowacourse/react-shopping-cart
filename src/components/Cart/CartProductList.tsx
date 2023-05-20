@@ -1,22 +1,12 @@
-import { useEffect, useState } from 'react';
-import { styled } from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import styled from 'styled-components';
 
 import CartProductItem from './CartProductItem';
 
-import { fetchCartProducts } from '../../apis/cartProducts';
-import type { CartProduct } from '../../types/product';
+import { cartProductState } from '../../states/cartProducts';
 
 const CartProductList = () => {
-  const [cartProducts, setCartProducts] = useState<CartProduct[]>([]);
-
-  useEffect(() => {
-    const getCartProducts = async () => {
-      const data = await fetchCartProducts();
-      setCartProducts(data);
-    };
-
-    getCartProducts();
-  }, []);
+  const cartProducts = useRecoilValue(cartProductState);
 
   return (
     <CartProductListContainer>
