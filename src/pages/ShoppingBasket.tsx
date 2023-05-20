@@ -70,8 +70,6 @@ const BasketContent = styled.div`
   }
 `;
 
-console.log(screen.width, '2');
-
 const OrderInfoWrapper = styled.div`
   position: fixed;
 
