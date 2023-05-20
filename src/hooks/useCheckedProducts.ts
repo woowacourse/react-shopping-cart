@@ -4,6 +4,7 @@ import { cartProductAtom } from '../recoil/cartProductData';
 import { checkedItemAtom } from '../recoil/checkedProductData';
 import { deleteCartProduct } from '../apis/cartProducts';
 import type { CartProduct } from '../types/product';
+import { useEffect } from 'react';
 
 const useCheckedProducts = () => {
   const [cartProducts, setCartProducts] = useRecoilState(cartProductAtom);
@@ -45,6 +46,12 @@ const useCheckedProducts = () => {
   const isCheckedProduct = (cartProduct: CartProduct) => {
     return checkedProducts.includes(cartProduct);
   };
+
+  useEffect(() => {
+    if (cartProducts.length > 0) {
+      setCheckedProducts(cartProducts);
+    }
+  }, [cartProducts]);
 
   return {
     removeCheckedProducts,
