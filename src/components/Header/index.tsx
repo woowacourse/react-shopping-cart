@@ -12,7 +12,9 @@ const Header = () => {
         <Logo />
       </Link>
       <div className={styles.cart}>
-        <button>장바구니</button>
+        <Link to="cart">
+          <button>장바구니</button>
+        </Link>
         <div className={styles['cart-count']}>{cart.length}</div>
       </div>
     </header>
