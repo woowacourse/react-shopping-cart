@@ -14,7 +14,6 @@ type ShoppingListProps = {
 };
 
 function CartItems({ cartItems, isLoading, updateCartItem }: ShoppingListProps) {
-  console.log(isLoading);
   const cartItemsAmount = useRecoilValue(cartItemsAmountState);
   return (
     <S.Container>
@@ -24,8 +23,7 @@ function CartItems({ cartItems, isLoading, updateCartItem }: ShoppingListProps) 
             <CartItem key={index} isLoading={isLoading} cartId={index} updateCartItem={updateCartItem} />
           ))}
         {!isLoading &&
-          cartItems &&
-          cartItems.map((item) => (
+          cartItems?.map((item) => (
             <CartItem
               cartId={item.id}
               product={item.product}
