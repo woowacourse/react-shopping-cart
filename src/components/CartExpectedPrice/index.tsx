@@ -12,19 +12,25 @@ const CartExpectedPrice = () => {
       <CartExpectedPriceFirstInformationWrapper>
         <CartPriceWrapper>
           <CartPriceTextWrapper>총 상품가격</CartPriceTextWrapper>
-          <CartPriceTextWrapper>{cartTotalPrice.toLocaleString('ko-KR')}</CartPriceTextWrapper>
+          <CartPriceTextWrapper>
+            {cartTotalPrice.toLocaleString('ko-KR')}
+          </CartPriceTextWrapper>
         </CartPriceWrapper>
         <CartPriceWrapper>
           <CartPriceTextWrapper>총 배송비</CartPriceTextWrapper>
           <CartPriceTextWrapper>
-            {(!cartTotalPrice ? "0" : "3,000")}
+            {!cartTotalPrice ? '0' : '3,000'}
           </CartPriceTextWrapper>
         </CartPriceWrapper>
       </CartExpectedPriceFirstInformationWrapper>
       <CartExpectedPriceSecondInformationWrapper>
         <CartPriceWrapper>
           <CartPriceTextWrapper>총 주문금액</CartPriceTextWrapper>
-          <CartPriceTextWrapper>{!cartTotalPrice ? "0" : (cartTotalPrice + 3000).toLocaleString('ko-KR')}</CartPriceTextWrapper>
+          <CartPriceTextWrapper>
+            {!cartTotalPrice
+              ? '0'
+              : (cartTotalPrice + 3000).toLocaleString('ko-KR')}
+          </CartPriceTextWrapper>
         </CartPriceWrapper>
         <CartPriceButtonWrapper>
           <Button text="주문하기" onClick={() => {}} width="80%" />
@@ -35,10 +41,19 @@ const CartExpectedPrice = () => {
 };
 
 const CartExpectedPriceWrapper = styled.div`
-  width: 30%;
-  max-height: 410px;
+  width: 350px;
+  height: 370px;
 
   border: 1px solid #dddddd;
+
+  @media (max-width: 1023px) {
+    margin: 0 auto;
+  }
+
+  @media (max-width: 480px) {
+    width: 250px;
+    height: 370px;
+  }
 `;
 
 const CartExpectedPriceTitle = styled.div`
@@ -61,15 +76,17 @@ const CartExpectedPriceTitle = styled.div`
 const CartExpectedPriceFirstInformationWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  height: 100px;
   /* justify-content: space-between; */
 
-  padding: 10%;
+  padding: 10% 10% 0 10%;
 `;
 
 const CartExpectedPriceSecondInformationWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
+  justify-content: space-between;
 
   padding: 10%;
 `;

@@ -12,8 +12,9 @@ const HomePage = () => {
 const HomePageWrapper = styled.div`
   display: flex;
   justify-content: center;
+  place-items: center;
 
-  padding: 61px 325px;
+  padding: 61px 0px;
 `;
 
 export default HomePage;

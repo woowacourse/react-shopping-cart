@@ -28,11 +28,11 @@ const Container = styled.div`
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @media (max-width: 960px) {
+  @media (max-width: 1023px) {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 679px) {
     grid-template-columns: repeat(1, 1fr);
   }
 `;

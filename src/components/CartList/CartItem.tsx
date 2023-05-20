@@ -31,13 +31,13 @@ const CartItem = ({ id, name, imageUrl, quantity, price }: CartItemProps) => {
     setCheckBox(newCheckBox);
   };
 
-  useEffect(()=>{
-    if(!checkBox.includes(id)){
+  useEffect(() => {
+    if (!checkBox.includes(id)) {
       setCheck(false);
-      return
+      return;
     }
     setCheck(true);
-  },[checkBox, id])
+  }, [checkBox, id]);
 
   return (
     <CartItemWrapper>
@@ -47,7 +47,9 @@ const CartItem = ({ id, name, imageUrl, quantity, price }: CartItemProps) => {
       <CartItemInformationWrapper>
         <RemoveCardItemImg src={CART_ITEM_REMOVE_BUTTON} />
         <BucketCounter id={id} quantity={quantity} kind="big" />
-        <CartItemMoney>{(price * quantity).toLocaleString('ko-KR')}</CartItemMoney>
+        <CartItemMoney>
+          {(price * quantity).toLocaleString('ko-KR')}
+        </CartItemMoney>
       </CartItemInformationWrapper>
     </CartItemWrapper>
   );
@@ -68,6 +70,11 @@ const CartItemImg = styled.img`
   margin-left: 15px;
 
   background: rgba(0, 0, 0, 0.05);
+
+  @media (max-width: 480px) {
+    width: 90px;
+    height: 90px;
+  }
 `;
 
 const CartItemName = styled.span`
@@ -82,6 +89,10 @@ const CartItemName = styled.span`
   letter-spacing: 0.5px;
 
   color: #333333;
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
 `;
 
 const CartItemInformationWrapper = styled.div`

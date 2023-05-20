@@ -32,7 +32,7 @@ const HeaderWrapper = styled.header`
   width: 100vw;
   height: 80px;
 
-  padding: 0 20%;
+  padding: 0 40px;
 
   background: ${theme.colors.primaryBlack};
 
@@ -51,11 +51,16 @@ const LogoTitle = styled.h2`
   font-size: 40px;
 
   color: ${theme.colors.white};
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 `;
 
 const Logo = styled.img`
   width: 50px;
   height: 44px;
+
 `;
 
 const BucketText = styled.h3`

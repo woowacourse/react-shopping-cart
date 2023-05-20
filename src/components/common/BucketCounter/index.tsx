@@ -71,6 +71,11 @@ const BucketCounterWrapper = styled.div<BucketCounterStyle>`
   height: ${({ kind }) => (kind === 'big' ? '60px' : '28px')};
 
   border: 1px solid #dddddd;
+
+  @media (max-width: 600px) {
+    width: 65px;
+    height: 28px;
+  }
 `;
 
 const Count = styled.input<BucketCounterStyle>`
@@ -86,6 +91,11 @@ const Count = styled.input<BucketCounterStyle>`
   text-align: center;
 
   outline: none;
+
+  @media (max-width: 600px) {
+    width: 42px;
+    height: 28px;
+  }
 `;
 
 const Counter = styled.div`
@@ -102,6 +112,11 @@ const Button = styled.button<BucketCounterStyle>`
 
   width: ${({ kind }) => (kind === 'big' ? '42px' : '24px')};
   height: ${({ kind }) => (kind === 'big' ? '30px' : '14px')};
+
+  @media (max-width: 600px) {
+    width: 24px;
+    height: 14px;
+  }
 `;
 
 const TopButton = styled(Button)`
