@@ -18,7 +18,7 @@ const checkItemInCart = (cartList: CartItemData[], productId: number) => {
 const addCartItemQuantity = (cartList: CartItemData[], productId: number, quantity: number) => {
   const hasItem = checkItemInCart(cartList, productId);
 
-  if (!hasItem) {
+  if (hasItem) {
     return cartList.map((cartItem) => {
       if (cartItem.product.id === productId) {
         return { ...cartItem, quantity: cartItem.quantity + quantity };
