@@ -1,0 +1,41 @@
+.container {
+  font-family: 'Noto Sans KR';
+  width: 448px;
+  height: 380px;
+  border: solid var(--gray-color);
+}
+.title {
+  padding: 23px;
+  font-size: 22px;
+  border-bottom: 3px solid var(--gray-color);
+}
+
+.payment-box {
+  padding: 33px 23px 23px 23px;
+}
+
+.payment-box > div {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 23px;
+}
+
+.label,
+.value {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 26px;
+  letter-spacing: 0.5px;
+}
+
+.container > footer {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  color: var(--white-color);
+  width: 388px;
+  height: 73px;
+  background-color: var(--primary-color);
+}
