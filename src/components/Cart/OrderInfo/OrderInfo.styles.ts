@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 
 export const OrderWrapper = styled.div`
   width: 360px;
-  height: 332px;
+  height: 360px;
   border: 1px solid #dddddd;
   margin: 60px auto;
   background: ${(props) => props.theme.color.white};
@@ -20,7 +20,7 @@ export const OrderTitleContainer = styled.div`
 export const OrderInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
   margin: 24px 0 0 0;
   padding: 0 24px;
 
@@ -39,12 +39,12 @@ export const OrderInfoContainer = styled.div`
 `;
 
 export const OrderButtonContainer = styled.div`
-  margin: 24px auto 0 auto;
+  margin: 40px auto 0 auto;
   width: 80%;
 
   button {
     width: 100%;
-    height: 73px;
+    height: 60px;
     text-align: center;
     background: ${(props) => props.theme.color.primary};
     color: white;
