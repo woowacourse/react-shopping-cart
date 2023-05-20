@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 import { cartProductAtom } from '../recoil/cartProductData';
 import { checkedItemAtom } from '../recoil/checkedProductData';
 import { deleteCartProduct } from '../apis/cartProducts';
-import { CartProduct } from '../types/product';
+import type { CartProduct } from '../types/product';
 
 const useCheckedProducts = () => {
   const [cartProducts, setCartProducts] = useRecoilState(cartProductAtom);
@@ -34,7 +34,24 @@ const useCheckedProducts = () => {
     setCheckedProducts(updatedCheckedItems);
   };
 
-  return { removeCheckedProducts, handleCheckBoxChange };
+  const handleAllCheckedProducts = () => {
+    if (cartProducts.length === checkedProducts.length) {
+      setCheckedProducts([]);
+      return;
+    }
+    setCheckedProducts(cartProducts);
+  };
+
+  const isCheckedProduct = (cartProduct: CartProduct) => {
+    return checkedProducts.includes(cartProduct);
+  };
+
+  return {
+    removeCheckedProducts,
+    handleCheckBoxChange,
+    handleAllCheckedProducts,
+    isCheckedProduct,
+  };
 };
 
 export default useCheckedProducts;

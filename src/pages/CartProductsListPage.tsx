@@ -13,7 +13,8 @@ import useCheckedProducts from '../hooks/useCheckedProducts';
 const CartProductsListPage = () => {
   const totalCartProductCount = useRecoilValue(totalCartProductSelect);
   const checkedCartProductCount = useRecoilValue(checkedListSelector);
-  const { removeCheckedProducts } = useCheckedProducts();
+  const { removeCheckedProducts, handleAllCheckedProducts } =
+    useCheckedProducts();
 
   return (
     <>
@@ -27,7 +28,10 @@ const CartProductsListPage = () => {
             </CartProductListTitle>
             <CartProductList />
             <SelectContainer>
-              <CheckBox />
+              <CheckBox
+                onChange={handleAllCheckedProducts}
+                checked={totalCartProductCount === checkedCartProductCount}
+              />
               <TotalSelectedCount>
                 전체선택 ({checkedCartProductCount}/{totalCartProductCount})
               </TotalSelectedCount>

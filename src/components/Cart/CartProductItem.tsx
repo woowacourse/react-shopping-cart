@@ -19,13 +19,16 @@ const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
   const { id, name, price, imageUrl } = product;
   const { removeProduct } = useCartProducts(product);
   const { addCount, subtractCount } = useProductQuantity(id);
-  const { handleCheckBoxChange } = useCheckedProducts();
+  const { handleCheckBoxChange, isCheckedProduct } = useCheckedProducts();
 
   return (
     <CartProductItemContainer>
       <CartProductLeftWrapper>
         <CheckBoxWrapper>
-          <CheckBox onChange={() => handleCheckBoxChange(cartProduct)} />
+          <CheckBox
+            onChange={() => handleCheckBoxChange(cartProduct)}
+            checked={isCheckedProduct(cartProduct)}
+          />
         </CheckBoxWrapper>
         <Image
           src={`${process.env.PUBLIC_URL}/${imageUrl}`}
