@@ -37,7 +37,7 @@ export default function CartItem(props: Props) {
           cartItemId={id}
           min={1}
           max={MAX_QUANTITY}
-          style={{ width: '114px', height: '60px', fontSize: '24px' }}
+          style={{ width: '98px', height: '48px', fontSize: '24px' }}
         />
         <Price>{(product.price * quantity).toLocaleString()}원</Price>
       </ControlBox>
@@ -52,6 +52,15 @@ const Wrapper = styled.div`
 
   width: 736px;
   height: 144px;
+
+  @media (max-width: 736px) {
+    width: 100%;
+  }
+
+  @media (max-width: 448px) {
+    width: 100%;
+    height: 112px;
+  }
 `;
 
 const Image = styled.img`
@@ -59,6 +68,11 @@ const Image = styled.img`
   height: 144px;
 
   background: rgba(0, 0, 0, 0.05);
+
+  @media (max-width: 448px) {
+    width: 96px;
+    height: 96px;
+  }
 `;
 
 const ProductName = styled.p`
@@ -68,6 +82,11 @@ const ProductName = styled.p`
   line-height: 24px;
   letter-spacing: 0.5px;
   color: #333333;
+
+  @media (max-width: 448px) {
+    width: 24%;
+    font-size: 14px;
+  }
 `;
 
 const ControlBox = styled.div`

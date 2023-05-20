@@ -51,6 +51,10 @@ const Main = styled.main`
   @media (max-width: 1320px) {
     width: 100%;
   }
+
+  @media (max-width: 448px) {
+    padding: 60px 16px;
+  }
 `;
 
 const CartHeader = styled.div`
@@ -94,8 +98,11 @@ const CartBillBox = styled.div`
   display: flex;
   justify-content: center;
 
+  @media (max-width: 1184px) {
+    margin-top: 62px;
+  }
+
   @media (max-width: 448px) {
     width: 100%;
-    margin-top: 32px;
   }
 `;
