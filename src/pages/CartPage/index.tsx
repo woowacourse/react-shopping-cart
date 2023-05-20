@@ -1,22 +1,17 @@
+import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import { cartAtom } from '@recoil/atoms/cartAtom';
+import { cartItemLengthSelector } from '@recoil/selectors/cartSelector';
 import CartExpectedPrice from '@components/CartExpectedPrice';
 import CartList from '@components/CartList';
 import CartTitle from '@components/CartTitle';
-import useAtomLocalStorage from '@hooks/useAtomLocalStorage';
-import { CartInformation } from '@type/types';
-import { CART_LIST_LOCAL_KEY } from '@constants/common';
 
 const CartPage = () => {
-  const [cart] = useAtomLocalStorage<CartInformation[]>(
-    cartAtom,
-    CART_LIST_LOCAL_KEY
-  );
+  const cartLength = useRecoilValue(cartItemLengthSelector);
 
   return (
     <CartPageWrapper>
       <CartTitle />
-      <CartCountTextWrapper>든든배송 상품({cart.length})</CartCountTextWrapper>
+      <CartCountTextWrapper>든든배송 상품({cartLength})</CartCountTextWrapper>
       <CartInformationWrapper>
         <CartList />
         <CartExpectedPrice />
@@ -57,7 +52,5 @@ const CartInformationWrapper = styled.div`
     flex-direction: column;
   }
 `;
-
-
 
 export default CartPage;
