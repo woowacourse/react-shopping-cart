@@ -1,18 +1,21 @@
 import { useCartItemQuantityById } from '../../hooks/cartListState/cartListState';
 import { FlexWrapper } from '../../pages/Cart/Cart.style';
-import { ProductItem } from '../../types/ProductType';
+import type { ProductItem } from '../../types/ProductType';
 import QuantityCounter from '../common/QuantityCounter/QuantityCounter';
 
-type CartItemProps = ProductItem;
+interface CartItemProps extends ProductItem {
+  toggle: boolean;
+  setToggle: () => void;
+}
 
-function CartItem({ id, imageUrl, name, price }: CartItemProps) {
+function CartItemBox({ id, imageUrl, name, price, toggle, setToggle }: CartItemProps) {
   const [quantity, setQuantity] = useCartItemQuantityById(id);
   return (
     <FlexWrapper>
-      <input type="checkbox" />
+      <input onClick={setToggle} type="checkbox" checked={toggle} readOnly />
       <img src={imageUrl} />
       <p>{name}</p>
-      <p>{price}</p>
+      <p>{price * quantity}</p>
       <QuantityCounter
         onChange={(event) => {
           setQuantity(Number(event.target.value));
@@ -36,4 +39,4 @@ function CartItem({ id, imageUrl, name, price }: CartItemProps) {
   );
 }
 
-export default CartItem;
+export default CartItemBox;
