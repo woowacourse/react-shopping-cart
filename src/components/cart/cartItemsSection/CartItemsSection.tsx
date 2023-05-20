@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { CartProductList } from './CartProductList';
+import { CartItemList } from './CartItemList';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   cartItemsState,
   selectedCartIdListState,
-} from '../../../atoms/cartAtom';
+} from '../../../recoil/atoms/cartAtom';
 import { CheckBox } from '../../../layout/checkBox/CheckBox';
 import { useCartRecoil } from '../../../hooks/recoil/useCartRecoil';
 import { useCartFetch } from '../../../hooks/fetch/useCartFetch';
@@ -30,7 +30,7 @@ export const ProductSelectSection = () => {
       <Style.Header>
         <Style.HeaderTitle>배송상품 ({cartItems.length}개)</Style.HeaderTitle>
       </Style.Header>
-      <CartProductList cartProductList={cartItems} />
+      <CartItemList cartItemList={cartItems} />
       <Style.SelectOrDeleteContainer>
         <CheckBox
           isChecked={

@@ -8,7 +8,7 @@ import { useRecoilState } from 'recoil';
 import {
   cartItemsState,
   selectedCartIdListState,
-} from '../../../atoms/cartAtom';
+} from '../../../recoil/atoms/cartAtom';
 import { Counter } from '../../main/productCard/Counter';
 import { useCartFetch } from '../../../hooks/fetch/useCartFetch';
 
@@ -19,7 +19,7 @@ interface ProductSelectItemProps {
   imageUrl: string;
 }
 
-export const ProductSelectItem = ({
+export const CartItem = ({
   id,
   name,
   price,
@@ -72,7 +72,8 @@ export const ProductSelectItem = ({
   };
 
   useEffect(() => {
-    setCartItemQuantity(count);
+    if (cartItems.some((cartItem) => cartItem.id === id))
+      setCartItemQuantity(count);
   }, [count]);
 
   return (

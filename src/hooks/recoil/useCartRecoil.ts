@@ -1,9 +1,13 @@
 import { useRecoilState } from 'recoil';
-import { cartItemsState } from '../../atoms/cartAtom';
+import {
+  cartItemsState,
+  selectedCartIdListState,
+} from '../../recoil/atoms/cartAtom';
 import { useProductFetch } from '../fetch/useProductFetch';
 
 export const useCartRecoil = () => {
   const [cartItems, setCartItems] = useRecoilState(cartItemsState);
+  const [, setSelectedCartIdList] = useRecoilState(selectedCartIdListState);
   const { getProductDetailById } = useProductFetch();
 
   const addRecoilCartById = async (id: number) => {
@@ -18,6 +22,9 @@ export const useCartRecoil = () => {
 
   const deleteRecoilCartById = (id: number) => {
     setCartItems((current) => current.filter((cartItem) => cartItem.id !== id));
+    setSelectedCartIdList((current) =>
+      current.filter((selectedId) => selectedId !== id)
+    );
   };
 
   const patchRecoilCartItemQuantity = (id: number, quantity: number) => {

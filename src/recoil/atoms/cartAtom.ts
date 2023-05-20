@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { Product } from '../types/Product';
+import { Product } from '../../types/Product';
 
 interface CartProductDetail {
   id: number;

@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { Layout } from '../layout';
-import { ProductSelectSection } from '../components/cart/productList/ProductListSection';
+import { ProductSelectSection } from '../components/cart/cartItemsSection/CartItemsSection';
 import { OrderSummarySection } from '../components/cart/orderSummarySection/OrderSummarySection';
 import { selector, useRecoilValue } from 'recoil';
-import { cartItemsState } from '../atoms/cartAtom';
+import { cartItemsState } from '../recoil/atoms/cartAtom';
 
 const cartItemsLengthState = selector({
   key: 'cartIdListLengthState',

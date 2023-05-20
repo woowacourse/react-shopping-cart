@@ -1,24 +1,22 @@
 import styled from 'styled-components';
-import { ProductSelectItem } from './CartProductItem';
+import { CartItem } from './CartItem';
 import { Product } from '../../../types/Product';
 
-interface CartProductListType {
+interface CartItemType {
   id: number;
   quantity: number;
   product: Product;
 }
 
 interface CartProductListProps {
-  cartProductList: CartProductListType[];
+  cartItemList: CartItemType[];
 }
 
-export const CartProductList = ({ cartProductList }: CartProductListProps) => {
+export const CartItemList = ({ cartItemList }: CartProductListProps) => {
   return (
     <Style.Container>
-      {cartProductList.map((cartProduct) => {
-        return (
-          <ProductSelectItem key={cartProduct.id} {...cartProduct.product} />
-        );
+      {cartItemList.map((cartItem) => {
+        return <CartItem key={cartItem.id} {...cartItem.product} />;
       })}
     </Style.Container>
   );
