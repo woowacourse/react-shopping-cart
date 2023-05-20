@@ -4,7 +4,7 @@ import { API_URL_PRODUCT_LIST } from '@constants/common';
 import { useFetch } from './useFetch';
 
 const useProductList = (): {
-  data: ProductInformation[] | undefined;
+  data: ProductInformation[];
   isLoading: boolean;
   error: unknown | null;
 } => {
