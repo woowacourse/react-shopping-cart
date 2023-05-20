@@ -35,7 +35,8 @@
 
 ### 📝 실행 방법
 
-- <a href="https://nlom0218.github.io/react-shopping-cart/product-list">앱 바로 실행하기</a>
+- <a href="https://chsua.github.io/react-shopping-cart/">앱 바로 실행하기</a>
+- <a href="https://644f59b87dca7bfe7de2ed67-sjtlyffapm.chromatic.com/">스토리북 바로 실행하기</a>
 
 - 터미널에서 yarn 설치(`yarn`) 후 `yarn start` 커맨드로 앱을 실행할 수 있다.
 
