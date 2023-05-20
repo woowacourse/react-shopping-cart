@@ -32,7 +32,7 @@ const CartItem = ({
   };
 
   const updateCartItemQuantityIncrease = (id: number) => {
-    fetchApi.post('/update-cartitem-quantityincrease', { itemId: id });
+    fetchApi.post('/update-cart-item-quantity-increase', { itemId: id });
   };
 
   return (

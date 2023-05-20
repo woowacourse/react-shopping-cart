@@ -14,6 +14,7 @@ export const useFetch = <T>(
       const result = await fetch(url, options);
       if (isSuccessHttpStatus(result.status) && stateSetter) {
         const data = await result.json();
+
         setData(data);
         stateSetter(data);
       }

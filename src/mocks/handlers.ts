@@ -28,28 +28,6 @@ export const handlers = [
     );
   }),
 
-  rest.post<PostCartItemId>('/update-cartItem-quantity-increase', async (req, res, ctx) => {
-    const { itemId } = await req.json();
-
-    const savedValue = localStorage.getItem(storeKey);
-    if (savedValue) {
-      const initData = JSON.parse(savedValue) as CartItemType[];
-      const refreshData = initData.map((item) => {
-        if (item.id !== Number(itemId)) return item;
-        return {
-          id: itemId,
-          quantity: item.quantity + 1,
-          product: item.product,
-          isChecked: true,
-        };
-      });
-
-      return res(ctx.status(201), ctx.delay(500), ctx.json(refreshData));
-    }
-
-    return res(ctx.status(403), ctx.delay(500), ctx.json({ message: '존재하지 않는 상품입니다.' }));
-  }),
-
   rest.post<PostCartItemId>('/update-cart-item-quantity-decrease', async (req, res, ctx) => {
     const { itemId } = await req.json();
 
@@ -61,6 +39,32 @@ export const handlers = [
         return {
           id: itemId,
           quantity: item.quantity - 1,
+          product: item.product,
+          isChecked: true,
+        };
+      });
+
+      return res(ctx.status(201), ctx.delay(500), ctx.json(refreshData));
+    }
+
+    return res(
+      ctx.status(403),
+      ctx.delay(500),
+      ctx.json({ message: '장바구니에 존재하지 않는 상품입니다.' })
+    );
+  }),
+
+  rest.post<PostCartItemId>('/update-cart-item-quantity-increase', async (req, res, ctx) => {
+    const { itemId } = await req.json();
+
+    const savedValue = localStorage.getItem(storeKey);
+    if (savedValue) {
+      const initData = JSON.parse(savedValue) as CartItemType[];
+      const refreshData = initData.map((item) => {
+        if (item.id !== Number(itemId)) return item;
+        return {
+          id: itemId,
+          quantity: item.quantity + 1,
           product: item.product,
           isChecked: true,
         };

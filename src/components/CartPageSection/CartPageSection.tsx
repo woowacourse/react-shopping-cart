@@ -7,6 +7,7 @@ import { cartListState } from '../../store/cart';
 import { CartItemType } from '../../types';
 import { priceFormatter } from '../../utils/formatter';
 import CartItem from '../CartItem/CartItem';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import styles from './style.module.css';
 
 const CartPageSection = () => {
@@ -75,7 +76,7 @@ const CartPageSection = () => {
               />
             ))
           ) : (
-            <div>loading</div>
+            <LoadingSpinner />
           )}
         </div>
         <div className={styles.orderBox}>

@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 import { useFetch } from '../../hooks/useFetch';
 import productListState from '../../store/product';
 import { ProductItemType } from '../../types';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import ProductItem from '../ProductItem/ProductItem';
 import styles from './styles.module.css';
 
@@ -18,7 +19,7 @@ const ProductList = () => {
 
   return (
     <div className={styles.container}>
-      {isLoading && <div>loading</div>}
+      {isLoading && <LoadingSpinner />}
       {data?.map((productItem) => (
         <ProductItem key={productItem.id} information={productItem} />
       ))}
