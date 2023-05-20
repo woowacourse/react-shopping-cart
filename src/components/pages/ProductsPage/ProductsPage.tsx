@@ -1,23 +1,31 @@
+import { useEffect } from 'react';
+import { useRecoilCallback } from 'recoil';
+
+import useFetch from '@hooks/useFetch';
+
 import { StyledProductsPage } from '@pages/ProductsPage/ProductsPage.styled';
 import ProductList from '@components/pages/ProductsPage/ProductList/ProductList';
-import useFetch from '@hooks/useFetch';
-import { useRecoilCallback } from 'recoil';
-import { productIdsSelector, quantityListSelector } from '@recoil/selector';
-import { useEffect } from 'react';
+import { cartItemsState } from '@recoil/atom';
+import { CartItem } from '@customTypes/Product';
 
 const ProductsPage = () => {
   const { postData, patchData } = useFetch('/cart-items');
   const handleProductsPageExit = useRecoilCallback(({ snapshot }) => () => {
-    const productIds = snapshot.getLoadable(productIdsSelector).contents;
-    const quantityList = snapshot.getLoadable(quantityListSelector).contents;
+    const cartItems = Object.values<CartItem>(
+      snapshot.getLoadable(cartItemsState).contents
+    );
 
-    updateCartApiData(productIds, quantityList);
+    // TODO: local storage에 담긴 cartItems과 비교하여, if(!변화) early return
+    // TODO: local storage에 저장
+    updateCartApiData(cartItems);
   });
 
-  const updateCartApiData = (productId: number[], quantityList: number[]) => {
-    productId.forEach(async (productId, index) => {
-      const url = await postData({ productId: productId });
-      if (url) await patchData({ quantity: quantityList[index] }, url);
+  const updateCartApiData = (cartItems: CartItem[]) => {
+    cartItems.forEach(async cartItem => {
+      const url = await postData({ productId: cartItem.productId });
+      if (!url) return;
+
+      await patchData({ quantity: cartItem.quantity }, url);
     });
   };
 
