@@ -33,8 +33,9 @@ export const LinkToCart = styled(Link)`
   font-size: 2.4rem;
   font-weight: 500;
 
-  margin-right: 1rem;
+  & * {
+    margin-left: 1rem;
+  }
 
   color: white;
 `;
-
