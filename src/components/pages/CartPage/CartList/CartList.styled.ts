@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import Colors from '../../../../constants/Colors';
 
 export const CartListSection = styled.section`
-  margin: 10px;
   max-width: 750px;
+  width: 100%;
 `;
 
 export const SelectionDiv = styled.div`

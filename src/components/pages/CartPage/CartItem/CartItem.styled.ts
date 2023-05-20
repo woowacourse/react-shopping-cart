@@ -25,6 +25,7 @@ export const NameDiv = styled.div`
   display: flex;
 
   column-gap: 15px;
+  width: calc(100% - 100px);
 
   & > p {
     max-width: 400px;
