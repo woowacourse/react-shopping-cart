@@ -1,11 +1,12 @@
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { cartTotalPriceState } from '../../recoil/state';
+import { cartBillTotalPriceState, checkedListState } from '../../recoil/state';
 
 export default function CartBill() {
-  const cartTotalPrice = useRecoilValue(cartTotalPriceState);
-  const DELIVERY_FEE = 3000;
+  const checkedList = useRecoilValue(checkedListState);
+  const cartBillTotalPrice = useRecoilValue(cartBillTotalPriceState);
+  const deliveryFee = checkedList.filter((checked) => checked).length === 0 ? 0 : 3000;
 
   return (
     <Wrapper>
@@ -13,15 +14,15 @@ export default function CartBill() {
       <BillBox>
         <BillRow>
           <p>총 상품가격</p>
-          <p>{cartTotalPrice.toLocaleString()}원</p>
+          <p>{cartBillTotalPrice.toLocaleString()}원</p>
         </BillRow>
         <BillRow>
           <p>총 배송비</p>
-          <p>{DELIVERY_FEE.toLocaleString()}원</p>
+          <p>{deliveryFee.toLocaleString()}원</p>
         </BillRow>
         <BillRow>
           <p>총 주문금액</p>
-          <p>{(cartTotalPrice + DELIVERY_FEE).toLocaleString()}원</p>
+          <p>{(cartBillTotalPrice + deliveryFee).toLocaleString()}원</p>
         </BillRow>
         <OrderButton>주문하기</OrderButton>
       </BillBox>
