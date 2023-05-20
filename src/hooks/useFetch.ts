@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { SetterOrUpdater } from 'recoil';
 
 import { CartItemType, ProductItemType } from '../types';
+import { isFailureHttpStatus, isSuccessHttpStatus } from '../utils/httpStatusValidator';
 
 export const useFetch = <T>(
   stateSetter: SetterOrUpdater<ProductItemType[]> | SetterOrUpdater<CartItemType[]>
@@ -11,9 +12,14 @@ export const useFetch = <T>(
   const fetchData = async (url: string, options: RequestInit) => {
     try {
       const result = await fetch(url, options);
-      const data = await result.json();
-      setData(data);
-      if (stateSetter) stateSetter(data);
+      if (isSuccessHttpStatus(result.status) && stateSetter) {
+        const data = await result.json();
+        setData(data);
+        stateSetter(data);
+      }
+      if (isFailureHttpStatus(result.status)) {
+        throw new Error();
+      }
     } catch (error) {
       console.error(error);
     } finally {
