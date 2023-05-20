@@ -47,7 +47,7 @@ const CartItem = ({ id, name, imageUrl, quantity, price }: CartItemProps) => {
       <CartItemInformationWrapper>
         <RemoveCardItemImg src={CART_ITEM_REMOVE_BUTTON} />
         <BucketCounter id={id} quantity={quantity} kind="big" />
-        <CartItemMoney>{price * quantity}</CartItemMoney>
+        <CartItemMoney>{(price * quantity).toLocaleString('ko-KR')}</CartItemMoney>
       </CartItemInformationWrapper>
     </CartItemWrapper>
   );

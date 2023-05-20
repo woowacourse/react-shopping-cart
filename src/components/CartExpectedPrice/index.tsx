@@ -12,7 +12,7 @@ const CartExpectedPrice = () => {
       <CartExpectedPriceFirstInformationWrapper>
         <CartPriceWrapper>
           <CartPriceTextWrapper>총 상품가격</CartPriceTextWrapper>
-          <CartPriceTextWrapper>{cartTotalPrice}</CartPriceTextWrapper>
+          <CartPriceTextWrapper>{cartTotalPrice.toLocaleString('ko-KR')}</CartPriceTextWrapper>
         </CartPriceWrapper>
         <CartPriceWrapper>
           <CartPriceTextWrapper>총 배송비</CartPriceTextWrapper>
@@ -24,7 +24,7 @@ const CartExpectedPrice = () => {
       <CartExpectedPriceSecondInformationWrapper>
         <CartPriceWrapper>
           <CartPriceTextWrapper>총 주문금액</CartPriceTextWrapper>
-          <CartPriceTextWrapper>{!cartTotalPrice ? "0" : cartTotalPrice + 3000}</CartPriceTextWrapper>
+          <CartPriceTextWrapper>{!cartTotalPrice ? "0" : (cartTotalPrice + 3000).toLocaleString('ko-KR')}</CartPriceTextWrapper>
         </CartPriceWrapper>
         <CartPriceButtonWrapper>
           <Button text="주문하기" onClick={() => {}} width="80%" />
