@@ -29,6 +29,7 @@ export const useGetFetch = <T>(url: string, initialData: T) => {
 };
 
 export const usePostFetch = () => {
+  const [data, setData] = useState<unknown>();
   const [error, setError] = useState({ isError: false, message: '' });
 
   const postData = async <B>(url: string, body?: B) => {
@@ -40,6 +41,7 @@ export const usePostFetch = () => {
         },
         body: body && JSON.stringify(body),
       });
+      setData(data);
     } catch (error) {
       if (!(error instanceof Error)) return;
       setError({
@@ -49,10 +51,12 @@ export const usePostFetch = () => {
     }
   };
 
-  return { postData, error };
+  return { data, postData, error };
 };
 
 export const useDeleteFetch = () => {
+  const [data, setData] = useState<unknown>();
+
   const [error, setError] = useState({ isError: false, message: '' });
 
   const deleteData = async <B>(url: string, body?: B) => {
@@ -64,6 +68,7 @@ export const useDeleteFetch = () => {
         },
         body: body && JSON.stringify(body),
       });
+      setData(data);
     } catch (error) {
       if (!(error instanceof Error)) return;
 
@@ -74,10 +79,12 @@ export const useDeleteFetch = () => {
     }
   };
 
-  return { deleteData, error };
+  return { data, deleteData, error };
 };
 
 export const usePatchFetch = () => {
+  const [data, setData] = useState<unknown>();
+
   const [error, setError] = useState({ isError: false, message: '' });
 
   const patchData = async <B>(url: string, body?: B) => {
@@ -89,6 +96,7 @@ export const usePatchFetch = () => {
         },
         body: body && JSON.stringify(body),
       });
+      setData(data);
     } catch (error) {
       if (!(error instanceof Error)) return;
       setError({
@@ -98,5 +106,5 @@ export const usePatchFetch = () => {
     }
   };
 
-  return { patchData, error };
+  return { data, patchData, error };
 };
