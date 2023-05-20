@@ -1,6 +1,8 @@
 import { useCallback, useState } from 'react';
+import { useRecoilState } from 'recoil';
 
-import { useCartList } from '../../hooks/useCartList';
+import { useFetch } from '../../hooks/useFetch';
+import { cartListState } from '../../store/cart';
 import { ProductItemType } from '../../types';
 import { priceFormatter } from '../../utils/formatter';
 import StepperButton from '../StepperButton/StepperButton';
@@ -12,37 +14,17 @@ interface ProductAdditionProps {
 }
 
 const ProductAddition = ({ productInformation, closeModalByClick }: ProductAdditionProps) => {
-  const { cartList, updateCartItem, addCartItem, getNewCartItem } = useCartList();
   const [quantity, setQuantity] = useState(1);
+
+  const [, setCartList] = useRecoilState(cartListState);
+  const { fetchApi } = useFetch<ProductItemType[]>(setCartList);
 
   const handleCartAdd = useCallback(() => {
     const compareProductId = productInformation.id;
-    const selectedCartItemIndex = cartList.findIndex(
-      (cartItem) => cartItem.product.id === compareProductId
-    );
-
-    if (selectedCartItemIndex === -1) {
-      const newCartItem = getNewCartItem(quantity, productInformation);
-      addCartItem(newCartItem);
-    } else {
-      const updatedCartList = [...cartList];
-      updatedCartList[selectedCartItemIndex] = {
-        ...updatedCartList[selectedCartItemIndex],
-        quantity: updatedCartList[selectedCartItemIndex].quantity + quantity,
-      };
-      updateCartItem(updatedCartList);
-    }
+    fetchApi.post('/add-cart-list', { itemId: compareProductId, quantity });
 
     closeModalByClick();
-  }, [
-    productInformation,
-    cartList,
-    quantity,
-    closeModalByClick,
-    updateCartItem,
-    addCartItem,
-    getNewCartItem,
-  ]);
+  }, [closeModalByClick, fetchApi, productInformation.id, quantity]);
 
   return (
     <div className={styles.container}>

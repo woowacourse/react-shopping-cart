@@ -19,7 +19,6 @@ export const handlers = [
     const savedValue = localStorage.getItem(storeKey);
 
     if (savedValue !== null) {
-      //   setSelf(JSON.parse(savedValue));
       return res(ctx.status(200), ctx.delay(1000), ctx.json(JSON.parse(savedValue)));
     }
     return res(
@@ -110,6 +109,42 @@ export const handlers = [
       ctx.status(403),
       ctx.delay(500),
       ctx.json({ message: '장바구니에 존재하지 않는 상품입니다.' })
+    );
+  }),
+
+  rest.post('/add-cart-list', async (req, res, ctx) => {
+    const { itemId, quantity } = await req.json();
+    const savedValue = localStorage.getItem(storeKey);
+    if (savedValue) {
+      const initData = JSON.parse(savedValue) as CartItemType[];
+
+      const selectedCartItemIndex = initData.findIndex(
+        (cartItem) => cartItem.product.id === itemId
+      );
+      const selectedCartItemData = initData.find((cartItem) => cartItem.product.id === itemId);
+
+      if (selectedCartItemIndex === -1 && selectedCartItemData !== undefined) {
+        const newCartId = Number(new Date());
+        initData.push({
+          id: newCartId,
+          quantity,
+          product: selectedCartItemData.product,
+          isChecked: true,
+        });
+        return res(ctx.status(201), ctx.delay(500), ctx.json(initData));
+      } else {
+        const updatedCartList = [...initData];
+        updatedCartList[selectedCartItemIndex] = {
+          ...updatedCartList[selectedCartItemIndex],
+          quantity: updatedCartList[selectedCartItemIndex].quantity + quantity,
+        };
+        return res(ctx.status(201), ctx.delay(500), ctx.json(updatedCartList));
+      }
+    }
+    return res(
+      ctx.status(403),
+      ctx.delay(500),
+      ctx.json({ message: '장바구니에 상품 추가에 실패했습니다.' })
     );
   }),
 ];

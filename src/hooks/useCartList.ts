@@ -1,31 +1,9 @@
 import { useRecoilState } from 'recoil';
 
 import { cartListState } from '../store/cart';
-import { CartItemType, ProductItemType } from '../types';
 
 export const useCartList = () => {
   const [cartList, setCartList] = useRecoilState(cartListState);
-
-  // TODO:
-  const addCartItem = (newCartItem: CartItemType) => {
-    if (newCartItem) setCartList([...cartList, newCartItem]);
-  };
-
-  // TODO:
-  const updateCartItem = (newCartItem: CartItemType[]) => {
-    if (newCartItem) setCartList([...newCartItem]);
-  };
-
-  // TODO:
-  const getNewCartItem = (itemQuantity: number, productInformation: ProductItemType) => {
-    const newCartId = Number(new Date());
-    return {
-      id: newCartId,
-      quantity: itemQuantity,
-      product: productInformation,
-      isChecked: true,
-    };
-  };
 
   const resetCartCheckStatusToTrue = () => {
     setCartList(
@@ -67,11 +45,6 @@ export const useCartList = () => {
     }, 0);
   };
 
-  //   // TODO:
-  //   const selectedItemRemove = (id: number) => {
-
-  //   };
-
   const reverseCheckCartItem = (id: number) => {
     setCartList(
       cartList.map((item) => {
@@ -88,9 +61,6 @@ export const useCartList = () => {
 
   return {
     cartList,
-    addCartItem,
-    updateCartItem,
-    getNewCartItem,
     reverseCheckCartItem,
     getCartItemSum,
     cartListCheckedLength,
