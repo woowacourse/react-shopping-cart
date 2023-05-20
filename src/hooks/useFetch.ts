@@ -35,6 +35,18 @@ export const useFetch = <T>(
     post: (url: string, body: object) => {
       fetchData(url, { method: 'POST', body: JSON.stringify(body) });
     },
+
+    patch: (url: string) => {
+      fetchData(url, { method: 'PATCH' });
+    },
+
+    put: (url: string) => {
+      fetchData(url, { method: 'PUT' });
+    },
+
+    delete: (url: string) => {
+      fetchData(url, { method: 'DELETE' });
+    },
   };
 
   return { fetchApi, data, isLoading };

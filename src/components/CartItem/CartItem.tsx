@@ -28,11 +28,11 @@ const CartItem = ({
   const [, setCartList] = useRecoilState(cartListState);
   const { fetchApi } = useFetch<ProductItemType[]>(setCartList);
   const updateCartItemQuantityDecrease = (id: number) => {
-    fetchApi.post('/updateCartItemQuantityDecrease', { itemId: id });
+    fetchApi.post('/update-cart-item-quantity-decrease', { itemId: id });
   };
 
   const updateCartItemQuantityIncrease = (id: number) => {
-    fetchApi.post('/updateCartItemQuantityIncrease', { itemId: id });
+    fetchApi.post('/update-cartitem-quantityincrease', { itemId: id });
   };
 
   return (

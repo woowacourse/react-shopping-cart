@@ -29,7 +29,7 @@ export const handlers = [
     );
   }),
 
-  rest.post<PostCartItemId>('/updateCartItemQuantityIncrease', async (req, res, ctx) => {
+  rest.post<PostCartItemId>('/update-cartItem-quantity-increase', async (req, res, ctx) => {
     const { itemId } = await req.json();
 
     const savedValue = localStorage.getItem(storeKey);
@@ -44,14 +44,14 @@ export const handlers = [
           isChecked: true,
         };
       });
-      console.log(refreshData);
-      return res(ctx.status(200), ctx.delay(500), ctx.json(refreshData));
+
+      return res(ctx.status(201), ctx.delay(500), ctx.json(refreshData));
     }
 
     return res(ctx.status(403), ctx.delay(500), ctx.json({ message: '존재하지 않는 상품입니다.' }));
   }),
 
-  rest.post<PostCartItemId>('/updateCartItemQuantityDecrease', async (req, res, ctx) => {
+  rest.post<PostCartItemId>('/update-cart-item-quantity-decrease', async (req, res, ctx) => {
     const { itemId } = await req.json();
 
     const savedValue = localStorage.getItem(storeKey);
@@ -66,10 +66,50 @@ export const handlers = [
           isChecked: true,
         };
       });
-      console.log(refreshData);
-      return res(ctx.status(200), ctx.delay(500), ctx.json(refreshData));
+
+      return res(ctx.status(201), ctx.delay(500), ctx.json(refreshData));
     }
 
-    return res(ctx.status(403), ctx.delay(500), ctx.json({ message: '존재하지 않는 상품입니다.' }));
+    return res(
+      ctx.status(403),
+      ctx.delay(500),
+      ctx.json({ message: '장바구니에 존재하지 않는 상품입니다.' })
+    );
+  }),
+
+  rest.delete('/cart-item-remove', async (req, res, ctx) => {
+    const itemId = await req.url.searchParams.get('id');
+    const savedValue = localStorage.getItem(storeKey);
+
+    if (savedValue) {
+      const initData = JSON.parse(savedValue) as CartItemType[];
+      const resultData = initData.filter((item) => {
+        return String(item.id) !== itemId;
+      });
+      return res(ctx.status(201), ctx.delay(500), ctx.json(resultData));
+    }
+    return res(
+      ctx.status(403),
+      ctx.delay(500),
+      ctx.json({ message: '장바구니에 존재하지 않는 상품입니다.' })
+    );
+  }),
+
+  rest.patch('/checked-cart-item-remove', async (req, res, ctx) => {
+    const savedValue = localStorage.getItem(storeKey);
+
+    if (savedValue) {
+      const initData = JSON.parse(savedValue) as CartItemType[];
+      const resultData = initData.filter((item) => {
+        return !item.isChecked;
+      });
+
+      return res(ctx.status(201), ctx.delay(500), ctx.json(resultData));
+    }
+    return res(
+      ctx.status(403),
+      ctx.delay(500),
+      ctx.json({ message: '장바구니에 존재하지 않는 상품입니다.' })
+    );
   }),
 ];

@@ -19,8 +19,6 @@ const CartPageSection = () => {
     resetCartCheckStatusToTrue,
     resetCartCheckStatusToFalse,
     cartListCheckedLength,
-    checkedItemRemove,
-    selectedItemRemove,
   } = useCartList();
 
   const { fetchApi, isLoading } = useFetch<CartItemType[]>(setCartItemList);
@@ -28,6 +26,14 @@ const CartPageSection = () => {
     fetchApi.get('/cartlist');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const checkedItemRemove = () => {
+    fetchApi.patch('/checked-cart-item-remove');
+  };
+
+  const selectedItemRemove = (itemId: number) => {
+    fetchApi.delete(`/cart-item-remove?id=${itemId}`);
+  };
 
   const deliveryPrice = 3000;
 
