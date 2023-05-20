@@ -1,3 +1,4 @@
+import { api } from 'apis/products/api';
 import { useRecoilState } from 'recoil';
 import { cartState } from 'state/CartAtom';
 import { Product } from 'types/product';
@@ -10,29 +11,42 @@ export const useCartProduct = (product: Product) => {
   const addCartProduct = () => {
     const createCartProductFirst = () => {
       setCart((prev) => [...prev, { id, quantity: 1, product }]);
+      api.createCartProduct(product.id);
     };
 
     createCartProductFirst();
   };
 
-  const isProductInCart = cart.some((cartProduct) => cartProduct.id === product.id);
-
   const decreaseQuantity = () => {
-    if (!isProductInCart) {
+    const cartProduct = cart.find((cartProduct) => cartProduct.id === product.id);
+
+    if (!cartProduct) {
       console.error('장바구니에 상품이 없어요! 먼저 상품을 등록해주세요.');
       return;
     }
 
-    const decreased = cart.map((product) => {
-      if (product.id !== id) return product;
-      return { ...product, quantity: product.quantity - 1 };
-    });
+    if (cartProduct.quantity > 1) {
+      const decreased = cart.map((product) => {
+        if (product.id !== id) return product;
+        return { ...product, quantity: product.quantity - 1 };
+      });
 
-    setCart(decreased);
+      setCart(decreased);
+
+      api.updateCartProductQuantity(cartProduct.id, cartProduct.quantity - 1);
+    } else {
+      const newCart = cart.filter((product) => product.id !== id);
+
+      setCart(newCart);
+
+      api.deleteCartProduct(cartProduct.id);
+    }
   };
 
   const increaseQuantity = () => {
-    if (!isProductInCart) {
+    const cartProduct = cart.find((cartProduct) => cartProduct.id === product.id);
+
+    if (!cartProduct) {
       console.error('장바구니에 상품이 없어요! 먼저 상품을 등록해주세요.');
       return;
     }
@@ -43,6 +57,8 @@ export const useCartProduct = (product: Product) => {
     });
 
     setCart(increased);
+
+    api.updateCartProductQuantity(cartProduct.id, cartProduct.quantity + 1);
   };
   return { addCartProduct, decreaseQuantity, increaseQuantity };
 };
