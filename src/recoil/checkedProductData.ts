@@ -15,3 +15,15 @@ export const checkedListSelector = selector<number>({
     return checkedItem.length;
   },
 });
+
+export const totalPriceSelector = selector<number>({
+  key: 'totalPriceState',
+  get: ({ get }) => {
+    const checkedCartProducts = get(checkedItemAtom);
+    const totalPrice = checkedCartProducts.reduce((total, cartProduct) => {
+      return total + cartProduct.quantity * cartProduct.product.price;
+    }, 0);
+
+    return totalPrice;
+  },
+});

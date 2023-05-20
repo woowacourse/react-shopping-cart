@@ -1,22 +1,28 @@
 import styled from 'styled-components';
 import Button from '../Common/Button';
+import { useRecoilValue } from 'recoil';
+import { totalPriceSelector } from '../../recoil/checkedProductData';
 
 const EstimatedPaymentBox = () => {
+  const totalPrice = useRecoilValue(totalPriceSelector);
+  const deliveryPrice = totalPrice ? 3000 : 0;
+  const orderPrice = totalPrice ? totalPrice + deliveryPrice : 0;
+
   return (
     <EstimatedPaymentBoxContainer>
       <EstimatedPaymentTitle>결제예상금액</EstimatedPaymentTitle>
       <EstimatedPaymentContent>
         <EstimatedPaymentInfo>
           <dt>총 상품가격</dt>
-          <dd>21,700원</dd>
+          <dd>{totalPrice.toLocaleString('KR')}원</dd>
         </EstimatedPaymentInfo>
         <EstimatedPaymentInfo>
           <dt>총 배송비</dt>
-          <dd>3,000원</dd>
+          <dd>{deliveryPrice.toLocaleString('KR')}원</dd>
         </EstimatedPaymentInfo>
         <EstimatedPaymentInfo>
           <dt>총 주문금액</dt>
-          <dd>24,700원</dd>
+          <dd>{orderPrice.toLocaleString('KR')}원</dd>
         </EstimatedPaymentInfo>
       </EstimatedPaymentContent>
       <OrderButtonWrapper>
