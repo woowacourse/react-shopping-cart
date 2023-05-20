@@ -21,7 +21,6 @@ const Header = () => {
 
   return (
     <header>
-      <div></div>
       <div className={styles.container}>
         <img src={Logo} alt="logo" className={styles.logo} onClick={navigateToMainPage} />
         <button type="button">
