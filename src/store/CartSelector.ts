@@ -1,9 +1,8 @@
 import { selector, selectorFamily } from 'recoil';
 import { CartItem, Product } from '../types';
 import { cartState } from './CartState';
-import { CART_ITEM_EXISTS, NONE_QUANTITY } from '../constants';
+import { CART_ITEM_INDEX, NONE_QUANTITY } from '../constants';
 import { productListState } from './ProductListState';
-import { setDataInLocalStorage } from '../utils/localStorage';
 
 export type SelectorParams = {
   id: number;
@@ -65,22 +64,17 @@ export const updateCartSelector = selectorFamily<number, SelectorParams>({
     const cart = get(cartState);
     const productList = get(productListState);
     const cartItemIndex = cart.findIndex((item) => item.id === id);
+
+    const updatedItem = {
+      id,
+      quantity,
+      product: productList.find((item) => item.id === id)!,
+    };
+
     const updatedCart =
-      cartItemIndex >= CART_ITEM_EXISTS
-        ? [
-            ...cart.slice(0, cartItemIndex),
-            { ...cart[cartItemIndex], quantity: quantity },
-            ...cart.slice(cartItemIndex + 1),
-          ]
-        : [
-            ...cart,
-            {
-              id: id,
-              quantity: quantity,
-              product: productList.find((item) => item.id === id)!,
-            },
-          ];
-    setDataInLocalStorage<CartItem[]>('cart', cart);
+      cartItemIndex >= CART_ITEM_INDEX
+        ? cart.map((item, index) => (index === cartItemIndex ? updatedItem : item))
+        : [...cart, updatedItem];
 
     set(cartState, updatedCart);
   },
@@ -90,22 +84,16 @@ export const removeProductItemFromCartSelector = selectorFamily<CartItem[], numb
   key: 'removeProductItemFromCartSelector',
   get: () => ({ get }) => get(cartState),
   set: (id: number) => ({ get, set }) => {
-    const cart = get(cartState);
-    const cartItemIndex = cart.findIndex((item) => item.id === id);
-    if (cartItemIndex >= CART_ITEM_EXISTS) {
-      const updatedCart = cart.filter((item) => item.id !== id);
-      setDataInLocalStorage<CartItem[]>('cart', cart);
+    const updatedCart = get(cartState).filter((item) => item.id !== id);
 
-      set(cartState, updatedCart);
-    }
+    set(cartState, updatedCart);
   },
 });
 
 export const totalPriceSelector = selectorFamily<number, number[]>({
   key: 'totalPriceSelector',
   get: (selectedItems: number[]) => ({ get }) => {
-    const cart = get(cartState);
-    const selectedProducts = cart.filter((item) => selectedItems.includes(item.id));
+    const selectedProducts = get(cartState).filter((item) => selectedItems.includes(item.id));
     const totalPrice = selectedProducts.reduce((total, item) => {
       const quantity = item.quantity;
       const price = item.product.price;

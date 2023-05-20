@@ -3,6 +3,8 @@ import { cartItems, products } from './mockData';
 import { CartItem } from '../types';
 
 import { CART_BASE_URL, PRODUCT_BASE_URL } from '../constants/url';
+import { setDataInLocalStorage } from '../utils/localStorage';
+import { CART_ITEM_INDEX } from '../constants';
 
 export const handlers = [
   // 상품 조회
@@ -29,6 +31,20 @@ export const handlers = [
   // 장바구니 아이템 수량 변경
   rest.patch<CartItem>(`${CART_BASE_URL}/:id`, async (req, res, ctx) => {
     const { id, quantity } = await req.json();
+    const cartItemIndex = cartItems.findIndex((item) => item.id === id);
+
+    const updatedItem = {
+      id,
+      quantity,
+      product: products.find((item) => item.id === id)!,
+    };
+
+    const updatedCart =
+      cartItemIndex >= CART_ITEM_INDEX
+        ? cartItems.map((item, index) => (index === cartItemIndex ? updatedItem : item))
+        : [...cartItems, updatedItem];
+
+    setDataInLocalStorage<CartItem[]>('cart', updatedCart);
 
     const item = {
       id: id,
@@ -40,6 +56,11 @@ export const handlers = [
 
   // 장바구니 아이템 삭제
   rest.delete(`${CART_BASE_URL}/:id`, async (req, res, ctx) => {
+    const { id } = await req.json();
+    const updatedCart = cartItems.filter((item) => item.id !== id);
+
+    setDataInLocalStorage<CartItem[]>('cart', updatedCart);
+
     return res(ctx.status(204));
   }),
 ];

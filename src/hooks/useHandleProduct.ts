@@ -110,6 +110,7 @@ export const useHandleProduct = (id: number) => {
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify({ id }),
     })
       .then(() => {
         removeProductItemFromCart(id);
