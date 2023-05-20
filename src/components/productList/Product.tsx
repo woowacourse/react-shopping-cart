@@ -1,7 +1,7 @@
 import type { ProductType } from '../../types';
 
 import styled from 'styled-components';
-import CounterInput from '../common/CounterInput';
+import QuantityInput from '../common/QuantityInput';
 
 import * as api from '../../api';
 import { useRecoilState } from 'recoil';
@@ -29,7 +29,7 @@ export default function Product({ id, name, price, imageUrl }: Props) {
         </LabelBox>
         <ControlBox>
           {cartItem ? (
-            <CounterInput cartItemId={cartItem.id} min={0} max={MAX_QUANTITY} />
+            <QuantityInput cartItemId={cartItem.id} min={0} max={MAX_QUANTITY} />
           ) : (
             <CartIcon src="./cart.svg" onClick={addCartItem}></CartIcon>
           )}

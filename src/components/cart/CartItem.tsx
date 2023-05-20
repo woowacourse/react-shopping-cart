@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import * as api from '../../api';
 import CheckBox from '../common/CheckBox';
-import CounterInput from '../common/CounterInput';
+import QuantityInput from '../common/QuantityInput';
 import { cartState } from '../../recoil/state';
 import { MAX_QUANTITY } from '../../constants';
 
@@ -33,7 +33,7 @@ export default function CartItem(props: Props) {
         <RemoveButton onClick={removeCartItem}>
           <TrashCanIcon />
         </RemoveButton>
-        <CounterInput
+        <QuantityInput
           cartItemId={id}
           min={1}
           max={MAX_QUANTITY}
