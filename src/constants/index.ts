@@ -18,10 +18,10 @@ export const QUANTITY_CONTROL_UNIT = {
   DECREASE: 1,
 } as const;
 
-import outOfStock from '@Asset/outOfStock.png';
-import warning from '@Asset/warning.png';
-
 import { Error } from '@Types/index';
+
+import outOfStock from '../assets/outOfStock.png';
+import warning from '../assets/warning.png';
 
 export const ERROR: { [key: string]: Error } = {
   httpClient: {
@@ -44,4 +44,8 @@ export const ERROR: { [key: string]: Error } = {
     imgSrc: warning,
     imgAlt: '경고 이미지',
   },
+} as const;
+
+export const LOCAL_STORAGE_KEYWORD = {
+  SHOPPING_CART: 'shoppingCart',
 } as const;
