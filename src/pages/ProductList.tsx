@@ -4,7 +4,6 @@ import Header from 'src/components/@common/Header';
 import { useGetFetch } from 'src/hooks/useFetch';
 import { Product } from 'src/types';
 import { styled } from 'styled-components';
-import ToastPortal from 'src/components/@common/Toast/ToastPortal';
 import { useEffect } from 'react';
 import useToast from 'src/hooks/useToast';
 

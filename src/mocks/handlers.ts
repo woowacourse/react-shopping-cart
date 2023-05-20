@@ -1,6 +1,5 @@
 import { rest } from 'msw';
 import productJson from './data/productList.json';
-import cartListJson from './data/cartList.json';
 import {
   CartItem,
   CartItemPatchBody,

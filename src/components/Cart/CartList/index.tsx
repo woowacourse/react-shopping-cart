@@ -1,4 +1,3 @@
-import { CartItem } from 'src/types';
 import Item from '../CartItem';
 import * as S from './CartList.styles';
 import useCartListUpdate from 'src/hooks/useCartListUpdate';
