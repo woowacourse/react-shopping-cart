@@ -2,16 +2,20 @@ import { styled } from 'styled-components';
 import CartProductItem from '../CartProductItem/CartProductItem';
 import mockData from '../../data/productList.json';
 import checkIcon from '../../assets/check.svg';
+import { useRecoilValue } from 'recoil';
+import { cartListAtom } from '../../stores/cartItemsStore';
 
 const CartProductSummary = () => {
+  const cartList = useRecoilValue(cartListAtom);
+
   return (
     <Wrapper>
       <ProductCountWrapper>
         <ProductCount>든든배송 상품 (3개)</ProductCount>
       </ProductCountWrapper>
       <ProductList role='list'>
-        {mockData.map((product) => {
-          return <CartProductItem key={product.id} {...product} />;
+        {cartList.map((cartItem) => {
+          return <CartProductItem key={cartItem.id} {...cartItem} />;
         })}
       </ProductList>
       <ProductSelectWrapper>

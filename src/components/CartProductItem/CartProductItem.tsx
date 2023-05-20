@@ -2,15 +2,11 @@ import { styled } from 'styled-components';
 import checkIcon from '../../assets/check.svg';
 import trashBin from '../../assets/trash-bin.svg';
 import StepperInput from '../@common/StepperInput/StepperInput';
+import { CartItem } from '../../types';
 
-type CartProductItemProps = {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
-};
+const CartProductItem = ({ product, quantity }: CartItem) => {
+  const { name, price, imageUrl } = product;
 
-const CartProductItem = ({ name, price, imageUrl }: CartProductItemProps) => {
   return (
     <ProductItem>
       <Label>
@@ -26,7 +22,7 @@ const CartProductItem = ({ name, price, imageUrl }: CartProductItemProps) => {
             <img src={trashBin} alt={`${name}상품 삭제`} />
           </ProductDeleteButton>
         </ProductInfoUpperBoundary>
-        <StepperInput min={1} max={99} initialValue={1} $width={115} getValue={() => {}} />
+        <StepperInput min={1} max={99} initialValue={quantity} $width={115} getValue={() => {}} />
         <ProductPriceInfo>
           <span>{price.toLocaleString()}원</span>
         </ProductPriceInfo>
