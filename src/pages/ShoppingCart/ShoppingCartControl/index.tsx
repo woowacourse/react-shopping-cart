@@ -13,11 +13,11 @@ import { FETCH_METHOD, FETCH_URL } from '@Constants/index';
 import * as S from './style';
 
 type ShoppingCartControlProps = {
-  shoppingCart: ShoppingCartProduct[];
+  cartItems: ShoppingCartProduct[] | null;
   updateShoppingCart: UpdateShoppingCart;
 };
 
-function ShoppingCartControl({ shoppingCart, updateShoppingCart }: ShoppingCartControlProps) {
+function ShoppingCartControl({ cartItems, updateShoppingCart }: ShoppingCartControlProps) {
   const { itemId, isAllSelected, selectedItemAmount, updateAllSelectedShoppingItem, popSelectedShoppingItem } =
     useSelectedShoppingItem();
 
@@ -37,7 +37,7 @@ function ShoppingCartControl({ shoppingCart, updateShoppingCart }: ShoppingCartC
       <Checkbox
         isChecked={isAllSelected(Number(shoppingCartAmount))}
         updateSelectedState={() => {
-          updateAllSelectedShoppingItem(shoppingCart);
+          updateAllSelectedShoppingItem(cartItems);
         }}
         size="small"
       />

@@ -12,10 +12,10 @@ import shoppingCartState from '@Atoms/shoppingCartState';
 import { FETCH_URL } from '@Constants/index';
 
 const useShoppingCart = () => {
-  const [shoppingCart, setShoppingCart] = useRecoilState<ShoppingCartProduct[]>(shoppingCartState);
+  const [shoppingCart, setShoppingCart] = useRecoilState<ShoppingCartProduct[] | null>(shoppingCartState);
   const { data, status } = useFetch<ShoppingCartProduct[]>(FETCH_URL.cartItems);
 
-  const isEmpty = !shoppingCart.length;
+  const isEmpty = shoppingCart ? !shoppingCart.length : 0;
 
   const updateShoppingCart: UpdateShoppingCart = async (url, method, body) => {
     await fetch(url, {

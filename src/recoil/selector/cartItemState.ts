@@ -12,6 +12,8 @@ const cartItemState = selectorFamily({
     ({ get }) => {
       const shoppingCart = get(shoppingCartState);
 
+      if (!shoppingCart) return { cartItemId: undefined, quantity: SHOPPING_QUANTITY.MIN };
+
       const shoppingItem = shoppingCart.find((item) => item.product.id === productId);
 
       if (shoppingItem) return { cartItemId: shoppingItem.id, quantity: shoppingItem.quantity };

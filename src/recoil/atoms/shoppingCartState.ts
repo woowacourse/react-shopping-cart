@@ -2,9 +2,9 @@ import { atom } from 'recoil';
 
 import { ShoppingCartProduct } from '@Types/index';
 
-const shoppingCartState = atom<ShoppingCartProduct[]>({
+const shoppingCartState = atom<ShoppingCartProduct[] | null>({
   key: 'shoppingCartState',
-  default: [],
+  default: null,
 });
 
 export default shoppingCartState;

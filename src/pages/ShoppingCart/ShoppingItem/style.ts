@@ -1,3 +1,4 @@
+import { ImageSkeletonStyle, TextSkeletonStyle } from '@Styles/common/skeleton';
 import styled from 'styled-components';
 
 type ContainerProps = {
@@ -13,16 +14,22 @@ export const Container = styled.div<ContainerProps>`
   padding: 20px 0px 30px 0px;
 `;
 
-export const ShoppingItemImage = styled.img`
+type LoadingProps = {
+  isLoading?: boolean;
+};
+
+export const ShoppingItemImage = styled.img<LoadingProps>`
   width: 150px;
   height: 150px;
+  ${ImageSkeletonStyle};
 `;
 
-export const ShoppingItemName = styled.div`
+export const ShoppingItemName = styled.div<LoadingProps>`
   color: #333333;
   font-size: 18px;
   font-weight: 400;
   line-height: 24px;
+  ${(props) => props.isLoading && TextSkeletonStyle}
 `;
 
 export const RightContents = styled.div`
@@ -37,9 +44,10 @@ export const DeleteButton = styled.img`
   cursor: pointer;
 `;
 
-export const ShoppingItemPrice = styled.div`
+export const ShoppingItemPrice = styled.div<LoadingProps>`
   align-self: flex-end;
   color: #333333;
   font-weight: 400;
   line-height: 24px;
+  ${(props) => props.isLoading && TextSkeletonStyle}
 `;

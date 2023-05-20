@@ -23,13 +23,13 @@ function ShoppingCart() {
   return (
     <S.Container>
       <S.Title>장바구니</S.Title>
-      {!shoppingCart?.length ? (
+      {status === 'success' && shoppingCart?.length === 0 ? (
         <EmptyCart />
       ) : (
         <>
           <S.ShoppingCartSubHeader>
             <S.ProductAmount>든든배송 상품 ({shoppingCartAmount}개)</S.ProductAmount>
-            <ShoppingCartControl shoppingCart={shoppingCart} updateShoppingCart={updateShoppingCart} />
+            <ShoppingCartControl cartItems={shoppingCart} updateShoppingCart={updateShoppingCart} />
           </S.ShoppingCartSubHeader>
           <S.ShoppingCartContentsLayout>
             <ShoppingList

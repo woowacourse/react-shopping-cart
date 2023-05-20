@@ -17,23 +17,24 @@ import Trash from '@Asset/Trash.png';
 import * as S from './style';
 
 type ShoppingItemProps = {
-  product: Product;
+  product?: Product;
   width?: string;
   cartId: number;
+  isLoading?: boolean;
   updateShoppingCart: UpdateShoppingCart;
 };
 
-function ShoppingItem({ product, width = '100%', cartId, updateShoppingCart }: ShoppingItemProps) {
+function ShoppingItem({ product, width = '100%', cartId, isLoading = false, updateShoppingCart }: ShoppingItemProps) {
   const { isSelected, updateSelectedShoppingItem, popSelectedShoppingItem } = useSelectedShoppingItem();
 
   const { name, price, image, imageDescription } = useProduct(product);
-  const { cartItemId, quantity } = product && useRecoilValue(cartItemState(product.id));
+  const cartItem = product && useRecoilValue(cartItemState(product.id));
 
   const deleteShoppingItem = () => {
     if (!window.confirm(`${name} 상품을 장바구니에서 삭제하시겠습니까?`)) return;
 
     popSelectedShoppingItem(cartId);
-    updateShoppingCart(`${FETCH_URL.cartItems}/${cartItemId}`, FETCH_METHOD.DELETE);
+    updateShoppingCart(`${FETCH_URL.cartItems}/${cartItem?.cartItemId}`, FETCH_METHOD.DELETE);
   };
 
   return (
@@ -44,17 +45,21 @@ function ShoppingItem({ product, width = '100%', cartId, updateShoppingCart }: S
         updateSelectedState={() => updateSelectedShoppingItem(cartId)}
       />
       <S.ShoppingItemImage src={image} alt={imageDescription} aria-label="장바구니 상품 이미지" />
-      <S.ShoppingItemName aria-label="장바구니 상품 이름">{name}</S.ShoppingItemName>
+      <S.ShoppingItemName aria-label="장바구니 상품 이름" isLoading={isLoading}>
+        {name}
+      </S.ShoppingItemName>
       <S.RightContents>
         <S.DeleteButton src={Trash} onClick={deleteShoppingItem} />
         <QuantityController
           product={product}
-          quantity={quantity}
-          cartItemId={cartItemId}
+          quantity={cartItem?.quantity}
+          cartItemId={cartItem?.cartItemId}
           updateShoppingCart={updateShoppingCart}
           isAbleSetZeroState={false}
         />
-        <S.ShoppingItemPrice aria-label="장바구니 상품 가격">{price}</S.ShoppingItemPrice>
+        <S.ShoppingItemPrice aria-label="장바구니 상품 가격" isLoading={isLoading}>
+          {price}
+        </S.ShoppingItemPrice>
       </S.RightContents>
     </S.Container>
   );

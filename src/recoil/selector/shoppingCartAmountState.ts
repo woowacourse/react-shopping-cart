@@ -9,10 +9,10 @@ const shoppingCartAmountState = selector({
 
   get: ({ get }) => {
     const shoppingCart = get(shoppingCartState);
-    const shoppingCartAmount = shoppingCart.length;
+    const shoppingCartAmount = shoppingCart ? shoppingCart.length : 0;
 
     if (shoppingCartAmount > SHOPPING_QUANTITY.MAX) return `${SHOPPING_QUANTITY.MAX}+`;
-    return String(shoppingCart.length);
+    return String(shoppingCartAmount);
   },
 });
 

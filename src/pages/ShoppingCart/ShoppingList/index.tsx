@@ -4,7 +4,7 @@ import * as S from './style';
 import ShoppingItem from '../ShoppingItem';
 
 type ShoppingListProps = {
-  cartItems: ShoppingCartProduct[];
+  cartItems: ShoppingCartProduct[] | null;
   isLoading: boolean;
   updateShoppingCart: UpdateShoppingCart;
 };
@@ -13,18 +13,20 @@ function ShoppingList({ cartItems, isLoading, updateShoppingCart }: ShoppingList
   return (
     <S.Container>
       <S.ShoppingListLayout>
-        {isLoading ? (
-          <div>loading</div>
-        ) : (
+        {isLoading &&
+          Array.from({ length: 6 }, (_, index) => (
+            <ShoppingItem key={index} isLoading={isLoading} cartId={index} updateShoppingCart={updateShoppingCart} />
+          ))}
+        {cartItems &&
           cartItems.map((item) => (
             <ShoppingItem
               cartId={item.id}
               product={item.product}
               key={item.product.id}
               updateShoppingCart={updateShoppingCart}
+              isLoading={isLoading}
             />
-          ))
-        )}
+          ))}
       </S.ShoppingListLayout>
     </S.Container>
   );

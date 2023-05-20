@@ -18,7 +18,9 @@ const useSelectedShoppingItem = () => {
 
   const selectedItemAmount = itemId.length;
 
-  const updateAllSelectedShoppingItem = (shoppingCart: ShoppingCartProduct[]) => {
+  const updateAllSelectedShoppingItem = (shoppingCart: ShoppingCartProduct[] | null) => {
+    if (!shoppingCart) return;
+
     if (isAllSelected(shoppingCart.length)) setItemId([]);
     else setItemId(shoppingCart.map((item) => item.id));
   };

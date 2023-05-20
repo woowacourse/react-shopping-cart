@@ -16,7 +16,7 @@ import ShoppingCart from '@Asset/ShoppingCart.png';
 import * as S from './style';
 
 type QuantityControllerProps = {
-  product: Product;
+  product?: Product;
   quantity?: number;
   cartItemId?: number;
   isAbleSetZeroState?: boolean;
@@ -46,7 +46,7 @@ function QuantityController({
   };
 
   const addShoppingCart = () => {
-    updateShoppingCart(FETCH_URL.cartItems, FETCH_METHOD.POST, JSON.stringify({ productId: product.id }));
+    updateShoppingCart(FETCH_URL.cartItems, FETCH_METHOD.POST, JSON.stringify({ productId: product?.id }));
   };
 
   const changeQuantityValue = (event: React.ChangeEvent<HTMLInputElement>) => {

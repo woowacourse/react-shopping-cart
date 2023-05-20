@@ -28,3 +28,10 @@ export const DefaultShoppingItem: Story = {
     width: '600px',
   },
 };
+
+export const SkeletonShoppingItem: Story = {
+  args: {
+    width: '600px',
+    isLoading: true,
+  },
+};
