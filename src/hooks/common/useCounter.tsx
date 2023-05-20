@@ -9,7 +9,7 @@ interface UseCounterOptions {
 const useCounter = (
   options: UseCounterOptions
 ): [number, VoidFunction, VoidFunction] => {
-  const { max = Infinity, min = Infinity, step = 1 } = options;
+  const { max = Infinity, min = -Infinity, step = 1 } = options;
   const [count, setCount] = useState(1);
 
   const increase = useCallback(() => {
