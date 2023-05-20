@@ -1,7 +1,6 @@
 import { rest } from 'msw';
 import { cartItems, products } from './mockData';
 import { CartItem } from '../types';
-
 import { CART_BASE_URL, PRODUCT_BASE_URL } from '../constants/url';
 import { setDataInLocalStorage } from '../utils/localStorage';
 import { CART_ITEM_INDEX } from '../constants';

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Icon from './Icon';
 import { CART_PATH } from '../../constants/svgPath';
-import Cart from '../main/Cart';
+import CartRouteButton from '../main/CartRouteButton';
 
 interface Props {
   title: string;
@@ -15,7 +15,7 @@ const Header = ({ title, onClickTitle, onClickCartButton }: Props) => {
       <S.Wrapper>
         <Icon width="44" height="36" color="#FFF" path={CART_PATH} viewBox="0 0 51 44" />
         <S.TitleButton onClick={onClickTitle}>{title}</S.TitleButton>
-        <Cart onClick={onClickCartButton!} />
+        <CartRouteButton onClick={onClickCartButton!} />
       </S.Wrapper>
     </S.Header>
   );

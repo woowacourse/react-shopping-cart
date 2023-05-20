@@ -6,7 +6,7 @@ interface Props {
   onClick: () => void;
 }
 
-const Cart = ({ onClick }: Props) => {
+const CartRouteButton = ({ onClick }: Props) => {
   const selectedProductsCount = useRecoilValue(cartBadgeSelector);
 
   return (
@@ -47,4 +47,4 @@ const S = {
   `,
 };
 
-export default Cart;
+export default CartRouteButton;
