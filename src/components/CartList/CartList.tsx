@@ -9,7 +9,7 @@ function CartList() {
   const cartCount = useRecoilValue(cartCountSelector);
 
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       <CartListTitle>든든배송 상품 ({cartCount}개)</CartListTitle>
       {cartList.map((cart) => (
         <CartItem key={cart.id} cart={cart} />

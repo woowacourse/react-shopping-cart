@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import CartList from '../../components/CartList';
+import PurchaseBox from '../../components/PurchaseBox';
 
 export const CartTitle = styled.div`
   font-style: normal;
@@ -30,38 +31,7 @@ function Cart() {
       <FatBorder />
       <CartWrapper>
         <CartList />
-        <div>
-          <div>결제예상금액</div>
-          <div>
-            <div>
-              총 상품가격
-            </div>
-            <div>
-              {0}원
-            </div>
-          </div>
-          <div>
-            <div>
-              총 배송비
-            </div>
-            <div>
-              {0}원
-            </div>
-          </div>
-          <div>
-            <div>
-              총 주문 금액
-            </div>
-            <div>
-              {0}원
-            </div>
-          </div>
-          <div>
-            <button>
-              주문하기
-            </button>
-          </div>
-        </div>
+        <PurchaseBox />
       </CartWrapper>
     </div>
   );
