@@ -10,7 +10,7 @@ export const theme = {
     dark: '#000000',
   },
   breakpoints: {
-    xs: '0',
+    xs: '0px',
     sm: '576px',
     md: '768px',
     lg: '992px',
