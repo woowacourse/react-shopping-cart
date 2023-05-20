@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const PurchaseWrapper = styled.div`
-  border: 1px solid ${({ theme }) => theme.color.secondary};
+  border: 1px solid ${({theme}) => theme.color.secondary};
   padding: 30px;
 `;
 
@@ -26,4 +26,20 @@ export const PurchaseText = styled.div`
 export const PurchasePropertyWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+`;
+
+export const PurchaseButtonWrapper = styled.div`
+  margin-top: 40px;
+`;
+
+export const PurchaseButton = styled.button`
+  padding: 26px 0px 26px 0px;
+  background-color: black;
+  color: white;
+  width: 100%;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 21px;
 `;

@@ -1,8 +1,14 @@
-import { PurchasePropertyWrapper, PurchaseText, PurchaseTitle, PurchaseWrapper } from "./PurchaseBox.style";
+import {
+  PurchaseButton, PurchaseButtonWrapper,
+  PurchasePropertyWrapper,
+  PurchaseText,
+  PurchaseTitle,
+  PurchaseWrapper
+} from "./PurchaseBox.style";
 
 function PurchaseBox() {
   return (
-    <div style={{ width: '100%' }}>
+    <div style={{width: '100%'}}>
       <PurchaseWrapper>
         <PurchaseTitle>결제예상금액</PurchaseTitle>
       </PurchaseWrapper>
@@ -31,11 +37,11 @@ function PurchaseBox() {
             {0}원
           </PurchaseText>
         </PurchasePropertyWrapper>
-        <div>
-          <button>
+        <PurchaseButtonWrapper>
+          <PurchaseButton>
             주문하기
-          </button>
-        </div>
+          </PurchaseButton>
+        </PurchaseButtonWrapper>
       </PurchaseWrapper>
     </div>
   );

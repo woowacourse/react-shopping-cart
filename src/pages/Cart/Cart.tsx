@@ -1,39 +1,29 @@
 import styled from 'styled-components';
 import CartList from '../../components/CartList';
 import PurchaseBox from '../../components/PurchaseBox';
+import {CartTitle, CartWrapper, FatBorder} from "./Cart.style.ts";
+import {CartListTitle} from "../../components/CartList/CartList.style.ts";
+import {useRecoilValue} from "recoil";
+import {cartCountSelector} from "../../recoil/cartAtoms.ts";
 
-export const CartTitle = styled.div`
-  font-style: normal;
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 37px;
-
-  text-align: center;
-  letter-spacing: 0.5px;
-
-  margin: 60px 0px 30px 0px;
-`;
-
-export const FatBorder = styled.hr`
-  border: solid 4px black;
-`;
-
-export const CartWrapper = styled.div`
-  display: flex;
-`;
-
+/**
+ * TODO: 반응형 적용, gap 대신 max-width로 간격 조절하기
+ */
 
 function Cart() {
-
+  const cartCount = useRecoilValue(cartCountSelector);
+  
   return (
     <div>
       <CartTitle>장바구니</CartTitle>
-      <FatBorder />
+      <FatBorder/>
+      <CartListTitle>든든배송 상품 ({cartCount}개)</CartListTitle>
       <CartWrapper>
-        <CartList />
-        <PurchaseBox />
+        <CartList/>
+        <PurchaseBox/>
       </CartWrapper>
     </div>
   );
 }
+
 export default Cart;
