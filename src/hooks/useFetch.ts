@@ -25,6 +25,10 @@ export const useFetch = <T>(
     get: (url: string) => {
       fetchData(url, { method: 'GET' });
     },
+
+    post: (url: string, body: object) => {
+      fetchData(url, { method: 'POST', body: JSON.stringify(body) });
+    },
   };
 
   return { fetchApi, data, isLoading };

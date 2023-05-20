@@ -30,6 +30,7 @@ const StepperButton = ({
 
   const handleIncrease = useCallback(() => {
     if (setCount) setCount((prevCount) => prevCount + 1);
+
     if (increaseCount && itemId) increaseCount(itemId);
   }, [setCount, increaseCount, itemId]);
 

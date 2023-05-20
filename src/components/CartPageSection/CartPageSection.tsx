@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
-// import { useRecoilValue } from 'recoil';
 import { useCartList } from '../../hooks/useCartList';
 import { useFetch } from '../../hooks/useFetch';
 import { cartListState } from '../../store/cart';
@@ -11,8 +10,8 @@ import CartItem from '../CartItem/CartItem';
 import styles from './style.module.css';
 
 const CartPageSection = () => {
-  //   const cartItemList = useRecoilValue(cartListState);
   const [cartItem, setCartItemList] = useRecoilState(cartListState);
+  console.log(cartItem);
   const {
     cartList,
     getCartItemSum,
@@ -57,8 +56,7 @@ const CartPageSection = () => {
       </div>
       <section className={styles.section}>
         <div className={styles.cartList}>
-          {isLoading && <div>loading</div>}
-          {!isLoading &&
+          {!isLoading ? (
             cartItem.map((item) => (
               <CartItem
                 quantity={item.quantity}
@@ -69,7 +67,10 @@ const CartPageSection = () => {
                 checkHandler={reverseCheckCartItem}
                 removeItem={selectedItemRemove}
               />
-            ))}
+            ))
+          ) : (
+            <div>loading</div>
+          )}
         </div>
         <div className={styles.orderBox}>
           <div className={styles.orderBoxHeader}>결제예상금액</div>
