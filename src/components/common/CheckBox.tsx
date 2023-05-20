@@ -41,6 +41,10 @@ const CheckboxLabel = styled.label`
   border: 1.5px solid #22a6a2;
   border-radius: 2px;
 
+  &:hover {
+    cursor: pointer;
+  }
+
   input:checked ~ & {
     border-color: #3288ff;
     background: #333333;
