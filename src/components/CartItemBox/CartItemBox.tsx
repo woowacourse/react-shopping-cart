@@ -1,18 +1,25 @@
-import { useCartItemQuantityById } from '../../hooks/cartListState/cartListState';
+import {
+  useCartItemCheckedById,
+  useCartItemQuantityById,
+} from '../../hooks/cartListState/cartListState';
 import { FlexWrapper } from '../../pages/Cart/Cart.style';
 import type { ProductItem } from '../../types/ProductType';
 import QuantityCounter from '../common/QuantityCounter/QuantityCounter';
 
-interface CartItemProps extends ProductItem {
-  toggle: boolean;
-  setToggle: () => void;
-}
-
-function CartItemBox({ id, imageUrl, name, price, toggle, setToggle }: CartItemProps) {
+function CartItemBox({ id, imageUrl, name, price }: ProductItem) {
+  // id: cartItem
   const [quantity, setQuantity] = useCartItemQuantityById(id);
+  const { isChecked, toggleCheck } = useCartItemCheckedById(id);
+
   return (
     <FlexWrapper>
-      <input onClick={setToggle} type="checkbox" checked={toggle} readOnly />
+      <input
+        type="checkbox"
+        checked={isChecked}
+        onChange={() => {
+          toggleCheck();
+        }}
+      />
       <img src={imageUrl} />
       <p>{name}</p>
       <p>{price * quantity}</p>

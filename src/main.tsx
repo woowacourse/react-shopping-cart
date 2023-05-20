@@ -34,12 +34,4 @@ async function main() {
     </React.StrictMode>
   );
 }
-
-// worker.start();
-// async function prepare() {
-//   await import('./mockServiceWorker.js?worker');
-
-//   return worker.start();
-// }
-
 main();

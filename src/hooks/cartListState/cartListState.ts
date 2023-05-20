@@ -8,8 +8,9 @@ import {
 } from 'recoil';
 import type { CartItem, ProductItem } from '../../types/ProductType';
 import { productListState } from '../productListState/productListState';
+import { useCallback, useMemo } from 'react';
 
-const cartListState = atom<CartItem[]>({
+const cartState = atom<CartItem[]>({
   key: 'cartListWithInfoState',
   default: selector({
     key: 'cartListWithInfoState/default',
@@ -29,7 +30,7 @@ const cartItemQuantityState = selectorFamily<number, number>({
   get:
     (id) =>
     ({ get }) => {
-      const cartList = get(cartListState);
+      const cartList = get(cartState);
       const cartProduct = cartList.filter((cartItem) => cartItem.id === id)[0];
 
       return cartProduct?.quantity ?? 0;
@@ -39,14 +40,14 @@ const cartItemQuantityState = selectorFamily<number, number>({
     ({ get, set }, quantity) => {
       // TODO: 분리하기
       if (!(quantity instanceof DefaultValue) && quantity < 99 && quantity >= 0) {
-        const cartList = get(cartListState);
+        const cartList = get(cartState);
 
         // TODO: post
         if (!cartList.some((item) => item.id === id)) {
           if (quantity === 0) return;
           const product = get(productListState).filter((product) => product.id === id)[0];
 
-          set(cartListState, (prevCartList) => [
+          set(cartState, (prevCartList) => [
             ...prevCartList,
             {
               id,
@@ -67,7 +68,7 @@ const cartItemQuantityState = selectorFamily<number, number>({
 
         // TODO: delete
         if (quantity === 0) {
-          set(cartListState, (prevCartList) => prevCartList.filter((item) => item.id !== id));
+          set(cartState, (prevCartList) => prevCartList.filter((item) => item.id !== id));
 
           fetch(`/cart-items/${id}`, {
             method: 'DELETE',
@@ -77,7 +78,7 @@ const cartItemQuantityState = selectorFamily<number, number>({
         }
 
         // TODO: patch
-        set(cartListState, (prevCartList) => {
+        set(cartState, (prevCartList) => {
           return prevCartList.map((item) => {
             if (item.id === id) {
               return {
@@ -100,15 +101,124 @@ const cartItemQuantityState = selectorFamily<number, number>({
     },
 });
 
-export const useProductListInCart: () => ProductItem[] = () => {
-  const cartListWithInfo = useRecoilValue(cartListState);
+const cartItemCheckedState = selectorFamily<boolean, number>({
+  key: 'cartItemCheckedState',
+  get:
+    (id) =>
+    ({ get }) => {
+      const cart = get(cartState);
+      const cartItem = cart.filter((cartItem) => cartItem.id === id)[0];
 
-  return cartListWithInfo.map(({ product }) => {
+      return cartItem?.checked ?? false;
+    },
+
+  set:
+    (id) =>
+    ({ set }, checked) => {
+      if (!(checked instanceof DefaultValue)) {
+        set(cartState, (prevCartList) => {
+          return prevCartList.map((item) => {
+            if (item.id === id) {
+              return {
+                ...item,
+                checked,
+              };
+            } else {
+              return item;
+            }
+          });
+        });
+      }
+    },
+});
+
+const cartTotalCheckedCount = selector({
+  key: 'cartCountChecked',
+  get: ({ get }) => {
+    const cart = get(cartState);
+
+    return cart.reduce((acc, cur) => {
+      if (cur.checked) return acc + 1;
+      return acc;
+    }, 0);
+  },
+});
+
+const cartTotalPriceState = selector({
+  key: 'cartTotalPriceState',
+  get: ({ get }) => {
+    const cart = get(cartState);
+
+    return cart.reduce((acc: number, item) => {
+      if (!item.checked) return acc;
+
+      return acc + item.product.price * item.quantity;
+    }, 0);
+  },
+});
+
+export const useProductListInCart: () => ProductItem[] = () => {
+  const cart = useRecoilValue(cartState);
+
+  return cart.map(({ product }) => {
     const productInfo: ProductItem = { ...product };
     return productInfo;
   });
 };
 
-export const useCartItemList = () => useRecoilState(cartListState);
+export const useCartItemList = () => useRecoilState(cartState);
 export const useCartItemQuantityById = (id: number) => useRecoilState(cartItemQuantityState(id));
-export const useCartListLength = () => useRecoilValue(cartListState).length;
+export const useCartItemCheckedById = (id: number) => {
+  const [isChecked, setIsChecked] = useRecoilState(cartItemCheckedState(id));
+  return {
+    isChecked,
+    toggleCheck: () => {
+      setIsChecked(!isChecked);
+    },
+  };
+};
+export const useCartTotalCheckedCountReadOnly = () => {
+  return { totalCheckedCountReadLOnly: useRecoilValue(cartTotalCheckedCount) };
+};
+export const useCartTotalPriceReadOnly = () => {
+  return { totalPriceReadOnly: useRecoilValue(cartTotalPriceState) };
+};
+
+export const useToggleAllCartItem = () => {
+  const [cartList, setCartList] = useRecoilState(cartState);
+
+  const toggleMap = useMemo<{ [id: number]: boolean }>(() => {
+    return cartList.reduce((acc, { product, checked }) => {
+      const { id } = product;
+      Object.assign(acc, { [id]: checked });
+      return acc;
+    }, {});
+  }, [cartList]);
+
+  const isAllChecked = cartList.every((cartItem) => cartItem.checked);
+
+  const checkedCount = Object.values(toggleMap).reduce((acc, cur) => {
+    if (cur) {
+      return acc + 1;
+    } else {
+      return acc;
+    }
+  }, 0);
+
+  const isCheckedById = useCallback((id: number) => toggleMap[id], [toggleMap]);
+
+  const toggleAllCartItem = useCallback(() => {
+    setCartList((prevCart) => {
+      return prevCart.map((item) => ({ ...item, checked: !isAllChecked }));
+    });
+  }, [isAllChecked, setCartList]);
+
+  return {
+    isAllChecked,
+    checkedCount,
+    isCheckedById,
+    toggleAllCartItem,
+  };
+};
+
+export const useCartLength = () => useRecoilValue(cartState).length;
