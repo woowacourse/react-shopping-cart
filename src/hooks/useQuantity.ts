@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import { productSelector } from "recoil/selector";
 import { MAX_QUANTITY, MIN_QUANTITY } from "constants/";
-import { ProductType } from "types/domain";
+import { CartProduct } from "types/domain";
 
 export const useQuantity = (itemID: number) => {
   const [cartItem, setCartItem] = useRecoilState(productSelector(itemID));
@@ -13,8 +13,17 @@ export const useQuantity = (itemID: number) => {
   const changeQuantity = (newQuantity: string) => {
     if (Number(newQuantity) > MAX_QUANTITY || Number(newQuantity) < MIN_QUANTITY) return;
 
-    setQuantity(newQuantity.toString());
-    setCartItem({ ...cartItem, quantity: Number(newQuantity) } as ProductType);
+    fetch(`/cart-items/${itemID}`, {
+      method: "PATCH",
+      body: JSON.stringify({ quantity: Number(newQuantity) }),
+    })
+      .then(() => {
+        setQuantity(newQuantity);
+        setCartItem({ ...cartItem, quantity: Number(newQuantity) } as CartProduct);
+      })
+      .catch((err) => {
+        console.log(`장바구니 상품 수량 변경 실패: ${err instanceof Error ? err.message : ""}`);
+      });
   };
 
   const handleQuantityChanged = (e: React.ChangeEvent<HTMLInputElement>) => {

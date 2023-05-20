@@ -23,6 +23,16 @@ export const useCartCheckbox = () => {
   };
 
   const removeCheckedItem = () => {
+    cartList
+      .filter((item) => item.isChecked)
+      .forEach((item) => {
+        fetch(`/cart-items/${item.id}`, {
+          method: "DELETE",
+        }).catch((err) => {
+          console.log(`장바구니 상품 제거 실패: ${err instanceof Error ? err.message : ""}`);
+        });
+      });
+
     setCartList(cartList.filter((item) => !item.isChecked));
   };
 

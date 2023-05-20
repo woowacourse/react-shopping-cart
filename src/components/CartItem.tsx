@@ -3,9 +3,9 @@ import QuantityCounter from "components/QuantityCounter";
 import React from "react";
 import { useSetRecoilState } from "recoil";
 import { productSelector } from "recoil/selector";
-import { ProductType } from "types/domain";
+import { CartProduct } from "types/domain";
 
-const CartItem = (product: ProductType) => {
+const CartItem = (product: CartProduct) => {
   const setProduct = useSetRecoilState(productSelector(product.id));
 
   const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {

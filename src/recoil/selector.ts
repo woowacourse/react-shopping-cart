@@ -1,7 +1,7 @@
 import { CART_LIST_LOCAL_STORAGE_KEY, MIN_QUANTITY } from "constants/index";
 import { DefaultValue, selector, selectorFamily } from "recoil";
 import { productListState } from "recoil/atom";
-import { ProductType } from "types/domain";
+import { CartProduct } from "types/domain";
 
 export const CartProductList = selector({
   key: "CartProductList",
@@ -24,7 +24,7 @@ export const CartProductList = selector({
   },
 });
 
-export const productSelector = selectorFamily<ProductType | null, number>({
+export const productSelector = selectorFamily<CartProduct | null, number>({
   key: "productSelector",
   get:
     (id) =>

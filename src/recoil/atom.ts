@@ -1,9 +1,8 @@
 import { atom } from "recoil";
 import { CART_LIST_LOCAL_STORAGE_KEY } from "constants/";
-import { ProductType } from "types/domain";
-import { Product } from "hooks/useGet";
+import { CartProduct } from "types/domain";
 
-const getCartListFromLocalStorage = (): ProductType[] => {
+const getCartListFromLocalStorage = (): CartProduct[] => {
   try {
     const item = localStorage.getItem(CART_LIST_LOCAL_STORAGE_KEY);
 
@@ -17,11 +16,11 @@ const getCartListFromLocalStorage = (): ProductType[] => {
 
 const localCartList = getCartListFromLocalStorage();
 
-export const productListState = atom<ProductType[]>({
+export const productListState = atom<CartProduct[]>({
   key: "productList",
-  default: localCartList.map((product: Product) => {
+  default: localCartList.map((product) => {
     const targetItem = localCartList.find((item) => item.id === product.id);
-    const newItem: ProductType = {
+    const newItem: CartProduct = {
       ...product,
       quantity: targetItem ? targetItem.quantity : 0,
       isChecked: true,

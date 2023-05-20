@@ -2,13 +2,17 @@ import styled from "styled-components";
 import { useQuantity } from "hooks/useQuantity";
 import { MIN_QUANTITY } from "constants/";
 import QuantityCounter from "components/QuantityCounter";
-import { ProductType } from "types/domain";
+import { CartProduct } from "types/domain";
 
-const Item = (product: ProductType) => {
+const Item = (product: CartProduct) => {
   const { quantity, changeQuantity } = useQuantity(product.id);
 
   const handleCartClicked = () => {
-    changeQuantity("1");
+    fetch("/cart-items", { method: "POST", body: JSON.stringify({ productId: product.id }) })
+      .then(() => changeQuantity("1"))
+      .catch((err) => {
+        console.log(`장바구니 상품 추가 실패: ${err instanceof Error ? err.message : ""}`);
+      });
   };
 
   return (

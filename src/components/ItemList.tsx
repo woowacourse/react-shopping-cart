@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import Item from "components/Item";
-import { useGet } from "hooks/useGet";
+import { useFetch } from "hooks/useFetch";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { productListState } from "recoil/atom";
-import { ProductType } from "types/domain";
+import { Product, CartProduct } from "types/domain";
 import { useEffect } from "react";
 import { CartProductList } from "recoil/selector";
 
@@ -11,16 +11,16 @@ const ItemList = () => {
   const [productList, setProductList] = useRecoilState(productListState);
   const cartList = useRecoilValue(CartProductList);
 
-  const { result, isLoading } = useGet({ fetchUrl: "/products" });
+  const { result, isLoading } = useFetch<Product[]>("/products");
 
   useEffect(() => {
-    if (isLoading) return;
+    if (isLoading || !result) return;
 
     setProductList(
       result.map((product) => {
         const cartItem = cartList.find((item) => item.id === product.id);
 
-        const updatedProduct: ProductType = {
+        const updatedProduct: CartProduct = {
           ...product,
           quantity: cartItem ? cartItem.quantity : 0,
           isChecked: true,
