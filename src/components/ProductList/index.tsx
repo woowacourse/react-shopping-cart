@@ -1,18 +1,18 @@
 import styled from 'styled-components';
-import useProductList from '@hooks/useProductList';
+import useFetch from '@hooks/useFetch';
 import ProductItem from './ProductItem';
 
 const ProductList = () => {
-  const productList = useProductList();
-  const productsId:number[] = []
+  const { isLoading, data, error } = useFetch('/products', { method: 'GET' });
+  const productsId: number[] = [];
 
-  productList.forEach((element: {}, index: number) => {
+  data.forEach((element: {}, index: number) => {
     productsId.push(index);
   });
   return (
     <Container>
-      {productList.map((product, index) => (
-        <ProductItem product={product} key={productsId[index]}/>
+      {data.map((product, index) => (
+        <ProductItem product={product} key={productsId[index]} />
       ))}
     </Container>
   );

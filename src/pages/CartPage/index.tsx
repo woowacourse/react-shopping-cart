@@ -1,15 +1,24 @@
 import { styled } from 'styled-components';
+import { cartAtom } from '@recoil/atoms/cartAtom';
 import CartExpectedPrice from '@components/CartExpectedPrice';
 import CartList from '@components/CartList';
 import CartTitle from '@components/CartTitle';
 import Button from '@components/common/Button';
 import CheckBox from '@components/common/CheckBox';
+import useAtomLocalStorage from '@hooks/useAtomLocalStorage';
+import { CartInformation } from '@type/types';
+import { CART_LIST_LOCAL_KEY } from '@constants/common';
 
 const CartPage = () => {
+  const [cart] = useAtomLocalStorage<CartInformation[]>(
+    cartAtom,
+    CART_LIST_LOCAL_KEY
+  );
+
   return (
     <CartPageWrapper>
       <CartTitle />
-      <CartCountTextWrapper>든든배송 상품(3개)</CartCountTextWrapper>
+      <CartCountTextWrapper>든든배송 상품({cart.length})</CartCountTextWrapper>
       <CartInformationWrapper>
         <CartList />
         <CartExpectedPrice />

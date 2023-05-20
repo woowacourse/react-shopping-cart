@@ -1,23 +1,24 @@
 import { styled } from 'styled-components';
-import useBucketCount from 'hooks/useBucketCount';
+import useBucketCount from '@hooks/useBucketCount';
 import {
   BUCKET_COUNTER_BOTTOM_BUTTON,
   BUCKET_COUNTER_TOP_BUTTON,
   CART_COUNT_INPUT,
 } from '@constants/testId';
-import { BOTTOM_ARROW, TOP_ARROW } from '@assets';
+import { BOTTOM_ARROW, TOP_ARROW } from '@assets/images';
 
 interface BucketCounterStyle {
   kind: 'small' | 'big';
 }
 interface BucketCounterProps extends BucketCounterStyle {
-  removeProductFromCart: () => void;
+  id: number;
+  quantity?: number;
 }
 
 const MAX_BUCKET_COUNT = 1000;
 const ERROR_MESSAGE = '장바구니 수량은 1000개 이하까지 가능합니다.';
 
-const BucketCounter = ({ removeProductFromCart, kind }: BucketCounterProps) => {
+const BucketCounter = ({ id, quantity = 1, kind }: BucketCounterProps) => {
   const {
     onBlur,
     bucketCount,
@@ -25,10 +26,10 @@ const BucketCounter = ({ removeProductFromCart, kind }: BucketCounterProps) => {
     increaseCount,
     decreaseCount,
     countRef,
-  } = useBucketCount(1, {
-    removeProductFromCart,
+  } = useBucketCount(quantity, {
     errorMessage: ERROR_MESSAGE,
     maximumCount: MAX_BUCKET_COUNT,
+    id,
   });
 
   return (
@@ -81,6 +82,8 @@ const Count = styled.input<BucketCounterStyle>`
   height: ${({ kind }) => (kind === 'big' ? '56px' : '28px')};
 
   border: 1px solid #dddddd;
+
+  text-align: center;
 
   outline: none;
 `;
