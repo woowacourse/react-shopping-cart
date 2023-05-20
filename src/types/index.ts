@@ -7,7 +7,7 @@ export type Product = {
   imageUrl: string;
 };
 
-export type ShoppingCartProduct = {
+export type CartItemType = {
   id: number;
   quantity: number;
   product: Product;
@@ -15,6 +15,6 @@ export type ShoppingCartProduct = {
 
 export type fetchMethod = keyof typeof FETCH_METHOD;
 
-export type UpdateShoppingCart = (url: string, method: fetchMethod, body?: BodyInit | null | undefined) => void;
+export type UpdateCartItem = (url: string, method: fetchMethod, body?: BodyInit | null | undefined) => void;
 
 export type BoxSize = keyof typeof BOX_SIZE;

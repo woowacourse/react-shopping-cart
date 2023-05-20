@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import Checkbox from '@Components/Checkbox';
 import QuantityController from '@Components/QuantityController';
 
-import { Product, UpdateShoppingCart } from '@Types/index';
+import { Product, UpdateCartItem } from '@Types/index';
 
 import useProduct from '@Hooks/useProduct';
 import useSelectedShoppingItem from '@Hooks/useSelectedShoppingItem';
@@ -21,10 +21,10 @@ type ShoppingItemProps = {
   width?: string;
   cartId: number;
   isLoading?: boolean;
-  updateShoppingCart: UpdateShoppingCart;
+  updateCartItem: UpdateCartItem;
 };
 
-function CartItem({ product, width = '100%', cartId, isLoading = false, updateShoppingCart }: ShoppingItemProps) {
+function CartItem({ product, width = '100%', cartId, isLoading = false, updateCartItem }: ShoppingItemProps) {
   const { isSelected, updateSelectedShoppingItem, popSelectedShoppingItem } = useSelectedShoppingItem();
 
   const { name, price, image, imageDescription } = useProduct(product);
@@ -34,7 +34,7 @@ function CartItem({ product, width = '100%', cartId, isLoading = false, updateSh
     if (!window.confirm(`${name} 상품을 장바구니에서 삭제하시겠습니까?`)) return;
 
     popSelectedShoppingItem(cartId);
-    updateShoppingCart(`${FETCH_URL.cartItems}/${cartItem?.cartItemId}`, FETCH_METHOD.DELETE);
+    updateCartItem(`${FETCH_URL.cartItems}/${cartItem?.cartItemId}`, FETCH_METHOD.DELETE);
   };
 
   return (
@@ -54,7 +54,7 @@ function CartItem({ product, width = '100%', cartId, isLoading = false, updateSh
           product={product}
           quantity={cartItem?.quantity}
           cartItemId={cartItem?.cartItemId}
-          updateShoppingCart={updateShoppingCart}
+          updateCartItem={updateCartItem}
           isAbleSetZeroState={false}
         />
         <S.ShoppingItemPrice aria-label="장바구니 상품 가격" isLoading={isLoading}>

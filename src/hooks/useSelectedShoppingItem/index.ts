@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
-import { ShoppingCartProduct } from '@Types/index';
+import { CartItemType } from '@Types/index';
 
 import selectedShoppingItemState from '@Atoms/selectedShoppingItemState';
 
@@ -18,7 +18,7 @@ const useSelectedShoppingItem = () => {
 
   const selectedItemAmount = itemId.length;
 
-  const updateAllSelectedShoppingItem = (shoppingCart: ShoppingCartProduct[] | null) => {
+  const updateAllSelectedShoppingItem = (shoppingCart: CartItemType[] | null) => {
     if (!shoppingCart) return;
 
     if (isAllSelected(shoppingCart.length)) setItemId([]);
@@ -41,7 +41,7 @@ const useSelectedShoppingItem = () => {
   useEffect(() => {
     const setInitValue = async () => {
       const response = await fetch(FETCH_URL.cartItems);
-      const savedShoppingCart = (await response.json()) as ShoppingCartProduct[];
+      const savedShoppingCart = (await response.json()) as CartItemType[];
       setItemId(savedShoppingCart.map((cart) => cart.id));
     };
 

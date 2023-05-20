@@ -1,13 +1,13 @@
 import { selector } from 'recoil';
 
+import cartItemsState from '@Atoms/cartItemsState';
 import selectedShoppingItemState from '@Atoms/selectedShoppingItemState';
-import shoppingCartState from '@Atoms/shoppingCartState';
 
 const orderAmountState = selector({
   key: 'orderAmountState',
 
   get: ({ get }) => {
-    const shoppingCart = get(shoppingCartState);
+    const shoppingCart = get(cartItemsState);
     const selectedShoppingItemId = get(selectedShoppingItemState);
 
     if (!shoppingCart) return 0;

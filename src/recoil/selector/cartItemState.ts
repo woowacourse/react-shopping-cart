@@ -1,6 +1,6 @@
 import { selectorFamily } from 'recoil';
 
-import shoppingCartState from '@Atoms/shoppingCartState';
+import cartItemsState from '@Atoms/cartItemsState';
 
 import { SHOPPING_QUANTITY } from '@Constants/index';
 
@@ -10,7 +10,7 @@ const cartItemState = selectorFamily({
   get:
     (productId: number) =>
     ({ get }) => {
-      const shoppingCart = get(shoppingCartState);
+      const shoppingCart = get(cartItemsState);
 
       if (!shoppingCart) return { cartItemId: undefined, quantity: SHOPPING_QUANTITY.MIN };
 

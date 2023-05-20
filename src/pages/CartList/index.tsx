@@ -2,9 +2,9 @@ import { useRecoilValue } from 'recoil';
 
 import NotFound from '@Pages/NotFound';
 
-import useShoppingCart from '@Hooks/useShoppingCart';
+import useShoppingCart from '@Hooks/useCartItems';
 
-import shoppingCartAmountState from '@Selector/shoppingCartAmountState';
+import shoppingCartAmountState from '@Selector/cartItemsAmountState';
 
 import CartItems from './CartItems';
 import CartListController from './CartListController';
@@ -14,7 +14,7 @@ import * as S from './style';
 
 function CartList() {
   const shoppingCartAmount = useRecoilValue(shoppingCartAmountState);
-  const { shoppingCart, status, updateShoppingCart } = useShoppingCart();
+  const { shoppingCart, status, updateCartItem } = useShoppingCart();
 
   if (status === 'error') {
     return <NotFound />;
@@ -29,14 +29,10 @@ function CartList() {
         <>
           <S.ShoppingCartSubHeader>
             <S.ProductAmount>든든배송 상품 ({shoppingCartAmount}개)</S.ProductAmount>
-            <CartListController cartItems={shoppingCart} updateShoppingCart={updateShoppingCart} />
+            <CartListController cartItems={shoppingCart} updateCartItem={updateCartItem} />
           </S.ShoppingCartSubHeader>
           <S.ShoppingCartContentsLayout>
-            <CartItems
-              cartItems={shoppingCart}
-              isLoading={status === 'loading'}
-              updateShoppingCart={updateShoppingCart}
-            />
+            <CartItems cartItems={shoppingCart} isLoading={status === 'loading'} updateCartItem={updateCartItem} />
             <PaymentAmount />
           </S.ShoppingCartContentsLayout>
         </>

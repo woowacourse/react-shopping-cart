@@ -1,21 +1,21 @@
-import { ShoppingCartProduct, UpdateShoppingCart } from '@Types/index';
+import type { CartItemType, UpdateCartItem } from '@Types/index';
 
 import * as S from './style';
 import CartItem from '../CartItem';
 
 type ShoppingListProps = {
-  cartItems: ShoppingCartProduct[] | null;
+  cartItems: CartItemType[] | null;
   isLoading: boolean;
-  updateShoppingCart: UpdateShoppingCart;
+  updateCartItem: UpdateCartItem;
 };
 
-function CartItems({ cartItems, isLoading, updateShoppingCart }: ShoppingListProps) {
+function CartItems({ cartItems, isLoading, updateCartItem }: ShoppingListProps) {
   return (
     <S.Container>
       <S.ShoppingListLayout>
         {isLoading &&
           Array.from({ length: 6 }, (_, index) => (
-            <CartItem key={index} isLoading={isLoading} cartId={index} updateShoppingCart={updateShoppingCart} />
+            <CartItem key={index} isLoading={isLoading} cartId={index} updateCartItem={updateCartItem} />
           ))}
         {cartItems &&
           cartItems.map((item) => (
@@ -23,7 +23,7 @@ function CartItems({ cartItems, isLoading, updateShoppingCart }: ShoppingListPro
               cartId={item.id}
               product={item.product}
               key={item.product.id}
-              updateShoppingCart={updateShoppingCart}
+              updateCartItem={updateCartItem}
               isLoading={isLoading}
             />
           ))}

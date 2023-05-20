@@ -1,14 +1,14 @@
 import { selector } from 'recoil';
 
-import shoppingCartState from '@Atoms/shoppingCartState';
+import cartItemsState from '@Atoms/cartItemsState';
 
 import { SHOPPING_QUANTITY } from '@Constants/index';
 
-const shoppingCartAmountState = selector({
-  key: 'shoppingCartAmountState',
+const cartItemsAmountState = selector({
+  key: 'cartItemsAmountState',
 
   get: ({ get }) => {
-    const shoppingCart = get(shoppingCartState);
+    const shoppingCart = get(cartItemsState);
     const shoppingCartAmount = shoppingCart ? shoppingCart.length : 0;
 
     if (shoppingCartAmount > SHOPPING_QUANTITY.MAX) return `${SHOPPING_QUANTITY.MAX}+`;
@@ -16,4 +16,4 @@ const shoppingCartAmountState = selector({
   },
 });
 
-export default shoppingCartAmountState;
+export default cartItemsAmountState;

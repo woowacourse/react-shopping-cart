@@ -2,7 +2,7 @@ import { useRecoilValue } from 'recoil';
 
 import QuantityController from '@Components/QuantityController';
 
-import { UpdateShoppingCart } from '@Types/index';
+import { UpdateCartItem } from '@Types/index';
 
 import useProduct from '@Hooks/useProduct';
 
@@ -19,10 +19,10 @@ type ProductItemProps = {
   };
   isLoading?: boolean;
   width?: string;
-  updateShoppingCart: UpdateShoppingCart;
+  updateCartItem: UpdateCartItem;
 };
 
-function ProductItem({ product, isLoading = false, width, updateShoppingCart }: ProductItemProps) {
+function ProductItem({ product, isLoading = false, width, updateCartItem }: ProductItemProps) {
   const { name, price, image, imageDescription } = useProduct(product);
   const cartItem = product && useRecoilValue(cartItemState(product.id));
 
@@ -43,7 +43,7 @@ function ProductItem({ product, isLoading = false, width, updateShoppingCart }: 
             quantity={cartItem?.quantity}
             cartItemId={cartItem?.cartItemId}
             product={product}
-            updateShoppingCart={updateShoppingCart}
+            updateCartItem={updateCartItem}
           />
         )}
       </S.ProductItemContents>

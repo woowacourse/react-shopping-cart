@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Product, UpdateShoppingCart } from '@Types/index';
+import { Product, UpdateCartItem } from '@Types/index';
 
 import {
   ALERT_MESSAGE,
@@ -20,7 +20,7 @@ type QuantityControllerProps = {
   quantity?: number;
   cartItemId?: number;
   isAbleSetZeroState?: boolean;
-  updateShoppingCart: UpdateShoppingCart;
+  updateCartItem: UpdateCartItem;
 };
 
 type QuantityControlButton = (typeof QUANTITY_CONTROL_BUTTON)[keyof typeof QUANTITY_CONTROL_BUTTON];
@@ -30,7 +30,7 @@ function QuantityController({
   quantity = SHOPPING_QUANTITY.MIN,
   cartItemId,
   isAbleSetZeroState = true,
-  updateShoppingCart,
+  updateCartItem,
 }: QuantityControllerProps) {
   const [isUserWork, setIsUserWork] = useState(false);
 
@@ -42,11 +42,11 @@ function QuantityController({
 
     const method = newValue ? FETCH_METHOD.PATCH : FETCH_METHOD.DELETE;
     const body = newValue ? JSON.stringify({ quantity: newValue }) : null;
-    updateShoppingCart(`${FETCH_URL.cartItems}/${cartItemId}`, method, body);
+    updateCartItem(`${FETCH_URL.cartItems}/${cartItemId}`, method, body);
   };
 
-  const addShoppingCart = () => {
-    updateShoppingCart(FETCH_URL.cartItems, FETCH_METHOD.POST, JSON.stringify({ productId: product?.id }));
+  const addCartItem = () => {
+    updateCartItem(FETCH_URL.cartItems, FETCH_METHOD.POST, JSON.stringify({ productId: product?.id }));
   };
 
   const changeQuantityValue = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,11 +55,7 @@ function QuantityController({
     if (!isAbleSetZeroState && newValue < 1) return;
 
     if (newValue > SHOPPING_QUANTITY.MAX) return alert(ALERT_MESSAGE.OVER_MAX_QUANTITY);
-    updateShoppingCart(
-      `${FETCH_URL.cartItems}/${cartItemId}`,
-      FETCH_METHOD.PATCH,
-      JSON.stringify({ quantity: newValue }),
-    );
+    updateCartItem(`${FETCH_URL.cartItems}/${cartItemId}`, FETCH_METHOD.PATCH, JSON.stringify({ quantity: newValue }));
   };
 
   const focusInButton = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -71,14 +67,14 @@ function QuantityController({
     setIsUserWork(false);
     if (quantity) return;
 
-    updateShoppingCart(`${FETCH_URL.cartItems}/${cartItemId}`, FETCH_METHOD.DELETE);
+    updateCartItem(`${FETCH_URL.cartItems}/${cartItemId}`, FETCH_METHOD.DELETE);
   };
 
   if (quantity === SHOPPING_QUANTITY.MIN && !isUserWork) {
     return (
       <S.ShoppingCartIcon
         src={ShoppingCart}
-        onClick={addShoppingCart}
+        onClick={addCartItem}
         data-testid="shopping-cart-icon"
       ></S.ShoppingCartIcon>
     );

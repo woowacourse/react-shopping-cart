@@ -17,7 +17,7 @@ type QuantityProps = {
   isEmpty: boolean;
 };
 
-export const ShoppingCartAmount = styled.div<QuantityProps>`
+export const CartItemsAmount = styled.div<QuantityProps>`
   background-color: #06c09e;
   color: #ffffff;
 

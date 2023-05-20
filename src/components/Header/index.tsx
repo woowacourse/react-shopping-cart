@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
-import UserSummaryShoppingCart from '@Components/UserSummaryShoppingCart';
+import CartBadge from '@Components/CartBadge';
 
-import shoppingCartAmountState from '@Selector/shoppingCartAmountState';
+import cartItemsAmountState from '@Selector/cartItemsAmountState';
 
 import Logo from '@Asset/Logo.png';
 
@@ -11,7 +11,7 @@ import * as S from './style';
 
 function Header() {
   const navigate = useNavigate();
-  const shoppingCartAmount = useRecoilValue(shoppingCartAmountState);
+  const cartItemsAmount = useRecoilValue(cartItemsAmountState);
 
   const moveMain = () => navigate('/');
 
@@ -22,7 +22,7 @@ function Header() {
           <S.LogoImg src={Logo} alt="장바구니 로고" />
           <S.LogoText>SHOP</S.LogoText>
         </S.LogoWrapper>
-        <UserSummaryShoppingCart shoppingCartAmount={shoppingCartAmount} />
+        <CartBadge cartItemsAmount={cartItemsAmount} />
       </S.Layout>
     </S.Container>
   );

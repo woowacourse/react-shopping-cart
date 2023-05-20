@@ -2,22 +2,22 @@ import { useRecoilValue } from 'recoil';
 
 import Checkbox from '@Components/Checkbox';
 
-import { ShoppingCartProduct, UpdateShoppingCart } from '@Types/index';
+import { CartItemType, UpdateCartItem } from '@Types/index';
 
 import useSelectedShoppingItem from '@Hooks/useSelectedShoppingItem';
 
-import shoppingCartAmountState from '@Selector/shoppingCartAmountState';
+import shoppingCartAmountState from '@Selector/cartItemsAmountState';
 
 import { FETCH_METHOD, FETCH_URL } from '@Constants/index';
 
 import * as S from './style';
 
 type ShoppingCartControlProps = {
-  cartItems: ShoppingCartProduct[] | null;
-  updateShoppingCart: UpdateShoppingCart;
+  cartItems: CartItemType[] | null;
+  updateCartItem: UpdateCartItem;
 };
 
-function CartListController({ cartItems, updateShoppingCart }: ShoppingCartControlProps) {
+function CartListController({ cartItems, updateCartItem }: ShoppingCartControlProps) {
   const { itemId, isAllSelected, selectedItemAmount, updateAllSelectedShoppingItem, popSelectedShoppingItem } =
     useSelectedShoppingItem();
 
@@ -27,7 +27,7 @@ function CartListController({ cartItems, updateShoppingCart }: ShoppingCartContr
     if (!window.confirm('선택한 모든 상품을 장바구니에서 삭제하시겠습니까?')) return;
 
     itemId.forEach((cartId) => {
-      updateShoppingCart(`${FETCH_URL.cartItems}/${cartId}`, FETCH_METHOD.DELETE);
+      updateCartItem(`${FETCH_URL.cartItems}/${cartId}`, FETCH_METHOD.DELETE);
       popSelectedShoppingItem(cartId);
     });
   };
