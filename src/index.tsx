@@ -9,18 +9,12 @@ import GlobalStyle from '@styles/globalStyle';
 import { theme } from '@styles/theme';
 
 const main = async () => {
-  if (process.env.NODE_ENV === 'development') {
-    if (window.location.pathname === '/react-shopping-cart') {
-      window.location.pathname = '/react-shopping-cart/';
-      return;
-    }
-
-    await worker.start({
-      serviceWorker: {
-        url: '/react-shopping-cart/mockServiceWorker.js',
-      },
-    });
+  if (window.location.pathname === '/react-shopping-cart') {
+    window.location.pathname = '/react-shopping-cart/';
+    return;
   }
+
+  await worker.start();
 };
 
 const root = ReactDOM.createRoot(
