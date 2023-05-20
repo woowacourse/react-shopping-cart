@@ -20,4 +20,5 @@ Controls.args = {
     price: 104000,
     imageUrl: 'https://picsum.photos/id/96/300',
   },
+  checked: true,
 };
