@@ -97,62 +97,29 @@
 - 불필요한 상태 관리를 최소화하고, 상태 업데이트를 최적화한다.
 - 컴포넌트의 리렌더링을 최소화하기 위해 memoization을 적용한다.
 
-### 🗂 디렉터리 구조
+## 🚀 Step2 - Asynchronous
 
-```
-📦src
- ┣ 📂assets
- ┃ ┣ 📂svg
- ┃ ┃ ┣ 📜CartIcon.svg
- ┃ ┃ ┣ 📜CartLogo.svg
- ┃ ┃ ┗ 📜index.ts
- ┃ ┗ 📜mock.json
- ┣ 📂components
- ┃ ┣ 📂common
- ┃ ┃ ┣ 📜Button.tsx
- ┃ ┃ ┗ 📜Toast.tsx
- ┃ ┣ 📜Header.tsx
- ┃ ┣ 📜Product.tsx
- ┃ ┣ 📜ProductList.tsx
- ┃ ┗ 📜Stepper.tsx
- ┣ 📂constants
- ┃ ┗ 📜index.ts
- ┣ 📂fonts
- ┃ ┣ 📜Baemin.ttf
- ┃ ┗ 📜fonts.d.ts
- ┣ 📂hooks
- ┃ ┣ 📜useCart.ts
- ┃ ┣ 📜useStepper.ts
- ┃ ┗ 📜useToast.ts
- ┣ 📂pages
- ┃ ┗ 📜Home.tsx
- ┣ 📂recoil
- ┃ ┗ 📜atoms.ts
- ┣ 📂router
- ┃ ┗ 📜index.tsx
- ┣ 📂stories
- ┃ ┣ 📂assets
- ┃ ┃ ┣ 📜code-brackets.svg
- ┃ ┃ ┣ 📜colors.svg
- ┃ ┃ ┣ 📜comments.svg
- ┃ ┃ ┣ 📜direction.svg
- ┃ ┃ ┣ 📜flow.svg
- ┃ ┃ ┣ 📜plugin.svg
- ┃ ┃ ┣ 📜repo.svg
- ┃ ┃ ┗ 📜stackalt.svg
- ┃ ┣ 📂common
- ┃ ┃ ┣ 📜Button.stories.tsx
- ┃ ┃ ┗ 📜Stepper.stories.tsx
- ┃ ┣ 📜Header.stories.tsx
- ┃ ┣ 📜Product.stories.tsx
- ┃ ┗ 📜ProductList.stories.tsx
- ┣ 📂types
- ┃ ┗ 📜index.ts
- ┣ 📂utils
- ┃ ┗ 📜validator.ts
- ┣ 📜App.tsx
- ┣ 📜GlobalStyle.ts
- ┣ 📜index.tsx
- ┣ 📜react-app-env.d.ts
- ┗ 📜setupTests.ts
-```
+> 다수의 컴포넌트를 페이지로 구성하고 복잡해진 상태를 관리합니다.
+
+- MSW를 이용하여 API를 Mocking하고 리액트에서 비동기 상황에 대해 고민해 봅니다.
+- `Router`를 활용해 여러 페이지 전환을 고려합니다.
+- [배민상회](https://mart.baemin.com) 서비스 참고
+
+### 📝 필수 요구사항
+
+#### **1. 장바구니 페이지**
+
+- 장바구니 페이지 마크업을 완성하고, 상품 목록 페이지와 함께 모바일 환경 대응
+
+#### **2. MSW를 활용한 API Mocking**
+
+- MSW를 활용하여 실제 서버와 연동될 수 있는 API Mocking을 구현
+- 단순한 Endpoint 변경으로 실제 API 사용이 가능하도록 작업
+
+#### **3. 테스트**
+
+- 장바구니 페이지에서 다양한 사용자 인터렉션에 대한 테스트 케이스를 고민하고, 선택한 테스트 도구를 이용하여 검증
+
+#### **4. 사용자 경험**
+
+- 새로고침 해도, 장바구니에 담은 상품 유지
