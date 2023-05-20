@@ -2,7 +2,12 @@ import { rest } from 'msw';
 
 import { CART_STORAGE_ID } from '../constants/storage';
 import products from './data/products.json';
-import { findTargetProduct } from '../states/cartProducts/util';
+import {
+  addTargetProduct,
+  deleteTargetProduct,
+  findTargetProduct,
+  updateTargetQuantity,
+} from '../states/cartProducts/util';
 import type { CartProduct } from '../types/product';
 
 export const handlers = [
@@ -48,10 +53,7 @@ export const handlers = [
 
     localStorage.setItem(
       CART_STORAGE_ID,
-      JSON.stringify([
-        ...storedCartProducts,
-        { id: productId, quantity: 1, product },
-      ])
+      JSON.stringify(addTargetProduct(storedCartProducts, product))
     );
 
     return res(ctx.status(201), ctx.json({ message: 'Success to Create' }));
@@ -69,24 +71,14 @@ export const handlers = [
         localStorage.getItem(CART_STORAGE_ID) ?? '[]'
       );
 
-      if (
-        !storedCartProducts.find(
-          (cartProduct) => cartProduct.id === cartProductId
-        )
-      ) {
+      if (!findTargetProduct(storedCartProducts, cartProductId)) {
         return res(ctx.status(304), ctx.json({ message: 'Not in the Cart' }));
       }
 
       localStorage.setItem(
         CART_STORAGE_ID,
         JSON.stringify(
-          storedCartProducts.map((cartProduct) => {
-            if (cartProduct.id === cartProductId) {
-              return { ...cartProduct, quantity };
-            }
-
-            return cartProduct;
-          })
+          updateTargetQuantity(storedCartProducts, cartProductId, quantity)
         )
       );
 
@@ -107,21 +99,13 @@ export const handlers = [
       localStorage.getItem(CART_STORAGE_ID) ?? '[]'
     );
 
-    if (
-      !storedCartProducts.find(
-        (cartProduct) => cartProduct.id === cartProductId
-      )
-    ) {
+    if (!findTargetProduct(storedCartProducts, cartProductId)) {
       return res(ctx.status(304), ctx.json({ message: 'Not in the Cart' }));
     }
 
     localStorage.setItem(
       CART_STORAGE_ID,
-      JSON.stringify(
-        storedCartProducts.filter(
-          (cartProduct) => cartProduct.id !== cartProductId
-        )
-      )
+      JSON.stringify(deleteTargetProduct(storedCartProducts, cartProductId))
     );
 
     return res(ctx.delay(2000), ctx.status(204));

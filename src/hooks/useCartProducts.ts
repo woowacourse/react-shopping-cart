@@ -5,7 +5,10 @@ import {
   cartProductState,
   targetCartProductState,
 } from '../states/cartProducts';
-import { deleteTargetProduct } from '../states/cartProducts/util';
+import {
+  addTargetProduct,
+  deleteTargetProduct,
+} from '../states/cartProducts/util';
 import type { Product } from '../types/product';
 import { deleteCartProduct, postProduct } from '../apis/cartProducts';
 
@@ -15,7 +18,7 @@ const useCartProducts = (product: Product) => {
   const targetProduct = useRecoilValue(targetCartProductState(id));
 
   const addProduct = () => {
-    setCartProducts((prev) => [...prev, { id, quantity: 1, product }]);
+    setCartProducts((prev) => addTargetProduct(prev, product));
     postProduct(id);
   };
 
