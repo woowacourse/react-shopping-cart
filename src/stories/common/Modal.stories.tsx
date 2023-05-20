@@ -8,6 +8,9 @@ const meta = {
   title: 'ShoppingCart/Common/Modal',
   component: Modal,
   argTypes: {
+    isOpen: {
+      control: false,
+    },
     children: {
       control: { type: 'text' },
     },
@@ -18,7 +21,7 @@ const meta = {
 } satisfies Meta<typeof Modal>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Modal>;
 
 export const Default: Story = {
   render: ({ children }) => {
@@ -29,11 +32,9 @@ export const Default: Story = {
         <Button style={{ width: '250px' }} onClick={handleModalOpen}>
           Click
         </Button>
-        {isModalOpen && (
-          <Modal handleClose={handleModalClose}>
-            <div style={{ width: '400px', height: '200px' }}>{children}</div>
-          </Modal>
-        )}
+        <Modal isOpen={isModalOpen} handleClose={handleModalClose}>
+          <div style={{ width: '400px', height: '200px', margin: '24px' }}>{children}</div>
+        </Modal>
       </>
     );
   },
