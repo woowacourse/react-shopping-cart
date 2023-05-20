@@ -4,10 +4,7 @@ import useFetch from '../../../hooks/useFetch';
 import { Product } from '../../../types/product';
 
 const ProductList = () => {
-  const { result: productList } = useFetch<Product[]>({
-    url: './products',
-    initialState: [],
-  });
+  const { result: productList } = useFetch<Product[]>('./products', []);
 
   return (
     <section>
