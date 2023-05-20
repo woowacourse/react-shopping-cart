@@ -1,3 +1,4 @@
+import { addCartProducts } from 'apis/cart/post';
 import { useRecoilState } from 'recoil';
 import { cartProductsState } from 'state/cartProducts';
 import { Product } from 'types/product';
@@ -7,7 +8,9 @@ const useShoppingCart = (product: Product) => {
   const { id } = product;
   const targetCartProduct = cartProducts.get(id);
 
-  const initialAddCart = () => {
+  const initialAddCart = async () => {
+    await addCartProducts(id);
+
     setCartProducts((prev) => {
       const newCartProducts = new Map(prev.entries());
 
