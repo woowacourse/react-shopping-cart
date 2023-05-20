@@ -1,4 +1,8 @@
+import { useRecoilValue } from 'recoil';
+
 import type { CartItemType, UpdateCartItem } from '@Types/index';
+
+import cartItemsAmountState from '@Selector/cartItemsAmountState';
 
 import * as S from './style';
 import CartItem from '../CartItem';
@@ -10,11 +14,12 @@ type ShoppingListProps = {
 };
 
 function CartItems({ cartItems, isLoading, updateCartItem }: ShoppingListProps) {
+  const cartItemsAmount = useRecoilValue(cartItemsAmountState);
   return (
     <S.Container>
       <S.ShoppingListLayout>
         {isLoading &&
-          Array.from({ length: 6 }, (_, index) => (
+          Array.from({ length: Number(cartItemsAmount) }, (_, index) => (
             <CartItem key={index} isLoading={isLoading} cartId={index} updateCartItem={updateCartItem} />
           ))}
         {cartItems &&
