@@ -8,18 +8,16 @@ async function main() {
     document.getElementById('root') as HTMLElement
   );
 
-  if (process.env.NODE_ENV === 'development') {
-    if (window.location.pathname === '/react-shopping-cart') {
-      window.location.pathname = '/react-shopping-cart/';
-      return;
-    }
-
-    await worker.start({
-      serviceWorker: {
-        url: '/react-shopping-cart/mockServiceWorker.js',
-      },
-    });
+  if (window.location.pathname === '/react-shopping-cart') {
+    window.location.pathname = '/react-shopping-cart/';
+    return;
   }
+
+  await worker.start({
+    serviceWorker: {
+      url: '/react-shopping-cart/mockServiceWorker.js',
+    },
+  });
 
   root.render(
     <React.StrictMode>
