@@ -1,10 +1,12 @@
+import { LocalData } from '@Utils/localData';
+import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { ShoppingCartProduct, UpdateShoppingCart } from '@Types/index';
 
 import shoppingCartState from '@Atoms/shoppingCartState';
 
-import { SHOPPING_QUANTITY } from '@Constants/index';
+import { LOCAL_STORAGE_KEYWORD, SHOPPING_QUANTITY } from '@Constants/index';
 
 const useShoppingCart = () => {
   const [shoppingCart, setShoppingCart] = useRecoilState<ShoppingCartProduct[]>(shoppingCartState);
@@ -43,6 +45,10 @@ const useShoppingCart = () => {
   const deleteShoppingItems = (productsId: number[]) => {
     setShoppingCart(shoppingCart.filter((item) => !productsId.includes(item.id)));
   };
+
+  useEffect(() => {
+    LocalData.setDate(LOCAL_STORAGE_KEYWORD.SHOPPING_CART, shoppingCart);
+  }, [shoppingCart]);
 
   return { shoppingCart, updateShoppingCart, deleteShoppingItems };
 };
