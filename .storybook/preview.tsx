@@ -6,6 +6,7 @@ import { theme } from '../src/styles/theme';
 import GlobalStyle from '../src/styles/globalStyle';
 import { MemoryRouter } from 'react-router-dom';
 import { initialize, mswDecorator } from 'msw-storybook-addon';
+import { handlers } from '../src/mocks/handlers';
 
 let options = {};
 
@@ -28,6 +29,7 @@ const preview: Preview = {
         date: /Date$/,
       },
     },
+    msw: handlers,
   },
 };
 

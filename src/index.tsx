@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 import { router } from '@router';
+import { worker } from '@mocks/browser';
 import GlobalStyle from '@styles/globalStyle';
 import { theme } from '@styles/theme';
 
@@ -13,8 +14,6 @@ const main = async () => {
       window.location.pathname = '/react-shopping-cart/';
       return;
     }
-
-    const { worker } = require('./mocks/browser');
 
     await worker.start({
       serviceWorker: {
