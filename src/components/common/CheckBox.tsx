@@ -13,17 +13,11 @@ export default function CheckBox({ checked, onClickCheckbox }: Props) {
     <Wrapper>
       <input id={id} type="checkbox" checked={checked} />
       <CheckboxLabel htmlFor={id} onClick={onClickCheckbox}>
-        {checked && <CheckedIcon />}
+        {checked && <img src="./whiteCheck.svg" />}
       </CheckboxLabel>
     </Wrapper>
   );
 }
-
-const CheckedIcon = () => (
-  <svg width="23" height="17" viewBox="0 0 23 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M2 7L9.11069 14.1107L21.8318 1.38956" stroke="white" stroke-width="3" />
-  </svg>
-);
 
 const Wrapper = styled.div`
   input {
