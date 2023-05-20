@@ -11,14 +11,15 @@ type Props = {
 };
 
 export const CartProductCard = ({ cartProduct }: Props) => {
-  const { id, quantity, product } = cartProduct;
+  const { id, quantity, checked, product } = cartProduct;
   const { name, price, imageUrl } = product;
-  const { addCartProduct, deleteCartProduct, decreaseQuantity, increaseQuantity } = useCartProduct(product);
+  const { addCartProduct, deleteCartProduct, decreaseQuantity, increaseQuantity, toggleChecked } =
+    useCartProduct(product);
 
   return (
     <FlexBox height="140px" width="100%" padding="10px 0" gap="10px">
       <FlexBox>
-        <Checkbox type="checkbox" />
+        <Checkbox type="checkbox" checked={checked} onClick={toggleChecked} />
       </FlexBox>
       <FlexBox width="120px">
         <ProductImage src={imageUrl} alt={name} onError={renderDefaultThumbnail} />
