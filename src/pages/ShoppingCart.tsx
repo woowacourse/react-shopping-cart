@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { CartItem } from '../components/CartItem';
-import { Header } from '../components/Header';
+import { Layout } from '../components/common/Layout';
 import { OrderSummary } from '../components/OrderSummary';
 import { Checkbox } from '../components/styled';
 import { useCartState } from '../recoils/recoilCart';
@@ -46,11 +46,23 @@ export const ShoppingCart = () => {
   };
 
   return (
-    <Style.Layout>
-      <Header />
+    <Layout>
       <Style.ShoppingCart>
         <Style.PageTitle>장바구니</Style.PageTitle>
-        <Style.CountOfCartItems>든든배송 상품 ({cart.length}개)</Style.CountOfCartItems>
+        <div>
+          <Style.CountOfCartItems>든든배송 상품 ({cart.length}개)</Style.CountOfCartItems>
+          <Style.SelectionActions>
+            <Style.Checkbox
+              type="checkbox"
+              checked={checkedState.all}
+              onChange={onChangeAllCheckbox}
+            />
+            <div>
+              전체선택 ({Object.keys(checkedState).length - 1}/{cart.length})
+            </div>
+            <button>선택삭제</button>
+          </Style.SelectionActions>
+        </div>
         <Style.Content>
           <Style.CartItems>
             {cart.map(({ id }) => (
@@ -59,29 +71,12 @@ export const ShoppingCart = () => {
           </Style.CartItems>
           <OrderSummary totalProductPrice={totalProductPrice} />
         </Style.Content>
-        <Style.SelectionActions>
-          <Style.Checkbox
-            type="checkbox"
-            checked={checkedState.all}
-            onChange={onChangeAllCheckbox}
-          />
-          <div>
-            전체선택 ({Object.keys(checkedState).length - 1}/{cart.length})
-          </div>
-          <button>선택삭제</button>
-        </Style.SelectionActions>
       </Style.ShoppingCart>
-    </Style.Layout>
+    </Layout>
   );
 };
 
 const Style = {
-  Layout: styled.div`
-    width: 100%;
-
-    padding-bottom: 45px;
-  `,
-
   ShoppingCart: styled.div`
     width: 1320px;
 

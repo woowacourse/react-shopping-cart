@@ -1,24 +1,11 @@
-import { styled } from 'styled-components';
+import { Layout } from '../components/common/Layout';
 
-import { Header } from '../components/Header';
 import { ProductList } from '../components/ProductList';
 
 export const Home = () => {
   return (
-    <>
-      <Header />
-      <Style.Main>
-        <ProductList />
-      </Style.Main>
-    </>
+    <Layout>
+      <ProductList />
+    </Layout>
   );
-};
-
-const Style = {
-  Main: styled.main`
-    display: flex;
-    justify-content: center;
-
-    padding: 60px 0;
-  `,
 };
