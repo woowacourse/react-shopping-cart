@@ -48,8 +48,8 @@ const Style = {
     }
 
     &.rectangle {
-      width: 388px;
-      height: 73px;
+      width: 250px;
+      height: 65px;
 
       color: ${(props) => (props.color ? props.color : 'var(--grey-500)')};
     }

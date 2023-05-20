@@ -5,7 +5,6 @@ const meta = {
   title: 'ShoppingCart/product/ProductList',
   component: ProductList,
   tags: ['autodocs'],
-  decorators: [(Story) => <Story />],
 } satisfies Meta<typeof ProductList>;
 
 export default meta;

@@ -23,7 +23,6 @@ const Style = {
     width: 100%;
     min-width: 992px;
 
-    padding: 60px 30px;
     padding: 140px 30px 60px 30px;
 
     /* 태블릿 */

@@ -3,6 +3,7 @@ export const PRODUCT = {
   MAX_COUNT: 99,
 } as const;
 
+export const DELIVERY_FEE = 3000;
 export const LOCAL_STORAGE_KEY = {
   CART: 'cart',
 } as const;

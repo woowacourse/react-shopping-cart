@@ -4,6 +4,7 @@ import { useCart } from '../../hooks/useCart';
 import { TrashCanIcon } from '../../assets/svg';
 import Price from '../common/Price';
 import Stepper from '../Stepper';
+import { PRODUCT } from '../../constants';
 
 interface Props {
   cartItemInfo: CartItemInfo;
@@ -30,6 +31,7 @@ export default function CartItem({ cartItemInfo, deleteCheckedItem }: Props) {
         <Stepper
           quantity={cartItemInfo?.quantity}
           minQuantity={1}
+          maxQuantity={PRODUCT.MAX_COUNT}
           updateQuantity={updateProductQuantity}
         />
         <Price price={price * cartItemInfo?.quantity} />
@@ -40,14 +42,14 @@ export default function CartItem({ cartItemInfo, deleteCheckedItem }: Props) {
 
 const Style = {
   ProductImage: styled.img`
-    width: 150px;
-    height: 150px;
+    width: 130px;
+    height: 130px;
 
     margin-right: 20px;
   `,
 
   ProductName: styled.label`
-    width: 170px;
+    width: 130px;
 
     font-size: 18px;
     color: var(--grey-400);
@@ -61,7 +63,7 @@ const Style = {
     justify-content: space-between;
     align-items: flex-end;
 
-    width: 300px;
+    width: 175px;
   `,
 
   DeleteCartItemButton: styled.button`

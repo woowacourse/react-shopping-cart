@@ -31,3 +31,18 @@ export const Large: Story = {
     size: 'large',
   },
 };
+
+export const TotalPrice: Story = {
+  decorators: [
+    (Story) => (
+      <div style={{ width: '250px' }}>
+        <Story />
+      </div>
+    ),
+  ],
+  args: {
+    price: 300000,
+    size: 'large',
+    tag: '총 상품가격',
+  },
+};

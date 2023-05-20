@@ -38,7 +38,7 @@ const Style = {
     display: flex;
     justify-content: center;
 
-    width: 735px;
+    width: 550px;
     height: 200px;
 
     padding: 20px;

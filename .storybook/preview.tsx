@@ -22,7 +22,7 @@ const customViewports = {
   Default: {
     name: 'Default',
     styles: {
-      width: '992px',
+      width: '1280px',
       height: '700px',
     },
   },

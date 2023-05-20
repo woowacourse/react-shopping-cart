@@ -4,11 +4,18 @@ interface Props {
   price: number;
   size: 'small' | 'medium' | 'large';
   color: string;
+  tag?: string;
 }
 
-export default function Price({ price = 0, size = 'medium', color = 'black' }: Partial<Props>) {
+export default function Price({
+  price = 0,
+  size = 'medium',
+  color = 'black',
+  tag = '',
+}: Partial<Props>) {
   return (
     <Style.Wrapper className={size} color={color}>
+      <p>{tag}</p>
       {price.toLocaleString('ko-KR')}원
     </Style.Wrapper>
   );
@@ -16,6 +23,11 @@ export default function Price({ price = 0, size = 'medium', color = 'black' }: P
 
 const Style = {
   Wrapper: styled.p<Partial<Props>>`
+    display: flex;
+    justify-content: space-between;
+
+    width: 100%;
+
     &.small {
       font-size: 10px;
     }
