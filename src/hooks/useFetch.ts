@@ -1,36 +1,17 @@
 import { useCallback, useEffect, useState } from "react";
 
-export interface Product {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
-}
-
-export type productsResponse = Product[];
-
-interface GetProps {
-  fetchUrl: string;
-}
-
-interface GetReturn {
-  result: productsResponse;
-  isLoading: boolean;
-  refresh: () => void;
-}
-
-export const useGet = ({ fetchUrl }: GetProps): GetReturn => {
-  const [result, setResult] = useState<productsResponse>([]);
+export const useFetch = <T>(url: string) => {
+  const [result, setResult] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchData = useCallback(() => {
     setIsLoading(true);
-    fetch(fetchUrl)
+    fetch(url)
       .then((response) => response.json())
       .then((data) => setResult(data))
       .catch((error) => alert(error))
       .finally(() => setIsLoading(false));
-  }, [fetchUrl]);
+  }, [url]);
 
   useEffect(() => {
     fetchData();
