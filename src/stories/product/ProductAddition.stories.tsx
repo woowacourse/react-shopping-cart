@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import Modal from '../../components/common/Modal/Modal';
 import ProductAddition from '../../components/product/ProductAddition/ProductAddition';
 
 const meta = {
@@ -14,6 +15,13 @@ const meta = {
     handleModalClose: () => {},
     addItemQuantity: () => new Promise(() => {}),
   },
+  decorators: [
+    (Story) => (
+      <Modal isOpen handleClose={() => {}}>
+        <Story />
+      </Modal>
+    ),
+  ],
 } satisfies Meta<typeof ProductAddition>;
 
 export default meta;
