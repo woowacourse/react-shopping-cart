@@ -6,21 +6,14 @@ export const findTargetProduct = (cartProducts: CartProduct[], id: number) =>
 export const deleteTargetProduct = (cartProducts: CartProduct[], id: number) =>
   cartProducts.filter((cartProduct) => cartProduct.product.id !== id);
 
-export const addTargetQuantity = (cartProducts: CartProduct[], id: number) =>
-  cartProducts.map((cartProduct) => {
-    if (cartProduct.product.id === id) {
-      return { ...cartProduct, quantity: cartProduct.quantity + 1 };
-    }
-    return cartProduct;
-  });
-
-export const subtractTargetQuantity = (
+export const updateTargetQuantity = (
   cartProducts: CartProduct[],
-  id: number
+  id: number,
+  quantity: number
 ) =>
   cartProducts.map((cartProduct) => {
     if (cartProduct.product.id === id) {
-      return { ...cartProduct, quantity: cartProduct.quantity - 1 };
+      return { ...cartProduct, quantity };
     }
     return cartProduct;
   });

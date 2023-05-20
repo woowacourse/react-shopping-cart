@@ -28,3 +28,15 @@ export const deleteCartProduct = async (id: number) => {
     },
   });
 };
+
+export const patchCartProduct = async (id: number, quantity: number) => {
+  const response = await fetch(`${URL}/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ quantity }),
+  });
+  const data = await response.json();
+  return data;
+};
