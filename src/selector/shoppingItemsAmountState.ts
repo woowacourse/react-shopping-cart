@@ -8,7 +8,6 @@ const shoppingItemsAmountState = selector({
   get: ({ get }) => {
     const shoppingCart = get(shoppingCartState);
 
-    console.log(shoppingCart);
     return shoppingCart.length;
   },
 });
