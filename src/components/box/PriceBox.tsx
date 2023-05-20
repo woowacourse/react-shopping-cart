@@ -39,7 +39,7 @@ const PriceBox = ({ checkedCartItemList }: { checkedCartItemList: CartItem[] }) 
           </Text>
         </TotalPriceTextWrapper>
       </PriceTextWrapper>
-      <OrderButton>주문하기</OrderButton>
+      <OrderButton checkedCartItemListLength={checkedCartItemList.length}>주문하기</OrderButton>
     </PriceBoxWrapper>
   );
 };
@@ -79,12 +79,13 @@ const TotalPriceTextWrapper = styled(TextWrapper)`
   margin-top: 30px;
 `;
 
-const OrderButton = styled.button`
+const OrderButton = styled.button<{ checkedCartItemListLength: number }>`
   width: 86%;
   height: 60px;
 
   font-size: 20px;
   margin-left: 30px;
   color: #ffffff;
-  background: #333333;
+  background: ${(props) => (props.checkedCartItemListLength !== 0 ? '#333333' : '#dee2e6')};
+  cursor: ${(props) => (props.checkedCartItemListLength !== 0 ? 'cursor' : 'not-allowed')};
 `;
