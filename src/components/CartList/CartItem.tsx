@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import React from 'react';
 import { styled } from 'styled-components';
 import { checkBoxAtom } from '@recoil/atoms/checkBoxAtom';
 import BucketCounter from '@components/common/BucketCounter';
@@ -12,9 +13,17 @@ interface CartItemProps {
   imageUrl: string;
   quantity: number;
   price: number;
+  refetch: () => {};
 }
 
-const CartItem = ({ id, name, imageUrl, quantity, price }: CartItemProps) => {
+const CartItem = ({
+  id,
+  name,
+  imageUrl,
+  quantity,
+  price,
+  refetch,
+}: CartItemProps) => {
   const [checkBox, setCheckBox] = useAtomLocalStorage<number[]>(
     checkBoxAtom,
     'checkBox'
@@ -46,7 +55,12 @@ const CartItem = ({ id, name, imageUrl, quantity, price }: CartItemProps) => {
       <CartItemName>{name}</CartItemName>
       <CartItemInformationWrapper>
         <RemoveCardItemImg src={CART_ITEM_REMOVE_BUTTON} />
-        <BucketCounter id={id} quantity={quantity} kind="big" />
+        <BucketCounter
+          id={id}
+          quantity={quantity}
+          kind="big"
+          refetch={refetch}
+        />
         <CartItemMoney>
           {(price * quantity).toLocaleString('ko-KR')}
         </CartItemMoney>
@@ -123,4 +137,4 @@ const CartItemMoney = styled.span`
   color: #333333;
 `;
 
-export default CartItem;
+export default React.memo(CartItem);

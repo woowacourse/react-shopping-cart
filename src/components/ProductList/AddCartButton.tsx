@@ -17,13 +17,13 @@ const AddCartButton = ({ id, addProductToCart }: AddCartButtonProps) => {
   return (
     <Wrapper>
       {savedCartData ? (
-        <BucketCounter id={id} quantity={savedCartData.quantity} kind="small" />
+        <BucketCounter id={id} quantity={savedCartData.quantity} kind="small" refetch={()=>{}}/>
       ) : (
         <Button
           type="button"
           onClick={addProductToCart}
           data-testid={ADD_CART_BUTTON}
-        >
+        > 
           <Image src={BUCKET_BUTTON} alt="장바구니 버튼" />
         </Button>
       )}
