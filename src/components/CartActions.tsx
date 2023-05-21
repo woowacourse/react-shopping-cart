@@ -2,25 +2,38 @@ import { styled } from 'styled-components';
 
 import { useCartState } from '../recoils/recoilCart';
 import { useCheckedState } from '../recoils/recoilChecked';
+import { useUpdateCart } from '../hooks/useUpdateCart';
 
 import { Checkbox } from './styled';
 
 export const CartActions = () => {
   const [cart] = useCartState();
+  const { deleteCartItem } = useUpdateCart();
   const [checkedState, setCheckedState] = useCheckedState();
 
   const onChangeAllCheckbox = () => {
     setCheckedState((prev) => {
-      const a: any = {};
-      for (const product of cart) {
-        a[product.id] = !prev.all;
-      }
-
-      return {
-        ...a,
+      const a: any = {
         all: !prev.all,
       };
+
+      if (!prev.all) {
+        for (const item of cart) {
+          a[item.id] = true;
+        }
+      }
+
+      return a;
     });
+  };
+
+  const onClickDeleteSelectedItemButton = () => {
+    const { all, ...selectedItems } = checkedState;
+    const targetItemsId = Object.keys(selectedItems).map(Number);
+
+    deleteCartItem(...targetItemsId);
+
+    setCheckedState({ all: false });
   };
 
   return (
@@ -31,7 +44,9 @@ export const CartActions = () => {
           전체선택 ({Object.keys(checkedState).length - 1}/{cart.length})
         </span>
       </Style.ToggleAllCheckBox>
-      <Style.DeleteButton>선택삭제</Style.DeleteButton>
+      <Style.DeleteSelectedItemButton onClick={onClickDeleteSelectedItemButton}>
+        선택삭제
+      </Style.DeleteSelectedItemButton>
     </Style.SelectionActions>
   );
 };
@@ -61,7 +76,20 @@ const Style = {
 
   Checkbox: styled(Checkbox)``,
 
-  DeleteButton: styled.button`
-    background-color: red;
+  DeleteSelectedItemButton: styled.button`
+    width: 70px;
+    height: 30px;
+    border: 1px solid var(--grey-300);
+
+    background-color: var(--grey-100);
+
+    border-radius: 8px;
+
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--grey-200);
+    }
   `,
 };

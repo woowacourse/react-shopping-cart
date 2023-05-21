@@ -47,8 +47,15 @@ export const useUpdateCart = () => {
     });
   };
 
+  const deleteCartItem = (...productId: number[]) => {
+    setCart((prev) => {
+      return prev.filter((item) => !productId.includes(item.id));
+    });
+  };
+
   return {
     addProductToCart,
+    deleteCartItem,
     increaseProductQuantity,
     decreaseProductQuantity,
     updateProductQuantity,

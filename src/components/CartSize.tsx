@@ -5,7 +5,7 @@ import { useCartSizeValue } from '../recoils/recoilCart';
 export const CartSize = () => {
   const cartSize = useCartSizeValue();
 
-  return <Style.CartSize>{cartSize || '?'}</Style.CartSize>;
+  return <Style.CartSize>{cartSize}</Style.CartSize>;
 };
 
 const Style = {

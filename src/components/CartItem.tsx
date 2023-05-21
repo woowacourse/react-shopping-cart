@@ -3,6 +3,7 @@ import { GarbageIcon } from '../assets/svg';
 
 import { useProductInCartById } from '../recoils/recoilCart';
 import { useCheckedState } from '../recoils/recoilChecked';
+import { useUpdateCart } from '../hooks/useUpdateCart';
 
 import { Stepper } from './Stepper';
 import { Button } from './common/Button';
@@ -13,6 +14,7 @@ interface CartItemProps {
 }
 
 export const CartItem = ({ productId }: CartItemProps) => {
+  const { deleteCartItem } = useUpdateCart();
   const { quantity, product } = useProductInCartById(productId)!;
   const [checkState, setCheckState] = useCheckedState();
 
@@ -33,6 +35,18 @@ export const CartItem = ({ productId }: CartItemProps) => {
     });
   };
 
+  const onClickDeleteIcon = () => {
+    if (checkState[productId]) {
+      setCheckState((prev) => {
+        const { [productId]: _, ...updatedState } = prev;
+
+        return updatedState;
+      });
+    }
+
+    deleteCartItem(productId);
+  };
+
   return (
     <Style.CartItem>
       <Style.LeftInfo>
@@ -45,7 +59,7 @@ export const CartItem = ({ productId }: CartItemProps) => {
         <Style.ProductName>{product.name}</Style.ProductName>
       </Style.LeftInfo>
       <Style.RightInfo>
-        <Button designType="square">
+        <Button designType="square" onClick={onClickDeleteIcon}>
           <GarbageIcon />
         </Button>
         <Stepper productId={productId} quantity={quantity} />
