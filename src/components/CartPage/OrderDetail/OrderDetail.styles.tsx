@@ -4,6 +4,11 @@ export const Section = styled.section`
   width: 30%;
   height: 25rem;
   border: 1px solid darkgray;
+
+  @media (max-width: 840px) {
+    margin-top: 5rem;
+    width: 70%;
+  }
 `;
 
 export const Title = styled.h3`

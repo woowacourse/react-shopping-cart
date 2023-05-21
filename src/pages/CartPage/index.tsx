@@ -1,13 +1,12 @@
 import CartList from '../../components/CartPage/CartList';
 import OrderDetail from '../../components/CartPage/OrderDetail';
-import Flex from '../../components/common/Flex';
-
+import * as S from './CartPage.styles';
 const CartPage = () => {
   return (
-    <Flex justify="space-between">
+    <S.PageWrapper>
       <CartList />
       <OrderDetail />
-    </Flex>
+    </S.PageWrapper>
   );
 };
 
