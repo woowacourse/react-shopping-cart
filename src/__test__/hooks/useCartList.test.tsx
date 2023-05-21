@@ -4,18 +4,20 @@ import { rest } from 'msw';
 import useCartList from '@hooks/useCartList';
 import { CartInformation, ProductInformation } from '@type/types';
 import { createCartItem } from '@utils/cart';
+import { changedQuantityCart } from '@utils/cart';
 import { fetchGet, fetchPost } from '@utils/fetch';
 import { API_URL_CART_LIST, API_URL_PRODUCT_LIST } from '@constants/common';
 import { server } from '../setup-env';
 
 interface RequestCartParams {
   productId?: number;
+  quantity?: number;
 }
 
 describe('API 변경에 유연하도록 구현한 useProductList API 레이어가 올바르게 기능하는 지 테스트', () => {
+  let receivedData: CartInformation[] = [];
   beforeEach(() => {
-    const receivedData: CartInformation[] = [];
-
+    receivedData = [];
     server.use(
       rest.get(`${API_URL_PRODUCT_LIST}/:productId`, async (req, res, ctx) => {
         const { productId } = req.params;
@@ -37,7 +39,7 @@ describe('API 변경에 유연하도록 구현한 useProductList API 레이어�
           ctx.set('Content-Type', 'application/json'),
           ctx.status(200),
           ctx.json(receivedData),
-          ctx.delay(1200),
+          ctx.delay(100),
           ctx.text('OK')
         );
       }),
@@ -73,8 +75,26 @@ describe('API 변경에 유연하도록 구현한 useProductList API 레이어�
         }
       }),
 
-      rest.patch(`${API_URL_CART_LIST}/:id`, (req, res, ctx) => {
-        const data = req.body;
+      rest.patch(`${API_URL_CART_LIST}/:cartItemId`, async (req, res, ctx) => {
+        const { cartItemId } = req.params;
+        const { quantity }: RequestCartParams = await req.json();
+
+        const cartItem = receivedData.find(
+          (item) => item.id === Number(cartItemId)
+        );
+
+        if (!cartItem) {
+          console.error('요청한 값이 올바르지 않습니다.');
+          return res(ctx.status(400), ctx.text('잘못된 요청입니다.'));
+        }
+
+        const updated = changedQuantityCart({
+          cart: receivedData,
+          id: Number(cartItemId),
+          quantity: Number(quantity),
+        });
+
+        receivedData = updated;
 
         return res(ctx.status(204), ctx.text('OK'));
       }),
@@ -98,40 +118,33 @@ describe('API 변경에 유연하도록 구현한 useProductList API 레이어�
       productId: product.id,
     });
 
-    await waitFor(
-      () => {
-        const { data } = result.current;
+    await waitFor(async () => {
+      const { data } = result.current;
 
-        expect(data).toEqual([createCartItem(product)]);
-      },
-      { timeout: 2000 }
-    );
+      await expect(data).toEqual([createCartItem(product)]);
+    });
   });
 
-  //   test('장바구니 아이템의 수량을 변경했을 때  PATCH가 올바르게 기능하여 수량이 변경 되는지 테스트', async () => {
-  //     const { result } = renderHook(() => useCartList());
+  test('장바구니 아이템의 수량을 변경했을 때 PATCH가 올바르게 기능하여 수량이 변경되는지 테스트', async () => {
+    const { result } = renderHook(() => useCartList());
 
-  //     const { addItemToCart, updateCartItem } = result.current;
+    const { addItemToCart, updateCartItem } = result.current;
 
-  //     const product = PRODUCT_LIST.productList[0];
+    const product = PRODUCT_LIST.productList[0];
 
-  //     addItemToCart({
-  //       productId: product.id,
-  //     });
+    addItemToCart({
+      productId: product.id,
+    });
 
-  //     await act(async () => {
-  //       await updateCartItem({ productId: product.id, quantity: 3 });
-  //     });
+    await waitFor(async () => {
+      await updateCartItem({ cartItemId: product.id, quantity: 3 });
+    });
 
-  //     await waitFor(
-  //       () => {
-  //         const { data } = result.current;
-
-  //         expect(data).toEqual([{ ...createCartItem(product), quantity: 3 }]);
-  //       },
-  //       { timeout: 1000 }
-  //     );
-  //   });
+    await waitFor(async () => {
+      const { data } = result.current;
+      await expect(data).toEqual([{ ...createCartItem(product), quantity: 3 }]);
+    });
+  });
 
   //   test('장바구니 아이템을 삭제했을 때 DELETE가 올바르게 기능하여 삭제 되는 지 테스트', async () => {
   //     const { result } = renderHook(() => useCartList());

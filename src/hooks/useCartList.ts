@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { CartInformation, ProductInformation } from '@type/types';
-import { fetchPost } from '@utils/fetch';
+import { fetchPatch, fetchPost } from '@utils/fetch';
 import { API_URL_CART_LIST } from '@constants/common';
 import { useFetch } from './useFetch';
 
@@ -8,12 +8,17 @@ interface AddItemToCartProps {
   productId: number;
 }
 
+interface UpdateCartItemProps {
+  cartItemId: number;
+  quantity: number;
+}
+
 const useCartList = (): {
   data: CartInformation[];
   isLoading: boolean;
   error: unknown | null;
   addItemToCart: ({ productId }: AddItemToCartProps) => void;
-  updateCartItem: () => void;
+  updateCartItem: ({ cartItemId, quantity }: UpdateCartItemProps) => void;
   removeItemFromCart: () => void;
 } => {
   const {
@@ -52,7 +57,18 @@ const useCartList = (): {
     }
   };
 
-  const updateCartItem = () => {};
+  const updateCartItem = async ({
+    cartItemId,
+    quantity,
+  }: UpdateCartItemProps) => {
+    const response = await fetchPatch(`${API_URL_CART_LIST}/${cartItemId}`, {
+      quantity,
+    });
+
+    if (response && response.ok) {
+      refreshData();
+    }
+  };
 
   const removeItemFromCart = () => {};
 
