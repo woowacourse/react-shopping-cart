@@ -1,9 +1,12 @@
 import { useRecoilState } from 'recoil';
 import { cartListState } from '../recoil/atoms';
-import { ProductInfo } from '../types';
+import { CartItemInfo, ProductInfo } from '../types';
+import { CART_BASE_URL } from '../constants';
+import { useSetFetchedData } from './useSetFetchedData';
 
 export const useCart = (productInfo?: ProductInfo) => {
   const [cartList, setCartList] = useRecoilState(cartListState);
+  const { api } = useSetFetchedData<CartItemInfo[]>(CART_BASE_URL, setCartList);
 
   const getCartItem = () => {
     return cartList.find((cartItem) => cartItem.id === productInfo?.id);
@@ -11,35 +14,22 @@ export const useCart = (productInfo?: ProductInfo) => {
 
   const addToCart = () => {
     if (!productInfo) return;
-
-    setCartList((prev) => [
-      ...prev,
-      {
-        id: productInfo.id,
-        quantity: 1,
-        product: productInfo,
-      },
-    ]);
-  };
-
-  const deleteFromCart = (productId?: number) => {
-    const curProductId = productId ? productId : productInfo?.id;
-    setCartList((cartList) => cartList.filter((cartItem) => cartItem.id !== curProductId));
+    api.post(CART_BASE_URL, { productId: productInfo.id }, CART_BASE_URL);
   };
 
   const updateProductQuantity = (quantity: number) => {
+    if (!productInfo) return;
     if (quantity <= 0) {
       deleteFromCart();
       return;
     }
 
-    setCartList((prev) => {
-      return prev.map((cartItem) => {
-        if (cartItem.id === productInfo?.id) return { ...cartItem, quantity: quantity };
+    api.patch(`${CART_BASE_URL}/${productInfo.id}`, { quantity: quantity }, CART_BASE_URL);
+  };
 
-        return cartItem;
-      });
-    });
+  const deleteFromCart = (productId?: number) => {
+    const curProductId = productId ? productId : productInfo?.id;
+    api.delete(`${CART_BASE_URL}/${curProductId}`, CART_BASE_URL);
   };
 
   return {

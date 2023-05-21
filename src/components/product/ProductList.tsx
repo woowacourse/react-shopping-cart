@@ -1,13 +1,10 @@
 import { styled } from 'styled-components';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { productListState } from '../../recoil/atoms';
-import { ProductInfo } from '../../types';
-import { useSetFetchedData } from '../../hooks/useSetFetchedData';
 import Product from './Product';
 
 export default function ProductList() {
-  const [productList, setProductList] = useRecoilState(productListState);
-  useSetFetchedData<ProductInfo[]>('/api/products', setProductList);
+  const productList = useRecoilValue(productListState);
 
   return (
     <Style.Container>
