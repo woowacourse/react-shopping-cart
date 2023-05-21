@@ -3,11 +3,7 @@ import ProductList from '../../components/ProductPage/ProductList';
 import ProductListSkeleton from '../../components/ProductPage/ProductList/ProductListSkeleton';
 
 const ProductPage = () => {
-  return (
-    <Suspense fallback={<ProductListSkeleton />}>
-      <ProductList />
-    </Suspense>
-  );
+  return <ProductList />;
 };
 
 export default ProductPage;
