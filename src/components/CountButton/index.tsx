@@ -6,7 +6,7 @@ interface CountButtonProps {
   count: number;
   handleUpButton: React.MouseEventHandler<HTMLButtonElement>;
   handleDownButton: React.MouseEventHandler<HTMLButtonElement>;
-  handleInputChange: React.ChangeEventHandler<HTMLInputElement>;
+  handleInputChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 const CountButton = ({ count, handleUpButton, handleDownButton, handleInputChange }: CountButtonProps) => {
