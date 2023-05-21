@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import Stepper from './Stepper';
 
 const meta = {
-  title: 'Stepper',
+  title: 'common/Stepper',
   component: Stepper,
 } satisfies Meta<typeof Stepper>;
 

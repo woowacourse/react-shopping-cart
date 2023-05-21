@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
-import AwaitRecoilState from '../components/AwaitRecoilState';
 import ProductListItem from '../components/ProductListItem';
+import AwaitRecoilState from '../components/utils/AwaitRecoilState';
 import productsState from '../recoil/atoms/productsState';
 import type { Product } from '../type';
 

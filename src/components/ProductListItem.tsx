@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 import CartIcon from '../assets/icons/cart.svg';
 import useCartActions from '../hooks/useCartActions';
 import type { Product } from '../type';
-import Stepper from './Stepper';
+import Stepper from './common/Stepper';
 
 const ProductListItemContainer = styled.div`
   display: flex;

@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import type Future from '../utils/Future';
+import type Future from '../../utils/Future';
 import ErrorBoundary from './ErrorBoundary';
 
 type AwaitFutureLoaderProps<TData> = {

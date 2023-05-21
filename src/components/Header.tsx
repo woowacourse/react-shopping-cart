@@ -1,8 +1,8 @@
 import { styled } from 'styled-components';
 import HomeIcon from '../assets/icons/home-icon.svg';
 import cartItemsState from '../recoil/atoms/cartItemsState';
-import AwaitRecoilState from './AwaitRecoilState';
-import Badge from './Badge';
+import Badge from './common/Badge';
+import AwaitRecoilState from './utils/AwaitRecoilState';
 
 const HeaderContainer = styled.header`
   width: 100%;

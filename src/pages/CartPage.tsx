@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 import CartEmptyPlaceholder from '../components/CartEmptyPlaceholder';
 import CartItemListItem from '../components/CartItemListItem';
 import CartOrder from '../components/CartOrder';
-import Checkbox from '../components/Checkbox';
+import Checkbox from '../components/common/Checkbox';
 import useCartActions from '../hooks/useCartActions';
 import useCartOrder from '../hooks/useCartOrder';
 

@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 import DeleteIcon from '../assets/icons/delete.svg';
 import useCartActions from '../hooks/useCartActions';
 import type { Product } from '../type';
-import Stepper from './Stepper';
+import Stepper from './common/Stepper';
 
 const CartItemListItemContainer = styled.div`
   display: flex;
