@@ -1,6 +1,9 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { cartItemQuantityStateFamily, cartState } from '../../atoms/CartState';
-import { productItemStateFamily } from '../../atoms/ProductItemState';
+import {
+  cartItemQuantityStateFamily,
+  cartState,
+} from '../../atoms/CartListState';
+import { productItemStateFamily } from '../../atoms/ProductListState';
 import { useCallback } from 'react';
 import { parseToCartFormat } from '../../services/parseToCartFormat';
 

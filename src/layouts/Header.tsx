@@ -1,7 +1,7 @@
 import { Typography as AddToCartTitle } from '../ui/Typography';
 import { Logo } from './Logo';
 import { TotalCartCount } from '../components/TotalCartCount';
-import { cartStateLength } from '../atoms/CartState';
+import { cartStateLength } from '../atoms/CartListState';
 import { useRecoilValue } from 'recoil';
 import * as Styled from './styles/Header.styles';
 import { useNavigate } from 'react-router-dom';

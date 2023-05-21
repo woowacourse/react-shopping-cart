@@ -6,7 +6,7 @@ import {
   Typography as TotalPrice,
 } from '../ui/Typography';
 import * as Styled from './styles/CartTotalPriceContainer.styles';
-import { cartState } from '../atoms/CartState';
+import { cartState } from '../atoms/CartListState';
 import { useMemo } from 'react';
 
 export const CartTotalPriceContainer = () => {

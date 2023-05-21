@@ -1,6 +1,6 @@
 import { CartItem } from '../components/CartItem';
 import { useRecoilState } from 'recoil';
-import { cartState } from '../atoms/CartState';
+import { cartState } from '../atoms/CartListState';
 import {
   Typography as ContainerTitle,
   Typography as CheckAllText,

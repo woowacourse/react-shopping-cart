@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import { ProductItem } from '../components/ProductItem';
 import * as Styled from './styles/ProductList.styles';
-import { productListState } from '../atoms/ProductItemState';
+import { productListState } from '../atoms/ProductListState';
 
 export const ProductList = () => {
   const productList = useRecoilValue(productListState);
