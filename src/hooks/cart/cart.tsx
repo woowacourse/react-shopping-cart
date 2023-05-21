@@ -2,7 +2,7 @@ import { ChangeEvent } from 'react';
 import { useRecoilRefresher_UNSTABLE } from 'recoil';
 import { addToCart, deleteCartItem, updateCartItem } from '../../apis/cart';
 import { cartState, selectedItemsSelector } from '../../atoms/cart';
-import { DELETE_CART_ITEMS } from '../../constants/messages';
+import { DELETE_CART_ITEMS } from '../../constants/cart';
 import { CartItem } from '../../types/cart';
 import { waitForMutation } from '../../utils/waitFor';
 import {

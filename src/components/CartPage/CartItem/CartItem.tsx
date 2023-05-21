@@ -1,4 +1,4 @@
-import { DELETE_CART_ITEM } from '../../../constants/messages';
+import { DELETE_CART_ITEM } from '../../../constants/cart';
 import { useCartSelector, useMutateCart } from '../../../hooks/cart/cart';
 import { CartItem as CartItemType } from '../../../types/cart';
 import Flex from '../../common/Flex';
