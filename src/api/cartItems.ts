@@ -7,7 +7,9 @@ interface CartItem {
 }
 
 export const getCartItems = async (): Promise<CartItem[]> => {
-  const response = await fetch("/cart-items");
+  const response = await fetch("/cart-items", {
+    method: "GET",
+  });
 
   return response.json();
 };
