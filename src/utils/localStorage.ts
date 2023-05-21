@@ -1,5 +1,5 @@
-const getFromLocalStorage = <T>(key: string) => {
-  return JSON.parse(localStorage.getItem(key) as string) as T;
+const getFromLocalStorage = <T>(key: string): T => {
+  return JSON.parse(localStorage.getItem(key) as string);
 };
 
 const saveToLocalStorage = <T>(key: string, data: T[]) => {
