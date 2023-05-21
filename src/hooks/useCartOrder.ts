@@ -1,35 +1,40 @@
 import { useRecoilState } from 'recoil';
-import cartOrderState from '../recoil/atoms/cartOrderState';
+import cartItemsState from '../recoil/atoms/cartItemsState';
 import type { CartItem } from '../type';
 
 const useCartOrder = () => {
-  const [cartOrder, setCartOrder] = useRecoilState(cartOrderState);
+  const [cartItems, setCartItems] = useRecoilState(cartItemsState);
 
-  const isEnabled = (cartItemId: CartItem['id']) => cartOrder.includes(cartItemId);
+  const allSelected = cartItems.every((cartItem) => !cartItem.unselectedForOrder);
 
-  const enable = (cartItemId: CartItem['id']) =>
-    setCartOrder((cartOrder) =>
-      cartOrder.includes(cartItemId) ? cartOrder : [...cartOrder, cartItemId],
+  const selectForOrder = (cartItemId: CartItem['id']) =>
+    setCartItems((cartItems) =>
+      cartItems.map((cartItem) =>
+        cartItem.id === cartItemId ? { ...cartItem, unselectedForOrder: false } : cartItem,
+      ),
     );
 
-  const toggle = (cartItemId: CartItem['id']) => {
-    setCartOrder((cartOrder) =>
-      cartOrder.includes(cartItemId)
-        ? cartOrder.filter((it) => it !== cartItemId)
-        : [...cartOrder, cartItemId],
+  const toggleForOrder = (cartItemId: CartItem['id']) => {
+    setCartItems((cartItems) =>
+      cartItems.map((cartItem) =>
+        cartItem.id === cartItemId
+          ? { ...cartItem, unselectedForOrder: !cartItem.unselectedForOrder }
+          : cartItem,
+      ),
     );
   };
 
-  const reset = () => {
-    setCartOrder([]);
+  const unselectAllForOrder = () => {
+    setCartItems((cartItem) =>
+      cartItem.map((cartItem) => ({ ...cartItem, unselectedForOrder: true })),
+    );
   };
 
   return {
-    cartOrder,
-    isEnabled,
-    enable,
-    toggle,
-    reset,
+    allSelected,
+    selectForOrder,
+    toggleForOrder,
+    unselectAllForOrder,
   };
 };
 
