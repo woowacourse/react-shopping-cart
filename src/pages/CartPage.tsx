@@ -66,7 +66,6 @@ export const CartPage = () => {
           </CheckAllCheckBoxText>
           <RemoveButton onClick={deleteCheckedCartProducts}>선택삭제</RemoveButton>
         </FlexBox>
-        <CartListTitle>배송 상품 ({cartProductsCheckedCount}개)</CartListTitle>
       </CartListTitleWrapper>
       <FlexBox justify="space-around" gap="70px">
         <FlexBox direction="column" width="600px" margin="10px 0">
@@ -106,10 +105,6 @@ const CartListTitleWrapper = styled.div`
   top: 0px;
   z-index: 1;
   background-color: ${({ theme }) => theme.colors.gray_0};
-`;
-const CartListTitle = styled.span`
-  font-size: 20px;
-  margin-left: 50px;
 `;
 
 const CheckAllCheckBox = styled.input`
