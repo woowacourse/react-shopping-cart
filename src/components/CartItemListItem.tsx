@@ -65,7 +65,7 @@ const CartItemListItem = (props: CartItemListItemProps) => {
         <DeleteButton onClick={() => setQuantity(product, 0)}>
           <img src={DeleteIcon} alt="삭제" />
         </DeleteButton>
-        <Stepper value={quantity} onChange={handleChangeQuantityWithinSafeRange} />
+        <Stepper variant="large" value={quantity} onChange={handleChangeQuantityWithinSafeRange} />
         <ProductPrice>{(product.price * quantity).toLocaleString('ko')}</ProductPrice>
       </CartController>
     </CartItemListItemContainer>
