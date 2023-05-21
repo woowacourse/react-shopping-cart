@@ -66,7 +66,18 @@ const useShoppingCart = () => {
     });
   };
 
-  return { cartProducts, initialAddCart, increaseQuantity, decreaseQuantity, deleteCartProduct };
+  const deleteCheckedCartProducts = (checkedCartProducts: Set<number>) => {
+    [...checkedCartProducts].forEach(async (id) => await deleteCartProduct(id));
+  };
+
+  return {
+    cartProducts,
+    initialAddCart,
+    increaseQuantity,
+    decreaseQuantity,
+    deleteCartProduct,
+    deleteCheckedCartProducts,
+  };
 };
 
 export default useShoppingCart;
