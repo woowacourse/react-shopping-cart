@@ -66,6 +66,10 @@ const ProductItem = (props: ProductItemProps) => {
 
   const { setQuantity } = useCartProduct(productId);
 
+  const handleOnClick = () => {
+    setQuantity(1);
+  };
+
   if (!product) return <div>ERROR: No product!!</div>;
 
   return (
@@ -78,7 +82,7 @@ const ProductItem = (props: ProductItemProps) => {
         </ProductItemInfo>
         <StepperContainer>
           {cartProduct === null ? (
-            <AddCartButton onClick={() => setQuantity(1)}>
+            <AddCartButton onClick={handleOnClick}>
               <Cart />
             </AddCartButton>
           ) : (
