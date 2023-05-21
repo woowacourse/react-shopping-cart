@@ -32,17 +32,18 @@ const Wrapper = styled.section`
   flex-direction: column;
   gap: 10px;
 
-  position: fixed;
-  top: 11%;
-  right: 2%;
+  position: sticky;
+  top: 12%;
+  margin-left: auto;
 
   width: 30%;
-  height: 35%;
+  height: 40%;
 
   border: 1px solid rgba(221, 221, 221, 1);
   padding: 2%;
 
   @media screen and (max-width: 800px) {
+    position: fixed;
     gap: 0;
 
     top: auto;
@@ -92,8 +93,10 @@ const AmountBox = styled.div`
 
 const OrderButton = styled.button`
   width: 100%;
-  height: 18%;
 
+  padding: 7% 10%;
+
+  font-size: 19px;
   color: rgba(255, 255, 255, 1);
   background: #333333;
 `;

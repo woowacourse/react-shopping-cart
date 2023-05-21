@@ -26,7 +26,7 @@ const CartItem = (item: CartProduct) => {
       <input type="checkbox" value={item.id} checked={item.isChecked} onChange={handleCheckbox} />
       <img src={item.product.imageUrl} alt={`${item.product.name} 상품 이미지`} />
       <NameBox>{item.product.name}</NameBox>
-      <button onClick={removeItem}>🗑️</button>
+      <ButtonBox onClick={removeItem}>🗑️</ButtonBox>
       <PriceBox>{(item.product.price * item.quantity).toLocaleString()}원</PriceBox>
       <QuantityCounter itemId={item.product.id} />
     </Wrapper>
@@ -55,14 +55,6 @@ const Wrapper = styled.ul`
     transform: scale(1.6);
   }
 
-  & > button {
-    position: absolute;
-    top: 6%;
-    right: 1%;
-
-    cursor: pointer;
-  }
-
   :last-child {
     align-self: center;
 
@@ -77,10 +69,10 @@ const Wrapper = styled.ul`
 `;
 
 const NameBox = styled.div`
-  width: 190px;
+  width: 65%;
   margin: 15px 0 10px 10px;
 
-  font-size: 16px;
+  font-size: 17px;
   white-space: nowrap;
 
   word-break: break-all;
@@ -90,6 +82,14 @@ const NameBox = styled.div`
   @media screen and (max-width: 800px) {
     font-size: 13px;
   }
+`;
+
+const ButtonBox = styled.button`
+  position: absolute;
+  top: 6%;
+  right: 1%;
+
+  cursor: pointer;
 `;
 
 const PriceBox = styled.p`
