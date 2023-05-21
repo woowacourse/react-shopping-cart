@@ -1,7 +1,13 @@
 import { useProductListInCart, useCheckCart } from '../../hooks/cartListState/cartListState';
 import { FlexColWrapper, FlexWrapper } from '../../pages/Cart/Cart.style';
 import CartItemBox from '../CartItemBox/CartItemBox';
+import { StyleCartItemWrapper } from '../CartItemBox/CartItemBox.steyle';
 import CheckBox from '../common/CheckBox/CheckBox';
+import {
+  StyleCartItemListWrapper,
+  StyleCheckAllSpan,
+  StyleDeleteCheckedBox,
+} from './CartItemList.style';
 
 function CartItemListContainer() {
   const productListInCart = useProductListInCart();
@@ -11,7 +17,6 @@ function CartItemListContainer() {
 
   return (
     <FlexColWrapper>
-      <span>상품 개수: {productCount}</span>
       {productListInCart.map(({ id, imageUrl, name, price }) => {
         return (
           <li key={id}>
@@ -20,7 +25,7 @@ function CartItemListContainer() {
           </li>
         );
       })}
-      <FlexWrapper>
+      <StyleCartItemListWrapper>
         <CheckBox
           type="checkbox"
           checked={isAllChecked}
@@ -28,9 +33,9 @@ function CartItemListContainer() {
             toggleAllCartItem();
           }}
         />
-        <span>{`${checkedCount} / ${productCount}`}</span>
-        <button onClick={deleteCheckedItems}>선택삭제</button>
-      </FlexWrapper>
+        <StyleCheckAllSpan>{`전체 선택 (${checkedCount} / ${productCount})`}</StyleCheckAllSpan>
+        <StyleDeleteCheckedBox onClick={deleteCheckedItems}>선택삭제</StyleDeleteCheckedBox>
+      </StyleCartItemListWrapper>
     </FlexColWrapper>
   );
 }

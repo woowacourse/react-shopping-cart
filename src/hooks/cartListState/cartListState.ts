@@ -54,7 +54,7 @@ const cartItemQuantityState = selectorFamily<number, number>({
               quantity,
               product,
             },
-          ]);
+          ]); //delay 1초
 
           fetch('/cart-items', {
             method: 'POST',

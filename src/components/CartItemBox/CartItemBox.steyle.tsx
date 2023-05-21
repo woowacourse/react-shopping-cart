@@ -8,6 +8,7 @@ export const StyleCartItemWrapper = styled(FlexWrapper)`
   border: ${({ theme }) => theme.secondaryColor} 1px solid;
   padding: 1rem;
   border-radius: 8px;
+  width: 95%;
 `;
 
 export const StyleImageBox = styled.div`

@@ -31,6 +31,7 @@ function CartItemBox({ id, imageUrl, name, price }: ProductItem) {
         onChange={() => {
           toggleCheck();
         }}
+        size="medium"
       />
       <StyleImageBox>
         <StyleImage src={imageUrl} />

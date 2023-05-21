@@ -5,12 +5,13 @@ interface CheckBoxProps extends HTMLAttributes<HTMLInputElement> {
   type?: 'checkbox';
   checked?: boolean;
   onChange?: () => void;
+  size?: 'small' | 'medium' | 'large';
 }
 
-const CheckBox = ({ type, ...restProps }: CheckBoxProps) => (
+const CheckBox = ({ type, size, ...restProps }: CheckBoxProps) => (
   <StyleLabel>
-    <StyleCheckBox type={type} {...restProps} />
-    <StyleCheckMark />
+    <StyleCheckBox boxSize={size} type={type} {...restProps} />
+    <StyleCheckMark boxSize={size} />
   </StyleLabel>
 );
 
