@@ -7,60 +7,53 @@ import { ACTION_DECREASE, ACTION_INCREASE } from "../../constants/counter";
 import { ERROR } from "../../constants/error";
 import { useRefTypeGuard } from "../../hooks/useRefTypeGuard";
 import { fillBlankInput, validateNumberRange } from "../../utils/validation";
+import { useState } from "react";
+import { patchProductCount } from "../../api/cart";
+import { useEffect } from "react";
+import { useRecoilRefresher_UNSTABLE } from "recoil";
+import { cartData } from "../../atoms/cartState";
 
-const unknownCountAction = (action: never): never => {
-  throw new Error(ERROR.INVALID_ACTION);
-};
+interface QuantityCounterProps {
+  count: number;
+  getCount: any;
+  increaseQuantity: any;
+  decreaseQuantity: any;
+  id?: number;
+}
+export function QuantityCounter(props: QuantityCounterProps) {
+  const { count, getCount, increaseQuantity, decreaseQuantity, id } = props;
+  const refresh = useRecoilRefresher_UNSTABLE(cartData);
 
-const changeCount = (current: HTMLInputElement, action: CounterAction) => {
-  const prevValue = +current.value;
-  switch (action) {
-    case ACTION_INCREASE:
-      current.value = (prevValue + 1).toString();
-      break;
-    case ACTION_DECREASE:
-      if (prevValue < 2) return;
-      current.value = (prevValue - 1).toString();
-      break;
-    default:
-      unknownCountAction(action);
+  function handleChange(e: any) {
+    validateNumberRange(e);
+    id ? getCount(+e.target.value, id) : getCount(+e.target.value);
   }
-};
 
-const QuantityCounter = forwardRef<HTMLInputElement>(function (_, quantityRef) {
-  const { isForwardedRef, isRefCurrent } = useRefTypeGuard();
-  const increaseQuantity = () => {
-    if (!isForwardedRef<HTMLInputElement>(quantityRef)) return;
-    if (!isRefCurrent<HTMLInputElement>(quantityRef.current)) return;
+  useEffect(() => {
+    id && patchProductCount(id, count);
+    refresh();
+  }, [count]);
 
-    changeCount(quantityRef.current, "INCREASE");
-  };
-
-  const decreaseQuantity = () => {
-    if (!isForwardedRef<HTMLInputElement>(quantityRef)) return;
-    if (!isRefCurrent<HTMLInputElement>(quantityRef.current)) return;
-
-    changeCount(quantityRef.current, "DECREASE");
-  };
   return (
     <QuantityCounterContainer>
       <QuantityInput
-        ref={quantityRef}
-        onChange={validateNumberRange}
-        defaultValue="1"
+        onChange={handleChange}
         onBlur={fillBlankInput}
+        value={count}
       />
       <ButtonWrapper>
-        <CountButton onClick={increaseQuantity}>
+        <CountButton
+          onClick={() => (id ? increaseQuantity(id) : increaseQuantity())}>
           <UpButtonIc />
         </CountButton>
-        <CountButton onClick={decreaseQuantity}>
+        <CountButton
+          onClick={() => (id ? decreaseQuantity(id) : decreaseQuantity())}>
           <DownButtonIc />
         </CountButton>
       </ButtonWrapper>
     </QuantityCounterContainer>
   );
-});
+}
 
 export default QuantityCounter;
 
