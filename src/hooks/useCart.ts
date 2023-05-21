@@ -1,23 +1,27 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { cartAtomFamily, cartIdAtom } from "../store/cartState";
-import { useState } from "react";
+import { useState, useLayoutEffect, useEffect } from "react";
 import { Cart } from "../types/product";
 import {
   targetProductSelector,
   targetShoppingSelector,
 } from "../store/fetchState";
-import { fetchPostQuery } from "../api";
+import { fetchPatchQuery, fetchPostQuery } from "../api";
 
 const useCart = (productId: number) => {
   const [cart, setCart] = useRecoilState(cartAtomFamily(productId));
   const [cartId, setCartId] = useRecoilState(cartIdAtom);
   const product = useRecoilValue(targetProductSelector)(productId);
   const shoppingProduct = useRecoilValue(targetShoppingSelector)(productId);
-  const productInCart = cart.quantity ? true : false;
+
+  const productInCart = shoppingProduct ? true : false;
   const [isCartClicked, setIsCartClicked] = useState(Boolean(productInCart));
 
-  if (shoppingProduct) setCart(shoppingProduct);
-
+  if (shoppingProduct && cart.quantity === 0) setCart(shoppingProduct);
+  if (shoppingProduct && cart.quantity !== 0) {
+    const data = { quantity: cart.quantity };
+    fetchPatchQuery(`/cart-items/${cart.id}`, data);
+  }
   const addToCart = async () => {
     const newProduct: Cart = {
       id: productId,
@@ -25,7 +29,9 @@ const useCart = (productId: number) => {
       product,
     };
 
-    await fetchPostQuery(`/cart-items`, productId);
+    const data = { productId: productId };
+    await fetchPostQuery(`/cart-items`, data);
+
     setCart(newProduct);
     setCartId([...cartId, productId]);
     setIsCartClicked(true);
@@ -43,7 +49,7 @@ const useCart = (productId: number) => {
     setCartId(newCartID);
   };
 
-  const plusQuantity = () => {
+  const plusQuantity = async () => {
     const updateProduct: Cart = {
       id: productId,
       quantity: cart.quantity + 1,

@@ -1,15 +1,34 @@
+import { useState } from "react";
+
 import styled from "styled-components";
+
+import LoadingPage from "./LoadingPage";
 import ShoppingCardList from "../components/ShoppingCardList/ShoppingCardList";
 import ShoppingTitle from "../components/ShoppingTitle/ShoppingTitle";
 import ShoppingPreview from "../components/ShoppingPreview/ShoppingPreview";
+import { useFetchShoppingList } from "../hooks/useFetch";
 
 const ShoppingCartPage = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleIsLoading = () => {
+    setIsLoading(false);
+  };
+
+  useFetchShoppingList(handleIsLoading);
+
   return (
-    <Styled.Container>
-      <ShoppingTitle />
-      <ShoppingCardList />
-      <ShoppingPreview />
-    </Styled.Container>
+    <>
+      {isLoading ? (
+        <LoadingPage />
+      ) : (
+        <Styled.Container>
+          <ShoppingTitle />
+          <ShoppingCardList />
+          <ShoppingPreview />
+        </Styled.Container>
+      )}
+    </>
   );
 };
 

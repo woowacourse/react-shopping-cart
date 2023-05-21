@@ -1,4 +1,4 @@
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   fetchedProductListAtom,
   fetchedShoppingListAtom,
@@ -35,7 +35,7 @@ const useFetchData = (handleIsLoading: VoidFunction) => {
   }, []);
 };
 
-const useFetchShoppingList = () => {
+const useFetchShoppingList = (handleIsLoading: VoidFunction) => {
   const [, setFetchedShoppingList] = useRecoilState(fetchedShoppingListAtom);
 
   useEffect(() => {
@@ -43,6 +43,7 @@ const useFetchShoppingList = () => {
       try {
         const data = await fetchGetQuery<Cart[]>("/cart-items");
         setFetchedShoppingList(data);
+        setTimeout(() => handleIsLoading(), 2000);
       } catch (error) {
         console.log(error + "입니다");
       }

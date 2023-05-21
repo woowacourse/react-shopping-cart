@@ -40,9 +40,20 @@ export const handlers = [
   }),
 
   //장바구니 아이템 수량 변경
-  rest.post("/cart-items:cartItemId", async (req, res, ctx) => {
+  rest.patch("/cart-items/:cartItemId", async (req, res, ctx) => {
     const { cartItemId } = req.params;
     const { quantity } = await req.json();
+
+    const cartItem = JSON.parse(
+      localStorage.getItem(`cart_${cartItemId}`) || ""
+    );
+    const updateItem = {
+      id: cartItem.id,
+      quantity,
+      product: cartItem.product,
+    };
+
+    localStorage.setItem(`cart_${cartItemId}`, JSON.stringify(updateItem));
 
     return res(ctx.status(200));
   }),

@@ -1,29 +1,43 @@
-const fetchQuery = async <T>(url: string): Promise<T> => {
+export const fetchGetQuery = async <T>(url: string): Promise<T> => {
   const response = await fetch(url);
-  const data = await response.json();
 
-  if (response.status < 200 || 300 < response.status) {
-    throw new Error(data.message);
+  if (response.status !== 200) {
+    throw new Error("겟에러");
   }
+
+  const data = await response.json();
   return data;
 };
 
 export const fetchPostQuery = async <T>(
   url: string,
-  id: number
+  bodyData: Record<string, number>
 ): Promise<T> => {
   const response = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ productId: id }),
+    body: JSON.stringify(bodyData),
   });
 
-  const data = await response.json();
-
-  if (response.status < 200 || 300 < response.status) {
-    throw new Error(data.message);
+  if (response.status !== 201) {
+    throw new Error("포스트에러");
   }
+
+  const data = await response.json();
   return data;
 };
 
-export default fetchQuery;
+export const fetchPatchQuery = async <T>(
+  url: string,
+  bodyData: Record<string, number>
+) => {
+  const response = await fetch(url, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(bodyData),
+  });
+
+  if (response.status !== 200) {
+    throw new Error("패치에러");
+  }
+};
