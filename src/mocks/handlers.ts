@@ -34,6 +34,8 @@ export const handlers = [
       };
     }
 
+    localStorage.setItem('cart-items', JSON.stringify(mockCart));
+
     return res(ctx.status(200));
   }),
 
@@ -51,6 +53,8 @@ export const handlers = [
     }
 
     mockCart[index] = { ...mockCart[index], quantity };
+
+    localStorage.setItem('cart-items', JSON.stringify(mockCart));
 
     return res(ctx.status(200));
   }),
@@ -70,6 +74,9 @@ export const handlers = [
     }
 
     mockCart.splice(index, 1);
+
+    localStorage.setItem('cart-items', JSON.stringify(mockCart));
+
     return res(ctx.status(204));
   }),
 ];

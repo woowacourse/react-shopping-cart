@@ -1,14 +1,21 @@
 import { selector, atom } from 'recoil';
+import { mockCart } from '../data/mockCart';
+import { CartItem } from '../types/cart';
 import { fetchCartItems } from '../apis/cart';
 
 export const cartState = atom({
   key: 'cart',
   default: selector({
-    key: 'getMockCart',
+    key: 'getSavedCartItems',
     get: async () => {
-      const cart = await fetchCartItems();
+      const savedCartItems = localStorage.getItem('cart-items');
 
-      return cart;
+      if (savedCartItems) {
+        mockCart.push(...JSON.parse(savedCartItems));
+      }
+
+      const data = await fetchCartItems();
+      return data;
     },
   }),
 });
