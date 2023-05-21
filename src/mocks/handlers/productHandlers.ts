@@ -12,11 +12,12 @@ export const productHandlers = [
 
     if (!product) {
       return res(
+        ctx.delay(50),
         ctx.status(404),
         ctx.json({ message: '해당 상품이 존재하지 않습니다.' })
       );
     }
 
-    return res(ctx.status(200), ctx.json(product));
+    return res(ctx.delay(50), ctx.status(200), ctx.json(product));
   }),
 ];
