@@ -17,12 +17,12 @@ export type Select = {
 const CartItemList = () => {
   const [cartList, setCartList] = useRecoilState(cartAtom);
   const { ALL_CHECKED, NO_CHECKED } = useRecoilValue(checkedValue);
-  const [isAllSelected, setIsAllSelected] = useState<boolean>(false);
-  const [isSelectedList, setIsSelectedList] = useState<Select[]>(NO_CHECKED);
+  const [isAllSelected, setIsAllSelected] = useState<boolean>(true);
+  const [isSelectedList, setIsSelectedList] = useState<Select[]>(ALL_CHECKED);
   const setTotalAmount = useSetRecoilState(totalAmountAtom);
 
   useEffect(() => {
-    setIsSelectedList(NO_CHECKED);
+    setIsSelectedList(ALL_CHECKED);
   }, [cartList]);
 
   useEffect(() => {
