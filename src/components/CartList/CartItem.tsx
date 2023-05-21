@@ -115,4 +115,4 @@ const CartItemMoney = styled.span`
   color: #333333;
 `;
 
-export default CartItem;
+export default React.memo(CartItem);

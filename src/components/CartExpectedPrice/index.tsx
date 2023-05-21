@@ -1,3 +1,4 @@
+import React from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { cartTotalPriceSelector } from '@recoil/selectors/cartTotalPriceSelector';
@@ -112,4 +113,4 @@ const CartPriceButtonWrapper = styled.div`
   margin-top: 20px;
 `;
 
-export default CartExpectedPrice;
+export default React.memo(CartExpectedPrice);
