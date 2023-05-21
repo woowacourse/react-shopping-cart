@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { Text } from '../common/Text/Text';
-import { formatPrice } from '../../utils/formatPrice';
-import type { CartItem } from '../../types/types';
+import { Text } from '../../common/Text/Text';
+import { formatPrice } from '../../../utils/formatPrice';
+import type { CartItem } from '../../../types/types';
 
 const PriceBox = ({ checkedCartItemList }: { checkedCartItemList: CartItem[] }) => {
   const totalPrice = checkedCartItemList.reduce((acc, cur) => {

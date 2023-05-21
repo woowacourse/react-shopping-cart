@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 import type { ChangeEvent } from 'react';
 import { useEffect, useRef } from 'react';
-import { Text } from '../common/Text/Text';
-import { TrashCanIcon } from '../../assets';
-import InputStepper from '../common/InputStepper/InputStepper';
-import { CheckBox } from '../list/CartList';
-import type { CartItem } from '../../types/types';
-import { formatPrice } from '../../utils/formatPrice';
+import { Text } from '../../common/Text/Text';
+import { TrashCanIcon } from '../../../assets';
+import InputStepper from '../../common/InputStepper/InputStepper';
+import { CheckBox } from '../../list/CartList/CartList';
+import type { CartItem } from '../../../types/types';
+import { formatPrice } from '../../../utils/formatPrice';
 
 interface CartListItemProps {
   cartItem: CartItem;

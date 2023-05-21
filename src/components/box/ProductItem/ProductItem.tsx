@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
-import { CartIcon } from '../../assets';
-import type { Product } from '../../types/types';
-import { Text } from '../common/Text/Text';
-import InputStepper from '../common/InputStepper/InputStepper';
-import useCartList from '../../hooks/useCartList';
-import { formatPrice } from '../../utils/formatPrice';
+import { CartIcon } from '../../../assets';
+import type { Product } from '../../../types/types';
+import { Text } from '../../common/Text/Text';
+import InputStepper from '../../common/InputStepper/InputStepper';
+import useCartList from '../../../hooks/useCartList';
+import { formatPrice } from '../../../utils/formatPrice';
 
 const ProductItem = ({ product }: { product: Product }) => {
   const { cartList, addProductToCartList, updateProductQuantity, removeProductInCartList } =

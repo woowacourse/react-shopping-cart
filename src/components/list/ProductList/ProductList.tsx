@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
-import ProductItem from '../box/ProductItem';
-import ErrorBox from '../common/ErrorBox/ErrorBox';
-import { productsQuery } from '../../recoil/selector';
+import ProductItem from '../../box/ProductItem/ProductItem';
+import ErrorBox from '../../common/ErrorBox/ErrorBox';
+import { productsQuery } from '../../../recoil/selector';
 
 const ProductList = () => {
   const products = useRecoilValue(productsQuery);

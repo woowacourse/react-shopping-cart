@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
 import { useState } from 'react';
-import CartList from '../list/CartList';
-import PriceBox from '../box/PriceBox';
+import CartList from '../list/CartList/CartList';
+import PriceBox from '../box/PriceBox/PriceBox';
 import { Text } from '../common/Text/Text';
 import ErrorBox from '../common/ErrorBox/ErrorBox';
 import { cartListState } from '../../recoil/atom';

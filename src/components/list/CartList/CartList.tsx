@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import type { ChangeEvent } from 'react';
-import { Text } from '../common/Text/Text';
-import CartListItem from '../box/CartListItem';
-import useCartList from '../../hooks/useCartList';
-import type { CartItem } from '../../types/types';
+import { Text } from '../../common/Text/Text';
+import CartListItem from '../../box/CartListItem/CartListItem';
+import useCartList from '../../../hooks/useCartList';
+import type { CartItem } from '../../../types/types';
 
 const CartList = ({
   setCheckedCartItemList,
