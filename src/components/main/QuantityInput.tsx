@@ -1,6 +1,7 @@
-import { WheelEventHandler, ChangeEventHandler, KeyboardEventHandler } from 'react';
+import { WheelEventHandler, ChangeEventHandler, FormEventHandler, FormEvent } from 'react';
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
 import { css, styled } from 'styled-components';
+import { NOT_NUMBER } from '../../constants';
 import Input from '../common/Input';
 
 interface Props {
@@ -14,8 +15,14 @@ const QuantityInput = ({ id, value, onChange }: Props) => {
     currentTarget.blur();
   };
 
-  const handleDotPrevent: KeyboardEventHandler<HTMLInputElement> = (event) => {
-    if (event.key === '.') event.preventDefault();
+  const handleDigitsOnlyAllow: FormEventHandler<HTMLInputElement> = ({
+    currentTarget,
+  }: FormEvent<HTMLInputElement>) => {
+    const input = currentTarget;
+    const newValue = input.value.replace(NOT_NUMBER, '');
+
+    input.value = '';
+    input.value = newValue;
   };
 
   return (
@@ -34,7 +41,7 @@ const QuantityInput = ({ id, value, onChange }: Props) => {
         css={QuantityInputStyle}
         onWheel={handleScrollPrevent}
         onChange={onChange}
-        onKeyDown={handleDotPrevent}
+        onInput={handleDigitsOnlyAllow}
       />
 
       <FaCaretUp aria-label="button-to-raise-quantity" />

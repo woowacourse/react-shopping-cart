@@ -1,5 +1,5 @@
 import { ChangeEventHandler, Dispatch, SetStateAction } from 'react';
-import { MAX_NUMBER_LENGTH, NOT_NUMBER, QUANTITY } from '../constants';
+import { MAX_NUMBER_LENGTH, QUANTITY } from '../constants';
 
 interface Props {
   setIsSelected: (value: SetStateAction<boolean>) => void;
@@ -21,9 +21,9 @@ export const useHandleQuantityInput = ({ ...props }: Props) => {
       return setQuantity(QUANTITY.INITIAL);
     }
 
-    const onlyTwoDigits = parseInt(value.replace(NOT_NUMBER, '').slice(0, MAX_NUMBER_LENGTH));
+    const onlyTwoDigits = value.slice(0, MAX_NUMBER_LENGTH);
     setQuantity(onlyTwoDigits);
-    addToCart(String(onlyTwoDigits));
+    addToCart(onlyTwoDigits);
   };
 
   return handleNumberInputChange;
