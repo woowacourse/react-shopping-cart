@@ -35,6 +35,11 @@ const SelectedProductItem = ({ id, imageUrl, name, price, quantity }: Props) => 
       : setCheckedItems((prev) => [...prev, id]);
   };
 
+    const handleTrashCanClick = () => {
+    setCheckedItems((prev) => prev.filter((itemId) => itemId !== id));
+    removeItemFromCart();
+  };
+
   return (
     <div>
       <S.Fieldset>
@@ -51,7 +56,7 @@ const SelectedProductItem = ({ id, imageUrl, name, price, quantity }: Props) => 
         </S.Name>
         <S.Wrapper>
           <QuantityInput id={name} value={String(quantity)} onChange={handleNumberInputChange} />
-          <Button css={trashCanButtonStyle} onClick={removeItemFromCart}>
+          <Button css={trashCanButtonStyle} onClick={handleTrashCanClick}>
             <TrashCanIcon patternId={id} imageSize={{ width: '40', height: '40' }} />
           </Button>
           <Price price={price * quantity} />
