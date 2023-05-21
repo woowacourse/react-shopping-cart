@@ -1,85 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { styled } from 'styled-components';
-import { cartAtom } from '@recoil/atoms/cartAtom';
-import { checkBoxAtom } from '@recoil/atoms/checkBoxAtom';
-import { checkBoxTotalIdtAtom } from '@recoil/atoms/checkBoxTotalIdtAtom';
 import Button from '@components/common/Button';
 import CheckBox from '@components/common/CheckBox';
-import useAtomLocalStorage from '@hooks/useAtomLocalStorage';
-import useFetch from '@hooks/useFetch';
-import { CartInformation } from '@type/types';
-import { CART_LIST_LOCAL_KEY } from '@constants/common';
+import useCartList from '@hooks/useCartList';
 import CartItem from './CartItem';
 
 const CartList = () => {
-  const [cart] = useAtomLocalStorage<CartInformation[]>(
-    cartAtom,
-    CART_LIST_LOCAL_KEY
-  );
-
-  const { data, refetch } = useFetch<CartInformation[]>(
-    '/cart-items',
-    {
-      method: 'get',
-    }
-  );
-
-  const [checkBox, setCheckBox] = useAtomLocalStorage<number[]>(
-    checkBoxAtom,
-    'checkBox'
-  );
-
-  const [checkBoxTotalId, setCheckBoxTotalId] = useAtomLocalStorage<number[]>(
-    checkBoxTotalIdtAtom,
-    'checkBoxTotalId'
-  );
-
-  const [check, setCheck] = useState(false);
-
-  const checkBoxTotalIdOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) {
-      setCheck(true);
-      setCheckBox(checkBoxTotalId);
-      return;
-    }
-    setCheckBox([]);
-    setCheck(false);
-
-    refetch();
-  };
-
-  const removeCartOnClick = () => {
-    const removedCart = cart.filter(
-      (product) =>
-        checkBox.includes(product.id) && checkBoxTotalId.includes(product.id)
-    );
-
-    removedCart.forEach(async (product) => {
-      await fetch(`/cart-items/${product.id}`, {
-        method: 'delete',
-      });
-    });
-    const removedCheckBox = checkBoxTotalId.filter(
-      (id) => !checkBox.includes(id)
-    );
-    setCheckBox(removedCheckBox);
-    setCheckBoxTotalId(removedCheckBox);
-    refetch();
-  };
-
-  useEffect(() => {
-    if (checkBox.length === checkBoxTotalId.length) {
-      setCheck(true);
-      return;
-    }
-    setCheck(false);
-  }, [checkBox, checkBoxTotalId]);
-
-  if (!data) return null;
+  const {
+    data,
+    checkBoxTotalIdOnChange,
+    checkBox,
+    checkBoxTotalId,
+    removeCartOnClick,
+    check,
+    refetch,
+  } = useCartList();
 
   return (
     <CartListWrapper>
-      {data.map((product, idx) => {
+      {data && data.map((product, idx) => {
         return (
           <div key={idx}>
             <hr />
@@ -145,4 +84,4 @@ const CartSelectorText = styled.span`
   color: #333333;
 `;
 
-export default React.memo(CartList);
+export default CartList;
