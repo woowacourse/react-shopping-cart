@@ -1,11 +1,18 @@
 import { atom, selectorFamily } from 'recoil';
 import { ProductItem } from '../types/productType';
 
+const productListStateInitValue: ProductItem[] = [];
+
 const getProductListFromMocks =
   () =>
   ({ setSelf }: { setSelf: (productList: ProductItem[] | []) => void }) => {
     const initProductListState = async () => {
       const response = await fetch('/api/products');
+
+      if (response.status >= 400) {
+        throw new Error('상품 정보를 가져오는데 실패했습니다.');
+      }
+
       const productList = await response.json();
 
       if (!productList) setSelf([]);
@@ -17,7 +24,7 @@ const getProductListFromMocks =
 
 export const productListState = atom({
   key: 'ProductListState',
-  default: [],
+  default: productListStateInitValue,
   effects: [getProductListFromMocks()],
 });
 

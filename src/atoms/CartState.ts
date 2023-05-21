@@ -1,11 +1,31 @@
-import { atom, atomFamily, selector, selectorFamily } from 'recoil';
-import { CartProductList } from '../types/productType';
+import { atom, selector, selectorFamily } from 'recoil';
+import { CartProductItem } from '../types/productType';
 
-const cartStateInit: CartProductList[] = [];
+const cartListStateInitValue: CartProductItem[] = [];
+
+const getCartListFromMocks =
+  () =>
+  ({ setSelf }: { setSelf: (cartList: CartProductItem[] | []) => void }) => {
+    const initCartListState = async () => {
+      const response = await fetch('/api/carts');
+
+      if (response.status >= 400) {
+        throw new Error('장바구니 정보를 가져오는데 실패했습니다.');
+      }
+
+      const cartList = await response.json();
+
+      if (!cartList) setSelf([]);
+      setSelf(cartList);
+    };
+
+    initCartListState();
+  };
 
 export const cartState = atom({
   key: 'CartState',
-  default: cartStateInit,
+  default: cartListStateInitValue,
+  effects: [getCartListFromMocks()],
 });
 
 export const cartStateLength = selector({
@@ -28,23 +48,5 @@ export const cartItemQuantityStateFamily = selectorFamily({
 
       if (!cartItem) return 0;
       return cartItem.quantity;
-    },
-});
-
-export const cartStateRequestQuery = atomFamily({
-  key: 'cartStateRequestQuery',
-  default: { action: 'get', payload: {} },
-});
-
-export const cartStateActionState = selectorFamily({
-  key: 'CartStateActionState',
-  get:
-    (id: number) =>
-    async ({ get }) => {
-      const { action, payload } = get(cartStateRequestQuery(id));
-
-      switch (action) {
-        case 'get': // get
-      }
     },
 });

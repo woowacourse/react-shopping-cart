@@ -2,6 +2,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { cartItemQuantityStateFamily, cartState } from '../../atoms/CartState';
 import { productItemStateFamily } from '../../atoms/ProductItemState';
 import { useCallback } from 'react';
+import { parseToCartFormat } from '../../services/parseToCartFormat';
 
 export const useCartState = (id: number) => {
   const productItem = useRecoilValue(productItemStateFamily(id));
@@ -9,34 +10,63 @@ export const useCartState = (id: number) => {
   const setCartStates = useSetRecoilState(cartState);
 
   const handleAddCartState = () => {
-    setCartStates((prevCartStates) => {
-      if (
-        prevCartStates.length !== 0 &&
-        prevCartStates
-          .map((cartItem) => (cartItem.id === id ? true : false))
-          .includes(true)
-      ) {
-        return [...prevCartStates];
-      }
+    const addCartItem = async () => {
+      const response = await fetch('/api/carts', {
+        method: 'POST',
+        headers: { 'content-Type': 'application/json' },
+        body: JSON.stringify({
+          productId: id,
+        }),
+      });
 
-      return [
-        ...prevCartStates,
-        {
-          id,
-          quantity: 1,
-          product: productItem,
-        },
-      ];
-    });
+      if (response.status >= 400) {
+        throw new Error('이미 장바구니에 담긴 품목입니다.');
+      }
+    };
+
+    addCartItem();
+
+    setCartStates((prevCartStates) => [
+      ...prevCartStates,
+      parseToCartFormat(id, productItem),
+    ]);
   };
 
   const handleDeleteCartState = () => {
+    const deleteCartProduct = async () => {
+      const response = await fetch(`/cart-items/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.status >= 400) {
+        throw new Error('장바구니에 없는 품목을 삭제할 수 없습니다.');
+      }
+    };
+
+    deleteCartProduct();
+
     setCartStates((prevCartStates) =>
       prevCartStates.filter((product) => product.id !== id)
     );
   };
 
   const increaseProductCount = useCallback(() => {
+    const patchCartItemQuantity = async () => {
+      const response = await fetch(`/cart-items/${id}`, {
+        method: 'PATCH',
+        headers: { 'content-Type': 'application/json' },
+        body: JSON.stringify({
+          quantity: quantity + 1,
+        }),
+      });
+
+      if (response.status >= 400) {
+        throw new Error('장바구니 수량을 수정할 수 없습니다.');
+      }
+    };
+
+    patchCartItemQuantity();
+
     setCartStates((prevCartStates) =>
       prevCartStates.map((product) =>
         product.id === id
@@ -47,6 +77,22 @@ export const useCartState = (id: number) => {
   }, [quantity]);
 
   const decreaseProductCount = useCallback(() => {
+    const patchCartItemQuantity = async () => {
+      const response = await fetch(`/cart-items/${id}`, {
+        method: 'PATCH',
+        headers: { 'content-Type': 'application/json' },
+        body: JSON.stringify({
+          quantity: quantity - 1,
+        }),
+      });
+
+      if (response.status >= 400) {
+        throw new Error('장바구니 수량을 수정할 수 없습니다.');
+      }
+    };
+
+    patchCartItemQuantity();
+
     setCartStates((prevCartStates) =>
       prevCartStates.map((product) =>
         product.id === id
