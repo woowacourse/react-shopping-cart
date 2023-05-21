@@ -5,10 +5,8 @@ import styled from 'styled-components';
 import { Product } from '../types';
 import { useEffect } from 'react';
 
-// export const getMockData = mockData;
-
 export const ProductListPage = () => {
-  const { data, getAPI } = useFetch<Product[]>();
+  const { data, getAPI } = useFetch<{ product: Product[] }>();
 
   useEffect(() => {
     getAPI('/products');
@@ -18,7 +16,7 @@ export const ProductListPage = () => {
     <PageContainer>
       <PageTitle>상품 리스트</PageTitle>
       <ProductListPageWrapper>
-        {data?.map((item) => (
+        {data?.product.map((item) => (
           <ProductItem key={item.id} product={item} />
         ))}
       </ProductListPageWrapper>
