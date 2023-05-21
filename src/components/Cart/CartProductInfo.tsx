@@ -4,9 +4,11 @@ import CartProductList from './CartProductList';
 import Button from '../Common/Button';
 import CheckBox from '../Common/CheckBox';
 import useCartProductCount from '../../hooks/useCartProductCount';
+import useCheckedCount from '../../hooks/useCheckedCount';
 
 const CartProductInfo = () => {
   const cartProductCount = useCartProductCount();
+  const checkedCount = useCheckedCount();
 
   return (
     <Container>
@@ -15,7 +17,9 @@ const CartProductInfo = () => {
         <CartProductList />
         <TotalCartProductWrapper>
           <CheckBox id='total-item-check' />
-          <p>전체 선택 (2/{cartProductCount})</p>
+          <p>
+            전체 선택 ({checkedCount}/{cartProductCount})
+          </p>
           <Button type='button' primary={false} size='small' border>
             선택삭제
           </Button>
