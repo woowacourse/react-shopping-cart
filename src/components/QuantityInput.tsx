@@ -1,4 +1,4 @@
-import Input from './common/Input';
+import Input from './@common/Input';
 import { css, styled } from 'styled-components';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import { ChangeEventHandler, FocusEventHandler, MouseEventHandler } from 'react';

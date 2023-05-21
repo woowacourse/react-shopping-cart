@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import InputComponent from '../../../components/common/Input';
+import InputComponent from '../../../components/@common/Input';
 import { RecoilRoot } from 'recoil';
 
 const meta = {

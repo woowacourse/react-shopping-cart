@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { CheckboxStyle } from '../common/Checkbox';
+import { CheckboxStyle } from '../@common/Checkbox';
 
 interface Props {
   cartLength: number;

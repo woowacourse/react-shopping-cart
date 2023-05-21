@@ -1,7 +1,7 @@
-import { css, styled } from 'styled-components';
-import { CART_PATH } from '../../constants/svgPath';
-import Icon from '../common/Icon';
 import { MouseEventHandler } from 'react';
+import { CART_PATH } from '../../constants/svgPath';
+import Icon from '../@common/Icon';
+import { css, styled } from 'styled-components';
 
 type Props = {
   ariaLabel: number;

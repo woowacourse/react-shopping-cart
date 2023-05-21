@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { css } from 'styled-components';
-import IconComponent from '../../../components/common/Icon';
+import IconComponent from '../../../components/@common/Icon';
 import { CART_PATH } from '../../../constants/svgPath';
 
 const meta = {

@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/react';
 import CartListItemComponent from '../../components/cart/CartListItem';
 import { styled } from 'styled-components';
-import Checkbox from '../../components/common/Checkbox';
+import Checkbox from '../../components/@common/Checkbox';
 
 
 const meta = {

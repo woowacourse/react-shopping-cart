@@ -13,8 +13,10 @@ const Header = ({ title, onClickTitle, onClickCartButton }: Props) => {
   return (
     <S.Header>
       <S.Wrapper>
-        <Icon width="44" height="36" color="#FFF" path={CART_PATH} viewBox="0 0 51 44" />
-        <S.TitleButton onClick={onClickTitle}>{title}</S.TitleButton>
+        <S.TitleButton onClick={onClickTitle}>
+          <Icon width="44" height="36" color="#FFF" path={CART_PATH} viewBox="0 0 51 44" />
+          <S.Title>{title}</S.Title>
+        </S.TitleButton>
         <CartRouteButton onClick={onClickCartButton!} />
       </S.Wrapper>
     </S.Header>
@@ -25,7 +27,8 @@ const S = {
   Header: styled.header`
     width: 100%;
     height: 80px;
-    margin-bottom: 62px;
+    position: fixed;
+    z-index: 1;
     background: var(--text-color);
     font-size: 36px;
     font-weight: 900;
@@ -41,15 +44,25 @@ const S = {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: space-between;
     max-width: 1270px;
     margin: 0 auto;
     padding: 0 20px;
+
+    @media all and (max-width: 479px) {
+      & > :nth-child(2) {
+        display: none;
+      }
+    }
   `,
+
   TitleButton: styled.button`
-    color: #fff;
     background-color: transparent;
     cursor: pointer;
+    color: #fff;
   `,
+
+  Title: styled.span``,
 };
 
 export default Header;

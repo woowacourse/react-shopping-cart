@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/react';
-import HeaderComponent from '../../../components/common/Header';
+import HeaderComponent from '../../../components/@common/Header';
 
 const meta = {
   component: HeaderComponent,

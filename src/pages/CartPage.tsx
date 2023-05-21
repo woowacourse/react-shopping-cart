@@ -1,7 +1,7 @@
-import Header from '../components/common/Header';
 import CartList from '../components/cart/CartList';
 import useNavigatePage from '../hooks/useNavigatePage';
 import { CartListWrapper } from '../style/ContentLayout';
+import Header from '../components/@common/Header';
 
 const CartPage = () => {
   const { goHome } = useNavigatePage();
