@@ -22,9 +22,6 @@ export const useFetch = <T>() => {
   const getAPI = (url: string) => {
     fetchData(url, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
     });
   };
 
