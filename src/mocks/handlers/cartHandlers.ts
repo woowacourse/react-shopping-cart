@@ -17,7 +17,8 @@ export const cartHandlers = [
   }),
 
   rest.post('/api/carts', async (req, res, ctx) => {
-    const productId = Number(await req.text());
+    const productInfo = await req.json();
+    const productId = Number(productInfo.productId);
 
     if (isAlreadyInCartList(productId)) {
       return res(
@@ -26,7 +27,7 @@ export const cartHandlers = [
       );
     }
 
-    const product = await fetch(`api/products/${productId}`).then((res) =>
+    const product = await fetch(`/api/products/${productId}`).then((res) =>
       res.json()
     );
 
