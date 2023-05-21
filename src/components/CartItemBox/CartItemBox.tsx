@@ -16,7 +16,7 @@ import {
   StyleNameText,
   StylePriceText,
   StyleProductInfo,
-} from './CartItemBox.steyle';
+} from './CartItemBox.style';
 
 function CartItemBox({ id, imageUrl, name, price }: ProductItem) {
   // id: cartItem

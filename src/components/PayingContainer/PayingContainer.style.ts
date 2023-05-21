@@ -58,9 +58,10 @@ export const PayingButton = styled.button`
   font-size: 2.4rem;
   height: 60px;
 
-  transition: ${(props) => props.theme.transitions.default};
-
-  &:hover {
-    transform: ${({ theme }) => theme.effects.hoverScaleUp};
+  &:disabled {
+    background-color: ${({ theme }) => theme.secondaryColor};
+    color: ${({ theme }) => theme.primaryColor};
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 `;

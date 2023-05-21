@@ -12,9 +12,18 @@ import {
 
 function CartItemListContainer() {
   const productListInCart = useProductListInCart();
+
   const { isAllChecked, checkedCount, toggleAllCartItem, deleteCheckedItems } = useCheckCart();
 
   const productCount = productListInCart.length;
+
+  if (productCount === 0) {
+    return (
+      <StyleWrapper>
+        <span style={{ textAlign: 'center', fontSize: '30px', margin: 'auto' }}>텅</span>
+      </StyleWrapper>
+    );
+  }
 
   return (
     <StyleWrapper>

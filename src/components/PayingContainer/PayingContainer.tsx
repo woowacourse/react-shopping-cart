@@ -13,7 +13,7 @@ import {
 
 function PayingContainer() {
   const { totalPriceReadOnly } = useCartTotalPriceReadOnly();
-  const deliveryFee = 3000;
+  const deliveryFee = totalPriceReadOnly ? 3000 : 0;
   const totalPayingPrice = totalPriceReadOnly + deliveryFee;
   return (
     <StyleWrapper>
@@ -35,7 +35,7 @@ function PayingContainer() {
             <StyleTotalText>{totalPayingPrice.toLocaleString('ko-KR')}원</StyleTotalText>
           </StyleTotalContainer>
         </StylePayingDiv>
-        <PayingButton>결제하기</PayingButton>
+        <PayingButton disabled={totalPriceReadOnly === 0}>결제하기</PayingButton>
       </StylePayingWrapper>
     </StyleWrapper>
   );
