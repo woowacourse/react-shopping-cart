@@ -1,6 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import { totalAmountAtom } from '../../store/cart';
+import { WIDTH } from '../../styles/mediaQuery';
 
 const Bill = () => {
   const totalAmount = useRecoilValue(totalAmountAtom);
@@ -38,6 +39,10 @@ const Wrapper = styled.div`
 
   border: 1px solid #dddddd;
   margin-top: 64px;
+
+  @media (max-width: ${WIDTH.LG}) {
+    width: 95vw;
+  }
 `;
 
 const SubTitle = styled.div`
@@ -88,7 +93,7 @@ const OrderButton = styled.button`
   justify-content: center;
 
   height: 73px;
-  width: 388px;
+  width: 100%;
 
   color: #fff;
   font-size: 24px;

@@ -4,6 +4,7 @@ import CartItemList from '../components/CartItemList/CartItemList';
 import { ReactComponent as Teung } from '../assets/img/empty-cart.svg';
 import { useRecoilValue } from 'recoil';
 import { cartSelector } from '../store/cart';
+import { WIDTH } from '../styles/mediaQuery';
 
 const CartPage = () => {
   const { cartsQuantity } = useRecoilValue(cartSelector);
@@ -33,6 +34,10 @@ const Wrapper = styled.div`
   align-items: center;
 
   width: 100%;
+
+  @media (max-width: ${WIDTH.LG}) {
+    justify-content: start;
+  }
 `;
 
 const Title = styled.div`
@@ -45,6 +50,11 @@ const Title = styled.div`
   font-size: 32px;
 
   border-bottom: 4px solid #333333;
+
+  @media (max-width: ${WIDTH.LG}) {
+    padding: 4px;
+    font-size: 24px;
+  }
 `;
 
 const MainInfo = styled.div`
@@ -55,4 +65,9 @@ const MainInfo = styled.div`
   width: 80%;
 
   padding: 24px;
+
+  @media (max-width: ${WIDTH.LG}) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;

@@ -30,8 +30,8 @@ const Container = styled.div`
   -webkit-box-pack: center;
 
   @media (max-width: ${WIDTH.MD}) {
-    width: 36px;
-    height: 16px;
+    width: 48px;
+    height: 24px;
     font-size: 9px;
   }
 `;

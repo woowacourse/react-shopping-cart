@@ -32,4 +32,8 @@ const Layout = styled.div`
 
   width: 100%;
   min-width: ${WIDTH.SM};
+
+  @media (max-width: ${WIDTH.LG}) {
+    padding: 24px 0px;
+  }
 `;

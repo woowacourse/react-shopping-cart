@@ -4,6 +4,7 @@ import { styled } from 'styled-components';
 import { v1 } from 'uuid';
 import { deleteCartItem } from '../../api/cartList';
 import { cartAtom, checkedValue, totalAmountAtom } from '../../store/cart';
+import { WIDTH } from '../../styles/mediaQuery';
 import { Cart } from '../../types/product';
 import CartItem from '../CartItem/CartItem';
 import CheckBox from '../common/CheckBox/CheckBox';
@@ -97,8 +98,14 @@ const Wrapper = styled.div`
   align-items: center;
 
   width: 720px;
+  min-width: ${WIDTH.SM};
 
   margin-top: 16px;
+
+  @media (max-width: ${WIDTH.LG}) {
+    width: 90vw;
+    min-width: 375px;
+  }
 `;
 
 const SubTitle = styled.div`
@@ -113,6 +120,8 @@ const Ul = styled.ul`
   flex-direction: column;
   align-items: center;
   gap: 8px;
+
+  width: 100%;
 
   padding: 8px;
 `;

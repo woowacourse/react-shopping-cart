@@ -78,8 +78,15 @@ const Wrapper = styled.li`
   display: flex;
   align-items: center;
 
-  width: 680px;
+  width: 100%;
   height: 160px;
+  min-width: ${WIDTH.SM};
+
+  @media (max-width: ${WIDTH.LG}) {
+    width: 90vw;
+
+    font-size: 12px;
+  }
 `;
 
 const CheckBoxWrapper = styled.div`
@@ -88,14 +95,12 @@ const CheckBoxWrapper = styled.div`
   padding: 8px 12px;
 `;
 
-const ProductName = styled.span``;
+const ProductName = styled.div`
+  width: 85%;
+`;
 
 const ProductImgContainer = styled.div`
   width: 144px;
-
-  @media (max-width: ${WIDTH.MD}) {
-    width: 90px;
-  }
 `;
 
 const DetailWrapper = styled.div`
