@@ -5,6 +5,11 @@ import { Text } from '../../common/Text/Text.styles';
 const ProductAdditionContainer = styled.div`
   width: 450px;
   margin: ${({ theme }) => theme.spacer.spacing4};
+
+  @media screen and (max-width: 600px) {
+    max-width: 450px;
+    width: initial;
+  }
 `;
 
 const Header = styled.div`
