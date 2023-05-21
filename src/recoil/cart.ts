@@ -13,37 +13,37 @@ export const cartState = atom({
   }),
 });
 
-export const cartBadge = selector({
-  key: 'cartBadge',
-  get: ({ get }) => {
+export const cartItemLength = selector({
+  key: 'cartItemLength',
+  get: ({ get }): string | number => {
     const numberOfItem = get(cartState).length;
     return numberOfItem > 99 ? '99+' : numberOfItem;
   },
 });
 
-export const cartPrice = selector({
-  key: 'cartTotalPrice',
-  get: ({ get }) => {
-    const totalCart = get(cartState);
-    const checkedIdList = get(checkedItemIdList);
-    const totalPrice = totalCart.reduce((sum, item) => {
-      if (checkedIdList.includes(item.id)) {
-        return (sum += item.quantity * item.product.price);
-      }
-      return sum;
-    }, 0);
-
-    return totalPrice;
-  },
-});
-
 export const checkedItemIdList = atom({
-  key: 'checkedCartItemList',
+  key: 'checkedItemIdList',
   default: selector({
-    key: 'idList',
+    key: 'checkedIdList',
     get: ({ get }): number[] => {
       const idList = get(cartState).map((item) => item.id);
       return idList;
     },
   }),
+});
+
+export const cartPrice = selector({
+  key: 'cartPrice',
+  get: ({ get }): number => {
+    const cart = get(cartState);
+    const checkedIdList = get(checkedItemIdList);
+
+    const totalPrice = cart
+      .filter((item) => checkedIdList.includes(item.id))
+      .reduce((sum, item) => {
+        return (sum += item.quantity * item.product.price);
+      }, 0);
+
+    return totalPrice;
+  },
 });

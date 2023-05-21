@@ -1,6 +1,5 @@
 import { useRecoilValue } from 'recoil';
 import Button from '../../common/Button';
-import Flex from '../../common/Flex';
 import * as S from './OrderDetail.styles';
 import { cartPrice } from '../../../recoil/cart';
 

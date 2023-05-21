@@ -1,10 +1,10 @@
 import React from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import ProductPage from './pages/ProductPage/ProductPage';
+import ProductPage from './pages/ProductPage';
 import { Layout } from './components/common/Layout';
 import ProductPageError from './pages/ProductPage/ProductPageError';
 import { PAGE_ROUTES } from './constants/routes';
-import Page404 from './pages/ErrorPage/Page404';
+import NotFound from './pages/ErrorPage';
 import CartPage from './pages/CartPage';
 
 const router = createBrowserRouter([
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <Page404 />,
+    element: <NotFound />,
   },
 ]);
 
