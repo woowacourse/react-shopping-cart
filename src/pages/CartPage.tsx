@@ -71,7 +71,7 @@ export const CartPage = () => {
         <FlexBox direction="column" width="600px" margin="10px 0">
           <CartProductCardList cartProducts={cartProducts} />
         </FlexBox>
-        <FlexBox margin="30px 0" style={{ position: 'sticky', top: '95px' }}>
+        <FlexBox margin="30px 0" style={{ position: 'sticky', top: '95px', width: '400px' }}>
           <ProductOrderTable
             priceSum={checkedCartProductsPriceSum}
             deliveryFee={cartProductsCheckedCount > 0 ? 3000 : 0}

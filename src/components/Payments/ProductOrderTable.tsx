@@ -12,6 +12,8 @@ type Props = {
 };
 
 export const ProductOrderTable = ({ priceSum, productsCount, deliveryFee, onClickOrderButton }: Props) => {
+  const IsProductsCountOverZero = productsCount > 0;
+
   return (
     <Container>
       <TitleWrapper>
@@ -32,8 +34,8 @@ export const ProductOrderTable = ({ priceSum, productsCount, deliveryFee, onClic
             <TotalOrderPrice>{formatKoreanCurrency(priceSum + deliveryFee)}원</TotalOrderPrice>
           </FlexBox>
         </FlexBox>
-        <OrderButton onClick={onClickOrderButton} disabled={!productsCount}>
-          총 {productsCount}건 주문하기
+        <OrderButton onClick={onClickOrderButton} disabled={!IsProductsCountOverZero}>
+          {IsProductsCountOverZero ? `총 ${productsCount}건 주문하기` : `상품을 선택해주세요`}
         </OrderButton>
       </OrderDetailContainer>
     </Container>
@@ -43,25 +45,25 @@ export const ProductOrderTable = ({ priceSum, productsCount, deliveryFee, onClic
 const Container = styled.div`
   ${flexColumn}
 
-  width: 450px;
+  width: 100%;
   border: 1px solid ${({ theme }) => theme.colors.gray_4};
-  border-radius: 10px;
+  border-radius: 6px;
 `;
 
 const TitleWrapper = styled.div`
-  padding: 24px;
+  padding: 20px;
   border-bottom: 2px solid ${({ theme }) => theme.colors.gray_4};
 `;
 
 const Title = styled.span`
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 400;
   line-height: 33px;
   padding-bottom: 20px;
 `;
 
 const PartialTitle = styled.span`
-  font-size: 20px;
+  font-size: 18px;
   line-height: 27px;
 `;
 
@@ -81,10 +83,17 @@ const TotalDeliveryFee = styled.span``;
 const TotalOrderPrice = styled.span``;
 
 const OrderButton = styled.button`
-  padding: 20px;
-  font-size: 24px;
+  padding: 16px;
+  font-size: 18px;
   color: ${({ theme }) => theme.colors.gray_1};
-  background-color: ${({ theme }) => theme.colors.gray_10};
+  background-color: ${({ theme, disabled }) => (disabled ? theme.colors.gray_5 : theme.colors.primary)};
+  border: 0;
+  border-radius: 6px;
   cursor: pointer;
   width: 100%;
+  transition: 300ms;
+
+  &:hover {
+    filter: brightness(0.95);
+  }
 `;
