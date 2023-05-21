@@ -17,15 +17,21 @@ const Header = styled.header`
 `;
 
 const CartLayout = styled.article`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: flex-start;
+  justify-content: space-between;
+  row-gap: 48px;
+  column-gap: 24px;
 
   margin-top: 32px;
+
+  @media screen and (min-width: 992px) {
+    grid-template-columns: minmax(auto, 720px) minmax(auto, 440px);
+  }
 `;
 
-const CartItemListSection = styled.section`
-  flex: 1;
-  max-width: 720px;
-`;
+const CartItemListSection = styled.section``;
 
 const CartItemListCaption = styled.h2`
   margin-bottom: 16px;
@@ -63,10 +69,6 @@ const DeleteSelectedButton = styled.button`
 
   border: 1px solid #bbbbbb;
   font-size: 16px;
-`;
-
-const CartOrderSection = styled.section`
-  margin-left: auto;
 `;
 
 const CartPage = () => {
@@ -123,9 +125,7 @@ const CartPage = () => {
               </CartItemListController>
             </CartItemListSection>
 
-            <CartOrderSection>
-              <CartOrder isCartEmpty={selectedCount === 0} />
-            </CartOrderSection>
+            <CartOrder isCartEmpty={selectedCount === 0} />
           </>
         )}
       </CartLayout>

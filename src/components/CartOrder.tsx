@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 import cartOrderPriceState from '../recoil/selectors/cartOrderPriceState';
 
 const CartOrderContainer = styled.form`
-  width: 440px;
+  min-width: 440px;
   border: 1px solid #dddddd;
 `;
 
