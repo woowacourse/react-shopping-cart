@@ -23,5 +23,10 @@ export default function Option(props: OptionProps) {
 
 const DefaultOptionStyle = styled.div`
   display: flex;
+
   height: 20rem;
+  width: 74rem;
+  padding-top: 2rem;
+
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.primary};
 `;
