@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import ProductList from './ProductList';
-import mockData from '../../../../public/mockData.json';
 
 const meta = {
   title: 'ProductList',
@@ -11,8 +10,4 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {
-    products: mockData.products,
-  },
-};
+export const Default: Story = {};
