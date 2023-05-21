@@ -2,6 +2,12 @@ import styled from "styled-components";
 
 export const PurchaseBoxWrapper = styled.div`
   width: 100%;
+  box-sizing: border-box;
+  padding: 25px;
+
+  @media screen and (min-width: ${({theme}) => theme.breakpoints.lg}) {
+    width: 33.33%;
+  }
 `;
 
 export const PurchaseWrapper = styled.div`

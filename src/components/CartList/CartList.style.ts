@@ -2,6 +2,12 @@ import styled from "styled-components";
 
 export const CartListWrapper = styled.div`
   width: 100%;
+  box-sizing: border-box;
+  padding: 25px;
+
+  @media screen and (min-width: ${({theme}) => theme.breakpoints.lg}) {
+    width: 66.66%;
+  }
 `;
 
 export const CartListTitle = styled.div`
@@ -12,7 +18,7 @@ export const CartListTitle = styled.div`
 
   letter-spacing: 0.5px;
 
-  margin: 34px 0px 16px 0px;
+  margin: 34px 25px 16px 25px;
 `;
 
 export const CartListController = styled.div`

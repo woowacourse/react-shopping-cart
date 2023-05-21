@@ -18,7 +18,8 @@ export const FatBorder = styled.hr`
 
 export const CartWrapper = styled.div`
   display: flex;
-  gap: 100px;
+  flex-wrap: wrap;
+  margin: 0 -15px;
 `;
 
 export const EmptyCartWrapper = styled.div`
