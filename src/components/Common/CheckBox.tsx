@@ -1,13 +1,21 @@
+import { ChangeEventHandler } from 'react';
 import { styled } from 'styled-components';
 
 interface CheckBoxProps {
   id: string;
+  checked?: boolean;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
-const CheckBox = ({ id }: CheckBoxProps) => {
+const CheckBox = ({ id, checked, onChange }: CheckBoxProps) => {
   return (
     <div>
-      <StyledCheckBox type='checkbox' id={id} />
+      <StyledCheckBox
+        type='checkbox'
+        id={id}
+        checked={checked}
+        onChange={onChange}
+      />
       <label htmlFor={id}></label>
     </div>
   );

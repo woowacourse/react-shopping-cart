@@ -1,13 +1,15 @@
+import type { ChangeEventHandler } from 'react';
 import styled from 'styled-components';
 
 import AmountCounter from '../Common/AmountCounter';
 import Image from '../Common/Image';
+import CheckBox from '../Common/CheckBox';
 
 import TrashCanIcon from '../../assets/TrashCanIcon';
-import { CartProduct } from '../../types/product';
-import CheckBox from '../Common/CheckBox';
+import type { CartProduct } from '../../types/product';
 import useProductQuantity from '../../hooks/useProductQuantity';
 import useCartProducts from '../../hooks/useCartProducts';
+import useChecked from '../../hooks/useChecked';
 
 interface CartProductItemProps {
   cartProduct: CartProduct;
@@ -19,10 +21,26 @@ const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
 
   const { deleteProduct } = useCartProducts(product);
   const { addCount, subtractCount } = useProductQuantity(id, quantity);
+  const { isTargetChecked, updateChecked, deleteChecked } = useChecked(id);
+
+  const toggleProductChecked: ChangeEventHandler<HTMLInputElement> = (
+    event
+  ) => {
+    updateChecked(event.currentTarget.checked);
+  };
+
+  const deleteProductAndChecked = () => {
+    deleteProduct();
+    deleteChecked();
+  };
 
   return (
     <CartProductContainer>
-      <CheckBox id={`cart-product-check-${id}`} />
+      <CheckBox
+        id={`cart-product-check-${id}`}
+        onChange={toggleProductChecked}
+        checked={isTargetChecked}
+      />
       <Image
         src={`${process.env.PUBLIC_URL}/${imageUrl}`}
         alt={name}
@@ -31,7 +49,7 @@ const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
       />
       <ProductName>{name}</ProductName>
       <CartInfoContainer>
-        <DeleteButton type='button' onClick={deleteProduct}>
+        <DeleteButton type='button' onClick={deleteProductAndChecked}>
           <TrashCanIcon />
         </DeleteButton>
         <AmountCounter
