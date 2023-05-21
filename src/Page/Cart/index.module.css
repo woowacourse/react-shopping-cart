@@ -14,3 +14,13 @@
   margin: 30px 82px 0 82px;
   border-top: solid 3px var(--primary-color);
 }
+
+.container > span {
+  display: flex;
+  border-top: solid 3px var(--primary-color);
+  margin: 30px 82px 0 82px;
+  padding-top: 40px;
+  font-size: 30px;
+  align-items: center;
+  font-weight: 900;
+}
