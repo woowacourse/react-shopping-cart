@@ -73,7 +73,7 @@ export const totalPriceSelector = selector({
   key: 'totalPriceSelector',
   get: ({ get }) => {
     const cart = get(cartState);
-    const selectedItems = get(selectedItemsState);
+    const selectedItems = get(selectedItemsSelector);
 
     return cart.reduce(
       (totalPrice, { id, quantity, product: { price } }) =>

@@ -36,7 +36,7 @@ export const handlers = [
     const { quantity }: { quantity: CartItem['id'] } = await req.json();
 
     MockCart.cart = MockCart.cart.map((item) => {
-      if (item.product.id === Number(id)) {
+      if (item.id === Number(id)) {
         return {
           ...item,
           quantity,
