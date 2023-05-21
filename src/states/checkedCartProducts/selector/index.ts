@@ -20,8 +20,7 @@ export const targetCheckedState = selectorFamily({
   get:
     (id: number) =>
     ({ get }) =>
-      get(checkedState).find((cartProduct) => cartProduct.id === id)
-        ?.isChecked ?? false,
+      get(checkedState).find((cartProduct) => cartProduct.id === id),
 });
 
 export const checkedCartProductCountState = selector({
