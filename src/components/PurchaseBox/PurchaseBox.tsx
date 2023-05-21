@@ -5,8 +5,13 @@ import {
   PurchaseTitle,
   PurchaseWrapper
 } from "./PurchaseBox.style";
+import {useRecoilValue} from "recoil";
+import {totalPriceSelector} from "../../recoil/cartAtoms.ts";
 
 function PurchaseBox() {
+  const totalPrice = useRecoilValue(totalPriceSelector);
+  const DELIVERY_FEE = totalPrice > 0 ? 3000 : 0;
+
   return (
     <div style={{width: '100%'}}>
       <PurchaseWrapper>
@@ -18,7 +23,7 @@ function PurchaseBox() {
             총 상품가격
           </PurchaseText>
           <PurchaseText>
-            {0}원
+            {totalPrice}원
           </PurchaseText>
         </PurchasePropertyWrapper>
         <PurchasePropertyWrapper>
@@ -26,7 +31,7 @@ function PurchaseBox() {
             총 배송비
           </PurchaseText>
           <PurchaseText>
-            {0}원
+            {DELIVERY_FEE}원
           </PurchaseText>
         </PurchasePropertyWrapper>
         <PurchasePropertyWrapper>
@@ -34,7 +39,7 @@ function PurchaseBox() {
             총 주문 금액
           </PurchaseText>
           <PurchaseText>
-            {0}원
+            {totalPrice + DELIVERY_FEE}원
           </PurchaseText>
         </PurchasePropertyWrapper>
         <PurchaseButtonWrapper>

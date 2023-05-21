@@ -36,3 +36,13 @@ export const cartCheckedSelector = selector({
     }
   }
 });
+
+export const totalPriceSelector = selector({
+  key: 'totalPriceSelector',
+  get: ({get}) => {
+    const cartList = get(cartState);
+    const checkedCartList = cartList.filter((cartItem) => cartItem.checked);
+    const totalPrice = checkedCartList.reduce((acc, cartItem) => acc + (cartItem.quantity * cartItem.product.price), 0);
+    return totalPrice;
+  }
+});
