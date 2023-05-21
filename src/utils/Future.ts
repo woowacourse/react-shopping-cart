@@ -15,6 +15,7 @@ class Future<TData, TError = Error> {
       })
       .catch((error) => {
         this.error = error;
+        console.error(error);
       });
   }
 
