@@ -8,7 +8,8 @@ const useMultipleChecked = () => {
   const [checked, setChecked] = useRecoilState(checkedState);
   const setCartProducts = useSetRecoilState(cartProductState);
 
-  const isAllChecked = checked.every((item) => item.isChecked);
+  const isAllChecked =
+    checked.length > 0 && checked.every((item) => item.isChecked);
   const isAllUnchecked = checked.every((item) => !item.isChecked);
 
   const toggleAllProductChecked: ChangeEventHandler<HTMLInputElement> = (

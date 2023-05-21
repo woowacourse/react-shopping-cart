@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 
-type MessageType = 'error' | 'empty' | 'notFound' | 'loading';
+type MessageType = 'error' | 'empty' | 'notFound' | 'loading' | 'cartEmpty';
 
 interface MessageProps {
   type: MessageType;
@@ -25,13 +25,18 @@ const message = {
     imageSrc: 'images/error.png',
   },
   loading: {
-    title: '로딩중입니다. ',
+    title: '로딩중입니다.',
     description: '잠시만 기다려주세요.',
     imageSrc: 'images/loading.png',
   },
+  cartEmpty: {
+    title: '장바구니에 상품이 없습니다.',
+    description: '상품을 추가해보세요.',
+    imageSrc: 'images/lay-down.png',
+  },
 };
 
-const AbnormalMessage = ({ type, link = false }: MessageProps) => {
+const Message = ({ type, link = false }: MessageProps) => {
   return (
     <MessageSection>
       <img
@@ -81,4 +86,4 @@ const HomeLink = styled(Link)`
   border-radius: 4px;
 `;
 
-export default AbnormalMessage;
+export default Message;

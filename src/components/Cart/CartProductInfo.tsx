@@ -7,6 +7,7 @@ import CheckBox from '../Common/CheckBox';
 import useCartProductCount from '../../hooks/useCartProductCount';
 import useCheckedCount from '../../hooks/useCheckedCount';
 import useMultipleChecked from '../../hooks/useMultipleChecked';
+import Message from '../Common/Message';
 
 const CartProductInfo = () => {
   const cartProductCount = useCartProductCount();
@@ -18,7 +19,13 @@ const CartProductInfo = () => {
     <Container>
       <div>
         <InfoTitle>든든배송 상품 ({cartProductCount}개)</InfoTitle>
-        <CartProductList />
+        {cartProductCount > 0 ? (
+          <CartProductList />
+        ) : (
+          <MessageWrapper>
+            <Message type='cartEmpty' />
+          </MessageWrapper>
+        )}
         <TotalCartProductWrapper>
           <CheckBox
             id='total-item-check'
@@ -60,6 +67,11 @@ const InfoTitle = styled.h3`
   font-size: 20px;
   font-weight: 400;
   border-bottom: 4px solid ${({ theme }) => theme.colors.gray400};
+`;
+
+const MessageWrapper = styled.div`
+  position: relative;
+  height: 400px;
 `;
 
 const TotalCartProductWrapper = styled.div`
