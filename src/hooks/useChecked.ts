@@ -1,8 +1,10 @@
+import { useEffect } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { checkedState } from '../states/checkedCartProducts';
-import { targetCheckedState } from '../states/checkedCartProducts/selector';
-import { useEffect } from 'react';
+import {
+  checkedState,
+  targetCheckedState,
+} from '../states/checkedCartProducts';
 
 const useChecked = (id: number) => {
   const targetChecked = useRecoilValue(targetCheckedState(id));

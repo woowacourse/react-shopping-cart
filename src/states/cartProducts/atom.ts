@@ -1,7 +1,7 @@
 import { atom, selector } from 'recoil';
 
-import { CartProduct } from '../../../types/product';
-import cartProductApis from '../../../apis/cartProducts';
+import { CartProduct } from '../../types/product';
+import cartProductApis from '../../apis/cartProducts';
 
 export const cartProductState = atom<CartProduct[]>({
   key: 'cartProductState',

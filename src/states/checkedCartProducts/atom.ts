@@ -1,6 +1,6 @@
 import { atom, selector } from 'recoil';
 
-import { cartProductState } from '../../cartProducts';
+import { cartProductState } from '../cartProducts';
 
 interface CheckedState {
   id: number;

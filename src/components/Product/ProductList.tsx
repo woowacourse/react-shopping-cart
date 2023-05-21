@@ -2,11 +2,12 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import ProductItem from './ProductItem';
-import { productSelector } from '../../states/cartProducts/selectors';
 import Message from '../Common/Message';
 
+import { productState } from '../../states/products';
+
 const ProductList = () => {
-  const products = useRecoilValue(productSelector);
+  const products = useRecoilValue(productState);
 
   if (products.length === 0) {
     return <Message type='empty' />;

@@ -1,7 +1,7 @@
 import { selector, selectorFamily } from 'recoil';
 
-import { checkedState } from '../atom';
-import { cartProductState } from '../../cartProducts';
+import { checkedState } from './atom';
+import { cartProductState } from '../cartProducts';
 
 export const checkedCartProductState = selector({
   key: 'checkedCartProductState',
