@@ -1,4 +1,4 @@
-import {CartItem} from "../types/types";
+import {CartItem, ReceivedCartItem} from "../types/types";
 
 export const getQuantityByProductId = (cartList: CartItem[], id: number) => {
   const targetCart = cartList.find((cart) => cart.id === id);
@@ -16,7 +16,16 @@ export const updateCartListQuantity = (cartList: CartItem[], id: number, newQuan
   return cartList;
 };
 
-export const updateCartCheckbox = (cartList: CartItem[], id: number) => {
+export const initCartListCheckbox = (cartListState: CartItem[], newChecked: boolean) => {
+  const cartList = [...cartListState];
+  return cartList.map((cartItem: ReceivedCartItem) => ({
+    ...cartItem,
+    checked: newChecked
+  }));
+};
+
+export const updateCartCheckbox = (cartListState: CartItem[], id: number) => {
+  const cartList = [...cartListState];
   const targetIndex = cartList.findIndex(cartItem => cartItem.id === id);
   const targetCart = cartList[targetIndex];
   const updatedCart = {

@@ -18,7 +18,12 @@ export const cartCheckedSelector = selector({
   key: 'cartCheckedSelector',
   get: ({get}) => {
     const cartList = get(cartState);
-    const isAllCartItemChecked = cartList.every((cartItem) => cartItem.checked === true);
-    return isAllCartItemChecked;
+    const cartCount = get(cartCountSelector);
+    if (cartCount > 0) {
+      const isAllCartItemChecked = cartList.every((cartItem) => cartItem.checked === true);
+      return isAllCartItemChecked;
+    } else {
+      return false;
+    }
   }
 });
