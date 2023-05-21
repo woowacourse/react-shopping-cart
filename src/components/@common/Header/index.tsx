@@ -12,6 +12,10 @@ const Header = () => {
     navigate('/');
   };
 
+  const onNavigateToCart = () => {
+    navigate('/cart');
+  };
+
   return (
     <S.HeaderContainer>
       <S.HeaderContentContainer>
@@ -22,7 +26,7 @@ const Header = () => {
         <S.HeaderWrapper gap={8}>
           <S.CartRouteButton
             title="장바구니 페이지로 이동"
-            onClick={() => navigate('/cart')}
+            onClick={onNavigateToCart}
           >
             <Svg type="cart-icon" width={25} height={22} />
           </S.CartRouteButton>
