@@ -19,7 +19,7 @@ const ProductItem = ({ cartItem: cartItemProp, id, name, price, imageUrl }: Prod
   const { data: cartItem, optimisticUpdate } = usePostUpdateCart(cartItemProp);
 
   const handleAddToCartButton = () => {
-    const updatedCartItem = { id, quantity: 1, itemInfo: { id, name, imageUrl } };
+    const updatedCartItem = { id, quantity: 1, isSelected: true, itemInfo: { id, name, imageUrl, price } };
     optimisticUpdate(updatedCartItem, { itemId: id, quantity: 1 });
   };
 
@@ -32,10 +32,10 @@ const ProductItem = ({ cartItem: cartItemProp, id, name, price, imageUrl }: Prod
   };
 
   useEffect(() => {
-    if (cartItem) {
+    if (cartItem && cartItem !== cartItemProp) {
       updateCart(cartItem);
     }
-  }, [cartItem]);
+  }, [cartItem, cartItemProp]);
 
   const CartButton = () => {
     return (
