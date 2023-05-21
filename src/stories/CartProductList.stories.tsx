@@ -1,5 +1,4 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { RecoilRoot } from 'recoil';
 
 import CartProductList from '../components/Cart/CartProductList';
 
@@ -9,14 +8,6 @@ const meta = {
   title: 'Product/CartProductList',
   component: CartProductList,
   tags: ['autodocs'],
-  argTypes: {},
-  decorators: [
-    (Story) => (
-      <RecoilRoot>
-        <Story />
-      </RecoilRoot>
-    ),
-  ],
   render: (args, { loaded: { products } }) => <CartProductList {...products} />,
 } satisfies Meta<typeof CartProductList>;
 
