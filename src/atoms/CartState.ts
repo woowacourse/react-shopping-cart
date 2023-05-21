@@ -1,4 +1,4 @@
-import { atom, selector, selectorFamily } from 'recoil';
+import { atom, atomFamily, selector, selectorFamily } from 'recoil';
 import { CartProductList } from '../types/productType';
 
 const cartStateInit: CartProductList[] = [];
@@ -56,5 +56,23 @@ export const cartItemCheckedStateFamily = selectorFamily({
           return { ...cartItem };
         })
       );
+    },
+});
+
+export const cartStateRequestQuery = atomFamily({
+  key: 'cartStateRequestQuery',
+  default: { action: 'get', payload: {} },
+});
+
+export const cartStateActionState = selectorFamily({
+  key: 'CartStateActionState',
+  get:
+    (id: number) =>
+    async ({ get }) => {
+      const { action, payload } = get(cartStateRequestQuery(id));
+
+      switch (action) {
+        case 'get': // get
+      }
     },
 });
