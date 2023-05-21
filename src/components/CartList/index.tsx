@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { cartAtom } from '@recoil/atoms/cartAtom';
 import { checkBoxAtom } from '@recoil/atoms/checkBoxAtom';
@@ -21,7 +20,7 @@ const CartList = () => {
   const { data, isLoading, refetch } = useFetch<CartInformation[]>(
     '/cart-items',
     {
-      method: 'POST',
+      method: 'get',
     }
   );
 
@@ -50,9 +49,14 @@ const CartList = () => {
   const removeCartOnClick = () => {
     const removedCart = cart.filter(
       (product) =>
-        !checkBox.includes(product.id) && checkBoxTotalId.includes(product.id)
+        checkBox.includes(product.id) && checkBoxTotalId.includes(product.id)
     );
-    setCart(removedCart);
+    
+    removedCart.forEach(async (product)=>{
+      await fetch(`/cart-items/${product.id}`, {
+        method: 'delete',
+      });
+    })
     const removedCheckBox = checkBoxTotalId.filter(
       (id) => !checkBox.includes(id)
     );
@@ -86,7 +90,6 @@ const CartList = () => {
                   imageUrl={product.product.imageUrl}
                   quantity={product.quantity}
                   price={product.product.price}
-                  refetch={refetch}
                 />
               </div>
             );
