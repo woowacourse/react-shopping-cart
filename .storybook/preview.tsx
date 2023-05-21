@@ -8,7 +8,7 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from '../src/styles/theme';
 
 let options = {};
-if (location.hostname === 'parkgeuncheol.github.io') {
+if (location.hostname === 'gc-park.github.io') {
   options = {
     serviceWorker: {
       url: '/react-shopping-cart/mockServiceWorker.js',
