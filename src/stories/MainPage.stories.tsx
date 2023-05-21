@@ -30,7 +30,6 @@ export default meta;
 export const Main = (args: any) => {
   return (
     <S.Wrapper>
-      <Header title="STORE" onClickCartButton={() => {}} />
       <ProductList />
     </S.Wrapper>
   );
