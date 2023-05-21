@@ -40,7 +40,7 @@
     - [ ] 장바구니 POST -> 성공하면... -> 장바구니 아톰 set -> itemCard에서 장바구니 아톰으로 랜더링  
            Response -> Location: /cart-items/{cartItemId}
   - 장바구니 물품 수량 변경 시
-    - [ ] 장바구니 POST -> 성공하면... -> 장바구니 아톰 set -> itemCard에서 장바구니 아톰으로 랜더링  
+    - [ ] 장바구니 FETCH -> 성공하면... -> 장바구니 아톰 set -> itemCard에서 장바구니 아톰으로 랜더링  
            Response -> X
   - 장바구니 물품 삭제 시
     - [ ] 장바구니 DELETE -> 성공하면... -> 장바구니 아톰 set -> itemCard에서 장바구니 아톰으로 랜더링  
@@ -52,7 +52,7 @@
   - 새로고침 시
     - [ ] 장바구니 GET -> 장바구니 아톰 set -> itemCard에서 장바구니 아톰으로 랜더링
   - 장바구니 수량 변경 시
-    - [ ] 장바구니 POST -> 성공하면... -> 장바구니 아톰 set -> itemCard에서 장바구니 아톰으로 랜더링  
+    - [ ] 장바구니 FETCH -> 성공하면... -> 장바구니 아톰 set -> itemCard에서 장바구니 아톰으로 랜더링  
            Response -> X
   - 장바구니 물품 삭제 시
     - [ ] 장바구니 DELETE -> 성공하면... -> 장바구니 아톰 set -> itemCard에서 장바구니 아톰으로 랜더링  
