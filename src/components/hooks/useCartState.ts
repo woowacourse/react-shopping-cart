@@ -6,11 +6,13 @@ import {
 import { productItemStateFamily } from '../../atoms/ProductListState';
 import { useCallback } from 'react';
 import { parseToCartFormat } from '../../services/parseToCartFormat';
+import { checkboxesState } from '../../atoms/CheckboxState';
 
 export const useCartState = (id: number) => {
   const productItem = useRecoilValue(productItemStateFamily(id));
   const quantity = useRecoilValue(cartItemQuantityStateFamily(id));
   const setCartStates = useSetRecoilState(cartState);
+  const setCheckboxes = useSetRecoilState(checkboxesState);
 
   const handleAddCartState = useCallback(() => {
     const addCartItem = async () => {
@@ -51,6 +53,9 @@ export const useCartState = (id: number) => {
     setCartStates((prevCartStates) =>
       prevCartStates.filter((product) => product.id !== id)
     );
+    setCheckboxes((prevState) =>
+      prevState.filter((checkbox) => checkbox.id !== id)
+    );
   }, []);
 
   const increaseProductCount = useCallback(() => {
@@ -77,6 +82,13 @@ export const useCartState = (id: number) => {
           : product
       )
     );
+    setCheckboxes((prevState) =>
+      prevState.map((checkbox) =>
+        checkbox.id === id
+          ? { ...checkbox, quantity: checkbox.quantity + 1 }
+          : checkbox
+      )
+    );
   }, [quantity]);
 
   const decreaseProductCount = useCallback(() => {
@@ -101,6 +113,13 @@ export const useCartState = (id: number) => {
         product.id === id
           ? { ...product, quantity: product.quantity - 1 }
           : product
+      )
+    );
+    setCheckboxes((prevState) =>
+      prevState.map((checkbox) =>
+        checkbox.id === id
+          ? { ...checkbox, quantity: checkbox.quantity - 1 }
+          : checkbox
       )
     );
   }, [quantity]);

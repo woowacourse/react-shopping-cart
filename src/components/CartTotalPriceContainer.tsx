@@ -6,24 +6,17 @@ import {
   Typography as TotalPrice,
 } from '../ui/Typography';
 import * as Styled from './styles/CartTotalPriceContainer.styles';
-import { cartState } from '../atoms/CartListState';
-import { useMemo } from 'react';
+
+import { checkboxesState } from '../atoms/CheckboxState';
 
 export const CartTotalPriceContainer = () => {
-  const cartList = useRecoilValue(cartState);
+  const checkboxes = useRecoilValue(checkboxesState);
   const shippingPrice = 3000;
 
-  const getTotalProductPrice = 30000;
-  // useMemo(
-  //   () =>
-  //     cartList.reduce(
-  //       (acc, cartItem) =>
-  //         acc +
-  //         (cartItem.checked ? cartItem.quantity * cartItem.product.price : 0),
-  //       0
-  //     ),
-  //   [cartList]
-  // );
+  const getTotalProductPrice = checkboxes.reduce(
+    (acc, checkbox) => acc + checkbox.quantity * checkbox.price,
+    0
+  );
 
   return (
     <Styled.Wrapper>
