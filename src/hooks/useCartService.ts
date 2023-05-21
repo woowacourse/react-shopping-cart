@@ -5,40 +5,45 @@ import type { Product } from '../types/product';
 const useCartService = () => {
   const [cartList, setCartList] = useRecoilState(cartState);
 
-  const fetchCartItem = () => {
-    fetch('cart-items')
-      .then((res) => {
-        if (!res.ok) throw new Error('서버에 문제가 발생했습니다.');
-        return res.json();
-      })
-      .then((fetchedCartList) => {
-        setCartList(fetchedCartList);
-      });
+  const fetchCartItem = async () => {
+    const response = await fetch('cart-items');
+
+    if (!response.ok)
+      throw new Error('장바구니 목록을 불러오는 과정에서 문제가 발생했습니다.');
+
+    const fetchedCartList = await response.json();
+    setCartList(fetchedCartList);
   };
 
-  const addCartItem = (product: Product) => {
-    fetch(`cart-items`, {
+  const addCartItem = async (product: Product) => {
+    const response = await fetch(`cart-items`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ productId: product.id }),
-    }).then((res) => {
-      if (!res.ok) throw new Error('서버에 문제가 발생했습니다.');
-
-      fetchCartItem();
     });
+
+    if (!response.ok)
+      throw new Error('장바구니를 추가하는 과정에서 문제가 발생했습니다.');
+
+    fetchCartItem();
   };
 
-  const updateCartItemQuantity = (cartId: string) => (quantity: number) => {
-    fetch(`cart-items/${cartId}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ quantity: quantity }),
-    }).then((res) => {
-      if (!res.ok) throw new Error('서버에 문제가 발생했습니다.');
+  const updateCartItemQuantity =
+    (cartId: string) => async (quantity: number) => {
+      const response = await fetch(`cart-items/${cartId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ quantity: quantity }),
+      });
+
+      if (!response.ok)
+        throw new Error(
+          '장바구니를 업데이트하는 과정에서 문제가 발생했습니다.',
+        );
 
       setCartList((prevCart) => {
         return prevCart.map((cartItem) => {
@@ -50,19 +55,19 @@ const useCartService = () => {
           };
         });
       });
-    });
-  };
+    };
 
-  const deleteCartItem = (cartId: string) => {
-    fetch(`cart-items/${cartId}`, {
+  const deleteCartItem = async (cartId: string) => {
+    const response = await fetch(`cart-items/${cartId}`, {
       method: 'DELETE',
-    }).then((res) => {
-      if (!res.ok) throw new Error('서버에 문제가 발생했습니다.');
-
-      setCartList((prevCart) =>
-        prevCart.filter((cartItem) => cartItem.id !== cartId),
-      );
     });
+
+    if (!response.ok)
+      throw new Error('장바구니를 삭제하는 과정에서 문제가 발생했습니다.');
+
+    setCartList((prevCart) =>
+      prevCart.filter((cartItem) => cartItem.id !== cartId),
+    );
   };
 
   const getCartId = (productId: number) => {
