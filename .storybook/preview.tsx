@@ -4,9 +4,11 @@ import type { Preview } from '@storybook/react';
 import { RecoilRoot } from 'recoil';
 import { initialize, mswDecorator } from 'msw-storybook-addon';
 import { handlers } from '../src/mocks/handlers';
+import { ThemeProvider } from 'styled-components';
+import { theme } from '../src/styles/theme';
 
 let options = {};
-if (location.hostname === 'hyeryongchoi.github.io') {
+if (location.hostname === 'parkgeuncheol.github.io') {
   options = {
     serviceWorker: {
       url: '/react-shopping-cart/mockServiceWorker.js',
@@ -31,11 +33,13 @@ const preview: Preview = {
 
   decorators: [
     (Story) => (
-      <RecoilRoot>
-        <MemoryRouter initialEntries={['/']}>
-          <Story />
-        </MemoryRouter>
-      </RecoilRoot>
+      <ThemeProvider theme={theme}>
+        <RecoilRoot>
+          <MemoryRouter initialEntries={['/']}>
+            <Story />
+          </MemoryRouter>
+        </RecoilRoot>
+      </ThemeProvider>
     ),
     mswDecorator,
   ],
