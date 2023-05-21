@@ -12,7 +12,7 @@ export const cartAtomFamily = atomFamily<Cart, number>({
 
 export const cartIdAtom = atom<number[]>({
   key: "cartId",
-  default: JSON.parse(localStorage.getItem(`cartId`) || "[]"),
+  default: [],
 });
 
 export const cartAllSelector = selector<Cart[]>({

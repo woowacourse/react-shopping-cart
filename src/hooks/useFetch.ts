@@ -4,30 +4,35 @@ import {
   fetchedShoppingListAtom,
 } from "../store/fetchState";
 import { useEffect, useLayoutEffect } from "react";
-import fetchQuery from "../api";
+import { fetchGetQuery } from "../api";
 import { Cart, Product } from "../types/product";
+import { cartIdAtom } from "../store/cartState";
 
-const useFetchData = () => {
+const useFetchData = (handleIsLoading: VoidFunction) => {
   const [, setFetchedProductList] = useRecoilState(fetchedProductListAtom);
-  const [fetchedShoppingList, setFetchedShoppingList] = useRecoilState(
-    fetchedShoppingListAtom
-  );
+  const [, setFetchedShoppingList] = useRecoilState(fetchedShoppingListAtom);
+  const [, setCartId] = useRecoilState(cartIdAtom);
 
   useLayoutEffect(() => {
     const fetchData = async () => {
       try {
-        const ShoppingData = await fetchQuery<Cart[]>("/cart-items");
-        setFetchedShoppingList(ShoppingData);
-        const productData = await fetchQuery<Product[]>("/products");
+        const shoppingData = await fetchGetQuery<Cart[]>("/cart-items");
+        setFetchedShoppingList(shoppingData);
+        setCartId(() =>
+          shoppingData.map((data) => {
+            return data.id;
+          })
+        );
+
+        const productData = await fetchGetQuery<Product[]>("/products");
         setFetchedProductList(productData);
+        setTimeout(() => handleIsLoading(), 2000);
       } catch (error) {
         console.log(error + "입니다");
       }
     };
     fetchData();
   }, []);
-
-  console.log(fetchedShoppingList);
 };
 
 const useFetchShoppingList = () => {
@@ -36,7 +41,7 @@ const useFetchShoppingList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchQuery<Cart[]>("/cart-items");
+        const data = await fetchGetQuery<Cart[]>("/cart-items");
         setFetchedShoppingList(data);
       } catch (error) {
         console.log(error + "입니다");
