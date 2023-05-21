@@ -7,16 +7,16 @@ export const fetchCartItems: () => Promise<CartItem[]> = async () => {
 };
 
 export const addCartItem: (data: CartItem) => void = async (data) => {
-  postData('/cart-items', data);
+  await postData('/cart-items', data);
 };
 
-export const modifyCartItem: <T>(id: CartItem['id'], data: T) => void = (
+export const modifyCartItem: <T>(id: CartItem['id'], data: T) => void = async (
   id,
   data
 ) => {
-  patchData(`/cart-items/${id}`, data);
+  await patchData(`/cart-items/${id}`, data);
 };
 
-export const deleteCartItem = (id: CartItem['id']) => {
-  deleteData(`/cart-items/${id}`);
+export const deleteCartItem: (id: CartItem['id']) => void = async (id) => {
+  await deleteData(`/cart-items/${id}`);
 };
