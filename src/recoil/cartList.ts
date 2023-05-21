@@ -10,11 +10,9 @@ import { CartId, Cart } from 'types';
 
 const { getLocalStorageData } = useLocalStorage();
 
-export const cartIds = atom<CartId[]>({
-  key: 'cartIds',
-  default: getLocalStorageData<Cart[]>('cartList').map(
-    (cartItem) => cartItem.id
-  ),
+export const cartListAtom = atom<Cart[]>({
+  key: 'cartList',
+  default: getLocalStorageData<Cart[]>('cartList'),
 });
 
 export const cartItemAtom = atomFamily<Cart | null, CartId>({
@@ -27,30 +25,28 @@ export const cartItemAtom = atomFamily<Cart | null, CartId>({
   },
 });
 
-export const checkedItemsIdAtom = atom<CartId[]>({
-  key: 'checkedItemsIdAtom',
+export const checkedItemsAtom = atom<Cart[]>({
+  key: 'checkedItemsAtom',
   default: [],
 });
 
 export const countCartListSelector = selector({
   key: 'countCartListSelector',
   get: ({ get }) => {
-    return get(cartIds).length;
+    return get(cartListAtom).length;
   },
 });
 
 export const totalPriceSelector = selector({
   key: 'totalPriceSelector',
   get: ({ get }) => {
-    const ids = get(checkedItemsIdAtom);
-    const totalPrice = ids
-      .map((id) => get(cartItemAtom(id)))
-      .reduce((acc, item) => {
-        if (!item) return acc;
-        const { price } = item.product;
-        const { quantity } = item;
-        return acc + price * quantity;
-      }, 0);
+    const checkedItems = get(checkedItemsAtom);
+    const totalPrice = checkedItems.reduce((acc, item) => {
+      if (!item) return acc;
+      const { price } = item.product;
+      const { quantity } = item;
+      return acc + price * quantity;
+    }, 0);
     return totalPrice;
   },
 });
@@ -60,26 +56,30 @@ export const updateCart = selectorFamily({
   get:
     (cartId: CartId) =>
     ({ get }) => {
-      if (!get(cartIds).includes(cartId)) return null;
-
-      return get(cartItemAtom(cartId));
+      const cartItem = get(cartListAtom).find(({ id }) => id === cartId);
+      return cartItem ?? null;
     },
 
   set:
     (cartId: CartId) =>
-    ({ set, reset }, item) => {
+    ({ get, set }, item) => {
       if (!item || item instanceof DefaultValue) return;
-
-      if (item.quantity === 0) {
-        reset(cartItemAtom(cartId));
+      const cartList = get(cartListAtom);
+      const cartItem = cartList.find(({ id }) => id === cartId);
+      if (!cartItem) {
+        set(cartListAtom, [...cartList, item]);
+        return;
       }
-      set(cartItemAtom(cartId), item);
+      if (item.quantity === 0) {
+        set(
+          cartListAtom,
+          cartList.filter(({ id }) => id !== cartId)
+        );
+        return;
+      }
+      set(
+        cartListAtom,
+        cartList.map((prev) => (prev.id === cartId ? item : prev))
+      );
     },
-});
-
-export const cartListSelector = selector({
-  key: 'cartList',
-  get: ({ get }) => {
-    return get(cartIds).map((id) => get(cartItemAtom(id)));
-  },
 });

@@ -1,6 +1,6 @@
 import * as S from './CartItem.styles';
 import { useRecoilState } from 'recoil';
-import { checkedItemsIdAtom } from 'recoil/cartList';
+import { checkedItemsAtom } from 'recoil/cartList';
 import Counter from 'components/@common/Counter';
 import Svg from 'components/@common/Svg';
 import { useProductSelect } from 'hooks/useProductSelect';
@@ -10,15 +10,15 @@ const CartItem = ({ cartItem }: { cartItem: Cart }) => {
   const { currentCartItem, remove, add, onDeleteItem } = useProductSelect(
     cartItem.product
   );
-  const [checkedItems, setCheckedItems] = useRecoilState(checkedItemsIdAtom);
+  const [checkedItems, setCheckedItems] = useRecoilState(checkedItemsAtom);
   const { product } = cartItem;
 
   const onCheckBoxChange = () => {
-    if (checkedItems.includes(cartItem.id)) {
-      setCheckedItems((prev) => prev.filter((id) => id !== cartItem.id));
+    if (checkedItems.includes(cartItem)) {
+      setCheckedItems((prev) => prev.filter(({ id }) => id !== cartItem.id));
       return;
     }
-    setCheckedItems((prev) => [...prev, cartItem.id]);
+    setCheckedItems((prev) => [...prev, cartItem]);
   };
 
   return (
@@ -26,7 +26,7 @@ const CartItem = ({ cartItem }: { cartItem: Cart }) => {
       <S.CheckBox
         type="checkbox"
         onChange={onCheckBoxChange}
-        checked={checkedItems.includes(cartItem.id)}
+        checked={checkedItems.includes(cartItem)}
       />
       <S.CartItemImage src={product.imageUrl} alt={product.name} />
       <S.CartProductName>{product.name}</S.CartProductName>
