@@ -63,7 +63,8 @@ export const cartHandlers = [
       );
     }
 
-    const newQuantity = Number(await req.text());
+    const productInfo = await req.json();
+    const newQuantity = Number(productInfo.quantity);
 
     cartList = cartList.map((cartItem: CartProductItem) =>
       cartItem.id === cartItemId
