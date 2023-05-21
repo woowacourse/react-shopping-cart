@@ -34,6 +34,7 @@ const ItemList = () => {
 
   return (
     <Wrapper>
+      {isLoading && <h1>Loading...</h1>}
       {!isLoading && productList.map((item) => <Item key={crypto.randomUUID()} {...item} />)}
     </Wrapper>
   );

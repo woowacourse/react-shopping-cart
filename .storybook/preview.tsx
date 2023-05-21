@@ -3,6 +3,9 @@ import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import GlobalStyle from "../src/style/GlobalStyle";
 import { RecoilRoot } from "recoil";
+import { initializeWorker, mswDecorator } from "msw-storybook-addon";
+
+initializeWorker();
 
 const preview: Preview = {
   parameters: {
@@ -17,6 +20,7 @@ const preview: Preview = {
 };
 
 export const decorators = [
+  mswDecorator,
   (Story) => (
     <>
       <GlobalStyle />
