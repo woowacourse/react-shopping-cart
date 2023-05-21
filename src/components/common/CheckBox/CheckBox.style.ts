@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 
 interface CheckboxProps {
-  boxSize?: 'small' | 'medium' | 'large';
+  boxsize?: 'small' | 'medium' | 'large';
 }
 
 const getCheckBoxSize = (size: 'small' | 'medium' | 'large') => {
@@ -33,8 +33,8 @@ const getPositionCheckMark = (size: 'small' | 'medium' | 'large'): [string, stri
 export const StyleCheckBox = styled.input.attrs({ type: 'checkbox' })<CheckboxProps>`
   position: absolute;
   opacity: 0;
-  height: ${({ boxSize }) => getCheckBoxSize(boxSize || 'medium')};
-  width: ${({ boxSize }) => getCheckBoxSize(boxSize || 'medium')};
+  height: ${({ boxsize }) => getCheckBoxSize(boxsize || 'medium')};
+  width: ${({ boxsize }) => getCheckBoxSize(boxsize || 'medium')};
 
   cursor: pointer;
 `;
@@ -43,8 +43,8 @@ export const StyleCheckMark = styled.span<CheckboxProps>`
   position: absolute;
   top: 0;
   left: 0;
-  height: ${({ boxSize }) => getCheckBoxSize(boxSize || 'medium')};
-  width: ${({ boxSize }) => getCheckBoxSize(boxSize || 'medium')};
+  height: ${({ boxsize }) => getCheckBoxSize(boxsize || 'medium')};
+  width: ${({ boxsize }) => getCheckBoxSize(boxsize || 'medium')};
 
   background-color: ${({ theme }) => theme.lightColor};
   border-radius: 3px;
@@ -59,10 +59,10 @@ export const StyleCheckMark = styled.span<CheckboxProps>`
     content: '';
     position: absolute;
     display: none;
-    left: ${({ boxSize }) => getPositionCheckMark(boxSize || 'medium')[0]};
-    top: ${({ boxSize }) => getPositionCheckMark(boxSize || 'medium')[1]};
-    width: ${({ boxSize }) => (boxSize === 'small' ? '4px' : '7px')};
-    height: ${({ boxSize }) => (boxSize === 'small' ? '8px' : '14px')};
+    left: ${({ boxsize }) => getPositionCheckMark(boxsize || 'medium')[0]};
+    top: ${({ boxsize }) => getPositionCheckMark(boxsize || 'medium')[1]};
+    width: ${({ boxsize }) => (boxsize === 'small' ? '4px' : '7px')};
+    height: ${({ boxsize }) => (boxsize === 'small' ? '8px' : '14px')};
     border: solid white;
     border-width: 0 3px 3px 0;
 

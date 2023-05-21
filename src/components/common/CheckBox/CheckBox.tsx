@@ -10,8 +10,8 @@ interface CheckBoxProps extends HTMLAttributes<HTMLInputElement> {
 
 const CheckBox = ({ type, size, ...restProps }: CheckBoxProps) => (
   <StyleLabel>
-    <StyleCheckBox boxSize={size} type={type} {...restProps} />
-    <StyleCheckMark boxSize={size} />
+    <StyleCheckBox boxsize={size} type={type} {...restProps} />
+    <StyleCheckMark boxsize={size} />
   </StyleLabel>
 );
 
