@@ -7,9 +7,9 @@ const useFetch = <T>(url: string) => {
   const fetchData = async () => {
     const response = await fetch(url);
 
-    if (!response.ok) {
-      throw new Error('데이터를 불러오는 과정에서 문제가 생겼습니다.');
-    }
+    // if (!response.ok) {
+    //   throw new Error('데이터를 불러오는 과정에서 문제가 생겼습니다.');
+    // }
 
     const fetchedData = await response.json();
     setData(fetchedData);
