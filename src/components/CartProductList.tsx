@@ -3,12 +3,24 @@ import { StyledText } from './common/Text';
 import { CheckBox } from './common/CheckBox';
 import { Button as SelectedDeleteButton } from './common/Button';
 import { useRecoilValue } from 'recoil';
-import { cartCountState, cartState } from '../atoms/CartState';
+import { cartCountState } from '../atoms/CartState';
 import { CartProductItem } from './CartProductItem';
+import { useEffect } from 'react';
+import { useFetch } from './hooks/useFetch';
+import { Cart } from '../types';
+import Loading from './Loading';
 
 export const CartProductList = () => {
-  const cartProductList = useRecoilValue(cartState);
+  const { data, getAPI, isLoading } = useFetch<{ cartList: Cart[] }>();
   const cartProductCount = useRecoilValue(cartCountState);
+
+  useEffect(() => {
+    getAPI('/cart-items');
+  }, []);
+
+  const handleCheckboxChange = () => {
+    return;
+  };
 
   return (
     <CartProductListContainer>
@@ -18,13 +30,20 @@ export const CartProductList = () => {
         </ProductCountText>
       </ProductCountTextWrapper>
       <ProductItemContainer>
-        {cartProductList.map((item) => (
-          <CartProductItem key={item.id} cartProduct={item} />
-        ))}
+        {data?.cartList.length === 0 && <div>장바구니가 비었습니다.</div>}
+        {isLoading ? (
+          <Loading />
+        ) : (
+          data?.cartList.map((item) => (
+            <CartProductItem key={item.id} cartProduct={item} />
+          ))
+        )}
       </ProductItemContainer>
       <BottomSideWrapper>
-        <CheckBox />
-        <SelectedProductText>전체선택 (0/5)</SelectedProductText>
+        <CheckBox onChange={handleCheckboxChange} />
+        <SelectedProductText>
+          전체선택 (0/{data?.cartList.length})
+        </SelectedProductText>
         <SelectedDeleteButton
           onClick={() => {
             return;

@@ -4,9 +4,10 @@ import { useFetch } from '../components/hooks/useFetch';
 import styled from 'styled-components';
 import { Product } from '../types';
 import { useEffect } from 'react';
+import Loading from '../components/Loading';
 
 export const ProductListPage = () => {
-  const { data, getAPI } = useFetch<{ product: Product[] }>();
+  const { data, getAPI, isLoading } = useFetch<{ product: Product[] }>();
 
   useEffect(() => {
     getAPI('/products');
@@ -15,6 +16,7 @@ export const ProductListPage = () => {
   return (
     <PageContainer>
       <PageTitle>상품 리스트</PageTitle>
+      {isLoading && <Loading />}
       <ProductListPageWrapper>
         {data?.product.map((item) => (
           <ProductItem key={item.id} product={item} />

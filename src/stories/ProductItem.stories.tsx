@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { ProductItem } from '../components/ProductItem';
-import { getMockData } from '../pages/ProductListPage';
 import { userEvent, within } from '@storybook/testing-library';
 
 const meta = {
@@ -25,7 +24,12 @@ export const Default: Story = {
 
 export const InteractionTest: StoryObj<typeof ProductItem> = {
   render: () => {
-    const product = getMockData[1];
+    const product = {
+      id: 1,
+      name: 'PET보틀-정사각(420ml)',
+      price: 43400,
+      imageUrl: '/assets/1.png',
+    };
 
     return <ProductItem product={product} />;
   },
