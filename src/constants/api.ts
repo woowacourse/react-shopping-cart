@@ -30,6 +30,6 @@ const HTTP_ERROR_MESSAGE = {
     BODY: '확인 후 다시 시도해주세요.',
     BUTTON: '홈으로 가기',
   },
-};
+} as const;
 
 export { API_ENDPOINT, HTTP_STATUS_CODE, HTTP_ERROR_MESSAGE };
