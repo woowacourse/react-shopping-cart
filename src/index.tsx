@@ -5,8 +5,9 @@ import { RecoilRoot } from 'recoil';
 import { worker } from './mocks/browser';
 import App from './App';
 import GlobalStyle from './GlobalStyle';
-import ProductPage from './components/product/ProductPage/ProductPage';
-import CartPage from './components/cart/CartPage/CartPage';
+import ProductPage from './components/pages/ProductPage/ProductPage';
+import CartPage from './components/pages/CartPage/CartPage';
+import ToastList from './components/common/Toast/ToastList';
 
 const main = async () => {
   if (window.location.pathname === '/react-shopping-cart') {
@@ -54,6 +55,7 @@ root.render(
     <RecoilRoot>
       <Suspense>
         <RouterProvider router={router} />
+        <ToastList />
       </Suspense>
     </RecoilRoot>
   </React.StrictMode>,
