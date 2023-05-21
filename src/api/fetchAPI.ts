@@ -1,8 +1,11 @@
-import { HTTP_STATUS_CODE } from '../constants/api';
+import { FETCH_DEFAULT_OPTION, HTTP_STATUS_CODE } from '../constants/api';
 import HTTPError from './HTTPError';
 import { handleAPIError } from './apiError';
 
-const fetchAPI = async (endpoint: RequestInfo | URL, option?: RequestInit) => {
+const fetchAPI = async (
+  endpoint: RequestInfo | URL,
+  option: RequestInit = FETCH_DEFAULT_OPTION
+) => {
   try {
     const response = await fetch(endpoint, option);
 

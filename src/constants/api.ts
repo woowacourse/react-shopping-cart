@@ -6,6 +6,12 @@ const API_ENDPOINT = {
   CART_DELETE: '/api/cart/remove',
 } as const;
 
+const FETCH_DEFAULT_OPTION = {
+  headers: {
+    Accept: 'application/json',
+  },
+} as const;
+
 const HTTP_STATUS_CODE = {
   OK: 200,
   NO_CONTENT: 204,
@@ -32,4 +38,4 @@ const HTTP_ERROR_MESSAGE = {
   },
 } as const;
 
-export { API_ENDPOINT, HTTP_STATUS_CODE, HTTP_ERROR_MESSAGE };
+export { API_ENDPOINT, FETCH_DEFAULT_OPTION, HTTP_STATUS_CODE, HTTP_ERROR_MESSAGE };
