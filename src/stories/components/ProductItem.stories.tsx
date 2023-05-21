@@ -3,9 +3,8 @@ import ProductItemComponent from '../../components/main/ProductItem';
 
 const meta = {
   component: ProductItemComponent,
-  title: 'Components/ProductItem',
+  title: 'Components/Main/ProductItem',
   tags: ['autodocs'],
-  decorators: [(Story) => <Story />],
 } satisfies Meta<typeof ProductItemComponent>;
 
 export default meta;
