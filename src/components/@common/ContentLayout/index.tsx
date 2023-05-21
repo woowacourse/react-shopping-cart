@@ -1,8 +1,14 @@
 import { PropsWithChildren } from 'react';
 import { styled } from 'styled-components';
+import Header from '../Header';
 
 const ContentLayout = ({ children }: PropsWithChildren) => {
-  return <ContentSection>{children}</ContentSection>;
+  return (
+    <>
+      <Header />
+      <ContentSection>{children}</ContentSection>
+    </>
+  );
 };
 
 export default ContentLayout;
