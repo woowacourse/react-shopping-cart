@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 interface CheckboxProps {
   id?: string;
   checked?: boolean;
-  onChange?: (id: string) => void;
+  onChange?: (value: string) => void;
 }
 
 const Checkbox = ({ id = '', checked = false, onChange }: CheckboxProps) => {

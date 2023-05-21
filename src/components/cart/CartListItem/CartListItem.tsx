@@ -10,13 +10,13 @@ import type { CartItem } from '../../../types/product';
 interface CartListItemProps {
   cartItem: CartItem;
   checked?: boolean;
-  onChange?: (id: string) => void;
+  onChangeCheckbox?: (id: string) => void;
 }
 
 const CartListItem = ({
   cartItem,
   checked = false,
-  onChange,
+  onChangeCheckbox,
 }: CartListItemProps) => {
   const { id: cartItemId, quantity, product } = cartItem;
   const { id, name, price, imageSrc } = product;
@@ -35,7 +35,11 @@ const CartListItem = ({
   return (
     <Container>
       <Inner>
-        <Checkbox id={cartItemId} checked={checked} onChange={onChange} />
+        <Checkbox
+          id={String(cartItemId)}
+          checked={checked}
+          onChange={onChangeCheckbox}
+        />
         <Spacer width={15} />
         <Image src={imageSrc} loading="lazy" alt={name} />
         <Title>{name}</Title>
