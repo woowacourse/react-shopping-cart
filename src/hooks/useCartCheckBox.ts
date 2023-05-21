@@ -1,11 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { cartProductsState } from 'state/cartProducts';
 import { Product } from 'types/product';
 
 const useCartCheckBox = () => {
   const cartProducts = useRecoilValue(cartProductsState);
-  const [checkedProducts, setCheckedProducts] = useState(new Set<Product['id']>(cartProducts.keys()));
+  const [checkedProducts, setCheckedProducts] = useState(new Set(cartProducts.keys()));
+
+  useEffect(() => {
+    setCheckedProducts(new Set(cartProducts.keys()));
+  }, [cartProducts]);
+
   const isAllChecked = cartProducts.size === checkedProducts.size;
   const isChecked = (id: Product['id']) => checkedProducts.has(id);
 
