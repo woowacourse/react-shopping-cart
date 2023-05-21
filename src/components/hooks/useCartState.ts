@@ -1,24 +1,28 @@
-import { useSetRecoilState } from 'recoil';
-import { CartProductList, Product } from '../../types/productType';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { Cart, Product } from '../../types';
 import { cartState } from '../../atoms/CartState';
+import { useLocalStorage } from './useLocalStorage';
 
-const getIndex = (list: CartProductList[], id: number) => {
-  return list.findIndex((item: CartProductList) => item.id === id);
+const getIndex = (list: Cart[], id: number) => {
+  return list.findIndex((item: Cart) => item.id === id);
 };
 
-export const useCartState = (props: Product) => {
-  const { id } = props;
+export const useCartState = (product: Product) => {
+  const { id } = product;
+  const { setLocalStorageData } = useLocalStorage();
   const setCartProductState = useSetRecoilState(cartState);
+  const currentCartList = useRecoilValue(cartState);
+
+  const newProduct = {
+    id,
+    quantity: 1,
+    product: product,
+  };
 
   const addToCartState = () => {
-    setCartProductState((prev) => [
-      ...prev,
-      {
-        id,
-        quantity: 1,
-        product: props,
-      },
-    ]);
+    setCartProductState((prev) => [...prev, newProduct]);
+
+    setLocalStorageData<Cart[]>('cartList', [...currentCartList, newProduct]);
   };
 
   const increaseCount = () => {
@@ -48,9 +52,7 @@ export const useCartState = (props: Product) => {
           quantity: updatedCartList[index].quantity - 1,
         };
       } else if (shouldDelete && updatedCartList[index].quantity === 1) {
-        return updatedCartList.filter(
-          (item: CartProductList) => item.id !== id
-        );
+        return updatedCartList.filter((item: Cart) => item.id !== id);
       }
 
       return updatedCartList;
@@ -59,7 +61,7 @@ export const useCartState = (props: Product) => {
 
   const deleteCartItem = () => {
     setCartProductState((prev) => {
-      return [...prev].filter((item: CartProductList) => item.id !== id);
+      return [...prev].filter((item: Cart) => item.id !== id);
     });
   };
 

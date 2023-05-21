@@ -1,16 +1,24 @@
 import { PageTitle } from '../components/PageTitle';
 import { ProductItem } from '../components/ProductItem';
-import mockData from '../data/mockData.json';
+import { useFetch } from '../components/hooks/useFetch';
 import styled from 'styled-components';
+import { Product } from '../types';
+import { useEffect } from 'react';
 
-export const getMockData = mockData;
+// export const getMockData = mockData;
 
 export const ProductListPage = () => {
+  const { data, getAPI } = useFetch<Product[]>();
+
+  useEffect(() => {
+    getAPI('/products');
+  }, []);
+
   return (
     <PageContainer>
       <PageTitle>상품 리스트</PageTitle>
       <ProductListPageWrapper>
-        {getMockData.map((item) => (
+        {data?.map((item) => (
           <ProductItem key={item.id} product={item} />
         ))}
       </ProductListPageWrapper>

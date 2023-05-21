@@ -1,7 +1,7 @@
 import { StyledText } from './common/Text';
 import { Image as ProductImage } from './common/Image';
 import { AddToCartButton } from './AddToCartButton';
-import { Product } from '../types/productType';
+import { Product } from '../types';
 import { useCartState } from './hooks/useCartState';
 import styled from 'styled-components';
 

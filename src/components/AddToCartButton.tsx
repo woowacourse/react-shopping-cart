@@ -3,7 +3,7 @@ import { AddToCartButtonImage } from '../assets/image';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { cartState } from '../atoms/CartState';
-import { CartProductList, Product } from '../types/productType';
+import { Cart, Product } from '../types';
 import { useCartState } from './hooks/useCartState';
 
 export const AddToCartButton = ({
@@ -18,7 +18,7 @@ export const AddToCartButton = ({
   const cartProductState = useRecoilValue(cartState);
 
   const quantity = cartProductState.find(
-    (item: CartProductList) => item.id === id
+    (item: Cart) => item.id === id
   )?.quantity;
 
   const { increaseCount, decreaseCount } = useCartState(product);
