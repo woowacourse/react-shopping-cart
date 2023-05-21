@@ -12,17 +12,6 @@ const ProductItem = ({ product }: ProductItemProps) => {
   const { currentCartItem, remove, add, onSelectItem } =
     useProductSelect(product);
 
-  const productSelect = currentCartItem ? (
-    <Counter
-      count={currentCartItem.quantity}
-      min={0}
-      increment={add}
-      decrement={remove}
-    />
-  ) : (
-    <Svg type="cart-icon" width={25} height={22} onClick={onSelectItem} />
-  );
-
   return (
     <S.ItemWrapper>
       <S.ItemImage src={product.imageUrl} alt={product.name} />
@@ -33,7 +22,16 @@ const ProductItem = ({ product }: ProductItemProps) => {
             {product.price.toLocaleString('KR')} 원
           </S.ProductPrice>
         </div>
-        {productSelect}
+        {currentCartItem ? (
+          <Counter
+            count={currentCartItem.quantity}
+            min={0}
+            increment={add}
+            decrement={remove}
+          />
+        ) : (
+          <Svg type="cart-icon" width={25} height={22} onClick={onSelectItem} />
+        )}
       </S.ProductWrapper>
     </S.ItemWrapper>
   );

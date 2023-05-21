@@ -8,20 +8,20 @@ import { getProductList } from 'api/requests';
 const ProductItemList = () => {
   const { data, isLoading } = useGet<{ choonsik: Product[] }>(getProductList);
 
-  const loading =
-    isLoading &&
-    Array.from({ length: 16 }).map((_, idx) => <LoadingSkeleton key={idx} />);
+  const loading = Array.from({ length: 16 }).map((_, idx) => (
+    <LoadingSkeleton key={idx} />
+  ));
 
   const fetchedProductList =
     data &&
     data.choonsik.map((product) => (
       <ProductItem key={product.id} product={product} />
     ));
+
   return (
     <>
       <S.ProductListWrapper>
-        {loading}
-        {fetchedProductList}
+        {isLoading ? loading : fetchedProductList}
       </S.ProductListWrapper>
     </>
   );
