@@ -48,7 +48,7 @@ const SelectedProductItem = ({ id, imageUrl, name, price, quantity }: Props) => 
           <Button css={trashCanButtonStyle} onClick={handleTrashCanClick}>
             <TrashCanIcon patternId={id} imageSize={{ width: '40', height: '40' }} />
           </Button>
-          <QuantityButton productId={id} />
+          <QuantityButton productId={id} quantity={quantity} />
           <Price price={price * quantity} />
         </S.Wrapper>
       </S.Fieldset>

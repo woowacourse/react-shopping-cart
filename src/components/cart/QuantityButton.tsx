@@ -8,10 +8,11 @@ const { MAX, MIN, STEP } = QUANTITY;
 
 interface Props {
   productId: number;
+  quantity: number;
 }
 
-const QuantityButton = ({ productId }: Props) => {
-  const { quantity, setQuantity } = useLoadCart(productId);
+const QuantityButton = ({ productId, quantity }: Props) => {
+  const { setQuantity } = useLoadCart(productId);
   const { addToCart } = useSetCart(productId);
 
   const handleQuantityStepUp = () => {
