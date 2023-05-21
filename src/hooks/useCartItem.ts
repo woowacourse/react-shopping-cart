@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { cartAtom } from '@recoil/atoms/cartAtom';
 import { checkBoxAtom } from '@recoil/atoms/checkBoxAtom';
 import { checkBoxTotalIdtAtom } from '@recoil/atoms/checkBoxTotalIdtAtom';
 import fetchApi from '@utils/fetchApi';
@@ -6,6 +8,8 @@ import { CART_URL } from '@constants/common';
 import useAtomLocalStorage from './useAtomLocalStorage';
 
 const useCartItem = (id: number) => {
+  const [value, setData] = useRecoilState(cartAtom);
+
   const [checkBox, setCheckBox] = useAtomLocalStorage<number[]>(
     checkBoxAtom,
     'checkBox'
@@ -34,9 +38,10 @@ const useCartItem = (id: number) => {
     });
 
     const updatedId = checkBoxTotalId.filter((checkId) => checkId !== id);
-
+    const updatedCart = value.filter((product)=> !checkBoxTotalId.includes(product.id))
     setCheckBox(updatedId);
     setCheckBoxTotalId(updatedId);
+    setData(updatedCart)
   };
 
   useEffect(() => {

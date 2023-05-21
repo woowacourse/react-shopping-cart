@@ -1,4 +1,4 @@
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { cartAtom } from '@recoil/atoms/cartAtom';
 import { checkBoxAtom } from '@recoil/atoms/checkBoxAtom';
 import { checkBoxTotalIdtAtom } from '@recoil/atoms/checkBoxTotalIdtAtom';
@@ -13,8 +13,7 @@ const useControlCart = () => {
     CART_LIST_LOCAL_KEY
   );
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [value, setData] = useRecoilState(cartAtom);
+  const setData = useSetRecoilState(cartAtom);
 
   const [checkBox, setCheckBox] = useAtomLocalStorage<number[]>(
     checkBoxAtom,
@@ -35,6 +34,7 @@ const useControlCart = () => {
     });
 
     setCart(updateCart);
+    setData(updateCart)
   };
 
   const addProductToCart = async ({
@@ -73,6 +73,7 @@ const useControlCart = () => {
     setCheckBoxTotalId(updatedCheckBoxTotalId);
 
     setCart(updatedCart);
+    setData(updatedCart);
   };
 
   return { addProductToCart, removeProductFromCart, updateQuantityOfCartItem };

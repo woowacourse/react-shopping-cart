@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { cartAtom } from '@recoil/atoms/cartAtom';
 import { checkBoxAtom } from '@recoil/atoms/checkBoxAtom';
 import { checkBoxTotalIdtAtom } from '@recoil/atoms/checkBoxTotalIdtAtom';
 import { CartInformation } from '@type/types';
@@ -21,6 +23,8 @@ const useCartList = (): CartListReturnProps => {
   const { data, refetch } = useGetFetch<CartInformation[]>('/cart-items', {
     method: 'get',
   });
+
+  const setData = useSetRecoilState(cartAtom);
 
   const [checkBox, setCheckBox] = useAtomLocalStorage<number[]>(
     checkBoxAtom,
@@ -61,6 +65,12 @@ const useCartList = (): CartListReturnProps => {
         checkBox.includes(product.id) && checkBoxTotalId.includes(product.id)
     );
 
+    const notRemoveCart = data.filter(
+      (product) =>
+        !checkBox.includes(product.id) && checkBoxTotalId.includes(product.id)
+    );
+
+    setData(notRemoveCart);
     removedCart.forEach(async (product) => {
       await fetchApi(`${CART_URL}/${product.id}`, {
         method: 'delete',
