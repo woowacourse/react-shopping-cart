@@ -1,3 +1,4 @@
+import { getUUID } from './../utils/uuid';
 import { rest } from 'msw';
 import { MockCart } from './fixtures/cart';
 import { MockProducts } from './fixtures/products';
@@ -19,7 +20,7 @@ export const handlers = [
       MockCart.cart[targetItemIndex].quantity += quantity;
     } else {
       const newCartItem = {
-        id,
+        id: getUUID(),
         quantity,
         product,
       };
