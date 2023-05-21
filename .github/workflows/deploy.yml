@@ -37,19 +37,15 @@ jobs:
         run: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
 
-      - name: Set BASE_URL
-        run: |
-          BASE_URL=$(echo $GITHUB_REPOSITORY | sed -r 's/^.+\/(.+)$/\/\1/')
-
       - name: Build
         run: |
-          echo BASE_URL=$BASE_URL > .env
+          echo BASE_URL=$(echo $GITHUB_REPOSITORY | sed -r 's/^.+\/(.+)$/\/\1/') > .env
           npm run build
           cp ./dist/index.html ./dist/404.html
 
       - name: Build storybook
         run: |
-          echo BASE_URL=$BASE_URL/storybook > .env
+          echo BASE_URL=$(echo $GITHUB_REPOSITORY | sed -r 's/^.+\/(.+)$/\/\1/')/storybook > .env
           npm run build-storybook
           mv ./storybook-static ./dist/storybook
 
