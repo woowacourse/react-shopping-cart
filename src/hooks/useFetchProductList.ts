@@ -1,13 +1,16 @@
 import { useRecoilState } from "recoil";
-import { fetchedProductListAtom } from "../store/fetchState";
-import { useLayoutEffect } from "react";
+import {
+  fetchedProductListAtom,
+  fetchedShoppingListAtom,
+} from "../store/fetchState";
+import { useEffect } from "react";
 import fetchQuery from "../api";
-import { Product } from "../types/product";
+import { Cart, Product } from "../types/product";
 
 const useFetchProductList = () => {
   const [, setFetchedProductList] = useRecoilState(fetchedProductListAtom);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await fetchQuery<Product[]>("/products");
@@ -20,4 +23,19 @@ const useFetchProductList = () => {
   }, []);
 };
 
-export default useFetchProductList;
+const useFetchShoppingList = () => {
+  const [, setFetchedShoppingList] = useRecoilState(fetchedShoppingListAtom);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchQuery<Cart[]>("/cart-items");
+        setFetchedShoppingList(data);
+      } catch (error) {
+        console.log(error + "입니다");
+      }
+    };
+    fetchData();
+  }, []);
+};
+export { useFetchProductList, useFetchShoppingList };

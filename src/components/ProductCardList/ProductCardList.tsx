@@ -2,7 +2,7 @@ import { useRecoilState } from "recoil";
 import { fetchedProductListAtom } from "../../store/fetchState";
 import ProductCard from "../ProductCard/ProductCard";
 import Styled from "./ProductCardListStyled";
-import useFetchProductList from "../../hooks/useFetchProductList";
+import { useFetchProductList } from "../../hooks/useFetchProductList";
 
 const ProductCardList = () => {
   const [fetchedProductList] = useRecoilState(fetchedProductListAtom);

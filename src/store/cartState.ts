@@ -1,21 +1,15 @@
 import { atom, atomFamily, selector } from "recoil";
 import { Cart } from "../types/product";
-import localStorageEffect from "./localStorageEffect";
-
 export const cartAtomFamily = atomFamily<Cart, number>({
   key: "cart",
-  default: {
-    id: 0,
-    quantity: 0,
-    product: { id: 0, name: "", price: 0, imageUrl: "" },
+  default: (id) => {
+    return JSON.parse(localStorage.getItem(`cart_${id}`) || "[]");
   },
-  effects: (id) => [localStorageEffect(`cart_${id}`)],
 });
 
 export const cartIdAtom = atom<number[]>({
   key: "cartId",
-  default: [],
-  effects: [localStorageEffect("cartId")],
+  default: JSON.parse(localStorage.getItem(`cartId`) || "[]"),
 });
 
 export const cartAllSelector = selector<Cart[]>({

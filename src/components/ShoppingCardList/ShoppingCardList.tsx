@@ -5,9 +5,15 @@ import Styled from "./ShoppingCardListStyled";
 import ShoppingCard from "../ShoppingCard/ShoppingCard";
 import Checkbox from "../common/Checkbox/Checkbox";
 import useCheckedItem from "../../hooks/useCheckedItem";
+import { fetchedShoppingListAtom } from "../../store/fetchState";
+import { useFetchShoppingList } from "../../hooks/useFetchProductList";
 
 const ShoppingCardList = () => {
   const shoppingList = useRecoilValue(cartIdAtom);
+  const fetchedShoppingList = useRecoilValue(fetchedShoppingListAtom);
+
+  useFetchShoppingList();
+
   const {
     isChecked,
     isCheckedAll,
@@ -16,19 +22,21 @@ const ShoppingCardList = () => {
     changeIsCheckedAll,
     deleteChecked,
     deleteCheckedAll,
-  } = useCheckedItem(shoppingList.length);
+  } = useCheckedItem(fetchedShoppingList.length);
 
   return (
     <Styled.Container>
-      <Styled.Quantity>든든배송 상품 {shoppingList.length}개</Styled.Quantity>
+      <Styled.Quantity>
+        든든배송 상품 {fetchedShoppingList.length}개
+      </Styled.Quantity>
       <Styled.Border />
       <Styled.ListContainer>
         <Styled.List>
-          {shoppingList.map((id, index) => {
+          {fetchedShoppingList.map((shopping, index) => {
             return (
               <ShoppingCard
-                key={id}
-                cartId={id}
+                key={shopping.id}
+                cartId={shopping.id}
                 isChecked={isChecked[index]}
                 deleteChecked={() => {
                   deleteChecked(index);
