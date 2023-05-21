@@ -7,7 +7,7 @@ import {
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 import {cartCountSelector, cartState} from '../../recoil/cartAtoms';
 import {useEffect} from 'react';
-import {CartItem, ReceivedCartItem} from "../../types/types.ts";
+import {CartItem} from "../../types/types.ts";
 import {initCartListCheckbox} from "../../domain/cart.ts";
 
 function Header() {
