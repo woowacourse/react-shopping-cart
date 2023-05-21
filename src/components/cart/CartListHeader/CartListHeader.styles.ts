@@ -14,9 +14,17 @@ const CartItemAllSelectText = styled(Text)`
   margin-left: ${({ theme }) => theme.spacer.spacing3};
 `;
 
-const CartItemPartialSelectText = styled(Text)`
+const CartItemPartialSelectDeleteButton = styled(Text)`
   margin-left: ${({ theme }) => theme.spacer.spacing3};
+  background-color: transparent;
+  font-weight: inherit;
+  outline: 0;
+  border: none;
   cursor: pointer;
+
+  &:disabled {
+    color: ${({ theme }) => theme.color.gray4};
+  }
 `;
 
 const VerticalLine = styled.div`
@@ -25,4 +33,9 @@ const VerticalLine = styled.div`
   border-left: 1px solid ${({ theme }) => theme.color.gray2};
 `;
 
-export { CartListHeaderContainer, CartItemAllSelectText, CartItemPartialSelectText, VerticalLine };
+export {
+  CartListHeaderContainer,
+  CartItemAllSelectText,
+  CartItemPartialSelectDeleteButton,
+  VerticalLine,
+};

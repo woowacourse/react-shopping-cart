@@ -40,7 +40,13 @@ const CartListHeader = () => {
         {cartListItemCount.state === 'hasValue' ? cartListItemCount.contents : 0})
       </S.CartItemAllSelectText>
       <S.VerticalLine />
-      <S.CartItemPartialSelectText onClick={handleModalOpen}>선택삭제</S.CartItemPartialSelectText>
+      <S.CartItemPartialSelectDeleteButton
+        disabled={checkedIdList.size === 0}
+        onClick={handleModalOpen}
+        as="button"
+      >
+        선택삭제
+      </S.CartItemPartialSelectDeleteButton>
       <Modal isOpen={isModalOpen} handleClose={handleModalClose}>
         <CartItemDelete handleModalClose={handleModalClose} removeItem={deleteCheckedItems} />
       </Modal>
