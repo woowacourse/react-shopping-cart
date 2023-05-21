@@ -50,12 +50,18 @@ const CartTotal = ({ totalProductPrice }: { totalProductPrice: number }) => {
         </PriceWrapper>
       </Detail>
       <Spacer height={43} />
-      <OrderButton disabled={totalProductPrice === 0}>주문하기</OrderButton>
+      <OrderButton disabled={totalProductPrice === 0}>
+        {totalProductPrice === 0
+          ? '장바구니에 상품을 담아주세요.'
+          : `주문하기 (총 ${formatPrice(calcTotalOrderPrice())})`}
+      </OrderButton>
     </Container>
   );
 };
 
 const Container = styled.div`
+  position: sticky;
+  top: 130px;
   display: flex;
   flex-direction: column;
   width: 448px;
@@ -117,6 +123,10 @@ const OrderButton = styled.button`
   line-height: 21px;
   text-align: center;
   color: #ffffff;
+
+  &:disabled {
+    background-color: #afafaf;
+  }
 `;
 
 export default CartTotal;

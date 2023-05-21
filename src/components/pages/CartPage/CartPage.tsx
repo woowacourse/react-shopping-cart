@@ -119,6 +119,10 @@ const DeleteButton = styled.button`
   text-align: center;
   color: #333;
   border: 1px solid #bbb;
+
+  &:disabled {
+    color: #8a8a8a;
+  }
 `;
 
 const TotalWrapper = styled.div`
