@@ -1,17 +1,19 @@
+import { Suspense } from 'react';
 import { styled } from 'styled-components';
 import Header from '../components/Header';
 import ProductList from '../components/product/ProductList';
+import { Loading } from '../components/common/Spinner/Loading';
 
 export default function Home() {
   return (
-    <>
+    <Suspense fallback={<Loading />}>
       <Header />
       <Style.Main>
         <Style.Content>
           <ProductList />
         </Style.Content>
       </Style.Main>
-    </>
+    </Suspense>
   );
 }
 

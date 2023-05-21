@@ -1,12 +1,12 @@
 import { styled } from 'styled-components';
 import { CartIcon } from '../../assets/svg';
 import { ProductInfo } from '../../types';
+import { PRODUCT } from '../../constants';
 import { useCart } from '../../hooks/useCart';
 import { useToast } from '../../hooks/useToast';
 import Stepper from '../Stepper';
 import Toast from '../common/Toast';
 import Price from '../common/Price';
-import { PRODUCT } from '../../constants';
 
 interface Props {
   productInfo: ProductInfo;

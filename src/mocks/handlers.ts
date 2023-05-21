@@ -1,7 +1,7 @@
 import { rest } from 'msw';
 import productList from '../mocks/productList.json';
 import { CART_BASE_URL, LOCAL_STORAGE_KEY, PRODUCTS_BASE_URL } from '../constants';
-import { getLocalStorage, updateLocalStorage } from '../utils';
+import { getLocalStorage, updateLocalStorage } from '../utils/store';
 import { CartItemInfo } from '../types';
 
 export const handlers = [
@@ -19,7 +19,7 @@ export const handlers = [
 
   // 상품목록 조회
   rest.get(PRODUCTS_BASE_URL, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(productList));
+    return res(ctx.delay(1000), ctx.status(200), ctx.json(productList));
   }),
 
   // 장바구니 목록 조회
@@ -52,7 +52,7 @@ export const handlers = [
   // 장바구니 아이템 수량 변경
   rest.patch(`${CART_BASE_URL}/:id`, async (req, res, ctx) => {
     const cartId = Number(req.params.id);
-    const quantity = await req.json().then((rawData) => rawData.quantity);
+    const { quantity } = await req.json();
     const cartList = getLocalStorage<CartItemInfo[]>(LOCAL_STORAGE_KEY.CART);
 
     const newCartList = cartList.map((cartItem) => {

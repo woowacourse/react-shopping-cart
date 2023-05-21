@@ -1,10 +1,10 @@
 import { styled } from 'styled-components';
 import { useRecoilValue } from 'recoil';
-import { productListState } from '../../recoil/atoms';
 import Product from './Product';
+import { currentProductListState } from '../../recoil/selectors';
 
 export default function ProductList() {
-  const productList = useRecoilValue(productListState);
+  const productList = useRecoilValue(currentProductListState);
 
   return (
     <Style.Container>

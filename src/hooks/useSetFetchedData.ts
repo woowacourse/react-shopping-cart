@@ -13,9 +13,7 @@ export const useSetFetchedData = <T>(url: string, setData: SetData<T>) => {
         if (!baseUrl) return;
 
         const reFetchedData = await fetchApi(baseUrl, { method: 'GET' });
-
         setData(reFetchedData);
-
         return;
       }
 
