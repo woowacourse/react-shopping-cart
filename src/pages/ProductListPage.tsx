@@ -2,13 +2,14 @@ import { styled } from 'styled-components';
 import { Suspense } from 'react';
 import Header from '../components/common/Header/Header';
 import ProductList from '../components/product/ProductList/ProductList';
+import ProductFallBack from '../components/product/ProductFallBack/ProductFallBack';
 
 const ProductListPage = () => {
   return (
     <>
       <Header />
       <Layout>
-        <Suspense fallback={<p>로딩중..</p>}>
+        <Suspense fallback={<ProductFallBack />}>
           <ProductList />
         </Suspense>
       </Layout>
