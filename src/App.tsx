@@ -9,11 +9,12 @@ import GlobalStyle from './GlobalStyle';
 import { Home } from './components/pages/Home';
 import { ShoppingCart } from './components/pages/ShoppingCart';
 
-import { CartItem } from './types';
+import { CartItemType } from './types';
 import { isEqual } from './utils';
+import { PATH } from './constants';
 
 export const App = () => {
-  const { data: cart, loading, error } = useQuery<CartItem[]>('/cart-items');
+  const { data: cart, loading, error } = useQuery<CartItemType[]>('/cart-items');
   const setCartState = useSetCartState();
 
   useEffect(() => {
@@ -40,8 +41,8 @@ export const App = () => {
       <GlobalStyle />
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Routes>
-          <Route path="/" Component={Home} />
-          <Route path="shopping-cart" Component={ShoppingCart} />
+          <Route path={PATH.HOME} Component={Home} />
+          <Route path={PATH.CART} Component={ShoppingCart} />
         </Routes>
       </BrowserRouter>
     </>

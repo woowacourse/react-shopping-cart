@@ -1,18 +1,20 @@
 import { useSetCartState } from '../recoils/recoilCart';
-
-import { QUANTITY } from '../constants';
-import { CartItem } from '../types';
 import { useMutation } from './useMutation';
 
+import { CartItemType } from '../types';
+import { FETCH_METHOD, BASE_FETCH_URL, QUANTITY } from '../constants';
+
 export const useUpdateCart = () => {
-  const { mutation: addCartMutation, error: addCartError } = useMutation('POST');
-  const { mutation: updateQuantityMutation, error: updateQuantityError } = useMutation('PATCH');
-  const { mutation: deleteCartMutation, error: deleteCartError } = useMutation('DELETE');
+  const { mutation: addCartMutation, error: addCartError } = useMutation(FETCH_METHOD.POST);
+  const { mutation: updateQuantityMutation, error: updateQuantityError } = useMutation(
+    FETCH_METHOD.PATCH
+  );
+  const { mutation: deleteCartMutation, error: deleteCartError } = useMutation(FETCH_METHOD.DELETE);
 
   const setCart = useSetCartState();
 
-  const addProductToCart = (product: CartItem) => {
-    addCartMutation('/cart-items', {
+  const addProductToCart = (product: CartItemType) => {
+    addCartMutation(BASE_FETCH_URL.CART_ITEMS, {
       productId: product.id,
     });
 
@@ -23,7 +25,7 @@ export const useUpdateCart = () => {
     setCart((prev) => {
       return prev.map((item) => {
         if (item.id === productId) {
-          updateQuantityMutation(`/cart-items/${productId}`, {
+          updateQuantityMutation(`${BASE_FETCH_URL.CART_ITEMS}/${productId}`, {
             quantity: item.quantity + 1,
           });
 
@@ -38,7 +40,7 @@ export const useUpdateCart = () => {
     setCart((prev) => {
       return prev.map((item) => {
         if (item.id === productId) {
-          updateQuantityMutation(`/cart-items/${productId}`, {
+          updateQuantityMutation(`${BASE_FETCH_URL.CART_ITEMS}/${productId}`, {
             quantity: item.quantity - 1,
           });
 
@@ -52,7 +54,7 @@ export const useUpdateCart = () => {
   const updateProductQuantity = (productId: number, quantity: number) => {
     const count = quantity > QUANTITY.MAX ? QUANTITY.MAX : quantity;
 
-    updateQuantityMutation(`/cart-items/${productId}`, {
+    updateQuantityMutation(`${BASE_FETCH_URL.CART_ITEMS}/${productId}`, {
       quantity,
     });
 
@@ -68,7 +70,7 @@ export const useUpdateCart = () => {
 
   const deleteCartItem = (...productId: number[]) => {
     productId.forEach((id) => {
-      deleteCartMutation(`/cart-items/${id}`);
+      deleteCartMutation(`${BASE_FETCH_URL.CART_ITEMS}/${id}`);
     });
 
     setCart((prev) => {

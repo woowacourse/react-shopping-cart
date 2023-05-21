@@ -6,6 +6,8 @@ import { useUpdateCart } from '../hooks/useUpdateCart';
 
 import { Checkbox } from './styled';
 
+import { CheckedStateType } from '../types';
+
 export const CartActions = () => {
   const [cart] = useCartState();
   const { deleteCartItem } = useUpdateCart();
@@ -13,17 +15,17 @@ export const CartActions = () => {
 
   const onChangeAllCheckbox = () => {
     setCheckedState((prev) => {
-      const a: any = {
+      const updatedCheckedState: CheckedStateType = {
         all: !prev.all,
       };
 
       if (!prev.all) {
         for (const item of cart) {
-          a[item.id] = true;
+          updatedCheckedState[item.id] = true;
         }
       }
 
-      return a;
+      return updatedCheckedState;
     });
   };
 

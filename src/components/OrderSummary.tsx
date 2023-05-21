@@ -4,10 +4,12 @@ import { useTotalProductPrice } from '../recoils/recoilTotalPrice';
 
 import { Button } from './common/Button';
 
+import { DELIVERY_CHARGE } from '../constants';
+
 export const OrderSummary = () => {
   const totalProductPrice = useTotalProductPrice();
 
-  const DeliveryCharge = 3000;
+  const DeliveryCharge = DELIVERY_CHARGE;
 
   return (
     <>

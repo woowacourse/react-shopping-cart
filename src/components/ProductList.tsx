@@ -5,15 +5,17 @@ import { useQuery } from '../hooks/useQuery';
 import { Skeleton } from './common/Skeleton';
 import { Product } from './Product';
 
-import { Product as IProduct } from '../types';
+import { ProductType as IProduct } from '../types';
+
+import { BASE_FETCH_URL, SKELETON_LENGTH } from '../constants';
 
 export const ProductList = () => {
-  const { data: products, loading, error } = useQuery<IProduct[]>('/products');
+  const { data: products, loading, error } = useQuery<IProduct[]>(BASE_FETCH_URL.PRODUCTS);
 
   return (
     <Style.Container>
       {loading
-        ? Array.from({ length: 12 }).map(() => <Skeleton />)
+        ? Array.from({ length: SKELETON_LENGTH }).map(() => <Skeleton />)
         : products?.map((product) => (
             <li key={product.id}>
               <Product item={product} />

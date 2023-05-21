@@ -1,20 +1,20 @@
 import { styled } from 'styled-components';
 import { CartIcon } from '../assets/svg';
 
-import { useProductInCartById } from '../recoils/recoilCart';
+import { useCartItemValue } from '../recoils/recoilCart';
 import { useUpdateCart } from '../hooks/useUpdateCart';
 
 import { Stepper } from './Stepper';
 
-import { Product as IProduct } from '../types';
+import { ProductType as ProductType } from '../types';
 
 interface Props {
-  item: IProduct;
+  item: ProductType;
 }
 
 export const Product = ({ item }: Props) => {
   const { addProductToCart } = useUpdateCart();
-  const productInCart = useProductInCartById(item.id);
+  const productInCart = useCartItemValue(item.id);
 
   const onClickCartIcon = () => {
     addProductToCart({

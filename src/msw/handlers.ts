@@ -1,7 +1,6 @@
 import { rest } from 'msw';
 
 import mockData from '../assets/productMock.json';
-import cartMock from '../assets/cartMock.json';
 
 const minDelay = 300;
 const maxDelay = 500;
@@ -14,7 +13,10 @@ export const handlers = [
   }),
 
   rest.get('/cart-items', (req, res, ctx) => {
-    return res(ctx.delay(delay), ctx.status(200), ctx.json(cartMock));
+    const localCart = localStorage.getItem('cartState');
+    const cart = localCart ? JSON.parse(localCart) : [];
+
+    return res(ctx.delay(delay), ctx.status(200), ctx.json(cart));
   }),
 
   rest.post('/cart-items', (req, res, ctx) => {

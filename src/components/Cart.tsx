@@ -6,6 +6,8 @@ import { useCartSizeValue } from '../recoils/recoilCart';
 import { CartActions } from './CartActions';
 import { CartItemList } from './CartItemList';
 
+import { PATH } from '../constants';
+
 export const Cart = () => {
   const cartSize = useCartSizeValue();
 
@@ -20,7 +22,7 @@ export const Cart = () => {
       ) : (
         <Style.NoExistItemsMessage>
           <p>장바구니에 등록된 상품이 존재하지 않아요🥲</p>
-          <Link to="/">상품 보러가기🚀</Link>
+          <Link to={PATH.HOME}>상품 보러가기🚀</Link>
         </Style.NoExistItemsMessage>
       )}
     </Style.Cart>

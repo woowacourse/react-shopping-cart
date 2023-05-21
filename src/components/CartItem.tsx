@@ -1,11 +1,12 @@
 import { styled } from 'styled-components';
 import { GarbageIcon } from '../assets/svg';
 
-import { useProductInCartById } from '../recoils/recoilCart';
+import { useCartItemValue } from '../recoils/recoilCart';
 import { useCheckedState } from '../recoils/recoilChecked';
 import { useUpdateCart } from '../hooks/useUpdateCart';
 
 import { Stepper } from './Stepper';
+
 import { Button } from './common/Button';
 import { Checkbox } from './styled';
 
@@ -15,7 +16,7 @@ interface CartItemProps {
 
 export const CartItem = ({ productId }: CartItemProps) => {
   const { deleteCartItem } = useUpdateCart();
-  const { quantity, product } = useProductInCartById(productId)!;
+  const { quantity, product } = useCartItemValue(productId)!;
   const [checkState, setCheckState] = useCheckedState();
 
   const onChangeCheckBox = () => {

@@ -9,16 +9,18 @@ import {
 } from 'recoil';
 import { localStorageEffect } from './localStorageEffect';
 
-import { CartItem } from '../types';
+import { CartItemType } from '../types';
 
-export const CartState = atom<CartItem[]>({
-  key: 'productsInCart',
+import { LOCAL_STORAGE_KEY, RECOIL_KEY } from '../constants';
+
+export const CartState = atom<CartItemType[]>({
+  key: RECOIL_KEY.CART_STATE,
   default: [],
-  effects: [localStorageEffect('productsInCart')],
+  effects: [localStorageEffect(LOCAL_STORAGE_KEY.CART_STATE)],
 });
 
-const CartSize = selector<number>({
-  key: 'productsCartLength',
+const CartSizeValue = selector<number>({
+  key: RECOIL_KEY.CART_SIZE_VALUE,
   get: ({ get }) => {
     const cart = get(CartState);
 
@@ -26,8 +28,8 @@ const CartSize = selector<number>({
   },
 });
 
-const ProductInCart = selectorFamily<CartItem | null, number>({
-  key: 'productInCart',
+const CartItemValue = selectorFamily<CartItemType | null, number>({
+  key: RECOIL_KEY.CART_ITEM_VALUE,
   get:
     (productId) =>
     ({ get }) => {
@@ -43,8 +45,8 @@ export const useCartState = () => useRecoilState(CartState);
 
 export const useSetCartState = () => useSetRecoilState(CartState);
 
-export const useCartSizeValue = () => useRecoilValue(CartSize);
+export const useCartSizeValue = () => useRecoilValue(CartSizeValue);
 
 export const useResetCartState = () => useResetRecoilState(CartState);
 
-export const useProductInCartById = (productId: number) => useRecoilValue(ProductInCart(productId));
+export const useCartItemValue = (productId: number) => useRecoilValue(CartItemValue(productId));
