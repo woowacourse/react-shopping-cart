@@ -6,13 +6,13 @@ import { productSelector } from "recoil/selector";
 import { CartProduct } from "types/domain";
 import { useQuantity } from "hooks/useQuantity";
 
-const CartItem = (product: CartProduct) => {
-  const setProduct = useSetRecoilState(productSelector(product.id));
-  const { changeQuantity } = useQuantity(product.id);
+const CartItem = (item: CartProduct) => {
+  const setProduct = useSetRecoilState(productSelector(item.id));
+  const { changeQuantity } = useQuantity(item.id);
 
   const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProduct({
-      ...product,
+      ...item,
       isChecked: e.currentTarget.checked,
     });
   };
@@ -23,17 +23,12 @@ const CartItem = (product: CartProduct) => {
 
   return (
     <Wrapper>
-      <input
-        type="checkbox"
-        value={product.id}
-        checked={product.isChecked}
-        onChange={handleCheckbox}
-      />
-      <img src={product.imageUrl} alt={`${product.name} 상품 이미지`} />
-      <NameBox>{product.name}</NameBox>
+      <input type="checkbox" value={item.id} checked={item.isChecked} onChange={handleCheckbox} />
+      <img src={item.product.imageUrl} alt={`${item.product.name} 상품 이미지`} />
+      <NameBox>{item.product.name}</NameBox>
       <button onClick={removeItem}>🗑️</button>
-      <PriceBox>{(product.price * product.quantity).toLocaleString()}원</PriceBox>
-      <QuantityCounter itemId={product.id} />
+      <PriceBox>{(item.product.price * item.quantity).toLocaleString()}원</PriceBox>
+      <QuantityCounter itemId={item.product.id} />
     </Wrapper>
   );
 };

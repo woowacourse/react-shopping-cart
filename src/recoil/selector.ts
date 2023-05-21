@@ -55,5 +55,5 @@ export const cartTotalPrice = selector({
   get: ({ get }) =>
     get(productListState)
       .filter((item) => item.isChecked)
-      .reduce((sum, item) => sum + item.price * item.quantity, 0),
+      .reduce((sum, item) => sum + item.product.price * item.quantity, 0),
 });

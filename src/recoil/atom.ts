@@ -18,12 +18,13 @@ const localCartList = getCartListFromLocalStorage();
 
 export const productListState = atom<CartProduct[]>({
   key: "productList",
-  default: localCartList.map((product) => {
-    const targetItem = localCartList.find((item) => item.id === product.id);
+  default: localCartList.map((cartItem) => {
+    const targetItem = localCartList.find((item) => item.id === cartItem.id);
     const newItem: CartProduct = {
-      ...product,
+      id: cartItem.id,
+      product: cartItem.product,
       quantity: targetItem ? targetItem.quantity : 0,
-      isChecked: true,
+      isChecked: targetItem ? targetItem.isChecked : true,
     };
 
     return newItem;

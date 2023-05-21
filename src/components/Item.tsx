@@ -4,11 +4,11 @@ import { MIN_QUANTITY } from "constants/";
 import QuantityCounter from "components/QuantityCounter";
 import { CartProduct } from "types/domain";
 
-const Item = (product: CartProduct) => {
-  const { quantity, changeQuantity } = useQuantity(product.id);
+const Item = (item: CartProduct) => {
+  const { quantity, changeQuantity } = useQuantity(item.id);
 
   const handleCartClicked = () => {
-    fetch("/cart-items", { method: "POST", body: JSON.stringify({ productId: product.id }) })
+    fetch("/cart-items", { method: "POST", body: JSON.stringify({ productId: item.id }) })
       .then(() => changeQuantity("1"))
       .catch((err) => {
         console.log(`장바구니 상품 추가 실패: ${err instanceof Error ? err.message : ""}`);
@@ -17,9 +17,9 @@ const Item = (product: CartProduct) => {
 
   return (
     <Wrapper>
-      <img src={product.imageUrl} alt={`${product.name} 상품 이미지`} />
-      <NameBox>{product.name}</NameBox>
-      <PriceBox>{product.price.toLocaleString()}원</PriceBox>
+      <img src={item.product.imageUrl} alt={`${item.product.name} 상품 이미지`} />
+      <NameBox>{item.product.name}</NameBox>
+      <PriceBox>{item.product.price.toLocaleString()}원</PriceBox>
       <IconContainer>
         {quantity === MIN_QUANTITY.toString() ? (
           <img
@@ -28,7 +28,7 @@ const Item = (product: CartProduct) => {
             onClick={handleCartClicked}
           />
         ) : (
-          <QuantityCounter itemId={product.id} />
+          <QuantityCounter itemId={item.id} />
         )}
       </IconContainer>
     </Wrapper>

@@ -21,9 +21,10 @@ const ItemList = () => {
         const cartItem = cartList.find((item) => item.id === product.id);
 
         const updatedProduct: CartProduct = {
-          ...product,
+          id: product.id,
           quantity: cartItem ? cartItem.quantity : 0,
-          isChecked: true,
+          isChecked: cartItem ? cartItem.isChecked : true,
+          product: product,
         };
 
         return updatedProduct;
