@@ -12,7 +12,7 @@ export const fetchCart = (options?: WaitForOptions<FetchCartRes>) => {
   return waitFor(promise, options);
 };
 
-interface AddCartDataReq {
+export interface AddCartDataReq {
   id: number;
   quantity: number;
 }

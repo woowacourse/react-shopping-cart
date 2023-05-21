@@ -4,24 +4,31 @@ import Button from '../Button/Button';
 import Flex from '../Flex';
 import * as S from './QuantityStepper.styles';
 
-const QuantityStepper = forwardRef<HTMLInputElement>((props, ref) => {
-  const [quantity, increase, decrease] = useCounter({
-    max: 100,
-    min: 1,
-  });
+interface QuantityStepperProps {
+  init?: number;
+}
 
-  return (
-    <Flex>
-      <Button size="S" view="white" onClick={decrease}>
-        ▼
-      </Button>
-      <S.Quantity ref={ref} value={quantity} disabled />
-      <Button size="S" view="white" onClick={increase}>
-        ▲
-      </Button>
-    </Flex>
-  );
-});
+const QuantityStepper = forwardRef<HTMLInputElement, QuantityStepperProps>(
+  ({ init = 1 }: QuantityStepperProps, ref) => {
+    const [quantity, increase, decrease] = useCounter({
+      max: 100,
+      min: 1,
+      init,
+    });
+
+    return (
+      <Flex>
+        <Button size="S" view="white" onClick={decrease}>
+          ▼
+        </Button>
+        <S.Quantity ref={ref} value={quantity} disabled />
+        <Button size="S" view="white" onClick={increase}>
+          ▲
+        </Button>
+      </Flex>
+    );
+  }
+);
 
 QuantityStepper.displayName = 'QuantityStepper';
 
