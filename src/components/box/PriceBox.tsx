@@ -52,6 +52,10 @@ const PriceBoxWrapper = styled.div`
 
   margin-top: 70px;
   border: 1px solid #dddddd;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 const PriceBoxHeader = styled.div`
@@ -80,7 +84,7 @@ const TotalPriceTextWrapper = styled(TextWrapper)`
 `;
 
 const OrderButton = styled.button<{ checkedCartItemListLength: number }>`
-  width: 86%;
+  width: 90%;
   height: 60px;
 
   font-size: 20px;

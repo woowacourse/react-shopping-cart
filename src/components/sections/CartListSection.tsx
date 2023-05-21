@@ -35,8 +35,12 @@ const CartListSectionWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 
-  width: 70%;
+  width: 90%;
   margin-top: 25px;
   padding: 0 6px;
   border-top: 3px solid #000000;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
 `;

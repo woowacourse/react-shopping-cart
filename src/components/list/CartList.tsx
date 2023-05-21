@@ -67,8 +67,11 @@ const CartListWrapper = styled.div`
   flex-direction: column;
 
   width: 50%;
-
   margin-top: 30px;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 const CartItemListWrapper = styled.div`

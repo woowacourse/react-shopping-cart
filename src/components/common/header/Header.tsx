@@ -44,12 +44,17 @@ const HeaderWrapper = styled.div`
 `;
 
 const HeaderInner = styled.div`
-  width: 1300px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   position: relative;
   justify-content: space-between;
+  padding: 0 20px;
+
+  @media (min-width: 768px) {
+    padding: 0 50px;
+  }
 `;
 
 const LogoWrapper = styled.div`

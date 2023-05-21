@@ -66,6 +66,7 @@ const ProductWrapper = styled.div`
 
   width: 282px;
 `;
+
 const ProductImage = styled.img`
   width: 100%;
   height: 282px;
