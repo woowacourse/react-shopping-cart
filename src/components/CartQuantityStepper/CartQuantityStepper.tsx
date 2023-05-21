@@ -7,6 +7,7 @@ type CartQuantityStepperProps = {
   initialIncrement: () => void;
   increaseQuantity: () => void;
   decreaseQuantity: () => void;
+  deleteCartProduct: () => void;
 };
 
 const CartQuantityStepper = ({
@@ -14,6 +15,7 @@ const CartQuantityStepper = ({
   initialIncrement,
   increaseQuantity,
   decreaseQuantity,
+  deleteCartProduct,
 }: CartQuantityStepperProps) => {
   const { isOpen, openStepper, closeStepper } = useCartQuantityStepper();
   const isPositiveQuantity = quantity > 0;
@@ -24,9 +26,17 @@ const CartQuantityStepper = ({
   };
 
   const handleDecreaseQuantity = () => {
-    if (quantity === 1) closeStepper();
+    if (quantity === 1) {
+      handleDeleteCartProduct();
+      return;
+    }
 
     decreaseQuantity();
+  };
+
+  const handleDeleteCartProduct = () => {
+    deleteCartProduct();
+    closeStepper();
   };
 
   const handleCloseStepperOnBlur = (e: React.FocusEvent) => {

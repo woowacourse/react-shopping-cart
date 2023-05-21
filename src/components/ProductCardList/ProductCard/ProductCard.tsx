@@ -9,7 +9,8 @@ type ProductCardProps = {
 };
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const { cartProducts, initialAddCart, increaseQuantity, decreaseQuantity } = useShoppingCart(product);
+  const { cartProducts, initialAddCart, increaseQuantity, decreaseQuantity, deleteCartProduct } =
+    useShoppingCart(product);
   const { id, price, name, imageUrl } = product;
   const targetCartProduct = cartProducts.get(id);
   const cartProductQuantity = targetCartProduct?.quantity ?? 0;
@@ -24,6 +25,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             initialIncrement={initialAddCart}
             increaseQuantity={increaseQuantity}
             decreaseQuantity={decreaseQuantity}
+            deleteCartProduct={deleteCartProduct}
           />
         </StepperWrapper>
       </ProductImgContainer>

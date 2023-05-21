@@ -41,6 +41,7 @@ const CartProductCard = ({ cartProduct, toggleCheck, isChecked }: CartProductCar
             initialIncrement={initialAddCart}
             increaseQuantity={increaseQuantity}
             decreaseQuantity={decreaseQuantity}
+            deleteCartProduct={deleteCartProduct}
           />
           <TotalPrice>{totalPrice.toLocaleString('ko-KR')}원</TotalPrice>
         </Container>
