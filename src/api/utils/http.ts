@@ -12,3 +12,10 @@ export type ExtractHttpParams<
   : THttpPath extends `:${infer Param}`
   ? [...TParams, unknown]
   : TParams;
+
+export const joinPath = (...paths: (string | undefined | null)[]): string => {
+  return paths
+    .filter((path) => path)
+    .join('/')
+    .replace(/\/{2,}/, '/');
+};

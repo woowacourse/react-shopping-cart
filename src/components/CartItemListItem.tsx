@@ -58,7 +58,7 @@ const CartItemListItem = (props: CartItemListItemProps) => {
 
   return (
     <CartItemListItemContainer>
-      <ProductImage src={`images/products/${product.id}.png`} />
+      <ProductImage src={product.imageUrl} />
       <ProductName>{product.name}</ProductName>
 
       <CartController>

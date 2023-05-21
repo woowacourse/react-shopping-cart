@@ -8,12 +8,17 @@ import type {
 } from './rest/RestAPI';
 import PathGenerator from './utils/PathGenerator';
 import type { HttpMethod } from './utils/http';
+import { joinPath } from './utils/http';
+
+type ClientOptions = {
+  baseUrl?: string;
+};
 
 class Client<TRestAPI extends RestAPI> {
-  constructor(private readonly baseUrl?: string) {}
+  constructor(private readonly options: ClientOptions = {}) {}
 
   private getUrl(path: string) {
-    return this.baseUrl ? new URL(path, this.baseUrl) : path;
+    return joinPath(this.options.baseUrl ?? '', path);
   }
 
   private async parseResponseData(response: Response) {

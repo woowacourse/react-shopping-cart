@@ -40,15 +40,16 @@ jobs:
       - name: Set BASE_URL
         run: |
           BASE_URL=$(echo $GITHUB_REPOSITORY | sed -r 's/^.+\/(.+)$/\/\1/')
-          echo BASE_URL=$BASE_URL > .env
 
       - name: Build
         run: |
+          echo BASE_URL=$BASE_URL > .env
           npm run build
           cp ./dist/index.html ./dist/404.html
 
       - name: Build storybook
         run: |
+          echo BASE_URL=$BASE_URL/storybook > .env
           npm run build-storybook
           mv ./storybook-static ./dist/storybook
 

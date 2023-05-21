@@ -10,7 +10,7 @@ const cart: Omit<CartResponse, 'productId'> = [
       id: 2,
       name: 'PET보틀-밀크티(370ml)',
       price: 73400,
-      imageUrl: './images/products/2.png',
+      imageUrl: `${import.meta.env.BASE_URL}/images/products/2.png`,
     },
   },
   {
@@ -20,7 +20,7 @@ const cart: Omit<CartResponse, 'productId'> = [
       id: 8,
       name: 'PET보틀-원형(600ml)',
       price: 44500,
-      imageUrl: './images/products/8.png',
+      imageUrl: `${import.meta.env.BASE_URL}/images/products/8.png`,
     },
   },
   {
@@ -30,7 +30,7 @@ const cart: Omit<CartResponse, 'productId'> = [
       id: 10,
       name: 'PET보틀-밀크티(370ml)',
       price: 73400,
-      imageUrl: './images/products/10.png',
+      imageUrl: `${import.meta.env.BASE_URL}/images/products/10.png`,
     },
   },
 ];
