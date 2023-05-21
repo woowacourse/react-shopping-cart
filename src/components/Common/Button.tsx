@@ -31,7 +31,7 @@ const buttonStyles = {
     color: ${({ theme }) => theme.colors.white};
 
     @media (max-width: 420px) {
-      width: 300px;
+      width: 270px;
       height: 50px;
       font-size: 20px;
     }
