@@ -1,9 +1,10 @@
-import { useCallback } from 'react';
-import { useRecoilState } from 'recoil';
-import { selectedItemsState } from '../../atoms/cart';
+import { ChangeEvent, useCallback } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { cartState, selectedItemsState } from '../../atoms/cart';
 import { CartItem } from '../../types/cart';
 
 const useCartSelector = () => {
+  const cart = useRecoilValue(cartState);
   const [selectedItems, setSelectedItems] = useRecoilState(selectedItemsState);
 
   const selectItem = useCallback((id: CartItem['id']) => {
@@ -17,7 +18,15 @@ const useCartSelector = () => {
       return updatedSelectedItems;
     });
   }, []);
-  return { selectedItems, selectItem };
+
+  const handleSelectDeselectAll = ({
+    target: { checked },
+  }: ChangeEvent<HTMLInputElement>) => {
+    checked
+      ? setSelectedItems(new Set(cart.map(({ id }) => id)))
+      : setSelectedItems(new Set());
+  };
+  return { selectedItems, selectItem, handleSelectDeselectAll };
 };
 
 export default useCartSelector;
