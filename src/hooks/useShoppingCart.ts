@@ -24,7 +24,10 @@ const useShoppingCart = (product: Product) => {
     if (!targetCartProduct) throw new Error('장바구니에 없는 상품의 수량은 조절할 수 없습니다.');
     const prevQuantity = targetCartProduct.quantity;
 
-    // TODO: DELETE 구현 후 분기로직
+    if (prevQuantity === 1) {
+      await deleteCartProduct();
+      return;
+    }
 
     await updateCartProductsQuantity(prevQuantity - 1, id);
 
