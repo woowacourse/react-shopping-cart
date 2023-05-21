@@ -1,12 +1,32 @@
-import { styled } from 'styled-components';
+import type { RuleSet } from 'styled-components';
+import { css, styled } from 'styled-components';
 import ArrowDown from '../../assets/icons/arrow-down.svg';
 import ArrowUp from '../../assets/icons/arrow-up.svg';
 
-const InputContainer = styled.div`
+type StepperVariant = 'small' | 'large';
+
+const InputContainerStylesByVariant: Record<StepperVariant, RuleSet<object>> = {
+  small: css({
+    width: '70px',
+    height: '26px',
+    fontSize: '12px',
+  }),
+  large: css({
+    width: '120px',
+    height: '60px',
+    fontSize: '24px',
+  }),
+};
+
+type InputContainerProps = {
+  $variant: StepperVariant;
+};
+
+const InputContainer = styled.div<InputContainerProps>`
+  ${(props) => InputContainerStylesByVariant[props.$variant]}
+
   display: flex;
   align-items: stretch;
-  width: 68px;
-  height: 26px;
 `;
 
 const Input = styled.input`
@@ -14,23 +34,43 @@ const Input = styled.input`
   width: 100%;
   border: 1px solid #e5e5e5;
   text-align: center;
-  font-size: 12px;
+  font-size: 1em;
 
   outline: none;
 `;
 
-const InputButton = styled.button`
+const InputButtonStylesByVariant: Record<StepperVariant, RuleSet<object>> = {
+  small: css({
+    width: '24px',
+    '& > img': {
+      width: '5px',
+    },
+  }),
+  large: css({
+    width: '48px',
+    '& > img': {
+      width: '8px',
+    },
+  }),
+};
+
+type InputButtonProps = {
+  $variant: StepperVariant;
+};
+
+const InputButton = styled.button<InputButtonProps>`
+  ${(props) => InputButtonStylesByVariant[props.$variant]}
+
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 24px;
   height: 50%;
-  font-size: 10px;
   border: 1px solid #e5e5e5;
   cursor: pointer;
 `;
 
 type StepperProps = {
+  variant?: StepperVariant;
   min?: number;
   max?: number;
   value: number;
@@ -38,7 +78,7 @@ type StepperProps = {
 };
 
 const Stepper = (props: StepperProps) => {
-  const { min, max, value, onChange } = props;
+  const { variant = 'small', min, max, value, onChange } = props;
 
   const handleClick = (type: 'increase' | 'decrease') => () => {
     const newValue = value + (type === 'increase' ? 1 : -1);
@@ -50,14 +90,14 @@ const Stepper = (props: StepperProps) => {
   };
 
   return (
-    <InputContainer>
+    <InputContainer $variant={variant}>
       <Input value={value} readOnly />
       <div>
-        <InputButton onClick={handleClick('increase')}>
-          <img alt="증가" src={ArrowUp} width="5" />
+        <InputButton $variant={variant} onClick={handleClick('increase')}>
+          <img alt="증가" src={ArrowUp} />
         </InputButton>
-        <InputButton onClick={handleClick('decrease')}>
-          <img alt="감소" src={ArrowDown} width="5" />
+        <InputButton $variant={variant} onClick={handleClick('decrease')}>
+          <img alt="감소" src={ArrowDown} />
         </InputButton>
       </div>
     </InputContainer>
