@@ -6,7 +6,11 @@ import ErrorPage from '../ErrorPage/ErrorPage';
 
 const ProductPage = () => {
   return (
-    <ErrorBoundary errorFallback={({ error }) => <ErrorPage error={error} />}>
+    <ErrorBoundary
+      errorFallback={({ error, reset }) => (
+        <ErrorPage error={error} onReset={reset} />
+      )}
+    >
       <Suspense fallback={<ProductListFallback />}>
         <ProductList />
       </Suspense>

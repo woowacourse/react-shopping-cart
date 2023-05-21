@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
-import { productListQuery } from '../../../recoil/selectors';
 import { styled } from 'styled-components';
+import { productListQuery } from '../../../recoil/selectors';
 import ProductItem from '../ProductItem/ProductItem';
 
 const ProductList = () => {

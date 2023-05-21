@@ -35,6 +35,7 @@ const ProductItem = (product: Product) => {
     <ItemContainer>
       <ProductImageWrapper>
         <Image src={imageSrc} loading="lazy" alt={name} size="large" />
+
         <CartButtonWrapper>
           {productInCart ? (
             <Counter
