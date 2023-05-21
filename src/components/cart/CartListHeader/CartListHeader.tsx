@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from 'recoil';
 
 import { CART_LIST_CHECKBOX_KEY } from '../../../constants/store';
+import { useModal } from '../../../hooks/common/useModal';
 import { useCart } from '../../../hooks/useCart';
 import { cartListItemCountState } from '../../../store/cart';
 import {
@@ -10,6 +11,8 @@ import {
   isAllCheckedState,
 } from '../../../store/checkbox';
 import Checkbox from '../../common/Checkbox/Checkbox';
+import Modal from '../../common/Modal/Modal';
+import CartItemDelete from '../CartItemDelete/CartItemDelete';
 import * as S from './CartListHeader.styles';
 
 const CartListHeader = () => {
@@ -18,6 +21,7 @@ const CartListHeader = () => {
   const checkedIdList = useRecoilValue(checkedListState(CART_LIST_CHECKBOX_KEY));
   const [isAllChecked, setIsAllChecked] = useRecoilState(isAllCheckedState(CART_LIST_CHECKBOX_KEY));
   const { removeCheckedItems } = useCart();
+  const { isModalOpen, handleModalOpen, handleModalClose } = useModal();
 
   const onCheckboxClick = useCallback(() => {
     setIsAllChecked(!isAllChecked);
@@ -25,7 +29,8 @@ const CartListHeader = () => {
 
   const deleteCheckedItems = useCallback(() => {
     removeCheckedItems(Array.from(checkedIdList));
-  }, [checkedIdList, removeCheckedItems]);
+    handleModalClose();
+  }, [checkedIdList, handleModalClose, removeCheckedItems]);
 
   return (
     <S.CartListHeaderContainer>
@@ -35,9 +40,10 @@ const CartListHeader = () => {
         {cartListItemCount.state === 'hasValue' ? cartListItemCount.contents : 0})
       </S.CartItemAllSelectText>
       <S.VerticalLine />
-      <S.CartItemPartialSelectText onClick={deleteCheckedItems}>
-        선택삭제
-      </S.CartItemPartialSelectText>
+      <S.CartItemPartialSelectText onClick={handleModalOpen}>선택삭제</S.CartItemPartialSelectText>
+      <Modal isOpen={isModalOpen} handleClose={handleModalClose}>
+        <CartItemDelete handleModalClose={handleModalClose} removeItem={deleteCheckedItems} />
+      </Modal>
     </S.CartListHeaderContainer>
   );
 };

@@ -33,7 +33,7 @@ const cartHandlers = [
 
     setCartData(newCartList);
 
-    return res(ctx.delay(300), ctx.status(HTTP_STATUS_CODE.OK), ctx.json({ data: newCartList }));
+    return res(ctx.delay(100), ctx.status(HTTP_STATUS_CODE.OK), ctx.json({ data: newCartList }));
   }),
 
   rest.patch(`${API_ENDPOINT.CART_PATCH}/:productId`, async (req, res, ctx) => {
@@ -52,7 +52,7 @@ const cartHandlers = [
 
     setCartData(newCartList);
 
-    return res(ctx.delay(300), ctx.status(HTTP_STATUS_CODE.OK), ctx.json({ data: newCartList }));
+    return res(ctx.delay(100), ctx.status(HTTP_STATUS_CODE.OK), ctx.json({ data: newCartList }));
   }),
 
   rest.delete(`${API_ENDPOINT.CART_DELETE}/:productId`, (req, res, ctx) => {
@@ -69,7 +69,7 @@ const cartHandlers = [
 
     setCartData(newCartList);
 
-    return res(ctx.delay(300), ctx.status(HTTP_STATUS_CODE.NO_CONTENT));
+    return res(ctx.delay(100), ctx.status(HTTP_STATUS_CODE.NO_CONTENT));
   }),
 ];
 
