@@ -8,7 +8,9 @@ const ItemList = () => {
 
   return (
     <Wrapper>
-      {productList && productList.map((item) => <Item key={crypto.randomUUID()} {...item} />)}
+      {productList.map((item) => (
+        <Item key={crypto.randomUUID()} {...item} />
+      ))}
     </Wrapper>
   );
 };
