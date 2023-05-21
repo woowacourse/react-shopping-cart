@@ -11,7 +11,7 @@ import {
   checkedCartProductsPriceSumState,
 } from 'state/CartAtom';
 import styled from 'styled-components';
-import { flexRow } from 'styles/mixin';
+import { flexColumn, flexRow } from 'styles/mixin';
 import { CartProduct } from 'types/product';
 
 export const CartPage = () => {
@@ -58,7 +58,7 @@ export const CartPage = () => {
       <TitleWrapper>
         <h1>장바구니</h1>
       </TitleWrapper>
-      <FlexBox justify="space-around" gap="70px">
+      <ContentContainer>
         <FlexBox direction="column" width="600px" margin="10px 0" gap="15px">
           <CheckBoxContainer>
             <CheckAllCheckBox onClick={toggleCheckAllButton} checked={areCartProductsAllChecked} type="checkbox" />
@@ -70,15 +70,15 @@ export const CartPage = () => {
           <Line />
           <CartProductCardList cartProducts={cartProducts} />
         </FlexBox>
-        <FlexBox margin="30px 0" style={{ position: 'sticky', top: '95px', width: '400px' }}>
+        <ProductOrderTableWrapper>
           <ProductOrderTable
             priceSum={checkedCartProductsPriceSum}
             deliveryFee={cartProductsCheckedCount > 0 ? 3000 : 0}
             productsCount={cartProductsCheckedCount}
             onClickOrderButton={() => {}}
           />
-        </FlexBox>
-      </FlexBox>
+        </ProductOrderTableWrapper>
+      </ContentContainer>
     </Container>
   );
 };
@@ -90,6 +90,19 @@ const TitleWrapper = styled.div`
   h1 {
     font-size: 24px;
     text-align: center;
+  }
+`;
+
+const ContentContainer = styled.div`
+  ${flexRow}
+
+  justify: space-around;
+  gap: 70px;
+
+  @media (max-width: 1100px) {
+    ${flexColumn}
+
+    gap: 20px;
   }
 `;
 
@@ -128,5 +141,19 @@ const RemoveButton = styled.button`
 
   &:active {
     filter: brightness(0.8);
+  }
+`;
+
+const ProductOrderTableWrapper = styled.div`
+  position: sticky;
+  width: 400px;
+  height: 100%;
+  margin-top: 50px;
+  top: 95px;
+  z-index: 1;
+
+  @media (max-width: 1100px) {
+    width: 100%;
+    margin-top: 0;
   }
 `;
