@@ -1,7 +1,7 @@
+import { getMockShoppingItemApiUrl } from '@Api/index';
 import { rest } from 'msw';
 
 import mockData from './data/mockData.json';
-import { getMockShoppingItemApiUrl } from '../api/index';
 
 export const shoppingItemListHandler = [
   rest.get(getMockShoppingItemApiUrl('GET'), (req, res, ctx) => {

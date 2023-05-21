@@ -18,10 +18,10 @@ export const QUANTITY_CONTROL_UNIT = {
   DECREASE: 1,
 } as const;
 
-import { Error } from '@Types/index';
+import outOfStock from '@Assets/outOfStock.png';
+import warning from '@Assets/warning.png';
 
-import outOfStock from '../assets/outOfStock.png';
-import warning from '../assets/warning.png';
+import { Error } from '@Types/index';
 
 export const ERROR: { [key: string]: Error } = {
   httpClient: {

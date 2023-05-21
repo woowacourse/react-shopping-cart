@@ -1,4 +1,4 @@
-import ProductList from './ProductList';
+import ProductList from '@Pages/ProductListPage/ProductList';
 
 function ProductListPage() {
   return (

@@ -6,10 +6,11 @@ import Header from '@Components/Header';
 
 import GlobalStyle, { CommonPageStyle } from '@Styles/GlobalStyle';
 
+import { ShoppingCartProduct } from '@Types/index';
+
 import shoppingCartState from '@Atoms/shoppingCartState';
 
-import { LOCAL_STORAGE_KEYWORD } from './constants';
-import { ShoppingCartProduct } from './types';
+import { LOCAL_STORAGE_KEYWORD } from '@Constants/index';
 
 function App() {
   const setShoppingCart = useSetRecoilState<ShoppingCartProduct[]>(shoppingCartState);

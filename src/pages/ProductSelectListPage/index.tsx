@@ -1,9 +1,10 @@
 import PageTitle from '@Components/PageTitle';
 
+import EstimatedAmountPart from '@Pages/ProductSelectListPage/EstimatedAmountPart';
+import ProductSelectListPart from '@Pages/ProductSelectListPage/ProductSelectListPart';
+
 import useCheckedItems from '@Hooks/useCheckedItems';
 
-import EstimatedAmountPart from './EstimatedAmountPart';
-import ProductSelectListPart from './ProductSelectListPart';
 import * as S from './style';
 
 function ProductSelectListPage() {

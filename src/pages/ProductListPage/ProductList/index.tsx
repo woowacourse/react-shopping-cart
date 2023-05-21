@@ -1,5 +1,8 @@
+import { getMockShoppingItemApiUrl } from '@Api/index';
 import SkeletonProductItem from '@Components/ProductItem/Skeleton';
 import ProductItem from '@Components/ProductItem/index';
+
+import ErrorContainer from '@Pages/ProductListPage/ErrorContainer/index';
 
 import { Product } from '@Types/index';
 
@@ -8,8 +11,6 @@ import useFetch from '@Hooks/useFetch';
 import { ERROR } from '@Constants/index';
 
 import * as S from './style';
-import { getMockShoppingItemApiUrl } from '../../../api/index';
-import ErrorContainer from '../ErrorContainer';
 
 function ProductList() {
   const { data, isLoading, currentHttpStatus } = useFetch<Product[]>(getMockShoppingItemApiUrl('GET'));
@@ -25,7 +26,7 @@ function ProductList() {
   return (
     <S.ProductListContainer>
       {isLoading && Array.from({ length: 12 }, (_, index) => <SkeletonProductItem key={index} />)}
-      {!isLoading && data && data.map((data) => <ProductItem product={data} key={data.id} />)}
+      {!isLoading && data && data.map((data: Product) => <ProductItem product={data} key={data.id} />)}
     </S.ProductListContainer>
   );
 }
