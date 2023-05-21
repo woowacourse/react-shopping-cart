@@ -4,6 +4,7 @@ import type {ProductItem as ProductItemType} from '../../types/types';
 import ProductItem from '../../components/ProductItem';
 import {Col, Row} from '../../style/style';
 import {ProductListWrapper} from "./ProductList.style.ts";
+import ProductItemSkeleton from "../ProductItemSkeleton";
 
 function ProductList() {
 
@@ -23,7 +24,17 @@ function ProductList() {
         </ProductListWrapper>
       );
     case 'loading':
-      return <div>Loading...</div>;
+      return (
+        <ProductListWrapper>
+          <Row>
+            {Array.from({length: 30}).map((_, i) => (
+              <Col key={i}>
+                <ProductItemSkeleton/>
+              </Col>
+            ))}
+          </Row>
+        </ProductListWrapper>
+      );
     case 'hasError':
       throw productLoadable?.contents?.message;
     default:
