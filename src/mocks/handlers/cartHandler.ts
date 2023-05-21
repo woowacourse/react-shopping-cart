@@ -29,9 +29,9 @@ export const cartHandler = [
     if (product) {
       const newProduct = [...data, { id: Number(id), quantity: 1, product }];
       localStorage.setItem('cart-items', JSON.stringify(newProduct));
-      return res(ctx.json(newProduct));
+      return res(ctx.status(200));
     }
-    return res(ctx.status(404));
+    return res(ctx.status(404), ctx.json({ error: 'Item not found' }));
   }),
   rest.patch<PatchRequest, { id: string }>(
     '/cart-items/:id',
@@ -48,19 +48,25 @@ export const cartHandler = [
           { id: Number(id), quantity: quantity + 1, product },
         ];
         localStorage.setItem('cart-items', JSON.stringify(newProduct));
-        return res(ctx.json(newProduct));
+        return res(ctx.status(200));
       }
-      return res(ctx.status(404));
+      return res(ctx.status(404), ctx.json({ error: 'Item not found' }));
     }
   ),
   rest.delete('/cart-items/:id', async (req, res, ctx) => {
     const { id } = req.params;
     const data = JSON.parse(localStorage.getItem('cart-items') || '[]');
+
+    const itemIndex = data.findIndex((item: Cart) => item.id === Number(id));
+    if (itemIndex === -1) {
+      return res(ctx.status(404), ctx.json({ error: 'Item not found' }));
+    }
+
     const filteredData = data.filter((item: Cart) => item.id !== Number(id));
     const newData = [...filteredData];
 
     localStorage.setItem('cart-items', JSON.stringify(newData));
 
-    return res(ctx.json(newData));
+    return res(ctx.status(200));
   }),
 ];
