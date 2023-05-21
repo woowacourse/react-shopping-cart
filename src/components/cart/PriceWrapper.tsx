@@ -31,7 +31,7 @@ const S = {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 450px;
+    width: 60%;
     height: 410px;
     margin-top: 40px;
     border: 1px solid #ddd;
@@ -52,6 +52,10 @@ const S = {
 
     p:nth-child(even) {
       text-align: right;
+    }
+
+    @media all and (max-width: 1200px) {
+      width: 90%;
     }
   `,
 

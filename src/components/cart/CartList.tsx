@@ -2,7 +2,6 @@ import { useRecoilState } from 'recoil';
 import { cartState } from '../../store/CartState';
 import CartListItem from './CartListItem';
 import { styled } from 'styled-components';
-import Checkbox from '../common/Checkbox';
 import PriceWrapper from './PriceWrapper';
 import { useCart } from '../../hooks/useCart';
 import TotalCheckbox from './TotalCheckbox';
@@ -10,6 +9,8 @@ import { useFetchData } from '../../hooks/useFetchData';
 import { CART_BASE_URL } from '../../constants/url';
 import { CartItem } from '../../types';
 import { useEffect } from 'react';
+import Checkbox from '../@common/Checkbox';
+import { LoadingSpinner } from '../@common/LoadingSpinner';
 
 const CartList = () => {
   const [cart, setCart] = useRecoilState(cartState);
@@ -33,7 +34,7 @@ const CartList = () => {
   const itemList = (
     <S.ItemListWrapper>
       {isLoading ? (
-        <p>Loading..</p>
+        <LoadingSpinner />
       ) : (
         cart.map((cartItem) => (
           <S.ItemWrapper key={cartItem.id}>
