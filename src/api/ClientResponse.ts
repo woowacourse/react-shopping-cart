@@ -5,11 +5,10 @@ const OK_STATUS_CODES = [
   200, 201, 202, 203, 204, 205, 206, 207, 208, 226, 300, 301, 302, 303, 304, 307, 308,
 ] as const;
 
-class ClientResponse<TResponse extends HttpResponse> extends Promise<TResponse> {
+class ClientResponse<TResponse extends HttpResponse> {
   private readonly responsePromise: Promise<TResponse>;
 
   constructor(responseFn: () => Promise<TResponse>) {
-    super((resolve) => queueMicrotask(() => this.acceptOkOrThrow().then(resolve)));
     this.responsePromise = responseFn();
   }
 
