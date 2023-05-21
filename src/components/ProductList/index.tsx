@@ -1,14 +1,14 @@
 import styled from 'styled-components';
-import useFetch from '@hooks/useFetch';
+import useGetFetch from '@hooks/useGetFetch';
 import { ProductInformation } from '@type/types';
 import ProductItem from './ProductItem';
 
 const ProductList = () => {
-  const { data, isLoading } = useFetch<ProductInformation[]>('/products', {
+  const { data, isLoading } = useGetFetch<ProductInformation[]>('/products', {
     method: 'GET',
   });
 
-   if (isLoading) {
+  if (isLoading) {
     return <div>로딩 중입니다...</div>;
   }
 

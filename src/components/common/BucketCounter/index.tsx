@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import useBucketCount from '@hooks/useBucketCount';
+import fetchApi from '@utils/fetchApi';
 import {
   BUCKET_COUNTER_BOTTOM_BUTTON,
   BUCKET_COUNTER_TOP_BUTTON,
@@ -13,13 +14,18 @@ interface BucketCounterStyle {
 interface BucketCounterProps extends BucketCounterStyle {
   id: number;
   quantity?: number;
-  refetch: ()=>void
+  refetch: () => void;
 }
 
 const MAX_BUCKET_COUNT = 1000;
 const ERROR_MESSAGE = '장바구니 수량은 1000개 이하까지 가능합니다.';
 
-const BucketCounter = ({ id, quantity = 1, kind, refetch}: BucketCounterProps) => {
+const BucketCounter = ({
+  id,
+  quantity = 1,
+  kind,
+  refetch,
+}: BucketCounterProps) => {
   const {
     onBlur,
     bucketCount,
@@ -36,33 +42,39 @@ const BucketCounter = ({ id, quantity = 1, kind, refetch}: BucketCounterProps) =
   const changeCount = async (event: React.ChangeEvent<HTMLInputElement>) => {
     changeCountEvent(event);
 
-    const response = await fetch(`/cart-items/${id}`, {
+    const response = await fetchApi(`/cart-items/${id}`, {
       method: 'patch',
       body: JSON.stringify({ quantity: Number(event.target.value) }),
     });
 
-    if(response.ok) refetch()
+    if (response.ok) refetch();
   };
 
   const upButton = async () => {
-    const response = await fetch(`/cart-items/${id}`, {
+    const response = await fetchApi(`/cart-items/${id}`, {
       method: 'patch',
       body: JSON.stringify({ quantity: bucketCount }),
     });
 
     increaseCount();
-    if(response.ok) refetch()
+    if (response.ok) refetch();
   };
 
   const downButton = async () => {
-    const response = await fetch(`/cart-items/${id}`, {
+    const response = await fetchApi(`/cart-items/${id}`, {
       method: 'patch',
       body: JSON.stringify({ quantity: bucketCount }),
     });
 
     decreaseCount();
-    if(response.ok) refetch()
+    if (response.ok) refetch();
   };
+
+  const onBlurAndRefetch = (e:React.FocusEvent<HTMLInputElement>)=>{
+    onBlur(e);
+
+    refetch()
+  }
 
   return (
     <BucketCounterWrapper kind={kind}>
@@ -71,7 +83,7 @@ const BucketCounter = ({ id, quantity = 1, kind, refetch}: BucketCounterProps) =
         value={bucketCount === 0 ? '' : bucketCount}
         onChange={changeCount}
         ref={countRef}
-        onBlur={onBlur}
+        onBlur={onBlurAndRefetch}
         data-testid={CART_COUNT_INPUT}
         kind={kind}
       />

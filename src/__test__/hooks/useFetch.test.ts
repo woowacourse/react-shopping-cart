@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { rest } from 'msw';
-import useFetch from '@hooks/useFetch';
+import useGetFetch from '@hooks/useGetFetch';
 import { PRODUCT_URL } from '@constants/common';
 import { PRODUCT_LIST } from '../../mockData/productList';
 import { server } from './setup-env';
@@ -24,7 +24,7 @@ describe('상품 목록 fetch 테스트', () => {
   });
   test('상품 목록 fetch 했을 때 데이터가 오기 전까지 로딩이 true인지 테스트', () => {
     const { result } = renderHook(() =>
-      useFetch(PRODUCT_URL, { method: 'GET' })
+    useGetFetch(PRODUCT_URL, { method: 'GET' })
     );
     const { isLoading } = result.current;
 
@@ -33,7 +33,7 @@ describe('상품 목록 fetch 테스트', () => {
 
   test('상품 목록 fetch 했을 때 데이터가 온 후 로딩이 false인지 테스트', async () => {
     const { result } = renderHook(() =>
-      useFetch(PRODUCT_URL, { method: 'GET' })
+    useGetFetch(PRODUCT_URL, { method: 'GET' })
     );
 
     await waitFor(
@@ -47,7 +47,7 @@ describe('상품 목록 fetch 테스트', () => {
 
   test('상품 목록 fetch하면 가짜 데이터를 올바르게 가져오는지', async () => {
     const { result } = renderHook(() =>
-      useFetch(PRODUCT_URL, { method: 'GET' })
+    useGetFetch(PRODUCT_URL, { method: 'GET' })
     );
 
     await waitFor(
@@ -63,17 +63,16 @@ describe('상품 목록 fetch 테스트', () => {
   }
 
   test('상품 목록 fetch 할 때 가짜 데이터를 가져올 수 없는 경우를 테스트', async () => {
-    const { result } = renderHook(() =>
-      useFetch('/error', { method: 'GET' })
-    );
+    const { result } = renderHook(() => useGetFetch('/error', { method: 'GET' }));
 
     await waitFor(
       () => {
         const { error } = result.current;
-        expect((error as ErrorType).message).toBe('api 요청을 실패했습니다! status: 500');
+        expect((error as ErrorType).message).toBe(
+          'api 요청을 실패했습니다! status: 500'
+        );
       },
       { timeout: 1700 }
     );
   });
 });
- 
