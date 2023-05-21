@@ -12,16 +12,21 @@ export const CartTitle = styled.div`
 export const CartCountWrapper = styled.div`
   border-radius: 50%;
   background-color: #04c09e;
-  width: 26px;
-  height: 26px;
+  width: 2.6rem;
+  height: 2.6rem;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-left: 8px;
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    width: 3.2rem;
+    height: 3.2rem;
+  }
 `;
 
 export const CartCount = styled.div`
-  font-size: 16px;
+  font-size: 1.6rem;
   color: #fff;
 `;
 
