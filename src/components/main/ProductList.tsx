@@ -6,6 +6,7 @@ import { Product } from '../../types';
 import { PRODUCT_BASE_URL } from '../../constants/url';
 import { productListState } from '../../store/ProductListState';
 import { useEffect } from 'react';
+import Skeleton from './Skeleton';
 
 const ProductList = () => {
   const [productList, setProductList] = useRecoilState<Product[]>(productListState);
@@ -17,23 +18,19 @@ const ProductList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
-    <S.Wrapper>
-      {isLoading ? (
-        <p>Loading..</p>
-      ) : (
-        productList.map((product) => (
-          <ProductItem
-            key={product.id}
-            id={product.id}
-            name={product.name}
-            price={product.price}
-            imgUrl={`${process.env.PUBLIC_URL}${product.imageUrl}`}
-          />
-        ))
-      )}
-    </S.Wrapper>
-  );
+  const skeleton = Array.from({ length: 12 }).map((_, index) => <Skeleton key={index} />);
+
+  const products = productList.map((product) => (
+    <ProductItem
+      key={product.id}
+      id={product.id}
+      name={product.name}
+      price={product.price}
+      imgUrl={`${process.env.PUBLIC_URL}${product.imageUrl}`}
+    />
+  ));
+
+  return <S.Wrapper>{isLoading ? skeleton : products}</S.Wrapper>;
 };
 
 const S = {

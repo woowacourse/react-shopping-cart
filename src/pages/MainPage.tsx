@@ -1,6 +1,7 @@
 import Header from '../components/common/Header';
 import ProductList from '../components/main/ProductList';
 import useNavigatePage from '../hooks/useNavigatePage';
+import { ProductListWrapper } from '../style/ContentLayout';
 
 const MainPage = () => {
   const { goCart } = useNavigatePage();
@@ -8,7 +9,9 @@ const MainPage = () => {
   return (
     <>
       <Header title="STORE" onClickCartButton={goCart} />
-      <ProductList />
+      <ProductListWrapper>
+        <ProductList />
+      </ProductListWrapper>
     </>
   );
 };
