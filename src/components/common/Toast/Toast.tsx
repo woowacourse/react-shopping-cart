@@ -16,7 +16,12 @@ const Toast = ({ status = 'success', children }: ToastProps) => {
   }, []);
 
   return createPortal(
-    <S.ToastWrapper className={show ? '' : 'hide'} status={status}>
+    <S.ToastWrapper
+      role="alert"
+      aria-live="assertive"
+      className={show ? '' : 'hide'}
+      status={status}
+    >
       {children}
     </S.ToastWrapper>,
     document.body
