@@ -1,0 +1,27 @@
+.checkboxSmall {
+  appearance: none;
+  border: 2px solid #04c09e;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+}
+
+.checkboxBig {
+  appearance: none;
+  border: 3px solid #04c09e;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+
+.checkboxBig:checked {
+  background-color: #04c09e;
+  background-image: url('../../assets/check-icon.svg');
+  background-size: cover;
+}
+
+.checkboxSmall:checked {
+  background-color: #04c09e;
+  background-image: url('../../assets/check-icon.svg');
+  background-size: cover;
+}

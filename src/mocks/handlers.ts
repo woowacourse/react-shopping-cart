@@ -118,21 +118,23 @@ export const handlers = [
 
   rest.post('/add-cart-list', async (req, res, ctx) => {
     const { itemId, quantity } = await req.json();
+
     const savedValue = localStorage.getItem(storeKey);
+    if (!savedValue) localStorage.setItem(storeKey, '[]');
     if (savedValue) {
       const initData = JSON.parse(savedValue) as CartItemType[];
 
       const selectedCartItemIndex = initData.findIndex(
         (cartItem) => cartItem.product.id === itemId
       );
-      const selectedCartItemData = initData.find((cartItem) => cartItem.product.id === itemId);
-
+      const selectedCartItemData = initialData.find((item) => item.id === itemId);
+      console.log(selectedCartItemData);
       if (selectedCartItemIndex === -1 && selectedCartItemData !== undefined) {
         const newCartId = Number(new Date());
         initData.push({
           id: newCartId,
           quantity,
-          product: selectedCartItemData.product,
+          product: selectedCartItemData,
           isChecked: true,
         });
         return res(ctx.status(201), ctx.delay(500), ctx.json(initData));

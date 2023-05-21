@@ -19,7 +19,7 @@ const ProductItem = ({ information }: ProductItemProps) => {
   const { isModalOpen, handleModalOpen, handleModalClose, handleModalClosePress } = useModal();
 
   return (
-    <div className={styles.container}>
+    <div className={styles.itemContainer}>
       <div className={styles.imageContainer}>
         <img src={information.imageUrl} alt={information.name} className={styles.image} />
         <button

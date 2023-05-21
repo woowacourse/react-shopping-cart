@@ -5,6 +5,7 @@ import { useFetch } from '../../hooks/useFetch';
 import { cartListState } from '../../store/cart';
 import { ProductItemType } from '../../types';
 import { priceFormatter } from '../../utils/formatter';
+import Checkbox from '../Checkbox/Checkbox';
 import StepperButton from '../StepperButton/StepperButton';
 import styles from './style.module.css';
 
@@ -39,12 +40,10 @@ const CartItem = ({
     <>
       <div className={styles.cartItem}>
         <div className={styles.deleteCheckerBox}>
-          <input
-            className={styles.deleteChecker}
-            type="checkbox"
-            name="willDeleted"
+          <Checkbox
+            size="big"
             checked={isChecked}
-            onClick={() => {
+            clickEvent={() => {
               checkHandler(itemId);
             }}
           />

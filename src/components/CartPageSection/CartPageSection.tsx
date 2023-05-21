@@ -7,6 +7,7 @@ import { cartListState } from '../../store/cart';
 import { CartItemType } from '../../types';
 import { priceFormatter } from '../../utils/formatter';
 import CartItem from '../CartItem/CartItem';
+import Checkbox from '../Checkbox/Checkbox';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import styles from './style.module.css';
 
@@ -44,15 +45,14 @@ const CartPageSection = () => {
       <hr />
       <div className={styles.cartListSection}>
         <div className={styles.deleteBox}>
-          <input
-            type="checkbox"
-            className={styles.deleteChecker}
-            onClick={
+          <Checkbox
+            size="small"
+            checked={cartListCheckedLength() === cartList.length}
+            clickEvent={
               cartListCheckedLength() === cartList.length
                 ? resetCartCheckStatusToFalse
                 : resetCartCheckStatusToTrue
             }
-            checked={cartListCheckedLength() === cartList.length}
           />
           <p>
             전체 선택({cartListCheckedLength()}/{cartItem?.length})
