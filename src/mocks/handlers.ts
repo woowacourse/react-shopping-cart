@@ -8,18 +8,15 @@ export const handlers = [
   rest.post('/cart/:id', async (req, res, ctx) => {
     const { id, quantity }: AddCartDataReq = await req.json();
 
-    const itemInCart = MockCart.cart.find(({ product }) => product.id === id);
     const product = MockProducts.items.find((product) => product.id === id);
+    const targetItemIndex = MockCart.cart.findIndex(
+      ({ product }) => product.id === id
+    );
 
     if (!product) return res(ctx.status(404), ctx.json({}));
 
-    if (itemInCart) {
-      const newCartItem = {
-        ...structuredClone(itemInCart),
-        quantity: itemInCart.quantity + quantity,
-      };
-
-      MockCart.cart.push(newCartItem);
+    if (targetItemIndex >= 0) {
+      MockCart.cart[targetItemIndex].quantity += quantity;
     } else {
       const newCartItem = {
         id,
