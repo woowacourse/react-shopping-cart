@@ -1,10 +1,25 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
-import { theme } from '../src/styles/theme';
+import { MemoryRouter } from 'react-router-dom';
+import type { Preview } from '@storybook/react';
 import { RecoilRoot } from 'recoil';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
+import { handlers } from '../src/mocks/handlers';
 
-const preview = {
+let options = {};
+if (location.hostname === 'hyeryongchoi.github.io') {
+  options = {
+    serviceWorker: {
+      url: '/react-shopping-cart/mockServiceWorker.js',
+    },
+  };
+}
+
+// Initialize MSW
+initialize(options);
+
+const preview: Preview = {
   parameters: {
+    msw: handlers,
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
@@ -13,16 +28,17 @@ const preview = {
       },
     },
   },
-};
 
-export const decorators = [
-  (Story) => (
-    <ThemeProvider theme={theme}>
+  decorators: [
+    (Story) => (
       <RecoilRoot>
-        <Story />
+        <MemoryRouter initialEntries={['/']}>
+          <Story />
+        </MemoryRouter>
       </RecoilRoot>
-    </ThemeProvider>
-  ),
-];
+    ),
+    mswDecorator,
+  ],
+};
 
 export default preview;

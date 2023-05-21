@@ -8,10 +8,14 @@ const ProductList = () => {
     method: 'GET',
   });
 
+   if (isLoading) {
+    return <div>로딩 중입니다...</div>;
+  }
+
   if (!data) return null;
   return (
     <Container>
-      {isLoading ? "로딩 중..." :  data.map((product) => (
+      {data.map((product) => (
         <ProductItem product={product} key={product.id} />
       ))}
     </Container>
