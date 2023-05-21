@@ -6,6 +6,8 @@ import { useRef } from 'react';
 import useCart from '../../../hooks/cart/useCart';
 import Flex from '../../common/Flex';
 import { createPortal } from 'react-dom';
+import { useSetRecoilState } from 'recoil';
+import { checkedItemIdList } from '../../../recoil/cart';
 
 interface ItemCartDialogProps extends Product {
   closeModal: VoidFunction;
@@ -15,11 +17,13 @@ const ItemCartDialog: React.FC<ItemCartDialogProps> = (props) => {
   const { id, name, price, imageUrl, closeModal } = props;
   const quantityRef = useRef<HTMLInputElement>(null);
   const { addInCart } = useCart();
+  const setCheckedList = useSetRecoilState(checkedItemIdList);
 
   const addItemToCart = () => {
     const quantity = Number(quantityRef.current!.value);
 
     addInCart({ id, name, price, imageUrl }, quantity);
+    setCheckedList((list) => [...list, id]);
 
     closeModal();
   };

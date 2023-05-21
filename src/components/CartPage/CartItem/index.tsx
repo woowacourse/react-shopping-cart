@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import TRASH_BIN from '../../../assets/png/trash_bin.png';
 import Flex from '../../common/Flex';
 import * as S from './CartItem.styles';
@@ -6,6 +7,7 @@ import { CartItem as CartItemType } from '../../../types/cart';
 import useCart from '../../../hooks/cart/useCart';
 import Button from '../../common/Button';
 import useCounter from '../../../hooks/common/useCounter';
+import { checkedItemIdList } from '../../../recoil/cart';
 
 const CartItem = ({ product, id, quantity: initialQuantity }: CartItemType) => {
   const { imageUrl, name, price } = product;
@@ -15,18 +17,37 @@ const CartItem = ({ product, id, quantity: initialQuantity }: CartItemType) => {
     max: 100,
   });
   const { deleteInCart, adjustQuantityInCart } = useCart();
+  const [checkedList, setCheckedList] = useRecoilState(checkedItemIdList);
 
   useEffect(() => {
     adjustQuantityInCart(id, quantity);
   }, [quantity]);
 
+  const toggleCheckState = () => {
+    if (checkedList.includes(id)) {
+      setCheckedList((list) => list.filter((itemId) => itemId !== id));
+      return;
+    }
+
+    setCheckedList((list) => [...list, id]);
+  };
+
+  const removeItemFromCart = () => {
+    deleteInCart(id);
+    setCheckedList((list) => list.filter((itemId) => itemId !== id));
+  };
+
   return (
     <S.Container>
-      <S.CheckBox type="checkbox" />
+      <S.CheckBox
+        type="checkbox"
+        onChange={toggleCheckState}
+        checked={checkedList.includes(id)}
+      />
       <S.Thumbnail src={imageUrl} alt={name} />
       <S.Name>{name}</S.Name>
       <Flex dir="column" height="100%" justify="space-between" align="end">
-        <S.DeleteButton type="button" onClick={() => deleteInCart(id)}>
+        <S.DeleteButton type="button" onClick={removeItemFromCart}>
           <S.DeleteImage src={TRASH_BIN} alt="쓰레기통 아이콘" />
         </S.DeleteButton>
         <Flex>

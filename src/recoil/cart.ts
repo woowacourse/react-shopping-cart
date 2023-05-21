@@ -24,10 +24,26 @@ export const cartBadge = selector({
 export const cartPrice = selector({
   key: 'cartTotalPrice',
   get: ({ get }) => {
-    const cart = get(cartState);
-    return cart.reduce(
-      (prev, item) => prev + item.product.price * item.quantity,
-      0
-    );
+    const totalCart = get(cartState);
+    const checkedIdList = get(checkedItemIdList);
+    const totalPrice = totalCart.reduce((sum, item) => {
+      if (checkedIdList.includes(item.id)) {
+        return (sum += item.quantity * item.product.price);
+      }
+      return sum;
+    }, 0);
+
+    return totalPrice;
   },
+});
+
+export const checkedItemIdList = atom({
+  key: 'checkedCartItemList',
+  default: selector({
+    key: 'idList',
+    get: ({ get }): number[] => {
+      const idList = get(cartState).map((item) => item.id);
+      return idList;
+    },
+  }),
 });
