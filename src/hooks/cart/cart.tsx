@@ -1,6 +1,6 @@
 import { ChangeEvent, useCallback } from 'react';
 import { useRecoilRefresher_UNSTABLE } from 'recoil';
-import { addToCart, updateCartItem } from '../../apis/cart';
+import { addToCart, deleteCartItem, updateCartItem } from '../../apis/cart';
 import { cartState, selectedItemsState } from '../../atoms/cart';
 import { CartItem } from '../../types/cart';
 import { waitForMutation } from '../../utils/waitFor';
@@ -50,5 +50,15 @@ export const useMutateCart = () => {
     },
   });
 
-  return { addItemToCartMutation, updateCartItemMutation };
+  const deleteCartItemMutation = waitForMutation(deleteCartItem, {
+    onSuccess() {
+      refresh();
+    },
+  });
+
+  return {
+    addItemToCartMutation,
+    updateCartItemMutation,
+    deleteCartItemMutation,
+  };
 };

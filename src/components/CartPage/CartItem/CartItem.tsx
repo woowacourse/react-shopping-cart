@@ -1,3 +1,4 @@
+import { DELETE_CART_ITEM } from '../../../constants/messages';
 import { useCartSelector, useMutateCart } from '../../../hooks/cart/cart';
 import { CartItem as CartItemType } from '../../../types/cart';
 import Flex from '../../common/Flex';
@@ -13,14 +14,16 @@ const CartItem: React.FC<CartItemProps> = (props) => {
     product: { imageUrl, name, price },
   } = props;
   const { selectedItems, selectItem } = useCartSelector();
-  const { updateCartItemMutation } = useMutateCart();
+  const { updateCartItemMutation, deleteCartItemMutation } = useMutateCart();
 
-  const increaseQuantity = () => {
+  const increaseQuantity = () =>
     updateCartItemMutation({ id, quantity: quantity + 1 });
-  };
 
-  const decreaseQuantity = () => {
+  const decreaseQuantity = () =>
     updateCartItemMutation({ id, quantity: quantity - 1 });
+
+  const deleteCartItem = () => {
+    confirm(DELETE_CART_ITEM) && deleteCartItemMutation([id]);
   };
 
   return (
@@ -36,7 +39,7 @@ const CartItem: React.FC<CartItemProps> = (props) => {
           <S.Name>{name}</S.Name>
           <S.Info>
             <Flex dir="column" justify="space-between" align="end">
-              <S.DeleteButton>X</S.DeleteButton>
+              <S.DeleteButton onClick={deleteCartItem}>X</S.DeleteButton>
               <QuantityStepper
                 init={quantity}
                 onIncrease={increaseQuantity}
