@@ -1,11 +1,15 @@
 import styled from 'styled-components';
 
+interface QuantityInputButtonProps {
+  disabled: boolean;
+}
+
 export const Container = styled.div`
   width: 64px;
   display: flex;
   border: 1px solid #dddddd;
   :focus-within {
-    border: 1px solid #06c09e;
+    border: 1px solid #000000;
   }
 `;
 
@@ -28,7 +32,7 @@ export const ButtonWrapper = styled.div`
   flex-direction: column;
 `;
 
-export const QuantityButton = styled.button`
+export const QuantityButton = styled.button<QuantityInputButtonProps>`
   background-color: #ffffff;
   border: none;
   border-left: 1px solid #dddddd;
@@ -36,5 +40,11 @@ export const QuantityButton = styled.button`
   font-size: 8px;
   text-align: center;
   padding: 2px 0px;
+  cursor: ${(props) => (props.disabled ? 'init' : 'pointer')};
+`;
+
+export const CartIcon = styled.img`
+  width: 24px;
+  height: 20px;
   cursor: pointer;
 `;
