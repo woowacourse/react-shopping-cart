@@ -1,11 +1,11 @@
 import React from 'react';
+import { RouterProvider } from 'react-router-dom';
 import Layout from '@components/common/Layout';
-import PageRouterProvider from './router';
+import router from './router';
 
 function App() {
   return (
     <Layout>
-      <PageRouterProvider />
     </Layout>
   );
 }

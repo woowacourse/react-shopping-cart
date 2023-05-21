@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import { cartItemLengthSelector } from '@recoil/selectors/cartSelector';
@@ -6,14 +7,22 @@ import { theme } from '@styles/theme';
 
 const Header = () => {
   const cartLength = useRecoilValue(cartItemLengthSelector);
+  const navigate = useNavigate();
 
+  const goToMainPage = () => {
+    navigate('/');
+  };
+
+  const goToCartPage = () => {
+    navigate('/Cart');
+  };
   return (
     <HeaderWrapper>
-      <HeaderContainer>
+      <HeaderContainer onClick={goToMainPage}>
         <Logo src={HEADER_LOGO} alt="헤더 로고" />
         <LogoTitle>SHOP</LogoTitle>
       </HeaderContainer>
-      <HeaderContainer>
+      <HeaderContainer onClick={goToCartPage}>
         <BucketText>장바구니</BucketText>
         <BucketCount>{cartLength}</BucketCount>
       </HeaderContainer>
@@ -42,6 +51,8 @@ const HeaderWrapper = styled.header`
 const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
+
+  cursor: pointer;
 `;
 
 const LogoTitle = styled.h2`
@@ -60,7 +71,6 @@ const LogoTitle = styled.h2`
 const Logo = styled.img`
   width: 50px;
   height: 44px;
-
 `;
 
 const BucketText = styled.h3`
