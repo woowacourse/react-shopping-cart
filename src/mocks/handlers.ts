@@ -2,10 +2,19 @@ import { rest } from 'msw';
 import { CartProduct } from '../types/product';
 import { uuid } from '../utils/uuid';
 import mockData from './mockData.json';
-import { CART_ITEMS_BASE_URL, PRODUCTS_BASE_URL } from '../constant';
+import {
+  CART_ITEMS_BASE_URL,
+  CART_LIST_KEY,
+  PRODUCTS_BASE_URL,
+} from '../constant';
+import LocalStorage from '../utils/LocalStorage';
 
 const mockProducts = mockData.products;
-const cartList: CartProduct[] = [];
+const cartList: CartProduct[] = LocalStorage.getItem(CART_LIST_KEY) || [];
+
+const updateLocalStorage = () => {
+  LocalStorage.setItem(CART_LIST_KEY, cartList);
+};
 
 interface PostAddCartRequestBody {
   productId: number;
@@ -43,6 +52,7 @@ export const cartHandler = [
       };
 
       cartList.push(newCartItem);
+      updateLocalStorage();
 
       return res(ctx.status(201));
     },
@@ -58,6 +68,7 @@ export const cartHandler = [
         (cartItem) => cartItem.id === cartItemId,
       );
       cartList[targetCartItemIndex].quantity = quantity;
+      updateLocalStorage();
 
       return res(ctx.status(200));
     },
@@ -70,6 +81,7 @@ export const cartHandler = [
       (cartItem) => cartItem.id === cartItemId,
     );
     cartList.splice(targetCartItemIndex, 1);
+    updateLocalStorage();
 
     return res(ctx.status(204));
   }),
