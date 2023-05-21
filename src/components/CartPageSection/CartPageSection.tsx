@@ -64,7 +64,7 @@ const CartPageSection = () => {
         </div>
         <section className={styles.section}>
           <div className={styles.cartList}>
-            {!isLoading ? (
+            {false ? (
               cartItem.map((item) => (
                 <CartItem
                   quantity={item.quantity}

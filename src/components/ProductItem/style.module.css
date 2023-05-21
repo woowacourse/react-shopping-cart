@@ -48,6 +48,7 @@
   background: #04c09e;
   font-size: 18px;
   color: white;
+  transition: all 0.2s ease-in;
 }
 
 .image {
