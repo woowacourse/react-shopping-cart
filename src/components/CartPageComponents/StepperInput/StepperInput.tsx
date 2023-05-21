@@ -1,36 +1,18 @@
-import { ChangeEvent, useState } from 'react';
-import styled from 'styled-components';
+import { ChangeEvent, useEffect, useState } from 'react';
+import * as Styled from './StepperInput.styles.tsx';
+import { Item } from '../../../types/CartList.ts';
+import usePostUpdateCart from '../../../hooks/requests/usePostUpdateCart.ts';
+import useCart from '../../../hooks/useCart.ts';
 
-const StepperInputWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
+type StepperInputProps = {
+  initialValue: number;
+  cartItem: Item;
+};
 
-const Input = styled.input`
-  width: 88px;
-  flex: 1;
-  padding: 13px;
-`;
-
-const Button = styled.button`
-  padding: 2px 10px;
-  background-color: #e0e0e0;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-
-  &:hover {
-    background-color: #d0d0d0;
-  }
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const StepperInput = () => {
-  const [value, setValue] = useState('');
+const StepperInput = ({ initialValue, cartItem }: StepperInputProps) => {
+  const [value, setValue] = useState(initialValue.toString());
+  const { updateCart } = useCart();
+  const { optimisticUpdate } = usePostUpdateCart(cartItem);
 
   const handleIncrement = () => {
     setValue((prevValue) => {
@@ -52,6 +34,13 @@ const StepperInput = () => {
     setValue(inputValue.replace(/\D/, ''));
   };
 
+  useEffect(() => {
+    const targetValue = parseInt(value, 10);
+    const updatedCartItem = { ...cartItem, quantity: targetValue };
+    optimisticUpdate(updatedCartItem, { itemId: cartItem.id, quantity: targetValue });
+    updateCart(updatedCartItem);
+  }, [value]);
+
   const handleInputBlur = () => {
     if (value === '') {
       setValue('1');
@@ -59,13 +48,13 @@ const StepperInput = () => {
   };
 
   return (
-    <StepperInputWrapper>
-      <Input type='text' value={value} onChange={handleInputChange} onBlur={handleInputBlur} />
-      <ButtonWrapper>
-        <Button onClick={handleIncrement}>+</Button>
-        <Button onClick={handleDecrement}>-</Button>
-      </ButtonWrapper>
-    </StepperInputWrapper>
+    <Styled.StepperInputWrapper>
+      <Styled.Input type='text' value={value} onChange={handleInputChange} onBlur={handleInputBlur} />
+      <Styled.ButtonWrapper>
+        <Styled.Button onClick={handleIncrement}>+</Styled.Button>
+        <Styled.Button onClick={handleDecrement}>-</Styled.Button>
+      </Styled.ButtonWrapper>
+    </Styled.StepperInputWrapper>
   );
 };
 
