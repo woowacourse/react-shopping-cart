@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import CartEmptyPlaceholder from '../components/CartEmptyPlaceholder';
 import CartItemListItem from '../components/CartItemListItem';
 import CartOrder from '../components/CartOrder';
 import Checkbox from '../components/Checkbox';
@@ -91,36 +92,42 @@ const CartPage = () => {
       <Header>장바구니</Header>
 
       <CartLayout>
-        <CartItemListSection>
-          <CartItemListCaption>배송 상품 ({cartItems.length}개)</CartItemListCaption>
-          <CartItemList>
-            {cartItems.map((cartItem) => (
-              <CartItemListItemContainer>
-                <Checkbox
-                  value={!cartItem.unselectedForOrder}
-                  onChange={() => toggleForOrder(cartItem.id)}
-                />
-                <CartItemListItem
-                  key={cartItem.id}
-                  product={cartItem.product}
-                  quantity={cartItem.quantity}
-                />
-              </CartItemListItemContainer>
-            ))}
-          </CartItemList>
+        {cartItems.length === 0 ? (
+          <CartEmptyPlaceholder />
+        ) : (
+          <>
+            <CartItemListSection>
+              <CartItemListCaption>배송 상품 ({cartItems.length}개)</CartItemListCaption>
+              <CartItemList>
+                {cartItems.map((cartItem) => (
+                  <CartItemListItemContainer>
+                    <Checkbox
+                      value={!cartItem.unselectedForOrder}
+                      onChange={() => toggleForOrder(cartItem.id)}
+                    />
+                    <CartItemListItem
+                      key={cartItem.id}
+                      product={cartItem.product}
+                      quantity={cartItem.quantity}
+                    />
+                  </CartItemListItemContainer>
+                ))}
+              </CartItemList>
 
-          <CartItemListController>
-            <Checkbox value={allSelected} onChange={handleEnableAll} />
-            <CartItemSelected>
-              전체선택 ({selectedCount}/{cartItems.length}개)
-            </CartItemSelected>
-            <DeleteSelectedButton onClick={handleDeleteSelected}>선택삭제</DeleteSelectedButton>
-          </CartItemListController>
-        </CartItemListSection>
+              <CartItemListController>
+                <Checkbox value={allSelected} onChange={handleEnableAll} />
+                <CartItemSelected>
+                  전체선택 ({selectedCount}/{cartItems.length}개)
+                </CartItemSelected>
+                <DeleteSelectedButton onClick={handleDeleteSelected}>선택삭제</DeleteSelectedButton>
+              </CartItemListController>
+            </CartItemListSection>
 
-        <CartOrderSection>
-          <CartOrder isCartEmpty={selectedCount === 0} />
-        </CartOrderSection>
+            <CartOrderSection>
+              <CartOrder isCartEmpty={selectedCount === 0} />
+            </CartOrderSection>
+          </>
+        )}
       </CartLayout>
     </>
   );
