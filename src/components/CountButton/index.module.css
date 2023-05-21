@@ -11,7 +11,7 @@
   justify-content: center;
   font-size: 12px;
 
-  border: 1px solid var(--white-color-003);
+  border: 1px solid var(--gray-color-001);
 }
 
 .counter-container > div {
