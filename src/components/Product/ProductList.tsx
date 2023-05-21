@@ -26,7 +26,7 @@ const ProductList = () => {
 const ProductListContainer = styled.ul`
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(4, 282px);
+  grid-template-columns: repeat(auto-fill, 282px);
   grid-row-gap: 84px;
   grid-column-gap: 48px;
 `;
