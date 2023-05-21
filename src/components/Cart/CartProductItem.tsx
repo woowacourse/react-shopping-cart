@@ -68,21 +68,43 @@ const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
 };
 
 const CartProductContainer = styled.div`
-  display: flex;
-  column-gap: 15px;
+  position: relative;
   width: 100%;
+
+  @media (min-width: ${({ theme }) => theme.breakPoints.small}) {
+    display: flex;
+    column-gap: 15px;
+  }
 `;
 
 const ProductName = styled.p`
-  font-size: 20px;
+  margin: 10px 0 0 0;
+  font-size: 16px;
+  height: 24px;
+  line-height: 24px;
   flex-grow: 1;
+
+  @media (min-width: ${({ theme }) => theme.breakPoints.small}) {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.5;
+  }
 `;
 
 const CartInfoContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-content: space-between;
+
+  @media (min-width: ${({ theme }) => theme.breakPoints.small}) {
+    position: static;
+    height: initial;
+  }
 `;
 
 const DeleteButton = styled.button`

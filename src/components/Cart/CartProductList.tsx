@@ -21,8 +21,12 @@ const CartProductList = () => {
 
 const CartProductListContainer = styled.ul`
   & > li {
-    padding: 30px 0;
+    padding: 18px 0;
     border-top: 1px solid ${({ theme }) => theme.colors.gray200};
+
+    @media (min-width: ${({ theme }) => theme.breakPoints.small}) {
+      padding: 30px 0;
+    }
   }
 `;
 

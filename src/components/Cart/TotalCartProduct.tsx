@@ -15,14 +15,16 @@ const TotalCartProduct = () => {
 
   return (
     <Container>
-      <CheckBox
-        id='total-item-check'
-        onChange={toggleAllProductChecked}
-        checked={isAllChecked}
-      />
-      <p>
-        전체 선택 ({checkedCount}/{cartProductCount})
-      </p>
+      <TotalProductCountWrapper>
+        <CheckBox
+          id='total-item-check'
+          onChange={toggleAllProductChecked}
+          checked={isAllChecked}
+        />
+        <p>
+          전체 선택 ({checkedCount}/{cartProductCount})
+        </p>
+      </TotalProductCountWrapper>
       <Button
         type='button'
         primary={false}
@@ -39,11 +41,25 @@ const TotalCartProduct = () => {
 const Container = styled.div`
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin: 0 0 60px 0;
+  justify-content: space-between;
+  margin: 27px 0 45px 0;
 
   @media (min-width: ${({ theme }) => theme.breakPoints.medium}) {
+    justify-content: start;
     margin: 0 0 100px 0;
+  }
+`;
+
+const TotalProductCountWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
+  & > p {
+    margin: 0 0 0 12px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakPoints.medium}) {
+    margin: 0 12px 0 0;
   }
 `;
 
