@@ -41,7 +41,7 @@ const StepperButton = ({
     <S.StepperContainer {...attributes}>
       <S.StepperButton
         type="button"
-        aria-label="decrease"
+        aria-label="decrease count"
         disabled={count === minCount}
         variant="textButton"
         size="small"
@@ -57,7 +57,7 @@ const StepperButton = ({
       ></S.StepperInput>
       <S.StepperButton
         type="button"
-        aria-label="increase"
+        aria-label="increase count"
         disabled={count === maxCount}
         variant="textButton"
         size="small"
