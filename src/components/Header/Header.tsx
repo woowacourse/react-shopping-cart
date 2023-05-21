@@ -1,12 +1,13 @@
 import titleLogo from '../../assets/logo.png';
-import { useNavigate } from 'react-router-dom';
-import { Container } from '../../style/style';
+import {useNavigate} from 'react-router-dom';
+import {Container} from '../../style/style';
 import {
   CartCount, CartCountWrapper, CartTitle, CartWrapper, HeaderWrapper, LogoImage, LogoWrapper, Navbar
 } from './Header.style';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { cartCountSelector, cartState } from '../../recoil/cartAtoms';
-import { useEffect } from 'react';
+import {useRecoilValue, useSetRecoilState} from 'recoil';
+import {cartCountSelector, cartState} from '../../recoil/cartAtoms';
+import {useEffect} from 'react';
+import {CartItem, ReceivedCartItem} from "../../types/types.ts";
 
 function Header() {
   const navigate = useNavigate();
@@ -17,12 +18,16 @@ function Header() {
     try {
       const response = await fetch('/cart-items');
       const data = await response.json();
-      setCartList(data);
+      const checkedCartItems: CartItem[] = data.map((cartItem: ReceivedCartItem) => ({
+        ...cartItem,
+        checked: true
+      }));
+      setCartList(checkedCartItems);
     } catch (error) {
       console.error(error);
       throw new Error();
     }
-  }
+  };
 
   useEffect(() => {
     loadCartList();
@@ -33,7 +38,7 @@ function Header() {
       <Container>
         <HeaderWrapper>
           <LogoWrapper onClick={() => navigate('/')}>
-            <LogoImage src={titleLogo} />
+            <LogoImage src={titleLogo}/>
           </LogoWrapper>
           <CartWrapper onClick={() => navigate('/cart')}>
             <CartTitle>장바구니</CartTitle>

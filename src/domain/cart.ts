@@ -1,4 +1,4 @@
-import { CartItem } from "../types/types";
+import {CartItem} from "../types/types";
 
 export const getQuantityByProductId = (cartList: CartItem[], id: number) => {
   const targetCart = cartList.find((cart) => cart.id === id);
