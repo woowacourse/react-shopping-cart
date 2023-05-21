@@ -2,6 +2,7 @@ import { PRODUCT_LIST } from '@mockData/productList';
 import { renderHook, waitFor } from '@testing-library/react';
 import { rest } from 'msw';
 import { useFetch } from '@hooks/useFetch';
+import { CustomError } from '@type/error';
 import { API_URL_PRODUCT_LIST } from '@constants/common';
 import { server } from '../setup-env';
 
@@ -9,7 +10,10 @@ describe('useFetch가 올바르게 작동하는 지 테스트', () => {
   beforeEach(() => {
     server.use(
       rest.get('api/error', (req, res, ctx) => {
-        return res(ctx.status(500));
+        return res(
+          ctx.set('Content-Type', 'application/json'),
+          ctx.status(500)
+        );
       }),
 
       rest.get(API_URL_PRODUCT_LIST, (req, res, ctx) => {
@@ -84,20 +88,14 @@ describe('useFetch가 올바르게 작동하는 지 테스트', () => {
     );
   });
 
-  interface ErrorType {
-    message?: string;
-  }
-
   test('fetch를 하던 중 에러가 있다면 에러가 작동하는 지  테스트', async () => {
-    const { result } = renderHook(() =>
-      useFetch('api/error', { method: 'GET' })
-    );
+    const { result } = renderHook(() => useFetch('api/error'));
     await waitFor(
       async () => {
         const { error } = result.current;
 
-        expect((error as ErrorType).message as string).toBe(
-          'API 요청에 실패했습니다. status : 500'
+        expect((error as CustomError).message as string).toBe(
+          'Error: HTTP 오류! Status: 500'
         );
       },
       { timeout: 1500 }

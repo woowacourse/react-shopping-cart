@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { fetchGet } from '@utils/fetch';
 
 export const useFetch = <T>(
   url: string,
@@ -19,12 +20,7 @@ export const useFetch = <T>(
 
   const fetchData = useCallback(async () => {
     try {
-      const response = await fetch(url, options);
-      if (!response.ok) {
-        throw new Error(`API 요청에 실패했습니다. status : ${response.status}`);
-      }
-
-      const data = await response.json();
+      const data = await fetchGet<T>(url, options);
       setData(data);
       setIsLoading(false);
     } catch (error) {

@@ -1,3 +1,5 @@
+import { CustomError } from '@type/error';
+
 export const fetchGet = async <T>(
   url: string,
   options: RequestInit = {}
@@ -24,8 +26,8 @@ export const fetchGet = async <T>(
 
     return (await response.json()) as T;
   } catch (error) {
-    console.error('Error:', error);
-    return null;
+    const errorMessage = (error as CustomError).message;
+    throw new Error(`Error: ${errorMessage}`);
   }
 };
 
@@ -53,7 +55,8 @@ export const fetchPost = async <T>(
 
     return response;
   } catch (error) {
-    console.error('Error:', error);
+    const errorMessage = (error as CustomError).message;
+    throw new Error(`Error: ${errorMessage}`);
   }
 };
 
@@ -81,7 +84,8 @@ export const fetchPatch = async <T>(
 
     return response;
   } catch (error) {
-    console.error('Error:', error);
+    const errorMessage = (error as CustomError).message;
+    throw new Error(`Error: ${errorMessage}`);
   }
 };
 
@@ -103,6 +107,7 @@ export const fetchDelete = async (
 
     return response;
   } catch (error) {
-    console.error('Error:', error);
+    const errorMessage = (error as CustomError).message;
+    throw new Error(`Error: ${errorMessage}`);
   }
 };

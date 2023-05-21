@@ -10,3 +10,4 @@ export interface ProductInformation {
   price: number;
   imageUrl: string;
 }
+
