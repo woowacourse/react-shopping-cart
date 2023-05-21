@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useToast } from 'components/@common/Toast/hooks/useToast';
 
-export const useGet = <T>(callback: any) => {
+export const useGet = <T>(callback: () => Promise<T>) => {
   const [data, setData] = useState<T>();
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
 
   useEffect(() => {
-    fetchData(callback);
+    fetchData();
   }, []);
 
-  const fetchData = async (callback: CallableFunction) => {
+  const fetchData = async () => {
     try {
       const data = await callback();
       setData(data);
