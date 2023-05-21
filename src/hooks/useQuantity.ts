@@ -1,29 +1,31 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import { productSelector } from "recoil/selector";
-import { MAX_QUANTITY, MIN_QUANTITY } from "constants/";
+import { cartSelector } from "recoil/cart";
+import { MAX_QUANTITY, MIN_QUANTITY } from "constants/cartProduct";
 import { CartProduct } from "types/domain";
+import { changeItemQuantity, removeCartItem } from "api/cartItems";
 
 export const useQuantity = (itemID: number) => {
-  const [cartItem, setCartItem] = useRecoilState(productSelector(itemID));
+  const [cartItem, setCartItem] = useRecoilState(cartSelector(itemID));
   const [quantity, setQuantity] = useState<string>(
     cartItem ? cartItem.quantity.toString() : MIN_QUANTITY.toString()
   );
 
-  const changeQuantity = (newQuantity: string) => {
+  const changeQuantity = async (newQuantity: string) => {
     if (Number(newQuantity) > MAX_QUANTITY || Number(newQuantity) < MIN_QUANTITY) return;
 
-    fetch(`/cart-items/${itemID}`, {
-      method: "PATCH",
-      body: JSON.stringify({ quantity: Number(newQuantity) }),
-    })
-      .then(() => {
-        setQuantity(newQuantity);
-        setCartItem({ ...cartItem, quantity: Number(newQuantity) } as CartProduct);
-      })
-      .catch((err) => {
-        console.log(`장바구니 상품 수량 변경 실패: ${err instanceof Error ? err.message : ""}`);
-      });
+    const result =
+      Number(newQuantity) === MIN_QUANTITY
+        ? await changeItemQuantity(itemID, Number(newQuantity))
+        : await removeCartItem(itemID);
+
+    if (result) {
+      setQuantity(newQuantity);
+      setCartItem({ ...cartItem, quantity: Number(newQuantity) } as CartProduct);
+    }
+    if (!result) {
+      alert(`장바구니 상품 수량 변경 실패!`);
+    }
   };
 
   const handleQuantityChanged = (e: React.ChangeEvent<HTMLInputElement>) => {

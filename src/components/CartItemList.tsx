@@ -1,11 +1,11 @@
 import { styled } from "styled-components";
-import { CartProductList } from "recoil/selector";
+import { cartListState } from "recoil/cart";
 import { useRecoilValue } from "recoil";
 import CartItem from "components/CartItem";
 import { useCartCheckbox } from "hooks/useCartCheckbox";
 
 const CartItemList = () => {
-  const cartList = useRecoilValue(CartProductList);
+  const cartList = useRecoilValue(cartListState);
   const { isAllchecked, checkedCount, setAllCheckbox, removeCheckedItem } = useCartCheckbox();
 
   const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {

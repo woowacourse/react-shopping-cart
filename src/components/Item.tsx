@@ -1,27 +1,27 @@
 import styled from "styled-components";
-import { useQuantity } from "hooks/useQuantity";
-import { MIN_QUANTITY } from "constants/";
 import QuantityCounter from "components/QuantityCounter";
-import { CartProduct } from "types/domain";
+import { Product } from "types/domain";
+import { addCartItem } from "api/cartItems";
+import { cartSelector } from "recoil/cart";
+import { useRecoilState } from "recoil";
 
-const Item = (item: CartProduct) => {
-  const { quantity, changeQuantity } = useQuantity(item.id);
+const Item = (item: Product) => {
+  const [cartItem, setCartItem] = useRecoilState(cartSelector(item.id));
 
-  const handleCartClicked = () => {
-    fetch("/cart-items", { method: "POST", body: JSON.stringify({ productId: item.id }) })
-      .then(() => changeQuantity("1"))
-      .catch((err) => {
-        console.log(`장바구니 상품 추가 실패: ${err instanceof Error ? err.message : ""}`);
-      });
+  const handleCartClicked = async () => {
+    const result = await addCartItem(item.id);
+
+    if (result) setCartItem({ id: item.id, quantity: 1, isChecked: true, product: item });
+    if (!result) console.log("장바구니 상품 추가 실패!");
   };
 
   return (
     <Wrapper>
-      <img src={item.product.imageUrl} alt={`${item.product.name} 상품 이미지`} />
-      <NameBox>{item.product.name}</NameBox>
-      <PriceBox>{item.product.price.toLocaleString()}원</PriceBox>
+      <img src={item.imageUrl} alt={`${item.name} 상품 이미지`} />
+      <NameBox>{item.name}</NameBox>
+      <PriceBox>{item.price.toLocaleString()}원</PriceBox>
       <IconContainer>
-        {quantity === MIN_QUANTITY.toString() ? (
+        {!cartItem ? (
           <img
             src={process.env.PUBLIC_URL + "/assets/cart-gray-icon.svg"}
             alt={"카트"}

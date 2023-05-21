@@ -1,5 +1,5 @@
 import { useRecoilValue } from "recoil";
-import { cartTotalPrice } from "recoil/selector";
+import { cartTotalPrice } from "recoil/cart";
 import styled from "styled-components";
 
 const PurchaseOrder = () => {

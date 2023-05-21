@@ -1,6 +1,6 @@
 import { DefaultValue, atom, selector, selectorFamily } from "recoil";
 import { recoilPersist } from "recoil-persist";
-import { MIN_QUANTITY } from "constants/index";
+import { MIN_QUANTITY } from "constants/cartProduct";
 import { CartProduct } from "types/domain";
 import { getCartItems } from "api/cartItems";
 

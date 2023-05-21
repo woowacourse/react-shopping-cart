@@ -1,41 +1,14 @@
 import styled from "styled-components";
 import Item from "components/Item";
-import { useFetch } from "hooks/useFetch";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { productListState } from "recoil/atom";
-import { Product, CartProduct } from "types/domain";
-import { useEffect } from "react";
-import { CartProductList } from "recoil/selector";
+import { useRecoilValue } from "recoil";
+import { productListState } from "recoil/product";
 
 const ItemList = () => {
-  const [productList, setProductList] = useRecoilState(productListState);
-  const cartList = useRecoilValue(CartProductList);
-
-  const { result, isLoading } = useFetch<Product[]>("/products");
-
-  useEffect(() => {
-    if (isLoading || !result) return;
-
-    setProductList(
-      result.map((product) => {
-        const cartItem = cartList.find((item) => item.id === product.id);
-
-        const updatedProduct: CartProduct = {
-          id: product.id,
-          quantity: cartItem ? cartItem.quantity : 0,
-          isChecked: cartItem ? cartItem.isChecked : true,
-          product: product,
-        };
-
-        return updatedProduct;
-      })
-    );
-  }, [isLoading]);
+  const productList = useRecoilValue(productListState);
 
   return (
     <Wrapper>
-      {isLoading && <h1>Loading...</h1>}
-      {!isLoading && productList.map((item) => <Item key={crypto.randomUUID()} {...item} />)}
+      {productList && productList.map((item) => <Item key={crypto.randomUUID()} {...item} />)}
     </Wrapper>
   );
 };

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { CartProductList } from "recoil/selector";
+import { cartListState } from "recoil/cart";
 
 export const useCartCheckbox = () => {
-  const [cartList, setCartList] = useRecoilState(CartProductList);
+  const [cartList, setCartList] = useRecoilState(cartListState);
   const [isAllchecked, setIsAllChecked] = useState(true);
   const [checkedCount, setCheckedCount] = useState(cartList.length);
 

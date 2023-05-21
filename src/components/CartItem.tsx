@@ -1,14 +1,13 @@
+import React from "react";
 import styled from "styled-components";
 import QuantityCounter from "components/QuantityCounter";
-import React from "react";
 import { useSetRecoilState } from "recoil";
-import { productSelector } from "recoil/selector";
+import { cartSelector } from "recoil/cart";
 import { CartProduct } from "types/domain";
-import { useQuantity } from "hooks/useQuantity";
+import { removeCartItem } from "api/cartItems";
 
 const CartItem = (item: CartProduct) => {
-  const setProduct = useSetRecoilState(productSelector(item.id));
-  const { changeQuantity } = useQuantity(item.id);
+  const setProduct = useSetRecoilState(cartSelector(item.id));
 
   const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProduct({
@@ -17,8 +16,11 @@ const CartItem = (item: CartProduct) => {
     });
   };
 
-  const removeItem = () => {
-    changeQuantity("0");
+  const removeItem = async () => {
+    const result = await removeCartItem(item.id);
+
+    if (result) setProduct(null);
+    if (!result) console.log("장바구니 상품 제거 실패!");
   };
 
   return (
@@ -101,4 +103,4 @@ const PriceBox = styled.p`
   font-size: 16px;
 `;
 
-export default React.memo(CartItem);
+export default CartItem;
