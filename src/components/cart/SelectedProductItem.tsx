@@ -1,31 +1,21 @@
 import { useRecoilState } from 'recoil';
 import { css, styled } from 'styled-components';
 import { useSetCart } from '../../hooks/useCart';
-import { useHandleQuantityInput } from '../../hooks/useHandleQuantityInput';
-import { useLoadCart } from '../../hooks/useLoadCart';
 import { checkedItemList } from '../../recoil';
 import { Product } from '../../types';
 import Button from '../common/Button';
 import { Checkbox } from '../common/CheckboxStyle';
 import TrashCanIcon from '../icons/TrashCanIcon';
-import QuantityInput from '../main/QuantityInput';
 import Price from '../Price';
+import QuantityButton from './QuantityButton';
 
 interface Props extends Product {
   quantity: number;
 }
 
 const SelectedProductItem = ({ id, imageUrl, name, price, quantity }: Props) => {
-  const { setIsSelected, setQuantity } = useLoadCart(id);
-  const { addToCart, removeItemFromCart } = useSetCart(id);
+  const { removeItemFromCart } = useSetCart(id);
   const [checkedItems, setCheckedItems] = useRecoilState<number[]>(checkedItemList);
-
-  const handleNumberInputChange = useHandleQuantityInput({
-    setIsSelected,
-    removeItemFromCart,
-    setQuantity,
-    addToCart,
-  });
 
   const isChecked = checkedItems.includes(id);
 
@@ -35,7 +25,7 @@ const SelectedProductItem = ({ id, imageUrl, name, price, quantity }: Props) => 
       : setCheckedItems((prev) => [...prev, id]);
   };
 
-    const handleTrashCanClick = () => {
+  const handleTrashCanClick = () => {
     setCheckedItems((prev) => prev.filter((itemId) => itemId !== id));
     removeItemFromCart();
   };
@@ -55,7 +45,7 @@ const SelectedProductItem = ({ id, imageUrl, name, price, quantity }: Props) => 
           {name}
         </S.Name>
         <S.Wrapper>
-          <QuantityInput id={name} value={String(quantity)} onChange={handleNumberInputChange} />
+          <QuantityButton productId={id} />
           <Button css={trashCanButtonStyle} onClick={handleTrashCanClick}>
             <TrashCanIcon patternId={id} imageSize={{ width: '40', height: '40' }} />
           </Button>

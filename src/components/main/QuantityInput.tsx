@@ -6,7 +6,7 @@ import Input from '../common/Input';
 
 interface Props {
   id: string;
-  value: string;
+  value: number;
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
@@ -26,7 +26,7 @@ const QuantityInput = ({ id, value, onChange }: Props) => {
   };
 
   return (
-    <S.Wrapper>
+    <QuantityStyle.Wrapper>
       <Input
         type="number"
         value={value}
@@ -46,11 +46,11 @@ const QuantityInput = ({ id, value, onChange }: Props) => {
 
       <FaCaretUp aria-label="button-to-raise-quantity" />
       <FaCaretDown aria-label="button-to-lower-quantity" />
-    </S.Wrapper>
+    </QuantityStyle.Wrapper>
   );
 };
 
-const S = {
+export const QuantityStyle = {
   Wrapper: styled.div`
     position: relative;
     width: 80px;
@@ -71,7 +71,7 @@ const S = {
   `,
 };
 
-const QuantityInputStyle = css`
+export const QuantityInputStyle = css`
   position: absolute;
   right: 0;
   z-index: 2;
