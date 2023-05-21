@@ -50,7 +50,7 @@ const CartList = ({
         ))}
       </CartItemListWrapper>
       <SelectAllWrapper>
-        <CheckBox type="checkbox" onChange={handleOnAllCheckedButton} />
+        <CheckBox type="checkbox" onChange={handleOnAllCheckedButton} aria-label='allCheck'/>
         <Text size="minimum" weight="light" color="#333333">
           전체선택({checkedCartItemList.length}/{cartList.length})
         </Text>

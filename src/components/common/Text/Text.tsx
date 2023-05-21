@@ -6,6 +6,7 @@ type TextProps = PropsWithChildren<{
   weight?: 'light' | 'normal' | 'littlebold' | 'bold';
   color?: string;
   lineHeight?: string;
+  label?: string;
 }>;
 
 type StyledTextProps = {
@@ -39,10 +40,10 @@ export const StyledText = styled.div<StyledTextProps>`
 `;
 
 export const Text = (props: TextProps) => {
-  const { size = 'medium', weight = 'normal', color, lineHeight, children } = props;
+  const { size = 'medium', weight = 'normal', color, lineHeight, children, label } = props;
 
   return (
-    <StyledText $size={size} $weight={weight} $color={color} $lineHeight={lineHeight}>
+    <StyledText $size={size} $weight={weight} $color={color} $lineHeight={lineHeight} aria-label={label}>
       {children}
     </StyledText>
   );

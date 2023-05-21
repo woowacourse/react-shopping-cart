@@ -18,7 +18,7 @@ const PriceBox = ({ checkedCartItemList }: { checkedCartItemList: CartItem[] }) 
           <Text size="small" weight="littlebold" color="#333333">
             총 상품가격
           </Text>
-          <Text size="small" weight="littlebold" color="#333333">
+          <Text size="small" weight="littlebold" color="#333333" label='totalPrice'>
             {formatPrice(totalPrice)}원
           </Text>
         </TextWrapper>

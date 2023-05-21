@@ -90,7 +90,7 @@ const CartListItem = (props: CartListItemProps) => {
           quantity={cartItem.quantity}
           setQuantity={handleSetQuantityOnInputStepper}
         />
-        <Text size="minimum" weight="light" color="#333333">
+        <Text size="minimum" weight="light" color="#333333" label='price'>
           {formatPrice(cartItem.product.price)}원
         </Text>
       </CartItemControllerWrapper>
