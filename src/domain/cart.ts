@@ -15,3 +15,14 @@ export const updateCartListQuantity = (cartList: CartItem[], id: number, newQuan
   cartList[targetIndex] = updatedCart;
   return cartList;
 };
+
+export const updateCartCheckbox = (cartList: CartItem[], id: number) => {
+  const targetIndex = cartList.findIndex(cartItem => cartItem.id === id);
+  const targetCart = cartList[targetIndex];
+  const updatedCart = {
+    ...targetCart,
+    checked: !targetCart.checked
+  };
+  cartList[targetIndex] = updatedCart;
+  return cartList;
+};

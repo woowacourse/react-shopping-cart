@@ -11,6 +11,7 @@ import {
 } from "./CartItem.style";
 import trashIcon from '../../assets/trash.png';
 import useCart from "../../hooks/useCart.ts";
+import {ChangeEvent} from "react";
 
 interface CartItemProps {
   cart: CartItem;
@@ -18,12 +19,18 @@ interface CartItemProps {
 
 function CartItem({cart}: CartItemProps) {
 
-  const {removeCart} = useCart();
+  const {removeCart, switchCheckbox} = useCart();
 
   return (
     <CartItemLayout>
       <div>
-        <input type="checkbox" checked={cart.checked}/>
+        <input
+          type="checkbox"
+          checked={cart.checked}
+          onChange={() => {
+            switchCheckbox(cart.id);
+          }}
+        />
       </div>
       <CartItemImage src={cart.product.imageUrl}/>
       <CartItemInfoWrapper>
