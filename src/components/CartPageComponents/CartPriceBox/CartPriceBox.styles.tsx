@@ -4,12 +4,24 @@ export const CartPriceBoxWrapper = styled.div`
   width: 45%;
   margin-top: 83px;
   margin-left: 100px;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    margin: 30px 0;
+  }
 `;
 
 export const CartPriceBoxContent = styled.div`
   position: fixed;
   width: 26%;
   border: 2px solid #dddddd;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    position: static;
+    border: none;
+    padding: 0 20px;
+  }
 `;
 
 export const CartPriceBoxContentTitle = styled.h3`
@@ -18,10 +30,19 @@ export const CartPriceBoxContentTitle = styled.h3`
   line-height: 33px;
   letter-spacing: 0.5px;
   padding: 35px 0 35px 30px;
+
+  @media screen and (max-width: 768px) {
+    padding: 20px 0;
+    text-align: center;
+  }
 `;
 
 export const CartPriceTextWrapper = styled.div`
   padding: 35px 30px;
+
+  @media screen and (max-width: 768px) {
+    padding: 20px 0;
+  }
 `;
 
 export const PriceTextWrapper = styled.div`
@@ -50,5 +71,9 @@ export const OrderButton = styled.button`
 
   &:hover {
     transform: scale(1.03);
+  }
+
+  @media screen and (max-width: 768px) {
+    height: 50px;
   }
 `;
