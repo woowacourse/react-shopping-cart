@@ -11,12 +11,12 @@ const Header = () => {
   return (
     <HeaderContainer>
       <HeaderContent>
-        <LogoContainer>
-          <CartIcon width={51} height={44} color='white' />
-          <Link to='/'>
+        <Link to='/'>
+          <LogoContainer>
+            <CartIcon width={51} height={44} color='white' />
             <Logo>SHOP</Logo>
-          </Link>
-        </LogoContainer>
+          </LogoContainer>
+        </Link>
         <Link to='/cart'>
           <MoveCartPageBtn>
             장바구니
@@ -61,7 +61,7 @@ const Logo = styled.h1`
   padding: 10px 0 0;
 
   @media (max-width: 420px) {
-    opacity: 0;
+    display: none;
   }
 `;
 
