@@ -2,7 +2,10 @@ import styled from 'styled-components';
 import Flex from '../../common/Flex';
 
 export const Root = styled.aside`
+  position: sticky;
+  top: 10rem;
   min-width: 35%;
+  max-height: 41rem;
   border: 1px solid #dddddd;
 
   & > button {
