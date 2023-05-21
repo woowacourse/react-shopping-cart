@@ -1,5 +1,4 @@
-import { ChangeEvent } from 'react';
-import useCartSelector from '../../../hooks/cart/useCartSelector';
+import { useCartSelector, useMutateCart } from '../../../hooks/cart/cart';
 import { CartItem as CartItemType } from '../../../types/cart';
 import Flex from '../../common/Flex';
 import QuantityStepper from '../../common/QuantityStepper/QuantityStepper';
@@ -14,6 +13,15 @@ const CartItem: React.FC<CartItemProps> = (props) => {
     product: { imageUrl, name, price },
   } = props;
   const { selectedItems, selectItem } = useCartSelector();
+  const { updateCartItemMutation } = useMutateCart();
+
+  const increaseQuantity = () => {
+    updateCartItemMutation({ id, quantity: quantity + 1 });
+  };
+
+  const decreaseQuantity = () => {
+    updateCartItemMutation({ id, quantity: quantity - 1 });
+  };
 
   return (
     <S.Root>
@@ -29,7 +37,11 @@ const CartItem: React.FC<CartItemProps> = (props) => {
           <S.Info>
             <Flex dir="column" justify="space-between" align="end">
               <S.DeleteButton>X</S.DeleteButton>
-              <QuantityStepper init={quantity} />
+              <QuantityStepper
+                init={quantity}
+                onIncrease={increaseQuantity}
+                onDecrease={decreaseQuantity}
+              />
               <S.Price>{price.toLocaleString()} 원</S.Price>
             </Flex>
           </S.Info>
