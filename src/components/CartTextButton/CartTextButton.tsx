@@ -16,9 +16,10 @@ const CartTextButton = () => {
 const Container = styled.div`
   display: flex;
   align-items: center;
+  justify-content: end;
   gap: 8px;
 
-  width: 130px;
+  width: 120px;
 
   cursor: pointer;
 `;

@@ -36,6 +36,8 @@ const GlobalStyle = createGlobalStyle`
   *{
     font-family: "BMHANNAPro";
   }
+
+
 `;
 
 export default GlobalStyle;

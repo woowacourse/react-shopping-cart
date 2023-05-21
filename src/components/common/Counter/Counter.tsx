@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { WIDTH } from '../../../styles/mediaQuery';
 
 interface CounterProps {
   plusOne: () => void;
@@ -27,6 +28,12 @@ const Container = styled.div`
   border: 1px solid grey;
   border-radius: 3px;
   -webkit-box-pack: center;
+
+  @media (max-width: ${WIDTH.MD}) {
+    width: 36px;
+    height: 16px;
+    font-size: 9px;
+  }
 `;
 
 const Count = styled.div`

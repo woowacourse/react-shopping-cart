@@ -5,6 +5,7 @@ import { styled } from 'styled-components';
 import CartTextButton from './components/CartTextButton/CartTextButton';
 import Header from './components/Header/Header';
 import OnLoading from './components/OnLoading/OnLoading';
+import { WIDTH } from './styles/mediaQuery';
 
 const App = () => {
   return (
@@ -30,4 +31,5 @@ const Layout = styled.div`
   padding: 64px 0px;
 
   width: 100%;
+  min-width: ${WIDTH.SM};
 `;

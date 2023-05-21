@@ -6,6 +6,7 @@ import CheckBox from '../common/CheckBox/CheckBox';
 import { Select } from '../CartItemList/CartItemList';
 import { deleteCartItem } from '../../api/cartList';
 import useCartAtom from '../../hooks/useCartAtom';
+import { WIDTH } from '../../styles/mediaQuery';
 
 interface CartItemProps {
   id: number;
@@ -51,10 +52,9 @@ const CartItem = ({
         <CheckBox checked={cartItemState.isSelected} onClick={toggleSelect} />
       </CheckBoxWrapper>
 
-      <ProductImg
-        imageUrl={imageUrl}
-        size={{ width: '144px', height: '144px' }}
-      />
+      <ProductImgContainer>
+        <ProductImg imageUrl={imageUrl} />
+      </ProductImgContainer>
 
       <DetailWrapper>
         <ProductName>{name}</ProductName>
@@ -89,6 +89,14 @@ const CheckBoxWrapper = styled.div`
 `;
 
 const ProductName = styled.span``;
+
+const ProductImgContainer = styled.div`
+  width: 144px;
+
+  @media (max-width: ${WIDTH.MD}) {
+    width: 90px;
+  }
+`;
 
 const DetailWrapper = styled.div`
   position: relative;

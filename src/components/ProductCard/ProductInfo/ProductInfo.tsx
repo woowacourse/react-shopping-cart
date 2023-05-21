@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import styled from 'styled-components';
+import { WIDTH } from '../../../styles/mediaQuery';
 
 interface ProductInfoProps {
   name: String;
@@ -19,8 +20,6 @@ const Styled = {
     display: flex;
     flex-direction: column;
     gap: 4px;
-
-    padding-left: 16px;
   `,
 
   ProductName: styled.span`
@@ -28,6 +27,10 @@ const Styled = {
     font-size: 16px;
 
     letter-spacing: 0.5px;
+
+    @media (max-width: ${WIDTH.MD}) {
+      font-size: 9px;
+    }
   `,
 
   ProductPrice: styled.span`
@@ -35,6 +38,10 @@ const Styled = {
     font-size: 20px;
 
     letter-spacing: 0.5px;
+
+    @media (max-width: ${WIDTH.MD}) {
+      font-size: 12px;
+    }
   `,
 };
 export default memo(ProductInfo);
