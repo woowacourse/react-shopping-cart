@@ -11,7 +11,9 @@ export default function CartPage() {
         <Suspense fallback={<div>삭제버튼 로딩 인디케이터</div>}>
           <CartList />
         </Suspense>
-        <SubTotal />
+        <Suspense fallback={<div>삭제버튼 로딩 인디케이터</div>}>
+          <SubTotal />
+        </Suspense>
       </CartPageBody>
     </CartPageContainer>
   );

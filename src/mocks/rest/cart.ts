@@ -44,7 +44,10 @@ export const postCartItem = rest.post('/cart-items', async (req, res, ctx) => {
   }
 
   cartItem.quantity = 1;
-  return res(ctx.status(200));
+  return res(
+    ctx.status(200),
+    ctx.set('Location', `/cart-items/${cartItem.id}`)
+  );
 });
 
 export const deleteCartItem = rest.delete(

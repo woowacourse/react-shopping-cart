@@ -29,6 +29,7 @@ export default function SelectCartItem() {
       setCartSelectsState(new Set());
     }
   }, [checkAll]);
+
   return (
     <SelectCartItemContainer>
       <SelectBox
