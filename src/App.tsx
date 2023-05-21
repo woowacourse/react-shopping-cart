@@ -12,9 +12,6 @@ export default function App() {
     <RecoilRoot>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Header>
-          <CartQuantity />
-        </Header>
         <Router />
       </ThemeProvider>
     </RecoilRoot>
