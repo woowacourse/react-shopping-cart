@@ -4,7 +4,7 @@ import { CartIcon } from '../assets/svg';
 import { useProductInCartById } from '../recoils/recoilCart';
 import { useUpdateCart } from '../hooks/useUpdateCart';
 
-import { Stepper } from './exporter';
+import { Stepper } from './Stepper';
 
 import { Product as IProduct } from '../types';
 

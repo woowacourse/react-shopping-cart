@@ -3,7 +3,8 @@ import { styled } from 'styled-components';
 
 import { useQuery } from '../hooks/useQuery';
 
-import { Product, Skeleton } from './exporter';
+import { Skeleton } from './common/Skeleton';
+import { Product } from './Product';
 
 import { Product as IProduct } from '../types';
 

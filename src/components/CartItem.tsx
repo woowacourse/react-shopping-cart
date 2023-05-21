@@ -4,7 +4,9 @@ import { GarbageIcon } from '../assets/svg';
 import { useProductInCartById } from '../recoils/recoilCart';
 import { useCheckedState } from '../recoils/recoilChecked';
 
-import { Stepper, Button, Checkbox } from './exporter';
+import { Stepper } from './Stepper';
+import { Button } from './common/Button';
+import { Checkbox } from './styled';
 
 interface CartItemProps {
   productId: number;

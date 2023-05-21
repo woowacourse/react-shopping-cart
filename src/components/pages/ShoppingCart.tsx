@@ -1,6 +1,8 @@
 import { styled } from 'styled-components';
 
-import { Cart, Layout, OrderSummary } from '../exporter';
+import { Cart } from '../Cart';
+import { Layout } from '../common/Layout';
+import { OrderSummary } from '../OrderSummary';
 
 export const ShoppingCart = () => {
   return (

@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 import { useCartState } from '../recoils/recoilCart';
 import { useCheckedState } from '../recoils/recoilChecked';
 
-import { Checkbox } from './exporter';
+import { Checkbox } from './styled';
 
 export const CartActions = () => {
   const [cart] = useCartState();
@@ -31,7 +31,7 @@ export const CartActions = () => {
           전체선택 ({Object.keys(checkedState).length - 1}/{cart.length})
         </span>
       </Style.ToggleAllCheckBox>
-      <button>선택삭제</button>
+      <Style.DeleteButton>선택삭제</Style.DeleteButton>
     </Style.SelectionActions>
   );
 };
@@ -60,4 +60,8 @@ const Style = {
   `,
 
   Checkbox: styled(Checkbox)``,
+
+  DeleteButton: styled.button`
+    background-color: red;
+  `,
 };

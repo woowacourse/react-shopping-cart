@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 
 import { useUpdateCart } from '../hooks/useUpdateCart';
 
-import { Button } from './exporter';
+import { Button } from './common/Button';
 
 import { QUANTITY } from '../constants';
 

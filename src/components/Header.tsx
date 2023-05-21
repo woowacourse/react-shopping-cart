@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 
 import { styled } from 'styled-components';
-import { CartLogo } from '../assets/svg';
 
-import { CartSize } from './exporter';
+import { CartSize } from './CartSize';
+
+import { CartLogo } from '../assets/svg';
 
 export const Header = () => {
   return (
