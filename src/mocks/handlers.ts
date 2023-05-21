@@ -1,5 +1,6 @@
 import { PRODUCT_LIST } from 'mockData/productList';
 import { rest } from 'msw';
+import { CartInformation } from '@type/types';
 import { CART_LIST_LOCAL_KEY } from '@constants/common';
 
 export const handlers = [
@@ -58,6 +59,29 @@ export const handlers = [
     return res(
       ctx.status(201),
       ctx.set('Location', `/cart-items/${productId}`)
+    );
+  }),
+
+  rest.patch('/cart-items/:id', async (req, res, ctx) => {
+    const cartItemId = Number(req.params.id);
+    const { quantity } = await req.json();
+    const cartData: CartInformation[] = JSON.parse(
+      localStorage.getItem(CART_LIST_LOCAL_KEY) || '[]'
+    );
+
+    const updatedCart = cartData.map((product) => {
+      if (product.id === cartItemId) {
+        return {
+          ...product,
+          quantity,
+        };
+      }
+      return product;
+    });
+
+    localStorage.setItem(CART_LIST_LOCAL_KEY, JSON.stringify(updatedCart));
+    return res(
+      ctx.status(200),
     );
   }),
 ];
