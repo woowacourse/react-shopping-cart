@@ -17,7 +17,7 @@ type CartProductCardProps = {
 const CartProductCard = ({ cartProduct, toggleCheck, isChecked }: CartProductCardProps) => {
   const { product, quantity } = cartProduct;
   const { id, name, price, imageUrl } = product;
-  const { initialAddCart, decreaseQuantity, increaseQuantity, deleteCartProduct } = useShoppingCart(product);
+  const { initialAddCart, decreaseQuantity, increaseQuantity, deleteCartProduct } = useShoppingCart();
   const { isModalOpen, openModal, closeModal } = useModal();
   const totalPrice = price * quantity;
 
@@ -31,16 +31,16 @@ const CartProductCard = ({ cartProduct, toggleCheck, isChecked }: CartProductCar
         <Container>
           <Title>{name}</Title>
           <ProductDeleteButton onClick={openModal} />
-          <ConfirmModal isOpen={isModalOpen} closeModal={closeModal} onClickConfirmButton={deleteCartProduct}>
+          <ConfirmModal isOpen={isModalOpen} closeModal={closeModal} onClickConfirmButton={() => deleteCartProduct(id)}>
             해당 상품을 삭제하시겠습니까??
           </ConfirmModal>
         </Container>
         <Container justify="flex-end">
           <CartQuantityStepper
             quantity={quantity}
-            initialIncrement={initialAddCart}
-            increaseQuantity={increaseQuantity}
-            decreaseQuantity={decreaseQuantity}
+            initialIncrement={() => initialAddCart(product)}
+            increaseQuantity={() => increaseQuantity(id)}
+            decreaseQuantity={() => decreaseQuantity(id)}
           />
           <TotalPrice>{totalPrice.toLocaleString('ko-KR')}원</TotalPrice>
         </Container>

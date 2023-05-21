@@ -5,27 +5,27 @@ import { useRecoilState } from 'recoil';
 import { cartProductsState } from 'state/cartProducts';
 import { Product } from 'types/product';
 
-const useShoppingCart = (product: Product) => {
+const useShoppingCart = () => {
   const [cartProducts, setCartProducts] = useRecoilState(cartProductsState);
-  const { id } = product;
-  const targetCartProduct = cartProducts.get(id);
 
-  const initialAddCart = async () => {
-    await addCartProducts(id);
+  const initialAddCart = async (product: Product) => {
+    await addCartProducts(product.id);
 
     setCartProducts((prev) => {
       const newCartProducts = new Map(prev.entries());
 
-      return newCartProducts.set(id, { quantity: 1, product });
+      return newCartProducts.set(product.id, { quantity: 1, product });
     });
   };
 
-  const decreaseQuantity = async () => {
+  const decreaseQuantity = async (id: Product['id']) => {
+    const targetCartProduct = cartProducts.get(id);
     if (!targetCartProduct) throw new Error('장바구니에 없는 상품의 수량은 조절할 수 없습니다.');
+
     const prevQuantity = targetCartProduct.quantity;
 
     if (prevQuantity === 1) {
-      await deleteCartProduct();
+      await deleteCartProduct(id);
       return;
     }
 
@@ -34,12 +34,14 @@ const useShoppingCart = (product: Product) => {
     setCartProducts((prev) => {
       const newCartProducts = new Map(prev.entries());
 
-      return newCartProducts.set(id, { quantity: prevQuantity - 1, product });
+      return newCartProducts.set(id, { quantity: prevQuantity - 1, product: targetCartProduct.product });
     });
   };
 
-  const increaseQuantity = async () => {
+  const increaseQuantity = async (id: Product['id']) => {
+    const targetCartProduct = cartProducts.get(id);
     if (!targetCartProduct) throw new Error('장바구니에 없는 상품의 수량은 조절할 수 없습니다.');
+
     const prevQuantity = targetCartProduct.quantity;
 
     await updateCartProductsQuantity(prevQuantity + 1, id);
@@ -47,11 +49,12 @@ const useShoppingCart = (product: Product) => {
     setCartProducts((prev) => {
       const newCartProducts = new Map(prev.entries());
 
-      return newCartProducts.set(id, { quantity: prevQuantity + 1, product });
+      return newCartProducts.set(id, { quantity: prevQuantity + 1, product: targetCartProduct.product });
     });
   };
 
-  const deleteCartProduct = async () => {
+  const deleteCartProduct = async (id: Product['id']) => {
+    const targetCartProduct = cartProducts.get(id);
     if (!targetCartProduct) throw new Error('장바구니에 없는 상품의 수량은 조절할 수 없습니다.');
 
     await removeCartProduct(id);
