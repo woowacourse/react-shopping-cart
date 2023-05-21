@@ -63,7 +63,7 @@ const CartProduct = ({ cartItem }: CartProductProps, ref: ForwardedRef<HTMLInput
           <GarbageIcon />
         </button>
         <CountButton count={count} handleUpButton={handleUpButton} handleDownButton={handleDownButton} />
-        <span aria-label="product-price">{product.price.toLocaleString()}원</span>
+        <span aria-label="product-price">{(product.price * count).toLocaleString()}원</span>
       </div>
     </section>
   );
