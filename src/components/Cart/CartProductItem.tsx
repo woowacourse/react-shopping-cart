@@ -61,7 +61,10 @@ const CheckBoxWrapper = styled.div`
 
 const CartProductName = styled.p`
   width: 50%;
+  padding: 0 5px;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const CartProductRightWrapper = styled.div`

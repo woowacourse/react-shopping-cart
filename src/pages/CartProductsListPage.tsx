@@ -67,6 +67,7 @@ const Main = styled.main`
 
   @media (max-width: 1100px) {
     flex-direction: column;
+    margin: 0 20px;
   }
 `;
 
