@@ -36,6 +36,12 @@ const Wrapper = styled.section`
   gap: 5px;
 
   width: 65%;
+
+  @media screen and (max-width: 800px) {
+    width: 100%;
+
+    margin-bottom: 25vh;
+  }
 `;
 
 const SelectorContainer = styled.section`

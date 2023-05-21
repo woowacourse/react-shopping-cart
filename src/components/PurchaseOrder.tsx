@@ -41,6 +41,21 @@ const Wrapper = styled.section`
 
   border: 1px solid rgba(221, 221, 221, 1);
   padding: 2%;
+
+  @media screen and (max-width: 800px) {
+    gap: 0;
+
+    top: auto;
+    right: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 30%;
+
+    border-top: 1px solid black;
+
+    background-color: white;
+  }
 `;
 
 const TitleBox = styled.h2`

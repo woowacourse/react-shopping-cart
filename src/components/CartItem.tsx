@@ -57,8 +57,8 @@ const Wrapper = styled.ul`
 
   & > button {
     position: absolute;
-    top: 15px;
-    right: 10px;
+    top: 6%;
+    right: 1%;
 
     cursor: pointer;
   }
@@ -69,6 +69,10 @@ const Wrapper = styled.ul`
     height: 50%;
 
     margin-left: auto;
+  }
+
+  @media screen and (max-width: 800px) {
+    padding-left: 0;
   }
 `;
 
@@ -97,4 +101,4 @@ const PriceBox = styled.p`
   font-size: 16px;
 `;
 
-export default CartItem;
+export default React.memo(CartItem);
