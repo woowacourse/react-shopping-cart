@@ -8,6 +8,16 @@ const StyledProductList = styled.ul`
   grid-template-columns: repeat(4, 1fr);
   column-gap: 48px;
   row-gap: 80px;
+
+  @media (max-width: 768px) {
+    padding: 50px 40px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 480px) {
+    padding: 50px 20px;
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const ProductList = () => {

@@ -1,5 +1,6 @@
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
+import cartState from '../recoil/atoms/cartState';
 import cartCountState from '../recoil/selectors/cartCountState';
 import CartItem from './CartItem';
 import CheckBox from './CheckBox';
@@ -53,6 +54,7 @@ const SelectButton = styled.button`
 `;
 
 const CartItemList = () => {
+  const cartItems = useRecoilValue(cartState);
   const cartCount = useRecoilValue(cartCountState);
 
   return (
@@ -67,8 +69,8 @@ const CartItemList = () => {
           </SelectButtonContainer>
         </StyledDiv>
       </CartListHeader>
-      {[0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((idx) => {
-        return <CartItem key={idx} productId={idx} />;
+      {cartItems.map((cartItem) => {
+        return <CartItem key={cartItem.id} productId={cartItem.productId} />;
       })}
     </StyledCartList>
   );

@@ -7,21 +7,31 @@ const CheckBoxContainer = styled.div`
   width: 28px;
   height: 28px;
   cursor: pointer;
+  outline: none;
 
   :focus {
     outline: none;
+  }
+
+  @media (max-width: 480px) {
+    /* width: auto; */
+    /* height: 20px; */
   }
 `;
 
 const Input = styled.input`
   width: 100%;
   height: 100%;
+  border: none;
+  outline: none;
+  appearance: none;
 
-  :after {
+  &:checked::after {
     content: '✔';
     width: 100%;
-    height: 100%;
+    height: 110%;
     color: white;
+    background-color: black;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -32,7 +42,7 @@ const CheckBox = () => {
   return (
     <CheckBoxContainer>
       <label htmlFor="checkbox">
-        <Input width="100%" height="100%" name="checkbox" type="checkbox" readOnly />
+        <Input width="100%" height="100%" name="checkbox" type="checkbox" />
         {}
       </label>
     </CheckBoxContainer>

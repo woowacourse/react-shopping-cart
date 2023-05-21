@@ -5,7 +5,7 @@ import mswServerEffect from '../effects/mswServerEffect';
 const cartState = atom<Cart>({
   key: 'cartState',
   default: [],
-  effects: [mswServerEffect('cartState')],
+  effects: [mswServerEffect('/cart')],
 });
 
 export default cartState;

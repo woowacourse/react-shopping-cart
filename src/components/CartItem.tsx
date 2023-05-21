@@ -1,6 +1,9 @@
+import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import { ReactComponent as Trash } from '../assets/icons/trash.svg';
 import useCartProduct from '../hooks/useCart';
+import { cartItemFamily } from '../recoil/selectors/cartItemFamily';
+import { productFamily } from '../recoil/selectors/productFamily';
 import type { Product } from '../type';
 import CheckBox from './CheckBox';
 import Stepper from './Stepper';
@@ -14,6 +17,9 @@ const ItemContainer = styled.div`
   &:not(:last-child) {
     border-bottom: 1.5px solid #cccccc;
   }
+  @media (max-width: 480px) {
+    font-size: 14px;
+  }
 `;
 
 const Image = styled.img`
@@ -22,7 +28,8 @@ const Image = styled.img`
   background-color: black;
 
   @media (max-width: 480px) {
-    height: auto;
+    width: 90px;
+    height: 104px;
   }
 `;
 
@@ -39,27 +46,53 @@ const CardItemTitle = styled.div`
   font-weight: 400;
   font-size: 20px;
   line-height: 24px;
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+  }
+`;
+
+const CardItemPrice = styled.div`
+  &::after {
+    content: '원';
+    padding-left: 8px;
+  }
 `;
 
 type cartItemProps = {
   productId: Product['id'];
+  // quantity: CartProduct['quantity'];
 };
 
 const CartItem = (props: cartItemProps) => {
   const { productId } = props;
 
+  const product = useRecoilValue(productFamily(productId));
+  const cartProduct = useRecoilValue(cartItemFamily(productId));
+
   const { setQuantity } = useCartProduct(productId);
 
+  if (!product) return <div>Error!</div>;
+  if (!cartProduct) return <div>Error!</div>;
+
+  const handleOnclickTrash = () => {
+    setQuantity(0);
+  };
   return (
     <ItemContainer>
       <CheckBox />
-      <Image />
-      <CardItemTitle>[든든] 야채바삭 김말이 700</CardItemTitle>
+      <Image src={product.imageUrl} alt={product.name} />
+      <CardItemTitle>[든든] {product.name}</CardItemTitle>
       <CartItemInfo>
-        <Trash />
-        <Stepper width="113px" height="60px" min={0} value={0} onChange={setQuantity} />
-        <div>1,000원</div>
-        {/* <div>{product.price.toLocaleString('ko-KR')}</div> */}
+        <Trash onClick={handleOnclickTrash} />
+        <Stepper
+          width="113px"
+          height="60px"
+          min={0}
+          value={cartProduct?.quantity || 0}
+          onChange={setQuantity}
+        />
+        <CardItemPrice>{product.price.toLocaleString('ko-KR')}</CardItemPrice>
       </CartItemInfo>
     </ItemContainer>
   );

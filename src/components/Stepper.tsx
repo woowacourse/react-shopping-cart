@@ -7,8 +7,9 @@ const InputContainer = styled.div<{ height: string; width: string }>`
   align-items: stretch;
   width: ${(props) => props.width};
   height: ${(props) => props.height};
-  /* width: 68px;
-  height: 26px; */
+  @media (max-width: 480px) {
+    width: 80px;
+  }
 `;
 
 const Input = styled.input`
