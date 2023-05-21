@@ -1,5 +1,4 @@
-import { Suspense } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import Header from '../components/Header';
 
@@ -11,17 +10,17 @@ const Content = styled.main`
   max-width: 1300px;
 `;
 
-const Root = () => {
+const RootPage = () => {
+  const navigate = useNavigate();
+
   return (
     <>
-      <Header />
+      <Header onNavigate={navigate} />
       <Content>
-        <Suspense fallback={<div>로딩중...</div>}>
-          <Outlet />
-        </Suspense>
+        <Outlet />
       </Content>
     </>
   );
 };
 
-export default Root;
+export default RootPage;
