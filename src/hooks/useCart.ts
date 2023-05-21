@@ -25,9 +25,11 @@ function useCart() {
   };
 
   const removeCart = (id: number) => {
-    const removedCartList = cartList.filter((cart) => cart.id !== id);
-    setCartList(removedCartList);
-    fetchDeleteCart(id);
+    if (confirm('정말로 삭제하시겠습니까?')) {
+      const removedCartList = cartList.filter((cart) => cart.id !== id);
+      setCartList(removedCartList);
+      fetchDeleteCart(id);
+    }
   };
 
   const setCartQuantity = (id: number, quantity: number) => {
