@@ -1,3 +1,4 @@
+import { removeCartProduct } from 'apis/cart/delete';
 import { updateCartProductsQuantity } from 'apis/cart/patch';
 import { addCartProducts } from 'apis/cart/post';
 import { useRecoilState } from 'recoil';
@@ -47,8 +48,10 @@ const useShoppingCart = (product: Product) => {
     });
   };
 
-  const deleteCartProduct = () => {
+  const deleteCartProduct = async () => {
     if (!targetCartProduct) throw new Error('장바구니에 없는 상품의 수량은 조절할 수 없습니다.');
+
+    await removeCartProduct(id);
 
     setCartProducts((prev) => {
       prev.delete(id);
