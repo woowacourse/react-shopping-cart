@@ -72,9 +72,13 @@
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-storybook": "^0.6.11",
+    "msw": "^1.2.1",
     "prettier": "^2.8.7",
     "prop-types": "^15.8.1",
     "storybook": "^7.0.9",
     "webpack": "^5.82.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
