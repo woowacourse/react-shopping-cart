@@ -10,12 +10,15 @@ import {
   CartItemTrashImage
 } from "./CartItem.style";
 import trashIcon from '../../assets/trash.png';
+import useCart from "../../hooks/useCart.ts";
 
 interface CartItemProps {
   cart: CartItem;
 }
 
 function CartItem({cart}: CartItemProps) {
+
+  const {removeCart} = useCart();
 
   return (
     <CartItemLayout>
@@ -27,7 +30,10 @@ function CartItem({cart}: CartItemProps) {
         <CartItemInfo>
           <CartItemName>{cart.product.name}</CartItemName>
           <CartItemControllerWrapper>
-            <CartItemTrashImage src={trashIcon}/>
+            <CartItemTrashImage
+              src={trashIcon}
+              onClick={() => removeCart(cart.id)}
+            />
             <CartController product={cart.product}/>
           </CartItemControllerWrapper>
         </CartItemInfo>
