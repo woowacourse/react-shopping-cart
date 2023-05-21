@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { ProductItem } from '../components/ProductItem';
-import { getMockData } from '../utils/getMockData';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitTimeout } from '../utils/waitTimeout';
 
@@ -24,7 +23,12 @@ export const Default: Story = {
 
 export const InteractionTest: StoryObj<typeof ProductItem> = {
   render: () => {
-    const { id, name, price, imageUrl } = getMockData[1];
+    const { id, name, price, imageUrl } = {
+      id: 1,
+      name: 'PET보틀-정사각(420ml)',
+      price: 43400,
+      imageUrl: '/assets/1.png',
+    };
 
     return (
       <ProductItem id={id} name={name} price={price} imageUrl={imageUrl} />
