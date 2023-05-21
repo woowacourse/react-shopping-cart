@@ -1,5 +1,16 @@
 import { styled } from 'styled-components';
 
+export const CartPageWrapper = styled.section`
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    flex-direction: column;
+  }
+`;
+
 export const FlexWrapper = styled.section`
   display: flex;
 

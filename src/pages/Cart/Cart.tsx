@@ -1,16 +1,16 @@
 import { Suspense } from 'react';
 import CartItemListContainer from '../../components/CartItemListContainer/CartItemListContainer';
 import PayingContainer from '../../components/PayingContainer/PayingContainer';
-import { FlexWrapper } from './Cart.style';
+import { CartPageWrapper } from './Cart.style';
 
 function Cart() {
   return (
-    <FlexWrapper>
+    <CartPageWrapper>
       <Suspense fallback={<h2>로딩중...</h2>}>
         <CartItemListContainer />
         <PayingContainer />
       </Suspense>
-    </FlexWrapper>
+    </CartPageWrapper>
   );
 }
 
