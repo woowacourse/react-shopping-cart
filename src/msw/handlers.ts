@@ -17,7 +17,15 @@ export const handlers = [
     return res(ctx.delay(delay), ctx.status(200), ctx.json(cartMock));
   }),
 
+  rest.post('/cart-items', (req, res, ctx) => {
+    return res(ctx.delay(delay), ctx.status(201));
+  }),
+
   rest.patch('/cart-items/:id', (req, res, ctx) => {
     return res(ctx.delay(delay), ctx.status(200));
+  }),
+
+  rest.delete('cart-items/:id', (req, res, ctx) => {
+    return res(ctx.delay(delay), ctx.status(204));
   }),
 ];
