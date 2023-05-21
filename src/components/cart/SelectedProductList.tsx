@@ -34,18 +34,25 @@ const SelectedProductList = () => {
   return (
     <S.Wrapper>
       <S.Title>{`든든배송 상품 (${productCountInCart}개)`}</S.Title>
-      <div>
-        {cart.map((item: CartItem) => (
-          <SelectedProductItem
-            key={item.product.id}
-            id={item.product.id}
-            name={item.product.name}
-            price={item.product.price}
-            imageUrl={`${process.env.PUBLIC_URL}${item.product.imageUrl}`}
-            quantity={item.quantity}
-          />
-        ))}
-      </div>
+      {productCountInCart === 0 ? (
+        <S.Nothing
+          src={`${process.env.PUBLIC_URL}/assets/nothing.png`}
+          alt="장바구니가 텅 비었어요"
+        />
+      ) : (
+        <div>
+          {cart.map((item: CartItem) => (
+            <SelectedProductItem
+              key={item.product.id}
+              id={item.product.id}
+              name={item.product.name}
+              price={item.product.price}
+              imageUrl={`${process.env.PUBLIC_URL}${item.product.imageUrl}`}
+              quantity={item.quantity}
+            />
+          ))}
+        </div>
+      )}
 
       <S.Fieldset>
         <Checkbox
@@ -77,6 +84,7 @@ const S = {
     border-bottom: 2px solid var(--gray-color-300);
 
     & + div {
+      height: 410px;
       max-height: 410px;
       overflow-y: auto;
 
@@ -103,6 +111,10 @@ const S = {
         padding: 0 10px;
       }
     }
+  `,
+
+  Nothing: styled.img`
+    width: 50%;
   `,
 
   Fieldset: styled.fieldset`
