@@ -14,8 +14,8 @@ export const cartState = atom({
   }),
 });
 
-export const cartBadge = selector({
-  key: 'cartBadge',
+export const cartItemsAmountSelector = selector({
+  key: 'cartItemsAmount',
   get: ({ get }) => {
     return get(cartState).length;
   },

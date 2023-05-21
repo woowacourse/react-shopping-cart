@@ -1,11 +1,11 @@
-import { cartBadge } from '../../../atoms/cart';
+import { cartItemsAmountSelector } from '../../../atoms/cart';
 import useLazyRecoilValue from '../../../hooks/common/useLazyRecoilValue';
 import * as S from './CartBadge.styles';
 
 const CartBadge = () => {
-  const badge = useLazyRecoilValue(cartBadge);
+  const cartItemsAmount = useLazyRecoilValue(cartItemsAmountSelector);
 
-  return badge ? <S.Badge>{badge}</S.Badge> : null;
+  return cartItemsAmount ? <S.Badge>{cartItemsAmount}</S.Badge> : null;
 };
 
 export default CartBadge;
