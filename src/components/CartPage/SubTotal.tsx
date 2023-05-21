@@ -6,12 +6,17 @@ import { cartSelects } from '../../atoms/cartSelects';
 export default function SubTotal() {
   const cart = useRecoilValue(cartState({ action: 'GET' }));
   const cartSelectsSet = useRecoilValue(cartSelects);
-  const cartItemsPrice = [...cartSelectsSet].reduce((acc, cartSelectId) => {
-    const cartItem = cart.find((item) => item.id === cartSelectId);
-    // TODO: 방어코드 없음
-    const price = cartItem.quantity * cartItem.product.price;
-    return acc + price;
-  }, 0);
+  const cartItemsPrice = Array.from(cartSelectsSet).reduce(
+    (acc, cartSelectId) => {
+      const cartItem = cart.find((item) => item.id === cartSelectId);
+      let price = 0;
+      if (cartItem) {
+        price = cartItem.quantity * cartItem.product.price;
+      }
+      return acc + price;
+    },
+    0
+  );
 
   const deliveryFee = cartItemsPrice > 30000 || cartItemsPrice === 0 ? 0 : 3000;
 

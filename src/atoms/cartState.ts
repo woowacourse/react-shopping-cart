@@ -8,25 +8,20 @@ import {
 } from '../api/api';
 import type { CartType } from '../type/cart';
 
-// TODO:
-interface SerializableParam {
-  readonly action: string;
-  readonly payload?: {
-    readonly productId?: number;
-    readonly quantity?: number;
-    readonly cartId?: number;
-  };
+interface RequestAction {
+  action: string;
+  payload?: any;
 }
 
-export const cartRequestAction = atomFamily({
+export const cartRequestAction = atomFamily<RequestAction, RequestAction>({
   key: 'cartRequestAction',
   default: { action: 'GET', payload: {} },
 });
 
-export const cartState = selectorFamily<Promise<CartType>, SerializableParam>({
+export const cartState = selectorFamily<CartType[], RequestAction>({
   key: 'exampleCartQuery',
   get:
-    (request: SerializableParam) =>
+    (request) =>
     async ({ get }) => {
       const { action, payload } = get(cartRequestAction(request)); // add dependency
       switch (action) {

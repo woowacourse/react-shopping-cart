@@ -30,7 +30,7 @@ const countDispatcher = (state: CountState, next: CountAction): CountState => {
 
 export default function useCount(initValue = 1) {
   const [count, setCount] = useReducer(countDispatcher, {
-    value: 1,
+    value: initValue,
     status: 'VALID',
   });
 

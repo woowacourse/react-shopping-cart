@@ -8,6 +8,7 @@ import {
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { cartSelects } from '../../atoms/cartSelects';
 import { useEffect, useState } from 'react';
+import { CartType } from '../../type/cart';
 
 export default function SelectCartItem() {
   const cart = useRecoilValue(cartState({ action: 'GET' }));
@@ -23,7 +24,7 @@ export default function SelectCartItem() {
   }, [cartTotal, cartSelectsState]);
   useEffect(() => {
     if (checkAll) {
-      const newCartSelects = cart.map((cartItem) => cartItem.id);
+      const newCartSelects = cart.map((cartItem: CartType) => cartItem.id);
       setCartSelectsState(new Set(newCartSelects));
     } else {
       setCartSelectsState(new Set());

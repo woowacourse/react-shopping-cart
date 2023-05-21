@@ -5,9 +5,10 @@ import CheckIconImage from '../../asset/check_icon.svg';
 import useCount from '../../hooks/useCount';
 import { Product } from '../../type/product';
 import DeleteButton from './DeleteButton';
-import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { Suspense, useEffect, useState } from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { cartSelects } from '../../atoms/cartSelects';
+import { cartRequestAction } from '../../atoms/cartState';
 
 interface CartListItemProps {
   id: number;
@@ -24,24 +25,30 @@ export default function CartListItem({
   const { name, imageUrl, price } = product;
   const [check, setCheck] = useState(false);
   const [cartSelectsState, setCartSelectsState] = useRecoilState(cartSelects);
+  const setRequestAction = useSetRecoilState(
+    cartRequestAction({ action: 'GET' })
+  );
+
+  useEffect(() => {
+    setRequestAction({
+      action: 'PATCH',
+      payload: { cartId: id, quantity: count.value },
+    });
+  }, [count, setRequestAction]);
 
   useEffect(() => {
     setCheck(cartSelectsState.has(id));
   }, [cartSelectsState]);
 
-  // TODO: 로직 에러
   useEffect(() => {
+    const newCartSelects = Array.from(cartSelectsState);
+    const newCartSelectSet = new Set(newCartSelects);
     if (check) {
-      const newCartSelects = [...cartSelectsState];
-      const newCartSelectSet = new Set(newCartSelects);
       newCartSelectSet.add(id);
-      setCartSelectsState(newCartSelectSet);
     } else {
-      const newCartSelects = [...cartSelectsState];
-      const newCartSelectSet = new Set(newCartSelects);
       newCartSelectSet.delete(id);
-      setCartSelectsState(newCartSelectSet);
     }
+    setCartSelectsState(newCartSelectSet);
   }, [check]);
 
   return (
@@ -59,7 +66,9 @@ export default function CartListItem({
       </CartInfoContainer>
       <CartOptionContainer>
         <DeleteButton cartId={id} />
-        <QuantityCounter count={count} setCount={setCount} />
+        <Suspense fallback={<div>loading...</div>}>
+          <QuantityCounter count={count} setCount={setCount} />
+        </Suspense>
         <ProductPrice>{price.toLocaleString()}원</ProductPrice>
       </CartOptionContainer>
     </CartListItemContainer>
