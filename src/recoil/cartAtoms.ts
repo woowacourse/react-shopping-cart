@@ -13,3 +13,12 @@ export const cartCountSelector = selector({
     return cartList.length;
   }
 });
+
+export const cartCheckedSelector = selector({
+  key: 'cartCheckedSelector',
+  get: ({get}) => {
+    const cartList = get(cartState);
+    const isAllCartItemChecked = cartList.every((cartItem) => cartItem.checked === true);
+    return isAllCartItemChecked;
+  }
+});
