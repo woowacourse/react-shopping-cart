@@ -1,22 +1,39 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-export const useQuery = <T>() => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState<T | null>(null);
+interface State<T> {
+  loading: boolean;
+  data?: T;
+  error?: object;
+}
 
-  const fetchData = async (url: string) => {
-    setIsLoading(true);
+export const useQuery = <T>(url: string) => {
+  const [state, setState] = useState<State<T>>({
+    loading: false,
+  });
+
+  const { loading, data, error } = state;
+
+  useEffect(() => {
+    setState({ loading: true });
 
     fetch(url)
-      .then(async (response) => {
-        if (!response.ok) throw new Error('');
-        const result = await response.json();
+      .then((response) => response.json())
+      .catch((error) => console.log(error))
+      .then((json) => setState((prev) => ({ ...prev, data: json })))
+      .catch((error) => setState((prev) => ({ ...prev, error })))
+      .finally(() => setState((prev) => ({ ...prev, loading: false })));
+  }, [url]);
 
-        setData(result);
-      })
-      .catch()
-      .finally(() => setIsLoading(false));
-  };
+  const refetchData = useCallback(async () => {
+    setState({ loading: true });
 
-  return { isLoading, data, fetchData };
+    await fetch(url)
+      .then((response) => response.json())
+      .catch((error) => console.log(error))
+      .then((json) => setState((prev) => ({ ...prev, data: json })))
+      .catch((error) => setState((prev) => ({ ...prev, error })))
+      .finally(() => setState((prev) => ({ ...prev, loading: false })));
+  }, [url]);
+
+  return { loading, data, error, refetchData };
 };

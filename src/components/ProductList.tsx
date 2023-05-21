@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { styled } from 'styled-components';
 
 import { useQuery } from '../hooks/useQuery';
@@ -9,15 +8,11 @@ import { Product } from './Product';
 import { Product as IProduct } from '../types';
 
 export const ProductList = () => {
-  const { isLoading, data: products, fetchData } = useQuery<IProduct[]>();
-
-  useEffect(() => {
-    fetchData('/products');
-  }, []);
+  const { data: products, loading, error } = useQuery<IProduct[]>('/products');
 
   return (
     <Style.Container>
-      {isLoading
+      {loading
         ? Array.from({ length: 12 }).map(() => <Skeleton />)
         : products?.map((product) => (
             <li key={product.id}>

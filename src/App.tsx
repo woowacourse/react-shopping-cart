@@ -13,15 +13,17 @@ import { CartItem } from './types';
 import { isEqual } from './utils';
 
 export const App = () => {
-  const { data: cart, fetchData } = useQuery<CartItem[]>();
+  const { data: cart, loading, error } = useQuery<CartItem[]>('/cart-items');
   const setCartState = useSetCartState();
 
   useEffect(() => {
-    fetchData('/cart-items');
-  }, []);
+    if (!cart) return;
+
+    setCartState(cart);
+  }, [cart, setCartState]);
 
   useEffect(() => {
-    if (cart === null) return;
+    if (!cart) return;
 
     setCartState((prev) => {
       if (!isEqual(prev, cart)) return cart;
