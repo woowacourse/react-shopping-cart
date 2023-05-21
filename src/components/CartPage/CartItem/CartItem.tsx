@@ -17,10 +17,10 @@ const CartItem: React.FC<CartItemProps> = (props) => {
   const { updateCartItemMutation, deleteCartItemMutation } = useMutateCart();
 
   const increaseQuantity = () =>
-    updateCartItemMutation({ id, quantity: quantity + 1 });
+    updateCartItemMutation({ id, quantity: Math.min(100, quantity + 1) });
 
   const decreaseQuantity = () =>
-    updateCartItemMutation({ id, quantity: quantity - 1 });
+    updateCartItemMutation({ id, quantity: Math.max(1, quantity - 1) });
 
   const deleteCartItem = () => {
     confirm(DELETE_CART_ITEM) && deleteCartItemMutation([id]);

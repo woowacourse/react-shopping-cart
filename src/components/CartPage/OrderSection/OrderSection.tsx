@@ -16,11 +16,13 @@ const OrderSection = () => {
       </S.TextWrapper>
       <S.TextWrapper>
         <S.Text>총 배송비</S.Text>
-        <S.Text>{DELIVERY_FEE.toLocaleString()}원</S.Text>
+        <S.Text>{totalPrice ? DELIVERY_FEE.toLocaleString() : 0}원</S.Text>
       </S.TextWrapper>
       <S.TextWrapper>
         <S.Text>총 주문금액</S.Text>
-        <S.Text>{(totalPrice - DELIVERY_FEE).toLocaleString()}원</S.Text>
+        <S.Text>
+          {totalPrice ? (totalPrice + DELIVERY_FEE).toLocaleString() : 0}원
+        </S.Text>
       </S.TextWrapper>
       <Button size="L" view="black">
         주문하기
