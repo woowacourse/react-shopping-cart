@@ -36,10 +36,11 @@ const ErrorHeading = styled(Heading)`
 `;
 
 const ErrorBodyText = styled(Text)`
-  margin-bottom: ${({ theme }) => theme.spacer.spacing5};
+  margin-bottom: ${({ theme }) => theme.spacer.spacing2};
 `;
 
 const ErrorResetButton = styled(Button)`
+  margin-top: ${({ theme }) => theme.spacer.spacing3};
   width: 250px;
 `;
 
