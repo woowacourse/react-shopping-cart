@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
+import cartProductApis from '../apis/cartProducts';
 import {
   cartProductState,
   targetCartProductState,
@@ -10,7 +11,6 @@ import {
   deleteTargetProduct,
 } from '../states/cartProducts/util';
 import type { Product } from '../types/product';
-import { deleteCartProduct, postProduct } from '../apis/cartProducts';
 
 const useCartProducts = (product: Product) => {
   const { id } = product;
@@ -19,12 +19,12 @@ const useCartProducts = (product: Product) => {
 
   const addProduct = () => {
     setCartProducts((prev) => addTargetProduct(prev, product));
-    postProduct(id);
+    cartProductApis.post(id);
   };
 
   const deleteProduct = useCallback(() => {
     setCartProducts((prev) => deleteTargetProduct(prev, id));
-    deleteCartProduct(id);
+    cartProductApis.delete(id);
   }, [id, setCartProducts]);
 
   useEffect(() => {

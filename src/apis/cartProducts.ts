@@ -1,42 +1,62 @@
 import type { CartProduct } from '../types/product';
+import { handleResponseError } from './utils';
 
-const URL = '/cart-items';
+const cartProductApis = {
+  baseUrl: '/cart-items',
 
-export const fetchCartProducts = async () => {
-  const response = await fetch(URL);
-  const data: CartProduct[] = await response.json();
-  return data;
+  getUrl(param?: string) {
+    return param
+      ? `${cartProductApis.baseUrl}/${param}`
+      : cartProductApis.baseUrl;
+  },
+
+  async get() {
+    const response = await fetch(cartProductApis.getUrl());
+
+    await handleResponseError(response);
+
+    const data: CartProduct[] = await response.json();
+    return data;
+  },
+
+  async post(id: number) {
+    const response = await fetch(cartProductApis.getUrl(), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ productId: id }),
+    });
+
+    await handleResponseError(response);
+
+    const data = await response.json();
+    return data;
+  },
+
+  async patch(id: number, quantity: number) {
+    const response = await fetch(cartProductApis.getUrl(id.toString()), {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ quantity }),
+    });
+
+    await handleResponseError(response);
+
+    const data = await response.json();
+    return data;
+  },
+
+  async delete(id: number) {
+    await fetch(cartProductApis.getUrl(id.toString()), {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  },
 };
 
-export const postProduct = async (id: number) => {
-  const response = await fetch(URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ productId: id }),
-  });
-  const data = await response.json();
-  return data;
-};
-
-export const deleteCartProduct = async (id: number) => {
-  await fetch(`${URL}/${id}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-};
-
-export const patchCartProduct = async (id: number, quantity: number) => {
-  const response = await fetch(`${URL}/${id}`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ quantity }),
-  });
-  const data = await response.json();
-  return data;
-};
+export default cartProductApis;

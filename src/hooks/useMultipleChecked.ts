@@ -1,8 +1,9 @@
-import { ChangeEventHandler } from 'react';
+import type { ChangeEventHandler } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
+
+import cartProductApis from '../apis/cartProducts';
 import { checkedState } from '../states/checkedCartProducts';
 import { cartProductState } from '../states/cartProducts';
-import { deleteCartProduct } from '../apis/cartProducts';
 
 const useMultipleChecked = () => {
   const [checked, setChecked] = useRecoilState(checkedState);
@@ -30,7 +31,7 @@ const useMultipleChecked = () => {
     setChecked((prev) => prev.filter((item) => !item.isChecked));
 
     checked.forEach((item) => {
-      if (item.isChecked) deleteCartProduct(item.id);
+      if (item.isChecked) cartProductApis.delete(item.id);
     });
   };
 

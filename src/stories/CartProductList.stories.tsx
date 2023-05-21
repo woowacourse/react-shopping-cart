@@ -1,8 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react';
+import { RecoilRoot } from 'recoil';
 
 import CartProductList from '../components/Cart/CartProductList';
-import { RecoilRoot } from 'recoil';
-import { fetchCartProducts } from '../apis/cartProducts';
+
+import cartProductApis from '../apis/cartProducts';
 
 const meta = {
   title: 'Product/CartProductList',
@@ -25,7 +26,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   loaders: [
     async () => ({
-      products: await fetchCartProducts(),
+      products: await cartProductApis.get(),
     }),
   ],
 };
