@@ -41,6 +41,8 @@ const CartItem: React.FC<CartItemProps> = (props) => {
             <Flex dir="column" justify="space-between" align="end">
               <S.DeleteButton onClick={deleteCartItem}>X</S.DeleteButton>
               <QuantityStepper
+                max={100}
+                min={1}
                 init={quantity}
                 onIncrease={increaseQuantity}
                 onDecrease={decreaseQuantity}

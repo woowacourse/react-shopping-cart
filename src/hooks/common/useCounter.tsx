@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 
-interface UseCounterOptions {
+export interface UseCounterOptions {
   init?: number;
   max?: number;
   min?: number;
