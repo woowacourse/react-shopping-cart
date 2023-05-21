@@ -50,7 +50,7 @@ const QuantityInput = ({ id, value, onChange }: Props) => {
   );
 };
 
-export const QuantityStyle = {
+const QuantityStyle = {
   Wrapper: styled.div`
     position: relative;
     width: 80px;
@@ -71,7 +71,7 @@ export const QuantityStyle = {
   `,
 };
 
-export const QuantityInputStyle = css`
+const QuantityInputStyle = css`
   position: absolute;
   right: 0;
   z-index: 2;

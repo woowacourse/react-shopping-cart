@@ -45,10 +45,10 @@ const SelectedProductItem = ({ id, imageUrl, name, price, quantity }: Props) => 
           {name}
         </S.Name>
         <S.Wrapper>
-          <QuantityButton productId={id} />
           <Button css={trashCanButtonStyle} onClick={handleTrashCanClick}>
             <TrashCanIcon patternId={id} imageSize={{ width: '40', height: '40' }} />
           </Button>
+          <QuantityButton productId={id} />
           <Price price={price * quantity} />
         </S.Wrapper>
       </S.Fieldset>
@@ -106,67 +106,21 @@ const S = {
 
   Wrapper: styled.div`
     display: flex;
+    gap: 32px;
     flex-direction: column;
     align-items: end;
     margin-left: auto;
-
-    & > div {
-      margin-top: 54px;
-    }
-
-    & > button {
-      margin-top: -54px;
-    }
-
-    & > p {
-      margin-top: 101px;
-    }
 
     @media (max-width: 420px) {
       width: 100%;
       flex-direction: column-reverse;
       align-items: center;
-
-      & > div {
-        margin-top: -80px;
-        margin-bottom: 72px;
-        margin-left: auto;
-
-        & input {
-          width: 74px;
-        }
-      }
-
-      & > button {
-        margin-top: 78px;
-        margin-left: auto;
-      }
-
-      & > p {
-        margin-top: 0;
-      }
     }
   `,
 };
 
 const trashCanButtonStyle = css`
   background: none;
-
-  & + p {
-    font-size: 15px;
-  }
-
-  @media (max-width: 548px) {
-    & + p {
-      font-size: 13px;
-    }
-  }
-
-  @media (max-width: 420px) {
-    & + p {
-      font-size: 15px;
-    }
-  }
 `;
 
 export default SelectedProductItem;

@@ -1,9 +1,8 @@
-import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
+import { BsPlus, BsDash } from 'react-icons/bs';
 import { CSSProp, styled } from 'styled-components';
 import { QUANTITY } from '../../constants';
 import { useSetCart } from '../../hooks/useCart';
 import { useLoadCart } from '../../hooks/useLoadCart';
-import { QuantityInputStyle, QuantityStyle } from '../main/QuantityInput';
 
 const { MAX, MIN, STEP } = QUANTITY;
 
@@ -30,46 +29,61 @@ const QuantityButton = ({ productId }: Props) => {
   };
 
   return (
-    <QuantityStyle.Wrapper>
-      <S.Quantity css={QuantityInputStyle}>{quantity}</S.Quantity>
-      <S.Button
-        quantity={quantity}
-        onClick={handleQuantityStepUp}
-        aria-label="button-to-raise-quantity"
-      >
-        <FaCaretUp />
-      </S.Button>
+    <S.Wrapper>
       <S.Button
         quantity={quantity}
         onClick={handleQuantityStepDown}
         aria-label="button-to-lower-quantity"
       >
-        <FaCaretDown />
+        <BsDash />
       </S.Button>
-    </QuantityStyle.Wrapper>
+      <S.Quantity>{quantity}</S.Quantity>
+      <S.Button
+        quantity={quantity}
+        onClick={handleQuantityStepUp}
+        aria-label="button-to-raise-quantity"
+      >
+        <BsPlus />
+      </S.Button>
+    </S.Wrapper>
   );
 };
 
 const S = {
-  Quantity: styled.span<{ css: CSSProp }>`
-    ${(props) => props.css}
+  Wrapper: styled.div`
+    display: flex;
+    margin: -8px 0 12px;
 
-    line-height: 32px;
-    padding-right: 24px;
+    @media (max-width: 548px) {
+      margin-bottom: 6px;
+    }
+  `,
+
+  Quantity: styled.span`
+    display: block;
+    width: 34px;
+    border-top: 1px solid var(--gray-color-200);
+    border-bottom: 1px solid var(--gray-color-200);
+    text-align: center;
+    font-size: 14px;
+    line-height: 30px;
     cursor: default;
+
+    @media (max-width: 548px) {
+      font-size: 13px;
+    }
   `,
 
   Button: styled.button<{ quantity: number }>`
-    position: absolute;
-    right: 0;
-    z-index: 3;
     width: 26px;
     max-width: 26px;
-    border: 0;
+    border: 1px solid var(--gray-color-200);
     font-size: 16px;
+    background: none;
     cursor: pointer;
 
-    &:nth-child(2) {
+    &[aria-label='button-to-raise-quantity'] {
+      border-left: 0;
       cursor: ${(props) => props.quantity === MAX && 'default'};
 
       & > svg {
@@ -77,8 +91,8 @@ const S = {
       }
     }
 
-    &:last-child {
-      top: 16px;
+    &[aria-label='button-to-lower-quantity'] {
+      border-right: 0;
       cursor: ${(props) => props.quantity === MIN && 'default'};
 
       & > svg {
