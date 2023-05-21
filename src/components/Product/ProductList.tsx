@@ -27,6 +27,14 @@ const ProductListContainer = styled.ul`
   grid-template-columns: repeat(4, 282px);
   grid-row-gap: 84px;
   grid-column-gap: 48px;
+
+  @media (min-width: 640px) and (max-width: 768px) {
+    grid-template-columns: repeat(2, 282px);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: repeat(1, 282px);
+  }
 `;
 
 export default ProductList;
