@@ -1,8 +1,9 @@
-import { useRecoilValueLoadable } from "recoil";
-import { fetchProductList } from '../../recoil/productAtoms';
-import type { ProductItem as ProductItemType } from '../../types/types';
+import {useRecoilValueLoadable} from "recoil";
+import {fetchProductList} from '../../recoil/productAtoms';
+import type {ProductItem as ProductItemType} from '../../types/types';
 import ProductItem from '../../components/ProductItem';
-import { Col, Row } from '../../style/style';
+import {Col, Row} from '../../style/style';
+import {ProductListWrapper} from "./ProductList.style.ts";
 
 function ProductList() {
 
@@ -11,13 +12,15 @@ function ProductList() {
   switch (productLoadable.state) {
     case 'hasValue':
       return (
-        <Row>
-          {productLoadable?.contents?.map((product: ProductItemType) => (
-            <Col key={product.id}>
-              <ProductItem product={product} />
-            </Col>
-          ))}
-        </Row>
+        <ProductListWrapper>
+          <Row>
+            {productLoadable?.contents?.map((product: ProductItemType) => (
+              <Col key={product.id}>
+                <ProductItem product={product}/>
+              </Col>
+            ))}
+          </Row>
+        </ProductListWrapper>
       );
     case 'loading':
       return <div>Loading...</div>;
@@ -27,4 +30,5 @@ function ProductList() {
       return null;
   }
 }
+
 export default ProductList;
