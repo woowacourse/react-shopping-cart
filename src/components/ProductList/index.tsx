@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Loader from '@components/common/Loader';
 import useGetFetch from '@hooks/useGetFetch';
 import { ProductInformation } from '@type/types';
 import ProductItem from './ProductItem';
@@ -9,7 +10,7 @@ const ProductList = () => {
   });
 
   if (isLoading) {
-    return <div>로딩 중입니다...</div>;
+    return <Loader />;
   }
 
   if (!data) return null;
