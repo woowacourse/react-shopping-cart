@@ -2,13 +2,16 @@ import styles from './index.module.css';
 import { cartItems } from '../../data/mockData';
 import { CartItem } from '../../types';
 import CartProduct from '../CartProduct';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { $Cart, $CheckedCartState } from '../../recoil/atom';
 import { SyntheticEvent, createRef, useRef, useState } from 'react';
+import { deleteCartItem } from '../../api/cartApi';
+import { toast } from 'react-toastify';
+import errorMessage from '../../constant/errorMessage';
 
 const CartProductList = () => {
-  const cart = useRecoilValue($Cart);
-  const setCheckedCartData = useSetRecoilState($CheckedCartState);
+  const [cart, setCart] = useRecoilState($Cart);
+  const [CheckedCartData, setCheckedCartData] = useRecoilState($CheckedCartState);
   const formRef = useRef<HTMLFormElement>(null);
   const checkboxRefs = cart.map(() => createRef<HTMLInputElement>());
 
@@ -40,9 +43,23 @@ const CartProductList = () => {
 
     const checkedItems = checkboxRefs.reduce<CartItem[]>((res, ref, i) => {
       if (ref.current!.checked) res.push(cartItems[i]);
+      console.log(res);
       return res;
     }, []);
     setCheckedCartData(checkedItems);
+  };
+
+  const handleDeleteButton = async () => {
+    try {
+      await Promise.all(
+        CheckedCartData.map(async product => {
+          await deleteCartItem(product.product.id);
+          setCart(prev => prev.filter(item => item !== product.product.id));
+        })
+      );
+    } catch (e) {
+      toast.error(errorMessage);
+    }
   };
 
   return (
@@ -60,7 +77,7 @@ const CartProductList = () => {
         <span>
           전체선택 ({selectedCount}/{cart.length})
         </span>
-        <button>선택삭제</button>
+        <button onClick={handleDeleteButton}>선택삭제</button>
       </div>
     </form>
   );
