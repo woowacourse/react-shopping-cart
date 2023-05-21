@@ -1,3 +1,4 @@
+import Spinner from 'components/@common/Spinner';
 import styled from 'styled-components';
 
 export const ItemWrapper = styled.div`
@@ -55,7 +56,17 @@ export const SelectDeleteButton = styled.button`
 `;
 
 export const EmptyList = styled.div`
-  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
   font: ${(props) => props.theme.font.medium};
   color: ${(props) => props.theme.color.gray};
+`;
+
+export const Loading = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
 `;

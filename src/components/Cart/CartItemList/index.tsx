@@ -3,18 +3,25 @@ import * as S from './CartItemList.styles';
 import { useRecoilState } from 'recoil';
 import { cartListAtom, checkedItemsAtom } from 'recoil/cartList';
 import CartItem from 'components/Cart/CartItem';
+import Spinner from 'components/@common/Spinner';
 import { useGet } from 'hooks/useGet';
 import { Cart } from 'types';
 import { deleteCartItem, getCartList } from 'api/requests';
 
 const CartItemList = () => {
   const [checkedItems, setCheckedItems] = useRecoilState(checkedItemsAtom);
-  const { data } = useGet<{ cartList: Cart[] }>(getCartList);
+  const { data, isLoading } = useGet<{ cartList: Cart[] }>(getCartList);
   const [cartList, setCartList] = useRecoilState(cartListAtom);
 
   useEffect(() => {
     setCheckedItems(cartList);
   }, [cartList]);
+
+  const loading = (
+    <S.Loading>
+      <Spinner />
+    </S.Loading>
+  );
 
   const fetchedCartList = cartList.map(
     (cartItem) => cartItem && <CartItem cartItem={cartItem} key={cartItem.id} />
@@ -39,7 +46,7 @@ const CartItemList = () => {
     <S.ItemWrapper>
       <S.CartItemTitle>든든배송 상품({checkedItems.length}개)</S.CartItemTitle>
       {data?.cartList?.length === 0 && emptyList}
-      {fetchedCartList}
+      {isLoading ? loading : fetchedCartList}
       <S.CheckBoxWrapper>
         <S.SelectAllCheckBox
           type="checkbox"

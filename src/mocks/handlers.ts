@@ -12,7 +12,7 @@ export const handlers = [
   }),
 
   rest.get('/api/cart-items', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(cartData));
+    return res(ctx.delay(2000), ctx.status(200), ctx.json(cartData));
   }),
 
   rest.post('/api/cart-items', async (req, res, ctx) => {
