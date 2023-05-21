@@ -13,6 +13,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const TYPING_SPEED = { delay: 500 };
+const pause = () => new Promise((resolve) => setTimeout(resolve, 2000));
 
 export const SuccessInteraction: Story = {
   render: () => <MainPage />,
@@ -41,7 +42,7 @@ export const SuccessInteraction: Story = {
       });
     });
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await pause();
 
     await step('Raise Quantity', () => {
       const quantityInputButton = screen.getByRole('spinbutton');
@@ -56,7 +57,7 @@ export const SuccessInteraction: Story = {
       userEvent.type(quantityInput, '12', TYPING_SPEED);
     });
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await pause();
 
     await step('Purchase Another Product', async () => {
       window.scrollTo({ top: 900, behavior: 'smooth' });
@@ -68,7 +69,7 @@ export const SuccessInteraction: Story = {
       });
     });
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await pause();
 
     await step('Purchase Another Product', async () => {
       await waitFor(() => {
@@ -82,7 +83,7 @@ export const SuccessInteraction: Story = {
       });
     });
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await pause();
 
     await step('Cancel Purchasing Product', async () => {
       await waitFor(() => {
