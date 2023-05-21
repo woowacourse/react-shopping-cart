@@ -5,7 +5,7 @@ import { CART_PATH } from '../../../constants/svgPath';
 
 const meta = {
   component: IconComponent,
-  title: 'Components/Icon',
+  title: 'Components/Common/Icon',
   tags: ['autodocs'],
 
   argTypes: {

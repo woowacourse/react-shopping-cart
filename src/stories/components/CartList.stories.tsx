@@ -5,7 +5,7 @@ import { CartListWrapper } from '../../style/ContentLayout';
 import { styled } from 'styled-components';
 
 const meta = {
-  title: 'ShoppingCart/cart/CartList',
+  title: 'Pages/cart/CartList',
   component: CartList,
   parameters: {
     msw: handlers,
@@ -29,7 +29,6 @@ export const Default: Story = {};
 
 const S = {
   Wrapper: styled(CartListWrapper)`
-    width: calc(100vw - 16vw);
-    
-  `
-}
+    width: calc(100vw - 5vw);
+  `,
+};

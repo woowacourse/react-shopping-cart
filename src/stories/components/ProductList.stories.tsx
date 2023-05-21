@@ -3,11 +3,11 @@ import ProductList from '../../components/main/ProductList';
 import { handlers } from '../../mocks/handlers';
 
 const meta = {
-  title: 'ShoppingCart/product/ProductList',
+  title: 'Pages/product/ProductList',
   component: ProductList,
   tags: ['autodocs'],
-  parameters:{
-    msw: handlers
+  parameters: {
+    msw: handlers,
   },
   decorators: [(Story) => <Story />],
 } satisfies Meta<typeof ProductList>;

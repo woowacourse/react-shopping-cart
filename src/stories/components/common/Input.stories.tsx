@@ -4,7 +4,7 @@ import { RecoilRoot } from 'recoil';
 
 const meta = {
   component: InputComponent,
-  title: 'Components/Input',
+  title: 'Components/Common/Input',
   tags: ['autodocs'],
 
   argTypes: {

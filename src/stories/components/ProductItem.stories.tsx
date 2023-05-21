@@ -1,20 +1,20 @@
 import { Meta } from '@storybook/react';
 import ProductItemComponent from '../../components/main/ProductItem';
-import { RecoilRoot } from 'recoil';
 import { styled } from 'styled-components';
 
 const meta = {
   component: ProductItemComponent,
   title: 'Components/ProductItem',
   tags: ['autodocs'],
+  parameters: {
+    actions: { disabled: true },
+  },
   decorators: [
     (Story) => {
       return (
-        <RecoilRoot>
-          <S.StoryWrapper>
-            <Story />
-          </S.StoryWrapper>
-        </RecoilRoot>
+        <S.StoryWrapper>
+          <Story onClick={() => {}} />
+        </S.StoryWrapper>
       );
     },
   ],
@@ -24,7 +24,20 @@ const meta = {
     price: 41000,
     imgUrl: `${process.env.PUBLIC_URL}/assets/product1.svg`,
   },
-  argTypes: {},
+  argTypes: {
+    id: {
+      description: '상품의 ID를 표기합니다.',
+    },
+    name: {
+      description: '상품의 이름을 표기합니다.',
+    },
+    price: {
+      description: '상품의 가격을 표기합니다.',
+    },
+    imgUrl: {
+      description: '상품의 이미지 URL입니다.',
+    },
+  },
 } satisfies Meta<typeof ProductItemComponent>;
 
 export default meta;
@@ -42,7 +55,7 @@ const S = {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    width: calc(100vw - 32vw);
+    width: calc(100vw - 10vw);
   `,
 
   Wrapper: styled.div`

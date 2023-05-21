@@ -25,6 +25,20 @@ const customViewports = {
       height: '700px',
     },
   },
+  Mobile: {
+    name: 'Mobile',
+    styles: {
+      width: '375px',
+      height: '667px',
+    },
+  },
+  tablet: {
+    name: 'Tablet',
+    styles: {
+      width: '768px',
+      height: '1024px',
+    },
+  },
 }
 
 const preview: Preview = {

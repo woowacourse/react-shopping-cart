@@ -1,9 +1,10 @@
 import { Meta } from '@storybook/react';
 import HeaderComponent from '../../../components/@common/Header';
+import { styled } from 'styled-components';
 
 const meta = {
   component: HeaderComponent,
-  title: 'Components/Header',
+  title: 'Components/Common/Header',
   tags: ['autodocs'],
   decorators: [
     (Story) => {
@@ -26,6 +27,17 @@ const meta = {
 
 export default meta;
 
-export const Cart = (args: any) => {
-  return <HeaderComponent title={args.title} onClickCartButton={() => {}} />;
+export const Header = (args: any) => {
+  return (
+    <Wrapper>
+      <HeaderComponent title={args.title} onClickCartButton={() => {}} />
+    </Wrapper>
+  );
 };
+
+const Wrapper = styled.div`
+  position: absolute;
+  width: calc(100vw);
+  top: 0;
+  left: 0;
+`;

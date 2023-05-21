@@ -3,7 +3,6 @@ import CartListItemComponent from '../../components/cart/CartListItem';
 import { styled } from 'styled-components';
 import Checkbox from '../../components/@common/Checkbox';
 
-
 const meta = {
   component: CartListItemComponent,
   title: 'Components/CartListItem',
@@ -39,10 +38,9 @@ const meta = {
 export default meta;
 
 export const CartListItem = (args: any) => {
-
   return (
     <>
-      <Checkbox onChange={()=>{}} isChecked={true} />
+      <Checkbox onChange={() => {}} isChecked={true} />
       <CartListItemComponent item={args.item} setCheckItems={() => {}} />
     </>
   );
@@ -53,7 +51,7 @@ const S = {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    width: calc(100vw - 32vw);
+    width: calc(100vw - 10vw);
   `,
 
   Wrapper: styled.div`
