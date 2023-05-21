@@ -2,9 +2,10 @@ import { styled } from 'styled-components';
 import ProductItem from '../ProductItem/ProductItem';
 import useFetch from '../../../hooks/api/useFetch';
 import { Product } from '../../../types/product';
+import { PRODUCTS_BASE_URL } from '../../../constant';
 
 const ProductList = () => {
-  const { getData } = useFetch<Product[]>('./products');
+  const { getData } = useFetch<Product[]>(PRODUCTS_BASE_URL);
   const productList = getData();
 
   return (
