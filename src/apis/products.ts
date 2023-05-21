@@ -1,20 +1,17 @@
 import type { Product } from '../types/product';
+import { handleResponseError } from './utils';
 
-const URL = '/products';
+const productApis = {
+  baseUrl: '/products',
 
-export const fetchProducts = async () => {
-  const response = await fetch(URL);
+  async get() {
+    const response = await fetch(productApis.baseUrl);
 
-  if (!response.ok) {
-    const errorData = await response.json();
+    await handleResponseError(response);
 
-    if ('message' in errorData) {
-      throw new Error(errorData.message);
-    }
-
-    throw new Error(response.status.toString());
-  }
-
-  const data: Product[] = await response.json();
-  return data;
+    const data: Product[] = await response.json();
+    return data;
+  },
 };
+
+export default productApis;

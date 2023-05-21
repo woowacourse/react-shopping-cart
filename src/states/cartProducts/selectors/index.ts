@@ -1,13 +1,13 @@
 import { selector, selectorFamily } from 'recoil';
 
-import { fetchProducts } from '../../../apis/products';
+import productApis from '../../../apis/products';
 import { findTargetProduct } from '../util';
 import { cartProductState } from '../atoms';
 
 export const productSelector = selector({
   key: 'productSelector',
   get: async () => {
-    const data = await fetchProducts();
+    const data = await productApis.get();
     return data;
   },
 });
