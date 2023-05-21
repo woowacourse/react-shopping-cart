@@ -2,16 +2,21 @@ import styles from './index.module.css';
 import { cartItems } from '../../data/mockData';
 import { CartItem } from '../../types';
 import CartProduct from '../CartProduct';
-import { useRecoilValue } from 'recoil';
-import { $Cart } from '../../recoil/atom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { $Cart, $CheckedCartState } from '../../recoil/atom';
 import { SyntheticEvent, createRef, useRef, useState } from 'react';
 
 const CartProductList = () => {
   const cart = useRecoilValue($Cart);
+  const setCheckedCartData = useSetRecoilState($CheckedCartState);
   const formRef = useRef<HTMLFormElement>(null);
   const checkboxRefs = cart.map(() => createRef<HTMLInputElement>());
 
   const [selectedCount, setSelectedCount] = useState(0);
+
+  const handleSubmit = (event: SyntheticEvent) => {
+    event.preventDefault();
+  };
 
   const handleCheckboxChanged = (event: SyntheticEvent) => {
     if (!formRef.current) return;
@@ -32,10 +37,12 @@ const CartProductList = () => {
       formRef.current.querySelector<HTMLInputElement>('.select-all')!.checked = checked;
       setSelectedCount(count);
     }
-  };
 
-  const handleSubmit = (event: SyntheticEvent) => {
-    event.preventDefault();
+    const checkedItems = checkboxRefs.reduce<CartItem[]>((res, ref, i) => {
+      if (ref.current!.checked) res.push(cartItems[i]);
+      return res;
+    }, []);
+    setCheckedCartData(checkedItems);
   };
 
   return (
