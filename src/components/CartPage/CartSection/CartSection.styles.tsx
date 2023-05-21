@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const Root = styled.section``;
+export const Root = styled.section`
+  flex-grow: 1;
+`;
 
 export const SelectedCount = styled.div`
   padding-bottom: 1.5rem;
