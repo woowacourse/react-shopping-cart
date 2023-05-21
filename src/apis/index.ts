@@ -32,7 +32,7 @@ const fetcher = async <T>(url: string, options?: RequestInit): Promise<T | null>
   }
 
   try {
-    return response.json();
+    return await response.json();
   } catch {
     throw new Error('응답이 json형식이 아닙니다.');
   }
