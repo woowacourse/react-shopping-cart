@@ -20,6 +20,7 @@ const CartItemList = () => {
   const loading = (
     <S.Loading>
       <Spinner />
+      <S.LoadingText>장바구니를 불러오는 중입니다...</S.LoadingText>
     </S.Loading>
   );
 

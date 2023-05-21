@@ -65,7 +65,13 @@ export const EmptyList = styled.div`
 
 export const Loading = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 200px;
+`;
+
+export const LoadingText = styled.p`
+  margin-top: 20px;
+  font: ${(props) => props.theme.font.small};
 `;
