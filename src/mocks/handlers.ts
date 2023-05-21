@@ -15,7 +15,7 @@ const deleteItem = (itemId: number) => {
 };
 
 const addToCart = (itemId: number, quantity: number, productInfo: Product) => {
-  cart.items.push({ id: itemId, quantity, itemInfo: productInfo });
+  cart.items.push({ id: itemId, quantity, itemInfo: productInfo, isSelected: true });
 };
 
 export const handlers = [
