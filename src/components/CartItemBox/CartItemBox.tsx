@@ -6,6 +6,7 @@ import { FlexWrapper } from '../../pages/Cart/Cart.style';
 import type { ProductItem } from '../../types/ProductType';
 import CheckBox from '../common/CheckBox/CheckBox';
 import QuantityCounter from '../common/QuantityCounter/QuantityCounter';
+import deleteButton from '../../assets/delete.svg';
 
 function CartItemBox({ id, imageUrl, name, price }: ProductItem) {
   // id: cartItem
@@ -36,13 +37,12 @@ function CartItemBox({ id, imageUrl, name, price }: ProductItem) {
         }}
         quantity={quantity}
       />
-      <button
+      <img
+        src={deleteButton}
         onClick={() => {
           setQuantity(0);
         }}
-      >
-        delete
-      </button>
+      />
     </FlexWrapper>
   );
 }

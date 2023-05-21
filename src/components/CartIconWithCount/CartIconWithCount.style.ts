@@ -24,3 +24,9 @@ export const CartCount = styled.div`
   font-size: 16px;
   color: #fff;
 `;
+
+export const CartText = styled.div`
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    display: none;
+  }
+`;

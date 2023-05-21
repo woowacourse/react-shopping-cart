@@ -14,7 +14,9 @@ function CartIconWithCount() {
       role="button"
       onClick={() => navigate('/cart')}
     >
-      <S.CartTitle>장바구니</S.CartTitle>
+      <S.CartTitle>
+        <S.CartText>장바구니</S.CartText>
+      </S.CartTitle>
       <S.CartCountWrapper>
         <S.CartCount aria-live="polite">{cartListLength}</S.CartCount>
       </S.CartCountWrapper>

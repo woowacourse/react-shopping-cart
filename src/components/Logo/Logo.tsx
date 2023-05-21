@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 
 import * as S from './Logo.style';
 import cartIcon from '../../assets/cart.svg';
+import logoImage from '../../assets/logo.svg';
+import shopImage from '../../assets/shop.svg';
 
 function Logo() {
   const navigate = useNavigate();
@@ -13,8 +15,11 @@ function Logo() {
       role="button"
       onClick={() => navigate('/')}
     >
-      <S.CartIcon src={cartIcon} />
-      <S.Logo>SHOP</S.Logo>
+      <S.LogoContainer>
+        <img src={logoImage}></img>
+      </S.LogoContainer>
+
+      <img src={shopImage}></img>
     </S.LogoWrapper>
   );
 }
