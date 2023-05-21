@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
@@ -9,9 +10,14 @@ interface CartQuantityProps {
 
 export default function CartQuantity({ user }: CartQuantityProps) {
   const totalCart = useRecoilValue(totalCartCount);
+  const navigate = useNavigate();
+
+  function moveCartPage() {
+    navigate("/cart");
+  }
 
   return (
-    <CartQuantityContainer>
+    <CartQuantityContainer onClick={moveCartPage}>
       <div>{user ? `${user}의` : ``}장바구니</div>
       <Quantity>{totalCart}</Quantity>
     </CartQuantityContainer>
