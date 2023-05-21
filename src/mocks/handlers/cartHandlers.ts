@@ -3,13 +3,11 @@ import { CartProductList } from '../../types/productType';
 
 const getLocalStorageCartLst = localStorage.getItem('cartList');
 
-const setLocalStorage = (newCartList: Omit<CartProductList, 'checked'>[]) =>
+const setLocalStorage = (newCartList: CartProductList[]) =>
   localStorage.setItem('cartList', JSON.stringify(newCartList));
 
 const isAlreadyInCartList = (id: number) =>
-  cartList.some(
-    (cartItem: Omit<CartProductList, 'checked'>) => cartItem.id === id
-  );
+  cartList.some((cartItem: CartProductList) => cartItem.id === id);
 
 let cartList = getLocalStorageCartLst ? JSON.parse(getLocalStorageCartLst) : [];
 
@@ -18,7 +16,7 @@ export const cartHandlers = [
     return res(ctx.delay(10), ctx.status(200), ctx.json(cartList));
   }),
 
-  rest.post('api/carts', async (req, res, ctx) => {
+  rest.post('/api/carts', async (req, res, ctx) => {
     const productId = Number(await req.text());
 
     if (isAlreadyInCartList(productId)) {
@@ -61,7 +59,7 @@ export const cartHandlers = [
 
     const newQuantity = Number(await req.text());
 
-    cartList = cartList.map((cartItem: Omit<CartProductList, 'checked'>) =>
+    cartList = cartList.map((cartItem: CartProductList) =>
       cartItem.id === cartItemId
         ? { ...cartItem, quantity: newQuantity }
         : cartItem
@@ -72,7 +70,7 @@ export const cartHandlers = [
     return res(ctx.status(200));
   }),
 
-  rest.delete('api-items/:id', (req, res, ctx) => {
+  rest.delete('/api-items/:id', (req, res, ctx) => {
     const cartItemId = Number(req.params.id);
 
     if (!isAlreadyInCartList) {
@@ -83,7 +81,7 @@ export const cartHandlers = [
     }
 
     cartList = cartList.filter(
-      (cartItem: Omit<CartProductList, 'checked'>) => cartItem.id !== cartItemId
+      (cartItem: CartProductList) => cartItem.id !== cartItemId
     );
 
     setLocalStorage(cartList);

@@ -1,16 +1,11 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import {
-  cartItemCheckedStateFamily,
-  cartItemQuantityStateFamily,
-  cartState,
-} from '../../atoms/CartState';
+import { cartItemQuantityStateFamily, cartState } from '../../atoms/CartState';
 import { productItemStateFamily } from '../../atoms/ProductItemState';
 import { useCallback } from 'react';
 
 export const useCartState = (id: number) => {
   const productItem = useRecoilValue(productItemStateFamily(id));
   const quantity = useRecoilValue(cartItemQuantityStateFamily(id));
-  const checked = useRecoilValue(cartItemCheckedStateFamily(id));
   const setCartStates = useSetRecoilState(cartState);
 
   const handleAddCartState = () => {
@@ -29,7 +24,6 @@ export const useCartState = (id: number) => {
         {
           id,
           quantity: 1,
-          checked: true,
           product: productItem,
         },
       ];
@@ -64,7 +58,6 @@ export const useCartState = (id: number) => {
 
   return {
     quantity,
-    checked,
     handleAddCartState,
     handleDeleteCartState,
     increaseProductCount,

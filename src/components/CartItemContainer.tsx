@@ -11,30 +11,7 @@ import { useState } from 'react';
 
 export const CartItemContainer = () => {
   const [checkAllCheckboxText, setCheckAllCheckboxText] = useState('전체선택');
-  const [isChecked, setIsChecked] = useState(false);
   const [cartLists, setCartLists] = useRecoilState(cartState);
-
-  const changeAllCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) {
-      setCheckAllCheckboxText('선택해제');
-      setIsChecked(true);
-
-      setCartLists((prevStates) =>
-        prevStates.map((cartItem) =>
-          !cartItem.checked ? { ...cartItem, checked: true } : cartItem
-        )
-      );
-    } else {
-      setCheckAllCheckboxText('전체선택');
-      setIsChecked(false);
-
-      setCartLists((prevStates) =>
-        prevStates.map((cartItem) =>
-          cartItem.checked ? { ...cartItem, checked: false } : cartItem
-        )
-      );
-    }
-  };
 
   return (
     <Styled.Wrapper>
@@ -42,11 +19,7 @@ export const CartItemContainer = () => {
         <ContainerTitle size="20px">{`든든배송 상품 ${cartLists.length}개`}</ContainerTitle>
         <div>
           <Styled.TotalCheckboxInputWrapper>
-            <Styled.TotalCheckboxInput
-              type="checkbox"
-              checked={isChecked}
-              onChange={changeAllCheckbox}
-            />
+            <Styled.TotalCheckboxInput type="checkbox" />
             <CheckAllText size="16px">{checkAllCheckboxText}</CheckAllText>
           </Styled.TotalCheckboxInputWrapper>
           <DeleteSelectionButton width="100px" borderColor="#aaaaaa">

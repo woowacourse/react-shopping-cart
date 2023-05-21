@@ -13,16 +13,18 @@ export const CartTotalPriceContainer = () => {
   const cartList = useRecoilValue(cartState);
   const shippingPrice = 3000;
 
-  const getTotalProductPrice = useMemo(
-    () =>
-      cartList.reduce(
-        (acc, cartItem) =>
-          acc +
-          (cartItem.checked ? cartItem.quantity * cartItem.product.price : 0),
-        0
-      ),
-    [cartList]
-  );
+  const getTotalProductPrice = 30000;
+  // useMemo(
+  //   () =>
+  //     cartList.reduce(
+  //       (acc, cartItem) =>
+  //         acc +
+  //         (cartItem.checked ? cartItem.quantity * cartItem.product.price : 0),
+  //       0
+  //     ),
+  //   [cartList]
+  // );
+
   return (
     <Styled.Wrapper>
       <div>
