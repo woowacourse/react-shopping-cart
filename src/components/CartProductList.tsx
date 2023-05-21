@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { useFetch } from './hooks/useFetch';
 import { Cart } from '../types';
 import Loading from './Loading';
+import { Image as EmptyCartImage } from './common/Image';
 
 export const CartProductList = () => {
   const { data, getAPI, isLoading } = useFetch<{ cartList: Cart[] }>();
@@ -30,7 +31,17 @@ export const CartProductList = () => {
         </ProductCountText>
       </ProductCountTextWrapper>
       <ProductItemContainer>
-        {data?.cartList.length === 0 && <div>장바구니가 비었습니다.</div>}
+        {data?.cartList.length === 0 && (
+          <EmptyCartWrapper>
+            <EmptyCartImage
+              width="340px"
+              height="340px"
+              source="/assets/empty_cart_image.jpg"
+              alternative="장바구니가 비었습니다."
+            />
+            <EmptyCartMessage>장바구니가 비었습니다.</EmptyCartMessage>
+          </EmptyCartWrapper>
+        )}
         {isLoading ? (
           <Loading />
         ) : (
@@ -92,4 +103,16 @@ const BottomSideWrapper = styled.div`
 
 const SelectedProductText = styled(StyledText)`
   margin: 0 20px;
+`;
+
+const EmptyCartWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 0;
+`;
+
+const EmptyCartMessage = styled.div`
+  padding: 50px 0;
+  text-align: center;
 `;
