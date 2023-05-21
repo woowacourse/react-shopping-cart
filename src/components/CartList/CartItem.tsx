@@ -13,6 +13,7 @@ interface CartItemProps {
   imageUrl: string;
   quantity: number;
   price: number;
+  refetch: ()=>void
 }
 
 const CartItem = ({
@@ -21,6 +22,7 @@ const CartItem = ({
   imageUrl,
   quantity,
   price,
+  refetch
 }: CartItemProps) => {
   const [checkBox, setCheckBox] = useAtomLocalStorage<number[]>(
     checkBoxAtom,
@@ -57,6 +59,7 @@ const CartItem = ({
           id={id}
           quantity={quantity}
           kind="big"
+          refetch={refetch}
         />
         <CartItemMoney>
           {(price * quantity).toLocaleString('ko-KR')}
@@ -134,4 +137,4 @@ const CartItemMoney = styled.span`
   color: #333333;
 `;
 
-export default React.memo(CartItem);
+export default CartItem;

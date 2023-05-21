@@ -13,12 +13,13 @@ interface BucketCounterStyle {
 interface BucketCounterProps extends BucketCounterStyle {
   id: number;
   quantity?: number;
+  refetch: ()=>void
 }
 
 const MAX_BUCKET_COUNT = 1000;
 const ERROR_MESSAGE = '장바구니 수량은 1000개 이하까지 가능합니다.';
 
-const BucketCounter = ({ id, quantity = 1, kind }: BucketCounterProps) => {
+const BucketCounter = ({ id, quantity = 1, kind, refetch}: BucketCounterProps) => {
   const {
     onBlur,
     bucketCount,
@@ -35,28 +36,32 @@ const BucketCounter = ({ id, quantity = 1, kind }: BucketCounterProps) => {
   const changeCount = async (event: React.ChangeEvent<HTMLInputElement>) => {
     changeCountEvent(event);
 
-    await fetch(`/cart-items/${id}`, {
+    const response = await fetch(`/cart-items/${id}`, {
       method: 'patch',
       body: JSON.stringify({ quantity: Number(event.target.value) }),
     });
+
+    if(response.ok) refetch()
   };
 
   const upButton = async () => {
-    await fetch(`/cart-items/${id}`, {
+    const response = await fetch(`/cart-items/${id}`, {
       method: 'patch',
       body: JSON.stringify({ quantity: bucketCount }),
     });
 
     increaseCount();
+    if(response.ok) refetch()
   };
 
   const downButton = async () => {
-    await fetch(`/cart-items/${id}`, {
+    const response = await fetch(`/cart-items/${id}`, {
       method: 'patch',
       body: JSON.stringify({ quantity: bucketCount }),
     });
 
     decreaseCount();
+    if(response.ok) refetch()
   };
 
   return (

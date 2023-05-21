@@ -44,6 +44,8 @@ const CartList = () => {
     }
     setCheckBox([]);
     setCheck(false);
+
+    refetch();
   };
 
   const removeCartOnClick = () => {
@@ -52,11 +54,11 @@ const CartList = () => {
         checkBox.includes(product.id) && checkBoxTotalId.includes(product.id)
     );
 
-    removedCart.forEach(async (product)=>{
+    removedCart.forEach(async (product) => {
       await fetch(`/cart-items/${product.id}`, {
         method: 'delete',
       });
-    })
+    });
     const removedCheckBox = checkBoxTotalId.filter(
       (id) => !checkBox.includes(id)
     );
@@ -73,27 +75,30 @@ const CartList = () => {
     setCheck(false);
   }, [checkBox, checkBoxTotalId]);
 
+  useEffect(() => {
+    refetch();
+  }, []);
+
   if (!data) return null;
 
   return (
     <CartListWrapper>
-      {isLoading
-        ? '로딩 중'
-        : data.map((product, idx) => {
-            return (
-              <div key={idx}>
-                <hr />
-                <CartItem
-                  key={product.id}
-                  id={product.product.id}
-                  name={product.product.name}
-                  imageUrl={product.product.imageUrl}
-                  quantity={product.quantity}
-                  price={product.product.price}
-                />
-              </div>
-            );
-          })}
+      {data.map((product, idx) => {
+        return (
+          <div key={idx}>
+            <hr />
+            <CartItem
+              key={product.id}
+              id={product.product.id}
+              name={product.product.name}
+              imageUrl={product.product.imageUrl}
+              quantity={product.quantity}
+              price={product.product.price}
+              refetch={refetch}
+            />
+          </div>
+        );
+      })}
       <CartPageBottom>
         <CheckBox onChange={checkBoxTotalIdOnChange} check={check} />
         <CartSelectorText>

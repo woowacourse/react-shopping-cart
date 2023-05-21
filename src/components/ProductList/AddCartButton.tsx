@@ -17,7 +17,7 @@ const AddCartButton = ({ id, addProductToCart }: AddCartButtonProps) => {
   return (
     <Wrapper>
       {savedCartData ? (
-        <BucketCounter id={id} quantity={savedCartData.quantity} kind="small"/>
+        <BucketCounter id={id} quantity={savedCartData.quantity} kind="small" refetch={()=>{}}/>
       ) : (
         <Button
           type="button"

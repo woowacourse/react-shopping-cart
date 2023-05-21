@@ -23,13 +23,11 @@ const useBucketCount = (
     const { value } = event.target;
     const count = Number(value);
 
-    console.log(count)
     if (isNaN(count)) return;
 
     showInputErrorMessage(isCountError(count), event.target, errorMessage);
 
     if (count >= maximumWriteInput) return;
-
     setBucketCount(count);
     updateQuantityOfCartItem(id, count);
   };
@@ -41,6 +39,7 @@ const useBucketCount = (
     }
 
     setBucketCount((prev) => prev + 1);
+
     updateQuantityOfCartItem(id, bucketCount + 1);
   };
 
@@ -49,7 +48,6 @@ const useBucketCount = (
       removeProductFromCart(id);
       return;
     }
-
     updateQuantityOfCartItem(id, bucketCount - 1);
 
     setBucketCount((prev) => prev - 1);
