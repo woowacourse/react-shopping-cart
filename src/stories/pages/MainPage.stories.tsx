@@ -8,6 +8,4 @@ const meta = {
 
 export default meta;
 
-export const Main = () => {
-  return <MainPage />;
-};
+export const Main = () => <MainPage />;

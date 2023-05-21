@@ -5,7 +5,6 @@ import MainPage from '../../pages/MainPage';
 
 const meta = {
   title: 'Pages/MainPage',
-  decorators: [(Story) => <Story />],
 } satisfies Meta<typeof MainPage>;
 
 export default meta;
