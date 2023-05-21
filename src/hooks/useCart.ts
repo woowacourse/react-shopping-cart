@@ -11,7 +11,7 @@ const useCart = () => {
       if (!cartList) {
         // 카트가 없는 경우
         setCartList({
-          items: [cartItem],
+          items: [{ ...cartItem, isSelected: true }],
         });
 
         return;
@@ -24,7 +24,7 @@ const useCart = () => {
         // 기존 아이템 업데이트
         setCartList({
           ...cartList,
-          items: cartList.items.map((item, index) => (index === existingItemIndex ? cartItem : item)),
+          items: cartList.items.map((item, index) => (index === existingItemIndex ? { ...cartItem, isSelected: true } : item)),
         });
 
         return;
@@ -33,13 +33,72 @@ const useCart = () => {
       // 새로운 아이템 추가
       setCartList({
         ...cartList,
-        items: [...cartList.items, cartItem],
+        items: [...cartList.items, { ...cartItem, isSelected: true }],
       });
     },
     [cartList, setCartList]
   );
 
-  return { cartList, setCartList, updateCart };
+  const removeCartItem = useCallback(
+    (itemId: number) => {
+      if (!cartList) {
+        return;
+      }
+
+      const updatedItems = cartList.items.filter((item) => item.id !== itemId);
+
+      setCartList({
+        ...cartList,
+        items: updatedItems,
+      });
+    },
+    [cartList, setCartList]
+  );
+
+  const toggleIsSelected = useCallback(
+    (itemId: number) => {
+      if (!cartList) {
+        return;
+      }
+
+      const updatedItems = cartList.items.map((item) => {
+        if (item.id !== itemId) {
+          return item;
+        }
+
+        return {
+          ...item,
+          isSelected: !item.isSelected,
+        };
+      });
+
+      setCartList({
+        ...cartList,
+        items: updatedItems,
+      });
+    },
+    [cartList, setCartList]
+  );
+
+  const selectAllItems = useCallback(() => {
+    if (!cartList) {
+      return;
+    }
+
+    const updatedItems = cartList.items.map((item) => {
+      return {
+        ...item,
+        isSelected: true,
+      };
+    });
+
+    setCartList({
+      ...cartList,
+      items: updatedItems,
+    });
+  }, [cartList, setCartList]);
+
+  return { cartList, setCartList, updateCart, removeCartItem, toggleIsSelected, selectAllItems };
 };
 
 export default useCart;
