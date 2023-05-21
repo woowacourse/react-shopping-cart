@@ -6,7 +6,7 @@ const productsQuery = selector<Product[]>({
   key: 'productsQuery',
   get: async () => {
     const data = await mockServerClient.get('/products');
-    return data;
+    return data.response;
   },
 });
 

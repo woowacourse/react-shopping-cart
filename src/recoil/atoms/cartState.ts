@@ -1,11 +1,11 @@
 import { atom } from 'recoil';
 import type { Cart } from '../../type';
-import localStorageEffect from '../effects/localStorageEffect';
+import mswServerEffect from '../effects/mswServerEffect';
 
 const cartState = atom<Cart>({
   key: 'cartState',
   default: [],
-  effects: [localStorageEffect('cartState')],
+  effects: [mswServerEffect('cartState')],
 });
 
 export default cartState;

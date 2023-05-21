@@ -1,5 +1,5 @@
 import { rest } from 'msw';
-import { products } from './productData';
+import products from './productData';
 
 export default function handlers() {
   return [

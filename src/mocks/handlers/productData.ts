@@ -1,4 +1,4 @@
-export const products = [
+const products = [
   {
     id: 1,
     name: 'PET보틀-정사각(420ml)',
@@ -72,3 +72,5 @@ export const products = [
     imageUrl: './images/products/12.png',
   },
 ];
+
+export default products;

@@ -11,4 +11,10 @@ export type CartProduct = {
   productId: number;
 };
 
+export type UserCartProduct = {
+  id: number;
+  quantity: number;
+  product: Product;
+};
+
 export type Cart = CartProduct[];
