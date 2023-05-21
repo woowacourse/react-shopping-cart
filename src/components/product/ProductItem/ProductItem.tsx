@@ -26,6 +26,7 @@ const ProductItem = ({ ...information }: ProductItemProps) => {
           <S.ItemButton
             type="button"
             value={cartItemQuantity || 0}
+            aria-label="add item"
             variant={cartItemQuantity ? 'primary' : 'textButton'}
             onClick={handleModalOpen}
           >
