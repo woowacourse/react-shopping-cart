@@ -36,10 +36,25 @@ export const useCartRecoil = () => {
     );
   };
 
+  const getProductQuantityById = (id: number) => {
+    return cartItems.find((cartItem) => cartItem.id === id)?.quantity;
+  };
+
+  const getIsCartIncludes = (id: number) => {
+    return cartItems.some((cartItem) => cartItem.id === id);
+  };
+
+  const getCartItemIdList = () => {
+    return cartItems.map((cartItem) => cartItem.id);
+  };
+
   return {
     addRecoilCartById,
     deleteRecoilCartById,
     patchRecoilCartItemQuantity,
+    getProductQuantityById,
+    getIsCartIncludes,
+    getCartItemIdList,
     cartItems,
   };
 };

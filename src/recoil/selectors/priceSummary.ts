@@ -19,7 +19,7 @@ export const priceSummaryState = selector({
       0
     );
 
-    const deliveryPrice = 3000;
+    const deliveryPrice = selectedCartItems.length > 0 ? 3000 : 0;
 
     const totalPrice = totalProductPrice + deliveryPrice;
 

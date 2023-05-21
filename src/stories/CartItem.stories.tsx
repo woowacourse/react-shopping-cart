@@ -2,7 +2,7 @@ import { RecoilRoot } from 'recoil';
 import { Meta, StoryObj } from '@storybook/react';
 import mockData from '../assets/mockData.json';
 import { GlobalStyle } from '../GlobalStyle';
-import { CartItem } from '../components/cartPage/cartItems/CartItem';
+import { CartItem } from '../components/cartPage/cartItemsSection/CartItem';
 
 const meta = {
   title: 'CartItem',

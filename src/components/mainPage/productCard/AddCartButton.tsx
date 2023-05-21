@@ -10,37 +10,45 @@ interface AddCartButtonProps {
 
 export const AddCartButton = ({ id }: AddCartButtonProps) => {
   const {
-    cartItems,
     addRecoilCartById,
     deleteRecoilCartById,
     patchRecoilCartItemQuantity,
+    getProductQuantityById,
+    getIsCartIncludes,
   } = useCartRecoil();
   const { addCartItemById, deleteCartItemById, patchCartItemQuantity } =
     useCartFetch();
 
-  const [count, setCount] = useState<number>(
-    cartItems.find((cartItem) => cartItem.id === id)?.quantity ?? 1
+  const [quantity, setQuantity] = useState<number>(
+    getProductQuantityById(id) ?? 1
   );
 
+  const deleteCartItem = () => {
+    deleteRecoilCartById(id);
+    deleteCartItemById(id);
+  };
+
+  const patchQuantity = () => {
+    patchRecoilCartItemQuantity(id, quantity);
+    patchCartItemQuantity(id, quantity);
+  };
+
   useEffect(() => {
-    if (!cartItems.some((cartItem) => cartItem.id === id)) return;
+    if (!getIsCartIncludes(id)) return;
 
-    if (count <= 0) {
-      deleteRecoilCartById(id);
-      deleteCartItemById(id);
-      setCount(1);
-
+    if (quantity <= 0) {
+      deleteCartItem();
+      setQuantity(1);
       return;
     }
 
-    patchRecoilCartItemQuantity(id, count);
-    patchCartItemQuantity(id, count);
-  }, [count]);
+    patchQuantity();
+  }, [quantity]);
 
   return (
     <>
-      {cartItems.some((cartItem) => cartItem.id === id) ? (
-        <Counter count={count} setCount={setCount} />
+      {getIsCartIncludes(id) ? (
+        <Counter count={quantity} setCount={setQuantity} />
       ) : (
         <ShoppingCartIcon
           handleClick={() => {

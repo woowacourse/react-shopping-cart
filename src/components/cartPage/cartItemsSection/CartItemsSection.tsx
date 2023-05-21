@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { CartItemList } from './CartItemList';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { selector, useRecoilState, useRecoilValue } from 'recoil';
 import {
   cartItemsState,
   selectedCartIdListState,
@@ -9,13 +9,27 @@ import { CheckBox } from '../../../layout/checkBox/CheckBox';
 import { useCartRecoil } from '../../../hooks/recoil/useCartRecoil';
 import { useCartFetch } from '../../../hooks/fetch/useCartFetch';
 
+const isAllCheckBoxSelectedState = selector({
+  key: 'isAllCheckBoxSelectedState',
+  get: ({ get }) => {
+    const cartItems = get(cartItemsState);
+    const selectedCartIdList = get(selectedCartIdListState);
+
+    return (
+      cartItems.filter((cartItem) => !selectedCartIdList.includes(cartItem.id))
+        .length === 0
+    );
+  },
+});
+
 export const CartItemsSection = () => {
   const cartItems = useRecoilValue(cartItemsState);
+  const isAllCheckBoxChecked = useRecoilValue(isAllCheckBoxSelectedState);
   const [selectedCartIdList, setSelectedCartIdList] = useRecoilState(
     selectedCartIdListState
   );
 
-  const { deleteRecoilCartById } = useCartRecoil();
+  const { deleteRecoilCartById, getCartItemIdList } = useCartRecoil();
   const { deleteCartItemById } = useCartFetch();
 
   const deleteSelectedProduct = () => {
@@ -23,6 +37,14 @@ export const CartItemsSection = () => {
       deleteRecoilCartById(selectedCartId);
       deleteCartItemById(selectedCartId);
     });
+  };
+
+  const toggleAllCheckBoxChecked: React.ChangeEventHandler<HTMLInputElement> = (
+    e
+  ) => {
+    if (e.target.checked)
+      return setSelectedCartIdList(() => getCartItemIdList());
+    setSelectedCartIdList(() => []);
   };
 
   return (
@@ -33,19 +55,9 @@ export const CartItemsSection = () => {
       <CartItemList cartItemList={cartItems} />
       <Style.SelectOrDeleteContainer>
         <CheckBox
-          isChecked={
-            cartItems.filter(
-              (cartItem) => !selectedCartIdList.includes(cartItem.id)
-            ).length === 0
-          }
+          isChecked={isAllCheckBoxChecked}
           id={Math.random()}
-          handleClickCheckBox={(e) => {
-            if (e.target.checked)
-              return setSelectedCartIdList(() =>
-                cartItems.map((cartItem) => cartItem.id)
-              );
-            setSelectedCartIdList(() => []);
-          }}
+          handleClickCheckBox={toggleAllCheckBoxChecked}
         />
         <Style.SelectedProductCount>
           전체선택 ({selectedCartIdList.length}/{cartItems.length})

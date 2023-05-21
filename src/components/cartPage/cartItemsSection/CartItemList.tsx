@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { CartItem } from './CartItem';
 import { Product } from '../../../types/Product';
+import { memo } from 'react';
 
 interface CartItemType {
   id: number;
@@ -12,7 +13,7 @@ interface CartProductListProps {
   cartItemList: CartItemType[];
 }
 
-export const CartItemList = ({ cartItemList }: CartProductListProps) => {
+export const CartItemList = memo(({ cartItemList }: CartProductListProps) => {
   return (
     <Style.Container>
       {cartItemList.map((cartItem) => {
@@ -20,7 +21,7 @@ export const CartItemList = ({ cartItemList }: CartProductListProps) => {
       })}
     </Style.Container>
   );
-};
+});
 
 const Style = {
   Container: styled.ul`

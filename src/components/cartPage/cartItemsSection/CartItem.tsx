@@ -4,13 +4,9 @@ import { useState, useEffect } from 'react';
 
 import { CheckBox } from '../../../layout/checkBox/CheckBox';
 import { useCartRecoil } from '../../../hooks/recoil/useCartRecoil';
-import { useRecoilState } from 'recoil';
-import {
-  cartItemsState,
-  selectedCartIdListState,
-} from '../../../recoil/atoms/cartAtom';
 import { Counter } from '../../../layout/counter/Counter';
 import { useCartFetch } from '../../../hooks/fetch/useCartFetch';
+import { useSelectedCartRecoil } from '../../../hooks/recoil/useSelectedCartRecoil';
 
 interface ProductSelectItemProps {
   id: number;
@@ -25,65 +21,54 @@ export const CartItem = ({
   price,
   imageUrl,
 }: ProductSelectItemProps) => {
-  const [cartItems, setCartItems] = useRecoilState(cartItemsState);
-  const [selectedCartIdList, setSelectedCartIdList] = useRecoilState(
-    selectedCartIdListState
-  );
+  const {
+    deleteRecoilCartById,
+    patchRecoilCartItemQuantity,
+    getProductQuantityById,
+    getIsCartIncludes,
+  } = useCartRecoil();
+  const {
+    getIsSelectedCartIdListIncludes,
+    addNewSelectedCartId,
+    deleteSelectedCartId,
+  } = useSelectedCartRecoil();
 
-  const { deleteRecoilCartById } = useCartRecoil();
-  const { deleteCartItemById } = useCartFetch();
+  const { deleteCartItemById, patchCartItemQuantity } = useCartFetch();
 
-  const [count, setCount] = useState<number>(
-    cartItems.find((cartProduct) => cartProduct.id === id)?.quantity ?? 1
-  );
+  const [count, setCount] = useState<number>(getProductQuantityById(id) ?? 1);
 
   const handleDeleteCartItem = () => {
     // eslint-disable-next-line no-restricted-globals
     const isUserWantToDeleteProduct = confirm(`${name}을 삭제하시겠습니까?`);
 
-    if (isUserWantToDeleteProduct) {
-      deleteCartItemById(id);
-      deleteRecoilCartById(id);
-    }
+    if (!isUserWantToDeleteProduct && count <= 0) return setCount(1);
+
+    deleteCartItemById(id);
+    deleteRecoilCartById(id);
   };
 
   const handleClickCheckBox: React.ChangeEventHandler<HTMLInputElement> = (
     e
   ) => {
-    if (e.target.checked)
-      return setSelectedCartIdList((current) => [...current, id]);
+    if (e.target.checked) return addNewSelectedCartId(id);
 
-    setSelectedCartIdList((current) =>
-      current.filter((selectedCartId) => selectedCartId !== id)
-    );
-  };
-
-  const setCartItemQuantity = (quantity: number) => {
-    setCartItems((current) =>
-      current.map((productDetail) => {
-        if (productDetail.id === id)
-          return {
-            ...productDetail,
-            quantity,
-          };
-        return productDetail;
-      })
-    );
+    deleteSelectedCartId(id);
   };
 
   useEffect(() => {
-    if (!cartItems.some((cartItem) => cartItem.id === id)) return;
+    if (!getIsCartIncludes(id)) return;
 
     if (count <= 0) return handleDeleteCartItem();
 
-    setCartItemQuantity(count);
+    patchRecoilCartItemQuantity(id, count);
+    patchCartItemQuantity(id, count);
   }, [count]);
 
   return (
     <Style.Container>
       <Style.Content>
         <CheckBox
-          isChecked={selectedCartIdList.includes(id)}
+          isChecked={getIsSelectedCartIdListIncludes(id)}
           handleClickCheckBox={handleClickCheckBox}
           id={id}
         />

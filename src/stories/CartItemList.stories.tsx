@@ -33,7 +33,7 @@ export const CartItemsComponent = () => {
 
       Array.from({ length: 5 }).forEach((_, index) => {
         cartItems.push({
-          id: index + 1,
+          id: index,
           quantity: Math.round(Math.random() * 10) + 1,
           product: mockData[index],
         });
