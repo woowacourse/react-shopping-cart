@@ -4,6 +4,7 @@ import Styled from "./ShoppingPreviewStyled";
 import ProductPrice from "../common/ProductPrice/ProductPrice";
 import { cartAllPriceSelector } from "../../store/cartState";
 import { useRecoilValue } from "recoil";
+import { MONEY } from "../../abstract/constants";
 
 const ShoppingPreview = () => {
   const cartAllPrice = useRecoilValue(cartAllPriceSelector);
@@ -21,7 +22,9 @@ const ShoppingPreview = () => {
             </Styled.PriceLine>
             <Styled.PriceLine>
               <Styled.TextSpan>총 배송비</Styled.TextSpan>
-              <ProductPrice price={cartAllPrice ? 3000 : 0}></ProductPrice>
+              <ProductPrice
+                price={cartAllPrice ? MONEY.DELIVERY : MONEY.ZERO}
+              ></ProductPrice>
             </Styled.PriceLine>
           </div>
 
@@ -29,7 +32,9 @@ const ShoppingPreview = () => {
             <Styled.PriceLine>
               <Styled.TextSpan>총 주문금액</Styled.TextSpan>
               <ProductPrice
-                price={cartAllPrice ? cartAllPrice + 3000 : 0}
+                price={
+                  cartAllPrice ? cartAllPrice + MONEY.DELIVERY : MONEY.ZERO
+                }
               ></ProductPrice>
             </Styled.PriceLine>
             <Styled.Button> 주문하기</Styled.Button>

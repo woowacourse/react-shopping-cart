@@ -7,6 +7,7 @@ import {
   targetShoppingSelector,
 } from "../store/fetchState";
 import { fetchDeleteQuery, fetchPatchQuery, fetchPostQuery } from "../api";
+import { API, ZERO } from "../abstract/constants";
 
 const useCart = (productId: number) => {
   const [cart, setCart] = useRecoilState(cartAtomFamily(productId));
@@ -17,12 +18,12 @@ const useCart = (productId: number) => {
   const productInCart = cart.quantity ? true : false;
   const [isCartClicked, setIsCartClicked] = useState(Boolean(productInCart));
 
-  if (cart.quantity !== 0) {
+  if (cart.quantity !== ZERO) {
     const data = { quantity: cart.quantity };
     fetchPatchQuery(`/cart-items/${cart.id}`, data);
   }
 
-  if (shoppingProduct && cart.quantity === 0) setCart(shoppingProduct);
+  if (shoppingProduct && cart.quantity === ZERO) setCart(shoppingProduct);
 
   const addToCart = async () => {
     const newProduct: Cart = {
@@ -42,7 +43,7 @@ const useCart = (productId: number) => {
   const deleteToCart = async () => {
     const updateProduct: Cart = {
       id: productId,
-      quantity: 0,
+      quantity: ZERO,
       product,
     };
     setCart(updateProduct);
@@ -72,7 +73,7 @@ const useCart = (productId: number) => {
 
     setCart(updateProduct);
 
-    if (updateProduct.quantity === 0) {
+    if (updateProduct.quantity === ZERO) {
       deleteToCart();
     }
   };
