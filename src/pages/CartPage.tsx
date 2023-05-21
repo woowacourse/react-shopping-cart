@@ -1,16 +1,13 @@
 import styled from 'styled-components';
 import CartList from '../components/CartPage/CartList';
 import SubTotal from '../components/CartPage/SubTotal';
-import { Suspense } from 'react';
 
 export default function CartPage() {
   return (
     <CartPageContainer>
       <CartPageHeader>장바구니</CartPageHeader>
       <CartPageBody>
-        <Suspense fallback={<div>삭제버튼 로딩 인디케이터</div>}>
-          <CartList />
-        </Suspense>
+        <CartList />
         <SubTotal />
       </CartPageBody>
     </CartPageContainer>
