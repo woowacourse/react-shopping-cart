@@ -38,7 +38,8 @@ const CartPageSection = () => {
     fetchApi.delete(`/cart-item-remove?id=${itemId}`);
   };
 
-  const deliveryPrice = 3000;
+  const cartListLength = cartListCheckedLength();
+  const deliveryPrice = cartListLength === 0 ? 0 : 3000;
 
   return (
     <>
@@ -48,15 +49,15 @@ const CartPageSection = () => {
         <div className={styles.deleteBox}>
           <Checkbox
             size="small"
-            checked={cartListCheckedLength() === cartList.length}
+            checked={cartListLength === cartList.length}
             clickEvent={
-              cartListCheckedLength() === cartList.length
+              cartListLength === cartList.length
                 ? resetCartCheckStatusToFalse
                 : resetCartCheckStatusToTrue
             }
           />
           <p>
-            전체 선택({cartListCheckedLength()}/{cartItem?.length})
+            전체 선택({cartListLength}/{cartItem?.length})
           </p>
           <button type="button" className={styles.deleteButton} onClick={checkedItemRemove}>
             선택 삭제
@@ -64,7 +65,7 @@ const CartPageSection = () => {
         </div>
         <section className={styles.section}>
           <div className={styles.cartList}>
-            {false ? (
+            {!isLoading ? (
               cartItem.map((item) => (
                 <CartItem
                   quantity={item.quantity}
@@ -99,8 +100,14 @@ const CartPageSection = () => {
                   <div>총 주문금액</div>
                   <div>{priceFormatter(getCartItemSum() + deliveryPrice)}원</div>
                 </div>
-                <button className={styles.orderButton} type="button">
-                  주문하기
+                <button
+                  className={cartListLength > 0 ? styles.orderButton : styles.orderButtonDisabled}
+                  type="button"
+                  disabled={cartListLength === 0}
+                >
+                  {cartListLength > 0
+                    ? `총 ${cartListLength}개 상품 주문하기`
+                    : '상품을 선택해주세요'}
                 </button>
               </div>
             </div>
