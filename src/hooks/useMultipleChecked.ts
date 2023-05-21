@@ -9,6 +9,7 @@ const useMultipleChecked = () => {
   const setCartProducts = useSetRecoilState(cartProductState);
 
   const isAllChecked = checked.every((item) => item.isChecked);
+  const isAllUnchecked = checked.every((item) => !item.isChecked);
 
   const toggleAllProductChecked: ChangeEventHandler<HTMLInputElement> = (
     event
@@ -32,7 +33,12 @@ const useMultipleChecked = () => {
     });
   };
 
-  return { isAllChecked, toggleAllProductChecked, deleteCheckedProducts };
+  return {
+    isAllChecked,
+    isAllUnchecked,
+    toggleAllProductChecked,
+    deleteCheckedProducts,
+  };
 };
 
 export default useMultipleChecked;

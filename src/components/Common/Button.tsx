@@ -60,6 +60,11 @@ const StyledButton = styled.button<{
     primary ? theme.colors.white : theme.colors.black};
   border: ${({ theme, border }) =>
     border ? `1px solid ${theme.colors.gray300}` : 'none'};
+
+  &:disabled {
+    cursor: not-allowed;
+    background: ${({ theme }) => theme.colors.gray200};
+  }
 `;
 
 export default Button;

@@ -1,14 +1,27 @@
+import { useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import Button from '../Common/Button';
 
+import useMultipleChecked from '../../hooks/useMultipleChecked';
 import { checkedPriceState } from '../../states/checkedCartProducts/selector';
 
 const DELIVERY_FEE = 3_000;
 
 const ExpectedPaymentBox = () => {
   const totalPrice = useRecoilValue(checkedPriceState);
+  const { isAllUnchecked } = useMultipleChecked();
+
+  const deliveryFee = useMemo(
+    () => (isAllUnchecked ? 0 : DELIVERY_FEE),
+    [isAllUnchecked]
+  );
+
+  const total = useMemo(
+    () => totalPrice + deliveryFee,
+    [deliveryFee, totalPrice]
+  );
 
   return (
     <ExpectedPaymentContainer>
@@ -20,15 +33,15 @@ const ExpectedPaymentBox = () => {
         </PaymentInfoItem>
         <PaymentInfoItem>
           <dt>총 배송비</dt>
-          <dd>{DELIVERY_FEE.toLocaleString('ko-KR')}원</dd>
+          <dd>{deliveryFee.toLocaleString('ko-KR')}원</dd>
         </PaymentInfoItem>
         <PaymentInfoItem>
           <dt>총 주문금액</dt>
-          <dd>{(totalPrice + DELIVERY_FEE).toLocaleString('ko-KR')}원</dd>
+          <dd>{total.toLocaleString('ko-KR')}원</dd>
         </PaymentInfoItem>
       </ExpectedPaymentInfo>
       <OrderButtonWrapper>
-        <Button type='button' autoSize>
+        <Button type='button' autoSize disabled={isAllUnchecked}>
           주문하기
         </Button>
       </OrderButtonWrapper>
