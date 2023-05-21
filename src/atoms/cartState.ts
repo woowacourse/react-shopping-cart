@@ -13,12 +13,12 @@ interface RequestAction {
   payload?: any;
 }
 
-export const cartRequestAction = atomFamily<RequestAction, RequestAction>({
+export const cartRequestAction = atomFamily<RequestAction, any>({
   key: 'cartRequestAction',
   default: { action: 'GET', payload: {} },
 });
 
-export const cartState = selectorFamily<CartType[], RequestAction>({
+export const cartState = selectorFamily<CartType[], any>({
   key: 'exampleCartQuery',
   get:
     (request) =>
