@@ -1,6 +1,7 @@
 import { useProductListInCart, useCheckCart } from '../../hooks/cartListState/cartListState';
 import { FlexColWrapper, FlexWrapper } from '../../pages/Cart/Cart.style';
 import CartItemBox from '../CartItemBox/CartItemBox';
+import CheckBox from '../common/CheckBox/CheckBox';
 
 function CartItemListContainer() {
   const productListInCart = useProductListInCart();
@@ -20,12 +21,9 @@ function CartItemListContainer() {
         );
       })}
       <FlexWrapper>
-        <input
+        <CheckBox
           type="checkbox"
           checked={isAllChecked}
-          onClick={() => {
-            toggleAllCartItem();
-          }}
           onChange={() => {
             toggleAllCartItem();
           }}

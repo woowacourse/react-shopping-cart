@@ -4,6 +4,7 @@ import {
 } from '../../hooks/cartListState/cartListState';
 import { FlexWrapper } from '../../pages/Cart/Cart.style';
 import type { ProductItem } from '../../types/ProductType';
+import CheckBox from '../common/CheckBox/CheckBox';
 import QuantityCounter from '../common/QuantityCounter/QuantityCounter';
 
 function CartItemBox({ id, imageUrl, name, price }: ProductItem) {
@@ -13,7 +14,7 @@ function CartItemBox({ id, imageUrl, name, price }: ProductItem) {
 
   return (
     <FlexWrapper>
-      <input
+      <CheckBox
         type="checkbox"
         checked={isChecked}
         onChange={() => {
