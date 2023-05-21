@@ -1,12 +1,12 @@
 import { RecoilRoot } from 'recoil';
-import { ProductCard } from '../components/mainPage/productCard/ProductCard';
 import { Meta, StoryObj } from '@storybook/react';
 import mockData from '../assets/mockData.json';
 import { GlobalStyle } from '../GlobalStyle';
+import { CartItem } from '../components/cartPage/cartItems/CartItem';
 
 const meta = {
-  title: 'ProductCard',
-  component: ProductCard,
+  title: 'CartItem',
+  component: CartItem,
   decorators: [
     (Story) => {
       return (
@@ -31,13 +31,13 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof ProductCard>;
+} satisfies Meta<typeof CartItem>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const ProductCardComponent: Story = {
+export const CartItemComponent: Story = {
   args: {
     id: 1,
     name: '상품명',

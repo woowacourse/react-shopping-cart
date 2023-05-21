@@ -1,8 +1,8 @@
-import { createRef } from 'react';
+import { useEffect, useState } from 'react';
 
 import { GlobalStyle } from '../GlobalStyle';
 import { Counter } from '../layout/counter/Counter';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta } from '@storybook/react';
 
 const meta = {
   title: 'Counter',
@@ -18,30 +18,13 @@ const meta = {
 } as Meta;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
 
-const inputRef = createRef<HTMLInputElement>();
+export const CounterComponent = () => {
+  const [count, setCount] = useState(1);
 
-const handleIncrease = () => {
-  if (inputRef === null) return;
-  if (!(inputRef.current instanceof HTMLInputElement)) return;
+  useEffect(() => {
+    if (count <= 0) setCount(1);
+  }, [count]);
 
-  inputRef.current.stepUp();
-};
-
-const handleDecrease = () => {
-  if (inputRef === null) return;
-  if (!(inputRef.current instanceof HTMLInputElement)) return;
-
-  if (Number(inputRef.current.value) <= 0) return;
-
-  inputRef.current.stepDown();
-};
-
-export const CounterComponent: Story = {
-  args: {
-    ref: inputRef,
-    handleDecrease: handleDecrease,
-    handleIncrease: handleIncrease,
-  },
+  return <Counter count={count} setCount={setCount} />;
 };

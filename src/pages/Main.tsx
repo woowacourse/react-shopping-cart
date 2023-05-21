@@ -1,4 +1,4 @@
-import { ProductCardGrid } from '../components/main/productCardGrid/ProductCardGrid';
+import { ProductCardGrid } from '../components/mainPage/productCardGrid/ProductCardGrid';
 import { Layout } from '../layout';
 import { useEffect, useState } from 'react';
 import { Product } from '../types/Product';

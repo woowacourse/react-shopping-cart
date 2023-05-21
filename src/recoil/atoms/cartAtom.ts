@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 import { Product } from '../../types/Product';
 
-interface CartProductDetail {
+export interface CartProductDetail {
   id: number;
   quantity: number;
   product: Product;
@@ -11,7 +11,7 @@ export const cartItemsState = atom<CartProductDetail[]>({
   key: 'cartItemsState',
   default: [],
   effects: [
-    ({ setSelf, trigger, onSet }) => {
+    ({ setSelf, trigger }) => {
       const getCartItems = async () => {
         const response = await fetch('/cart-items');
         const cartItems = await response.json();
@@ -20,10 +20,6 @@ export const cartItemsState = atom<CartProductDetail[]>({
       };
 
       if (trigger === 'get') getCartItems();
-
-      onSet((newValue) => {
-        console.log('리코일 변화', newValue);
-      });
     },
   ],
 });

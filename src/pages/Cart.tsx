@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Layout } from '../layout';
-import { ProductSelectSection } from '../components/cart/cartItemsSection/CartItemsSection';
-import { OrderSummarySection } from '../components/cart/orderSummarySection/OrderSummarySection';
+import { CartItemsSection } from '../components/cartPage/cartItemsSection/CartItemsSection';
+import { OrderSummarySection } from '../components/cartPage/orderSummarySection/OrderSummarySection';
 import { selector, useRecoilValue } from 'recoil';
 import { cartItemsState } from '../recoil/atoms/cartAtom';
 
@@ -25,7 +25,7 @@ export const Cart = () => {
 
       {cartItemsLength > 0 ? (
         <Style.Content>
-          <ProductSelectSection />
+          <CartItemsSection />
           <OrderSummarySection />
         </Style.Content>
       ) : (

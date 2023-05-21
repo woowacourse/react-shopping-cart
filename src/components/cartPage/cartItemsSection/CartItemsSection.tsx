@@ -9,7 +9,7 @@ import { CheckBox } from '../../../layout/checkBox/CheckBox';
 import { useCartRecoil } from '../../../hooks/recoil/useCartRecoil';
 import { useCartFetch } from '../../../hooks/fetch/useCartFetch';
 
-export const ProductSelectSection = () => {
+export const CartItemsSection = () => {
   const cartItems = useRecoilValue(cartItemsState);
   const [selectedCartIdList, setSelectedCartIdList] = useRecoilState(
     selectedCartIdListState
