@@ -1,6 +1,6 @@
-import type { Product } from '../../type';
+import type { ProductEntity } from '../../api/rest/ShoppingCartRestAPI';
 
-const products: Product[] = [
+const products: ProductEntity[] = [
   {
     id: 1,
     name: 'PET보틀-정사각(420ml)',

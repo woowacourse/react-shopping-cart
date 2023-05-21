@@ -1,10 +1,6 @@
-import type { CartItem, Product } from '../../type';
+import type { CartItemEntity } from '../../api/rest/ShoppingCartRestAPI';
 
-type CartResponse = Array<
-  Omit<CartItem, 'productId'> & {
-    product: Product;
-  }
->;
+type CartResponse = CartItemEntity[];
 
 const cart: Omit<CartResponse, 'productId'> = [
   {
