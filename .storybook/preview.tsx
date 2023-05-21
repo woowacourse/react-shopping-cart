@@ -1,12 +1,19 @@
+/// <reference types="vite/client" />
+
 import type { Preview } from '@storybook/react';
 import { initialize, mswDecorator } from 'msw-storybook-addon';
 import React from 'react';
 import { RecoilRoot } from 'recoil';
+import { joinPath } from '../src/api/utils/http';
 import handlers from '../src/mocks/handlers';
 import GlobalStyle from '../src/styles/GlobalStyle';
 import ResetStyle from '../src/styles/ResetStyle';
 
-initialize();
+initialize({
+  serviceWorker: {
+    url: joinPath(import.meta.env.BASE_URL, 'mockServiceWorker.js'),
+  },
+});
 
 const preview: Preview = {
   parameters: {
