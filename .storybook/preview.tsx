@@ -4,6 +4,7 @@ import GlobalStyle from '../src/GlobalStyle';
 import { initialize, mswDecorator } from 'msw-storybook-addon';
 import type { Preview } from '@storybook/react';
 import { handlers } from '../src/mocks/handlers/index';
+import { MemoryRouter } from 'react-router-dom';
 
 initialize();
 
@@ -24,9 +25,11 @@ export const decorators = [
   (Story) => (
     <RecoilRoot>
       <GlobalStyle />
-      <Suspense>
-        <Story />
-      </Suspense>
+      <MemoryRouter initialEntries={['/']}>
+        <Suspense>
+          <Story />
+        </Suspense>
+      </MemoryRouter>
     </RecoilRoot>
   ),
   mswDecorator,
