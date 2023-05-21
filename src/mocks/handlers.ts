@@ -1,8 +1,8 @@
-import { UpdateCartItemReq } from './../apis/cart';
 import { rest } from 'msw';
 import { MockCart } from './fixtures/cart';
 import { MockProducts } from './fixtures/products';
 import { AddCartDataReq } from '../apis/cart';
+import { CartItem } from '../types/cart';
 
 export const handlers = [
   rest.post('/cart/:id', async (req, res, ctx) => {
@@ -35,7 +35,7 @@ export const handlers = [
 
   rest.patch('/cart/:id', async (req, res, ctx) => {
     const { id } = req.params;
-    const { quantity }: { quantity: number } = await req.json();
+    const { quantity }: { quantity: CartItem['id'] } = await req.json();
 
     MockCart.cart = MockCart.cart.map((item) => {
       if (item.product.id === Number(id)) {
@@ -56,6 +56,13 @@ export const handlers = [
   }),
 
   rest.get('/cart', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(MockCart));
+  }),
+
+  rest.delete('/cart', async (req, res, ctx) => {
+    const idList: Array<CartItem['id']> = await req.json();
+
+    MockCart.cart = MockCart.cart.filter((item) => !idList.includes(item.id));
     return res(ctx.status(200), ctx.json(MockCart));
   }),
 ];

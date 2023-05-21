@@ -2,7 +2,7 @@ import { CartItem } from '../types/cart';
 import { waitFor, WaitForOptions } from '../utils/waitFor';
 import { fetchQuery } from './api';
 
-interface FetchCartRes {
+export interface FetchCartRes {
   cart: CartItem[];
 }
 
@@ -39,5 +39,15 @@ export const updateCartItem: (
 ) => Promise<UpdateCartItemRes> = ({ id, quantity }) => {
   return fetchQuery.patch<UpdateCartItemRes>(`/cart/${id}`, {
     body: { quantity },
+  });
+};
+
+interface DeleteCartItemRes {}
+
+export const deleteCartItem: (
+  idList: Array<CartItem['id']>
+) => Promise<DeleteCartItemRes> = (idList) => {
+  return fetchQuery.delete<DeleteCartItemRes>(`/cart`, {
+    body: idList,
   });
 };
