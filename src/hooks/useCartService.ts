@@ -9,8 +9,9 @@ const useCartService = () => {
   const fetchCartItem = async () => {
     const response = await fetch(CART_ITEMS_BASE_URL);
 
-    if (!response.ok)
+    if (!response.ok) {
       throw new Error('장바구니 목록을 불러오는 과정에서 문제가 발생했습니다.');
+    }
 
     const fetchedCartList = await response.json();
     setCartList(fetchedCartList);
@@ -25,8 +26,9 @@ const useCartService = () => {
       body: JSON.stringify({ productId: product.id }),
     });
 
-    if (!response.ok)
+    if (!response.ok) {
       throw new Error('장바구니를 추가하는 과정에서 문제가 발생했습니다.');
+    }
 
     fetchCartItem();
   };
@@ -41,10 +43,11 @@ const useCartService = () => {
         body: JSON.stringify({ quantity: quantity }),
       });
 
-      if (!response.ok)
+      if (!response.ok) {
         throw new Error(
           '장바구니를 업데이트하는 과정에서 문제가 발생했습니다.',
         );
+      }
 
       setCartList((prevCart) => {
         return prevCart.map((cartItem) => {
@@ -63,8 +66,9 @@ const useCartService = () => {
       method: 'DELETE',
     });
 
-    if (!response.ok)
+    if (!response.ok) {
       throw new Error('장바구니를 삭제하는 과정에서 문제가 발생했습니다.');
+    }
 
     setCartList((prevCart) =>
       prevCart.filter((cartItem) => cartItem.id !== cartId),

@@ -7,7 +7,7 @@ const fetchEffect: AtomEffect<CartProduct[]> = ({ setSelf, trigger }) => {
   const fetchCartItemList = async () => {
     const response = await fetch(CART_ITEMS_BASE_URL);
 
-    // if (response.status !== 200) throw new Error('서버에 장애가 발생했습니다.');
+    if (response.status !== 200) throw new Error('서버에 장애가 발생했습니다.');
 
     const cartItemList = await response.json();
     setSelf(cartItemList);
