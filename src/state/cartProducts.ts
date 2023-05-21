@@ -1,16 +1,8 @@
 import { CART_KEY } from 'constants/storeKey';
-import { AtomEffect, atom, selector, selectorFamily } from 'recoil';
+import { atom, selector, selectorFamily } from 'recoil';
 import { CartProducts, Product } from 'types/product';
 import persistAtomEffect from './effects/persistAtomEffect';
 import { getCartProducts } from 'apis/cart/get';
-
-const zeroQuantityFilterEffect: AtomEffect<CartProducts> = ({ onSet, setSelf }) => {
-  onSet((cartProducts) => {
-    const filteredCart = [...cartProducts].filter(([id, cartProduct]) => cartProduct.quantity > 0);
-
-    setSelf(new Map(filteredCart));
-  });
-};
 
 const mapToString = (value: CartProducts) => {
   return JSON.stringify(Array.from(value));
@@ -29,7 +21,6 @@ export const cartProductsState = atom<CartProducts>({
   key: 'cartState',
   default: defaultCartState,
   effects: [
-    zeroQuantityFilterEffect,
     persistAtomEffect<CartProducts>({
       key: CART_KEY,
       initialValue: new Map(),
