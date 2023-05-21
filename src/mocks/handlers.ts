@@ -1,3 +1,4 @@
+import { UpdateCartItemReq } from './../apis/cart';
 import { rest } from 'msw';
 import { MockCart } from './fixtures/cart';
 import { MockProducts } from './fixtures/products';
@@ -28,6 +29,24 @@ export const handlers = [
 
       MockCart.cart.push(newCartItem);
     }
+
+    return res(ctx.status(200), ctx.json(MockCart));
+  }),
+
+  rest.patch('/cart/:id', async (req, res, ctx) => {
+    const { id } = req.params;
+    const { quantity }: { quantity: number } = await req.json();
+
+    MockCart.cart = MockCart.cart.map((item) => {
+      if (item.product.id === Number(id)) {
+        return {
+          ...item,
+          quantity,
+        };
+      }
+
+      return item;
+    });
 
     return res(ctx.status(200), ctx.json(MockCart));
   }),

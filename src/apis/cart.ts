@@ -26,3 +26,18 @@ export const addToCart: (
     body: { id, quantity },
   });
 };
+
+export interface UpdateCartItemReq {
+  id: number;
+  quantity: number;
+}
+
+interface UpdateCartItemRes {}
+
+export const updateCartItem: (
+  payload: UpdateCartItemReq
+) => Promise<UpdateCartItemRes> = ({ id, quantity }) => {
+  return fetchQuery.patch<UpdateCartItemRes>(`/cart/${id}`, {
+    body: { quantity },
+  });
+};
