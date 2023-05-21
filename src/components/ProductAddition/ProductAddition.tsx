@@ -1,12 +1,7 @@
-import { useCallback, useState } from 'react';
-import { createPortal } from 'react-dom';
-import { useRecoilState } from 'recoil';
+import { useState } from 'react';
 
-import { useFetch } from '../../hooks/useFetch';
-import { cartListState } from '../../store/cart';
 import { ProductItemType } from '../../types';
 import { priceFormatter } from '../../utils/formatter';
-import PopUp from '../PopUp/PopUp';
 import StepperButton from '../StepperButton/StepperButton';
 import styles from './style.module.css';
 
