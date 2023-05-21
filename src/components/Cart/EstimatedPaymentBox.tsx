@@ -36,6 +36,11 @@ const EstimatedPaymentBoxContainer = styled.div`
   width: 448px;
   height: 410px;
   border: 1px solid ${({ theme }) => theme.colors.gray100};
+
+  @media (max-width: 420px) {
+    width: 360px;
+    height: 372px;
+  }
 `;
 
 const EstimatedPaymentTitle = styled.div`

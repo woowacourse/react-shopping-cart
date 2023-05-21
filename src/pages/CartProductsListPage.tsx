@@ -17,7 +17,7 @@ const CartProductsListPage = () => {
     useCheckedProducts();
 
   return (
-    <>
+    <PageContainer>
       <Header />
       <Main>
         <CartProductTitle>장바구니</CartProductTitle>
@@ -47,9 +47,13 @@ const CartProductsListPage = () => {
           <EstimatedPaymentBox />
         </EstimatedPaymentBoxWrapper>
       </Main>
-    </>
+    </PageContainer>
   );
 };
+
+const PageContainer = styled.section`
+  /* margin: 0 20px; */
+`;
 
 const Main = styled.main`
   position: relative;
@@ -63,6 +67,10 @@ const Main = styled.main`
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  @media (max-width: 1100px) {
+    flex-direction: column;
   }
 `;
 
@@ -105,6 +113,13 @@ const EstimatedPaymentBoxWrapper = styled.div`
   position: sticky;
   top: 30px;
   margin-top: 170px;
+
+  @media (max-width: 1100px) {
+    position: static;
+    display: flex;
+    justify-content: center;
+    margin-top: 0;
+  }
 `;
 
 export default CartProductsListPage;

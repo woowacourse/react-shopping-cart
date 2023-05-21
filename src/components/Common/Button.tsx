@@ -29,6 +29,12 @@ const buttonStyles = {
     font-size: 24px;
     background-color: ${({ theme }) => theme.colors.black};
     color: ${({ theme }) => theme.colors.white};
+
+    @media (max-width: 420px) {
+      width: 300px;
+      height: 50px;
+      font-size: 20px;
+    }
   `,
 };
 
