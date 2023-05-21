@@ -3,7 +3,7 @@
     {
       "id": 1,
       "quantity": 3,
-      "products": {
+      "product": {
         "id": 1,
         "name": "Lavender Shampoo Bar",
         "price": 12000,
