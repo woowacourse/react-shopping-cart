@@ -54,21 +54,20 @@ export const CartPage = () => {
   };
 
   return (
-    <>
+    <Container>
       <TitleWrapper>
         <h1>장바구니</h1>
       </TitleWrapper>
-      <CartListTitleWrapper>
-        <FlexBox align="center" gap="10px">
-          <CheckAllCheckBox onClick={toggleCheckAllButton} checked={areCartProductsAllChecked} type="checkbox" />
-          <CheckAllCheckBoxText>
-            전체선택({cartProductsCheckedCount}/{cartProductsCount})
-          </CheckAllCheckBoxText>
-          <RemoveButton onClick={deleteCheckedCartProducts}>선택삭제</RemoveButton>
-        </FlexBox>
-      </CartListTitleWrapper>
       <FlexBox justify="space-around" gap="70px">
-        <FlexBox direction="column" width="600px" margin="10px 0">
+        <FlexBox direction="column" width="600px" margin="10px 0" gap="15px">
+          <CheckBoxContainer>
+            <CheckAllCheckBox onClick={toggleCheckAllButton} checked={areCartProductsAllChecked} type="checkbox" />
+            <CheckAllCheckBoxText>
+              전체선택({cartProductsCheckedCount}/{cartProductsCount})
+            </CheckAllCheckBoxText>
+            <RemoveButton onClick={deleteCheckedCartProducts}>선택삭제</RemoveButton>
+          </CheckBoxContainer>
+          <Line />
           <CartProductCardList cartProducts={cartProducts} />
         </FlexBox>
         <FlexBox margin="30px 0" style={{ position: 'sticky', top: '95px', width: '400px' }}>
@@ -80,13 +79,13 @@ export const CartPage = () => {
           />
         </FlexBox>
       </FlexBox>
-    </>
+    </Container>
   );
 };
+const Container = styled.div``;
 
 const TitleWrapper = styled.div`
   padding-bottom: 20px;
-  border-bottom: 2px solid ${({ theme }) => theme.colors.gray_10};
 
   h1 {
     font-size: 24px;
@@ -94,17 +93,19 @@ const TitleWrapper = styled.div`
   }
 `;
 
-const CartListTitleWrapper = styled.div`
+const CheckBoxContainer = styled(FlexBox)`
   ${flexRow}
 
   gap: 20px;
   align-items: center;
   width: 100%;
-  padding: 30px 0;
-  position: sticky;
-  top: 0px;
-  z-index: 1;
   background-color: ${({ theme }) => theme.colors.gray_0};
+  align: center;
+`;
+
+const Line = styled.div`
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray_8};
+  width: 100%;
 `;
 
 const CheckAllCheckBox = styled.input`

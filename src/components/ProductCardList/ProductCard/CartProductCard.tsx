@@ -2,7 +2,7 @@ import { Stepper } from './Stepper';
 import removeIcon from 'assets/remove-icon.png';
 import FlexBox from 'components/@common/FlexBox';
 import { useCartProduct } from 'hooks/useCartProduct';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { CartProduct } from 'types/product';
 import { renderDefaultThumbnail } from 'utils/image';
 
@@ -17,7 +17,7 @@ export const CartProductCard = ({ cartProduct }: Props) => {
     useCartProduct(product);
 
   return (
-    <FlexBox height="140px" width="100%" padding="10px 0" gap="10px">
+    <Container>
       <FlexBox>
         <Checkbox type="checkbox" checked={checked} onClick={toggleChecked} />
       </FlexBox>
@@ -41,9 +41,16 @@ export const CartProductCard = ({ cartProduct }: Props) => {
         </StepperWrapper>
         <ProductPrice>{price.toLocaleString('ko-KR')}원</ProductPrice>
       </FlexBox>
-    </FlexBox>
+    </Container>
   );
 };
+
+const Container = styled(FlexBox)`
+  height: 140px;
+  width: 100%;
+  padding: 10px 0;
+  gap: 10px;
+`;
 
 const Checkbox = styled.input`
   transform: scale(1.5);
