@@ -5,11 +5,9 @@ import Styled from "./ShoppingCardListStyled";
 import ShoppingCard from "../ShoppingCard/ShoppingCard";
 import Checkbox from "../common/Checkbox/Checkbox";
 import useCheckedItem from "../../hooks/useCheckedItem";
-import { fetchedShoppingListAtom } from "../../store/fetchState";
 
 const ShoppingCardList = () => {
   const shoppingListId = useRecoilValue(cartIdAtom);
-  const fetchedShoppingList = useRecoilValue(fetchedShoppingListAtom);
 
   const {
     isChecked,
