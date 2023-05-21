@@ -27,6 +27,19 @@ const CartProduct = ({ cartItem }: CartProductProps, ref: ForwardedRef<HTMLInput
     }
   };
 
+  const handleDownButton = async () => {
+    try {
+      await updateCartItem(product.id, quantity - 1);
+      if (count === 1) {
+        return;
+      }
+    } catch (e) {
+      toast.error(errorMessage);
+    }
+
+    setCount(prev => prev - 1);
+  };
+
   const handleDeleteButton = async () => {
     try {
       await deleteCartItem(product.id);
@@ -49,7 +62,7 @@ const CartProduct = ({ cartItem }: CartProductProps, ref: ForwardedRef<HTMLInput
         <button aria-label="delete-button" onClick={handleDeleteButton}>
           <GarbageIcon />
         </button>
-        <CountButton count={count} handleUpButton={handleUpButton} />
+        <CountButton count={count} handleUpButton={handleUpButton} handleDownButton={handleDownButton} />
         <span aria-label="product-price">{product.price}원</span>
       </div>
     </section>
