@@ -35,14 +35,16 @@ const CartListItem = ({
   return (
     <Container>
       <Inner>
-        <Checkbox
-          id={String(cartItemId)}
-          checked={checked}
-          onChange={onChangeCheckbox}
-        />
-        <Spacer width={15} />
-        <Image src={imageSrc} loading="lazy" alt={name} />
-        <Title>{name}</Title>
+        <Contents>
+          <Checkbox
+            id={String(cartItemId)}
+            checked={checked}
+            onChange={onChangeCheckbox}
+          />
+          <Spacer width={15} />
+          <Image src={imageSrc} loading="lazy" alt={name} />
+          <Title>{name}</Title>
+        </Contents>
         <Right>
           <DeleteButton
             type="button"
@@ -80,11 +82,24 @@ const CartListItem = ({
 
 const Container = styled.li`
   height: 203px;
+
+  @media only screen and (max-width: 600px) {
+    height: 260px;
+  }
 `;
 
 const Inner = styled.div`
   display: flex;
   padding-top: 23px;
+
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+    row-gap: 40px;
+  }
+`;
+
+const Contents = styled.div`
+  display: flex;
 `;
 
 const Title = styled.p`
@@ -94,6 +109,14 @@ const Title = styled.p`
   line-height: 24px;
   letter-spacing: 0.5px;
   color: #333333;
+
+  @media only screen and (max-width: 600px) {
+    font-size: 16px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
+  }
 `;
 
 const Right = styled.div`
@@ -103,6 +126,13 @@ const Right = styled.div`
   justify-content: space-between;
   height: 145px;
   margin-left: auto;
+
+  @media only screen and (max-width: 600px) {
+    flex-direction: row;
+    height: 20px;
+    margin: 0;
+    align-items: center;
+  }
 `;
 
 const DeleteButton = styled.button`
