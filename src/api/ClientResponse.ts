@@ -6,12 +6,11 @@ const OK_STATUS_CODES = [
 ] as const;
 
 class ClientResponse<TResponse extends HttpResponse> extends Promise<TResponse> {
-  private readonly responsePromise: Promise<TResponse> = this.responseFn();
+  private readonly responsePromise: Promise<TResponse>;
 
-  constructor(private readonly responseFn: () => Promise<TResponse>) {
-    super((resolve) => {
-      this.acceptOkOrThrow().then(resolve);
-    });
+  constructor(responseFn: () => Promise<TResponse>) {
+    super((resolve) => queueMicrotask(() => this.acceptOkOrThrow().then(resolve)));
+    this.responsePromise = responseFn();
   }
 
   private assertStatusCode<StatusCode extends TResponse['statusCode']>(
