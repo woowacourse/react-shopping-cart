@@ -32,7 +32,7 @@ const useFetchData = (handleIsLoading: VoidFunction) => {
       }
     };
     fetchData();
-  }, []);
+  }, []); // eslint-disable-line
 };
 
 const useFetchShoppingList = (handleIsLoading: VoidFunction) => {
@@ -49,7 +49,7 @@ const useFetchShoppingList = (handleIsLoading: VoidFunction) => {
       }
     };
     fetchData();
-  }, []);
+  }, []); // eslint-disable-line
 };
 
 export { useFetchShoppingList, useFetchData };

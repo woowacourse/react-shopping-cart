@@ -7,7 +7,7 @@ import {
   targetShoppingSelector,
 } from "../store/fetchState";
 import { fetchDeleteQuery, fetchPatchQuery, fetchPostQuery } from "../api";
-import { API, ZERO } from "../abstract/constants";
+import { ZERO } from "../abstract/constants";
 
 const useCart = (productId: number) => {
   const [cart, setCart] = useRecoilState(cartAtomFamily(productId));
