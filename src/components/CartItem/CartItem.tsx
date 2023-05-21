@@ -44,7 +44,7 @@ function CartItem({cart}: CartItemProps) {
             <CartController product={cart.product}/>
           </CartItemControllerWrapper>
         </CartItemInfo>
-        <CartItemPrice>{cart.product.price}원</CartItemPrice>
+        <CartItemPrice>{cart.product.price.toLocaleString()}원</CartItemPrice>
       </CartItemInfoWrapper>
     </CartItemLayout>
   );

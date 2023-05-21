@@ -24,7 +24,7 @@ function PurchaseBox() {
             총 상품가격
           </PurchaseText>
           <PurchaseText>
-            {totalPrice}원
+            {totalPrice.toLocaleString()}원
           </PurchaseText>
         </PurchasePropertyWrapper>
         <PurchasePropertyWrapper>
@@ -32,7 +32,7 @@ function PurchaseBox() {
             총 배송비
           </PurchaseText>
           <PurchaseText>
-            {DELIVERY_FEE}원
+            {DELIVERY_FEE.toLocaleString()}원
           </PurchaseText>
         </PurchasePropertyWrapper>
         <PurchasePropertyWrapper>
@@ -40,7 +40,7 @@ function PurchaseBox() {
             총 주문 금액
           </PurchaseText>
           <PurchaseText>
-            {totalPrice + DELIVERY_FEE}원
+            {(totalPrice + DELIVERY_FEE).toLocaleString()}원
           </PurchaseText>
         </PurchasePropertyWrapper>
         <PurchaseButtonWrapper>

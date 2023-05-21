@@ -1,4 +1,4 @@
-import type { ProductItem } from '../../types/types';
+import type {ProductItem} from '../../types/types';
 import CartController from '../CartController';
 import {
   ProductDetails, ProductInfo, ProductItemBox,
@@ -9,22 +9,23 @@ interface ProductItemProps {
   product: ProductItem;
 }
 
-function ProductItem({ product }: ProductItemProps) {
-  const { name, price, imageUrl } = product;
+function ProductItem({product}: ProductItemProps) {
+  const {name, price, imageUrl} = product;
 
   return (
     <ProductItemBox>
       <ProductItemImageBox>
-        <ProductItemImage src={imageUrl} />
+        <ProductItemImage src={imageUrl}/>
       </ProductItemImageBox>
       <ProductDetails>
         <ProductInfo>
           <ProductName>{name}</ProductName>
-          <ProductPrice>{price}원</ProductPrice>
+          <ProductPrice>{price.toLocaleString()}원</ProductPrice>
         </ProductInfo>
-        <CartController product={product} />
+        <CartController product={product}/>
       </ProductDetails>
     </ProductItemBox>
   );
 }
+
 export default ProductItem;
