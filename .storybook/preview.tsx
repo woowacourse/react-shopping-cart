@@ -16,7 +16,6 @@ if (location.hostname === 'gc-park.github.io') {
   };
 }
 
-// Initialize MSW
 initialize(options);
 
 const preview: Preview = {
