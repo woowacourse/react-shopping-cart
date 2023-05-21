@@ -11,9 +11,7 @@ import { initialize, mswDecorator } from 'msw-storybook-addon';
 import { RecoilRoot } from 'recoil';
 import { BrowserRouter } from 'react-router-dom';
 
-if (process.env.NODE_ENV === 'development') {
-  initialize();
-}
+initialize();
 
 export const decorators = [
   (Story) => (

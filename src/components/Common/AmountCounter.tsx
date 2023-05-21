@@ -59,7 +59,11 @@ const AmountCounter = ({
         <CountBtn designType={designType} onClick={addCount}>
           <ArrowUpIcon />
         </CountBtn>
-        <CountBtn designType={designType} onClick={subtractCount}>
+        <CountBtn
+          designType={designType}
+          onClick={subtractCount}
+          aria-label='subtract'
+        >
           <ArrowDownIcon />
         </CountBtn>
       </CountBtnContainer>
