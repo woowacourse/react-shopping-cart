@@ -28,6 +28,8 @@ export default function CartListItem({
   useEffect(() => {
     setCheck(cartSelectsState.has(id));
   }, [cartSelectsState]);
+
+  // TODO: 로직 에러
   useEffect(() => {
     if (check) {
       const newCartSelects = [...cartSelectsState];
@@ -38,9 +40,10 @@ export default function CartListItem({
       const newCartSelects = [...cartSelectsState];
       const newCartSelectSet = new Set(newCartSelects);
       newCartSelectSet.delete(id);
-      setCartSelectsState(new Set(newCartSelectSet));
+      setCartSelectsState(newCartSelectSet);
     }
   }, [check]);
+
   return (
     <CartListItemContainer>
       <CartInfoContainer>

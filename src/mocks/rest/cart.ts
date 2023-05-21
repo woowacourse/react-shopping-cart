@@ -54,7 +54,6 @@ export const deleteCartItem = rest.delete(
   '/cart-items/:cartItemId',
   (req, res, ctx) => {
     cart = cart.filter((cartItem) => cartItem.id !== +req.params.cartItemId);
-    console.log(cart);
 
     return res(ctx.status(204));
   }
@@ -64,7 +63,6 @@ export const patchCartItem = rest.patch(
   '/cart-items/:cartId',
   async (req, res, ctx) => {
     const data = await req.json();
-    console.log(data);
     const cartItem = cart.find(
       (cartItem) => cartItem.id === +req.params.cartId
     );

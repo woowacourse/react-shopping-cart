@@ -39,12 +39,10 @@ export const patchCartItemQuantityQuery = async (
   id: number,
   quantity: number
 ) => {
-  console.log(id, quantity);
   const response = await fetch(`/cart-items/${id}`, {
     method: 'PATCH',
     body: JSON.stringify({ quantity }),
   });
-  console.log(response);
   if (!response.ok) throw new Error();
 };
 
