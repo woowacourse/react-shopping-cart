@@ -1,22 +1,30 @@
-import { styled } from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import styled from 'styled-components';
+
 import Button from '../Common/Button';
 
+import { checkedPriceState } from '../../states/checkedCartProducts/selector';
+
+const DELIVERY_FEE = 3_000;
+
 const ExpectedPaymentBox = () => {
+  const totalPrice = useRecoilValue(checkedPriceState);
+
   return (
     <ExpectedPaymentContainer>
       <ExpectedPaymentTitle>결제예상금액</ExpectedPaymentTitle>
       <ExpectedPaymentInfo>
         <PaymentInfoItem>
           <dt>총 상품가격</dt>
-          <dd>21,700원</dd>
+          <dd>{totalPrice.toLocaleString('ko-KR')}원</dd>
         </PaymentInfoItem>
         <PaymentInfoItem>
           <dt>총 배송비</dt>
-          <dd>3,000원</dd>
+          <dd>{DELIVERY_FEE.toLocaleString('ko-KR')}원</dd>
         </PaymentInfoItem>
         <PaymentInfoItem>
           <dt>총 주문금액</dt>
-          <dd>24,700원</dd>
+          <dd>{(totalPrice + DELIVERY_FEE).toLocaleString('ko-KR')}원</dd>
         </PaymentInfoItem>
       </ExpectedPaymentInfo>
       <OrderButtonWrapper>
