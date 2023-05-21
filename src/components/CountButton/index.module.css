@@ -23,7 +23,7 @@ input {
   height: 20px;
   border: none;
   color: var(--white-color-004);
-  font-size: 5px;
+  font-size: 20px;
 }
 
 input::-webkit-outer-spin-button,
