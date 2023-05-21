@@ -1,18 +1,17 @@
-import { ChangeEvent } from 'react';
-import cartIcon from '../../assets/cart.svg';
+import {ChangeEvent} from 'react';
 import useCart from '../../hooks/useCart';
-import type { ProductItem } from '../../types/types';
-import { CartBox, ControllerWrapper, QuantityControlButton, QuantityInput } from './CartController.style';
-import { cartState } from '../../recoil/cartAtoms';
-import { useRecoilValue } from 'recoil';
-import { getQuantityByProductId } from '../../domain/cart';
+import type {ProductItem} from '../../types/types';
+import {AddCartButton, CartBox, ControllerWrapper, QuantityControlButton, QuantityInput} from './CartController.style';
+import {cartState} from '../../recoil/cartAtoms';
+import {useRecoilValue} from 'recoil';
+import {getQuantityByProductId} from '../../domain/cart';
 
 interface CartControllerProps {
   product: ProductItem;
 }
 
-function CartController({ product }: CartControllerProps) {
-  const { addCart, setCartQuantity } =
+function CartController({product}: CartControllerProps) {
+  const {addCart, setCartQuantity} =
     useCart();
 
   const cartList = useRecoilValue(cartState);
@@ -35,7 +34,7 @@ function CartController({ product }: CartControllerProps) {
           >
             -
           </QuantityControlButton>
-          <QuantityInput value={quantity} onChange={handleChangeQuantity} />
+          <QuantityInput value={quantity} onChange={handleChangeQuantity}/>
           <QuantityControlButton
             onClick={() => {
               setCartQuantity(product.id, quantity + 1);
@@ -45,12 +44,12 @@ function CartController({ product }: CartControllerProps) {
           </QuantityControlButton>
         </CartBox>
       ) : (
-        <button
+        <AddCartButton
           onClick={() => {
             addCart(product);
           }}>
-          <img src={cartIcon}></img>
-        </button>
+          장바구니에 담기
+        </AddCartButton>
       )}
     </ControllerWrapper>
   );

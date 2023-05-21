@@ -17,6 +17,7 @@ const ModalWrapper = styled.div`
 
 const ModalContent = styled.div`
   background-color: #fff;
+  margin: 10px;
   padding: 20px;
   border-radius: 10px;
   width: 100%;
@@ -26,6 +27,7 @@ const ModalContent = styled.div`
 const ModalCloseButtonWrapper = styled.div`
   display: flex;
   justify-content: end;
+  margin-bottom: 15px;
 `;
 
 const Modal = ({isOpen, onClose, children}: { isOpen: boolean; onClose: () => void; children: ReactNode }) => {
@@ -45,7 +47,7 @@ const Modal = ({isOpen, onClose, children}: { isOpen: boolean; onClose: () => vo
   if (!isOpen) {
     return null;
   }
-  
+
   return (
     <ModalWrapper onClick={onClose}>
       <ModalContent onClick={handleModalContentClick}>

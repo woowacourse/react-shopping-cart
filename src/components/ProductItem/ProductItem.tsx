@@ -1,11 +1,12 @@
 import type {ProductItem} from '../../types/types';
-import CartController from '../CartController';
 import {
   ProductDetails, ProductInfo, ProductItemBox,
   ProductItemImage, ProductItemImageBox, ProductName, ProductPrice
 } from './ProductItem.style';
 import {useSetRecoilState} from "recoil";
-import {modalOpenState} from "../../recoil/modalAtoms.tsx";
+import {modalContentState, modalOpenState} from "../../recoil/modalAtoms.tsx";
+import ProductModalContent from "../ProductModalContent.tsx";
+import cartIcon from "../../assets/cart.svg";
 
 interface ProductItemProps {
   product: ProductItem;
@@ -14,8 +15,11 @@ interface ProductItemProps {
 function ProductItem({product}: ProductItemProps) {
   const {name, price, imageUrl} = product;
   const setModalState = useSetRecoilState(modalOpenState);
+  const setModalContentState = useSetRecoilState(modalContentState);
+
   const openModal = () => {
     setModalState(true);
+    setModalContentState(<ProductModalContent product={product}/>);
   };
 
   return (
@@ -29,7 +33,7 @@ function ProductItem({product}: ProductItemProps) {
             <ProductName>{name}</ProductName>
             <ProductPrice>{price.toLocaleString()}원</ProductPrice>
           </ProductInfo>
-          <CartController product={product}/>
+          <img src={cartIcon}></img>
         </ProductDetails>
       </ProductItemBox>
     </>
