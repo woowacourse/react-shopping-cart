@@ -17,7 +17,7 @@ const CartList = () => {
     CART_LIST_LOCAL_KEY
   );
 
-  const { data, isLoading, refetch } = useFetch<CartInformation[]>(
+  const { data, refetch } = useFetch<CartInformation[]>(
     '/cart-items',
     {
       method: 'get',
@@ -74,10 +74,6 @@ const CartList = () => {
     }
     setCheck(false);
   }, [checkBox, checkBoxTotalId]);
-
-  useEffect(() => {
-    refetch();
-  }, []);
 
   if (!data) return null;
 

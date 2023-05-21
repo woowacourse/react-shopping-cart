@@ -40,6 +40,13 @@ const CartItem = ({
     setCheckBox(newCheckBox);
   };
 
+  const removeItem = async ()=>{
+    await fetch(`/cart-items/${id}`, {
+      method: 'delete',
+    });
+    refetch();
+  }
+
   useEffect(() => {
     if (!checkBox.includes(id)) {
       setCheck(false);
@@ -54,7 +61,7 @@ const CartItem = ({
       <CartItemImg src={imageUrl} alt="상품 사진" />
       <CartItemName>{name}</CartItemName>
       <CartItemInformationWrapper>
-        <RemoveCardItemImg src={CART_ITEM_REMOVE_BUTTON} />
+        <RemoveCardItemImg src={CART_ITEM_REMOVE_BUTTON} onClick={removeItem}/>
         <BucketCounter
           id={id}
           quantity={quantity}
@@ -123,6 +130,8 @@ const CartItemInformationWrapper = styled.div`
 const RemoveCardItemImg = styled.img`
   width: 24px;
   height: 24px;
+
+  cursor: pointer;
 `;
 
 const CartItemMoney = styled.span`
