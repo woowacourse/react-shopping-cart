@@ -7,8 +7,8 @@ function Cart() {
   return (
     <FlexWrapper>
       <Suspense fallback={<h2>로딩중...</h2>}>
-        <CartItemListContainer></CartItemListContainer>
-        <PayingContainer></PayingContainer>
+        <CartItemListContainer />
+        <PayingContainer />
       </Suspense>
     </FlexWrapper>
   );

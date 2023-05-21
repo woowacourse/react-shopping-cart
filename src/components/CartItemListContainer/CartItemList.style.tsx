@@ -1,5 +1,9 @@
 import { styled } from 'styled-components';
-import { FlexWrapper } from '../../pages/Cart/Cart.style';
+import { FlexColWrapper, FlexWrapper } from '../../pages/Cart/Cart.style';
+
+export const StyleWrapper = styled(FlexColWrapper)`
+  flex: 2;
+`;
 
 export const StyleCartItemListWrapper = styled(FlexWrapper)`
   column-gap: 1rem;

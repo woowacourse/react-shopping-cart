@@ -9,6 +9,7 @@ export const FlexWrapper = styled.section`
 `;
 
 export const FlexColWrapper = styled.section`
+  flex: 1.2;
   display: flex;
   flex-direction: column;
 `;

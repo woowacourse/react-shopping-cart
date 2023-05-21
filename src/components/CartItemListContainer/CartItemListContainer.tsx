@@ -1,12 +1,13 @@
 import { useProductListInCart, useCheckCart } from '../../hooks/cartListState/cartListState';
-import { FlexColWrapper, FlexWrapper } from '../../pages/Cart/Cart.style';
+
 import CartItemBox from '../CartItemBox/CartItemBox';
-import { StyleCartItemWrapper } from '../CartItemBox/CartItemBox.steyle';
+
 import CheckBox from '../common/CheckBox/CheckBox';
 import {
   StyleCartItemListWrapper,
   StyleCheckAllSpan,
   StyleDeleteCheckedBox,
+  StyleWrapper,
 } from './CartItemList.style';
 
 function CartItemListContainer() {
@@ -16,7 +17,7 @@ function CartItemListContainer() {
   const productCount = productListInCart.length;
 
   return (
-    <FlexColWrapper>
+    <StyleWrapper>
       {productListInCart.map(({ id, imageUrl, name, price }) => {
         return (
           <li key={id}>
@@ -36,7 +37,7 @@ function CartItemListContainer() {
         <StyleCheckAllSpan>{`전체 선택 (${checkedCount} / ${productCount})`}</StyleCheckAllSpan>
         <StyleDeleteCheckedBox onClick={deleteCheckedItems}>선택삭제</StyleDeleteCheckedBox>
       </StyleCartItemListWrapper>
-    </FlexColWrapper>
+    </StyleWrapper>
   );
 }
 

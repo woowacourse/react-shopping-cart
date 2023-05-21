@@ -21,6 +21,7 @@ export const theme = {
   },
   effects: {
     hoverScale: 'translateX(0.3rem) translateY(-0.3rem) ',
+    hoverScaleUp: 'scale(1.03)',
   },
   transitions: {
     default: '0.3s ease-in-out',

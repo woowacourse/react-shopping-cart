@@ -9,6 +9,8 @@ export const StyleCartItemWrapper = styled(FlexWrapper)`
   padding: 1rem;
   border-radius: 8px;
   width: 95%;
+
+  justify-content: start;
 `;
 
 export const StyleImageBox = styled.div`
@@ -30,6 +32,7 @@ export const StyleNameText = styled.p`
 `;
 
 export const StyleProductInfo = styled.div`
+  flex: 1 1 12rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
