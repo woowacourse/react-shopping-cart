@@ -11,14 +11,16 @@ const Header = ({ children }: PropsWithChildren) => {
 
   return (
     <HeaderContainer>
-      <FlexLink to={ROUTE_PATH.root}>
-        <CartIcon width="50px" height="44px" />
-        <Title>{children}</Title>
-      </FlexLink>
-      <FlexLink to={ROUTE_PATH.cart}>
-        <CartTitle>장바구니</CartTitle>
-        <CartProductCount>{cartProductCount}</CartProductCount>
-      </FlexLink>
+      <HeaderContentContainer>
+        <FlexLink to={ROUTE_PATH.root}>
+          <CartIcon width="50px" height="44px" />
+          <Title>{children}</Title>
+        </FlexLink>
+        <FlexLink to={ROUTE_PATH.cart}>
+          <CartTitle>장바구니</CartTitle>
+          <CartProductCount>{cartProductCount}</CartProductCount>
+        </FlexLink>
+      </HeaderContentContainer>
     </HeaderContainer>
   );
 };
@@ -31,11 +33,19 @@ const FlexLink = styled(Link)`
 
 const HeaderContainer = styled.header`
   display: flex;
-  justify-content: space-between;
   width: 100%;
   height: var(--header-height);
-  padding: 0 16.66%;
+  align-items: center;
   background-color: ${({ theme }) => theme.colors.gray_10};
+`;
+
+const HeaderContentContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 40px;
+  max-width: 1080px;
+  margin: 0 auto;
 `;
 
 const Title = styled.h1`
