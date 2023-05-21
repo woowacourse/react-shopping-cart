@@ -22,7 +22,6 @@ const ButtonWrapper = styled.button<ButtonStyle>`
   height: ${({ height }) => height ?? '73px'};
 
   font-size: ${({ fontSize }) => fontSize ?? '24px'};
-  font-weight: 400;
 
   background: ${({ background }) => background ?? '#333333'};
   color: ${({ color }) => color ?? '#FFFFFF'};

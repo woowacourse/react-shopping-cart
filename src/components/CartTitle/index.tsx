@@ -12,8 +12,6 @@ const CartTitleWrapper = styled.div`
   height: 125px;
   border-bottom: 4px solid #333333;
 
-  font-family: 'Noto Sans KR';
-  font-style: normal;
   font-weight: 700;
   font-size: 32px;
   line-height: 37px;

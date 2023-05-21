@@ -54,7 +54,6 @@ const TitleAndPriceWrapper = styled.div`
 `;
 
 const Title = styled.span`
-  font-weight: 400;
   font-size: 16px;
   line-height: 22px;
 
@@ -64,7 +63,6 @@ const Title = styled.span`
 `;
 
 const Price = styled.span`
-  font-weight: 400;
   font-size: 20px;
   line-height: 27px;
 

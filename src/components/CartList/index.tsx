@@ -64,18 +64,13 @@ const CartListWrapper = styled.div`
 
 const CartPageBottom = styled.div`
   display: flex;
-  /* justify-content: space-between; */
   align-items: center;
 
   margin-bottom: 50px;
 `;
 const CartSelectorText = styled.span`
-  font-family: 'Noto Sans KR';
-  font-style: normal;
-  font-weight: 400;
   font-size: 16px;
   line-height: 20px;
-  /* or 125% */
 
   letter-spacing: 0.5px;
 

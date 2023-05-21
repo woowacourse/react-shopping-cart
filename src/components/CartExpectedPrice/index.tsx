@@ -57,9 +57,6 @@ const CartExpectedPriceWrapper = styled.div`
 `;
 
 const CartExpectedPriceTitle = styled.div`
-  font-family: 'Noto Sans KR';
-  font-style: normal;
-  font-weight: 400;
   font-size: 24px;
   line-height: 33px;
   /* or 138% */
@@ -97,8 +94,6 @@ const CartPriceWrapper = styled.div`
 `;
 
 const CartPriceTextWrapper = styled.span`
-  font-family: 'Noto Sans KR';
-  font-style: normal;
   font-weight: 700;
   font-size: 20px;
   line-height: 27px;

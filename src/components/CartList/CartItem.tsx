@@ -74,9 +74,6 @@ const CartItemImg = styled.img`
 `;
 
 const CartItemName = styled.span`
-  font-family: 'Noto Sans KR';
-  font-style: normal;
-  font-weight: 400;
   font-size: 20px;
   line-height: 24px;
 
@@ -110,9 +107,6 @@ const RemoveCardItemImg = styled.img`
 `;
 
 const CartItemMoney = styled.span`
-  font-family: 'Noto Sans KR';
-  font-style: normal;
-  font-weight: 400;
   font-size: 16px;
   line-height: 24px;
 
