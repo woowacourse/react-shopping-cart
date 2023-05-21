@@ -1,26 +1,10 @@
-import {
-  atom,
-  atomFamily,
-  DefaultValue,
-  selector,
-  selectorFamily,
-} from 'recoil';
+import { atom, DefaultValue, selector, selectorFamily } from 'recoil';
 import { CartId, Cart } from 'types';
 import { getLocalStorageData } from 'utils/storage';
 
 export const cartListAtom = atom<Cart[]>({
   key: 'cartList',
   default: getLocalStorageData<Cart[]>('cartList'),
-});
-
-export const cartItemAtom = atomFamily<Cart | null, CartId>({
-  key: 'cartItem',
-  default: (cartId) => {
-    const cartListStorage = getLocalStorageData<Cart[]>('cartList');
-    const item = cartListStorage.find((cartItem) => cartItem.id === cartId);
-    if (!item) return null;
-    return item;
-  },
 });
 
 export const checkedItemsAtom = atom<Cart[]>({
@@ -60,10 +44,12 @@ export const updateCart = selectorFamily({
       if (!item || item instanceof DefaultValue) return;
       const cartList = get(cartListAtom);
       const cartItem = cartList.find(({ id }) => id === cartId);
+
       if (!cartItem) {
         set(cartListAtom, [...cartList, item]);
         return;
       }
+
       if (item.quantity === 0) {
         set(
           cartListAtom,
@@ -71,6 +57,7 @@ export const updateCart = selectorFamily({
         );
         return;
       }
+
       set(
         cartListAtom,
         cartList.map((prev) => (prev.id === cartId ? item : prev))
