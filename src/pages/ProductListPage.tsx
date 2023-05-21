@@ -1,11 +1,10 @@
 import { styled } from 'styled-components';
-import { client } from '../api';
-import FutureSuspense from '../components/FutureSuspense';
+import AwaitRecoilState from '../components/AwaitRecoilState';
 import ProductListItem from '../components/ProductListItem';
-import useQuery from '../hooks/useQuery';
+import productsState from '../recoil/atoms/productsState';
 import type { Product } from '../type';
 
-const StyledProductList = styled.ul`
+const ProductListContainer = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   column-gap: 48px;
@@ -20,27 +19,19 @@ const ProductList = (props: ProductListProps) => {
   const { products } = props;
 
   return (
-    <StyledProductList>
+    <ProductListContainer>
       {products.map((product) => (
         <ProductListItem key={product.id} product={product} />
       ))}
-    </StyledProductList>
+    </ProductListContainer>
   );
 };
 
 const ProductListPage = () => {
-  const { future } = useQuery<Product[]>('products', () =>
-    client.get('/products').then((res) => res.data),
-  );
-
   return (
-    <FutureSuspense
-      future={future}
-      loadingElement={<div>로딩중...</div>}
-      errorElement={<div>에러!!</div>}
-    >
+    <AwaitRecoilState state={productsState}>
       {(products) => <ProductList products={products} />}
-    </FutureSuspense>
+    </AwaitRecoilState>
   );
 };
 
