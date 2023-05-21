@@ -13,8 +13,13 @@ interface ItemCartDialogProps extends Product {
   closeModal: VoidFunction;
 }
 
-const ItemCartDialog: React.FC<ItemCartDialogProps> = (props) => {
-  const { id, name, price, imageUrl, closeModal } = props;
+const ItemCartDialog: React.FC<ItemCartDialogProps> = ({
+  id,
+  name,
+  price,
+  imageUrl,
+  closeModal,
+}) => {
   const quantityRef = useRef<HTMLInputElement>(null);
   const { addInCart } = useCart();
   const setCheckedList = useSetRecoilState(checkedItemIdList);
