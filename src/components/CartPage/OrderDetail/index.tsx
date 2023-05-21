@@ -5,6 +5,7 @@ import * as S from './OrderDetail.styles';
 import { cartPrice } from '../../../recoil/cart';
 
 const OrderDetail = () => {
+  const shippingFee = 3000;
   const totalPrice = useRecoilValue(cartPrice);
 
   return (
@@ -17,11 +18,13 @@ const OrderDetail = () => {
         </S.PriceWrapper>
         <S.PriceWrapper>
           <span>배송비</span>
-          <span>3,000원</span>
+          <span>{shippingFee.toLocaleString()} 원</span>
         </S.PriceWrapper>
         <S.TotalPrice>
           <span>총 구매금액</span>
-          <span>price</span>
+          <span>
+            {totalPrice ? (shippingFee + totalPrice).toLocaleString() : 0} 원
+          </span>
         </S.TotalPrice>
         <Button view="dark" size="M">
           주문하기
