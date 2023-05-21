@@ -36,9 +36,28 @@ export const selectedItemsState = atom({
   }),
 });
 
+export const selectedItemsSelector = selector({
+  key: 'selectedItemsSelector',
+  get: ({ get }) => {
+    const cart = get(cartState);
+    const selectedItems = get(selectedItemsState);
+
+    return cart.reduce<Set<CartItem['id']>>(
+      (newSelectedItems, item) =>
+        selectedItems.has(item.id)
+          ? newSelectedItems.add(item.id)
+          : newSelectedItems,
+      new Set()
+    );
+  },
+  set: ({ set }, newValue) => {
+    set(selectedItemsState, newValue);
+  },
+});
+
 export const selectedItemsAmountSelector = selector({
   key: 'selectedItemsAmountSelector',
-  get: ({ get }) => get(selectedItemsState).size,
+  get: ({ get }) => get(selectedItemsSelector).size,
 });
 
 export const getCartItemById = selectorFamily({
@@ -48,4 +67,18 @@ export const getCartItemById = selectorFamily({
     ({ get }) => {
       return get(cartState).find((item) => item.id === id);
     },
+});
+
+export const totalPriceSelector = selector({
+  key: 'totalPriceSelector',
+  get: ({ get }) => {
+    const cart = get(cartState);
+    const selectedItems = get(selectedItemsState);
+
+    return cart.reduce(
+      (totalPrice, { id, quantity, product: { price } }) =>
+        selectedItems.has(id) ? totalPrice + quantity * price : totalPrice,
+      0
+    );
+  },
 });
