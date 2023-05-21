@@ -6,13 +6,12 @@ import {
   Typography as TotalPrice,
 } from '../ui/Typography';
 import * as Styled from './styles/CartTotalPriceContainer.styles';
-
 import { checkboxesState } from '../atoms/CheckboxState';
+
+const shippingPrice = 3000;
 
 export const CartTotalPriceContainer = () => {
   const checkboxes = useRecoilValue(checkboxesState);
-  const shippingPrice = 3000;
-
   const getTotalProductPrice = checkboxes.reduce(
     (acc, checkbox) => acc + checkbox.quantity * checkbox.price,
     0
