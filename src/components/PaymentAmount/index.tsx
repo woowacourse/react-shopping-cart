@@ -1,8 +1,10 @@
 import { useRecoilValue } from 'recoil';
 import styles from './index.module.css';
 import { $CheckedCartState } from '../../recoil/atom';
+import useNavigateHome from '../../hooks/useNavigateHome';
 
 const PaymentAmount = () => {
+  const handleNavigateHome = useNavigateHome();
   const checkedItems = useRecoilValue($CheckedCartState);
   const totalPrice = checkedItems.reduce((res, { quantity, product }) => {
     res += quantity * product.price;
@@ -28,7 +30,9 @@ const PaymentAmount = () => {
         </div>
       </main>
       <footer>
-        <button className={styles.button}>주문하기</button>
+        <button className={styles.button} onClick={handleNavigateHome}>
+          주문하기
+        </button>
       </footer>
     </section>
   );
