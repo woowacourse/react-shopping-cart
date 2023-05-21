@@ -86,7 +86,7 @@ const CartOrder = () => {
 
         <ContentDivider />
 
-        <OrderButton>버튼</OrderButton>
+        <OrderButton>주문하기</OrderButton>
       </Content>
     </CartOrderContainer>
   );
