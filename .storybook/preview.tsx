@@ -4,6 +4,7 @@ import type { Preview } from '@storybook/react';
 import { initialize, mswDecorator } from 'msw-storybook-addon';
 import React from 'react';
 import { RecoilRoot } from 'recoil';
+import { withRouter } from 'storybook-addon-react-router-v6';
 import { joinPath } from '../src/api/utils/http';
 import handlers from '../src/mocks/handlers';
 import GlobalStyle from '../src/styles/GlobalStyle';
@@ -30,6 +31,7 @@ const preview: Preview = {
   },
   decorators: [
     mswDecorator,
+    withRouter,
     (Story) => (
       <RecoilRoot>
         <ResetStyle />
