@@ -1,4 +1,5 @@
 import {
+  PurchaseBoxWrapper,
   PurchaseButton, PurchaseButtonWrapper,
   PurchasePropertyWrapper,
   PurchaseText,
@@ -13,7 +14,7 @@ function PurchaseBox() {
   const DELIVERY_FEE = totalPrice > 0 ? 3000 : 0;
 
   return (
-    <div style={{width: '100%'}}>
+    <PurchaseBoxWrapper>
       <PurchaseWrapper>
         <PurchaseTitle>결제예상금액</PurchaseTitle>
       </PurchaseWrapper>
@@ -48,7 +49,7 @@ function PurchaseBox() {
           </PurchaseButton>
         </PurchaseButtonWrapper>
       </PurchaseWrapper>
-    </div>
+    </PurchaseBoxWrapper>
   );
 }
 

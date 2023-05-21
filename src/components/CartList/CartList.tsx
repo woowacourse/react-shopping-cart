@@ -1,7 +1,7 @@
 import {useRecoilValue} from "recoil";
 import {cartCheckedSelector, cartCountSelector, cartState, checkedCartCountSelector} from "../../recoil/cartAtoms";
 import CartItem from "../CartItem";
-import {CartListCheckCounter, CartListController} from "./CartList.style";
+import {CartListCheckCounter, CartListController, CartListWrapper} from "./CartList.style";
 import useCart from "../../hooks/useCart.ts";
 
 function CartList() {
@@ -12,7 +12,7 @@ function CartList() {
   const {switchAllCheckboxes} = useCart();
 
   return (
-    <div style={{width: '100%'}}>
+    <CartListWrapper>
       {cartList.map((cart) => (
         <CartItem key={cart.id} cart={cart}/>
       ))}
@@ -27,7 +27,7 @@ function CartList() {
           <button>선택삭제</button>
         </div>
       </CartListController>
-    </div>
+    </CartListWrapper>
   );
 }
 

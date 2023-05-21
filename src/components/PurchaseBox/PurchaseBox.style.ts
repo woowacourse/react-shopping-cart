@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const PurchaseBoxWrapper = styled.div`
+  width: 100%;
+`;
+
 export const PurchaseWrapper = styled.div`
   border: 1px solid ${({theme}) => theme.color.secondary};
   padding: 30px;

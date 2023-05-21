@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const CartListWrapper = styled.div`
+  width: 100%;
+`;
+
 export const CartListTitle = styled.div`
   font-style: normal;
   font-weight: 400;
