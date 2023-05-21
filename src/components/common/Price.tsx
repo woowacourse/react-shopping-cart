@@ -15,7 +15,7 @@ export default function Price({
 }: Partial<Props>) {
   return (
     <Style.Wrapper className={size} color={color}>
-      <p>{tag}</p>
+      <span>{tag}</span>
       {price.toLocaleString('ko-KR')}원
     </Style.Wrapper>
   );
@@ -40,6 +40,6 @@ const Style = {
       font-size: 20px;
     }
 
-    color: ${(props) => props.color};
+    color: ${({ color }) => color};
   `,
 };

@@ -60,7 +60,7 @@ export default function CartList() {
           ) : (
             <Style.CartItems>
               {cartList.map((cartItemInfo) => (
-                <Style.ProductContainer>
+                <Style.ProductContainer key={cartItemInfo.id}>
                   <Style.CheckBoxWrapper>
                     <Checkbox
                       id={`${cartItemInfo.product.name}-checkbox`}

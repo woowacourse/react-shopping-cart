@@ -52,8 +52,8 @@ const Style = {
 
     z-index: 1000;
 
-    ${(props) => {
-      return props.isOpenToast
+    ${({ isOpenToast }) => {
+      return isOpenToast
         ? css`
             display: flex;
             animation: ${ShowAndHide} 2s forwards;

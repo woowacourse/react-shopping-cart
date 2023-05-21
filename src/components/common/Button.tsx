@@ -23,14 +23,14 @@ const Style = {
 
     border: none;
     border-radius: 7px;
-    background-color: ${(props) => (props.bgColor ? props.bgColor : 'var(--grey-100)')};
+    background-color: ${({ bgColor }) => (bgColor ? bgColor : 'var(--grey-100)')};
 
-    font-size: ${(props) => (props.fontSize ? props.fontSize : '16px')};
+    font-size: ${({ fontSize }) => (fontSize ? fontSize : '16px')};
     color: var(--grey-100);
     cursor: pointer;
 
     &.text {
-      color: ${(props) => (props.color ? props.color : 'var(--grey-500)')};
+      color: ${({ color }) => (color ? color : 'var(--grey-500)')};
       background-color: transparent;
     }
 
@@ -51,7 +51,7 @@ const Style = {
       width: 250px;
       height: 65px;
 
-      color: ${(props) => (props.color ? props.color : 'var(--grey-500)')};
+      color: ${({ color }) => (color ? color : 'var(--grey-500)')};
     }
 
     &:disabled {
