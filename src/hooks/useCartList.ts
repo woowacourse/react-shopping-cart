@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { CartInformation, ProductInformation } from '@type/types';
-import { fetchPatch, fetchPost } from '@utils/fetch';
+import { CartInformation } from '@type/types';
+import { fetchDelete, fetchPatch, fetchPost } from '@utils/fetch';
 import { API_URL_CART_LIST } from '@constants/common';
 import { useFetch } from './useFetch';
 
@@ -13,13 +13,17 @@ interface UpdateCartItemProps {
   quantity: number;
 }
 
+interface RemoveItemFromCartProps {
+  cartItemId: number;
+}
+
 const useCartList = (): {
   data: CartInformation[];
   isLoading: boolean;
   error: unknown | null;
   addItemToCart: ({ productId }: AddItemToCartProps) => void;
   updateCartItem: ({ cartItemId, quantity }: UpdateCartItemProps) => void;
-  removeItemFromCart: () => void;
+  removeItemFromCart: ({ cartItemId }: RemoveItemFromCartProps) => void;
 } => {
   const {
     data: originData,
@@ -70,7 +74,15 @@ const useCartList = (): {
     }
   };
 
-  const removeItemFromCart = () => {};
+  const removeItemFromCart = async ({
+    cartItemId,
+  }: RemoveItemFromCartProps) => {
+    const response = await fetchDelete(`${API_URL_CART_LIST}/${cartItemId}`);
+
+    if (response && response.ok) {
+      refreshData();
+    }
+  };
 
   return {
     data,

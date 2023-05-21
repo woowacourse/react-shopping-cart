@@ -1,11 +1,11 @@
 import { PRODUCT_LIST } from '@mockData/productList';
-import { act, renderHook, waitFor } from '@testing-library/react';
+import { renderHook, waitFor } from '@testing-library/react';
 import { rest } from 'msw';
 import useCartList from '@hooks/useCartList';
 import { CartInformation, ProductInformation } from '@type/types';
-import { createCartItem } from '@utils/cart';
+import { createCartItem, removedItemCart } from '@utils/cart';
 import { changedQuantityCart } from '@utils/cart';
-import { fetchGet, fetchPost } from '@utils/fetch';
+import { fetchGet } from '@utils/fetch';
 import { API_URL_CART_LIST, API_URL_PRODUCT_LIST } from '@constants/common';
 import { server } from '../setup-env';
 
@@ -99,8 +99,21 @@ describe('API 변경에 유연하도록 구현한 useProductList API 레이어�
         return res(ctx.status(204), ctx.text('OK'));
       }),
 
-      rest.delete(`${API_URL_CART_LIST}/:id`, (req, res, ctx) => {
-        const data = req.body;
+      rest.delete(`${API_URL_CART_LIST}/:cartItemId`, (req, res, ctx) => {
+        const { cartItemId } = req.params;
+
+        const cartItem = receivedData.find(
+          (item) => item.id === Number(cartItemId)
+        );
+
+        if (!cartItem) {
+          console.error('요청한 값이 올바르지 않습니다.');
+          return res(ctx.status(400), ctx.text('잘못된 요청입니다.'));
+        }
+
+        const removed = removedItemCart(receivedData, Number(cartItemId));
+
+        receivedData = removed;
 
         return res(ctx.status(204), ctx.text('No Content'));
       })
@@ -146,56 +159,59 @@ describe('API 변경에 유연하도록 구현한 useProductList API 레이어�
     });
   });
 
-  //   test('장바구니 아이템을 삭제했을 때 DELETE가 올바르게 기능하여 삭제 되는 지 테스트', async () => {
-  //     const { result } = renderHook(() => useCartList());
+  test('장바구니 아이템을 삭제했을 때 DELETE가 올바르게 기능하여 삭제 되는 지 테스트', async () => {
+    const { result } = renderHook(() => useCartList());
 
-  //     const { addItemToCart, removeItemFromCart } = result.current;
+    const { addItemToCart, removeItemFromCart } = result.current;
 
-  //     const product = PRODUCT_LIST.productList[0];
+    const product = PRODUCT_LIST.productList[0];
 
-  //     addItemToCart({
-  //       productId: product.id,
-  //     });
+    addItemToCart({
+      productId: product.id,
+    });
 
-  //     await act(async () => {
-  //       await removeItemFromCart({ productId: product.id });
-  //     });
+    await waitFor(async () => {
+      const { data } = result.current;
 
-  //     await waitFor(
-  //       () => {
-  //         const { data } = result.current;
+      await expect(data).toEqual([createCartItem(product)]);
+    });
 
-  //         expect(data).toEqual([]);
-  //       },
-  //       { timeout: 1000 }
-  //     );
-  //   });
+    await waitFor(async () => {
+      await removeItemFromCart({ cartItemId: product.id });
+    });
 
-  //   test('프론트엔드에서 의도한 장바구니 API 레이어가 올바르게 기능하는 지 테스트', async () => {
-  //     const { result } = renderHook(() => useCartList());
+    await waitFor(async () => {
+      const { data } = result.current;
 
-  //     await waitFor(
-  //       () => {
-  //         const { data } = result.current;
+      await expect(data).toEqual([]);
+    });
+  });
 
-  //         const keys = Object.keys(data ? data[0] : []);
+  test('프론트엔드에서 의도한 장바구니 API 레이어가 올바르게 기능하는 지 테스트', async () => {
+    const { result } = renderHook(() => useCartList());
 
-  //         expect(keys).toEqual(['id', 'quantity', 'product']);
-  //       },
-  //       { timeout: 1500 }
-  //     );
+    const { addItemToCart } = result.current;
 
-  //     await waitFor(
-  //       () => {
-  //         const { data } = result.current;
+    const product = PRODUCT_LIST.productList[0];
 
-  //         const keys = Object.keys(data[0] ? data[0].product : {});
+    addItemToCart({
+      productId: product.id,
+    });
 
-  //         const productKeys = Object.keys(keys);
+    await waitFor(async () => {
+      const { data } = result.current;
 
-  //         expect(productKeys).toEqual(['id', 'name', 'price', 'imageUrl']);
-  //       },
-  //       { timeout: 1500 }
-  //     );
-  //   });
+      const keys = Object.keys(data ? data[0] : []);
+
+      await expect(keys).toEqual(['id', 'quantity', 'product']);
+    });
+
+    await waitFor(async () => {
+      const { data } = result.current;
+
+      const productKeys = Object.keys(data[0].product);
+
+      await expect(productKeys).toEqual(['id', 'name', 'price', 'imageUrl']);
+    });
+  });
 });
