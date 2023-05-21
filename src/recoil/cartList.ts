@@ -39,13 +39,9 @@ export const totalPriceSelector = selector({
   key: 'totalPriceSelector',
   get: ({ get }) => {
     const checkedItems = get(checkedItemsAtom);
-    const totalPrice = checkedItems.reduce((acc, item) => {
-      if (!item) return acc;
-      const { price } = item.product;
-      const { quantity } = item;
-      return acc + price * quantity;
+    return checkedItems.reduce((acc, item) => {
+      return acc + item.product.price * item.quantity;
     }, 0);
-    return totalPrice;
   },
 });
 
