@@ -1,7 +1,8 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Cart, Product } from '../../types';
 import { cartState } from '../../atoms/CartState';
 import { useLocalStorage } from './useLocalStorage';
+import { useFetch } from './useFetch';
 
 const getIndex = (list: Cart[], id: number) => {
   return list.findIndex((item: Cart) => item.id === id);
@@ -10,8 +11,9 @@ const getIndex = (list: Cart[], id: number) => {
 export const useCartState = (product: Product) => {
   const { id } = product;
   const { setLocalStorageData } = useLocalStorage();
-  const setCartProductState = useSetRecoilState(cartState);
-  const currentCartList = useRecoilValue(cartState);
+  const [cartList, setCartList] = useRecoilState(cartState);
+
+  const { postAPI } = useFetch();
 
   const newProduct = {
     id,
@@ -20,47 +22,49 @@ export const useCartState = (product: Product) => {
   };
 
   const addToCartState = () => {
-    setCartProductState((prev) => [...prev, newProduct]);
+    setCartList((prev) => [...prev, newProduct]);
 
-    setLocalStorageData<Cart[]>('cartList', [...currentCartList, newProduct]);
+    setLocalStorageData<Cart[]>('cartList', [...cartList, newProduct]);
   };
 
-  const increaseCount = () => {
-    setCartProductState((prev) => {
-      const index = getIndex(prev, id);
+  const increaseCount = async () => {
+    const updatedCartList = cartList.map((item) =>
+      item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+    );
 
-      const updatedCartList = [...prev];
+    setCartList(updatedCartList);
+    setLocalStorageData<Cart[]>('cartList', updatedCartList);
 
-      updatedCartList[index] = {
-        ...updatedCartList[index],
-        quantity: updatedCartList[index].quantity + 1,
-      };
-
-      return updatedCartList;
-    });
+    await postAPI('/cart-items', updatedCartList);
   };
 
-  const decreaseCount = (shouldDelete: boolean) => {
-    setCartProductState((prev) => {
-      const index = getIndex(prev, id);
-
-      const updatedCartList = [...prev];
-
-      if (updatedCartList[index].quantity > 1) {
-        updatedCartList[index] = {
-          ...updatedCartList[index],
-          quantity: updatedCartList[index].quantity - 1,
-        };
-      } else if (shouldDelete && updatedCartList[index].quantity === 1) {
-        return updatedCartList.filter((item: Cart) => item.id !== id);
+  const decreaseCount = async (shouldDelete: boolean) => {
+    let updatedCartList = cartList.map((item) => {
+      if (item.id === id) {
+        return shouldDelete
+          ? { ...item, quantity: item.quantity - 1 }
+          : item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : item;
+      } else {
+        return item;
       }
-
-      return updatedCartList;
     });
+
+    if (shouldDelete) {
+      updatedCartList = updatedCartList.filter(
+        (item) => !(item.id === id && item.quantity === 0)
+      );
+    }
+
+    setCartList(updatedCartList);
+    setLocalStorageData<Cart[]>('cartList', updatedCartList);
+
+    await postAPI('/cart-items', updatedCartList);
   };
 
   const deleteCartItem = () => {
-    setCartProductState((prev) => {
+    setCartList((prev) => {
       return [...prev].filter((item: Cart) => item.id !== id);
     });
   };
