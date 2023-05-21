@@ -48,7 +48,7 @@ const LogoContainer = styled(Link)`
     transform: scaleX(-1);
   }
 
-  @media (min-width: 640px) {
+  @media (min-width: ${({ theme }) => theme.breakPoints.small}) {
     & > svg {
       margin-right: 18px;
       transform: scaleX(-1);
@@ -63,7 +63,7 @@ const Logo = styled.h1`
   font-weight: 900;
   letter-spacing: 0.1em;
 
-  @media (min-width: 640px) {
+  @media (min-width: ${({ theme }) => theme.breakPoints.small}) {
     padding: 10px 0 0;
     font-size: 40px;
     line-height: 40px;
@@ -76,7 +76,7 @@ const CartPageLink = styled(Link)`
   font-size: 20px;
   font-weight: 500;
 
-  @media (min-width: 640px) {
+  @media (min-width: ${({ theme }) => theme.breakPoints.small}) {
     font-size: 24px;
   }
 `;
@@ -92,7 +92,7 @@ const ProductCountAlert = styled.span`
   background-color: ${({ theme }) => theme.colors.primary};
   line-height: 24px;
 
-  @media (min-width: 640px) {
+  @media (min-width: ${({ theme }) => theme.breakPoints.small}) {
     width: 26px;
     height: 26px;
     line-height: 28px;

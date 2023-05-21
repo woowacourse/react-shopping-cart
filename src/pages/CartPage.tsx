@@ -32,7 +32,7 @@ const Main = styled.main`
     display: none;
   }
 
-  @media (min-width: 780px) {
+  @media (min-width: ${({ theme }) => theme.breakPoints.medium}) {
     display: flex;
     justify-content: space-between;
     gap: 40px;
@@ -56,7 +56,7 @@ const PageTitle = styled.h2`
 const ExpectedPaymentBoxWrapper = styled.section`
   margin: 0 0 60px 0;
 
-  @media (min-width: 780px) {
+  @media (min-width: ${({ theme }) => theme.breakPoints.medium}) {
     position: sticky;
     top: 90px;
     margin: 210px 0 0 0;

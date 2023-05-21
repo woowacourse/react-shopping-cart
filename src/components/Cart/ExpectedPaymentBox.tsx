@@ -39,7 +39,7 @@ const ExpectedPaymentContainer = styled.div`
   min-width: 320px;
   border: 1px solid ${({ theme }) => theme.colors.gray100};
 
-  @media (min-width: 1200px) {
+  @media (min-width: ${({ theme }) => theme.breakPoints.large}) {
     width: 450px;
   }
 `;
@@ -52,7 +52,7 @@ const ExpectedPaymentTitle = styled.h2`
   font-weight: 400;
   border-bottom: 3px solid ${({ theme }) => theme.colors.gray100};
 
-  @media (min-width: 640px) {
+  @media (min-width: ${({ theme }) => theme.breakPoints.small}) {
     font-size: 24px;
   }
 `;

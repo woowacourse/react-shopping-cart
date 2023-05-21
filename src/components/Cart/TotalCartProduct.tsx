@@ -42,7 +42,7 @@ const Container = styled.div`
   gap: 12px;
   margin: 0 0 60px 0;
 
-  @media (min-width: 780px) {
+  @media (min-width: ${({ theme }) => theme.breakPoints.medium}) {
     margin: 0 0 100px 0;
   }
 `;
