@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type {Meta, StoryObj} from '@storybook/react';
 import CartItem from './CartItem';
 import Providers from '../../stories/Providers';
 
@@ -8,7 +8,7 @@ const meta = {
   decorators: [
     (Story) => (
       <Providers>
-        <Story />
+        <Story/>
       </Providers>
     ),
   ],
@@ -23,6 +23,7 @@ export const Basic = {
     cart: {
       id: 1,
       quantity: 2,
+      checked: true,
       product: {
         id: 1,
         name: '귀여운 고양이',
