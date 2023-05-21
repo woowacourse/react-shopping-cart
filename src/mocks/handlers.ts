@@ -1,5 +1,5 @@
 import { rest } from 'msw';
-import { CartList, ItemInfo } from '../types/CartList.ts';
+import { CartList, Product } from '../types/CartList.ts';
 import { getCartListFromLocalStorage } from '../utils/localStorageCartList.ts';
 import ProductItem from '../data/productList.json';
 import { CartUpdateBody } from '../types/requestBody.ts';
@@ -14,7 +14,7 @@ const deleteItem = (itemId: number) => {
   cart.items = cart.items.filter((item) => item.id !== itemId);
 };
 
-const addToCart = (itemId: number, quantity: number, productInfo: ItemInfo) => {
+const addToCart = (itemId: number, quantity: number, productInfo: Product) => {
   cart.items.push({ id: itemId, quantity, itemInfo: productInfo });
 };
 
@@ -63,5 +63,17 @@ export const handlers = [
     }
 
     return res(ctx.json({ id: itemId, quantity, itemInfo: productInfo }));
+  }),
+
+  rest.delete('/cart/delete/:itemId', (req, res, ctx) => {
+    const { itemId } = req.params;
+
+    if (!itemId || typeof itemId !== 'string') {
+      return res(ctx.status(404, 'Item ID is required'));
+    }
+
+    deleteItem(parseInt(itemId, 10));
+
+    return res(ctx.json({ id: itemId }));
   }),
 ];
