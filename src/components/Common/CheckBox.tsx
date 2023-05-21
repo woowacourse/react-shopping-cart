@@ -1,5 +1,5 @@
-import { ChangeEventHandler } from 'react';
-import { styled } from 'styled-components';
+import type { ChangeEventHandler } from 'react';
+import styled from 'styled-components';
 
 interface CheckBoxProps {
   id: string;

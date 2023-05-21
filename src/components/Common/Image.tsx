@@ -1,5 +1,5 @@
 import type { ImgHTMLAttributes } from 'react';
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 
 type ImageSizeType = 'small' | 'medium';
 
