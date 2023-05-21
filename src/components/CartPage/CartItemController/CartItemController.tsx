@@ -23,6 +23,7 @@ const CartItemController = () => {
           type="checkbox"
           checked={selectedItemsAmount === cartItemsAmount}
           onChange={handleSelectDeselectAll}
+          disabled={!cartItemsAmount}
         />
         <S.Text>
           전체선택 ({selectedItemsAmount}/{cartItemsAmount})
