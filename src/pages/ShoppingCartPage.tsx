@@ -1,20 +1,20 @@
-import { getCartProducts } from 'apis/cart/get';
-import CheckBox from 'components/@common/CheckBox/CheckBox';
-import FlexBox from 'components/@common/FlexBox';
-import CartProductCardList from 'components/CartProductCardList/CartProductCardList';
-import useCartCheckBox from 'hooks/useCartCheckBox';
-import useFetch from 'hooks/useFetch';
+import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { checkedCartProductsTotalPrice } from 'state/cartProducts';
-import styled from 'styled-components';
-import { CartProducts } from 'types/product';
+import CartProductCardList from 'components/CartProductCardList/CartProductCardList';
+import ConfirmModal from 'components/ConfirmModal/ConfirmModal';
+import CheckBox from 'components/@common/CheckBox/CheckBox';
+import FlexBox from 'components/@common/FlexBox';
+import useModal from 'components/@common/Modal/hooks/useModal';
+import useCartCheckBox from 'hooks/useCartCheckBox';
+import useShoppingCart from 'hooks/useShoppingCart';
 
 const SHIPPING_FEE = 3000;
 
 const ShoppingCartPage = () => {
-  const { data: cartProducts } = useFetch<CartProducts>(getCartProducts) ?? new Map();
-
   const { checkedProducts, isChecked, isAllChecked, toggleCheck, toggleCheckAllBox } = useCartCheckBox();
+  const { deleteCheckedCartProducts } = useShoppingCart();
+  const { isModalOpen, openModal, closeModal } = useModal();
   const cartTotalPrice = useRecoilValue(checkedCartProductsTotalPrice(checkedProducts));
   const isCheckedProductsExist = checkedProducts.size > 0;
   const cartTotalPriceWithFee = cartTotalPrice + SHIPPING_FEE;
@@ -36,7 +36,14 @@ const ShoppingCartPage = () => {
             <CheckBox checked={isAllChecked} onChange={toggleCheckAllBox}>
               {checkBoxLabel}
             </CheckBox>
-            <CheckedProductDeleteButton>선택 삭제</CheckedProductDeleteButton>
+            <CheckedProductDeleteButton onClick={openModal}>선택 삭제</CheckedProductDeleteButton>
+            <ConfirmModal
+              isOpen={isModalOpen}
+              closeModal={closeModal}
+              onClickConfirmButton={() => deleteCheckedCartProducts(checkedProducts)}
+            >
+              {`선택한 ${checkedProducts.size}개의 상품을 삭제하시겠습니까?`}
+            </ConfirmModal>
           </CheckBoxTab>
           <CartProductCardList toggleCheck={toggleCheck} isChecked={isChecked} />
         </CartProductSection>
