@@ -33,7 +33,13 @@ const Modal = ({ isOpen, children, handleClose }: ModalProps) => {
         createPortal(
           <S.ModalContainer role="dialog" aria-modal>
             <S.ModalBackdrop onClick={handleClose} />
-            <S.ModalContent ref={modalRef} tabIndex={0} onKeyDown={handleClosePress}>
+            <S.ModalContent
+              ref={modalRef}
+              tabIndex={0}
+              onKeyDown={handleClosePress}
+              aria-labelledby="modal title"
+              aria-describedby="modal description"
+            >
               {children}
             </S.ModalContent>
           </S.ModalContainer>,

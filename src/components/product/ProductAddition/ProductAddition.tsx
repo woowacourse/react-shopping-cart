@@ -34,7 +34,7 @@ const ProductAddition = ({
   return (
     <>
       <S.ProductAdditionContainer>
-        <S.Header>장바구니 담기</S.Header>
+        <S.Header id="modal title">장바구니 담기</S.Header>
         <S.ProductInformationContainer>
           <S.ProductImage src={information.imageUrl} alt={information.name} />
           <div>
@@ -62,7 +62,7 @@ const ProductAddition = ({
           <Button aria-label="close modal" onClick={handleModalClose}>
             취소
           </Button>
-          <Button variant="primary" aria-label="add item" onClick={handleCartAdd}>
+          <Button variant="primary" aria-label="add to cart" onClick={handleCartAdd}>
             장바구니 담기
           </Button>
         </S.ButtonContainer>
