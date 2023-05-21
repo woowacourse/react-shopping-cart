@@ -1,4 +1,4 @@
-import { selector, atom, selectorFamily } from 'recoil';
+import { selector, atom, selectorFamily, atomFamily } from 'recoil';
 import { CartItem } from '../types/cart';
 import { fetchCart } from '../apis/cart';
 
@@ -19,6 +19,26 @@ export const cartBadge = selector({
   get: ({ get }) => {
     return get(cartState).length;
   },
+});
+
+export const selectedItemsState = atom({
+  key: 'selectedItemsState ',
+  default: selector({
+    key: 'selectedItemsStateSelector',
+    get: ({ get }) => {
+      const cart = get(cartState);
+
+      return cart.reduce<Set<CartItem['id']>>(
+        (selectedItems, item) => selectedItems.add(item.id),
+        new Set()
+      );
+    },
+  }),
+});
+
+export const selectedItemsAmountSelector = selector({
+  key: 'selectedItemsAmountSelector',
+  get: ({ get }) => get(selectedItemsState).size,
 });
 
 export const getCartItemById = selectorFamily({
