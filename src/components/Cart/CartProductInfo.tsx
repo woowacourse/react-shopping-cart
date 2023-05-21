@@ -27,7 +27,7 @@ const CartProductInfo = () => {
 };
 
 const Container = styled.section`
-  max-width: 740px;
+  max-width: 780px;
   padding: 120px 0 0 0;
   flex-grow: 1;
 

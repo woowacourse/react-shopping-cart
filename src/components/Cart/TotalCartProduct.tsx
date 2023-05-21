@@ -40,7 +40,11 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 0 0 100px 0;
+  margin: 0 0 60px 0;
+
+  @media (min-width: 780px) {
+    margin: 0 0 100px 0;
+  }
 `;
 
 export default TotalCartProduct;

@@ -21,8 +21,7 @@ const CartPage = () => {
 
 const Main = styled.main`
   position: relative;
-  display: flex;
-  justify-content: space-between;
+
   max-width: 1300px;
   height: calc(100vh - 80px);
   margin: 0 auto;
@@ -31,6 +30,12 @@ const Main = styled.main`
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  @media (min-width: 780px) {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
   }
 `;
 
@@ -49,9 +54,13 @@ const PageTitle = styled.h2`
 `;
 
 const ExpectedPaymentBoxWrapper = styled.section`
-  position: sticky;
-  top: 90px;
-  margin: 210px 0 0 0;
+  margin: 0 0 60px 0;
+
+  @media (min-width: 780px) {
+    position: sticky;
+    top: 90px;
+    margin: 210px 0 0 0;
+  }
 `;
 
 export default CartPage;

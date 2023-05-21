@@ -36,17 +36,25 @@ const ExpectedPaymentBox = () => {
 };
 
 const ExpectedPaymentContainer = styled.div`
-  width: 450px;
+  min-width: 320px;
   border: 1px solid ${({ theme }) => theme.colors.gray100};
+
+  @media (min-width: 1200px) {
+    width: 450px;
+  }
 `;
 
 const ExpectedPaymentTitle = styled.h2`
   height: 80px;
   padding: 0 30px;
   line-height: 80px;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 400;
   border-bottom: 3px solid ${({ theme }) => theme.colors.gray100};
+
+  @media (min-width: 640px) {
+    font-size: 24px;
+  }
 `;
 
 const ExpectedPaymentInfo = styled.div`
