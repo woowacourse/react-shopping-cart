@@ -46,3 +46,10 @@ export const checkedCartProductsPriceSumState = selector<number>({
     }, 0);
   },
 });
+
+export const areCartProductsAllCheckedState = selector<boolean>({
+  key: 'areCartProductsAllCheckedState',
+  get: ({ get }) => {
+    return get(cartState).every((cartProduct) => cartProduct.checked);
+  },
+});
