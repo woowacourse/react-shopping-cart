@@ -13,20 +13,17 @@ const meta = {
     ),
   ],
   argTypes: {
-    quantity: {
-      description: '장바구니에 담긴 상품의 수량입니다.',
-    },
-    initialIncrement: {
-      description: '장바구니 icon을 눌렀을 때 실행 될 함수입니다.',
+    decreaseQuantity: {
+      description: '- 버튼을 눌렀을 때 실행 될 함수입니다.',
     },
     increaseQuantity: {
       description: '+ 버튼을 눌렀을 때 실행 될 함수입니다.',
     },
-    decreaseQuantity: {
-      description: '- 버튼을 눌렀을 때 실행 될 함수입니다.',
+    initialIncrement: {
+      description: '장바구니 icon을 눌렀을 때 실행 될 함수입니다.',
     },
-    deleteCartProduct: {
-      description: '수량이 1이면서 - 버튼을 눌렀을 때 실행 될 함수입니다.',
+    quantity: {
+      description: '장바구니에 담긴 상품의 수량입니다.',
     },
   },
 } satisfies Meta<typeof CartQuantityStepper>;
@@ -46,17 +43,12 @@ const CartQuantityStepperWithHooks = () => {
     setQuantity((prevQuantity) => prevQuantity - 1);
   };
 
-  const deleteCartProduct = () => {
-    setQuantity((prevQuantity) => prevQuantity - 1);
-  };
-
   return (
     <CartQuantityStepper
       quantity={quantity}
       initialIncrement={increaseQuantity}
       decreaseQuantity={decreaseQuantity}
       increaseQuantity={increaseQuantity}
-      deleteCartProduct={deleteCartProduct}
     ></CartQuantityStepper>
   );
 };
