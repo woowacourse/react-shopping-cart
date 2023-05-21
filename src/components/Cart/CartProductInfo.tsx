@@ -1,19 +1,13 @@
 import styled from 'styled-components';
 
 import CartProductList from './CartProductList';
-import Button from '../Common/Button';
-import CheckBox from '../Common/CheckBox';
+import Message from '../Common/Message';
+import TotalCartProduct from './TotalCartProduct';
 
 import useCartProductCount from '../../hooks/useCartProductCount';
-import useCheckedCount from '../../hooks/useCheckedCount';
-import useMultipleChecked from '../../hooks/useMultipleChecked';
-import Message from '../Common/Message';
 
 const CartProductInfo = () => {
   const cartProductCount = useCartProductCount();
-  const checkedCount = useCheckedCount();
-  const { isAllChecked, toggleAllProductChecked, deleteCheckedProducts } =
-    useMultipleChecked();
 
   return (
     <Container>
@@ -26,25 +20,7 @@ const CartProductInfo = () => {
             <Message type='cartEmpty' />
           </MessageWrapper>
         )}
-        <TotalCartProductWrapper>
-          <CheckBox
-            id='total-item-check'
-            onChange={toggleAllProductChecked}
-            checked={isAllChecked}
-          />
-          <p>
-            전체 선택 ({checkedCount}/{cartProductCount})
-          </p>
-          <Button
-            type='button'
-            primary={false}
-            size='small'
-            border
-            onClick={deleteCheckedProducts}
-          >
-            선택삭제
-          </Button>
-        </TotalCartProductWrapper>
+        <TotalCartProduct />
       </div>
     </Container>
   );
@@ -72,13 +48,6 @@ const InfoTitle = styled.h3`
 const MessageWrapper = styled.div`
   position: relative;
   height: 400px;
-`;
-
-const TotalCartProductWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 0 0 100px 0;
 `;
 
 export default CartProductInfo;
