@@ -24,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     width: 100vw;
-    min-height: 100vh;
+    height: 100vh;
   }
 
   #root {
@@ -32,7 +32,9 @@ const GlobalStyle = createGlobalStyle`
     top: 0;
     left: 0;
     width: 100%;
+    min-height: 100%;
     height: 100%;
+    max-height: max-content;
     display: flex;
     justify-content: space-around;
   }
@@ -43,6 +45,7 @@ const GlobalStyle = createGlobalStyle`
     padding-top: 124px;
     padding-bottom: 72px;
     max-width: 1080px;
+    height: fit-content;
   }
 
   .hide-overflow {
