@@ -12,6 +12,7 @@ const useControlCart = () => {
     CART_LIST_LOCAL_KEY
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [value, setData] = useRecoilState(cartAtom);
 
   const [checkBox, setCheckBox] = useAtomLocalStorage<number[]>(
@@ -54,7 +55,7 @@ const useControlCart = () => {
 
     await fetch('/cart-items', {
       method: 'post',
-      body: JSON.stringify({ productId: id }),
+      body: JSON.stringify({ productId: Number(id) }),
     });
 
     setData(updatedCart);

@@ -12,7 +12,7 @@ import { CART_LIST_LOCAL_KEY } from '@constants/common';
 import CartItem from './CartItem';
 
 const CartList = () => {
-  const [cart, setCart] = useAtomLocalStorage<CartInformation[]>(
+  const [cart] = useAtomLocalStorage<CartInformation[]>(
     cartAtom,
     CART_LIST_LOCAL_KEY
   );
@@ -51,7 +51,7 @@ const CartList = () => {
       (product) =>
         checkBox.includes(product.id) && checkBoxTotalId.includes(product.id)
     );
-    
+
     removedCart.forEach(async (product)=>{
       await fetch(`/cart-items/${product.id}`, {
         method: 'delete',
