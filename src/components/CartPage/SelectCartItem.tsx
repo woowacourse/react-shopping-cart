@@ -26,7 +26,8 @@ export default function SelectCartItem() {
     if (checkAll) {
       const newCartSelects = cart.map((cartItem: CartType) => cartItem.id);
       setCartSelectsState(new Set(newCartSelects));
-    } else {
+    }
+    if (!checkAll && cartSelectsState.size === cartTotal) {
       setCartSelectsState(new Set());
     }
   }, [checkAll]);
