@@ -14,34 +14,41 @@ export const cartCountSelector = selector({
   }
 });
 
-export const checkedCartCountSelector = selector({
-  key: 'checkedCartCountSelector',
+const checkedCartSelector = selector({
+  key: 'checkedCartSelector',
   get: ({get}) => {
     const cartList = get(cartState);
-    const checkedCount = cartList.filter((cartItem) => cartItem.checked).length;
-    return checkedCount;
+    const checkedCartLst = cartList.filter((cartItem) => cartItem.checked);
+    return checkedCartLst;
   }
 });
 
-export const cartCheckedSelector = selector({
-  key: 'cartCheckedSelector',
+export const checkedCartCountSelector = selector({
+  key: 'checkedCartCountSelector',
+  get: ({get}) => {
+    const checkedCartList = get(checkedCartSelector);
+    return checkedCartList.length;
+  }
+});
+
+export const allCartCheckedSelector = selector({
+  key: 'allCartCheckedSelector',
   get: ({get}) => {
     const cartList = get(cartState);
     const cartCount = get(cartCountSelector);
     if (cartCount > 0) {
-      const isAllCartItemChecked = cartList.every((cartItem) => cartItem.checked === true);
+      const isAllCartItemChecked = cartList.every((cartItem) => cartItem.checked);
       return isAllCartItemChecked;
-    } else {
-      return false;
     }
+    
+    return false;
   }
 });
 
 export const totalPriceSelector = selector({
   key: 'totalPriceSelector',
   get: ({get}) => {
-    const cartList = get(cartState);
-    const checkedCartList = cartList.filter((cartItem) => cartItem.checked);
+    const checkedCartList = get(checkedCartSelector);
     const totalPrice = checkedCartList.reduce((acc, cartItem) => acc + (cartItem.quantity * cartItem.product.price), 0);
     return totalPrice;
   }

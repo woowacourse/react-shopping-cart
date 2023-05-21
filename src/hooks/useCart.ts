@@ -1,12 +1,12 @@
 import {useRecoilState, useRecoilValue} from 'recoil';
 import type {NewCartItem, ProductItem} from '../types/types';
-import {cartCheckedSelector, cartState} from '../recoil/cartAtoms';
+import {allCartCheckedSelector, cartState} from '../recoil/cartAtoms';
 import {fetchAddCart, fetchDeleteCart, fetchUpdateCart} from '../api/api';
 import {initCartListCheckbox, updateCartCheckbox, updateCartListQuantity} from '../domain/cart';
 
 function useCart() {
   const [cartList, setCartList] = useRecoilState(cartState);
-  const isAllCartItemChecked = useRecoilValue(cartCheckedSelector);
+  const isAllCartItemChecked = useRecoilValue(allCartCheckedSelector);
 
   const addCart = (product: ProductItem) => {
     const isCartItemExist = cartList.some((cartItem) => cartItem.id === product.id);
