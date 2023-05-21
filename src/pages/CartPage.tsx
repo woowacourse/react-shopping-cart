@@ -27,6 +27,10 @@ const S = {
     @media (max-width: 1270px) {
       padding: 0 36px;
     }
+
+    @media (max-width: 420px) {
+      padding: 0 28px;
+    }
   `,
 
   Title: styled.h2`
