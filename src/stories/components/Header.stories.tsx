@@ -9,4 +9,3 @@ export default {
 const Template: StoryFn = () => <Header />;
 
 export const MainHeader = Template.bind({});
-MainHeader.args = {};

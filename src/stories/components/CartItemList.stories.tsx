@@ -8,4 +8,4 @@ export default {
 
 const Template: StoryFn = () => <CartItemList />;
 
-export const Empty = Template.bind({});
+export const List = Template.bind({});
