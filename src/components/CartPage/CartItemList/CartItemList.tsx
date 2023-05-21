@@ -1,10 +1,10 @@
 import { cartState } from '../../../atoms/cart';
-import useLazyRecoilValue from '../../../hooks/common/useLazyRecoilValue';
+import { useRefreshableRecoilValue } from '../../../hooks/common/useRefreshableAtom';
 import CartItem from '../CartItem/CartItem';
 import * as S from './CartItemList.styles';
 
 const CartItemList = () => {
-  const cart = useLazyRecoilValue(cartState);
+  const cart = useRefreshableRecoilValue(cartState);
 
   return (
     <S.Root>

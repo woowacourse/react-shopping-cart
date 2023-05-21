@@ -1,17 +1,19 @@
-import { useRecoilValue } from 'recoil';
 import {
   cartItemsAmountSelector,
   selectedItemsAmountSelector,
 } from '../../../atoms/cart';
-import useCartSelector from '../../../hooks/cart/useCartSelector';
+import { useCartSelector } from '../../../hooks/cart/cart';
+import { useRefreshableRecoilValue } from '../../../hooks/common/useRefreshableAtom';
 import { Button } from '../../common/Button/Button.styles';
 import Flex from '../../common/Flex';
 import * as S from './CartItemController.styles';
 
 const CartItemController = () => {
   const { handleSelectDeselectAll } = useCartSelector();
-  const selectedItemsAmount = useRecoilValue(selectedItemsAmountSelector);
-  const cartItemsAmount = useRecoilValue(cartItemsAmountSelector);
+  const cartItemsAmount = useRefreshableRecoilValue(cartItemsAmountSelector);
+  const selectedItemsAmount = useRefreshableRecoilValue(
+    selectedItemsAmountSelector
+  );
 
   return (
     <S.Root>
