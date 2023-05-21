@@ -10,11 +10,7 @@ const renderApp = () => {
   );
 };
 
-if (process.env.NODE_ENV === 'development') {
-  import('./mocks/server').then(async ({ worker }) => {
-    await worker.start();
-    renderApp();
-  });
-} else {
+import('./mocks/server').then(async ({ worker }) => {
+  await worker.start();
   renderApp();
-}
+});
