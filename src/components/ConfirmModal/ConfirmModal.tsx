@@ -4,30 +4,30 @@ import type { ModalProps } from 'components/@common/Modal/Modal';
 import { PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
-interface CartProductDeleteModalProps extends ModalProps {
-  onClickAcceptButton: () => void;
+interface ConfirmModalProps extends ModalProps {
+  onClickConfirmButton: () => void;
 }
 
-const CartProductDeleteModal = ({
-  children,
-  isOpen,
-  closeModal,
-  onClickAcceptButton,
-}: PropsWithChildren<CartProductDeleteModalProps>) => {
+const ConfirmModal = ({ children, isOpen, closeModal, onClickConfirmButton }: PropsWithChildren<ConfirmModalProps>) => {
+  const handleConfirm = () => {
+    onClickConfirmButton();
+    closeModal();
+  };
+
   return (
     <Modal isOpen={isOpen} closeModal={closeModal}>
       <Container flexDirection="column">
         <MessageWrapper>{children}</MessageWrapper>
         <ButtonContainer>
           <Button onClick={closeModal}>취소</Button>
-          <Button onClick={onClickAcceptButton}>확인</Button>
+          <Button onClick={handleConfirm}>확인</Button>
         </ButtonContainer>
       </Container>
     </Modal>
   );
 };
 
-export default CartProductDeleteModal;
+export default ConfirmModal;
 
 const Container = styled(FlexBox)`
   width: 300px;

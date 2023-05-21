@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import FlexBox from 'components/@common/FlexBox';
 import CheckBox from 'components/@common/CheckBox/CheckBox';
-import CartProductDeleteModal from 'components/CartProductDeleteModal/CartProductDeleteModal';
+import ConfirmModal from 'components/ConfirmModal/ConfirmModal';
 import CartQuantityStepper from 'components/CartQuantityStepper/CartQuantityStepper';
 import useShoppingCart from 'hooks/useShoppingCart';
 import useModal from 'components/@common/Modal/hooks/useModal';
@@ -31,9 +31,9 @@ const CartProductCard = ({ cartProduct, toggleCheck, isChecked }: CartProductCar
         <Container>
           <Title>{name}</Title>
           <ProductDeleteButton onClick={openModal} />
-          <CartProductDeleteModal isOpen={isModalOpen} closeModal={closeModal} onClickAcceptButton={deleteCartProduct}>
+          <ConfirmModal isOpen={isModalOpen} closeModal={closeModal} onClickConfirmButton={deleteCartProduct}>
             해당 상품을 삭제하시겠습니까??
-          </CartProductDeleteModal>
+          </ConfirmModal>
         </Container>
         <Container justify="flex-end">
           <CartQuantityStepper
