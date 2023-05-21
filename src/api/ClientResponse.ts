@@ -1,37 +1,50 @@
 import type { HttpResponse } from './rest/RestAPI';
 
-class ClientResponse<TResponse extends HttpResponse> {
-  constructor(private readonly responseFn: () => Promise<TResponse>) {}
+// Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+const OK_STATUS_CODES = [
+  200, 201, 202, 203, 204, 205, 206, 207, 208, 226, 300, 301, 302, 303, 304, 307, 308,
+] as const;
+
+class ClientResponse<TResponse extends HttpResponse> extends Promise<TResponse> {
+  private readonly responsePromise: Promise<TResponse> = this.responseFn();
+
+  constructor(private readonly responseFn: () => Promise<TResponse>) {
+    super((resolve) => {
+      this.acceptOkOrThrow().then(resolve);
+    });
+  }
 
   private assertStatusCode<StatusCode extends TResponse['statusCode']>(
     response: TResponse,
-    statusCodes: StatusCode[],
+    statusCodes: StatusCode | readonly [StatusCode, ...StatusCode[]],
   ): response is Extract<TResponse, { statusCode: StatusCode }> {
-    return (statusCodes as number[]).includes(response.statusCode);
+    return ((Array.isArray(statusCodes) ? statusCodes : [statusCodes]) as number[]).includes(
+      response.statusCode,
+    );
   }
 
   async accept<StatusCode extends TResponse['statusCode']>(
-    statusCodes: StatusCode | [StatusCode, ...StatusCode[]],
+    statusCodes: StatusCode | readonly [StatusCode, ...StatusCode[]],
   ) {
-    const response = await this.responseFn();
-    if (
-      !this.assertStatusCode(response, Array.isArray(statusCodes) ? statusCodes : [statusCodes])
-    ) {
+    const response = await this.responsePromise;
+    if (!this.assertStatusCode(response, statusCodes)) {
       return null;
     }
     return response;
   }
 
   async acceptOrThrow<StatusCode extends TResponse['statusCode']>(
-    statusCodes: StatusCode | [StatusCode, ...StatusCode[]],
+    statusCodes: StatusCode | readonly [StatusCode, ...StatusCode[]],
   ) {
-    const response = await this.responseFn();
-    if (
-      !this.assertStatusCode(response, Array.isArray(statusCodes) ? statusCodes : [statusCodes])
-    ) {
+    const response = await this.responsePromise;
+    if (!this.assertStatusCode(response, statusCodes)) {
       throw new Error(`Server responses with status code ${response.statusCode}`);
     }
     return response;
+  }
+
+  async acceptOkOrThrow() {
+    return this.acceptOrThrow(OK_STATUS_CODES);
   }
 }
 
