@@ -33,22 +33,23 @@ export const Container = styled.div`
 export const Row = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -15px;
+  row-gap: 1rem;
+  column-gap: 1rem;
 `;
 
 export const Column = styled.div`
-  width: 100%;
-  box-sizing: border-box;
+  margin: auto;
+  width: 90%;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.md}) {
-    width: 50%;
+    width: 48%;
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-    width: 33.33%;
+    width: 32%;
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.xl}) {
-    width: 25%;
+    width: 24%;
   }
 `;

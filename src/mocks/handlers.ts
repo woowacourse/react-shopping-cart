@@ -4,7 +4,7 @@ import { CartItem, ProductItem } from '../types/ProductType';
 const productList: ProductItem[] = [
   {
     id: 1,
-    name: '1) PET보틀-정사각(420ml)',
+    name: '1) PET보틀-정사각(420ml) 정말 길고 긴 제목',
     price: 43400,
     imageUrl: 'http://placekitten.com/200/200',
   },

@@ -2,6 +2,7 @@ import { styled } from 'styled-components';
 
 export const CartBox = styled.div`
   display: flex;
+  height: 28px;
 `;
 
 export const QuantityInput = styled.input`

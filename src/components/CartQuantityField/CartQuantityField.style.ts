@@ -7,5 +7,5 @@ export const ControllerWrapper = styled.div`
 
 export const CartIcon = styled.button`
   width: 25px;
-  height: 22px;
+  height: 20px;
 `;
