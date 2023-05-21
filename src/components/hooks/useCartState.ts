@@ -9,7 +9,7 @@ export const useCartState = (id: number) => {
   const quantity = useRecoilValue(cartItemQuantityStateFamily(id));
   const setCartStates = useSetRecoilState(cartState);
 
-  const handleAddCartState = () => {
+  const handleAddCartState = useCallback(() => {
     const addCartItem = async () => {
       const response = await fetch('/api/carts', {
         method: 'POST',
@@ -30,9 +30,9 @@ export const useCartState = (id: number) => {
       ...prevCartStates,
       parseToCartFormat(id, productItem),
     ]);
-  };
+  }, []);
 
-  const handleDeleteCartState = () => {
+  const handleDeleteCartState = useCallback(() => {
     const deleteCartProduct = async () => {
       const response = await fetch(`/cart-items/${id}`, {
         method: 'DELETE',
@@ -48,7 +48,7 @@ export const useCartState = (id: number) => {
     setCartStates((prevCartStates) =>
       prevCartStates.filter((product) => product.id !== id)
     );
-  };
+  }, []);
 
   const increaseProductCount = useCallback(() => {
     const patchCartItemQuantity = async () => {
