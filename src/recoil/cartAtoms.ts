@@ -14,6 +14,15 @@ export const cartCountSelector = selector({
   }
 });
 
+export const checkedCartCountSelector = selector({
+  key: 'checkedCartCountSelector',
+  get: ({get}) => {
+    const cartList = get(cartState);
+    const checkedCount = cartList.filter((cartItem) => cartItem.checked).length;
+    return checkedCount;
+  }
+});
+
 export const cartCheckedSelector = selector({
   key: 'cartCheckedSelector',
   get: ({get}) => {
