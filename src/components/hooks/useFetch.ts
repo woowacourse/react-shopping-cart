@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { fetchApi } from '../../api';
+import { fetchAPI } from '../../api';
 
 export const useFetch = <T>() => {
   const [data, setData] = useState<T>();
@@ -7,7 +7,7 @@ export const useFetch = <T>() => {
 
   const fetchData = async (url: string, options: RequestInit) => {
     try {
-      const data = await fetchApi(url, options);
+      const data = await fetchAPI(url, options);
 
       setData(data);
     } catch (error) {
@@ -20,24 +20,38 @@ export const useFetch = <T>() => {
   };
 
   const getAPI = (url: string) => {
-    fetchData(url, { method: 'GET' });
+    fetchData(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   };
 
   const postAPI = <T>(url: string, body: T) =>
     fetchData(url, {
       method: 'POST',
       body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
 
   const patchAPI = <T>(url: string, body: T) =>
     fetchData(url, {
       method: 'PATCH',
       body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
 
   const deleteAPI = (url: string) => {
     fetchData(url, {
       method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
   };
 
