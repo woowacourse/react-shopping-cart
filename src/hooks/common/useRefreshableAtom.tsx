@@ -3,6 +3,7 @@ import {
   Loadable,
   RecoilState,
   RecoilValueReadOnly,
+  useRecoilStateLoadable,
   useRecoilValueLoadable,
 } from 'recoil';
 import { ERROR_CODE } from '../../constants/errors';
@@ -10,10 +11,7 @@ import { CustomError } from '../../validation/errors';
 
 type LoadableState<T> = Loadable<T>['state'];
 
-const useLazyRecoilValue = <T,>(
-  recoilState: RecoilState<T> | RecoilValueReadOnly<T>
-) => {
-  const loadable = useRecoilValueLoadable(recoilState);
+const useRefreshableState = <T,>(loadable: Loadable<T>) => {
   const [value, setValue] = useState<T>(() => handleState(loadable.state));
 
   function handleState(
@@ -38,7 +36,21 @@ const useLazyRecoilValue = <T,>(
     setValue(handleState(loadable.state, { skip: ['loading'] }));
   }, [loadable]);
 
+  return [value, setValue] as const;
+};
+
+export const useRefreshableRecoilValue = <T,>(
+  recoilState: RecoilState<T> | RecoilValueReadOnly<T>
+) => {
+  const loadable = useRecoilValueLoadable(recoilState);
+  const [value] = useRefreshableState(loadable);
+
   return value;
 };
 
-export default useLazyRecoilValue;
+export const useRefreshableRecoilState = <T,>(recoilState: RecoilState<T>) => {
+  const [loadable, setLoadable] = useRecoilStateLoadable(recoilState);
+  const [value] = useRefreshableState(loadable);
+
+  return [value, setLoadable] as const;
+};
