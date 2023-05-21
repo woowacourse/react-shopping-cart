@@ -103,4 +103,4 @@ const PriceBox = styled.p`
   font-size: 16px;
 `;
 
-export default CartItem;
+export default React.memo(CartItem);
