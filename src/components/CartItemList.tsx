@@ -1,6 +1,8 @@
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
+import useCheck from '../hooks/useCheck';
 import cartState from '../recoil/atoms/cartState';
+import checkedCartState from '../recoil/atoms/checkedCartState';
 import cartCountState from '../recoil/selectors/cartCountState';
 import CartItem from './CartItem';
 import CheckBox from './CheckBox';
@@ -56,14 +58,18 @@ const SelectButton = styled.button`
 const CartItemList = () => {
   const cartItems = useRecoilValue(cartState);
   const cartCount = useRecoilValue(cartCountState);
-
+  const checkedCart = useRecoilValue(checkedCartState);
+  const { setAll } = useCheck();
   return (
     <StyledCartList>
       <CartListHeader>
         <span>든든 상품 ({cartCount}개)</span>
         <StyledDiv>
-          <CheckBox />
-          <span> 전체선택 (2/{cartCount}) </span>
+          <CheckBox kind="ALL" setAll={setAll} />
+          <span>
+            {' '}
+            전체선택 ({checkedCart.length}/{cartCount}){' '}
+          </span>
           <SelectButtonContainer>
             <SelectButton>선택삭제</SelectButton>
           </SelectButtonContainer>

@@ -2,7 +2,9 @@ import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import { ReactComponent as Trash } from '../assets/icons/trash.svg';
 import useCartProduct from '../hooks/useCart';
+import useCheck from '../hooks/useCheck';
 import { cartItemFamily } from '../recoil/selectors/cartItemFamily';
+import { CheckedCartIdList } from '../recoil/selectors/checkedCartList';
 import { productFamily } from '../recoil/selectors/productFamily';
 import type { Product } from '../type';
 import CheckBox from './CheckBox';
@@ -69,8 +71,10 @@ const CartItem = (props: cartItemProps) => {
 
   const product = useRecoilValue(productFamily(productId));
   const cartProduct = useRecoilValue(cartItemFamily(productId));
-
+  const isChecked = useRecoilValue(CheckedCartIdList).includes(cartProduct!.id);
+  console.log(useRecoilValue(CheckedCartIdList), cartProduct!.id, 'ISCH');
   const { setQuantity } = useCartProduct(productId);
+  const { setCheck, setAll } = useCheck(cartProduct!.id);
 
   if (!product) return <div>Error!</div>;
   if (!cartProduct) return <div>Error!</div>;
@@ -80,7 +84,7 @@ const CartItem = (props: cartItemProps) => {
   };
   return (
     <ItemContainer>
-      <CheckBox />
+      <CheckBox onClick={setCheck} defaultChecked={isChecked} />
       <Image src={product.imageUrl} alt={product.name} />
       <CardItemTitle>[든든] {product.name}</CardItemTitle>
       <CartItemInfo>
