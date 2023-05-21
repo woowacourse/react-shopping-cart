@@ -1,27 +1,13 @@
-import { useMemo } from 'react';
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import Button from '../Common/Button';
 
 import useMultipleChecked from '../../hooks/useMultipleChecked';
-import { checkedPriceState } from '../../states/checkedCartProducts/selector';
-
-const DELIVERY_FEE = 3_000;
+import useExpectedPayment from '../../hooks/useCartPrice';
 
 const ExpectedPaymentBox = () => {
-  const totalPrice = useRecoilValue(checkedPriceState);
   const { isAllUnchecked } = useMultipleChecked();
-
-  const deliveryFee = useMemo(
-    () => (isAllUnchecked ? 0 : DELIVERY_FEE),
-    [isAllUnchecked]
-  );
-
-  const total = useMemo(
-    () => totalPrice + deliveryFee,
-    [deliveryFee, totalPrice]
-  );
+  const { totalProductPrice, deliveryFee, totalPrice } = useExpectedPayment();
 
   return (
     <ExpectedPaymentContainer>
@@ -29,15 +15,15 @@ const ExpectedPaymentBox = () => {
       <ExpectedPaymentInfo>
         <PaymentInfoItem>
           <dt>총 상품가격</dt>
-          <dd>{totalPrice.toLocaleString('ko-KR')}원</dd>
+          <dd>{totalProductPrice}원</dd>
         </PaymentInfoItem>
         <PaymentInfoItem>
           <dt>총 배송비</dt>
-          <dd>{deliveryFee.toLocaleString('ko-KR')}원</dd>
+          <dd>{deliveryFee}원</dd>
         </PaymentInfoItem>
         <PaymentInfoItem>
           <dt>총 주문금액</dt>
-          <dd>{total.toLocaleString('ko-KR')}원</dd>
+          <dd>{totalPrice}원</dd>
         </PaymentInfoItem>
       </ExpectedPaymentInfo>
       <OrderButtonWrapper>
