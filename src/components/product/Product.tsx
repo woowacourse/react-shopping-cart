@@ -38,12 +38,12 @@ export default function Product({ productInfo }: Props) {
               updateQuantity={updateProductQuantity}
             />
           ) : (
-            <Style.CartIconWrapper onClick={handleCartClick}>
+            <Style.CartIconWrapper onClick={handleCartClick} aria-label="장바구니 추가">
               <CartIcon fill="#AAAAAA" />
             </Style.CartIconWrapper>
           )}
         </Style.ProductNameAndStepperContainer>
-        <Price price={price} size={'large'} />
+        <Price price={price} size={'large'} label={`${name}`} />
       </Style.ProductInfo>
       <Toast
         isOpenToast={isOpenToast}

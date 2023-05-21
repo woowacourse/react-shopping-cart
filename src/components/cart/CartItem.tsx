@@ -29,16 +29,22 @@ export default function CartItem({ cartItemInfo, deleteCheckedItem }: Props) {
         <Style.ProductName htmlFor={`${name}-checkbox`}>{name}</Style.ProductName>
       </Style.ImageAndNameContainer>
       <Style.TrashCanIConAndStepperAndPriceContainer>
-        <Style.DeleteCartItemButton onClick={handleDeleteCartItem}>
+        <Style.DeleteCartItemButton
+          onClick={handleDeleteCartItem}
+          aria-label={`장바구니에서 ${name} 상품 삭제`}
+        >
           <TrashCanIcon />
         </Style.DeleteCartItemButton>
         <Stepper
-          quantity={cartItemInfo?.quantity}
+          quantity={cartItemInfo.quantity}
           minQuantity={1}
           maxQuantity={PRODUCT.MAX_COUNT}
           updateQuantity={updateProductQuantity}
         />
-        <Price price={price * cartItemInfo?.quantity} />
+        <Price
+          price={price * cartItemInfo?.quantity}
+          label={`${name} ${cartItemInfo.quantity}개`}
+        />
       </Style.TrashCanIConAndStepperAndPriceContainer>
     </Style.Container>
   );

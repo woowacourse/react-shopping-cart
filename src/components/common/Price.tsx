@@ -5,6 +5,7 @@ interface Props {
   size: 'small' | 'medium' | 'large';
   color: string;
   tag?: string;
+  label?: string;
 }
 
 export default function Price({
@@ -12,9 +13,10 @@ export default function Price({
   size = 'medium',
   color = 'black',
   tag = '',
+  label = '',
 }: Partial<Props>) {
   return (
-    <Style.Wrapper className={size} color={color}>
+    <Style.Wrapper className={size} color={color} aria-label={`${label} 가격 ${price}원`}>
       <span>{tag}</span>
       {price.toLocaleString('ko-KR')}원
     </Style.Wrapper>
