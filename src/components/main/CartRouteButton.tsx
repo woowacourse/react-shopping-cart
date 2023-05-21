@@ -27,7 +27,7 @@ const S = {
   Button: styled.button`
     padding: 0;
     margin-right: 8px;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 500;
     background: none;
     color: #fff;
@@ -35,14 +35,14 @@ const S = {
   `,
 
   Badge: styled.div`
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
     background: #04c09e;
     border-radius: 50%;
-    font-size: 13px;
-    font-weight: 400;
+    font-size: 18px;
+    font-weight: 600;
     text-align: center;
-    line-height: 24px;
+    line-height: 30px;
     color: #fff;
   `,
 };

@@ -8,8 +8,8 @@ import TotalCheckbox from './TotalCheckbox';
 import { useFetchData } from '../../hooks/useFetchData';
 import { CART_BASE_URL } from '../../constants/url';
 import { CartItem } from '../../types';
-import { useEffect } from 'react';
 import Checkbox from '../@common/Checkbox';
+import { useEffect } from 'react';
 import { LoadingSpinner } from '../@common/LoadingSpinner';
 
 const CartList = () => {
@@ -56,7 +56,7 @@ const CartList = () => {
         <TotalCheckbox
           cartLength={cart.length}
           checkedItemsCount={checkedItems.length}
-          onChange={handleCheckAllItems}
+          handleCheckAllItems={handleCheckAllItems}
           clickRemoveButton={handleRemoveCheckedItem}
         />
         <S.ContentWrapper>
@@ -73,7 +73,6 @@ const S = {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    position: relative;
     width: 90%;
   `,
 

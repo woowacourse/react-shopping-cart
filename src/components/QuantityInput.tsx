@@ -15,9 +15,9 @@ interface Props {
 const QuantityInput = ({ value, onChange, id, onIncrement, onDecrement, onBlur }: Props) => {
   return (
     <S.Wrapper>
-      <S.Button onClick={onDecrement}>
+      <S.MinusButton onClick={onDecrement}>
         <FaMinus />
-      </S.Button>
+      </S.MinusButton>
 
       <Input
         id={id}
@@ -28,12 +28,21 @@ const QuantityInput = ({ value, onChange, id, onIncrement, onDecrement, onBlur }
         onChange={onChange}
         onBlur={onBlur}
       />
-      <S.Button onClick={onIncrement}>
+      <S.PlusButton onClick={onIncrement}>
         <FaPlus />
-      </S.Button>
+      </S.PlusButton>
     </S.Wrapper>
   );
 };
+
+const Button = styled.button`
+  height: 32px;
+  background: none;
+  margin: 0px;
+  padding: 3px;
+  color: #aaa;
+  cursor: pointer;
+`;
 
 const S = {
   Wrapper: styled.div`
@@ -45,13 +54,13 @@ const S = {
       max-width: 26px;
     }
   `,
-  Button: styled.button`
-    height: 32px;
-    background: none;
-    margin: 0px;
-    padding: 3px;
-    border: 1px solid var(--gray-color-200);
-    cursor: pointer;
+  MinusButton: styled(Button)`
+    border: solid var(--gray-color-200);
+    border-width: 1px 0px 1px 1px;
+  `,
+  PlusButton: styled(Button)`
+    border: solid var(--gray-color-200);
+    border-width: 1px 1px 1px 0px;
   `,
 };
 

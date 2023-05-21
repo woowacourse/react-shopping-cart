@@ -5,16 +5,21 @@ interface Props {
   cartLength: number;
   checkedItemsCount: number;
   clickRemoveButton: () => void;
-  onChange: () => void;
+  handleCheckAllItems: () => void;
 }
 
-const TotalCheckbox = ({ onChange, cartLength, checkedItemsCount, clickRemoveButton }: Props) => {
+const TotalCheckbox = ({
+  cartLength,
+  checkedItemsCount,
+  clickRemoveButton,
+  handleCheckAllItems,
+}: Props) => {
   return (
     <S.CheckboxAllWrapper>
       <S.CheckboxAll
         type="checkbox"
         id={'all'}
-        onChange={onChange}
+        onChange={handleCheckAllItems}
         checked={cartLength === checkedItemsCount}
       />
       <label htmlFor={'all'}>{`전체선택 ${checkedItemsCount}/${cartLength}개`}</label>

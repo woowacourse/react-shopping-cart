@@ -50,7 +50,7 @@ const S = {
     padding: 0 20px;
 
     @media all and (max-width: 479px) {
-      & > :nth-child(2) {
+      & > :nth-child(1) span {
         display: none;
       }
     }

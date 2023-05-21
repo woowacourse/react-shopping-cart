@@ -75,7 +75,6 @@ const S = {
 
       & > :nth-child(3) {
         position: absolute;
-        bottom: 0;
       }
 
       & > :nth-child(4) {
