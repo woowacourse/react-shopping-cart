@@ -32,6 +32,9 @@ const customViewports = {
     name: 'Desktop',
     styles: { width: '1600px', height: '1200px' },
   },
+  msw: {
+    handlers: [...handlers],
+  },
 };
 
 export const parameters = {

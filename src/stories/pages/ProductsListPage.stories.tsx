@@ -29,14 +29,10 @@ export const Interaction: Story = {
     const productList = await canvas.findByRole('list');
     const productListCanvas = within(productList);
     const cartButtons = await productListCanvas.findAllByRole('button');
-    // const increaseButton = await canvas.findAllByRole(
-    //   'button[aria-label="subtract"]'
-    // );
 
-    const increaseButton = canvasElement.querySelectorAll(
-      'button[aria-label="subtract"]'
-    );
-
+    const increaseButton = await productListCanvas.findAllByRole('button', {
+      name: /subtract/i,
+    });
     console.log(increaseButton);
 
     await step('Click Cart Button', async () => {
@@ -47,13 +43,5 @@ export const Interaction: Story = {
     await waitFor(() => {
       expect(canvas.getByText(2)).toBeInTheDocument();
     });
-
-    // await step('Click Cart SubtractCount Button', async () => {
-    //   await userEvent.click(increaseButton[0]);
-    // });
-
-    // await waitFor(() => {
-    //   expect(canvas.getByText(1)).toBeInTheDocument();
-    // });
   },
 };
