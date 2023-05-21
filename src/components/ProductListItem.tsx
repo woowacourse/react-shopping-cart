@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import CartIcon from '../assets/icons/cart.svg';
-import useCartItem from '../hooks/useCartItem';
+import useCartActions from '../hooks/useCartActions';
 import type { Product } from '../type';
 import Stepper from './Stepper';
 
@@ -57,7 +57,8 @@ type ProductListItemProps = {
 
 const ProductListItem = (props: ProductListItemProps) => {
   const { product } = props;
-  const { cartItem, setQuantity } = useCartItem(product);
+  const { findCartItemByProductId, setQuantity } = useCartActions();
+  const cartItem = findCartItemByProductId(product.id);
 
   return (
     <ProductListItemContainer>
@@ -69,11 +70,15 @@ const ProductListItem = (props: ProductListItemProps) => {
         </ProductInfo>
         <StepperContainer>
           {cartItem === null ? (
-            <AddCartButton onClick={() => setQuantity(1)}>
+            <AddCartButton onClick={() => setQuantity(product, 1)}>
               <img alt="카트" src={CartIcon} />
             </AddCartButton>
           ) : (
-            <Stepper min={0} value={cartItem.quantity} onChange={setQuantity} />
+            <Stepper
+              min={0}
+              value={cartItem.quantity}
+              onChange={(quantity) => setQuantity(product, quantity)}
+            />
           )}
         </StepperContainer>
       </ProductInfoContainer>
