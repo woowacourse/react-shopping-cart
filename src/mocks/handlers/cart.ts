@@ -1,9 +1,6 @@
 import { rest } from 'msw';
 import cartProducts from 'mocks/fixtures/cartProducts.json';
-
-type ErrorResponse = {
-  message: string;
-};
+import { ErrorResponse } from 'apis';
 
 type PostReqBody = {
   productId: number;
@@ -28,11 +25,11 @@ export const cart = [
       return res(ctx.status(401), ctx.json(authorizationError));
     }
 
-    return res(ctx.status(201), ctx.set('Location', `/cart-items/${productId}`), ctx.json({}));
     // https://techcourse.woowahan.com/s/zNFZ8xuU/ls/gRaMDVpX
     // 명세상 return되는 body가 없음...
     // 명세상 productId가 아닌, cartItemId가 반환됨...
     // Location: /cart-items/{cartItemId}
+    return res(ctx.status(201), ctx.set('Location', `/cart-items/${productId}`), ctx.json({}));
   }),
 
   rest.patch<PatchReqBody>('/cart-items/:cartItemId', async (req, res, ctx) => {
@@ -43,7 +40,18 @@ export const cart = [
     if (authorization !== 'Basic bob:486') {
       return res(ctx.status(401), ctx.json(authorizationError));
     }
-
+    // 명세상 return되는 body가 없음...
     return res(ctx.status(200), ctx.json({}));
+  }),
+
+  rest.delete('/cart-items/:cartItemId', async (req, res, ctx) => {
+    const cartItemId = req.params.cartItemId;
+    const authorization = req.headers.get('Authorization');
+
+    if (authorization !== 'Basic bob:486') {
+      return res(ctx.status(401), ctx.json(authorizationError));
+    }
+
+    return res(ctx.status(204));
   }),
 ];
