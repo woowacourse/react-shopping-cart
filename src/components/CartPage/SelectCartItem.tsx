@@ -32,29 +32,27 @@ export default function SelectCartItem() {
     }
   }, [checkAll]);
 
+  const deleteSelectCartItem = () => {
+    cartSelectsState.forEach((cartSelect) => {
+      setRequestAction({
+        action: 'DELETE',
+        payload: { cartId: cartSelect },
+      });
+      setCartSelectsState(new Set());
+    });
+  };
+
   return (
     <SelectCartItemContainer>
       <SelectBox
         checked={checkAll}
         type='checkbox'
-        onChange={() => {
-          setCheckAll((checkAll) => !checkAll);
-        }}
+        onChange={() => setCheckAll((checkAll) => !checkAll)}
       />
       <Text>
         전체선택({cartSelectsState.size}/{cartTotal})
       </Text>
-      <SelectDeleteButton
-        onClick={() => {
-          cartSelectsState.forEach((cartSelect) => {
-            setRequestAction({
-              action: 'DELETE',
-              payload: { cartId: cartSelect },
-            });
-            setCartSelectsState(new Set());
-          });
-        }}
-      >
+      <SelectDeleteButton onClick={deleteSelectCartItem}>
         선택 삭제
       </SelectDeleteButton>
     </SelectCartItemContainer>
