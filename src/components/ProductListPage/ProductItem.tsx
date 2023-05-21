@@ -1,7 +1,10 @@
-import { useRef } from "react";
+import { useState } from "react";
+import { useRecoilRefresher_UNSTABLE } from "recoil";
 import styled from "styled-components";
-
+import { postCartProduct } from "../../api/cart";
 import { AddCartIc } from "../../asset";
+import { cartData } from "../../atoms/cartState";
+
 import { useAddCart } from "../../hooks/useAddCart";
 import QuantityCounter from "../common/QuantityCounter";
 
@@ -18,11 +21,41 @@ export default function ProductItem({
   name,
   price,
 }: ProductItemProps) {
-  const quantityRef = useRef<HTMLInputElement>(null);
-  const { isSelected, selectProductItem, addCartProductItem } = useAddCart();
+  const { isSelected, selectProductItem } = useAddCart();
+  const [count, setCount] = useState(1);
+  const refresh = useRecoilRefresher_UNSTABLE(cartData);
+  function getCount(count: number) {
+    setCount(count);
+  }
+
+  function increaseQuantity() {
+    setCount((prev) => prev + 1);
+  }
+
+  function decreaseQuantity() {
+    if (count <= 1) return;
+    setCount((prev) => prev - 1);
+  }
+
+  async function handleAddButtonClick() {
+    const response = await postCartProduct({
+      id: id,
+      quantity: 1,
+      product: {
+        id: id,
+        name: name,
+        price: price,
+        imageUrl: imageUrl,
+      },
+    });
+    if (response.ok) {
+      refresh();
+    }
+    selectProductItem();
+  }
 
   return (
-    <ProductItemContainer>
+    <ProductItemContainer data-testId="product-item">
       <ProductImage src={imageUrl} />
       <InfoBox>
         <ProductInfo>
@@ -30,7 +63,12 @@ export default function ProductItem({
           <Price>{price.toLocaleString()}원</Price>
         </ProductInfo>
         {isSelected ? (
-          <QuantityCounter ref={quantityRef} />
+          <QuantityCounter
+            count={count}
+            getCount={getCount}
+            increaseQuantity={increaseQuantity}
+            decreaseQuantity={decreaseQuantity}
+          />
         ) : (
           <CartButton onClick={selectProductItem}>
             <AddCartIc />
@@ -38,7 +76,7 @@ export default function ProductItem({
         )}
       </InfoBox>
       {isSelected && (
-        <AddCartButton onClick={() => addCartProductItem(id, quantityRef)}>
+        <AddCartButton onClick={handleAddButtonClick}>
           장바구니 추가
         </AddCartButton>
       )}
