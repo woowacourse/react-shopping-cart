@@ -2,11 +2,10 @@ import ProductItem from '../ProductItem';
 import styles from './index.module.css';
 import { Product } from '../../types';
 import useFetchProducts from '../../hooks/useFetchProducts';
-import { useRecoilState } from 'recoil';
-import { $Products } from '../../recoil/atom';
+import { useState } from 'react';
 
 const ProductItemList = () => {
-  const [products, setProducts] = useRecoilState($Products);
+  const [products, setProducts] = useState([]);
 
   useFetchProducts(setProducts);
 
