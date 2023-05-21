@@ -46,7 +46,9 @@ const SelectedProductItem = ({ id, imageUrl, name, price, quantity }: Props) => 
           onChange={handleCheckedItem}
         />
         <S.Image src={`${imageUrl}`} alt={name} />
-        <label htmlFor={`${id}-checkbox`}>{name}</label>
+        <S.Name htmlFor={`${id}-checkbox`} title={name}>
+          {name}
+        </S.Name>
         <S.Wrapper>
           <QuantityInput id={name} value={String(quantity)} onChange={handleNumberInputChange} />
           <Button css={trashCanButtonStyle} onClick={removeItemFromCart}>
@@ -62,16 +64,47 @@ const SelectedProductItem = ({ id, imageUrl, name, price, quantity }: Props) => 
 const S = {
   Fieldset: styled.fieldset`
     display: flex;
-    margin-top: 28px;
+    margin: 28px 10px 0 0;
     padding-bottom: 32px;
     border-bottom: 1.5px solid #ccc;
+
+    @media (max-width: 420px) {
+      flex-wrap: wrap;
+      margin-right: 0;
+    }
   `,
 
   Image: styled.img`
     width: 144px;
     margin-right: 20px;
 
-    & + label {
+    @media (max-width: 548px) {
+      margin-right: 8px;
+    }
+
+    @media (max-width: 420px) {
+      width: 100%;
+      margin: 10px 0 0;
+    }
+  `,
+
+  Name: styled.label`
+    display: -webkit-box;
+    height: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    font-size: 16px;
+
+    @media (max-width: 548px) {
+      height: 14px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 420px) {
+      height: 16px;
+      margin: 16px auto;
       font-size: 16px;
     }
   `,
@@ -93,6 +126,31 @@ const S = {
     & > p {
       margin-top: 101px;
     }
+
+    @media (max-width: 420px) {
+      width: 100%;
+      flex-direction: column-reverse;
+      align-items: center;
+
+      & > div {
+        margin-top: -80px;
+        margin-bottom: 72px;
+        margin-left: auto;
+
+        & input {
+          width: 74px;
+        }
+      }
+
+      & > button {
+        margin-top: 78px;
+        margin-left: auto;
+      }
+
+      & > p {
+        margin-top: 0;
+      }
+    }
   `,
 };
 
@@ -101,6 +159,18 @@ const trashCanButtonStyle = css`
 
   & + p {
     font-size: 15px;
+  }
+
+  @media (max-width: 548px) {
+    & + p {
+      font-size: 13px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    & + p {
+      font-size: 15px;
+    }
   }
 `;
 

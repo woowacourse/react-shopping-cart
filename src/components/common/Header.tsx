@@ -55,8 +55,10 @@ const S = {
       font-size: 24px;
 
       & svg {
+        align-self: center;
         width: 34px;
         margin-right: 8px;
+        padding: 2px;
       }
     }
   `,
@@ -65,6 +67,10 @@ const S = {
     color: #fff;
     background: none;
     cursor: pointer;
+
+    @media (max-width: 480px) {
+      display: flex;
+    }
   `,
 
   Wrapper: styled.div`

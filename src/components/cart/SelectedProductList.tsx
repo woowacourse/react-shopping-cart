@@ -34,16 +34,18 @@ const SelectedProductList = () => {
   return (
     <S.Wrapper>
       <S.Title>{`든든배송 상품 (${productCountInCart}개)`}</S.Title>
-      {cart.map((item: CartItem) => (
-        <SelectedProductItem
-          key={item.product.id}
-          id={item.product.id}
-          name={item.product.name}
-          price={item.product.price}
-          imageUrl={`${process.env.PUBLIC_URL}${item.product.imageUrl}`}
-          quantity={item.quantity}
-        />
-      ))}
+      <div>
+        {cart.map((item: CartItem) => (
+          <SelectedProductItem
+            key={item.product.id}
+            id={item.product.id}
+            name={item.product.name}
+            price={item.product.price}
+            imageUrl={`${process.env.PUBLIC_URL}${item.product.imageUrl}`}
+            quantity={item.quantity}
+          />
+        ))}
+      </div>
 
       <S.Fieldset>
         <Checkbox
@@ -66,7 +68,6 @@ const S = {
   Wrapper: styled.section`
     width: 100%;
     max-width: 736px;
-    max-height: 410px;
     font-size: 18px;
     color: var(--text-color);
   `,
@@ -74,13 +75,46 @@ const S = {
   Title: styled.h3`
     padding-bottom: 24px;
     border-bottom: 2px solid var(--gray-color-300);
+
+    & + div {
+      max-height: 410px;
+      overflow-y: auto;
+
+      /* Scroll bar */
+      &::-webkit-scrollbar {
+        width: 5px;
+      }
+      &::-webkit-scrollbar-thumb {
+        border-radius: 8px;
+        background: var(--text-color);
+      }
+      &::-webkit-scrollbar-track {
+        border-radius: 8px;
+        background: var(--gray-color-100);
+      }
+      &::-webkit-scrollbar-button:start:decrement,
+      &::-webkit-scrollbar-button:end:increment {
+        display: block;
+        height: 6px;
+        background: #fff;
+      }
+
+      @media (max-width: 420px) {
+        padding: 0 10px;
+      }
+    }
   `,
 
   Fieldset: styled.fieldset`
     display: flex;
     align-items: center;
-    padding: 36px 0 100px;
+    padding: 36px 0 48px;
     font-size: 16px;
+
+    @media (max-width: 548px) {
+      font-size: 14px;
+      padding: 20px 0 0;
+    }
   `,
 };
 
@@ -89,6 +123,10 @@ const deleteButtonStyle = css`
   padding: 6px 12px 7px;
   background: none;
   border: 1px solid var(--gray-color-100);
+
+  @media (max-width: 548px) {
+    margin-left: 12px;
+  }
 `;
 
 export default SelectedProductList;

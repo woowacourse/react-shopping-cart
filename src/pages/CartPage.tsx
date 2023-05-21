@@ -23,6 +23,10 @@ const S = {
     max-width: 1320px;
     margin: 0 auto;
     padding: 0 20px;
+
+    @media (max-width: 1270px) {
+      padding: 0 36px;
+    }
   `,
 
   Title: styled.h2`
@@ -39,6 +43,19 @@ const S = {
     display: flex;
     justify-content: space-between;
     margin: 36px 30px 0 0;
+
+    @media (max-width: 1270px) {
+      flex-direction: column;
+      margin-right: 0;
+
+      & section {
+        max-width: 100%;
+      }
+
+      & section:last-child {
+        margin: 30px 0 80px;
+      }
+    }
   `,
 };
 

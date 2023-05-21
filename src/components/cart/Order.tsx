@@ -32,6 +32,7 @@ const Order = () => {
 const S = {
   Wrapper: styled.section`
     max-width: 448px;
+    max-height: 410px;
     margin-top: 40px;
     padding-bottom: 38px;
     border: 1px solid var(--gray-color-100);
@@ -42,6 +43,11 @@ const S = {
     margin-bottom: 34px;
     border-bottom: 3px solid var(--gray-color-100);
     font-size: 20px;
+
+    @media (max-width: 548px) {
+      margin-bottom: 24px;
+      font-size: 18px;
+    }
   `,
 
   List: styled.ul`
@@ -50,10 +56,26 @@ const S = {
       justify-content: space-between;
       margin: 0 30px 20px;
       font-size: 18px;
-      font-weight: 500;
+      font-weight: 600;
+
+      & span {
+        font-weight: 500;
+      }
 
       &:last-child {
         margin: 42px 30px 44px;
+      }
+
+      @media (max-width: 548px) {
+        flex-direction: column;
+        font-size: 15px;
+        font-weight: 600;
+        text-align: center;
+        line-height: 1.4;
+      }
+
+      &:last-child {
+        margin: 32px 30px 34px;
       }
     }
   `,
@@ -66,6 +88,11 @@ const orderButtonStyle = css`
   background: var(--text-color);
   font-size: 22px;
   color: #fff;
+
+  @media (max-width: 548px) {
+    padding: 20px 10px;
+    font-size: 16px;
+  }
 `;
 
 export default Order;
