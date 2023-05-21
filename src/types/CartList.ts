@@ -1,13 +1,8 @@
-export type ItemInfo = {
-  id: number;
-  name: string;
-  imageUrl: string;
-};
-
 export type Item = {
   id: number;
   quantity: number;
-  itemInfo: ItemInfo;
+  itemInfo: Product;
+  isSelected: boolean;
 };
 
 export type CartList = {
