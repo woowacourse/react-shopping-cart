@@ -17,6 +17,7 @@ const SelectedProductList = () => {
 
   useEffect(() => {
     setCheckedItems(initialCheckedItems);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const productCountInCart = cart.length;
