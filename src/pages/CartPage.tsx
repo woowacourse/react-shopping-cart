@@ -70,7 +70,8 @@ const CartOrderSection = styled.section`
 
 const CartPage = () => {
   const { cartItems, deleteCartItems } = useCartActions();
-  const { allSelected, selectForOrder, toggleForOrder, unselectAllForOrder } = useCartOrder();
+  const { selectedCount, allSelected, selectForOrder, toggleForOrder, unselectAllForOrder } =
+    useCartOrder();
 
   const handleEnableAll = () => {
     if (allSelected) {
@@ -110,13 +111,15 @@ const CartPage = () => {
 
           <CartItemListController>
             <Checkbox value={allSelected} onChange={handleEnableAll} />
-            <CartItemSelected>전체선택 ({cartItems.length}개)</CartItemSelected>
+            <CartItemSelected>
+              전체선택 ({selectedCount}/{cartItems.length}개)
+            </CartItemSelected>
             <DeleteSelectedButton onClick={handleDeleteSelected}>선택삭제</DeleteSelectedButton>
           </CartItemListController>
         </CartItemListSection>
 
         <CartOrderSection>
-          <CartOrder />
+          <CartOrder isCartEmpty={selectedCount === 0} />
         </CartOrderSection>
       </CartLayout>
     </>

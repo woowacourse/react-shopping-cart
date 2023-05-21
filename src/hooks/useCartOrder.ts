@@ -5,7 +5,9 @@ import type { CartItem } from '../type';
 const useCartOrder = () => {
   const [cartItems, setCartItems] = useRecoilState(cartItemsState);
 
-  const allSelected = cartItems.every((cartItem) => !cartItem.unselectedForOrder);
+  const selectedCount = cartItems.filter((cartItem) => !cartItem.unselectedForOrder).length;
+
+  const allSelected = selectedCount === cartItems.length;
 
   const selectForOrder = (cartItemId: CartItem['id']) =>
     setCartItems((cartItems) =>
@@ -31,6 +33,7 @@ const useCartOrder = () => {
   };
 
   return {
+    selectedCount,
     allSelected,
     selectForOrder,
     toggleForOrder,

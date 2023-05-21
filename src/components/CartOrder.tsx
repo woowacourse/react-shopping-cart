@@ -23,6 +23,12 @@ const Content = styled.section`
   padding: 30px;
 `;
 
+const ContentPlaceholder = styled.h2`
+  font-size: 16px;
+  text-align: center;
+  color: #444444;
+`;
+
 const PriceField = styled.p`
   display: flex;
   margin-bottom: 20px;
@@ -58,7 +64,12 @@ const OrderButton = styled.button.attrs({ type: 'submit' })`
   color: white;
 `;
 
-const CartOrder = () => {
+type CartOrderProps = {
+  isCartEmpty: boolean;
+};
+
+const CartOrder = (props: CartOrderProps) => {
+  const { isCartEmpty } = props;
   const prices = useRecoilValue(cartOrderPriceState);
 
   return (
@@ -67,26 +78,36 @@ const CartOrder = () => {
       <Divider />
 
       <Content>
-        <PriceField>
-          <PriceFieldName>총 상품가격</PriceFieldName>
-          <PriceFieldValue>{prices.products}</PriceFieldValue>
-        </PriceField>
+        {isCartEmpty ? (
+          <>
+            <ContentDivider />
+            <ContentPlaceholder>주문할 상품을 선택해주세요!</ContentPlaceholder>
+            <ContentDivider />
+          </>
+        ) : (
+          <>
+            <PriceField>
+              <PriceFieldName>총 상품가격</PriceFieldName>
+              <PriceFieldValue>{prices.products}</PriceFieldValue>
+            </PriceField>
 
-        <PriceField>
-          <PriceFieldName>총 배송비</PriceFieldName>
-          <PriceFieldValue>{prices.shippingFee}</PriceFieldValue>
-        </PriceField>
+            <PriceField>
+              <PriceFieldName>총 배송비</PriceFieldName>
+              <PriceFieldValue>{prices.shippingFee}</PriceFieldValue>
+            </PriceField>
 
-        <ContentDivider />
+            <ContentDivider />
 
-        <PriceField>
-          <PriceFieldName>총 주문금액</PriceFieldName>
-          <PriceFieldValue>{prices.total}</PriceFieldValue>
-        </PriceField>
+            <PriceField>
+              <PriceFieldName>총 주문금액</PriceFieldName>
+              <PriceFieldValue>{prices.total}</PriceFieldValue>
+            </PriceField>
 
-        <ContentDivider />
+            <ContentDivider />
 
-        <OrderButton>주문하기</OrderButton>
+            <OrderButton>주문하기</OrderButton>
+          </>
+        )}
       </Content>
     </CartOrderContainer>
   );
