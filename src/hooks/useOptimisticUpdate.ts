@@ -15,7 +15,7 @@ const useOptimisticUpdate = <T, U>({ url, method, initialState }: optimisticUpda
   const optimisticUpdate = async (newData: T, body: U) => {
     setIsLoading(true);
 
-    await triggerRequest(body);
+    await triggerRequest({ body });
 
     let finalData: T | undefined = newData; // Start with the optimistic new data
 
