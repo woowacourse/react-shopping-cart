@@ -4,6 +4,7 @@ import { ProductOrderTable } from 'components/Payments/ProductOrderTable';
 import { CartProductCardList } from 'components/ProductCardList/CartProductCardList';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
+  areCartProductsAllCheckedState,
   cartProductsCheckedCountState,
   cartProductsCountState,
   cartState,
@@ -18,6 +19,7 @@ export const CartPage = () => {
   const cartProductsCount = useRecoilValue(cartProductsCountState);
   const cartProductsCheckedCount = useRecoilValue(cartProductsCheckedCountState);
   const checkedCartProductsPriceSum = useRecoilValue(checkedCartProductsPriceSumState);
+  const areCartProductsAllChecked = useRecoilValue(areCartProductsAllCheckedState);
 
   const deleteCheckedCartProducts = () => {
     const updatedCartProducts: CartProduct[] = [];
@@ -29,6 +31,28 @@ export const CartPage = () => {
     setCartProducts(updatedCartProducts);
   };
 
+  const toggleCheckAllButton = () => {
+    const updatedCartProducts: CartProduct[] = [];
+
+    if (areCartProductsAllChecked) {
+      cartProducts.forEach((cartProduct) => {
+        const updatedCartProduct: CartProduct = { ...cartProduct, checked: false };
+
+        updatedCartProducts.push(updatedCartProduct);
+        api.updateCartProduct(updatedCartProduct);
+      });
+    } else {
+      cartProducts.forEach((cartProduct) => {
+        const updatedCartProduct: CartProduct = { ...cartProduct, checked: true };
+
+        updatedCartProducts.push(updatedCartProduct);
+        api.updateCartProduct(updatedCartProduct);
+      });
+    }
+
+    setCartProducts(updatedCartProducts);
+  };
+
   return (
     <>
       <TitleWrapper>
@@ -36,7 +60,7 @@ export const CartPage = () => {
       </TitleWrapper>
       <CartListTitleWrapper>
         <FlexBox align="center" gap="10px">
-          <CheckAllCheckBox type="checkbox" />
+          <CheckAllCheckBox onClick={toggleCheckAllButton} checked={areCartProductsAllChecked} type="checkbox" />
           <CheckAllCheckBoxText>
             전체선택({cartProductsCheckedCount}/{cartProductsCount})
           </CheckAllCheckBoxText>
