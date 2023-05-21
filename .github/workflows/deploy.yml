@@ -39,12 +39,13 @@ jobs:
 
       - name: Set PUBLIC_URL
         run: |
-          PUBLIC_URL=$(echo $GITHUB_REPOSITORY | sed -r 's/^.+\/(.+)$/\/\1\//')
-          echo PUBLIC_URL=$PUBLIC_URL > .env
+          BASE_URL=$(echo $GITHUB_REPOSITORY | sed -r 's/^.+\/(.+)$/\/\1/')
+          echo BASE_URL=$BASE_URL > .env
 
       - name: Build
         run: |
           npm run build
+          cp ./build/index.html ./build/404.html
 
       - name: Build storybook
         run: |
