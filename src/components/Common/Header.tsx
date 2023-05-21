@@ -59,6 +59,10 @@ const Logo = styled.h1`
   font-weight: 900;
   letter-spacing: 0.1em;
   padding: 10px 0 0;
+
+  @media (max-width: 420px) {
+    opacity: 0;
+  }
 `;
 
 const MoveCartPageBtn = styled.button`
