@@ -1,10 +1,13 @@
 import { atom, atomFamily, selector } from "recoil";
 import { Cart } from "../types/product";
+
 export const cartAtomFamily = atomFamily<Cart, number>({
   key: "cart",
-  default: (id) => {
-    return JSON.parse(localStorage.getItem(`cart_${id}`) || "[]");
-  },
+  default: (id) => ({
+    id,
+    quantity: 0,
+    product: { id: 0, name: "", price: 0, imageUrl: "" },
+  }),
 });
 
 export const cartIdAtom = atom<number[]>({

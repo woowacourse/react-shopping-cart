@@ -6,12 +6,11 @@ import ShoppingCard from "../ShoppingCard/ShoppingCard";
 import Checkbox from "../common/Checkbox/Checkbox";
 import useCheckedItem from "../../hooks/useCheckedItem";
 import { fetchedShoppingListAtom } from "../../store/fetchState";
-import { useFetchShoppingList } from "../../hooks/useFetchProductList";
+import { useFetchShoppingList } from "../../hooks/useFetch";
 
 const ShoppingCardList = () => {
   const shoppingList = useRecoilValue(cartIdAtom);
   const fetchedShoppingList = useRecoilValue(fetchedShoppingListAtom);
-
   useFetchShoppingList();
 
   const {
@@ -32,11 +31,11 @@ const ShoppingCardList = () => {
       <Styled.Border />
       <Styled.ListContainer>
         <Styled.List>
-          {fetchedShoppingList.map((shopping, index) => {
+          {fetchedShoppingList.map((shoppingProduct, index) => {
             return (
               <ShoppingCard
-                key={shopping.id}
-                cartId={shopping.id}
+                key={shoppingProduct.id}
+                cartId={shoppingProduct.id}
                 isChecked={isChecked[index]}
                 deleteChecked={() => {
                   deleteChecked(index);

@@ -2,15 +2,21 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { cartAtomFamily, cartIdAtom } from "../store/cartState";
 import { useState } from "react";
 import { Cart } from "../types/product";
-import { targetProductSelector } from "../store/fetchState";
+import {
+  targetProductSelector,
+  targetShoppingSelector,
+} from "../store/fetchState";
 import { fetchPostQuery } from "../api";
 
 const useCart = (productId: number) => {
   const [cart, setCart] = useRecoilState(cartAtomFamily(productId));
   const [cartId, setCartId] = useRecoilState(cartIdAtom);
   const product = useRecoilValue(targetProductSelector)(productId);
+  const shoppingProduct = useRecoilValue(targetShoppingSelector)(productId);
   const productInCart = cart.quantity ? true : false;
   const [isCartClicked, setIsCartClicked] = useState(Boolean(productInCart));
+
+  if (shoppingProduct) setCart(shoppingProduct);
 
   const addToCart = async () => {
     const newProduct: Cart = {
