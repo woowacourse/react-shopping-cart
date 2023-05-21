@@ -1,4 +1,3 @@
-import { useLocalStorage } from 'hooks/useLocalStorage';
 import {
   atom,
   atomFamily,
@@ -7,8 +6,7 @@ import {
   selectorFamily,
 } from 'recoil';
 import { CartId, Cart } from 'types';
-
-const { getLocalStorageData } = useLocalStorage();
+import { getLocalStorageData } from 'utils/storage';
 
 export const cartListAtom = atom<Cart[]>({
   key: 'cartList',

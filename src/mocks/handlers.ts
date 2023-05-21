@@ -1,9 +1,7 @@
 import { rest } from 'msw';
-import { useLocalStorage } from 'hooks/useLocalStorage';
 import { Cart } from 'types';
+import { getLocalStorageData, setLocalStorageData } from 'utils/storage';
 import productList from './productList.json';
-
-const { getLocalStorageData, setLocalStorageData } = useLocalStorage();
 
 const cartListStorage = getLocalStorageData<Cart[]>('cartList');
 const cartData = { cartList: [...cartListStorage] };
