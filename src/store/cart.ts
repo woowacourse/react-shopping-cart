@@ -1,14 +1,14 @@
 import { atom, selector, selectorFamily } from 'recoil';
 import { Cart } from '../types/product';
-import { fetchedCartListSelector } from './fetchSelectors';
+import { fetchedCartListSelector } from './asyncSelector';
 
 export const cartAtom = atom<Cart[]>({
-  key: 'cartAtom',
+  key: 'cart/cart-list',
   default: fetchedCartListSelector,
 });
 
 export const cartSelector = selector({
-  key: 'cartSelector',
+  key: 'cart/selector',
   get: ({ get }) => {
     const cartList = get(cartAtom);
 
@@ -19,7 +19,7 @@ export const cartSelector = selector({
 });
 
 export const cartSelectorFamily = selectorFamily({
-  key: 'select-family',
+  key: 'cart/selector-family',
   get:
     (id: number) =>
     ({ get }) => {
@@ -30,7 +30,7 @@ export const cartSelectorFamily = selectorFamily({
 });
 
 export const checkedValue = selector({
-  key: 'checked-value',
+  key: 'cart/checked-value',
   get: ({ get }) => {
     const cartList = get(cartAtom);
 
@@ -49,6 +49,6 @@ export const checkedValue = selector({
 });
 
 export const totalAmountAtom = atom({
-  key: 'totalAmount',
+  key: 'cart/total-amount',
   default: 0,
 });

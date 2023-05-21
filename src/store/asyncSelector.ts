@@ -4,7 +4,7 @@ import fetchProductList from '../api/productList';
 import { Cart, Product } from '../types/product';
 
 export const fetchedProductListSelector = selector({
-  key: 'fetchedProductList',
+  key: 'async/product-list',
   get: async () => {
     const data = await fetchProductList<Product[]>();
 
@@ -13,7 +13,7 @@ export const fetchedProductListSelector = selector({
 });
 
 export const fetchedCartListSelector = selector({
-  key: 'fetchedCartList',
+  key: 'async/cart-list',
   get: async () => {
     const data = await fetchCartList<Cart[]>();
 
