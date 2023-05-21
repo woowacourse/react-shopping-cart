@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { cartProductsState } from 'state/cartProducts';
-import { Product } from 'types/product';
+import { CheckedCartProducts, Product } from 'types/product';
 
 const useCartCheckBox = () => {
   const cartProducts = useRecoilValue(cartProductsState);
-  const [checkedProducts, setCheckedProducts] = useState(new Set(cartProducts.keys()));
+  const [checkedProducts, setCheckedProducts] = useState<CheckedCartProducts>(new Set(cartProducts.keys()));
 
   useEffect(() => {
     setCheckedProducts(new Set(cartProducts.keys()));

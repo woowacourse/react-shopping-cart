@@ -3,7 +3,7 @@ import { updateCartProductsQuantity } from 'apis/cart/patch';
 import { addCartProducts } from 'apis/cart/post';
 import { useRecoilState } from 'recoil';
 import { cartProductsState } from 'state/cartProducts';
-import { Product } from 'types/product';
+import { CheckedCartProducts, Product } from 'types/product';
 
 const useShoppingCart = () => {
   const [cartProducts, setCartProducts] = useRecoilState(cartProductsState);
@@ -66,7 +66,7 @@ const useShoppingCart = () => {
     });
   };
 
-  const deleteCheckedCartProducts = (checkedCartProducts: Set<number>) => {
+  const deleteCheckedCartProducts = (checkedCartProducts: CheckedCartProducts) => {
     [...checkedCartProducts].forEach(async (id) => await deleteCartProduct(id));
   };
 
