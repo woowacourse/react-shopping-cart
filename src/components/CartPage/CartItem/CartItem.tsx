@@ -1,3 +1,5 @@
+import { ChangeEvent } from 'react';
+import useCartSelector from '../../../hooks/cart/useCartSelector';
 import { CartItem as CartItemType } from '../../../types/cart';
 import Flex from '../../common/Flex';
 import QuantityStepper from '../../common/QuantityStepper/QuantityStepper';
@@ -7,14 +9,20 @@ type CartItemProps = CartItemType;
 
 const CartItem: React.FC<CartItemProps> = (props) => {
   const {
+    id,
     quantity,
     product: { imageUrl, name, price },
   } = props;
+  const { selectedItems, selectItem } = useCartSelector();
 
   return (
     <S.Root>
       <Flex width="100%" height="100%">
-        <S.Checkbox type="checkbox" />
+        <S.Checkbox
+          type="checkbox"
+          checked={selectedItems.has(id)}
+          onChange={() => selectItem(id)}
+        />
         <Flex width="100%" align="center">
           <S.Thumbnail alt={name} src={imageUrl} />
           <S.Name>{name}</S.Name>
