@@ -1,25 +1,24 @@
 import { selector } from 'recoil';
-import cartOrderState from '../atoms/cartOrderState';
-import cartState from '../atoms/cartState';
+import cartItemsState from '../atoms/cartItemsState';
 
 const cartOrderPriceState = selector({
   key: 'cartOrderPriceState',
   get: ({ get }) => {
-    const cart = get(cartState);
-    const cartOrder = get(cartOrderState);
+    const cartItems = get(cartItemsState);
 
-    const cartItems = cart.filter((cartItem) => cartOrder.includes(cartItem.id));
+    const productsPrice = cartItems
+      .filter((cartItem) => !cartItem.unselectedForOrder)
+      .reduce((sum, cartItem) => sum + cartItem.quantity * cartItem.product.price, 0);
+    const shippingFee = productsPrice > 0 ? 3000 : 0;
 
-    const productsPrice = cartItems.reduce(
-      (sum, cartItem) => sum + cartItem.product.price * cartItem.quantity,
-      0,
-    );
-    const shippingFee = 3000;
-
-    return {
+    const prices = {
       products: productsPrice,
       shippingFee,
-      total: productsPrice + shippingFee,
+    };
+
+    return {
+      ...prices,
+      total: Object.values(prices).reduce((sum, current) => sum + current, 0),
     };
   },
 });
