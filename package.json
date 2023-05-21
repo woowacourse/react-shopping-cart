@@ -2,7 +2,7 @@
   "name": "react-shopping-cart",
   "version": "0.1.0",
   "private": true,
-  "homepage": "./",
+  "homepage": "https://yeopto.github.io/react-shopping-cart/",
   "dependencies": {
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",

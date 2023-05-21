@@ -25,9 +25,18 @@ const router = createHashRouter([
   },
 ]);
 
-if (process.env.NODE_ENV === 'development') {
-  worker.start();
-}
+const main = async () => {
+  if (window.location.pathname === '/react-shopping-cart') {
+    window.location.pathname = '/react-shopping-cart/';
+    return;
+  }
+
+  await worker.start({
+    serviceWorker: {
+      url: '/react-shopping-cart/mockServiceWorker.js',
+    },
+  });
+};
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -38,3 +47,5 @@ root.render(
     </RecoilRoot>
   </React.StrictMode>,
 );
+
+main();
