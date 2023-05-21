@@ -1,5 +1,3 @@
-import type { ChangeEventHandler } from 'react';
-import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import CartProductList from './CartProductList';
@@ -8,24 +6,13 @@ import CheckBox from '../Common/CheckBox';
 
 import useCartProductCount from '../../hooks/useCartProductCount';
 import useCheckedCount from '../../hooks/useCheckedCount';
-import { checkedState } from '../../states/checkedCartProducts';
-
-const isAllChecked = (checked: { id: number; isChecked: boolean }[]) =>
-  checked.every((item) => item.isChecked);
+import useMultipleChecked from '../../hooks/useMultipleChecked';
 
 const CartProductInfo = () => {
-  const [checked, setChecked] = useRecoilState(checkedState);
-
   const cartProductCount = useCartProductCount();
   const checkedCount = useCheckedCount();
-
-  const toggleAllProductChecked: ChangeEventHandler<HTMLInputElement> = (
-    event
-  ) => {
-    setChecked((prev) =>
-      prev.map((item) => ({ ...item, isChecked: event.currentTarget.checked }))
-    );
-  };
+  const { isAllChecked, toggleAllProductChecked, deleteCheckedProducts } =
+    useMultipleChecked();
 
   return (
     <Container>
@@ -36,12 +23,18 @@ const CartProductInfo = () => {
           <CheckBox
             id='total-item-check'
             onChange={toggleAllProductChecked}
-            checked={isAllChecked(checked)}
+            checked={isAllChecked}
           />
           <p>
             전체 선택 ({checkedCount}/{cartProductCount})
           </p>
-          <Button type='button' primary={false} size='small' border>
+          <Button
+            type='button'
+            primary={false}
+            size='small'
+            border
+            onClick={deleteCheckedProducts}
+          >
             선택삭제
           </Button>
         </TotalCartProductWrapper>
