@@ -8,9 +8,9 @@ const ProductListPage = () => {
     <>
       <Header />
       <Layout>
-        <Suspense fallback={<p>로딩중..</p>}>
-          <ProductList />
-        </Suspense>
+        {/* <Suspense fallback={<p>로딩중..</p>}> */}
+        <ProductList />
+        {/* </Suspense> */}
       </Layout>
     </>
   );
