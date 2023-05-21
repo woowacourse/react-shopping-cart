@@ -1,0 +1,45 @@
+.successPopupBox {
+  position: fixed;
+  top: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+  background-color: #51ffae;
+  width: fit-content;
+  border-radius: 5px;
+  animation: viewPopup 2.5s forwards;
+  text-align: center;
+  z-index: 4;
+}
+
+.failurePopupBox {
+  position: fixed;
+  top: 90%;
+  left: 50%;
+  padding: 10px;
+  background-color: #f97e8e;
+  width: fit-content;
+  border-radius: 5px;
+  opacity: 1;
+  animation: viewPopup 2.5s forwards;
+  text-align: center;
+  z-index: 4;
+}
+
+@keyframes viewPopup {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, 0%);
+  }
+  20% {
+    transform: translate(-50%, -100%);
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -100%);
+    display: none;
+  }
+}

@@ -48,7 +48,7 @@ export const handlers = [
     }
 
     return res(
-      ctx.status(403),
+      ctx.status(404),
       ctx.delay(500),
       ctx.json({ message: '장바구니에 존재하지 않는 상품입니다.' })
     );
@@ -72,9 +72,8 @@ export const handlers = [
 
       return res(ctx.status(201), ctx.delay(500), ctx.json(refreshData));
     }
-
     return res(
-      ctx.status(403),
+      ctx.status(404),
       ctx.delay(500),
       ctx.json({ message: '장바구니에 존재하지 않는 상품입니다.' })
     );
@@ -92,7 +91,7 @@ export const handlers = [
       return res(ctx.status(201), ctx.delay(500), ctx.json(resultData));
     }
     return res(
-      ctx.status(403),
+      ctx.status(404),
       ctx.delay(500),
       ctx.json({ message: '장바구니에 존재하지 않는 상품입니다.' })
     );
@@ -110,7 +109,7 @@ export const handlers = [
       return res(ctx.status(201), ctx.delay(500), ctx.json(resultData));
     }
     return res(
-      ctx.status(403),
+      ctx.status(404),
       ctx.delay(500),
       ctx.json({ message: '장바구니에 존재하지 않는 상품입니다.' })
     );
@@ -148,7 +147,7 @@ export const handlers = [
       }
     }
     return res(
-      ctx.status(403),
+      ctx.status(500),
       ctx.delay(500),
       ctx.json({ message: '장바구니에 상품 추가에 실패했습니다.' })
     );

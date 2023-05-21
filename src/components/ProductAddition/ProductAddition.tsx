@@ -1,30 +1,27 @@
 import { useCallback, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useRecoilState } from 'recoil';
 
 import { useFetch } from '../../hooks/useFetch';
 import { cartListState } from '../../store/cart';
 import { ProductItemType } from '../../types';
 import { priceFormatter } from '../../utils/formatter';
+import PopUp from '../PopUp/PopUp';
 import StepperButton from '../StepperButton/StepperButton';
 import styles from './style.module.css';
 
 interface ProductAdditionProps {
   productInformation: ProductItemType;
   closeModalByClick: () => void;
+  submitEvent: (quantity: number) => void;
 }
 
-const ProductAddition = ({ productInformation, closeModalByClick }: ProductAdditionProps) => {
+const ProductAddition = ({
+  productInformation,
+  closeModalByClick,
+  submitEvent,
+}: ProductAdditionProps) => {
   const [quantity, setQuantity] = useState(1);
-
-  const [, setCartList] = useRecoilState(cartListState);
-  const { fetchApi } = useFetch<ProductItemType[]>(setCartList);
-
-  const handleCartAdd = useCallback(() => {
-    const compareProductId = productInformation.id;
-    fetchApi.post('/add-cart-list', { itemId: compareProductId, quantity });
-
-    closeModalByClick();
-  }, [closeModalByClick, fetchApi, productInformation.id, quantity]);
 
   return (
     <div className={styles.container}>
@@ -51,7 +48,13 @@ const ProductAddition = ({ productInformation, closeModalByClick }: ProductAddit
         >
           취소
         </button>
-        <button className={styles.addButton} aria-label="add item" onClick={handleCartAdd}>
+        <button
+          className={styles.addButton}
+          aria-label="add item"
+          onClick={() => {
+            submitEvent(quantity);
+          }}
+        >
           장바구니 담기
         </button>
       </div>

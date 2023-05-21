@@ -4,12 +4,18 @@ import { SetterOrUpdater } from 'recoil';
 import { CartItemType, ProductItemType } from '../types';
 import { isFailureHttpStatus, isSuccessHttpStatus } from '../utils/httpStatusValidator';
 
+type fetchResult = boolean | null;
+
 export const useFetch = <T>(
   stateSetter: SetterOrUpdater<ProductItemType[]> | SetterOrUpdater<CartItemType[]>
 ) => {
   const [data, setData] = useState<T>();
   const [isLoading, setIsLoading] = useState(true);
+  const [isSuccess, setIsSuccess] = useState<fetchResult>(null);
+  const [isFailure, setIsFailure] = useState<fetchResult>(null);
   const fetchData = async (url: string, options: RequestInit) => {
+    let shouldExecuteFinally = true;
+
     try {
       const result = await fetch(url, options);
       if (isSuccessHttpStatus(result.status) && stateSetter) {
@@ -23,8 +29,27 @@ export const useFetch = <T>(
       }
     } catch (error) {
       console.error(error);
-    } finally {
       setIsLoading(false);
+      if (options.method !== 'GET') {
+        setIsFailure(true);
+        await new Promise((resolve) => setTimeout(resolve, 2500));
+
+        setIsSuccess(null);
+        setIsFailure(null);
+      }
+      shouldExecuteFinally = false;
+
+      return;
+    } finally {
+      if (shouldExecuteFinally) {
+        setIsLoading(false);
+        if (options.method !== 'GET') {
+          setIsSuccess(true);
+          await new Promise((resolve) => setTimeout(resolve, 2500));
+          setIsFailure(false);
+          setIsSuccess(false);
+        }
+      }
     }
   };
 
@@ -50,5 +75,5 @@ export const useFetch = <T>(
     },
   };
 
-  return { fetchApi, data, isLoading };
+  return { fetchApi, data, isLoading, isSuccess, isFailure, setIsSuccess, setIsFailure };
 };
