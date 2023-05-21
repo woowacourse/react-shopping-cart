@@ -1,7 +1,8 @@
+import { api } from 'apis/products/api';
 import FlexBox from 'components/@common/FlexBox';
 import { ProductOrderTable } from 'components/Payments/ProductOrderTable';
 import { CartProductCardList } from 'components/ProductCardList/CartProductCardList';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   cartProductsCheckedCountState,
   cartProductsCountState,
@@ -10,12 +11,23 @@ import {
 } from 'state/CartAtom';
 import styled from 'styled-components';
 import { flexRow } from 'styles/mixin';
+import { CartProduct } from 'types/product';
 
 export const CartPage = () => {
-  const cartProducts = useRecoilValue(cartState);
+  const [cartProducts, setCartProducts] = useRecoilState(cartState);
   const cartProductsCount = useRecoilValue(cartProductsCountState);
   const cartProductsCheckedCount = useRecoilValue(cartProductsCheckedCountState);
   const checkedCartProductsPriceSum = useRecoilValue(checkedCartProductsPriceSumState);
+
+  const deleteCheckedCartProducts = () => {
+    const updatedCartProducts: CartProduct[] = [];
+
+    cartProducts.forEach((cartProduct) => {
+      cartProduct.checked ? api.deleteCartProduct(cartProduct.id) : updatedCartProducts.push(cartProduct);
+    });
+
+    setCartProducts(updatedCartProducts);
+  };
 
   return (
     <>
@@ -28,7 +40,7 @@ export const CartPage = () => {
           <CheckAllCheckBoxText>
             전체선택({cartProductsCheckedCount}/{cartProductsCount})
           </CheckAllCheckBoxText>
-          <RemoveButton>선택삭제</RemoveButton>
+          <RemoveButton onClick={deleteCheckedCartProducts}>선택삭제</RemoveButton>
         </FlexBox>
         <CartListTitle>배송 상품 ({cartProductsCheckedCount}개)</CartListTitle>
       </CartListTitleWrapper>
