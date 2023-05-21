@@ -11,6 +11,7 @@ const ShoppingCardList = () => {
 
   const {
     isChecked,
+    isDeleted,
     isCheckedAll,
     countIsChecked,
     changeIsChecked,
@@ -31,6 +32,7 @@ const ShoppingCardList = () => {
                 key={id}
                 cartId={id}
                 isChecked={isChecked[index]}
+                isDeleted={isDeleted[index]}
                 deleteChecked={() => {
                   deleteChecked(index);
                 }}

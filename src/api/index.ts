@@ -39,7 +39,6 @@ export const fetchPatchQuery = async (
     body: JSON.stringify(bodyData),
   });
 
-  console.log(response);
   if (response.status !== 200) {
     throw new Error(FETCH.PATCH);
   }

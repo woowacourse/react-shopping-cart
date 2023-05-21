@@ -11,13 +11,24 @@ import ProductPrice from "../../common/ProductPrice/ProductPrice";
 
 interface ShoppingInfoProps {
   cartId: number;
+  isDeleted: boolean;
   deleteChecked: () => void;
 }
 
-const ShoppingInfo = ({ cartId, deleteChecked }: ShoppingInfoProps) => {
+const ShoppingInfo = ({
+  cartId,
+  isDeleted,
+  deleteChecked,
+}: ShoppingInfoProps) => {
   const { cart, deleteToCart, plusQuantity, minusQuantity } = useCart(cartId);
   const { quantity, product } = cart;
   const { name, price, imageUrl } = product;
+
+  const handleDelete = async () => {
+    await deleteToCart();
+  };
+
+  if (isDeleted) handleDelete();
 
   return (
     <>

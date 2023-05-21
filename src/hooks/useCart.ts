@@ -18,7 +18,9 @@ const useCart = (productId: number) => {
   const productInCart = cart.quantity ? true : false;
   const [isCartClicked, setIsCartClicked] = useState(Boolean(productInCart));
 
-  if (cart.quantity !== ZERO) {
+  if (shoppingProduct && cart.quantity !== shoppingProduct.quantity) {
+    console.log(cart.quantity);
+    console.log(shoppingProduct.quantity);
     const data = { quantity: cart.quantity };
     fetchPatchQuery(`/cart-items/${cart.id}`, data);
   }

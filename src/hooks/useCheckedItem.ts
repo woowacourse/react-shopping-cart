@@ -4,11 +4,15 @@ const useCheckedItem = (length: number) => {
   const [isChecked, setIsChecked] = useState<boolean[]>(
     new Array(length).fill(false)
   );
+  const [isDeleted, setIsDeleted] = useState<boolean[]>(
+    new Array(length).fill(false)
+  );
   const [isCheckedAll, setIsCheckedAll] = useState<boolean>(false);
 
   const changeIsChecked = (index: number) => {
     const newIsChecked = [...isChecked];
     newIsChecked[index] = !newIsChecked[index];
+
     if (!newIsChecked[index] && isCheckedAll) setIsCheckedAll(false);
     if (newIsChecked.every((value) => value === true)) setIsCheckedAll(true);
 
@@ -31,11 +35,24 @@ const useCheckedItem = (length: number) => {
   };
 
   const deleteCheckedAll = () => {
-    isChecked.map((isChecked, index) => {
-      if (isChecked) {
-        console.log("지우는 로직을 작성해야해요~~", index);
-      }
-      return isChecked;
+    const deleteIndices = isChecked.reduce(
+      (indices: number[], value, index) => {
+        if (value) {
+          indices.push(index);
+        }
+        return indices;
+      },
+      []
+    );
+
+    setIsDeleted((prevIsDeleted) => {
+      const newIsDeleted = [...prevIsDeleted];
+
+      deleteIndices.forEach((index) => {
+        newIsDeleted[index] = true;
+      });
+
+      return newIsDeleted;
     });
   };
 
@@ -45,6 +62,7 @@ const useCheckedItem = (length: number) => {
 
   return {
     isChecked,
+    isDeleted,
     isCheckedAll,
     countIsChecked,
     changeIsChecked,
