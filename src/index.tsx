@@ -6,11 +6,7 @@ import GlobalStyle from './GlobalStyle';
 import { worker } from './mocks/browser';
 
 const main = async () => {
-  await worker.start({
-    serviceWorker: {
-      url: '/react-shopping-cart/mockServiceWorker.js',
-    },
-  });
+  await worker.start();
 };
 
 const root = ReactDOM.createRoot(
