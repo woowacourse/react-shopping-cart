@@ -2,11 +2,13 @@ import { styled } from 'styled-components';
 import { ReactComponent as ArrowDown } from '../assets/icons/arrow-down.svg';
 import { ReactComponent as ArrowUp } from '../assets/icons/arrow-up.svg';
 
-const InputContainer = styled.div`
+const InputContainer = styled.div<{ height: string; width: string }>`
   display: flex;
   align-items: stretch;
-  width: 68px;
-  height: 26px;
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  /* width: 68px;
+  height: 26px; */
 `;
 
 const Input = styled.input`
@@ -31,6 +33,9 @@ const InputButton = styled.button`
 `;
 
 type StepperProps = {
+  width?: string;
+  height?: string;
+
   min?: number;
   max?: number;
   value: number;
@@ -38,7 +43,7 @@ type StepperProps = {
 };
 
 const Stepper = (props: StepperProps) => {
-  const { min, max, value, onChange } = props;
+  const { width, height, min, max, value, onChange } = props;
 
   const handleClick = (type: 'increase' | 'decrease') => () => {
     const newValue = value + (type === 'increase' ? 1 : -1);
@@ -54,7 +59,7 @@ const Stepper = (props: StepperProps) => {
   };
 
   return (
-    <InputContainer>
+    <InputContainer width={width ?? ''} height={height ?? ''}>
       <Input value={value} onChange={handleChange} />
       <div>
         <InputButton onClick={handleClick('increase')}>

@@ -86,7 +86,13 @@ const ProductItem = (props: ProductItemProps) => {
               <Cart />
             </AddCartButton>
           ) : (
-            <Stepper min={0} value={cartProduct.quantity} onChange={setQuantity} />
+            <Stepper
+              width="68px"
+              height="26px"
+              min={0}
+              value={cartProduct.quantity}
+              onChange={setQuantity}
+            />
           )}
         </StepperContainer>
       </ProductInfoContainer>

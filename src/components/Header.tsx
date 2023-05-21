@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import { ReactComponent as HomeIcon } from '../assets/icons/home-icon.svg';
@@ -55,16 +56,24 @@ const MenuButton = styled.button`
 
 const Header = () => {
   const cartCount = useRecoilValue(cartCountState);
+  const navigate = useNavigate();
 
+  const handleOnClickHome = () => {
+    navigate('/products');
+  };
+
+  const handleOnClickCart = () => {
+    navigate('/cart');
+  };
   return (
     <HeaderContainer>
       <HeaderContent>
-        <HomeButton>
+        <HomeButton onClick={handleOnClickHome}>
           <HomeIcon width={44} />
           <HomeButtonText>SHOP</HomeButtonText>
         </HomeButton>
         <Menu>
-          <MenuButton>
+          <MenuButton onClick={handleOnClickCart}>
             장바구니 <Badge show={cartCount > 0}>{cartCount}</Badge>
           </MenuButton>
         </Menu>
