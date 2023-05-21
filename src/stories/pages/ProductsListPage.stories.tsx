@@ -30,11 +30,6 @@ export const Interaction: Story = {
     const productListCanvas = within(productList);
     const cartButtons = await productListCanvas.findAllByRole('button');
 
-    const increaseButton = await productListCanvas.findAllByRole('button', {
-      name: /subtract/i,
-    });
-    console.log(increaseButton);
-
     await step('Click Cart Button', async () => {
       await userEvent.click(cartButtons[0]);
       await userEvent.click(cartButtons[1]);

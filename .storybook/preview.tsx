@@ -11,7 +11,16 @@ import { initialize, mswDecorator } from 'msw-storybook-addon';
 import { RecoilRoot } from 'recoil';
 import { BrowserRouter } from 'react-router-dom';
 
-initialize();
+let options = {};
+if (location.hostname === 'hae-on.github.io') {
+  options = {
+    serviceWorker: {
+      url: '/react-shopping-cart/mockServiceWorker.js',
+    },
+  };
+}
+
+initialize(options);
 
 export const decorators = [
   (Story) => (
@@ -31,9 +40,6 @@ const customViewports = {
   desktop: {
     name: 'Desktop',
     styles: { width: '1600px', height: '1200px' },
-  },
-  msw: {
-    handlers: [...handlers],
   },
 };
 
