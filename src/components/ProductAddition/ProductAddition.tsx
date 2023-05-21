@@ -31,7 +31,7 @@ const ProductAddition = ({ productInformation, closeModalByClick }: ProductAddit
       <h4 className={styles.header}>장바구니 담기</h4>
       <div className={styles.informationContainer}>
         <img src={productInformation.imageUrl} alt={productInformation.name} />
-        <div>
+        <div className={styles.informationContainertwo}>
           <div>
             <h4 className={styles.productName}>{productInformation.name}</h4>
             <h4 className={styles.productPrice}>{priceFormatter(productInformation.price)}원</h4>

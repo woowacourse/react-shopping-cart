@@ -67,3 +67,15 @@ header {
   font-size: 10px;
   font-weight: 400;
 }
+
+@media (min-width: 480px) and (max-width: 719px) {
+  .logo {
+    height: 40px;
+  }
+}
+
+@media (max-width: 479px) {
+  .logo {
+    height: 36px;
+  }
+}
