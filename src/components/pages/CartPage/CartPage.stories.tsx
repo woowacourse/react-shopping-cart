@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import CartPage from './CartPage';
 
 const meta = {
-  title: 'cart/CartPage',
+  title: 'pages/CartPage',
   component: CartPage,
   tags: ['autodocs'],
 } satisfies Meta<typeof CartPage>;
