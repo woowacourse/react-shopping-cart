@@ -10,12 +10,17 @@ import { ProductType as IProduct } from '../types';
 import { BASE_FETCH_URL, SKELETON_LENGTH } from '../constants';
 
 export const ProductList = () => {
-  const { data: products, loading, error } = useQuery<IProduct[]>(BASE_FETCH_URL.PRODUCTS);
+  const {
+    data: products,
+    loading,
+    error,
+    // } = useQuery<IProduct[]>(BASE_FETCH_URL.PRODUCTS + '?error_code=400');
+  } = useQuery<IProduct[]>(BASE_FETCH_URL.PRODUCTS);
 
   return (
     <Style.Container>
       {loading
-        ? Array.from({ length: SKELETON_LENGTH }).map(() => <Skeleton />)
+        ? Array.from({ length: SKELETON_LENGTH }).map((_, i) => <Skeleton key={i} />)
         : products?.map((product) => (
             <li key={product.id}>
               <Product item={product} />
