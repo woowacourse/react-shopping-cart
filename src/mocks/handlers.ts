@@ -14,7 +14,7 @@ if (!store.getStorage(MOCK_CART_KEY)) {
 }
 
 const getCart = (): CartProduct[] => {
-  return store.getStorage(MOCK_CART_KEY)!;
+  return store.getStorage(MOCK_CART_KEY);
 };
 
 export const handlers = [
@@ -47,7 +47,7 @@ export const handlers = [
 
   // 장바구니 아이템 목록 조회
   rest.get(`${API_BASE}/cart-items`, (req, res, ctx) => {
-    return res(ctx.json(getCart()));
+    return res(ctx.delay(1000), ctx.json(getCart()));
   }),
 
   // 장바구니 아이템 추가

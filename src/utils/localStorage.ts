@@ -4,7 +4,11 @@ const store = {
   },
 
   getStorage(key: string) {
-    return JSON.parse(localStorage.getItem(key) || '');
+    const item = localStorage.getItem(key);
+
+    if (!item) return null;
+
+    return JSON.parse(item);
   },
 
   addItem(key: string, data: unknown) {
