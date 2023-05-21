@@ -36,3 +36,19 @@ export const ProductPrice = styled.div`
 `;
 
 export const ProductInfo = styled.div``;
+
+export const CartCountWrapper = styled.div`
+  border-radius: 50%;
+  background-color: #04c09e;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 8px;
+`;
+
+export const CartCount = styled.div`
+  font-size: 16px;
+  color: #fff;
+`;
