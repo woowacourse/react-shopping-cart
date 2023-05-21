@@ -1,5 +1,5 @@
 export async function getProductsData() {
-  const resposne = await fetch("products.json");
+  const resposne = await fetch("/products");
   if (!resposne.ok) {
     throw Error(resposne.status.toString());
   }
