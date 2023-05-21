@@ -7,6 +7,9 @@ export const CartListWrapper = styled.div`
   align-items: center;
   padding-top: 80px;
   gap: 80px;
+  @media all and (max-width: 479px) {
+    gap: 30px;
+  }
 `;
 
 export const ProductListWrapper = styled.div`

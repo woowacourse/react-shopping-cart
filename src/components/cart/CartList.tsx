@@ -74,6 +74,20 @@ const S = {
     flex-direction: column;
     justify-content: center;
     width: 90%;
+
+    @media all and (max-width: 479px) {
+      & > :first-child {
+        font-size: 20px;
+        margin-top: 30px;
+        input {
+          width: 24px;
+        }
+
+        button {
+          width: fit-content;
+        }
+      }
+    }
   `,
 
   ItemListWrapper: styled.div`
@@ -93,6 +107,11 @@ const S = {
     & > :last-child {
       border-bottom: none;
     }
+    @media all and (max-width: 479px) {
+      & > :first-child {
+        margin-top: 20px;
+      }
+    }
   `,
 
   ItemWrapper: styled.div`
@@ -109,6 +128,19 @@ const S = {
 
     & > :nth-child(even) {
       border-bottom: 1.5px solid #ccc;
+    }
+
+    @media all and (max-width: 479px) {
+      & > :first-child {
+        position: relative;
+        margin-top: 25px;
+        margin-left: 0;
+        width: 24px;
+      }
+
+      & > :nth-child(2) {
+        padding: 20px 20px 60px 20px;
+      }
     }
   `,
 
@@ -130,6 +162,9 @@ const S = {
     font-weight: 700;
     padding: 30px;
     border-bottom: 4px solid #333;
+    @media all and (max-width: 479px) {
+      display: none;
+    }
   `,
 };
 export default CartList;

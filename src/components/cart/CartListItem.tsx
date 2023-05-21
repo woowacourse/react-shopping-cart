@@ -66,7 +66,7 @@ const S = {
       right: 40px;
     }
 
-    @media all and (max-width: 767px) {
+    @media (min-width: 480px) and (max-width: 767px) {
       flex-direction: column;
 
       & > :nth-child(2) {
@@ -85,18 +85,26 @@ const S = {
     }
 
     @media all and (max-width: 479px) {
-      flex-direction: column;
-      align-items: center;
+      flex-direction: row;
+      align-items: flex-start;
 
+      img {
+        width: 50px;
+        height: auto;
+      }
       & > :nth-child(3) {
-        position: absolute;
-        bottom: 5px;
-        right: 80px;
+        right: 20px;
       }
 
       & > :nth-child(4) {
-        position: static;
-        margin: 10px;
+        top: 80px;
+        left: 20px;
+      }
+
+      & > :last-child {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
       }
     }
   `,
@@ -117,6 +125,9 @@ const S = {
   Name: styled.p`
     margin-left: 20px;
     font-size: 20px;
+    @media all and (max-width: 479px) {
+      font-size: 16px;
+    }
   `,
 
   Price: styled.p`
