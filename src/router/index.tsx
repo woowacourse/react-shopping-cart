@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
-import CartPage from '@pages/\bCartPage';
+import CartPage from '@pages/CartPage';
 import HomePage from '@pages/HomePage';
 import Layout from '@components/common/Layout';
-import NotFound from '@components/common/NotFount';
+import NotFound from '@components/common/NotFound';
 
 const router = createBrowserRouter(
   [
