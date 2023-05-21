@@ -11,16 +11,9 @@ import { initialize, mswDecorator } from 'msw-storybook-addon';
 import { RecoilRoot } from 'recoil';
 import { BrowserRouter } from 'react-router-dom';
 
-let options = {};
-if (location.hostname === 'hae-on.github.io') {
-  options = {
-    serviceWorker: {
-      url: '/react-shopping-cart/mockServiceWorker.js',
-    },
-  };
+if (process.env.NODE_ENV === 'development') {
+  initialize();
 }
-
-initialize(options);
 
 export const decorators = [
   (Story) => (
