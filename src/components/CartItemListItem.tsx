@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 import DeleteIcon from '../assets/icons/delete.svg';
-import useCartItem from '../hooks/useCartItem';
-import type { CartItem } from '../type';
+import useCartActions from '../hooks/useCartActions';
+import type { Product } from '../type';
 import Stepper from './Stepper';
 
 const CartItemListItemContainer = styled.div`
@@ -44,30 +44,29 @@ const ProductPrice = styled.h2`
 const DeleteButton = styled.button``;
 
 type CartItemListItemProps = {
-  cartItem: CartItem;
+  quantity: number;
+  product: Product;
 };
 
 const CartItemListItem = (props: CartItemListItemProps) => {
-  const { cartItem } = props;
-  const { setQuantity } = useCartItem(cartItem.product);
+  const { quantity, product } = props;
+  const { setQuantity } = useCartActions();
 
-  const handleChangeQuantityWithinSafeRange = (quantity: number) => {
-    setQuantity(Math.max(1, quantity));
+  const handleChangeQuantityWithinSafeRange = (newQuantity: number) => {
+    setQuantity(product, Math.max(1, newQuantity));
   };
 
   return (
     <CartItemListItemContainer>
-      <ProductImage src={`images/products/${cartItem.product.id}.png`} />
-      <ProductName>{cartItem.product.name}</ProductName>
+      <ProductImage src={`images/products/${product.id}.png`} />
+      <ProductName>{product.name}</ProductName>
 
       <CartController>
-        <DeleteButton onClick={() => setQuantity(0)}>
+        <DeleteButton onClick={() => setQuantity(product, 0)}>
           <img src={DeleteIcon} alt="삭제" />
         </DeleteButton>
-        <Stepper value={cartItem.quantity} onChange={handleChangeQuantityWithinSafeRange} />
-        <ProductPrice>
-          {(cartItem.product.price * cartItem.quantity).toLocaleString('ko')}
-        </ProductPrice>
+        <Stepper value={quantity} onChange={handleChangeQuantityWithinSafeRange} />
+        <ProductPrice>{(product.price * quantity).toLocaleString('ko')}</ProductPrice>
       </CartController>
     </CartItemListItemContainer>
   );
