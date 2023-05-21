@@ -9,7 +9,7 @@ export type FetchQueryInstance = {
   [m in Method]: <T>(path: string, config?: ExternalConfig) => Promise<T>;
 };
 
-type Method = 'get' | 'post';
+type Method = 'get' | 'post' | 'patch' | 'delete';
 type QueryParams = Parameters<FetchQueryInstance[Method]>;
 type QueryParamsWith<Config extends RequestInit> = [QueryParams[0], Config];
 type InternalConfig = Omit<ExternalConfig, 'body'> & RequestInit;
@@ -79,6 +79,14 @@ class FetchQuery implements FetchQueryInstance {
 
   post<T>(...args: QueryParams): Promise<T> {
     return this.request<T>('post', ...args);
+  }
+
+  patch<T>(...args: QueryParams): Promise<T> {
+    return this.request<T>('patch', ...args);
+  }
+
+  delete<T>(...args: QueryParams): Promise<T> {
+    return this.request<T>('delete', ...args);
   }
 
   create(defaultConfig: ExternalConfig) {
