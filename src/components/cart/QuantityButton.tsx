@@ -1,5 +1,5 @@
 import { BsPlus, BsDash } from 'react-icons/bs';
-import { CSSProp, styled } from 'styled-components';
+import { styled } from 'styled-components';
 import { QUANTITY } from '../../constants';
 import { useSetCart } from '../../hooks/useCart';
 import { useLoadCart } from '../../hooks/useLoadCart';

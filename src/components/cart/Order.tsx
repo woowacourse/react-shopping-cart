@@ -40,12 +40,12 @@ const S = {
 
   Title: styled.h3`
     padding: 24px 30px;
-    margin-bottom: 34px;
+    margin-bottom: 44px;
     border-bottom: 3px solid var(--gray-color-100);
     font-size: 20px;
 
     @media (max-width: 548px) {
-      margin-bottom: 24px;
+      margin-bottom: 32px;
       font-size: 18px;
     }
   `,
@@ -63,7 +63,7 @@ const S = {
       }
 
       &:last-child {
-        margin: 42px 30px 44px;
+        margin: 42px 30px 54px;
       }
 
       @media (max-width: 548px) {
@@ -72,10 +72,10 @@ const S = {
         font-weight: 600;
         text-align: center;
         line-height: 1.4;
-      }
 
-      &:last-child {
-        margin: 32px 30px 34px;
+        &:last-child {
+          margin: 32px 30px 34px;
+        }
       }
     }
   `,
