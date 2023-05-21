@@ -1,53 +1,13 @@
 // eslint-disable-next-line max-classes-per-file
-import type { HttpMethod } from './http';
+import ClientResponse from './ClientResponse';
 import type {
   ExtractBodyFromRestAPI,
   ExtractPathFromRestAPI,
   ExtractResponseFromRestAPI,
   RestAPI,
 } from './rest/RestAPI';
-
-class PathGenerator<
-  TRestAPI extends RestAPI,
-  Method extends HttpMethod,
-  Path extends ExtractPathFromRestAPI<TRestAPI, Method>,
-> {
-  private path: Path;
-
-  internalParams: Extract<TRestAPI['request'], { method: Method; path: Path }>['params'];
-
-  internalQueryParams:
-    | Extract<TRestAPI['request'], { method: Method; path: Path }>['queryParams']
-    | null = null;
-
-  constructor(
-    path: Path,
-    ...params: Extract<TRestAPI['request'], { method: Method; path: Path }>['params']
-  ) {
-    this.path = path;
-    this.internalParams = params;
-  }
-
-  queryParams(queryParams: (typeof this)['internalQueryParams']) {
-    this.internalQueryParams = queryParams;
-    return this;
-  }
-
-  toString(): string {
-    const copiedParams = [...this.internalParams];
-    const path = this.path
-      .split('/')
-      .map((pathToken) => (pathToken.startsWith(':') ? copiedParams.shift() : pathToken))
-      .join('/');
-
-    const queryParams =
-      Object.keys(this.internalQueryParams ?? {}).length === 0
-        ? ''
-        : `?${new URLSearchParams(this.internalQueryParams ?? {}).toString()}`;
-
-    return path + queryParams;
-  }
-}
+import PathGenerator from './utils/PathGenerator';
+import type { HttpMethod } from './utils/http';
 
 class Client<TRestAPI extends RestAPI> {
   constructor(private readonly baseUrl?: string) {}
@@ -64,68 +24,59 @@ class Client<TRestAPI extends RestAPI> {
     }
   }
 
-  async get<Path extends ExtractPathFromRestAPI<TRestAPI, 'GET'>>(
+  fetch<Method extends TRestAPI['request']['method'], Path extends TRestAPI['request']['path']>(
+    method: Method,
     path: Path | PathGenerator<TRestAPI, 'GET', Path>,
-  ): Promise<ExtractResponseFromRestAPI<TRestAPI, 'GET', Path>> {
-    const response = await fetch(this.getUrl(path.toString()));
+    init?: RequestInit,
+  ) {
+    return new ClientResponse<ExtractResponseFromRestAPI<TRestAPI, Method, Path>>(async () => {
+      const response = await fetch(this.getUrl(path.toString()), {
+        method,
+        ...init,
+      });
 
-    return {
-      data: await this.parseResponseData(response),
-      headers: Object.fromEntries(response.headers.entries()),
-      statusCode: response.status,
-    };
+      return {
+        statusCode: response.status,
+        data: await this.parseResponseData(response),
+        headers: Object.fromEntries(response.headers.entries()),
+      };
+    });
   }
 
-  async post<Path extends ExtractPathFromRestAPI<TRestAPI, 'POST'>>(
+  get<Path extends ExtractPathFromRestAPI<TRestAPI, 'GET'>>(
+    path: Path | PathGenerator<TRestAPI, 'GET', Path>,
+  ) {
+    return this.fetch('GET', path);
+  }
+
+  post<Path extends ExtractPathFromRestAPI<TRestAPI, 'POST'>>(
     path: Path | PathGenerator<TRestAPI, 'POST', Path>,
     body: ExtractBodyFromRestAPI<TRestAPI, 'POST'>,
-  ): Promise<ExtractResponseFromRestAPI<TRestAPI, 'POST', Path>> {
-    const response = await fetch(this.getUrl(path.toString()), {
-      method: 'POST',
+  ) {
+    return this.fetch('POST', path, {
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
     });
-
-    return {
-      data: await this.parseResponseData(response),
-      headers: Object.fromEntries(response.headers.entries()),
-      statusCode: response.status,
-    };
   }
 
-  async patch<Path extends ExtractPathFromRestAPI<TRestAPI, 'PATCH'>>(
+  patch<Path extends ExtractPathFromRestAPI<TRestAPI, 'PATCH'>>(
     path: Path | PathGenerator<TRestAPI, 'PATCH', Path>,
     body: ExtractBodyFromRestAPI<TRestAPI, 'PATCH'>,
-  ): Promise<ExtractResponseFromRestAPI<TRestAPI, 'PATCH', Path>> {
-    const response = await fetch(this.getUrl(path.toString()), {
-      method: 'PATCH',
+  ) {
+    return this.fetch('PATCH', path, {
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
     });
-
-    return {
-      data: await this.parseResponseData(response),
-      headers: Object.fromEntries(response.headers.entries()),
-      statusCode: response.status,
-    };
   }
 
-  async delete<Path extends ExtractPathFromRestAPI<TRestAPI, 'DELETE'>>(
+  delete<Path extends ExtractPathFromRestAPI<TRestAPI, 'DELETE'>>(
     path: Path | PathGenerator<TRestAPI, 'DELETE', Path>,
-  ): Promise<ExtractResponseFromRestAPI<TRestAPI, 'DELETE', Path>> {
-    const response = await fetch(this.getUrl(path.toString()), {
-      method: 'DELETE',
-    });
-
-    return {
-      data: await this.parseResponseData(response),
-      headers: Object.fromEntries(response.headers.entries()),
-      statusCode: response.status,
-    };
+  ) {
+    return this.fetch('DELETE', path);
   }
 
   path<Method extends HttpMethod, Path extends TRestAPI['request']['path']>(

@@ -1,4 +1,4 @@
-import type { ExtractHttpParams, HttpMethod } from '../http';
+import type { ExtractHttpParams, HttpMethod } from '../utils/http';
 
 export interface HttpRequest<
   Method extends HttpMethod,
