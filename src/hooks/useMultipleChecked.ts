@@ -4,31 +4,38 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import cartProductApis from '../apis/cartProducts';
 import { checkedState } from '../states/checkedCartProducts';
 import { cartProductState } from '../states/cartProducts';
+import {
+  filterCartProductChecked,
+  findTargetChecked,
+  getIsAllChecked,
+  getIsAllUnchecked,
+  updateCartProductChecked,
+} from '../states/checkedCartProducts/utils';
 
 const useMultipleChecked = () => {
   const [checked, setChecked] = useRecoilState(checkedState);
   const setCartProducts = useSetRecoilState(cartProductState);
 
-  const isAllChecked =
-    checked.length > 0 && checked.every((item) => item.isChecked);
-  const isAllUnchecked = checked.every((item) => !item.isChecked);
+  const isAllChecked = getIsAllChecked(checked);
+  const isAllUnchecked = getIsAllUnchecked(checked);
 
   const toggleAllProductChecked: ChangeEventHandler<HTMLInputElement> = (
     event
   ) => {
     setChecked((prev) =>
-      prev.map((item) => ({ ...item, isChecked: event.currentTarget.checked }))
+      prev.map((item) =>
+        updateCartProductChecked(item, event.currentTarget.checked)
+      )
     );
   };
 
   const deleteCheckedProducts = () => {
     setCartProducts((prev) =>
       prev.filter(
-        (cartProduct) =>
-          !checked.find((item) => item.id === cartProduct.id)?.isChecked
+        (cartProduct) => !findTargetChecked(checked, cartProduct.id)?.isChecked
       )
     );
-    setChecked((prev) => prev.filter((item) => !item.isChecked));
+    setChecked((prev) => filterCartProductChecked(prev, false));
 
     checked.forEach((item) => {
       if (item.isChecked) cartProductApis.delete(item.id);

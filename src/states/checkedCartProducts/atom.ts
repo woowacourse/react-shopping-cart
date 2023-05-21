@@ -1,11 +1,7 @@
 import { atom, selector } from 'recoil';
 
 import { cartProductState } from '../cartProducts';
-
-interface CheckedState {
-  id: number;
-  isChecked: boolean;
-}
+import type { CheckedState } from './type';
 
 export const checkedState = atom<CheckedState[]>({
   key: 'checkedState',

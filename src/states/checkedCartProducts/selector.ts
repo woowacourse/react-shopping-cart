@@ -2,16 +2,24 @@ import { selector, selectorFamily } from 'recoil';
 
 import { checkedState } from './atom';
 import { cartProductState } from '../cartProducts';
+import {
+  filterCartProductChecked,
+  findTargetChecked,
+  getCheckedPrice,
+  updateCartProductChecked,
+} from './utils';
+import type { CartProductWithChecked } from './type';
 
-export const checkedCartProductState = selector({
+export const checkedCartProductState = selector<CartProductWithChecked[]>({
   key: 'checkedCartProductState',
   get: ({ get }) => {
     const checked = get(checkedState);
-    return get(cartProductState).map((cartProduct) => ({
-      ...cartProduct,
-      isChecked:
-        checked.find((item) => item.id === cartProduct.id)?.isChecked ?? false,
-    }));
+    return get(cartProductState).map((cartProduct) =>
+      updateCartProductChecked(
+        cartProduct,
+        findTargetChecked(checked, cartProduct.id)?.isChecked ?? false
+      )
+    );
   },
 });
 
@@ -20,21 +28,16 @@ export const targetCheckedState = selectorFamily({
   get:
     (id: number) =>
     ({ get }) =>
-      get(checkedState).find((cartProduct) => cartProduct.id === id),
+      findTargetChecked(get(checkedState), id),
 });
 
 export const checkedCartProductCountState = selector({
   key: 'checkedCartProductCountState',
   get: ({ get }) =>
-    get(checkedCartProductState).filter((product) => product.isChecked).length,
+    filterCartProductChecked(get(checkedCartProductState), true).length,
 });
 
 export const checkedPriceState = selector({
   key: 'checkedPriceState',
-  get: ({ get }) =>
-    get(checkedCartProductState).reduce(
-      (acc, cur) =>
-        cur.isChecked ? acc + cur.quantity * cur.product.price : acc,
-      0
-    ),
+  get: ({ get }) => getCheckedPrice(get(checkedCartProductState)),
 });

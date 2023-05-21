@@ -5,6 +5,7 @@ import {
   checkedState,
   targetCheckedState,
 } from '../states/checkedCartProducts';
+import { updateCartProductChecked } from '../states/checkedCartProducts/utils';
 
 const useChecked = (id: number) => {
   const targetChecked = useRecoilValue(targetCheckedState(id));
@@ -14,7 +15,7 @@ const useChecked = (id: number) => {
     setChecked((prev) =>
       prev.map((item) => {
         if (item.id !== id) return item;
-        return { ...item, isChecked };
+        return updateCartProductChecked(item, isChecked);
       })
     );
   };
