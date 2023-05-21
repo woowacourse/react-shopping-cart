@@ -17,7 +17,7 @@ const CartProductsListPage = () => {
     useCheckedProducts();
 
   return (
-    <PageContainer>
+    <>
       <Header />
       <Main>
         <CartProductTitle>장바구니</CartProductTitle>
@@ -47,13 +47,9 @@ const CartProductsListPage = () => {
           <EstimatedPaymentBox />
         </EstimatedPaymentBoxWrapper>
       </Main>
-    </PageContainer>
+    </>
   );
 };
-
-const PageContainer = styled.section`
-  /* margin: 0 20px; */
-`;
 
 const Main = styled.main`
   position: relative;

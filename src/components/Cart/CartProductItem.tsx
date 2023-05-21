@@ -21,20 +21,18 @@ const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
 
   return (
     <CartProductItemContainer>
-      <CartProductLeftWrapper>
-        <CheckBoxWrapper>
-          <CheckBox
-            onChange={() => handleCheckBoxChange(cartProduct)}
-            checked={isCheckedProduct(cartProduct)}
-          />
-        </CheckBoxWrapper>
-        <Image
-          src={`${process.env.PUBLIC_URL}/${imageUrl}`}
-          alt={name}
-          loading='lazy'
-          size='small'
+      <CheckBoxWrapper>
+        <CheckBox
+          onChange={() => handleCheckBoxChange(cartProduct)}
+          checked={isCheckedProduct(cartProduct)}
         />
-      </CartProductLeftWrapper>
+      </CheckBoxWrapper>
+      <Image
+        src={`${process.env.PUBLIC_URL}/${imageUrl}`}
+        alt={name}
+        loading='lazy'
+        size='small'
+      />
       <CartProductName>{name}</CartProductName>
       <CartProductRightWrapper>
         <button onClick={removeProduct}>
@@ -54,10 +52,7 @@ const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
 
 const CartProductItemContainer = styled.div`
   display: flex;
-`;
-
-const CartProductLeftWrapper = styled.div`
-  display: flex;
+  justify-content: space-around;
 `;
 
 const CheckBoxWrapper = styled.div`
@@ -65,7 +60,7 @@ const CheckBoxWrapper = styled.div`
 `;
 
 const CartProductName = styled.p`
-  margin: 0 155px 0 20px;
+  width: 50%;
   white-space: nowrap;
 `;
 

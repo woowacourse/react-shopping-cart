@@ -22,9 +22,15 @@ const CartProductList = () => {
 };
 
 const CartProductListContainer = styled.ul`
+  width: 700px;
+
   & > li {
     padding: 33px 0;
     border-top: 1px solid ${({ theme }) => theme.colors.gray200};
+  }
+
+  @media (max-width: 1100px) {
+    width: 100%;
   }
 `;
 
