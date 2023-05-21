@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const CartItemLayout = styled.div`
   display: flex;
   justify-content: space-between;
-  border-top: 1px solid ${({ theme }) => theme.color.secondary};
+  border-top: 1px solid ${({theme}) => theme.color.secondary};
   padding: 25px 0px;
 `;
 
@@ -20,6 +20,7 @@ export const CartItemName = styled.div`
 export const CartItemTrashImage = styled.img`
   height: 24px;
   width: 24px;
+  cursor: pointer;
 `;
 
 export const CartItemPrice = styled.div`

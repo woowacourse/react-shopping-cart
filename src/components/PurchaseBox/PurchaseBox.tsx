@@ -4,7 +4,7 @@ import {
   PurchasePropertyWrapper,
   PurchaseText,
   PurchaseTitle,
-  PurchaseWrapper
+  PurchaseWrapper, Vacant
 } from "./PurchaseBox.style";
 import {useRecoilValue} from "recoil";
 import {totalPriceSelector} from "../../recoil/cartAtoms.ts";
@@ -35,6 +35,7 @@ function PurchaseBox() {
             {DELIVERY_FEE.toLocaleString()}원
           </PurchaseText>
         </PurchasePropertyWrapper>
+        <Vacant/>
         <PurchasePropertyWrapper>
           <PurchaseText>
             총 주문 금액

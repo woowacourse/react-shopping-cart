@@ -53,3 +53,7 @@ export const PurchaseButton = styled.button`
   font-size: 24px;
   line-height: 21px;
 `;
+
+export const Vacant = styled.div`
+  margin: 30px 0px 0px 0px;
+`;
