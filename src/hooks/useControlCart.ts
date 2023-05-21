@@ -1,3 +1,4 @@
+import { useRecoilState } from 'recoil';
 import { cartAtom } from '@recoil/atoms/cartAtom';
 import { checkBoxAtom } from '@recoil/atoms/checkBoxAtom';
 import { checkBoxTotalIdtAtom } from '@recoil/atoms/checkBoxTotalIdtAtom';
@@ -10,6 +11,8 @@ const useControlCart = () => {
     cartAtom,
     CART_LIST_LOCAL_KEY
   );
+
+  const [value, setData] = useRecoilState(cartAtom);
 
   const [checkBox, setCheckBox] = useAtomLocalStorage<number[]>(
     checkBoxAtom,
@@ -32,7 +35,7 @@ const useControlCart = () => {
     setCart(updateCart);
   };
 
-  const addProductToCart = ({
+  const addProductToCart = async ({
     name,
     id,
     price,
@@ -48,16 +51,29 @@ const useControlCart = () => {
 
     setCheckBox([...checkBox, id]);
     setCheckBoxTotalId([...checkBox, id]);
-    setCart(updatedCart);
+
+    await fetch('/cart-items', {
+      method: 'post',
+      body: JSON.stringify({ productId: id }),
+    });
+
+    setData(updatedCart);
   };
 
-  const removeProductFromCart = (id: number) => {
+  const removeProductFromCart = async (id: number) => {
     const updatedCart = cart.filter((product) => id !== product.id);
     const updatedCheckBox = checkBox.filter((checkBoxId) => checkBoxId !== id);
-    const updatedCheckBoxTotalId = checkBoxTotalId.filter((checkBoxId) => checkBoxId !== id);
+    const updatedCheckBoxTotalId = checkBoxTotalId.filter(
+      (checkBoxId) => checkBoxId !== id
+    );
 
     setCheckBox(updatedCheckBox);
     setCheckBoxTotalId(updatedCheckBoxTotalId);
+
+    await fetch('/cart-items', {
+      method: 'get',
+    });
+
     setCart(updatedCart);
   };
 

@@ -18,12 +18,10 @@ export const handlers = [
     );
   }),
 
-  rest.post('/cart-items', (req, res, ctx) => {
+  rest.get('/cart-items', (req, res, ctx) => {
     const cartData = JSON.parse(
       localStorage.getItem(CART_LIST_LOCAL_KEY) || '[]'
     );
-
-    console.log(cartData)
 
     if (!cartData) {
       return res(ctx.status(403), ctx.json(cartData));
@@ -33,6 +31,33 @@ export const handlers = [
       ctx.set('Content-Type', 'application/json'),
       ctx.status(200),
       ctx.json(cartData)
+    );
+  }),
+
+  rest.post('/cart-items', async (req, res, ctx) => {
+    const cartData = JSON.parse(
+      localStorage.getItem(CART_LIST_LOCAL_KEY) || '[]'
+    );
+    const { productId } = await req.json();
+    const data = PRODUCT_LIST.productList;
+
+    const addData = {
+      id: productId,
+      product: data.find((product) => product.id === productId),
+      quantity: 1,
+    };
+
+    const updatedCart = [...cartData, addData];
+
+    localStorage.setItem(CART_LIST_LOCAL_KEY, JSON.stringify(updatedCart));
+
+    if (!addData) {
+      return res(ctx.status(403), ctx.json(addData));
+    }
+
+    return res(
+      ctx.status(201),
+      ctx.set('Location', `/cart-items/${productId}`)
     );
   }),
 ];
