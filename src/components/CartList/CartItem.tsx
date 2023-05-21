@@ -1,10 +1,8 @@
-import { useEffect, useState } from 'react';
 import React from 'react';
 import { styled } from 'styled-components';
-import { checkBoxAtom } from '@recoil/atoms/checkBoxAtom';
 import BucketCounter from '@components/common/BucketCounter';
 import CheckBox from '@components/common/CheckBox';
-import useAtomLocalStorage from '@hooks/useAtomLocalStorage';
+import useCartItem from '@hooks/useCartItem';
 import { CART_ITEM_REMOVE_BUTTON } from '@assets/images';
 
 interface CartItemProps {
@@ -13,7 +11,7 @@ interface CartItemProps {
   imageUrl: string;
   quantity: number;
   price: number;
-  refetch: ()=>void
+  refetch: () => void;
 }
 
 const CartItem = ({
@@ -22,38 +20,15 @@ const CartItem = ({
   imageUrl,
   quantity,
   price,
-  refetch
+  refetch,
 }: CartItemProps) => {
-  const [checkBox, setCheckBox] = useAtomLocalStorage<number[]>(
-    checkBoxAtom,
-    'checkBox'
-  );
-  const [check, setCheck] = useState(false);
+  const { check, checkBoxOnChange, deleteItem} = useCartItem(id);
 
-  const checkBoxOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) {
-      setCheckBox([...checkBox, id]);
-      return;
-    }
+  const removeItem = async () => {
+    deleteItem();
 
-    const newCheckBox = checkBox.filter((checkBoxId) => checkBoxId !== id);
-    setCheckBox(newCheckBox);
-  };
-
-  const removeItem = async ()=>{
-    await fetch(`/cart-items/${id}`, {
-      method: 'delete',
-    });
     refetch();
-  }
-
-  useEffect(() => {
-    if (!checkBox.includes(id)) {
-      setCheck(false);
-      return;
-    }
-    setCheck(true);
-  }, [checkBox, id]);
+  };
 
   return (
     <CartItemWrapper>
@@ -61,7 +36,7 @@ const CartItem = ({
       <CartItemImg src={imageUrl} alt="상품 사진" />
       <CartItemName>{name}</CartItemName>
       <CartItemInformationWrapper>
-        <RemoveCardItemImg src={CART_ITEM_REMOVE_BUTTON} onClick={removeItem}/>
+        <RemoveCardItemImg src={CART_ITEM_REMOVE_BUTTON} onClick={removeItem} />
         <BucketCounter
           id={id}
           quantity={quantity}
