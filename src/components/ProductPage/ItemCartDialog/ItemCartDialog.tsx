@@ -1,5 +1,3 @@
-import { useRecoilRefresher_UNSTABLE } from 'recoil';
-import { cartState } from '../../../atoms/cart';
 import { Dialog } from 'react-tiny-dialog';
 import SHOPPING_CART from '../../../assets/png/cart-icon.png';
 import { Product } from '../../../types/products';
@@ -7,22 +5,16 @@ import { Button } from '../../common/Button/Button.styles';
 import QuantityStepper from '../../common/QuantityStepper/QuantityStepper';
 import * as S from './ItemCartDialog.styles';
 import { useRef } from 'react';
-import { waitForMutation } from '../../../utils/waitFor';
-import { addToCart } from '../../../apis/cart';
+import { useMutateCart } from '../../../hooks/cart/cart';
 
 type ItemCartDialogProps = Product;
 
 const ItemCartDialog: React.FC<ItemCartDialogProps> = (props) => {
   const { id, name, price, imageUrl } = props;
   const quantityRef = useRef<HTMLInputElement>(null);
-  const refresh = useRecoilRefresher_UNSTABLE(cartState);
-  const addItemToCartMutation = waitForMutation(addToCart, {
-    onSuccess() {
-      refresh();
-    },
-  });
+  const { addItemToCartMutation } = useMutateCart();
 
-  const addItemToCart = async () => {
+  const addItemToCart = () => {
     const quantity = Number(quantityRef.current?.value);
 
     addItemToCartMutation({ id, quantity });
