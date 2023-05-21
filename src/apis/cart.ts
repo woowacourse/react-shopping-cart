@@ -1,16 +1,16 @@
 import { CartItem } from '../types/cart';
 import { deleteData, getData, patchData, postData } from '.';
 
-export const fetchCart: () => Promise<CartItem[]> = async () => {
+export const fetchCartItems: () => Promise<CartItem[]> = async () => {
   const data = await getData<CartItem[]>('/cart-items');
   return data;
 };
 
-export const addCart: (data: CartItem) => void = async (data) => {
+export const addCartItem: (data: CartItem) => void = async (data) => {
   postData('/cart-items', data);
 };
 
-export const modifyCart: <T>(id: CartItem['id'], data: T) => void = (
+export const modifyCartItem: <T>(id: CartItem['id'], data: T) => void = (
   id,
   data
 ) => {

@@ -3,22 +3,22 @@ import { cartState } from '../../recoil/cart';
 import { CartItem } from '../../types/cart';
 import { Product } from '../../types/products';
 import {
-  addCart,
+  addCartItem,
   deleteCartItem,
-  fetchCart,
-  modifyCart,
+  fetchCartItems,
+  modifyCartItem,
 } from '../../apis/cart';
 
 const useCart = () => {
   const [cartItems, setCartItems] = useRecoilState(cartState);
 
   const updateCart = async () => {
-    const newCart = await fetchCart();
+    const newCart = await fetchCartItems();
     setCartItems(newCart);
   };
 
   const addInCart = (product: Product, quantity: number) => {
-    addCart({ id: product.id, quantity, product });
+    addCartItem({ id: product.id, quantity, product });
     updateCart();
   };
 
@@ -26,7 +26,7 @@ const useCart = () => {
     id: CartItem['id'],
     quantity: CartItem['quantity']
   ) => {
-    modifyCart(id, { quantity });
+    modifyCartItem(id, { quantity });
     updateCart();
   };
 
