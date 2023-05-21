@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 
 import SpinnerContainer from '../../components/common/SpinnerContainer/SpinnerContainer';
-import { SpinnerContainerWrapper } from '../styles';
+import { StoryContainerWrapper } from '../styles';
 
 const meta = {
   title: 'ShoppingCart/Common/SpinnerContainer',
@@ -19,9 +19,9 @@ const meta = {
   },
   decorators: [
     (Story) => (
-      <SpinnerContainerWrapper>
+      <StoryContainerWrapper>
         <Story />
-      </SpinnerContainerWrapper>
+      </StoryContainerWrapper>
     ),
   ],
 } satisfies Meta<typeof SpinnerContainer>;

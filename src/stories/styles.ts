@@ -20,7 +20,7 @@ const StoryInfoContainer = styled.div`
   }
 `;
 
-const SpinnerContainerWrapper = styled.div`
+const StoryContainerWrapper = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -32,4 +32,4 @@ const SpinnerContainerWrapper = styled.div`
   align-items: center;
 `;
 
-export { StoryContainer, StoryInfoContainer, SpinnerContainerWrapper };
+export { StoryContainer, StoryInfoContainer, StoryContainerWrapper };

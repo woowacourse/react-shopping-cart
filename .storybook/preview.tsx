@@ -7,7 +7,7 @@ import { ThemeProvider } from 'styled-components';
 
 import SpinnerContainer from '../src/components/common/SpinnerContainer/SpinnerContainer';
 import { handlers } from '../src/mocks/handlers';
-import { SpinnerContainerWrapper } from '../src/stories/styles';
+import { StoryContainerWrapper } from '../src/stories/styles';
 import GlobalStyle from '../src/styles/GlobalStyle';
 import theme from '../src/styles/theme';
 
@@ -57,9 +57,9 @@ export const decorators = [
           <GlobalStyle />
           <Suspense
             fallback={
-              <SpinnerContainerWrapper>
+              <StoryContainerWrapper>
                 <SpinnerContainer message="Loading..." />
-              </SpinnerContainerWrapper>
+              </StoryContainerWrapper>
             }
           >
             <Story />
