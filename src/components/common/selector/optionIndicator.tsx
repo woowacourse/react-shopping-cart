@@ -6,16 +6,17 @@ import { createCustomElement } from "../../../utils/elements";
 interface OptionIndicatorProops {
   asChild?: boolean;
   children?: React.ReactElement | React.ReactElement[] | undefined;
-  onClick?: (id: number) => void;
+  onClick?: () => void;
+  id: number;
 }
 
 export default function OptionIndicator(props: OptionIndicatorProops) {
-  const { children, asChild = false, onClick } = props;
-  const { selected, toggleSelectBox } = useContext(SelectBoxContext);
+  const { children, asChild = false, onClick, id } = props;
+  const { toggleSelectBox } = useContext(SelectBoxContext);
 
   function composeHandler() {
-    onClick && onClick(1);
-    toggleSelectBox(1);
+    onClick && onClick();
+    toggleSelectBox(id);
   }
 
   if (asChild) {
