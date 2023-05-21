@@ -12,7 +12,9 @@ type ServerCartProduct = {
 const isServerCartProductsType = (data: any): data is ServerCartProduct[] => {
   if (!Array.isArray(data)) return false;
 
-  return data.every((value) => 'id' in value && 'quantity' in value && 'product' in value);
+  const hasCorrectKeys = data.every((value) => 'id' in value && 'quantity' in value && 'product' in value);
+
+  return hasCorrectKeys;
 };
 
 const cartProductsParser = (data: any): CartProducts => {
