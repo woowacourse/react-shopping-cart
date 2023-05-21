@@ -9,7 +9,6 @@ import { Suspense, useEffect, useRef, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { cartSelects } from '../../atoms/cartSelects';
 import { cartRequestAction } from '../../atoms/cartState';
-import { number } from 'prop-types';
 
 interface CartListItemProps {
   id: number;
@@ -40,7 +39,7 @@ export default function CartListItem({
         action: 'PATCH',
         payload: { cartId: id, quantity: count.value },
       });
-    }, 1000);
+    }, 400);
   }, [count, setRequestAction]);
 
   useEffect(() => {
