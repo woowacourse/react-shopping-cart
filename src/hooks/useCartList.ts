@@ -3,6 +3,7 @@ import { checkBoxAtom } from '@recoil/atoms/checkBoxAtom';
 import { checkBoxTotalIdtAtom } from '@recoil/atoms/checkBoxTotalIdtAtom';
 import { CartInformation } from '@type/types';
 import fetchApi from '@utils/fetchApi';
+import { CART_URL } from '@constants/common';
 import useAtomLocalStorage from './useAtomLocalStorage';
 import useGetFetch from './useGetFetch';
 
@@ -61,7 +62,7 @@ const useCartList = (): CartListReturnProps => {
     );
 
     removedCart.forEach(async (product) => {
-      await fetchApi(`/cart-items/${product.id}`, {
+      await fetchApi(`${CART_URL}/${product.id}`, {
         method: 'delete',
       });
     });

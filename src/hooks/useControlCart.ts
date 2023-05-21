@@ -4,7 +4,7 @@ import { checkBoxAtom } from '@recoil/atoms/checkBoxAtom';
 import { checkBoxTotalIdtAtom } from '@recoil/atoms/checkBoxTotalIdtAtom';
 import { CartInformation, ProductInformation } from '@type/types';
 import fetchApi from '@utils/fetchApi';
-import { CART_LIST_LOCAL_KEY } from '@constants/common';
+import { CART_LIST_LOCAL_KEY, CART_URL } from '@constants/common';
 import useAtomLocalStorage from './useAtomLocalStorage';
 
 const useControlCart = () => {
@@ -54,7 +54,7 @@ const useControlCart = () => {
     setCheckBox([...checkBox, id]);
     setCheckBoxTotalId([...checkBox, id]);
 
-    await fetchApi('/cart-items', {
+    await fetchApi(CART_URL, {
       method: 'post',
       body: JSON.stringify({ productId: Number(id) }),
     });

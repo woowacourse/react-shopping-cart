@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 import useBucketCount from '@hooks/useBucketCount';
 import fetchApi from '@utils/fetchApi';
+import { CART_URL } from '@constants/common';
 import {
   BUCKET_COUNTER_BOTTOM_BUTTON,
   BUCKET_COUNTER_TOP_BUTTON,
@@ -42,7 +43,7 @@ const BucketCounter = ({
   const changeCount = async (event: React.ChangeEvent<HTMLInputElement>) => {
     changeCountEvent(event);
 
-    const response = await fetchApi(`/cart-items/${id}`, {
+    const response = await fetchApi(`${CART_URL}/${id}`, {
       method: 'patch',
       body: JSON.stringify({ quantity: Number(event.target.value) }),
     });
@@ -51,7 +52,7 @@ const BucketCounter = ({
   };
 
   const upButton = async () => {
-    const response = await fetchApi(`/cart-items/${id}`, {
+    const response = await fetchApi(`${CART_URL}/${id}`, {
       method: 'patch',
       body: JSON.stringify({ quantity: bucketCount }),
     });
@@ -61,7 +62,7 @@ const BucketCounter = ({
   };
 
   const downButton = async () => {
-    const response = await fetchApi(`/cart-items/${id}`, {
+    const response = await fetchApi(`${CART_URL}/${id}`, {
       method: 'patch',
       body: JSON.stringify({ quantity: bucketCount }),
     });
@@ -70,11 +71,11 @@ const BucketCounter = ({
     if (response.ok) refetch();
   };
 
-  const onBlurAndRefetch = (e:React.FocusEvent<HTMLInputElement>)=>{
+  const onBlurAndRefetch = (e: React.FocusEvent<HTMLInputElement>) => {
     onBlur(e);
 
-    refetch()
-  }
+    refetch();
+  };
 
   return (
     <BucketCounterWrapper kind={kind}>

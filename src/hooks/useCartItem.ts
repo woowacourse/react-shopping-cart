@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { checkBoxAtom } from '@recoil/atoms/checkBoxAtom';
 import { checkBoxTotalIdtAtom } from '@recoil/atoms/checkBoxTotalIdtAtom';
 import fetchApi from '@utils/fetchApi';
+import { CART_URL } from '@constants/common';
 import useAtomLocalStorage from './useAtomLocalStorage';
 
 const useCartItem = (id: number) => {
@@ -28,7 +29,7 @@ const useCartItem = (id: number) => {
   };
 
   const deleteItem = async () => {
-    await fetchApi(`/cart-items/${id}`, {
+    await fetchApi(`${CART_URL}/${id}`, {
       method: 'delete',
     });
 
