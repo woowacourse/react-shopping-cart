@@ -5,9 +5,12 @@ export const PATH: Readonly<Record<string, string>> = {
 
 export const KEY_CART = 'cart';
 
-export const QUANTITY: Readonly<Record<string, string>> = {
-  INITIAL: '1',
-  NONE: '0',
+export const QUANTITY: Readonly<Record<string, number>> = {
+  INITIAL: 1,
+  NONE: 0,
+  STEP: 1,
+  MAX: 99,
+  MIN: 1,
 };
 
 export const NOT_NUMBER = /[^0-9]/g;

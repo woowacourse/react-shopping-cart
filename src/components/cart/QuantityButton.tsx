@@ -1,8 +1,11 @@
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
 import { CSSProp, styled } from 'styled-components';
+import { QUANTITY } from '../../constants';
 import { useSetCart } from '../../hooks/useCart';
 import { useLoadCart } from '../../hooks/useLoadCart';
 import { QuantityInputStyle, QuantityStyle } from '../main/QuantityInput';
+
+const { MAX, MIN, STEP } = QUANTITY;
 
 interface Props {
   productId: number;
@@ -13,17 +16,17 @@ const QuantityButton = ({ productId }: Props) => {
   const { addToCart } = useSetCart(productId);
 
   const handleQuantityStepUp = () => {
-    if (quantity === 99) return;
+    if (quantity === MAX) return;
 
-    setQuantity(quantity + 1);
-    addToCart(String(quantity + 1));
+    setQuantity(quantity + STEP);
+    addToCart(String(quantity + STEP));
   };
 
   const handleQuantityStepDown = () => {
-    if (quantity === 1) return;
+    if (quantity === MIN) return;
 
-    setQuantity(quantity - 1);
-    addToCart(String(quantity - 1));
+    setQuantity(quantity - STEP);
+    addToCart(String(quantity - STEP));
   };
 
   return (
@@ -67,19 +70,19 @@ const S = {
     cursor: pointer;
 
     &:nth-child(2) {
-      cursor: ${(props) => props.quantity === 99 && 'default'};
+      cursor: ${(props) => props.quantity === MAX && 'default'};
 
       & > svg {
-        fill: ${(props) => props.quantity === 99 && 'var(--gray-color-100)'};
+        fill: ${(props) => props.quantity === MAX && 'var(--gray-color-100)'};
       }
     }
 
     &:last-child {
       top: 16px;
-      cursor: ${(props) => props.quantity === 1 && 'default'};
+      cursor: ${(props) => props.quantity === MIN && 'default'};
 
       & > svg {
-        fill: ${(props) => props.quantity === 1 && 'var(--gray-color-100)'};
+        fill: ${(props) => props.quantity === MIN && 'var(--gray-color-100)'};
       }
     }
   `,

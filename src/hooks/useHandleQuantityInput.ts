@@ -14,7 +14,7 @@ export const useHandleQuantityInput = ({ ...props }: Props) => {
   const handleNumberInputChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     const { value } = target;
 
-    if (value === QUANTITY.NONE) {
+    if (value === String(QUANTITY.NONE)) {
       setIsSelected(false);
       removeItemFromCart();
 

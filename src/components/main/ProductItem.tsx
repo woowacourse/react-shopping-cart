@@ -14,7 +14,7 @@ const ProductItem = ({ id, imageUrl, name, price }: Product) => {
 
   const handleCartClick = () => {
     setIsSelected(true);
-    addToCart(QUANTITY.INITIAL);
+    addToCart(String(QUANTITY.INITIAL));
   };
 
   const handleNumberInputChange = useHandleQuantityInput({
