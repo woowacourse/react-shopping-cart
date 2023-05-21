@@ -1,22 +1,23 @@
 import Header from 'components/Layout/Header';
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
+import { device } from 'styles/mixin';
 
 const Layout = () => {
   return (
     <>
       <Header>SHOP</Header>
-      <MainContainer>
+      <PageContainer>
         <Outlet />
-      </MainContainer>
+      </PageContainer>
     </>
   );
 };
 
-const MainContainer = styled.main`
-  width: 100%;
-  height: calc(100vh - var(--header-height));
-  padding: 60px 16.66% 0 16.66%;
+const PageContainer = styled.main`
+  display: flex;
+  justify-content: space-around;
+  margin: 60px 16.6% 60px;
 `;
 
 export default Layout;
