@@ -15,7 +15,7 @@ export const useQuantity = (itemID: number) => {
     if (Number(newQuantity) > MAX_QUANTITY || Number(newQuantity) < MIN_QUANTITY) return;
 
     const result =
-      Number(newQuantity) === MIN_QUANTITY
+      Number(newQuantity) >= MIN_QUANTITY
         ? await changeItemQuantity(itemID, Number(newQuantity))
         : await removeCartItem(itemID);
 
