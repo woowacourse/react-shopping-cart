@@ -1,15 +1,16 @@
 import { styled } from 'styled-components';
 import ProductItem from '../ProductItem/ProductItem';
-import useGet from '../../../hooks/api/useGet';
+import useFetch from '../../../hooks/api/useFetch';
 import { Product } from '../../../types/product';
 
 const ProductList = () => {
-  const { result: productList } = useGet<Product[]>('./products', []);
+  const { getData } = useFetch<Product[]>('./products');
+  const productList = getData();
 
   return (
     <section>
       <ProductListContainer>
-        {productList.map((product) => (
+        {productList?.map((product) => (
           <li key={product.id}>
             <ProductItem {...product} />
           </li>
