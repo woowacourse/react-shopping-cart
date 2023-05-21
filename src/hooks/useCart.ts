@@ -1,12 +1,12 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { cartAtomFamily, cartIdAtom } from "../store/cartState";
-import { useState, useLayoutEffect, useEffect } from "react";
+import { useState } from "react";
 import { Cart } from "../types/product";
 import {
   targetProductSelector,
   targetShoppingSelector,
 } from "../store/fetchState";
-import { fetchPatchQuery, fetchPostQuery } from "../api";
+import { fetchDeleteQuery, fetchPatchQuery, fetchPostQuery } from "../api";
 
 const useCart = (productId: number) => {
   const [cart, setCart] = useRecoilState(cartAtomFamily(productId));
@@ -14,14 +14,16 @@ const useCart = (productId: number) => {
   const product = useRecoilValue(targetProductSelector)(productId);
   const shoppingProduct = useRecoilValue(targetShoppingSelector)(productId);
 
-  const productInCart = shoppingProduct ? true : false;
+  const productInCart = cart.quantity ? true : false;
   const [isCartClicked, setIsCartClicked] = useState(Boolean(productInCart));
 
-  if (shoppingProduct && cart.quantity === 0) setCart(shoppingProduct);
-  if (shoppingProduct && cart.quantity !== 0) {
+  if (cart.quantity !== 0) {
     const data = { quantity: cart.quantity };
     fetchPatchQuery(`/cart-items/${cart.id}`, data);
   }
+
+  if (shoppingProduct && cart.quantity === 0) setCart(shoppingProduct);
+
   const addToCart = async () => {
     const newProduct: Cart = {
       id: productId,
@@ -37,7 +39,7 @@ const useCart = (productId: number) => {
     setIsCartClicked(true);
   };
 
-  const deleteToCart = () => {
+  const deleteToCart = async () => {
     const updateProduct: Cart = {
       id: productId,
       quantity: 0,
@@ -47,6 +49,8 @@ const useCart = (productId: number) => {
     setIsCartClicked(false);
     const newCartID = cartId.filter((id) => id !== productId);
     setCartId(newCartID);
+
+    await fetchDeleteQuery(`/cart-items/${cart.id}`);
   };
 
   const plusQuantity = async () => {
@@ -66,13 +70,11 @@ const useCart = (productId: number) => {
       product,
     };
 
-    if (updateProduct.quantity === 0) {
-      setIsCartClicked(false);
-      const newCartID = cartId.filter((id) => id !== productId);
-      setCartId(newCartID);
-    }
-
     setCart(updateProduct);
+
+    if (updateProduct.quantity === 0) {
+      deleteToCart();
+    }
   };
 
   return {

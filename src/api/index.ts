@@ -41,3 +41,13 @@ export const fetchPatchQuery = async <T>(
     throw new Error("패치에러");
   }
 };
+
+export const fetchDeleteQuery = async <T>(url: string) => {
+  const response = await fetch(url, {
+    method: "DELETE",
+  });
+
+  if (response.status !== 204) {
+    throw new Error("삭제에러");
+  }
+};

@@ -58,5 +58,16 @@ export const handlers = [
     return res(ctx.status(200));
   }),
 
-  //장바구니 수량
+  //장바구니 아이템 삭제
+  rest.delete("/cart-items/:cartItemId", async (req, res, ctx) => {
+    const { cartItemId } = req.params;
+
+    const cartId = JSON.parse(localStorage.getItem(`cartId`) || "[]");
+    const newCartID = cartId.filter((id: number) => id !== Number(cartItemId));
+    localStorage.setItem(`cartId`, JSON.stringify(newCartID));
+
+    localStorage.removeItem(`cart_${cartItemId}`);
+
+    return res(ctx.status(204));
+  }),
 ];
