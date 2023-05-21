@@ -2,19 +2,30 @@ import styles from './index.module.css';
 import type { CartItem } from '../../types';
 import CountButton from '../CountButton';
 import { ReactComponent as GarbageIcon } from '../../assets/garbage-icon.svg';
-import { deleteCartItem } from '../../api/cartApi';
+import { deleteCartItem, updateCartItem } from '../../api/cartApi';
 import errorMessage from '../../constant/errorMessage';
 import { toast } from 'react-toastify';
 import { useSetRecoilState } from 'recoil';
 import { $Cart } from '../../recoil/atom';
+import { ForwardedRef, forwardRef, useState } from 'react';
 
 interface CartProductProps {
   cartItem: CartItem;
 }
 
-const CartProduct = ({ cartItem }: CartProductProps) => {
+const CartProduct = ({ cartItem }: CartProductProps, ref: ForwardedRef<HTMLInputElement>) => {
   const { quantity, product } = cartItem;
   const setCart = useSetRecoilState($Cart);
+  const [count, setCount] = useState(quantity);
+
+  const handleUpButton = async () => {
+    try {
+      await updateCartItem(product.id, quantity + 1);
+      setCount(prev => prev + 1);
+    } catch (e) {
+      toast.error(errorMessage);
+    }
+  };
 
   const handleDeleteButton = async () => {
     try {
@@ -28,7 +39,7 @@ const CartProduct = ({ cartItem }: CartProductProps) => {
   return (
     <section className={styles.container}>
       <div className={styles['product-info-container']}>
-        <input className={styles['checkbox-input']} type="checkbox" />
+        <input className={styles['checkbox-input']} type="checkbox" name="select-item" ref={ref} />
         <div aria-label="image-box">
           <img src={product.imageUrl} alt={product.name} className={styles.image} />
         </div>
@@ -38,11 +49,11 @@ const CartProduct = ({ cartItem }: CartProductProps) => {
         <button aria-label="delete-button" onClick={handleDeleteButton}>
           <GarbageIcon />
         </button>
-        <CountButton count={quantity} />
+        <CountButton count={count} handleUpButton={handleUpButton} />
         <span aria-label="product-price">{product.price}원</span>
       </div>
     </section>
   );
 };
 
-export default CartProduct;
+export default forwardRef(CartProduct);
