@@ -1,13 +1,16 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilCallback, useRecoilValue } from 'recoil';
 import { cartState } from '../recoil/atoms';
 import { CART_BASE_URL } from '../constants';
 import type { CartItem, Product } from '../types/product';
 import useToast from '../components/common/Toast/useToast';
 
 const useCartService = () => {
-  const [cart, setCart] = useRecoilState(cartState);
+  const cart = useRecoilValue(cartState);
+  const updateCart = useRecoilCallback(({ set }) => async () => {
+    const newCart = await fetch(CART_BASE_URL).then((res) => res.json());
 
-    fetch(CART_BASE_URL, {
+    set(cartState, newCart);
+  });
   const { showToast } = useToast();
 
   const addProductToCart = async (productId: Product['id']) => {
@@ -25,6 +28,7 @@ const useCartService = () => {
     }
 
     showToast('success', '장바구니에 추가되었습니다.');
+    updateCart();
   };
 
   const updateProductQuantity = async (
@@ -44,6 +48,7 @@ const useCartService = () => {
       showToast('error', message);
     }
 
+    updateCart();
   };
 
   const removeProductFromCart = async (targetId: Product['id']) => {
@@ -59,6 +64,7 @@ const useCartService = () => {
       showToast('error', message);
     }
 
+    updateCart();
   };
 
   const removeAllProductsFromCart = (targetIds: Array<Product['id']>) => {
