@@ -37,7 +37,7 @@ jobs:
         run: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
 
-      - name: Set PUBLIC_URL
+      - name: Set BASE_URL
         run: |
           BASE_URL=$(echo $GITHUB_REPOSITORY | sed -r 's/^.+\/(.+)$/\/\1/')
           echo BASE_URL=$BASE_URL > .env
@@ -45,7 +45,7 @@ jobs:
       - name: Build
         run: |
           npm run build
-          cp ./build/index.html ./build/404.html
+          cp ./dist/index.html ./dist/404.html
 
       - name: Build storybook
         run: |
