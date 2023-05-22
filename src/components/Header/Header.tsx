@@ -2,6 +2,7 @@ import styled from "styled-components";
 import cartTitleLogo from "../../assets/images/cart-large.png";
 import CartNotificationButton from "../CartNotificationButton/CartNotificationButton";
 import { Link } from "react-router-dom";
+import { Suspense } from "react";
 
 interface HeaderProps {
   homeUrl: string;
@@ -16,7 +17,9 @@ const Header = ({ homeUrl, cartViewPageUrl }: HeaderProps) => {
         <Title>Shop</Title>
       </TitleLink>
       <CartViewLink to={cartViewPageUrl}>
-        <CartNotificationButton />
+        <Suspense>
+          <CartNotificationButton />
+        </Suspense>
       </CartViewLink>
     </Container>
   );
