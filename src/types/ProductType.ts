@@ -1,16 +1,16 @@
-export interface ProductItem {
+export interface ProductItemType {
   id: number;
   name: string;
   price: number;
   imageUrl: string;
 }
 
-export interface CartItem {
+export interface CartItemType {
   id: number;
   quantity: number;
   checked?: boolean;
-  product: ProductItem;
+  product: ProductItemType;
 }
-export interface NewCartItem extends CartItem {
+export interface NewCartItemType extends CartItemType {
   quantity: 1;
 }

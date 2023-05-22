@@ -1,9 +1,9 @@
-import type { ProductItem } from '../../types/ProductType';
+import type { ProductItemType } from '../../types/ProductType';
 import CartQuantityField from '../CarItem/components/CartQuantityField/CartQuantityField';
 import * as S from './ProductItem.style';
 
 interface ProductItemProps {
-  product: ProductItem;
+  product: ProductItemType;
 }
 
 function ProductItem({ product }: ProductItemProps) {

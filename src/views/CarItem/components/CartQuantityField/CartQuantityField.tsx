@@ -6,7 +6,7 @@ import cartIcon from '../../../../assets/cart.svg';
 import { useCartItemQuantityBy } from '../../../../recoil/cart/withItemQuantityBy';
 
 interface CartQuantityFieldProps {
-  product: T.ProductItem;
+  product: T.ProductItemType;
 }
 
 function CartQuantityField({ product }: CartQuantityFieldProps) {

@@ -1,14 +1,14 @@
 import { atom, selector, useRecoilState, useRecoilValue } from 'recoil';
-import type { CartItem, ProductItem } from '../../types/ProductType';
+import type { CartItemType, ProductItemType } from '../../types/ProductType';
 import fetchCartItems from '../../utils/fetchCartItem';
 import { useCallback, useMemo } from 'react';
 
-const cartState = atom<CartItem[]>({
+const cartState = atom<CartItemType[]>({
   key: 'cartListWithInfoState',
   default: selector({
     key: 'cartListWithInfoState/default',
     get: async () => {
-      const cartProducts: CartItem[] = await fetchCartItems.get();
+      const cartProducts: CartItemType[] = await fetchCartItems.get();
       return cartProducts.map((cartProduct) => {
         cartProduct.checked = true;
         return cartProduct;
@@ -19,11 +19,11 @@ const cartState = atom<CartItem[]>({
 
 export default cartState;
 
-export const useProductListInCart: () => ProductItem[] = () => {
+export const useProductListInCart: () => ProductItemType[] = () => {
   const cart = useRecoilValue(cartState);
 
   return cart.map(({ product }) => {
-    const productInfo: ProductItem = { ...product };
+    const productInfo: ProductItemType = { ...product };
     return productInfo;
   });
 };

@@ -1,4 +1,4 @@
-import type { ProductItem } from '../../../../types/ProductType';
+import type { ProductItemType } from '../../../../types/ProductType';
 import CheckBox from '../../../../common/CheckBox/CheckBox';
 import Stepper from '../../../../common/Stepper/Stepper';
 import deleteButton from '../../../../assets/delete.svg';
@@ -15,7 +15,7 @@ import {
 import { useCartItemQuantityBy } from '../../../../recoil/cart/withItemQuantityBy';
 import { useCartItemCheckedBy } from '../../../../recoil/cart/withItemCheckBy';
 
-function CartItemBox({ id, imageUrl, name, price }: ProductItem) {
+function CartItemBox({ id, imageUrl, name, price }: ProductItemType) {
   // id: cartItem
   const [quantity, setQuantity] = useCartItemQuantityBy(id);
   const { isChecked, toggleCheck } = useCartItemCheckedBy(id);

@@ -1,13 +1,13 @@
 import { atom, selector, useRecoilValue } from 'recoil';
-import { ProductItem } from '../../types/ProductType';
+import { ProductItemType } from '../../types/ProductType';
 import { getProductsFetched } from '../../views/ProductItemList/remote/fetchProductList';
 
-export const productListState = atom<ProductItem[]>({
+export const productListState = atom<ProductItemType[]>({
   key: 'productListState',
   default: selector({
     key: 'productListState/selector',
     get: async () => {
-      const productList: ProductItem[] = await getProductsFetched();
+      const productList: ProductItemType[] = await getProductsFetched();
       return productList;
     },
   }),
