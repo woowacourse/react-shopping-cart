@@ -1,7 +1,8 @@
+import type { CartItemType, ProductType } from '../types';
+
 import { rest } from 'msw';
 
 import mockProduct from '../../public/assets/mockProducts.json';
-import { CartItemType, ProductType } from '../types';
 import { API_URL } from '../constants/api';
 import { LOCAL_STORAGE_KEY } from '../constants';
 import { getData, updateData } from '../utils/localStorage';
@@ -31,11 +32,11 @@ interface DeleteCartItemRequest {
 
 export const handlers = [
   rest.get(API_URL.PRODUCT, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(products));
+    return res(ctx.delay(1000), ctx.status(200), ctx.json(products));
   }),
 
   rest.get(API_URL.CART, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(getData(LOCAL_STORAGE_KEY.CART)));
+    return res(ctx.delay(500), ctx.status(200), ctx.json(getData(LOCAL_STORAGE_KEY.CART)));
   }),
 
   rest.post(API_URL.CART, (req: AddCartItemRequest, res, ctx) => {
@@ -46,18 +47,27 @@ export const handlers = [
       const newCartItem: CartItemType = { id: Date.now(), quantity: 1, product };
       updateData(LOCAL_STORAGE_KEY.CART, [...currentCart, newCartItem]);
 
-      return res(ctx.status(201), ctx.json(newCartItem));
+      return res(ctx.delay(100), ctx.status(201), ctx.json(newCartItem));
     }
-    return res(ctx.status(404));
+    return res(
+      ctx.status(404),
+      ctx.json({ errorMessage: `요청한 상품 Id ${req.body.productId}가 존재하지 않아요` })
+    );
   }),
 
-  rest.patch('/cart-items/:cartItemId', (req: UpdateQuantityRequest, res, ctx) => {
+  rest.patch(`${API_URL.CART}/:cartItemId`, (req: UpdateQuantityRequest, res, ctx) => {
     const currentCart: CartItemType[] = getData(LOCAL_STORAGE_KEY.CART);
     const cartItemIndex = currentCart.findIndex(
       (item) => item.id === Number(req.params.cartItemId)
     );
 
-    if (cartItemIndex === undefined) return res(ctx.status(404));
+    if (cartItemIndex === undefined)
+      return res(
+        ctx.status(404),
+        ctx.json({
+          errorMessage: `요청한 장바구니 상품 Id ${req.params.cartItemId}가 존재하지 않아요`,
+        })
+      );
 
     const newCart = [...currentCart];
     newCart.splice(cartItemIndex, 1, {
@@ -66,20 +76,26 @@ export const handlers = [
     });
     updateData(LOCAL_STORAGE_KEY.CART, newCart);
 
-    return res(ctx.status(200));
+    return res(ctx.delay(100), ctx.status(200));
   }),
 
-  rest.delete('/cart-items/:cartItemId', (req: DeleteCartItemRequest, res, ctx) => {
+  rest.delete(`${API_URL.CART}/:cartItemId`, (req: DeleteCartItemRequest, res, ctx) => {
     const currentCart: CartItemType[] = getData(LOCAL_STORAGE_KEY.CART);
     const cartItemIndex = currentCart.findIndex(
       (item) => item.id === Number(req.params.cartItemId)
     );
 
-    if (cartItemIndex === undefined) return res(ctx.status(404));
+    if (cartItemIndex === undefined)
+      return res(
+        ctx.status(404),
+        ctx.json({
+          errorMessage: `요청한 장바구니 상품 Id ${req.params.cartItemId}가 존재하지 않아요`,
+        })
+      );
 
     const newCart = currentCart.filter((item) => item.id !== Number(req.params.cartItemId));
     updateData(LOCAL_STORAGE_KEY.CART, newCart);
 
-    return res(ctx.status(204));
+    return res(ctx.delay(100), ctx.status(204));
   }),
 ];
