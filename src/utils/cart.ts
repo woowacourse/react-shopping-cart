@@ -59,3 +59,7 @@ export const toggleSelectCartItem = (cart: CartInformation[], id: number) => {
     return cartItem;
   });
 };
+
+export const removeSelectedCartItem = (cart: CartInformation[]) => {
+  return cart.filter((cartItem) => cartItem.isSelect === false);
+};

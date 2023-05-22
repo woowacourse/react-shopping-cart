@@ -2,6 +2,7 @@ import { CartInformation, ProductInformation } from '@type/types';
 import {
   changedQuantityCart,
   createServerCartItem,
+  removeSelectedCartItem,
   removedItemCart,
   toggleSelectCartItem,
 } from '@utils/cart';
@@ -88,7 +89,7 @@ describe('cart에 대한 함수가 올바르게 작동하는 지 테스트합니
       { ...cartItem3, isSelect: true },
     ];
 
-    const updateCart = removeSelectedCartItem(cart);
+    const updatedCart = removeSelectedCartItem(cart);
 
     expect(updatedCart).toEqual([{ ...cartItem2, isSelect: false }]);
   });
