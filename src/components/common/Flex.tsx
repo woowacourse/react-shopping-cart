@@ -1,5 +1,5 @@
 import { DOMAttributes } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface FlexProps extends DOMAttributes<HTMLDivElement> {
   width?: string;
@@ -14,11 +14,24 @@ interface FlexProps extends DOMAttributes<HTMLDivElement> {
 
   align?: 'stretch' | 'center' | 'start' | 'end';
   scroll?: boolean;
+  wrap?: boolean;
+  grow?: boolean;
 }
 
 const Flex = styled.div<FlexProps>`
   display: flex;
   flex-direction: ${({ dir = 'row' }) => dir};
+  ${({ wrap }) =>
+    wrap &&
+    css`
+      flex-wrap: wrap;
+    `}
+
+  ${({ grow }) =>
+    grow &&
+    css`
+      flex-grow: 1;
+    `}
 
   justify-content: ${({ justify = 'start' }) => justify};
   align-items: ${({ align = 'stretch' }) => align};

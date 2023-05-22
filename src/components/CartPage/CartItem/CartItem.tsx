@@ -28,29 +28,27 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 
   return (
     <S.Root>
-      <Flex width="100%" height="100%">
+      <Flex grow height="100%">
         <S.Checkbox
           type="checkbox"
           checked={selectedItems.has(id)}
           onChange={() => selectItem(id)}
         />
-        <Flex width="100%" align="center">
+        <S.ProductContainer align="center" grow>
           <S.Thumbnail alt={name} src={imageUrl} />
           <S.Name>{name}</S.Name>
-          <S.Info>
-            <Flex dir="column" justify="space-between" align="end">
-              <S.DeleteButton onClick={deleteCartItem}>X</S.DeleteButton>
-              <QuantityStepper
-                max={100}
-                min={1}
-                init={quantity}
-                onIncrease={increaseQuantity}
-                onDecrease={decreaseQuantity}
-              />
-              <S.Price>{price.toLocaleString()} 원</S.Price>
-            </Flex>
+          <S.Info dir="column" justify="space-between" align="end">
+            <S.DeleteButton onClick={deleteCartItem}>X</S.DeleteButton>
+            <QuantityStepper
+              max={100}
+              min={1}
+              init={quantity}
+              onIncrease={increaseQuantity}
+              onDecrease={decreaseQuantity}
+            />
+            <S.Price>{price.toLocaleString()} 원</S.Price>
           </S.Info>
-        </Flex>
+        </S.ProductContainer>
       </Flex>
     </S.Root>
   );

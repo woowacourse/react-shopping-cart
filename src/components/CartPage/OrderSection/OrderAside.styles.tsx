@@ -1,15 +1,26 @@
 import styled from 'styled-components';
+import { Button } from '../../common/Button/Button.styles';
 import Flex from '../../common/Flex';
 
 export const Root = styled.aside`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   position: sticky;
   top: 10rem;
-  min-width: 35%;
+
+  max-width: 35%;
   max-height: 41rem;
   border: 1px solid #dddddd;
 
   & > button {
     margin: 2rem 3rem 2rem 3rem;
+  }
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    max-width: 100%;
   }
 `;
 
@@ -43,6 +54,10 @@ export const TextWrapper = styled(Flex)`
 
 export const Text = styled.span`
   font-weight: 700;
-  font-size: 20px;
+  font-size: 2rem;
   color: #333333;
+`;
+
+export const OrderButton = styled(Button)`
+  max-width: calc(100% - 6rem);
 `;
