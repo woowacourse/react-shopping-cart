@@ -13,7 +13,7 @@ interface Props {
   style?: React.CSSProperties;
 }
 
-export default function CounterInput({ cartItemId, min = 0, max, style }: Props) {
+export default function QuantityInput({ cartItemId, min = 0, max, style }: Props) {
   const cartItem = useRecoilValue(cartItemState(cartItemId));
   const [input, { setQuantityInput, setQuantityInputProxy }] = useQuantityInput(cartItemId);
 
@@ -27,7 +27,7 @@ export default function CounterInput({ cartItemId, min = 0, max, style }: Props)
     if (isNaturalNumberString(value)) {
       setQuantityInputProxy(getValidRange(Number(value)));
     } else if (value === '') {
-      setQuantityInput('');
+      setQuantityInput(value);
     }
   };
 
