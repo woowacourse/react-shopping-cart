@@ -1,8 +1,12 @@
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { ProductItem } from "../types/types.ts";
 import CartController from "./CartController";
 import styled from "styled-components";
 import { modalOpenState } from "../recoil/modalAtoms.tsx";
+import cartIcon from "../assets/cart.svg";
+import { getQuantityByProductId } from "../domain/cart.ts";
+import { cartState } from "../recoil/cartAtoms.ts";
+
 
 export const ProductItemImageBox = styled.div`
   display: flex;
@@ -66,9 +70,14 @@ export const ModalCloseButton = styled.button`
 function ProductModalContent({ product }: { product: ProductItem }) {
   const { name, price, imageUrl } = product;
   const setModalOpen = useSetRecoilState(modalOpenState);
+
+  const cartList = useRecoilValue(cartState);
+  const quantity = getQuantityByProductId(cartList, product.id);
+
   const closeModal = () => {
     setModalOpen(false);
   };
+
   return (
     <>
       <ModalHeader>
@@ -84,7 +93,16 @@ function ProductModalContent({ product }: { product: ProductItem }) {
             <ProductName>{name}</ProductName>
             <ProductPrice>{price.toLocaleString()}원</ProductPrice>
           </div>
-          <CartController product={product} />
+          <div style={{ display: 'flex', justifyContent: "space-between", width: '100%', alignItems: 'center' }}>
+            {
+              quantity > 0 && (
+                <div>
+                  <img src={cartIcon}></img>
+                </div>
+              )
+            }
+            <CartController product={product} />
+          </div>
         </ProductDetails>
       </ProductModalContentWrapper>
     </>
