@@ -23,7 +23,7 @@ const CartItem = ({
   quantity,
   isSelect,
 }: CartItemProps) => {
-  const { toggleSelectItem } = useControlCart();
+  const { toggleSelectItem, removeProductFromCart } = useControlCart();
   const localePrice = price.toLocaleString('ko-KR');
   return (
     <Wrapper>
@@ -33,7 +33,11 @@ const CartItem = ({
         <Title title={name}>{name}</Title>
       </LeftInformationWrapper>
       <RightInformationWrapper>
-        <TrashLogo src={TRASH_LOGO} alt="장바구니 아이템 삭제/" />
+        <TrashLogo
+          src={TRASH_LOGO}
+          alt="장바구니 아이템 삭제/"
+          onClick={() => removeProductFromCart(id)}
+        />
         <BucketCounter
           kind="large"
           id={id}
