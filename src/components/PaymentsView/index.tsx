@@ -1,11 +1,11 @@
 import styles from './index.module.scss';
 
 interface PaymentsViewProps {
-  priceTotal: number;
+  priceTotal?: number;
   parcelPrice: number;
 }
 
-function PaymentsView({ priceTotal, parcelPrice }: PaymentsViewProps) {
+function PaymentsView({ priceTotal = 0, parcelPrice }: PaymentsViewProps) {
   return (
     <section className={styles.container}>
       <h2 className={styles.title}>결제예상금액</h2>
