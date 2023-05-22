@@ -2,18 +2,18 @@ import * as S from './CartItem.styles';
 import Counter from 'components/@common/Counter';
 import Svg from 'components/@common/Svg';
 import { useProductSelect } from 'hooks/useProductSelect';
+import { useCheckedItems } from '../hooks/useCheckedItems';
 import { Cart } from 'types';
 
 interface CartItemProps {
   cartItem: Cart;
-  checkedItems: Cart[];
-  checkItem: (cartItem: Cart) => void;
 }
 
-const CartItem = ({ cartItem, checkedItems, checkItem }: CartItemProps) => {
+const CartItem = ({ cartItem }: CartItemProps) => {
   const { currentCartItem, remove, add, onDeleteItem } = useProductSelect(
     cartItem.product
   );
+  const { checkItem, checkedItems } = useCheckedItems();
   const { product } = cartItem;
 
   const onCheckBoxChange = () => {

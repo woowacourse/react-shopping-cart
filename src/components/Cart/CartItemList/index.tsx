@@ -13,8 +13,8 @@ import { deleteCartItem, getCartList } from 'api/requests';
 const CartItemList = () => {
   const { data, isLoading } = useGet<{ cartList: Cart[] }>(getCartList);
   const [cartList, setCartList] = useRecoilState(cartListAtom);
-  const { checkedItems, checkAllItems, checkItem, removeAllCheckedItems } =
-    useCheckedItems(cartList);
+  const { checkedItems, removeAllCheckedItems, checkAllItems } =
+    useCheckedItems();
   const { isModalOpen, onOpenModal, onCloseModal } = useModal();
   const loading = (
     <S.Loading>
@@ -24,15 +24,7 @@ const CartItemList = () => {
   );
 
   const fetchedCartList = cartList.map(
-    (cartItem) =>
-      cartItem && (
-        <CartItem
-          cartItem={cartItem}
-          key={cartItem.id}
-          checkedItems={checkedItems}
-          checkItem={checkItem}
-        />
-      )
+    (cartItem) => cartItem && <CartItem cartItem={cartItem} key={cartItem.id} />
   );
 
   const emptyList = <S.EmptyList>장바구니가 비어있습니다.</S.EmptyList>;
