@@ -8,12 +8,14 @@ import FlexBox from 'components/@common/FlexBox';
 import useModal from 'components/@common/Modal/hooks/useModal';
 import useCartCheckBox from 'hooks/useCartCheckBox';
 import useShoppingCart from 'hooks/useShoppingCart';
+import emptyCartImg from 'assets/empty-cart.png';
+import { Link } from 'react-router-dom';
 
 const SHIPPING_FEE = 3000;
 
 const ShoppingCartPage = () => {
   const { checkedProducts, isChecked, isAllChecked, toggleCheck, toggleCheckAllBox } = useCartCheckBox();
-  const { deleteCheckedCartProducts } = useShoppingCart();
+  const { cartProducts, deleteCheckedCartProducts } = useShoppingCart();
   const { isModalOpen, openModal, closeModal } = useModal();
   const cartTotalPrice = useRecoilValue(checkedCartProductsTotalPrice(checkedProducts));
   const isCheckedProductsExist = checkedProducts.size > 0;
@@ -30,39 +32,47 @@ const ShoppingCartPage = () => {
   return (
     <>
       <PageTitle>장바구니</PageTitle>
-      <FlexBox gap="100px" align="flex-start" role="region">
-        <CartProductSection flexDirection="column" align="flex-start">
-          <CheckBoxTab justify="space-between" align="flex-end">
-            <CheckBox checked={isAllChecked} onChange={toggleCheckAllBox}>
-              {checkBoxLabel}
-            </CheckBox>
-            <CheckedProductDeleteButton onClick={openModal}>선택 삭제</CheckedProductDeleteButton>
-            <ConfirmModal
-              isOpen={isModalOpen}
-              closeModal={closeModal}
-              onClickConfirmButton={() => deleteCheckedCartProducts(checkedProducts)}
-            >
-              {`선택한 ${checkedProducts.size}개의 상품을 삭제하시겠습니까?`}
-            </ConfirmModal>
-          </CheckBoxTab>
-          <CartProductCardList toggleCheck={toggleCheck} isChecked={isChecked} />
-        </CartProductSection>
-        <PriceSection flexDirection="column" gap="10px">
-          <Container justify="space-between">
-            <SubTitle>총 상품가격</SubTitle>
-            <ProductTotalPrice>{productTotalPriceText}</ProductTotalPrice>
-          </Container>
-          <Container justify="space-between">
-            <SubTitle>배송비</SubTitle>
-            <ShippingFee>{shippingFeeText}</ShippingFee>
-          </Container>
-          <Container justify="space-between">
-            <SubTitle>예상 주문금액</SubTitle>
-            <CartTotalPrice>{cartTotalPriceText}</CartTotalPrice>
-          </Container>
-          <OrderConfirmButton isActive={isCheckedProductsExist}>{orderConfirmButtonText}</OrderConfirmButton>
-        </PriceSection>
-      </FlexBox>
+      {cartProducts.size ? (
+        <FlexBox gap="80px" align="flex-start" role="region">
+          <CartProductSection flexDirection="column" align="flex-start">
+            <CheckBoxTab justify="space-between" align="flex-end">
+              <CheckBox checked={isAllChecked} onChange={toggleCheckAllBox}>
+                {checkBoxLabel}
+              </CheckBox>
+              <CheckedProductDeleteButton onClick={openModal}>선택 삭제</CheckedProductDeleteButton>
+              <ConfirmModal
+                isOpen={isModalOpen}
+                closeModal={closeModal}
+                onClickConfirmButton={() => deleteCheckedCartProducts(checkedProducts)}
+              >
+                {`선택한 ${checkedProducts.size}개의 상품을 삭제하시겠습니까?`}
+              </ConfirmModal>
+            </CheckBoxTab>
+            <CartProductCardList toggleCheck={toggleCheck} isChecked={isChecked} />
+          </CartProductSection>
+          <PriceSection flexDirection="column" gap="10px">
+            <Container justify="space-between">
+              <SubTitle>총 상품가격</SubTitle>
+              <ProductTotalPrice>{productTotalPriceText}</ProductTotalPrice>
+            </Container>
+            <Container justify="space-between">
+              <SubTitle>배송비</SubTitle>
+              <ShippingFee>{shippingFeeText}</ShippingFee>
+            </Container>
+            <Container justify="space-between">
+              <SubTitle>예상 주문금액</SubTitle>
+              <CartTotalPrice>{cartTotalPriceText}</CartTotalPrice>
+            </Container>
+            <OrderConfirmButton isActive={isCheckedProductsExist}>{orderConfirmButtonText}</OrderConfirmButton>
+          </PriceSection>
+        </FlexBox>
+      ) : (
+        <EmptyCartImgBackground flexDirection="column" gap="20px">
+          <EmptyCartImg src={emptyCartImg} alt="장바구니가 텅 비었습니다." />
+          <EmptyCartMessage>장바구니에 담긴 상품이 없습니다.</EmptyCartMessage>
+          <GoHomeLink to="/">홈으로 가기</GoHomeLink>
+        </EmptyCartImgBackground>
+      )}
     </>
   );
 };
@@ -150,4 +160,32 @@ const PageTitle = styled.h2`
   border-bottom: 3px solid #333333;
   font-size: 32px;
   text-align: center;
+`;
+
+const EmptyCartImgBackground = styled(FlexBox)`
+  background-color: #f2f2f2;
+`;
+
+const EmptyCartImg = styled.img`
+  width: 150px;
+  height: 150px;
+`;
+
+const EmptyCartMessage = styled.p`
+  font-size: 20px;
+  font-weight: 700;
+`;
+
+const GoHomeLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 50px;
+  border-radius: 4px;
+  background-color: #63cbff;
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  cursor: pointer;
 `;
