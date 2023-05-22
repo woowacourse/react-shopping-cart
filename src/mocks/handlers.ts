@@ -1,13 +1,12 @@
 import { rest } from 'msw';
 
 import mockProduct from '../../public/assets/mockProducts.json';
-import mockCartItems from '../../public/assets/mockCartItems.json';
 import { CartItemType, ProductType } from '../types';
+import { API_URL } from '../constants/api';
+import { LOCAL_STORAGE_KEY } from '../constants';
+import { getData, updateData } from '../utils/localStorage';
 
 let products: ProductType[] = mockProduct;
-let cartItems: CartItemType[] = mockCartItems;
-
-//type Request = CartItemType[];
 
 interface AddCartItemRequest {
   body: {
@@ -31,50 +30,55 @@ interface DeleteCartItemRequest {
 }
 
 export const handlers = [
-  rest.get('/products', (req, res, ctx) => {
+  rest.get(API_URL.PRODUCT, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(products));
   }),
 
-  rest.get('/cart-items', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(cartItems));
+  rest.get(API_URL.CART, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(getData(LOCAL_STORAGE_KEY.CART)));
   }),
 
-  rest.post('/cart-items', (req: AddCartItemRequest, res, ctx) => {
-    const { productId } = req.body;
-    const product = products.find((product) => product.id === productId);
+  rest.post(API_URL.CART, (req: AddCartItemRequest, res, ctx) => {
+    const product = products.find((product) => product.id === req.body.productId);
 
     if (product) {
+      const currentCart: CartItemType[] = getData(LOCAL_STORAGE_KEY.CART);
       const newCartItem: CartItemType = { id: Date.now(), quantity: 1, product };
-      cartItems.push(newCartItem);
+      updateData(LOCAL_STORAGE_KEY.CART, [...currentCart, newCartItem]);
 
-      return res(ctx.status(201));
+      return res(ctx.status(201), ctx.json(newCartItem));
     }
     return res(ctx.status(404));
   }),
 
   rest.patch('/cart-items/:cartItemId', (req: UpdateQuantityRequest, res, ctx) => {
-    const { cartItemId } = req.params;
-    const cartItemIndex = cartItems.findIndex((item) => item.id === Number(cartItemId));
+    const currentCart: CartItemType[] = getData(LOCAL_STORAGE_KEY.CART);
+    const cartItemIndex = currentCart.findIndex(
+      (item) => item.id === Number(req.params.cartItemId)
+    );
 
-    if (cartItemIndex) {
-      const newCart = [...cartItems];
-      newCart.splice(cartItemIndex, 1, {
-        ...cartItems[cartItemIndex],
-        quantity: req.body.quantity,
-      });
-      cartItems = newCart;
+    if (cartItemIndex === undefined) return res(ctx.status(404));
 
-      return res(ctx.status(200));
-    }
-    return res(ctx.status(404));
+    const newCart = [...currentCart];
+    newCart.splice(cartItemIndex, 1, {
+      ...currentCart[cartItemIndex],
+      quantity: req.body.quantity,
+    });
+    updateData(LOCAL_STORAGE_KEY.CART, newCart);
+
+    return res(ctx.status(200));
   }),
 
   rest.delete('/cart-items/:cartItemId', (req: DeleteCartItemRequest, res, ctx) => {
     const { cartItemId } = req.params;
-    const cartItemIndex = cartItems.findIndex((item) => item.id === Number(cartItemId));
+    const currentCart: CartItemType[] = getData(LOCAL_STORAGE_KEY.CART);
+    const cartItemIndex = currentCart.findIndex(
+      (item) => item.id === Number(req.params.cartItemId)
+    );
 
     if (cartItemIndex) {
-      cartItems = cartItems.filter((item) => item.id !== Number(cartItemId));
+      const newCart = currentCart.filter((item) => item.id !== Number(cartItemId));
+      updateData(LOCAL_STORAGE_KEY.CART, newCart);
 
       return res(ctx.status(204));
     }

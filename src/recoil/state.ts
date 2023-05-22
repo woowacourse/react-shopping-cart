@@ -1,5 +1,5 @@
 import type { CartItemType } from '../types';
-import { atom, selector } from 'recoil';
+import { atom, selector, selectorFamily } from 'recoil';
 import { LOCAL_STORAGE_KEY } from '../constants';
 import { API_URL } from '../constants/api';
 import { getCart } from '../api/cart';
@@ -25,6 +25,16 @@ export const cartState = atom<CartItemType[]>({
   effects: [localStorageEffect(LOCAL_STORAGE_KEY.CART)],
 });
 
+export const filteredCartState = selectorFamily({
+  key: 'filteredCartState',
+  get:
+    (productId) =>
+    ({ get }) => {
+      const filteredCart = get(cartState).filter((item) => item.product.id !== productId);
+      return filteredCart;
+    },
+});
+
 export const cartCountState = selector<number>({
   key: 'cartCountState',
   get: ({ get }) => get(cartState).length,
@@ -45,7 +55,7 @@ export const getProductState = selector({
   key: 'product/get',
   get: async ({ get }) => {
     try {
-      return getProducts();
+      return await getProducts();
     } catch (err) {
       throw err;
     }
