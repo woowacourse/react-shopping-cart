@@ -5,7 +5,7 @@ import CartProductList from '../components/Cart/CartProductList';
 import cartProductApis from '../apis/cartProducts';
 
 const meta = {
-  title: 'Product/CartProductList',
+  title: 'Cart/CartProductList',
   component: CartProductList,
   tags: ['autodocs'],
   render: (args, { loaded: { products } }) => <CartProductList {...products} />,

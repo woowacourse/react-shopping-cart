@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import CartProductItem from '../components/Cart/CartProductItem';
 
 const meta = {
-  title: 'Product/CartProductItem',
+  title: 'Cart/CartProductItem',
   component: CartProductItem,
   tags: ['autodocs'],
 } satisfies Meta<typeof CartProductItem>;
