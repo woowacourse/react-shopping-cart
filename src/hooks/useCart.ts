@@ -1,4 +1,3 @@
-import type { CartItemType } from '../types';
 import { useRecoilState } from 'recoil';
 import { cartState, selectedCartState } from '../recoil/state';
 import { api } from '../api';
@@ -31,5 +30,5 @@ export default function useCart() {
     setCart(newCart);
   };
 
-  return [cart, addCartItem, removeCartItem, updateQuantity] as const;
+  return { cart, addCartItem, removeCartItem, updateQuantity } as const;
 }
