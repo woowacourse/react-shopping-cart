@@ -10,8 +10,7 @@ import useAtomLocalStorage from './useAtomLocalStorage';
 import useCartList from './useCartList';
 
 const useControlCart = () => {
-  const { data, updateCartItem, addItemToCart, removeItemFromCart } =
-    useCartList();
+  const { updateCartItem, addItemToCart, removeItemFromCart } = useCartList();
   const [cart, setCart] = useAtomLocalStorage<CartInformation[]>(
     cartAtom,
     CART_LIST_LOCAL_KEY
@@ -43,7 +42,11 @@ const useControlCart = () => {
     setCart(updatedCart);
   };
 
-  return { addProductToCart, removeProductFromCart, updateQuantityOfCartItem };
+  return {
+    addProductToCart,
+    removeProductFromCart,
+    updateQuantityOfCartItem,
+  };
 };
 
 export default useControlCart;

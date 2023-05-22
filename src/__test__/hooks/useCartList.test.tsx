@@ -12,6 +12,7 @@ import { server } from '../setup-env';
 
 describe('API 변경에 유연하도록 구현한 useProductList API 레이어가 올바르게 기능하는 지 테스트', () => {
   let receivedData: CartInformation[] = [];
+
   beforeEach(() => {
     receivedData = [];
     server.use(

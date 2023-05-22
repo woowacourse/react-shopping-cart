@@ -2,25 +2,37 @@ import React from 'react';
 import { styled } from 'styled-components';
 import Button from '@components/common/Button';
 import CheckBox from '@components/common/CheckBox';
-import { CartInformation } from '@type/types';
+import { CartAndSelectInformation } from '@type/types';
 import { device, theme } from '@styles/theme';
 import CartItem from './CartItem';
 
 interface CartListProps {
-  cartList: CartInformation[];
+  cartList: CartAndSelectInformation[];
 }
 
 const CartList = ({ cartList }: CartListProps) => {
+  const totalLength = cartList.length;
+  const selectedLength = 1;
+
   return (
     <Wrapper>
       <GridWrapper>
         {cartList.map((item) => (
-          <CartItem quantity={item.quantity} {...item.product} />
+          <CartItem
+            isSelected={item.isSelected}
+            quantity={item.quantity}
+            {...item.product}
+          />
         ))}
       </GridWrapper>
       <CheckBoxWrapper>
-        <CheckBox isChecked={false} onClick={() => {}} />
-        <AllSelectText>전체선택 (2/3)</AllSelectText>
+        <CheckBox
+          isChecked={selectedLength === totalLength}
+          onClick={() => {}}
+        />
+        <AllSelectText>
+          전체선택 ({selectedLength}/{totalLength})
+        </AllSelectText>
         <Button text="선택삭제" onClick={() => {}} />
       </CheckBoxWrapper>
     </Wrapper>

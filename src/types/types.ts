@@ -4,10 +4,13 @@ export interface CartInformation {
   product: ProductInformation;
 }
 
+export interface CartAndSelectInformation extends CartInformation {
+  isSelected: boolean;
+}
+
 export interface ProductInformation {
   id: number;
   name: string;
   price: number;
   imageUrl: string;
 }
-

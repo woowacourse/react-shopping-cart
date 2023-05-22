@@ -5,20 +5,28 @@ import CheckBox from '@components/common/CheckBox';
 import { TRASH_LOGO } from '@assets/images';
 import { device, theme } from '@styles/theme';
 
-interface CartItmeProps {
+interface CartItemProps {
   id: number;
   name: string;
   imageUrl: string;
   price: number;
   quantity: number;
+  isSelected: boolean;
 }
 
-const CartItem = ({ id, name, imageUrl, price, quantity }: CartItmeProps) => {
+const CartItem = ({
+  id,
+  name,
+  imageUrl,
+  price,
+  quantity,
+  isSelected,
+}: CartItemProps) => {
   const localePrice = price.toLocaleString('ko-KR');
   return (
     <Wrapper>
       <LeftInformationWrapper>
-        <CheckBox isChecked={false} onClick={() => {}} />
+        <CheckBox isChecked={isSelected} onClick={() => {}} />
         <Image title={name} src={imageUrl} alt="장바구니 아이템" />
         <Title title={name}>{name}</Title>
       </LeftInformationWrapper>
