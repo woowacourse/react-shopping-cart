@@ -37,18 +37,18 @@ export const Row = styled.div`
 `;
 
 export const Col = styled.div`
-width: 100 %;
-box - sizing: border - box;
+  width: 100%;
+  box-sizing: border-box;
 
-@media screen and(min - width: ${({ theme }) => theme.breakpoints.md}) {
-  width: 50 %;
-}
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    width: 50%;
+  }
 
-@media screen and(min - width: ${({ theme }) => theme.breakpoints.lg}) {
-  width: 33.33 %;
-}
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    width: 33.33%;
+  }
 
-@media screen and(min - width: ${({ theme }) => theme.breakpoints.xl}) {
-  width: 25 %;
-}
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.xl}) {
+    width: 25%;
+  }
 `;
