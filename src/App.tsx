@@ -6,15 +6,19 @@ import theme from './styles/theme';
 import { RouterProvider } from 'react-router-dom';
 import CartRouter from './router';
 import ToastPortal from './components/@common/Toast/ToastPortal';
+import { Suspense } from 'react';
+import Spinner from './components/@common/Spinner';
 
 function App() {
   return (
     <RecoilRoot>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <ToastPortal />
-        <RouterProvider router={CartRouter} />
-        <SvgSprite />
+        <Suspense fallback={<Spinner />}>
+          <ToastPortal />
+          <RouterProvider router={CartRouter} />
+          <SvgSprite />
+        </Suspense>
       </ThemeProvider>
     </RecoilRoot>
   );

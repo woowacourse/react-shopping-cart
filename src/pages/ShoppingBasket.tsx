@@ -3,25 +3,25 @@ import CartList from 'src/components/Cart/CartList';
 import OrderInfo from 'src/components/Cart/OrderInfo';
 import Header from 'src/components/@common/Header';
 import { styled } from 'styled-components';
-import useGetCartList from 'src/hooks/useGetCartList';
 import { Suspense } from 'react';
+import Spinner from 'src/components/@common/Spinner';
 
 const ShoppingBasket = () => {
-  useGetCartList();
-
   return (
-    <Suspense fallback={<div>loading</div>}>
+    <>
       <Header />
       <ContentLayout>
         <BasketTitle>장바구니</BasketTitle>
         <BasketContent>
-          <CartList />
+          <Suspense fallback={<Spinner />}>
+            <CartList />
+          </Suspense>
           <OrderInfoWrapper>
             <OrderInfo />
           </OrderInfoWrapper>
         </BasketContent>
       </ContentLayout>
-    </Suspense>
+    </>
   );
 };
 

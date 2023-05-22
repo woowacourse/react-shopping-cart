@@ -3,24 +3,26 @@ import ProductItem from 'src/components/ProductItem';
 import Header from 'src/components/@common/Header';
 import { styled } from 'styled-components';
 import { Suspense } from 'react';
-import useGetCartList from 'src/hooks/useGetCartList';
-import useGetPRoductList from 'src/hooks/useGetProductList';
+import Spinner from 'src/components/@common/Spinner';
+import { useRecoilValue } from 'recoil';
+import { productItems } from 'src/recoil/atom';
 
 const ProductList = () => {
-  const productList = useGetPRoductList();
-  useGetCartList();
+  const productList = useRecoilValue(productItems);
 
   const fetchedProductList = productList.map((product) => (
     <ProductItem key={product.id} product={product} />
   ));
 
   return (
-    <Suspense fallback={<div>loading...</div>}>
+    <>
       <Header />
       <ContentLayout>
-        <ProductListWrapper>{fetchedProductList}</ProductListWrapper>
+        <Suspense fallback={<Spinner />}>
+          <ProductListWrapper>{fetchedProductList}</ProductListWrapper>
+        </Suspense>
       </ContentLayout>
-    </Suspense>
+    </>
   );
 };
 
