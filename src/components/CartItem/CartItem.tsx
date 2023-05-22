@@ -1,4 +1,4 @@
-import type { CartItem } from "../../types/types";
+import type {CartItem} from "../../types/types";
 import CartController from "../CartController";
 import {
   CartItemControllerWrapper,
@@ -11,15 +11,19 @@ import {
 } from "./CartItem.style";
 import trashIcon from '../../assets/trash.png';
 import useCart from "../../hooks/useCart.ts";
-import { ChangeEvent } from "react";
+import {ChangeEvent} from "react";
+import {useSetRecoilState} from "recoil";
+import {removeCartIemSelector} from "../../recoil/cartAtoms.ts";
 
 interface CartItemProps {
   cart: CartItem;
 }
 
-function CartItem({ cart }: CartItemProps) {
+function CartItem({cart}: CartItemProps) {
 
-  const { removeCart, switchCheckbox } = useCart();
+  const {switchCheckbox} = useCart();
+
+  const removeCartItem = useSetRecoilState(removeCartIemSelector(undefined));
 
   return (
     <CartItemLayout>
@@ -50,9 +54,9 @@ function CartItem({ cart }: CartItemProps) {
           <CartItemControllerWrapper>
             <CartItemTrashImage
               src={trashIcon}
-              onClick={() => removeCart(cart.id)}
+              onClick={() => removeCartItem(cart.id)}
             />
-            <CartController product={cart.product} />
+            <CartController product={cart.product}/>
           </CartItemControllerWrapper>
         </CartItemInfo>
         <CartItemPrice>{cart.product.price.toLocaleString()}원</CartItemPrice>

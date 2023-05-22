@@ -1,6 +1,6 @@
 import {atom, selector, selectorFamily} from 'recoil';
 import {CartItem, NewCartItem, ProductItem} from '../types/types';
-import {fetchAddCart, fetchUpdateCart} from "../api/api.ts";
+import {fetchAddCart, fetchDeleteCart, fetchUpdateCart} from "../api/api.ts";
 
 export const cartState = atom<CartItem[]>({
   key: 'cartState',
@@ -112,3 +112,19 @@ export const updateCartItemQuantitySelector = selectorFamily<number, number>({
   },
 });
 
+export const removeCartIemSelector = selectorFamily<number, undefined>({
+  key: 'removeCartIemSelector',
+  get: () => () => {
+    // 오류 방지를 위해 아무 값이나 리턴
+    return -1;
+  },
+  set: () => ({get, set}, productId) => {
+    const id = productId as number;
+    const cartList = get(cartState);
+    if (confirm('정말로 삭제하시겠습니까?')) {
+      const removedCartList = cartList.filter((cart) => cart.id !== id);
+      set(cartState, removedCartList);
+      fetchDeleteCart(id);
+    }
+  },
+});
