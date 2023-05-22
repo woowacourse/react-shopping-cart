@@ -35,7 +35,19 @@ const useCart = () => {
     await updateCart();
   };
 
-  return { cartItems, addInCart, adjustQuantityInCart, deleteInCart };
+  const emptyCart = async () => {
+    cartItems.forEach(async (item) => {
+      await deleteInCart(item.id);
+    });
+  };
+
+  return {
+    cartItems,
+    addInCart,
+    adjustQuantityInCart,
+    deleteInCart,
+    emptyCart,
+  };
 };
 
 export default useCart;
