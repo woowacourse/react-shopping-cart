@@ -1,16 +1,23 @@
 import React from 'react';
 import { styled } from 'styled-components';
+import useCartList from '@hooks/useCartList';
 import CartList from '@components/CartPage/CartList';
 import EstimatedPayment from '@components/CartPage/EstimatedPayment';
 import { device, theme } from '@styles/theme';
 
 const CartPage = () => {
+  const { data, isLoading, error } = useCartList();
+
+  if (isLoading) {
+    return <div>로딩중...</div>;
+  }
+
   return (
     <Wrapper>
       <Title>장바구니</Title>
       <SubTitle>든든배송 상품 (3개)</SubTitle>
       <Main>
-        <CartList />
+        <CartList cartList={data} />
         <EstimatedPayment />
       </Main>
     </Wrapper>

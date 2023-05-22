@@ -2,17 +2,13 @@ import { PRODUCT_LIST } from '@mockData/productList';
 import { renderHook, waitFor } from '@testing-library/react';
 import { rest } from 'msw';
 import useCartList from '@hooks/useCartList';
+import { RequestCartParams } from '@mocks/handlers';
 import { CartInformation, ProductInformation } from '@type/types';
 import { createCartItem, removedItemCart } from '@utils/cart';
 import { changedQuantityCart } from '@utils/cart';
 import { fetchGet } from '@utils/fetch';
 import { API_URL_CART_LIST, API_URL_PRODUCT_LIST } from '@constants/common';
 import { server } from '../setup-env';
-
-interface RequestCartParams {
-  productId?: number;
-  quantity?: number;
-}
 
 describe('API 변경에 유연하도록 구현한 useProductList API 레이어가 올바르게 기능하는 지 테스트', () => {
   let receivedData: CartInformation[] = [];
@@ -66,7 +62,7 @@ describe('API 변경에 유연하도록 구현한 useProductList API 레이어�
 
           return res(
             ctx.set('Content-Type', 'application/json'),
-            ctx.status(200),
+            ctx.status(201),
             ctx.json('Created')
           );
         } catch (error) {
@@ -96,7 +92,7 @@ describe('API 변경에 유연하도록 구현한 useProductList API 레이어�
 
         receivedData = updated;
 
-        return res(ctx.status(204), ctx.text('OK'));
+        return res(ctx.status(200), ctx.text('OK'));
       }),
 
       rest.delete(`${API_URL_CART_LIST}/:cartItemId`, (req, res, ctx) => {
@@ -115,7 +111,7 @@ describe('API 변경에 유연하도록 구현한 useProductList API 레이어�
 
         receivedData = removed;
 
-        return res(ctx.status(204), ctx.text('No Content'));
+        return res(ctx.status(204));
       })
     );
   });

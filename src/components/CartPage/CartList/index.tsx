@@ -3,17 +3,20 @@ import { PRODUCT_LIST } from '@mockData/productList';
 import { styled } from 'styled-components';
 import Button from '@components/common/Button';
 import CheckBox from '@components/common/CheckBox';
+import { CartInformation } from '@type/types';
 import { createCartItem } from '@utils/cart';
 import { device, theme } from '@styles/theme';
 import CartItem from './CartItem';
 
-const bucketList = PRODUCT_LIST.productList.map((item) => createCartItem(item));
+interface CartListProps {
+  cartList: CartInformation[];
+}
 
-const CartList = () => {
+const CartList = ({ cartList }: CartListProps) => {
   return (
     <Wrapper>
       <GridWrapper>
-        {bucketList.map((item) => (
+        {cartList.map((item) => (
           <CartItem quantity={item.quantity} {...item.product} />
         ))}
       </GridWrapper>
