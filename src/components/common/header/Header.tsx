@@ -2,12 +2,13 @@ import styled from '@emotion/styled';
 import { Text } from '../Text/Text';
 import { CartIcon } from '../../../assets';
 import UserCartInfo from './UserCartInfo';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
     <HeaderWrapper>
       <HeaderInner>
-        <LogoWrapper>
+        <LogoWrapper to="/">
           <CartIcon fill="#FFFFFF" style={{ marginRight: '20px' }} />
           <Text color="#FFFFFF" size="largest" weight="bold" lineHeight="58px">
             SHOP
@@ -30,6 +31,9 @@ const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
 `;
 
 const HeaderInner = styled.div`
@@ -53,7 +57,7 @@ const HeaderInner = styled.div`
   }
 `;
 
-const LogoWrapper = styled.div`
+const LogoWrapper = styled(Link)`
   display: flex;
   flex-direction: row;
   align-items: center;
