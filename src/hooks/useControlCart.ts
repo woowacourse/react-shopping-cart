@@ -5,6 +5,7 @@ import {
   removedItemCart,
   changedQuantityCart,
   toggleSelectCartItem,
+  calculateSelectCartTotalPrice,
 } from '@utils/cart';
 import { CART_LIST_LOCAL_KEY } from '@constants/common';
 import useAtomLocalStorage from './useAtomLocalStorage';
@@ -49,12 +50,17 @@ const useControlCart = () => {
     setCart(updatedCart);
   };
 
+  const getSelectCartTotalPrice = () => {
+    return calculateSelectCartTotalPrice(cart);
+  };
+
   return {
     cart,
     addProductToCart,
     removeProductFromCart,
     updateQuantityOfCartItem,
     toggleSelectItem,
+    getSelectCartTotalPrice,
   };
 };
 

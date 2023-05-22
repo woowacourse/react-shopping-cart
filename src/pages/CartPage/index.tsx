@@ -9,20 +9,8 @@ import { device, theme } from '@styles/theme';
 
 const CartPage = () => {
   const { data, isLoading } = useCartList();
-  const { cart, toggleSelectItem } = useControlCart();
+  const { cart, toggleSelectItem, getSelectCartTotalPrice } = useControlCart();
   const [selectCart, setSelectCart] = useState<CartInformation[]>([]);
-
-  const totalProductPrice = selectCart.reduce((acc, cur) => {
-    return acc + cur.product.price * cur.quantity;
-  }, 0);
-
-  useEffect(() => {
-    setSelectCart(
-      data.map((item) => {
-        return { ...item, isSelected: true };
-      })
-    );
-  }, [data]);
 
   if (isLoading) {
     return <div>로딩중...</div>;
@@ -35,7 +23,7 @@ const CartPage = () => {
       <Main>
         <CartList cartList={cart} />
         <EstimatedPayment
-          totalProductPrice={totalProductPrice}
+          totalProductPrice={getSelectCartTotalPrice()}
           deliveryFee={3000}
         />
       </Main>

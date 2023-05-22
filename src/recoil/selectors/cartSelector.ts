@@ -1,15 +1,12 @@
 import { selector } from 'recoil';
 import { cartAtom } from '@recoil/atoms/cartAtom';
+import { calculateSelectCartTotalPrice } from '@utils/cart';
 
 export const getCartListTotalPrice = selector({
   key: 'getCartListTotalPrice',
   get: ({ get }) => {
     const cart = get(cartAtom);
 
-    return cart.reduce(
-      (accumulator, currentValue) =>
-        accumulator + currentValue.product.price * currentValue.quantity,
-      0
-    );
+    return calculateSelectCartTotalPrice(cart);
   },
 });
