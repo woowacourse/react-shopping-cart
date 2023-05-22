@@ -1,6 +1,5 @@
 export interface CartType {
   id: number;
-  // productId: number;
   quantity: number;
   product: Product;
 }

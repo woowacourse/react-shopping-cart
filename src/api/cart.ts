@@ -2,6 +2,7 @@ import { CartType } from "../type/cart";
 
 export async function getCartData() {
   const response = await fetch("/carts");
+
   if (!response.ok) {
     throw Error(response.status.toString());
   }

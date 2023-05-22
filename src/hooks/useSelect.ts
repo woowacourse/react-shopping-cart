@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function useSelect() {
-  const [selected, setSelected] = useState(new Set());
+  const [selected, setSelected] = useState<Set<number>>(new Set());
 
   function toggleSelectBox(id: number) {
     const newSet = new Set(selected);
@@ -31,5 +31,9 @@ export default function useSelect() {
     setSelected(newSet);
   }
 
-  return { selected, toggleSelectBox, toggleAll, deleteId };
+  function checkIsAllSelected<T>(options: T[]) {
+    return selected.size === options.length;
+  }
+
+  return { selected, toggleSelectBox, toggleAll, deleteId, checkIsAllSelected };
 }
