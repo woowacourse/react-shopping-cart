@@ -7,7 +7,7 @@ import { getLocalStorage, setLocalStorage } from "../utils";
 export const handlers = [
   // 상품 목록 조회
   rest.get("/products", (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(mockData));
+    return res(ctx.status(200), ctx.delay(1000), ctx.json(mockData));
   }),
 
   // 장바구니 아이템 목록 조회

@@ -4,9 +4,7 @@ import App from "./App";
 import { worker } from "./mocks/browser";
 import GlobalStyle from "./style/GlobalStyle";
 
-if (process.env.NODE_ENV === "development") {
-  worker.start();
-}
+worker.start();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
