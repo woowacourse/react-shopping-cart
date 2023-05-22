@@ -45,7 +45,7 @@ const CartItem = ({ id, quantity, name, price, imageUrl }: CartItemProps) => {
         handleCountChange={updateQuantity}
       />
       <S.CartItemPrice>{priceFormatter(price * quantity)}원</S.CartItemPrice>
-      <S.CartItemDeleteButton variant="textButton" onClick={handleModalOpen}>
+      <S.CartItemDeleteButton aria-label="상품 삭제" variant="textButton" onClick={handleModalOpen}>
         <CloseIcon />
       </S.CartItemDeleteButton>
       <Modal isOpen={isModalOpen} handleClose={handleModalClose}>
