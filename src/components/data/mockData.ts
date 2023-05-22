@@ -32,7 +32,7 @@ export const products = [
     name: 'BASIC STÜSSY TEE',
     price: 73000,
     imageUrl:
-      'https://cdn.shopify.com/s/files/1/0099/5708/1143/files/1904762_WHIT_2_deb0cb53-0c30-4c3c-b500-4b638570f92b.jpg?v=1683053168',
+      'https://cdn.shopify.com/s/files/1/0099/5708/1143/products/1904870_KEYL_2.jpg?v=1683066793',
   },
   {
     id: 6,

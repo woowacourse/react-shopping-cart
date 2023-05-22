@@ -5,7 +5,7 @@ import { WIDTH } from '../../styles/mediaQuery';
 
 const Bill = () => {
   const totalAmount = useRecoilValue(totalAmountAtom);
-  const deliveryFee = totalAmount >= 30000 || totalAmount === 0 ? 0 : 3000;
+  const deliveryFee = totalAmount >= 100000 || totalAmount === 0 ? 0 : 4000;
 
   return (
     <Wrapper>
@@ -17,7 +17,7 @@ const Bill = () => {
         <Detail>
           총 배송비 <span>{deliveryFee.toLocaleString()}원</span>
         </Detail>
-        <Message>3만원 이상 주문시 무료배송</Message>
+        <Message>10만원 이상 주문시 무료배송</Message>
         <TotalAmount>
           총 주문금액{' '}
           <span>{(totalAmount + deliveryFee).toLocaleString()}원</span>
