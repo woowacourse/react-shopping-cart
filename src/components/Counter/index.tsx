@@ -9,26 +9,91 @@ import { useRecoilValue } from 'recoil';
 
 type CounterProps = {
   product: Product;
+  min: number;
+  max: number;
 };
 
-const Counter: React.FC<CounterProps> = ({ product }) => {
-  const { addCart, updateCart, deleteCart } = useCart(cartState, product);
+const Counter: React.FC<CounterProps> = ({ product, min, max }) => {
+  const { cart, addCart, updateCart, deleteCart } = useCart(cartState, product);
+
+  const fetchAddCart = () => {
+    fetch('api/cart-items', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        productId: product.id,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error('장바구니에 상품을 담지 못하였습니다.');
+
+        addCart();
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
+
+  const fetchUpdateCart = (quantity: number) => {
+    const cartId = cart.find(({ product }) => product.id)?.id;
+
+    fetch(`api/cart-items/${cartId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        quantity,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error('장바구니를 업데이트하지 못하였습니다.');
+
+        return res.json();
+      })
+      .then((data) => {
+        const { quantity } = data;
+        updateCart(quantity);
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
+
+  const fetchDeleteCart = () => {
+    const cartId = cart.find(({ product }) => product.id)?.id;
+
+    fetch('api/cart-items', {
+      method: 'DELETE',
+      body: JSON.stringify([cartId]),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error('장바구니를 삭제하지 못하였습니다.');
+
+        deleteCart();
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
 
   const cartQuantity = useRecoilValue(cartQuantityReadOnlyState(product.id));
 
   const handleCartPlus = () => {
     if (cartQuantity === 0) {
-      addCart();
+      fetchAddCart();
     } else {
-      updateCart(cartQuantity + 1);
+      fetchUpdateCart(cartQuantity + 1);
     }
   };
 
   const handleCartMinus = () => {
     if (cartQuantity === 1) {
-      deleteCart();
+      fetchDeleteCart();
     } else {
-      updateCart(cartQuantity - 1);
+      fetchUpdateCart(cartQuantity - 1);
     }
   };
 
@@ -37,16 +102,16 @@ const Counter: React.FC<CounterProps> = ({ product }) => {
       <ButtonWrapper count={cartQuantity}>
         {cartQuantity !== 0 && (
           <>
-            <CounterButton onClick={handleCartMinus}>
-              <Minus width="20px" height="20px" fill="#2bc1bc" />
+            <CounterButton onClick={handleCartMinus} disabled={cartQuantity === min}>
+              <Minus width="20px" height="20px" fill={cartQuantity === min ? '#bbbbbb' : '#2bc1bc'} />
             </CounterButton>
             <div>{cartQuantity}</div>
             <CounterButton disabled />
           </>
         )}
       </ButtonWrapper>
-      <AbsoluteButton onClick={handleCartPlus} disabled={cartQuantity === 99}>
-        <Plus width="20px" height="20px" fill={cartQuantity === 99 ? '#bbbbbb' : '#2bc1bc'} />
+      <AbsoluteButton onClick={handleCartPlus} disabled={cartQuantity === max}>
+        <Plus width="20px" height="20px" fill={cartQuantity === max ? '#bbbbbb' : '#2bc1bc'} />
       </AbsoluteButton>
     </Wrapper>
   );
