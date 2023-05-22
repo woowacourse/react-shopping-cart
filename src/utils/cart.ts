@@ -1,4 +1,8 @@
-import { CartInformation, ProductInformation } from '@type/types';
+import {
+  CartAndSelectInformation,
+  CartInformation,
+  ProductInformation,
+} from '@type/types';
 
 interface UpdateCart {
   cart: CartInformation[];
@@ -32,4 +36,17 @@ export const createCartItem = ({
 
 export const removedItemCart = (cart: CartInformation[], id: number) => {
   return cart.filter((product) => id !== product.id);
+};
+
+export const toggleSelectCartItem = (
+  cart: CartAndSelectInformation[],
+  id: number
+) => {
+  return cart.map((cartItem) => {
+    if (cartItem.id === id) {
+      return { ...cartItem, isSelect: !cartItem.isSelect };
+    }
+
+    return cartItem;
+  });
 };

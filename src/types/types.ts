@@ -5,7 +5,7 @@ export interface CartInformation {
 }
 
 export interface CartAndSelectInformation extends CartInformation {
-  isSelected: boolean;
+  isSelect: boolean;
 }
 
 export interface ProductInformation {
