@@ -5,10 +5,27 @@ import { RecoilRoot } from 'recoil';
 
 import { App } from './App';
 
-import { worker } from './msw/browser';
-if (process.env.NODE_ENV === 'development') {
-  worker.start();
-}
+// if (process.env.NODE_ENV === 'development') {
+//   const { worker } = require('./msw/browser');
+//   worker.start();
+// }
+
+const main = async () => {
+  if (window.location.pathname === '/react-shopping-cart') {
+    window.location.pathname = '/react-shopping-cart/';
+    return;
+  }
+
+  const { worker } = require('./msw/browser');
+
+  await worker.start({
+    serviceWorker: {
+      url: '/react-shopping-cart/mockServiceWorker.js',
+    },
+  });
+};
+
+main();
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
