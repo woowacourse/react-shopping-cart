@@ -1,4 +1,4 @@
-import useProductSelect from 'src/hooks/useCartUpdate';
+import useCartUpdate from 'src/hooks/useCartUpdate';
 import { Product } from 'src/types';
 import Svg from '../@common/Svg';
 import Counter from '../@common/Counter';
@@ -11,7 +11,7 @@ interface ProductItemProps {
 
 const ProductItem = ({ product }: ProductItemProps) => {
   const { currentCartItem, productCountMethod, onSelectItem } =
-    useProductSelect(product);
+    useCartUpdate(product);
 
   const productSelect = currentCartItem ? (
     <Counter
