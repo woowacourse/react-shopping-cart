@@ -1,16 +1,14 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
-import { RecoilRoot } from "recoil";
-import "./index.css";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './styles/index.css';
+import App from './App';
+import { worker } from './mocks/worker';
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
+worker.start();
+
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <RecoilRoot>
-      <App />
-    </RecoilRoot>
-  </React.StrictMode>
+    <App />
+  </React.StrictMode>,
 );
