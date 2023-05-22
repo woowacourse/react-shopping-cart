@@ -1,4 +1,4 @@
-import {ReactNode, useEffect, MouseEvent} from 'react';
+import { ReactNode, useEffect, MouseEvent } from 'react';
 import styled from 'styled-components';
 
 const ModalWrapper = styled.div`
@@ -24,13 +24,7 @@ const ModalContent = styled.div`
   max-width: 500px;
 `;
 
-const ModalCloseButtonWrapper = styled.div`
-  display: flex;
-  justify-content: end;
-  margin-bottom: 15px;
-`;
-
-const Modal = ({isOpen, onClose, children}: { isOpen: boolean; onClose: () => void; children: ReactNode }) => {
+const Modal = ({ isOpen, onClose, children }: { isOpen: boolean; onClose: () => void; children: ReactNode }) => {
 
   useEffect(() => {
     if (isOpen) {
@@ -51,9 +45,6 @@ const Modal = ({isOpen, onClose, children}: { isOpen: boolean; onClose: () => vo
   return (
     <ModalWrapper onClick={onClose}>
       <ModalContent onClick={handleModalContentClick}>
-        <ModalCloseButtonWrapper>
-          <button onClick={onClose}>X</button>
-        </ModalCloseButtonWrapper>
         {children}
       </ModalContent>
     </ModalWrapper>
