@@ -1,10 +1,8 @@
+import type { CartItemType } from '../../../types';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { CartItemType } from '../../../types';
-import CheckBox from '../CheckBox/CheckBox';
-import DeleteIcon from '../DeleteIcon';
-import Counter from '../Counter/Counter';
+import { Counter, DeleteIcon, CheckBox } from '../..';
 import useCart from '../../../hooks/useCart';
 import { isNumeric } from '../../../utils/validator';
 import { MAX_QUANTITY } from '../../../constants';
@@ -13,7 +11,7 @@ type CartItemProps = CartItemType;
 
 export default function CartItem({ id, quantity, product }: CartItemProps) {
   const { name, price, imageUrl } = product;
-  const [, , removeCartItem, updateQuantity] = useCart();
+  const { removeCartItem, updateQuantity } = useCart();
 
   const [quantityInput, setQuantityInput] = useState(String(quantity));
 

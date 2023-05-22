@@ -1,16 +1,17 @@
+import type { ProductType } from '../../../types';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+
+import { Counter } from '../../../components';
 import useCart from '../../../hooks/useCart';
 import { isNumeric } from '../../../utils/validator';
 import { MAX_QUANTITY } from '../../../constants';
-import { ProductType } from '../../../types';
-import Counter from '../Counter/Counter';
 
 type ProductProps = ProductType;
 
 export default function Product(props: ProductProps) {
   const { id, name, price, imageUrl } = props;
-  const [cart, addCartItem, removeCartItem, updateQuantity] = useCart();
+  const { cart, addCartItem, removeCartItem, updateQuantity } = useCart();
   const [quantityInput, setQuantityInput] = useState('');
   const cartItem = cart.find((item) => item.product.id === id);
 

@@ -12,7 +12,7 @@ const Template: StoryFn<React.ComponentProps<typeof CartItem>> = (props) => <Car
 
 export const DefaultCartItem = Template.bind({});
 DefaultCartItem.args = {
-  id: 2,
+  id: Date.now(),
   quantity: 5,
   product: {
     id: 96,

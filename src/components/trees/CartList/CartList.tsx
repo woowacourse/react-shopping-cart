@@ -13,7 +13,7 @@ interface CartListProps {
 
 export default function CartList({ cartItems }: CartListProps) {
   const selectedCart = useRecoilValue(selectedCartState);
-  const [, , removeCartItem] = useCart();
+  const { removeCartItem } = useCart();
 
   function handleDeleteClick() {
     if (confirm('선택한 상품을 삭제하시겠습니까?')) {
