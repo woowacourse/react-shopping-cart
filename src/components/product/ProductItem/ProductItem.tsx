@@ -26,7 +26,7 @@ const ProductItem = ({ ...information }: ProductItemProps) => {
           <S.ItemButton
             type="button"
             value={cartItemQuantity || 0}
-            aria-label="add item"
+            aria-label="상품 추가"
             variant={cartItemQuantity ? 'primary' : 'textButton'}
             onClick={handleModalOpen}
           >
