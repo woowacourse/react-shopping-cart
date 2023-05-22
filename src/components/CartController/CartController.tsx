@@ -10,7 +10,7 @@ interface CartControllerProps {
 }
 
 function CartController({product}: CartControllerProps) {
-  const {addCart, setCartQuantity} =
+  const {addCart} =
     useCart();
 
   const quantity = useRecoilValue(quantityByProductIdSelector(product.id));
@@ -31,7 +31,7 @@ function CartController({product}: CartControllerProps) {
           <CartBox>
             <QuantityControlButton
               onClick={() => {
-                setCartQuantity(product.id, quantity - 1);
+                updateCartListQuantity(quantity - 1);
               }}
             >
               -
@@ -39,7 +39,7 @@ function CartController({product}: CartControllerProps) {
             <QuantityInput value={quantity} onChange={handleChangeQuantity}/>
             <QuantityControlButton
               onClick={() => {
-                setCartQuantity(product.id, quantity + 1);
+                updateCartListQuantity(quantity + 1);
               }}
             >
               +

@@ -1,5 +1,6 @@
 import {atom, selector, selectorFamily} from 'recoil';
 import {CartItem} from '../types/types';
+import {fetchUpdateCart} from "../api/api.ts";
 
 export const cartState = atom<CartItem[]>({
   key: 'cartState',
@@ -78,6 +79,8 @@ export const updateCartListQuantitySelector = selectorFamily<number, number>({
       const updatedCartList = [...cartList];
       updatedCartList[targetIndex] = {...updatedCartList[targetIndex], quantity: newQuantity as number};
       set(cartState, updatedCartList);
+
+      fetchUpdateCart(productId, newQuantity as number);
     }
   },
 });
