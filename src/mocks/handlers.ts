@@ -1,7 +1,7 @@
 import { rest } from 'msw';
 import products from './data/products.json';
+import cartProducts from './data/cartProducts.json';
 import {
-  CART_PRODUCT_STORAGE_KEY,
   getStoredCartProducts,
   setStoredCartProducts,
 } from '../utils/localStorage';
@@ -22,13 +22,7 @@ export const handlers = [
   }),
 
   rest.get('/cart-items', (req, res, ctx) => {
-    return res(
-      ctx.delay(200),
-      ctx.status(200),
-      ctx.json(
-        JSON.parse(localStorage.getItem(CART_PRODUCT_STORAGE_KEY) ?? '[]')
-      )
-    );
+    return res(ctx.delay(200), ctx.status(200), ctx.json(cartProducts));
   }),
 
   rest.post<{ productId: number }>('/cart-items', (req, res, ctx) => {
