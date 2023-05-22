@@ -2,8 +2,8 @@ import {ChangeEvent} from 'react';
 import useCart from '../../hooks/useCart';
 import type {ProductItem} from '../../types/types';
 import {AddCartButton, CartBox, ControllerWrapper, QuantityControlButton, QuantityInput} from './CartController.style';
-import {quantityByProductIdSelector} from '../../recoil/cartAtoms';
-import {useRecoilValue} from 'recoil';
+import {quantityByProductIdSelector, updateCartListQuantitySelector} from '../../recoil/cartAtoms';
+import {useRecoilValue, useSetRecoilState} from 'recoil';
 
 interface CartControllerProps {
   product: ProductItem;
@@ -14,12 +14,15 @@ function CartController({product}: CartControllerProps) {
     useCart();
 
   const quantity = useRecoilValue(quantityByProductIdSelector(product.id));
+  const updateCartListQuantity = useSetRecoilState(updateCartListQuantitySelector(product.id));
 
   const handleChangeQuantity = (event: ChangeEvent<HTMLInputElement>) => {
     const quantityInputValue = Number(event.target.value.replaceAll('/', '').replace(/\D/g, ''));
     const newQuantity = quantityInputValue > 100 ? 100 : quantityInputValue;
-    setCartQuantity(product.id, newQuantity);
+
+    updateCartListQuantity(newQuantity);
   };
+
 
   return (
     <>

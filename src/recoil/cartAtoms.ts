@@ -62,3 +62,23 @@ export const quantityByProductIdSelector = selectorFamily({
     return targetCart?.quantity ?? 0;
   },
 });
+
+
+export const updateCartListQuantitySelector = selectorFamily<number, number>({
+  key: 'updateCartListQuantitySelector',
+  get: () => () => {
+    // 오류 방지를 위해 아무 값이나 리턴
+    return -1;
+  },
+  set: (productId) => ({get, set}, newQuantity) => {
+    const cartList = get(cartState);
+    const targetIndex = cartList.findIndex((cartItem) => cartItem.id === productId);
+
+    if (targetIndex !== -1) {
+      const updatedCartList = [...cartList];
+      updatedCartList[targetIndex] = {...updatedCartList[targetIndex], quantity: newQuantity as number};
+      set(cartState, updatedCartList);
+    }
+  },
+});
+
