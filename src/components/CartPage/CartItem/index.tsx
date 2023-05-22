@@ -4,9 +4,9 @@ import Flex from '../../common/Flex';
 import * as S from './CartItem.styles';
 import { CartItem as CartItemType } from '../../../types/cart';
 import useCart from '../../../hooks/cart/useCart';
-import Button from '../../common/Button';
 import useCounter from '../../../hooks/common/useCounter';
 import useCheckedIdCart from '../../../hooks/cart/useCheckedIdCart';
+import QuantityStepper from '../../common/QuantityStepper';
 
 const CartItem = ({ product, id, quantity: initialQuantity }: CartItemType) => {
   const { imageUrl, name, price } = product;
@@ -45,28 +45,12 @@ const CartItem = ({ product, id, quantity: initialQuantity }: CartItemType) => {
         <S.DeleteButton type="button" onClick={removeItemFromCart}>
           <S.DeleteImage src={TRASH_BIN} alt="쓰레기통 아이콘" />
         </S.DeleteButton>
-        <Flex>
-          <Button
-            aria-label="장바구니에 1개 빼기"
-            size="S"
-            view="light"
-            type="button"
-            onClick={decrease}
-          >
-            ▼
-          </Button>
-          <S.Quantity>{quantity}</S.Quantity>
-          <Button
-            id="increase"
-            aria-label="장바구니에서 1개 추가"
-            size="S"
-            view="light"
-            type="button"
-            onClick={increase}
-          >
-            ▲
-          </Button>
-        </Flex>
+        <QuantityStepper
+          label="장바구니 수량"
+          value={quantity}
+          increase={increase}
+          decrease={decrease}
+        />
         <S.Price>{(price * quantity).toLocaleString()}원</S.Price>
       </Flex>
     </S.Container>
