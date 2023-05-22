@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable no-alert */
 import type { CallbackInterface } from 'recoil';
 import { useRecoilCallback, useRecoilValue } from 'recoil';
 import mockServerClient from '../api';

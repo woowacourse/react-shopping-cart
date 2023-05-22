@@ -19,7 +19,7 @@ const useCheck = (cartId: CartProduct['id'] = 0) => {
     [],
   );
   const setAll = useRecoilCallback(({ set }) => (check: boolean) => {
-    set(checkedCartState, (_) => {
+    set(checkedCartState, () => {
       if (check) {
         return [];
       }

@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable no-alert */
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 import mockServerClient from '../../api';
@@ -67,6 +69,7 @@ const CartItemList = () => {
 
   const handleOnClick = () => {
     checkedCart.forEach(async (cartId) => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const { productId } = cartItems.find((cartItem) => cartItem.id === cartId)!;
       try {
         await mockServerClient.delete(`/cart-items`, productId);
