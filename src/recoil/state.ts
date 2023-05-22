@@ -2,8 +2,7 @@ import type { CartItemType } from '../types';
 import { atom, selector, selectorFamily } from 'recoil';
 import { LOCAL_STORAGE_KEY } from '../constants';
 import { API_URL } from '../constants/api';
-import { getCart } from '../api/cart';
-import { getProducts } from '../api/product';
+import { api } from '../api';
 
 const localStorageEffect =
   (key: string) =>
@@ -55,7 +54,7 @@ export const getProductState = selector({
   key: 'product/get',
   get: async ({ get }) => {
     try {
-      return await getProducts();
+      return await api.getProducts();
     } catch (err) {
       throw err;
     }
