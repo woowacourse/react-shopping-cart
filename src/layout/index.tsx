@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Header } from './header/Header';
+import styled from "styled-components";
+import { Header } from "./header/Header";
 
 export const Layout = ({ children }: React.PropsWithChildren) => {
   return (
@@ -18,5 +18,7 @@ const Style = {
 
     padding-top: 140px;
     padding-bottom: 60px;
+
+    z-index: 1;
   `,
 };

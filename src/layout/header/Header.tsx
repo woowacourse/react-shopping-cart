@@ -1,13 +1,12 @@
 import styled from "styled-components";
 import { LogoIcon } from "../../assets/ShoppingCartIcons";
-import { useCartList } from "../../hooks/useCartList";
 import { useNavigate } from "react-router-dom";
 import { PAGES } from "../../constants";
+import { CartAmount } from "./CartAmount";
+import { Suspense } from "react";
 
 export const Header = () => {
   const navigate = useNavigate();
-
-  const { cartList } = useCartList();
 
   return (
     <Style.Container>
@@ -18,7 +17,9 @@ export const Header = () => {
         </Style.LogoContainer>
         <Style.CartContainer>
           <Style.Cart onClick={() => navigate(PAGES.CART)}>장바구니</Style.Cart>
-          <Style.CartAmount>{cartList.length}</Style.CartAmount>
+          <Suspense fallback={<h1>로딩중....</h1>}>
+            <CartAmount />
+          </Suspense>
         </Style.CartContainer>
       </Style.ContentWrapper>
     </Style.Container>
@@ -46,6 +47,10 @@ const Style = {
     align-items: center;
 
     width: 1341px;
+    @media screen and (max-width: 1320px) {
+      width: 100%;
+      margin: 0 20px;
+    }
   `,
 
   LogoContainer: styled.div`
@@ -62,6 +67,9 @@ const Style = {
     font-weight: 300;
 
     color: white;
+    @media screen and (max-width: 1320px) {
+      font-size: 28px;
+    }
   `,
 
   CartContainer: styled.div`
@@ -78,6 +86,9 @@ const Style = {
     font-weight: 300;
 
     color: white;
+    @media screen and (max-width: 1320px) {
+      font-size: 20px;
+    }
   `,
 
   CartAmount: styled.div`
