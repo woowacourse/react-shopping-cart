@@ -37,6 +37,7 @@
     "import/prefer-default-export": "off",
     "import/no-unresolved": "off",
     "import/extensions": "off",
-    "import/no-extraneous-dependencies": "off"
+    "import/no-extraneous-dependencies": "off",
+    "react/prop-types": 0
   }
 }
