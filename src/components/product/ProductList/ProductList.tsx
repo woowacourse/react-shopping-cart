@@ -5,7 +5,12 @@ import { Product } from '../../../types/product';
 import { PRODUCTS_BASE_URL } from '../../../constant';
 
 const ProductList = () => {
-  const { getData } = useFetch<Product[]>(PRODUCTS_BASE_URL);
+  const { getData, error } = useFetch<Product[]>(PRODUCTS_BASE_URL);
+
+  if (error) {
+    throw error;
+  }
+
   const productList = getData();
 
   return (
