@@ -8,14 +8,14 @@ export const initCartListCheckbox = (cartListState: CartItem[], newChecked: bool
   }));
 };
 
-export const updateCartCheckbox = (cartListState: CartItem[], id: number) => {
-  const cartList = [...cartListState];
-  const targetIndex = cartList.findIndex(cartItem => cartItem.id === id);
-  const targetCart = cartList[targetIndex];
-  const updatedCart = {
-    ...targetCart,
-    checked: !targetCart.checked
-  };
-  cartList[targetIndex] = updatedCart;
-  return cartList;
-};
+// export const updateCartCheckbox = (cartListState: CartItem[], id: number) => {
+//   const cartList = [...cartListState];
+//   const targetIndex = cartList.findIndex(cartItem => cartItem.id === id);
+//   const targetCart = cartList[targetIndex];
+//   const updatedCart = {
+//     ...targetCart,
+//     checked: !targetCart.checked
+//   };
+//   cartList[targetIndex] = updatedCart;
+//   return cartList;
+// };

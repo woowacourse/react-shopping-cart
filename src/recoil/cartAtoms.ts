@@ -156,3 +156,23 @@ export const removeCartItemsSelector = selector<undefined>({
     }
   },
 });
+
+export const switchCartCheckboxSelector = selector<number>({
+  key: 'switchCartCheckboxSelector',
+  get: () => {
+    // 오류 방지를 위해 아무 값이나 리턴
+    return -1;
+  },
+  set: ({get, set}, id) => {
+    const cartList = [...get(cartState)];
+    const targetIndex = cartList.findIndex(cartItem => cartItem.id === id as number);
+    const targetCart = cartList[targetIndex];
+    const updatedCart = {
+      ...targetCart,
+      checked: !targetCart.checked
+    };
+    cartList[targetIndex] = updatedCart;
+    set(cartState, cartList);
+  },
+});
+
