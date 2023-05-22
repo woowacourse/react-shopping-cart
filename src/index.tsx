@@ -17,12 +17,6 @@ import { worker } from './mocks/browser';
     },
   });
 
-  // if (process.env.NODE_ENV === 'development') {
-  //   await worker.start();
-  // } else {
-
-  // }
-
   const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
   );
