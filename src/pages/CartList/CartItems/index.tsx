@@ -15,6 +15,7 @@ type ShoppingListProps = {
 
 function CartItems({ cartItems, isLoading, updateCartItem }: ShoppingListProps) {
   const cartItemsAmount = useRecoilValue(cartItemsAmountState);
+
   return (
     <S.Container>
       <S.ShoppingListLayout>
