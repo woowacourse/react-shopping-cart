@@ -95,7 +95,6 @@ const OrderInfo = () => {
           <Price>{finalPrice.toLocaleString('ko-KR')}</Price>
         </TotalPrice>
       </OrderInfoBody>
-      {/* product.price.toLocaleString('ko-KR') */}
       <OrderButtonContainer>
         <OrderButton>주문하기</OrderButton>
       </OrderButtonContainer>

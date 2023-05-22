@@ -40,26 +40,31 @@ const Input = styled.input`
 `;
 
 type CheckBoxProps = {
-  kind?: 'ALL' | undefined;
-  setAll?: any;
+  kind: 'ALL' | 'ITEM';
+  setAll?: (check: boolean) => void;
   onClick?: (check: boolean) => void;
   defaultChecked?: boolean;
 };
 
 const CheckBox = (props: CheckBoxProps) => {
-  const { onClick, defaultChecked, kind, setAll } = props;
-  // const checks =
+  const { kind, setAll, onClick, defaultChecked } = props;
+
   const [checked, setChecked] = useState(defaultChecked ?? false);
 
   const handleOnClickCheckBox = () => {
+    if (!onClick) return;
+
     setChecked((prev) => !prev);
-    onClick?.(!checked);
+    onClick(!checked);
   };
 
   const handleSetAll = () => {
+    if (!setAll) return;
+
     setAll(checked);
     setChecked((prev) => !prev);
   };
+
   return (
     <CheckBoxContainer onClick={kind === 'ALL' ? handleSetAll : handleOnClickCheckBox}>
       <label htmlFor="checkbox">

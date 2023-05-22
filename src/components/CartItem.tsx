@@ -1,10 +1,10 @@
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import { ReactComponent as Trash } from '../assets/icons/trash.svg';
 import useCartProduct from '../hooks/useCart';
 import useCheck from '../hooks/useCheck';
+import checkedCartState from '../recoil/atoms/checkedCartState';
 import { cartItemFamily } from '../recoil/selectors/cartItemFamily';
-import { CheckedCartIdList } from '../recoil/selectors/checkedCartList';
 import { productFamily } from '../recoil/selectors/productFamily';
 import type { Product } from '../type';
 import CheckBox from './CheckBox';
@@ -63,28 +63,30 @@ const CardItemPrice = styled.div`
 
 type cartItemProps = {
   productId: Product['id'];
-  // quantity: CartProduct['quantity'];
 };
 
 const CartItem = (props: cartItemProps) => {
   const { productId } = props;
 
   const product = useRecoilValue(productFamily(productId));
+  const [checkedCart, setCheckedCart] = useRecoilState(checkedCartState);
   const cartProduct = useRecoilValue(cartItemFamily(productId));
-  const isChecked = useRecoilValue(CheckedCartIdList).includes(cartProduct!.id);
 
   const { setQuantity } = useCartProduct(productId);
-  const { setCheck } = useCheck(cartProduct!.id);
+  const { setCheck } = useCheck(cartProduct?.id);
 
   if (!product) return <div>Error!</div>;
   if (!cartProduct) return <div>Error!</div>;
 
+  const isChecked = checkedCart.includes(cartProduct.id);
+
   const handleOnclickTrash = () => {
     setQuantity(0);
+    setCheckedCart((prev) => prev.filter((id) => id !== cartProduct.id));
   };
   return (
     <ItemContainer>
-      <CheckBox onClick={setCheck} defaultChecked={isChecked} />
+      <CheckBox onClick={setCheck} defaultChecked={isChecked} kind="ITEM" />
       <Image src={product.imageUrl} alt={product.name} />
       <CardItemTitle>[든든] {product.name}</CardItemTitle>
       <CartItemInfo>
@@ -93,7 +95,7 @@ const CartItem = (props: cartItemProps) => {
           width="113px"
           height="60px"
           min={0}
-          value={cartProduct?.quantity || 0}
+          value={cartProduct.quantity}
           onChange={setQuantity}
         />
         <CardItemPrice>{product.price.toLocaleString('ko-KR')}</CardItemPrice>

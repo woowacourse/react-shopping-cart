@@ -18,18 +18,14 @@ const useCheck = (cartId: CartProduct['id'] = 0) => {
       },
     [],
   );
-  const setAll = useRecoilCallback(
-    ({ set }) =>
-      (check: boolean) => {
-        set(checkedCartState, (checkedCart) => {
-          if (check) {
-            return [];
-          }
-          return cart.map((it) => it.id);
-        });
-      },
-    [],
-  );
+  const setAll = useRecoilCallback(({ set }) => (check: boolean) => {
+    set(checkedCartState, (_) => {
+      if (check) {
+        return [];
+      }
+      return cart.map((it) => it.id);
+    });
+  });
   return { setCheck, setAll };
 };
 

@@ -1,5 +1,6 @@
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
+import mockServerClient from '../api';
 import useCheck from '../hooks/useCheck';
 import cartState from '../recoil/atoms/cartState';
 import checkedCartState from '../recoil/atoms/checkedCartState';
@@ -57,9 +58,27 @@ const SelectButton = styled.button`
 
 const CartItemList = () => {
   const cartItems = useRecoilValue(cartState);
+  const setCart = useSetRecoilState(cartState);
+
   const cartCount = useRecoilValue(cartCountState);
-  const checkedCart = useRecoilValue(checkedCartState);
+  const [checkedCart, setCheckedCart] = useRecoilState(checkedCartState);
+
   const { setAll } = useCheck();
+
+  const handleOnClick = () => {
+    checkedCart.forEach(async (cartId) => {
+      const { productId } = cartItems.find((cartItem) => cartItem.id === cartId)!;
+      try {
+        await mockServerClient.delete(`/cart-items`, productId);
+      } catch (e) {
+        window.alert('삭제에 실패했습니다.');
+        console.log(e);
+      }
+      setCheckedCart((prev) => prev.filter((id) => id !== cartId));
+      setCart((prev) => prev.filter((cartItem) => cartItem.id !== cartId));
+    });
+  };
+
   return (
     <StyledCartList>
       <CartListHeader>
@@ -71,7 +90,7 @@ const CartItemList = () => {
             전체선택 ({checkedCart.length}/{cartCount}){' '}
           </span>
           <SelectButtonContainer>
-            <SelectButton>선택삭제</SelectButton>
+            <SelectButton onClick={handleOnClick}>선택삭제</SelectButton>
           </SelectButtonContainer>
         </StyledDiv>
       </CartListHeader>
