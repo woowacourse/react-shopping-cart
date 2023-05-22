@@ -17,22 +17,22 @@ const useCart = () => {
     setCartItems(newCart);
   };
 
-  const addInCart = (product: Product, quantity: number) => {
-    addCartItem({ id: product.id, quantity, product });
-    updateCart();
+  const addInCart = async (product: Product, quantity: number) => {
+    await addCartItem({ id: product.id, quantity, product });
+    await updateCart();
   };
 
-  const adjustQuantityInCart = (
+  const adjustQuantityInCart = async (
     id: CartItem['id'],
     quantity: CartItem['quantity']
   ) => {
-    modifyCartItem(id, { quantity });
-    updateCart();
+    await modifyCartItem(id, { quantity });
+    await updateCart();
   };
 
-  const deleteInCart = (id: CartItem['id']) => {
-    deleteCartItem(id);
-    updateCart();
+  const deleteInCart = async (id: CartItem['id']) => {
+    await deleteCartItem(id);
+    await updateCart();
   };
 
   return { cartItems, addInCart, adjustQuantityInCart, deleteInCart };
