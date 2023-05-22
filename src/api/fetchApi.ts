@@ -3,7 +3,7 @@ export const fetchApi = async (url: string, options: RequestInit) => {
 
   const response = await fetch(url, options);
 
-  if (!response.ok) throw new Error('에러가 발생하였습니다.');
+  if (!response.ok) throw new Error('[ERROR] 에러가 발생하였습니다.');
 
   const contentType = response.headers.get('content-type');
 
