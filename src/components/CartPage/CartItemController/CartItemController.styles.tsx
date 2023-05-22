@@ -16,6 +16,7 @@ export const Checkbox = styled.input`
 `;
 
 export const Text = styled.div`
+  min-width: 10rem;
   font-size: 1.6rem;
   color: #333333;
 
