@@ -2,7 +2,7 @@ import {ChangeEvent} from 'react';
 import useCart from '../../hooks/useCart';
 import type {ProductItem} from '../../types/types';
 import {AddCartButton, CartBox, ControllerWrapper, QuantityControlButton, QuantityInput} from './CartController.style';
-import {quantityByProductIdSelector, updateCartItemQuantitySelector} from '../../recoil/cartAtoms';
+import {addCartItemSelector, quantityByProductIdSelector, updateCartItemQuantitySelector} from '../../recoil/cartAtoms';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 
 interface CartControllerProps {
@@ -10,11 +10,12 @@ interface CartControllerProps {
 }
 
 function CartController({product}: CartControllerProps) {
-  const {addCart} =
-    useCart();
 
   const quantity = useRecoilValue(quantityByProductIdSelector(product.id));
   const updateCartItemQuantity = useSetRecoilState(updateCartItemQuantitySelector(product.id));
+
+  const addCartItem = useSetRecoilState(addCartItemSelector(undefined));
+
 
   const handleChangeQuantity = (event: ChangeEvent<HTMLInputElement>) => {
     const quantityInputValue = Number(event.target.value.replaceAll('/', '').replace(/\D/g, ''));
@@ -48,7 +49,7 @@ function CartController({product}: CartControllerProps) {
       ) : (
         <AddCartButton
           onClick={() => {
-            addCart(product);
+            addCartItem(product);
           }}>
           장바구니에 담기
         </AddCartButton>

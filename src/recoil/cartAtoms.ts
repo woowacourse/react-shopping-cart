@@ -1,6 +1,6 @@
 import {atom, selector, selectorFamily} from 'recoil';
-import {CartItem} from '../types/types';
-import {fetchUpdateCart} from "../api/api.ts";
+import {CartItem, NewCartItem, ProductItem} from '../types/types';
+import {fetchAddCart, fetchUpdateCart} from "../api/api.ts";
 
 export const cartState = atom<CartItem[]>({
   key: 'cartState',
@@ -63,6 +63,31 @@ export const quantityByProductIdSelector = selectorFamily({
     return targetCart?.quantity ?? 0;
   },
 });
+
+export const addCartItemSelector = selectorFamily<ProductItem, undefined>({
+  key: 'addCartItemSelector',
+  get: () => (): ProductItem => {
+    return {id: 0, imageUrl: "", name: "", price: 0};
+  },
+  set: () => ({get, set}, newProductItem) => {
+    const product = newProductItem as ProductItem;
+    const cartList = get(cartState);
+    const isCartItemExist = cartList.some((cartItem) => cartItem.id === product.id);
+
+    if (!isCartItemExist) {
+      const newCartItem: NewCartItem = {
+        id: product.id,
+        quantity: 1,
+        checked: true,
+        product
+      };
+      const updatedCartList = [...cartList, newCartItem];
+      set(cartState, updatedCartList);
+      fetchAddCart(newCartItem.id);
+    }
+  }
+});
+
 
 /**
  * TODO: 카드 수가 0개일 때 제거하는 로직 추가 필요

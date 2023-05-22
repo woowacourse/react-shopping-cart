@@ -9,22 +9,6 @@ function useCart() {
   const isAllCartItemChecked = useRecoilValue(allCartCheckedSelector);
   const checkedCartList = useRecoilValue(checkedCartSelector);
 
-  const addCart = (product: ProductItem) => {
-    const isCartItemExist = cartList.some((cartItem) => cartItem.id === product.id);
-
-    if (!isCartItemExist) {
-      const newCartItem: NewCartItem = {
-        id: product.id,
-        quantity: 1,
-        checked: true,
-        product
-      };
-      const updatedCartList = [...cartList, newCartItem];
-      setCartList(updatedCartList);
-      fetchAddCart(newCartItem.id);
-    }
-  };
-
   const removeCart = (id: number) => {
     if (confirm('정말로 삭제하시겠습니까?')) {
       const removedCartList = cartList.filter((cart) => cart.id !== id);
@@ -55,7 +39,6 @@ function useCart() {
   };
 
   return {
-    addCart,
     removeCart,
     removeCheckedCartList,
     switchCheckbox,
