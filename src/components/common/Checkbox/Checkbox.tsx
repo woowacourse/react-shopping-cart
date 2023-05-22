@@ -9,7 +9,9 @@ const Checkbox = ({ id, checked, ...attributes }: CheckboxProps) => {
   return (
     <label htmlFor={id}>
       <S.CheckboxInput id={id} checked {...attributes} />
-      <S.CheckboxIconWrapper>{checked ? <CheckedIcon /> : <UncheckedIcon />}</S.CheckboxIconWrapper>
+      <S.CheckboxIconWrapper aria-label={id}>
+        {checked ? <CheckedIcon /> : <UncheckedIcon />}
+      </S.CheckboxIconWrapper>
     </label>
   );
 };
