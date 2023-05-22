@@ -33,7 +33,7 @@ const ShoppingCartPage = () => {
     <ShoppingCartPageContainer flexDirection="column">
       <PageTitle>장바구니</PageTitle>
       {cartProducts.size ? (
-        <FlexBox gap="80px" align="flex-start" role="region">
+        <SectionContainer gap="80px" align="flex-start" role="region">
           <CartProductSection flexDirection="column" align="flex-start">
             <CheckBoxTab justify="space-between" align="flex-end">
               <CheckBox checked={isAllChecked} onChange={toggleCheckAllBox}>
@@ -65,7 +65,7 @@ const ShoppingCartPage = () => {
             </Container>
             <OrderConfirmButton isActive={isCheckedProductsExist}>{orderConfirmButtonText}</OrderConfirmButton>
           </PriceSection>
-        </FlexBox>
+        </SectionContainer>
       ) : (
         <EmptyCartImgBackground flexDirection="column" gap="20px">
           <EmptyCartImg src={emptyCartImg} alt="장바구니가 텅 비었습니다." />
@@ -83,19 +83,54 @@ const ShoppingCartPageContainer = styled(FlexBox)`
   width: 100%;
 `;
 
+const SectionContainer = styled(FlexBox)`
+  width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 20px;
+  }
+`;
+
 const CartProductSection = styled(FlexBox)`
   position: relative;
-  width: 70%;
+  width: 60%;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const PriceSection = styled(FlexBox)`
   position: sticky;
   top: 140px;
-  width: 30%;
+  width: 40%;
   margin-top: 60px;
   padding: 20px 26px;
   border: 1px solid #dddddd;
   background-color: #f2f2f2;
+
+  @media (max-width: 1280px) {
+    span {
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    height: 250px;
+    margin: 0;
+  }
+
+  @media (max-width: 430px) {
+    height: 100%;
+
+    div {
+      display: none;
+    }
+  }
 `;
 
 const CheckBoxTab = styled(FlexBox)`
@@ -157,6 +192,10 @@ const OrderConfirmButton = styled.button<{ isActive: boolean }>`
   background-color: ${({ isActive }) => (isActive ? '#2ac1bc' : '#0000000d')};
   cursor: pointer;
   pointer-events: ${({ isActive }) => (isActive ? 'initial' : 'none')};
+
+  @media (max-width: 430px) {
+    margin: 0;
+  }
 `;
 
 const PageTitle = styled.h2`

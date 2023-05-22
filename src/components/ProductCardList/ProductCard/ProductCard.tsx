@@ -46,16 +46,6 @@ const ProductImage = styled.img`
   border-radius: 4px;
   filter: brightness(96%);
 
-  @media (max-width: 960px) {
-    width: 170px;
-    height: 170px;
-  }
-
-  @media (max-width: 580px) {
-    width: 150px;
-    height: 150px;
-  }
-
   @media (max-width: 360px) {
     width: 100%;
     height: 100%;

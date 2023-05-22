@@ -28,4 +28,5 @@ const Input = styled.input`
   width: 24px;
   height: 24px;
   cursor: pointer;
+  accent-color: #00a59f;
 `;
