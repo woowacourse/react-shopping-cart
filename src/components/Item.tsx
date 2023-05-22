@@ -11,8 +11,12 @@ const Item = (item: Product) => {
   const handleCartClicked = async () => {
     const result = await addCartItem(item.id);
 
-    if (result) setCartItem({ id: item.id, quantity: 1, isChecked: true, product: item });
-    if (!result) console.log("장바구니 상품 추가 실패!");
+    if (!result) {
+      alert("장바구니 상품 추가 실패!");
+      return;
+    }
+
+    setCartItem({ id: item.id, quantity: 1, isChecked: true, product: item });
   };
 
   return (

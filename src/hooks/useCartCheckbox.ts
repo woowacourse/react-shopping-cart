@@ -1,3 +1,4 @@
+import { removeCartItem } from "api/cartItems";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { cartListState } from "recoil/cart";
@@ -22,18 +23,28 @@ export const useCartCheckbox = () => {
     );
   };
 
-  const removeCheckedItem = () => {
-    cartList
-      .filter((item) => item.isChecked)
-      .forEach((item) => {
-        fetch(`/cart-items/${item.id}`, {
-          method: "DELETE",
-        }).catch((err) => {
-          console.log(`장바구니 상품 제거 실패: ${err instanceof Error ? err.message : ""}`);
-        });
-      });
+  const removeCheckedItem = async () => {
+    const checkedList = cartList.filter((item) => item.isChecked);
+    const removedList = checkedList.filter((item) => removeItem(item.id));
 
-    setCartList(cartList.filter((item) => !item.isChecked));
+    const newList = cartList.filter((item) => {
+      const isRemoved = !!removedList.find((removedItem) => removedItem.id === item.id);
+
+      return !isRemoved;
+    });
+
+    setCartList(newList);
+  };
+
+  const removeItem = async (id: number) => {
+    const result = await removeCartItem(id);
+
+    if (!result) {
+      alert(`장바구니 상품 제거 실패! ${cartList.find((item) => item.id === id)}`);
+      return false;
+    }
+
+    return true;
   };
 
   return { isAllchecked, checkedCount, setAllCheckbox, removeCheckedItem };
