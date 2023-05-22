@@ -79,5 +79,3 @@ export const useCheckCart = () => {
     deleteCheckedItems,
   };
 };
-
-export const useCartLength = () => useRecoilValue(cartState).length;

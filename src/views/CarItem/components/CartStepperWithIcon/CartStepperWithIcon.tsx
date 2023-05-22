@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import * as S from './CartStepperWithIcon.style';
-import { useCartLength } from '../../../../recoil/cart/cartState';
+import { useCartLength } from '../../../../recoil/cart/withCartLength';
 
 function CartStepperWithIcon() {
   const navigate = useNavigate();
