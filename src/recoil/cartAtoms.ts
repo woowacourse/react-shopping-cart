@@ -88,23 +88,6 @@ export const addCartItemSelector = selectorFamily<ProductItem, undefined>({
   }
 });
 
-export const removeCartItemSelector = selectorFamily<number, undefined>({
-  key: 'removeCartItemSelector',
-  get: () => () => {
-    // 오류 방지를 위해 아무 값이나 리턴
-    return -1;
-  },
-  set: () => ({get, set}, productId) => {
-    const id = productId as number;
-    const cartList = get(cartState);
-    if (confirm('정말로 삭제하시겠습니까?')) {
-      const removedCartList = cartList.filter((cart) => cart.id !== id);
-      set(cartState, removedCartList);
-      fetchDeleteCart(id);
-    }
-  },
-});
-
 export const updateCartItemQuantitySelector = selectorFamily<number, number>({
   key: 'updateCartItemQuantitySelector',
   get: () => () => {
@@ -133,6 +116,43 @@ export const updateCartItemQuantitySelector = selectorFamily<number, number>({
 
         fetchUpdateCart(productId, newQuantity as number);
       }
+    }
+  },
+});
+
+export const removeCartItemSelector = selectorFamily<number, undefined>({
+  key: 'removeCartItemSelector',
+  get: () => () => {
+    // 오류 방지를 위해 아무 값이나 리턴
+    return -1;
+  },
+  set: () => ({get, set}, productId) => {
+    const id = productId as number;
+    const cartList = get(cartState);
+    if (confirm('정말로 삭제하시겠습니까?')) {
+      const removedCartList = cartList.filter((cart) => cart.id !== id);
+      set(cartState, removedCartList);
+      fetchDeleteCart(id);
+    }
+  },
+});
+
+export const removeCartItemsSelector = selector<undefined>({
+  key: 'removeCartItemsSelector',
+  get: () => {
+    // 오류 방지를 위해 아무 값이나 리턴
+    return undefined;
+  },
+  set: ({get, set}) => {
+    const cartList = get(cartState);
+    const checkedCartList = get(checkedCartSelector);
+    if (confirm('정말로 삭제하시겠습니까?')) {
+      const targetIds = checkedCartList.map(cartList => cartList.id);
+      const removedCartList = cartList.filter((cart) => !targetIds.includes(cart.id));
+      set(cartState, removedCartList);
+      targetIds.forEach((id) => {
+        fetchDeleteCart(id);
+      });
     }
   },
 });
