@@ -60,6 +60,7 @@
       "last 1 safari version"
     ]
   },
+  "homepage": "https://n0eyes.github.io/react-shopping-cart",
   "devDependencies": {
     "@storybook/addon-essentials": "^7.0.9",
     "@storybook/addon-interactions": "^7.0.9",

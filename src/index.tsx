@@ -3,23 +3,25 @@ import ReactDOM from 'react-dom/client';
 import GlobalStyles from './styles/GlobalStyles';
 import App from './App';
 import { RecoilRoot } from 'recoil';
+import { worker } from './mocks/browser';
 
 (async () => {
-  const { worker } = await import('./mocks/browser');
   if (window.location.pathname === '/react-shopping-cart') {
-    window.location.pathname = '/react-shopping-cart/';
+    window.location.pathname += '/';
     return;
   }
 
-  if (process.env.NODE_ENV === 'development') {
-    await worker.start();
-  } else {
-    await worker.start({
-      serviceWorker: {
-        url: '/react-shopping-cart/mockServiceWorker.js',
-      },
-    });
-  }
+  await worker.start({
+    serviceWorker: {
+      url: `/react-shopping-cart/mockServiceWorker.js`,
+    },
+  });
+
+  // if (process.env.NODE_ENV === 'development') {
+  //   await worker.start();
+  // } else {
+
+  // }
 
   const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement

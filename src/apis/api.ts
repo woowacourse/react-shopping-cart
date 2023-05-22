@@ -3,7 +3,9 @@ import { getValidURL, handleStatusCode } from '../validation/errorHandler';
 import { CustomError } from '../validation/errors';
 
 const BASE =
-  process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : '.';
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3000/react-shopping-cart/'
+    : 'https://n0eyes.github.io/react-shopping-cart/';
 
 export type FetchQueryInstance = {
   [m in Method]: <T>(path: string, config?: ExternalConfig) => Promise<T>;
