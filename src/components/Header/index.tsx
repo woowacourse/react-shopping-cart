@@ -1,24 +1,23 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+
+import { useRecoilValue } from 'recoil';
+import { Link } from 'react-router-dom';
 import { cartState } from '@/atoms/cart';
-import { sum } from '@/utils/utils';
 
 const StyledHeaderWrapper = styled.header`
 	display: flex;
 	justify-content: center;
-
 	width: 100%;
 	height: 84px;
 	background-color: #333333;
 `;
 
 const StyledHeaderBox = styled.div`
-	width: 900px;
+	min-width: 900px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-
 	color: white;
 `;
 
@@ -47,22 +46,22 @@ const StyledCartAmount = styled.div`
 	width: 26px;
 	height: 26px;
 	border-radius: 50%;
-
 	background-color: #04c09e;
 `;
 
 const Header: React.FC = () => {
-	const cart = useRecoilValue(cartState);
-	const totalAmount = sum([...cart.map((item) => item.quantity)]);
+	const cartItems = useRecoilValue(cartState);
 
 	return (
 		<StyledHeaderWrapper>
 			<StyledHeaderBox>
 				<StyledTitle>SHOP</StyledTitle>
 				<StyledCartWrapper>
-					<StyledCart>장바구니</StyledCart>
+					<StyledCart>
+						<Link to="cart-detail">장바구니</Link>
+					</StyledCart>
 					<StyledCartAmount data-cy="cart-amount">
-						{totalAmount}
+						{cartItems?.length}
 					</StyledCartAmount>
 				</StyledCartWrapper>
 			</StyledHeaderBox>
