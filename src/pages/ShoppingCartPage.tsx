@@ -164,6 +164,7 @@ const PageTitle = styled.h2`
 
 const EmptyCartImgBackground = styled(FlexBox)`
   background-color: #f2f2f2;
+  padding: 20px 0;
 `;
 
 const EmptyCartImg = styled.img`
