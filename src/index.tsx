@@ -4,7 +4,7 @@ import App from "./App";
 import { worker } from "./mocks/browser";
 import GlobalStyle from "./style/GlobalStyle";
 
-worker.start();
+worker.start({ onUnhandledRequest: "bypass" });
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

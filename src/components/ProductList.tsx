@@ -1,16 +1,17 @@
 import styled from "styled-components";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { initialProductsState, productsState } from "../recoil/atom";
-import type { ProductListType, ProductType } from "../types/domain";
+import type { ProductType } from "../types/domain";
 import { useQuantity } from "../hooks/useQuantity";
 import { CartGrayIcon } from "../assets";
 import { Counter } from "./Counter";
 import { MIN_QUANTITY } from "../constants";
 import { addCartItem } from "../api";
 import { getNewProducts } from "../utils/domain";
+import { newProductsSelector } from "../recoil/selector";
 
 export const ProductList = () => {
-  const products = useRecoilValue<ProductListType>(productsState);
+  const products = useRecoilValue(productsState);
 
   return (
     <Wrapper>
@@ -21,16 +22,14 @@ export const ProductList = () => {
   );
 };
 
-const Product = ({ id, name, price, imageUrl }: ProductType) => {
+const Product = ({ id, name, price, imageUrl, quantity }: ProductType) => {
   const initialProducts = useRecoilValue(initialProductsState);
-  const { quantity } = useQuantity(id);
-  const setProducts = useSetRecoilState(productsState);
+  const [products, setProducts] = useRecoilState(productsState);
 
   const handleCartClicked = async () => {
     await addCartItem(id);
 
     const newProducts = await getNewProducts(initialProducts);
-    console.log(newProducts);
     setProducts(newProducts);
   };
 
@@ -40,7 +39,7 @@ const Product = ({ id, name, price, imageUrl }: ProductType) => {
       <NameBox>{name}</NameBox>
       <PriceBox>{price.toLocaleString()}원</PriceBox>
       <IconContainer>
-        {quantity === MIN_QUANTITY.toString() ? (
+        {quantity === MIN_QUANTITY ? (
           <img src={CartGrayIcon} alt={"카트"} onClick={handleCartClicked} />
         ) : (
           <Counter itemId={id} deleteable />

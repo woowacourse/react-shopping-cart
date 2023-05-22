@@ -1,12 +1,10 @@
-import { useRecoilValue } from "recoil";
 import { fetchCartItems } from "../api";
 import { MIN_QUANTITY } from "../constants";
-import { initialProductsState } from "../recoil/atom";
 import { CartItemType, PayloadType, ProductType } from "../types/domain";
 
 export const getNewProducts = async (products: PayloadType[]) => {
   const cartItems = await fetchCartItems();
-  console.log(cartItems);
+  console.log("cartItems ", cartItems);
 
   return products.map((product: PayloadType): ProductType => {
     const cartProduct = cartItems.find(
