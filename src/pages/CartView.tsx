@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import styled from "styled-components";
 import FullWidthTitle from "../components/common/FullWidthTitle/FullWidthTitle";
 import CartProductList from "../components/CartProductList/CartProductList";
 import { Suspense } from "react";
