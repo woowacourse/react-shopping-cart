@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 /**
  * 레이아웃 관련 CSS 스타일은 Bootstrap 기준으로 적용했습니다.

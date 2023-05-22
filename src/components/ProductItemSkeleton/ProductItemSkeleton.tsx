@@ -1,19 +1,23 @@
 import {
-  ProductDetails, ProductInfo, ProductItemBox,
-  ProductItemImage, ProductItemImageBox, ProductName, ProductPrice
-} from './ProductItemSkeleton.style.ts';
+  ProductDetails,
+  ProductInfo,
+  ProductItemBox,
+  ProductItemImage,
+  ProductItemImageBox,
+  ProductName,
+  ProductPrice,
+} from "./ProductItemSkeleton.style.ts";
 
 function ProductItemSkeleton() {
-
   return (
     <ProductItemBox>
       <ProductItemImageBox>
-        <ProductItemImage/>
+        <ProductItemImage />
       </ProductItemImageBox>
       <ProductDetails>
         <ProductInfo>
-          <ProductName/>
-          <ProductPrice/>
+          <ProductName />
+          <ProductPrice />
         </ProductInfo>
       </ProductDetails>
     </ProductItemBox>

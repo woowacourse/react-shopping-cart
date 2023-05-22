@@ -1,3 +1,3 @@
-import PurchaseBox from './PurchaseBox';
+import PurchaseBox from "./PurchaseBox";
 
 export default PurchaseBox;

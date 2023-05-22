@@ -1,3 +1,3 @@
-import HomeLayout from './HomeLayout';
+import HomeLayout from "./HomeLayout";
 
 export default HomeLayout;

@@ -1,24 +1,27 @@
-import type {CartItem} from "../../types/types";
+import type { CartItem } from "../../types/types";
 import CartController from "../CartController";
 import {
   CartItemControllerWrapper,
   CartItemImage,
-  CartItemInfo, CartItemInfoWrapper,
+  CartItemInfo,
+  CartItemInfoWrapper,
   CartItemLayout,
   CartItemName,
   CartItemPrice,
-  CartItemTrashImage
+  CartItemTrashImage,
 } from "./CartItem.style";
-import trashIcon from '../../assets/trash.png';
-import {useSetRecoilState} from "recoil";
-import {removeCartItemSelector, switchCartCheckboxSelector} from "../../recoil/cartAtoms.ts";
+import trashIcon from "../../assets/trash.png";
+import { useSetRecoilState } from "recoil";
+import {
+  removeCartItemSelector,
+  switchCartCheckboxSelector,
+} from "../../recoil/cartAtoms.ts";
 
 interface CartItemProps {
   cart: CartItem;
 }
 
-function CartItem({cart}: CartItemProps) {
-
+function CartItem({ cart }: CartItemProps) {
   const switchCheckbox = useSetRecoilState(switchCartCheckboxSelector);
   const removeCartItem = useSetRecoilState(removeCartItemSelector(undefined));
 
@@ -53,7 +56,7 @@ function CartItem({cart}: CartItemProps) {
               src={trashIcon}
               onClick={() => removeCartItem(cart.id)}
             />
-            <CartController product={cart.product}/>
+            <CartController product={cart.product} />
           </CartItemControllerWrapper>
         </CartItemInfo>
         <CartItemPrice>{cart.product.price.toLocaleString()}원</CartItemPrice>

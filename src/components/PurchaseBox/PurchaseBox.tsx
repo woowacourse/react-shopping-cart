@@ -1,13 +1,15 @@
 import {
   PurchaseBoxWrapper,
-  PurchaseButton, PurchaseButtonWrapper,
+  PurchaseButton,
+  PurchaseButtonWrapper,
   PurchasePropertyWrapper,
   PurchaseText,
   PurchaseTitle,
-  PurchaseWrapper, Vacant
+  PurchaseWrapper,
+  Vacant,
 } from "./PurchaseBox.style";
-import {useRecoilValue} from "recoil";
-import {totalPriceSelector} from "../../recoil/cartAtoms.ts";
+import { useRecoilValue } from "recoil";
+import { totalPriceSelector } from "../../recoil/cartAtoms.ts";
 
 function PurchaseBox() {
   const totalPrice = useRecoilValue(totalPriceSelector);
@@ -20,34 +22,22 @@ function PurchaseBox() {
       </PurchaseWrapper>
       <PurchaseWrapper>
         <PurchasePropertyWrapper>
-          <PurchaseText>
-            총 상품가격
-          </PurchaseText>
-          <PurchaseText>
-            {totalPrice.toLocaleString()}원
-          </PurchaseText>
+          <PurchaseText>총 상품가격</PurchaseText>
+          <PurchaseText>{totalPrice.toLocaleString()}원</PurchaseText>
         </PurchasePropertyWrapper>
         <PurchasePropertyWrapper>
-          <PurchaseText>
-            총 배송비
-          </PurchaseText>
-          <PurchaseText>
-            {DELIVERY_FEE.toLocaleString()}원
-          </PurchaseText>
+          <PurchaseText>총 배송비</PurchaseText>
+          <PurchaseText>{DELIVERY_FEE.toLocaleString()}원</PurchaseText>
         </PurchasePropertyWrapper>
-        <Vacant/>
+        <Vacant />
         <PurchasePropertyWrapper>
-          <PurchaseText>
-            총 주문 금액
-          </PurchaseText>
+          <PurchaseText>총 주문 금액</PurchaseText>
           <PurchaseText>
             {(totalPrice + DELIVERY_FEE).toLocaleString()}원
           </PurchaseText>
         </PurchasePropertyWrapper>
         <PurchaseButtonWrapper>
-          <PurchaseButton>
-            주문하기
-          </PurchaseButton>
+          <PurchaseButton>주문하기</PurchaseButton>
         </PurchaseButtonWrapper>
       </PurchaseWrapper>
     </PurchaseBoxWrapper>

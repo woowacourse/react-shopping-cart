@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const Navbar = styled.div`
   width: 100vw;
-  color: ${({theme}) => theme.color.light};
-  border-bottom: 1px solid ${({theme}) => theme.color.secondary};
+  color: ${({ theme }) => theme.color.light};
+  border-bottom: 1px solid ${({ theme }) => theme.color.secondary};
 `;
 
 export const HeaderWrapper = styled.div`
@@ -30,7 +30,7 @@ export const CartWrapper = styled.div`
 
 export const CartTitle = styled.div`
   font-size: 24px;
-  color: ${({theme}) => theme.color.dark};
+  color: ${({ theme }) => theme.color.dark};
 `;
 
 export const CartCountWrapper = styled.div`

@@ -10,7 +10,6 @@
 
 <img width="1337" alt="스크린샷 2023-05-22 17 27 42" src="https://github.com/gabrielyoon7/react-shopping-cart/assets/69189073/de1e34b9-c246-4564-a4c0-bbee426fa575">
 
-
 <br>
 
 ### 🧑‍🤝‍🧑 페어 (페어 프로그래밍으로 개발)

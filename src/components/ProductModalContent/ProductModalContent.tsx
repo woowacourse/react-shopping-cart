@@ -1,9 +1,11 @@
-import {useRecoilValue, useSetRecoilState} from "recoil";
-import {ProductItem} from "../../types/types.ts";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { ProductItem } from "../../types/types.ts";
 import CartController from "../CartController/index.tsx";
-import {modalOpenState} from "../../recoil/modalAtoms.tsx";
+import { modalOpenState } from "../../recoil/modalAtoms.tsx";
 import cartIcon from "../../assets/cart.svg";
-import {cartState, quantityByProductIdSelector} from "../../recoil/cartAtoms.ts";
+import {
+  quantityByProductIdSelector,
+} from "../../recoil/cartAtoms.ts";
 import {
   ModalCloseButton,
   ModalHeader,
@@ -13,11 +15,11 @@ import {
   ProductItemImageBox,
   ProductModalContentWrapper,
   ProductName,
-  ProductPrice
+  ProductPrice,
 } from "./ProductModalContent.style.ts";
 
-function ProductModalContent({product}: { product: ProductItem }) {
-  const {name, price, imageUrl} = product;
+function ProductModalContent({ product }: { product: ProductItem }) {
+  const { name, price, imageUrl } = product;
   const setModalOpen = useSetRecoilState(modalOpenState);
 
   const quantity = useRecoilValue(quantityByProductIdSelector(product.id));
@@ -34,22 +36,27 @@ function ProductModalContent({product}: { product: ProductItem }) {
       </ModalHeader>
       <ProductModalContentWrapper>
         <ProductItemImageBox>
-          <ProductItemImage src={imageUrl}/>
+          <ProductItemImage src={imageUrl} />
         </ProductItemImageBox>
         <ProductDetails>
           <div>
             <ProductName>{name}</ProductName>
             <ProductPrice>{price.toLocaleString()}원</ProductPrice>
           </div>
-          <div style={{display: 'flex', justifyContent: "space-between", width: '100%', alignItems: 'center'}}>
-            {
-              quantity > 0 && (
-                <div>
-                  <img src={cartIcon}></img>
-                </div>
-              )
-            }
-            <CartController product={product}/>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "100%",
+              alignItems: "center",
+            }}
+          >
+            {quantity > 0 && (
+              <div>
+                <img src={cartIcon}></img>
+              </div>
+            )}
+            <CartController product={product} />
           </div>
         </ProductDetails>
       </ProductModalContentWrapper>

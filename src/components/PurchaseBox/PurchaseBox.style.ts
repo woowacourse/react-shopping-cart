@@ -5,13 +5,13 @@ export const PurchaseBoxWrapper = styled.div`
   box-sizing: border-box;
   padding: 25px;
 
-  @media screen and (min-width: ${({theme}) => theme.breakpoints.lg}) {
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     width: 33.33%;
   }
 `;
 
 export const PurchaseWrapper = styled.div`
-  border: 1px solid ${({theme}) => theme.color.secondary};
+  border: 1px solid ${({ theme }) => theme.color.secondary};
   padding: 30px;
 `;
 

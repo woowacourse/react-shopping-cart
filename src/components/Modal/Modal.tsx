@@ -1,13 +1,20 @@
-import { ReactNode, useEffect, MouseEvent } from 'react';
-import { ModalContent, ModalWrapper } from './Modal.style';
+import { ReactNode, useEffect, MouseEvent } from "react";
+import { ModalContent, ModalWrapper } from "./Modal.style";
 
-const Modal = ({ isOpen, onClose, children }: { isOpen: boolean; onClose: () => void; children: ReactNode }) => {
-
+const Modal = ({
+  isOpen,
+  onClose,
+  children,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  children: ReactNode;
+}) => {
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = "auto";
     }
   }, [isOpen]);
 
@@ -21,9 +28,7 @@ const Modal = ({ isOpen, onClose, children }: { isOpen: boolean; onClose: () => 
 
   return (
     <ModalWrapper onClick={onClose}>
-      <ModalContent onClick={handleModalContentClick}>
-        {children}
-      </ModalContent>
+      <ModalContent onClick={handleModalContentClick}>{children}</ModalContent>
     </ModalWrapper>
   );
 };
