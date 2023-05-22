@@ -5,7 +5,6 @@ export const fetchProducts = async () => {
     return data;
   } catch (error) {
     console.log(error);
-    return [];
   }
 };
 

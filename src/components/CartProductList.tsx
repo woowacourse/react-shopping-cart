@@ -1,4 +1,4 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import type { ProductListType, ProductType } from "../types/domain";
 import styled from "styled-components";
 import { TrashCanIcon } from "../assets";
@@ -6,18 +6,15 @@ import { Counter } from "./Counter";
 import { cartProductsSelector } from "../recoil/selector";
 import { useCheckBox } from "../hooks/useCheckBox";
 import { deleteCartItem } from "../api";
-import { getNewProducts } from "../utils/domain";
-import { productsState, selectedProductsState } from "../recoil/atom";
+import { selectedProductsState } from "../recoil/atom";
 import { useFetch } from "../hooks/useFetch";
 
 export const CartProductList = () => {
-  const setProducts = useSetRecoilState(productsState);
   const cartProducts = useRecoilValue<ProductListType>(cartProductsSelector);
   const selectedProducts = useRecoilValue<ProductListType>(
     selectedProductsState
   );
   const { fetchNewProducts } = useFetch();
-
   const {
     checkedArray,
     allChecked,
@@ -31,7 +28,6 @@ export const CartProductList = () => {
     selectedProducts.forEach((product) => {
       deleteCartItem(product.id);
     });
-    console.log(checkedArray);
 
     removeCheckedArray();
     fetchNewProducts();
@@ -41,8 +37,7 @@ export const CartProductList = () => {
     await deleteCartItem(id);
 
     removeTargetIndex(index);
-    const newProducts = await getNewProducts();
-    setProducts(newProducts);
+    fetchNewProducts();
   };
 
   return (

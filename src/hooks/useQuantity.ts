@@ -16,18 +16,13 @@ export const useQuantity = (productId: number) => {
   );
 
   const setNewQuantity = async (newQuantity: number) => {
-    if (newQuantity === 0) {
-      await deleteCartItem(productId);
-
-      const newProducts = await getNewProducts();
-      setProducts(newProducts);
-      return;
-    }
     if (newQuantity > MAX_QUANTITY || newQuantity < MIN_QUANTITY) return;
 
-    setQuantity(newQuantity.toString());
-    await changeQuantity(productId, Number(newQuantity));
+    newQuantity === 0
+      ? await deleteCartItem(productId)
+      : await changeQuantity(productId, Number(newQuantity));
 
+    setQuantity(newQuantity.toString());
     const newProducts = await getNewProducts();
     setProducts(newProducts);
   };
