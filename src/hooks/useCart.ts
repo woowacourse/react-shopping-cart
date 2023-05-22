@@ -63,6 +63,7 @@ export const useSetCart = (id: number) => {
   const removeItemFromCart = () => {
     setCart((prev: CartItem[]) => {
       const { cart, cartItemIndex, alreadyHasCartItem } = findCartItemIndex(prev);
+      api.delete(`${CART_URL}/${id}`, { id });
 
       if (alreadyHasCartItem) return removeProduct(cart, cartItemIndex);
 

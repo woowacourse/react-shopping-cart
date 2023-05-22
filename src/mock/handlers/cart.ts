@@ -71,19 +71,10 @@ export const cartHandlers = [
   }),
 
   // 장바구니 아이템 삭제
-  rest.delete(`${CART_URL}/:id`, (req, res, ctx) => {
-    const cartItemId = Number(req.params.id);
+  rest.delete(`${CART_URL}/:id`, async (req, res, ctx) => {
+    const { id } = await req.json();
     const cart = JSON.parse(getDataFromLocalStorage(KEY_CART));
-    const isInCart = (id: number) => cart.some((cartItem: CartItem) => cartItem.product.id === id);
-    const productExists = isInCart(cartItemId);
-    const updatedCart = cart.filter((cartItem: CartItem) => cartItem.id !== cartItemId);
-
-    if (!productExists) {
-      return res(
-        ctx.status(404),
-        ctx.json({ message: '장바구니에 해당 상품이 존재하지 않습니다.' })
-      );
-    }
+    const updatedCart = cart.filter((cartItem: CartItem) => cartItem.id !== id);
 
     updateLocalStorage(updatedCart);
 
