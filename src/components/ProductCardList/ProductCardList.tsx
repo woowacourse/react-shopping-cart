@@ -1,12 +1,19 @@
-// @ts-nocheck
-
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import ProductCard from "../ProductCard/ProductCard";
-import { useRecoilValue } from "recoil";
-import { fetchProductsSelector } from "../../store/apiProductSelector";
+import { useEffect } from "react";
+import { useRecoilValue, useRecoilRefresher_UNSTABLE } from "recoil";
+import { productsAtom, cartProductsAtom } from "../../store/fetchAtoms";
 
 const ProductCardList = () => {
-  const products = useRecoilValue(fetchProductsSelector);
+  const products = useRecoilValue(productsAtom);
+  const cartProducts = useRecoilValue(cartProductsAtom);
+  const refreshProducts = useRecoilRefresher_UNSTABLE(productsAtom);
+  const refreshCartProducts = useRecoilRefresher_UNSTABLE(cartProductsAtom);
+
+  useEffect(() => {
+    refreshProducts();
+    refreshCartProducts();
+  }, [refreshProducts, refreshCartProducts]);
 
   return (
     <ProductCardListContainer>
@@ -17,11 +24,27 @@ const ProductCardList = () => {
           productImage={product.imageUrl}
           productName={product.name}
           productPrice={product.price}
+          productQuantity={
+            (
+              cartProducts.find(
+                (cartProduct) => cartProduct.id === product.id
+              ) || { quantity: 0 }
+            ).quantity
+          }
         />
       ))}
     </ProductCardListContainer>
   );
 };
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
 
 const ProductCardListContainer = styled.div`
   display: grid;
@@ -32,6 +55,7 @@ const ProductCardListContainer = styled.div`
   max-width: 1270.43px;
   height: auto;
   margin: 0 auto 100px auto;
+  animation: ${fadeIn} 0.3s;
 
   @media (max-width: 1300px) {
     grid-template-columns: repeat(3, 1fr);
