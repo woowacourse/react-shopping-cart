@@ -3,6 +3,7 @@ import ProductListPage from 'pages/ProductListPage';
 import ROUTE_PATH from 'constants/routePath';
 import Layout from 'components/Layout/Layout';
 import ShoppingCartPage from 'pages/ShoppingCartPage';
+import { Suspense } from 'react';
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,11 @@ const router = createBrowserRouter([
       },
       {
         path: ROUTE_PATH.cart,
-        element: <ShoppingCartPage />,
+        element: (
+          <Suspense fallback={<div>장바구니 페이지 로딩중...</div>}>
+            <ShoppingCartPage />
+          </Suspense>
+        ),
       },
     ],
   },
