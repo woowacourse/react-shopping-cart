@@ -1,30 +1,18 @@
-import { atom, selector } from 'recoil';
-import type { AtomEffect } from 'recoil';
-import type { CartItem } from '../types/types';
+import { atom } from 'recoil';
 
-const localStorageEffect: <T>(key: string) => AtomEffect<T> =
-  (key: string) =>
-  ({ setSelf, onSet }) => {
-    const localValue = localStorage.getItem(key);
-    if (localValue) {
-      setSelf(JSON.parse(localValue));
-    }
-    onSet((newValue, _, isReset) =>
-      isReset ? localStorage.removeItem(key) : localStorage.setItem(key, JSON.stringify(newValue)),
-    );
-  };
+type ModalType = {
+  isOpen: boolean;
+  callBack?: () => void;
+};
 
-export const cartListState = atom<CartItem[]>({
-  key: 'cartLists',
+export const checkCartListState = atom<number[]>({
+  key: 'checkCartLists',
   default: [],
-  effects: [localStorageEffect<CartItem[]>('cartList')],
 });
 
-export const cartItemTotalQuantityState = selector({
-  key: 'totalQuantity',
-  get: ({ get }) => {
-    const cartList = get(cartListState);
-
-    return cartList.map((cartItem) => cartItem.quantity).reduce((prev, curr) => prev + curr, 0);
+export const deleteModalState = atom<ModalType>({
+  key: 'deleteModal',
+  default: {
+    isOpen: false,
   },
 });
