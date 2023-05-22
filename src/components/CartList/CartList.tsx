@@ -9,7 +9,8 @@ function CartList() {
   const checkedCartListCount = useRecoilValue(checkedCartCountSelector);
   const cartCount = useRecoilValue(cartCountSelector);
   const isAllCartItemChecked = useRecoilValue(allCartCheckedSelector);
-  const { switchAllCheckboxes } = useCart();
+
+  const { switchAllCheckboxes, removeCheckedCartList } = useCart();
 
   return (
     <CartListWrapper>
@@ -27,7 +28,7 @@ function CartList() {
         >
           전체선택 ({checkedCartListCount}/{cartCount})
         </CartListCheckCounter>
-        <CartsDeleteButton>선택삭제</CartsDeleteButton>
+        <CartsDeleteButton onClick={() => removeCheckedCartList()}>선택삭제</CartsDeleteButton>
       </CartListController>
     </CartListWrapper>
   );

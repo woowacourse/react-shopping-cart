@@ -1,5 +1,5 @@
-import {atom, selector} from 'recoil';
-import {CartItem} from '../types/types';
+import { atom, selector } from 'recoil';
+import { CartItem } from '../types/types';
 
 export const cartState = atom<CartItem[]>({
   key: 'cartState',
@@ -8,15 +8,15 @@ export const cartState = atom<CartItem[]>({
 
 export const cartCountSelector = selector({
   key: 'cartCountSelector',
-  get: ({get}) => {
+  get: ({ get }) => {
     const cartList = get(cartState);
     return cartList.length;
   }
 });
 
-const checkedCartSelector = selector({
+export const checkedCartSelector = selector({
   key: 'checkedCartSelector',
-  get: ({get}) => {
+  get: ({ get }) => {
     const cartList = get(cartState);
     const checkedCartLst = cartList.filter((cartItem) => cartItem.checked);
     return checkedCartLst;
@@ -25,7 +25,7 @@ const checkedCartSelector = selector({
 
 export const checkedCartCountSelector = selector({
   key: 'checkedCartCountSelector',
-  get: ({get}) => {
+  get: ({ get }) => {
     const checkedCartList = get(checkedCartSelector);
     return checkedCartList.length;
   }
@@ -33,21 +33,21 @@ export const checkedCartCountSelector = selector({
 
 export const allCartCheckedSelector = selector({
   key: 'allCartCheckedSelector',
-  get: ({get}) => {
+  get: ({ get }) => {
     const cartList = get(cartState);
     const cartCount = get(cartCountSelector);
     if (cartCount > 0) {
       const isAllCartItemChecked = cartList.every((cartItem) => cartItem.checked);
       return isAllCartItemChecked;
     }
-    
+
     return false;
   }
 });
 
 export const totalPriceSelector = selector({
   key: 'totalPriceSelector',
-  get: ({get}) => {
+  get: ({ get }) => {
     const checkedCartList = get(checkedCartSelector);
     const totalPrice = checkedCartList.reduce((acc, cartItem) => acc + (cartItem.quantity * cartItem.product.price), 0);
     return totalPrice;

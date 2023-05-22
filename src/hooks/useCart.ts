@@ -1,12 +1,13 @@
-import {useRecoilState, useRecoilValue} from 'recoil';
-import type {NewCartItem, ProductItem} from '../types/types';
-import {allCartCheckedSelector, cartState} from '../recoil/cartAtoms';
-import {fetchAddCart, fetchDeleteCart, fetchUpdateCart} from '../api/api';
-import {initCartListCheckbox, updateCartCheckbox, updateCartListQuantity} from '../domain/cart';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import type { NewCartItem, ProductItem } from '../types/types';
+import { allCartCheckedSelector, cartState, checkedCartSelector } from '../recoil/cartAtoms';
+import { fetchAddCart, fetchDeleteCart, fetchUpdateCart } from '../api/api';
+import { initCartListCheckbox, updateCartCheckbox, updateCartListQuantity } from '../domain/cart';
 
 function useCart() {
   const [cartList, setCartList] = useRecoilState(cartState);
   const isAllCartItemChecked = useRecoilValue(allCartCheckedSelector);
+  const checkedCartList = useRecoilValue(checkedCartSelector);
 
   const addCart = (product: ProductItem) => {
     const isCartItemExist = cartList.some((cartItem) => cartItem.id === product.id);
@@ -29,6 +30,17 @@ function useCart() {
       const removedCartList = cartList.filter((cart) => cart.id !== id);
       setCartList(removedCartList);
       fetchDeleteCart(id);
+    }
+  };
+
+  const removeCheckedCartList = () => {
+    if (confirm('정말로 삭제하시겠습니까?')) {
+      const targetIds = checkedCartList.map(cartList => cartList.id);
+      const removedCartList = cartList.filter((cart) => !targetIds.includes(cart.id));
+      setCartList(removedCartList);
+      targetIds.forEach((id) => {
+        fetchDeleteCart(id);
+      });
     }
   };
 
@@ -55,6 +67,7 @@ function useCart() {
   return {
     addCart,
     removeCart,
+    removeCheckedCartList,
     setCartQuantity,
     switchCheckbox,
     switchAllCheckboxes
