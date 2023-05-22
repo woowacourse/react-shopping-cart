@@ -55,7 +55,7 @@ const handlers = [
   }),
 
   // 장바구니 아이템 조회
-  rest.get('/cart-items', (req, res, ctx) => res(ctx.delay(400), ctx.status(200), ctx.json(cartItems))),
+  rest.get('/cart-items', (req, res, ctx) => res(ctx.delay(100), ctx.status(200), ctx.json(cartItems))),
 
   // 장바구니 아이템 추가
   rest.post<CartItem>('/cart-items', async (req, res, ctx) => {
@@ -70,7 +70,7 @@ const handlers = [
     cartItems.push(item as CartItem);
     setLocalStorage(LOCAL_STORAGE_KEY.CART_ITEM, cartItems);
 
-    return res(ctx.status(201), ctx.set('Location', `/cart-items/${item.id}`));
+    return res(ctx.delay(100), ctx.status(201), ctx.set('Location', `/cart-items/${item.id}`));
   }),
 
   // 장바구니 아이템 수량 변경
@@ -87,7 +87,7 @@ const handlers = [
     cartItems[itemIndex].quantity = quantity;
     setLocalStorage(LOCAL_STORAGE_KEY.CART_ITEM, cartItems);
 
-    return res(ctx.status(200));
+    return res(ctx.delay(100), ctx.status(200));
   }),
 
   // 장바구니 아이템 삭제
@@ -98,7 +98,7 @@ const handlers = [
     if (itemIndex >= 0) {
       cartItems.splice(itemIndex, 1);
       setLocalStorage(LOCAL_STORAGE_KEY.CART_ITEM, cartItems);
-      return res(ctx.status(204), ctx.set('Location', `/cart-items/${cartItemsId}`));
+      return res(ctx.delay(100), ctx.status(204), ctx.set('Location', `/cart-items/${cartItemsId}`));
     }
     return res(ctx.status(404));
   }),
