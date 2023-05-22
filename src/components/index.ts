@@ -11,6 +11,7 @@ export { default as ProductList } from './trees/ProductList/ProductList';
 export { default as CartList } from './trees/CartList/CartList';
 
 export { default as Root } from './pages/Root';
+export { default as Loading } from './pages/Loading';
 export { default as Error } from './pages/Error';
 export { default as NotFound } from './pages/NotFound/NotFound';
 export { default as ProductListPage } from './pages/ProductListPage';

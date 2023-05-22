@@ -8,13 +8,15 @@ import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from './styles/global-style';
 import Theme from './styles/theme';
 
+import { Error, Loading } from './components';
+
 function App() {
   return (
     <ThemeProvider theme={Theme}>
       <GlobalStyle />
       <RecoilRoot>
-        <ErrorBoundary fallback={<div>에러가 발생했어요</div>}>
-          <Suspense fallback={<div>로딩 중...</div>}>
+        <ErrorBoundary fallback={<Error></Error>}>
+          <Suspense fallback={<Loading></Loading>}>
             <RouterProvider router={router} />
           </Suspense>
         </ErrorBoundary>
