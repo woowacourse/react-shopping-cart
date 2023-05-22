@@ -46,11 +46,10 @@ const useCartItems = () => {
     if (!cartItems) return;
 
     const index = cartItems.findIndex((cartItem) => cartItem.id === id);
-    let cartItem = cartItems[index];
-    const isSelected = cartItem.isSelected;
-    cartItem = { ...cartItem, isSelected: !isSelected };
+    const newCartItem = { ...cartItems[index], isSelected: !isSelected(id) };
+
     const newCartItems = [...cartItems];
-    newCartItems.splice(index, 1, cartItem);
+    newCartItems.splice(index, 1, newCartItem);
 
     setCartItems(newCartItems);
   };
