@@ -13,28 +13,27 @@ import {
   useRecoilState,
   useRecoilValue,
 } from "recoil";
-import { cartData, cartState } from "../../atoms/cartState";
+import { cartState } from "../../atoms/cartState";
 import useSelect from "../../hooks/useSelect";
 import { useEffect } from "react";
 import { deleteCartProduct } from "../../api/cart";
+import { useRefreshableRecoilState } from "../../hooks/useRefreshableAtom";
+import { CartType } from "../../type/cart";
 
 export default function CartSelector() {
   const {
     selected: selectedProduct,
     toggleSelectBox: toggleProductSelect,
     toggleAll,
+    deleteId,
   } = useSelect();
-  const carts = useRecoilValue(cartData);
-  const [cartsData, setCartsData] = useRecoilState(cartState);
-  const refresh = useRecoilRefresher_UNSTABLE(cartData);
-
-  useEffect(() => {
-    setCartsData(carts);
-  }, [carts]);
+  const [cartsData, setCartsData] =
+    useRefreshableRecoilState<CartType[]>(cartState);
+  const refresh = useRecoilRefresher_UNSTABLE(cartState);
 
   function getCount(count: number, id: number) {
     setCartsData(
-      cartsData.map((cart: any) =>
+      cartsData.map((cart: CartType) =>
         cart.id === id ? { ...cart, quantity: count } : cart
       )
     );
@@ -42,7 +41,7 @@ export default function CartSelector() {
 
   function increaseQuantity(id: number) {
     setCartsData(
-      cartsData.map((cart: any) =>
+      cartsData.map((cart: CartType) =>
         cart.id === id ? { ...cart, quantity: cart.quantity + 1 } : cart
       )
     );
@@ -50,7 +49,7 @@ export default function CartSelector() {
 
   function decreaseQuantity(id: number) {
     setCartsData(
-      cartsData.map((cart: any) =>
+      cartsData.map((cart: CartType) =>
         cart.id === id
           ? {
               ...cart,
@@ -61,11 +60,22 @@ export default function CartSelector() {
     );
   }
 
-  async function deleteProduct(id: number) {
-    const response = await deleteCartProduct([id]);
+  async function deleteProduct(id: number[]) {
+    id.forEach((itemId) => {
+      deleteId(itemId);
+    });
+    const response = await deleteCartProduct(id);
     if (response.ok) {
       refresh();
     }
+  }
+
+  async function selectDelete() {
+    (Array.from(selectedProduct) as number[]).forEach((itemId) => {
+      deleteId(itemId);
+    });
+
+    await deleteProduct(Array.from(selectedProduct) as number[]);
   }
 
   return (
@@ -81,7 +91,7 @@ export default function CartSelector() {
           <>선택된 상품 {selectedProduct.size} 개 </>
         </SelectorTitle>
         <OptionGroup>
-          {cartsData.map((item: any, index) => (
+          {cartsData.map((item: CartType, index) => (
             <Option>
               <OptionIndicator
                 onClick={() => toggleProductSelect(item.product.id)}
@@ -100,7 +110,7 @@ export default function CartSelector() {
                   </ProductInfo>
                   <ProductCount>
                     <DeleteButtonIc
-                      onClick={() => deleteProduct(item.product.id)}
+                      onClick={() => deleteProduct([item.product.id])}
                     />
                     <QuantityCounter
                       count={item.quantity}
@@ -116,6 +126,9 @@ export default function CartSelector() {
             </Option>
           ))}
         </OptionGroup>
+        <SelectDeleteButton onClick={selectDelete}>
+          선택 삭제
+        </SelectDeleteButton>
       </Wrapper>
     </SelectBox>
   );
@@ -168,4 +181,9 @@ const ProductCount = styled.div`
   justify-content: space-around;
 
   height: 11rem;
+`;
+
+const SelectDeleteButton = styled.button`
+  height: 2rem;
+  width: 10rem;
 `;

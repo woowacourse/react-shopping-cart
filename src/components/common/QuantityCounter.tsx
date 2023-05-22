@@ -11,26 +11,26 @@ import { useState } from "react";
 import { patchProductCount } from "../../api/cart";
 import { useEffect } from "react";
 import { useRecoilRefresher_UNSTABLE } from "recoil";
-import { cartData } from "../../atoms/cartState";
+import { cartState } from "../../atoms/cartState";
 
 interface QuantityCounterProps {
   count: number;
-  getCount: any;
-  increaseQuantity: any;
-  decreaseQuantity: any;
-  id?: number;
+  getCount: (count: number, id: number) => void;
+  increaseQuantity: (id: number) => void;
+  decreaseQuantity: (id: number) => void;
+  id: number;
 }
 export function QuantityCounter(props: QuantityCounterProps) {
   const { count, getCount, increaseQuantity, decreaseQuantity, id } = props;
-  const refresh = useRecoilRefresher_UNSTABLE(cartData);
+  const refresh = useRecoilRefresher_UNSTABLE(cartState);
 
-  function handleChange(e: any) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     validateNumberRange(e);
-    id ? getCount(+e.target.value, id) : getCount(+e.target.value);
+    getCount(+e.target.value, id);
   }
 
   useEffect(() => {
-    id && patchProductCount(id, count);
+    patchProductCount(id, count);
     refresh();
   }, [count]);
 
@@ -42,12 +42,10 @@ export function QuantityCounter(props: QuantityCounterProps) {
         value={count}
       />
       <ButtonWrapper>
-        <CountButton
-          onClick={() => (id ? increaseQuantity(id) : increaseQuantity())}>
+        <CountButton onClick={() => increaseQuantity(id)}>
           <UpButtonIc />
         </CountButton>
-        <CountButton
-          onClick={() => (id ? decreaseQuantity(id) : decreaseQuantity())}>
+        <CountButton onClick={() => decreaseQuantity(id)}>
           <DownButtonIc />
         </CountButton>
       </ButtonWrapper>

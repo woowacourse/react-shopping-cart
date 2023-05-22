@@ -3,13 +3,14 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 import { totalCartCount } from "../atoms/cartState";
+import { useRefreshableRecoilValue } from "../hooks/useRefreshableAtom";
 
 interface CartQuantityProps {
   user?: string;
 }
 
 export default function CartQuantity({ user }: CartQuantityProps) {
-  const totalCart = useRecoilValue(totalCartCount);
+  const totalCart = useRefreshableRecoilValue(totalCartCount);
   const navigate = useNavigate();
 
   function moveCartPage() {

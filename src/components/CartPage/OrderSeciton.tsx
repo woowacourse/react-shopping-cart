@@ -79,4 +79,6 @@ const OrderButton = styled.button`
   height: 7.3rem;
 
   margin-top: 4.6rem;
+
+  ${({ theme }) => theme.fonts.h2}
 `;

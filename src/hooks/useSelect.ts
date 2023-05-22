@@ -25,5 +25,11 @@ export default function useSelect() {
     setSelected(new Set(options));
   }
 
-  return { selected, toggleSelectBox, toggleAll };
+  function deleteId(id: number) {
+    const newSet = new Set(selected);
+    newSet.delete(id);
+    setSelected(newSet);
+  }
+
+  return { selected, toggleSelectBox, toggleAll, deleteId };
 }

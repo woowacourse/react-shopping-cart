@@ -17,7 +17,10 @@ export default function SelectorTitle(props: SelectorTitleProps) {
 }
 
 const DefaultSelectorTitleStyle = styled.div`
+  width: 74rem;
+
   padding: 3.4rem 0 2rem;
 
   border-bottom: 0.4rem solid ${({ theme }) => theme.colors.gray200};
+  ${({ theme }) => theme.fonts.h2}
 `;

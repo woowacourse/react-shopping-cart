@@ -1,15 +1,20 @@
 import { useState } from "react";
-import { useSetRecoilState } from "recoil";
-
+import { useRecoilValue } from "recoil";
 import { cartState } from "../atoms/cartState";
-import { CartType } from "../type/cart";
+import { useRefreshableRecoilValue } from "./useRefreshableAtom";
 
 export function useAddCart() {
   const [isSelected, setIsSelected] = useState(false);
+  const carts = useRefreshableRecoilValue(cartState);
 
-  const selectProductItem = () => {
+  function selectProductItem() {
     isSelected ? setIsSelected(false) : setIsSelected(true);
-  };
+  }
 
-  return { isSelected, selectProductItem };
+  function checkInitAddProduct(productId: number) {
+    const isInit = carts?.every((item: any) => item.product.id !== productId);
+    return isInit;
+  }
+
+  return { isSelected, selectProductItem, checkInitAddProduct };
 }
