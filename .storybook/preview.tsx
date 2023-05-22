@@ -19,7 +19,7 @@ if (location.hostname === 'leejin-yang.github.io') {
   };
 }
 
-initialize();
+initialize(options);
 
 export const decorators = [
   (Story) => (
