@@ -1,11 +1,10 @@
 import type { CartItemType } from '../../../types';
 import { Link } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import CartItem from '../../leafs/CartItem/CartItem';
-import CheckBox from '../../leafs/CheckBox/CheckBox';
-import { cartState, selectedCartState } from '../../../recoil/state';
+import { CartItem, CheckBox } from '../../../components';
+import { selectedCartState } from '../../../recoil/state';
 import useCart from '../../../hooks/useCart';
 
 interface CartListProps {
@@ -13,7 +12,7 @@ interface CartListProps {
 }
 
 export default function CartList({ cartItems }: CartListProps) {
-  const [selectedCart, setSelectedCart] = useRecoilState(selectedCartState);
+  const selectedCart = useRecoilValue(selectedCartState);
   const [, , removeCartItem] = useCart();
 
   function handleDeleteClick() {

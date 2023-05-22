@@ -2,6 +2,8 @@ export { default as Counter } from './leafs/Counter/Counter';
 export { default as Estimate } from './leafs/Estimate/Estimate';
 export { default as Header } from './leafs/Header/Header';
 export { default as Product } from './leafs/Product/Product';
+export { default as CartItem } from './leafs/CartItem/CartItem';
+export { default as CheckBox } from './leafs/CheckBox/CheckBox';
 export { default as ProductList } from './trees/ProductList/ProductList';
 export { default as Root } from './pages/Root';
 export { default as Error } from './pages/Error';
