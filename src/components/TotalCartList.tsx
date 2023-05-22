@@ -17,16 +17,19 @@ export const TotalCartList = () => {
       <TotalPriceWrapper>
         <SelectedProductPrice>
           <span>총 선택상품금액</span>
-          <span>{totalPrice}원</span>
+          <span>{totalPrice} 원</span>
         </SelectedProductPrice>
         <SelectedProductPrice>
           <span>배송비</span>
-          <span>{totalPrice && deliveryFee}원</span>
+
+          <span>{totalPrice && deliveryFee.toLocaleString('ko-KR')} 원</span>
         </SelectedProductPrice>
         <Hypen></Hypen>
         <SelectedProductPrice>
           <span>예상 주문금액</span>
-          <span>{totalPrice && totalPrice + deliveryFee}원</span>
+          <span>
+            {totalPrice && (deliveryFee + totalPrice).toLocaleString('ko-KR')}원
+          </span>
         </SelectedProductPrice>
         <Hypen></Hypen>
       </TotalPriceWrapper>
