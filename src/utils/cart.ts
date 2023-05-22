@@ -79,3 +79,9 @@ export const calculateSelectCartTotalPrice = (cart: CartInformation[]) => {
     return accumulator;
   }, 0);
 };
+
+export const cartItemSelectedById = (cart: CartInformation[]) => {
+  return cart
+    .filter((cartItem) => cartItem.isSelect === true)
+    .map((cartItem) => cartItem.id);
+};
