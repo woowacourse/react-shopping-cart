@@ -15,8 +15,7 @@ export default function Product(props: ProductProps) {
   const cartItem = cart.find((item) => item.product.id === id);
 
   const handleClickIcon = () => {
-    const newCartItem = { id: Date.now(), quantity: 1, product: props };
-    addCartItem(newCartItem);
+    addCartItem(id);
     setQuantityInput('1');
   };
 
@@ -38,9 +37,9 @@ export default function Product(props: ProductProps) {
 
     const quantity = Number(quantityInput);
     if (quantity === 0) {
-      removeCartItem(id);
-    } else {
-      updateQuantity(id, quantity);
+      removeCartItem(props.id);
+    } else if (cartItem) {
+      updateQuantity(props.id, quantity);
     }
   }, [quantityInput]);
 
