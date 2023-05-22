@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import ProductQuantityInput from "../TransformQuantityInput/TransformQuantityInput";
-import type { ProductCardProps } from "../../types";
+import type { ProductCardProps, IdQuantity } from "../../types";
+import { useCartQuantityUpdater } from "../../hooks/useCartInfosUpdater";
+import dataUploader from "../../domains/dataUploader";
 
 const ProductCard = ({
   productId,
@@ -9,6 +11,17 @@ const ProductCard = ({
   productPrice,
   productQuantity,
 }: ProductCardProps) => {
+  const { updateCartQuantity } = useCartQuantityUpdater();
+
+  const uploadQuantity = ({ id, quantity }: IdQuantity) => {
+    if (quantity === 1) {
+      dataUploader.addCartProduct({ productId: id });
+      return;
+    }
+
+    dataUploader.updateQuantity({ id, quantity });
+  };
+
   return (
     <ProductCardContainer>
       <ProductImage src={productImage} alt="productImage" />
@@ -18,6 +31,8 @@ const ProductCard = ({
           <ProductQuantityInput
             productId={productId}
             initialValue={productQuantity}
+            minValue={0}
+            quantityUpdateCallbacks={[updateCartQuantity, uploadQuantity]}
           />
         </InputWrapper>
         <ProductPrice>₩ {productPrice.toLocaleString()}</ProductPrice>
