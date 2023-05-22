@@ -48,7 +48,7 @@ export const Interaction: Story = {
     const addButton2 = document.querySelector('button[aria-label="add item"]')!;
     await userEvent.click(addButton2);
 
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     const buyButton2 = canvas.queryAllByRole('button')[0];
     expect(buyButton2).toHaveTextContent('23');
