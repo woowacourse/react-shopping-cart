@@ -61,6 +61,16 @@ export const CartItemContainer = () => {
     );
   }, []);
 
+  if (cartLists.length === 0) {
+    return (
+      <Styled.EmptyWrapper>
+        <ContainerTitle color="#333333">
+          장바구니에 담긴 상품이 없어요.
+        </ContainerTitle>
+      </Styled.EmptyWrapper>
+    );
+  }
+
   return (
     <Styled.Wrapper>
       <div>

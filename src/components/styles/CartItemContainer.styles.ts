@@ -42,3 +42,16 @@ export const TotalCheckboxInputWrapper = styled.div`
   align-items: center;
   margin-right: 24px;
 `;
+
+export const EmptyWrapper = styled.div`
+  max-width: 660px;
+  width: 100%;
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  p:nth-child(1) {
+    margin-top: 56px;
+  }
+`;
