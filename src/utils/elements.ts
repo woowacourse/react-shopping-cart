@@ -1,7 +1,12 @@
-import { Attributes, Children, cloneElement, isValidElement } from "react";
+import React, {
+  Attributes,
+  Children,
+  cloneElement,
+  isValidElement,
+} from "react";
 
 export function createCustomElement<T>(
-  children: any,
+  children: React.ReactElement | React.ReactElement[] | undefined,
   props: (Partial<T> & Attributes) | undefined
 ) {
   const customElement = Children.only(children);

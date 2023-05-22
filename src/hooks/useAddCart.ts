@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { cartState } from "../atoms/cartState";
+import { CartType } from "../type/cart";
 import { useRefreshableRecoilValue } from "./useRefreshableAtom";
 
 export function useAddCart() {
@@ -12,7 +13,9 @@ export function useAddCart() {
   }
 
   function checkInitAddProduct(productId: number) {
-    const isInit = carts?.every((item: any) => item.product.id !== productId);
+    const isInit = carts?.every(
+      (item: CartType) => item.product.id !== productId
+    );
     return isInit;
   }
 

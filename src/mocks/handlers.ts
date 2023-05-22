@@ -1,6 +1,7 @@
 import { rest } from "msw";
+import { CartType } from "../type/cart";
 
-let dummy: any = [];
+let dummy: CartType[] = [];
 
 export const handlers = [
   rest.get("/products", (req, res, ctx) => {
@@ -110,7 +111,7 @@ export const handlers = [
     const { cartItemId } = req.params;
     const { quantity } = await req.json();
 
-    dummy = dummy.map((item: any) => {
+    dummy = dummy.map((item: CartType) => {
       if (item.product.id === +cartItemId) {
         return { ...item, quantity };
       }
@@ -124,12 +125,12 @@ export const handlers = [
     const { cartItemId } = await req.json();
 
     dummy = dummy
-      .map((item: any) => {
+      .map((item: CartType) => {
         if (!cartItemId?.includes(item.product.id)) {
           return item;
         }
       })
-      .filter((item: any) => item !== undefined);
+      .filter((item: CartType | undefined) => item !== undefined) as CartType[];
 
     return res(ctx.status(200));
   }),
