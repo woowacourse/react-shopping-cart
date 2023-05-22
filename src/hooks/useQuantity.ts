@@ -40,7 +40,6 @@ const useQuantityUpdater = ({
   };
 
   useEffect(() => {
-    alert(isFirstRender.current);
     if (isFocused) {
       return;
     }
