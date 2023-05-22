@@ -118,8 +118,6 @@ export const handlers = [
   }),
 
   rest.get('/cart-items', (req, res, ctx) => {
-    console.log('>>> server:', cartList);
-
     return res(ctx.delay(500), ctx.status(200), ctx.json(cartList));
   }),
 
@@ -140,7 +138,6 @@ export const handlers = [
       });
     }
 
-    console.log('>>> server:', cartList);
     return res(ctx.delay(500), ctx.status(200), ctx.json('SUCCESS'));
   }),
 
@@ -149,8 +146,6 @@ export const handlers = [
     const productId = Number(idData);
 
     cartList = cartList.filter((product) => product.id !== productId);
-
-    console.log('>>> server:', cartList);
 
     return res(ctx.delay(500), ctx.status(200), ctx.json('SUCCESS'));
   }),
@@ -172,8 +167,6 @@ export const handlers = [
         return cartProduct;
       }
     });
-
-    console.log('>>> server:', cartList);
 
     return res(ctx.delay(500), ctx.status(200), ctx.json('SUCCESS'));
   }),
