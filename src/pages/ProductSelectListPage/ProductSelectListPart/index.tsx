@@ -15,16 +15,16 @@ import * as S from './style';
 
 type ProductSelectListPartProps = {
   checkController: {
-    parentCheckbox: React.MutableRefObject<boolean>;
+    isAllItemSelect: boolean;
     checkedItemsId: number[];
     updateEachItemCheckStatus: (id: number) => () => void;
-    updateAllItemCheckState: (state: 'check' | 'uncheck') => void;
+    updateAllItemCheckState: () => void;
   };
 };
 
 function ProductSelectListPart({ checkController }: ProductSelectListPartProps) {
   const [shoppingCart] = useRecoilState<ShoppingCartProduct[]>(shoppingCartState);
-  const { parentCheckbox, checkedItemsId, updateEachItemCheckStatus, updateAllItemCheckState } = checkController;
+  const { isAllItemSelect, checkedItemsId, updateEachItemCheckStatus, updateAllItemCheckState } = checkController;
 
   const shoppingItemAmount = useRecoilValue(shoppingItemsAmountState);
   const { deleteShoppingItems } = useShoppingCart();
@@ -33,13 +33,11 @@ function ProductSelectListPart({ checkController }: ProductSelectListPartProps) 
 
   const toggleChecked = () => {
     if (checkedItemAmount !== shoppingItemAmount) {
-      updateAllItemCheckState('check');
-      parentCheckbox.current = true;
+      updateAllItemCheckState();
       return;
     }
 
-    updateAllItemCheckState('uncheck');
-    parentCheckbox.current = false;
+    updateAllItemCheckState();
   };
 
   const deleteCheckedShoppingItem = () => {
@@ -50,7 +48,7 @@ function ProductSelectListPart({ checkController }: ProductSelectListPartProps) 
     <S.ProductSelectListPart>
       <S.ProductSelectListTitle>상품 목록</S.ProductSelectListTitle>
       <S.ProductSelectController>
-        <Checkbox isChecked={parentCheckbox.current} changeEvent={toggleChecked} />
+        <Checkbox isChecked={isAllItemSelect} changeEvent={toggleChecked} />
         <S.SelectedProductAmount>
           전체 선택({checkedItemAmount}/{shoppingItemAmount})
         </S.SelectedProductAmount>

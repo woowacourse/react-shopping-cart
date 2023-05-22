@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import shoppingCartItemsIdState from '@Selector/shoppingCartItemsIdState';
@@ -6,34 +6,32 @@ import shoppingCartItemsIdState from '@Selector/shoppingCartItemsIdState';
 const useCheckedItems = () => {
   const itemsId = useRecoilValue(shoppingCartItemsIdState);
   const [checkedItemsId, setCheckedItemsId] = useState<number[]>(itemsId);
-  const parentCheckbox = useRef(true);
+  const isAllItemSelect = new Set([...itemsId, ...checkedItemsId]).size === checkedItemsId.length;
 
   const updateEachItemCheckStatus = (id: number) => {
     return () => {
       if (checkedItemsId.includes(id)) {
-        parentCheckbox.current = false;
         setCheckedItemsId(checkedItemsId.filter((itemID) => itemID !== id));
       } else {
-        if (itemsId.length === checkedItemsId.length + 1) parentCheckbox.current = true;
         setCheckedItemsId([...checkedItemsId, id]);
       }
     };
   };
 
-  const updateAllItemCheckState = (state: 'check' | 'uncheck') => {
-    if (state === 'check') return setCheckedItemsId(itemsId);
-    setCheckedItemsId([]);
+  const updateAllItemCheckState = () => {
+    if (!isAllItemSelect) {
+      setCheckedItemsId(itemsId);
+    } else {
+      setCheckedItemsId([]);
+    }
   };
 
   useEffect(() => {
-    const isAllItemSelect = new Set([...itemsId, ...checkedItemsId]).size === itemsId.length;
-    parentCheckbox.current = isAllItemSelect && itemsId.length !== 0;
-
-    setCheckedItemsId(itemsId.filter((id) => checkedItemsId.includes(id)));
+    setCheckedItemsId(checkedItemsId.filter((itemID) => itemsId.includes(itemID)));
   }, [itemsId]);
 
   return {
-    parentCheckbox,
+    isAllItemSelect,
     checkedItemsId,
     updateEachItemCheckStatus,
     updateAllItemCheckState,
