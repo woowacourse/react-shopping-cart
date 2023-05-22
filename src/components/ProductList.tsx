@@ -28,6 +28,7 @@ export const ProductList = () => {
 const Style = {
   Container: styled.ul`
     margin-top: 60px;
+    padding-bottom: 45px;
 
     @media screen and (min-width: 501px) {
       display: grid;
