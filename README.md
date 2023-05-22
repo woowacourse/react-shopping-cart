@@ -4,7 +4,7 @@
 
 ## [배포 페이지](https://react-shopping-cart-git-step2-guridaek.vercel.app/)
 
-## [스토리북](https://6463267aee5d3c7105342735-rvmbsjtmju.chromatic.com)
+## [스토리북](https://6463267aee5d3c7105342735-ztzgkdfyjm.chromatic.com)
 
 ## 패키지 설치
 
