@@ -41,7 +41,7 @@ const EstimatedPayment = ({
             width="100%"
             height="73px"
             fontSize="24px"
-            backgroundColor={theme.colors.primaryBlack}
+            backgroundcolor={theme.colors.primaryBlack}
             color={theme.colors.white}
             onClick={() => {}}
           />

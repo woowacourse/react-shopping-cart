@@ -8,6 +8,7 @@ import {
   calculateSelectCartTotalPrice,
   removeSelectedCartItem,
   cartItemSelectedById,
+  allSelectCartItem,
 } from '@utils/cart';
 import { CART_LIST_LOCAL_KEY } from '@constants/common';
 import useAtomLocalStorage from './useAtomLocalStorage';
@@ -70,6 +71,12 @@ const useControlCart = () => {
     }
   };
 
+  const allSelectCartList = () => {
+    const updatedCart = allSelectCartItem(cart);
+
+    setCart(updatedCart);
+  };
+
   return {
     cart,
     addProductToCart,
@@ -78,6 +85,7 @@ const useControlCart = () => {
     toggleSelectItem,
     getSelectCartTotalPrice,
     removeSelectCartItem,
+    allSelectCartList,
   };
 };
 

@@ -3,21 +3,21 @@ import { styled } from 'styled-components';
 import useControlCart from '@hooks/useControlCart';
 import Button from '@components/common/Button';
 import CheckBox from '@components/common/CheckBox';
-import { CartInformation } from '@type/types';
 import { cartItemSelectedById } from '@utils/cart';
 import { device, theme } from '@styles/theme';
 import CartItem from './CartItem';
 
 const CartList = () => {
-  const { cart, removeSelectCartItem } = useControlCart();
+  const { cart, removeSelectCartItem, allSelectCartList } = useControlCart();
   const totalLength = cart.length;
   const selectedCartLength = cartItemSelectedById(cart).length;
-
+  console.log(totalLength, selectedCartLength);
   return (
     <Wrapper>
       <GridWrapper>
         {cart.map((item) => (
           <CartItem
+            key={item.id}
             isSelect={item.isSelect ? item.isSelect : false}
             quantity={item.quantity}
             {...item.product}
@@ -27,7 +27,7 @@ const CartList = () => {
       <CheckBoxWrapper>
         <CheckBox
           isChecked={selectedCartLength === totalLength}
-          onClick={() => {}}
+          onClick={allSelectCartList}
         />
         <AllSelectText>
           전체선택 ({selectedCartLength}/{totalLength})

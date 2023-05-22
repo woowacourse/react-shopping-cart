@@ -9,7 +9,7 @@ interface CheckBoxProps {
 
 const CheckBox = ({ isChecked = false, onClick }: CheckBoxProps) => {
   return (
-    <Wrapper onClick={onClick} type="checkbox" defaultChecked={isChecked} />
+    <Wrapper onClick={onClick} type="checkbox" checked={isChecked} readOnly />
   );
 };
 

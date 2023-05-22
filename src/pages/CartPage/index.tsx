@@ -4,12 +4,10 @@ import useCartList from '@hooks/useCartList';
 import useControlCart from '@hooks/useControlCart';
 import CartList from '@components/CartPage/CartList';
 import EstimatedPayment from '@components/CartPage/EstimatedPayment';
-import { CartInformation } from '@type/types';
-import { cartItemSelectedById } from '@utils/cart';
 import { device, theme } from '@styles/theme';
 
 const CartPage = () => {
-  const { data, isLoading } = useCartList();
+  const { isLoading } = useCartList();
   const { cart, getSelectCartTotalPrice } = useControlCart();
 
   if (isLoading) {

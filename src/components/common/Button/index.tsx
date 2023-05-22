@@ -6,7 +6,7 @@ interface ButtonStyleProps {
   width?: string;
   height?: string;
   color?: string;
-  backgroundColor?: string;
+  backgroundcolor?: string;
   borderRadius?: string;
   fontSize?: string;
   fontWeight?: string;
@@ -36,7 +36,8 @@ const Wrapper = styled.button<ButtonStyleProps>`
   border: 1px solid ${({ color }) => color ?? theme.colors.gray};
   border-radius: ${({ borderRadius }) => borderRadius ?? '0'};
 
-  background-color: ${({ backgroundColor }) => backgroundColor ?? ''};
+  background-color: ${({ backgroundcolor }) =>
+    backgroundcolor ? backgroundcolor : 'none'};
   font-weight: ${({ fontWeight }) => fontWeight ?? '400'};
   font-size: ${({ fontSize }) => fontSize ?? '16px'};
   cursor: pointer;

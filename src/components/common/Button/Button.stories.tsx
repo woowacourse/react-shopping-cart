@@ -22,7 +22,7 @@ export const Order: Story = {
     width: '388px',
     height: '73px',
     fontSize: '24px',
-    backgroundColor: theme.colors.primaryBlack,
+    backgroundcolor: theme.colors.primaryBlack,
     color: theme.colors.white,
   },
 };
