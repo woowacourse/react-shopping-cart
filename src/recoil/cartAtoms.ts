@@ -69,11 +69,11 @@ export const quantityByProductIdSelector = selectorFamily({
   key: "quantityByProductIdSelector",
   get:
     (productId: number) =>
-    ({ get }) => {
-      const cartList = get(cartState);
-      const targetCart = cartList.find((cart) => cart.id === productId);
-      return targetCart?.quantity ?? 0;
-    },
+      ({ get }) => {
+        const cartList = get(cartState);
+        const targetCart = cartList.find((cart) => cart.id === productId);
+        return targetCart?.quantity ?? 0;
+      },
 });
 
 export const addCartItemSelector = selectorFamily<ProductItem, undefined>({
@@ -83,25 +83,25 @@ export const addCartItemSelector = selectorFamily<ProductItem, undefined>({
   },
   set:
     () =>
-    ({ get, set }, newProductItem) => {
-      const product = newProductItem as ProductItem;
-      const cartList = get(cartState);
-      const isCartItemExist = cartList.some(
-        (cartItem) => cartItem.id === product.id
-      );
+      ({ get, set }, newProductItem) => {
+        const product = newProductItem as ProductItem;
+        const cartList = get(cartState);
+        const isCartItemExist = cartList.some(
+          (cartItem) => cartItem.id === product.id
+        );
 
-      if (!isCartItemExist) {
-        const newCartItem: NewCartItem = {
-          id: product.id,
-          quantity: 1,
-          checked: true,
-          product,
-        };
-        const updatedCartList = [...cartList, newCartItem];
-        set(cartState, updatedCartList);
-        fetchAddCart(newCartItem.id);
-      }
-    },
+        if (!isCartItemExist) {
+          const newCartItem: NewCartItem = {
+            id: product.id,
+            quantity: 1,
+            checked: true,
+            product,
+          };
+          const updatedCartList = [...cartList, newCartItem];
+          set(cartState, updatedCartList);
+          fetchAddCart(newCartItem.id);
+        }
+      },
 });
 
 export const updateCartItemQuantitySelector = selectorFamily<number, number>({
@@ -112,35 +112,35 @@ export const updateCartItemQuantitySelector = selectorFamily<number, number>({
   },
   set:
     (productId) =>
-    ({ get, set }, newQuantity) => {
-      const quantity = newQuantity as number;
+      ({ get, set }, newQuantity) => {
+        const quantity = newQuantity as number;
 
-      if (quantity === 0) {
-        const id = productId as number;
-        const cartList = get(cartState);
-        if (confirm("정말로 삭제하시겠습니까?")) {
-          const removedCartList = cartList.filter((cart) => cart.id !== id);
-          set(cartState, removedCartList);
-          fetchDeleteCart(id);
+        if (quantity === 0) {
+          const id = productId as number;
+          const cartList = get(cartState);
+          if (confirm("정말로 삭제하시겠습니까?")) {
+            const removedCartList = cartList.filter((cart) => cart.id !== id);
+            set(cartState, removedCartList);
+            fetchDeleteCart(id);
+          }
+        } else {
+          const cartList = get(cartState);
+          const targetIndex = cartList.findIndex(
+            (cartItem) => cartItem.id === productId
+          );
+
+          if (targetIndex !== -1) {
+            const updatedCartList = [...cartList];
+            updatedCartList[targetIndex] = {
+              ...updatedCartList[targetIndex],
+              quantity,
+            };
+            set(cartState, updatedCartList);
+
+            fetchUpdateCart(productId, newQuantity as number);
+          }
         }
-      } else {
-        const cartList = get(cartState);
-        const targetIndex = cartList.findIndex(
-          (cartItem) => cartItem.id === productId
-        );
-
-        if (targetIndex !== -1) {
-          const updatedCartList = [...cartList];
-          updatedCartList[targetIndex] = {
-            ...updatedCartList[targetIndex],
-            quantity,
-          };
-          set(cartState, updatedCartList);
-
-          fetchUpdateCart(productId, newQuantity as number);
-        }
-      }
-    },
+      },
 });
 
 export const removeCartItemSelector = selectorFamily<number, undefined>({
@@ -151,15 +151,15 @@ export const removeCartItemSelector = selectorFamily<number, undefined>({
   },
   set:
     () =>
-    ({ get, set }, productId) => {
-      const id = productId as number;
-      const cartList = get(cartState);
-      if (confirm("정말로 삭제하시겠습니까?")) {
-        const removedCartList = cartList.filter((cart) => cart.id !== id);
-        set(cartState, removedCartList);
-        fetchDeleteCart(id);
-      }
-    },
+      ({ get, set }, productId) => {
+        const id = productId as number;
+        const cartList = get(cartState);
+        if (confirm("정말로 삭제하시겠습니까?")) {
+          const removedCartList = cartList.filter((cart) => cart.id !== id);
+          set(cartState, removedCartList);
+          fetchDeleteCart(id);
+        }
+      },
 });
 
 export const removeCartItemsSelector = selector<undefined>({
