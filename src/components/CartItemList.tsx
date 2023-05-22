@@ -17,8 +17,9 @@ const CartItemList = () => {
     <Wrapper>
       <SelectorContainer>
         <input type="checkbox" checked={isAllchecked} onChange={handleCheckbox} />
-        전체선택
-        {checkedCount}/{cartList.length}
+        <CountBox>
+          {checkedCount} / {cartList.length}
+        </CountBox>
         <button onClick={removeCheckedItem}>선택삭제</button>
       </SelectorContainer>
       <ListBox>
@@ -69,6 +70,10 @@ const SelectorContainer = styled.section`
 
     background: inherit;
   }
+`;
+
+const CountBox = styled.p`
+  font-size: 18px;
 `;
 
 const ListBox = styled.li`
