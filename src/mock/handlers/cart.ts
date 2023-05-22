@@ -71,7 +71,7 @@ export const cartHandlers = [
   }),
 
   // 장바구니 아이템 삭제
-  rest.post(`${CART_URL}/:id`, (req, res, ctx) => {
+  rest.delete(`${CART_URL}/:id`, (req, res, ctx) => {
     const cartItemId = Number(req.params.id);
     const cart = JSON.parse(getDataFromLocalStorage(KEY_CART));
     const isInCart = (id: number) => cart.some((cartItem: CartItem) => cartItem.product.id === id);
