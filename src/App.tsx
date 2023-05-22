@@ -7,12 +7,6 @@ import GlobalStyle, { CommonPageStyle } from '@Styles/GlobalStyle';
 
 import localStorageHelper from '@Utils/localStorageHelper';
 
-import { worker } from './mocks/browser';
-
-if (process.env.NODE_ENV === 'development') {
-  worker.start();
-}
-
 function App() {
   useEffect(() => {
     if (!localStorageHelper.hasKey('cartItems')) localStorageHelper.setInitValue('cartItems', []);
