@@ -43,7 +43,6 @@ const CartProductList = () => {
 
     const checkedItems = checkboxRefs.reduce<CartItem[]>((res, ref, i) => {
       if (ref.current!.checked) res.push(cartItems[i]);
-      console.log(res);
       return res;
     }, []);
     setCheckedCartData(checkedItems);

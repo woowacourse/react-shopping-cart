@@ -3,14 +3,9 @@ import CartProductList from '../../components/CartProductList';
 import PaymentAmount from '../../components/PaymentAmount';
 import { useRecoilValue } from 'recoil';
 import { $Cart } from '../../recoil/atom';
-import { useEffect } from 'react';
 
 const Cart = () => {
   const cart = useRecoilValue($Cart);
-
-  useEffect(() => {
-    console.log(cart);
-  }, [cart]);
 
   return (
     <section className={styles.container}>
