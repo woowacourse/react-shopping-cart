@@ -1,6 +1,6 @@
 import { useRecoilState } from 'recoil';
 import cartItemsState from '../recoil/atoms/cartItemsState';
-import type { CartItem } from '../type';
+import type { Product } from '../type';
 
 const useCartOrder = () => {
   const [cartItems, setCartItems] = useRecoilState(cartItemsState);
@@ -9,17 +9,17 @@ const useCartOrder = () => {
 
   const allSelected = selectedCount === cartItems.length;
 
-  const selectForOrder = (cartItemId: CartItem['id']) =>
+  const selectForOrder = (productId: Product['id']) =>
     setCartItems((cartItems) =>
       cartItems.map((cartItem) =>
-        cartItem.id === cartItemId ? { ...cartItem, unselectedForOrder: false } : cartItem,
+        cartItem.product.id === productId ? { ...cartItem, unselectedForOrder: false } : cartItem,
       ),
     );
 
-  const toggleForOrder = (cartItemId: CartItem['id']) => {
+  const toggleForOrder = (productId: Product['id']) => {
     setCartItems((cartItems) =>
       cartItems.map((cartItem) =>
-        cartItem.id === cartItemId
+        cartItem.product.id === productId
           ? { ...cartItem, unselectedForOrder: !cartItem.unselectedForOrder }
           : cartItem,
       ),

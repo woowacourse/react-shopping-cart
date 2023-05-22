@@ -1,3 +1,4 @@
+import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import CartEmptyPlaceholder from '../components/CartEmptyPlaceholder';
 import CartItemListItem from '../components/CartItemListItem';
@@ -5,6 +6,7 @@ import CartOrder from '../components/CartOrder';
 import Checkbox from '../components/common/Checkbox';
 import useCartActions from '../hooks/useCartActions';
 import useCartOrder from '../hooks/useCartOrder';
+import cartItemsState from '../recoil/atoms/cartItemsState';
 
 const Header = styled.header`
   padding-bottom: 32px;
@@ -72,7 +74,8 @@ const DeleteSelectedButton = styled.button`
 `;
 
 const CartPage = () => {
-  const { cartItems, deleteCartItems } = useCartActions();
+  const cartItems = useRecoilValue(cartItemsState);
+  const { deleteCartItems } = useCartActions();
   const { selectedCount, allSelected, selectForOrder, toggleForOrder, unselectAllForOrder } =
     useCartOrder();
 
@@ -81,12 +84,12 @@ const CartPage = () => {
       unselectAllForOrder();
       return;
     }
-    cartItems.forEach((cartItem) => selectForOrder(cartItem.id));
+    cartItems.forEach((cartItem) => selectForOrder(cartItem.product.id));
   };
 
   const handleDeleteSelected = () => {
     unselectAllForOrder();
-    deleteCartItems(cartItems.map((cartItem) => cartItem.id));
+    deleteCartItems(cartItems.map((cartItem) => cartItem.product.id));
   };
 
   return (
@@ -104,10 +107,10 @@ const CartPage = () => {
                 <CartItemListItemContainer>
                   <Checkbox
                     value={!cartItem.unselectedForOrder}
-                    onChange={() => toggleForOrder(cartItem.id)}
+                    onChange={() => toggleForOrder(cartItem.product.id)}
                   />
                   <CartItemListItem
-                    key={cartItem.id}
+                    key={cartItem.product.id}
                     product={cartItem.product}
                     quantity={cartItem.quantity}
                   />
