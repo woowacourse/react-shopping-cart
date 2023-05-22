@@ -1,7 +1,8 @@
+import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 import { PRODUCT_LIST_URL } from '../../constants/url';
-import { useSetFetchedData } from '../../hooks/useSetFetchedData';
+import { useFetchData } from '../../hooks/useFetchData';
 import { productListState } from '../../recoil';
 import { Product } from '../../types';
 import ProductItem from './ProductItem';
@@ -9,19 +10,28 @@ import ProductItem from './ProductItem';
 const ProductList = () => {
   const [productList, setProductList] = useRecoilState(productListState);
 
-  useSetFetchedData<Product[]>(PRODUCT_LIST_URL, setProductList);
+  const { api, isLoading } = useFetchData<Product[]>(setProductList);
+
+  useEffect(() => {
+    api.get(PRODUCT_LIST_URL);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <S.Wrapper>
-      {productList.map((product) => (
-        <ProductItem
-          key={product.id}
-          id={product.id}
-          name={product.name}
-          price={product.price}
-          imageUrl={`${process.env.PUBLIC_URL}${product.imageUrl}`}
-        />
-      ))}
+      {isLoading ? (
+        <p>로딩중...</p>
+      ) : (
+        productList.map((product) => (
+          <ProductItem
+            key={product.id}
+            id={product.id}
+            name={product.name}
+            price={product.price}
+            imageUrl={`${process.env.PUBLIC_URL}${product.imageUrl}`}
+          />
+        ))
+      )}
     </S.Wrapper>
   );
 };
