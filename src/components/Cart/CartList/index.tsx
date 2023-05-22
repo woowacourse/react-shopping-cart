@@ -3,6 +3,7 @@ import * as S from './CartList.styles';
 import useCartListUpdate from 'src/hooks/useCartListUpdate';
 import CheckBox from 'src/components/@common/CheckBox';
 import theme from 'src/styles/theme';
+import { PATH } from 'src/utils/constants';
 
 const CartList = () => {
   const {
@@ -21,7 +22,10 @@ const CartList = () => {
       ))}
     </ul>
   ) : (
-    <S.EmptyCartList>장바구니가 비었습니다.</S.EmptyCartList>
+    <S.EmptyCartList>
+      <p>장바구니가 비었습니다.</p>
+      <S.GoToProductListTag to={PATH.HOME}>담으러 가기</S.GoToProductListTag>
+    </S.EmptyCartList>
   );
 
   return (

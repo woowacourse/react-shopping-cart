@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 export const CartListWrapper = styled.div`
@@ -60,9 +61,28 @@ export const SelectedDeleteButton = styled.button`
 `;
 
 export const EmptyCartList = styled.div`
+  position: relative;
+
   display: flex;
   align-items: center;
   height: 410px;
   justify-content: center;
   font: ${(props) => props.theme.font.title};
+`;
+
+export const GoToProductListTag = styled(Link)`
+  position: absolute;
+  bottom: 0;
+
+  width: 160px;
+  line-height: 74px;
+  background: ${(props) => props.theme.color.secondary};
+  color: ${(props) => props.theme.color.white};
+  border-radius: 10px;
+  text-align: center;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.7;
+  }
 `;
