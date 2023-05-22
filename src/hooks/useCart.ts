@@ -7,7 +7,8 @@ import {
   targetShoppingSelector,
 } from "../store/fetchState";
 import { fetchDeleteQuery, fetchPatchQuery, fetchPostQuery } from "../api";
-import { ZERO } from "../abstract/constants";
+import { ERROR_MESSAGE, FETCH, ZERO } from "../abstract/constants";
+import useError from "./useError";
 
 const useCart = (productId: number) => {
   const [cart, setCart] = useRecoilState(cartAtomFamily(productId));
@@ -18,11 +19,17 @@ const useCart = (productId: number) => {
   const productInCart = cart.quantity ? true : false;
   const [isCartClicked, setIsCartClicked] = useState(Boolean(productInCart));
 
+  const { ChangeErrorTrue } = useError();
+
   if (shoppingProduct && cart.quantity !== shoppingProduct.quantity) {
     console.log(cart.quantity);
     console.log(shoppingProduct.quantity);
     const data = { quantity: cart.quantity };
-    fetchPatchQuery(`/cart-items/${cart.id}`, data);
+    try {
+      fetchPatchQuery(`/cart-items/${cart.id}`, data);
+    } catch (error) {
+      ChangeErrorTrue(FETCH.PATCH, "");
+    }
   }
 
   if (shoppingProduct && cart.quantity === ZERO) setCart(shoppingProduct);
@@ -34,9 +41,12 @@ const useCart = (productId: number) => {
       product,
     };
 
-    const data = { productId: productId };
-    await fetchPostQuery(`/cart-items`, data);
-
+    try {
+      const data = { productId: productId };
+      await fetchPostQuery(`/cart-items`, data);
+    } catch (error) {
+      ChangeErrorTrue(FETCH.POST, ERROR_MESSAGE.ADD_TO_CART);
+    }
     setCart(newProduct);
     setCartId([...cartId, productId]);
     setIsCartClicked(true);
@@ -53,7 +63,11 @@ const useCart = (productId: number) => {
     const newCartID = cartId.filter((id) => id !== productId);
     setCartId(newCartID);
 
-    await fetchDeleteQuery(`/cart-items/${cart.id}`);
+    try {
+      await fetchDeleteQuery(`/cart-items/${cart.id}`);
+    } catch (error) {
+      ChangeErrorTrue(FETCH.POST, ERROR_MESSAGE.DELETE_TO_CART);
+    }
   };
 
   const plusQuantity = async () => {

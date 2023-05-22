@@ -7,13 +7,17 @@ import { useLayoutEffect } from "react";
 import { fetchGetQuery } from "../api";
 import { Cart, Product } from "../types/product";
 import { cartIdAtom } from "../store/cartState";
+import useError from "./useError";
+import { ERROR_MESSAGE, FETCH } from "../abstract/constants";
 
 const useFetchData = (handleIsLoading: VoidFunction) => {
   const [, setFetchedProductList] = useRecoilState(fetchedProductListAtom);
   const [, setFetchedShoppingList] = useRecoilState(fetchedShoppingListAtom);
   const [, setCartId] = useRecoilState(cartIdAtom);
+  const { ChangeErrorTrue, ChangeErrorFalse } = useError();
 
   useLayoutEffect(() => {
+    ChangeErrorFalse();
     const fetchData = async () => {
       try {
         const shoppingData = await fetchGetQuery<Cart[]>("/cart-items");
@@ -28,7 +32,7 @@ const useFetchData = (handleIsLoading: VoidFunction) => {
         setFetchedProductList(productData);
         setTimeout(() => handleIsLoading(), 2000);
       } catch (error) {
-        console.log(error + "입니다");
+        ChangeErrorTrue(FETCH.GET, ERROR_MESSAGE.PRODUCT);
       }
     };
     fetchData();
@@ -37,15 +41,17 @@ const useFetchData = (handleIsLoading: VoidFunction) => {
 
 const useFetchShoppingList = (handleIsLoading: VoidFunction) => {
   const [, setFetchedShoppingList] = useRecoilState(fetchedShoppingListAtom);
+  const { ChangeErrorTrue, ChangeErrorFalse } = useError();
 
   useLayoutEffect(() => {
+    ChangeErrorFalse();
     const fetchData = async () => {
       try {
         const data = await fetchGetQuery<Cart[]>("/cart-items");
         setFetchedShoppingList(data);
         setTimeout(() => handleIsLoading(), 2000);
       } catch (error) {
-        console.log(error + "입니다");
+        ChangeErrorTrue(FETCH.GET, ERROR_MESSAGE.SHOPPING_LIST);
       }
     };
     fetchData();

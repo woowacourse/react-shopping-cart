@@ -7,9 +7,13 @@ import ShoppingCardList from "../components/ShoppingCardList/ShoppingCardList";
 import ShoppingTitle from "../components/ShoppingTitle/ShoppingTitle";
 import ShoppingPreview from "../components/ShoppingPreview/ShoppingPreview";
 import { useFetchShoppingList } from "../hooks/useFetch";
+import { useRecoilValue } from "recoil";
+import { errorAtom } from "../store/errorState";
+import ErrorPage from "./ErrorPage";
 
 const ShoppingCartPage = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const error = useRecoilValue(errorAtom);
 
   const handleIsLoading = () => {
     setIsLoading(false);
@@ -19,7 +23,9 @@ const ShoppingCartPage = () => {
 
   return (
     <>
-      {isLoading ? (
+      {error.isError ? (
+        <ErrorPage />
+      ) : isLoading ? (
         <LoadingPage />
       ) : (
         <Styled.Container>
