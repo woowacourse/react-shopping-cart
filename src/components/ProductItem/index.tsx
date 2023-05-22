@@ -15,7 +15,7 @@ function ProductItem({ product }: ProductItemProps) {
       <div className={styles['item-info']}>
         <div>
           <div className={styles.name}>{name}</div>
-          <AddCartButton product={product} id={id} />
+          <AddCartButton productId={id} />
         </div>
         <div>{price.toLocaleString()} 원</div>
       </div>

@@ -1,24 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
-import { useRecoilCallback, useRecoilState } from 'recoil';
-import useGetQuery from '../../hooks/useGetQuery';
-import useMutationQuery from '../../hooks/useMutationQuery';
-import useToast from '../../hooks/useToast';
-import { $CartIdList, $CartItemState, $CheckedCartIdList } from '../../recoil/atom';
+import { useRecoilState } from 'recoil';
+import useCart from '../../hooks/useCart';
+import { $CheckedCartIdList } from '../../recoil/atom';
 import CartProductItem from '../CartProductItem';
 import styles from './index.module.scss';
 import type { CartItem } from '../../types';
 
 function CartProductItemList() {
-  const { data: cartProductsData, error, refreshQuery } = useGetQuery<CartItem[]>('./cart-items');
-  const { mutateQuery } = useMutationQuery<Record<string, number>, CartItem>('./cart-items');
+  const { cartItemStateList, cartIdList, deleteCartItem, mutateQuantity } = useCart();
   const [checkedCartIdList, setCheckedCartIdList] = useRecoilState($CheckedCartIdList);
-  const [cartIdList, setCartIdList] = useRecoilState($CartIdList);
-  const Toast = useToast();
 
   const checkAllCartItem: React.ChangeEventHandler<HTMLInputElement> = ({ target: { checked } }) => {
-    if (checked && cartProductsData) {
-      return setCheckedCartIdList(cartProductsData.map(({ product }) => product.id));
+    if (checked && cartItemStateList) {
+      return setCheckedCartIdList(cartItemStateList.map(item => item.id));
     }
     return setCheckedCartIdList([]);
   };
@@ -32,38 +26,24 @@ function CartProductItemList() {
       return setCheckedCartIdList(prev => [...prev, id]);
     };
 
-  const deleteCheckedCartItem = useRecoilCallback(({ set }) => () => {
+  const deleteCheckedCartItem = () => {
     checkedCartIdList.forEach(async id => {
-      await mutateQuery('DELETE', undefined, String(id));
-      set($CartItemState(id), null);
-      setCartIdList(prev => prev.filter(cartId => cartId !== id));
+      await deleteCartItem(id);
     });
-
-    refreshQuery();
-    setCheckedCartIdList([]);
-
-    if (!error) {
-      Toast.success('선택한 장바구니가 삭제되었습니다.');
-    }
-  });
-
-  useEffect(() => {
-    if (error) {
-      Toast.error('장바구니를 불러오는 과정에서 문제가 생겼습니다.');
-    }
-  }, [error]);
+  };
 
   return (
     <div className={styles.container}>
       <h3 className={styles.title}>배송 상품 {`(${cartIdList.length}개)`}</h3>
       <section className={styles['cart-container']}>
-        {cartProductsData?.map((item: CartItem) => (
+        {cartItemStateList?.map((item: CartItem) => (
           <CartProductItem
             key={item.id}
             cartItem={item}
-            refresh={refreshQuery}
-            toggleCheck={checkCartItem(item.product.id)}
-            checked={checkedCartIdList.includes(item.product.id)}
+            toggleCheck={checkCartItem(item.id)}
+            checked={checkedCartIdList.includes(item.id)}
+            mutateQuantity={mutateQuantity}
+            deleteCartItem={deleteCartItem}
           />
         ))}
       </section>

@@ -2,35 +2,38 @@ import { ReactComponent as ShopIcon } from '../../assets/mini-shop-icon.svg';
 import useCart from '../../hooks/useCart';
 import CountButton from '../Common/CountButton';
 import styles from './index.module.scss';
-import type { Product } from '../../types';
 
 interface AddCardButtonProps {
-  product: Product;
-  id: number;
+  productId: number;
 }
 
-function AddCartButton({ product, id }: AddCardButtonProps) {
-  const { cartItemState, addCartItem, addQuantity, deleteCartItem } = useCart(id);
+function AddCartButton({ productId }: AddCardButtonProps) {
+  const { cartItemStateList, addCartItem, mutateQuantity, deleteCartItem } = useCart();
+  const cart = cartItemStateList?.find(cartItem => cartItem.product.id === productId);
 
   const handleClick = async () => {
-    await addCartItem(product);
+    await addCartItem(productId);
   };
   const handleUpButton = async () => {
-    await addQuantity(1);
+    if (cart) {
+      await mutateQuantity(cart.id, cart.quantity + 1);
+    }
   };
   const handleDownButton = async () => {
-    if (cartItemState && cartItemState.quantity <= 1) {
-      await deleteCartItem();
-      return;
+    if (cart) {
+      if (cart.quantity <= 1) {
+        await deleteCartItem(cart.id);
+        return;
+      }
+      await mutateQuantity(cart.id, cart.quantity - 1);
     }
-    await addQuantity(-1);
   };
 
   return (
     <div className={styles.container}>
-      {cartItemState?.product.id === id ? (
+      {cart?.product.id === productId ? (
         <CountButton
-          count={cartItemState ? cartItemState.quantity : 0}
+          count={cart ? cart.quantity : 0}
           handleUpButton={handleUpButton}
           handleDownButton={handleDownButton}
         />

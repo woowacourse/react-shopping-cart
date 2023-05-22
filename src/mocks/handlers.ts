@@ -55,7 +55,7 @@ const handlers = [
   }),
 
   // 장바구니 아이템 조회
-  rest.get('/cart-items', (req, res, ctx) => res(ctx.status(200), ctx.json(cartItems))),
+  rest.get('/cart-items', (req, res, ctx) => res(ctx.delay(400), ctx.status(200), ctx.json(cartItems))),
 
   // 장바구니 아이템 추가
   rest.post<CartItem>('/cart-items', async (req, res, ctx) => {
@@ -78,7 +78,7 @@ const handlers = [
     const { cartItemId } = req.params;
     const { quantity } = await req.json();
 
-    const itemIndex = cartItems.findIndex(item => item.product.id === Number(cartItemId));
+    const itemIndex = cartItems.findIndex(item => item.id === Number(cartItemId));
 
     if (itemIndex === -1) {
       return res(ctx.status(404));
@@ -93,12 +93,12 @@ const handlers = [
   // 장바구니 아이템 삭제
   rest.delete('/cart-items/:cartItemsId', (req, res, ctx) => {
     const { cartItemsId } = req.params;
-    const itemIndex = cartItems.findIndex(item => item.product.id === Number(cartItemsId));
+    const itemIndex = cartItems.findIndex(item => item.id === Number(cartItemsId));
 
     if (itemIndex >= 0) {
       cartItems.splice(itemIndex, 1);
       setLocalStorage(LOCAL_STORAGE_KEY.CART_ITEM, cartItems);
-      return res(ctx.status(204));
+      return res(ctx.status(204), ctx.set('Location', `/cart-items/${cartItemsId}`));
     }
     return res(ctx.status(404));
   }),

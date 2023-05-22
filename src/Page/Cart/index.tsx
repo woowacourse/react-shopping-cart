@@ -2,11 +2,10 @@ import { useRecoilValue } from 'recoil';
 import { ReactComponent as AlertBlank } from '../../assets/baemin-alert-blank.svg';
 import CartProductItemList from '../../components/CartProductItemList';
 import PaymentsView from '../../components/PaymentsView';
-import { $CartIdList, $CartTotalPrice } from '../../recoil/atom';
+import { $CartIdList } from '../../recoil/atom';
 import styles from './index.module.scss';
 
 function Cart() {
-  const cartTotalPrice = useRecoilValue($CartTotalPrice);
   const cartIdList = useRecoilValue($CartIdList);
 
   if (cartIdList.length > 0) {
@@ -15,7 +14,7 @@ function Cart() {
         <h2 className={styles.title}>장바구니</h2>
         <section className={styles['main-view']}>
           <CartProductItemList />
-          <PaymentsView priceTotal={cartTotalPrice} parcelPrice={3000} />
+          <PaymentsView priceTotal={1000000} parcelPrice={3000} />
         </section>
       </main>
     );
