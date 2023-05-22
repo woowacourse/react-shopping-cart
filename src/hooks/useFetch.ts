@@ -13,6 +13,7 @@ export const useFetch = <T>(
   const [isLoading, setIsLoading] = useState(true);
   const [isSuccess, setIsSuccess] = useState<fetchResult>(null);
   const [isFailure, setIsFailure] = useState<fetchResult>(null);
+
   const fetchData = async (url: string, options: RequestInit) => {
     let shouldExecuteFinally = true;
 

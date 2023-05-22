@@ -48,7 +48,6 @@ const CartPageSection = () => {
       <div className={styles.cartListSection}>
         <div className={styles.deleteBox}>
           <Checkbox
-            size="small"
             checked={cartListLength === cartList.length}
             clickEvent={
               cartListLength === cartList.length

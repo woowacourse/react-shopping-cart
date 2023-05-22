@@ -41,7 +41,6 @@ const CartItem = ({
       <div className={styles.cartItem}>
         <div className={styles.deleteCheckerBox}>
           <Checkbox
-            size="big"
             checked={isChecked}
             clickEvent={() => {
               checkHandler(itemId);
