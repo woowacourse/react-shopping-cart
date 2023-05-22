@@ -6,23 +6,28 @@ import { GlobalFontStyles } from '@/styles/font';
 import { worker } from './mocks/worker';
 
 async function main() {
+	if (window.location.pathname === '/') {
+		window.location.pathname = '/';
+		return;
+	}
+
 	await worker.start({
 		serviceWorker: {
 			url: '/mockServiceWorker.js',
 		},
 	});
-
-	const root = ReactDOM.createRoot(
-		document.getElementById('root') as HTMLElement
-	);
-
-	root.render(
-		<React.StrictMode>
-			<GlobalFontStyles />
-			<GlobalStyle />
-			<App />
-		</React.StrictMode>
-	);
 }
+
+const root = ReactDOM.createRoot(
+	document.getElementById('root') as HTMLElement
+);
+
+root.render(
+	<React.StrictMode>
+		<GlobalFontStyles />
+		<GlobalStyle />
+		<App />
+	</React.StrictMode>
+);
 
 main();
