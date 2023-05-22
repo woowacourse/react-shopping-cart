@@ -7,7 +7,7 @@ import QuantityInput from '../common/QuantityInput';
 
 import * as api from '../../api';
 import { cartState } from '../../recoil/state';
-import { MAX_QUANTITY } from '../../constants';
+import { API_ERROR_MESSAGE, MAX_QUANTITY } from '../../constants';
 
 interface Props extends ProductType {}
 
@@ -16,8 +16,19 @@ export default function Product({ id, name, price, imageUrl }: Props) {
 
   const cartItem = cart.find((cartItem) => cartItem.product.id === id);
 
-  const addCartItem = () => {
-    api.postCartItem(id).then(api.getCart).then(setCart);
+  const addCartItem = async () => {
+    try {
+      await api.postCartItem(id);
+    } catch {
+      alert(API_ERROR_MESSAGE.postCartItem);
+      return;
+    }
+
+    try {
+      api.getCart().then(setCart);
+    } catch {
+      alert(API_ERROR_MESSAGE.getCart);
+    }
   };
 
   return (
