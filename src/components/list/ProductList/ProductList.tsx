@@ -1,12 +1,17 @@
 import styled from '@emotion/styled';
-import ProductItem from '../box/ProductItem';
-import useDataFetching from '../../hooks/useDataFetching';
-import type { Product } from '../../types/types';
-import ErrorBox from '../common/ErrorBox/ErrorBox';
-import { Text } from '../common/Text/Text';
+import ProductItem from '../../box/ProductItem/ProductItem';
+import type { Product } from '../../../types/types';
+import ErrorBox from '../../common/ErrorBox/ErrorBox';
+import { Text } from '../../common/Text/Text';
+import { useQuery } from 'react-query';
 
 const ProductList = () => {
-  const { data, isLoading } = useDataFetching<Product[]>('./mock/mockData.json');
+  const { data, isLoading } = useQuery<Product[]>('products', async () => {
+    const res = await fetch('/products', { method: 'get' });
+    const resData = await res.json();
+    return resData;
+  });
+
   if (isLoading) {
     return <Text>로딩중...</Text>;
   }
