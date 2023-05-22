@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import CartList from '@components/pages/CartListSection/CartList/CartList';
+import CartList from '@components/pages/CartPage/CartListSection/CartList/CartList';
 
 /**
  * 장바구니 목록

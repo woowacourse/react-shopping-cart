@@ -10,11 +10,12 @@ import * as Text from '@components/commons/Text/Text';
 
 interface ProductItemProps {
   initQuantity: number;
+  initUrl: string;
   product: Product;
 }
 
 const ProductItem = (props: ProductItemProps) => {
-  const { initQuantity, product: thisProduct } = props;
+  const { initQuantity, initUrl, product: thisProduct } = props;
   const { id, name, price, imageUrl } = thisProduct;
 
   return (
@@ -23,7 +24,11 @@ const ProductItem = (props: ProductItemProps) => {
       <div>
         <StyledProductFlexBox>
           <Text.Description>{name}</Text.Description>
-          <ProductStepper productId={id} initQuantity={initQuantity} />
+          <ProductStepper
+            productId={id}
+            initQuantity={initQuantity}
+            initUrl={initUrl}
+          />
         </StyledProductFlexBox>
         <Text.Paragraph>{price.toLocaleString('ko-KR') + ' 원'}</Text.Paragraph>
       </div>

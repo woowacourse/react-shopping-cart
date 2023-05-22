@@ -137,7 +137,7 @@ export const handlers = [
       return res(ctx.status(204));
     }
 
-    const id = cartItems.length + 1;
+    const id = product.id;
     const newCartItem = {
       id: id,
       quantity: 1,

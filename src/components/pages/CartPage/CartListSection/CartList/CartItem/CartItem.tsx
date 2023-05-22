@@ -1,5 +1,7 @@
 import { Dispatch } from 'react';
+import { useSetRecoilState } from 'recoil';
 
+import { cartItemsState } from '@recoil/atom';
 import { Product } from '@customTypes/Product';
 import useFetch from '@hooks/useFetch';
 
@@ -8,7 +10,7 @@ import {
   StyledCartItemFlexBox,
   StyledFlexBox,
   StyledName,
-} from '@components/pages/CartListSection/CartList/CartItem/CartItem.styled';
+} from '@components/pages/CartPage/CartListSection/CartList/CartItem/CartItem.styled';
 import { Checkbox } from '@commons/Checkbox/Checkbox';
 import { SquareImage as CartImage } from '@commons/SquareImage/SquareImage';
 import * as Text from '@components/commons/Text/Text';
@@ -27,7 +29,20 @@ const CartItem = (props: CartItemProps) => {
   const { cartItemId, product, quantity, setIsDeleteItem } = props;
   const { id, name, price, imageUrl } = product;
   const { deleteData } = useFetch('/cart-items');
+  const setCartItems = useSetRecoilState(cartItemsState);
   const cartItemUrl = `/${cartItemId}`;
+
+  const handleDeleteButtonClick = () => {
+    deleteData(cartItemUrl);
+    setIsDeleteItem(true);
+    setCartItems(prev => {
+      const newCartItems = { ...prev };
+      const key = `product${id}`;
+      delete newCartItems[key];
+
+      return newCartItems;
+    });
+  };
 
   return (
     <StyledCartItem>
@@ -39,12 +54,7 @@ const CartItem = (props: CartItemProps) => {
         <Text.Paragraph fontWeight="400">{name}</Text.Paragraph>
       </StyledName>
       <StyledCartItemFlexBox>
-        <DeleteButton
-          onClick={() => {
-            deleteData(cartItemUrl);
-            setIsDeleteItem(true);
-          }}
-        >
+        <DeleteButton onClick={handleDeleteButtonClick}>
           <TrashCan />
         </DeleteButton>
         <ProductStepper

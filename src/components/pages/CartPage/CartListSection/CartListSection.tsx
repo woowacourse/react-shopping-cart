@@ -6,9 +6,9 @@ import {
   StyledCartListSection,
   StyledCartListTextBox,
   StyledCartListFlexBox,
-} from '@pages/CartListSection/CartListSection.styled';
+} from '@components/pages/CartPage/CartListSection/CartListSection.styled';
 import * as Text from '@commons/Text/Text';
-import CardList from '@pages/CartListSection/CartList/CartList';
+import CardList from '@components/pages/CartPage/CartListSection/CartList/CartList';
 import { Checkbox } from '@components/commons/Checkbox/Checkbox';
 import { Button as DeleteButton } from '@components/commons/Button/Button';
 

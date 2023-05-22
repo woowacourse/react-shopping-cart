@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { StyledCartList } from '@components/pages/CartListSection/CartList/CartList.styled';
+import { StyledCartList } from '@components/pages/CartPage/CartListSection/CartList/CartList.styled';
 import { FetchedDataList } from '@components/commons/FetchedDataList/FetchedDataList';
 import ErrorModal from '@pages/ErrorPage/ErrorModal/ErrorModal';
 import CartItem from './CartItem/CartItem';
@@ -14,6 +14,10 @@ interface CartItem {
 
 const CartList = () => {
   const [isDeleteItem, setIsDeleteItem] = useState(false);
+
+  useEffect(() => {
+    if (isDeleteItem) setIsDeleteItem(false);
+  }, [isDeleteItem]);
 
   return (
     <FetchedDataList<CartItem[]>

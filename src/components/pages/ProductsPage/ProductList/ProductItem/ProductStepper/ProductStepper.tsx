@@ -1,4 +1,4 @@
-import { Dispatch, useState } from 'react';
+import { Dispatch, useEffect, useState } from 'react';
 
 import { PRODUCT_COUNT, STEP_UNIT } from '@constants/product';
 import useUpdateCart from './useUpdateCart';
@@ -17,8 +17,8 @@ import useFetch from '@hooks/useFetch';
 interface ProductStepperProps {
   productId: number;
   initQuantity: number;
-  setIsDeleteItem?: Dispatch<React.SetStateAction<boolean>>;
   initUrl?: string;
+  setIsDeleteItem?: Dispatch<React.SetStateAction<boolean>>;
   inputWidth?: string | undefined;
   inputHeight?: string | undefined;
   buttonWidth?: string | undefined;
@@ -29,18 +29,16 @@ const ProductStepper = (props: ProductStepperProps) => {
   const {
     productId,
     initQuantity,
-    setIsDeleteItem,
     initUrl = '',
+    setIsDeleteItem,
     inputWidth,
     inputHeight,
     buttonWidth,
     buttonHeight,
   } = props;
-  const [quantity, setQuantity] = useState(initQuantity);
+  const [quantity, setQuantity] = useState(0);
   const { postData, patchData, deleteData } = useFetch('/cart-items');
   const [url, setUrl] = useState(initUrl);
-
-  useUpdateCart(productId, quantity);
 
   const handlePostData = async () => {
     if (url !== '') return;
@@ -50,6 +48,7 @@ const ProductStepper = (props: ProductStepperProps) => {
   };
 
   const handlePatchData = async (newQuantity: number) => {
+    console.log(url);
     if (url === '') return;
 
     await patchData({ quantity: newQuantity }, url);
@@ -67,6 +66,16 @@ const ProductStepper = (props: ProductStepperProps) => {
       await deleteData(url);
     }
   };
+
+  useUpdateCart(productId, quantity);
+
+  useEffect(() => {
+    setQuantity(initQuantity);
+  }, [initQuantity]);
+
+  useEffect(() => {
+    setUrl(initUrl);
+  }, [initUrl]);
 
   return (
     <>
