@@ -10,7 +10,7 @@ import QuantityInput from './QuantityInput';
 
 const ProductItem = ({ id, imageUrl, name, price }: Product) => {
   const { isSelected, setIsSelected, quantity, setQuantity } = useLoadCart(id);
-  const { addToCart, removeItemFromCart } = useSetCart(id);
+  const { addToCart, removeItemFromCart, updateCart } = useSetCart(id);
 
   const handleCartClick = () => {
     setIsSelected(true);
@@ -21,7 +21,7 @@ const ProductItem = ({ id, imageUrl, name, price }: Product) => {
     setIsSelected,
     removeItemFromCart,
     setQuantity,
-    addToCart,
+    updateCart,
   });
 
   return (
@@ -38,7 +38,7 @@ const ProductItem = ({ id, imageUrl, name, price }: Product) => {
           <QuantityInput id={name} value={quantity} onChange={handleNumberInputChange} />
         ) : (
           <S.Button type="button" onClick={handleCartClick}>
-            <CartIcon css={svgStyle} onClick={handleCartClick} />
+            <CartIcon css={svgStyle} />
           </S.Button>
         )}
       </S.InfoWrapper>
