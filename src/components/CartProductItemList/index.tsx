@@ -16,12 +16,6 @@ function CartProductItemList() {
   const [cartIdList, setCartIdList] = useRecoilState($CartIdList);
   const Toast = useToast();
 
-  useEffect(() => {
-    if (error) {
-      Toast.error('장바구니를 불러오는 과정에서 문제가 생겼습니다.');
-    }
-  }, [error]);
-
   const checkAllCartItem: React.ChangeEventHandler<HTMLInputElement> = ({ target: { checked } }) => {
     if (checked && cartProductsData) {
       return setCheckedCartIdList(cartProductsData.map(({ product }) => product.id));
@@ -52,6 +46,12 @@ function CartProductItemList() {
       Toast.success('선택한 장바구니가 삭제되었습니다.');
     }
   });
+
+  useEffect(() => {
+    if (error) {
+      Toast.error('장바구니를 불러오는 과정에서 문제가 생겼습니다.');
+    }
+  }, [error]);
 
   return (
     <div className={styles.container}>
