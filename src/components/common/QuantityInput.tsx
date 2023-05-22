@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { useRecoilValue } from 'recoil';
 import { cartItemState } from '../../recoil/state';
 import useQuantityInput from '../../hooks/useQuantityInput';
 import { isNaturalNumberString } from '../../utils/validator';

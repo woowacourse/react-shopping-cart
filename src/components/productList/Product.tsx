@@ -1,10 +1,11 @@
 import type { ProductType } from '../../types';
 
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+
 import QuantityInput from '../common/QuantityInput';
 
 import * as api from '../../api';
-import { useRecoilState } from 'recoil';
 import { cartState } from '../../recoil/state';
 import { MAX_QUANTITY } from '../../constants';
 

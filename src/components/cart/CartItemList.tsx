@@ -2,9 +2,10 @@ import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import * as api from '../../api';
 import CartItem from './CartItem';
 import CheckBox from '../common/CheckBox';
+
+import * as api from '../../api';
 import { cartState, checkedListState } from '../../recoil/state';
 
 export default function CartItemList() {
@@ -15,11 +16,11 @@ export default function CartItemList() {
   const allChecked = checkedCount === cart.length;
 
   const checkAll = () => {
-    setCheckedList(checkedList.map((_checked) => true));
+    setCheckedList(checkedList.map(() => true));
   };
 
   const uncheckAll = () => {
-    setCheckedList(checkedList.map((_checked) => false));
+    setCheckedList(checkedList.map(() => false));
   };
 
   const toggleCheckedList = (index: number) => () => {
@@ -63,7 +64,7 @@ export default function CartItemList() {
       <RemoveBox>
         <CheckBox checked={allChecked} onClickCheckbox={allChecked ? uncheckAll : checkAll} />
         <RemoveLabel>
-          전체선택 ({checkedCount}/{cart.length})
+          전체선택 ({checkedCount}/{checkedList.length})
         </RemoveLabel>
         <RemoveButton onClick={removeCheckedCartItem}>선택삭제</RemoveButton>
       </RemoveBox>

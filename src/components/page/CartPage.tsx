@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import CartItemList from '../cart/CartItemList';
 import CartBill from '../cart/CartBill';
 import Header from '../common/Header';
+
 import { cartCountState } from '../../recoil/state';
 
 export default function CartPage() {

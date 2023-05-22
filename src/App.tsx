@@ -1,5 +1,6 @@
 import { RouterProvider } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+
 import GlobalStyle from './GlobalStyle';
 
 import router from './router';

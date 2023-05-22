@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import Header from '../common/Header';
 import ProductList from '../productList/ProductList';
 
