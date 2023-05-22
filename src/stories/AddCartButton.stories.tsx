@@ -12,7 +12,7 @@ export default meta;
 
 export const Default: Story = {
   args: {
-    id: 1,
+    productId: 1,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
