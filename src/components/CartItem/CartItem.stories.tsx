@@ -11,5 +11,10 @@ export default meta;
 type Story = StoryObj<typeof CartItem>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    id: 1,
+    cartItemState: { id: 1, isSelected: true },
+    setIsSelectedList: () => {},
+    setIsAllSelected: () => {},
+  },
 };

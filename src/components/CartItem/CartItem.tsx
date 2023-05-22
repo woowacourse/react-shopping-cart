@@ -28,7 +28,6 @@ const CartItem = ({
     minusOneWhenOverOne,
     removeCartItemFromAtom,
   } = useCartAtom(id);
-
   const { product } = productInCart;
   const { name, imageUrl, price } = product;
 
