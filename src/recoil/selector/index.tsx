@@ -1,13 +1,13 @@
 import { DefaultValue, selector, selectorFamily } from 'recoil';
 import { fetchAPI } from 'src/api';
 import { cartListAtom } from '../atom';
-import { ProductId } from 'src/types';
+import { CartItem, ProductId } from 'src/types';
 
 export const cartListSelector = selector({
   key: 'cartItemSelector',
   get: async () => {
     const cartItems = await fetchAPI('/api/cart-items');
-    console.log(cartItems, '@@');
+
     return cartItems;
   },
 
@@ -112,35 +112,22 @@ export const deleteCartItemSelector = selector({
   },
 });
 
-export const updateCart = selectorFamily({
+export const updateCart = selectorFamily<CartItem | null, ProductId>({
   key: 'updateCart',
   get:
-    (productId: ProductId) =>
+    (productId) =>
     ({ get }) => {
       const list = get(cartListAtom);
 
       const cartInfo = list.find(({ id }) => id === productId);
       return cartInfo ?? null;
     },
-
   set:
-    (productId: ProductId) =>
-    ({ set, get }, item) => {
+    (productId) =>
+    ({ get, set }, item) => {
       if (!item || item instanceof DefaultValue) return;
 
       const list = get(cartListAtom);
-      const cartInfo = list.find(({ id }) => id === productId);
-
-      if (!cartInfo) {
-        set(cartListAtom, [...list, item]);
-
-        return;
-      }
-
-      if (item.quantity === 0) {
-        set(deleteCartItemSelector, [productId]);
-        return;
-      }
 
       const updated = list.map((prev) => (prev.id === productId ? item : prev));
 

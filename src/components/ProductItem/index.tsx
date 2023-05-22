@@ -10,20 +10,20 @@ interface ProductItemProps {
 }
 
 const ProductItem = ({ product }: ProductItemProps) => {
-  const { currentCartItem, productCountMethod, onSelectItem } =
+  const { currentCartItem, patchCartItem, addCartItem } =
     useCartUpdate(product);
 
   const productSelect = currentCartItem ? (
     <Counter
       count={currentCartItem.quantity}
-      productCountMethod={productCountMethod}
+      productCountMethod={patchCartItem}
     />
   ) : (
     <Svg
       type="cart-icon"
       width={25}
       height={22}
-      onClick={onSelectItem}
+      onClick={addCartItem}
       cursor={'pointer'}
     />
   );
