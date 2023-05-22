@@ -1,6 +1,6 @@
 import AsyncBoundary from '../../components/AsyncBoundary/AsyncBoundary';
 import CartSection from '../../components/CartPage/CartSection/CartSection';
-import OrderSection from '../../components/CartPage/OrderSection/OrderSection';
+import OrderAside from '../../components/CartPage/OrderAside/OrderAside';
 import Loading from '../../components/common/Loading/Loading';
 import * as S from './CartPage.styles';
 
@@ -9,7 +9,7 @@ const CartPage = () => {
     <AsyncBoundary loadingFallback={<Loading />}>
       <S.Root>
         <CartSection />
-        <OrderSection />
+        <OrderAside />
       </S.Root>
     </AsyncBoundary>
   );

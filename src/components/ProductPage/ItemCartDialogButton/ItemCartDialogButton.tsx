@@ -3,13 +3,13 @@ import SHOPPING_CART from '../../../assets/png/cart-icon.png';
 import { Product } from '../../../types/products';
 import { Button } from '../../common/Button/Button.styles';
 import QuantityStepper from '../../common/QuantityStepper/QuantityStepper';
-import * as S from './ItemCartDialog.styles';
+import * as S from './ItemCartDialogButton.styles';
 import { useRef } from 'react';
 import { useMutateCart } from '../../../hooks/cart/cart';
 
-type ItemCartDialogProps = Product;
+type ItemCartDialogButtonProps = Product;
 
-const ItemCartDialog: React.FC<ItemCartDialogProps> = (props) => {
+const ItemCartDialogButton: React.FC<ItemCartDialogButtonProps> = (props) => {
   const { id, name, price, imageUrl } = props;
   const quantityRef = useRef<HTMLInputElement>(null);
   const { addItemToCartMutation } = useMutateCart();
@@ -47,4 +47,4 @@ const ItemCartDialog: React.FC<ItemCartDialogProps> = (props) => {
   );
 };
 
-export default ItemCartDialog;
+export default ItemCartDialogButton;

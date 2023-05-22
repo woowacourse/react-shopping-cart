@@ -3,7 +3,7 @@ import { DELIVERY_FEE } from '../../../constants/cart';
 import { useRefreshableRecoilValue } from '../../../hooks/common/useRefreshableAtom';
 import * as S from './OrderAside.styles';
 
-const OrderSection = () => {
+const OrderAside = () => {
   const totalPrice = useRefreshableRecoilValue(totalPriceSelector);
 
   return (
@@ -30,4 +30,4 @@ const OrderSection = () => {
   );
 };
 
-export default OrderSection;
+export default OrderAside;
