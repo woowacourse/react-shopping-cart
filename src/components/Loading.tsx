@@ -1,9 +1,14 @@
 import { styled } from "styled-components";
+import { LoadingSpinner } from "../assets";
 
-export const Loading = ({ message }: { message?: string }) => {
+export const Loading = () => {
   return (
     <Wrapper>
-      <p>{message}</p>
+      <img
+        src={LoadingSpinner}
+        alt="로딩"
+        style={{ background: "transparent" }}
+      />
     </Wrapper>
   );
 };
@@ -12,17 +17,10 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-self: center;
-  width: 30%;
-  height: 100%;
-  padding: 200px 0;
+  margin-top: 220px;
 
-  align-items: center;
-  text-align: center;
-  line-height: 24px;
-
-  & > h2 {
-    font-size: 50px;
-    font-weight: 700;
-    margin-bottom: 30px;
+  & > img {
+    width: 100px;
+    height: 100px;
   }
 `;

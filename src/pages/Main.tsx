@@ -7,13 +7,7 @@ const Main = () => {
   return (
     <>
       <Header />
-      <Page>
-        {isLoading ? (
-          <Loading message="상품 목록 불러오는 중..." />
-        ) : (
-          <ProductList />
-        )}
-      </Page>
+      <Page>{isLoading ? <Loading /> : <ProductList />}</Page>
     </>
   );
 };

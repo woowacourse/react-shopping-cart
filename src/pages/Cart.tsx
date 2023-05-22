@@ -23,7 +23,7 @@ const Cart = () => {
       <Header />
       <Page>
         {isLoading ? (
-          <Loading message="장바구니 불러오는 중..." />
+          <Loading />
         ) : (
           <>
             <TitleBox>장바구니</TitleBox>
