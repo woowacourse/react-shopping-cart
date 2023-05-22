@@ -3,7 +3,12 @@ import CheckBox from "../common/CheckBox/CheckBox";
 import DeleteButton from "../common/DeleteButton/DeleteButton";
 import RectangleQuantityInput from "../RectangleQuantityInput/RectangleQuantityInput";
 import type { ProductCardProps } from "../../types";
+import { useCartQuantityUpdater } from "../../hooks/useCartInfosUpdater";
+import { useCheckBoxesToggler } from "../../hooks/useCheckBox";
+import { useCartProductRemover } from "../../hooks/useCartProductRemover";
 import { useState } from "react";
+import dataUploader from "../../domains/dataUploader";
+import { IdQuantity } from "../../types";
 
 const CartProductItem = ({
   productId,
@@ -13,27 +18,47 @@ const CartProductItem = ({
   productQuantity,
 }: ProductCardProps) => {
   const [quantity, setQuantity] = useState(productQuantity);
+  const { updateCartQuantity } = useCartQuantityUpdater();
+  const { getIsChecked, toggleChecked } = useCheckBoxesToggler();
+  const { removeCartProduct } = useCartProductRemover();
+
+  const uploadQuantity = ({ id, quantity }: IdQuantity) => {
+    if (quantity === 1) {
+      dataUploader.addCartProduct({ productId: id });
+      return;
+    }
+
+    dataUploader.updateQuantity({ id, quantity });
+  };
 
   return (
     <Container>
-      <ProductCheckBox notifyParentWhenCheckedChanged={() => {}} />
+      <ProductCheckBox
+        isChecked={getIsChecked(productId)}
+        onCheckedChange={() => toggleChecked(productId)}
+      />
       <ProductImage src={productImage} />
       <ProductName>{productName}</ProductName>
       <DeleteButtonContainer>
         <DeleteButton
           productId={productId}
-          notifyParentWhenDeleteTriggered={() => {}}
+          notifyParentWhenDeleteTriggered={removeCartProduct}
         />
       </DeleteButtonContainer>
       <QuantityInputContainer>
         <RectangleQuantityInput
           productId={productId}
           initialValue={productQuantity}
-          notifyFunction={setQuantity}
+          minValue={1}
+          quantityUpdateCallbacks={[
+            updateCartQuantity,
+            ({ quantity }) => setQuantity(quantity),
+            uploadQuantity,
+          ]}
         />
       </QuantityInputContainer>
       <ProductPrice>
-        ₩ {(productPrice * quantity).toLocaleString()}
+        ₩ {(quantity * productPrice).toLocaleString()}
       </ProductPrice>
     </Container>
   );
@@ -41,6 +66,7 @@ const CartProductItem = ({
 
 const colors = {
   darkGray: "#111",
+  pureWhite: "#fff",
 };
 
 const Container = styled.div`
@@ -71,7 +97,7 @@ const ProductImage = styled.img`
 `;
 
 const ProductName = styled.div`
-  color: white;
+  color: ${colors.pureWhite};
   grid-area: name;
   font-size: 20px;
 `;
@@ -88,7 +114,7 @@ const QuantityInputContainer = styled.div`
 `;
 
 const ProductPrice = styled.div`
-  color: white;
+  color: ${colors.pureWhite};
   text-align: right;
   grid-area: price;
 `;
