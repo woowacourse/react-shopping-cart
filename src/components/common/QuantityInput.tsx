@@ -35,11 +35,11 @@ export default function CounterInput({ cartItemId, min = 0, max, style }: Props)
     if (input === '') setQuantityInputProxy(min);
   };
 
-  const quantityUp = () => {
+  const quantityIncrease = () => {
     setQuantityInputProxy(Number(input) + 1);
   };
 
-  const quantityDown = () => {
+  const quantityDecrease = () => {
     setQuantityInputProxy(Number(input) - 1);
   };
 
@@ -51,10 +51,10 @@ export default function CounterInput({ cartItemId, min = 0, max, style }: Props)
     <Wrapper style={style}>
       <Input type="text" value={input} onChange={onChangeInput} onBlur={onBlurInput} />
       <CounterBox>
-        <Counter onClick={quantityUp} disabled={Number(input) === max}>
+        <Counter onClick={quantityIncrease} disabled={Number(input) === max}>
           <img src="./arrowUp.svg" />
         </Counter>
-        <Counter onClick={quantityDown} disabled={Number(input) === min}>
+        <Counter onClick={quantityDecrease} disabled={Number(input) === min}>
           <img src="./arrowDown.svg" />
         </Counter>
       </CounterBox>
