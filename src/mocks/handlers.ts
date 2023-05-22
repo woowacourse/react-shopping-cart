@@ -1,3 +1,4 @@
+import { setCart } from './../utils/localStorage';
 import { getUUID } from './../utils/uuid';
 import { rest } from 'msw';
 import { MockCart } from './fixtures/cart';
@@ -28,6 +29,8 @@ export const handlers = [
       MockCart.cart.push(newCartItem);
     }
 
+    setCart(MockCart.cart);
+
     return res(ctx.status(200), ctx.json(MockCart));
   }),
 
@@ -46,6 +49,8 @@ export const handlers = [
       return item;
     });
 
+    setCart(MockCart.cart);
+
     return res(ctx.status(200), ctx.json(MockCart));
   }),
 
@@ -61,6 +66,9 @@ export const handlers = [
     const idList: Array<CartItem['id']> = await req.json();
 
     MockCart.cart = MockCart.cart.filter((item) => !idList.includes(item.id));
+
+    setCart(MockCart.cart);
+
     return res(ctx.status(200), ctx.json(MockCart));
   }),
 ];
