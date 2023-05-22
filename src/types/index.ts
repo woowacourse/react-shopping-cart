@@ -1,3 +1,5 @@
+import { BOX_SIZE, FETCH_METHOD } from '@Constants/index';
+
 export type Product = {
   id: number;
   name: string;
@@ -5,10 +7,15 @@ export type Product = {
   imageUrl: string;
 };
 
-export type ShoppingCartProduct = {
+export type CartItemType = {
   id: number;
   quantity: number;
   product: Product;
+  isSelected: boolean;
 };
 
-export type UpdateShoppingCart = (product: Product, quantity: number) => void;
+export type fetchMethod = keyof typeof FETCH_METHOD;
+
+export type UpdateCartItem = (url: string, method: fetchMethod, body?: BodyInit | null | undefined) => void;
+
+export type BoxSize = keyof typeof BOX_SIZE;

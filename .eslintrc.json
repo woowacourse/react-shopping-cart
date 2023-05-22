@@ -60,6 +60,11 @@
             "position": "after"
           },
           {
+            "pattern": "@Utils/*",
+            "group": "internal",
+            "position": "after"
+          },
+          {
             "pattern": "@Atoms/*",
             "group": "internal",
             "position": "after"
@@ -71,6 +76,11 @@
           },
           {
             "pattern": "@Constants/*",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@Asset/*",
             "group": "internal",
             "position": "after"
           }

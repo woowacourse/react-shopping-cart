@@ -1,6 +1,6 @@
 {
   "homepage": "https://nlom0218.github.io/react-shopping-cart/",
-  "name": "my",
+  "name": "noah",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -80,6 +80,7 @@
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-storybook": "^0.6.12",
+    "msw": "^1.2.1",
     "prettier": "^2.8.8",
     "prop-types": "^15.8.1",
     "react-app-alias": "^2.2.2",
@@ -88,6 +89,7 @@
     "tsconfig-paths-webpack-plugin": "^4.0.1",
     "webpack": "^5.82.0"
   },
-  "readme": "ERROR: No README data found!",
-  "_id": "my@0.1.0"
+  "msw": {
+    "workerDirectory": "public"
+  }
 }

@@ -5,13 +5,14 @@
       "@Components/*": ["./components/*"],
       "@Constants/*": ["./constants/*"],
       "@Hooks/*": ["./hooks/*"],
-      "@Atoms/*": ["./atoms/*"],
-      "@Selector/*": ["./selector/*"],
+      "@Atoms/*": ["./recoil/atoms/*"],
+      "@Selector/*": ["./recoil/selector/*"],
       "@Pages/*": ["./pages/*"],
       "@Types/*": ["./types/*"],
       "@Asset/*": ["./assets/*"],
       "@Styles/*": ["./styles/*"],
-      "@Animations/*": ["./animations/*"]
+      "@Animations/*": ["./animations/*"],
+      "@Utils/*": ["./utils/*"]
     }
   }
 }

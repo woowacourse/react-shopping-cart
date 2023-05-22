@@ -1,16 +1,26 @@
-import ShoppingCart from '@Asset/ShoppingCart.png';
 import { useState } from 'react';
 
-import { Product, UpdateShoppingCart } from '@Types/index';
+import { Product, UpdateCartItem } from '@Types/index';
 
-import { ALERT_MESSAGE, QUANTITY_CONTROL_BUTTON, QUANTITY_CONTROL_UNIT, SHOPPING_QUANTITY } from '@Constants/index';
+import {
+  ALERT_MESSAGE,
+  FETCH_METHOD,
+  FETCH_URL,
+  QUANTITY_CONTROL_BUTTON,
+  QUANTITY_CONTROL_UNIT,
+  SHOPPING_QUANTITY,
+} from '@Constants/index';
+
+import ShoppingCart from '@Asset/ShoppingCart.png';
 
 import * as S from './style';
 
 type QuantityControllerProps = {
-  product: Product;
+  product?: Product;
   quantity?: number;
-  updateShoppingCart: UpdateShoppingCart;
+  cartItemId?: number;
+  isAbleSetZeroState?: boolean;
+  updateCartItem: UpdateCartItem;
 };
 
 type QuantityControlButton = (typeof QUANTITY_CONTROL_BUTTON)[keyof typeof QUANTITY_CONTROL_BUTTON];
@@ -18,35 +28,53 @@ type QuantityControlButton = (typeof QUANTITY_CONTROL_BUTTON)[keyof typeof QUANT
 function QuantityController({
   product,
   quantity = SHOPPING_QUANTITY.MIN,
-  updateShoppingCart,
+  cartItemId,
+  isAbleSetZeroState = true,
+  updateCartItem,
 }: QuantityControllerProps) {
   const [isUserWork, setIsUserWork] = useState(false);
 
   const controlProductQuantity = (type: QuantityControlButton) => {
-    if (type === QUANTITY_CONTROL_BUTTON.PLUS) {
-      updateShoppingCart(product, quantity + QUANTITY_CONTROL_UNIT.INCREASE);
-    } else {
-      updateShoppingCart(product, quantity - QUANTITY_CONTROL_UNIT.DECREASE);
-    }
+    const newValue =
+      type === QUANTITY_CONTROL_BUTTON.PLUS
+        ? quantity + QUANTITY_CONTROL_UNIT.DECREASE
+        : quantity - QUANTITY_CONTROL_UNIT.DECREASE;
+
+    const method = newValue ? FETCH_METHOD.PATCH : FETCH_METHOD.DELETE;
+    const body = newValue ? JSON.stringify({ quantity: newValue }) : null;
+    updateCartItem(`${FETCH_URL.cartItems}/${cartItemId}`, method, body);
   };
 
-  const addShoppingCart = () => {
-    updateShoppingCart(product, SHOPPING_QUANTITY.DEFAULT);
+  const addCartItem = () => {
+    updateCartItem(FETCH_URL.cartItems, FETCH_METHOD.POST, JSON.stringify({ productId: product?.id }));
   };
 
   const changeQuantityValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(event.target.value);
 
-    if (newValue > SHOPPING_QUANTITY.MAX) return alert(ALERT_MESSAGE.OVER_MAX_QUANTITY);
+    if (!isAbleSetZeroState && newValue < 1) return;
 
-    updateShoppingCart(product, Math.floor(newValue));
+    if (newValue > SHOPPING_QUANTITY.MAX) return alert(ALERT_MESSAGE.OVER_MAX_QUANTITY);
+    updateCartItem(`${FETCH_URL.cartItems}/${cartItemId}`, FETCH_METHOD.PATCH, JSON.stringify({ quantity: newValue }));
+  };
+
+  const focusInButton = (event: React.FocusEvent<HTMLInputElement>) => {
+    event.target.select();
+    setIsUserWork(true);
+  };
+
+  const focusOutButton = () => {
+    setIsUserWork(false);
+    if (quantity) return;
+
+    updateCartItem(`${FETCH_URL.cartItems}/${cartItemId}`, FETCH_METHOD.DELETE);
   };
 
   if (quantity === SHOPPING_QUANTITY.MIN && !isUserWork) {
     return (
       <S.ShoppingCartIcon
         src={ShoppingCart}
-        onClick={addShoppingCart}
+        onClick={addCartItem}
         data-testid="shopping-cart-icon"
       ></S.ShoppingCartIcon>
     );
@@ -58,13 +86,8 @@ function QuantityController({
         type="number"
         value={quantity}
         onChange={changeQuantityValue}
-        onFocus={(event: React.FocusEvent<HTMLInputElement>) => {
-          event.target.select();
-          setIsUserWork(true);
-        }}
-        onBlur={() => {
-          setIsUserWork(false);
-        }}
+        onFocus={focusInButton}
+        onBlur={focusOutButton}
       />
       <S.ButtonWrapper>
         <S.QuantityControlButton
@@ -75,7 +98,7 @@ function QuantityController({
         </S.QuantityControlButton>
         <S.QuantityControlButton
           onClick={() => controlProductQuantity(QUANTITY_CONTROL_BUTTON.MINUS)}
-          disabled={quantity <= SHOPPING_QUANTITY.MIN}
+          disabled={isAbleSetZeroState ? quantity <= SHOPPING_QUANTITY.MIN : quantity <= SHOPPING_QUANTITY.MIN + 1}
         >
           ▼
         </S.QuantityControlButton>
