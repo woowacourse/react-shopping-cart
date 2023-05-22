@@ -36,9 +36,26 @@ type ProductCardProps = {
 
 type ProductQuantityInputProps = {
   initialValue: number;
+  minValue: number;
   productId: number;
   step?: number;
-  notifyFunction?: (value: number) => void;
+  quantityUpdateCallbacks: ((data: IdQuantity) => void)[];
+};
+
+type IdQuantity = {
+  id: number;
+  quantity: number;
+};
+
+type CartLocalInfo = IdQuantity & {
+  price: number;
+};
+
+type CartLocalInfos = CartLocalInfo[];
+
+type ResultResponse = {
+  success: boolean;
+  message?: string;
 };
 
 export type {
@@ -51,4 +68,8 @@ export type {
   CartProducts,
   ProductCardProps,
   ProductQuantityInputProps,
+  IdQuantity,
+  CartLocalInfo,
+  CartLocalInfos,
+  ResultResponse,
 };

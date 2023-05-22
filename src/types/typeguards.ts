@@ -6,7 +6,8 @@ import {
   ProductsWithId,
   CartProduct,
   CartProducts,
-} from "./";
+  ResultResponse,
+} from ".";
 
 const isObject = (data: unknown): data is object => {
   return typeof data === "object" && data !== null;
@@ -68,6 +69,15 @@ const isCartProducts = (data: unknown): data is CartProducts => {
   return data.every((currentData) => isCartProduct(currentData));
 };
 
+const isResultResponse = (data: unknown): data is ResultResponse => {
+  return (
+    isObject(data) &&
+    "success" in data &&
+    typeof data.success === "boolean" &&
+    (!("message" in data) || typeof data.message === "string")
+  );
+};
+
 export {
   isProductId,
   isQuantity,
@@ -76,4 +86,5 @@ export {
   isProductsWithId,
   isCartProduct,
   isCartProducts,
+  isResultResponse,
 };
