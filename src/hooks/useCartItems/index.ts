@@ -13,7 +13,7 @@ import { FETCH_METHOD, FETCH_URL } from '@Constants/index';
 
 const useCartItems = () => {
   const [cartItems, setCartItems] = useRecoilState<CartItemType[] | null>(cartItemsState);
-  const { data, status, errorMessage } = useFetch<CartItemType[]>(FETCH_URL.cartItems);
+  const { data, status, errorMessage, fetchData } = useFetch<CartItemType[]>(FETCH_URL.cartItems);
 
   const isEmpty = cartItems ? !cartItems.length : 0;
 
@@ -26,10 +26,7 @@ const useCartItems = () => {
   };
 
   const updateCartItem: UpdateCartItem = async (url, method, body) => {
-    await fetch(url, {
-      method,
-      body,
-    });
+    await fetchData({ url, method, body });
 
     const prevCartItems = localStorageHelper.getValue('cartItems') as CartItemType[];
     const newCartItems = prevCartItems.map((cartItem) => {
