@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run dev -- --open",
     "dev": "NODE_ENV=development webpack serve",
-    "build": "npx msw init ./public --save && NODE_ENV=production webpack",
+    "build": "NODE_ENV=production webpack",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
   },
