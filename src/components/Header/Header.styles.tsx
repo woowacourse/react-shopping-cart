@@ -3,12 +3,12 @@ import styled from 'styled-components';
 
 export const HeaderContainer = styled.div`
   background: var(--color-header);
-  height: 80px;
   display: flex;
   justify-content: center;
   position: sticky;
   top: 0px;
   z-index: 999;
+  flex: 0 0 80px;
 
   @media screen and (max-width: 1750px) {
     padding: 0 80px;
@@ -35,7 +35,7 @@ export const LogoTitle = styled.h1`
   margin: 4px 0 0 12px;
   color: var(--color-white);
   font-weight: 900;
-  font-size: 36px;
+  font-size: 32px;
   line-height: 58px;
 `;
 
@@ -55,7 +55,7 @@ export const ShoppingCartButton = styled.button`
 
 export const ShoppingCartButtonText = styled.span`
   font-weight: 500;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 12px;
   color: var(--color-white);
   margin-right: 6px;
