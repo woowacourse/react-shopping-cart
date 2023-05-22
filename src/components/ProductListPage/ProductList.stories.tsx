@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { selector } from 'recoil';
-import client from '../api';
-import type { Product } from '../type';
+import { client } from '../../api';
+import type { Product } from '../../type';
 import ProductList from './ProductList';
 
 const meta = {

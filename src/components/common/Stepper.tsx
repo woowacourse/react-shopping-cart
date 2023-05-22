@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
-import { ReactComponent as ArrowDown } from '../assets/icons/arrow-down.svg';
-import { ReactComponent as ArrowUp } from '../assets/icons/arrow-up.svg';
+import { ReactComponent as ArrowDown } from '../../assets/icons/arrow-down.svg';
+import { ReactComponent as ArrowUp } from '../../assets/icons/arrow-up.svg';
 
 const InputContainer = styled.div<{ height: string; width: string }>`
   display: flex;

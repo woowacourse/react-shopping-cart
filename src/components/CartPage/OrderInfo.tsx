@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import totalPrice from '../recoil/selectors/totalPrice';
+import totalPrice from '../../recoil/selectors/totalPrice';
 
 const StyledOrderInfo = styled.div`
   display: flex;

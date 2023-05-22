@@ -1,12 +1,12 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
-import mockServerClient from '../api';
-import useCheck from '../hooks/useCheck';
-import cartState from '../recoil/atoms/cartState';
-import checkedCartState from '../recoil/atoms/checkedCartState';
-import cartCountState from '../recoil/selectors/cartCountState';
+import mockServerClient from '../../api';
+import useCheck from '../../hooks/useCheck';
+import cartState from '../../recoil/atoms/cartState';
+import checkedCartState from '../../recoil/atoms/checkedCartState';
+import cartCountState from '../../recoil/selectors/cartCountState';
+import CheckBox from '../common/CheckBox';
 import CartItem from './CartItem';
-import CheckBox from './CheckBox';
 
 const StyledCartList = styled.div`
   display: flex;

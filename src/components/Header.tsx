@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import { ReactComponent as HomeIcon } from '../assets/icons/home-icon.svg';
 import cartCountState from '../recoil/selectors/cartCountState';
-import Badge from './Badge';
+import Badge from './common/Badge';
 
 const HeaderContainer = styled.header`
   width: 100%;

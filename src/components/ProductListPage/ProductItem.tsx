@@ -1,11 +1,11 @@
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import { ReactComponent as Cart } from '../assets/icons/cart.svg';
-import useCartProduct from '../hooks/useCart';
-import { cartItemFamily } from '../recoil/selectors/cartItemFamily';
-import { productFamily } from '../recoil/selectors/productFamily';
-import type { Product } from '../type';
-import Stepper from './Stepper';
+import { ReactComponent as Cart } from '../../assets/icons/cart.svg';
+import useCartProduct from '../../hooks/useCart';
+import { cartItemFamily } from '../../recoil/selectors/cartItemFamily';
+import { productFamily } from '../../recoil/selectors/productFamily';
+import type { Product } from '../../type';
+import Stepper from '../common/Stepper';
 
 const ProductItemContainer = styled.div`
   display: flex;

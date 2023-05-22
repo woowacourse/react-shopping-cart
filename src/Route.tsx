@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
-import CartPage from './components/CartPage';
+import CartPage from './components/CartPage/CartPage';
 import ErrorPage from './components/ErrorPage';
-import ProductList from './components/ProductList';
+import ProductList from './components/ProductListPage/ProductList';
 
 const Router = () => {
   return (

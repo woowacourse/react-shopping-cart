@@ -1,14 +1,14 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import { ReactComponent as Trash } from '../assets/icons/trash.svg';
-import useCartProduct from '../hooks/useCart';
-import useCheck from '../hooks/useCheck';
-import checkedCartState from '../recoil/atoms/checkedCartState';
-import { cartItemFamily } from '../recoil/selectors/cartItemFamily';
-import { productFamily } from '../recoil/selectors/productFamily';
-import type { Product } from '../type';
-import CheckBox from './CheckBox';
-import Stepper from './Stepper';
+import { ReactComponent as Trash } from '../../assets/icons/trash.svg';
+import useCartProduct from '../../hooks/useCart';
+import useCheck from '../../hooks/useCheck';
+import checkedCartState from '../../recoil/atoms/checkedCartState';
+import { cartItemFamily } from '../../recoil/selectors/cartItemFamily';
+import { productFamily } from '../../recoil/selectors/productFamily';
+import type { Product } from '../../type';
+import CheckBox from '../common/CheckBox';
+import Stepper from '../common/Stepper';
 
 const ItemContainer = styled.div`
   display: flex;
