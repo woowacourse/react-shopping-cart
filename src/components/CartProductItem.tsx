@@ -7,7 +7,7 @@ import { AddToCartCount } from './AddToCartCount';
 import { Cart } from '../types';
 import { useCartState } from './hooks/useCartState';
 import { ChangeEvent } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { checkedProductState } from '../atoms/CartState';
 
 interface CartProductItemProps {
@@ -19,6 +19,27 @@ export const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
   const { increaseCount, decreaseCount, deleteCartItem } =
     useCartState(product);
 
+  const [checkedCartList, setCheckedCartList] =
+    useRecoilState(checkedProductState);
+
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      setCheckedCartList((prev) => {
+        const isDuplicate = prev.some((item) => item.id === cartProduct.id);
+        if (isDuplicate) {
+          return prev;
+        }
+        return [...prev, cartProduct];
+      });
+    } else {
+      setCheckedCartList((prev) =>
+        prev.filter((item) => item.id !== cartProduct.id)
+      );
+    }
+  };
+
+  const isChecked = checkedCartList.find((item) => item.id === id);
+
   const handleIncreaseCount = () => {
     increaseCount();
   };
@@ -27,28 +48,10 @@ export const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
     decreaseCount();
   };
 
-  const setCheckedProductState = useSetRecoilState(checkedProductState);
-
-  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) {
-      setCheckedProductState((prev) => {
-        const isDuplicate = prev.some((item) => item.id === cartProduct.id);
-        if (isDuplicate) {
-          return prev;
-        }
-        return [...prev, cartProduct];
-      });
-    } else {
-      setCheckedProductState((prev) =>
-        prev.filter((item) => item.id !== cartProduct.id)
-      );
-    }
-  };
-
   return (
     <CartProductItemContainer key={id}>
       <LeftSideWrapper>
-        <CheckBox onChange={handleCheckboxChange} />
+        <CheckBox isChecked={!!isChecked} onChange={handleCheckboxChange} />
         <ProductImage source={product.imageUrl} alternative="상품 이미지" />
         <ProductTitle size="20px" weight="600">
           {product.name}

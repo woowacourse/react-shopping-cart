@@ -2,10 +2,14 @@ import { styled } from 'styled-components';
 import { StyledText } from './common/Text';
 import { CheckBox } from './common/CheckBox';
 import { Button as SelectedDeleteButton } from './common/Button';
-import { useRecoilValue } from 'recoil';
-import { cartCountState, cartState } from '../atoms/CartState';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import {
+  cartCountState,
+  cartState,
+  checkedProductState,
+} from '../atoms/CartState';
 import { CartProductItem } from './CartProductItem';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useFetch } from './hooks/useFetch';
 import { Cart } from '../types';
 import Loading from './Loading';
@@ -15,13 +19,17 @@ export const CartProductList = () => {
   const { getAPI, isLoading } = useFetch<{ cartList: Cart[] }>();
   const cartProductCount = useRecoilValue(cartCountState);
   const cartList = useRecoilValue(cartState);
+  const [isChecked, setIsChecked] = useState(true);
+  const [checkedItem, setCheckedItem] = useRecoilState(checkedProductState);
 
   useEffect(() => {
     getAPI('/cart-items');
+    setCheckedItem(cartList);
   }, []);
 
   const handleCheckboxChange = () => {
-    return;
+    setIsChecked(!isChecked);
+    setCheckedItem(isChecked ? [] : cartList);
   };
 
   return (
@@ -52,14 +60,11 @@ export const CartProductList = () => {
         )}
       </ProductItemContainer>
       <BottomSideWrapper>
-        <CheckBox onChange={handleCheckboxChange} />
+        <CheckBox isChecked={isChecked} onChange={handleCheckboxChange} />
         <SelectedProductText>
-          전체선택 (0/{cartList.length})
+          전체선택 ({checkedItem.length}/{cartList.length})
         </SelectedProductText>
         <SelectedDeleteButton
-          onClick={() => {
-            return;
-          }}
           width="98px"
           height="35px"
           backgroundColor="var(--white-color)"
