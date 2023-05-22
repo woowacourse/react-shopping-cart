@@ -64,7 +64,9 @@ export const quantityByProductIdSelector = selectorFamily({
   },
 });
 
-
+/**
+ * TODO: 카드 수가 0개일 때 제거하는 로직 추가 필요
+ */
 export const updateCartListQuantitySelector = selectorFamily<number, number>({
   key: 'updateCartListQuantitySelector',
   get: () => () => {

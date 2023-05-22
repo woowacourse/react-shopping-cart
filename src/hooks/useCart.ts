@@ -2,7 +2,7 @@ import {useRecoilState, useRecoilValue} from 'recoil';
 import type {NewCartItem, ProductItem} from '../types/types';
 import {allCartCheckedSelector, cartState, checkedCartSelector} from '../recoil/cartAtoms';
 import {fetchAddCart, fetchDeleteCart, fetchUpdateCart} from '../api/api';
-import {initCartListCheckbox, updateCartCheckbox, updateCartListQuantity} from '../domain/cart';
+import {initCartListCheckbox, updateCartCheckbox} from '../domain/cart';
 
 function useCart() {
   const [cartList, setCartList] = useRecoilState(cartState);
@@ -41,16 +41,6 @@ function useCart() {
       targetIds.forEach((id) => {
         fetchDeleteCart(id);
       });
-    }
-  };
-
-  const setCartQuantity = (id: number, quantity: number) => {
-    if (quantity === 0) {
-      removeCart(id);
-    } else {
-      const changedCartList = updateCartListQuantity([...cartList], id, quantity);
-      setCartList(changedCartList);
-      fetchUpdateCart(id, quantity);
     }
   };
 
