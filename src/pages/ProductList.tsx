@@ -1,33 +1,26 @@
 import ContentLayout from 'src/components/@common/ContentLayout';
 import ProductItem from 'src/components/ProductItem';
 import Header from 'src/components/@common/Header';
-import { useGetFetch } from 'src/hooks/useFetch';
-import { Product } from 'src/types';
 import { styled } from 'styled-components';
-import { useEffect } from 'react';
-import useToast from 'src/hooks/useToast';
+import { Suspense } from 'react';
+import useGetCartList from 'src/hooks/useGetCartList';
+import useGetPRoductList from 'src/hooks/useGetProductList';
 
 const ProductList = () => {
-  const { data, error } = useGetFetch<Product[]>('/api/products', []);
-  const { toast } = useToast();
+  const productList = useGetPRoductList();
+  useGetCartList();
 
-  const fetchedProductList = data.map((product) => (
+  const fetchedProductList = productList.map((product) => (
     <ProductItem key={product.id} product={product} />
   ));
 
-  useEffect(() => {
-    if (error.isError) {
-      toast.error(error.message);
-    }
-  }, [error]);
-
   return (
-    <>
+    <Suspense fallback={<div>loading...</div>}>
       <Header />
       <ContentLayout>
         <ProductListWrapper>{fetchedProductList}</ProductListWrapper>
       </ContentLayout>
-    </>
+    </Suspense>
   );
 };
 
