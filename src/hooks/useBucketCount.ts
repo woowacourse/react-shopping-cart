@@ -6,11 +6,17 @@ interface useBucketCountOptions {
   errorMessage: string;
   maximumCount: number;
   id: number;
+  showMinCountAlert: boolean;
 }
 
 const useBucketCount = (
   initialValue: number,
-  { errorMessage, maximumCount, id }: useBucketCountOptions
+  {
+    errorMessage,
+    maximumCount,
+    id,
+    showMinCountAlert = false,
+  }: useBucketCountOptions
 ) => {
   const maximumWriteInput = maximumCount * 10;
 
@@ -43,6 +49,12 @@ const useBucketCount = (
   };
 
   const decreaseCount = () => {
+    if (showMinCountAlert && bucketCount <= 1) {
+      alert('장바구니 수량은 1 이상부터 가능합니다.');
+      setBucketCount(1);
+      return;
+    }
+
     if (bucketCount <= 1) {
       removeProductFromCart(id);
       return;
@@ -58,6 +70,12 @@ const useBucketCount = (
 
     if (relatedTarget?.parentElement?.parentElement === target.parentElement)
       return;
+
+    if (showMinCountAlert && bucketCount === 0) {
+      alert('장바구니 수량은 1 이상부터 가능합니다.');
+      setBucketCount(1);
+      return;
+    }
 
     if (bucketCount === 0) {
       removeProductFromCart(id);

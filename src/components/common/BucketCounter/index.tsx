@@ -8,9 +8,15 @@ interface BucketCounterProps {
   kind: CounterStyleType;
   id: number;
   quantity?: number;
+  showMinCountAlert: boolean;
 }
 
-const BucketCounter = ({ kind, id, quantity = 1 }: BucketCounterProps) => {
+const BucketCounter = ({
+  kind,
+  id,
+  quantity = 1,
+  showMinCountAlert,
+}: BucketCounterProps) => {
   const {
     bucketCount,
     onBlur,
@@ -22,6 +28,7 @@ const BucketCounter = ({ kind, id, quantity = 1 }: BucketCounterProps) => {
     errorMessage: '장바구니 수량은 1000개 이하까지 가능합니다.',
     maximumCount: 1000,
     id,
+    showMinCountAlert,
   });
 
   return (

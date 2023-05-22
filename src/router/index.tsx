@@ -5,7 +5,7 @@ import Layout from '@components/common/Layout';
 
 export const PAGE_PATH = {
   HOME: '/',
-  CART: 'cart',
+  CART: '/cart',
 };
 
 export const router = createBrowserRouter(

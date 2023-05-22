@@ -24,7 +24,12 @@ const CartItem = ({ id, name, imageUrl, price, quantity }: CartItmeProps) => {
       </LeftInformationWrapper>
       <RightInformationWrapper>
         <TrashLogo src={TRASH_LOGO} alt="장바구니 아이템 삭제/" />
-        <BucketCounter kind="large" id={id} quantity={quantity} />
+        <BucketCounter
+          kind="large"
+          id={id}
+          quantity={quantity}
+          showMinCountAlert={true}
+        />
         <Price title={`${localePrice} 원`}>{localePrice} 원</Price>
       </RightInformationWrapper>
     </Wrapper>

@@ -1,10 +1,8 @@
 import React from 'react';
-import { PRODUCT_LIST } from '@mockData/productList';
 import { styled } from 'styled-components';
 import Button from '@components/common/Button';
 import CheckBox from '@components/common/CheckBox';
 import { CartInformation } from '@type/types';
-import { createCartItem } from '@utils/cart';
 import { device, theme } from '@styles/theme';
 import CartItem from './CartItem';
 

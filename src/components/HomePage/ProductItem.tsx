@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import useControlCart from '@hooks/useControlCart';
 import { ProductInformation } from '@type/types';
+import { formatPrice } from '@utils/common';
 import { theme } from '@styles/theme';
 import AddCartButton from './AddCartButton';
 
@@ -15,7 +16,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
   const { id, name, price, imageUrl } = product;
   const { addProductToCart } = useControlCart();
 
-  const localePrice = price.toLocaleString('ko-KR');
+  const localePrice = formatPrice(price);
   const slicedPrice =
     localePrice.length > MAX_PRICE_LIMIT
       ? `${localePrice.slice(0, MAX_PRICE_LIMIT)}...`

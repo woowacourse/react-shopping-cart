@@ -14,6 +14,7 @@ test('useBucketCounter의 초기값이 올바르게 작동하는 지 테스트',
         errorMessage: ERROR_MESSAGE,
         maximumCount: MAXIMUM_COUNT,
         id: 1,
+        showMinCountAlert: false,
       }),
     {
       wrapper: RecoilRoot,
@@ -30,6 +31,7 @@ test('increaseCount를 실행했을 때 bucketCount가 증가하는 지 확인�
         errorMessage: ERROR_MESSAGE,
         maximumCount: MAXIMUM_COUNT,
         id: 1,
+        showMinCountAlert: false,
       }),
     {
       wrapper: RecoilRoot,
@@ -50,6 +52,7 @@ test('decreaseCount 실행했을 때 bucketCount가 감소하는 지 확인하�
         errorMessage: ERROR_MESSAGE,
         maximumCount: MAXIMUM_COUNT,
         id: 1,
+        showMinCountAlert: false,
       }),
     {
       wrapper: RecoilRoot,
@@ -70,6 +73,7 @@ test('bucketCount가 maximumCount보다 큰 수라면 사용자에게 에러를 
         errorMessage: ERROR_MESSAGE,
         maximumCount: MAXIMUM_COUNT,
         id: 1,
+        showMinCountAlert: false,
       }),
     {
       wrapper: RecoilRoot,

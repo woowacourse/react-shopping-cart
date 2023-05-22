@@ -1,9 +1,22 @@
 import React from 'react';
 import { styled } from 'styled-components';
 import Button from '@components/common/Button';
+import { formatPrice } from '@utils/common';
 import { device, theme } from '@styles/theme';
 
-const EstimatedPayment = () => {
+interface EstimatedPaymentProps {
+  totalProductPrice: number;
+  deliveryFee: number;
+}
+
+const EstimatedPayment = ({
+  totalProductPrice,
+  deliveryFee,
+}: EstimatedPaymentProps) => {
+  const formattedTotalProductPrice = formatPrice(totalProductPrice);
+  const formattedDeliveryFee = formatPrice(deliveryFee);
+  const formattedTotalPrice = formatPrice(totalProductPrice + deliveryFee);
+
   return (
     <Wrapper>
       <Title>결제예상금액</Title>
@@ -11,17 +24,17 @@ const EstimatedPayment = () => {
         <ContentWrapperParent>
           <ContentWrapper>
             <ContentText>총 상품가격</ContentText>
-            <ContentText>21,700원</ContentText>
+            <ContentText>{formattedTotalProductPrice} 원</ContentText>
           </ContentWrapper>
           <ContentWrapper>
             <ContentText>총 배송비</ContentText>
-            <ContentText>3,000원</ContentText>
+            <ContentText>{formattedDeliveryFee} 원</ContentText>
           </ContentWrapper>
         </ContentWrapperParent>
         <ContentWrapperParent>
           <ContentWrapper>
             <ContentText>총 주문금액</ContentText>
-            <ContentText>24,700원</ContentText>
+            <ContentText>{formattedTotalPrice} 원</ContentText>
           </ContentWrapper>
           <Button
             text="주문하기"
