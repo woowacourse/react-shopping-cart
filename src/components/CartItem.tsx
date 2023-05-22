@@ -34,7 +34,7 @@ const CartItem = (item: CartProduct) => {
       <NameBox>{item.product.name}</NameBox>
       <ButtonBox onClick={removeItem}>🗑️</ButtonBox>
       <PriceBox>{(item.product.price * item.quantity).toLocaleString()}원</PriceBox>
-      <QuantityCounter itemId={item.product.id} />
+      <QuantityCounter itemId={item.product.id} lowerBound={1} />
     </Wrapper>
   );
 };

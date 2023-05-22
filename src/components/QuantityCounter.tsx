@@ -4,9 +4,10 @@ import Counter from "components/common/Counter";
 
 interface QuantityCounterProps {
   itemId: number;
+  lowerBound?: number;
 }
 
-const QuantityCounter = ({ itemId }: QuantityCounterProps) => {
+const QuantityCounter = ({ itemId, lowerBound }: QuantityCounterProps) => {
   const { quantity, changeQuantity, handleQuantityChanged, handleQuantityBlured } =
     useQuantity(itemId);
 
@@ -24,6 +25,7 @@ const QuantityCounter = ({ itemId }: QuantityCounterProps) => {
         onKeyDown={handleCountInputKey}
         onBlur={handleQuantityBlured}
         placeholder="수량"
+        lowerBound={lowerBound}
       />
     </>
   );
