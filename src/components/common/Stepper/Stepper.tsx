@@ -1,8 +1,8 @@
 import { ChangeEvent } from 'react';
 
-import * as S from './QuantityCounter.style';
+import * as S from './Stepper.style';
 
-interface QuantityCounterProps {
+interface StepperProps {
   quantity: number;
   onIncrease: () => void;
   onDecrease: () => void;
@@ -11,14 +11,14 @@ interface QuantityCounterProps {
   ariaDecreaseLabel?: string;
 }
 
-function QuantityCounter({
+function Stepper({
   quantity,
   onIncrease,
   onDecrease,
   onChange,
   ariaIncreaseLabel,
   ariaDecreaseLabel,
-}: QuantityCounterProps) {
+}: StepperProps) {
   return (
     <S.CartBox>
       <S.QuantityInput data-testid="quantity-input" value={quantity} onChange={onChange} />
@@ -42,4 +42,4 @@ function QuantityCounter({
   );
 }
 
-export default QuantityCounter;
+export default Stepper;

@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import CartItemListContainer from '../../components/CartItemListContainer/CartItemListContainer';
-import PayingContainer from '../../components/PayingContainer/PayingContainer';
+import ExpectedPayment from '../../components/ExpectedPayment/ExpectedPayment';
 import { CartPageWrapper } from './Cart.style';
 import SkeletonCart from './SkeletonCart';
 
@@ -9,7 +9,7 @@ function Cart() {
     <CartPageWrapper>
       <Suspense fallback={<SkeletonCart />}>
         <CartItemListContainer />
-        <PayingContainer />
+        <ExpectedPayment />
       </Suspense>
     </CartPageWrapper>
   );

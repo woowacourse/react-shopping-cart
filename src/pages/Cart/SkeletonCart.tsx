@@ -5,7 +5,7 @@ import { StyleCartWrapper } from '../../components/CartItemListContainer/CartIte
 import {
   StylePayingBox,
   StylePayingWrapper,
-} from '../../components/PayingContainer/PayingContainer.style';
+} from '../../components/ExpectedPayment/ExpectedPayment.style';
 
 function SkeletonCart() {
   return (

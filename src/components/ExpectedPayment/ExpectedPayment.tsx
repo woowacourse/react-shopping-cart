@@ -9,9 +9,9 @@ import {
   StyleTotalContainer,
   StyleTotalText,
   PayingButton,
-} from './PayingContainer.style';
+} from './ExpectedPayment.style';
 
-function PayingContainer() {
+function ExpectedPayment() {
   const { totalPriceReadOnly } = useCartTotalPriceReadOnly();
   const deliveryFee = totalPriceReadOnly ? 3000 : 0;
   const totalPayingPrice = totalPriceReadOnly + deliveryFee;
@@ -41,4 +41,4 @@ function PayingContainer() {
   );
 }
 
-export default PayingContainer;
+export default ExpectedPayment;

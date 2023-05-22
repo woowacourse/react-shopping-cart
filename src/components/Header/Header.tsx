@@ -1,7 +1,7 @@
 import * as S from './Header.style';
 
 import Logo from '../Logo';
-import CartIconWithCount from '../CartIconWithCount/';
+import CartIconWithCount from '../CartStepperWithIcon';
 import { Container } from '../../styles/style';
 import { Suspense } from 'react';
 

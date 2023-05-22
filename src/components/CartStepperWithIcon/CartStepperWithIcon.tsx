@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
-import * as S from './CartIconWithCount.style';
+import * as S from './CartStepperWithIcon.style';
 import { useCartLength } from '../../hooks/cartListState/cartListState';
 
-function CartIconWithCount() {
+function CartStepperWithIcon() {
   const navigate = useNavigate();
   const cartListLength = useCartLength();
 
@@ -24,4 +24,4 @@ function CartIconWithCount() {
   );
 }
 
-export default CartIconWithCount;
+export default CartStepperWithIcon;

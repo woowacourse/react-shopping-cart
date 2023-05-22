@@ -5,7 +5,7 @@ import {
 
 import type { ProductItem } from '../../types/ProductType';
 import CheckBox from '../common/CheckBox/CheckBox';
-import QuantityCounter from '../common/QuantityCounter/QuantityCounter';
+import Stepper from '../common/Stepper/Stepper';
 import deleteButton from '../../assets/delete.svg';
 import {
   StyleCartItemWrapper,
@@ -47,7 +47,7 @@ function CartItemBox({ id, imageUrl, name, price }: ProductItem) {
             }}
           />
         </StyleDeleteBox>
-        <QuantityCounter
+        <Stepper
           onChange={(event) => {
             setQuantity(Number(event.target.value));
           }}

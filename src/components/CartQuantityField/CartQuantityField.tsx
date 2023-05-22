@@ -1,7 +1,7 @@
 import * as S from './CartQuantityField.style';
 import * as T from '../../types/ProductType';
 
-import QuantityCounter from '../common/QuantityCounter';
+import QuantityCounter from '../common/Stepper';
 import cartIcon from '../../assets/cart.svg';
 import { useCartItemQuantityById } from '../../hooks/cartListState/cartListState';
 
