@@ -1,11 +1,12 @@
 import type { CartItemType } from '../../../types';
 import { Link } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import CartItem from '../../leafs/CartItem/CartItem';
 import CheckBox from '../../leafs/CheckBox/CheckBox';
-import { selectedCartState } from '../../../recoil/state';
+import { cartState, selectedCartState } from '../../../recoil/state';
+import useCart from '../../../hooks/useCart';
 
 interface CartListProps {
   cartItems: CartItemType[];
@@ -13,9 +14,15 @@ interface CartListProps {
 
 export default function CartList({ cartItems }: CartListProps) {
   const [selectedCart, setSelectedCart] = useRecoilState(selectedCartState);
+  const [, , removeCartItem] = useCart();
 
   function handleDeleteClick() {
-    setSelectedCart([]);
+    if (confirm('선택한 상품을 삭제하시겠습니까?')) {
+      selectedCart.forEach((productId) => {
+        removeCartItem(productId);
+      });
+      window.location.reload();
+    }
   }
 
   return (
