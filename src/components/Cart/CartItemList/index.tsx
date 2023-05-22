@@ -3,8 +3,10 @@ import { useRecoilState } from 'recoil';
 import { cartListAtom } from 'recoil/cartList';
 import CartItem from 'components/Cart/CartItem';
 import Spinner from 'components/@common/Spinner';
+import Modal from 'components/@common/Modal';
 import { useGet } from 'hooks/useGet';
 import { useCheckedItems } from '../hooks/useCheckedItems';
+import { useModal } from 'hooks/useModal';
 import { Cart } from 'types';
 import { deleteCartItem, getCartList } from 'api/requests';
 
@@ -13,7 +15,7 @@ const CartItemList = () => {
   const [cartList, setCartList] = useRecoilState(cartListAtom);
   const { checkedItems, checkAllItems, checkItem, removeAllCheckedItems } =
     useCheckedItems(cartList);
-
+  const { isModalOpen, onOpenModal, onCloseModal } = useModal();
   const loading = (
     <S.Loading>
       <Spinner />
@@ -46,6 +48,7 @@ const CartItemList = () => {
   const onDeleteSelectedItems = () => {
     checkedItems.forEach(({ id }) => deleteCartItem(id));
     setCartList((prev) => prev.filter((item) => !checkedItems.includes(item)));
+    onCloseModal();
   };
 
   return (
@@ -62,10 +65,15 @@ const CartItemList = () => {
         <S.Text>
           전체 선택 ({checkedItems.length}/{cartList.length})개
         </S.Text>
-        <S.SelectDeleteButton onClick={onDeleteSelectedItems}>
+        <S.SelectDeleteButton onClick={onOpenModal}>
           선택 삭제
         </S.SelectDeleteButton>
       </S.CheckBoxWrapper>
+      <Modal
+        isOpen={isModalOpen}
+        onCloseModal={onCloseModal}
+        onDeleteSelectedItems={onDeleteSelectedItems}
+      />
     </S.ItemWrapper>
   );
 };
