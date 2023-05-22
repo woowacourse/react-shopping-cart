@@ -41,7 +41,7 @@ const InputStepper = ({
 
   return (
     <InputStepperWrapper>
-      <InputStyle $size={size} type="text" value={quantity} onChange={handleOnChangeText} />
+      <InputStyle $size={size} type="text" value={quantity} onChange={handleOnChangeText} aria-label='quantity'/>
       <StepperButtonWrapper>
         <StepperUpButton $size={size} onClick={handleOnClickStepperUpButton}>
           &#9662;
