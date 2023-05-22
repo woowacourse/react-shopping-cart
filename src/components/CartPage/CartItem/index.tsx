@@ -24,8 +24,12 @@ const CartItem = ({ product, id, quantity: initialQuantity }: CartItemType) => {
   }, [quantity]);
 
   const removeItemFromCart = () => {
-    deleteInCart(id);
-    deleteInCheckedCart(id);
+    const yes = confirm(`${name}을(를) 장바구니에서 비우시겠습니까?`);
+
+    if (yes) {
+      deleteInCart(id);
+      deleteInCheckedCart(id);
+    }
   };
 
   return (

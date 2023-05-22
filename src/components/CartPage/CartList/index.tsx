@@ -20,8 +20,12 @@ const CartList = () => {
   }, []);
 
   const deleteAll = () => {
-    emptyCart();
-    emptyCheckedItemIds();
+    const yes = confirm('장바구니를 비우시겠습니까?');
+
+    if (yes) {
+      emptyCart();
+      emptyCheckedItemIds();
+    }
   };
 
   return (
