@@ -11,7 +11,7 @@ import { Cart } from 'types';
 import { deleteCartItem, getCartList } from 'api/requests';
 
 const CartItemList = () => {
-  const { data, isLoading } = useGet<{ cartList: Cart[] }>(getCartList);
+  const { isLoading } = useGet<{ cartList: Cart[] }>(getCartList);
   const [cartList, setCartList] = useRecoilState(cartListAtom);
   const { checkedItems, removeAllCheckedItems, checkAllItems } =
     useCheckedItems();
@@ -23,11 +23,15 @@ const CartItemList = () => {
     </S.Loading>
   );
 
-  const fetchedCartList = cartList.map(
-    (cartItem) => cartItem && <CartItem cartItem={cartItem} key={cartItem.id} />
-  );
-
-  const emptyList = <S.EmptyList>장바구니가 비어있습니다.</S.EmptyList>;
+  const fetchedCartList =
+    cartList.length === 0 ? (
+      <S.EmptyList>장바구니가 비어있습니다.</S.EmptyList>
+    ) : (
+      cartList.map(
+        (cartItem) =>
+          cartItem && <CartItem cartItem={cartItem} key={cartItem.id} />
+      )
+    );
 
   const onChangeAllCheckBoxes = () => {
     if (checkedItems.length === cartList.length) {
@@ -46,7 +50,6 @@ const CartItemList = () => {
   return (
     <S.ItemWrapper>
       <S.CartItemTitle>든든배송 상품({checkedItems.length}개)</S.CartItemTitle>
-      {data?.cartList?.length === 0 && emptyList}
       {isLoading ? loading : fetchedCartList}
       <S.CheckBoxWrapper>
         <S.SelectAllCheckBox
