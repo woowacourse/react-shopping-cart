@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
-interface SimpleButtonProps {
+type SimpleButtonProps = {
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   type: "button" | "submit";
   width: string;
   children: string;
-}
+};
 
-interface ButtonProps {
+type ButtonProps = {
   width: string;
   children: string;
-}
+};
 
 const SimpleButton = ({
   onClick,
