@@ -2,10 +2,13 @@
 
 ## FE 5기 레벨2 React 데스크탑 장바구니 애플리케이션
 
-![image](https://github.com/gabrielyoon7/react-shopping-cart/assets/69189073/db4b0b78-7167-4408-a040-acd51e5dbcb1)
+<img width="1293" alt="스크린샷 2023-05-22 17 26 56" src="https://github.com/gabrielyoon7/react-shopping-cart/assets/69189073/c619761e-738c-4541-94f6-95a0bc47e4de">
 
+<img width="1337" alt="스크린샷 2023-05-22 17 27 09" src="https://github.com/gabrielyoon7/react-shopping-cart/assets/69189073/47ce97ac-83be-4ec6-a0f6-252e4ba32447">
 
-![image](https://github.com/gabrielyoon7/react-shopping-cart/assets/69189073/e478c796-a1f9-4a4b-b102-779fd35e1aad)
+<img width="1337" alt="스크린샷 2023-05-22 17 27 27" src="https://github.com/gabrielyoon7/react-shopping-cart/assets/69189073/3f6bc609-04fb-4fcc-9bbe-7115962d87ee">
+
+<img width="1337" alt="스크린샷 2023-05-22 17 27 42" src="https://github.com/gabrielyoon7/react-shopping-cart/assets/69189073/de1e34b9-c246-4564-a4c0-bbee426fa575">
 
 
 <br>
