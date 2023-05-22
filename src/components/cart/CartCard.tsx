@@ -2,9 +2,7 @@ import styled from "styled-components";
 import { Product } from "../../types/Product";
 import { Counter } from "../product/Counter";
 import { useCartItem } from "../../hooks/useCartItem";
-import { useRef } from "react";
 import { DeleteShoppingCartIcon } from "../../assets/ShoppingCartIcons";
-import { deleteCartItem } from "../../utils/apis";
 import { Checkbox } from "../common/Checkbox";
 
 interface CartCardProps {
