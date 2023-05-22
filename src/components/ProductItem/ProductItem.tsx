@@ -1,22 +1,22 @@
-import type {ProductItem} from '../../types/types';
+import type { ProductItem } from '../../types/types';
 import {
   CartCount, CartCountWrapper,
   ProductDetails, ProductInfo, ProductItemBox,
   ProductItemImage, ProductItemImageBox, ProductName, ProductPrice
 } from './ProductItem.style';
-import {useRecoilValue, useSetRecoilState} from "recoil";
-import {modalContentState, modalOpenState} from "../../recoil/modalAtoms.tsx";
-import ProductModalContent from "../ProductModalContent.tsx";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { modalContentState, modalOpenState } from "../../recoil/modalAtoms.tsx";
+import ProductModalContent from "../ProductModalContent/ProductModalContent.tsx";
 import cartIcon from "../../assets/cart.svg";
-import {cartState} from "../../recoil/cartAtoms.ts";
-import {getQuantityByProductId} from "../../domain/cart.ts";
+import { cartState } from "../../recoil/cartAtoms.ts";
+import { getQuantityByProductId } from "../../domain/cart.ts";
 
 interface ProductItemProps {
   product: ProductItem;
 }
 
-function ProductItem({product}: ProductItemProps) {
-  const {name, price, imageUrl} = product;
+function ProductItem({ product }: ProductItemProps) {
+  const { name, price, imageUrl } = product;
   const setModalState = useSetRecoilState(modalOpenState);
   const setModalContentState = useSetRecoilState(modalContentState);
   const cartList = useRecoilValue(cartState);
@@ -24,14 +24,14 @@ function ProductItem({product}: ProductItemProps) {
 
   const openModal = () => {
     setModalState(true);
-    setModalContentState(<ProductModalContent product={product}/>);
+    setModalContentState(<ProductModalContent product={product} />);
   };
 
   return (
     <>
       <ProductItemBox onClick={openModal}>
         <ProductItemImageBox>
-          <ProductItemImage src={imageUrl}/>
+          <ProductItemImage src={imageUrl} />
         </ProductItemImageBox>
         <ProductDetails>
           <ProductInfo>
