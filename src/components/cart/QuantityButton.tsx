@@ -13,20 +13,20 @@ interface Props {
 
 const QuantityButton = ({ productId, quantity }: Props) => {
   const { setQuantity } = useLoadCart(productId);
-  const { addToCart } = useSetCart(productId);
+  const { updateCart } = useSetCart(productId);
 
   const handleQuantityStepUp = () => {
     if (quantity === MAX) return;
 
     setQuantity(quantity + STEP);
-    addToCart(String(quantity + STEP));
+    updateCart(String(quantity + STEP));
   };
 
   const handleQuantityStepDown = () => {
     if (quantity === MIN) return;
 
     setQuantity(quantity - STEP);
-    addToCart(String(quantity - STEP));
+    updateCart(String(quantity - STEP));
   };
 
   return (
