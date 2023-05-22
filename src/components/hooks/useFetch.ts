@@ -43,9 +43,10 @@ export const useFetch = <T>() => {
       },
     });
 
-  const deleteAPI = (url: string) => {
+  const deleteAPI = <T>(url: string, body: T) => {
     fetchData(url, {
       method: 'DELETE',
+      body: JSON.stringify(body),
       headers: {
         'Content-Type': 'application/json',
       },

@@ -3,7 +3,7 @@ import { StyledText } from './common/Text';
 import { CheckBox } from './common/CheckBox';
 import { Button as SelectedDeleteButton } from './common/Button';
 import { useRecoilValue } from 'recoil';
-import { cartCountState } from '../atoms/CartState';
+import { cartCountState, cartState } from '../atoms/CartState';
 import { CartProductItem } from './CartProductItem';
 import { useEffect } from 'react';
 import { useFetch } from './hooks/useFetch';
@@ -12,8 +12,9 @@ import Loading from './Loading';
 import { Image as EmptyCartImage } from './common/Image';
 
 export const CartProductList = () => {
-  const { data, getAPI, isLoading } = useFetch<{ cartList: Cart[] }>();
+  const { getAPI, isLoading } = useFetch<{ cartList: Cart[] }>();
   const cartProductCount = useRecoilValue(cartCountState);
+  const cartList = useRecoilValue(cartState);
 
   useEffect(() => {
     getAPI('/cart-items');
@@ -31,7 +32,7 @@ export const CartProductList = () => {
         </ProductCountText>
       </ProductCountTextWrapper>
       <ProductItemContainer>
-        {data?.cartList.length === 0 && (
+        {cartList.length === 0 && (
           <EmptyCartWrapper>
             <EmptyCartImage
               width="340px"
@@ -45,7 +46,7 @@ export const CartProductList = () => {
         {isLoading ? (
           <Loading />
         ) : (
-          data?.cartList.map((item) => (
+          cartList.map((item) => (
             <CartProductItem key={item.id} cartProduct={item} />
           ))
         )}
@@ -53,7 +54,7 @@ export const CartProductList = () => {
       <BottomSideWrapper>
         <CheckBox onChange={handleCheckboxChange} />
         <SelectedProductText>
-          전체선택 (0/{data?.cartList.length})
+          전체선택 (0/{cartList.length})
         </SelectedProductText>
         <SelectedDeleteButton
           onClick={() => {

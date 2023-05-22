@@ -2,8 +2,13 @@ import React from 'react';
 import { styled } from 'styled-components';
 import { StyledText } from './common/Text';
 import { Button as OrderButton } from './common/Button';
+import { useRecoilValue } from 'recoil';
+import { checkedProductPrice } from '../atoms/CartState';
 
 export const TotalCartList = () => {
+  const totalPrice = useRecoilValue(checkedProductPrice);
+  const deliveryFee = 3000;
+
   return (
     <TotalCartListContainer>
       <TitleWrapper>
@@ -12,16 +17,16 @@ export const TotalCartList = () => {
       <TotalPriceWrapper>
         <SelectedProductPrice>
           <span>총 선택상품금액</span>
-          <span>0원</span>
+          <span>{totalPrice}원</span>
         </SelectedProductPrice>
         <SelectedProductPrice>
           <span>배송비</span>
-          <span>0원</span>
+          <span>{totalPrice && deliveryFee}원</span>
         </SelectedProductPrice>
         <Hypen></Hypen>
         <SelectedProductPrice>
           <span>예상 주문금액</span>
-          <span>0원</span>
+          <span>{totalPrice && totalPrice + deliveryFee}원</span>
         </SelectedProductPrice>
         <Hypen></Hypen>
       </TotalPriceWrapper>

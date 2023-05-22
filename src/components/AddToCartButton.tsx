@@ -27,7 +27,7 @@ export const AddToCartButton = ({
     increaseCount();
   };
   const handleDecreaseCount = () => {
-    decreaseCount(true);
+    decreaseCount();
   };
 
   return (

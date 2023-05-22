@@ -4,11 +4,14 @@ import { styled } from 'styled-components';
 import { StyledText } from './common/Text';
 import { DeleteProductButtonImage } from '../assets/image';
 import { AddToCartCount } from './AddToCartCount';
-import { CartProductList } from '../types/productType';
+import { Cart } from '../types';
 import { useCartState } from './hooks/useCartState';
+import { ChangeEvent } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { checkedProductState } from '../atoms/CartState';
 
 interface CartProductItemProps {
-  cartProduct: CartProductList;
+  cartProduct: Cart;
 }
 
 export const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
@@ -21,13 +24,31 @@ export const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
   };
 
   const handleDecreaseCount = () => {
-    decreaseCount(false);
+    decreaseCount();
+  };
+
+  const setCheckedProductState = useSetRecoilState(checkedProductState);
+
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      setCheckedProductState((prev) => {
+        const isDuplicate = prev.some((item) => item.id === cartProduct.id);
+        if (isDuplicate) {
+          return prev;
+        }
+        return [...prev, cartProduct];
+      });
+    } else {
+      setCheckedProductState((prev) =>
+        prev.filter((item) => item.id !== cartProduct.id)
+      );
+    }
   };
 
   return (
     <CartProductItemContainer key={id}>
       <LeftSideWrapper>
-        <CheckBox />
+        <CheckBox onChange={handleCheckboxChange} />
         <ProductImage source={product.imageUrl} alternative="상품 이미지" />
         <ProductTitle size="20px" weight="600">
           {product.name}
