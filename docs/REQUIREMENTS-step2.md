@@ -35,27 +35,27 @@
     - [x] 등록 상품 GET -> 그대로 랜더링
 - 장바구니 목록
   - 새로고침 시
-    - [ ] 장바구니 GET -> 장바구니 아톰 set -> itemCard에서 장바구니 아톰으로 랜더링
+    - [x] 장바구니 GET(Header 컴포넌트에서) -> 장바구니 아톰 set -> itemCard에서 장바구니 아톰으로 랜더링
   - 장바구니 물품 첫 추가 시
-    - [ ] 장바구니 POST -> 성공하면... -> 장바구니 아톰 set -> itemCard에서 장바구니 아톰으로 랜더링  
+    - [x] 장바구니 POST -> 성공하면... -> 장바구니 아톰 set -> itemCard에서 장바구니 아톰으로 랜더링  
            Response -> Location: /cart-items/{cartItemId}
   - 장바구니 물품 수량 변경 시
-    - [ ] 장바구니 FETCH -> 성공하면... -> 장바구니 아톰 set -> itemCard에서 장바구니 아톰으로 랜더링  
+    - [x] 장바구니 FETCH -> 성공하면... -> 장바구니 아톰 set -> itemCard에서 장바구니 아톰으로 랜더링  
            Response -> X
   - 장바구니 물품 삭제 시
-    - [ ] 장바구니 DELETE -> 성공하면... -> 장바구니 아톰 set -> itemCard에서 장바구니 아톰으로 랜더링  
+    - [x] 장바구니 DELETE -> 성공하면... -> 장바구니 아톰 set -> itemCard에서 장바구니 아톰으로 랜더링  
            Response -> X
 
 ### 장바구니 페이지
 
 - 장바구니 목록
   - 새로고침 시
-    - [ ] 장바구니 GET -> 장바구니 아톰 set -> itemCard에서 장바구니 아톰으로 랜더링
+    - [x] 장바구니 GET(Header 컴포넌트에서) -> 장바구니 아톰 set -> itemCard에서 장바구니 아톰으로 랜더링
   - 장바구니 수량 변경 시
-    - [ ] 장바구니 FETCH -> 성공하면... -> 장바구니 아톰 set -> itemCard에서 장바구니 아톰으로 랜더링  
+    - [x] 장바구니 FETCH -> 성공하면... -> 장바구니 아톰 set -> itemCard에서 장바구니 아톰으로 랜더링  
            Response -> X
   - 장바구니 물품 삭제 시
-    - [ ] 장바구니 DELETE -> 성공하면... -> 장바구니 아톰 set -> itemCard에서 장바구니 아톰으로 랜더링  
+    - [x] 장바구니 DELETE -> 성공하면... -> 장바구니 아톰 set -> itemCard에서 장바구니 아톰으로 랜더링  
            Response -> X
 
 ## 기존 only 프론트 데이터 흐름
@@ -73,4 +73,4 @@
   - 체크 박스
     - 내부 상태로 랜더링
 
-- [ ] 반응형 디자인
+- [x] 반응형 디자인
