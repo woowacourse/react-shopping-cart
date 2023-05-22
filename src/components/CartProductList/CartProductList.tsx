@@ -1,22 +1,31 @@
-// @ts-nocheck
-
 import styled from "styled-components";
+import { useEffect } from "react";
 import CartProductItem from "../CartProductItem/CartProductItem";
-import { useRecoilValue } from "recoil";
-import { fetchCartItemsSelector } from "../../store/apiProductSelector";
+import { useRecoilValue, useRecoilRefresher_UNSTABLE } from "recoil";
+import { cartProductsAtom } from "../../store/fetchAtoms";
+import { hideListAtom } from "../../store/cartProductsAtoms";
+import CheckBoxSelectBundle from "../CheckBoxSelectBundle/CheckBoxSelectBundle";
 
 const CartProductList = () => {
-  const cartItems = useRecoilValue(fetchCartItemsSelector);
+  const cartProducts = useRecoilValue(cartProductsAtom);
+  const refreshCartProducts = useRecoilRefresher_UNSTABLE(cartProductsAtom);
+  const hideList = useRecoilValue(hideListAtom);
+  const refreshHideList = useRecoilRefresher_UNSTABLE(hideListAtom);
+
+  useEffect(() => {
+    refreshCartProducts();
+    refreshHideList();
+  }, [refreshCartProducts, refreshHideList]);
 
   return (
     <Container>
-      <Title>여기에 대충 카테고리</Title>
+      <Title>장바구니 목록</Title>
       <List>
-        {[...cartItems].map((cartItem) => {
-          const { id, name, price, imageUrl } = cartItem.product;
-          const quantity = cartItem.quantity;
+        {cartProducts.map((cartProduct) => {
+          const { id, name, price, imageUrl } = cartProduct.product;
+          const quantity = cartProduct.quantity;
 
-          return (
+          return !hideList[id] ? (
             <CartProductItem
               key={id}
               productId={id}
@@ -25,9 +34,10 @@ const CartProductList = () => {
               productImage={imageUrl}
               productQuantity={quantity}
             />
-          );
+          ) : null;
         })}
       </List>
+      <CheckBoxSelectBundle />
     </Container>
   );
 };
