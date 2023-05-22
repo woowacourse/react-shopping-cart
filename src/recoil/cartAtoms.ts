@@ -1,5 +1,5 @@
 import {atom, selector, selectorFamily} from 'recoil';
-import {CartItem, NewCartItem, ProductItem} from '../types/types';
+import {CartItem, NewCartItem, ProductItem, ReceivedCartItem} from '../types/types';
 import {fetchAddCart, fetchDeleteCart, fetchUpdateCart} from "../api/api.ts";
 
 export const cartState = atom<CartItem[]>({
@@ -176,3 +176,19 @@ export const switchCartCheckboxSelector = selector<number>({
   },
 });
 
+export const switchAllCartCheckboxSelector = selector<undefined>({
+  key: 'switchAllCartCheckboxSelector',
+  get: () => {
+    // 오류 방지를 위해 아무 값이나 리턴
+    return undefined;
+  },
+  set: ({get, set}) => {
+    const cartList = [...get(cartState)];
+    const isAllCartItemChecked = get(allCartCheckedSelector);
+    const newCartList = cartList.map((cartItem: ReceivedCartItem) => ({
+      ...cartItem,
+      checked: !isAllCartItemChecked
+    }));
+    set(cartState, newCartList);
+  },
+});

@@ -10,8 +10,6 @@ import {
   CartItemTrashImage
 } from "./CartItem.style";
 import trashIcon from '../../assets/trash.png';
-import useCart from "../../hooks/useCart.ts";
-import {ChangeEvent} from "react";
 import {useSetRecoilState} from "recoil";
 import {removeCartItemSelector, switchCartCheckboxSelector} from "../../recoil/cartAtoms.ts";
 

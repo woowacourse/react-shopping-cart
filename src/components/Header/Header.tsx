@@ -7,8 +7,7 @@ import {
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 import {cartCountSelector, cartState} from '../../recoil/cartAtoms';
 import {useEffect} from 'react';
-import {CartItem} from "../../types/types.ts";
-import {initCartListCheckbox} from "../../domain/cart.ts";
+import {CartItem, ReceivedCartItem} from "../../types/types.ts";
 
 function Header() {
   const navigate = useNavigate();
@@ -19,7 +18,10 @@ function Header() {
     try {
       const response = await fetch('/cart-items');
       const data = await response.json();
-      const checkedCartItems: CartItem[] = initCartListCheckbox(data, true);
+      const checkedCartItems: CartItem[] = data.map((cartItem: ReceivedCartItem) => ({
+        ...cartItem,
+        checked: true
+      }));
       setCartList(checkedCartItems);
     } catch (error) {
       console.error(error);

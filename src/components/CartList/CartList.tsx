@@ -4,11 +4,10 @@ import {
   cartCountSelector,
   cartState,
   checkedCartCountSelector,
-  removeCartItemsSelector
+  removeCartItemsSelector, switchAllCartCheckboxSelector
 } from "../../recoil/cartAtoms";
 import CartItem from "../CartItem";
 import {CartListCheckCounter, CartListController, CartListWrapper, CartsDeleteButton} from "./CartList.style";
-import useCart from "../../hooks/useCart.ts";
 
 function CartList() {
   const cartList = useRecoilValue(cartState);
@@ -16,10 +15,8 @@ function CartList() {
   const cartCount = useRecoilValue(cartCountSelector);
   const isAllCartItemChecked = useRecoilValue(allCartCheckedSelector);
 
-  const {switchAllCheckboxes} = useCart();
-
   const removeCheckedCartItems = useSetRecoilState(removeCartItemsSelector);
-
+  const switchAllCheckboxes = useSetRecoilState(switchAllCartCheckboxSelector);
   return (
     <CartListWrapper>
       {cartList.map((cart) => (
@@ -29,10 +26,10 @@ function CartList() {
         <input
           type='checkbox'
           checked={isAllCartItemChecked}
-          onChange={() => switchAllCheckboxes()}
+          onChange={() => switchAllCheckboxes(undefined)}
         />
         <CartListCheckCounter
-          onClick={() => switchAllCheckboxes()}
+          onClick={() => switchAllCheckboxes(undefined)}
         >
           전체선택 ({checkedCartListCount}/{cartCount})
         </CartListCheckCounter>
