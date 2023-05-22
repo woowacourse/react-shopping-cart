@@ -26,29 +26,29 @@ export default function CartList({ cartItems }: CartListProps) {
 
   return (
     <S.Wrapper>
-      <Title>배송 상품 ({cartItems.length}개)</Title>
-      <Container>
+      <S.Title>배송 상품 ({cartItems.length}개)</S.Title>
+      <S.Container>
         {cartItems.length === 0 && (
-          <EmptyList>
+          <S.EmptyList>
             <img src="./baemin-empty.png" />
             <p>먼저 상품을 담아주세요!</p>
             <Link to="/">
               <button>담으러 가기</button>
             </Link>
-          </EmptyList>
+          </S.EmptyList>
         )}
         {cartItems.map((item) => (
           <CartItem key={item.id} {...item}></CartItem>
         ))}
-      </Container>
+      </S.Container>
       {cartItems.length !== 0 && (
-        <CheckWrapper>
+        <S.CheckWrapper>
           <CheckBox id="all" />
-          <Direction>
+          <S.Direction>
             전체선택 ({selectedCart.length}/{cartItems.length})
-          </Direction>
-          <CheckDeleteButton onClick={handleDeleteClick}>선택삭제</CheckDeleteButton>
-        </CheckWrapper>
+          </S.Direction>
+          <S.CheckDeleteButton onClick={handleDeleteClick}>선택삭제</S.CheckDeleteButton>
+        </S.CheckWrapper>
       )}
     </S.Wrapper>
   );
@@ -114,4 +114,10 @@ const CheckDeleteButton = styled.button`
 
 const S = {
   Wrapper,
+  Title,
+  Container,
+  EmptyList,
+  CheckWrapper,
+  Direction,
+  CheckDeleteButton,
 };

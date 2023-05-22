@@ -49,14 +49,14 @@ export default function Product(props: ProductProps) {
   }, []);
 
   return (
-    <Wrapper>
-      <Img src={imageUrl} />
-      <InfoBox>
-        <LabelBox>
-          <Name>{name}</Name>
-          <Price>{price.toLocaleString()} 원</Price>
-        </LabelBox>
-        <ControlBox>
+    <S.Wrapper>
+      <S.Img src={imageUrl} />
+      <S.InfoBox>
+        <S.LabelBox>
+          <S.Name>{name}</S.Name>
+          <S.Price>{price.toLocaleString()} 원</S.Price>
+        </S.LabelBox>
+        <S.ControlBox>
           {cartItem ? (
             <Counter
               type="number"
@@ -66,11 +66,11 @@ export default function Product(props: ProductProps) {
               counterSize="default"
             />
           ) : (
-            <CartIcon src="./cart.svg" onClick={handleClickIcon}></CartIcon>
+            <S.CartIcon src="./cart.svg" onClick={handleClickIcon}></S.CartIcon>
           )}
-        </ControlBox>
-      </InfoBox>
-    </Wrapper>
+        </S.ControlBox>
+      </S.InfoBox>
+    </S.Wrapper>
   );
 }
 
@@ -141,3 +141,14 @@ const CartIcon = styled.img`
 const ControlBox = styled.div`
   width: auto;
 `;
+
+const S = {
+  Wrapper,
+  Img,
+  InfoBox,
+  LabelBox,
+  Name,
+  Price,
+  CartIcon,
+  ControlBox,
+};

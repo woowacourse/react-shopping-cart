@@ -1,8 +1,7 @@
 import type { CartItemType } from '../../../types';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { Header, Estimate } from '../../../components';
-import CartList from '../../trees/CartList/CartList';
+import { Header, Estimate, CartList } from '../../../components';
 import { cartState, selectedCartState } from '../../../recoil/state';
 
 export default function CartListPage() {
@@ -22,8 +21,8 @@ export default function CartListPage() {
     <S.Wrapper>
       <Header />
       <S.Main>
-        <Title>장바구니</Title>
-        <CartInfo>
+        <S.Title>장바구니</S.Title>
+        <S.CartInfo>
           <CartList cartItems={cart}></CartList>
           {cart.length !== 0 && (
             <Estimate
@@ -32,7 +31,7 @@ export default function CartListPage() {
               totalPrice={selectedCart.length === 0 ? allTotalPrice : selectedTotalPrice}
             ></Estimate>
           )}
-        </CartInfo>
+        </S.CartInfo>
       </S.Main>
     </S.Wrapper>
   );
@@ -94,4 +93,6 @@ const CartInfo = styled.section`
 const S = {
   Wrapper,
   Main,
+  Title,
+  CartInfo,
 };

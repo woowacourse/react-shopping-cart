@@ -2,7 +2,7 @@ import type { CartItemType } from '../../../types';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { Counter, DeleteIcon, CheckBox } from '../..';
+import { Counter, DeleteIcon, CheckBox } from '../../../components';
 import useCart from '../../../hooks/useCart';
 import { isNumeric } from '../../../utils/validator';
 import { MAX_QUANTITY } from '../../../constants';
@@ -40,13 +40,13 @@ export default function CartItem({ id, quantity, product }: CartItemProps) {
   }, [quantityInput]);
 
   return (
-    <Wrapper>
-      <LeftBox>
+    <S.Wrapper>
+      <S.LeftBox>
         <CheckBox id={String(product.id)} />
-        <Img src={imageUrl} />
-        <Name>{name}</Name>
-      </LeftBox>
-      <RightBox>
+        <S.Img src={imageUrl} />
+        <S.Name>{name}</S.Name>
+      </S.LeftBox>
+      <S.RightBox>
         <DeleteIcon cartItemId={product.id} handleClick={removeCartItem} />
         <Counter
           type="number"
@@ -55,9 +55,9 @@ export default function CartItem({ id, quantity, product }: CartItemProps) {
           onBlur={handleBlurCounter}
           counterSize="large"
         />
-        <Price>{price.toLocaleString()}원</Price>
-      </RightBox>
-    </Wrapper>
+        <S.Price>{price.toLocaleString()}원</S.Price>
+      </S.RightBox>
+    </S.Wrapper>
   );
 }
 
@@ -135,3 +135,12 @@ const RightBox = styled.div`
     gap: 20px;
   }
 `;
+
+const S = {
+  Wrapper,
+  LeftBox,
+  Img,
+  Name,
+  Price,
+  RightBox,
+};
