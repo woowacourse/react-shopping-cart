@@ -1,47 +1,22 @@
-import React from "react";
-import styled from "styled-components";
-import ProductCard from "../ProductCard/ProductCard";
-import mockData from "../../mockData/mockData.json";
+import ProductCard from '../ProductCard/ProductCard';
+import { Product } from '../../types';
+import useFetchProducts from '../../hooks/useFetchProduct';
+import { useRecoilState } from 'recoil';
+import { productsState } from '../../store/cartProductAtom';
+import styles from './index.module.css';
 
 const ProductCardList = () => {
+  const [products, setProducts] = useRecoilState(productsState);
+
+  useFetchProducts(setProducts);
+
   return (
-    <ProductCardListContainer>
-      {mockData.map((product) => (
-        <ProductCard
-          key={product.id}
-          productId={product.id}
-          productImage={product.imageUrl}
-          productName={product.name}
-          productPrice={product.price}
-        />
+    <section className={styles.container}>
+      {products.map((item: Product) => (
+        <ProductCard key={item.id} product={item} />
       ))}
-    </ProductCardListContainer>
+    </section>
   );
 };
-
-const ProductCardListContainer = styled.div`
-  display: grid;
-  padding-top: 61.16px;
-
-  grid-template-columns: repeat(4, 1fr);
-  grid-column-gap: 47.16px;
-  grid-row-gap: 85.81px;
-
-  height: auto;
-  margin: 0 auto 100px auto;
-  max-width: 1270.43px;
-
-  @media (max-width: 1300px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @media (max-width: 960px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 630px) {
-    grid-template-columns: repeat(1, 1fr);
-  }
-`;
 
 export default ProductCardList;
