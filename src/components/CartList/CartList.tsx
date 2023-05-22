@@ -1,7 +1,7 @@
-import {useRecoilValue} from "recoil";
-import {allCartCheckedSelector, cartCountSelector, cartState, checkedCartCountSelector} from "../../recoil/cartAtoms";
+import { useRecoilValue } from "recoil";
+import { allCartCheckedSelector, cartCountSelector, cartState, checkedCartCountSelector } from "../../recoil/cartAtoms";
 import CartItem from "../CartItem";
-import {CartListCheckCounter, CartListController, CartListWrapper} from "./CartList.style";
+import { CartListCheckCounter, CartListController, CartListWrapper, CartsDeleteButton } from "./CartList.style";
 import useCart from "../../hooks/useCart.ts";
 
 function CartList() {
@@ -9,12 +9,12 @@ function CartList() {
   const checkedCartListCount = useRecoilValue(checkedCartCountSelector);
   const cartCount = useRecoilValue(cartCountSelector);
   const isAllCartItemChecked = useRecoilValue(allCartCheckedSelector);
-  const {switchAllCheckboxes} = useCart();
+  const { switchAllCheckboxes } = useCart();
 
   return (
     <CartListWrapper>
       {cartList.map((cart) => (
-        <CartItem key={cart.id} cart={cart}/>
+        <CartItem key={cart.id} cart={cart} />
       ))}
       <CartListController>
         <input
@@ -22,10 +22,12 @@ function CartList() {
           checked={isAllCartItemChecked}
           onChange={() => switchAllCheckboxes()}
         />
-        <CartListCheckCounter>전체선택 ({checkedCartListCount}/{cartCount})</CartListCheckCounter>
-        <div>
-          <button>선택삭제</button>
-        </div>
+        <CartListCheckCounter
+          onClick={() => switchAllCheckboxes()}
+        >
+          전체선택 ({checkedCartListCount}/{cartCount})
+        </CartListCheckCounter>
+        <CartsDeleteButton>선택삭제</CartsDeleteButton>
       </CartListController>
     </CartListWrapper>
   );
