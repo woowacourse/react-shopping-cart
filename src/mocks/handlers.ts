@@ -70,7 +70,7 @@ const handlers = [
     cartItems.push(item as CartItem);
     setLocalStorage(LOCAL_STORAGE_KEY.CART_ITEM, cartItems);
 
-    return res(ctx.status(201), ctx.set('Location', `/cart-items/${productId}`), ctx.json(item));
+    return res(ctx.status(201), ctx.set('Location', `/cart-items/${item.id}`));
   }),
 
   // 장바구니 아이템 수량 변경

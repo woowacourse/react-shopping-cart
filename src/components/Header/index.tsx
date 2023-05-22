@@ -1,16 +1,13 @@
 import { Link } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
-import { $CartIdList, $ToastStateList } from '../../recoil/atom';
+import useToast from '../../hooks/useToast';
+import { $CartIdList } from '../../recoil/atom';
 import styles from './index.module.scss';
 
 function Header() {
   const cartIdList = useRecoilValue($CartIdList);
-  const setToastStateList = useSetRecoilState($ToastStateList);
-
-  const handleClick = () => {
-    setToastStateList([]);
-  };
+  const Toast = useToast();
 
   return (
     <header className={styles.container}>
@@ -19,7 +16,7 @@ function Header() {
       </Link>
       <div className={styles.cart}>
         <Link to="/cart">
-          <button type="button" onClick={handleClick}>
+          <button type="button" onClick={Toast.reset}>
             장바구니
           </button>
         </Link>

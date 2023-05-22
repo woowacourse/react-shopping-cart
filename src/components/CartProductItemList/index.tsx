@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
-import { useRecoilCallback, useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilCallback, useRecoilState } from 'recoil';
 import useGetQuery from '../../hooks/useGetQuery';
 import useMutationQuery from '../../hooks/useMutationQuery';
-import { $CartIdList, $CartItemState, $CheckedCartIdList, $ToastStateList } from '../../recoil/atom';
+import useToast from '../../hooks/useToast';
+import { $CartIdList, $CartItemState, $CheckedCartIdList } from '../../recoil/atom';
 import CartProductItem from '../CartProductItem';
 import styles from './index.module.scss';
 import type { CartItem } from '../../types';
@@ -13,14 +14,11 @@ function CartProductItemList() {
   const { mutateQuery } = useMutationQuery<Record<string, number>, CartItem>('./cart-items');
   const [checkedCartIdList, setCheckedCartIdList] = useRecoilState($CheckedCartIdList);
   const [cartIdList, setCartIdList] = useRecoilState($CartIdList);
-  const setToastStateList = useSetRecoilState($ToastStateList);
+  const Toast = useToast();
 
   useEffect(() => {
     if (error) {
-      setToastStateList(prev => [
-        ...prev,
-        { type: 'error', message: '장바구니를 불러오는 과정에서 문제가 생겼습니다.' },
-      ]);
+      Toast.error('장바구니를 불러오는 과정에서 문제가 생겼습니다.');
     }
   }, [error]);
 
@@ -51,7 +49,7 @@ function CartProductItemList() {
     setCheckedCartIdList([]);
 
     if (!error) {
-      setToastStateList(prev => [...prev, { type: 'success', message: '선택한 장바구니가 삭제되었습니다.' }]);
+      Toast.success('선택한 장바구니가 삭제되었습니다.');
     }
   });
 
