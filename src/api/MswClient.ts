@@ -5,11 +5,11 @@ class MswClient extends Client {
     return super.get(`.${path}`);
   }
 
-  override async post(path: string, body: any) {
+  override async post(path: string, body: unknown) {
     return super.post(`.${path}`, body);
   }
 
-  override async patch(path: string, itemId: number, body: any) {
+  override async patch(path: string, itemId: number, body: unknown) {
     return super.patch(`.${path}/${itemId}`, itemId, body);
   }
 
