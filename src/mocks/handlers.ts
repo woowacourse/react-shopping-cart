@@ -55,11 +55,11 @@ export const handlers = [
   }),
 
   rest.get('/products', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(MockProducts));
+    return res(ctx.delay(2000), ctx.status(200), ctx.json(MockProducts));
   }),
 
   rest.get('/cart', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(MockCart));
+    return res(ctx.delay(2000), ctx.status(200), ctx.json(MockCart));
   }),
 
   rest.delete('/cart', async (req, res, ctx) => {
