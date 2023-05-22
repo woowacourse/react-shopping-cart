@@ -31,7 +31,7 @@ export default function Product({ id, name, price, imageUrl }: Props) {
           {cartItem ? (
             <QuantityInput cartItemId={cartItem.id} min={0} max={MAX_QUANTITY} />
           ) : (
-            <CartIcon src="./cart.svg" onClick={addCartItem}></CartIcon>
+            <CartIcon src="./cart.svg" onClick={addCartItem} />
           )}
         </ControlBox>
       </InfoBox>
