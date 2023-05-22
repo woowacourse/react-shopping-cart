@@ -38,11 +38,14 @@ export const useCart = () => {
   };
 
   const handleRemoveCheckedItem = () => {
-    checkedItems.forEach((id) => {
-      api.delete(`${CART_BASE_URL}/${id}`, { id });
-      removeProductItemFromCart(id);
-    });
-    setCheckedItems([]);
+    const confirmResult = window.confirm('정말로 삭제하시겠습니까?');
+    if (confirmResult) {
+      checkedItems.forEach((id) => {
+        api.delete(`${CART_BASE_URL}/${id}`, { id });
+        removeProductItemFromCart(id);
+      });
+      setCheckedItems([]);
+    }
   };
 
   return {

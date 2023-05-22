@@ -19,8 +19,11 @@ const CartListItem = ({ item, setCheckItems }: Props) => {
   } = useProduct(item.id);
 
   const handleRemoveFromCart = (id: number) => (e: MouseEvent<HTMLButtonElement>) => {
-    setCheckItems((prev) => prev.filter((itemId) => itemId !== id));
-    removeItem();
+    const confirmResult = window.confirm('정말로 삭제하시겠습니까?');
+    if (confirmResult) {
+      setCheckItems((prev) => prev.filter((itemId) => itemId !== id));
+      removeItem();
+    }
   };
 
   return (

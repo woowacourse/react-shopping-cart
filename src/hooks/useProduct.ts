@@ -34,7 +34,7 @@ export const useProduct = (id: number) => {
     updateCart({ id, quantity });
   };
 
-  const handleCartClick = () => {
+  const addItemToCart = () => {
     api.post(CART_BASE_URL, { id });
     updateCart({ id, quantity: 1 });
   };
@@ -94,7 +94,7 @@ export const useProduct = (id: number) => {
     handleIncreaseItem,
     handleDecreaseItem,
     handleDecreaseCartItem,
-    handleCartClick,
+    addItemToCart,
     handleBlurItem,
     removeItem,
   };
