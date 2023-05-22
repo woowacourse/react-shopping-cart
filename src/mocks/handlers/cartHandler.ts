@@ -29,7 +29,7 @@ export const cartHandler = [
     if (product) {
       const newProduct = [...data, { id: Number(id), quantity: 1, product }];
       localStorage.setItem('cart-items', JSON.stringify(newProduct));
-      return res(ctx.status(200));
+      return res(ctx.status(200), ctx.json({}));
     }
     return res(ctx.status(404), ctx.json({ error: 'Item not found' }));
   }),
@@ -48,7 +48,7 @@ export const cartHandler = [
           { id: Number(id), quantity: quantity + 1, product },
         ];
         localStorage.setItem('cart-items', JSON.stringify(newProduct));
-        return res(ctx.status(200));
+        return res(ctx.status(200), ctx.json({}));
       }
       return res(ctx.status(404), ctx.json({ error: 'Item not found' }));
     }
@@ -67,6 +67,6 @@ export const cartHandler = [
 
     localStorage.setItem('cart-items', JSON.stringify(newData));
 
-    return res(ctx.status(200));
+    return res(ctx.status(200), ctx.json({}));
   }),
 ];

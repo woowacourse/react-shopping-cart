@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { ReactComponent as ShoppingCartIcon } from '../../assets/icon/logo.svg';
+import { ReactComponent as ShoppingCartIcon } from '../../assets/icon/stussy-logo.svg';
 import { WIDTH } from '../../styles/mediaQuery';
 
 interface HeaderProps {
@@ -15,7 +15,6 @@ const Header = ({ children }: HeaderProps) => {
           <ShoppingCartIconContainer>
             <ShoppingCartIcon width='100%' />
           </ShoppingCartIconContainer>
-          <Title>SHOP</Title>
         </HomeButton>
       </Link>
       <Link to='/cart'>{children}</Link>
@@ -27,6 +26,8 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  height: 60px;
 
   margin: 0;
   padding: 18px 15%;
@@ -63,17 +64,13 @@ const HomeButton = styled.div`
 `;
 
 const ShoppingCartIconContainer = styled.div`
-  width: 36px;
+  padding-top: 10px;
+  width: 60px;
+  fill: #fff;
 
   @media (max-width: ${WIDTH.MD}) {
-    width: 24px;
+    width: 30px;
   }
-`;
-
-const Title = styled.h1`
-  padding-top: 4px;
-  letter-spacing: 1px;
-  color: #fff;
 `;
 
 export default Header;

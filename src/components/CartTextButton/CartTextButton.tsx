@@ -7,7 +7,7 @@ const CartTextButton = () => {
 
   return (
     <Container>
-      <ShoppingCart>장바구니</ShoppingCart>
+      <ShoppingCart>Cart</ShoppingCart>
       {cartsQuantity ? <CartQuantity>{cartsQuantity}</CartQuantity> : null}
     </Container>
   );

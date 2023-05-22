@@ -99,7 +99,12 @@ const ProductName = styled.div`
 `;
 
 const ProductImgContainer = styled.div`
+  display: flex;
+  align-items: center;
+
   width: 144px;
+  height: 144px;
+  overflow: hidden;
 `;
 
 const DetailWrapper = styled.div`
