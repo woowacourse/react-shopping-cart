@@ -33,19 +33,16 @@ export const cart = [
   }),
 
   rest.patch<PatchReqBody>('/cart-items/:cartItemId', async (req, res, ctx) => {
-    const { quantity } = await req.json<PatchReqBody>();
-    const cartItemId = req.params.cartItemId;
     const authorization = req.headers.get('Authorization');
 
     if (authorization !== 'Basic bob:486') {
       return res(ctx.status(401), ctx.json(authorizationError));
     }
     // 명세상 return되는 body가 없음...
-    return res(ctx.status(200), ctx.json({}));
+    return res(ctx.status(200), ctx.delay(500), ctx.json({}));
   }),
 
   rest.delete('/cart-items/:cartItemId', async (req, res, ctx) => {
-    const cartItemId = req.params.cartItemId;
     const authorization = req.headers.get('Authorization');
 
     if (authorization !== 'Basic bob:486') {
