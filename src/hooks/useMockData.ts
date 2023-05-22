@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
-import { Product } from "../types/Product";
+import { useEffect } from "react";
 import { fetchProducts } from "../utils/apis";
+import { useRecoilState } from "recoil";
+import { productsState } from "../atoms";
 
 export const useMockData = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useRecoilState(productsState);
 
   useEffect(() => {
     const initilizeProducts = async () => {

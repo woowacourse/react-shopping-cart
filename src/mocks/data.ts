@@ -14,7 +14,10 @@ export class Datas {
   pushItemAtCart(id: Id) {
     if (this.cartList.findIndex((item) => item.id === id) !== -1) return;
 
-    this.cartList.push({ id, quantity: 1 });
+    const productIndex = this.products.findIndex((product) => product.id === id);
+    if (productIndex === -1) return;
+
+    this.cartList.push({ id, quantity: 1, product: this.products[productIndex] });
     localStorage.setItem("cart", JSON.stringify(this.cartList));
   }
 

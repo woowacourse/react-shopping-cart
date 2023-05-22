@@ -1,13 +1,10 @@
-import styled from 'styled-components';
-import { Product } from '../../types/Product';
+import styled from "styled-components";
+import { ProductCard } from "../productCard/ProductCard";
+import { useMockData } from "../../hooks/useMockData";
 
-import { ProductCard } from '../productCard/ProductCard';
+export const ProductCardList = () => {
+  const { products } = useMockData();
 
-interface ProductCardListProps {
-  products: Product[];
-}
-
-export const ProductCardList = ({ products }: ProductCardListProps) => {
   return (
     <Style.Container>
       {products.map((product) => (

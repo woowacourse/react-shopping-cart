@@ -17,6 +17,7 @@ export const CardButton = ({ id }: CardButton) => {
           handleMinValueExceeded={removeItemFromCartList}
           handleValueChanged={changeCartItemQuantity}
           quantity={quantity}
+          min={0}
         />
       ) : (
         <AddShoppingCartIcon handleClick={addItemToCartList} />
