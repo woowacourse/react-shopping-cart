@@ -1,11 +1,11 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { cartItemIdSelector, cartItemQuantitySelector, cartListAtom } from '../../stores/cartItemsStore';
-import StepperInput from '../@common/StepperInput/StepperInput';
+import { cartItemIdSelector, cartItemQuantitySelector, cartListAtom } from '../../../stores/cartItemsStore';
+import StepperInput from '../../@common/StepperInput/StepperInput';
 import * as Styled from './ProductQuantityController.styles';
-import ShoppingCartLogo from '../@common/ShoppingCartLogo/ShoppingCartLogo';
-import useUpdateCartItems from '../../hooks/useUpdateCartItems';
-import useGetData from '../../hooks/useGetData';
-import { CartItem } from '../../types';
+import ShoppingCartLogo from '../../@common/ShoppingCartLogo/ShoppingCartLogo';
+import useUpdateCartItems from '../../../hooks/useUpdateCartItems';
+import useGetData from '../../../hooks/useGetData';
+import { CartItem } from '../../../types';
 import { useEffect } from 'react';
 
 type ProductQuantityControllerProps = {

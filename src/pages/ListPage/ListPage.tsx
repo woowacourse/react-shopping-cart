@@ -1,5 +1,5 @@
 import * as Styled from './ListPage.styles.tsx';
-import ProductItem from '../../components/ProductItem/ProductItem.tsx';
+import ProductItem from '../../components/ProductListPage/ProductItem/ProductItem.tsx';
 import type { CartItem, Product } from '../../types/index.ts';
 import useGetData from '../../hooks/useGetData.ts';
 import { useEffect } from 'react';

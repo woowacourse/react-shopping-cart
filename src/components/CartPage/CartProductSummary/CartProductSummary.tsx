@@ -1,12 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { styled } from 'styled-components';
 import CartProductItem from '../CartProductItem/CartProductItem';
 import checkIcon from '../../assets/check.svg';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { cartListAtom, itemSelectionAtom } from '../../stores/cartItemsStore';
+import { cartListAtom, itemSelectionAtom } from '../../../stores/cartItemsStore';
 import { useEffect, useState } from 'react';
-import useUpdateCartItems from '../../hooks/useUpdateCartItems';
-import useGetData from '../../hooks/useGetData';
-import { CartItem } from '../../types';
+import useUpdateCartItems from '../../../hooks/useUpdateCartItems';
+import useGetData from '../../../hooks/useGetData';
+import { CartItem } from '../../../types';
 
 const CartProductSummary = () => {
   const { data: cartListData, getData: getCartList } = useGetData<CartItem[]>('/cart-items');

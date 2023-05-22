@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
-import CartPriceSummary from '../../components/CartPriceSummary/CartPriceSummary';
-import CartProductSummary from '../../components/CartProductSummary/CartProductSummary';
+import CartPriceSummary from '../../components/CartPage/CartPriceSummary/CartPriceSummary';
+import CartProductSummary from '../../components/CartPage/CartProductSummary/CartProductSummary';
 
 const CartPage = () => {
   return (

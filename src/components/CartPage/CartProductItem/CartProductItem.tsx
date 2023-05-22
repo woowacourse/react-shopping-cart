@@ -1,13 +1,13 @@
 import { styled } from 'styled-components';
 import checkIcon from '../../assets/check.svg';
 import trashBin from '../../assets/trash-bin.svg';
-import StepperInput from '../@common/StepperInput/StepperInput';
-import { CartItem } from '../../types';
+import StepperInput from '../../@common/StepperInput/StepperInput';
+import { CartItem } from '../../../types';
 import { useEffect, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { cartItemIdSelector, cartListAtom } from '../../stores/cartItemsStore';
-import useUpdateCartItems from '../../hooks/useUpdateCartItems';
-import useGetData from '../../hooks/useGetData';
+import { cartItemIdSelector, cartListAtom } from '../../../stores/cartItemsStore';
+import useUpdateCartItems from '../../../hooks/useUpdateCartItems';
+import useGetData from '../../../hooks/useGetData';
 
 type CartProductItemProps = CartItem & {
   check: boolean;

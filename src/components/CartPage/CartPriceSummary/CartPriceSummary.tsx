@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import { cartListAtom, cartTotalPriceSelector } from '../../stores/cartItemsStore';
+import { cartListAtom, cartTotalPriceSelector } from '../../../stores/cartItemsStore';
 
 const CartPriceSummary = () => {
   const cartList = useRecoilValue(cartListAtom);
