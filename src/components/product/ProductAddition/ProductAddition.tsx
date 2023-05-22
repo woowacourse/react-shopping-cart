@@ -34,7 +34,7 @@ const ProductAddition = ({
   return (
     <>
       <S.ProductAdditionContainer>
-        <S.Header id="modal title">장바구니 담기</S.Header>
+        <S.Header id="modal-title">장바구니 담기</S.Header>
         <S.ProductInformationContainer>
           <S.ProductImage src={information.imageUrl} alt={information.name} />
           <div>

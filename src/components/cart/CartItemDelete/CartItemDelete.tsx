@@ -8,7 +8,7 @@ interface CartItemDeleteProps {
 const CartItemDelete = ({ removeItem, handleModalClose }: CartItemDeleteProps) => {
   return (
     <S.CartItemDeleteContainer>
-      <S.CartItemDeleteMessage id="modal description">
+      <S.CartItemDeleteMessage id="modal-description">
         해당 상품을 삭제하시겠습니까?
       </S.CartItemDeleteMessage>
       <S.CartItemDeleteButtonContainer>

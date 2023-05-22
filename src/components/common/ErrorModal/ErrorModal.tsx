@@ -14,12 +14,8 @@ const ErrorModal = () => {
   return (
     <Modal isOpen={!!errorMessage} handleClose={handleClose}>
       <S.ErrorModalContentContainer>
-        <S.ErrorMessage id="modal description">{errorMessage}</S.ErrorMessage>
-        <S.ErrorModalCloseButton
-          aria-label="close modal"
-          variant="textButton"
-          onClick={handleClose}
-        >
+        <S.ErrorMessage id="modal-description">{errorMessage}</S.ErrorMessage>
+        <S.ErrorModalCloseButton aria-label="모달 닫기" variant="textButton" onClick={handleClose}>
           확인
         </S.ErrorModalCloseButton>
       </S.ErrorModalContentContainer>

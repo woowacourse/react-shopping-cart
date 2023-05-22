@@ -37,8 +37,8 @@ const Modal = ({ isOpen, children, handleClose }: ModalProps) => {
               ref={modalRef}
               tabIndex={0}
               onKeyDown={handleClosePress}
-              aria-labelledby="modal title"
-              aria-describedby="modal description"
+              aria-labelledby="modal-title"
+              aria-describedby="modal-description"
             >
               {children}
             </S.ModalContent>
