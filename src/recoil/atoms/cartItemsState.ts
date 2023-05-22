@@ -130,6 +130,7 @@ const syncCartItemState = atomFamily<SyncCartItemState, ProductEntity['id']>({
         }
 
         // Creation: if CartItem.id not exists, create one
+        if (!('quantity' in finalState)) return syncCartItem;
         const shouldCreate = !('id' in finalState);
         if (shouldCreate) {
           return createCartItem();
