@@ -1,13 +1,12 @@
-import Header from "./components/Header/Header";
-import ProductCardList from "./components/ProductCardList/ProductCardList";
+import Router from './routes/Router';
+import { RecoilRoot } from 'recoil';
 
-function App() {
+const App = () => {
   return (
-    <>
-      <Header />
-      <ProductCardList />
-    </>
+    <RecoilRoot>
+      <Router />
+    </RecoilRoot>
   );
-}
+};
 
 export default App;
