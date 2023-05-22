@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import useCartList from '@hooks/useCartList';
+import useControlCart from '@hooks/useControlCart';
 import CartList from '@components/CartPage/CartList';
 import EstimatedPayment from '@components/CartPage/EstimatedPayment';
-import { CartAndSelectInformation } from '@type/types';
+import { CartInformation } from '@type/types';
 import { device, theme } from '@styles/theme';
 
 const CartPage = () => {
   const { data, isLoading } = useCartList();
-  const [selectCart, setSelectCart] = useState<CartAndSelectInformation[]>([]);
+  const { cart, toggleSelectItem } = useControlCart();
+  const [selectCart, setSelectCart] = useState<CartInformation[]>([]);
 
   const totalProductPrice = selectCart.reduce((acc, cur) => {
     return acc + cur.product.price * cur.quantity;
@@ -31,7 +33,7 @@ const CartPage = () => {
       <Title>장바구니</Title>
       <SubTitle>든든배송 상품 (3개)</SubTitle>
       <Main>
-        <CartList cartList={selectCart} />
+        <CartList cartList={cart} />
         <EstimatedPayment
           totalProductPrice={totalProductPrice}
           deliveryFee={3000}

@@ -2,10 +2,7 @@ export interface CartInformation {
   id: number;
   quantity: number;
   product: ProductInformation;
-}
-
-export interface CartAndSelectInformation extends CartInformation {
-  isSelect: boolean;
+  isSelect?: boolean;
 }
 
 export interface ProductInformation {

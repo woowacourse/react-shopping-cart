@@ -1,5 +1,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
+import useControlCart from '@hooks/useControlCart';
 import BucketCounter from '@components/common/BucketCounter';
 import CheckBox from '@components/common/CheckBox';
 import { TRASH_LOGO } from '@assets/images';
@@ -11,7 +12,7 @@ interface CartItemProps {
   imageUrl: string;
   price: number;
   quantity: number;
-  isSelected: boolean;
+  isSelect: boolean;
 }
 
 const CartItem = ({
@@ -20,13 +21,14 @@ const CartItem = ({
   imageUrl,
   price,
   quantity,
-  isSelected,
+  isSelect,
 }: CartItemProps) => {
+  const { toggleSelectItem } = useControlCart();
   const localePrice = price.toLocaleString('ko-KR');
   return (
     <Wrapper>
       <LeftInformationWrapper>
-        <CheckBox isChecked={isSelected} onClick={() => {}} />
+        <CheckBox isChecked={isSelect} onClick={() => toggleSelectItem(id)} />
         <Image title={name} src={imageUrl} alt="장바구니 아이템" />
         <Title title={name}>{name}</Title>
       </LeftInformationWrapper>

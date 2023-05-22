@@ -4,7 +4,7 @@ import { rest } from 'msw';
 import useCartList from '@hooks/useCartList';
 import { RequestCartParams } from '@mocks/handlers';
 import { CartInformation, ProductInformation } from '@type/types';
-import { createCartItem, removedItemCart } from '@utils/cart';
+import { createServerCartItem, removedItemCart } from '@utils/cart';
 import { changedQuantityCart } from '@utils/cart';
 import { fetchGet } from '@utils/fetch';
 import { API_URL_CART_LIST, API_URL_PRODUCT_LIST } from '@constants/common';
@@ -59,7 +59,7 @@ describe('API 변경에 유연하도록 구현한 useProductList API 레이어�
             return res(ctx.status(400), ctx.text('잘못된 요청입니다.'));
           }
 
-          receivedData.push(createCartItem(product));
+          receivedData.push(createServerCartItem(product));
 
           return res(
             ctx.set('Content-Type', 'application/json'),
@@ -131,7 +131,7 @@ describe('API 변경에 유연하도록 구현한 useProductList API 레이어�
     await waitFor(async () => {
       const { data } = result.current;
 
-      await expect(data).toEqual([createCartItem(product)]);
+      await expect(data).toEqual([createServerCartItem(product)]);
     });
   });
 
@@ -152,7 +152,9 @@ describe('API 변경에 유연하도록 구현한 useProductList API 레이어�
 
     await waitFor(async () => {
       const { data } = result.current;
-      await expect(data).toEqual([{ ...createCartItem(product), quantity: 3 }]);
+      await expect(data).toEqual([
+        { ...createServerCartItem(product), quantity: 3 },
+      ]);
     });
   });
 
@@ -170,7 +172,7 @@ describe('API 변경에 유연하도록 구현한 useProductList API 레이어�
     await waitFor(async () => {
       const { data } = result.current;
 
-      await expect(data).toEqual([createCartItem(product)]);
+      await expect(data).toEqual([createServerCartItem(product)]);
     });
 
     await waitFor(async () => {

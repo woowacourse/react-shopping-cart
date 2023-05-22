@@ -2,12 +2,12 @@ import React from 'react';
 import { styled } from 'styled-components';
 import Button from '@components/common/Button';
 import CheckBox from '@components/common/CheckBox';
-import { CartAndSelectInformation } from '@type/types';
+import { CartInformation } from '@type/types';
 import { device, theme } from '@styles/theme';
 import CartItem from './CartItem';
 
 interface CartListProps {
-  cartList: CartAndSelectInformation[];
+  cartList: CartInformation[];
 }
 
 const CartList = ({ cartList }: CartListProps) => {
@@ -19,7 +19,7 @@ const CartList = ({ cartList }: CartListProps) => {
       <GridWrapper>
         {cartList.map((item) => (
           <CartItem
-            isSelected={item.isSelected}
+            isSelect={item.isSelect ? item.isSelect : false}
             quantity={item.quantity}
             {...item.product}
           />
