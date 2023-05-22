@@ -41,7 +41,7 @@ const StepperButton = ({
     <S.StepperContainer {...attributes}>
       <S.StepperButton
         type="button"
-        aria-label="decrease count"
+        aria-label="카운트 감소"
         disabled={count === minCount}
         variant="textButton"
         size="small"
@@ -52,12 +52,12 @@ const StepperButton = ({
       <S.StepperInput
         name="count"
         value={count}
-        aria-label="count input"
+        aria-label="카운트 입력"
         onChange={onChange}
       ></S.StepperInput>
       <S.StepperButton
         type="button"
-        aria-label="increase count"
+        aria-label="카운트 증가"
         disabled={count === maxCount}
         variant="textButton"
         size="small"

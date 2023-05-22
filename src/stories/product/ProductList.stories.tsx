@@ -26,14 +26,15 @@ export const Interaction: Story = {
 
     window.localStorage.clear();
 
-    await delay(5000);
+    await delay(3000);
 
     const buyButton = canvas.queryAllByRole('button')[0];
     await userEvent.click(buyButton);
 
     await delay(700);
 
-    const increaseButton = document.querySelector('button[aria-label="increase"]')!;
+    const increaseButton = document.querySelector('button[aria-label="카운트 증가"]')!;
+    console.log(increaseButton);
     await userEvent.click(increaseButton);
 
     await delay(700);
@@ -48,7 +49,12 @@ export const Interaction: Story = {
 
     await delay(700);
 
-    const addButton = document.querySelector('button[aria-label="add item"]')!;
+    const addButton = document.querySelector('button#add-cart')!;
     await userEvent.click(addButton);
+
+    await delay(700);
+
+    const newBuyButton = canvas.queryAllByRole('button')[0];
+    expect(newBuyButton).toHaveTextContent('23');
   },
 };

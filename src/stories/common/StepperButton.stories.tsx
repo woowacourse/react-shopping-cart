@@ -60,9 +60,9 @@ export const Interaction: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const decreaseButton = canvas.getByRole('button', { name: 'decrease' });
-    const increaseButton = canvas.getByRole('button', { name: 'increase' });
-    const countInput = canvas.getByLabelText('count input');
+    const decreaseButton = canvas.getByRole('button', { name: '카운트 감소' });
+    const increaseButton = canvas.getByRole('button', { name: '카운트 증가' });
+    const countInput = canvas.getByLabelText('카운트 입력');
 
     await userEvent.click(increaseButton);
     await userEvent.click(increaseButton);
