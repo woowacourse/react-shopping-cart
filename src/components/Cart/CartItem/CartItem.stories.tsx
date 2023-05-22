@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react';
 import CartItem from '.';
 import { useSetRecoilState } from 'recoil';
-import { updateCart } from 'src/recoil/cartList';
 import { usePostFetch } from 'src/hooks/useFetch';
 import { useEffect } from 'react';
+import { updateCart } from 'src/recoil/selector';
 
 const mockData = {
   id: 3,

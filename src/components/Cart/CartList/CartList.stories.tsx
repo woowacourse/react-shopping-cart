@@ -3,7 +3,7 @@ import CartList from '.';
 import { usePostFetch } from 'src/hooks/useFetch';
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { cartListAtom } from 'src/recoil/cartList';
+import { cartListAtom } from 'src/recoil/atom';
 
 const mockData = {
   cartList: [

@@ -1,8 +1,8 @@
 import { useRecoilValue } from 'recoil';
-import { countCartListSelector } from 'src/recoil/cartList';
 import * as S from './Header.styles';
 import { Link } from 'react-router-dom';
 import { PATH } from 'src/utils/constants';
+import { countCartListSelector } from 'src/recoil/selector';
 
 const Header = () => {
   const cartCount = useRecoilValue(countCartListSelector);

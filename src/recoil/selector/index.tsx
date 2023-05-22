@@ -1,15 +1,37 @@
-import { atom, DefaultValue, selector, selectorFamily } from 'recoil';
-import { CartItem, ProductId } from 'src/types';
+import { DefaultValue, selector, selectorFamily } from 'recoil';
+import { fetchAPI } from 'src/api';
+import { cartListAtom } from '../atom';
+import { ProductId } from 'src/types';
 
-export const cartListAtom = atom<CartItem[]>({
-  key: 'cartItem',
-  default: [],
+export const cartListSelector = selector({
+  key: 'cartItemSelector',
+  get: async () => {
+    const cartItems = await fetchAPI('/api/cart-items');
+    console.log(cartItems, '@@');
+    return cartItems;
+  },
+
+  set: async ({ set }) => {
+    const updatedItems = await fetchAPI('/api/cart-items');
+
+    set(cartListAtom, updatedItems);
+  },
+});
+
+export const productListSelector = selector({
+  key: 'productListSelector',
+  get: async () => {
+    const productItems = await fetchAPI('/api/products');
+
+    return productItems;
+  },
 });
 
 export const countCartListSelector = selector({
   key: 'countCartListSelector',
   get: ({ get }) => {
     const list = get(cartListAtom);
+
     return list.length;
   },
 });
@@ -55,8 +77,8 @@ export const selectedCartItemTotal = selector({
   },
 });
 
-export const wholeCartITemToggleSelector = selector({
-  key: 'wholeCartITemToggleSelector',
+export const wholeCartItemToggleSelector = selector({
+  key: 'wholeCartItemToggleSelector',
   get: ({ get }) => {
     const selectedList = get(countSelectedCartItemsSelector);
     if (selectedList.length === 0) return false;

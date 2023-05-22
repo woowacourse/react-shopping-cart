@@ -5,9 +5,9 @@ import useProductSelect from 'src/hooks/useCartUpdate';
 import * as S from './CartItem.styles';
 import Svg from 'src/components/@common/Svg';
 import { useRecoilValue } from 'recoil';
-import { quantityTimesNumber } from 'src/recoil/cartList';
 import CheckBox from 'src/components/@common/CheckBox';
 import theme from 'src/styles/theme';
+import { quantityTimesNumber } from 'src/recoil/selector';
 
 interface ItemProps {
   item: CartItem;

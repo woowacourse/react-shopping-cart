@@ -1,8 +1,8 @@
 import { useRecoilValue } from 'recoil';
-import { selectedCartItemTotal } from 'src/recoil/cartList';
 import { convertKORWon } from 'src/utils';
 import { DELIVERY_COST } from 'src/utils/constants';
 import * as S from './OrderInfo.styles';
+import { selectedCartItemTotal } from 'src/recoil/selector';
 
 const OrderInfo = () => {
   const totalCartItemPrice = useRecoilValue(selectedCartItemTotal);

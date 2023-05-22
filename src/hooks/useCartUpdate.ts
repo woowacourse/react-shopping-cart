@@ -1,9 +1,10 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { deleteCartItemSelector, updateCart } from 'src/recoil/cartList';
+
 import { Product } from 'src/types';
 import useToast from './useToast';
 import { useDeleteFetch, usePatchFetch, usePostFetch } from './useFetch';
 import { countStepOperator } from 'src/utils';
+import { deleteCartItemSelector, updateCart } from 'src/recoil/selector';
 
 export type CountMethod = 'increase' | 'decrease';
 
@@ -63,6 +64,7 @@ const useCartUpdate = (product: Product) => {
     }
 
     deleteCartItem([cartItem.id]);
+    toast.success(`${product.name}를 장바구니에 삭제했습니다.`);
   };
 
   return {

@@ -1,17 +1,18 @@
 import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useDeleteFetch } from './useFetch';
+import useToast from './useToast';
+import { cartListAtom } from 'src/recoil/atom';
 import {
-  cartListAtom,
   countCartListSelector,
   countSelectedCartItemsSelector,
   deleteCartItemSelector,
-  wholeCartITemToggleSelector,
-} from 'src/recoil/cartList';
-import { useDeleteFetch } from './useFetch';
-import useToast from './useToast';
+  wholeCartItemToggleSelector,
+} from 'src/recoil/selector';
 
 const useCartListUpdate = () => {
   const { toast } = useToast();
+
   const cartList = useRecoilValue(cartListAtom);
   const wholeCartItemsCount = useRecoilValue(countCartListSelector);
   const selectedCartItems = useRecoilValue(countSelectedCartItemsSelector);
@@ -21,7 +22,7 @@ const useCartListUpdate = () => {
   const { deleteData, error } = useDeleteFetch();
 
   const [wholeSelected, setWholeSelected] = useRecoilState(
-    wholeCartITemToggleSelector
+    wholeCartItemToggleSelector
   );
 
   useEffect(() => {
