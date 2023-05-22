@@ -7,24 +7,58 @@ import { cartProductsSelector } from "../recoil/selector";
 import { useCheckBox } from "../hooks/useCheckBox";
 import { deleteCartItem } from "../api";
 import { getNewProducts } from "../utils/domain";
-import { productsState } from "../recoil/atom";
+import { productsState, selectedProductsState } from "../recoil/atom";
+import { useFetch } from "../hooks/useFetch";
 
 export const CartProductList = () => {
+  const setProducts = useSetRecoilState(productsState);
   const cartProducts = useRecoilValue<ProductListType>(cartProductsSelector);
-  const { checkedArray, allChecked, handleCheckBox, handleAllCheckBox } =
-    useCheckBox(cartProducts);
+  const selectedProducts = useRecoilValue<ProductListType>(
+    selectedProductsState
+  );
+  const { fetchNewProducts } = useFetch();
+
+  const {
+    checkedArray,
+    allChecked,
+    removeCheckedArray,
+    removeTargetIndex,
+    handleCheckBox,
+    handleAllCheckBox,
+  } = useCheckBox();
+
+  const handleDeleteButtonClicked = () => {
+    selectedProducts.forEach((product) => {
+      deleteCartItem(product.id);
+    });
+    console.log(checkedArray);
+
+    removeCheckedArray();
+    fetchNewProducts();
+  };
+
+  const handleDelete = (id: number, index: number) => async () => {
+    await deleteCartItem(id);
+
+    removeTargetIndex(index);
+    const newProducts = await getNewProducts();
+    setProducts(newProducts);
+  };
 
   return (
     <Wrapper>
       <TitleBox>든든배송 상품 ({cartProducts.length}개)</TitleBox>
-      {cartProducts.map((product, index) => (
-        <CartProduct
-          key={crypto.randomUUID()}
-          {...product}
-          checked={checkedArray[index]}
-          onChangeHandler={handleCheckBox(index)}
-        />
-      ))}
+      <CartProductsContainer>
+        {cartProducts.map((product, index) => (
+          <CartProduct
+            key={crypto.randomUUID()}
+            {...product}
+            checked={checkedArray[index]}
+            onDeleteHandler={handleDelete(product.id, index)}
+            onChangeHandler={handleCheckBox(index)}
+          />
+        ))}
+      </CartProductsContainer>
       <AllCheckContainer>
         <CheckBoxLabel htmlFor="allProduct">
           <CheckBox
@@ -35,10 +69,9 @@ export const CartProductList = () => {
           />
         </CheckBoxLabel>
         <p>
-          전체선택 ({checkedArray.filter((checked) => checked).length}/
-          {cartProducts.length})
+          전체선택 ({selectedProducts.length}/{cartProducts.length})
         </p>
-        <button>선택삭제</button>
+        <button onClick={handleDeleteButtonClicked}>선택삭제</button>
       </AllCheckContainer>
     </Wrapper>
   );
@@ -46,6 +79,7 @@ export const CartProductList = () => {
 
 interface CartProductType extends ProductType {
   checked: boolean;
+  onDeleteHandler: () => Promise<void>;
   onChangeHandler: () => void;
 }
 
@@ -55,21 +89,13 @@ const CartProduct = ({
   price,
   imageUrl,
   checked,
+  onDeleteHandler,
   onChangeHandler,
 }: CartProductType) => {
-  const setProducts = useSetRecoilState(productsState);
-
-  const handleTrashCanClicked = async () => {
-    deleteCartItem(id);
-
-    const newProducts = await getNewProducts();
-    setProducts(newProducts);
-  };
-
   return (
     <ProductWrapper>
       <TrashCanIconBox>
-        <img src={TrashCanIcon} alt="휴지통" onClick={handleTrashCanClicked} />
+        <img src={TrashCanIcon} alt="휴지통" onClick={onDeleteHandler} />
       </TrashCanIconBox>
       <CheckBoxLabel htmlFor="checkProduct">
         <CheckBox
@@ -83,7 +109,7 @@ const CartProduct = ({
       <Container>
         <NameBox>{name}</NameBox>
         <CounterBox>
-          <Counter itemId={id} />
+          <Counter itemId={id} deleteable={false} />
         </CounterBox>
         <PriceBox>{price.toLocaleString()}원</PriceBox>
       </Container>
@@ -94,8 +120,8 @@ const CartProduct = ({
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  min-width: 55%;
-  max-width: 600px;
+  width: 100%;
+  max-width: 750px;
 `;
 
 const TitleBox = styled.div`
@@ -109,16 +135,21 @@ const TitleBox = styled.div`
 
 const ProductWrapper = styled.section`
   display: flex;
-
+  min-width: 100%;
   padding: 15px 0;
-  position: relative;
 
+  position: relative;
   border-bottom: 1.5px solid #cccccc;
 
   & > img {
     width: 130px;
     height: 130px;
     border-radius: 5px;
+
+    @media screen and (max-width: 850px) {
+      width: 100px;
+      height: 100px;
+    }
   }
 
   &:last-of-type {
@@ -146,6 +177,14 @@ const Container = styled.div`
   width: 100%;
 `;
 
+const CartProductsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  max-height: 500px;
+  overflow: scroll;
+`;
+
 const CheckBoxLabel = styled.label`
   align-self: flex-start;
   margin-right: 10px;
@@ -167,8 +206,7 @@ const CheckBox = styled.input`
 `;
 
 const NameBox = styled.div`
-  max-width: 360px;
-  min-width: 200px;
+  width: 300px;
   margin: 5px 15px;
 
   font-size: 18px;
@@ -177,6 +215,10 @@ const NameBox = styled.div`
   word-break: break-all;
   text-overflow: ellipsis;
   overflow: hidden;
+
+  @media screen and (max-width: 850px) {
+    width: 140px;
+  }
 `;
 
 const PriceBox = styled.p`

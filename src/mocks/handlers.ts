@@ -27,6 +27,7 @@ export const handlers = [
       KEY_LOCALSTORAGE_CART,
       []
     );
+
     setLocalStorage(KEY_LOCALSTORAGE_CART, [
       ...cartItems,
       {
@@ -55,6 +56,7 @@ export const handlers = [
         ? { ...cartItem, quantity: quantity }
         : cartItem
     );
+
     setLocalStorage(KEY_LOCALSTORAGE_CART, newCartItems);
     return res(ctx.status(200));
   }),

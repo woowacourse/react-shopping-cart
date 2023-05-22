@@ -15,7 +15,11 @@ const Wrapper = styled.button`
   color: white;
   cursor: pointer;
 
-  &:hover {
+  &:disabled {
+    background: var(--light-gray);
+  }
+
+  &:not(:disabled):hover {
     box-shadow: 0 10px 10px -3px var(--shadow-gray);
     transition: all 0.3s ease;
   }

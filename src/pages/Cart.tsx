@@ -64,8 +64,10 @@ const Container = styled.section`
   padding: 40px 8%;
   justify-content: space-between;
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 850px) {
     flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
   }
 `;
 

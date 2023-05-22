@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { selectedProductsState } from "../recoil/atom";
+import { cartProductsSelector } from "../recoil/selector";
 import { ProductListType } from "../types/domain";
 
-export const useCheckBox = (cartProducts: ProductListType) => {
+export const useCheckBox = () => {
+  const cartProducts = useRecoilValue<ProductListType>(cartProductsSelector);
   const setSelectedProducts = useSetRecoilState(selectedProductsState);
   const [checkedArray, setCheckedArray] = useState(
     [...Array(cartProducts.length)].map(() => true)
@@ -15,7 +17,7 @@ export const useCheckBox = (cartProducts: ProductListType) => {
         (cartProduct, index) => checkedArray[index] && cartProduct
       )
     );
-  }, [checkedArray]);
+  }, [cartProducts, checkedArray, setSelectedProducts]);
 
   const getAllChecked = () => {
     return checkedArray.every((checked) => checked);
@@ -33,7 +35,23 @@ export const useCheckBox = (cartProducts: ProductListType) => {
     setCheckedArray((prev) => prev.map(() => !getAllChecked()));
   };
 
+  const removeCheckedArray = () => {
+    setCheckedArray((prev) => prev.filter((checked) => !checked));
+  };
+
+  const removeTargetIndex = (targetIndex: number) => {
+    checkedArray.splice(targetIndex, 1);
+    setCheckedArray(checkedArray);
+  };
+
   const allChecked = getAllChecked();
 
-  return { checkedArray, allChecked, handleCheckBox, handleAllCheckBox };
+  return {
+    checkedArray,
+    allChecked,
+    removeCheckedArray,
+    removeTargetIndex,
+    handleCheckBox,
+    handleAllCheckBox,
+  };
 };

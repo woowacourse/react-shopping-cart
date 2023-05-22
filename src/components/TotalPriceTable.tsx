@@ -1,11 +1,12 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { DELIVERY_FEE } from "../constants";
 import { selectedProductsState } from "../recoil/atom";
 import { Button } from "./Button";
 
 export const TotalPriceTable = () => {
   const selectedProducts = useRecoilValue(selectedProductsState);
-
+  const deliveryFee = selectedProducts.length === 0 ? 0 : DELIVERY_FEE;
   const totalPrice = selectedProducts.reduce(
     (accumulator: number, currentValue) =>
       accumulator + currentValue.price * currentValue.quantity,
@@ -21,13 +22,13 @@ export const TotalPriceTable = () => {
       </RowContainer>
       <RowContainer>
         <p>배송비</p>
-        <p>3,000원</p>
+        <p>{deliveryFee.toLocaleString()}원</p>
       </RowContainer>
       <RowContainer>
         <p>총 주문금액</p>
-        <p>{(totalPrice + 3000).toLocaleString()}원</p>
+        <p>{(totalPrice + deliveryFee).toLocaleString()}원</p>
       </RowContainer>
-      <Button>주문하기</Button>
+      <Button disabled={selectedProducts.length === 0}>주문하기</Button>
     </Wrapper>
   );
 };
@@ -37,14 +38,15 @@ const Wrapper = styled.section`
   flex-direction: column;
   align-items: center;
 
-  width: 390px;
+  max-width: 380px;
+  min-width: 350px;
   height: 330px;
   padding-bottom: 30px;
 
   margin-top: 35px;
   border: 1px solid #dddddd;
 
-  @media screen and (max-width: 1200px) and (min-width: 800px) {
+  @media screen and (max-width: 300px) {
     width: 290px;
   }
 `;

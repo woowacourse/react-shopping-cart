@@ -1,24 +1,19 @@
 import React from "react";
-import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { deleteCartItem } from "../api";
 import { useQuantity } from "../hooks/useQuantity";
-import { productsState } from "../recoil/atom";
-import { getNewProducts } from "../utils/domain";
 
 interface CounterProps {
   itemId: number;
+  deleteable: boolean;
 }
 
-export const Counter = ({ itemId }: CounterProps) => {
+export const Counter = ({ itemId, deleteable }: CounterProps) => {
   const {
     quantity,
     setNewQuantity,
     handleQuantityChanged,
     handleQuantityBlured,
   } = useQuantity(itemId);
-
-  const setProducts = useSetRecoilState(productsState);
 
   const handleCountInputKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (!(e.target instanceof HTMLInputElement) || e.key !== "Enter") return;
@@ -30,13 +25,6 @@ export const Counter = ({ itemId }: CounterProps) => {
   };
 
   const handleDownArrowBox = async () => {
-    if (quantity === "1") {
-      deleteCartItem(itemId);
-
-      const newProducts = await getNewProducts();
-      setProducts(newProducts);
-      return;
-    }
     setNewQuantity(Number(quantity) - 1);
   };
 
@@ -52,7 +40,12 @@ export const Counter = ({ itemId }: CounterProps) => {
       />
       <ArrowBoxContainer>
         <ArrowBox onClick={handleUpArrowBox}>▾</ArrowBox>
-        <ArrowBox onClick={handleDownArrowBox}>▾</ArrowBox>
+        <ArrowBox
+          onClick={handleDownArrowBox}
+          disabled={!deleteable && quantity === "1"}
+        >
+          ▾
+        </ArrowBox>
       </ArrowBoxContainer>
     </Wrapper>
   );

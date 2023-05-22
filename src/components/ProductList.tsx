@@ -41,7 +41,7 @@ const Product = ({ id, name, price, imageUrl }: ProductType) => {
         {quantity === MIN_QUANTITY.toString() ? (
           <img src={CartGrayIcon} alt={"카트"} onClick={handleCartClicked} />
         ) : (
-          <Counter itemId={id} />
+          <Counter itemId={id} deleteable />
         )}
       </IconContainer>
     </ProductWrapper>
