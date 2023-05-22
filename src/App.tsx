@@ -1,16 +1,8 @@
-import CartPage from './pages/CartPage';
-import MainPage from './pages/MainPage';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { RouterProvider } from 'react-router-dom';
+import routes from './router/routes';
 
 const App = () => {
-  return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/cart" element={<CartPage />} />
-      </Routes>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={routes} />;
 };
 
 export default App;
