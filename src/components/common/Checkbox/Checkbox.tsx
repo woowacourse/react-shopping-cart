@@ -3,17 +3,13 @@ import { ComponentPropsWithoutRef } from 'react';
 import { CheckedIcon, UncheckedIcon } from '../../../assets';
 import * as S from './Checkbox.styles';
 
-interface CheckboxProps extends ComponentPropsWithoutRef<'input'> {
-  isChecked: boolean;
-}
+interface CheckboxProps extends ComponentPropsWithoutRef<'input'> {}
 
-const Checkbox = ({ isChecked, ...attributes }: CheckboxProps) => {
+const Checkbox = ({ id, checked, ...attributes }: CheckboxProps) => {
   return (
-    <label>
-      <S.CheckboxInput {...attributes} />
-      <S.CheckboxIconWrapper>
-        {isChecked ? <CheckedIcon /> : <UncheckedIcon />}
-      </S.CheckboxIconWrapper>
+    <label htmlFor={id}>
+      <S.CheckboxInput id={id} checked {...attributes} />
+      <S.CheckboxIconWrapper>{checked ? <CheckedIcon /> : <UncheckedIcon />}</S.CheckboxIconWrapper>
     </label>
   );
 };

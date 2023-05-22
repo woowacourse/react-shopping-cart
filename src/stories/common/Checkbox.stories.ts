@@ -6,7 +6,7 @@ const meta = {
   title: 'ShoppingCart/Common/Checkbox',
   component: Checkbox,
   args: {
-    isChecked: false,
+    checked: false,
   },
 } satisfies Meta<typeof Checkbox>;
 
@@ -17,6 +17,6 @@ export const Unchecked: Story = {};
 
 export const Checked: Story = {
   args: {
-    isChecked: true,
+    checked: true,
   },
 };
