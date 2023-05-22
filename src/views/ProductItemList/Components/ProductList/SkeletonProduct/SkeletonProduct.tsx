@@ -12,7 +12,7 @@ function SkeletonProduct() {
   return (
     <Row>
       {Array.from({ length: 12 }).map((_, index) => (
-        <Column>
+        <Column key={index}>
           <ProductItemBox>
             <StyleSkeletonImg />
             <div>

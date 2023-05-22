@@ -12,9 +12,7 @@ function SkeletonCart() {
     <>
       <StyleCartWrapper>
         {Array.from({ length: 3 }).map((_, index) => (
-          <>
-            <SkeletonImage />
-          </>
+          <SkeletonImage key={index} />
         ))}
       </StyleCartWrapper>
       <StylePayingWrapper>
