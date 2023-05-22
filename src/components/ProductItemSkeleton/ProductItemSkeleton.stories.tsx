@@ -1,14 +1,14 @@
-import type {Meta, StoryObj} from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import ProductItemSkeleton from './ProductItemSkeleton.tsx';
 import Providers from '../../stories/Providers';
 
 const meta = {
   component: ProductItemSkeleton,
-  title: 'ProductItem',
+  title: 'ProductItemSkeleton',
   decorators: [
     (Story) => (
       <Providers>
-        <Story/>
+        <Story />
       </Providers>
     ),
   ],
