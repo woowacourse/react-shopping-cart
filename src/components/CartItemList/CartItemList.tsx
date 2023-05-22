@@ -23,7 +23,7 @@ const CartItemList = () => {
 
   useEffect(() => {
     setIsSelectedList(ALL_CHECKED);
-  }, [cartList]);
+  }, [cartList.length]);
 
   useEffect(() => {
     const total = isSelectedList.reduce((a, b) => {
