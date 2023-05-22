@@ -34,7 +34,7 @@ const CartListHeader = () => {
 
   return (
     <S.CartListHeaderContainer>
-      <Checkbox id="total-checkbox" checked={isAllChecked} onClick={onCheckboxClick} />
+      <Checkbox id="전체 선택 체크박스" checked={isAllChecked} onClick={onCheckboxClick} />
       <S.CartItemAllSelectText>
         전체선택 ({checkedItemCount}/
         {cartListItemCount.state === 'hasValue' ? cartListItemCount.contents : 0})
