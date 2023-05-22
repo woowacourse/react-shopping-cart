@@ -20,6 +20,8 @@ export async function patchProductCount(cartItemId: number, quantity: number) {
   if (!response.ok) {
     throw Error(response.status.toString());
   }
+
+  return response;
 }
 
 export async function postCartProduct(postData: CartType) {
