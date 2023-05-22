@@ -1,22 +1,22 @@
+import type { CartItemType } from '../../../types';
 import { useRecoilValue } from 'recoil';
-
 import styled from 'styled-components';
 import { Header, Estimate } from '../../../components';
 import CartList from '../../trees/CartList/CartList';
-import useCart from '../../../hooks/useCart';
-import { selectedCartState } from '../../../recoil/state';
+import { cartState, selectedCartState } from '../../../recoil/state';
 
 export default function CartListPage() {
-  const [cart] = useCart();
+  const cart = useRecoilValue(cartState);
   const allTotalPrice = cart.reduce(
-    (accumulator, { product: { price }, quantity }) => accumulator + price * quantity,
+    (accumulator: number, { product: { price }, quantity }: CartItemType) =>
+      accumulator + price * quantity,
     0
   );
 
   const selectedCart = useRecoilValue(selectedCartState);
   const selectedTotalPrice = cart
-    .filter((item) => selectedCart.includes(item.product.id))
-    .reduce((total, item) => total + item.product.price * item.quantity, 0);
+    .filter((item: CartItemType) => selectedCart.includes(item.product.id))
+    .reduce((total: number, item: CartItemType) => total + item.product.price * item.quantity, 0);
 
   return (
     <S.Wrapper>
