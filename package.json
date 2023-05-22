@@ -25,7 +25,7 @@
   "scripts": {
     "start": "react-scripts start",
     "copy-files": "copyfiles -u 1 src/**/mockServiceWorker.js dist/",
-    "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build npm run copy-files",
+    "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
@@ -72,7 +72,6 @@
     "@typescript-eslint/eslint-plugin": "^5.59.5",
     "@typescript-eslint/parser": "^5.59.5",
     "babel-plugin-named-exports-order": "^0.0.2",
-    "copyfiles": "^2.4.1",
     "eslint": "^8.40.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
