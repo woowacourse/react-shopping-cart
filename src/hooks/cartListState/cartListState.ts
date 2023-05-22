@@ -9,14 +9,17 @@ import {
 import type { CartItem, ProductItem } from '../../types/ProductType';
 import { productListState } from '../productListState/productListState';
 import { useCallback, useMemo } from 'react';
+import { createApiRequests } from '../../utils/fetcher';
+
+// FIXME: 분리하기
+const cartFetch = createApiRequests('')('cart-items');
 
 const cartState = atom<CartItem[]>({
   key: 'cartListWithInfoState',
   default: selector({
     key: 'cartListWithInfoState/default',
     get: async () => {
-      const response = await fetch('/cart-items');
-      const cartProducts: CartItem[] = await response.json();
+      const cartProducts: CartItem[] = await cartFetch.GET();
       return cartProducts.map((cartProduct) => {
         cartProduct.checked = true;
         return cartProduct;
@@ -57,11 +60,10 @@ const cartItemQuantityState = selectorFamily<number, number>({
             },
           ]); //delay 1초
 
-          fetch('/cart-items', {
-            method: 'POST',
-            body: JSON.stringify({
+          cartFetch.POST({
+            body: {
               productId: product.id,
-            }),
+            },
           });
 
           return;
@@ -71,9 +73,7 @@ const cartItemQuantityState = selectorFamily<number, number>({
         if (quantity === 0) {
           set(cartState, (prevCartList) => prevCartList.filter((item) => item.id !== id));
 
-          fetch(`/cart-items/${id}`, {
-            method: 'DELETE',
-          });
+          cartFetch.DELETE(`${id}`);
 
           return;
         }
@@ -92,11 +92,11 @@ const cartItemQuantityState = selectorFamily<number, number>({
           });
         });
 
-        fetch(`/cart-items/${id}`, {
-          method: 'PATCH',
-          body: JSON.stringify({
+        cartFetch.PATCH({
+          pathParameter: `${id}`,
+          body: {
             quantity,
-          }),
+          },
         });
       }
     },
