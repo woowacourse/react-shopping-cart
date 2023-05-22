@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import ProductItem from './ProductItem';
+import { cartHandler } from '../../../mocks/handlers';
 
 const meta = {
   title: 'ProductItem',
@@ -18,4 +19,5 @@ export const Default: Story = {
     imageSrc:
       'https://cdn-mart.baemin.com/sellergoods/main/c6f2f083-a8b8-4799-834b-444b5eaeb532.png?h=400&w=400',
   },
+  parameters: { msw: cartHandler },
 };

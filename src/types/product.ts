@@ -5,7 +5,7 @@ export interface Product {
   imageSrc: string;
 }
 
-export interface CartItem {
+export interface CartProduct {
   id: string;
   quantity: number;
   product: Product;

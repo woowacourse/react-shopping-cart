@@ -2,6 +2,10 @@ import React from 'react';
 import { RecoilRoot } from 'recoil';
 import GlobalStyle from '../src/GlobalStyle';
 import type { Preview } from '@storybook/react';
+import { MemoryRouter } from 'react-router-dom';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
+
+initialize();
 
 const preview: Preview = {
   parameters: {
@@ -17,11 +21,14 @@ const preview: Preview = {
 
 export const decorators = [
   (Story) => (
-    <RecoilRoot>
-      <GlobalStyle />
-      <Story />
-    </RecoilRoot>
+    <MemoryRouter>
+      <RecoilRoot>
+        <GlobalStyle />
+        <Story />
+      </RecoilRoot>
+    </MemoryRouter>
   ),
+  mswDecorator,
 ];
 
 export default preview;

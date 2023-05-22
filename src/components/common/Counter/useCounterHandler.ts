@@ -1,5 +1,5 @@
 import { ChangeEventHandler } from 'react';
-import { isNumericString } from '../../utils/isNumericString';
+import { isNumericString } from '../../../utils/isNumericString';
 
 interface Parameters {
   count: number;

@@ -1,6 +1,6 @@
 import { css, styled } from 'styled-components';
-import PlusIcon from '../../assets/icons/PlusIcon';
-import MinusIcon from '../../assets/icons/MinusIcon';
+import PlusIcon from '../../../assets/icons/PlusIcon';
+import MinusIcon from '../../../assets/icons/MinusIcon';
 import useCounterHandler from './useCounterHandler';
 
 export type CounterSize = 'medium' | 'small';

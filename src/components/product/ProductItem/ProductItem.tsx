@@ -1,50 +1,61 @@
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import Counter from '../Counter/Counter';
-import ProductImage from '../ProductImage/ProductImage';
-import SmallCartIcon from '../../assets/icons/SmallCartIcon';
-import { formatPrice } from '../../utils/formatPrice';
-import useCartService from '../../hooks/useCartService';
-import productQuantityInCart from '../../globalState/selectors/productQuantityInCart';
-import type { Product } from '../../types/product';
+import Counter from '../../common/Counter/Counter';
+import Image from '../../common/Image/Image';
+import SmallCartIcon from '../../../assets/icons/SmallCartIcon';
+import { formatPrice } from '../../../utils/formatPrice';
+import useCartService from '../../../hooks/useCartService';
+import productQuantityInCart from '../../../globalState/selectors/productQuantityInCart';
+import type { Product } from '../../../types/product';
 
 const ProductItem = (product: Product) => {
-  const { id, name, price, imageSrc } = product;
-  const { addCartItem, updateCartItemQuantity, removeCartItem } =
+  const { id: productId, name, price, imageSrc } = product;
+  const { addCartItem, updateCartItemQuantity, deleteCartItem, getCartId } =
     useCartService();
-  const quantityInCart = useRecoilValue(productQuantityInCart(id));
+
+  const quantityInCart = useRecoilValue(productQuantityInCart(productId));
+  const [count, setCount] = useState(quantityInCart);
   const [isDisplayCounter, setIsDisplayCounter] = useState(!!quantityInCart);
 
-  const handleAddCartItem = () => {
-    addCartItem(product);
-    setIsDisplayCounter(true);
+  const updateCount = (quantity: number) => {
+    setCount(quantity);
+
+    if (quantity === 0) return;
+    updateCartItemQuantity(getCartId(productId))(quantity);
   };
 
-  const handleRemoveCartItem = (quantity: number) => {
+  const handleAddCartButtonClick = () => {
+    addCartItem(product);
+    setIsDisplayCounter(true);
+    setCount(1);
+  };
+
+  const handleNoQuantityAction = (quantity: number) => {
     if (quantity !== 0) return;
 
-    removeCartItem(id);
+    const cartId = getCartId(productId);
+    deleteCartItem(cartId);
     setIsDisplayCounter(false);
   };
 
   return (
     <ItemContainer>
       <ProductImageWrapper>
-        <ProductImage src={imageSrc} alt={name} size="large" />
+        <Image src={imageSrc} alt={name} size="large" />
         <CartButtonWrapper>
           {isDisplayCounter ? (
             <Counter
-              count={quantityInCart}
-              updateCount={updateCartItemQuantity(id)}
-              onClickedButton={handleRemoveCartItem}
-              onBlurredInput={handleRemoveCartItem}
+              count={count}
+              updateCount={updateCount}
+              onClickedButton={handleNoQuantityAction}
+              onBlurredInput={handleNoQuantityAction}
             />
           ) : (
             <CartButton
               type="button"
               aria-label="장바구니에 추가하기"
-              onClick={handleAddCartItem}
+              onClick={handleAddCartButtonClick}
             >
               <SmallCartIcon />
             </CartButton>

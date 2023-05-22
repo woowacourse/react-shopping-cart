@@ -1,14 +1,22 @@
 import { styled } from 'styled-components';
 import ProductItem from '../ProductItem/ProductItem';
-import useFetchProductList from './useFetchProductList';
+import useFetch from '../../../hooks/api/useFetch';
+import { Product } from '../../../types/product';
+import { PRODUCTS_BASE_URL } from '../../../constant';
 
 const ProductList = () => {
-  const { productList } = useFetchProductList();
+  const { getData, error } = useFetch<Product[]>(PRODUCTS_BASE_URL);
+
+  if (error) {
+    throw error;
+  }
+
+  const productList = getData();
 
   return (
     <section>
       <ProductListContainer>
-        {productList.map((product) => (
+        {productList?.map((product) => (
           <li key={product.id}>
             <ProductItem {...product} />
           </li>
