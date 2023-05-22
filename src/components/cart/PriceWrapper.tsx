@@ -6,8 +6,8 @@ type Props = {
 };
 
 const PriceWrapper = ({ totalPrice }: Props) => {
-  const Price = (description: string, price: string) => (
-    <section>
+  const Price = (id: string, description: string, price: string) => (
+    <section id={id}>
       <li>{description}</li>
       <p>{price}</p>
     </section>
@@ -17,9 +17,9 @@ const PriceWrapper = ({ totalPrice }: Props) => {
     <S.PriceWrapper>
       <S.PriceLabel>결제예상금액</S.PriceLabel>
       <S.PriceInfo>
-        {Price('총 상품가격', `${totalPrice.toLocaleString()}원`)}
-        {Price('총 배송비', `${DELIVERY_FEE.toLocaleString()}원`)}
-        {Price('총 주문금액', `${(totalPrice + DELIVERY_FEE).toLocaleString()}원`)}
+        {Price('total-product-price', '총 상품가격', `${totalPrice.toLocaleString()}원`)}
+        {Price('delivery-fee', '총 배송비', `${DELIVERY_FEE.toLocaleString()}원`)}
+        {Price('total-price', '총 주문금액', `${(totalPrice + DELIVERY_FEE).toLocaleString()}원`)}
       </S.PriceInfo>
       <S.OrderButton>주문하기</S.OrderButton>
     </S.PriceWrapper>

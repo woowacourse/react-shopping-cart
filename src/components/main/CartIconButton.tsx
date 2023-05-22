@@ -10,7 +10,7 @@ type Props = {
 
 export const CartIconButton = ({ ariaLabel, onClick }: Props) => {
   return (
-    <S.IconButton aria-label={`iconButton${ariaLabel}`}>
+    <S.IconButton aria-label={`add-to-cart-${ariaLabel}`}>
       <Icon
         width="30"
         height="27"

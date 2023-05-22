@@ -15,7 +15,7 @@ interface Props {
 const QuantityInput = ({ value, onChange, id, onIncrement, onDecrement, onBlur }: Props) => {
   return (
     <S.Wrapper>
-      <S.MinusButton onClick={onDecrement}>
+      <S.MinusButton onClick={onDecrement} aria-label="decrease">
         <FaMinus />
       </S.MinusButton>
 
@@ -28,7 +28,7 @@ const QuantityInput = ({ value, onChange, id, onIncrement, onDecrement, onBlur }
         onChange={onChange}
         onBlur={onBlur}
       />
-      <S.PlusButton onClick={onIncrement}>
+      <S.PlusButton onClick={onIncrement} aria-label="increase">
         <FaPlus />
       </S.PlusButton>
     </S.Wrapper>

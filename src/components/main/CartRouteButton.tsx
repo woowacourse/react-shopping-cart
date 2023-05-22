@@ -12,7 +12,7 @@ const CartRouteButton = ({ onClick }: Props) => {
   return (
     <S.Wrapper onClick={onClick}>
       <S.Button>장바구니</S.Button>
-      <S.Badge>{selectedProductsCount}</S.Badge>
+      <S.Badge id="cart-badge">{selectedProductsCount}</S.Badge>
     </S.Wrapper>
   );
 };
