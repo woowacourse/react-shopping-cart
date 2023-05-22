@@ -47,7 +47,7 @@ const useCartProduct = (productId: Product['id']) => {
             return newCart;
           });
         } catch (error) {
-          console.log(error);
+          console.error(error);
           window.alert('상품을 처리하는 도중 오류가 발생했습니다.');
         }
       },

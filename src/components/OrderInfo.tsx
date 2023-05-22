@@ -1,4 +1,6 @@
+import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
+import totalPrice from '../recoil/selectors/totalPrice';
 
 const StyledOrderInfo = styled.div`
   display: flex;
@@ -33,6 +35,13 @@ const OrderInfoBody = styled.div`
   line-height: 27px;
 `;
 
+const Price = styled.div`
+  &::after {
+    content: '원';
+    padding-left: 8px;
+  }
+`;
+
 const PriceInfo = styled.div`
   width: 100%;
   display: flex;
@@ -65,25 +74,28 @@ const OrderButton = styled.button`
   color: #fff;
 `;
 
+export const DELIVERY_FEE = 2500;
+
 const OrderInfo = () => {
+  const [totalCartItemPrice, finalPrice] = useRecoilValue(totalPrice);
   return (
     <StyledOrderInfo>
       <OrderInfoTitle>결제 예상 금액</OrderInfoTitle>
       <OrderInfoBody>
         <PriceInfo>
           <div>총 상품 가격</div>
-          <div>21,700원</div>
+          <Price>{totalCartItemPrice.toLocaleString('ko-KR')}</Price>
         </PriceInfo>
         <PriceInfo>
           <div>총 배송비</div>
-          <div>2,500원</div>
+          <Price>{DELIVERY_FEE.toLocaleString('ko-KR')}</Price>
         </PriceInfo>
         <TotalPrice>
           <div>총 주문 금액</div>
-          <div>24,200원</div>
+          <Price>{finalPrice.toLocaleString('ko-KR')}</Price>
         </TotalPrice>
       </OrderInfoBody>
-
+      {/* product.price.toLocaleString('ko-KR') */}
       <OrderButtonContainer>
         <OrderButton>주문하기</OrderButton>
       </OrderButtonContainer>

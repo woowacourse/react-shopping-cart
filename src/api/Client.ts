@@ -26,14 +26,12 @@ class Client {
       body: JSON.stringify(body),
     });
     const data = await response.json();
-    console.log(data);
     return data;
   }
 
   async delete(path: string, itemId: number) {
     const response = await fetch(this.getUrl(path), {
       method: 'DELETE',
-      // body: JSON.stringify(itemId),
     });
     const data = await response.text();
     return data;

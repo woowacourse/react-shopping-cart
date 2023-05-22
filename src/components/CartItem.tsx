@@ -72,9 +72,9 @@ const CartItem = (props: cartItemProps) => {
   const product = useRecoilValue(productFamily(productId));
   const cartProduct = useRecoilValue(cartItemFamily(productId));
   const isChecked = useRecoilValue(CheckedCartIdList).includes(cartProduct!.id);
-  console.log(useRecoilValue(CheckedCartIdList), cartProduct!.id, 'ISCH');
+
   const { setQuantity } = useCartProduct(productId);
-  const { setCheck, setAll } = useCheck(cartProduct!.id);
+  const { setCheck } = useCheck(cartProduct!.id);
 
   if (!product) return <div>Error!</div>;
   if (!cartProduct) return <div>Error!</div>;

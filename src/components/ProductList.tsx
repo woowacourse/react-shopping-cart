@@ -22,7 +22,6 @@ const StyledProductList = styled.ul`
 
 const ProductList = () => {
   const products = useRecoilValue(productsQuery);
-  console.log(products);
   return (
     <StyledProductList>
       {products.map((product) => (

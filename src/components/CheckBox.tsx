@@ -50,15 +50,13 @@ const CheckBox = (props: CheckBoxProps) => {
   const { onClick, defaultChecked, kind, setAll } = props;
   // const checks =
   const [checked, setChecked] = useState(defaultChecked ?? false);
-  console.log('def', kind);
+
   const handleOnClickCheckBox = () => {
     setChecked((prev) => !prev);
     onClick?.(!checked);
-    console.log(checked);
   };
 
   const handleSetAll = () => {
-    console.log('setAll', checked);
     setAll(checked);
     setChecked((prev) => !prev);
   };
