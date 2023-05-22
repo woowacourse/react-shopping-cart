@@ -6,7 +6,7 @@ import { cartState } from '../recoil/state';
 import { API_ERROR_MESSAGE } from '../constants';
 
 const useQuantityInput = (cartItemId: number) => {
-  const [quantityInput, setQuantityInput] = useState('');
+  const [input, setInput] = useState('');
   const setCart = useSetRecoilState(cartState);
 
   const getCart = async () => {
@@ -39,17 +39,17 @@ const useQuantityInput = (cartItemId: number) => {
     getCart();
   };
 
-  const setQuantityInputProxy = async (quantity: number) => {
+  const setInputWithRequest = async (quantity: number) => {
     if (quantity === 0) {
       deleteCartItem();
     } else {
       patchCartItemQuantity(quantity);
     }
 
-    setQuantityInput(quantity.toString());
+    setInput(quantity.toString());
   };
 
-  return [quantityInput, { setQuantityInput, setQuantityInputProxy }] as const;
+  return { input, setInput, setInputWithRequest };
 };
 
 export default useQuantityInput;
