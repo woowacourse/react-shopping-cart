@@ -9,7 +9,7 @@ const products = productJson.choonsikProducts;
 export const handlers = [
   // 상품 목록 조회 API
   rest.get('/api/products', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(products));
+    return res(ctx.delay(2000), ctx.status(200), ctx.json(products));
   }),
 
   // 장바구니 조회 API
@@ -21,7 +21,7 @@ export const handlers = [
 
     if (error.isError) return res(ctx.status(200), ctx.json([]));
 
-    return res(ctx.status(200), ctx.json(cartList));
+    return res(ctx.delay(2000), ctx.status(200), ctx.json(cartList));
   }),
 
   // 장바구니 추가 API
