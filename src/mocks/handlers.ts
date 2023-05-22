@@ -70,18 +70,16 @@ export const handlers = [
   }),
 
   rest.delete('/cart-items/:cartItemId', (req: DeleteCartItemRequest, res, ctx) => {
-    const { cartItemId } = req.params;
     const currentCart: CartItemType[] = getData(LOCAL_STORAGE_KEY.CART);
     const cartItemIndex = currentCart.findIndex(
       (item) => item.id === Number(req.params.cartItemId)
     );
 
-    if (cartItemIndex) {
-      const newCart = currentCart.filter((item) => item.id !== Number(cartItemId));
-      updateData(LOCAL_STORAGE_KEY.CART, newCart);
+    if (cartItemIndex === undefined) return res(ctx.status(404));
 
-      return res(ctx.status(204));
-    }
-    return res(ctx.status(404));
+    const newCart = currentCart.filter((item) => item.id !== Number(req.params.cartItemId));
+    updateData(LOCAL_STORAGE_KEY.CART, newCart);
+
+    return res(ctx.status(204));
   }),
 ];
