@@ -3,26 +3,18 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import GlobalStyle from '@/styles/global';
 import { GlobalFontStyles } from '@/styles/font';
+import { worker } from '@/mocks/worker';
 
-const renderApp = () => {
-	const root = ReactDOM.createRoot(
-		document.getElementById('root') as HTMLElement
-	);
+worker.start();
 
-	root.render(
-		<React.StrictMode>
-			<GlobalFontStyles />
-			<GlobalStyle />
-			<App />
-		</React.StrictMode>
-	);
-};
+const root = ReactDOM.createRoot(
+	document.getElementById('root') as HTMLElement
+);
 
-async function main() {
-	import('./mocks/worker').then(async ({ worker }) => {
-		await worker.start();
-	});
-	renderApp();
-}
-
-main();
+root.render(
+	<React.StrictMode>
+		<GlobalFontStyles />
+		<GlobalStyle />
+		<App />
+	</React.StrictMode>
+);

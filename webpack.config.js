@@ -6,6 +6,7 @@ const path = require('path'); // 절대 경로를 참조하기 위해
 
 // 자세한 설명 링크: https://webpack.kr/plugins/html-webpack-plugin/
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // ts-loader의 성능 향상을 위한 라이브러리
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
@@ -90,7 +91,14 @@ module.exports = {
 			template: './public/index.html',
 			filename: 'index.html',
 		}),
-
+		new CopyWebpackPlugin({
+			patterns: [
+				{
+					from: 'public/mockServiceWorker.js',
+					to: 'mockServiceWorker.js',
+				},
+			],
+		}),
 		new ForkTsCheckerWebpackPlugin(),
 		new DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
