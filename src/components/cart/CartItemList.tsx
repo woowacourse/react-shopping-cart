@@ -7,6 +7,7 @@ import CheckBox from '../common/CheckBox';
 
 import * as api from '../../api';
 import { cartState, checkedListState } from '../../recoil/state';
+import { API_ERROR_MESSAGE } from '../../constants';
 
 export default function CartItemList() {
   const [cart, setCart] = useRecoilState(cartState);
@@ -41,10 +42,14 @@ export default function CartItemList() {
   };
 
   useEffect(() => {
-    api.getCart().then((cart) => {
-      setCart(cart);
-      setCheckedList(Array(cart.length).fill(true));
-    });
+    try {
+      api.getCart().then((cart) => {
+        setCart(cart);
+        setCheckedList(Array(cart.length).fill(true));
+      });
+    } catch {
+      alert(API_ERROR_MESSAGE.getCart);
+    }
   }, []);
 
   return (
