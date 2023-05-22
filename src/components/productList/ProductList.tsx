@@ -9,15 +9,24 @@ import SkeletonProduct from './SkeletonProduct';
 
 import * as api from '../../api';
 import { cartState } from '../../recoil/state';
-import { SKELETONS_LENGTH } from '../../constants';
+import { API_ERROR_MESSAGE, SKELETONS_LENGTH } from '../../constants';
 
 export default function ProductList() {
   const [products, setProducts] = useState<ProductType[] | null>(null);
   const setCart = useSetRecoilState(cartState);
 
   useEffect(() => {
-    api.getProducts().then(setProducts);
-    api.getCart().then(setCart);
+    try {
+      api.getProducts().then(setProducts);
+    } catch {
+      alert(API_ERROR_MESSAGE.getProducts);
+    }
+
+    try {
+      api.getCart().then(setCart);
+    } catch {
+      alert(API_ERROR_MESSAGE.getCart);
+    }
   }, []);
 
   return (
