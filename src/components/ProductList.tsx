@@ -15,7 +15,7 @@ export const ProductList = () => {
   return (
     <Wrapper>
       {products.map((product) => (
-        <Product key={crypto.randomUUID()} {...product} />
+        <Product key={product.id} {...product} />
       ))}
     </Wrapper>
   );

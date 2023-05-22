@@ -46,7 +46,7 @@ export const CartProductList = () => {
       <CartProductsContainer>
         {cartProducts.map((product, index) => (
           <CartProduct
-            key={crypto.randomUUID()}
+            key={product.id}
             {...product}
             checked={checkedArray[index]}
             onDeleteHandler={handleDelete(product.id, index)}
