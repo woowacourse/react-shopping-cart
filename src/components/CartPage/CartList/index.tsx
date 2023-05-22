@@ -11,7 +11,8 @@ const CartList = () => {
   const { cart, removeSelectCartItem, allSelectCartList } = useControlCart();
   const totalLength = cart.length;
   const selectedCartLength = cartItemSelectedById(cart).length;
-  console.log(totalLength, selectedCartLength);
+  const isAllSelect = totalLength === selectedCartLength;
+
   return (
     <Wrapper>
       <GridWrapper>
@@ -26,8 +27,8 @@ const CartList = () => {
       </GridWrapper>
       <CheckBoxWrapper>
         <CheckBox
-          isChecked={selectedCartLength === totalLength}
-          onClick={allSelectCartList}
+          isChecked={isAllSelect}
+          onClick={() => allSelectCartList(!isAllSelect)}
         />
         <AllSelectText>
           전체선택 ({selectedCartLength}/{totalLength})

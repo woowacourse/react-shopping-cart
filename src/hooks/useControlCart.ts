@@ -71,8 +71,8 @@ const useControlCart = () => {
     }
   };
 
-  const allSelectCartList = () => {
-    const updatedCart = allSelectCartItem(cart);
+  const allSelectCartList = (isCheck: boolean) => {
+    const updatedCart = allSelectCartItem(cart, isCheck);
 
     setCart(updatedCart);
   };

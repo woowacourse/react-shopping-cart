@@ -64,9 +64,12 @@ export const removeSelectedCartItem = (cart: CartInformation[]) => {
   return cart.filter((cartItem) => cartItem.isSelect === false);
 };
 
-export const allSelectCartItem = (cart: CartInformation[]) => {
+export const allSelectCartItem = (
+  cart: CartInformation[],
+  isCheck: boolean
+) => {
   return cart.map((cartItem) => {
-    return { ...cartItem, isSelect: true };
+    return { ...cartItem, isSelect: isCheck };
   });
 };
 

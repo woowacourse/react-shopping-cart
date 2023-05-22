@@ -109,12 +109,31 @@ describe('cart에 대한 함수가 올바르게 작동하는 지 테스트합니
       { ...cartItem3, isSelect: true },
     ];
 
-    const updatedCart = allSelectCartItem(cart);
+    const updatedCart = allSelectCartItem(cart, true);
 
     expect(updatedCart).toEqual([
       { ...cartItem1, isSelect: true },
       { ...cartItem2, isSelect: true },
       { ...cartItem3, isSelect: true },
+    ]);
+  });
+  test('장바구니 페이지에서 전체 선택이 되어있는 상태에서 전체 선택 버튼을 눌렀을 때 모두 선택이 풀리는 기능이 올바르게 작동하는 지 테스트', () => {
+    const cartItem1 = createServerCartItem(product1);
+    const cartItem2 = createServerCartItem(product2);
+    const cartItem3 = createServerCartItem(product3);
+
+    const cart: CartInformation[] = [
+      { ...cartItem1, isSelect: true },
+      { ...cartItem2, isSelect: false },
+      { ...cartItem3, isSelect: true },
+    ];
+
+    const updatedCart = allSelectCartItem(cart, false);
+
+    expect(updatedCart).toEqual([
+      { ...cartItem1, isSelect: false },
+      { ...cartItem2, isSelect: false },
+      { ...cartItem3, isSelect: false },
     ]);
   });
 
