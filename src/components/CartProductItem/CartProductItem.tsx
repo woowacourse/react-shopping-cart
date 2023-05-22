@@ -3,14 +3,49 @@ import checkIcon from '../../assets/check.svg';
 import trashBin from '../../assets/trash-bin.svg';
 import StepperInput from '../@common/StepperInput/StepperInput';
 import { CartItem } from '../../types';
+import { useEffect, useState } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { cartItemIdSelector, cartListAtom } from '../../stores/cartItemsStore';
+import useUpdateCartItems from '../../hooks/useUpdateCartItems';
+import useGetData from '../../hooks/useGetData';
 
-const CartProductItem = ({ product, quantity }: CartItem) => {
+type CartProductItemProps = CartItem & {
+  check: boolean;
+  toggleItemSelection: () => void;
+  deleteItemSelection: () => void;
+};
+
+const CartProductItem = ({
+  product,
+  quantity,
+  check,
+  toggleItemSelection,
+  deleteItemSelection,
+}: CartProductItemProps) => {
   const { name, price, imageUrl } = product;
+  const [itemPrice, setItemPrice] = useState(0);
+  const itemId = useRecoilValue(cartItemIdSelector(product.id));
+  const { updateCartItems } = useUpdateCartItems();
+  const { data: cartList, getData } = useGetData<CartItem[]>('/cart-items');
+  const setCartList = useSetRecoilState(cartListAtom);
+
+  const handleStepperInputChange = async (value: number) => {
+    setItemPrice(value * price);
+
+    if (itemId && value !== quantity) {
+      await updateCartItems({ itemId, itemCount: value });
+      await getData();
+    }
+  };
+
+  useEffect(() => {
+    if (cartList) setCartList(cartList);
+  }, [cartList, setCartList]);
 
   return (
     <ProductItem>
       <Label>
-        <Input type='checkbox' icon={checkIcon} />
+        <Input type='checkbox' icon={checkIcon} checked={check} onChange={toggleItemSelection} />
       </Label>
       <ProductImageContainer>
         <ProductImage alt={name} src={imageUrl} />
@@ -18,13 +53,13 @@ const CartProductItem = ({ product, quantity }: CartItem) => {
       <ProductInfo>
         <ProductInfoUpperBoundary>
           <ProductName>{name}</ProductName>
-          <ProductDeleteButton>
+          <ProductDeleteButton onClick={deleteItemSelection}>
             <img src={trashBin} alt={`${name}상품 삭제`} />
           </ProductDeleteButton>
         </ProductInfoUpperBoundary>
-        <StepperInput min={1} max={99} initialValue={quantity} $width={115} getValue={() => {}} />
+        <StepperInput min={1} max={99} initialValue={quantity} $width={115} getValue={handleStepperInputChange} />
         <ProductPriceInfo>
-          <span>{price.toLocaleString()}원</span>
+          <span>{itemPrice.toLocaleString()}원</span>
         </ProductPriceInfo>
       </ProductInfo>
     </ProductItem>
@@ -125,7 +160,7 @@ const ProductInfoUpperBoundary = styled.div`
 
 const ProductName = styled.span`
   font-weight: 400;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 24px;
   letter-spacing: 0.5px;
   color: #333333;
@@ -133,7 +168,7 @@ const ProductName = styled.span`
 
 const ProductPriceInfo = styled.div`
   font-weight: 400;
-  font-size: 16px;
+  font-size: 12px;
   line-height: 24px;
   letter-spacing: 0.5px;
 
