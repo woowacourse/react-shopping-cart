@@ -2,13 +2,15 @@ import styled, { keyframes } from "styled-components";
 import cartImage from "../../assets/images/cart.png";
 import arrowUpImage from "../../assets/images/arrow-up.png";
 import arrowDownImage from "../../assets/images/arrow-down.png";
-import useQuantityUpdater from "../../hooks/useQuantityUpdater";
+import useQuantityUpdater from "../../hooks/useQuantity";
 import type { ProductQuantityInputProps } from "../../types";
 
 const TransformQuantityInput = ({
   productId,
   step = 1,
   initialValue,
+  minValue,
+  quantityUpdateCallbacks,
 }: ProductQuantityInputProps) => {
   const {
     inputValue,
@@ -17,7 +19,12 @@ const TransformQuantityInput = ({
     updateInputValue,
     initializeInputValue,
     incrementInputValue,
-  } = useQuantityUpdater({ productId: productId, initialValue: initialValue });
+  } = useQuantityUpdater({
+    productId,
+    initialValue,
+    minValue,
+    quantityUpdateCallbacks,
+  });
 
   return (
     <Container>

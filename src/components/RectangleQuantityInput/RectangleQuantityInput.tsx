@@ -1,19 +1,21 @@
 import styled from "styled-components";
 import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
-import useQuantityUpdater from "../../hooks/useQuantityUpdater";
+import useQuantityUpdater from "../../hooks/useQuantity";
 import type { ProductQuantityInputProps } from "../../types";
 
 const RectangleQuantityInput = ({
   initialValue,
+  minValue,
   productId,
   step = 1,
-  notifyFunction,
+  quantityUpdateCallbacks,
 }: ProductQuantityInputProps) => {
   const { inputValue, setIsFocused, updateInputValue, incrementInputValue } =
     useQuantityUpdater({
-      productId: productId,
-      initialValue: initialValue,
-      notifyFunction: notifyFunction,
+      productId,
+      initialValue,
+      minValue,
+      quantityUpdateCallbacks,
     });
 
   return (
