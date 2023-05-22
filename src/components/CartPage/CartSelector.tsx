@@ -105,6 +105,10 @@ export default function CartSelector() {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 750px) {
+    width: 44rem;
+  }
 `;
 
 const CheckButton = styled.button`

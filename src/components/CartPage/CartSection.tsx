@@ -12,4 +12,9 @@ export function CartSection() {
 const Section = styled.section`
   display: flex;
   justify-content: center;
+
+  @media (max-width: 1260px) {
+    height: 50rem;
+    overflow: scroll;
+  }
 `;

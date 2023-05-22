@@ -57,4 +57,10 @@ const Main = styled.section`
   justify-content: space-between;
 
   width: 100%;
+
+  @media (max-width: 1260px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;

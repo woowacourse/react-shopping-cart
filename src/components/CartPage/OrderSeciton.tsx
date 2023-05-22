@@ -45,6 +45,9 @@ export default function OrderSection() {
 }
 
 const Container = styled.article`
+  position: sticky;
+  top: 5rem;
+
   width: 44.8rem;
   height: 41rem;
 
