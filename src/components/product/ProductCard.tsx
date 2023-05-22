@@ -29,21 +29,30 @@ const Style = {
     flex-direction: column;
     gap: 18px;
 
-    @media screen and (max-width: 1320px) {
-      flex-direction: column;
-      align-items: center;
+    @media screen and (max-width: 700px) {
+      width: 150px;
+      height: 200px;
     }
   `,
 
   Image: styled.img`
     width: 283px;
     height: 283px;
+
+    @media screen and (max-width: 700px) {
+      width: 150px;
+      height: 150px;
+    }
   `,
   DescriptionContainer: styled.div`
     width: 283px;
 
     display: flex;
     justify-content: space-between;
+    @media screen and (max-width: 700px) {
+      width: 150px;
+      flex-direction: column-reverse;
+    }
   `,
 
   NamePriceContainer: styled.div`
@@ -52,6 +61,12 @@ const Style = {
 
     width: 201px;
     gap: 10px;
+
+    justify-content: space-between;
+    @media screen and (max-width: 700px) {
+      margin-top: 15px;
+      width: 150px;
+    }
   `,
 
   Name: styled.span`

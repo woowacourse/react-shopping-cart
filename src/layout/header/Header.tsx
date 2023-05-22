@@ -49,7 +49,7 @@ const Style = {
     width: 1341px;
     @media screen and (max-width: 1320px) {
       width: 100%;
-      margin: 0 40px 0 20px;
+      margin: 0 20px;
     }
   `,
 
@@ -67,6 +67,9 @@ const Style = {
     font-weight: 300;
 
     color: white;
+    @media screen and (max-width: 1320px) {
+      font-size: 28px;
+    }
   `,
 
   CartContainer: styled.div`
@@ -83,6 +86,9 @@ const Style = {
     font-weight: 300;
 
     color: white;
+    @media screen and (max-width: 1320px) {
+      font-size: 20px;
+    }
   `,
 
   CartAmount: styled.div`
