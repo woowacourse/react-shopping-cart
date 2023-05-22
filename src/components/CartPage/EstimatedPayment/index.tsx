@@ -7,11 +7,13 @@ import { device, theme } from '@styles/theme';
 interface EstimatedPaymentProps {
   totalProductPrice: number;
   deliveryFee: number;
+  processOrder: () => void;
 }
 
 const EstimatedPayment = ({
   totalProductPrice,
   deliveryFee,
+  processOrder,
 }: EstimatedPaymentProps) => {
   const formattedTotalProductPrice = formatPrice(totalProductPrice);
   const formattedDeliveryFee = formatPrice(deliveryFee);
@@ -37,13 +39,13 @@ const EstimatedPayment = ({
             <ContentText>{formattedTotalPrice} 원</ContentText>
           </ContentWrapper>
           <Button
+            onClick={processOrder}
             text="주문하기"
             width="100%"
             height="73px"
             fontSize="24px"
             backgroundcolor={theme.colors.primaryBlack}
             color={theme.colors.white}
-            onClick={() => {}}
           />
         </ContentWrapperParent>
       </Main>

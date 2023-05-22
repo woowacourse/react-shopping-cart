@@ -77,6 +77,16 @@ const useControlCart = () => {
     setCart(updatedCart);
   };
 
+  const clearCartItems = () => {
+    alert('주문이 완료되었습니다.');
+
+    cart
+      .map((cartItem) => cartItem.id)
+      .forEach((cartItemId) => removeItemFromCart({ cartItemId }));
+
+    setCart([]);
+  };
+
   return {
     cart,
     addProductToCart,
@@ -86,6 +96,7 @@ const useControlCart = () => {
     getSelectCartTotalPrice,
     removeSelectCartItem,
     allSelectCartList,
+    clearCartItems,
   };
 };
 

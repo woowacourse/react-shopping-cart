@@ -1,5 +1,7 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
+import { PAGE_PATH } from '@router';
 import useCartList from '@hooks/useCartList';
 import useControlCart from '@hooks/useControlCart';
 import CartList from '@components/CartPage/CartList';
@@ -7,9 +9,14 @@ import EstimatedPayment from '@components/CartPage/EstimatedPayment';
 import { device, theme } from '@styles/theme';
 
 const CartPage = () => {
+  const navigate = useNavigate();
   const { isLoading } = useCartList();
-  const { cart, getSelectCartTotalPrice } = useControlCart();
+  const { cart, getSelectCartTotalPrice, clearCartItems } = useControlCart();
 
+  const processOrder = () => {
+    navigate(PAGE_PATH.HOME);
+    clearCartItems();
+  };
   if (isLoading) {
     return <NotResult>로딩중...</NotResult>;
   }
@@ -25,6 +32,7 @@ const CartPage = () => {
       <Main>
         <CartList />
         <EstimatedPayment
+          processOrder={processOrder}
           totalProductPrice={getSelectCartTotalPrice()}
           deliveryFee={3000}
         />
