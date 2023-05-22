@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
-import ProductList from '../../components/ProductList/ProductList';
-import SkeletonProduct from '../../components/SkeletonProduct/SkeletonProduct';
+import ProductList from '../../views/ProductItemList/Components/ProductList/ProductList';
+import SkeletonProduct from '../../views/ProductItemList/Components/ProductList/SkeletonProduct/SkeletonProduct';
 
 function Home() {
   return (
