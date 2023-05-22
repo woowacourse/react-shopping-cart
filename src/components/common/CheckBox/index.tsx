@@ -8,7 +8,9 @@ interface CheckBoxProps {
 }
 
 const CheckBox = ({ isChecked = false, onClick }: CheckBoxProps) => {
-  return <Wrapper onClick={onClick} type="checkbox" checked={isChecked} />;
+  return (
+    <Wrapper onClick={onClick} type="checkbox" defaultChecked={isChecked} />
+  );
 };
 
 const Wrapper = styled.input`

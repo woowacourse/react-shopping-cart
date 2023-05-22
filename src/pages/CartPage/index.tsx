@@ -5,12 +5,12 @@ import useControlCart from '@hooks/useControlCart';
 import CartList from '@components/CartPage/CartList';
 import EstimatedPayment from '@components/CartPage/EstimatedPayment';
 import { CartInformation } from '@type/types';
+import { cartItemSelectedById } from '@utils/cart';
 import { device, theme } from '@styles/theme';
 
 const CartPage = () => {
   const { data, isLoading } = useCartList();
-  const { cart, toggleSelectItem, getSelectCartTotalPrice } = useControlCart();
-  const [selectCart, setSelectCart] = useState<CartInformation[]>([]);
+  const { cart, getSelectCartTotalPrice } = useControlCart();
 
   if (isLoading) {
     return <div>로딩중...</div>;
@@ -19,9 +19,9 @@ const CartPage = () => {
   return (
     <Wrapper>
       <Title>장바구니</Title>
-      <SubTitle>든든배송 상품 (3개)</SubTitle>
+      <SubTitle>든든배송 상품 ({cart.length}개)</SubTitle>
       <Main>
-        <CartList cartList={cart} />
+        <CartList />
         <EstimatedPayment
           totalProductPrice={getSelectCartTotalPrice()}
           deliveryFee={3000}

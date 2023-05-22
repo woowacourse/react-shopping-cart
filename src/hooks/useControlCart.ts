@@ -6,6 +6,8 @@ import {
   changedQuantityCart,
   toggleSelectCartItem,
   calculateSelectCartTotalPrice,
+  removeSelectedCartItem,
+  cartItemSelectedById,
 } from '@utils/cart';
 import { CART_LIST_LOCAL_KEY } from '@constants/common';
 import useAtomLocalStorage from './useAtomLocalStorage';
@@ -54,6 +56,20 @@ const useControlCart = () => {
     return calculateSelectCartTotalPrice(cart);
   };
 
+  const removeSelectCartItem = () => {
+    const result = window.confirm('선택한 장바구니 아이템을 삭제하시겠습니까?');
+    if (result) {
+      const updatedCart = removeSelectedCartItem(cart);
+      const selectedItemId = cartItemSelectedById(cart);
+
+      selectedItemId.forEach((cartItemId) =>
+        removeItemFromCart({ cartItemId })
+      );
+
+      setCart(updatedCart);
+    }
+  };
+
   return {
     cart,
     addProductToCart,
@@ -61,6 +77,7 @@ const useControlCart = () => {
     updateQuantityOfCartItem,
     toggleSelectItem,
     getSelectCartTotalPrice,
+    removeSelectCartItem,
   };
 };
 

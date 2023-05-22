@@ -1,23 +1,22 @@
 import React from 'react';
 import { styled } from 'styled-components';
+import useControlCart from '@hooks/useControlCart';
 import Button from '@components/common/Button';
 import CheckBox from '@components/common/CheckBox';
 import { CartInformation } from '@type/types';
+import { cartItemSelectedById } from '@utils/cart';
 import { device, theme } from '@styles/theme';
 import CartItem from './CartItem';
 
-interface CartListProps {
-  cartList: CartInformation[];
-}
-
-const CartList = ({ cartList }: CartListProps) => {
-  const totalLength = cartList.length;
-  const selectedLength = 1;
+const CartList = () => {
+  const { cart, removeSelectCartItem } = useControlCart();
+  const totalLength = cart.length;
+  const selectedCartLength = cartItemSelectedById(cart).length;
 
   return (
     <Wrapper>
       <GridWrapper>
-        {cartList.map((item) => (
+        {cart.map((item) => (
           <CartItem
             isSelect={item.isSelect ? item.isSelect : false}
             quantity={item.quantity}
@@ -27,13 +26,13 @@ const CartList = ({ cartList }: CartListProps) => {
       </GridWrapper>
       <CheckBoxWrapper>
         <CheckBox
-          isChecked={selectedLength === totalLength}
+          isChecked={selectedCartLength === totalLength}
           onClick={() => {}}
         />
         <AllSelectText>
-          전체선택 ({selectedLength}/{totalLength})
+          전체선택 ({selectedCartLength}/{totalLength})
         </AllSelectText>
-        <Button text="선택삭제" onClick={() => {}} />
+        <Button text="선택삭제" onClick={removeSelectCartItem} />
       </CheckBoxWrapper>
     </Wrapper>
   );
