@@ -30,7 +30,7 @@ const ShoppingCartPage = () => {
     : '주문하기';
 
   return (
-    <>
+    <ShoppingCartPageContainer flexDirection="column">
       <PageTitle>장바구니</PageTitle>
       {cartProducts.size ? (
         <FlexBox gap="80px" align="flex-start" role="region">
@@ -73,11 +73,15 @@ const ShoppingCartPage = () => {
           <GoHomeLink to="/">홈으로 가기</GoHomeLink>
         </EmptyCartImgBackground>
       )}
-    </>
+    </ShoppingCartPageContainer>
   );
 };
 
 export default ShoppingCartPage;
+
+const ShoppingCartPageContainer = styled(FlexBox)`
+  width: 100%;
+`;
 
 const CartProductSection = styled(FlexBox)`
   position: relative;
@@ -156,6 +160,7 @@ const OrderConfirmButton = styled.button<{ isActive: boolean }>`
 `;
 
 const PageTitle = styled.h2`
+  width: 100%;
   height: 80px;
   border-bottom: 3px solid #333333;
   font-size: 32px;
@@ -163,6 +168,7 @@ const PageTitle = styled.h2`
 `;
 
 const EmptyCartImgBackground = styled(FlexBox)`
+  width: 100%;
   background-color: #f2f2f2;
   padding: 20px 0;
 `;
