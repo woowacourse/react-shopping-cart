@@ -14,13 +14,11 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
     <StyledProductItemWrapper data-cy="product-item">
       <StyledThumbnailWrapper>
         <StyledThumbnail src={imageUrl} alt={name} />
-        <Counter product={product} />
+        <Counter product={product} min={0} max={12} />
       </StyledThumbnailWrapper>
       <StyledInfoWrapper>
-        <div>
-          <StyledProductTitle>{name}</StyledProductTitle>
-          <StyledProductPrice>{price.toLocaleString('ko-KR')}원</StyledProductPrice>
-        </div>
+        <StyledProductTitle>{name}</StyledProductTitle>
+        <StyledProductPrice>{price.toLocaleString('ko-KR')}원</StyledProductPrice>
       </StyledInfoWrapper>
     </StyledProductItemWrapper>
   );
@@ -59,8 +57,6 @@ const StyledInfoWrapper = styled.div`
   margin-top: 18px;
   padding: 0 10px;
 
-  display: flex;
-  justify-content: space-between;
   line-height: 22px;
   color: #333333;
   letter-spacing: 0.5px;
