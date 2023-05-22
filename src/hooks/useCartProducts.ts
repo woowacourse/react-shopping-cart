@@ -13,15 +13,19 @@ const useCartProducts = (product: Product) => {
   const [cartProducts, setCartProducts] = useRecoilState(cartProductAtom);
   const { addCount, subtractCount } = useProductQuantity(id);
 
-  const addProduct = async () => {
+  const addProduct = () => {
     const updatedCartProducts = [...cartProducts, { id, quantity: 1, product }];
+
     setCartProducts(updatedCartProducts);
     setStoredCartProducts(updatedCartProducts);
-    await postCartProduct(id);
+    postCartProduct(id);
   };
 
   const removeProduct = () => {
+    const updatedCartProducts = deleteProduct(cartProducts, id);
+
     setCartProducts((prev) => deleteProduct(prev, id));
+    setStoredCartProducts(updatedCartProducts);
     deleteCartProduct(id);
   };
 

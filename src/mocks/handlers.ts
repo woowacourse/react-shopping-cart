@@ -78,7 +78,7 @@ export const handlers = [
 
     const cartProductId = Number(cartItemId as string);
 
-    const storedCartProducts: CartProduct[] = getStoredCartProducts();
+    const storedCartProducts = cartProducts;
 
     if (
       !storedCartProducts.find(
@@ -90,12 +90,6 @@ export const handlers = [
         ctx.json({ message: '카트에 상품이 없습니다' })
       );
     }
-
-    setStoredCartProducts(
-      storedCartProducts.filter(
-        (cartProduct) => cartProduct.id !== cartProductId
-      )
-    );
 
     return res(ctx.delay(200), ctx.status(204));
   }),
