@@ -1,9 +1,20 @@
-import { useRecoilState } from "recoil";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { cartState } from "../../atoms/cartState";
 
 export default function OrderSection() {
-  const [cartsData, setCartsData] = useRecoilState(cartState);
+  const cartsData = useRecoilValue(cartState);
+  const [deliveryFee, setDeliveryFee] = useState(0);
+
+  useEffect(() => {
+    if (cartsData.length >= 1) {
+      setDeliveryFee(3000);
+      return;
+    }
+    setDeliveryFee(0);
+  }, [cartsData]);
 
   function getTotalProductPrice() {
     return cartsData.reduce(
@@ -22,11 +33,11 @@ export default function OrderSection() {
       </ProductInfo>
       <ProductInfo>
         <InfoTitle>총 배송비</InfoTitle>
-        <InfoPrice>3,000</InfoPrice>
+        <InfoPrice>{deliveryFee} </InfoPrice>
       </ProductInfo>
       <TotalProduct>
         <InfoTitle>총 주문금액</InfoTitle>
-        <InfoPrice>{getTotalProductPrice() + 3000}</InfoPrice>
+        <InfoPrice>{getTotalProductPrice() + deliveryFee}</InfoPrice>
       </TotalProduct>
       <OrderButton>주문하기</OrderButton>
     </Container>

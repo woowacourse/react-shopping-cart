@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useRecoilRefresher_UNSTABLE } from "recoil";
 import styled from "styled-components";
 import { postCartProduct } from "../../api/cart";
@@ -6,6 +5,7 @@ import { AddCartIc } from "../../asset";
 import { cartState } from "../../atoms/cartState";
 
 import { useAddCart } from "../../hooks/useAddCart";
+import { useAddProductCount } from "../../hooks/useAddProductCount";
 import QuantityCounter from "../common/QuantityCounter";
 
 interface ProductItemProps {
@@ -22,21 +22,9 @@ export default function ProductItem({
   price,
 }: ProductItemProps) {
   const { isSelected, selectProductItem, checkInitAddProduct } = useAddCart();
-  const [count, setCount] = useState(1);
+  const { count, getCount, increaseQuantity, decreaseQuantity } =
+    useAddProductCount();
   const refresh = useRecoilRefresher_UNSTABLE(cartState);
-
-  function getCount(count: number) {
-    setCount(count);
-  }
-
-  function increaseQuantity() {
-    setCount((prev) => prev + 1);
-  }
-
-  function decreaseQuantity() {
-    if (count <= 1) return;
-    setCount((prev) => prev - 1);
-  }
 
   async function handleAddButtonClick() {
     if (!checkInitAddProduct(id)) {

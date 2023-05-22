@@ -1,13 +1,7 @@
-import { forwardRef } from "react";
 import styled from "styled-components";
 
-import type { CounterAction } from "../../type/counter";
 import { DownButtonIc, UpButtonIc } from "../../asset";
-import { ACTION_DECREASE, ACTION_INCREASE } from "../../constants/counter";
-import { ERROR } from "../../constants/error";
-import { useRefTypeGuard } from "../../hooks/useRefTypeGuard";
 import { fillBlankInput, validateNumberRange } from "../../utils/validation";
-import { useState } from "react";
 import { patchProductCount } from "../../api/cart";
 import { useEffect } from "react";
 import { useRecoilRefresher_UNSTABLE } from "recoil";
@@ -20,19 +14,26 @@ interface QuantityCounterProps {
   decreaseQuantity: (id: number) => void;
   id: number;
 }
-export function QuantityCounter(props: QuantityCounterProps) {
+export default function QuantityCounter(props: QuantityCounterProps) {
   const { count, getCount, increaseQuantity, decreaseQuantity, id } = props;
   const refresh = useRecoilRefresher_UNSTABLE(cartState);
+
+  useEffect(() => {
+    async function patchData() {
+      const response = await patchProductCount(id, count);
+
+      if (response.ok) {
+        refresh();
+      }
+    }
+
+    patchData();
+  }, [count]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     validateNumberRange(e);
     getCount(+e.target.value, id);
   }
-
-  useEffect(() => {
-    patchProductCount(id, count);
-    refresh();
-  }, [count]);
 
   return (
     <QuantityCounterContainer>
@@ -52,8 +53,6 @@ export function QuantityCounter(props: QuantityCounterProps) {
     </QuantityCounterContainer>
   );
 }
-
-export default QuantityCounter;
 
 const QuantityCounterContainer = styled.div`
   display: flex;
