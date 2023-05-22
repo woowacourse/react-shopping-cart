@@ -12,7 +12,7 @@ const getProduct = (productId: number) => {
 };
 
 const getCart = (): CartType => {
-  return JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY.cart) || '[]');
+  return JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY.cart) ?? '[]');
 };
 
 const setCart = (cart: CartType) => {
