@@ -5,7 +5,7 @@ import CheckIconImage from '../../asset/check_icon.svg';
 import useCount from '../../hooks/useCount';
 import { Product } from '../../type/product';
 import DeleteButton from './DeleteButton';
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { cartSelects } from '../../atoms/cartSelects';
 import { cartRequestAction } from '../../atoms/cartState';
@@ -28,6 +28,7 @@ export default function CartListItem({
   const setRequestAction = useSetRecoilState(
     cartRequestAction({ action: 'GET' })
   );
+
   let countDebounceId = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
@@ -72,9 +73,9 @@ export default function CartListItem({
       </CartInfoContainer>
       <CartOptionContainer>
         <DeleteButton cartId={id} />
-        <Suspense fallback={<div>loading...</div>}>
-          <QuantityCounter count={count} setCount={setCount} />
-        </Suspense>
+
+        <QuantityCounter count={count} setCount={setCount} />
+
         <ProductPrice>{price.toLocaleString()}원</ProductPrice>
       </CartOptionContainer>
     </CartListItemContainer>

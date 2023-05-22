@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { cartState } from '../../atoms/cartState';
 import { Suspense } from 'react';
 import CartListHeader from './CartList/CartListHeader';
+import ErrorBoundary from '../common/ErrorBoundary';
 
 function CartListItems() {
   const cart = useRecoilValue(cartState({ action: 'GET' }));
@@ -24,9 +25,11 @@ export default function CartList() {
       <Suspense fallback={<Header>든든 배송 상품 (0개)</Header>}>
         <CartListHeader />
       </Suspense>
-      <Suspense fallback={<div>items loading</div>}>
-        <CartListItems />
-      </Suspense>
+      <ErrorBoundary>
+        <Suspense fallback={<div>Loading...</div>}>
+          <CartListItems />
+        </Suspense>
+      </ErrorBoundary>
       <Suspense fallback={<></>}>
         <SelectCartItem />
       </Suspense>

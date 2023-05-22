@@ -20,7 +20,7 @@ export default function SelectCartItem() {
   const [checkAll, setCheckAll] = useState(false);
 
   useEffect(() => {
-    setCheckAll(cartSelectsState.size === cartTotal);
+    setCheckAll(cartSelectsState.size === cartTotal && cartTotal !== 0);
   }, [cartTotal, cartSelectsState]);
   useEffect(() => {
     if (checkAll) {
