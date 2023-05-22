@@ -6,7 +6,7 @@ import { ReactComponent as Cart } from '../../assets/header-cart.svg';
 import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
-  const totalAmount = useRecoilValue(totalAmountState);
+  const { totalItems } = useRecoilValue(totalAmountState);
 
   return (
     <StyledHeaderWrapper>
@@ -18,13 +18,15 @@ const Header: React.FC = () => {
         <StyledCartWrapper>
           <StyledLinkTitle to="/cart">
             <StyledCart>장바구니</StyledCart>
-            <StyledCartAmount data-cy="cart-amount">{totalAmount}</StyledCartAmount>
+            <StyledCartAmount data-cy="cart-amount">{totalItems}</StyledCartAmount>
           </StyledLinkTitle>
         </StyledCartWrapper>
       </StyledHeaderBox>
     </StyledHeaderWrapper>
   );
 };
+
+export default Header;
 
 const StyledHeaderWrapper = styled.header`
   display: flex;
@@ -83,5 +85,3 @@ const StyledCartAmount = styled.div`
 
   background-color: #04c09e;
 `;
-
-export default Header;
