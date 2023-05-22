@@ -4,6 +4,10 @@ import { cartProductAtom } from '../recoil/cartProductData';
 import type { CartProduct } from '../types/product';
 import { patchCartProduct } from '../apis/cartProducts';
 import { findTargetProduct } from '../domain/cartProductHandler';
+import {
+  getStoredCartProducts,
+  setStoredCartProducts,
+} from '../utils/localStorage';
 
 const addTargetQuantity = (cartProducts: CartProduct[], id: number) =>
   cartProducts.map((cartProduct) => {
@@ -31,6 +35,7 @@ const useProductQuantity = (id: number) => {
 
       if (targetProduct) {
         patchCartProduct(id, targetProduct.quantity);
+        setStoredCartProducts(updatedCartProducts);
       }
 
       return updatedCartProducts;
@@ -44,6 +49,7 @@ const useProductQuantity = (id: number) => {
 
       if (targetProduct) {
         patchCartProduct(id, targetProduct.quantity);
+        setStoredCartProducts(updatedCartProducts);
       }
 
       return updatedCartProducts;

@@ -49,11 +49,10 @@ export const handlers = [
     '/cart-items/:cartItemId',
     (req, res, ctx) => {
       const { cartItemId } = req.params;
-      const { quantity } = req.body;
 
       const cartProductId = Number(cartItemId as string);
 
-      const storedCartProducts: CartProduct[] = getStoredCartProducts();
+      const storedCartProducts = cartProducts;
 
       if (
         !storedCartProducts.find(
@@ -65,15 +64,6 @@ export const handlers = [
           ctx.json({ message: '카트에 상품이 없습니다' })
         );
       }
-
-      setStoredCartProducts(
-        storedCartProducts.map((cartProduct) => {
-          if (cartProduct.id === cartProductId) {
-            return { ...cartProduct, quantity };
-          }
-          return cartProduct;
-        })
-      );
 
       return res(
         ctx.delay(200),
