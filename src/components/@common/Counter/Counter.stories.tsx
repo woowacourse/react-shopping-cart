@@ -27,8 +27,9 @@ export const Default: Story = {
           break;
         case 'decrease':
           setCount((prev) => prev - 1);
-
           break;
+        default:
+          return;
       }
     };
 
