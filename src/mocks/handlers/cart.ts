@@ -14,7 +14,7 @@ const authorizationError: ErrorResponse = { message: '인증실패' };
 
 export const cart = [
   rest.get('/cart-items', (req, res, ctx) => {
-    return res(ctx.delay(500), ctx.status(200), ctx.json(cartProducts));
+    return res(ctx.status(200), ctx.json(cartProducts), ctx.delay(100));
   }),
 
   rest.post<PostReqBody>('/cart-items', async (req, res, ctx) => {
@@ -29,7 +29,7 @@ export const cart = [
     // 명세상 return되는 body가 없음...
     // 명세상 productId가 아닌, cartItemId가 반환됨...
     // Location: /cart-items/{cartItemId}
-    return res(ctx.status(201), ctx.set('Location', `/cart-items/${productId}`), ctx.json({}));
+    return res(ctx.status(201), ctx.set('Location', `/cart-items/${productId}`), ctx.json({}), ctx.delay(100));
   }),
 
   rest.patch<PatchReqBody>('/cart-items/:cartItemId', async (req, res, ctx) => {
@@ -39,7 +39,7 @@ export const cart = [
       return res(ctx.status(401), ctx.json(authorizationError));
     }
     // 명세상 return되는 body가 없음...
-    return res(ctx.status(200), ctx.delay(500), ctx.json({}));
+    return res(ctx.status(200), ctx.json({}), ctx.delay(100));
   }),
 
   rest.delete('/cart-items/:cartItemId', async (req, res, ctx) => {
@@ -49,6 +49,6 @@ export const cart = [
       return res(ctx.status(401), ctx.json(authorizationError));
     }
 
-    return res(ctx.status(204));
+    return res(ctx.status(204), ctx.delay(100));
   }),
 ];
