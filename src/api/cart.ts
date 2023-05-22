@@ -39,8 +39,6 @@ export const updateCartItemQuantity = async (cartItemId: number, quantity: numbe
     }),
   });
 
-  // const data = await response.json();
-
   return response;
 };
 
@@ -49,7 +47,5 @@ export const deleteCartItem = async (cartItemId: number) => {
     method: 'DELETE',
   });
 
-  const data = await response.json();
-
-  return data;
+  return response;
 };
