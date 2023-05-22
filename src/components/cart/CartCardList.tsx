@@ -1,11 +1,11 @@
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { cartListState } from "../../atoms";
-import { CartCard } from "../productCard/CartCard";
+import { CartCard } from "./CartCard";
 import { useState } from "react";
 import { deleteCartItem } from "../../utils/apis";
-import { TotalPrice } from "../TotalPrice";
-import { CheckIcon } from "../../assets/ShoppingCartIcons";
+import { TotalPrice } from "./TotalPrice";
+import { Checkbox } from "../common/Checkbox";
 
 export const CartCardList = () => {
   const [cartList, setCartList] = useRecoilState(cartListState);
@@ -37,8 +37,15 @@ export const CartCardList = () => {
     setSelectedItemIds(cartList.map((item) => item.id));
   };
 
+  const removeItemFromCartList = (id: number) => {
+    setCartList((current) => current.filter((item) => item.id !== id));
+    setSelectedItemIds((current) => current.filter((item) => item !== id));
+    deleteCartItem(id);
+  };
+
   const deleteSelectedItems = () => {
     if (selectedItemIds.length === 0 || !window.confirm("선택한 목록을 장바구니에서 정말 삭제할까요?")) return;
+
     selectedItemIds.forEach((id) => deleteCartItem(id));
     setCartList((current) => current.filter((item) => !selectedItemIds.includes(item.id)));
     setSelectedItemIds([]);
@@ -56,19 +63,19 @@ export const CartCardList = () => {
     <Style.Container>
       <Style.ListContainer>
         <Style.CartAmount>{`든든배송상품 (${cartList.length}개)`}</Style.CartAmount>
-        <CheckIcon />
         <Style.List>
           {cartList.map((item) => (
             <CartCard
               key={item.id}
               product={item.product}
               toggleSelectedItem={toggleSelectedItem}
+              removeItemFromCartList={removeItemFromCartList}
               isSelected={isSelected}
             />
           ))}
         </Style.List>
         <Style.Select>
-          <Style.CheckBox type="checkbox" onChange={toggleAllItem} checked={isAllSelected()} />
+          <Checkbox onChange={toggleAllItem} checked={isAllSelected()} />
           <div>{`전체선택 (${selectedItemIds.length}/${cartList.length})`}</div>
           <Style.DeleteButton onClick={deleteSelectedItems}>선택삭제</Style.DeleteButton>
         </Style.Select>
@@ -81,14 +88,20 @@ export const CartCardList = () => {
 const Style = {
   Container: styled.div`
     display: flex;
+
+    @media screen and (max-width: 1320px) {
+      flex-direction: column;
+      align-items: center;
+    }
   `,
+
   ListContainer: styled.div`
-    width: 740px;
+    @media screen and (max-width: 1320px) {
+      width: 100%;
+    }
   `,
 
   List: styled.ul`
-    width: 765px;
-
     li {
       &:last-child {
         border-bottom: none;
@@ -102,6 +115,9 @@ const Style = {
 
     font-size: 24px;
     border-bottom: 4px solid #aaaaaa;
+    @media screen and (max-width: 1320px) {
+      padding: 30px 0 20px 15px;
+    }
   `,
 
   CheckBox: styled.input`
@@ -119,6 +135,10 @@ const Style = {
     gap: 10px;
 
     font-size: 20px;
+
+    @media screen and (max-width: 1320px) {
+      margin-left: 20px;
+    }
   `,
 
   DeleteButton: styled.div`

@@ -1,4 +1,4 @@
-import { ProductCardList } from "../components/productCardList/ProductCardList";
+import { ProductCardList } from "../components/product/ProductCardList";
 import { Layout } from "../layout";
 import { Suspense } from "react";
 

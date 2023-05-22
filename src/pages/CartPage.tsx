@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Layout } from "../layout";
-import { CartCardList } from "../components/productCardList/CartCardList";
+import { CartCardList } from "../components/cart/CartCardList";
 import { Suspense } from "react";
 
 function CartPage() {
@@ -35,5 +35,9 @@ const Style = {
     margin: 0 auto;
 
     font-size: 24px;
+
+    @media screen and (max-width: 1320px) {
+      width: 100%;
+    }
   `,
 };

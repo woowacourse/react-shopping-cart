@@ -47,6 +47,10 @@ const Style = {
     align-items: center;
 
     width: 1341px;
+    @media screen and (max-width: 1320px) {
+      width: 100%;
+      margin: 0 40px 0 20px;
+    }
   `,
 
   LogoContainer: styled.div`

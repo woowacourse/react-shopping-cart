@@ -73,7 +73,7 @@ MjJUMDQ6MTU6MDYrMDA6MDD6dCHnAAAAAElFTkSuQmCC"
 );
 
 export const CheckIcon = () => (
-  <svg width="23" height="17" viewBox="0 0 23 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg width="27" height="23" viewBox="0 1 25 14" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M2 7L9.11069 14.1107L21.8318 1.38956" stroke="white" strokeWidth="3" />
   </svg>
 );

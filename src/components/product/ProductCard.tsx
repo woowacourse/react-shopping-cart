@@ -28,6 +28,11 @@ const Style = {
     display: flex;
     flex-direction: column;
     gap: 18px;
+
+    @media screen and (max-width: 1320px) {
+      flex-direction: column;
+      align-items: center;
+    }
   `,
 
   Image: styled.img`

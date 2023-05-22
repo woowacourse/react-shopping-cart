@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ProductCard } from "../productCard/ProductCard";
+import { ProductCard } from "./ProductCard";
 import { useMockData } from "../../hooks/useMockData";
 
 export const ProductCardList = () => {

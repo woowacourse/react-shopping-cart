@@ -1,4 +1,4 @@
 export const PAGES = {
-  CART: "cart",
+  CART: "/cart",
   HOME: "/",
 } as const;

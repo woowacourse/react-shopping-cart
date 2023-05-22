@@ -33,9 +33,13 @@ const Style = {
   TotalPriceContainer: styled.div`
     width: 448px;
     height: 410px;
-    margin: 77px 71px;
+    margin: 77px 100px;
 
     border: solid 1px #dddddd;
+
+    @media screen and (max-width: 1320px) {
+      width: 100%;
+    }
   `,
 
   Title: styled.div`
@@ -79,6 +83,9 @@ const Style = {
     width: 388px;
     height: 73px;
 
+    @media screen and (max-width: 1320px) {
+      width: 100%;
+    }
     :hover {
       background-color: #04c09e;
     }
