@@ -1,7 +1,6 @@
 import { Meta } from '@storybook/react';
 import { Cart } from 'types';
 import CartItem from '.';
-import { useCheckedItems } from '../hooks/useCheckedItems';
 
 const cartItem = {
   component: CartItem,
@@ -24,14 +23,8 @@ const mock: Cart = {
   },
 };
 
-const mockArray = [mock];
-
 const Template = () => {
-  const { checkItem } = useCheckedItems(mockArray);
-
-  return (
-    <CartItem cartItem={mock} checkedItems={mockArray} checkItem={checkItem} />
-  );
+  return <CartItem cartItem={mock} />;
 };
 
 export const Default = Template.bind({});
