@@ -39,7 +39,12 @@ function CartProductItem({ cartItem, toggleCheck, checked, mutateQuantity, delet
             <TrashBox size={24} />
           </button>
         </div>
-        <CountButton large count={quantity} handleUpButton={handleUpButton} handleDownButton={handleDownButton} />
+        <CountButton
+          size="large"
+          count={quantity}
+          handleUpButton={handleUpButton}
+          handleDownButton={handleDownButton}
+        />
         <div className={styles['product-price']}>{(price * quantity).toLocaleString()} 원</div>
       </div>
     </div>

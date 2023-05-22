@@ -36,6 +36,7 @@ function AddCartButton({ productId }: AddCardButtonProps) {
           count={cart ? cart.quantity : 0}
           handleUpButton={handleUpButton}
           handleDownButton={handleDownButton}
+          size="medium"
         />
       ) : (
         <button type="button" onClick={handleClick}>

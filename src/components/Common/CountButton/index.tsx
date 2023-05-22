@@ -6,12 +6,12 @@ interface CountButtonProps {
   count: number;
   handleUpButton: React.MouseEventHandler<HTMLButtonElement>;
   handleDownButton: React.MouseEventHandler<HTMLButtonElement>;
-  large?: boolean;
+  size: 'medium' | 'large';
 }
 
-function CountButton({ count, handleUpButton, handleDownButton, large = false }: CountButtonProps) {
+function CountButton({ count, handleUpButton, handleDownButton, size = 'medium' }: CountButtonProps) {
   return (
-    <div className={`${styles['counter-container']} ${large && styles.large}`}>
+    <div className={`${styles['counter-container']} ${size === 'large' && styles.large}`}>
       <div>{count}</div>
       <button type="button" onClick={handleUpButton}>
         <ArrowUp />
