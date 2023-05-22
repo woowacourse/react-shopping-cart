@@ -4,7 +4,8 @@ import {
 } from '../../../atoms/cart';
 import { useCartSelector, useMutateCart } from '../../../hooks/cart/cart';
 import { useRefreshableRecoilValue } from '../../../hooks/common/useRefreshableAtom';
-import { Button } from '../../common/Button/Button.styles';
+import Button from '../../common/Button/Button';
+
 import Flex from '../../common/Flex';
 import * as S from './CartItemController.styles';
 
@@ -28,7 +29,7 @@ const CartItemController = () => {
         <S.Text>
           전체선택 ({selectedItemsAmount}/{cartItemsAmount})
         </S.Text>
-        <Button view="white" size="M" onClick={deleteSelectedCartItems}>
+        <Button size="S" view="white" onClick={deleteSelectedCartItems}>
           선택삭제
         </Button>
       </Flex>

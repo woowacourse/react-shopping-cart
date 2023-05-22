@@ -1,11 +1,11 @@
 import { Dialog } from 'react-tiny-dialog';
 import SHOPPING_CART from '../../../assets/png/cart-icon.png';
 import { Product } from '../../../types/products';
-import { Button } from '../../common/Button/Button.styles';
 import QuantityStepper from '../../common/QuantityStepper/QuantityStepper';
 import * as S from './ItemCartDialogButton.styles';
 import { useRef } from 'react';
 import { useMutateCart } from '../../../hooks/cart/cart';
+import Button from '../../common/Button/Button';
 
 type ItemCartDialogButtonProps = Product;
 

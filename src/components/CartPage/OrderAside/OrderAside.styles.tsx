@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from '../../common/Button/Button.styles';
+import Button from '../../common/Button/Button';
 import Flex from '../../common/Flex';
 
 export const Root = styled.aside`

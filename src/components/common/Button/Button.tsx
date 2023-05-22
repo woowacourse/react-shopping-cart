@@ -7,13 +7,34 @@ interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
 }
 
 const Button = (props: PropsWithChildren<ButtonProps>) => {
-  const { children, ...restProps } = props;
+  const { children, size, ...restProps } = props;
 
-  return (
-    <S.Button type="button" {...restProps}>
-      {props.children}
-    </S.Button>
-  );
+  if (size === 'SS')
+    return (
+      <S.ExtraSmallButton type="button" {...restProps}>
+        {children}
+      </S.ExtraSmallButton>
+    );
+  if (size === 'S')
+    return (
+      <S.SmallButton type="button" {...restProps}>
+        {children}
+      </S.SmallButton>
+    );
+  if (size === 'M')
+    return (
+      <S.MediumButton type="button" {...restProps}>
+        {children}
+      </S.MediumButton>
+    );
+  if (size === 'L')
+    return (
+      <S.LargeButton type="button" {...restProps}>
+        {children}
+      </S.LargeButton>
+    );
+
+  return null;
 };
 
 export default Button;
