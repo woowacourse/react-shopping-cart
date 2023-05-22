@@ -1,16 +1,16 @@
-import { useRecoilState } from 'recoil';
-import { cartState } from '../../store/CartState';
-import CartListItem from './CartListItem';
-import { styled } from 'styled-components';
-import PriceWrapper from './PriceWrapper';
-import { useCart } from '../../hooks/useCart';
-import TotalCheckbox from './TotalCheckbox';
-import { useFetchData } from '../../hooks/useFetchData';
-import { CART_BASE_URL } from '../../constants/url';
-import { CartItem } from '../../types';
-import Checkbox from '../@common/Checkbox';
 import { useEffect } from 'react';
+import { cartState } from '../../store/CartState';
+import { useRecoilState } from 'recoil';
+import { useCart } from '../../hooks/useCart';
+import { useFetchData } from '../../hooks/useFetchData';
+import { CartItem } from '../../types';
+import CartListItem from './CartListItem';
+import Checkbox from '../@common/Checkbox';
+import TotalCheckbox from './TotalCheckbox';
+import PriceWrapper from './PriceWrapper';
 import { LoadingSpinner } from '../@common/LoadingSpinner';
+import { CART_BASE_URL } from '../../constants/url';
+import { styled } from 'styled-components';
 
 const CartList = () => {
   const [cart, setCart] = useRecoilState(cartState);
@@ -31,22 +31,15 @@ const CartList = () => {
     handleRemoveCheckedItem,
   } = useCart();
 
+  const cartList = cart.map((cartItem) => (
+    <S.ItemWrapper key={cartItem.id}>
+      <Checkbox onChange={handleCheckedItem(cartItem.id)} isChecked={isChecked(cartItem.id)} />
+      <CartListItem item={cartItem} setCheckItems={setCheckedItems} />
+    </S.ItemWrapper>
+  ));
+
   const itemList = (
-    <S.ItemListWrapper>
-      {isLoading ? (
-        <LoadingSpinner />
-      ) : (
-        cart.map((cartItem) => (
-          <S.ItemWrapper key={cartItem.id}>
-            <Checkbox
-              onChange={handleCheckedItem(cartItem.id)}
-              isChecked={isChecked(cartItem.id)}
-            />
-            <CartListItem item={cartItem} setCheckItems={setCheckedItems} />
-          </S.ItemWrapper>
-        ))
-      )}
-    </S.ItemListWrapper>
+    <S.ItemListWrapper>{isLoading ? <LoadingSpinner /> : cartList}</S.ItemListWrapper>
   );
 
   return (
