@@ -1,14 +1,13 @@
 import styled from "styled-components";
-import cartProductsCountState from "../../store/cartProductSelector";
-import { useRecoilValue } from "recoil";
+import { useCartInfosSyncer } from "../../hooks/useCartInfosSyncer";
 
 const CartNotificationButton = () => {
-  const productCount = useRecoilValue(cartProductsCountState);
+  const { cartProductsCount } = useCartInfosSyncer();
 
   return (
     <Button>
       <Title>장바구니</Title>
-      <Count>{productCount}</Count>
+      <Count>{cartProductsCount}</Count>
     </Button>
   );
 };
