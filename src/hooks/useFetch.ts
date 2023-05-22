@@ -31,6 +31,7 @@ export const useGetFetch = <T>(url: string, initialData: T) => {
 export const usePostFetch = () => {
   const [data, setData] = useState<unknown>();
   const [error, setError] = useState({ isError: false, message: '' });
+  const [loading, setLoading] = useState(true);
 
   const postData = async <B>(url: string, body?: B) => {
     try {
@@ -48,16 +49,18 @@ export const usePostFetch = () => {
         isError: true,
         message: error.message,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
-  return { data, postData, error };
+  return { data, postData, error, loading };
 };
 
 export const useDeleteFetch = () => {
   const [data, setData] = useState<unknown>();
-
   const [error, setError] = useState({ isError: false, message: '' });
+  const [loading, setLoading] = useState(true);
 
   const deleteData = async <B>(url: string, body?: B) => {
     try {
@@ -76,16 +79,18 @@ export const useDeleteFetch = () => {
         isError: true,
         message: error.message,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
-  return { data, deleteData, error };
+  return { data, deleteData, error, loading };
 };
 
 export const usePatchFetch = () => {
   const [data, setData] = useState<unknown>();
-
   const [error, setError] = useState({ isError: false, message: '' });
+  const [loading, setLoading] = useState(true);
 
   const patchData = async <B>(url: string, body?: B) => {
     try {
@@ -103,8 +108,10 @@ export const usePatchFetch = () => {
         isError: true,
         message: error.message,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
-  return { data, patchData, error };
+  return { data, patchData, error, loading };
 };
