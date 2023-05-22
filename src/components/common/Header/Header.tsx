@@ -17,7 +17,7 @@ const Header = () => {
         <S.Logo src={Logo} alt="logo" onClick={() => navigate(PATH.ROOT)} />
         <S.CartButton
           type="button"
-          aria-label="cart"
+          aria-labelledby="cart-button"
           variant="textButton"
           onClick={() => navigate(PATH.CARTS)}
         >
@@ -25,7 +25,7 @@ const Header = () => {
             <S.CartItemCount>{cartListItemCount.contents}</S.CartItemCount>
           )}
           <S.CartIcon src={CartIcon} alt="cart icon" />
-          <S.HeaderButtonLabel>장바구니</S.HeaderButtonLabel>
+          <S.HeaderButtonLabel id="cart-button">장바구니</S.HeaderButtonLabel>
         </S.CartButton>
       </S.HeaderContentContainer>
     </S.HeaderContainer>
