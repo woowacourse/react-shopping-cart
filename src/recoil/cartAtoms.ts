@@ -88,32 +88,8 @@ export const addCartItemSelector = selectorFamily<ProductItem, undefined>({
   }
 });
 
-
-/**
- * TODO: 카드 수가 0개일 때 제거하는 로직 추가 필요
- */
-export const updateCartItemQuantitySelector = selectorFamily<number, number>({
-  key: 'updateCartItemQuantitySelector',
-  get: () => () => {
-    // 오류 방지를 위해 아무 값이나 리턴
-    return -1;
-  },
-  set: (productId) => ({get, set}, newQuantity) => {
-    const cartList = get(cartState);
-    const targetIndex = cartList.findIndex((cartItem) => cartItem.id === productId);
-
-    if (targetIndex !== -1) {
-      const updatedCartList = [...cartList];
-      updatedCartList[targetIndex] = {...updatedCartList[targetIndex], quantity: newQuantity as number};
-      set(cartState, updatedCartList);
-
-      fetchUpdateCart(productId, newQuantity as number);
-    }
-  },
-});
-
-export const removeCartIemSelector = selectorFamily<number, undefined>({
-  key: 'removeCartIemSelector',
+export const removeCartItemSelector = selectorFamily<number, undefined>({
+  key: 'removeCartItemSelector',
   get: () => () => {
     // 오류 방지를 위해 아무 값이나 리턴
     return -1;
@@ -125,6 +101,38 @@ export const removeCartIemSelector = selectorFamily<number, undefined>({
       const removedCartList = cartList.filter((cart) => cart.id !== id);
       set(cartState, removedCartList);
       fetchDeleteCart(id);
+    }
+  },
+});
+
+export const updateCartItemQuantitySelector = selectorFamily<number, number>({
+  key: 'updateCartItemQuantitySelector',
+  get: () => () => {
+    // 오류 방지를 위해 아무 값이나 리턴
+    return -1;
+  },
+  set: (productId) => ({get, set}, newQuantity) => {
+    const quantity = newQuantity as number;
+
+    if (quantity === 0) {
+      const id = productId as number;
+      const cartList = get(cartState);
+      if (confirm('정말로 삭제하시겠습니까?')) {
+        const removedCartList = cartList.filter((cart) => cart.id !== id);
+        set(cartState, removedCartList);
+        fetchDeleteCart(id);
+      }
+    } else {
+      const cartList = get(cartState);
+      const targetIndex = cartList.findIndex((cartItem) => cartItem.id === productId);
+
+      if (targetIndex !== -1) {
+        const updatedCartList = [...cartList];
+        updatedCartList[targetIndex] = {...updatedCartList[targetIndex], quantity};
+        set(cartState, updatedCartList);
+
+        fetchUpdateCart(productId, newQuantity as number);
+      }
     }
   },
 });

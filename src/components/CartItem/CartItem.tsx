@@ -13,7 +13,7 @@ import trashIcon from '../../assets/trash.png';
 import useCart from "../../hooks/useCart.ts";
 import {ChangeEvent} from "react";
 import {useSetRecoilState} from "recoil";
-import {removeCartIemSelector} from "../../recoil/cartAtoms.ts";
+import {removeCartItemSelector} from "../../recoil/cartAtoms.ts";
 
 interface CartItemProps {
   cart: CartItem;
@@ -23,7 +23,7 @@ function CartItem({cart}: CartItemProps) {
 
   const {switchCheckbox} = useCart();
 
-  const removeCartItem = useSetRecoilState(removeCartIemSelector(undefined));
+  const removeCartItem = useSetRecoilState(removeCartItemSelector(undefined));
 
   return (
     <CartItemLayout>
