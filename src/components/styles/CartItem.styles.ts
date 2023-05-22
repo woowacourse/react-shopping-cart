@@ -9,6 +9,11 @@ export const Wrapper = styled.div`
   width: 660px;
   height: 180px;
   border-bottom: 1px solid #aaaaaa;
+
+  @media screen and (max-width: 1120px) {
+    max-width: 660px;
+    width: 100%;
+  }
 `;
 
 export const CheckboxInput = styled(Input)`

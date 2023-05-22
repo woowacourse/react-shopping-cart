@@ -32,6 +32,11 @@ export const Wrapper = styled.div`
       font-weight: 900;
     }
   }
+
+  @media screen and (max-width: 1120px) {
+    max-width: 660px;
+    width: 100%;
+  }
 `;
 
 export const OrderButton = styled(Button)`
@@ -41,4 +46,9 @@ export const OrderButton = styled(Button)`
   color: #ffffff;
   margin: 40px auto;
   font-size: 24px;
+
+  @media screen and (max-width: 1120px) {
+    max-width: 388px;
+    width: 100%;
+  }
 `;

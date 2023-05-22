@@ -15,12 +15,22 @@ export const Wrapper = styled.div`
       align-items: center;
     }
   }
+
+  @media screen and (max-width: 1120px) {
+    max-width: 660px;
+    width: 100%;
+  }
 `;
 
 export const CartContainerWrapper = styled.div`
   width: 660px;
   border-top: 1px solid #aaaaaa;
   margin-top: 16px;
+
+  @media screen and (max-width: 1120px) {
+    max-width: 660px;
+    width: 100%;
+  }
 `;
 
 export const TotalCheckboxInput = styled(CheckboxInput)`
