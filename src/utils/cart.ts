@@ -63,3 +63,9 @@ export const toggleSelectCartItem = (cart: CartInformation[], id: number) => {
 export const removeSelectedCartItem = (cart: CartInformation[]) => {
   return cart.filter((cartItem) => cartItem.isSelect === false);
 };
+
+export const allSelectCartItem = (cart: CartInformation[]) => {
+  return cart.map((cartItem) => {
+    return { ...cartItem, isSelect: true };
+  });
+};
