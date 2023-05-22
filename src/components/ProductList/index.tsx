@@ -1,8 +1,8 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import ProductItem from '@/components/ProductItem';
-import { fetchProductSelector } from '@/atoms/product';
+import { Product } from '@/@types/product.type';
+import { useQuery } from '@/hooks/useQuery';
 
 const StyledProductListWrapper = styled.div`
 	padding: 100px;
@@ -14,11 +14,19 @@ const StyledProductListWrapper = styled.div`
 `;
 
 const ProductList: React.FC = () => {
-	const products = useRecoilValue(fetchProductSelector);
+	const [products, isLoading, isError] = useQuery<Product[]>('/products');
+
+	if (isError) {
+		return <>에러 발생</>;
+	}
+
+	if (isLoading) {
+		return <>로딩 중...</>;
+	}
 
 	return (
 		<StyledProductListWrapper>
-			{products.map((product) => {
+			{products?.map((product) => {
 				return <ProductItem key={product.id} product={product} />;
 			})}
 		</StyledProductListWrapper>
