@@ -10,6 +10,7 @@ import useCartCheckBox from 'hooks/useCartCheckBox';
 import useShoppingCart from 'hooks/useShoppingCart';
 import emptyCartImg from 'assets/empty-cart.png';
 import { Link } from 'react-router-dom';
+import ROUTE_PATH from 'constants/routePath';
 
 const SHIPPING_FEE = 3000;
 
@@ -70,7 +71,7 @@ const ShoppingCartPage = () => {
         <EmptyCartImgBackground flexDirection="column" gap="20px">
           <EmptyCartImg src={emptyCartImg} alt="장바구니가 텅 비었습니다." />
           <EmptyCartMessage>장바구니에 담긴 상품이 없습니다.</EmptyCartMessage>
-          <GoHomeLink to="/">홈으로 가기</GoHomeLink>
+          <GoHomeLink to={ROUTE_PATH.root}>홈으로 가기</GoHomeLink>
         </EmptyCartImgBackground>
       )}
     </ShoppingCartPageContainer>
