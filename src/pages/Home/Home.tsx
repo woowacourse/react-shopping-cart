@@ -1,9 +1,10 @@
 import { Suspense } from 'react';
 import ProductList from '../../components/ProductList/ProductList';
+import SkeletonProduct from '../../components/SkeletonProduct/SkeletonProduct';
 
 function Home() {
   return (
-    <Suspense fallback={<h2>로딩중입니다...</h2>}>
+    <Suspense fallback={<SkeletonProduct></SkeletonProduct>}>
       <ProductList />
     </Suspense>
   );

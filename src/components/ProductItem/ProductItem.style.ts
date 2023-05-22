@@ -29,6 +29,7 @@ export const ProductDetails = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 2rem;
+  height: 10rem;
 
   align-items: center;
 `;

@@ -1,11 +1,11 @@
 import { useCartTotalPriceReadOnly } from '../../hooks/cartListState/cartListState';
 import { FlexWrapper } from '../../pages/Cart/Cart.style';
 import {
-  StylePayingWrapper,
+  StylePayingBox,
   StylePayingDiv,
   StylePayingTitle,
   StyleContentText,
-  StyleWrapper,
+  StylePayingWrapper,
   StyleTotalContainer,
   StyleTotalText,
   PayingButton,
@@ -16,8 +16,8 @@ function PayingContainer() {
   const deliveryFee = totalPriceReadOnly ? 3000 : 0;
   const totalPayingPrice = totalPriceReadOnly + deliveryFee;
   return (
-    <StyleWrapper>
-      <StylePayingWrapper>
+    <StylePayingWrapper>
+      <StylePayingBox>
         <StylePayingDiv>
           <StylePayingTitle>결제 예상 금액</StylePayingTitle>
         </StylePayingDiv>
@@ -36,8 +36,8 @@ function PayingContainer() {
           </StyleTotalContainer>
         </StylePayingDiv>
         <PayingButton disabled={totalPriceReadOnly === 0}>결제하기</PayingButton>
-      </StylePayingWrapper>
-    </StyleWrapper>
+      </StylePayingBox>
+    </StylePayingWrapper>
   );
 }
 

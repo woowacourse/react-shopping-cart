@@ -31,7 +31,7 @@ export const CartCount = styled.div`
 `;
 
 export const CartText = styled.div`
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.md}) {
     display: none;
   }
 `;

@@ -1,14 +1,14 @@
 import { styled } from 'styled-components';
 import { FlexColWrapper, FlexWrapper } from '../../pages/Cart/Cart.style';
 
-export const StyleWrapper = styled.div`
+export const StylePayingWrapper = styled.div`
   display: flex;
   flex: 1 1 150px;
   align-items: start;
   justify-content: start;
 `;
 
-export const StylePayingWrapper = styled(FlexColWrapper)`
+export const StylePayingBox = styled(FlexColWrapper)`
   column-gap: 1rem;
   width: 90%;
   margin: 1rem;

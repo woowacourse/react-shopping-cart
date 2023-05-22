@@ -11,7 +11,7 @@ function Header() {
       <Container>
         <S.HeaderWrapper>
           <Logo />
-          <Suspense fallback={<h1>Loading...</h1>}>
+          <Suspense>
             <CartIconWithCount />
           </Suspense>
         </S.HeaderWrapper>

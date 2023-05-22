@@ -1,4 +1,3 @@
-import { ImgHTMLAttributes } from 'react';
 import { styled } from 'styled-components';
 
 export const LogoWrapper = styled.button`
@@ -8,14 +7,14 @@ export const LogoWrapper = styled.button`
 `;
 
 export const CartIcon = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 4rem;
+  height: 4rem;
 `;
 
 export const LogoContainer = styled.div`
   margin-right: 1rem;
 
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.md}) {
     display: none;
   }
 `;

@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 import { FlexColWrapper, FlexWrapper } from '../../pages/Cart/Cart.style';
 
-export const StyleWrapper = styled(FlexColWrapper)`
+export const StyleCartWrapper = styled(FlexColWrapper)`
   flex: 2;
 `;
 

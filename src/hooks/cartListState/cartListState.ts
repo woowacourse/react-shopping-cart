@@ -52,6 +52,7 @@ const cartItemQuantityState = selectorFamily<number, number>({
             {
               id,
               quantity,
+              checked: true,
               product,
             },
           ]); //delay 1초

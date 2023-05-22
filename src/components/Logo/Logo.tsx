@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import * as S from './Logo.style';
-import cartIcon from '../../assets/cart.svg';
+
 import logoImage from '../../assets/logo.svg';
 import shopImage from '../../assets/shop.svg';
 

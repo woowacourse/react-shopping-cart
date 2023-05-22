@@ -114,13 +114,13 @@ let cartList: CartItem[] = [
 
 export const handlers = [
   rest.get('/products', (req, res, ctx) => {
-    return res(ctx.delay(100), ctx.status(200), ctx.json(productList));
+    return res(ctx.delay(500), ctx.status(200), ctx.json(productList));
   }),
 
   rest.get('/cart-items', (req, res, ctx) => {
     console.log('>>> server:', cartList);
 
-    return res(ctx.delay(100), ctx.status(200), ctx.json(cartList));
+    return res(ctx.delay(500), ctx.status(200), ctx.json(cartList));
   }),
 
   rest.post('/cart-items', async (req, res, ctx) => {
@@ -141,7 +141,7 @@ export const handlers = [
     }
 
     console.log('>>> server:', cartList);
-    return res(ctx.delay(2000), ctx.status(200), ctx.json('SUCCESS'));
+    return res(ctx.delay(500), ctx.status(200), ctx.json('SUCCESS'));
   }),
 
   rest.delete('/cart-items/:productId', async (req, res, ctx) => {
@@ -152,7 +152,7 @@ export const handlers = [
 
     console.log('>>> server:', cartList);
 
-    return res(ctx.delay(2000), ctx.status(200), ctx.json('SUCCESS'));
+    return res(ctx.delay(500), ctx.status(200), ctx.json('SUCCESS'));
   }),
 
   rest.patch('/cart-items/:productId', async (req, res, ctx) => {
@@ -175,6 +175,6 @@ export const handlers = [
 
     console.log('>>> server:', cartList);
 
-    return res(ctx.delay(100), ctx.status(200), ctx.json('SUCCESS'));
+    return res(ctx.delay(500), ctx.status(200), ctx.json('SUCCESS'));
   }),
 ];

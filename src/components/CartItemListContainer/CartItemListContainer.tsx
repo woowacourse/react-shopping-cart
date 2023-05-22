@@ -7,7 +7,7 @@ import {
   StyleCartItemListWrapper,
   StyleCheckAllSpan,
   StyleDeleteCheckedBox,
-  StyleWrapper,
+  StyleCartWrapper,
 } from './CartItemList.style';
 
 function CartItemListContainer() {
@@ -19,14 +19,14 @@ function CartItemListContainer() {
 
   if (productCount === 0) {
     return (
-      <StyleWrapper>
+      <StyleCartWrapper>
         <span style={{ textAlign: 'center', fontSize: '30px', margin: 'auto' }}>텅</span>
-      </StyleWrapper>
+      </StyleCartWrapper>
     );
   }
 
   return (
-    <StyleWrapper>
+    <StyleCartWrapper>
       {productListInCart.map(({ id, imageUrl, name, price }) => {
         return (
           <li key={id}>
@@ -46,7 +46,7 @@ function CartItemListContainer() {
         <StyleCheckAllSpan>{`전체 선택 (${checkedCount} / ${productCount})`}</StyleCheckAllSpan>
         <StyleDeleteCheckedBox onClick={deleteCheckedItems}>선택삭제</StyleDeleteCheckedBox>
       </StyleCartItemListWrapper>
-    </StyleWrapper>
+    </StyleCartWrapper>
   );
 }
 

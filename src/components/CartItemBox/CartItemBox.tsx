@@ -55,6 +55,7 @@ function CartItemBox({ id, imageUrl, name, price }: ProductItem) {
             setQuantity(quantity + 1);
           }}
           onDecrease={() => {
+            if (quantity === 1) return;
             setQuantity(quantity - 1);
           }}
           quantity={quantity}
