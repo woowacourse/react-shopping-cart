@@ -9,7 +9,7 @@ const useCart = () => {
   const Toast = useToast();
   const [cartIdList, setCartIdList] = useRecoilState($CartIdList);
   const setCheckedCartIdList = useSetRecoilState($CheckedCartIdList);
-  const { data: cartItemStateList, refreshQuery } = useGetQuery<CartItem[]>('/cart-items');
+  const { data: cartItemStateList, refreshQuery, loading } = useGetQuery<CartItem[]>('/cart-items');
   const addCartQuery = useMutation<Record<string, number>, CartItem>({
     onSuccess: data => {
       const regex = /[^0-9]/g;
@@ -68,7 +68,7 @@ const useCart = () => {
     });
   };
 
-  return { cartIdList, cartItemStateList, mutateQuantity, deleteCartItem, addCartItem, refreshQuery };
+  return { cartIdList, cartItemStateList, mutateQuantity, deleteCartItem, addCartItem, refreshQuery, loading };
 };
 
 export default useCart;
