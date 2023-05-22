@@ -15,7 +15,7 @@ interface Props {
 
 export default function QuantityInput({ cartItemId, min = 0, max, style }: Props) {
   const cartItem = useRecoilValue(cartItemState(cartItemId));
-  const [input, { setQuantityInput, setQuantityInputProxy }] = useQuantityInput(cartItemId);
+  const { input, setInput, setInputWithRequest } = useQuantityInput(cartItemId);
 
   const getValidRange = (quantity: number) => {
     if (min > quantity) return min;
@@ -25,26 +25,26 @@ export default function QuantityInput({ cartItemId, min = 0, max, style }: Props
 
   const onChangeInput = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
     if (isNaturalNumberString(value)) {
-      setQuantityInputProxy(getValidRange(Number(value)));
+      setInputWithRequest(getValidRange(Number(value)));
     } else if (value === '') {
-      setQuantityInput(value);
+      setInput(value);
     }
   };
 
   const onBlurInput = () => {
-    if (input === '') setQuantityInputProxy(min);
+    if (input === '') setInputWithRequest(min);
   };
 
   const quantityIncrease = () => {
-    setQuantityInputProxy(Number(input) + 1);
+    setInputWithRequest(Number(input) + 1);
   };
 
   const quantityDecrease = () => {
-    setQuantityInputProxy(Number(input) - 1);
+    setInputWithRequest(Number(input) - 1);
   };
 
   useEffect(() => {
-    if (cartItem) setQuantityInput(cartItem.quantity.toString());
+    if (cartItem) setInput(cartItem.quantity.toString());
   }, []);
 
   return (
