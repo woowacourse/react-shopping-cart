@@ -1,30 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CartItem from '../CartItem';
 import * as S from './CartList.styles';
 import Button from '../../common/Button';
 import Flex from '../../common/Flex';
 import useCart from '../../../hooks/cart/useCart';
-import { useRecoilState } from 'recoil';
-import { checkedItemIdList } from '../../../recoil/cart';
+import useCheckedIdCart from '../../../hooks/cart/useCheckedIdCart';
 
 const CartList = () => {
-  const { cartItems, deleteInCart } = useCart();
-  const [checkedList, setCheckedList] = useRecoilState(checkedItemIdList);
+  const { cartItems, emptyCart } = useCart();
+  const {
+    checkedItemIds,
+    toggleAllCheckedState,
+    checkAllItemIds,
+    emptyCheckedItemIds,
+  } = useCheckedIdCart();
 
-  const deleteAllItems = () => {
-    cartItems.forEach((item) => {
-      deleteInCart(item.id);
-    });
-    setCheckedList([]);
-  };
+  useEffect(() => {
+    checkAllItemIds(cartItems);
+  }, []);
 
-  const toggleAllCheckedState = () => {
-    if (checkedList.length === cartItems.length) {
-      setCheckedList([]);
-      return;
-    }
-
-    setCheckedList(cartItems.map((item) => item.id));
+  const deleteAll = () => {
+    emptyCart();
+    emptyCheckedItemIds();
   };
 
   return (
@@ -45,14 +42,14 @@ const CartList = () => {
         <S.SelectAll>
           <S.CheckBox
             type="checkbox"
-            onChange={toggleAllCheckedState}
+            onChange={() => toggleAllCheckedState(cartItems)}
             checked={
-              cartItems.length === checkedList.length && !!cartItems.length
+              cartItems.length === checkedItemIds.length && !!cartItems.length
             }
           />
-          전체 선택 ( {checkedList.length} / {cartItems.length} )
+          전체 선택 ( {checkedItemIds.length} / {cartItems.length} )
         </S.SelectAll>
-        <Button size="S" view="light" onClick={deleteAllItems}>
+        <Button size="S" view="light" onClick={deleteAll}>
           전체 삭제
         </Button>
       </Flex>
