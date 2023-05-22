@@ -28,7 +28,7 @@ export const handlers = [
   rest.post<{ productId: number }>('/cart-items', (req, res, ctx) => {
     const { productId } = req.body;
 
-    const storedCartProducts = getStoredCartProducts();
+    const storedCartProducts = cartProducts;
 
     if (findTargetProduct(storedCartProducts, productId)) {
       return res(
@@ -41,11 +41,6 @@ export const handlers = [
 
     if (!product)
       return res(ctx.status(404), ctx.json({ message: '상품이 없습니다' }));
-
-    setStoredCartProducts([
-      ...storedCartProducts,
-      { id: productId, quantity: 1, product },
-    ]);
 
     return res(ctx.status(201), ctx.json({ message: '상품이 추가되었습니다' }));
   }),

@@ -6,15 +6,18 @@ import { cartProductAtom } from '../recoil/cartProductData';
 import { deleteProduct, findTargetProduct } from '../domain/cartProductHandler';
 import { deleteCartProduct, postCartProduct } from '../apis/cartProducts';
 import useProductQuantity from './useProductQuantity';
+import { setStoredCartProducts } from '../utils/localStorage';
 
 const useCartProducts = (product: Product) => {
   const { id } = product;
   const [cartProducts, setCartProducts] = useRecoilState(cartProductAtom);
   const { addCount, subtractCount } = useProductQuantity(id);
 
-  const addProduct = () => {
-    setCartProducts((prev) => [...prev, { id, quantity: 1, product }]);
-    postCartProduct(id);
+  const addProduct = async () => {
+    const updatedCartProducts = [...cartProducts, { id, quantity: 1, product }];
+    setCartProducts(updatedCartProducts);
+    setStoredCartProducts(updatedCartProducts);
+    await postCartProduct(id);
   };
 
   const removeProduct = () => {
