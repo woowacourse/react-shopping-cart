@@ -27,12 +27,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
           />
         </StepperWrapper>
       </ProductImgContainer>
-      <FlexBox>
-        <FlexBox flexDirection="column" align="flex-start">
-          <Title>{name}</Title>
-          <Price>{price.toLocaleString('ko-KR')}원</Price>
-        </FlexBox>
-      </FlexBox>
+
+      <ProductInfo flexDirection="column" align="flex-start">
+        <Title>{name}</Title>
+        <Price>{price.toLocaleString('ko-KR')}원</Price>
+      </ProductInfo>
     </FlexBox>
   );
 };
@@ -42,10 +41,30 @@ const ProductImgContainer = styled.div`
 `;
 
 const ProductImage = styled.img`
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
   border-radius: 4px;
   filter: brightness(96%);
+
+  @media (max-width: 960px) {
+    width: 170px;
+    height: 170px;
+  }
+
+  @media (max-width: 580px) {
+    width: 150px;
+    height: 150px;
+  }
+
+  @media (max-width: 360px) {
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+const ProductInfo = styled(FlexBox)`
+  width: 100%;
+  text-align: left;
 `;
 
 const Title = styled.span`

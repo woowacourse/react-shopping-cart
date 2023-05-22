@@ -7,7 +7,7 @@ const Layout = () => {
   return (
     <>
       <Suspense fallback={<div>장바구니 상태 로딩중...</div>}>
-        <Header>SHOP</Header>
+        <Header>우아한장바구니</Header>
       </Suspense>
       <MainContainer>
         <Outlet />
