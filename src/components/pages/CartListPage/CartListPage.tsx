@@ -85,7 +85,7 @@ const CartInfo = styled.section`
   display: flex;
   justify-content: space-between;
 
-  @media screen and (max-width: 1220px) {
+  @media screen and (max-width: 1390px) {
     flex-direction: column;
     align-items: center;
   }

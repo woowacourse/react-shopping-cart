@@ -45,7 +45,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: start;
-  gap: 55px;
+  gap: 45px;
 
   border: 1px solid #dddddd;
 
@@ -96,7 +96,7 @@ const Total = styled.div`
 
 const OrderButton = styled.button`
   width: 90%;
-  height: 73px;
+  height: 60px;
 
   padding: 13px;
   background-color: black;
