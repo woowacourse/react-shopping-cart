@@ -1,20 +1,28 @@
-import { atom, selector, useRecoilState, useRecoilValue } from 'recoil';
+import {
+  atom,
+  selector,
+  useRecoilRefresher_UNSTABLE,
+  useRecoilState,
+  useRecoilValue,
+} from 'recoil';
 import type { CartItemType, ProductItemType } from '../../types/ProductType';
 import fetchCartItems from '../../utils/fetchCartItem';
 import { useCallback, useMemo } from 'react';
 
+export const CartItemQuery = selector({
+  key: 'cartListWithInfoState/default',
+  get: async () => {
+    const cartProducts: CartItemType[] = await fetchCartItems.get();
+    return cartProducts.map((cartProduct) => {
+      cartProduct.checked = true;
+      return cartProduct;
+    });
+  },
+});
+
 const cartState = atom<CartItemType[]>({
   key: 'cartListWithInfoState',
-  default: selector({
-    key: 'cartListWithInfoState/default',
-    get: async () => {
-      const cartProducts: CartItemType[] = await fetchCartItems.get();
-      return cartProducts.map((cartProduct) => {
-        cartProduct.checked = true;
-        return cartProduct;
-      });
-    },
-  }),
+  default: CartItemQuery,
 });
 
 export default cartState;
@@ -28,7 +36,7 @@ export const useProductListInCart: () => ProductItemType[] = () => {
   });
 };
 
-export const useCartItemList = () => useRecoilState(cartState);
+export const useRefreshCartList = () => useRecoilRefresher_UNSTABLE(cartState);
 
 export const useCheckCart = () => {
   const [cart, setCart] = useRecoilState(cartState);
@@ -65,9 +73,7 @@ export const useCheckCart = () => {
     cart
       .filter((item) => item.checked === true)
       .forEach((item) => {
-        fetch(`/cart-items/${item.id}`, {
-          method: 'DELETE',
-        });
+        fetchCartItems.delete(item.id);
       });
   };
 
