@@ -51,18 +51,18 @@ const ProductAddition = ({
           </div>
         </S.ProductInformationContainer>
         <S.TotalPriceContainer>
-          <S.TotalPriceLabel as="h6" id="total-price-label">
+          <S.TotalPriceLabel as="h6" id="total-price">
             합계
           </S.TotalPriceLabel>
-          <Heading aria-labelledby="total-price-label">
-            {priceFormatter(information.price * currentQuantity)} 원
+          <Heading aria-labelledby="total-price">
+            {priceFormatter(information.price * currentQuantity)}원
           </Heading>
         </S.TotalPriceContainer>
         <S.ButtonContainer>
-          <Button aria-label="close modal" onClick={handleModalClose}>
+          <Button id="cancel-add" onClick={handleModalClose}>
             취소
           </Button>
-          <Button variant="primary" aria-label="add to cart" onClick={handleCartAdd}>
+          <Button id="add-cart" variant="primary" onClick={handleCartAdd}>
             장바구니 담기
           </Button>
         </S.ButtonContainer>
