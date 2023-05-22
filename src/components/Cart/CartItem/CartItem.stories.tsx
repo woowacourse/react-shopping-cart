@@ -1,16 +1,16 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import { Cart } from 'types';
 import CartItem from '.';
+import { useCheckedItems } from '../hooks/useCheckedItems';
 
 const cartItem = {
   component: CartItem,
   title: 'Cart/CartItem',
   tags: ['autodocs'],
+  decorators: [(Story) => <Story />],
 } satisfies Meta<typeof CartItem>;
 
 export default cartItem;
-
-type Story = StoryObj<typeof cartItem>;
 
 const mock: Cart = {
   id: 1,
@@ -24,8 +24,14 @@ const mock: Cart = {
   },
 };
 
-export const Default: Story = {
-  args: {
-    cartItem: mock,
-  },
+const mockArray = [mock];
+
+const Template = () => {
+  const { checkItem } = useCheckedItems(mockArray);
+
+  return (
+    <CartItem cartItem={mock} checkedItems={mockArray} checkItem={checkItem} />
+  );
 };
+
+export const Default = Template.bind({});
