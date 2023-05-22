@@ -1,11 +1,15 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { FIRST_INDEX, ONE_ITEM_IN_CART } from '../constants';
+import { CART_URL } from '../constants/url';
 import { cartState, productSelector } from '../recoil';
 import { CartItem } from '../types';
+import { useFetchData } from './useFetchData';
 
 export const useSetCart = (id: number) => {
   const setCart = useSetRecoilState(cartState);
   const selectedProduct = useRecoilValue(productSelector(id));
+
+  const { api } = useFetchData();
 
   const findCartItemIndex = (prev: CartItem[]) => {
     const cart = [...prev];
@@ -21,31 +25,38 @@ export const useSetCart = (id: number) => {
     return cart;
   };
 
-  const updateCart = (prev: CartItem[], value: string) => {
-    return [
-      ...prev,
-      {
-        id: id,
-        quantity: Number(value),
-        product: selectedProduct,
-      },
-    ];
+  const updateCart = (value: string) => {
+    setCart((prev: CartItem[]) => {
+      const { cart, cartItemIndex } = findCartItemIndex(prev);
+      const quantity = Number(value);
+
+      api.patch(`${CART_URL}/${id}`, { id, quantity });
+
+      const updatedItem = { ...prev[cartItemIndex], quantity: Number(value) };
+      cart[cartItemIndex] = updatedItem;
+
+      return cart;
+    });
   };
 
   const addToCart = (value: string) => {
     setCart((prev: CartItem[]) => {
-      const { cart, cartItemIndex, alreadyHasCartItem } = findCartItemIndex(prev);
+      const quantity = Number(value);
+
+      const { cart, cartItemIndex } = findCartItemIndex(prev);
 
       if (value === '') return removeProduct(cart, cartItemIndex);
 
-      if (alreadyHasCartItem) {
-        const updatedItem = { ...prev[cartItemIndex], quantity: Number(value) };
-        cart[cartItemIndex] = updatedItem;
+      api.post(CART_URL, { id });
 
-        return cart;
-      }
-
-      return updateCart(prev, value);
+      return [
+        ...prev,
+        {
+          id: id,
+          quantity: quantity,
+          product: selectedProduct,
+        },
+      ];
     });
   };
 
@@ -59,5 +70,5 @@ export const useSetCart = (id: number) => {
     });
   };
 
-  return { addToCart, removeItemFromCart };
+  return { addToCart, removeItemFromCart, updateCart };
 };
