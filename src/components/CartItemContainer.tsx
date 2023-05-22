@@ -1,5 +1,5 @@
 import { CartItem } from '../components/CartItem';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { cartState } from '../atoms/CartListState';
 import {
   Typography as ContainerTitle,
@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 import { checkboxesState } from '../atoms/CheckboxState';
 
 export const CartItemContainer = () => {
-  const cartLists = useRecoilValue(cartState);
+  const [cartLists, setCartList] = useRecoilState(cartState);
   const [checkboxes, setCheckboxes] = useRecoilState(checkboxesState);
 
   const handleCheckboxes = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,6 +26,29 @@ export const CartItemContainer = () => {
     } else {
       setCheckboxes([]);
     }
+  };
+
+  const handleDeleteChecked = () => {
+    const checkboxesIds = checkboxes.map((checkbox) => checkbox.id);
+
+    checkboxesIds.forEach((id) => {
+      const deleteCartProduct = async () => {
+        const response = await fetch(`/cart-items/${id}`, {
+          method: 'DELETE',
+        });
+
+        if (response.status >= 400) {
+          throw new Error('장바구니에 없는 품목을 삭제할 수 없습니다.');
+        }
+      };
+
+      deleteCartProduct();
+    });
+
+    setCartList((prevCartList) =>
+      prevCartList.filter((cartItem) => !checkboxesIds.includes(cartItem.id))
+    );
+    setCheckboxes([]);
   };
 
   useEffect(() => {
@@ -53,7 +76,11 @@ export const CartItemContainer = () => {
               {checkboxes.length === 0 ? '전체선택' : '선택해제'}
             </CheckAllText>
           </Styled.TotalCheckboxInputWrapper>
-          <DeleteSelectionButton width="100px" borderColor="#aaaaaa">
+          <DeleteSelectionButton
+            width="100px"
+            borderColor="#aaaaaa"
+            onClick={handleDeleteChecked}
+          >
             선택삭제
           </DeleteSelectionButton>
         </div>
