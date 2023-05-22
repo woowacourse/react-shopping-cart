@@ -7,7 +7,6 @@ import { useRouter } from "../hooks/useRouter";
 
 export const Header = () => {
   const { goPage } = useRouter();
-
   const cartProducts = useRecoilValue(cartProductsSelector);
 
   return (
