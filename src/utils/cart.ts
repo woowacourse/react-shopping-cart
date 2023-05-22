@@ -69,3 +69,13 @@ export const allSelectCartItem = (cart: CartInformation[]) => {
     return { ...cartItem, isSelect: true };
   });
 };
+
+export const calculateSelectCartTotalPrice = (cart: CartInformation[]) => {
+  return cart.reduce((accumulator, currentValue) => {
+    if (currentValue.isSelect) {
+      return accumulator + currentValue.quantity * currentValue.product.price;
+    }
+
+    return accumulator;
+  }, 0);
+};
