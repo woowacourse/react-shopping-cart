@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 735px;
+  height: 180px;
+  border-bottom: solid 1.5px var(--gray-color-002);
+  margin-top: 30px;
+}
+
+.product-info-container {
+  display: flex;
+}
+
+.checkbox-input {
+  margin: 0;
+}
+
+.image {
+  width: 144px;
+  height: 144px;
+  margin: 0 15px 0 3px;
+}
+
+.action-container {
+  display: flex;
+  flex-direction: column;
+  gap: 38px;
+  align-items: flex-end;
+}

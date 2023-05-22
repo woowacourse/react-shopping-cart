@@ -1,0 +1,29 @@
+.container {
+  margin-right: 100px;
+}
+
+.choice-action-container {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.choice-action-container > button {
+  width: 98px;
+  height: 35px;
+
+  border: solid 1px var(--gray-color-004);
+
+  font-family: 'Noto Sans KR';
+  font-size: 16px;
+  color: var(--primary-color);
+}
+
+.cart-product-list-title {
+  margin-bottom: 20px;
+}
+
+.cart-product-list-container {
+  border-top: solid 4px var(--gray-color-003);
+}
