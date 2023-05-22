@@ -32,7 +32,6 @@
   "bugs": {
     "url": "https://github.com/turtle601/react-shopping-cart/issues"
   },
-  "homepage": "https://github.com/turtle601/react-shopping-cart#readme",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
