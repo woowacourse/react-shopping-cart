@@ -9,17 +9,17 @@ import {
 import type { CartItem, ProductItem } from '../../types/ProductType';
 import { productListState } from '../productListState/productListState';
 import { useCallback, useMemo } from 'react';
-import { createApiRequests } from '../../utils/fetcher';
 
-// FIXME: 분리하기
-const cartFetch = createApiRequests('')('cart-items');
+import fetchCartItems from '../../utils/fetchCartItem';
+import { MAX_CART_QUANTITY, MIN_CART_QUANTITY } from '../../constants/cartConstants';
 
 const cartState = atom<CartItem[]>({
   key: 'cartListWithInfoState',
   default: selector({
     key: 'cartListWithInfoState/default',
     get: async () => {
-      const cartProducts: CartItem[] = await cartFetch.GET();
+      // Get
+      const cartProducts: CartItem[] = await fetchCartItems.get();
       return cartProducts.map((cartProduct) => {
         cartProduct.checked = true;
         return cartProduct;
@@ -41,11 +41,14 @@ const cartItemQuantityState = selectorFamily<number, number>({
   set:
     (id) =>
     ({ get, set }, quantity) => {
-      // TODO: 분리하기
-      if (!(quantity instanceof DefaultValue) && quantity < 99 && quantity >= 0) {
+      if (
+        !(quantity instanceof DefaultValue) &&
+        quantity < MAX_CART_QUANTITY &&
+        quantity >= MIN_CART_QUANTITY
+      ) {
         const cartList = get(cartState);
 
-        // TODO: post
+        // Post
         if (!cartList.some((item) => item.id === id)) {
           if (quantity === 0) return;
           const product = get(productListState).filter((product) => product.id === id)[0];
@@ -58,27 +61,21 @@ const cartItemQuantityState = selectorFamily<number, number>({
               checked: true,
               product,
             },
-          ]); //delay 1초
+          ]);
 
-          cartFetch.POST({
-            body: {
-              productId: product.id,
-            },
-          });
-
+          fetchCartItems.add(id);
           return;
         }
 
-        // TODO: delete
+        //Delete
         if (quantity === 0) {
           set(cartState, (prevCartList) => prevCartList.filter((item) => item.id !== id));
 
-          cartFetch.DELETE(`${id}`);
-
+          fetchCartItems.delete(id);
           return;
         }
 
-        // TODO: patch
+        // Patch
         set(cartState, (prevCartList) => {
           return prevCartList.map((item) => {
             if (item.id === id) {
@@ -92,12 +89,8 @@ const cartItemQuantityState = selectorFamily<number, number>({
           });
         });
 
-        cartFetch.PATCH({
-          pathParameter: `${id}`,
-          body: {
-            quantity,
-          },
-        });
+        fetchCartItems.update(id, quantity);
+        return;
       }
     },
 });
