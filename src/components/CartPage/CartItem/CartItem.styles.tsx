@@ -11,6 +11,8 @@ export const Root = styled.li`
 
 export const Checkbox = styled.input`
   width: 2rem;
+  height: 2rem;
+
   flex-shrink: 0;
 
   margin: 0;
@@ -33,13 +35,15 @@ export const Info = styled(Flex)`
   height: 100%;
   justify-content: space-between;
 
-  padding: 2rem;
+  padding: 0 2rem;
 
   @media (max-width: 576px) {
     width: 100%;
-    height: auto;
+    height: 3rem;
 
     flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
   }
 `;
 
@@ -64,11 +68,21 @@ export const DeleteButton = styled.button`
   color: #33333;
 
   cursor: pointer;
+
+  @media (max-width: 576px) {
+    height: 100%;
+    line-height: 3rem;
+  }
 `;
 
 export const Price = styled.div`
   font-size: 2rem;
   color: #33333;
+
+  @media (max-width: 576px) {
+    height: 100%;
+    line-height: 3rem;
+  }
 `;
 
 export const CartButton = styled.button`

@@ -20,7 +20,7 @@ export const Text = styled.div`
   font-size: 1.6rem;
   color: #333333;
 
-  margin: 0 1rem;
+  margin: 0 2rem;
 `;
 
 export const CartButton = styled.button`

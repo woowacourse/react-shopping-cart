@@ -28,13 +28,13 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 
   return (
     <S.Root>
-      <Flex grow height="100%">
+      <Flex grow height="100%" align="center">
         <S.Checkbox
           type="checkbox"
           checked={selectedItems.has(id)}
           onChange={() => selectItem(id)}
         />
-        <S.ProductContainer align="center" grow>
+        <S.ProductContainer height="100%" align="center" grow>
           <S.Thumbnail alt={name} src={imageUrl} />
           <S.Name>{name}</S.Name>
           <S.Info dir="column" justify="space-between" align="end">
