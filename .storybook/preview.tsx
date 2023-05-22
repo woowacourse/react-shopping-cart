@@ -1,9 +1,13 @@
 import type { Preview } from '@storybook/react';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
 import '../src/index.css';
+import { handlers } from '../src/mocks/handlers';
+
+initialize();
 
 const customViewports = {
   Default: {
@@ -28,6 +32,9 @@ const preview: Preview = {
       viewports: { ...customViewports },
       defaultViewport: 'Default',
     },
+    msw: {
+      handlers: [...handlers],
+    },
   },
 };
 
@@ -47,4 +54,5 @@ export const decorators = [
     </MemoryRouter>
   ),
   localStorageResetDecorator,
+  mswDecorator,
 ];
