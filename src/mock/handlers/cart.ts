@@ -9,8 +9,6 @@ import {
 
 import productList from '../productList.json';
 
-const ItemsInCart = getDataFromLocalStorage(KEY_CART);
-
 const getProduct = (id: number) => productList.find((item) => item.id === id);
 
 const updateLocalStorage = (updatedCart: CartItem[]) => {
@@ -28,13 +26,8 @@ export const cartHandlers = [
   // 장바구니 아이템 추가
   rest.post(CART_URL, async (req, res, ctx) => {
     const { id } = await req.json();
+    const ItemsInCart = getDataFromLocalStorage(KEY_CART);
     const cart: CartItem[] = ItemsInCart ? JSON.parse(ItemsInCart) : [];
-    const isInCart = (id: number) => cart.some((cartItem) => cartItem.product.id === id);
-    const productAlreadyExists = isInCart(id);
-
-    if (productAlreadyExists) {
-      return res(ctx.status(409), ctx.json({ message: '상품이 이미 장바구니에 존재합니다.' }));
-    }
 
     const updatedCart = [
       ...cart,
