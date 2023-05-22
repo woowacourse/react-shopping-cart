@@ -2,7 +2,7 @@ import type { CartItemType, ProductType } from '../types';
 
 import { rest } from 'msw';
 
-import mockProduct from '../../public/assets/mockProducts.json';
+import mockProduct from './mockProducts.json';
 import { API_URL } from '../constants/api';
 import { LOCAL_STORAGE_KEY } from '../constants';
 import { getData, updateData } from '../utils/localStorage';
