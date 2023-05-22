@@ -1,3 +1,5 @@
+import NotFound from '@Pages/NotFound';
+
 import { Product } from '@Types/index';
 
 import useShoppingCart from '@Hooks/useCartItems';
@@ -11,7 +13,11 @@ type ProductListProps = {
 };
 
 function ProductList({ data, isLoading }: ProductListProps) {
-  const { updateCartItem } = useShoppingCart();
+  const { updateCartItem, errorMessage, status } = useShoppingCart();
+
+  if (status === 'error') {
+    return <NotFound errorMessage={errorMessage} />;
+  }
 
   return (
     <S.ProductListContainer>

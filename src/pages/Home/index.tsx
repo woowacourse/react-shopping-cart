@@ -9,10 +9,10 @@ import { FETCH_URL } from '@Constants/index';
 import ProductList from './ProductList';
 
 function Home() {
-  const { data, status } = useFetch<Product[]>(FETCH_URL.products);
+  const { data, status, errorMessage } = useFetch<Product[]>(FETCH_URL.products);
 
   if (status === 'error') {
-    return <NotFound />;
+    return <NotFound errorMessage={errorMessage} />;
   }
 
   return <ProductList data={data} isLoading={status === 'loading'} />;

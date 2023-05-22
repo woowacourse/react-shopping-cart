@@ -13,7 +13,7 @@ import { FETCH_METHOD, FETCH_URL } from '@Constants/index';
 
 const useCartItems = () => {
   const [cartItems, setCartItems] = useRecoilState<CartItemType[] | null>(cartItemsState);
-  const { data, status } = useFetch<CartItemType[]>(FETCH_URL.cartItems);
+  const { data, status, errorMessage } = useFetch<CartItemType[]>(FETCH_URL.cartItems);
 
   const isEmpty = cartItems ? !cartItems.length : 0;
 
@@ -101,6 +101,7 @@ const useCartItems = () => {
     cartItems,
     status,
     isEmpty,
+    errorMessage,
     updateCartItem,
     toggleSelected,
     toggleAllSelected,
