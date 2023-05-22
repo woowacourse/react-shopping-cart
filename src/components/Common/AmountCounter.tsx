@@ -56,13 +56,17 @@ const AmountCounter = ({
         designType={designType}
       />
       <CountBtnContainer>
-        <CountBtn designType={designType} onClick={addCount}>
+        <CountBtn
+          designType={designType}
+          onClick={addCount}
+          aria-label='수량 더하기 버튼'
+        >
           <ArrowUpIcon />
         </CountBtn>
         <CountBtn
           designType={designType}
           onClick={subtractCount}
-          aria-label='subtract'
+          aria-label='수량 빼기 버튼'
         >
           <ArrowDownIcon />
         </CountBtn>
