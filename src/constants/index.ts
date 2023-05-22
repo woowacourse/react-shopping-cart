@@ -30,3 +30,5 @@ export const ROUTE_PATH = Object.freeze({
   DEFAULT: '/',
   CART: '/cart',
 });
+
+export const PARCEL_PRICE = 3000;

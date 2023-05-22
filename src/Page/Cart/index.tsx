@@ -2,6 +2,7 @@ import { useRecoilValue } from 'recoil';
 import { ReactComponent as AlertBlank } from '../../assets/baemin-alert-blank.svg';
 import CartProductItemList from '../../components/CartProductItemList';
 import PaymentsView from '../../components/PaymentsView';
+import { PARCEL_PRICE } from '../../constants';
 import useCart from '../../hooks/useCart';
 import { $CheckedCartIdList } from '../../recoil/atom';
 import styles from './index.module.scss';
@@ -27,7 +28,7 @@ function Cart() {
             deleteCartItem={deleteCartItem}
             mutateQuantity={mutateQuantity}
           />
-          <PaymentsView priceTotal={total} parcelPrice={3000} />
+          <PaymentsView priceTotal={total} parcelPrice={PARCEL_PRICE} />
         </section>
       </main>
     );
