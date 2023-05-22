@@ -10,5 +10,8 @@ export default meta;
 type Story = StoryObj<typeof EstimatedPayment>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    totalProductPrice: 10000,
+    deliveryFee: 3000,
+  },
 };
