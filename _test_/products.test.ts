@@ -1,11 +1,15 @@
 import { getProductsData } from "../src/api/products";
+import { getCartData } from "../src/api/cart";
+import { postCartProduct } from "../src/api/cart";
+import { patchProductCount } from "../src/api/cart";
+import { deleteCartProduct } from "../src/api/cart";
 
-describe("getProductsData", () => {
+describe("상품 데이터 패칭 테스트", () => {
   beforeEach(() => {
     jest.resetAllMocks();
   });
 
-  it("should return mock data", async () => {
+  it("상품 데이터 get 테스트", async () => {
     const mockData = [
       {
         id: 1,
@@ -94,15 +98,93 @@ describe("getProductsData", () => {
     ];
 
     const mockResponse = {
+      ok: true,
       status: 200,
       json: jest.fn().mockResolvedValue(mockData),
     };
 
-    global.fetch = jest.fn().mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mockResponse),
-    });
+    global.fetch = jest.fn().mockResolvedValue(mockResponse);
 
     const data = await getProductsData();
     expect(data).toEqual(mockData);
+  });
+});
+
+describe("장바구니 데이터 패칭 테스트", () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
+  it("장바구니 데이터 get 테스트", async () => {
+    const mockData = [
+      {
+        id: 0,
+        quantity: 1,
+        product: {
+          id: 0,
+          name: "name",
+          price: 1000,
+          imageUrl: "imageUrl",
+        },
+      },
+    ];
+
+    const mockResponse = {
+      ok: true,
+      status: 200,
+      json: jest.fn().mockResolvedValue(mockData),
+    };
+
+    global.fetch = jest.fn().mockResolvedValue(mockResponse);
+
+    const data = await getCartData();
+    expect(data).toEqual(mockData);
+  });
+
+  it("장바구니 데이터 post 테스트", async () => {
+    const mockData = {
+      id: 0,
+      quantity: 1,
+      product: {
+        id: 0,
+        name: "name",
+        price: 1000,
+        imageUrl: "imageUrl",
+      },
+    };
+
+    const mockResponse = {
+      ok: true,
+      status: 200,
+    };
+
+    global.fetch = jest.fn().mockResolvedValue(mockResponse);
+
+    const data = await postCartProduct(mockData);
+    expect(data).toEqual(mockResponse);
+  });
+
+  it("장바구니 데이터 patch 테스트", async () => {
+    const mockResponse = {
+      ok: true,
+      status: 200,
+    };
+
+    global.fetch = jest.fn().mockResolvedValue(mockResponse);
+
+    const data = await patchProductCount(1, 1);
+    expect(data).toEqual(mockResponse);
+  });
+
+  it("장바구니 데이터 delete 테스트", async () => {
+    const mockResponse = {
+      ok: true,
+      status: 200,
+    };
+
+    global.fetch = jest.fn().mockResolvedValue(mockResponse);
+
+    const data = await deleteCartProduct([1]);
+    expect(data).toEqual(mockResponse);
   });
 });
