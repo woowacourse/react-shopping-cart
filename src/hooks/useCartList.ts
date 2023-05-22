@@ -13,11 +13,18 @@ const useCartList = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(productId),
-    }).then(() => {
-      fetch(CART_ITEMS_BASE_URL)
-        .then((response) => response.json())
-        .then((data) => setCartList(data));
-    });
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error(response.status.toString());
+      })
+      .then(() => {
+        fetch(CART_ITEMS_BASE_URL)
+          .then((response) => {
+            if (!response.ok) throw new Error(response.status.toString());
+            return response.json();
+          })
+          .then((data) => setCartList(data));
+      });
   };
 
   const updateProductQuantity = (targetId: Product['id'], quantity: CartItem['quantity']) => {
@@ -27,11 +34,18 @@ const useCartList = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(quantity),
-    }).then(() => {
-      fetch(CART_ITEMS_BASE_URL)
-        .then((response) => response.json())
-        .then((data) => setCartList(data));
-    });
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error(response.status.toString());
+      })
+      .then(() => {
+        fetch(CART_ITEMS_BASE_URL)
+          .then((response) => {
+            if (!response.ok) throw new Error(response.status.toString());
+            return response.json();
+          })
+          .then((data) => setCartList(data));
+      });
   };
 
   const removeProductInCartList = (targetId: Product['id']) => {
@@ -40,11 +54,18 @@ const useCartList = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then(() => {
-      fetch(CART_ITEMS_BASE_URL)
-        .then((res) => res.json())
-        .then((data) => setCartList(data));
-    });
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error(response.status.toString());
+      })
+      .then(() => {
+        fetch(CART_ITEMS_BASE_URL)
+          .then((response) => {
+            if (!response.ok) throw new Error(response.status.toString());
+            return response.json();
+          })
+          .then((data) => setCartList(data));
+      });
   };
 
   return { cartList, addProductToCartList, updateProductQuantity, removeProductInCartList };

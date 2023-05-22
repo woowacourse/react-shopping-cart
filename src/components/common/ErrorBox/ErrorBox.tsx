@@ -2,12 +2,14 @@ import styled from '@emotion/styled';
 import { ErrorIcon } from '../../../assets';
 import { Text } from '../Text/Text';
 
-type ErrorType = 'emptyList' | 'network';
+type ErrorBoxProps =
+  | { errorType: 'emptyList'; errorMessage?: never }
+  | { errorType: 'network'; errorMessage: string };
 
-const ErrorBox = ({ errorType }: { errorType: ErrorType }) => {
+const ErrorBox = ({ errorType, errorMessage }: ErrorBoxProps) => {
   const errorText = {
     emptyList: '상품 리스트가 없습니다.',
-    network: '잠시 후 다시 시도해주세요.',
+    network: errorMessage,
   };
 
   return (

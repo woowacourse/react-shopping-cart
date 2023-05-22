@@ -7,6 +7,7 @@ import { ResetStyle } from './styles/ResetStyle';
 import { worker } from './mock/workers';
 import ShoppingPage from './components/pages/ShoppingPage';
 import CartListPage from './components/pages/CartListPage';
+import ErrorBoundary from './components/common/ErrorBoundary';
 
 const router = createHashRouter([
   {
@@ -41,10 +42,12 @@ const main = async () => {
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <RecoilRoot>
-      <ResetStyle />
-      <RouterProvider router={router} />
-    </RecoilRoot>
+    <ErrorBoundary>
+      <RecoilRoot>
+        <ResetStyle />
+        <RouterProvider router={router} />
+      </RecoilRoot>
+    </ErrorBoundary>
   </React.StrictMode>,
 );
 

@@ -7,7 +7,7 @@ export const productsQuery = selector<Product[]>({
   get: async () => {
     const response = await fetch(PRODUCTS_BASE_URL);
 
-    if (!response.ok) throw new Error(`${response.status} 에러 발생`);
+    if (!response.ok) throw new Error(response.status.toString());
 
     const products = await response.json();
 
@@ -20,7 +20,7 @@ export const cartListQuery = selector<CartItem[]>({
   get: async () => {
     const response = await fetch(CART_ITEMS_BASE_URL);
 
-    if (!response.ok) throw new Error(`${response.status} 에러 발생`);
+    if (!response.ok) throw new Error(response.status.toString());
 
     const cartList = await response.json();
 
