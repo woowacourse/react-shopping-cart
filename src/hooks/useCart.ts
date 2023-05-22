@@ -1,4 +1,5 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
+import { MESSAGE } from '../constants';
 import { $CartIdList, $CheckedCartIdList } from '../recoil/atom';
 import useGetQuery from './useGetQuery';
 import useMutation from './useMutation';
@@ -16,11 +17,11 @@ const useCart = () => {
       const cartId = data?.headers.get('Location')?.replace(regex, '');
       setCartIdList(prev => [...prev, Number(cartId)]);
       setCheckedCartIdList(prev => [...prev, Number(cartId)]);
-      Toast.success('장바구니에 추가되었습니다.');
+      Toast.success(MESSAGE.ADD_CART_SUCCESSFUL);
       refreshQuery();
     },
     onFailure: () => {
-      Toast.error('장바구니에 추가하는 과정에서 에러가 발생했습니다.');
+      Toast.error(MESSAGE.ADD_CART_FAILED);
     },
   });
   const deleteCartQuery = useMutation<Record<string, number>, CartItem>({
@@ -29,11 +30,11 @@ const useCart = () => {
       const cartId = data?.headers.get('Location')?.replace(regex, '');
       setCartIdList(prev => prev.filter(item => item !== Number(cartId)));
       setCheckedCartIdList(prev => prev.filter(item => item !== Number(cartId)));
-      Toast.success('장바구니에서 삭제하었습니다.');
+      Toast.success(MESSAGE.DELETE_CART_SUCCESSFUL);
       refreshQuery();
     },
     onFailure: () => {
-      Toast.error('장바구니에 삭제하는 과정에서 에러가 발생했습니다.');
+      Toast.error(MESSAGE.DELETE_CART_FAILED);
     },
   });
   const mutateQuantityQuery = useMutation<Record<string, number>, CartItem>({
@@ -41,7 +42,7 @@ const useCart = () => {
       refreshQuery();
     },
     onFailure: () => {
-      Toast.error('수량을 바꾸는 과정에서 에러가 발생하였습니다.');
+      Toast.error(MESSAGE.MUTATE_CART_FAILED);
     },
   });
 

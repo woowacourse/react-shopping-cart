@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
+import { MESSAGE } from '../../constants';
 import useGetQuery from '../../hooks/useGetQuery';
 import useToast from '../../hooks/useToast';
 import { Product } from '../../types';
@@ -13,7 +14,7 @@ function ProductItemList() {
 
   useEffect(() => {
     if (error) {
-      Toast.error('제품 목록을 불러오는 과정에서 문제가 생겼습니다.');
+      Toast.error(MESSAGE.PRODUCT_GET_FAILED);
     }
   }, [error]);
 

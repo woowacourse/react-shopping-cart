@@ -1,4 +1,4 @@
-import { FETCH_METHOD } from '../constants';
+import { FETCH_METHOD, MESSAGE } from '../constants';
 import { MutationFetchMethod } from '../types';
 
 interface UseMutationArg<ResponseData> {
@@ -22,7 +22,7 @@ const useMutation = <BodyData, ResponseData>({ onSuccess, onFailure, onSettled }
       const response = await fetch(url, { method, body, headers });
 
       if (!response.ok) {
-        throw new Error('응답이 온전하지 않습니다.');
+        throw new Error(MESSAGE.RESPONSE_NOT_OKAY);
       }
 
       if (method === FETCH_METHOD.DELETE || FETCH_METHOD.PATCH) {
