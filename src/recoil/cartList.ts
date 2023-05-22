@@ -3,21 +3,7 @@ import { CartItem, ProductId } from 'src/types';
 
 export const cartListAtom = atom<CartItem[]>({
   key: 'cartItem',
-  default: JSON.parse(localStorage.getItem('cartItem') ?? '[]'),
-  effects: [
-    ({ setSelf, onSet }) => {
-      const savedValue = localStorage.getItem('cartItem');
-      if (savedValue != null) {
-        setSelf(JSON.parse(savedValue));
-      }
-
-      onSet((newValue, _, isReset) => {
-        isReset
-          ? localStorage.removeItem('cartItem')
-          : localStorage.setItem('cartItem', JSON.stringify(newValue));
-      });
-    },
-  ],
+  default: [],
 });
 
 export const countCartListSelector = selector({
@@ -110,6 +96,7 @@ export const updateCart = selectorFamily({
     (productId: ProductId) =>
     ({ get }) => {
       const list = get(cartListAtom);
+
       const cartInfo = list.find(({ id }) => id === productId);
       return cartInfo ?? null;
     },
