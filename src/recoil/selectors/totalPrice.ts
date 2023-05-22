@@ -1,13 +1,18 @@
 import { selector } from 'recoil';
 import { DELIVERY_FEE } from '../../components/CartPage/OrderInfo';
 import cartState from '../atoms/cartState';
+import checkedCartState from '../atoms/checkedCartState';
 import { productFamily } from './productFamily';
 
 const totalPrice = selector<[number, number]>({
   key: 'CartTotalPrice',
   get: ({ get }) => {
-    const totalCartItemPrice = get(cartState).reduce((acc, cartItem) => {
-      const { quantity, productId } = cartItem;
+    const totalCartItemPrice = get(checkedCartState).reduce((acc, cartItem) => {
+      const cart = get(cartState);
+
+      const cartProduct = cart.find((it) => it.id === cartItem);
+      if (!cartProduct) return acc;
+      const { quantity, productId } = cartProduct;
 
       if (!productId) return acc;
       if (productId !== null) {
