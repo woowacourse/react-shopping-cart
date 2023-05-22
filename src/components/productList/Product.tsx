@@ -1,5 +1,6 @@
 import type { ProductType } from '../../types';
 
+import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -13,22 +14,28 @@ interface Props extends ProductType {}
 
 export default function Product({ id, name, price, imageUrl }: Props) {
   const [cart, setCart] = useRecoilState(cartState);
+  const [addLoading, setAddLoading] = useState(false);
 
   const cartItem = cart.find((cartItem) => cartItem.product.id === id);
 
   const addCartItem = async () => {
+    setAddLoading(true);
+
     try {
       await api.postCartItem(id);
     } catch {
       alert(API_ERROR_MESSAGE.postCartItem);
+      setAddLoading(false);
       return;
     }
 
     try {
-      api.getCart().then(setCart);
+      await api.getCart().then(setCart);
     } catch {
       alert(API_ERROR_MESSAGE.getCart);
     }
+
+    setAddLoading(false);
   };
 
   return (
@@ -43,7 +50,9 @@ export default function Product({ id, name, price, imageUrl }: Props) {
           {cartItem ? (
             <QuantityInput cartItemId={cartItem.id} min={0} max={MAX_QUANTITY} />
           ) : (
-            <CartIcon src="./cart.svg" onClick={addCartItem} />
+            <CartItemAddButton onClick={addCartItem} disabled={addLoading}>
+              <img src="./cart.svg" />
+            </CartItemAddButton>
           )}
         </ControlBox>
       </InfoBox>
@@ -94,12 +103,20 @@ const Price = styled.p`
   font-weight: 400;
 `;
 
-const CartIcon = styled.img`
+const CartItemAddButton = styled.button`
   width: 26px;
   height: 24px;
   margin-right: 10px;
 
-  cursor: pointer;
+  background: transparent;
+
+  &:disabled {
+    cursor: wait;
+  }
+
+  &:disabled > img {
+    visibility: hidden;
+  }
 `;
 
 const ControlBox = styled.div`
