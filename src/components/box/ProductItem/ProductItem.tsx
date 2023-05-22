@@ -1,59 +1,38 @@
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
-import { useRecoilState } from 'recoil';
-import { CartIcon } from '../../assets';
-import type { CartItem, Product } from '../../types/types';
-import { Text } from '../common/Text/Text';
-import InputStepper from '../common/InputStepper/InputStepper';
-import { cartListState } from '../../service/atom';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
-import getPriceFormat from '../../utils/getPriceFormat';
+import { CartIcon } from '../../../assets';
+import type { Product } from '../../../types/types';
+import { Text } from '../../common/Text/Text';
+import InputStepper from '../../common/InputStepper/InputStepper';
+import getPriceFormat from '../../../utils/getPriceFormat';
+import { useCart } from '../../../hooks/useCart';
 
 const ProductItem = ({ product }: { product: Product }) => {
-  const { localStorageData } = useLocalStorage<CartItem[]>('cartList', []);
+  const { data, addCartItemAPI, changeCartQuantityAPI, deleteCartItemAPI } = useCart();
+  const cartItemData = data && data.find((cart) => cart.product.id === product.id);
+  const cartId = cartItemData && cartItemData.id;
 
   const [quantity, setQuantity] = useState<number>(
-    localStorageData.find((data) => data.product.id === product.id)?.quantity ?? 0,
+    (data && data.find((data) => data.product.id === product.id)?.quantity) || 0,
   );
 
-  const [cartList, setCartList] = useRecoilState(cartListState);
-
-  const updateCartList = (existItemIndex: number) => {
-    const newCartItem: CartItem = {
-      quantity,
-      product,
-    };
-
-    if (existItemIndex !== -1) {
-      setCartList((prev) =>
-        prev.map((cartItem, index) =>
-          index === existItemIndex ? { ...cartItem, quantity } : cartItem,
-        ),
-      );
-      return;
-    }
-
-    setCartList((prev) => [...prev, newCartItem]);
-  };
-
-  const deleteCartItem = (existItemIndex: number) => {
-    if (existItemIndex !== -1) {
-      setCartList((prev) => {
-        const newCartList = [...prev];
-        newCartList.splice(existItemIndex, 1);
-        return newCartList;
-      });
-    }
-  };
-
   useEffect(() => {
-    const existItemIndex = cartList.findIndex((cartItem) => cartItem.product.id === product.id);
-
-    if (quantity !== 0) {
-      updateCartList(existItemIndex);
-      return;
-    }
-    deleteCartItem(existItemIndex);
+    const mutateCartItem = async () => {
+      if (data) {
+        const findData = data.find((data) => data.product.id === product.id);
+        if (findData && findData.quantity !== quantity) {
+          if (quantity > 0) {
+            cartId && changeCartQuantityAPI(cartId, { quantity });
+            return;
+          }
+          cartId && deleteCartItemAPI(cartId);
+        }
+        if (quantity > 0 && !findData) {
+          addCartItemAPI({ productId: product.id });
+        }
+      }
+    };
+    mutateCartItem();
   }, [quantity]);
 
   return (
@@ -99,10 +78,11 @@ const ProductWrapper = styled.div`
 const ProductImage = styled.img`
   width: 100%;
   height: 282px;
-  transition: all 0.3s ease-out;
+  transition: all 0.32s ease;
 
   &:hover {
-    transform: translateY(-10px);
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 1px 14px 24px hsla(218, 53%, 10%, 12%);
   }
 `;
 
