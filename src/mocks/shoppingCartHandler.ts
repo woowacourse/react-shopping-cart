@@ -1,5 +1,6 @@
-import { getMockSelectItemApiUrl } from '@Api/index';
 import { rest } from 'msw';
+
+import { getMockSelectItemApiUrl } from '@Api/index';
 
 import mockSelectData from './data/mockSelectData.json';
 

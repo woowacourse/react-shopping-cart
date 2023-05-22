@@ -1,5 +1,6 @@
-import { getMockShoppingItemApiUrl } from '@Api/index';
 import { rest } from 'msw';
+
+import { getMockShoppingItemApiUrl } from '@Api/index';
 
 import mockData from './data/mockData.json';
 

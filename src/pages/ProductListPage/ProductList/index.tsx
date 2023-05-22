@@ -1,14 +1,15 @@
-import { getMockShoppingItemApiUrl } from '@Api/index';
 import SkeletonProductItem from '@Components/ProductItem/Skeleton';
 import ProductItem from '@Components/ProductItem/index';
 
 import ErrorContainer from '@Pages/ProductListPage/ErrorContainer/index';
 
+import { ERROR } from '@Constants/index';
+
+import { getMockShoppingItemApiUrl } from '@Api/index';
+
 import { Product } from '@Types/index';
 
 import useFetch from '@Hooks/useFetch';
-
-import { ERROR } from '@Constants/index';
 
 import * as S from './style';
 

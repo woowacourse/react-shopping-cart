@@ -4,13 +4,13 @@ import { useRecoilValue } from 'recoil';
 import Checkbox from '@Components/Checkbox';
 import QuantityController from '@Components/QuantityController';
 
+import { SHOPPING_QUANTITY } from '@Constants/index';
+
 import { Product } from '@Types/index';
 
 import useShoppingCart from '@Hooks/useShoppingCart';
 
 import quantityState from '@Selector/quantityState';
-
-import { SHOPPING_QUANTITY } from '@Constants/index';
 
 import * as S from './style';
 

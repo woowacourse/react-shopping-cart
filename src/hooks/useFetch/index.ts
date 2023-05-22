@@ -1,9 +1,10 @@
-import { isHttpStatusError } from '@Utils/isHttpStatusError';
 import { useState, useEffect, useRef } from 'react';
+
+import { ERROR } from '@Constants/index';
 
 import { Error } from '@Types/index';
 
-import { ERROR } from '@Constants/index';
+import { isHttpStatusError } from '@Utils/isHttpStatusError';
 
 const useFetch = <T>(url: string) => {
   const [data, setData] = useState<T>();
