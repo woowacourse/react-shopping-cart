@@ -29,7 +29,7 @@ const CartItemController = () => {
         <S.Text>
           전체선택 ({selectedItemsAmount}/{cartItemsAmount})
         </S.Text>
-        <Button size="S" view="white" onClick={deleteSelectedCartItems}>
+        <Button size="M" view="white" onClick={deleteSelectedCartItems}>
           선택삭제
         </Button>
       </Flex>
