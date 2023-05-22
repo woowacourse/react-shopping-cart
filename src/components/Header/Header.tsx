@@ -69,7 +69,7 @@ const ShoppingCartIconContainer = styled.div`
   fill: #fff;
 
   @media (max-width: ${WIDTH.MD}) {
-    width: 30px;
+    width: 45px;
   }
 `;
 

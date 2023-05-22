@@ -23,7 +23,7 @@ const CartItemList = () => {
 
   useEffect(() => {
     setIsSelectedList(ALL_CHECKED);
-  }, [cartList.length]);
+  }, []);
 
   useEffect(() => {
     const total = isSelectedList.reduce((a, b) => {
@@ -34,7 +34,7 @@ const CartItemList = () => {
       return a;
     }, 0);
     setTotalAmount(total);
-  }, [isSelectedList]);
+  }, [isSelectedList, cartList]); //총 주문금액은 quantity랑 선택 상태에 의존하니까
 
   const toggleSelectAll = () => {
     setIsAllSelected(!isAllSelected);
