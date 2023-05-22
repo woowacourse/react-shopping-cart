@@ -1,7 +1,7 @@
 import { Product } from '../../src/@types/product.type';
 
 const defaultProducts: Product = {
-	id: 1,
+	id: '1',
 	name: '정사각(420ml)',
 	price: 43400,
 	imageUrl:
