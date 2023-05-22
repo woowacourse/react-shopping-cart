@@ -1,11 +1,14 @@
 import styled from "styled-components";
 import SimpleButton from "../common/SimpleButton/SimpleButton";
+import { useCartInfosSyncer } from "../../hooks/useCartInfosSyncer";
 
-interface InformationProps {
+type InformationProps = {
   marginBottom?: string;
-}
+};
 
 const OrderSummary = () => {
+  const { totalPrice } = useCartInfosSyncer();
+
   return (
     <Container>
       <Title>결제예상금액</Title>
@@ -13,15 +16,15 @@ const OrderSummary = () => {
         <InformationBundle>
           <Information>
             <Text>총 상품가격</Text>
-            <Text>₩ 21,700</Text>
+            <Text>₩ {totalPrice.toLocaleString()}</Text>
           </Information>
           <Information marginBottom="22px">
             <Text>총 배송비</Text>
-            <Text>₩ 3,000</Text>
+            <Text>₩ 0</Text>
           </Information>
           <Information>
             <Text>총 주문금액</Text>
-            <Text>₩ 24,700</Text>
+            <Text>₩ {totalPrice.toLocaleString()}</Text>
           </Information>
         </InformationBundle>
         <SimpleButton type="button" width="388px">
