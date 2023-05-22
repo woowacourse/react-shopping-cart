@@ -5,11 +5,12 @@ import useFetch from '@hooks/useFetch';
 interface FetchedDataListProps<T> {
   endpoint: string;
   initialValue: T;
+  isDeleteItem?: boolean;
   children: (props: { data: T; isError: boolean }) => ReactElement;
 }
 
 export const FetchedDataList = <T,>(props: FetchedDataListProps<T>) => {
-  const { endpoint, initialValue, children } = props;
+  const { endpoint, initialValue, isDeleteItem, children } = props;
   const [data, setData] = useState(initialValue);
   const [isError, setIsError] = useState(false);
 
@@ -27,7 +28,7 @@ export const FetchedDataList = <T,>(props: FetchedDataListProps<T>) => {
 
   useEffect(() => {
     fetchData();
-  }, [endpoint, fetchData]);
+  }, [endpoint, fetchData, isDeleteItem]);
 
   return children({ data, isError });
 };

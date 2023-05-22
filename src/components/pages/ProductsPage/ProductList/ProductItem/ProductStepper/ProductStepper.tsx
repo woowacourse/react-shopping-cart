@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, useState } from 'react';
 
 import { PRODUCT_COUNT, STEP_UNIT } from '@constants/product';
 import useUpdateCart from './useUpdateCart';
@@ -12,10 +12,13 @@ import { Stepper } from '@commons/Stepper/Stepper';
 import { Input as StepInput } from '@components/commons/Input/Input';
 import { Button as StepperHandleButton } from '@components/commons/Button/Button';
 import * as Text from '@components/commons/Text/Text';
+import useFetch from '@hooks/useFetch';
 
 interface ProductStepperProps {
   productId: number;
   initQuantity: number;
+  setIsDeleteItem?: Dispatch<React.SetStateAction<boolean>>;
+  initUrl?: string;
   inputWidth?: string | undefined;
   inputHeight?: string | undefined;
   buttonWidth?: string | undefined;
@@ -26,19 +29,54 @@ const ProductStepper = (props: ProductStepperProps) => {
   const {
     productId,
     initQuantity,
+    setIsDeleteItem,
+    initUrl = '',
     inputWidth,
     inputHeight,
     buttonWidth,
     buttonHeight,
   } = props;
   const [quantity, setQuantity] = useState(initQuantity);
+  const { postData, patchData, deleteData } = useFetch('/cart-items');
+  const [url, setUrl] = useState(initUrl);
 
   useUpdateCart(productId, quantity);
+
+  const handlePostData = async () => {
+    if (url !== '') return;
+
+    const newUrl = await postData({ productId: productId });
+    setUrl(newUrl ?? '');
+  };
+
+  const handlePatchData = async (newQuantity: number) => {
+    if (url === '') return;
+
+    await patchData({ quantity: newQuantity }, url);
+  };
+
+  const handleDeleteData = async (newQuantity: number) => {
+    if (url === '') return;
+
+    if (newQuantity > 0) {
+      handlePatchData(newQuantity);
+    } else {
+      if (setIsDeleteItem) {
+        setIsDeleteItem(true);
+      }
+      await deleteData(url);
+    }
+  };
 
   return (
     <>
       {quantity === 0 ? (
-        <StepperEntryButton onClick={() => setQuantity(prev => prev + 1)} />
+        <StepperEntryButton
+          onClick={() => {
+            setQuantity(prev => prev + 1);
+            handlePostData();
+          }}
+        />
       ) : (
         <Stepper
           step={quantity}
@@ -71,7 +109,10 @@ const ProductStepper = (props: ProductStepperProps) => {
                     height={buttonHeight ?? '14px'}
                     aria-label="상품 1개 추가"
                     backgroundColor="#white"
-                    onClick={handleIncrementButtonClick}
+                    onClick={() => {
+                      handleIncrementButtonClick();
+                      handlePatchData(step + STEP_UNIT);
+                    }}
                     type="button"
                     name="상품 추가 버튼"
                     border="1px solid #dddddd"
@@ -85,7 +126,10 @@ const ProductStepper = (props: ProductStepperProps) => {
                     height={buttonHeight ?? '14px'}
                     aria-label="상품 1개 삭제"
                     backgroundColor="#white"
-                    onClick={handleDecrementButtonClick}
+                    onClick={() => {
+                      handleDecrementButtonClick();
+                      handleDeleteData(step - STEP_UNIT);
+                    }}
                     type="button"
                     name="상품 삭제 버튼"
                     border="1px solid #dddddd"

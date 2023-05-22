@@ -1,4 +1,7 @@
+import { Dispatch } from 'react';
+
 import { Product } from '@customTypes/Product';
+import useFetch from '@hooks/useFetch';
 
 import {
   StyledCartItem,
@@ -13,21 +16,18 @@ import ProductStepper from '@components/pages/ProductsPage/ProductList/ProductIt
 import { Button as DeleteButton } from '@commons/Button/Button';
 import { TrashCan } from '@assets/index';
 
-export interface CartItemInterface {
-  id: number;
+export interface CartItemProps {
+  cartItemId: number;
   quantity: number;
   product: Product;
-}
-
-interface CartItemProps {
-  cartItem: CartItemInterface;
+  setIsDeleteItem: Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CartItem = (props: CartItemProps) => {
-  const {
-    cartItem: { product, quantity },
-  } = props;
+  const { cartItemId, product, quantity, setIsDeleteItem } = props;
   const { id, name, price, imageUrl } = product;
+  const { deleteData } = useFetch('/cart-items');
+  const cartItemUrl = `/${cartItemId}`;
 
   return (
     <StyledCartItem>
@@ -39,12 +39,19 @@ const CartItem = (props: CartItemProps) => {
         <Text.Paragraph fontWeight="400">{name}</Text.Paragraph>
       </StyledName>
       <StyledCartItemFlexBox>
-        <DeleteButton>
+        <DeleteButton
+          onClick={() => {
+            deleteData(cartItemUrl);
+            setIsDeleteItem(true);
+          }}
+        >
           <TrashCan />
         </DeleteButton>
         <ProductStepper
           productId={id}
           initQuantity={quantity}
+          setIsDeleteItem={setIsDeleteItem}
+          initUrl={cartItemUrl}
           inputWidth="72px"
           inputHeight="60px"
           buttonWidth="40px"

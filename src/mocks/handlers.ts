@@ -137,17 +137,15 @@ export const handlers = [
       return res(ctx.status(204));
     }
 
+    const id = cartItems.length + 1;
     const newCartItem = {
-      id: cartItems.length + 1,
+      id: id,
       quantity: 1,
       product: product,
     };
     cartItems.push(newCartItem);
 
-    return res(
-      ctx.status(201),
-      ctx.set('Location', `/${cartItems.length + 1}`)
-    );
+    return res(ctx.status(201), ctx.set('Location', `/${id}`));
   }),
 
   rest.patch('/cart-items/:id', async (req, res, ctx) => {
@@ -159,7 +157,7 @@ export const handlers = [
       return res(ctx.status(204));
     }
 
-    cartItem.quantity = quantity;
+    cartItem.quantity = quantity.quantity;
     return res(ctx.status(200));
   }),
 
