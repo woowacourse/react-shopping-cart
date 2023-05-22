@@ -45,4 +45,4 @@ const main = async () => {
   );
 };
 
-main();
+localMain();

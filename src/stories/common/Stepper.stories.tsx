@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Stepper from '../../components/Stepper';
+import { Stepper } from '../../components/Stepper';
 import { expect } from '@storybook/jest';
 import { within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { RecoilRoot } from 'recoil';
 
 const meta = {
   title: 'ShoppingCart/common/Stepper',
@@ -11,6 +12,15 @@ const meta = {
   parameters: {
     layout: 'fullscreen',
   },
+  decorators: [
+    (Story) => (
+      <div>
+        <RecoilRoot>
+          <Story />
+        </RecoilRoot>
+      </div>
+    ),
+  ],
 } satisfies Meta<typeof Stepper>;
 
 export default meta;
@@ -18,8 +28,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    count: 5,
     productId: 1,
+    quantity: 5,
   },
 };
 
@@ -27,8 +37,8 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const ClickPlusButton: Story = {
   args: {
-    count: 1,
     productId: 1,
+    quantity: 1,
   },
 
   play: async ({ canvasElement }) => {
@@ -46,8 +56,8 @@ export const ClickPlusButton: Story = {
 
 export const ClickMinusButton: Story = {
   args: {
-    count: 5,
     productId: 1,
+    quantity: 5,
   },
 
   play: async ({ canvasElement }) => {
@@ -65,8 +75,8 @@ export const ClickMinusButton: Story = {
 
 export const ButtonToDisableIfMinCount: Story = {
   args: {
-    count: 2,
     productId: 1,
+    quantity: 2,
   },
 
   play: async ({ canvasElement }) => {
@@ -85,8 +95,8 @@ export const ButtonToDisableIfMinCount: Story = {
 
 export const ButtonToDisableIfMaxCount: Story = {
   args: {
-    count: 98,
     productId: 1,
+    quantity: 98,
   },
 
   play: async ({ canvasElement }) => {
@@ -105,8 +115,8 @@ export const ButtonToDisableIfMaxCount: Story = {
 
 export const CanNotBeOverMaxCount: Story = {
   args: {
-    count: 3,
     productId: 1,
+    quantity: 3,
   },
 
   play: async ({ canvasElement }) => {

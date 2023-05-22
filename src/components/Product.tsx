@@ -6,7 +6,7 @@ import { useUpdateCart } from '../hooks/useUpdateCart';
 
 import { Stepper } from './Stepper';
 
-import { ProductType as ProductType } from '../types';
+import { ProductType } from '../types';
 
 interface Props {
   item: ProductType;
