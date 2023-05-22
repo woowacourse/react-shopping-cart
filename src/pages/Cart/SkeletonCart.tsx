@@ -11,7 +11,7 @@ function SkeletonCart() {
   return (
     <>
       <StyleCartWrapper>
-        {[...Array(3)].map((_, index) => (
+        {Array.from({ length: 3 }).map((_, index) => (
           <>
             <SkeletonImage />
           </>

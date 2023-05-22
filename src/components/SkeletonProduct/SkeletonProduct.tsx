@@ -1,4 +1,3 @@
-import { PropsWithChildren } from 'react';
 import { Column, Row } from '../../styles/style';
 import { styled } from 'styled-components';
 import { ProductItemBox, ProductName, ProductPrice } from '../ProductItem/ProductItem.style';
