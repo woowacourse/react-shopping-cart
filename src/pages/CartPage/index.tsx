@@ -11,7 +11,11 @@ const CartPage = () => {
   const { cart, getSelectCartTotalPrice } = useControlCart();
 
   if (isLoading) {
-    return <div>로딩중...</div>;
+    return <NotResult>로딩중...</NotResult>;
+  }
+
+  if (cart.length === 0) {
+    return <NotResult>장바구니가 비었어요 😢</NotResult>;
   }
 
   return (
@@ -81,6 +85,14 @@ const Main = styled.main`
     flex-direction: column;
     align-items: center;
   }
+`;
+
+const NotResult = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  height: 50vh;
 `;
 
 export default CartPage;
