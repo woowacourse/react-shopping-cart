@@ -1,6 +1,6 @@
 import ProductCardList from 'components/ProductCardList/ProductCardList';
 import useFetch from 'hooks/useFetch';
-import { getProducts } from 'apis/products';
+import { getProducts } from 'apis/products/get';
 import { Product } from 'types/product';
 
 const ProductListPage = () => {
