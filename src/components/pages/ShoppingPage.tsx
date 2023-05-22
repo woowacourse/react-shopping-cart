@@ -1,5 +1,5 @@
 import PageTemplate from '../templates/PageTemplate';
-import ProductList from '../list/ProductList';
+import ProductList from '../list/ProductList/ProductList';
 
 const ShoppingPage = () => {
   return (
