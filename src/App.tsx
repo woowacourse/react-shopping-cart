@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import NotFoundPage from '@/page/NotFoundPage';
 import ProductPage from '@/page/ProductPage';
+import CartDetailPage from '@/page/CartDetailPage';
 
 function App() {
 	return (
@@ -10,6 +11,7 @@ function App() {
 			<RecoilRoot>
 				<Routes>
 					<Route path="/" element={<ProductPage />} />
+					<Route path="/cart-detail" element={<CartDetailPage />} />
 					<Route
 						path="*"
 						element={
