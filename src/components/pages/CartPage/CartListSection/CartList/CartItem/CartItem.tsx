@@ -1,9 +1,6 @@
 import { Dispatch } from 'react';
-import { useSetRecoilState } from 'recoil';
 
-import { cartItemsState } from '@recoil/atom';
 import { Product } from '@customTypes/Product';
-import useFetch from '@hooks/useFetch';
 
 import {
   StyledCartItem,
@@ -22,46 +19,32 @@ export interface CartItemProps {
   cartItemId: number;
   quantity: number;
   product: Product;
+  handleDeleteButtonClick: (productId: number) => void;
   setIsDeleteItem: Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CartItem = (props: CartItemProps) => {
-  const { cartItemId, product, quantity, setIsDeleteItem } = props;
+  const { product, quantity, handleDeleteButtonClick, setIsDeleteItem } = props;
   const { id, name, price, imageUrl } = product;
-  const { deleteData } = useFetch('/cart-items');
-  const setCartItems = useSetRecoilState(cartItemsState);
-  const cartItemUrl = `/${cartItemId}`;
-
-  const handleDeleteButtonClick = () => {
-    deleteData(cartItemUrl);
-    setIsDeleteItem(true);
-    setCartItems(prev => {
-      const newCartItems = { ...prev };
-      const key = `product${id}`;
-      delete newCartItems[key];
-
-      return newCartItems;
-    });
-  };
 
   return (
     <StyledCartItem>
       <StyledFlexBox>
-        <Checkbox />
+        <Checkbox productId={id} />
         <CartImage src={imageUrl} alt={name} size="l" />
       </StyledFlexBox>
       <StyledName>
         <Text.Paragraph fontWeight="400">{name}</Text.Paragraph>
       </StyledName>
       <StyledCartItemFlexBox>
-        <DeleteButton onClick={handleDeleteButtonClick}>
+        <DeleteButton onClick={() => handleDeleteButtonClick(id)}>
           <TrashCan />
         </DeleteButton>
         <ProductStepper
           productId={id}
           initQuantity={quantity}
           setIsDeleteItem={setIsDeleteItem}
-          initUrl={cartItemUrl}
+          initUrl={`/${id}`}
           inputWidth="72px"
           inputHeight="60px"
           buttonWidth="40px"

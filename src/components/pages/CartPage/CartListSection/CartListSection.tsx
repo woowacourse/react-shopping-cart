@@ -1,6 +1,9 @@
-import { useRecoilValue } from 'recoil';
+import { useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
+import { cartItemsState, checkedCartItemsState } from '@recoil/atom';
 import { cartItemsLengthSelector } from '@recoil/selector';
+import useFetch from '@hooks/useFetch';
 
 import {
   StyledCartListSection,
@@ -9,27 +12,85 @@ import {
 } from '@components/pages/CartPage/CartListSection/CartListSection.styled';
 import * as Text from '@commons/Text/Text';
 import CardList from '@components/pages/CartPage/CartListSection/CartList/CartList';
-import { Checkbox } from '@components/commons/Checkbox/Checkbox';
+import { Checkbox as WholeCheckbox } from '@components/commons/Checkbox/Checkbox';
 import { Button as DeleteButton } from '@components/commons/Button/Button';
 
 const CartListSection = () => {
   const cartItemLength = useRecoilValue(cartItemsLengthSelector);
+  const [checkedCartItems, setCheckedCartItems] = useRecoilState(
+    checkedCartItemsState
+  );
+  const { deleteData } = useFetch('/cart-items');
+  const setCartItems = useSetRecoilState(cartItemsState);
+  const [isDeleteItem, setIsDeleteItem] = useState(false);
+
+  const handleDeleteButtonClick = (productId?: number) => {
+    if (productId) {
+      deleteData(`/${productId}`);
+      setCartItems(prev => {
+        const newCartItems = { ...prev };
+        const key = `product${productId}`;
+        delete newCartItems[key];
+
+        return newCartItems;
+      });
+      setIsDeleteItem(() => true);
+
+      return;
+    }
+
+    const productIds = Object.values(checkedCartItems);
+    const urls = productIds.map(productId => `/${productId}`);
+    productIds.forEach((productId: number, index) => {
+      deleteData(urls[index]);
+      setCartItems(prev => {
+        const newCartItems = { ...prev };
+        const key = `product${productId}`;
+        delete newCartItems[key];
+
+        return newCartItems;
+      });
+    });
+    setIsDeleteItem(() => true);
+    setCheckedCartItems(prev => {
+      const newCheckedCartItems = {
+        ...prev,
+      };
+
+      productIds.forEach(productId => {
+        delete newCheckedCartItems[`productId${productId}`];
+      });
+
+      return newCheckedCartItems;
+    });
+  };
+
+  useEffect(() => {
+    if (isDeleteItem) setIsDeleteItem(false);
+  }, [isDeleteItem]);
 
   return (
     <StyledCartListSection>
       <StyledCartListTextBox>
         <Text.Paragraph>든든배송 상품 ({cartItemLength}개)</Text.Paragraph>
       </StyledCartListTextBox>
-      <CardList />
+      <CardList
+        isDeleteItem={isDeleteItem}
+        setIsDeleteItem={setIsDeleteItem}
+        handleDeleteButtonClick={handleDeleteButtonClick}
+      />
       <StyledCartListFlexBox>
-        <Checkbox />
-        <Text.Description>전체선택 (/{cartItemLength})</Text.Description>
+        <WholeCheckbox />
+        <Text.Description>
+          전체선택 ({Object.keys(checkedCartItems).length}/{cartItemLength})
+        </Text.Description>
         <DeleteButton
           width="100px"
           height="36px"
           padding="4px"
           border="1px solid #BBBBBB"
           border-radius="0px"
+          onClick={() => handleDeleteButtonClick()}
         >
           선택삭제
         </DeleteButton>

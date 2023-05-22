@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { Dispatch } from 'react';
+
+import { Product } from '@customTypes/Product';
 
 import { StyledCartList } from '@components/pages/CartPage/CartListSection/CartList/CartList.styled';
 import { FetchedDataList } from '@components/commons/FetchedDataList/FetchedDataList';
 import ErrorModal from '@pages/ErrorPage/ErrorModal/ErrorModal';
 import CartItem from './CartItem/CartItem';
-import { Product } from '@customTypes/Product';
 
 interface CartItem {
   id: number;
@@ -12,12 +13,14 @@ interface CartItem {
   product: Product;
 }
 
-const CartList = () => {
-  const [isDeleteItem, setIsDeleteItem] = useState(false);
+interface CartListProps {
+  handleDeleteButtonClick: (productId: number) => void;
+  isDeleteItem: boolean;
+  setIsDeleteItem: Dispatch<React.SetStateAction<boolean>>;
+}
 
-  useEffect(() => {
-    if (isDeleteItem) setIsDeleteItem(false);
-  }, [isDeleteItem]);
+const CartList = (props: CartListProps) => {
+  const { handleDeleteButtonClick, isDeleteItem, setIsDeleteItem } = props;
 
   return (
     <FetchedDataList<CartItem[]>
@@ -37,6 +40,7 @@ const CartList = () => {
                     cartItemId={item.id}
                     quantity={item.quantity}
                     product={item.product}
+                    handleDeleteButtonClick={handleDeleteButtonClick}
                     setIsDeleteItem={setIsDeleteItem}
                   />
                 );
