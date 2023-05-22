@@ -7,4 +7,4 @@ export const PATH: Record<PathType, string> = {
   SHOPPING_BASKET: '/shopping-basket',
 };
 
-export const DELEIVERY_COST = 3000;
+export const DELIVERY_COST = 3000;

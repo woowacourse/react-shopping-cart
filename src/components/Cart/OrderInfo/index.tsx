@@ -1,11 +1,15 @@
 import { useRecoilValue } from 'recoil';
 import { selectedCartItemTotal } from 'src/recoil/cartList';
 import { convertKORWon } from 'src/utils';
-import { DELEIVERY_COST } from 'src/utils/constants';
+import { DELIVERY_COST } from 'src/utils/constants';
 import * as S from './OrderInfo.styles';
 
 const OrderInfo = () => {
   const totalCartItemPrice = useRecoilValue(selectedCartItemTotal);
+
+  const isEmptyBasket = totalCartItemPrice === 0;
+
+  const totalPrice = isEmptyBasket ? 0 : totalCartItemPrice + DELIVERY_COST;
 
   return (
     <S.OrderWrapper>
@@ -19,15 +23,15 @@ const OrderInfo = () => {
         </div>
         <div>
           <p>총 배송비</p>
-          <p>{convertKORWon(DELEIVERY_COST)}</p>
+          <p>{convertKORWon(isEmptyBasket ? 0 : DELIVERY_COST)}</p>
         </div>
         <div>
           <p>총 주문 금액</p>
-          <p>{convertKORWon(totalCartItemPrice + DELEIVERY_COST)}</p>
+          <p>{convertKORWon(totalPrice)}</p>
         </div>
       </S.OrderInfoContainer>
       <S.OrderButtonContainer>
-        <button>주문하기</button>
+        <button disabled={isEmptyBasket}>주문하기</button>
       </S.OrderButtonContainer>
     </S.OrderWrapper>
   );

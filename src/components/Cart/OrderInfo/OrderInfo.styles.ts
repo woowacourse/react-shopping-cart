@@ -52,5 +52,9 @@ export const OrderButtonContainer = styled.div`
     &:hover {
       cursor: pointer;
     }
+
+    &:disabled {
+      opacity: 0.7;
+    }
   }
 `;
