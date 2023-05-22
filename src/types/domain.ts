@@ -5,11 +5,7 @@ export interface PayloadType {
   imageUrl: string;
 }
 
-export interface ProductType {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
+export interface ProductType extends PayloadType {
   quantity: number;
 }
 

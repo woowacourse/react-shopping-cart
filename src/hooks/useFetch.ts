@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { useSetRecoilState } from "recoil";
-import { productsState } from "../recoil/atom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { initialProductsState, productsState } from "../recoil/atom";
 import { getNewProducts } from "../utils/domain";
 
 export const useFetch = () => {
+  const products = useRecoilValue(initialProductsState);
   const setProducts = useSetRecoilState(productsState);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -21,7 +22,7 @@ export const useFetch = () => {
   };
 
   const fetchNewProducts = async () => {
-    const newProducts = await getNewProducts();
+    const newProducts = await getNewProducts(products);
     setProducts(newProducts);
   };
 

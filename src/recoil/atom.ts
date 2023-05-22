@@ -1,5 +1,10 @@
 import { atom } from "recoil";
-import { ProductListType } from "../types/domain";
+import { ProductListType, PayloadType } from "../types/domain";
+
+export const initialProductsState = atom<PayloadType[]>({
+  key: "initialProducts",
+  default: [],
+});
 
 export const productsState = atom<ProductListType>({
   key: "products",
