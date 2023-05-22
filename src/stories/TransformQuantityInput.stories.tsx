@@ -14,11 +14,21 @@ const meta = {
 type Story = StoryObj<typeof meta>;
 
 export const ButtonMode: Story = {
-  args: { productId: 1, initialValue: 0 },
+  args: {
+    productId: 1,
+    initialValue: 0,
+    minValue: 0,
+    quantityUpdateCallbacks: [],
+  },
 };
 
 export const InputMode: Story = {
-  args: { productId: 2, initialValue: 7 },
+  args: {
+    productId: 2,
+    initialValue: 5,
+    minValue: 0,
+    quantityUpdateCallbacks: [],
+  },
 };
 
 export default meta;

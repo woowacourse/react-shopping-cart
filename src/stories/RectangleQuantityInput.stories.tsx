@@ -13,7 +13,12 @@ const meta = {
 type Story = StoryObj<typeof meta>;
 
 export const Standard: Story = {
-  args: { productId: 8, initialValue: 0 },
+  args: {
+    productId: 1,
+    initialValue: 0,
+    minValue: 0,
+    quantityUpdateCallbacks: [],
+  },
 };
 
 export default meta;

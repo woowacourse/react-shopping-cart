@@ -11,8 +11,12 @@ const meta = {
 
 type Story = StoryObj<typeof meta>;
 
-export const Standard: Story = {
-  args: { notifyParentWhenCheckedChanged: () => {} },
+export const Checked: Story = {
+  args: { onCheckedChange: () => {}, isChecked: true },
+};
+
+export const NotChecked: Story = {
+  args: { onCheckedChange: () => {}, isChecked: false },
 };
 
 export default meta;
