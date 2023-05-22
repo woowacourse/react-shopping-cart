@@ -1,23 +1,18 @@
 import styled from "styled-components";
-import useToggler from "../../../hooks/useToggler";
 import { FaCheck } from "react-icons/fa";
 
-interface CheckBoxProps {
-  notifyParentWhenCheckedChanged: (isChecked: boolean) => void;
-}
+type CheckBoxProps = {
+  isChecked: boolean;
+  onCheckedChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
 
-const CheckBox = ({ notifyParentWhenCheckedChanged }: CheckBoxProps) => {
-  const { isChecked, toggleIsChecked } = useToggler({
-    initialIsChecked: false,
-    notifyFunction: notifyParentWhenCheckedChanged,
-  });
-
+const CheckBox = ({ isChecked, onCheckedChange }: CheckBoxProps) => {
   return (
     <label>
       <CheckBoxInput
         type="checkbox"
         checked={isChecked}
-        onClick={toggleIsChecked}
+        onChange={onCheckedChange}
       />
       <FakeCheckBox>
         <CheckIcon />
