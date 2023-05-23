@@ -12,6 +12,7 @@ import { productToggleSelector } from '../../../../recoil/cartToggleState';
 import usePreviousValue from '../../../../hooks/usePreviousValue';
 import cartState, { productCountSelector } from '../../../../recoil/cartState';
 import { Product } from '../../../../types/Product';
+import useCartUpdateApiEffect from '../../../../hooks/useCartUpdateApiEffect';
 
 interface ProductStepperProps {
   productId: number;
@@ -39,25 +40,19 @@ const ProductStepper = (props: ProductStepperProps) => {
   const toggleSetter = useSetRecoilState(productToggleSelector(productId));
   const deleteToggleInfo = useResetRecoilState(productToggleSelector(productId));
 
+  useCartUpdateApiEffect(productId, value);
+
   useEffect(() => {
     if (prevValue === value) return;
 
     if (prevValue === 0 && value > 0) {
       toggleSetter(true);
-      fetch('/cart-items', { method: 'POST', body: JSON.stringify({ productId }) });
       return;
     }
 
     if (value === 0) {
       deleteToggleInfo();
-      fetch(`/cart-items/${productId}`, { method: 'DELETE' });
-      return;
     }
-
-    fetch(`/cart-items/${productId}`, {
-      method: 'PATCH',
-      body: JSON.stringify({ quantity: value }),
-    });
   }, [value]);
 
   useEffect(() => {

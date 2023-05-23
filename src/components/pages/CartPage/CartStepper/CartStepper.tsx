@@ -7,6 +7,7 @@ import usePreviousValue from '../../../../hooks/usePreviousValue';
 import useStepper from '../../../../hooks/useStepper';
 import { productCountSelector } from '../../../../recoil/cartState';
 import StepperSettings from '../../../../constants/StepperSettings';
+import useCartUpdateApiEffect from '../../../../hooks/useCartUpdateApiEffect';
 
 interface CartStepperProps {
   productId: number;
@@ -26,16 +27,8 @@ const CartStepper = (props: CartStepperProps) => {
     STEP,
     defaultValue
   );
-  const prevValue = usePreviousValue(value);
 
-  useEffect(() => {
-    if (prevValue === value) return;
-
-    fetch(`/cart-items/${productId}`, {
-      method: 'PATCH',
-      body: JSON.stringify({ quantity: value }),
-    });
-  }, [value]);
+  useCartUpdateApiEffect(productId, value);
 
   useEffect(() => {
     updateProductQuantity(value);
