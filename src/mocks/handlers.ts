@@ -54,10 +54,7 @@ export const handlers = [
   // 장바구니 삭제 API
   rest.delete('/api/cart-items/:cartItemId', (req, res, ctx) => {
     const { cartItemId } = req.params;
-    const { data: cartList, error } = getLocalStorage<CartItem[]>(
-      'cartItem',
-      []
-    );
+    const { data: cartList } = getLocalStorage<CartItem[]>('cartItem', []);
 
     const selectedCartIndex = cartList.findIndex(
       ({ id }) => id === Number(cartItemId)
@@ -83,10 +80,7 @@ export const handlers = [
     const { cartItemId } = req.params;
     const { quantity } = (await req.json()) as CartItemPatchBody;
 
-    const { data: cartList, error } = getLocalStorage<CartItem[]>(
-      'cartItem',
-      []
-    );
+    const { data: cartList } = getLocalStorage<CartItem[]>('cartItem', []);
 
     const cartItemIndex = cartList.findIndex(
       ({ id }) => id === Number(cartItemId)
