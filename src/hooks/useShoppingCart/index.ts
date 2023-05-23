@@ -17,13 +17,21 @@ const useShoppingCart = () => {
   const updateShoppingCart: UpdateShoppingCart = (product) => {
     return (quantity: number) => {
       if (quantity === SHOPPING_QUANTITY.MIN) {
+        const targetItem = shoppingCart.find((item) => item.product.id === product.id);
+        targetItem && deleteFetchCartItem({ id: targetItem.id });
         setShoppingCart((prev) => prev.filter((item) => item.product.id !== product.id));
-        deleteFetchCartItem({ id: product.id });
         return;
       }
 
       const shoppingItem = shoppingCart.find((item) => item.product.id === product.id);
       if (!shoppingItem) {
+        if (quantity === SHOPPING_QUANTITY.DEFAULT) {
+          postFetchCartItem({ id: product.id });
+        } else {
+          postFetchCartItem({ id: product.id });
+          putFetchCartItem({ id: product.id, quantity: quantity });
+        }
+
         const newShoppingItem = {
           id: Date.now(),
           quantity,
@@ -31,15 +39,14 @@ const useShoppingCart = () => {
         };
         setShoppingCart([...shoppingCart, newShoppingItem]);
 
-        if (quantity === SHOPPING_QUANTITY.DEFAULT) {
-          postFetchCartItem({ id: product.id });
-        } else {
-          postFetchCartItem({ id: product.id });
-          putFetchCartItem({ id: product.id, quantity: quantity });
-        }
         return;
       }
 
+      if (quantity === SHOPPING_QUANTITY.DEFAULT) {
+        postFetchCartItem({ id: product.id });
+      } else {
+        putFetchCartItem({ id: product.id, quantity: quantity });
+      }
       setShoppingCart((prev) =>
         prev.map((item) => {
           if (item.product.id !== shoppingItem.product.id) return item;
@@ -50,16 +57,13 @@ const useShoppingCart = () => {
           };
         }),
       );
-      if (quantity === SHOPPING_QUANTITY.DEFAULT) {
-        postFetchCartItem({ id: product.id });
-      } else {
-        putFetchCartItem({ id: product.id, quantity: quantity });
-      }
+
       return;
     };
   };
 
   const deleteShoppingItems = (productsId: number[]) => {
+    productsId.forEach((itemId) => deleteFetchCartItem({ id: itemId }));
     setShoppingCart(shoppingCart.filter((item) => !productsId.includes(item.id)));
   };
 
