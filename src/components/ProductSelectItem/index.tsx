@@ -1,4 +1,3 @@
-import trashCan from '@Asset/trashCan.png';
 import { useRecoilValue } from 'recoil';
 
 import Checkbox from '@Components/Checkbox';
@@ -11,6 +10,8 @@ import { Product } from '@Types/index';
 import useShoppingCart from '@Hooks/useShoppingCart';
 
 import quantityState from '@Selector/quantityState';
+
+import trashCan from '@Assets/trashCan.png';
 
 import * as S from './style';
 

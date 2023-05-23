@@ -1,7 +1,8 @@
-import ShoppingCart from '@Asset/ShoppingCart.png';
 import { useState } from 'react';
 
 import { ALERT_MESSAGE, QUANTITY_CONTROL_BUTTON, QUANTITY_CONTROL_UNIT, SHOPPING_QUANTITY } from '@Constants/index';
+
+import ShoppingCart from '@Assets/ShoppingCart.png';
 
 import * as S from './style';
 

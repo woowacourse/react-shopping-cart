@@ -1,4 +1,4 @@
-import checkedIcon from '@Asset/checkedIcon.png';
+import checkedIcon from '@Assets/checkedIcon.png';
 
 import * as S from './style';
 
