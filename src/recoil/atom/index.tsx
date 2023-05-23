@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { CartItem, Product, SelectedProducts } from 'src/types';
+import { CartItem, Product } from 'src/types';
 import {
   cartListSelector,
   productListSelector,
