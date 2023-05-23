@@ -35,13 +35,15 @@ export const CartItem = ({
 
   const { deleteCartItemById, patchCartItemQuantity } = useCartFetch();
 
-  const [count, setCount] = useState<number>(getProductQuantityById(id) ?? 1);
+  const [quantity, setQuantity] = useState<number>(
+    getProductQuantityById(id) ?? 1
+  );
 
   const handleDeleteCartItem = () => {
     // eslint-disable-next-line no-restricted-globals
     const isUserWantToDeleteProduct = confirm(`${name}을 삭제하시겠습니까?`);
 
-    if (!isUserWantToDeleteProduct && count <= 0) return setCount(1);
+    if (!isUserWantToDeleteProduct) return setQuantity(1);
 
     deleteCartItemById(id);
     deleteRecoilCartById(id);
@@ -58,11 +60,11 @@ export const CartItem = ({
   useEffect(() => {
     if (!getIsCartIncludes(id)) return;
 
-    if (count <= 0) return handleDeleteCartItem();
+    if (quantity <= 0) return handleDeleteCartItem();
 
-    patchRecoilCartItemQuantity(id, count);
-    patchCartItemQuantity(id, count);
-  }, [count]);
+    patchRecoilCartItemQuantity(id, quantity);
+    patchCartItemQuantity(id, quantity);
+  }, [quantity]);
 
   return (
     <Style.Container>
@@ -79,7 +81,7 @@ export const CartItem = ({
             src={`${process.env.PUBLIC_URL}/trashCan.png`}
             onClick={handleDeleteCartItem}
           />
-          <Counter count={count} setCount={setCount} />
+          <Counter count={quantity} setCount={setQuantity} />
           <Style.ProductPrice>{price}원</Style.ProductPrice>
         </Style.ProductSelectorContainer>
       </Style.Content>
