@@ -52,6 +52,23 @@ export const allCheckedStatusSelector = selector({
 
   get: ({ get }) =>
     get(toggledProductsSelector).length === Object.keys(get(cartToggleState)).length,
+
+  set: ({ get, set }, isAllChecked) => {
+    const prevState = get(cartToggleState);
+    const newState: Record<number, boolean> = {};
+
+    Object.keys(prevState)
+      .map(Number)
+      .forEach((id) => {
+        if (isAllChecked instanceof DefaultValue) {
+          newState[id] = true;
+        } else {
+          newState[id] = isAllChecked;
+        }
+      });
+
+    set(cartToggleState, newState);
+  },
 });
 
 export default cartToggleState;
