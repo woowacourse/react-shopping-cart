@@ -1,11 +1,11 @@
 import { rest } from 'msw';
 
-import { getMockShoppingItemApiUrl } from '@Api/index';
+import { PRODUCT_API_URL } from '@Constants/index';
 
 import mockData from './data/mockData.json';
 
 export const shoppingItemListHandler = [
-  rest.get(getMockShoppingItemApiUrl('GET'), (req, res, ctx) => {
+  rest.get(PRODUCT_API_URL, (req, res, ctx) => {
     // status가 200인 경우: ctx.status(200), ctx.json(mockData)
     // 딜레이가 오래 걸리는 경우: ctx.delay(1000), ctx.status(200), ctx.json(mockData)
     // status가 200이지만 물품이 없는 경우:  ctx.status(200), ctx.json([])

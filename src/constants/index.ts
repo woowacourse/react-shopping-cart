@@ -49,3 +49,6 @@ export const ERROR: { [key: string]: Error } = {
 export const LOCAL_STORAGE_KEYWORD = {
   SHOPPING_CART: 'shoppingCart',
 } as const;
+
+export const PRODUCT_API_URL = '/products';
+export const CART_API_URL = '/cart-items';
