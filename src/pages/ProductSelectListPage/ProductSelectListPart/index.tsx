@@ -48,7 +48,7 @@ function ProductSelectListPart({ checkController }: ProductSelectListPartProps) 
     <S.ProductSelectListPart>
       <S.ProductSelectListTitle>상품 목록</S.ProductSelectListTitle>
       <S.ProductSelectController>
-        <Checkbox isChecked={isAllItemSelect} changeEvent={toggleChecked} />
+        <Checkbox checked={isAllItemSelect} onChange={toggleChecked} />
         <S.SelectedProductAmount>
           전체 선택({checkedItemAmount}/{shoppingItemAmount})
         </S.SelectedProductAmount>
