@@ -24,13 +24,10 @@ export const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
 
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
-      setCheckedCartList((prev) => {
-        const isDuplicate = prev.some((item) => item.id === cartProduct.id);
-        if (isDuplicate) {
-          return prev;
-        }
-        return [...prev, cartProduct];
-      });
+      const isDuplicate = checkedCartList.some(
+        (item) => item.id === cartProduct.id
+      );
+      if (!isDuplicate) setCheckedCartList((prev) => [...prev, cartProduct]);
     } else {
       setCheckedCartList((prev) =>
         prev.filter((item) => item.id !== cartProduct.id)
