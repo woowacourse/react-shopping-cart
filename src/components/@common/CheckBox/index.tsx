@@ -16,6 +16,7 @@ const CheckBox = ({
   return (
     <S.SelectLabel htmlFor={id ?? name}>
       <S.SelectInput
+        id={id}
         type="checkbox"
         backgroundColor={backgroundColor ?? theme.color.primary}
         {...props}

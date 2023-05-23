@@ -4,21 +4,30 @@ import useCartListUpdate from 'src/hooks/useCartListUpdate';
 import CheckBox from 'src/components/@common/CheckBox';
 import theme from 'src/styles/theme';
 import { PATH } from 'src/utils/constants';
+import useCartUpdate from 'src/hooks/useCartUpdate';
 
 const CartList = () => {
   const {
     cartList,
-    onChange,
-    onClickDeleteHandler,
+    wholeChange,
+    checkItem,
+    currentIdIsChecked,
     wholeSelected,
-    wholeCartItemsCount,
-    selectedLength,
+    selectedIds,
   } = useCartListUpdate();
+  const { checkedItemDelete } = useCartUpdate();
 
-  const cartListElement = wholeCartItemsCount ? (
+  const checkedDeleteClick = () => checkedItemDelete(selectedIds);
+
+  const cartListElement = cartList.length ? (
     <ul>
       {cartList.map((item) => (
-        <Item key={item.id} item={item} />
+        <Item
+          key={item.id}
+          item={item}
+          checkItem={checkItem}
+          isChecked={currentIdIsChecked}
+        />
       ))}
     </ul>
   ) : (
@@ -35,11 +44,11 @@ const CartList = () => {
           id="whole-select"
           backgroundColor={theme.color.secondary}
           checked={wholeSelected}
-          onChange={onChange}
+          onChange={wholeChange}
         >
-          <S.SelectText>{`전체 선택 (${selectedLength}/${wholeCartItemsCount}개)`}</S.SelectText>
+          <S.SelectText>{`전체 선택 (${selectedIds.length}/${cartList.length}개)`}</S.SelectText>
         </CheckBox>
-        <S.SelectedDeleteButton onClick={onClickDeleteHandler}>
+        <S.SelectedDeleteButton onClick={checkedDeleteClick}>
           선택 삭제
         </S.SelectedDeleteButton>
       </S.CartListHeader>
