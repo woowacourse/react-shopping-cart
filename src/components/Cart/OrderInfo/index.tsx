@@ -1,12 +1,11 @@
-import { useRecoilValue } from 'recoil';
 import { convertKORWon } from 'src/utils';
 import { DELIVERY_COST } from 'src/utils/constants';
 import * as S from './OrderInfo.styles';
-import { selectedCartItemTotal } from 'src/recoil/selector';
+import { memo } from 'react';
+import useCartListUpdate from 'src/hooks/useCartListUpdate';
 
 const OrderInfo = () => {
-  const totalCartItemPrice = useRecoilValue(selectedCartItemTotal);
-
+  const { totalCartItemPrice } = useCartListUpdate();
   const isEmptyBasket = totalCartItemPrice === 0;
 
   const totalPrice = isEmptyBasket ? 0 : totalCartItemPrice + DELIVERY_COST;
@@ -37,4 +36,4 @@ const OrderInfo = () => {
   );
 };
 
-export default OrderInfo;
+export default memo(OrderInfo);
