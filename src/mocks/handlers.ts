@@ -50,7 +50,7 @@ export const handlers = [
       return res(ctx.delay(100), ctx.status(201), ctx.json(newCartItem));
     }
     return res(
-      ctx.status(404),
+      ctx.status(400),
       ctx.json({ errorMessage: `요청한 상품 Id ${req.body.productId}가 존재하지 않아요` })
     );
   }),
@@ -63,7 +63,7 @@ export const handlers = [
 
     if (cartItemIndex === undefined)
       return res(
-        ctx.status(404),
+        ctx.status(400),
         ctx.json({
           errorMessage: `요청한 장바구니 상품 Id ${req.params.cartItemId}가 존재하지 않아요`,
         })
@@ -87,7 +87,7 @@ export const handlers = [
 
     if (cartItemIndex === undefined)
       return res(
-        ctx.status(404),
+        ctx.status(400),
         ctx.json({
           errorMessage: `요청한 장바구니 상품 Id ${req.params.cartItemId}가 존재하지 않아요`,
         })
