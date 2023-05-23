@@ -2,21 +2,16 @@ import checkedIcon from '@Asset/checkedIcon.png';
 
 import * as S from './style';
 
-type CheckboxProps = {
-  isChecked: boolean;
-  changeEvent: () => void;
-};
-
-function Checkbox({ isChecked, changeEvent }: CheckboxProps) {
+function Checkbox({ checked, onChange }: React.InputHTMLAttributes<HTMLInputElement>) {
   return (
-    <S.ProductItemCheckboxLabel checked={isChecked}>
+    <S.ProductItemCheckboxLabel checked={checked ?? false}>
       <S.ProductItemCheckbox
         type="checkbox"
         className="checkbox-product-select-item"
-        onChange={changeEvent}
-        checked={isChecked}
+        onChange={onChange}
+        checked={checked}
       />
-      {isChecked && <S.ProductItemCheckboxCheckIcon src={checkedIcon} />}
+      {checked && <S.ProductItemCheckboxCheckIcon src={checkedIcon} />}
     </S.ProductItemCheckboxLabel>
   );
 }

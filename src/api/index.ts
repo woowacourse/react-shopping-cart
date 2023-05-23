@@ -1,12 +1,12 @@
 import { CART_API_URL, LOCAL_STORAGE_KEYWORD, PRODUCT_API_URL } from '@Constants/index';
 
-import { isHttpStatusError } from '@Utils/isHttpStatusError';
+import { checkHttpStatusError } from '@Utils/checkHttpStatusError';
 import { localData } from '@Utils/localData';
 
 export const getFetchProductList = async <T>() => {
   try {
     const response = await fetch(PRODUCT_API_URL);
-    isHttpStatusError(response.status);
+    checkHttpStatusError(response.status);
     const resultData = (await response.json()) as T;
     return resultData;
   } catch {
@@ -21,7 +21,7 @@ export const getFetchCartList = async <T>() => {
     if (userData) return userData;
 
     const response = await fetch(CART_API_URL);
-    isHttpStatusError(response.status);
+    checkHttpStatusError(response.status);
     const resultData = (await response.json()) as T;
     return resultData;
   } catch {
@@ -40,7 +40,7 @@ export const postFetchCartItem = async (data: PostOrDeleteData) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
-    isHttpStatusError(response.status);
+    checkHttpStatusError(response.status);
   } catch {
     alert('현재 문제가 발생하였습니다. 잠시후 다시 시도해주세요');
   }
@@ -53,7 +53,7 @@ export const putFetchCartItem = async (data: PutData) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ quantity: data.quantity }),
     });
-    isHttpStatusError(response.status);
+    checkHttpStatusError(response.status);
   } catch {
     alert('현재 문제가 발생하였습니다. 잠시후 다시 시도해주세요');
   }
@@ -66,7 +66,7 @@ export const deleteFetchCartItem = async (data: PostOrDeleteData) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
-    isHttpStatusError(response.status);
+    checkHttpStatusError(response.status);
   } catch {
     alert('현재 문제가 발생하였습니다. 잠시후 다시 시도해주세요');
   }
