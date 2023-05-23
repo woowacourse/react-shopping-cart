@@ -1,6 +1,11 @@
 import { styled } from 'styled-components';
 
-export const CheckBox = ({ isChecked, onChange }: any) => {
+interface CheckBoxProps {
+  isChecked: boolean;
+  onChange: () => void;
+}
+
+export const CheckBox = ({ isChecked, onChange }: CheckBoxProps) => {
   return (
     <StyledCheckBoxInput
       type="checkbox"
