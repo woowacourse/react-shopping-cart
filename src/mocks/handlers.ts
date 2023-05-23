@@ -21,7 +21,7 @@ export const handlers = [
 
     if (error.isError) return res(ctx.status(200), ctx.json([]));
 
-    return res(ctx.delay(2000), ctx.status(200), ctx.json(cartList));
+    return res(ctx.status(200), ctx.json(cartList));
   }),
 
   // 장바구니 추가 API
@@ -45,7 +45,6 @@ export const handlers = [
         id: productId,
         quantity: 1,
         product,
-        isSelected: true,
       },
     ]);
 
