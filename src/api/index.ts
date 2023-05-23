@@ -48,7 +48,7 @@ export const postFetchCartItem = async (data: PostOrDeleteData) => {
 
 export const putFetchCartItem = async (data: PutData) => {
   try {
-    const response = await fetch(`${CART_API_URL}/${data.id}`, {
+    const response = await fetch(CART_API_URL, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ quantity: data.quantity }),
