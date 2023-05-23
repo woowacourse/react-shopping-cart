@@ -3,11 +3,10 @@ import { useSetRecoilState } from 'recoil';
 
 import Stepper from '../../../commons/Stepper/Stepper';
 
-import usePreviousValue from '../../../../hooks/usePreviousValue';
 import useStepper from '../../../../hooks/useStepper';
 import { productCountSelector } from '../../../../recoil/cartState';
 import StepperSettings from '../../../../constants/StepperSettings';
-import useCartUpdateApiEffect from '../../../../hooks/useCartUpdateApiEffect';
+import useCartUpdateApi from '../../../../hooks/useCartUpdateApi';
 
 interface CartStepperProps {
   productId: number;
@@ -28,7 +27,7 @@ const CartStepper = (props: CartStepperProps) => {
     defaultValue
   );
 
-  useCartUpdateApiEffect(productId, value);
+  useCartUpdateApi(productId, value, setValue);
 
   useEffect(() => {
     updateProductQuantity(value);

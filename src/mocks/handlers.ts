@@ -28,6 +28,8 @@ const handlers = [
     const { productId } = req.params;
     const { quantity } = await req.json();
 
+    if (Math.random() < 0.5) return res(ctx.status(500));
+
     Cart.setItem(Number(productId), quantity);
 
     return res(ctx.status(200));
