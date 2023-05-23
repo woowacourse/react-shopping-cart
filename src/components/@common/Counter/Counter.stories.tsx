@@ -20,7 +20,7 @@ export const Default: Story = {
   render: () => {
     const [count, setCount] = useState(0);
 
-    const productCountMethod = (event: React.MouseEvent, type: CountMethod) => {
+    const productCountMethod = (type: CountMethod) => {
       switch (type) {
         case 'increase':
           setCount((prev) => prev + 1);

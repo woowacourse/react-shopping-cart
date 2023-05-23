@@ -2,10 +2,7 @@ import { CountMethod } from 'src/hooks/useCartUpdate';
 import * as S from './Counter.styles';
 interface CounterProps {
   count: number;
-  productCountMethod: (
-    event: React.MouseEvent<Element, MouseEvent>,
-    type: CountMethod
-  ) => void;
+  productCountMethod: (type: CountMethod) => void;
   isOnlyOverOne?: boolean;
 }
 
@@ -14,10 +11,8 @@ const Counter = ({
   productCountMethod,
   isOnlyOverOne,
 }: CounterProps) => {
-  const increase = (event: React.MouseEvent<Element, MouseEvent>) =>
-    productCountMethod(event, 'increase');
-  const decrease = (event: React.MouseEvent<Element, MouseEvent>) =>
-    productCountMethod(event, 'decrease');
+  const increase = () => productCountMethod('increase');
+  const decrease = () => productCountMethod('decrease');
 
   return (
     <S.Wrapper>
