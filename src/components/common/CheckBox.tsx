@@ -12,7 +12,7 @@ export const CheckBox = ({ isChecked, onChange }: CheckBoxProps) => {
       type="checkbox"
       checked={isChecked}
       onChange={onChange}
-    ></StyledCheckBoxInput>
+    />
   );
 };
 
