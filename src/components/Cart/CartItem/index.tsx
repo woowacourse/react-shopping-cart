@@ -6,18 +6,18 @@ import * as S from './CartItem.styles';
 import Svg from 'src/components/@common/Svg';
 import CheckBox from 'src/components/@common/CheckBox';
 import theme from 'src/styles/theme';
+import useCartListUpdate from 'src/hooks/useCartListUpdate';
 
 interface ItemProps {
   item: CartItem;
-  checkItem: React.ChangeEventHandler<HTMLInputElement>;
-  isChecked: (id: number) => boolean;
 }
 
-const Item = ({ item, checkItem, isChecked }: ItemProps) => {
+const Item = ({ item }: ItemProps) => {
   const { product } = item;
   const { currentCartItem, patchCartItem, deleteItem } = useProductSelect();
+  const { checkItem, currentIdIsChecked } = useCartListUpdate();
 
-  const itemChecked = isChecked(item.id);
+  const itemChecked = currentIdIsChecked(item.id);
 
   const {
     id,

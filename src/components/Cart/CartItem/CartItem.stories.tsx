@@ -1,9 +1,10 @@
 import { Meta, StoryObj } from '@storybook/react';
 import CartItem from '.';
-import { useSetRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilState } from 'recoil';
 import { usePostFetch } from 'src/hooks/useFetch';
 import { useEffect } from 'react';
 import { cartListAtom } from 'src/recoil/atom';
+import { selectedCartItemSelector } from 'src/recoil/selector';
 
 const mockData = {
   id: 3,
@@ -30,8 +31,6 @@ type Story = StoryObj<typeof cartItem>;
 export const Default: Story = {
   args: {
     item: mockData,
-    isChecked: (number: number) => (number ? false : true),
-    checkItem: (event) => {},
   },
   render: (params) => {
     const { postData } = usePostFetch();

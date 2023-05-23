@@ -7,14 +7,8 @@ import { PATH } from 'src/utils/constants';
 import useCartUpdate from 'src/hooks/useCartUpdate';
 
 const CartList = () => {
-  const {
-    cartList,
-    wholeChange,
-    checkItem,
-    currentIdIsChecked,
-    wholeSelected,
-    selectedIds,
-  } = useCartListUpdate();
+  const { cartList, wholeChange, wholeSelected, selectedIds } =
+    useCartListUpdate();
   const { checkedItemDelete } = useCartUpdate();
 
   const checkedDeleteClick = () => checkedItemDelete(selectedIds);
@@ -22,12 +16,7 @@ const CartList = () => {
   const cartListElement = cartList.length ? (
     <ul>
       {cartList.map((item) => (
-        <Item
-          key={item.id}
-          item={item}
-          checkItem={checkItem}
-          isChecked={currentIdIsChecked}
-        />
+        <Item key={item.id} item={item} />
       ))}
     </ul>
   ) : (
