@@ -1,6 +1,6 @@
 import { rest } from 'msw';
 import { product } from './mockData';
-import { useLocalStorage } from '../components/hooks/useLocalStorage';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 import { Cart } from '../types';
 
 const { getLocalStorageData, setLocalStorageData } = useLocalStorage();

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { cartState } from '../atoms/CartState';
 import { Cart, Product } from '../types';
-import { useCartState } from './hooks/useCartState';
+import { useCartState } from '../hooks/useCartState';
 
 export const AddToCartButton = ({
   addToCartState,

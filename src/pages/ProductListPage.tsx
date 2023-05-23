@@ -1,6 +1,6 @@
 import { PageTitle } from '../components/PageTitle';
 import { ProductItem } from '../components/ProductItem';
-import { useFetch } from '../components/hooks/useFetch';
+import { useFetch } from '../hooks/useFetch';
 import styled from 'styled-components';
 import { Product } from '../types';
 import { useEffect } from 'react';

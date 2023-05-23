@@ -5,7 +5,7 @@ import { StyledText } from './common/Text';
 import { DeleteProductButtonImage } from '../assets/image';
 import { AddToCartCount } from './AddToCartCount';
 import { Cart } from '../types';
-import { useCartState } from './hooks/useCartState';
+import { useCartState } from '../hooks/useCartState';
 import { ChangeEvent } from 'react';
 import { useRecoilState } from 'recoil';
 import { checkedProductState } from '../atoms/CartState';

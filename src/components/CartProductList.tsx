@@ -10,7 +10,7 @@ import {
 } from '../atoms/CartState';
 import { CartProductItem } from './CartProductItem';
 import { useEffect, useState } from 'react';
-import { useFetch } from './hooks/useFetch';
+import { useFetch } from '../hooks/useFetch';
 import { Cart } from '../types';
 import Loading from './Loading';
 import { Image as EmptyCartImage } from './common/Image';

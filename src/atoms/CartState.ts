@@ -1,6 +1,6 @@
 import { atom, selector } from 'recoil';
 import { Cart } from '../types/index';
-import { useLocalStorage } from '../components/hooks/useLocalStorage';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 const { getLocalStorageData } = useLocalStorage();
 const cartList = getLocalStorageData<Cart[]>('cartList');

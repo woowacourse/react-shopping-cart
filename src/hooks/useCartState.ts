@@ -1,6 +1,6 @@
 import { useRecoilState } from 'recoil';
-import { Cart, Product } from '../../types';
-import { cartState } from '../../atoms/CartState';
+import { Cart, Product } from '../types';
+import { cartState } from '../atoms/CartState';
 import { useFetch } from './useFetch';
 
 export const useCartState = (product: Product) => {
