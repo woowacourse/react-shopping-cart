@@ -29,14 +29,24 @@ export const Interaction: Story = {
     const productList = await canvas.findByRole('list');
     const productListCanvas = within(productList);
     const cartButtons = await productListCanvas.findAllByRole('button');
+    const downCountButton = await productListCanvas.findAllByRole('button', {
+      name: '수량 빼기 버튼',
+    });
 
     await step('Click Cart Button', async () => {
-      await userEvent.click(cartButtons[0]);
-      await userEvent.click(cartButtons[1]);
+      await userEvent.click(cartButtons[7]);
     });
 
     await waitFor(() => {
-      expect(canvas.getByText(2)).toBeInTheDocument();
+      expect(canvas.getByText(4)).toBeInTheDocument();
+    });
+
+    await step('Click Down Button', async () => {
+      await userEvent.click(downCountButton[0]);
+    });
+
+    await waitFor(() => {
+      expect(canvas.getByText(3)).toBeInTheDocument();
     });
   },
 };
