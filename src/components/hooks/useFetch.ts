@@ -12,8 +12,6 @@ export const useFetch = <T>() => {
       setData(data);
     } catch (error) {
       if (!(error instanceof Error)) return;
-
-      setIsLoading(false);
     } finally {
       setIsLoading(false);
     }
