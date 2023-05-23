@@ -1,15 +1,11 @@
-import { useEffect } from 'react';
-import { useRecoilCallback, useSetRecoilState } from 'recoil';
+import { useRecoilCallback } from 'recoil';
 
 import { deleteCartItem, getCartList, patchCartItem } from '../api/cartAPI';
 import { cartItemQuantityState, cartListState } from '../store/cart';
-import { errorModalMessageState } from '../store/error';
 import { useMutationFetch } from './common/useMutationFetch';
 
 const useCartItem = (productId: number) => {
-  const setErrorModalMessage = useSetRecoilState(errorModalMessageState);
-
-  const { mutate: updateQuantity, state: updateQuantityState } = useMutationFetch<void, number>(
+  const { mutate: updateQuantity } = useMutationFetch<void, number>(
     useRecoilCallback(
       ({ set }) =>
         async (newQuantity) => {
@@ -20,7 +16,7 @@ const useCartItem = (productId: number) => {
     )
   );
 
-  const { mutate: removeItem, state: removeItemState } = useMutationFetch<void, void>(
+  const { mutate: removeItem } = useMutationFetch<void, void>(
     useRecoilCallback(
       ({ set }) =>
         async () => {
@@ -31,18 +27,6 @@ const useCartItem = (productId: number) => {
       [productId]
     )
   );
-
-  useEffect(() => {
-    if (updateQuantityState.error) {
-      setErrorModalMessage(updateQuantityState.error.message);
-    }
-  }, [updateQuantityState.error, setErrorModalMessage]);
-
-  useEffect(() => {
-    if (removeItemState.error) {
-      setErrorModalMessage(removeItemState.error.message);
-    }
-  }, [removeItemState.error, setErrorModalMessage]);
 
   return { updateQuantity, removeItem };
 };

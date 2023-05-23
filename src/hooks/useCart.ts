@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import { useRecoilCallback, useSetRecoilState } from 'recoil';
+import { useRecoilCallback } from 'recoil';
 
 import { deleteCartItem, getCartList, postCartItem } from '../api/cartAPI';
 import { TOAST_SHOW_DURATION } from '../constants';
 import { cartItemQuantityState, cartListState } from '../store/cart';
-import { errorModalMessageState } from '../store/error';
 import { useMutationFetch } from './common/useMutationFetch';
 
 const useCart = () => {
-  const setErrorModalMessage = useSetRecoilState(errorModalMessageState);
   const [isAdded, setIsAdded] = useState(false);
   const timeout = useRef<ReturnType<typeof setTimeout>>();
 
@@ -22,7 +20,7 @@ const useCart = () => {
     }
   }, [isAdded]);
 
-  const { mutate: addItemQuantity, state: addItemQuantityState } = useMutationFetch<
+  const { mutate: addItemQuantity } = useMutationFetch<
     void,
     { productId: number; quantity: number }
   >(
@@ -38,10 +36,7 @@ const useCart = () => {
     )
   );
 
-  const { mutate: removeCheckedItems, state: removeCheckedItemsState } = useMutationFetch<
-    void,
-    number[]
-  >(
+  const { mutate: removeCheckedItems } = useMutationFetch<void, number[]>(
     useRecoilCallback(
       ({ set }) =>
         async (productIds) => {
@@ -52,18 +47,6 @@ const useCart = () => {
       []
     )
   );
-
-  useEffect(() => {
-    if (addItemQuantityState.error) {
-      setErrorModalMessage(addItemQuantityState.error.message);
-    }
-  }, [addItemQuantityState.error, setErrorModalMessage]);
-
-  useEffect(() => {
-    if (removeCheckedItemsState.error) {
-      setErrorModalMessage(removeCheckedItemsState.error.message);
-    }
-  }, [removeCheckedItemsState.error, setErrorModalMessage]);
 
   return { isAdded, addItemQuantity, removeCheckedItems };
 };
