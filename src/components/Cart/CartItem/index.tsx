@@ -14,7 +14,10 @@ interface ItemProps {
 
 const Item = ({ item }: ItemProps) => {
   const { product } = item;
-  const { currentCartItem, patchCartItem, deleteItem } = useProductSelect();
+  const { currentCartItem, patchCartItem, deleteItem } = useProductSelect(
+    product.id
+  );
+
   const { checkItem, currentIdIsChecked } = useCartListUpdate();
 
   const itemChecked = currentIdIsChecked(item.id);

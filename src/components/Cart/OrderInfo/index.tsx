@@ -6,6 +6,7 @@ import useCartListUpdate from 'src/hooks/useCartListUpdate';
 
 const OrderInfo = () => {
   const { totalCartItemPrice } = useCartListUpdate();
+
   const isEmptyBasket = totalCartItemPrice === 0;
 
   const totalPrice = isEmptyBasket ? 0 : totalCartItemPrice + DELIVERY_COST;

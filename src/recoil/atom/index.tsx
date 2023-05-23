@@ -1,6 +1,10 @@
 import { atom } from 'recoil';
 import { CartItem, Product, SelectedProducts } from 'src/types';
-import { cartListSelector, productListSelector } from '../selector';
+import {
+  cartListSelector,
+  productListSelector,
+  selectedCartItemSelector,
+} from '../selector';
 import { ToastProps } from 'src/components/@common/Toast';
 
 export const cartListAtom = atom<CartItem[]>({
@@ -18,7 +22,7 @@ export const productItems = atom<Product[]>({
   default: productListSelector,
 });
 
-export const cartSelectedItemAtom = atom<SelectedProducts[]>({
+export const cartSelectedItemAtom = atom<CartItem['id'][]>({
   key: 'cartSelectedItemAtom',
-  default: [],
+  default: selectedCartItemSelector,
 });

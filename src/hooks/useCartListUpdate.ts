@@ -1,51 +1,46 @@
-import { useMemo } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { cartListAtom } from 'src/recoil/atom';
-import { selectedCartItemSelector } from 'src/recoil/selector';
+import { cartListAtom, cartSelectedItemAtom } from 'src/recoil/atom';
 
 const useCartListUpdate = () => {
-  const [curSelected, setCurSelected] = useRecoilState(
-    selectedCartItemSelector
-  );
+  const [curSelected, setCurSelected] = useRecoilState(cartSelectedItemAtom);
 
   const cartList = useRecoilValue(cartListAtom);
 
   const checkItem: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     const { checked, id } = event.currentTarget;
-    const updated = curSelected.map((item) =>
-      item.id === Number(id) ? { ...item, checked } : item
-    );
-    setCurSelected(updated);
+    if (!checked) {
+      setCurSelected(curSelected.filter((curId) => curId !== Number(id)));
+      return;
+    }
+
+    setCurSelected([...curSelected, Number(id)]);
   };
 
   const currentIdIsChecked = (id: number) => {
-    const curItem = curSelected.find((item) => item.id === id);
+    const curItem = curSelected.find((item) => item === id);
 
     if (!curItem) return false;
 
-    return curItem.checked;
+    return true;
   };
 
   const wholeChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     const { checked } = event.currentTarget;
-    const updated = curSelected.map((item) => ({ ...item, checked }));
-    setCurSelected(updated);
+    if (checked) {
+      setCurSelected(cartList.map((item) => item.id));
+      return;
+    }
+    setCurSelected([]);
   };
 
-  const wholeSelected = curSelected.every((item) => item.checked);
-  const selectedIds = curSelected
-    .filter((item) => item.checked)
-    .map((item) => item.id);
+  const wholeSelected = curSelected.length > 0;
 
-  const totalCartItemPrice = useMemo(() => {
-    return curSelected.reduce((acc, cur) => {
-      if (cur.checked) {
-        return acc + cur.price;
-      }
-
-      return acc;
-    }, 0);
-  }, [curSelected]);
+  const totalCartItemPrice = cartList.reduce((acc, cur) => {
+    if (curSelected.includes(cur.id)) {
+      return acc + cur.product.price * cur.quantity;
+    }
+    return acc;
+  }, 0);
 
   return {
     cartList,
@@ -53,7 +48,7 @@ const useCartListUpdate = () => {
     checkItem,
     currentIdIsChecked,
     wholeSelected,
-    selectedIds,
+    selectedIds: curSelected,
     totalCartItemPrice,
   };
 };
