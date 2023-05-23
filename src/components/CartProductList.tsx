@@ -24,8 +24,9 @@ export const CartProductList = () => {
 
   useEffect(() => {
     getAPI('/cart-items');
+
     setCheckedItem(cartList);
-  }, []);
+  }, [cartList]);
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);

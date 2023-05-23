@@ -16,24 +16,23 @@ export const useCartState = (product: Product) => {
   };
 
   const addToCartState = async () => {
-    setCartList((prev) => [...prev, newProduct]);
-
     await postAPI('/cart-items', newProduct);
+
+    setCartList((prev) => [...prev, newProduct]);
   };
 
   const increaseCount = async () => {
     const updatedCartList = cartList.map((item) =>
       item.id === id ? { ...item, quantity: item.quantity + 1 } : item
     );
-
     const updatedCartItem = updatedCartList.find((item) => item.id === id);
-
-    setCartList(updatedCartList);
 
     await patchAPI('/cart-items', {
       id: id,
       quantity: updatedCartItem?.quantity,
     });
+
+    setCartList(updatedCartList);
   };
 
   const decreaseCount = async () => {
@@ -49,19 +48,21 @@ export const useCartState = (product: Product) => {
       setCartList(updatedCartList.filter((item) => item.id !== id));
       return deleteAPI('/cart-items', { id: id });
     }
-    setCartList(updatedCartList);
 
     await patchAPI('/cart-items', {
       id: id,
       quantity: updatedCartItem?.quantity,
     });
+
+    setCartList(updatedCartList);
   };
 
   const deleteCartItem = () => {
+    deleteAPI('/cart-items', { id: id });
+
     setCartList((prev) => {
       return [...prev].filter((item: Cart) => item.id !== id);
     });
-    deleteAPI('/cart-items', { id: id });
   };
 
   return {
