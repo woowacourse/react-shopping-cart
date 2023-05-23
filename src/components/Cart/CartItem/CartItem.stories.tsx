@@ -3,7 +3,7 @@ import CartItem from '.';
 import { useSetRecoilState } from 'recoil';
 import { usePostFetch } from 'src/hooks/useFetch';
 import { useEffect } from 'react';
-import { updateCart } from 'src/recoil/selector';
+import { cartListAtom } from 'src/recoil/atom';
 
 const mockData = {
   id: 3,
@@ -15,7 +15,6 @@ const mockData = {
     imageUrl:
       'https://item.kakaocdn.net/do/91481c46c6ee38c33e20deba29e1f73f9f17e489affba0627eb1eb39695f93dd',
   },
-  isSelected: true,
 };
 
 const cartItem = {
@@ -31,16 +30,20 @@ type Story = StoryObj<typeof cartItem>;
 export const Default: Story = {
   args: {
     item: mockData,
+    isChecked: (number: number) => (number ? false : true),
+    checkItem: (event) => {},
   },
   render: (params) => {
     const { postData } = usePostFetch();
-    const setCartItem = useSetRecoilState(updateCart(params.item.id));
+    const setCartItem = useSetRecoilState(cartListAtom);
 
     useEffect(() => {
       postData('/api/cart-items', { productId: params.item.id });
-      setCartItem({
-        ...params.item,
-      });
+      setCartItem([
+        {
+          ...params.item,
+        },
+      ]);
     }, []);
 
     return <CartItem {...params} />;

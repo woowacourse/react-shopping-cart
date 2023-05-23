@@ -4,34 +4,36 @@ import { convertKORWon } from 'src/utils';
 import useProductSelect from 'src/hooks/useCartUpdate';
 import * as S from './CartItem.styles';
 import Svg from 'src/components/@common/Svg';
-import { useRecoilValue } from 'recoil';
 import CheckBox from 'src/components/@common/CheckBox';
 import theme from 'src/styles/theme';
-import { quantityTimesNumber } from 'src/recoil/selector';
 
 interface ItemProps {
   item: CartItem;
+  checkItem: React.ChangeEventHandler<HTMLInputElement>;
+  isChecked: (id: number) => boolean;
 }
 
-const Item = ({ item }: ItemProps) => {
+const Item = ({ item, checkItem, isChecked }: ItemProps) => {
   const { product } = item;
+  const { currentCartItem, patchCartItem, deleteItem } = useProductSelect();
+
+  const itemChecked = isChecked(item.id);
+
   const {
-    currentCartItem,
-    productCountMethod,
-    onChangeSelectToggle,
-    deleteItem,
-  } = useProductSelect(product);
+    id,
+    quantity,
+    product: { price },
+  } = currentCartItem ?? item;
 
-  const { id, isSelected, quantity } = currentCartItem ?? item;
-
-  const itemTotalPrice = useRecoilValue(quantityTimesNumber(id));
+  const itemTotalPrice = quantity * price;
+  const itemCount = patchCartItem(item);
 
   return (
     <S.ItemWrapper>
       <CheckBox
         id={`${id}`}
-        checked={isSelected}
-        onChange={onChangeSelectToggle}
+        checked={itemChecked}
+        onChange={checkItem}
         backgroundColor={theme.color.secondary}
       >
         <S.ProductImage src={product.imageUrl} alt={product.name} />
@@ -51,7 +53,7 @@ const Item = ({ item }: ItemProps) => {
         </S.SVGContainer>
         <Counter
           count={quantity}
-          productCountMethod={productCountMethod}
+          productCountMethod={itemCount}
           isOnlyOverOne={true}
         />
         <S.ProductPriceContainer>
