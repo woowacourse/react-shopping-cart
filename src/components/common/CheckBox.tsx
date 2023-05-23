@@ -1,8 +1,9 @@
+import { ChangeEvent } from 'react';
 import { styled } from 'styled-components';
 
 interface CheckBoxProps {
   isChecked: boolean;
-  onChange: () => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const CheckBox = ({ isChecked, onChange }: CheckBoxProps) => {
