@@ -7,8 +7,6 @@ export const CheckboxInput = styled.input`
 
 export const CheckboxLabel = styled.label`
   display: inline-flex;
-  /* align-items: center; */
-  /* justify-content: center; */
 
   width: 28px;
   height: 28px;
