@@ -4,11 +4,7 @@ import { LoadingSpinner } from "../assets";
 export const Loading = () => {
   return (
     <Wrapper>
-      <img
-        src={LoadingSpinner}
-        alt="로딩"
-        style={{ background: "transparent" }}
-      />
+      <img src={LoadingSpinner} alt="로딩" />
     </Wrapper>
   );
 };

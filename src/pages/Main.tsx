@@ -1,13 +1,12 @@
-import { Header, Loading, Page, ProductList } from "../components";
-import { useFetch } from "../hooks/useFetch";
+import { Header, Page, ProductList } from "../components";
 
 const Main = () => {
-  // const { isLoading } = useFetch();
-
   return (
     <>
       <Header />
-      <Page>{<ProductList />}</Page>
+      <Page>
+        <ProductList />
+      </Page>
     </>
   );
 };

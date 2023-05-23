@@ -1,14 +1,12 @@
 import styled from "styled-components";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { initialProductsState, productsState } from "../recoil/atom";
 import type { ProductType } from "../types/domain";
-import { useQuantity } from "../hooks/useQuantity";
 import { CartGrayIcon } from "../assets";
 import { Counter } from "./Counter";
 import { MIN_QUANTITY } from "../constants";
 import { addCartItem } from "../api";
 import { getNewProducts } from "../utils/domain";
-import { newProductsSelector } from "../recoil/selector";
 
 export const ProductList = () => {
   const products = useRecoilValue(productsState);
@@ -24,7 +22,7 @@ export const ProductList = () => {
 
 const Product = ({ id, name, price, imageUrl, quantity }: ProductType) => {
   const initialProducts = useRecoilValue(initialProductsState);
-  const [products, setProducts] = useRecoilState(productsState);
+  const setProducts = useSetRecoilState(productsState);
 
   const handleCartClicked = async () => {
     await addCartItem(id);
