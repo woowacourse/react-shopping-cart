@@ -1,9 +1,9 @@
 import { DefaultValue, selector, selectorFamily } from 'recoil';
 import { fetchAPI } from 'src/api';
-import { cartListAtom } from '../atom';
-import { CartItem, ProductId } from 'src/types';
+import { cartListAtom, cartSelectedItemAtom } from '../atom';
+import { CartItem, ProductId, SelectedProducts } from 'src/types';
 
-export const cartListSelector = selector({
+export const cartListSelector = selector<CartItem[]>({
   key: 'cartItemSelector',
   get: async () => {
     const cartItems = await fetchAPI('/api/cart-items');
@@ -36,82 +36,6 @@ export const countCartListSelector = selector({
   },
 });
 
-export const countSelectedCartItemsSelector = selector({
-  key: 'countSelectedCartItemsSelector',
-  get: ({ get }) => {
-    const list = get(cartListAtom);
-
-    return list.filter((data) => data.isSelected);
-  },
-});
-
-export const quantityTimesNumber = selectorFamily<number, ProductId>({
-  key: 'quantityTimesNumber',
-  get:
-    (productId) =>
-    ({ get }) => {
-      const list = get(cartListAtom);
-
-      const currentItem = list.find(({ id }) => id === productId);
-      if (!currentItem) return 0;
-
-      return currentItem.product.price * currentItem.quantity;
-    },
-});
-
-export const selectedCartItemTotal = selector({
-  key: 'selectedCartItemTotal',
-  get: ({ get }) => {
-    const list = get(cartListAtom);
-
-    const selectedItems = list.filter(({ isSelected }) => isSelected);
-
-    return selectedItems.reduce((acc, cur) => {
-      if (cur.isSelected) {
-        const curTotalPrice = get(quantityTimesNumber(cur.id));
-        return acc + curTotalPrice;
-      }
-
-      return acc;
-    }, 0);
-  },
-});
-
-export const wholeCartItemToggleSelector = selector({
-  key: 'wholeCartItemToggleSelector',
-  get: ({ get }) => {
-    const selectedList = get(countSelectedCartItemsSelector);
-    if (selectedList.length === 0) return false;
-
-    return get(countCartListSelector) === selectedList.length;
-  },
-  set: ({ get, set }, select) => {
-    if (select instanceof DefaultValue) return;
-    const selectedList = get(cartListAtom).map((item) => ({
-      ...item,
-      isSelected: select,
-    }));
-
-    set(cartListAtom, selectedList);
-  },
-});
-
-export const deleteCartItemSelector = selector({
-  key: 'deleteCartItemSelector',
-  get: ({ get }) => {
-    return get(cartListAtom)
-      .filter((item) => !item.isSelected)
-      .map((item) => item.id);
-  },
-  set: ({ get, set }, productIds) => {
-    if (productIds instanceof DefaultValue) return;
-    const cartList = get(cartListAtom);
-    const updateList = cartList.filter(({ id }) => !productIds.includes(id));
-
-    set(cartListAtom, updateList);
-  },
-});
-
 export const updateCart = selectorFamily<CartItem | null, ProductId>({
   key: 'updateCart',
   get:
@@ -128,9 +52,47 @@ export const updateCart = selectorFamily<CartItem | null, ProductId>({
       if (!item || item instanceof DefaultValue) return;
 
       const list = get(cartListAtom);
-
+      console.log(list, 'cartList');
       const updated = list.map((prev) => (prev.id === productId ? item : prev));
 
       set(cartListAtom, updated);
     },
+});
+
+/**
+ * 전역상태 관리를 어떠헥 해야할까?
+ * 선택된 값들과 그것에서 나타나는 파생값들을 계산해야 함.
+ *
+ * 선택된 값들은 어떻게 보면 carttem의 selector라고 할 수 있음.
+ *
+ * 셀렉터의 값을 상태로 두고, 그 값들을 변환하도록 하면?
+ */
+
+export const selectedCartItemSelector = selector<SelectedProducts[]>({
+  key: 'selectedCartItemSelector',
+  get: ({ get }) => {
+    const current = get(cartSelectedItemAtom);
+    const list = get(cartListAtom);
+
+    if (current.length) {
+      return list.map((item) => {
+        const prevItem = current.find((prevItem) => prevItem.id === item.id);
+
+        return {
+          id: item.id,
+          price: item.quantity * item.product.price,
+          checked: prevItem ? prevItem.checked : true,
+        };
+      });
+    }
+
+    return list.map((item) => ({
+      id: item.id,
+      price: item.quantity * item.product.price,
+      checked: true,
+    }));
+  },
+  set: ({ set }, newValue) => {
+    set(cartSelectedItemAtom, newValue);
+  },
 });
