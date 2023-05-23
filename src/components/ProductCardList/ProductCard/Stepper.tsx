@@ -98,7 +98,7 @@ const DecreaseButton = styled.button`
   border: none;
   border-radius: 50%;
   background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.gray_0};
   font-size: 26px;
   line-height: 20px;
 
@@ -110,7 +110,7 @@ const DecreaseButton = styled.button`
 const Quantity = styled.span`
   margin: 0 auto;
   font-size: 16px;
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.gray_0};
 `;
 
 const IncreaseButton = styled.button`
@@ -119,7 +119,7 @@ const IncreaseButton = styled.button`
   border: none;
   border-radius: 50%;
   background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.gray_0};
   font-size: 26px;
   line-height: 20px;
 

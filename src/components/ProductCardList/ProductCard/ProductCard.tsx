@@ -1,4 +1,3 @@
-import productThumbnail from 'assets/product-thumbnail.png';
 import FlexBox from 'components/@common/FlexBox';
 import { Stepper } from 'components/ProductCardList/ProductCard/Stepper';
 import { useCartProduct } from 'hooks/useCartProduct';
@@ -6,6 +5,8 @@ import { useRecoilValue } from 'recoil';
 import { filteredCartProductState } from 'state/CartAtom';
 import styled from 'styled-components';
 import type { Product } from 'types/product';
+import { formatKoreanCurrency } from 'utils';
+import { renderDefaultThumbnail } from 'utils/image';
 
 type ProductCardProps = {
   product: Product;
@@ -18,12 +19,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   const filteredCartProductQuantity = filteredCartProduct?.quantity ?? 0;
 
-  const renderDefaultThumbnail: React.ReactEventHandler<HTMLImageElement> = (e) => {
-    e.currentTarget.src = productThumbnail;
-  };
-
   return (
-    <FlexBox direction="column" justify="flex-start" gap="8px" role="list">
+    <FlexBox direction="column" justify="flex-start" gap="8px" width="200px" role="list">
       <ProductImgContainer>
         <ProductImage src={imageUrl} alt={name} onError={renderDefaultThumbnail} />
         <StepperWrapper>
@@ -35,10 +32,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
           />
         </StepperWrapper>
       </ProductImgContainer>
-      <FlexBox justify="flex-start" style={{ padding: '0 4px' }}>
+      <FlexBox justify="flex-start" padding="0 4px">
         <FlexBox direction="column" align="flex-start">
           <Title>{name}</Title>
-          <Price>{price.toLocaleString('ko-KR')}원</Price>
+          <Price>{formatKoreanCurrency(price)}원</Price>
         </FlexBox>
       </FlexBox>
     </FlexBox>
@@ -47,8 +44,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
 const ProductImgContainer = styled.div`
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 100%;
 `;
 
 const ProductImage = styled.img`

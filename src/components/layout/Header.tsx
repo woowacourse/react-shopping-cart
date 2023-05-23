@@ -3,22 +3,24 @@ import { ReactComponent as CartIcon } from 'assets/cart-icon.svg';
 import { PropsWithChildren } from 'react';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { cartProductCountState } from 'state/CartAtom';
+import { cartProductsCountState } from 'state/CartAtom';
 import styled from 'styled-components';
 
 const Header = ({ children }: PropsWithChildren) => {
-  const cartProductCount = useRecoilValue(cartProductCountState);
+  const cartProductCount = useRecoilValue(cartProductsCountState);
 
   return (
     <HeaderContainer>
-      <FlexLink to={ROUTE_PATH.root}>
-        <CartIcon width="50px" height="44px" />
-        <Title>{children}</Title>
-      </FlexLink>
-      <FlexLink to={ROUTE_PATH.cart}>
-        <CartTitle>장바구니</CartTitle>
-        <CartProductCount>{cartProductCount}</CartProductCount>
-      </FlexLink>
+      <HeaderContentContainer>
+        <FlexLink to={ROUTE_PATH.root}>
+          <CartIcon width="50px" height="44px" />
+          <Title>{children}</Title>
+        </FlexLink>
+        <FlexLink to={ROUTE_PATH.cart}>
+          <CartTitle>장바구니</CartTitle>
+          <CartProductCount>{cartProductCount}</CartProductCount>
+        </FlexLink>
+      </HeaderContentContainer>
     </HeaderContainer>
   );
 };
@@ -31,22 +33,30 @@ const FlexLink = styled(Link)`
 
 const HeaderContainer = styled.header`
   display: flex;
-  justify-content: space-between;
   width: 100%;
   height: var(--header-height);
-  padding: 0 16.66%;
-  background-color: ${({ theme }) => theme.colors.gray_3};
+  align-items: center;
+  background-color: ${({ theme }) => theme.colors.gray_10};
+`;
+
+const HeaderContentContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 40px;
+  max-width: 1080px;
+  margin: 0 auto;
 `;
 
 const Title = styled.h1`
   font-size: 40px;
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.gray_0};
 `;
 
 const CartTitle = styled.span`
   border: none;
   background-color: transparent;
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.gray_0};
   font-size: 24px;
 `;
 
@@ -55,7 +65,7 @@ const CartProductCount = styled.span`
   height: 26px;
   border-radius: 50%;
   background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.gray_0};
   font-size: 16px;
   text-align: center;
   line-height: 24px;

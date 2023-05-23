@@ -8,5 +8,6 @@ export type Product = {
 export type CartProduct = {
   id: Product['id'];
   quantity: number;
+  checked: boolean;
   product: Product;
 };

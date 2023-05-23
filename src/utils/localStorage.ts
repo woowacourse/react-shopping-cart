@@ -1,12 +1,18 @@
 const store = {
-  setStorage(key: string, data: any) {
+  setStorage(key: string, data: unknown) {
     localStorage.setItem(key, JSON.stringify(data));
   },
 
-  getStorage<T>(key: string): T | null {
-    const data = localStorage.getItem(key);
+  getStorage(key: string) {
+    const item = localStorage.getItem(key);
 
-    return data && JSON.parse(data);
+    if (!item) return null;
+
+    return JSON.parse(item);
+  },
+
+  addItem(key: string, data: unknown) {
+    this.setStorage(key, [...this.getStorage(key), data]);
   },
 };
 
