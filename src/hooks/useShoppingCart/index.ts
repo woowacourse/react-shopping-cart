@@ -35,7 +35,7 @@ const useShoppingCart = () => {
           postFetchCartItem({ id: product.id });
         } else {
           postFetchCartItem({ id: product.id });
-          putFetchCartItem({ quantity: quantity });
+          putFetchCartItem({ id: product.id, quantity: quantity });
         }
         return;
       }
@@ -53,7 +53,7 @@ const useShoppingCart = () => {
       if (quantity === SHOPPING_QUANTITY.DEFAULT) {
         postFetchCartItem({ id: product.id });
       } else {
-        putFetchCartItem({ quantity: quantity });
+        putFetchCartItem({ id: product.id, quantity: quantity });
       }
       return;
     };

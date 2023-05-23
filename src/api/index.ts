@@ -31,9 +31,9 @@ export const getFetchCartList = async <T>() => {
 };
 
 type PostOrDeleteData = { id: number };
-type PutData = { quantity: number };
+type PutData = { id: number; quantity: number };
 
-export const postFetchCartItem = async <T>(data: PostOrDeleteData) => {
+export const postFetchCartItem = async (data: PostOrDeleteData) => {
   try {
     const response = await fetch(CART_API_URL, {
       method: 'POST',
@@ -46,12 +46,12 @@ export const postFetchCartItem = async <T>(data: PostOrDeleteData) => {
   }
 };
 
-export const putFetchCartItem = async <T>(data: PutData) => {
+export const putFetchCartItem = async (data: PutData) => {
   try {
-    const response = await fetch(CART_API_URL, {
+    const response = await fetch(`${CART_API_URL}/${data.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ quantity: data.quantity }),
     });
     isHttpStatusError(response.status);
   } catch {
@@ -59,7 +59,7 @@ export const putFetchCartItem = async <T>(data: PutData) => {
   }
 };
 
-export const deleteFetchCartItem = async <T>(data: PostOrDeleteData) => {
+export const deleteFetchCartItem = async (data: PostOrDeleteData) => {
   try {
     const response = await fetch(CART_API_URL, {
       method: 'DELETE',
