@@ -1,5 +1,5 @@
-export const LocalData = {
-  setDate(dataName: string, data: any) {
+export const localData = {
+  setData(dataName: string, data: any) {
     localStorage.setItem(dataName, JSON.stringify(data));
   },
 

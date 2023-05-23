@@ -1,6 +1,7 @@
-import { CART_API_URL, PRODUCT_API_URL } from '@Constants/index';
+import { CART_API_URL, LOCAL_STORAGE_KEYWORD, PRODUCT_API_URL } from '@Constants/index';
 
 import { isHttpStatusError } from '@Utils/isHttpStatusError';
+import { localData } from '@Utils/localData';
 
 export const getFetchProductList = async <T>() => {
   try {
@@ -16,6 +17,9 @@ export const getFetchProductList = async <T>() => {
 
 export const getFetchCartList = async <T>() => {
   try {
+    const userData = localData.getData(LOCAL_STORAGE_KEYWORD.SHOPPING_CART);
+    if (userData) return userData;
+
     const response = await fetch(CART_API_URL);
     isHttpStatusError(response.status);
     const resultData = (await response.json()) as T;
