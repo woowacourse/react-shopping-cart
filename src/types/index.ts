@@ -3,6 +3,7 @@ import { CSSProp } from 'styled-components';
 
 export interface IconProps extends SVGProps<SVGSVGElement> {
   css?: CSSProp;
+  pathFill?: string;
 }
 
 export interface Product {

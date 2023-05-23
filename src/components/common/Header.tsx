@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { PATH } from '../../constants/';
+import { useGoToAnotherPage } from '../../hooks/useGoToAnotherPage';
 import Cart from '../Cart';
 import CartIcon from '../icons/CartIcon';
 
@@ -7,11 +9,15 @@ interface Props {
 }
 
 const Header = ({ title }: Props) => {
+  const goToPage = useGoToAnotherPage();
+
   return (
     <S.Header>
       <S.Wrapper>
-        <CartIcon fill="#fff" aria-label="logo-cart-icon" />
-        <span>{title}</span>
+        <S.Button onClick={() => goToPage(PATH.MAIN_PAGE)}>
+          <CartIcon aria-label="logo-cart-icon" />
+          <span>{title}</span>
+        </S.Button>
         <Cart />
       </S.Wrapper>
     </S.Header>
@@ -28,12 +34,12 @@ const S = {
     font-weight: 900;
     line-height: 80px;
     letter-spacing: 0.2px;
-    color: #fff;
 
     & svg {
       width: 44px;
       height: 36px;
       margin-right: 20px;
+      fill: #fff;
     }
 
     @media (max-width: 768px) {
@@ -49,9 +55,21 @@ const S = {
       font-size: 24px;
 
       & svg {
+        align-self: center;
         width: 34px;
         margin-right: 8px;
+        padding: 2px;
       }
+    }
+  `,
+
+  Button: styled.button`
+    color: #fff;
+    background: none;
+    cursor: pointer;
+
+    @media (max-width: 480px) {
+      display: flex;
     }
   `,
 

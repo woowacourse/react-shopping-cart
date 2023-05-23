@@ -1,7 +1,7 @@
 export const fetchData = async (url: string) => {
   try {
     const response = await fetch(url);
-    const data = await validateResponse(response);
+    const data = await extractPayload(response);
 
     return data;
   } catch (error) {
@@ -9,7 +9,7 @@ export const fetchData = async (url: string) => {
   }
 };
 
-const validateResponse = async (response: Response) => {
+const extractPayload = async (response: Response) => {
   if (response.ok) {
     const data = await response.json();
 

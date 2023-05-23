@@ -31,7 +31,10 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   :root {
+    --gray-color-100: #ddd;
     --gray-color-200: #c7c7c7;
+    --gray-color-300: #aaa;
     --text-color: #333;
+    --highlight-color: #04c09e;
   }
 `;

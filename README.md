@@ -7,13 +7,67 @@
 
 <br>
 
+## step2
+
+<br>
+
 <p align="middle" >
-  <img src="https://github.com/feb-dain/react-shopping-cart/assets/108778921/9876415b-1c43-41c1-9885-ac9585aabf5b" alt="장바구니 앱 이용 과정 예시" >
+  <img width="50%" src="https://github.com/feb-dain/react-shopping-cart/assets/108778921/0f2dd16f-70d8-403a-be61-7c92222a64846" alt="장바구니 앱(step2) 이용 과정 예시" >
+
+  <img width="50%" src="https://github.com/feb-dain/react-shopping-cart/assets/108778921/3c7804ce-519d-4e77-9202-642a7bf907a1" alt="장바구니 앱(step2) 이용 과정 예시" >
+</p>
+
+<br>
+
+### 📝 실행 방법
+
+<table>
+  <tbody>
+    <tr>
+      <td><a href="https://feb-dain.github.io/react-shopping-cart/">🛒 장바구니 앱 실행하기</a></td>
+      <td><a href="https://feb-dain.github.io/react-shopping-cart/storybook/">📕 스토리북 바로 보기</a></td>
+    </tr>
+  </tbody>
+</table>
+
+- 터미널에서 npm 설치(`npm install`) 후 `npm start` 커맨드로 앱을 실행할 수 있다.
+
+<br>
+
+### ✨ 필수 요구 사항
+
+1. **장바구니 페이지**<br>
+   장바구니 페이지 마크업을 완성하고, 상품 목록 페이지와 함께 모바일 환경 대응
+2. **MSW를 활용한 API Mocking**<br>
+   MSW를 활용하여 실제 서버와 연동될 수 있는 API Mocking을 구현
+   단순한 Endpoint 변경으로 실제 API 사용이 가능하도록 작업
+3. **테스트**<br>
+   장바구니 페이지에서 다양한 사용자 인터렉션에 대한 테스트 케이스를 고민하고, 선택한 테스트 도구를 이용하여 검증
+4. **사용자 경험**<br>
+   새로고침 해도, 장바구니에 담은 상품 유지
+
+<br>
+
+### ✅ 프로그래밍 요구사항
+
+> 이전 미션의 프로그래밍 요구사항은 기본으로 포함한다.
+
+<br>
+<br>
+
+## step1
+
+<p align="middle" >
+  <img align="left" src="https://github.com/feb-dain/react-shopping-cart/assets/108778921/9876415b-1c43-41c1-9885-ac9585aabf5b" alt="장바구니 앱 이용 과정 예시" >
 
   <br>
 
-  <img src="https://github.com/feb-dain/react-shopping-cart/assets/108778921/fe945777-cf77-4cf7-9639-6dba586aa6bc" alt="장바구니 앱 스크린샷 (반응형)" >
-  <span>이 앱은 반응형으로 제작되었습니다.</span>
+  <img align="right" src="https://github.com/feb-dain/react-shopping-cart/assets/108778921/fe945777-cf77-4cf7-9639-6dba586aa6bc" alt="장바구니 앱 스크린샷 (반응형)" >
+  
+  <br>
+
+<span>이 앱은 반응형으로 제작되었습니다.</span>
+
 </p>
 
 <br>
@@ -56,21 +110,6 @@
 ✔️ `데스크탑 타겟`의 웹 앱을 구현합니다.  
 ✔️ 상태 관리를 위해 `Recoil`을 활용합니다.  
 ✔️ `Router`를 활용해 여러 페이지 전환을 고려합니다.
-
-<br>
-
-### 📝 실행 방법
-
-<table>
-  <tbody>
-    <tr>
-      <td><a href="https://feb-dain.github.io/react-shopping-cart/">🛒 장바구니 앱 실행하기</a></td>
-      <td><a href="https://feb-dain.github.io/react-shopping-cart/storybook/">📕 스토리북 바로 보기</a></td>
-    </tr>
-  </tbody>
-</table>
-
-- 터미널에서 npm 설치(`npm install`) 후 `npm start` 커맨드로 앱을 실행할 수 있다.
 
 <br>
 

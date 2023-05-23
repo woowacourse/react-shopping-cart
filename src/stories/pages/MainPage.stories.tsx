@@ -1,5 +1,4 @@
 import { Meta } from '@storybook/react';
-import { RecoilRoot } from 'recoil';
 import MainPage from '../../pages/MainPage';
 
 const meta = {
@@ -9,10 +8,4 @@ const meta = {
 
 export default meta;
 
-export const Main = () => {
-  return (
-    <RecoilRoot>
-      <MainPage />
-    </RecoilRoot>
-  );
-};
+export const Main = () => <MainPage />;

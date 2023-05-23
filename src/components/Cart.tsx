@@ -1,11 +1,14 @@
 import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import { KEY_CART } from '../constants';
+import { KEY_CART, PATH } from '../constants';
+import { useGoToAnotherPage } from '../hooks/useGoToAnotherPage';
 import { cartBadgeSelector, cartState } from '../recoil';
 import { setDataInLocalStorage } from '../utils/getAndSetDataInLocalStorage';
 
 const Cart = () => {
+  const goToPage = useGoToAnotherPage();
+
   const selectedProducts = useRecoilValue(cartBadgeSelector);
   const cart = useRecoilValue(cartState);
 
@@ -15,7 +18,7 @@ const Cart = () => {
 
   return (
     <S.Wrapper>
-      <S.Button>장바구니</S.Button>
+      <S.Button onClick={() => goToPage(PATH.CART_PAGE)}>장바구니</S.Button>
       <S.Badge role="status" aria-label="장바구니에 담긴 상품 종류의 수">
         {selectedProducts.size}
       </S.Badge>
@@ -43,7 +46,7 @@ const S = {
   Badge: styled.span`
     width: 24px;
     height: 24px;
-    background: #04c09e;
+    background: var(--highlight-color);
     border-radius: 50%;
     font-size: 13px;
     font-weight: 400;

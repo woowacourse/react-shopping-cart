@@ -1,5 +1,4 @@
 import { Meta } from '@storybook/react';
-import { RecoilRoot } from 'recoil';
 import HeaderComponent from '../../../components/common/Header';
 
 const meta = {
@@ -9,11 +8,9 @@ const meta = {
   decorators: [
     (Story) => {
       return (
-        <RecoilRoot>
-          <div style={{ width: 'calc(100vw - 32vw)' }}>
-            <Story />
-          </div>
-        </RecoilRoot>
+        <div style={{ width: 'calc(100vw - 32vw)' }}>
+          <Story />
+        </div>
       );
     },
   ],

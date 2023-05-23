@@ -1,11 +1,12 @@
-import { WheelEventHandler, ChangeEventHandler, KeyboardEventHandler } from 'react';
+import { WheelEventHandler, ChangeEventHandler, FormEventHandler, FormEvent } from 'react';
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
 import { css, styled } from 'styled-components';
-import Input from './common/Input';
+import { NOT_NUMBER } from '../../constants';
+import Input from '../common/Input';
 
 interface Props {
   id: string;
-  value: string;
+  value: number;
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
@@ -14,12 +15,18 @@ const QuantityInput = ({ id, value, onChange }: Props) => {
     currentTarget.blur();
   };
 
-  const handleDotPrevent: KeyboardEventHandler<HTMLInputElement> = (event) => {
-    if (event.key === '.') event.preventDefault();
+  const handleDigitsOnlyAllow: FormEventHandler<HTMLInputElement> = ({
+    currentTarget,
+  }: FormEvent<HTMLInputElement>) => {
+    const input = currentTarget;
+    const newValue = input.value.replace(NOT_NUMBER, '');
+
+    input.value = '';
+    input.value = newValue;
   };
 
   return (
-    <S.Wrapper>
+    <QuantityStyle.Wrapper>
       <Input
         type="number"
         value={value}
@@ -34,33 +41,40 @@ const QuantityInput = ({ id, value, onChange }: Props) => {
         css={QuantityInputStyle}
         onWheel={handleScrollPrevent}
         onChange={onChange}
-        onKeyDown={handleDotPrevent}
+        onInput={handleDigitsOnlyAllow}
       />
 
       <FaCaretUp aria-label="button-to-raise-quantity" />
       <FaCaretDown aria-label="button-to-lower-quantity" />
-    </S.Wrapper>
+    </QuantityStyle.Wrapper>
   );
 };
 
-const S = {
+const QuantityStyle = {
   Wrapper: styled.div`
+    position: relative;
+    width: 80px;
+
     & svg {
       position: absolute;
-      z-index: -1;
+      right: 0;
+      z-index: 1;
       width: 26px;
       max-width: 26px;
-      right: 6px;
       border: 1px solid var(--gray-color-200);
+      font-size: 16px;
     }
 
     & svg:nth-child(3) {
-      top: 28px;
+      top: 16px;
     }
   `,
 };
 
 const QuantityInputStyle = css`
+  position: absolute;
+  right: 0;
+  z-index: 2;
   width: 80px;
   height: 32px;
   font-size: 13px;
