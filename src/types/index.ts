@@ -2,9 +2,7 @@ export interface CartItem {
   id: ProductId;
   quantity: number;
   product: Product;
-  isSelected: boolean;
 }
-
 export interface Product {
   id: ProductId;
   price: number;
@@ -22,4 +20,10 @@ export interface CartItemPostBody {
 
 export interface CartItemPatchBody {
   quantity: number;
+}
+
+export interface SelectedProducts {
+  id: ProductId;
+  price: number;
+  checked: boolean;
 }
