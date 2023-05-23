@@ -5,7 +5,7 @@ import { Cart } from '../../../types/cart';
 const useCart = (cartState: RecoilState<Cart[]>, product: Product) => {
   const [cart, setCart] = useRecoilState(cartState);
 
-  const addCart = () => setCart((prev) => [...prev, { id: Date.now(), quantity: 1, product }]);
+  const addCart = () => setCart((prev) => [...prev, { id: Date.now(), quantity: 1, product, isSelected: true }]);
 
   const updateCart = (quantity: number) => {
     const index = cart.findIndex((item) => item.product.id === product.id);
