@@ -14,6 +14,8 @@ import { useFetch } from './hooks/useFetch';
 import { Cart } from '../types';
 import Loading from './Loading';
 import { Image as EmptyCartImage } from './common/Image';
+import { useCartState } from './hooks/useCartState';
+import { product } from '../mocks/mockData';
 
 export const CartProductList = () => {
   const { getAPI, isLoading } = useFetch<{ cartList: Cart[] }>();
@@ -30,6 +32,10 @@ export const CartProductList = () => {
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
     setCheckedItem(isChecked ? [] : cartList);
+  };
+
+  const handleDeleteSeletedItem = () => {
+    checkedItem;
   };
 
   return (
