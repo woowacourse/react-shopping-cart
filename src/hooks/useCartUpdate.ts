@@ -1,27 +1,16 @@
-import {
-  useRecoilCallback,
-  useRecoilState,
-  useRecoilValue,
-  useSetRecoilState,
-} from 'recoil';
+import { useRecoilCallback, useRecoilValue } from 'recoil';
 
-import { Product } from 'src/types';
+import { CartItem, Product } from 'src/types';
 import useToast from './useToast';
-import {
-  useDeleteFetch,
-  useGetFetch,
-  usePatchFetch,
-  usePostFetch,
-} from './useFetch';
+import { useDeleteFetch, usePatchFetch, usePostFetch } from './useFetch';
 import { countStepOperator } from 'src/utils';
-import { deleteCartItemSelector, updateCart } from 'src/recoil/selector';
 import { fetchAPI } from 'src/api';
 import { cartListAtom } from 'src/recoil/atom';
 import { useState } from 'react';
 
 export type CountMethod = 'increase' | 'decrease';
 
-const useCartUpdate = (product: Product) => {
+const useCartUpdate = (productId?: number) => {
   const { toast } = useToast();
 
   const updateCartList = useRecoilCallback(({ set }) => async () => {
@@ -30,15 +19,20 @@ const useCartUpdate = (product: Product) => {
     set(cartListAtom, cartItems);
   });
 
-  const [curCartItem, setCurCartItem] = useRecoilState(updateCart(product.id));
+  const cartItems = useRecoilValue(cartListAtom);
 
-  const [cartItem, setCartItem] = useState(curCartItem);
+  const [cartItem, setCartItem] = useState<CartItem | null>(() => {
+    if (!productId) return null;
+
+    const curItem = cartItems.find((item) => item.id === productId);
+    return curItem ?? null;
+  });
 
   const { postData, error: postError } = usePostFetch();
   const { patchData, error: patchError } = usePatchFetch();
   const { deleteData, error: deleteError } = useDeleteFetch();
 
-  const addCartItem = () => {
+  const addCartItem = (product: Product) => {
     postData('/api/cart-items', { productId: product.id });
 
     if (postError.isError) {
@@ -50,14 +44,13 @@ const useCartUpdate = (product: Product) => {
       id: product.id,
       quantity: 1,
       product: product,
-      isSelected: true,
     });
 
     updateCartList();
     toast.success(`${product.name}이(가) 장바구니에 추가됐습니다.`);
   };
 
-  const patchCartItem = (_: React.MouseEvent, type: CountMethod) => {
+  const patchCartItem = (cartItem: CartItem | null) => (type: CountMethod) => {
     if (!cartItem) return;
     const quantity = cartItem.quantity + countStepOperator(type, 1);
 
@@ -73,17 +66,6 @@ const useCartUpdate = (product: Product) => {
     updateCartList();
   };
 
-  const onChangeSelectToggle: React.ChangeEventHandler<HTMLInputElement> = (
-    event
-  ) => {
-    if (!cartItem) return;
-    const { checked } = event.currentTarget;
-
-    const newItem = { ...cartItem, isSelected: checked };
-
-    setCurCartItem(newItem);
-  };
-
   const deleteItem = () => {
     if (!cartItem) return;
     deleteData(`/api/cart-items/${cartItem.id}`);
@@ -95,15 +77,23 @@ const useCartUpdate = (product: Product) => {
 
     setCartItem(null);
     updateCartList();
-    toast.success(`${product.name}를 장바구니에 삭제했습니다.`);
+    toast.success(`${cartItem.product.name}를 장바구니에 삭제했습니다.`);
+  };
+
+  const checkedItemDelete = (selectedIds: number[]) => {
+    for (const id of selectedIds) {
+      deleteData(`/api/cart-items/${id}`);
+    }
+
+    updateCartList();
   };
 
   return {
     currentCartItem: cartItem,
     patchCartItem,
     addCartItem,
-    onChangeSelectToggle,
     deleteItem,
+    checkedItemDelete,
   };
 };
 

@@ -1,62 +1,60 @@
-import { useEffect } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { useDeleteFetch } from './useFetch';
-import useToast from './useToast';
+import { useMemo } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { cartListAtom } from 'src/recoil/atom';
-import {
-  countCartListSelector,
-  countSelectedCartItemsSelector,
-  deleteCartItemSelector,
-  wholeCartItemToggleSelector,
-} from 'src/recoil/selector';
+import { selectedCartItemSelector } from 'src/recoil/selector';
 
 const useCartListUpdate = () => {
-  const { toast } = useToast();
-
-  const cartList = useRecoilValue(cartListAtom);
-  const wholeCartItemsCount = useRecoilValue(countCartListSelector);
-  const selectedCartItems = useRecoilValue(countSelectedCartItemsSelector);
-
-  const setDeleteCartList = useSetRecoilState(deleteCartItemSelector);
-
-  const { deleteData, error } = useDeleteFetch();
-
-  const [wholeSelected, setWholeSelected] = useRecoilState(
-    wholeCartItemToggleSelector
+  const [curSelected, setCurSelected] = useRecoilState(
+    selectedCartItemSelector
   );
 
-  useEffect(() => {
-    setWholeSelected(true);
-  }, []);
+  const cartList = useRecoilValue(cartListAtom);
 
-  const onChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+  const checkItem: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    const { checked, id } = event.currentTarget;
+    const updated = curSelected.map((item) =>
+      item.id === Number(id) ? { ...item, checked } : item
+    );
+    setCurSelected(updated);
+  };
+
+  const currentIdIsChecked = (id: number) => {
+    const curItem = curSelected.find((item) => item.id === id);
+
+    if (!curItem) return false;
+
+    return curItem.checked;
+  };
+
+  const wholeChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     const { checked } = event.currentTarget;
-    setWholeSelected(checked);
+    const updated = curSelected.map((item) => ({ ...item, checked }));
+    setCurSelected(updated);
   };
 
-  const onClickDeleteHandler: React.MouseEventHandler<
-    HTMLButtonElement
-  > = () => {
-    const selectedIds = selectedCartItems.map((item) => item.id);
+  const wholeSelected = curSelected.every((item) => item.checked);
+  const selectedIds = curSelected
+    .filter((item) => item.checked)
+    .map((item) => item.id);
 
-    for (const id of selectedIds) {
-      deleteData(`/api/cart-items/${id}`);
-      if (error.isError) {
-        toast.error(error.message);
-        return;
+  const totalCartItemPrice = useMemo(() => {
+    return curSelected.reduce((acc, cur) => {
+      if (cur.checked) {
+        return acc + cur.price;
       }
-    }
 
-    setDeleteCartList([...selectedIds]);
-  };
+      return acc;
+    }, 0);
+  }, [curSelected]);
 
   return {
     cartList,
-    onChange,
-    onClickDeleteHandler,
+    wholeChange,
+    checkItem,
+    currentIdIsChecked,
     wholeSelected,
-    wholeCartItemsCount,
-    selectedLength: selectedCartItems.length,
+    selectedIds,
+    totalCartItemPrice,
   };
 };
 
