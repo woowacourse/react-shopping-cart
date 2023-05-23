@@ -16,9 +16,9 @@ import Loading from './Loading';
 import { Image as EmptyCartImage } from './common/Image';
 
 export const CartProductList = () => {
-  const { getAPI, isLoading } = useFetch<{ cartList: Cart[] }>();
+  const { getAPI, deleteAPI, isLoading } = useFetch<{ cartList: Cart[] }>();
   const cartProductCount = useRecoilValue(cartCountState);
-  const cartList = useRecoilValue(cartState);
+  const [cartList, setCartState] = useRecoilState(cartState);
   const [isChecked, setIsChecked] = useState(true);
   const [checkedItem, setCheckedItem] = useRecoilState(checkedProductState);
 
@@ -31,6 +31,16 @@ export const CartProductList = () => {
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
     setCheckedItem(isChecked ? [] : cartList);
+  };
+
+  const deleteSelectedItem = () => {
+    checkedItem.forEach((item) => {
+      deleteAPI('/cart-items', { id: item.id });
+
+      setCartState((prev) =>
+        prev.filter((cartItem) => cartItem.id !== item.id)
+      );
+    });
   };
 
   return (
@@ -66,6 +76,7 @@ export const CartProductList = () => {
           전체선택 ({checkedItem.length}/{cartList.length})
         </SelectedProductText>
         <SelectedDeleteButton
+          onClick={deleteSelectedItem}
           width="98px"
           height="35px"
           backgroundColor="var(--white-color)"
