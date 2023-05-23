@@ -4,21 +4,22 @@ import App from './components/App/App';
 import ProductsPage from './components/pages/ProductsPage/ProductsPage';
 import ErrorPage from './components/pages/ErrorPage/ErrorPage';
 import CartPage from './components/pages/CartPage/CartPage';
+import Routes from './constants/Routes';
 
 const router = createBrowserRouter(
   [
     {
-      path: '/',
+      path: Routes.ENTRY,
       element: <App />,
       errorElement: <ErrorPage />,
       children: [
-        { path: '', element: <ProductsPage /> },
-        { path: '/cart', element: <CartPage /> },
+        { path: Routes.PRODUCTS, element: <ProductsPage /> },
+        { path: Routes.CART, element: <CartPage /> },
       ],
     },
   ],
   {
-    basename: '/react-shopping-cart',
+    basename: Routes.BASENAME,
   }
 );
 

@@ -6,16 +6,17 @@ import { RecoilRoot } from 'recoil';
 import GlobalStyles from './GlobalStyles';
 import router from './router';
 import { worker } from './mocks/browser';
+import Routes from './constants/Routes';
 
 (async () => {
-  if (window.location.pathname === '/react-shopping-cart') {
+  if (window.location.pathname === Routes.BASENAME) {
     window.location.pathname += '/';
     return;
   }
 
   await worker.start({
     serviceWorker: {
-      url: '/react-shopping-cart/mockServiceWorker.js',
+      url: `${Routes.BASENAME}/mockServiceWorker.js`,
     },
   });
 })();
