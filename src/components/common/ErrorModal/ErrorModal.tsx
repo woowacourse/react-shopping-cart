@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { errorModalMessageState } from '../../../store/error';
@@ -7,9 +8,9 @@ import * as S from './ErrorModal.styles';
 const ErrorModal = () => {
   const [errorMessage, setErrorMessage] = useRecoilState(errorModalMessageState);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setErrorMessage(null);
-  };
+  }, [setErrorMessage]);
 
   return (
     <Modal isOpen={!!errorMessage} handleClose={handleClose}>
