@@ -1,4 +1,3 @@
-import React from 'react';
 import { styled } from 'styled-components';
 import { StyledText } from './common/Text';
 import { Button as OrderButton } from './common/Button';
@@ -17,7 +16,7 @@ export const TotalCartList = () => {
       <TotalPriceWrapper>
         <SelectedProductPrice>
           <span>총 선택상품금액</span>
-          <span>{totalPrice} 원</span>
+          <span>{totalPrice.toLocaleString('ko-KR')} 원</span>
         </SelectedProductPrice>
         <SelectedProductPrice>
           <span>배송비</span>
