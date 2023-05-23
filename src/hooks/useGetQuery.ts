@@ -11,23 +11,23 @@ const useGetQuery = <DataType>(fetchUrl: string) => {
 
     fetch(fetchUrl)
       .then(res => res.json())
-      .then(data => {
-        setData(data);
+      .then(resData => {
+        setData(resData);
       })
-      .catch((error: Error) => setError(error.message))
+      .catch((e: Error) => setError(e.message))
       .finally(() => setLoading(false));
   }, [fetchUrl]);
 
-  const refreshQuery = useCallback(() => {
+  const refreshQuery = useCallback(async () => {
     setLoading(true);
     setError(null);
 
-    fetch(fetchUrl)
+    await fetch(fetchUrl)
       .then(res => res.json())
-      .then(data => {
-        setData(data);
+      .then(resData => {
+        setData(resData);
       })
-      .catch((error: Error) => setError(error.message))
+      .catch((e: Error) => setError(e.message))
       .finally(() => setLoading(false));
   }, [fetchUrl]);
 

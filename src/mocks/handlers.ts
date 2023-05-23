@@ -1,12 +1,12 @@
 import { rest } from 'msw';
+import { LOCAL_STORAGE_KEY } from '../constants';
 import { cartItems, products } from '../data/mockData';
 import { CartItem, Product } from '../types';
+import { setLocalStorage } from '../utils/localStorage';
 
-export const handlers = [
+const handlers = [
   // 제품 목록
-  rest.get('/products', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(products));
-  }),
+  rest.get('/products', (req, res, ctx) => res(ctx.delay(2000), ctx.status(200), ctx.json(products))),
 
   // 제품 추가
   rest.post('/products', (req, res, ctx) => {
@@ -50,15 +50,12 @@ export const handlers = [
     if (index !== -1) {
       products[index] = req.json() as unknown as Product;
       return res(ctx.json(products[index]));
-    } else {
-      return res(ctx.status(404));
     }
+    return res(ctx.status(404));
   }),
 
   // 장바구니 아이템 조회
-  rest.get('/cart-items', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(cartItems));
-  }),
+  rest.get('/cart-items', (req, res, ctx) => res(ctx.delay(100), ctx.status(200), ctx.json(cartItems))),
 
   // 장바구니 아이템 추가
   rest.post<CartItem>('/cart-items', async (req, res, ctx) => {
@@ -71,8 +68,9 @@ export const handlers = [
     };
 
     cartItems.push(item as CartItem);
+    setLocalStorage(LOCAL_STORAGE_KEY.CART_ITEM, cartItems);
 
-    return res(ctx.status(201), ctx.set('Location', `/cart-items/${productId}`), ctx.json(item));
+    return res(ctx.delay(100), ctx.status(201), ctx.set('Location', `/cart-items/${item.id}`));
   }),
 
   // 장바구니 아이템 수량 변경
@@ -80,27 +78,30 @@ export const handlers = [
     const { cartItemId } = req.params;
     const { quantity } = await req.json();
 
-    const itemIndex = cartItems.findIndex(item => item.product.id === Number(cartItemId));
+    const itemIndex = cartItems.findIndex(item => item.id === Number(cartItemId));
 
     if (itemIndex === -1) {
       return res(ctx.status(404));
     }
 
     cartItems[itemIndex].quantity = quantity;
+    setLocalStorage(LOCAL_STORAGE_KEY.CART_ITEM, cartItems);
 
-    return res(ctx.status(200));
+    return res(ctx.delay(100), ctx.status(200));
   }),
 
-  //장바구니 아이템 삭제
+  // 장바구니 아이템 삭제
   rest.delete('/cart-items/:cartItemsId', (req, res, ctx) => {
     const { cartItemsId } = req.params;
-    const itemIndex = cartItems.findIndex(item => item.product.id === Number(cartItemsId));
+    const itemIndex = cartItems.findIndex(item => item.id === Number(cartItemsId));
 
     if (itemIndex >= 0) {
       cartItems.splice(itemIndex, 1);
-      return res(ctx.status(204));
-    } else {
-      return res(ctx.status(404));
+      setLocalStorage(LOCAL_STORAGE_KEY.CART_ITEM, cartItems);
+      return res(ctx.delay(100), ctx.status(204), ctx.set('Location', `/cart-items/${cartItemsId}`));
     }
+    return res(ctx.status(404));
   }),
 ];
+
+export default handlers;

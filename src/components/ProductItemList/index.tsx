@@ -1,21 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from 'react';
+import { MESSAGE } from '../../constants';
+import useGetQuery from '../../hooks/useGetQuery';
+import useToast from '../../hooks/useToast';
+import { Product } from '../../types';
+import LoadingView from '../Common/LoadingView';
 import ProductItem from '../ProductItem';
 import styles from './index.module.scss';
-import { Product } from '../../types';
-import useGetQuery from '../../hooks/useGetQuery';
-import { $ToastMessageList } from '../../recoil/atom';
-import { useSetRecoilState } from 'recoil';
-import { useEffect } from 'react';
 
 function ProductItemList() {
-  const { data: productsData, error } = useGetQuery<Product[]>('./products');
-  const setMessageList = useSetRecoilState($ToastMessageList);
+  const { data: productsData, loading, error } = useGetQuery<Product[]>('./products');
+  const Toast = useToast();
 
   useEffect(() => {
     if (error) {
-      setMessageList(prev => [...prev, '제품 리스트를 불러오는 과정에서 에러가 발생했습니다.']);
+      Toast.error(MESSAGE.PRODUCT_GET_FAILED);
     }
   }, [error]);
+
+  if (loading) {
+    return <LoadingView />;
+  }
 
   return (
     <section className={styles.container}>

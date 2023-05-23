@@ -1,5 +1,5 @@
-import Router from './routes/Router';
 import { RecoilRoot } from 'recoil';
+import Router from './routes/Router';
 
 function App() {
   return (

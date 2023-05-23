@@ -1,0 +1,83 @@
+.container {
+  letter-spacing: 0.5px;
+
+  color: #333333;
+}
+
+.title {
+  font-size: 20px;
+  line-height: 33px;
+  width: 100%;
+  padding-bottom: 12px;
+
+  border-bottom: 4px solid #aaaaaa;
+}
+
+.cart-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 60vh;
+  height: 100%;
+  overflow-y: scroll;
+
+  & > div:first-child {
+    padding-bottom: 30px;
+  }
+
+  & > div {
+    border-bottom: 1.5px solid #cccccc;
+    padding: 30px 0;
+  }
+
+  & > div:last-child {
+    border-bottom: none;
+    padding: 30px 0;
+  }
+}
+
+.check-menu {
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+  height: 36px;
+  margin-top: 16px;
+
+  & > button {
+    width: 100px;
+    height: 100%;
+    font-size: 16px;
+    line-height: 21px;
+
+    border: 1px solid #bbbbbb;
+  }
+}
+
+.check-box {
+  appearance: none;
+  -webkit-appearance: none;
+
+  width: 28px;
+  height: 28px;
+  background: var(--white-color);
+  border: 1px solid #22a6a2;
+  border-radius: 2px;
+  transform: translateY(0%);
+
+  &:checked {
+    background: #333333;
+    border: 1px solid #3288ff;
+  }
+
+  &:after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-image: url('../../assets/checked.svg');
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}

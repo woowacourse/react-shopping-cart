@@ -14,8 +14,8 @@ function ProductItem({ product }: ProductItemProps) {
       <img src={imageUrl} alt={name} className={styles.image} />
       <div className={styles['item-info']}>
         <div>
-          <div>{name}</div>
-          <AddCartButton id={id} />
+          <div className={styles.name}>{name}</div>
+          <AddCartButton productId={id} />
         </div>
         <div>{price.toLocaleString()} 원</div>
       </div>

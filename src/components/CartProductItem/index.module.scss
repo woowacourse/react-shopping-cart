@@ -1,0 +1,72 @@
+.container {
+  display: flex;
+  column-gap: 16px;
+  width: 100%;
+
+  & > img {
+    width: 144px;
+    height: 144px;
+  }
+
+  & > div {
+    line-height: 24px;
+    letter-spacing: 0.5px;
+    color: var(--primary-color);
+  }
+}
+
+.check-box {
+  appearance: none;
+  -webkit-appearance: none;
+
+  min-width: 24px;
+  height: 24px;
+  background: var(--white-color);
+  border: 1px solid #22a6a2;
+  border-radius: 2px;
+  transform: translateY(0%);
+
+  &:checked {
+    background: #333333;
+    border: 1px solid #3288ff;
+  }
+
+  &:after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-image: url('../../assets/checked.svg');
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  row-gap: 20px;
+  align-items: flex-end;
+
+  & > div:first-child {
+    display: flex;
+    text-align: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+.product-title {
+  width: auto;
+  font-size: 16px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
