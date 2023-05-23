@@ -12,6 +12,7 @@ type Story = StoryObj<typeof toastMessage>;
 
 export const Error: Story = {
   args: {
+    id: 0,
     message: '에러입니다 하하',
     type: 'error',
   },
@@ -19,6 +20,7 @@ export const Error: Story = {
 
 export const Success: Story = {
   args: {
+    id: 1,
     message: '성공입니다 하하',
     type: 'success',
   },

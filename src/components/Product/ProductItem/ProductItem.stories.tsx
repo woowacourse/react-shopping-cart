@@ -1,5 +1,4 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { RecoilRoot } from 'recoil';
 import { Product } from 'types';
 import ProductItem from '.';
 
@@ -13,18 +12,11 @@ const mock: Product = {
 
 const productItem = {
   component: ProductItem,
-  title: 'Cart/ProductItem',
+  title: 'Product/ProductItem',
   tags: ['autodocs'],
   args: {
     product: mock,
   },
-  decorators: [
-    (Story) => (
-      <RecoilRoot>
-        <Story />
-      </RecoilRoot>
-    ),
-  ],
 } satisfies Meta<typeof ProductItem>;
 
 export default productItem;

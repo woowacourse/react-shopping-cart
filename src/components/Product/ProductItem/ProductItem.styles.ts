@@ -15,9 +15,9 @@ export const ProductWrapper = styled.div`
 `;
 
 export const ProductName = styled.p`
-  font: ${(props) => props.theme.font.product};
+  font: ${(props) => props.theme.font.small};
 `;
 
 export const ProductPrice = styled.p`
-  font: ${(props) => props.theme.font.price};
+  font: ${(props) => props.theme.font.medium};
 `;

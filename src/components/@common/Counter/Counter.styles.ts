@@ -24,4 +24,9 @@ export const CalcButton = styled.button`
   &:hover {
     background: rgba(220, 223, 225, 0.3);
   }
+
+  &:disabled {
+    color: ${(props) => props.theme.color.gray};
+    background: none;
+  }
 `;
