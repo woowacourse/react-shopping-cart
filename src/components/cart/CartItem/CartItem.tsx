@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 
 import { CloseIcon } from '../../../assets';
 import { CART_LIST_CHECKBOX_KEY } from '../../../constants/store';
@@ -22,14 +22,6 @@ const CartItem = ({ id, quantity, name, price, imageUrl }: CartItemProps) => {
   const { isChecked, toggleItemCheckbox } = useCheckbox(CART_LIST_CHECKBOX_KEY, id);
   const { isModalOpen, handleModalOpen, handleModalClose } = useModal();
 
-  const handleQuantityDecrement = useCallback(() => {
-    updateQuantity(quantity - 1);
-  }, [quantity, updateQuantity]);
-
-  const handleQuantityIncrement = useCallback(() => {
-    updateQuantity(quantity + 1);
-  }, [quantity, updateQuantity]);
-
   return (
     <S.CartItemContainer>
       <Checkbox checked={isChecked} onClick={toggleItemCheckbox} />
@@ -40,8 +32,6 @@ const CartItem = ({ id, quantity, name, price, imageUrl }: CartItemProps) => {
       <StepperButton
         className="stepper-button"
         count={quantity}
-        handleDecreaseCount={handleQuantityDecrement}
-        handleIncreaseCount={handleQuantityIncrement}
         handleCountChange={updateQuantity}
       />
       <S.CartItemPrice>{priceFormatter(price * quantity)}원</S.CartItemPrice>

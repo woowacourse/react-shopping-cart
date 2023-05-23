@@ -9,9 +9,6 @@ interface StepperButtonProps extends ComponentPropsWithoutRef<'div'> {
   count: number;
   minCount?: number;
   maxCount?: number;
-  step?: number;
-  handleDecreaseCount: () => void;
-  handleIncreaseCount: () => void;
   handleCountChange: (count: number) => void;
 }
 
@@ -19,8 +16,6 @@ const StepperButton = ({
   count,
   minCount = DEFAULT_MIN_COUNT,
   maxCount = DEFAULT_MAX_COUNT,
-  handleDecreaseCount,
-  handleIncreaseCount,
   handleCountChange,
   ...attributes
 }: StepperButtonProps) => {
@@ -45,7 +40,7 @@ const StepperButton = ({
         disabled={count === minCount}
         variant="textButton"
         size="small"
-        onClick={handleDecreaseCount}
+        onClick={() => handleCountChange(count - 1)}
       >
         <MinusIcon />
       </S.StepperButton>
@@ -61,7 +56,7 @@ const StepperButton = ({
         disabled={count === maxCount}
         variant="textButton"
         size="small"
-        onClick={handleIncreaseCount}
+        onClick={() => handleCountChange(count + 1)}
       >
         <AddIcon />
       </S.StepperButton>

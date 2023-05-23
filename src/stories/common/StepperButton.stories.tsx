@@ -19,14 +19,10 @@ const meta = {
     maxCount: {
       control: { type: 'number' },
     },
-    step: {
-      control: { type: 'number' },
-    },
   },
   args: {
     minCount: 0,
     maxCount: 100,
-    step: 1,
   },
 } satisfies Meta<typeof StepperButton>;
 
@@ -35,18 +31,13 @@ type Story = StoryObj<typeof StepperButton>;
 
 const createStepperButtonStory = () => ({
   render: ({ ...args }) => {
-    const { count, handleDecreaseCount, handleIncreaseCount, handleCountChange } = useCount(
-      args.minCount
-    );
+    const { count, handleCountChange } = useCount(args.minCount);
 
     return (
       <StepperButton
         count={count}
         minCount={args.minCount}
         maxCount={args.maxCount}
-        step={args.step}
-        handleDecreaseCount={handleDecreaseCount}
-        handleIncreaseCount={handleIncreaseCount}
         handleCountChange={handleCountChange}
       />
     );

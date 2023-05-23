@@ -1,7 +1,6 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 import { DEFAULT_MIN_COUNT } from '../../../constants';
-import { useCount } from '../../../hooks/common/useCount';
 import { ProductItemData } from '../../../types';
 import { priceFormatter } from '../../../utils/formatter';
 import Button from '../../common/Button/Button';
@@ -19,17 +18,16 @@ const ProductAddition = ({
   handleModalClose,
   ...information
 }: ProductAdditionProps) => {
-  const {
-    count: currentQuantity,
-    handleDecreaseCount,
-    handleIncreaseCount,
-    handleCountChange,
-  } = useCount(DEFAULT_MIN_COUNT);
+  const [quantity, setQuantity] = useState(DEFAULT_MIN_COUNT);
+
+  const handleQuantityChange = useCallback((updatedQuantity: number) => {
+    setQuantity(updatedQuantity);
+  }, []);
 
   const handleCartAdd = useCallback(() => {
     handleModalClose();
-    addItemQuantity({ productId: information.id, quantity: currentQuantity });
-  }, [addItemQuantity, currentQuantity, handleModalClose, information.id]);
+    addItemQuantity({ productId: information.id, quantity });
+  }, [addItemQuantity, handleModalClose, information.id, quantity]);
 
   return (
     <>
@@ -42,12 +40,7 @@ const ProductAddition = ({
               <S.ProductName>{information.name}</S.ProductName>
               <S.ProductPrice>{priceFormatter(information.price)}원</S.ProductPrice>
             </div>
-            <StepperButton
-              count={currentQuantity}
-              handleDecreaseCount={handleDecreaseCount}
-              handleIncreaseCount={handleIncreaseCount}
-              handleCountChange={handleCountChange}
-            />
+            <StepperButton count={quantity} handleCountChange={handleQuantityChange} />
           </div>
         </S.ProductInformationContainer>
         <S.TotalPriceContainer>
@@ -55,7 +48,7 @@ const ProductAddition = ({
             합계
           </S.TotalPriceLabel>
           <Heading aria-labelledby="total-price">
-            {priceFormatter(information.price * currentQuantity)}원
+            {priceFormatter(information.price * quantity)}원
           </Heading>
         </S.TotalPriceContainer>
         <S.ButtonContainer>
