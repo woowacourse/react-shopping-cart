@@ -1,10 +1,11 @@
 import { BsPlus, BsDash } from 'react-icons/bs';
 import { styled } from 'styled-components';
-import { QUANTITY } from '../../constants';
+import { QUANTITY, STEP_HANDLER } from '../../constants';
 import { useSetCart } from '../../hooks/useCart';
 import { useLoadCart } from '../../hooks/useLoadCart';
 
 const { MAX, MIN, STEP } = QUANTITY;
+const { UP, DOWN } = STEP_HANDLER;
 
 interface Props {
   productId: number;
@@ -15,25 +16,20 @@ const QuantityButton = ({ productId, quantity }: Props) => {
   const { setQuantity } = useLoadCart(productId);
   const { updateCart } = useSetCart(productId);
 
-  const handleQuantityStepUp = () => {
-    if (quantity === MAX) return;
+  const handleQuantityChange = (quantityLimit: number, handler: keyof typeof STEP_HANDLER) => {
+    if (quantity === quantityLimit) return;
 
-    setQuantity(quantity + STEP);
-    updateCart(String(quantity + STEP));
-  };
+    const updatedQuantity = handler === UP ? quantity + STEP : quantity - STEP;
 
-  const handleQuantityStepDown = () => {
-    if (quantity === MIN) return;
-
-    setQuantity(quantity - STEP);
-    updateCart(String(quantity - STEP));
+    setQuantity(updatedQuantity);
+    updateCart(String(updatedQuantity));
   };
 
   return (
     <S.Wrapper>
       <S.Button
         quantity={quantity}
-        onClick={handleQuantityStepDown}
+        onClick={() => handleQuantityChange(MIN, DOWN)}
         aria-label="button-to-lower-quantity"
       >
         <BsDash />
@@ -41,7 +37,7 @@ const QuantityButton = ({ productId, quantity }: Props) => {
       <S.Quantity>{quantity}</S.Quantity>
       <S.Button
         quantity={quantity}
-        onClick={handleQuantityStepUp}
+        onClick={() => handleQuantityChange(MAX, UP)}
         aria-label="button-to-raise-quantity"
       >
         <BsPlus />

@@ -13,6 +13,11 @@ export const QUANTITY: Readonly<Record<string, number>> = {
   MIN: 1,
 };
 
+export const STEP_HANDLER: Readonly<Record<'UP' | 'DOWN', 'UP' | 'DOWN'>> = {
+  UP: 'UP',
+  DOWN: 'DOWN',
+};
+
 export const NOT_NUMBER = /[^0-9]/g;
 
 export const FIRST_INDEX = 0;
