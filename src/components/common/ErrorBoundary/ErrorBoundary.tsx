@@ -19,10 +19,7 @@ const initialState: State = {
 };
 
 class ErrorBoundary extends Component<PropsWithChildren<ErrorBoundaryProps>, State> {
-  state: State = {
-    hasError: false,
-    error: null,
-  };
+  state: State = initialState;
 
   resetErrorBoundary = () => {
     this.props.onReset?.(this.state.error!);
