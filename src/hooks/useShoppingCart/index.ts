@@ -1,13 +1,12 @@
-import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
-import { LOCAL_STORAGE_KEYWORD, SHOPPING_QUANTITY } from '@Constants/index';
+import { SHOPPING_QUANTITY } from '@Constants/index';
+
+import { deleteFetchCartItem, postFetchCartItem, putFetchCartItem } from '@Api/index';
 
 import { ShoppingCartProduct, UpdateShoppingCart } from '@Types/index';
 
 import shoppingCartState from '@Atoms/shoppingCartState';
-
-import { LocalData } from '@Utils/localData';
 
 const useShoppingCart = () => {
   const [shoppingCart, setShoppingCart] = useRecoilState<ShoppingCartProduct[]>(shoppingCartState);
@@ -16,6 +15,7 @@ const useShoppingCart = () => {
     return (quantity: number) => {
       if (quantity === SHOPPING_QUANTITY.MIN) {
         setShoppingCart((prev) => prev.filter((item) => item.product.id !== product.id));
+        deleteFetchCartItem({ id: product.id });
         return;
       }
 
@@ -27,6 +27,13 @@ const useShoppingCart = () => {
           product,
         };
         setShoppingCart([...shoppingCart, newShoppingItem]);
+
+        if (quantity === SHOPPING_QUANTITY.DEFAULT) {
+          postFetchCartItem({ id: product.id });
+        } else {
+          postFetchCartItem({ id: product.id });
+          putFetchCartItem({ quantity: quantity });
+        }
         return;
       }
 
@@ -40,16 +47,18 @@ const useShoppingCart = () => {
           };
         }),
       );
+      if (quantity === SHOPPING_QUANTITY.DEFAULT) {
+        postFetchCartItem({ id: product.id });
+      } else {
+        putFetchCartItem({ quantity: quantity });
+      }
+      return;
     };
   };
 
   const deleteShoppingItems = (productsId: number[]) => {
     setShoppingCart(shoppingCart.filter((item) => !productsId.includes(item.id)));
   };
-
-  useEffect(() => {
-    LocalData.setDate(LOCAL_STORAGE_KEYWORD.SHOPPING_CART, shoppingCart);
-  }, [shoppingCart]);
 
   return { shoppingCart, updateShoppingCart, deleteShoppingItems };
 };

@@ -1,33 +1,26 @@
-import SkeletonProductItem from '@Components/ProductItem/Skeleton';
 import ProductItem from '@Components/ProductItem/index';
+import { useEffect, useState } from 'react';
 
-import ErrorContainer from '@Pages/ProductListPage/ErrorContainer/index';
-
-import { ERROR } from '@Constants/index';
-
-import { getMockShoppingItemApiUrl } from '@Api/index';
+import { getFetchProductList } from '@Api/index';
 
 import { Product } from '@Types/index';
-
-import useFetch from '@Hooks/useFetch';
 
 import * as S from './style';
 
 function ProductList() {
-  const { data, isLoading, currentHttpStatus } = useFetch<Product[]>(getMockShoppingItemApiUrl('GET'));
+  const [productList, setProductList] = useState<Product[]>([]);
 
-  if (!isLoading && !data) {
-    return <ErrorContainer error={currentHttpStatus} />;
-  }
-
-  if (!isLoading && data?.length === 0) {
-    return <ErrorContainer error={ERROR.dataEmpty} />;
-  }
+  useEffect(() => {
+    getFetchProductList<Product[]>().then((res) => {
+      setProductList(res);
+    });
+  }, []);
 
   return (
     <S.ProductListContainer>
-      {isLoading && Array.from({ length: 12 }, (_, index) => <SkeletonProductItem key={index} />)}
-      {!isLoading && data && data.map((data: Product) => <ProductItem product={data} key={data.id} />)}
+      {productList.map((data: Product) => (
+        <ProductItem product={data} key={data.id} />
+      ))}
     </S.ProductListContainer>
   );
 }
