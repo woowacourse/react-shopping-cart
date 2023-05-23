@@ -7,13 +7,10 @@ import { PATH } from '../../constants/path';
 const NotFoundPage = () => {
   const navigate = useNavigate();
 
-  const httpStatusCode = HTTP_STATUS_CODE.NOT_FOUND;
-  const errorMessage = HTTP_ERROR_MESSAGE[httpStatusCode].HEADING;
-
   return (
     <Error
-      message={errorMessage}
-      statusCode={httpStatusCode}
+      message={HTTP_ERROR_MESSAGE[HTTP_STATUS_CODE.NOT_FOUND].HEADING}
+      information={HTTP_ERROR_MESSAGE[HTTP_STATUS_CODE.NOT_FOUND]}
       resetError={() => navigate(PATH.ROOT)}
     />
   );
