@@ -32,26 +32,24 @@ function ProductItem({ product }: ProductItemProps) {
   };
 
   return (
-    <>
-      <ProductItemBox onClick={openModal}>
-        <ProductItemImageBox>
-          <ProductItemImage src={imageUrl} />
-        </ProductItemImageBox>
-        <ProductDetails>
-          <ProductInfo>
-            <ProductName>{name}</ProductName>
-            <ProductPrice>{price.toLocaleString()}원</ProductPrice>
-          </ProductInfo>
-          {quantity > 0 ? (
-            <CartCountWrapper>
-              <CartCount>{quantity}</CartCount>
-            </CartCountWrapper>
-          ) : (
-            <img src={cartIcon}></img>
-          )}
-        </ProductDetails>
-      </ProductItemBox>
-    </>
+    <ProductItemBox onClick={openModal}>
+      <ProductItemImageBox>
+        <ProductItemImage src={imageUrl} />
+      </ProductItemImageBox>
+      <ProductDetails>
+        <ProductInfo>
+          <ProductName>{name}</ProductName>
+          <ProductPrice>{price.toLocaleString()}원</ProductPrice>
+        </ProductInfo>
+        {quantity > 0 ? (
+          <CartCountWrapper>
+            <CartCount>{quantity}</CartCount>
+          </CartCountWrapper>
+        ) : (
+          <img src={cartIcon}></img>
+        )}
+      </ProductDetails>
+    </ProductItemBox>
   );
 }
 

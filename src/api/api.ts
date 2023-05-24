@@ -3,7 +3,7 @@ export const fetchAddCart = async (id: number) => {
     method: "POST",
     body: JSON.stringify({
       productId: id,
-    }),
+    })
   });
   const result = await response.json();
   console.log(result);
@@ -21,7 +21,7 @@ export const fetchUpdateCart = async (id: number, quantity: number) => {
     method: "PATCH",
     body: JSON.stringify({
       quantity,
-    }),
+    })
   });
   const result = await response.json();
   console.log(result);
