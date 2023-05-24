@@ -12,7 +12,11 @@ export const cartTotalPriceSelector = selector({
       checkBox.includes(product.id)
     );
 
-    const totalPrice = inShoppingCart.reduce((accumulator, product) =>accumulator + (product.product.price*product.quantity), 0);
+    const totalPrice = inShoppingCart.reduce(
+      (accumulator, product) =>
+        accumulator + product.product.price * product.quantity,
+      0
+    );
 
     return totalPrice;
   },

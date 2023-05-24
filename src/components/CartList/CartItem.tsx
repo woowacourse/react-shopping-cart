@@ -22,7 +22,7 @@ const CartItem = ({
   price,
   refetch,
 }: CartItemProps) => {
-  const { check, checkBoxOnChange, deleteItem} = useCartItem(id);
+  const { check, checkBoxOnChange, deleteItem } = useCartItem(id);
 
   const removeItem = async () => {
     deleteItem();

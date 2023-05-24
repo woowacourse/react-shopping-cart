@@ -18,22 +18,23 @@ const CartList = () => {
 
   return (
     <CartListWrapper>
-      {data && data.map((product, idx) => {
-        return (
-          <div key={idx}>
-            <hr />
-            <CartItem
-              key={product.id}
-              id={product.product.id}
-              name={product.product.name}
-              imageUrl={product.product.imageUrl}
-              quantity={product.quantity}
-              price={product.product.price}
-              refetch={refetch}
-            />
-          </div>
-        );
-      })}
+      {data &&
+        data.map((product, idx) => {
+          return (
+            <div key={idx}>
+              <hr />
+              <CartItem
+                key={product.id}
+                id={product.product.id}
+                name={product.product.name}
+                imageUrl={product.product.imageUrl}
+                quantity={product.quantity}
+                price={product.product.price}
+                refetch={refetch}
+              />
+            </div>
+          );
+        })}
       <CartPageBottom>
         <CheckBox onChange={checkBoxTotalIdOnChange} check={check} />
         <CartSelectorText>

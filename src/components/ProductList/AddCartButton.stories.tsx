@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent } from '@storybook/testing-library'
+import { within, userEvent } from '@storybook/testing-library';
 import { styled } from 'styled-components';
 import {
   ADD_CART_BUTTON,
@@ -12,10 +12,7 @@ import AddCartButton from './AddCartButton';
 const AddCartStory = () => {
   return (
     <>
-      <AddCartButton
-      id={3}
-        addProductToCart={() => {}}
-      />
+      <AddCartButton id={3} addProductToCart={() => {}} />
       <Circle data-testid="circle" />
     </>
   );

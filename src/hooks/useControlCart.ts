@@ -34,7 +34,7 @@ const useControlCart = () => {
     });
 
     setCart(updateCart);
-    setData(updateCart)
+    setData(updateCart);
   };
 
   const addProductToCart = async ({

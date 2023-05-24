@@ -14,7 +14,11 @@ interface ButtonProps extends ButtonStyle {
 }
 
 const Button = ({ text, onClick, ...rest }: ButtonProps) => {
-  return <ButtonWrapper {...rest} onClick={onClick}>{text}</ButtonWrapper>;
+  return (
+    <ButtonWrapper {...rest} onClick={onClick}>
+      {text}
+    </ButtonWrapper>
+  );
 };
 
 const ButtonWrapper = styled.button<ButtonStyle>`

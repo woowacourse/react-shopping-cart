@@ -38,10 +38,12 @@ const useCartItem = (id: number) => {
     });
 
     const updatedId = checkBoxTotalId.filter((checkId) => checkId !== id);
-    const updatedCart = value.filter((product)=> !checkBoxTotalId.includes(product.id))
+    const updatedCart = value.filter(
+      (product) => !checkBoxTotalId.includes(product.id)
+    );
     setCheckBox(updatedId);
     setCheckBoxTotalId(updatedId);
-    setData(updatedCart)
+    setData(updatedCart);
   };
 
   useEffect(() => {
