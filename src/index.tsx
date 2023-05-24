@@ -2,9 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles/index.css';
 import App from './App';
-import { worker } from './mocks/worker';
+import { worker } from './mocks/browser';
 
-worker.start();
+const main = async () => {
+  if (window.location.pathname === '/react-shopping-cart') {
+    window.location.pathname = '/react-shopping-cart/';
+    return;
+  }
+
+  await worker.start({
+    serviceWorker: {
+      url: '/react-shopping-cart/mockServiceWorker.js',
+    },
+  });
+};
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -12,3 +23,5 @@ root.render(
     <App />
   </React.StrictMode>,
 );
+
+main();

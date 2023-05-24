@@ -1,5 +1,5 @@
 export const addToCart = async (productId: number) => {
-  const response = await fetch('./cart-items', {
+  const response = await fetch('/cart-items', {
     method: 'POST',
     body: JSON.stringify({
       productId,
