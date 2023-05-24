@@ -1,5 +1,6 @@
 import type { ChangeEvent } from 'react';
 import styled from '@emotion/styled';
+import { REGEX } from '../../../constant';
 
 interface InputStepperProps {
   size: 'small' | 'big';
@@ -9,7 +10,7 @@ interface InputStepperProps {
 }
 
 const isInputValueDigit = (inputValue: string): boolean => {
-  return /^\d*$/.test(inputValue);
+  return REGEX.findDigit.test(inputValue);
 };
 
 const InputStepper = ({
