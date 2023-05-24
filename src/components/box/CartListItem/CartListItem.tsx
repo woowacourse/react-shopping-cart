@@ -107,11 +107,20 @@ const CartListItemWrapper = styled.div`
   height: 203px;
   padding: 20px 10px;
   border-top: 1px solid #cccccc;
+
+  @media (max-width: 420px) {
+    height: 30%;
+  }
 `;
 
 const CartItemImage = styled.img`
   width: 144px;
   height: 147px;
+
+  @media (max-width: 420px) {
+    width: 80px;
+    height: 80px;
+  }
 `;
 
 const CartItemControllerWrapper = styled.div`
