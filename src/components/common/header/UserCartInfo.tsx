@@ -3,14 +3,14 @@ import { Text } from '../Text/Text';
 import useCartList from '../../../hooks/useCartList';
 
 const UserCartInfo = () => {
-  const { cartList } = useCartList();
+  const { cartList = [] } = useCartList();
 
   return (
     <CardCounterWrapper>
       <Text color="#ffffff" size="large" lineHeight="12px">
         장바구니
       </Text>
-      {cartList?.length > 0 && (
+      {cartList.length > 0 && (
         <CartCounter>
           <Text size="smallest" color="#ffffff">
             {cartList.length > 99 ? 99 : cartList.length}
