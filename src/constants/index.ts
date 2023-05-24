@@ -18,7 +18,7 @@ const FETCH_METHOD = Object.freeze({
   DELETE: 'DELETE',
 });
 
-const BASE_FETCH_URL = Object.freeze({
+const FETCH_URL = Object.freeze({
   CART_ITEMS: '/cart-items',
   PRODUCTS: '/products',
 });
@@ -44,7 +44,7 @@ export {
   DELIVERY_CHARGE,
   SKELETON_LENGTH,
   FETCH_METHOD,
-  BASE_FETCH_URL,
+  FETCH_URL,
   RECOIL_KEY,
   LOCAL_STORAGE_KEY,
 };

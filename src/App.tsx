@@ -6,15 +6,20 @@ import { useQuery } from './hooks/useQuery';
 
 import GlobalStyle from './GlobalStyle';
 
+import { useApiBaseUrlValue } from './recoils/recoilApiBaseUrl';
+
 import { Home } from './components/pages/Home';
 import { ShoppingCart } from './components/pages/ShoppingCart';
 
-import { CartItemType } from './types';
 import { isEqual } from './utils';
-import { PATH } from './constants';
+
+import { CartItemType } from './types';
+import { FETCH_URL, PATH } from './constants';
 
 export const App = () => {
-  const { data: cart, loading, error } = useQuery<CartItemType[]>('/cart-items');
+  const baseUrl = useApiBaseUrlValue();
+  const { data: cart, loading, error } = useQuery<CartItemType[]>(baseUrl + FETCH_URL.CART_ITEMS);
+
   const setCartState = useSetCartState();
 
   useEffect(() => {

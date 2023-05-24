@@ -5,12 +5,14 @@ import { useQuery } from '../hooks/useQuery';
 import { Skeleton } from './common/Skeleton';
 import { Product } from './Product';
 
-import { ProductType as IProduct } from '../types';
+import { useApiBaseUrlValue } from '../recoils/recoilApiBaseUrl';
 
-import { BASE_FETCH_URL, SKELETON_LENGTH } from '../constants';
+import { ProductType as IProduct } from '../types';
+import { FETCH_URL, SKELETON_LENGTH } from '../constants';
 
 export const ProductList = () => {
-  const { data: products, loading, error } = useQuery<IProduct[]>(BASE_FETCH_URL.PRODUCTS);
+  const baseUrl = useApiBaseUrlValue();
+  const { data: products, loading, error } = useQuery<IProduct[]>(baseUrl + FETCH_URL.PRODUCTS);
 
   return (
     <Style.Container>
