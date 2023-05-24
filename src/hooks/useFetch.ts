@@ -17,8 +17,8 @@ export const useFetch = <T>() => {
     }
   };
 
-  const getAPI = (url: string) => {
-    fetchData(url, {
+  const getAPI = async (url: string) => {
+    await fetchData(url, {
       method: 'GET',
     });
   };

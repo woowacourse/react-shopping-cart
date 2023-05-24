@@ -22,8 +22,12 @@ export const CartProductList = () => {
   const [isChecked, setIsChecked] = useState(true);
   const [checkedItem, setCheckedItem] = useRecoilState(checkedProductState);
 
+  const getItem = async () => {
+    await getAPI('/cart-items');
+  };
+
   useEffect(() => {
-    getAPI('/cart-items');
+    getItem();
 
     setCheckedItem(cartList);
   }, [cartList]);
