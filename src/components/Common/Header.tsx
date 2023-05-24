@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 import CartIcon from '../../assets/CartIcon';
 import { useRecoilValue } from 'recoil';
-import { totalCartProductSelect } from '../../data/cartProductData';
+import { totalCartProductSelect } from '../../recoil/cartProductData';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const totalCartProduct = useRecoilValue(totalCartProductSelect);
@@ -10,14 +11,18 @@ const Header = () => {
   return (
     <HeaderContainer>
       <HeaderContent>
-        <LogoContainer>
-          <CartIcon width={51} height={44} color='white' />
-          <Logo>SHOP</Logo>
-        </LogoContainer>
-        <MoveCartPageBtn>
-          장바구니
-          <ProductCountAlert>{totalCartProduct}</ProductCountAlert>
-        </MoveCartPageBtn>
+        <Link to='/'>
+          <LogoContainer>
+            <CartIcon width={51} height={44} color='white' />
+            <Logo>SHOP</Logo>
+          </LogoContainer>
+        </Link>
+        <Link to='/cart'>
+          <MoveCartPageBtn>
+            장바구니
+            <ProductCountAlert>{totalCartProduct}</ProductCountAlert>
+          </MoveCartPageBtn>
+        </Link>
       </HeaderContent>
     </HeaderContainer>
   );
@@ -54,6 +59,10 @@ const Logo = styled.h1`
   font-weight: 900;
   letter-spacing: 0.1em;
   padding: 10px 0 0;
+
+  @media (max-width: 420px) {
+    display: none;
+  }
 `;
 
 const MoveCartPageBtn = styled.button`

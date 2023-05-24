@@ -3,7 +3,10 @@ import { useState } from 'react';
 
 import AmountCounter from '../components/Common/AmountCounter';
 
+type DesignType = 'main' | 'cart';
+
 interface AmountCounterProps {
+  designType: DesignType;
   count: number;
   addCount: () => void;
   subtractCount: () => void;
@@ -13,7 +16,12 @@ const meta: Meta = {
   title: 'Common/AmountCounter',
   component: AmountCounter,
   tags: ['autodocs'],
-  args: { count: 1, addCount: () => {}, subtractCount: () => {} },
+  args: {
+    count: 1,
+    addCount: () => {},
+    subtractCount: () => {},
+    designType: 'main',
+  },
 };
 
 export default meta;

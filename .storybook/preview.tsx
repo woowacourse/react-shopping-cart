@@ -3,14 +3,37 @@ import { Preview } from '@storybook/react';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 
 import GlobalStyle from '../src/GlobalStyle';
+import { ThemeProvider } from 'styled-components';
+import theme from '../src/styles/theme';
+
+import { handlers } from '../src/mocks/handlers';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
+import { RecoilRoot } from 'recoil';
+import { BrowserRouter } from 'react-router-dom';
+
+let options = {};
+if (location.hostname === 'hae-on.github.io') {
+  options = {
+    serviceWorker: {
+      url: '/react-shopping-cart/mockServiceWorker.js',
+    },
+  };
+}
+
+initialize(options);
 
 export const decorators = [
   (Story) => (
-    <>
-      <GlobalStyle />
-      <Story />
-    </>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <RecoilRoot>
+          <Story />
+        </RecoilRoot>
+      </ThemeProvider>
+    </BrowserRouter>
   ),
+  mswDecorator,
 ];
 
 const customViewports = {
@@ -34,6 +57,7 @@ export const parameters = {
       ...customViewports,
     },
   },
+  msw: handlers,
 };
 
 const preview: Preview = { parameters };

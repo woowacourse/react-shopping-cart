@@ -1,25 +1,14 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { fetchProductsSelector } from '../../recoil/productData';
 
 import ProductItem from './ProductItem';
-
-import { fetchProducts } from '../../apis/products';
-import type { Product } from '../../types/product';
-import useCartProductUpdate from '../../hooks/useCartProductUpdate';
+import Message from '../Common/Message';
 
 const ProductList = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const products = useRecoilValue(fetchProductsSelector);
 
-  useEffect(() => {
-    const getProducts = async () => {
-      const data = await fetchProducts();
-      setProducts(data);
-    };
-
-    getProducts();
-  }, []);
-
-  useCartProductUpdate();
+  if (products.length === 0) return <Message type='empty' />;
 
   return (
     <ProductListContainer>
@@ -38,6 +27,14 @@ const ProductListContainer = styled.ul`
   grid-template-columns: repeat(4, 282px);
   grid-row-gap: 84px;
   grid-column-gap: 48px;
+
+  @media (min-width: 640px) and (max-width: 768px) {
+    grid-template-columns: repeat(2, 282px);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: repeat(1, 282px);
+  }
 `;
 
 export default ProductList;

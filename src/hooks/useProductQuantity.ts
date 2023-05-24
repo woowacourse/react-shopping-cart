@@ -1,7 +1,13 @@
 import { useSetRecoilState } from 'recoil';
 
-import { cartProductAtom } from '../data/cartProductData';
+import { cartProductAtom } from '../recoil/cartProductData';
 import type { CartProduct } from '../types/product';
+import { patchCartProduct } from '../apis/cartProducts';
+import { findTargetProduct } from '../domain/cartProductHandler';
+import {
+  getStoredCartProducts,
+  setStoredCartProducts,
+} from '../utils/localStorage';
 
 const addTargetQuantity = (cartProducts: CartProduct[], id: number) =>
   cartProducts.map((cartProduct) => {
@@ -23,11 +29,31 @@ const useProductQuantity = (id: number) => {
   const setCartProducts = useSetRecoilState(cartProductAtom);
 
   const addCount = () => {
-    setCartProducts((prev) => addTargetQuantity(prev, id));
+    setCartProducts((prev) => {
+      const updatedCartProducts = addTargetQuantity(prev, id);
+      const targetProduct = findTargetProduct(updatedCartProducts, id);
+
+      if (targetProduct) {
+        patchCartProduct(id, targetProduct.quantity);
+        setStoredCartProducts(updatedCartProducts);
+      }
+
+      return updatedCartProducts;
+    });
   };
 
   const subtractCount = () => {
-    setCartProducts((prev) => subtractTargetQuantity(prev, id));
+    setCartProducts((prev) => {
+      const updatedCartProducts = subtractTargetQuantity(prev, id);
+      const targetProduct = findTargetProduct(updatedCartProducts, id);
+
+      if (targetProduct) {
+        patchCartProduct(id, targetProduct.quantity);
+        setStoredCartProducts(updatedCartProducts);
+      }
+
+      return updatedCartProducts;
+    });
   };
 
   return { addCount, subtractCount };

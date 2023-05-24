@@ -5,7 +5,7 @@ const colors = {
   gray300: '#bbb',
   gray400: '#aaa',
   black: '#333',
-  white: '#f5f5f5',
+  white: '#ffffff',
 } as const;
 
 export type ColorKeys = keyof typeof colors;

@@ -1,11 +1,11 @@
 import type { CartProduct } from '../types/product';
 
-const STORAGE_ID = 'shop-cart';
+export const CART_PRODUCT_STORAGE_KEY = 'shop-cart-product';
 
-export const storedCartProducts: CartProduct[] = JSON.parse(
-  localStorage.getItem(STORAGE_ID) ?? '[]'
-);
+export function getStoredCartProducts() {
+  return JSON.parse(localStorage.getItem(CART_PRODUCT_STORAGE_KEY) ?? '[]');
+}
 
-export const setStoredCartProducts = (cartProducts: CartProduct[]) => {
-  localStorage.setItem(STORAGE_ID, JSON.stringify(cartProducts));
-};
+export function setStoredCartProducts(cartProducts: CartProduct[]) {
+  localStorage.setItem(CART_PRODUCT_STORAGE_KEY, JSON.stringify(cartProducts));
+}
