@@ -13,7 +13,7 @@ const Cart = () => {
         <h2>장바구니</h2>
       </header>
       {cart.length === 0 ? (
-        <span>상품이 없습니다.</span>
+        <span>장바구니가 비어 있습니다.</span>
       ) : (
         <main className={styles['cart-container']}>
           <CartProductList />
