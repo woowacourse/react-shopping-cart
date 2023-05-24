@@ -7,7 +7,7 @@ import { $Cart, $CheckedCartState } from '../../recoil/atom';
 import { SyntheticEvent, createRef, useRef, useState } from 'react';
 import { deleteCartItem } from '../../api/cartApi';
 import { toast } from 'react-toastify';
-import errorMessage from '../../constant/errorMessage';
+import ERROR_MESSAGE from '../../constant/errorMessage';
 
 const CartProductList = () => {
   const [cart, setCart] = useRecoilState($Cart);
@@ -30,7 +30,7 @@ const CartProductList = () => {
     if (targetInput.classList.contains('select-all')) {
       // select-all 선택시
       const checked = targetInput.checked;
-      checkboxRefs.forEach(inputElement => {
+      checkboxRefs.forEach((inputElement) => {
         inputElement.current!.checked = checked;
       });
       setSelectedCount(checked ? cart.length : 0);
@@ -51,13 +51,13 @@ const CartProductList = () => {
   const handleDeleteButton = async () => {
     try {
       await Promise.all(
-        CheckedCartData.map(async product => {
+        CheckedCartData.map(async (product) => {
           await deleteCartItem(product.product.id);
-          setCart(prev => prev.filter(item => item !== product.product.id));
-        })
+          setCart((prev) => prev.filter((item) => item !== product.product.id));
+        }),
       );
     } catch (e) {
-      toast.error(errorMessage);
+      toast.error(ERROR_MESSAGE.ERROR);
     }
   };
 

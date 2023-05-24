@@ -6,8 +6,8 @@ import CountButton from '../CountButton';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { addToCart, deleteCartItem, updateCartItem } from '../../api/cartApi';
-import errorMessage from '../../constant/errorMessage';
 import { useState } from 'react';
+import ERROR_MESSAGE from '../../constant/errorMessage';
 
 interface AddCardButtonProps {
   id: number;
@@ -20,19 +20,19 @@ const AddCartButton = ({ id }: AddCardButtonProps) => {
   const handleClick = async () => {
     try {
       await addToCart(id);
-      setCart(prev => [...prev, id]);
-      setCount(prev => prev + 1);
+      setCart((prev) => [...prev, id]);
+      setCount((prev) => prev + 1);
     } catch (e) {
-      toast.error(errorMessage);
+      toast.error(ERROR_MESSAGE.ERROR);
     }
   };
 
   const handleUpButton = async () => {
     try {
       await updateCartItem(id, count + 1);
-      setCount(prev => prev + 1);
+      setCount((prev) => prev + 1);
     } catch (e) {
-      toast.error(errorMessage);
+      toast.error(ERROR_MESSAGE.ERROR);
     }
   };
 
@@ -41,13 +41,13 @@ const AddCartButton = ({ id }: AddCardButtonProps) => {
       await updateCartItem(id, count - 1);
       if (count === 1) {
         await deleteCartItem(id);
-        setCart(prev => prev.filter(item => item !== id));
+        setCart((prev) => prev.filter((item) => item !== id));
       }
     } catch (e) {
-      toast.error(errorMessage);
+      toast.error(ERROR_MESSAGE.ERROR);
     }
 
-    setCount(prev => prev - 1);
+    setCount((prev) => prev - 1);
   };
 
   const handleInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,12 +56,12 @@ const AddCartButton = ({ id }: AddCardButtonProps) => {
       setCount(inputCount);
       if (inputCount === 0) {
         await deleteCartItem(id);
-        setCart(prev => prev.filter(item => item !== id));
+        setCart((prev) => prev.filter((item) => item !== id));
       } else {
         await updateCartItem(id, inputCount);
       }
     } catch (e) {
-      toast.error(errorMessage);
+      toast.error(ERROR_MESSAGE.ERROR);
     }
   };
 

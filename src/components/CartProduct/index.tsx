@@ -3,7 +3,7 @@ import type { CartItem } from '../../types';
 import CountButton from '../CountButton';
 import { ReactComponent as GarbageIcon } from '../../assets/garbage-icon.svg';
 import { deleteCartItem, updateCartItem } from '../../api/cartApi';
-import errorMessage from '../../constant/errorMessage';
+import ERROR_MESSAGE from '../../constant/errorMessage';
 import { toast } from 'react-toastify';
 import { useSetRecoilState } from 'recoil';
 import { $Cart } from '../../recoil/atom';
@@ -20,32 +20,32 @@ const CartProduct = ({ cartItem }: CartProductProps, ref: ForwardedRef<HTMLInput
 
   const handleUpButton = async () => {
     try {
-      await updateCartItem(product.id, quantity + 1);
-      setCount(prev => prev + 1);
+      await updateCartItem(product.id, count + 1);
+      setCount((prev) => prev + 1);
     } catch (e) {
-      toast.error(errorMessage);
+      toast.error(ERROR_MESSAGE.ERROR);
     }
   };
 
   const handleDownButton = async () => {
     try {
-      await updateCartItem(product.id, quantity - 1);
+      await updateCartItem(product.id, count - 1);
       if (count === 1) {
         return;
       }
     } catch (e) {
-      toast.error(errorMessage);
+      toast.error(ERROR_MESSAGE.ERROR);
     }
 
-    setCount(prev => prev - 1);
+    setCount((prev) => prev - 1);
   };
 
   const handleDeleteButton = async () => {
     try {
       await deleteCartItem(product.id);
-      setCart(prev => prev.filter(item => item !== product.id));
+      setCart((prev) => prev.filter((item) => item !== product.id));
     } catch (e) {
-      toast.error(errorMessage);
+      toast.error(ERROR_MESSAGE.ERROR);
     }
   };
 

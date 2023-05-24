@@ -13,7 +13,9 @@ const ProductItem = ({ product }: ProductItemProps) => {
       <img src={imageUrl} alt={name} className={styles.image} />
       <div className={styles['item-info']}>
         <div>
-          <div>{name}</div>
+          <div className={styles.productName} title={name}>
+            {name}
+          </div>
           <AddCartButton id={id} />
         </div>
         <div>{price.toLocaleString()} 원</div>
