@@ -4,7 +4,7 @@ import type { CartItem } from '../../types/types';
 
 const localStorageCartListData = localStorage.getItem(LOCAL_STORAGE_CARTLIST_KEY);
 // eslint-disable-next-line prefer-const
-let cartList: CartItem[] = localStorageCartListData ? JSON.parse(localStorageCartListData) : [];
+let cartList: CartItem[] = JSON.parse(localStorageCartListData ?? '[]');
 
 const isInCartList = (id: number) => cartList.some((cartItem) => cartItem.id === id);
 
