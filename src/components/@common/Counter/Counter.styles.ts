@@ -21,7 +21,12 @@ export const CalcButton = styled.button`
   text-align: center;
 
   cursor: pointer;
+
   &:hover {
     background: rgba(220, 223, 225, 0.3);
+  }
+
+  &:disabled {
+    color: ${(props) => props.theme.color.gray};
   }
 `;

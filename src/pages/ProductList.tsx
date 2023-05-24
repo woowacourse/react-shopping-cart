@@ -1,41 +1,27 @@
 import ContentLayout from 'src/components/@common/ContentLayout';
 import ProductItem from 'src/components/ProductItem';
-import Header from 'src/components/Header';
-import { useFetch } from 'src/hooks/useFetch';
-import { Product } from 'src/types';
+import Header from 'src/components/@common/Header';
 import { styled } from 'styled-components';
-import ToastPortal from 'src/components/@common/Toast/ToastPortal';
-import { useEffect } from 'react';
-import useToast from 'src/hooks/useToast';
+import { Suspense } from 'react';
+import Spinner from 'src/components/@common/Spinner';
+import { useRecoilValue } from 'recoil';
+import { productItems } from 'src/recoil/atom';
 
 const ProductList = () => {
-  const { data, error } = useFetch<{ choonsikProducts: Product[] }>(
-    process.env.PUBLIC_URL + '/mock/productList.json',
-    { choonsikProducts: [] }
-  );
+  const productList = useRecoilValue(productItems);
 
-  const {addToast} = useToast();
-
-  const fetchedProductList = data.choonsikProducts.map((product) => (
+  const fetchedProductList = productList.map((product) => (
     <ProductItem key={product.id} product={product} />
   ));
-
-  useEffect(() => {
-    if(error.isError){
-      addToast({
-        id: Number(new Date()), message: error.message, show: true,
-        type: 'error'
-      })
-    }
-  },[error])
 
   return (
     <>
       <Header />
       <ContentLayout>
-        <ProductListWrapper>{fetchedProductList}</ProductListWrapper>
+        <Suspense fallback={<Spinner />}>
+          <ProductListWrapper>{fetchedProductList}</ProductListWrapper>
+        </Suspense>
       </ContentLayout>
-      <ToastPortal/>
     </>
   );
 };
@@ -47,15 +33,17 @@ const ProductListWrapper = styled.div`
   column-gap: 24px;
   margin-top: 60px;
 
-  @media screen and (max-width: 1023px){
+  @media screen and (max-width: 1023px) {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @media screen and (max-width: 767px){
+  @media screen and (max-width: 767px) {
     grid-template-columns: repeat(2, 1fr);
   }
 
-
+  @media screen and (max-width: 520px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 export default ProductList;

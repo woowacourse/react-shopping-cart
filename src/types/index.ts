@@ -3,7 +3,6 @@ export interface CartItem {
   quantity: number;
   product: Product;
 }
-
 export interface Product {
   id: ProductId;
   price: number;
@@ -12,3 +11,19 @@ export interface Product {
 }
 
 export type ProductId = number;
+
+export const PATH_KEY = ['HOME', 'SHOPPING_BASKET'] as const;
+
+export interface CartItemPostBody {
+  productId: ProductId;
+}
+
+export interface CartItemPatchBody {
+  quantity: number;
+}
+
+export interface SelectedProducts {
+  id: ProductId;
+  price: number;
+  checked: boolean;
+}

@@ -20,6 +20,10 @@ const GlobalStyle = createGlobalStyle`
         src:url('https://cdn.jsdelivr.net/gh/wizfile/font/BM-HANNA.woff') format('woff');
         font-style: normal;
     }
+
+    a {color: #fff; text-decoration: none; outline: none}
+
+    a:hover, a:active {text-decoration: none; color:#fff;}
 `;
 
 export default GlobalStyle;

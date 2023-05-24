@@ -28,11 +28,23 @@
 4. 테스트 도구 선정
    - 적합한 테스트 도구를 선택하여 사용하고, 중요한 테스트 케이스를 정의하여 테스트 진행
 
+### 📝 2단계 기능 목록
+
+1. 장바구니 페이지
+   - 장바구니 페이지 마크업을 완성하고, 상품 목록 페이지와 함께 모바일 환경 대응
+2. MSW를 활용한 API Mocking
+   - MSW를 활용하여 실제 서버와 연동될 수 있는 API Mocking을 구현
+   - 단순한 Endpoint 변경으로 실제 API 사용이 가능하도록 작업
+3. 테스트
+   - 장바구니 페이지에서 다양한 사용자 인터렉션에 대한 테스트 케이스를 고민하고, 선택한 테스트 도구를 이용하여 검증
+4. 사용자 경험
+   - 새로고침 해도, 장바구니에 담은 상품 유지
+
 ### 💻 페어프로그래밍
 
-|  <img src="https://avatars.githubusercontent.com/u/50974359?v=4" width=150px>| <img src="https://avatars.githubusercontent.com/u/55427367?v=4" width=150px>  |
+| <img src="https://avatars.githubusercontent.com/u/50974359?v=4" width=150px> | <img src="https://avatars.githubusercontent.com/u/55427367?v=4" width=150px> |
 | :--------------------------------------------------------------------------: | :--------------------------------------------------------------------------: |
-|                   [클린](http://github.com/hozzijeong)                     |          [타미](http://github.com/xodms0309)                                   |
+|                     [클린](http://github.com/hozzijeong)                     |                     [타미](http://github.com/xodms0309)                      |
 
 ### 🌲 파일 구조
 
@@ -42,7 +54,21 @@
  ┃ ┗ 📜index.ts
  ┣ 📂components
  ┃ ┣ 📂@common
+ ┃ ┃ ┣ 📂CheckBox
+ ┃ ┃ ┃ ┣ 📜CheckBox.stories.tsx
+ ┃ ┃ ┃ ┣ 📜CheckBox.styles.ts
+ ┃ ┃ ┃ ┗ 📜index.tsx
  ┃ ┃ ┣ 📂ContentLayout
+ ┃ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┃ ┣ 📂Counter
+ ┃ ┃ ┃ ┣ 📜Counter.stories.tsx
+ ┃ ┃ ┃ ┣ 📜Counter.styles.ts
+ ┃ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┃ ┣ 📂Header
+ ┃ ┃ ┃ ┣ 📜Header.styles.ts
+ ┃ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┃ ┣ 📂Spinner
+ ┃ ┃ ┃ ┣ 📜Spinner.styles.ts
  ┃ ┃ ┃ ┗ 📜index.tsx
  ┃ ┃ ┣ 📂Svg
  ┃ ┃ ┃ ┣ 📜SvgSprite.tsx
@@ -52,26 +78,42 @@
  ┃ ┃ ┃ ┣ 📜Toast.styles.ts
  ┃ ┃ ┃ ┣ 📜ToastPortal.tsx
  ┃ ┃ ┃ ┗ 📜index.tsx
- ┃ ┣ 📂Counter
- ┃ ┃ ┣ 📜Counter.stories.tsx
- ┃ ┃ ┣ 📜Counter.styles.ts
- ┃ ┃ ┗ 📜index.tsx
- ┃ ┣ 📂Header
- ┃ ┃ ┣ 📜Header.styles.ts
- ┃ ┃ ┗ 📜index.tsx
+ ┃ ┣ 📂Cart
+ ┃ ┃ ┣ 📂CartItem
+ ┃ ┃ ┃ ┣ 📜CartItem.stories.tsx
+ ┃ ┃ ┃ ┣ 📜CartItem.styles.ts
+ ┃ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┃ ┣ 📂CartList
+ ┃ ┃ ┃ ┣ 📜CartList.stories.tsx
+ ┃ ┃ ┃ ┣ 📜CartList.styles.ts
+ ┃ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┃ ┗ 📂OrderInfo
+ ┃ ┃ ┃ ┣ 📜OrderInfo.stories.tsx
+ ┃ ┃ ┃ ┣ 📜OrderInfo.styles.ts
+ ┃ ┃ ┃ ┗ 📜index.tsx
  ┃ ┗ 📂ProductItem
  ┃ ┃ ┣ 📜ProductItem.stories.tsx
  ┃ ┃ ┣ 📜ProductItem.styles.ts
  ┃ ┃ ┗ 📜index.tsx
  ┣ 📂hooks
+ ┃ ┣ 📜useCartListUpdate.ts
+ ┃ ┣ 📜useCartUpdate.ts
  ┃ ┣ 📜useFetch.ts
- ┃ ┣ 📜useProductSelect.ts
  ┃ ┗ 📜useToast.tsx
+ ┣ 📂mocks
+ ┃ ┣ 📂data
+ ┃ ┃ ┣ 📜cartList.json
+ ┃ ┃ ┗ 📜productList.json
+ ┃ ┣ 📜browser.ts
+ ┃ ┗ 📜handlers.ts
  ┣ 📂pages
- ┃ ┗ 📜ProductList.tsx
+ ┃ ┣ 📜ProductList.tsx
+ ┃ ┗ 📜ShoppingBasket.tsx
  ┣ 📂recoil
- ┃ ┣ 📜cartList.ts
- ┃ ┗ 📜toast.ts
+ ┃ ┣ 📂atom
+ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┗ 📂selector
+ ┃ ┃ ┗ 📜index.tsx
  ┣ 📂router
  ┃ ┗ 📜index.tsx
  ┣ 📂styles
@@ -80,6 +122,10 @@
  ┃ ┗ 📜theme.ts
  ┣ 📂types
  ┃ ┗ 📜index.ts
+ ┣ 📂utils
+ ┃ ┣ 📜constants.ts
+ ┃ ┣ 📜index.ts
+ ┃ ┗ 📜storage.ts
  ┣ 📜App.tsx
  ┣ 📜index.tsx
  ┗ 📜react-app-env.d.ts
