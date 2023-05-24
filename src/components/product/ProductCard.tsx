@@ -1,12 +1,9 @@
 import styled from "styled-components";
 import { Product } from "../../types/Product";
-import { Counter } from "./Counter";
-import { AddShoppingCartIcon } from "../../assets/ShoppingCartIcons";
-import { useCartList } from "../../hooks/useCartList";
+import { CardButton } from "./CardButton";
+import { Suspense } from "react";
 
 export const ProductCard = ({ id, name, price, imageUrl }: Product) => {
-  const { cartList, addProductToCartList, removeProductFromCartList } = useCartList(id);
-
   return (
     <Style.Container>
       <Style.Image src={imageUrl} alt={`${name}`} />
@@ -15,11 +12,9 @@ export const ProductCard = ({ id, name, price, imageUrl }: Product) => {
           <Style.Name>{name}</Style.Name>
           <Style.Price>{price}원</Style.Price>
         </Style.NamePriceContainer>
-        {cartList.includes(id) ? (
-          <Counter removeItemFromCartList={removeProductFromCartList} />
-        ) : (
-          <AddShoppingCartIcon handleClick={addProductToCartList} />
-        )}
+        <Suspense fallback={<h1>로딩중....</h1>}>
+          <CardButton id={id} />
+        </Suspense>
       </Style.DescriptionContainer>
     </Style.Container>
   );
@@ -33,27 +28,51 @@ const Style = {
     display: flex;
     flex-direction: column;
     gap: 18px;
+
+    @media screen and (max-width: 700px) {
+      width: 150px;
+      height: 200px;
+    }
   `,
+
   Image: styled.img`
     width: 283px;
     height: 283px;
+
+    @media screen and (max-width: 700px) {
+      width: 150px;
+      height: 150px;
+    }
   `,
   DescriptionContainer: styled.div`
     width: 283px;
 
     display: flex;
     justify-content: space-between;
+    @media screen and (max-width: 700px) {
+      width: 150px;
+      flex-direction: column-reverse;
+    }
   `,
+
   NamePriceContainer: styled.div`
     display: flex;
     flex-direction: column;
 
     width: 201px;
     gap: 10px;
+
+    justify-content: space-between;
+    @media screen and (max-width: 700px) {
+      margin-top: 15px;
+      width: 150px;
+    }
   `,
+
   Name: styled.span`
     font-size: 16px;
   `,
+
   Price: styled.span`
     font-size: 20px;
   `,

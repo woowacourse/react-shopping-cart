@@ -1,14 +1,13 @@
-import React from 'react';
-import { ProductCardList } from '../components/productCardList/ProductCardList';
-import { Layout } from '../layout';
-import { useMockData } from '../hooks/useMockData';
+import { ProductCardList } from "../components/product/ProductCardList";
+import { Layout } from "../layout";
+import { Suspense } from "react";
 
 function Main() {
-  const { mockData } = useMockData();
-
   return (
     <Layout>
-      <ProductCardList products={mockData} />
+      <Suspense>
+        <ProductCardList />
+      </Suspense>
     </Layout>
   );
 }

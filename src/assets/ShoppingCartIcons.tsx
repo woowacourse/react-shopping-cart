@@ -27,3 +27,53 @@ export const AddShoppingCartIcon = ({ handleClick }: ShoppingCartIconProps) => (
     />
   </svg>
 );
+
+export const DeleteShoppingCartIcon = ({ handleClick }: ShoppingCartIconProps) => (
+  <svg
+    version="1.1"
+    id="Layer_1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    x="0px"
+    y="0px"
+    width="24px"
+    height="24px"
+    viewBox="0 0 48 46"
+    enableBackground="new 0 0 48 46"
+    xmlSpace="preserve"
+    style={{ cursor: "pointer" }}
+    onClick={handleClick}
+  >
+    {" "}
+    <image
+      id="image0"
+      width="48"
+      height="46"
+      x="0"
+      y="0"
+      href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAuCAQAAADE11LnAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN
+RQfnBRYEDwYT9RePAAAChUlEQVRYw+2Xz0sUYRjHv8+846Ziuqa1U7jMQroOeBEEk7psLhTlxVN4
+9BRBHfwT8tTfIB3as4fEQ0WIshdxQw9BHSQiVvrlj5J1Jde1mffpMO246ujMjkoJ+5yG532f7+f5
+xTADnLLRYQezl4qXzVZRb4qjBVTL2uKVhtUbqxUAXjaG2niAIjJC9aQcDWDJW2IN39QXvz7dLbok
+cNA1LkIx3McDVogA9tEEySylHno6vnhvZ/+pS356GH38EOLw9h1kkMAj2dvY4KuC/BX0AAA+YJa+
+sPTQVmSUriMOUE9oDus+AEKxagAA75UJ5Z13+txFYY4DXCNdFkJ1CyFiAJS3Piez3oCpZuTtKLdT
+FQCmdQrvuqRBTQwArUrnjPeMITspbN9nY6YMwrnk0l8AJzhRFtHCBgCwgSGZ8wagVRoAQAaG5EYZ
+OIOxUosSPOwS2I52HwXsZhxHfJ9rzHVNT9bsCjL+V74C6bQDEK/VzMkDzI3ja/gwpzfPajVN6ICa
+K6wMLAcTmwjXaxQBrKXa5Zvbts8Zsqapw5SmtPX4XF/QbM8nxBNKU1odhlbynfoWnX2A6nVhqknE
+ZDegZDmbXLJ90zrFZAxQ3kYXO4pHx3tWYDbzIKc4ZY1Qd8lH3XKEU5ziwVXNK/7sz6AKqAKqgCrA
+h3m+ru9kMYrRvb7+SUz+NxX8C4BSyQepp5XPwBau5YuvYsHERMSyf6JYOkk6gAa5Y0oAuMq31LZg
+gN9dpAOAYm67VLCJeQBAB3cEbYfzmTgvNkuPzgzMzboFmsCPoOKOrSnP6xZu5w9AAWDmmtVLnXSB
+64Jpc4HW+aOY63/jUpVtmUgharZQYID6U35Pfj12FyqxP5rSwbX85Xu/AAAAJXRFWHRkYXRlOmNy
+ZWF0ZQAyMDIzLTA1LTIyVDA0OjE1OjA2KzAwOjAw3Dy4hAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAy
+My0wNS0yMlQwNDoxNTowNiswMDowMK1hADgAAAAodEVYdGRhdGU6dGltZXN0YW1wADIwMjMtMDUt
+MjJUMDQ6MTU6MDYrMDA6MDD6dCHnAAAAAElFTkSuQmCC"
+    />
+  </svg>
+);
+
+export const CheckIcon = () => (
+  <svg width="27" height="23" viewBox="0 1 25 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 7L9.11069 14.1107L21.8318 1.38956" stroke="white" strokeWidth="3" />
+  </svg>
+);
