@@ -9,8 +9,8 @@ export const handlers = [
   }),
 
   // 제품 추가
-  rest.post('/products', (req, res, ctx) => {
-    const newData = req.json();
+  rest.post('/products', async (req, res, ctx) => {
+    const newData = await req.json();
     const id = Math.random().toString(36).substring(7);
     const responseWithId = { ...newData, id: Number(id) };
     products.push(responseWithId as unknown as Product);
@@ -21,7 +21,7 @@ export const handlers = [
   // 특정 id의 제품 정보
   rest.get('/products/:id', (req, res, ctx) => {
     const { id } = req.params;
-    const product = products.find(item => item.id === Number(id));
+    const product = products.find((item) => item.id === Number(id));
     const responseWithId = { ...product, id };
     if (responseWithId) {
       return res(ctx.status(200), ctx.json(responseWithId));
@@ -29,10 +29,10 @@ export const handlers = [
     return res(ctx.status(404));
   }),
 
-  // 특정 id 제품 삭제
+  // 특정 id의 제품 삭제
   rest.delete('/products/:id', (req, res, ctx) => {
     const { id } = req.params;
-    const index = products.findIndex(item => item.id === Number(id));
+    const index = products.findIndex((item) => item.id === Number(id));
     if (index !== -1) {
       products.splice(index, 1);
       return res(ctx.status(204));
@@ -40,10 +40,10 @@ export const handlers = [
     return res(ctx.status(404));
   }),
 
-  // 특정 id 제품 수정
+  // 특정 id의 제품 수정
   rest.put('/products/:id', (req, res, ctx) => {
     const { id } = req.params;
-    const index = products.findIndex(item => item.id === Number(id));
+    const index = products.findIndex((item) => item.id === Number(id));
     if (index !== -1) {
       products[index] = req.json() as unknown as Product;
       return res(ctx.json(products[index]));
@@ -64,7 +64,7 @@ export const handlers = [
     const item = {
       id: Math.floor(Math.random() * 1000),
       quantity: 1,
-      product: products.find(product => product.id === productId),
+      product: products.find((product) => product.id === productId),
     };
 
     cartItems.push(item as CartItem);
@@ -77,7 +77,7 @@ export const handlers = [
     const { cartItemId } = req.params;
     const { quantity } = await req.json();
 
-    const itemIndex = cartItems.findIndex(item => item.product.id === Number(cartItemId));
+    const itemIndex = cartItems.findIndex((item) => item.product.id === Number(cartItemId));
 
     if (itemIndex === -1) {
       return res(ctx.status(404));
@@ -91,7 +91,7 @@ export const handlers = [
   //장바구니 아이템 삭제
   rest.delete('/cart-items/:cartItemsId', (req, res, ctx) => {
     const { cartItemsId } = req.params;
-    const itemIndex = cartItems.findIndex(item => item.product.id === Number(cartItemsId));
+    const itemIndex = cartItems.findIndex((item) => item.product.id === Number(cartItemsId));
 
     if (itemIndex >= 0) {
       cartItems.splice(itemIndex, 1);
