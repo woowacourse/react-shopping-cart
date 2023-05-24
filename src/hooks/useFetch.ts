@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchAPI } from 'src/api';
 
 export const useGetFetch = <T>(url: string, initialData: T) => {
@@ -20,6 +20,10 @@ export const useGetFetch = <T>(url: string, initialData: T) => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    getData();
+  }, [url]);
 
   return { data, error, loading, getData };
 };

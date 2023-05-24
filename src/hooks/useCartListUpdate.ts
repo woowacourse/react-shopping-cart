@@ -3,7 +3,6 @@ import { cartListAtom, cartSelectedItemAtom } from 'src/recoil/atom';
 
 const useCartListUpdate = () => {
   const [curSelected, setCurSelected] = useRecoilState(cartSelectedItemAtom);
-
   const cartList = useRecoilValue(cartListAtom);
 
   const checkItem: React.ChangeEventHandler<HTMLInputElement> = (event) => {

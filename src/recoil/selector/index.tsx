@@ -52,7 +52,6 @@ export const updateCart = selectorFamily<CartItem | null, ProductId>({
       if (!item || item instanceof DefaultValue) return;
 
       const list = get(cartListAtom);
-      console.log(list, 'cartList');
       const updated = list.map((prev) => (prev.id === productId ? item : prev));
 
       set(cartListAtom, updated);
