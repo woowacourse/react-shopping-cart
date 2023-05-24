@@ -27,4 +27,13 @@ export const GlobalStyle = createGlobalStyle`
     --count-color: #04c09e;
     --border-color: #dddddd;
   }
+
+  #root {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .App{
+    width: 100%;
+  }
 `;

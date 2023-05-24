@@ -1,10 +1,10 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { ProductList } from '../pages/ProductList';
+import { ProductListPage } from '../pages/ProductListPage';
 
 const meta = {
-  component: ProductList,
+  component: ProductListPage,
   title: 'Pages/ProductList',
-} satisfies Meta<typeof ProductList>;
+} satisfies Meta<typeof ProductListPage>;
 
 export default meta;
 

@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  $width?: string;
-  $height?: string;
+  width?: string;
+  height?: string;
   backgroundColor?: string;
   borderColor?: string;
 }
@@ -12,18 +12,18 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export const Button = ({
   children,
   onClick,
-  $width,
-  $height,
+  width,
+  height,
   backgroundColor,
   borderColor,
 }: ButtonProps) => {
   return (
     <StyledButton
       onClick={onClick}
-      $width={$width}
-      $height={$height}
-      backgroundColor={backgroundColor}
-      borderColor={borderColor}
+      $width={width}
+      $height={height}
+      $backgroundColor={backgroundColor}
+      $borderColor={borderColor}
     >
       {children}
     </StyledButton>
@@ -33,15 +33,16 @@ export const Button = ({
 const StyledButton = styled.button<{
   $width?: string;
   $height?: string;
-  backgroundColor?: string;
-  borderColor?: string;
+  $backgroundColor?: string;
+  $borderColor?: string;
 }>`
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${({ $width }) => $width || '132px'};
-  height: ${({ $height }) => $height || '32px'};
-  background-color: ${({ backgroundColor }) =>
-    backgroundColor || 'var(--label-color)'};
-  border: 1px solid ${({ borderColor }) => borderColor || 'none'};
+  width: ${({ $width }) => $width || '100%'};
+  height: ${({ $height }) => $height || '100%'};
+  background-color: ${({ $backgroundColor }) =>
+    $backgroundColor || 'var(--label-color)'};
+  border: ${({ $borderColor }) => `1px solid ${$borderColor}`};
 `;

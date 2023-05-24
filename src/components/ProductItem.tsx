@@ -1,20 +1,24 @@
-import { Text as ProductPrice, StyledText } from './common/Text';
+import { StyledText } from './common/Text';
 import { Image as ProductImage } from './common/Image';
 import { AddToCartButton } from './AddToCartButton';
-import { ProductItem as ProductItemProps } from '../types/productType';
-import { useCartState } from './hooks/useCartState';
+import { Product } from '../types';
+import { useCartState } from '../hooks/useCartState';
 import styled from 'styled-components';
 
-export const ProductItem = (props: ProductItemProps) => {
-  const { id, name, price, imageUrl } = props;
+interface ProductItemProps {
+  product: Product;
+}
 
-  const { addToCartState } = useCartState(props);
+export const ProductItem = ({ product }: ProductItemProps) => {
+  const { id, name, price, imageUrl } = product;
+
+  const { addToCartState } = useCartState(product);
 
   return (
     <ProductItemWrapper key={id}>
       <ProductImage
-        $width="282px"
-        $height="282px"
+        width="260px"
+        height="260px"
         source={imageUrl}
         alternative="상품 이미지"
       />
@@ -27,18 +31,22 @@ export const ProductItem = (props: ProductItemProps) => {
             {`${price.toLocaleString('ko-KR')} 원`}
           </ProductPrice>
         </div>
-        <AddToCartButton id={id} addToCartState={addToCartState} />
+        <AddToCartButton
+          product={product}
+          id={id}
+          addToCartState={addToCartState}
+        />
       </ProductTextWrapper>
     </ProductItemWrapper>
   );
 };
 
 const ProductItemWrapper = styled.div`
+  width: 260px;
   margin-bottom: 20px;
 `;
 
 const ProductTextWrapper = styled.div`
-  width: 282px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -47,4 +55,7 @@ const ProductTextWrapper = styled.div`
 
 const ProductTitle = styled(StyledText)`
   margin: 0 0 10px 0;
+`;
+const ProductPrice = styled(StyledText)`
+  margin: 0 0 6px 0;
 `;

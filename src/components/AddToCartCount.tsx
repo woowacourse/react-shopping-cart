@@ -1,11 +1,17 @@
-import { useCartCountState } from './hooks/useCartCountState';
-import { AddToCartCountProps } from '../types/addToCartCountType';
-import { DecreaseButtonImage, IncreaseButtonImage } from '../types/image';
+import { DecreaseButtonImage, IncreaseButtonImage } from '../assets/image';
 import styled from 'styled-components';
 
-export const AddToCartCount = ({ id, quantity }: AddToCartCountProps) => {
-  const { increaseCount, decreaseCount } = useCartCountState(id);
+interface AddToCartCountProps {
+  quantity: number;
+  increaseCount: () => void;
+  decreaseCount: () => void;
+}
 
+export const AddToCartCount = ({
+  quantity,
+  increaseCount,
+  decreaseCount,
+}: AddToCartCountProps) => {
   return (
     <Wrapper>
       <CountValue>{quantity}</CountValue>
@@ -28,7 +34,7 @@ export const AddToCartCount = ({ id, quantity }: AddToCartCountProps) => {
 };
 
 const Wrapper = styled.div`
-  width: 80px;
+  width: 60px;
   border: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;

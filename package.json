@@ -13,6 +13,7 @@
     "@types/react-dom": "^18.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.11.2",
     "react-scripts": "5.0.1",
     "recoil": "^0.7.7",
     "styled-components": "^6.0.0-rc.1",
@@ -67,13 +68,17 @@
     "@storybook/test-runner": "^0.10.0",
     "@storybook/testing-library": "^0.0.14-next.2",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "chromatic": "^6.17.4",
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-storybook": "^0.6.11",
+    "msw": "^1.2.1",
     "prettier": "^2.8.7",
     "prop-types": "^15.8.1",
     "storybook": "^7.0.9",
-    "chromatic": "^6.17.4",
     "webpack": "^5.82.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
