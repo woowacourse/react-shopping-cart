@@ -34,18 +34,18 @@ const CartListItem = (props: CartListItemProps) => {
 
     updateProductQuantity(cartItem.id, quantity);
 
-    if (checkBoxRef.current?.checked) {
-      const newCartItem = { ...cartItem, quantity };
+    if (!checkBoxRef.current?.checked) return;
 
-      const existcheckedCartItemIndex = checkedCartItemList.findIndex(
-        (checkedCartItem) => checkedCartItem.id === cartItem.id,
-      );
+    const newCartItem = { ...cartItem, quantity };
 
-      if (existcheckedCartItemIndex !== -1) {
-        const newCheckedCartItemList = checkedCartItemList.slice();
-        newCheckedCartItemList.splice(existcheckedCartItemIndex, 1, newCartItem);
-        setCheckedCartItemList(newCheckedCartItemList);
-      }
+    const existcheckedCartItemIndex = checkedCartItemList.findIndex(
+      (checkedCartItem) => checkedCartItem.id === cartItem.id,
+    );
+
+    if (existcheckedCartItemIndex !== -1) {
+      const newCheckedCartItemList = checkedCartItemList.slice();
+      newCheckedCartItemList.splice(existcheckedCartItemIndex, 1, newCartItem);
+      setCheckedCartItemList(newCheckedCartItemList);
     }
   };
 
