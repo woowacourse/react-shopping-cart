@@ -34,14 +34,14 @@ const CartItemValue = selectorFamily<CartItemType | null, number>({
     (productId) =>
     ({ get }) => {
       const cart = get(CartState);
-
       const foundProduct = cart.find((item) => item.product.id === productId);
-
       return foundProduct || null;
     },
 });
 
 export const useCartState = () => useRecoilState(CartState);
+
+export const useCartStateValue = () => useRecoilValue(CartState);
 
 export const useSetCartState = () => useSetRecoilState(CartState);
 
