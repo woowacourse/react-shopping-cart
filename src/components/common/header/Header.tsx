@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
+import { useCallback } from 'react';
 import { Text } from '../Text/Text';
 import { CartIcon } from '../../../assets';
 import UserCartInfo from './UserCartInfo';
@@ -7,13 +8,13 @@ import UserCartInfo from './UserCartInfo';
 const Header = () => {
   const navigate = useNavigate();
 
-  const handleClickLogoWrapper = () => {
+  const handleClickLogoWrapper = useCallback(() => {
     navigate('');
-  };
+  }, []);
 
-  const handleClickCartWrapper = () => {
+  const handleClickCartWrapper = useCallback(() => {
     navigate('/cartlist');
-  };
+  }, []);
 
   return (
     <HeaderWrapper>

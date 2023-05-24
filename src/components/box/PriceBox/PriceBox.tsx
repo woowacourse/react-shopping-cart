@@ -1,14 +1,18 @@
 import styled from '@emotion/styled';
+import { useMemo } from 'react';
 import { Text } from '../../common/Text/Text';
 import { formatPrice } from '../../../utils/formatPrice';
 import type { CartItem } from '../../../types/types';
+import { DELEVERY_COST } from '../../../constant';
+
+const deliveryCost = DELEVERY_COST;
 
 const PriceBox = ({ checkedCartItemList }: { checkedCartItemList: CartItem[] }) => {
-  const totalPrice = checkedCartItemList.reduce((acc, cur) => {
-    return acc + cur.quantity * cur.product.price;
-  }, 0);
-
-  const deliveryCost = 3000;
+  const totalPrice = useMemo(() => {
+    return checkedCartItemList.reduce((acc, cur) => {
+      return acc + cur.quantity * cur.product.price;
+    }, 0);
+  }, [JSON.stringify(checkedCartItemList)]);
 
   return (
     <PriceBoxWrapper>
@@ -18,7 +22,7 @@ const PriceBox = ({ checkedCartItemList }: { checkedCartItemList: CartItem[] }) 
           <Text size="small" weight="littlebold" color="#333333">
             총 상품가격
           </Text>
-          <Text size="small" weight="littlebold" color="#333333" label='totalPrice'>
+          <Text size="small" weight="littlebold" color="#333333" label="totalPrice">
             {formatPrice(totalPrice)}원
           </Text>
         </TextWrapper>
