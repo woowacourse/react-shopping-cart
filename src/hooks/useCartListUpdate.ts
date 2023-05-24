@@ -1,9 +1,14 @@
+import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { cartListAtom, cartSelectedItemAtom } from 'src/recoil/atom';
 
 const useCartListUpdate = () => {
   const [curSelected, setCurSelected] = useRecoilState(cartSelectedItemAtom);
   const cartList = useRecoilValue(cartListAtom);
+
+  useEffect(() => {
+    setCurSelected(cartList.map(({ id }) => id));
+  }, []);
 
   const checkItem: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     const { checked, id } = event.currentTarget;
