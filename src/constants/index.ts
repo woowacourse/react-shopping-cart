@@ -1,7 +1,7 @@
-const PATH = {
+const PATH = Object.freeze({
   HOME: '/',
   CART: '/shopping-cart',
-};
+});
 
 const QUANTITY = Object.freeze({
   MAX: 99,
@@ -23,7 +23,7 @@ const FETCH_URL = Object.freeze({
   PRODUCTS: '/products',
 });
 
-const RECOIL_KEY = {
+const RECOIL_KEY = Object.freeze({
   CART_STATE: 'cartState',
   CART_SIZE_VALUE: 'cartSizeValue',
   CART_ITEM_VALUE: 'cartItemValue',
@@ -31,12 +31,14 @@ const RECOIL_KEY = {
   CHECKED_STATE: 'checkedState',
 
   TOTAL_PRODUCT_PRICE_VALUE: 'totalProductPriceValue',
-};
 
-const LOCAL_STORAGE_KEY = {
+  API_BASE_URL_STATE: 'apiBaseUrlState',
+});
+
+const LOCAL_STORAGE_KEY = Object.freeze({
   CHECKED_STATE: 'checkedProductInCart',
   CART_STATE: 'cartState',
-};
+});
 
 export {
   PATH,
