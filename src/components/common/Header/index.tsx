@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
@@ -9,13 +10,14 @@ const Header = () => {
   const cartLength = useRecoilValue(cartItemLengthSelector);
   const navigate = useNavigate();
 
-  const goToMainPage = () => {
+  const goToMainPage = useCallback(() => {
     navigate('/');
-  };
+  }, [navigate]);
 
-  const goToCartPage = () => {
+  const goToCartPage = useCallback(() => {
     navigate('/Cart');
-  };
+  }, [navigate]);
+
   return (
     <HeaderWrapper>
       <HeaderContainer onClick={goToMainPage}>
