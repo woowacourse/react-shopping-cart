@@ -19,3 +19,5 @@ export const REGEX = {
   findDigit: /^\d*$/,
   groupByThreeDigit: /\B(?=(\d{3})+(?!\d))/g,
 };
+
+export const DELEVERY_COST = 3000;
