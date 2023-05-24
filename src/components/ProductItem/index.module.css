@@ -24,6 +24,12 @@
   color: var(--primary-color);
 }
 
+.productName {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .item-info > div {
   display: flex;
   align-items: flex-start;
