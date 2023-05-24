@@ -62,13 +62,12 @@ const CartListItem = (props: CartListItemProps) => {
   };
 
   useEffect(() => {
-    if (checkBoxRef.current === null) return;
-    if (checkedCartItemList.find((checkedCartItem) => checkedCartItem.id === cartItem.id)) {
-      checkBoxRef.current.checked = true;
-      return;
-    }
+    if (!checkBoxRef.current) return;
 
-    checkBoxRef.current.checked = false;
+    const isChecked = !!checkedCartItemList.find(
+      (checkedCartItem) => checkedCartItem.id === cartItem.id,
+    );
+    checkBoxRef.current.checked = isChecked;
   }, [checkedCartItemList]);
 
   return (
@@ -90,7 +89,7 @@ const CartListItem = (props: CartListItemProps) => {
           quantity={cartItem.quantity}
           setQuantity={handleSetQuantityOnInputStepper}
         />
-        <Text size="minimum" weight="light" color="#333333" label='price'>
+        <Text size="minimum" weight="light" color="#333333" label="price">
           {formatPrice(cartItem.product.price)}원
         </Text>
       </CartItemControllerWrapper>
