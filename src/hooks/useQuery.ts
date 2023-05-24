@@ -17,8 +17,13 @@ export const useQuery = <T>(url: string) => {
     setState({ loading: true });
 
     fetch(url)
-      .then((response) => response.json())
-      .catch((error) => console.log(error))
+      .then((response) => {
+        const contentType = response.headers.get('content-type');
+
+        if (response.ok && contentType === 'application/json') {
+          return response.json();
+        }
+      })
       .then((json) => setState((prev) => ({ ...prev, data: json })))
       .catch((error) => setState((prev) => ({ ...prev, error })))
       .finally(() => setState((prev) => ({ ...prev, loading: false })));
@@ -29,7 +34,13 @@ export const useQuery = <T>(url: string) => {
 
     await fetch(url)
       .then((response) => response.json())
-      .catch((error) => console.log(error))
+      .then((response) => {
+        const contentType = response.headers.get('content-type');
+
+        if (response.ok && contentType === 'application/json') {
+          return response.json();
+        }
+      })
       .then((json) => setState((prev) => ({ ...prev, data: json })))
       .catch((error) => setState((prev) => ({ ...prev, error })))
       .finally(() => setState((prev) => ({ ...prev, loading: false })));
