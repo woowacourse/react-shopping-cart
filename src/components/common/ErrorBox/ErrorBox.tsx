@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import { ErrorIcon } from '../../../assets';
 import { Text } from '../Text/Text';
+import type { ERROR_MESSAGE } from '../../../constant';
 
 type ErrorBoxProps =
   | { errorType: 'emptyList'; errorMessage?: never }
-  | { errorType: 'network'; errorMessage: string };
+  | { errorType: 'network'; errorMessage: (typeof ERROR_MESSAGE)[keyof typeof ERROR_MESSAGE] };
 
 const ErrorBox = ({ errorType, errorMessage }: ErrorBoxProps) => {
   const errorText = {

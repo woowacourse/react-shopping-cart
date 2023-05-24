@@ -5,7 +5,7 @@ import ErrorBox from './ErrorBox/ErrorBox';
 
 interface ErrorBoundaryState {
   hasError: boolean;
-  errorMessage: string;
+  errorMessage: keyof typeof ERROR_MESSAGE;
 }
 
 class ErrorBoundary extends React.Component<PropsWithChildren, ErrorBoundaryState> {
@@ -13,11 +13,11 @@ class ErrorBoundary extends React.Component<PropsWithChildren, ErrorBoundaryStat
     super(props);
     this.state = {
       hasError: false,
-      errorMessage: 'Somthing wrong!',
+      errorMessage: 'default',
     };
   }
 
-  static getDerivedStateFromError(error: Error) {    
+  static getDerivedStateFromError(error: Error) {
     return { hasError: true, errorMessage: error.message };
   }
 
