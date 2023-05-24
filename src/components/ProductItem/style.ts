@@ -1,4 +1,4 @@
-import { ImageSkeletonStyle, TextSkeletonStyle } from '@Styles/common/skeleton';
+import { ImageSkeletonStyle, TextSkeletonStyle } from '@Styles/common/skeletonProductItem';
 import styled from 'styled-components';
 
 type ContainerProps = {
@@ -15,9 +15,25 @@ type LoadingProps = {
   isLoading?: boolean;
 };
 
-export const ProductItemImage = styled.img<LoadingProps>`
-  height: 250px;
+export const ProductItemImageFrame = styled.div`
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
+
   margin-bottom: 18px;
+`;
+
+export const ProductItemImage = styled.img<LoadingProps>`
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  border-radius: 3px;
+
   ${ImageSkeletonStyle};
 `;
 

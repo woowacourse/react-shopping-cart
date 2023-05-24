@@ -4,8 +4,6 @@ import UserSummaryShoppingCart from '.';
 
 /**
  * `UserSummaryShoppingCart`은 사용자의 장바구니 내 물품종류의 수량을 나타내는 컴포넌트입니다.
- *
- * 기본 색상이 white이므로 Dark 모드로 변경하여 해당 스토리를 보시는 것을 추천합니다.
  */
 const meta: Meta<typeof UserSummaryShoppingCart> = {
   title: 'UserSummaryShoppingCart',

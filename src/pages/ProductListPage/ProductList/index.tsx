@@ -1,21 +1,26 @@
-import SkeletonProductItem from '@Components/ProductItem/Skeleton';
 import ProductItem from '@Components/ProductItem/index';
+import { useEffect, useState } from 'react';
+
+import { getFetchProductList } from '@Api/index';
 
 import { Product } from '@Types/index';
-
-import useFetch from '@Hooks/useFetch';
-
-import { MOCK_DATA_URL } from '@Constants/index';
 
 import * as S from './style';
 
 function ProductList() {
-  const { data, isLoading } = useFetch<Product[]>(MOCK_DATA_URL);
+  const [productList, setProductList] = useState<Product[]>([]);
+
+  useEffect(() => {
+    getFetchProductList<Product[]>().then((res) => {
+      setProductList(res);
+    });
+  }, []);
 
   return (
     <S.ProductListContainer>
-      {isLoading && Array.from({ length: 12 }, (_, index) => <SkeletonProductItem key={index} isLoading={isLoading} />)}
-      {!isLoading && data && data.map((data) => <ProductItem product={data} key={data.id} isLoading={isLoading} />)}
+      {productList.map((data: Product) => (
+        <ProductItem product={data} key={data.id} />
+      ))}
     </S.ProductListContainer>
   );
 }

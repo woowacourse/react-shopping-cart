@@ -40,7 +40,12 @@
             "position": "after"
           },
           {
-            "pattern": "@Styles/*",
+            "pattern": "@Constants/*",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@Api/*",
             "group": "internal",
             "position": "after"
           },
@@ -64,8 +69,19 @@
             "group": "internal",
             "position": "after"
           },
+
           {
-            "pattern": "@Constants/*",
+            "pattern": "@Styles/*",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@Utils/*",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@Assets/*",
             "group": "internal",
             "position": "after"
           }

@@ -1,31 +1,40 @@
-import ShoppingCart from '@Asset/ShoppingCart.png';
 import { useState } from 'react';
 
 import { ALERT_MESSAGE, QUANTITY_CONTROL_BUTTON, QUANTITY_CONTROL_UNIT, SHOPPING_QUANTITY } from '@Constants/index';
+
+import ShoppingCart from '@Assets/ShoppingCart.png';
 
 import * as S from './style';
 
 type QuantityControllerProps = {
   quantity: number;
   changeProductQuantity: (quantity: number) => void;
+  minCount?: number;
 };
 
 type QuantityControlButton = (typeof QUANTITY_CONTROL_BUTTON)[keyof typeof QUANTITY_CONTROL_BUTTON];
 
-function QuantityController({ quantity, changeProductQuantity }: QuantityControllerProps) {
+function QuantityController({
+  quantity,
+  changeProductQuantity,
+  minCount = SHOPPING_QUANTITY.MIN,
+}: QuantityControllerProps) {
   const [proceeding, setProceeding] = useState(Boolean);
 
   const changeQuantityDefault = () => {
     changeProductQuantity(SHOPPING_QUANTITY.DEFAULT);
   };
-  if (quantity === SHOPPING_QUANTITY.MIN && !proceeding)
+
+  if (quantity === SHOPPING_QUANTITY.MIN && !proceeding) {
     return (
       <S.ShoppingCartIcon
+        tab-index="0"
         src={ShoppingCart}
         onClick={changeQuantityDefault}
         data-testid="shopping-cart-icon"
       ></S.ShoppingCartIcon>
     );
+  }
 
   const updateQuantityWithButton = (type: QuantityControlButton) => {
     if (type === QUANTITY_CONTROL_BUTTON.PLUS) {
@@ -45,7 +54,7 @@ function QuantityController({ quantity, changeProductQuantity }: QuantityControl
       return;
     }
 
-    changeProductQuantity(newValue);
+    changeProductQuantity(newValue <= minCount ? minCount : newValue);
   };
 
   return (
@@ -66,7 +75,7 @@ function QuantityController({ quantity, changeProductQuantity }: QuantityControl
         </S.QuantityControlButton>
         <S.QuantityControlButton
           onClick={() => updateQuantityWithButton(QUANTITY_CONTROL_BUTTON.MINUS)}
-          disabled={quantity <= SHOPPING_QUANTITY.MIN}
+          disabled={quantity <= minCount}
         >
           ▼
         </S.QuantityControlButton>

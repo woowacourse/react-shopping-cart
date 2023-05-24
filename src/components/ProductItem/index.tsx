@@ -2,6 +2,8 @@ import { useRecoilValue } from 'recoil';
 
 import QuantityController from '@Components/QuantityController';
 
+import { Product } from '@Types/index';
+
 import useShoppingCart from '@Hooks/useShoppingCart';
 
 import quantityState from '@Selector/quantityState';
@@ -9,16 +11,10 @@ import quantityState from '@Selector/quantityState';
 import * as S from './style';
 
 type ProductItemProps = {
-  product: {
-    id: number;
-    price: number;
-    name: string;
-    imageUrl: string;
-  };
-  isLoading: false;
+  product: Product;
 };
 
-function ProductItem({ product, isLoading }: ProductItemProps) {
+function ProductItem({ product }: ProductItemProps) {
   const { imageUrl, name, price, id } = product;
 
   const { updateShoppingCart } = useShoppingCart();
@@ -28,13 +24,15 @@ function ProductItem({ product, isLoading }: ProductItemProps) {
 
   return (
     <S.Container aria-label="하나의 판매 품목 정보">
-      <S.ProductItemImage src={imageUrl} alt={`${name} 사진`} />
+      <S.ProductItemImageFrame>
+        <S.ProductItemImage src={imageUrl} alt={`${name} 사진`} />
+      </S.ProductItemImageFrame>
       <S.ProductItemContents>
         <S.ProductItemLayout>
-          <S.ProductItemName aria-label={'판매 품목 이름'} isLoading={isLoading}>
+          <S.ProductItemName aria-label={'판매 품목 이름'} isLoading={false}>
             {name}
           </S.ProductItemName>
-          <S.ProductItemPrice aria-label={'판매 품목 가격'} isLoading={isLoading}>
+          <S.ProductItemPrice aria-label={'판매 품목 가격'} isLoading={false}>
             {`${priceText} 원`}
           </S.ProductItemPrice>
         </S.ProductItemLayout>

@@ -81,11 +81,15 @@
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-storybook": "^0.6.12",
+    "msw": "^1.2.1",
     "prettier": "^2.8.8",
     "prop-types": "^15.8.1",
     "react-app-alias": "^2.2.2",
     "storybook": "^7.0.9",
     "tsconfig-paths-webpack-plugin": "^4.0.1",
     "webpack": "^5.82.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

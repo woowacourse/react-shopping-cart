@@ -88,6 +88,8 @@ const resetStyle = css`
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
+    text-decoration: none;
+    outline: none;
   }
 
   article,
@@ -124,6 +126,12 @@ const resetStyle = css`
   table {
     border-collapse: collapse;
     border-spacing: 0;
+  }
+
+  a:hover,
+  a:active {
+    text-decoration: none;
+    color: #fff;
   }
 `;
 

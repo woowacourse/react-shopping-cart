@@ -3,14 +3,16 @@
     "baseUrl": "./src",
     "paths": {
       "@Components/*": ["./components/*"],
+      "@Pages/*": ["./pages/*"],
       "@Constants/*": ["./constants/*"],
+      "@Api/*": ["./api/*"],
+      "@Types/*": ["./types/*"],
       "@Hooks/*": ["./hooks/*"],
       "@Atoms/*": ["./atoms/*"],
       "@Selector/*": ["./selector/*"],
-      "@Pages/*": ["./pages/*"],
-      "@Types/*": ["./types/*"],
-      "@Asset/*": ["./assets/*"],
-      "@Styles/*": ["./styles/*"]
+      "@Utils/*": ["./utils/*"],
+      "@Styles/*": ["./styles/*"],
+      "@Assets/*": ["./assets/*"]
     }
   }
 }

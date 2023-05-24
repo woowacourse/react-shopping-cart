@@ -1,5 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+
+import ResetStyle from '@Styles/GlobalStyle';
 
 import Header from '.';
 
@@ -10,7 +13,14 @@ import Header from '.';
  */
 const meta: Meta<typeof Header> = {
   title: 'Header',
-  decorators: [(storyFn) => <RecoilRoot>{storyFn()}</RecoilRoot>],
+  decorators: [
+    (storyFn) => (
+      <BrowserRouter>
+        <ResetStyle />
+        <RecoilRoot>{storyFn()}</RecoilRoot>
+      </BrowserRouter>
+    ),
+  ],
   component: Header,
 };
 
