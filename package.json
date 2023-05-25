@@ -30,12 +30,17 @@
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
     "@types/styled-components": "^5.1.26",
+    "copy-webpack-plugin": "^11.0.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.1",
+    "msw": "^1.2.1",
     "react-docgen-typescript-plugin": "^1.0.5",
     "ts-loader": "^9.4.2",
     "typescript": "^5.0.4",
     "webpack-cli": "^5.1.0",
     "webpack-dev-server": "^4.15.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

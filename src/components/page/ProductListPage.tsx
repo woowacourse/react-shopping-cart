@@ -1,16 +1,14 @@
 import styled from 'styled-components';
-import { Header, ProductList } from '../../components';
 
-import mockProduct from '../../../public/assets/mockProducts.json';
+import Header from '../common/Header';
+import ProductList from '../productList/ProductList';
 
 export default function ProductListPage() {
-  const products = mockProduct;
-
   return (
     <Wrapper>
       <Header />
       <main>
-        <ProductList products={products} />
+        <ProductList />
       </main>
     </Wrapper>
   );
