@@ -14,18 +14,38 @@ import * as Text from '@components/commons/Text/Text';
 import ProductStepper from '@components/pages/ProductsPage/ProductList/ProductItem/ProductStepper/ProductStepper';
 import { Button as DeleteButton } from '@commons/Button/Button';
 import { TrashCan } from '@assets/index';
+import { useSetRecoilState } from 'recoil';
+import { cartItemsState } from '@recoil/atom';
+import useFetch from '@hooks/useFetch';
 
 export interface CartItemProps {
   cartItemId: number;
   quantity: number;
   product: Product;
-  handleDeleteButtonClick: (productId: number) => void;
   setIsDeleteItem: Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CartItem = (props: CartItemProps) => {
-  const { product, quantity, handleDeleteButtonClick, setIsDeleteItem } = props;
+  const { product, quantity, setIsDeleteItem } = props;
   const { id, name, price, imageUrl } = product;
+  const setCartItems = useSetRecoilState(cartItemsState);
+  const { deleteData } = useFetch('/cart-items');
+
+  const handleDeleteButtonClick = (productId: number) => {
+    deleteData(`/${productId}`);
+
+    setCartItems(prev => {
+      const newCartItems = { ...prev };
+      const key = `product${productId}`;
+      delete newCartItems[key];
+
+      return newCartItems;
+    });
+
+    setIsDeleteItem(() => true);
+
+    return;
+  };
 
   return (
     <StyledCartItem>

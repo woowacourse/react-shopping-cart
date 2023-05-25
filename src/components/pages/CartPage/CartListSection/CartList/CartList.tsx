@@ -14,13 +14,12 @@ interface CartItem {
 }
 
 interface CartListProps {
-  handleDeleteButtonClick: (productId: number) => void;
   isDeleteItem: boolean;
   setIsDeleteItem: Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CartList = (props: CartListProps) => {
-  const { handleDeleteButtonClick, isDeleteItem, setIsDeleteItem } = props;
+  const { isDeleteItem, setIsDeleteItem } = props;
 
   return (
     <FetchedDataList<CartItem[]>
@@ -40,7 +39,6 @@ const CartList = (props: CartListProps) => {
                     cartItemId={item.id}
                     quantity={item.quantity}
                     product={item.product}
-                    handleDeleteButtonClick={handleDeleteButtonClick}
                     setIsDeleteItem={setIsDeleteItem}
                   />
                 );
