@@ -5,57 +5,80 @@ import {
   cartState,
   cartTotalState,
 } from '../../atoms/cartState';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import {
+  useRecoilState,
+  useRecoilValue_TRANSITION_SUPPORT_UNSTABLE,
+  useSetRecoilState,
+} from 'recoil';
 import { cartSelects } from '../../atoms/cartSelects';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState, useTransition } from 'react';
 import { CartType } from '../../type/cart';
+import ErrorBoundary from '../common/ErrorBoundary';
 
 export default function SelectCartItem() {
-  const cart = useRecoilValue(cartState({ action: 'GET' }));
-  const cartTotal = useRecoilValue(cartTotalState);
+  const cart = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(
+    cartState({ action: 'GET' })
+  );
+  const cartTotal = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(cartTotalState);
+
   const [cartSelectsState, setCartSelectsState] = useRecoilState(cartSelects);
   const setRequestAction = useSetRecoilState(
     cartRequestAction({ action: 'GET' })
   );
   const [checkAll, setCheckAll] = useState(false);
 
+  const [inTrans, startTrans] = useTransition();
+
   useEffect(() => {
-    setCheckAll(cartSelectsState.size === cartTotal && cartTotal !== 0);
+    startTrans(() => {
+      setCheckAll(cartSelectsState.size === cartTotal && cartTotal !== 0);
+    });
   }, [cartTotal, cartSelectsState]);
-  useEffect(() => {
-    if (checkAll) {
-      const newCartSelects = cart.map((cartItem: CartType) => cartItem.id);
-      setCartSelectsState(new Set(newCartSelects));
-    }
-    if (!checkAll && cartSelectsState.size === cartTotal) {
-      setCartSelectsState(new Set());
-    }
-  }, [checkAll]);
 
   const deleteSelectCartItem = () => {
-    cartSelectsState.forEach((cartSelect) => {
-      setRequestAction({
-        action: 'DELETE',
-        payload: { cartId: cartSelect },
+    startTrans(() => {
+      cartSelectsState.forEach((cartSelect) => {
+        setRequestAction({
+          action: 'DELETE',
+          payload: { cartId: cartSelect },
+        });
+        setCartSelectsState(new Set());
       });
-      setCartSelectsState(new Set());
     });
   };
 
   return (
-    <SelectCartItemContainer>
-      <SelectBox
-        checked={checkAll}
-        type='checkbox'
-        onChange={() => setCheckAll((checkAll) => !checkAll)}
-      />
-      <Text>
-        전체선택({cartSelectsState.size}/{cartTotal})
-      </Text>
-      <SelectDeleteButton onClick={deleteSelectCartItem}>
-        선택 삭제
-      </SelectDeleteButton>
-    </SelectCartItemContainer>
+    <ErrorBoundary>
+      {inTrans ? <div>loading..</div> : null}
+      <Suspense>
+        <SelectCartItemContainer>
+          <SelectBox
+            checked={checkAll}
+            type='checkbox'
+            onChange={() => {
+              setCheckAll((checkAll) => !checkAll);
+              startTrans(() => {
+                if (checkAll) {
+                  const newCartSelects = cart.map(
+                    (cartItem: CartType) => cartItem.id
+                  );
+                  setCartSelectsState(new Set(newCartSelects));
+                }
+                if (!checkAll && cartSelectsState.size === cartTotal) {
+                  setCartSelectsState(new Set());
+                }
+              });
+            }}
+          />
+          <Text>
+            전체선택({cartSelectsState.size}/{cartTotal})
+          </Text>
+          <SelectDeleteButton onClick={deleteSelectCartItem}>
+            선택 삭제
+          </SelectDeleteButton>
+        </SelectCartItemContainer>
+      </Suspense>
+    </ErrorBoundary>
   );
 }
 

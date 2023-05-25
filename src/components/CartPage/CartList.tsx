@@ -1,36 +1,44 @@
 import styled from 'styled-components';
 import CartListItem from './CartListItem';
 import SelectCartItem from './SelectCartItem';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE } from 'recoil';
 import { cartState } from '../../atoms/cartState';
-import { Suspense } from 'react';
+import { Suspense, useTransition } from 'react';
 import CartListHeader from './CartList/CartListHeader';
 import ErrorBoundary from '../common/ErrorBoundary';
+import { CartType } from '../../type/cart';
 
-function CartListItems() {
-  const cart = useRecoilValue(cartState({ action: 'GET' }));
-
+interface CartListItemsProps {
+  cart: CartType[];
+}
+function CartListItems({ cart }: CartListItemsProps) {
   return (
-    <>
+    <Suspense>
       {cart.map((cartItem) => (
         <CartListItem key={cartItem.id} {...cartItem} />
       ))}
-    </>
+    </Suspense>
   );
 }
 
 export default function CartList() {
+  const cart = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(
+    cartState({ action: 'GET' })
+  );
+  const [inTrans] = useTransition();
+
   return (
     <CartListContainer>
-      <Suspense fallback={<Header>든든 배송 상품 (0개)</Header>}>
-        <CartListHeader />
-      </Suspense>
       <ErrorBoundary>
-        <Suspense fallback={<div>Loading...</div>}>
-          <CartListItems />
+        <Suspense fallback={<Header>든든 배송 상품 (0개)</Header>}>
+          <CartListHeader />
+        </Suspense>
+        {inTrans ? <div>loading...</div> : null}
+        <Suspense>
+          <CartListItems cart={cart} />
         </Suspense>
       </ErrorBoundary>
-      <Suspense fallback={<></>}>
+      <Suspense>
         <SelectCartItem />
       </Suspense>
     </CartListContainer>
