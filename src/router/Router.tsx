@@ -15,7 +15,7 @@ const Router = () => {
           element: <ListPage />,
         },
         {
-          path: '/cart',
+          path: PAGE_PATH.CART,
           element: <CartPage />,
         },
       ],

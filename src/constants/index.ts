@@ -4,4 +4,5 @@ export const LOCAL_STORAGE_KEY = {
 
 export const PAGE_PATH = {
   HOME: '/',
+  CART: '/cart',
 };
