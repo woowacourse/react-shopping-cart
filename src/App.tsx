@@ -18,7 +18,9 @@ import { FETCH_URL, PATH } from './constants';
 
 export const App = () => {
   const baseUrl = useApiBaseUrlValue();
-  const { data: cart, loading, error } = useQuery<CartItemType[]>(baseUrl + FETCH_URL.CART_ITEMS);
+  const { data: cart } = useQuery<CartItemType[]>(baseUrl + FETCH_URL.CART_ITEMS, {
+    Authorization: `Basic ${btoa(process.env.REACT_APP_API_CREDENTIAL!)}`,
+  });
 
   const setCartState = useSetCartState();
 
@@ -34,9 +36,6 @@ export const App = () => {
     setCartState((prev) => {
       if (!isEqual(prev, cart)) return cart;
 
-      // 두 객체가 같다면 굳이 또 Set해주는 것으로 리렌더링을 발생시키고 싶지 않다
-      // prev를 그대로 return해도 객체이기 때문에 set 함수 내부의 === 비교 로직 결과가 false가 되니 리렌더링이 일어난다
-      // TODO 이 문제를 어떻게 해결할 수 있을까
       return prev;
     });
   }, [cart]);
