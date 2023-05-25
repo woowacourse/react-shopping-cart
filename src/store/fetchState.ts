@@ -11,17 +11,6 @@ export const fetchedShoppingListAtom = atom<Cart[]>({
   default: [],
 });
 
-export const targetShoppingSelector = selector({
-  key: "targetShopping",
-  get:
-    ({ get }) =>
-    (id: number) => {
-      return get(fetchedShoppingListAtom).find(
-        (shoppingProduct) => shoppingProduct.id === id
-      ) as Cart;
-    },
-});
-
 export const targetProductSelector = selector({
   key: "targetProduct",
   get:

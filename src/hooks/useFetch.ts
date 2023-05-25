@@ -3,7 +3,7 @@ import {
   fetchedProductListAtom,
   fetchedShoppingListAtom,
 } from "../store/fetchState";
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useEffect } from "react";
 import { fetchGetQuery } from "../api";
 import { Cart, Product } from "../types/product";
 import { cartIdAtom } from "../store/cartState";
@@ -29,6 +29,7 @@ const useFetchData = (handleIsLoading: VoidFunction) => {
         );
         const productData = await fetchGetQuery<Product[]>("/products");
         setFetchedProductList(productData);
+
         setTimeout(() => handleIsLoading(), 2000);
       } catch (error) {
         ChangeErrorTrue(FETCH.GET, ERROR_MESSAGE.PRODUCT);

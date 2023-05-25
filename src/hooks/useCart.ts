@@ -2,19 +2,17 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { cartAtomFamily, cartIdAtom } from "../store/cartState";
 import { useState } from "react";
 import { Cart } from "../types/product";
-import {
-  targetProductSelector,
-  targetShoppingSelector,
-} from "../store/fetchState";
+import { targetProductSelector } from "../store/fetchState";
 import { fetchDeleteQuery, fetchPatchQuery, fetchPostQuery } from "../api";
 import { ERROR_MESSAGE, FETCH, ZERO } from "../abstract/constants";
 import useError from "./useError";
+import useTargetShoppingSelector from "./useTargetShopping";
 
 const useCart = (productId: number) => {
   const [cart, setCart] = useRecoilState(cartAtomFamily(productId));
   const [cartId, setCartId] = useRecoilState(cartIdAtom);
   const product = useRecoilValue(targetProductSelector)(productId);
-  const shoppingProduct = useRecoilValue(targetShoppingSelector)(productId);
+  const shoppingProduct = useTargetShoppingSelector(productId);
 
   const productInCart = cart.quantity ? true : false;
   const [isCartClicked, setIsCartClicked] = useState(Boolean(productInCart));
@@ -60,7 +58,7 @@ const useCart = (productId: number) => {
       quantity: ZERO,
       product,
     };
-    setCart(updateProduct);
+    setCart(() => updateProduct);
     setIsCartClicked(false);
     const newCartID = cartId.filter((id) => id !== productId);
     setCartId(newCartID);

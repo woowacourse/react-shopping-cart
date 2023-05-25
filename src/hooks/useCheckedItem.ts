@@ -35,25 +35,8 @@ const useCheckedItem = (length: number) => {
   };
 
   const deleteCheckedAll = () => {
-    const deleteIndices = isChecked.reduce(
-      (indices: number[], value, index) => {
-        if (value) {
-          indices.push(index);
-        }
-        return indices;
-      },
-      []
-    );
-
-    setIsDeleted((prevIsDeleted) => {
-      const newIsDeleted = [...prevIsDeleted];
-
-      deleteIndices.forEach((index) => {
-        newIsDeleted[index] = true;
-      });
-
-      return newIsDeleted;
-    });
+    const newIsDeleted = [...isChecked];
+    setIsDeleted(newIsDeleted);
   };
 
   const countIsChecked = isChecked.reduce((count, value) => {

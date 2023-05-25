@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import { ThemeProvider } from "styled-components";
 import Styled from "./ShoppingInfoStyled";
 import useCart from "../../../hooks/useCart";
@@ -28,7 +28,9 @@ const ShoppingInfo = ({
     await deleteToCart();
   };
 
-  if (isDeleted) handleDelete();
+  useEffect(() => {
+    if (isDeleted) handleDelete();
+  }, [isDeleted]);
 
   return (
     <>
