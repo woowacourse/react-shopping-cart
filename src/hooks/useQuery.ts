@@ -6,7 +6,7 @@ interface State<T> {
   error?: object;
 }
 
-export const useQuery = <T>(url: string, headers?: any) => {
+export const useQuery = <T>(url: string, headers?: HeadersInit) => {
   const [state, setState] = useState<State<T>>({
     loading: false,
   });

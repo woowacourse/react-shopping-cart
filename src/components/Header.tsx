@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
 
 import { styled } from 'styled-components';
@@ -10,7 +11,7 @@ import { useApiBaseUrlState } from '../recoils/recoilApiBaseUrl';
 export const Header = () => {
   const [apiUrlkey, setApiUrlKey] = useApiBaseUrlState();
 
-  const onChange = ({ target: { value } }: any) => {
+  const onChange = ({ target: { value } }: ChangeEvent<HTMLSelectElement>) => {
     setApiUrlKey(value);
   };
 

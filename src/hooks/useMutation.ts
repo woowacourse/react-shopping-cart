@@ -34,9 +34,8 @@ export const useMutation = (method: string) => {
         if (response.ok) {
           return { location };
         }
-      } catch (e) {
-        console.log(e);
-        setState((prev) => ({ ...prev, error }));
+      } catch (error) {
+        console.log(error);
       } finally {
         setState((prev) => ({ ...prev, loading: false }));
       }
