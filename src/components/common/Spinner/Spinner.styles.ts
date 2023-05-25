@@ -3,9 +3,9 @@ import { styled } from 'styled-components';
 import { SpinnerProps } from './Spinner';
 
 const Spinner = styled.div<SpinnerProps>`
-  width: ${({ size }) => size}px;
-  height: ${({ size }) => size}px;
-  border: ${({ width }) => width}px solid ${({ theme }) => theme.color.gray1};
+  width: ${({ size }) => size};
+  height: ${({ size }) => size};
+  border: ${({ width, theme }) => `${width} solid ${theme.color.gray1}`};
   border-bottom-color: ${({ disabled, theme }) =>
     disabled ? theme.color.gray3 : theme.color.primary};
   border-radius: 50%;

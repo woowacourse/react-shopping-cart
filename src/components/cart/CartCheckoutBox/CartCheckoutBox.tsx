@@ -36,7 +36,7 @@ const CartCheckoutBox = () => {
         </S.CheckoutTotalPriceContainer>
         {isLoading ? (
           <Button className="loading-button" aria-label="주문하기" variant="primary" disabled>
-            <Spinner size={18} width={3} disabled />
+            <Spinner size="18px" width="3px" disabled />
           </Button>
         ) : (
           <Button variant="primary" disabled={isCartEmpty}>
