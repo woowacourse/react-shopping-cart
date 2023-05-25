@@ -5,17 +5,30 @@ import { styled } from 'styled-components';
 import { CartSize } from './CartSize';
 
 import { CartLogo } from '../assets/svg';
+import { useApiBaseUrlState } from '../recoils/recoilApiBaseUrl';
 
 export const Header = () => {
+  const [apiUrlkey, setApiUrlKey] = useApiBaseUrlState();
+
+  const onChange = ({ target: { value } }: any) => {
+    setApiUrlKey(value);
+  };
+
   return (
     <Style.Container>
       <Style.Content>
         <Style.Title to="/">
           <CartLogo fill="var(--grey-100)" style={{ width: '40px' }} />
         </Style.Title>
-        <Style.CartLink to="/shopping-cart">
-          <CartSize />
-        </Style.CartLink>
+        <Style.RightWrapper>
+          <Style.Selector onChange={onChange} value={apiUrlkey}>
+            <option value="이리내">이리내</option>
+            <option value="채채">채채</option>
+          </Style.Selector>
+          <Style.CartLink to="/shopping-cart">
+            <CartSize />
+          </Style.CartLink>
+        </Style.RightWrapper>
       </Style.Content>
     </Style.Container>
   );
@@ -59,6 +72,19 @@ const Style = {
       content: 'SHOP';
       padding-left: 12px;
     }
+  `,
+
+  RightWrapper: styled.div`
+    display: flex;
+    align-items: center;
+  `,
+
+  Selector: styled.select`
+    height: 42px;
+    width: 102px;
+
+    font-size: 16px;
+    margin-right: 30px;
   `,
 
   CartLink: styled(Link)`
