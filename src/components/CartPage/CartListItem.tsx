@@ -5,10 +5,11 @@ import CheckIconImage from '../../asset/check_icon.svg';
 import useCount from '../../hooks/useCount';
 import { Product } from '../../type/product';
 import DeleteButton from './DeleteButton';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { cartSelectsState } from '../../atoms/cartSelects';
 import { cartRequestAction } from '../../atoms/cartState';
+import useDebounce from '../../hooks/useDebounce';
 
 interface CartListItemProps {
   id: number;
@@ -28,20 +29,16 @@ export default function CartListItem({
     cartRequestAction({ action: 'GET' })
   );
   const isChecked = cartSelects.has(id);
-
-  let countDebounceId = useRef<NodeJS.Timeout>();
+  const countDebounce = useDebounce(() => {
+    setRequestAction({
+      action: 'PATCH',
+      payload: { cartId: id, quantity: count.value },
+    });
+  });
 
   useEffect(() => {
-    if (countDebounceId.current) {
-      clearTimeout(countDebounceId.current);
-    }
-    countDebounceId.current = setTimeout(() => {
-      setRequestAction({
-        action: 'PATCH',
-        payload: { cartId: id, quantity: count.value },
-      });
-    }, 400);
-  }, [count, setRequestAction]);
+    countDebounce();
+  }, [count]);
 
   return (
     <CartListItemContainer>
