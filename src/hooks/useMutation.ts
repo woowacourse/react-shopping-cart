@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 
 interface UseMutationState {
   loading: boolean;
-  data?: Object;
+  data?: any;
   error?: object;
 }
 
@@ -14,19 +14,32 @@ export const useMutation = (method: string) => {
   const { loading, data, error } = state;
 
   const mutation = useCallback(
-    (url: string, bodyData?: object) => {
+    async (url: string, bodyData?: object) => {
       setState({ loading: true });
 
-      fetch(url, {
-        method,
-        headers: { 'Content-Type': 'application/json' },
-        ...(bodyData && { body: JSON.stringify(bodyData) }),
-      })
-        .then((response) => response.json())
-        .catch((error) => console.log(error))
-        .then((json) => setState((prev) => ({ ...prev, data: json })))
-        .catch((error) => setState((prev) => ({ ...prev, error })))
-        .finally(() => setState((prev) => ({ ...prev, loading: false })));
+      try {
+        const response = await fetch(url, {
+          method,
+          headers: {
+            Authorization: `Basic ${btoa(process.env.REACT_APP_API_CREDENTIAL!)}`,
+            'Content-Type': 'application/json',
+          },
+          ...(bodyData && { body: JSON.stringify(bodyData) }),
+        });
+
+        const location = response.headers.get('location');
+
+        setState((prev) => ({ ...prev, data: { location } }));
+
+        if (response.ok) {
+          return { location };
+        }
+      } catch (e) {
+        console.log(e);
+        setState((prev) => ({ ...prev, error }));
+      } finally {
+        setState((prev) => ({ ...prev, loading: false }));
+      }
     },
     [method]
   );
