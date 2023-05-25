@@ -48,7 +48,6 @@ const ProductStepper = (props: ProductStepperProps) => {
   };
 
   const handlePatchData = async (newQuantity: number) => {
-    console.log(url);
     if (url === '') return;
 
     await patchData({ quantity: newQuantity }, url);

@@ -22,7 +22,7 @@ export const FetchedDataList = <T,>(props: FetchedDataListProps<T>) => {
       setData(data);
     } catch (error) {
       setIsError(true);
-      console.log(error);
+      console.error(error);
     }
   }, [getData]);
 

@@ -9,8 +9,6 @@ import { Button } from '@components/commons/Button/Button';
 import * as Text from '@commons/Text/Text';
 
 const PaymentSection = () => {
-  // const checkedCartItems = useRecoilValue(checkedCartItemsState);
-
   return (
     <StyledPaymentSection>
       <StyledPaymentInfoBox>
