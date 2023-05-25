@@ -25,21 +25,24 @@ export const cartState = selectorFamily<CartType[], any>({
     async ({ get }) => {
       const { action, payload } = get(cartRequestAction(request)); // add dependency
       switch (action) {
-        case 'GET':
-          return await cartQuery();
         case 'POST':
           const cartId = await postCartItemQuery(payload.productId);
           await patchCartItemQuantityQuery(cartId, payload.quantity);
-          return await cartQuery();
+          break;
         case 'PATCH':
           await patchCartItemQuantityQuery(payload.cartId, payload.quantity);
-          return await cartQuery();
+          break;
         case 'DELETE':
           await deleteItemQuery(payload.cartId);
-          return await cartQuery();
+          break;
+        case 'GET':
+          break;
         default:
-          return await cartQuery();
+          throw new Error(
+            'InValid Method : 유효하지 않은 요청 메서드를 사용하고 있습니다.'
+          );
       }
+          return await cartQuery();
     },
 });
 
