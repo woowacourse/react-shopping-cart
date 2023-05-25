@@ -8,17 +8,43 @@ import {
 } from '../api/api';
 import type { CartType } from '../type/cart';
 
-interface RequestAction {
-  action: string;
-  payload?: any;
-}
+type GetRequestAction = {
+  action: 'GET';
+  payload?: {};
+};
 
-export const cartRequestAction = atomFamily<RequestAction, any>({
-  key: 'cartRequestAction',
-  default: { action: 'GET', payload: {} },
-});
+type PostRequestAction = {
+  action: 'POST';
+  payload: {
+    productId: number;
+    quantity: number;
+  };
+};
 
-export const cartState = selectorFamily<CartType[], any>({
+type PatchRequestAction = {
+  action: 'PATCH';
+  payload: { cartId: number; quantity: number };
+};
+
+type DeleteRequestAction = {
+  action: 'DELETE';
+  payload: { cartId: number };
+};
+
+type AllRequestAction =
+  | GetRequestAction
+  | PostRequestAction
+  | PatchRequestAction
+  | DeleteRequestAction;
+
+export const cartRequestAction = atomFamily<AllRequestAction, AllRequestAction>(
+  {
+    key: 'cartRequestAction',
+    default: { action: 'GET', payload: {} },
+  }
+);
+
+export const cartState = selectorFamily<CartType[], AllRequestAction>({
   key: 'cartQuery',
   get:
     (request) =>
