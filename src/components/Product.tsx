@@ -1,26 +1,45 @@
 import { styled } from 'styled-components';
 import { CartIcon } from '../assets/svg';
 
-import { useCartItemValue } from '../recoils/recoilCart';
-import { useUpdateCart } from '../hooks/useUpdateCart';
+import { useCartItemValue, useSetCartState } from '../recoils/recoilCart';
 
 import { Stepper } from './Stepper';
-
 import { ProductType } from '../types';
+import { useMutation } from '../hooks/useMutation';
+import { FETCH_METHOD, FETCH_URL } from '../constants';
+import { useApiBaseUrlValue } from '../recoils/recoilApiBaseUrl';
+import { useEffect } from 'react';
 
 interface Props {
   item: ProductType;
 }
 
 export const Product = ({ item }: Props) => {
-  const { addProductToCart } = useUpdateCart();
-  const productInCart = useCartItemValue(item.id);
+  const baseUrl = useApiBaseUrlValue();
+  const { mutation: addCartMutation, data: addCartResponseData } = useMutation(FETCH_METHOD.POST);
+
+  const cartItem = useCartItemValue(item.id);
+
+  useEffect(() => {
+    if (!addCartResponseData) return;
+
+    const cartId = addCartResponseData.location.split('/').pop();
+
+    setCart((prev) => [
+      {
+        id: cartId,
+        quantity: 1,
+        product: item,
+      },
+      ...prev,
+    ]);
+  }, [addCartResponseData]);
+
+  const setCart = useSetCartState();
 
   const onClickCartIcon = () => {
-    addProductToCart({
-      id: item.id,
-      quantity: 1,
-      product: item,
+    addCartMutation(baseUrl + FETCH_URL.CART_ITEMS, {
+      productId: item.id,
     });
   };
 
@@ -32,9 +51,9 @@ export const Product = ({ item }: Props) => {
           <Style.ProductName>{item.name}</Style.ProductName>
           <Style.ProductPrice>{item.price.toLocaleString('ko-KR')}원</Style.ProductPrice>
         </div>
-        {Boolean(productInCart) ? (
+        {cartItem ? (
           <Style.StepperWrapper>
-            <Stepper productId={item.id} quantity={productInCart?.quantity || 1} />
+            <Stepper cartId={cartItem.id} quantity={cartItem.quantity || 1} />
           </Style.StepperWrapper>
         ) : (
           <Style.CartIconWrapper onClick={onClickCartIcon}>
@@ -47,7 +66,7 @@ export const Product = ({ item }: Props) => {
 };
 
 const Style = {
-  Container: styled.div`
+  Container: styled.li`
     width: 282px;
   `,
 
