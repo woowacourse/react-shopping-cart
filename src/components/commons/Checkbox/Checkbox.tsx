@@ -11,12 +11,11 @@ export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   border?: string | null;
   borderRadius?: string | number | null;
   backgroundColor?: string | null;
-  handleWholeCheckboxClick?: () => void;
 }
 
 export const Checkbox = (props: CheckboxProps) => {
   const [isChecked, setIsChecked] = useState(false);
-  const { productId, handleWholeCheckboxClick } = props;
+  const { productId } = props;
   const setCheckedCartItems = useSetRecoilState(checkedCartItemsState);
 
   useEffect(() => {
@@ -48,7 +47,6 @@ export const Checkbox = (props: CheckboxProps) => {
       {...props}
       onClick={() => {
         setIsChecked(!isChecked);
-        if (handleWholeCheckboxClick) handleWholeCheckboxClick();
       }}
     >
       {isChecked && (
