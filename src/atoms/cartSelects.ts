@@ -1,7 +1,7 @@
 import { atom, selector } from 'recoil';
 import { cartState } from './cartState';
 
-export const cartSelects = atom<Set<number>>({
+export const cartSelectsState = atom<Set<number>>({
   key: 'cartSelectsState',
   default: new Set<number>(),
 });
@@ -9,7 +9,7 @@ export const cartSelects = atom<Set<number>>({
 export const totalPrice = selector({
   key: 'totalPriceSelector',
   get: ({ get }) => {
-    const cartSelectsSet = get(cartSelects);
+    const cartSelectsSet = get(cartSelectsState);
     const cart = get(cartState({ action: 'GET' }));
 
     return Array.from(cartSelectsSet).reduce((acc, cartSelectId) => {

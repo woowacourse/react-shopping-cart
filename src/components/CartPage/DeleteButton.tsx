@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import DeleteButtonImage from '../../asset/delete_icon.png';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { cartRequestAction } from '../../atoms/cartState';
-import { cartSelects } from '../../atoms/cartSelects';
+import { cartSelectsState } from '../../atoms/cartSelects';
 
 interface DeleteButtonProps {
   cartId: number;
@@ -12,7 +12,7 @@ export default function DeleteButton({ cartId }: DeleteButtonProps) {
   const setCartRequestActions = useSetRecoilState(
     cartRequestAction({ action: 'GET' })
   );
-  const [cartSelectSet, setCartSelects] = useRecoilState(cartSelects);
+  const [cartSelects, setCartSelects] = useRecoilState(cartSelectsState);
 
   return (
     <DeleteButtonContainer
@@ -21,7 +21,7 @@ export default function DeleteButton({ cartId }: DeleteButtonProps) {
           action: 'DELETE',
           payload: { cartId: cartId },
         });
-        const newCartSelects = new Set(Array.from(cartSelectSet));
+        const newCartSelects = new Set(Array.from(cartSelects));
         newCartSelects.delete(cartId);
         setCartSelects(newCartSelects);
       }}

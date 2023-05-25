@@ -7,7 +7,7 @@ import { Product } from '../../type/product';
 import DeleteButton from './DeleteButton';
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { cartSelects } from '../../atoms/cartSelects';
+import { cartSelectsState } from '../../atoms/cartSelects';
 import { cartRequestAction } from '../../atoms/cartState';
 
 interface CartListItemProps {
@@ -24,7 +24,7 @@ export default function CartListItem({
   const { count, setCount } = useCount(quantity);
   const { name, imageUrl, price } = product;
   const [check, setCheck] = useState(false);
-  const [cartSelectsState, setCartSelectsState] = useRecoilState(cartSelects);
+  const [cartSelects, setCartSelects] = useRecoilState(cartSelectsState);
   const setRequestAction = useSetRecoilState(
     cartRequestAction({ action: 'GET' })
   );
@@ -44,18 +44,18 @@ export default function CartListItem({
   }, [count, setRequestAction]);
 
   useEffect(() => {
-    setCheck(cartSelectsState.has(id));
-  }, [cartSelectsState]);
+    setCheck(cartSelects.has(id));
+  }, [cartSelects]);
 
   useEffect(() => {
-    const newCartSelects = Array.from(cartSelectsState);
+    const newCartSelects = Array.from(cartSelects);
     const newCartSelectSet = new Set(newCartSelects);
     if (check) {
       newCartSelectSet.add(id);
     } else {
       newCartSelectSet.delete(id);
     }
-    setCartSelectsState(newCartSelectSet);
+    setCartSelects(newCartSelectSet);
   }, [check]);
 
   return (

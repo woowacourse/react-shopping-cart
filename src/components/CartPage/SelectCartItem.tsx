@@ -10,7 +10,7 @@ import {
   useRecoilValue_TRANSITION_SUPPORT_UNSTABLE,
   useSetRecoilState,
 } from 'recoil';
-import { cartSelects } from '../../atoms/cartSelects';
+import { cartSelectsState } from '../../atoms/cartSelects';
 import { Suspense, useEffect, useState, useTransition } from 'react';
 import { CartType } from '../../type/cart';
 import ErrorBoundary from '../common/ErrorBoundary';
@@ -21,7 +21,7 @@ export default function SelectCartItem() {
   );
   const cartTotal = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(cartTotalState);
 
-  const [cartSelectsState, setCartSelectsState] = useRecoilState(cartSelects);
+  const [cartSelects, setCartSelects] = useRecoilState(cartSelectsState);
   const setRequestAction = useSetRecoilState(
     cartRequestAction({ action: 'GET' })
   );
@@ -30,17 +30,17 @@ export default function SelectCartItem() {
   const [inTrans, startTrans] = useTransition();
 
   useEffect(() => {
-    setCheckAll(cartSelectsState.size === cartTotal && cartTotal !== 0);
-  }, [cartTotal, cartSelectsState]);
+    setCheckAll(cartSelects.size === cartTotal && cartTotal !== 0);
+  }, [cartTotal, cartSelects]);
 
   const deleteSelectCartItem = () => {
     startTrans(() => {
-      cartSelectsState.forEach((cartSelect) => {
+      cartSelects.forEach((cartSelect) => {
         setRequestAction({
           action: 'DELETE',
           payload: { cartId: cartSelect },
         });
-        setCartSelectsState(new Set());
+        setCartSelects(new Set());
       });
     });
   };
@@ -60,15 +60,15 @@ export default function SelectCartItem() {
                 const newCartSelects = cart.map(
                   (cartItem: CartType) => cartItem.id
                 );
-                setCartSelectsState(new Set(newCartSelects));
+                setCartSelects(new Set(newCartSelects));
               }
-              if (checkAll && cartSelectsState.size === cartTotal) {
-                setCartSelectsState(new Set());
+              if (checkAll && cartSelects.size === cartTotal) {
+                setCartSelects(new Set());
               }
             }}
           />
           <Text>
-            전체선택({cartSelectsState.size}/{cartTotal})
+            전체선택({cartSelects.size}/{cartTotal})
           </Text>
           <SelectDeleteButton onClick={deleteSelectCartItem}>
             선택 삭제
