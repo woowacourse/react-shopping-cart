@@ -11,8 +11,6 @@ import { useApiBaseUrlValue } from './recoils/recoilApiBaseUrl';
 import { Home } from './components/pages/Home';
 import { ShoppingCart } from './components/pages/ShoppingCart';
 
-import { isEqual } from './utils';
-
 import { CartItemType } from './types';
 import { FETCH_URL, PATH } from './constants';
 
@@ -29,16 +27,6 @@ export const App = () => {
 
     setCartState(cart);
   }, [cart, setCartState]);
-
-  useEffect(() => {
-    if (!cart) return;
-
-    setCartState((prev) => {
-      if (!isEqual(prev, cart)) return cart;
-
-      return prev;
-    });
-  }, [cart]);
 
   return (
     <>

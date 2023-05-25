@@ -26,12 +26,12 @@ export const Product = ({ item }: Props) => {
     const cartId = addCartResponseData.location.split('/').pop();
 
     setCart((prev) => [
+      ...prev,
       {
         id: cartId,
         quantity: 1,
         product: item,
       },
-      ...prev,
     ]);
   }, [addCartResponseData]);
 
