@@ -29,4 +29,5 @@ Styled.Img.defaultProps = {
     height: "282px",
   },
 };
+
 export default Styled;

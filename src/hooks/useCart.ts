@@ -21,9 +21,11 @@ const useCart = (productId: number) => {
 
   const { ChangeErrorTrue } = useError();
 
-  if (shoppingProduct && cart.quantity !== shoppingProduct.quantity) {
-    console.log(cart.quantity);
-    console.log(shoppingProduct.quantity);
+  if (
+    shoppingProduct &&
+    cart.quantity !== shoppingProduct.quantity &&
+    cart.quantity
+  ) {
     const data = { quantity: cart.quantity };
     try {
       fetchPatchQuery(`/cart-items/${cart.id}`, data);

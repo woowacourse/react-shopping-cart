@@ -27,7 +27,6 @@ const useFetchData = (handleIsLoading: VoidFunction) => {
             return data.id;
           })
         );
-
         const productData = await fetchGetQuery<Product[]>("/products");
         setFetchedProductList(productData);
         setTimeout(() => handleIsLoading(), 2000);
