@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { ThemeProvider } from "styled-components";
 import Styled from "./ShoppingPreviewStyled";
-import ProductPrice from "../common/ProductPrice/ProductPrice";
+import ProductPrice from "../ProductPrice/ProductPrice";
 import { cartAllPriceSelector } from "../../store/cartState";
 import { useRecoilValue } from "recoil";
 import { MONEY } from "../../abstract/constants";

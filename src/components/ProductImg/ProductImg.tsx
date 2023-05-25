@@ -1,5 +1,5 @@
 import { memo, ImgHTMLAttributes } from "react";
-import empty from "../../../assets/img/empty.jpg";
+import empty from "../../assets/img/empty.jpg";
 import Styled from "./ProductImgStyled";
 
 const ProductImg = ({ src, ...props }: ImgHTMLAttributes<HTMLImageElement>) => {

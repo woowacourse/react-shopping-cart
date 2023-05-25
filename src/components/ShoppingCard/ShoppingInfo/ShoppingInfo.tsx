@@ -2,12 +2,12 @@ import { memo } from "react";
 import { ThemeProvider } from "styled-components";
 import Styled from "./ShoppingInfoStyled";
 import useCart from "../../../hooks/useCart";
-import ProductImg from "../../common/ProductImg/ProductImg";
-import ProductName from "../../common/ProductName/ProductName";
+import ProductImg from "../../ProductImg/ProductImg";
+import ProductName from "../../ProductName/ProductName";
 import { ReactComponent as DeleteIcon } from "../../../assets/icon/delete.svg";
 import IconButton from "../../common/IconButton/IconButton";
 import Counter from "../../common/Counter/Counter";
-import ProductPrice from "../../common/ProductPrice/ProductPrice";
+import ProductPrice from "../../ProductPrice/ProductPrice";
 
 interface ShoppingInfoProps {
   cartId: number;

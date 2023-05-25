@@ -1,6 +1,6 @@
 import { memo } from "react";
-import ProductName from "../../common/ProductName/ProductName";
-import ProductPrice from "../../common/ProductPrice/ProductPrice";
+import ProductName from "../../ProductName/ProductName";
+import ProductPrice from "../../ProductPrice/ProductPrice";
 import Styled from "./ProductInfoStyled";
 
 interface ProductInfoProps {

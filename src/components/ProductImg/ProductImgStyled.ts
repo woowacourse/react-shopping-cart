@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { skeletonAnimation } from "../../../styles/GlobalStyle";
+import { skeletonAnimation } from "../../styles/GlobalStyle";
 
 const Styled = {
   Img: styled.img`
