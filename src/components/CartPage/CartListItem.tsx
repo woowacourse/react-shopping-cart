@@ -23,7 +23,6 @@ export default function CartListItem({
 }: CartListItemProps) {
   const { count, setCount } = useCount(quantity);
   const { name, imageUrl, price } = product;
-  const [check, setCheck] = useState(false);
   const [cartSelects, setCartSelects] = useRecoilState(cartSelectsState);
   const setRequestAction = useSetRecoilState(
     cartRequestAction({ action: 'GET' })
@@ -43,29 +42,23 @@ export default function CartListItem({
     }, 400);
   }, [count, setRequestAction]);
 
-  useEffect(() => {
-    setCheck(cartSelects.has(id));
-  }, [cartSelects]);
-
-  useEffect(() => {
-    const newCartSelects = Array.from(cartSelects);
-    const newCartSelectSet = new Set(newCartSelects);
-    if (check) {
-      newCartSelectSet.add(id);
-    } else {
-      newCartSelectSet.delete(id);
-    }
-    setCartSelects(newCartSelectSet);
-  }, [check]);
-
   return (
     <CartListItemContainer>
       <CartInfoContainer>
         <SelectBox
           type='checkbox'
-          checked={check}
+          checked={cartSelects.has(id)}
           onChange={() => {
-            setCheck((check) => !check);
+            const newCartSelects = Array.from(cartSelects);
+            const newCartSelectSet = new Set(newCartSelects);
+
+            if (!cartSelects.has(id)) {
+              newCartSelectSet.add(id);
+            } else {
+              newCartSelectSet.delete(id);
+            }
+            setCartSelects(newCartSelectSet);
+            console.log('change', newCartSelectSet);
           }}
         />
         <ProductImg src={imageUrl} />
