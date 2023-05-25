@@ -1,5 +1,5 @@
 import { rest } from 'msw';
-import { products } from '../data';
+import { products } from '../products';
 
 let cart = [
   {

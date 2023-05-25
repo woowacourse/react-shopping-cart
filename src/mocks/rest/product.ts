@@ -1,5 +1,5 @@
 import { rest } from 'msw';
-import { products } from '../data';
+import { products } from '../products';
 
 export const getProduct = rest.get('/products/:productId', (req, res, ctx) => {
   const product = products.find(
