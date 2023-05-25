@@ -34,8 +34,9 @@ const CartItemValue = selectorFamily<CartItemType | null, number>({
     (productId) =>
     ({ get }) => {
       const cart = get(CartState);
-      const foundProduct = cart.find((item) => item.product.id === productId);
-      return foundProduct || null;
+      const cartItem = cart.find((item) => item.product.id === productId);
+
+      return cartItem || null;
     },
 });
 

@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent } from 'react';
 
 import { styled } from 'styled-components';
 
@@ -9,28 +9,28 @@ import { Button } from './common/Button';
 import { QUANTITY } from '../constants';
 
 interface Props {
-  productId: number;
+  cartId: number;
   quantity: number;
 }
 
-export const Stepper = ({ productId, quantity }: Props) => {
+export const Stepper = ({ cartId, quantity }: Props) => {
   const { increaseProductQuantity, decreaseProductQuantity, updateProductQuantity } =
     useUpdateCart();
 
   const onClickPlusButton = () => {
     if (quantity === QUANTITY.MAX) return;
 
-    increaseProductQuantity(productId);
+    increaseProductQuantity(cartId, quantity + 1);
   };
 
   const onClickMinusButton = () => {
     if (quantity === QUANTITY.MIN) return;
 
-    decreaseProductQuantity(productId);
+    decreaseProductQuantity(cartId, quantity - 1);
   };
 
   const onChangeQuantity = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-    updateProductQuantity(productId, Number(value) || 1);
+    updateProductQuantity(cartId, Number(value) || 1);
   };
 
   return (

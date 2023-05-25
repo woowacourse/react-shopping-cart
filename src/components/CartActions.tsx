@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 
-import { useCartState } from '../recoils/recoilCart';
+import { useCartStateValue } from '../recoils/recoilCart';
 import { useCheckedState } from '../recoils/recoilChecked';
 import { useUpdateCart } from '../hooks/useUpdateCart';
 
@@ -9,7 +9,7 @@ import { Checkbox } from './styled';
 import { CheckedStateType } from '../types';
 
 export const CartActions = () => {
-  const [cart] = useCartState();
+  const cart = useCartStateValue();
   const { deleteCartItem } = useUpdateCart();
   const [checkedState, setCheckedState] = useCheckedState();
 
