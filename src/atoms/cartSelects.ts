@@ -2,12 +2,12 @@ import { atom, selector } from 'recoil';
 import { cartState } from './cartState';
 
 export const cartSelects = atom<Set<number>>({
-  key: 'cartSelects',
+  key: 'cartSelectsState',
   default: new Set<number>(),
 });
 
 export const totalPrice = selector({
-  key: 'totalPrice',
+  key: 'totalPriceSelector',
   get: ({ get }) => {
     const cartSelectsSet = get(cartSelects);
     const cart = get(cartState({ action: 'GET' }));
@@ -24,7 +24,7 @@ export const totalPrice = selector({
 });
 
 export const deliveryFee = selector({
-  key: 'deliveryFee',
+  key: 'deliveryFeeSelector',
   get: ({ get }) => {
     const cartItemsPrice = get(totalPrice);
     return cartItemsPrice > 30000 || cartItemsPrice === 0 ? 0 : 3000;
@@ -32,7 +32,7 @@ export const deliveryFee = selector({
 });
 
 export const checkoutPrice = selector({
-  key: 'checkoutPrice',
+  key: 'checkoutPriceSelector',
   get: ({ get }) => {
     const cartItemsPrice = get(totalPrice);
     const deliveryPrice = get(deliveryFee);
