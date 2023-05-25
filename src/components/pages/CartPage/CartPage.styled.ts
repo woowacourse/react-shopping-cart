@@ -3,12 +3,9 @@ import styled from 'styled-components';
 export const StyledCartPage = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 
   width: 100%;
-
-  padding: 0 100px;
+  height: 100%;
 
   & > h1 {
     width: 100%;
@@ -20,7 +17,16 @@ export const StyledCartPage = styled.div`
 
 export const StyledFlexBox = styled.div`
   display: flex;
-  column-gap: 150px;
+  justify-content: space-between;
 
   width: 100%;
+  height: 100%;
+
+  @media screen and (max-width: 1000px) {
+    flex-direction: column;
+
+    section {
+      width: 100%;
+    }
+  }
 `;

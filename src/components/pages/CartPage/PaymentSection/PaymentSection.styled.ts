@@ -5,38 +5,65 @@ export const StyledPaymentSection = styled.section`
   flex-direction: column;
   align-items: center;
 
-  margin-top: 68px;
-  padding: 28px 16px;
+  width: 40%;
+  height: 100%;
+`;
 
-  width: 400px;
-  height: 360px;
+export const StyledPaymentInfoBox = styled.div`
+  width: 100%;
+  height: 400px;
+
+  margin: 64px;
 
   border: 0.5px solid #333333;
 
   & > p {
-    padding-bottom: 28px;
+    padding: 28px 16px;
     width: 100%;
 
     border-bottom: 0.5px solid #333333;
 
     text-align: start;
+
+    @media screen and (max-width: 1000px) {
+      padding: 16px;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    height: 320px;
   }
 `;
 
 export const StyledPaymentInfo = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 300px;
+  justify-content: space-evenly;
 
-  p {
-    width: 100%;
-    margin: 20px 0;
+  height: 320px;
 
-    text-align: start;
+  padding: 0 16px;
+
+  @media screen and (max-width: 1000px) {
+    height: 280px;
   }
+`;
 
-  & > div {
+export const StyledPaymentResult = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+`;
+
+export const StyledFlexBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+
+  width: 100%;
+
+  div {
     display: flex;
     justify-content: space-between;
 
