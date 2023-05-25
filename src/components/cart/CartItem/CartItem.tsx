@@ -30,7 +30,7 @@ const CartItem = ({ id, quantity, name, price, imageUrl }: CartItemProps) => {
 
   return (
     <S.CartItemContainer>
-      <Checkbox checked={isChecked} onClick={onCheckboxClick} />
+      <Checkbox checked={isChecked} onChange={onCheckboxClick} />
       <S.CartItemImageWrapper>
         <S.CartItemImage src={imageUrl} alt={name} />
       </S.CartItemImageWrapper>
