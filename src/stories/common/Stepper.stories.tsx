@@ -28,7 +28,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    productId: 1,
+    cartId: 1,
     quantity: 5,
   },
 };
@@ -37,7 +37,7 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const ClickPlusButton: Story = {
   args: {
-    productId: 1,
+    cartId: 1,
     quantity: 1,
   },
 
@@ -56,7 +56,7 @@ export const ClickPlusButton: Story = {
 
 export const ClickMinusButton: Story = {
   args: {
-    productId: 1,
+    cartId: 1,
     quantity: 5,
   },
 
@@ -75,7 +75,7 @@ export const ClickMinusButton: Story = {
 
 export const ButtonToDisableIfMinCount: Story = {
   args: {
-    productId: 1,
+    cartId: 1,
     quantity: 2,
   },
 
@@ -95,7 +95,7 @@ export const ButtonToDisableIfMinCount: Story = {
 
 export const ButtonToDisableIfMaxCount: Story = {
   args: {
-    productId: 1,
+    cartId: 1,
     quantity: 98,
   },
 
@@ -115,7 +115,7 @@ export const ButtonToDisableIfMaxCount: Story = {
 
 export const CanNotBeOverMaxCount: Story = {
   args: {
-    productId: 1,
+    cartId: 1,
     quantity: 3,
   },
 
