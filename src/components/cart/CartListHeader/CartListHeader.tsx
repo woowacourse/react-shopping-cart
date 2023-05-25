@@ -1,15 +1,11 @@
 import { useCallback } from 'react';
-import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from 'recoil';
+import { useRecoilValueLoadable } from 'recoil';
 
-import { CART_LIST_CHECKBOX_KEY } from '../../../constants/store';
 import { useModal } from '../../../hooks/common/useModal';
 import { useCart } from '../../../hooks/useCart';
+import { useCartCheckbox } from '../../../hooks/useCartCheckbox';
 import { cartListItemCountState } from '../../../store/cart';
-import {
-  checkedItemCountState,
-  checkedListState,
-  isAllCheckedState,
-} from '../../../store/checkbox';
+import { checkedCartIdListState, isCartAllCheckedState } from '../../../store/cartCheckbox';
 import Checkbox from '../../common/Checkbox/Checkbox';
 import Modal from '../../common/Modal/Modal';
 import CartItemDelete from '../CartItemDelete/CartItemDelete';
@@ -17,31 +13,36 @@ import * as S from './CartListHeader.styles';
 
 const CartListHeader = () => {
   const cartListItemCount = useRecoilValueLoadable(cartListItemCountState);
-  const checkedItemCount = useRecoilValue(checkedItemCountState(CART_LIST_CHECKBOX_KEY));
-  const checkedIdList = useRecoilValue(checkedListState(CART_LIST_CHECKBOX_KEY));
-  const [isAllChecked, setIsAllChecked] = useRecoilState(isAllCheckedState(CART_LIST_CHECKBOX_KEY));
+  const checkedCartItems = useRecoilValueLoadable(checkedCartIdListState);
+  const isCartAllChecked = useRecoilValueLoadable(isCartAllCheckedState);
+
   const { removeCheckedItems } = useCart();
+  const { toggleAllCheckbox } = useCartCheckbox();
   const { isModalOpen, handleModalOpen, handleModalClose } = useModal();
 
   const onCheckboxClick = useCallback(() => {
-    setIsAllChecked(!isAllChecked);
-  }, [isAllChecked, setIsAllChecked]);
+    toggleAllCheckbox();
+  }, [toggleAllCheckbox]);
 
   const deleteCheckedItems = useCallback(() => {
-    removeCheckedItems(Array.from(checkedIdList));
+    removeCheckedItems([...checkedCartItems.contents]);
     handleModalClose();
-  }, [checkedIdList, handleModalClose, removeCheckedItems]);
+  }, [checkedCartItems, handleModalClose, removeCheckedItems]);
 
   return (
     <S.CartListHeaderContainer>
-      <Checkbox id="전체 선택 체크박스" checked={isAllChecked} onClick={onCheckboxClick} />
+      <Checkbox
+        id="전체 선택 체크박스"
+        checked={isCartAllChecked.state === 'hasValue' && isCartAllChecked.contents}
+        onClick={onCheckboxClick}
+      />
       <S.CartItemAllSelectText>
-        전체선택 ({checkedItemCount}/
+        전체선택 ({cartListItemCount.state === 'hasValue' ? checkedCartItems.contents.size : 0}/
         {cartListItemCount.state === 'hasValue' ? cartListItemCount.contents : 0})
       </S.CartItemAllSelectText>
       <S.VerticalLine />
       <S.CartItemPartialSelectDeleteButton
-        disabled={checkedIdList.size === 0}
+        disabled={checkedCartItems.state === 'loading' || checkedCartItems.contents.size === 0}
         onClick={handleModalOpen}
         as="button"
       >
