@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface State<T> {
   loading: boolean;
@@ -6,7 +6,7 @@ interface State<T> {
   error?: object;
 }
 
-export const useQuery = <T>(url: string) => {
+export const useQuery = <T>(url: string, headers?: any) => {
   const [state, setState] = useState<State<T>>({
     loading: false,
   });
@@ -14,37 +14,30 @@ export const useQuery = <T>(url: string) => {
   const { loading, data, error } = state;
 
   useEffect(() => {
-    setState({ loading: true });
-
-    fetch(url)
-      .then((response) => {
-        const contentType = response.headers.get('content-type');
-
-        if (response.ok && contentType === 'application/json') {
-          return response.json();
-        }
-      })
-      .then((json) => setState((prev) => ({ ...prev, data: json })))
-      .catch((error) => setState((prev) => ({ ...prev, error })))
-      .finally(() => setState((prev) => ({ ...prev, loading: false })));
+    fetchData();
   }, [url]);
 
-  const refetchData = useCallback(async () => {
-    setState({ loading: true });
+  const fetchData = async () => {
+    try {
+      setState({ loading: true });
 
-    await fetch(url)
-      .then((response) => response.json())
-      .then((response) => {
-        const contentType = response.headers.get('content-type');
+      const response = await fetch(url, {
+        ...(headers && { headers }),
+      });
 
-        if (response.ok && contentType === 'application/json') {
-          return response.json();
-        }
-      })
-      .then((json) => setState((prev) => ({ ...prev, data: json })))
-      .catch((error) => setState((prev) => ({ ...prev, error })))
-      .finally(() => setState((prev) => ({ ...prev, loading: false })));
-  }, [url]);
+      const contentType = response.headers.get('content-type');
 
-  return { loading, data, error, refetchData };
+      if (response.ok && contentType === 'application/json') {
+        const data = await response.json();
+
+        setState((prev) => ({ ...prev, data }));
+      }
+    } catch {
+      setState((prev) => ({ ...prev, error }));
+    } finally {
+      setState((prev) => ({ ...prev, loading: false }));
+    }
+  };
+
+  return { loading, data, error };
 };
