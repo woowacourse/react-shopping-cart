@@ -6,14 +6,12 @@ import { RecoilRoot } from 'recoil';
 import { worker } from './mocks/browser';
 
 const main = async () => {
-  if (window.location.pathname === '/react-shopping-cart') {
-    window.location.pathname = '/react-shopping-cart/';
-    return;
-  }
-
+  const isDevelopmentMode = process.env.NODE_ENV === 'development';
   await worker.start({
     serviceWorker: {
-      url: '/react-shopping-cart/mockServiceWorker.js',
+      url: isDevelopmentMode
+        ? '/mockServiceWorker.js'
+        : '/react-shopping-cart/mockServiceWorker.js',
     },
   });
 };
@@ -21,6 +19,7 @@ const main = async () => {
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
     <RecoilRoot>
