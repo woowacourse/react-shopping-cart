@@ -1,10 +1,8 @@
-import { InputHTMLAttributes, useEffect, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
-
-import { checkedCartItemsState } from '@recoil/atom';
+import { InputHTMLAttributes, useState } from 'react';
+import { Check } from '@assets/index';
 
 import { StyledOuterCheckbox, StyledInnerCheckbox } from './Checkbox.styled';
-import { Check } from '@assets/index';
+import { useUpdateCheckedCartItems } from '@components/pages/CartPage/CartListSection/CartList/CartItem/useUpdateCheckedCartItems';
 
 export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   productId?: number;
@@ -14,33 +12,10 @@ export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const Checkbox = (props: CheckboxProps) => {
-  const [isChecked, setIsChecked] = useState(false);
   const { productId } = props;
-  const setCheckedCartItems = useSetRecoilState(checkedCartItemsState);
+  const [isChecked, setIsChecked] = useState(false);
 
-  useEffect(() => {
-    if (productId && isChecked) {
-      setCheckedCartItems(prev => {
-        const newCheckedCartItems = {
-          ...prev,
-          [`productId${productId}`]: productId,
-        };
-
-        return newCheckedCartItems;
-      });
-    }
-
-    if (productId && !isChecked) {
-      setCheckedCartItems(prev => {
-        const newCheckedCartItems = {
-          ...prev,
-        };
-        delete newCheckedCartItems[`productId${productId}`];
-
-        return newCheckedCartItems;
-      });
-    }
-  }, [isChecked, productId, setCheckedCartItems]);
+  useUpdateCheckedCartItems(productId ?? 0, isChecked);
 
   return (
     <StyledOuterCheckbox
