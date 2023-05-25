@@ -4,17 +4,14 @@ import { mockProducts } from '../data/mockProducts';
 import { mockCart } from '../data/mockCart';
 
 export const handlers = [
-  //상품 리스트 받아오기
   rest.get('/products', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(mockProducts));
   }),
 
-  //장바구니 리스트 받아오기
   rest.get('/cart-items', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(mockCart));
   }),
 
-  //장바구니 아이템 추가
   rest.post('/cart-items', async (req, res, ctx) => {
     const { id, quantity, product } = await req.json();
 
@@ -39,7 +36,6 @@ export const handlers = [
     return res(ctx.status(200));
   }),
 
-  //장바구니 아이템 수량 수정
   rest.patch('/cart-items/:id', async (req, res, ctx) => {
     const { id } = req.params;
     const { quantity } = await req.json();
@@ -59,7 +55,6 @@ export const handlers = [
     return res(ctx.status(200));
   }),
 
-  //장바구니 아이템 삭제
   rest.delete('/cart-items/:id', (req, res, ctx) => {
     const { id } = req.params;
 

@@ -1,6 +1,5 @@
 import { selector, atom } from 'recoil';
 import { mockCart } from '../data/mockCart';
-import { CartItem } from '../types/cart';
 import { fetchCartItems } from '../apis/cart';
 
 export const cartState = atom({
