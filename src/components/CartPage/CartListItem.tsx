@@ -27,6 +27,7 @@ export default function CartListItem({
   const setRequestAction = useSetRecoilState(
     cartRequestAction({ action: 'GET' })
   );
+  const isChecked = cartSelects.has(id);
 
   let countDebounceId = useRef<NodeJS.Timeout>();
 
@@ -47,18 +48,17 @@ export default function CartListItem({
       <CartInfoContainer>
         <SelectBox
           type='checkbox'
-          checked={cartSelects.has(id)}
+          checked={isChecked}
           onChange={() => {
             const newCartSelects = Array.from(cartSelects);
             const newCartSelectSet = new Set(newCartSelects);
 
-            if (!cartSelects.has(id)) {
+            if (!isChecked) {
               newCartSelectSet.add(id);
             } else {
               newCartSelectSet.delete(id);
             }
             setCartSelects(newCartSelectSet);
-            console.log('change', newCartSelectSet);
           }}
         />
         <ProductImg src={imageUrl} />

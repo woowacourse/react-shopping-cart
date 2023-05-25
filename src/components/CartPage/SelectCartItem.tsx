@@ -11,7 +11,7 @@ import {
   useSetRecoilState,
 } from 'recoil';
 import { cartSelectsState } from '../../atoms/cartSelects';
-import { Suspense, useEffect, useState, useTransition } from 'react';
+import { Suspense, useTransition } from 'react';
 import { CartType } from '../../type/cart';
 import ErrorBoundary from '../common/ErrorBoundary';
 
@@ -25,13 +25,8 @@ export default function SelectCartItem() {
   const setRequestAction = useSetRecoilState(
     cartRequestAction({ action: 'GET' })
   );
-  const [checkAll, setCheckAll] = useState(false);
-
+  const isCheckAll = cartSelects.size === cartTotal && cartTotal !== 0;
   const [inTrans, startTrans] = useTransition();
-
-  useEffect(() => {
-    setCheckAll(cartSelects.size === cartTotal && cartTotal !== 0);
-  }, [cartTotal, cartSelects]);
 
   const deleteSelectCartItem = () => {
     startTrans(() => {
@@ -51,18 +46,16 @@ export default function SelectCartItem() {
       <Suspense>
         <SelectCartItemContainer>
           <SelectBox
-            checked={checkAll}
+            checked={isCheckAll}
             type='checkbox'
             onChange={() => {
-              setCheckAll((checkAll) => !checkAll);
-
-              if (!checkAll) {
+              if (!isCheckAll) {
                 const newCartSelects = cart.map(
                   (cartItem: CartType) => cartItem.id
                 );
                 setCartSelects(new Set(newCartSelects));
               }
-              if (checkAll && cartSelects.size === cartTotal) {
+              if (isCheckAll && cartSelects.size === cartTotal) {
                 setCartSelects(new Set());
               }
             }}
