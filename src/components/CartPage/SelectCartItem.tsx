@@ -30,9 +30,7 @@ export default function SelectCartItem() {
   const [inTrans, startTrans] = useTransition();
 
   useEffect(() => {
-    startTrans(() => {
-      setCheckAll(cartSelectsState.size === cartTotal && cartTotal !== 0);
-    });
+    setCheckAll(cartSelectsState.size === cartTotal && cartTotal !== 0);
   }, [cartTotal, cartSelectsState]);
 
   const deleteSelectCartItem = () => {
@@ -57,17 +55,16 @@ export default function SelectCartItem() {
             type='checkbox'
             onChange={() => {
               setCheckAll((checkAll) => !checkAll);
-              startTrans(() => {
-                if (checkAll) {
-                  const newCartSelects = cart.map(
-                    (cartItem: CartType) => cartItem.id
-                  );
-                  setCartSelectsState(new Set(newCartSelects));
-                }
-                if (!checkAll && cartSelectsState.size === cartTotal) {
-                  setCartSelectsState(new Set());
-                }
-              });
+
+              if (!checkAll) {
+                const newCartSelects = cart.map(
+                  (cartItem: CartType) => cartItem.id
+                );
+                setCartSelectsState(new Set(newCartSelects));
+              }
+              if (checkAll && cartSelectsState.size === cartTotal) {
+                setCartSelectsState(new Set());
+              }
             }}
           />
           <Text>
