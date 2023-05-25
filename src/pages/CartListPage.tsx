@@ -1,4 +1,4 @@
-import CartPageSection from '../components/CartPageSection/CartPageSection';
+import CartPageSection from '../components/Cart/CartPageSection/CartPageSection';
 import Header from '../components/Header/Header';
 
 const CartListPage = () => {

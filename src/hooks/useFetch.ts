@@ -19,11 +19,25 @@ export const useFetch = <T>(
 
     try {
       const result = await fetch(url, options);
+
       if (isSuccessHttpStatus(result.status) && stateSetter) {
         const data = await result.json();
 
         setData(data);
-        stateSetter(data);
+        if (await result.body) {
+          if (url.split('/').includes('/cart-items')) {
+            stateSetter(
+              data.map((item: CartItemType) => {
+                return {
+                  ...item,
+                  isChecked: true,
+                };
+              })
+            );
+          } else {
+            stateSetter(data);
+          }
+        }
       }
       if (isFailureHttpStatus(result.status)) {
         throw new Error();
@@ -44,35 +58,47 @@ export const useFetch = <T>(
     } finally {
       if (shouldExecuteFinally) {
         setIsLoading(false);
-        if (options.method !== 'GET') {
-          setIsSuccess(true);
-          await new Promise((resolve) => setTimeout(resolve, 2500));
-          setIsFailure(false);
-          setIsSuccess(false);
-        }
+        setIsSuccess(true);
       }
     }
   };
 
   const fetchApi = {
     get: (url: string) => {
-      fetchData(url, { method: 'GET' });
+      fetchData(url, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      });
     },
 
     post: (url: string, body: object) => {
-      fetchData(url, { method: 'POST', body: JSON.stringify(body) });
+      fetchData(url, {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: { 'Content-Type': 'application/json' },
+      });
     },
 
-    patch: (url: string) => {
-      fetchData(url, { method: 'PATCH' });
+    patch: (url: string, body?: object) => {
+      fetchData(url, {
+        method: 'PATCH',
+        body: JSON.stringify(body),
+        headers: { 'Content-Type': 'application/json' },
+      });
     },
 
     put: (url: string) => {
-      fetchData(url, { method: 'PUT' });
+      fetchData(url, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+      });
     },
 
     delete: (url: string) => {
-      fetchData(url, { method: 'DELETE' });
+      fetchData(url, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      });
     },
   };
 

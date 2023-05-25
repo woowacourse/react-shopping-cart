@@ -1,6 +1,6 @@
 import { ChangeEvent, useCallback } from 'react';
 
-import { AddIcon, MinusIcon } from '../../assets';
+import { AddIcon, MinusIcon } from '../../../assets';
 import styles from './style.module.css';
 
 interface StepperButtonProps {
@@ -9,8 +9,7 @@ interface StepperButtonProps {
   maxCount?: number;
   itemId?: number;
   setCount?: React.Dispatch<React.SetStateAction<number>>;
-  increaseCount?: (id: number) => void;
-  decreaseCount?: (id: number) => void;
+  updateCount?: (quantity: number) => void;
 }
 
 const StepperButton = ({
@@ -19,20 +18,17 @@ const StepperButton = ({
   maxCount = 99,
   itemId,
   setCount,
-  increaseCount,
-  decreaseCount,
+  updateCount,
 }: StepperButtonProps) => {
-  const handleDecrease = useCallback(() => {
-    if (setCount) setCount((prevCount) => prevCount - 1);
-
-    if (decreaseCount && itemId) decreaseCount(itemId);
-  }, [setCount, decreaseCount, itemId]);
-
   const handleIncrease = useCallback(() => {
-    if (setCount) setCount((prevCount) => prevCount + 1);
+    if (setCount) setCount(count + 1);
+    if (updateCount) updateCount(count + 1);
+  }, [count, updateCount, setCount]);
 
-    if (increaseCount && itemId) increaseCount(itemId);
-  }, [setCount, increaseCount, itemId]);
+  const handleDecrease = useCallback(() => {
+    if (setCount) setCount(count - 1);
+    if (updateCount) updateCount(count - 1);
+  }, [count, updateCount, setCount]);
 
   const handleCountChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {

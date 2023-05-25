@@ -1,23 +1,23 @@
-import { useState } from 'react';
-
-import { ProductItemType } from '../../types';
-import { priceFormatter } from '../../utils/formatter';
-import StepperButton from '../StepperButton/StepperButton';
+import { ProductItemType } from '../../../types';
+import { priceFormatter } from '../../../utils/formatter';
+import StepperButton from '../../utils/StepperButton/StepperButton';
 import styles from './style.module.css';
 
 interface ProductAdditionProps {
   productInformation: ProductItemType;
+  quantity: number;
+  setQuantity: React.Dispatch<React.SetStateAction<number>>;
   closeModalByClick: () => void;
   submitEvent: (quantity: number) => void;
 }
 
 const ProductAddition = ({
   productInformation,
+  quantity,
+  setQuantity,
   closeModalByClick,
   submitEvent,
 }: ProductAdditionProps) => {
-  const [quantity, setQuantity] = useState(1);
-
   return (
     <div className={styles.container}>
       <h4 className={styles.header}>장바구니 담기</h4>

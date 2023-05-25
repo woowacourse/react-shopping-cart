@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { userEvent, within } from '@storybook/testing-library';
 import { useState } from 'react';
 
-import StepperButton from '../components/StepperButton/StepperButton';
+import StepperButton from '../components/utils/StepperButton/StepperButton';
 
 const meta = {
   title: 'ShoppingCart/StepperButton',

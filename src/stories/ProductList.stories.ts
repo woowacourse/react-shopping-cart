@@ -2,7 +2,7 @@ import { expect } from '@storybook/jest';
 import type { Meta, StoryObj } from '@storybook/react';
 import { userEvent, within } from '@storybook/testing-library';
 
-import ProductList from '../components/ProductList/ProductList';
+import ProductList from '../components/Product/ProductList/ProductList';
 
 const meta = {
   title: 'ShoppingCart/ProductList',

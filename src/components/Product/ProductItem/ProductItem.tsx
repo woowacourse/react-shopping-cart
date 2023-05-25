@@ -1,14 +1,13 @@
-import { createPortal } from 'react-dom';
+import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-import { AddIcon } from '../../assets';
-import { useFetch } from '../../hooks/useFetch';
-import { useModal } from '../../hooks/useModal';
-import { cartItemQuantityState, cartListState } from '../../store/cart';
-import { ProductItemType } from '../../types';
-import { priceFormatter } from '../../utils/formatter';
-import Modal from '../Modal/Modal';
-import PopUp from '../PopUp/PopUp';
+import { AddIcon } from '../../../assets';
+import { useFetch } from '../../../hooks/useFetch';
+import { useModal } from '../../../hooks/useModal';
+import { cartItemQuantityState, cartListState } from '../../../store/cart';
+import { ProductItemType } from '../../../types';
+import { priceFormatter } from '../../../utils/formatter';
+import Modal from '../../utils/Modal/Modal';
 import ProductAddition from '../ProductAddition/ProductAddition';
 import styles from './style.module.css';
 
@@ -18,14 +17,42 @@ interface ProductItemProps {
 
 const ProductItem = ({ information }: ProductItemProps) => {
   const cartItemQuantity = useRecoilValue(cartItemQuantityState(information.id));
+  const [addQuantity, setAddQuantity] = useState(1);
 
   const { isModalOpen, handleModalOpen, handleModalClose, handleModalClosePress } = useModal();
-  const [, setCartList] = useRecoilState(cartListState);
-  const { fetchApi, isSuccess, isFailure } = useFetch<ProductItemType[]>(setCartList);
+  const [cartList, setCartList] = useRecoilState(cartListState);
+  const { fetchApi } = useFetch<ProductItemType[]>(setCartList);
 
-  const handleCartAdd = (quantity: number) => {
+  const handleCartAdd = () => {
     const compareProductId = information.id;
-    fetchApi.post('/add-cart-list', { itemId: compareProductId, quantity });
+    fetchApi.post(`cart-items`, { productId: compareProductId, quantity: addQuantity });
+
+    const isExistItem = cartList.find((item) => item.product.id === compareProductId);
+
+    if (isExistItem) {
+      setCartList(
+        cartList.map((item) => {
+          if (item.product.id === compareProductId) {
+            return {
+              ...item,
+              quantity: item.quantity + addQuantity,
+            };
+          }
+          return item;
+        })
+      );
+    } else {
+      const newCartList = [
+        ...cartList,
+        {
+          id: Number(new Date()),
+          quantity: 1,
+          product: information,
+          isChecked: true,
+        },
+      ];
+      setCartList(newCartList);
+    }
 
     handleModalClose();
   };
@@ -53,19 +80,14 @@ const ProductItem = ({ information }: ProductItemProps) => {
       {isModalOpen && (
         <Modal closeModalByClick={handleModalClose} closeModalByPress={handleModalClosePress}>
           <ProductAddition
+            quantity={addQuantity}
+            setQuantity={setAddQuantity}
             closeModalByClick={handleModalClose}
             productInformation={information}
             submitEvent={handleCartAdd}
           />
         </Modal>
       )}
-      {isSuccess &&
-        createPortal(<PopUp text={['아이템이 추가되었습니다.']} isSuccess={true} />, document.body)}
-      {isFailure &&
-        createPortal(
-          <PopUp text={['오류가 발생했습니다.😭', '다시 시도해주세요.']} isSuccess={false} />,
-          document.body
-        )}
     </div>
   );
 };

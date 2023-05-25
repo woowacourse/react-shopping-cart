@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import PopUp from '../components/PopUp/PopUp';
+import PopUp from '../components/utils/PopUp/PopUp';
 
 const meta = {
   title: 'ShoppingCart/PopUp',
