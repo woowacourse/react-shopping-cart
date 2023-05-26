@@ -5,7 +5,7 @@ const cartListStateInitValue: CartProductItem[] = [];
 
 const getCartListFromMocks =
   () =>
-  ({ setSelf }: { setSelf: (cartList: CartProductItem[] | []) => void }) => {
+  ({ setSelf }: { setSelf: (cartList: CartProductItem[]) => void }) => {
     const initCartListState = async () => {
       const response = await fetch('/api/carts');
 
