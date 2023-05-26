@@ -1,10 +1,31 @@
 export type ErrorResponse = {
-  message: string;
+  timestamp: string;
+  status: number;
+  error: string;
+  path: string;
 };
 
-const BASE_URL = ``;
+type FetchedData<T> = {
+  data: T;
+  headers: Headers;
+};
 
-const fetcher = async <T>(url: string, options?: RequestInit): Promise<T | null> => {
+const BASE_URL = `https://dazzlebv.com`;
+
+const fetcher = async <T>(url: string, method: string, body?: unknown): Promise<FetchedData<T>> => {
+  const options: RequestInit = {
+    method: method,
+
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Basic ${btoa('a@a:1234')}`,
+    },
+  };
+
+  if (body) {
+    options.body = JSON.stringify(body);
+  }
+
   const response = await fetch(`${BASE_URL}${url}`, options);
 
   if (response.status >= 500) {
@@ -12,30 +33,59 @@ const fetcher = async <T>(url: string, options?: RequestInit): Promise<T | null>
   }
 
   if (!response.ok) {
-    let errorMessage;
+    let errorResponse: ErrorResponse;
 
     try {
-      const errorResponse: ErrorResponse = await response.json();
-      errorMessage = errorResponse.message;
-    } catch {
-      errorMessage = 'error Message를 표시할 수 없습니다. 에러 응답이 json형식이 아닙니다.';
+      errorResponse = await response.json();
+    } catch (error) {
+      errorResponse = {
+        timestamp: new Date().toISOString(),
+        status: 500,
+        error: '에러 응답이 json 형식이 아닙니다.',
+        path: url,
+      };
     }
 
-    throw new Error(`HTTP 통신에 실패했습니다. 상태 코드: ${response.status}
-    요청 URL: ${url} 
-    method: ${options?.method}
-    ${errorMessage}`);
+    throw errorResponse;
   }
+
+  let data = null;
+  const headers = response.headers;
 
   if (response.status === 204) {
-    return null;
+    return { data: data as T, headers };
   }
 
-  try {
-    return await response.json();
-  } catch {
-    throw new Error('응답이 json형식이 아닙니다.');
+  if (method === 'GET') {
+    try {
+      data = await response.json();
+    } catch {
+      const errorResponse: ErrorResponse = {
+        timestamp: new Date().toISOString(),
+        status: 500,
+        error: '서버 응답 형식이 json 형식이 아닙니다.',
+        path: url,
+      };
+
+      throw errorResponse;
+    }
   }
+
+  return { data: data as T, headers };
 };
 
-export default fetcher;
+export const get = async <T>(url: string): Promise<FetchedData<T>> => {
+  return await fetcher<T>(url, 'GET');
+};
+
+export const post = async <T>(url: string, body: unknown): Promise<FetchedData<T>> => {
+  return await fetcher<T>(url, 'POST', body);
+};
+
+export const remove = async <T>(url: string): Promise<FetchedData<T>> => {
+  return await fetcher<T>(url, 'DELETE');
+};
+
+export const patch = async <T>(url: string, body: unknown): Promise<FetchedData<T>> => {
+  return await fetcher<T>(url, 'PATCH', body);
+};
