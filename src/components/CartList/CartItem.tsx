@@ -1,4 +1,3 @@
-import React from 'react';
 import { styled } from 'styled-components';
 import BucketCounter from '@components/common/BucketCounter';
 import CheckBox from '@components/common/CheckBox';
@@ -117,4 +116,4 @@ const CartItemMoney = styled.span`
   color: #333333;
 `;
 
-export default React.memo(CartItem);
+export default CartItem;

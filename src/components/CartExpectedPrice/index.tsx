@@ -113,4 +113,4 @@ const CartPriceButtonWrapper = styled.div`
   margin-top: 20px;
 `;
 
-export default React.memo(CartExpectedPrice);
+export default CartExpectedPrice;
