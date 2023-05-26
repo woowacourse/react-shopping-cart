@@ -8,18 +8,26 @@ interface PatchRequest extends RestRequest {
 
 export const cartHandler = [
   rest.get('/cart-items', async (_req, res, ctx) => {
-    const data = JSON.parse(localStorage.getItem('cart-items') || '[]');
+    try {
+      const data = JSON.parse(localStorage.getItem('cart-items') || '[]');
 
-    return res(ctx.json(data));
+      return res(ctx.json(data));
+    } catch (error) {
+      return res(ctx.status(500), ctx.json({ error: 'An error occurred' }));
+    }
   }),
   rest.get('/cart-items/:id', async (req, res, ctx) => {
-    const { id } = req.params;
-    const carts = JSON.parse(localStorage.getItem('cart-items') || '[]');
-    const product = Object.assign(
-      carts.find((cart: Cart) => cart.id === Number(id))
-    );
+    try {
+      const { id } = req.params;
+      const carts = JSON.parse(localStorage.getItem('cart-items') || '[]');
+      const product = Object.assign(
+        carts.find((cart: Cart) => cart.id === Number(id))
+      );
 
-    return res(ctx.json(product));
+      return res(ctx.json(product));
+    } catch (error) {
+      return res(ctx.status(500), ctx.json({ error: 'An error occurred' }));
+    }
   }),
   rest.post<{ id: number }>('/cart-items', async (req, res, ctx) => {
     const { id } = req.body;
