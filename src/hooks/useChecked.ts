@@ -1,34 +1,30 @@
-import { useEffect } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import {
   checkedState,
   targetCheckedSelector,
 } from '../states/checkedCartProducts';
-import { updateCartProductChecked } from '../states/checkedCartProducts/utils';
+import {
+  addCartProductChecked,
+  deleteCartProductChecked,
+} from '../states/checkedCartProducts/utils';
 
 const useChecked = (id: number) => {
   const targetChecked = useRecoilValue(targetCheckedSelector(id));
   const setChecked = useSetRecoilState(checkedState);
 
   const updateChecked = (isChecked: boolean) => {
-    setChecked((prev) =>
-      prev.map((item) => {
-        if (item.id !== id) return item;
-        return updateCartProductChecked(item, isChecked);
-      })
-    );
+    if (isChecked) {
+      setChecked((prev) => addCartProductChecked(prev, id));
+      return;
+    }
+
+    setChecked((prev) => deleteCartProductChecked(prev, id));
   };
 
   const deleteChecked = () => {
-    setChecked((prev) => prev.filter((item) => item.id !== id));
+    setChecked((prev) => deleteCartProductChecked(prev, id));
   };
-
-  useEffect(() => {
-    if (targetChecked) return;
-
-    setChecked((prev) => [...prev, { id, isChecked: false }]);
-  }, [id, setChecked, targetChecked]);
 
   return { targetChecked, updateChecked, deleteChecked };
 };

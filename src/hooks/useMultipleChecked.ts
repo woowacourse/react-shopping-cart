@@ -1,45 +1,48 @@
 import type { ChangeEventHandler } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import {
+  useRecoilState,
+  useRecoilValue,
+  useResetRecoilState,
+  useSetRecoilState,
+} from 'recoil';
 
 import cartProductApis from '../apis/cartProducts';
-import { checkedState } from '../states/checkedCartProducts';
-import { cartProductState } from '../states/cartProducts';
 import {
-  filterCartProductChecked,
-  findTargetChecked,
-  getIsAllChecked,
-  getIsAllUnchecked,
-  updateCartProductChecked,
-} from '../states/checkedCartProducts/utils';
+  allCheckedSelector,
+  allUncheckedSelector,
+  checkedState,
+} from '../states/checkedCartProducts';
+import { cartProductState } from '../states/cartProducts';
+import { findTargetChecked } from '../states/checkedCartProducts/utils';
 
 const useMultipleChecked = () => {
   const [checked, setChecked] = useRecoilState(checkedState);
+  const resetChecked = useResetRecoilState(checkedState);
   const setCartProducts = useSetRecoilState(cartProductState);
 
-  const isAllChecked = getIsAllChecked(checked);
-  const isAllUnchecked = getIsAllUnchecked(checked);
+  const isAllChecked = useRecoilValue(allCheckedSelector);
+  const isAllUnchecked = useRecoilValue(allUncheckedSelector);
 
   const toggleAllProductChecked: ChangeEventHandler<HTMLInputElement> = (
     event
   ) => {
-    setChecked((prev) =>
-      prev.map((item) =>
-        updateCartProductChecked(item, event.currentTarget.checked)
-      )
-    );
+    if (event.currentTarget.checked) {
+      resetChecked();
+      return;
+    }
+
+    setChecked([]);
   };
 
   const deleteCheckedProducts = () => {
-    setCartProducts((prev) =>
-      prev.filter(
-        (cartProduct) => !findTargetChecked(checked, cartProduct.id)?.isChecked
-      )
-    );
-    setChecked((prev) => filterCartProductChecked(prev, false));
-
-    checked.forEach((item) => {
-      if (item.isChecked) cartProductApis.delete(item.id);
+    checked.forEach(async (id) => {
+      await cartProductApis.delete(id);
     });
+
+    setCartProducts((prev) =>
+      prev.filter((cartProduct) => !findTargetChecked(checked, cartProduct.id))
+    );
+    setChecked([]);
   };
 
   return {

@@ -40,7 +40,7 @@ const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
       <CheckBox
         id={`cart-product-check-${id}`}
         onChange={toggleProductChecked}
-        checked={targetChecked?.isChecked ?? false}
+        checked={!!targetChecked}
       />
       <Image
         src={`${process.env.PUBLIC_URL}/${imageUrl}`}

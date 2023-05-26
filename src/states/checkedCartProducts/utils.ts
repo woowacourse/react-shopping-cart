@@ -1,27 +1,17 @@
-import type { CartProductWithChecked, CheckedState } from './type';
+import type { CartProduct } from '../../types/product';
 
-export const getIsAllChecked = (checked: CheckedState[]) =>
-  checked.length > 0 && checked.every((item) => item.isChecked);
+export const findTargetChecked = (checked: number[], targetId: number) =>
+  checked.find((id) => id === targetId);
 
-export const getIsAllUnchecked = (checked: CheckedState[]) =>
-  checked.every((item) => !item.isChecked);
+export const addCartProductChecked = (
+  checkedIds: number[],
+  newCheckedId: number
+) => [...checkedIds, newCheckedId];
 
-export const findTargetChecked = (checked: CheckedState[], id: number) =>
-  checked.find((item) => item.id === id);
+export const deleteCartProductChecked = (
+  checkedIds: number[],
+  targetId: number
+) => checkedIds.filter((id) => id !== targetId);
 
-export const filterCartProductChecked = <T extends { isChecked: boolean }>(
-  cartProducts: T[],
-  isChecked: boolean
-) => cartProducts.filter((cartProduct) => cartProduct.isChecked === isChecked);
-
-export const getCheckedPrice = (cartProducts: CartProductWithChecked[]) =>
-  cartProducts.reduce(
-    (acc, cur) =>
-      cur.isChecked ? acc + cur.quantity * cur.product.price : acc,
-    0
-  );
-
-export const updateCartProductChecked = <T>(item: T, isChecked: boolean) => ({
-  ...item,
-  isChecked,
-});
+export const getCheckedPrice = (cartProducts: CartProduct[]) =>
+  cartProducts.reduce((acc, cur) => acc + cur.quantity * cur.product.price, 0);
