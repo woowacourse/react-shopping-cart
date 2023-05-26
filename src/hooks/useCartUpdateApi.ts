@@ -3,10 +3,10 @@ import { useEffect, useRef } from 'react';
 const useCartUpdateApi = (productId: number, value: number, setValue: (value: number) => void) => {
   const prevValue = useRef(value);
 
-  const resetValueOnError = (promise: Promise<Response>) => {
+  const resetValueOnError = (promise: Promise<Response>, properResStatus: number) => {
     promise
       .then((response) => {
-        if (!response.ok) setValue(prevValue.current);
+        if (response.status !== properResStatus) setValue(prevValue.current);
         else prevValue.current = value;
       })
       .catch(() => {
@@ -18,14 +18,16 @@ const useCartUpdateApi = (productId: number, value: number, setValue: (value: nu
     if (prevValue.current === value) return;
 
     if (prevValue.current === 0 && value > 0) {
+      fetch('/cart-items', { method: 'POST', body: JSON.stringify({ productId }) });
       resetValueOnError(
-        fetch('/cart-items', { method: 'POST', body: JSON.stringify({ productId }) })
+        fetch('/cart-items', { method: 'POST', body: JSON.stringify({ productId }) }),
+        201
       );
       return;
     }
 
     if (value === 0) {
-      resetValueOnError(fetch(`/cart-items/${productId}`, { method: 'DELETE' }));
+      resetValueOnError(fetch(`/cart-items/${productId}`, { method: 'DELETE' }), 204);
       return;
     }
 
@@ -33,7 +35,8 @@ const useCartUpdateApi = (productId: number, value: number, setValue: (value: nu
       fetch(`/cart-items/${productId}`, {
         method: 'PATCH',
         body: JSON.stringify({ quantity: value }),
-      })
+      }),
+      200
     );
   }, [productId, value]);
 

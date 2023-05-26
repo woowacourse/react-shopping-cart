@@ -18,7 +18,7 @@ const CartDeleteButton = (props: CartDeleteButtonProps) => {
     try {
       const response = await fetch(`/cart-items/${productId}`, { method: 'DELETE' });
 
-      if (response.ok) {
+      if (response.status === 204) {
         updateProductQuantity(0);
         deleteToggled();
       } else {

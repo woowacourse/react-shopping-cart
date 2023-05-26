@@ -14,7 +14,7 @@ const DeleteSelectedButton = () => {
       try {
         const response = await fetch(`/cart-items/${productId}`, { method: 'DELETE' });
 
-        if (response.ok) {
+        if (response.status === 204) {
           setToggles((prev) => {
             const newToggles = { ...prev };
             delete newToggles[productId];
