@@ -41,7 +41,7 @@ const ProductStepper = (props: ProductStepperProps) => {
   const toggleSetter = useSetRecoilState(productToggleSelector(productId));
   const deleteToggleInfo = useResetRecoilState(productToggleSelector(productId));
 
-  const { serverPrevValue, serverValue } = useCartUpdateApi(productId, value, setValue);
+  useCartUpdateApi(productId, value, setValue);
 
   useEffect(() => {
     if (prevValue === value) return;
