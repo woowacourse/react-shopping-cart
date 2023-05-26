@@ -1,6 +1,4 @@
-import { removeCartProduct } from 'apis/cart/delete';
-import { updateCartProductsQuantity } from 'apis/cart/patch';
-import { addCartProducts } from 'apis/cart/post';
+import { addCartProducts, removeCartProduct, updateCartProductsQuantity } from 'apis/cart';
 import { useRecoilState } from 'recoil';
 import { cartProductsState } from 'state/cartProducts';
 import { CheckedCartProducts, Product } from 'types/product';

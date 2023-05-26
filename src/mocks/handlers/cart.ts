@@ -10,7 +10,12 @@ type PatchReqBody = {
   quantity: number;
 };
 
-const authorizationError: ErrorResponse = { message: '인증실패' };
+const authorizationError: ErrorResponse = {
+  timestamp: new Date().toISOString(),
+  status: 500,
+  error: '에러 응답이 json 형식이 아닙니다.',
+  path: '/cart-items',
+};
 
 export const cart = [
   rest.get('/cart-items', (req, res, ctx) => {

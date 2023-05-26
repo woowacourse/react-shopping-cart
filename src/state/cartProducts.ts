@@ -2,7 +2,7 @@ import { CART_KEY } from 'constants/storeKey';
 import { atom, selector, selectorFamily } from 'recoil';
 import { CartProducts, Product } from 'types/product';
 import persistAtomEffect from './effects/persistAtomEffect';
-import { getCartProducts } from 'apis/cart/get';
+import { getCartProducts } from 'apis/cart';
 
 const mapToString = (value: CartProducts) => {
   return JSON.stringify(Array.from(value));

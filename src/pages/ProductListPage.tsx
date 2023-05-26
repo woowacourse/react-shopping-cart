@@ -1,6 +1,6 @@
 import ProductCardList from 'components/ProductCardList/ProductCardList';
 import useFetch from 'hooks/useFetch';
-import { getProducts } from 'apis/products/get';
+import { getProducts } from 'apis/products';
 import { Product } from 'types/product';
 import LoadingErrorCard from '../components/LoadingErrorCard/LoadingErrorCard';
 
