@@ -23,7 +23,7 @@ const CartItem = ({
 }: CartItemProps) => {
   const { check, checkBoxOnChange, deleteItem } = useCartItem(id);
 
-  const removeItem = async () => {
+  const removeItem = () => {
     deleteItem();
 
     refetch();

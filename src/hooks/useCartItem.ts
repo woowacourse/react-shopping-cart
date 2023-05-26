@@ -35,6 +35,10 @@ const useCartItem = (id: number) => {
   const deleteItem = async () => {
     await fetchApi(`${CART_URL}/${id}`, {
       method: 'delete',
+      headers:{
+        Authorization: 'Basic YUBhLmNvbToxMjM0',
+        'Content-Type': 'application/json',
+      }
     });
 
     const updatedId = checkBoxTotalId.filter((checkId) => checkId !== id);

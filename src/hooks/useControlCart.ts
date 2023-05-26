@@ -54,15 +54,20 @@ const useControlCart = () => {
     setCheckBox([...checkBox, id]);
     setCheckBoxTotalId([...checkBox, id]);
 
+
     await fetchApi(CART_URL, {
       method: 'post',
+      headers: {
+        Authorization: 'Basic YUBhLmNvbToxMjM0',
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({ productId: Number(id) }),
     });
 
     setData(updatedCart);
   };
 
-  const removeProductFromCart = async (id: number) => {
+  const removeProductFromCart = (id: number) => {
     const updatedCart = cart.filter((product) => id !== product.id);
     const updatedCheckBox = checkBox.filter((checkBoxId) => checkBoxId !== id);
     const updatedCheckBoxTotalId = checkBoxTotalId.filter(

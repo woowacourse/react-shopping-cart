@@ -42,33 +42,45 @@ const BucketCounter = ({
 
   const changeCount = async (event: React.ChangeEvent<HTMLInputElement>) => {
     changeCountEvent(event);
-
-    const response = await fetchApi(`${CART_URL}/${id}`, {
-      method: 'patch',
+    
+    await fetchApi(`${CART_URL}/${id}`, {
+      method: 'PATCH',
       body: JSON.stringify({ quantity: Number(event.target.value) }),
+      headers: {
+        Authorization: 'Basic YUBhLmNvbToxMjM0',
+        'Content-Type': 'application/json',
+      },
     });
 
-    if (response.ok) refetch();
+    refetch();
   };
 
   const upButton = async () => {
-    const response = await fetchApi(`${CART_URL}/${id}`, {
-      method: 'patch',
+    await fetchApi(`${CART_URL}/${id}`, {
+      method: 'PATCH',
       body: JSON.stringify({ quantity: bucketCount }),
+      headers: {
+        Authorization: 'Basic YUBhLmNvbToxMjM0',
+        'Content-Type': 'application/json',
+      },
     });
 
     increaseCount();
-    if (response.ok) refetch();
+    refetch();
   };
 
   const downButton = async () => {
-    const response = await fetchApi(`${CART_URL}/${id}`, {
-      method: 'patch',
+    await fetchApi(`${CART_URL}/${id}`, {
+      method: 'PATCH',
       body: JSON.stringify({ quantity: bucketCount }),
+      headers: {
+        Authorization: 'Basic YUBhLmNvbToxMjM0',
+        'Content-Type': 'application/json',
+      },
     });
 
     decreaseCount();
-    if (response.ok) refetch();
+    refetch();
   };
 
   const onBlurAndRefetch = (e: React.FocusEvent<HTMLInputElement>) => {

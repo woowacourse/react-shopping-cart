@@ -22,6 +22,10 @@ interface CartListReturnProps {
 const useCartList = (): CartListReturnProps => {
   const { data, refetch } = useGetFetch<CartInformation[]>('/cart-items', {
     method: 'get',
+    headers:{
+      Authorization: 'Basic YUBhLmNvbToxMjM0',
+      'Content-Type': 'application/json',
+    }
   });
 
   const setData = useSetRecoilState(cartAtom);
@@ -74,6 +78,10 @@ const useCartList = (): CartListReturnProps => {
     removedCart.forEach(async (product) => {
       await fetchApi(`${CART_URL}/${product.id}`, {
         method: 'delete',
+        headers:{
+          Authorization: 'Basic YUBhLmNvbToxMjM0',
+          'Content-Type': 'application/json',
+        }
       });
     });
     const removedCheckBox = checkBoxTotalId.filter(
