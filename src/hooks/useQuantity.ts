@@ -35,7 +35,12 @@ export const useQuantity = (itemID: number) => {
   const handleQuantityBlured = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (quantity === "" || Number(quantity) < MIN_QUANTITY)
       e.target.value = MIN_QUANTITY.toString();
-    if (Number(quantity) > MAX_QUANTITY) e.target.value = MAX_QUANTITY.toString();
+
+    if (Number(quantity) > MAX_QUANTITY) {
+      alert(`${MAX_QUANTITY} 이하의 숫자만 입력할 수 있습니다!`);
+
+      e.target.value = MAX_QUANTITY.toString();
+    }
 
     changeQuantity(e.target.value);
   };

@@ -24,6 +24,9 @@ const Counter = (props: CounterProps) => {
   const handleOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     if (props.lowerBound !== undefined && Number(e.target.value) < props.lowerBound) {
       props.setValue(props.lowerBound.toString());
+
+      alert(`${props.lowerBound} 이상의 숫자만 입력할 수 있습니다!`);
+
       return;
     }
 
