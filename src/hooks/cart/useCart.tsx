@@ -36,9 +36,7 @@ const useCart = () => {
   };
 
   const emptyCart = async () => {
-    cartItems.forEach(async (item) => {
-      await deleteInCart(item.id);
-    });
+    Promise.all(cartItems.map(({ id }) => deleteInCart(id)));
   };
 
   return {
