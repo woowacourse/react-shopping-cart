@@ -7,6 +7,7 @@ import GlobalStyles from './GlobalStyles';
 import router from './router';
 import { worker } from './mocks/browser';
 import Routes from './constants/Routes';
+import MswHandlerButton from './components/commons/MswHandler/MswHandlerButton';
 
 (async () => {
   if (window.location.pathname === Routes.BASENAME) {
@@ -26,6 +27,7 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <GlobalStyles />
+    <MswHandlerButton />
     <RecoilRoot>
       <RouterProvider router={router} />
     </RecoilRoot>

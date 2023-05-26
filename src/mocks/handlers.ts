@@ -2,46 +2,64 @@ import { rest } from 'msw';
 import products from './data/products.json';
 import Cart from './storage/Cart';
 
-const handlers = [
-  rest.get('/products', (req, res, ctx) =>
-    res(
-      ctx.delay(2222),
-      ctx.status(200),
-      ctx.set('Content-Type', 'application/json'),
-      ctx.json(products)
-    )
-  ),
+const makeHandlers = (failProbability: number) => {
+  if (failProbability < 0 || failProbability > 1) {
+    throw new Error('failProbability must be between 0 and 1.');
+  }
 
-  rest.get('/cart-items', (req, res, ctx) =>
-    res(ctx.status(200), ctx.set('Content-Type', 'application/json'), ctx.json(Cart.getList()))
-  ),
+  return [
+    rest.get('/products', (req, res, ctx) =>
+      Math.random() < failProbability
+        ? res(ctx.delay(2222), ctx.status(500))
+        : res(
+            ctx.delay(2222),
+            ctx.status(200),
+            ctx.set('Content-Type', 'application/json'),
+            ctx.json(products)
+          )
+    ),
 
-  rest.post('/cart-items', async (req, res, ctx) => {
-    const { productId } = await req.json();
+    rest.get('/cart-items', (req, res, ctx) =>
+      Math.random() < failProbability
+        ? res(ctx.status(500))
+        : res(
+            ctx.status(200),
+            ctx.set('Content-Type', 'application/json'),
+            ctx.json(Cart.getList())
+          )
+    ),
 
-    Cart.setItem(productId, 1);
+    rest.post('/cart-items', async (req, res, ctx) => {
+      const { productId } = await req.json();
 
-    return res(ctx.status(201), ctx.set('Content-Location', `/cart-items/${productId}`));
-  }),
+      if (Math.random() < failProbability) return res(ctx.status(500));
 
-  rest.patch('/cart-items/:productId', async (req, res, ctx) => {
-    const { productId } = req.params;
-    const { quantity } = await req.json();
+      Cart.setItem(productId, 1);
 
-    if (Math.random() < 0.5) return res(ctx.status(500));
+      return res(ctx.status(201), ctx.set('Content-Location', `/cart-items/${productId}`));
+    }),
 
-    Cart.setItem(Number(productId), quantity);
+    rest.patch('/cart-items/:productId', async (req, res, ctx) => {
+      const { productId } = req.params;
+      const { quantity } = await req.json();
 
-    return res(ctx.status(200));
-  }),
+      if (Math.random() < failProbability) return res(ctx.delay(1000), ctx.status(500));
 
-  rest.delete('/cart-items/:productId', async (req, res, ctx) => {
-    const { productId } = req.params;
+      Cart.setItem(Number(productId), quantity);
 
-    Cart.setItem(Number(productId), 0);
+      return res(ctx.status(200));
+    }),
 
-    return res(ctx.status(204));
-  }),
-];
+    rest.delete('/cart-items/:productId', async (req, res, ctx) => {
+      const { productId } = req.params;
 
-export default handlers;
+      if (Math.random() < failProbability) return res(ctx.status(500));
+
+      Cart.setItem(Number(productId), 0);
+
+      return res(ctx.status(204));
+    }),
+  ];
+};
+
+export default makeHandlers;
