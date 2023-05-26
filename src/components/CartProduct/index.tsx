@@ -20,7 +20,7 @@ const CartProduct = ({ cartItem }: CartProductProps, ref: ForwardedRef<HTMLInput
 
   const handleUpButton = async () => {
     try {
-      await updateCartItem(product.id, quantity + 1);
+      await updateCartItem(product.id, count + 1);
       setCount(prev => prev + 1);
     } catch (e) {
       toast.error(errorMessage.quantity);
@@ -29,7 +29,7 @@ const CartProduct = ({ cartItem }: CartProductProps, ref: ForwardedRef<HTMLInput
 
   const handleDownButton = async () => {
     try {
-      await updateCartItem(product.id, quantity - 1);
+      await updateCartItem(product.id, count - 1);
       if (count === 1) {
         return;
       }
