@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
-import { v1 } from 'uuid';
 import { deleteCartItem } from '../../api/cartList';
 import { cartAtom, checkedValue, totalAmountAtom } from '../../store/cart';
 import { WIDTH } from '../../styles/mediaQuery';
-import { Cart } from '../../types/product';
 import CartItem from '../CartItem/CartItem';
 import CheckBox from '../common/CheckBox/CheckBox';
 
@@ -59,11 +57,8 @@ const CartItemList = () => {
       <SubTitle>든든 배송 상품 ({cartList.length}개)</SubTitle>
       <Ul>
         {cartList.map((item) => {
-          const uuid = v1();
-
           return (
             <CartItem
-              key={uuid}
               id={item.id}
               cartItemState={
                 isSelectedList.find((state) => state.id === item.id) as Select
