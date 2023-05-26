@@ -21,9 +21,11 @@ const CartDeleteButton = (props: CartDeleteButtonProps) => {
       if (response.ok) {
         updateProductQuantity(0);
         deleteToggled();
+      } else {
+        throw new Error('상품 삭제에 실패하였습니다.');
       }
     } catch {
-      console.error('상품 삭제에 실패하였습니다.');
+      alert(`${productName} 상품 삭제에 실패하였습니다.`);
     }
   };
 

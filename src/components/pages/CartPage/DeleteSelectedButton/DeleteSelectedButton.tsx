@@ -9,7 +9,7 @@ const DeleteSelectedButton = () => {
   const setToggles = useSetRecoilState(cartToggleState);
   const setCart = useSetRecoilState(cartState);
 
-  const deleteToggledProducts = async () => {
+  const deleteToggledProducts = () => {
     toggledProducts.forEach(async (productId) => {
       try {
         const response = await fetch(`/cart-items/${productId}`, { method: 'DELETE' });
@@ -23,10 +23,10 @@ const DeleteSelectedButton = () => {
 
           setCart((prev) => prev.filter(({ id }) => id !== productId));
         } else {
-          throw new Error('delete failed');
+          throw new Error('상품 삭제에 실패하였습니다.');
         }
       } catch {
-        console.error('일부 상품 삭제에 실패하였습니다.');
+        alert(`일부 상품 삭제에 실패하였습니다.`);
       }
     });
   };
