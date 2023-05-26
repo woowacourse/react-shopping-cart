@@ -1,53 +1,29 @@
-import { Dispatch } from 'react';
-
-import { Product } from '@customTypes/Product';
+import { useCartItems } from './useCartItems';
 
 import { StyledCartList } from '@components/pages/CartPage/CartListSection/CartList/CartList.styled';
-import { FetchedDataList } from '@components/commons/FetchedDataList/FetchedDataList';
 import ErrorModal from '@pages/ErrorPage/ErrorModal/ErrorModal';
 import CartItem from './CartItem/CartItem';
+import { CartItemApi } from '@customTypes/Product';
 
-interface CartItem {
-  id: number;
-  quantity: number;
-  product: Product;
-}
-
-interface CartListProps {
-  isDeleteItem: boolean;
-  setIsDeleteItem: Dispatch<React.SetStateAction<boolean>>;
-}
-
-const CartList = (props: CartListProps) => {
-  const { isDeleteItem, setIsDeleteItem } = props;
+const CartList = () => {
+  const { cartItems, isGetCartItemsError } = useCartItems();
 
   return (
-    <FetchedDataList<CartItem[]>
-      endpoint={'/cart-items'}
-      initialValue={[]}
-      isDeleteItem={isDeleteItem}
-    >
-      {({ data, isError }) => {
-        return (
-          <>
-            <ErrorModal isError={isError} />
-            <StyledCartList>
-              {data.map((item: CartItem) => {
-                return (
-                  <CartItem
-                    key={item.id}
-                    cartItemId={item.id}
-                    quantity={item.quantity}
-                    product={item.product}
-                    setIsDeleteItem={setIsDeleteItem}
-                  />
-                );
-              })}
-            </StyledCartList>
-          </>
-        );
-      }}
-    </FetchedDataList>
+    <>
+      <ErrorModal isError={isGetCartItemsError} />
+      <StyledCartList>
+        {cartItems.map((item: CartItemApi) => {
+          return (
+            <CartItem
+              key={item.id}
+              id={item.id}
+              quantity={item.quantity}
+              product={item.product}
+            />
+          );
+        })}
+      </StyledCartList>
+    </>
   );
 };
 

@@ -1,6 +1,9 @@
-import { Dispatch } from 'react';
+import { useSetRecoilState } from 'recoil';
 
-import { Product } from '@customTypes/Product';
+import fetchApis from '@apis/fetchApis';
+import { cartItemsState } from '@recoil/atom';
+import { TrashCan } from '@assets/index';
+import { CartItemApi } from '@customTypes/Product';
 
 import {
   StyledCartItem,
@@ -13,26 +16,15 @@ import { SquareImage as CartImage } from '@commons/SquareImage/SquareImage';
 import * as Text from '@components/commons/Text/Text';
 import ProductStepper from '@components/pages/ProductsPage/ProductList/ProductItem/ProductStepper/ProductStepper';
 import { Button as DeleteButton } from '@commons/Button/Button';
-import { TrashCan } from '@assets/index';
-import { useSetRecoilState } from 'recoil';
-import { cartItemsState } from '@recoil/atom';
-import useFetch from '@hooks/useFetch';
 
-export interface CartItemProps {
-  cartItemId: number;
-  quantity: number;
-  product: Product;
-  setIsDeleteItem: Dispatch<React.SetStateAction<boolean>>;
-}
-
-const CartItem = (props: CartItemProps) => {
-  const { product, quantity, setIsDeleteItem } = props;
+const CartItem = (props: CartItemApi) => {
+  const { product, quantity } = props;
   const { id, name, price, imageUrl } = product;
   const setCartItems = useSetRecoilState(cartItemsState);
-  const { deleteData } = useFetch('/cart-items');
 
   const handleDeleteButtonClick = (productId: number) => {
-    deleteData(`/${productId}`);
+    const { deleteData } = fetchApis();
+    deleteData('/cart-items', `/${productId}`);
 
     setCartItems(prev => {
       const newCartItems = { ...prev };
@@ -41,8 +33,6 @@ const CartItem = (props: CartItemProps) => {
 
       return newCartItems;
     });
-
-    setIsDeleteItem(() => true);
 
     return;
   };
@@ -63,8 +53,7 @@ const CartItem = (props: CartItemProps) => {
         <ProductStepper
           productId={id}
           initQuantity={quantity}
-          setIsDeleteItem={setIsDeleteItem}
-          initUrl={`/${id}`}
+          initCartItemId={`/${id}`}
           inputWidth="72px"
           inputHeight="60px"
           buttonWidth="40px"

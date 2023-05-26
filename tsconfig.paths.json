@@ -11,7 +11,8 @@
       "@customTypes/*": ["./src/customTypes/*"],
       "@constants/*": ["./src/constants/*"],
       "@recoil/*": ["./src/recoil/*"],
-      "@mocks/*": ["./src/mocks/*"]
+      "@mocks/*": ["./src/mocks/*"],
+      "@apis/*": ["./src/apis/*"]
     }
   }
 }

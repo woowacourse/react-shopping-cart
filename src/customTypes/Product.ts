@@ -5,6 +5,12 @@ export interface Product {
   imageUrl: string;
 }
 
+export interface CartItemApi {
+  id: number | null;
+  quantity: number;
+  product: Product;
+}
+
 export interface CartItem {
   productId: number;
   quantity: number;

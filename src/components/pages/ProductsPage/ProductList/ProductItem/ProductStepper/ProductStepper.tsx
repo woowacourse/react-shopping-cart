@@ -1,6 +1,7 @@
-import { Dispatch, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { PRODUCT_COUNT, STEP_UNIT } from '@constants/product';
+import fetchApis from '@apis/fetchApis';
 import useUpdateCart from './useUpdateCart';
 
 import {
@@ -12,13 +13,11 @@ import { Stepper } from '@commons/Stepper/Stepper';
 import { Input as StepInput } from '@components/commons/Input/Input';
 import { Button as StepperHandleButton } from '@components/commons/Button/Button';
 import * as Text from '@components/commons/Text/Text';
-import useFetch from '@hooks/useFetch';
 
 interface ProductStepperProps {
   productId: number;
   initQuantity: number;
-  initUrl?: string;
-  setIsDeleteItem?: Dispatch<React.SetStateAction<boolean>>;
+  initCartItemId?: string | null;
   inputWidth?: string | undefined;
   inputHeight?: string | undefined;
   buttonWidth?: string | undefined;
@@ -29,41 +28,44 @@ const ProductStepper = (props: ProductStepperProps) => {
   const {
     productId,
     initQuantity,
-    initUrl = '',
-    setIsDeleteItem,
+    initCartItemId,
     inputWidth,
     inputHeight,
     buttonWidth,
     buttonHeight,
   } = props;
-  const [quantity, setQuantity] = useState(0);
-  const { postData, patchData, deleteData } = useFetch('/cart-items');
-  const [url, setUrl] = useState(initUrl);
+  const [quantity, setQuantity] = useState(initQuantity);
+  const [cartItemId, setCartItemId] = useState<null | string>(
+    initCartItemId ?? null
+  );
+  const { postData, patchData, deleteData } = fetchApis();
 
-  const handlePostData = async () => {
-    if (url !== '') return;
+  const addCartItem = async () => {
+    const location = await postData(
+      { productId: productId },
+      '/cart-items',
+      ''
+    );
 
-    const newUrl = await postData({ productId: productId });
-    setUrl(newUrl ?? '');
+    setCartItemId(location);
   };
 
-  const handlePatchData = async (newQuantity: number) => {
-    if (url === '') return;
+  const updateCartItemQuantity = async (newQuantity: number) => {
+    if (!cartItemId) return;
 
-    await patchData({ quantity: newQuantity }, url);
+    await patchData({ quantity: newQuantity }, '/cart-items', cartItemId);
   };
 
-  const handleDeleteData = async (newQuantity: number) => {
-    if (url === '') return;
+  const deleteCartItem = async (newQuantity: number) => {
+    if (!cartItemId) return;
 
     if (newQuantity > 0) {
-      handlePatchData(newQuantity);
-    } else {
-      if (setIsDeleteItem) {
-        setIsDeleteItem(true);
-      }
-      await deleteData(url);
+      updateCartItemQuantity(newQuantity);
+
+      return;
     }
+
+    await deleteData('/cart-items', cartItemId);
   };
 
   useUpdateCart(productId, quantity);
@@ -72,17 +74,13 @@ const ProductStepper = (props: ProductStepperProps) => {
     setQuantity(initQuantity);
   }, [initQuantity]);
 
-  useEffect(() => {
-    setUrl(initUrl);
-  }, [initUrl]);
-
   return (
     <>
       {quantity === 0 ? (
         <StepperEntryButton
           onClick={() => {
             setQuantity(prev => prev + 1);
-            handlePostData();
+            addCartItem();
           }}
         />
       ) : (
@@ -119,7 +117,7 @@ const ProductStepper = (props: ProductStepperProps) => {
                     backgroundColor="#white"
                     onClick={() => {
                       handleIncrementButtonClick();
-                      handlePatchData(step + STEP_UNIT);
+                      updateCartItemQuantity(step + STEP_UNIT);
                     }}
                     type="button"
                     name="상품 추가 버튼"
@@ -136,7 +134,7 @@ const ProductStepper = (props: ProductStepperProps) => {
                     backgroundColor="#white"
                     onClick={() => {
                       handleDecrementButtonClick();
-                      handleDeleteData(step - STEP_UNIT);
+                      deleteCartItem(step - STEP_UNIT);
                     }}
                     type="button"
                     name="상품 삭제 버튼"
