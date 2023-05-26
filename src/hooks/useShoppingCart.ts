@@ -7,7 +7,13 @@ const useShoppingCart = () => {
   const [cartProducts, setCartProducts] = useRecoilState(cartProductsState);
 
   const initialAddCart = async (product: Product) => {
-    await addCartProducts(product.id);
+    try {
+      await addCartProducts(product.id);
+    } catch (error) {
+      console.error(error);
+      alert('상품을 추가하지 못했어요. 다시 시도해주세요');
+      return;
+    }
 
     setCartProducts((prev) => {
       const newCartProducts = new Map(prev.entries());
@@ -18,7 +24,7 @@ const useShoppingCart = () => {
 
   const decreaseQuantity = async (id: Product['id']) => {
     const targetCartProduct = cartProducts.get(id);
-    if (!targetCartProduct) throw new Error('장바구니에 없는 상품의 수량은 조절할 수 없습니다.');
+    if (!targetCartProduct) return;
 
     const prevQuantity = targetCartProduct.quantity;
 
@@ -27,7 +33,13 @@ const useShoppingCart = () => {
       return;
     }
 
-    await updateCartProductsQuantity(prevQuantity - 1, id);
+    try {
+      await updateCartProductsQuantity(prevQuantity - 1, id);
+    } catch (error) {
+      console.error(error);
+      alert('수량을 변경하지 못했어요. 다시 시도해주세요');
+      return;
+    }
 
     setCartProducts((prev) => {
       const newCartProducts = new Map(prev.entries());
@@ -38,11 +50,17 @@ const useShoppingCart = () => {
 
   const increaseQuantity = async (id: Product['id']) => {
     const targetCartProduct = cartProducts.get(id);
-    if (!targetCartProduct) throw new Error('장바구니에 없는 상품의 수량은 조절할 수 없습니다.');
+    if (!targetCartProduct) return;
 
     const prevQuantity = targetCartProduct.quantity;
 
-    await updateCartProductsQuantity(prevQuantity + 1, id);
+    try {
+      await updateCartProductsQuantity(prevQuantity + 1, id);
+    } catch (error) {
+      console.error(error);
+      alert('수량을 변경하지 못했어요. 다시 시도해주세요');
+      return;
+    }
 
     setCartProducts((prev) => {
       const newCartProducts = new Map(prev.entries());
@@ -53,9 +71,15 @@ const useShoppingCart = () => {
 
   const deleteCartProduct = async (id: Product['id']) => {
     const targetCartProduct = cartProducts.get(id);
-    if (!targetCartProduct) throw new Error('장바구니에 없는 상품의 수량은 조절할 수 없습니다.');
+    if (!targetCartProduct) return;
 
-    await removeCartProduct(id);
+    try {
+      await removeCartProduct(id);
+    } catch (error) {
+      console.error(error);
+      alert('상품을 삭제하지 못했어요. 다시 시도해주세요');
+      return;
+    }
 
     setCartProducts((prev) => {
       prev.delete(id);
