@@ -1,12 +1,11 @@
-import { memo, useEffect } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { memo } from 'react';
 
 import Stepper from '../../../commons/Stepper/Stepper';
 
 import useStepper from '../../../../hooks/useStepper';
-import { productCountSelector } from '../../../../recoil/cartState';
 import StepperSettings from '../../../../constants/StepperSettings';
 import useCartUpdateApi from '../../../../hooks/useCartUpdateApi';
+import useCartStateUpdateEffect from '../../../../hooks/useCartStateUpdateEffect';
 
 interface CartStepperProps {
   productId: number;
@@ -18,8 +17,6 @@ const { MIN, MAX, STEP } = StepperSettings;
 const CartStepper = (props: CartStepperProps) => {
   const { defaultValue, productId } = props;
 
-  const updateProductQuantity = useSetRecoilState(productCountSelector(productId));
-
   const { value, increaseValue, decreaseValue, setValue } = useStepper(
     MIN + 1,
     MAX,
@@ -28,10 +25,7 @@ const CartStepper = (props: CartStepperProps) => {
   );
 
   useCartUpdateApi(productId, value, setValue);
-
-  useEffect(() => {
-    updateProductQuantity(value);
-  }, [value]);
+  useCartStateUpdateEffect(productId, value);
 
   return (
     <Stepper
