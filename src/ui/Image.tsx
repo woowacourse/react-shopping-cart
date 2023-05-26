@@ -3,8 +3,8 @@ import * as Styled from './styles/Image.styles';
 import { EmptyProductImage } from '../types/image';
 
 interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
-  width?: string;
-  height?: string;
+  width: string;
+  height: string;
 }
 
 export const Image = ({
