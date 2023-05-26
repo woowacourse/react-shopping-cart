@@ -12,7 +12,7 @@ const useFetchProducts = (setProducts: useFetchProductsProps): void => {
         const data = await response.json();
         setProducts(data);
       } catch (e) {
-        toast.error(errorMessage);
+        toast.error(errorMessage.fetchProducts);
       }
     };
 

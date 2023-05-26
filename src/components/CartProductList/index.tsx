@@ -57,7 +57,7 @@ const CartProductList = () => {
         })
       );
     } catch (e) {
-      toast.error(errorMessage);
+      toast.error(errorMessage.delete);
     }
   };
 

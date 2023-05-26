@@ -23,7 +23,7 @@ const CartProduct = ({ cartItem }: CartProductProps, ref: ForwardedRef<HTMLInput
       await updateCartItem(product.id, quantity + 1);
       setCount(prev => prev + 1);
     } catch (e) {
-      toast.error(errorMessage);
+      toast.error(errorMessage.quantity);
     }
   };
 
@@ -34,7 +34,7 @@ const CartProduct = ({ cartItem }: CartProductProps, ref: ForwardedRef<HTMLInput
         return;
       }
     } catch (e) {
-      toast.error(errorMessage);
+      toast.error(errorMessage.quantity);
     }
 
     setCount(prev => prev - 1);
@@ -45,7 +45,7 @@ const CartProduct = ({ cartItem }: CartProductProps, ref: ForwardedRef<HTMLInput
       await deleteCartItem(product.id);
       setCart(prev => prev.filter(item => item !== product.id));
     } catch (e) {
-      toast.error(errorMessage);
+      toast.error(errorMessage.delete);
     }
   };
 
