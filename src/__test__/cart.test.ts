@@ -11,13 +11,8 @@ import {
   toggleSelectCartItem,
 } from '@utils/cart';
 
-const product1: ProductInformation = PRODUCT_LIST.productList[0];
+const [product1, product2, product3, product4] = PRODUCT_LIST.productList;
 
-const product2: ProductInformation = PRODUCT_LIST.productList[1];
-
-const product3: ProductInformation = PRODUCT_LIST.productList[2];
-
-const product4: ProductInformation = PRODUCT_LIST.productList[3];
 describe('cart에 대한 함수가 올바르게 작동하는 지 테스트합니다.', () => {
   test('상품을 장바구니 API에 맞게 올바르게 만드는 지 테스트', () => {
     const cartItem = createServerCartItem(product1);
