@@ -14,10 +14,17 @@ const CartDeleteButton = (props: CartDeleteButtonProps) => {
   const updateProductQuantity = useSetRecoilState(productCountSelector(productId));
   const deleteToggled = useResetRecoilState(productToggleSelector(productId));
 
-  const deleteProduct = () => {
-    fetch(`/cart-items/${productId}`, { method: 'DELETE' });
-    updateProductQuantity(0);
-    deleteToggled();
+  const deleteProduct = async () => {
+    try {
+      const response = await fetch(`/cart-items/${productId}`, { method: 'DELETE' });
+
+      if (response.ok) {
+        updateProductQuantity(0);
+        deleteToggled();
+      }
+    } catch {
+      console.error('상품 삭제에 실패하였습니다.');
+    }
   };
 
   return (

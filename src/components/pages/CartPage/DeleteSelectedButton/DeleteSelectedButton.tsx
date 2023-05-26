@@ -9,24 +9,26 @@ const DeleteSelectedButton = () => {
   const setToggles = useSetRecoilState(cartToggleState);
   const setCart = useSetRecoilState(cartState);
 
-  const deleteToggledProducts = () => {
-    toggledProducts.forEach((id) => {
-      fetch(`/cart-items/${id}`, { method: 'DELETE' });
+  const deleteToggledProducts = async () => {
+    toggledProducts.forEach(async (productId) => {
+      try {
+        const response = await fetch(`/cart-items/${productId}`, { method: 'DELETE' });
+
+        if (response.ok) {
+          setToggles((prev) => {
+            const newToggles = { ...prev };
+            delete newToggles[productId];
+            return newToggles;
+          });
+
+          setCart((prev) => prev.filter(({ id }) => id !== productId));
+        } else {
+          throw new Error('delete failed');
+        }
+      } catch {
+        console.error('일부 상품 삭제에 실패하였습니다.');
+      }
     });
-
-    setToggles((prev) => {
-      const cur: Record<number, boolean> = {};
-
-      Object.keys(prev)
-        .map(Number)
-        .forEach((id) => {
-          if (!toggledProducts.includes(id)) cur[id] = false;
-        });
-
-      return cur;
-    });
-
-    setCart((prev) => prev.filter(({ id }) => !toggledProducts.includes(Number(id))));
   };
 
   return (
