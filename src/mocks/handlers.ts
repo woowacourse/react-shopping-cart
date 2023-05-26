@@ -8,8 +8,16 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(mockProducts));
   }),
 
+  rest.get('/productss', (req, res, ctx) => {
+    return res(ctx.status(404));
+  }),
+
   rest.get('/cart-items', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(mockCart));
+  }),
+
+  rest.get('/cart-itemss', (req, res, ctx) => {
+    return res(ctx.status(500));
   }),
 
   rest.post('/cart-items', async (req, res, ctx) => {

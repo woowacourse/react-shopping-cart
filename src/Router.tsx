@@ -6,6 +6,7 @@ import ProductPageError from './pages/ProductPage/ProductPageError';
 import { PAGE_ROUTES } from './constants/routes';
 import NotFound from './pages/ErrorPage';
 import CartPage from './pages/CartPage';
+import CartPageError from './components/CartPage/CartList/CartPageError';
 
 const router = createBrowserRouter(
   [
@@ -18,7 +19,11 @@ const router = createBrowserRouter(
           element: <ProductPage />,
           errorElement: <ProductPageError />,
         },
-        { path: PAGE_ROUTES.CART, element: <CartPage /> },
+        {
+          path: PAGE_ROUTES.CART,
+          element: <CartPage />,
+          errorElement: <CartPageError />,
+        },
       ],
     },
     {

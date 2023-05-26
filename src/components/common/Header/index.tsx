@@ -15,7 +15,7 @@ const Header = () => {
         </S.LinkToHome>
         <Flex>
           <S.LinkToCart to={PAGE_ROUTES.CART}>장바구니</S.LinkToCart>
-          <ErrorBoundary fallback={null}>
+          <ErrorBoundary fallback={<p />}>
             <CartBadge />
           </ErrorBoundary>
         </Flex>
