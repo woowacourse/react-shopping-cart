@@ -8,8 +8,8 @@ interface PopUpProps {
 const PopUp = ({ text, isSuccess }: PopUpProps) => {
   return (
     <div className={isSuccess ? styles.successPopupBox : styles.failurePopupBox}>
-      {text.map((textItem) => (
-        <div>{textItem}</div>
+      {text.map((textItem, index) => (
+        <div key={index}>{textItem}</div>
       ))}
     </div>
   );
