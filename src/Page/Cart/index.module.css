@@ -24,3 +24,9 @@
   align-items: center;
   font-weight: 900;
 }
+
+@media (max-width: 1024px) {
+  .cart-container {
+    flex-direction: column;
+  }
+}
