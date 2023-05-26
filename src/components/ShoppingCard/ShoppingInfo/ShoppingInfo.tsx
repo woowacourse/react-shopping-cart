@@ -8,30 +8,29 @@ import { ReactComponent as DeleteIcon } from "../../../assets/icon/delete.svg";
 import IconButton from "../../common/IconButton/IconButton";
 import Counter from "../../common/Counter/Counter";
 import ProductPrice from "../../ProductPrice/ProductPrice";
+import { checkedCartIdAtom } from "../../../store/cartState";
+import { useRecoilValue } from "recoil";
 
 interface ShoppingInfoProps {
   cartId: number;
-  isDeleted: boolean;
+  isDelete: boolean;
   deleteChecked: () => void;
 }
 
 const ShoppingInfo = ({
   cartId,
-  isDeleted,
+  isDelete,
   deleteChecked,
 }: ShoppingInfoProps) => {
+  const checkedIdList = useRecoilValue(checkedCartIdAtom);
   const { cart, deleteToCart, plusQuantity, minusQuantity } = useCart(cartId);
   const { quantity, product } = cart;
   const { name, price, imageUrl } = product;
 
-  const handleDelete = async () => {
-    await deleteToCart();
-  };
-
   useEffect(() => {
-    if (isDeleted) handleDelete();
-  }, [isDeleted]);
-
+    const check = checkedIdList.find((id) => id === cartId);
+    if (isDelete && check) deleteToCart();
+  }, [isDelete]);
   return (
     <>
       <ThemeProvider theme={imgTheme}>

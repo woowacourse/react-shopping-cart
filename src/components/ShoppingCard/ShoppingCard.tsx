@@ -6,7 +6,7 @@ import Checkbox from "../common/Checkbox/Checkbox";
 interface ShoppingCardProps {
   cartId: number;
   isChecked: boolean;
-  isDeleted: boolean;
+  isDelete: boolean;
   deleteChecked: () => void;
   changeIsChecked: () => void;
 }
@@ -14,16 +14,16 @@ interface ShoppingCardProps {
 const ShoppingCard = ({
   cartId,
   isChecked,
-  isDeleted,
-  changeIsChecked,
+  isDelete,
   deleteChecked,
+  changeIsChecked,
 }: ShoppingCardProps) => {
   return (
     <Styled.Container>
       <Checkbox isChecked={isChecked} onChange={changeIsChecked} />
       <ShoppingInfo
         cartId={cartId}
-        isDeleted={isDeleted}
+        isDelete={isDelete}
         deleteChecked={deleteChecked}
       />
     </Styled.Container>

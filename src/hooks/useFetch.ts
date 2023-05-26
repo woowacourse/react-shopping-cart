@@ -3,7 +3,7 @@ import {
   fetchedProductListAtom,
   fetchedShoppingListAtom,
 } from "../store/fetchState";
-import { useLayoutEffect, useEffect } from "react";
+import { useEffect } from "react";
 import { fetchGetQuery } from "../api";
 import { Cart, Product } from "../types/product";
 import { cartIdAtom } from "../store/cartState";
@@ -16,7 +16,7 @@ const useFetchData = (handleIsLoading: VoidFunction) => {
   const [, setCartId] = useRecoilState(cartIdAtom);
   const { ChangeErrorTrue, ChangeErrorFalse } = useError();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     ChangeErrorFalse();
     const fetchData = async () => {
       try {
@@ -43,7 +43,7 @@ const useFetchShoppingList = (handleIsLoading: VoidFunction) => {
   const [, setFetchedShoppingList] = useRecoilState(fetchedShoppingListAtom);
   const { ChangeErrorTrue, ChangeErrorFalse } = useError();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     ChangeErrorFalse();
     const fetchData = async () => {
       try {

@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { cartIdAtom } from "../../store/cartState";
 import Styled from "./ShoppingCardListStyled";
@@ -8,11 +8,17 @@ import useCheckedItem from "../../hooks/useCheckedItem";
 
 const ShoppingCardList = () => {
   const shoppingListId = useRecoilValue(cartIdAtom);
+  console.log(shoppingListId);
+  const [deleteCart, setDeleteCart] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (deleteCart) deleteCheckedAll();
+    setDeleteCart(false);
+  }, [shoppingListId]);
 
   const {
-    isChecked,
-    isDeleted,
-    isCheckedAll,
+    checkedIdList,
+    checkedAll,
     countIsChecked,
     changeIsChecked,
     changeIsCheckedAll,
@@ -26,18 +32,20 @@ const ShoppingCardList = () => {
       <Styled.Border />
       <Styled.ListContainer>
         <Styled.List>
-          {shoppingListId.map((id, index) => {
+          {shoppingListId.map((id) => {
             return (
               <ShoppingCard
                 key={id}
                 cartId={id}
-                isChecked={isChecked[index]}
-                isDeleted={isDeleted[index]}
+                isChecked={
+                  checkedIdList.find((checkId) => checkId === id) ? true : false
+                }
+                isDelete={deleteCart}
                 deleteChecked={() => {
-                  deleteChecked(index);
+                  deleteChecked(id);
                 }}
                 changeIsChecked={() => {
-                  changeIsChecked(index);
+                  changeIsChecked(id);
                 }}
               />
             );
@@ -45,11 +53,17 @@ const ShoppingCardList = () => {
         </Styled.List>
       </Styled.ListContainer>
       <Styled.AllCheckContainer>
-        <Checkbox isChecked={isCheckedAll} onChange={changeIsCheckedAll} />
+        <Checkbox isChecked={checkedAll} onChange={changeIsCheckedAll} />
         <div>
           전체선택 ({countIsChecked}/{shoppingListId.length})
         </div>
-        <Styled.Button onClick={deleteCheckedAll}>선택삭제</Styled.Button>
+        <Styled.Button
+          onClick={() => {
+            setDeleteCart(true);
+          }}
+        >
+          선택삭제
+        </Styled.Button>
       </Styled.AllCheckContainer>
     </Styled.Container>
   );

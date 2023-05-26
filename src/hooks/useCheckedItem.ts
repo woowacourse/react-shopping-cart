@@ -1,52 +1,47 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { cartIdAtom, checkedCartIdAtom } from "../store/cartState";
 
 const useCheckedItem = (length: number) => {
-  const [isChecked, setIsChecked] = useState<boolean[]>(
-    new Array(length).fill(false)
-  );
-  const [isDeleted, setIsDeleted] = useState<boolean[]>(
-    new Array(length).fill(false)
-  );
-  const [isCheckedAll, setIsCheckedAll] = useState<boolean>(false);
+  const cartIdList = useRecoilValue(cartIdAtom);
+  const [checkedIdList, setCheckedIdList] = useRecoilState(checkedCartIdAtom);
+  const [checkedAll, setCheckedAll] = useState<boolean>(false);
 
-  const changeIsChecked = (index: number) => {
-    const newIsChecked = [...isChecked];
-    newIsChecked[index] = !newIsChecked[index];
-
-    if (!newIsChecked[index] && isCheckedAll) setIsCheckedAll(false);
-    if (newIsChecked.every((value) => value === true)) setIsCheckedAll(true);
-
-    setIsChecked(newIsChecked);
+  useEffect(() => {
+    console.log(checkedIdList);
+  }, [checkedIdList]);
+  const changeIsChecked = (cartId: number) => {
+    const check = checkedIdList.find((id) => id === cartId);
+    if (check) setCheckedIdList((prev) => prev.filter((id) => id !== cartId));
+    if (!check) setCheckedIdList((prev) => [...prev, cartId]);
+    if (checkedIdList.length !== length) setCheckedAll(false);
+    if (checkedIdList.length === length) setCheckedAll(true);
   };
 
   const changeIsCheckedAll = () => {
-    const newIsCheckedAll = !isCheckedAll;
-
-    setIsCheckedAll(newIsCheckedAll);
-    setIsChecked((prev) => {
-      return prev.map(() => newIsCheckedAll);
-    });
+    if (checkedAll) setCheckedIdList([]);
+    if (!checkedAll) setCheckedIdList([...cartIdList]);
+    setCheckedAll(!checkedAll);
   };
 
-  const deleteChecked = (index: number) => {
-    const newIsChecked = [...isChecked];
-    newIsChecked.splice(index, 1);
-    setIsChecked(newIsChecked);
+  const deleteChecked = (cartId: number) => {
+    setCheckedIdList((prev) => prev.filter((id) => id !== cartId));
   };
 
   const deleteCheckedAll = () => {
-    const newIsDeleted = [...isChecked];
-    setIsDeleted(newIsDeleted);
+    const deletedCheck = [...checkedIdList];
+    deletedCheck.forEach((check) => {
+      deleteChecked(check);
+    });
   };
 
-  const countIsChecked = isChecked.reduce((count, value) => {
+  const countIsChecked = checkedIdList.reduce((count, value) => {
     return value ? count + 1 : count;
   }, 0);
 
   return {
-    isChecked,
-    isDeleted,
-    isCheckedAll,
+    checkedIdList,
+    checkedAll,
     countIsChecked,
     changeIsChecked,
     changeIsCheckedAll,

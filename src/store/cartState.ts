@@ -15,6 +15,11 @@ export const cartIdAtom = atom<number[]>({
   default: [],
 });
 
+export const checkedCartIdAtom = atom<number[]>({
+  key: "checkedCartId",
+  default: [],
+});
+
 export const cartAllSelector = selector<Cart[]>({
   key: "cartAll",
   get: ({ get }) => {
