@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil';
 import CartIcon from '../../assets/cart-icon.svg';
 import Logo from '../../assets/logo.png';
 import { cartListState } from '../../store/cart';
+import { CART_PAGE_LOCATE, MAIN_PAGE_LOCATE } from '../../utils/constants';
 import styles from './style.module.css';
 
 const Header = () => {
@@ -12,11 +13,11 @@ const Header = () => {
   const cartItemList = useRecoilValue(cartListState);
 
   const navigateToMainPage = useCallback(() => {
-    navigate('/');
+    navigate(MAIN_PAGE_LOCATE);
   }, [navigate]);
 
   const navigateToCartPage = useCallback(() => {
-    navigate('/cartlist');
+    navigate(CART_PAGE_LOCATE);
   }, [navigate]);
 
   return (
