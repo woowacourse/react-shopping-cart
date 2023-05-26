@@ -20,7 +20,7 @@ const skeletonAnimation = keyframes`
 
 export const SkeletonItem = styled.div`
   width: 30rem;
-  height: 20rem;
+  height: 35rem;
 
   background: linear-gradient(-90deg, #aaa, #f0f0f0, #aaa, #f0f0f0);
   background-size: 400%;
