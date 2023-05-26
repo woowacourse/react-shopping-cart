@@ -28,7 +28,7 @@ const ProductAddition = ({
             <h4 className={styles.productName}>{productInformation.name}</h4>
             <h4 className={styles.productPrice}>{priceFormatter(productInformation.price)}원</h4>
           </div>
-          <StepperButton count={quantity} setCount={setQuantity} />
+          <StepperButton itemId={productInformation.id} count={quantity} setCount={setQuantity} />
         </div>
       </div>
       <div className={styles.totalPriceContainer}>

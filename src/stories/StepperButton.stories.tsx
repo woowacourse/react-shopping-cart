@@ -33,6 +33,7 @@ export const Default: Story = {
 
     return (
       <StepperButton
+        itemId={Number(new Date())}
         count={count}
         setCount={setCount}
         minCount={args.minCount}
@@ -56,6 +57,7 @@ export const Interaction: Story = {
 
     return (
       <StepperButton
+        itemId={Number(new Date())}
         count={count}
         setCount={setCount}
         minCount={args.minCount}

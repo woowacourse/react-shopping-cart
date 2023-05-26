@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import { AddIcon } from '../../../assets';
-import { useFetch } from '../../../hooks/useFetch';
+import useCartList from '../../../hooks/useCartList';
 import { useModal } from '../../../hooks/useModal';
-import { cartItemQuantityState, cartListState } from '../../../store/cart';
+import { cartItemQuantityState } from '../../../store/cart';
 import { ProductItemType } from '../../../types';
 import { priceFormatter } from '../../../utils/formatter';
 import Modal from '../../utils/Modal/Modal';
@@ -18,42 +18,12 @@ interface ProductItemProps {
 const ProductItem = ({ information }: ProductItemProps) => {
   const cartItemQuantity = useRecoilValue(cartItemQuantityState(information.id));
   const [addQuantity, setAddQuantity] = useState(1);
+  const { fetchProductAddToCart } = useCartList();
 
   const { isModalOpen, handleModalOpen, handleModalClose, handleModalClosePress } = useModal();
-  const [cartList, setCartList] = useRecoilState(cartListState);
-  const { fetchApi } = useFetch<ProductItemType[]>(setCartList);
 
   const handleCartAdd = () => {
-    const compareProductId = information.id;
-    fetchApi.post(`cart-items`, { productId: compareProductId, quantity: addQuantity });
-
-    const isExistItem = cartList.find((item) => item.product.id === compareProductId);
-
-    if (isExistItem) {
-      setCartList(
-        cartList.map((item) => {
-          if (item.product.id === compareProductId) {
-            return {
-              ...item,
-              quantity: item.quantity + addQuantity,
-            };
-          }
-          return item;
-        })
-      );
-    } else {
-      const newCartList = [
-        ...cartList,
-        {
-          id: Number(new Date()),
-          quantity: 1,
-          product: information,
-          isChecked: true,
-        },
-      ];
-      setCartList(newCartList);
-    }
-
+    fetchProductAddToCart(information, addQuantity);
     handleModalClose();
   };
 

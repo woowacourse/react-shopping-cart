@@ -1,9 +1,6 @@
-import { useRecoilState } from 'recoil';
-
 import { TrashCan } from '../../../assets';
-import { useFetch } from '../../../hooks/useFetch';
-import { cartListState } from '../../../store/cart';
-import { CartItemType, ProductItemType } from '../../../types';
+import useCartList from '../../../hooks/useCartList';
+import { ProductItemType } from '../../../types';
 import { priceFormatter } from '../../../utils/formatter';
 import Checkbox from '../../utils/Checkbox/Checkbox';
 import StepperButton from '../../utils/StepperButton/StepperButton';
@@ -26,23 +23,10 @@ const CartItem = ({
   checkHandler,
   removeItem,
 }: CartItemProps) => {
-  const [cartList, setCartList] = useRecoilState(cartListState);
-  const { fetchApi } = useFetch<ProductItemType[]>(setCartList);
+  const { updateCartItemQuantity } = useCartList();
 
-  const updateCartItemQuantity = (quantity: number) => {
-    fetchApi.patch(`/cart-items/${itemId}`, { quantity });
-
-    setCartList(
-      cartList.map((item: CartItemType) => {
-        if (item.id === itemId) {
-          return {
-            ...item,
-            quantity: quantity,
-          };
-        }
-        return item;
-      })
-    );
+  const handleUpdateCartItemQuantity = (itemId: number, quantity: number) => {
+    updateCartItemQuantity(itemId, quantity);
   };
 
   return (
@@ -68,7 +52,11 @@ const CartItem = ({
               removeItem(itemId);
             }}
           />
-          <StepperButton count={quantity} itemId={itemId} updateCount={updateCartItemQuantity} />
+          <StepperButton
+            count={quantity}
+            itemId={itemId}
+            updateCount={handleUpdateCartItemQuantity}
+          />
           <div className={styles.resultPrice}>{priceFormatter(product.price * quantity)}원</div>
         </div>
       </div>

@@ -1,26 +1,35 @@
-import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 
-import { useFetch } from '../../../hooks/useFetch';
+import useProducts from '../../../hooks/useProducts';
 import productListState from '../../../store/product';
-import { ProductItemType } from '../../../types';
 import LoadingSpinner from '../../utils/LoadingSpinner/LoadingSpinner';
 import ProductItem from '../ProductItem/ProductItem';
 import styles from './styles.module.css';
 
 const ProductList = () => {
-  const [, setList] = useRecoilState(productListState);
+  const productItems = useRecoilValue(productListState);
 
-  const { data, fetchApi, isLoading } = useFetch<ProductItemType[]>(setList);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { fetchProductList } = useProducts();
+
   useEffect(() => {
-    fetchApi.get('/products');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const fetchProductItems = async () => {
+      setIsLoading(true);
+      try {
+        await fetchProductList();
+      } catch (error) {}
+      setIsLoading(false);
+    };
+
+    fetchProductItems();
+  }, [fetchProductList]);
 
   return (
     <div className={styles.container}>
       {isLoading && <LoadingSpinner />}
-      {data?.map((productItem) => (
+      {productItems?.map((productItem) => (
         <ProductItem key={productItem.id} information={productItem} />
       ))}
     </div>
