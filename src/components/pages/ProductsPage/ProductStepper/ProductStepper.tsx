@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import * as Styled from './ProductStepper.styled';
 
@@ -8,11 +8,11 @@ import Stepper from '../../../commons/Stepper/Stepper';
 import useStepper from '../../../../hooks/useStepper';
 
 import StepperSettings from '../../../../constants/StepperSettings';
-import { productToggleSelector } from '../../../../recoil/cartToggleState';
 import usePreviousValue from '../../../../hooks/usePreviousValue';
 import cartState, { productCountSelector } from '../../../../recoil/cartState';
 import { Product } from '../../../../types/Product';
 import useCartUpdateApi from '../../../../hooks/useCartUpdateApi';
+import useToggleSetterEffect from '../../../../hooks/useToggleSetter';
 
 interface ProductStepperProps {
   productId: number;
@@ -38,23 +38,8 @@ const ProductStepper = (props: ProductStepperProps) => {
   const updateProductQuantity = useSetRecoilState(productCountSelector(productId));
   const setCartState = useSetRecoilState(cartState);
 
-  const toggleSetter = useSetRecoilState(productToggleSelector(productId));
-  const deleteToggleInfo = useResetRecoilState(productToggleSelector(productId));
-
   useCartUpdateApi(productId, value, setValue);
-
-  useEffect(() => {
-    if (prevValue === value) return;
-
-    if (prevValue === 0 && value > 0) {
-      toggleSetter(true);
-      return;
-    }
-
-    if (value === 0) {
-      deleteToggleInfo();
-    }
-  }, [value]);
+  useToggleSetterEffect(productId, value);
 
   useEffect(() => {
     if (prevValue === 0 && value > 0) {
