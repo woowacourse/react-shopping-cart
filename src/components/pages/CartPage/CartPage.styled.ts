@@ -5,7 +5,7 @@ export const StyledCartPage = styled.div`
   flex-direction: column;
 
   width: 100%;
-  height: 100%;
+  height: 100vh;
 
   & > h1 {
     width: 100%;
@@ -20,7 +20,6 @@ export const StyledFlexBox = styled.div`
   justify-content: space-between;
 
   width: 100%;
-  height: 100%;
 
   @media screen and (max-width: 1000px) {
     flex-direction: column;

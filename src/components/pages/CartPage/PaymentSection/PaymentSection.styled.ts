@@ -6,12 +6,10 @@ export const StyledPaymentSection = styled.section`
   align-items: center;
 
   width: 40%;
-  height: 100%;
 `;
 
 export const StyledPaymentInfoBox = styled.div`
   width: 100%;
-  height: 400px;
 
   margin: 64px;
 

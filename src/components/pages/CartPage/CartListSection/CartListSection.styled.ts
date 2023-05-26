@@ -3,17 +3,13 @@ import styled from 'styled-components';
 export const StyledCartListSection = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 
   width: 52%;
-  height: 100%;
-
-  @media screen and (max-width: 1000px) {
-    height: 50%;
-  }
 `;
 
 export const StyledCartListTextBox = styled.div`
+  height: 60px;
+
   margin-bottom: 16px;
   padding: 24px 0;
 
@@ -25,4 +21,6 @@ export const StyledCartListFlexBox = styled.div`
   display: flex;
   align-items: center;
   column-gap: 12px;
+
+  height: 60px;
 `;
