@@ -39,7 +39,7 @@ const CartItem = ({
           onClick={() => removeProductFromCart(id)}
         />
         <BucketCounter
-          kind="large"
+          counterStyle="large"
           id={id}
           quantity={quantity}
           showMinCountAlert={true}

@@ -17,7 +17,7 @@ const AddCartButton = ({ id, addProductToCart }: AddCartButtonProps) => {
     <Wrapper>
       {savedCartData ? (
         <BucketCounter
-          kind="small"
+          counterStyle="small"
           id={id}
           quantity={savedCartData.quantity}
           showMinCountAlert={false}
