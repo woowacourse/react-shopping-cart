@@ -5,13 +5,22 @@ import Styled from "./ShoppingCardListStyled";
 import ShoppingCard from "../ShoppingCard/ShoppingCard";
 import Checkbox from "../common/Checkbox/Checkbox";
 import useCheckedItem from "../../hooks/useCheckedItem";
+import Modal from "../common/Modal/Modal";
 
 const ShoppingCardList = () => {
   const shoppingListId = useRecoilValue(cartIdAtom);
   const [deleteCart, setDeleteCart] = useState<boolean>(false);
+  const [isOpen, SetIsOpen] = useState<boolean>(false);
+
+  const onClose = () => {
+    SetIsOpen(false);
+  };
 
   useEffect(() => {
-    if (deleteCart) deleteCheckedAll();
+    if (deleteCart) {
+      deleteCheckedAll();
+      SetIsOpen(true);
+    }
     setDeleteCart(false);
   }, [shoppingListId]); // eslint-disable-line
 
@@ -64,6 +73,9 @@ const ShoppingCardList = () => {
           선택삭제
         </Styled.Button>
       </Styled.AllCheckContainer>
+      {isOpen && (
+        <Modal onClose={onClose} text={"장바구니에서 삭제 되었습니다"} />
+      )}
     </Styled.Container>
   );
 };

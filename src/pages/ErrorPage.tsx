@@ -10,7 +10,7 @@ const ErrorPage = () => {
   return (
     <Styled.Container>
       <Styled.Error>
-        <Styled.Img loading="lazy" src={errorImg} alt={error.method} />;
+        <Styled.Img loading="lazy" src={errorImg} alt={error.method} />
         <Styled.Title>에러가 발생했어요</Styled.Title>
         <Styled.Message>{error.message}</Styled.Message>
       </Styled.Error>

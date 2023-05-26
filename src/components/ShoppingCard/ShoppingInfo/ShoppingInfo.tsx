@@ -30,7 +30,8 @@ const ShoppingInfo = ({
   useEffect(() => {
     const check = checkedIdList.find((id) => id === cartId);
     if (isDelete && check) deleteToCart();
-  }, [isDelete]);
+  }, [isDelete]); // eslint-disable-line
+
   return (
     <>
       <ThemeProvider theme={imgTheme}>

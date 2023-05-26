@@ -3,6 +3,7 @@ import styled from "styled-components";
 const Styled = {
   Container: styled.div`
     display: flex;
+    width: 630px;
     flex-direction: column;
     gap: 24px;
   `,
@@ -12,9 +13,9 @@ const Styled = {
     letter-spacing: 0.5px;
   `,
   ListContainer: styled.div`
-    width: 58%;
+    width: 100%;
     height: auto;
-    max-height: 560px;
+    max-height: 540px;
     overflow-y: auto;
     box-sizing: border-box;
 
@@ -41,7 +42,7 @@ const Styled = {
     width: 100%;
   `,
   Border: styled.hr`
-    width: 58%;
+    width: 100%;
     height: 2px;
 
     background-color: #aaaaaa;

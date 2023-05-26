@@ -30,8 +30,10 @@ const ShoppingCartPage = () => {
       ) : (
         <Styled.Container>
           <ShoppingTitle />
-          <ShoppingCardList />
-          <ShoppingPreview />
+          <Styled.ShoppingSection>
+            <ShoppingCardList />
+            <ShoppingPreview />
+          </Styled.ShoppingSection>
         </Styled.Container>
       )}
     </>
@@ -44,6 +46,11 @@ const Styled = {
     flex-direction: column;
     gap: 34px;
     width: 70%;
+  `,
+  ShoppingSection: styled.section`
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
   `,
 };
 export default ShoppingCartPage;

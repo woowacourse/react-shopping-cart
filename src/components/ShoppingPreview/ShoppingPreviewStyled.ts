@@ -2,20 +2,18 @@ import styled from "styled-components";
 
 const Styled = {
   Container: styled.div`
-    position: fixed;
     display: flex;
+    margin-top: 30px;
+    width: 400px;
+    height: 380px;
     flex-direction: column;
-    top: 288px;
-    right: 17%;
-    width: 23%;
-    height: 37%;
 
     border: 1px solid #dddddd;
   `,
   TopSection: styled.section`
     padding: 22px 30px;
     font-size: 24px;
-    font-color: #333333;
+    color: #333333;
     letter-spacing: 0.5px;
   `,
   Border: styled.hr`
@@ -46,7 +44,6 @@ const Styled = {
   TextSpan: styled.span`
     font-weight: bold;
     font-size: 20px;
-    align-text: center;
     letter-spacing: 0.5px;
   `,
   PaymentSection: styled.section`

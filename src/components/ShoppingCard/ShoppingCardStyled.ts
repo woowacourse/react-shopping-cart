@@ -4,7 +4,7 @@ const Styled = {
   Container: styled.li`
     display: flex;
     width: 100%;
-    padding: 20px 0;
+    padding: 15px 0;
 
     gap: 15px;
 
