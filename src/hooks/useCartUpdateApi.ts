@@ -36,6 +36,8 @@ const useCartUpdateApi = (productId: number, value: number, setValue: (value: nu
       })
     );
   }, [productId, value]);
+
+  return { serverPrevValue: prevValue.current, serverValue: value };
 };
 
 export default useCartUpdateApi;

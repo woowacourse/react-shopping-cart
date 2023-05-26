@@ -33,36 +33,37 @@ const ProductStepper = (props: ProductStepperProps) => {
     defaultValue
   );
 
-  const prevValue = usePreviousValue(value);
   const updateProductQuantity = useSetRecoilState(productCountSelector(productId));
   const setCartState = useSetRecoilState(cartState);
 
   const toggleSetter = useSetRecoilState(productToggleSelector(productId));
   const deleteToggleInfo = useResetRecoilState(productToggleSelector(productId));
 
-  useCartUpdateApi(productId, value, setValue);
+  const { serverPrevValue, serverValue } = useCartUpdateApi(productId, value, setValue);
 
   useEffect(() => {
-    if (prevValue === value) return;
+    if (serverPrevValue === serverValue) return;
 
-    if (prevValue === 0 && value > 0) {
+    console.log(serverPrevValue, serverValue);
+
+    if (serverPrevValue === 0 && serverValue > 0) {
       toggleSetter(true);
       return;
     }
 
-    if (value === 0) {
+    if (serverValue === 0) {
       deleteToggleInfo();
     }
-  }, [value]);
+  }, [serverValue]);
 
   useEffect(() => {
-    if (prevValue === 0 && value > 0) {
-      setCartState((prevCart) => [...prevCart, { product, id: productId, quantity: value }]);
+    if (serverPrevValue === 0 && serverValue > 0) {
+      setCartState((prevCart) => [...prevCart, { product, id: productId, quantity: serverValue }]);
       return;
     }
 
-    updateProductQuantity(value);
-  }, [value]);
+    updateProductQuantity(serverValue);
+  }, [serverValue]);
 
   return (
     <Styled.ProductStepper>
