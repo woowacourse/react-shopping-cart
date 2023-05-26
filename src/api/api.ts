@@ -1,22 +1,22 @@
-export const productsQuery = async () => {
-  const response = await fetch('/products');
+const getResponseBody = async (response: Response) => {
   if (!response.ok) throw new Error();
   const data = await response.json();
   return data;
+};
+
+export const productsQuery = async () => {
+  const response = await fetch('/products');
+  return getResponseBody(response);
 };
 
 export const cartQuery = async () => {
   const response = await fetch('/cart-items');
-  if (!response.ok) throw new Error();
-  const data = await response.json();
-  return data;
+  return getResponseBody(response);
 };
 
 export const productQuery = async (id: number) => {
   const response = await fetch(`/product/${id}`);
-  if (!response.ok) throw new Error();
-  const data = await response.json();
-  return data;
+  return getResponseBody(response);
 };
 
 export const postCartItemQuery = async (id: number) => {
