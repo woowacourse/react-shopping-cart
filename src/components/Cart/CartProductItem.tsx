@@ -8,7 +8,6 @@ import CheckBox from '../Common/CheckBox';
 import TrashCanIcon from '../../assets/TrashCanIcon';
 import type { CartProduct } from '../../types/product';
 import useProductQuantity from '../../hooks/useProductQuantity';
-import useCartProducts from '../../hooks/useCartProducts';
 import useChecked from '../../hooks/useChecked';
 
 interface CartProductItemProps {
@@ -19,8 +18,10 @@ const CartProductItem = ({ cartProduct }: CartProductItemProps) => {
   const { id, quantity, product } = cartProduct;
   const { name, price, imageUrl } = product;
 
-  const { deleteProduct } = useCartProducts(product);
-  const { addCount, subtractCount } = useProductQuantity(id, quantity);
+  const { addCount, subtractCount, deleteProduct } = useProductQuantity(
+    id,
+    quantity
+  );
   const { targetChecked, updateChecked, deleteChecked } = useChecked(id);
 
   const toggleProductChecked: ChangeEventHandler<HTMLInputElement> = (
