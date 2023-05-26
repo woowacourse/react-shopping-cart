@@ -24,7 +24,7 @@ const CartItem = ({ id, quantity, name, price, imageUrl }: CartItemProps) => {
   const { toggleItemCheckbox } = useCartCheckbox();
   const { isModalOpen, handleModalOpen, handleModalClose } = useModal();
 
-  const onCheckboxClick = useCallback(() => {
+  const onCheckboxChange = useCallback(() => {
     toggleItemCheckbox(id);
   }, [id, toggleItemCheckbox]);
 
@@ -42,7 +42,7 @@ const CartItem = ({ id, quantity, name, price, imageUrl }: CartItemProps) => {
 
   return (
     <S.CartItemContainer>
-      <Checkbox checked={isChecked} onChange={onCheckboxClick} />
+      <Checkbox checked={isChecked} onChange={onCheckboxChange} />
       <S.CartItemImageWrapper>
         <S.CartItemImage src={imageUrl} alt={name} />
       </S.CartItemImageWrapper>

@@ -20,7 +20,7 @@ const CartListHeader = () => {
   const { toggleAllCheckbox } = useCartCheckbox();
   const { isModalOpen, handleModalOpen, handleModalClose } = useModal();
 
-  const onCheckboxClick = useCallback(() => {
+  const onCheckboxChange = useCallback(() => {
     toggleAllCheckbox();
   }, [toggleAllCheckbox]);
 
@@ -34,7 +34,7 @@ const CartListHeader = () => {
       <Checkbox
         id="전체 선택 체크박스"
         checked={isCartAllChecked.state === 'hasValue' && isCartAllChecked.contents}
-        onChange={onCheckboxClick}
+        onChange={onCheckboxChange}
       />
       <S.CartItemAllSelectText>
         전체선택 ({cartListItemCount.state === 'hasValue' ? checkedCartItems.contents.size : 0}/
