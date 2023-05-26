@@ -1,26 +1,28 @@
 import { rest } from 'msw';
 
-import { CART_LIST_LOCAL_STORAGE_KEY } from '../constants';
 import initialData from '../data/mockData.json';
-import { CartItemType } from '../types';
 
 interface PostCartItemId {
   itemId: string;
 }
 
-const storeKey = CART_LIST_LOCAL_STORAGE_KEY;
+const STORE_CART_DATA =
+  '[{"id":1685089181564,"product":{"id":7,"name":"쌈채소봉투(소)-신선한 채소","price":31400,"imageUrl":"https://cdn-mart.baemin.com/sellergoods/list/ae81ed95-331c-4a73-aba9-9d47e8729624.jpg?h=400&w=400"},"quantity":2,"isChecked":true},{"id":1685090063783,"product":{"id":9,"name":"[박스/무료배송] 쉐프원 냉동 중화면 1.15kg *8개입","price":18320,"imageUrl":"https://cdn-mart.baemin.com/sellergoods/main/7018d2ee-e0c3-43e5-aa45-bd5d98c65f64.jpg?h=400&w=400"},"quantity":1,"isChecked":true}]';
 
 export const handlers = [
   rest.get('/products', (req, res, ctx) => {
     return res(ctx.status(200), ctx.delay(1500), ctx.json(initialData));
   }),
 
-  rest.get('/cart-items', (req, res, ctx) => {
-    const savedValue = localStorage.getItem(storeKey);
+  rest.get('/products-failed', (req, res, ctx) => {
+    return res(ctx.status(500), ctx.delay(1500));
+  }),
 
-    if (savedValue !== null) {
-      return res(ctx.status(200), ctx.delay(1000), ctx.json(JSON.parse(savedValue)));
-    }
+  rest.get('/cart-items', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.delay(1000), ctx.json(JSON.parse(STORE_CART_DATA)));
+  }),
+
+  rest.get('/cart-items-failed', (req, res, ctx) => {
     return res(
       ctx.status(500),
       ctx.delay(1000),
@@ -29,25 +31,10 @@ export const handlers = [
   }),
 
   rest.patch<PostCartItemId>('/cart-items/:cartItemId', async (req, res, ctx) => {
-    const { cartItemId } = await req.params;
+    return res(ctx.status(200), ctx.delay(500));
+  }),
 
-    const reqBody = await req.json();
-    const savedValue = localStorage.getItem(storeKey);
-    if (savedValue) {
-      const initData = JSON.parse(savedValue) as CartItemType[];
-      const quantity = reqBody.quantity;
-
-      const newData = initData.map((item: CartItemType) => {
-        if (item.id === Number(cartItemId)) {
-          item.quantity = quantity;
-          return item;
-        }
-        return item;
-      });
-
-      localStorage.setItem(CART_LIST_LOCAL_STORAGE_KEY, JSON.stringify(newData));
-      return res(ctx.status(200), ctx.delay(500));
-    }
+  rest.patch<PostCartItemId>('/cart-items-failed/:cartItemId', async (req, res, ctx) => {
     return res(
       ctx.status(404),
       ctx.delay(500),
@@ -59,11 +46,23 @@ export const handlers = [
     return res(ctx.status(204), ctx.delay(500));
   }),
 
+  rest.delete('/cart-items-failed/:id', async (req, res, ctx) => {
+    return res(ctx.status(500), ctx.delay(500));
+  }),
+
   rest.post('/cart-items', async (req, res, ctx) => {
     return res(ctx.status(201), ctx.delay(500));
   }),
 
+  rest.post('/cart-items-failed', async (req, res, ctx) => {
+    return res(ctx.status(500), ctx.delay(500));
+  }),
+
   rest.post('/cart-items-quantity', async (req, res, ctx) => {
     return res(ctx.status(201), ctx.delay(500));
+  }),
+
+  rest.post('/cart-items-quantity-failed', async (req, res, ctx) => {
+    return res(ctx.status(500), ctx.delay(500));
   }),
 ];
