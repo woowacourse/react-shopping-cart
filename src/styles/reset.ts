@@ -68,4 +68,7 @@ th {
   padding: 0;
 }
 
+button{
+  background: none;
+}
 `;

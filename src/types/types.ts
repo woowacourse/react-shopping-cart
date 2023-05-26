@@ -1,7 +1,11 @@
-export interface CartInformation {
+export interface ServerCartInformation {
   id: number;
   quantity: number;
   product: ProductInformation;
+}
+
+export interface CartInformation extends ServerCartInformation {
+  isSelect: boolean;
 }
 
 export interface ProductInformation {

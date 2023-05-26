@@ -12,7 +12,7 @@ import {
   J_MOCK,
   K_MOCK,
   L_MOCK,
-} from '@assets';
+} from '@assets/images';
 
 interface ProductListProps {
   productList: ProductInformation[];
@@ -22,7 +22,7 @@ export const PRODUCT_LIST: ProductListProps = {
   productList: [
     {
       id: 1,
-      name: 'PET보틀-정사각(420ml)',
+      name: '더asdasdasdasdasdㅇㅁㄴㅇㅁㄴㄹㅈㄷㄹwefwafasasdasdasd마독 관절 강아지 사료 2kg 가수분해 슬개골 as 개사료',
       price: 43400,
       imageUrl: A_MOCK,
     },
@@ -35,7 +35,7 @@ export const PRODUCT_LIST: ProductListProps = {
     {
       id: 3,
       name: 'PET보틀-정사각(370ml)',
-      price: 24400,
+      price: 28497140112412412123124128964827154879123512893745129845621398457315763120875613708561237856132875612387561238576123587123658173265132865102856321087561238945623109856243908463219486123571236578326548723640782316408732564230875672081356241243212312324400,
       imageUrl: C_MOCK,
     },
     {

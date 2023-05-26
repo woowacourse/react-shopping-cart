@@ -1,17 +1,22 @@
 import { styled } from 'styled-components';
 import useBucketCount from '@hooks/useBucketCount';
-import {
-  TEST_BUCKET_COUNTER_BOTTOM_BUTTON,
-  TEST_BUCKET_COUNTER_TOP_BUTTON,
-  TEST_CART_COUNT_INPUT,
-} from '@constants/testId';
-import { BOTTOM_ARROW, TOP_ARROW } from '@assets';
+import { BOTTOM_ARROW, TOP_ARROW } from '@assets/images';
+import { theme } from '@styles/theme';
 
+type CounterStyleType = 'small' | 'large';
 interface BucketCounterProps {
-  removeProductFromCart: () => void;
+  counterStyle: CounterStyleType;
+  id: number;
+  quantity?: number;
+  showMinCountAlert: boolean;
 }
 
-const BucketCounter = ({ removeProductFromCart }: BucketCounterProps) => {
+const BucketCounter = ({
+  counterStyle,
+  id,
+  quantity = 1,
+  showMinCountAlert,
+}: BucketCounterProps) => {
   const {
     bucketCount,
     onBlur,
@@ -19,60 +24,71 @@ const BucketCounter = ({ removeProductFromCart }: BucketCounterProps) => {
     increaseCount,
     decreaseCount,
     countRef,
-  } = useBucketCount(1, {
-    removeProductFromCart,
+  } = useBucketCount(quantity, {
     errorMessage: '장바구니 수량은 1000개 이하까지 가능합니다.',
     maximumCount: 1000,
+    id,
+    showMinCountAlert,
   });
 
   return (
-    <Wrapper>
+    <Wrapper counterStyle={counterStyle}>
       <Count
+        counterStyle={counterStyle}
         inputMode="numeric"
         value={bucketCount === 0 ? '' : bucketCount}
         onChange={onChange}
         ref={countRef}
         onBlur={onBlur}
-        data-testid={TEST_CART_COUNT_INPUT}
+        aria-label="장바구니 수량 입력 창"
       />
       <Counter>
         <TopButton
-          data-testid={TEST_BUCKET_COUNTER_TOP_BUTTON}
+          counterStyle={counterStyle}
+          aria-label="장바구니 수량 증가 버튼"
           onClick={increaseCount}
         >
-          <Image src={TOP_ARROW} alt="증가" />
+          <Image counterStyle={counterStyle} src={TOP_ARROW} alt="증가" />
         </TopButton>
         <BottomButton
-          data-testid={TEST_BUCKET_COUNTER_BOTTOM_BUTTON}
+          counterStyle={counterStyle}
+          aria-label="장바구니 수량 감소 버튼"
           onClick={decreaseCount}
         >
-          <Image src={BOTTOM_ARROW} alt="감소" />
+          <Image counterStyle={counterStyle} src={BOTTOM_ARROW} alt="감소" />
         </BottomButton>
       </Counter>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ counterStyle: CounterStyleType }>`
   display: flex;
   align-items: center;
 
-  width: 65px;
-  height: 28px;
+  width: ${({ counterStyle }) => (counterStyle === 'small' ? '65px' : '115px')};
+  height: ${({ counterStyle }) => (counterStyle === 'small' ? '28px' : '60px')};
 
-  border: 1px solid #dddddd;
+  border: 1px solid ${theme.colors.whiteGray};
 `;
 
-const Count = styled.input`
+const Count = styled.input<{ counterStyle: CounterStyleType }>`
   display: flex;
   justify-content: center;
   align-items: center;
 
-  width: 42px;
-  height: 28px;
+  width: ${({ counterStyle }) => (counterStyle === 'small' ? '42px;' : '73px')};
+  height: ${({ counterStyle }) =>
+    counterStyle === 'small' ? '28px;' : '60px'};
 
-  border: 1px solid #dddddd;
+  border: 1px solid ${theme.colors.whiteGray};
 
+  font-counterstyle: ${({ counterStyle }) =>
+    counterStyle === 'small' ? '12px' : '24px'};
+  font-weight: 400;
+  text-align: center;
+
+  color: ${theme.colors.primaryBlack};
   outline: none;
 `;
 
@@ -81,24 +97,29 @@ const Counter = styled.div`
   flex-direction: column;
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ counterStyle: CounterStyleType }>`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  width: ${({ counterStyle }) => (counterStyle === 'small' ? '24px' : '42px')};
+  height: ${({ counterStyle }) => (counterStyle === 'small' ? '14px' : '30px')};
   border: none;
+
   background: none;
-  width: 24px;
-  height: 14px;
+  cursor: pointer;
 `;
 
 const TopButton = styled(Button)`
-  border-bottom: 0.5px solid #dddddd;
+  border-bottom: 0.5px solid ${theme.colors.whiteGray};
 `;
 
 const BottomButton = styled(Button)`
-  border-top: 0.5px solid #dddddd;
+  border-top: 0.5px solid ${theme.colors.whiteGray};
 `;
 
-const Image = styled.img``;
+const Image = styled.img<{ counterStyle: CounterStyleType }>`
+  width: ${({ counterStyle }) => (counterStyle === 'small' ? '5px' : '9px')};
+`;
 
 export default BucketCounter;

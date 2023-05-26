@@ -1,17 +1,26 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { showInputErrorMessage } from '@utils/common';
+import useControlCart from './useControlCart';
 
 interface useBucketCountOptions {
-  removeProductFromCart: () => void;
   errorMessage: string;
   maximumCount: number;
+  id: number;
+  showMinCountAlert: boolean;
 }
 
 const useBucketCount = (
   initialValue: number,
-  { removeProductFromCart, errorMessage, maximumCount }: useBucketCountOptions
+  {
+    errorMessage,
+    maximumCount,
+    id,
+    showMinCountAlert = false,
+  }: useBucketCountOptions
 ) => {
   const maximumWriteInput = maximumCount * 10;
+
+  const { removeProductFromCart, updateQuantityOfCartItem } = useControlCart();
 
   const [bucketCount, setBucketCount] = useState(initialValue);
   const countRef = useRef<HTMLInputElement>(null);
@@ -36,12 +45,23 @@ const useBucketCount = (
     }
 
     setBucketCount((prev) => prev + 1);
+    updateQuantityOfCartItem(id, bucketCount + 1);
   };
 
   const decreaseCount = () => {
-    if (bucketCount <= 1) {
-      removeProductFromCart();
+    if (showMinCountAlert && bucketCount <= 1) {
+      alert('장바구니 수량은 1 이상부터 가능합니다.');
+      setBucketCount(1);
+      return;
     }
+
+    if (bucketCount <= 1) {
+      removeProductFromCart(id);
+      return;
+    }
+
+    updateQuantityOfCartItem(id, bucketCount - 1);
+
     setBucketCount((prev) => prev - 1);
   };
 
@@ -51,7 +71,24 @@ const useBucketCount = (
     if (relatedTarget?.parentElement?.parentElement === target.parentElement)
       return;
 
-    if (bucketCount === 0) removeProductFromCart();
+    if (showMinCountAlert && bucketCount === 0) {
+      alert('장바구니 수량은 1 이상부터 가능합니다.');
+      setBucketCount(1);
+      return;
+    }
+
+    if (bucketCount === 0) {
+      removeProductFromCart(id);
+      return;
+    }
+
+    if (bucketCount > maximumCount) {
+      setBucketCount(maximumCount);
+      updateQuantityOfCartItem(id, maximumCount);
+      return;
+    }
+
+    updateQuantityOfCartItem(id, bucketCount);
   };
 
   const isCountError = useCallback(

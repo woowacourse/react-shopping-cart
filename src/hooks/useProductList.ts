@@ -1,18 +1,35 @@
-import { PRODUCT_LIST } from 'mockData/productList';
+import { useEffect, useState } from 'react';
+import { ProductInformation } from '@type/types';
+import { API_URL_PRODUCT_LIST } from '@constants/common';
+import { useFetch } from './useFetch';
 
-const useProductList = () => {
-  const apiProduct = PRODUCT_LIST.productList;
+const useProductList = (): {
+  data: ProductInformation[];
+  isLoading: boolean;
+  error: unknown | null;
+} => {
+  const {
+    data: originData,
+    isLoading,
+    error,
+  } = useFetch<ProductInformation[]>(API_URL_PRODUCT_LIST);
+  const [data, setData] = useState<ProductInformation[]>([]);
 
-  const productList = apiProduct.map((product) => {
-    return {
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      imageUrl: product.imageUrl,
-    };
-  });
+  useEffect(() => {
+    if (!originData) return;
+    const productList = originData.map((product) => {
+      return {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        imageUrl: product.imageUrl,
+      };
+    });
 
-  return productList;
+    setData(productList);
+  }, [originData]);
+
+  return { data, isLoading, error };
 };
 
 export default useProductList;

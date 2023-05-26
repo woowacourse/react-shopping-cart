@@ -54,12 +54,22 @@
             "position": "after"
           },
           {
+            "pattern": "@mocks/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
             "pattern": "@type/**",
             "group": "internal",
             "position": "after"
           },
           {
             "pattern": "@utils/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@constants",
             "group": "internal",
             "position": "after"
           },

@@ -1,33 +1,38 @@
 import React from 'react';
 import styled from 'styled-components';
+import useControlCart from '@hooks/useControlCart';
 import { ProductInformation } from '@type/types';
+import { formatPrice } from '@utils/common';
 import { theme } from '@styles/theme';
 import AddCartButton from './AddCartButton';
 
 interface ProductItemProps {
   product: ProductInformation;
-  addProductToCart: () => void;
-  removeProductFromCart: () => void;
 }
 
-const ProductItem = ({
-  product,
-  addProductToCart,
-  removeProductFromCart,
-}: ProductItemProps) => {
-  const { name, price, imageUrl } = product;
+const MAX_PRICE_LIMIT = 15;
+
+const ProductItem = ({ product }: ProductItemProps) => {
+  const { id, name, price, imageUrl } = product;
+  const { addProductToCart } = useControlCart();
+
+  const localePrice = formatPrice(price);
+  const slicedPrice =
+    localePrice.length > MAX_PRICE_LIMIT
+      ? `${localePrice.slice(0, MAX_PRICE_LIMIT)}...`
+      : localePrice;
 
   return (
     <Wrapper>
-      <Picture src={imageUrl} alt={name} />
+      <Picture title={name} src={imageUrl} alt={name} />
       <InformationWrapper>
         <TitleAndPriceWrapper>
-          <Title>{name}</Title>
-          <Price>{price.toLocaleString('ko-KR')} 원</Price>
+          <Title title={name}>{name}</Title>
+          <Price title={`${localePrice} 원`}>{slicedPrice} 원</Price>
         </TitleAndPriceWrapper>
         <AddCartButton
-          addProductToCart={addProductToCart}
-          removeProductFromCart={removeProductFromCart}
+          id={id}
+          addProductToCart={() => addProductToCart(product)}
         />
       </InformationWrapper>
     </Wrapper>
@@ -36,12 +41,10 @@ const ProductItem = ({
 
 const Wrapper = styled.div`
   width: 282px;
+  cursor: pointer;
 `;
 
 const Picture = styled.img`
-  width: 282px;
-  height: 282px;
-
   margin-bottom: 18px;
 `;
 
@@ -55,6 +58,7 @@ const InformationWrapper = styled.div`
 const TitleAndPriceWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  max-width: calc(100% - 80px);
 `;
 
 const Title = styled.span`
@@ -63,6 +67,9 @@ const Title = styled.span`
   line-height: 22px;
 
   letter-spacing: 0.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 
   color: ${theme.colors.primaryBlack};
 `;
