@@ -76,6 +76,8 @@ export const CartItemContainer = () => {
         <div>
           <Styled.TotalCheckboxInputWrapper>
             <Styled.TotalCheckboxInput
+              width="20px"
+              height="20px"
               type="checkbox"
               checked={checkboxes.length === 0 ? false : true}
               onChange={handleCheckboxes}

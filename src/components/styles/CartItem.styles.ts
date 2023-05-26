@@ -17,8 +17,6 @@ export const Wrapper = styled.div`
 `;
 
 export const CheckboxInput = styled(Input)`
-  width: 20px;
-  height: 20px;
   margin: auto 16px;
 
   &::after {

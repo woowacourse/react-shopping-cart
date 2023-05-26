@@ -32,6 +32,8 @@ export const CartItem = ({ id, imageUrl, name, price }: CartItemProps) => {
   return (
     <Styled.Wrapper>
       <Styled.CheckboxInput
+        width="20px"
+        height="20px"
         type="checkbox"
         checked={isChecked() ? false : true}
         onChange={handleIsChecked}
