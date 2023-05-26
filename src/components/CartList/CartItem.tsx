@@ -32,7 +32,7 @@ const CartItem = ({
 
   return (
     <CartItemWrapper>
-      <CheckBox onChange={checkBoxOnChange} check={check} />
+      <CheckBox onChange={checkBoxOnChange} checked={check} />
       <CartItemImg src={imageUrl} alt="상품 사진" />
       <CartItemName>{name}</CartItemName>
       <CartItemInformationWrapper>
@@ -64,6 +64,8 @@ const CartItemImg = styled.img`
   height: 147px;
 
   margin-left: 15px;
+
+  object-fit: cover;
 
   background: rgba(0, 0, 0, 0.05);
 

@@ -25,7 +25,7 @@ const CartList = () => {
               <hr />
               <CartItem
                 key={product.id}
-                id={product.product.id}
+                id={product.id}
                 name={product.product.name}
                 imageUrl={product.product.imageUrl}
                 quantity={product.quantity}
@@ -36,7 +36,7 @@ const CartList = () => {
           );
         })}
       <CartPageBottom>
-        <CheckBox onChange={checkBoxTotalIdOnChange} check={check} />
+        <CheckBox onChange={checkBoxTotalIdOnChange} checked={check} />
         <CartSelectorText>
           전체선택({checkBox.length}/{checkBoxTotalId.length})
         </CartSelectorText>

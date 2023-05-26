@@ -1,12 +1,11 @@
 import { styled } from 'styled-components';
 
-interface CheckBoxProps {
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  check: boolean;
+interface CheckBoxProps extends React.InputHTMLAttributes<HTMLInputElement>{
+  checked: boolean;
 }
 
-const CheckBox = ({ onChange, check }: CheckBoxProps) => {
-  return <CheckBoxInput type="checkbox" onChange={onChange} checked={check} />;
+const CheckBox = ({ checked, ...rest }: CheckBoxProps) => {
+  return <CheckBoxInput type="checkbox" {...rest} checked={checked} />;
 };
 
 const CheckBoxInput = styled.input`
