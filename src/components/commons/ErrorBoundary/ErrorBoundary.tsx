@@ -22,8 +22,6 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     const { hasError } = this.state;
     const { children, fallback } = this.props;
 
-    if (hasError) console.log('rendering EB fallback..');
-
     return hasError ? fallback : children;
   }
 }
