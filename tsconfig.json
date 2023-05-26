@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2015",
+    "target": "esnext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "types": ["cypress", "node", "@testing-library/cypress"],
     "allowJs": true,
