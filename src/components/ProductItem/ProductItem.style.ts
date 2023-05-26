@@ -37,6 +37,8 @@ export const ProductPrice = styled.div`
 
 export const ProductInfo = styled.div``;
 
+export const CartIcon = styled.img``;
+
 export const CartCountWrapper = styled.div`
   border-radius: 50%;
   background-color: #04c09e;

@@ -44,6 +44,15 @@ export const ProductPrice = styled.div`
   font-weight: bold;
 `;
 
+export const CartControllerWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+`;
+
+export const CartIcon = styled.img``;
+
 export const ModalHeader = styled.div`
   display: flex;
   justify-content: space-between;

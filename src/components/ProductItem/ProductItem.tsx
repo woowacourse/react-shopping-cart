@@ -2,6 +2,7 @@ import type { ProductItem } from "../../types/types";
 import {
   CartCount,
   CartCountWrapper,
+  CartIcon,
   ProductDetails,
   ProductInfo,
   ProductItemBox,
@@ -46,7 +47,7 @@ function ProductItem({ product }: ProductItemProps) {
             <CartCount>{quantity}</CartCount>
           </CartCountWrapper>
         ) : (
-          <img src={cartIcon}></img>
+          <CartIcon src={cartIcon} />
         )}
       </ProductDetails>
     </ProductItemBox>

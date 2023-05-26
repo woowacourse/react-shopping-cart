@@ -7,6 +7,8 @@ import {
   quantityByProductIdSelector,
 } from "../../recoil/cartAtoms.ts";
 import {
+  CartControllerWrapper,
+  CartIcon,
   ModalCloseButton,
   ModalHeader,
   ModalTitle,
@@ -43,21 +45,12 @@ function ProductModalContent({ product }: { product: ProductItem }) {
             <ProductName>{name}</ProductName>
             <ProductPrice>{price.toLocaleString()}원</ProductPrice>
           </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              width: "100%",
-              alignItems: "center",
-            }}
-          >
+          <CartControllerWrapper>
             {quantity > 0 && (
-              <div>
-                <img src={cartIcon}></img>
-              </div>
+              <CartIcon src={cartIcon} />
             )}
             <CartController product={product} />
-          </div>
+          </CartControllerWrapper>
         </ProductDetails>
       </ProductModalContentWrapper>
     </>
