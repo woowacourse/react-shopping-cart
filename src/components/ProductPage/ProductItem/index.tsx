@@ -4,7 +4,6 @@ import SHOPPING_CART from '../../../assets/png/cart-icon.png';
 import ItemCartDialog from '../ItemCartDialog';
 import * as S from './ProductItem.styles';
 import useModal from '../../../hooks/common/useModal';
-import ErrorBoundary from '../../common/ErrorBoundary';
 
 type ProductItemProps = Product;
 
@@ -33,15 +32,13 @@ const ProductItem: React.FC<ProductItemProps> = ({
         </S.CartButton>
       </S.Info>
       {isModalOpen && (
-        <ErrorBoundary>
-          <ItemCartDialog
-            id={id}
-            name={name}
-            price={price}
-            imageUrl={imageUrl}
-            closeModal={closeModal}
-          />
-        </ErrorBoundary>
+        <ItemCartDialog
+          id={id}
+          name={name}
+          price={price}
+          imageUrl={imageUrl}
+          closeModal={closeModal}
+        />
       )}
     </S.Root>
   );

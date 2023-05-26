@@ -1,7 +1,7 @@
 import Logo from '../../../assets/png/logo.png';
 import { PAGE_ROUTES } from '../../../constants/routes';
 import CartBadge from '../CartBadge';
-import ErrorBoundary from '../ErrorBoundary';
+import { ErrorBoundary } from 'react-error-boundary';
 import Flex from '../Flex';
 import * as S from './Header.styles';
 
@@ -15,7 +15,9 @@ const Header = () => {
         </S.LinkToHome>
         <Flex>
           <S.LinkToCart to={PAGE_ROUTES.CART}>장바구니</S.LinkToCart>
-          <CartBadge />
+          <ErrorBoundary fallback={null}>
+            <CartBadge />
+          </ErrorBoundary>
         </Flex>
       </Flex>
     </S.Root>
