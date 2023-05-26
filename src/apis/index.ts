@@ -10,7 +10,7 @@ type FetchedData<T> = {
   headers: Headers;
 };
 
-const BASE_URL = `https://dazzlebv.com`;
+const BASE_URL = ``;
 
 const fetcher = async <T>(url: string, method: string, body?: unknown): Promise<FetchedData<T>> => {
   const options: RequestInit = {
@@ -18,7 +18,7 @@ const fetcher = async <T>(url: string, method: string, body?: unknown): Promise<
 
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Basic ${btoa('a@a:1234')}`,
+      Authorization: `Basic bob:486`,
     },
   };
 
