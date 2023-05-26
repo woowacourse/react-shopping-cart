@@ -18,11 +18,11 @@ export const CartItem = ({ id, imageUrl, name, price }: CartItemProps) => {
   const [checkboxes, setCheckboxes] = useRecoilState(checkboxesState);
 
   const handleIsChecked = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) {
-      setCheckboxes((prevState) => [...prevState, { id, price, quantity }]);
-    } else {
-      setCheckboxes((prevState) => prevState.filter((item) => item.id !== id));
-    }
+    e.target.checked
+      ? setCheckboxes((prevState) => [...prevState, { id, price, quantity }])
+      : setCheckboxes((prevState) =>
+          prevState.filter((item) => item.id !== id)
+        );
   };
 
   const isChecked = () => {
