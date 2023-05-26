@@ -13,11 +13,13 @@ const useAtomLocalStorage = <T>(
   };
 
   useEffect(() => {
-    const saveData = JSON.parse(localStorage.getItem(key) || '[]');
+    const saveData = JSON.parse(
+      localStorage.getItem(key) || JSON.stringify(initialValue)
+    );
     if (saveData && saveData.length > 0) {
       setData(saveData);
     }
-  }, [key, setData]);
+  }, [key, setData, initialValue]);
 
   return [value, setValue];
 };
