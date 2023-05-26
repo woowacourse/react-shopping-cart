@@ -9,7 +9,7 @@ export interface SquareImageProps extends ImgHTMLAttributes<HTMLImageElement> {
 const SquareImage = (props: SquareImageProps) => {
   const { src, alt, size } = props;
 
-  return <Styled.SquareImage size={size} src={src} alt={alt} />;
+  return <Styled.SquareImage size={size} src={src} alt={alt} loading="lazy" />;
 };
 
 export default SquareImage;
