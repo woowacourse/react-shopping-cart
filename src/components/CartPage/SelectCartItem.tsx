@@ -40,6 +40,16 @@ export default function SelectCartItem() {
     });
   };
 
+  const onSelectAllCart = () => {
+    if (!isCheckAll) {
+      const newCartSelects = cart.map((cartItem) => cartItem.id);
+      setCartSelects(new Set(newCartSelects));
+    }
+    if (isCheckAll && cartSelects.size === cartTotal) {
+      setCartSelects(new Set());
+    }
+  };
+
   return (
     <ErrorBoundary>
       {inTrans ? <div>loading..</div> : null}
@@ -48,17 +58,7 @@ export default function SelectCartItem() {
           <SelectBox
             checked={isCheckAll}
             type='checkbox'
-            onChange={() => {
-              if (!isCheckAll) {
-                const newCartSelects = cart.map(
-                  (cartItem: CartType) => cartItem.id
-                );
-                setCartSelects(new Set(newCartSelects));
-              }
-              if (isCheckAll && cartSelects.size === cartTotal) {
-                setCartSelects(new Set());
-              }
-            }}
+            onChange={onSelectAllCart}
           />
           <Text>
             전체선택({cartSelects.size}/{cartTotal})

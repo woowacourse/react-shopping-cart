@@ -14,18 +14,18 @@ export default function DeleteButton({ cartId }: DeleteButtonProps) {
   );
   const [cartSelects, setCartSelects] = useRecoilState(cartSelectsState);
 
+  const onDeleteCartItem = () => {
+    setCartRequestActions({
+      action: 'DELETE',
+      payload: { cartId: cartId },
+    });
+    const newCartSelects = new Set(Array.from(cartSelects));
+    newCartSelects.delete(cartId);
+    setCartSelects(newCartSelects);
+  };
+
   return (
-    <DeleteButtonContainer
-      onClick={() => {
-        setCartRequestActions({
-          action: 'DELETE',
-          payload: { cartId: cartId },
-        });
-        const newCartSelects = new Set(Array.from(cartSelects));
-        newCartSelects.delete(cartId);
-        setCartSelects(newCartSelects);
-      }}
-    >
+    <DeleteButtonContainer onClick={onDeleteCartItem}>
       <DeleteButtonIcon src={DeleteButtonImage} />
     </DeleteButtonContainer>
   );

@@ -36,6 +36,18 @@ export default function CartListItem({
     });
   });
 
+  const onSelectChange = () => {
+    const newCartSelects = Array.from(cartSelects);
+    const newCartSelectSet = new Set(newCartSelects);
+
+    if (!isChecked) {
+      newCartSelectSet.add(id);
+    } else {
+      newCartSelectSet.delete(id);
+    }
+    setCartSelects(newCartSelectSet);
+  };
+
   useEffect(() => {
     countDebounce();
   }, [count]);
@@ -46,17 +58,7 @@ export default function CartListItem({
         <SelectBox
           type='checkbox'
           checked={isChecked}
-          onChange={() => {
-            const newCartSelects = Array.from(cartSelects);
-            const newCartSelectSet = new Set(newCartSelects);
-
-            if (!isChecked) {
-              newCartSelectSet.add(id);
-            } else {
-              newCartSelectSet.delete(id);
-            }
-            setCartSelects(newCartSelectSet);
-          }}
+          onChange={onSelectChange}
         />
         <ProductImg src={imageUrl} />
         <ProductName>{name}</ProductName>
