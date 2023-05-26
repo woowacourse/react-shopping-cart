@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { cartIdAtom, checkedCartIdAtom } from "../store/cartState";
 
@@ -7,9 +7,6 @@ const useCheckedItem = (length: number) => {
   const [checkedIdList, setCheckedIdList] = useRecoilState(checkedCartIdAtom);
   const [checkedAll, setCheckedAll] = useState<boolean>(false);
 
-  useEffect(() => {
-    console.log(checkedIdList);
-  }, [checkedIdList]);
   const changeIsChecked = (cartId: number) => {
     const check = checkedIdList.find((id) => id === cartId);
     if (check) setCheckedIdList((prev) => prev.filter((id) => id !== cartId));

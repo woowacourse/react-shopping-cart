@@ -8,13 +8,12 @@ import useCheckedItem from "../../hooks/useCheckedItem";
 
 const ShoppingCardList = () => {
   const shoppingListId = useRecoilValue(cartIdAtom);
-  console.log(shoppingListId);
   const [deleteCart, setDeleteCart] = useState<boolean>(false);
 
   useEffect(() => {
     if (deleteCart) deleteCheckedAll();
     setDeleteCart(false);
-  }, [shoppingListId]);
+  }, [shoppingListId]); // eslint-disable-line
 
   const {
     checkedIdList,
