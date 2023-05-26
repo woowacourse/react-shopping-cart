@@ -55,10 +55,13 @@ export const cartSelector = selectorFamily<CartProduct | null, number>({
     },
 });
 
+export const checkedItemList = selector({
+  key: "checkedItemList",
+  get: ({ get }) => get(cartListState).filter((item) => item.isChecked),
+});
+
 export const cartTotalPrice = selector({
   key: "cartTotalPrice",
   get: ({ get }) =>
-    get(cartListState)
-      .filter((item) => item.isChecked)
-      .reduce((sum, item) => sum + item.product.price * item.quantity, 0),
+    get(checkedItemList).reduce((sum, item) => sum + item.product.price * item.quantity, 0),
 });

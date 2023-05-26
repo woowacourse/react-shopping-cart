@@ -1,37 +1,36 @@
 import { removeCartItem } from "api/cartItems";
-import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import { cartListState } from "recoil/cart";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { cartListState, checkedItemList } from "recoil/cart";
 
 export const useCartCheckbox = () => {
   const [cartList, setCartList] = useRecoilState(cartListState);
-  const [isAllchecked, setIsAllChecked] = useState(true);
-  const [checkedCount, setCheckedCount] = useState(cartList.length);
+  const checkedList = useRecoilValue(checkedItemList);
 
-  useEffect(() => {
-    const count = cartList.filter((item) => item.isChecked).length;
+  const setIsChecked = (cartItemId: number, isChecked: boolean) => {
+    const newList = [...cartList];
 
-    setIsAllChecked(count === cartList.length);
-    setCheckedCount(count);
-  }, [cartList]);
+    const index = cartList.findIndex((item) => item.id === cartItemId);
+    if (index === -1) return;
 
-  const setAllCheckbox = (isChecked: boolean) => {
+    newList[index] = { ...newList[index], isChecked: isChecked };
+
+    setCartList(newList);
+  };
+
+  const changeAllCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCartList(
       cartList.map((item) => {
-        return { ...item, isChecked: isChecked };
+        return { ...item, isChecked: e.target.checked };
       })
     );
   };
 
   const removeCheckedItem = async () => {
-    const checkedList = cartList.filter((item) => item.isChecked);
     const removedList = checkedList.filter((item) => removeItem(item.id));
+    const newList = cartList.filter((item) => !removedList.includes(item));
 
-    const newList = cartList.filter((item) => {
-      const isRemoved = !!removedList.find((removedItem) => removedItem.id === item.id);
-
-      return !isRemoved;
-    });
+    if (checkedList.length !== removedList.length)
+      alert("삭제 요청이 일부 실패하였습니다. 새로고침 후 다시 시도해주세요.");
 
     setCartList(newList);
   };
@@ -39,13 +38,8 @@ export const useCartCheckbox = () => {
   const removeItem = async (id: number) => {
     const result = await removeCartItem(id);
 
-    if (!result) {
-      alert(`장바구니 상품 제거 실패! ${cartList.find((item) => item.id === id)}`);
-      return false;
-    }
-
-    return true;
+    return result;
   };
 
-  return { isAllchecked, checkedCount, setAllCheckbox, removeCheckedItem };
+  return { setIsChecked, changeAllCheckbox, removeCheckedItem };
 };

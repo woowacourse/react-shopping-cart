@@ -5,15 +5,14 @@ import { useSetRecoilState } from "recoil";
 import { cartSelector } from "recoil/cart";
 import { CartProduct } from "types/domain";
 import { removeCartItem } from "api/cartItems";
+import { useCartCheckbox } from "hooks/useCartCheckbox";
 
 const CartItem = (item: CartProduct) => {
   const setProduct = useSetRecoilState(cartSelector(item.id));
+  const { setIsChecked } = useCartCheckbox();
 
   const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setProduct({
-      ...item,
-      isChecked: e.currentTarget.checked,
-    });
+    setIsChecked(item.id, e.target.checked);
   };
 
   const removeItem = async () => {
