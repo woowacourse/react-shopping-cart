@@ -7,7 +7,7 @@ export default function SubTotal() {
   return (
     <SubTotalContainer>
       <Title>결제예상금액</Title>
-      <Suspense fallback={<>div</>}>
+      <Suspense fallback={<div>loading...</div>}>
         <SubTotalContent />
       </Suspense>
       <CheckoutButton>주문하기</CheckoutButton>
