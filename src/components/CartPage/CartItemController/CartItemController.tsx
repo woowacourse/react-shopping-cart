@@ -10,7 +10,7 @@ import Flex from '../../common/Flex';
 import * as S from './CartItemController.styles';
 
 const CartItemController = () => {
-  const { handleSelectDeselectAll } = useCartSelector();
+  const { handleSelectAll } = useCartSelector();
   const { deleteSelectedCartItems } = useMutateCart();
   const cartItemsAmount = useRefreshableRecoilValue(cartItemsAmountSelector);
   const selectedItemsAmount = useRefreshableRecoilValue(
@@ -23,7 +23,7 @@ const CartItemController = () => {
         <S.Checkbox
           type="checkbox"
           checked={selectedItemsAmount === cartItemsAmount}
-          onChange={handleSelectDeselectAll}
+          onChange={handleSelectAll}
           disabled={!cartItemsAmount}
         />
         <S.Text>

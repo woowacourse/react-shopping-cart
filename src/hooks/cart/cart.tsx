@@ -28,7 +28,7 @@ export const useCartSelector = () => {
     });
   };
 
-  const handleSelectDeselectAll = ({
+  const handleSelectAll = ({
     target: { checked },
   }: ChangeEvent<HTMLInputElement>) => {
     checked
@@ -36,7 +36,7 @@ export const useCartSelector = () => {
       : setSelectedItems(new Set());
   };
 
-  return { selectedItems, selectItem, handleSelectDeselectAll };
+  return { selectedItems, selectItem, handleSelectAll };
 };
 
 export const useMutateCart = () => {
