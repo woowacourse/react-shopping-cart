@@ -4,6 +4,7 @@ import styled from "styled-components";
 interface CounterProps extends React.HTMLProps<HTMLInputElement> {
   value: string;
   setValue: (newValue: string) => void;
+  lowerBound?: number;
 }
 
 const Counter = (props: CounterProps) => {
@@ -20,6 +21,18 @@ const Counter = (props: CounterProps) => {
     props.setValue((Number(props.value) - 1).toString());
   };
 
+  const handleOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (props.lowerBound !== undefined && Number(e.target.value) < props.lowerBound) {
+      props.setValue(props.lowerBound.toString());
+
+      alert(`${props.lowerBound} 이상의 숫자만 입력할 수 있습니다!`);
+
+      return;
+    }
+
+    props.onBlur && props.onBlur(e);
+  };
+
   return (
     <Wrapper>
       <CountInput
@@ -27,12 +40,17 @@ const Counter = (props: CounterProps) => {
         value={props.value}
         onChange={props.onChange}
         onKeyDown={handleKeyDown}
-        onBlur={props.onBlur}
+        onBlur={handleOnBlur}
         placeholder={props.placeholder}
       />
       <ArrowBoxContainer>
         <ArrowBox onClick={handleUpArrowBox}>▾</ArrowBox>
-        <ArrowBox onClick={handleDownArrowBox}>▾</ArrowBox>
+        <ArrowBox
+          onClick={handleDownArrowBox}
+          disabled={props.lowerBound !== undefined && Number(props.value) <= props.lowerBound}
+        >
+          ▾
+        </ArrowBox>
       </ArrowBoxContainer>
     </Wrapper>
   );

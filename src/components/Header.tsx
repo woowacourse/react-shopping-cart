@@ -1,27 +1,30 @@
-import React from "react";
 import styled from "styled-components";
-import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
-import { ROUTER_PATH } from "../router";
-import { cartListSelector } from "../recoil/selector";
+import { useRecoilValue } from "recoil";
+import { ROUTER_PATH } from "router";
+import { cartListState } from "recoil/cart";
 
 const Header = () => {
   const navigate = useNavigate();
-  const cartList = useRecoilValue(cartListSelector);
+  const cartCount = useRecoilValue(cartListState).length;
 
-  const handleTitleClicked = () => {
+  const goToMain = () => {
     navigate(ROUTER_PATH.Main);
+  };
+
+  const goToCart = () => {
+    navigate(ROUTER_PATH.Cart);
   };
 
   return (
     <Wrapper>
-      <TitleContainer onClick={handleTitleClicked}>
+      <TitleContainer onClick={goToMain}>
         <img src={process.env.PUBLIC_URL + "/assets/cart-icon.svg"} alt="홈카트" />
         <p>SHOP</p>
       </TitleContainer>
-      <CartContainer>
+      <CartContainer onClick={goToCart}>
         장바구니
-        {cartList.length > 0 && <ItemQuantityBox>{cartList.length}</ItemQuantityBox>}
+        {cartCount > 0 && <ItemQuantityBox>{cartCount}</ItemQuantityBox>}
       </CartContainer>
     </Wrapper>
   );
@@ -70,6 +73,8 @@ const CartContainer = styled.section`
   font-size: 24px;
   font-weight: 500;
   color: white;
+
+  cursor: pointer;
 `;
 
 const ItemQuantityBox = styled.div`

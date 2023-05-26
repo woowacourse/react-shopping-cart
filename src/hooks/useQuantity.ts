@@ -1,27 +1,31 @@
-import React, { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { productListState } from "../recoil/atom";
-import { cartListSelector } from "../recoil/selector";
-import { CART_LIST_LOCAL_STORAGE_KEY, MAX_QUANTITY, MIN_QUANTITY } from "../constants";
+import React, { useState } from "react";
+import { useRecoilState } from "recoil";
+import { cartSelector } from "recoil/cart";
+import { MAX_QUANTITY, MIN_QUANTITY } from "constants/cartProduct";
+import { CartProduct } from "types/domain";
+import { changeItemQuantity, removeCartItem } from "api/cartItems";
 
 export const useQuantity = (itemID: number) => {
-  const [cartList, setCartList] = useRecoilState(cartListSelector);
-  const productList = useRecoilValue(productListState);
+  const [cartItem, setCartItem] = useRecoilState(cartSelector(itemID));
   const [quantity, setQuantity] = useState<string>(
-    productList.find((item) => item.id === itemID)?.quantity || MIN_QUANTITY.toString()
+    cartItem ? cartItem.quantity.toString() : MIN_QUANTITY.toString()
   );
 
-  useEffect(() => {
-    localStorage.setItem(CART_LIST_LOCAL_STORAGE_KEY, JSON.stringify(cartList));
-  }, [cartList]);
-
-  const setNewQuantity = (newQuantity: string) => {
+  const changeQuantity = async (newQuantity: string) => {
     if (Number(newQuantity) > MAX_QUANTITY || Number(newQuantity) < MIN_QUANTITY) return;
 
-    setQuantity(newQuantity.toString());
+    const result =
+      Number(newQuantity) >= MIN_QUANTITY
+        ? await changeItemQuantity(itemID, Number(newQuantity))
+        : await removeCartItem(itemID);
 
-    const newProduct = productList.find((product) => product.id === itemID);
-    if (newProduct) setCartList([{ ...newProduct, quantity: newQuantity.toString() }]);
+    if (!result) {
+      alert(`장바구니 상품 수량 변경 실패!`);
+      return;
+    }
+
+    setQuantity(newQuantity);
+    setCartItem({ ...cartItem, quantity: Number(newQuantity) } as CartProduct);
   };
 
   const handleQuantityChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,14 +35,19 @@ export const useQuantity = (itemID: number) => {
   const handleQuantityBlured = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (quantity === "" || Number(quantity) < MIN_QUANTITY)
       e.target.value = MIN_QUANTITY.toString();
-    if (Number(quantity) > MAX_QUANTITY) e.target.value = MAX_QUANTITY.toString();
 
-    setNewQuantity(e.target.value);
+    if (Number(quantity) > MAX_QUANTITY) {
+      alert(`${MAX_QUANTITY} 이하의 숫자만 입력할 수 있습니다!`);
+
+      e.target.value = MAX_QUANTITY.toString();
+    }
+
+    changeQuantity(e.target.value);
   };
 
   return {
     quantity,
-    setNewQuantity,
+    changeQuantity,
     handleQuantityChanged,
     handleQuantityBlured,
   } as const;

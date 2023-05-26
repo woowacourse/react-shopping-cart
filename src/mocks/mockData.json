@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "name": "친환경미니탕용기 158 중 (EL)",
+    "price": 65500,
+    "imageUrl": "https://cdn-mart.baemin.com/goods/46/D139-RM-60367_%EC%86%8C%EB%9F%89_%EB%AF%B8%EB%8B%88%ED%83%95%EC%9A%A9%EA%B8%B0_EL_158_%EC%A4%91_%EC%8D%B8%EB%84%A4%EC%9D%BC.jpg?h=700&w=700"
+  },
+  {
+    "id": 2,
+    "name": "친환경국용기 중 (EL/백색)",
+    "price": 72400,
+    "imageUrl": "https://cdn-mart.baemin.com/goods/61/D139-RM-22941_%E1%84%80%E1%85%AE%E1%86%A8%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%80%E1%85%B5(EL_%E1%84%8C%E1%85%AE%E1%86%BC_%E1%84%87%E1%85%A2%E1%86%A8%E1%84%89%E1%85%A2%E1%86%A8)_%E1%84%86%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%AB_%E1%84%8A%E1%85%A5%E1%86%B7%E1%84%82%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%AF.jpg?h=700&w=700"
+  },
+  {
+    "id": 3,
+    "name": "친환경국용기 중 (EL/흑색)",
+    "price": 72400,
+    "imageUrl": "https://cdn-mart.baemin.com/goods/58/D139-RM-58420_%E1%84%80%E1%85%AE%E1%86%A8%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%80%E1%85%B5(EL_%E1%84%8C%E1%85%AE%E1%86%BC_%E1%84%92%E1%85%B3%E1%86%A8%E1%84%89%E1%85%A2%E1%86%A8)_%E1%84%86%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%AB_%E1%84%8A%E1%85%A5%E1%86%B7%E1%84%82%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%AF.jpg?h=700&w=700"
+  },
+  {
+    "id": 4,
+    "name": "유캔 캔시머 페트 투명캔 500ml",
+    "price": 30000,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/291ee4b4-a24c-4af3-b20c-8005f9089d84.jpg?h=700&w=700"
+  },
+  {
+    "id": 5,
+    "name": "KP 아이스컵 98파이 24온스(국산형)",
+    "price": 65000,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/2a6c490e-a89a-4a39-b35e-f83b7b0d0c0a.jpg?h=700&w=700"
+  },
+  {
+    "id": 6,
+    "name": "사세 순살치킨가라게, 1kg * 10봉",
+    "price": 101990,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/cbae30d0-aa70-4b6e-9681-cb8338bcc69d.jpg?h=700&w=700"
+  },
+  {
+    "id": 7,
+    "name": "도시락용기 (AJ/5칸)",
+    "price": 39900,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/69b9caab-57a0-471e-b825-b5e3f9b352c9.jpg?h=700&w=700"
+  },
+  {
+    "id": 8,
+    "name": "신선애 깍두기 김치 10kg",
+    "price": 14900,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/7b526420-89ba-4b61-b43d-bd765d1a3769.jpg?h=700&w=700"
+  },
+  {
+    "id": 9,
+    "name": "사세 왕새우튀김(브래디새우), 300g(30g*10입) 20팩",
+    "price": 72000,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/40888bdb-ae2f-4567-a2d4-65a4c75f679a.jpg?h=700&w=700"
+  },
+  {
+    "id": 10,
+    "name": "올인원 세트-물티수저",
+    "price": 57600,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/a3f4215f-c12e-445b-9452-590aef1a99c5.jpg?h=700&w=700"
+  },
+  {
+    "id": 11,
+    "name": "비닐봉투(소/중/대) 100매 - 가족, 정성 봉투",
+    "price": 4900,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/e7fa58ed-d005-455d-b908-c8ca189cd28c.png?h=700&w=700"
+  },
+  {
+    "id": 12,
+    "name": "사세 통살치킨, 950g",
+    "price": 11880,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/6f6279e7-57c3-4602-99f3-6018b4ba174a.jpg?h=700&w=700"
+  },
+  {
+    "id": 13,
+    "name": "[22년산][여주농협] 대왕님표 여주 영호진미 10kg + 10kg ,특등급",
+    "price": 58200,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/cd6cc298-ce1e-4656-8e74-712a277adb9c.jpg?h=700&w=700"
+  },
+  {
+    "id": 14,
+    "name": "★쿠폰가 101,089원★ 오뚜기 참치 1.88KG 빅캔 6개",
+    "price": 109880,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/5c391565-8eb3-4d3e-bc2b-6c7956967bc1.png?h=700&w=700"
+  },
+  {
+    "id": 15,
+    "name": "서울우유 멸균우유 1Lx10개",
+    "price": 21400,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/5b020ab9-bd5e-456f-8757-216a7fecf140.jpg?h=700&w=700"
+  },
+  {
+    "id": 16,
+    "name": "곰표 튀김가루 1kg",
+    "price": 1630,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/90f81a59-f946-439b-b6b0-ed890eeb9b11.jpg?h=700&w=700"
+  }
+]

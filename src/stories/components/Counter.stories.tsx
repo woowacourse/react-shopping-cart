@@ -1,11 +1,11 @@
 import { StoryFn, Meta } from "@storybook/react";
-import { Counter } from "../../components";
+import QuantityCounter from "components/QuantityCounter";
 
 export default {
   title: "Counter",
-  component: Counter,
+  component: QuantityCounter,
 } as Meta;
 
-const Template: StoryFn = () => <Counter itemId={1} />;
+const Template: StoryFn = () => <QuantityCounter itemId={1} />;
 
 export const CounterSample = Template.bind({});

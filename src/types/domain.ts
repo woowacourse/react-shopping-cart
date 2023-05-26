@@ -3,5 +3,11 @@ export interface Product {
   name: string;
   price: number;
   imageUrl: string;
-  quantity: string;
+}
+
+export interface CartProduct {
+  id: number;
+  quantity: number;
+  isChecked: boolean;
+  product: Product;
 }

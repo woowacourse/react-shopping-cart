@@ -1,13 +1,14 @@
 import React from "react";
-import { useQuantity } from "../hooks/useQuantity";
-import Counter from "./common/Counter";
+import { useQuantity } from "hooks/useQuantity";
+import Counter from "components/common/Counter";
 
 interface QuantityCounterProps {
   itemId: number;
+  lowerBound?: number;
 }
 
-const QuantityCounter = ({ itemId }: QuantityCounterProps) => {
-  const { quantity, setNewQuantity, handleQuantityChanged, handleQuantityBlured } =
+const QuantityCounter = ({ itemId, lowerBound }: QuantityCounterProps) => {
+  const { quantity, changeQuantity, handleQuantityChanged, handleQuantityBlured } =
     useQuantity(itemId);
 
   const handleCountInputKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -19,11 +20,12 @@ const QuantityCounter = ({ itemId }: QuantityCounterProps) => {
     <>
       <Counter
         value={quantity}
-        setValue={setNewQuantity}
+        setValue={changeQuantity}
         onChange={handleQuantityChanged}
         onKeyDown={handleCountInputKey}
         onBlur={handleQuantityBlured}
         placeholder="수량"
+        lowerBound={lowerBound}
       />
     </>
   );

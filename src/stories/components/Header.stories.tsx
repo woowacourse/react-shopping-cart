@@ -1,5 +1,5 @@
 import { StoryFn, Meta } from "@storybook/react";
-import { Header } from "../../components";
+import Header from "components/Header";
 
 export default {
   title: "Header",
@@ -9,4 +9,3 @@ export default {
 const Template: StoryFn = () => <Header />;
 
 export const MainHeader = Template.bind({});
-MainHeader.args = {};
