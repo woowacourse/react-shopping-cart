@@ -5,15 +5,21 @@ import * as S from './ProductList.styles';
 const ProductList = () => {
   const productList = useProductListReadOnly();
 
-  return (
-    <S.List>
-      {productList.map((product) => (
-        <li key={product.id}>
-          <ProductItem {...product} />
-        </li>
-      ))}
-    </S.List>
-  );
+  const EmptyProductList = () => {
+    return <h1>해당 상품이 없습니다.</h1>;
+  };
+
+  const ProductListItems = () => {
+    return productList.map((product) => (
+      <li key={product.id}>
+        <ProductItem {...product} />
+      </li>
+    ));
+  };
+
+  const products = productList.length ? ProductListItems() : EmptyProductList();
+
+  return <S.List>{products}</S.List>;
 };
 
 export default ProductList;
