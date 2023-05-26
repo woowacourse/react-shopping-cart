@@ -28,8 +28,8 @@ const CartItemList = () => {
   useEffect(() => {
     const total = isSelectedList.reduce((a, b) => {
       if (b.isSelected) {
-        let cart = cartList.find((item) => item.id === b.id) as Cart;
-        return a + cart.quantity * cart.product.price;
+        let cart = cartList.find((item) => item.id === b.id);
+        if (cart) return a + cart.quantity * cart.product.price;
       }
       return a;
     }, 0);
