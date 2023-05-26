@@ -1,9 +1,9 @@
 import { useRecoilValue } from 'recoil';
 
-import { checkedCartProductCountState } from '../states/checkedCartProducts';
+import { checkedCartProductCountSelector } from '../states/checkedCartProducts';
 
 const useCheckedCount = () => {
-  const checkedCount = useRecoilValue(checkedCartProductCountState);
+  const checkedCount = useRecoilValue(checkedCartProductCountSelector);
 
   return checkedCount;
 };

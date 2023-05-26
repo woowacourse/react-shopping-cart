@@ -3,7 +3,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import cartProductApis from '../apis/cartProducts';
 import {
   cartProductState,
-  targetCartProductState,
+  targetCartProductSelector,
 } from '../states/cartProducts';
 import { addTargetProduct } from '../states/cartProducts/util';
 import type { Product } from '../types/product';
@@ -11,7 +11,7 @@ import type { Product } from '../types/product';
 const useCartProducts = (product: Product) => {
   const { id } = product;
   const setCartProducts = useSetRecoilState(cartProductState);
-  const targetProduct = useRecoilValue(targetCartProductState(id));
+  const targetProduct = useRecoilValue(targetCartProductSelector(id));
 
   const addProduct = () => {
     setCartProducts((prev) => addTargetProduct(prev, product));

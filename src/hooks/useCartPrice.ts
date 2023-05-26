@@ -2,14 +2,14 @@ import { useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import useMultipleChecked from './useMultipleChecked';
-import { checkedPriceState } from '../states/checkedCartProducts';
+import { checkedPriceSelector } from '../states/checkedCartProducts';
 
 const DELIVERY_FEE = 3_000;
 
 const useExpectedPayment = () => {
   const { isAllUnchecked } = useMultipleChecked();
 
-  const totalProductPrice = useRecoilValue(checkedPriceState);
+  const totalProductPrice = useRecoilValue(checkedPriceSelector);
 
   const deliveryFee = useMemo(
     () => (isAllUnchecked ? 0 : DELIVERY_FEE),

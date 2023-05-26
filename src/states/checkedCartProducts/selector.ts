@@ -10,8 +10,8 @@ import {
 } from './utils';
 import type { CartProductWithChecked } from './type';
 
-export const checkedCartProductState = selector<CartProductWithChecked[]>({
-  key: 'checkedCartProductState',
+export const checkedCartProductSelector = selector<CartProductWithChecked[]>({
+  key: 'checkedCartProductSelector',
   get: ({ get }) => {
     const checked = get(checkedState);
     return get(cartProductState).map((cartProduct) =>
@@ -23,21 +23,21 @@ export const checkedCartProductState = selector<CartProductWithChecked[]>({
   },
 });
 
-export const targetCheckedState = selectorFamily({
-  key: 'targetCheckedState',
+export const targetCheckedSelector = selectorFamily({
+  key: 'targetCheckedSelector',
   get:
     (id: number) =>
     ({ get }) =>
       findTargetChecked(get(checkedState), id),
 });
 
-export const checkedCartProductCountState = selector({
-  key: 'checkedCartProductCountState',
+export const checkedCartProductCountSelector = selector({
+  key: 'checkedCartProductCountSelector',
   get: ({ get }) =>
-    filterCartProductChecked(get(checkedCartProductState), true).length,
+    filterCartProductChecked(get(checkedCartProductSelector), true).length,
 });
 
-export const checkedPriceState = selector({
-  key: 'checkedPriceState',
-  get: ({ get }) => getCheckedPrice(get(checkedCartProductState)),
+export const checkedPriceSelector = selector({
+  key: 'checkedPriceSelector',
+  get: ({ get }) => getCheckedPrice(get(checkedCartProductSelector)),
 });

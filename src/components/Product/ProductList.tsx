@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import ProductItem from './ProductItem';
 import Message from '../Common/Message';
 
-import { productState } from '../../states/products';
+import { productSelector } from '../../states/products';
 
 const ProductList = () => {
-  const products = useRecoilValue(productState);
+  const products = useRecoilValue(productSelector);
 
   if (products.length === 0) {
     return <Message type='empty' />;
