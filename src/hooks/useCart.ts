@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilCallback } from 'recoil';
 
-import { deleteCartItem, getCartList, postCartItem } from '../api/cartAPI';
+import { deleteCartItem, getCartList, patchCartItem, postCartItem } from '../api/cartAPI';
 import { TOAST_SHOW_DURATION } from '../constants';
 import { cartItemQuantityState, cartListState } from '../store/cart';
 import { useMutationFetch } from './common/useMutationFetch';
@@ -36,6 +36,32 @@ const useCart = () => {
     )
   );
 
+  const { mutate: updateItemQuantity } = useMutationFetch<
+    void,
+    { productId: number; quantity: number }
+  >(
+    useRecoilCallback(
+      ({ set }) =>
+        async ({ productId, quantity }) => {
+          set(cartItemQuantityState(productId), quantity);
+          await patchCartItem(productId, quantity);
+        },
+      []
+    )
+  );
+
+  const { mutate: removeItem } = useMutationFetch<void, number>(
+    useRecoilCallback(
+      ({ set }) =>
+        async (productId) => {
+          await deleteCartItem(productId);
+          const newCartList = await getCartList();
+          set(cartListState, newCartList);
+        },
+      []
+    )
+  );
+
   const { mutate: removeCheckedItems } = useMutationFetch<void, number[]>(
     useRecoilCallback(
       ({ set }) =>
@@ -48,7 +74,7 @@ const useCart = () => {
     )
   );
 
-  return { isAdded, addItemQuantity, removeCheckedItems };
+  return { isAdded, addItemQuantity, updateItemQuantity, removeItem, removeCheckedItems };
 };
 
 export { useCart };
