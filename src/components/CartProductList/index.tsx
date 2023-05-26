@@ -4,7 +4,7 @@ import { CartItem } from '../../types';
 import CartProduct from '../CartProduct';
 import { useRecoilState } from 'recoil';
 import { $Cart, $CheckedCartState } from '../../recoil/atom';
-import { SyntheticEvent, createRef, useRef, useState } from 'react';
+import { SyntheticEvent, createRef, useRef } from 'react';
 import { deleteCartItem } from '../../api/cartApi';
 import { toast } from 'react-toastify';
 import errorMessage from '../../constant/errorMessage';
@@ -14,8 +14,6 @@ const CartProductList = () => {
   const [CheckedCartData, setCheckedCartData] = useRecoilState($CheckedCartState);
   const formRef = useRef<HTMLFormElement>(null);
   const checkboxRefs = cart.map(() => createRef<HTMLInputElement>());
-
-  const [selectedCount, setSelectedCount] = useState(0);
 
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
@@ -33,12 +31,10 @@ const CartProductList = () => {
       checkboxRefs.forEach(inputElement => {
         inputElement.current!.checked = checked;
       });
-      setSelectedCount(checked ? cart.length : 0);
     } else {
       // 개별아이템 선택시
       const checked = count === cart.length;
       formRef.current.querySelector<HTMLInputElement>('.select-all')!.checked = checked;
-      setSelectedCount(count);
     }
 
     const checkedItems = checkboxRefs.reduce<CartItem[]>((res, ref, i) => {
@@ -74,7 +70,7 @@ const CartProductList = () => {
       <div className={styles['choice-action-container']}>
         <input className="select-all" name="select-all" type="checkbox" />
         <span>
-          전체선택 ({selectedCount}/{cart.length})
+          전체선택 ({CheckedCartData.length}/{cart.length})
         </span>
         <button onClick={handleDeleteButton}>선택삭제</button>
       </div>
