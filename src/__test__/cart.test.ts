@@ -1,10 +1,12 @@
 import { PRODUCT_LIST } from '@mockData/productList';
-import { CartInformation, ProductInformation } from '@type/types';
+import { CartInformation } from '@type/types';
 import {
   allSelectCartItem,
   calculateSelectCartTotalPrice,
+  cartApiWrapper,
   cartItemSelectedById,
   changedQuantityCart,
+  createCartItem,
   createServerCartItem,
   removeSelectedCartItem,
   removedItemCart,
@@ -25,7 +27,7 @@ describe('cart에 대한 함수가 올바르게 작동하는 지 테스트합니
   });
 
   test('장바구니에 담긴 상품의 수량을 올바르게 변경하는 지 테스트', () => {
-    const cartItem = createServerCartItem(product1);
+    const cartItem = createCartItem(product1);
     const cart = [cartItem];
 
     const updatedCart = changedQuantityCart({
@@ -38,11 +40,12 @@ describe('cart에 대한 함수가 올바르게 작동하는 지 테스트합니
       id: product1.id,
       product: product1,
       quantity: 50,
+      isSelect: true,
     });
   });
 
   test('장바구니에 담긴 상품을 제거할 때 제거가 되는 지 테스트', () => {
-    const cartItem = createServerCartItem(product1);
+    const cartItem = createCartItem(product1);
     const cart = [cartItem];
 
     const updatedCart = removedItemCart(cart, product1.id);
@@ -51,7 +54,7 @@ describe('cart에 대한 함수가 올바르게 작동하는 지 테스트합니
   });
 
   test('장바구니에 담긴 상품을 체크 박스를 눌렀을 때 선택되었던 상태가 반대로 변경되는 지 테스트', () => {
-    const cartItem = createServerCartItem(product1);
+    const cartItem = createCartItem(product1);
     const cart: CartInformation[] = [{ ...cartItem, isSelect: true }];
     const updatedCart = toggleSelectCartItem(cart, product1.id);
 
@@ -148,5 +151,13 @@ describe('cart에 대한 함수가 올바르게 작동하는 지 테스트합니
     const updatedCart = cartItemSelectedById(cart);
 
     expect(updatedCart).toEqual([product1.id, product3.id, product4.id]);
+  });
+
+  test('서버에서 받아온 장바구니를 클라이언트에서 사용하는 장바구니로 변경하는 기능이 올바르게 작동하는 지 테스트', () => {
+    const cart = [createServerCartItem(product1)];
+
+    const result = cartApiWrapper(cart);
+
+    expect(result).toEqual([createCartItem(product1)]);
   });
 });

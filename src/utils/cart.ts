@@ -1,4 +1,8 @@
-import { CartInformation, ProductInformation } from '@type/types';
+import {
+  CartInformation,
+  ProductInformation,
+  ServerCartInformation,
+} from '@type/types';
 
 interface UpdateCart {
   cart: CartInformation[];
@@ -21,7 +25,7 @@ export const createServerCartItem = ({
   price,
   imageUrl,
 }: ProductInformation) => {
-  const product: CartInformation = {
+  const product: ServerCartInformation = {
     id,
     product: { name, price, imageUrl, id },
     quantity: 1,
@@ -87,4 +91,22 @@ export const cartItemSelectedById = (cart: CartInformation[]) => {
   return cart
     .filter((cartItem) => cartItem.isSelect === true)
     .map((cartItem) => cartItem.id);
+};
+
+export const cartApiWrapper = (
+  cart: ServerCartInformation[]
+): CartInformation[] => {
+  return cart.map((cartItem) => {
+    return {
+      id: cartItem.id,
+      quantity: cartItem.quantity,
+      product: {
+        id: cartItem.product.id,
+        name: cartItem.product.name,
+        price: cartItem.product.price,
+        imageUrl: cartItem.product.imageUrl,
+      },
+      isSelect: true,
+    };
+  });
 };

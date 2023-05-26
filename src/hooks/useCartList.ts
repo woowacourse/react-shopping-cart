@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { CartInformation } from '@type/types';
+import { CartInformation, ServerCartInformation } from '@type/types';
+import { cartApiWrapper } from '@utils/cart';
 import { fetchDelete, fetchPatch, fetchPost } from '@utils/fetch';
 import { API_URL_CART_LIST } from '@constants/common';
 import { useFetch } from './useFetch';
@@ -30,23 +31,12 @@ const useCartList = (): {
     isLoading,
     error,
     refreshData,
-  } = useFetch<CartInformation[]>(API_URL_CART_LIST);
+  } = useFetch<ServerCartInformation[]>(API_URL_CART_LIST);
   const [data, setData] = useState<CartInformation[]>([]);
 
   useEffect(() => {
     if (!originData) return;
-    const cartList = originData.map((cartItem) => {
-      return {
-        id: cartItem.id,
-        quantity: cartItem.quantity,
-        product: {
-          id: cartItem.product.id,
-          name: cartItem.product.name,
-          price: cartItem.product.price,
-          imageUrl: cartItem.product.imageUrl,
-        },
-      };
-    });
+    const cartList: CartInformation[] = cartApiWrapper(originData);
 
     setData(cartList);
   }, [originData]);
