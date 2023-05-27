@@ -9,6 +9,7 @@ export interface CartItem {
   id: number | null;
   quantity: number;
   product: Product;
+  isChecked: boolean;
 }
 
 export type CartItems = Record<string, CartItem>;

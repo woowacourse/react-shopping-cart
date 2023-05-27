@@ -6,8 +6,3 @@ export const cartItemsState = atom<CartItems>({
   key: 'cartItemsState',
   default: {},
 });
-
-export const checkedCartItemsState = atom<CartItems>({
-  key: 'checkedCartItems',
-  default: {},
-});

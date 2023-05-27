@@ -1,29 +1,27 @@
-import { useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import fetchApis from '@apis/fetchApis';
-import { CartItem, CartItems } from '@customTypes/Product';
-import { cartItemsState, checkedCartItemsState } from '@recoil/atom';
+import { CartItem } from '@customTypes/Product';
+import { cartItemsState } from '@recoil/atom';
 
-export const useDeleteSelectedItems = (selectedItems: CartItems) => {
-  const resetCheckedCartItems = useResetRecoilState(checkedCartItemsState);
-  const setCartItems = useSetRecoilState(cartItemsState);
+export const useDeleteSelectedItems = () => {
+  const [cartItems, setCartItems] = useRecoilState(cartItemsState);
+  const cartItemList = Object.values(cartItems);
+  const checkedCartItems = cartItemList.filter(cartItem => cartItem.isChecked);
+  const { deleteData } = fetchApis();
 
   const deleteSelectedItems = () => {
-    const { deleteData } = fetchApis();
-    const checkedCartItemList = Object.values(selectedItems);
+    checkedCartItems.forEach(async (checkedCartItem: CartItem) => {
+      await deleteData('/cart-items', `/${checkedCartItem.product.id}`);
 
-    checkedCartItemList.forEach((selectedCartItem: CartItem) => {
-      deleteData('/cart-items', `/${selectedCartItem.product.id}`);
       setCartItems(prev => {
         const newCartItems = { ...prev };
-        const key = selectedCartItem.id ?? '';
+        const key = checkedCartItem.id ?? '';
         delete newCartItems[key];
 
         return newCartItems;
       });
     });
-
-    resetCheckedCartItems();
   };
 
   return deleteSelectedItems;

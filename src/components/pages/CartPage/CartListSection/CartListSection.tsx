@@ -1,7 +1,9 @@
 import { useRecoilValue } from 'recoil';
 
-import { checkedCartItemsState } from '@recoil/atom';
-import { cartItemsLengthSelector } from '@recoil/selector';
+import {
+  cartItemsLengthSelector,
+  checkedCartItemsLengthSelector,
+} from '@recoil/selector';
 import { useDeleteSelectedItems } from './useDeleteSelectedItems';
 
 import {
@@ -16,8 +18,8 @@ import { Button as CheckedItemsDeleteButton } from '@components/commons/Button/B
 
 const CartListSection = () => {
   const cartItemLength = useRecoilValue(cartItemsLengthSelector);
-  const checkedCartItems = useRecoilValue(checkedCartItemsState);
-  const deleteSelectedItems = useDeleteSelectedItems(checkedCartItems);
+  const checkedCartItemsLength = useRecoilValue(checkedCartItemsLengthSelector);
+  const deleteSelectedItems = useDeleteSelectedItems();
 
   return (
     <StyledCartListSection>
@@ -28,7 +30,7 @@ const CartListSection = () => {
       <StyledCartListFlexBox>
         <WholeCheckbox />
         <Text.Description>
-          전체선택 ({Object.keys(checkedCartItems).length}/{cartItemLength})
+          전체선택 ({checkedCartItemsLength}/{cartItemLength})
         </Text.Description>
         <CheckedItemsDeleteButton
           width="100px"

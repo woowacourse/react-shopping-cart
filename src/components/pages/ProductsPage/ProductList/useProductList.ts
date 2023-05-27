@@ -20,6 +20,7 @@ export const useProductList = () => {
             id: null,
             quantity: 0,
             product: product,
+            isChecked: false,
           }
         );
       });

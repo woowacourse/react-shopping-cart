@@ -15,6 +15,7 @@ const useUpdateCart = (product: Product, quantity: number) => {
         id: product.id,
         quantity: quantity,
         product: product,
+        isChecked: false,
       };
       newCartItems[key] = newCartItem;
 

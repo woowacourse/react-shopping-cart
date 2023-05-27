@@ -9,6 +9,7 @@ import {
 } from './Checkbox.styled';
 
 export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
+  initIsChecked?: boolean;
   handleCheck?: () => void;
   handleUnCheck?: () => void;
   border?: string | null;
@@ -17,8 +18,8 @@ export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const Checkbox = (props: CheckboxProps) => {
-  const { handleCheck, handleUnCheck } = props;
-  const [isChecked, setIsChecked] = useState(false);
+  const { initIsChecked, handleCheck, handleUnCheck } = props;
+  const [isChecked, setIsChecked] = useState(initIsChecked);
 
   const handleOuterCheckboxClick = () => {
     setIsChecked(true);
