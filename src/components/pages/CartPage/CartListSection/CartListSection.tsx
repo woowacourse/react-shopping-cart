@@ -1,9 +1,8 @@
-import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
-import { cartItemsState, checkedCartItemsState } from '@recoil/atom';
+import { checkedCartItemsState } from '@recoil/atom';
 import { cartItemsLengthSelector } from '@recoil/selector';
-import fetchApis from '@apis/fetchApis';
-import { CartItem } from '@customTypes/Product';
+import { useDeleteSelectedItems } from './useDeleteSelectedItems';
 
 import {
   StyledCartListSection,
@@ -18,26 +17,7 @@ import { Button as CheckedItemsDeleteButton } from '@components/commons/Button/B
 const CartListSection = () => {
   const cartItemLength = useRecoilValue(cartItemsLengthSelector);
   const checkedCartItems = useRecoilValue(checkedCartItemsState);
-  const resetCheckedCartItems = useResetRecoilState(checkedCartItemsState);
-  const setCartItems = useSetRecoilState(cartItemsState);
-
-  const handleCheckedItemsDeleteButtonClick = () => {
-    const { deleteData } = fetchApis();
-    const checkedCartItemList = Object.values(checkedCartItems);
-
-    checkedCartItemList.forEach((checkedCartItem: CartItem) => {
-      deleteData('/cart-items', `/${checkedCartItem.product.id}`);
-      setCartItems(prev => {
-        const newCartItems = { ...prev };
-        const key = checkedCartItem.id ?? '';
-        delete newCartItems[key];
-
-        return newCartItems;
-      });
-    });
-
-    resetCheckedCartItems();
-  };
+  const deleteSelectedItems = useDeleteSelectedItems(checkedCartItems);
 
   return (
     <StyledCartListSection>
@@ -56,7 +36,7 @@ const CartListSection = () => {
           padding="4px"
           border="1px solid #BBBBBB"
           border-radius="0px"
-          onClick={() => handleCheckedItemsDeleteButtonClick()}
+          onClick={() => deleteSelectedItems()}
         >
           선택삭제
         </CheckedItemsDeleteButton>
