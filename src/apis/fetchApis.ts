@@ -1,9 +1,21 @@
-const fetchApi = () => {
+const fetchApis = () => {
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
+  const handleFetchError = (
+    responseOk: boolean,
+    status: number,
+    message: string
+  ) => {
+    if (!responseOk) throw new Error(`ERROR[${status}]: ${message}`);
+  };
+
   const getData = async <T>(entrypoint: string): Promise<T> => {
     const response = await fetch(entrypoint);
     const data = await response.json();
 
-    if (!response.ok) throw new Error(data.message);
+    handleFetchError(response.ok, response.status, data.message);
 
     return data;
   };
@@ -15,17 +27,13 @@ const fetchApi = () => {
   ) => {
     const response = await fetch(entrypoint + endpoint, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers,
       body: JSON.stringify(postingData),
     });
 
-    if (!response.ok) throw new Error();
+    handleFetchError(response.ok, response.status, 'failed post data');
 
-    const location = response.headers.get('Location');
-
-    return location;
+    return response.headers.get('Location');
   };
 
   const patchData = async <T>(
@@ -35,13 +43,11 @@ const fetchApi = () => {
   ) => {
     const response = await fetch(entrypoint + endpoint, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers,
       body: JSON.stringify(patchingData),
     });
 
-    if (!response.ok) throw new Error();
+    handleFetchError(response.ok, response.status, 'failed Patch data');
   };
 
   const deleteData = async (entrypoint: string, endpoint: string) => {
@@ -49,10 +55,10 @@ const fetchApi = () => {
       method: 'DELETE',
     });
 
-    if (!response.ok) throw new Error();
+    handleFetchError(response.ok, response.status, 'failed Delete data');
   };
 
   return { getData, postData, patchData, deleteData };
 };
 
-export default fetchApi;
+export default fetchApis;
