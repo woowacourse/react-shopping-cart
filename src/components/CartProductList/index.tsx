@@ -29,17 +29,22 @@ const CartProductList = () => {
     if (targetInput.classList.contains('select-all')) {
       // select-all 선택시
       const checked = targetInput.checked;
-      checkboxRefs.forEach(inputElement => {
-        inputElement.current!.checked = checked;
+      checkboxRefs.forEach((inputElement, i) => {
+        if (inputElement.current) {
+          inputElement.current.checked = checked;
+        }
       });
     } else {
       // 개별아이템 선택시
       const checked = count === cart.length;
-      formRef.current.querySelector<HTMLInputElement>('.select-all')!.checked = checked;
+      const selectAllCheckbox = formRef.current?.querySelector<HTMLInputElement>('.select-all');
+      if (selectAllCheckbox) {
+        selectAllCheckbox.checked = checked;
+      }
     }
 
     const checkedItems = checkboxRefs.reduce<CartItem[]>((res, ref, i) => {
-      if (ref.current!.checked) res.push(cartItems[i]);
+      if (ref.current?.checked) res.push(cartItems[i]);
       return res;
     }, []);
     setCheckedCartData(checkedItems);
