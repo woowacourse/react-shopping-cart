@@ -1,4 +1,3 @@
-import { memo } from "react";
 import styled from "styled-components";
 import errorImg from "../assets/img/Error.png";
 import { useRecoilValue } from "recoil";
@@ -58,4 +57,4 @@ const Styled = {
   `,
 };
 
-export default memo(ErrorPage);
+export default ErrorPage;

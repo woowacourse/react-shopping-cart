@@ -1,8 +1,11 @@
+import { Suspense } from "react";
 import { RecoilRoot } from "recoil";
 import { styled } from "styled-components";
 import { Outlet } from "react-router-dom";
 import CartTextButton from "./components/CartTextButton/CartTextButton";
 import Header from "./components/common/Header/Header";
+import LoadingPage from "./pages/LoadingPage";
+import ErrorBoundary from "./pages/ErrorBoundary";
 
 function App() {
   return (
@@ -11,7 +14,11 @@ function App() {
         <CartTextButton />
       </Header>
       <Styled.Layout>
-        <Outlet />
+        <Suspense fallback={<LoadingPage />}>
+          <ErrorBoundary>
+            <Outlet />
+          </ErrorBoundary>
+        </Suspense>
       </Styled.Layout>
     </RecoilRoot>
   );

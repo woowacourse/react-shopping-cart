@@ -58,7 +58,7 @@ const useCart = (productId: number) => {
       quantity: ZERO,
       product,
     };
-    setCart(() => updateProduct);
+    setCart(updateProduct);
     setIsCartClicked(false);
     setCartId((prev) => prev.filter((id) => id !== productId));
 

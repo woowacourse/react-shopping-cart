@@ -1,42 +1,20 @@
-import { useState } from "react";
-
 import styled from "styled-components";
-
-import LoadingPage from "./LoadingPage";
 import ShoppingCardList from "../components/ShoppingCardList/ShoppingCardList";
 import ShoppingTitle from "../components/ShoppingTitle/ShoppingTitle";
 import ShoppingPreview from "../components/ShoppingPreview/ShoppingPreview";
 import { useFetchShoppingList } from "../hooks/useFetch";
-import { useRecoilValue } from "recoil";
-import { errorAtom } from "../store/errorState";
-import ErrorPage from "./ErrorPage";
 
 const ShoppingCartPage = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const error = useRecoilValue(errorAtom);
-
-  const handleIsLoading = () => {
-    setIsLoading(false);
-  };
-
-  useFetchShoppingList(handleIsLoading);
+  useFetchShoppingList();
 
   return (
-    <>
-      {error.isError ? (
-        <ErrorPage />
-      ) : isLoading ? (
-        <LoadingPage />
-      ) : (
-        <Styled.Container>
-          <ShoppingTitle />
-          <Styled.ShoppingSection>
-            <ShoppingCardList />
-            <ShoppingPreview />
-          </Styled.ShoppingSection>
-        </Styled.Container>
-      )}
-    </>
+    <Styled.Container>
+      <ShoppingTitle />
+      <Styled.ShoppingSection>
+        <ShoppingCardList />
+        <ShoppingPreview />
+      </Styled.ShoppingSection>
+    </Styled.Container>
   );
 };
 
