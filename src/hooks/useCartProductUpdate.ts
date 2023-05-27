@@ -7,10 +7,15 @@ import {
   updateTargetQuantity,
 } from '../states/cartProducts/util';
 
-const useProductQuantity = (id: number, quantity: number) => {
+const useCartProductUpdate = (
+  id: number | undefined,
+  quantity: number | undefined
+) => {
   const setCartProducts = useSetRecoilState(cartProductState);
 
   const addCount = () => {
+    if (!quantity || !id) return;
+
     const updatedQuantity = quantity + 1;
 
     setCartProducts((prev) => updateTargetQuantity(prev, id, updatedQuantity));
@@ -18,6 +23,8 @@ const useProductQuantity = (id: number, quantity: number) => {
   };
 
   const subtractCount = () => {
+    if (!quantity || !id) return;
+
     const updatedQuantity = quantity - 1;
 
     if (updatedQuantity === 0) {
@@ -30,6 +37,8 @@ const useProductQuantity = (id: number, quantity: number) => {
   };
 
   const deleteProduct = () => {
+    if (!id) return;
+
     setCartProducts((prev) => deleteTargetProduct(prev, id));
     cartProductApis.delete(id);
   };
@@ -37,4 +46,4 @@ const useProductQuantity = (id: number, quantity: number) => {
   return { addCount, subtractCount, deleteProduct };
 };
 
-export default useProductQuantity;
+export default useCartProductUpdate;

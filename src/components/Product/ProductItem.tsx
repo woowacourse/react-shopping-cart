@@ -1,11 +1,8 @@
 import styled from 'styled-components';
 
-import AmountCounter from '../Common/AmountCounter';
 import Image from '../Common/Image';
+import ProductCartButton from './ProductCartButton';
 
-import CartIcon from '../../assets/CartIcon';
-import useCartProducts from '../../hooks/useCartProducts';
-import useProductQuantity from '../../hooks/useProductQuantity';
 import type { Product } from '../../types/product';
 
 interface ProductItemProps {
@@ -13,12 +10,7 @@ interface ProductItemProps {
 }
 
 const ProductItem = ({ product }: ProductItemProps) => {
-  const { id, imageUrl, name, price } = product;
-  const { targetProduct, addProduct } = useCartProducts(product);
-  const { addCount, subtractCount } = useProductQuantity(
-    id,
-    targetProduct?.quantity ?? 0
-  );
+  const { name, price, imageUrl } = product;
 
   return (
     <ProductContainer>
@@ -32,18 +24,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
           <ProductName>{name}</ProductName>
           <ProductPrice>{price.toLocaleString('ko-KR')} 원</ProductPrice>
         </dl>
-        {!targetProduct || targetProduct.quantity === 0 ? (
-          <ProductCartBtn type='button' onClick={addProduct}>
-            <CartIcon width={25} height={22} color='gray400' />
-          </ProductCartBtn>
-        ) : (
-          <AmountCounter
-            count={targetProduct.quantity}
-            addCount={addCount}
-            subtractCount={subtractCount}
-            variant='small'
-          />
-        )}
+        <ProductCartButton product={product} />
       </ProductInfoContainer>
     </ProductContainer>
   );
@@ -68,12 +49,6 @@ const ProductName = styled.dt`
 const ProductPrice = styled.dd`
   font-size: 20px;
   line-height: 26.67px;
-`;
-
-const ProductCartBtn = styled.button`
-  position: absolute;
-  top: 0;
-  right: 14px;
 `;
 
 export default ProductItem;
