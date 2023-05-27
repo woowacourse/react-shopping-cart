@@ -9,10 +9,12 @@ const useCheckedItem = (length: number) => {
 
   const changeIsChecked = (cartId: number) => {
     const check = checkedIdList.find((id) => id === cartId);
-    if (check) setCheckedIdList((prev) => prev.filter((id) => id !== cartId));
+    if (checkedIdList.length === length && check) setCheckedAll(false);
+    if (checkedIdList.length === length - 1 && !check) setCheckedAll(true);
+    if (check) {
+      setCheckedIdList((prev) => prev.filter((id) => id !== cartId));
+    }
     if (!check) setCheckedIdList((prev) => [...prev, cartId]);
-    if (checkedIdList.length !== length) setCheckedAll(false);
-    if (checkedIdList.length === length) setCheckedAll(true);
   };
 
   const changeIsCheckedAll = () => {
