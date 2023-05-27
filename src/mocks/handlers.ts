@@ -29,6 +29,7 @@ export const handlers = [
 
   rest.get('/cart-items', (_, res, ctx) => {
     return res(
+      ctx.delay(1000),
       ctx.status(200),
       ctx.json(JSON.parse(localStorage.getItem(CART_STORAGE_ID) ?? '[]'))
     );

@@ -2,11 +2,10 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import CartIcon from '../../assets/CartIcon';
-import useCartProductCount from '../../hooks/useCartProductCount';
+import CartCountBox from '../Cart/CartCountBox';
+import { Suspense } from 'react';
 
 const Header = () => {
-  const cartProductCount = useCartProductCount();
-
   return (
     <HeaderContainer>
       <HeaderContent>
@@ -16,7 +15,9 @@ const Header = () => {
         </LogoContainer>
         <CartPageLink to='/cart'>
           장바구니
-          <ProductCountAlert>{cartProductCount}</ProductCountAlert>
+          <Suspense fallback={<ProductCountAlert />}>
+            <CartCountBox />
+          </Suspense>
         </CartPageLink>
       </HeaderContent>
     </HeaderContainer>
