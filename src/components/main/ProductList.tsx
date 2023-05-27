@@ -26,7 +26,7 @@ const ProductList = () => {
       id={product.id}
       name={product.name}
       price={product.price}
-      imgUrl={`${process.env.PUBLIC_URL}${product.imageUrl}`}
+      imgUrl={product.imageUrl}
     />
   ));
 
