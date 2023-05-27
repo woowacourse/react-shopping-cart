@@ -69,7 +69,7 @@ const useCart = (productId: number) => {
     }
   };
 
-  const plusQuantity = async () => {
+  const plusQuantity = () => {
     const updateProduct: Cart = {
       id: productId,
       quantity: cart.quantity + 1,

@@ -10,9 +10,9 @@ interface CounterProps {
 const Counter = ({ onPlus, onMinus, quantity, theme }: CounterProps) => {
   return (
     <Styled.Container theme={theme}>
-      <Styled.Button onClick={onPlus}>-</Styled.Button>
+      <Styled.Button onClick={onMinus}>-</Styled.Button>
       <Styled.Count>{quantity}</Styled.Count>
-      <Styled.Button onClick={onMinus}>+</Styled.Button>
+      <Styled.Button onClick={onPlus}>+</Styled.Button>
     </Styled.Container>
   );
 };
