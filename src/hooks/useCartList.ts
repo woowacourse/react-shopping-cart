@@ -54,11 +54,7 @@ const useCartList = (): CartListReturnProps => {
   };
 
   useEffect(() => {
-    if (checkBox.length === checkBoxTotalId.length) {
-      setCheck(true);
-      return;
-    }
-    setCheck(false);
+    setCheck(checkBox.length === checkBoxTotalId.length);
   }, [checkBox, checkBoxTotalId]);
 
   const removeCartOnClick = () => {

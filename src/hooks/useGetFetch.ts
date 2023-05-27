@@ -32,11 +32,7 @@ const useGetFetch = <T>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const refetch = ()=>{
-    fetchData()
-  }
-
-  return { isLoading, data, error, refetch };
+  return { isLoading, data, error, refetch:fetchData };
 };
 
 export default useGetFetch;

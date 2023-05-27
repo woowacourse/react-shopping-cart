@@ -27,10 +27,7 @@ const useControlCart = () => {
 
   const updateQuantityOfCartItem = (id: number, quantity: number) => {
     const updateCart = cart.map((product) => {
-      if (product.id === id) {
-        return { ...product, quantity };
-      }
-      return product;
+      return product.id === id ? { ...product, quantity } : product;
     });
 
     setCart(updateCart);
@@ -53,7 +50,6 @@ const useControlCart = () => {
 
     setCheckBox([...checkBox, id]);
     setCheckBoxTotalId([...checkBox, id]);
-
 
     await fetchApi(CART_URL, {
       method: 'post',
