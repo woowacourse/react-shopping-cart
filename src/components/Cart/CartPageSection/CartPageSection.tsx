@@ -1,17 +1,17 @@
-import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import useCartList from '../../../hooks/useCartList';
 import { cartListState } from '../../../store/cart';
+import { currentCartList } from '../../../store/selectors';
 import { priceFormatter } from '../../../utils/formatter';
 import Checkbox from '../../utils/Checkbox/Checkbox';
-import LoadingSpinner from '../../utils/LoadingSpinner/LoadingSpinner';
 import CartItem from '../CartItem/CartItem';
 import styles from './style.module.css';
 
 const CartPageSection = () => {
   const [cartItem, setCartItemList] = useRecoilState(cartListState);
-  const [isLoading, setIsLoading] = useState(false);
+  const currentCartListData = useRecoilValue(currentCartList);
+
   const {
     fetchCartList,
     removeCheckedItems,
@@ -23,20 +23,19 @@ const CartPageSection = () => {
     getCartItemSum,
   } = useCartList();
 
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      setIsLoading(true);
-      try {
-        const cartItems = await fetchCartList();
-        setCartItemList(cartItems);
-      } catch (error) {
-        console.error(error);
-      }
-      setIsLoading(false);
-    };
+  setCartItemList(currentCartListData);
+  // useEffect(() => {
+  //   const fetchCartItems = async () => {
+  //     try {
+  //       const cartItems = await fetchCartList();
+  //       setCartItemList(cartItems);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
 
-    fetchCartItems();
-  }, [fetchCartList, setCartItemList]);
+  //   fetchCartItems();
+  // }, [fetchCartList, setCartItemList]);
 
   const handleCheckedItemRemove = () => {
     removeCheckedItems();
@@ -48,7 +47,7 @@ const CartPageSection = () => {
 
   const checkedItemLength = getCheckedList().length;
 
-  const deliveryPrice = cartItem.length === 0 ? 0 : 3000;
+  const deliveryPrice = currentCartListData.length === 0 ? 0 : 3000;
 
   return (
     <>
@@ -57,15 +56,15 @@ const CartPageSection = () => {
       <div className={styles.cartListSection}>
         <div className={styles.deleteBox}>
           <Checkbox
-            checked={checkedItemLength === cartItem.length}
+            checked={checkedItemLength === currentCartListData.length}
             clickEvent={
-              checkedItemLength === cartItem.length
+              checkedItemLength === currentCartListData.length
                 ? resetCartCheckStatusToFalse
                 : resetCartCheckStatusToTrue
             }
           />
           <p>
-            전체 선택({getCheckedList().length}/{cartItem?.length})
+            전체 선택({getCheckedList().length}/{currentCartListData?.length})
           </p>
           <button type="button" className={styles.deleteButton} onClick={handleCheckedItemRemove}>
             선택 삭제
@@ -73,21 +72,17 @@ const CartPageSection = () => {
         </div>
         <section className={styles.section}>
           <div className={styles.cartList}>
-            {!isLoading ? (
-              cartItem.map((item) => (
-                <CartItem
-                  quantity={item.quantity}
-                  itemId={item.id}
-                  key={item.id}
-                  product={item.product}
-                  isChecked={item.isChecked}
-                  checkHandler={reverseCheckCartItem}
-                  removeItem={handleSelectedItemRemove}
-                />
-              ))
-            ) : (
-              <LoadingSpinner />
-            )}
+            {cartItem.map((item) => (
+              <CartItem
+                quantity={item.quantity}
+                itemId={item.id}
+                key={item.id}
+                product={item.product}
+                isChecked={item.isChecked}
+                checkHandler={reverseCheckCartItem}
+                removeItem={handleSelectedItemRemove}
+              />
+            ))}
           </div>
           <div className={styles.orderBox}>
             <div className={styles.orderBoxHeader}>결제예상금액</div>

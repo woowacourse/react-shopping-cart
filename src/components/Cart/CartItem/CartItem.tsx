@@ -1,5 +1,9 @@
+import { useRecoilValue } from 'recoil';
+
 import { TrashCan } from '../../../assets';
 import useCartList from '../../../hooks/useCartList';
+import { cartListState } from '../../../store/cart';
+import { currentCartList } from '../../../store/selectors';
 import { ProductItemType } from '../../../types';
 import { priceFormatter } from '../../../utils/formatter';
 import Checkbox from '../../utils/Checkbox/Checkbox';
@@ -24,7 +28,6 @@ const CartItem = ({
   removeItem,
 }: CartItemProps) => {
   const { updateCartItemQuantity } = useCartList();
-
   const handleUpdateCartItemQuantity = (itemId: number, quantity: number) => {
     updateCartItemQuantity(itemId, quantity);
   };
