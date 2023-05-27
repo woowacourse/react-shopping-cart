@@ -57,6 +57,7 @@ const Style = {
       line-height: 28px;
 
       &:disabled {
+        color: var(--grey-300);
         background-color: var(--grey-100);
         cursor: not-allowed;
       }
