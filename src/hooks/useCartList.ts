@@ -1,50 +1,71 @@
 import { useRecoilState } from 'recoil';
-import { useEffect, useState } from 'react';
 import type { CartItem, Product } from '../types/types';
-import { cartListState } from '../store/atom';
+import { cartListState } from '../recoil/atom';
+import { CART_ITEMS_BASE_URL } from '../constant';
 
-const useCartList = (product: Product) => {
+const useCartList = () => {
   const [cartList, setCartList] = useRecoilState(cartListState);
 
-  const existItemIndex = cartList.findIndex((cartItem) => cartItem.product.id === product.id);
+  const addProductToCartList = async (productId: Product['id']) => {
+    const response = await fetch(CART_ITEMS_BASE_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(productId),
+    });
 
-  const [quantity, setQuantity] = useState<number>(
-    existItemIndex !== -1 ? cartList[existItemIndex].quantity : 0,
-  );
+    if (!response.ok) throw new Error(response.status.toString());
 
-  const updateCartList = () => {
-    const newCartItem: CartItem = {
-      quantity,
-      product,
-    };
+    const newResponse = await fetch(CART_ITEMS_BASE_URL);
 
-    if (existItemIndex !== -1) {
-      const newCartList = cartList.slice();
-      newCartList.splice(existItemIndex, 1, newCartItem);
-      setCartList(newCartList);
-      return;
-    }
+    if (!newResponse.ok) throw new Error(newResponse.status.toString());
 
-    setCartList([...cartList, newCartItem]);
+    const newCartList = await newResponse.json();
+
+    setCartList(newCartList);
   };
 
-  const deleteCartItem = () => {
-    if (existItemIndex !== -1) {
-      const newCartList = cartList.slice();
-      newCartList.splice(existItemIndex, 1);
-      setCartList(newCartList);
-    }
+  const updateProductQuantity = async (targetId: Product['id'], quantity: CartItem['quantity']) => {
+    const response = await fetch(`${CART_ITEMS_BASE_URL}/${targetId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(quantity),
+    });
+
+    if (!response.ok) throw new Error(response.status.toString());
+
+    const newResponse = await fetch(CART_ITEMS_BASE_URL);
+
+    if (!newResponse.ok) throw new Error(newResponse.status.toString());
+
+    const newCartList = await newResponse.json();
+
+    setCartList(newCartList);
   };
 
-  useEffect(() => {
-    if (quantity !== 0) {
-      updateCartList();
-      return;
-    }
-    deleteCartItem();
-  }, [quantity]);
+  const removeProductInCartList = async (targetId: Product['id']) => {
+    const response = await fetch(`${CART_ITEMS_BASE_URL}/${targetId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-  return { quantity, setQuantity };
+    if (!response.ok) throw new Error(response.status.toString());
+
+    const newResponse = await fetch(CART_ITEMS_BASE_URL);
+
+    if (!newResponse.ok) throw new Error(newResponse.status.toString());
+
+    const newCartList = await newResponse.json();
+
+    setCartList(newCartList);
+  };
+
+  return { cartList, addProductToCartList, updateProductQuantity, removeProductInCartList };
 };
 
 export default useCartList;

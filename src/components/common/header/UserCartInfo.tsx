@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
-import { useRecoilValue } from 'recoil';
 import { Text } from '../Text/Text';
-import { cartListState } from '../../../store/atom';
+import useCartList from '../../../hooks/useCartList';
 
 const UserCartInfo = () => {
-  const cartList = useRecoilValue(cartListState);
+  const { cartList = [] } = useCartList();
 
   return (
     <CardCounterWrapper>

@@ -14,6 +14,7 @@ type Story = StoryObj<typeof meta>;
 export const NetworkError: Story = {
   args: {
     errorType: 'network',
+    errorMessage: 'error',
   },
 };
 

@@ -2,10 +2,11 @@ import type { PropsWithChildren } from 'react';
 import styled from '@emotion/styled';
 
 type TextProps = PropsWithChildren<{
-  size?: 'smallest' | 'small' | 'medium' | 'large' | 'largest';
-  weight?: 'light' | 'normal' | 'bold';
+  size?: 'minimum' | 'smallest' | 'small' | 'medium' | 'large' | 'largest';
+  weight?: 'light' | 'normal' | 'littlebold' | 'bold';
   color?: string;
   lineHeight?: string;
+  label?: string;
 }>;
 
 type StyledTextProps = {
@@ -16,6 +17,7 @@ type StyledTextProps = {
 };
 
 const fontSizes: Record<StyledTextProps['$size'], string> = {
+  minimum: '14px',
   smallest: '16px',
   small: '20px',
   medium: '22px',
@@ -26,6 +28,7 @@ const fontSizes: Record<StyledTextProps['$size'], string> = {
 const fontWeights: Record<StyledTextProps['$weight'], number> = {
   light: 400,
   normal: 500,
+  littlebold: 700,
   bold: 900,
 };
 
@@ -37,10 +40,10 @@ export const StyledText = styled.div<StyledTextProps>`
 `;
 
 export const Text = (props: TextProps) => {
-  const { size = 'medium', weight = 'normal', color, lineHeight, children } = props;
+  const { size = 'medium', weight = 'normal', color, lineHeight, children, label } = props;
 
   return (
-    <StyledText $size={size} $weight={weight} $color={color} $lineHeight={lineHeight}>
+    <StyledText $size={size} $weight={weight} $color={color} $lineHeight={lineHeight} aria-label={label}>
       {children}
     </StyledText>
   );

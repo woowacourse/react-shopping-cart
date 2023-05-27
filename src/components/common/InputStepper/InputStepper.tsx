@@ -1,26 +1,33 @@
 import type { ChangeEvent } from 'react';
 import styled from '@emotion/styled';
+import { REGEX } from '../../../constant';
 
 interface InputStepperProps {
   size: 'small' | 'big';
   quantity: number;
   setQuantity: (value: number) => void;
+  handleRemoveProductInCartList?: () => void;
 }
 
 const isInputValueDigit = (inputValue: string): boolean => {
-  return /^\d*$/.test(inputValue);
+  return REGEX.findDigit.test(inputValue);
 };
 
-const InputStepper = ({ size, quantity, setQuantity }: InputStepperProps) => {
+const InputStepper = ({
+  size,
+  quantity,
+  setQuantity,
+  handleRemoveProductInCartList,
+}: InputStepperProps) => {
   const handleOnChangeText = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
 
     if (!isInputValueDigit(inputValue)) return;
     if (inputValue.length < 1 || inputValue.length > 2) return;
 
-    if (Number(inputValue) !== quantity) {
-      setQuantity(Number(inputValue));
-    }
+    if (Number(inputValue) === quantity) return;
+
+    setQuantity(Number(inputValue));
   };
 
   const handleOnClickStepperUpButton = () => {
@@ -28,12 +35,14 @@ const InputStepper = ({ size, quantity, setQuantity }: InputStepperProps) => {
   };
 
   const handleOnClickStepperDownButton = () => {
-    setQuantity(quantity - 1);
+    if (quantity === 1 && handleRemoveProductInCartList) return handleRemoveProductInCartList();
+
+    return setQuantity(quantity - 1);
   };
 
   return (
     <InputStepperWrapper>
-      <InputStyle $size={size} type="text" value={quantity} onChange={handleOnChangeText} />
+      <InputStyle $size={size} type="text" value={quantity} onChange={handleOnChangeText} aria-label='quantity'/>
       <StepperButtonWrapper>
         <StepperUpButton $size={size} onClick={handleOnClickStepperUpButton}>
           &#9662;
@@ -61,8 +70,8 @@ const InputStyle = styled.input<{ $size: InputStepperProps['size'] }>`
     appearance: none;
   }
 
-  width: ${({ $size }) => ($size === 'small' ? '41.6' : '73')}px;
-  height: ${({ $size }) => ($size === 'small' ? '28' : '60')}px;
+  width: ${({ $size }) => ($size === 'small' ? '41.6' : '66')}px;
+  height: ${({ $size }) => ($size === 'small' ? '28' : '50')}px;
 
   border: 1px solid #dddddd;
   text-align: center;
@@ -83,8 +92,8 @@ const StepperButtonWrapper = styled.div`
 `;
 
 const StepperDownButton = styled.button<{ $size: InputStepperProps['size'] }>`
-  width: ${({ $size }) => ($size === 'small' ? '23.93' : '42')}px;
-  height: ${({ $size }) => ($size === 'small' ? '14' : '30')}px;
+  width: ${({ $size }) => ($size === 'small' ? '23.93' : '33')}px;
+  height: ${({ $size }) => ($size === 'small' ? '14' : '25')}px;
   border: 1px solid #dddddd;
 
   display: flex;
