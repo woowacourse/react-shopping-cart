@@ -14,10 +14,10 @@ const useFetchData = (handleIsLoading: VoidFunction) => {
   const [, setFetchedProductList] = useRecoilState(fetchedProductListAtom);
   const [, setFetchedShoppingList] = useRecoilState(fetchedShoppingListAtom);
   const [, setCartId] = useRecoilState(cartIdAtom);
-  const { ChangeErrorTrue, ChangeErrorFalse } = useError();
+  const { changeErrorTrue, changeErrorFalse } = useError();
 
   useEffect(() => {
-    ChangeErrorFalse();
+    changeErrorFalse();
     const fetchData = async () => {
       try {
         const shoppingData = await fetchGetQuery<Cart[]>("/cart-items");
@@ -32,7 +32,7 @@ const useFetchData = (handleIsLoading: VoidFunction) => {
 
         setTimeout(() => handleIsLoading(), 2000);
       } catch (error) {
-        ChangeErrorTrue(FETCH.GET, ERROR_MESSAGE.PRODUCT);
+        changeErrorTrue(FETCH.GET, ERROR_MESSAGE.PRODUCT);
       }
     };
     fetchData();
@@ -41,17 +41,17 @@ const useFetchData = (handleIsLoading: VoidFunction) => {
 
 const useFetchShoppingList = (handleIsLoading: VoidFunction) => {
   const [, setFetchedShoppingList] = useRecoilState(fetchedShoppingListAtom);
-  const { ChangeErrorTrue, ChangeErrorFalse } = useError();
+  const { changeErrorTrue, changeErrorFalse } = useError();
 
   useEffect(() => {
-    ChangeErrorFalse();
+    changeErrorFalse();
     const fetchData = async () => {
       try {
         const data = await fetchGetQuery<Cart[]>("/cart-items");
         setFetchedShoppingList(data);
         setTimeout(() => handleIsLoading(), 2000);
       } catch (error) {
-        ChangeErrorTrue(FETCH.GET, ERROR_MESSAGE.SHOPPING_LIST);
+        changeErrorTrue(FETCH.GET, ERROR_MESSAGE.SHOPPING_LIST);
       }
     };
     fetchData();

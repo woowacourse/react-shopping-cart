@@ -17,7 +17,7 @@ const useCart = (productId: number) => {
   const productInCart = !!cart.quantity;
   const [isCartClicked, setIsCartClicked] = useState(Boolean(productInCart));
 
-  const { ChangeErrorTrue } = useError();
+  const { changeErrorTrue } = useError();
 
   if (
     shoppingProduct &&
@@ -28,7 +28,7 @@ const useCart = (productId: number) => {
     try {
       fetchPatchQuery(`/cart-items/${cart.id}`, data);
     } catch (error) {
-      ChangeErrorTrue(FETCH.PATCH, "");
+      changeErrorTrue(FETCH.PATCH, "");
     }
   }
 
@@ -45,7 +45,7 @@ const useCart = (productId: number) => {
       const data = { productId: productId };
       await fetchPostQuery(`/cart-items`, data);
     } catch (error) {
-      ChangeErrorTrue(FETCH.POST, ERROR_MESSAGE.ADD_TO_CART);
+      changeErrorTrue(FETCH.POST, ERROR_MESSAGE.ADD_TO_CART);
     }
     setCart(newProduct);
     setCartId([...cartId, productId]);
@@ -65,7 +65,7 @@ const useCart = (productId: number) => {
     try {
       await fetchDeleteQuery(`/cart-items/${cart.id}`);
     } catch (error) {
-      ChangeErrorTrue(FETCH.POST, ERROR_MESSAGE.DELETE_TO_CART);
+      changeErrorTrue(FETCH.POST, ERROR_MESSAGE.DELETE_TO_CART);
     }
   };
 
