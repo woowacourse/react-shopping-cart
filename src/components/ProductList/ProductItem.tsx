@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import useControlCart from '@hooks/useControlCart';
 import { ProductInformation } from '@type/types';
 import { theme } from '@styles/theme';
 import AddCartButton from './AddCartButton';
@@ -10,8 +9,7 @@ interface ProductItemProps {
 }
 
 const ProductItem = ({ product }: ProductItemProps) => {
-  const { id, name, price, imageUrl } = product;
-  const { addProductToCart } = useControlCart();
+  const { name, price, imageUrl } = product;
 
   return (
     <Wrapper>
@@ -21,10 +19,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
           <Title>{name}</Title>
           <Price>{price.toLocaleString('ko-KR')} 원</Price>
         </TitleAndPriceWrapper>
-        <AddCartButton
-          id={id}
-          addProductToCart={() => addProductToCart(product)}
-        />
+        <AddCartButton product={product} />
       </InformationWrapper>
     </Wrapper>
   );
@@ -39,6 +34,8 @@ const Picture = styled.img`
   height: 282px;
 
   margin-bottom: 18px;
+
+  object-fit: cover;
 `;
 
 const InformationWrapper = styled.div`
