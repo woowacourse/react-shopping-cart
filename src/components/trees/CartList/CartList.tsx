@@ -1,26 +1,35 @@
 import type { CartItemType } from '../../../types';
 import { Link } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { CartItem, CheckBox } from '../../../components';
-import { selectedCartState } from '../../../recoil/state';
-import useCart from '../../../hooks/useCart';
+import { cartState, selectedCartState } from '../../../recoil/state';
+import { api } from '../../../api';
 
 interface CartListProps {
   cartItems: CartItemType[];
 }
 
 export default function CartList({ cartItems }: CartListProps) {
-  const selectedCart = useRecoilValue(selectedCartState);
-  const { removeCartItem } = useCart();
+  const [selectedCart, setSelectedCart] = useRecoilState(selectedCartState);
+  const [cart, setCart] = useRecoilState(cartState);
 
-  function handleDeleteClick() {
+  const removeSelectedCartItems = async (cartItems: CartItemType[]) => {
+    const removePromises = cartItems.map((item) => api.deleteCartItem(item.id));
+    await Promise.all(removePromises);
+  };
+
+  async function handleDeleteClick() {
+    const selectedCartItems = cart.filter((item) => selectedCart.includes(item.product.id));
+    const selectedCartIds = selectedCartItems.map((item) => item.id);
+    const selectedCartProudctIds = selectedCartItems.map((item) => item.product.id);
+
     if (confirm('선택한 상품을 삭제하시겠습니까?')) {
-      selectedCart.forEach((productId) => {
-        removeCartItem(productId);
-      });
-      window.location.reload();
+      setSelectedCart(selectedCart.filter((id) => !selectedCartProudctIds.includes(id)));
+      setCart(cart.filter((item) => !selectedCartIds.includes(item.id)));
+
+      await removeSelectedCartItems(selectedCartItems);
     }
   }
 
