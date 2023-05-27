@@ -4,7 +4,7 @@ import { CartItem } from '../../types';
 import CartProduct from '../CartProduct';
 import { useRecoilState } from 'recoil';
 import { $Cart, $CheckedCartState } from '../../recoil/atom';
-import { SyntheticEvent, createRef, useRef } from 'react';
+import { SyntheticEvent, createRef, useRef, useState } from 'react';
 import { deleteCartItem } from '../../api/cartApi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,6 +14,7 @@ const CartProductList = () => {
   const [cart, setCart] = useRecoilState($Cart);
   const [CheckedCartData, setCheckedCartData] = useRecoilState($CheckedCartState);
   const formRef = useRef<HTMLFormElement>(null);
+  const [selectAllCheckbox, setSelectAllCheckbox] = useState<HTMLInputElement | null>(null);
   const checkboxRefs = cart.map(() => createRef<HTMLInputElement>());
 
   const handleSubmit = (event: SyntheticEvent) => {
@@ -26,10 +27,10 @@ const CartProductList = () => {
     const data = new FormData(formRef.current);
     const count = data.getAll('select-item').length;
 
-    if (targetInput.classList.contains('select-all')) {
+    if (selectAllCheckbox && targetInput === selectAllCheckbox) {
       // select-all 선택시
       const checked = targetInput.checked;
-      checkboxRefs.forEach((inputElement, i) => {
+      checkboxRefs.forEach(inputElement => {
         if (inputElement.current) {
           inputElement.current.checked = checked;
         }
@@ -37,7 +38,6 @@ const CartProductList = () => {
     } else {
       // 개별아이템 선택시
       const checked = count === cart.length;
-      const selectAllCheckbox = formRef.current?.querySelector<HTMLInputElement>('.select-all');
       if (selectAllCheckbox) {
         selectAllCheckbox.checked = checked;
       }
@@ -74,7 +74,7 @@ const CartProductList = () => {
         ))}
       </main>
       <div className={styles['choice-action-container']}>
-        <input className="select-all" name="select-all" type="checkbox" />
+        <input className="select-all" name="select-all" type="checkbox" ref={input => setSelectAllCheckbox(input)} />
         <span>
           전체선택 ({CheckedCartData.length}/{cart.length})
         </span>
