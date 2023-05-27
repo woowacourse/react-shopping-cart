@@ -11,19 +11,45 @@ import {
   CartItemTrashImage,
 } from "./CartItem.style";
 import trashIcon from "../../assets/trash.png";
-import { useSetRecoilState } from "recoil";
-import {
-  removeCartItemSelector,
-  switchCartCheckboxSelector,
-} from "../../recoil/cartAtoms.ts";
+import { useRecoilCallback } from "recoil";
+import { cartState } from "../../recoil/cartAtoms.ts";
+import { fetchDeleteCart } from "../../api/api.ts";
 
 interface CartItemProps {
   cart: CartItem;
 }
 
 function CartItem({ cart }: CartItemProps) {
-  const switchCheckbox = useSetRecoilState(switchCartCheckboxSelector);
-  const removeCartItem = useSetRecoilState(removeCartItemSelector(undefined));
+  const removeCartItem = useRecoilCallback(
+    ({ snapshot, set }) =>
+      async (id: number) => {
+        const cartList = await snapshot.getPromise(cartState);
+        if (confirm("정말로 삭제하시겠습니까?")) {
+          const removedCartList = cartList.filter((cart) => cart.id !== id);
+          set(cartState, removedCartList);
+          fetchDeleteCart(id);
+        }
+      },
+    []
+  );
+
+  const switchCheckbox = useRecoilCallback(
+    ({ snapshot, set }) =>
+      async (id: number) => {
+        const cartList = [...(await snapshot.getPromise(cartState))];
+        const targetIndex = cartList.findIndex(
+          (cartItem) => cartItem.id === id
+        );
+        const targetCart = cartList[targetIndex];
+        const updatedCart = {
+          ...targetCart,
+          checked: !targetCart.checked,
+        };
+        cartList[targetIndex] = updatedCart;
+        set(cartState, cartList);
+      },
+    []
+  );
 
   return (
     <CartItemLayout>
