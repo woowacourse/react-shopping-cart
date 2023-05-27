@@ -10,10 +10,21 @@ interface ProductInfoProps {
 const ProductInfo = ({ name, price }: ProductInfoProps) => {
   return (
     <Styled.ProductInfo>
-      <ProductName name={name} />
-      <ProductPrice price={price} />
+      <ProductName theme={nameTheme} name={name} />
+      <ProductPrice theme={priceTheme} price={price} />
     </Styled.ProductInfo>
   );
 };
 
+const nameTheme = {
+  width: "197px",
+  height: "42px",
+  fontSize: "16px",
+};
+
+const priceTheme = {
+  alignSelf: "auto",
+  fontWeight: "Regular",
+  fontSize: "20px",
+};
 export default memo(ProductInfo);

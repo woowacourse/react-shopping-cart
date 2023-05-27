@@ -1,5 +1,4 @@
 import { memo, useEffect } from "react";
-import { ThemeProvider } from "styled-components";
 import Styled from "./ShoppingInfoStyled";
 import useCart from "../../../hooks/useCart";
 import ProductImg from "../../ProductImg/ProductImg";
@@ -34,14 +33,10 @@ const ShoppingInfo = ({
 
   return (
     <>
-      <ThemeProvider theme={imgTheme}>
-        <ProductImg src={imageUrl} alt={name} />
-      </ThemeProvider>
+      <ProductImg theme={imgTheme} src={imageUrl} alt={name} />
       <Styled.InfoContainer>
         <Styled.TopSection>
-          <ThemeProvider theme={nameTheme}>
-            <ProductName name={name} />
-          </ThemeProvider>
+          <ProductName theme={nameTheme} name={name} />
           <IconButton
             onClick={() => {
               deleteToCart();
@@ -51,16 +46,13 @@ const ShoppingInfo = ({
             <DeleteIcon />
           </IconButton>
         </Styled.TopSection>
-        <ThemeProvider theme={counterTheme}>
-          <Counter
-            plusQuantity={plusQuantity}
-            minusQuantity={minusQuantity}
-            quantity={quantity}
-          />
-        </ThemeProvider>
-        <ThemeProvider theme={priceTheme}>
-          <ProductPrice price={price} />
-        </ThemeProvider>
+        <Counter
+          plusQuantity={plusQuantity}
+          minusQuantity={minusQuantity}
+          quantity={quantity}
+          theme={counterTheme}
+        />
+        <ProductPrice theme={priceTheme} price={price} />
       </Styled.InfoContainer>
     </>
   );
@@ -83,6 +75,7 @@ const counterTheme = {
 };
 const priceTheme = {
   alignSelf: "end",
+  fontWeight: "Regular",
   fontSize: "16px",
 };
 

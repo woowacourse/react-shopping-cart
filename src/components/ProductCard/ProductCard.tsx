@@ -24,7 +24,7 @@ const ProductCard = ({ productId }: ProductCardProps) => {
 
   return (
     <Styled.Container>
-      <ProductImg src={imageUrl} alt={name} />
+      <ProductImg theme={imgTheme} src={imageUrl} alt={name} />
       <Styled.ProductDetail>
         <ProductInfo name={name} price={price} />
         {isCartClicked ? (
@@ -32,6 +32,7 @@ const ProductCard = ({ productId }: ProductCardProps) => {
             plusQuantity={plusQuantity}
             minusQuantity={minusQuantity}
             quantity={cart.quantity}
+            theme={counterTheme}
           />
         ) : (
           <IconButton onClick={addToCart}>
@@ -43,4 +44,14 @@ const ProductCard = ({ productId }: ProductCardProps) => {
   );
 };
 
+const counterTheme = {
+  alignSelf: "auto",
+  width: "72px",
+  height: "32px",
+};
+
+const imgTheme = {
+  width: "282px",
+  height: "282px",
+};
 export default memo(ProductCard);

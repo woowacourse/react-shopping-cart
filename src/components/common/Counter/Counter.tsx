@@ -4,11 +4,17 @@ interface CounterProps {
   plusQuantity: () => void;
   minusQuantity: () => void;
   quantity?: number;
+  theme: object;
 }
 
-const Counter = ({ plusQuantity, minusQuantity, quantity }: CounterProps) => {
+const Counter = ({
+  plusQuantity,
+  minusQuantity,
+  quantity,
+  theme,
+}: CounterProps) => {
   return (
-    <Styled.Container>
+    <Styled.Container theme={theme}>
       <Styled.Button onClick={minusQuantity}>-</Styled.Button>
       <Styled.Count>{quantity}</Styled.Count>
       <Styled.Button onClick={plusQuantity}>+</Styled.Button>

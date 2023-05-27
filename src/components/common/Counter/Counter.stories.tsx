@@ -11,5 +11,11 @@ export default meta;
 type Story = StoryObj<typeof Counter>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    theme: {
+      alignSelf: "auto",
+      width: "72px",
+      height: "32px",
+    },
+  },
 };

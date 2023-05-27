@@ -2,9 +2,13 @@ import { memo, ImgHTMLAttributes } from "react";
 import empty from "../../assets/img/empty.jpg";
 import Styled from "./ProductImgStyled";
 
-const ProductImg = ({ src, ...props }: ImgHTMLAttributes<HTMLImageElement>) => {
+interface ProductImgProps extends ImgHTMLAttributes<HTMLImageElement> {
+  theme: object;
+}
+
+const ProductImg = ({ src, theme, ...props }: ProductImgProps) => {
   if (!src) src = empty;
-  return <Styled.Img loading="lazy" src={src} {...props} />;
+  return <Styled.Img theme={theme} src={src} loading="lazy" {...props} />;
 };
 
 export default memo(ProductImg);
