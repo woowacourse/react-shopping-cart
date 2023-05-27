@@ -15,7 +15,6 @@ const ProductList = () => {
       <ErrorModal isError={isGetProductListError} />
       <StyledProductList>
         {productList.map((item: CartItemApi) => {
-          console.log(item);
           return (
             <ProductItem
               key={item.product.id}
