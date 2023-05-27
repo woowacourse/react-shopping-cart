@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { checkedCartItemIdsState } from '../../recoil/atoms';
@@ -14,7 +13,6 @@ export default function CartList() {
   const { cartList, deleteFromCart } = useCart();
   const cartItemIds = cartList.map((cartItem) => cartItem.id);
   const [checkedItemIds, setCheckedItemIds] = useRecoilState(checkedCartItemIdsState(cartItemIds));
-  const [isAllChecked, setIsAllChecked] = useState(true);
   const totalProductsPrice = useRecoilValue(totalProductsPriceState);
 
   const handleCheckedItem = (id: number) => {
@@ -22,33 +20,23 @@ export default function CartList() {
       setCheckedItemIds((prev) => prev.filter((itemId) => itemId !== id));
       return;
     }
+
     setCheckedItemIds((prev) => [...prev, id]);
   };
 
   const handleAllChecked = () => {
-    if (isAllChecked) {
+    if (cartList.length === checkedItemIds.length) {
       setCheckedItemIds([]);
-      setIsAllChecked(false);
       return;
     }
 
     setCheckedItemIds(cartList.map((cartItem) => cartItem.id));
-    setIsAllChecked(true);
   };
 
   const deleteCheckedItems = () => {
     checkedItemIds.forEach((itemId) => deleteFromCart(itemId));
     setCheckedItemIds([]);
   };
-
-  useEffect(() => {
-    if (cartList.length === checkedItemIds.length) {
-      setIsAllChecked(true);
-      return;
-    }
-
-    if (isAllChecked === true) setIsAllChecked(false);
-  }, [cartList, checkedItemIds, isAllChecked]);
 
   return (
     <Style.Container>
@@ -78,7 +66,7 @@ export default function CartList() {
             <Style.TotalCheckbox
               id="total-checkbox"
               type="checkbox"
-              checked={isAllChecked}
+              checked={cartList.length > 0 && cartList.length === checkedItemIds.length}
               onChange={handleAllChecked}
             />
             <Style.TotalSelectCaption htmlFor="total-checkbox">
