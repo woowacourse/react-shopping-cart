@@ -35,14 +35,19 @@ const useMultipleChecked = () => {
   };
 
   const deleteCheckedProducts = () => {
-    checked.forEach(async (id) => {
-      await cartProductApis.delete(id);
-    });
-
-    setCartProducts((prev) =>
-      prev.filter((cartProduct) => !findTargetChecked(checked, cartProduct.id))
-    );
-    setChecked([]);
+    try {
+      checked.forEach(async (id) => {
+        await cartProductApis.delete(id);
+      });
+      setCartProducts((prev) =>
+        prev.filter(
+          (cartProduct) => !findTargetChecked(checked, cartProduct.id)
+        )
+      );
+      setChecked([]);
+    } catch {
+      alert('장바구니에서 삭제하는데 실패했습니다. 다시 시도해 주세요.');
+    }
   };
 
   return {

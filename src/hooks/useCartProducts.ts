@@ -13,9 +13,13 @@ const useCartProducts = (product: Product) => {
   const setCartProducts = useSetRecoilState(cartProductState);
   const targetProduct = useRecoilValue(targetCartProductSelector(id));
 
-  const addProduct = () => {
-    setCartProducts((prev) => addTargetProduct(prev, product));
-    cartProductApis.post(id);
+  const addProduct = async () => {
+    try {
+      await cartProductApis.post(id);
+      setCartProducts((prev) => addTargetProduct(prev, product));
+    } catch {
+      alert('장바구니에 상품을 추가하는데 실패했습니다. 다시 시도해 주세요.');
+    }
   };
 
   return { targetProduct, addProduct };
