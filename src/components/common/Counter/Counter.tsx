@@ -1,23 +1,18 @@
 import Styled from "./CounterStyled";
 
 interface CounterProps {
-  plusQuantity: () => void;
-  minusQuantity: () => void;
+  onPlus: () => void;
+  onMinus: () => void;
   quantity?: number;
   theme: object;
 }
 
-const Counter = ({
-  plusQuantity,
-  minusQuantity,
-  quantity,
-  theme,
-}: CounterProps) => {
+const Counter = ({ onPlus, onMinus, quantity, theme }: CounterProps) => {
   return (
     <Styled.Container theme={theme}>
-      <Styled.Button onClick={minusQuantity}>-</Styled.Button>
+      <Styled.Button onClick={onPlus}>-</Styled.Button>
       <Styled.Count>{quantity}</Styled.Count>
-      <Styled.Button onClick={plusQuantity}>+</Styled.Button>
+      <Styled.Button onClick={onMinus}>+</Styled.Button>
     </Styled.Container>
   );
 };

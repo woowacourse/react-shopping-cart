@@ -49,10 +49,10 @@ const ShoppingCardList = () => {
                   checkedIdList.find((checkId) => checkId === id) ? true : false
                 }
                 isDelete={deleteCart}
-                deleteChecked={() => {
+                onDelete={() => {
                   deleteChecked(id);
                 }}
-                changeIsChecked={() => {
+                onChange={() => {
                   changeIsChecked(id);
                 }}
               />

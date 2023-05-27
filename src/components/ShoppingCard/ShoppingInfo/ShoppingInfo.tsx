@@ -13,14 +13,10 @@ import { useRecoilValue } from "recoil";
 interface ShoppingInfoProps {
   cartId: number;
   isDelete: boolean;
-  deleteChecked: () => void;
+  onDelete: () => void;
 }
 
-const ShoppingInfo = ({
-  cartId,
-  isDelete,
-  deleteChecked,
-}: ShoppingInfoProps) => {
+const ShoppingInfo = ({ cartId, isDelete, onDelete }: ShoppingInfoProps) => {
   const checkedIdList = useRecoilValue(checkedCartIdAtom);
   const { cart, deleteToCart, plusQuantity, minusQuantity } = useCart(cartId);
   const { quantity, product } = cart;
@@ -40,15 +36,15 @@ const ShoppingInfo = ({
           <IconButton
             onClick={() => {
               deleteToCart();
-              deleteChecked();
+              onDelete();
             }}
           >
             <DeleteIcon />
           </IconButton>
         </Styled.TopSection>
         <Counter
-          plusQuantity={plusQuantity}
-          minusQuantity={minusQuantity}
+          onPlus={plusQuantity}
+          onMinus={minusQuantity}
           quantity={quantity}
           theme={counterTheme}
         />

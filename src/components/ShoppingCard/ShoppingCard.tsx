@@ -7,25 +7,21 @@ interface ShoppingCardProps {
   cartId: number;
   isChecked: boolean;
   isDelete: boolean;
-  deleteChecked: () => void;
-  changeIsChecked: () => void;
+  onDelete: () => void;
+  onChange: () => void;
 }
 
 const ShoppingCard = ({
   cartId,
   isChecked,
   isDelete,
-  deleteChecked,
-  changeIsChecked,
+  onDelete,
+  onChange,
 }: ShoppingCardProps) => {
   return (
     <Styled.Container>
-      <Checkbox isChecked={isChecked} onChange={changeIsChecked} />
-      <ShoppingInfo
-        cartId={cartId}
-        isDelete={isDelete}
-        deleteChecked={deleteChecked}
-      />
+      <Checkbox isChecked={isChecked} onChange={onChange} />
+      <ShoppingInfo cartId={cartId} isDelete={isDelete} onDelete={onDelete} />
     </Styled.Container>
   );
 };

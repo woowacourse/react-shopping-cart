@@ -29,8 +29,8 @@ const ProductCard = ({ productId }: ProductCardProps) => {
         <ProductInfo name={name} price={price} />
         {isCartClicked ? (
           <Counter
-            plusQuantity={plusQuantity}
-            minusQuantity={minusQuantity}
+            onPlus={plusQuantity}
+            onMinus={minusQuantity}
             quantity={cart.quantity}
             theme={counterTheme}
           />
