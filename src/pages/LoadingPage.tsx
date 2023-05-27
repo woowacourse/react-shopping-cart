@@ -2,20 +2,12 @@ import styled from "styled-components";
 import { spin } from "../styles/GlobalStyle";
 
 const LoadingPage = () => {
+  const balls = Array.from({ length: 10 }, (_, index) => (
+    <Styled.Ball key={index} />
+  ));
   return (
     <Styled.Container>
-      <Styled.Loader>
-        <Styled.Ball />
-        <Styled.Ball />
-        <Styled.Ball />
-        <Styled.Ball />
-        <Styled.Ball />
-        <Styled.Ball />
-        <Styled.Ball />
-        <Styled.Ball />
-        <Styled.Ball />
-        <Styled.Ball />
-      </Styled.Loader>
+      <Styled.Loader>{balls}</Styled.Loader>
     </Styled.Container>
   );
 };
