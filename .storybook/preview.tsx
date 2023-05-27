@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import type { Preview } from '@storybook/react';
 import { RecoilRoot } from 'recoil';
 import { initialize, mswDecorator } from 'msw-storybook-addon';
 import { handlers } from '../src/mocks/handlers';
 import GlobalStyle from '../src/GlobalStyle';
+import { Loading } from '../src/components/common/Spinner/Loading';
 
 let options = {};
 if (location.hostname === 'hyeryongchoi.github.io') {
@@ -49,9 +50,11 @@ const preview: Preview = {
     (Story) => (
       <RecoilRoot>
         <GlobalStyle />
-        <MemoryRouter initialEntries={['/']}>
-          <Story />
-        </MemoryRouter>
+        <Suspense fallback={<Loading />}>
+          <MemoryRouter initialEntries={['/']}>
+            <Story />
+          </MemoryRouter>
+        </Suspense>
       </RecoilRoot>
     ),
     mswDecorator,

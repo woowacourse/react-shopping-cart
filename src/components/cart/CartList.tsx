@@ -7,22 +7,12 @@ import { useCart } from '../../hooks/useCart';
 import CartItem from './CartItem';
 import TotalPayment from './TotalPayment';
 import Button from '../common/Button';
-import Checkbox from '../common/Checkbox';
 
 export default function CartList() {
   const { cartList, deleteFromCart } = useCart();
   const cartItemIds = cartList.map((cartItem) => cartItem.id);
   const [checkedItemIds, setCheckedItemIds] = useRecoilState(checkedCartItemIdsState(cartItemIds));
   const totalProductsPrice = useRecoilValue(totalProductsPriceState);
-
-  const handleCheckedItem = (id: number) => {
-    if (checkedItemIds.includes(id)) {
-      setCheckedItemIds((prev) => prev.filter((itemId) => itemId !== id));
-      return;
-    }
-
-    setCheckedItemIds((prev) => [...prev, id]);
-  };
 
   const handleAllChecked = () => {
     if (cartList.length === checkedItemIds.length) {
@@ -48,17 +38,13 @@ export default function CartList() {
           ) : (
             <Style.CartItems>
               {cartList.map((cartItemInfo) => (
-                <Style.ProductContainer key={cartItemInfo.id}>
-                  <Style.CheckBoxWrapper>
-                    <Checkbox
-                      id={`${cartItemInfo.product.name}-checkbox`}
-                      checked={checkedItemIds.includes(cartItemInfo.id)}
-                      itemId={cartItemInfo.id}
-                      handleCheckedItem={handleCheckedItem}
-                    />
-                  </Style.CheckBoxWrapper>
-                  <CartItem cartItemInfo={cartItemInfo} deleteCheckedItem={setCheckedItemIds} />
-                </Style.ProductContainer>
+                <Style.CartItemWrapper key={cartItemInfo.id}>
+                  <CartItem
+                    cartItemInfo={cartItemInfo}
+                    checkedItemIds={checkedItemIds}
+                    setCheckedItemIds={setCheckedItemIds}
+                  />
+                </Style.CartItemWrapper>
               ))}
             </Style.CartItems>
           )}
@@ -144,18 +130,13 @@ const Style = {
     }
   `,
 
-  ProductContainer: styled.li`
+  CartItemWrapper: styled.li`
     display: flex;
 
     height: 180px;
 
     padding: 20px;
     border-bottom: 1px ridge;
-  `,
-
-  CheckBoxWrapper: styled.div`
-    margin-right: 20px;
-    border-radius: 2px;
   `,
 
   TotalCheckboxAndDeleteButtonContainer: styled.div`

@@ -4,7 +4,6 @@ import Header from '../components/Header';
 const meta = {
   title: 'ShoppingCart/Header',
   component: Header,
-  tags: ['autodocs'],
 } satisfies Meta<typeof Header>;
 
 export default meta;

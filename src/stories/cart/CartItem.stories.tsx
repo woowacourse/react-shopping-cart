@@ -30,6 +30,7 @@ export const Default: Story = {
         imageUrl: 'https://cdn.pixabay.com/photo/2011/12/13/14/28/earth-11009__480.jpg',
       },
     },
+    checkedItemIds: [1],
   },
 };
 

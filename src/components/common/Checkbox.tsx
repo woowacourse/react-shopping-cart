@@ -3,11 +3,11 @@ import { styled } from 'styled-components';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   itemId: number;
-  handleCheckedItem: (id: number) => void;
+  toggleCheckbox: (id: number) => void;
 }
 
-export default function Checkbox({ itemId, handleCheckedItem, ...props }: Props) {
-  return <Style.Checkbox type="checkbox" onChange={() => handleCheckedItem(itemId)} {...props} />;
+export default function Checkbox({ itemId, toggleCheckbox, ...props }: Props) {
+  return <Style.Checkbox type="checkbox" onChange={() => toggleCheckbox(itemId)} {...props} />;
 }
 
 const Style = {

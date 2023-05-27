@@ -1,27 +1,47 @@
 import { styled } from 'styled-components';
+import { SetterOrUpdater } from 'recoil';
 import { CartItemInfo } from '../../types';
+import { PRODUCT } from '../../constants';
 import { useCart } from '../../hooks/useCart';
 import { TrashCanIcon } from '../../assets/svg';
-import Price from '../common/Price';
 import Stepper from '../Stepper';
-import { PRODUCT } from '../../constants';
+import Price from '../common/Price';
+import Checkbox from '../common/Checkbox';
 
 interface Props {
   cartItemInfo: CartItemInfo;
-  deleteCheckedItem: React.Dispatch<React.SetStateAction<number[]>>;
+  checkedItemIds: number[];
+  setCheckedItemIds: SetterOrUpdater<number[]>;
 }
 
-export default function CartItem({ cartItemInfo, deleteCheckedItem }: Props) {
+export default function CartItem({ cartItemInfo, checkedItemIds, setCheckedItemIds }: Props) {
   const { name, price, imageUrl } = cartItemInfo.product;
   const { updateProductQuantity, deleteFromCart } = useCart(cartItemInfo.product);
 
-  const handleDeleteCartItem = () => {
-    deleteCheckedItem((prev) => prev.filter((itemId) => itemId !== cartItemInfo.id));
+  const toggleCheckbox = (id: number) => {
+    if (checkedItemIds.includes(id)) {
+      setCheckedItemIds((prev) => prev.filter((itemId) => itemId !== id));
+      return;
+    }
+
+    setCheckedItemIds((prev) => [...prev, id]);
+  };
+
+  const deleteCartItem = () => {
+    setCheckedItemIds((prev) => prev.filter((itemId) => itemId !== cartItemInfo.id));
     deleteFromCart();
   };
 
   return (
     <Style.Container>
+      <Style.CheckBoxWrapper>
+        <Checkbox
+          id={`${name}-checkbox`}
+          checked={checkedItemIds.includes(cartItemInfo.id)}
+          itemId={cartItemInfo.id}
+          toggleCheckbox={toggleCheckbox}
+        />
+      </Style.CheckBoxWrapper>
       <Style.ImageAndNameContainer>
         <Style.ProductImageWrapper>
           <Style.ProductImage src={imageUrl} alt={name} />
@@ -30,7 +50,7 @@ export default function CartItem({ cartItemInfo, deleteCheckedItem }: Props) {
       </Style.ImageAndNameContainer>
       <Style.TrashCanIConAndStepperAndPriceContainer>
         <Style.DeleteCartItemButton
-          onClick={handleDeleteCartItem}
+          onClick={deleteCartItem}
           aria-label={`장바구니에서 ${name} 상품 삭제`}
         >
           <TrashCanIcon />
@@ -59,6 +79,11 @@ const Style = {
       flex-direction: column;
       position: relative;
     }
+  `,
+
+  CheckBoxWrapper: styled.div`
+    margin-right: 20px;
+    border-radius: 2px;
   `,
 
   ImageAndNameContainer: styled.div`
