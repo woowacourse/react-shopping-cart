@@ -17,9 +17,13 @@ import * as Text from '@components/commons/Text/Text';
 import ProductStepper from '@components/pages/ProductsPage/ProductList/ProductItem/ProductStepper/ProductStepper';
 import { Button as DeleteButton } from '@commons/Button/Button';
 
-const CartItem = (props: CartItemType) => {
-  const { product, quantity } = props;
-  const { id, name, price, imageUrl } = product;
+interface CartItemProps {
+  item: CartItemType;
+}
+
+const CartItem = (props: CartItemProps) => {
+  const { item } = props;
+  const { id, name, price, imageUrl } = item.product;
   const setCartItems = useSetRecoilState(cartItemsState);
 
   const handleDeleteButtonClick = (productId: number) => {
@@ -40,7 +44,7 @@ const CartItem = (props: CartItemType) => {
   return (
     <StyledCartItem>
       <StyledFlexBox>
-        <Checkbox productId={id} />
+        <Checkbox />
         <CartImage src={imageUrl} alt={name} size="l" />
       </StyledFlexBox>
       <StyledName>
@@ -51,8 +55,8 @@ const CartItem = (props: CartItemType) => {
           <TrashCan />
         </DeleteButton>
         <ProductStepper
-          product={product}
-          initQuantity={quantity}
+          product={item.product}
+          initQuantity={item.quantity}
           initCartItemId={`/${id}`}
           inputWidth="72px"
           inputHeight="60px"

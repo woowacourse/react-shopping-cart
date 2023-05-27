@@ -1,8 +1,9 @@
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 
 import { cartItemsState, checkedCartItemsState } from '@recoil/atom';
 import { cartItemsLengthSelector } from '@recoil/selector';
 import fetchApis from '@apis/fetchApis';
+import { CartItem } from '@customTypes/Product';
 
 import {
   StyledCartListSection,
@@ -16,38 +17,26 @@ import { Button as CheckedItemsDeleteButton } from '@components/commons/Button/B
 
 const CartListSection = () => {
   const cartItemLength = useRecoilValue(cartItemsLengthSelector);
-  const [checkedCartItems, setCheckedCartItems] = useRecoilState(
-    checkedCartItemsState
-  );
+  const checkedCartItems = useRecoilValue(checkedCartItemsState);
+  const resetCheckedCartItems = useResetRecoilState(checkedCartItemsState);
   const setCartItems = useSetRecoilState(cartItemsState);
 
   const handleCheckedItemsDeleteButtonClick = () => {
     const { deleteData } = fetchApis();
-    const productIds = Object.values(checkedCartItems);
-    const cartItemIds = productIds.map(productId => `/${productId}`);
+    const checkedCartItemList = Object.values(checkedCartItems);
 
-    productIds.forEach((productId: number, index) => {
-      deleteData('/cart-items', cartItemIds[index]);
+    checkedCartItemList.forEach((checkedCartItem: CartItem) => {
+      deleteData('/cart-items', `/${checkedCartItem.product.id}`);
       setCartItems(prev => {
         const newCartItems = { ...prev };
-        const key = `product${productId}`;
+        const key = checkedCartItem.id ?? '';
         delete newCartItems[key];
 
         return newCartItems;
       });
     });
 
-    setCheckedCartItems(prev => {
-      const newCheckedCartItems = {
-        ...prev,
-      };
-
-      productIds.forEach(productId => {
-        delete newCheckedCartItems[`productId${productId}`];
-      });
-
-      return newCheckedCartItems;
-    });
+    resetCheckedCartItems();
   };
 
   return (

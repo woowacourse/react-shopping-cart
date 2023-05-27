@@ -3,10 +3,10 @@ import { useRecoilValue } from 'recoil';
 
 import fetchApis from '@apis/fetchApis';
 import { CartItem } from '@customTypes/Product';
-import { cartItemsState } from '@recoil/atom';
+import { cartItemsLengthSelector } from '@recoil/selector';
 
 export const useCartItems = () => {
-  const cartItemsAtom = useRecoilValue(cartItemsState);
+  const cartItemLength = useRecoilValue(cartItemsLengthSelector);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isGetCartItemsError, setIsGetCartItemsError] = useState(false);
 
@@ -23,7 +23,7 @@ export const useCartItems = () => {
     };
 
     getCartItems();
-  }, [cartItemsAtom]);
+  }, [cartItemLength]);
 
   return { cartItems, isGetCartItemsError };
 };

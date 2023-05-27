@@ -7,9 +7,7 @@ export const cartItemsState = atom<CartItems>({
   default: {},
 });
 
-type CheckedCartItems = Record<string, number>;
-
-export const checkedCartItemsState = atom<CheckedCartItems>({
+export const checkedCartItemsState = atom<CartItems>({
   key: 'checkedCartItems',
   default: {},
 });
