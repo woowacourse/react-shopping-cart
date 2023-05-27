@@ -9,11 +9,11 @@ import { getNewProducts } from "../utils/domain";
 export const useQuantity = (productId: number) => {
   const initialProducts = useRecoilValue(initialProductsState);
   const [products, setProducts] = useRecoilState(productsState);
-  const target = products.find(
+  const currentProduct = products.find(
     (product: ProductType) => product.id === productId
   );
   const [quantity, setQuantity] = useState<string | undefined>(
-    target?.quantity.toString()
+    currentProduct?.quantity.toString()
   );
 
   const setNewQuantity = async (newQuantity: number) => {

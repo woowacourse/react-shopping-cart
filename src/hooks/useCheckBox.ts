@@ -40,8 +40,7 @@ export const useCheckBox = () => {
   };
 
   const removeTargetIndex = (targetIndex: number) => {
-    checkedArray.splice(targetIndex, 1);
-    setCheckedArray(checkedArray);
+    setCheckedArray(checkedArray.filter((_, index) => index !== targetIndex));
   };
 
   const allChecked = getAllChecked();
