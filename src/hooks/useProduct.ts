@@ -1,5 +1,5 @@
 import { ChangeEventHandler, FocusEventHandler } from 'react';
-import { NONE_QUANTITY, NOT_NUMBER } from '../constants';
+import { NONE_QUANTITY, NOT_NUMBER, USER } from '../constants';
 import { changeInvalidValueToBlank } from '../utils/changeInvalidValueToBlank';
 import { useRecoilCallback, useRecoilValue } from 'recoil';
 import {
@@ -9,7 +9,7 @@ import {
 } from '../store/CartSelector';
 import { validateQuantityInput } from '../utils/validateQuantityInput';
 import { CART_BASE_URL } from '../constants/url';
-import { useFetchData } from './useFetchData';
+import useMutation from './useMutation';
 
 export const useProduct = (id: number) => {
   const newQuantity = useRecoilValue(updateCartSelector({ id }));
@@ -22,20 +22,47 @@ export const useProduct = (id: number) => {
     set(removeProductItemFromCartSelector(id), []);
   });
 
-  const { api } = useFetchData();
+  const { mutate, error } = useMutation();
 
   const removeItem = () => {
-    api.delete(`${CART_BASE_URL}/${id}`, { id });
+    mutate({
+      url: `${CART_BASE_URL}/${id}`,
+      method: 'DELETE',
+      bodyData: { id },
+      headers: {
+        Authorization: `Basic ${btoa(USER)}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    if (error) return;
     removeProductItemFromCart(id);
   };
 
   const updateItem = (quantity: number) => {
-    api.patch(`${CART_BASE_URL}/${id}`, { id, quantity });
+    mutate({
+      url: `${CART_BASE_URL}/${id}`,
+      method: 'PATCH',
+      bodyData: { id, quantity },
+      headers: {
+        Authorization: `Basic ${btoa(USER)}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    if (error) return;
     updateCart({ id, quantity });
   };
 
   const addItemToCart = () => {
-    api.post(CART_BASE_URL, { id });
+    mutate({
+      url: `${CART_BASE_URL}`,
+      method: 'POST',
+      bodyData: { id },
+      headers: {
+        Authorization: `Basic ${btoa(USER)}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    if (error) return;
     updateCart({ id, quantity: 1 });
   };
 

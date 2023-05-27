@@ -1,22 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 import ProductItem from './ProductItem';
-import { useFetchData } from '../../hooks/useFetchData';
 import { Product } from '../../types';
 import { PRODUCT_BASE_URL } from '../../constants/url';
 import { productListState } from '../../store/ProductListState';
-import { useEffect } from 'react';
 import Skeleton from './Skeleton';
+import useGet from '../../hooks/useGet';
+import { useEffect } from 'react';
 
 const ProductList = () => {
   const [productList, setProductList] = useRecoilState<Product[]>(productListState);
 
-  const { api, isLoading } = useFetchData<Product[]>(setProductList);
+  const { data, isLoading } = useGet<Product[]>(PRODUCT_BASE_URL);
 
   useEffect(() => {
-    api.get(PRODUCT_BASE_URL);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (data) setProductList(data);
+  }, [data]);
 
   const skeleton = Array.from({ length: 12 }).map((_, index) => <Skeleton key={index} />);
 

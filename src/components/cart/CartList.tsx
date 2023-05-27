@@ -1,8 +1,7 @@
-import { useEffect } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
 import { cartState } from '../../store/CartState';
 import { useRecoilState } from 'recoil';
 import { useCart } from '../../hooks/useCart';
-import { useFetchData } from '../../hooks/useFetchData';
 import { CartItem } from '../../types';
 import CartListItem from './CartListItem';
 import Checkbox from '../@common/Checkbox';
@@ -11,15 +10,18 @@ import PriceWrapper from './PriceWrapper';
 import { LoadingSpinner } from '../@common/LoadingSpinner';
 import { CART_BASE_URL } from '../../constants/url';
 import { styled } from 'styled-components';
+import useGet from '../../hooks/useGet';
+import { useEffect } from 'react';
 
 const CartList = () => {
   const [cart, setCart] = useRecoilState(cartState);
-  const { api, isLoading } = useFetchData<CartItem[]>(setCart);
+  const { data, isLoading } = useGet<CartItem[]>(CART_BASE_URL);
 
   useEffect(() => {
-    api.get(CART_BASE_URL);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (data) setCart(data);
+  }, [data]);
+
+  // TODO: error handling
 
   const {
     checkedItems,

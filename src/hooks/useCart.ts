@@ -3,7 +3,8 @@ import { cartState } from '../store/CartState';
 import { ChangeEvent, MouseEvent, useState } from 'react';
 import { removeProductItemFromCartSelector, totalPriceSelector } from '../store/CartSelector';
 import { CART_BASE_URL } from '../constants/url';
-import { useFetchData } from './useFetchData';
+import useMutation from './useMutation';
+import { USER } from '../constants';
 
 export const useCart = () => {
   const cart = useRecoilValue(cartState);
@@ -13,7 +14,7 @@ export const useCart = () => {
     set(removeProductItemFromCartSelector(id), []);
   });
 
-  const { api } = useFetchData();
+  const { mutate, error } = useMutation();
 
   const isChecked = (id: number) => {
     return checkedItems.includes(id);
@@ -41,7 +42,16 @@ export const useCart = () => {
     const confirmResult = window.confirm('정말로 삭제하시겠습니까?');
     if (confirmResult) {
       checkedItems.forEach((id) => {
-        api.delete(`${CART_BASE_URL}/${id}`, { id });
+        mutate({
+          url: `${CART_BASE_URL}/${id}`,
+          method: 'DELETE',
+          bodyData: { id },
+          headers: {
+            Authorization: `Basic ${btoa(USER)}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        if (error) return;
         removeProductItemFromCart(id);
       });
       setCheckedItems([]);
