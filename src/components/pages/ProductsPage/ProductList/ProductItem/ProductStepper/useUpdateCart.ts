@@ -1,22 +1,20 @@
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 
+import { Product } from '@customTypes/Product';
 import { cartItemsState } from '@recoil/atom';
 
-const useUpdateCart = (productId: number, quantity: number) => {
+const useUpdateCart = (product: Product, quantity: number) => {
   const setCartItems = useSetRecoilState(cartItemsState);
 
   useEffect(() => {
     setCartItems(prev => {
-      if (!productId) {
-        return prev;
-      }
-
       const newCartItems = { ...prev };
-      const key = `product${productId}`;
+      const key = `product${product.id}`;
       const newCartItem = {
-        productId: productId,
+        id: product.id,
         quantity: quantity,
+        product: product,
       };
       newCartItems[key] = newCartItem;
 
@@ -24,7 +22,7 @@ const useUpdateCart = (productId: number, quantity: number) => {
 
       return newCartItems;
     });
-  }, [quantity, productId, setCartItems]);
+  }, [quantity, product, setCartItems]);
 };
 
 export default useUpdateCart;

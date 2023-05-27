@@ -3,7 +3,7 @@ import { useSetRecoilState } from 'recoil';
 import fetchApis from '@apis/fetchApis';
 import { cartItemsState } from '@recoil/atom';
 import { TrashCan } from '@assets/index';
-import { CartItemApi } from '@customTypes/Product';
+import { CartItem as CartItemType } from '@customTypes/Product';
 
 import {
   StyledCartItem,
@@ -17,7 +17,7 @@ import * as Text from '@components/commons/Text/Text';
 import ProductStepper from '@components/pages/ProductsPage/ProductList/ProductItem/ProductStepper/ProductStepper';
 import { Button as DeleteButton } from '@commons/Button/Button';
 
-const CartItem = (props: CartItemApi) => {
+const CartItem = (props: CartItemType) => {
   const { product, quantity } = props;
   const { id, name, price, imageUrl } = product;
   const setCartItems = useSetRecoilState(cartItemsState);
@@ -51,7 +51,7 @@ const CartItem = (props: CartItemApi) => {
           <TrashCan />
         </DeleteButton>
         <ProductStepper
-          productId={id}
+          product={product}
           initQuantity={quantity}
           initCartItemId={`/${id}`}
           inputWidth="72px"

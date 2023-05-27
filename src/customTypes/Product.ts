@@ -5,15 +5,10 @@ export interface Product {
   imageUrl: string;
 }
 
-export interface CartItemApi {
+export interface CartItem {
   id: number | null;
   quantity: number;
   product: Product;
-}
-
-export interface CartItem {
-  productId: number;
-  quantity: number;
 }
 
 export type CartItems = Record<string, CartItem>;

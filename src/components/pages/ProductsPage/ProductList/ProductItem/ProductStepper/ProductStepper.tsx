@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { PRODUCT_COUNT, STEP_UNIT } from '@constants/product';
 import fetchApis from '@apis/fetchApis';
 import useUpdateCart from './useUpdateCart';
+import { Product } from '@customTypes/Product';
 
 import {
   StyledProductStepperButtonFlexBox,
@@ -15,7 +16,7 @@ import { Button as StepperHandleButton } from '@components/commons/Button/Button
 import * as Text from '@components/commons/Text/Text';
 
 interface ProductStepperProps {
-  productId: number;
+  product: Product;
   initQuantity: number;
   initCartItemId?: string | null;
   inputWidth?: string | undefined;
@@ -26,7 +27,7 @@ interface ProductStepperProps {
 
 const ProductStepper = (props: ProductStepperProps) => {
   const {
-    productId,
+    product,
     initQuantity,
     initCartItemId,
     inputWidth,
@@ -42,7 +43,7 @@ const ProductStepper = (props: ProductStepperProps) => {
 
   const addCartItem = async () => {
     const location = await postData(
-      { productId: productId },
+      { productId: product.id },
       '/cart-items',
       ''
     );
@@ -68,7 +69,7 @@ const ProductStepper = (props: ProductStepperProps) => {
     await deleteData('/cart-items', cartItemId);
   };
 
-  useUpdateCart(productId, quantity);
+  useUpdateCart(product, quantity);
 
   useEffect(() => {
     setQuantity(initQuantity);

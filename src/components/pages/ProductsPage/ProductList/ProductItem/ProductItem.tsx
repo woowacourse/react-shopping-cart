@@ -15,8 +15,8 @@ interface ProductItemProps {
 }
 
 const ProductItem = (props: ProductItemProps) => {
-  const { initQuantity, initCartItemId, product: thisProduct } = props;
-  const { id, name, price, imageUrl } = thisProduct;
+  const { initQuantity, initCartItemId, product } = props;
+  const { name, imageUrl, price } = product;
 
   return (
     <StyledProductItem>
@@ -25,7 +25,7 @@ const ProductItem = (props: ProductItemProps) => {
         <StyledProductFlexBox>
           <Text.Description>{name}</Text.Description>
           <ProductStepper
-            productId={id}
+            product={product}
             initQuantity={initQuantity}
             initCartItemId={initCartItemId}
           />

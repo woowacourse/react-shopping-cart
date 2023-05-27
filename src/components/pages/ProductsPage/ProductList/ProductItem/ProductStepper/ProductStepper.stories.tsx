@@ -18,9 +18,16 @@ export default meta;
 
 type Story = StoryObj<typeof ProductStepper>;
 
+const product = {
+  id: 1,
+  name: 'PET보틀-정사각(420ml)',
+  price: 10000,
+  imageUrl: '/react-shopping-cart/cat0.png',
+};
+
 export const Default: Story = {
   args: {
-    productId: 1,
+    product: product,
   },
 };
 

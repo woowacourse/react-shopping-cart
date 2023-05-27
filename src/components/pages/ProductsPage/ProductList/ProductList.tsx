@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import { CartItemApi } from '@customTypes/Product';
+import { CartItem } from '@customTypes/Product';
 import { useProductList } from './useProductList';
 
 import { StyledProductList } from '@components/pages/ProductsPage/ProductList/ProductList.styled';
@@ -14,7 +14,7 @@ const ProductList = () => {
     <Suspense fallback={<div>로딩중 ...</div>}>
       <ErrorModal isError={isGetProductListError} />
       <StyledProductList>
-        {productList.map((item: CartItemApi) => {
+        {productList.map((item: CartItem) => {
           return (
             <ProductItem
               key={item.product.id}

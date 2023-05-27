@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 
 import fetchApis from '@apis/fetchApis';
-import { CartItemApi, Product } from '@customTypes/Product';
+import { CartItem, Product } from '@customTypes/Product';
 
 export const useProductList = () => {
-  const [productList, setProductList] = useState<CartItemApi[]>([]);
+  const [productList, setProductList] = useState<CartItem[]>([]);
   const [isGetProductListError, setIsGetProductListError] = useState(false);
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export const useProductList = () => {
 
     const combineProductsWithCartItems = (
       products: Product[],
-      cartItems: CartItemApi[]
+      cartItems: CartItem[]
     ) => {
       const productList = products.map(product => {
         return (
@@ -30,7 +30,7 @@ export const useProductList = () => {
     const getProducts = async () => {
       try {
         const products = await getData<Product[]>('/products');
-        const cartItems = await getData<CartItemApi[]>('/cart-items');
+        const cartItems = await getData<CartItem[]>('/cart-items');
         setProductList(combineProductsWithCartItems(products, cartItems));
       } catch (error) {
         setIsGetProductListError(true);
