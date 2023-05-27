@@ -42,10 +42,12 @@ export const allCartCheckedSelector = selector({
     const cartList = get(cartState);
     const cartCount = get(cartCountSelector);
     if (cartCount > 0) {
-      const isAllCartItemChecked = cartList.every(
-        (cartItem) => cartItem.checked
-      );
-      return isAllCartItemChecked;
+      for (let i = 0; i < cartList.length; i++) {
+        if (!cartList[i].checked) {
+          return false;
+        }
+      }
+      return true;
     }
 
     return false;
