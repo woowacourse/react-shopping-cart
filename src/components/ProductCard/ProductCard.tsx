@@ -24,7 +24,11 @@ const ProductCard = ({ productId }: ProductCardProps) => {
 
   return (
     <Styled.Container>
-      <ProductImg theme={imgTheme} src={imageUrl} alt={name} />
+      <ProductImg
+        theme={imgTheme}
+        src={imageUrl ? imageUrl : undefined}
+        alt={name}
+      />
       <Styled.ProductDetail>
         <ProductInfo name={name} price={price} />
         {isCartClicked ? (

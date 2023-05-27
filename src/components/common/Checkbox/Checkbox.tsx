@@ -8,9 +8,9 @@ interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
 const Checkbox = ({ isChecked, ...props }: CheckboxProps) => {
   return (
     <Styled.Checkbox
+      {...props}
       type="checkbox"
       checked={isChecked}
-      {...props}
     ></Styled.Checkbox>
   );
 };

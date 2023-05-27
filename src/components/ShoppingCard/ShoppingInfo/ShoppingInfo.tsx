@@ -29,7 +29,11 @@ const ShoppingInfo = ({ cartId, isDelete, onDelete }: ShoppingInfoProps) => {
 
   return (
     <>
-      <ProductImg theme={imgTheme} src={imageUrl} alt={name} />
+      <ProductImg
+        theme={imgTheme}
+        src={imageUrl ? imageUrl : undefined}
+        alt={name}
+      />
       <Styled.InfoContainer>
         <Styled.TopSection>
           <ProductName theme={nameTheme} name={name} />

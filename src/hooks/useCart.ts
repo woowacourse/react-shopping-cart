@@ -14,7 +14,7 @@ const useCart = (productId: number) => {
   const product = useRecoilValue(targetProductSelector)(productId);
   const shoppingProduct = useTargetShoppingSelector(productId);
 
-  const productInCart = cart.quantity ? true : false;
+  const productInCart = !!cart.quantity;
   const [isCartClicked, setIsCartClicked] = useState(Boolean(productInCart));
 
   const { ChangeErrorTrue } = useError();
