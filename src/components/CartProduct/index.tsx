@@ -4,7 +4,8 @@ import CountButton from '../CountButton';
 import { ReactComponent as GarbageIcon } from '../../assets/garbage-icon.svg';
 import { deleteCartItem, updateCartItem } from '../../api/cartApi';
 import errorMessage from '../../constant/errorMessage';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useSetRecoilState } from 'recoil';
 import { $Cart } from '../../recoil/atom';
 import { ForwardedRef, forwardRef, useState } from 'react';
@@ -23,7 +24,7 @@ const CartProduct = ({ cartItem }: CartProductProps, ref: ForwardedRef<HTMLInput
       await updateCartItem(product.id, count + 1);
       setCount(prev => prev + 1);
     } catch (e) {
-      toast.error(errorMessage.quantity);
+      toast.error(`${product.name}${errorMessage.quantity}`);
     }
   };
 
@@ -34,7 +35,7 @@ const CartProduct = ({ cartItem }: CartProductProps, ref: ForwardedRef<HTMLInput
         return;
       }
     } catch (e) {
-      toast.error(errorMessage.quantity);
+      toast.error(`${product.name}${errorMessage.quantity}`);
     }
 
     setCount(prev => prev - 1);
@@ -45,7 +46,7 @@ const CartProduct = ({ cartItem }: CartProductProps, ref: ForwardedRef<HTMLInput
       await deleteCartItem(product.id);
       setCart(prev => prev.filter(item => item !== product.id));
     } catch (e) {
-      toast.error(errorMessage.delete);
+      toast.error(`${product.name}${errorMessage.delete}`);
     }
   };
 
@@ -65,6 +66,7 @@ const CartProduct = ({ cartItem }: CartProductProps, ref: ForwardedRef<HTMLInput
         <CountButton count={count} handleUpButton={handleUpButton} handleDownButton={handleDownButton} />
         <span aria-label="product-price">{(product.price * count).toLocaleString()}원</span>
       </div>
+      <ToastContainer />
     </section>
   );
 };

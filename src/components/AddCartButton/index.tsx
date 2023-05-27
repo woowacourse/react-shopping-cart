@@ -11,9 +11,10 @@ import { useState } from 'react';
 
 interface AddCardButtonProps {
   id: number;
+  name: string;
 }
 
-const AddCartButton = ({ id }: AddCardButtonProps) => {
+const AddCartButton = ({ id, name }: AddCardButtonProps) => {
   const [count, setCount] = useState(0);
   const setCart = useSetRecoilState($Cart);
 
@@ -23,7 +24,7 @@ const AddCartButton = ({ id }: AddCardButtonProps) => {
       setCart(prev => [...prev, id]);
       setCount(prev => prev + 1);
     } catch (e) {
-      toast.error(errorMessage.addProduct);
+      toast.error(`${name}${errorMessage.addProduct}`);
     }
   };
 
@@ -32,7 +33,7 @@ const AddCartButton = ({ id }: AddCardButtonProps) => {
       await updateCartItem(id, count + 1);
       setCount(prev => prev + 1);
     } catch (e) {
-      toast.error(errorMessage.quantity);
+      toast.error(`${name}${errorMessage.quantity}`);
     }
   };
 
@@ -44,7 +45,7 @@ const AddCartButton = ({ id }: AddCardButtonProps) => {
         setCart(prev => prev.filter(item => item !== id));
       }
     } catch (e) {
-      toast.error(errorMessage.quantity);
+      toast.error(`${name}${errorMessage.quantity}`);
     }
 
     setCount(prev => prev - 1);
@@ -61,7 +62,7 @@ const AddCartButton = ({ id }: AddCardButtonProps) => {
         await updateCartItem(id, inputCount);
       }
     } catch (e) {
-      toast.error(errorMessage.quantity);
+      toast.error(`${name}${errorMessage.quantity}`);
     }
   };
 

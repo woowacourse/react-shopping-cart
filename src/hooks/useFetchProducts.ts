@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import errorMessage from '../constant/errorMessage';
 
 type useFetchProductsProps = Dispatch<SetStateAction<never[]>>;
@@ -20,4 +21,4 @@ const useFetchProducts = (setProducts: useFetchProductsProps): void => {
   }, [setProducts]);
 };
 
-export default useFetchProducts;
+export { useFetchProducts, toast };

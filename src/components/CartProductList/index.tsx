@@ -6,7 +6,8 @@ import { useRecoilState } from 'recoil';
 import { $Cart, $CheckedCartState } from '../../recoil/atom';
 import { SyntheticEvent, createRef, useRef } from 'react';
 import { deleteCartItem } from '../../api/cartApi';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import errorMessage from '../../constant/errorMessage';
 
 const CartProductList = () => {
@@ -45,16 +46,16 @@ const CartProductList = () => {
   };
 
   const handleDeleteButton = async () => {
-    try {
-      await Promise.all(
-        CheckedCartData.map(async product => {
+    await Promise.all(
+      CheckedCartData.map(async product => {
+        try {
           await deleteCartItem(product.product.id);
           setCart(prev => prev.filter(item => item !== product.product.id));
-        })
-      );
-    } catch (e) {
-      toast.error(errorMessage.delete);
-    }
+        } catch (error) {
+          toast.error(`${product.product.name}${errorMessage.delete}`);
+        }
+      })
+    );
   };
 
   return (
@@ -74,6 +75,7 @@ const CartProductList = () => {
         </span>
         <button onClick={handleDeleteButton}>선택삭제</button>
       </div>
+      <ToastContainer />
     </form>
   );
 };

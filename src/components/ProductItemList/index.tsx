@@ -1,7 +1,7 @@
 import ProductItem from '../ProductItem';
 import styles from './index.module.css';
 import { Product } from '../../types';
-import useFetchProducts from '../../hooks/useFetchProducts';
+import { useFetchProducts } from '../../hooks/useFetchProducts';
 import { useState } from 'react';
 
 const ProductItemList = () => {
