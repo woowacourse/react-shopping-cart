@@ -64,12 +64,16 @@ export default function CartList() {
               fontSize={'12px'}
               color={'black'}
               onClick={deleteCheckedItems}
+              disabled={checkedItemIds.length === 0}
             >
               선택삭제
             </Button>
           </Style.TotalCheckboxAndDeleteButtonContainer>
         </Style.CartItemsContainer>
-        <TotalPayment totalProductsPrice={totalProductsPrice} deliveryFee={DELIVERY_FEE} />
+        <TotalPayment
+          totalProductsPrice={totalProductsPrice}
+          deliveryFee={totalProductsPrice > 0 ? DELIVERY_FEE : 0}
+        />
       </Style.CartItemsAndPaymentContainer>
     </Style.Container>
   );

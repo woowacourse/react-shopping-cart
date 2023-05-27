@@ -24,6 +24,7 @@ export default function TotalPayment({ totalProductsPrice, deliveryFee }: Props)
           bgColor="var(--grey-500)"
           color="var(--grey-100)"
           fontSize="20px"
+          disabled={totalProductsPrice === 0}
         >
           주문하기
         </Button>

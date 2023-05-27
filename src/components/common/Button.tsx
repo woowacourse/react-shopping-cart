@@ -29,9 +29,19 @@ const Style = {
     color: var(--grey-100);
     cursor: pointer;
 
+    &:disabled {
+      background-color: var(--grey-300);
+      cursor: not-allowed;
+    }
+
     &.text {
       color: ${({ color }) => (color ? color : 'var(--grey-500)')};
       background-color: transparent;
+
+      &:disabled {
+        color: var(--grey-300);
+        cursor: not-allowed;
+      }
     }
 
     &.square {
@@ -45,6 +55,11 @@ const Style = {
       color: var(--grey-600);
       text-align: center;
       line-height: 28px;
+
+      &:disabled {
+        background-color: var(--grey-100);
+        cursor: not-allowed;
+      }
     }
 
     &.rectangle {
@@ -52,10 +67,6 @@ const Style = {
       height: 65px;
 
       color: ${({ color }) => (color ? color : 'var(--grey-500)')};
-    }
-
-    &:disabled {
-      color: var(--grey-300);
     }
   `,
 };
