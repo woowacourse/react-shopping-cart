@@ -24,8 +24,7 @@ export const checkedCartSelector = selector({
   key: "checkedCartSelector",
   get: ({ get }) => {
     const cartList = get(cartState);
-    const checkedCartLst = cartList.filter((cartItem) => cartItem.checked);
-    return checkedCartLst;
+    return cartList.filter((cartItem) => cartItem.checked);
   },
 });
 
