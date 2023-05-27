@@ -28,12 +28,16 @@ export const CartCount = memo(
         <Styled.QuantityText>{quantity}</Styled.QuantityText>
         <div>
           <Styled.IncreaseCountButton
+            width="20px"
+            height="20px"
             data-testid="increase-button"
             onClick={increaseCount}
           >
             <IncreaseButtonImage />
           </Styled.IncreaseCountButton>
           <Styled.DecreaseCountButton
+            width="20px"
+            height="20px"
             data-testid="decrease-button"
             onClick={decreaseCount}
           >

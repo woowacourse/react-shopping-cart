@@ -42,7 +42,9 @@ export const CartTotalPriceContainer = () => {
             : 0
         } 원`}</TotalPrice>
       </div>
-      <Styled.OrderButton>주문하기</Styled.OrderButton>
+      <Styled.OrderButton width="388px" height="72px">
+        주문하기
+      </Styled.OrderButton>
     </Styled.Wrapper>
   );
 };

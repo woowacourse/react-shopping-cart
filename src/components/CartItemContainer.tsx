@@ -88,6 +88,7 @@ export const CartItemContainer = () => {
           </Styled.TotalCheckboxInputWrapper>
           <DeleteSelectionButton
             width="100px"
+            height="32px"
             borderColor="#aaaaaa"
             onClick={handleDeleteChecked}
           >

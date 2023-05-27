@@ -40,8 +40,6 @@ export const Wrapper = styled.div`
 `;
 
 export const OrderButton = styled(Button)`
-  width: 388px;
-  height: 72px;
   background-color: #04c09e;
   color: #ffffff;
   margin: 40px auto;

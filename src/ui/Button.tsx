@@ -2,8 +2,8 @@ import React, { ButtonHTMLAttributes } from 'react';
 import * as Styled from './styles/Button.styles';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  width?: string;
-  height?: string;
+  width: string;
+  height: string;
   backgroundColor?: string;
   borderColor?: string;
 }

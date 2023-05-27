@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Button = styled.button<{
-  width?: string;
-  height?: string;
+  width: string;
+  height: string;
   backgroundcolor?: string;
   bordercolor?: string;
 }>`
