@@ -7,7 +7,7 @@ interface Props {
 }
 
 const Checkbox = ({ isChecked, onChange }: Props) => {
-  return <CheckboxStyle type="checkbox" onChange={onChange} checked={isChecked}></CheckboxStyle>;
+  return <CheckboxStyle type="checkbox" onChange={onChange} checked={isChecked} />;
 };
 
 export const CheckboxStyle = styled.input`

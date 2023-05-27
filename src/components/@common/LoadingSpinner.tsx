@@ -45,8 +45,8 @@ const LoadingSpinnerStyle = styled.div`
 
 export const LoadingSpinner = () => (
   <LoadingSpinnerStyle>
-    <div></div>
-    <div></div>
-    <div></div>
+    <div />
+    <div />
+    <div />
   </LoadingSpinnerStyle>
 );
