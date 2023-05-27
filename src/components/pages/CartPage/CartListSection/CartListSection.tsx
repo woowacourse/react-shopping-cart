@@ -1,4 +1,4 @@
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import {
   cartItemsLengthSelector,
@@ -13,13 +13,31 @@ import {
 } from '@components/pages/CartPage/CartListSection/CartListSection.styled';
 import * as Text from '@commons/Text/Text';
 import CardList from '@components/pages/CartPage/CartListSection/CartList/CartList';
-import { Checkbox as WholeCheckbox } from '@components/commons/Checkbox/Checkbox';
+import { Checkbox as EntireCheckbox } from '@components/commons/Checkbox/Checkbox';
 import { Button as CheckedItemsDeleteButton } from '@components/commons/Button/Button';
+import { cartItemsState } from '@recoil/atom';
 
 const CartListSection = () => {
+  const [cartItems, setCartItems] = useRecoilState(cartItemsState);
   const cartItemLength = useRecoilValue(cartItemsLengthSelector);
   const checkedCartItemsLength = useRecoilValue(checkedCartItemsLengthSelector);
   const deleteSelectedItems = useDeleteSelectedItems();
+
+  const handleEntireCheckboxClick = () => {
+    setCartItems(prev => {
+      return Object.fromEntries(
+        Object.entries(prev).map(cartItem => {
+          return [
+            cartItem[0],
+            {
+              ...cartItem[1],
+              isChecked: !cartItem[1].isChecked,
+            },
+          ];
+        })
+      );
+    });
+  };
 
   return (
     <StyledCartListSection>
@@ -28,7 +46,11 @@ const CartListSection = () => {
       </StyledCartListTextBox>
       <CardList />
       <StyledCartListFlexBox>
-        <WholeCheckbox />
+        <EntireCheckbox
+          initIsChecked={true}
+          handleCheck={handleEntireCheckboxClick}
+          handleUnCheck={handleEntireCheckboxClick}
+        />
         <Text.Description>
           전체선택 ({checkedCartItemsLength}/{cartItemLength})
         </Text.Description>
@@ -38,7 +60,7 @@ const CartListSection = () => {
           padding="4px"
           border="1px solid #BBBBBB"
           border-radius="0px"
-          onClick={() => deleteSelectedItems()}
+          onClick={() => deleteSelectedItems(cartItems)}
         >
           선택삭제
         </CheckedItemsDeleteButton>

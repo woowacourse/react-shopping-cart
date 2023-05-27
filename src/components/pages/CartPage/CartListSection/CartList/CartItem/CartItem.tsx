@@ -1,4 +1,4 @@
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import fetchApis from '@apis/fetchApis';
 import { cartItemsState } from '@recoil/atom';
@@ -24,7 +24,7 @@ interface CartItemProps {
 const CartItem = (props: CartItemProps) => {
   const { item } = props;
   const { id, name, price, imageUrl } = item.product;
-  const setCartItems = useSetRecoilState(cartItemsState);
+  const [cartItems, setCartItems] = useRecoilState(cartItemsState);
 
   const handleDeleteButtonClick = (productId: number) => {
     const { deleteData } = fetchApis();
@@ -32,8 +32,8 @@ const CartItem = (props: CartItemProps) => {
 
     setCartItems(prev => {
       const newCartItems = { ...prev };
-      const key = `product${productId}`;
-      delete newCartItems[key];
+
+      delete newCartItems[productId];
 
       return newCartItems;
     });
@@ -41,10 +41,29 @@ const CartItem = (props: CartItemProps) => {
     return;
   };
 
+  const handleCheckboxClick = () => {
+    setCartItems(prev => {
+      const newCartItems = {
+        ...prev,
+      };
+
+      newCartItems[id] = {
+        ...newCartItems[id],
+        isChecked: !prev[id]?.isChecked,
+      };
+
+      return newCartItems;
+    });
+  };
+
   return (
     <StyledCartItem>
       <StyledFlexBox>
-        <Checkbox />
+        <Checkbox
+          initIsChecked={cartItems[id]?.isChecked}
+          handleCheck={handleCheckboxClick}
+          handleUnCheck={handleCheckboxClick}
+        />
         <CartImage src={imageUrl} alt={name} size="l" />
       </StyledFlexBox>
       <StyledName>

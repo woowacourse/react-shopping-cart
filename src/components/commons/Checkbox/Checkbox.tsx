@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, useState } from 'react';
+import { InputHTMLAttributes, useEffect, useState } from 'react';
 
 import { Check } from '@assets/index';
 
@@ -32,6 +32,10 @@ export const Checkbox = (props: CheckboxProps) => {
 
     if (handleUnCheck) handleUnCheck();
   };
+
+  useEffect(() => {
+    setIsChecked(initIsChecked);
+  }, [initIsChecked]);
 
   return (
     <StyledCheckbox>

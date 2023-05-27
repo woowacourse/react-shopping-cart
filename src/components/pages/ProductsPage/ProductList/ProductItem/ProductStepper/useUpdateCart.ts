@@ -10,12 +10,12 @@ const useUpdateCart = (product: Product, quantity: number) => {
   useEffect(() => {
     setCartItems(prev => {
       const newCartItems = { ...prev };
-      const key = `product${product.id}`;
+      const key = product.id;
       const newCartItem = {
         id: product.id,
         quantity: quantity,
         product: product,
-        isChecked: false,
+        isChecked: true,
       };
       newCartItems[key] = newCartItem;
 
