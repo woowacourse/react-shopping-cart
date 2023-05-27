@@ -17,3 +17,10 @@ export const Default: Story = {
     deliveryFee: DELIVERY_FEE,
   },
 };
+
+export const Disabled: Story = {
+  args: {
+    totalProductsPrice: 0,
+    deliveryFee: 0,
+  },
+};
