@@ -1,23 +1,20 @@
 import styled from 'styled-components';
-import Icon from './Icon';
-import { CART_PATH } from '../../constants/svgPath';
-import CartRouteButton from '../main/CartRouteButton';
+import { ReactComponent as Logo } from '../assets/logo.svg';
+import CartRouteButton from './main/CartRouteButton';
 
-interface Props {
-  title: string;
-  onClickCartButton?: () => void;
-  onClickTitle?: () => void;
-}
+import useNavigatePage from '../hooks/useNavigatePage';
 
-const Header = ({ title, onClickTitle, onClickCartButton }: Props) => {
+const Header = () => {
+  const { goHome, goCart } = useNavigatePage();
+
   return (
     <S.Header>
       <S.Wrapper>
-        <S.TitleButton onClick={onClickTitle}>
-          <Icon width="44" height="36" color="#FFF" path={CART_PATH} viewBox="0 0 51 44" />
-          <S.Title>{title}</S.Title>
+        <S.TitleButton onClick={goHome}>
+          <Logo />
         </S.TitleButton>
-        <CartRouteButton onClick={onClickCartButton!} />
+        <CartRouteButton onClick={goCart} />
+        <S.OrderButton>주문 목록</S.OrderButton>
       </S.Wrapper>
     </S.Header>
   );
@@ -29,7 +26,7 @@ const S = {
     height: 80px;
     position: fixed;
     z-index: 1;
-    background: var(--text-color);
+    background: #f2f2f2;
     font-size: 36px;
     font-weight: 900;
     line-height: 80px;
@@ -44,7 +41,6 @@ const S = {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
     max-width: 1270px;
     margin: 0 auto;
     padding: 0 20px;
@@ -57,12 +53,22 @@ const S = {
   `,
 
   TitleButton: styled.button`
+    width: 50%;
+    height: 60px;
     background-color: transparent;
     cursor: pointer;
-    color: #fff;
+    color: var(--text-color);
   `,
 
   Title: styled.span``,
+
+  OrderButton: styled.button`
+    width: 100px;
+    color: var(--text-color);
+    font-size: 24px;
+    font-weight: 700;
+    background-color: transparent;
+  `,
 };
 
 export default Header;
