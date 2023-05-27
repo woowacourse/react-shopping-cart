@@ -29,5 +29,5 @@ export const SpinnerDiv = styled.div`
     100% {
       transform: rotate(360deg);
     }
-  } 
+  }
 `;

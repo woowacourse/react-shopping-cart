@@ -18,7 +18,7 @@ const LoadingSpinner = (props: SpinnerProps) => {
         borderTopColor: color ?? 'hotpink',
       }}
     />
-  )
+  );
 };
 
 export default LoadingSpinner;

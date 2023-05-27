@@ -1,33 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { RouterProvider } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
-import App from './components/App/App';
 import GlobalStyles from './GlobalStyles';
-import ProductsPage from './components/pages/ProductsPage/ProductsPage';
-import ErrorPage from './components/pages/ErrorPage/ErrorPage';
+import router from './router';
+import { worker } from './mocks/browser';
+import Routes from './constants/Routes';
+import MswHandlerButton from './components/commons/MswHandler/MswHandlerButton';
 
-const router = createBrowserRouter(
-  [
-    {
-      path: '/',
-      element: <App />,
-      errorElement: <ErrorPage />,
-      children: [{ path: '', element: <ProductsPage /> }],
+(async () => {
+  if (window.location.pathname === Routes.BASENAME) {
+    window.location.pathname += '/';
+    return;
+  }
+
+  await worker.start({
+    serviceWorker: {
+      url: `${Routes.BASENAME}/mockServiceWorker.js`,
     },
-  ],
-  {
-    basename: '/react-shopping-cart',
-  },
-);
+  });
+})();
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+
 root.render(
   <React.StrictMode>
     <GlobalStyles />
+    <MswHandlerButton />
     <RecoilRoot>
       <RouterProvider router={router} />
     </RecoilRoot>

@@ -1,26 +1,31 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import Stepper from './Stepper';
-import { RecoilRoot } from 'recoil';
+import useStepper from '../../../hooks/useStepper';
 
 const meta: Meta<typeof Stepper> = {
   title: 'Stepper',
   component: Stepper,
   tags: ['autodocs'],
-  decorators: [
-    (Story) => <RecoilRoot><Story/></RecoilRoot>
-  ],
 };
 
 export default meta;
 
 type Story = StoryObj<typeof Stepper>;
 
+const Wrapper = () => {
+  const { value, increaseValue, decreaseValue, setValue } = useStepper(0, 99, 1, 0);
+
+  return (
+    <Stepper
+      value={value}
+      increaseValue={increaseValue}
+      decreaseValue={decreaseValue}
+      setValue={setValue}
+    />
+  );
+};
+
 export const Default: Story = {
-  args: {
-    productId: 1,
-    min: 0,
-    max: 99,
-    step: 1,
-  },
+  render: () => <Wrapper />,
 };

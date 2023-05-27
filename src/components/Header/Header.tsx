@@ -1,16 +1,22 @@
+import { Link } from 'react-router-dom';
 import { LOGO } from '../../assets';
 import CartButton from './CartButton/CartButton';
 import * as Styled from './Header.styled';
+import Routes from '../../constants/Routes';
 
 const Header = () => {
   return (
     <Styled.Header>
-      <Styled.TitleDiv>
-        <LOGO />
-        <Styled.TitleHeading>SHOP</Styled.TitleHeading>
-      </Styled.TitleDiv>
+      <Link to={Routes.PRODUCTS}>
+        <Styled.TitleDiv>
+          <LOGO />
+          <Styled.TitleHeading>SHOP</Styled.TitleHeading>
+        </Styled.TitleDiv>
+      </Link>
 
-      <CartButton />
+      <Link to={Routes.CART}>
+        <CartButton />
+      </Link>
     </Styled.Header>
   );
 };

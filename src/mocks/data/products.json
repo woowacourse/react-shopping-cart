@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "지빠귀",
+    "price": 10000,
+    "imageUrl": "https://images.unsplash.com/photo-1606567595334-d39972c85dbe?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80"
+  },
+  {
+    "id": 2,
+    "name": "참새",
+    "price": 2147483647,
+    "imageUrl": "https://images.unsplash.com/photo-1606071548917-78ed9809141f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1780&q=80"
+  },
+  {
+    "id": 3,
+    "name": "앵무새",
+    "price": 8000,
+    "imageUrl": "https://images.unsplash.com/photo-1552728089-57bdde30beb3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1925&q=80"
+  },
+  {
+    "id": 4,
+    "name": "펠리컨",
+    "price": 10000,
+    "imageUrl": "https://plus.unsplash.com/premium_photo-1669258888073-b6b1eda108ee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
+  },
+  {
+    "id": 5,
+    "name": "왕부리새",
+    "price": 20000,
+    "imageUrl": "https://images.unsplash.com/photo-1551085254-e96b210db58a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=980&q=80"
+  },
+  {
+    "id": 6,
+    "name": "플라밍고",
+    "price": 25000,
+    "imageUrl": "https://images.unsplash.com/photo-1497206365907-f5e630693df0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+  },
+  {
+    "id": 7,
+    "name": "올빼미",
+    "price": 15000,
+    "imageUrl": "https://images.unsplash.com/photo-1516233758813-a38d024919c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=388&q=80"
+  },
+  {
+    "id": 8,
+    "name": "물총새",
+    "price": 18000,
+    "imageUrl": "https://images.unsplash.com/photo-1601544829024-bc7f4c2213c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=471&q=80"
+  },
+  {
+    "id": 9,
+    "name": "부엉이",
+    "price": 980000,
+    "imageUrl": "https://images.unsplash.com/photo-1579264688258-c0ebf8c7942a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80"
+  },
+  {
+    "id": 10,
+    "name": "카나리아",
+    "price": 22000,
+    "imageUrl": "https://images.unsplash.com/photo-1586861256152-6c7e7ce3895d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+  },
+  {
+    "id": 11,
+    "name": "동물계 척삭동물문 조강 비둘기목 비둘기과 비둘기",
+    "price": 5000,
+    "imageUrl": "https://images.unsplash.com/photo-1507126882445-434b04530d1a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+  },
+  {
+    "id": 12,
+    "name": "공작",
+    "price": 10000,
+    "imageUrl": "https://images.unsplash.com/photo-1536514900905-0d5511b9d489?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
+  }
+]

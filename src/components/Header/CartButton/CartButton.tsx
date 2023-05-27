@@ -1,11 +1,11 @@
 import { useRecoilValue } from 'recoil';
 
-import { cartLengthSelector } from '../../../recoil/myCartState';
-
 import * as Styled from './CartButton.styled';
+import { cartLengthSelector } from '../../../recoil/cartState';
 
 const CartButton = () => {
   const cartLength = useRecoilValue(cartLengthSelector);
+
   return (
     <Styled.CartButton>
       <p>장바구니</p>

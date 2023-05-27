@@ -15,7 +15,7 @@ const meta: Meta<typeof ProductStepper> = {
   tags: ['autodocs'],
 
   decorators: [
-    Story => (
+    (Story) => (
       <RecoilRoot>
         <Story />
       </RecoilRoot>
@@ -33,7 +33,8 @@ type Story = StoryObj<typeof ProductStepper>;
 
 export const Default: Story = {
   args: {
-    productId: 1,
+    productId: 1234,
+    product: { id: 1234, imageUrl: '', price: 0, name: '' },
   },
 };
 
@@ -42,7 +43,10 @@ export const Default: Story = {
  */
 
 export const StepperTest: Story = {
-  ...Default,
+  args: {
+    productId: 12345,
+    product: { id: 12345, imageUrl: '', price: 0, name: '' },
+  },
 
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
@@ -64,25 +68,19 @@ export const StepperTest: Story = {
       expect(downButton).toBeVisible();
     });
 
-    await step(
-      'Up 버튼을 클릭하면, 장바구니에 상품 개수가 늘어난다',
-      async () => {
-        await userEvent.click(upButton);
-        const value = input.value;
+    await step('Up 버튼을 클릭하면, 장바구니에 상품 개수가 늘어난다', async () => {
+      await userEvent.click(upButton);
+      const { value } = input;
 
-        expect(value).toEqual('2');
-      }
-    );
+      expect(value).toEqual('2');
+    });
 
-    await step(
-      'Down 버튼을 클릭하면, 장바구니의 상품 개수가 줄어든다',
-      async () => {
-        await userEvent.click(downButton);
-        const value = input.value;
+    await step('Down 버튼을 클릭하면, 장바구니의 상품 개수가 줄어든다', async () => {
+      await userEvent.click(downButton);
+      const { value } = input;
 
-        expect(value).toEqual('1');
-      }
-    );
+      expect(value).toEqual('1');
+    });
 
     await step(
       'Down 버튼을 클릭해 상품이 0개가 되면 Stepper가 사라지고 장바구니 아이콘이 나온다',

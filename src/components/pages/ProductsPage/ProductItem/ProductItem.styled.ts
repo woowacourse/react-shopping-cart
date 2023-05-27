@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Colors from '../../../../constants/Colors';
 
 export const ProductItem = styled.li`
-  width: 100%;
+  width: 282px;
   height: 100%;
 `;
 
@@ -11,6 +11,7 @@ export const ProductDetailDiv = styled.div`
   justify-content: space-between;
 
   padding: 8px 0;
+  width: 100%;
 `;
 
 export const NameParagraph = styled.p`

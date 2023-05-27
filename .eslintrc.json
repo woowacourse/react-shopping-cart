@@ -4,9 +4,12 @@
     "es2021": true
   },
   "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "prettier",
+    "airbnb",
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
   ],
   "overrides": [],
   "parser": "@typescript-eslint/parser",
@@ -22,8 +25,6 @@
     "react",
     "react-hooks",
     "@typescript-eslint",
-    "prettier",
-    "functional",
     "import"
   ],
   "settings": {
@@ -32,9 +33,15 @@
     }
   },
   "rules": {
+    "linebreak-style": ["error", "windows"],
     "class-methods-use-this": "off",
     "import/extensions": "off",
     "import/no-named-as-default": "off",
+    "import/prefer-default-export": 0,
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies": ["**/*.stories.ts", "**/*.stories.tsx", "src/setupTests.ts"]
+      }
+    ],
     "no-underscore-dangle": "off",
     "no-console": "off",
     "no-alert": "off",
@@ -42,6 +49,8 @@
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "react/function-component-definition": 0,
+    "react/require-default-props": 0
   }
 }

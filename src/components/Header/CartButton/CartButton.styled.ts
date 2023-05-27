@@ -16,7 +16,7 @@ export const CartButton = styled.button`
 
   color: ${Colors.FONT_WHITE};
 
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 480px) {
     & > p {
       display: none;
     }

@@ -13,7 +13,7 @@ const meta: Meta<typeof ProductItem> = {
   tags: ['autodocs'],
 
   decorators: [
-    Story => (
+    (Story) => (
       <RecoilRoot>
         <Story />
       </RecoilRoot>
@@ -31,7 +31,8 @@ export const Default: Story = {
       id: 1,
       name: '1',
       price: 1,
-      imageUrl: 'https://images.unsplash.com/photo-1507477338202-487281e6c27e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+      imageUrl:
+        'https://images.unsplash.com/photo-1507477338202-487281e6c27e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
     },
   },
 };

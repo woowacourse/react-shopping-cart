@@ -2,24 +2,18 @@ import * as Styled from './ProductList.styled';
 import ProductItem from '../ProductItem/ProductItem';
 
 import { Product } from '../../../../types/Product';
-import useFetchData from '../../../../hooks/useFetchData';
-import ErrorPage from '../../ErrorPage/ErrorPage';
-import LoadingPage from '../../LoadingPage/LoadingPage';
+import { DataFetcher } from '../../../../utils/fetchData';
 
-const ProductList = () => {
-  const { data: productList, status} = useFetchData<Product[]>('./mockData.json', []);
+interface ProductListProps {
+  listFetcher: DataFetcher<Product[]>;
+}
 
-  if (status === 0) {
-    return <LoadingPage />;
-  }
-
-  if (status < 200 || status > 299) {
-    return <ErrorPage />;
-  }
+const ProductList = (props: ProductListProps) => {
+  const { listFetcher } = props;
 
   return (
     <Styled.ProductList>
-      {productList.map(data => (
+      {listFetcher.read().map((data) => (
         <ProductItem key={data.id} product={{ ...data }} />
       ))}
     </Styled.ProductList>

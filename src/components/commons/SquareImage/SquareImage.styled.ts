@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { SquareImageProps } from './SquareImage';
 
 const sizePixelMap = {
   s: '25px',
@@ -8,7 +7,7 @@ const sizePixelMap = {
   xl: '282px',
 };
 
-export const SquareImage = styled.img<SquareImageProps>`
-  width: ${props => sizePixelMap[props.size]};
-  height: ${props => sizePixelMap[props.size]};
+export const SquareImage = styled.img<{ size: 's' | 'm' | 'l' | 'xl' }>`
+  width: ${(props) => sizePixelMap[props.size]};
+  height: ${(props) => sizePixelMap[props.size]};
 `;
