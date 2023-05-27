@@ -1,8 +1,6 @@
-import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
 
-import LoadingSpinner from './components/utils/LoadingSpinner/LoadingSpinner';
 import './index.css';
 import { worker } from './mocks/browser';
 import AppRouter from './router/AppRouter';
@@ -24,9 +22,7 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
   <RecoilRoot>
-    {/* <Suspense fallback={<LoadingSpinner />}> */}
     <AppRouter />
-    {/* </Suspense> */}
   </RecoilRoot>
 );
 main();

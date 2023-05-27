@@ -66,17 +66,6 @@ const useCartList = () => {
   };
 
   const reverseCheckCartItem = (cartId: number) => {
-    console.log(
-      cartItem.map((item) => {
-        if (cartId === item.id) {
-          return {
-            ...item,
-            isChecked: !item.isChecked,
-          };
-        }
-        return item;
-      })
-    );
     setCartItemList(
       cartItem.map((item) => {
         if (cartId === item.id) {

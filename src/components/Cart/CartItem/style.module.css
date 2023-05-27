@@ -4,17 +4,6 @@
   padding-bottom: 10px;
   background-color: #ffffff;
   border-bottom: 0.5px solid #dddddd;
-  opacity: 0;
-  animation: view-cartItems 1s forwards;
-}
-
-@keyframes view-cartItems {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 .deleteChecker {

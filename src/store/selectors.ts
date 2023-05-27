@@ -15,18 +15,4 @@ export const currentCartList = selector<CartItemType[]>({
     get(cartListState);
     return currentCartList;
   },
-  set: async ({ set }, newValue) => set(cartListState, newValue),
-
-  // const storeKey = CART_LIST_LOCAL_STORAGE_KEY;
-  // const savedValue = localStorage.getItem(storeKey);
-
-  // if (savedValue !== null) {
-  //   setSelf(JSON.parse(savedValue));
-  // }
-
-  // onSet((newValue, _, isReset) => {
-  //   isReset
-  //     ? localStorage.removeItem(storeKey)
-  //     : localStorage.setItem(storeKey, JSON.stringify(newValue));
-  // });
 });

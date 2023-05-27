@@ -13,7 +13,6 @@ const CartPageSection = () => {
   const currentCartListData = useRecoilValue(currentCartList);
 
   const {
-    fetchCartList,
     removeCheckedItems,
     removeSelectedItem,
     getCheckedList,
@@ -24,18 +23,6 @@ const CartPageSection = () => {
   } = useCartList();
 
   setCartItemList(currentCartListData);
-  // useEffect(() => {
-  //   const fetchCartItems = async () => {
-  //     try {
-  //       const cartItems = await fetchCartList();
-  //       setCartItemList(cartItems);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchCartItems();
-  // }, [fetchCartList, setCartItemList]);
 
   const handleCheckedItemRemove = () => {
     removeCheckedItems();
