@@ -1,18 +1,25 @@
 import { createBrowserRouter } from 'react-router-dom';
+import App from '../App';
+import NotFound from '../pages/NotFound';
 import Home from '../pages/Home';
 import Cart from '../pages/Cart';
-import NotFound from '../pages/NotFound';
 
 const router = createBrowserRouter(
   [
     {
       path: '/',
-      element: <Home />,
+      element: <App />,
       errorElement: <NotFound />,
-    },
-    {
-      path: '/cart',
-      element: <Cart />,
+      children: [
+        {
+          path: '',
+          element: <Home />,
+        },
+        {
+          path: '/cart',
+          element: <Cart />,
+        },
+      ],
     },
   ],
   { basename: process.env.PUBLIC_URL }

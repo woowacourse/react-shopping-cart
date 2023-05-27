@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import ProductList from '../components/product/ProductList';
+import { lazy } from 'react';
+
+const ProductList = lazy(() => import('../components/product/ProductList'));
 
 const meta = {
   title: 'ShoppingCart/product/ProductList',

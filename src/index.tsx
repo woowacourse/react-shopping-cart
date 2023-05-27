@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
 import { worker } from './mocks/browser';
+import GlobalStyle from './GlobalStyle';
+import { RecoilRoot } from 'recoil';
+import { Loading } from './components/common/Spinner/Loading';
+import { RouterProvider } from 'react-router-dom';
+import router from './router';
 
 const main = async () => {
   if (window.location.pathname === '/react-shopping-cart') {
@@ -19,7 +23,12 @@ const main = async () => {
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <App />
+    <GlobalStyle />
+    <RecoilRoot>
+      <Suspense fallback={<Loading />}>
+        <RouterProvider router={router} />
+      </Suspense>
+    </RecoilRoot>
   </React.StrictMode>
 );
 

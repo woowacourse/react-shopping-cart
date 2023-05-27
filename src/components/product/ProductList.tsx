@@ -1,10 +1,14 @@
 import { styled } from 'styled-components';
-import { useRecoilValue } from 'recoil';
+import { PRODUCTS_BASE_URL } from '../../constants';
+import { ProductInfo } from '../../types';
+import { fetchApi } from '../../api';
+import { createPromise } from '../../utils/suspense';
 import Product from './Product';
-import { currentProductListState } from '../../recoil/selectors';
+
+const ProductListPromise = createPromise<ProductInfo[]>(fetchApi(PRODUCTS_BASE_URL));
 
 export default function ProductList() {
-  const productList = useRecoilValue(currentProductListState);
+  const productList = ProductListPromise.read();
 
   return (
     <Style.Container>

@@ -1,10 +1,5 @@
 import { atom, atomFamily } from 'recoil';
-import { CartItemInfo, ProductInfo } from '../types';
-
-export const productListState = atom<ProductInfo[]>({
-  key: 'productList',
-  default: [],
-});
+import { CartItemInfo } from '../types';
 
 export const cartListState = atom<CartItemInfo[]>({
   key: 'cartList',

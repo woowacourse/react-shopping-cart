@@ -1,14 +1,12 @@
-import { RouterProvider } from 'react-router-dom';
-import GlobalStyle from './GlobalStyle';
-import router from './router';
-import { RecoilRoot } from 'recoil';
+import { Outlet } from 'react-router-dom';
+import Header from './components/Header';
 
 function App() {
   return (
-    <RecoilRoot>
-      <GlobalStyle />
-      <RouterProvider router={router} />
-    </RecoilRoot>
+    <div className="App">
+      <Header />
+      <Outlet />
+    </div>
   );
 }
 

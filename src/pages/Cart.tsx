@@ -1,18 +1,15 @@
 import { Suspense } from 'react';
 import { styled } from 'styled-components';
-import Header from '../components/Header';
 import CartList from '../components/cart/CartList';
-import { Loading } from '../components/common/Spinner/Loading';
 
 export default function Cart() {
   return (
-    <Suspense fallback={<Loading />}>
-      <Header />
-      <Style.Main>
-        <Style.Title>장바구니</Style.Title>
+    <Style.Main>
+      <Style.Title>장바구니</Style.Title>
+      <Suspense fallback={<p>장바구니 목록을 로딩 중입니다...</p>}>
         <CartList />
-      </Style.Main>
-    </Suspense>
+      </Suspense>
+    </Style.Main>
   );
 }
 

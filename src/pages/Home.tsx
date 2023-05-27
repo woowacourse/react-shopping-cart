@@ -1,19 +1,17 @@
-import { Suspense } from 'react';
+import { Suspense, lazy } from 'react';
 import { styled } from 'styled-components';
-import Header from '../components/Header';
-import ProductList from '../components/product/ProductList';
-import { Loading } from '../components/common/Spinner/Loading';
+
+const ProductList = lazy(() => import('../components/product/ProductList'));
 
 export default function Home() {
   return (
-    <Suspense fallback={<Loading />}>
-      <Header />
-      <Style.Main>
-        <Style.Content>
+    <Style.Main>
+      <Style.Content>
+        <Suspense fallback={<p>상품 목록을 로딩 중입니다...</p>}>
           <ProductList />
-        </Style.Content>
-      </Style.Main>
-    </Suspense>
+        </Suspense>
+      </Style.Content>
+    </Style.Main>
   );
 }
 

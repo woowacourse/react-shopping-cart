@@ -1,4 +1,4 @@
-export const fetchApi = async (url: string, options: RequestInit) => {
+export const fetchApi = async (url: string, options?: RequestInit) => {
   try {
     if (!navigator.onLine) throw new Error('[ERROR] 네트워크 오프라인이 감지되었습니다.');
 
