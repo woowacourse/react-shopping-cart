@@ -28,7 +28,7 @@ const CartListItem = ({ item, setCheckItems }: Props) => {
 
   return (
     <S.Wrapper>
-      <img src={`${process.env.PUBLIC_URL}${item.product.imageUrl}`} alt={String(item.id)} />
+      <img src={item.product.imageUrl} alt={String(item.product.name)} />
       <S.Name>{item.product.name}</S.Name>
       <S.RemoveButton onClick={handleRemoveFromCart(item.id)}>
         <BsFillTrash3Fill size={24} />

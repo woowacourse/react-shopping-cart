@@ -34,7 +34,7 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
 
   return (
     <div>
-      <S.Image src={imgUrl} alt={`img${id}`} />
+      <S.Image src={imgUrl} alt={`${name}`} />
       <S.InfoWrapper>
         <div>
           <S.Name htmlFor={`product${id}`}>{name}</S.Name>
