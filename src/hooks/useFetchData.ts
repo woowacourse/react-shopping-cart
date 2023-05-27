@@ -6,11 +6,11 @@ const useFetchData = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
-  const fetchData = useCallback(async <bodyData>(url: string, methodType: MethodType, body?: bodyData) => {
+  const fetchData = useCallback(async <BodyData>(url: string, methodType: MethodType, body?: BodyData) => {
     try {
       const response = await fetch(url, {
         method: methodType,
-        body: JSON.stringify(body),
+        body: body ? JSON.stringify(body) : null,
       });
 
       const responseData = await response.text();
