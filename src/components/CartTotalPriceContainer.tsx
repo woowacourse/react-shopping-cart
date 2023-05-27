@@ -7,14 +7,19 @@ import {
 } from '../ui/Typography';
 import * as Styled from './styles/CartTotalPriceContainer.styles';
 import { checkboxesState } from '../atoms/CheckboxState';
+import { useMemo } from 'react';
 
 const shippingPrice = 3000;
 
 export const CartTotalPriceContainer = () => {
   const checkboxes = useRecoilValue(checkboxesState);
-  const getTotalProductPrice = checkboxes.reduce(
-    (acc, checkbox) => acc + checkbox.quantity * checkbox.price,
-    0
+  const getTotalProductPrice = useMemo(
+    () =>
+      checkboxes.reduce(
+        (acc, checkbox) => acc + checkbox.quantity * checkbox.price,
+        0
+      ),
+    [checkboxes]
   );
 
   return (
