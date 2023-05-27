@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { fetchedProductListAtom } from "../../store/fetchState";
+import { fetchedProductListAtom } from "../../store/productState";
 import ProductCard from "../ProductCard/ProductCard";
 import Styled from "./ProductCardListStyled";
 

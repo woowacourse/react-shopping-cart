@@ -1,6 +1,11 @@
 import { atom, atomFamily, selector } from "recoil";
 import { Cart } from "../types/product";
 
+export const fetchedShoppingListAtom = atom<Cart[]>({
+  key: "fetchedShoppingList",
+  default: [],
+});
+
 export const cartAtomFamily = atomFamily<Cart, number>({
   key: "cart",
   default: (id) => ({

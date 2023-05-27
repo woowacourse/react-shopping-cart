@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
-import { fetchedShoppingListAtom } from "../store/fetchState";
 import { Cart } from "../types/product";
+import { fetchedShoppingListAtom } from "../store/cartState";
 
 const useTargetShoppingSelector = (id: number): Cart | undefined => {
   const fetchedShoppingList = useRecoilValue(fetchedShoppingListAtom);

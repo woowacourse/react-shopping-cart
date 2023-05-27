@@ -1,12 +1,9 @@
 import { useRecoilState } from "recoil";
-import {
-  fetchedProductListAtom,
-  fetchedShoppingListAtom,
-} from "../store/fetchState";
+import { fetchedProductListAtom } from "../store/productState";
 import { useEffect } from "react";
 import { fetchGetQuery } from "../api";
 import { Cart, Product } from "../types/product";
-import { cartIdAtom } from "../store/cartState";
+import { cartIdAtom, fetchedShoppingListAtom } from "../store/cartState";
 import useError from "./useError";
 import { ERROR_MESSAGE, FETCH } from "../abstract/constants";
 
