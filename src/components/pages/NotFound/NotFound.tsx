@@ -57,7 +57,7 @@ const Button = styled.button`
   color: white;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   font-size: 13px;
   transition: background 0.5s;
