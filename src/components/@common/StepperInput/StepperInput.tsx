@@ -34,20 +34,26 @@ const StepperInput = ({ min = 0, max = 99, step = 1, initialValue = 0, $width = 
   };
 
   const handleIncreaseStepper = () => {
-    const NextValue = Number(inputValue) + step;
+    const nextValue = Number(inputValue) + step;
 
-    if (NextValue <= max) setInputValue(String(NextValue));
+    if (nextValue <= max) setInputValue(String(nextValue));
   };
 
   const handleDecreaseStepper = () => {
-    const NextValue = Number(inputValue) - step;
+    const nextValue = Number(inputValue) - step;
 
-    if (NextValue >= min) setInputValue(String(NextValue));
+    if (nextValue >= min) setInputValue(String(nextValue));
   };
 
   return (
     <Styled.StepperInputWrapper>
-      <Styled.Input $width={$width} type='text' value={inputValue} onChange={handleChangeInput} onBlur={handleBlurInput} />
+      <Styled.Input
+        $width={$width}
+        type='text'
+        value={inputValue}
+        onChange={handleChangeInput}
+        onBlur={handleBlurInput}
+      />
       <Styled.StepperWrapper>
         <Styled.Stepper $width={$width} type='button' onClick={handleIncreaseStepper}>
           <Styled.StepperImg $width={$width} src={UpTriangle} alt='수량올리기' />
