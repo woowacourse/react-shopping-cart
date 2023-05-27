@@ -1,9 +1,10 @@
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { Header, ProductList } from '../../components';
-import mockProduct from '../../../public/assets/mockProducts.json';
+import { getProductState } from '../../recoil/state';
 
 export default function ProductListPage() {
-  const products = mockProduct;
+  const products = useRecoilValue(getProductState);
 
   return (
     <S.Wrapper>

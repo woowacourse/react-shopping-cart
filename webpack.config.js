@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -27,6 +28,14 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: './public/index.html',
     }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: 'public/mockServiceWorker.js',
+          to: 'mockServiceWorker.js',
+        },
+      ],
+    }),
   ],
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
@@ -34,6 +43,7 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
   },
   devServer: {
     static: {
@@ -41,6 +51,6 @@ module.exports = {
     },
     compress: true,
     port: 9000,
+    historyApiFallback: true,
   },
-  mode: 'development',
 };

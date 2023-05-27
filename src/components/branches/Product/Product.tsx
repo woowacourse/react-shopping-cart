@@ -1,21 +1,22 @@
+import type { ProductType } from '../../../types';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import useCart from '../../hooks/useCart';
-import { isNumeric } from '../../utils/validator';
-import { MAX_QUANTITY } from '../../constants';
-import { ProductType } from '../../types';
+
+import { Counter } from '../../../components';
+import useCart from '../../../hooks/useCart';
+import { isNumeric } from '../../../utils/validator';
+import { MAX_QUANTITY } from '../../../constants';
 
 type ProductProps = ProductType;
 
 export default function Product(props: ProductProps) {
   const { id, name, price, imageUrl } = props;
-  const [cart, addCartItem, removeCartItem, updateQuantity] = useCart();
+  const { cart, addCartItem, removeCartItem, updateQuantity } = useCart();
   const [quantityInput, setQuantityInput] = useState('');
   const cartItem = cart.find((item) => item.product.id === id);
 
   const handleClickIcon = () => {
-    const newCartItem = { id: Date.now(), quantity: 1, product: props };
-    addCartItem(newCartItem);
+    addCartItem(id);
     setQuantityInput('1');
   };
 
@@ -37,9 +38,9 @@ export default function Product(props: ProductProps) {
 
     const quantity = Number(quantityInput);
     if (quantity === 0) {
-      removeCartItem(id);
-    } else {
-      updateQuantity(id, quantity);
+      removeCartItem(props.id);
+    } else if (cartItem) {
+      updateQuantity(props.id, quantity);
     }
   }, [quantityInput]);
 
@@ -48,27 +49,28 @@ export default function Product(props: ProductProps) {
   }, []);
 
   return (
-    <Wrapper>
-      <Img src={imageUrl} />
-      <InfoBox>
-        <LabelBox>
-          <Name>{name}</Name>
-          <Price>{price.toLocaleString()} 원</Price>
-        </LabelBox>
-        <ControlBox>
+    <S.Wrapper>
+      <S.Img src={imageUrl} />
+      <S.InfoBox>
+        <S.LabelBox>
+          <S.Name>{name}</S.Name>
+          <S.Price>{price.toLocaleString()} 원</S.Price>
+        </S.LabelBox>
+        <S.ControlBox>
           {cartItem ? (
             <Counter
               type="number"
               value={quantityInput}
               onChange={handleChangeCounter}
               onBlur={handleBlurCounter}
+              counterSize="default"
             />
           ) : (
-            <CartIcon src="./cart.svg" onClick={handleClickIcon}></CartIcon>
+            <S.CartIcon src="./cart.svg" onClick={handleClickIcon}></S.CartIcon>
           )}
-        </ControlBox>
-      </InfoBox>
-    </Wrapper>
+        </S.ControlBox>
+      </S.InfoBox>
+    </S.Wrapper>
   );
 }
 
@@ -140,16 +142,13 @@ const ControlBox = styled.div`
   width: auto;
 `;
 
-const Counter = styled.input`
-  width: 64px;
-  height: 28px;
-  border: 1px solid #dddddd;
-  border-radius: 0px;
-
-  text-align: center;
-
-  &::-webkit-inner-spin-button {
-    opacity: 1;
-    height: 28px;
-  }
-`;
+const S = {
+  Wrapper,
+  Img,
+  InfoBox,
+  LabelBox,
+  Name,
+  Price,
+  CartIcon,
+  ControlBox,
+};
