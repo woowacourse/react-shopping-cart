@@ -1,11 +1,11 @@
-import { Header, Page, ItemList } from "../components";
+import { Header, Page, ProductList } from "../components";
 
 const Main = () => {
   return (
     <>
       <Header />
       <Page>
-        <ItemList />
+        <ProductList />
       </Page>
     </>
   );

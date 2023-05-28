@@ -4,9 +4,10 @@ import { useQuantity } from "../hooks/useQuantity";
 
 interface CounterProps {
   itemId: number;
+  deleteable: boolean;
 }
 
-const Counter = ({ itemId }: CounterProps) => {
+export const Counter = ({ itemId, deleteable }: CounterProps) => {
   const {
     quantity,
     setNewQuantity,
@@ -23,7 +24,7 @@ const Counter = ({ itemId }: CounterProps) => {
     setNewQuantity(Number(quantity) + 1);
   };
 
-  const handleDownArrowBox = () => {
+  const handleDownArrowBox = async () => {
     setNewQuantity(Number(quantity) - 1);
   };
 
@@ -39,7 +40,12 @@ const Counter = ({ itemId }: CounterProps) => {
       />
       <ArrowBoxContainer>
         <ArrowBox onClick={handleUpArrowBox}>▾</ArrowBox>
-        <ArrowBox onClick={handleDownArrowBox}>▾</ArrowBox>
+        <ArrowBox
+          onClick={handleDownArrowBox}
+          disabled={!deleteable && quantity === "1"}
+        >
+          ▾
+        </ArrowBox>
       </ArrowBoxContainer>
     </Wrapper>
   );
@@ -93,5 +99,3 @@ const ArrowBox = styled.button`
 
   font-size: 5px;
 `;
-
-export default Counter;

@@ -9,7 +9,7 @@ export default {
   component: Counter,
 } as Meta;
 
-const Template: StoryFn = () => <Counter itemId={1} />;
+const Template: StoryFn = () => <Counter itemId={1} deleteable />;
 
 export const CounterSample = Template.bind({});
 

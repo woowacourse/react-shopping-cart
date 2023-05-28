@@ -1,9 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
+import { worker } from "./mocks/browser";
 import GlobalStyle from "./style/GlobalStyle";
 
-const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
+worker.start({ onUnhandledRequest: "bypass" });
+
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 
 root.render(
   <React.StrictMode>

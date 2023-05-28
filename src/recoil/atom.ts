@@ -1,14 +1,30 @@
-import { atom } from "recoil";
-import mockData from "../mockData.json";
-import { ItemType } from "../types/domain";
-import { getLocalStorage } from "../utils";
+import { atom, selector } from "recoil";
+import { ProductListType } from "../types/domain";
+import { fetchProducts } from "../api";
+import { getNewProducts } from "../utils/domain";
 
-const cartItems = getLocalStorage<ItemType[]>("cart", []);
-
-export const itemsState = atom({
-  key: "items",
-  default: structuredClone(mockData).map((item: ItemType) => {
-    const targetItem = cartItems.find((cartItem) => cartItem.id === item.id);
-    return { ...item, quantity: targetItem ? targetItem.quantity : "0" };
+export const initialProductsState = atom<ProductListType>({
+  key: "initialProducts",
+  default: selector<ProductListType>({
+    key: "initialProducts/default",
+    get: async () => {
+      const data = await fetchProducts();
+      return data;
+    },
   }),
+});
+
+export const productsState = atom<ProductListType>({
+  key: "products",
+  default: selector<ProductListType>({
+    key: "products/default",
+    get: async ({ get }) => {
+      return await getNewProducts(get(initialProductsState));
+    },
+  }),
+});
+
+export const selectedProductsState = atom<ProductListType>({
+  key: "selectedProducts",
+  default: [],
 });

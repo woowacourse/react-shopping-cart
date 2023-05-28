@@ -1,5 +1,8 @@
-export { default as Counter } from "./Counter";
-export { default as Header } from "./Header";
-export { default as Item } from "./Item";
-export { default as ItemList } from "./ItemList";
-export { default as Page } from "./Page";
+export { Counter } from "./Counter";
+export { Header } from "./Header";
+export { Page } from "./Page";
+export { ProductList } from "./ProductList";
+export { CartProductList } from "./CartProductList";
+export { TotalPriceTable } from "./TotalPriceTable";
+export { Button } from "./Button";
+export { Loading } from "./Loading";

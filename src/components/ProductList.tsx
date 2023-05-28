@@ -1,34 +1,70 @@
 import styled from "styled-components";
-import type { ItemType } from "../types/domain";
-import { useQuantity } from "../hooks/useQuantity";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { initialProductsState, productsState } from "../recoil/atom";
+import type { ProductType } from "../types/domain";
 import { CartGrayIcon } from "../assets";
-import Counter from "./Counter";
+import { Counter } from "./Counter";
 import { MIN_QUANTITY } from "../constants";
+import { addCartItem } from "../api";
+import { getNewProducts } from "../utils/domain";
 
-const Item = ({ id, name, price, imageUrl }: ItemType) => {
-  const { quantity, setNewQuantity } = useQuantity(id);
-
-  const handleCartClicked = () => {
-    setNewQuantity(Number(quantity) + 1);
-  };
+export const ProductList = () => {
+  const products = useRecoilValue(productsState);
 
   return (
     <Wrapper>
-      <img src={imageUrl} alt="상품이미지" />
-      <NameBox>{name}</NameBox>
-      <PriceBox>{price.toLocaleString()}원</PriceBox>
-      <IconContainer>
-        {quantity === MIN_QUANTITY.toString() ? (
-          <img src={CartGrayIcon} alt={"카트"} onClick={handleCartClicked} />
-        ) : (
-          <Counter itemId={id} />
-        )}
-      </IconContainer>
+      {products.map((product) => (
+        <Product key={product.id} {...product} />
+      ))}
     </Wrapper>
   );
 };
 
+const Product = ({ id, name, price, imageUrl, quantity }: ProductType) => {
+  const initialProducts = useRecoilValue(initialProductsState);
+  const setProducts = useSetRecoilState(productsState);
+
+  const handleCartClicked = async () => {
+    await addCartItem(id);
+
+    const newProducts = await getNewProducts(initialProducts);
+    setProducts(newProducts);
+  };
+
+  return (
+    <ProductWrapper>
+      <img src={imageUrl} alt="상품이미지" />
+      <NameBox>{name}</NameBox>
+      <PriceBox>{price.toLocaleString()}원</PriceBox>
+      <IconContainer>
+        {quantity === MIN_QUANTITY ? (
+          <img src={CartGrayIcon} alt={"카트"} onClick={handleCartClicked} />
+        ) : (
+          <Counter itemId={id} deleteable />
+        )}
+      </IconContainer>
+    </ProductWrapper>
+  );
+};
+
 const Wrapper = styled.div`
+  display: grid;
+  place-items: center;
+  grid-template-columns: repeat(4, 1fr);
+
+  width: 100%;
+  grid-gap: 60px 20px;
+
+  @media screen and (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and (max-width: 800px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+`;
+
+const ProductWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -96,5 +132,3 @@ const IconContainer = styled.div`
     bottom: -5px;
   }
 `;
-
-export default Item;
