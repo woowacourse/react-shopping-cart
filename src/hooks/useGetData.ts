@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useState } from 'react';
 
 const useGetData = <ResponseData>(fetchUrl: string, onSuccess?: (data: ResponseData) => void) => {
