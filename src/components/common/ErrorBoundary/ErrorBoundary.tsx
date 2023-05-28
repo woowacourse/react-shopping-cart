@@ -16,7 +16,7 @@ class ErrorBoundary extends Component<
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Uncaught error:', error, errorInfo);
+    console.error('에러가 발생했습니다:', error, errorInfo);
   }
 
   resetErrorBoundary = () => {
