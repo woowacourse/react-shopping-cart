@@ -30,7 +30,7 @@ export const patchCartItemQuantity = async (
   productId: number,
   quantity: number
 ) => {
-  const response = await fetch(`/cart-iㄴtems/${productId}`, {
+  const response = await fetch(`/cart-items/${productId}`, {
     method: 'PATCH',
     headers: { 'content-Type': 'application/json' },
     body: JSON.stringify({
@@ -44,7 +44,7 @@ export const patchCartItemQuantity = async (
 };
 
 export const deleteCartItem = async (productId: number) => {
-  const response = await fetch(`/cart-iㄴtems/${productId}`, {
+  const response = await fetch(`/cart-items/${productId}`, {
     method: 'DELETE',
   });
 
