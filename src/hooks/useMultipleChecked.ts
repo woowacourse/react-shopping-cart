@@ -34,11 +34,9 @@ const useMultipleChecked = () => {
     setChecked([]);
   };
 
-  const deleteCheckedProducts = () => {
+  const deleteCheckedProducts = async () => {
     try {
-      checked.forEach(async (id) => {
-        await cartProductApis.delete(id);
-      });
+      await Promise.all(checked.map((id) => cartProductApis.delete(id)));
       setCartProducts((prev) =>
         prev.filter(
           (cartProduct) => !findTargetChecked(checked, cartProduct.id)
