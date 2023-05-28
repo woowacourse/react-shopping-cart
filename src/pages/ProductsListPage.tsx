@@ -2,22 +2,18 @@ import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import styled from 'styled-components';
 
-import Header from '../components/Common/Header';
 import Message from '../components/Common/Message';
 import ProductList from '../components/Product/ProductList';
 
 const ProductsListPage = () => {
   return (
-    <>
-      <Header />
-      <Main>
-        <ErrorBoundary fallback={<Message type='error' />}>
-          <Suspense fallback={<Message type='loading' />}>
-            <ProductList />
-          </Suspense>
-        </ErrorBoundary>
-      </Main>
-    </>
+    <Main>
+      <ErrorBoundary fallback={<Message type='error' />}>
+        <Suspense fallback={<Message type='loading' />}>
+          <ProductList />
+        </Suspense>
+      </ErrorBoundary>
+    </Main>
   );
 };
 

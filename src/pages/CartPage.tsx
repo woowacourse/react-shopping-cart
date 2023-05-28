@@ -1,25 +1,21 @@
+import { Suspense } from 'react';
 import styled from 'styled-components';
 
-import Header from '../components/Common/Header';
 import CartProductInfo from '../components/Cart/CartProductInfo';
 import ExpectedPaymentBox from '../components/Cart/ExpectedPaymentBox';
-import { Suspense } from 'react';
 import Message from '../components/Common/Message';
 
 const CartPage = () => {
   return (
-    <>
-      <Header />
-      <Main>
-        <PageTitle>장바구니</PageTitle>
-        <Suspense fallback={<Message type='loading' />}>
-          <CartProductInfo />
-          <ExpectedPaymentBoxWrapper>
-            <ExpectedPaymentBox />
-          </ExpectedPaymentBoxWrapper>
-        </Suspense>
-      </Main>
-    </>
+    <Main>
+      <PageTitle>장바구니</PageTitle>
+      <Suspense fallback={<Message type='loading' />}>
+        <CartProductInfo />
+        <ExpectedPaymentBoxWrapper>
+          <ExpectedPaymentBox />
+        </ExpectedPaymentBoxWrapper>
+      </Suspense>
+    </Main>
   );
 };
 
