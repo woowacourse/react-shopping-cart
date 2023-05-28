@@ -31,8 +31,11 @@ const useMutation = <T>() => {
       }
 
       if (method === 'POST' || 'DELETE' || 'PATCH') {
-        const responseData = await response.json();
-        setData(responseData);
+        const responseData = await response.text();
+        if (responseData) {
+          const parsedData = JSON.parse(responseData);
+          setData(parsedData);
+        }
       }
     } catch (error) {
       if (error instanceof Error) {
