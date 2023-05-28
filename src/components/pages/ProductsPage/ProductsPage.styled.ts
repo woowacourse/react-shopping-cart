@@ -6,5 +6,5 @@ export const StyledProductsPage = styled.div`
   align-items: center;
 
   width: 100%;
-  height: 100vh;
+  height: 100% - 100px;
 `;
