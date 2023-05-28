@@ -4,9 +4,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import { worker } from "./mocks/browser";
 import GlobalStyle from "./styles/GlobalStyle";
-
-const ProductPage = lazy(() => import("./pages/ProductPage"));
-const ShoppingCartPage = lazy(() => import("./pages/ShoppingCartPage"));
+import ProductPage from "./pages/ProductPage";
+import ShoppingCartPage from "./pages/ShoppingCartPage";
 
 const main = async () => {
   if (window.location.pathname === "/react-shopping-cart") {

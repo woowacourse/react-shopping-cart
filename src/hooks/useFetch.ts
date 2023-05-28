@@ -7,7 +7,7 @@ import { cartIdAtom, fetchedShoppingListAtom } from "../store/cartState";
 import useError from "./useError";
 import { ERROR_MESSAGE, FETCH } from "../abstract/constants";
 
-const useFetchData = () => {
+const useFetchData = (handleIsLoading: VoidFunction) => {
   const [, setFetchedProductList] = useRecoilState(fetchedProductListAtom);
   const [, setFetchedShoppingList] = useRecoilState(fetchedShoppingListAtom);
   const [, setCartId] = useRecoilState(cartIdAtom);
@@ -26,6 +26,7 @@ const useFetchData = () => {
         );
         const productData = await fetchGetQuery<Product[]>("/products");
         setFetchedProductList(productData);
+        setTimeout(() => handleIsLoading(), 2000);
       } catch (error) {
         changeErrorTrue(FETCH.GET, ERROR_MESSAGE.PRODUCT);
       }
@@ -34,7 +35,7 @@ const useFetchData = () => {
   }, []); // eslint-disable-line
 };
 
-const useFetchShoppingList = () => {
+const useFetchShoppingList = (handleIsLoading: VoidFunction) => {
   const [, setFetchedShoppingList] = useRecoilState(fetchedShoppingListAtom);
   const { changeErrorTrue, changeErrorFalse } = useError();
 
@@ -44,6 +45,7 @@ const useFetchShoppingList = () => {
       try {
         const data = await fetchGetQuery<Cart[]>("/cart-items");
         setFetchedShoppingList(data);
+        setTimeout(() => handleIsLoading(), 2000);
       } catch (error) {
         changeErrorTrue(FETCH.GET, ERROR_MESSAGE.SHOPPING_LIST);
       }
