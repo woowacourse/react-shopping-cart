@@ -42,7 +42,14 @@ export const cartCountSelector = selector({
 
 export const itemSelectionAtom = atom<boolean[]>({
   key: 'itemSelectionAtom',
-  default: [],
+  default: selector({
+    key: 'cartListSelector',
+    get: ({ get }) => {
+      const cartList = get(cartListAtom);
+
+      return Array.from({ length: cartList.length }, () => true);
+    },
+  }),
 });
 
 export const cartTotalPriceSelector = selector({

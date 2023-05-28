@@ -1,21 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import CartProductItem from '../CartProductItem/CartProductItem';
 import checkIcon from '../../../assets/check.svg';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import { cartListAtom, itemSelectionAtom } from '../../../stores/cartItemsStore';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import useUpdateCartItems from '../../../hooks/useUpdateCartItems';
 import useGetData from '../../../hooks/useGetData';
 import { CartItem } from '../../../types';
 import * as Styled from './CartProductSummary.styles';
 
 const CartProductSummary = () => {
-  const { data: cartListData, getData: getCartList } = useGetData<CartItem[]>('/cart-items');
   const { updateCartItems } = useUpdateCartItems();
   const [itemSelection, setItemSelection] = useRecoilState(itemSelectionAtom);
-  const setCartList = useSetRecoilState(cartListAtom);
-  const cartList = useRecoilValue(cartListAtom);
-  const [initialLoad, setInitialLoad] = useState(false);
+  const [cartList, setCartList] = useRecoilState(cartListAtom);
+  const resetItemSelection = useResetRecoilState(itemSelectionAtom);
+  const { getData: getCartList } = useGetData<CartItem[]>('/cart-items', (data) => setCartList(data));
 
   const selectAll = () => {
     setItemSelection(itemSelection.map(() => true));
@@ -36,32 +35,23 @@ const CartProductSummary = () => {
     setItemSelection((prev) => prev.filter((_, idx) => index !== idx));
   };
 
-  const deleteCartItem = () => {
+  const deleteCartItem = async () => {
     const checkItemIndex: number[] = [];
 
-    itemSelection.forEach(async (checkedItem, index) => {
-      if (checkedItem) {
-        checkItemIndex.push(index);
-        await updateCartItems({ itemId: cartList[index].id, itemCount: 0 });
-        await getCartList();
-      }
+    itemSelection.forEach((element, index) => {
+      if (element) checkItemIndex.push(index);
     });
+
+    await Promise.all(checkItemIndex.map((index) => updateCartItems({ itemId: cartList[index].id, itemCount: 0 })));
+    await getCartList();
+
     setItemSelection((prev) => prev.filter((_, index) => !checkItemIndex.includes(index)));
   };
 
   useEffect(() => {
     getCartList();
+    return () => resetItemSelection();
   }, []);
-
-  useEffect(() => {
-    if (cartListData) {
-      setCartList(cartListData);
-      if (!initialLoad) {
-        setItemSelection(Array.from({ length: cartListData.length }, () => true));
-        setInitialLoad(true);
-      }
-    }
-  }, [cartListData, initialLoad]);
 
   return (
     <>
