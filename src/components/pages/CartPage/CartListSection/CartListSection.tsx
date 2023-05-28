@@ -39,6 +39,14 @@ const CartListSection = () => {
     });
   };
 
+  const generateInitIsChecked = () => {
+    const cartItemList = Object.values(cartItems);
+
+    if (!cartItemList.length) return false;
+
+    return cartItemList.every(cartItem => cartItem.isChecked);
+  };
+
   return (
     <StyledCartListSection>
       <StyledCartListTextBox>
@@ -47,7 +55,7 @@ const CartListSection = () => {
       <CardList />
       <StyledCartListFlexBox>
         <EntireCheckbox
-          initIsChecked={true}
+          initIsChecked={generateInitIsChecked()}
           handleCheck={handleEntireCheckboxClick}
           handleUnCheck={handleEntireCheckboxClick}
         />
