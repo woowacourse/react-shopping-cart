@@ -1,11 +1,16 @@
-import { selector } from "recoil";
+import { selector, selectorFamily } from 'recoil';
+import { productQuery, productsQuery } from '../api/api';
 
 export const products = selector({
-  key: "products",
+  key: 'productsSelector',
   get: async () => {
-    const response = await fetch("./products.json");
-    if (!response.ok) throw new Error();
-    const data = await response.json();
-    return data;
+    return productsQuery();
+  },
+});
+
+export const product = selectorFamily({
+  key: 'productSelector',
+  get: (id: number) => async () => {
+    return productQuery(id);
   },
 });

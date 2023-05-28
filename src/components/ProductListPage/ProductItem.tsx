@@ -17,7 +17,7 @@ export default function ProductItem({
   name,
   price,
 }: ProductItemProps) {
-  const { isSelected, selectProductItem, addCartProductItem, quantityRef } =
+  const { isSelected, selectProductItem, addCartProductItem, count, setCount } =
     useAddCart();
 
   return (
@@ -29,7 +29,7 @@ export default function ProductItem({
           <Price>{price.toLocaleString()}원</Price>
         </ProductInfo>
         {isSelected ? (
-          <QuantityCounter ref={quantityRef} />
+          <QuantityCounter count={count} setCount={setCount} />
         ) : (
           <CartButton onClick={selectProductItem}>
             <AddCartIc />

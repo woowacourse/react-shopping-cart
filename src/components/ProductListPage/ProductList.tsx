@@ -11,7 +11,7 @@ export default function ProductList() {
   return (
     <ProductListContainer>
       {products.map((product) => (
-        <ProductItem {...product} />
+        <ProductItem key={product.id} {...product} />
       ))}
     </ProductListContainer>
   );
@@ -21,7 +21,6 @@ const ProductListContainer = styled.ul`
   display: grid;
   padding: 6rem;
   grid-template-columns: repeat(4, 28.2rem);
-
   gap: 4rem;
 
   @media only screen and (max-width: 1200px) {

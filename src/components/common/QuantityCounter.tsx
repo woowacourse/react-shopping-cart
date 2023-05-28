@@ -1,65 +1,58 @@
-import { forwardRef } from 'react';
 import styled from 'styled-components';
 
-import type { CounterAction } from '../../type/counter';
 import { DownButtonIc, UpButtonIc } from '../../asset';
-import { ACTION_DECREASE, ACTION_INCREASE } from '../../constants/counter';
-import { ERROR } from '../../constants/error';
-import { isForwardedRef, isRefCurrent } from '../../utils/refTypeGuard';
-import { fillBlankInput, validateNumberRange } from '../../utils/validation';
+import {
+  ACTION_CHANGE,
+  ACTION_DECREASE,
+  ACTION_INCREASE,
+} from '../../constants/counter';
+import { CountAction, CountState } from '../../type/counter';
+import React from 'react';
 
-const unknownCountAction = (action: never): never => {
-  throw new Error(ERROR.INVALID_ACTION);
-};
+interface QuantityCounterProps {
+  count: CountState;
+  setCount: React.Dispatch<CountAction>;
+}
 
-const changeCount = (current: HTMLInputElement, action: CounterAction) => {
-  const prevValue = +current.value;
-  switch (action) {
-    case ACTION_INCREASE:
-      current.value = (prevValue + 1).toString();
-      break;
-    case ACTION_DECREASE:
-      if (prevValue < 2) return;
-      current.value = (prevValue - 1).toString();
-      break;
-    default:
-      unknownCountAction(action);
-  }
-};
-
-const QuantityCounter = forwardRef<HTMLInputElement>(function (_, quantityRef) {
-  const changeQuantityByAction = (action: CounterAction) => {
-    if (!isForwardedRef<HTMLInputElement>(quantityRef)) return;
-    if (!isRefCurrent<HTMLInputElement>(quantityRef.current)) return;
-
-    changeCount(quantityRef.current, action);
-  };
-
+export default function QuantityCounter({
+  count,
+  setCount,
+}: QuantityCounterProps) {
   return (
     <QuantityCounterContainer>
-      <QuantityInput
-        ref={quantityRef}
-        onChange={validateNumberRange}
-        defaultValue='1'
-        onBlur={fillBlankInput}
-      />
-      <ButtonWrapper>
-        <CountButton onClick={() => changeQuantityByAction(ACTION_INCREASE)}>
-          <UpButtonIc />
-        </CountButton>
-        <CountButton onClick={() => changeQuantityByAction(ACTION_DECREASE)}>
-          <DownButtonIc />
-        </CountButton>
-      </ButtonWrapper>
+      <QuantityCounterWrapper>
+        <QuantityInput
+          value={count.value}
+          onChange={(e) =>
+            setCount({ action: ACTION_CHANGE, payload: e.target.value })
+          }
+        />
+        <ButtonWrapper>
+          <CountButton
+            onClick={() => setCount({ action: ACTION_INCREASE, payload: '' })}
+          >
+            <UpButtonIc />
+          </CountButton>
+          <CountButton
+            onClick={() => setCount({ action: ACTION_DECREASE, payload: '' })}
+          >
+            <DownButtonIc />
+          </CountButton>
+        </ButtonWrapper>
+      </QuantityCounterWrapper>
+      {count.status === 'INVALID' && (
+        <ErrorBox>⚠️ 장바구니에 담을 수량을 1개 이상 적어주세요.</ErrorBox>
+      )}
     </QuantityCounterContainer>
   );
-});
-
-export default QuantityCounter;
+}
 
 const QuantityCounterContainer = styled.div`
-  display: flex;
+  position: relative;
+`;
 
+const QuantityCounterWrapper = styled.div`
+  display: flex;
   width: 6.4rem;
   height: 4.3rem;
 `;
@@ -87,4 +80,15 @@ const CountButton = styled.button`
 
   background-color: transparent;
   border: 0.1rem solid ${({ theme }) => theme.colors.gray100};
+`;
+
+const ErrorBox = styled.div`
+  position: absolute;
+  top: 5rem;
+  width: 15rem;
+  padding: 1rem;
+  background-color: white;
+  ${({ theme }) => theme.fonts.warringMessage}
+  border: 1px solid ${({ theme }) => theme.colors.gray200};
+  box-shadow: 2px 2px ${({ theme }) => theme.colors.gray200};
 `;

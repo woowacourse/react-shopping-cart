@@ -1,44 +1,28 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
-import { cartState } from '../atoms/cartState';
-import { CartType } from '../type/cart';
+import { cartRequestAction } from '../atoms/cartState';
+import useCount from './useCount';
 
 export function useAddCart() {
   const [isSelected, setIsSelected] = useState(false);
-  const quantityRef = useRef<HTMLInputElement>(null);
-  const setCart = useSetRecoilState<CartType[]>(cartState);
+  const setCartRequestActions = useSetRecoilState(
+    cartRequestAction({ action: 'GET' })
+  );
+  const { count, setCount } = useCount();
 
   const selectProductItem = () => {
     setIsSelected(true);
   };
 
-  const createChangedCart = (prevCart: CartType[], cartItem: CartType) => {
-    const index = prevCart.findIndex(
-      (prevItem) => prevItem.productId === cartItem.productId
-    );
-    if (index === -1) return [...prevCart, cartItem];
-
-    return [
-      ...prevCart.slice(0, index),
-      cartItem,
-      ...prevCart.slice(index + 1),
-    ];
-  };
-
-  const addCartProductItem = (id: number) => {
+  const addCartProductItem = async (productId: number) => {
     setIsSelected(false);
-    const cartItem: CartType = {
-      productId: id,
-      quantity: 0,
-    };
 
-    if (quantityRef.current) {
-      cartItem.quantity = +quantityRef.current.value;
-    }
-
-    setCart((prev) => createChangedCart(prev, cartItem));
+    setCartRequestActions({
+      action: 'POST',
+      payload: { productId: productId, quantity: count.value },
+    });
   };
 
-  return { isSelected, selectProductItem, addCartProductItem, quantityRef };
+  return { isSelected, selectProductItem, addCartProductItem, count, setCount };
 }
