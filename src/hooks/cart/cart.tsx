@@ -67,8 +67,12 @@ export const useMutateCart = () => {
   });
 
   const deleteCartItemMutation = waitForMutation(deleteCartItem, {
-    onSuccess() {
-      refreshCart();
+    onSuccess([id]) {
+      waitFor(new Promise(refreshCart), {
+        onSuccess() {
+          deselectItem(id);
+        },
+      });
     },
   });
 
