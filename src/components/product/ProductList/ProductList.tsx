@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import { productListQuery } from '../../../recoil/selectors/cart';
 import ProductItem from '../ProductItem/ProductItem';
+import { productListQuery } from '../../../recoil/selectors/product';
 
 const ProductList = () => {
   const products = useRecoilValue(productListQuery);

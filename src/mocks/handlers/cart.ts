@@ -1,11 +1,8 @@
 import { rest } from 'msw';
-import {
-  CART_BASE_URL,
-  CART_LOCAL_STORAGE_KEY,
-  PRODUCTS_BASE_URL,
-} from '../../constants/api';
 import { uuid } from '../../utils/uuid';
-import type { CartItem } from '../../types/product';
+import { CART_LOCAL_STORAGE_KEY } from '../../constants/common';
+import { CART_BASE_URL, PRODUCTS_BASE_URL } from '../../remotes/constants';
+import type { CartItem, NewCartItem } from '../../types/product';
 
 const localStorageCart = localStorage.getItem(CART_LOCAL_STORAGE_KEY);
 // eslint-disable-next-line prefer-const
@@ -21,6 +18,7 @@ export const cartHandlers = [
   // 장바구니 목록 조회
   rest.get(CART_BASE_URL, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(cart));
+    // return res(ctx.status(404));
   }),
 
   // 장바구니 아이템 추가
@@ -38,15 +36,13 @@ export const cartHandlers = [
     const product = await fetch(`${PRODUCTS_BASE_URL}/${productId}`).then(
       (res) => res.json(),
     );
+    const newCartItem = {
+      id: uuid(),
+      quantity: 1,
+      product: { ...product },
+    } satisfies NewCartItem;
 
-    cart = [
-      ...cart,
-      {
-        id: uuid(),
-        quantity: 1,
-        product: { ...product },
-      },
-    ];
+    cart = [...cart, newCartItem];
 
     updateLocalStorage();
 
@@ -85,7 +81,7 @@ export const cartHandlers = [
   }),
 
   // 장바구니 아이템 삭제
-  rest.post(`${CART_BASE_URL}/:id`, (req, res, ctx) => {
+  rest.delete(`${CART_BASE_URL}/:id`, (req, res, ctx) => {
     const cartItemId = Number(req.params.id);
     const isExists = isInCart(cartItemId);
 

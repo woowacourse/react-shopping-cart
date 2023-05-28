@@ -1,11 +1,12 @@
 import { rest } from 'msw';
 import products from '../fixtures/products.json';
-import { PRODUCTS_BASE_URL } from '../../constants/api';
+import { PRODUCTS_BASE_URL } from '../../remotes/constants';
 
 export const productsHandlers = [
   // 상품 목록 조회
   rest.get(PRODUCTS_BASE_URL, (req, res, ctx) => {
     return res(ctx.delay(2000), ctx.status(200), ctx.json(products));
+    // return res(ctx.status(404));
   }),
 
   // 상품 조회
