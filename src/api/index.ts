@@ -1,7 +1,5 @@
-import { CartProductItem } from '../types/productType';
-import { ProductItem } from '../types/productType';
-
-const getRequest = async <T>(path: string) => {
+export const getRequest = async <T>(path: string) => {
+  console.log(`/api/${path}`);
   const response = await fetch(`/api/${path}`);
 
   if (response.status >= 400) {
@@ -12,9 +10,6 @@ const getRequest = async <T>(path: string) => {
 
   return data;
 };
-
-export const getProductList = getRequest<ProductItem[]>('products');
-export const getCartList = getRequest<CartProductItem[]>('carts');
 
 export const postCartItem = async (productId: number) => {
   const response = await fetch('/api/carts', {

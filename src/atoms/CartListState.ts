@@ -1,5 +1,6 @@
 import { atom, selector, selectorFamily } from 'recoil';
 import { CartProductItem } from '../types/productType';
+import { getRequest } from '../api';
 
 const cartListStateInitValue: CartProductItem[] = [];
 
@@ -7,13 +8,7 @@ const getCartListFromMocks =
   () =>
   ({ setSelf }: { setSelf: (cartList: CartProductItem[]) => void }) => {
     const initCartListState = async () => {
-      const response = await fetch('/api/carts');
-
-      if (response.status >= 400) {
-        throw new Error('장바구니 정보를 가져오는데 실패했습니다.');
-      }
-
-      const cartList = await response.json();
+      const cartList = await getRequest<CartProductItem[]>('carts');
 
       if (!cartList) setSelf([]);
       setSelf(cartList);
