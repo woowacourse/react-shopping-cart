@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { cartAtom } from '@recoil/atoms/cartAtom';
 import { checkBoxAtom } from '@recoil/atoms/checkBoxAtom';
-import { checkBoxTotalIdtAtom } from '@recoil/atoms/checkBoxTotalIdtAtom';
 import fetchApi from '@utils/fetchApi';
 import { CART_URL } from '@constants/common';
 import useAtomLocalStorage from './useAtomLocalStorage';
@@ -13,11 +12,6 @@ const useCartItem = (id: number) => {
   const [checkBox, setCheckBox] = useAtomLocalStorage<number[]>(
     checkBoxAtom,
     'checkBox'
-  );
-
-  const [checkBoxTotalId, setCheckBoxTotalId] = useAtomLocalStorage<number[]>(
-    checkBoxTotalIdtAtom,
-    'checkBoxTotalId'
   );
 
   const [check, setCheck] = useState(false);
@@ -33,21 +27,26 @@ const useCartItem = (id: number) => {
   };
 
   const deleteItem = async () => {
-    await fetchApi(`${CART_URL}/${id}`, {
-      method: 'delete',
-      headers:{
-        Authorization: 'Basic YUBhLmNvbToxMjM0',
-        'Content-Type': 'application/json',
-      }
+    const updatedId: number[] = [];
+
+    value.forEach((product) => {
+      if (product.id !== id) updatedId.push(product.id);
     });
 
-    const updatedId = checkBoxTotalId.filter((checkId) => checkId !== id);
-    const updatedCart = value.filter(
-      (product) => !checkBoxTotalId.includes(product.id)
+    const updatedCart = value.filter((product) =>
+      checkBox.includes(product.id)
     );
+
     setCheckBox(updatedId);
-    setCheckBoxTotalId(updatedId);
     setData(updatedCart);
+
+    await fetchApi(`${CART_URL}/${id}`, {
+      method: 'delete',
+      headers: {
+        Authorization: 'Basic YUBhLmNvbToxMjM0',
+        'Content-Type': 'application/json',
+      },
+    });
   };
 
   useEffect(() => {

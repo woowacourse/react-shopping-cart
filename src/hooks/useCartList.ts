@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { cartAtom } from '@recoil/atoms/cartAtom';
 import { checkBoxAtom } from '@recoil/atoms/checkBoxAtom';
-import { checkBoxTotalIdtAtom } from '@recoil/atoms/checkBoxTotalIdtAtom';
 import { CartInformation } from '@type/types';
 import fetchApi from '@utils/fetchApi';
 import { CART_URL } from '@constants/common';
@@ -13,7 +12,6 @@ interface CartListReturnProps {
   data: CartInformation[] | null;
   checkBoxTotalIdOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   checkBox: number[];
-  checkBoxTotalId: number[];
   removeCartOnClick: () => void;
   check: boolean;
   refetch: () => void;
@@ -22,10 +20,10 @@ interface CartListReturnProps {
 const useCartList = (): CartListReturnProps => {
   const { data, refetch } = useGetFetch<CartInformation[]>('/cart-items', {
     method: 'get',
-    headers:{
+    headers: {
       Authorization: 'Basic YUBhLmNvbToxMjM0',
       'Content-Type': 'application/json',
-    }
+    },
   });
 
   const setData = useSetRecoilState(cartAtom);
@@ -35,17 +33,11 @@ const useCartList = (): CartListReturnProps => {
     'checkBox'
   );
 
-  const [checkBoxTotalId, setCheckBoxTotalId] = useAtomLocalStorage<number[]>(
-    checkBoxTotalIdtAtom,
-    'checkBoxTotalId'
-  );
-
   const [check, setCheck] = useState(false);
 
   const checkBoxTotalIdOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
       setCheck(true);
-      setCheckBox(checkBoxTotalId);
       return;
     }
     setCheckBox([]);
@@ -54,37 +46,36 @@ const useCartList = (): CartListReturnProps => {
   };
 
   useEffect(() => {
-    setCheck(checkBox.length === checkBoxTotalId.length);
-  }, [checkBox, checkBoxTotalId]);
+    if (!data) return;
+
+    setCheck(checkBox.length === data.length);
+  }, [checkBox]);
 
   const removeCartOnClick = () => {
     if (!data) return;
 
-    const removedCart = data.filter(
-      (product) =>
-        checkBox.includes(product.id) && checkBoxTotalId.includes(product.id)
-    );
+    const removedCart = data.filter((product) => checkBox.includes(product.id));
 
     const notRemoveCart = data.filter(
-      (product) =>
-        !checkBox.includes(product.id) && checkBoxTotalId.includes(product.id)
+      (product) => !checkBox.includes(product.id)
     );
 
     setData(notRemoveCart);
     removedCart.forEach(async (product) => {
       await fetchApi(`${CART_URL}/${product.id}`, {
         method: 'delete',
-        headers:{
+        headers: {
           Authorization: 'Basic YUBhLmNvbToxMjM0',
           'Content-Type': 'application/json',
-        }
+        },
       });
     });
-    const removedCheckBox = checkBoxTotalId.filter(
-      (id) => !checkBox.includes(id)
-    );
+
+    const removedCheckBox: number[] = [];
+    data.forEach((data) => {
+      if (!checkBox.includes(data.id)) removedCheckBox.push(data.id);
+    });
     setCheckBox(removedCheckBox);
-    setCheckBoxTotalId(removedCheckBox);
     refetch();
   };
 
@@ -92,7 +83,6 @@ const useCartList = (): CartListReturnProps => {
     data,
     checkBoxTotalIdOnChange,
     checkBox,
-    checkBoxTotalId,
     removeCartOnClick,
     check,
     refetch,

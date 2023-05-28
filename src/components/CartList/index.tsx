@@ -10,11 +10,12 @@ const CartList = () => {
     data,
     checkBoxTotalIdOnChange,
     checkBox,
-    checkBoxTotalId,
     removeCartOnClick,
     check,
     refetch,
   } = useCartList();
+
+  if(!data) return null;
 
   return (
     <CartListWrapper>
@@ -38,7 +39,7 @@ const CartList = () => {
       <CartPageBottom>
         <CheckBox onChange={checkBoxTotalIdOnChange} checked={check} />
         <CartSelectorText>
-          전체선택({checkBox.length}/{checkBoxTotalId.length})
+          전체선택({checkBox.length}/{data.length})
         </CartSelectorText>
         <Button
           text="선택삭제"
