@@ -58,9 +58,7 @@ export const useUpdateCart = () => {
   };
 
   const deleteCartItem = (...cartId: number[]) => {
-    setCart((prev) => {
-      return prev.filter((item) => !cartId.includes(item.id));
-    });
+    setCart((prev) => prev.filter((item) => !cartId.includes(Number(item.id))));
 
     cartId.forEach((id) => {
       deleteCartMutation(`${baseUrl + FETCH_URL.CART_ITEMS}/${id}`);
@@ -68,7 +66,6 @@ export const useUpdateCart = () => {
   };
 
   return {
-    // addProductToCart,
     deleteCartItem,
     increaseProductQuantity,
     decreaseProductQuantity,

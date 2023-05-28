@@ -9,7 +9,7 @@ import { worker } from './msw/browser';
 
 (async () => {
   if (process.env.REACT_APP_API_DEFAULT) {
-    return;
+    // return;
   }
 
   if (window.location.pathname === '/react-shopping-cart') {
