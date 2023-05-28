@@ -1,4 +1,3 @@
-import { CSSProperties } from 'react';
 import { styled } from 'styled-components';
 
 interface ButtonStyle {
@@ -9,9 +8,10 @@ interface ButtonStyle {
   color?: string;
 }
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    ButtonStyle {
   text: string;
-  style?: CSSProperties;
 }
 
 const Button = ({ text, onClick, ...rest }: ButtonProps) => {

@@ -15,7 +15,7 @@ const CartList = () => {
     refetch,
   } = useCartList();
 
-  if(!data) return null;
+  if (!data) return null;
 
   return (
     <CartListWrapper>

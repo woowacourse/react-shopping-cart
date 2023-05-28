@@ -80,9 +80,7 @@ export const handlers = [
     });
 
     localStorage.setItem(CART_LIST_LOCAL_KEY, JSON.stringify(updatedCart));
-    return res(
-      ctx.status(200),
-    );
+    return res(ctx.status(200));
   }),
 
   rest.delete('/cart-items/:id', async (req, res, ctx) => {
@@ -94,8 +92,6 @@ export const handlers = [
     const updatedCart = cartData.filter((product) => product.id !== cartItemId);
 
     localStorage.setItem(CART_LIST_LOCAL_KEY, JSON.stringify(updatedCart));
-    return res(
-      ctx.status(204),
-    );
+    return res(ctx.status(204));
   }),
 ];

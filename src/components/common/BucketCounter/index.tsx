@@ -1,7 +1,5 @@
 import { styled } from 'styled-components';
 import useBucketCount from '@hooks/useBucketCount';
-import fetchApi from '@utils/fetchApi';
-import { CART_URL } from '@constants/common';
 import {
   BUCKET_COUNTER_BOTTOM_BUTTON,
   BUCKET_COUNTER_TOP_BUTTON,
@@ -33,12 +31,16 @@ const BucketCounter = ({
     changeCount,
     upButton,
     downButton,
-    onBlurAndRefetch
-  } = useBucketCount(quantity, {
-    errorMessage: ERROR_MESSAGE,
-    maximumCount: MAX_BUCKET_COUNT,
-    id,
-  }, refetch);
+    onBlurAndRefetch,
+  } = useBucketCount(
+    quantity,
+    {
+      errorMessage: ERROR_MESSAGE,
+      maximumCount: MAX_BUCKET_COUNT,
+      id,
+    },
+    refetch
+  );
 
   return (
     <BucketCounterWrapper kind={kind}>

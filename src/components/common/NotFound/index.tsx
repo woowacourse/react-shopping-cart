@@ -24,12 +24,12 @@ const NotFound = () => {
 };
 
 const NotFoundWrapper = styled.div`
-    margin-top: 80px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-`
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 const ImgWrapper = styled.img.attrs({
   src: patrick,

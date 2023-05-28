@@ -49,6 +49,7 @@ const useCartList = (): CartListReturnProps => {
     if (!data) return;
 
     setCheck(checkBox.length === data.length);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkBox]);
 
   const removeCartOnClick = () => {

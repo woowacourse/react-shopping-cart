@@ -14,6 +14,7 @@ const ProductList = () => {
   }
 
   if (!data) return null;
+
   return (
     <Container>
       {data.map((product) => (

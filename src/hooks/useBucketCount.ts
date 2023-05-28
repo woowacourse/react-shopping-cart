@@ -86,7 +86,7 @@ const useBucketCount = (
     showCounterErrorMessage();
   }, [bucketCount, showCounterErrorMessage]);
 
-  const bucketCountFetch = async (replacementQuantity:number)=>{
+  const bucketCountFetch = async (replacementQuantity: number) => {
     await fetchApi(`${CART_URL}/${id}`, {
       method: 'PATCH',
       body: JSON.stringify({ quantity: replacementQuantity }),
@@ -95,18 +95,18 @@ const useBucketCount = (
         'Content-Type': 'application/json',
       },
     });
-  }
+  };
 
   const changeCount = async (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(event);
 
-    bucketCountFetch(Number(event.target.value))
+    bucketCountFetch(Number(event.target.value));
 
     refetch();
   };
 
   const upButton = async () => {
-    bucketCountFetch(bucketCount)
+    bucketCountFetch(bucketCount);
 
     increaseCount();
 
@@ -114,7 +114,7 @@ const useBucketCount = (
   };
 
   const downButton = async () => {
-    bucketCountFetch(bucketCount)
+    bucketCountFetch(bucketCount);
 
     decreaseCount();
 

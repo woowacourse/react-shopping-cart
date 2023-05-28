@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 
-interface CheckBoxProps extends React.InputHTMLAttributes<HTMLInputElement>{
+interface CheckBoxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   checked: boolean;
 }
 
