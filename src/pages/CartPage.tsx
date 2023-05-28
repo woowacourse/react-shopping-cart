@@ -89,7 +89,11 @@ const CartPage = () => {
 
   const handleDeleteSelected = () => {
     unselectAllForOrder();
-    deleteCartItems(cartItems.map((cartItem) => cartItem.product.id));
+    deleteCartItems(
+      cartItems
+        .filter((cartItem) => !cartItem.unselectedForOrder)
+        .map((cartItem) => cartItem.product.id),
+    );
   };
 
   return (

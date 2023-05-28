@@ -15,7 +15,7 @@ const useCartActions = () => {
 
   const deleteCartItems = useRecoilCallback(({ set }) => (productIds: Array<Product['id']>) => {
     set(cartItemsState, (cartItems) =>
-      cartItems.filter((cartItem) => productIds.includes(cartItem.product.id)),
+      cartItems.filter((cartItem) => !productIds.includes(cartItem.product.id)),
     );
   });
 
