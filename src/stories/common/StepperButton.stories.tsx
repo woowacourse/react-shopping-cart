@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { userEvent, within } from '@storybook/testing-library';
 
 import StepperButton from '../../components/common/StepperButton/StepperButton';
-import { useCount } from '../../hooks/useCount';
+import { useCount } from '../../hooks/common/useCount';
 import { delay } from '../../utils/delay';
 
 const meta = {
@@ -19,14 +19,10 @@ const meta = {
     maxCount: {
       control: { type: 'number' },
     },
-    step: {
-      control: { type: 'number' },
-    },
   },
   args: {
     minCount: 0,
     maxCount: 100,
-    step: 1,
   },
 } satisfies Meta<typeof StepperButton>;
 
@@ -35,18 +31,13 @@ type Story = StoryObj<typeof StepperButton>;
 
 const createStepperButtonStory = () => ({
   render: ({ ...args }) => {
-    const { count, handleDecreaseCount, handleIncreaseCount, handleCountChange } = useCount(
-      args.minCount
-    );
+    const { count, handleCountChange } = useCount(args.minCount);
 
     return (
       <StepperButton
         count={count}
         minCount={args.minCount}
         maxCount={args.maxCount}
-        step={args.step}
-        handleDecreaseCount={handleDecreaseCount}
-        handleIncreaseCount={handleIncreaseCount}
         handleCountChange={handleCountChange}
       />
     );
@@ -60,9 +51,9 @@ export const Interaction: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const decreaseButton = canvas.getByRole('button', { name: 'decrease' });
-    const increaseButton = canvas.getByRole('button', { name: 'increase' });
-    const countInput = canvas.getByLabelText('count input');
+    const decreaseButton = canvas.getByRole('button', { name: '카운트 감소' });
+    const increaseButton = canvas.getByRole('button', { name: '카운트 증가' });
+    const countInput = canvas.getByLabelText('카운트 입력');
 
     await userEvent.click(increaseButton);
     await userEvent.click(increaseButton);

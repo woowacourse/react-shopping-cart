@@ -1,42 +1,72 @@
-import { atom, selector, selectorFamily } from 'recoil';
+import { DefaultValue, atom, selector, selectorFamily } from 'recoil';
 
-import { CART_LIST_LOCAL_STORAGE_KEY } from '../constants';
+import { getCartList } from '../api/cartAPI';
+import { addCartItemQuantity, checkItemInCart, updateCartItemQuantity } from '../domain/cart';
 import { CartItemData } from '../types';
+import { checkedCartIdListState } from './cartCheckbox';
 
 const cartListState = atom<CartItemData[]>({
   key: 'cartList',
   default: [],
-  effects: [
-    ({ setSelf, onSet }) => {
-      const savedValue = localStorage.getItem(CART_LIST_LOCAL_STORAGE_KEY);
-
-      if (savedValue !== null) {
-        setSelf(JSON.parse(savedValue));
-      }
-
-      onSet((newValue, _, isReset) => {
-        isReset
-          ? localStorage.removeItem(CART_LIST_LOCAL_STORAGE_KEY)
-          : localStorage.setItem(CART_LIST_LOCAL_STORAGE_KEY, JSON.stringify(newValue));
-      });
-    },
-  ],
+  effects: [({ setSelf }) => setSelf(getCartList().then((savedValue) => savedValue ?? []))],
 });
 
-const cartListItemCountState = selector({
+const cartIdListState = selector({
+  key: 'cartIdList',
+  get: ({ get }) => {
+    const cartList = get(cartListState);
+
+    return cartList.map((cartItem) => cartItem.product.id);
+  },
+});
+
+const cartListItemCountState = selector<number>({
   key: 'cartListItemCount',
   get: ({ get }) => get(cartListState).length,
 });
 
-const cartItemQuantityState = selectorFamily({
+const cartItemQuantityState = selectorFamily<number, number>({
   key: 'cartItemQuantity',
   get:
     (productId) =>
     ({ get }) => {
       const cartList = get(cartListState);
 
-      return cartList.find((cartItem) => cartItem.productId === productId)?.quantity;
+      return cartList.find((cartItem) => cartItem.product.id === productId)?.quantity ?? 0;
+    },
+  set:
+    (productId) =>
+    ({ set }, quantity) => {
+      if (!quantity || quantity instanceof DefaultValue) return;
+
+      set(cartListState, (prevCartList) => {
+        const hasItem = checkItemInCart(prevCartList, productId);
+
+        return hasItem
+          ? updateCartItemQuantity(prevCartList, productId, quantity)!
+          : addCartItemQuantity(prevCartList, productId, quantity)!;
+      });
     },
 });
 
-export { cartListItemCountState, cartListState, cartItemQuantityState };
+const cartListSubTotalState = selector({
+  key: 'cartListSubTotal',
+  get: ({ get }) => {
+    const cartList = get(cartListState);
+    const checkedCartIdList = get(checkedCartIdListState);
+
+    const subTotal = cartList
+      .filter((cartItem) => checkedCartIdList.has(cartItem.product.id))
+      .reduce((acc, curr) => acc + curr.product.price * curr.quantity, 0);
+
+    return subTotal;
+  },
+});
+
+export {
+  cartIdListState,
+  cartListState,
+  cartListItemCountState,
+  cartItemQuantityState,
+  cartListSubTotalState,
+};

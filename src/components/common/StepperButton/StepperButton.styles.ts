@@ -21,8 +21,12 @@ const StepperButton = styled(Button)`
     box-shadow: none;
   }
 
-  &:disabled > svg > path {
-    stroke: ${({ theme }) => theme.color.gray4};
+  &:disabled {
+    background-color: white;
+
+    & > svg > path {
+      stroke: ${({ theme }) => theme.color.gray4};
+    }
   }
 `;
 

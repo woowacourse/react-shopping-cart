@@ -20,4 +20,16 @@ const StoryInfoContainer = styled.div`
   }
 `;
 
-export { StoryContainer, StoryInfoContainer };
+const StoryContainerWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export { StoryContainer, StoryInfoContainer, StoryContainerWrapper };

@@ -1,11 +1,17 @@
 import type { Preview } from '@storybook/react';
-import React from 'react';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
+import React, { Suspense } from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 
+import SpinnerContainer from '../src/components/common/SpinnerContainer/SpinnerContainer';
+import { handlers } from '../src/mocks/handlers';
+import { StoryContainerWrapper } from '../src/stories/styles';
 import GlobalStyle from '../src/styles/GlobalStyle';
 import theme from '../src/styles/theme';
+
+initialize();
 
 const customViewports = {
   Default: {
@@ -30,6 +36,9 @@ const preview: Preview = {
       viewports: { ...customViewports },
       defaultViewport: 'Default',
     },
+    msw: {
+      handlers: [...handlers],
+    },
   },
 };
 
@@ -46,10 +55,19 @@ export const decorators = [
       <RecoilRoot>
         <ThemeProvider theme={theme}>
           <GlobalStyle />
-          <Story />
+          <Suspense
+            fallback={
+              <StoryContainerWrapper>
+                <SpinnerContainer message="Loading..." />
+              </StoryContainerWrapper>
+            }
+          >
+            <Story />
+          </Suspense>
         </ThemeProvider>
       </RecoilRoot>
     </MemoryRouter>
   ),
   localStorageResetDecorator,
+  mswDecorator,
 ];

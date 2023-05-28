@@ -98,6 +98,11 @@ const Button = styled.button<ButtonProps>`
   &:focus {
     outline: 1px solid ${({ theme }) => theme.color.white};
   }
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.color.gray3};
+    border-color: ${({ theme }) => theme.color.gray3};
+  }
 `;
 
 export { Button };

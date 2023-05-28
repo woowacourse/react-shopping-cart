@@ -1,16 +1,9 @@
 {
   "name": "react-shopping-cart",
-  "homepage": "https://ashleysyheo.github.io/react-shopping-cart/",
+  "homepage": "https://ashleysyheo.github.io/react-shopping-cart",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.27",
-    "@types/react": "^18.2.6",
-    "@types/react-dom": "^18.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.1",
@@ -26,7 +19,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test-e2e": "cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -67,11 +61,25 @@
     "@storybook/react": "^7.0.9",
     "@storybook/react-webpack5": "^7.0.9",
     "@storybook/testing-library": "^0.0.14-next.2",
+    "@testing-library/cypress": "^9.0.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.27",
+    "@types/react": "^18.2.6",
+    "@types/react-dom": "^18.2.4",
     "@types/styled-components": "^5.1.26",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "cypress": "^12.12.0",
+    "msw": "^1.2.1",
+    "msw-storybook-addon": "^1.8.0",
     "prop-types": "^15.8.1",
     "storybook": "^7.0.9",
     "webpack": "^5.82.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

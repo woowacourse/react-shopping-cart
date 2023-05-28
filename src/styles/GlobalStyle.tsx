@@ -1,5 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 
+import { skeleton } from './animations';
+import theme from './theme';
+
 const GlobalStyle = createGlobalStyle`
    * {
     padding: 0;
@@ -17,24 +20,50 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 16px;
-    color: #0e0e0e;
+    color: ${theme.color.black};
   }
 
   body {
-    background-color: white;
+    width: 100vw;
+    height: 100vh;
   }
 
   #root {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
+    min-height: 100%;
+    height: 100%;
+    max-height: max-content;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
   }
 
   main {
     position: relative;
-    padding-top: 136px;
+    margin: 0 ${theme.spacer.spacing4};
+    padding-top: 124px;
     padding-bottom: 72px;
-    width: 1080px;
+    max-width: 1080px;
+    height: fit-content;
+  }
+
+  .hide-overflow {
+    overflow: hidden;
+  }
+
+  .skeleton {
+    background: linear-gradient(
+      -90deg,
+      ${theme.color.gray3},
+      ${theme.color.gray2},
+      ${theme.color.gray3},
+      ${theme.color.gray2}
+    );
+    background-size: 400%;
+    border-radius: ${theme.borderRadius.small};
+    animation: ${skeleton} 5s infinite ease-out;
   }
 `;
 
