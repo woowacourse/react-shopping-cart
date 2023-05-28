@@ -106,7 +106,7 @@ const CartPage = () => {
               {cartItems.map((cartItem) => (
                 <CartItemListItemContainer>
                   <Checkbox
-                    value={!cartItem.unselectedForOrder}
+                    checked={!cartItem.unselectedForOrder}
                     onChange={() => toggleForOrder(cartItem.product.id)}
                   />
                   <CartItemListItem
@@ -119,7 +119,7 @@ const CartPage = () => {
             </CartItemList>
 
             <CartItemListController>
-              <Checkbox value={allSelected} onChange={handleEnableAll} />
+              <Checkbox checked={allSelected} onChange={handleEnableAll} />
               <CartItemSelected>
                 전체선택 ({selectedCount}/{cartItems.length}개)
               </CartItemSelected>

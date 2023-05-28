@@ -8,18 +8,18 @@ const CheckboxElement = styled.input.attrs({ type: 'checkbox' })`
 `;
 
 type CheckboxProps = {
-  value: boolean;
+  checked: boolean;
   onChange?: (value: boolean) => void;
 };
 
 const Checkbox = (props: CheckboxProps) => {
-  const { value, onChange } = props;
+  const { checked, onChange } = props;
 
   const handleCheckboxChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     onChange?.(event.target.checked);
   };
 
-  return <CheckboxElement checked={value} onChange={handleCheckboxChange} />;
+  return <CheckboxElement checked={checked} onChange={handleCheckboxChange} />;
 };
 
 export default Checkbox;
