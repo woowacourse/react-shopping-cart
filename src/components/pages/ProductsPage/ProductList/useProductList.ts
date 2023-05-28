@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react';
 
 import fetchApis from '@apis/fetchApis';
 import { CartItem, Product } from '@customTypes/Product';
+import useLocalStorage from '@hooks/useLocalStorage';
 
 export const useProductList = () => {
   const [productList, setProductList] = useState<CartItem[]>([]);
   const [isGetProductListError, setIsGetProductListError] = useState(false);
+  const { storedValue } = useLocalStorage('productList', []);
 
   useEffect(() => {
     const { getData } = fetchApis();
@@ -30,6 +32,12 @@ export const useProductList = () => {
 
     const getProducts = async () => {
       try {
+        if (storedValue.length) {
+          setProductList(storedValue);
+
+          return;
+        }
+
         const products = await getData<Product[]>('/products');
         const cartItems = await getData<CartItem[]>('/cart-items');
         setProductList(combineProductsWithCartItems(products, cartItems));
