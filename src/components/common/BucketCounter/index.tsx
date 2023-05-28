@@ -28,66 +28,17 @@ const BucketCounter = ({
   refetch,
 }: BucketCounterProps) => {
   const {
-    onBlur,
     bucketCount,
-    onChange: changeCountEvent,
-    increaseCount,
-    decreaseCount,
     countRef,
+    changeCount,
+    upButton,
+    downButton,
+    onBlurAndRefetch
   } = useBucketCount(quantity, {
     errorMessage: ERROR_MESSAGE,
     maximumCount: MAX_BUCKET_COUNT,
     id,
-  });
-
-  const changeCount = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    changeCountEvent(event);
-    
-    await fetchApi(`${CART_URL}/${id}`, {
-      method: 'PATCH',
-      body: JSON.stringify({ quantity: Number(event.target.value) }),
-      headers: {
-        Authorization: 'Basic YUBhLmNvbToxMjM0',
-        'Content-Type': 'application/json',
-      },
-    });
-
-    refetch();
-  };
-
-  const upButton = async () => {
-    await fetchApi(`${CART_URL}/${id}`, {
-      method: 'PATCH',
-      body: JSON.stringify({ quantity: bucketCount }),
-      headers: {
-        Authorization: 'Basic YUBhLmNvbToxMjM0',
-        'Content-Type': 'application/json',
-      },
-    });
-
-    increaseCount();
-    refetch();
-  };
-
-  const downButton = async () => {
-    await fetchApi(`${CART_URL}/${id}`, {
-      method: 'PATCH',
-      body: JSON.stringify({ quantity: bucketCount }),
-      headers: {
-        Authorization: 'Basic YUBhLmNvbToxMjM0',
-        'Content-Type': 'application/json',
-      },
-    });
-
-    decreaseCount();
-    refetch();
-  };
-
-  const onBlurAndRefetch = (e: React.FocusEvent<HTMLInputElement>) => {
-    onBlur(e);
-
-    refetch();
-  };
+  }, refetch);
 
   return (
     <BucketCounterWrapper kind={kind}>

@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { showInputErrorMessage } from '@utils/common';
+import fetchApi from '@utils/fetchApi';
+import { CART_URL } from '@constants/common';
 import useControlCart from './useControlCart';
 
 interface useBucketCountOptions {
@@ -10,7 +12,8 @@ interface useBucketCountOptions {
 
 const useBucketCount = (
   initialValue: number,
-  { errorMessage, maximumCount, id }: useBucketCountOptions
+  { errorMessage, maximumCount, id }: useBucketCountOptions,
+  refetch: () => void
 ) => {
   const maximumWriteInput = maximumCount * 10;
 
@@ -83,13 +86,54 @@ const useBucketCount = (
     showCounterErrorMessage();
   }, [bucketCount, showCounterErrorMessage]);
 
+  const bucketCountFetch = async (replacementQuantity:number)=>{
+    await fetchApi(`${CART_URL}/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ quantity: replacementQuantity }),
+      headers: {
+        Authorization: 'Basic YUBhLmNvbToxMjM0',
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  const changeCount = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(event);
+
+    bucketCountFetch(Number(event.target.value))
+
+    refetch();
+  };
+
+  const upButton = async () => {
+    bucketCountFetch(bucketCount)
+
+    increaseCount();
+
+    refetch();
+  };
+
+  const downButton = async () => {
+    bucketCountFetch(bucketCount)
+
+    decreaseCount();
+
+    refetch();
+  };
+
+  const onBlurAndRefetch = (e: React.FocusEvent<HTMLInputElement>) => {
+    onBlur(e);
+
+    refetch();
+  };
+
   return {
-    onBlur,
     bucketCount,
-    onChange,
-    increaseCount,
-    decreaseCount,
     countRef,
+    changeCount,
+    upButton,
+    downButton,
+    onBlurAndRefetch,
   };
 };
 
