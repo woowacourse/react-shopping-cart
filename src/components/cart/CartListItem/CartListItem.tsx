@@ -6,6 +6,7 @@ import useCartService from '../../../hooks/useCartService';
 import { formatPrice } from '../../../utils/formatPrice';
 import Spacer from '../../common/Spacer/Spacer';
 import type { CartItem } from '../../../types/product';
+import { TrashIcon } from '../../../assets';
 
 interface CartListItemProps {
   cartItem: CartItem;
@@ -51,22 +52,7 @@ const CartListItem = ({
             aria-label="장바구니에서 삭제하기"
             onClick={() => removeProductFromCart(id)}
           >
-            <svg
-              fill="none"
-              width="24"
-              height="24"
-              shapeRendering="geometricPrecision"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="1.5"
-              viewBox="0 0 24 24"
-            >
-              <path d="M3 6h18" />
-              <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />
-              <path d="M10 11v6" />
-              <path d="M14 11v6" />
-            </svg>
+            <TrashIcon />
           </DeleteButton>
           <Counter
             count={quantity}
