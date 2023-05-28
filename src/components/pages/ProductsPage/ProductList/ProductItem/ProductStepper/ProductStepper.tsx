@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 
 import { PRODUCT_COUNT, STEP_UNIT } from '@constants/product';
-import fetchApis from '@apis/fetchApis';
 import useUpdateCart from './useUpdateCart';
 import { Product } from '@customTypes/Product';
+import { useFetchCartItem } from './useFetchCartItem';
 
 import {
   StyledProductStepperButtonFlexBox,
@@ -36,38 +36,9 @@ const ProductStepper = (props: ProductStepperProps) => {
     buttonHeight,
   } = props;
   const [quantity, setQuantity] = useState(initQuantity);
-  const [cartItemId, setCartItemId] = useState<null | string>(
-    initCartItemId ?? null
-  );
-  const { postData, patchData, deleteData } = fetchApis();
 
-  const addCartItem = async () => {
-    const location = await postData(
-      { productId: product.id },
-      '/cart-items',
-      ''
-    );
-
-    setCartItemId(location);
-  };
-
-  const updateCartItemQuantity = async (newQuantity: number) => {
-    if (!cartItemId) return;
-
-    await patchData({ quantity: newQuantity }, '/cart-items', cartItemId);
-  };
-
-  const deleteCartItem = async (newQuantity: number) => {
-    if (!cartItemId) return;
-
-    if (newQuantity > 0) {
-      updateCartItemQuantity(newQuantity);
-
-      return;
-    }
-
-    await deleteData('/cart-items', cartItemId);
-  };
+  const { addCartItem, updateCartItemQuantity, deleteCartItem } =
+    useFetchCartItem(product.id, initCartItemId ?? null);
 
   useUpdateCart(product, quantity);
 
