@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import { toastState } from '../../../recoil/atoms';
+import { toastState } from '../../../recoil/atoms/common';
 import Toast from './Toast';
 import { styled } from 'styled-components';
 

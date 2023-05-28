@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { toastState } from '../../../recoil/atoms';
+import { toastState } from '../../../recoil/atoms/common';
 import { ToastProps } from './Toast';
 import { uuid } from '../../../utils/uuid';
 
