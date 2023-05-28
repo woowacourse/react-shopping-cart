@@ -23,7 +23,7 @@ const CartListSection = () => {
   const checkedCartItemsLength = useRecoilValue(checkedCartItemsLengthSelector);
   const deleteSelectedItems = useDeleteSelectedItems();
 
-  const handleEntireCheckboxClick = () => {
+  const handleEntireCheck = () => {
     setCartItems(prev => {
       return Object.fromEntries(
         Object.entries(prev).map(cartItem => {
@@ -31,7 +31,23 @@ const CartListSection = () => {
             cartItem[0],
             {
               ...cartItem[1],
-              isChecked: !cartItem[1].isChecked,
+              isChecked: true,
+            },
+          ];
+        })
+      );
+    });
+  };
+
+  const handleEntireUnCheck = () => {
+    setCartItems(prev => {
+      return Object.fromEntries(
+        Object.entries(prev).map(cartItem => {
+          return [
+            cartItem[0],
+            {
+              ...cartItem[1],
+              isChecked: false,
             },
           ];
         })
@@ -56,8 +72,8 @@ const CartListSection = () => {
       <StyledCartListFlexBox>
         <EntireCheckbox
           initIsChecked={generateInitIsChecked()}
-          handleCheck={handleEntireCheckboxClick}
-          handleUnCheck={handleEntireCheckboxClick}
+          handleCheck={handleEntireCheck}
+          handleUnCheck={handleEntireUnCheck}
         />
         <Text.Description>
           전체선택 ({checkedCartItemsLength}/{cartItemLength})
