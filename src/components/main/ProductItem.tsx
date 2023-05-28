@@ -6,6 +6,7 @@ import CartIconButton from './CartIconButton';
 import { useProduct } from '../../hooks/useProduct';
 import useToast from '../../hooks/useBoolean';
 import Toast from '../@common/Toast';
+import { useId } from 'react';
 
 interface Props {
   id: number;
@@ -32,12 +33,14 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
     showToast();
   };
 
+  const prefix = useId();
+
   return (
     <div>
       <S.Image src={imgUrl} alt={`${name}`} />
       <S.InfoWrapper>
         <div>
-          <S.Name htmlFor={`product${id}`}>{name}</S.Name>
+          <S.Name htmlFor={`${prefix}${id}`}>{name}</S.Name>
           <S.Price>
             {price.toLocaleString()}
             <span>원</span>
@@ -51,7 +54,7 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
               onIncrement={handleIncreaseItem}
               onDecrement={handleDecreaseItem}
               onBlur={handleBlurItem}
-              id={`product${id}`}
+              id={`${prefix}product${id}`}
             />
             <Toast
               isShowToast={isShowToast}
