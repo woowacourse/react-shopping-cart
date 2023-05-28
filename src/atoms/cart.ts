@@ -36,28 +36,9 @@ export const selectedItemsState = atom({
   }),
 });
 
-export const selectedItemsSelector = selector({
-  key: 'selectedItemsSelector',
-  get: ({ get }) => {
-    const cart = get(cartState);
-    const selectedItems = get(selectedItemsState);
-
-    return cart.reduce<Set<CartItem['id']>>(
-      (newSelectedItems, item) =>
-        selectedItems.has(item.id)
-          ? newSelectedItems.add(item.id)
-          : newSelectedItems,
-      new Set()
-    );
-  },
-  set: ({ set }, newValue) => {
-    set(selectedItemsState, newValue);
-  },
-});
-
 export const selectedItemsAmountSelector = selector({
   key: 'selectedItemsAmountSelector',
-  get: ({ get }) => get(selectedItemsSelector).size,
+  get: ({ get }) => get(selectedItemsState).size,
 });
 
 export const getCartItemById = selectorFamily({
@@ -73,7 +54,7 @@ export const totalPriceSelector = selector({
   key: 'totalPriceSelector',
   get: ({ get }) => {
     const cart = get(cartState);
-    const selectedItems = get(selectedItemsSelector);
+    const selectedItems = get(selectedItemsState);
 
     return cart.reduce(
       (totalPrice, { id, quantity, product: { price } }) =>
