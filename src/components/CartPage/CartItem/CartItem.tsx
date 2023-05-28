@@ -13,7 +13,7 @@ const CartItem: React.FC<CartItemProps> = (props) => {
     quantity,
     product: { imageUrl, name, price },
   } = props;
-  const { selectedItems, selectItem } = useCartSelector();
+  const { selectedItems, handleSelectItem } = useCartSelector();
   const { updateCartItemMutation, deleteCartItemMutation } = useMutateCart();
 
   const increaseQuantity = () =>
@@ -32,7 +32,7 @@ const CartItem: React.FC<CartItemProps> = (props) => {
         <S.Checkbox
           type="checkbox"
           checked={selectedItems.has(id)}
-          onChange={() => selectItem(id)}
+          onChange={() => handleSelectItem(id)}
         />
         <S.ProductContainer height="100%" align="center" grow>
           <S.Thumbnail alt={name} src={imageUrl} />

@@ -1,10 +1,10 @@
 import { ChangeEvent } from 'react';
 import { useRecoilRefresher_UNSTABLE } from 'recoil';
 import { addToCart, deleteCartItem, updateCartItem } from '../../apis/cart';
-import { cartState, selectedItemsSelector } from '../../atoms/cart';
+import { cartState, selectedItemsState } from '../../atoms/cart';
 import { DELETE_CART_ITEMS } from '../../constants/cart';
 import { CartItem } from '../../types/cart';
-import { waitForMutation } from '../../utils/waitFor';
+import { waitFor, waitForMutation } from '../../utils/waitFor';
 import {
   useRefreshableRecoilState,
   useRefreshableRecoilValue,
@@ -12,21 +12,25 @@ import {
 
 export const useCartSelector = () => {
   const cart = useRefreshableRecoilValue(cartState);
-  const [selectedItems, setSelectedItems] = useRefreshableRecoilState(
-    selectedItemsSelector
-  );
+  const [selectedItems, setSelectedItems] =
+    useRefreshableRecoilState(selectedItemsState);
 
   const selectItem = (id: CartItem['id']) => {
+    setSelectedItems((prevSelectedItems) => new Set(prevSelectedItems).add(id));
+  };
+
+  const deselectItem = (id: CartItem['id']) => {
     setSelectedItems((prevSelectedItems) => {
       const updatedSelectedItems = new Set(prevSelectedItems);
 
-      prevSelectedItems.has(id)
-        ? updatedSelectedItems.delete(id)
-        : updatedSelectedItems.add(id);
-
-      return updatedSelectedItems;
+      return updatedSelectedItems.delete(id)
+        ? updatedSelectedItems
+        : prevSelectedItems;
     });
   };
+
+  const handleSelectItem = (id: CartItem['id']) =>
+    selectedItems.has(id) ? deselectItem(id) : selectItem(id);
 
   const handleSelectAll = ({
     target: { checked },
@@ -36,12 +40,19 @@ export const useCartSelector = () => {
       : setSelectedItems(new Set());
   };
 
-  return { selectedItems, selectItem, handleSelectAll };
+  return {
+    selectedItems,
+    selectItem,
+    deselectItem,
+    handleSelectItem,
+    handleSelectAll,
+  };
 };
 
 export const useMutateCart = () => {
   const refreshCart = useRecoilRefresher_UNSTABLE(cartState);
-  const selectedItems = useRefreshableRecoilValue(selectedItemsSelector);
+  const selectedItems = useRefreshableRecoilValue(selectedItemsState);
+  const { deselectItem } = useCartSelector();
 
   const addItemToCartMutation = waitForMutation(addToCart, {
     onSuccess() {
