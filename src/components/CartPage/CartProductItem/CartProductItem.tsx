@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import checkIcon from '../../../assets/check.svg';
 import trashBin from '../../../assets/trash-bin.svg';
 import StepperInput from '../../@common/StepperInput/StepperInput';
 import { CartItem } from '../../../types';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { cartItemIdSelector, cartListAtom } from '../../../stores/cartItemsStore';
 import useUpdateCartItems from '../../../hooks/useUpdateCartItems';
@@ -26,7 +27,7 @@ const CartProductItem = ({
   const [itemPrice, setItemPrice] = useState(0);
   const itemId = useRecoilValue(cartItemIdSelector(product.id));
   const { updateCartItems } = useUpdateCartItems();
-  const { data: cartList, getData } = useGetData<CartItem[]>('/cart-items');
+  const { getData } = useGetData<CartItem[]>('/cart-items', (data) => setCartList(data));
   const setCartList = useSetRecoilState(cartListAtom);
 
   const handleStepperInputChange = async (value: number) => {
@@ -37,10 +38,6 @@ const CartProductItem = ({
       await getData();
     }
   };
-
-  useEffect(() => {
-    if (cartList) setCartList(cartList);
-  }, [cartList, setCartList]);
 
   return (
     <Styled.ProductItem>

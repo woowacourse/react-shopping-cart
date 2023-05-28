@@ -6,7 +6,6 @@ import ShoppingCartLogo from '../../@common/ShoppingCartLogo/ShoppingCartLogo';
 import useUpdateCartItems from '../../../hooks/useUpdateCartItems';
 import useGetData from '../../../hooks/useGetData';
 import { CartItem } from '../../../types';
-import { useEffect } from 'react';
 
 type ProductQuantityControllerProps = {
   productId: number;
@@ -16,7 +15,7 @@ const ProductQuantityController = ({ productId }: ProductQuantityControllerProps
   const productQuantity = useRecoilValue(cartItemQuantitySelector(productId));
   const itemId = useRecoilValue(cartItemIdSelector(productId));
   const setCartList = useSetRecoilState(cartListAtom);
-  const { data: cartList, getData } = useGetData<CartItem[]>('/cart-items');
+  const { getData } = useGetData<CartItem[]>('/cart-items', (data) => setCartList(data));
   const { updateCartItems, addNewCartItem } = useUpdateCartItems();
 
   const handleAddToCartButton = async () => {
@@ -30,10 +29,6 @@ const ProductQuantityController = ({ productId }: ProductQuantityControllerProps
       await getData();
     }
   };
-
-  useEffect(() => {
-    if (cartList) setCartList(cartList);
-  }, [cartList, setCartList]);
 
   return (
     <>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import UpTriangle from '../../../assets/triangle.svg';
 import DownTriangle from '../../../assets/triangle-down.svg';
 import { ChangeEvent, useEffect, useState } from 'react';
