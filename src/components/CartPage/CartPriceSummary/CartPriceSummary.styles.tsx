@@ -1,12 +1,17 @@
 import { styled } from 'styled-components';
 
 export const Wrapper = styled.div`
-  width: 448px;
+  width: 100%;
+  max-width: 448px;
   height: 410px;
   border: 1px solid #ddd;
   display: flex;
   flex-direction: column;
   margin-top: 50px;
+
+  @media screen and (max-width: 992px) {
+    max-width: 100%;
+  }
 `;
 
 export const Title = styled.h3`
@@ -34,7 +39,7 @@ export const Content = styled.div`
 `;
 
 export const OrderButton = styled.button`
-  width: 388px;
+  width: 100%;
   height: 73px;
   background-color: #333;
   color: #fff;

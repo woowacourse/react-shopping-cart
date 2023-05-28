@@ -28,7 +28,11 @@ export const Content = styled.div`
   padding-top: 34px;
   gap: 100px;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1200px) {
+    gap: 40px;
+  }
+
+  @media screen and (max-width: 992px) {
     flex-direction: column;
     align-items: center;
   }

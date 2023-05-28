@@ -2,6 +2,11 @@ import { styled } from 'styled-components';
 
 export const Wrapper = styled.div`
   width: 100%;
+  min-width: 530px;
+
+  @media screen and (max-width: 768px) {
+    min-width: 100%;
+  }
 `;
 
 export const ProductCountWrapper = styled.div`

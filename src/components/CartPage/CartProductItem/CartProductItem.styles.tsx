@@ -9,6 +9,11 @@ export const ProductItem = styled.li`
   & + & {
     border-top: 1.5px solid #cccccc;
   }
+  @media screen and (max-width: 576px) {
+    flex-direction: column;
+    height: 100%;
+    gap: 24px;
+  }
 `;
 
 export const ProductInfo = styled.div`
@@ -19,6 +24,9 @@ export const ProductInfo = styled.div`
   width: 100%;
   height: 100%;
   padding: 4px 0;
+  @media screen and (max-width: 576px) {
+    gap: 16px;
+  }
 `;
 
 export const ProductImageContainer = styled.div`
