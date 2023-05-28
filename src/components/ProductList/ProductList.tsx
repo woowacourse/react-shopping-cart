@@ -1,30 +1,24 @@
-import { useRecoilValueLoadable } from "recoil";
-import { fetchProductList } from '../../recoil/productAtoms';
-import type { ProductItem as ProductItemType } from '../../types/types';
-import ProductItem from '../../components/ProductItem';
-import { Column, Row } from '../../style/style';
+import type { ProductItem as ProductItemType } from "../../types/types";
+import ProductItem from "../../components/ProductItem";
+import { Col, Row } from "../../style/style";
+import { ProductListWrapper } from "./ProductList.style.ts";
 
-function ProductList() {
-
-  const productLoadable = useRecoilValueLoadable<ProductItemType[]>(fetchProductList);
-
-  switch (productLoadable.state) {
-    case 'hasValue':
-      return (
-        <Row>
-          {productLoadable?.contents?.map((product: ProductItemType) => (
-            <Column key={product.id}>
-              <ProductItem product={product} />
-            </Column>
-          ))}
-        </Row>
-      );
-    case 'loading':
-      return <div>Loading...</div>;
-    case 'hasError':
-      throw productLoadable?.contents?.message;
-    default:
-      return null;
-  }
+interface ProductListProps {
+  productList: ProductItemType[];
 }
+
+function ProductList({ productList }: ProductListProps) {
+  return (
+    <ProductListWrapper>
+      <Row>
+        {productList.map((product: ProductItemType) => (
+          <Col key={product.id}>
+            <ProductItem product={product} />
+          </Col>
+        ))}
+      </Row>
+    </ProductListWrapper>
+  );
+}
+
 export default ProductList;

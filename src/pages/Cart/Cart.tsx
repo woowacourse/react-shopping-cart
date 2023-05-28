@@ -1,23 +1,51 @@
-import useCart from '../../hooks/useCart';
-
-/**
- * TODO: 
- * STEP 2 에서 구현할 예정입니다.
- * STEP 1 에서는 전역 상태 관리 테스트만 하고 있습니다!
- */
+import CartList from "../../components/CartList";
+import PurchaseBox from "../../components/PurchaseBox";
+import {
+  CartTitle,
+  CartWrapper,
+  EmptyCartButton,
+  EmptyCartButtonWrapper,
+  EmptyCartDescription,
+  EmptyCartTitle,
+  EmptyCartWrapper,
+  FatBorder,
+} from "./Cart.style.ts";
+import { CartListTitle } from "../../components/CartList/CartList.style.ts";
+import { useRecoilValue } from "recoil";
+import { cartCountSelector } from "../../recoil/cartAtoms.ts";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
-  const { cartList } = useCart();
+  const cartCount = useRecoilValue(cartCountSelector);
+  const navigate = useNavigate();
+
   return (
-    <>
-      {cartList.map((cart) => (
-        <div key={cart.id}>
-          <div style={{ fontSize: '20px' }}>
-            {cart.product.name} - ({cart.quantity}개)
+    <div>
+      <CartTitle>장바구니</CartTitle>
+      <FatBorder />
+      {cartCount > 0 ? (
+        <>
+          <CartListTitle>든든배송 상품 ({cartCount}개)</CartListTitle>
+          <CartWrapper>
+            <CartList />
+            <PurchaseBox />
+          </CartWrapper>
+        </>
+      ) : (
+        <EmptyCartWrapper>
+          <div>
+            <EmptyCartTitle>텅</EmptyCartTitle>
+            <EmptyCartDescription>장바구니가 비어있어요.</EmptyCartDescription>
+            <EmptyCartButtonWrapper>
+              <EmptyCartButton onClick={() => navigate("/")}>
+                홈으로 돌아가기
+              </EmptyCartButton>
+            </EmptyCartButtonWrapper>
           </div>
-        </div>
-      ))}
-    </>
+        </EmptyCartWrapper>
+      )}
+    </div>
   );
 }
+
 export default Cart;

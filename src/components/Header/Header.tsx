@@ -1,14 +1,20 @@
-import cartIcon from '../../assets/cart.svg';
-import { useNavigate } from 'react-router-dom';
-import { Container } from '../../style/style';
+import titleLogo from "../../assets/logo.png";
+import { useNavigate } from "react-router-dom";
+import { Container } from "../../style/style";
 import {
-  CartCount, CartCountWrapper, CartIcon,
-  CartTitle, CartWrapper, HeaderWrapper,
-  Logo, LogoWrapper, Navbar
-} from './Header.style';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { cartCountSelector, cartState } from '../../recoil/cartAtoms';
-import { useEffect } from 'react';
+  CartCount,
+  CartCountWrapper,
+  CartTitle,
+  CartWrapper,
+  HeaderWrapper,
+  LogoImage,
+  LogoWrapper,
+  Navbar,
+} from "./Header.style";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { cartCountSelector, cartState } from "../../recoil/cartAtoms";
+import { useEffect } from "react";
+import { CartItem, ReceivedCartItem } from "../../types/types.ts";
 
 function Header() {
   const navigate = useNavigate();
@@ -17,14 +23,20 @@ function Header() {
 
   const loadCartList = async () => {
     try {
-      const response = await fetch('/cart-items');
+      const response = await fetch("/cart-items");
       const data = await response.json();
-      setCartList(data);
+      const checkedCartItems: CartItem[] = data.map(
+        (cartItem: ReceivedCartItem) => ({
+          ...cartItem,
+          checked: true,
+        })
+      );
+      setCartList(checkedCartItems);
     } catch (error) {
       console.error(error);
       throw new Error();
     }
-  }
+  };
 
   useEffect(() => {
     loadCartList();
@@ -34,11 +46,10 @@ function Header() {
     <Navbar>
       <Container>
         <HeaderWrapper>
-          <LogoWrapper onClick={() => navigate('/')}>
-            <CartIcon src={cartIcon} />
-            <Logo>SHOP</Logo>
+          <LogoWrapper onClick={() => navigate("/")}>
+            <LogoImage src={titleLogo} />
           </LogoWrapper>
-          <CartWrapper onClick={() => navigate('/cart')}>
+          <CartWrapper onClick={() => navigate("/cart")}>
             <CartTitle>장바구니</CartTitle>
             <CartCountWrapper>
               <CartCount>{cartCount}</CartCount>
