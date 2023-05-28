@@ -1,6 +1,6 @@
 export interface CartCountProps {
   quantity: number;
-  handleDeleteCart: () => void;
+  handleDeleteCart?: () => void;
   increaseProductCount: () => void;
   decreaseProductCount: () => void;
 }

@@ -47,9 +47,6 @@ export const CartItem = ({ id, imageUrl, name, price }: CartItemProps) => {
         </Styled.DeleteCartButtonWrapper>
         <CartCount
           quantity={quantity}
-          handleDeleteCart={() => {
-            return;
-          }}
           increaseProductCount={increaseProductCount}
           decreaseProductCount={decreaseProductCount}
         />

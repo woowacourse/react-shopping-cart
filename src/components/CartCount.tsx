@@ -16,7 +16,7 @@ export const CartCount = memo(
 
     const decreaseCount = () => {
       if (quantity === 1) {
-        handleDeleteCart();
+        handleDeleteCart && handleDeleteCart();
         return;
       }
 
