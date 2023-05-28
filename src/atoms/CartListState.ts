@@ -1,26 +1,11 @@
 import { atom, selector, selectorFamily } from 'recoil';
 import { CartProductItem } from '../types/productType';
-import { getRequest } from '../api';
 
 const cartListStateInitValue: CartProductItem[] = [];
-
-const getCartListFromMocks =
-  () =>
-  ({ setSelf }: { setSelf: (cartList: CartProductItem[]) => void }) => {
-    const initCartListState = async () => {
-      const cartList = await getRequest<CartProductItem[]>('carts');
-
-      if (!cartList) setSelf([]);
-      setSelf(cartList);
-    };
-
-    initCartListState();
-  };
 
 export const cartState = atom({
   key: 'CartState',
   default: cartListStateInitValue,
-  effects: [getCartListFromMocks()],
 });
 
 export const cartStateLength = selector({

@@ -9,6 +9,8 @@ import { Button as DeleteSelectionButton } from '../ui/Button';
 import * as Styled from './styles/CartItemContainer.styles';
 import { useEffect } from 'react';
 import { checkboxesState } from '../atoms/CheckboxState';
+import { getRequest } from '../api';
+import { CartProductItem } from '../types/productType';
 
 export const CartItemContainer = () => {
   const [cartLists, setCartList] = useRecoilState(cartState);
@@ -50,6 +52,14 @@ export const CartItemContainer = () => {
   };
 
   useEffect(() => {
+    const initProductListFromApi = async () => {
+      const cartList = await getRequest<CartProductItem[]>('carts');
+
+      setCartList(cartList);
+    };
+
+    initProductListFromApi();
+
     setCheckboxes(
       cartLists.map((cartItem) => ({
         id: cartItem.id,
