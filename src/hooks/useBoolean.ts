@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useToast = () => {
+const useBoolean = () => {
   const [boolean, setBoolean] = useState(false);
 
   const setTrue = () => setBoolean(true);
@@ -9,4 +9,4 @@ const useToast = () => {
   return { boolean, setTrue, setFalse };
 };
 
-export default useToast;
+export default useBoolean;

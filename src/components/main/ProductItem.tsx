@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 import { isSelectedProductSelector } from '../../store/CartSelector';
 import CartIconButton from './CartIconButton';
 import { useProduct } from '../../hooks/useProduct';
-import useToast from '../../hooks/useBoolean';
+import useBoolean from '../../hooks/useBoolean';
 import Toast from '../@common/Toast';
 import { useId } from 'react';
 
@@ -26,7 +26,7 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
     handleNumberInputChange,
   } = useProduct(id);
 
-  const { boolean: isShowToast, setTrue: showToast, setFalse: dismissToast } = useToast();
+  const { boolean: isShowToast, setTrue: showToast, setFalse: dismissToast } = useBoolean();
 
   const handleCartClick = () => {
     addItemToCart();
