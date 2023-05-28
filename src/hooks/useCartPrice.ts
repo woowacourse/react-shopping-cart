@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import useMultipleChecked from './useMultipleChecked';
@@ -8,18 +7,10 @@ const DELIVERY_FEE = 3_000;
 
 const useExpectedPayment = () => {
   const { isAllUnchecked } = useMultipleChecked();
-
   const totalProductPrice = useRecoilValue(checkedPriceSelector);
 
-  const deliveryFee = useMemo(
-    () => (isAllUnchecked ? 0 : DELIVERY_FEE),
-    [isAllUnchecked]
-  );
-
-  const totalPrice = useMemo(
-    () => totalProductPrice + deliveryFee,
-    [deliveryFee, totalProductPrice]
-  );
+  const deliveryFee = isAllUnchecked ? 0 : DELIVERY_FEE;
+  const totalPrice = totalProductPrice + deliveryFee;
 
   return {
     totalProductPrice: totalProductPrice.toLocaleString('ko-KR'),
