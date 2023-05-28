@@ -3,6 +3,7 @@ import { cartState } from '../recoil/atoms';
 import { CART_BASE_URL } from '../constants';
 import type { CartItem, Product } from '../types/product';
 import useToast from '../components/common/Toast/useToast';
+import { CART_BASE_URL } from '../remotes/constants';
 
 const useCartService = () => {
   const cart = useRecoilValue(cartState);

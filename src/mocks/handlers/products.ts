@@ -1,6 +1,6 @@
 import { rest } from 'msw';
 import products from '../fixtures/products.json';
-import { PRODUCTS_BASE_URL } from '../../constants';
+import { PRODUCTS_BASE_URL } from '../../constants/api';
 
 export const productsHandlers = [
   // 상품 목록 조회

@@ -3,7 +3,7 @@ import {
   CART_BASE_URL,
   CART_LOCAL_STORAGE_KEY,
   PRODUCTS_BASE_URL,
-} from '../../constants';
+} from '../../constants/api';
 import { uuid } from '../../utils/uuid';
 import type { CartItem } from '../../types/product';
 
