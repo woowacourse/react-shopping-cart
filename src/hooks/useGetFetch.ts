@@ -24,15 +24,17 @@ const useGetFetch = <T>(
       setIsLoading(false);
       setData(data);
     } catch (error) {
+      setData(null);
       setError(error);
     }
   };
+
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { isLoading, data, error, refetch:fetchData };
+  return { isLoading, data, error, refetch: fetchData };
 };
 
 export default useGetFetch;
