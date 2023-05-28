@@ -27,8 +27,8 @@ const useCartOrder = () => {
   };
 
   const unselectAllForOrder = () => {
-    setCartItems((cartItem) =>
-      cartItem.map((cartItem) => ({ ...cartItem, unselectedForOrder: true })),
+    setCartItems((cartItems) =>
+      cartItems.map((cartItem) => ({ ...cartItem, unselectedForOrder: true })),
     );
   };
 
