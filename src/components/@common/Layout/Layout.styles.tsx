@@ -11,6 +11,9 @@ export const Content = styled.div`
   width: 100%;
   max-width: 1600px;
   padding-bottom: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   @media screen and (max-width: 1750px) {
     padding: 0 80px;

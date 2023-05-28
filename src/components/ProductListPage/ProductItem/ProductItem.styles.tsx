@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 export const ProductItemWrapper = styled.div`
-  width: 320px;
-  padding: 47px;
+  width: 226px;
 `;
 
 export const ImageOverflowContainer = styled.div`
