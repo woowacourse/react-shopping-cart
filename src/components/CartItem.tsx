@@ -7,6 +7,7 @@ import { CartItemProps } from '../types/CartItemType';
 import { useCartState } from './hooks/useCartState';
 import { useRecoilState } from 'recoil';
 import { checkboxesState } from '../atoms/CheckboxState';
+import { useCallback } from 'react';
 
 export const CartItem = ({ id, imageUrl, name, price }: CartItemProps) => {
   const {
@@ -25,9 +26,9 @@ export const CartItem = ({ id, imageUrl, name, price }: CartItemProps) => {
         );
   };
 
-  const isChecked = () => {
+  const isChecked = useCallback(() => {
     return checkboxes.filter((checkbox) => checkbox.id === id).length === 0;
-  };
+  }, [checkboxes]);
 
   return (
     <Styled.Wrapper>
