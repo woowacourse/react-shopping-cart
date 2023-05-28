@@ -10,8 +10,6 @@ const getProductListFromMocks =
     const initProductListState = async () => {
       const productList = await getRequest<ProductItem[]>('products');
 
-      console.log(productList);
-
       if (!productList) setSelf([]);
       setSelf(productList);
     };
