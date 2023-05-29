@@ -36,6 +36,7 @@ export const useCartState = (id: number) => {
       setCartStates((prevCartStates) =>
         prevCartStates.filter((product) => product.id !== id)
       );
+
       setCheckboxes((prevState) =>
         prevState.filter((checkbox) => checkbox.id !== id)
       );
@@ -55,6 +56,7 @@ export const useCartState = (id: number) => {
             : product
         )
       );
+
       setCheckboxes((prevState) =>
         prevState.map((checkbox) =>
           checkbox.id === id
@@ -78,6 +80,7 @@ export const useCartState = (id: number) => {
             : product
         )
       );
+
       setCheckboxes((prevState) =>
         prevState.map((checkbox) =>
           checkbox.id === id
