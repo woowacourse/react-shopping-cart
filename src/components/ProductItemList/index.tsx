@@ -1,13 +1,10 @@
 import ProductItem from '../ProductItem';
 import styles from './index.module.css';
 import { Product } from '../../types';
-import { useFetchProducts } from '../../hooks/useFetchProducts';
-import { useState } from 'react';
+import useFetchProducts from '../../hooks/useFetchProducts';
 
 const ProductItemList = () => {
-  const [products, setProducts] = useState([]);
-
-  useFetchProducts(setProducts);
+  const products = useFetchProducts();
 
   return (
     <section className={styles.container}>
