@@ -18,7 +18,7 @@ export const ButtonMode: Story = {
     productId: 1,
     initialValue: 0,
     minValue: 0,
-    quantityUpdateCallbacks: [],
+    onChange: () => {},
   },
 };
 
@@ -27,7 +27,7 @@ export const InputMode: Story = {
     productId: 2,
     initialValue: 5,
     minValue: 0,
-    quantityUpdateCallbacks: [],
+    onChange: () => {},
   },
 };
 

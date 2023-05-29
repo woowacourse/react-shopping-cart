@@ -1,21 +1,20 @@
 import styled from "styled-components";
-import { useEffect } from "react";
 import CartProductItem from "../CartProductItem/CartProductItem";
-import { useRecoilValue, useRecoilRefresher_UNSTABLE } from "recoil";
-import { cartProductsAtom } from "../../store/fetchAtoms";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { fetchCartProductsSelector } from "../../store/fetchAtoms";
 import { hideListAtom } from "../../store/cartProductsAtoms";
 import CheckBoxSelectBundle from "../CheckBoxSelectBundle/CheckBoxSelectBundle";
+import { useEffect } from "react";
 
 const CartProductList = () => {
-  const cartProducts = useRecoilValue(cartProductsAtom);
-  const refreshCartProducts = useRecoilRefresher_UNSTABLE(cartProductsAtom);
+  const [cartProducts, resetCartProducts] = useRecoilState(
+    fetchCartProductsSelector
+  );
   const hideList = useRecoilValue(hideListAtom);
-  const refreshHideList = useRecoilRefresher_UNSTABLE(hideListAtom);
 
   useEffect(() => {
-    refreshCartProducts();
-    refreshHideList();
-  }, [refreshCartProducts, refreshHideList]);
+    resetCartProducts([]);
+  }, [resetCartProducts]);
 
   return (
     <Container>

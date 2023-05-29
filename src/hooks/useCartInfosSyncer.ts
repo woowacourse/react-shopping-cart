@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { cartProductsAtom } from "../store/fetchAtoms";
+import { fetchCartProductsSelector } from "../store/fetchAtoms";
 import {
   cartLocalInfosAtom,
   cartProductsCountSelector,
@@ -9,7 +9,7 @@ import {
 } from "../store/cartProductsAtoms";
 
 const useCartInfosSyncer = () => {
-  const cartProducts = useRecoilValue(cartProductsAtom);
+  const cartProducts = useRecoilValue(fetchCartProductsSelector);
   const setCartInfos = useSetRecoilState(cartLocalInfosAtom);
   const cartProductsCount = useRecoilValue(cartProductsCountSelector);
   const totalPrice = useRecoilValue(totalPriceSelector);

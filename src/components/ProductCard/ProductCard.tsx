@@ -14,6 +14,8 @@ const ProductCard = ({
   const { updateCartQuantity } = useCartQuantityUpdater();
 
   const uploadQuantity = ({ id, quantity }: IdQuantity) => {
+    updateCartQuantity({ id, quantity });
+
     if (quantity === 1) {
       dataUploader.addCartProduct({ productId: id });
       return;
@@ -32,7 +34,7 @@ const ProductCard = ({
             productId={productId}
             initialValue={productQuantity}
             minValue={0}
-            quantityUpdateCallbacks={[updateCartQuantity, uploadQuantity]}
+            onChange={uploadQuantity}
           />
         </InputWrapper>
         <ProductPrice>₩ {productPrice.toLocaleString()}</ProductPrice>

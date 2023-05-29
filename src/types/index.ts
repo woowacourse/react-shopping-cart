@@ -39,7 +39,7 @@ type ProductQuantityInputProps = {
   minValue: number;
   productId: number;
   step?: number;
-  quantityUpdateCallbacks: ((data: IdQuantity) => void)[];
+  onChange: ({ id, quantity }: IdQuantity) => void;
 };
 
 type IdQuantity = {

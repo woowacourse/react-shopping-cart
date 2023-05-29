@@ -7,24 +7,20 @@ const RectangleQuantityInput = ({
   initialValue,
   minValue,
   productId,
+  onChange,
   step = 1,
-  quantityUpdateCallbacks,
 }: ProductQuantityInputProps) => {
-  const { inputValue, setIsFocused, updateInputValue, incrementInputValue } =
+  const { inputValue, updateInputValue, incrementInputValue } =
     useQuantityUpdater({
       productId,
       initialValue,
       minValue,
-      quantityUpdateCallbacks,
+      onChange,
     });
 
   return (
     <Container>
-      <Input
-        value={inputValue}
-        onChange={updateInputValue}
-        onBlur={() => setIsFocused(false)}
-      />
+      <Input value={inputValue} onChange={updateInputValue} />
       <IncreaseButton type="button" onClick={() => incrementInputValue(step)}>
         <ArrowUpIcon />
       </IncreaseButton>

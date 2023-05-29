@@ -6,24 +6,23 @@ import useQuantityUpdater from "../../hooks/useQuantity";
 import type { ProductQuantityInputProps } from "../../types";
 
 const TransformQuantityInput = ({
-  productId,
-  step = 1,
   initialValue,
   minValue,
-  quantityUpdateCallbacks,
+  productId,
+  onChange,
+  step = 1,
 }: ProductQuantityInputProps) => {
   const {
     inputValue,
-    isButtonMode,
-    setIsFocused,
     updateInputValue,
     initializeInputValue,
     incrementInputValue,
+    isButtonMode,
   } = useQuantityUpdater({
     productId,
     initialValue,
     minValue,
-    quantityUpdateCallbacks,
+    onChange,
   });
 
   return (
@@ -35,11 +34,7 @@ const TransformQuantityInput = ({
       ) : (
         <InputMode>
           <IncreaseButton onClick={() => incrementInputValue(step)} />
-          <Input
-            value={inputValue}
-            onChange={updateInputValue}
-            onBlur={() => setIsFocused(false)}
-          />
+          <Input value={inputValue} onChange={updateInputValue} />
           <DecreaseButton onClick={() => incrementInputValue(-step)} />
         </InputMode>
       )}

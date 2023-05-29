@@ -5,7 +5,12 @@ type UseQuantityUpdaterProps = {
   productId: number;
   initialValue: number;
   minValue: number;
-  quantityUpdateCallbacks: ((data: IdQuantity) => void)[];
+  onChange: (data: IdQuantity) => void;
+};
+
+type InputState = {
+  value: string;
+  focusState: "initial" | "focused" | "blurred";
 };
 
 const removeNonDigits = (value: string) => {
@@ -16,50 +21,60 @@ const useQuantityUpdater = ({
   productId,
   initialValue,
   minValue,
-  quantityUpdateCallbacks,
+  onChange,
 }: UseQuantityUpdaterProps) => {
-  const [inputValue, setInputValue] = useState(initialValue.toString());
-  const [isFocused, setIsFocused] = useState(false);
-  const [isButtonMode, setIsButtonMode] = useState(false);
+  const [inputState, setInputState] = useState<InputState>({
+    value: initialValue.toString(),
+    focusState: "initial",
+  });
 
-  useEffect(() => {
-    const newInputValue = Math.max(Number(inputValue), minValue);
-    setIsButtonMode(() => !isFocused && newInputValue === 0);
-  }, [isFocused, inputValue, minValue]);
+  const initializeInputValue = () => {
+    setInputState(() => ({
+      value: "1",
+      focusState: "blurred",
+    }));
+  };
 
   const updateInputValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const focusState =
+      event.currentTarget === document.activeElement ? "focused" : "blurred";
     const newInputValue = removeNonDigits(event.target.value);
-    setIsFocused(() => true);
-    setInputValue(() => newInputValue);
+
+    setInputState(() => ({
+      value: newInputValue,
+      focusState,
+    }));
   };
 
   const incrementInputValue = (incrementValue: number) => {
-    setInputValue((previousInputValue) =>
-      Math.max(Number(previousInputValue) + incrementValue, minValue).toString()
-    );
+    setInputState(({ value }) => ({
+      value: Math.max(Number(value) + incrementValue, minValue).toString(),
+      focusState: "blurred",
+    }));
   };
 
   useEffect(() => {
-    if (isFocused) {
-      return;
+    const { value, focusState } = inputState;
+
+    if (focusState === "blurred") {
+      onChange({ id: productId, quantity: Number(value) });
     }
+  }, [inputState, onChange, productId]);
 
-    quantityUpdateCallbacks.forEach((callback) =>
-      callback({ id: productId, quantity: Number(inputValue) })
-    );
-  }, [inputValue, isFocused, productId, quantityUpdateCallbacks]);
-
-  const initializeInputValue = () => {
-    setInputValue(() => "1");
-  };
+  useEffect(() => {
+    setInputState(({ focusState }) => ({
+      value: initialValue.toString(),
+      focusState,
+    }));
+  }, [initialValue]);
 
   return {
-    inputValue,
-    isButtonMode,
-    setIsFocused,
     updateInputValue,
     initializeInputValue,
     incrementInputValue,
+    inputValue: inputState.value,
+    isButtonMode:
+      Number(inputState.value) <= 0 && inputState.focusState !== "focused",
   };
 };
 

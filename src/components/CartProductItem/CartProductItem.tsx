@@ -6,7 +6,7 @@ import type { ProductCardProps } from "../../types";
 import { useCartQuantityUpdater } from "../../hooks/useCartInfosUpdater";
 import { useCheckBoxesToggler } from "../../hooks/useCheckBox";
 import { useCartProductRemover } from "../../hooks/useCartProductRemover";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dataUploader from "../../domains/dataUploader";
 import { IdQuantity } from "../../types";
 
@@ -23,6 +23,9 @@ const CartProductItem = ({
   const { removeCartProduct } = useCartProductRemover();
 
   const uploadQuantity = ({ id, quantity }: IdQuantity) => {
+    setQuantity(() => quantity);
+    updateCartQuantity({ id, quantity });
+
     if (quantity === 1) {
       dataUploader.addCartProduct({ productId: id });
       return;
@@ -50,11 +53,7 @@ const CartProductItem = ({
           productId={productId}
           initialValue={productQuantity}
           minValue={1}
-          quantityUpdateCallbacks={[
-            updateCartQuantity,
-            ({ quantity }) => setQuantity(quantity),
-            uploadQuantity,
-          ]}
+          onChange={uploadQuantity}
         />
       </QuantityInputContainer>
       <ProductPrice>

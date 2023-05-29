@@ -17,7 +17,7 @@ export const Standard: Story = {
     productId: 1,
     initialValue: 0,
     minValue: 0,
-    quantityUpdateCallbacks: [],
+    onChange: () => {},
   },
 };
 

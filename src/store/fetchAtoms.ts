@@ -1,11 +1,12 @@
-import { atom, selector } from "recoil";
+import { selector, atom } from "recoil";
 import { fetchData } from "../domains/fetchData";
 import { isCartProducts, isProductsWithId } from "../types/typeGuards";
-import type { CartProducts, ProductsWithId } from "../types";
 
 const fetchProductsSelector = selector({
   key: "fetchProducts",
-  get: async () => {
+  get: async ({ get }) => {
+    get(productResetterAtom);
+
     const products = await fetchData({
       url: "/products",
       method: "GET",
@@ -14,16 +15,16 @@ const fetchProductsSelector = selector({
 
     return products;
   },
-});
-
-const productsAtom = atom<ProductsWithId>({
-  key: "products",
-  default: fetchProductsSelector,
+  set: ({ set }) => {
+    set(productResetterAtom, crypto.randomUUID());
+  },
 });
 
 const fetchCartProductsSelector = selector({
   key: "fetchCartProducts",
-  get: async () => {
+  get: async ({ get }) => {
+    get(cartProductResetterAtom);
+
     const cartProducts = await fetchData({
       url: "/cart-items",
       method: "GET",
@@ -32,11 +33,25 @@ const fetchCartProductsSelector = selector({
 
     return cartProducts;
   },
+  set: ({ set }) => {
+    set(cartProductResetterAtom, crypto.randomUUID());
+  },
+  cachePolicy_UNSTABLE: { eviction: "most-recent" },
 });
 
-const cartProductsAtom = atom<CartProducts>({
-  key: "cartProducts",
-  default: fetchCartProductsSelector,
+const productResetterAtom = atom({
+  key: "productResetter",
+  default: "",
 });
 
-export { productsAtom, cartProductsAtom };
+const cartProductResetterAtom = atom({
+  key: "cartProductResetter",
+  default: "",
+});
+
+export {
+  fetchProductsSelector,
+  fetchCartProductsSelector,
+  productResetterAtom,
+  cartProductResetterAtom,
+};

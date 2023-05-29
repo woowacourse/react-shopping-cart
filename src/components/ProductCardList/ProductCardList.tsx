@@ -1,19 +1,24 @@
 import styled, { keyframes } from "styled-components";
 import ProductCard from "../ProductCard/ProductCard";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  fetchProductsSelector,
+  fetchCartProductsSelector,
+  productResetterAtom,
+  cartProductResetterAtom,
+} from "../../store/fetchAtoms";
 import { useEffect } from "react";
-import { useRecoilValue, useRecoilRefresher_UNSTABLE } from "recoil";
-import { productsAtom, cartProductsAtom } from "../../store/fetchAtoms";
 
 const ProductCardList = () => {
-  const products = useRecoilValue(productsAtom);
-  const cartProducts = useRecoilValue(cartProductsAtom);
-  const refreshProducts = useRecoilRefresher_UNSTABLE(productsAtom);
-  const refreshCartProducts = useRecoilRefresher_UNSTABLE(cartProductsAtom);
+  const products = useRecoilValue(fetchProductsSelector);
+  const cartProducts = useRecoilValue(fetchCartProductsSelector);
+  const resetProduct = useSetRecoilState(productResetterAtom);
+  const resetCartProduct = useSetRecoilState(cartProductResetterAtom);
 
   useEffect(() => {
-    refreshProducts();
-    refreshCartProducts();
-  }, [refreshProducts, refreshCartProducts]);
+    resetProduct((previousNumber) => previousNumber + 1);
+    resetCartProduct((previousNumber) => previousNumber + 1);
+  }, [resetCartProduct, resetProduct]);
 
   return (
     <ProductCardListContainer>
