@@ -56,6 +56,7 @@ const CartProductList = () => {
         try {
           await deleteCartItem(product.product.id);
           setCart(prev => prev.filter(item => item !== product.product.id));
+          setCheckedCartData(prev => prev.filter(item => item.product.id !== product.product.id));
         } catch (error) {
           toast.error(`${product.product.name}${errorMessage.DELETE}`);
         }
