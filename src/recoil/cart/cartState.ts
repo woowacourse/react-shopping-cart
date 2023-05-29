@@ -127,6 +127,10 @@ export const useCart = () => {
       });
   };
 
+  const totalCartPrice = cart.reduce((totalPrice, cartItem) => {
+    return cartItem.checked ? totalPrice + cartItem.product.price : totalPrice;
+  }, 0);
+
   return {
     cart,
     setCart,
@@ -140,5 +144,7 @@ export const useCart = () => {
     checkedCount,
     toggleAllCartItem,
     deleteCheckedItems,
+
+    totalCartPrice,
   };
 };
