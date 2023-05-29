@@ -4,11 +4,11 @@ import * as S from './Logo.style';
 
 import logoImage from '../../assets/logo.svg';
 import shopImage from '../../assets/shop.svg';
-import { useRefreshCartList } from '../../recoil/cart/cartState';
+import { useResetCartList } from '../../recoil/cart/cartState';
 
 function Logo() {
   const navigate = useNavigate();
-  const refresher = useRefreshCartList();
+  const resetCart = useResetCartList();
 
   return (
     <S.LogoWrapper
@@ -16,7 +16,7 @@ function Logo() {
       aria-label="SHOP 홈페이지로 가기"
       role="button"
       onClick={() => {
-        refresher();
+        resetCart();
         navigate('/');
       }}
     >
