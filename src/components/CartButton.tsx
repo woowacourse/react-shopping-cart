@@ -1,5 +1,4 @@
 import { CartCount } from './CartCount';
-import { useCallback } from 'react';
 import { CartButtonImage } from '../types/image';
 import * as Styled from './styles/CartButton.styles';
 import { useCartState } from './hooks/useCartState';
@@ -17,19 +16,11 @@ export const CartButton = ({ id }: CartButtonProps) => {
     decreaseProductCount,
   } = useCartState(id);
 
-  const handleAddCart = useCallback(() => {
-    handleAddCartState();
-  }, []);
-
-  const handleDeleteCart = useCallback(() => {
-    handleDeleteCartState();
-  }, []);
-
   if (quantity > 0)
     return (
       <CartCount
         quantity={quantity}
-        handleDeleteCart={handleDeleteCart}
+        handleDeleteCart={handleDeleteCartState}
         increaseProductCount={increaseProductCount}
         decreaseProductCount={decreaseProductCount}
       />
@@ -37,7 +28,7 @@ export const CartButton = ({ id }: CartButtonProps) => {
 
   return (
     <Styled.CartButtonImageWrapper>
-      <CartButtonImage onClick={handleAddCart} />
+      <CartButtonImage onClick={handleAddCartState} />
     </Styled.CartButtonImageWrapper>
   );
 };

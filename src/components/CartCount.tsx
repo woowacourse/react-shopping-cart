@@ -10,10 +10,6 @@ export const CartCount = memo(
     increaseProductCount,
     decreaseProductCount,
   }: CartCountProps) => {
-    const increaseCount = () => {
-      increaseProductCount();
-    };
-
     const decreaseCount = () => {
       if (quantity === 1) {
         handleDeleteCart && handleDeleteCart();
@@ -31,7 +27,7 @@ export const CartCount = memo(
             width="20px"
             height="20px"
             data-testid="increase-button"
-            onClick={increaseCount}
+            onClick={increaseProductCount}
           >
             <IncreaseButtonImage />
           </Styled.IncreaseCountButton>
