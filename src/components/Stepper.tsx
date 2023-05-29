@@ -1,27 +1,44 @@
 import { styled } from 'styled-components';
-import { PRODUCT } from '../constants';
 import { useStepper } from '../hooks/useStepper';
 import Button from './common/Button';
 
 interface Props {
   quantity?: number;
+  minQuantity?: number;
+  maxQuantity?: number;
   updateQuantity: (quantity: number) => void;
 }
 
-export default function Stepper({ quantity = 0, updateQuantity }: Props) {
+export default function Stepper({
+  quantity = 0,
+  minQuantity = 0,
+  maxQuantity = 99,
+  updateQuantity,
+}: Props) {
   const { handleInputChange, handleButtonClick } = useStepper({ quantity, updateQuantity });
 
   return (
     <Style.Container>
-      <Button name="decrease" designType="square" onClick={handleButtonClick}>
+      <Button
+        name="decrease"
+        designType="square"
+        onClick={handleButtonClick}
+        disabled={quantity === minQuantity}
+        aria-label="수량 감소"
+      >
         -
       </Button>
-      <Style.CountInput value={quantity} onChange={handleInputChange} />
+      <Style.CountInput
+        value={quantity}
+        onChange={handleInputChange}
+        aria-label={`${minQuantity}이상 ${maxQuantity}이하의 수량을 입력해주세요.`}
+      />
       <Button
         name="increase"
         designType="square"
-        disabled={quantity === PRODUCT.MAX_COUNT}
+        disabled={quantity === maxQuantity}
         onClick={handleButtonClick}
+        aria-label="수량 증가"
       >
         +
       </Button>

@@ -1,20 +1,22 @@
 import { styled } from 'styled-components';
-import { CartIcon } from '../assets/svg';
-import { ProductInfo } from '../types';
-import { useCart } from '../hooks/useCart';
-import { useToast } from '../hooks/useToast';
-import Stepper from './Stepper';
-import Toast from './common/Toast';
+import { CartIcon } from '../../assets/svg';
+import { ProductInfo } from '../../types';
+import { PRODUCT } from '../../constants';
+import { useCart } from '../../hooks/useCart';
+import { useToast } from '../../hooks/useToast';
+import Stepper from '../Stepper';
+import Toast from '../common/Toast';
+import Price from '../common/Price';
 
 interface Props {
-  info: ProductInfo;
+  productInfo: ProductInfo;
 }
 
-export default function Product({ info }: Props) {
-  const { id, name, price, imageUrl } = info;
-  const { addToCart, getProductInCart, updateProductQuantity } = useCart(id);
+export default function Product({ productInfo }: Props) {
+  const { name, price, imageUrl } = productInfo;
+  const { addToCart, getCartItem, updateProductQuantity } = useCart(productInfo);
   const { isOpenToast, openToast, closeToast } = useToast();
-  const productInCart = getProductInCart();
+  const cartItem = getCartItem();
 
   const handleCartClick = () => {
     addToCart();
@@ -29,15 +31,19 @@ export default function Product({ info }: Props) {
       <Style.ProductInfo>
         <Style.ProductNameAndStepperContainer>
           <Style.ProductName title={name}>{name}</Style.ProductName>
-          {productInCart ? (
-            <Stepper quantity={productInCart.quantity} updateQuantity={updateProductQuantity} />
+          {cartItem ? (
+            <Stepper
+              quantity={cartItem.quantity}
+              maxQuantity={PRODUCT.MAX_COUNT}
+              updateQuantity={updateProductQuantity}
+            />
           ) : (
-            <Style.CartIconWrapper onClick={handleCartClick}>
+            <Style.CartIconWrapper onClick={handleCartClick} aria-label="장바구니 추가">
               <CartIcon fill="#AAAAAA" />
             </Style.CartIconWrapper>
           )}
         </Style.ProductNameAndStepperContainer>
-        <Style.ProductPrice>{price.toLocaleString('ko-KR')}원</Style.ProductPrice>
+        <Price price={price} size={'large'} label={`${name}`} />
       </Style.ProductInfo>
       <Toast
         isOpenToast={isOpenToast}
@@ -87,10 +93,6 @@ const Style = {
     font-size: 16px;
     white-space: nowrap;
     text-overflow: ellipsis;
-  `,
-
-  ProductPrice: styled.p`
-    font-size: 20px;
   `,
 
   CartIconWrapper: styled.button`

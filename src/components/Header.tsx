@@ -1,22 +1,20 @@
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { useRecoilState } from 'recoil';
-import { productsInCartState } from '../recoil/atoms';
 import { CartLogo } from '../assets/svg';
+import CartCountBadge from './cart/CartCountBadge';
 
 export default function Header() {
   const navigate = useNavigate();
-  const [productsInCart] = useRecoilState(productsInCartState);
 
   return (
     <Style.Container>
       <Style.Content>
-        <Style.Title onClick={() => navigate('/')}>
+        <Style.Title title="홈으로 이동" onClick={() => navigate('/')}>
           <CartLogo />
         </Style.Title>
-        <Style.CartLink onClick={() => navigate('/')}>
-          <Style.CountInCart>{productsInCart.length}</Style.CountInCart>
-        </Style.CartLink>
+        <Style.CartButton title="장바구니 페이지로 이동" onClick={() => navigate('/cart')}>
+          <CartCountBadge />
+        </Style.CartButton>
       </Style.Content>
     </Style.Container>
   );
@@ -83,7 +81,7 @@ const Style = {
     }
   `,
 
-  CartLink: styled.button`
+  CartButton: styled.button`
     display: flex;
     align-items: center;
 
@@ -93,18 +91,5 @@ const Style = {
       content: '장바구니';
       padding-right: 6px;
     }
-  `,
-
-  CountInCart: styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 30px;
-    height: 30px;
-
-    border-radius: 50%;
-
-    background-color: #04c09e;
   `,
 };

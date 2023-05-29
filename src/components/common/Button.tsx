@@ -2,13 +2,14 @@ import { ButtonHTMLAttributes } from 'react';
 import { styled } from 'styled-components';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  bgColor: 'primary';
-  designType: 'square' | 'rectangle';
+  bgColor: string;
+  designType: 'text' | 'square' | 'rectangle';
+  fontSize: string;
 }
 
-export default function Button({ bgColor, designType, ...props }: Partial<Props>) {
+export default function Button({ bgColor, designType, fontSize, ...props }: Partial<Props>) {
   return (
-    <Style.Button className={designType} {...props}>
+    <Style.Button className={designType} bgColor={bgColor} fontSize={fontSize} {...props}>
       {props.children}
     </Style.Button>
   );
@@ -22,28 +23,51 @@ const Style = {
 
     border: none;
     border-radius: 7px;
-    background-color: var(--grey-100);
+    background-color: ${({ bgColor }) => (bgColor ? bgColor : 'var(--grey-100)')};
 
+    font-size: ${({ fontSize }) => (fontSize ? fontSize : '16px')};
     color: var(--grey-100);
     cursor: pointer;
 
+    &:disabled {
+      background-color: var(--grey-300);
+      cursor: not-allowed;
+    }
+
+    &.text {
+      color: ${({ color }) => (color ? color : 'var(--grey-500)')};
+      background-color: transparent;
+
+      &:disabled {
+        color: var(--grey-300);
+        cursor: not-allowed;
+      }
+    }
+
     &.square {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 28px;
+      height: 28px;
+
       color: var(--grey-600);
       text-align: center;
       line-height: 28px;
+
+      &:disabled {
+        color: var(--grey-300);
+        background-color: var(--grey-100);
+        cursor: not-allowed;
+      }
     }
 
     &.rectangle {
-      width: 388px;
-      height: 73px;
-      border: ${(props) => props.bgColor && 'solid 1px var(--grey-300)'};
-      background-color: ${(props) => props.bgColor && 'var(--primary-color)'};
+      width: 250px;
+      height: 65px;
 
-      color: ${(props) => props.bgColor && 'var(--grey-100)'};
-    }
-
-    &:disabled {
-      color: var(--grey-300);
+      color: ${({ color }) => (color ? color : 'var(--grey-500)')};
     }
   `,
 };

@@ -1,13 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import ProductList from '../components/ProductList';
+import { lazy } from 'react';
+
+const ProductList = lazy(() => import('../components/product/ProductList'));
 
 const meta = {
-  title: 'ShoppingCart/ProductList',
+  title: 'ShoppingCart/product/ProductList',
   component: ProductList,
   tags: ['autodocs'],
-  parameters: {
-    layout: 'fullscreen',
-  },
 } satisfies Meta<typeof ProductList>;
 
 export default meta;

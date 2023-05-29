@@ -1,16 +1,14 @@
-import { Suspense, lazy } from 'react';
+import { Suspense } from 'react';
 import { styled } from 'styled-components';
+import CartList from '../components/cart/CartList';
 
-const ProductList = lazy(() => import('../components/product/ProductList'));
-
-export default function Home() {
+export default function Cart() {
   return (
     <Style.Main>
-      <Style.Content>
-        <Suspense fallback={<p>상품 목록을 로딩 중입니다...</p>}>
-          <ProductList />
-        </Suspense>
-      </Style.Content>
+      <Style.Title>장바구니</Style.Title>
+      <Suspense fallback={<p>장바구니 목록을 로딩 중입니다...</p>}>
+        <CartList />
+      </Suspense>
     </Style.Main>
   );
 }
@@ -18,12 +16,14 @@ export default function Home() {
 const Style = {
   Main: styled.main`
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 
     width: 100%;
     min-width: 992px;
 
-    padding: 140px 30px 60px 30px;
+    padding: 80px 30px 60px 30px;
 
     /* 태블릿 */
     @media screen and (max-width: 991px) {
@@ -36,8 +36,16 @@ const Style = {
     }
   `,
 
-  Content: styled.div`
+  Title: styled.h2`
     width: 932px;
+
+    border-bottom: 4px solid var(--grey-400);
+    padding: 30px 0;
+    margin-bottom: 30px;
+
+    font-size: 24px;
+    color: var(--grey-400);
+    text-align: center;
 
     /* 태블릿 */
     @media screen and (max-width: 991px) {

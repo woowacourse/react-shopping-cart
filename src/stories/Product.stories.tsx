@@ -1,14 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Product from '../components/Product';
+import Product from '../components/product/Product';
 import { styled } from 'styled-components';
 
 const meta = {
-  title: 'ShoppingCart/Product',
+  title: 'ShoppingCart/product/Product',
   component: Product,
   tags: ['autodocs'],
-  parameters: {
-    layout: 'fullscreen',
-  },
 } satisfies Meta<typeof Product>;
 
 export default meta;
@@ -16,7 +13,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    info: {
+    productInfo: {
       id: 1,
       name: '지구',
       price: 1000,

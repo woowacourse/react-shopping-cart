@@ -1,13 +1,20 @@
 import { styled } from 'styled-components';
-import mockData from '../assets/mock.json';
+import { PRODUCTS_BASE_URL } from '../../constants';
+import { ProductInfo } from '../../types';
+import { fetchApi } from '../../api';
+import { createPromise } from '../../utils/suspense';
 import Product from './Product';
 
+const ProductListPromise = createPromise<ProductInfo[]>(fetchApi(PRODUCTS_BASE_URL));
+
 export default function ProductList() {
+  const productList = ProductListPromise.read();
+
   return (
     <Style.Container>
-      {mockData.map((product) => (
+      {productList.map((product) => (
         <li key={product.id}>
-          <Product info={product} />
+          <Product productInfo={product} />
         </li>
       ))}
     </Style.Container>
