@@ -1,11 +1,11 @@
-import { useRecoilValue } from 'recoil';
-import { cartBadge } from '../../../atoms/cart';
+import { cartItemsAmountSelector } from '../../../atoms/cart';
+import { useRefreshableRecoilValue } from '../../../hooks/common/useRefreshableAtom';
 import * as S from './CartBadge.styles';
 
 const CartBadge = () => {
-  const badge = useRecoilValue(cartBadge);
+  const cartItemsAmount = useRefreshableRecoilValue(cartItemsAmountSelector);
 
-  return badge ? <S.Badge>{badge}</S.Badge> : null;
+  return cartItemsAmount ? <S.Badge>{cartItemsAmount}</S.Badge> : null;
 };
 
 export default CartBadge;

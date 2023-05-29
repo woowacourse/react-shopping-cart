@@ -1,5 +1,5 @@
 import { Component, PropsWithChildren, ReactElement } from 'react';
-import { AxiosError } from 'axios';
+import { CustomError } from '../../../validation/errors';
 import ErrorPage from '../../../pages/ErrorPage/ErrorPage';
 
 export interface ErrorBoundaryProps {
@@ -9,7 +9,7 @@ export interface ErrorBoundaryProps {
 
 interface State {
   hasError: boolean;
-  status?: number;
+  message?: string;
 }
 
 class ErrorBoundary extends Component<
@@ -22,19 +22,19 @@ class ErrorBoundary extends Component<
   }
 
   static getDerivedStateFromError(error: Error): State {
-    if (error instanceof AxiosError) {
-      return { hasError: true, status: error.response?.status };
+    if (error instanceof CustomError) {
+      return { hasError: true, message: error.message };
     }
 
     return { hasError: true };
   }
 
   render() {
-    const { hasError, status } = this.state;
+    const { hasError, message } = this.state;
     const { errorFallback = null, page = false, children } = this.props;
 
     if (hasError) {
-      return page ? <ErrorPage status={status} /> : <>{errorFallback}</>;
+      return page ? <ErrorPage message={message} /> : <>{errorFallback}</>;
     }
 
     return children;

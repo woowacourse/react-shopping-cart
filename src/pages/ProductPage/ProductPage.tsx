@@ -1,9 +1,12 @@
 import AsyncBoundary from '../../components/AsyncBoundary/AsyncBoundary';
+import Loading from '../../components/common/Loading/Loading';
 import ProductList from '../../components/ProductPage/ProductList/ProductList';
 
 const ProductPage = () => {
   return (
-    <AsyncBoundary errorFallback={<h1>list error...</h1>}>
+    <AsyncBoundary
+      loadingFallback={<Loading />}
+      errorFallback={<h1>list error...</h1>}>
       <ProductList />
     </AsyncBoundary>
   );

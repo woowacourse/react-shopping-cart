@@ -23,6 +23,8 @@ export const Name = styled.div`
 `;
 
 export const Price = styled.div`
+  padding: 1.5rem 0;
+
   font-size: 2rem;
   color: #33333;
 `;

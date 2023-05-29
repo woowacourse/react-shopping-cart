@@ -1,6 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 
-interface UseCounterOptions {
+export interface UseCounterOptions {
+  init?: number;
   max?: number;
   min?: number;
   step?: number;
@@ -9,8 +10,8 @@ interface UseCounterOptions {
 const useCounter = (
   options: UseCounterOptions
 ): [number, VoidFunction, VoidFunction] => {
-  const { max = Infinity, min = Infinity, step = 1 } = options;
-  const [count, setCount] = useState(1);
+  const { init = 1, max = Infinity, min = -Infinity, step = 1 } = options;
+  const [count, setCount] = useState(init);
 
   const increase = useCallback(() => {
     setCount((prev) => Math.min(prev + step, max));

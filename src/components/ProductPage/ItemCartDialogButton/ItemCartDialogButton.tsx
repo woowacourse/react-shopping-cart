@@ -1,38 +1,23 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { cartState, getCartItemById } from '../../../atoms/cart';
 import { Dialog } from 'react-tiny-dialog';
 import SHOPPING_CART from '../../../assets/png/cart-icon.png';
 import { Product } from '../../../types/products';
-import { Button } from '../../common/Button/Button.styles';
 import QuantityStepper from '../../common/QuantityStepper/QuantityStepper';
-import * as S from './ItemCartDialog.styles';
+import * as S from './ItemCartDialogButton.styles';
 import { useRef } from 'react';
+import { useMutateCart } from '../../../hooks/cart/cart';
+import Button from '../../common/Button/Button';
 
-type ItemCartDialogProps = Product;
+type ItemCartDialogButtonProps = Product;
 
-const ItemCartDialog: React.FC<ItemCartDialogProps> = (props) => {
+const ItemCartDialogButton: React.FC<ItemCartDialogButtonProps> = (props) => {
   const { id, name, price, imageUrl } = props;
-  const setCart = useSetRecoilState(cartState);
   const quantityRef = useRef<HTMLInputElement>(null);
-  const hasItemInCart = Boolean(useRecoilValue(getCartItemById(id)));
+  const { addItemToCartMutation } = useMutateCart();
 
   const addItemToCart = () => {
-    const quantity = Number(quantityRef.current!.value);
+    const quantity = Number(quantityRef.current?.value);
 
-    setCart((cart) => {
-      if (hasItemInCart) {
-        return cart.map((item) =>
-          item.id === id
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        );
-      }
-
-      return [
-        ...cart,
-        { id, quantity, product: { id, name, price, imageUrl } },
-      ];
-    });
+    addItemToCartMutation({ id, quantity });
   };
 
   return (
@@ -49,7 +34,7 @@ const ItemCartDialog: React.FC<ItemCartDialogProps> = (props) => {
             <S.Thumbnail src={imageUrl} alt={name} />
             <S.Name>{name}</S.Name>
             <S.Price>{price.toLocaleString()} 원</S.Price>
-            <QuantityStepper ref={quantityRef} label="item-quantity" />
+            <QuantityStepper ref={quantityRef} max={100} min={1} />
             <Dialog.Close asChild onClick={addItemToCart}>
               <Button size="M" view="black">
                 추가하기
@@ -62,4 +47,4 @@ const ItemCartDialog: React.FC<ItemCartDialogProps> = (props) => {
   );
 };
 
-export default ItemCartDialog;
+export default ItemCartDialogButton;

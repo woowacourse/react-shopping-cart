@@ -8,6 +8,9 @@ export const Quantity = styled.input`
   padding: 0;
 
   border: 1px solid #bbbbbb;
+  border-radius: 0;
+
+  color: #33333;
 
   font-size: 1.4rem;
   text-align: center;

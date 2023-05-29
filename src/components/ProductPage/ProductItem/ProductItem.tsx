@@ -1,6 +1,6 @@
 import { Product } from '../../../types/products';
 import Flex from '../../common/Flex';
-import ItemCartDialog from '../ItemCartDialog/ItemCartDialog';
+import ItemCartDialogButton from '../ItemCartDialogButton/ItemCartDialogButton';
 import * as S from './ProductItem.styles';
 
 type ProductItemProps = Product;
@@ -15,7 +15,7 @@ const ProductItem: React.FC<ProductItemProps> = (props) => {
           <S.Name>{name}</S.Name>
           <S.Price>{price.toLocaleString()} 원</S.Price>
         </Flex>
-        <ItemCartDialog {...props} />
+        <ItemCartDialogButton {...props} />
       </S.Info>
     </S.Root>
   );

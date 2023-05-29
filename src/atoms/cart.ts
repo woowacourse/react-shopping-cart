@@ -1,4 +1,4 @@
-import { selector, atom, selectorFamily } from 'recoil';
+import { selector, atom, selectorFamily, atomFamily } from 'recoil';
 import { CartItem } from '../types/cart';
 import { fetchCart } from '../apis/cart';
 
@@ -14,11 +14,31 @@ export const cartState = atom({
   }),
 });
 
-export const cartBadge = selector({
-  key: 'cartBadge',
+export const cartItemsAmountSelector = selector({
+  key: 'cartItemsAmount',
   get: ({ get }) => {
     return get(cartState).length;
   },
+});
+
+export const selectedItemsState = atom({
+  key: 'selectedItemsState ',
+  default: selector({
+    key: 'selectedItemsStateSelector',
+    get: ({ get }) => {
+      const cart = get(cartState);
+
+      return cart.reduce<Set<CartItem['id']>>(
+        (selectedItems, item) => selectedItems.add(item.id),
+        new Set()
+      );
+    },
+  }),
+});
+
+export const selectedItemsAmountSelector = selector({
+  key: 'selectedItemsAmountSelector',
+  get: ({ get }) => get(selectedItemsState).size,
 });
 
 export const getCartItemById = selectorFamily({
@@ -28,4 +48,18 @@ export const getCartItemById = selectorFamily({
     ({ get }) => {
       return get(cartState).find((item) => item.id === id);
     },
+});
+
+export const totalPriceSelector = selector({
+  key: 'totalPriceSelector',
+  get: ({ get }) => {
+    const cart = get(cartState);
+    const selectedItems = get(selectedItemsState);
+
+    return cart.reduce(
+      (totalPrice, { id, quantity, product: { price } }) =>
+        selectedItems.has(id) ? totalPrice + quantity * price : totalPrice,
+      0
+    );
+  },
 });

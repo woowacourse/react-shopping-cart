@@ -11,7 +11,6 @@
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
     "@types/styled-components": "^5.1.26",
-    "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.1",
@@ -25,6 +24,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "copy-files": "copyfiles -u 1 src/**/mockServiceWorker.js dist/",
     "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -60,6 +60,7 @@
       "last 1 safari version"
     ]
   },
+  "homepage": "https://n0eyes.github.io/react-shopping-cart",
   "devDependencies": {
     "@storybook/addon-essentials": "^7.0.9",
     "@storybook/addon-interactions": "^7.0.9",
@@ -78,11 +79,15 @@
     "eslint-plugin-react": "^7.32.2",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
+    "msw": "^1.2.1",
     "prop-types": "^15.8.1",
     "storybook": "^7.0.9",
     "webpack": "^5.82.0"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --cache --fix"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
