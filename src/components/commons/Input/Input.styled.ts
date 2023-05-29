@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const StyledInput = styled.input`
+import { InputProps } from './Input';
+
+export const StyledInput = styled.input<InputProps>`
   border: 1px solid #dddddd;
   text-align: center;
 

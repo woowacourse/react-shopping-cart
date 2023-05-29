@@ -1,17 +1,30 @@
+import { Link } from 'react-router-dom';
+
 import { LOGO } from '@assets/index';
 
-import { StyledHeader, StyledTitleDiv } from '@components/Header/Header.styled';
-import Heading from '@components/commons/Heading/Heading';
-import CartButton from '@components/CartButton/CartButton';
+import {
+  StyledCartFlexBox,
+  StyledHeader,
+  StyledTitleDiv,
+} from '@components/Header/Header.styled';
+import * as Text from '@components/commons/Text/Text';
+import CartLengthBox from '@components/Header/CartLengthBox/CartLengthBox';
 
 const Header = () => {
   return (
     <StyledHeader>
-      <StyledTitleDiv>
-        <LOGO />
-        <Heading text="SHOP" color="white" fontSize="40px" lineHeight="58px" />
-      </StyledTitleDiv>
-      <CartButton />
+      <Link to="/">
+        <StyledTitleDiv>
+          <LOGO />
+          <Text.Title color="white">SHOP</Text.Title>
+        </StyledTitleDiv>
+      </Link>
+      <Link to="/cart">
+        <StyledCartFlexBox>
+          <Text.Paragraph color="white">장바구니</Text.Paragraph>
+          <CartLengthBox />
+        </StyledCartFlexBox>
+      </Link>
     </StyledHeader>
   );
 };

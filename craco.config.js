@@ -12,6 +12,8 @@ module.exports = {
       '@customTypes': path.resolve(__dirname, 'src/customTypes'),
       '@constants': path.resolve(__dirname, 'src/constants'),
       '@recoil': path.resolve(__dirname, 'src/recoil'),
+      '@mocks': path.resolve(__dirname, 'src/mocks'),
+      '@apis': path.resolve(__dirname, 'src/apis'),
     },
   },
 };

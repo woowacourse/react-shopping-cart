@@ -2,21 +2,8 @@ import { InputHTMLAttributes } from 'react';
 
 import { StyledInput } from '@commons/Input/Input.styled';
 
-const Input = (props: InputHTMLAttributes<HTMLInputElement>) => {
-  const { width, height, type, value, inputMode, alt, size, onChange } = props;
+export type InputProps = InputHTMLAttributes<HTMLInputElement>;
 
-  return (
-    <StyledInput
-      width={width}
-      height={height}
-      type={type}
-      value={value}
-      inputMode={inputMode}
-      alt={alt}
-      size={size}
-      onChange={onChange}
-    ></StyledInput>
-  );
+export const Input = (props: InputProps) => {
+  return <StyledInput {...props} />;
 };
-
-export default Input;

@@ -5,7 +5,6 @@
   "private": true,
   "dependencies": {
     "@craco/craco": "7.1.0",
-    "axios": "1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "6.11.1",
@@ -44,9 +43,11 @@
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-react-hooks": "4.6.0",
     "gh-pages": "5.0.0",
+    "msw": "1.2.1",
     "prettier": "2.8.7",
     "prop-types": "15.8.1",
     "storybook": "7.0.9",
+    "storybook-addon-react-router-v6": "1.0.0",
     "tsconfig-paths-webpack-plugin": "4.0.1",
     "webpack": "5.82.0"
   },
@@ -57,7 +58,7 @@
     "eject": "craco eject",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build && npm run build-storybook && mv storybook-static storybook && mv storybook ./build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
@@ -87,5 +88,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "msw": {
+    "workerDirectory": ".storybook/public"
   }
 }
