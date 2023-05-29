@@ -12,11 +12,10 @@ const Header = ({ children }: PropsWithChildren) => {
   return (
     <HeaderContainer>
       <FlexLink to={ROUTE_PATH.root}>
-        <CartIcon width="50px" height="44px" />
         <Title>{children}</Title>
       </FlexLink>
       <FlexLink to={ROUTE_PATH.cart}>
-        <CartTitle>장바구니</CartTitle>
+        <Cart />
         <CartProductCount>{cartProductCount}</CartProductCount>
       </FlexLink>
     </HeaderContainer>
@@ -35,16 +34,31 @@ const HeaderContainer = styled.header`
   background-color: #333333;
 `;
 
-const Title = styled.h1`
-  font-size: 40px;
-  color: #ffffff;
+const Cart = styled(CartIcon)`
+  width: 30px;
+  height: 30px;
+
+  @media (max-width: 768px) {
+    width: 30px;
+    height: 30px;
+  }
 `;
 
-const CartTitle = styled.span`
-  border: none;
-  background-color: transparent;
+const Title = styled.h1`
+  font-size: 30px;
   color: #ffffff;
-  font-size: 24px;
+
+  @media (max-width: 768px) {
+    font-size: 26px;
+  }
+
+  @media (max-width: 420px) {
+    font-size: 20px;
+  }
+
+  @media (max-width: 360px) {
+    font-size: 18px;
+  }
 `;
 
 const CartProductCount = styled.span`
