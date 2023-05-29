@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   push:
-    branches: ['step1']
+    branches: ['step2']
 
   workflow_dispatch:
 
@@ -37,22 +37,20 @@ jobs:
         run: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
 
-      - name: Set PUBLIC_URL
-        run: |
-          PUBLIC_URL=$(echo $GITHUB_REPOSITORY | sed -r 's/^.+\/(.+)$/\/\1\//')
-          echo PUBLIC_URL=$PUBLIC_URL > .env
-
       - name: Build
         run: |
+          echo BASE_URL=$(echo $GITHUB_REPOSITORY | sed -r 's/^.+\/(.+)$/\/\1/') > .env
           npm run build
+          cp ./dist/index.html ./dist/404.html
 
       - name: Build storybook
         run: |
+          echo BASE_URL=$(echo $GITHUB_REPOSITORY | sed -r 's/^.+\/(.+)$/\/\1/')/storybook > .env
           npm run build-storybook
-          mv ./storybook-static ./build/storybook
+          mv ./storybook-static ./dist/storybook
 
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+          publish_dir: ./dist

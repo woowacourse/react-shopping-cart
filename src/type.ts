@@ -5,10 +5,8 @@ export type Product = {
   imageUrl: string;
 };
 
-export type CartProduct = {
-  id: number;
+export type CartItem = {
   quantity: number;
-  productId: number;
+  product: Product;
+  unselectedForOrder: boolean;
 };
-
-export type Cart = CartProduct[];

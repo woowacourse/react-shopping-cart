@@ -1,8 +1,8 @@
-import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import { ReactComponent as HomeIcon } from '../assets/icons/home-icon.svg';
-import cartCountState from '../recoil/selectors/cartCountState';
-import Badge from './Badge';
+import HomeIcon from '../assets/icons/home-icon.svg';
+import cartItemsState from '../recoil/atoms/cartItemsState';
+import Badge from './common/Badge';
+import AwaitRecoilState from './utils/AwaitRecoilState';
 
 const HeaderContainer = styled.header`
   width: 100%;
@@ -53,19 +53,27 @@ const MenuButton = styled.button`
   font-weight: 500;
 `;
 
-const Header = () => {
-  const cartCount = useRecoilValue(cartCountState);
+type HeaderProps = {
+  onNavigate: (to: string) => void;
+};
+
+const Header = (props: HeaderProps) => {
+  const { onNavigate } = props;
 
   return (
     <HeaderContainer>
       <HeaderContent>
-        <HomeButton>
-          <HomeIcon width={44} />
+        <HomeButton onClick={() => onNavigate('/')}>
+          <img alt="홈" src={HomeIcon} width={44} />
           <HomeButtonText>SHOP</HomeButtonText>
         </HomeButton>
+
         <Menu>
-          <MenuButton>
-            장바구니 <Badge show={cartCount > 0}>{cartCount}</Badge>
+          <MenuButton onClick={() => onNavigate('/cart')}>
+            장바구니{' '}
+            <AwaitRecoilState state={cartItemsState}>
+              {(cartItems) => <Badge show={cartItems.length > 0}>{cartItems.length}</Badge>}
+            </AwaitRecoilState>
           </MenuButton>
         </Menu>
       </HeaderContent>
