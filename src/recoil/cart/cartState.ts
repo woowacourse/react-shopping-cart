@@ -1,16 +1,11 @@
-import {
-  atom,
-  selector,
-  useRecoilRefresher_UNSTABLE,
-  useRecoilState,
-  useRecoilValue,
-} from 'recoil';
+import { atom, selector, useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import type { CartItemType, ProductItemType } from '../../types/ProductType';
 import fetchCartItems from '../../utils/fetchCartItem';
 import { useCallback } from 'react';
-import { MAX_CART_QUANTITY, MIN_CART_QUANTITY } from '../../views/CarItem/constants/cartConstants';
 
-export const CartItemQuery = selector({
+import { isValidCartQuantity } from '../../utils/cartUtils';
+
+export const cartItemQuery = selector({
   key: 'cartListWithInfoState/default',
   get: async () => {
     const cartProducts: CartItemType[] = await fetchCartItems.get();
@@ -23,7 +18,7 @@ export const CartItemQuery = selector({
 
 const cartState = atom<CartItemType[]>({
   key: 'cartListWithInfoState',
-  default: CartItemQuery,
+  default: cartItemQuery,
 });
 
 export default cartState;
@@ -37,7 +32,7 @@ export const useProductListInCart: () => ProductItemType[] = () => {
   });
 };
 
-export const useRefreshCartList = () => useRecoilRefresher_UNSTABLE(cartState);
+export const useRefreshCartList = () => useResetRecoilState(cartState);
 
 export const useCart = () => {
   const [cart, setCart] = useRecoilState(cartState);
@@ -55,7 +50,7 @@ export const useCart = () => {
   };
 
   const setCartItemQuantity = (id: number, quantity: number) => {
-    if (!(quantity < MAX_CART_QUANTITY) || !(quantity >= MIN_CART_QUANTITY)) return;
+    if (isValidCartQuantity(quantity)) return;
 
     //Delete
     if (quantity === 0) {
