@@ -1,5 +1,5 @@
 import { FlexWrapper } from '../../../../pages/Cart/Cart.style';
-import { useCartTotalPriceReadOnly } from '../../../../recoil/cart/withTotalPrice';
+import { useCartTotalPrice } from '../../../../recoil/cart/withTotalPrice';
 import {
   StylePayingBox,
   StylePayingDiv,
@@ -12,9 +12,9 @@ import {
 } from './ExpectedPayment.style';
 
 function ExpectedPayment() {
-  const { totalPriceReadOnly } = useCartTotalPriceReadOnly();
-  const deliveryFee = totalPriceReadOnly ? 3000 : 0;
-  const totalPayingPrice = totalPriceReadOnly + deliveryFee;
+  const { totalPrice } = useCartTotalPrice();
+  const deliveryFee = totalPrice ? 3000 : 0;
+  const totalPayingPrice = totalPrice + deliveryFee;
   return (
     <StylePayingWrapper>
       <StylePayingBox>
@@ -24,7 +24,7 @@ function ExpectedPayment() {
         <StylePayingDiv>
           <FlexWrapper>
             <StyleContentText>총 상품 가격</StyleContentText>
-            <StyleContentText> {totalPriceReadOnly.toLocaleString('ko-KR')}원</StyleContentText>
+            <StyleContentText> {totalPrice.toLocaleString('ko-KR')}원</StyleContentText>
           </FlexWrapper>
           <FlexWrapper>
             <StyleContentText>총 배송비</StyleContentText>
@@ -35,7 +35,7 @@ function ExpectedPayment() {
             <StyleTotalText>{totalPayingPrice.toLocaleString('ko-KR')}원</StyleTotalText>
           </StyleTotalContainer>
         </StylePayingDiv>
-        <PayingButton disabled={totalPriceReadOnly === 0}>결제하기</PayingButton>
+        <PayingButton disabled={totalPrice === 0}>결제하기</PayingButton>
       </StylePayingBox>
     </StylePayingWrapper>
   );

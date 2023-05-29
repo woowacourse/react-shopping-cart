@@ -1,7 +1,7 @@
 import { selector, useRecoilValue } from 'recoil';
 import cartState from './cartState';
 
-const withTotalCheckedCount = selector({
+const totalCheckedCountState = selector({
   key: 'cartCountChecked',
   get: ({ get }) => {
     const cart = get(cartState);
@@ -13,8 +13,8 @@ const withTotalCheckedCount = selector({
   },
 });
 
-export default withTotalCheckedCount;
+export default totalCheckedCountState;
 
-export const useCartTotalCheckedCountReadOnly = () => {
-  return { totalCheckedCountReadLOnly: useRecoilValue(withTotalCheckedCount) };
+export const useCartTotalCheckedCount = () => {
+  return { totalCheckedCount: useRecoilValue(totalCheckedCountState) };
 };

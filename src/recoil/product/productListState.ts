@@ -13,4 +13,4 @@ export const productListState = atom<ProductItemType[]>({
   }),
 });
 
-export const useProductListReadOnly = () => useRecoilValue(productListState);
+export const useProductList = () => useRecoilValue(productListState);

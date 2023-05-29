@@ -16,6 +16,6 @@ const cartTotalPriceState = selector({
 
 export default cartTotalPriceState;
 
-export const useCartTotalPriceReadOnly = () => {
-  return { totalPriceReadOnly: useRecoilValue(cartTotalPriceState) };
+export const useCartTotalPrice = () => {
+  return { totalPrice: useRecoilValue(cartTotalPriceState) };
 };
