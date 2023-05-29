@@ -8,18 +8,29 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     color: #333333
   }
+  
   body {
     margin: 0;
     padding: 0;
   }
-  ul,
-  li {
+  
+  ul,li {
   list-style: none;
-}
+  }
 
-button{
+  button{
   all: unset;
-}
+  cursor: pointer;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  *{
+    font-family: "Helvetica Neue";
+  }
+
 
 `;
 

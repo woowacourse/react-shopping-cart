@@ -1,80 +1,65 @@
-import React, { memo, useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { memo } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ShoppingCartImg } from '../../assets/icon/shopping-cart.svg';
-import { cartAtom, cartAtomState } from '../../recoil/cartState';
+import useCartAtom from '../../hooks/useCartAtom';
+import { WIDTH } from '../../styles/mediaQuery';
 import { Product } from '../../types/product';
-import Counter from '../Counter/Counter';
+import Counter from '../common/Counter/Counter';
 import ProductImg from './ProductImg/ProductImg';
 import ProductInfo from './ProductInfo/ProductInfo';
 
 const ProductCard = ({ id, name, price, imageUrl }: Product) => {
-  const setCart = useSetRecoilState(cartAtom);
-  const [productInCart, setProductInCart] = useRecoilState(cartAtomState(id));
-  const [isCartClicked, setIsCartClicked] = useState(Boolean(productInCart));
-
-  const addToCart = () => {
-    setProductInCart((prev) => ({ ...prev, quantity: 1 }));
-    setCart((prev) => [...prev, id]);
-    setIsCartClicked(true);
-  };
-
-  const plusOne = () => {
-    setProductInCart((prev) => ({ ...prev, quantity: prev.quantity + 1 }));
-    console.log(productInCart);
-  };
-
-  const minusOne = () => {
-    setProductInCart((prev) => ({
-      ...prev,
-      quantity: prev.quantity - 1 < 0 ? 0 : prev.quantity - 1,
-    }));
-    if (productInCart.quantity <= 1) {
-      setCart((prev) => [...prev.filter((num) => num !== id)]);
-      setIsCartClicked(false);
-    }
-    console.log(productInCart);
-  };
+  const { count, addToCart, plusOne, minusOne } = useCartAtom(id, {
+    id,
+    name,
+    price,
+    imageUrl,
+  });
 
   return (
-    <Styled.Container>
+    <Container>
       <ProductImg imageUrl={imageUrl} />
-      <Styled.ProductDetail>
+      <ProductDetail>
         <ProductInfo name={name} price={price} />
-        {isCartClicked ? (
-          <Counter
-            plusOne={plusOne}
-            minusOne={minusOne}
-            quantity={productInCart.quantity}
-          />
+        {count > 0 ? (
+          <Counter plusOne={plusOne} minusOne={minusOne} quantity={count} />
         ) : (
-          <Styled.ShoppingCart onClick={addToCart}>
+          <ShoppingCart onClick={addToCart}>
             <ShoppingCartImg />
-          </Styled.ShoppingCart>
+          </ShoppingCart>
         )}
-      </Styled.ProductDetail>
-    </Styled.Container>
+      </ProductDetail>
+    </Container>
   );
 };
 
-const Styled = {
-  Container: styled.li`
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+const Container = styled.li`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 
-    width: 282px;
-  `,
+  width: 282px;
 
-  ProductDetail: styled.div`
-    display: flex;
-    justify-content: space-between;
-  `,
+  @media (max-width: ${WIDTH.MD}) {
+    gap: 8px;
 
-  ShoppingCart: styled.button`
-    display: flex;
+    width: 160px;
+  }
+`;
 
-    cursor: pointer;
-  `,
-};
+const ProductDetail = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ShoppingCart = styled.button`
+  display: flex;
+
+  cursor: pointer;
+
+  @media (max-width: ${WIDTH.MD}) {
+    width: 20px;
+  }
+`;
+
 export default memo(ProductCard);

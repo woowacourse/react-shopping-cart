@@ -6,15 +6,13 @@ interface ProductImgProps {
 }
 
 const ProductImg = ({ imageUrl }: ProductImgProps) => {
-  return <Styled.Img src={imageUrl} />;
+  return <Img src={imageUrl} />;
 };
 
-const Styled = {
-  Img: styled.img`
-    width: 282px;
-    height: 282px;
+const Img = styled.img`
+  width: 100%;
 
-    cursor: pointer;
-  `,
-};
+  cursor: pointer;
+`;
+
 export default memo(ProductImg);

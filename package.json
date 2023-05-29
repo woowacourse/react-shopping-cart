@@ -1,8 +1,8 @@
 {
   "name": "react-shopping-cart",
   "version": "0.1.0",
-  "homepage": "https://shackstack.github.io/react-shopping-cart",
   "private": true,
+  "homepage": "https://shackstack.github.io/react-shopping-cart/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -11,6 +11,7 @@
     "@types/node": "^16.18.27",
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
+    "msw-storybook-addon": "^1.8.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.1",
@@ -29,7 +30,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "chromatic": "npx chromatic --project-token=chpt_e1fe0c020cf30ba"
   },
   "eslintConfig": {
     "extends": [
@@ -69,13 +71,20 @@
     "@storybook/testing-library": "^0.0.14-next.2",
     "@types/styled-components": "^5.1.26",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "chromatic": "^6.17.4",
     "eslint": "^8.40.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "gh-pages": "^5.0.0",
+    "msw": "^1.2.1",
     "prettier": "^2.8.8",
     "prop-types": "^15.8.1",
     "storybook": "^7.0.9",
-    "webpack": "^5.82.0",
-    "gh-pages": "^5.0.0"
-  }
+    "webpack": "^5.82.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "react-shopping-cart@0.1.0"
 }

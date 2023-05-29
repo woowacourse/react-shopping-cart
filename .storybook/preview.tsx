@@ -1,10 +1,25 @@
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import type { Preview } from '@storybook/react';
-import GlobalStyle from '../src/styles/GlobalStyle';
 import { RecoilRoot } from 'recoil';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
+import { handlers } from '../src/mocks/handlers';
+import GlobalStyle from '../src/styles/GlobalStyle';
+
+let options = {};
+if (location.hostname === 'shackstack.github.io') {
+  options = {
+    serviceWorker: {
+      url: '/react-shopping-cart/mockServiceWorker.js',
+    },
+  };
+}
+
+initialize(options);
 
 const preview: Preview = {
   parameters: {
+    msw: handlers,
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
@@ -12,42 +27,18 @@ const preview: Preview = {
         date: /Date$/,
       },
     },
-    viewport: {
-      defaultViewport: 'Desktop',
-      viewports: {
-        iphone6: {
-          name: 'iPhone 6',
-          styles: {
-            width: '375px',
-            height: '667px',
-          },
-        },
-        ipad: {
-          name: 'iPad',
-          styles: {
-            width: '768px',
-            height: '1024px',
-          },
-        },
-        desktop: {
-          name: 'Desktop',
-          styles: {
-            width: '1440px',
-            height: '900px',
-          },
-        },
-      },
-    },
   },
+
   decorators: [
     (Story) => (
-      <>
-        <RecoilRoot>
-          <GlobalStyle />
+      <RecoilRoot>
+        <GlobalStyle />
+        <MemoryRouter initialEntries={['/']}>
           <Story />
-        </RecoilRoot>
-      </>
+        </MemoryRouter>
+      </RecoilRoot>
     ),
+    mswDecorator,
   ],
 };
 

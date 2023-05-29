@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { ReactComponent as ShoppingCartIcon } from '../../assets/icon/logo.svg';
+import { ReactComponent as ShoppingCartIcon } from '../../assets/icon/stussy-logo.svg';
+import { WIDTH } from '../../styles/mediaQuery';
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -8,45 +9,68 @@ interface HeaderProps {
 
 const Header = ({ children }: HeaderProps) => {
   return (
-    <Styled.Container>
+    <Container>
       <Link to='/'>
-        <Styled.HomeButton>
-          <ShoppingCartIcon />
-          <Styled.Title>SHOP</Styled.Title>
-        </Styled.HomeButton>
+        <HomeButton>
+          <ShoppingCartIconContainer>
+            <ShoppingCartIcon width='100%' />
+          </ShoppingCartIconContainer>
+        </HomeButton>
       </Link>
-      <>{children}</>
-    </Styled.Container>
+      <Link to='/cart'>{children}</Link>
+    </Container>
   );
 };
 
-const Styled = {
-  Container: styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    margin: 0;
-    padding: 18px 15%;
+  height: 60px;
 
-    background: #333333;
-  `,
+  margin: 0;
+  padding: 18px 15%;
 
-  HomeButton: styled.button`
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  background: #333333;
 
-    background-color: transparent;
+  min-width: ${WIDTH.SM};
 
-    cursor: pointer;
-  `,
+  @media (max-width: ${WIDTH.MD}) {
+    padding: 8px 12%;
 
-  Title: styled.h1`
-    padding-top: 4px;
-    letter-spacing: 1px;
-    color: #fff;
-  `,
-};
+    h1 {
+      font-size: 20px;
+    }
+
+    h2 {
+      font-size: 16px;
+    }
+  }
+`;
+
+const HomeButton = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  background-color: transparent;
+
+  cursor: pointer;
+
+  @media (max-width: ${WIDTH.MD}) {
+    gap: 4px;
+  }
+`;
+
+const ShoppingCartIconContainer = styled.div`
+  padding-top: 10px;
+  width: 60px;
+  fill: #fff;
+
+  @media (max-width: ${WIDTH.MD}) {
+    width: 45px;
+  }
+`;
 
 export default Header;
