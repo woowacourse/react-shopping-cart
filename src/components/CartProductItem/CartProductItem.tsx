@@ -30,6 +30,11 @@ const CartProductItem = ({
       dataUploader.addCartProduct({ productId: id });
       return;
     }
+    
+    if (quantity === 0) {
+      dataUploader.removeCartProduct(id);
+      return;
+    }
 
     dataUploader.updateQuantity({ id, quantity });
   };

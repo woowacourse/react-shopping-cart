@@ -21,6 +21,11 @@ const ProductCard = ({
       return;
     }
 
+    if (quantity === 0) {
+      dataUploader.removeCartProduct(id);
+      return;
+    }
+
     dataUploader.updateQuantity({ id, quantity });
   };
 
