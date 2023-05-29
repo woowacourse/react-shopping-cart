@@ -28,7 +28,7 @@ export default class HTTPClient {
       throw Error(response.status.toString());
     }
 
-    const data = response.json();
+    const data = await response.json();
     return data;
   }
 

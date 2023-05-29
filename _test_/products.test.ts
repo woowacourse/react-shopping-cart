@@ -1,8 +1,10 @@
 import { getProductsData } from "../src/api/products";
-import { getCartData } from "../src/api/cart";
-import { postCartProduct } from "../src/api/cart";
-import { patchProductCount } from "../src/api/cart";
-import { deleteCartProduct } from "../src/api/cart";
+import {
+  getCartData,
+  postCartProduct,
+  patchProductCount,
+  deleteCartProduct,
+} from "../src/api/cart";
 
 describe("상품 데이터 패칭 테스트", () => {
   beforeEach(() => {
@@ -156,35 +158,38 @@ describe("장바구니 데이터 패칭 테스트", () => {
     const mockResponse = {
       ok: true,
       status: 200,
+      json: jest.fn().mockResolvedValueOnce({}),
     };
 
     global.fetch = jest.fn().mockResolvedValue(mockResponse);
 
     const data = await postCartProduct(mockData);
-    expect(data).toEqual(mockResponse);
+    expect(data).toEqual({});
   });
 
   it("장바구니 데이터 patch 테스트", async () => {
     const mockResponse = {
       ok: true,
       status: 200,
+      json: jest.fn().mockResolvedValueOnce({}),
     };
 
     global.fetch = jest.fn().mockResolvedValue(mockResponse);
 
     const data = await patchProductCount(1, 1);
-    expect(data).toEqual(mockResponse);
+    expect(data).toEqual({});
   });
 
   it("장바구니 데이터 delete 테스트", async () => {
     const mockResponse = {
       ok: true,
       status: 200,
+      json: jest.fn().mockResolvedValueOnce({}),
     };
 
     global.fetch = jest.fn().mockResolvedValue(mockResponse);
 
     const data = await deleteCartProduct([1]);
-    expect(data).toEqual(mockResponse);
+    expect(data).toEqual({});
   });
 });
