@@ -1,13 +1,11 @@
-import { useRecoilValue } from "recoil";
-import useLocalCart from "../../hooks/useLocalCart";
-import { fetchedProductListSelector } from "../../store/fetchSelectors";
+import { useRecoilState } from "recoil";
+import { fetchedProductListAtom } from "../../store/productState";
 import ProductCard from "../ProductCard/ProductCard";
 import Styled from "./ProductCardListStyled";
 
 const ProductCardList = () => {
-  const fetchedProductList = useRecoilValue(fetchedProductListSelector);
+  const [fetchedProductList] = useRecoilState(fetchedProductListAtom);
 
-  useLocalCart();
   return (
     <Styled.Container>
       {fetchedProductList.map((product) => (

@@ -1,10 +1,11 @@
 import { memo } from "react";
-import { ReactComponent as ShoppingCartImg } from "../../assets/icon/shopping-cart.svg";
-import Counter from "../Counter/Counter";
-import ProductImg from "./ProductImg/ProductImg";
+import { ReactComponent as ShoppingCartIcon } from "../../assets/icon/shopping-cart.svg";
+import Counter from "../common/Counter/Counter";
+import ProductImg from "../ProductImg/ProductImg";
 import ProductInfo from "./ProductInfo/ProductInfo";
 import useCart from "../../hooks/useCart";
 import Styled from "./ProductCardStyled";
+import IconButton from "../common/IconButton/IconButton";
 
 interface ProductCardProps {
   productId: number;
@@ -23,23 +24,38 @@ const ProductCard = ({ productId }: ProductCardProps) => {
 
   return (
     <Styled.Container>
-      <ProductImg src={imageUrl} alt={name} />
+      <ProductImg
+        theme={imgTheme}
+        src={imageUrl ? imageUrl : undefined}
+        alt={name}
+      />
       <Styled.ProductDetail>
         <ProductInfo name={name} price={price} />
         {isCartClicked ? (
           <Counter
-            plusQuantity={plusQuantity}
-            minusQuantity={minusQuantity}
+            onPlus={plusQuantity}
+            onMinus={minusQuantity}
             quantity={cart.quantity}
+            theme={counterTheme}
           />
         ) : (
-          <Styled.ShoppingCart onClick={addToCart}>
-            <ShoppingCartImg />
-          </Styled.ShoppingCart>
+          <IconButton onClick={addToCart}>
+            <ShoppingCartIcon />
+          </IconButton>
         )}
       </Styled.ProductDetail>
     </Styled.Container>
   );
 };
 
+const counterTheme = {
+  alignSelf: "auto",
+  width: "72px",
+  height: "32px",
+};
+
+const imgTheme = {
+  width: "282px",
+  height: "282px",
+};
 export default memo(ProductCard);

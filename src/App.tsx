@@ -1,8 +1,8 @@
 import { RecoilRoot } from "recoil";
 import { styled } from "styled-components";
-import CartTextButton from "./components/CartTextButton/CartTextButton";
-import Header from "./components/Header/Header";
 import { Outlet } from "react-router-dom";
+import CartTextButton from "./components/CartTextButton/CartTextButton";
+import Header from "./components/common/Header/Header";
 
 function App() {
   return (
@@ -10,20 +10,22 @@ function App() {
       <Header>
         <CartTextButton />
       </Header>
-      <Layout>
+      <Styled.Layout>
         <Outlet />
-      </Layout>
+      </Styled.Layout>
     </RecoilRoot>
   );
 }
 
 export default App;
 
-const Layout = styled.div`
-  display: flex;
-  justify-content: center;
+const Styled = {
+  Layout: styled.div`
+    display: flex;
+    justify-content: center;
 
-  padding: 64px 0px;
+    padding: 147px 0px 10px 0px;
 
-  width: 100%;
-`;
+    width: 100%;
+  `,
+};

@@ -1,4 +1,22 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, keyframes } from "styled-components";
+
+export const skeletonAnimation = keyframes`
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+`;
+
+export const spin = keyframes` 
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+`;
 
 const GlobalStyle = createGlobalStyle`
   * {

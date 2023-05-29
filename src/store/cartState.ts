@@ -1,36 +1,57 @@
 import { atom, atomFamily, selector } from "recoil";
 import { Cart } from "../types/product";
 
-export const cartAtomFamily = atomFamily<Cart, number>({
-  key: "cart",
-  default: (id) => {
-    return JSON.parse(localStorage.getItem(`cart`) || "[]").find(
-      (cart: Cart) => cart.id === id
-    );
-  },
+export const fetchedShoppingListAtom = atom<Cart[]>({
+  key: "fetchedShoppingList",
+  default: [],
 });
 
-export const cartIDAtom = atom<number[]>({
-  key: "cartID",
-  default: JSON.parse(localStorage.getItem(`cart`) || "[]").map(
-    (cart: Cart) => cart.id
-  ),
+export const cartAtomFamily = atomFamily<Cart, number>({
+  key: "cart",
+  default: (id) => ({
+    id,
+    quantity: 0,
+    product: { id: 0, name: "", price: 0, imageUrl: "" },
+  }),
+});
+
+export const cartIdAtom = atom<number[]>({
+  key: "cartId",
+  default: [],
+});
+
+export const checkedCartIdAtom = atom<number[]>({
+  key: "checkedCartId",
+  default: [],
 });
 
 export const cartAllSelector = selector<Cart[]>({
   key: "cartAll",
   get: ({ get }) => {
-    const cart = get(cartIDAtom).map((id) => {
+    const cart = get(cartIdAtom).map((id) => {
       return get(cartAtomFamily(id));
     });
     return cart;
   },
 });
+
+export const cartAllPriceSelector = selector<number>({
+  key: "cartAllPrice",
+  get: ({ get }) => {
+    const carts = get(cartAllSelector);
+    const price = carts.reduce((sum, cart) => {
+      return sum + cart.quantity * cart.product.price;
+    }, 0);
+
+    return price;
+  },
+});
+
 export const cartQuantitySelector = selector({
-  key: "cartQuantitySelector",
+  key: "cartQuantity",
   get: ({ get }) => {
     const carts = get(cartAllSelector);
     const quantity = carts.length;
-    return quantity < 100 ? quantity : "99";
+    return quantity;
   },
 });
