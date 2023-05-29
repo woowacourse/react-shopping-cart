@@ -26,7 +26,7 @@ const CartProduct = ({ cartItem }: CartProductProps, ref: ForwardedRef<HTMLInput
       await updateCartItem(product.id, count + 1);
       setCount(prev => prev + 1);
     } catch (e) {
-      toast.error(`${product.name}${errorMessage.quantity}`);
+      toast.error(`${product.name}${errorMessage.QUANTITY}`);
     }
   };
 
@@ -37,7 +37,7 @@ const CartProduct = ({ cartItem }: CartProductProps, ref: ForwardedRef<HTMLInput
         return;
       }
     } catch (e) {
-      toast.error(`${product.name}${errorMessage.quantity}`);
+      toast.error(`${product.name}${errorMessage.QUANTITY}`);
     }
 
     setCount(prev => prev - 1);
@@ -49,7 +49,7 @@ const CartProduct = ({ cartItem }: CartProductProps, ref: ForwardedRef<HTMLInput
       setCart(prev => prev.filter(item => item !== product.id));
       setCheckedCartData(prev => prev.filter(item => item.product.id !== product.id));
     } catch (e) {
-      toast.error(`${product.name}${errorMessage.delete}`);
+      toast.error(`${product.name}${errorMessage.DELETE}`);
     }
   };
 

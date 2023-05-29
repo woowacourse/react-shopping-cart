@@ -24,7 +24,7 @@ const AddCartButton = ({ id, name }: AddCardButtonProps) => {
       setCart(prev => [...prev, id]);
       setCount(prev => prev + 1);
     } catch (e) {
-      toast.error(`${name}${errorMessage.addProduct}`);
+      toast.error(`${name}${errorMessage.ADD_PRODUCT}`);
     }
   };
 
@@ -33,7 +33,7 @@ const AddCartButton = ({ id, name }: AddCardButtonProps) => {
       await updateCartItem(id, count + 1);
       setCount(prev => prev + 1);
     } catch (e) {
-      toast.error(`${name}${errorMessage.quantity}`);
+      toast.error(`${name}${errorMessage.QUANTITY}`);
     }
   };
 
@@ -45,7 +45,7 @@ const AddCartButton = ({ id, name }: AddCardButtonProps) => {
         setCart(prev => prev.filter(item => item !== id));
       }
     } catch (e) {
-      toast.error(`${name}${errorMessage.quantity}`);
+      toast.error(`${name}${errorMessage.QUANTITY}`);
     }
 
     setCount(prev => prev - 1);
@@ -62,7 +62,7 @@ const AddCartButton = ({ id, name }: AddCardButtonProps) => {
         await updateCartItem(id, inputCount);
       }
     } catch (e) {
-      toast.error(`${name}${errorMessage.quantity}`);
+      toast.error(`${name}${errorMessage.QUANTITY}`);
     }
   };
 
