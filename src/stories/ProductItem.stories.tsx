@@ -1,5 +1,4 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { RecoilRoot } from 'recoil';
 import { userEvent, waitFor, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
@@ -9,14 +8,6 @@ const meta = {
   title: 'Product/ProductItem',
   component: ProductItem,
   tags: ['autodocs'],
-  argTypes: {},
-  decorators: [
-    (Story) => (
-      <RecoilRoot>
-        <Story />
-      </RecoilRoot>
-    ),
-  ],
 } satisfies Meta<typeof ProductItem>;
 
 export default meta;

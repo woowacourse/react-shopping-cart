@@ -1,7 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { userEvent, waitFor, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { BrowserRouter } from 'react-router-dom';
 
 import ProductsListPage from '../../pages/ProductsListPage';
 
@@ -9,14 +8,6 @@ const meta = {
   title: 'Pages/ProductsListPage',
   component: ProductsListPage,
   tags: ['autodocs'],
-  argTypes: {},
-  decorators: [
-    (Story) => (
-      <BrowserRouter>
-        <Story />
-      </BrowserRouter>
-    ),
-  ],
   parameters: {
     viewport: {
       defaultViewport: 'desktop',

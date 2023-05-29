@@ -1,9 +1,12 @@
 import type { Product } from '../types/product';
+import { getData } from './utils';
 
-const URL = `${process.env.PUBLIC_URL}/data/products.json`;
+const productApis = {
+  baseUrl: '/products',
 
-export const fetchProducts = async () => {
-  const response = await fetch(URL);
-  const data: Product[] = await response.json();
-  return data;
+  get() {
+    return getData<Product[]>(productApis.baseUrl);
+  },
 };
+
+export default productApis;

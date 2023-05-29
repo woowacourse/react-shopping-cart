@@ -1,17 +1,19 @@
+import { Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import styled from 'styled-components';
-import { RecoilRoot } from 'recoil';
 
-import Header from '../components/Common/Header';
+import Message from '../components/Common/Message';
 import ProductList from '../components/Product/ProductList';
 
 const ProductsListPage = () => {
   return (
-    <RecoilRoot>
-      <Header />
-      <Main>
-        <ProductList />
-      </Main>
-    </RecoilRoot>
+    <Main>
+      <ErrorBoundary fallback={<Message type='error' />}>
+        <Suspense fallback={<Message type='loading' />}>
+          <ProductList />
+        </Suspense>
+      </ErrorBoundary>
+    </Main>
   );
 };
 

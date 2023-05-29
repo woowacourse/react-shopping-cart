@@ -3,7 +3,10 @@ import { useState } from 'react';
 
 import AmountCounter from '../components/Common/AmountCounter';
 
+type AmountCounterSizeType = 'small' | 'medium';
+
 interface AmountCounterProps {
+  variant: AmountCounterSizeType;
   count: number;
   addCount: () => void;
   subtractCount: () => void;
@@ -13,7 +16,12 @@ const meta: Meta = {
   title: 'Common/AmountCounter',
   component: AmountCounter,
   tags: ['autodocs'],
-  args: { count: 1, addCount: () => {}, subtractCount: () => {} },
+  args: {
+    variant: 'small',
+    count: 1,
+    addCount: () => {},
+    subtractCount: () => {},
+  },
 };
 
 export default meta;

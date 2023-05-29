@@ -1,18 +1,38 @@
 import React from 'react';
 import { Preview } from '@storybook/react';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import { RecoilRoot } from 'recoil';
+import { BrowserRouter } from 'react-router-dom';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
 import { ThemeProvider } from 'styled-components';
 
 import GlobalStyle from '../src/styles';
 import theme from '../src/styles/theme';
+import { handlers } from '../src/mocks/handlers';
+
+let options = {};
+if (location.hostname === 'leejin-yang.github.io') {
+  options = {
+    serviceWorker: {
+      url: '/react-shopping-cart/mockServiceWorker.js',
+    },
+  };
+}
+
+initialize(options);
 
 export const decorators = [
   (Story) => (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <Story />
-    </ThemeProvider>
+    <BrowserRouter>
+      <RecoilRoot>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <Story />
+        </ThemeProvider>
+      </RecoilRoot>
+    </BrowserRouter>
   ),
+  mswDecorator,
 ];
 
 const customViewports = {
@@ -36,6 +56,7 @@ export const parameters = {
       ...customViewports,
     },
   },
+  msw: handlers,
 };
 
 const preview: Preview = { parameters };

@@ -1,26 +1,24 @@
-import type { CartProduct } from '../../types/product';
+import type { CartProduct, Product } from '../../types/product';
 
 export const findTargetProduct = (cartProducts: CartProduct[], id: number) =>
   cartProducts.find((cartProduct) => id === cartProduct.product.id);
 
+export const addTargetProduct = (
+  cartProducts: CartProduct[],
+  product: Product
+) => [...cartProducts, { id: product.id, quantity: 1, product }];
+
 export const deleteTargetProduct = (cartProducts: CartProduct[], id: number) =>
   cartProducts.filter((cartProduct) => cartProduct.product.id !== id);
 
-export const addTargetQuantity = (cartProducts: CartProduct[], id: number) =>
-  cartProducts.map((cartProduct) => {
-    if (cartProduct.product.id === id) {
-      return { ...cartProduct, quantity: cartProduct.quantity + 1 };
-    }
-    return cartProduct;
-  });
-
-export const subtractTargetQuantity = (
+export const updateTargetQuantity = (
   cartProducts: CartProduct[],
-  id: number
+  id: number,
+  quantity: number
 ) =>
   cartProducts.map((cartProduct) => {
     if (cartProduct.product.id === id) {
-      return { ...cartProduct, quantity: cartProduct.quantity - 1 };
+      return { ...cartProduct, quantity };
     }
     return cartProduct;
   });

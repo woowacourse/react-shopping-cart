@@ -1,9 +1,9 @@
 import { useRecoilValue } from 'recoil';
 
-import { cartProductCountState } from '../states/cartProducts';
+import { cartProductCountSelector } from '../states/cartProducts';
 
 const useCartProductCount = () => {
-  const cartProductCount = useRecoilValue(cartProductCountState);
+  const cartProductCount = useRecoilValue(cartProductCountSelector);
 
   return cartProductCount;
 };
