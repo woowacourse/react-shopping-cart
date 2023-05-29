@@ -3,14 +3,15 @@ import * as T from '../../../../types/ProductType';
 
 import QuantityCounter from '../../../../common/Stepper';
 import cartIcon from '../../../../assets/cart.svg';
-import { useCartItemQuantityBy } from '../../../../recoil/cart/withItemQuantityBy';
+import { useCart } from '../../../../recoil/cart/cartState';
 
 interface CartQuantityFieldProps {
   product: T.ProductItemType;
 }
 
 function CartQuantityField({ product }: CartQuantityFieldProps) {
-  const [quantity, setQuantity] = useCartItemQuantityBy(product.id);
+  const { getCartItemQuantity, setCartItemQuantity, addCartItem } = useCart();
+  const quantity = getCartItemQuantity(product.id);
 
   const isQuantityZero = quantity > 0;
 
@@ -20,13 +21,13 @@ function CartQuantityField({ product }: CartQuantityFieldProps) {
         <QuantityCounter
           quantity={quantity}
           onChange={(event) => {
-            setQuantity(Number(event.target.value));
+            setCartItemQuantity(product.id, Number(event.target.value));
           }}
           onIncrease={() => {
-            setQuantity(quantity + 1);
+            setCartItemQuantity(product.id, quantity + 1);
           }}
           onDecrease={() => {
-            setQuantity(quantity - 1);
+            setCartItemQuantity(product.id, quantity - 1);
           }}
           ariaIncreaseLabel={`${product.name}의 장바구니에 담긴 개수에서 하나 더하기`}
           ariaDecreaseLabel={`${product.name}의 장바구니에 담긴 개수에서 하나 빼기`}
@@ -34,7 +35,7 @@ function CartQuantityField({ product }: CartQuantityFieldProps) {
       ) : (
         <S.CartIcon
           onClick={() => {
-            setQuantity(1);
+            addCartItem(product.id);
           }}
           type="button"
           aria-label={`${product.name}를 장바구니에 담기`}

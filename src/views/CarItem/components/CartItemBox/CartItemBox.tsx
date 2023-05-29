@@ -12,13 +12,14 @@ import {
   StylePriceText,
   StyleProductInfo,
 } from './CartItemBox.style';
-import { useCartItemQuantityBy } from '../../../../recoil/cart/withItemQuantityBy';
-import { useCartItemCheckedBy } from '../../../../recoil/cart/withItemCheckBy';
+
+import { useCart } from '../../../../recoil/cart/cartState';
 
 function CartItemBox({ id, imageUrl, name, price }: ProductItemType) {
-  // id: cartItem
-  const [quantity, setQuantity] = useCartItemQuantityBy(id);
-  const { isChecked, toggleCheck } = useCartItemCheckedBy(id);
+  const { getCartItemQuantity, setCartItemQuantity, getCartItemCheck, setCartItemCheck } =
+    useCart();
+  const quantity = getCartItemQuantity(id);
+  const isChecked = getCartItemCheck(id);
 
   return (
     <StyleCartItemWrapper>
@@ -26,7 +27,7 @@ function CartItemBox({ id, imageUrl, name, price }: ProductItemType) {
         type="checkbox"
         checked={isChecked}
         onChange={() => {
-          toggleCheck();
+          setCartItemCheck(id, !isChecked);
         }}
         size="medium"
       />
@@ -40,20 +41,20 @@ function CartItemBox({ id, imageUrl, name, price }: ProductItemType) {
           <StyleDeleteIcon
             src={deleteButton}
             onClick={() => {
-              setQuantity(0);
+              setCartItemQuantity(id, 0);
             }}
           />
         </StyleDeleteBox>
         <Stepper
           onChange={(event) => {
-            setQuantity(Number(event.target.value));
+            setCartItemQuantity(id, Number(event.target.value));
           }}
           onIncrease={() => {
-            setQuantity(quantity + 1);
+            setCartItemQuantity(id, quantity + 1);
           }}
           onDecrease={() => {
             if (quantity === 1) return;
-            setQuantity(quantity - 1);
+            setCartItemQuantity(id, quantity - 1);
           }}
           quantity={quantity}
         />

@@ -7,12 +7,12 @@ import {
   StyleCartWrapper,
 } from './CartItemList.style';
 import CheckBox from '../../../../common/CheckBox/CheckBox';
-import { useCheckCart, useProductListInCart } from '../../../../recoil/cart/cartState';
+import { useCart, useProductListInCart } from '../../../../recoil/cart/cartState';
 
 function CartItemListContainer() {
   const productListInCart = useProductListInCart();
 
-  const { isAllChecked, checkedCount, toggleAllCartItem, deleteCheckedItems } = useCheckCart();
+  const { isAllChecked, checkedCount, toggleAllCartItem, deleteCheckedItems } = useCart();
 
   const productCount = productListInCart.length;
 
@@ -29,7 +29,6 @@ function CartItemListContainer() {
       {productListInCart.map(({ id, imageUrl, name, price }) => {
         return (
           <li key={id}>
-            {/* id: CartItem */}
             <CartItemBox id={id} imageUrl={imageUrl} name={name} price={price} />
           </li>
         );
