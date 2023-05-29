@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 export const ProductItemWrapper = styled.div`
-  width: 400px;
-  padding: 47px;
+  width: 226px;
 `;
 
 export const ImageOverflowContainer = styled.div`
@@ -37,11 +36,14 @@ export const ProductItemImage = styled.img`
   object-fit: cover;
 `;
 
-export const ProductItemTitle = styled.span``;
+export const ProductItemTitle = styled.span`
+  font-size: 14px;
+  margin-right: 10px;
+`;
 
 export const ProductItemPrice = styled.span`
   font-weight: 400;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 27px;
 `;
 

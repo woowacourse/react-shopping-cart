@@ -2,10 +2,10 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'react', 'prettier'],
   extends: [
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
-    "prettier"
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'prettier',
   ],
   parserOptions: {
     ecmaVersion: 2021,
@@ -20,7 +20,7 @@ module.exports = {
     node: true,
   },
   rules: {
-    'prettier/prettier': 'error',
+    'prettier/prettier': ['error', { printWidth: 120 }],
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
@@ -33,9 +33,9 @@ module.exports = {
     'prefer-arrow-callback': 'error',
     'object-shorthand': 'warn',
     '@typescript-eslint/no-explicit-any': 'off',
-    "quotes": ["error", "single"],
+    quotes: ['error', 'single'],
     '@typescript-eslint/no-empty-function': 'off',
-    "react/function-component-definition": [2, { "namedComponents": "arrow-function" }]
+    'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],
   },
   settings: {
     react: {

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import UpTriangle from '../../../assets/triangle.svg';
 import DownTriangle from '../../../assets/triangle-down.svg';
 import { ChangeEvent, useEffect, useState } from 'react';
@@ -9,15 +10,16 @@ type StepperInputProps = {
   max?: number;
   step?: number;
   initialValue?: number;
+  $width?: number;
   getValue: (value: number) => void;
 };
 
-const StepperInput = ({ min = 0, max = 99, step = 1, initialValue = 0, getValue }: StepperInputProps) => {
+const StepperInput = ({ min = 0, max = 99, step = 1, initialValue = 0, $width = 65, getValue }: StepperInputProps) => {
   const [inputValue, setInputValue] = useState(String(initialValue));
 
   useEffect(() => {
     if (inputValue !== '') getValue(Number(inputValue));
-  }, [getValue, inputValue]);
+  }, [inputValue]);
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === '') setInputValue('');
@@ -33,26 +35,32 @@ const StepperInput = ({ min = 0, max = 99, step = 1, initialValue = 0, getValue 
   };
 
   const handleIncreaseStepper = () => {
-    const NextValue = Number(inputValue) + step;
+    const nextValue = Number(inputValue) + step;
 
-    if (NextValue <= max) setInputValue(String(NextValue));
+    if (nextValue <= max) setInputValue(String(nextValue));
   };
 
   const handleDecreaseStepper = () => {
-    const NextValue = Number(inputValue) - step;
+    const nextValue = Number(inputValue) - step;
 
-    if (NextValue >= min) setInputValue(String(NextValue));
+    if (nextValue >= min) setInputValue(String(nextValue));
   };
 
   return (
     <Styled.StepperInputWrapper>
-      <Styled.Input type='text' value={inputValue} onChange={handleChangeInput} onBlur={handleBlurInput} />
+      <Styled.Input
+        $width={$width}
+        type='text'
+        value={inputValue}
+        onChange={handleChangeInput}
+        onBlur={handleBlurInput}
+      />
       <Styled.StepperWrapper>
-        <Styled.Stepper type='button' onClick={handleIncreaseStepper}>
-          <img src={UpTriangle} alt='수량올리기' />
+        <Styled.Stepper $width={$width} type='button' onClick={handleIncreaseStepper}>
+          <Styled.StepperImg $width={$width} src={UpTriangle} alt='수량올리기' />
         </Styled.Stepper>
-        <Styled.Stepper type='button' onClick={handleDecreaseStepper}>
-          <img src={DownTriangle} alt='수량내리기' />
+        <Styled.Stepper $width={$width} type='button' onClick={handleDecreaseStepper}>
+          <Styled.StepperImg $width={$width} src={DownTriangle} alt='수량내리기' />
         </Styled.Stepper>
       </Styled.StepperWrapper>
     </Styled.StepperInputWrapper>

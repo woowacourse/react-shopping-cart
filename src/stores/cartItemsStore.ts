@@ -1,42 +1,65 @@
-import { AtomEffect, atom, selector, selectorFamily } from 'recoil';
-import type { CartItems } from '../types/CartItems.ts';
-import { getLocalStorage, setLocalStorage } from '../utils/localStorage.ts';
-import { LOCAL_STORAGE_KEY } from '../constants/index.ts';
+import { atom, selector, selectorFamily } from 'recoil';
+import type { CartItem } from '../types/index.ts';
 
-const cartItemsLocalStorageEffect: <T>(key: string) => AtomEffect<T> =
-  (key: string) =>
-  ({ setSelf, onSet }) => {
-    const savedValue = getLocalStorage(key, null);
-
-    if (savedValue) setSelf(savedValue);
-
-    onSet((newValue) => {
-      setLocalStorage(key, newValue);
-    });
-  };
-
-export const cartItemsAtom = atom<CartItems>({
-  key: 'cartItemsAtom',
-  default: {},
-  effects: [cartItemsLocalStorageEffect<CartItems>(LOCAL_STORAGE_KEY.CART_ITEMS)],
+export const cartListAtom = atom<CartItem[]>({
+  key: 'cartListAtom',
+  default: [],
 });
 
-export const cartItemsQuantitySelector = selector({
-  key: 'cartItemsQuantitySelector',
-  get: ({ get }) => {
-    const cartItems = get(cartItemsAtom);
+export const cartItemQuantitySelector = selectorFamily({
+  key: 'cartItemQuantitySelector',
+  get:
+    (productId: number) =>
+    ({ get }) => {
+      const cartList = get(cartListAtom);
+      const targetItem = cartList.find((item) => item.product.id === productId);
 
-    return Object.keys(cartItems).length;
+      return targetItem ? targetItem.quantity : 0;
+    },
+});
+
+export const cartItemIdSelector = selectorFamily({
+  key: 'cartItemIdSelector',
+  get:
+    (productId: number) =>
+    ({ get }) => {
+      const cartList = get(cartListAtom);
+
+      const targetItem = cartList.find((item) => item.product.id === productId);
+
+      return targetItem ? targetItem.id : null;
+    },
+});
+
+export const cartCountSelector = selector({
+  key: 'cartCountSelector',
+  get: ({ get }) => {
+    const cartList = get(cartListAtom);
+
+    return cartList.length;
   },
 });
 
-export const productQuantitySelector = selectorFamily({
-  key: 'productQuantitySelector',
-  get:
-    (itemId: number) =>
-    ({ get }) => {
-      const cartItems = get(cartItemsAtom);
+export const itemSelectionAtom = atom<boolean[]>({
+  key: 'itemSelectionAtom',
+  default: selector({
+    key: 'cartListSelector',
+    get: ({ get }) => {
+      const cartList = get(cartListAtom);
 
-      return cartItems[itemId]?.quantity ?? 0;
+      return Array.from({ length: cartList.length }, () => true);
     },
+  }),
+});
+
+export const cartTotalPriceSelector = selector({
+  key: 'cartTotalPriceSelector',
+  get: ({ get }) => {
+    const cartList = get(cartListAtom);
+    const itemSelection = get(itemSelectionAtom);
+
+    const checkedCart = cartList.filter((_, index) => itemSelection[index]);
+
+    return checkedCart.reduce((acc, { product, quantity }) => acc + product.price * quantity, 0);
+  },
 });

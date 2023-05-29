@@ -1,9 +1,9 @@
 import * as Styled from './ShoppingCartStatus.styles.tsx';
 import { useRecoilValue } from 'recoil';
-import { cartItemsQuantitySelector } from '../../../stores/cartItemsStore.ts';
+import { cartCountSelector } from '../../../stores/cartItemsStore.ts';
 
 const ShoppingCartStatus = () => {
-  const cartItemsCount = useRecoilValue(cartItemsQuantitySelector);
+  const cartItemsCount = useRecoilValue(cartCountSelector);
 
   return (
     <>

@@ -32,6 +32,10 @@ const ResetStyle = createGlobalStyle`
     list-style: none;
   }
 
+  input[type="checkbox"] {
+    margin: 0;
+  }
+
   /* Set core root defaults */
   html:focus-within {
     scroll-behavior: smooth;
@@ -42,6 +46,12 @@ const ResetStyle = createGlobalStyle`
     min-height: 100vh;
     text-rendering: optimizeSpeed;
     line-height: 1.5;
+  }
+
+  #root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 
   /* A elements that don't have a class get default styles */

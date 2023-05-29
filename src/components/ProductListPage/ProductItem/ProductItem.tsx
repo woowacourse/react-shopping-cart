@@ -19,7 +19,7 @@ const ProductItem = ({ id, name, price, imageUrl }: ProductItemProps) => {
       <Styled.ProductItemInfo>
         <Styled.ProductItemInfoUpperBoundary>
           <Styled.ProductItemTitle>{name}</Styled.ProductItemTitle>
-          <ProductQuantityController productID={id} />
+          <ProductQuantityController productId={id} />
         </Styled.ProductItemInfoUpperBoundary>
         <Styled.ProductItemPrice>{price.toLocaleString()}원</Styled.ProductItemPrice>
       </Styled.ProductItemInfo>
