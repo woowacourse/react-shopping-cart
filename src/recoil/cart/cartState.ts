@@ -7,13 +7,19 @@ import { isValidCartQuantity } from '../../utils/cartUtils';
 
 export const cartItemQuery = selector({
   key: 'cartListWithInfoState/default',
-  get: async () => {
+  get: async ({ get }) => {
+    get(cartRefreshState);
     const cartProducts: CartItemType[] = await fetchCartItems.get();
     return cartProducts.map((cartProduct) => {
       cartProduct.checked = true;
       return cartProduct;
     });
   },
+});
+
+const cartRefreshState = atom({
+  key: 'countState',
+  default: 0,
 });
 
 const cartState = atom<CartItemType[]>({
@@ -32,7 +38,17 @@ export const useProductListInCart: () => ProductItemType[] = () => {
   });
 };
 
-export const useRefreshCartList = () => useResetRecoilState(cartState);
+export const useResetCartList = () => {
+  const [refreshCount, setRefreshCount] = useRecoilState(cartRefreshState);
+  const resetCart = useResetRecoilState(cartState);
+
+  return () => {
+    resetCart();
+    setRefreshCount(() => {
+      return refreshCount + 1;
+    });
+  };
+};
 
 export const useCart = () => {
   const [cart, setCart] = useRecoilState(cartState);
