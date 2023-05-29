@@ -2,10 +2,8 @@ import styled from "styled-components";
 
 import { DownButtonIc, UpButtonIc } from "../../asset";
 import { fillBlankInput, validateNumberRange } from "../../utils/validation";
-import { patchProductCount } from "../../api/cart";
 import { useEffect } from "react";
-import { useRecoilRefresher_UNSTABLE } from "recoil";
-import { cartState } from "../../atoms/cartState";
+import useFetch from "../../hooks/useFetch";
 
 interface QuantityCounterProps {
   count: number;
@@ -16,18 +14,10 @@ interface QuantityCounterProps {
 }
 export default function QuantityCounter(props: QuantityCounterProps) {
   const { count, getCount, increaseQuantity, decreaseQuantity, id } = props;
-  const refresh = useRecoilRefresher_UNSTABLE(cartState);
+  const { updateProductCount } = useFetch();
 
   useEffect(() => {
-    async function patchData() {
-      const response = await patchProductCount(id, count);
-
-      if (response.ok) {
-        refresh();
-      }
-    }
-
-    patchData();
+    updateProductCount(id, count);
   }, [count]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {

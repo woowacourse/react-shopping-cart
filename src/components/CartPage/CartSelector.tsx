@@ -8,12 +8,10 @@ import SelectBox from "../common/selector/selectBox";
 import QuantityCounter from "../common/QuantityCounter";
 import { DeleteButtonIc } from "../../asset";
 import SelectorTitle from "../common/selector/selectorTitle";
-import { useRecoilRefresher_UNSTABLE } from "recoil";
-import { cartState } from "../../atoms/cartState";
 import useSelect from "../../hooks/useSelect";
-import { deleteCartProduct } from "../../api/cart";
 import { CartType } from "../../type/cart";
 import { useAddCartCount } from "../../hooks/useAddCartCount";
+import useFetch from "../../hooks/useFetch";
 
 export default function CartSelector() {
   const {
@@ -25,17 +23,14 @@ export default function CartSelector() {
   } = useSelect();
   const { cartsData, getCount, increaseQuantity, decreaseQuantity } =
     useAddCartCount();
-  const refresh = useRecoilRefresher_UNSTABLE(cartState);
+  const { removeCartProduct } = useFetch();
 
   async function deleteProduct(id: number[]) {
     id.forEach((itemId) => {
       deleteId(itemId);
     });
 
-    const response = await deleteCartProduct(id);
-    if (response.ok) {
-      refresh();
-    }
+    removeCartProduct(id);
   }
 
   async function selectDelete() {

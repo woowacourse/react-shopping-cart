@@ -1,11 +1,9 @@
-import { useRecoilRefresher_UNSTABLE } from "recoil";
 import styled from "styled-components";
-import { postCartProduct } from "../../api/cart";
 import { AddCartIc } from "../../asset";
-import { cartState } from "../../atoms/cartState";
 
 import { useAddCart } from "../../hooks/useAddCart";
 import { useAddProductCount } from "../../hooks/useAddProductCount";
+import useFetch from "../../hooks/useFetch";
 import QuantityCounter from "../common/QuantityCounter";
 
 interface ProductItemProps {
@@ -24,16 +22,16 @@ export default function ProductItem({
   const { isSelected, selectProductItem, checkInitAddProduct } = useAddCart();
   const { count, getCount, increaseQuantity, decreaseQuantity } =
     useAddProductCount();
-  const refresh = useRecoilRefresher_UNSTABLE(cartState);
+  const { addProductToCart } = useFetch();
 
   async function handleAddButtonClick() {
     if (!checkInitAddProduct(id)) {
       alert("이미 추가된 상품입니다");
       selectProductItem();
-
       return;
     }
-    const response = await postCartProduct({
+
+    addProductToCart({
       id: id,
       quantity: count,
       product: {
@@ -43,9 +41,6 @@ export default function ProductItem({
         imageUrl: imageUrl,
       },
     });
-    if (response.ok) {
-      refresh();
-    }
     selectProductItem();
   }
 

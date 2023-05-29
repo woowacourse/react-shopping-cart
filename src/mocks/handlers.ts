@@ -104,7 +104,7 @@ export const handlers = [
     const { postData } = await req.json();
     dummy.push(postData);
 
-    return res(ctx.status(200));
+    return res(ctx.status(200), ctx.json({ ok: true }));
   }),
 
   rest.patch("cart-items/:cartItemId", async (req, res, ctx) => {
@@ -118,7 +118,7 @@ export const handlers = [
       return item;
     });
 
-    return res(ctx.status(200));
+    return res(ctx.status(200), ctx.json({ ok: true }));
   }),
 
   rest.delete("cart-items", async (req, res, ctx) => {
@@ -132,6 +132,6 @@ export const handlers = [
       })
       .filter((item: CartType | undefined) => item !== undefined) as CartType[];
 
-    return res(ctx.status(200));
+    return res(ctx.status(200), ctx.json({ ok: true }));
   }),
 ];
