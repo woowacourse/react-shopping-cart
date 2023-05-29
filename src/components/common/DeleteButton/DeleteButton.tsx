@@ -29,7 +29,7 @@ const Button = styled.button`
   cursor: pointer;
 
   &:hover {
-    text-shadow: 0px 0px 21px ${colors.slightBrightRed};
+    text-shadow: 0 0 21px ${colors.slightBrightRed};
   }
 `;
 
