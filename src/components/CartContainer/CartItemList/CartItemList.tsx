@@ -41,7 +41,6 @@ export const CartItemList = () => {
         return updatedState;
       });
     }
-
     deleteCartItem(id);
   };
 

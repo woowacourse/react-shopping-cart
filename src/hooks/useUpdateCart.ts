@@ -7,8 +7,14 @@ import { FETCH_METHOD, FETCH_URL, QUANTITY } from '../constants';
 export const useUpdateCart = () => {
   const baseUrl = useApiBaseUrlValue();
 
-  const { mutation: updateQuantityMutation } = useMutation(FETCH_METHOD.PATCH);
-  const { mutation: deleteCartMutation } = useMutation(FETCH_METHOD.DELETE);
+  const { mutation: updateQuantityMutation } = useMutation(FETCH_METHOD.PATCH, {
+      Authorization: `Basic ${btoa(process.env.REACT_APP_API_CREDENTIAL!)}`,
+      'Content-Type': 'application/json',
+  });
+  const { mutation: deleteCartMutation } = useMutation(FETCH_METHOD.DELETE, {
+    Authorization: `Basic ${btoa(process.env.REACT_APP_API_CREDENTIAL!)}`,
+    'Content-Type': 'application/json',
+});
 
   const setCart = useSetCartState();
 
@@ -58,7 +64,7 @@ export const useUpdateCart = () => {
   };
 
   const deleteCartItem = (...cartId: number[]) => {
-    setCart((prev) => prev.filter((item) => !cartId.includes(Number(item.id))));
+    setCart((prev) => prev.filter((item) => !cartId.includes(item.id)));
 
     cartId.forEach((id) => {
       deleteCartMutation(`${baseUrl + FETCH_URL.CART_ITEMS}/${id}`);

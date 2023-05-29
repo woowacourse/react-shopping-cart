@@ -1,6 +1,6 @@
 import * as styled from './Product.styled';
 
-import { CartAddIcon, CartIcon } from '../../assets/svg';
+import { CartAddIcon } from '../../assets/svg';
 
 import { useCartItemValue, useSetCartState } from '../../recoils/recoilCart';
 
@@ -17,7 +17,10 @@ interface Props {
 
 export const Product = ({ item }: Props) => {
   const baseUrl = useApiBaseUrlValue();
-  const { mutation: addCartMutation, data: addCartResponseData } = useMutation(FETCH_METHOD.POST);
+  const { mutation: addCartMutation, data: addCartResponseData } = useMutation(FETCH_METHOD.POST, {
+    Authorization: `Basic ${btoa(process.env.REACT_APP_API_CREDENTIAL!)}`,
+    'Content-Type': 'application/json',
+});
 
   const cartItem = useCartItemValue(item.id);
 
@@ -29,7 +32,7 @@ export const Product = ({ item }: Props) => {
     setCart((prev) => [
       ...prev,
       {
-        id: cartId,
+        id: Number(cartId),
         quantity: 1,
         product: item,
       },

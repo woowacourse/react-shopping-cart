@@ -1,12 +1,17 @@
 import { useCallback, useState } from 'react';
 
+interface Error {
+  message: string;
+  payload?: any;
+}
+
 interface UseMutationState {
   loading: boolean;
   data?: any;
-  error?: object;
+  error?: Error;
 }
 
-export const useMutation = (method: string) => {
+export const useMutation = (method: string, headers: HeadersInit) => {
   const [state, setState] = useState<UseMutationState>({
     loading: false,
   });
@@ -20,10 +25,7 @@ export const useMutation = (method: string) => {
       try {
         const response = await fetch(url, {
           method,
-          headers: {
-            Authorization: `Basic ${btoa(process.env.REACT_APP_API_CREDENTIAL!)}`,
-            'Content-Type': 'application/json',
-          },
+          ...(headers && { headers }),
           ...(bodyData && { body: JSON.stringify(bodyData) }),
         });
 
