@@ -9,8 +9,9 @@ import { Button as DeleteSelectionButton } from '../ui/Button';
 import * as Styled from './styles/CartItemContainer.styles';
 import { useEffect } from 'react';
 import { checkboxesState } from '../atoms/CheckboxState';
-import { getRequest } from '../api';
+import { deleteCartItem, getRequest } from '../api';
 import { CartProductItem } from '../types/productType';
+import { asyncForEach } from '../utils/asyncForEach';
 
 export const CartItemContainer = () => {
   const [cartLists, setCartList] = useRecoilState(cartState);
@@ -28,26 +29,17 @@ export const CartItemContainer = () => {
       : setCheckboxes([]);
   };
 
-  const handleDeleteChecked = () => {
+  const handleDeleteChecked = async () => {
     const checkboxesIds = checkboxes.map((checkbox) => checkbox.id);
 
-    checkboxesIds.forEach((id) => {
-      const deleteCartProduct = async () => {
-        const response = await fetch(`/cart-items/${id}`, {
-          method: 'DELETE',
-        });
-
-        if (response.status >= 400) {
-          throw new Error('장바구니에 없는 품목을 삭제할 수 없습니다.');
-        }
-      };
-
-      deleteCartProduct();
+    await asyncForEach(checkboxesIds, async (id: number) => {
+      await deleteCartItem(id);
     });
 
     setCartList((prevCartList) =>
       prevCartList.filter((cartItem) => !checkboxesIds.includes(cartItem.id))
     );
+
     setCheckboxes([]);
   };
 
