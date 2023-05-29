@@ -1,65 +1,15 @@
 import { CartItem } from '../components/CartItem';
-import { useRecoilState } from 'recoil';
-import { cartState } from '../atoms/CartListState';
 import {
   Typography as ContainerTitle,
   Typography as CheckAllText,
 } from '../ui/Typography';
 import { Button as DeleteSelectionButton } from '../ui/Button';
 import * as Styled from './styles/CartItemContainer.styles';
-import { useEffect } from 'react';
-import { checkboxesState } from '../atoms/CheckboxState';
-import { deleteCartItem, getRequest } from '../api';
-import { CartProductItem } from '../types/productType';
-import { asyncForEach } from '../utils/asyncForEach';
+import { useCheckboxes } from './hooks/useCheckboxes';
 
 export const CartItemContainer = () => {
-  const [cartLists, setCartList] = useRecoilState(cartState);
-  const [checkboxes, setCheckboxes] = useRecoilState(checkboxesState);
-
-  const handleCheckboxes = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.target.checked
-      ? setCheckboxes(
-          cartLists.map((cartItem) => ({
-            id: cartItem.id,
-            price: cartItem.product.price,
-            quantity: cartItem.quantity,
-          }))
-        )
-      : setCheckboxes([]);
-  };
-
-  const handleDeleteChecked = async () => {
-    const checkboxesIds = checkboxes.map((checkbox) => checkbox.id);
-
-    await asyncForEach(checkboxesIds, async (id: number) => {
-      await deleteCartItem(id);
-    });
-
-    setCartList((prevCartList) =>
-      prevCartList.filter((cartItem) => !checkboxesIds.includes(cartItem.id))
-    );
-
-    setCheckboxes([]);
-  };
-
-  useEffect(() => {
-    const initProductListFromApi = async () => {
-      const cartList = await getRequest<CartProductItem[]>('carts');
-
-      setCartList(cartList);
-    };
-
-    initProductListFromApi();
-
-    setCheckboxes(
-      cartLists.map((cartItem) => ({
-        id: cartItem.id,
-        price: cartItem.product.price,
-        quantity: cartItem.quantity,
-      }))
-    );
-  }, []);
+  const { checkboxes, cartLists, handleCheckboxes, handleDeleteChecked } =
+    useCheckboxes();
 
   if (cartLists.length === 0) {
     return (
