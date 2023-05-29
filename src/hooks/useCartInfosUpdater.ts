@@ -20,29 +20,19 @@ const useCartQuantityUpdater = () => {
 
   const updateCartQuantity = ({ id, quantity }: IdQuantity) => {
     const price = getPriceById(id);
-    alert(JSON.stringify({ id, quantity }));
 
     setCartInfos((prevCartInfos) => {
       if (prevCartInfos.every((prevCartInfo) => prevCartInfo.id !== id)) {
         return [...prevCartInfos, { id, quantity, price: price }];
       }
 
-      const foo = [...prevCartInfos].map((prevCartInfo) => {
+      return [...prevCartInfos].map((prevCartInfo) => {
         if (prevCartInfo.id === id) {
           return { id, quantity, price };
         }
 
         return prevCartInfo;
       });
-
-      foo.push({
-        id: Math.floor(Math.random() * 10000000),
-        quantity: Math.floor(Math.random() * 10000000),
-        price: Math.floor(Math.random() * 10000000),
-      });
-
-      console.log({ foo });
-      return [...foo];
     });
   };
 

@@ -13,10 +13,6 @@ import { HashRouter } from "react-router-dom";
  * process.env.NODE_ENV !== "development"
  */
 const startMSW = async () => {
-  if (false) {
-    return;
-  }
-
   if (window.location.pathname === "/react-shopping-cart") {
     window.location.pathname = "/react-shopping-cart/";
     return;

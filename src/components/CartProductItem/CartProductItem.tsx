@@ -6,7 +6,7 @@ import type { ProductCardProps } from "../../types";
 import { useCartQuantityUpdater } from "../../hooks/useCartInfosUpdater";
 import { useCheckBoxesToggler } from "../../hooks/useCheckBox";
 import { useCartProductRemover } from "../../hooks/useCartProductRemover";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import dataUploader from "../../domains/dataUploader";
 import { IdQuantity } from "../../types";
 
