@@ -5,6 +5,7 @@ import { asyncForEach } from '../../utils/asyncForEach';
 import { deleteCartItem, getRequest } from '../../api';
 import { cartState } from '../../atoms/CartListState';
 import { useEffect } from 'react';
+import { ERROR_MESSAGE } from '../../constants';
 
 export const useCheckboxes = () => {
   const [cartLists, setCartList] = useRecoilState(cartState);
@@ -25,15 +26,19 @@ export const useCheckboxes = () => {
   const handleDeleteChecked = async () => {
     const checkboxesIds = checkboxes.map((checkbox) => checkbox.id);
 
-    await asyncForEach(checkboxesIds, async (id: number) => {
-      await deleteCartItem(id);
-    });
+    try {
+      await asyncForEach(checkboxesIds, async (id: number) => {
+        await deleteCartItem(id);
+      });
 
-    setCartList((prevCartList) =>
-      prevCartList.filter((cartItem) => !checkboxesIds.includes(cartItem.id))
-    );
+      setCartList((prevCartList) =>
+        prevCartList.filter((cartItem) => !checkboxesIds.includes(cartItem.id))
+      );
 
-    setCheckboxes([]);
+      setCheckboxes([]);
+    } catch {
+      alert(ERROR_MESSAGE.deleteCartItem);
+    }
   };
 
   useEffect(() => {
