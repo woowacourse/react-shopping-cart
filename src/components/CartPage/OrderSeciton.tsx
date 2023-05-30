@@ -1,7 +1,8 @@
+import styled from "styled-components";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
-import styled from "styled-components";
+
 import { cartState } from "../../atoms/cartState";
 
 export default function OrderSection() {
@@ -16,20 +17,18 @@ export default function OrderSection() {
     setDeliveryFee(0);
   }, [cartsData]);
 
-  function getTotalProductPrice() {
-    return cartsData.reduce(
-      (totalPrice, currentPrice) =>
-        totalPrice + currentPrice.quantity * currentPrice.product.price,
-      0
-    );
-  }
-
   return (
     <Container>
       <OrderTitle>결제예상금액</OrderTitle>
       <ProductInfo>
         <InfoTitle>총 상품가격</InfoTitle>
-        <InfoPrice>{getTotalProductPrice()}</InfoPrice>
+        <InfoPrice>
+          {cartsData.reduce(
+            (totalPrice, currentPrice) =>
+              totalPrice + currentPrice.quantity * currentPrice.product.price,
+            0
+          )}
+        </InfoPrice>
       </ProductInfo>
       <ProductInfo>
         <InfoTitle>총 배송비</InfoTitle>
@@ -37,7 +36,13 @@ export default function OrderSection() {
       </ProductInfo>
       <TotalProduct>
         <InfoTitle>총 주문금액</InfoTitle>
-        <InfoPrice>{getTotalProductPrice() + deliveryFee}</InfoPrice>
+        <InfoPrice>
+          {cartsData.reduce(
+            (totalPrice, currentPrice) =>
+              totalPrice + currentPrice.quantity * currentPrice.product.price,
+            0
+          ) + deliveryFee}
+        </InfoPrice>
       </TotalProduct>
       <OrderButton>주문하기</OrderButton>
     </Container>
