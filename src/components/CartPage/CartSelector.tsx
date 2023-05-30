@@ -26,12 +26,12 @@ export default function CartSelector() {
     useAddCartCount();
   const { removeCartProduct } = useFetch();
 
-  async function deleteProduct(id: number[]) {
-    id.forEach((itemId) => {
+  async function deleteProduct(selectedIds: number[]) {
+    selectedIds.forEach((itemId) => {
       deleteId(itemId);
     });
 
-    removeCartProduct(id);
+    removeCartProduct(selectedIds);
   }
 
   async function selectDelete() {
