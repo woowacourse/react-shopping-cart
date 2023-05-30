@@ -20,8 +20,8 @@ export async function postCartProduct(postData: CartType) {
   });
 }
 
-export async function deleteCartProduct(cartItemIds: number[]) {
+export async function deleteCartProduct(cartItemId: number) {
   return client.delete<Promise<Response>>("cart-items", {
-    body: JSON.stringify({ cartItemIds }),
+    body: JSON.stringify({ cartItemId }),
   });
 }

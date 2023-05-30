@@ -19,27 +19,22 @@ export default function CartSelector() {
     selected: selectedProduct,
     toggleSelectBox: toggleProductSelect,
     toggleAll,
-    deleteId,
+    deleteIdFromSelecedSet,
     checkIsAllSelected,
   } = useSelect();
   const { cartsData, getCount, increaseQuantity, decreaseQuantity } =
     useAddCartCount();
   const { removeCartProduct } = useFetch();
 
-  async function deleteProduct(selectedIds: number[]) {
-    selectedIds.forEach((itemId) => {
-      deleteId(itemId);
-    });
-
-    removeCartProduct(selectedIds);
+  async function deleteProduct(selectedId: number) {
+    deleteIdFromSelecedSet(selectedId);
+    removeCartProduct(selectedId);
   }
 
   async function selectDelete() {
     Array.from(selectedProduct).forEach((itemId) => {
-      deleteId(itemId);
+      deleteProduct(itemId);
     });
-
-    await deleteProduct(Array.from(selectedProduct));
   }
 
   return (
@@ -74,7 +69,7 @@ export default function CartSelector() {
                   </ProductInfo>
                   <ProductCount>
                     <DeleteButtonIc
-                      onClick={() => deleteProduct([item.product.id])}
+                      onClick={() => deleteProduct(item.product.id)}
                     />
                     <QuantityCounter
                       count={item.quantity}

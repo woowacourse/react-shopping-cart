@@ -126,7 +126,7 @@ export const handlers = [
 
     dummy = dummy
       .map((item: CartType) => {
-        if (!cartItemId?.includes(item.product.id)) {
+        if (cartItemId !== item.product.id) {
           return item;
         }
       })

@@ -29,7 +29,7 @@ export default function useFetch() {
     }
   }
 
-  async function removeCartProduct(cartItemId: number[]) {
+  async function removeCartProduct(cartItemId: number) {
     const response = await deleteCartProduct(cartItemId);
 
     if (response.ok) {
