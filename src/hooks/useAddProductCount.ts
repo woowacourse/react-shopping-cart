@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-export function useAddProductCount() {
-  const [count, setCount] = useState(1);
+export function useAddProductCount(initCount: number) {
+  const [count, setCount] = useState(initCount);
 
   function getCount(count: number) {
     setCount(count);

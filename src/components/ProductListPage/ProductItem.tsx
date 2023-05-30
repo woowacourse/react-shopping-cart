@@ -21,7 +21,7 @@ export default function ProductItem({
 }: ProductItemProps) {
   const { isSelected, selectProductItem, checkInitAddProduct } = useAddCart();
   const { count, getCount, increaseQuantity, decreaseQuantity } =
-    useAddProductCount();
+    useAddProductCount(1);
   const { addProductToCart } = useFetch();
 
   async function handleAddButtonClick() {
