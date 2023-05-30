@@ -17,7 +17,7 @@ export default function useSelect() {
   }
 
   function toggleAll(options: number[]) {
-    if (selected.size == options.length) {
+    if (selected.size === options.length) {
       setSelected(new Set());
       return;
     }
