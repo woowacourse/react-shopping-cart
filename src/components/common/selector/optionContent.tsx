@@ -2,11 +2,11 @@ import styled from "styled-components";
 import { createCustomElement } from "../../../utils/elements";
 
 interface OptionContentProps {
-  asChild?: boolean;
-  children?: React.ReactElement | React.ReactElement[] | undefined;
+  asChild: boolean;
+  children: React.ReactElement | React.ReactElement[] | undefined;
 }
 
-export default function OptionContent(props: OptionContentProps) {
+export default function OptionContent(props: Partial<OptionContentProps>) {
   const { children, asChild = false } = props;
 
   if (asChild) {
