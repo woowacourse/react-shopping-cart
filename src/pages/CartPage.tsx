@@ -9,22 +9,20 @@ import Loading from "../components/common/Loading";
 
 export default function CartPage() {
   return (
-    <>
-      <ErrorBoundary>
-        <React.Suspense fallback={<Loading />}>
-          <Header>
-            <CartQuantity />
-          </Header>
-          <Container>
-            <Title>장바구니</Title>
-            <Main>
-              <CartSection />
-              <OrderSection />
-            </Main>
-          </Container>
-        </React.Suspense>
-      </ErrorBoundary>
-    </>
+    <ErrorBoundary>
+      <React.Suspense fallback={<Loading />}>
+        <Header>
+          <CartQuantity />
+        </Header>
+        <Container>
+          <Title>장바구니</Title>
+          <Main>
+            <CartSection />
+            <OrderSection />
+          </Main>
+        </Container>
+      </React.Suspense>
+    </ErrorBoundary>
   );
 }
 
