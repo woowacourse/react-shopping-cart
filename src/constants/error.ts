@@ -1,9 +1,5 @@
 import { ErrorCodeType } from "../type/error";
 
-export const ERROR = {
-  INVALID_ACTION: "잘못된 action 이 전달되었습니다.",
-};
-
 export const ERROR_CODE: ErrorCodeType = {
   "400": "Bad Request: 해당 검색을 진행할 수 없습니다.",
   "401": "Unauthorized: 인증에 실패했습니다",

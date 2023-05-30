@@ -1,8 +1,9 @@
-import { useRef } from "react";
 import styled from "styled-components";
-
 import { AddCartIc } from "../../asset";
+
 import { useAddCart } from "../../hooks/useAddCart";
+import { useAddProductCount } from "../../hooks/useAddProductCount";
+import useFetch from "../../hooks/useFetch";
 import QuantityCounter from "../common/QuantityCounter";
 
 interface ProductItemProps {
@@ -18,11 +19,33 @@ export default function ProductItem({
   name,
   price,
 }: ProductItemProps) {
-  const quantityRef = useRef<HTMLInputElement>(null);
-  const { isSelected, selectProductItem, addCartProductItem } = useAddCart();
+  const { isSelected, selectProductItem, checkInitAddProduct } = useAddCart();
+  const { count, getCount, increaseQuantity, decreaseQuantity } =
+    useAddProductCount(1);
+  const { addProductToCart } = useFetch();
+
+  async function handleAddButtonClick() {
+    if (!checkInitAddProduct(id)) {
+      alert("이미 추가된 상품입니다");
+      selectProductItem();
+      return;
+    }
+
+    addProductToCart({
+      id: id,
+      quantity: count,
+      product: {
+        id: id,
+        name: name,
+        price: price,
+        imageUrl: imageUrl,
+      },
+    });
+    selectProductItem();
+  }
 
   return (
-    <ProductItemContainer>
+    <ProductItemContainer data-testId="product-item">
       <ProductImage src={imageUrl} />
       <InfoBox>
         <ProductInfo>
@@ -30,7 +53,13 @@ export default function ProductItem({
           <Price>{price.toLocaleString()}원</Price>
         </ProductInfo>
         {isSelected ? (
-          <QuantityCounter ref={quantityRef} />
+          <QuantityCounter
+            count={count}
+            getCount={getCount}
+            increaseQuantity={increaseQuantity}
+            decreaseQuantity={decreaseQuantity}
+            id={id}
+          />
         ) : (
           <CartButton onClick={selectProductItem}>
             <AddCartIc />
@@ -38,7 +67,7 @@ export default function ProductItem({
         )}
       </InfoBox>
       {isSelected && (
-        <AddCartButton onClick={() => addCartProductItem(id, quantityRef)}>
+        <AddCartButton onClick={handleAddButtonClick}>
           장바구니 추가
         </AddCartButton>
       )}
