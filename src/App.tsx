@@ -1,13 +1,13 @@
 import { styled } from 'styled-components';
-import Header from './components/Header/Header';
-import ProductList from './components/ProductList/ProductList';
+import { Outlet } from 'react-router-dom';
+import Header from './components/common/Header/Header';
 
 function App() {
   return (
     <div className="App">
       <Header />
       <Layout>
-        <ProductList />
+        <Outlet />
       </Layout>
     </div>
   );

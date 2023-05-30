@@ -1,0 +1,74 @@
+[
+  {
+    "id": 0,
+    "name": "순살치킨 1KG",
+    "price": 9900,
+    "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/c6f2f083-a8b8-4799-834b-444b5eaeb532.png?h=400&w=400"
+  },
+  {
+    "id": 1,
+    "name": "리코스 나초칩 454g",
+    "price": 6200,
+    "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/bf308ce9-cbe5-45a0-808a-4fdda168f992.jpg?h=400&w=400"
+  },
+  {
+    "id": 2,
+    "name": "오레오 600g 화이트/초코",
+    "price": 5800,
+    "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/3fe3f038-f00e-43f5-b289-23f1b6f8255d.jpg?h=400&w=400"
+  },
+  {
+    "id": 3,
+    "name": "서울우유 비요뜨 쵸코링 138g x12개",
+    "price": 16900,
+    "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/73f2e0cf-1504-448f-b8f7-7ef47889fc85.jpg?h=400&w=400"
+  },
+  {
+    "id": 4,
+    "name": "수라한돈 삼겹살 국산 냉장 400g",
+    "price": 8900,
+    "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/a01bdfde-467d-462b-ad9f-bb954e2c8425.png?h=400&w=400"
+  },
+  {
+    "id": 5,
+    "name": "동원참치 덕용 1.88kg",
+    "price": 20900,
+    "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/5a28f09c-e3c1-49ae-9379-38db8017268e.jpg"
+  },
+  {
+    "id": 6,
+    "name": "허쉬 초콜릿칩 모찌쿠키 10ea",
+    "price": 32000,
+    "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/e99a458a-1b96-451b-ad62-952396643847.jpg"
+  },
+  {
+    "id": 7,
+    "name": "오뚜기 스위트콘 340g",
+    "price": 1700,
+    "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/7f16b943-3f9f-4e66-b64c-2ba0d1b5ea47.jpg?h=400&w=400"
+  },
+  {
+    "id": 8,
+    "name": "천일식품 김치볶음밥 300g x2개",
+    "price": 3450,
+    "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/dbc5b08c-bba4-468c-a80f-e339d8588355.jpg"
+  },
+  {
+    "id": 9,
+    "name": "크로크무슈 1ea",
+    "price": 3200,
+    "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/21e1f9b6-1f23-49f0-8d51-941d2aa383dc.jpg"
+  },
+  {
+    "id": 10,
+    "name": "다모아 갈비탕 600g",
+    "price": 6000,
+    "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/32725f83-cc81-4d90-86b0-8be3566f7c8e.jpg"
+  },
+  {
+    "id": 11,
+    "name": "시아스 감자 샐러드 1kg",
+    "price": 6800,
+    "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/db45cf4f-d053-4567-9654-3c9bbf9aecaa.jpg"
+  }
+]
