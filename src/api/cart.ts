@@ -2,7 +2,7 @@ import { CartType } from "../type/cart";
 import { client } from "./httpClient";
 
 export async function getCartData() {
-  return client.get<CartType[]>("carts", {});
+  return client.get<CartType[]>("carts");
 }
 
 export async function patchProductCount({

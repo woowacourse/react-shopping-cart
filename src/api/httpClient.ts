@@ -32,25 +32,25 @@ export default class HTTPClient {
     return data;
   }
 
-  get<T>(url: string, options: Options) {
+  get<T>(url: string, options: Options = {}) {
     return this.request<T>(url, { ...options, method: "GET" });
   }
 
-  post<T>(url: string, options: Options) {
+  post<T>(url: string, options: Options = {}) {
     return this.request<T>(url, {
       ...options,
       method: "POST",
     });
   }
 
-  patch<T>(url: string, options: Options) {
+  patch<T>(url: string, options: Options = {}) {
     return this.request<T>(url, {
       ...options,
       method: "PATCH",
     });
   }
 
-  delete<T>(url: string, options: Options) {
+  delete<T>(url: string, options: Options = {}) {
     return this.request<T>(url, { ...options, method: "DELETE" });
   }
 }
