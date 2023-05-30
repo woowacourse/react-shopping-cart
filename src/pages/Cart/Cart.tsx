@@ -1,18 +1,19 @@
-import useCartList from '../../hooks/useCartList';
+import { Suspense } from 'react';
+
+import ExpectedPayment from '../../views/Payment/components/ExpectedPayment/ExpectedPayment';
+import { CartPageWrapper } from './Cart.style';
+import SkeletonCart from '../../views/CartItemList/components/SkeletonCartItemList/SkeletonCart';
+import CartItemListContainer from '../../views/CartItemList/components/CartItemListContainer/CartItemListContainer';
 
 function Cart() {
-  const { cartList } = useCartList();
-  console.log(cartList);
   return (
-    <>
-      {cartList.map((cart) => (
-        <div key={cart.id}>
-          <h1>
-            {cart.product.name} - ({cart.quantity}개)
-          </h1>
-        </div>
-      ))}
-    </>
+    <CartPageWrapper>
+      <Suspense fallback={<SkeletonCart />}>
+        <CartItemListContainer />
+        <ExpectedPayment />
+      </Suspense>
+    </CartPageWrapper>
   );
 }
+
 export default Cart;
