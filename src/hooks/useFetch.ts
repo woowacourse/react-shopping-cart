@@ -18,8 +18,11 @@ export default function useFetch() {
     }
   }
 
-  async function updateProductCount(cartItemId: number, quantity: number) {
-    const resposne = await patchProductCount(cartItemId, quantity);
+  async function updateProductCount({
+    id: cartItemId,
+    quantity,
+  }: Omit<CartType, "product">) {
+    const resposne = await patchProductCount({ id: cartItemId, quantity });
 
     if (resposne.ok) {
       refresh();

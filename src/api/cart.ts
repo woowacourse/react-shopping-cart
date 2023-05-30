@@ -5,8 +5,11 @@ export async function getCartData() {
   return client.get<CartType[]>("carts", {});
 }
 
-export async function patchProductCount(cartItemId: number, quantity: number) {
-  return await client.patch<Promise<Response>>(`cart-items/${cartItemId}`, {
+export async function patchProductCount({
+  id,
+  quantity,
+}: Omit<CartType, "product">) {
+  return await client.patch<Promise<Response>>(`cart-items/${id}`, {
     body: JSON.stringify({ quantity: quantity }),
   });
 }

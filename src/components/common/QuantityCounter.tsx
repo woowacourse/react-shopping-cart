@@ -17,7 +17,7 @@ export default function QuantityCounter(props: QuantityCounterProps) {
   const { updateProductCount } = useFetch();
 
   useEffect(() => {
-    updateProductCount(id, count);
+    updateProductCount({ id, quantity: count });
   }, [count]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
