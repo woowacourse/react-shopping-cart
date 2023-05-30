@@ -1,7 +1,7 @@
 import { Options } from "../type/api";
 
 export default class HTTPClient {
-  baseUrl: string;
+  private baseUrl: string;
 
   constructor(baseUrl: string) {
     this.baseUrl = baseUrl;
@@ -9,10 +9,10 @@ export default class HTTPClient {
 
   getCombinedOptions(options: Options) {
     const fetchOptions = {
+      ...options,
       headers: options.headers ?? {
         "Content-Type": "application/json",
       },
-      ...options,
     };
 
     return fetchOptions;
@@ -20,7 +20,7 @@ export default class HTTPClient {
 
   private async request<T>(url: string, options: Options): Promise<T> {
     const response = await fetch(
-      `${this.baseUrl}/${url}`,
+      `${this.baseUrl}${url}`,
       this.getCombinedOptions(options)
     );
 
@@ -28,8 +28,7 @@ export default class HTTPClient {
       throw Error(response.status.toString());
     }
 
-    const data = await response.json();
-    return data;
+    return await response.json();
   }
 
   get<T>(url: string, options: Options = {}) {
