@@ -2,28 +2,27 @@ import React, { ButtonHTMLAttributes } from 'react';
 import * as Styled from './styles/Button.styles';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
-  width?: string;
-  height?: string;
+  width: string;
+  height: string;
   backgroundColor?: string;
   borderColor?: string;
 }
 
 export const Button = ({
-  children,
+  children = 'Button',
   onClick,
-  width,
-  height,
-  backgroundColor,
-  borderColor,
+  width = '132px',
+  height = '32px',
+  backgroundColor = 'transparent',
+  borderColor = 'none',
 }: ButtonProps) => {
   return (
     <Styled.Button
       onClick={onClick}
-      $width={width}
-      $height={height}
-      backgroundColor={backgroundColor}
-      borderColor={borderColor}
+      width={width}
+      height={height}
+      backgroundcolor={backgroundColor}
+      bordercolor={borderColor}
     >
       {children}
     </Styled.Button>

@@ -9,6 +9,13 @@ export const Wrapper = styled.div`
   background-color: #333333;
 `;
 
+export const CartNavigator = styled.nav`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+`;
+
 export const HeaderWrapper = styled.div`
   width: 1200px;
   display: flex;

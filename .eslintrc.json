@@ -15,5 +15,7 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:storybook/recommended"
   ],
-  "rules": {}
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off"
+  }
 }

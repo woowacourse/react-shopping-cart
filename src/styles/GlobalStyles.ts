@@ -22,7 +22,7 @@ export const GlobalStyle = createGlobalStyle`
 
   /* Colors *****************************************/
   :root {
-   
+  
   }
 
   #root {
@@ -30,6 +30,6 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .label-text {
-   
+  
   }
 `;

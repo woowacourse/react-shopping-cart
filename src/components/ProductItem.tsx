@@ -1,20 +1,20 @@
 import { Typography as ProductPrice } from '../ui/Typography';
 import { Image as ProductImage } from '../ui/Image';
-import { AddToCartButton } from './AddToCartButton';
+import { CartButton } from './CartButton';
 import { ProductItem as ProductItemProps } from '../types/productType';
-import { useCartState } from './hooks/useCartState';
 import * as Styled from './styles/ProductItem.styles';
 
-export const ProductItem = (props: ProductItemProps) => {
-  const { id, name, price, imageUrl } = props;
-
-  const { handleAddCartState, handleDeleteCartState } = useCartState(props);
-
+export const ProductItem = ({
+  id,
+  name,
+  price,
+  imageUrl,
+}: ProductItemProps) => {
   return (
     <Styled.Wrapper>
       <ProductImage
-        $width={'282px'}
-        $height={'282px'}
+        width="282px"
+        height="282px"
         src={imageUrl}
         alt="상품 이미지"
       />
@@ -25,11 +25,7 @@ export const ProductItem = (props: ProductItemProps) => {
             {`${price.toLocaleString('ko-KR')} 원`}
           </ProductPrice>
         </div>
-        <AddToCartButton
-          id={id}
-          handleAddCartState={handleAddCartState}
-          handleDeleteCartState={handleDeleteCartState}
-        />
+        <CartButton id={id} />
       </Styled.ProductInfoWrapper>
     </Styled.Wrapper>
   );

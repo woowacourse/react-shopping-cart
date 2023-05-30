@@ -1,16 +1,12 @@
 import { RecoilRoot } from 'recoil';
-import { Header } from './layouts/Header';
-import { ProductList } from './pages/ProductList';
+import { RouterProvider } from 'react-router-dom';
+import router from './router';
 
-function App() {
+export const App = () => {
   return (
-    <div className="App">
-      <RecoilRoot>
-        <Header />
-        <ProductList />
-      </RecoilRoot>
-    </div>
+    <RecoilRoot>
+      {/* <Header /> */}
+      <RouterProvider router={router} />
+    </RecoilRoot>
   );
-}
-
-export default App;
+};
