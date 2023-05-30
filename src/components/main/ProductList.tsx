@@ -1,29 +1,36 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 import ProductItem from './ProductItem';
-import { useFetchData } from '../hooks/useFetchData';
-import { Product } from '../types';
-import { MOCK_DATA_URL } from '../constants/url';
-import { productListState } from '../store/ProductListState';
+import { Product } from '../../types';
+import { PRODUCT_BASE_URL } from '../../constants/url';
+import { productListState } from '../../store/ProductListState';
+import Skeleton from './Skeleton';
+import useGet from '../../hooks/useGet';
+import { useEffect } from 'react';
 
 const ProductList = () => {
   const [productList, setProductList] = useRecoilState<Product[]>(productListState);
 
-  useFetchData<Product[]>(MOCK_DATA_URL, setProductList);
+  const { data, isLoading } = useGet<Product[]>(PRODUCT_BASE_URL);
 
-  return (
-    <S.Wrapper>
-      {productList.map((product) => (
-        <ProductItem
-          key={product.id}
-          id={product.id}
-          name={product.name}
-          price={product.price}
-          imgUrl={`${process.env.PUBLIC_URL}${product.imageUrl}`}
-        />
-      ))}
-    </S.Wrapper>
-  );
+  useEffect(() => {
+    if (data) setProductList(data);
+  }, [data]);
+
+  const skeleton = Array.from({ length: 12 }).map((_, index) => <Skeleton key={index} />);
+
+  const products = productList.map((product) => (
+    <ProductItem
+      key={product.id}
+      id={product.id}
+      name={product.name}
+      price={product.price}
+      imgUrl={product.imageUrl}
+    />
+  ));
+
+  return <S.Wrapper>{isLoading ? skeleton : products}</S.Wrapper>;
 };
 
 const S = {

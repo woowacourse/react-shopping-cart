@@ -1,12 +1,11 @@
-import Header from '../components/common/Header';
-import ProductList from '../components/ProductList';
+import ProductList from '../components/main/ProductList';
+import { ProductListWrapper } from '../style/ContentLayout';
 
 const MainPage = () => {
   return (
-    <>
-      <Header title="STORE" />
+    <ProductListWrapper>
       <ProductList />
-    </>
+    </ProductListWrapper>
   );
 };
 

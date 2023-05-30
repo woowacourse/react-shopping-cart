@@ -1,15 +1,16 @@
-import { css, styled } from 'styled-components';
-import { CART_PATH } from '../constants/svgPath';
-import Icon from './common/Icon';
 import { MouseEventHandler } from 'react';
+import { CART_PATH } from '../../constants/svgPath';
+import Icon from '../@common/Icon';
+import { css, styled } from 'styled-components';
 
 type Props = {
+  ariaLabel: number;
   onClick: MouseEventHandler<SVGSVGElement>;
 };
 
-export const CartIconButton = ({ onClick }: Props) => {
+export const CartIconButton = ({ ariaLabel, onClick }: Props) => {
   return (
-    <S.IconButton>
+    <S.IconButton aria-label={`add-to-cart-${ariaLabel}`}>
       <Icon
         width="30"
         height="27"

@@ -1,7 +1,12 @@
-import MainPage from './pages/MainPage';
+import { RecoilRoot } from 'recoil';
+import Router from './router/Router';
 
 const App = () => {
-  return <MainPage />;
+  return (
+    <RecoilRoot>
+      <Router />
+    </RecoilRoot>
+  );
 };
 
 export default App;

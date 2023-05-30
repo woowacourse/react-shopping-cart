@@ -1,12 +1,17 @@
 import { selector, selectorFamily } from 'recoil';
-import { CartItem } from '../types';
+import { CartItem, Product } from '../types';
 import { cartState } from './CartState';
-import { CART_ITEM_EXISTS } from '../constants';
+import { CART_ITEM_INDEX, NONE_QUANTITY } from '../constants';
 import { productListState } from './ProductListState';
 
-export type AddToCartSelectorParams = {
+export type SelectorParams = {
   id: number;
-  quantity: number;
+  quantity?: number;
+};
+
+export type CheckedParams = {
+  id: number;
+  isChecked?: boolean;
 };
 
 export const productFindByIdSelector = selectorFamily<CartItem | undefined, number>({
@@ -23,7 +28,7 @@ export const cartBadgeSelector = selector({
     const cart = get(cartState);
     const selectedProducts = new Set(cart);
 
-    return selectedProducts;
+    return selectedProducts.size;
   },
 });
 
@@ -31,34 +36,52 @@ export const isSelectedProductSelector = selectorFamily<boolean, number>({
   key: 'isSelectedProductSelector',
   get: (id: number) => ({ get }) => {
     const cart = get(cartState);
-    const isSelected = cart.find((item) => item.id === id) ? true : false;
 
-    return isSelected;
+    return cart.some((item) => item.id === id);
   },
 });
 
-export const addToCartSelector = selectorFamily<CartItem[], AddToCartSelectorParams>({
+export const selectedProductSelector = selectorFamily<Product, number>({
+  key: 'selectedProductSelector',
+  get: (id: number) => ({ get }) => {
+    const productList = get(productListState);
+    const selectedProduct = productList.find((item) => item.id === id)!;
+
+    return selectedProduct;
+  },
+});
+
+export const updateCartSelector = selectorFamily<number, SelectorParams>({
   key: 'addToCartSelector',
-  get: () => ({ get }) => get(cartState),
-  set: ({ id, quantity }) => ({ get, set }) => {
+  get: ({ id }) => ({ get }): number => {
+    const cart = get(cartState);
+    const product = cart.find((item) => item.id === id);
+    if (!product) return NONE_QUANTITY;
+
+    return product.quantity;
+  },
+  set: ({ id, quantity = 0 }) => ({ get, set }) => {
     const cart = get(cartState);
     const productList = get(productListState);
     const cartItemIndex = cart.findIndex((item) => item.id === id);
+    const updatedItem =
+      productList.length > 0
+        ? {
+            id,
+            quantity,
+            product: productList.find((item) => item.id === id)!,
+          }
+        : {
+            id,
+            quantity,
+            product: cart.find((item) => item.id === id)!.product,
+          };
+
     const updatedCart =
-      cartItemIndex >= CART_ITEM_EXISTS
-        ? [
-            ...cart.slice(0, cartItemIndex),
-            { ...cart[cartItemIndex], quantity: quantity },
-            ...cart.slice(cartItemIndex + 1),
-          ]
-        : [
-            ...cart,
-            {
-              id: id,
-              quantity: quantity,
-              product: productList.find((item) => item.id === id)!,
-            },
-          ];
+      cartItemIndex >= CART_ITEM_INDEX
+        ? cart.map((item, index) => (index === cartItemIndex ? updatedItem : item))
+        : [...cart, updatedItem];
+
     set(cartState, updatedCart);
   },
 });
@@ -67,11 +90,23 @@ export const removeProductItemFromCartSelector = selectorFamily<CartItem[], numb
   key: 'removeProductItemFromCartSelector',
   get: () => ({ get }) => get(cartState),
   set: (id: number) => ({ get, set }) => {
-    const cart = get(cartState);
-    const cartItemIndex = cart.findIndex((item) => item.id === id);
-    if (cartItemIndex >= CART_ITEM_EXISTS) {
-      const updatedCart = cart.filter((item) => item.id !== id);
-      set(cartState, updatedCart);
-    }
+    const updatedCart = get(cartState).filter((item) => item.id !== id);
+
+    set(cartState, updatedCart);
+  },
+});
+
+export const totalPriceSelector = selectorFamily<number, number[]>({
+  key: 'totalPriceSelector',
+  get: (selectedItems: number[]) => ({ get }) => {
+    const selectedProducts = get(cartState).filter((item) => selectedItems.includes(item.id));
+    const totalPrice = selectedProducts.reduce((total, item) => {
+      const quantity = item.quantity;
+      const price = item.product.price;
+
+      return total + quantity * price;
+    }, 0);
+
+    return totalPrice;
   },
 });

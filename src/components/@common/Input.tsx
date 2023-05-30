@@ -7,13 +7,9 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
-type Ref = HTMLInputElement;
-
-const Input = forwardRef<Ref, InputProps>(
-  ({ autoComplete = 'on', ...props }, ref) => {
-    return <S.Input ref={ref} {...props} autoComplete={autoComplete} />;
-  }
-);
+const Input = forwardRef<HTMLInputElement, InputProps>(({ autoComplete = 'on', ...props }, ref) => {
+  return <S.Input ref={ref} {...props} autoComplete={autoComplete} />;
+});
 
 const S = {
   Input: styled.input<{ styled: CSSProp }>`

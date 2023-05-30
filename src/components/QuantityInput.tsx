@@ -1,72 +1,77 @@
-import Input from './common/Input';
+import Input from './@common/Input';
 import { css, styled } from 'styled-components';
-import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
-import { WheelEventHandler, ChangeEventHandler } from 'react';
+import { FaPlus, FaMinus } from 'react-icons/fa';
+import { ChangeEventHandler, FocusEventHandler, MouseEventHandler } from 'react';
 
 interface Props {
+  id: string;
   value: number;
   onChange: ChangeEventHandler<HTMLInputElement>;
+  onIncrement: MouseEventHandler<HTMLButtonElement>;
+  onDecrement: MouseEventHandler<HTMLButtonElement>;
+  onBlur?: FocusEventHandler<HTMLInputElement>;
 }
 
-const QuantityInput = ({ value, onChange }: Props) => {
-  const handleScrollPrevent: WheelEventHandler<HTMLInputElement> = ({ currentTarget }) => {
-    currentTarget.blur();
-  };
-
+const QuantityInput = ({ value, onChange, id, onIncrement, onDecrement, onBlur }: Props) => {
   return (
     <S.Wrapper>
+      <S.MinusButton onClick={onDecrement} aria-label="decrease">
+        <FaMinus />
+      </S.MinusButton>
+
       <Input
-        type="number"
+        id={id}
+        type="text"
+        inputMode="numeric"
         value={value}
         styled={QuantityInputStyle}
-        min={0}
-        max={99}
-        onWheel={handleScrollPrevent}
         onChange={onChange}
-        onKeyDown={(event) => {
-          if (event.key === '-' || event.key === '+' || event.key === 'e' || event.key === '.') {
-            event.preventDefault();
-          }
-        }}
+        onBlur={onBlur}
       />
-
-      <FaCaretUp />
-      <FaCaretDown />
+      <S.PlusButton onClick={onIncrement} aria-label="increase">
+        <FaPlus />
+      </S.PlusButton>
     </S.Wrapper>
   );
 };
 
+const Button = styled.button`
+  height: 32px;
+  background: none;
+  margin: 0px;
+  padding: 3px;
+  color: #aaa;
+  cursor: pointer;
+`;
+
 const S = {
   Wrapper: styled.div`
+    display: flex;
+    flex-direction: row;
     & svg {
-      position: absolute;
-      z-index: -1;
-      width: 26px;
+      width: 16px;
+      height: 16px;
       max-width: 26px;
-      right: 0;
-      border: 1px solid var(--gray-color-200);
     }
-
-    & svg:nth-child(2) {
-      top: 12px;
-      right: 6px;
-    }
-
-    & svg:nth-child(3) {
-      top: 28px;
-      right: 6px;
-    }
+  `,
+  MinusButton: styled(Button)`
+    border: solid var(--gray-color-200);
+    border-width: 1px 0px 1px 1px;
+  `,
+  PlusButton: styled(Button)`
+    border: solid var(--gray-color-200);
+    border-width: 1px 1px 1px 0px;
   `,
 };
 
 const QuantityInputStyle = css`
-  width: 80px;
+  width: 60px;
   height: 32px;
   font-size: 13px;
   text-align: center;
   color: var(--text-color);
   border: 1px solid var(--gray-color-200);
-  background: none;
+  border-width: 1px 0 1px 0;
 `;
 
 export default QuantityInput;
