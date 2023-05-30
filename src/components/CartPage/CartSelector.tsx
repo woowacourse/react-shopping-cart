@@ -54,7 +54,8 @@ export default function CartSelector() {
             <Option>
               <OptionIndicator
                 onClick={() => toggleProductSelect(item.product.id)}
-                id={index}>
+                id={index}
+                asChild>
                 <CheckButton>
                   {selectedProduct?.has(item.product.id) && (
                     <CheckIcon src={checkIcon} />
