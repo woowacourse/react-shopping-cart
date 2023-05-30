@@ -15,11 +15,6 @@ export default function CartPage() {
           <Header>
             <CartQuantity />
           </Header>
-        </React.Suspense>
-      </ErrorBoundary>
-
-      <ErrorBoundary>
-        <React.Suspense fallback={<Loading />}>
           <Container>
             <Title>장바구니</Title>
             <Main>

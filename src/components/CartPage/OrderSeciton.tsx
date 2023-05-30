@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
 
 import { cartState } from "../../atoms/cartState";
+import { useRefreshableRecoilValue } from "../../hooks/useRefreshableAtom";
 
 export default function OrderSection() {
-  const cartsData = useRecoilValue(cartState);
+  const cartsData = useRefreshableRecoilValue(cartState);
   const [deliveryFee, setDeliveryFee] = useState(0);
 
   useEffect(() => {
