@@ -29,6 +29,11 @@
             "position": "before"
           },
           {
+            "pattern": "router/*",
+            "group": "internal",
+            "position": "after"
+          },
+          {
             "pattern": "@recoil/**",
             "group": "internal",
             "position": "after"
@@ -44,12 +49,22 @@
             "position": "after"
           },
           {
+            "pattern": "@hooks/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
             "pattern": "@type/**",
             "group": "internal",
             "position": "after"
           },
           {
             "pattern": "@utils/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@constants",
             "group": "internal",
             "position": "after"
           },

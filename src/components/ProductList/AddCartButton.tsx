@@ -1,58 +1,45 @@
-import { useCallback, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
+import { cartAtom } from '@recoil/atoms/cartAtom';
 import BucketCounter from '@components/common/BucketCounter';
+import useControlCart from '@hooks/useControlCart';
+import { ProductInformation } from '@type/types';
 import { ADD_CART_BUTTON } from '@constants/testId';
-import { BUCKET_BUTTON } from '@assets';
+import { BUCKET_BUTTON } from '@assets/images';
 
 interface AddCartButtonProps {
-  addProductToCart: () => void;
-  removeProductFromCart: () => void;
+  product: ProductInformation;
 }
 
-const AddCartButton = ({
-  addProductToCart,
-  removeProductFromCart,
-}: AddCartButtonProps) => {
-  const [isClicked, setIsClicked] = useState(false);
+const AddCartButton = ({ product }: AddCartButtonProps) => {
+  const cart = useRecoilValue(cartAtom);
+  const savedCartData = cart.find((item) => item.id === product.id);
 
-  const momoizedSetIsClicked = useCallback(
-    (value: boolean) => {
-      setIsClicked(value);
-    },
-    [setIsClicked]
-  );
-
-  const addCartAndChangeImage = () => {
-    momoizedSetIsClicked(true);
-
-    addProductToCart();
-  };
-
-  const removeAndChangeCart = () => {
-    setIsClicked(false);
-    removeProductFromCart();
-  };
+  const { addProductToCart } = useControlCart();
 
   return (
-    <AddCartButtonWrapper>
-      {isClicked ? (
+    <Wrapper>
+      {savedCartData ? (
         <BucketCounter
-          removeProductFromCart={removeAndChangeCart}
+          id={product.id}
+          quantity={savedCartData.quantity}
+          kind="small"
+          refetch={() => {}}
         />
       ) : (
         <Button
           type="button"
-          onClick={addCartAndChangeImage}
+          onClick={() => addProductToCart(product)}
           data-testid={ADD_CART_BUTTON}
         >
           <Image src={BUCKET_BUTTON} alt="장바구니 버튼" />
         </Button>
       )}
-    </AddCartButtonWrapper>
+    </Wrapper>
   );
 };
 
-const AddCartButtonWrapper = styled.div``;
+const Wrapper = styled.div``;
 
 const Button = styled.button`
   border: none;

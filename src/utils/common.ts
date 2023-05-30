@@ -4,12 +4,12 @@ export const isNotNumber = (text: string) => {
   return onlyNumberExpression.test(text);
 };
 
-export const showInputErorrMessage = (
-  isNotError: boolean,
+export const showInputErrorMessage = (
+  isError: boolean,
   inputElement: HTMLInputElement,
   errorMessage: string
 ) => {
-  if (isNotError) {
+  if (!isError) {
     inputElement.setCustomValidity('');
     return;
   }

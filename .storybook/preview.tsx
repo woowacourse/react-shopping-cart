@@ -1,10 +1,26 @@
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
+import type { Preview } from '@storybook/react';
+import { RecoilRoot } from 'recoil';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
+import { handlers } from '../src/mocks/handlers';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../src/styles/theme';
-import { RecoilRoot } from 'recoil';
 
-const preview = {
+let options = {};
+if (location.hostname === 'gc-park.github.io') {
+  options = {
+    serviceWorker: {
+      url: '/react-shopping-cart/mockServiceWorker.js',
+    },
+  };
+}
+
+initialize(options);
+
+const preview: Preview = {
   parameters: {
+    msw: handlers,
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
@@ -13,16 +29,19 @@ const preview = {
       },
     },
   },
-};
 
-export const decorators = [
-  (Story) => (
-    <ThemeProvider theme={theme}>
-      <RecoilRoot>
-        <Story />
-      </RecoilRoot>
-    </ThemeProvider>
-  ),
-];
+  decorators: [
+    (Story) => (
+      <ThemeProvider theme={theme}>
+        <RecoilRoot>
+          <MemoryRouter initialEntries={['/']}>
+            <Story />
+          </MemoryRouter>
+        </RecoilRoot>
+      </ThemeProvider>
+    ),
+    mswDecorator,
+  ],
+};
 
 export default preview;

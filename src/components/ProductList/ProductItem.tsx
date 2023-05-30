@@ -6,34 +6,26 @@ import AddCartButton from './AddCartButton';
 
 interface ProductItemProps {
   product: ProductInformation;
-  addProductToCart: () => void;
-  removeProductFromCart: () => void;
 }
 
-const ProductItem = ({
-  product,
-  addProductToCart,
-  removeProductFromCart,
-}: ProductItemProps) => {
+const ProductItem = ({ product }: ProductItemProps) => {
   const { name, price, imageUrl } = product;
+
   return (
-    <ProductItemWrapper>
+    <Wrapper>
       <Picture src={imageUrl} alt={name} />
       <InformationWrapper>
         <TitleAndPriceWrapper>
           <Title>{name}</Title>
           <Price>{price.toLocaleString('ko-KR')} 원</Price>
         </TitleAndPriceWrapper>
-        <AddCartButton
-          addProductToCart={addProductToCart}
-          removeProductFromCart={removeProductFromCart}
-        />
+        <AddCartButton product={product} />
       </InformationWrapper>
-    </ProductItemWrapper>
+    </Wrapper>
   );
 };
 
-const ProductItemWrapper = styled.div`
+const Wrapper = styled.div`
   width: 282px;
 `;
 
@@ -42,6 +34,8 @@ const Picture = styled.img`
   height: 282px;
 
   margin-bottom: 18px;
+
+  object-fit: cover;
 `;
 
 const InformationWrapper = styled.div`
@@ -57,7 +51,6 @@ const TitleAndPriceWrapper = styled.div`
 `;
 
 const Title = styled.span`
-  font-weight: 400;
   font-size: 16px;
   line-height: 22px;
 
@@ -67,7 +60,6 @@ const Title = styled.span`
 `;
 
 const Price = styled.span`
-  font-weight: 400;
   font-size: 20px;
   line-height: 27px;
 

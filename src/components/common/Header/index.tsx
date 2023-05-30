@@ -1,19 +1,30 @@
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import { cartItemLengthSelector } from '@recoil/selectors/cartSelector';
-import { HEADER_LOGO } from '@assets';
+import { HEADER_LOGO } from '@assets/images';
 import { theme } from '@styles/theme';
 
 const Header = () => {
   const cartLength = useRecoilValue(cartItemLengthSelector);
+  const navigate = useNavigate();
+
+  const goToMainPage = useCallback(() => {
+    navigate('/');
+  }, [navigate]);
+
+  const goToCartPage = useCallback(() => {
+    navigate('/Cart');
+  }, [navigate]);
 
   return (
     <HeaderWrapper>
-      <HeaderContainer>
+      <HeaderContainer onClick={goToMainPage}>
         <Logo src={HEADER_LOGO} alt="헤더 로고" />
         <LogoTitle>SHOP</LogoTitle>
       </HeaderContainer>
-      <HeaderContainer>
+      <HeaderContainer onClick={goToCartPage}>
         <BucketText>장바구니</BucketText>
         <BucketCount>{cartLength}</BucketCount>
       </HeaderContainer>
@@ -32,7 +43,7 @@ const HeaderWrapper = styled.header`
   width: 100vw;
   height: 80px;
 
-  padding: 0 300px;
+  padding: 0 40px;
 
   background: ${theme.colors.primaryBlack};
 
@@ -42,6 +53,8 @@ const HeaderWrapper = styled.header`
 const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
+
+  cursor: pointer;
 `;
 
 const LogoTitle = styled.h2`
@@ -51,6 +64,10 @@ const LogoTitle = styled.h2`
   font-size: 40px;
 
   color: ${theme.colors.white};
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 `;
 
 const Logo = styled.img`

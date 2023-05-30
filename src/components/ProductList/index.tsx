@@ -1,20 +1,24 @@
-import useControlCart from 'hooks/useControlCart';
 import styled from 'styled-components';
-import { PRODUCT_LIST } from '../../mockData/productList';
+import Loader from '@components/common/Loader';
+import useGetFetch from '@hooks/useGetFetch';
+import { ProductInformation } from '@type/types';
 import ProductItem from './ProductItem';
 
 const ProductList = () => {
-  const { addProductToCart, removeProductFromCart } = useControlCart();
+  const { data, isLoading } = useGetFetch<ProductInformation[]>('/products', {
+    method: 'GET',
+  });
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (!data) return null;
 
   return (
     <Container>
-      {PRODUCT_LIST.productList.map((product) => (
-        <ProductItem
-          product={product}
-          key={product.id}
-          addProductToCart={() => addProductToCart(product)}
-          removeProductFromCart={() => removeProductFromCart(product.id)}
-        />
+      {data.map((product) => (
+        <ProductItem product={product} key={product.id} />
       ))}
     </Container>
   );
@@ -25,6 +29,18 @@ const Container = styled.div`
 
   grid-template-columns: repeat(4, 1fr);
   gap: 80px 46px;
+
+  @media (max-width: 1300px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 1023px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 679px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 export default ProductList;
