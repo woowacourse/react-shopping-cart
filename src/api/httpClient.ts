@@ -12,9 +12,9 @@ export default class HTTPClient {
       headers: options.headers ?? {
         "Content-Type": "application/json",
       },
-      body: options.body ?? undefined,
       ...options,
     };
+
     return fetchOptions;
   }
 
