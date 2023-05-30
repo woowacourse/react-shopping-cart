@@ -1,0 +1,16 @@
+.checkbox {
+  appearance: none;
+  border: 1px solid #dddddd;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-image: url('../../../assets/unchecked-icon.svg');
+  background-size: cover;
+}
+
+.checkbox:checked {
+  background-color: #04c09e;
+  border: 1px solid #04c09e;
+  background-image: url('../../../assets/checked-icon.svg');
+  background-size: cover;
+}

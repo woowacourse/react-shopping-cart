@@ -1,0 +1,228 @@
+.orderBoxHeader {
+  width: 100%;
+  border-bottom: 1px solid #dddddd;
+  padding: 22px;
+}
+
+.cartLstHeader {
+  text-align: center;
+  font-weight: 700;
+  font-size: 32px;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+}
+
+.cartList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  border-top: 4px solid #aaaaaa;
+}
+
+.deleteBox {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.deleteButton {
+  border: 1px solid #dddddd;
+  padding: 5px 10px;
+  border-radius: 2px;
+}
+
+.priceBox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.orderButton {
+  width: 100%;
+  height: fit-content;
+  background-color: #04c09e;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  transition: all 0.2s ease-in;
+}
+
+.orderButtonDisabled {
+  background-color: #aaaaaa;
+  width: 100%;
+  height: fit-content;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  transition: all 0.2s ease-in;
+}
+
+.orderButton:hover {
+  background-color: #05b696;
+}
+
+.deleteChecker {
+  display: flex;
+
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+}
+
+.resultText {
+  display: flex;
+  justify-content: space-between;
+}
+
+.resultPrice {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: 500;
+  margin-top: auto;
+}
+
+.orderPrice {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: fit-content;
+  padding: 30px;
+  height: 100%;
+}
+
+.cartListSection {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  padding: 10px;
+}
+
+@media (min-width: 1101px) {
+  .listCount {
+    margin-top: 3%;
+    margin-bottom: 1%;
+    color: #333333;
+  }
+
+  .orderButton {
+    margin-top: 10%;
+  }
+
+  .orderButtonDisabled {
+    margin-top: 10%;
+  }
+
+  .section {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    gap: 30px;
+  }
+
+  .orderBox {
+    position: sticky;
+    top: 20%;
+    border: 1px solid #dddddd;
+    max-width: 448px;
+    width: 100%;
+    max-height: 346px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+  }
+
+  .priceBox {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 720px) and (max-width: 1100px) {
+  .section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .orderButton {
+    margin-top: 3%;
+  }
+
+  .orderButtonDisabled {
+    margin-top: 3%;
+  }
+
+  .orderBox {
+    border: 1px solid #dddddd;
+    width: 100%;
+    height: 35vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    background-color: #ffffff;
+    bottom: 0;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 719px) {
+  .section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .orderButton {
+    margin-top: 3%;
+  }
+
+  .orderButtonDisabled {
+    margin-top: 3%;
+  }
+
+  .orderBox {
+    border: 1px solid #dddddd;
+    width: 100%;
+    height: 35vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    background-color: #ffffff;
+    bottom: 0;
+  }
+}
+
+@media (max-width: 479px) {
+  .section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .orderButton {
+    margin-top: 3%;
+  }
+
+  .orderButtonDisabled {
+    margin-top: 3%;
+  }
+
+  .orderBox {
+    border: 1px solid #dddddd;
+    width: 100%;
+    height: 35vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    background-color: #ffffff;
+    bottom: 0;
+  }
+}

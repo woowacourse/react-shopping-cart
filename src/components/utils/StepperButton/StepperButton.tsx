@@ -1,29 +1,40 @@
 import { ChangeEvent, useCallback } from 'react';
 
-import { AddIcon, MinusIcon } from '../../assets';
+import { AddIcon, MinusIcon } from '../../../assets';
 import styles from './style.module.css';
 
 interface StepperButtonProps {
   count: number;
   minCount?: number;
   maxCount?: number;
-  setCount: React.Dispatch<React.SetStateAction<number>>;
+  itemId: number;
+  setCount?: React.Dispatch<React.SetStateAction<number>>;
+  updateCount?: (itemId: number, quantity: number) => void;
 }
 
-const StepperButton = ({ count, minCount = 1, maxCount = 99, setCount }: StepperButtonProps) => {
-  const handleDecrease = useCallback(() => {
-    setCount((prevCount) => prevCount - 1);
-  }, [setCount]);
-
+const StepperButton = ({
+  count,
+  minCount = 1,
+  maxCount = 99,
+  itemId,
+  setCount,
+  updateCount,
+}: StepperButtonProps) => {
   const handleIncrease = useCallback(() => {
-    setCount((prevCount) => prevCount + 1);
-  }, [setCount]);
+    if (setCount) setCount(count + 1);
+    if (updateCount) updateCount(itemId, count + 1);
+  }, [count, updateCount, setCount, itemId]);
+
+  const handleDecrease = useCallback(() => {
+    if (setCount) setCount(count - 1);
+    if (updateCount) updateCount(itemId, count - 1);
+  }, [count, updateCount, setCount, itemId]);
 
   const handleCountChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       if (Number(event.target.value) < minCount || Number(event.target.value) > maxCount) return;
 
-      setCount(Number(event.target.value));
+      if (setCount) setCount(Number(event.target.value));
     },
     [maxCount, minCount, setCount]
   );

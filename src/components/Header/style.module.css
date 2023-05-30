@@ -10,7 +10,7 @@ header {
 
 .container {
   position: relative;
-  width: 1080px;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -19,6 +19,7 @@ header {
 
 .logo {
   height: 48px;
+  cursor: pointer;
 }
 
 .container button {
@@ -65,4 +66,16 @@ header {
 .label {
   font-size: 10px;
   font-weight: 400;
+}
+
+@media (min-width: 480px) and (max-width: 719px) {
+  .logo {
+    height: 40px;
+  }
+}
+
+@media (max-width: 479px) {
+  .logo {
+    height: 36px;
+  }
 }

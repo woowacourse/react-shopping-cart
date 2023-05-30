@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { userEvent, within } from '@storybook/testing-library';
 import { useState } from 'react';
 
-import StepperButton from '../components/StepperButton/StepperButton';
+import StepperButton from '../components/utils/StepperButton/StepperButton';
 
 const meta = {
   title: 'ShoppingCart/StepperButton',
@@ -33,6 +33,7 @@ export const Default: Story = {
 
     return (
       <StepperButton
+        itemId={Number(new Date())}
         count={count}
         setCount={setCount}
         minCount={args.minCount}
@@ -56,6 +57,7 @@ export const Interaction: Story = {
 
     return (
       <StepperButton
+        itemId={Number(new Date())}
         count={count}
         setCount={setCount}
         minCount={args.minCount}

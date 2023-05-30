@@ -9,4 +9,5 @@ export interface CartItemType {
   id: number;
   quantity: number;
   product: ProductItemType;
+  isChecked: boolean;
 }

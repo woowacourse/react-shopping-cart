@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import ProductAddition from '../components/ProductAddition/ProductAddition';
+import ProductAddition from '../components/Product/ProductAddition/ProductAddition';
 
 const meta = {
   title: 'ShoppingCart/ProductAdditionModal',
@@ -20,5 +20,6 @@ export const Default: Story = {
         'https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201702/27/117f5b49-1d09-4550-8ab7-87c0d82614de.jpg',
     },
     closeModalByClick: () => {},
+    quantity: 12,
   },
 };

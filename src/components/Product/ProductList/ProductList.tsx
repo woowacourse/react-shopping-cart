@@ -1,15 +1,15 @@
 import { useRecoilValue } from 'recoil';
 
-import productListState from '../../store/product';
+import { currentProductList } from '../../../store/selectors';
 import ProductItem from '../ProductItem/ProductItem';
 import styles from './styles.module.css';
 
 const ProductList = () => {
-  const productList = useRecoilValue(productListState);
+  const productItems = useRecoilValue(currentProductList);
 
   return (
     <div className={styles.container}>
-      {productList.map((productItem) => (
+      {productItems?.map((productItem) => (
         <ProductItem key={productItem.id} information={productItem} />
       ))}
     </div>

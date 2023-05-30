@@ -1,20 +1,20 @@
 import { Suspense } from 'react';
 
+import CartPageSection from '../components/Cart/CartPageSection/CartPageSection';
 import Header from '../components/Header/Header';
-import ProductList from '../components/Product/ProductList/ProductList';
 import LoadingSpinner from '../components/utils/LoadingSpinner/LoadingSpinner';
 
-const ProductListPage = () => {
+const CartListPage = () => {
   return (
     <>
       <Header />
       <main>
         <Suspense fallback={<LoadingSpinner />}>
-          <ProductList />
+          <CartPageSection />
         </Suspense>
       </main>
     </>
   );
 };
 
-export default ProductListPage;
+export default CartListPage;

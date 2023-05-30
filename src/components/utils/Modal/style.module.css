@@ -27,6 +27,9 @@
   animation: showAnimation 0.2s ease-in 0.05s forwards;
   opacity: 0;
 }
+.informationContainertwo {
+  width: 100%;
+}
 
 @keyframes showAnimation {
   from {
@@ -34,5 +37,18 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+@media (max-width: 479px) {
+  .content {
+    position: fixed;
+    display: flex;
+    bottom: 0%;
+    transform: translateX(-50%);
+    width: 100%;
+    padding: 15px;
+    background-color: white;
+    border-radius: 8px;
   }
 }
