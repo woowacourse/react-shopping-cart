@@ -30,8 +30,3 @@
   justify-content: space-between;
   height: 26px;
 }
-
-.item-info :last-child {
-  font-size: 20px;
-  line-height: 20px;
-}

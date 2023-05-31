@@ -11,7 +11,7 @@
   justify-content: center;
   font-size: 12px;
 
-  border: 1px solid var(--white-color-003);
+  border: 1px solid var(--gray-color-001);
 }
 
 .counter-container > div {
@@ -23,7 +23,7 @@ input {
   height: 20px;
   border: none;
   color: var(--white-color-004);
-  font-size: 5px;
+  font-size: 20px;
 }
 
 input::-webkit-outer-spin-button,

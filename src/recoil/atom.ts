@@ -1,11 +1,12 @@
 import { atom } from 'recoil';
+import { CartItem } from '../types';
 
 export const $Cart = atom<number[]>({
   key: 'Cart',
   default: [],
 });
 
-export const $Products = atom({
-  key: 'products',
+export const $CheckedCartState = atom<CartItem[]>({
+  key: 'CheckedCartState',
   default: [],
 });

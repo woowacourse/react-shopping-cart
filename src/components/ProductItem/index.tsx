@@ -14,7 +14,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
       <div className={styles['item-info']}>
         <div>
           <div>{name}</div>
-          <AddCartButton id={id} />
+          <AddCartButton id={id} name={name} />
         </div>
         <div>{price.toLocaleString()} 원</div>
       </div>
