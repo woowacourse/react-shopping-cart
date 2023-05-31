@@ -1,22 +1,55 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import ProductCard from "../ProductCard/ProductCard";
-import mockData from "../../mockData/mockData.json";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  fetchProductsSelector,
+  fetchCartProductsSelector,
+  productResetterAtom,
+  cartProductResetterAtom,
+} from "../../store/fetchAtoms";
+import { useEffect } from "react";
 
 const ProductCardList = () => {
+  const products = useRecoilValue(fetchProductsSelector);
+  const cartProducts = useRecoilValue(fetchCartProductsSelector);
+  const resetProduct = useSetRecoilState(productResetterAtom);
+  const resetCartProduct = useSetRecoilState(cartProductResetterAtom);
+
+  useEffect(() => {
+    resetProduct((previousNumber) => previousNumber + 1);
+    resetCartProduct((previousNumber) => previousNumber + 1);
+  }, [resetCartProduct, resetProduct]);
+
   return (
     <ProductCardListContainer>
-      {mockData.map((product) => (
+      {products.map((product) => (
         <ProductCard
           key={product.id}
           productId={product.id}
           productImage={product.imageUrl}
           productName={product.name}
           productPrice={product.price}
+          productQuantity={
+            (
+              cartProducts.find(
+                (cartProduct) => cartProduct.id === product.id
+              ) || { quantity: 0 }
+            ).quantity
+          }
         />
       ))}
     </ProductCardListContainer>
   );
 };
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
 
 const ProductCardListContainer = styled.div`
   display: grid;
@@ -27,6 +60,7 @@ const ProductCardListContainer = styled.div`
   max-width: 1270.43px;
   height: auto;
   margin: 0 auto 100px auto;
+  animation: ${fadeIn} 0.3s;
 
   @media (max-width: 1300px) {
     grid-template-columns: repeat(3, 1fr);

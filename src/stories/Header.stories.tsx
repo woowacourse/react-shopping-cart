@@ -13,7 +13,10 @@ const meta = {
 type Story = StoryObj<typeof meta>;
 
 export const Standard: Story = {
-  args: {},
+  args: {
+    homeUrl: "/",
+    cartViewPageUrl: "/",
+  },
 };
 
 export default meta;

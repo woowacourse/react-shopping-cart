@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "quantity": 1,
+    "product": {
+      "id": 1,
+      "name": "초콜릿 블리츠 케이크",
+      "price": 38000,
+      "imageUrl": "https://user-images.githubusercontent.com/87642422/237034529-5ca0aa1a-c835-48cc-95f9-03734fba1834.png"
+    }
+  }
+]

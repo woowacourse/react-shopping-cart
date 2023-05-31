@@ -1,20 +1,46 @@
 import styled from "styled-components";
-import ProductQuantityInput from "../ProductQuantityInput/ProductQuantityInput";
-import type { ProductCardProps } from "../../types";
+import ProductQuantityInput from "../TransformQuantityInput/TransformQuantityInput";
+import type { ProductCardProps, IdQuantity } from "../../types";
+import { useCartQuantityUpdater } from "../../hooks/useCartInfosUpdater";
+import dataUploader from "../../domains/dataUploader";
 
 const ProductCard = ({
   productId,
   productImage,
   productName,
   productPrice,
+  productQuantity,
 }: ProductCardProps) => {
+  const { updateCartQuantity } = useCartQuantityUpdater();
+
+  const uploadQuantity = ({ id, quantity }: IdQuantity) => {
+    updateCartQuantity({ id, quantity });
+
+    if (quantity === 1) {
+      dataUploader.addCartProduct({ productId: id });
+      return;
+    }
+
+    if (quantity === 0) {
+      dataUploader.removeCartProduct(id);
+      return;
+    }
+
+    dataUploader.updateQuantity({ id, quantity });
+  };
+
   return (
     <ProductCardContainer>
       <ProductImage src={productImage} alt="productImage" />
       <ProductDetailWrapper>
         <ProductName title={productName}>{productName}</ProductName>
         <InputWrapper>
-          <ProductQuantityInput productId={productId} />
+          <ProductQuantityInput
+            productId={productId}
+            initialValue={productQuantity}
+            minValue={0}
+            onChange={uploadQuantity}
+          />
         </InputWrapper>
         <ProductPrice>₩ {productPrice.toLocaleString()}</ProductPrice>
       </ProductDetailWrapper>

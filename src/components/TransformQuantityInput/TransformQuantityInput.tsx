@@ -2,25 +2,28 @@ import styled, { keyframes } from "styled-components";
 import cartImage from "../../assets/images/cart.png";
 import arrowUpImage from "../../assets/images/arrow-up.png";
 import arrowDownImage from "../../assets/images/arrow-down.png";
-import useQuantityUpdater from "../../hooks/useQuantityUpdater";
+import useQuantityUpdater from "../../hooks/useQuantity";
+import type { ProductQuantityInputProps } from "../../types";
 
-interface ProductQuantityInputProps {
-  productId: number;
-  step?: number;
-}
-
-const ProductQuantityInput = ({
+const TransformQuantityInput = ({
+  initialValue,
+  minValue,
   productId,
+  onChange,
   step = 1,
 }: ProductQuantityInputProps) => {
   const {
     inputValue,
-    isButtonMode,
-    setIsFocused,
     updateInputValue,
     initializeInputValue,
     incrementInputValue,
-  } = useQuantityUpdater({ productId: productId });
+    isButtonMode,
+  } = useQuantityUpdater({
+    productId,
+    initialValue,
+    minValue,
+    onChange,
+  });
 
   return (
     <Container>
@@ -31,11 +34,7 @@ const ProductQuantityInput = ({
       ) : (
         <InputMode>
           <IncreaseButton onClick={() => incrementInputValue(step)} />
-          <Input
-            value={inputValue}
-            onChange={updateInputValue}
-            onBlur={() => setIsFocused(false)}
-          />
+          <Input value={inputValue} onChange={updateInputValue} />
           <DecreaseButton onClick={() => incrementInputValue(-step)} />
         </InputMode>
       )}
@@ -147,4 +146,4 @@ const DecreaseButton = styled.button`
   animation: ${moveDownAnimation} 0.2s;
 `;
 
-export default ProductQuantityInput;
+export default TransformQuantityInput;

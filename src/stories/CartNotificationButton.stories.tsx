@@ -22,7 +22,7 @@ const meta = {
 type Story = StoryObj<typeof meta>;
 
 export const Standard: Story = {
-  args: { productCount: 8 },
+  args: {},
 };
 
 export default meta;
