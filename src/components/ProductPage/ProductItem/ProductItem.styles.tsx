@@ -33,6 +33,8 @@ export const CartButton = styled.button`
   border: none;
   background-color: white;
   padding: 0;
+
+  cursor: pointer;
 `;
 
 export const CartImg = styled.img`

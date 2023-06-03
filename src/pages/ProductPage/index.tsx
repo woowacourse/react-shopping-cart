@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import ProductList from '../../components/ProductPage/ProductList';
 import ProductListSkeleton from '../../components/ProductPage/ProductList/ProductListSkeleton';
 

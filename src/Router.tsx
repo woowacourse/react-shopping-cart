@@ -1,28 +1,38 @@
 import React from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import ProductPage from './pages/ProductPage/ProductPage';
+import ProductPage from './pages/ProductPage';
 import { Layout } from './components/common/Layout';
 import ProductPageError from './pages/ProductPage/ProductPageError';
 import { PAGE_ROUTES } from './constants/routes';
-import Page404 from './pages/ErrorPage/Page404';
+import NotFound from './pages/ErrorPage';
+import CartPage from './pages/CartPage';
+import CartPageError from './components/CartPage/CartList/CartPageError';
 
-const router = createBrowserRouter([
-  {
-    path: PAGE_ROUTES.HOME,
-    element: <Layout />,
-    children: [
-      {
-        index: true,
-        element: <ProductPage />,
-        errorElement: <ProductPageError />,
-      },
-    ],
-  },
-  {
-    path: '*',
-    element: <Page404 />,
-  },
-]);
+const router = createBrowserRouter(
+  [
+    {
+      path: PAGE_ROUTES.HOME,
+      element: <Layout />,
+      children: [
+        {
+          index: true,
+          element: <ProductPage />,
+          errorElement: <ProductPageError />,
+        },
+        {
+          path: PAGE_ROUTES.CART,
+          element: <CartPage />,
+          errorElement: <CartPageError />,
+        },
+      ],
+    },
+    {
+      path: '*',
+      element: <NotFound />,
+    },
+  ],
+  { basename: process.env.PUBLIC_URL }
+);
 
 const Router = () => {
   return <RouterProvider router={router} />;

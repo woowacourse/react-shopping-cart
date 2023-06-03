@@ -1,8 +1,8 @@
-import * as S from './Page404.styles';
+import * as S from './NotFound.styles';
 import Flex from '../../components/common/Flex';
 import { PAGE_ROUTES } from '../../constants/routes';
 
-const Page404 = () => {
+const NotFound = () => {
   return (
     <Flex dir="column">
       <S.ErrorMessage>
@@ -13,4 +13,4 @@ const Page404 = () => {
   );
 };
 
-export default Page404;
+export default NotFound;

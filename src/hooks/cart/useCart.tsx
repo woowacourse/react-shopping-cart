@@ -2,45 +2,50 @@ import { useRecoilState } from 'recoil';
 import { cartState } from '../../recoil/cart';
 import { CartItem } from '../../types/cart';
 import { Product } from '../../types/products';
+import {
+  addCartItem,
+  deleteCartItem,
+  fetchCartItems,
+  modifyCartItem,
+} from '../../apis/cart';
 
 const useCart = () => {
-  const [cart, setCart] = useRecoilState(cartState);
+  const [cartItems, setCartItems] = useRecoilState(cartState);
 
-  const hasItemInCart = (id: CartItem['id']) => {
-    return cart.find((item) => item.id === id);
+  const updateCart = async () => {
+    const newCart = await fetchCartItems();
+    setCartItems(newCart);
   };
 
-  const addInCart = (product: Product, quantity: number) => {
-    const { id } = product;
-
-    if (hasItemInCart(id)) {
-      setCart((cart) =>
-        cart.map((item) =>
-          item.id === id
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        )
-      );
-      return;
-    }
-
-    setCart((cart) => [...cart, { id, quantity, product }]);
+  const addInCart = async (product: Product, quantity: number) => {
+    await addCartItem({ id: product.id, quantity, product });
+    await updateCart();
   };
 
-  const adjustQuantityInCart = (
+  const adjustQuantityInCart = async (
     id: CartItem['id'],
     quantity: CartItem['quantity']
   ) => {
-    setCart((cart) =>
-      cart.map((item) => (item.id === id ? { ...item, quantity } : item))
-    );
+    await modifyCartItem(id, { quantity });
+    await updateCart();
   };
 
-  const deleteInCart = (id: CartItem['id']) => {
-    setCart((cart) => cart.filter((item) => item.id !== id));
+  const deleteInCart = async (id: CartItem['id']) => {
+    await deleteCartItem(id);
+    await updateCart();
   };
 
-  return { cart, addInCart, adjustQuantityInCart, deleteInCart };
+  const emptyCart = async () => {
+    Promise.all(cartItems.map(({ id }) => deleteInCart(id)));
+  };
+
+  return {
+    cartItems,
+    addInCart,
+    adjustQuantityInCart,
+    deleteInCart,
+    emptyCart,
+  };
 };
 
 export default useCart;

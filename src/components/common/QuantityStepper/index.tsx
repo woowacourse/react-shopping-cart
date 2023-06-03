@@ -1,44 +1,44 @@
 import React, { forwardRef } from 'react';
-import useCounter from '../../../hooks/common/useCounter';
 import Button from '../Button';
 import Flex from '../Flex';
 import * as S from './QuantityStepper.styles';
 
 interface QuantityStepperProps {
   label: string;
+  value: number;
+  increase: () => void;
+  decrease: () => void;
 }
-const QuantityStepper = forwardRef<HTMLInputElement, QuantityStepperProps>(
-  ({ label }, ref) => {
-    const [quantity, increase, decrease] = useCounter({
-      max: 100,
-      min: 1,
-    });
-
-    return (
-      <Flex>
-        <Button
-          aria-label="add one item in cart"
-          size="S"
-          view="light"
-          type="button"
-          onClick={decrease}
-        >
-          ▼
-        </Button>
-        <S.Quantity ref={ref} value={quantity} disabled name={label} />
-        <Button
-          aria-label="minus one item from cart"
-          size="S"
-          view="light"
-          type="button"
-          onClick={increase}
-        >
-          ▲
-        </Button>
-      </Flex>
-    );
-  }
-);
+const QuantityStepper = ({
+  label,
+  value,
+  increase,
+  decrease,
+}: QuantityStepperProps) => {
+  return (
+    <Flex>
+      <Button
+        aria-label="장바구니에 1개 추가"
+        size="S"
+        view="light"
+        type="button"
+        onClick={decrease}
+      >
+        ▼
+      </Button>
+      <S.Quantity value={value} disabled name={label} />
+      <Button
+        aria-label="장바구니에서 1개 빼기"
+        size="S"
+        view="light"
+        type="button"
+        onClick={increase}
+      >
+        ▲
+      </Button>
+    </Flex>
+  );
+};
 
 QuantityStepper.displayName = 'QuantityStepper';
 
