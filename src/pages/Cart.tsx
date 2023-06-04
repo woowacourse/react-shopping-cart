@@ -3,10 +3,10 @@ import { Layout } from '../layout';
 import { CartItemsSection } from '../components/cartPage/cartItemsSection/CartItemsSection';
 import { OrderSummarySection } from '../components/cartPage/orderSummarySection/OrderSummarySection';
 import { useRecoilValue } from 'recoil';
-import { cartItemsLengthSelector } from '../recoil/selectors/cartItemsSelector';
+import { isCartItemEmptySelector } from '../recoil/selectors/cartItemsSelector';
 
 export const Cart = () => {
-  const cartItemsLength = useRecoilValue(cartItemsLengthSelector);
+  const isCartEmpty = useRecoilValue(isCartItemEmptySelector);
 
   return (
     <Layout>
@@ -14,7 +14,7 @@ export const Cart = () => {
         <Style.HeaderTitle>장바구니</Style.HeaderTitle>
       </Style.Header>
 
-      {cartItemsLength > 0 ? (
+      {isCartEmpty ? (
         <Style.Content>
           <CartItemsSection />
           <OrderSummarySection />
