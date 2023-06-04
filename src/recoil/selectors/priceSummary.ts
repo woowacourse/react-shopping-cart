@@ -4,10 +4,10 @@ import { cartItemsState, selectedCartIdListState } from '../atoms/cartAtom';
 export const priceSummaryState = selector({
   key: 'priceSummaryState',
   get: ({ get }) => {
-    const selectedCartItems = get(selectedCartIdListState);
+    const selectedCartItemIds = get(selectedCartIdListState);
     const cartItems = get(cartItemsState);
 
-    const totalProductPrice = selectedCartItems.reduce(
+    const totalProductPrice = selectedCartItemIds.reduce(
       (acc, selectedCartItemId) => {
         const product = cartItems.find(
           (cartProduct) => cartProduct.id === selectedCartItemId
@@ -19,7 +19,7 @@ export const priceSummaryState = selector({
       0
     );
 
-    const deliveryPrice = selectedCartItems.length > 0 ? 3000 : 0;
+    const deliveryPrice = selectedCartItemIds.length > 0 ? 3000 : 0;
 
     const totalPrice = totalProductPrice + deliveryPrice;
 
