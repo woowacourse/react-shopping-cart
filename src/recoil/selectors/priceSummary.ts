@@ -1,5 +1,6 @@
 import { selector } from 'recoil';
 import { cartItemsState, selectedCartIdListState } from '../atoms/cartAtom';
+import { DELIVERY_PRICE } from '../../constants/constants';
 
 export const priceSummaryState = selector({
   key: 'priceSummaryState',
@@ -21,7 +22,7 @@ export const priceSummaryState = selector({
       0
     );
 
-    const deliveryPrice = selectedCartItemIds.length > 0 ? 3000 : 0;
+    const deliveryPrice = selectedCartItemIds.length > 0 ? DELIVERY_PRICE : 0;
 
     const totalPrice = totalProductPrice + deliveryPrice;
 
