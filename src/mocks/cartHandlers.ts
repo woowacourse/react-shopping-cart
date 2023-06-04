@@ -1,13 +1,15 @@
 import { rest } from 'msw';
 import {
-  CART_ITEMS_KEY,
-  getCartItems,
-  getProductList,
+  addCartItemToLocalStorage,
+  deleteCartItemsFromLocalStorage,
+  getCartItemsFromLocalStorage,
+  getProductListFromLocalStorage,
+  patchCartItemQuantityToLocalStorage,
 } from '../utils/localStorage';
 
 export const cartHandlers = [
   rest.get('/cart-items', (_, res, ctx) => {
-    const cartItems = getCartItems();
+    const cartItems = getCartItemsFromLocalStorage();
 
     return res(ctx.json(cartItems), ctx.status(200));
   }),
@@ -15,25 +17,19 @@ export const cartHandlers = [
     const requestData = await req.json();
     const productId = await requestData.productId;
 
-    const cartItems = getCartItems();
-    const productList = getProductList();
+    const cartItems = getCartItemsFromLocalStorage();
+    const productList = getProductListFromLocalStorage();
 
     const product = productList.find((p) => p.id === productId);
 
     if (cartItems.some((cartItem) => cartItem.id === productId))
       return res(ctx.json('이미 있는 상품입니다!'), ctx.status(400));
 
-    localStorage.setItem(
-      CART_ITEMS_KEY,
-      JSON.stringify([
-        ...cartItems,
-        {
-          id: productId,
-          quantity: 1,
-          product,
-        },
-      ])
-    );
+    addCartItemToLocalStorage({
+      id: productId,
+      quantity: 1,
+      product,
+    });
 
     return res(ctx.json('success'), ctx.status(200));
   }),
@@ -42,7 +38,7 @@ export const cartHandlers = [
     const quantity = await requestData.quantity;
     const productId = Number(req.params.id);
 
-    const cartItems = getCartItems();
+    const cartItems = getCartItemsFromLocalStorage();
 
     if (!cartItems.some((cartItem) => cartItem.id === productId))
       return res(
@@ -50,21 +46,13 @@ export const cartHandlers = [
         ctx.status(400)
       );
 
-    localStorage.setItem(
-      CART_ITEMS_KEY,
-      JSON.stringify(
-        cartItems.map((cartItem) => {
-          if (cartItem.id === productId) return { ...cartItem, quantity };
-          return cartItem;
-        })
-      )
-    );
+    patchCartItemQuantityToLocalStorage(productId, quantity);
 
     return res(ctx.json('success'), ctx.status(200));
   }),
   rest.delete('/cart-items/:id', (req, res, ctx) => {
     const productId = Number(req.params.id);
-    const cartItems = getCartItems();
+    const cartItems = getCartItemsFromLocalStorage();
 
     if (!cartItems.some((cartItem) => cartItem.id === productId))
       return res(
@@ -72,10 +60,7 @@ export const cartHandlers = [
         ctx.status(400)
       );
 
-    localStorage.setItem(
-      CART_ITEMS_KEY,
-      JSON.stringify(cartItems.filter((cartItem) => cartItem.id !== productId))
-    );
+    deleteCartItemsFromLocalStorage(productId);
 
     return res(ctx.json('success'), ctx.status(200));
   }),
