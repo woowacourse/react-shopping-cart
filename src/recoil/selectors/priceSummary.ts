@@ -13,6 +13,8 @@ export const priceSummaryState = selector({
           (cartProduct) => cartProduct.id === selectedCartItemId
         );
 
+        if (product === undefined) return acc;
+
         return (acc +=
           Number(product?.quantity) * Number(product?.product.price));
       },
