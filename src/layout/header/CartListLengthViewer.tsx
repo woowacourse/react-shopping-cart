@@ -1,19 +1,10 @@
-import { selector, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { cartItemsState } from '../../recoil/atoms/cartAtom';
-
-const cartProductListLengthState = selector({
-  key: 'cartProductListLengthState',
-  get: ({ get }) => {
-    const cartList = get(cartItemsState);
-
-    return cartList.length;
-  },
-});
+import { cartItemsSelector } from '../../recoil/selectors/cartItemsSelector';
 
 export const CartListLengthViewer = () => {
-  const cartListLength = useRecoilValue(cartProductListLengthState);
-  return <Style.CartAmount>{cartListLength}</Style.CartAmount>;
+  const { cartItemsLength } = useRecoilValue(cartItemsSelector);
+  return <Style.CartAmount>{cartItemsLength}</Style.CartAmount>;
 };
 
 const Style = {

@@ -1,11 +1,13 @@
 import { selector } from 'recoil';
 import { cartItemsState } from '../atoms/cartAtom';
 
-export const isCartItemEmptySelector = selector({
-  key: 'cartIdListLengthState',
+export const cartItemsSelector = selector({
+  key: 'cartItemsSelector',
   get: ({ get }) => {
     const cartItems = get(cartItemsState);
+    const isCartItemsEmpty = cartItems.length === 0;
+    const cartItemsLength = cartItems.length;
 
-    return cartItems.length === 0;
+    return { isCartItemsEmpty, cartItemsLength };
   },
 });
