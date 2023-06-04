@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { GlobalStyle } from '../GlobalStyle';
 import { Meta } from '@storybook/react';
-import { CheckBox } from '../layout/checkBox/CheckBox';
+import { CheckBox } from '../components/common/checkBox/CheckBox';
 
 const meta = {
   title: 'CheckBox',

@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 import { useState, useEffect } from 'react';
 
-import { CheckBox } from '../../../layout/checkBox/CheckBox';
+import { CheckBox } from '../../common/checkBox/CheckBox';
 import { useCartRecoil } from '../../../hooks/recoil/useCartRecoil';
-import { Counter } from '../../../layout/counter/Counter';
+import { Counter } from '../../common/counter/Counter';
 import { useCartFetch } from '../../../hooks/fetch/useCartFetch';
 import { useSelectedCartRecoil } from '../../../hooks/recoil/useSelectedCartRecoil';
 

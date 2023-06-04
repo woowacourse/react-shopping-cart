@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { GlobalStyle } from '../GlobalStyle';
-import { Counter } from '../layout/counter/Counter';
+import { Counter } from '../components/common/counter/Counter';
 import { Meta } from '@storybook/react';
 
 const meta = {

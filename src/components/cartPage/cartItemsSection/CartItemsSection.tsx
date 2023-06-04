@@ -5,7 +5,7 @@ import {
   cartItemsState,
   selectedCartIdListState,
 } from '../../../recoil/atoms/cartAtom';
-import { CheckBox } from '../../../layout/checkBox/CheckBox';
+import { CheckBox } from '../../common/checkBox/CheckBox';
 import { useCartRecoil } from '../../../hooks/recoil/useCartRecoil';
 import { useCartFetch } from '../../../hooks/fetch/useCartFetch';
 

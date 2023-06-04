@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ShoppingCartIcon } from '../../../assets/ShoppingCartIcon';
 import { useCartRecoil } from '../../../hooks/recoil/useCartRecoil';
-import { Counter } from '../../../layout/counter/Counter';
+import { Counter } from '../../common/counter/Counter';
 import { useCartFetch } from '../../../hooks/fetch/useCartFetch';
 
 interface AddCartButtonProps {
