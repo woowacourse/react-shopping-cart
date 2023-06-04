@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Product } from '../../../types/Product';
 
 import { ProductCard } from '../productCard/ProductCard';
 import { useRecoilValue } from 'recoil';

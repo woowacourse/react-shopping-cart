@@ -5,7 +5,6 @@ export const productHandlers = [
   rest.get('/products', (_, res, ctx) => {
     const { mockData } = useMockData();
 
-    return res.networkError('Faild to fetch');
     return res(ctx.json(mockData), ctx.status(200), ctx.delay(3000));
   }),
   rest.get('/products/:id', (req, res, ctx) => {

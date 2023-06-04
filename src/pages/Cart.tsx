@@ -2,20 +2,11 @@ import styled from 'styled-components';
 import { Layout } from '../layout';
 import { CartItemsSection } from '../components/cartPage/cartItemsSection/CartItemsSection';
 import { OrderSummarySection } from '../components/cartPage/orderSummarySection/OrderSummarySection';
-import { selector, useRecoilValue } from 'recoil';
-import { cartItemsState } from '../recoil/atoms/cartAtom';
-
-const cartItemsLengthState = selector({
-  key: 'cartIdListLengthState',
-  get: ({ get }) => {
-    const cartItems = get(cartItemsState);
-
-    return cartItems.length;
-  },
-});
+import { useRecoilValue } from 'recoil';
+import { cartItemsLengthSelector } from '../recoil/selectors/cartItemsSelector';
 
 export const Cart = () => {
-  const cartItemsLength = useRecoilValue(cartItemsLengthState);
+  const cartItemsLength = useRecoilValue(cartItemsLengthSelector);
 
   return (
     <Layout>
