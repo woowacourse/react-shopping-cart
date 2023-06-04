@@ -7,13 +7,13 @@ export const useCartFetch = () => {
   };
 
   const deleteCartItemById = (id: number) => {
-    fetch(`/cart-items/${id}`, {
+    return fetch(`/cart-items/${id}`, {
       method: 'DELETE',
     });
   };
 
   const patchCartItemQuantity = (id: number, quantity: number) => {
-    fetch(`/cart-items/${id}`, {
+    return fetch(`/cart-items/${id}`, {
       method: 'PATCH',
       body: JSON.stringify({ quantity }),
     });

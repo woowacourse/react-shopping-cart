@@ -76,7 +76,7 @@ export const CartItem = ({ id, name, price, imageUrl }: CartItemProps) => {
             src={`${process.env.PUBLIC_URL}/trashCan.png`}
             onClick={handleDeleteCartItem}
           />
-          <Counter count={quantity} setCount={setQuantity} />
+          <Counter quantity={quantity} handleQuantityChange={setQuantity} />
           <Style.ProductPrice>{price}원</Style.ProductPrice>
         </Style.ProductSelectorContainer>
       </Style.Content>

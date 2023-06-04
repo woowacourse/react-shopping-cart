@@ -1,39 +1,39 @@
 import styled from 'styled-components';
 
-import { SetStateAction } from 'react';
-
 interface CounterProps {
-  count: number;
-  setCount: React.Dispatch<SetStateAction<number>>;
+  quantity: number;
+  handleQuantityChange: (quantity: number, prevQuantity: number) => void;
 }
 
-export const Counter = ({ count, setCount }: CounterProps) => {
+export const Counter = ({ quantity, handleQuantityChange }: CounterProps) => {
   const handleIncrease = () => {
-    setCount((current) => {
-      const increasedValue = current + 1;
+    const increasedQuantity = quantity + 1;
 
-      if (increasedValue > 999) return 999;
-      return increasedValue;
-    });
+    if (increasedQuantity > 999) return handleQuantityChange(999, quantity);
+    handleQuantityChange(increasedQuantity, quantity);
   };
 
   const handleDecrease = () => {
-    setCount((current) => current - 1);
+    handleQuantityChange(quantity - 1, quantity);
   };
 
   const handleChangeInput: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const inputCount = Number(e.target.value);
 
-    if (inputCount <= 0) return setCount(1);
-    if (inputCount > 999) return setCount(999);
+    if (inputCount <= 0) return handleQuantityChange(1, quantity);
+    if (inputCount > 999) return handleQuantityChange(999, quantity);
 
-    setCount(Number(e.target.value));
+    handleQuantityChange(inputCount, quantity);
   };
 
   return (
     <Style.Container>
       <Style.Button onClick={handleDecrease}>➖</Style.Button>
-      <Style.Input value={count} onChange={handleChangeInput} type="number" />
+      <Style.Input
+        value={quantity}
+        onChange={handleChangeInput}
+        type="number"
+      />
       <Style.Button onClick={handleIncrease}>➕</Style.Button>
     </Style.Container>
   );

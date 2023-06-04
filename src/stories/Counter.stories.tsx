@@ -26,5 +26,5 @@ export const CounterComponent = () => {
     if (count <= 0) setCount(1);
   }, [count]);
 
-  return <Counter count={count} setCount={setCount} />;
+  return <Counter quantity={count} handleQuantityChange={setCount} />;
 };
