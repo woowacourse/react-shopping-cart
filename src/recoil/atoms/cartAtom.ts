@@ -1,13 +1,13 @@
 import { atom } from 'recoil';
 import { Product } from '../../types/Product';
 
-export interface CartProductDetail {
+export interface CartItemType {
   id: number;
   quantity: number;
   product: Product;
 }
 
-export const cartItemsState = atom<CartProductDetail[]>({
+export const cartItemsState = atom<CartItemType[]>({
   key: 'cartItemsState',
   default: [],
   effects: [
@@ -24,7 +24,7 @@ export const cartItemsState = atom<CartProductDetail[]>({
   ],
 });
 
-export const selectedCartIdListState = atom<number[]>({
+export const selectedCartIdListState = atom<CartItemType['id'][]>({
   key: 'selectedCartIdListState',
   default: [],
 });

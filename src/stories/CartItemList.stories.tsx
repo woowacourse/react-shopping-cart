@@ -2,7 +2,7 @@ import { Meta } from '@storybook/react';
 import { RecoilRoot, useSetRecoilState } from 'recoil';
 import { GlobalStyle } from '../GlobalStyle';
 import { CartItemsSection } from '../components/cartPage/cartItemsSection/CartItemsSection';
-import { CartProductDetail, cartItemsState } from '../recoil/atoms/cartAtom';
+import { CartItemType, cartItemsState } from '../recoil/atoms/cartAtom';
 import { useEffect } from 'react';
 import { useMockData } from '../hooks/useMockData';
 
@@ -29,7 +29,7 @@ export const CartItemsComponent = () => {
 
   useEffect(() => {
     setCartItems(() => {
-      const cartItems: CartProductDetail[] = [];
+      const cartItems: CartItemType[] = [];
 
       Array.from({ length: 5 }).forEach((_, index) => {
         cartItems.push({

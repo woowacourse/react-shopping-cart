@@ -8,19 +8,14 @@ import { Counter } from '../../../layout/counter/Counter';
 import { useCartFetch } from '../../../hooks/fetch/useCartFetch';
 import { useSelectedCartRecoil } from '../../../hooks/recoil/useSelectedCartRecoil';
 
-interface ProductSelectItemProps {
+interface CartItemProps {
   id: number;
   name: string;
   price: number;
   imageUrl: string;
 }
 
-export const CartItem = ({
-  id,
-  name,
-  price,
-  imageUrl,
-}: ProductSelectItemProps) => {
+export const CartItem = ({ id, name, price, imageUrl }: CartItemProps) => {
   const {
     deleteRecoilCartById,
     patchRecoilCartItemQuantity,
