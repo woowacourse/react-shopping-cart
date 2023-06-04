@@ -11,9 +11,9 @@ export const useCartRecoil = () => {
   const { getProductDetailById } = useProductFetch();
 
   const addRecoilCartById = async (id: number) => {
-    const product = await getProductDetailById(id);
-
     if (cartItems.some((cartItem) => cartItem.id === id)) return;
+
+    const product = await getProductDetailById(id);
 
     setCartItems((current) => {
       return [...current, { id: id, quantity: 1, product: product }];
