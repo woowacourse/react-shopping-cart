@@ -13,7 +13,10 @@
   ],
   "rules": {
     "class-methods-use-this": "off",
+    "no-console": "off",
+    "no-alert": "off",
     "no-useless-constructor": "off",
+    "no-unused-vars": "off",
     "no-use-before-define": "off",
     "@typescript-eslint/consistent-type-imports": "error",
     "import/prefer-default-export": "off",

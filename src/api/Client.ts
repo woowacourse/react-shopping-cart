@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 class Client {
   constructor(private readonly baseUrl?: string) {}
 
