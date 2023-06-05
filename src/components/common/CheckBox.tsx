@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { styled } from 'styled-components';
 
 const CheckBoxContainer = styled.div`
@@ -43,18 +42,18 @@ type CheckBoxProps = {
   kind: 'ALL' | 'ITEM';
   setAll?: (check: boolean) => void;
   onClick?: (check: boolean) => void;
-  defaultChecked?: boolean;
+  checked: boolean;
 };
 
 const CheckBox = (props: CheckBoxProps) => {
-  const { kind, setAll, onClick, defaultChecked } = props;
+  const { kind, setAll, onClick, checked } = props;
 
-  const [checked, setChecked] = useState(defaultChecked ?? false);
+  // const [checked, setChecked] = useState(defaultChecked ?? false);
 
   const handleOnClickCheckBox = () => {
     if (!onClick) return;
 
-    setChecked((prev) => !prev);
+    // setChecked((prev) => !prev);
     onClick(!checked);
   };
 
@@ -62,7 +61,7 @@ const CheckBox = (props: CheckBoxProps) => {
     if (!setAll) return;
 
     setAll(checked);
-    setChecked((prev) => !prev);
+    // setChecked((prev) => !prev);
   };
 
   return (
@@ -74,7 +73,7 @@ const CheckBox = (props: CheckBoxProps) => {
           name="checkbox"
           type="checkbox"
           readOnly
-          checked={defaultChecked}
+          checked={checked}
         />
         {}
       </label>

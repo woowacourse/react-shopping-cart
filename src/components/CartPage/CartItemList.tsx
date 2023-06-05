@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-alert */
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 import mockServerClient from '../../api';
@@ -67,6 +65,8 @@ const CartItemList = () => {
 
   const { setAll } = useCheck();
 
+  const isCheckedAll = checkedCart.length === cartCount;
+
   const handleOnClick = () => {
     checkedCart.forEach(async (cartId) => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -75,7 +75,6 @@ const CartItemList = () => {
         await mockServerClient.delete(`/cart-items`, productId);
       } catch (e) {
         window.alert('삭제에 실패했습니다.');
-        console.log(e);
       }
       setCheckedCart((prev) => prev.filter((id) => id !== cartId));
       setCart((prev) => prev.filter((cartItem) => cartItem.id !== cartId));
@@ -87,10 +86,9 @@ const CartItemList = () => {
       <CartListHeader>
         <span>든든 상품 ({cartCount}개)</span>
         <StyledDiv>
-          <CheckBox kind="ALL" setAll={setAll} />
+          <CheckBox kind="ALL" setAll={setAll} checked={isCheckedAll} />
           <span>
-            {' '}
-            전체선택 ({checkedCart.length}/{cartCount}){' '}
+            전체선택 ({checkedCart.length}/{cartCount})
           </span>
           <SelectButtonContainer>
             <SelectButton onClick={handleOnClick}>선택삭제</SelectButton>

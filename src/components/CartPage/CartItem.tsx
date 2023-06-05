@@ -86,7 +86,7 @@ const CartItem = (props: cartItemProps) => {
   };
   return (
     <ItemContainer>
-      <CheckBox onClick={setCheck} defaultChecked={isChecked} kind="ITEM" />
+      <CheckBox onClick={setCheck} checked={isChecked} kind="ITEM" />
       <Image src={product.imageUrl} alt={product.name} />
       <CardItemTitle>[든든] {product.name}</CardItemTitle>
       <CartItemInfo>
