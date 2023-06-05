@@ -6,8 +6,8 @@ import { useCartItemValue, useSetCartState } from '../../recoils/recoilCart';
 
 import { Stepper } from '../common/Stepper/Stepper';
 import { ProductType } from '../../types';
-import { useMutation } from '../../hooks/useMutation';
-import { FETCH_METHOD, FETCH_URL } from '../../constants';
+import { useMutation, FETCH_METHOD } from '../../hooks/useMutation';
+import { FETCH_URL } from '../../constants';
 import { useApiBaseUrlValue } from '../../recoils/recoilApiBaseUrl';
 import { useEffect } from 'react';
 
@@ -20,7 +20,7 @@ export const Product = ({ item }: Props) => {
   const { mutation: addCartMutation, data: addCartResponseData } = useMutation(FETCH_METHOD.POST, {
     Authorization: `Basic ${btoa(process.env.REACT_APP_API_CREDENTIAL!)}`,
     'Content-Type': 'application/json',
-});
+  });
 
   const cartItem = useCartItemValue(item.id);
 
@@ -42,7 +42,7 @@ export const Product = ({ item }: Props) => {
   const setCart = useSetCartState();
 
   const onClickCartIcon = () => {
-    addCartMutation(baseUrl + FETCH_URL.CART_ITEMS, {
+    addCartMutation(baseUrl + FETCH_URL.CART_ITEMS + '?error_code=501', {
       productId: item.id,
     });
   };

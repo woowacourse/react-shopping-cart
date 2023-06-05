@@ -12,12 +12,6 @@ const DELIVERY_CHARGE = 3000;
 
 const SKELETON_LENGTH = 12;
 
-const FETCH_METHOD = Object.freeze({
-  POST: 'POST',
-  PATCH: 'PATCH',
-  DELETE: 'DELETE',
-});
-
 const FETCH_URL = Object.freeze({
   CART_ITEMS: '/cart-items',
   PRODUCTS: '/products',
@@ -45,7 +39,6 @@ export {
   QUANTITY,
   DELIVERY_CHARGE,
   SKELETON_LENGTH,
-  FETCH_METHOD,
   FETCH_URL,
   RECOIL_KEY,
   LOCAL_STORAGE_KEY,

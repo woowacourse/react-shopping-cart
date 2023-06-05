@@ -2,19 +2,20 @@ import { useSetCartState } from '../recoils/recoilCart';
 import { useMutation } from './useMutation';
 import { useApiBaseUrlValue } from '../recoils/recoilApiBaseUrl';
 
-import { FETCH_METHOD, FETCH_URL, QUANTITY } from '../constants';
+import { FETCH_METHOD } from './useMutation';
+import { FETCH_URL, QUANTITY } from '../constants';
 
 export const useUpdateCart = () => {
   const baseUrl = useApiBaseUrlValue();
 
   const { mutation: updateQuantityMutation } = useMutation(FETCH_METHOD.PATCH, {
-      Authorization: `Basic ${btoa(process.env.REACT_APP_API_CREDENTIAL!)}`,
-      'Content-Type': 'application/json',
+    Authorization: `Basic ${btoa(process.env.REACT_APP_API_CREDENTIAL!)}`,
+    'Content-Type': 'application/json',
   });
   const { mutation: deleteCartMutation } = useMutation(FETCH_METHOD.DELETE, {
     Authorization: `Basic ${btoa(process.env.REACT_APP_API_CREDENTIAL!)}`,
     'Content-Type': 'application/json',
-});
+  });
 
   const setCart = useSetCartState();
 
