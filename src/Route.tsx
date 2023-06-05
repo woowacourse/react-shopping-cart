@@ -6,6 +6,7 @@ import ProductList from './components/ProductListPage/ProductList';
 const Router = () => {
   return (
     <Routes>
+      <Route path="/" element={<ProductList />} />
       <Route path="/products" element={<ProductList />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="*" element={<ErrorPage />} />

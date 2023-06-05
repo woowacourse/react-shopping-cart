@@ -43,6 +43,8 @@ jobs:
           echo PUBLIC_URL=$PUBLIC_URL > .env
 
       - name: Build
+        env:
+          CI: ''
         run: |
           npm run build
 

@@ -11,11 +11,6 @@ const main = async () => {
     return;
   }
 
-  if (window.location.pathname === '/react-shopping-cart') {
-    window.location.pathname = '/react-shopping-cart/';
-    return;
-  }
-
   await worker.start({
     serviceWorker: {
       url: '/react-shopping-cart/mockServiceWorker.js',
