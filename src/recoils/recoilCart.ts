@@ -1,53 +1,157 @@
-import {
-  atom,
-  selector,
-  selectorFamily,
-  useRecoilState,
-  useRecoilValue,
-  useResetRecoilState,
-  useSetRecoilState,
-} from 'recoil';
+import { atom, selector, selectorFamily, useRecoilValue } from 'recoil';
 import { localStorageEffect } from './localStorageEffect';
 
 import { CartItemType } from '../types';
 
-import { LOCAL_STORAGE_KEY, RECOIL_KEY } from '../constants';
+import { fetchAPI } from '../api/fetchAPI';
 
-export const CartState = atom<CartItemType[]>({
-  key: RECOIL_KEY.CART_STATE,
+export const cartState = atom<CartItemType[]>({
+  key: 'cartState',
   default: [],
-  effects: [localStorageEffect(LOCAL_STORAGE_KEY.CART_STATE)],
+  effects: [localStorageEffect('cartState')],
 });
 
-const CartSizeValue = selector<number>({
-  key: RECOIL_KEY.CART_SIZE_VALUE,
+export const cartSizeSelector = selector({
+  key: 'cartSizeSelector',
   get: ({ get }) => {
-    const cart = get(CartState);
+    const cartItems = get(cartState);
 
-    return cart.length;
+    return cartItems.length;
   },
 });
 
-const CartItemValue = selectorFamily<CartItemType | null, number>({
-  key: RECOIL_KEY.CART_ITEM_VALUE,
+export const checkedCartItemsSelector = selector({
+  key: 'checkedCartItemsSelector',
+  get: ({ get }) => {
+    const cartItems = get(cartState);
+
+    return cartItems.filter((item) => item.checked === true);
+  },
+});
+
+export const isAllCartCheckedSelector = selector({
+  key: 'isAllCartCheckedSelector',
+  get: ({ get }) => {
+    const cartItems = get(cartState);
+
+    if (cartItems.length > 0) {
+      const isAllChecked = cartItems.every((item) => item.checked);
+
+      return isAllChecked;
+    }
+
+    return true;
+  },
+});
+
+export const findCartItemByProductIdSelector = selectorFamily<CartItemType | undefined, number>({
+  key: 'findCartItemByProductIdSelector',
   get:
     (productId) =>
     ({ get }) => {
-      const cart = get(CartState);
-      const cartItem = cart.find((item) => item.product.id === productId);
+      const cartItems = get(cartState);
+      const targetItem = cartItems.find((item) => item.product.id === productId);
 
-      return cartItem || null;
+      return targetItem;
     },
 });
 
-export const useCartState = () => useRecoilState(CartState);
+export const cartRepository = selector({
+  key: 'cartRepository',
+  get: ({ getCallback }) => {
+    const fetchCartItems = getCallback(({ set, snapshot }) => async (cartItemId?: number) => {
+      const localCartItems = await snapshot.getPromise(cartState);
 
-export const useCartStateValue = () => useRecoilValue(CartState);
+      const cartItems = await fetchAPI('/cart-items');
 
-export const useSetCartState = () => useSetRecoilState(CartState);
+      const isChecked = (targetId: number) => {
+        if (targetId === cartItemId) return true;
 
-export const useCartSizeValue = () => useRecoilValue(CartSizeValue);
+        return localCartItems.find((localItem) => localItem.id === targetId)?.checked;
+      };
 
-export const useResetCartState = () => useResetRecoilState(CartState);
+      const cartItemsWithCheckedState = cartItems.map((cartItem: any) => ({
+        ...cartItem,
+        checked: isChecked(cartItem.id),
+      }));
 
-export const useCartItemValue = (productId: number) => useRecoilValue(CartItemValue(productId));
+      set(cartState, cartItemsWithCheckedState);
+    });
+
+    const addCartItem = getCallback(() => async (body: { productId: number }) => {
+      const { cartItemId } = await fetchAPI('/cart-items', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body,
+      });
+
+      await fetchCartItems(cartItemId);
+    });
+
+    const updateQuantity = getCallback(() => async (cartItemId: number, quantity: number) => {
+      await fetchAPI(`/cart-items/${cartItemId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: {
+          quantity,
+        },
+      });
+
+      await fetchCartItems();
+    });
+
+    const toggleCheckbox = getCallback(({ snapshot, set }) => async (cartItemId: number) => {
+      const cartItems = await snapshot.getPromise(cartState);
+      const updatedCartItems = cartItems.map((item) => {
+        if (item.id === cartItemId) {
+          return { ...item, checked: !item.checked };
+        }
+
+        return item;
+      });
+
+      set(cartState, updatedCartItems);
+    });
+
+    const toggleAllCheckboxBy = getCallback(({ snapshot, set }) => async (checked: boolean) => {
+      const cartItems = await snapshot.getPromise(cartState);
+      const updatedCartItems = cartItems.map((item) => ({ ...item, checked }));
+
+      set(cartState, updatedCartItems);
+    });
+
+    const deleteCartItem = getCallback(() => async (cartId: number) => {
+      await fetchAPI(`/cart-items/${cartId}`, {
+        method: 'DELETE',
+      });
+
+      await fetchCartItems();
+    });
+
+    return {
+      fetchCartItems,
+      addCartItem,
+      deleteCartItem,
+      updateQuantity,
+      toggleCheckbox,
+      toggleAllCheckboxBy,
+    };
+  },
+});
+
+export const useCartItems = () => useRecoilValue(cartState);
+
+export const useCheckedCartItems = () => useRecoilValue(checkedCartItemsSelector);
+
+export const useIsAllCartChecked = () => useRecoilValue(isAllCartCheckedSelector);
+
+export const useCartRepository = () => useRecoilValue(cartRepository);
+
+export const useCartSize = () => useRecoilValue(cartSizeSelector);
+
+export const useFindCartItemByProductId = (productId: number) =>
+  useRecoilValue(findCartItemByProductIdSelector(productId));

@@ -1,16 +1,16 @@
 import * as styled from './OrderSummary.styled';
 
 import { useTotalProductPrice } from '../../recoils/recoilTotalPrice';
+import { useCheckedCartItems } from '../../recoils/recoilCart';
 
 import { Button } from '../common/Button/Button';
 
 import { DELIVERY_CHARGE } from '../../constants';
-import { useCheckedLength } from '../../recoils/recoilChecked';
 
 export const OrderSummary = () => {
   const totalProductPrice = useTotalProductPrice();
 
-  const checkedLength = useCheckedLength();
+  const checkedCartItems = useCheckedCartItems();
 
   const DeliveryCharge = DELIVERY_CHARGE;
 
@@ -35,7 +35,7 @@ export const OrderSummary = () => {
               </styled.Price>
             </styled.Prices>
             <Button designType="rectangle">
-              총 {checkedLength}건 주문하기(
+              총 {checkedCartItems.length}건 주문하기(
               {(totalProductPrice + DeliveryCharge).toLocaleString('ko-kr')}원)
             </Button>
           </styled.Content>
@@ -44,7 +44,7 @@ export const OrderSummary = () => {
       <>
         <styled.OrderSummaryM>
           <styled.OrderButtonM>
-            <styled.SelectedProductLength>{checkedLength}</styled.SelectedProductLength>
+            <styled.SelectedProductLength>{checkedCartItems.length}</styled.SelectedProductLength>
             <styled.ButtonRole>주문하기</styled.ButtonRole>
             <styled.TotalPriceM>
               {(totalProductPrice + DeliveryCharge).toLocaleString('ko-kr')}원

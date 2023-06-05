@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import * as styled from './CartContainer.styled';
 
-import { useCartSizeValue } from '../../recoils/recoilCart';
+import { useCartSize } from '../../recoils/recoilCart';
 
 import { CartActions } from './CartActions/CartActions';
 import { CartItemList } from './CartItemList/CartItemList';
@@ -10,7 +10,7 @@ import { CartItemList } from './CartItemList/CartItemList';
 import { PATH } from '../../constants';
 
 export const CartContainer = () => {
-  const cartSize = useCartSizeValue();
+  const cartSize = useCartSize();
 
   return (
     <styled.CartContainer>

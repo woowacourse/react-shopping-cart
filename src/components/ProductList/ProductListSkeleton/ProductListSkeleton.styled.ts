@@ -1,11 +1,19 @@
 import { styled } from 'styled-components';
 
+import { Wrapper, ProductList, TotalProductLength } from '../ProductList.styled';
+
 const StyledSkeleton = styled.div`
   background: linear-gradient(-90deg, #aaa, #f0f0f0, #aaa, #f0f0f0);
   background-size: 400%;
   animation: skeleton-animation 5s infinite ease-out;
   border-radius: 4px;
 `;
+
+export const SkeletonsContainer = styled(Wrapper)``;
+
+export const Skeletons = styled(ProductList)``;
+
+export const TotalProductLengthSkeleton = styled(TotalProductLength)``;
 
 export const Skeleton = styled.div`
   display: flex;

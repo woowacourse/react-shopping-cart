@@ -2,11 +2,10 @@ import { ChangeEvent } from 'react';
 
 import * as styled from './Stepper.styled';
 
-import { useUpdateCart } from '../../../hooks/useUpdateCart';
-
 import { Button } from '../Button/Button';
 
 import { QUANTITY } from '../../../constants';
+import { useCartRepository } from '../../../recoils/recoilCart';
 
 interface Props {
   cartId: number;
@@ -14,23 +13,25 @@ interface Props {
 }
 
 export const Stepper = ({ cartId, quantity }: Props) => {
-  const { increaseProductQuantity, decreaseProductQuantity, updateProductQuantity } =
-    useUpdateCart();
+  const { updateQuantity } = useCartRepository();
 
   const onClickPlusButton = () => {
     if (quantity === QUANTITY.MAX) return;
 
-    increaseProductQuantity(cartId, quantity + 1);
+    updateQuantity(cartId, quantity + 1);
   };
 
   const onClickMinusButton = () => {
     if (quantity === QUANTITY.MIN) return;
 
-    decreaseProductQuantity(cartId, quantity - 1);
+    updateQuantity(cartId, quantity - 1);
   };
 
   const onChangeQuantity = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-    updateProductQuantity(cartId, Number(value) || 1);
+    const count = Number(value) || 1;
+    const quantity = count > QUANTITY.MAX ? QUANTITY.MAX : count;
+
+    updateQuantity(cartId, quantity);
   };
 
   return (

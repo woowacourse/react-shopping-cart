@@ -9,9 +9,5 @@ export interface CartItemType {
   id: number;
   quantity: number;
   product: ProductType;
-}
-
-export interface CheckedStateType {
-  [key: number]: boolean;
-  all: boolean;
+  checked: boolean;
 }

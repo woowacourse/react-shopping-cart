@@ -1,50 +1,25 @@
 import * as styled from './Product.styled';
+import { ErrorBoundary } from 'react-error-boundary';
+
+import { useCartRepository, useFindCartItemByProductId } from '../../recoils/recoilCart';
+
+import { FallbackRender } from '../FallbackRender/FallbackRender';
+import { Stepper } from '../common/Stepper/Stepper';
 
 import { CartAddIcon } from '../../assets/svg';
 
-import { useCartItemValue, useSetCartState } from '../../recoils/recoilCart';
-
-import { Stepper } from '../common/Stepper/Stepper';
 import { ProductType } from '../../types';
-import { useMutation, FETCH_METHOD } from '../../hooks/useMutation';
-import { FETCH_URL } from '../../constants';
-import { useApiBaseUrlValue } from '../../recoils/recoilApiBaseUrl';
-import { useEffect } from 'react';
 
 interface Props {
   item: ProductType;
 }
 
 export const Product = ({ item }: Props) => {
-  const baseUrl = useApiBaseUrlValue();
-  const { mutation: addCartMutation, data: addCartResponseData } = useMutation(FETCH_METHOD.POST, {
-    Authorization: `Basic ${btoa(process.env.REACT_APP_API_CREDENTIAL!)}`,
-    'Content-Type': 'application/json',
-  });
-
-  const cartItem = useCartItemValue(item.id);
-
-  useEffect(() => {
-    if (!addCartResponseData) return;
-
-    const cartId = addCartResponseData.location.split('/').pop();
-
-    setCart((prev) => [
-      ...prev,
-      {
-        id: Number(cartId),
-        quantity: 1,
-        product: item,
-      },
-    ]);
-  }, [addCartResponseData]);
-
-  const setCart = useSetCartState();
+  const { addCartItem } = useCartRepository();
+  const cartItem = useFindCartItemByProductId(item.id);
 
   const onClickCartIcon = () => {
-    addCartMutation(baseUrl + FETCH_URL.CART_ITEMS + '?error_code=501', {
-      productId: item.id,
-    });
+    addCartItem({ productId: item.id });
   };
 
   return (
@@ -57,7 +32,9 @@ export const Product = ({ item }: Props) => {
         </div>
         {cartItem ? (
           <styled.StepperWrapper>
-            <Stepper cartId={cartItem.id} quantity={cartItem.quantity || 1} />
+            <ErrorBoundary fallbackRender={FallbackRender}>
+              <Stepper cartId={cartItem.id} quantity={cartItem.quantity || 1} />
+            </ErrorBoundary>
           </styled.StepperWrapper>
         ) : (
           <styled.CartIconWrapper onClick={onClickCartIcon}>
