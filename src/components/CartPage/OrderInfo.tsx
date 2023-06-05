@@ -1,5 +1,6 @@
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
+import { DELIVERY_FEES } from '../../constant/delivery';
 import totalPrice from '../../recoil/selectors/totalPrice';
 
 const StyledOrderInfo = styled.div`
@@ -74,8 +75,6 @@ const OrderButton = styled.button`
   color: #fff;
 `;
 
-export const DELIVERY_FEE = 2500;
-
 const OrderInfo = () => {
   const [totalCartItemPrice, finalPrice] = useRecoilValue(totalPrice);
   return (
@@ -88,7 +87,7 @@ const OrderInfo = () => {
         </PriceInfo>
         <PriceInfo>
           <div>총 배송비</div>
-          <Price>{DELIVERY_FEE.toLocaleString('ko-KR')}</Price>
+          <Price>{DELIVERY_FEES.STANDARD.toLocaleString('ko-KR')}</Price>
         </PriceInfo>
         <TotalPrice>
           <div>총 주문 금액</div>

@@ -1,5 +1,5 @@
 import { selector } from 'recoil';
-import { DELIVERY_FEE } from '../../components/CartPage/OrderInfo';
+import { DELIVERY_FEES } from '../../constant/delivery';
 import cartState from '../atoms/cartState';
 import checkedCartState from '../atoms/checkedCartState';
 import { productFamily } from './productFamily';
@@ -23,7 +23,7 @@ const totalPrice = selector<[number, number]>({
       return acc;
     }, 0);
 
-    return [totalCartItemPrice, totalCartItemPrice + DELIVERY_FEE];
+    return [totalCartItemPrice, totalCartItemPrice + DELIVERY_FEES.STANDARD];
   },
 });
 
