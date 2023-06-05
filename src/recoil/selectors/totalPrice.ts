@@ -9,21 +9,20 @@ const totalPrice = selector<[number, number]>({
   get: ({ get }) => {
     const totalCartItemPrice = get(checkedCartState).reduce((acc, cartItem) => {
       const cart = get(cartState);
-
       const cartProduct = cart.find((it) => it.id === cartItem);
       if (!cartProduct) return acc;
-      const { quantity, productId } = cartProduct;
 
-      if (!productId) return acc;
-      if (productId !== null) {
-        const product = get(productFamily(productId));
-        if (product === null) return acc;
-        return quantity * product.price + acc;
-      }
-      return acc;
+      const { quantity, productId } = cartProduct;
+      const product = get(productFamily(productId));
+
+      if (product === null) return acc;
+
+      return productId !== null ? quantity * product.price + acc : acc;
     }, 0);
 
-    return [totalCartItemPrice, totalCartItemPrice + DELIVERY_FEES.STANDARD];
+    const finalPrice = totalCartItemPrice + DELIVERY_FEES.STANDARD;
+
+    return [totalCartItemPrice, finalPrice];
   },
 });
 
