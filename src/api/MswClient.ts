@@ -1,6 +1,6 @@
 import Client from './Client';
 
-class MswClient extends Client {
+class NetworkClient extends Client {
   override async get(path: string) {
     return super.get(`.${path}`);
   }
@@ -18,4 +18,4 @@ class MswClient extends Client {
   }
 }
 
-export default MswClient;
+export default NetworkClient;
