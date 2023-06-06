@@ -1,0 +1,5 @@
+export const DELIVERY_FEES = {
+  STANDARD: 2500,
+  EXPRESS: 5000,
+  INTERNATIONAL: 10000,
+};

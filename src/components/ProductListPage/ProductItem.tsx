@@ -1,11 +1,11 @@
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import { ReactComponent as Cart } from '../assets/icons/cart.svg';
-import useCartProduct from '../hooks/useCart';
-import { cartItemFamily } from '../recoil/selectors/cartItemFamily';
-import { productFamily } from '../recoil/selectors/productFamily';
-import type { Product } from '../type';
-import Stepper from './Stepper';
+import { ReactComponent as Cart } from '../../assets/icons/cart.svg';
+import useCartProduct from '../../hooks/useCart';
+import { cartItemFamily } from '../../recoil/selectors/cartItemFamily';
+import { productFamily } from '../../recoil/selectors/productFamily';
+import type { Product } from '../../type';
+import Stepper from '../common/Stepper';
 
 const ProductItemContainer = styled.div`
   display: flex;
@@ -66,6 +66,10 @@ const ProductItem = (props: ProductItemProps) => {
 
   const { setQuantity } = useCartProduct(productId);
 
+  const handleOnClick = () => {
+    setQuantity(1);
+  };
+
   if (!product) return <div>ERROR: No product!!</div>;
 
   return (
@@ -78,11 +82,17 @@ const ProductItem = (props: ProductItemProps) => {
         </ProductItemInfo>
         <StepperContainer>
           {cartProduct === null ? (
-            <AddCartButton onClick={() => setQuantity(1)}>
+            <AddCartButton onClick={handleOnClick}>
               <Cart />
             </AddCartButton>
           ) : (
-            <Stepper min={0} value={cartProduct.quantity} onChange={setQuantity} />
+            <Stepper
+              width="68px"
+              height="26px"
+              min={0}
+              value={cartProduct.quantity}
+              onChange={setQuantity}
+            />
           )}
         </StepperContainer>
       </ProductInfoContainer>

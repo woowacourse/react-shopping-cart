@@ -1,7 +1,6 @@
-import type { RecoilValueReadOnly } from 'recoil';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import type { Product } from '../type';
+import productsQuery from '../../recoil/queries/productsQuery';
 import ProductItem from './ProductItem';
 
 const StyledProductList = styled.ul`
@@ -9,15 +8,20 @@ const StyledProductList = styled.ul`
   grid-template-columns: repeat(4, 1fr);
   column-gap: 48px;
   row-gap: 80px;
+
+  @media (max-width: 768px) {
+    padding: 50px 40px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 480px) {
+    padding: 50px 20px;
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
-type ProductListProps = {
-  productsQuery: RecoilValueReadOnly<Product[]>;
-};
-
-const ProductList = ({ productsQuery }: ProductListProps) => {
+const ProductList = () => {
   const products = useRecoilValue(productsQuery);
-
   return (
     <StyledProductList>
       {products.map((product) => (

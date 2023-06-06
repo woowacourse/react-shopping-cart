@@ -1,5 +1,8 @@
 import FixtureClient from './FixtureClient';
+import NetworkClient from './MswClient';
 
-const client = new FixtureClient();
+export const client = new FixtureClient();
 
-export default client;
+const netWorkClient = new NetworkClient();
+
+export default netWorkClient;
