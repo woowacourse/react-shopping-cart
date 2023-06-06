@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
-import { Product } from '../../types/Product';
+import { Product } from '../../../types/Product';
 import { AddCartButton } from './AddCartButton';
+import { getCommaAddedNumber } from '../../../utils/number';
 
 export const ProductCard = ({ id, name, price, imageUrl }: Product) => {
   return (
@@ -10,7 +11,7 @@ export const ProductCard = ({ id, name, price, imageUrl }: Product) => {
       <Style.DescriptionContainer>
         <Style.NamePriceContainer>
           <Style.Name>{name}</Style.Name>
-          <Style.Price>{price}원</Style.Price>
+          <Style.Price>{getCommaAddedNumber(price)}원</Style.Price>
         </Style.NamePriceContainer>
         <AddCartButton id={id} />
       </Style.DescriptionContainer>

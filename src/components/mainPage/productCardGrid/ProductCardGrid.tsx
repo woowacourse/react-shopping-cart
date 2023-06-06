@@ -1,13 +1,12 @@
 import styled from 'styled-components';
-import { Product } from '../../types/Product';
 
 import { ProductCard } from '../productCard/ProductCard';
+import { useRecoilValue } from 'recoil';
+import { productItemsState } from '../../../recoil/atoms/productAtom';
 
-interface ProductCardListProps {
-  products: Product[];
-}
+export const ProductCardGrid = () => {
+  const products = useRecoilValue(productItemsState);
 
-export const ProductCardList = ({ products }: ProductCardListProps) => {
   return (
     <Style.Container>
       {products.map((product) => (
