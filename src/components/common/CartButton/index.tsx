@@ -55,23 +55,23 @@ const CartButton: React.FC<ProductItemProps> = ({ product }) => {
 		}
 	};
 
+	if (count === 0) {
+		return (
+			<button onClick={handleCartAmount}>
+				<img src={Cart} alt="장바구니 아이콘" />
+			</button>
+		);
+	}
+
 	return (
-		<>
-			{count === 0 ? (
-				<button onClick={handleCartAmount}>
-					<img src={Cart} alt="장바구니 아이콘" />
-				</button>
-			) : (
-				<StyledCountInput
-					type="number"
-					value={count}
-					min={0}
-					max={100}
-					onChange={handleCartAmountChange}
-					onBlur={handleBlur}
-				/>
-			)}
-		</>
+		<StyledCountInput
+			type="number"
+			value={count}
+			min={0}
+			max={100}
+			onChange={handleCartAmountChange}
+			onBlur={handleBlur}
+		/>
 	);
 };
 
