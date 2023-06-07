@@ -4,7 +4,7 @@ import { ModalType } from '../service/atom';
 import { useBodyScrollLock } from './useBodyScrollLock';
 
 type OpenModalType = {
-  callback?: () => void;
+  callback: () => void;
 };
 
 export const useModal = (modalState: RecoilState<ModalType>) => {
