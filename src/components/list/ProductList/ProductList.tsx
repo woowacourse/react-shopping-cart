@@ -1,29 +1,24 @@
 import styled from '@emotion/styled';
 import ProductItem from '../../box/ProductItem/ProductItem';
-import type { Product } from '../../../types/types';
 import ErrorBox from '../../common/ErrorBox/ErrorBox';
 import { Text } from '../../common/Text/Text';
-import { useQuery } from 'react-query';
+import useProduct from '../../../hooks/useProduct';
 
 const ProductList = () => {
-  const { data, isLoading } = useQuery<Product[]>('products', async () => {
-    const res = await fetch('/products', { method: 'get' });
-    const resData = await res.json();
-    return resData;
-  });
+  const { productData, isFetching, isError } = useProduct();
 
-  if (isLoading) {
+  if (isFetching) {
     return <Text>로딩중...</Text>;
   }
-  if (!data) {
+  if (isError || !productData) {
     return <ErrorBox errorType="network" />;
   }
-  if (data.length === 0) {
+  if (productData.length === 0) {
     return <ErrorBox errorType="emptyList" />;
   }
   return (
     <ProductListWrapper>
-      {data.map((product) => (
+      {productData.map((product) => (
         <ProductItem key={product.id} product={product} />
       ))}
     </ProductListWrapper>
