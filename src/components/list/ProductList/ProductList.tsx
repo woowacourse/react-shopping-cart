@@ -3,6 +3,7 @@ import ProductItem from '../../box/ProductItem/ProductItem';
 import ErrorBox from '../../common/ErrorBox/ErrorBox';
 import { Text } from '../../common/Text/Text';
 import useProduct from '../../../hooks/useProduct';
+import EmptyList from '../../common/EmptyList/EmptyList';
 
 const ProductList = () => {
   const { productData, isFetching, isError } = useProduct();
@@ -14,7 +15,7 @@ const ProductList = () => {
     return <ErrorBox errorType="network" />;
   }
   if (productData.length === 0) {
-    return <ErrorBox errorType="emptyList" />;
+    return <EmptyList text="상품이 없습니다" />;
   }
   return (
     <ProductListWrapper>
