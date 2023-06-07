@@ -2,11 +2,13 @@ import { PropsWithChildren } from 'react';
 import styled from '@emotion/styled';
 import ReactDOM from 'react-dom';
 import { useModal } from '../../../hooks/useModal';
+import { ModalType } from '../../../service/atom';
+import { RecoilState } from 'recoil';
 
-type ModalProps = PropsWithChildren;
+type ModalProps = PropsWithChildren<{ modalState: RecoilState<ModalType> }>;
 
-const Modal = ({ children }: ModalProps) => {
-  const { modalDataState, closeModal } = useModal();
+const Modal = ({ children, modalState }: ModalProps) => {
+  const { modalDataState, closeModal } = useModal(modalState);
 
   return (
     <>

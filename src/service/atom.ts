@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-type ModalType = {
+export type ModalType = {
   isOpen: boolean;
   callBack?: () => void;
 };
