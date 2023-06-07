@@ -1,6 +1,9 @@
-export const carts = [
+import { Cart } from '@/@types/cart.type';
+import { Product } from '@/@types/product.type';
+
+export const carts: Cart[] = [
 	{
-		id: '1',
+		id: 1,
 		quantity: 5,
 		product: {
 			id: '1',
@@ -11,7 +14,7 @@ export const carts = [
 		},
 	},
 	{
-		id: '2',
+		id: 2,
 		quantity: 1,
 		product: {
 			id: '2',
@@ -23,7 +26,7 @@ export const carts = [
 	},
 ];
 
-export const products = [
+export const products: Product[] = [
 	{
 		id: '1',
 		name: '치킨',

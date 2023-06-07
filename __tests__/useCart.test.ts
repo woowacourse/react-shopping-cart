@@ -1,27 +1,17 @@
-import { setupServer } from 'msw/node';
 import { renderHook, waitFor } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
-import { rest } from 'msw';
+
 import fetchMock from 'jest-fetch-mock';
 import { createMockProduct } from '../cypress/fixtures/defaultProducts';
 import { useCart } from '@/components/ProductItem/hooks/useCart';
 
 const mockProduct = createMockProduct();
 
-// MSW 서버를 생성하고 요청 핸들러를 정의합니다.
-const server = setupServer(
-	rest.post('/cart-Items', (req, res, ctx) => {
-		return res(ctx.status(200));
-	})
-);
-
 beforeAll(() => {
-	server.listen();
 	fetchMock.enableMocks();
 });
 
 afterAll(() => {
-	server.close();
 	fetchMock.disableMocks();
 });
 
@@ -33,12 +23,6 @@ describe('useCart', () => {
 		});
 
 		expect(result.current.cart).toEqual([]);
-
-		server.use(
-			rest.post('/cart-Items', (req, res, ctx) => {
-				return res(ctx.status(200));
-			})
-		);
 
 		await waitFor(() => {
 			result.current.addCart(mockProduct);

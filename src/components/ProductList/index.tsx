@@ -14,10 +14,10 @@ const StyledProductListWrapper = styled.div`
 `;
 
 const ProductList: React.FC = () => {
-	const [products, isLoading, isError] = useQuery<Product[]>('/products');
+	const { data, isLoading, errorMessage } = useQuery<Product[]>('/products');
 
-	if (isError) {
-		return <>에러 발생</>;
+	if (errorMessage) {
+		return <>{errorMessage}</>;
 	}
 
 	if (isLoading) {
@@ -26,7 +26,7 @@ const ProductList: React.FC = () => {
 
 	return (
 		<StyledProductListWrapper>
-			{products?.map((product) => {
+			{data?.map((product) => {
 				return <ProductItem key={product.id} product={product} />;
 			})}
 		</StyledProductListWrapper>
