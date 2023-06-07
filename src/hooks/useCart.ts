@@ -41,7 +41,7 @@ const useCart = () => {
     },
   });
 
-  const changeCartDataQuantity = useMutation(
+  const changeCartItemQuantity = useMutation(
     async ({ cartId, body }: { cartId: number; body: ChangeCartQuantityAPIRequestBody }) =>
       await fetch(`/cart-items/${cartId}`, { method: 'PATCH', body: JSON.stringify(body) }),
     {
@@ -54,7 +54,7 @@ const useCart = () => {
     },
   );
 
-  const deleteCartData = useMutation(
+  const deleteCartItem = useMutation(
     async ({ cartId }: { cartId: number }) => {
       await fetch(`/cart-items/${cartId}`, { method: 'DELETE' });
     },
@@ -95,9 +95,9 @@ const useCart = () => {
   };
 
   const changeCartQuantityAPI = (cartId: number, body: ChangeCartQuantityAPIRequestBody) =>
-    changeCartDataQuantity.mutate({ cartId, body });
+    changeCartItemQuantity.mutate({ cartId, body });
 
-  const deleteCartItemAPI = (cartId: number) => deleteCartData.mutate({ cartId });
+  const deleteCartItemAPI = (cartId: number) => deleteCartItem.mutate({ cartId });
 
   return {
     cartData,
