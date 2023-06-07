@@ -1,33 +1,44 @@
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
 import { CartIcon } from '../../../assets';
-import type { Product } from '../../../types/types';
+import type { CartItemType, ProductType } from '../../../types/types';
 import { Text } from '../../common/Text/Text';
 import InputStepper from '../../common/InputStepper/InputStepper';
 import getPriceFormat from '../../../utils/getPriceFormat';
 import { useCart } from '../../../hooks/useCart';
 
-const ProductItem = ({ product }: { product: Product }) => {
-  const { data, addCartItemAPI, changeCartQuantityAPI, deleteCartItemAPI } = useCart();
-  const cartItemData = data && data.find((cart) => cart.product.id === product.id);
-  const cartId = cartItemData && cartItemData.id;
+const ProductItem = ({ product }: { product: ProductType }) => {
+  const { cartData, addCartItemAPI, changeCartQuantityAPI, deleteCartItemAPI } = useCart();
 
-  const [quantity, setQuantity] = useState<number>(
-    (data && data.find((data) => data.product.id === product.id)?.quantity) || 0,
-  );
+  const [cartItemData, setCartItemData] = useState<CartItemType | null>(null);
+
+  const [quantity, setQuantity] = useState<number>(0);
+
+  useEffect(() => {
+    if (cartData) {
+      setCartItemData(cartData.find((cart) => cart.product.id === product.id) || null);
+    }
+  }, [cartData]);
+
+  useEffect(() => {
+    if (cartItemData) {
+      setQuantity(cartItemData.quantity);
+      return;
+    }
+    setQuantity(0);
+  }, [cartItemData]);
 
   useEffect(() => {
     const mutateCartItem = async () => {
-      if (data) {
-        const findData = data.find((data) => data.product.id === product.id);
-        if (findData && findData.quantity !== quantity) {
+      if (cartData) {
+        if (cartItemData && cartItemData.quantity !== quantity) {
           if (quantity > 0) {
-            cartId && changeCartQuantityAPI(cartId, { quantity });
+            cartItemData.id && changeCartQuantityAPI(cartItemData.id, { quantity });
             return;
           }
-          cartId && deleteCartItemAPI(cartId);
+          cartItemData.id && deleteCartItemAPI(cartItemData.id);
         }
-        if (quantity > 0 && !findData) {
+        if (quantity > 0 && !cartItemData) {
           addCartItemAPI({ productId: product.id });
         }
       }

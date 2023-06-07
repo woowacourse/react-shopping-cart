@@ -1,4 +1,4 @@
-import { CartItem } from '../types/types';
+import type { CartItemType } from '../types/types';
 import { useMutation, useQuery } from 'react-query';
 
 export const useCart = () => {
@@ -8,7 +8,7 @@ export const useCart = () => {
     return data;
   };
 
-  const { data, refetch } = useQuery<CartItem[]>('cart', fetchCartData, {
+  const { data: cartData, refetch } = useQuery<CartItemType[]>('cart', fetchCartData, {
     onError: (e) => {
       console.log(e);
     },
@@ -42,7 +42,6 @@ export const useCart = () => {
   );
 
   const addCartItemAPI = (body?: object) => {
-    console.log('??');
     fetchAddCartItem.mutate({ body });
   };
 
@@ -52,7 +51,7 @@ export const useCart = () => {
   const deleteCartItemAPI = (cartId: number) => mutateCartData.mutate({ method: 'delete', cartId });
 
   return {
-    data,
+    cartData,
     refetch,
     addCartItemAPI,
     changeCartQuantityAPI,

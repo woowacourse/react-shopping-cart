@@ -1,10 +1,10 @@
 import { rest } from 'msw';
 import productsData from './mockData.json';
-import type { CartItem, Product } from '../types/types';
+import type { CartItemType, ProductType } from '../types/types';
 
-const products = productsData as Product[];
+const products = productsData as ProductType[];
 
-let cartList = [] as CartItem[];
+let cartList = [] as CartItemType[];
 
 export const handlers = [
   rest.get('/products', async (_, res, ctx) => {
@@ -14,7 +14,7 @@ export const handlers = [
   }),
 
   rest.post('/products', async (req, res, ctx) => {
-    const { product } = await req.json<{ product: Product }>();
+    const { product } = await req.json<{ product: ProductType }>();
     products.push(product);
 
     return res(ctx.status(200), ctx.text('Add Product Success'));

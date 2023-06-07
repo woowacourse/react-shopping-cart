@@ -2,7 +2,7 @@
 import styled from '@emotion/styled';
 import { TrashCanIcon } from '../../../assets';
 import InputStepper from '../../common/InputStepper/InputStepper';
-import type { CartItem as CartType } from '../../../types/types';
+import type { CartItemType } from '../../../types/types';
 import CheckBox from '../../common/CheckBox/CheckBox';
 import { Text } from '../../common/Text/Text';
 import { useEffect, useState } from 'react';
@@ -12,7 +12,7 @@ import { useRecoilState } from 'recoil';
 import { checkCartListState } from '../../../service/atom';
 import { useCart } from '../../../hooks/useCart';
 
-const CartItem = ({ cart }: { cart: CartType }) => {
+const CartItem = ({ cart }: { cart: CartItemType }) => {
   const [checkCartList, setCheckCartList] = useRecoilState(checkCartListState);
 
   const [count, setCount] = useState(cart.quantity);
