@@ -11,13 +11,13 @@ import { useRecoilValue } from 'recoil';
 import { checkCartListState } from '../../service/atom';
 
 const CartPage = () => {
-  const { data } = useCart();
+  const { cartData } = useCart();
   const checkCartList = useRecoilValue(checkCartListState);
 
   const calcTotalPrice = () => {
     return checkCartList
       .map((cartId) => {
-        const cartItem = data && data.find((cart) => cart.id === cartId);
+        const cartItem = cartData && cartData.find((cart) => cart.id === cartId);
         if (cartItem) {
           return cartItem?.product.price * cartItem?.quantity;
         }

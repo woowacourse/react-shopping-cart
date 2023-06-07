@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import ShoppingPage from './pages/ShoppingPage';
+import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
 import Header from './common/header/Header';
 
@@ -8,7 +8,7 @@ const Router = () => {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<ShoppingPage />} />
+        <Route path="/" element={<ProductPage />} />
         <Route path="/cart" element={<CartPage />} />
       </Routes>
     </BrowserRouter>

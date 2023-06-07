@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 import { useCart } from '../../../hooks/useCart';
 
 const UserCartInfo = () => {
-  const { data } = useCart();
+  const { cartData } = useCart();
 
-  const cartTotalQuantity = data && data.length;
+  const cartTotalQuantity = cartData && cartData.length;
 
   const [isShown, setIsShown] = useState(false);
 

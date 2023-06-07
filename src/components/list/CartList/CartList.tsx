@@ -11,7 +11,7 @@ import { useRecoilState } from 'recoil';
 import { checkCartListState } from '../../../service/atom';
 
 const CartList = () => {
-  const { data, deleteCartItemAPI } = useCart();
+  const { cartData, deleteCartItemAPI } = useCart();
 
   const [checkCartList, setCheckCartList] = useRecoilState(checkCartListState);
   const [isAllCheck, setIsAllCheck] = useState(true);
@@ -31,12 +31,12 @@ const CartList = () => {
       setIsAllCheck(false);
       return;
     }
-    data && setCheckCartList(data.map((cart) => cart.id));
+    cartData && setCheckCartList(cartData.map((cart) => cart.id));
     setIsAllCheck(true);
   };
 
   useEffect(() => {
-    if (data && data.length === checkCartList.length) {
+    if (cartData && cartData.length === checkCartList.length) {
       setIsAllCheck(true);
       return;
     }
@@ -47,11 +47,11 @@ const CartList = () => {
     <CartListWrapper>
       <CartListHead>
         <Text size="small" weight="light">
-          든든배송 상품 ({data?.length}개)
+          든든배송 상품 ({cartData?.length}개)
         </Text>
       </CartListHead>
       <Cart>
-        {data?.map((cart) => (
+        {cartData?.map((cart) => (
           <CartItem key={cart.product.id} cart={cart} />
         ))}
       </Cart>
