@@ -4,7 +4,7 @@ import CartItem from '../../box/CartItem/CartItem';
 import CheckBox from '../../common/CheckBox/CheckBox';
 import Button from '../../common/Button/Button';
 import { Text } from '../../common/Text/Text';
-import { useModal } from '../../../hooks/useModal';
+import useModal from '../../../hooks/useModal';
 import useCart from '../../../hooks/useCart';
 import { useRecoilState } from 'recoil';
 import { checkCartListState, deleteModalState } from '../../../service/atom';
@@ -14,7 +14,7 @@ import ErrorBox from '../../common/ErrorBox/ErrorBox';
 import EmptyList from '../../common/EmptyList/EmptyList';
 
 const CartList = () => {
-  const { cartData, deleteCartItemAPI, isFetching } = useCart();
+  const { cartData, deleteCartItemAPI, isLoading } = useCart();
   const [checkCartList, setCheckCartList] = useRecoilState(checkCartListState);
   const { openModal } = useModal(deleteModalState);
 
@@ -25,7 +25,7 @@ const CartList = () => {
     setCheckCartList([]);
   };
 
-  const onClickCheckBox = () => {
+  const toggleAllCheckBox = () => {
     if (cartData && cartData.length === checkCartList.length) {
       setCheckCartList([]);
       return;
@@ -41,9 +41,9 @@ const CartList = () => {
         </Text>
         <CartListChecker>
           <CheckBox
-            label={`전체선택(${checkCartList.length})`}
+            label={`전체선택(${checkCartList.length}개)`}
             checked={cartData ? cartData.length === checkCartList.length : false}
-            onClick={onClickCheckBox}
+            onClick={toggleAllCheckBox}
           />
           <Button
             size="small"
@@ -52,7 +52,7 @@ const CartList = () => {
           />
         </CartListChecker>
       </CartListHead>
-      <CartResponse cartData={cartData} isFetching={isFetching} />
+      <CartResponse cartData={cartData} isFetching={isLoading} />
     </CartListWrapper>
   );
 };
