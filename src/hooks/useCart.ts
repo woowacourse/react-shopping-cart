@@ -51,10 +51,8 @@ const useCart = () => {
     async ({ cartId, body }: { cartId: number; body: ChangeCartQuantityAPIRequestBody }) =>
       await fetch(`/cart-items/${cartId}`, { method: 'PATCH', body: JSON.stringify(body) }),
     {
-      onSuccess: () => {
-        refetch();
-      },
       onError: (e) => {
+        alert('서버와의 통신에 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
         console.log(e);
       },
     },
@@ -65,10 +63,8 @@ const useCart = () => {
       await fetch(`/cart-items/${cartId}`, { method: 'DELETE' });
     },
     {
-      onSuccess: () => {
-        refetch();
-      },
       onError: (e) => {
+        alert('서버와의 통신에 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
         console.log(e);
       },
     },
@@ -83,27 +79,45 @@ const useCart = () => {
       return res;
     },
     {
-      onSuccess: async (res) => {
-        const cartId = Number(res.headers.get('Location')?.split('/')[2]);
-        if (cartId) {
-          setCheckCartList((prev) => [...prev, cartId]);
-        }
-        refetch();
-      },
       onError: (e) => {
+        alert('서버와의 통신에 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
         console.log(e);
       },
     },
   );
 
-  const addCartItemAPI = (body: AddCartAPIRequestBody) => {
-    fetchAddCartItem.mutate({ body });
+  const addCartItemAPI = (body: AddCartAPIRequestBody, onSuccessMethod: () => void) => {
+    const onSuccess = (res: Response) => {
+      const cartId = Number(res.headers.get('Location')?.split('/')[2]);
+      if (cartId) {
+        setCheckCartList((prev) => [...prev, cartId]);
+      }
+      onSuccessMethod();
+      refetch();
+    };
+
+    fetchAddCartItem.mutate({ body }, { onSuccess });
   };
 
-  const changeCartQuantityAPI = (cartId: number, body: ChangeCartQuantityAPIRequestBody) =>
-    changeCartItemQuantity.mutate({ cartId, body });
+  const changeCartQuantityAPI = (
+    cartId: number,
+    body: ChangeCartQuantityAPIRequestBody,
+    onSuccessMethod: () => void,
+  ) => {
+    const onSuccess = () => {
+      onSuccessMethod();
+      refetch();
+    };
+    changeCartItemQuantity.mutate({ cartId, body }, { onSuccess });
+  };
 
-  const deleteCartItemAPI = (cartId: number) => deleteCartItem.mutate({ cartId });
+  const deleteCartItemAPI = (cartId: number, onSuccessMethod?: () => void) => {
+    const onSuccess = () => {
+      onSuccessMethod && onSuccessMethod();
+      refetch();
+    };
+    deleteCartItem.mutate({ cartId }, { onSuccess });
+  };
 
   return {
     cartData,

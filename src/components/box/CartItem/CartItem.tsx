@@ -27,8 +27,7 @@ const CartItem = ({ cart }: { cart: CartItemType }) => {
 
   const changeQuantity = (value: number) => {
     if (value !== cart.quantity) {
-      changeCartQuantityAPI(cart.id, { quantity: value });
-      setQuantity(value);
+      changeCartQuantityAPI(cart.id, { quantity: value }, () => setQuantity(value));
     }
   };
 
