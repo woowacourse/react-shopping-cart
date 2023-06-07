@@ -6,7 +6,6 @@ import type { CartItemType } from '../../../types/types';
 import CheckBox from '../../common/CheckBox/CheckBox';
 import { Text } from '../../common/Text/Text';
 import { useEffect, useState } from 'react';
-import getPriceFormat from '../../../utils/getPriceFormat';
 import { useModal } from '../../../hooks/useModal';
 import { useRecoilState } from 'recoil';
 import { checkCartListState } from '../../../service/atom';
@@ -87,18 +86,18 @@ const CartItem = ({ cart }: { cart: CartItemType }) => {
           />
           <CardInfoFoot>
             <Text size="smallest" weight="normal">
-              {getPriceFormat(cart.product.price)} 원
+              {cart.product.price.toLocaleString()} 원
             </Text>
           </CardInfoFoot>
         </CartInfoWrapper>
       </CartItemInner>
       <CartItemFoot>
         <Text size="smallest" weight="light">
-          {`상품금액 ${getPriceFormat(totalPrice)}원 X ${count}개`}
+          {`상품금액 ${totalPrice.toLocaleString()}원 X ${count}개`}
         </Text>
         &nbsp;=&nbsp;
         <Text size="smallest" weight="normal">
-          {`총 ${getPriceFormat(totalPrice * count)}원`}
+          {`총 ${(totalPrice * count).toLocaleString()}원`}
         </Text>
       </CartItemFoot>
     </CartItemWrapper>

@@ -4,7 +4,6 @@ import { CartIcon } from '../../../assets';
 import type { CartItemType, ProductType } from '../../../types/types';
 import { Text } from '../../common/Text/Text';
 import InputStepper from '../../common/InputStepper/InputStepper';
-import getPriceFormat from '../../../utils/getPriceFormat';
 import { useCart } from '../../../hooks/useCart';
 
 const ProductItem = ({ product }: { product: ProductType }) => {
@@ -55,7 +54,7 @@ const ProductItem = ({ product }: { product: ProductType }) => {
             {product.name}
           </Text>
           <Text size="small" weight="light" color="#333333" lineHeight="33px">
-            {getPriceFormat(product.price)} 원
+            {product.price.toLocaleString()} 원
           </Text>
         </ProductTextWrapper>
         {quantity === 0 ? (

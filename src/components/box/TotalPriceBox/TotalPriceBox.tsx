@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import TextList from '../../common/TextList/TextList';
 import Button from '../../common/Button/Button';
-import getPriceFormat from '../../../utils/getPriceFormat';
 
 interface TotalPriceBoxProps {
   totalProductPrice: number;
@@ -10,21 +9,21 @@ interface TotalPriceBoxProps {
 }
 
 const TotalPriceBox = ({ totalProductPrice, shippingFee, isValid = true }: TotalPriceBoxProps) => {
-  const totalPrice = getPriceFormat(totalProductPrice + shippingFee);
+  const totalPrice = totalProductPrice + shippingFee;
 
   return (
     <TotalPriceBoxWrapper>
       <BoxInner>
-        <TextList label="총 선택상품금액" text={`${getPriceFormat(totalProductPrice)}원`} />
-        <TextList label="배송비" text={`+ ${getPriceFormat(shippingFee)}원`} />
+        <TextList label="총 선택상품금액" text={`${totalProductPrice.toLocaleString()}원`} />
+        <TextList label="배송비" text={`+ ${shippingFee.toLocaleString()}원`} />
         <TotalPriceWrapper>
-          <TextList label="총 주문액" text={`${totalPrice}원`} primary />
+          <TextList label="총 주문액" text={`${totalPrice.toLocaleString()}원`} primary />
         </TotalPriceWrapper>
         <Button
           primary
           size="big"
           isValid={isValid}
-          text={isValid ? `${totalPrice}원 주문하기` : '상품을 선택해주세요.'}
+          text={isValid ? `${totalPrice.toLocaleString()}원 주문하기` : '상품을 선택해주세요.'}
           width="100%"
         />
       </BoxInner>
