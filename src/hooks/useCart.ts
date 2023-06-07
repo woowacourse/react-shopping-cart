@@ -3,6 +3,14 @@ import type { CartItemType } from '../types/types';
 import { useMutation, useQuery } from 'react-query';
 import { checkCartListState } from '../service/atom';
 
+interface AddCartAPIRequestBody {
+  productId: number;
+}
+
+interface ChangeCartQuantityAPIRequestBody {
+  quantity: number;
+}
+
 const useCart = () => {
   const [checkCartList, setCheckCartList] = useRecoilState(checkCartListState);
 
@@ -33,16 +41,23 @@ const useCart = () => {
     },
   });
 
-  const mutateCartData = useMutation(
-    async ({
-      method,
-      cartId,
-      body,
-    }: {
-      method: 'DELETE' | 'PATCH';
-      cartId: number;
-      body?: object;
-    }) => await fetch(`/cart-items/${cartId}`, { method, body: JSON.stringify(body) }),
+  const changeCartDataQuantity = useMutation(
+    async ({ cartId, body }: { cartId: number; body: ChangeCartQuantityAPIRequestBody }) =>
+      await fetch(`/cart-items/${cartId}`, { method: 'PATCH', body: JSON.stringify(body) }),
+    {
+      onSuccess: () => {
+        refetch();
+      },
+      onError: (e) => {
+        console.log(e);
+      },
+    },
+  );
+
+  const deleteCartData = useMutation(
+    async ({ cartId }: { cartId: number }) => {
+      await fetch(`/cart-items/${cartId}`, { method: 'DELETE' });
+    },
     {
       onSuccess: () => {
         refetch();
@@ -54,7 +69,7 @@ const useCart = () => {
   );
 
   const fetchAddCartItem = useMutation(
-    async ({ body }: { body?: object }) => {
+    async ({ body }: { body: AddCartAPIRequestBody }) => {
       const res = await fetch('/cart-items', {
         method: 'POST',
         body: JSON.stringify(body),
@@ -75,14 +90,14 @@ const useCart = () => {
     },
   );
 
-  const addCartItemAPI = (body?: object) => {
+  const addCartItemAPI = (body: AddCartAPIRequestBody) => {
     fetchAddCartItem.mutate({ body });
   };
 
-  const changeCartQuantityAPI = (cartId: number, body?: object) =>
-    mutateCartData.mutate({ method: 'PATCH', cartId, body });
+  const changeCartQuantityAPI = (cartId: number, body: ChangeCartQuantityAPIRequestBody) =>
+    changeCartDataQuantity.mutate({ cartId, body });
 
-  const deleteCartItemAPI = (cartId: number) => mutateCartData.mutate({ method: 'DELETE', cartId });
+  const deleteCartItemAPI = (cartId: number) => deleteCartData.mutate({ cartId });
 
   return {
     cartData,
