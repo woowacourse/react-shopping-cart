@@ -1,15 +1,15 @@
 import styled from '@emotion/styled';
 import ProductItem from '../../box/ProductItem/ProductItem';
 import ErrorBox from '../../common/ErrorBox/ErrorBox';
-import { Text } from '../../common/Text/Text';
 import useProduct from '../../../hooks/useProduct';
 import EmptyList from '../../common/EmptyList/EmptyList';
+import LoadingSpinner from '../../common/LoadingSpinner/LoadingSpinner';
 
 const ProductList = () => {
   const { productData, isFetching, isError } = useProduct();
 
   if (isFetching) {
-    return <Text>로딩중...</Text>;
+    return <LoadingSpinner />;
   }
   if (isError || !productData) {
     return <ErrorBox errorType="network" />;
