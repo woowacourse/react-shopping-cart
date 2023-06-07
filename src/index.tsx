@@ -6,11 +6,20 @@ import { ResetStyle } from './styles/ResetStyle';
 import { worker } from './mock/browsers';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      retry: 2,
+    },
+  },
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 worker.start();
+
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
