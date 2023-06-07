@@ -4,7 +4,7 @@ import { CartIcon } from '../../../assets';
 import type { CartItemType, ProductType } from '../../../types/types';
 import { Text } from '../../common/Text/Text';
 import InputStepper from '../../common/InputStepper/InputStepper';
-import { useCart } from '../../../hooks/useCart';
+import useCart from '../../../hooks/useCart';
 
 const ProductItem = ({ product }: { product: ProductType }) => {
   const { cartData, addCartItemAPI, changeCartQuantityAPI, deleteCartItemAPI } = useCart();

@@ -5,63 +5,32 @@ import InputStepper from '../../common/InputStepper/InputStepper';
 import type { CartItemType } from '../../../types/types';
 import CheckBox from '../../common/CheckBox/CheckBox';
 import { Text } from '../../common/Text/Text';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useModal } from '../../../hooks/useModal';
-import { useRecoilState } from 'recoil';
-import { checkCartListState } from '../../../service/atom';
-import { useCart } from '../../../hooks/useCart';
+import useCheckCart from '../../../hooks/useCheckCart';
+import useCart from '../../../hooks/useCart';
+import { deleteModalState } from '../../../service/atom';
 
 const CartItem = ({ cart }: { cart: CartItemType }) => {
-  const [checkCartList, setCheckCartList] = useRecoilState(checkCartListState);
+  const { check, changeCheckCartList } = useCheckCart(cart.id);
+  const { changeCartQuantityAPI, deleteCartItemAPI } = useCart();
 
-  const [count, setCount] = useState(cart.quantity);
-  const [check, setCheck] = useState(
-    checkCartList.findIndex((cartId) => cartId === cart.id) !== -1,
-  );
+  const [quantity, setQuantity] = useState(cart.quantity);
 
   const totalPrice = check ? cart.product.price : 0;
 
-  const { changeCartQuantityAPI, deleteCartItemAPI } = useCart();
+  const { openModal } = useModal(deleteModalState);
 
-  const { openModal } = useModal();
-
-  const deleteCartItem = async () => {
+  const deleteCartItem = () => {
     deleteCartItemAPI(cart.id);
   };
 
-  const changeCheckCartList = () => {
-    const existItemIndex = checkCartList.findIndex((cartId) => cartId === cart.id);
-    if (check) {
-      if (existItemIndex !== -1) {
-        setCheckCartList((prev) => {
-          const newCartList = [...prev];
-          newCartList.splice(existItemIndex, 1);
-          return newCartList;
-        });
-      }
-      setCheck(false);
-      return;
+  const changeQuantity = (value: number) => {
+    if (value !== cart.quantity) {
+      changeCartQuantityAPI(cart.id, { quantity: value });
+      setQuantity(value);
     }
-    setCheckCartList((prev) => [...prev, cart.id]);
-    setCheck(true);
   };
-
-  useEffect(() => {
-    const mutateCartItem = async () => {
-      changeCartQuantityAPI(cart.id, { quantity: count });
-    };
-    mutateCartItem();
-  }, [count]);
-
-  useEffect(() => {
-    const existItemIndex = checkCartList.findIndex((cartId) => cartId === cart.id);
-
-    if (existItemIndex === -1) {
-      setCheck(false);
-      return;
-    }
-    setCheck(true);
-  }, [checkCartList]);
 
   return (
     <CartItemWrapper>
@@ -80,8 +49,8 @@ const CartItem = ({ cart }: { cart: CartItemType }) => {
           </CartInfoHead>
           <InputStepper
             size="big"
-            quantity={count}
-            setQuantity={(value: number) => setCount(value)}
+            quantity={cart.quantity}
+            setQuantity={changeQuantity}
             minNumber={1}
           />
           <CardInfoFoot>
@@ -93,11 +62,11 @@ const CartItem = ({ cart }: { cart: CartItemType }) => {
       </CartItemInner>
       <CartItemFoot>
         <Text size="smaller" weight="light">
-          {`상품금액 ${totalPrice.toLocaleString()}원 X ${count}개`}
+          {`상품금액 ${totalPrice.toLocaleString()}원 X ${quantity}개`}
         </Text>
         &nbsp;=&nbsp;
         <Text size="smaller" weight="normal">
-          {`총 ${(totalPrice * count).toLocaleString()}원`}
+          {`총 ${(totalPrice * quantity).toLocaleString()}원`}
         </Text>
       </CartItemFoot>
     </CartItemWrapper>

@@ -4,19 +4,19 @@ import CartItem from '../../box/CartItem/CartItem';
 import CheckBox from '../../common/CheckBox/CheckBox';
 import Button from '../../common/Button/Button';
 import { Text } from '../../common/Text/Text';
-import { useEffect, useState } from 'react';
 import { useModal } from '../../../hooks/useModal';
-import { useCart } from '../../../hooks/useCart';
+import useCart from '../../../hooks/useCart';
 import { useRecoilState } from 'recoil';
-import { checkCartListState } from '../../../service/atom';
+import { checkCartListState, deleteModalState } from '../../../service/atom';
+import LoadingSpinner from '../../common/LoadingSpinner/LoadingSpinner';
+import { CartItemType } from '../../../types/types';
+import ErrorBox from '../../common/ErrorBox/ErrorBox';
+import EmptyList from '../../common/EmptyList/EmptyList';
 
 const CartList = () => {
-  const { cartData, deleteCartItemAPI } = useCart();
-
+  const { cartData, deleteCartItemAPI, isFetching } = useCart();
   const [checkCartList, setCheckCartList] = useRecoilState(checkCartListState);
-  const [isAllCheck, setIsAllCheck] = useState(true);
-
-  const { openModal } = useModal();
+  const { openModal } = useModal(deleteModalState);
 
   const deleteSelectCart = async () => {
     checkCartList.forEach((cartId) => {
@@ -26,22 +26,12 @@ const CartList = () => {
   };
 
   const onClickCheckBox = () => {
-    if (isAllCheck) {
+    if (cartData && cartData.length === checkCartList.length) {
       setCheckCartList([]);
-      setIsAllCheck(false);
       return;
     }
     cartData && setCheckCartList(cartData.map((cart) => cart.id));
-    setIsAllCheck(true);
   };
-
-  useEffect(() => {
-    if (cartData && cartData.length === checkCartList.length) {
-      setIsAllCheck(true);
-      return;
-    }
-    setIsAllCheck(false);
-  }, [checkCartList]);
 
   return (
     <CartListWrapper>
@@ -49,25 +39,46 @@ const CartList = () => {
         <Text size="small" weight="light">
           든든배송 상품 ({cartData?.length}개)
         </Text>
+        <CartListChecker>
+          <CheckBox
+            label={`전체선택(${checkCartList.length})`}
+            checked={cartData ? cartData.length === checkCartList.length : false}
+            onClick={onClickCheckBox}
+          />
+          <Button
+            size="small"
+            text="선택삭제"
+            onClick={() => openModal({ callback: deleteSelectCart })}
+          />
+        </CartListChecker>
       </CartListHead>
-      <Cart>
-        {cartData?.map((cart) => (
-          <CartItem key={cart.product.id} cart={cart} />
-        ))}
-      </Cart>
-      <CartListFoot>
-        <CheckBox
-          label={`전체선택(${checkCartList.length})`}
-          checked={isAllCheck}
-          onClick={onClickCheckBox}
-        />
-        <Button
-          size="small"
-          text="선택삭제"
-          onClick={() => openModal({ callback: deleteSelectCart })}
-        />
-      </CartListFoot>
+      <CartResponse cartData={cartData} isFetching={isFetching} />
     </CartListWrapper>
+  );
+};
+
+const CartResponse = ({
+  cartData,
+  isFetching,
+}: {
+  cartData?: CartItemType[];
+  isFetching: boolean;
+}) => {
+  if (isFetching) {
+    return <LoadingSpinner />;
+  }
+  if (!cartData) {
+    return <ErrorBox errorType="network" />;
+  }
+  if (cartData.length === 0) {
+    return <EmptyList text="장바구니에 상품이 없습니다" />;
+  }
+  return (
+    <Cart>
+      {cartData.map((cart) => (
+        <CartItem key={cart.id} cart={cart} />
+      ))}
+    </Cart>
   );
 };
 
@@ -77,15 +88,20 @@ const CartListWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 const CartListHead = styled.div`
   width: 100%;
   border-bottom: 3px solid #aaa;
-  padding: 0 0 20px 0;
+  padding: 80px 0 20px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: sticky;
+  top: 70px;
+  background-color: #fff;
+  z-index: 30;
 `;
 
 const Cart = styled.div`
@@ -94,9 +110,8 @@ const Cart = styled.div`
   flex-direction: column;
 `;
 
-const CartListFoot = styled.div`
+const CartListChecker = styled.div`
   display: flex;
   align-items: center;
   gap: 15px;
-  margin-top: 20px;
 `;

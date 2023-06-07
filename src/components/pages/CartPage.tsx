@@ -6,25 +6,13 @@ import PageTemplate from '../templates/PageTemplate';
 import styled from '@emotion/styled';
 import Modal from '../common/Modal/Modal';
 import DeleteCartItemModal from '../common/Modal/DeleteCartItemModal';
-import { useCart } from '../../hooks/useCart';
+import useCart from '../../hooks/useCart';
 import { useRecoilValue } from 'recoil';
-import { checkCartListState } from '../../service/atom';
+import { checkCartListState, deleteModalState } from '../../service/atom';
 
 const CartPage = () => {
-  const { cartData } = useCart();
+  const { calcTotalPrice } = useCart();
   const checkCartList = useRecoilValue(checkCartListState);
-
-  const calcTotalPrice = () => {
-    return checkCartList
-      .map((cartId) => {
-        const cartItem = cartData && cartData.find((cart) => cart.id === cartId);
-        if (cartItem) {
-          return cartItem?.product.price * cartItem?.quantity;
-        }
-        return 0;
-      })
-      .reduce((prev, next) => prev + next, 0);
-  };
 
   return (
     <PageTemplate
@@ -38,17 +26,19 @@ const CartPage = () => {
           </Text>
         </CartPageHead>
         <CartPageContent>
-          <CartListWrapper>{<CartList />}</CartListWrapper>
+          <CartListWrapper>
+            <CartList />
+          </CartListWrapper>
           <PriceBox>
             <TotalPriceBox
-              totalProductPrice={calcTotalPrice()}
+              totalProductPrice={calcTotalPrice}
               shippingFee={checkCartList.length > 0 ? 3000 : 0}
               isValid={checkCartList.length > 0}
             />
           </PriceBox>
         </CartPageContent>
       </CartPageWrapper>
-      <Modal>
+      <Modal modalState={deleteModalState}>
         <DeleteCartItemModal />
       </Modal>
     </PageTemplate>
