@@ -34,7 +34,7 @@ const useCart = () => {
   const {
     data: cartData,
     refetch,
-    isFetching,
+    isLoading,
   } = useQuery<CartItemType[]>('cart', fetchCartData, {
     onError: (e) => {
       console.log(e);
@@ -106,7 +106,7 @@ const useCart = () => {
     changeCartQuantityAPI,
     deleteCartItemAPI,
     calcTotalPrice: calcTotalPrice(),
-    isFetching,
+    isLoading,
   };
 };
 
