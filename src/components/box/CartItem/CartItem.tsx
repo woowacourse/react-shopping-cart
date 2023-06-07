@@ -6,7 +6,7 @@ import type { CartItemType } from '../../../types/types';
 import CheckBox from '../../common/CheckBox/CheckBox';
 import { Text } from '../../common/Text/Text';
 import { useState } from 'react';
-import { useModal } from '../../../hooks/useModal';
+import useModal from '../../../hooks/useModal';
 import useCheckCart from '../../../hooks/useCheckCart';
 import useCart from '../../../hooks/useCart';
 import { deleteModalState } from '../../../service/atom';
@@ -15,7 +15,7 @@ const CartItem = ({ cart }: { cart: CartItemType }) => {
   const { check, changeCheckCartList } = useCheckCart(cart.id);
   const { changeCartQuantityAPI, deleteCartItemAPI } = useCart();
 
-  const [quantity, setQuantity] = useState(cart.quantity);
+  const [quantity, setQuantity] = useState<number>(cart.quantity);
 
   const totalPrice = check ? cart.product.price : 0;
 

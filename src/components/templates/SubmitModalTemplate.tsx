@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Text } from '../common/Text/Text';
 import { RecoilState } from 'recoil';
 import { ModalType } from '../../service/atom';
-import { useModal } from '../../hooks/useModal';
+import useModal from '../../hooks/useModal';
 
 interface SubmitModalTemplateProps {
   modalState: RecoilState<ModalType>;

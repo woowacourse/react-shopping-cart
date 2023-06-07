@@ -7,7 +7,7 @@ type OpenModalType = {
   callback: () => void;
 };
 
-export const useModal = (modalState: RecoilState<ModalType>) => {
+const useModal = (modalState: RecoilState<ModalType>) => {
   const [modalDataState, setModalDataState] = useRecoilState(modalState);
   const { lockScroll, openScroll } = useBodyScrollLock();
 
@@ -31,3 +31,5 @@ export const useModal = (modalState: RecoilState<ModalType>) => {
 
   return { modalDataState, closeModal, openModal };
 };
+
+export default useModal;
