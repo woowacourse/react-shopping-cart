@@ -11,7 +11,7 @@ interface ButtonProps {
 
 const Button = ({ isValid = true, text, onClick, ...props }: ButtonProps) => {
   return (
-    <ButtonStyle {...props} isValid={isValid} onClick={onClick}>
+    <ButtonStyle type="button" {...props} isValid={isValid} onClick={onClick}>
       {text}
     </ButtonStyle>
   );

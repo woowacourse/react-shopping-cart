@@ -25,12 +25,12 @@ const SubmitModalTemplate = ({ modalState, title }: SubmitModalTemplateProps) =>
         </Text>
       </TextWrapper>
       <ButtonWrapper>
-        <CancelButton onClick={closeModal}>
+        <CancelButton type="button" onClick={closeModal}>
           <Text size="smaller" weight="light">
             취소
           </Text>
         </CancelButton>
-        <SubmitButton onClick={onSubmit}>
+        <SubmitButton type="button" onClick={onSubmit}>
           <Text size="smaller" weight="normal">
             확인
           </Text>
