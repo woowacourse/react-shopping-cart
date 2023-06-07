@@ -1,13 +1,14 @@
 import styled from '@emotion/styled';
 import UserCartInfo from './UserCartInfo';
 import { Link } from 'react-router-dom';
+import { RoutePath } from '../../../constants';
 
 const Header = () => {
   return (
     <HeaderWrapper>
       <HeaderInner>
         <Nav>
-          <LogoWrapper to="/">
+          <LogoWrapper to={RoutePath.HomePage}>
             <HeaderLogo
               src="https://cdn-mart.baemin.com/front-end/assets-static/bmmart_logo_2021@3x.png"
               alt="logo"
