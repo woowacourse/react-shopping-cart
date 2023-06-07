@@ -49,7 +49,7 @@ const CartList = () => {
           <Button
             size="small"
             text="선택삭제"
-            onClick={() => openModal({ callback: deleteSelectCart })}
+            onClick={() => checkCartList.length > 0 && openModal({ callback: deleteSelectCart })}
           />
         </CartListChecker>
       </CartListHead>
