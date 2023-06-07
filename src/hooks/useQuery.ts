@@ -13,12 +13,16 @@ export const useQuery = <T>(url: string, params?: RequestInit) => {
 			try {
 				const response = await fetch(url, params);
 				if (!response.ok) {
-					setErrorMessage(ERROR_CODE[response.status]);
-					setData(null);
+					throw new Error(`${ERROR_CODE[response.status]}`);
 				}
 				const fetchingData = await response.json();
 
 				setData(fetchingData);
+			} catch (error) {
+				if (error instanceof Error) {
+					setErrorMessage(error.message);
+					setData(null);
+				}
 			} finally {
 				setLoading(false);
 			}
