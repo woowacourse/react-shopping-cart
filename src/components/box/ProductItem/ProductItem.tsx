@@ -50,7 +50,7 @@ const ProductItem = ({ product }: { product: ProductType }) => {
       <ProductImage src={product.imageUrl} alt={product.name} />
       <ProductInfoWrapper>
         <ProductTextWrapper>
-          <Text size="smallest" weight="light" color="#333333">
+          <Text size="smaller" weight="light" color="#333333">
             {product.name}
           </Text>
           <Text size="small" weight="light" color="#333333" lineHeight="33px">

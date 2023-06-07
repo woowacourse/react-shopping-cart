@@ -70,7 +70,7 @@ const CartItem = ({ cart }: { cart: CartItemType }) => {
         <ProductImage src={cart.product.imageUrl} />
         <CartInfoWrapper>
           <CartInfoHead>
-            <Text size="smallest" weight="light">
+            <Text size="smaller" weight="light">
               {cart.product.name}
             </Text>
             <TrashCanIcon
@@ -85,18 +85,18 @@ const CartItem = ({ cart }: { cart: CartItemType }) => {
             minNumber={1}
           />
           <CardInfoFoot>
-            <Text size="smallest" weight="normal">
+            <Text size="smaller" weight="normal">
               {cart.product.price.toLocaleString()} 원
             </Text>
           </CardInfoFoot>
         </CartInfoWrapper>
       </CartItemInner>
       <CartItemFoot>
-        <Text size="smallest" weight="light">
+        <Text size="smaller" weight="light">
           {`상품금액 ${totalPrice.toLocaleString()}원 X ${count}개`}
         </Text>
         &nbsp;=&nbsp;
-        <Text size="smallest" weight="normal">
+        <Text size="smaller" weight="normal">
           {`총 ${(totalPrice * count).toLocaleString()}원`}
         </Text>
       </CartItemFoot>
