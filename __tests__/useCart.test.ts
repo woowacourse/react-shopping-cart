@@ -1,26 +1,46 @@
-import { act, renderHook } from '@testing-library/react';
+import { setupServer } from 'msw/node';
+import { renderHook, waitFor } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
+import { rest } from 'msw';
+import fetchMock from 'jest-fetch-mock';
 import { createMockProduct } from '../cypress/fixtures/defaultProducts';
-import { useCart } from '../src/components/ProductItem/hooks/useCart';
-
-export type Product = {
-	id: number;
-	name: string;
-	price: number;
-	imageUrl: string;
-};
+import { useCart } from '@/components/ProductItem/hooks/useCart';
 
 const mockProduct = createMockProduct();
 
-describe('useCart 훅 테스트입니다.', () => {
-	test('useCart의 addCart 함수를 테스트한다.', () => {
+// MSW 서버를 생성하고 요청 핸들러를 정의합니다.
+const server = setupServer(
+	rest.post('/cart-Items', (req, res, ctx) => {
+		return res(ctx.status(200));
+	})
+);
+
+beforeAll(() => {
+	server.listen();
+	fetchMock.enableMocks();
+});
+
+afterAll(() => {
+	server.close();
+	fetchMock.disableMocks();
+});
+
+// 테스트 코드
+describe('useCart', () => {
+	it('장바구니에 상품 하나를 추가한다.', async () => {
 		const { result } = renderHook(() => useCart(), {
 			wrapper: RecoilRoot,
 		});
 
-		expect(result.current.cart).toEqual([]); // 초기값을 넣는다.
+		expect(result.current.cart).toEqual([]);
 
-		act(() => {
+		server.use(
+			rest.post('/cart-Items', (req, res, ctx) => {
+				return res(ctx.status(200));
+			})
+		);
+
+		await waitFor(() => {
 			result.current.addCart(mockProduct);
 		});
 
@@ -30,12 +50,12 @@ describe('useCart 훅 테스트입니다.', () => {
 		expect(product).toEqual(mockProduct);
 	});
 
-	test('useCart의 updateCart 함수를 테스트한다. -> 기존에 있던 장바구니 상품의 수량을 5로 변경한다.', () => {
+	it('기존에 있던 장바구니 상품의 수량을 변경한다.', async () => {
 		const { result } = renderHook(() => useCart(), {
 			wrapper: RecoilRoot,
 		});
 
-		act(() => {
+		await waitFor(() => {
 			result.current.updateCart(5, mockProduct);
 		});
 
@@ -45,12 +65,12 @@ describe('useCart 훅 테스트입니다.', () => {
 		expect(product).toEqual(mockProduct);
 	});
 
-	test('useCart의 deleteCart 함수를 테스트한다. -> 기존에 있던 장바구니 상품 하나를 제거한다.', () => {
+	test('기존에 있던 장바구니 상품 하나를 제거한다.', async () => {
 		const { result } = renderHook(() => useCart(), {
 			wrapper: RecoilRoot,
 		});
 
-		act(() => {
+		await waitFor(() => {
 			result.current.deleteCart(mockProduct);
 		});
 
