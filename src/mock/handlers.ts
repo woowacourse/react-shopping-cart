@@ -30,14 +30,19 @@ export const handlers = [
     const { productId } = await req.json<{ productId: number }>();
     const foundProduct = products.find((product) => product.id === productId);
     if (foundProduct) {
+      const newCartId = Date.now();
       const newCartItem = {
-        id: Date.now(),
+        id: newCartId,
         quantity: 1,
         product: foundProduct,
       };
       cartList.push(newCartItem);
 
-      return res(ctx.status(201), ctx.text('Add Cart Item Success'));
+      return res(
+        ctx.status(201),
+        ctx.text('Add Cart Item Success'),
+        ctx.set('Location', `/cart-items/${newCartId}`),
+      );
     }
     return res(ctx.status(400, 'Product Does Not Found'));
   }),
