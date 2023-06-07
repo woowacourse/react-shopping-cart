@@ -36,6 +36,12 @@ const useCart = () => {
     refetch,
     isLoading,
   } = useQuery<CartItemType[]>('cart', fetchCartData, {
+    onSuccess: (res) => {
+      const updatedCheckCart = checkCartList.filter((checkCartItemId) =>
+        res.find((cart) => cart.id === checkCartItemId),
+      );
+      setCheckCartList(updatedCheckCart);
+    },
     onError: (e) => {
       console.log(e);
     },

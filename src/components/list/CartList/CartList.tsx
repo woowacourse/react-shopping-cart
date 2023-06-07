@@ -16,6 +16,7 @@ import EmptyList from '../../common/EmptyList/EmptyList';
 const CartList = () => {
   const { cartData, deleteCartItemAPI, isLoading } = useCart();
   const [checkCartList, setCheckCartList] = useRecoilState(checkCartListState);
+
   const { openModal } = useModal(deleteModalState);
 
   const deleteSelectCart = async () => {
