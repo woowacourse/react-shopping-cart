@@ -27,3 +27,9 @@
   gap: 38px;
   align-items: flex-end;
 }
+
+@media (max-width: 1024px) {
+  .container {
+    width: 100%;
+  }
+}
