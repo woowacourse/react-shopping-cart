@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { useSetRecoilState } from 'recoil';
 import { $Cart } from '../../recoil/atom';
 import { ForwardedRef, forwardRef, useState } from 'react';
+import { $CheckedCartState } from '../../recoil/atom';
 
 interface CartProductProps {
   cartItem: CartItem;
@@ -17,6 +18,7 @@ const CartProduct = ({ cartItem }: CartProductProps, ref: ForwardedRef<HTMLInput
   const { quantity, product } = cartItem;
   const setCart = useSetRecoilState($Cart);
   const [count, setCount] = useState(quantity);
+  const setCheckedCartData = useSetRecoilState($CheckedCartState);
 
   const handleUpButton = async () => {
     try {
@@ -44,6 +46,7 @@ const CartProduct = ({ cartItem }: CartProductProps, ref: ForwardedRef<HTMLInput
     try {
       await deleteCartItem(product.id);
       setCart((prev) => prev.filter((item) => item !== product.id));
+      setCheckedCartData((prev) => prev.filter((item) => item.product.id !== product.id));
     } catch (e) {
       toast.error(ERROR_MESSAGE.delete);
     }
