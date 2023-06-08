@@ -1,21 +1,25 @@
-import { Dispatch, SetStateAction } from 'react';
 import { toast } from 'react-toastify';
+import { useEffect, useState } from 'react';
 import ERROR_MESSAGE from '../constant/errorMessage';
 
-type useFetchProductsProps = Dispatch<SetStateAction<never[]>>;
+const useFetchProducts = () => {
+  const [products, setProducts] = useState([]);
 
-const useFetchProducts = (setProducts: useFetchProductsProps): void => {
-  const fetchData = async (): Promise<void> => {
-    try {
-      const response = await fetch('/products', { method: 'GET' });
-      const data = await response.json();
-      setProducts(data);
-    } catch (e) {
-      toast.error(ERROR_MESSAGE.fetchProducts);
-    }
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('./products/');
+        const data = await response.json();
+        setProducts(data);
+      } catch (e) {
+        toast.error(ERROR_MESSAGE.fetchProducts);
+      }
+    };
 
-  fetchData();
+    fetchData();
+  }, []);
+
+  return products;
 };
 
 export default useFetchProducts;
