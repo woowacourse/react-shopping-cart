@@ -2,8 +2,8 @@ import type { PropsWithChildren } from 'react';
 import styled from '@emotion/styled';
 
 type TextProps = PropsWithChildren<{
-  size?: 'smallest' | 'small' | 'medium' | 'large' | 'largest';
-  weight?: 'light' | 'normal' | 'bold';
+  size?: 'icon' | 'smallest' | 'smaller' | 'small' | 'medium' | 'large' | 'extraLarge' | 'largest';
+  weight?: 'light' | 'normal' | 'bold' | 'extraBold';
   color?: string;
   lineHeight?: string;
 }>;
@@ -16,23 +16,27 @@ type StyledTextProps = {
 };
 
 const fontSizes: Record<StyledTextProps['$size'], string> = {
-  smallest: '16px',
+  icon: '10px',
+  smallest: '12px',
+  smaller: '16px',
   small: '20px',
   medium: '22px',
   large: '24px',
+  extraLarge: '32px',
   largest: '40px',
 };
 
 const fontWeights: Record<StyledTextProps['$weight'], number> = {
   light: 400,
   normal: 500,
-  bold: 900,
+  bold: 700,
+  extraBold: 900,
 };
 
-export const StyledText = styled.div<StyledTextProps>`
+export const StyledText = styled.p<StyledTextProps>`
   font-size: ${(props) => fontSizes[props.$size]};
   font-weight: ${(props) => fontWeights[props.$weight]};
-  color: ${(props) => props.$color ?? 'inherit'};
+  color: ${(props) => props.$color ?? '#414141'};
   line-height: ${(props) => props.$lineHeight};
 `;
 

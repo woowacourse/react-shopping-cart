@@ -1,13 +1,7 @@
-import Header from './common/header/Header';
-import ShoppingPage from './pages/ShoppingPage';
+import Router from './Router';
 
 const App = () => {
-  return (
-    <>
-      <Header />
-      <ShoppingPage />
-    </>
-  );
+  return <Router />;
 };
 
 export default App;

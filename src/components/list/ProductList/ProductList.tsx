@@ -1,24 +1,25 @@
 import styled from '@emotion/styled';
-import ProductItem from '../box/ProductItem';
-import useDataFetching from '../../hooks/useDataFetching';
-import type { Product } from '../../types/types';
-import ErrorBox from '../common/ErrorBox/ErrorBox';
-import { Text } from '../common/Text/Text';
+import ProductItem from '../../box/ProductItem/ProductItem';
+import ErrorBox from '../../common/ErrorBox/ErrorBox';
+import useProduct from '../../../hooks/useProduct';
+import EmptyList from '../../common/EmptyList/EmptyList';
+import LoadingSpinner from '../../common/LoadingSpinner/LoadingSpinner';
 
 const ProductList = () => {
-  const { data, isLoading } = useDataFetching<Product[]>('./mock/mockData.json');
-  if (isLoading) {
-    return <Text>로딩중...</Text>;
+  const { productData, isFetching, isError } = useProduct();
+
+  if (isFetching) {
+    return <LoadingSpinner />;
   }
-  if (!data) {
+  if (isError || !productData) {
     return <ErrorBox errorType="network" />;
   }
-  if (data.length === 0) {
-    return <ErrorBox errorType="emptyList" />;
+  if (productData.length === 0) {
+    return <EmptyList text="상품이 없습니다" />;
   }
   return (
     <ProductListWrapper>
-      {data.map((product) => (
+      {productData.map((product) => (
         <ProductItem key={product.id} product={product} />
       ))}
     </ProductListWrapper>
