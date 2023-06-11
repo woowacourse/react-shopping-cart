@@ -2,7 +2,7 @@ name: NodeJS with Webpack
 
 on:
   push:
-    branches: [geuntaek1013-step1]
+    branches: [geuntaek1013-step2]
 
 jobs:
   deploy:

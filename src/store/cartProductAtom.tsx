@@ -1,10 +1,11 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
-const emptyValue: Record<string, number> = {};
-
-const cartProductsState = atom({
-  key: "cartProductsState",
-  default: emptyValue,
+export const cartState = atom<number[]>({
+  key: 'cartState',
+  default: [],
 });
 
-export default cartProductsState;
+export const productsState = atom({
+  key: 'productsState',
+  default: [],
+});
