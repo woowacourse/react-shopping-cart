@@ -1,0 +1,27 @@
+name: Automatically Deployment
+
+on: 
+  push: 
+    branches:
+    - "develop"
+
+jobs: 
+  build: 
+    runs-on: ubuntu-latest
+    # 해당 Job의 이름을 아래와 같이 설정하여 Actions 탭에서 확인할 수 있게 설정합니다.
+    name: Deploying App
+
+    # Node 환경을 설정하여 npm 커맨드를 사용할 수 있도록 하는 Action을 불러옵니다.
+    steps: 
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with: 
+        node-version: '16'
+
+    # 해당 프로젝트에서 사용하는 모든 라이브러리 설치
+    - name : Install Dependencies
+      run: npm ci
+    
+    # React 프로젝트 빌드
+    - name : Build App
+      run : npm run build
