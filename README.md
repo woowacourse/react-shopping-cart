@@ -20,7 +20,7 @@
   - [ ] 새로고침 시에도 장바구니 상태 유지
 - UI 컴포넌트 작업
   - [x] Header
-  - [ ] CartHeader
+  - [x] CartHeader
   - [ ] CartItemList
   - [ ] CartItem
   - [ ] CartSummary
