@@ -6,6 +6,7 @@ import SetQuantity from '../SetQuantity/SetQuantity';
 const ShoppingCartItem = () => {
   return (
     <S.Container>
+      <S.Hr />
       <S.Header>
         <Checkbox id={1} isChecked={true} />
         <DeleteButton />

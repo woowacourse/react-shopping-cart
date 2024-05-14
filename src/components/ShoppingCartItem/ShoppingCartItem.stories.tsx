@@ -10,4 +10,4 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const ShoppingCart: Story = {};
+export const 쇼핑카트: Story = {};
