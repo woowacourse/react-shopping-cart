@@ -38,3 +38,23 @@ export async function fetchCartItemCounts(): Promise<CartItemCounts> {
   const data = await response.json();
   return data;
 }
+
+// PATCH : /cart-items/{id} 장바구니 아이템 수량 변경
+export async function fetchCartItemQuantityChange(
+  cartItemId: number,
+  quantity: number
+): Promise<void> {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+  const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+    body: JSON.stringify({ quantity }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch cart item quantity");
+  }
+}
