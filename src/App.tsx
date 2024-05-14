@@ -1,10 +1,13 @@
-import "./App.css";
+import './App.css';
+import Header from './components/Header/Header';
+import Cart from './components/Cart/Cart';
 
 function App() {
   return (
-    <>
-      <h1>react-shopping-cart</h1>
-    </>
+    <div id="app">
+      <Header imgType="logo" />
+      <Cart />
+    </div>
   );
 }
 
