@@ -32,6 +32,19 @@ export const fetchTotalQuantity = async () => {
   return data.quantity;
 };
 
+export const updateItemQuantity = async (cartId: number, quantity: number) => {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+  const response = await fetch(`${BASE_URL}/cart-items/${cartId}`, {
+    method: 'PATCH',
+    headers: { Authorization: token, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ quantity }),
+  });
+
+  if (!response.ok) {
+    throw new Error('failed to patch cart items');
+  }
+};
+
 export function generateBasicToken(userId: string, userPassword: string): string {
   const token = btoa(`${userId}:${userPassword}`);
   return `Basic ${token}`;

@@ -1,5 +1,6 @@
 import { useSetRecoilState } from 'recoil';
 
+import { updateItemQuantity } from './apis/cartItem';
 import { CartItemProps, cartItemsState } from './recoil/cartItems';
 
 interface Props {
@@ -17,6 +18,7 @@ const CartItem = ({ item }: Props) => {
           : cartItem,
       ),
     );
+    await updateItemQuantity(item.id, item.quantity - 1);
   };
 
   const handleIncrementQuantity = async () => {
@@ -25,6 +27,8 @@ const CartItem = ({ item }: Props) => {
         cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem,
       ),
     );
+
+    await updateItemQuantity(item.id, item.quantity + 1);
   };
 
   return (
