@@ -4,38 +4,43 @@ import { Button } from "../default/Button";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
 import MinusIcon from "../../assets/MinusIcon.svg?react";
 import PlusIcon from "../../assets/PlusIcon.svg?react";
+import { useRecoilState } from "recoil";
+import { cartItemCheckedState } from "../../recoil/atom";
+import { Product } from "../../types";
 
-interface CardItemProps {}
+interface CardItemProps {
+  product: Product;
+}
 
-const CartItem = () => {
-  const [allChecked, setAllChecked] = useState(false);
+const CartItem = ({ product }: CardItemProps) => {
+  const [cartItemChecked, setCartItemChecked] = useRecoilState(cartItemCheckedState(product.id));
 
   const handleAllChecked = () => {
-    setAllChecked(!allChecked);
+    setCartItemChecked(!cartItemChecked);
   };
 
   return (
     <div className={ItemCSS}>
       <div className={ItemHeaderCSS}>
-        <Button variant={allChecked ? "primary" : "secondary"} onClick={handleAllChecked}>
-          <CheckIcon fill={allChecked ? "#ffffff" : "#0000001A"} />
+        <Button variant={cartItemChecked ? "primary" : "secondary"} onClick={handleAllChecked}>
+          <CheckIcon fill={cartItemChecked ? "#ffffff" : "#0000001A"} />
         </Button>
         <Button>삭제</Button>
       </div>
       <div className={ItemContentCSS}>
-        <div>[ 이미지 ]</div>
+        <img src={product.product.imageUrl} className={ItemImageCSS} />
         <div className={ItemInfoWithCountCSS}>
           <div className={ItemInfoCSS}>
-            <div className={ItemNameCSS}>상품이름</div>
-            <div className={ItemPriceCSS}>35,000원</div>
+            <div className={ItemNameCSS}>{product.product.name}</div>
+            <div className={ItemPriceCSS}>{product.product.price}</div>
           </div>
           <div className={ItemCountCSS}>
             <div>
-              <PlusIcon />
-            </div>
-            <p>[ 갯수 ]</p>
-            <div>
               <MinusIcon />
+            </div>
+            <p>{product.quantity}</p>
+            <div>
+              <PlusIcon />
             </div>
           </div>
         </div>
@@ -64,6 +69,12 @@ const ItemContentCSS = css`
   flex-direction: row;
   column-gap: 24px;
   align-items: center;
+`;
+
+const ItemImageCSS = css`
+  width: 112px;
+  height: 112px;
+  border-radius: 8px;
 `;
 const ItemInfoWithCountCSS = css`
   display: flex;
@@ -94,6 +105,7 @@ const ItemCountCSS = css`
   display: flex;
   column-gap: 8px;
   justify-content: flex-start;
+  align-items: center;
   font-family: Noto Sans;
   font-size: 12px;
   font-weight: 500;

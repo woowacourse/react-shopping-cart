@@ -1,12 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { css } from "@emotion/css";
 import CartItem from "./CartItem";
 import { Button } from "../default/Button";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
 import Splitter from "../default/Splitter";
+import { Product } from "../../types";
+import { fetchCartItems } from "../../api/CartItem";
 
 const CartItems = () => {
   const [allChecked, setAllChecked] = useState(false);
+  const [cartItems, setCartItmes] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await fetchCartItems();
+        setCartItmes(data);
+      } catch (error) {
+        setError(error as Error);
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   const handleAllChecked = () => {
     setAllChecked(!allChecked);
@@ -21,10 +47,10 @@ const CartItems = () => {
         <span>전체 선택</span>
       </div>
       <div>
-        {Array.from({ length: 2 }).map(() => (
+        {cartItems.map((item) => (
           <div>
             <Splitter />
-            <CartItem />
+            <CartItem product={item} />
           </div>
         ))}
       </div>
