@@ -1,0 +1,37 @@
+import { createGlobalStyle } from "styled-components";
+import reset from "styled-reset";
+
+const GlobalStyle = createGlobalStyle`${reset}
+
+
+
+html {
+    font-size: 62.5%;
+   
+}
+
+body {
+  font-size: 1.6rem;
+}
+
+button{
+    padding: 0;
+}
+
+:root {
+  --font-size-xs: 0.8rem;
+  --font-size-sm: 1.2rem;
+  --font-size-base: 1.6rem;
+  --font-size-lg: 2rem;
+  --font-size-xl: 2.4rem;
+
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --font-weight-extra-bold: 800;
+}
+
+`;
+
+export default GlobalStyle;
