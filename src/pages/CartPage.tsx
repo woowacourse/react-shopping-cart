@@ -1,11 +1,17 @@
 import { css } from "@emotion/css";
+import CartTitle from "../components/CartPage/CartTitle";
+import { Button } from "../components/default/Button";
+import CartItems from "../components/CartPage/CartItems";
 
 const CartPage = () => {
   return (
     <div className={cartPageCSS}>
-      <div className={headerCSS}>SHOP</div>
-      <div></div>
-      <div className={orderConfirmCSS}>주문 확인</div>
+      <header className={headerCSS}>SHOP</header>
+      <section className={contentCSS}>
+        <CartTitle />
+        <CartItems />
+      </section>
+      <footer className={orderConfirmCSS}>주문 확인</footer>
     </div>
   );
 };
@@ -13,9 +19,12 @@ const CartPage = () => {
 export default CartPage;
 
 const cartPageCSS = css`
-  position: relative;
-  width: 429px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
   height: 100vh;
+  width: 429px;
+  position: relative;
   padding: 0 24px;
   margin: 0 auto;
   box-sizing: border-box;
@@ -23,6 +32,7 @@ const cartPageCSS = css`
 
 const headerCSS = css`
   position: absolute;
+  top: 0;
   left: 0;
   display: flex;
   justify-content: space-between;
@@ -39,12 +49,21 @@ const headerCSS = css`
   font-weight: 800;
 `;
 
+const contentCSS = css`
+  margin: 64px 0;
+  padding: 36px 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+`;
+
 const orderConfirmCSS = css`
-  top: 872px;
   padding: 24px 65px;
   gap: 10px;
 
   position: absolute;
+  bottom: 0;
   left: 0;
   display: flex;
   justify-content: center;
