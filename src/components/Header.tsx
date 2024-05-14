@@ -1,6 +1,6 @@
-import ArrowBack from '@/assets/Arrow-back.png';
+import ArrowBack from '@/assets/Arrow-Back.svg';
 import { Link } from 'react-router-dom';
-import Logo from '@/assets/Logo.png';
+import Logo from '@/assets/Logo.svg';
 import styled from '@emotion/styled';
 
 type HeaderType = 'Logo' | 'ArrowBack';
