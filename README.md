@@ -47,6 +47,7 @@ step6. checkout 페이지
 
 - [x] 페이지 UI 레이아웃
 - [x] router state로 보낸 전체 상품 종류 및 갯수 받아 렌더링
+      (step1): fetchCartItems 함수 추가)
 
 # CSS 라이브러리
 
