@@ -37,6 +37,7 @@ const theme: DefaultTheme = {
     black: '#000000',
     white: '#ffffff',
     lightGray: '#BEBEBE',
+    black10: '#0000001A',
   },
 };
 
