@@ -1,11 +1,14 @@
 import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { fetchCartItems } from './apis/cartItem';
-import { cartItemsState } from './recoil/cartItems';
+import CartItem from './CartItem';
+import { cartItemsState, cartTotalPriceState, deliveryPriceState } from './recoil/cartItems';
 
 function App() {
   const [cartItems, setCartItems] = useRecoilState(cartItemsState);
+  const totalPrice = useRecoilValue(cartTotalPriceState);
+  const deliveryPrice = useRecoilValue(deliveryPriceState);
 
   useEffect(() => {
     const getCartItems = async () => {
@@ -22,9 +25,12 @@ function App() {
       <div>
         <ul>
           {cartItems.map((cartItem) => (
-            <li key={cartItem.id}>{cartItem.product.name}</li>
+            <CartItem key={cartItem.id} item={cartItem} />
           ))}
         </ul>
+        <div>주문 금액 : {totalPrice}</div>
+        <div>배송비 : {deliveryPrice}</div>
+        <div>총 결제 금액 : {totalPrice + deliveryPrice}</div>
       </div>
     </>
   );
