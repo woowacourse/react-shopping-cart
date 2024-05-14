@@ -109,7 +109,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: sans-serif;
   }
   ol,
-  ul {
+  ul, li {
     list-style: none;
   }
   blockquote,
@@ -129,6 +129,13 @@ const GlobalStyle = createGlobalStyle`
   }
   button {
     border: none;
+    background-color : inherit;
+    padding: 0;
+    outline: none;
+    cursor: pointer;
+    color:inherit;
+    font-size:inherit;
+    font-weight: inherit ;
   }
   input[type="text"]{
     padding: 0;
