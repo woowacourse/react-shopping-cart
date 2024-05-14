@@ -5,6 +5,23 @@ const API_URL = "http://54.180.95.212:8080";
 const USER_ID = import.meta.env.VITE_USER_ID;
 const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
 
+// POST : /cart-items 사용자의 장바구니에 아이템 추가
+export async function postAddCartItem(productId: number): Promise<void> {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+  const response = await fetch(`${API_URL}/cart-items`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+    body: JSON.stringify({ productId }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to add cart item");
+  }
+}
+
 // GET : /cart-items 사용자의 장바구니 목록 조회
 export async function getCartItems(
   page: number = 0,
