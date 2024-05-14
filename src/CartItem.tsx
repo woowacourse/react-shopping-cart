@@ -9,7 +9,7 @@ interface Props {
 const CartItem = ({ item }: Props) => {
   const setCartItems = useSetRecoilState(cartItemsState);
 
-  const handleDecrementQuantity = () => {
+  const handleDecrementQuantity = async () => {
     setCartItems((prevItems) =>
       prevItems.map((cartItem) =>
         cartItem.id === item.id
@@ -19,7 +19,7 @@ const CartItem = ({ item }: Props) => {
     );
   };
 
-  const handleIncrementQuantity = () => {
+  const handleIncrementQuantity = async () => {
     setCartItems((prevItems) =>
       prevItems.map((cartItem) =>
         cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem,

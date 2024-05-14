@@ -17,6 +17,21 @@ export const fetchCartItems = async () => {
   return data.content;
 };
 
+export const fetchTotalQuantity = async () => {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+  const response = await fetch(`${BASE_URL}/cart-items/counts`, {
+    method: 'GET',
+    headers: { Authorization: token },
+  });
+
+  if (!response.ok) {
+    throw new Error('failed to fetch cart items');
+  }
+
+  const data = await response.json();
+  return data.quantity;
+};
+
 export function generateBasicToken(userId: string, userPassword: string): string {
   const token = btoa(`${userId}:${userPassword}`);
   return `Basic ${token}`;
