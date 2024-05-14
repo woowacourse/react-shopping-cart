@@ -27,4 +27,5 @@ const StyledButton = styled.button`
   background-color: transparent;
   width: fit-content;
   height: fit-content;
+  cursor: pointer;
 `;
