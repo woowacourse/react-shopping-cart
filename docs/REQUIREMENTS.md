@@ -1,6 +1,6 @@
 ## API 호출
 
-- [ ] get `/cart-items`
+- [x] get `/cart-items`
 - [ ] patch `/cart-items/{id}`
 
 ## type
@@ -22,7 +22,7 @@
 
 ## Selector(Recoil)
 
-- [ ] cartList - 전체 장바구니 리스트를 api 호출을 통해 가져옴
+- [x] cartList - 전체 장바구니 리스트를 api 호출을 통해 가져옴
 - [ ] totalPrice - 전체 아이템 총 주문금액
 - [ ] shippingFee - 배송비(10만원 이상인 경우 무료)
 
