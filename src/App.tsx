@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import ShoppingCartPage from './pages/ShoppingCartPage';
+import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
 import OrderConfirmPage from './pages/OrderConfirmPage';
+import { fetchCartItems } from './apis';
 
 function App() {
   const router = createBrowserRouter(
@@ -8,6 +9,7 @@ function App() {
       {
         path: '/',
         element: <ShoppingCartPage />,
+        loader: () => fetchCartItems(),
       },
       {
         path: '/confirm',
