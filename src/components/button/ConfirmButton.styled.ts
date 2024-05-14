@@ -7,6 +7,8 @@ export const StyledConfirmButton = styled.button<{ backgroundColor?: string }>`
   padding: 24px 65px;
   background-color: ${({ backgroundColor }) =>
     backgroundColor || "rgba(0, 0, 0, 1)"};
+  border: none;
+  border-radius: 0px;
 
   font-size: 16px;
   font-weight: 700;
@@ -15,4 +17,7 @@ export const StyledConfirmButton = styled.button<{ backgroundColor?: string }>`
   color: rgba(255, 255, 255, 1);
 
   cursor: pointer;
+  &:focus {
+    outline: none;
+  }
 `;

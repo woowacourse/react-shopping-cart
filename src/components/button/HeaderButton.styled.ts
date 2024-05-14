@@ -5,6 +5,9 @@ export const StyledHeaderButtonContainer = styled.button`
   border: none;
 
   cursor: pointer;
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const StyledHeaderButtonContent = styled.span`
