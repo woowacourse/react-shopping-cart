@@ -64,3 +64,18 @@ export async function patchCartItemQuantityChange(
     throw new Error("Failed to fetch cart item quantity");
   }
 }
+
+// DELETE : /cart-items/{id} 장바구니 아이템 삭제
+export async function deleteCartItem(cartItemId: number): Promise<void> {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+  const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: token,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to remove cart item");
+  }
+}
