@@ -1,4 +1,4 @@
-import { CartItem } from "../types";
+import { CartItem, CartItemCounts } from "../types";
 import { generateBasicToken } from "../utils/auth";
 
 const API_URL = "http://54.180.95.212:8080";
@@ -19,4 +19,22 @@ export async function fetchCartItems(): Promise<CartItem[]> {
 
   const data = await response.json();
   return data.content;
+}
+
+// GET : /cart-items/counts 장바구니 아이템 수량 조회
+export async function fetchCartItemCounts(): Promise<CartItemCounts> {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+  const response = await fetch(`${API_URL}/cart-items/counts`, {
+    method: "GET",
+    headers: {
+      Authorization: token,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch cart item counts");
+  }
+
+  const data = await response.json();
+  return data;
 }
