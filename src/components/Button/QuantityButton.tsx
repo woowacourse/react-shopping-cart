@@ -1,4 +1,5 @@
 import BorderButton from './BorderButton';
+import { FlexCenter } from '@/style/common.style';
 import Minus from '@/assets/Minus.svg';
 import Plus from '@/assets/Plus.svg';
 import styled from '@emotion/styled';
@@ -24,9 +25,7 @@ export const MinusButton = ({ onClick }: Props) => {
 };
 
 const StyledImg = styled.img`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${FlexCenter}
   width: 12px;
   height: 12px;
 `;

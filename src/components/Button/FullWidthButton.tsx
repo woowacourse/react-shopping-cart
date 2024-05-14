@@ -1,3 +1,4 @@
+import { FlexCenter } from '@/style/common.style';
 import styled from '@emotion/styled';
 
 interface Props {
@@ -24,9 +25,7 @@ const StyledButton = styled.button<{ disable: boolean }>`
   height: 64px;
   box-sizing: border-box;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${FlexCenter}
 
   color: #ffffff;
   font-size: 16px;

@@ -1,3 +1,4 @@
+import { FlexColumn, FlexRow, FlexSpaceBetween } from '@/style/common.style';
 import { MinusButton, PlusButton } from '../Button/QuantityButton';
 
 import BorderButton from '../Button/BorderButton';
@@ -48,8 +49,7 @@ const CartItem = ({
 export default CartItem;
 
 const StyledItemWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${FlexColumn}
   justify-content: space-around;
   width: 100%;
   height: 160px;
@@ -59,20 +59,17 @@ const StyledItemWrapper = styled.div`
 `;
 
 const StyledFlexBetweenBox = styled.div`
-  display: flex;
-  justify-content: space-between;
+  ${FlexSpaceBetween}
   align-items: center;
 `;
 
 const StyledRowBox = styled.div`
-  display: flex;
-  flex-direction: row;
+  ${FlexRow}
   gap: 20px;
 `;
 
 const StyledColumnBox = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${FlexColumn}
   gap: 5px;
   margin-top: 10px;
 `;
@@ -94,7 +91,7 @@ const StyledItemPrice = styled.span`
 `;
 
 const StyledQuantityBox = styled.div`
-  display: flex;
+  ${FlexRow}
   align-items: center;
   gap: 10px;
   margin-top: 10px;
