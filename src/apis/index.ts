@@ -1,7 +1,7 @@
-import type { CartItems } from '../pages/ShoppingCartPage/ShoppingCartPage.type';
+import type { TCartItems } from '../pages/ShoppingCartPage/ShoppingCartPage.type';
 import { generateBasicToken } from '../utils/auth';
 
-async function fetchCartItems(): Promise<CartItems[]> {
+async function fetchCartItems(): Promise<TCartItems> {
   const token = generateBasicToken(import.meta.env.VITE_USER_ID, import.meta.env.VITE_USER_PASSWORD);
 
   const response = await fetch(`${import.meta.env.VITE_API_URL}/cart-items`, {

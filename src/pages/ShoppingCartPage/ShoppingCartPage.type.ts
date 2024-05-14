@@ -1,7 +1,7 @@
-import { Product } from '../../types/Product.type';
+import { TProduct } from '../../types/Product.type';
 
-export type CartItems = {
-  content: CartItem[];
+export type TCartItems = {
+  content: TCartItem[];
   pageable: {
     sort: {
       sorted: boolean;
@@ -29,8 +29,8 @@ export type CartItems = {
   empty: boolean;
 };
 
-export type CartItem = {
+export type TCartItem = {
   id: number;
   quantity: number;
-  product: Product;
+  product: TProduct;
 };
