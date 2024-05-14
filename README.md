@@ -25,7 +25,9 @@
   - [ ] CartItem
   - [ ] CartSummary
   - [ ] HeaderButton
-  - [ ] ConfirmButton
+  - [x] ConfirmButton
+- Storybook
+  - [ ]
 - RTL
   - [ ] 장바구니 데이터 로딩: API 호출을 통해 초기 장바구니 데이터를 정상적으로 불러오는지 테스트
   - [ ] 상품 선택 기능: 개별 상품의 선택/해제 시 선택 여부가 정상적으로 변경되는지 테스트
