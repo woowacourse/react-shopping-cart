@@ -24,7 +24,7 @@
   - [ ] CartItemList
   - [ ] CartItem
   - [ ] CartSummary
-  - [ ] HeaderButton
+  - [x] HeaderButton
   - [x] ConfirmButton
 - Storybook
   - [ ]
