@@ -1,8 +1,8 @@
 @import './reset.css';
 
-#root {
-	max-width: 600px;
-	margin: 0 auto;
-	padding: 2rem;
-	text-align: center;
+#app {
+  margin: 0 auto;
+  width: 100%;
+  min-width: 429px;
+  height: 100%;
 }
