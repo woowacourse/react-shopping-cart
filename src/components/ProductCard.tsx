@@ -6,11 +6,11 @@ import { fetchCartItemQuantity } from '../api';
 
 interface ProductProps {
   product: Products;
+  handleRemoveItem: (id: number) => void;
 }
 
-function ProductCard({ product }: ProductProps) {
+function ProductCard({ product, handleRemoveItem }: ProductProps) {
   const [quantity, setQuantity] = useRecoilState(itemQuantityState(product.id));
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
@@ -19,7 +19,6 @@ function ProductCard({ product }: ProductProps) {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
       setError(null);
 
       try {
@@ -27,8 +26,6 @@ function ProductCard({ product }: ProductProps) {
       } catch (error) {
         setError(error as Error);
       }
-
-      setLoading(false);
     };
 
     fetchData();
@@ -41,10 +38,6 @@ function ProductCard({ product }: ProductProps) {
   const handleIncreasedQuantity = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
   };
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -60,6 +53,7 @@ function ProductCard({ product }: ProductProps) {
       <button onClick={handleDecreasedQuantity}>-</button>
       {quantity}
       <button onClick={handleIncreasedQuantity}>+</button>
+      <button onClick={() => handleRemoveItem(product.id)}>삭제</button>
     </li>
   );
 }

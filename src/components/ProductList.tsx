@@ -1,18 +1,57 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Products } from '../types/Product';
 import ProductCard from './ProductCard';
+import { fetchProducts, removeCartItem } from '../api';
+import { useRecoilState } from 'recoil';
+import { itemsState } from '../recoil/atoms';
 
-interface ProductListProps {
-  products: Products[];
-}
+function ProductList() {
+  const [items, setItems] = useRecoilState(itemsState);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
 
-function ProductList({ products }: ProductListProps) {
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const data = await fetchProducts();
+        setItems(data);
+      } catch (error) {
+        setError(error as Error);
+      }
+
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
+  const handleRemoveItem = async (id: number) => {
+    await removeCartItem(id);
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
   return (
     <div>
       <h2>상품 목록</h2>
       <ul>
-        {products.map((product: Products) => {
-          return <ProductCard key={product.id} product={product} />;
+        {items.map((product: Products) => {
+          return (
+            <ProductCard
+              key={product.id}
+              product={product}
+              handleRemoveItem={handleRemoveItem}
+            />
+          );
         })}
       </ul>
     </div>
