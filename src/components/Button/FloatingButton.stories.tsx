@@ -15,3 +15,10 @@ export const Default: Story = {
     text: '버튼 텍스트를 넣어주세요',
   },
 };
+
+export const Disabled: Story = {
+  args: {
+    text: '버튼 텍스트를 넣어주세요',
+    isDisable: true,
+  },
+};
