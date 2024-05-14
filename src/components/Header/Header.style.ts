@@ -10,7 +10,7 @@ export const HeaderStyle = styled.section`
     margin-left: 24px;
   }
 
-  .header_log {
+  .header_logo {
     width: 56px;
   }
 
