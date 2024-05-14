@@ -21,10 +21,14 @@ export const fetchCartItems = async () => {
     method: 'GET',
     headers: HEADERS,
   });
+
   if (!response.ok) {
     throw new Error('Failed to fetch cart items');
   }
   return response.json();
+
+  const data = await response.json();
+  return data.content;
 };
 
 export const updateCartItemQuantity = async (
@@ -36,9 +40,9 @@ export const updateCartItemQuantity = async (
     headers: HEADERS,
     body: JSON.stringify({ quantity }),
   });
+
   if (!response.ok) {
     throw new Error('Failed to update cart item quantity');
   }
-  return response.json();
 };
 
