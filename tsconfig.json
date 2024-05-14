@@ -22,7 +22,19 @@
 
     /* Testing */
     "types": ["jest"],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+
+    "jsxImportSource": "@emotion/react",
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/pages": ["src/pages/*"],
+      "@/types": ["src/types/*"],
+      "@/utils": ["src/utils/*"],
+      "@/constants": ["src/constants/*"],
+      "@/assets": ["src/assets/*"]
+    }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
