@@ -1,3 +1,5 @@
+import { generateBasicToken } from '@/utils/auth';
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const USER_ID = import.meta.env.VITE_USER_ID;
 const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
@@ -56,8 +58,3 @@ export const deleteItem = async (cartId: number) => {
     throw new Error('failed to patch cart items');
   }
 };
-
-export function generateBasicToken(userId: string, userPassword: string): string {
-  const token = btoa(`${userId}:${userPassword}`);
-  return `Basic ${token}`;
-}
