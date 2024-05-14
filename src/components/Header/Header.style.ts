@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const HeaderStyle = styled.section`
   display: flex;
   background-color: #000000;
-  width: inherit;
+  width: 100%;
   height: 64px;
   position: fixed;
   z-index: 1;
