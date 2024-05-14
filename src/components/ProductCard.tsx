@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { removeCartItem } from '../api';
-import { itemDetailsState } from '../recoil/atoms';
+import { itemDetailsState, itemsState } from '../recoil/atoms';
 import { Products } from '../types/Product';
 import { fetchCartItemQuantity } from '../api';
 
 interface ProductProps {
   product: Products;
-
 }
 
 function ProductCard({ product }: ProductProps) {
   const [details, setDetails] = useRecoilState(itemDetailsState(product.id));
+  const setItems = useSetRecoilState(itemsState);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
@@ -51,6 +51,7 @@ function ProductCard({ product }: ProductProps) {
 
   const handleRemoveItem = async (id: number) => {
     await removeCartItem(id);
+    setItems((prevState) => prevState.filter((item) => item.id !== id));
   };
 
   if (error) {
