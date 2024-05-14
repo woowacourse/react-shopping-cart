@@ -30,6 +30,7 @@ export const ProductItemBundle = styled.div`
 
   .product-item_content_name {
     margin-bottom: 4px;
+    color: rgba(10, 13, 19, 1);
     font-weight: 500;
     font-size: 12px;
   }

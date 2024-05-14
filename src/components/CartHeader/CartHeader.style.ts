@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const CartHeaderStyle = styled.div`
+  margin-bottom: 36px;
+`;
+
 export const Title = styled.span`
   font-size: 24px;
   font-weight: 700;

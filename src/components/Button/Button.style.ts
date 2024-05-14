@@ -7,6 +7,7 @@ export const ButtonStyle = styled.button`
   padding: 5px 9px;
   font-weight: 500;
   font-size: 12px;
+  color: rgba(10, 13, 19, 1);
 `;
 
 export const CountButtonStyle = styled.button`
