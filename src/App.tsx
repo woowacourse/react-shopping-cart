@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Header from './components/Header/Header';
 import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
 import OrderConfirmPage from './pages/OrderConfirmPage';
 import { fetchCartItems } from './apis';
@@ -26,6 +27,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
+      <Header />
       <RouterProvider router={router} />
     </ThemeProvider>
   );
