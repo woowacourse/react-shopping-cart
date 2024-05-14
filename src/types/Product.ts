@@ -7,8 +7,7 @@ export interface Product {
 }
 
 export interface Products {
-  id: number,
-  quantity : number,
-  product : Product
-
+  id: number;
+  quantity: number;
+  product: Product;
 }
