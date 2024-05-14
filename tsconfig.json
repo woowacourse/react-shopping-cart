@@ -22,7 +22,21 @@
 
     /* Testing */
     "types": ["jest"],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+
+    "baseUrl": "src",
+    "paths": {
+      "@components/*": ["components/*"],
+      "@styles/*": ["styles/*"],
+      "@utils/*": ["utils/*"],
+      "@assets/*": ["assets/*"],
+      "@constants/*": ["constants/*"],
+      "@types/*": ["types/*"],
+      "@hooks/*": ["hooks/*"],
+      "@domain/*": ["domain/*"],
+      "@routes/*": ["routes/*"],
+      "@pages/*": ["pages/*"]
+    }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
