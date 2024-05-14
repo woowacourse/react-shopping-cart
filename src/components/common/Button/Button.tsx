@@ -12,8 +12,12 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
 }
 
-const Button = ({ size = 'm', width= 'fit',radius='m', children }: ButtonProps) => {
-  return <S.Button size={size} width={width} radius={radius}>{children}</S.Button>;
+const Button = ({ size = 'm', width = 'fit', radius = 'm', children, ...rest }: ButtonProps) => {
+  return (
+    <S.Button size={size} width={width} radius={radius} {...rest}>
+      {children}
+    </S.Button>
+  );
 };
 
 export default Button;
