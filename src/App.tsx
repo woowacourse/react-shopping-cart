@@ -1,9 +1,21 @@
-import "./App.css";
+import { Global, css } from '@emotion/react';
+
+import Router from './Router.tsx';
+import emotionNormalize from 'emotion-normalize';
+
+const baseStyle = css`
+  ${emotionNormalize};
+  body {
+    width: 430px;
+    margin: auto;
+  }
+`;
 
 function App() {
   return (
     <>
-      <h1>react-shopping-cart</h1>
+      <Global styles={baseStyle} />
+      <Router />
     </>
   );
 }
