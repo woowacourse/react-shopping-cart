@@ -1,10 +1,15 @@
 import CheckBox from '../CheckBox/CheckBox';
 import ProductItem from '../ProductItem/ProductItem';
-import { CheckBoxGroup, CheckBoxText } from './ProductList.style';
+import {
+  CheckBoxGroup,
+  CheckBoxText,
+  ProductListStyle,
+} from './ProductList.style';
+import ProductTotalPriceList from '../ProductTotalPriceList/ProductTotalPriceList';
 
 export default function ProductList() {
   return (
-    <section>
+    <ProductListStyle>
       <CheckBoxGroup>
         <CheckBox />
         <CheckBoxText>전체선택</CheckBoxText>
@@ -12,6 +17,7 @@ export default function ProductList() {
       {Array.from({ length: 5 }).map(() => {
         return <ProductItem />;
       })}
-    </section>
+      <ProductTotalPriceList />
+    </ProductListStyle>
   );
 }

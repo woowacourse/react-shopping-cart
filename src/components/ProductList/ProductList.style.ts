@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const ProductListStyle = styled.section`
+  margin-bottom: 40px;
+`;
+
 export const CheckBoxGroup = styled.div`
   display: flex;
   align-items: center;
