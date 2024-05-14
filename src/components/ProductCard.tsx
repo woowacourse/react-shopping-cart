@@ -4,6 +4,7 @@ import { removeCartItem } from '../api';
 import { itemDetailsState, itemsState } from '../recoil/atoms';
 import { Products } from '../types/Product';
 import { fetchCartItemQuantity } from '../api';
+import CheckBox from './CheckBox';
 
 interface ProductProps {
   product: Products;
@@ -18,6 +19,7 @@ function ProductCard({ product }: ProductProps) {
     setDetails({
       quantity: product.quantity,
       price: product.product.price,
+      isChecked: true,
     });
   }, [product.quantity, product.product.price, setDetails]);
 
@@ -54,12 +56,23 @@ function ProductCard({ product }: ProductProps) {
     setItems((prevState) => prevState.filter((item) => item.id !== id));
   };
 
+  const handleCheckedItem = () => {
+    console.log('Check');
+    setDetails((prevState) => ({
+      ...prevState,
+      isChecked: !prevState.isChecked,
+    }));
+
+    // TODO: localStorage 저장 추가
+  };
+
   if (error) {
     return <div>Error: {error.message}</div>;
   }
 
   return (
     <li>
+      <CheckBox isChecked={details.isChecked} onClick={handleCheckedItem} />
       {product.product.name}
       <img src={product.product.imageUrl} alt={product.product.name} />
       <div>

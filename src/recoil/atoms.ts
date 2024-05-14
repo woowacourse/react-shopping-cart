@@ -9,6 +9,7 @@ export const itemsState = atom<Products[]>({
 interface itemDetailsStateType {
   quantity: number;
   price: number;
+  isChecked: boolean;
 }
 
 export const itemDetailsState = atomFamily<itemDetailsStateType, number>({
@@ -16,5 +17,6 @@ export const itemDetailsState = atomFamily<itemDetailsStateType, number>({
   default: {
     quantity: 1,
     price: 0,
+    isChecked: true,
   },
 });
