@@ -1,6 +1,6 @@
 import { useSetRecoilState } from 'recoil';
 
-import { updateItemQuantity } from './apis/cartItem';
+import { deleteItem, updateItemQuantity } from './apis/cartItem';
 import { CartItemProps, cartItemsState } from './recoil/cartItems';
 
 interface Props {
@@ -31,6 +31,11 @@ const CartItem = ({ item }: Props) => {
     await updateItemQuantity(item.id, item.quantity + 1);
   };
 
+  const handleDeleteItem = async () => {
+    setCartItems((prevItems) => prevItems.filter((cartItem) => cartItem.id !== item.id));
+    await deleteItem(item.id);
+  };
+
   return (
     <li>
       <div>{item.product.name}</div>
@@ -38,8 +43,11 @@ const CartItem = ({ item }: Props) => {
       <div>{item.product.category}</div>
       <div>개수 : {item.quantity}</div>
 
-      <button onClick={handleDecrementQuantity}>-</button>
+      <button onClick={handleDecrementQuantity} disabled={item.quantity === 1}>
+        -
+      </button>
       <button onClick={handleIncrementQuantity}>+</button>
+      <button onClick={handleDeleteItem}>삭제</button>
     </li>
   );
 };

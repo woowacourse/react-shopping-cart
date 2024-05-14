@@ -45,6 +45,18 @@ export const updateItemQuantity = async (cartId: number, quantity: number) => {
   }
 };
 
+export const deleteItem = async (cartId: number) => {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+  const response = await fetch(`${BASE_URL}/cart-items/${cartId}`, {
+    method: 'DELETE',
+    headers: { Authorization: token },
+  });
+
+  if (!response.ok) {
+    throw new Error('failed to patch cart items');
+  }
+};
+
 export function generateBasicToken(userId: string, userPassword: string): string {
   const token = btoa(`${userId}:${userPassword}`);
   return `Basic ${token}`;
