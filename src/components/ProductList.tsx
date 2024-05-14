@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Products } from '../types/Product';
 import ProductCard from './ProductCard';
-import { fetchProducts, removeCartItem } from '../api';
+import { fetchProducts } from '../api';
 import { useRecoilState } from 'recoil';
 import { itemsState } from '../recoil/atoms';
 
@@ -28,9 +28,7 @@ function ProductList() {
     fetchData();
   }, []);
 
-  const handleRemoveItem = async (id: number) => {
-    await removeCartItem(id);
-  };
+
 
   if (loading) {
     return <div>Loading...</div>;
@@ -49,7 +47,6 @@ function ProductList() {
             <ProductCard
               key={product.id}
               product={product}
-              handleRemoveItem={handleRemoveItem}
             />
           );
         })}

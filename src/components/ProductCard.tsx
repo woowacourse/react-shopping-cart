@@ -1,42 +1,56 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { itemQuantityState } from '../recoil/atoms';
+import { removeCartItem } from '../api';
+import { itemDetailsState } from '../recoil/atoms';
 import { Products } from '../types/Product';
 import { fetchCartItemQuantity } from '../api';
 
 interface ProductProps {
   product: Products;
-  handleRemoveItem: (id: number) => void;
+
 }
 
-function ProductCard({ product, handleRemoveItem }: ProductProps) {
-  const [quantity, setQuantity] = useRecoilState(itemQuantityState(product.id));
+function ProductCard({ product }: ProductProps) {
+  const [details, setDetails] = useRecoilState(itemDetailsState(product.id));
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    setQuantity(product.quantity);
-  }, [product.quantity]);
+    setDetails({
+      quantity: product.quantity,
+      price: product.product.price,
+    });
+  }, [product.quantity, product.product.price, setDetails]);
 
   useEffect(() => {
     const fetchData = async () => {
       setError(null);
 
       try {
-        await fetchCartItemQuantity(product.id, quantity);
+        await fetchCartItemQuantity(product.id, details.quantity);
       } catch (error) {
         setError(error as Error);
       }
     };
 
     fetchData();
-  }, [quantity]);
+  }, [details, product.id]);
 
   const handleDecreasedQuantity = () => {
-    setQuantity((prevQuantity) => Math.max(prevQuantity - 1, 1));
+    setDetails((prevQuantity) => ({
+      ...prevQuantity,
+      quantity: Math.max(prevQuantity.quantity - 1, 1),
+    }));
   };
 
   const handleIncreasedQuantity = () => {
-    setQuantity((prevQuantity) => prevQuantity + 1);
+    setDetails((prevQuantity) => ({
+      ...prevQuantity,
+      quantity: prevQuantity.quantity + 1,
+    }));
+  };
+
+  const handleRemoveItem = async (id: number) => {
+    await removeCartItem(id);
   };
 
   if (error) {
@@ -51,7 +65,7 @@ function ProductCard({ product, handleRemoveItem }: ProductProps) {
         {product.product.name} - {product.product.price}원
       </div>
       <button onClick={handleDecreasedQuantity}>-</button>
-      {quantity}
+      {details.quantity}
       <button onClick={handleIncreasedQuantity}>+</button>
       <button onClick={() => handleRemoveItem(product.id)}>삭제</button>
     </li>

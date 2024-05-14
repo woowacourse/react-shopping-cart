@@ -6,7 +6,15 @@ export const itemsState = atom<Products[]>({
   default: [],
 });
 
-export const itemQuantityState = atomFamily<number, number>({
-  key: 'itemQuantityState',
-  default: 1,
+interface itemDetailsStateType {
+  quantity: number;
+  price: number;
+}
+
+export const itemDetailsState = atomFamily<itemDetailsStateType, number>({
+  key: 'itemDetailsState',
+  default: {
+    quantity: 1,
+    price: 0,
+  },
 });
