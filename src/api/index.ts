@@ -27,3 +27,18 @@ export const fetchCartItems = async () => {
   return response.json();
 };
 
+export const updateCartItemQuantity = async (
+  id: CartItem['id'],
+  quantity: CartItem['quantity']
+) => {
+  const response = await fetch(`${BASE_URL}/cart-items/${id}`, {
+    method: 'PATCH',
+    headers: HEADERS,
+    body: JSON.stringify({ quantity }),
+  });
+  if (!response.ok) {
+    throw new Error('Failed to update cart item quantity');
+  }
+  return response.json();
+};
+

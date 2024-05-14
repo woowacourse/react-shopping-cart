@@ -1,11 +1,8 @@
-import "./App.css";
+import './App.css';
+import CartList from './components/CartList';
 
 function App() {
-  return (
-    <>
-      <h1>react-shopping-cart</h1>
-    </>
-  );
+  return <CartList />;
 }
 
 export default App;
