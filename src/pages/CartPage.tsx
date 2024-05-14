@@ -52,10 +52,14 @@ const headerCSS = css`
 const contentCSS = css`
   margin: 64px 0;
   padding: 36px 0;
-
+  height: calc(100vh - 138px);
   display: flex;
   flex-direction: column;
   gap: 36px;
+  overflow-x: hidden;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const orderConfirmCSS = css`
