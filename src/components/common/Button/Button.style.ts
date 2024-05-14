@@ -1,24 +1,52 @@
 import styled from 'styled-components';
-import { ButtonRadius, ButtonSize, ButtonWidth } from './Button';
+import { ButtonProps, ButtonRadius, ButtonSize, ButtonWidth } from './Button';
 
-export const Button = styled.button<{ size: ButtonSize; width: ButtonWidth; radius: ButtonRadius }>`
+export const Button = styled.button<ButtonProps>`
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  height: ${(props) => {
+  ${({ color }) => {
+    switch (color) {
+      case 'default':
+        return `
+        background-color: white;
+        color: black;
+      `;
+      case 'primary':
+        return `
+        background-color: black;
+        color: white;
+      `;
+    }
+  }}
+
+  ${(props) => {
     switch (props.size) {
       case 's':
-        return '24px';
+        return `
+          height: 24px;
+          min-width: 24px;
+          padding: 4px 8px;
+        `;
       case 'm':
-        return '36px';
+        return `
+          height: 32px;
+          min-width: 32px;
+          padding: 8px 12px;
+      `;
       case 'l':
-        return '48px';
+        return `
+          height: 40px;
+          min-width: 40px;
+          padding: 12px 16px;
+      `;
       default:
         return '';
     }
   }};
+
   width: ${(props) => {
     switch (props.width) {
       case 'fit':
@@ -29,6 +57,7 @@ export const Button = styled.button<{ size: ButtonSize; width: ButtonWidth; radi
         return `${props.width}px`;
     }
   }};
+
   border-radius: ${(props) => {
     switch (props.radius) {
       case 's':
@@ -41,9 +70,32 @@ export const Button = styled.button<{ size: ButtonSize; width: ButtonWidth; radi
         return `${props.radius}px`;
     }
   }};
+  border: 1px solid lightGray;
 
-  padding: 4px 8px;
-
-  background-color: white;
-  border: 1px solid #00000019;
+  ${(props) => {
+    if (props.square) {
+      switch (props.size) {
+        case 's':
+          return `
+            height: 24px;
+            width: 24px;
+            padding: 4px 4px;
+          `;
+        case 'm':
+          return `
+            height: 32px;
+            width: 32px;
+            padding: 8px 8px;
+          `;
+        case 'l':
+          return `
+            height: 40px;
+            width: 40px;
+            padding: 12px 12px;
+          `;
+        default:
+          return '';
+      }
+    }
+  }}
 `;
