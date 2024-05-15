@@ -1,0 +1,4 @@
+export const SHIPPING_CONSTANT = {
+  FREE_CRITERIA: 100_000,
+  FEE: 3_000,
+};
