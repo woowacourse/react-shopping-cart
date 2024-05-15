@@ -4,6 +4,7 @@ import DeleteButton from '../DeleteButton/DeleteButton';
 import SetQuantity from '../SetQuantity/SetQuantity';
 import { CartItem } from '../../api/get/getItems';
 import deleteItem from '../../api/delete/deleteItem';
+import changeQuantity from '../../api/patch/changeQuantity';
 
 interface ShoppingCartItemProps {
   cartItem: CartItem;
@@ -29,6 +30,22 @@ const ShoppingCartItem = ({
     await refetch();
   };
 
+  const quantity = getOneItemQuantity(cartItem.id) ?? 0;
+
+  const handleIncrement = async () => {
+    const newQuantity = quantity + 1;
+    await changeQuantity({ id: cartItem.id, quantity: newQuantity });
+    setOneItemQuantity(cartItem.id, newQuantity);
+    selectedItemQuantity(cartItem, newQuantity);
+  };
+
+  const handleDecrement = async () => {
+    const newQuantity = Math.max(quantity - 1, 0);
+    await changeQuantity({ id: cartItem.id, quantity: newQuantity });
+    setOneItemQuantity(cartItem.id, newQuantity);
+    selectedItemQuantity(cartItem, newQuantity);
+  };
+
   return (
     <S.Container>
       <S.Hr />
@@ -42,10 +59,9 @@ const ShoppingCartItem = ({
           <S.ProductName>{cartItem.product.name}</S.ProductName>
           <S.ProductPrice>{cartItem.product.price.toLocaleString()}원</S.ProductPrice>
           <SetQuantity
-            cartItem={cartItem}
-            selectedItemQuantity={selectedItemQuantity}
-            getOneItemQuantity={getOneItemQuantity}
-            setOneItemQuantity={setOneItemQuantity}
+            quantity={quantity}
+            handleIncrement={handleIncrement}
+            handleDecrement={handleDecrement}
           />
         </S.ProductDescription>
       </S.Contents>
