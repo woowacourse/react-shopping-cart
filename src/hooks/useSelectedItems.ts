@@ -12,18 +12,21 @@ const useSelectedItems = (
   const [all, setAll] = useState<boolean>(data.length === selectedItems.length);
 
   useEffect(() => {
-    setSelectedItems(prev => {
-      const intersection = intersectionByProperty<SelectedCartItem>(
-        [...prev],
-        data.map(item => ({
-          cartItemId: item.id,
-          quantity: item.quantity,
-          price: item.product.price,
-        })),
-        'cartItemId',
-      );
-      return intersection;
-    });
+    if (data.length !== 0) {
+      setSelectedItems(prev => {
+        const intersection = intersectionByProperty<SelectedCartItem>(
+          [...prev],
+          data.map(item => ({
+            cartItemId: item.id,
+            quantity: item.quantity,
+            price: item.product.price,
+          })),
+          'cartItemId',
+        );
+
+        return intersection;
+      });
+    }
   }, [data, setSelectedItems]);
 
   useEffect(() => {
