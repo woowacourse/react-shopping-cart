@@ -7,13 +7,13 @@ export const Text = styled.p<TextProps>`
       case 's':
         return `
         font-size: 12px;
-        line-height: 15px;
+        line-height: 18px;
         color: #0A0D13;
         `;
       case 'm':
         return `
         font-size: 16px;
-        line-height: 20px;
+        line-height: 16px;
         color: #000000;
         `;
       case 'l':
