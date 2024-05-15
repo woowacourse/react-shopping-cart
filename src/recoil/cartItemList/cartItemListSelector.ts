@@ -1,5 +1,5 @@
 import { atom, selector } from 'recoil';
-import { getCartItemList } from '../../apis/cartItemList/cartItemList';
+import { requestCartItemList } from '../../apis/cartItemList/cartItemList';
 
 export const cartItemListState = atom<CartItem[]>({
   key: 'cartItemListState',
@@ -9,7 +9,7 @@ export const cartItemListState = atom<CartItem[]>({
 export const cartItemListQuery = selector<CartItem[]>({
   key: 'cartItemListQuery',
   get: async () => {
-    const result = await getCartItemList();
+    const result = await requestCartItemList();
     return result;
   },
   set: ({ set }, cartItemList) => {
