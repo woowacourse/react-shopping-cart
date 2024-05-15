@@ -21,6 +21,10 @@ function CartPage() {
     getCartItems();
   }, []);
 
+  if (cartItems.length === 0) {
+    return <div>장바구니에 담은 상품이 없습니다.</div>;
+  }
+
   return (
     <>
       <div>
