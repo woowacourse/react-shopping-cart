@@ -7,10 +7,12 @@ import { cartItemListState } from '../recoil/cartItemList/cartItemListSelector';
 import { useRecoilValue } from 'recoil';
 import { Suspense, useEffect } from 'react';
 import useCartListItem from '../recoil/cartItemList/useCartItemList';
+import Button from '../components/common/Button/Button';
+import { cartItemSelectedIdListAtom } from '../recoil/cartItem/cartItemAtom';
 
 const CartPageContainer = styled.main`
   width: 100%;
-  padding: 100px 16px 0 16px;
+  padding: 30px 20px 80px 20px;
 `;
 
 const CartPage = () => {
@@ -21,6 +23,7 @@ const CartPage = () => {
   }, []);
 
   const cartItemList = useRecoilValue(cartItemListState);
+  const selectedItemList = useRecoilValue(cartItemSelectedIdListAtom);
 
   return (
     <>
@@ -33,6 +36,16 @@ const CartPage = () => {
           <PriceTable />
         </CartPageContainer>
       </Suspense>
+      <Button
+        color="primary"
+        width="full"
+        radius={0}
+        size="l"
+        style={{ position: 'fixed', bottom: '0', width: 'inherit' }}
+        isDisabled={selectedItemList.length === 0}
+      >
+        주문 확인
+      </Button>
     </>
   );
 };
