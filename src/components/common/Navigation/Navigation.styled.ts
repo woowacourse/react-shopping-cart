@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import { COLOR, SIZE } from '@styles/style.constant';
 
 export const Navigation = styled.div`
-  width: 100%;
+  width: 430px;
+  left: calc((100% - 430px) / 2);
   height: ${SIZE.navigationHeight};
   background-color: ${COLOR.black};
   padding: 16px 24px;
@@ -10,4 +11,6 @@ export const Navigation = styled.div`
   color: #ffffff;
   font-size: 20px;
   font-weight: 800;
+  position: fixed;
+  z-index: 999;
 `;

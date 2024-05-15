@@ -3,21 +3,21 @@ import { COLOR, SIZE } from '@styles/style.constant';
 
 export const LayoutContainer = styled.div`
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh + ${SIZE.navigationHeight});
   background-color: ${COLOR.lightGray};
 `;
 
 export const AppLayoutContainer = styled.div`
-  width: 430px;
-  min-height: 100vh;
+  width: ${SIZE.layoutWidth};
+  height: 100%;
   margin: auto;
   background-color: ${COLOR.white};
 `;
 
 export const OutletContainer = styled.div`
   width: 100%;
-  height: calc(100vh - ${SIZE.navigationHeight});
-  padding: 36px 24px;
+  height: 100%;
+  padding: calc(${SIZE.navigationHeight} + 24px) 24px;
   box-sizing: border-box;
   position: relative;
 `;
