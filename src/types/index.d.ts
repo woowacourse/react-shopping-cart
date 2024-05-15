@@ -1,6 +1,6 @@
 declare module '*.png';
 
-export type Product = {
+export type ProductType = {
   id: number;
   name: string;
   price: number;
@@ -8,10 +8,10 @@ export type Product = {
   category: string;
 };
 
-export type CartItem = {
+export type CartItemType = {
   id: number;
   quantity: number;
-  product: Product;
+  product: ProductType;
 };
 
 export type Variant = 'header' | 'footer' | 'image';
