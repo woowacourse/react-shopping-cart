@@ -1,13 +1,42 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useEffect, useState } from 'react';
+
 import { CART_MESSAGE } from '@/constants/message';
 import { WhiteSpace } from '@/style/common.style';
+import { getCartItemCount } from '@/api/cartItem';
 import styled from '@emotion/styled';
 
 const CartTitle = () => {
-  const MOCK_NUM = 3;
+  const [cartItemsCount, setCartItemsCount] = useState<number>(0);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const cartItemsCountData = await getCartItemCount();
+        setCartItemsCount(cartItemsCountData);
+      } catch (error) {
+        setError(error as Error);
+      }
+
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <StyledTitleWrapper>
       <StyledTitle>장바구니</StyledTitle>
-      <StyledDetail>{CART_MESSAGE.totalProducts(MOCK_NUM)}</StyledDetail>
+      {/* {loading ? (
+        <StyledSkeletonBox />
+      ) : ( */}
+      <StyledDetail>{CART_MESSAGE.totalProducts(cartItemsCount)}</StyledDetail>
+      {/* )} */}
     </StyledTitleWrapper>
   );
 };
@@ -26,3 +55,8 @@ const StyledTitle = styled.h1`
 const StyledDetail = styled.p`
   font-size: 12px;
 `;
+
+// const StyledSkeletonBox = styled.div`
+//   height: 12px;
+//   background-color: red;
+// `;
