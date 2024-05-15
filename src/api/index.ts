@@ -1,6 +1,6 @@
 import { generateBasicToken } from '../utils/auth';
 
-const API_URL = 'http://54.180.95.212:8080';
+const API_URL = `${import.meta.env.VITE_USER_API_URL}`;
 const USER_ID = `${import.meta.env.VITE_USER_ID}`;
 const USER_PASSWORD = `${import.meta.env.VITE_USER_PASSWORD}`;
 
@@ -29,8 +29,6 @@ export async function addCartItem(productId: number): Promise<void> {
     },
     body: JSON.stringify({ productId }),
   });
-
-  console.log(response);
 
   if (!response.ok) {
     throw new Error('Failed to add cart item');
