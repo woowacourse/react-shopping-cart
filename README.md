@@ -1,6 +1,6 @@
 🎯 쇼핑 카트 1단계 기능 구현 목록
 
-step 1.API 호출 데이터 확인
+step 1. API 호출 데이터 확인
 
 - [x] `/cart-item`에 GET 요청으로 장바구니 목록 조회
 - [ ] `/cart-item`에 POST 요청으로 장바구니에 상품 추가
@@ -12,13 +12,17 @@ step 2. react-router 세팅
 - [x] cart 페이지 만들기
 - [x] checkout 페이지 만들기
 
-step 3.cart, checkout, NotFound 페이지 레이아웃 작업
+step 3. cart, checkout, NotFound 페이지 레이아웃 작업
 
 - [x] Header 컴포넌트
 - [x] Button 컴포넌트 (home 버튼, footer 버튼)
 - [x] cart 페이지 조합
 - [x] checkout 페이지 조합
 - [x] NotFound 페이지 추가
+
+step4. cart 페이지 Item 목록
+
+- [x] cart 목록 api 요청 후 recoil selector로 저장
 
 # CSS 라이브러리
 

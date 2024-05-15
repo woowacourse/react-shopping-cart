@@ -5,6 +5,10 @@ const API_URL = import.meta.env.VITE_API_URL;
 const USER_ID = import.meta.env.VITE_USER_ID;
 const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
 
+/**
+ * fetchCartItems - API에서 카트의 상품들을 fetch하는 비동기 함수입니다.
+ * @returns
+ */
 export async function fetchCartItems(): Promise<CartItem[]> {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
