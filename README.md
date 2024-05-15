@@ -6,7 +6,11 @@ step 1.API 호출 데이터 확인
 - [ ] `/cart-item`에 POST 요청으로 장바구니에 상품 추가
 - [ ] `/cart-item/{id}`에 DELETE 요청으로 장바구니에 상품 제거
 
-step 2. 컴포넌트
+step 2. react-router 세팅
+
+- [x] CommonLayout 만들기
+- [ ] cart 페이지 만들기
+- [ ] checkout 페이지 만들기
 
 # CSS 라이브러리
 
