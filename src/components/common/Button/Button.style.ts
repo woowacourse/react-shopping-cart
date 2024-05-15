@@ -90,5 +90,16 @@ export const Button = styled.button<ButtonProps>`
       }
     }};
   }
-  opacity: ${({ isDisabled }) => (isDisabled ? '0.5' : 1)};
+
+  &:disabled {
+    cursor: default;
+    background-color: ${(props) => {
+      switch (props.color) {
+        case 'default':
+          return hoverColorGenerator('#FFFFFF');
+        default:
+          return hoverColorGenerator('#999999');
+      }
+    }};
+  }
 `;
