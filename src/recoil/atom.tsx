@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom, atomFamily } from "recoil";
 import { recoilPersist } from "recoil-persist";
 import { Product } from "../types";
 

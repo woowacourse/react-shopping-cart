@@ -4,11 +4,13 @@ import { Button } from "../default/Button";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
 import MinusIcon from "../../assets/MinusIcon.svg?react";
 import PlusIcon from "../../assets/PlusIcon.svg?react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { Product } from "../../types";
 
 import { patchCartItemQuantity } from "../../api/cartItem";
-import { cartItemCheckedIdsAtom } from "../../recoil/atom";
+import { cartItemCheckedIdsAtom, cartItemsAtom } from "../../recoil/atom";
+import { quantityAtom } from "../../recoil/selector";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 interface CardItemProps {
   product: Product;
@@ -16,7 +18,23 @@ interface CardItemProps {
 }
 
 const CartItem = ({ product, handleDelete }: CardItemProps) => {
-  const [quantity, setQuantity] = useState(product.quantity);
+  const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
+
+  const setQuantity = (quantity: number) => {
+    setCartItems((prev) =>
+      prev.map((item) => {
+        if (item.id === product.id) {
+          return { ...item, quantity };
+        }
+        return item;
+      })
+    );
+  };
+
+  // const [quantity, setQuantity] = useState(product.quantity);
+  const quantities = useRecoilValue(quantityAtom);
+  const quantity = quantities[product.id];
+  // const [quantity, setQuantity] = useRecoilState(quantityAtom); //
   const [checkedIds, setCheckedIds] = useRecoilState(cartItemCheckedIdsAtom);
 
   const handleChecked = () => {
@@ -53,7 +71,7 @@ const CartItem = ({ product, handleDelete }: CardItemProps) => {
         <div className={ItemInfoWithCountCSS}>
           <div className={ItemInfoCSS}>
             <div className={ItemNameCSS}>{product.product.name}</div>
-            <div className={ItemPriceCSS}>{product.product.price}</div>
+            <div className={ItemPriceCSS}>{formatCurrency(product.product.price)}</div>
           </div>
           <div className={ItemCountCSS}>
             <Button variant="secondary" onClick={handleDecrement}>

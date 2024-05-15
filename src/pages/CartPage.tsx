@@ -1,21 +1,21 @@
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { addCartItem, fetchCartItems } from "../api/cartItem";
+import { cartItemsAtom } from "../recoil/atom";
 import { css } from "@emotion/css";
 import CartTitle from "../components/CartPage/CartTitle";
 import CartItems from "../components/CartPage/CartItems";
-import { useEffect } from "react";
-import { useRecoilState } from "recoil";
-import { fetchCartItems } from "../api/cartItem";
-import { cartItemsAtom } from "../recoil/atom";
+import OrderSummary from "../components/CartPage/OrderSummary";
 
 const CartPage = () => {
   const [cartItems, setCartItmes] = useRecoilState(cartItemsAtom);
 
   useEffect(() => {
-    // addCartItem(11);
+    // addCartItem(10);
     const loadCartItems = async () => {
       const data = await fetchCartItems();
       setCartItmes(data);
     };
-
     loadCartItems();
   }, []);
 
@@ -25,6 +25,7 @@ const CartPage = () => {
       <section className={contentCSS}>
         <CartTitle />
         <CartItems />
+        <OrderSummary />
       </section>
       <footer className={orderConfirmCSS}>주문 확인</footer>
     </div>
