@@ -1,11 +1,24 @@
-import { useRecoilValue } from 'recoil';
-import { cartListState } from '../../recoil/selectors';
-import CartItem from '../CartItem';
+import { useRecoilState } from "recoil";
+import { cartItemAllSelected } from "../../recoil/selectors";
 import type { CartItemType } from "../../types";
+import CartItem from "../CartItem";
 
 export default function CartList({ items }: { items: CartItemType[] }) {
   const [isAllSelected, setAllSelected] = useRecoilState(cartItemAllSelected);
 
-  // TODO: items가 없을 때 fallback component 노출하기
-  return <ul>{items && items.map((item) => <CartItem cartItem={item} />)}</ul>;
+  const handleClick = () => {
+    setAllSelected((prev) => !prev);
+  };
+
+  return (
+    <>
+      <button onClick={handleClick}>
+        {isAllSelected ? "전체선택함" : "전체 선택안함"}
+      </button>
+      <ul>
+        {items &&
+          items.map((item, index) => <CartItem key={index} cartItem={item} />)}
+      </ul>
+    </>
+  );
 }
