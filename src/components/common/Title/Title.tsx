@@ -3,13 +3,15 @@ import Text from '../Text/Text';
 
 type TitleProps = {
   title: string;
-  description: string;
+  description?: string;
 };
 
 const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 12px;
+
+  width: 100%;
 `;
 
 const Title = ({ title, description }: TitleProps) => {
