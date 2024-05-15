@@ -1,14 +1,18 @@
 import { UpsideDownExclamation } from '@assets/index';
 import { BottomButton } from '@components/common';
 import { CartItemCount, CartList, OrderPrice } from '@components/shoppingCart';
+import { cartItemsSelector, selectedIdsAtom } from '@recoil/shoppingCart';
+import { ROUTE_PATHS } from '@routes/route.constant';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-
-import { cartItemsSelector } from '../../recoil/shoppingCart';
 
 import * as Styled from './OrderPage.styled';
 
 const OrderPage: React.FC = () => {
   const cartItems = useRecoilValue(cartItemsSelector);
+  const selectedIds = useRecoilValue(selectedIdsAtom);
+  const buttonDisabled = cartItems.length === 0 || selectedIds.length === 0;
+  const navigate = useNavigate();
 
   return (
     <Styled.OrderPageContainer>
@@ -30,7 +34,9 @@ const OrderPage: React.FC = () => {
           <OrderPrice />
         </>
       )}
-      <BottomButton disabled={cartItems.length === 0}>주문 확인</BottomButton>
+      <BottomButton onClick={() => navigate(ROUTE_PATHS.confirm)} disabled={buttonDisabled}>
+        주문 확인
+      </BottomButton>
     </Styled.OrderPageContainer>
   );
 };

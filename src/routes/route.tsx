@@ -1,5 +1,5 @@
 import AppLayout from '@components/layout/AppLayout/AppLayout';
-import { OrderPage } from '@pages/index';
+import { OrderConfirmPage, OrderPage } from '@pages/index';
 import { createBrowserRouter } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -13,7 +13,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/confirm',
-        element: <OrderPage />,
+        element: <OrderConfirmPage />,
       },
     ],
   },

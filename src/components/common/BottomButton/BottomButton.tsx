@@ -1,8 +1,9 @@
-import { ReactNode } from 'react';
-
 import * as Styled from './BottomButton.styled';
 
-const BottomButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement> & { children: ReactNode }> = (props) => {
-  return <Styled.BottomButton>{props.children}</Styled.BottomButton>;
+const BottomButton: React.FC<React.PropsWithChildren<React.ButtonHTMLAttributes<HTMLButtonElement>>> = ({
+  children,
+  ...rest
+}) => {
+  return <Styled.BottomButton {...rest}>{children}</Styled.BottomButton>;
 };
 export default BottomButton;

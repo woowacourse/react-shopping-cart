@@ -46,13 +46,12 @@ export const cartItemsSelector = selector<CartItem[]>({
   },
 });
 
-export const OrderPriceSelector = selector({
+export const orderPriceSelector = selector({
   key: 'orderPriceState',
   get: ({ get }) => {
     const { freeShippingMinAmount, shippingFee } = PRICE;
-    const cartItems = get(cartItemsAtom);
+    const cartItems = get(cartItemsSelector);
     const selectedIds = get(selectedIdsAtom);
-
     const selectedCartItems = cartItems.filter((item) => selectedIds.includes(item.id));
 
     const orderPrice = selectedCartItems.reduce((acc, cur) => acc + cur.product.price * cur.quantity, 0);
