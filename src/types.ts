@@ -1,6 +1,6 @@
 export interface Product {
   id: 0;
-  quantity: 0;
+  quantity: number;
   product: {
     id: 0;
     name: string;

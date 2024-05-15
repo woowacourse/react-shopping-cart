@@ -17,7 +17,7 @@ const apiClient = {
     return this.request("PATCH", endpoint, headers, body);
   },
   delete(endpoint: string, headers: object) {
-    return this.request("PATCH", endpoint, headers, null);
+    return this.request("DELETE", endpoint, headers, null);
   },
 
   request(method: Method, endpoint: string, headers: object, body: object | null) {

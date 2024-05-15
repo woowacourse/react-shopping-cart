@@ -1,9 +1,24 @@
 import { css } from "@emotion/css";
 import CartTitle from "../components/CartPage/CartTitle";
-import { Button } from "../components/default/Button";
 import CartItems from "../components/CartPage/CartItems";
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { fetchCartItems } from "../api/cartItem";
+import { cartItemsAtom } from "../recoil/atom";
 
 const CartPage = () => {
+  const [cartItems, setCartItmes] = useRecoilState(cartItemsAtom);
+
+  useEffect(() => {
+    // addCartItem(11);
+    const loadCartItems = async () => {
+      const data = await fetchCartItems();
+      setCartItmes(data);
+    };
+
+    loadCartItems();
+  }, []);
+
   return (
     <div className={cartPageCSS}>
       <header className={headerCSS}>SHOP</header>

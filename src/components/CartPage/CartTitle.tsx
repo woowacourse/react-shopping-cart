@@ -1,12 +1,16 @@
 import React from "react";
 import { css } from "@emotion/css";
+import { useRecoilValue } from "recoil";
+import { cartItemsAtom } from "../../recoil/atom";
 
 const CartTitle = () => {
+  const cartItmes = useRecoilValue(cartItemsAtom);
+
   return (
     <div className={cartTitleCSS}>
       <div className={cartTitleTextCSS}>장바구니</div>
       <div className={cartTitleSubTextCSS}>
-        <p>현재 2종류의 상품이 담겨있습니다.</p>
+        <p>현재 {cartItmes.length}종류의 상품이 담겨있습니다.</p>
       </div>
     </div>
   );

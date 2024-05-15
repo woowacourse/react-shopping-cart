@@ -1,61 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { css } from "@emotion/css";
 import CartItem from "./CartItem";
 import { Button } from "../default/Button";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
 import Splitter from "../default/Splitter";
-import { Product } from "../../types";
-import { fetchCartItems } from "../../api/cartItem";
-import { useRecoilValue } from "recoil";
-import { cartItemCheckedIdsAtom } from "../../recoil/atom";
+
+import { deleteCartItem } from "../../api/cartItem";
+import { useRecoilState } from "recoil";
+import { cartItemCheckedIdsAtom, cartItemsAtom } from "../../recoil/atom";
 
 const CartItems = () => {
-  const [allChecked, setAllChecked] = useState(false);
-  const [cartItems, setCartItmes] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
+  const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
+  const [checkedIds, setCheckedIds] = useRecoilState(cartItemCheckedIdsAtom);
 
-  const checkedIds = useRecoilValue(cartItemCheckedIdsAtom);
-  console.log(checkedIds);
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const data = await fetchCartItems();
-        setCartItmes(data);
-      } catch (error) {
-        setError(error as Error);
-      }
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
+  const isAllChecked = cartItems.length === checkedIds.length;
   const handleAllChecked = () => {
-    setAllChecked(!allChecked);
+    if (isAllChecked) {
+      setCheckedIds([]);
+      return;
+    }
+    setCheckedIds(cartItems.map((item) => item.id));
+  };
+
+  const handleDelete = (id: number) => {
+    deleteCartItem(id);
+    setCartItems((prev) => prev.filter((todoList) => id !== todoList.id));
   };
 
   return (
     <div className={cardItemCSS}>
       <div className={allCheckContainerCSS}>
-        <Button variant={allChecked ? "primary" : "secondary"} onClick={handleAllChecked}>
-          <CheckIcon fill={allChecked ? "#ffffff" : "#0000001A"} />
+        <Button variant={isAllChecked ? "primary" : "secondary"} onClick={handleAllChecked}>
+          <CheckIcon fill={isAllChecked ? "#ffffff" : "#0000001A"} />
         </Button>
-        <span>전체 선택</span>
+        <span>전체 선택 {`${checkedIds}`}</span>
       </div>
       <div>
-        {cartItems.map((item, index) => (
-          <div key={index}>
+        {cartItems.map((item) => (
+          <div key={item.id}>
             <Splitter />
-            <CartItem product={item} />
+            <CartItem product={item} handleDelete={() => handleDelete(item.id)} />
           </div>
         ))}
       </div>

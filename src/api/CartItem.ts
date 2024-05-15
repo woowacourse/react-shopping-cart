@@ -9,11 +9,11 @@ export function addCartItem(productId: number): void {
   apiClient.post("/cart-items", {}, { productId });
 }
 
-export function deleteCartItem(productId: number): void {
-  apiClient.delete(`/cart-items/${productId}`, {});
+export function deleteCartItem(addToCartId: number): void {
+  apiClient.delete(`/cart-items/${addToCartId}`, {});
 }
 
-export function changeCartItemQuantity(addToCartId: number, quantity: number) {
+export function patchCartItemQuantity(addToCartId: number, quantity: number) {
   apiClient.patch(`/cart-items/${addToCartId}`, {}, { quantity });
 }
 
