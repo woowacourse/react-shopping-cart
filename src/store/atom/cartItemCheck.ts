@@ -1,4 +1,5 @@
 import { atomFamily, atom, selector } from "recoil";
+import { cartState } from "../selector/cartState";
 
 export const itemEachCheckState = atomFamily<boolean, number>({
   key: "itemEachCheckState",
@@ -7,14 +8,19 @@ export const itemEachCheckState = atomFamily<boolean, number>({
 
 export const itemIdsState = atom<number[]>({
   key: "itemIdsState",
-  default: [329, 330, 331],
+  default: selector({
+    key: "itemIdsList",
+    get: ({ get }) => {
+      return get(cartState).map((item: Product) => item.id);
+    },
+  }),
 });
 
 export const checkAllItemState = selector({
   key: "checkAllItemState",
   get: ({ get }) => {
     const itemIds = get(itemIdsState);
-    return itemIds.map((itemId) => get(itemEachCheckState(itemId))).every(Boolean);
+    return itemIds.every((itemId) => get(itemEachCheckState(itemId)));
   },
   set: ({ set, get }, newValue) => {
     const itemIds = get(itemIdsState);
