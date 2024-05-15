@@ -3,7 +3,6 @@
 import Checkbox from "../../../../../Button/Checkbox/Checkbox";
 import DeleteButton from "../../../../../Button/DeleteButton/DeleteButton";
 
-import DummyImage from "../../../../../../assets/image.png";
 import {
   CartItemContainerStyle,
   CartItemDetailControlsStyle,
@@ -14,10 +13,23 @@ import {
   CartItemQuantityContainerStyle,
   CartItemQuantityStyle,
 } from "./CartItem.style";
-import QuantityButton, { ButtonType } from "../../../../../Button/QuantityButton/QuantityButton";
+import QuantityButton from "../../../../../Button/QuantityButton/QuantityButton";
 import Divider from "../../../../../Divider/Divider";
+import { useRecoilState } from "recoil";
+import { itemQuantityState } from "../../../../../../store/selector/cartItemQuantity";
 
-const CartItem = () => {
+interface CartItemProps {
+  CartItemInfo: CartItemInfo;
+}
+
+const CartItem = ({ CartItemInfo }: CartItemProps) => {
+  const { product } = CartItemInfo;
+  const [state, setState] = useRecoilState(itemQuantityState(product.id));
+
+  if (!state) {
+    setState(CartItemInfo.quantity);
+  }
+
   return (
     <div css={CartItemContainerStyle}>
       <Divider />
@@ -27,15 +39,15 @@ const CartItem = () => {
       </div>
       <div css={CartItemInfoStyle}>
         <div>
-          <img src={DummyImage} css={CartItemImageStyle} />
+          <img src={CartItemInfo.product.imageUrl} css={CartItemImageStyle} />
         </div>
         <div>
-          <div css={CartItemNameStyle}>상품 이름</div>
-          <div css={CartItemPriceStyle}>상품 가격</div>
+          <div css={CartItemNameStyle}>{CartItemInfo.product.name}</div>
+          <div css={CartItemPriceStyle}>{CartItemInfo.product.price.toLocaleString() + "원"}</div>
           <div css={CartItemQuantityContainerStyle}>
-            <QuantityButton type={ButtonType.Minus} />
-            <div css={CartItemQuantityStyle}>0</div>
-            <QuantityButton type={ButtonType.Plus} />
+            <QuantityButton type={"minus"} />
+            <div css={CartItemQuantityStyle}>{state}</div>
+            <QuantityButton type={"plus"} />
           </div>
         </div>
       </div>
