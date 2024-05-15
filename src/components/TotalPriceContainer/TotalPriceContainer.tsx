@@ -1,10 +1,10 @@
 import { useRecoilValue } from 'recoil';
 import { InfoIcon } from '../../assets';
-import { cartItemTotalPriceState } from '../../recoil/selectors/selectors';
+import { selectedCartItemTotalPriceState } from '../../recoil/selectors/selectors';
 import * as S from './TotalPriceContainer.style';
 
 function TotalPriceContainer() {
-  const cartItemTotalPrice = useRecoilValue(cartItemTotalPriceState);
+  const cartItemTotalPrice = useRecoilValue(selectedCartItemTotalPriceState);
 
   const deliveryFee = cartItemTotalPrice === 0 || cartItemTotalPrice >= 100000 ? 0 : 3000;
   const totalPrice = cartItemTotalPrice + deliveryFee;
