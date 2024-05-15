@@ -16,7 +16,8 @@ import {
 import QuantityButton from "../../../../../Button/QuantityButton/QuantityButton";
 import Divider from "../../../../../Divider/Divider";
 import { useRecoilState } from "recoil";
-import { itemQuantityState } from "../../../../../../store/selector/cartItemQuantity";
+import { itemQuantityState } from "../../../../../../store/atom/cartItemQuantity";
+import { useEffect } from "react";
 
 interface CartItemProps {
   CartItemInfo: CartItemInfo;
@@ -26,9 +27,9 @@ const CartItem = ({ CartItemInfo }: CartItemProps) => {
   const { product } = CartItemInfo;
   const [state, setState] = useRecoilState(itemQuantityState(product.id));
 
-  if (!state) {
+  useEffect(() => {
     setState(CartItemInfo.quantity);
-  }
+  }, []);
 
   return (
     <div css={CartItemContainerStyle}>
