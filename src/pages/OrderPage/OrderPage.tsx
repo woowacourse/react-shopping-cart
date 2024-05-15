@@ -13,18 +13,24 @@ const OrderPage: React.FC = () => {
   return (
     <Styled.OrderPageContainer>
       <h1 className="cart-item-count">장바구니</h1>
-      <CartItemCount count={2} />
-      <div>
-        <Styled.CartItemContainer>
-          <CartList cartItems={cartItems} />
-        </Styled.CartItemContainer>
-      </div>
-      <Styled.CartInfoBanner>
-        <UpsideDownExclamation />
-        <span className="label">총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</span>
-      </Styled.CartInfoBanner>
-      <OrderPrice />
-      <BottomButton>주문 확인</BottomButton>
+      {cartItems.length === 0 ? (
+        <div className="fallback">장바구니에 담은 상품이 없습니다.</div>
+      ) : (
+        <>
+          <CartItemCount count={cartItems.length} />
+          <div>
+            <Styled.CartItemContainer>
+              <CartList cartItems={cartItems} />
+            </Styled.CartItemContainer>
+          </div>
+          <Styled.CartInfoBanner>
+            <UpsideDownExclamation />
+            <span className="label">총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</span>
+          </Styled.CartInfoBanner>
+          <OrderPrice />
+        </>
+      )}
+      <BottomButton disabled={cartItems.length === 0}>주문 확인</BottomButton>
     </Styled.OrderPageContainer>
   );
 };
