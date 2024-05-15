@@ -31,6 +31,10 @@
     - [x] CheckButton
     - [x] Plus/Minus Button
     - [x] Select Button
+- UI 페이지 작업
+  - [x] CartPage
+  - [ ] OrderConfirmationPage
+  - [ ] 라우터
 - Storybook
   - [ ]
 - RTL

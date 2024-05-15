@@ -16,6 +16,8 @@ export const StyledContentContainer = styled.div`
 `;
 
 export const StyledEmptyCartItemCard = styled.span`
+  width: 100%;
+
   font-family: Noto Sans;
   font-size: 16px;
   font-weight: 400;
