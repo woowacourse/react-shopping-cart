@@ -22,7 +22,7 @@ const SubTitleStyle = styled.div`
 
 interface TitleProps {
   title: string;
-  subTitle: string;
+  subTitle?: string;
 }
 
 function Title({ title, subTitle }: TitleProps) {

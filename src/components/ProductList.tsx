@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Products } from '../types/Product';
 import ProductCard from './ProductCard';
-import { fetchProducts } from '../api';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { itemsState } from '../recoil/atoms';
 import styled from 'styled-components';
 import CheckBox from './CheckBox';
@@ -33,9 +32,7 @@ const CartItemListContainer = styled.ul`
 `;
 
 function ProductList() {
-  const [items, setItems] = useRecoilState(itemsState);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
+  const items = useRecoilValue(itemsState);
 
   const isAllChecked = useRecoilValue(toggleAllSelector);
   const setAllChecked = useSetRecoilState(toggleAllSelector);
@@ -43,32 +40,6 @@ function ProductList() {
   const handleToggleAll = () => {
     setAllChecked(!isAllChecked);
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const data = await fetchProducts();
-        setItems(data);
-      } catch (error) {
-        setError(error as Error);
-      }
-
-      setLoading(false);
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
 
   return (
     <ProductListContainer>

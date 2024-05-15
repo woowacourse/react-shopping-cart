@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import TotalAmount from '../components/TotalAmount';
 import ProductList from '../components/ProductList';
 import Header from '../components/Header';
 import styled from 'styled-components';
 import Title from '../components/Title';
 import Footer from '../components/Footer';
-import { useRecoilValue } from 'recoil';
-import { totalCartItemCountSelector } from '../recoil/selectors';
+import { useRecoilState } from 'recoil';
+import { fetchProducts } from '../api';
+import { itemsState } from '../recoil/atoms';
 
 const CartContainer = styled.div`
   display: flex;
@@ -24,20 +25,70 @@ const ContentWrapper = styled.div`
   height: 100%;
 `;
 
+const NoCartItemContainer = styled.p`
+  width: 100%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.6rem;
+  text-align: center;
+`;
+
 function Cart() {
-  const totalCartItemCount = useRecoilValue(totalCartItemCountSelector);
+  const [items, setItems] = useRecoilState(itemsState);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const data = await fetchProducts();
+        setItems(data);
+      } catch (error) {
+        setError(error as Error);
+      }
+
+      setLoading(false);
+    };
+
+    fetchData();
+  }, [setItems]);
+
+  if (loading) {
+    return <NoCartItemContainer>Loading...</NoCartItemContainer>;
+  }
+
+  if (error) {
+    return <NoCartItemContainer>다시 시도해 주세요.</NoCartItemContainer>;
+  }
 
   return (
     <CartContainer>
       <Header headerIconType="home" />
-
       <ContentWrapper>
-        <Title
-          title="장바구니"
-          subTitle={`현재 ${totalCartItemCount}종류의 상품이 담겨있습니다.`}
-        />
-        <ProductList />
-        <TotalAmount />
+        {items.length !== 0 ? (
+          <>
+            <Title
+              title="장바구니"
+              subTitle={`현재 ${items.length}종류의 상품이 담겨있습니다.`}
+            />
+            <ProductList />
+            <TotalAmount />
+          </>
+        ) : (
+          <>
+            <Title title="장바구니" />
+            <NoCartItemContainer>
+              장바구니에 담은 상품이 없습니다.
+            </NoCartItemContainer>
+          </>
+        )}
       </ContentWrapper>
 
       <Footer url="/completed" />
