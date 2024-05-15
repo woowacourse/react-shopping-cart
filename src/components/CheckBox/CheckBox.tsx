@@ -1,5 +1,6 @@
-import styled from '@emotion/styled';
 import { CheckedIcon, UncheckedIcon } from '../../assets';
+
+import styled from '@emotion/styled';
 
 interface CheckBoxImageProps {
   isChecked: boolean;
