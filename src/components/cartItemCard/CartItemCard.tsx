@@ -1,5 +1,5 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { deleteCartItem } from "../../api";
+import { deleteCartItem, patchCartItemQuantityChange } from "../../api";
 import { CartItem } from "../../types";
 import { ActionButton } from "../button/ActionButton";
 import {
@@ -41,13 +41,35 @@ export const CartItemCard: React.FC<CartItem> = ({ id, product, quantity }) => {
     });
   };
 
-  // TODO
-  // const handleItemCountPlus = () => {
-  // };
+  const handleItemCountPlus = async (id: number) => {
+    try {
+      const newQuantity = quantity + 1;
+      await patchCartItemQuantityChange(id, newQuantity);
+      setCartItems((prevItems) =>
+        prevItems.map((item) =>
+          item.id === id ? { ...item, quantity: newQuantity } : item
+        )
+      );
+    } catch (error) {
+      console.error("Failed to increase item quantity:", error);
+    }
+  };
 
-  // TODO
-  // const handleItemCountMinus = () => {
-  // };
+  const handleItemCountMinus = async (id: number) => {
+    if (quantity > 1) {
+      try {
+        const newQuantity = quantity - 1;
+        await patchCartItemQuantityChange(id, newQuantity);
+        setCartItems((prevItems) =>
+          prevItems.map((item) =>
+            item.id === id ? { ...item, quantity: newQuantity } : item
+          )
+        );
+      } catch (error) {
+        console.error("Failed to decrease item quantity:", error);
+      }
+    }
+  };
 
   return (
     <StyledCartItemCard>
@@ -65,9 +87,12 @@ export const CartItemCard: React.FC<CartItem> = ({ id, product, quantity }) => {
           <StyledProductName>{name}</StyledProductName>
           <StyledProductPrice>{price}</StyledProductPrice>
           <StyledProductQuantityContainer>
-            <ActionButton type="minus" />
+            <ActionButton
+              type="minus"
+              onMinus={() => handleItemCountMinus(id)}
+            />
             <StyledProductQuantityText>{quantity}</StyledProductQuantityText>
-            <ActionButton type="plus" />
+            <ActionButton type="plus" onPlus={() => handleItemCountPlus(id)} />
           </StyledProductQuantityContainer>
         </StyledProductInfo>
       </StyledCartItemCardProductContents>

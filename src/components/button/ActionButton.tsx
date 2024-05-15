@@ -13,6 +13,8 @@ interface ActionButtonProps {
   type: "select" | "delete" | "plus" | "minus";
   onDelete?: () => void;
   onSelect?: () => void;
+  onPlus?: () => void;
+  onMinus?: () => void;
 }
 
 export const ActionButton: React.FC<ActionButtonProps> = ({
@@ -20,6 +22,8 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
   type,
   onDelete,
   onSelect,
+  onPlus,
+  onMinus,
 }) => {
   const determineSrc = () => {
     switch (type) {
@@ -42,12 +46,11 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
       case "delete":
         if (onDelete) onDelete();
         break;
-        //TODO
-        // case "plus":
-        //   if (onPlus) onPlus();
-        //   break;
-        // case "minus":
-        //   if (onMinus) onMinus();
+      case "plus":
+        if (onPlus) onPlus();
+        break;
+      case "minus":
+        if (onMinus) onMinus();
         break;
       default:
         break;
