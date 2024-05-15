@@ -35,16 +35,30 @@ function Header({ headerIconType }: HeaderProps) {
         return { icon: BackArrowIcon, width: '2.1rem', url: -1 };
 
       default:
-        return { icon: LogoIcon, width: '5.6rem', url: '/' };
+        return { icon: LogoIcon, width: '5.6rem', url: '/cart' };
     }
   };
 
   const { icon, width, url } = handleHeaderIcon({ headerIconType });
   const navigate = useNavigate();
 
+  const handleNavigate = (url: string | number) => {
+    if (typeof url === 'number') {
+      navigate(url);
+    } else if (typeof url === 'string') {
+      navigate(url);
+    }
+  };
+
   return (
     <HeaderContainer>
-      <HeaderIcon $width={width} src={icon} onClick={() => navigate(url)} />
+      <HeaderIcon
+        $width={width}
+        src={icon}
+        onClick={() => {
+          handleNavigate(url);
+        }}
+      />
     </HeaderContainer>
   );
 }
