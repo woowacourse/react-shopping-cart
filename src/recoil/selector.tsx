@@ -39,3 +39,17 @@ export const totalPriceSelector = selector({
     return orderPrice + shippingFee;
   },
 });
+export const totalCountSelector = selector({
+  key: "totalCountSelector",
+  get: ({ get }) => {
+    const cartItems = get(cartItemsAtom);
+    const checkedIds = get(cartItemCheckedIdsAtom);
+
+    return cartItems.reduce((acc, item) => {
+      if (checkedIds.includes(item.id)) {
+        return acc + item.quantity;
+      }
+      return acc;
+    }, 0);
+  },
+});
