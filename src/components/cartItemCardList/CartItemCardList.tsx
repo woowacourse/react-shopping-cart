@@ -1,6 +1,4 @@
-import { useEffect } from "react";
-import { useRecoilState } from "recoil";
-import { getCartItems } from "../../api";
+import { useRecoilValue } from "recoil";
 import { cartItemsState } from "../../recoil/atoms";
 import { ActionButton } from "../button/ActionButton";
 import { CartItemCard } from "../cartItemCard/CartItemCard";
@@ -11,20 +9,7 @@ import {
 } from "./CartItemCardList.styled";
 
 export const CartItemCardList: React.FC = () => {
-  const [cartItems, setCartItems] = useRecoilState(cartItemsState);
-
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      try {
-        const items = await getCartItems();
-        setCartItems(items);
-      } catch (error) {
-        console.error("Failed to fetch cart items:", error);
-      }
-    };
-
-    fetchCartItems();
-  }, [setCartItems]);
+  const cartItems = useRecoilValue(cartItemsState);
 
   return (
     <StyledCartItemCardList>

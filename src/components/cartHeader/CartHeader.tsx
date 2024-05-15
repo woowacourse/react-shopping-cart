@@ -1,7 +1,7 @@
 import {
-  StyledCartHeaderWrapper,
   StyledCartHeaderDescription,
   StyledCartHeaderTitle,
+  StyledCartHeaderWrapper,
 } from "./CartHeader.styled";
 
 export const CartHeader: React.FC<{ categoryCount: number }> = ({
