@@ -8,6 +8,12 @@ export interface PriceInfo {
   total: number;
 }
 
+export interface IOrderInfo {
+  kindCount: number;
+  productCount: number;
+  totalPrice: number;
+}
+
 export const priceInfoStore = selector<PriceInfo>({
   key: KEYS.PRICE_INFO,
   get: ({ get }) => {
@@ -18,6 +24,21 @@ export const priceInfoStore = selector<PriceInfo>({
       order: price,
       shipping,
       total: price + shipping,
+    };
+  },
+});
+
+export const orderInfoStore = selector<IOrderInfo>({
+  key: KEYS.ORDER_INFO,
+  get: ({ get }) => {
+    const selected = get(selectedCartItems);
+    const kindCount = selected.length;
+    const productCount = selected.reduce((acc, cur) => (acc += cur.quantity), 0);
+    const totalPrice = get(priceInfoStore).total;
+    return {
+      kindCount,
+      productCount,
+      totalPrice,
     };
   },
 });

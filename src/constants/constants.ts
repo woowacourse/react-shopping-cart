@@ -7,5 +7,12 @@ export const URLS = {
 export const KEYS = {
   CART_ITEMS: 'cartItems',
   PRICE_INFO: 'priceInfo',
+  ORDER_INFO: 'orderInfo',
   QUANTITY_STATE: 'quantityState',
+};
+
+export const ROUTER_URLS = {
+  MAIN: '',
+  ORDER_INFO: '/order-info',
+  ERROR: '/error',
 };

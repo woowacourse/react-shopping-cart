@@ -11,4 +11,8 @@ export const Button = styled.button`
   color: ${props => props.theme.color.white};
   ${props => props.theme.typography.boldLabel};
   cursor: pointer;
+
+  &:disabled {
+    background-color: ${props => props.theme.color.lightGray};
+  }
 `;
