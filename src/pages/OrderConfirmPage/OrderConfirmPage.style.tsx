@@ -26,6 +26,7 @@ export const TotalPriceTitle = styled.p`
   font-size: 16px;
   font-weight: 700;
 `;
+
 export const TotalPriceValue = styled.p`
   font-size: 24px;
   font-weight: 700;

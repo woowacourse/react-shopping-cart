@@ -1,13 +1,14 @@
 import { useRecoilState } from 'recoil';
 import { selectedCartItemState } from '../../recoil/atoms/atoms';
-import { removeCartItems, updateCartItemQuantity } from '../../apis';
 import CheckButton from '../Button/CheckButton/CheckButton';
 import CartItem from '../CartItem/CartItem';
 import type { TCartItem } from '../../types/CartItem.type';
+import { removeCartItems, updateCartItemQuantity } from '../../apis';
 import * as S from './CartItemList.style';
 
 function CartItemList({ cartItems, updateCartItems }: { cartItems: TCartItem[]; updateCartItems: () => void }) {
   const [selectedItems, setSelectedItems] = useRecoilState(selectedCartItemState);
+
   const isAllSelected = selectedItems.length === cartItems.length;
 
   const handleAllSelect = () => {
@@ -36,6 +37,7 @@ function CartItemList({ cartItems, updateCartItems }: { cartItems: TCartItem[]; 
       setSelectedItems(newSelectedItems);
     }
   };
+
   return (
     <S.CartItems>
       <S.SelectAllButtonContainer>
