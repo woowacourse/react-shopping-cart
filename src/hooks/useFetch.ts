@@ -6,14 +6,10 @@ const useFetch = <T>(fetchFunction: () => Promise<T>) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
-  useEffect(() => {
-    const fetch = async () => {
-      const response = await fetchFunction();
-      return response;
-    };
+  const fetch = async () => {
     try {
       setIsLoading(true);
-      fetch().then(result => {
+      fetchFunction().then(result => {
         setData(result);
         setErrorMessage('');
       });
@@ -23,12 +19,17 @@ const useFetch = <T>(fetchFunction: () => Promise<T>) => {
     } finally {
       setIsLoading(false);
     }
-  }, [fetchFunction]);
+  };
+
+  useEffect(() => {
+    fetch();
+  }, []);
 
   return {
     data,
     isLoading,
     errorMessage,
+    refetch: fetch,
   };
 };
 

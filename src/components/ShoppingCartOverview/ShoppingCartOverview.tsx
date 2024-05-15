@@ -6,12 +6,12 @@ import * as S from './styled';
 import useFetch from '../../hooks/useFetch';
 
 const ShoppingCartOverview = () => {
-  const { data, isLoading, errorMessage } = useFetch(getItems);
+  const { data, refetch } = useFetch(getItems);
 
   return (
     <S.Container>
       <ShoppingCartDescription kindCount={data?.length ?? 0} />
-      <ShoppingCartList cartItems={data ?? []} />
+      <ShoppingCartList cartItems={data ?? []} refetch={refetch} />
       <PaymentTotal />
     </S.Container>
   );

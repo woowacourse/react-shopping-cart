@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { selectedCartItems } from '../recoil/atoms';
+import { SelectedCartItem, selectedCartItems } from '../recoil/atoms';
 import { CartItem } from '../api/get/getItems';
+import intersectionByProperty from '../utils/getArrayIntersection';
 
 const useSelectedItems = (
   data: CartItem[],
@@ -11,8 +12,23 @@ const useSelectedItems = (
   const [all, setAll] = useState<boolean>(data.length === selectedItems.length);
 
   useEffect(() => {
+    setSelectedItems(prev => {
+      const intersection = intersectionByProperty<SelectedCartItem>(
+        [...prev],
+        data.map(item => ({
+          cartItemId: item.id,
+          quantity: item.quantity,
+          price: item.product.price,
+        })),
+        'cartItemId',
+      );
+      return intersection;
+    });
+  }, [data, setSelectedItems]);
+
+  useEffect(() => {
     setAll(data.length === selectedItems.length);
-  }, [data, selectedItems.length]);
+  }, [data, selectedItems]);
 
   // 현재 selectedItems에서 id가 있는지에 대한 함수
   // id를 받아서 id가 있는지를 boolean

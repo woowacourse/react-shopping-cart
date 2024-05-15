@@ -7,9 +7,10 @@ import * as S from './styled';
 
 interface ShoppingCartListProps {
   cartItems: CartItem[];
+  refetch: () => Promise<void>;
 }
 
-const ShoppingCartList = ({ cartItems }: ShoppingCartListProps) => {
+const ShoppingCartList = ({ cartItems, refetch }: ShoppingCartListProps) => {
   const { getOneItemQuantity, setOneItemQuantity } = useItemQuantity(cartItems);
 
   const { onCheckboxClick, isSelected, all, onSelectAllClick, selectedItemQuantity } =
@@ -27,6 +28,7 @@ const ShoppingCartList = ({ cartItems }: ShoppingCartListProps) => {
           selectedItemQuantity={selectedItemQuantity}
           getOneItemQuantity={getOneItemQuantity}
           setOneItemQuantity={setOneItemQuantity}
+          refetch={refetch}
         />
       ))}
     </S.Container>
