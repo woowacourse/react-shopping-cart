@@ -6,16 +6,20 @@ import {
   ProductListStyle,
 } from './ProductList.style';
 import ProductTotalPriceList from '../ProductTotalPriceList/ProductTotalPriceList';
+import { useRecoilValue } from 'recoil';
+import { cartData } from '../../recoil/atoms';
 
 export default function ProductList() {
+  const cart = useRecoilValue(cartData);
+
   return (
     <ProductListStyle>
       <CheckBoxGroup>
         <CheckBox />
         <CheckBoxText>전체선택</CheckBoxText>
       </CheckBoxGroup>
-      {Array.from({ length: 5 }).map(() => {
-        return <ProductItem />;
+      {cart.map((cartItem) => {
+        return <ProductItem cartItem={cartItem} key={cartItem.id} />;
       })}
       <ProductTotalPriceList />
     </ProductListStyle>
