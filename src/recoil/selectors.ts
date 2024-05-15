@@ -20,6 +20,14 @@ export const totalPriceSelector = selector({
   },
 });
 
+export const totalCartItemCountSelector = selector({
+  key: 'totalCartItemCountSelector',
+  get: ({ get }) => {
+    const products = get(itemsState);
+    return products.length;
+  },
+});
+
 export const toggleAllSelector = selector<boolean>({
   key: 'toggleAllSelector',
   get: ({ get }): boolean => {
