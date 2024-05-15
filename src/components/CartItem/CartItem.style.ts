@@ -5,7 +5,8 @@ export const CartItem = styled.li`
 
   display: flex;
   flex-direction: column;
-  row-gap: 10px;
+  row-gap: 12px;
+  width: 100%;
 `;
 
 export const ItemHeader = styled.div`
@@ -33,5 +34,5 @@ export const ItemNameAndCost = styled.div`
   display: flex;
   flex-direction: column;
 
-  row-gap: 6px;
+  row-gap: 4px;
 `;
