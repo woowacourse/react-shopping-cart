@@ -4,7 +4,7 @@ export const Layout = styled.div`
   display: flex;
   flex-direction: column;
   border-top: 1px solid lightgrey;
-  padding: 12px 0px;
+  padding-top: 12px;
   row-gap: 12px;
 `;
 

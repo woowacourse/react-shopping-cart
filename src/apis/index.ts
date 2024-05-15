@@ -1,7 +1,7 @@
-import type { TCartItems } from '../pages/ShoppingCartPage/ShoppingCartPage.type';
+import { TCartItem } from '../pages/ShoppingCartPage/ShoppingCartPage.type';
 import { generateBasicToken } from '../utils/auth';
 
-async function fetchCartItems(): Promise<TCartItems> {
+async function fetchCartItems(): Promise<TCartItem[]> {
   const token = generateBasicToken(import.meta.env.VITE_USER_ID, import.meta.env.VITE_USER_PASSWORD);
 
   const response = await fetch(`${import.meta.env.VITE_API_URL}/cart-items`, {
@@ -24,7 +24,7 @@ async function addCartItems(cartItemId: number): Promise<number> {
       Authorization: token,
     },
     body: JSON.stringify({ id: cartItemId }),
-  }); // TODO: 중복 id POST 처리 메서드 추가
+  });
 
   return response.status;
 }
@@ -39,7 +39,7 @@ async function removeCartItems(cartItemId: number): Promise<number> {
   return response.status;
 }
 
-async function updateCartItems(cartItemId: number, quantity: number): Promise<number> {
+async function updateCartItemQuantity(cartItemId: number, quantity: number): Promise<number> {
   const token = generateBasicToken(import.meta.env.VITE_USER_ID, import.meta.env.VITE_USER_PASSWORD);
 
   const response = await fetch(`${import.meta.env.VITE_API_URL}/cart-items/${cartItemId}`, {
@@ -54,4 +54,4 @@ async function updateCartItems(cartItemId: number, quantity: number): Promise<nu
   return response.status;
 }
 
-export { fetchCartItems, addCartItems, removeCartItems, updateCartItems };
+export { fetchCartItems, addCartItems, removeCartItems, updateCartItemQuantity };
