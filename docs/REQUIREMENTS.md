@@ -1,7 +1,7 @@
 ## API 호출
 
 - [x] get `/cart-items`
-- [ ] patch `/cart-items/{id}`
+- [x] patch `/cart-items/{id}`
 
 ## type
 
@@ -18,21 +18,23 @@
 
 ## Atoms
 
-- [ ] cartItemQuantity - 장바구니 아이템 별 수량을 관리하는 atomFamily
+- [x] cartItemQuantity - 장바구니 아이템 별 수량을 관리하는 atomFamily
+- [x] cartItemSelected - 장바구니 아이템의 포함 여부를 관리하는 atomFamily
 
 ## Selector(Recoil)
 
 - [x] cartList - 전체 장바구니 리스트를 api 호출을 통해 가져옴
-- [ ] totalPrice - 전체 아이템 총 주문금액
-- [ ] shippingFee - 배송비(10만원 이상인 경우 무료)
+- [x] totalPrice - 전체 아이템 총 주문금액
+- [x] shippingFee - 배송비(10만원 이상인 경우 무료)
+- [x] cartItemAllSelected - 결제 항목 전체 선택 여부
 
 ## 장바구니 계산
 
-- 수량 추가
-- 수량 감소
-- 아이템 삭제
-- 전체 선택
-- 전체 선택 해제
+- [x] 수량 추가
+- [x] 수량 감소
+- [ ] 아이템 삭제
+- [x] 전체 선택
+- [x] 전체 선택 해제
 
 ## Storage 관리
 
