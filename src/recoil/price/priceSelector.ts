@@ -19,7 +19,7 @@ export const priceSelector = selector({
       return (sum += price * quantity);
     }, 0);
 
-    const deliveryFee = orderedPrice >= DELIVERY_FEE_THRESHOLD ? 0 : DELIVERY_FEE;
+    const deliveryFee = orderedPrice <= 0 || orderedPrice >= DELIVERY_FEE_THRESHOLD ? 0 : DELIVERY_FEE;
     const totalPrice = orderedPrice - deliveryFee;
 
     return { orderedPrice, deliveryFee, totalPrice };
