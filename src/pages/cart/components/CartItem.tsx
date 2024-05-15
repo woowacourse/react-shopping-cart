@@ -10,9 +10,10 @@ import { isCheckedState } from '../../../store/atoms';
 
 interface Props extends ProductType {
   quantity: number;
+  setAllChecked: (value: boolean) => void;
 }
 
-export default function CartItem({ id, price, imageUrl, name, quantity }: Props) {
+export default function CartItem({ id, price, imageUrl, name, quantity, setAllChecked }: Props) {
   const [productQuantity, setProductQuantity] = useRecoilState(productQuantityState(id));
   const [isChecked, setIsChecked] = useRecoilState(isCheckedState(id));
 
@@ -27,8 +28,14 @@ export default function CartItem({ id, price, imageUrl, name, quantity }: Props)
   const handleToggleSelect = (id: number) => {
     const newIsChecked = !isChecked;
 
+    if (newIsChecked === false) setAllChecked(false);
+
     setIsChecked(newIsChecked);
     window.localStorage.setItem(JSON.stringify(id), JSON.stringify(newIsChecked));
+
+    if (newIsChecked === false) {
+      setAllChecked(false);
+    }
   };
 
   const handleIncrementButton = async () => {
