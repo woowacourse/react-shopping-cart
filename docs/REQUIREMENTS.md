@@ -153,7 +153,7 @@
 1. CartList
 
 - rawCartItemsState
-  - [ ] 초기값이 잘 세팅되는지
+  - [x] 초기값이 잘 세팅되는지
 - selectedCartItemIdsState
   - [ ] 초기값이 잘 세팅되는지
   - [ ] set이 발생할 때 세션 스토리지에 동기화가 되는지

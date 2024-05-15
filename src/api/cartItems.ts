@@ -2,10 +2,10 @@ import { CartItem } from "../types/cartItems";
 import { generateBasicToken } from "../utils/generateBasicToken";
 
 const API_URL = import.meta.env.VITE_API_URL as string;
-const USER_ID = import.meta.env.VITE_USERNAME as string;
+const USERNAME = import.meta.env.VITE_USERNAME as string;
 const USER_PASSWORD = import.meta.env.VITE_PASSWORD as string;
 
-if (!API_URL || !USER_ID || !USER_PASSWORD) {
+if (!API_URL || !USERNAME || !USER_PASSWORD) {
   throw new Error("API_URL, USERNAME, PASSWORD environment variables are not set");
 }
 
@@ -14,7 +14,7 @@ const PATH = {
 };
 
 export const fetchCartItems = async (): Promise<CartItem[]> => {
-  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+  const token = generateBasicToken(USERNAME, USER_PASSWORD);
   const response = await fetch(`${API_URL}${PATH.cartItems}`, {
     method: "GET",
     headers: { Authorization: token },
@@ -32,7 +32,7 @@ export const updateCartItemQuantity = async (
   cartItemId: number,
   quantity: number
 ): Promise<void> => {
-  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+  const token = generateBasicToken(USERNAME, USER_PASSWORD);
   const response = await fetch(`${API_URL}${PATH.cartItems}/${cartItemId}`, {
     method: "PATCH",
     headers: {
@@ -48,7 +48,7 @@ export const updateCartItemQuantity = async (
 };
 
 export const removeCartItem = async (cartItemId: number): Promise<void> => {
-  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+  const token = generateBasicToken(USERNAME, USER_PASSWORD);
   const response = await fetch(`${API_URL}${PATH.cartItems}/${cartItemId}`, {
     method: "DELETE",
     headers: {
@@ -62,7 +62,7 @@ export const removeCartItem = async (cartItemId: number): Promise<void> => {
 };
 
 export const createCartItem = async (productId: number): Promise<void> => {
-  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+  const token = generateBasicToken(USERNAME, USER_PASSWORD);
   const response = await fetch(`${API_URL}${PATH.cartItems}`, {
     method: "POST",
     headers: {
