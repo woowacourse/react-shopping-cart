@@ -17,12 +17,12 @@ export default defineConfig({
       { find: '@styles', replacement: resolve(__dirname, 'src/styles') },
       { find: '@assets', replacement: resolve(__dirname, 'src/assets') },
       { find: '@constants', replacement: resolve(__dirname, 'src/constants') },
-      { find: '@types', replacement: resolve(__dirname, 'src/types') },
       { find: '@utils', replacement: resolve(__dirname, 'src/utils') },
       { find: '@hooks', replacement: resolve(__dirname, 'src/hooks') },
       { find: '@routes', replacement: resolve(__dirname, 'src/routes') },
       { find: '@pages', replacement: resolve(__dirname, 'src/pages') },
       { find: '@apis', replacement: resolve(__dirname, 'src/apis') },
+      { find: '@appTypes', replacement: resolve(__dirname, 'src/appTypes') },
     ],
   },
 });

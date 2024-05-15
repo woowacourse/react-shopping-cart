@@ -5,7 +5,6 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -31,11 +30,12 @@
       "@utils/*": ["utils/*"],
       "@assets/*": ["assets/*"],
       "@constants/*": ["constants/*"],
-      "@types/*": ["types/*"],
       "@hooks/*": ["hooks/*"],
       "@domain/*": ["domain/*"],
       "@routes/*": ["routes/*"],
-      "@pages/*": ["pages/*"]
+      "@pages/*": ["pages/*"],
+      "@apis/*": ["apis/*"],
+      "@appTypes/*": ["appTypes/*"]
     }
   },
   "include": ["src"],
