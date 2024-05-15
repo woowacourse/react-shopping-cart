@@ -17,7 +17,7 @@ export type CartItemProps = {
 };
 
 const CartItem = ({ product, quantity: initialQuantity, cartItemId }: CartItemProps) => {
-  const { productId, name, price, imageUrl, category } = product;
+  const { name, price, imageUrl } = product;
   const { quantity, updateQuantity, increaseQuantity, decreaseQuantity } = useCartItemQuantity(cartItemId);
   const { getIsSelected, addSelectedId, removeSelectedId } = useCartItemSelectedIdList();
   const { deleteCartItem } = useCartItemList();
