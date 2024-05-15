@@ -1,10 +1,15 @@
+import { Suspense } from "react";
 import "./App.css";
+import CartItemList from "./components/CartItemList";
+import { RecoilRoot } from "recoil";
 
 function App() {
   return (
-    <>
-      <h1>react-shopping-cart</h1>
-    </>
+    <RecoilRoot>
+      <Suspense fallback={<div>Loading...</div>}>
+        <CartItemList />
+      </Suspense>
+    </RecoilRoot>
   );
 }
 
