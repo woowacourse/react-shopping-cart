@@ -1,11 +1,11 @@
 import { FlexRow, WhiteSpace } from '@/style/common.style';
+import { deleteCartItem, getCartItems } from '@/api/cartItem';
 import { useEffect, useState } from 'react';
 
 import CartItem from '@/components/Cart/CartItem';
 import CheckBox from '@/components/Button/CheckBoxButton';
 import { allSelectedState } from '@/store/selector';
 import { cartListState } from '@/store/atoms';
-import { getCartItems } from '@/api/cartItem';
 import styled from '@emotion/styled';
 import { useRecoilState } from 'recoil';
 
@@ -40,6 +40,21 @@ const CartList = () => {
     setIsAllSelected(!isAllSelected);
   };
 
+  const handleDelete = (id: number) => {
+    try {
+      const deleteData = async () => {
+        await deleteCartItem(id);
+
+        const newList = cartItems.filter((item) => item.id !== id);
+        setCartItems(newList);
+      };
+
+      deleteData();
+    } catch (error) {
+      setError(error as Error);
+    }
+  };
+
   return (
     <StyledListWrapper>
       <StyledAllCheckBox>
@@ -48,7 +63,7 @@ const CartList = () => {
       </StyledAllCheckBox>
       <StyledList>
         {cartItems.map((item) => (
-          <CartItem key={item.id} item={item} />
+          <CartItem key={item.id} item={item} handleDelete={handleDelete} />
         ))}
       </StyledList>
     </StyledListWrapper>

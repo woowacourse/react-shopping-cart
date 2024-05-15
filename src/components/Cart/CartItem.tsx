@@ -1,6 +1,6 @@
 import { FlexColumn, FlexRow, FlexSpaceBetween } from '@/style/common.style';
 import { MinusButton, PlusButton } from '../Button/QuantityButton';
-import { deleteCartItem, getCartItems, patchCartItem } from '@/api/cartItem';
+import { getCartItems, patchCartItem } from '@/api/cartItem';
 import { useEffect, useState } from 'react';
 
 import BorderButton from '../Button/BorderButton';
@@ -12,9 +12,10 @@ import { useRecoilState } from 'recoil';
 
 interface Props {
   item: CartItemType;
+  handleDelete: (id: number) => void;
 }
 
-const CartItem = ({ item }: Props) => {
+const CartItem = ({ item, handleDelete }: Props) => {
   const { id, quantity, product } = item;
 
   const [itemState, setItemState] = useRecoilState(cartItemState(item.id));
@@ -35,18 +36,6 @@ const CartItem = ({ item }: Props) => {
     const newValue = { ...itemState };
     newValue.isSelected = !newValue.isSelected;
     setItemState(newValue);
-  };
-
-  const handleDelete = () => {
-    try {
-      const deleteData = async () => {
-        await deleteCartItem(id);
-      };
-
-      deleteData();
-    } catch (error) {
-      setError(error as Error);
-    }
   };
 
   const handleQuantity = (quantity: number) => {
@@ -72,7 +61,7 @@ const CartItem = ({ item }: Props) => {
     <StyledItemWrapper>
       <StyledFlexBetweenBox>
         <CheckBox isSelected={itemState.isSelected} onClick={handleSelect} />
-        <BorderButton onClick={handleDelete}>삭제</BorderButton>
+        <BorderButton onClick={() => handleDelete(id)}>삭제</BorderButton>
       </StyledFlexBetweenBox>
       <StyledRowBox>
         <StyledImg src={product.imageUrl} alt={product.name} />
