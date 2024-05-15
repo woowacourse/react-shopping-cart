@@ -26,10 +26,10 @@ export const checkAllItemState = selector({
 export const orderAmountState = selector({
   key: "orderAmount",
   get: ({ get }) => {
-    const cartIds = get(itemIdsState);
     const cartItems = get(cartState);
     return cartItems.reduce((acc: number, cur: CartItemInfo) => {
-      if (cartIds.includes(cur.id)) {
+      const isChecked = get(itemEachCheckState(cur.id));
+      if (isChecked) {
         const price = cur.product.price;
         const quantity = get(itemQuantityState);
         return acc + price * quantity[cur.id];
