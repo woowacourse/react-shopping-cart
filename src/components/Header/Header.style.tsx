@@ -13,3 +13,17 @@ export const HeaderWrapper = styled.header`
     width: 56px;
   }
 `;
+
+export const MainLogo = styled.img`
+  width: 56px;
+`;
+
+export const GoBackButton = styled.button`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  img {
+    width: 20px;
+  }
+`;

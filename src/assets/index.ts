@@ -5,3 +5,4 @@ export { default as PlusIcon } from './images/PlusIcon.svg';
 export { default as MinusIcon } from './images/MinusIcon.svg';
 export { default as MainLogo } from './images/MainLogo.svg';
 export { default as LeftArrow } from './images/LeftArrow.svg';
+export { default as EmptyCart } from './images/EmptyCart.png';

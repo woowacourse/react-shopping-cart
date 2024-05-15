@@ -1,7 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Header from './components/Header/Header';
 import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
-import OrderConfirmPage from './pages/OrderConfirmPage';
+import OrderConfirmPage from './pages/OrderConfirmPage/OrderConfirmPage';
 import { fetchCartItems } from './apis';
 import { ThemeProvider } from 'styled-components';
 
@@ -27,7 +26,6 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <Header />
       <RouterProvider router={router} />
     </ThemeProvider>
   );
