@@ -14,12 +14,14 @@ const CartContainer = styled.div`
   width: 100%;
   height: 100%;
 `;
+
 const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 3.6rem 2.4rem 4rem 2.4rem;
+  padding: 3.6rem 2.4rem 10.4rem 2.4rem;
   box-sizing: border-box;
+  height: 100%;
 `;
 
 function Cart() {

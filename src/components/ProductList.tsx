@@ -30,7 +30,6 @@ const CartItemListContainer = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 15px;
-  scroll: auto;
 `;
 
 function ProductList() {
