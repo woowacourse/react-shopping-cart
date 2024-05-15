@@ -2,13 +2,13 @@ import { Pageable } from '../../types/pageable';
 import axiosInstance from '../../utils/axios';
 import { URLS } from '../../constants/constants';
 
-interface CartItem {
+export interface CartItem {
   id: number;
   quantity: number;
   product: Product;
 }
 
-interface Product {
+export interface Product {
   id: number;
   name: string;
   price: number;

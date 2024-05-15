@@ -2,27 +2,27 @@ import * as S from './styled';
 import Checkbox from '../Checkbox/Checkbox';
 import DeleteButton from '../DeleteButton/DeleteButton';
 import SetQuantity from '../SetQuantity/SetQuantity';
+import { CartItem } from '../../api/get/getItems';
 
-const ShoppingCartItem = () => {
+interface ShoppingCartItemProps {
+  cartItem: CartItem;
+}
+
+const ShoppingCartItem = ({ cartItem }: ShoppingCartItemProps) => {
   return (
     <S.Container>
       <S.Hr />
       <S.Header>
-        <Checkbox id={1} isChecked={true} />
+        <Checkbox id={cartItem.id} isChecked={true} />
         <DeleteButton />
       </S.Header>
       <S.Contents>
-        <S.ProductImage
-          src={
-            'https://t1.kakaocdn.net/together_action_prod/admin/20230730/b8d3ba0648d64f5c8564b2e7e908a171'
-          }
-          alt="product"
-        />
+        <S.ProductImage src={cartItem.product.imageUrl} alt="product" />
         <S.ProductDescription>
-          <S.ProductName>춘식이</S.ProductName>
-          <S.ProductPrice>15,000,000원</S.ProductPrice>
+          <S.ProductName>{cartItem.product.name}</S.ProductName>
+          <S.ProductPrice>{cartItem.product.price.toLocaleString()}원</S.ProductPrice>
           <SetQuantity
-            quantity={0}
+            quantity={cartItem.quantity}
             onClick={{ plus: () => console.log('춘식이'), minus: () => console.log('준식이') }}
           />
         </S.ProductDescription>
