@@ -9,6 +9,7 @@ import { orderInfoStore } from '../../recoil/selectors';
 import { useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { ROUTER_URLS } from '../../constants/constants';
+import Fallback from '../Fallback/Fallback';
 
 const ShoppingCartOverview = () => {
   const { data, refetch } = useFetch(getItems);
@@ -21,12 +22,24 @@ const ShoppingCartOverview = () => {
 
   return (
     <>
-      <S.Container>
-        <ShoppingCartDescription kindCount={data?.length ?? 0} />
-        <ShoppingCartList cartItems={data ?? []} refetch={refetch} />
-        <PaymentTotal />
-      </S.Container>
-      <FloatingButton label={'주문 확인'} onClick={goOrderInfo}></FloatingButton>
+      {data?.length !== 0 ? (
+        <>
+          <S.Container>
+            <ShoppingCartDescription kindCount={data?.length ?? 0} />
+            <ShoppingCartList cartItems={data ?? []} refetch={refetch} />
+            <PaymentTotal />
+          </S.Container>
+          <FloatingButton label={'주문 확인'} onClick={goOrderInfo} />
+        </>
+      ) : (
+        <>
+          <S.Container>
+            <ShoppingCartDescription kindCount={0} />
+            <Fallback />
+          </S.Container>
+          <FloatingButton label={'주문 확인'} disabled />
+        </>
+      )}
     </>
   );
 };
