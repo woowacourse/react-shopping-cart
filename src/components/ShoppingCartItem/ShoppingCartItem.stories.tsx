@@ -24,7 +24,11 @@ export const 쇼핑카트: Story = {
         category: '고양이',
       },
     },
+    refetch: async () => console.log('올리'),
     isSelected: () => false,
-    onCheckboxClick: () => console.log('춘식이'),
+    onCheckboxClick: () => console.log('쿠키'),
+    selectedItemQuantity: () => console.log('춘식이'),
+    getOneItemQuantity: () => 1,
+    setOneItemQuantity: () => console.log('춘식이'),
   },
 };

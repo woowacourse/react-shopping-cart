@@ -15,3 +15,10 @@ export const 기본: Story = {
     label: '주문 확인',
   },
 };
+
+export const 비활성화: Story = {
+  args: {
+    label: '주문 확인',
+    disabled: true,
+  },
+};

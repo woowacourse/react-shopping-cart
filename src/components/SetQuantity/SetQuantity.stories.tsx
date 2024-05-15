@@ -15,20 +15,26 @@ export const 기본_SetQuantity: Story = {
   decorators: [
     Story => {
       const [quantity, setQuantity] = useState<number>(0);
-      const up = () => {
+      const handleIncrement = async () => {
         setQuantity(prev => prev + 1);
       };
-      const down = () => {
+      const handleDecrement = async () => {
         setQuantity(prev => Math.max(prev - 1, 0));
       };
-      return <Story args={{ quantity: quantity, onClick: { plus: up, minus: down } }} />;
+      return (
+        <Story
+          args={{
+            quantity: quantity,
+            handleIncrement: handleIncrement,
+            handleDecrement: handleDecrement,
+          }}
+        />
+      );
     },
   ],
   args: {
     quantity: 0,
-    onClick: {
-      plus: () => console.log('올리'),
-      minus: () => console.log('쿠키'),
-    },
+    handleIncrement: async () => console.log('올리'),
+    handleDecrement: async () => console.log('쿠키'),
   },
 };

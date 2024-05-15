@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { withRouter } from 'storybook-addon-react-router-v6';
+import { reactRouterParameters, withRouter } from 'storybook-addon-react-router-v6';
 import Header from './Header';
 
 const meta = {
@@ -13,3 +13,18 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const 기본: Story = {};
+
+export const 뒤로가기모드: Story = {
+  parameters: {
+    reactRouter: reactRouterParameters({
+      location: {
+        state: {
+          kindCount: 2,
+          productCount: 4,
+          totalPrice: 15000,
+        },
+      },
+      routing: { path: '/order-info' },
+    }),
+  },
+};

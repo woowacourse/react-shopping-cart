@@ -10,8 +10,14 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const ShoppingCart: Story = {
+export const 기본: Story = {
   args: {
     kindCount: 1,
+  },
+};
+
+export const 장바구니가_비었을_때: Story = {
+  args: {
+    kindCount: 0,
   },
 };
