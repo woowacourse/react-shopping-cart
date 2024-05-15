@@ -1,7 +1,7 @@
+import { Navigation } from '@components/common';
 import { Outlet } from 'react-router-dom';
 
 import * as Styled from './AppLayout.styled';
-import { Navigation } from '@components/common';
 
 const AppLayout: React.FC<React.PropsWithChildren> = () => {
   return (

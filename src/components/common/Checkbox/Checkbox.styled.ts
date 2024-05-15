@@ -1,9 +1,7 @@
-import styled from 'styled-components';
-
 import CheckIcon from '@assets/check.svg';
 import NoneCheckIcon from '@assets/noneCheck.svg';
-
 import { COLOR } from '@styles/style.constant';
+import styled from 'styled-components';
 
 export const CheckBoxInput = styled.input`
   appearance: none;

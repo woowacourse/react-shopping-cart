@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import { COLOR, SIZE } from '@styles/style.constant';
+import styled from 'styled-components';
 
 export const Navigation = styled.div`
   width: 430px;

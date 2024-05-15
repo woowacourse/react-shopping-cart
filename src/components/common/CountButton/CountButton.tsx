@@ -1,6 +1,7 @@
-import React from 'react';
-import * as Styled from './Count.styled';
 import { Minus, Plus } from '@assets/index';
+import React from 'react';
+
+import * as Styled from './Count.styled';
 
 const SIGN = {
   minus: <Minus />,

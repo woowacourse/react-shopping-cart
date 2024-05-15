@@ -1,7 +1,9 @@
-import { useLocation, useNavigate } from 'react-router-dom';
-import * as Styled from './Navigation.styled';
 import { ROUTE_PATHS } from '@routes/route.constant';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import BackButton from '../BackButton/BackButton';
+
+import * as Styled from './Navigation.styled';
 
 const Navigation: React.FC = () => {
   const location = useLocation();

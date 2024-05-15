@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import { resolve } from 'path';
+import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
 
 const BASE_URL = process.env.NODE_ENV === 'production' ? '/react-shopping-cart/' : '/';
@@ -22,6 +22,7 @@ export default defineConfig({
       { find: '@hooks', replacement: resolve(__dirname, 'src/hooks') },
       { find: '@routes', replacement: resolve(__dirname, 'src/routes') },
       { find: '@pages', replacement: resolve(__dirname, 'src/pages') },
+      { find: '@apis', replacement: resolve(__dirname, 'src/apis') },
     ],
   },
 });
