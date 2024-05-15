@@ -1,10 +1,10 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { cartItems } from "../../recoil/selectors/selectors";
+import { cartItemsState } from "../../recoil/selectors/selectors";
 
 const CartDescription = () => {
-  const cartItemLength = useRecoilValue(cartItems).length;
+  const cartItemLength = useRecoilValue(cartItemsState).length;
   return (
     <Wrapper>
       <Title>장바구니</Title>

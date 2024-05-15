@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import { useRecoilState, useRecoilValue } from "recoil";
-import { cartItems } from "../../recoil/selectors/selectors";
+import { cartItemsState } from "../../recoil/selectors/selectors";
 import { isSelectedState } from "../../recoil/atoms/atoms";
 
 import CartItem from "../CartItem";
@@ -14,7 +14,7 @@ import FilledCheck from "../../assets/icon/FilledCheck";
 import Button from "../common/Button";
 
 const CartItemList = () => {
-  const cartItemList = useRecoilValue(cartItems);
+  const cartItemList = useRecoilValue(cartItemsState);
   const [isSelected, setIsSelected] = useRecoilState(isSelectedState);
   const isAllSelected = Object.values(isSelected).every((value) => value);
 

@@ -11,3 +11,8 @@ export const isSelectedState = atom({
   default: {},
   effects_UNSTABLE: [persistAtom],
 });
+
+export const refreshedCartItemsState = atom({
+  key: "refreshedCartItemsState",
+  default: [],
+});

@@ -1,6 +1,6 @@
 // import { act, renderHook } from "@testing-library/react";
 import { useRecoilValue } from "recoil";
-import { cartItems } from "./selectors";
+import { cartItemsState } from "./selectors";
 
 describe("사용자의 장바구니 목록 조회", () => {
   it("장바구니 목록을 불러온다.", () => {
@@ -9,7 +9,7 @@ describe("사용자의 장바구니 목록 조회", () => {
     const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
 
     console.log(API_URL, USER_ID, USER_PASSWORD);
-    const value = useRecoilValue(cartItems);
+    const value = useRecoilValue(cartItemsState);
     console.log(value);
   });
 });

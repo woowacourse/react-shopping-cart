@@ -1,7 +1,20 @@
-import { CartItemType } from "../../types";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import {
+  refreshedCartItemsState,
+  isSelectedState,
+} from "../../recoil/atoms/atoms";
+
 import Button from "../common/Button";
-import { useRecoilState } from "recoil";
-import { isSelectedState } from "../../recoil/atoms/atoms";
+
+import {
+  deleteCartItem,
+  patchCartItemQuantity,
+  getCartItems,
+} from "../../apis";
+
+import { CartItemType } from "../../types";
+
+import OutlineCheck from "../../assets/icon/OutlineCheck";
 import FilledCheck from "../../assets/icon/FilledCheck";
 
 import {
@@ -14,23 +27,31 @@ import {
   ItemInfoWrapper,
   ItemQuantity,
 } from "./style";
-import OutlineCheck from "../../assets/icon/OutlineCheck";
 
 interface CardItemProps {
   cartItem: CartItemType;
 }
 
-const CardItem = ({ cartItem }: CardItemProps) => {
+const CartItem = ({ cartItem }: CardItemProps) => {
   // 선택 boolean, 상품 name, price, quantity, 삭제 버튼
+  const setRefreshedCartItems = useSetRecoilState(refreshedCartItemsState);
+  const [isSelected, setIsSelected] = useRecoilState(isSelectedState);
+
   const { id, product, quantity } = cartItem;
-  const [isSelected, setIsSelected] = useRecoilState<{
-    [key: number]: boolean;
-  }>(isSelectedState);
 
   const handleToggleSelectItem = () => {
     const copyIsSelected = { ...isSelected };
     copyIsSelected[id] = !copyIsSelected[id];
     setIsSelected(copyIsSelected);
+  };
+
+  const handleDeleteItem = async () => {
+    try {
+      await deleteCartItem(id);
+      setRefreshedCartItems([]);
+    } catch (error) {
+      console.error("Failed to remove cart item:", error);
+    }
   };
 
   return (
@@ -39,7 +60,7 @@ const CardItem = ({ cartItem }: CardItemProps) => {
         <Button $borderRadius="8px" onClick={handleToggleSelectItem}>
           {isSelected[id] ? <FilledCheck color="white" /> : <OutlineCheck />}
         </Button>
-        <Button $theme="white" $size="s">
+        <Button $theme="white" $size="s" onClick={handleDeleteItem}>
           삭제
         </Button>
       </Header>
@@ -65,4 +86,4 @@ const CardItem = ({ cartItem }: CardItemProps) => {
   );
 };
 
-export default CardItem;
+export default CartItem;
