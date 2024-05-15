@@ -8,9 +8,19 @@ interface ShoppingCartItemProps {
   cartItem: CartItem;
   isSelected: (id: number) => boolean;
   onCheckboxClick: (cartItem: CartItem) => void;
+  selectedItemQuantity: (cartItem: CartItem, newQuantity: number) => void;
+  getOneItemQuantity: (id: number) => number | undefined;
+  setOneItemQuantity: (id: number, newQuantity: number) => void;
 }
 
-const ShoppingCartItem = ({ cartItem, isSelected, onCheckboxClick }: ShoppingCartItemProps) => {
+const ShoppingCartItem = ({
+  cartItem,
+  isSelected,
+  onCheckboxClick,
+  selectedItemQuantity,
+  getOneItemQuantity,
+  setOneItemQuantity,
+}: ShoppingCartItemProps) => {
   return (
     <S.Container>
       <S.Hr />
@@ -24,8 +34,10 @@ const ShoppingCartItem = ({ cartItem, isSelected, onCheckboxClick }: ShoppingCar
           <S.ProductName>{cartItem.product.name}</S.ProductName>
           <S.ProductPrice>{cartItem.product.price.toLocaleString()}원</S.ProductPrice>
           <SetQuantity
-            quantity={cartItem.quantity}
-            onClick={{ plus: () => console.log('춘식이'), minus: () => console.log('준식이') }}
+            cartItem={cartItem}
+            selectedItemQuantity={selectedItemQuantity}
+            getOneItemQuantity={getOneItemQuantity}
+            setOneItemQuantity={setOneItemQuantity}
           />
         </S.ProductDescription>
       </S.Contents>

@@ -1,4 +1,5 @@
 import { CartItem } from '../../api/get/getItems';
+import useItemQuantity from '../../hooks/useItemQuantity';
 import useSelectedItems from '../../hooks/useSelectedItems';
 import SelectAll from '../SelectAll/SelectAll';
 import ShoppingCartItem from '../ShoppingCartItem/ShoppingCartItem';
@@ -9,7 +10,11 @@ interface ShoppingCartListProps {
 }
 
 const ShoppingCartList = ({ cartItems }: ShoppingCartListProps) => {
-  const { onCheckboxClick, isSelected, all, onSelectAllClick } = useSelectedItems(cartItems);
+  const { getOneItemQuantity, setOneItemQuantity } = useItemQuantity(cartItems);
+
+  const { onCheckboxClick, isSelected, all, onSelectAllClick, selectedItemQuantity } =
+    useSelectedItems(cartItems, getOneItemQuantity);
+
   return (
     <S.Container>
       <SelectAll isSelectAll={all} onSelectAllClick={onSelectAllClick} />
@@ -19,6 +24,9 @@ const ShoppingCartList = ({ cartItems }: ShoppingCartListProps) => {
           cartItem={cartItem}
           isSelected={isSelected}
           onCheckboxClick={onCheckboxClick}
+          selectedItemQuantity={selectedItemQuantity}
+          getOneItemQuantity={getOneItemQuantity}
+          setOneItemQuantity={setOneItemQuantity}
         />
       ))}
     </S.Container>

@@ -3,7 +3,10 @@ import { useRecoilState } from 'recoil';
 import { selectedCartItems } from '../recoil/atoms';
 import { CartItem } from '../api/get/getItems';
 
-const useSelectedItems = (data: CartItem[]) => {
+const useSelectedItems = (
+  data: CartItem[],
+  getOneItemQuantity: (id: number) => number | undefined,
+) => {
   const [selectedItems, setSelectedItems] = useRecoilState(selectedCartItems);
   const [all, setAll] = useState<boolean>(data.length === selectedItems.length);
 
@@ -31,7 +34,11 @@ const useSelectedItems = (data: CartItem[]) => {
     } else {
       setSelectedItems(prev => [
         ...prev,
-        { cartItemId: cartItem.id, price: cartItem.product.price, quantity: cartItem.quantity },
+        {
+          cartItemId: cartItem.id,
+          price: cartItem.product.price,
+          quantity: getOneItemQuantity(cartItem.id) ?? cartItem.quantity,
+        },
       ]);
     }
   };
@@ -43,7 +50,7 @@ const useSelectedItems = (data: CartItem[]) => {
       setSelectedItems(
         data.map(item => ({
           cartItemId: item.id,
-          quantity: item.quantity,
+          quantity: getOneItemQuantity(item.id) ?? item.quantity,
           price: item.product.price,
         })),
       );
@@ -57,12 +64,26 @@ const useSelectedItems = (data: CartItem[]) => {
   // 전체선택을 눌렀을 때 선택 해제와 전체 선택을 해주는 기능
   // 장바구니가 담긴 요소들이 모두 선택된다면 전체선택 활성화
 
+  const selectedItemQuantity = (cartItem: CartItem, newQuantity: number) => {
+    const selectedItemIndex = selectedItems.findIndex(item => item.cartItemId === cartItem.id);
+
+    if (selectedItemIndex !== -1) {
+      const updatedSelectedItems = [...selectedItems];
+      updatedSelectedItems[selectedItemIndex] = {
+        ...updatedSelectedItems[selectedItemIndex],
+        quantity: newQuantity,
+      };
+      setSelectedItems(updatedSelectedItems);
+    }
+  };
+
   return {
     selectedItems,
     onCheckboxClick,
     isSelected,
     onSelectAllClick,
     all,
+    selectedItemQuantity,
   };
 };
 
