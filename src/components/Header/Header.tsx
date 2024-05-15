@@ -2,7 +2,7 @@
 import { HeaderStyle } from "./Header.style";
 
 const Header = () => {
-  return <div css={HeaderStyle}>Header</div>;
+  return <div css={HeaderStyle}>SHOP</div>;
 };
 
 export default Header;
