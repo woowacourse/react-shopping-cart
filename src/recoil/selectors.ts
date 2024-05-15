@@ -7,16 +7,18 @@ export const totalPriceSelector = selector({
   key: 'totalPriceSelector',
   get: ({ get }) => {
     const productIds = get(itemsState);
-    let total = 0;
+    let totalAmount = 0;
     productIds.forEach((itemsState) => {
       const { quantity, price, isChecked } = get(
         itemDetailsState(itemsState.id),
       );
       if (isChecked) {
-        total += quantity * price;
+        totalAmount += quantity * price;
       }
     });
-    return total;
+    const deliveryFee = totalAmount >= 100000 ? 0 : 3000;
+    const calculatedTotalAmount = totalAmount + deliveryFee;
+    return { totalAmount, deliveryFee, calculatedTotalAmount };
   },
 });
 
