@@ -44,3 +44,14 @@ export const updateCartItemQuantity = async (
     throw new Error("Failed to update cart item quantity");
   }
 };
+
+export const deleteCartItem = async (id: CartItemType["id"]) => {
+  const response = await fetch(`${BASE_URL}/cart-items/${id}`, {
+    method: "DELETE",
+    headers: HEADERS,
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to delete cart item");
+  }
+};

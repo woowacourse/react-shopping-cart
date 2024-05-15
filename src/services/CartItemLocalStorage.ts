@@ -12,6 +12,14 @@ const CartItemLocalStorage = {
   set(key: string, value: CartItemSelected) {
     window.localStorage.setItem(key, JSON.stringify(value));
   },
+
+  delete(key: string, id: number) {
+    const items = CartItemLocalStorage.get(key);
+    if (!items) return;
+
+    delete items[id];
+    CartItemLocalStorage.set(key, items);
+  },
 };
 
 export default CartItemLocalStorage;

@@ -22,7 +22,6 @@ export const cartListState = selector<CartItemType[]>({
   get: async () => {
     const items = await fetchCartItems();
     initializeCartItemStorage(items);
-
     return items;
   },
 });
