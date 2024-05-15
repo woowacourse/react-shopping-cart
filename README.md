@@ -12,12 +12,13 @@ step 2. react-router 세팅
 - [x] cart 페이지 만들기
 - [x] checkout 페이지 만들기
 
-step 3.cart, checkout 페이지 레이아웃 작업
+step 3.cart, checkout, NotFound 페이지 레이아웃 작업
 
 - [x] Header 컴포넌트
 - [x] Button 컴포넌트 (home 버튼, footer 버튼)
 - [x] cart 페이지 조합
 - [x] checkout 페이지 조합
+- [x] NotFound 페이지 추가
 
 # CSS 라이브러리
 
