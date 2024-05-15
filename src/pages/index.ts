@@ -1,2 +1,2 @@
 export { default as OrderConfirmPage } from './OrderConfirmPage';
-export { default as OrderPage } from './OrderPage';
+export { default as OrderPage } from './OrderPage/OrderPage';
