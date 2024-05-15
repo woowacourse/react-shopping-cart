@@ -23,7 +23,7 @@
   - [x] CartHeader
   - [x] CartItemCardList
   - [x] CartItemCard
-  - [] CartSummary
+  - [x] CartSummary
     - [x] CartSummaryItem
   - [x] HeaderButton
   - [x] ConfirmButton
