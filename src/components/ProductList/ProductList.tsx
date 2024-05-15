@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { cartData } from '../../recoil/atoms';
 import { allCartItemsCheckState } from '../../recoil/selectors';
 
@@ -15,18 +14,17 @@ import {
 
 export default function ProductList() {
   const cart = useRecoilValue(cartData);
-  const setAllCartItemsCheckState = useSetRecoilState(allCartItemsCheckState);
-  const [isChecked, setIsChecked] = useState(false);
+
+  const [isAllCheck, setIsAllCheck] = useRecoilState(allCartItemsCheckState);
 
   const handleToggleAllCheck = () => {
-    setIsChecked(!isChecked);
-    setAllCartItemsCheckState(!isChecked);
+    setIsAllCheck(!isAllCheck);
   };
 
   return (
     <ProductListStyle>
       <CheckBoxGroup>
-        <CheckBox isCheck={isChecked} onClick={handleToggleAllCheck} />
+        <CheckBox isCheck={isAllCheck} onClick={handleToggleAllCheck} />
         <CheckBoxText>전체선택</CheckBoxText>
       </CheckBoxGroup>
       {cart.map((cartItem) => {
