@@ -11,11 +11,13 @@ import {
 interface ActionButtonProps {
   clicked?: boolean;
   type: "select" | "delete" | "plus" | "minus";
+  onDelete?: () => void;
 }
 
 export const ActionButton: React.FC<ActionButtonProps> = ({
   clicked,
   type,
+  onDelete,
 }) => {
   const determineSrc = () => {
     switch (type) {
@@ -31,7 +33,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
   };
 
   return (
-    <StyledActionButton>
+    <StyledActionButton onClick={onDelete}>
       {type === "delete" && (
         <StyledActionButtonText>삭제</StyledActionButtonText>
       )}
