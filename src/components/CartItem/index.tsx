@@ -1,6 +1,10 @@
 import React from "react";
 import { CartItemType } from "../../types";
 import Button from "../common/Button";
+import { useRecoilState } from "recoil";
+import { isSelectedState } from "../../recoil/atoms/atoms";
+import FilledCheck from "../../assets/icon/FilledCheck";
+
 import {
   Wrapper,
   ItemImg,
@@ -11,21 +15,33 @@ import {
   ItemInfoWrapper,
   ItemQuantity,
 } from "./style";
-import FilledCheck from "../../assets/icon/FilledCheck";
+import OutlineCheck from "../../assets/icon/OutlineCheck";
 
 interface CardItemProps {
   cartItem: CartItemType;
+  key: number;
 }
 
 const CardItem = ({ cartItem }: CardItemProps) => {
   // 선택 boolean, 상품 name, price, quantity, 삭제 버튼
-  const { product, quantity } = cartItem;
+  const { id, product, quantity } = cartItem;
+  const [isSelected, setIsSelected] = useRecoilState<{
+    [key: number]: boolean;
+  }>(isSelectedState);
+
+  const handleToggleSelectItem = () => {
+    setIsSelected((prev) => {
+      const copyIsSelected = { ...prev };
+      copyIsSelected[id] = !copyIsSelected[id];
+      return copyIsSelected;
+    });
+  };
 
   return (
     <Wrapper>
       <Header>
-        <Button $borderRadius="8px">
-          <FilledCheck color="white" />
+        <Button $borderRadius="8px" onClick={handleToggleSelectItem}>
+          {isSelected[id] ? <FilledCheck color="white" /> : <OutlineCheck />}
         </Button>
         <Button $theme="white" $size="s">
           삭제
