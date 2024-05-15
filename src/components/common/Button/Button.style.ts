@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { ButtonProps } from './Button';
+import hoverColorGenerator from '../../../utils/hoverColorGenerator';
 
 export const Button = styled.button<ButtonProps>`
   cursor: pointer;
@@ -79,5 +80,15 @@ export const Button = styled.button<ButtonProps>`
     }
   }};
 
+  &:hover {
+    background-color: ${(props) => {
+      switch (props.color) {
+        case 'default':
+          return hoverColorGenerator('#FFFFFF');
+        default:
+          return hoverColorGenerator('#333333');
+      }
+    }};
+  }
   opacity: ${({ isDisabled }) => (isDisabled ? '0.5' : 1)};
 `;
