@@ -9,8 +9,12 @@ export const totalPriceSelector = selector({
     const productIds = get(itemsState);
     let total = 0;
     productIds.forEach((itemsState) => {
-      const { quantity, price } = get(itemDetailsState(itemsState.id));
-      total += quantity * price;
+      const { quantity, price, isChecked } = get(
+        itemDetailsState(itemsState.id),
+      );
+      if (isChecked) {
+        total += quantity * price;
+      }
     });
     return total;
   },
