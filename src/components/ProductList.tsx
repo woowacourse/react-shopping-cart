@@ -8,7 +8,22 @@ import styled from 'styled-components';
 import CheckBox from './CheckBox';
 import { toggleAllSelector } from '../recoil/selectors';
 
-const CheckBoxContainer = styled.div``;
+const CheckBoxContainer = styled.div`
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+`;
+
+const CartItemListContainer = styled.ul`
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  scroll: auto;
+`;
 
 function ProductList() {
   const [items, setItems] = useRecoilState(itemsState);
@@ -54,12 +69,12 @@ function ProductList() {
         <CheckBox isChecked={isAllChecked} onClick={handleToggleAll} />
         전체선택
       </CheckBoxContainer>
-      <h2>상품 목록</h2>
-      <ul>
+
+      <CartItemListContainer>
         {items.map((product: Products) => {
           return <ProductCard key={product.id} product={product} />;
         })}
-      </ul>
+      </CartItemListContainer>
     </>
   );
 }
