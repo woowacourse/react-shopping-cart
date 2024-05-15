@@ -1,5 +1,5 @@
 const LocalStorage = {
-  getData(key: string, id: number) {
+  getData(key: string, id: number | string) {
     const storage = localStorage.getItem(key) ?? '{}';
     const parseStorage = JSON.parse(storage);
 
@@ -11,6 +11,14 @@ const LocalStorage = {
     const parseStorage = JSON.parse(storage);
 
     parseStorage[id] = value;
+    localStorage.setItem(key, JSON.stringify(parseStorage));
+  },
+
+  deleteData(key: string, id: number | string) {
+    const storage = localStorage.getItem(key) ?? '{}';
+    const parseStorage = JSON.parse(storage);
+
+    delete parseStorage[id];
     localStorage.setItem(key, JSON.stringify(parseStorage));
   },
 };

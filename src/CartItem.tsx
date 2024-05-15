@@ -41,6 +41,7 @@ const CartItem = ({ item }: Props) => {
   const handleDeleteItem = async () => {
     setCartItems((prevItems) => prevItems.filter((cartItem) => cartItem.id !== item.id));
     await deleteItem(item.id);
+    LocalStorage.deleteData(CART_ITEM, item.id);
   };
 
   return (
