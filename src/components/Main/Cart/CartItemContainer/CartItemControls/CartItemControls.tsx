@@ -9,7 +9,6 @@ const CartItemControls = () => {
 
   const handleClick = () => {
     setState((prev) => {
-      console.log(prev);
       return !prev;
     });
   };

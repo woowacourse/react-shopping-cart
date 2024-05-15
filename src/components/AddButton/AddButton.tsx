@@ -8,16 +8,6 @@ const AddButton = () => {
     <div
       css={AddButtonStyle}
       onClick={() => {
-        // console.log("POST");
-        // const fn = async () => {
-        // await fetch(import.meta.env.VITE_API_BASE_URL + "/cart-items", {
-        //     method: "POST",
-        //     headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
-        //     body: JSON.stringify({
-        //       productId: 10,
-        //     }),
-        //   });
-        // };
         const fn = async () => {
           await fetch(import.meta.env.VITE_API_BASE_URL + "/cart-items/329", {
             method: "PATCH",

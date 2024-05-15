@@ -7,7 +7,7 @@ import CartItemList from "./CartItemList/CartItemList";
 const CartItemContainer = () => {
   return (
     <div css={CartItemContainerStyle}>
-      <CartItemControls></CartItemControls>
+      <CartItemControls />
       <Suspense fallback={<div>Loading</div>}>
         <CartItemList />
       </Suspense>
