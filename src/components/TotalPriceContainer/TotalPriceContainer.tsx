@@ -1,24 +1,25 @@
 import { useRecoilValue } from 'recoil';
-import { InfoIcon } from '../../assets';
 import { selectedCartItemTotalPriceState } from '../../recoil/selectors/selectors';
+import { DELIVERY_FEE_DISCOUNT_THRESHOLD, calculateDeliveryFee } from '../../utils/calculateDeliveryFee';
+import { InfoIcon } from '../../assets';
 import * as S from './TotalPriceContainer.style';
 
 function TotalPriceContainer() {
-  const cartItemTotalPrice = useRecoilValue(selectedCartItemTotalPriceState);
+  const selectedCartItemTotalPrice = useRecoilValue(selectedCartItemTotalPriceState);
 
-  const deliveryFee = cartItemTotalPrice === 0 || cartItemTotalPrice >= 100000 ? 0 : 3000;
-  const totalPrice = cartItemTotalPrice + deliveryFee;
+  const deliveryFee = calculateDeliveryFee(selectedCartItemTotalPrice);
+  const totalPrice = selectedCartItemTotalPrice + deliveryFee;
 
   return (
     <S.Layout>
       <S.NotificationContainer>
         <S.InfoIcon src={InfoIcon} />
-        <p>총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</p>
+        <p>총 주문 금액이 {DELIVERY_FEE_DISCOUNT_THRESHOLD.toLocaleString()}원 이상일 경우 무료 배송됩니다.</p>
       </S.NotificationContainer>
       <S.PriceDetailContainer>
         <S.PriceContainer>
           <S.PriceTitle>주문 금액</S.PriceTitle>
-          <S.PriceValue>{cartItemTotalPrice.toLocaleString()}원</S.PriceValue>
+          <S.PriceValue>{selectedCartItemTotalPrice.toLocaleString()}원</S.PriceValue>
         </S.PriceContainer>
         <S.PriceContainer>
           <S.PriceTitle>배송비</S.PriceTitle>
