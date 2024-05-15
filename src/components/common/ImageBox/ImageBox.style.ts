@@ -15,8 +15,11 @@ export const ImageBox = styled.div<ImageBoxProps>`
         return `${radius}px`;
     }
   }};
-  width: ${({ width }) => width}px;
+  min-width: ${({ width }) => width}px;
+  min-height: ${({ height }) => height}px;
   height: ${({ height }) => height}px;
+  width: ${({ width }) => width}px;
+
   border: 1px solid ${({ border }) => border};
   overflow: hidden;
 
