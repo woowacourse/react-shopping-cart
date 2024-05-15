@@ -79,7 +79,11 @@ export const CartItemCard: React.FC<CartItem> = ({ id, product, quantity }) => {
           clicked={selectedItems.has(id)}
           onSelect={handleItemSelect}
         />
-        <ActionButton type="delete" onDelete={() => handleItemDelete(id)} />
+        <ActionButton
+          type="delete"
+          onDelete={() => handleItemDelete(id)}
+          disabled={selectedItems.has(id)}
+        />
       </StyledCartItemCardHeader>
       <StyledCartItemCardProductContents>
         <StyledProductImg src={imageUrl} alt="" />

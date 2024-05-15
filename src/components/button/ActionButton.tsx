@@ -15,6 +15,7 @@ interface ActionButtonProps {
   onSelect?: () => void;
   onPlus?: () => void;
   onMinus?: () => void;
+  disabled?: boolean;
 }
 
 export const ActionButton: React.FC<ActionButtonProps> = ({
@@ -24,6 +25,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
   onSelect,
   onPlus,
   onMinus,
+  disabled,
 }) => {
   const determineSrc = () => {
     switch (type) {
@@ -44,6 +46,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
         if (onSelect) onSelect();
         break;
       case "delete":
+        if (disabled) return;
         if (onDelete) onDelete();
         break;
       case "plus":
@@ -58,7 +61,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
   };
 
   return (
-    <StyledActionButton onClick={handleClick}>
+    <StyledActionButton onClick={handleClick} disabled={disabled}>
       {type === "delete" && (
         <StyledActionButtonText>삭제</StyledActionButtonText>
       )}
