@@ -11,10 +11,10 @@ const TotalPaymentInfo = () => {
         <img src={CaptionEmoji} />총 주문 금액이 100,000원 이상일 경우 무료
         배송됩니다.
       </Styled.PaymentCaption>
-      <Styled.divider></Styled.divider>
+      <Styled.Divider />
       <PaymentInfo label="주문 금액" price={koMoneyFormat(70000)} />
       <PaymentInfo label="배송비" price={koMoneyFormat(3000)} />
-      <Styled.divider></Styled.divider>
+      <Styled.Divider />
       <PaymentInfo label="총 결제 금액" price={koMoneyFormat(73000)} />
     </Styled.TotalPaymentInfo>
   );

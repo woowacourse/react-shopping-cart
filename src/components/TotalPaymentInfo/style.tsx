@@ -20,7 +20,7 @@ export const PaymentCaption = styled.p`
   color: ${(props) => props.theme.color.captionBlack};
 `;
 
-export const divider = styled.div`
+export const Divider = styled.div`
   border: 0.5px solid ${(props) => props.theme.color.borderGray};
 `;
 
