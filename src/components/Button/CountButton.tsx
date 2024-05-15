@@ -4,9 +4,15 @@ import Minus from '../../assets/minus.svg';
 
 type CountType = 'plus' | 'minus';
 
-export default function CountButton({ type }: { type: CountType }) {
+export default function CountButton({
+  type,
+  onClick,
+}: {
+  type: CountType;
+  onClick: () => void;
+}) {
   return (
-    <CountButtonStyle>
+    <CountButtonStyle onClick={onClick}>
       <img
         src={type === 'plus' ? Plus : Minus}
         alt={type === 'plus' ? '상품 수량 더하기' : '상품 수량 빼기'}

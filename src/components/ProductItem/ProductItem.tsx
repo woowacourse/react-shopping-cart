@@ -1,13 +1,37 @@
+import { useRecoilState } from 'recoil';
+import { cartItemQuantityState } from '../../recoil/atoms';
+import { patchCartItem } from '../../api';
+
+import CheckBox from '../CheckBox/CheckBox';
+import { Button, CountButton } from '../Button';
 import {
   Img,
   ProductItemStyle,
   ProductItemTop,
   ProductItemBundle,
 } from './ProductItem.style';
-import CheckBox from '../CheckBox/CheckBox';
-import { Button, CountButton } from '../Button';
 
 export default function ProductItem({ cartItem }: { cartItem: Cart }) {
+  const [quantity, setQuantity] = useRecoilState(
+    cartItemQuantityState(cartItem.id),
+  );
+
+  const handleIncrement = async () => {
+    setQuantity((prevQuantity) => {
+      const newQuantity = prevQuantity + 1;
+      patchCartItem(cartItem.id, newQuantity);
+      return newQuantity;
+    });
+  };
+
+  const handleDecrement = async () => {
+    setQuantity((prevQuantity) => {
+      const newQuantity = Math.max(prevQuantity - 1, 0);
+      patchCartItem(cartItem.id, newQuantity);
+      return newQuantity;
+    });
+  };
+
   return (
     <ProductItemStyle>
       <ProductItemTop>
@@ -28,11 +52,9 @@ export default function ProductItem({ cartItem }: { cartItem: Cart }) {
             {cartItem.product.price}원
           </span>
           <div className="product-item_content_amount-bundle">
-            <CountButton type="minus" />
-            <span className="product-item_content_amount">
-              {cartItem.quantity}
-            </span>
-            <CountButton type="plus" />
+            <CountButton type="minus" onClick={handleDecrement} />
+            <span className="product-item_content_amount">{quantity}</span>
+            <CountButton type="plus" onClick={handleIncrement} />
           </div>
         </div>
       </ProductItemBundle>

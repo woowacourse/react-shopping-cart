@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom, atomFamily } from 'recoil';
 import { fetchCartItem, getCartCounts } from '../api';
 
 export const cartData = atom<Cart[]>({
@@ -9,4 +9,13 @@ export const cartData = atom<Cart[]>({
 export const cartQuantity = atom<number>({
   key: 'cartQuantity',
   default: getCartCounts(),
+});
+
+export const cartItemQuantityState = atomFamily<number, number>({
+  key: 'cartItemQuantityState',
+  default: async (itemId) => {
+    const cartData = await fetchCartItem();
+    const cartItem = cartData.find((item: Cart) => item.id === itemId);
+    return cartItem ? cartItem.quantity : 0;
+  },
 });

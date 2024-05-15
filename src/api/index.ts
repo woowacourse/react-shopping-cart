@@ -42,6 +42,7 @@ export async function removeCartItem(cartItemId: number): Promise<void> {
   const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
     method: 'DELETE',
     headers: {
+      'Content-Type': 'application/json',
       Authorization: token,
     },
   });
@@ -59,6 +60,7 @@ export async function patchCartItem(
   const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
     method: 'PATCH',
     headers: {
+      'Content-Type': 'application/json',
       Authorization: token,
     },
     body: JSON.stringify({
