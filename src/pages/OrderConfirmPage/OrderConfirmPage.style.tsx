@@ -7,12 +7,12 @@ export const Layout = styled.div`
   align-items: center;
   row-gap: 24px;
   width: 100%;
-  height: calc(100vh - 128px);
+  height: calc(100vh - ${({ theme }) => theme.boxHeight} * 2);
   text-align: center;
 `;
 
 export const OrderDetailText = styled.p`
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSize.sm};
   line-height: 1.5;
 `;
 
@@ -23,11 +23,11 @@ export const TotalPriceContainer = styled.div`
 `;
 
 export const TotalPriceTitle = styled.p`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSize.md};
   font-weight: 700;
 `;
 
 export const TotalPriceValue = styled.p`
-  font-size: 24px;
+  font-size: ${({ theme }) => theme.fontSize.lg};
   font-weight: 700;
 `;

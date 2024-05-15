@@ -7,10 +7,10 @@ export const TitleContainer = styled.div`
 `;
 
 export const Title = styled.p`
-  font-size: 24px;
-  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontSize.lg};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 export const SubTitle = styled.p`
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSize.sm};
 `;

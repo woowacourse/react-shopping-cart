@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ErrorLayout = styled.div`
-  height: 100vh;
+  height: calc(100vh - ${({ theme }) => theme.boxHeight});
   display: flex;
   flex-direction: column;
   row-gap: 50px;
@@ -31,7 +31,7 @@ export const ErrorTextContainer = styled.div`
     font-size: ${({ theme }) => theme.fontSize.sm};
     text-align: center;
     line-height: 1.7;
-    color: ${({ theme }) => theme.color.primary.light};
+    color: darkgray;
   }
 `;
 
@@ -41,7 +41,7 @@ export const ConfirmButton = styled.button`
   border-radius: 5px;
   background: ${({ theme }) => theme.color.primary.main};
   color: #ffffff;
-  font-size: ${({ theme }) => theme.fontSize.md};
+  font-size: 14px;
   text-align: center;
   cursor: pointer;
 `;

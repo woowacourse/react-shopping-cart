@@ -5,10 +5,11 @@ export const ButtonWrapper = styled.button<{ $isActive: boolean }>`
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 64px;
+  height: ${({ theme }) => theme.boxHeight};
   color: white;
-  font-size: 16px;
-  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontSize.md};
+  font-weight: ${({ theme }) => theme.fontWeight.medium};
   text-align: center;
-  background-color: ${(props) => (props.$isActive ? 'black' : 'lightgrey')};
+  background-color: ${(props) =>
+    props.$isActive ? ({ theme }) => theme.color.primary.main : ({ theme }) => theme.color.primary.light};
 `;

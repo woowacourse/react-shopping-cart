@@ -22,19 +22,13 @@ function CartItemList({ cartItems, updateCartItems }: CartItemListProps) {
   };
 
   const handleUpdateQuantity = async (cardItemId: number, quantity: number) => {
-    const status = await updateCartItemQuantity(cardItemId, quantity);
-
-    if (status === 200) {
-      updateCartItems();
-    }
+    await updateCartItemQuantity(cardItemId, quantity);
+    updateCartItems();
   };
 
   const handleRemoveItem = async (cartItemId: number) => {
-    const status = await removeCartItems(cartItemId);
-
-    if (status === 204) {
-      updateCartItems();
-    }
+    await removeCartItems(cartItemId);
+    updateCartItems();
   };
 
   return (

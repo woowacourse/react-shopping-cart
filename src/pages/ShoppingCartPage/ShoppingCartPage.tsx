@@ -48,15 +48,15 @@ function ShoppingCartPage() {
   return (
     <div>
       <Header />
-      <S.Layout>
-        <Await resolve={cartItems}>
+      <Await resolve={cartItems}>
+        <S.Layout>
           <TitleContainer
             title="장바구니"
             subTitle={cartItems.length !== 0 ? `현재 ${cartItems.length}종류의 상품이 담겨있습니다.` : ''}
           />
           {hasCartItems ? renderCartItemsSection() : renderEmptyCartSection()}
-        </Await>
-      </S.Layout>
+        </S.Layout>
+      </Await>
       {hasSelectedCartItems ? (
         <Link to={PATHS.CONFIRM}>
           <SubmitButton isActive={true} content="주문 확인" />

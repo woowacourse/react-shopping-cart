@@ -6,7 +6,7 @@ export const HeaderWrapper = styled.header`
   justify-items: center;
   align-items: center;
   width: 100%;
-  height: 64px;
+  height: ${({ theme }) => theme.boxHeight};
   padding: 0px 24px;
   background: #000000;
 
