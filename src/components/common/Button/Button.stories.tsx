@@ -76,10 +76,10 @@ type Story = StoryObj<typeof meta>;
 export const Playground: Story = {
   render: ({ ...args }) => {
     if (args.customWidth) {
-      args.width = args.customWidth
+      args.width = args.customWidth;
     }
     if (args.customRadius) {
-      args.radius = args.customRadius
+      args.radius = args.customRadius;
     }
     return <Button {...args}>{args.children}</Button>;
   },
