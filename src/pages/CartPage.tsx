@@ -10,11 +10,11 @@ import useCartListItem from '../recoil/cartItemList/useCartItemList';
 import Button from '../components/common/Button/Button';
 import { cartItemSelectedIdListAtom } from '../recoil/cartItem/cartItemAtom';
 import { useNavigate } from 'react-router-dom';
+import Spacer from '../components/common/Spacer/Spacer';
 
 const CartPageContainer = styled.main`
   width: 100%;
-  padding: 30px 20px 80px 20px;
-  min-height: 90%;
+  padding: 100px 20px 80px 20px;
 `;
 
 const EmptyPage = styled.div`
@@ -49,7 +49,9 @@ const CartPage = () => {
         {isPending.state === 'hasValue' && cartItemList.length !== 0 ? (
           <>
             <Title title="장바구니" description={`현재 ${cartItemList.length}종류의 상품이 담겨있습니다.`} />
+            <Spacer height={36} />
             <CartItemList itemList={cartItemList} />
+            <Spacer height={52} />
             <PriceTable />
           </>
         ) : (
