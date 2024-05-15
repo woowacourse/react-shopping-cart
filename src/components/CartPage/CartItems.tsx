@@ -24,7 +24,8 @@ const CartItems = () => {
 
   const handleDelete = (id: number) => {
     deleteCartItem(id);
-    setCartItems((prev) => prev.filter((todoList) => id !== todoList.id));
+    setCartItems((prev) => prev.filter((cartItem) => id !== cartItem.id));
+    setCheckedIds((prev) => prev.filter((itemId) => id !== itemId));
   };
 
   return (

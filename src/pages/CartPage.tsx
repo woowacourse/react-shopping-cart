@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { addCartItem, fetchCartItems } from "../api/cartItem";
+import { fetchCartItems } from "../api/cartItem";
 import { cartItemsAtom } from "../recoil/atom";
 import { css } from "@emotion/css";
 import CartTitle from "../components/CartPage/CartTitle";
