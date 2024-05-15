@@ -139,3 +139,28 @@ export const totalOrderQuantity = selector({
     }, 0);
   },
 });
+
+export const totalProductQuantity = selector({
+  key: 'totalProductQuantity',
+  get: ({ get }) => {
+    let totalCount = 0;
+    let totalQuantity = 0;
+
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i) as string;
+      const test = localStorage.getItem(key) as string;
+      const value = JSON.parse(test);
+
+      if (value === true) {
+        const quantity = get(productQuantityState(parseInt(key, 10)));
+        totalCount++;
+        totalQuantity += quantity;
+      }
+    }
+
+    return {
+      totalCount,
+      totalQuantity,
+    };
+  },
+});
