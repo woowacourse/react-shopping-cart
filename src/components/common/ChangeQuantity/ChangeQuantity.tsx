@@ -8,20 +8,20 @@ import Text from '../Text/Text';
 
 interface ChangeQuantityProps {
   quantity: number;
-  decreaseValue: () => void;
-  increaseValue: () => void;
+  decreaseQuantity: () => void;
+  increaseQuantity: () => void;
 }
 
-const ChangeQuantity = ({ quantity, decreaseValue, increaseValue }: ChangeQuantityProps) => {
+const ChangeQuantity = ({ quantity, decreaseQuantity, increaseQuantity }: ChangeQuantityProps) => {
   return (
     <S.ChangeQuantity>
-      <Button size="s" onClick={decreaseValue} square={true}>
+      <Button size="s" onClick={decreaseQuantity} square={true}>
         <img src={MINUS} />
       </Button>
       <S.Quantity>
         <Text weight="m">{quantity}</Text>
       </S.Quantity>
-      <Button size="s" onClick={increaseValue} square={true}>
+      <Button size="s" onClick={increaseQuantity} square={true}>
         <img src={PLUS} />
       </Button>
     </S.ChangeQuantity>

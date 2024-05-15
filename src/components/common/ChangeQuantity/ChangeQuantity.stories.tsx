@@ -7,15 +7,15 @@ const meta = {
   component: ChangeQuantity,
   tags: ['autodocs'],
   argTypes: {
-    value: {
+    quantity: {
       description: '',
       control: { type: 'number' },
     },
-    decreaseValue: {
+    decreaseQuantity: {
       description: '',
       // control: { type: 'number' }
     },
-    increaseValue: {
+    increaseQuantity: {
       description: '',
       // control: { type: 'number' }
     },
@@ -33,8 +33,8 @@ export const Playground: Story = {
       return (
         <ChangeQuantity
           quantity={value}
-          decreaseValue={() => setValue((prev) => Math.max(prev - 1, 0))}
-          increaseValue={() => setValue((prev) => prev + 1)}
+          decreaseQuantity={() => setValue((prev) => Math.max(prev - 1, 0))}
+          increaseQuantity={() => setValue((prev) => prev + 1)}
         />
       );
     },
