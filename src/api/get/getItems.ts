@@ -1,0 +1,30 @@
+import { Pageable } from '../../types/pageable';
+import axiosInstance from '../../utils/axios';
+import { URLS } from '../../constants/constants';
+
+interface CartItem {
+  id: number;
+  quantity: number;
+  product: Product;
+}
+
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  imageUrl: string;
+  category: string;
+}
+
+const getItems = async () => {
+  const response = await axiosInstance.get<Pageable<CartItem>>(URLS.GET_CART_ITEMS, {
+    params: {
+      page: 0,
+      size: 20,
+    },
+  });
+
+  return response.data.content;
+};
+
+export default getItems;
