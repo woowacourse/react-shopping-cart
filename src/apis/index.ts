@@ -42,9 +42,9 @@ export const deleteCartItem = async (id: number) => {
  */
 export const patchCartItemQuantity = async (id: number, quantity: number) => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
-  const response = await fetch(`${API_URL}/cart-item/${id}`, {
+  const response = await fetch(`${API_URL}/cart-items/${id}`, {
     method: "PATCH",
-    headers: { Authorization: token },
+    headers: { Authorization: token, "Content-type": "application/json" },
     body: JSON.stringify({
       quantity,
     }),

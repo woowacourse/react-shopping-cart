@@ -1,4 +1,4 @@
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
 import {
   refreshedCartItemsState,
   isSelectedState,
@@ -6,11 +6,7 @@ import {
 
 import Button from "../common/Button";
 
-import {
-  deleteCartItem,
-  patchCartItemQuantity,
-  getCartItems,
-} from "../../apis";
+import { deleteCartItem, patchCartItemQuantity } from "../../apis";
 
 import { CartItemType } from "../../types";
 
@@ -54,6 +50,16 @@ const CartItem = ({ cartItem }: CardItemProps) => {
     }
   };
 
+  const handleChangeItemQuantity = async (number: number) => {
+    try {
+      await patchCartItemQuantity(id, quantity + number);
+      console.log(id, quantity);
+      setRefreshedCartItems([]);
+    } catch (error) {
+      console.error("Failed to remove cart item:", error);
+    }
+  };
+
   return (
     <Wrapper>
       <Header>
@@ -72,11 +78,19 @@ const CartItem = ({ cartItem }: CardItemProps) => {
             <ItemPrice>{product.price.toLocaleString("ko-KR")}</ItemPrice>
           </ItemInfo>
           <ItemQuantity>
-            <Button $theme="white" $size="xs">
+            <Button
+              $theme="white"
+              $size="xs"
+              onClick={() => handleChangeItemQuantity(1)}
+            >
               +
             </Button>
             <span>{quantity}</span>
-            <Button $theme="white" $size="xs">
+            <Button
+              $theme="white"
+              $size="xs"
+              onClick={() => handleChangeItemQuantity(-1)}
+            >
               -
             </Button>
           </ItemQuantity>
