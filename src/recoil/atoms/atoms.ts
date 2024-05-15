@@ -1,6 +1,13 @@
-import { atomFamily } from "recoil";
+import { atom } from "recoil";
+import { recoilPersist } from "recoil-persist";
 
-export const isSelectedState = atomFamily<boolean, number>({
+const { persistAtom } = recoilPersist({
+  key: "select",
+  storage: localStorage,
+});
+
+export const isSelectedState = atom({
   key: "isSelectedState",
-  default: false,
+  default: {},
+  effects_UNSTABLE: [persistAtom],
 });
