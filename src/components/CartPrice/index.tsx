@@ -1,20 +1,26 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
+import { cartPriceState } from "../../recoil/selectors/selectors";
 import { Wrapper, PriceKind, PriceNumber, Price } from "./style";
 
 const CartPrice = () => {
+  // 주문 금액: select된 것의 id의 price * 수량
+  const { orderPrice, deliveryFee, totalPrice } =
+    useRecoilValue(cartPriceState);
+
   return (
     <Wrapper>
       <Price>
         <PriceKind>주문 금액</PriceKind>
-        <PriceNumber>120,000원</PriceNumber>
+        <PriceNumber>{orderPrice.toLocaleString("ko-KR")}원</PriceNumber>
       </Price>
       <Price>
-        <PriceKind>주문 금액</PriceKind>
-        <PriceNumber>120,000원</PriceNumber>
+        <PriceKind>배송비</PriceKind>
+        <PriceNumber>{deliveryFee.toLocaleString("ko-KR")}원</PriceNumber>
       </Price>
       <Price>
-        <PriceKind>주문 금액</PriceKind>
-        <PriceNumber>120,000원</PriceNumber>
+        <PriceKind>총 결제 금액</PriceKind>
+        <PriceNumber>{totalPrice.toLocaleString("ko-KR")}원</PriceNumber>
       </Price>
     </Wrapper>
   );
