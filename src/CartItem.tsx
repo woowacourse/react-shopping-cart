@@ -1,7 +1,8 @@
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { deleteItem, updateItemQuantity } from './apis/cartItem';
-import { CartItemProps, cartItemsState } from './recoil/cartItems';
+import { CART_ITEM, CartItemProps, cartItemsState, checkedItemsState } from './recoil/cartItems';
+import LocalStorage from './Storage';
 
 interface Props {
   item: CartItemProps;
@@ -9,6 +10,12 @@ interface Props {
 
 const CartItem = ({ item }: Props) => {
   const setCartItems = useSetRecoilState(cartItemsState);
+  const [isChecked, setIsChecked] = useRecoilState(checkedItemsState(item.id));
+
+  const handleClickCheck = () => {
+    setIsChecked((prev) => !prev);
+    LocalStorage.addData(CART_ITEM, item.id, !isChecked);
+  };
 
   const handleDecrementQuantity = async () => {
     setCartItems((prevItems) =>
@@ -42,6 +49,8 @@ const CartItem = ({ item }: Props) => {
       <div>{item.product.price}</div>
       <div>{item.product.category}</div>
       <div>개수 : {item.quantity}</div>
+
+      <input type="checkbox" checked={isChecked} onChange={handleClickCheck} />
 
       <button onClick={handleDecrementQuantity} disabled={item.quantity === 1}>
         -

@@ -1,4 +1,8 @@
-import { atom, selector } from 'recoil';
+import { atom, atomFamily, selector } from 'recoil';
+
+import LocalStorage from '@/Storage';
+
+export const CART_ITEM = 'CART_ITEM';
 
 export interface CartItemProps {
   id: number;
@@ -15,6 +19,13 @@ export interface CartItemProps {
 export const cartItemsState = atom<CartItemProps[]>({
   key: 'cartItemsState',
   default: [],
+});
+
+export const checkedItemsState = atomFamily<boolean, number>({
+  key: 'checkedItemsState',
+  default: (cartId) => {
+    return LocalStorage.getData(CART_ITEM, cartId) ?? true;
+  },
 });
 
 export const orderTotalPriceState = selector<number>({
