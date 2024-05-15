@@ -35,7 +35,8 @@
       "@routes/*": ["routes/*"],
       "@pages/*": ["pages/*"],
       "@apis/*": ["apis/*"],
-      "@appTypes/*": ["appTypes/*"]
+      "@appTypes/*": ["appTypes/*"],
+      "@recoil/*": ["recoil/*"]
     }
   },
   "include": ["src"],

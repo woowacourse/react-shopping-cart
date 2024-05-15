@@ -23,6 +23,7 @@ export default defineConfig({
       { find: '@pages', replacement: resolve(__dirname, 'src/pages') },
       { find: '@apis', replacement: resolve(__dirname, 'src/apis') },
       { find: '@appTypes', replacement: resolve(__dirname, 'src/appTypes') },
+      { find: '@recoil', replacement: resolve(__dirname, 'src/recoil') },
     ],
   },
 });

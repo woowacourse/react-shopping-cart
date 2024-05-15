@@ -6,13 +6,15 @@ import * as Styled from './CartListItem.styled';
 
 interface CartListItemProps {
   cartItem: CartItem;
+  isChecked: boolean;
+  onChangeCheck: (event: React.ChangeEvent<HTMLInputElement>, id: number) => void;
 }
 
-const CartListItem: React.FC<CartListItemProps> = ({ cartItem }) => {
+const CartListItem: React.FC<CartListItemProps> = ({ cartItem, isChecked, onChangeCheck }) => {
   return (
     <Styled.CartListContainer>
       <Styled.CartItemSelectionGroup>
-        <Checkbox checked />
+        <Checkbox checked={isChecked} onChange={(event) => onChangeCheck(event, cartItem.id)} />
         <DeleteButton>삭제</DeleteButton>
       </Styled.CartItemSelectionGroup>
       <Styled.CartItemDetailContainer>
