@@ -5,7 +5,6 @@ export const Layout = styled.div`
   flex-direction: column;
   row-gap: 36px;
   padding: 36px 24px;
-  margin-bottom: 64px;
 `;
 
 export const CartItems = styled.div`
@@ -22,5 +21,20 @@ export const SelectAllButtonContainer = styled.div`
 
   p {
     font-size: 12px;
+  }
+`;
+
+export const CartEmptyContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 20px;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+
+  img {
+    width: 150px;
   }
 `;
