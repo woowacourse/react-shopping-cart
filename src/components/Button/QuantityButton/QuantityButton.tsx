@@ -4,9 +4,14 @@ import { SignStyle } from "./QuantityButton.style";
 
 export type ButtonType = "plus" | "minus";
 
-const QuantityButton = ({ type }: { type: ButtonType }) => {
+interface QuantityProps {
+  type: ButtonType;
+  onClick?: () => void;
+}
+
+const QuantityButton = ({ type, onClick }: QuantityProps) => {
   return (
-    <Button fontSize="24px">
+    <Button fontSize="24px" onClick={onClick}>
       <div css={SignStyle}>{type === "plus" ? "+" : "-"}</div>{" "}
     </Button>
   );
