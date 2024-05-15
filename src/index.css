@@ -107,6 +107,10 @@ section {
 
 body {
   line-height: 1;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 ol,
@@ -130,4 +134,9 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+button {
+  cursor: pointer;
+  border: none;
 }

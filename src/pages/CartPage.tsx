@@ -1,30 +1,20 @@
+import { css } from '@emotion/react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 
-import CartItem from '@/CartItem';
 import { fetchCartItems } from '@apis/cartItem';
-import {
-  cartItemsState,
-  orderTotalPriceState,
-  deliveryPriceState,
-  isAllUnCheckedState,
-  allCheckedState,
-} from '@recoil/cartItems';
+import CartFooterSection from '@components/Cart/CartFooterSection';
+import CartHeaderSection from '@components/Cart/CartHeaderSection';
+import CartMainSection from '@components/Cart/CartMainSection';
+import { cartItemsState } from '@recoil/cartItems';
+
+import Footer from '@components/Footer';
+import Header from '@components/Header';
 
 function CartPage() {
   const navigate = useNavigate();
   const [cartItems, setCartItems] = useRecoilState(cartItemsState);
-  const totalPrice = useRecoilValue(orderTotalPriceState);
-  const deliveryPrice = useRecoilValue(deliveryPriceState);
-  const isAllUnChecked = useRecoilValue(isAllUnCheckedState);
-  const [allChecked, setAllChecked] = useRecoilState(allCheckedState);
-
-  const handleClickOrderConfirm = () => {
-    if (isAllUnChecked) return;
-
-    navigate('/confirm');
-  };
 
   useEffect(() => {
     const getCartItems = async () => {
@@ -36,35 +26,69 @@ function CartPage() {
     getCartItems();
   }, []);
 
-  if (cartItems.length === 0) {
-    return <div>장바구니에 담은 상품이 없습니다.</div>;
-  }
+  const goHome = () => {
+    navigate('/');
+  };
 
   return (
     <>
-      <div>
-        <label htmlFor="allChecked">전체 선택</label>
-        <input
-          id="allChecked"
-          type="checkbox"
-          checked={allChecked}
-          onChange={(e) => setAllChecked(e.target.checked)}
-        />
-        <div>전체 체크 : {allChecked.toString()}</div>
-        <ul>
-          {cartItems.map((cartItem) => (
-            <CartItem key={cartItem.id} item={cartItem} />
-          ))}
-        </ul>
-        <div>주문 금액 : {totalPrice}</div>
-        <div>배송비 : {deliveryPrice}</div>
-        <div>총 결제 금액 : {totalPrice + deliveryPrice}</div>
-        <button onClick={handleClickOrderConfirm} disabled={isAllUnChecked}>
-          주문확인
+      <Header>
+        <button css={homeButton} onClick={goHome}>
+          SHOP
         </button>
-      </div>
+      </Header>
+      <main css={main}>
+        <CartHeaderSection cartItemLength={cartItems.length} />
+        {cartItems.length ? (
+          <>
+            <CartMainSection />
+            <CartFooterSection />
+          </>
+        ) : (
+          <div css={cartEmptyContainer}>
+            <span css={cartEmptyText}>장바구니에 담은 상품이 없습니다.</span>
+          </div>
+        )}
+      </main>
+      <Footer />
     </>
   );
 }
 
 export default CartPage;
+
+const homeButton = css`
+  height: 100%;
+
+  padding-left: 24px;
+
+  background-color: inherit;
+
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+`;
+
+const main = css`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 0 24px;
+
+  overflow-y: scroll;
+`;
+
+const cartEmptyContainer = css`
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+`;
+
+const cartEmptyText = css`
+  font-size: 16px;
+  font-weight: 400;
+`;
