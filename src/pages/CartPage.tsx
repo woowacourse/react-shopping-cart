@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import CartItem from '@/CartItem';
@@ -12,10 +12,17 @@ import {
 import { fetchCartItems } from '@apis/cartItem';
 
 function CartPage() {
+  const navigate = useNavigate();
   const [cartItems, setCartItems] = useRecoilState(cartItemsState);
   const totalPrice = useRecoilValue(orderTotalPriceState);
   const deliveryPrice = useRecoilValue(deliveryPriceState);
   const isAllUnChecked = useRecoilValue(isAllUnCheckedState);
+
+  const handleClickOrderConfirm = () => {
+    if (isAllUnChecked) return;
+
+    navigate('/confirm');
+  };
 
   useEffect(() => {
     const getCartItems = async () => {
@@ -42,8 +49,8 @@ function CartPage() {
         <div>주문 금액 : {totalPrice}</div>
         <div>배송비 : {deliveryPrice}</div>
         <div>총 결제 금액 : {totalPrice + deliveryPrice}</div>
-        <button disabled={isAllUnChecked}>
-          <Link to="/confirm">결제하기</Link>
+        <button onClick={handleClickOrderConfirm} disabled={isAllUnChecked}>
+          주문확인
         </button>
       </div>
     </>
