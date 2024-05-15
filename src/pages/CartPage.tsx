@@ -9,6 +9,7 @@ import {
   orderTotalPriceState,
   deliveryPriceState,
   isAllUnCheckedState,
+  allCheckedState,
 } from '@recoil/cartItems';
 
 function CartPage() {
@@ -17,6 +18,7 @@ function CartPage() {
   const totalPrice = useRecoilValue(orderTotalPriceState);
   const deliveryPrice = useRecoilValue(deliveryPriceState);
   const isAllUnChecked = useRecoilValue(isAllUnCheckedState);
+  const [allChecked, setAllChecked] = useRecoilState(allCheckedState);
 
   const handleClickOrderConfirm = () => {
     if (isAllUnChecked) return;
@@ -41,6 +43,14 @@ function CartPage() {
   return (
     <>
       <div>
+        <label htmlFor="allChecked">전체 선택</label>
+        <input
+          id="allChecked"
+          type="checkbox"
+          checked={allChecked}
+          onChange={(e) => setAllChecked(e.target.checked)}
+        />
+        <div>전체 체크 : {allChecked.toString()}</div>
         <ul>
           {cartItems.map((cartItem) => (
             <CartItem key={cartItem.id} item={cartItem} />

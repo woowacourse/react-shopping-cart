@@ -32,7 +32,25 @@ export const isAllUnCheckedState = selector<boolean>({
   key: 'isAllUnCheckedState',
   get: ({ get }) => {
     const cartItems = get(cartItemsState);
+
     return !cartItems.some((cartItem) => get(checkedItemsState(cartItem.id)));
+  },
+});
+
+export const allCheckedState = selector<boolean>({
+  key: 'allCheckedState',
+  get: ({ get }) => {
+    const cartItems = get(cartItemsState);
+
+    return cartItems.every((cartItem) => get(checkedItemsState(cartItem.id)));
+  },
+  set: ({ get, set }, newValue) => {
+    const cartItems = get(cartItemsState);
+
+    cartItems.forEach((cartItem) => {
+      set(checkedItemsState(cartItem.id), newValue);
+      LocalStorage.addData(CART_ITEM, cartItem.id, newValue as boolean);
+    });
   },
 });
 
