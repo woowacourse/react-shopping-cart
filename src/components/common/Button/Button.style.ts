@@ -78,4 +78,6 @@ export const Button = styled.button<ButtonProps>`
         return `${props.radius}px`;
     }
   }};
+
+  opacity: ${({ isDisabled }) => (isDisabled ? '0.5' : 1)};
 `;
