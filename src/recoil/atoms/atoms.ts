@@ -1,5 +1,5 @@
-import { TCartItem } from './../../pages/ShoppingCartPage/ShoppingCartPage.type';
 import { atom, AtomEffect } from 'recoil';
+import { TCartItem } from '../../types/CartItem.type';
 
 const localStorageEffect: <T>(key: string) => AtomEffect<T> =
   (key: string) =>

@@ -1,6 +1,6 @@
-import { TCartItem } from '../../pages/ShoppingCartPage/ShoppingCartPage.type';
-import CheckButton from '../Button/CheckButton/CheckButton';
 import { useRecoilState } from 'recoil';
+import CheckButton from '../Button/CheckButton/CheckButton';
+import type { TCartItem } from '../../types/CartItem.type';
 import { selectedCartItemState } from '../../recoil/atoms/atoms';
 import { PlusIcon, MinusIcon } from '../../assets';
 

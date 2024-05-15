@@ -1,10 +1,14 @@
-import { TCartItem } from '../pages/ShoppingCartPage/ShoppingCartPage.type';
+import type { TCartItem } from '../types/CartItem.type';
 import { generateBasicToken } from '../utils/auth';
 
-async function fetchCartItems(): Promise<TCartItem[]> {
-  const token = generateBasicToken(import.meta.env.VITE_USER_ID, import.meta.env.VITE_USER_PASSWORD);
+const API_URL = import.meta.env.VITE_API_URL;
+const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
+const USER_ID = import.meta.env.VITE_USER_ID;
 
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/cart-items`, {
+async function fetchCartItems(): Promise<TCartItem[]> {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+
+  const response = await fetch(`${API_URL}/cart-items`, {
     method: 'GET',
     headers: { Authorization: token },
   });
@@ -15,9 +19,9 @@ async function fetchCartItems(): Promise<TCartItem[]> {
 }
 
 async function addCartItems(cartItemId: number): Promise<number> {
-  const token = generateBasicToken(import.meta.env.VITE_USER_ID, import.meta.env.VITE_USER_PASSWORD);
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/cart-items`, {
+  const response = await fetch(`${API_URL}/cart-items`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -29,9 +33,9 @@ async function addCartItems(cartItemId: number): Promise<number> {
   return response.status;
 }
 async function removeCartItems(cartItemId: number): Promise<number> {
-  const token = generateBasicToken(import.meta.env.VITE_USER_ID, import.meta.env.VITE_USER_PASSWORD);
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/cart-items/${cartItemId}`, {
+  const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
     method: 'DELETE',
     headers: { Authorization: token },
   });
@@ -40,9 +44,9 @@ async function removeCartItems(cartItemId: number): Promise<number> {
 }
 
 async function updateCartItemQuantity(cartItemId: number, quantity: number): Promise<number> {
-  const token = generateBasicToken(import.meta.env.VITE_USER_ID, import.meta.env.VITE_USER_PASSWORD);
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/cart-items/${cartItemId}`, {
+  const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
