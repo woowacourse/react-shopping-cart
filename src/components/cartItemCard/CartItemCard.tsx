@@ -1,4 +1,4 @@
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { deleteCartItem } from "../../api";
 import { CartItem } from "../../types";
 import { ActionButton } from "../button/ActionButton";
@@ -13,20 +13,12 @@ import {
   StyledProductQuantityContainer,
   StyledProductQuantityText,
 } from "./CartItemCard.styled";
-import { cartItemsState } from "../../recoil/atoms";
+import { cartItemsState, selectedItemsState } from "../../recoil/atoms";
 
-interface CartItemProps extends CartItem {
-  checked: boolean;
-}
-
-export const CartItemCard: React.FC<CartItemProps> = ({
-  checked,
-  id,
-  product,
-  quantity,
-}) => {
+export const CartItemCard: React.FC<CartItem> = ({ id, product, quantity }) => {
   const { name, price, imageUrl } = product;
   const setCartItems = useSetRecoilState(cartItemsState);
+  const [selectedItems, setSelectedItems] = useRecoilState(selectedItemsState);
 
   const handleItemDelete = async (id: number) => {
     try {
@@ -37,10 +29,34 @@ export const CartItemCard: React.FC<CartItemProps> = ({
     }
   };
 
+  const handleItemSelect = () => {
+    setSelectedItems((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      return newSet;
+    });
+  };
+
+  // TODO
+  // const handleItemCountPlus = () => {
+  // };
+
+  // TODO
+  // const handleItemCountMinus = () => {
+  // };
+
   return (
     <StyledCartItemCard>
       <StyledCartItemCardHeader>
-        <ActionButton type="select" clicked={checked} />
+        <ActionButton
+          type="select"
+          clicked={selectedItems.has(id)}
+          onSelect={handleItemSelect}
+        />
         <ActionButton type="delete" onDelete={() => handleItemDelete(id)} />
       </StyledCartItemCardHeader>
       <StyledCartItemCardProductContents>
