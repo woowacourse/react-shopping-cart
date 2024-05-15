@@ -2,6 +2,12 @@ import { selector } from 'recoil';
 import { fetchCartItems } from '../api';
 import { productQuantityState, isCheckedState } from './atoms';
 
+type AmountType = {
+  orderAmount: number;
+  deliveryCharge: number;
+  totalAmount: number;
+};
+
 export const productsState = selector({
   key: 'productsState',
   get: async () => {
@@ -11,11 +17,11 @@ export const productsState = selector({
   },
 });
 
-export const totalOrderAmountState = selector<number>({
+export const totalOrderAmountState = selector<AmountType>({
   key: 'totalOrderAmountState',
   get: ({ get }) => {
     const products = get(productsState);
-    const totalAmount = products.reduce((accumulator, product) => {
+    const orderAmount = products.reduce((accumulator, product) => {
       const isChecked = get(isCheckedState(product.id));
       if (isChecked) {
         const quantity = get(productQuantityState(product.id));
@@ -24,6 +30,13 @@ export const totalOrderAmountState = selector<number>({
       return accumulator;
     }, 0);
 
-    return totalAmount;
+    const deliveryCharge = orderAmount < 100000 ? 3000 : 0;
+    const totalAmount = orderAmount + deliveryCharge;
+
+    return {
+      orderAmount,
+      deliveryCharge,
+      totalAmount,
+    };
   },
 });
