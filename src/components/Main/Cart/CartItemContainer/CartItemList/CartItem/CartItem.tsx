@@ -16,7 +16,7 @@ import {
 import QuantityButton from "../../../../../Button/QuantityButton/QuantityButton";
 import Divider from "../../../../../Divider/Divider";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { itemEachCheckState, itemIdsState, itemQuantityState } from "../../../../../../store/atom/atoms";
 import { changeProductAmount, deleteProduct } from "../../../../../../store/api";
 
@@ -25,14 +25,14 @@ interface CartItemProps {
 }
 
 const CartItem = ({ CartItemInfo }: CartItemProps) => {
-  const { product, id: cartId } = CartItemInfo;
-  const [quantity, setQuantity] = useRecoilState(itemQuantityState(product.id));
-  const [isCheck, setIsCheck] = useRecoilState(itemEachCheckState(cartId));
+  const { id } = CartItemInfo;
+  const [quantity, setQuantity] = useRecoilState(itemQuantityState);
+  const [isCheck, setIsCheck] = useRecoilState(itemEachCheckState(id));
   const setItemIds = useSetRecoilState(itemIdsState);
 
-  useEffect(() => {
-    setQuantity(CartItemInfo.quantity);
-  }, [CartItemInfo.quantity, setQuantity]);
+  // useEffect(() => {
+  //   setQuantity(CartItemInfo.quantity);
+  // }, [CartItemInfo.quantity, setQuantity]);
 
   const handleCheckBoxClick = () => {
     setIsCheck(!isCheck);
@@ -40,33 +40,33 @@ const CartItem = ({ CartItemInfo }: CartItemProps) => {
 
   const deleteProductId = useCallback(() => {
     setItemIds((prev) => {
-      const index = prev.findIndex((value) => value === cartId);
+      const index = prev.findIndex((value) => value === id);
       const arr = [...prev];
       console.log(prev);
       return [...arr.slice(0, index), ...arr.slice(index + 1)];
     });
-  }, [cartId, setItemIds]);
+  }, [id, setItemIds]);
 
   const handleDeleteButtonClick = () => {
     deleteProductId();
-    deleteProduct(cartId);
+    deleteProduct(id);
     //TODO: Route refresh
   };
 
   const handleMinusButtonClick = () => {
-    changeProductAmount({ type: "minus", quantity, cartId });
-    if (quantity === 1) {
+    changeProductAmount({ type: "minus", quantity: quantity[id], id });
+    if (quantity[id] === 1) {
       deleteProductId();
-      deleteProduct(cartId);
+      deleteProduct(id);
       return;
     }
 
-    setQuantity((prev) => prev - 1);
+    setQuantity((prev) => ({ ...prev, [id]: prev[id] - 1 }));
   };
 
   const handlePlusButtonClick = () => {
-    changeProductAmount({ type: "plus", quantity, cartId });
-    setQuantity((prev) => prev + 1);
+    changeProductAmount({ type: "plus", quantity: quantity[id], id });
+    setQuantity((prev) => ({ ...prev, [id]: prev[id] + 1 }));
   };
 
   return (
@@ -85,7 +85,7 @@ const CartItem = ({ CartItemInfo }: CartItemProps) => {
           <div css={CartItemPriceStyle}>{CartItemInfo.product.price.toLocaleString() + "원"}</div>
           <div css={CartItemQuantityContainerStyle}>
             <QuantityButton onClick={handleMinusButtonClick} type={"minus"} />
-            <div css={CartItemQuantityStyle}>{quantity}</div>
+            <div css={CartItemQuantityStyle}>{quantity[id]}</div>
             <QuantityButton onClick={handlePlusButtonClick} type={"plus"} />
           </div>
         </div>

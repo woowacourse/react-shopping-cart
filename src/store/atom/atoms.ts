@@ -11,12 +11,21 @@ export const itemIdsState = atom<number[]>({
   default: selector({
     key: "itemIdsList",
     get: ({ get }) => {
-      return get(cartState).map((item: Product) => item.id);
+      return get(cartState).map((item: CartItemInfo) => item.id);
     },
   }),
 });
 
-export const itemQuantityState = atomFamily<number, number>({
+export const itemQuantityState = atom<Record<number, number>>({
   key: "itemQuantityState",
-  default: 0,
+  default: selector({
+    key: "itemQuantityObject",
+    get: ({ get }) => {
+      const obj: Record<number, number> = {};
+      get(cartState).forEach((cartItem: CartItemInfo) => {
+        obj[cartItem.id] = cartItem.quantity;
+      });
+      return obj;
+    },
+  }),
 });
