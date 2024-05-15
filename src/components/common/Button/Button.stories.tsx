@@ -47,6 +47,11 @@ const meta = {
         '(optional) Determines the width setting for the button\'s CSS. "fixed" maintains a constant width, "fit" adjusts to the text size, and "full" expands to the full width of its container.',
       control: { type: 'boolean' },
     },
+    isDisabled: {
+      description:
+        '(required) The function that is called when the button is clicked. This handler is triggered on user interaction with the button.',
+      control: { type: 'boolean' },
+    },
     onClick: {
       description:
         '(required) The function that is called when the button is clicked. This handler is triggered on user interaction with the button.',
@@ -65,6 +70,7 @@ const meta = {
     customRadius: 0,
     color: 'default',
     square: false,
+    isDisabled: false,
     children: 'button',
   },
 } satisfies Meta<typeof Button>;
