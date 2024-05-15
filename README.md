@@ -16,6 +16,8 @@ step 3.cart, checkout 페이지 레이아웃 작업
 
 - [x] Header 컴포넌트
 - [x] Button 컴포넌트 (home 버튼, footer 버튼)
+- [x] cart 페이지 조합
+- [x] checkout 페이지 조합
 
 # CSS 라이브러리
 
