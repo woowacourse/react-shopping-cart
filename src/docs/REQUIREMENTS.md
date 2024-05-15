@@ -4,12 +4,12 @@
 
 ### 장바구니 기능 구현
 
-- [ ] API 활용한 장바구니 관리 구현
+- [x] API 활용한 장바구니 관리 구현
 
-  - [ ] `GET /cart-items` API로 장바구니 상품 데이터를 불러올 수 있다.
-    - [ ] 상품 데이터에는 상품ID, 상품명, 가격, 상품 이미지 URL, 카테고리가 포함된다.
-  - [ ] `PATCH /cart-items/{id}` API로 장바구니의 해당 상품 수량을 변경할 수 있다.
-  - [ ] `DELETE /cart-items/{id}` API로 장바구니에서 해당 상품을 삭제할 수 있다.
+  - [x] `GET /cart-items` API로 장바구니 상품 데이터를 불러올 수 있다.
+    - [x] 상품 데이터에는 상품ID, 상품명, 가격, 상품 이미지 URL, 카테고리가 포함된다.
+  - [x] `PATCH /cart-items/{id}` API로 장바구니의 해당 상품 수량을 변경할 수 있다.
+  - [x] `DELETE /cart-items/{id}` API로 장바구니에서 해당 상품을 삭제할 수 있다.
 
 - [ ] localStorage를 활용한 상품별 체크 상태 관리
 
@@ -22,7 +22,7 @@
   - [ ] checkedItemState: 장바구니에서 체크된 상품들의 ID를 set으로 관리하는 Atom
   - [ ] itemQuantityState: 상품에 대한 주문 수량을 관리하는 AtomFamily
   - [ ] orderAmountState: 장바구니에서 체크된 상품들의 합산 금액을 관리하는 Selector
-  - [ ] deliveryChargeState: 배송비를 관리하는 Selector
+  - [ ] deliveryFeeState: 배송비를 관리하는 Selector
   - [ ] totalAmountState: 장바구니에서 체크된 상품들의 총 주문 금액을 관리하는 Selector
 
 ## 페이지 구성
