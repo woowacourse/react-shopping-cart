@@ -16,6 +16,7 @@ step 2. react-router 세팅
 step4. cart 페이지 Item 목록
 
 - [x] cart 목록 api 요청 후 recoil selector로 저장
+- [x] cart 페이지 UI
 
 # CSS 라이브러리
 
