@@ -1,14 +1,16 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { cartItems } from "../../recoil/selectors/selectors";
 
-interface CartDescriptionProps {
-  count: number;
-}
-const CartDescription = ({ count }: CartDescriptionProps) => {
+const CartDescription = () => {
+  const cartItemLength = useRecoilValue(cartItems).length;
   return (
     <Wrapper>
-      <Titile>장바구니</Titile>
-      {count && <div>현재 {count}종류의 상품이 담겨있습니다.</div>}
+      <Title>장바구니</Title>
+      {cartItemLength && (
+        <div>현재 {cartItemLength}종류의 상품이 담겨있습니다.</div>
+      )}
     </Wrapper>
   );
 };
@@ -24,7 +26,7 @@ const Wrapper = styled.div`
   font-weight: var(--font-weight-medium);
 `;
 
-const Titile = styled.div`
+const Title = styled.div`
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   line-height: 35px;
