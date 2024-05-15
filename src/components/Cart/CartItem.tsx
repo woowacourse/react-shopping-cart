@@ -1,32 +1,77 @@
 import { FlexColumn, FlexRow, FlexSpaceBetween } from '@/style/common.style';
 import { MinusButton, PlusButton } from '../Button/QuantityButton';
+import { deleteCartItem, getCartItems, patchCartItem } from '@/api/cartItem';
+import { useEffect, useState } from 'react';
 
 import BorderButton from '../Button/BorderButton';
+import { CartItemType } from '@/types/cart.type';
 import CheckBox from '../Button/CheckBoxButton';
-import { Product } from '@/types/product.type';
+import { cartItemState } from '@/store/atoms';
 import styled from '@emotion/styled';
+import { useRecoilState } from 'recoil';
 
 interface Props {
-  product: Product;
-  quantity: number;
-  isSelected: boolean;
-  handleSelected: () => void;
-  handleDelete: () => void;
-  handleQuantity: (quantity: number) => void;
+  item: CartItemType;
 }
 
-const CartItem = ({
-  product,
-  quantity,
-  isSelected,
-  handleSelected,
-  handleDelete,
-  handleQuantity,
-}: Props) => {
+const CartItem = ({ item }: Props) => {
+  const { id, quantity, product } = item;
+
+  const [itemState, setItemState] = useRecoilState(cartItemState(item.id));
+  // const [loading, setLoading] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    setItemState({
+      id,
+      quantity,
+      price: item.product.price,
+      isSelected: itemState.isSelected,
+    });
+  }, []);
+
+  const handleSelect = () => {
+    const newValue = { ...itemState };
+    newValue.isSelected = !newValue.isSelected;
+    setItemState(newValue);
+  };
+
+  const handleDelete = () => {
+    try {
+      const deleteData = async () => {
+        await deleteCartItem(id);
+      };
+
+      deleteData();
+    } catch (error) {
+      setError(error as Error);
+    }
+  };
+
+  const handleQuantity = (quantity: number) => {
+    try {
+      const patchData = async () => {
+        await patchCartItem(id, quantity);
+
+        const cartItemsData = await getCartItems();
+        const newData = cartItemsData.find((item) => item.id === id) || item;
+        const newValue = { ...itemState };
+        newValue.quantity = newData?.quantity;
+
+        setItemState(newValue);
+      };
+
+      patchData();
+    } catch (error) {
+      setError(error as Error);
+    }
+  };
+
   return (
     <StyledItemWrapper>
       <StyledFlexBetweenBox>
-        <CheckBox isSelected={isSelected} onClick={handleSelected} />
+        <CheckBox isSelected={itemState.isSelected} onClick={handleSelect} />
         <BorderButton onClick={handleDelete}>삭제</BorderButton>
       </StyledFlexBetweenBox>
       <StyledRowBox>
@@ -37,9 +82,13 @@ const CartItem = ({
             {product.price.toLocaleString('ko-KR')}원
           </StyledItemPrice>
           <StyledQuantityBox>
-            <MinusButton onClick={() => handleQuantity(quantity - 1)} />
-            {quantity}
-            <PlusButton onClick={() => handleQuantity(quantity + 1)} />
+            <MinusButton
+              onClick={() => handleQuantity(itemState.quantity - 1)}
+            />
+            {itemState.quantity}
+            <PlusButton
+              onClick={() => handleQuantity(itemState.quantity + 1)}
+            />
           </StyledQuantityBox>
         </StyledColumnBox>
       </StyledRowBox>
