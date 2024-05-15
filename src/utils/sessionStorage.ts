@@ -1,6 +1,7 @@
 import { CartItemId } from "../types/cartItems";
 
 export const takeOutSelectedCartItemIds = (): CartItemId[] => {
+  console.log("takeOutSelectedCartItemIds 실행");
   const selectedCartItemIds = sessionStorage.getItem("selectedCartItemIds");
 
   if (selectedCartItemIds) {

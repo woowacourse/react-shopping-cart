@@ -1,10 +1,15 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 import { putInSelectedCartItemIds, takeOutSelectedCartItemIds } from "../utils/sessionStorage";
 import { CartItemId } from "../types/cartItems";
 
+const selectedCartItemIdsSelector = selector({
+  key: "cartItemsSelector",
+  get: takeOutSelectedCartItemIds,
+});
+
 export const selectedCartItemIdsState = atom<CartItemId[]>({
   key: "selectedCartItemIdsState",
-  default: takeOutSelectedCartItemIds(),
+  default: selectedCartItemIdsSelector,
   effects: [
     ({ onSet }) => {
       onSet((newIds) => {
