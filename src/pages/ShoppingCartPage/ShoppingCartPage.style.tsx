@@ -5,6 +5,7 @@ export const Layout = styled.div`
   flex-direction: column;
   row-gap: 36px;
   padding: 36px 24px;
+  margin-bottom: 64px;
 `;
 
 export const CartItems = styled.div`
