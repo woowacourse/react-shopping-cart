@@ -2,17 +2,17 @@ import { ButtonHTMLAttributes, ReactNode } from 'react';
 import * as S from './Button.style';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  size?: 's' | 'm' | 'l';
+  size?: 's' | 'm' | 'l' | 'fit';
   width?: 'fit' | 'full' | number;
   radius?: 's' | 'm' | 'l' | number;
-  children: ReactNode;
   color?: 'default' | 'primary';
   square?: boolean;
+  children: ReactNode;
 }
 
-const Button = ({ size = 'm', width = 'fit', radius = 'm', color = 'default', children, ...rest }: ButtonProps) => {
+const Button = ({ size = 'm', width = 'fit', radius = 'm', color = 'default', square = false, children, ...rest }: ButtonProps) => {
   return (
-    <S.Button size={size} width={width} radius={radius} color={color} {...rest}>
+    <S.Button size={size} width={width} radius={radius} color={color} square={square} {...rest}>
       {children}
     </S.Button>
   );
