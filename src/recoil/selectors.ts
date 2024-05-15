@@ -50,3 +50,21 @@ export const toggleAllSelector = selector<boolean>({
     });
   },
 });
+
+export const totalCountSelector = selector({
+  key : 'totalCountSelector',
+  get: ({ get }) => {
+    const productIds = get(itemsState);
+    const totalItemTypeCount =productIds.length
+    let totalCount = 0;
+    productIds.forEach((itemsState) => {
+      const { quantity, isChecked } = get(
+        itemDetailsState(itemsState.id),
+      );
+      if (isChecked) {
+        totalCount += quantity;
+      }
+    });
+    return { totalItemTypeCount, totalCount };
+  },
+})
