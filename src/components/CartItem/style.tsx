@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
   padding: 12px 0 8px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
 export const ItemImg = styled.img`
@@ -42,20 +43,8 @@ export const ItemQuantity = styled.div`
   width: 80px;
 `;
 
-export const ItemName = styled.span`
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  line-height: 15px;
-`;
-
 export const ItemPrice = styled.span`
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   line-height: 35px;
-`;
-
-export const QuantityText = styled.span`
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  line-height: 15px;
 `;
