@@ -3,8 +3,8 @@ import { CartItem } from '../types';
 import { cartItemQuantity } from './atoms';
 import { fetchCartItems } from '../api';
 
-export const cartListState = selector<CartItem[]>({
   key: 'cartListState',
+export const cartListState = selector<CartItemType[]>({
   get: async () => {
     const items = await fetchCartItems();
     return items;
