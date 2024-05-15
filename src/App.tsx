@@ -1,14 +1,24 @@
 // import "./App.css";
-import { CartItemList } from "./components";
+import {
+  CartDescription,
+  CartItemList,
+  Header,
+  Footer,
+  Layout,
+  CartPrice,
+} from "./components";
 
 function App() {
   return (
-    <>
-      <h1>react-shopping-cart</h1>
-      <div>
+    <div>
+      <Header />
+      <Layout>
+        <CartDescription count={2} />
         <CartItemList />
-      </div>
-    </>
+        <CartPrice />
+      </Layout>
+      <Footer />
+    </div>
   );
 }
 
