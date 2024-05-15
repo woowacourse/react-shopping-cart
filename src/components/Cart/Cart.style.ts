@@ -21,3 +21,14 @@ export const EmptyCart = styled.p`
   left: 50%;
   transform: translate(-50%, -50%);
 `;
+
+export const Loading = styled.p`
+  color: #0a0d13;
+  font-size: 24px;
+  text-align: center;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;

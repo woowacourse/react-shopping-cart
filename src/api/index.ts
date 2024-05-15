@@ -71,7 +71,7 @@ export async function patchCartItem(
   }
 }
 
-export async function getCartCounts(): Promise<Cart[]> {
+export async function getCartCounts(): Promise<number> {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const response = await fetch(`${API_URL}/cart-items/counts`, {
     method: 'GET',
@@ -83,5 +83,5 @@ export async function getCartCounts(): Promise<Cart[]> {
   }
 
   const data = await response.json();
-  return data;
+  return data.quantity;
 }
