@@ -1,8 +1,9 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { deleteItem, updateItemQuantity } from './apis/cartItem';
-import { CART_ITEM, CartItemProps, cartItemsState, checkedItemsState } from './recoil/cartItems';
 import LocalStorage from './Storage';
+
+import { CART_ITEM, CartItemProps, cartItemsState, checkedItemsState } from '@recoil/cartItems';
 
 interface Props {
   item: CartItemProps;

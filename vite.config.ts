@@ -13,7 +13,6 @@ export default defineConfig({
   resolve: {
     alias: [
       { find: '@', replacement: path.resolve(__dirname, 'src') },
-      { find: '@pages', replacement: path.resolve(__dirname, 'src/pages') },
       {
         find: '@components',
         replacement: path.resolve(__dirname, 'src/components'),
@@ -21,6 +20,7 @@ export default defineConfig({
       { find: '@pages', replacement: path.resolve(__dirname, 'src/pages') },
       { find: '@hooks', replacement: path.resolve(__dirname, 'src/hooks') },
       { find: '@apis', replacement: path.resolve(__dirname, 'src/apis') },
+      { find: '@recoil', replacement: path.resolve(__dirname, 'src/recoil') },
     ],
   },
 });

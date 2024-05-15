@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
 import { fetchTotalQuantity } from '@/apis/cartItem';
-import { cartItemsState, purchaseTotalPriceState } from '@/recoil/cartItems';
+import { cartItemsState, purchaseTotalPriceState } from '@recoil/cartItems';
 
 export default function CartConfirmPage() {
   const navigate = useNavigate();

@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import CartItem from '@/CartItem';
+import { fetchCartItems } from '@apis/cartItem';
 import {
   cartItemsState,
   orderTotalPriceState,
   deliveryPriceState,
   isAllUnCheckedState,
-} from '@/recoil/cartItems';
-import { fetchCartItems } from '@apis/cartItem';
+} from '@recoil/cartItems';
 
 function CartPage() {
   const navigate = useNavigate();
