@@ -32,7 +32,9 @@ export const orderTotalPriceState = selector<number>({
   key: 'orderTotalPriceState',
   get: ({ get }) => {
     const cartItems = get(cartItemsState);
-    return cartItems.reduce((acc, cur) => acc + cur.quantity * cur.product.price, 0);
+    const checkedItems = cartItems.filter((cartItem) => get(checkedItemsState(cartItem.id)));
+
+    return checkedItems.reduce((acc, cur) => acc + cur.quantity * cur.product.price, 0);
   },
 });
 
