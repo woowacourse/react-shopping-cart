@@ -1,7 +1,6 @@
 import { DefaultValue, selector } from 'recoil';
+import { OrderedItem, Recipe } from '@/types/recipe.type';
 import { cartItemState, cartListState } from './atoms';
-
-import { Recipe } from '@/types/recipe.type';
 
 export const allSelectedState = selector<boolean>({
   key: 'allSelectedState',
@@ -56,5 +55,26 @@ export const recipeState = selector<Recipe>({
       shippingFee,
       totalPrice,
     };
+  },
+});
+
+export const orderedItemState = selector<OrderedItem>({
+  key: 'orderedItemState',
+  get: ({ get }) => {
+    const cartList = get(cartListState);
+    const cartItemStates = cartList.map((state) =>
+      get(cartItemState(state.id))
+    );
+
+    return cartItemStates.reduce(
+      (acc, cur) => {
+        if (cur.isSelected) {
+          acc.itemCount++;
+          acc.totalQuantity += cur.quantity;
+        }
+        return acc;
+      },
+      { itemCount: 0, totalQuantity: 0 }
+    );
   },
 });

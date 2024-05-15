@@ -3,3 +3,8 @@ export interface Recipe {
   shippingFee: number;
   totalPrice: number;
 }
+
+export interface OrderedItem {
+  itemCount: number;
+  totalQuantity: number;
+}
