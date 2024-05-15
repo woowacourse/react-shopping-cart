@@ -1,3 +1,5 @@
+declare module '*.png';
+
 export type Product = {
   id: number;
   name: string;
@@ -11,3 +13,5 @@ export type CartItem = {
   quantity: number;
   product: Product;
 };
+
+export type Variant = 'header' | 'footer' | 'image';

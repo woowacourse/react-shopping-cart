@@ -15,7 +15,7 @@ step 2. react-router 세팅
 step 3.cart, checkout 페이지 레이아웃 작업
 
 - [x] Header 컴포넌트
-- [ ] Button 컴포넌트 (home 버튼, footer 버튼)
+- [x] Button 컴포넌트 (home 버튼, footer 버튼)
 
 # CSS 라이브러리
 
