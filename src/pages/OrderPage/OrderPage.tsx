@@ -3,12 +3,12 @@ import { BottomButton } from '@components/common';
 import { CartItemCount, CartList, OrderPrice } from '@components/shoppingCart';
 import { useRecoilValue } from 'recoil';
 
-import { cartItemsState } from '../../recoil/shoppingCart';
+import { cartItemsSelector } from '../../recoil/shoppingCart';
 
 import * as Styled from './OrderPage.styled';
 
 const OrderPage: React.FC = () => {
-  const cartItems = useRecoilValue(cartItemsState);
+  const cartItems = useRecoilValue(cartItemsSelector);
 
   return (
     <Styled.OrderPageContainer>

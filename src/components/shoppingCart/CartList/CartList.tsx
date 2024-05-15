@@ -2,7 +2,7 @@ import { CartItem } from '@appTypes/shoppingCart';
 import { Checkbox } from '@components/common';
 import { CartListItem } from '@components/shoppingCart';
 import { STORAGE_KEY } from '@constants/storage';
-import { cartItemsState } from '@recoil/shoppingCart';
+import { cartItemsSelector } from '@recoil/shoppingCart';
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
@@ -13,7 +13,9 @@ interface CartListProps {
 }
 
 const CartList: React.FC<CartListProps> = () => {
-  const cartItems = useRecoilValue(cartItemsState);
+  // TODO : 커스텀 훅
+  const cartItems = useRecoilValue(cartItemsSelector);
+
   const [selectedCartItemIds, setSelectedCartItemIds] = useState<number[]>(
     () => JSON.parse(localStorage.getItem(STORAGE_KEY.selectedItems) ?? '[]') ?? [],
   );

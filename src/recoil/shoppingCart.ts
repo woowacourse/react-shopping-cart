@@ -1,18 +1,33 @@
 import { fetchCartItems } from '@apis/shoppingCart';
-import { selector } from 'recoil';
+import { CartItem } from '@appTypes/shoppingCart';
+import { atom, selector } from 'recoil';
 
-export const cartItemsState = selector({
-  key: 'cartItemsState',
-  get: async () => {
+export const cartItemsAtom = atom<CartItem[]>({
+  key: 'cartItemsAtom',
+  default: [],
+});
+
+export const cartItemsSelector = selector<CartItem[]>({
+  key: 'cartItemsSelector',
+  get: async ({ get }) => {
+    const prevCartItems = get(cartItemsAtom);
+
+    if (prevCartItems.length > 0) return prevCartItems;
+
     const cartItems = await fetchCartItems();
+
     return cartItems;
+  },
+
+  set: ({ set }, newValue) => {
+    set(cartItemsAtom, newValue);
   },
 });
 
 export const totalOrderState = selector({
   key: 'totalOrderState',
   get: ({ get }) => {
-    const cartItems = get(cartItemsState);
+    const cartItems = get(cartItemsSelector);
 
     return cartItems.reduce((acc, cur) => acc + cur.product.price, 0);
   },

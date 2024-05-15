@@ -1,5 +1,5 @@
 import * as Styled from './OrderPrice.styled';
-
+// TODO : 가격 selector로 props 받기
 const OrderPrice = () => {
   return (
     <Styled.OrderPrice>
