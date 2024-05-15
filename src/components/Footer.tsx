@@ -1,34 +1,53 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 
-const FooterContainer = styled.div`
-  display: flex;
-  position: fixed;
-  bottom: 0;
-  background-color: #000000;
-  width: 100%;
-  height: 6.4rem;
+interface FooterContainerProps {
+  $backgroundColor: string;
+}
 
-  color: #ffffff;
-  font-size: 1.6rem;
-  font-weight: 700;
-  line-height: 1.6rem;
-  text-align: center;
+const FooterContainer = styled.div<FooterContainerProps>`
+  ${(props) => css`
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    background-color: ${props.$backgroundColor};
+    width: 100%;
+    height: 6.4rem;
 
-  justify-content: center;
-  align-items: center;
+    color: #ffffff;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.6rem;
+    text-align: center;
+
+    justify-content: center;
+    align-items: center;
+  `}
 `;
 
 interface FooterProps {
   url: string;
+  isDisabled: boolean;
 }
 
-function Footer({ url }: FooterProps) {
+function Footer({ url, isDisabled = false }: FooterProps) {
+  const navigate = useNavigate();
+  const handleClick = (event: React.MouseEvent) => {
+    if (isDisabled) {
+      event.preventDefault();
+    } else {
+      navigate(url);
+    }
+  };
+
   return (
-    <Link to={url}>
-      <FooterContainer>주문 확인</FooterContainer>
-    </Link>
+    <FooterContainer
+      onClick={(e) => handleClick(e)}
+      $backgroundColor={isDisabled ? '#BEBEBE' : '#000000'}
+    >
+      주문 확인
+    </FooterContainer>
   );
 }
 

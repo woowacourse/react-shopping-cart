@@ -91,7 +91,7 @@ function Cart() {
         )}
       </ContentWrapper>
 
-      <Footer url="/completed" />
+      <Footer isDisabled={items.length === 0} url="/completed" />
     </CartContainer>
   );
 }

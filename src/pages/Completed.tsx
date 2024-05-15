@@ -44,6 +44,7 @@ const TotalAmountStyle = styled.p`
 function Completed() {
   const { totalItemTypeCount, totalCount } = useRecoilValue(totalCountSelector);
   const { calculatedTotalAmount } = useRecoilValue(totalPriceSelector);
+
   return (
     <>
       <Header headerIconType="back" />
@@ -60,7 +61,7 @@ function Completed() {
         </TotalAmountStyle>
       </CompletedContainer>
 
-      <Footer url="/cart" />
+      <Footer isDisabled={true} url="/cart" />
     </>
   );
 }
