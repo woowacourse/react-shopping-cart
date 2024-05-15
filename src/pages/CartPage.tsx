@@ -1,17 +1,22 @@
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { fetchCartItems } from "../api/cartItem";
-import { cartItemsAtom } from "../recoil/atom";
+import { cartItemCheckedIdsAtom, cartItemsAtom } from "../recoil/atom";
 import { css } from "@emotion/css";
 import CartTitle from "../components/CartPage/CartTitle";
 import CartItems from "../components/CartPage/CartItems";
 import OrderSummary from "../components/CartPage/OrderSummary";
+import EmptyCart from "../components/CartPage/EmptyCart";
+import { useNavigate } from "react-router-dom";
+import CartLayout from "./CartLayout";
 
 const CartPage = () => {
+  const navigate = useNavigate();
   const [cartItems, setCartItmes] = useRecoilState(cartItemsAtom);
+  const cartItemCheckedIds = useRecoilValue(cartItemCheckedIdsAtom);
 
   useEffect(() => {
-    // addCartItem(10);
+    // addCartItem(11);
     const loadCartItems = async () => {
       const data = await fetchCartItems();
       setCartItmes(data);
@@ -19,15 +24,29 @@ const CartPage = () => {
     loadCartItems();
   }, []);
 
+  const handleClick = () => {
+    if (cartItemCheckedIds.length > 0) {
+      navigate("/orderConfirmation");
+    }
+  };
+
   return (
     <div className={cartPageCSS}>
       <header className={headerCSS}>SHOP</header>
       <section className={contentCSS}>
         <CartTitle />
-        <CartItems />
-        <OrderSummary />
+        {cartItems.length > 0 ? (
+          <>
+            <CartItems />
+            <OrderSummary />
+          </>
+        ) : (
+          <EmptyCart />
+        )}
       </section>
-      <footer className={orderConfirmCSS}>주문 확인</footer>
+      <footer className={orderConfirmCSS(cartItemCheckedIds.length > 0)} onClick={handleClick}>
+        주문 확인
+      </footer>
     </div>
   );
 };
@@ -70,6 +89,7 @@ const contentCSS = css`
   padding: 36px 0;
   height: calc(100vh - 138px);
   display: flex;
+
   flex-direction: column;
   gap: 36px;
   overflow-x: hidden;
@@ -78,7 +98,7 @@ const contentCSS = css`
   }
 `;
 
-const orderConfirmCSS = css`
+const orderConfirmCSS = (clickable: boolean) => css`
   padding: 24px 65px;
   gap: 10px;
 
@@ -92,7 +112,8 @@ const orderConfirmCSS = css`
   width: 429px;
   height: 64px;
   padding: 0 24px;
-  background: #000000;
+  background: ${clickable ? "#000000" : "#BEBEBE"};
+  cursor: pointer;
 
   color: #ffffff;
   font-family: Noto Sans;

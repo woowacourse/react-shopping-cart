@@ -34,7 +34,7 @@ const CartItems = () => {
         <Button variant={isAllChecked ? "primary" : "secondary"} onClick={handleAllChecked}>
           <CheckIcon fill={isAllChecked ? "#ffffff" : "#0000001A"} />
         </Button>
-        <span>전체 선택 {`${checkedIds}`}</span>
+        <span>전체 선택</span>
       </div>
       <div>
         {cartItems.map((item) => (
