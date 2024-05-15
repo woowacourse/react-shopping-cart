@@ -22,6 +22,15 @@ const CartPageContainer = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 24px;
+`;
+
+const PriceContainer = styled.main`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
 `;
 
 const ConfirmPurchasePage = () => {
@@ -48,12 +57,14 @@ const ConfirmPurchasePage = () => {
           <br />
           최종 결제 금액을 확인해 주세요.
         </Text>
-        <Text size="m" weight="l">
-          총 결제 금액
-        </Text>
-        <Text size="l" weight="l">
-          {totalPrice.toLocaleString('ko-kr')}원
-        </Text>
+        <PriceContainer>
+          <Text size="m" weight="l">
+            총 결제 금액
+          </Text>
+          <Text size="l" weight="l">
+            {totalPrice.toLocaleString('ko-kr')}원
+          </Text>
+        </PriceContainer>
       </CartPageContainer>
       <Button
         color="primary"
