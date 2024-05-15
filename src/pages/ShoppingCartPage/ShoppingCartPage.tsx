@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLoaderData, Await } from 'react-router-dom';
+import { useLoaderData, Await, Link } from 'react-router-dom';
 import TitleContainer from '../../components/TitleContainer/TitleContainer';
 import CartItem from '../../components/CartItem/CartItem';
 import CheckButton from '../../components/Button/CheckButton/CheckButton';
@@ -32,6 +32,7 @@ function ShoppingCartPage() {
 
   return (
     <S.Layout>
+      <Link to="/confirm">이동</Link>
       <Await resolve={data}>
         <TitleContainer title="장바구니" subTitle={`현재 ${data.length}종류의 상품이 담겨 있습니다.`} />
         <S.CartItems>
