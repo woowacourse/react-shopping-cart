@@ -7,5 +7,7 @@ export const COLOR = {
 } as const;
 
 export const SIZE = {
+  layoutWidth: '430px',
   navigationHeight: '64px',
+  bottomButtonHeight: '64px',
 } as const;
