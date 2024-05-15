@@ -17,3 +17,5 @@ export type CartItemData = {
   quantity: number;
   product: ProductType;
 };
+
+export type Variant = 'header' | 'footer' | 'image';

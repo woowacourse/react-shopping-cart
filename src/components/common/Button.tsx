@@ -1,6 +1,5 @@
 import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 import styles from './Button.module.css';
-
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'header' | 'footer';
 }
