@@ -41,6 +41,7 @@ export const StyledProductName = styled.span`
   line-height: 15px;
   text-align: left;
   background: rgba(10, 13, 19, 1);
+  margin-bottom: 4px;
 `;
 
 export const StyledProductPrice = styled.span`
