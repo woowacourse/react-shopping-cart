@@ -1,8 +1,8 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { totalPriceSelector } from '../recoil/selectors';
+import { totalPriceSelector } from '../../recoil/selectors';
 import styled from 'styled-components';
-import { NotificationIcon } from '../asset';
+import { NotificationIcon } from '../../asset';
 
 const TotalAmountContainer = styled.div`
   display: flex;

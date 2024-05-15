@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { removeCartItem } from '../api';
-import { itemDetailsState, itemsState } from '../recoil/atoms';
-import { Products } from '../types/Product';
-import { fetchCartItemQuantity } from '../api';
-import CheckBox from './CheckBox';
-import UpdateLocalStorage from '../utils/UpdateLocalStorage';
+import { removeCartItem } from '../../api';
+import { itemDetailsState, itemsState } from '../../recoil/atoms';
+import { Products } from '../../types/Product';
+import { fetchCartItemQuantity } from '../../api';
+import CheckBox from '../CheckBox/CheckBox';
+import UpdateLocalStorage from '../../utils/UpdateLocalStorage';
 import styled from 'styled-components';
 
 const CardContainer = styled.li`

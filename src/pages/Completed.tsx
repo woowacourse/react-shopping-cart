@@ -2,8 +2,8 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { totalCountSelector, totalPriceSelector } from '../recoil/selectors';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
+import Footer from '../components/Footer/Footer';
+import Header from '../components/Header/Header';
 
 const CompletedContainer = styled.div`
   display: flex;

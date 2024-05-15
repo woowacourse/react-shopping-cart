@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import TotalAmount from '../components/TotalAmount';
-import ProductList from '../components/ProductList';
-import Header from '../components/Header';
+import TotalAmount from '../components/TotalAmount/TotalAmount';
+import ProductList from '../components/ProductList/ProductList';
+import Header from '../components/Header/Header';
 import styled from 'styled-components';
-import Title from '../components/Title';
-import Footer from '../components/Footer';
+import Title from '../components/Title/Title';
+import Footer from '../components/Footer/Footer';
 import { useRecoilState } from 'recoil';
 import { fetchProducts } from '../api';
 import { itemsState } from '../recoil/atoms';

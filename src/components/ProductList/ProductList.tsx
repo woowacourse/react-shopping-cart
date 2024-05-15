@@ -1,11 +1,11 @@
 import React from 'react';
-import { Products } from '../types/Product';
-import ProductCard from './ProductCard';
+import { Products } from '../../types/Product';
+import ProductCard from '../ProductCard/ProductCard';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { itemsState } from '../recoil/atoms';
+import { itemsState } from '../../recoil/atoms';
 import styled from 'styled-components';
-import CheckBox from './CheckBox';
-import { toggleAllSelector } from '../recoil/selectors';
+import CheckBox from '../CheckBox/CheckBox';
+import { toggleAllSelector } from '../../recoil/selectors';
 
 const ProductListContainer = styled.div`
   margin-top: 3.6rem;
