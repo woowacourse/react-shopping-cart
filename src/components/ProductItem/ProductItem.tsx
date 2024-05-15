@@ -15,7 +15,11 @@ import {
   ProductItemBundle,
 } from './ProductItem.style';
 
+import useLocalStorageCheckedCart from '../../hooks/useLocalStorageCheckedCart';
+
 export default function ProductItem({ cartItem }: { cartItem: Cart }) {
+  useLocalStorageCheckedCart({ cartId: cartItem.id });
+
   const [quantity, setQuantity] = useRecoilState(
     cartItemQuantityState(cartItem.id),
   );
