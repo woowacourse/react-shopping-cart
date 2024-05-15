@@ -11,7 +11,7 @@ const Background = styled.div`
 
 const LimitedWidthContainer = styled.div`
   position: relative;
-  width: 390px;
+  width: 430px;
   height: 100vh;
   margin: 0 auto;
   display: flex;
