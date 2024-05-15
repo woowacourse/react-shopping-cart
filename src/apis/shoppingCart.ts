@@ -39,5 +39,20 @@ export async function fetchCartItemCount(productId: number, quantity: number) {
   if (!response.ok) {
     throw new Error('Failed to add cart item');
   }
-  return response.ok;
+}
+
+export async function fetchDeleteCartItem(productId: number) {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+
+  const response = await fetch(`${API_URL}/cart-items/${productId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to delete cart item');
+  }
 }

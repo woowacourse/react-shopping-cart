@@ -1,10 +1,32 @@
 import { fetchCartItems } from '@apis/shoppingCart';
 import { CartItem } from '@appTypes/shoppingCart';
-import { atom, selector } from 'recoil';
+import { PRICE, STORAGE_KEY } from '@constants/index';
+import { atom, AtomEffect, selector } from 'recoil';
 
 export const cartItemsAtom = atom<CartItem[]>({
   key: 'cartItemsAtom',
   default: [],
+});
+
+const localStorageEffect: <T>(key: string) => AtomEffect<T> =
+  (key: string) =>
+  ({ setSelf, onSet }) => {
+    const savedValue = localStorage.getItem(key);
+    if (savedValue !== null) {
+      setSelf(JSON.parse(savedValue));
+    }
+
+    onSet((newValue, _, isReset) => {
+      if (isReset) return localStorage.removeItem(key);
+
+      return localStorage.setItem(key, JSON.stringify(newValue));
+    });
+  };
+
+export const selectedIdsAtom = atom<number[]>({
+  key: 'selectedIdsAtom',
+  default: JSON.parse(localStorage.getItem(STORAGE_KEY.selectedItems) ?? '[]') ?? [],
+  effects: [localStorageEffect(STORAGE_KEY.selectedItems)],
 });
 
 export const cartItemsSelector = selector<CartItem[]>({
@@ -24,11 +46,20 @@ export const cartItemsSelector = selector<CartItem[]>({
   },
 });
 
-export const totalOrderState = selector({
-  key: 'totalOrderState',
+export const OrderPriceSelector = selector({
+  key: 'orderPriceState',
   get: ({ get }) => {
-    const cartItems = get(cartItemsSelector);
+    const { freeShippingMinAmount, shippingFee } = PRICE;
+    const cartItems = get(cartItemsAtom);
+    const selectedIds = get(selectedIdsAtom);
 
-    return cartItems.reduce((acc, cur) => acc + cur.product.price, 0);
+    const selectedCartItems = cartItems.filter((item) => selectedIds.includes(item.id));
+
+    const orderPrice = selectedCartItems.reduce((acc, cur) => acc + cur.product.price * cur.quantity, 0);
+    const shippingPrice =
+      orderPrice === 0 || orderPrice >= freeShippingMinAmount ? shippingFee.free : shippingFee.basic;
+    const totalPrice = orderPrice + shippingPrice;
+
+    return { orderPrice, shippingPrice, totalPrice };
   },
 });

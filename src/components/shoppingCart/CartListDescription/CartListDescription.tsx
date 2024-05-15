@@ -25,12 +25,10 @@ const CartListDescription: React.FC<CartListDescriptionContainerProps> = ({ cart
 
     // TODO: 상수화 처리 필요
     if (newQuantity === 0 || newQuantity === 101) return alert('수량은 최소 1개 이상 100개 이하여야 합니다.');
+    // patch 요청 성공 시 수량이 변경된 cartItems 상태 업데이트
 
-    const isSuccess = await fetchCartItemCount(cartItem.id, newQuantity);
-
-    if (isSuccess) {
-      updateCartItems(newQuantity);
-    }
+    await fetchCartItemCount(cartItem.id, newQuantity);
+    updateCartItems(newQuantity);
   };
 
   return (

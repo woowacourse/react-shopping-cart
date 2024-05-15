@@ -1,10 +1,8 @@
 import { CartItem } from '@appTypes/shoppingCart';
 import { Checkbox } from '@components/common';
 import { CartListItem } from '@components/shoppingCart';
-import { STORAGE_KEY } from '@constants/storage';
-import { cartItemsSelector } from '@recoil/shoppingCart';
-import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { cartItemsSelector, selectedIdsAtom } from '@recoil/shoppingCart';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import * as Styled from './CartList.styled';
 
@@ -16,16 +14,12 @@ const CartList: React.FC<CartListProps> = () => {
   // TODO : 커스텀 훅
   const cartItems = useRecoilValue(cartItemsSelector);
 
-  const [selectedCartItemIds, setSelectedCartItemIds] = useState<number[]>(
-    () => JSON.parse(localStorage.getItem(STORAGE_KEY.selectedItems) ?? '[]') ?? [],
-  );
+  const [selectedCartItemIds, setSelectedCartItemIds] = useRecoilState(selectedIdsAtom);
 
   const handleChangeTotalCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newCheckState = event.target.checked ? cartItems.map((cartItem) => cartItem.id) : [];
 
     setSelectedCartItemIds(newCheckState);
-
-    localStorage.setItem(STORAGE_KEY.selectedItems, JSON.stringify(newCheckState));
   };
 
   const handleChangeCheck = (event: React.ChangeEvent<HTMLInputElement>, id: number) => {
@@ -34,8 +28,6 @@ const CartList: React.FC<CartListProps> = () => {
       : selectedCartItemIds.filter((selectedId) => selectedId !== id);
 
     setSelectedCartItemIds(newSelectedCartItemIds);
-
-    localStorage.setItem(STORAGE_KEY.selectedItems, JSON.stringify(newSelectedCartItemIds));
   };
 
   return (
