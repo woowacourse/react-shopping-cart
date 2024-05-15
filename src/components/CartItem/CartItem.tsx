@@ -1,6 +1,7 @@
-import { useRecoilState } from 'recoil';
-import { cartItemListState, cartItemState } from '../../recoil/cartItemList/cartItemListSelector';
-import useCartListItem from '../../recoil/cartItemList/useCartListItem';
+import { useEffect } from 'react';
+import { useCartItemQuantity } from '../../recoil/cartItem/useCartItemQuantity';
+import { useCartItemSelectedIdList } from '../../recoil/cartItem/useCartItemSelectedIdList';
+import useCartItemList from '../../recoil/cartItemList/useCartItemList';
 import Button from '../common/Button/Button';
 import ChangeQuantity from '../common/ChangeQuantity/ChangeQuantity';
 import Checkbox from '../common/Checkbox/Checkbox';
@@ -8,7 +9,6 @@ import { Divider } from '../common/Divider/Divider.style';
 import ImageBox from '../common/ImageBox/ImageBox';
 import Text from '../common/Text/Text';
 import * as S from './CartItem.style';
-import useDeleteItem from '../../recoil/cartItemList/useTest';
 
 export type CartItemProps = {
   product: Product;
@@ -16,18 +16,24 @@ export type CartItemProps = {
   cartItemId: number;
 };
 
-const CartItem = ({ product, quantity, cartItemId }: CartItemProps) => {
+const CartItem = ({ product, quantity: initialQuantity, cartItemId }: CartItemProps) => {
   const { productId, name, price, imageUrl, category } = product;
-  const { increaseQuantity, decreaseQuantity } = useCartListItem();
+  const { quantity, updateQuantity, increaseQuantity, decreaseQuantity } = useCartItemQuantity(cartItemId);
+  const { getIsSelected, addSelectedId, removeSelectedId } = useCartItemSelectedIdList();
+  const { deleteCartItem } = useCartItemList();
 
-  const [cartItem, setCartItem] = useRecoilState(cartItemState(quantity));
-  const { deleteCartItem } = useDeleteItem();
+  useEffect(() => {
+    updateQuantity(initialQuantity);
+  }, []);
 
   return (
     <S.CartItem>
       <Divider />
       <S.ItemHeader>
-        <Checkbox state={true} />
+        <Checkbox
+          state={getIsSelected(cartItemId)}
+          handleClick={getIsSelected(cartItemId) ? () => removeSelectedId(cartItemId) : () => addSelectedId(cartItemId)}
+        />
         <Button size="s" radius="s" onClick={() => deleteCartItem(cartItemId)}>
           삭제
         </Button>
@@ -43,17 +49,7 @@ const CartItem = ({ product, quantity, cartItemId }: CartItemProps) => {
               {`${price.toLocaleString('ko-KR')}원`}
             </Text>
           </S.ItemNameAndCost>
-          <ChangeQuantity
-            quantity={cartItem}
-            increaseQuantity={() => {
-              increaseQuantity(cartItemId);
-              setCartItem(cartItem + 1);
-            }}
-            decreaseQuantity={() => {
-              decreaseQuantity(cartItemId);
-              setCartItem(Math.max(cartItem - 1, 0));
-            }}
-          />
+          <ChangeQuantity quantity={quantity} increaseQuantity={increaseQuantity} decreaseQuantity={decreaseQuantity} />
         </S.ItemDetail>
       </S.ItemBody>
     </S.CartItem>
