@@ -3,9 +3,15 @@ import CartRecipe from '@/components/Cart/CartRecipe';
 import CartTitle from '@/components/Cart/CartTitle';
 import FullWidthButton from '@/components/Button/FullWidthButton';
 import Header from '@/components/Header.tsx';
+import { recipeState } from '@/store/selector';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 
 const Cart = () => {
+  const navigate = useNavigate();
+  const { orderPrice } = useRecoilValue(recipeState);
+
   return (
     <>
       <StyledFixedTop>
@@ -17,7 +23,14 @@ const Cart = () => {
       </StyledScrollBox>
       <StyledFixedBottom>
         <CartRecipe />
-        <FullWidthButton onClick={() => {}}>주문 확인</FullWidthButton>
+        <FullWidthButton
+          onClick={() => {
+            navigate('/order-confirm');
+          }}
+          disable={orderPrice === 0 ? true : false}
+        >
+          주문 확인
+        </FullWidthButton>
       </StyledFixedBottom>
     </>
   );

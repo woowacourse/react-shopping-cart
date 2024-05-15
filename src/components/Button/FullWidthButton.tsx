@@ -12,7 +12,7 @@ const FullWidthButton = ({
   onClick,
 }: React.PropsWithChildren<Props>) => {
   return (
-    <StyledButton disable={disable} onClick={onClick}>
+    <StyledButton disable={disable} onClick={disable ? () => {} : onClick}>
       {children}
     </StyledButton>
   );
