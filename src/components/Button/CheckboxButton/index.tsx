@@ -2,7 +2,7 @@ import styled from "styled-components";
 import IMAGES from "../../../assets/images/Images";
 
 interface CheckboxButtonProps {
-  id: string;
+  id?: string;
   onClick: () => void;
   isChecked: boolean;
 }
