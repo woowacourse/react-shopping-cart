@@ -29,7 +29,7 @@ function Cart() {
 
   return (
     <CartContainer>
-      <Header />
+      <Header headerIconType="home" />
 
       <ContentWrapper>
         <Title

@@ -46,7 +46,7 @@ function Completed() {
   const { calculatedTotalAmount } = useRecoilValue(totalPriceSelector);
   return (
     <>
-      <Header />
+      <Header headerIconType="back" />
       <CompletedContainer>
         <Title>주문 확인</Title>
         <SubTitle>
