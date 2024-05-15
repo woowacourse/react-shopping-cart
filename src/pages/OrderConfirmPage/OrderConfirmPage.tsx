@@ -1,10 +1,13 @@
-import { selectedCartItemState } from '../../recoil/atoms/atoms';
-import { selectedCartItemTotalPriceState, selectedCartItemTotalCountState } from '../../recoil/selectors/selectors';
+import { Navigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import Header from '../../components/Header/Header';
 import TitleContainer from '../../components/TitleContainer/TitleContainer';
 import SubmitButton from '../../components/Button/SubmitButton/SubmitButton';
-import { useRecoilValue } from 'recoil';
+import { selectedCartItemState } from '../../recoil/atoms/atoms';
+import { selectedCartItemTotalPriceState, selectedCartItemTotalCountState } from '../../recoil/selectors/selectors';
 import * as S from './OrderConfirmPage.style';
-import Header from '../../components/Header/Header';
+import { calculateDeliveryFee } from '../../utils/calculateDeliveryFee';
+import { PATHS } from '../../constants/PATHS';
 
 function OrderConfirmPage() {
   const selectedItems = useRecoilValue(selectedCartItemState);
@@ -12,11 +15,14 @@ function OrderConfirmPage() {
   const selectedCartItemTotalPrice = useRecoilValue(selectedCartItemTotalPriceState);
   const selectedCartItemTotalCount = useRecoilValue(selectedCartItemTotalCountState);
 
-  const totalPrice =
-    selectedCartItemTotalPrice >= 100000 ? selectedCartItemTotalPrice : selectedCartItemTotalPrice + 3000;
+  if (selectedItems.length === 0) {
+    return <Navigate to={PATHS.ERROR} />;
+  }
+
+  const totalPrice = selectedCartItemTotalPrice + calculateDeliveryFee(selectedCartItemTotalPrice);
 
   return (
-    <>
+    <div>
       <Header />
       <S.Layout>
         <TitleContainer title="주문 확인" />
@@ -31,7 +37,7 @@ function OrderConfirmPage() {
         </S.TotalPriceContainer>
       </S.Layout>
       <SubmitButton isActive={false} content="결제하기" />
-    </>
+    </div>
   );
 }
 

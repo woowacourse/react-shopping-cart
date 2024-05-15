@@ -1,8 +1,10 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
 import OrderConfirmPage from './pages/OrderConfirmPage/OrderConfirmPage';
+import ErrorPage from './pages/ErrorPage/ErrorPage';
 import { fetchCartItems } from './apis';
 import { ThemeProvider } from 'styled-components';
+import { PATHS } from './constants/PATHS';
 
 import GlobalStyles from './styles/Global.style';
 import theme from './styles/theme';
@@ -11,16 +13,21 @@ function App() {
   const router = createBrowserRouter(
     [
       {
-        path: '/',
+        path: PATHS.ROOT,
         element: <ShoppingCartPage />,
         loader: () => fetchCartItems(),
+        errorElement: <ErrorPage />,
       },
       {
-        path: '/confirm',
+        path: PATHS.CONFIRM,
         element: <OrderConfirmPage />,
       },
+      {
+        path: PATHS.ERROR,
+        element: <ErrorPage />,
+      },
     ],
-    { basename: '/react-shopping-cart/' },
+    { basename: PATHS.BASE },
   );
 
   return (
