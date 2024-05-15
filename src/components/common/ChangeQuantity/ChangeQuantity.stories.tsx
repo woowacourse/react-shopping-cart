@@ -32,7 +32,7 @@ export const Playground: Story = {
       const [value, setValue] = useState(0);
       return (
         <ChangeQuantity
-          value={value}
+          quantity={value}
           decreaseValue={() => setValue((prev) => Math.max(prev - 1, 0))}
           increaseValue={() => setValue((prev) => prev + 1)}
         />

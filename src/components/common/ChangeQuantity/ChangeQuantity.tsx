@@ -15,13 +15,13 @@ interface ChangeQuantityProps {
 const ChangeQuantity = ({ quantity, decreaseValue, increaseValue }: ChangeQuantityProps) => {
   return (
     <S.ChangeQuantity>
-      <Button size="s" onClick={decreaseValue} square>
+      <Button size="s" onClick={decreaseValue} square={true}>
         <img src={MINUS} />
       </Button>
       <S.Quantity>
         <Text weight="m">{quantity}</Text>
       </S.Quantity>
-      <Button size="s" onClick={increaseValue} square>
+      <Button size="s" onClick={increaseValue} square={true}>
         <img src={PLUS} />
       </Button>
     </S.ChangeQuantity>
