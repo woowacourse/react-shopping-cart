@@ -1,10 +1,16 @@
-import "./App.css";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import MobileLayout from './components/common/MobileLayout/MobileLayout';
+import CartPage from './pages/CartPage';
 
 function App() {
   return (
-    <>
-      <h1>react-shopping-cart</h1>
-    </>
+    <BrowserRouter>
+      <MobileLayout>
+        <Routes>
+          <Route path="/" element={<CartPage />} />
+        </Routes>
+      </MobileLayout>
+    </BrowserRouter>
   );
 }
 
