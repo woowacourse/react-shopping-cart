@@ -18,7 +18,7 @@ async function fetchCartItems(): Promise<TCartItem[]> {
   return data.content;
 }
 
-async function addCartItems(cartItemId: number): Promise<number> {
+async function addCartItems(cartItemId: number): Promise<void> {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
   const response = await fetch(`${API_URL}/cart-items`, {
@@ -30,9 +30,12 @@ async function addCartItems(cartItemId: number): Promise<number> {
     body: JSON.stringify({ id: cartItemId }),
   });
 
-  return response.status;
+  if (!response.ok) {
+    alert('상품을 장바구니에 추가하는 중 오류가 발생했습니다.');
+    throw new Error('상품을 장바구니에 추가하는 중 오류가 발생했습니다.');
+  }
 }
-async function removeCartItems(cartItemId: number): Promise<number> {
+async function removeCartItems(cartItemId: number): Promise<void> {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
   const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
@@ -40,10 +43,13 @@ async function removeCartItems(cartItemId: number): Promise<number> {
     headers: { Authorization: token },
   });
 
-  return response.status;
+  if (!response.ok) {
+    alert('상품을 장바구니에서 제거하는 중 에러가 발생했습니다.');
+    throw new Error('상품을 장바구니에서 제거하는 중 에러가 발생했습니다.');
+  }
 }
 
-async function updateCartItemQuantity(cartItemId: number, quantity: number): Promise<number> {
+async function updateCartItemQuantity(cartItemId: number, quantity: number): Promise<void> {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
   const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
@@ -55,7 +61,10 @@ async function updateCartItemQuantity(cartItemId: number, quantity: number): Pro
     body: JSON.stringify({ quantity: quantity }),
   });
 
-  return response.status;
+  if (!response.ok) {
+    alert('상품 개수를 업데이트하는 중 문제가 발생했습니다.');
+    throw new Error('상품 개수를 업데이트하는 중 문제가 발생했습니다.');
+  }
 }
 
 export { fetchCartItems, addCartItems, removeCartItems, updateCartItemQuantity };
