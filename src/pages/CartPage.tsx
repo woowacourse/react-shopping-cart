@@ -3,13 +3,13 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
+import OrderConfirmButton from '@/components/Cart/OrderConfirmButton';
 import { fetchCartItems } from '@apis/cartItem';
 import CartFooterSection from '@components/Cart/CartFooterSection';
 import CartHeaderSection from '@components/Cart/CartHeaderSection';
 import CartMainSection from '@components/Cart/CartMainSection';
 import { cartItemsState } from '@recoil/cartItems';
 
-import Footer from '@components/Footer';
 import Header from '@components/Header';
 
 function CartPage() {
@@ -50,7 +50,7 @@ function CartPage() {
           </div>
         )}
       </main>
-      <Footer />
+      <OrderConfirmButton />
     </>
   );
 }

@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 
 import { isAllUnCheckedState } from '@recoil/cartItems';
 
-export default function Footer() {
+export default function OrderConfirmButton() {
   const navigate = useNavigate();
   const isAllUnChecked = useRecoilValue(isAllUnCheckedState);
 
@@ -15,30 +15,23 @@ export default function Footer() {
   };
 
   return (
-    <footer css={footer}>
-      <button
-        css={orderConfirmButton(isAllUnChecked)}
-        onClick={handleClickOrderConfirm}
-        disabled={isAllUnChecked}
-      >
-        주문확인
-      </button>
-    </footer>
+    <button
+      css={orderConfirmButton(isAllUnChecked)}
+      onClick={handleClickOrderConfirm}
+      disabled={isAllUnChecked}
+    >
+      주문확인
+    </button>
   );
 }
 
 const orderConfirmButton = (isDisabled: boolean) => css`
   width: 100%;
-  height: 100%;
+  height: 64px;
 
   background-color: ${isDisabled ? '#BEBEBE' : '#000'};
 
   font-size: 16px;
   font-weight: 700;
   color: #fff;
-`;
-
-const footer = css`
-  width: 100%;
-  height: 64px;
 `;

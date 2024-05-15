@@ -6,6 +6,8 @@ export default function Header({ children }: PropsWithChildren) {
 }
 
 const headerContainer = css`
+  display: flex;
+  align-items: center;
   height: 64px;
   background-color: #000;
 `;
