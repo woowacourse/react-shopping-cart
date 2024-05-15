@@ -4,14 +4,17 @@ import CheckedBox from '../assets/CheckedBox.svg';
 import UnCheckedBox from '../assets/UnCheckedBox.svg';
 import PlusButton from '../assets/PlusButton.svg';
 import MinusButton from '../assets/MinusButton.svg';
+import BinButton from '../assets/BinButton.svg';
 
 import { useState } from 'react';
 
 interface ItemProp {
   cartItem: CartItem;
+  onRemoveItem: () => void;
+  onAdjustItemQuantity: (cartItemId: number, quantity: number) => void;
 }
 
-const Item = ({ cartItem }: ItemProp) => {
+const Item = ({ cartItem, onRemoveItem, onAdjustItemQuantity }: ItemProp) => {
   const [checked, setChecked] = useState(true);
 
   //TODO: recoil 사용하기
@@ -26,7 +29,7 @@ const Item = ({ cartItem }: ItemProp) => {
             alt={checked ? '선택됨' : '선택되지 않음'}
           />
         </Styled.Button>
-        <Styled.DeleteButton>삭제</Styled.DeleteButton>
+        <Styled.DeleteButton onClick={onRemoveItem}>삭제</Styled.DeleteButton>
       </Styled.ButtonContainer>
 
       <Styled.ItemInfoContainer>
@@ -39,11 +42,22 @@ const Item = ({ cartItem }: ItemProp) => {
             </Styled.ItemPrice>
           </Styled.ItemDetails>
           <Styled.ItemQuantityAdjustment>
-            <Styled.Button>
-              <img src={MinusButton} alt="-"></img>
+            <Styled.Button
+              onClick={() => {
+                onAdjustItemQuantity(cartItem.id, --cartItem.quantity);
+              }}
+            >
+              <img
+                src={cartItem.quantity === 1 ? BinButton : MinusButton}
+                alt="-"
+              ></img>
             </Styled.Button>
             <Styled.ItemQuantity>{cartItem.quantity}</Styled.ItemQuantity>
-            <Styled.Button>
+            <Styled.Button
+              onClick={() => {
+                onAdjustItemQuantity(cartItem.id, ++cartItem.quantity);
+              }}
+            >
               <img src={PlusButton} alt="+"></img>
             </Styled.Button>
           </Styled.ItemQuantityAdjustment>
@@ -54,3 +68,5 @@ const Item = ({ cartItem }: ItemProp) => {
 };
 
 export default Item;
+
+isChecked: boolean;

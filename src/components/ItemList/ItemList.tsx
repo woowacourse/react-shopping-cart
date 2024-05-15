@@ -6,9 +6,15 @@ import UnCheckedBox from '../assets/UnCheckedBox.svg';
 
 interface ItemList {
   cartItems: CartItem[];
+  onRemoveItem: (cartItemId: number) => void;
+  onAdjustItemQuantity: (cartItemId: number, quantity: number) => void;
 }
 
-const ItemList = ({ cartItems }: ItemList) => {
+const ItemList = ({
+  cartItems,
+  onRemoveItem,
+  onAdjustItemQuantity,
+}: ItemList) => {
   return (
     <Styled.ItemList>
       <Styled.TotalSelect>
@@ -23,7 +29,11 @@ const ItemList = ({ cartItems }: ItemList) => {
       {cartItems.map((cartItem: CartItem) => {
         return (
           <li key={cartItem.id}>
-            <Item cartItem={cartItem}></Item>
+            <Item
+              cartItem={cartItem}
+              onRemoveItem={() => onRemoveItem(cartItem.id)}
+              onAdjustItemQuantity={onAdjustItemQuantity}
+            ></Item>
           </li>
         );
       })}
