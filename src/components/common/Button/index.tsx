@@ -42,6 +42,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
   $theme?: ButtonThemeType;
   $size?: ButtonSizeType;
+  $borderRadius?: string;
 }
 
 const Button = ({ children, ...rest }: ButtonProps) => {
@@ -58,9 +59,10 @@ const StyledButton = styled.button<ButtonProps>`
     $theme ? BUTTON_THEME[$theme].backgroundColor : "transparent"};
   color: ${({ $theme }) => ($theme ? BUTTON_THEME[$theme].color : "inherit")};
   border: ${({ $theme }) => ($theme ? "1px solid rgba(0, 0, 0, 0.1)" : "none")};
-  border-radius: 4px;
   padding: 0;
   cursor: pointer;
   width: ${({ $size }) => ($size ? BUTTON_SIZE[$size].width : "fit-content")};
   height: ${({ $size }) => ($size ? BUTTON_SIZE[$size].height : "fit-content")};
+  border-radius: ${({ $borderRadius }) =>
+    $borderRadius ? $borderRadius : "4px"};
 `;
