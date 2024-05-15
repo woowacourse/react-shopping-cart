@@ -11,7 +11,6 @@ export const cartQuantity = atom<number>({
   default: getCartCounts(),
 });
 
-// TODO: fetchCartItem으로 가져오는게 아니라 cartData로 가져오는 걸로 바꿔보기 (get을 사용하여)
 export const cartItemQuantityState = atomFamily<number, number>({
   key: 'cartItemQuantityState',
   default: async (itemId) => {

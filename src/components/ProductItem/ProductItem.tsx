@@ -22,19 +22,19 @@ export default function ProductItem({ cartItem }: { cartItem: Cart }) {
   const [isCheck, setIsCheck] = useRecoilState(cartItemCheckState(cartItem.id));
   const setCart = useSetRecoilState(cartData);
 
-  const handleIncrement = async () => {
-    setQuantity((prevQuantity) => {
-      const newQuantity = prevQuantity + 1;
-      patchCartItem(cartItem.id, newQuantity);
-      return newQuantity;
+  const handleIncrement = () => {
+    const newQuantity = quantity + 1;
+    patchCartItem(cartItem.id, newQuantity).then(() => {
+      setQuantity(newQuantity);
+      updateCart(newQuantity);
     });
   };
 
-  const handleDecrement = async () => {
-    setQuantity((prevQuantity) => {
-      const newQuantity = Math.max(prevQuantity - 1, 0);
-      patchCartItem(cartItem.id, newQuantity);
-      return newQuantity;
+  const handleDecrement = () => {
+    const newQuantity = Math.max(quantity - 1, 1);
+    patchCartItem(cartItem.id, newQuantity).then(() => {
+      setQuantity(newQuantity);
+      updateCart(newQuantity);
     });
   };
 
@@ -46,6 +46,14 @@ export default function ProductItem({ cartItem }: { cartItem: Cart }) {
 
   const handleCheckCartItem = () => {
     setIsCheck(!isCheck);
+  };
+
+  const updateCart = (newQuantity: number) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id === cartItem.id ? { ...item, quantity: newQuantity } : item,
+      ),
+    );
   };
 
   return (

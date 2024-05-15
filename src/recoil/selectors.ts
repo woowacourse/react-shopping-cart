@@ -14,3 +14,27 @@ export const allCartItemsCheckState = selector<boolean>({
     });
   },
 });
+
+export const checkedCartItems = selector({
+  key: 'checkedCartItems',
+  get: ({ get }) => {
+    const cart = get(cartData);
+    const isCheckedCartItems = cart.filter((cartItem) =>
+      get(cartItemCheckState(cartItem.id)),
+    );
+    return isCheckedCartItems;
+  },
+});
+
+export const calculateOrderPrice = selector<number>({
+  key: 'calculateOrderPrice',
+  get: ({ get }) => {
+    const checkedCart = get(checkedCartItems);
+    const totalOrderPrice = checkedCart.reduce(
+      (acc, item) => acc + item.quantity * item.product.price,
+      0,
+    );
+
+    return totalOrderPrice;
+  },
+});

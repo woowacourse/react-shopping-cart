@@ -4,8 +4,12 @@ import {
   OrderPrice,
   PriceGroup,
 } from './ProductTotalPriceList.style';
+import { useRecoilValue } from 'recoil';
+import { calculateOrderPrice } from '../../recoil/selectors';
 
 export default function ProductTotalPriceList() {
+  const orderPrice = useRecoilValue(calculateOrderPrice);
+
   return (
     <section className="product-total-price-list">
       <Notification>
@@ -17,7 +21,7 @@ export default function ProductTotalPriceList() {
       <OrderPrice>
         <PriceGroup>
           <span className="price-group_title">주문 금액</span>
-          <span className="price-group_price">70,000원</span>
+          <span className="price-group_price">{orderPrice}원</span>
         </PriceGroup>
         <PriceGroup>
           <span className="price-group_title">배송비</span>
