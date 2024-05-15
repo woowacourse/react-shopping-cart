@@ -26,12 +26,6 @@ export const checkedCartItems = selector({
   },
 });
 
-interface Price {
-  totalOrderPrice: number;
-  deliveryFee: number;
-  totalPrice: number;
-}
-
 export const calculateOrderPrice = selector<Price>({
   key: 'calculateOrderPrice',
   get: ({ get }) => {

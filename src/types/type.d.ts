@@ -11,3 +11,9 @@ interface Cart {
   quantity: number;
   product: Product;
 }
+
+interface Price {
+  totalOrderPrice: number;
+  deliveryFee: number;
+  totalPrice: number;
+}
