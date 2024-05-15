@@ -7,9 +7,13 @@ import {
 
 import { CART_MESSAGE } from '@/constants/message';
 import Info from '@/assets/Info.svg';
+import { recipeState } from '@/store/selector';
 import styled from '@emotion/styled';
+import { useRecoilValue } from 'recoil';
 
 const CartRecipe = () => {
+  const { orderPrice, shippingFee, totalPrice } = useRecoilValue(recipeState);
+
   return (
     <StyledRecipeWrapper>
       <StyledInfoBox>
@@ -18,17 +22,21 @@ const CartRecipe = () => {
       </StyledInfoBox>
       <StyledBox>
         <StyledBetweenBox>
-          <StyledBoldText>주문 금액 </StyledBoldText>
-          <StyledBoldText>70000원 </StyledBoldText>
+          <StyledBoldText>주문 금액</StyledBoldText>
+          <StyledBoldText>
+            {orderPrice.toLocaleString('ko-KR')}원
+          </StyledBoldText>
         </StyledBetweenBox>
         <StyledBetweenBox>
-          <StyledBoldText>배송비 </StyledBoldText>
-          <StyledBoldText>3000원 </StyledBoldText>
+          <StyledBoldText>배송비</StyledBoldText>
+          <StyledBoldText>
+            {shippingFee.toLocaleString('ko-KR')}원
+          </StyledBoldText>
         </StyledBetweenBox>
       </StyledBox>
       <StyledBetweenBox>
-        <StyledBoldText>총 결제 금액 </StyledBoldText>
-        <StyledBoldText>73000원 </StyledBoldText>
+        <StyledBoldText>총 결제 금액</StyledBoldText>
+        <StyledBoldText>{totalPrice.toLocaleString('ko-KR')}원</StyledBoldText>
       </StyledBetweenBox>
     </StyledRecipeWrapper>
   );
