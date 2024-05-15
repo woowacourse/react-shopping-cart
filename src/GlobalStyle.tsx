@@ -3,8 +3,6 @@ import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`${reset}
 
-
-
 html {
     font-size: 62.5%;
    
@@ -12,13 +10,28 @@ html {
 
 body {
   font-size: 1.6rem;
+  max-width: 480px;
+  max-height: 100vh;
+  margin: auto;
+
 }
 
 button{
     padding: 0;
 }
 
+#root {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: 15px
+  
+}
+
 :root {
+  
+  --black-color: #000000;
+  --white-color: #ffffff;
+
   --font-size-xs: 0.8rem;
   --font-size-sm: 1.2rem;
   --font-size-base: 1.6rem;
