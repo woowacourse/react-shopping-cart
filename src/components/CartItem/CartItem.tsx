@@ -1,47 +1,59 @@
+import { useRecoilState } from 'recoil';
+import { cartItemListState, cartItemState } from '../../recoil/cartItemList/cartItemListSelector';
+import useCartListItem from '../../recoil/cartItemList/useCartListItem';
 import Button from '../common/Button/Button';
 import ChangeQuantity from '../common/ChangeQuantity/ChangeQuantity';
 import Checkbox from '../common/Checkbox/Checkbox';
-import { Divider } from '../common/Divieder/Divider.style';
+import { Divider } from '../common/Divider/Divider.style';
 import ImageBox from '../common/ImageBox/ImageBox';
 import Text from '../common/Text/Text';
 import * as S from './CartItem.style';
+import useDeleteItem from '../../recoil/cartItemList/useTest';
 
-type CartItemProps = {
-  imgUrl: string;
-  id: number;
-  productName: string;
-  productPrice: string;
+export type CartItemProps = {
+  product: Product;
   quantity: number;
+  cartItemId: number;
 };
 
-const CartItem = ({ imgUrl, id, productName, productPrice, quantity }: CartItemProps) => {
+const CartItem = ({ product, quantity, cartItemId }: CartItemProps) => {
+  const { productId, name, price, imageUrl, category } = product;
+  const { increaseQuantity, decreaseQuantity } = useCartListItem();
+
+  const [cartItem, setCartItem] = useRecoilState(cartItemState(quantity));
+  const { deleteCartItem } = useDeleteItem();
+
   return (
     <S.CartItem>
       <Divider />
       <S.ItemHeader>
         <Checkbox state={true} />
-        <Button size="s" radius="s">
+        <Button size="s" radius="s" onClick={() => deleteCartItem(cartItemId)}>
           삭제
         </Button>
       </S.ItemHeader>
       <S.ItemBody>
-        <ImageBox
-          width={112}
-          height={112}
-          radius="m"
-          border="lightGray"
-          src="https://velog.velcdn.com/images/pakxe/post/fbea0923-dc6e-4867-8469-5b7ec7b4d84d/image.jpg"
-        />
+        <ImageBox width={112} height={112} radius="m" border="lightGray" src={imageUrl} />
         <S.ItemDetail>
           <S.ItemNameAndCost>
             <Text size="m" weight="m">
-              상품이름 A
+              {name}
             </Text>
             <Text size="l" weight="l">
-              35,000원
+              {`${price.toLocaleString('ko-KR')}원`}
             </Text>
           </S.ItemNameAndCost>
-          <ChangeQuantity quantity={1} />
+          <ChangeQuantity
+            quantity={cartItem}
+            increaseQuantity={() => {
+              increaseQuantity(cartItemId);
+              setCartItem(cartItem + 1);
+            }}
+            decreaseQuantity={() => {
+              decreaseQuantity(cartItemId);
+              setCartItem(Math.max(cartItem - 1, 0));
+            }}
+          />
         </S.ItemDetail>
       </S.ItemBody>
     </S.CartItem>
