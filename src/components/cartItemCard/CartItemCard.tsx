@@ -85,7 +85,7 @@ export const CartItemCard: React.FC<CartItem> = ({ id, product, quantity }) => {
         <StyledProductImg src={imageUrl} alt="" />
         <StyledProductInfo>
           <StyledProductName>{name}</StyledProductName>
-          <StyledProductPrice>{price}</StyledProductPrice>
+          <StyledProductPrice>{price.toLocaleString()}원</StyledProductPrice>
           <StyledProductQuantityContainer>
             <ActionButton
               type="minus"
