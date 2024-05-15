@@ -19,4 +19,4 @@ export const Playground: Story = {
     height: 500,
     width: 300,
   },
-};.
+};
