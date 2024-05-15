@@ -8,7 +8,7 @@ export const CartPage: React.FC = () => {
   const categoryCount = 0;
 
   const buttonBackgroundColor =
-    categoryCount === 0 ? "#d3d3d3" : "rgba(0, 0, 0, 1)";
+    categoryCount === 0 ? "rgba(190, 190, 190, 1)" : "rgba(0, 0, 0, 1)";
 
   return (
     <>
