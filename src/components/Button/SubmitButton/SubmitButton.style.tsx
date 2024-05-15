@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ButtonWrapper = styled.button<{ $isActive: boolean }>`
-  position: fixed;
+  position: sticky;
   left: 0;
   bottom: 0;
   width: 100%;
