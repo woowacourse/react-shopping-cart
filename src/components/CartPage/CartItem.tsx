@@ -1,28 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { css } from "@emotion/css";
 import { Button } from "../default/Button";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
 import MinusIcon from "../../assets/MinusIcon.svg?react";
 import PlusIcon from "../../assets/PlusIcon.svg?react";
-import { useRecoilState } from "recoil";
-import { cartItemCheckedState } from "../../recoil/atom";
+import { useRecoilCallback, useRecoilState } from "recoil";
+import { cartItemCheckedIdsAtom, cartItemCheckedAtomFamily, cartItemQuantityAtomFamily } from "../../recoil/atom";
 import { Product } from "../../types";
+import { cartItemCheckedIdsSelectorFamily, cartItemQuantitySelector } from "../../recoil/selector";
+import { changeCartItemQuantity } from "../../api/cartItem";
 
 interface CardItemProps {
   product: Product;
 }
 
+// const useItemCheckedState = useRecoilCallback(({ set }) => (id: number) => {
+//   const [cartItemChecked, setCartItemChecked] = useRecoilState(cartItemCheckedState(id));
+//   const [cartItemCheckedIds, setCartItemCheckedIds] = useRecoilState(cartItemCheckedIdsState);
+//   setCartItemCheckedIds([...cartItemCheckedIds, id]);
+//   return { cartItemChecked, setCartItemChecked };
+// });
 const CartItem = ({ product }: CardItemProps) => {
-  const [cartItemChecked, setCartItemChecked] = useRecoilState(cartItemCheckedState(product.id));
+  const [cartItemChecked, setCartItemChecked] = useRecoilState(cartItemCheckedIdsSelectorFamily(product.id));
+  // const [quantity, setQuantity] = useRecoilState(cartItemQuantityState({ id: product.id, quantity: product.quantity }));
+  const [quantity, setQuantity] = useRecoilState(cartItemQuantityAtomFamily(product.id));
+  // const [quantity, setQuantity] = useRecoilState(cartItemQuantitySelector(product.id));
 
-  const handleAllChecked = () => {
+  const handleChecked = () => {
     setCartItemChecked(!cartItemChecked);
+  };
+
+  const handleIncrement = () => {
+    const increasedQuantity = quantity + 1;
+    changeCartItemQuantity(product.id, increasedQuantity);
+    setQuantity(increasedQuantity);
+  };
+
+  const handleDecrement = () => {
+    const decreasedQuantity = Math.max(quantity - 1, 0);
+    changeCartItemQuantity(product.id, decreasedQuantity);
+    setQuantity(decreasedQuantity);
   };
 
   return (
     <div className={ItemCSS}>
       <div className={ItemHeaderCSS}>
-        <Button variant={cartItemChecked ? "primary" : "secondary"} onClick={handleAllChecked}>
+        <Button variant={cartItemChecked ? "primary" : "secondary"} onClick={handleChecked}>
           <CheckIcon fill={cartItemChecked ? "#ffffff" : "#0000001A"} />
         </Button>
         <Button>삭제</Button>
@@ -35,13 +58,13 @@ const CartItem = ({ product }: CardItemProps) => {
             <div className={ItemPriceCSS}>{product.product.price}</div>
           </div>
           <div className={ItemCountCSS}>
-            <div>
+            <Button variant="secondary" onClick={handleDecrement}>
               <MinusIcon />
-            </div>
-            <p>{product.quantity}</p>
-            <div>
+            </Button>
+            <p>{quantity}</p>
+            <Button variant="secondary" onClick={handleIncrement}>
               <PlusIcon />
-            </div>
+            </Button>
           </div>
         </div>
       </div>

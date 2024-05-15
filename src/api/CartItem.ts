@@ -13,8 +13,8 @@ export function deleteCartItem(productId: number): void {
   apiClient.delete(`/cart-items/${productId}`, {});
 }
 
-export function changeCartItemQuantity(addToCartId: number, quantity: number): Promise<void> {
-  return apiClient.patch(`/cart-items/${addToCartId}`, {}, { quantity });
+export function changeCartItemQuantity(addToCartId: number, quantity: number) {
+  apiClient.patch(`/cart-items/${addToCartId}`, {}, { quantity });
 }
 
 export function fetchCartItemsCounts(): Promise<number> {

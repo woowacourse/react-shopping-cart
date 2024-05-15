@@ -5,7 +5,9 @@ import { Button } from "../default/Button";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
 import Splitter from "../default/Splitter";
 import { Product } from "../../types";
-import { fetchCartItems } from "../../api/CartItem";
+import { fetchCartItems } from "../../api/cartItem";
+import { useRecoilValue } from "recoil";
+import { cartItemCheckedIdsAtom } from "../../recoil/atom";
 
 const CartItems = () => {
   const [allChecked, setAllChecked] = useState(false);
@@ -13,6 +15,8 @@ const CartItems = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
+  const checkedIds = useRecoilValue(cartItemCheckedIdsAtom);
+  console.log(checkedIds);
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -27,6 +31,7 @@ const CartItems = () => {
     };
     fetchData();
   }, []);
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -47,8 +52,8 @@ const CartItems = () => {
         <span>전체 선택</span>
       </div>
       <div>
-        {cartItems.map((item) => (
-          <div>
+        {cartItems.map((item, index) => (
+          <div key={index}>
             <Splitter />
             <CartItem product={item} />
           </div>
