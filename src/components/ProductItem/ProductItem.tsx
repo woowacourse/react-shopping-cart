@@ -1,6 +1,6 @@
-import { useRecoilState } from 'recoil';
-import { cartItemQuantityState } from '../../recoil/atoms';
-import { patchCartItem } from '../../api';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { cartItemQuantityState, cartData } from '../../recoil/atoms';
+import { patchCartItem, removeCartItem } from '../../api';
 
 import CheckBox from '../CheckBox/CheckBox';
 import { Button, CountButton } from '../Button';
@@ -15,6 +15,7 @@ export default function ProductItem({ cartItem }: { cartItem: Cart }) {
   const [quantity, setQuantity] = useRecoilState(
     cartItemQuantityState(cartItem.id),
   );
+  const setCart = useSetRecoilState(cartData);
 
   const handleIncrement = async () => {
     setQuantity((prevQuantity) => {
@@ -32,11 +33,17 @@ export default function ProductItem({ cartItem }: { cartItem: Cart }) {
     });
   };
 
+  const handleRemoveCartItem = () => {
+    removeCartItem(cartItem.id).then(() => {
+      setCart((prevCart) => prevCart.filter((item) => item.id !== cartItem.id));
+    });
+  };
+
   return (
     <ProductItemStyle>
       <ProductItemTop>
         <CheckBox />
-        <Button text="삭제" />
+        <Button text="삭제" onClick={handleRemoveCartItem} />
       </ProductItemTop>
       <ProductItemBundle>
         <Img
