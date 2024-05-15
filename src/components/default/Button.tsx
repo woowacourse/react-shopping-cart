@@ -18,6 +18,9 @@ export const Button = ({ children, variant = "text", ...rest }: ButtonProps) => 
 
 const getButtonClassName = (variant: ButtonVariant) => {
   return css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: ${variant === "text" ? "fit-content" : "24px"};
     height: 24px;
     border-radius: ${variant === "text" ? "4px" : "8px"};
