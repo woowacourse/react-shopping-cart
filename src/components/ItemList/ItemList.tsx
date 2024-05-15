@@ -1,25 +1,33 @@
-// recoil
-//api 요청
-//
-
 import { CartItem } from '../../type';
+import Item from './Item';
+import * as Styled from './style';
+import CheckedBox from '../assets/CheckedBox.svg';
+import UnCheckedBox from '../assets/UnCheckedBox.svg';
 
 interface ItemList {
-  cartItem: CartItem[];
+  cartItems: CartItem[];
 }
 
-const ItemList = ({ cartItem }: ItemList) => {
+const ItemList = ({ cartItems }: ItemList) => {
   return (
-    <div>
-      {cartItem.map((cart) => {
+    <Styled.ItemList>
+      <Styled.TotalSelect>
+        <Styled.Button>
+          <img
+            src={true ? CheckedBox : UnCheckedBox}
+            alt={true ? '전체 선택' : '전체 선택 해제'}
+          />
+        </Styled.Button>
+        <div>전체 선택</div>
+      </Styled.TotalSelect>
+      {cartItems.map((cartItem: CartItem) => {
         return (
-          <li key={cart.id}>
-            <img src={cart.product.imageUrl} />
-            {cart.product.name} - {cart.product.price}원 ({cart.quantity}개)
+          <li key={cartItem.id}>
+            <Item cartItem={cartItem}></Item>
           </li>
         );
       })}
-    </div>
+    </Styled.ItemList>
   );
 };
 
