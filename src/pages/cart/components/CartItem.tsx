@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { updateCartItemQuantity } from '../../../api';
 import { useRecoilState } from 'recoil';
 import { productQuantityState } from '../../../store/atoms';
+import { isCheckedState } from '../../../store/atoms';
 
 interface Props extends ProductType {
   quantity: number;
@@ -13,10 +14,22 @@ interface Props extends ProductType {
 
 export default function CartItem({ id, price, imageUrl, name, quantity }: Props) {
   const [productQuantity, setProductQuantity] = useRecoilState(productQuantityState(id));
+  const [isChecked, setIsChecked] = useRecoilState(isCheckedState(id));
+
+  useEffect(() => {
+    window.localStorage.setItem(JSON.stringify(id), JSON.stringify(isChecked));
+  }, []);
 
   useEffect(() => {
     setProductQuantity(quantity);
   }, []);
+
+  const handleToggleSelect = (id: number) => {
+    const newIsChecked = !isChecked;
+
+    setIsChecked(newIsChecked);
+    window.localStorage.setItem(JSON.stringify(id), JSON.stringify(newIsChecked));
+  };
 
   const handleIncrementButton = async () => {
     const newQuantity = productQuantity + 1;
@@ -35,7 +48,13 @@ export default function CartItem({ id, price, imageUrl, name, quantity }: Props)
   return (
     <li className={styles.cartItemContainer}>
       <div className={styles.cartItemInputButtonContainer}>
-        <input type="checkbox" id={`item-${id}`} className={styles.customCheckbox}></input>
+        <input
+          type="checkbox"
+          id={`item-${id}`}
+          checked={isChecked}
+          className={styles.customCheckbox}
+          onChange={() => handleToggleSelect(id)}
+        ></input>
         <label htmlFor={`item-${id}`} className={styles.customCheckboxLabel}></label>
         <Button variant="image" className={styles.deleteButton}>
           삭제
