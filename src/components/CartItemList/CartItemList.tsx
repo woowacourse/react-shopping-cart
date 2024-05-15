@@ -7,7 +7,7 @@ import { useRecoilValue } from 'recoil';
 import { cartItemSelectedIdListAtom } from '../../recoil/cartItem/cartItemAtom';
 import { useCartItemSelectedIdList } from '../../recoil/cartItem/useCartItemSelectedIdList';
 
-interface CartItemListProps {
+export interface CartItemListProps {
   itemList: CartItem[];
 }
 
