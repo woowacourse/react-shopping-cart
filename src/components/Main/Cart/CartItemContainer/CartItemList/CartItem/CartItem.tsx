@@ -15,10 +15,12 @@ import {
   CartItemQuantityStyle,
 } from "./CartItem.style";
 import QuantityButton, { ButtonType } from "../../../../../Button/QuantityButton/QuantityButton";
+import Divider from "../../../../../Divider/Divider";
 
 const CartItem = () => {
   return (
     <div css={CartItemContainerStyle}>
+      <Divider />
       <div css={CartItemDetailControlsStyle}>
         <Checkbox />
         <DeleteButton />

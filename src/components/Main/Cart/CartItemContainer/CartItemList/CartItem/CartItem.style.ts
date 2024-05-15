@@ -10,6 +10,7 @@ export const CartItemContainerStyle = css({
   display: "flex",
   flexDirection: "column",
   gap: "12px",
+  marginBottom: "12px",
 });
 
 export const CartItemImageStyle = css({
