@@ -1,5 +1,5 @@
 export const URLS = {
-  GET_CART_ITEMS: '/cart-items',
+  CART_ITEMS: '/cart-items',
 };
 
 export const KEYS = {

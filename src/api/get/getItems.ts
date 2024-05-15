@@ -17,7 +17,7 @@ export interface Product {
 }
 
 const getItems = async () => {
-  const response = await axiosInstance.get<Pageable<CartItem>>(URLS.GET_CART_ITEMS, {
+  const response = await axiosInstance.get<Pageable<CartItem>>(URLS.CART_ITEMS, {
     params: {
       page: 0,
       size: 20,
