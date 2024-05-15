@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Products } from '../types/Product';
 import ProductCard from './ProductCard';
 import { fetchProducts } from '../api';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { itemsState } from '../recoil/atoms';
 import styled from 'styled-components';
 import CheckBox from './CheckBox';
+import { toggleAllSelector } from '../recoil/selectors';
 
 const CheckBoxContainer = styled.div``;
 
@@ -14,7 +15,12 @@ function ProductList() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
-  const [isAllChecked, setIsAllChecked] = useState(false);
+  const isAllChecked = useRecoilValue(toggleAllSelector);
+  const setAllChecked = useSetRecoilState(toggleAllSelector);
+
+  const handleToggleAll = () => {
+    setAllChecked(!isAllChecked);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,7 +51,7 @@ function ProductList() {
   return (
     <>
       <CheckBoxContainer>
-        <CheckBox isChecked={false} />
+        <CheckBox isChecked={isAllChecked} onClick={handleToggleAll} />
         전체선택
       </CheckBoxContainer>
       <h2>상품 목록</h2>

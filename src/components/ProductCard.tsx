@@ -5,6 +5,7 @@ import { itemDetailsState, itemsState } from '../recoil/atoms';
 import { Products } from '../types/Product';
 import { fetchCartItemQuantity } from '../api';
 import CheckBox from './CheckBox';
+import UpdateLocalStorage from '../utils/UpdateLocalStorage';
 
 interface ProductProps {
   product: Products;
@@ -57,13 +58,12 @@ function ProductCard({ product }: ProductProps) {
   };
 
   const handleCheckedItem = () => {
-    console.log('Check');
     setDetails((prevState) => ({
       ...prevState,
       isChecked: !prevState.isChecked,
     }));
 
-    // TODO: localStorage 저장 추가
+    UpdateLocalStorage({ id: product.id, isChecked: details.isChecked });
   };
 
   if (error) {
