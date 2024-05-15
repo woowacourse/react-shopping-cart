@@ -14,6 +14,7 @@ import { CartSummaryItem } from "./CartSummaryItem";
 export const CartSummary: React.FC = () => {
   const orderPrice = useRecoilValue(orderPriceState);
   const deliveryPrice = orderPrice > 100000 ? 0 : 3000;
+  const totalPrice = orderPrice + deliveryPrice;
 
   return (
     <div>
@@ -30,7 +31,7 @@ export const CartSummary: React.FC = () => {
           <CartSummaryItem title="배송비" price={deliveryPrice} />
         </StyledCartSummaryDetailPrice>
         <StyledCartSummaryTotalPrice>
-          <CartSummaryItem title="총 결제 금액" price={30000} />
+          <CartSummaryItem title="총 결제 금액" price={totalPrice} />
         </StyledCartSummaryTotalPrice>
       </StyledCartSummaryTotalContainer>
     </div>
