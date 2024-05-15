@@ -45,7 +45,7 @@ interface Sort2 {
 }
 
 // TODO: 함수명 수정과 날것의  response 타입 선언
-const make = (arr: ResponseCartItem[]) => {
+const transformCartItemListData = (arr: ResponseCartItem[]) => {
   return arr.map(({ id, quantity, product }: ResponseCartItem) => ({
     quantity,
     product: {
@@ -60,7 +60,7 @@ const make = (arr: ResponseCartItem[]) => {
 };
 
 // TODO: 헤더 분리해서 재사용
-export const getCartItemList = async (): Promise<CartItem[]> => {
+export const requestCartItemList = async (): Promise<CartItem[]> => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const response = await fetch(`${API_URL}/cart-items`, {
     method: 'GET',
@@ -73,10 +73,10 @@ export const getCartItemList = async (): Promise<CartItem[]> => {
 
   const data = await response.json();
 
-  return make(data.content);
+  return transformCartItemListData(data.content);
 };
 
-export const setCartItemQuantity = async (cartItemId: number, quantity: number) => {
+export const requestSetCartItemQuantity = async (cartItemId: number, quantity: number) => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
     method: 'PATCH',
