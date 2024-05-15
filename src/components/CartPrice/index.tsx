@@ -4,7 +4,6 @@ import { cartPriceState } from "../../recoil/selectors/selectors";
 import { Wrapper, PriceKind, PriceNumber, Price } from "./style";
 
 const CartPrice = () => {
-  // 주문 금액: select된 것의 id의 price * 수량
   const { orderPrice, deliveryFee, totalPrice } =
     useRecoilValue(cartPriceState);
 

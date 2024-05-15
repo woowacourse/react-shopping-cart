@@ -29,7 +29,6 @@ interface CardItemProps {
 }
 
 const CartItem = ({ cartItem }: CardItemProps) => {
-  // 선택 boolean, 상품 name, price, quantity, 삭제 버튼
   const setRefreshedCartItems = useSetRecoilState(refreshedCartItemsState);
   const [isSelected, setIsSelected] = useRecoilState(isSelectedState);
 
@@ -53,7 +52,6 @@ const CartItem = ({ cartItem }: CardItemProps) => {
   const handleChangeItemQuantity = async (number: number) => {
     try {
       await patchCartItemQuantity(id, quantity + number);
-      console.log(id, quantity);
       setRefreshedCartItems([]);
     } catch (error) {
       console.error("Failed to remove cart item:", error);

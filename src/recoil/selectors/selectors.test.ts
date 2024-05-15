@@ -8,8 +8,6 @@ describe("사용자의 장바구니 목록 조회", () => {
     const USER_ID = import.meta.env.VITE_USER_ID;
     const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
 
-    console.log(API_URL, USER_ID, USER_PASSWORD);
     const value = useRecoilValue(cartItemsState);
-    console.log(value);
   });
 });
