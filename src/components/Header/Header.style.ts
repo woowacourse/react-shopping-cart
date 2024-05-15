@@ -1,16 +1,15 @@
 import styled from 'styled-components';
 
 export const Header = styled.div`
+  position: fixed;
+  width: 430px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
 
   height: 64px;
   padding: 0 24px;
   background-color: black;
-
-  position: sticky;
 `;
 
 export const Prefix = styled.div``;
