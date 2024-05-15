@@ -64,6 +64,26 @@ export const orderTotalPriceState = selector<number>({
   },
 });
 
+export const totalQuantityState = selector<number>({
+  key: 'totalQuantityState',
+  get: ({ get }) => {
+    const cartItems = get(cartItemsState);
+    const checkedItems = cartItems.filter((cartItem) => get(checkedItemsState(cartItem.id)));
+
+    return checkedItems.reduce((acc, cur) => acc + cur.quantity, 0);
+  },
+});
+
+export const productTypesCountState = selector<number>({
+  key: 'productTypesCountState',
+  get: ({ get }) => {
+    const cartItems = get(cartItemsState);
+    const checkedItems = cartItems.filter((cartItem) => get(checkedItemsState(cartItem.id)));
+
+    return checkedItems.length;
+  },
+});
+
 export const deliveryPriceState = selector<number>({
   key: 'deliveryPriceState',
   get: ({ get }) => {
