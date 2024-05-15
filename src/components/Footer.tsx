@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const FooterContainer = styled.div`
@@ -19,8 +20,16 @@ const FooterContainer = styled.div`
   align-items: center;
 `;
 
-function Footer() {
-  return <FooterContainer>주문 확인</FooterContainer>;
+interface FooterProps {
+  url: string;
+}
+
+function Footer({ url }: FooterProps) {
+  return (
+    <Link to={url}>
+      <FooterContainer>주문 확인</FooterContainer>
+    </Link>
+  );
 }
 
 export default Footer;

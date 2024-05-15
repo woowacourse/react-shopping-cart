@@ -40,7 +40,7 @@ function Cart() {
         <TotalAmount />
       </ContentWrapper>
 
-      <Footer />
+      <Footer url="/completed" />
     </CartContainer>
   );
 }
