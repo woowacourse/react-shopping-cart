@@ -90,8 +90,8 @@
 - [ ] api
 
   - [ ] cartItems get
-  - [ ] cartItem/[id] patch
-  - [ ] cartItem/[id] delete
+  - [ ] cartItems/[id] patch
+  - [ ] cartItems/[id] delete
 
 - [ ] UI
 
@@ -116,16 +116,18 @@
 
 1. CartList
 
-- [ ] atom, selector 정의 (cartItemsState, selectedCartItemIds)
-- [ ] 장바구니 상품 목록 불러오기 (api fetching)
-- [ ] CartItem
-  - [ ] cartItem/[id] patch (개수 수정)
-  - [ ] cartItem/[id] delete (장바구니 상품 삭제)
-  - [ ] UI 구현(prop: cartItem)
-- [ ] 전체 선택 기능 구현
-- [ ] empty case 대응
+- [x] atom 정의 (cartItemsState, selectedCartItemIds)
+- [x] selector 정의 (cartItemsWithIsSelected)
+- [x] 장바구니 상품 목록 불러오기 (api fetching)
+- [x] CartItem
+  - [x] cartItems/[id] patch (개수 수정)
+  - [x] cartItems/[id] delete (장바구니 상품 삭제)
+  - [x] UI 구현(prop: cartItem)
+- [x] empty case 대응
+- [x] atom & select 세부 구현(api, session storage 연결) & 적용
+- [x] 전체 선택 기능 구현
 
-2. CartAmount
+1. CartAmount
 
 - [ ] selector 정의 (orderAmount, deliveryCost, totalOrderAmount)
 - [ ] UI 구현
