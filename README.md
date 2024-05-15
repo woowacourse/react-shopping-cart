@@ -21,8 +21,8 @@
 - UI 컴포넌트 작업
   - [x] Header
   - [x] CartHeader
-  - [ ] CartItemList
-  - [ ] CartItem
+  - [ ] CartItemCardList
+  - [x] CartItemCard
   - [ ] CartSummary
   - [x] HeaderButton
   - [x] ConfirmButton
