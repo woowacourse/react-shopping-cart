@@ -31,7 +31,8 @@
       "@pages/*": ["src/pages/*"],
       "@hooks/*": ["src/hooks/*"],
       "@apis/*": ["src/apis/*"],
-      "@recoil/*": ["src/recoil/*"]
+      "@recoil/*": ["src/recoil/*"],
+      "@assets/*": ["src/assets/*"]
     }
   },
   "include": ["src"],

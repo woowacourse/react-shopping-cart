@@ -12,5 +12,6 @@ export default {
     '@hooks/(.*)': '<rootDir>/src/hooks/$1',
     '@apis/(.*)': '<rootDir>/src/apis/$1',
     '@recoil/(.*)': '<rootDir>/src/recoil/$1',
+    '@assets/(.*)': '<rootDir>/src/assets/$1',
   },
 };
