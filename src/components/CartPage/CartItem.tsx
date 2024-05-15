@@ -19,6 +19,9 @@ interface CardItemProps {
 
 const CartItem = ({ product, handleDelete }: CardItemProps) => {
   const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
+  const quantities = useRecoilValue(quantityAtom);
+  const quantity = quantities[product.id];
+  const [checkedIds, setCheckedIds] = useRecoilState(cartItemCheckedIdsAtom);
 
   const setQuantity = (quantity: number) => {
     setCartItems((prev) =>
@@ -30,12 +33,6 @@ const CartItem = ({ product, handleDelete }: CardItemProps) => {
       })
     );
   };
-
-  // const [quantity, setQuantity] = useState(product.quantity);
-  const quantities = useRecoilValue(quantityAtom);
-  const quantity = quantities[product.id];
-  // const [quantity, setQuantity] = useRecoilState(quantityAtom); //
-  const [checkedIds, setCheckedIds] = useRecoilState(cartItemCheckedIdsAtom);
 
   const handleChecked = () => {
     const alreadyChecked = checkedIds.includes(product.id);

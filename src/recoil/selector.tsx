@@ -1,5 +1,13 @@
-import { atom, selector, selectorFamily } from "recoil";
+import { selector } from "recoil";
 import { cartItemCheckedIdsAtom, cartItemsAtom } from "./atom";
+
+export const quantityAtom = selector({
+  key: "cartItemQuantity",
+  get: ({ get }) => {
+    const cartItems = get(cartItemsAtom);
+    return Object.fromEntries(cartItems.map((item) => [item.id, item.quantity]));
+  },
+});
 
 export const orderPriceSelector = selector({
   key: "orderPriceSelector",
@@ -15,10 +23,19 @@ export const orderPriceSelector = selector({
   },
 });
 
-export const quantityAtom = selector({
-  key: "cartItemQuantity",
+export const shippingFeeSelector = selector({
+  key: "shippingFeeSelector",
   get: ({ get }) => {
-    const cartItems = get(cartItemsAtom);
-    return Object.fromEntries(cartItems.map((item) => [item.id, item.quantity]));
+    const orderPrice = get(orderPriceSelector);
+    return orderPrice >= 100000 ? 0 : 3000;
+  },
+});
+
+export const totalPriceSelector = selector({
+  key: "totalPriceSelector",
+  get: ({ get }) => {
+    const orderPrice = get(orderPriceSelector);
+    const shippingFee = get(shippingFeeSelector);
+    return orderPrice + shippingFee;
   },
 });

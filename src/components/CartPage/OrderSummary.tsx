@@ -4,11 +4,13 @@ import InfoIcon from "../../assets/InfoIcon.svg?react";
 import Splitter from "../default/Splitter";
 import LabelValue from "./LabelValue";
 import { useRecoilValue } from "recoil";
-import { orderPriceSelector } from "../../recoil/selector";
+import { orderPriceSelector, shippingFeeSelector, totalPriceSelector } from "../../recoil/selector";
 import { formatCurrency } from "../../utils/formatCurrency";
 
 const OrderSummary = () => {
   const orderPrice = useRecoilValue(orderPriceSelector);
+  const shippingFee = useRecoilValue(shippingFeeSelector);
+  const totalPrice = useRecoilValue(totalPriceSelector);
   return (
     <div className={OrderSummaryCSS}>
       <div className={InfoContainer}>
@@ -17,9 +19,9 @@ const OrderSummary = () => {
       </div>
       <Splitter />
       <LabelValue label="주문 금액" value={formatCurrency(orderPrice)} />
-      <LabelValue label="배송비" value="0원" />
+      <LabelValue label="배송비" value={formatCurrency(shippingFee)} />
       <Splitter />
-      <LabelValue label="총 결제금액" value="0원" />
+      <LabelValue label="총 결제금액" value={formatCurrency(totalPrice)} />
     </div>
   );
 };
