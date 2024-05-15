@@ -1,13 +1,15 @@
 /** @jsxImportSource @emotion/react */
+import { useRecoilValue } from "recoil";
 import { CartItemTypesCountStyle, CartTitleStyle } from "./CartTitle.style";
+import { itemIdsState } from "../../../../store/atom/atoms";
 
 const CartTitle = () => {
-  const count = 3;
+  const ids = useRecoilValue(itemIdsState);
 
   return (
     <div>
       <h1 css={CartTitleStyle}>장바구니</h1>
-      <div css={CartItemTypesCountStyle}>현재 {count}종류의 상품이 담겨 있습니다.</div>
+      <div css={CartItemTypesCountStyle}>현재 {ids.length}종류의 상품이 담겨 있습니다.</div>
     </div>
   );
 };

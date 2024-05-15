@@ -7,7 +7,7 @@
 2. Main
    1. Cart Title
       - [x] 페이지 설명
-      - [ ] 총 상품 개수 출력
+      - [x] 총 상품 개수 출력
    2. Cart Item Container
       1. CartItemControls
          - [x] 전체 선택 기능
