@@ -7,6 +7,7 @@ export const StyledCartItemCard = styled.div`
   flex-direction: column;
   gap: 12px;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 12px;
 `;
 
 export const StyledCartItemCardHeader = styled.div`
@@ -40,7 +41,7 @@ export const StyledProductName = styled.span`
   font-weight: 500;
   line-height: 15px;
   text-align: left;
-  background: rgba(10, 13, 19, 1);
+  color: rgba(10, 13, 19, 1);
   margin-bottom: 4px;
 `;
 
@@ -50,7 +51,7 @@ export const StyledProductPrice = styled.span`
   font-weight: 700;
   line-height: 34.75px;
   text-align: left;
-  background: rgba(0, 0, 0, 1);
+  color: rgba(0, 0, 0, 1);
 `;
 
 export const StyledProductQuantityContainer = styled.div`

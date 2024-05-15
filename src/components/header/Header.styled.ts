@@ -7,4 +7,5 @@ export const StyledHeaderContainer = styled.div`
   height: 64px;
   padding: 0px 24px;
   background: rgba(0, 0, 0, 1);
+  box-sizing: border-box;
 `;

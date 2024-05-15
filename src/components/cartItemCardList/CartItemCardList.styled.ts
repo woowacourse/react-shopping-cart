@@ -20,4 +20,5 @@ export const StyledCartItemSelectText = styled.span`
   font-weight: 500;
   line-height: 15px;
   text-align: left;
+  color: rgba(10, 13, 19, 1);
 `;

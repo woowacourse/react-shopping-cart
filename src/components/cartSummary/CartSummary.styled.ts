@@ -5,6 +5,7 @@ export const StyledDeliveryInfo = styled.div`
   justify-content: start;
   gap: 4px;
   margin-bottom: 12px;
+  width: 100%;
 `;
 
 export const StyledDeliveryInfoImg = styled.img`
