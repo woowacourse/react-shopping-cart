@@ -6,14 +6,16 @@ import { CartItem } from '../../api/get/getItems';
 
 interface ShoppingCartItemProps {
   cartItem: CartItem;
+  isSelected: (id: number) => boolean;
+  onCheckboxClick: (cartItem: CartItem) => void;
 }
 
-const ShoppingCartItem = ({ cartItem }: ShoppingCartItemProps) => {
+const ShoppingCartItem = ({ cartItem, isSelected, onCheckboxClick }: ShoppingCartItemProps) => {
   return (
     <S.Container>
       <S.Hr />
       <S.Header>
-        <Checkbox id={cartItem.id} isChecked={true} />
+        <Checkbox isChecked={isSelected(cartItem.id)} onClick={() => onCheckboxClick(cartItem)} />
         <DeleteButton />
       </S.Header>
       <S.Contents>
