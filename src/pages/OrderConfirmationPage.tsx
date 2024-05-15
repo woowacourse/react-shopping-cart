@@ -1,3 +1,4 @@
+import { ConfirmButton } from "../components/button/ConfirmButton";
 import Header from "../components/header/Header";
 import {
   StyledConfirmatioinPagePriceContainer,
@@ -29,6 +30,7 @@ export const OrderConfirmationPage: React.FC = () => {
           </StyledConfirmationPagePrice>
         </StyledConfirmatioinPagePriceContainer>
       </StyledConfirmationPage>
+      <ConfirmButton text="결제하기" backgroundColor="rgba(190, 190, 190, 1)" />
     </>
   );
 };
