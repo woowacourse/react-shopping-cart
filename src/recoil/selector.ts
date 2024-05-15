@@ -8,3 +8,14 @@ export const categoryCountState = selector<number>({
     return cartItems.length;
   },
 });
+
+export const orderPriceState = selector<number>({
+  key: "orderPriceState",
+  get: ({ get }) => {
+    const cartItems = get(cartItemsState);
+    const orderPrice = cartItems.reduce((total, item) => {
+      return total + item.product.price * item.quantity;
+    }, 0);
+    return orderPrice;
+  },
+});
