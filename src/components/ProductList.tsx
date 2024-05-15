@@ -8,6 +8,14 @@ import styled from 'styled-components';
 import CheckBox from './CheckBox';
 import { toggleAllSelector } from '../recoil/selectors';
 
+const ProductListContainer = styled.div`
+  margin-top: 3.6rem;
+  margin-bottom: 5.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+`;
+
 const CheckBoxContainer = styled.div`
   display: flex;
   gap: 0.8rem;
@@ -64,7 +72,7 @@ function ProductList() {
   }
 
   return (
-    <>
+    <ProductListContainer>
       <CheckBoxContainer>
         <CheckBox isChecked={isAllChecked} onClick={handleToggleAll} />
         전체선택
@@ -75,7 +83,7 @@ function ProductList() {
           return <ProductCard key={product.id} product={product} />;
         })}
       </CartItemListContainer>
-    </>
+    </ProductListContainer>
   );
 }
 
