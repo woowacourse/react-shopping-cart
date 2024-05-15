@@ -19,6 +19,7 @@ const LimitedWidthContainer = styled.div`
   align-items: center;
 
   background-color: white;
+  overflow: scroll;
 `;
 
 type MobileLayoutProps = {
