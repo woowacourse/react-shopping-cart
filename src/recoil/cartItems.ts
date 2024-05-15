@@ -28,6 +28,14 @@ export const checkedItemsState = atomFamily<boolean, number>({
   },
 });
 
+export const isAllUnCheckedState = selector<boolean>({
+  key: 'isAllUnCheckedState',
+  get: ({ get }) => {
+    const cartItems = get(cartItemsState);
+    return !cartItems.some((cartItem) => get(checkedItemsState(cartItem.id)));
+  },
+});
+
 export const orderTotalPriceState = selector<number>({
   key: 'orderTotalPriceState',
   get: ({ get }) => {
