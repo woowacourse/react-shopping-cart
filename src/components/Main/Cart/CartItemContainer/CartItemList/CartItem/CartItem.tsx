@@ -16,10 +16,9 @@ import {
 import QuantityButton from "../../../../../Button/QuantityButton/QuantityButton";
 import Divider from "../../../../../Divider/Divider";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { itemQuantityState } from "../../../../../../store/atom/cartItemQuantity";
 import { useEffect } from "react";
-import { itemEachCheckState, itemIdsState } from "../../../../../../store/atom/cartItemCheck";
-import { API_TOKEN } from "../../../../../../store/utils";
+import { itemEachCheckState, itemIdsState, itemQuantityState } from "../../../../../../store/atom/atoms";
+import { deleteProduct } from "../../../../../../store/api";
 
 interface CartItemProps {
   CartItemInfo: CartItemInfo;
@@ -46,12 +45,7 @@ const CartItem = ({ CartItemInfo }: CartItemProps) => {
       return [...arr.slice(0, index), ...arr.slice(index + 1)];
     });
 
-    (async () => {
-      await fetch(import.meta.env.VITE_API_BASE_URL + `/cart-items/${cartId}`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
-      });
-    })();
+    deleteProduct(cartId);
 
     //TODO: Route refresh
   };

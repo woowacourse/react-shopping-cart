@@ -2,7 +2,7 @@
 import { useRecoilState } from "recoil";
 import Checkbox from "../../../../Button/Checkbox/Checkbox";
 import { ControlStyle } from "./CartItemControls.style";
-import { checkAllItemState } from "../../../../../store/atom/cartItemCheck";
+import { checkAllItemState } from "../../../../../store/selector/selectors";
 
 const CartItemControls = () => {
   const [state, setState] = useRecoilState(checkAllItemState);

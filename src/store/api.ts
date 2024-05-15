@@ -1,9 +1,8 @@
-import { selector } from "recoil";
-import { API_TOKEN } from "../utils";
+import { API_TOKEN } from "./utils";
 
 type MethodType = "GET" | "POST";
 
-const fetchProducts = async (method: MethodType) => {
+export const fetchProducts = async (method: MethodType) => {
   try {
     const token = API_TOKEN;
     const url = import.meta.env.VITE_API_BASE_URL + "/cart-items";
@@ -20,10 +19,9 @@ const fetchProducts = async (method: MethodType) => {
   }
 };
 
-export const cartState = selector({
-  key: "cartState",
-  get: async () => {
-    const products = await fetchProducts("GET");
-    return products.content;
-  },
-});
+export const deleteProduct = async (cartId: number) => {
+  await fetch(import.meta.env.VITE_API_BASE_URL + `/cart-items/${cartId}`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
+  });
+};
