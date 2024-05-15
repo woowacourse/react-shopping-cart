@@ -11,7 +11,6 @@ const OrderButton = ({ isOrderable, onClick, label }: OrderButtonProp) => {
       onClick={() => onClick}
       $isOrderable={isOrderable}
       disabled={!isOrderable}
-      type="button"
     >
       {label}
     </Styled.OrderButton>
