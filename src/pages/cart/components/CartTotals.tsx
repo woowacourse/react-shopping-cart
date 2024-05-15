@@ -1,0 +1,31 @@
+import noticeIcon from '../../../asset/noticeIcon.png';
+import styles from '../Cart.module.css';
+
+export default function CartTotals() {
+  return (
+    <div className={styles.cartContentWrapper}>
+      <div className={styles.cartTotalsNoticeWrapper}>
+        <img src={noticeIcon} width={13} height={13} />
+        <span className={styles.labelText}>
+          총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+        </span>
+      </div>
+      <div className={styles.cartTotalsWrapper}>
+        <div className={styles.cartToTalsTextWrapper}>
+          <span className={styles.subtitleText}>주문 금액</span>
+          <span className={styles.titleText}>70,000원</span>
+        </div>
+        <div className={styles.cartToTalsTextWrapper}>
+          <span className={styles.subtitleText}>배송비</span>
+          <span className={styles.titleText}>3,000원</span>
+        </div>
+      </div>
+      <div className={styles.cartTotalsWrapper}>
+        <div className={styles.cartToTalsTextWrapper}>
+          <span className={styles.subtitleText}>총 결제 금액</span>
+          <span className={styles.titleText}>73,000원</span>
+        </div>
+      </div>
+    </div>
+  );
+}
