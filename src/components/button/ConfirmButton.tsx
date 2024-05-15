@@ -19,7 +19,7 @@ export const ConfirmButton: React.FC<ConfirmButtonProps> = ({
   return (
     <StyledConfirmButton
       onClick={navigateToOrderConfirmationPage}
-      backgroundColor={backgroundColor}
+      $backgroundColor={backgroundColor}
     >
       {text}
     </StyledConfirmButton>
