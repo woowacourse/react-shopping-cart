@@ -1,6 +1,8 @@
+import * as S from './Divider.style'
+
 const Divider = () => {
-  return(
-    <>
+  return (
+    <S.Divider />
   )
 }
 
