@@ -21,6 +21,7 @@ export default function CartList({ products }: Props) {
             <CartItem
               key={product.id}
               id={product.id}
+              quantity={product.quantity}
               name={product.product.name}
               price={product.product.price}
               category={product.product.category}

@@ -1,7 +1,11 @@
+import { useRecoilValue } from 'recoil';
 import noticeIcon from '../../../asset/noticeIcon.png';
+import { totalOrderAmountState } from '../../../store/selectors';
 import styles from '../Cart.module.css';
+import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
 
 export default function CartTotals() {
+  const totalAmount = useRecoilValue(totalOrderAmountState);
   return (
     <div className={styles.cartContentWrapper}>
       <div className={styles.cartTotalsNoticeWrapper}>
@@ -13,7 +17,7 @@ export default function CartTotals() {
       <div className={styles.cartTotalsWrapper}>
         <div className={styles.cartToTalsTextWrapper}>
           <span className={styles.subtitleText}>주문 금액</span>
-          <span className={styles.titleText}>70,000원</span>
+          <span className={styles.titleText}>{formatKoreanCurrency(totalAmount)}</span>
         </div>
         <div className={styles.cartToTalsTextWrapper}>
           <span className={styles.subtitleText}>배송비</span>
