@@ -4,14 +4,16 @@ import { useRecoilValue } from "recoil";
 import { cartItemsAtom } from "../../recoil/atom";
 
 const CartTitle = () => {
-  const cartItmes = useRecoilValue(cartItemsAtom);
+  const cartItems = useRecoilValue(cartItemsAtom);
 
   return (
     <div className={cartTitleCSS}>
       <div className={cartTitleTextCSS}>장바구니</div>
-      <div className={cartTitleSubTextCSS}>
-        <p>현재 {cartItmes.length}종류의 상품이 담겨있습니다.</p>
-      </div>
+      {cartItems.length > 0 && (
+        <div className={cartTitleSubTextCSS}>
+          <p>현재 {cartItems.length}종류의 상품이 담겨있습니다.</p>
+        </div>
+      )}
     </div>
   );
 };
