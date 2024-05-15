@@ -1,14 +1,30 @@
-import React from "react";
-import { useRecoilValue } from "recoil";
+import { useEffect } from "react";
+
+import { useRecoilState, useRecoilValue } from "recoil";
 import { cartItems } from "../../recoil/selectors/selectors";
-import { CartItemType } from "../../types";
+import { isSelectedState } from "../../recoil/atoms/atoms";
+
 import CartItem from "../CartItem";
+
+import { CartItemType } from "../../types";
 import { Wrapper, Footer, AllCheckWrapper } from "./style";
 import infoOutline from "../../assets/images/infoOutline.png";
 import OutlineCheck from "../../assets/icon/OutlineCheck";
 
 const CartItemList = () => {
   const cartItemList = useRecoilValue(cartItems);
+  const [isSelected, setIsSelected] = useRecoilState(isSelectedState);
+
+  useEffect(() => {
+    if (cartItemList.length !== isSelected.length) {
+      const initialSelection: { [key: number]: boolean } = {};
+
+      cartItemList.forEach((item) => {
+        initialSelection[item.id] = false;
+      });
+      setIsSelected(initialSelection);
+    }
+  }, []);
 
   return (
     <Wrapper>
@@ -17,7 +33,7 @@ const CartItemList = () => {
         <span>전체선택</span>
       </AllCheckWrapper>
       {cartItemList.map((cartItem: CartItemType) => (
-        <CartItem cartItem={cartItem} />
+        <CartItem key={cartItem.id} cartItem={cartItem} />
       ))}
       <Footer>
         <img src={infoOutline} />
