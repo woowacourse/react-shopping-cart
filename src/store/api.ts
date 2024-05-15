@@ -25,3 +25,19 @@ export const deleteProduct = async (cartId: number) => {
     headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
   });
 };
+
+interface ChangeProductAmountProps {
+  quantity: number;
+  cartId: number;
+  type: "plus" | "minus";
+}
+
+export const changeProductAmount = async ({ quantity, cartId, type }: ChangeProductAmountProps) => {
+  await fetch(import.meta.env.VITE_API_BASE_URL + `/cart-items/${cartId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
+    body: JSON.stringify({
+      quantity: type === "plus" ? quantity + 1 : quantity - 1,
+    }),
+  });
+};

@@ -9,11 +9,11 @@ const AddButton = () => {
       css={AddButtonStyle}
       onClick={() => {
         const fn = async () => {
-          await fetch(import.meta.env.VITE_API_BASE_URL + "/cart-items/329", {
-            method: "PATCH",
+          await fetch(import.meta.env.VITE_API_BASE_URL + "/cart-items", {
+            method: "POST",
             headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
             body: JSON.stringify({
-              quantity: 2,
+              productId: 11,
             }),
           });
         };
