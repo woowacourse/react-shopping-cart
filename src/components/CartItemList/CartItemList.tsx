@@ -6,7 +6,12 @@ import type { TCartItem } from '../../types/CartItem.type';
 import { removeCartItems, updateCartItemQuantity } from '../../apis';
 import * as S from './CartItemList.style';
 
-function CartItemList({ cartItems, updateCartItems }: { cartItems: TCartItem[]; updateCartItems: () => void }) {
+interface CartItemListProps {
+  cartItems: TCartItem[];
+  updateCartItems: () => void;
+}
+
+function CartItemList({ cartItems, updateCartItems }: CartItemListProps) {
   const [selectedItems, setSelectedItems] = useRecoilState(selectedCartItemState);
 
   const isAllSelected = selectedItems.length === cartItems.length;
@@ -21,9 +26,6 @@ function CartItemList({ cartItems, updateCartItems }: { cartItems: TCartItem[]; 
 
     if (status === 200) {
       updateCartItems();
-
-      const newSelectedItems = cartItems.filter((el) => selectedItems.some((item) => el.id === item.id));
-      setSelectedItems(newSelectedItems);
     }
   };
 
@@ -32,9 +34,6 @@ function CartItemList({ cartItems, updateCartItems }: { cartItems: TCartItem[]; 
 
     if (status === 204) {
       updateCartItems();
-
-      const newSelectedItems = cartItems.filter((el) => selectedItems.some((item) => el.id === item.id));
-      setSelectedItems(newSelectedItems);
     }
   };
 

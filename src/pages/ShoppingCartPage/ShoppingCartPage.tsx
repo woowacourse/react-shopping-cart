@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { useLoaderData, Await, Link } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import TitleContainer from '../../components/TitleContainer/TitleContainer';
@@ -10,19 +10,22 @@ import type { TCartItem } from '../../types/CartItem.type';
 import { fetchCartItems } from '../../apis';
 import { selectedCartItemState } from '../../recoil/atoms/atoms';
 import { EmptyCart } from '../../assets';
-import * as S from './ShoppingCartPage.style';
 import { PATHS } from '../../constants/PATHS';
+import * as S from './ShoppingCartPage.style';
 
 function ShoppingCartPage() {
   const initialValue = useLoaderData() as TCartItem[];
 
   const [cartItems, setCartItems] = useState<TCartItem[]>(initialValue);
 
-  const selectedItems = useRecoilValue(selectedCartItemState);
+  const [selectedItems, setSelectedItems] = useRecoilState(selectedCartItemState);
 
   const updateCartItems = async () => {
     const newCartItems = await fetchCartItems();
     setCartItems(newCartItems);
+
+    const newSelectedItems = newCartItems.filter((el) => selectedItems.some((item) => el.id === item.id));
+    setSelectedItems(newSelectedItems);
   };
 
   const hasCartItems = cartItems.length !== 0;
