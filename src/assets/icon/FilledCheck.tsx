@@ -19,7 +19,7 @@ const FilledCheck = ({ color }: FilledCheckProps) => {
         boxSizing: "content-box",
       }}
     >
-      <g clip-path="url(#clip0_4873_53)">
+      <g clipPath="url(#clip0_4873_53)">
         <path
           d="M9.1157 16.17L4.9457 12L3.5257 13.41L9.1157 19L21.1157 7L19.7057 5.59L9.1157 16.17Z"
           fill={color}

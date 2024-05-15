@@ -17,13 +17,13 @@ const OutlineCheck = () => {
         height="23"
         rx="7.5"
         stroke="black"
-        stroke-opacity="0.1"
+        strokeOpacity="0.1"
       />
-      <g clip-path="url(#clip0_4664_1418)">
+      <g clipPath="url(#clip0_4664_1418)">
         <path
           d="M9.88425 16.17L5.71425 12L4.29425 13.41L9.88425 19L21.8843 7L20.4743 5.59L9.88425 16.17Z"
           fill="black"
-          fill-opacity="0.1"
+          fillOpacity="0.1"
         />
       </g>
       <defs>
