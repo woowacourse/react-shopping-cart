@@ -1,4 +1,4 @@
-// import "./App.css";
+import { Suspense } from "react";
 import {
   CartDescription,
   CartItemList,
@@ -13,9 +13,11 @@ function App() {
     <div>
       <Header />
       <Layout>
-        <CartDescription count={2} />
-        <CartItemList />
-        <CartPrice />
+        <Suspense fallback={<div>Loading</div>}>
+          <CartDescription />
+          <CartItemList />
+          <CartPrice />
+        </Suspense>
       </Layout>
       <Footer />
     </div>
