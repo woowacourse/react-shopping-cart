@@ -22,17 +22,23 @@ export default function ProductTotalPriceList() {
       <OrderPrice>
         <PriceGroup>
           <span className="price-group_title">주문 금액</span>
-          <span className="price-group_price">{totalOrderPrice}원</span>
+          <span className="price-group_price">
+            {totalOrderPrice.toLocaleString('ko-kr')}원
+          </span>
         </PriceGroup>
         <PriceGroup>
           <span className="price-group_title">배송비</span>
-          <span className="price-group_price">{deliveryFee}원</span>
+          <span className="price-group_price">
+            {deliveryFee.toLocaleString('ko-kr')}원
+          </span>
         </PriceGroup>
       </OrderPrice>
       <OrderPrice>
         <PriceGroup>
           <span className="price-group_title">총 결제 금액</span>
-          <span className="price-group_price">{totalPrice}원</span>
+          <span className="price-group_price">
+            {totalPrice.toLocaleString('ko-kr')}원
+          </span>
         </PriceGroup>
       </OrderPrice>
     </section>

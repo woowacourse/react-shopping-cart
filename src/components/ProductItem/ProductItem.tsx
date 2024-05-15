@@ -73,7 +73,7 @@ export default function ProductItem({ cartItem }: { cartItem: Cart }) {
             {cartItem.product.name}
           </span>
           <span className="product-item_content_price">
-            {cartItem.product.price}원
+            {cartItem.product.price.toLocaleString('ko-kr')}원
           </span>
           <div className="product-item_content_amount-bundle">
             <CountButton type="minus" onClick={handleDecrement} />
