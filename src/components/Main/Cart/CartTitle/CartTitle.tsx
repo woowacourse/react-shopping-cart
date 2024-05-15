@@ -9,7 +9,7 @@ const CartTitle = () => {
   return (
     <div>
       <h1 css={CartTitleStyle}>장바구니</h1>
-      <div css={CartItemTypesCountStyle}>현재 {ids.length}종류의 상품이 담겨 있습니다.</div>
+      {ids.length !== 0 && <div css={CartItemTypesCountStyle}>현재 {ids.length}종류의 상품이 담겨 있습니다.</div>}
     </div>
   );
 };

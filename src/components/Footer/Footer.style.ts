@@ -18,4 +18,9 @@ export const FooterStyle = css({
 
   fontSize: "16px",
   fontWeight: "700",
+
+  "&:disabled": {
+    backgroundColor: COLOR_PALETTE.normalGrey,
+    cursor: "default",
+  },
 });
