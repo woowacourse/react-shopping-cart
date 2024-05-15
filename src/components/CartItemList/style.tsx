@@ -4,15 +4,18 @@ export const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 24px;
   padding-bottom: 12px;
-  border: 1px solid red;
+`;
+
+export const AllCheckWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
 `;
 
 export const Footer = styled.div`
   display: flex;
-  font-weight: 500;
-  font-size: var(--font-size-sm);
-  line-height: 15px;
   margin-top: 30px;
 `;

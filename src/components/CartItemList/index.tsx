@@ -3,14 +3,19 @@ import { useRecoilValue } from "recoil";
 import { cartItems } from "../../recoil/selectors/selectors";
 import { CartItemType } from "../../types";
 import CartItem from "../CartItem";
-import { Wrapper, Footer } from "./style";
+import { Wrapper, Footer, AllCheckWrapper } from "./style";
 import infoOutline from "../../assets/images/infoOutline.png";
+import OutlineCheck from "../../assets/icon/OutlineCheck";
 
 const CartItemList = () => {
   const cartItemList = useRecoilValue(cartItems);
 
   return (
     <Wrapper>
+      <AllCheckWrapper>
+        <OutlineCheck />
+        <span>전체선택</span>
+      </AllCheckWrapper>
       {cartItemList.map((cartItem: CartItemType) => (
         <CartItem cartItem={cartItem} />
       ))}
