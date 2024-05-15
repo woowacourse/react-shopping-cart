@@ -1,4 +1,3 @@
-import React from "react";
 import { CartItemType } from "../../types";
 import Button from "../common/Button";
 import { useRecoilState } from "recoil";
@@ -19,7 +18,6 @@ import OutlineCheck from "../../assets/icon/OutlineCheck";
 
 interface CardItemProps {
   cartItem: CartItemType;
-  key: number;
 }
 
 const CardItem = ({ cartItem }: CardItemProps) => {
@@ -30,11 +28,9 @@ const CardItem = ({ cartItem }: CardItemProps) => {
   }>(isSelectedState);
 
   const handleToggleSelectItem = () => {
-    setIsSelected((prev) => {
-      const copyIsSelected = { ...prev };
-      copyIsSelected[id] = !copyIsSelected[id];
-      return copyIsSelected;
-    });
+    const copyIsSelected = { ...isSelected };
+    copyIsSelected[id] = !copyIsSelected[id];
+    setIsSelected(copyIsSelected);
   };
 
   return (

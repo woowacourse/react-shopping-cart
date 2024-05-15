@@ -10,26 +10,50 @@ import { CartItemType } from "../../types";
 import { Wrapper, Footer, AllCheckWrapper } from "./style";
 import infoOutline from "../../assets/images/infoOutline.png";
 import OutlineCheck from "../../assets/icon/OutlineCheck";
+import FilledCheck from "../../assets/icon/FilledCheck";
+import Button from "../common/Button";
 
 const CartItemList = () => {
   const cartItemList = useRecoilValue(cartItems);
   const [isSelected, setIsSelected] = useRecoilState(isSelectedState);
+  const isAllSelected = Object.values(isSelected).every((value) => value);
 
   useEffect(() => {
-    if (cartItemList.length !== isSelected.length) {
-      const initialSelection: { [key: number]: boolean } = {};
-
-      cartItemList.forEach((item) => {
-        initialSelection[item.id] = false;
-      });
-      setIsSelected(initialSelection);
-    }
+    const newDate: { [key: number]: boolean } = {};
+    cartItemList.forEach((cartItem) => {
+      if (Object.keys(isSelected).includes(cartItem.id.toString())) {
+        newDate[cartItem.id] = isSelected[cartItem.id];
+      } else {
+        newDate[cartItem.id] = false;
+      }
+    });
+    setIsSelected(newDate);
   }, []);
+
+  const handleSelectAllItem = (type: boolean) => {
+    const copyIsSelected = { ...isSelected };
+    Object.keys(copyIsSelected).forEach(
+      (isSelected) => (copyIsSelected[isSelected] = type)
+    );
+
+    setIsSelected(copyIsSelected);
+  };
 
   return (
     <Wrapper>
       <AllCheckWrapper>
-        <OutlineCheck />
+        {isAllSelected ? (
+          <Button
+            $borderRadius="8px"
+            onClick={() => handleSelectAllItem(false)}
+          >
+            <FilledCheck color="white" />
+          </Button>
+        ) : (
+          <Button $borderRadius="8px" onClick={() => handleSelectAllItem(true)}>
+            <OutlineCheck />
+          </Button>
+        )}
         <span>전체선택</span>
       </AllCheckWrapper>
       {cartItemList.map((cartItem: CartItemType) => (
