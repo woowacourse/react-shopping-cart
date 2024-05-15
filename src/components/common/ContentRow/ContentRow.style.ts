@@ -6,4 +6,5 @@ export const ContentRow = styled.div`
   align-items: center;
 
   width: 100%;
+  height: 42px;
 `;
