@@ -18,13 +18,13 @@ const Button = ({
   color = 'default',
   square = false,
   children,
-  isDisabled,
+  isDisabled = false,
   ...rest
 }: ButtonProps) => {
   return (
     <S.Button
-      isDisabled={isDisabled}
-      onClick={!isDisabled ? rest.onClick : () => {}}
+      disabled={isDisabled}
+      onClick={rest.onClick}
       size={size}
       width={width}
       radius={radius}
