@@ -13,11 +13,13 @@ type Story = StoryObj<typeof meta>;
 export const 비활성화: Story = {
   args: {
     isSelectAll: false,
+    onSelectAllClick: () => console.log('올리'),
   },
 };
 
 export const 활성화: Story = {
   args: {
     isSelectAll: true,
+    onSelectAllClick: () => console.log('올리'),
   },
 };

@@ -10,4 +10,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const 기본: Story = {};
+export const 기본: Story = {
+  args: {
+    cartItems: [],
+  },
+};
