@@ -16,7 +16,7 @@ interface Props {
 }
 
 const CartItem = ({ item, handleDelete }: Props) => {
-  const { id, quantity, product } = item;
+  const { id, product } = item;
 
   const [itemState, setItemState] = useRecoilState(cartItemState(item.id));
   // const [loading, setLoading] = useState(false);
@@ -26,7 +26,7 @@ const CartItem = ({ item, handleDelete }: Props) => {
   useEffect(() => {
     setItemState({
       id,
-      quantity,
+      quantity: itemState.quantity,
       price: item.product.price,
       isSelected: itemState.isSelected,
     });
@@ -43,11 +43,17 @@ const CartItem = ({ item, handleDelete }: Props) => {
       const patchData = async () => {
         await patchCartItem(id, quantity);
 
+        if (quantity <= 0) {
+          const newValue = { ...itemState };
+          newValue.quantity = 0;
+          setItemState(newValue);
+          return;
+        }
+
         const cartItemsData = await getCartItems();
         const newData = cartItemsData.find((item) => item.id === id) || item;
         const newValue = { ...itemState };
         newValue.quantity = newData?.quantity;
-
         setItemState(newValue);
       };
 
