@@ -26,7 +26,13 @@ export const checkedCartItems = selector({
   },
 });
 
-export const calculateOrderPrice = selector<number>({
+interface Price {
+  totalOrderPrice: number;
+  deliveryFee: number;
+  totalPrice: number;
+}
+
+export const calculateOrderPrice = selector<Price>({
   key: 'calculateOrderPrice',
   get: ({ get }) => {
     const checkedCart = get(checkedCartItems);
@@ -34,7 +40,10 @@ export const calculateOrderPrice = selector<number>({
       (acc, item) => acc + item.quantity * item.product.price,
       0,
     );
+    const deliveryFee =
+      totalOrderPrice >= 100000 || totalOrderPrice === 0 ? 0 : 3000;
+    const totalPrice = totalOrderPrice + deliveryFee;
 
-    return totalOrderPrice;
+    return { totalOrderPrice, deliveryFee, totalPrice };
   },
 });
