@@ -1,16 +1,12 @@
 import info from '../../assets/info.svg';
 import * as S from './styled';
 import PriceInfo from '../PriceInfo/PriceInfo';
+import { useRecoilValue } from 'recoil';
+import { priceInfoStore } from '../../recoil/selectors';
 
-interface PaymentTotalProps {
-  priceInfo: {
-    order: number;
-    shipping: number;
-    total: number;
-  };
-}
+const PaymentTotal = () => {
+  const priceInfo = useRecoilValue(priceInfoStore);
 
-const PaymentTotal = ({ priceInfo }: PaymentTotalProps) => {
   return (
     <S.Container>
       <S.Info>
