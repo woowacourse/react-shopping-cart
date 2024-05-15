@@ -25,3 +25,25 @@ export async function fetchCartItems(): Promise<CartItemType[]> {
 
   return data.content;
 }
+
+/**
+ * updateCartItemQuantity - API에서 카트의 상품들을 fetch하는 비동기 함수입니다.
+ * @returns
+ */
+export async function updateCartItemQuantity(id: number, newQuantity: number) {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+
+  const response = await fetch(`${API_URL}/cart-items/${id}`, {
+    method: 'PATCH',
+    headers: { Authorization: token, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      quantity: newQuantity,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch cart items');
+  }
+
+  return { success: true };
+}

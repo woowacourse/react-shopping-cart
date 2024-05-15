@@ -3,6 +3,7 @@
 step 1. API 호출 데이터 확인
 
 - [x] `/cart-item`에 GET 요청으로 장바구니 목록 조회
+- [x] `/cart-item`에 PATCH 요청으로 장바구니 상품별 수량 변경
 - [ ] `/cart-item`에 POST 요청으로 장바구니에 상품 추가
 - [ ] `/cart-item/{id}`에 DELETE 요청으로 장바구니에 상품 제거
 

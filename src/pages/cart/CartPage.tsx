@@ -15,7 +15,6 @@ export default function CartPage() {
   const handleHomeButtonClick = () => {
     navigate(ROUTES.CART);
   };
-
   const products = useRecoilValue(productsState);
 
   return (
