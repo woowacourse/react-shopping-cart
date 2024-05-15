@@ -21,22 +21,29 @@ const ShoppingCart = () => {
     fetchItems();
   }, []);
 
+  const isOrderable = !!item?.length;
+
   return (
     <Styled.ShoppingCart>
       <Header title="SHOP" />
 
-      <Styled.Container>
-        <Title
-          title="장바구니"
-          caption={`현재 ${'2'}종류의 상품이 담겨있습니다.`}
-        ></Title>
-        {item && <ItemList cartItem={item} />}
-        <TotalPaymentInfo></TotalPaymentInfo>
-      </Styled.Container>
+      {isOrderable && (
+        <Styled.Container>
+          <Title
+            title="장바구니"
+            caption={`현재 ${item.length}종류의 상품이 담겨있습니다.`}
+          />
+          <ItemList cartItems={item} />
+          <TotalPaymentInfo></TotalPaymentInfo>
+        </Styled.Container>
+      )}
+
+      {!isOrderable && <Title title="장바구니" />}
+
       <OrderButton
         onClick={() => console.log('s')}
         label="주문 확인"
-        isOrderable={false}
+        isOrderable={isOrderable}
       />
     </Styled.ShoppingCart>
   );
