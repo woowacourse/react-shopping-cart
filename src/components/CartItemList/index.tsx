@@ -1,16 +1,13 @@
 import CheckboxButton from "../Button/CheckboxButton/index";
-import { useEffect } from "react";
-import { fetchCartItems } from "../../api/cartItem";
 import { useSetRecoilState, useRecoilValue, useRecoilState } from "recoil";
 import CartItem from "../CartItem/index";
-import { setCartPriceSelector, uncheckAllCartItemSelector, checkAllCartSelector } from "../../recoil/selectors";
+import { uncheckAllCartItemSelector, checkAllCartSelector } from "../../recoil/selectors";
 import { cartItemsState, checkedCartItemsState } from "../../recoil/atoms";
 import styled from "styled-components";
 
 const CartItemList = () => {
   const [cartItems, setCartItems] = useRecoilState(cartItemsState);
   const checkedCartItems = useRecoilValue(checkedCartItemsState);
-  const setCartPrice = useSetRecoilState(setCartPriceSelector);
   const checkAllCartItem = useSetRecoilState(checkAllCartSelector);
   const uncheckAllCartItem = useSetRecoilState(uncheckAllCartItemSelector);
 
@@ -18,19 +15,9 @@ const CartItemList = () => {
 
   const allCartItems = cartItems ? cartItems.map((item) => item.id) : [];
 
-  const fetchData = async () => {
-    const result = await fetchCartItems();
-    setCartItems(result);
-    setCartPrice(result);
-  };
-
   const removeCartItem = (itemId: number) => {
     setCartItems((prevItems) => prevItems?.filter((item) => item.id !== itemId));
   };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   return (
     <CartItemListContainer>
