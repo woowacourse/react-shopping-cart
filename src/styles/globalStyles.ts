@@ -58,6 +58,7 @@ table {
 button {
   border: none;
   cursor: pointer;
+  border-radius: 0;
 }
 button:hover,
 button:active,
@@ -66,10 +67,14 @@ button:focus {
 }
 
 #root {
+    min-height: 100vh;
     box-sizing: border-box;
     padding: 0;
     border: 1px solid #666;
-    height: 100vh;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 @media (max-width: 768px) {
