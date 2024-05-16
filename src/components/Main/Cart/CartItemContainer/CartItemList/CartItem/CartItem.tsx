@@ -19,6 +19,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { useCallback } from "react";
 import { itemEachCheckState, itemIdsState, itemQuantityState } from "../../../../../../store/atom/atoms";
 import { changeProductAmount, deleteProduct } from "../../../../../../store/api";
+import { useNavigate } from "react-router-dom";
 
 interface CartItemProps {
   CartItemInfo: CartItemInfo;
@@ -28,11 +29,8 @@ const CartItem = ({ CartItemInfo }: CartItemProps) => {
   const { id } = CartItemInfo;
   const [quantity, setQuantity] = useRecoilState(itemQuantityState);
   const [isCheck, setIsCheck] = useRecoilState(itemEachCheckState(id));
+  const navigate = useNavigate();
   const setItemIds = useSetRecoilState(itemIdsState);
-
-  // useEffect(() => {
-  //   setQuantity(CartItemInfo.quantity);
-  // }, [CartItemInfo.quantity, setQuantity]);
 
   const handleCheckBoxClick = () => {
     setIsCheck(!isCheck);
@@ -47,17 +45,20 @@ const CartItem = ({ CartItemInfo }: CartItemProps) => {
     });
   }, [id, setItemIds]);
 
-  const handleDeleteButtonClick = () => {
+  const executeDeleteProduct = () => {
     deleteProductId();
     deleteProduct(id);
-    //TODO: Route refresh
+    navigate(0);
+  };
+
+  const handleDeleteButtonClick = () => {
+    executeDeleteProduct();
   };
 
   const handleMinusButtonClick = () => {
     changeProductAmount({ type: "minus", quantity: quantity[id], id });
     if (quantity[id] === 1) {
-      deleteProductId();
-      deleteProduct(id);
+      executeDeleteProduct();
       return;
     }
 
