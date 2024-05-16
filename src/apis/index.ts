@@ -1,5 +1,6 @@
 import type { TCartItem } from '../types/CartItem.type';
 import { generateBasicToken } from '../utils/auth';
+import { CART_ITEM_ERROR_MESSAGE } from '../constants/MESSAGES';
 
 const API_URL = import.meta.env.VITE_API_URL;
 const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
@@ -14,8 +15,8 @@ const fetchCartItemList = async (): Promise<TCartItem[]> => {
   });
 
   if (!response.ok) {
-    alert('장바구니 상품을 불러오는 중 문제가 발생했습니다.');
-    throw new Error('장바구니 상품을 불러오는 중 문제가 발생했습니다.');
+    alert(CART_ITEM_ERROR_MESSAGE.FETCH);
+    throw new Error(CART_ITEM_ERROR_MESSAGE.FETCH);
   }
 
   const data = await response.json();
@@ -36,8 +37,8 @@ const addCartItem = async (cartItemId: number): Promise<void> => {
   });
 
   if (!response.ok) {
-    alert('상품을 장바구니에 추가하는 중 문제가 발생했습니다.');
-    throw new Error('상품을 장바구니에 추가하는 중 문제가 발생했습니다.');
+    alert(CART_ITEM_ERROR_MESSAGE.ADD);
+    throw new Error(CART_ITEM_ERROR_MESSAGE.ADD);
   }
 };
 const removeCartItem = async (cartItemId: number): Promise<void> => {
@@ -49,8 +50,8 @@ const removeCartItem = async (cartItemId: number): Promise<void> => {
   });
 
   if (!response.ok) {
-    alert('상품을 장바구니에서 제거하는 중 문제가 발생했습니다.');
-    throw new Error('상품을 장바구니에서 제거하는 중 문제가 발생했습니다.');
+    alert(CART_ITEM_ERROR_MESSAGE.REMOVE);
+    throw new Error(CART_ITEM_ERROR_MESSAGE.REMOVE);
   }
 };
 
@@ -67,8 +68,8 @@ const updateCartItemQuantity = async (cartItemId: number, quantity: number): Pro
   });
 
   if (!response.ok) {
-    alert('상품 개수를 업데이트하는 중 문제가 발생했습니다.');
-    throw new Error('상품 개수를 업데이트하는 중 문제가 발생했습니다.');
+    alert(CART_ITEM_ERROR_MESSAGE.UPDATE);
+    throw new Error(CART_ITEM_ERROR_MESSAGE.UPDATE);
   }
 };
 
