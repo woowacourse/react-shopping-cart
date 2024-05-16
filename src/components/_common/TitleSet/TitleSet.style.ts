@@ -11,15 +11,11 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.h1`
-  height: 36px;
-  font-size: 24px;
-  line-height: 34px;
-  font-weight: 700;
+  ${({ theme }) => theme.TEXT.Title}
 `;
 
 const SubTitle = styled.div`
-  font-size: 12px;
-  line-height: 15px;
+  ${({ theme }) => theme.TEXT.Subtitle}
 `;
 
 export const S = {
