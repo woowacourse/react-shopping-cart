@@ -16,6 +16,28 @@ export const HeaderStyle = css({
 
   backgroundColor: COLOR_PALETTE.black,
   color: COLOR_PALETTE.white,
+});
+
+export const BackButtonStyle = css({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+
+  width: "30px",
+  height: "30px",
+
+  color: COLOR_PALETTE.white,
+  backgroundColor: COLOR_PALETTE.black,
+  borderRadius: "100%",
+
+  transition: "transform 0.2s",
+  "&:hover": {
+    transform: "scale(1.2)",
+  },
+});
+
+export const ShopButtonStyle = css({
+  color: COLOR_PALETTE.white,
 
   fontSize: "20px",
   fontWeight: "800",
