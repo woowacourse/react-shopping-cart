@@ -1,5 +1,29 @@
 # react-shopping-cart
 
+## 배포
+
+[🖱️ 배포 페이지 바로 가기](https://badahertz52.github.io/react-shopping-cart/dist/)
+
+## 구현
+
+<img src="./readmeImage/cart_step1.gif" width="300px" alt="step1_구현" />
+
+## build
+
+```dash
+npm run build
+```
+
+- 빌드 시, EnvironmentPlugin 로 인해 오류가 나서 빌드 시에는 EnvironmentPlugin 관련 주석 처리와 import.meta.env로 설정 하고 빌드 해야 합니다.
+
+## test
+
+```dash
+npm run test
+```
+
+- 로컬에서 테스ㅌ시 EnvironmentPlugin 관련 설정을 활성화 하고 import.meta.env 가 아니 process.env를 사용해야 합니다.
+
 ## 기능 구현 목록
 
 <details>

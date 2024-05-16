@@ -1,6 +1,7 @@
 import react from '@vitejs/plugin-react-swc';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
+//빌드 시 주석 처리
 import EnvironmentPlugin from 'vite-plugin-environment';
 import svgr from 'vite-plugin-svgr';
 
@@ -8,7 +9,9 @@ const BASE_URL = '/react-shopping-cart/dist/';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // 빌드 시 주석 처리
   plugins: [react(), svgr(), EnvironmentPlugin('all')],
+  //plugins: [react(), svgr()],
   envPrefix: 'VITE_',
   base: BASE_URL,
   resolve: {
