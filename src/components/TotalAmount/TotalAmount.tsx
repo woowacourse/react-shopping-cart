@@ -1,4 +1,3 @@
-import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { totalPriceSelector } from '../../recoil/selectors';
 import styled from 'styled-components';

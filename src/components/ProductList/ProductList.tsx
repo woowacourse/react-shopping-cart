@@ -1,4 +1,3 @@
-import React from 'react';
 import { Products } from '../../types/Product';
 import ProductCard from '../ProductCard/ProductCard';
 import { useRecoilValue, useSetRecoilState } from 'recoil';

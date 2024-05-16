@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import TotalAmount from '../TotalAmount/TotalAmount';
 import ProductList from '../ProductList/ProductList';
