@@ -1,7 +1,12 @@
 import API_CONFIG from './config';
 import { CartItem } from '../type';
 import { generateBasicToken } from '../utils/auth';
+import { CartItem } from '../type';
+import API_CONFIG from './config';
 
+const API_URL = API_CONFIG.API_URL;
+const USER_ID = API_CONFIG.USER_ID;
+const USER_PASSWORD = API_CONFIG.USER_PASSWORD;
 const API_URL = API_CONFIG.API_URL;
 const USER_ID = API_CONFIG.USER_ID;
 const USER_PASSWORD = API_CONFIG.USER_PASSWORD;
