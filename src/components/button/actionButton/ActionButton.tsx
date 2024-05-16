@@ -1,7 +1,7 @@
-import CheckedButtonIcon from "../../assets/CheckedButtonIcon.png";
-import UnCheckedButtonIcon from "../../assets/UncheckedButtonIcon.png";
-import PlusButtonIcon from "../../assets/PlusButtonIcon.png";
-import MinusButtonIcon from "../../assets/MinusButtonIcon.png";
+import CheckedButtonIcon from "../../../assets/CheckedButtonIcon.png";
+import MinusButtonIcon from "../../../assets/MinusButtonIcon.png";
+import PlusButtonIcon from "../../../assets/PlusButtonIcon.png";
+import UnCheckedButtonIcon from "../../../assets/UncheckedButtonIcon.png";
 import {
   StyledActionButton,
   StyledActionButtonImg,

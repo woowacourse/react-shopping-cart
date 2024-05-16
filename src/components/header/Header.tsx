@@ -1,5 +1,5 @@
+import { HeaderButton } from "../button/headerButton/HeaderButton";
 import { StyledHeaderContainer } from "./Header.styled";
-import { HeaderButton } from "../button/HeaderButton";
 
 const Header: React.FC<{ type: "shop" | "back" }> = ({ type }) => {
   return (

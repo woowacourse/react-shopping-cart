@@ -1,10 +1,10 @@
+import { useNavigate } from "react-router-dom";
+import BackIcon from "../../../assets/BackIcon.png";
 import {
   StyledHeaderButtonContainer,
   StyledHeaderButtonContent,
   StyledHeaderButtonImg,
 } from "./HeaderButton.styled";
-import BackIcon from "../../assets/BackIcon.png";
-import { useNavigate } from "react-router-dom";
 
 export interface HeaderButtonProps {
   type: "shop" | "back";

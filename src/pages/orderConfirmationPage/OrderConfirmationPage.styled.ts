@@ -28,7 +28,7 @@ export const StyledConfirmationPageDescription = styled.span`
   gap: 0px;
 `;
 
-export const StyledConfirmatioinPagePriceContainer = styled.div`
+export const StyledConfirmationPagePriceContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
