@@ -13,11 +13,13 @@ type Story = StoryObj<typeof meta>;
 export const MinusButton: Story = {
   args: {
     type: 'minus',
+    onClick: () => {},
   },
 };
 
 export const PlusButton: Story = {
   args: {
     type: 'plus',
+    onClick: () => {},
   },
 };
