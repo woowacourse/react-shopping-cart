@@ -25,7 +25,7 @@ export const itemEachCheckState = atomFamily<boolean, number>({
   effects: (id) => [
     ({ setSelf, onSet }) => {
       const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}");
-      if (localData[id] !== null) {
+      if (localData[id]) {
         setSelf(localData[id]);
       }
 

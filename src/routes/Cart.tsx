@@ -9,7 +9,7 @@ const Cart = () => {
       <Header />
       <Main />
       <Footer />
-      {import.meta.env.DEV ? <AddButton /> : null}
+      {process.env.DEV ? <AddButton /> : null}
     </>
   );
 };
