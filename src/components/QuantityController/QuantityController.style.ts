@@ -38,6 +38,6 @@ export const QuantityControlButton = styled.button<ButtonProps>(({ $controlType,
   height: '24px',
   border: '1px solid #dfdfdf',
   borderRadius: '8px',
-  background: `url(${buttonBackgroundMatcher({ $controlType, $isEnabled })}) no-repeat center`,
+  background: `url("${buttonBackgroundMatcher({ $controlType, $isEnabled })}") no-repeat center`,
   cursor: $isEnabled ? `pointer` : 'inherit',
 }));
