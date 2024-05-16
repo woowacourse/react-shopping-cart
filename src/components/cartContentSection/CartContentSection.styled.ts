@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const StyledCartContentSection = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   height: 710px;
 `;
@@ -17,6 +16,7 @@ export const StyledContentContainer = styled.div`
 
 export const StyledEmptyCartItemCard = styled.span`
   width: 100%;
+  margin: auto 0;
 
   font-family: Noto Sans;
   font-size: 16px;

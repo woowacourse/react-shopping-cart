@@ -18,6 +18,8 @@ export const StyledCartHeaderTitle = styled.span`
 `;
 
 export const StyledCartHeaderDescription = styled.span`
+  height: 15px;
+
   font-family: Noto Sans;
   font-size: 12px;
   font-weight: 500;

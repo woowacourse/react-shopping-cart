@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const StyledCartItemCardList = styled.div`
+  min-height: 386px;
   display: flex;
   flex-direction: column;
   gap: 20px;

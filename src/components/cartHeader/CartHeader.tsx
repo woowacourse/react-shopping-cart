@@ -15,7 +15,7 @@ export const CartHeader: React.FC<{ categoryCount: number }> = ({
           현재 {categoryCount}종류의 상품이 담겨있습니다.
         </StyledCartHeaderDescription>
       ) : (
-        <StyledCartHeaderDescription></StyledCartHeaderDescription>
+        <StyledCartHeaderDescription />
       )}
     </StyledCartHeaderWrapper>
   );
