@@ -14,11 +14,13 @@ interface CartListProps {
 const CartList: React.FC<CartListProps> = () => {
   const { isAllChecked, onCheckAllCartItems } = useCheckCartItem();
   const cartItems = useRecoilValue(cartItemsSelector);
-
+  const handleClick = () => {
+    onCheckAllCartItems(!isAllChecked);
+  };
   return (
     <div>
       <Styled.CartListButtonGroup>
-        <Checkbox checked={isAllChecked} onChange={(event) => onCheckAllCartItems(event.target.checked)} />
+        <Checkbox checked={isAllChecked} onClick={handleClick} />
         <span className="label">전체 선택</span>
       </Styled.CartListButtonGroup>
       <Styled.CartItemContainer>
