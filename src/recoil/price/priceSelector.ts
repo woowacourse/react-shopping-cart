@@ -10,8 +10,8 @@ export const priceSelector = selector({
   get: ({ get }) => {
     const cartItemList = get(cartItemListState);
     const cartItemSelectedIdList = get(cartItemSelectedIdListAtom);
-
     const filteredCartItemList = cartItemList.filter(({ cartItemId }) => cartItemSelectedIdList.includes(cartItemId));
+    console.log(cartItemSelectedIdList);
 
     const orderedPrice = filteredCartItemList.reduce((sum, { product, cartItemId }) => {
       const { price } = product;
