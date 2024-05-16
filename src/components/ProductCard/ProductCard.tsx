@@ -5,7 +5,10 @@ import { itemDetailsState, itemsState } from '../../recoil/atoms';
 import { Products } from '../../types/Product';
 import { fetchCartItemQuantity } from '../../api';
 import CheckBox from '../CheckBox/CheckBox';
-import UpdateLocalStorage from '../../utils/UpdateLocalStorage';
+import {
+  UpdateLocalStorage,
+  getLocalStorage,
+} from '../../utils/UpdateLocalStorage';
 import styled from 'styled-components';
 
 const CardContainer = styled.li`
@@ -89,12 +92,16 @@ function ProductCard({ product }: ProductProps) {
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
+    const localStorageList = getLocalStorage();
+    const localStorageProduct = localStorageList.find(
+      (value) => value.id === product.id,
+    );
     setDetails({
       quantity: product.quantity,
       price: product.product.price,
-      isChecked: true,
+      isChecked: localStorageProduct ? localStorageProduct.isChecked : true,
     });
-  }, [product.quantity, product.product.price, setDetails]);
+  }, [product.quantity, product.product.price, setDetails, product.id]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -135,7 +142,7 @@ function ProductCard({ product }: ProductProps) {
       isChecked: !prevState.isChecked,
     }));
 
-    UpdateLocalStorage({ id: product.id, isChecked: details.isChecked });
+    UpdateLocalStorage({ id: product.id, isChecked: !details.isChecked });
   };
 
   if (error) {

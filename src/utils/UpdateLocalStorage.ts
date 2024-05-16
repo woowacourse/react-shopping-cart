@@ -3,7 +3,10 @@ interface LocalShoppingCartType {
   isChecked: boolean;
 }
 
-const UpdateLocalStorage = ({ id, isChecked }: LocalShoppingCartType) => {
+export const UpdateLocalStorage = ({
+  id,
+  isChecked,
+}: LocalShoppingCartType) => {
   const shoppingCarts = JSON.parse(
     localStorage.getItem('shopping-cart') ?? '[]',
   );
@@ -14,4 +17,9 @@ const UpdateLocalStorage = ({ id, isChecked }: LocalShoppingCartType) => {
   localStorage.setItem('shopping-cart', JSON.stringify(newShoppingCarts));
 };
 
-export default UpdateLocalStorage;
+export const getLocalStorage = (): LocalShoppingCartType[] => {
+  const shoppingCarts = JSON.parse(
+    localStorage.getItem('shopping-cart') ?? '[]',
+  );
+  return shoppingCarts;
+};

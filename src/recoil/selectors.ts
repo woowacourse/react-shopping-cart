@@ -1,8 +1,11 @@
 import { DefaultValue, selector } from 'recoil';
 import { itemDetailsState, itemsState } from './atoms';
 import { Products } from '../types/Product';
-import UpdateLocalStorage from '../utils/UpdateLocalStorage';
+import { UpdateLocalStorage } from '../utils/UpdateLocalStorage';
 
+/**
+ * 전체 금액, 배송비 계산, 총 결제 금액 계산
+ */
 export const totalPriceSelector = selector({
   key: 'totalPriceSelector',
   get: ({ get }) => {
@@ -22,6 +25,9 @@ export const totalPriceSelector = selector({
   },
 });
 
+/**
+ * itemsState의 상품 종류 개수 계산
+ */
 export const totalCartItemCountSelector = selector({
   key: 'totalCartItemCountSelector',
   get: ({ get }) => {
@@ -30,6 +36,12 @@ export const totalCartItemCountSelector = selector({
   },
 });
 
+/**
+ * get: () => boolean
+ * set: (newValue: 변경할 boolean 값) => void
+ * 전체 선택 체크 시 모든 itemDetailsState의 isChecked 변경,
+ * LocalStorage 업데이트
+ */
 export const toggleAllSelector = selector<boolean>({
   key: 'toggleAllSelector',
   get: ({ get }): boolean => {
@@ -51,20 +63,21 @@ export const toggleAllSelector = selector<boolean>({
   },
 });
 
+/**
+ * 모든 itemDetailsState를 순회하며 총 수량 계산
+ */
 export const totalCountSelector = selector({
-  key : 'totalCountSelector',
+  key: 'totalCountSelector',
   get: ({ get }) => {
     const productIds = get(itemsState);
-    const totalItemTypeCount =productIds.length
+    const totalItemTypeCount = productIds.length;
     let totalCount = 0;
     productIds.forEach((itemsState) => {
-      const { quantity, isChecked } = get(
-        itemDetailsState(itemsState.id),
-      );
+      const { quantity, isChecked } = get(itemDetailsState(itemsState.id));
       if (isChecked) {
         totalCount += quantity;
       }
     });
     return { totalItemTypeCount, totalCount };
   },
-})
+});
