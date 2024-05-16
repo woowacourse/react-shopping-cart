@@ -2,12 +2,15 @@ import * as Styled from './style';
 
 interface HeaderProps {
   title: string;
+  onClick?: () => void;
 }
 
-const Header = ({ title }: HeaderProps) => {
+const Header = ({ title, onClick }: HeaderProps) => {
   return (
     <Styled.Header>
-      <Styled.AppTitle>{title}</Styled.AppTitle>
+      <Styled.AppTitle onClick={() => onClick && onClick()}>
+        {title}
+      </Styled.AppTitle>
     </Styled.Header>
   );
 };
