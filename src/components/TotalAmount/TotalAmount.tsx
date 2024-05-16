@@ -3,6 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { totalPriceSelector } from '../../recoil/selectors';
 import styled from 'styled-components';
 import { NotificationIcon } from '../../asset';
+import { MESSAGES } from '../../constants/Messages';
 
 const TotalAmountContainer = styled.div`
   display: flex;
@@ -66,20 +67,20 @@ function TotalAmount() {
   return (
     <TotalAmountContainer>
       <InformationMsg>
-        <NotificationIconImg src={NotificationIcon} />총 주문 금액은 100,000원
-        이상일 경우 무료 배송됩니다.
+        <NotificationIconImg src={NotificationIcon} />
+        {MESSAGES.cartNotification}
       </InformationMsg>
       <TotalContent>
         <Border />
 
         <TotalInfoWrapper>
           <TotalInfoBox>
-            <TotalInfoLabel>주문 금액</TotalInfoLabel>
+            <TotalInfoLabel>{MESSAGES.totalInfoLabel}</TotalInfoLabel>
             <TotalInfoAmount>{totalAmount.toLocaleString()}원</TotalInfoAmount>
           </TotalInfoBox>
 
           <TotalInfoBox>
-            <TotalInfoLabel>배송비</TotalInfoLabel>
+            <TotalInfoLabel>{MESSAGES.deliveryFee}</TotalInfoLabel>
             <TotalInfoAmount>{deliveryFee.toLocaleString()}원</TotalInfoAmount>
           </TotalInfoBox>
         </TotalInfoWrapper>
@@ -87,7 +88,7 @@ function TotalAmount() {
         <Border />
       </TotalContent>
       <TotalInfoBox>
-        <TotalInfoLabel>총 결제 금액</TotalInfoLabel>
+        <TotalInfoLabel>{MESSAGES.totalAmountLabel}</TotalInfoLabel>
         <TotalInfoAmount>
           {calculatedTotalAmount.toLocaleString()}원
         </TotalInfoAmount>

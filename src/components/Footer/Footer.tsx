@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import { MESSAGES } from '../../constants/Messages';
 
 interface FooterContainerProps {
   $backgroundColor: string;
@@ -46,7 +47,7 @@ function Footer({ url, isDisabled = false }: FooterProps) {
       onClick={(e) => handleClick(e)}
       $backgroundColor={isDisabled ? '#BEBEBE' : '#000000'}
     >
-      주문 확인
+      {MESSAGES.confirm}
     </FooterContainer>
   );
 }

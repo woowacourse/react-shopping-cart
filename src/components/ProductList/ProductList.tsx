@@ -6,6 +6,7 @@ import { itemsState } from '../../recoil/atoms';
 import styled from 'styled-components';
 import CheckBox from '../CheckBox/CheckBox';
 import { toggleAllSelector } from '../../recoil/selectors';
+import { MESSAGES } from '../../constants/Messages';
 
 const ProductListContainer = styled.div`
   margin-top: 3.6rem;
@@ -45,7 +46,7 @@ function ProductList() {
     <ProductListContainer>
       <CheckBoxContainer>
         <CheckBox isChecked={isAllChecked} onClick={handleToggleAll} />
-        전체선택
+        {MESSAGES.allSelected}
       </CheckBoxContainer>
 
       <CartItemListContainer>

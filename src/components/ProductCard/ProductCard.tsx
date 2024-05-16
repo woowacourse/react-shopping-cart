@@ -10,6 +10,7 @@ import {
   getLocalStorage,
 } from '../../utils/UpdateLocalStorage';
 import styled from 'styled-components';
+import { MESSAGES } from '../../constants/Messages';
 
 const CardContainer = styled.li`
   display: flex;
@@ -153,7 +154,9 @@ function ProductCard({ product }: ProductProps) {
     <CardContainer>
       <CardHeader>
         <CheckBox isChecked={details.isChecked} onClick={handleCheckedItem} />
-        <Button onClick={() => handleRemoveItem(product.id)}>삭제</Button>
+        <Button onClick={() => handleRemoveItem(product.id)}>
+          {MESSAGES.delete}
+        </Button>
       </CardHeader>
 
       <CardContent>

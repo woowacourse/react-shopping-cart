@@ -7,6 +7,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import CartContent, {
   NoCartItemContainer,
 } from '../components/CartContent/CartContent';
+import { URL_PATH } from '../constants/UrlPath';
 
 const CartContainer = styled.div`
   display: flex;
@@ -36,7 +37,7 @@ function Cart() {
             <CartContent />
           </Suspense>
         </ContentWrapper>
-        <Footer isDisabled={false} url="/completed" />
+        <Footer isDisabled={false} url={URL_PATH.completed} />
       </ErrorBoundary>
     </CartContainer>
   );
