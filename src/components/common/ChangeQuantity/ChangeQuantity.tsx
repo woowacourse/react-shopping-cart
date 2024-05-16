@@ -15,7 +15,7 @@ interface ChangeQuantityProps {
 const ChangeQuantity = ({ quantity, decreaseQuantity, increaseQuantity }: ChangeQuantityProps) => {
   return (
     <S.ChangeQuantity>
-      <Button size="s" onClick={decreaseQuantity} square={true}>
+      <Button size="s" onClick={decreaseQuantity} square={true} isDisabled={quantity === 1}>
         <img src={MINUS} />
       </Button>
       <S.Quantity>
