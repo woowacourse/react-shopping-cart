@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import PriceTable from './PriceTable';
+import { RecoilRoot } from 'recoil';
 
 const meta = {
   title: 'Components/PriceTable',
@@ -15,9 +16,11 @@ export const Playground: Story = {
   decorators: [
     () => {
       return (
-        <div style={{ width: '380px' }}>
-          <PriceTable />
-        </div>
+        <RecoilRoot>
+          <div style={{ width: '380px' }}>
+            <PriceTable />
+          </div>
+        </RecoilRoot>
       );
     },
   ],
