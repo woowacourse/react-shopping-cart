@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { getCartItems } from "../../api";
 import { ConfirmButton } from "../../components/button/confirmButton/ConfirmButton";
 import { CartContentSection } from "../../components/cartContentSection/CartContentSection";
@@ -10,7 +10,7 @@ import { categoryCountState } from "../../recoil/selector";
 import { StyledCartPage } from "./CartPage.styled";
 
 export const CartPage: React.FC = () => {
-  const setCartItems = useSetRecoilState(cartItemsState);
+  const [cartItems, setCartItems] = useRecoilState(cartItemsState);
   const categoryCount = useRecoilValue(categoryCountState);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export const CartPage: React.FC = () => {
     };
 
     fetchCartItems();
-  }, [setCartItems]);
+  }, [cartItems]);
 
   const buttonBackgroundColor =
     categoryCount === 0 ? "rgba(190, 190, 190, 1)" : "rgba(0, 0, 0, 1)";
