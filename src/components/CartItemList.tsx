@@ -1,11 +1,14 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import CartItemView from "./CartItemView";
-import { cartItemsState } from "../recoil/cartItems";
 import styled from "styled-components";
 import { selectedCartItemIdsState } from "../recoil/selectedCartItemIds";
+import { CartItem } from "../types/cartItems";
 
-export default function CartItemList() {
-  const cartItems = useRecoilValue(cartItemsState);
+export interface ICartItemList {
+  cartItems: CartItem[];
+}
+
+export default function CartItemList({ cartItems }: ICartItemList) {
   const setSelectedCartItemIds = useSetRecoilState(selectedCartItemIdsState);
   const isAllSelected = cartItems.every(({ isSelected }) => isSelected);
 
@@ -16,10 +19,6 @@ export default function CartItemList() {
       setSelectedCartItemIds(cartItems.map(({ id }) => id));
     }
   };
-
-  if (cartItems.length === 0) {
-    return <div>장바구니에 담긴 상품이 없습니다.</div>;
-  }
 
   return (
     <S.CartItemListContainer>
@@ -32,11 +31,11 @@ export default function CartItemList() {
         />
         <S.SelectAllLabel htmlFor="select-all-checkbox">전체선택</S.SelectAllLabel>
       </S.SelectAll>
-      <div>
+      <S.CartItemList>
         {cartItems.map((cartItem) => (
           <CartItemView key={cartItem.product.id} cartItem={cartItem} />
         ))}
-      </div>
+      </S.CartItemList>
     </S.CartItemListContainer>
   );
 }
@@ -47,17 +46,31 @@ const S = {
     flex-direction: column;
     gap: 20px;
 
-    width: 382px;
+    margin: 36px 0 52px 0;
+  `,
+
+  CartItemList: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   `,
 
   SelectAll: styled.div`
     display: flex;
+    align-items: center;
     gap: 8px;
   `,
 
-  Checkbox: styled.input``,
+  Checkbox: styled.input`
+    accent-color: black;
+    margin: 0;
+    width: 24px;
+    height: 24px;
+  `,
 
   SelectAllLabel: styled.label`
-    font-size: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 15px;
   `,
 };

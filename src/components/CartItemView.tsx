@@ -7,22 +7,22 @@ export interface CartItemViewProps {
 }
 
 export default function CartItemView({ cartItem }: CartItemViewProps) {
-  const { remove, updateQuantity, toggleSelection } = useCartItemControl();
+  const { remove, updateQuantity, toggleSelection } = useCartItemControl(cartItem.id);
 
   const handleCheckboxChange = () => {
-    toggleSelection(cartItem.id);
+    toggleSelection();
   };
 
   const handleRemoveButtonClick = () => {
-    remove(cartItem.id);
+    remove();
   };
 
   const handleIncreaseButtonClick = () => {
-    updateQuantity(cartItem.id, cartItem.quantity + 1);
+    updateQuantity(cartItem.quantity + 1);
   };
 
   const handleDecreaseButtonClick = () => {
-    updateQuantity(cartItem.id, cartItem.quantity - 1);
+    updateQuantity(cartItem.quantity - 1);
   };
 
   return (
@@ -55,40 +55,89 @@ const S = {
     display: flex;
     flex-direction: column;
     gap: 12px;
-
     border-top: 1px solid #d9d9d9;
+    padding-top: 12px;
   `,
+
   TopWrapper: styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
   `,
-  Checkbox: styled.input``,
-  RemoveButton: styled.button``,
+
+  Checkbox: styled.input`
+    accent-color: black;
+    margin: 0;
+    width: 24px;
+    height: 24px;
+  `,
+
+  RemoveButton: styled.button`
+    width: 40px;
+    height: 24px;
+    background-color: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 15px;
+    color: rgba(10, 13, 19, 1);
+  `,
 
   ProductOuterWrapper: styled.div`
     display: flex;
     gap: 24px;
   `,
+
   ProductImage: styled.img`
     width: 112px;
     height: 112px;
     border-radius: 10px;
   `,
+
   ProductInnerWrapper: styled.div`
     display: flex;
     flex-direction: column;
     gap: 24px;
+    margin: 9.5px 0;
   `,
 
   CartItemCountControl: styled.div`
     display: flex;
     gap: 4px;
+    align-items: center;
   `,
 
-  ProductInfo: styled.div``,
-  ProductName: styled.div``,
-  ProductPrice: styled.div``,
-  CountButton: styled.button``,
-  Count: styled.div``,
+  ProductInfo: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  `,
+
+  ProductName: styled.div`
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 15px;
+  `,
+
+  ProductPrice: styled.div`
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 34.75px;
+  `,
+
+  CountButton: styled.button`
+    width: 24px;
+    height: 24px;
+    line-height: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 8px;
+  `,
+
+  Count: styled.div`
+    font-size: 12px;
+    width: 20px;
+    text-align: center;
+  `,
 };
