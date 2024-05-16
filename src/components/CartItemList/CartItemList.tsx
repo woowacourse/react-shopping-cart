@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import CheckButton from '../Button/CheckButton/CheckButton';
 import CartItem from '../CartItem/CartItem';
@@ -12,6 +13,7 @@ interface CartItemListProps {
 }
 
 function CartItemList({ cartItemList, updateCartItemList }: CartItemListProps) {
+  const navigate = useNavigate();
   const [selectedItemList, setSelectedItemList] = useRecoilState(selectedCartItemListState);
 
   const isAllSelected = selectedItemList.length === cartItemList.length;
@@ -22,13 +24,21 @@ function CartItemList({ cartItemList, updateCartItemList }: CartItemListProps) {
   };
 
   const handleUpdateQuantity = async (cardItemId: number, quantity: number) => {
-    await updateCartItemQuantity(cardItemId, quantity);
-    updateCartItemList();
+    try {
+      await updateCartItemQuantity(cardItemId, quantity);
+      updateCartItemList();
+    } catch {
+      navigate('/error');
+    }
   };
 
   const handleRemoveItem = async (cartItemId: number) => {
-    await removeCartItem(cartItemId);
-    updateCartItemList();
+    try {
+      await removeCartItem(cartItemId);
+      updateCartItemList();
+    } catch {
+      navigate('/error');
+    }
   };
 
   return (

@@ -15,7 +15,6 @@ const fetchCartItemList = async (): Promise<TCartItem[]> => {
   });
 
   if (!response.ok) {
-    alert(CART_ITEM_ERROR_MESSAGE.FETCH);
     throw new Error(CART_ITEM_ERROR_MESSAGE.FETCH);
   }
 
@@ -37,7 +36,6 @@ const addCartItem = async (cartItemId: number): Promise<void> => {
   });
 
   if (!response.ok) {
-    alert(CART_ITEM_ERROR_MESSAGE.ADD);
     throw new Error(CART_ITEM_ERROR_MESSAGE.ADD);
   }
 };
@@ -50,7 +48,6 @@ const removeCartItem = async (cartItemId: number): Promise<void> => {
   });
 
   if (!response.ok) {
-    alert(CART_ITEM_ERROR_MESSAGE.REMOVE);
     throw new Error(CART_ITEM_ERROR_MESSAGE.REMOVE);
   }
 };
@@ -58,7 +55,7 @@ const removeCartItem = async (cartItemId: number): Promise<void> => {
 const updateCartItemQuantity = async (cartItemId: number, quantity: number): Promise<void> => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
-  const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
+  const response = await fetch(`${API_URL}/cart/${cartItemId}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -68,7 +65,6 @@ const updateCartItemQuantity = async (cartItemId: number, quantity: number): Pro
   });
 
   if (!response.ok) {
-    alert(CART_ITEM_ERROR_MESSAGE.UPDATE);
     throw new Error(CART_ITEM_ERROR_MESSAGE.UPDATE);
   }
 };
