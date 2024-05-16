@@ -71,19 +71,19 @@
 
     - [ ] 장바구니 상품 종류 수
 
-      - [ ] key: numberOfUniqueCartItems
+      - [ ] key: uniqueCartItemsCount
       - [ ] returnType: number
       - dependency: cartItems
 
     - [ ] 선택된 장바구니 상품 종류 수
 
-      - [ ] key: numberOfUniqueCartItems
+      - [ ] key: selectedUniqueCartItemsCount
       - [ ] returnType: number
       - dependency: selectedCartItemIds
 
     - [ ] 선택된 총 장바구니 상품 개수
 
-      - [ ] key: numberOfCartItems
+      - [ ] key: selectedCartItemsCount
       - [ ] returnType: number
       - dependency: cartItemsWithIsSelected
 
@@ -129,24 +129,24 @@
 
 1. CartAmount
 
-- [ ] selector 정의 (orderAmount, deliveryCost, totalOrderAmount)
-- [ ] UI 구현
+- [x] selector 정의 (orderAmount, deliveryCost, totalOrderAmount)
+- [x] UI 구현
 
 3. CartTitle
 
-- [ ] selector 정의 (numberOfUniqueCartItems)
-- [ ] UI 구현
+- [x] selector 정의 (uniqueCartItemsCount)
+- [x] UI 구현
 
-4. Header, Footer
+1. Header, Footer
 
-5. OrderSummary
+2. OrderSummary
 
-- [ ] selector 정의 (numberOfUniqueCartItems, numberOfCartItems, totalOrderAmount)
-- [ ] UI 구현
+- [x] selector 정의 (selectedUniqueCartItemsCount, selectedCartItemsCount, totalOrderAmount)
+- [x] UI 구현
 
-6. UX 최적화
+1. UX 최적화
 
-- [ ] Error, Suspense
+- [x] ErrorBoundary, Suspense
 
 ### test
 
@@ -158,6 +158,12 @@
   - [x] 초기값이 잘 세팅되는지
   - [x] set이 발생할 때 putInSelectedCartItemIds이 호출되는지
 - useCartItemControl
-  - [ ] remove (1. delete api 요청 2. 상태 변경)
-  - [ ] updateQuantity (1. patch api 요청 2. 상태 변경)
-  - [ ] toggleSelection (상태 변경)
+  - [x] remove (1. delete api 요청 2. 상태 변경)
+  - [x] updateQuantity (1. patch api 요청 2. 상태 변경)
+  - [x] toggleSelection (상태 변경)
+
+### 남은거
+
+- [x] useCartItemControl 테스트
+- [x] OrderSummary 컴포넌트 개발 및 라우트 처리
+- [x] ErrorBoundary
