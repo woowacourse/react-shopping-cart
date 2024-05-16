@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Header from './Header';
+import { fn } from '@storybook/test';
 
 const meta = {
   title: 'Header',
@@ -13,5 +14,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     imgType: 'logo',
+    onClick: fn(),
   },
 };
