@@ -1,33 +1,51 @@
-import { useRecoilRefresher_UNSTABLE } from "recoil";
-import { deleteCartItem } from "../../api";
-import { cartListState } from "../../recoil/selectors";
-import CartItemLocalStorage, { KEY } from "../../services/CartItemLocalStorage";
 import type { CartItemType } from "../../types";
+
+import {
+  CartItemContainer,
+  CartItemContent,
+  CartItemDetails,
+  CartItemHeader,
+  CartItemInfo,
+  ItemImage,
+  ProductName,
+} from "./style";
+
+import { Price } from "../CartList/CheckoutSummary/style";
+
+import BorderButton from "../common/BorderButton";
 import CheckBox from "../common/CheckBox";
 import CartItemQuantity from "./CartItemQuantity";
+
+import useDeleteCartItem from "../../hooks/useDeleteCartItem";
+import useSelectCartItem from "../../hooks/useSelectCartItem";
 
 interface CartItemProps {
   cartItem: CartItemType;
 }
 
 export default function CartItem({ cartItem: { id, product } }: CartItemProps) {
-  const refreshCartList = useRecoilRefresher_UNSTABLE(cartListState);
-
-  const handleClickDeleteButton = async () => {
-    await deleteCartItem(id);
-    CartItemLocalStorage.delete(KEY, id);
-    refreshCartList();
-  };
+  const { handleDelete } = useDeleteCartItem(id);
+  const { isSelected, toggleSelected } = useSelectCartItem(id);
 
   return (
-    <li key={id}>
-      <CheckBox id={id} />
-      <img src={product.imageUrl} />
-      <p className="productName">{product.name}</p>
-      <div className="price">{product.price}</div>
+    <CartItemContainer key={id}>
+      <CartItemHeader>
+        <CheckBox isSelected={isSelected} toggleSelected={toggleSelected} />
+        <BorderButton className="deleteBtn" onClick={handleDelete} size="large">
+          삭제
+        </BorderButton>
+      </CartItemHeader>
 
-      <CartItemQuantity itemId={id} />
-      <button onClick={handleClickDeleteButton}>삭제</button>
-    </li>
+      <CartItemContent>
+        <ItemImage src={product.imageUrl} />
+        <CartItemDetails>
+          <CartItemInfo>
+            <ProductName>{product.name}</ProductName>
+            <Price>{product.price.toLocaleString()}</Price>
+          </CartItemInfo>
+          <CartItemQuantity itemId={id} />
+        </CartItemDetails>
+      </CartItemContent>
+    </CartItemContainer>
   );
 }

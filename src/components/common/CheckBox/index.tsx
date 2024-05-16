@@ -1,22 +1,41 @@
-// import CheckedIcon from "../../../assets/checkedIcon.svg";
-// import UnCheckedIcon from "../../../assets/uncheckedIcon.svg";
+import CheckedIcon from "../../../assets/checkedIcon.png";
+import UncheckedIcon from "../../../assets/uncheckedIcon.png";
 
-import { useRecoilState } from "recoil";
-import { cartItemSelected } from "../../../recoil/atoms";
-import { CartItemType } from "../../../types";
+import {
+  CheckboxContainer,
+  HiddenCheckbox,
+  StyledCheckbox,
+  StyledLabel,
+} from "./style";
 
-export default function CheckBox({ id }: Pick<CartItemType, "id">) {
-  const [isCartItemSelected, setCartItemSelected] = useRecoilState(
-    cartItemSelected(id)
-  );
+interface CheckBoxProps {
+  isSelected: boolean;
+  toggleSelected: () => void;
+  label?: string;
+}
 
-  const handleCheckBoxClick = () => {
-    setCartItemSelected((prev) => !prev);
-  };
-
+export default function CheckBox({
+  isSelected,
+  toggleSelected,
+  label,
+}: CheckBoxProps) {
   return (
-    <button onClick={handleCheckBoxClick}>
-      {isCartItemSelected ? "체크됨" : "체크안됨"}
-    </button>
+    <CheckboxContainer>
+      <HiddenCheckbox
+        type="checkbox"
+        defaultChecked={isSelected}
+        onChange={toggleSelected}
+      />
+
+      <StyledCheckbox onClick={toggleSelected}>
+        {isSelected ? (
+          <img src={CheckedIcon} alt="checked icon" />
+        ) : (
+          <img src={UncheckedIcon} alt="unchecked icon" />
+        )}
+      </StyledCheckbox>
+
+      {label && <StyledLabel>{label}</StyledLabel>}
+    </CheckboxContainer>
   );
 }
