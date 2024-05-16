@@ -1,4 +1,6 @@
-import { AtomEffect, atomFamily } from "recoil";
+import { AtomEffect, atomFamily, selector } from "recoil";
+
+import { cartItems } from "./cartItems";
 
 const SELECTED_ITEM_STORAGE_KEY = "selectedItems";
 
@@ -32,4 +34,12 @@ export const selectedCartItems = atomFamily<boolean, number>({
   key: "selectedCartItems",
   default: false,
   effects: (id) => [localStorageEffectForItem(id)],
+});
+
+export const isAllItemSelectedSelector = selector({
+  key: "isAllItemSelectedSelector",
+  get: ({ get }) => {
+    const cartItemList = get(cartItems);
+    return cartItemList.every((item) => get(selectedCartItems(item.id)));
+  },
 });

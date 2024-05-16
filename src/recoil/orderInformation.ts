@@ -31,14 +31,6 @@ export const shippingFeeSelector = selector({
   },
 });
 
-export const isAllItemSelectedSelector = selector({
-  key: "isAllItemSelectedSelector",
-  get: ({ get }) => {
-    const cartItemList = get(cartItems);
-    return cartItemList.every((item) => get(selectedCartItems(item.id)));
-  },
-});
-
 export const totalItemLengthSelector = selector({
   key: "totalItemLengthSelector",
   get: ({ get }) => {
