@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { cartItemCheckedIdsAtom, cartItemsAtom } from "../recoil/atom/atom";
-import { fetchCartItems } from "../api/cartItem";
+import { fetchCartItems } from "../api/cartItem0";
 import CartTitle from "../components/CartPage/CartTitle";
 import CartItems from "../components/CartPage/CartItems";
 import OrderSummary from "../components/CartPage/OrderSummary";
