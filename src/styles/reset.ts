@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+
   html,
   body,
   div,
@@ -104,6 +105,8 @@ const GlobalStyle = createGlobalStyle`
   }
   * {
     user-select: none;
+    margin: 0;
+    padding: 0
   }
   body {
     font-family: sans-serif;
@@ -129,12 +132,22 @@ const GlobalStyle = createGlobalStyle`
   }
   button {
     border: none;
+    background-color: transparent;
+  
   }
   input[type="text"]{
     padding: 0;
     padding-inline: 0;
     padding-block: 0;
   }
+
+  body{
+    /* -ms-overflow-style: none; */
+    }
+    
+   ::-webkit-scrollbar {
+     display: none;
+   }
   
 `;
 
