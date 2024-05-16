@@ -35,6 +35,11 @@ step5. 상태 관리
 - [x] 전체 주문 금액 전역 변수
 - [x] 전체 상품 종류 및 갯수 전역 변수
 
+step6. checkout 페이지
+
+- [x] 페이지 UI 레이아웃
+- [x] router state로 보낸 전체 상품 종류 및 갯수 받아 렌더링
+
 # CSS 라이브러리
 
 - css module
