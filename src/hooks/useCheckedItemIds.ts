@@ -16,11 +16,7 @@ const useCheckedItemIds = () => {
   }, [setRecoilCheckedItemIds]);
 
   const getIsChecked = (id: number) => {
-    if (checkedItemIds[id] === undefined) {
-      checkId(id);
-      return true;
-    }
-    return checkedItemIds[id];
+    return checkedItemIds[id] ?? true;
   };
 
   const checkId = (...ids: number[]) => {

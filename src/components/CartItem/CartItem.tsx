@@ -7,6 +7,9 @@ import CheckBox from '../CheckBox/CheckBox';
 import QuantityController from '../QuantityController/QuantityController';
 import SmallButton from '../SmallButton/SmallButton';
 import convertToLocaleAmount from '../../utils/convertToLocalePrice';
+import { itemQuantityState } from '../../recoil/atoms';
+import { useRecoilState } from 'recoil';
+import { useEffect } from 'react';
 import useCheckedItemIds from '../../hooks/useCheckedItemIds';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
@@ -32,19 +35,13 @@ export default function CartItem({
   const [itemQuantity, setItemQuantity] = useRecoilState(itemQuantityState(cartItemId));
   const { getIsChecked, checkId, uncheckId } = useCheckedItemIds();
 
-  const [isCheckedItems, setIsCheckedItems] = useRecoilState(isCheckedItemIdsState);
-
-  if (isCheckedItems[cartItemId] === undefined) {
-    const nextIsCheckedItems = { ...isCheckedItems, [cartItemId]: true };
-    setIsCheckedItems(nextIsCheckedItems);
-  }
-  const handelClickCheckBoxDemo = () => {
-    getIsChecked(cartItemId) ? uncheckId(cartItemId) : checkId(cartItemId);
-  };
-
   useEffect(() => {
     setItemQuantity(quantity);
   }, [quantity, setItemQuantity]);
+
+  const handelClickCheckBox = () => {
+    getIsChecked(cartItemId) ? uncheckId(cartItemId) : checkId(cartItemId);
+  };
 
   const handleClickIncreaseQuantity = () => {
     const quantity = itemQuantity + 1;
@@ -65,7 +62,7 @@ export default function CartItem({
   return (
     <CartItemContainer>
       <CardItemHeader>
-        <CheckBox isChecked={getIsChecked(cartItemId)} onClick={handelClickCheckBoxDemo} />
+        <CheckBox isChecked={getIsChecked(cartItemId)} onClick={handelClickCheckBox} />
         <SmallButton buttonText="삭제" onClick={handleClickDeleteButton} />
       </CardItemHeader>
       <CardItemContent>
@@ -77,10 +74,7 @@ export default function CartItem({
           </div>
           <QuantityController
             quantity={itemQuantity}
-            maxQuantity={100}
             minQuantity={1}
-            // handleIncreaseQuantity={handleIncreaseQuantity}
-            // handleDecreaseQuantity={handleDecreaseQuantity}
             handleIncreaseQuantity={handleClickIncreaseQuantity}
             handleDecreaseQuantity={handleClickDecreaseQuantity}
           />

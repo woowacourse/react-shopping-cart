@@ -1,10 +1,19 @@
-import { atom, atomFamily } from 'recoil';
+import { atom, atomFamily, selector } from 'recoil';
 
 import { CartItem } from '../type';
+import { fetchCartItems } from '../apis';
 
-export const cartItemsState = atom<CartItem[]>({
+export const cartItemsState = selector({
   key: 'cartItemsState',
-  default: [],
+  get: async () => {
+    const cartItems = await fetchCartItems();
+    return cartItems;
+  },
+});
+
+export const currentCartItemsState = atom<CartItem[]>({
+  key: 'currentCartItemsState',
+  default: cartItemsState,
 });
 
 export const itemQuantityState = atomFamily<number, number>({

@@ -2,17 +2,14 @@ import { removeCartItem, updateCartItemQuantity } from '../../apis';
 
 import CartItem from '../CartItem/CartItem';
 import CheckBox from '../CheckBox/CheckBox';
-import { cartItemsState } from '../../recoil/atoms';
-import styled from '@emotion/styled';
-import useCartItemsState from '../../hooks/useCartItemsState';
+import { currentCartItemsState } from '../../recoil/atoms';
+import { removeCartItem, updateCartItemQuantity } from '../../apis';
 import useCheckedItemIds from '../../hooks/useCheckedItemIds';
-import { useRecoilState } from 'recoil';
 
 export default function CartItemContainer() {
-  const [items, setItems] = useRecoilState(cartItemsState);
+  const [items, setItems] = useRecoilState(currentCartItemsState);
   const { getIsChecked, checkId, uncheckId, deleteId } = useCheckedItemIds();
 
-  useCartItemsState();
   const ids = items.map((item) => item.id);
   const isAllChecked = ids.every((id) => getIsChecked(id));
 
@@ -22,6 +19,16 @@ export default function CartItemContainer() {
 
   const handleAllUncheck = () => {
     uncheckId(...ids);
+  };
+
+  const handleDeleteItem = async (cartItemId: number) => {
+    await removeCartItem(cartItemId);
+    deleteId(cartItemId);
+    setItems((prevItems) => prevItems.filter((item) => item.id !== cartItemId));
+  };
+
+  const handleUpdateQuantity = async (cartItemId: number, quantity: number) => {
+    await updateCartItemQuantity(cartItemId, quantity);
   };
 
   return (
@@ -46,15 +53,13 @@ export default function CartItemContainer() {
               product={item.product}
               quantity={item.quantity}
               handleDelete={(cartItemId: number) => {
-                removeCartItem(cartItemId);
-                deleteId(cartItemId);
-                setItems((prevItems) => [...prevItems].filter((item) => item.id !== cartItemId));
+                handleDeleteItem(cartItemId);
               }}
               handleIncreaseQuantity={(cartItemId: number, quantity: number) => {
-                updateCartItemQuantity(cartItemId, quantity);
+                handleUpdateQuantity(cartItemId, quantity);
               }}
               handleDecreaseQuantity={(cartItemId: number, quantity: number) => {
-                updateCartItemQuantity(cartItemId, quantity);
+                handleUpdateQuantity(cartItemId, quantity);
               }}
             />
           );
