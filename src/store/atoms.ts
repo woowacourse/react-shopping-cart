@@ -2,7 +2,7 @@ import { CartItemType, FilteredCartItemStateType } from '@/types/cart.type';
 import { atom, atomFamily } from 'recoil';
 
 import { INIT_CART_ITEM_STATE } from '@/constants/defaultStateValue';
-import { cartState } from './selectors/dataFetchSelector';
+import { cartState } from '@/store/selectors/dataFetchSelector';
 import localStorageEffect from '@/utils/localStorageEffect';
 
 export const filteredCartItemState = atomFamily<

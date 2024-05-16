@@ -1,8 +1,8 @@
 import { RecoilRoot, useRecoilState } from 'recoil';
 
-import { INIT_CART_ITEM_STATE } from '../constants/defaultStateValue';
+import { INIT_CART_ITEM_STATE } from '@/constants/defaultStateValue';
 import { act } from 'react';
-import { filteredCartItemState } from './atoms';
+import { filteredCartItemState } from '@/store/atoms';
 import { renderHook } from '@testing-library/react';
 
 jest.mock('../api/config', () => ({

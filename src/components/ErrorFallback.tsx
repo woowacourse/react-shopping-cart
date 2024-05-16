@@ -3,10 +3,6 @@ interface Props {
 }
 
 const ErrorFallback = ({ error }: Props) => {
-  return (
-    <div style={{ backgroundColor: 'red', zIndex: '100' }}>
-      error : {error.message}
-    </div>
-  );
+  return <div>error : {error.message}</div>;
 };
 export default ErrorFallback;

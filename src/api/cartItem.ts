@@ -1,8 +1,8 @@
-import { API_URL, ENDPOINT, USER_ID, USER_PASSWORD } from './config';
+import { API_URL, ENDPOINT, USER_ID, USER_PASSWORD } from '@/api/config';
 
 import { CartItemType } from '@/types/cart.type';
 import { ERROR_MESSAGE } from '@/constants/error';
-import { generateBasicToken } from '../utils/auth';
+import { generateBasicToken } from '@/utils/auth';
 
 export async function getCartList(): Promise<CartItemType[]> {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);

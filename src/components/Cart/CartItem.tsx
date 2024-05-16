@@ -1,12 +1,12 @@
 import { FlexColumn, FlexRow, FlexSpaceBetween } from '@/style/common.style';
-import { MinusButton, PlusButton } from '../Button/QuantityButton';
+import { MinusButton, PlusButton } from '@/components/Button/QuantityButton';
 import { cartListState, filteredCartItemState } from '@/store/atoms';
 import { deleteCartItem, patchCartItem } from '@/api/cartItem';
 import { useEffect, useState } from 'react';
 
-import BorderButton from '../Button/BorderButton';
+import BorderButton from '@/components/Button/BorderButton';
 import { CartItemType } from '@/types/cart.type';
-import CheckBox from '../Button/CheckBoxButton';
+import CheckBox from '@/components/Button/CheckBoxButton';
 import styled from '@emotion/styled';
 import { useRecoilState } from 'recoil';
 

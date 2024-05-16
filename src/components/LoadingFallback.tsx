@@ -1,7 +1,7 @@
 import { FlexCenter, FlexColumn } from '@/style/common.style';
 
 import Loading from '@/assets/loading.gif';
-import styled from '@emotion/styled/macro';
+import styled from '@emotion/styled';
 
 const LoadingFallBack = () => {
   return (
@@ -14,7 +14,7 @@ const LoadingFallBack = () => {
 export default LoadingFallBack;
 
 const Img = styled.img`
-  width: 80%;
+  width: 20%;
 `;
 
 const StyledCenterBox = styled.div`

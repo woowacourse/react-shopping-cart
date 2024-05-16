@@ -3,10 +3,10 @@ import {
   MOCK_FILTERED_CART_LIST_NEED_SHIPPING_FEE,
 } from '@/constants/_mock/mockFilteredCartList';
 import { RecoilRoot, useRecoilValue, useSetRecoilState } from 'recoil';
-import { cartListState, filteredCartItemState } from '../atoms';
+import { cartListState, filteredCartItemState } from '@/store/atoms';
 
 import MOCK_CART_LIST from '@/constants/_mock/mockCartList';
-import { recipeState } from './recipeSelector';
+import { recipeState } from '@/store/selectors/recipeSelector';
 import { renderHook } from '@testing-library/react';
 
 jest.mock('../../api/config', () => ({
