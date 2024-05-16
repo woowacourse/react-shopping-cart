@@ -1,8 +1,10 @@
 import * as S from './CartItemList.style';
 
+import CartItem from '../CartItem/CartItem';
+
 import Checkbox from '../common/Checkbox/Checkbox';
 import Text from '../common/Text/Text';
-import CartItem from '../CartItem/CartItem';
+
 import { useRecoilValue } from 'recoil';
 import { cartItemSelectedIdListAtom } from '../../recoil/cartItem/cartItemAtom';
 import { useCartItemSelectedIdList } from '../../recoil/cartItem/useCartItemSelectedIdList';
