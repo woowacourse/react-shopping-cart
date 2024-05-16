@@ -43,6 +43,7 @@ export const allCheckedSelector = selector({
   },
 });
 
+//주문 금액 계산
 export const orderPriceSelector = selector({
   key: "orderPriceSelector",
   get: ({ get }) => {
@@ -57,6 +58,7 @@ export const orderPriceSelector = selector({
   },
 });
 
+// 배달비 계산
 export const shippingFeeSelector = selector({
   key: "shippingFeeSelector",
   get: ({ get }) => {
@@ -65,6 +67,7 @@ export const shippingFeeSelector = selector({
   },
 });
 
+//전체 금액 계산
 export const totalPriceSelector = selector({
   key: "totalPriceSelector",
   get: ({ get }) => {
@@ -74,6 +77,7 @@ export const totalPriceSelector = selector({
   },
 });
 
+//전체 수량 계산
 export const totalCountSelector = selector({
   key: "totalCountSelector",
   get: ({ get }) => {
