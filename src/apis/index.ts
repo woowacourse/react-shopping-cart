@@ -13,6 +13,11 @@ const fetchCartItemList = async (): Promise<TCartItem[]> => {
     headers: { Authorization: token },
   });
 
+  if (!response.ok) {
+    alert('장바구니 상품을 불러오는 중 문제가 발생했습니다.');
+    throw new Error('장바구니 상품을 불러오는 중 문제가 발생했습니다.');
+  }
+
   const data = await response.json();
 
   return data.content;
@@ -31,8 +36,8 @@ const addCartItem = async (cartItemId: number): Promise<void> => {
   });
 
   if (!response.ok) {
-    alert('상품을 장바구니에 추가하는 중 오류가 발생했습니다.');
-    throw new Error('상품을 장바구니에 추가하는 중 오류가 발생했습니다.');
+    alert('상품을 장바구니에 추가하는 중 문제가 발생했습니다.');
+    throw new Error('상품을 장바구니에 추가하는 중 문제가 발생했습니다.');
   }
 };
 const removeCartItem = async (cartItemId: number): Promise<void> => {
@@ -44,8 +49,8 @@ const removeCartItem = async (cartItemId: number): Promise<void> => {
   });
 
   if (!response.ok) {
-    alert('상품을 장바구니에서 제거하는 중 에러가 발생했습니다.');
-    throw new Error('상품을 장바구니에서 제거하는 중 에러가 발생했습니다.');
+    alert('상품을 장바구니에서 제거하는 중 문제가 발생했습니다.');
+    throw new Error('상품을 장바구니에서 제거하는 중 문제가 발생했습니다.');
   }
 };
 
