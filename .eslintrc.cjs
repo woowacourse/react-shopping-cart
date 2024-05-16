@@ -1,5 +1,3 @@
-const { allowedNodeEnvironmentFlags } = require('process');
-
 module.exports = {
   root: true,
   env: { browser: true, es2020: true },
@@ -13,6 +11,16 @@ module.exports = {
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh', 'import'],
+  settings: {
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
+      },
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
+  },
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'import/newline-after-import': ['error', { count: 1 }],
@@ -55,10 +63,5 @@ module.exports = {
         tsx: 'never',
       },
     ],
-    'import/resolver': {
-      node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-      },
-    },
   },
 };
