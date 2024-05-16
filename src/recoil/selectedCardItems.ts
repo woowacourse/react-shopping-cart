@@ -7,7 +7,7 @@ const { persistAtom } = recoilPersist({
   storage: localStorage,
 });
 
-export const SelectedCartItem = atomFamily<boolean, number>({
+export const SelectedCartItems = atomFamily<boolean, number>({
   key: 'cartItem',
   default: true,
   effects_UNSTABLE: [persistAtom],
@@ -18,13 +18,13 @@ export const SelectedAllCardItemsSelector = selectorFamily<boolean, number[]>({
   get:
     (cartItemIds) =>
     ({ get }) => {
-      return cartItemIds.every((itemId) => get(SelectedCartItem(itemId)));
+      return cartItemIds.every((itemId) => get(SelectedCartItems(itemId)));
     },
   set:
     (cartItemIds) =>
     ({ set }, newValue) => {
       cartItemIds.forEach((itemId) => {
-        set(SelectedCartItem(itemId), newValue);
+        set(SelectedCartItems(itemId), newValue);
       });
     },
 });
@@ -34,7 +34,7 @@ export const SelectedSomeCardItemsSelector = selector<boolean>({
   get: ({ get }) => {
     get(CartItemsState);
     return get(CartItemsId).some((cartItemId) =>
-      get(SelectedCartItem(cartItemId)),
+      get(SelectedCartItems(cartItemId)),
     );
   },
 });

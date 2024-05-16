@@ -1,7 +1,7 @@
 import { atom, selector } from 'recoil';
 import { CartItem } from '../type';
 import { fetchCartItems } from '../api/shoppingCart';
-import { SelectedCartItem } from './selectedCardItems';
+import { SelectedCartItems } from './selectedCardItems';
 
 export const CartItemsSelector = selector({
   key: 'cartItemStateSelector',
@@ -23,7 +23,7 @@ export const CartItemsCalculatorSelector = selector({
     const cartItems = get(CartItemsSelector);
 
     const selectedCartItems = cartItems.filter((cartItem) =>
-      get(SelectedCartItem(cartItem.id)),
+      get(SelectedCartItems(cartItem.id)),
     );
 
     const totalCartItemQuantity = selectedCartItems.reduce(
