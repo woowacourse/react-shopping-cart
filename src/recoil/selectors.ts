@@ -1,32 +1,47 @@
-import { cartItemsState, uncheckedItemIdsState } from './atoms';
+import { cartItemsState, isCheckedItemIdsState, itemQuantityState } from './atoms';
 
-import { CartItem } from '../type';
 import { selector } from 'recoil';
 
-export const checkedItemsState = selector<CartItem[]>({
-  key: 'checkedItemState',
+export const orderAmountState = selector<number>({
+  key: 'orderAmountState',
   get: ({ get }) => {
     const cartItems = get(cartItemsState);
-    const uncheckedItemIds = get(uncheckedItemIdsState);
+    const isCheckedItemIds = get(isCheckedItemIdsState);
 
-    const result = cartItems.reduce((arr, item) => {
-      if (uncheckedItemIds.includes(item.id)) return arr;
-      arr.push(item);
-      return arr;
-    }, [] as CartItem[]);
+    return cartItems.reduce((acc, cartItem) => {
+      if (!isCheckedItemIds[cartItem.id]) return acc;
+      const quantity = get(itemQuantityState(cartItem.id));
+      const currentItemAmount = cartItem.product.price * quantity;
+      return acc + currentItemAmount;
+    }, 0);
+  },
+});
 
-    return result;
+export const hasCheckedItemsState = selector<boolean>({
+  key: 'hasCheckedItemsState',
+  get: ({ get }) => {
+    const cartItems = get(cartItemsState);
+    const isCheckedItemIds = get(isCheckedItemIdsState);
+
+    return cartItems.some((item) => isCheckedItemIds[item.id]);
   },
 });
 
 export const deliveryFeeState = selector<number>({
   key: 'deliveryFeeState',
   get: ({ get }) => {
-    const checkedItem = get(checkedItemsState);
-    const orderAmount = checkedItem.reduce(
-      (acc, item) => acc + item.quantity * item.product.price,
-      0,
-    );
-    return orderAmount >= 100000 || checkedItem.length === 0 ? 0 : 3000;
+    const hasCheckedItems = get(hasCheckedItemsState);
+
+    const orderAmount = get(orderAmountState);
+    return orderAmount >= 100000 || !hasCheckedItems ? 0 : 3000;
+  },
+});
+
+export const totalAmountState = selector<number>({
+  key: 'totalAmountState',
+  get: ({ get }) => {
+    const orderAmount = get(orderAmountState);
+    const deliveryFee = get(deliveryFeeState);
+    return orderAmount + deliveryFee;
   },
 });
