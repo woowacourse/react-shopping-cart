@@ -6,7 +6,7 @@ import PlusIcon from "../../assets/PlusIcon.svg?react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Product } from "../../types";
 
-import { patchCartItemQuantity } from "../../api/cartItem0";
+import { patchCartItemQuantity } from "../../api/cartItem";
 import { cartItemCheckedIdsAtom, cartItemsAtom } from "../../recoil/atom/atom";
 import { quantitySelector } from "../../recoil/selector/selector";
 import { formatCurrency } from "../../utils/formatCurrency";
