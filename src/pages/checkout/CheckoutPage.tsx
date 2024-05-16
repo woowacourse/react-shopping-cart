@@ -38,7 +38,8 @@ export default function CheckoutPage() {
         </div>
       </div>
 
-      <Button variant="footer" disabled>
+      {/* 다음 미션에서 기능 추가 예정 */}
+      <Button variant="footer" disabled={true}>
         결제하기
       </Button>
     </>
