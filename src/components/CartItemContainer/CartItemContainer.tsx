@@ -1,62 +1,87 @@
-import * as S from './style';
+import { removeCartItem, updateCartItemQuantity } from '../../apis';
 
 import CartItem from '../CartItem/CartItem';
 import CheckBox from '../CheckBox/CheckBox';
 import { cartItemsState } from '../../recoil/atoms';
-import { removeCartItem } from '../../apis';
+import styled from '@emotion/styled';
+import useCartItemsState from '../../hooks/useCartItemsState';
 import useCheckedItemIds from '../../hooks/useCheckedItemIds';
-import useItemQuantity from '../../hooks/useItemQuantity';
 import { useRecoilState } from 'recoil';
 
 export default function CartItemContainer() {
   const [items, setItems] = useRecoilState(cartItemsState);
-  const { getIsChecked, checkId, uncheckId } = useCheckedItemIds();
-  const { increaseQuantity, decreaseQuantity } = useItemQuantity();
+  const { getIsChecked, checkId, uncheckId, deleteId } = useCheckedItemIds();
 
+  useCartItemsState();
   const ids = items.map((item) => item.id);
   const isAllChecked = ids.every((id) => getIsChecked(id));
 
-  const handleAllCheckToggle = () => {
-    if (isAllChecked) return uncheckId(...ids);
-    return checkId(...ids);
+  const handleAllCheck = () => {
+    checkId(...ids);
   };
 
-  const handleDeleteItem = async (cartItemId: number) => {
-    checkId(cartItemId);
-    setItems((prevItems) => prevItems.filter((item) => item.id !== cartItemId));
-    await removeCartItem(cartItemId).catch(() => {
-      alert('네트워크 접속이 불안정합니다. 다시 시도해주세요');
-      setItems(items);
-    });
+  const handleAllUncheck = () => {
+    uncheckId(...ids);
   };
 
   return (
     <>
       {items.length > 0 && (
-        <S.Description>{`현재 ${items.length}종류의 상품이 담겨있습니다.`}</S.Description>
+        <Description>{`현재 ${items.length}종류의 상품이 담겨있습니다.`}</Description>
       )}
-      <S.CartItemListContainer>
-        <S.CheckAllBoxContainer>
-          <CheckBox isChecked={isAllChecked} onClick={handleAllCheckToggle} />
+      <CartItemListContainer>
+        <CheckAllBoxContainer>
+          <CheckBox
+            isChecked={isAllChecked}
+            onClick={isAllChecked ? handleAllUncheck : handleAllCheck}
+          />
           <span>전체선택</span>
-        </S.CheckAllBoxContainer>
+        </CheckAllBoxContainer>
 
         {items.map((item) => {
           return (
             <CartItem
-              handleClickCheckBox={() =>
-                getIsChecked(item.id) ? uncheckId(item.id) : checkId(item.id)
-              }
               key={item.id}
-              cartItem={item}
-              isChecked={getIsChecked(item.id)}
-              handleDelete={() => handleDeleteItem(item.id)}
-              handleIncreaseQuantity={async () => increaseQuantity(item.id)}
-              handleDecreaseQuantity={async () => decreaseQuantity(item.id)}
+              cartItemId={item.id}
+              product={item.product}
+              quantity={item.quantity}
+              handleDelete={(cartItemId: number) => {
+                removeCartItem(cartItemId);
+                deleteId(cartItemId);
+                setItems((prevItems) => [...prevItems].filter((item) => item.id !== cartItemId));
+              }}
+              handleIncreaseQuantity={(cartItemId: number, quantity: number) => {
+                updateCartItemQuantity(cartItemId, quantity);
+              }}
+              handleDecreaseQuantity={(cartItemId: number, quantity: number) => {
+                updateCartItemQuantity(cartItemId, quantity);
+              }}
             />
           );
         })}
-      </S.CartItemListContainer>
+      </CartItemListContainer>
     </>
   );
 }
+const Description = styled.h3({
+  fontSize: '12px',
+  fontWeight: '500',
+  color: '#0A0D13',
+  marginTop: '12px',
+});
+
+const CheckAllBoxContainer = styled.div({
+  height: '24px',
+  display: 'flex',
+  flexDirection: 'row',
+  gap: '8px',
+  alignItems: 'center',
+  color: '#0A0D13',
+  fontSize: '12px',
+  fontWeight: '500',
+  marginBottom: '20px',
+});
+
+const CartItemListContainer = styled.ul({
+  margin: '36px 0',
+});

@@ -1,7 +1,6 @@
 #root {
   position        : relative;
   width           : 430px;
-  min-height      : 100vh;
   padding-bottom  : 64px;
   background-color: white;
   max-width       : 1280px;
