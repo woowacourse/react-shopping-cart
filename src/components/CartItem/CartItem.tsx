@@ -1,14 +1,17 @@
 import { useEffect } from 'react';
-import { useCartItemQuantity } from '../../recoil/cartItem/useCartItemQuantity';
-import { useCartItemSelectedIdList } from '../../recoil/cartItem/useCartItemSelectedIdList';
-import useCartItemList from '../../recoil/cartItemList/useCartItemList';
+
+import * as S from './CartItem.style';
+
 import Button from '../common/Button/Button';
 import ChangeQuantity from '../common/ChangeQuantity/ChangeQuantity';
 import Checkbox from '../common/Checkbox/Checkbox';
-import { Divider } from '../common/Divider/Divider.style';
+import Divider from '../common/Divider/Divider';
 import ImageBox from '../common/ImageBox/ImageBox';
 import Text from '../common/Text/Text';
-import * as S from './CartItem.style';
+
+import { useCartItemQuantity } from '../../recoil/cartItem/useCartItemQuantity';
+import { useCartItemSelectedIdList } from '../../recoil/cartItem/useCartItemSelectedIdList';
+import useCartItemList from '../../recoil/cartItemList/useCartItemList';
 
 export type CartItemProps = {
   product: Product;
