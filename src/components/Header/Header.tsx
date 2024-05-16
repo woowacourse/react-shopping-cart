@@ -4,9 +4,14 @@ import Arrow from '../../assets/arrow.svg';
 
 type ImgType = 'logo' | 'arrow';
 
-export default function Header({ imgType }: { imgType: ImgType }) {
+interface HeaderProps {
+  imgType: ImgType;
+  onClick: () => void;
+}
+
+export default function Header({ imgType, onClick }: HeaderProps) {
   return (
-    <HeaderStyle>
+    <HeaderStyle onClick={onClick}>
       {imgType === 'logo' && (
         <img src={Logo} alt="로고" className="header_logo" />
       )}
