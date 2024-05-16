@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-type ButtonThemeType = "black" | "white";
+type ButtonThemeType = "black" | "white" | "disabled";
 type ButtonSizeType = "xs" | "s" | "m" | "full";
 
 const BUTTON_THEME = {

@@ -20,7 +20,6 @@ export const Header = styled.div`
 
 export const Body = styled.div`
   display: flex;
-  justify-content: space-between;
   gap: 24px;
 `;
 

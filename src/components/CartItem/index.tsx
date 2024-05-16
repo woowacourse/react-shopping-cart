@@ -1,4 +1,4 @@
-import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import {
   refreshedCartItemsState,
   isSelectedState,
