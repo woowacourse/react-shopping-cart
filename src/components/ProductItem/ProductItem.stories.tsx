@@ -35,19 +35,3 @@ export const Default: Story = {
     },
   },
 };
-
-// export const Default: Story = {
-//   args: {
-//     cartItem: {
-//       id: 1,
-//       quantity: 1,
-//       product: {
-//         id: 1,
-//         category: 'fashion',
-//         name: 'Product Name',
-//         price: 10000,
-//         imageUrl: 'https://via.placeholder.com/150',
-//       },
-//     },
-//   },
-// };
