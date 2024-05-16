@@ -9,3 +9,11 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+declare namespace NodeJS {
+  interface ProcessEnv {
+    API_URL: string;
+    USER_ID: string;
+    USER_PASSWORD: string;
+  }
+}
