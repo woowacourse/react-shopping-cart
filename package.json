@@ -18,8 +18,7 @@
     "react-router": "^6.23.1",
     "react-router-dom": "^6.23.1",
     "recoil": "^0.7.7",
-    "storybook": "^8.1.1",
-    "styled-components": "^6.1.11"
+    "storybook": "^8.1.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.5",
