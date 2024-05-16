@@ -2,13 +2,11 @@ import { ProductType } from '../../../types';
 import styles from '../Cart.module.css';
 import Button from '../../../components/common/Button';
 import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
-import { useEffect } from 'react';
-import { deleteCartItem, updateCartItemQuantity } from '../../../api';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { productQuantityState, productsIds } from '../../../store/selectors';
-import { isCheckedState, productsState } from '../../../store/atoms';
-import { CartItemType } from '../../../types';
-import areAllItemsChecked from '../../../utils/areAllItemsChecked';
+import { useRecoilValue } from 'recoil';
+import { productQuantityState } from '../../../store/selectors';
+import useQuantityCount from '../../../hooks/useQuantityCount';
+import useToggleIndividualChecked from '../../../hooks/useToggleIndividualChecked';
+import useDeleteProduct from '../../../hooks/useDeleteProduct';
 
 interface Props extends ProductType {
   quantity: number;
@@ -16,72 +14,10 @@ interface Props extends ProductType {
 }
 
 export default function CartItem({ id, price, imageUrl, name, setAllChecked }: Props) {
-  const [products, setProducts] = useRecoilState(productsState);
-  const [isChecked, setIsChecked] = useRecoilState(isCheckedState(id));
+  const { handleIncrementButton, handleDecrementButton } = useQuantityCount({ id });
   const productQuantity = useRecoilValue(productQuantityState(id));
-  const productIds = useRecoilValue(productsIds);
-
-  useEffect(() => {
-    window.localStorage.setItem(JSON.stringify(id), JSON.stringify(isChecked));
-  }, []);
-
-  const handleToggleSelect = (id: number) => {
-    const newIsChecked = !isChecked;
-
-    setIsChecked(newIsChecked);
-    window.localStorage.setItem(JSON.stringify(id), JSON.stringify(newIsChecked));
-
-    const isAllChecked = areAllItemsChecked(productIds);
-
-    setAllChecked(isAllChecked);
-  };
-
-  const handleIncrementButton = async () => {
-    const newQuantity = productQuantity + 1;
-    const { success } = await updateCartItemQuantity(id, newQuantity);
-
-    if (success) {
-      const newProducts = products.map((product: CartItemType) => {
-        if (product.id === id) {
-          return {
-            ...product,
-            quantity: newQuantity,
-          };
-        }
-        return product;
-      });
-
-      setProducts(newProducts);
-    }
-  };
-
-  const handleDecrementButton = async () => {
-    const newQuantity = productQuantity - 1;
-    const { success } = await updateCartItemQuantity(id, newQuantity);
-
-    if (success) {
-      const newProducts = products.map((product: CartItemType) => {
-        if (product.id === id) {
-          return {
-            ...product,
-            quantity: newQuantity,
-          };
-        }
-        return product;
-      });
-
-      setProducts(newProducts);
-    }
-  };
-
-  const handleDeleteButton = async () => {
-    const { success } = await deleteCartItem(id);
-
-    if (success) {
-      setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
-      localStorage.removeItem(JSON.stringify(id));
-    }
-  };
+  const { handleToggleSelect, isChecked } = useToggleIndividualChecked({ id, setAllChecked });
+  const { handleDeleteButton } = useDeleteProduct({ id });
 
   return (
     <li className={styles.cartItemContainer}>
