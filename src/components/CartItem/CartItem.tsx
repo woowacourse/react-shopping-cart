@@ -18,12 +18,12 @@ export type CartItemProps = {
 
 const CartItem = ({ product, quantity: initialQuantity, cartItemId }: CartItemProps) => {
   const { name, price, imageUrl } = product;
-  const { quantity, updateQuantity, increaseQuantity, decreaseQuantity } = useCartItemQuantity(cartItemId);
+  const { quantity, setQuantity, increaseQuantity, decreaseQuantity } = useCartItemQuantity(cartItemId);
   const { getIsSelected, addSelectedId, removeSelectedId } = useCartItemSelectedIdList();
   const { deleteCartItem } = useCartItemList();
 
   useEffect(() => {
-    updateQuantity(initialQuantity);
+    setQuantity(initialQuantity);
   }, []);
 
   return (
