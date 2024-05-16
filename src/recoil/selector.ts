@@ -19,3 +19,21 @@ export const orderPriceState = selector<number>({
     return orderPrice;
   },
 });
+
+export const deliveryPriceState = selector<number>({
+  key: "deliveryPriceState",
+  get: ({ get }) => {
+    const orderPrice = get(orderPriceState);
+    const deliveryPrice = orderPrice > 100000 ? 0 : 3000;
+    return deliveryPrice;
+  },
+});
+
+export const totalPriceState = selector<number>({
+  key: "totalPriceState",
+  get: ({ get }) => {
+    const orderPrice = get(orderPriceState);
+    const deliveryPrice = get(deliveryPriceState);
+    return orderPrice + deliveryPrice;
+  },
+});

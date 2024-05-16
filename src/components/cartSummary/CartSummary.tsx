@@ -1,6 +1,10 @@
 import { useRecoilValue } from "recoil";
 import InfoIcon from "../../assets/InfoIcon.png";
-import { orderPriceState } from "../../recoil/selector";
+import {
+  deliveryPriceState,
+  orderPriceState,
+  totalPriceState,
+} from "../../recoil/selector";
 import {
   StyledCartSummaryDetailPrice,
   StyledCartSummaryTotalContainer,
@@ -13,8 +17,8 @@ import { CartSummaryItem } from "./CartSummaryItem";
 
 export const CartSummary: React.FC = () => {
   const orderPrice = useRecoilValue(orderPriceState);
-  const deliveryPrice = orderPrice > 100000 ? 0 : 3000;
-  const totalPrice = orderPrice + deliveryPrice;
+  const deliveryPrice = useRecoilValue(deliveryPriceState);
+  const totalPrice = useRecoilValue(totalPriceState);
 
   return (
     <div>

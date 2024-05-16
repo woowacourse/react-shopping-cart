@@ -1,3 +1,4 @@
+import { useRecoilValue } from "recoil";
 import { ConfirmButton } from "../components/button/ConfirmButton";
 import Header from "../components/header/Header";
 import {
@@ -8,9 +9,10 @@ import {
   StyledConfirmationPageSubTitle,
   StyledConfirmationPageTitle,
 } from "./OrderConfirmationPage.styled";
+import { totalPriceState } from "../recoil/selector";
 
 export const OrderConfirmationPage: React.FC = () => {
-  const price = 70000;
+  const totalPrice = useRecoilValue(totalPriceState);
 
   return (
     <>
@@ -26,7 +28,7 @@ export const OrderConfirmationPage: React.FC = () => {
             총 결제 금액
           </StyledConfirmationPageSubTitle>
           <StyledConfirmationPagePrice>
-            {price.toLocaleString()}원
+            {totalPrice.toLocaleString()}원
           </StyledConfirmationPagePrice>
         </StyledConfirmatioinPagePriceContainer>
       </StyledConfirmationPage>
