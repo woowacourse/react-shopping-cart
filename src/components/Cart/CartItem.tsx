@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import BorderButton from '@/components/Button/BorderButton';
 import { CartItemType } from '@/types/cart.type';
 import CheckBox from '@/components/Button/CheckBoxButton';
+import Loading from '@/assets/loading.gif';
 import styled from '@emotion/styled';
 import { useRecoilState } from 'recoil';
 
@@ -22,8 +23,8 @@ const CartItem = ({ item }: Props) => {
   );
   const [cartList, setCartList] = useRecoilState(cartListState);
   const [loading, setLoading] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [error, setError] = useState<Error | null>(null);
+
+  const [, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     setFilteredItemState({
@@ -95,7 +96,11 @@ const CartItem = ({ item }: Props) => {
             <MinusButton
               onClick={() => handleQuantity(filteredItemState.quantity - 1)}
             />
-            {loading ? <div>로딩중</div> : filteredItemState.quantity}
+            {loading ? (
+              <Img src={Loading} alt="로딩 중" />
+            ) : (
+              filteredItemState.quantity
+            )}
             <PlusButton
               onClick={() => handleQuantity(filteredItemState.quantity + 1)}
             />
@@ -154,4 +159,8 @@ const StyledQuantityBox = styled.div`
   align-items: center;
   gap: 10px;
   margin-top: 10px;
+`;
+
+const Img = styled.img`
+  width: 14px;
 `;
