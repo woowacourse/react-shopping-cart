@@ -27,7 +27,10 @@ const CartItems = () => {
   return (
     <div className={cardItemCSS}>
       <div className={allCheckContainerCSS}>
-        <Button variant={isAllChecked ? "primary" : "secondary"} onClick={handleAllChecked}>
+        <Button
+          variant={isAllChecked ? "primary" : "secondary"}
+          onClick={handleAllChecked}
+        >
           <CheckIcon fill={isAllChecked ? "#ffffff" : "#0000001A"} />
         </Button>
         <span>전체 선택</span>
@@ -36,7 +39,10 @@ const CartItems = () => {
         {cartItems.map((item) => (
           <div key={item.id}>
             <Splitter />
-            <CartItem product={item} handleDelete={() => handleDelete(item.id)} />
+            <CartItem
+              product={item}
+              handleDelete={() => handleDelete(item.id)}
+            />
           </div>
         ))}
       </div>
