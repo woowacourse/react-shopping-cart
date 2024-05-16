@@ -51,6 +51,7 @@ export async function removeCartItem(cartItemId: number): Promise<void> {
 }
 
 export async function updateCartItemQuantity(cartItemId: number, quantity: number): Promise<void> {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const response = await fetch(`${API_URL}/${CART_ITEMS}/${cartItemId}`, {
     method: 'PATCH',
     headers: AUTH_HEADER,
