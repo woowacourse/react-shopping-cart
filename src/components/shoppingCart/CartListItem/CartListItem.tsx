@@ -1,34 +1,23 @@
-import { fetchDeleteCartItem } from '@apis/shoppingCart';
 import { CartItem } from '@appTypes/shoppingCart';
 import { Checkbox, DeleteButton } from '@components/common';
 import { CartListDescription } from '@components/shoppingCart';
-import { cartItemsSelector, selectedIdsAtom } from '@recoil/shoppingCart';
-import { useSetRecoilState } from 'recoil';
+import { useCheckCartItem, useDeleteCartItem } from '@hooks/shoppingCart';
 
 import * as Styled from './CartListItem.styled';
 
 interface CartListItemProps {
   cartItem: CartItem;
-  isChecked: boolean;
-  onChangeCheck: (event: React.ChangeEvent<HTMLInputElement>, id: number) => void;
 }
 
-const CartListItem: React.FC<CartListItemProps> = ({ cartItem, isChecked, onChangeCheck }) => {
-  const setCartItems = useSetRecoilState(cartItemsSelector);
-  const setSelectedIds = useSetRecoilState(selectedIdsAtom);
-
-  const handleClickDeleteButton = async () => {
-    await fetchDeleteCartItem(cartItem.id);
-
-    setCartItems((prevCartItems) => prevCartItems.filter((prevCartItem) => prevCartItem.id !== cartItem.id));
-    setSelectedIds((prevSelectedIds) => prevSelectedIds.filter((prevSelectedId) => prevSelectedId !== cartItem.id));
-  };
+const CartListItem: React.FC<CartListItemProps> = ({ cartItem }) => {
+  const { onDeleteItem } = useDeleteCartItem(cartItem.id);
+  const { isChecked, onCheckCartItem } = useCheckCartItem();
 
   return (
     <Styled.CartListContainer>
       <Styled.CartItemSelectionGroup>
-        <Checkbox checked={isChecked} onChange={(event) => onChangeCheck(event, cartItem.id)} />
-        <DeleteButton onClick={handleClickDeleteButton}>삭제</DeleteButton>
+        <Checkbox checked={isChecked(cartItem.id)} onChange={(event) => onCheckCartItem(event, cartItem.id)} />
+        <DeleteButton onClick={onDeleteItem}>삭제</DeleteButton>
       </Styled.CartItemSelectionGroup>
       <Styled.CartItemDetailContainer>
         <Styled.CartItemImage src={cartItem.product.imageUrl} />

@@ -1,10 +1,10 @@
-import { orderPriceSelector } from '@recoil/shoppingCart';
+import { orderCostsSelector } from '@recoil/shoppingCart';
 import { formatKoreanCurrency } from '@utils/index';
 import { useRecoilValue } from 'recoil';
 
 import * as Styled from './OrderPrice.styled';
 const OrderPrice = () => {
-  const { totalPrice, shippingPrice, orderPrice } = useRecoilValue(orderPriceSelector);
+  const { orderPrice, shippingPrice, totalPrice } = useRecoilValue(orderCostsSelector);
   return (
     <Styled.OrderPrice>
       <Styled.PriceGroup>

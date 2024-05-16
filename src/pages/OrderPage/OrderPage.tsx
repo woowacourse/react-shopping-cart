@@ -11,7 +11,9 @@ import * as Styled from './OrderPage.styled';
 const OrderPage: React.FC = () => {
   const cartItems = useRecoilValue(cartItemsSelector);
   const selectedIds = useRecoilValue(selectedIdsAtom);
-  const buttonDisabled = cartItems.length === 0 || selectedIds.length === 0;
+
+  const isButtonDisabled = cartItems.length === 0 || selectedIds.length === 0;
+
   const navigate = useNavigate();
 
   return (
@@ -34,7 +36,7 @@ const OrderPage: React.FC = () => {
           <OrderPrice />
         </>
       )}
-      <BottomButton onClick={() => navigate(ROUTE_PATHS.confirm)} disabled={buttonDisabled}>
+      <BottomButton onClick={() => navigate(ROUTE_PATHS.confirm)} disabled={isButtonDisabled}>
         주문 확인
       </BottomButton>
     </Styled.OrderPageContainer>
