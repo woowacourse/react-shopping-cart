@@ -1,6 +1,6 @@
 import { useSetRecoilState } from "recoil";
 import { deleteCartItem, patchCartItemQuantityChange } from "../../api";
-import { cartItemsState } from "../../recoil/atoms";
+import { cartItemsState } from "../../recoil/atoms/atoms";
 import { CartItem } from "../../types";
 import { ActionButton } from "../button/actionButton/ActionButton";
 import {

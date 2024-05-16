@@ -3,8 +3,11 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { getCartItemCounts } from "../../api";
 import { ConfirmButton } from "../../components/button/confirmButton/ConfirmButton";
 import Header from "../../components/header/Header";
-import { cartItemsCountState } from "../../recoil/atoms";
-import { categoryCountState, totalPriceState } from "../../recoil/selector";
+import { cartItemsCountState } from "../../recoil/atoms/atoms";
+import {
+  categoryCountState,
+  totalPriceState,
+} from "../../recoil/selector/selector";
 import {
   StyledConfirmationPagePriceContainer,
   StyledConfirmationPage,

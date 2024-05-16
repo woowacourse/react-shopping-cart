@@ -5,8 +5,8 @@ import { ConfirmButton } from "../../components/button/confirmButton/ConfirmButt
 import { CartContentSection } from "../../components/cartContentSection/CartContentSection";
 import { CartHeader } from "../../components/cartHeader/CartHeader";
 import Header from "../../components/header/Header";
-import { cartItemsState } from "../../recoil/atoms";
-import { categoryCountState } from "../../recoil/selector";
+import { cartItemsState } from "../../recoil/atoms/atoms";
+import { categoryCountState } from "../../recoil/selector/selector";
 import { StyledCartPage } from "./CartPage.styled";
 
 export const CartPage: React.FC = () => {

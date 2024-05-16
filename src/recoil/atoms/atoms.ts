@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { CartItem } from "../types";
+import { CartItem } from "../../types";
 
 export const getLocalStorageState = (
   key: string,

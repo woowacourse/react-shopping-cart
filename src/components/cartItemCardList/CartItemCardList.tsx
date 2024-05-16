@@ -4,7 +4,7 @@ import {
   cartItemsState,
   isAllSelectedState,
   selectedItemsState,
-} from "../../recoil/atoms";
+} from "../../recoil/atoms/atoms";
 import { ActionButton } from "../button/actionButton/ActionButton";
 import { CartItemCard } from "../cartItemCard/CartItemCard";
 import {

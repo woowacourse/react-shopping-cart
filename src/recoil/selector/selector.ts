@@ -1,5 +1,5 @@
 import { selector } from "recoil";
-import { cartItemsState } from "./atoms";
+import { cartItemsState } from "../atoms/atoms";
 
 export const categoryCountState = selector<number>({
   key: "categoryCountState",

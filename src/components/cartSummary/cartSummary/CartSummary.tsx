@@ -3,7 +3,7 @@ import {
   deliveryPriceState,
   orderPriceState,
   totalPriceState,
-} from "../../../recoil/selector";
+} from "../../../recoil/selector/selector";
 import InfoIcon from "../../../assets/InfoIcon.png";
 import { CartSummaryItem } from "../cartSummaryItem/CartSummaryItem";
 import {
