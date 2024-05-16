@@ -1,6 +1,7 @@
 import { act, renderHook } from "@testing-library/react";
-import { RecoilRoot, useRecoilState } from "recoil";
+import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
 import { mockCartItemsData } from "../../mocks/mockCartItemsData";
+import { mockChangeCountData } from "../../mocks/mockChangeCountData";
 import { mockSelectedItemsData } from "../../mocks/mockSelectedItemsData";
 import {
   cartItemsCountState,
@@ -65,5 +66,50 @@ describe("mockData를 이용한 테스트", () => {
     act(() => result.current[1](mockSelectedItemsData.isAllSelectedState));
 
     expect(result.current[0]).toBe(false);
+  });
+
+  it("수량 증가 기능", () => {
+    const { result } = renderHook(
+      () => {
+        const [cartItems, setCartItems] = useRecoilState(cartItemsState);
+        const cartItemsCount = useRecoilValue(cartItemsCountState);
+        return { cartItems, setCartItems, cartItemsCount };
+      },
+      {
+        wrapper: RecoilRoot,
+      }
+    );
+
+    act(() => {
+      result.current.setCartItems(
+        mockChangeCountData.content.map((item) => ({
+          id: item.id,
+          product: {
+            id: item.product.id,
+            name: item.product.name,
+            price: item.product.price,
+            imageUrl: item.product.imageUrl,
+            category: item.product.category,
+          },
+          quantity: item.quantity,
+        }))
+      );
+    });
+
+    act(() => {
+      result.current.setCartItems((prevItems) =>
+        prevItems.map((item) =>
+          item.id === 429 ? { ...item, quantity: item.quantity + 1 } : item
+        )
+      );
+    });
+
+    const expectedCount = result.current.cartItems.find(
+      (item) => item.id === 429
+    );
+
+    if (expectedCount) {
+      expect(expectedCount.quantity).toBe(2);
+    }
   });
 });
