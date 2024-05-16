@@ -15,3 +15,8 @@ export const isAllSelectedState = atom<boolean>({
   key: "isAllSelectedState",
   default: false,
 });
+
+export const cartItemsCountState = atom<number>({
+  key: "cartItemsCount",
+  default: 0,
+});
