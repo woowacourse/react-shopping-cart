@@ -2,6 +2,7 @@ import { renderHook, waitFor } from "@testing-library/react";
 import { fetchCartItems } from "../api/cartItems";
 import { RecoilRoot, useRecoilValue } from "recoil";
 import { rawCartItemsState } from "./rawCartItems";
+import { Suspense } from "react";
 
 jest.mock("../api/cartItems");
 
@@ -40,7 +41,11 @@ describe("rawCartItemsState", () => {
   it("초기값 세팅", async () => {
     mockFetchCartItems.mockResolvedValueOnce(mockCartItems);
     const { result } = renderHook(() => useRecoilValue(rawCartItemsState), {
-      wrapper: RecoilRoot,
+      wrapper: ({ children }) => (
+        <RecoilRoot>
+          <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+        </RecoilRoot>
+      ),
     });
 
     await waitFor(() => {
