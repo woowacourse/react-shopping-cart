@@ -139,15 +139,3 @@ export const totalOrderQuantity = selector({
     }, 0);
   },
 });
-
-// const isCheckedState = selectorFamily({
-//   key: 'isCheckedState',
-//   get: (id) => ({ get }) => {
-//     const storedValue = window.localStorage.getItem(JSON.stringify(id));
-//     return storedValue !== null ? JSON.parse(storedValue) : false;
-//   },
-//   set: (id) => ({ set }, newValue) => {
-//     set(isCheckedState(id), newValue);
-//     window.localStorage.setItem(JSON.stringify(id), JSON.stringify(newValue));
-//   },
-// });
