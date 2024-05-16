@@ -10,11 +10,13 @@ import { useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { ROUTER_URLS } from '../../constants/constants';
 import Fallback from '../Fallback/Fallback';
+import { selectedCartItems } from '../../recoil/atoms';
 
 const ShoppingCartOverview = () => {
   const { data, refetch } = useFetch(getItems);
   const orderInfo = useRecoilValue(orderInfoStore);
   const navigate = useNavigate();
+  const selectItemsLength = useRecoilValue(selectedCartItems).length;
 
   const goOrderInfo = () => {
     navigate(ROUTER_URLS.ORDER_INFO, { state: orderInfo });
@@ -29,7 +31,11 @@ const ShoppingCartOverview = () => {
             <ShoppingCartList cartItems={data ?? []} refetch={refetch} />
             <PaymentTotal />
           </S.Container>
-          <FloatingButton label={'주문 확인'} onClick={goOrderInfo} />
+          <FloatingButton
+            label={'주문 확인'}
+            onClick={goOrderInfo}
+            disabled={selectItemsLength <= 0}
+          />
         </>
       ) : (
         <>
