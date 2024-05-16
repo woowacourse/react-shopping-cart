@@ -1,7 +1,7 @@
 import { useRecoilCallback, useRecoilValue } from "recoil";
 
 import { cartItems } from "@/recoil/cartItems";
-import { isAllItemSelectedSelector } from "@/recoil/orderInformation";
+import { isAllItemSelectedSelector } from "@/recoil/selectedCardItems";
 import { selectedCartItems } from "@/recoil/selectedCardItems";
 
 const useSelectAll = () => {
