@@ -1,6 +1,6 @@
-import { css, Theme } from "@emotion/react";
+import { css } from '@emotion/react';
 
-const globalStyles = (theme: Theme) => css`
+const globalStyles = () => css`
   /* Reset CSS */
   * {
     margin: 0;
@@ -124,7 +124,7 @@ const globalStyles = (theme: Theme) => css`
   blockquote:after,
   q:before,
   q:after {
-    content: "";
+    content: '';
     content: none;
   }
   table {
