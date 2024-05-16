@@ -25,7 +25,6 @@ export const productQuantityState = selectorFamily<number, number>({
     (id: number) =>
     ({ get }) => {
       const products = get(productsState);
-      console.log('products : ', products);
       const product = products.find((item) => item.id === id);
       return product ? product.quantity : 0;
     },
@@ -60,9 +59,6 @@ export const totalProductQuantity = selector({
   get: ({ get }) => {
     let totalCount = 0;
     let totalQuantity = 0;
-    // const keys = get(productsState).map((product: CartItemType) => {
-    //   return product.id;
-    // });
 
     const keys = get(productsIds);
     keys.forEach((key) => {
@@ -81,15 +77,3 @@ export const totalProductQuantity = selector({
     };
   },
 });
-
-// export const isAllChecked = selector({
-//   key: 'isAllChecked',
-//   get: ({ get }) => {
-//     const keys = get(productsIds);
-//     const isAllChecked = keys.every((key) => {
-//       return get(isCheckedState(key));
-//     });
-
-//     return isAllChecked;
-//   },
-// });

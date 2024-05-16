@@ -74,6 +74,15 @@ export default function CartItem({ id, price, imageUrl, name, setAllChecked }: P
     }
   };
 
+  const handleDeleteButton = async () => {
+    const { success } = await deleteCartItem(id);
+
+    if (success) {
+      setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
+      localStorage.removeItem(JSON.stringify(id));
+    }
+  };
+
   return (
     <li className={styles.cartItemContainer}>
       <div className={styles.cartItemInputButtonContainer}>
@@ -85,7 +94,7 @@ export default function CartItem({ id, price, imageUrl, name, setAllChecked }: P
           onChange={() => handleToggleSelect(id)}
         ></input>
         <label htmlFor={`item-${id}`} className={styles.customCheckboxLabel}></label>
-        <Button variant="image" className={styles.deleteButton}>
+        <Button variant="image" className={styles.deleteButton} onClick={handleDeleteButton}>
           삭제
         </Button>
       </div>
