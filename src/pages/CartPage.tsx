@@ -74,7 +74,7 @@ const CartPage = () => {
         size="l"
         style={{ position: 'fixed', bottom: '0', width: 'inherit' }}
         isDisabled={selectedItemList.length === 0 || (cartItemList !== null && cartItemList.length === 0)}
-        onClick={() => navigate('/confirm-purchase')}
+        onClick={() => navigate('/confirm-purchase', { state: cartItemList.filter(({ cartItemId }) => selectedItemList.includes(cartItemId)) })}
       >
         주문 확인
       </Button>

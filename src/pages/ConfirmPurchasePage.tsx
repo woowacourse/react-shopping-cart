@@ -8,10 +8,11 @@ import { useRecoilValue } from 'recoil';
 import { Suspense, useEffect } from 'react';
 import useCartListItem from '../recoil/cartItemList/useCartItemList';
 import Button from '../components/common/Button/Button';
-import { cartItemSelectedIdListAtom } from '../recoil/cartItem/cartItemAtom';
+import { cartItemQuantityAtomFamily, cartItemSelectedIdListAtom } from '../recoil/cartItem/cartItemAtom';
 import Text from '../components/common/Text/Text';
 import { priceSelector } from '../recoil/price/priceSelector';
 import { totalItemQuantitySelector } from '../recoil/cartItemList/totalItemQuantitySelector';
+import { useLocation } from 'react-router-dom';
 
 const CartPageContainer = styled.main`
   width: 100%;
@@ -34,15 +35,22 @@ const PriceContainer = styled.main`
 `;
 
 const ConfirmPurchasePage = () => {
-  const { updateCartItemList } = useCartListItem();
 
-  useEffect(() => {
-    updateCartItemList();
-  }, []);
+  const { state } = useLocation();
 
-  const cartItemList = useRecoilValue(cartItemListState);
-  const { totalPrice } = useRecoilValue(priceSelector);
-  const totalQuantity = useRecoilValue(totalItemQuantitySelector);
+  const calcTotalQuantity = () => {
+    return state.reduce((sum, { quantity }) => {
+      return sum + quantity
+    }, 0);
+  }
+
+  const calcTotalPrice = () => {
+    return state.reduce((sum, { quantity, product }) => {
+      return sum + quantity * product.price
+    }, 0);
+  }
+
+  console.log(state)
 
   return (
     <>
@@ -53,7 +61,7 @@ const ConfirmPurchasePage = () => {
           주문 확인
         </Text>
         <Text size="s" weight="m">
-          총 {cartItemList.length}종류의 상품 {totalQuantity}개를 주문합니다.
+          총 {state.length}종류의 상품 {calcTotalQuantity()}개를 주문합니다.
           <br />
           최종 결제 금액을 확인해 주세요.
         </Text>
@@ -62,7 +70,7 @@ const ConfirmPurchasePage = () => {
             총 결제 금액
           </Text>
           <Text size="l" weight="l">
-            {totalPrice.toLocaleString('ko-kr')}원
+            {calcTotalPrice().toLocaleString('ko-kr')}원
           </Text>
         </PriceContainer>
       </CartPageContainer>
