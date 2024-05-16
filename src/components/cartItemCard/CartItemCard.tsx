@@ -1,5 +1,6 @@
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { deleteCartItem, patchCartItemQuantityChange } from "../../api";
+import { cartItemsState } from "../../recoil/atoms";
 import { CartItem } from "../../types";
 import { ActionButton } from "../button/ActionButton";
 import {
@@ -13,12 +14,19 @@ import {
   StyledProductQuantityContainer,
   StyledProductQuantityText,
 } from "./CartItemCard.styled";
-import { cartItemsState, selectedItemsState } from "../../recoil/atoms";
-
-export const CartItemCard: React.FC<CartItem> = ({ id, product, quantity }) => {
+interface CartItemProps extends CartItem {
+  selected: boolean;
+  onSelect: () => void;
+}
+export const CartItemCard: React.FC<CartItemProps> = ({
+  id,
+  product,
+  quantity,
+  selected,
+  onSelect,
+}) => {
   const { name, price, imageUrl } = product;
   const setCartItems = useSetRecoilState(cartItemsState);
-  const [selectedItems, setSelectedItems] = useRecoilState(selectedItemsState);
 
   const handleItemDelete = async (id: number) => {
     try {
@@ -27,18 +35,6 @@ export const CartItemCard: React.FC<CartItem> = ({ id, product, quantity }) => {
     } catch (error) {
       console.error("Failed to delete cart item:", error);
     }
-  };
-
-  const handleItemSelect = () => {
-    setSelectedItems((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(id)) {
-        newSet.delete(id);
-      } else {
-        newSet.add(id);
-      }
-      return newSet;
-    });
   };
 
   const handleItemCountPlus = async (id: number) => {
@@ -74,15 +70,11 @@ export const CartItemCard: React.FC<CartItem> = ({ id, product, quantity }) => {
   return (
     <StyledCartItemCard>
       <StyledCartItemCardHeader>
-        <ActionButton
-          type="select"
-          clicked={selectedItems.has(id)}
-          onSelect={handleItemSelect}
-        />
+        <ActionButton type="select" clicked={selected} onSelect={onSelect} />
         <ActionButton
           type="delete"
           onDelete={() => handleItemDelete(id)}
-          disabled={selectedItems.has(id)}
+          disabled={selected}
         />
       </StyledCartItemCardHeader>
       <StyledCartItemCardProductContents>

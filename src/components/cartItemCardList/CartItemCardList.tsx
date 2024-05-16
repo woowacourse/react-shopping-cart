@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   cartItemsState,
@@ -11,7 +12,6 @@ import {
   StyledCartItemSelectContainer,
   StyledCartItemSelectText,
 } from "./CartItemCardList.styled";
-import { useEffect } from "react";
 
 export const CartItemCardList: React.FC = () => {
   const cartItems = useRecoilValue(cartItemsState);
@@ -19,18 +19,32 @@ export const CartItemCardList: React.FC = () => {
   const [isAllSelected, setIsAllSelected] = useRecoilState(isAllSelectedState);
 
   useEffect(() => {
-    setIsAllSelected(
-      cartItems.length > 0 && selectedItems.size === cartItems.length
-    );
+    const allSelected = cartItems.every((item) => selectedItems[item.id]);
+    setIsAllSelected(allSelected);
   }, [cartItems, selectedItems, setIsAllSelected]);
 
+  useEffect(() => {
+    localStorage.setItem("selectedItemsState", JSON.stringify(selectedItems));
+    localStorage.setItem("isAllSelectedState", JSON.stringify(isAllSelected));
+  }, [selectedItems, isAllSelected]);
+
   const handleSelectAll = () => {
-    if (isAllSelected) {
-      setSelectedItems(new Set());
-    } else {
-      setSelectedItems(new Set(cartItems.map((item) => item.id)));
+    const newSelectedItems: Record<number, boolean> = {};
+    if (!isAllSelected) {
+      cartItems.forEach((item) => {
+        newSelectedItems[item.id] = true;
+      });
     }
+
+    setSelectedItems(newSelectedItems);
     setIsAllSelected(!isAllSelected);
+  };
+
+  const handleSelectItem = (id: number) => {
+    setSelectedItems((prev) => {
+      const newSelectedItems = { ...prev, [id]: !prev[id] };
+      return newSelectedItems;
+    });
   };
 
   return (
@@ -44,7 +58,12 @@ export const CartItemCardList: React.FC = () => {
         <StyledCartItemSelectText>전체선택</StyledCartItemSelectText>
       </StyledCartItemSelectContainer>
       {cartItems.map((item) => (
-        <CartItemCard key={item.id} {...item} />
+        <CartItemCard
+          key={item.id}
+          {...item}
+          selected={!!selectedItems[item.id]}
+          onSelect={() => handleSelectItem(item.id)}
+        />
       ))}
     </StyledCartItemCardList>
   );
