@@ -11,7 +11,7 @@ export interface Cart {
   empty: boolean;
 }
 
-export interface CartItemStateType {
+export interface FilteredCartItemStateType {
   id: number;
   quantity: number;
   price: number;
