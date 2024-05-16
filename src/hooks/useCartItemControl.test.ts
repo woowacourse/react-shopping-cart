@@ -1,7 +1,8 @@
-import { renderHook } from "@testing-library/react";
 import { RecoilRoot, useRecoilState } from "recoil";
+
 import { act } from "react";
-import { removeCartItem, updateCartItemQuantity } from "../api/cartItems";
+import { renderHook } from "@testing-library/react";
+import { updateCartItemQuantity } from "../api/cartItems";
 import { useCartItemControl } from "./useCartItemControl";
 
 jest.mock("recoil", () => ({
@@ -42,7 +43,10 @@ describe("useCartItemControl", () => {
       const mockUpdateCartItemQuantity = updateCartItemQuantity as jest.Mock;
       const setRawCartItems = jest.fn();
 
-      (useRecoilState as jest.Mock).mockImplementation(() => [mockCartItems, setRawCartItems]);
+      (useRecoilState as jest.Mock).mockImplementation(() => [
+        mockCartItems,
+        setRawCartItems,
+      ]);
 
       const { result } = renderHook(() => useCartItemControl(), {
         wrapper: RecoilRoot,
