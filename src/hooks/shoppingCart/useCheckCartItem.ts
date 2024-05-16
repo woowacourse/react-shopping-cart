@@ -10,8 +10,8 @@ const useCheckCartItem = () => {
 
   const isAllChecked = selectedCartItemIds.length === cartItems.length;
 
-  const onCheckAllCartItems = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newCheckState = event.target.checked ? cartItems.map((cartItem) => cartItem.id) : [];
+  const onCheckAllCartItems = (checked: boolean) => {
+    const newCheckState = checked ? cartItems.map((cartItem) => cartItem.id) : [];
 
     setSelectedCartItemIds(newCheckState);
   };
