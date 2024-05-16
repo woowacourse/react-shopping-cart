@@ -7,18 +7,6 @@ export const cartState = atom({
   default: fetchCartState,
 });
 
-export const checkAllItemState = selector({
-  key: "checkAllItemState",
-  get: ({ get }) => {
-    const itemIds = get(itemIdsState);
-    return itemIds.every((itemId) => get(itemEachCheckState(itemId)));
-  },
-  set: ({ set, get }, newValue) => {
-    const itemIds = get(itemIdsState);
-    itemIds.forEach((itemId) => set(itemEachCheckState(itemId), newValue));
-  },
-});
-
 export const itemEachCheckState = atomFamily<boolean, number>({
   key: "itemEachCheckState",
   default: true,

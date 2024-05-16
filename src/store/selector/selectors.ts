@@ -1,5 +1,5 @@
 import { selector } from "recoil";
-import { itemEachCheckState, itemQuantityState } from "../atom/atoms";
+import { itemEachCheckState, itemIdsState, itemQuantityState } from "../atom/atoms";
 import { fetchProducts } from "../api";
 import { SHIPPING_CONSTANT } from "../../constants";
 import { cartState } from "../atom/atoms";
@@ -15,6 +15,18 @@ export const fetchCartState = selector({
     });
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(localData));
     return content;
+  },
+});
+
+export const checkAllItemState = selector({
+  key: "checkAllItemState",
+  get: ({ get }) => {
+    const itemIds = get(itemIdsState);
+    return itemIds.every((itemId) => get(itemEachCheckState(itemId)));
+  },
+  set: ({ set, get }, newValue) => {
+    const itemIds = get(itemIdsState);
+    itemIds.forEach((itemId) => set(itemEachCheckState(itemId), newValue));
   },
 });
 
