@@ -1,5 +1,7 @@
-import { renderHook } from "@testing-library/react";
-import { RecoilRoot, useRecoilValue } from "recoil";
+import { act, renderHook } from "@testing-library/react";
+import { RecoilRoot, useRecoilValue, useSetRecoilState } from "recoil";
+import { mockCartItemsData } from "../../mocks/mockCartItemsData";
+import { cartItemsState } from "../atoms/atoms";
 import { categoryCountState, orderPriceState } from "./selector";
 
 describe("초기값 테스트", () => {
@@ -16,5 +18,45 @@ describe("초기값 테스트", () => {
     });
 
     expect(result.current).toBe(0);
+  });
+});
+
+describe("mockData를 이용한 테스트", () => {
+  it("주문 금액이 올바르게 계산되는지 확인한다.", () => {
+    const { result } = renderHook(
+      () => {
+        const setCartItems = useSetRecoilState(cartItemsState);
+        const orderPrice = useRecoilValue(orderPriceState);
+        return { setCartItems, orderPrice };
+      },
+      {
+        wrapper: RecoilRoot,
+      }
+    );
+
+    act(() => {
+      result.current.setCartItems(
+        mockCartItemsData.content.map((item) => ({
+          id: item.id,
+          product: {
+            id: item.product.id,
+            name: item.product.name,
+            price: item.product.price,
+            imageUrl: item.product.imageUrl,
+            category: item.product.category,
+          },
+          quantity: item.quantity,
+        }))
+      );
+    });
+
+    const expectedOrderPrice = mockCartItemsData.content.reduce(
+      (total, item) => {
+        return total + item.product.price * item.quantity;
+      },
+      0
+    );
+
+    expect(expectedOrderPrice).toBe(23000);
   });
 });
