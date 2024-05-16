@@ -1,6 +1,9 @@
 import { Global, css } from '@emotion/react';
 
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from './components/ErrorFallback.tsx';
 import Router from './Router.tsx';
+import { Suspense } from 'react';
 import emotionNormalize from 'emotion-normalize';
 
 const baseStyle = css`
@@ -16,7 +19,11 @@ function App() {
   return (
     <>
       <Global styles={baseStyle} />
-      <Router />
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Router />
+        </Suspense>
+      </ErrorBoundary>
     </>
   );
 }
