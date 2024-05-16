@@ -14,10 +14,10 @@ const HEADERS = {
   "Content-Type": "application/json",
 };
 
-const API_URL = `${BASE_URL}/cart-items`;
+const CART_ITEMS_API_URL = `${BASE_URL}/cart-items`;
 
 export const fetchCartItems = async (): Promise<CartItemType[]> => {
-  const response = await fetch(`${API_URL}`, {
+  const response = await fetch(`${CART_ITEMS_API_URL}`, {
     method: "GET",
     headers: HEADERS,
   });
@@ -55,3 +55,17 @@ export const deleteCartItem = async (id: CartItemType["id"]) => {
     throw new Error("Failed to delete cart item");
   }
 };
+
+// const ORDER_ITEMS_API_URL = `${BASE_URL}/orders`;
+
+// export const orderItems = async (cartItemIds: string[]) => {
+//   const response = await fetch(`${ORDER_ITEMS_API_URL}`, {
+//     method: "POST",
+//     headers: HEADERS,
+//     body: JSON.stringify(cartItemIds),
+//   });
+
+//   if (!response.ok) {
+//     throw new Error("Failed to order cart items");
+//   }
+// };

@@ -26,7 +26,15 @@ export default function CartPage() {
   const shipping = useRecoilValue(shippingFee);
   const navigate = useNavigate();
 
-  const handleConfirmOrder = () => {
+  const handleConfirmOrder = async () => {
+    // const cartItemSeleted = CartItemLocalStorage.get(KEY);
+    // if (cartItemSeleted) {
+    //   const cartItemIds = Object.keys(cartItemSeleted).filter(
+    //     (key) => cartItemSeleted[key] === true
+    //   );
+    //   await orderItems(cartItemIds);
+    //   navigate("/confirm");
+    // }
     navigate("/confirm");
   };
 
