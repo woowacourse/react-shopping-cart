@@ -22,8 +22,13 @@
 
     /* Testing */
     "types": ["jest"],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"]
+    }
   },
-  "include": ["src"],
+  "include": ["src", "types/vite-env.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
