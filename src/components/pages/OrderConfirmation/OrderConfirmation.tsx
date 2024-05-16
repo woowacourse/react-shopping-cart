@@ -34,7 +34,7 @@ const OrderConfirmation = () => {
       </Styled.Container>
       <OrderButton
         onClick={() => console.log('주문 확인')}
-        label="주문 확인"
+        label="결제하기"
         isOrderable={false}
       />
     </Styled.OrderConfirmation>
