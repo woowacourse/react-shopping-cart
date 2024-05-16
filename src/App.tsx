@@ -1,9 +1,12 @@
 import "./App.css";
+import Header from "./components/Header/index";
+import ShoppingCart from "./pages/ShoppingCart";
 
 function App() {
   return (
     <>
-      <h1>react-shopping-cart</h1>
+      <Header />
+      <ShoppingCart />
     </>
   );
 }
