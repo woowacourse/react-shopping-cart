@@ -10,9 +10,9 @@ export const totalItemQuantitySelector = selector({
     const filteredCartItemList = cartItemList.filter(({ cartItemId }) => cartItemSelectedIdList.includes(cartItemId));
 
     return filteredCartItemList.reduce((sum, { cartItemId }) => {
-      const quantity = get(cartItemQuantityAtomFamily(`${cartItemId}`));
+      const quantity = get(cartItemQuantityAtomFamily(`${cartItemId}`)); // 여기가 문제 계속 새로운 family로 quantity atom이 초기화되고있음
 
-      return sum + quantity;
+      return (sum += quantity);
     }, 0);
   },
 });
