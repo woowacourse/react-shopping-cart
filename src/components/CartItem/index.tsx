@@ -1,45 +1,65 @@
 import { CartItemResponse } from "../../types/ShoppingCart";
 import styled from "styled-components";
 import ItemCounter from "../ItemCounter/index";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { decreaseCartQuantity, increaseCartQuantity } from "../../recoil/selectors";
-import { cartQuantityState } from "../../recoil/atoms";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { cartItemQuantityStates } from "../../recoil/atoms";
 import BasicButton from "../Button/BasicButton/index";
 import CheckboxButton from "../Button/CheckboxButton/index";
-import { addCartSelect } from "../../recoil/selectors";
-import { removeCartSelect } from "../../recoil/selectors";
-import { cartSelectedState } from "../../recoil/atoms";
+import { checkCartItemSelector } from "../../recoil/selectors";
+import { uncheckCartItemSelector } from "../../recoil/selectors";
+import { checkedCartItemsState } from "../../recoil/atoms";
+import { deleteCartItem, patchCartItemQuantity } from "../../api/cartItem";
 
-const CartItem = ({ product }: Pick<CartItemResponse, "product">) => {
-  const quantity = useRecoilValue(cartQuantityState(product.id));
-  const increaseCount = useSetRecoilState(increaseCartQuantity);
-  const decreaseCount = useSetRecoilState(decreaseCartQuantity);
+interface CartItemProps extends Omit<CartItemResponse, "quantity"> {
+  removeCartItem: (itemId: number) => void;
+}
 
-  const cartLists = useRecoilValue(cartSelectedState);
-  const addCart = useSetRecoilState(addCartSelect);
-  const removeCart = useSetRecoilState(removeCartSelect);
+const CartItem = ({ id, product, removeCartItem }: CartItemProps) => {
+  const [quantity, setQuantity] = useRecoilState(cartItemQuantityStates(id));
 
-  const isInCart = cartLists.includes(product.id) ? true : false;
+  const checkItems = useRecoilValue(checkedCartItemsState);
+  const checkCartItem = useSetRecoilState(checkCartItemSelector);
+  const uncheckCartItem = useSetRecoilState(uncheckCartItemSelector);
+
+  const isCheckedItem = checkItems.includes(id) ? true : false;
+
+  const handleRemoveItem = () => {
+    if (!confirm("정말로 삭제하시겠습니까?")) return;
+    removeCartItem(id);
+    uncheckCartItem(id);
+    deleteCartItem(id);
+  };
+
+  const handleIncrease = () => {
+    patchCartItemQuantity(id, quantity + 1);
+    setQuantity(quantity + 1);
+  };
+
+  const handleDecrease = () => {
+    if (quantity > 1) {
+      patchCartItemQuantity(id, quantity - 1);
+      setQuantity(quantity - 1);
+      return;
+    }
+
+    handleRemoveItem();
+  };
 
   return (
     <CartItemContainer>
       <TopContainer>
         <CheckboxButton
-          onClick={() => (isInCart ? removeCart(product.id) : addCart(product.id))}
-          isChecked={isInCart}
+          onClick={() => (isCheckedItem ? uncheckCartItem(id) : checkCartItem(id))}
+          isChecked={isCheckedItem}
         />
-        <BasicButton label="삭제" onClick={() => alert("삭제하려다 실패")} />
+        <BasicButton label="삭제" onClick={handleRemoveItem} />
       </TopContainer>
       <CartItemWrapper>
         <Thumbnail src={product.imageUrl} />
         <CartItemContents>
           <Name>{product.name}</Name>
           <Price>{product.price.toLocaleString()}원</Price>
-          <ItemCounter
-            value={quantity}
-            handleIncrease={() => increaseCount(product.id)}
-            handleDecrease={() => decreaseCount(product.id)}
-          />
+          <ItemCounter value={quantity} handleIncrease={handleIncrease} handleDecrease={handleDecrease} />
         </CartItemContents>
       </CartItemWrapper>
     </CartItemContainer>
