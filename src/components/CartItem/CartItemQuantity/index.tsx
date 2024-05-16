@@ -1,6 +1,10 @@
-import { useRecoilState } from 'recoil';
-import { cartItemQuantity } from '../../../recoil/atoms';
-import { updateCartItemQuantity } from '../../../api';
+import { useRecoilState } from "recoil";
+import { updateCartItemQuantity } from "../../../api";
+import MinusIcon from "../../../assets/minusIcon.png";
+import PlusIcon from "../../../assets/plusIcon.png";
+import { cartItemQuantity } from "../../../recoil/atoms";
+import BorderButton from "../../common/BorderButton";
+import QuantityContainer from "./style";
 
 export default function CartItemQuantity({ itemId }: { itemId: number }) {
   const [quantity, setQuantity] = useRecoilState(cartItemQuantity(itemId));
@@ -11,19 +15,22 @@ export default function CartItemQuantity({ itemId }: { itemId: number }) {
   };
 
   const handleDecreaseQuantity = () => {
-    updateCartItemQuantity(itemId, quantity - 1);
-    setQuantity(quantity - 1);
+    if (quantity - 1 >= 0) {
+      updateCartItemQuantity(itemId, quantity - 1);
+    }
+
+    setQuantity(Math.max(quantity - 1, 0));
   };
 
   return (
-    <div className="quantityContainer">
-      <button type="button" onClick={handleDecreaseQuantity}>
-        -
-      </button>
+    <QuantityContainer>
+      <BorderButton onClick={handleDecreaseQuantity} size="small">
+        <img src={MinusIcon} />
+      </BorderButton>
       <p className="quantity">{quantity}</p>
-      <button type="button" onClick={handleIncreaseQuantity}>
-        +
-      </button>
-    </div>
+      <BorderButton onClick={handleIncreaseQuantity} size="small">
+        <img src={PlusIcon} />
+      </BorderButton>
+    </QuantityContainer>
   );
 }
