@@ -18,7 +18,7 @@ const CartList: React.FC<CartListProps> = () => {
   return (
     <div>
       <Styled.CartListButtonGroup>
-        <Checkbox checked={isAllChecked} onChange={onCheckAllCartItems} />
+        <Checkbox checked={isAllChecked} onChange={(event) => onCheckAllCartItems(event.target.checked)} />
         <span className="label">전체 선택</span>
       </Styled.CartListButtonGroup>
       <Styled.CartItemContainer>
