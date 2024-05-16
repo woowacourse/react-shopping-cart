@@ -3,12 +3,14 @@ import CartItemView from "./CartItemView";
 import styled from "styled-components";
 import { selectedCartItemIdsState } from "../recoil/selectedCartItemIds";
 import { CartItem } from "../types/cartItems";
+import { useCartItemControl } from "../hooks/useCartItemControl";
 
 export interface ICartItemList {
   cartItems: CartItem[];
 }
 
 export default function CartItemList({ cartItems }: ICartItemList) {
+  const cartItemControl = useCartItemControl();
   const setSelectedCartItemIds = useSetRecoilState(selectedCartItemIdsState);
   const isAllSelected = cartItems.every(({ isSelected }) => isSelected);
 
@@ -33,7 +35,11 @@ export default function CartItemList({ cartItems }: ICartItemList) {
       </S.SelectAll>
       <S.CartItemList>
         {cartItems.map((cartItem) => (
-          <CartItemView key={cartItem.product.id} cartItem={cartItem} />
+          <CartItemView
+            key={cartItem.product.id}
+            cartItem={cartItem}
+            cartItemControl={cartItemControl}
+          />
         ))}
       </S.CartItemList>
     </S.CartItemListContainer>

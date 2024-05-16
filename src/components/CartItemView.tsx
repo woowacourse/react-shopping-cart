@@ -1,28 +1,30 @@
 import { CartItem } from "../types/cartItems";
 import styled from "styled-components";
-import { useCartItemControl } from "../hooks/useCartItemControl";
+import { UseCartItemsReturn } from "../hooks/useCartItemControl";
 
 export interface CartItemViewProps {
   cartItem: CartItem;
+  cartItemControl: UseCartItemsReturn;
 }
 
-export default function CartItemView({ cartItem }: CartItemViewProps) {
-  const { remove, updateQuantity, toggleSelection } = useCartItemControl(cartItem.id);
+export default function CartItemView({ cartItem, cartItemControl }: CartItemViewProps) {
+  const { remove, updateQuantity, toggleSelection } = cartItemControl;
+  const cartItemId = cartItem.id;
 
   const handleCheckboxChange = () => {
-    toggleSelection();
+    toggleSelection(cartItemId);
   };
 
   const handleRemoveButtonClick = () => {
-    remove();
+    remove(cartItemId);
   };
 
   const handleIncreaseButtonClick = () => {
-    updateQuantity(cartItem.quantity + 1);
+    updateQuantity(cartItemId, cartItem.quantity + 1);
   };
 
   const handleDecreaseButtonClick = () => {
-    updateQuantity(cartItem.quantity - 1);
+    updateQuantity(cartItemId, cartItem.quantity - 1);
   };
 
   return (

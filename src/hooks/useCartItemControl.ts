@@ -4,17 +4,17 @@ import { CartItemId } from "../types/cartItems";
 import { rawCartItemsState } from "../recoil/rawCartItems";
 import { selectedCartItemIdsState } from "../recoil/selectedCartItemIds";
 
-interface UseCartItemsReturn {
-  remove: () => void;
-  updateQuantity: (quantity: number) => void;
-  toggleSelection: () => void;
+export interface UseCartItemsReturn {
+  remove: (cartItemId: CartItemId) => void;
+  updateQuantity: (cartItemId: CartItemId, quantity: number) => void;
+  toggleSelection: (cartItemId: CartItemId) => void;
 }
 
-export const useCartItemControl = (cartItemId: CartItemId): UseCartItemsReturn => {
+export const useCartItemControl = (): UseCartItemsReturn => {
   const [rawCartItems, setRawCartItems] = useRecoilState(rawCartItemsState);
   const setSelectedCartItemIds = useSetRecoilState(selectedCartItemIdsState);
 
-  const remove = async () => {
+  const remove = async (cartItemId: CartItemId) => {
     await removeCartItem(cartItemId);
 
     setSelectedCartItemIds((prev) => prev.filter((id) => id !== cartItemId));
@@ -23,7 +23,7 @@ export const useCartItemControl = (cartItemId: CartItemId): UseCartItemsReturn =
     setRawCartItems(filteredCartItems);
   };
 
-  const updateQuantity = async (quantity: number) => {
+  const updateQuantity = async (cartItemId: CartItemId, quantity: number) => {
     if (quantity < 1) return;
 
     await updateCartItemQuantity(cartItemId, quantity);
@@ -34,7 +34,7 @@ export const useCartItemControl = (cartItemId: CartItemId): UseCartItemsReturn =
     setRawCartItems(updatedCartItems);
   };
 
-  const toggleSelection = () => {
+  const toggleSelection = (cartItemId: CartItemId) => {
     setSelectedCartItemIds((prev) => {
       const isSelected = prev.includes(cartItemId);
       return isSelected ? prev.filter((id) => id !== cartItemId) : [...prev, cartItemId];
