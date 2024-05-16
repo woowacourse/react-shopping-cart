@@ -8,6 +8,7 @@ const GlobalStyle = styled.createGlobalStyle`
 
   * {
     box-sizing: border-box;
+    list-style-type: none;
   }
 
   body {
