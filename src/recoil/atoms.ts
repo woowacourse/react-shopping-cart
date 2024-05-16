@@ -1,20 +1,26 @@
 import { atom, atomFamily } from "recoil";
 import { recoilPersist } from "recoil-persist";
+import { CartItemResponse } from "../types/ShoppingCart";
 
 const { persistAtom } = recoilPersist();
 
-export const cartSelectedState = atom<number[]>({
-  key: "cartSelectedState",
+export const cartItemsState = atom<CartItemResponse[]>({
+  key: "cartItemsState",
+  default: [],
+});
+
+export const checkedCartItemsState = atom<number[]>({
+  key: "checkedCartItemsState",
   default: [],
   effects_UNSTABLE: [persistAtom],
 });
 
-export const cartQuantityState = atomFamily<number, number>({
-  key: "cartQuantityState",
+export const cartItemQuantityStates = atomFamily<number, number>({
+  key: "cartItemQuantityStates",
   default: 1,
 });
 
-export const cartPriceState = atomFamily<number, number>({
-  key: "cartPriceState",
+export const cartItemPriceStates = atomFamily<number, number>({
+  key: "cartItemPriceStates",
   default: 0,
 });

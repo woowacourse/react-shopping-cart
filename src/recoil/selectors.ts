@@ -1,16 +1,22 @@
 import { DefaultValue, selector } from "recoil";
-import { cartQuantityState, cartPriceState, cartSelectedState } from "./atoms";
+import { cartItemQuantityStates, cartItemPriceStates, checkedCartItemsState, cartItemsState } from "./atoms";
 import ORDER from "../constants/order";
 import { CartItemResponse } from "../types/ShoppingCart";
-import { fetchCartItems } from "../api/cartItem";
 
-export const cartTotalPriceState = selector({
-  key: "cartTotalPriceState",
+export const totalCartItemsQuantityState = selector({
+  key: "totalCartItemsQuantityState",
   get: ({ get }) => {
-    const ids = get(cartSelectedState);
+    return get(cartItemsState).length;
+  },
+});
+
+export const totalCheckedCartItemsPriceState = selector({
+  key: "totalCheckedCartItemsPriceState",
+  get: ({ get }) => {
+    const ids = get(checkedCartItemsState);
     return ids.reduce((total, id) => {
-      const quantity = get(cartQuantityState(id));
-      const price = get(cartPriceState(id));
+      const quantity = get(cartItemQuantityStates(id));
+      const price = get(cartItemPriceStates(id));
       return total + quantity * price;
     }, 0);
   },
@@ -19,76 +25,54 @@ export const cartTotalPriceState = selector({
 export const shippingFeeState = selector({
   key: "shippingFeeState",
   get: ({ get }) => {
-    const totalPrice = get(cartTotalPriceState);
-    return totalPrice < ORDER.shippingFreeThreshold ? ORDER.shippingFee : 0;
+    const totalPrice = get(totalCheckedCartItemsPriceState);
+    return totalPrice < ORDER.shippingFreeThreshold && totalPrice !== 0 ? ORDER.shippingFee : 0;
   },
 });
 
-export const addCartSelect = selector({
-  key: "addCartSelectState",
+export const checkCartItemSelector = selector({
+  key: "checkCartItemSelector",
   get: () => {
     return 0;
   },
   set: ({ set }, id) => {
     if (typeof id !== "number") return;
-    set(cartSelectedState, (prevSelected) => [...prevSelected, id]);
+    set(checkedCartItemsState, (prevSelected) => [...prevSelected, id]);
   },
 });
 
-export const removeCartSelect = selector({
-  key: "removeCartSelectState",
+export const uncheckCartItemSelector = selector({
+  key: "uncheckCartItemSelector",
   get: () => {
     return 0;
   },
   set: ({ set }, id) => {
     if (typeof id !== "number") return;
-    set(cartSelectedState, (prevSelected) => prevSelected.filter((_id) => _id !== id));
+    set(checkedCartItemsState, (prevSelected) => prevSelected.filter((_id) => _id !== id));
   },
 });
 
-export const resetCartSelect = selector({
-  key: "resetCartSelectState",
+export const uncheckAllCartItemSelector = selector({
+  key: "uncheckAllCartItemSelector",
   get: () => {
     return;
   },
   set: ({ reset }) => {
-    reset(cartSelectedState);
+    reset(checkedCartItemsState);
   },
 });
 
-export const checkAllCartSelect = selector({
-  key: "checkAllCartSelect",
+export const checkAllCartSelector = selector({
+  key: "checkAllCartSelector",
   get: () => {
     return [0];
   },
   set: ({ set }, ids) => {
-    set(cartSelectedState, ids);
+    set(checkedCartItemsState, ids);
   },
 });
 
-export const increaseCartQuantity = selector({
-  key: "increaseCartQuantity",
-  get: () => {
-    return 0;
-  },
-  set: ({ set }, id) => {
-    if (typeof id !== "number") return;
-    set(cartQuantityState(id), (prev) => prev + 1);
-  },
-});
-
-export const decreaseCartQuantity = selector({
-  key: "decreaseCartQuantity",
-  get: () => {
-    return 0;
-  },
-  set: ({ set }, id) => {
-    if (typeof id !== "number") return;
-    set(cartQuantityState(id), (prev) => Math.max(prev - 1, 0));
-  },
-});
-
-export const setCartPrice = selector({
+export const setCartPriceSelector = selector({
   key: "setCartPrice",
   get: () => {
     const cartItems: CartItemResponse[] = [
@@ -111,17 +95,8 @@ export const setCartPrice = selector({
     if (cartItems instanceof DefaultValue) return;
 
     cartItems.forEach((item) => {
-      set(cartQuantityState(item.product.id), item.quantity);
-      set(cartPriceState(item.product.id), item.product.price);
+      set(cartItemQuantityStates(item.id), item.quantity);
+      set(cartItemPriceStates(item.id), item.product.price);
     });
-  },
-});
-
-export const cartItemsState = selector({
-  key: "cartItemsState",
-  get: async () => {
-    const cartItems = await fetchCartItems();
-
-    return cartItems;
   },
 });
