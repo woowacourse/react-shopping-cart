@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   buttonText: string;
   children?: undefined;
 }
@@ -25,6 +25,11 @@ const FooterButtonContainer = styled.button({
     background: '#222222',
     transition: '0.3s ease',
     cursor: 'pointer',
+  },
+
+  '&:disabled': {
+    background: '#BEBEBE',
+    cursor: 'default',
   },
 });
 
