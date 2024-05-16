@@ -31,11 +31,27 @@ export const cartListTotalPrice = selector({
   get: ({ get }) => {
     const cartList = get(cartListState);
     const totalPrice = cartList.reduce((acc, cartItem) => {
+      const isSelectedItem = get(cartItemSelected(cartItem.id));
       const quantity = get(cartItemQuantity(cartItem.id));
-      return acc + quantity * cartItem.product.price;
+
+      if (isSelectedItem) return acc + quantity * cartItem.product.price;
+      return acc;
     }, 0);
 
     return totalPrice;
+  },
+});
+
+export const cartListTotalQuantity = selector({
+  key: "cartListTotalQuantity",
+  get: ({ get }) => {
+    const cartList = get(cartListState);
+    const totalQuantity = cartList.reduce((acc, cartItem) => {
+      const quantity = get(cartItemQuantity(cartItem.id));
+      return acc + quantity;
+    }, 0);
+
+    return totalQuantity;
   },
 });
 
