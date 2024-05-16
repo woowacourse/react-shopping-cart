@@ -1,60 +1,87 @@
+import { useRecoilState } from 'recoil';
+import styled from '@emotion/styled';
+
 import CartItem from '../CartItem/CartItem';
-
-const ITEM_QUANTITY = [
-  { id: 12, quantity: 3 },
-  { id: 10, quantity: 1 },
-];
-
-const CART_ITEM_LIST = [
-  {
-    id: 12,
-    name: '컨버스',
-    price: 20000,
-    imageUrl: 'https://sitem.ssgcdn.com/65/73/69/item/1000163697365_i1_750.jpg',
-    category: 'fashion',
-  },
-  {
-    id: 10,
-    name: '퓨마',
-    price: 10000,
-    imageUrl: 'https://sitem.ssgcdn.com/47/78/22/item/1000031227847_i1_750.jpg',
-    category: 'fashion',
-  },
-];
+import CheckBox from '../CheckBox/CheckBox';
+import { cartItemsState } from '../../recoil/atoms';
+import { removeCartItem, updateCartItemQuantity } from '../../apis';
+import useCheckedItemIds from '../../hooks/useCheckedItemIds';
+import useCartItemsState from '../../hooks/useCartItemsState';
 
 export default function CartItemContainer() {
-  const handleCheckItem = (id: number) => {
-    alert(`${id} 상품이 체크되었습니다!`);
+  const [items, setItems] = useRecoilState(cartItemsState);
+  const { getIsChecked, checkId, uncheckId, deleteId } = useCheckedItemIds();
+
+  useCartItemsState();
+  const ids = items.map((item) => item.id);
+  const isAllChecked = ids.every((id) => getIsChecked(id));
+
+  const handleAllCheck = () => {
+    checkId(...ids);
   };
 
-  const handleDeleteItem = (id: number) => {
-    alert(`${id} 상품에 대한 삭제 버튼이 눌렸습니다!`);
-  };
-
-  const handleIncreaseQuantity = (id: number) => {
-    alert(`${id} 상품을 하나 더 눌렸습니다!`);
-  };
-
-  const handleDecreaseQuantity = (id: number) => {
-    alert(`${id} 상품을 하나 줄였습니다!`);
+  const handleAllUncheck = () => {
+    uncheckId(...ids);
   };
 
   return (
-    <ul>
-      {CART_ITEM_LIST.map((item) => {
-        return (
-          <CartItem
-            key={item.id}
-            isChecked={true}
-            product={item}
-            quantity={ITEM_QUANTITY.find(({ id }) => id === item.id)?.quantity ?? 0}
-            handleCheck={() => handleCheckItem(item.id)}
-            handleDelete={() => handleDeleteItem(item.id)}
-            handleIncreaseQuantity={() => handleIncreaseQuantity(item.id)}
-            handleDecreaseQuantity={() => handleDecreaseQuantity(item.id)}
+    <>
+      {items.length > 0 && (
+        <Description>{`현재 ${items.length}종류의 상품이 담겨있습니다.`}</Description>
+      )}
+      <CartItemListContainer>
+        <CheckAllBoxContainer>
+          <CheckBox
+            isChecked={isAllChecked}
+            onClick={isAllChecked ? handleAllUncheck : handleAllCheck}
           />
-        );
-      })}
-    </ul>
+          <span>전체선택</span>
+        </CheckAllBoxContainer>
+
+        {items.map((item) => {
+          return (
+            <CartItem
+              key={item.id}
+              cartItemId={item.id}
+              product={item.product}
+              quantity={item.quantity}
+              handleDelete={(cartItemId: number) => {
+                removeCartItem(cartItemId);
+                deleteId(cartItemId);
+                setItems((prevItems) => [...prevItems].filter((item) => item.id !== cartItemId));
+              }}
+              handleIncreaseQuantity={(cartItemId: number, quantity: number) => {
+                updateCartItemQuantity(cartItemId, quantity);
+              }}
+              handleDecreaseQuantity={(cartItemId: number, quantity: number) => {
+                updateCartItemQuantity(cartItemId, quantity);
+              }}
+            />
+          );
+        })}
+      </CartItemListContainer>
+    </>
   );
 }
+const Description = styled.h3({
+  fontSize: '12px',
+  fontWeight: '500',
+  color: '#0A0D13',
+  marginTop: '12px',
+});
+
+const CheckAllBoxContainer = styled.div({
+  height: '24px',
+  display: 'flex',
+  flexDirection: 'row',
+  gap: '8px',
+  alignItems: 'center',
+  color: '#0A0D13',
+  fontSize: '12px',
+  fontWeight: '500',
+  marginBottom: '20px',
+});
+
+const CartItemListContainer = styled.ul({
+  margin: '36px 0',
+});

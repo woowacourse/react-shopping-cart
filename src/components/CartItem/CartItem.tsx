@@ -4,31 +4,66 @@ import QuantityController from '../QuantityController/QuantityController';
 import CheckBox from '../CheckBox/CheckBox';
 import SmallButton from '../SmallButton/SmallButton';
 import convertToLocaleAmount from '../../utils/convertToLocalePrice';
+import { itemQuantityState, isCheckedItemIdsState } from '../../recoil/atoms';
+import { useRecoilState } from 'recoil';
+import { useEffect } from 'react';
+import useCheckedItemIds from '../../hooks/useCheckedItemIds';
 
 interface CartItemProps {
-  isChecked: boolean;
+  cartItemId: number;
   product: Product;
   quantity: number;
-  handleCheck: () => void;
-  handleDelete: () => void;
-  handleIncreaseQuantity: () => void;
-  handleDecreaseQuantity: () => void;
+  handleDelete: (cartItemId: number) => void;
+  handleIncreaseQuantity: (cartItemId: number, quantity: number) => void;
+  handleDecreaseQuantity: (cartItemId: number, quantity: number) => void;
 }
 
 export default function CartItem({
-  isChecked,
+  cartItemId,
   product,
   quantity,
-  handleCheck,
   handleDelete,
   handleIncreaseQuantity,
   handleDecreaseQuantity,
 }: CartItemProps) {
+  const [itemQuantity, setItemQuantity] = useRecoilState(itemQuantityState(cartItemId));
+  const { getIsChecked, checkId, uncheckId } = useCheckedItemIds();
+
+  const [isCheckedItems, setIsCheckedItems] = useRecoilState(isCheckedItemIdsState);
+
+  if (isCheckedItems[cartItemId] === undefined) {
+    const nextIsCheckedItems = { ...isCheckedItems, [cartItemId]: true };
+    setIsCheckedItems(nextIsCheckedItems);
+  }
+  const handelClickCheckBoxDemo = () => {
+    getIsChecked(cartItemId) ? uncheckId(cartItemId) : checkId(cartItemId);
+  };
+
+  useEffect(() => {
+    setItemQuantity(quantity);
+  }, [quantity, setItemQuantity]);
+
+  const handleClickIncreaseQuantity = () => {
+    const quantity = itemQuantity + 1;
+    setItemQuantity(quantity);
+    handleIncreaseQuantity(cartItemId, quantity);
+  };
+
+  const handleClickDecreaseQuantity = () => {
+    const quantity = Math.max(1, itemQuantity - 1);
+    setItemQuantity(quantity);
+    handleDecreaseQuantity(cartItemId, quantity);
+  };
+
+  const handleClickDeleteButton = () => {
+    handleDelete(cartItemId);
+  };
+
   return (
     <CartItemContainer>
       <CardItemHeader>
-        <CheckBox isChecked={isChecked} onClick={handleCheck} />
-        <SmallButton buttonText="삭제" onClick={handleDelete} />
+        <CheckBox isChecked={getIsChecked(cartItemId)} onClick={handelClickCheckBoxDemo} />
+        <SmallButton buttonText="삭제" onClick={handleClickDeleteButton} />
       </CardItemHeader>
       <CardItemContent>
         <ProductImageBox src={product.imageUrl} alt={product.name} />
@@ -38,11 +73,13 @@ export default function CartItem({
             <ProductPrice>{convertToLocaleAmount(product.price)}</ProductPrice>
           </div>
           <QuantityController
-            quantity={quantity}
+            quantity={itemQuantity}
             maxQuantity={100}
             minQuantity={1}
-            handleIncreaseQuantity={handleIncreaseQuantity}
-            handleDecreaseQuantity={handleDecreaseQuantity}
+            // handleIncreaseQuantity={handleIncreaseQuantity}
+            // handleDecreaseQuantity={handleDecreaseQuantity}
+            handleIncreaseQuantity={handleClickIncreaseQuantity}
+            handleDecreaseQuantity={handleClickDecreaseQuantity}
           />
         </ProductInfoBox>
       </CardItemContent>
