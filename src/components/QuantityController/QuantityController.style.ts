@@ -1,10 +1,11 @@
-import styled from '@emotion/styled';
 import {
-  IncreaseIcon,
-  IncreaseIconDisabled,
   DecreaseIcon,
   DecreaseIconDisabled,
+  IncreaseIcon,
+  IncreaseIconDisabled,
 } from '../../assets';
+
+import styled from '@emotion/styled';
 
 export const QuantityControllerContainer = styled.div({
   width: '80px',
@@ -38,6 +39,6 @@ export const QuantityControlButton = styled.button<ButtonProps>(({ $controlType,
   height: '24px',
   border: '1px solid #dfdfdf',
   borderRadius: '8px',
-  background: `url(${buttonBackgroundMatcher({ $controlType, $isEnabled })}) no-repeat center`,
+  background: `url("${buttonBackgroundMatcher({ $controlType, $isEnabled })}") no-repeat center`,
   cursor: $isEnabled ? `pointer` : 'inherit',
 }));
