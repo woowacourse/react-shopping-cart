@@ -4,7 +4,7 @@ import * as Styled from './style';
 import CheckedBox from '../assets/CheckedBox.svg';
 import UnCheckedBox from '../assets/UnCheckedBox.svg';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { SelectedAllCardItemsSelector } from '../../recoil/selectedAllCardItems';
+import { SelectedAllCardItemsSelector } from '../../recoil/selectedCardItems';
 import { adjustCartItemQuantity, removeCartItem } from '../../api/shoppingCart';
 import { CartItemsSelector, CartItemsState } from '../../recoil/cartItems';
 
