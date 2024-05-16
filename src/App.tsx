@@ -1,13 +1,16 @@
-import "./App.css";
-import Header from "./components/Header/index";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ShoppingCart from "./pages/ShoppingCart";
+import CheckOrder from "./pages/CheckOrder";
+import "./App.css";
 
 function App() {
   return (
-    <>
-      <Header />
-      <ShoppingCart />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<ShoppingCart />} />
+        <Route path="/check-order" element={<CheckOrder />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
