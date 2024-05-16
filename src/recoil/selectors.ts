@@ -2,6 +2,7 @@ import { DefaultValue, selector } from 'recoil';
 import { itemDetailsState, itemsState } from './atoms';
 import { Products } from '../types/Product';
 import { UpdateLocalStorage } from '../utils/UpdateLocalStorage';
+import { fetchProducts } from '../api';
 
 /**
  * 전체 금액, 배송비 계산, 총 결제 금액 계산
@@ -68,5 +69,19 @@ export const totalCountSelector = selector({
       }
     });
     return { totalItemTypeCount, totalCount };
+  },
+});
+
+/**
+ * 장바구니 초기 데이터 API 호출
+ */
+export const fetchProductsSelector = selector({
+  key: 'fetchProductsSelector',
+  get: async () => {
+    const data = await fetchProducts();
+    return data;
+  },
+  set: ({ set }, newValue) => {
+    set(itemsState, newValue);
   },
 });
