@@ -55,7 +55,7 @@ const removeCartItem = async (cartItemId: number): Promise<void> => {
 const updateCartItemQuantity = async (cartItemId: number, quantity: number): Promise<void> => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
-  const response = await fetch(`${API_URL}/cart/${cartItemId}`, {
+  const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
