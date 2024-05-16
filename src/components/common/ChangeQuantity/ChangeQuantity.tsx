@@ -6,7 +6,7 @@ import PLUS from '../../../assets/plus.svg';
 import MINUS from '../../../assets/minus.svg';
 import Text from '../Text/Text';
 
-interface ChangeQuantityProps {
+export interface ChangeQuantityProps {
   quantity: number;
   decreaseQuantity: () => void;
   increaseQuantity: () => void;
@@ -15,13 +15,13 @@ interface ChangeQuantityProps {
 const ChangeQuantity = ({ quantity, decreaseQuantity, increaseQuantity }: ChangeQuantityProps) => {
   return (
     <S.ChangeQuantity>
-      <Button size="s" onClick={decreaseQuantity} square={true} isDisabled={quantity === 1}>
+      <Button size="s" onClick={decreaseQuantity} square={true} isDisabled={quantity === 1} aria-label="minus">
         <img src={MINUS} />
       </Button>
       <S.Quantity>
         <Text weight="m">{quantity}</Text>
       </S.Quantity>
-      <Button size="s" onClick={increaseQuantity} square={true}>
+      <Button size="s" onClick={increaseQuantity} square={true} aria-label="plus">
         <img src={PLUS} />
       </Button>
     </S.ChangeQuantity>
