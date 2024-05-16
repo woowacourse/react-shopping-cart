@@ -33,13 +33,13 @@
 
 ### 장바구니 아이템
 
-- [ ] `/cart-items`
-  - [ ] 조회 (GET)
-  - [ ] 추가 (POST)
-- [ ] `/cart-items/{id}`
-  - [ ] 삭제 (DELETE)
-  - [ ] 수량 변경 (PATCH)
-- [ ] `/cart-items/counts`
+- [x] `/cart-items`
+  - [x] 조회 (GET)
+  - [x] 추가 (POST)
+- [x] `/cart-items/{id}`
+  - [x] 삭제 (DELETE)
+  - [x] 수량 변경 (PATCH)
+- [x] `/cart-items/counts`
 
   - [ ] 수량 조회 (GET)
 
@@ -47,9 +47,9 @@
 
 ## Recoil
 
-- [ ] 장바구니 상품의 다양한 상태를 Atom으로 관리한다.
+- [x] 장바구니 상품의 다양한 상태를 Atom으로 관리한다.
 - [x] 결제 금액, 배송비 등의 파생 상태를 Selector를 통해 계산한다.
 
 ## Storage
 
-- [ ] 장바구니의 상태를 스토리지에 저장하여 새로고침 시에도 유지되도록 한다.
+- [x] 장바구니의 상태를 스토리지에 저장하여 새로고침 시에도 유지되도록 한다.
