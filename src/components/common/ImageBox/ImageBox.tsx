@@ -9,7 +9,7 @@ export type ImageBoxProps = {
   backgroundColor?: string;
 };
 
-const ImageBox = ({ src, ...rest }: ImageBoxProps) => {
+const ImageBox = ({ src = '', ...rest }: ImageBoxProps) => {
   return (
     <S.ImageBox {...rest}>
       <img src={src} alt="image" />
