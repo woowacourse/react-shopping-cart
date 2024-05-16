@@ -1,8 +1,8 @@
 import { generateBasicToken } from '../../utils/auth';
 
-const API_URL = import.meta.env.VITE_API_URL;
-const USER_ID = import.meta.env.VITE_API_USER_ID;
-const USER_PASSWORD = import.meta.env.VITE_API_USER_PASSWORD;
+const API_URL = process.env.VITE_API_URL || 'url';
+const USER_ID = process.env.VITE_API_USER_ID || 'id';
+const USER_PASSWORD = process.env.VITE_API_USER_PASSWORD || 'password';
 
 export interface Root {
   content: ResponseCartItem[];
@@ -23,6 +23,13 @@ interface ResponseCartItem {
   quantity: number;
   product: Product;
 }
+
+export interface TransformedCartItem {
+  cartItemId: number;
+  quantity: number;
+  product: Product;
+}
+
 interface Pageable {
   sort: Sort;
   pageNumber: number;
@@ -44,7 +51,7 @@ interface Sort2 {
   empty: boolean;
 }
 
-const transformCartItemListData = (arr: ResponseCartItem[]) => {
+const transformCartItemListData = (arr: ResponseCartItem[]): TransformedCartItem[] => {
   return arr.map(({ id, quantity, product }: ResponseCartItem) => ({
     quantity,
     product: {
@@ -58,7 +65,7 @@ const transformCartItemListData = (arr: ResponseCartItem[]) => {
   }));
 };
 
-export const requestCartItemList = async () => {
+export const requestCartItemList = async (): Promise<TransformedCartItem[]> => {
   try {
     const token = generateBasicToken(USER_ID, USER_PASSWORD);
     const response = await fetch(`${API_URL}/cart-items`, {
@@ -68,8 +75,7 @@ export const requestCartItemList = async () => {
     const data = await response.json();
     return transformCartItemListData(data.content);
   } catch (error) {
-    console.error('Failed to fetch products:', error);
-    return error;
+    throw new Error('Failed to fetch products:');
   }
 };
 
