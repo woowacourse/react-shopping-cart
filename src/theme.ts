@@ -16,9 +16,21 @@ const theme: DefaultTheme = {
     `,
     caption: `
       font-family: Noto Sans KR;
-      font-weight: 500;
+      font-weight: 300;
       font-size: 0.75rem;
       line-height: 0.9rem;
+    `,
+    content: `
+    font-family: Noto Sans KR;
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1rem;
+    `,
+    successMessage: `
+    font-family: Noto Sans KR;
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.125rem;
     `,
     label: `
       font-family: Noto Sans KR;

@@ -6,6 +6,8 @@ declare module 'styled-components' {
       header: string;
       title: string;
       caption: string;
+      content: string;
+      successMessage: string;
       label: string;
       price: string;
     };
