@@ -1,4 +1,4 @@
-export const mockCartItems = {
+export const mockCartItemsData = {
   content: [
     {
       id: 429,
