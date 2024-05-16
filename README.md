@@ -22,7 +22,7 @@ npm run build
 npm run test
 ```
 
-- 로컬에서 테스ㅌ시 EnvironmentPlugin 관련 설정을 활성화 하고 import.meta.env 가 아니 process.env를 사용해야 합니다.
+- 로컬에서 테스트시 EnvironmentPlugin 관련 설정을 활성화 하고 import.meta.env 가 아니 process.env를 사용해야 합니다.
 
 ## 기능 구현 목록
 
