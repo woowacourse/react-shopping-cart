@@ -1,6 +1,7 @@
 import { selector } from "recoil";
 import { cartItemCheckedIdsAtom, cartItemsAtom } from "./atom";
 
+// 전체 id에 대한 양을 가지고 있는 셀렉터. (get: {id: quantity, ...}. set: 해당 id를 해당 quantity로 변경 )
 export const quantitySelector = selector<Record<string, number>>({
   key: "cartItemQuantity",
   get: ({ get }) => {
@@ -8,8 +9,8 @@ export const quantitySelector = selector<Record<string, number>>({
     return Object.fromEntries(cartItems.map((item) => [item.id, item.quantity]));
   },
   set: ({ set }, newValue) => {
-    const id = Number(Object.keys(newValue)[0]) as number;
-    const newQuantity = Object.values(newValue)[0] as number;
+    const id = Number(Object.keys(newValue)[0]);
+    const newQuantity = Object.values(newValue)[0];
     set(cartItemsAtom, (prev) =>
       prev.map((item) => {
         if (item.id === id) {

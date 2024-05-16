@@ -14,7 +14,8 @@ const mockCartItems: Product[] = [
 
 const mockCheckedIds: number[] = [1, 2];
 
-describe("checkIdsSelector 테스트", () => {
+//TODO: 분리
+describe("cartItemCheckedIdsAtom 테스트", () => {
   it("checkIds 에 정상적으로 입력 된다.", () => {
     const { result } = renderHook(() => useRecoilState(cartItemCheckedIdsAtom), {
       wrapper: RecoilRoot,
@@ -27,7 +28,7 @@ describe("checkIdsSelector 테스트", () => {
     expect(ids[1]).toBe(2);
   });
 
-  describe("allChecked 테스트", () => {
+  describe("allCheckedSelector 테스트", () => {
     let result;
 
     beforeEach(() => {
