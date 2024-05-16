@@ -2,10 +2,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
 import OrderConfirmPage from './pages/OrderConfirmPage/OrderConfirmPage';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
-import { fetchCartItemList } from './apis';
+import { fetchCartItemList } from './apis/index';
+import { ThemeProvider } from 'styled-components';
 import { PATHS } from './constants/PATHS';
 
-import { ThemeProvider } from 'styled-components';
 import GlobalStyles from './styles/Global.style';
 import theme from './styles/theme';
 
