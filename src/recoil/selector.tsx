@@ -1,11 +1,44 @@
 import { selector } from "recoil";
 import { cartItemCheckedIdsAtom, cartItemsAtom } from "./atom";
 
-export const quantityAtom = selector({
+export const quantitySelector = selector<Record<string, number>>({
   key: "cartItemQuantity",
   get: ({ get }) => {
     const cartItems = get(cartItemsAtom);
     return Object.fromEntries(cartItems.map((item) => [item.id, item.quantity]));
+  },
+  set: ({ set }, newValue) => {
+    const id = Number(Object.keys(newValue)[0]) as number;
+    const newQuantity = Object.values(newValue)[0] as number;
+    set(cartItemsAtom, (prev) =>
+      prev.map((item) => {
+        if (item.id === id) {
+          return { ...item, quantity: newQuantity };
+        }
+        return item;
+      })
+    );
+  },
+});
+
+// 전체선택 여부를 관리하는 셀렉터. (get: 현재 전체선택 여부. set: 전체선택/해제. )
+export const allCheckedSelector = selector({
+  key: "allCheckedSelector",
+  get: ({ get }) => {
+    const cartItems = get(cartItemsAtom);
+    const checkedIds = get(cartItemCheckedIdsAtom);
+    return cartItems.length === checkedIds.length;
+  },
+  set: ({ get, set }, newIsAllChecked) => {
+    const cartItems = get(cartItemsAtom);
+    if (!newIsAllChecked) {
+      set(cartItemCheckedIdsAtom, []);
+      return;
+    }
+    set(
+      cartItemCheckedIdsAtom,
+      cartItems.map((item) => item.id)
+    );
   },
 });
 
@@ -39,6 +72,7 @@ export const totalPriceSelector = selector({
     return orderPrice + shippingFee;
   },
 });
+
 export const totalCountSelector = selector({
   key: "totalCountSelector",
   get: ({ get }) => {

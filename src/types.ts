@@ -1,10 +1,10 @@
 export interface Product {
-  id: 0;
+  id: number;
   quantity: number;
   product: {
-    id: 0;
+    id: number;
     name: string;
-    price: 0;
+    price: number;
     imageUrl: string;
     category: string;
   };

@@ -8,7 +8,7 @@ import { Product } from "../../types";
 
 import { patchCartItemQuantity } from "../../api/cartItem";
 import { cartItemCheckedIdsAtom, cartItemsAtom } from "../../recoil/atom";
-import { quantityAtom } from "../../recoil/selector";
+import { quantitySelector } from "../../recoil/selector";
 import { formatCurrency } from "../../utils/formatCurrency";
 
 interface CardItemProps {
@@ -17,21 +17,9 @@ interface CardItemProps {
 }
 
 const CartItem = ({ product, handleDelete }: CardItemProps) => {
-  const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
-  const quantities = useRecoilValue(quantityAtom);
+  const [quantities, setQuantity] = useRecoilState(quantitySelector);
   const quantity = quantities[product.id];
   const [checkedIds, setCheckedIds] = useRecoilState(cartItemCheckedIdsAtom);
-
-  const setQuantity = (quantity: number) => {
-    setCartItems((prev) =>
-      prev.map((item) => {
-        if (item.id === product.id) {
-          return { ...item, quantity };
-        }
-        return item;
-      })
-    );
-  };
 
   const handleChecked = () => {
     const alreadyChecked = checkedIds.includes(product.id);
@@ -45,13 +33,13 @@ const CartItem = ({ product, handleDelete }: CardItemProps) => {
   const handleIncrement = () => {
     const increasedQuantity = quantity + 1;
     patchCartItemQuantity(product.id, increasedQuantity);
-    setQuantity(increasedQuantity);
+    setQuantity({ [String(product.id)]: increasedQuantity });
   };
 
   const handleDecrement = () => {
     const decreasedQuantity = Math.max(quantity - 1, 1);
     patchCartItemQuantity(product.id, decreasedQuantity);
-    setQuantity(decreasedQuantity);
+    setQuantity({ [String(product.id)]: decreasedQuantity });
   };
 
   return (

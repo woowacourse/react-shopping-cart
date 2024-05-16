@@ -9,6 +9,7 @@ export const cartItemsAtom = atom<Product[]>({
   default: [],
 });
 
+// 카트아이템 -> 체크id들
 export const cartItemCheckedIdsAtom = atom<number[]>({
   key: "cartItemCheckedIdsAtom",
   default: [],
