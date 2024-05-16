@@ -25,3 +25,4 @@ dist-ssr
 *.sw?
 
 *storybook.log
+jest.setup.js
