@@ -24,12 +24,11 @@ const Button = ({
   return (
     <S.Button
       disabled={isDisabled}
-      onClick={rest.onClick}
-      size={size}
-      width={width}
-      radius={radius}
-      color={color}
-      square={square}
+      data-size={size}
+      data-width={width}
+      data-radius={radius}
+      data-color={color}
+      data-square={square}
       {...rest}
     >
       {children}

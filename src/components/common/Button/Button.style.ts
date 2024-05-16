@@ -12,63 +12,73 @@ export const Button = styled.button<ButtonProps>`
     switch (color) {
       case 'default':
         return `
-        background-color: white;
-        color: black;
-        border: 1px solid lightGray;
-      `;
+          background-color: white;
+          color: black;
+          border: 1px solid lightGray;
+        `;
       case 'primary':
         return `
-        background-color: black;
-        color: white;
-      `;
+          background-color: black;
+          color: white;
+        `;
+      default:
+        return `
+          background-color: white;
+          color: black;
+          border: 1px solid lightGray;
+        `;
     }
   }}
 
-  ${(props) => {
-    switch (props.size) {
+  ${({ size, square }) => {
+    switch (size) {
       case 's':
         return `
-        height: 24px;
-        padding: ${props.square ? '4px 4px' : '4px 8px'};
+          height: 24px;
+          padding: ${square ? '4px 4px' : '4px 8px'};
         `;
       case 'm':
         return `
-        height: 36px;
-        padding: ${props.square ? '8px 8px' : '8px 12px'};
+          height: 36px;
+          padding: ${square ? '8px 8px' : '8px 12px'};
         `;
       case 'l':
         return `
-        height: 48px;
-        padding: ${props.square ? '12px 12px' : '12px 16px'};
+          height: 48px;
+          padding: ${square ? '12px 12px' : '12px 16px'};
         `;
       case 'fit':
         return `
-        height: fit-content;
-        padding: 16px 16px;
+          height: fit-content;
+          padding: 16px 16px;
+        `;
+      default:
+        return `
+          height: 36px;
+          padding: ${square ? '8px 8px' : '8px 12px'};
         `;
     }
-  }};
-
-  ${(props) => {
-    return props.square ? `aspect-ratio:1/1;` : ``;
   }}
 
-  ${(props) => {
-    if (props.square) {
-      return `aspect-ratio: 1/1;`;
-    }
-    switch (props.width) {
+  ${({ square }) =>
+    square &&
+    `
+    aspect-ratio: 1 / 1;
+  `}
+
+  ${({ width }) => {
+    switch (width) {
       case 'fit':
-        return `width: 'fit-content';`;
+        return `width: fit-content;`;
       case 'full':
         return `width: 100%;`;
       default:
-        return `width: ${props.width}px;`;
+        return `width: ${width}px;`;
     }
-  }};
+  }}
 
-  border-radius: ${(props) => {
-    switch (props.radius) {
+  border-radius: ${({ radius }) => {
+    switch (radius) {
       case 's':
         return '4px';
       case 'm':
@@ -76,13 +86,13 @@ export const Button = styled.button<ButtonProps>`
       case 'l':
         return '16px';
       default:
-        return `${props.radius}px`;
+        return `${radius}px`;
     }
   }};
 
   &:hover {
-    background-color: ${(props) => {
-      switch (props.color) {
+    background-color: ${({ color }) => {
+      switch (color) {
         case 'default':
           return hoverColorGenerator('#FFFFFF');
         default:
@@ -93,8 +103,8 @@ export const Button = styled.button<ButtonProps>`
 
   &:disabled {
     cursor: default;
-    background-color: ${(props) => {
-      switch (props.color) {
+    background-color: ${({ color }) => {
+      switch (color) {
         case 'default':
           return hoverColorGenerator('#FFFFFF');
         default:
