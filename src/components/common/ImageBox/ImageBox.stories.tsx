@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import ImageBox from './ImageBox';
 
-import PLUS from '../../../assets/plus.svg';
-
 const meta = {
   title: 'Components/ImageBox',
   component: ImageBox,
