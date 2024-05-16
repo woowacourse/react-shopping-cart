@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ErrorLayout = styled.div`
+export const Main = styled.div`
   height: calc(100vh - ${({ theme }) => theme.boxHeight});
   display: flex;
   flex-direction: column;

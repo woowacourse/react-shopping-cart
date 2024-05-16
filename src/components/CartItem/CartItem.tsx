@@ -1,5 +1,6 @@
 import { useRecoilState } from 'recoil';
 import CheckButton from '../Button/CheckButton/CheckButton';
+import QuantityContainer from '../Container/QuantityContainer/QuantityContainer';
 import type { TCartItem } from '../../types/CartItem.type';
 import { selectedCartItemListSelector } from '../../recoil/selectors/selectors';
 import { PlusIcon, MinusIcon } from '../../assets';
@@ -34,15 +35,11 @@ function CartItem({ item, onRemoveItem, onUpdateQuantity }: CardItemProps) {
             <S.ItemNameText>{product.name}</S.ItemNameText>
             <S.ItemPriceText>{product.price.toLocaleString()}원</S.ItemPriceText>
           </S.ItemInfoContainer>
-          <S.ItemQuantityContainer>
-            <S.QuantityButton className="MinusButton" onClick={() => onUpdateQuantity(id, quantity - 1)}>
-              <img src={MinusIcon}></img>
-            </S.QuantityButton>
-            <p>{quantity}</p>
-            <S.QuantityButton className="PlusButton" onClick={() => onUpdateQuantity(id, quantity + 1)}>
-              <img src={PlusIcon}></img>
-            </S.QuantityButton>
-          </S.ItemQuantityContainer>
+          <QuantityContainer
+            quantity={quantity}
+            onMinusButtonClick={() => onUpdateQuantity(id, quantity - 1)}
+            onPlusButtonClick={() => onUpdateQuantity(id, quantity + 1)}
+          />
         </S.ItemContainer>
       </S.Body>
     </S.Layout>

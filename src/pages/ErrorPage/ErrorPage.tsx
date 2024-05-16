@@ -7,7 +7,7 @@ const ErrorPage = () => {
   return (
     <>
       <Header />
-      <S.ErrorLayout>
+      <S.Main>
         <S.ErrorTextContainer>
           <h1>404</h1>
           <h2>죄송합니다. 현재 찾을 수 없는 페이지를 요청하셨습니다.</h2>
@@ -20,7 +20,7 @@ const ErrorPage = () => {
         <Link to={PATHS.ROOT}>
           <S.ConfirmButton>메인으로</S.ConfirmButton>
         </Link>
-      </S.ErrorLayout>
+      </S.Main>
     </>
   );
 };

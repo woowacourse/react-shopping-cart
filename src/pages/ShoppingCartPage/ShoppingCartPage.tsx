@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useLoaderData, Await, Link } from 'react-router-dom';
 import Header from '../../components/Header/Header';
-import TitleContainer from '../../components/TitleContainer/TitleContainer';
+import TitleContainer from '../../components/Container/TitleContainer/TitleContainer';
 import SubmitButton from '../../components/Button/SubmitButton/SubmitButton';
 import CartItemList from '../../components/CartItemList/CartItemList';
-import TotalPriceContainer from '../../components/TotalPriceContainer/TotalPriceContainer';
+import TotalPriceContainer from '../../components/Container/TotalPriceContainer/TotalPriceContainer';
 import type { TCartItem } from '../../types/CartItem.type';
 import { selectedCartItemListState } from '../../recoil/atoms/atoms';
 import { fetchCartItemList } from '../../apis';
@@ -49,13 +49,13 @@ function ShoppingCartPage() {
     <div>
       <Header />
       <Await resolve={cartItemList}>
-        <S.Layout>
+        <S.Main>
           <TitleContainer
             title="장바구니"
             subTitle={cartItemList.length !== 0 ? `현재 ${cartItemList.length}종류의 상품이 담겨있습니다.` : ''}
           />
           {hasCartItemList ? renderCartItemListSection() : renderEmptyCartSection()}
-        </S.Layout>
+        </S.Main>
       </Await>
       {hasSelectedCartItemList ? (
         <Link to={PATHS.CONFIRM}>
