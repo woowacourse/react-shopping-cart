@@ -1,8 +1,5 @@
-import { useRecoilState, useSetRecoilState } from "recoil";
-import {
-  refreshedCartItemsState,
-  isSelectedState,
-} from "../../recoil/atoms/atoms";
+import { useRecoilState, useRecoilRefresher_UNSTABLE } from "recoil";
+import { isSelectedState } from "../../recoil/atoms/atoms";
 
 import Button from "../common/Button";
 
@@ -12,6 +9,7 @@ import { CartItemType } from "../../types";
 
 import OutlineCheck from "../../assets/icon/OutlineCheck";
 import FilledCheck from "../../assets/icon/FilledCheck";
+import { cartItemsState } from "../../recoil/selectors/selectors";
 
 import {
   Wrapper,
@@ -29,8 +27,8 @@ interface CardItemProps {
 }
 
 const CartItem = ({ cartItem }: CardItemProps) => {
-  const setRefreshedCartItems = useSetRecoilState(refreshedCartItemsState);
   const [isSelected, setIsSelected] = useRecoilState(isSelectedState);
+  const refresh = useRecoilRefresher_UNSTABLE(cartItemsState);
 
   const { id, product, quantity } = cartItem;
 
@@ -43,7 +41,7 @@ const CartItem = ({ cartItem }: CardItemProps) => {
   const handleDeleteItem = async () => {
     try {
       await deleteCartItem(id);
-      setRefreshedCartItems([]);
+      refresh();
     } catch (error) {
       console.error("Failed to remove cart item:", error);
     }
@@ -52,7 +50,7 @@ const CartItem = ({ cartItem }: CardItemProps) => {
   const handleChangeItemQuantity = async (number: number) => {
     try {
       await patchCartItemQuantity(id, quantity + number);
-      setRefreshedCartItems([]);
+      refresh();
     } catch (error) {
       console.error("Failed to remove cart item:", error);
     }

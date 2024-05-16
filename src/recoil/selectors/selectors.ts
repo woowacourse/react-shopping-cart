@@ -1,12 +1,11 @@
 import { selector } from "recoil";
 import { getCartItems } from "../../apis";
 import { CartItemType } from "../../types";
-import { refreshedCartItemsState, isSelectedState } from "../atoms/atoms";
+import { isSelectedState } from "../atoms/atoms";
 
 export const cartItemsState = selector<CartItemType[]>({
   key: "cartItemsState",
-  get: async ({ get }) => {
-    get(refreshedCartItemsState);
+  get: async () => {
     const cartItems = await getCartItems();
 
     return cartItems;
