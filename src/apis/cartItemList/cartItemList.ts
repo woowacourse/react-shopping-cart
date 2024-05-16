@@ -60,20 +60,19 @@ const transformCartItemListData = (arr: ResponseCartItem[]) => {
 };
 
 // TODO: 헤더 분리해서 재사용
-export const requestCartItemList = async (): Promise<CartItem[]> => {
-  const token = generateBasicToken(USER_ID, USER_PASSWORD);
-  const response = await fetch(`${API_URL}/cart-items`, {
-    method: 'GET',
-    headers: { Authorization: token, 'Content-Type': 'application/json' },
-  });
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch cart items');
+export const requestCartItemList = async () => {
+  try {
+    const token = generateBasicToken(USER_ID, USER_PASSWORD);
+    const response = await fetch(`${API_URL}/cart-items`, {
+      method: 'GET',
+      headers: { Authorization: token, 'Content-Type': 'application/json' },
+    });
+    const data = await response.json();
+    return transformCartItemListData(data.content);
+  } catch (error) {
+    console.error('Failed to fetch products:', error);
+    return error;
   }
-
-  const data = await response.json();
-
-  return transformCartItemListData(data.content);
 };
 
 export const requestSetCartItemQuantity = async (cartItemId: number, quantity: number) => {
