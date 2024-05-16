@@ -16,8 +16,8 @@ const useCheckCartItem = () => {
     setSelectedCartItemIds(newCheckState);
   };
 
-  const onCheckCartItem = (event: React.ChangeEvent<HTMLInputElement>, id: number) => {
-    const newSelectedCartItemIds = event.target.checked
+  const onCheckCartItem = (checked: boolean, id: number) => {
+    const newSelectedCartItemIds = checked
       ? [...selectedCartItemIds, id]
       : selectedCartItemIds.filter((selectedId) => selectedId !== id);
 

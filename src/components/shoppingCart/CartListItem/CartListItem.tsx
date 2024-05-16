@@ -16,7 +16,10 @@ const CartListItem: React.FC<CartListItemProps> = ({ cartItem }) => {
   return (
     <Styled.CartListContainer>
       <Styled.CartItemSelectionGroup>
-        <Checkbox checked={isChecked(cartItem.id)} onChange={(event) => onCheckCartItem(event, cartItem.id)} />
+        <Checkbox
+          checked={isChecked(cartItem.id)}
+          onChange={(event) => onCheckCartItem(event.target.checked, cartItem.id)}
+        />
         <DeleteButton onClick={onDeleteItem}>삭제</DeleteButton>
       </Styled.CartItemSelectionGroup>
       <Styled.CartItemDetailContainer>

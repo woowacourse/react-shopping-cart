@@ -12,7 +12,7 @@ interface CartListDescriptionContainerProps {
 const CartListDescription: React.FC<CartListDescriptionContainerProps> = ({ cartItem }) => {
   const { product, quantity } = cartItem;
 
-  const onUpdateCartItemCount = useUpdateCartItemCount(cartItem);
+  const { onUpdateCartItemCount } = useUpdateCartItemCount(cartItem);
 
   return (
     <Styled.CartItemDescription>
