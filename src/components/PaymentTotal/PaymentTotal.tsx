@@ -3,6 +3,7 @@ import * as S from './styled';
 import PriceInfo from '../PriceInfo/PriceInfo';
 import { useRecoilValue } from 'recoil';
 import { priceInfoStore } from '../../recoil/selectors';
+import { ORDER } from '../../constants/constants';
 
 const PaymentTotal = () => {
   const priceInfo = useRecoilValue(priceInfoStore);
@@ -11,7 +12,7 @@ const PaymentTotal = () => {
     <S.Container>
       <S.Info>
         <img src={info} alt="" />
-        <S.InfoText>총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</S.InfoText>
+        <S.InfoText>{`총 주문 금액이 ${ORDER.SHIPPING_FREE_PRICE.toLocaleString()}원 이상일 경우 무료 배송됩니다.`}</S.InfoText>
       </S.Info>
       <S.Hr />
       <PriceInfo title="주문 금액" price={priceInfo.order} />

@@ -1,5 +1,5 @@
 import { selector } from 'recoil';
-import { KEYS } from '../constants/constants';
+import { KEYS, ORDER } from '../constants/constants';
 import { selectedCartItems } from './atoms';
 
 export interface PriceInfo {
@@ -19,7 +19,7 @@ export const priceInfoStore = selector<PriceInfo>({
   get: ({ get }) => {
     const selected = get(selectedCartItems);
     const price = selected.reduce((acc, cur) => (acc += cur.price * cur.quantity), 0);
-    const shipping = price <= 100000 ? 3000 : 0;
+    const shipping = price < ORDER.SHIPPING_FREE_PRICE ? ORDER.SHIPPING_FEE : 0;
     return {
       order: price,
       shipping,
