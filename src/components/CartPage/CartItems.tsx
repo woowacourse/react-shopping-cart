@@ -4,7 +4,7 @@ import Button from "../default/Button";
 import Splitter from "../default/Splitter";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
 
-import { deleteCartItem } from "../../api/cartItem";
+import { deleteCartItem } from "../../api/cartItemApi";
 import { useRecoilState } from "recoil";
 import { cartItemCheckedIdsAtom, cartItemsAtom } from "../../recoil/atom/atom";
 import { allCheckedSelector } from "../../recoil/selector/selector";
