@@ -17,7 +17,7 @@ step4. cart 페이지 Item 목록
 
 - [x] cart 목록 api 요청 후 recoil selector로 저장
 - [x] cart 페이지 UI
-- [ ] cart item이 아무것도 없을 때, 빈 장바구니 표시
+- [x] cart item이 아무것도 없을 때, 빈 장바구니 표시
 - [x] cart item 삭제 기능
 
 step5. 상태 관리
