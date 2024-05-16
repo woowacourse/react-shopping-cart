@@ -22,15 +22,7 @@ const Button = ({
   ...rest
 }: ButtonProps) => {
   return (
-    <S.Button
-      disabled={isDisabled}
-      data-size={size}
-      data-width={width}
-      data-radius={radius}
-      data-color={color}
-      data-square={square}
-      {...rest}
-    >
+    <S.Button disabled={isDisabled} size={size} width={width} radius={radius} color={color} square={square} {...rest}>
       {children}
     </S.Button>
   );
