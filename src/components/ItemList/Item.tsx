@@ -5,31 +5,33 @@ import UnCheckedBox from '../assets/UnCheckedBox.svg';
 import PlusButton from '../assets/PlusButton.svg';
 import MinusButton from '../assets/MinusButton.svg';
 import BinButton from '../assets/BinButton.svg';
-
-import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { SelectedCartItem } from '../../recoil/selectedAllCardItems';
 
 interface ItemProp {
   cartItem: CartItem;
-  onRemoveItem: () => void;
+  onRemoveItem: (id: number) => void;
   onAdjustItemQuantity: (cartItemId: number, quantity: number) => void;
 }
-
+// onAdjustItemQuantity
 const Item = ({ cartItem, onRemoveItem, onAdjustItemQuantity }: ItemProp) => {
-  const [checked, setChecked] = useState(true);
-
-  //TODO: recoil 사용하기
+  const [isSelected, setIsSelected] = useRecoilState(
+    SelectedCartItem(cartItem.id),
+  );
 
   return (
     <Styled.Item>
       <Styled.Divider />
       <Styled.ButtonContainer>
-        <Styled.Button onClick={() => setChecked((prop) => !prop)}>
+        <Styled.Button onClick={() => setIsSelected((prop) => !prop)}>
           <img
-            src={checked ? CheckedBox : UnCheckedBox}
-            alt={checked ? '선택됨' : '선택되지 않음'}
+            src={isSelected ? CheckedBox : UnCheckedBox}
+            alt={isSelected ? '선택됨' : '선택되지 않음'}
           />
         </Styled.Button>
-        <Styled.DeleteButton onClick={onRemoveItem}>삭제</Styled.DeleteButton>
+        <Styled.DeleteButton onClick={() => onRemoveItem(cartItem.id)}>
+          삭제
+        </Styled.DeleteButton>
       </Styled.ButtonContainer>
 
       <Styled.ItemInfoContainer>
@@ -44,7 +46,8 @@ const Item = ({ cartItem, onRemoveItem, onAdjustItemQuantity }: ItemProp) => {
           <Styled.ItemQuantityAdjustment>
             <Styled.Button
               onClick={() => {
-                onAdjustItemQuantity(cartItem.id, --cartItem.quantity);
+                const updatedItemQuantity = cartItem.quantity - 1;
+                onAdjustItemQuantity(cartItem.id, updatedItemQuantity);
               }}
             >
               <img
@@ -55,7 +58,8 @@ const Item = ({ cartItem, onRemoveItem, onAdjustItemQuantity }: ItemProp) => {
             <Styled.ItemQuantity>{cartItem.quantity}</Styled.ItemQuantity>
             <Styled.Button
               onClick={() => {
-                onAdjustItemQuantity(cartItem.id, ++cartItem.quantity);
+                const updatedItemQuantity = cartItem.quantity + 1;
+                onAdjustItemQuantity(cartItem.id, updatedItemQuantity);
               }}
             >
               <img src={PlusButton} alt="+"></img>
@@ -68,5 +72,3 @@ const Item = ({ cartItem, onRemoveItem, onAdjustItemQuantity }: ItemProp) => {
 };
 
 export default Item;
-
-isChecked: boolean;

@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import * as Styled from './style';
 
 import Header from '../../Header/Header';
@@ -8,69 +6,34 @@ import OrderButton from '../../OrderButton/OrderButton';
 import Title from '../../Title/Title';
 import TotalPaymentInfo from '../../TotalPaymentInfo/TotalPaymentInfo';
 
-import { CartItem } from '../../../type';
-import {
-  adjustCartItemQuantity,
-  fetchCartItems,
-  removeCartItem,
-} from '../../../api/shoppingCart';
+import { useRecoilValue } from 'recoil';
+import { CartItemsSelector } from '../../../recoil/cartItems';
+import { SelectedSomeCardItemsSelector } from '../../../recoil/selectedAllCardItems';
 
 const ShoppingCart = () => {
-  const [item, setItem] = useState<CartItem[]>();
+  const cartItems = useRecoilValue(CartItemsSelector);
 
-  useEffect(() => {
-    const fetchItems = async () => {
-      const items = await fetchCartItems();
-      setItem(items);
-    };
-    fetchItems();
-  }, []);
+  const hasSomeCartItem = !!cartItems.length;
+  const isSomeCartItemSelected = useRecoilValue(SelectedSomeCardItemsSelector);
 
-  const handleRemoveCartItem = async (cartItemId: number) => {
-    try {
-      await removeCartItem(cartItemId);
-      const updatedCartItems = await fetchCartItems();
-      setItem(updatedCartItems);
-    } catch (error) {
-      console.error('Failed to remove cart item:', error);
-    }
-  };
-
-  const handleAdjustCartItemQuantity = async (
-    cartItemId: number,
-    quantity: number,
-  ) => {
-    try {
-      await adjustCartItemQuantity(cartItemId, quantity);
-      const updatedCartItems = await fetchCartItems();
-      setItem(updatedCartItems);
-    } catch (error) {
-      console.error('수량변경 실패', error);
-    }
-  };
-
-  const isOrderable = !!item?.length;
+  const isOrderable = hasSomeCartItem && isSomeCartItemSelected;
 
   return (
     <Styled.ShoppingCart>
       <Header title="SHOP" />
 
-      {isOrderable && (
+      {hasSomeCartItem && (
         <Styled.Container>
           <Title
             title="장바구니"
-            caption={`현재 ${item.length}종류의 상품이 담겨있습니다.`}
+            caption={`현재 ${cartItems.length}종류의 상품이 담겨있습니다.`}
           />
-          <ItemList
-            cartItems={item}
-            onRemoveItem={handleRemoveCartItem}
-            onAdjustItemQuantity={handleAdjustCartItemQuantity}
-          />
-          <TotalPaymentInfo></TotalPaymentInfo>
+          <ItemList />
+          <TotalPaymentInfo />
         </Styled.Container>
       )}
 
-      {!isOrderable && <Title title="장바구니" />}
+      {!hasSomeCartItem && <Title title="장바구니" />}
 
       <OrderButton
         onClick={() => console.log('s')}
