@@ -20,6 +20,7 @@ const LimitedWidthContainer = styled.div`
 
   background-color: white;
   overflow: scroll;
+  scrollbar-width: none;
 `;
 
 type MobileLayoutProps = {
