@@ -38,7 +38,7 @@ export async function postCartItem(productId: number): Promise<void> {
 export async function deleteCartItem(cartItemId: number): Promise<void> {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const response = await fetch(
-    `${API_URL}${ENDPOINT.cartItem.deleteItem(cartItemId)}}`,
+    `${API_URL}${ENDPOINT.cartItem.deleteItem(cartItemId)}`,
     {
       method: 'DELETE',
       headers: {

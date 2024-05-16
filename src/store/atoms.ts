@@ -3,12 +3,7 @@ import { atom, atomFamily } from 'recoil';
 
 import { INIT_CART_ITEM_STATE } from '@/constants/defaultStateValue';
 import { cartState } from './selectors/dataFetchSelector';
-import { recoilPersist } from 'recoil-persist';
-
-const { persistAtom } = recoilPersist({
-  key: 'localStorage',
-  storage: localStorage,
-});
+import localStorageEffect from '@/utils/localStorageEffect';
 
 export const filteredCartItemState = atomFamily<
   FilteredCartItemStateType,
@@ -16,7 +11,7 @@ export const filteredCartItemState = atomFamily<
 >({
   key: 'cartItemState',
   default: INIT_CART_ITEM_STATE,
-  effects_UNSTABLE: [persistAtom],
+  effects_UNSTABLE: (id) => [localStorageEffect(`cartItemState_${id}`)],
 });
 
 export const cartListState = atom<CartItemType[]>({
