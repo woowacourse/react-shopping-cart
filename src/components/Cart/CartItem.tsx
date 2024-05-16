@@ -1,24 +1,24 @@
 import { FlexColumn, FlexRow, FlexSpaceBetween } from '@/style/common.style';
 import { MinusButton, PlusButton } from '../Button/QuantityButton';
-import { getCartItems, patchCartItem } from '@/api/cartItem';
+import { cartItemState, cartListState } from '@/store/atoms';
+import { deleteCartItem, patchCartItem } from '@/api/cartItem';
 import { useEffect, useState } from 'react';
 
 import BorderButton from '../Button/BorderButton';
 import { CartItemType } from '@/types/cart.type';
 import CheckBox from '../Button/CheckBoxButton';
-import { cartItemState } from '@/store/atoms';
 import styled from '@emotion/styled';
 import { useRecoilState } from 'recoil';
 
 interface Props {
   item: CartItemType;
-  handleDelete: (id: number) => void;
 }
 
-const CartItem = ({ item, handleDelete }: Props) => {
+const CartItem = ({ item }: Props) => {
   const { id, product } = item;
 
   const [itemState, setItemState] = useRecoilState(cartItemState(item.id));
+  const [cartItems, setCartItems] = useRecoilState(cartListState);
   // const [loading, setLoading] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState<Error | null>(null);
@@ -38,6 +38,21 @@ const CartItem = ({ item, handleDelete }: Props) => {
     setItemState(newValue);
   };
 
+  const handleDelete = () => {
+    try {
+      const deleteData = async () => {
+        await deleteCartItem(id);
+
+        const newList = cartItems.filter((item) => item.id !== id);
+        setCartItems(newList);
+      };
+
+      deleteData();
+    } catch (error) {
+      setError(error as Error);
+    }
+  };
+
   const handleQuantity = (quantity: number) => {
     try {
       const patchData = async () => {
@@ -50,10 +65,8 @@ const CartItem = ({ item, handleDelete }: Props) => {
           return;
         }
 
-        const cartItemsData = await getCartItems();
-        const newData = cartItemsData.find((item) => item.id === id) || item;
         const newValue = { ...itemState };
-        newValue.quantity = newData?.quantity;
+        newValue.quantity = quantity;
         setItemState(newValue);
       };
 
@@ -67,7 +80,7 @@ const CartItem = ({ item, handleDelete }: Props) => {
     <StyledItemWrapper>
       <StyledFlexBetweenBox>
         <CheckBox isSelected={itemState.isSelected} onClick={handleSelect} />
-        <BorderButton onClick={() => handleDelete(id)}>삭제</BorderButton>
+        <BorderButton onClick={handleDelete}>삭제</BorderButton>
       </StyledFlexBetweenBox>
       <StyledRowBox>
         <StyledImg src={product.imageUrl} alt={product.name} />

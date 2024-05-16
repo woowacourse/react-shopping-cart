@@ -45,7 +45,7 @@ export async function deleteCartItem(cartItemId: number): Promise<void> {
       },
     }
   );
-  console.log('delete', response);
+
   if (!response.ok) {
     throw new Error('Failed to remove cart item');
   }
@@ -67,8 +67,6 @@ export async function patchCartItem(
       body: JSON.stringify({ quantity }),
     }
   );
-  console.log(JSON.stringify({ quantity }));
-  console.log('patch', response);
   if (!response.ok) {
     throw new Error('Failed to patch cart item');
   }
