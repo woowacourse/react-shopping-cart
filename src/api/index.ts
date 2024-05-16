@@ -2,9 +2,9 @@ import { generateBasicToken } from './utils/auth';
 import { CartItemData } from '@/types';
 import Fetcher from './Fetcher';
 
-const API_URL = import.meta.env.VITE_API_URL;
-const USER_ID = import.meta.env.VITE_USER_ID;
-const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
+const API_URL = process.env.API_URL;
+const USER_ID = process.env.USER_ID;
+const USER_PASSWORD = process.env.USER_PASSWORD;
 
 interface CartItemsResponse {
   content: CartItemData[];
