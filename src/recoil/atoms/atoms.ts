@@ -17,8 +17,8 @@ const localStorageEffect: <T>(key: string) => AtomEffect<T> =
     });
   };
 
-export const selectedCartItemState = atom<TCartItem[]>({
-  key: 'selectedCartItemState',
+export const selectedCartItemListState = atom<TCartItem[]>({
+  key: 'selectedCartItemListState',
   default: [],
-  effects: [localStorageEffect<TCartItem[]>('selectedCartItemState')],
+  effects: [localStorageEffect<TCartItem[]>('selectedCartItemListState')],
 });

@@ -1,46 +1,46 @@
 import { useRecoilState } from 'recoil';
-import { selectedCartItemState } from '../../recoil/atoms/atoms';
+import { selectedCartItemListState } from '../../recoil/atoms/atoms';
 import CheckButton from '../Button/CheckButton/CheckButton';
 import CartItem from '../CartItem/CartItem';
 import type { TCartItem } from '../../types/CartItem.type';
-import { removeCartItems, updateCartItemQuantity } from '../../apis';
+import { removeCartItem, updateCartItemQuantity } from '../../apis';
 import * as S from './CartItemList.style';
 
 interface CartItemListProps {
-  cartItems: TCartItem[];
-  updateCartItems: () => void;
+  cartItemList: TCartItem[];
+  updateCartItemList: () => void;
 }
 
-function CartItemList({ cartItems, updateCartItems }: CartItemListProps) {
-  const [selectedItems, setSelectedItems] = useRecoilState(selectedCartItemState);
+function CartItemList({ cartItemList, updateCartItemList }: CartItemListProps) {
+  const [selectedItemList, setSelectedItemList] = useRecoilState(selectedCartItemListState);
 
-  const isAllSelected = selectedItems.length === cartItems.length;
+  const isAllSelected = selectedItemList.length === cartItemList.length;
 
   const handleAllSelect = () => {
-    if (isAllSelected) setSelectedItems([]);
-    else setSelectedItems(cartItems);
+    if (isAllSelected) setSelectedItemList([]);
+    else setSelectedItemList(cartItemList);
   };
 
   const handleUpdateQuantity = async (cardItemId: number, quantity: number) => {
     await updateCartItemQuantity(cardItemId, quantity);
-    updateCartItems();
+    updateCartItemList();
   };
 
   const handleRemoveItem = async (cartItemId: number) => {
-    await removeCartItems(cartItemId);
-    updateCartItems();
+    await removeCartItem(cartItemId);
+    updateCartItemList();
   };
 
   return (
-    <S.CartItems>
+    <S.Layout>
       <S.SelectAllButtonContainer>
         <CheckButton isChecked={isAllSelected} onClick={handleAllSelect} />
         <p>전체 선택</p>
       </S.SelectAllButtonContainer>
-      {cartItems.map((el) => (
+      {cartItemList.map((el) => (
         <CartItem key={el.id} item={el} onRemoveItem={handleRemoveItem} onUpdateQuantity={handleUpdateQuantity} />
       ))}
-    </S.CartItems>
+    </S.Layout>
   );
 }
 

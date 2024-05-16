@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil';
+import { selectedCartItemListSelector } from '../../recoil/selectors/selectors';
 import CheckButton from '../Button/CheckButton/CheckButton';
 import type { TCartItem } from '../../types/CartItem.type';
-import { selectedCartItemState } from '../../recoil/atoms/atoms';
 import { PlusIcon, MinusIcon } from '../../assets';
 
 import * as S from './CartItem.style';
@@ -15,17 +15,9 @@ interface CardItemProps {
 function CartItem({ item, onRemoveItem, onUpdateQuantity }: CardItemProps) {
   const { id, quantity, product } = item;
 
-  const [selectedItems, setSelectedItems] = useRecoilState(selectedCartItemState);
+  const [isSelected, setIsSelected] = useRecoilState(selectedCartItemListSelector(item));
 
-  const isSelected = selectedItems.some((item) => item.id === id);
-
-  const handleIsSelected = () => {
-    if (!selectedItems.some((item) => item.id === id)) {
-      setSelectedItems([...selectedItems, item]);
-    } else {
-      setSelectedItems(selectedItems.filter((item) => item.id !== id));
-    }
-  };
+  const handleIsSelected = () => setIsSelected(isSelected);
 
   return (
     <S.Layout>

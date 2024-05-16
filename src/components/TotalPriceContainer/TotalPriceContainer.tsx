@@ -1,11 +1,11 @@
 import { useRecoilValue } from 'recoil';
-import { selectedCartItemTotalPriceState } from '../../recoil/selectors/selectors';
+import { selectedCartItemListTotalPriceSelector } from '../../recoil/selectors/selectors';
 import { DELIVERY_FEE_DISCOUNT_THRESHOLD, calculateDeliveryFee } from '../../utils/calculateDeliveryFee';
 import { InfoIcon } from '../../assets';
 import * as S from './TotalPriceContainer.style';
 
 function TotalPriceContainer() {
-  const selectedCartItemTotalPrice = useRecoilValue(selectedCartItemTotalPriceState);
+  const selectedCartItemTotalPrice = useRecoilValue(selectedCartItemListTotalPriceSelector);
 
   const deliveryFee = calculateDeliveryFee(selectedCartItemTotalPrice);
   const totalPrice = selectedCartItemTotalPrice + deliveryFee;

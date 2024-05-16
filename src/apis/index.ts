@@ -5,7 +5,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
 const USER_ID = import.meta.env.VITE_USER_ID;
 
-async function fetchCartItems(): Promise<TCartItem[]> {
+const fetchCartItemList = async (): Promise<TCartItem[]> => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
   const response = await fetch(`${API_URL}/cart-items`, {
@@ -16,9 +16,9 @@ async function fetchCartItems(): Promise<TCartItem[]> {
   const data = await response.json();
 
   return data.content;
-}
+};
 
-async function addCartItems(cartItemId: number): Promise<void> {
+const addCartItem = async (cartItemId: number): Promise<void> => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
   const response = await fetch(`${API_URL}/cart-items`, {
@@ -34,8 +34,8 @@ async function addCartItems(cartItemId: number): Promise<void> {
     alert('상품을 장바구니에 추가하는 중 오류가 발생했습니다.');
     throw new Error('상품을 장바구니에 추가하는 중 오류가 발생했습니다.');
   }
-}
-async function removeCartItems(cartItemId: number): Promise<void> {
+};
+const removeCartItem = async (cartItemId: number): Promise<void> => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
   const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
@@ -47,9 +47,9 @@ async function removeCartItems(cartItemId: number): Promise<void> {
     alert('상품을 장바구니에서 제거하는 중 에러가 발생했습니다.');
     throw new Error('상품을 장바구니에서 제거하는 중 에러가 발생했습니다.');
   }
-}
+};
 
-async function updateCartItemQuantity(cartItemId: number, quantity: number): Promise<void> {
+const updateCartItemQuantity = async (cartItemId: number, quantity: number): Promise<void> => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
   const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
@@ -65,6 +65,6 @@ async function updateCartItemQuantity(cartItemId: number, quantity: number): Pro
     alert('상품 개수를 업데이트하는 중 문제가 발생했습니다.');
     throw new Error('상품 개수를 업데이트하는 중 문제가 발생했습니다.');
   }
-}
+};
 
-export { fetchCartItems, addCartItems, removeCartItems, updateCartItemQuantity };
+export { fetchCartItemList, addCartItem, removeCartItem, updateCartItemQuantity };

@@ -7,8 +7,8 @@ import SubmitButton from '../../components/Button/SubmitButton/SubmitButton';
 import CartItemList from '../../components/CartItemList/CartItemList';
 import TotalPriceContainer from '../../components/TotalPriceContainer/TotalPriceContainer';
 import type { TCartItem } from '../../types/CartItem.type';
-import { fetchCartItems } from '../../apis';
-import { selectedCartItemState } from '../../recoil/atoms/atoms';
+import { fetchCartItemList } from '../../apis';
+import { selectedCartItemListState } from '../../recoil/atoms/atoms';
 import { EmptyCart } from '../../assets';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './ShoppingCartPage.style';
@@ -16,24 +16,24 @@ import * as S from './ShoppingCartPage.style';
 function ShoppingCartPage() {
   const initialValue = useLoaderData() as TCartItem[];
 
-  const [cartItems, setCartItems] = useState<TCartItem[]>(initialValue);
+  const [cartItemList, setCartItemList] = useState<TCartItem[]>(initialValue);
 
-  const [selectedItems, setSelectedItems] = useRecoilState(selectedCartItemState);
+  const [selectedItemList, setSelectedItemList] = useRecoilState(selectedCartItemListState);
 
-  const updateCartItems = async () => {
-    const newCartItems = await fetchCartItems();
-    setCartItems(newCartItems);
+  const updateCartItemList = async () => {
+    const newCartItemList = await fetchCartItemList();
+    setCartItemList(newCartItemList);
 
-    const newSelectedItems = newCartItems.filter((el) => selectedItems.some((item) => el.id === item.id));
-    setSelectedItems(newSelectedItems);
+    const newSelectedItemList = newCartItemList.filter((el) => selectedItemList.some((item) => el.id === item.id));
+    setSelectedItemList(newSelectedItemList);
   };
 
-  const hasCartItems = cartItems.length !== 0;
-  const hasSelectedCartItems = selectedItems.length !== 0;
+  const hasCartItemList = cartItemList.length !== 0;
+  const hasSelectedCartItemList = selectedItemList.length !== 0;
 
-  const renderCartItemsSection = () => (
+  const renderCartItemListSection = () => (
     <>
-      <CartItemList cartItems={cartItems} updateCartItems={updateCartItems} />
+      <CartItemList cartItemList={cartItemList} updateCartItemList={updateCartItemList} />
       <TotalPriceContainer />
     </>
   );
@@ -48,16 +48,16 @@ function ShoppingCartPage() {
   return (
     <div>
       <Header />
-      <Await resolve={cartItems}>
+      <Await resolve={cartItemList}>
         <S.Layout>
           <TitleContainer
             title="장바구니"
-            subTitle={cartItems.length !== 0 ? `현재 ${cartItems.length}종류의 상품이 담겨있습니다.` : ''}
+            subTitle={cartItemList.length !== 0 ? `현재 ${cartItemList.length}종류의 상품이 담겨있습니다.` : ''}
           />
-          {hasCartItems ? renderCartItemsSection() : renderEmptyCartSection()}
+          {hasCartItemList ? renderCartItemListSection() : renderEmptyCartSection()}
         </S.Layout>
       </Await>
-      {hasSelectedCartItems ? (
+      {hasSelectedCartItemList ? (
         <Link to={PATHS.CONFIRM}>
           <SubmitButton isActive={true} content="주문 확인" />
         </Link>
