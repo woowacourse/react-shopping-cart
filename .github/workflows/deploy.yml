@@ -27,6 +27,10 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
+        env:
+          VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
+          VITE_USER_ID: ${{ secrets.VITE_USER_ID }}
+          VITE_PASSWORD: ${{ secrets.VITE_PASSWORD }}
       - name: Build storybook
         run: |
           npm run build-storybook

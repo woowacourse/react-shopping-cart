@@ -1,7 +1,7 @@
 import { CartItem, CartItemCounts } from "../types";
 import { generateBasicToken } from "../utils/auth";
 
-const API_URL = "http://54.180.95.212:8080";
+const API_URL = import.meta.env.VITE_BASE_URL;
 const USER_ID = import.meta.env.VITE_USER_ID;
 const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
 
