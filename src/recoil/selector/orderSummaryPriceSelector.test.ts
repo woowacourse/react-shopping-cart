@@ -35,7 +35,7 @@ describe("orderPriceSelector 테스트", () => {
   });
 
   describe("orderPriceSelector 테스트", () => {
-    it("선택된 아이템의 가격과 수량으로 주문 금액을 계산한다.", () => {
+    it("orderPrice 상태를 확인했을때, 체크되어있는 아이템들의 가격과 수량으로 계산된 주문 금액이 얻어진다.", () => {
       act(() => {
         result.current.setCartItems(mockCartItems);
         result.current.setCheckedIds(mockCheckedIds);

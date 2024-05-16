@@ -13,7 +13,7 @@ const mockCartItems: Product[] = [
 
 const mockCheckedIds: number[] = [1, 2];
 describe("cartItemCheckedIdsAtom 테스트", () => {
-  it("checkIds 에 정상적으로 입력 된다.", () => {
+  it("checkIds에 선택된 id들이 배열로 저장되어있다.", () => {
     const { result } = renderHook(() => useRecoilState(cartItemCheckedIdsAtom), {
       wrapper: RecoilRoot,
     });

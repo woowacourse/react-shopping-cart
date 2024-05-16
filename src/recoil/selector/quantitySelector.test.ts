@@ -1,8 +1,8 @@
-import { cartItemCheckedIdsAtom, cartItemsAtom } from "../atom/atom";
+import { cartItemsAtom } from "../atom/atom";
 import { RecoilRoot, useRecoilState } from "recoil";
 import { renderHook } from "@testing-library/react";
 import { act } from "react";
-import { allCheckedSelector, quantitySelector } from "./selector";
+import { quantitySelector } from "./selector";
 import { Product } from "../../types";
 
 // mock data
@@ -30,7 +30,7 @@ describe("quantitySelector 테스트", () => {
     result = hook.result;
   });
 
-  it("cartItems의 quantity가 quantities 상태로 잘 저장된다.", () => {
+  it("quantities의 상태를 확인했을 때, cartItems의 quantity들이 얻어진다.", () => {
     act(() => {
       result.current.setCartItems(mockCartItems);
     });
@@ -38,7 +38,7 @@ describe("quantitySelector 테스트", () => {
     expect(result.current.quantities).toEqual({ 1: 2, 2: 3, 3: 1 });
   });
 
-  it("cartItems의 quantity가 quantities 상태로 잘 저장된다.", () => {
+  it("cartItems의 quantity를 변경하고 quantities 상태를 확인했을때, 변경된 cartItems의 quantity들이 얻어진다.", () => {
     act(() => {
       result.current.setCartItems(mockCartItems);
     });

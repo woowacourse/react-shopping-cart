@@ -14,8 +14,6 @@ const mockCartItems: Product[] = [
 
 const mockCheckedIds: number[] = [1, 2];
 
-//TODO: 분리
-
 describe("allCheckedSelector 테스트", () => {
   let result;
 
@@ -34,6 +32,7 @@ describe("allCheckedSelector 테스트", () => {
 
     result = hook.result;
   });
+
   it("전체 선택을 선택했을 때 모든 아이템들이 선택된다.", () => {
     act(() => {
       result.current.setCartItems(mockCartItems);
@@ -58,7 +57,7 @@ describe("allCheckedSelector 테스트", () => {
     expect(result.current.checkedIds).toEqual([]);
   });
 
-  it("전체선택 상태에서 하나만 선택을 해제했을 때, 전체 선택상태는 false가 된다.", () => {
+  it("전체 선택 상태에서 하나만 선택을 해제했을 때, 전체 선택 상태는 false가 된다.", () => {
     act(() => {
       result.current.setCartItems(mockCartItems);
       result.current.setCheckedIds([1, 2, 3]);
