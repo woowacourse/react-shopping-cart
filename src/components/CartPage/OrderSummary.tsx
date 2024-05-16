@@ -1,16 +1,16 @@
-import React from "react";
 import { css } from "@emotion/css";
-import InfoIcon from "../../assets/InfoIcon.svg?react";
+import { useRecoilValue } from "recoil";
 import Splitter from "../default/Splitter";
 import LabelValue from "./LabelValue";
-import { useRecoilValue } from "recoil";
 import { orderPriceSelector, shippingFeeSelector, totalPriceSelector } from "../../recoil/selector";
 import { formatCurrency } from "../../utils/formatCurrency";
+import InfoIcon from "../../assets/InfoIcon.svg?react";
 
 const OrderSummary = () => {
   const orderPrice = useRecoilValue(orderPriceSelector);
   const shippingFee = useRecoilValue(shippingFeeSelector);
   const totalPrice = useRecoilValue(totalPriceSelector);
+
   return (
     <div className={OrderSummaryCSS}>
       <div className={InfoContainer}>

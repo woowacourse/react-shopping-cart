@@ -8,13 +8,15 @@ interface ButtonProps extends React.ComponentPropsWithRef<"button"> {
   variant?: ButtonVariant;
 }
 
-export const Button = ({ children, variant = "text", ...rest }: ButtonProps) => {
+const Button = ({ children, variant = "text", ...rest }: ButtonProps) => {
   return (
     <button className={getButtonClassName(variant)} {...rest}>
       {children}
     </button>
   );
 };
+
+export default Button;
 
 const getButtonClassName = (variant: ButtonVariant) => {
   return css`

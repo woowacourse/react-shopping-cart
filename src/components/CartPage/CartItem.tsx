@@ -1,6 +1,5 @@
-import React, { useState } from "react";
 import { css } from "@emotion/css";
-import { Button } from "../default/Button";
+import Button from "../default/Button";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
 import MinusIcon from "../../assets/MinusIcon.svg?react";
 import PlusIcon from "../../assets/PlusIcon.svg?react";

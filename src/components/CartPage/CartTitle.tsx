@@ -1,4 +1,3 @@
-import React from "react";
 import { css } from "@emotion/css";
 import { useRecoilValue } from "recoil";
 import { cartItemsAtom } from "../../recoil/atom";

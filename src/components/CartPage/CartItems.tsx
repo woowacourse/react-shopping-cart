@@ -1,9 +1,8 @@
-import React from "react";
 import { css } from "@emotion/css";
 import CartItem from "./CartItem";
-import { Button } from "../default/Button";
-import CheckIcon from "../../assets/CheckIcon.svg?react";
+import Button from "../default/Button";
 import Splitter from "../default/Splitter";
+import CheckIcon from "../../assets/CheckIcon.svg?react";
 
 import { deleteCartItem } from "../../api/cartItem";
 import { useRecoilState } from "recoil";
