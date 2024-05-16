@@ -26,17 +26,6 @@ export const totalPriceSelector = selector({
 });
 
 /**
- * itemsState의 상품 종류 개수 계산
- */
-export const totalCartItemCountSelector = selector({
-  key: 'totalCartItemCountSelector',
-  get: ({ get }) => {
-    const products = get(itemsState);
-    return products.length;
-  },
-});
-
-/**
  * get: () => boolean
  * set: (newValue: 변경할 boolean 값) => void
  * 전체 선택 체크 시 모든 itemDetailsState의 isChecked 변경,
