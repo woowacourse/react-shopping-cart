@@ -1,15 +1,24 @@
-import Header from "./components/Header/Header";
-import Main from "./components/Main/Main";
-import Footer from "./components/Footer/Footer";
-import AddButton from "./components/AddButton/AddButton";
+import React from "react";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Cart from "./routes/Cart";
+import Order from "./routes/Order";
 
 function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Cart />,
+    },
+    {
+      path: "/order",
+      element: <Order />,
+    },
+  ]);
   return (
     <>
-      <Header />
-      <Main />
-      <Footer />
-      {import.meta.env.DEV ? <AddButton /> : null}
+      <React.StrictMode>
+        <RouterProvider router={router} />
+      </React.StrictMode>
     </>
   );
 }
