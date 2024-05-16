@@ -1,9 +1,10 @@
 import { generateBasicToken } from '../utils/auth';
 import { CartItem } from '../type';
+import API_CONFIG from './config';
 
-const API_URL = import.meta.env.VITE_API_URL;
-const USER_ID = import.meta.env.VITE_USER_ID;
-const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
+const API_URL = API_CONFIG.API_URL;
+const USER_ID = API_CONFIG.USER_ID;
+const USER_PASSWORD = API_CONFIG.USER_PASSWORD;
 
 const CART_ITEMS = 'cart-items';
 
