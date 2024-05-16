@@ -3,7 +3,6 @@ import CheckButton from '../Button/CheckButton/CheckButton';
 import QuantityContainer from '../Container/QuantityContainer/QuantityContainer';
 import type { TCartItem } from '../../types/CartItem.type';
 import { selectedCartItemListSelector } from '../../recoil/selectors/selectors';
-import { PlusIcon, MinusIcon } from '../../assets';
 
 import * as S from './CartItem.style';
 
