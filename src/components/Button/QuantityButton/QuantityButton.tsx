@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
+import { HiOutlineMinus, HiOutlinePlus } from "react-icons/hi";
 import Button from "../Button";
-import { SignStyle } from "./QuantityButton.style";
 
 export type ButtonType = "plus" | "minus";
 
@@ -12,7 +12,7 @@ interface QuantityProps {
 const QuantityButton = ({ type, onClick }: QuantityProps) => {
   return (
     <Button fontSize="24px" onClick={onClick}>
-      <div css={SignStyle}>{type === "plus" ? "+" : "-"}</div>{" "}
+      {type === "plus" ? <HiOutlinePlus size={16} /> : <HiOutlineMinus size={16} />}
     </Button>
   );
 };

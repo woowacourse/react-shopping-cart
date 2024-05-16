@@ -16,6 +16,7 @@ export const ButtonStyle = (width: string, height: string, fontSize: string, isH
 
     fontSize,
     overflow: "hidden",
+    color: COLOR_PALETTE.textBlack,
 
     transition: "all 0.2s",
 
