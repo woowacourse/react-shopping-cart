@@ -23,7 +23,7 @@ const router = createBrowserRouter([
     element: <CommonLayout />,
     children: [
       {
-        path: '/cart',
+        path: '/',
         element: <CartPage />,
       },
       {
