@@ -1,3 +1,5 @@
+@import './reset.css';
+
 :root {
   font-weight: 400;
   line-height: 1.5;
@@ -7,4 +9,11 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  margin: 0 auto;
+  width: 100%;
+  min-width: 429px;
+  height: 100%;
 }
