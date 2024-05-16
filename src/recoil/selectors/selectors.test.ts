@@ -6,7 +6,7 @@ import {
   selectedCartItemListTotalPriceSelector,
   selectedCartItemListTotalCountSelector,
 } from './selectors';
-import { mockData, newYujoCartItemData, newKyleCartItemData } from '../../constants/mockData';
+import { cartItemListMockData, newYujoCartItemData, newKyleCartItemData } from '../../data/cartItemListMockData';
 
 describe('selectedCartItemListSelector', () => {
   it('개별 상품을 선택할 시 선택된 상품이 배열에 삽입된다.', () => {
@@ -23,7 +23,7 @@ describe('selectedCartItemListSelector', () => {
     );
 
     act(() => {
-      result.current.setSelectedCartItemList(mockData);
+      result.current.setSelectedCartItemList(cartItemListMockData);
       result.current.setIsSelected(result.current.isSelected);
     });
 
@@ -44,7 +44,7 @@ describe('selectedCartItemListSelector', () => {
     );
 
     act(() => {
-      result.current.setSelectedCartItemList([...mockData, newKyleCartItemData]);
+      result.current.setSelectedCartItemList([...cartItemListMockData, newKyleCartItemData]);
       result.current.setIsSelected(result.current.isSelected);
     });
 

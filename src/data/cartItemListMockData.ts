@@ -1,4 +1,4 @@
-export const mockData = [
+export const cartItemListMockData = [
   {
     id: 606,
     quantity: 1,
