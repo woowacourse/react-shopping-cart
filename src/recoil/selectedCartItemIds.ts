@@ -3,7 +3,7 @@ import { putInSelectedCartItemIds, takeOutSelectedCartItemIds } from "../utils/s
 import { CartItemId } from "../types/cartItems";
 
 const selectedCartItemIdsSelector = selector({
-  key: "cartItemsSelector",
+  key: "selectedCartItemIdsSelector",
   get: takeOutSelectedCartItemIds,
 });
 
