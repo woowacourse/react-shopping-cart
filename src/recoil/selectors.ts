@@ -20,7 +20,7 @@ export const totalPriceSelector = selector({
         totalAmount += quantity * price;
       }
     });
-    const deliveryFee = totalAmount >= 100000 ? 0 : 3000;
+    const deliveryFee = totalAmount >= 100000 || totalAmount === 0 ? 0 : 3000;
     const calculatedTotalAmount = totalAmount + deliveryFee;
     return { totalAmount, deliveryFee, calculatedTotalAmount };
   },
