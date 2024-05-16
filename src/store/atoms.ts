@@ -1,6 +1,8 @@
-import { CartItemStateType, CartItemType } from '@/types/cart.type';
+import { CartItemType, FilteredCartItemStateType } from '@/types/cart.type';
 import { atom, atomFamily } from 'recoil';
 
+import { INIT_CART_ITEM_STATE } from '@/constants/defaultStateValue';
+import { cartState } from './selectors/dataFetchSelector';
 import { recoilPersist } from 'recoil-persist';
 
 const { persistAtom } = recoilPersist({
@@ -8,30 +10,16 @@ const { persistAtom } = recoilPersist({
   storage: localStorage,
 });
 
-export const cartItemState = atomFamily<CartItemStateType, number>({
+export const filteredCartItemState = atomFamily<
+  FilteredCartItemStateType,
+  number
+>({
   key: 'cartItemState',
-  default: (itemId: number) => ({
-    id: itemId,
-    quantity: 1,
-    price: 0,
-    isSelected: true,
-  }),
+  default: INIT_CART_ITEM_STATE,
   effects_UNSTABLE: [persistAtom],
 });
 
 export const cartListState = atom<CartItemType[]>({
   key: 'cartListState',
-  default: [
-    {
-      id: 1,
-      quantity: 1,
-      product: {
-        id: 1,
-        name: '',
-        price: 0,
-        imageUrl: '',
-        category: '',
-      },
-    },
-  ],
+  default: cartState,
 });

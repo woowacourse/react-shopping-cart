@@ -1,40 +1,23 @@
 import { FlexRow, WhiteSpace } from '@/style/common.style';
-import { useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import CartItem from '@/components/Cart/CartItem';
 import CheckBox from '@/components/Button/CheckBoxButton';
-import { allSelectedState } from '@/store/selector';
+// import { ErrorBoundary } from 'react-error-boundary';
+// import ErrorFallback from '../ErrorFallback';
+import { allSelectedState } from '@/store/selectors/allSelectedSelector';
 import { cartListState } from '@/store/atoms';
-import { getCartItems } from '@/api/cartItem';
 import styled from '@emotion/styled';
-import { useRecoilState } from 'recoil';
+import { useState } from 'react';
 
 const CartList = () => {
-  const [cartItems, setCartItems] = useRecoilState(cartListState);
+  const cartList = useRecoilValue(cartListState);
   const [isAllSelected, setIsAllSelected] = useRecoilState(allSelectedState);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const cartItemsData = await getCartItems();
-        setCartItems(cartItemsData);
-      } catch (error) {
-        setError(error as Error);
-      }
-
-      setLoading(false);
-    };
-
-    fetchData();
-  }, []);
 
   const handleAllSelect = () => {
     setIsAllSelected(!isAllSelected);
@@ -47,7 +30,7 @@ const CartList = () => {
         <span>전체선택</span>
       </StyledAllCheckBox>
       <StyledList>
-        {cartItems.map((item) => (
+        {cartList.map((item) => (
           <CartItem key={item.id} item={item} />
         ))}
       </StyledList>

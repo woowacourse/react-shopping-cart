@@ -5,7 +5,7 @@ import EmptyCart from '@/components/EmptyCart';
 import FullWidthButton from '@/components/Button/FullWidthButton';
 import Header from '@/components/Header.tsx';
 import { cartListState } from '@/store/atoms';
-import { recipeState } from '@/store/selector';
+import { recipeState } from '@/store/selectors/recipeSelector';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';

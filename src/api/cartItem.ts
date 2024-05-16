@@ -1,9 +1,10 @@
 import { API_URL, ENDPOINT, USER_ID, USER_PASSWORD } from './config';
 
 import { CartItemType } from '@/types/cart.type';
+import { ERROR_MESSAGE } from '@/constants/error';
 import { generateBasicToken } from '../utils/auth';
 
-export async function getCartItems(): Promise<CartItemType[]> {
+export async function getCartList(): Promise<CartItemType[]> {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const response = await fetch(`${API_URL}${ENDPOINT.cartItem.getList}`, {
     method: 'GET',
@@ -11,7 +12,7 @@ export async function getCartItems(): Promise<CartItemType[]> {
   });
 
   if (!response.ok) {
-    throw new Error('Failed to fetch cart items');
+    throw new Error(ERROR_MESSAGE.getCartList);
   }
 
   const data = await response.json();
@@ -30,14 +31,14 @@ export async function postCartItem(productId: number): Promise<void> {
   });
 
   if (!response.ok) {
-    throw new Error('Failed to add cart item');
+    throw new Error(ERROR_MESSAGE.postCartItem);
   }
 }
 
 export async function deleteCartItem(cartItemId: number): Promise<void> {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const response = await fetch(
-    `${API_URL}${ENDPOINT.cartItem.deleteItem(cartItemId)}`,
+    `${API_URL}${ENDPOINT.cartItem.deleteItem(cartItemId)}}`,
     {
       method: 'DELETE',
       headers: {
@@ -47,7 +48,7 @@ export async function deleteCartItem(cartItemId: number): Promise<void> {
   );
 
   if (!response.ok) {
-    throw new Error('Failed to remove cart item');
+    throw new Error(ERROR_MESSAGE.deleteCartItem);
   }
 }
 
@@ -68,7 +69,7 @@ export async function patchCartItem(
     }
   );
   if (!response.ok) {
-    throw new Error('Failed to patch cart item');
+    throw new Error(ERROR_MESSAGE.patchCartItem);
   }
 }
 
@@ -82,7 +83,7 @@ export async function getCartItemCount(): Promise<number> {
   });
 
   if (!response.ok) {
-    throw new Error('Failed to get cart item count');
+    throw new Error(ERROR_MESSAGE.getCartItemCount);
   }
 
   const data = await response.json();

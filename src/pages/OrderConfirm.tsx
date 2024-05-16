@@ -1,5 +1,8 @@
 import { FlexCenter, FlexColumn } from '@/style/common.style';
-import { orderedItemState, recipeState } from '@/store/selector';
+import {
+  orderedItemState,
+  recipeState,
+} from '@/store/selectors/recipeSelector';
 
 import FullWidthButton from '@/components/Button/FullWidthButton';
 import Header from '@/components/Header';

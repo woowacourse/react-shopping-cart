@@ -6,8 +6,9 @@ import {
 } from '@/style/common.style';
 
 import { CART_MESSAGE } from '@/constants/message';
+import { FREE_SHIPPING_CONDITION } from '@/constants/system';
 import Info from '@/assets/Info.svg';
-import { recipeState } from '@/store/selector';
+import { recipeState } from '@/store/selectors/recipeSelector';
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
 
@@ -18,7 +19,7 @@ const CartRecipe = () => {
     <StyledRecipeWrapper>
       <StyledInfoBox>
         <img src={Info} alt="추가정보" />
-        {CART_MESSAGE.freeShipping(100000)}
+        {CART_MESSAGE.freeShipping(FREE_SHIPPING_CONDITION)}
       </StyledInfoBox>
       <StyledBox>
         <StyledBetweenBox>
