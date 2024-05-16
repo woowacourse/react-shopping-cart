@@ -1,7 +1,7 @@
 import { atom, selector } from 'recoil';
 import { CartItem } from '../type';
 import { fetchCartItems } from '../api/shoppingCart';
-import { SelectedCartItem } from './selectedAllCardItems';
+import { SelectedCartItem } from './selectedCardItems';
 
 export const CartItemsSelector = selector({
   key: 'cartItemStateSelector',
@@ -22,20 +22,34 @@ export const CartItemsCalculatorSelector = selector({
   get: async ({ get }) => {
     const cartItems = get(CartItemsSelector);
 
-    const totalOrderAmount = cartItems
-      .filter((cartItem) => get(SelectedCartItem(cartItem.id)))
-      .reduce((totalOrderAmount, cartItem) => {
+    const selectedCartItems = cartItems.filter((cartItem) =>
+      get(SelectedCartItem(cartItem.id)),
+    );
+
+    const totalCartItemQuantity = selectedCartItems.reduce(
+      (totalCartItemQuantity, cartItem) => {
+        return totalCartItemQuantity + cartItem.quantity;
+      },
+      0,
+    );
+
+    const totalOrderAmount = selectedCartItems.reduce(
+      (totalOrderAmount, cartItem) => {
         const orderAmount = cartItem.product.price * cartItem.quantity;
         return totalOrderAmount + orderAmount;
-      }, 0);
+      },
+      0,
+    );
 
     const shippingFee =
       totalOrderAmount >= 100000 || totalOrderAmount === 0 ? 0 : 3000;
 
-    const totalPaymentAmount = totalOrderAmount - shippingFee;
+    const totalPaymentAmount = totalOrderAmount + shippingFee;
 
     return {
       totalOrderAmount,
+      totalCartItemQuantity,
+      selectedCartItemCount: selectedCartItems.length,
       shippingFee,
       totalPaymentAmount,
     };
