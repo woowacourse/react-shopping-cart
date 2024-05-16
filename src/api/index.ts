@@ -1,9 +1,9 @@
 import { generateBasicToken } from './utils/auth';
 import { CartItemType } from '../types';
 
-const API_URL = process.env.API_URL;
-const USER_ID = process.env.USER_ID;
-const USER_PASSWORD = process.env.USER_PASSWORD;
+const API_URL = import.meta.env.VITE_API_URL;
+const USER_ID = import.meta.env.VITE_USER_ID;
+const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
 
 /**
  * fetchCartItems - API에서 카트의 상품들을 fetch하는 비동기 함수입니다.

@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import CartPage from './pages/cart/CartPage.tsx';
-import CheckoutPage from './pages/checkout/CheckoutPage.tsx';
+import CartPage from './pages/cart/CartPage';
+import CheckoutPage from './pages/checkout/CheckoutPage';
 import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Suspense } from 'react';
-import NotFoundPage from './pages/notfound/NotFoundPage.tsx';
+import NotFoundPage from './pages/notfound/NotFoundPage';
 import './styles/reset.css';
 import './styles/index.css';
 import { RecoilRoot } from 'recoil';
+import ROUTES from './constants/routes';
 
 const CommonLayout = () => (
   <ErrorBoundary fallback={<div>에러</div>}>
@@ -18,22 +19,26 @@ const CommonLayout = () => (
   </ErrorBoundary>
 );
 
-const router = createBrowserRouter([
+const routes = [
   {
     element: <CommonLayout />,
     children: [
       {
-        path: '/cart',
+        path: ROUTES.CART,
         element: <CartPage />,
       },
       {
-        path: '/checkout',
+        path: ROUTES.CHECK_OUT,
         element: <CheckoutPage />,
       },
       { path: '*', element: <NotFoundPage /> },
     ],
   },
-]);
+];
+
+const router = createBrowserRouter(routes, {
+  basename: ROUTES.CART,
+});
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
