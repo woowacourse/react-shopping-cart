@@ -3,21 +3,13 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 
 import CartItem from '@/components/Cart/CartItem';
 import CheckBox from '@/components/Button/CheckBoxButton';
-// import { ErrorBoundary } from 'react-error-boundary';
-// import ErrorFallback from '../ErrorFallback';
 import { allSelectedState } from '@/store/selectors/allSelectedSelector';
 import { cartListState } from '@/store/atoms';
 import styled from '@emotion/styled';
-import { useState } from 'react';
 
 const CartList = () => {
   const cartList = useRecoilValue(cartListState);
   const [isAllSelected, setIsAllSelected] = useRecoilState(allSelectedState);
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [loading, setLoading] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [error, setError] = useState<Error | null>(null);
 
   const handleAllSelect = () => {
     setIsAllSelected(!isAllSelected);

@@ -21,7 +21,7 @@ const CartItem = ({ item }: Props) => {
     filteredCartItemState(item.id)
   );
   const [cartList, setCartList] = useRecoilState(cartListState);
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState<Error | null>(null);
 
@@ -58,13 +58,15 @@ const CartItem = ({ item }: Props) => {
   };
 
   const handleQuantity = (quantity: number) => {
+    setLoading(true);
     try {
       const patchData = async () => {
         await patchCartItem(id, quantity);
-
         const newValue = { ...filteredItemState };
         newValue.quantity = quantity;
         setFilteredItemState(newValue);
+
+        setLoading(false);
       };
 
       if (quantity > 0) patchData();
@@ -93,7 +95,7 @@ const CartItem = ({ item }: Props) => {
             <MinusButton
               onClick={() => handleQuantity(filteredItemState.quantity - 1)}
             />
-            {filteredItemState.quantity}
+            {loading ? <div>로딩중</div> : filteredItemState.quantity}
             <PlusButton
               onClick={() => handleQuantity(filteredItemState.quantity + 1)}
             />
