@@ -1,8 +1,15 @@
-import { atomFamily } from 'recoil';
+import { atom, atomFamily, selector } from 'recoil';
+import { fetchCartItems } from '../api';
 
-export const productQuantityState = atomFamily<number, number>({
-  key: 'productQuantityState',
-  default: 0,
+export const productsState = atom({
+  key: 'productsState',
+  default: selector({
+    key: 'productsState/Default',
+    get: async () => {
+      const products = await fetchCartItems();
+      return products;
+    },
+  }),
 });
 
 export const isCheckedState = atomFamily<boolean, number>({

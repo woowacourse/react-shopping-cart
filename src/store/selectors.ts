@@ -1,6 +1,6 @@
-import { selector } from 'recoil';
-import { fetchCartItems } from '../api';
-import { productQuantityState, isCheckedState } from './atoms';
+import { selector, selectorFamily } from 'recoil';
+import { isCheckedState, productsState } from './atoms';
+import { CartItemType } from '../types';
 
 type AmountType = {
   orderAmount: number;
@@ -8,13 +8,27 @@ type AmountType = {
   totalAmount: number;
 };
 
-export const productsState = selector({
-  key: 'productsState',
-  get: async () => {
-    const products = await fetchCartItems();
+export const productsIds = selector({
+  key: 'productsIds',
+  get: ({ get }) => {
+    const keys = get(productsState).map((product: CartItemType) => {
+      return product.id;
+    });
 
-    return products;
+    return keys;
   },
+});
+
+export const productQuantityState = selectorFamily<number, number>({
+  key: 'productQuantityState',
+  get:
+    (id: number) =>
+    ({ get }) => {
+      const products = get(productsState);
+      console.log('products : ', products);
+      const product = products.find((item) => item.id === id);
+      return product ? product.quantity : 0;
+    },
 });
 
 export const totalOrderAmountState = selector<AmountType>({
@@ -46,18 +60,20 @@ export const totalProductQuantity = selector({
   get: ({ get }) => {
     let totalCount = 0;
     let totalQuantity = 0;
+    // const keys = get(productsState).map((product: CartItemType) => {
+    //   return product.id;
+    // });
 
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i) as string;
-      const test = localStorage.getItem(key) as string;
-      const value = JSON.parse(test);
+    const keys = get(productsIds);
+    keys.forEach((key) => {
+      const value = get(isCheckedState(key));
 
       if (value === true) {
-        const quantity = get(productQuantityState(parseInt(key, 10)));
+        const quantity = get(productQuantityState(key));
         totalCount++;
         totalQuantity += quantity;
       }
-    }
+    });
 
     return {
       totalCount,
@@ -65,3 +81,15 @@ export const totalProductQuantity = selector({
     };
   },
 });
+
+// export const isAllChecked = selector({
+//   key: 'isAllChecked',
+//   get: ({ get }) => {
+//     const keys = get(productsIds);
+//     const isAllChecked = keys.every((key) => {
+//       return get(isCheckedState(key));
+//     });
+
+//     return isAllChecked;
+//   },
+// });

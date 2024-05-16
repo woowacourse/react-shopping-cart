@@ -1,7 +1,7 @@
 import Header from '../../components/Header/Header';
 import Button from '../../components/common/Button';
 import { useNavigate } from 'react-router-dom';
-import { productsState, totalProductQuantity } from '../../store/selectors';
+import { totalOrderAmountState, totalProductQuantity } from '../../store/selectors';
 import { useRecoilValue } from 'recoil';
 import CartList from './components/CartList';
 import CartTitle from './components/CartTitle';
@@ -9,6 +9,7 @@ import CartTotals from './components/CartTotals';
 import ROUTES from '../../constants/routes';
 
 import styles from './Cart.module.css';
+import { productsState } from '../../store/atoms';
 
 export default function CartPage() {
   const navigate = useNavigate();
@@ -17,12 +18,14 @@ export default function CartPage() {
   };
   const products = useRecoilValue(productsState);
   const { totalCount, totalQuantity } = useRecoilValue(totalProductQuantity);
+  const { totalAmount } = useRecoilValue(totalOrderAmountState);
 
   const handleFooterButtonClick = () => {
     navigate(ROUTES.CHECK_OUT, {
       state: {
         totalCount,
         totalQuantity,
+        totalAmount,
       },
     });
   };

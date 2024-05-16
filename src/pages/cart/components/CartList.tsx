@@ -2,15 +2,18 @@ import { CartItemType } from '../../../types';
 import CartItem from './CartItem';
 import styles from '../Cart.module.css';
 import { useState } from 'react';
-import { useRecoilCallback } from 'recoil';
+import { useRecoilCallback, useRecoilValue } from 'recoil';
 import { isCheckedState } from '../../../store/atoms';
+import { productsIds } from '../../../store/selectors';
+import areAllItemsChecked from '../../../utils/areAllItemsChecked';
 
 interface Props {
   products: CartItemType[];
 }
 
 export default function CartList({ products }: Props) {
-  const [allChecked, setAllChecked] = useState(true);
+  const productIds = useRecoilValue(productsIds);
+  const [allChecked, setAllChecked] = useState(areAllItemsChecked(productIds));
 
   const handleToggleAll = useRecoilCallback(
     ({ set }) =>

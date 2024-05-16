@@ -3,53 +3,75 @@ import styles from '../Cart.module.css';
 import Button from '../../../components/common/Button';
 import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
 import { useEffect } from 'react';
-import { updateCartItemQuantity } from '../../../api';
-import { useRecoilState } from 'recoil';
-import { productQuantityState } from '../../../store/atoms';
-import { isCheckedState } from '../../../store/atoms';
+import { deleteCartItem, updateCartItemQuantity } from '../../../api';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { productQuantityState, productsIds } from '../../../store/selectors';
+import { isCheckedState, productsState } from '../../../store/atoms';
+import { CartItemType } from '../../../types';
+import areAllItemsChecked from '../../../utils/areAllItemsChecked';
 
 interface Props extends ProductType {
   quantity: number;
   setAllChecked: (value: boolean) => void;
 }
 
-export default function CartItem({ id, price, imageUrl, name, quantity, setAllChecked }: Props) {
-  const [productQuantity, setProductQuantity] = useRecoilState(productQuantityState(id));
+export default function CartItem({ id, price, imageUrl, name, setAllChecked }: Props) {
+  const [products, setProducts] = useRecoilState(productsState);
   const [isChecked, setIsChecked] = useRecoilState(isCheckedState(id));
+  const productQuantity = useRecoilValue(productQuantityState(id));
+  const productIds = useRecoilValue(productsIds);
 
   useEffect(() => {
     window.localStorage.setItem(JSON.stringify(id), JSON.stringify(isChecked));
   }, []);
 
-  useEffect(() => {
-    setProductQuantity(quantity);
-  }, []);
-
   const handleToggleSelect = (id: number) => {
     const newIsChecked = !isChecked;
-
-    if (newIsChecked === false) setAllChecked(false);
 
     setIsChecked(newIsChecked);
     window.localStorage.setItem(JSON.stringify(id), JSON.stringify(newIsChecked));
 
-    if (newIsChecked === false) {
-      setAllChecked(false);
-    }
+    const isAllChecked = areAllItemsChecked(productIds);
+
+    setAllChecked(isAllChecked);
   };
 
   const handleIncrementButton = async () => {
     const newQuantity = productQuantity + 1;
     const { success } = await updateCartItemQuantity(id, newQuantity);
 
-    if (success) setProductQuantity(newQuantity);
+    if (success) {
+      const newProducts = products.map((product: CartItemType) => {
+        if (product.id === id) {
+          return {
+            ...product,
+            quantity: newQuantity,
+          };
+        }
+        return product;
+      });
+
+      setProducts(newProducts);
+    }
   };
 
   const handleDecrementButton = async () => {
     const newQuantity = productQuantity - 1;
     const { success } = await updateCartItemQuantity(id, newQuantity);
 
-    if (success) setProductQuantity(newQuantity);
+    if (success) {
+      const newProducts = products.map((product: CartItemType) => {
+        if (product.id === id) {
+          return {
+            ...product,
+            quantity: newQuantity,
+          };
+        }
+        return product;
+      });
+
+      setProducts(newProducts);
+    }
   };
 
   return (
@@ -67,7 +89,7 @@ export default function CartItem({ id, price, imageUrl, name, quantity, setAllCh
           삭제
         </Button>
       </div>
-      <div className={styles.itemImageAndInfoContaner}>
+      <div className={styles.itemImageAndInfoContainer}>
         <div>
           <img className={styles.itemImage} src={imageUrl} width={100} height={100} alt={name} />
         </div>
