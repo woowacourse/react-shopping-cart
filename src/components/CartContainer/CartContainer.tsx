@@ -1,15 +1,14 @@
-import * as S from './style';
-
 import CartItemContainer from '../CartItemContainer/CartItemContainer';
 import OrderAmount from '../OrderAmount/OrderAmount';
-import { cartItemsState } from '../../recoil/atoms';
+import { currentCartItemsState } from '../../recoil/atoms';
+import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
 
 export default function CartContainer() {
-  const items = useRecoilValue(cartItemsState);
+  const items = useRecoilValue(currentCartItemsState);
 
   if (items.length === 0) {
-    return <S.EmptyCartContainer>장바구니에 담은 상품이 없습니다.</S.EmptyCartContainer>;
+    return <EmptyCartContainer>장바구니에 담은 상품이 없습니다.</EmptyCartContainer>;
   }
 
   return (
@@ -19,3 +18,17 @@ export default function CartContainer() {
     </>
   );
 }
+
+const EmptyCartContainer = styled.div({
+  width: '100%',
+  height: '100%',
+  flex: '1 0 auto',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  color: '#0A0D13',
+  fontSize: '16px',
+  fontWeight: '400',
+});
