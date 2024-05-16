@@ -3,6 +3,15 @@ import { cartItemsState, isCheckedItemIdsState, itemQuantityState } from './atom
 import { selector } from 'recoil';
 import { isCheckedItemIdsState, itemQuantityState, currentCartItemsState } from './atoms';
 import { Product } from '../type';
+import { fetchCartItems } from '../apis';
+
+export const cartItemsState = selector({
+  key: 'cartItemsState',
+  get: async () => {
+    const cartItems = await fetchCartItems();
+    return cartItems;
+  },
+});
 
 export const orderAmountState = selector<number>({
   key: 'orderAmountState',
