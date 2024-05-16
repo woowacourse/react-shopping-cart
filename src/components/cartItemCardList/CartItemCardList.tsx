@@ -1,17 +1,17 @@
-import { useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   cartItemsState,
   isAllSelectedState,
   selectedItemsState,
-} from "../../recoil/atoms/atoms";
-import { ActionButton } from "../button/actionButton/ActionButton";
-import { CartItemCard } from "../cartItemCard/CartItemCard";
+} from '../../recoil/atoms/atoms';
+import { ActionButton } from '../button/actionButton/ActionButton';
+import { CartItemCard } from '../cartItemCard/CartItemCard';
 import {
   StyledCartItemCardList,
   StyledCartItemSelectContainer,
   StyledCartItemSelectText,
-} from "./CartItemCardList.styled";
+} from './CartItemCardList.styled';
 
 export const CartItemCardList: React.FC = () => {
   const cartItems = useRecoilValue(cartItemsState);
@@ -21,12 +21,12 @@ export const CartItemCardList: React.FC = () => {
   useEffect(() => {
     const allSelected = cartItems.every((item) => selectedItems[item.id]);
     setIsAllSelected(allSelected);
-  }, [cartItems, selectedItems, setIsAllSelected]);
+  }, [setIsAllSelected]);
 
   useEffect(() => {
-    localStorage.setItem("selectedItemsState", JSON.stringify(selectedItems));
-    localStorage.setItem("isAllSelectedState", JSON.stringify(isAllSelected));
-  }, [selectedItems, isAllSelected]);
+    localStorage.setItem('selectedItemsState', JSON.stringify(selectedItems));
+    localStorage.setItem('isAllSelectedState', JSON.stringify(isAllSelected));
+  }, []);
 
   const handleSelectAll = () => {
     const newSelectedItems: Record<number, boolean> = {};
@@ -51,7 +51,7 @@ export const CartItemCardList: React.FC = () => {
     <StyledCartItemCardList>
       <StyledCartItemSelectContainer>
         <ActionButton
-          type="select"
+          type='select'
           clicked={isAllSelected}
           onSelect={handleSelectAll}
         />
