@@ -77,17 +77,17 @@ const CartItem = ({ cartItem }: CardItemProps) => {
             <Button
               $theme="white"
               $size="xs"
-              onClick={() => handleChangeItemQuantity(1)}
+              onClick={() => handleChangeItemQuantity(-1)}
             >
-              +
+              -
             </Button>
             <span>{quantity}</span>
             <Button
               $theme="white"
               $size="xs"
-              onClick={() => handleChangeItemQuantity(-1)}
+              onClick={() => handleChangeItemQuantity(1)}
             >
-              -
+              +
             </Button>
           </ItemQuantity>
         </ItemInfoWrapper>
