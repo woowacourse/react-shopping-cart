@@ -1,21 +1,10 @@
 import { atom, atomFamily } from 'recoil';
+import { localStorageEffect } from '../../utils/localStorageEffect';
 
-const localStorageEffect =
-  (key: string) =>
-  ({ setSelf, onSet }: any) => {
-    const savedValue = localStorage.getItem(key);
-    if (savedValue != null) {
-      setSelf(JSON.parse(savedValue));
-    }
-
-    onSet((newValue: any, _: any, isReset: boolean) => {
-      isReset ? localStorage.removeItem(key) : localStorage.setItem(key, JSON.stringify(newValue));
-    });
-  };
-
-export const cartItemQuantityAtomFamily = atomFamily({
+export const cartItemQuantityAtomFamily = atomFamily<number, number>({
   key: 'cartItemQuantity',
   default: 0,
+  effects: (param) => [localStorageEffect(`${param}`)],
 });
 
 export const cartItemSelectedIdListAtom = atom<number[]>({
