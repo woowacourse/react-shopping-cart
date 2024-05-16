@@ -1,28 +1,31 @@
 import CheckboxButton from "../Button/CheckboxButton/index";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { fetchCartItems } from "../../api/cartItem";
-import { CartItemResponse } from "../../types/ShoppingCart";
-import { useSetRecoilState, useRecoilValue } from "recoil";
+import { useSetRecoilState, useRecoilValue, useRecoilState } from "recoil";
 import CartItem from "../CartItem/index";
-import { setCartPrice, resetCartSelect, checkAllCartSelect } from "../../recoil/selectors";
-import { cartSelectedState } from "../../recoil/atoms";
+import { setCartPriceSelector, uncheckAllCartItemSelector, checkAllCartSelector } from "../../recoil/selectors";
+import { cartItemsState, checkedCartItemsState } from "../../recoil/atoms";
 import styled from "styled-components";
 
 const CartItemList = () => {
-  const [cartItems, setCartItems] = useState<CartItemResponse[]>();
-  const handleCartPrice = useSetRecoilState(setCartPrice);
-  const cartLists = useRecoilValue(cartSelectedState);
-  const resetCart = useSetRecoilState(resetCartSelect);
-  const checkAllCart = useSetRecoilState(checkAllCartSelect);
+  const [cartItems, setCartItems] = useRecoilState(cartItemsState);
+  const checkedCartItems = useRecoilValue(checkedCartItemsState);
+  const setCartPrice = useSetRecoilState(setCartPriceSelector);
+  const checkAllCartItem = useSetRecoilState(checkAllCartSelector);
+  const uncheckAllCartItem = useSetRecoilState(uncheckAllCartItemSelector);
 
-  const isAllChecked = cartLists.length === cartItems?.length ? true : false;
+  const isAllChecked = checkedCartItems.length === cartItems?.length ? true : false;
 
-  const allCartItems = cartItems ? cartItems.map((item) => item.product.id) : [];
+  const allCartItems = cartItems ? cartItems.map((item) => item.id) : [];
 
   const fetchData = async () => {
     const result = await fetchCartItems();
     setCartItems(result);
-    handleCartPrice(result);
+    setCartPrice(result);
+  };
+
+  const removeCartItem = (itemId: number) => {
+    setCartItems((prevItems) => prevItems?.filter((item) => item.id !== itemId));
   };
 
   useEffect(() => {
@@ -36,12 +39,14 @@ const CartItemList = () => {
           <CheckboxButton
             id={"checkAllButton"}
             isChecked={isAllChecked}
-            onClick={() => (isAllChecked ? resetCart() : checkAllCart(allCartItems))}
+            onClick={() => (isAllChecked ? uncheckAllCartItem() : checkAllCartItem(allCartItems))}
           />
         )}
         <CheckAllLabel htmlFor={"checkAllButton"}>전체선택</CheckAllLabel>
       </TopContainer>{" "}
-      {cartItems?.map((item) => <CartItem key={item.id} product={item.product} />)}
+      {cartItems?.map((item) => (
+        <CartItem key={item.id} id={item.id} product={item.product} removeCartItem={removeCartItem} />
+      ))}
     </CartItemListContainer>
   );
 };
