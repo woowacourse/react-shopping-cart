@@ -13,7 +13,7 @@ const AddButton = () => {
             method: "POST",
             headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
             body: JSON.stringify({
-              productId: 11,
+              productId: 10,
             }),
           });
         };

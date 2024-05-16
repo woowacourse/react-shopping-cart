@@ -1,9 +1,41 @@
 import { atomFamily, atom, selector } from "recoil";
-import { cartState } from "../selector/selectors";
+import { fetchCartState } from "../selector/selectors";
+import { LOCAL_STORAGE_KEY } from "../../constants";
+
+export const cartState = atom({
+  key: "cartState",
+  default: fetchCartState,
+});
+
+export const checkAllItemState = selector({
+  key: "checkAllItemState",
+  get: ({ get }) => {
+    const itemIds = get(itemIdsState);
+    return itemIds.every((itemId) => get(itemEachCheckState(itemId)));
+  },
+  set: ({ set, get }, newValue) => {
+    const itemIds = get(itemIdsState);
+    itemIds.forEach((itemId) => set(itemEachCheckState(itemId), newValue));
+  },
+});
 
 export const itemEachCheckState = atomFamily<boolean, number>({
   key: "itemEachCheckState",
   default: true,
+  effects: (id) => [
+    ({ setSelf, onSet }) => {
+      const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}");
+      if (localData[id] !== null) {
+        setSelf(localData[id]);
+      }
+
+      onSet((newValue) => {
+        const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}");
+        localData[id] = newValue;
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(localData));
+      });
+    },
+  ],
 });
 
 export const itemIdsState = atom<number[]>({

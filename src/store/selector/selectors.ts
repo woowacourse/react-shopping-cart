@@ -1,25 +1,20 @@
 import { selector } from "recoil";
-import { itemEachCheckState, itemIdsState, itemQuantityState } from "../atom/atoms";
+import { itemEachCheckState, itemQuantityState } from "../atom/atoms";
 import { fetchProducts } from "../api";
 import { SHIPPING_CONSTANT } from "../../constants";
+import { cartState } from "../atom/atoms";
+import { LOCAL_STORAGE_KEY } from "../../constants";
 
-export const cartState = selector({
-  key: "cartState",
+export const fetchCartState = selector({
+  key: "fetchCartState",
   get: async () => {
-    const products = await fetchProducts("GET");
-    return products.content;
-  },
-});
-
-export const checkAllItemState = selector({
-  key: "checkAllItemState",
-  get: ({ get }) => {
-    const itemIds = get(itemIdsState);
-    return itemIds.every((itemId) => get(itemEachCheckState(itemId)));
-  },
-  set: ({ set, get }, newValue) => {
-    const itemIds = get(itemIdsState);
-    itemIds.forEach((itemId) => set(itemEachCheckState(itemId), newValue));
+    const { content }: { content: CartItemInfo[] } = await fetchProducts("GET");
+    const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}");
+    content.forEach((cartItem) => {
+      if (localData[cartItem.id] === undefined) localData[cartItem.id] = true;
+    });
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(localData));
+    return content;
   },
 });
 

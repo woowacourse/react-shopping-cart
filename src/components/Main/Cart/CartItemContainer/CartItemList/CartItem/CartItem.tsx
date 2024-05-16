@@ -17,9 +17,10 @@ import QuantityButton from "../../../../../Button/QuantityButton/QuantityButton"
 import Divider from "../../../../../Divider/Divider";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useCallback } from "react";
-import { itemEachCheckState, itemIdsState, itemQuantityState } from "../../../../../../store/atom/atoms";
+import { cartState, itemEachCheckState, itemIdsState, itemQuantityState } from "../../../../../../store/atom/atoms";
 import { changeProductAmount, deleteProduct } from "../../../../../../store/api";
-import { useNavigate } from "react-router-dom";
+
+import { deleteCheck } from "../../../../../../store/localStorage/localStorage";
 
 interface CartItemProps {
   CartItemInfo: CartItemInfo;
@@ -29,8 +30,8 @@ const CartItem = ({ CartItemInfo }: CartItemProps) => {
   const { id } = CartItemInfo;
   const [quantity, setQuantity] = useRecoilState(itemQuantityState);
   const [isCheck, setIsCheck] = useRecoilState(itemEachCheckState(id));
-  const navigate = useNavigate();
   const setItemIds = useSetRecoilState(itemIdsState);
+  const setCartState = useSetRecoilState(cartState);
 
   const handleCheckBoxClick = () => {
     setIsCheck(!isCheck);
@@ -40,7 +41,6 @@ const CartItem = ({ CartItemInfo }: CartItemProps) => {
     setItemIds((prev) => {
       const index = prev.findIndex((value) => value === id);
       const arr = [...prev];
-      console.log(prev);
       return [...arr.slice(0, index), ...arr.slice(index + 1)];
     });
   }, [id, setItemIds]);
@@ -48,7 +48,11 @@ const CartItem = ({ CartItemInfo }: CartItemProps) => {
   const executeDeleteProduct = () => {
     deleteProductId();
     deleteProduct(id);
-    navigate(0);
+    deleteCheck(id);
+    setCartState((prev) => {
+      const temp = JSON.parse(JSON.stringify(prev));
+      return temp.filter((item: CartItemInfo) => item.id !== id);
+    });
   };
 
   const handleDeleteButtonClick = () => {
