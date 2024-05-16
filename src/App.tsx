@@ -1,9 +1,32 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import CartPage from "./pages/CartPage";
 import "./App.css";
+import { Suspense } from "react";
+import OrderConfirmationPage from "./pages/OrderConfirmationPage";
 
 function App() {
   return (
     <>
-      <h1>react-shopping-cart</h1>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <CartPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/orderConfirmation"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <OrderConfirmationPage />
+              </Suspense>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
