@@ -3,6 +3,7 @@ import {
   cartItemQuantityState,
   cartData,
   cartItemCheckState,
+  cartQuantity,
 } from '../../recoil/atoms';
 import { patchCartItem, removeCartItem } from '../../api';
 
@@ -23,6 +24,8 @@ export default function ProductItem({ cartItem }: { cartItem: Cart }) {
   const [quantity, setQuantity] = useRecoilState(
     cartItemQuantityState(cartItem.id),
   );
+  const [totalProductCount, setTotalProductCount] =
+    useRecoilState(cartQuantity);
   const [isCheck, setIsCheck] = useRecoilState(cartItemCheckState(cartItem.id));
   const setCart = useSetRecoilState(cartData);
 
@@ -43,7 +46,12 @@ export default function ProductItem({ cartItem }: { cartItem: Cart }) {
   };
 
   const handleRemoveCartItem = () => {
+    const newTotalProductCount = Math.max(
+      totalProductCount - cartItem.quantity,
+      0,
+    );
     removeCartItem(cartItem.id).then(() => {
+      setTotalProductCount(newTotalProductCount);
       setCart((prevCart) => prevCart.filter((item) => item.id !== cartItem.id));
     });
   };

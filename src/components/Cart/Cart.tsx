@@ -15,14 +15,16 @@ export default function Cart() {
   return (
     <CartStyle>
       <CartHeader count={cartCount} />
-      {!cartTotalCount && (
+
+      {cartTotalCount ? (
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <Suspense fallback={<Loading>로딩중!</Loading>}>
+            <ProductList />
+          </Suspense>
+        </ErrorBoundary>
+      ) : (
         <EmptyCart>장바구니에 담은 상품이 없습니다.</EmptyCart>
       )}
-      <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Suspense fallback={<Loading>로딩중!</Loading>}>
-          <ProductList />
-        </Suspense>
-      </ErrorBoundary>
     </CartStyle>
   );
 }
