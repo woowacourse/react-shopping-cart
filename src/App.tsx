@@ -10,25 +10,22 @@ import GlobalStyles from './styles/Global.style';
 import theme from './styles/theme';
 
 function App() {
-  const router = createBrowserRouter(
-    [
-      {
-        path: PATHS.ROOT,
-        element: <ShoppingCartPage />,
-        loader: () => fetchCartItemList(),
-        errorElement: <ErrorPage />,
-      },
-      {
-        path: PATHS.CONFIRM,
-        element: <OrderConfirmPage />,
-      },
-      {
-        path: PATHS.ERROR,
-        element: <ErrorPage />,
-      },
-    ],
-    { basename: PATHS.BASE },
-  );
+  const router = createBrowserRouter([
+    {
+      path: PATHS.ROOT,
+      element: <ShoppingCartPage />,
+      loader: () => fetchCartItemList(),
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: PATHS.CONFIRM,
+      element: <OrderConfirmPage />,
+    },
+    {
+      path: PATHS.ERROR,
+      element: <ErrorPage />,
+    },
+  ]);
 
   return (
     <ThemeProvider theme={theme}>
