@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { PropsWithChildren } from 'react';
 
 const HeaderContainer = styled.header({
   width: '100%',
@@ -13,6 +14,6 @@ const HeaderContainer = styled.header({
   alignItems: 'center',
 });
 
-export default function Header() {
-  return <HeaderContainer>SHOP</HeaderContainer>;
+export default function Header({ ...props }: PropsWithChildren) {
+  return <HeaderContainer>{props.children && props.children}</HeaderContainer>;
 }

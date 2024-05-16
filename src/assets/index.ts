@@ -5,3 +5,4 @@ export { default as IncreaseIconDisabled } from './images/increaseIconDisabled.s
 export { default as DecreaseIcon } from './images/decreaseIcon.svg';
 export { default as DecreaseIconDisabled } from './images/decreaseIconDisabled.svg';
 export { default as InfoIcon } from './images/infoIcon.svg';
+export { default as BackArrowIcon } from './images/backArrowIcon.svg';
