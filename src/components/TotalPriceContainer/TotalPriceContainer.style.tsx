@@ -23,14 +23,6 @@ export const NotificationContainer = styled.div`
   }
 `;
 
-export const PriceContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 5px 0;
-`;
-
 export const PriceDetailContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -38,14 +30,4 @@ export const PriceDetailContainer = styled.div`
   padding: 15px 0px;
   border-top: 1px solid ${({ theme }) => theme.color.primary.light};
   border-bottom: 1px solid ${({ theme }) => theme.color.primary.light};
-`;
-
-export const PriceTitle = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.md};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-`;
-
-export const PriceValue = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.lg};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;

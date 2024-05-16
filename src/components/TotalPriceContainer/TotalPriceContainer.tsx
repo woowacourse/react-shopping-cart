@@ -1,4 +1,5 @@
 import { useRecoilValue } from 'recoil';
+import PriceContainer from '../PriceContainer/PriceContainer';
 import { selectedCartItemListTotalPriceSelector } from '../../recoil/selectors/selectors';
 import { DELIVERY_FEE_DISCOUNT_THRESHOLD, calculateDeliveryFee } from '../../utils/calculateDeliveryFee';
 import { InfoIcon } from '../../assets';
@@ -17,19 +18,10 @@ function TotalPriceContainer() {
         <p>총 주문 금액이 {DELIVERY_FEE_DISCOUNT_THRESHOLD.toLocaleString()}원 이상일 경우 무료 배송됩니다.</p>
       </S.NotificationContainer>
       <S.PriceDetailContainer>
-        <S.PriceContainer>
-          <S.PriceTitle>주문 금액</S.PriceTitle>
-          <S.PriceValue>{selectedCartItemTotalPrice.toLocaleString()}원</S.PriceValue>
-        </S.PriceContainer>
-        <S.PriceContainer>
-          <S.PriceTitle>배송비</S.PriceTitle>
-          <S.PriceValue>{deliveryFee.toLocaleString()}원</S.PriceValue>
-        </S.PriceContainer>
+        <PriceContainer title="주문 금액" value={selectedCartItemTotalPrice} />
+        <PriceContainer title="배송비" value={deliveryFee} />
       </S.PriceDetailContainer>
-      <S.PriceContainer>
-        <S.PriceTitle>총 결제 금액</S.PriceTitle>
-        <S.PriceValue>{totalPrice.toLocaleString()}원</S.PriceValue>
-      </S.PriceContainer>
+      <PriceContainer title="총 결제 금액" value={totalPrice} />
     </S.Layout>
   );
 }
