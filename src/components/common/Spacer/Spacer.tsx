@@ -1,9 +1,11 @@
+import * as S from './Spacer.style';
+
 interface SpacerProp {
-  height: number
+  height: number;
 }
 
 const Spacer = ({ height }: SpacerProp) => {
-  return <div style={{ height: `${height}px`, width: '100%' }} />
-}
+  return <S.Spacer height={height} />;
+};
 
-export default Spacer
+export default Spacer;
