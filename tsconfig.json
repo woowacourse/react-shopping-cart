@@ -34,7 +34,10 @@
       "@/types": ["src/types/*"],
       "@/utils": ["src/utils/*"],
       "@/constants": ["src/constants/*"],
-      "@/assets": ["src/assets/*"]
+      "@/assets": ["src/assets/*"],
+      "@/store": ["src/store/*"],
+      "@/style": ["src/style/*"],
+      "@/api": ["src/api/*"]
     }
   },
   "include": ["src"],
