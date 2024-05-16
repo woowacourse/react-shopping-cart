@@ -1,6 +1,6 @@
 import { reactRouterOutlet, reactRouterParameters, withRouter } from 'storybook-addon-remix-react-router';
 
-import { Layout } from './Layout.tsx';
+import { Layout } from './Layout';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
