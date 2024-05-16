@@ -37,12 +37,19 @@ export default function CartPage() {
           SHOP
         </Button>
       </Header>
-      <div className={styles.cartBodyWrapper}>
-        <CartTitle productsCount={products.length} />
-        <CartList products={products} />
-        <CartTotals />
-      </div>
-      <Button onClick={handleFooterButtonClick} variant="footer" disabled={!products.length}>
+
+      {products.length === 0 ? (
+        <div className={styles.noneProductContainer}>장바구니에 담은 상품이 없습니다.</div>
+      ) : (
+        <>
+          <div className={styles.cartBodyWrapper}>
+            <CartTitle productsCount={products.length} />
+            <CartList products={products} />
+            <CartTotals />
+          </div>
+        </>
+      )}
+      <Button onClick={handleFooterButtonClick} variant="footer" disabled={products.length === 0}>
         주문 하기
       </Button>
     </>

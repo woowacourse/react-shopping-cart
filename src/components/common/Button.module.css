@@ -21,3 +21,7 @@
   font-family: Noto Sans;
   font-size: 16px;
 }
+
+.disable {
+  background: rgba(190, 190, 190, 1);
+}
