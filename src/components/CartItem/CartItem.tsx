@@ -36,6 +36,7 @@ const CartItem = ({ product, quantity: initialQuantity, cartItemId }: CartItemPr
         <Checkbox
           state={getIsSelected(cartItemId)}
           handleClick={getIsSelected(cartItemId) ? () => removeSelectedId(cartItemId) : () => addSelectedId(cartItemId)}
+          alt="Checkbox"
         />
         <Button size="s" radius="s" onClick={() => deleteCartItem(cartItemId)}>
           삭제
