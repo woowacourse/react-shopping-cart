@@ -41,11 +41,13 @@ export default function OrderAmount() {
 import styled from '@emotion/styled';
 import convertToLocaleAmount from '../../utils/convertToLocalePrice';
 import { InfoIcon } from '../../assets';
+import { deliveryFeeState, orderAmountState, totalAmountState } from '../../recoil/selectors';
+import { useRecoilValue } from 'recoil';
 
 export default function OrderAmount() {
-  const orderPrice = 10000;
-  const deliveryFee = 3000;
-  const amount = 73000;
+  const orderAmount = useRecoilValue(orderAmountState);
+  const deliveryFee = useRecoilValue(deliveryFeeState);
+  const totalAmount = useRecoilValue(totalAmountState);
 
   return (
     <div>
@@ -55,7 +57,7 @@ export default function OrderAmount() {
       <OrderAmountContainer>
         <AmountItem>
           <Title>주문 금액</Title>
-          <Amount>{convertToLocaleAmount(orderPrice)}</Amount>
+          <Amount>{convertToLocaleAmount(orderAmount)}</Amount>
         </AmountItem>
         <AmountItem>
           <Title>배송비</Title>
@@ -64,7 +66,7 @@ export default function OrderAmount() {
       </OrderAmountContainer>
       <AmountItem>
         <Title>총 결제 금액</Title>
-        <Amount>{convertToLocaleAmount(amount)}</Amount>
+        <Amount>{convertToLocaleAmount(totalAmount)}</Amount>
       </AmountItem>
     </div>
   );
