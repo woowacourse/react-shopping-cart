@@ -1,22 +1,37 @@
 import { css } from '@emotion/react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { BACK_ARROW } from '@/assets/images';
-import Header from '@/components/Header';
-import PurchaseButton from '@/components/PurchaseButton';
+import { fetchCartItems } from '@/apis/cartItem';
+import { cartItemsState } from '@/recoil/cartItems/atoms';
+import { BACK_ARROW } from '@assets/images';
 import {
   productTypesCountState,
   purchaseTotalPriceState,
   totalQuantityState,
-} from '@recoil/cartItems';
+} from '@recoil/cartItems/selectors';
+
+import Header from '@components/Header';
+import PurchaseButton from '@components/PurchaseButton';
 
 export default function CartConfirmPage() {
   const navigate = useNavigate();
+  const setCartItems = useSetRecoilState(cartItemsState);
 
   const totalPurchasePrice = useRecoilValue(purchaseTotalPriceState);
   const totalQuantity = useRecoilValue(totalQuantityState);
   const productTypesCount = useRecoilValue(productTypesCountState);
+
+  useEffect(() => {
+    const getCartItems = async () => {
+      const result = await fetchCartItems();
+
+      setCartItems(result);
+    };
+
+    getCartItems();
+  }, []);
 
   return (
     <>
@@ -84,6 +99,7 @@ const orderResultContainer = css`
 const orderResultText = css`
   font-size: 16px;
   font-weight: 700;
+  text-align: center;
   color: #0a0d13;
 `;
 
