@@ -10,6 +10,7 @@ export default function OrderSummary() {
   const selectedUniqueCartItemsCount = useRecoilValue(selectedUniqueCartItemsCountState);
   const selectedCartItemsCount = useRecoilValue(selectedCartItemsCountState);
   const totalOrderAmount = useRecoilValue(totalOrderAmountState);
+
   return (
     <S.Container>
       <S.Title>주문 확인</S.Title>

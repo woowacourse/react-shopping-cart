@@ -9,7 +9,7 @@ import CartButton from "./CartButton";
 export default function CartContent() {
   const cartItems = useRecoilValue(cartItemsState);
 
-  const 내용물 =
+  const content =
     cartItems.length === 0 ? (
       <S.EmptyMessage>장바구니에 담은 상품이 없습니다.</S.EmptyMessage>
     ) : (
@@ -21,16 +21,21 @@ export default function CartContent() {
 
   return (
     <>
-      <S.Content>
+      <S.Container>
         <CartTitle />
-        {내용물}
-      </S.Content>
+        {content}
+      </S.Container>
       <CartButton />
     </>
   );
 }
 
 const S = {
+  Container: styled.div`
+    padding: 36px 24px 100px 24px;
+    min-height: 100vh;
+  `,
+
   EmptyMessage: styled.div`
     position: fixed;
     top: 50%;
@@ -42,9 +47,5 @@ const S = {
     color: rgba(10, 13, 19, 1);
     width: fit-content;
     margin: 0 auto;
-  `,
-  Content: styled.div`
-    padding: 36px 24px 100px 24px;
-    min-height: 100vh;
   `,
 };
