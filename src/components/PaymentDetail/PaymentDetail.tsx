@@ -2,9 +2,15 @@
 
 import { PaymentDetailContainerStyle, PaymentDetailAmountStyle, PaymentDetailTitleStyle } from "./PaymentDetail.style";
 
-const PaymentDetail = ({ title, amount }: { title: string; amount: number }) => {
+interface PaymentDetailProps {
+  title: string;
+  amount: number;
+  directionStyle?: "row" | "column";
+}
+
+const PaymentDetail = ({ title, amount, directionStyle = "row" }: PaymentDetailProps) => {
   return (
-    <div css={PaymentDetailContainerStyle}>
+    <div css={PaymentDetailContainerStyle(directionStyle)}>
       <div css={PaymentDetailTitleStyle}>{title}</div>
       <div css={PaymentDetailAmountStyle}>{amount.toLocaleString() + "원"}</div>
     </div>

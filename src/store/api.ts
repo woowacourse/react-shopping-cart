@@ -41,3 +41,12 @@ export const changeProductAmount = async ({ quantity, id, type }: ChangeProductA
     }),
   });
 };
+
+export const fetchCartItemsCounts = async () => {
+  const response = await fetch(import.meta.env.VITE_API_BASE_URL + "/cart-items/counts", {
+    method: "GET",
+    headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
+  });
+  const data = await response.json();
+  return data.quantity;
+};
