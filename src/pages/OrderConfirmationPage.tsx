@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { css } from "@emotion/css";
 import { useRecoilValue } from "recoil";
-import { cartItemCheckedIdsAtom } from "../recoil/atom";
-import { totalCountSelector, totalPriceSelector } from "../recoil/selector";
+import { cartItemCheckedIdsAtom } from "../recoil/atom/atom";
+import { totalCountSelector, totalPriceSelector } from "../recoil/selector/selector";
 import { formatCurrency } from "../utils/formatCurrency";
 import LeftArrow from "../assets/LeftArrow.svg?react";
 import { CartLayout, Header, Content, Footer } from "../components/layout";

@@ -2,7 +2,7 @@ import { css } from "@emotion/css";
 import { useRecoilValue } from "recoil";
 import Splitter from "../default/Splitter";
 import LabelValue from "./LabelValue";
-import { orderPriceSelector, shippingFeeSelector, totalPriceSelector } from "../../recoil/selector";
+import { orderPriceSelector, shippingFeeSelector, totalPriceSelector } from "../../recoil/selector/selector";
 import { formatCurrency } from "../../utils/formatCurrency";
 import InfoIcon from "../../assets/InfoIcon.svg?react";
 

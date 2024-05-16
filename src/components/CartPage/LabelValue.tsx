@@ -1,6 +1,6 @@
 import { css } from "@emotion/css";
 import { useRecoilState } from "recoil";
-import { cartItemsAtom } from "../../recoil/atom";
+import { cartItemsAtom } from "../../recoil/atom/atom";
 
 interface LabelValueProps {
   label: string;

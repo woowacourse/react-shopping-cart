@@ -1,8 +1,8 @@
-import { cartItemCheckedIdsAtom, cartItemsAtom } from "../atom";
+import { cartItemCheckedIdsAtom, cartItemsAtom } from "../atom/atom";
 import { RecoilRoot, useRecoilState } from "recoil";
 import { renderHook } from "@testing-library/react";
 import { act } from "react";
-import { allCheckedSelector, quantitySelector } from "../selector";
+import { allCheckedSelector, quantitySelector } from "./selector";
 import { Product } from "../../types";
 
 // mock data
@@ -29,7 +29,7 @@ describe("quantitySelector 테스트", () => {
 
     result = hook.result;
   });
-  //전체 id에 대한 양을 가지고 있는 셀렉터. (get: {id: quantity, ...}. set: 해당 id를 해당 quantity로 변경 )
+
   it("cartItems의 quantity가 quantities 상태로 잘 저장된다.", () => {
     act(() => {
       result.current.setCartItems(mockCartItems);

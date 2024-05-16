@@ -1,8 +1,8 @@
-import { cartItemCheckedIdsAtom, cartItemsAtom } from "../atom";
+import { cartItemCheckedIdsAtom, cartItemsAtom } from "../atom/atom";
 import { RecoilRoot, useRecoilState } from "recoil";
 import { renderHook } from "@testing-library/react";
 import { act } from "react";
-import { allCheckedSelector } from "../selector";
+import { allCheckedSelector } from "./selector";
 import { Product } from "../../types";
 
 // mock data

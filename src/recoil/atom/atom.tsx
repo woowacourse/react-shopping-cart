@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
-import { Product } from "../types";
+import { Product } from "../../types";
 
 const { persistAtom } = recoilPersist();
 

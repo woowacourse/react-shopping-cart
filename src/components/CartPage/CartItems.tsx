@@ -6,8 +6,8 @@ import CheckIcon from "../../assets/CheckIcon.svg?react";
 
 import { deleteCartItem } from "../../api/cartItem";
 import { useRecoilState } from "recoil";
-import { cartItemCheckedIdsAtom, cartItemsAtom } from "../../recoil/atom";
-import { allCheckedSelector } from "../../recoil/selector";
+import { cartItemCheckedIdsAtom, cartItemsAtom } from "../../recoil/atom/atom";
+import { allCheckedSelector } from "../../recoil/selector/selector";
 
 const CartItems = () => {
   const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
