@@ -1,17 +1,22 @@
-import "./App.css";
-import { ThemeProvider } from "styled-components";
-import GlobalStyle from "@/styles/reset";
-import { theme } from "@/styles/theme";
+import { Suspense } from "react";
 import { RouterProvider } from "react-router-dom";
-import router from "./router";
 import { RecoilRoot } from "recoil";
+
+import { ThemeProvider } from "styled-components";
+import { theme } from "@/styles/theme";
+import GlobalStyle from "@/styles/reset";
+
+import router from "./router";
 
 function App() {
   return (
     <RecoilRoot>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <RouterProvider router={router} />
+
+        <Suspense fallback={<div>loading...</div>}>
+          <RouterProvider router={router} />
+        </Suspense>
       </ThemeProvider>
     </RecoilRoot>
   );
