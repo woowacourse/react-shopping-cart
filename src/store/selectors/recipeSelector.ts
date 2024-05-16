@@ -1,43 +1,15 @@
-import { DefaultValue, selector } from 'recoil';
+import { FREE_SHIPPING_CONDITION, SHIPPING_FEE } from '@/constants/system';
 import { OrderedItem, Recipe } from '@/types/recipe.type';
-import { cartItemState, cartListState } from './atoms';
+import { cartListState, filteredCartItemState } from '../atoms';
 
-export const allSelectedState = selector<boolean>({
-  key: 'allSelectedState',
-  get: ({ get }) => {
-    const cartList = get(cartListState);
-
-    const cartItemStates = cartList.map((state) =>
-      get(cartItemState(state.id))
-    );
-
-    return cartItemStates.every((state) => state.isSelected === true);
-  },
-
-  set: ({ set, get }, isSelected) => {
-    if (isSelected instanceof DefaultValue) {
-      return;
-    }
-    const cartList = get(cartListState);
-    const cartItemStates = cartList.map((state) =>
-      get(cartItemState(state.id))
-    );
-
-    cartItemStates.forEach((state) => {
-      set(cartItemState(state.id), {
-        ...get(cartItemState(state.id)),
-        isSelected,
-      });
-    });
-  },
-});
+import { selector } from 'recoil';
 
 export const recipeState = selector<Recipe>({
   key: 'recipeState',
   get: ({ get }) => {
     const cartList = get(cartListState);
     const cartItemStates = cartList.map((state) =>
-      get(cartItemState(state.id))
+      get(filteredCartItemState(state.id))
     );
 
     const orderPrice = cartItemStates.reduce((acc, cur) => {
@@ -47,7 +19,7 @@ export const recipeState = selector<Recipe>({
       return acc;
     }, 0);
 
-    const shippingFee = orderPrice > 100000 ? 0 : 3000;
+    const shippingFee = orderPrice > FREE_SHIPPING_CONDITION ? 0 : SHIPPING_FEE;
     const totalPrice = orderPrice + shippingFee;
 
     return {
@@ -63,7 +35,7 @@ export const orderedItemState = selector<OrderedItem>({
   get: ({ get }) => {
     const cartList = get(cartListState);
     const cartItemStates = cartList.map((state) =>
-      get(cartItemState(state.id))
+      get(filteredCartItemState(state.id))
     );
 
     return cartItemStates.reduce(
