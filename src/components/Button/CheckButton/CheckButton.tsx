@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes } from 'react';
-import * as S from './CheckButton.style';
 import { CheckedIcon, UncheckedIcon } from '../../../assets';
+import * as S from './CheckButton.style';
 
 interface CheckButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isChecked: boolean;

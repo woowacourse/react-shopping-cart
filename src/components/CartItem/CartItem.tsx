@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil';
-import { selectedCartItemListSelector } from '../../recoil/selectors/selectors';
 import CheckButton from '../Button/CheckButton/CheckButton';
 import type { TCartItem } from '../../types/CartItem.type';
+import { selectedCartItemListSelector } from '../../recoil/selectors/selectors';
 import { PlusIcon, MinusIcon } from '../../assets';
 
 import * as S from './CartItem.style';

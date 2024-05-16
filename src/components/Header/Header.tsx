@@ -1,7 +1,7 @@
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { LeftArrow, MainLogo } from '../../assets';
-import * as S from './Header.style';
 import { PATHS } from '../../constants/PATHS';
+import * as S from './Header.style';
 
 function Header() {
   const location = useLocation();
