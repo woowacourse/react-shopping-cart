@@ -3,10 +3,22 @@ import { cartItemQuantityStates, cartItemPriceStates, checkedCartItemsState, car
 import ORDER from "../constants/order";
 import { CartItemResponse } from "../types/ShoppingCart";
 
-export const totalCartItemsQuantityState = selector({
-  key: "totalCartItemsQuantityState",
+export const cartItemsLengthState = selector({
+  key: "cartItemsLengthState",
   get: ({ get }) => {
     return get(cartItemsState).length;
+  },
+});
+
+export const checkedCartItemsQuantityState = selector({
+  key: "checkedCartItemsQuantityState",
+  get: ({ get }) => {
+    const ids = get(checkedCartItemsState);
+
+    return ids.reduce((total, id) => {
+      const quantity = get(cartItemQuantityStates(id));
+      return total + quantity;
+    }, 0);
   },
 });
 
