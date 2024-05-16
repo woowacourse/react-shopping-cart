@@ -1,4 +1,5 @@
 import { useRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 import CheckButton from '../Button/CheckButton/CheckButton';
 import CartItem from '../CartItem/CartItem';
 import type { TCartItem } from '../../types/CartItem.type';
@@ -16,19 +17,29 @@ function CartItemList({ cartItemList, updateCartItemList }: CartItemListProps) {
 
   const isAllSelected = selectedItemList.length === cartItemList.length;
 
+  const navigate = useNavigate();
+
   const handleAllSelect = () => {
     if (isAllSelected) setSelectedItemList([]);
     else setSelectedItemList(cartItemList);
   };
 
   const handleUpdateQuantity = async (cardItemId: number, quantity: number) => {
-    await updateCartItemQuantity(cardItemId, quantity);
-    updateCartItemList();
+    try {
+      await updateCartItemQuantity(cardItemId, quantity);
+      updateCartItemList();
+    } catch (error) {
+      navigate('/error');
+    }
   };
 
   const handleRemoveItem = async (cartItemId: number) => {
-    await removeCartItem(cartItemId);
-    updateCartItemList();
+    try {
+      await removeCartItem(cartItemId);
+      updateCartItemList();
+    } catch (error) {
+      navigate('/error');
+    }
   };
 
   return (
