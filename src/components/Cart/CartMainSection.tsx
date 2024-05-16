@@ -2,7 +2,8 @@ import { css } from '@emotion/react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { CHECKED, UNCHECKED } from '@/assets/images';
-import { allCheckedState, cartItemsState } from '@recoil/cartItems';
+import { cartItemsState } from '@recoil/cartItems/atoms';
+import { allCheckedState } from '@recoil/cartItems/selectors';
 
 import CartItem from '@components/CartItem';
 

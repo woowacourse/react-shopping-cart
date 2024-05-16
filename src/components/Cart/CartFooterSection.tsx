@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 import Receipt from '../Receipt';
 
 import { INFO_ICON } from '@/assets/images';
-import { orderTotalPriceState, deliveryPriceState } from '@recoil/cartItems';
+import { orderTotalPriceState, deliveryPriceState } from '@recoil/cartItems/selectors';
 
 export default function CartFooterSection() {
   const totalPrice = useRecoilValue(orderTotalPriceState);

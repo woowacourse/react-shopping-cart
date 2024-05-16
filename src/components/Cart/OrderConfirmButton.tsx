@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
-import { isAllUnCheckedState } from '@recoil/cartItems';
+import { isAllUnCheckedState } from '@recoil/cartItems/selectors';
 
 export default function OrderConfirmButton() {
   const navigate = useNavigate();

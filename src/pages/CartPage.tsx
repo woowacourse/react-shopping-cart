@@ -8,7 +8,7 @@ import { fetchCartItems } from '@apis/cartItem';
 import CartFooterSection from '@components/Cart/CartFooterSection';
 import CartHeaderSection from '@components/Cart/CartHeaderSection';
 import CartMainSection from '@components/Cart/CartMainSection';
-import { cartItemsState } from '@recoil/cartItems';
+import { cartItemsState } from '@recoil/cartItems/atoms';
 
 import Header from '@components/Header';
 

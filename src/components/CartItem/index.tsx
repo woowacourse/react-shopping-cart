@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import CartItemHeaderSection from './CartItemHeaderSection';
 import CartItemMainSection from './CartItemMainSection';
 
-import { CartItemProps } from '@recoil/cartItems';
+import { CartItemProps } from '@/types/cartItem';
 
 interface Props {
   item: CartItemProps;

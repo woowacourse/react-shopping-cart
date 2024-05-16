@@ -1,32 +1,8 @@
-import { atom, atomFamily, selector } from 'recoil';
+import { selector } from 'recoil';
 
-import LocalStorage from '@/Storage';
+import { cartItemsState, checkedItemsState } from './atoms';
 
-export const CART_ITEM = 'CART_ITEM';
-
-export interface CartItemProps {
-  id: number;
-  quantity: number;
-  product: {
-    id: number;
-    name: string;
-    price: number;
-    imageUrl: string;
-    category: string;
-  };
-}
-
-export const cartItemsState = atom<CartItemProps[]>({
-  key: 'cartItemsState',
-  default: [],
-});
-
-export const checkedItemsState = atomFamily<boolean, number>({
-  key: 'checkedItemsState',
-  default: (cartId) => {
-    return LocalStorage.getData(CART_ITEM, cartId) ?? true;
-  },
-});
+import LocalStorage, { CART_ITEM } from '@/Storage';
 
 export const isAllUnCheckedState = selector<boolean>({
   key: 'isAllUnCheckedState',

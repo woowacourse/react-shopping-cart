@@ -1,3 +1,5 @@
+export const CART_ITEM = 'CART_ITEM';
+
 const LocalStorage = {
   getData(key: string, id: number | string) {
     const storage = localStorage.getItem(key) ?? '{}';

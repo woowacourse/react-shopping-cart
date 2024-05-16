@@ -1,9 +1,10 @@
 import { css } from '@emotion/react';
 import { useSetRecoilState } from 'recoil';
 
-import { updateItemQuantity } from '../../apis/cartItem';
-import { MINUS, PLUS } from '../../assets/images';
-import { CartItemProps, cartItemsState } from '../../recoil/cartItems';
+import { CartItemProps } from '@/types/cartItem';
+import { updateItemQuantity } from '@apis/cartItem';
+import { MINUS, PLUS } from '@assets/images';
+import { cartItemsState } from '@recoil/cartItems/atoms';
 
 interface CartItemMainSectionProps {
   item: CartItemProps;

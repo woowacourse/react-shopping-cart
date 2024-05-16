@@ -3,8 +3,9 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { deleteItem } from '../../apis/cartItem';
 import { CHECKED, UNCHECKED } from '../../assets/images';
-import { CART_ITEM, cartItemsState, checkedItemsState } from '../../recoil/cartItems';
-import LocalStorage from '../../Storage';
+import LocalStorage, { CART_ITEM } from '../../Storage';
+
+import { cartItemsState, checkedItemsState } from '@recoil/cartItems/atoms';
 
 interface CartItemHeaderSectionProps {
   cartId: number;
