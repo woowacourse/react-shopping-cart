@@ -44,7 +44,6 @@ interface Sort2 {
   empty: boolean;
 }
 
-// TODO: 함수명 수정과 날것의  response 타입 선언
 const transformCartItemListData = (arr: ResponseCartItem[]) => {
   return arr.map(({ id, quantity, product }: ResponseCartItem) => ({
     quantity,
@@ -59,7 +58,6 @@ const transformCartItemListData = (arr: ResponseCartItem[]) => {
   }));
 };
 
-// TODO: 헤더 분리해서 재사용
 export const requestCartItemList = async () => {
   try {
     const token = generateBasicToken(USER_ID, USER_PASSWORD);
