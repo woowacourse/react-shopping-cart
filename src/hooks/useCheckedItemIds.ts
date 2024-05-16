@@ -1,40 +1,50 @@
-import { uncheckedItemIdsState } from '../recoil/atoms';
+import { isCheckedItemIdsState } from '../recoil/atoms';
+import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
+const IS_CHECKED_ITEM = 'isCheckedItem';
+
 const useCheckedItemIds = () => {
-  const [uncheckedItemIds, setRecoilCheckedItemIds] = useRecoilState(uncheckedItemIdsState);
+  const [checkedItemIds, setRecoilCheckedItemIds] = useRecoilState(isCheckedItemIdsState);
+
+  useEffect(() => {
+    const localStorageItemIds = localStorage.getItem(IS_CHECKED_ITEM);
+    const parsedCheckedItemIds: Record<number, boolean> = localStorageItemIds
+      ? JSON.parse(localStorageItemIds)
+      : {};
+    setRecoilCheckedItemIds(parsedCheckedItemIds);
+  }, [setRecoilCheckedItemIds]);
 
   const getIsChecked = (id: number) => {
-    return !uncheckedItemIds.includes(id);
+    if (checkedItemIds[id] === undefined) {
+      checkId(id);
+      return true;
+    }
+    return checkedItemIds[id];
   };
 
   const checkId = (...ids: number[]) => {
-    const nextCheckedItemIds = ids.reduce(
-      (arr, cur) => {
-        const indexInUncheckedIds = arr.indexOf(cur);
-        if (indexInUncheckedIds === -1) return arr;
-        arr.splice(indexInUncheckedIds, 1);
-        return arr;
-      },
-      [...uncheckedItemIds],
-    );
-
+    const nextCheckedItemIds = { ...checkedItemIds };
+    ids.forEach((id) => (nextCheckedItemIds[id] = true));
     setRecoilCheckedItemIds(nextCheckedItemIds);
+    localStorage.setItem(IS_CHECKED_ITEM, JSON.stringify(nextCheckedItemIds));
   };
 
   const uncheckId = (...ids: number[]) => {
-    const nextUncheckedIds = ids.reduce(
-      (arr, cur) => {
-        if (uncheckedItemIds.includes(cur)) return arr;
-        arr.push(cur);
-        return arr;
-      },
-      [...uncheckedItemIds],
-    );
-    setRecoilCheckedItemIds(nextUncheckedIds);
+    const nextCheckedItemIds = { ...checkedItemIds };
+    ids.forEach((id) => (nextCheckedItemIds[id] = false));
+    setRecoilCheckedItemIds(nextCheckedItemIds);
+    localStorage.setItem(IS_CHECKED_ITEM, JSON.stringify(nextCheckedItemIds));
   };
 
-  return { getIsChecked, checkId, uncheckId };
+  const deleteId = (id: number) => {
+    const nextCheckedItemIds = { ...checkedItemIds };
+    delete nextCheckedItemIds[id];
+    setRecoilCheckedItemIds(nextCheckedItemIds);
+    localStorage.setItem(IS_CHECKED_ITEM, JSON.stringify(nextCheckedItemIds));
+  };
+
+  return { getIsChecked, checkId, uncheckId, deleteId };
 };
 
 export default useCheckedItemIds;
