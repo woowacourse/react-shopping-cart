@@ -1,31 +1,19 @@
 import styled from 'styled-components';
 import Header from '../components/Header/Header';
-import Title from '../components/common/Title/Title';
-import CartItemList from '../components/CartItemList/CartItemList';
-import PriceTable from '../components/PriceTable/PriceTable';
-import { cartItemListState } from '../recoil/cartItemList/cartItemListSelector';
-import { useRecoilValue } from 'recoil';
-import { Suspense, useEffect } from 'react';
-import useCartListItem from '../recoil/cartItemList/useCartItemList';
-import Button from '../components/common/Button/Button';
-import { cartItemQuantityAtomFamily, cartItemSelectedIdListAtom } from '../recoil/cartItem/cartItemAtom';
 import Text from '../components/common/Text/Text';
-import { priceSelector } from '../recoil/price/priceSelector';
-import { totalItemQuantitySelector } from '../recoil/cartItemList/totalItemQuantitySelector';
 import { useLocation } from 'react-router-dom';
+import Button from '../components/common/Button/Button';
 
 const CartPageContainer = styled.main`
   width: 100%;
   padding: 30px 20px 80px 20px;
   min-height: 90%;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 24px;
 `;
-
 const PriceContainer = styled.main`
   display: flex;
   flex-direction: column;
@@ -35,27 +23,23 @@ const PriceContainer = styled.main`
 `;
 
 const ConfirmPurchasePage = () => {
-
   const { state } = useLocation();
 
   const calcTotalQuantity = () => {
     return state.reduce((sum, { quantity }) => {
-      return sum + quantity
+      return sum + quantity;
     }, 0);
-  }
+  };
 
   const calcTotalPrice = () => {
     return state.reduce((sum, { quantity, product }) => {
-      return sum + quantity * product.price
+      return sum + quantity * product.price;
     }, 0);
-  }
-
-  console.log(state)
+  };
 
   return (
     <>
       <Header type="back" />
-
       <CartPageContainer>
         <Text size="l" weight="l">
           주문 확인
@@ -87,5 +71,4 @@ const ConfirmPurchasePage = () => {
     </>
   );
 };
-
 export default ConfirmPurchasePage;
