@@ -5,7 +5,7 @@ import "./App.css";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/react-shopping-cart/dist/">
       <Routes>
         <Route path="/" element={<ShoppingCart />} />
         <Route path="/check-order" element={<CheckOrder />} />
