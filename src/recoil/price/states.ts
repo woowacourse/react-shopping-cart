@@ -27,7 +27,8 @@ export const cartDeliveryFeeSelector = selector<number>({
   get: ({ get }) => {
     const totalCartPrice = get(totalCartPriceSelector);
 
-    return totalCartPrice >= DELIVERY_FEE.FREE_THRESHOLD ? 0 : DELIVERY_FEE.DEFAULT;
+    if (totalCartPrice >= DELIVERY_FEE.FREE_THRESHOLD || totalCartPrice <= 0) return 0;
+    else return DELIVERY_FEE.DEFAULT;
   },
 });
 
