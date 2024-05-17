@@ -9,7 +9,7 @@ import * as S from './CartItem.style';
 interface CartItemProps {
   item: TCartItem;
   onRemoveItem: (cartItemId: number) => void;
-  onUpdateQuantity: (cardItemId: number, quantity: number) => void;
+  onUpdateQuantity: (cartItemId: number, quantity: number) => void;
 }
 
 function CartItem({ item, onRemoveItem, onUpdateQuantity }: CartItemProps) {
