@@ -43,7 +43,7 @@ export const ItemQuantity = styled.div`
 `;
 
 export const ItemPrice = styled.span`
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-bold);
+  font-size: ${({ theme }) => theme.fontSize.md};
+  font-weight: ${({ theme }) => theme.fontWeight.ExtraBold};
   line-height: 35px;
 `;

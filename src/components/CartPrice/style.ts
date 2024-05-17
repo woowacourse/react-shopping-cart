@@ -12,13 +12,13 @@ export const Price = styled.div<PriceStyleProps>`
 `;
 
 export const PriceKind = styled.span`
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-bold);
+  font-size: ${({ theme }) => theme.fontSize.md};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
   line-height: 16px;
 `;
 
 export const PriceNumber = styled.span`
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-bold);
+  font-size: ${({ theme }) => theme.fontSize.lg};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
   line-height: 35px;
 `;

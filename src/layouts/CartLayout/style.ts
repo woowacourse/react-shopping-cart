@@ -8,7 +8,7 @@ export const Wrapper = styled.section`
 `;
 
 export const Title = styled.div`
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-bold);
+  font-size: ${({ theme }) => theme.fontSize.xl};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
   line-height: 35px;
 `;

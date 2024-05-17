@@ -12,8 +12,8 @@ export const Wrapper = styled.div`
 `;
 
 export const Title = styled.div`
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-extra-bold);
+  font-size: ${({ theme }) => theme.fontSize.xl};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 export const Info = styled.div`
@@ -23,16 +23,16 @@ export const Info = styled.div`
 `;
 
 export const PriceWrapper = styled.div`
-  font-weight: var(--font-weight-extra-bold);
+  font-weight: ${({ theme }) => theme.fontWeight.ExtraBold};
 `;
 
 export const PriceText = styled.div`
-  font-size: var(--font-size-base);
+  font-size: ${({ theme }) => theme.fontSize.md};
   line-height: 16px;
 `;
 
 export const Price = styled.div`
   margin-top: 12px;
-  font-size: var(--font-size-xl);
+  font-size: ${({ theme }) => theme.fontSize.xl};
   line-height: 35px;
 `;

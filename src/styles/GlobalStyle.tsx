@@ -21,20 +21,20 @@ button{
 }
 
 #root {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
+  font-size: 1.2rem;
+  font-weight: 500;
   line-height: 15px
   
 }
 
-:root {
+/* :root {
   
   --black-color: #000000;
   --white-color: #ffffff;
 
   --font-size-xs: 0.8rem;
   --font-size-sm: 1.2rem;
-  --font-size-base: 1.6rem;
+  --font-size-md: 1.6rem;
   --font-size-lg: 2rem;
   --font-size-xl: 2.4rem;
 
@@ -43,7 +43,7 @@ button{
   --font-weight-medium: 500;
   --font-weight-bold: 700;
   --font-weight-extra-bold: 800;
-}
+} */
 
 `;
 
