@@ -1,14 +1,7 @@
-import { atom, atomFamily } from 'recoil';
-import { localStorageEffect } from '../../utils/localStorageEffect';
+import { atomFamily } from 'recoil';
 
 export const cartItemQuantityAtomFamily = atomFamily<number, number>({
   key: 'cartItemQuantity',
   default: 0,
-  effects: (param) => [localStorageEffect(`${param}`)],
-});
-
-export const cartItemSelectedIdListAtom = atom<number[]>({
-  key: 'cartItemSelectedIdList',
-  default: [],
-  effects: [localStorageEffect('cartItemSelectedIdList')],
+  // effects: (param) => [localStorageEffect(`${param}`)],
 });
