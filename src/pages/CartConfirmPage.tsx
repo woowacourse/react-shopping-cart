@@ -23,6 +23,10 @@ export default function CartConfirmPage() {
   const totalQuantity = useRecoilValue(totalQuantityState);
   const productTypesCount = useRecoilValue(productTypesCountState);
 
+  const handleClickBack = () => {
+    navigate(-1);
+  };
+
   useEffect(() => {
     const getCartItems = async () => {
       const result = await fetchCartItems();
@@ -35,10 +39,8 @@ export default function CartConfirmPage() {
 
   return (
     <>
-      <Header>
-        <button css={button} onClick={() => navigate(-1)}>
-          <img src={BACK_ARROW} />
-        </button>
+      <Header buttonStyle={button} onClick={handleClickBack}>
+        <img src={BACK_ARROW} />
       </Header>
       <div css={container}>
         <div css={titleWrapper}>

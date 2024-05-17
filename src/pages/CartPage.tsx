@@ -17,7 +17,9 @@ function CartPage() {
 
   return (
     <>
-      <Header buttonStyle={homeButton} onClick={handleClickLogo} title="SHOP" />
+      <Header buttonStyle={homeButton} onClick={handleClickLogo}>
+        SHOP
+      </Header>
       <Suspense fallback={<LoadingComponent />}>
         <CartMainSection />
         <OrderConfirmButton />
