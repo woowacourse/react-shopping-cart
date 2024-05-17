@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import CheckButton from '../Button/CheckButton/CheckButton';
+import CheckBox from '../Button/CheckBox/CheckBox';
 import QuantityContainer from '../Container/QuantityContainer/QuantityContainer';
 import type { TCartItem } from '../../types/CartItem.type';
 import { selectedCartItemListSelector } from '../../recoil/selectors/selectors';
@@ -22,7 +22,7 @@ function CartItem({ item, onRemoveItem, onUpdateQuantity }: CartItemProps) {
   return (
     <S.Layout>
       <S.Header>
-        <CheckButton isChecked={isSelected} onClick={handleIsSelected} />
+        <CheckBox id={product.name} isChecked={isSelected} onChange={handleIsSelected} />
         <S.DeleteButton onClick={() => onRemoveItem(id)}>삭제</S.DeleteButton>
       </S.Header>
       <S.Body>

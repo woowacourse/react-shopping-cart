@@ -1,7 +1,21 @@
 import styled from 'styled-components';
 import theme from '../../../styles/theme';
 
-export const ButtonWrapper = styled.button<{ $isChecked: boolean }>`
+export const CheckBoxWrapper = styled.div`
+  display: flex;
+  column-gap: 8px;
+  align-items: center;
+
+  input {
+    display: none;
+  }
+
+  p {
+    font-size: ${({ theme }) => theme.fontSize.sm};
+  }
+`;
+
+export const CheckBoxLabel = styled.label<{ $isChecked: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import CheckButton from '../Button/CheckButton/CheckButton';
+import CheckBox from '../Button/CheckBox/CheckBox';
 import CartItem from '../CartItem/CartItem';
 import type { TCartItem } from '../../types/CartItem.type';
 import { selectedCartItemListState } from '../../recoil/atoms/atoms';
@@ -40,10 +40,7 @@ function CartItemList({ cartItemList, updateCartItemList }: CartItemListProps) {
 
   return (
     <S.Layout>
-      <S.SelectAllButtonContainer>
-        <CheckButton isChecked={isAllSelected} onClick={handleAllSelect} />
-        <p>전체 선택</p>
-      </S.SelectAllButtonContainer>
+      <CheckBox id="전체 선택" text="전체 선택" isChecked={isAllSelected} onChange={handleAllSelect} />
       {cartItemList.map((el) => (
         <CartItem key={el.id} item={el} onRemoveItem={handleRemoveItem} onUpdateQuantity={handleUpdateQuantity} />
       ))}
