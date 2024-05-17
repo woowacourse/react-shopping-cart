@@ -1,4 +1,4 @@
-import { BottomButton, LoadingSpinner } from '@components/common';
+import { BottomButton, ErrorFallback, LoadingSpinner } from '@components/common';
 import { cartItemsSelector, selectedIdsAtom } from '@recoil/shoppingCart';
 import { ROUTE_PATHS } from '@routes/route.constant';
 import { lazy, Suspense } from 'react';
@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
 import * as Styled from './OrderPage.styled';
-import OrderPageErrorFallback from './OrderPageErrorFallback';
 
 const OrderPageContents = lazy(() => import('@components/shoppingCart/ShoppingCartContent/ShoppingCartContent'));
 
@@ -22,7 +21,7 @@ const OrderPage: React.FC = () => {
   return (
     <Styled.OrderPageContainer>
       <h1 className="cart-item-count">장바구니</h1>
-      <ErrorBoundary FallbackComponent={OrderPageErrorFallback}>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Suspense fallback={<LoadingSpinner $width="100%" $height="70vh" />}>
           <OrderPageContents />
         </Suspense>

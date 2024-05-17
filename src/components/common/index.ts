@@ -5,3 +5,4 @@ export { default as CountButton } from './CountButton/CountButton';
 export { default as Navigation } from './Navigation/Navigation';
 export { default as DeleteButton } from './DeleteButton/DeleteButton';
 export { default as LoadingSpinner } from './LoadingSpinner/LoadingSpinner';
+export { default as ErrorFallback } from './ErrorFallback/ErrorFallback';
