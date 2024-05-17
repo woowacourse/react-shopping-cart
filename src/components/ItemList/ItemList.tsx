@@ -4,13 +4,16 @@ import * as Styled from './style';
 import CheckedBox from '../assets/CheckedBox.svg';
 import UnCheckedBox from '../assets/UnCheckedBox.svg';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { SelectedAllCardItemsSelector } from '../../recoil/selectedCardItems';
+import { selectedAllCartItemState } from '../../recoil/selectedCardItems';
 import { adjustCartItemQuantity, removeCartItem } from '../../api/shoppingCart';
-import { CartItemsSelector, CartItemsState } from '../../recoil/cartItems';
+import {
+  fetchedCartItemsState,
+  refreshCartItemsState,
+} from '../../recoil/cartItems';
 
 const ItemList = () => {
-  const updateCartItem = useSetRecoilState(CartItemsState);
-  const cartItems = useRecoilValue(CartItemsSelector);
+  const updateCartItem = useSetRecoilState(refreshCartItemsState);
+  const cartItems = useRecoilValue(fetchedCartItemsState);
 
   const handleDeleteCartItem = async (cartItemId: number) => {
     try {
@@ -34,7 +37,7 @@ const ItemList = () => {
 
   const cartItemIds = cartItems.map((cartItem) => cartItem.id);
   const [selectedAll, setSelectedAll] = useRecoilState(
-    SelectedAllCardItemsSelector(cartItemIds),
+    selectedAllCartItemState(cartItemIds),
   );
   const handleSelectedAll = () => {
     setSelectedAll((isSelectedAll) => !isSelectedAll);

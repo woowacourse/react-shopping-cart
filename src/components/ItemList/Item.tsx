@@ -6,7 +6,7 @@ import PlusButton from '../assets/PlusButton.svg';
 import MinusButton from '../assets/MinusButton.svg';
 import BinButton from '../assets/BinButton.svg';
 import { useRecoilState } from 'recoil';
-import { SelectedCartItems } from '../../recoil/selectedCardItems';
+import { selectedCartItemState } from '../../recoil/selectedCardItems';
 
 interface ItemProp {
   cartItem: CartItem;
@@ -15,7 +15,7 @@ interface ItemProp {
 }
 const Item = ({ cartItem, onRemoveItem, onAdjustItemQuantity }: ItemProp) => {
   const [isSelected, setIsSelected] = useRecoilState(
-    SelectedCartItems(cartItem.id),
+    selectedCartItemState(cartItem.id),
   );
 
   return (

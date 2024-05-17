@@ -1,47 +1,47 @@
 import { atomFamily, selector, selectorFamily } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
-import { CartItemsSelector, CartItemsState } from './cartItems';
+import { fetchedCartItemsState } from './cartItems';
 
 const { persistAtom } = recoilPersist({
-  key: 'cartItem',
+  key: 'selectedCartItem',
   storage: localStorage,
 });
 
-export const SelectedCartItems = atomFamily<boolean, number>({
-  key: 'cartItem',
+export const selectedCartItemState = atomFamily<boolean, number>({
+  key: 'selectedCartItem',
   default: true,
   effects_UNSTABLE: [persistAtom],
 });
 
-export const SelectedAllCardItemsSelector = selectorFamily<boolean, number[]>({
-  key: 'selectedAllCardItems',
+export const selectedAllCartItemState = selectorFamily<boolean, number[]>({
+  key: 'selectedAllCartItem',
   get:
     (cartItemIds) =>
     ({ get }) => {
-      return cartItemIds.every((itemId) => get(SelectedCartItems(itemId)));
+      return cartItemIds.every((itemId) => get(selectedCartItemState(itemId)));
     },
   set:
     (cartItemIds) =>
     ({ set }, newValue) => {
       cartItemIds.forEach((itemId) => {
-        set(SelectedCartItems(itemId), newValue);
+        set(selectedCartItemState(itemId), newValue);
       });
     },
 });
 
-export const SelectedSomeCardItemsSelector = selector<boolean>({
-  key: 'selectedAllCardItems',
+export const selectedSomeCartItemState = selector<boolean>({
+  key: 'selectedSomeCartItem',
   get: ({ get }) => {
-    get(CartItemsState);
-    return get(CartItemsId).some((cartItemId) =>
-      get(SelectedCartItems(cartItemId)),
+    get(fetchedCartItemsState);
+    return get(cartItemIdsState).some((cartItemId) =>
+      get(selectedCartItemState(cartItemId)),
     );
   },
 });
 
-export const CartItemsId = selector({
-  key: 'cartItemsId',
+export const cartItemIdsState = selector({
+  key: 'CartItemIds',
   get: ({ get }) => {
-    return get(CartItemsSelector).map((cartItem) => cartItem.id);
+    return get(fetchedCartItemsState).map((cartItem) => cartItem.id);
   },
 });
