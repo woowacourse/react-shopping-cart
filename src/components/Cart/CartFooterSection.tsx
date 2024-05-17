@@ -4,11 +4,10 @@ import { useRecoilValue } from 'recoil';
 import Receipt from './Receipt';
 
 import { INFO_ICON } from '@assets/images';
-import { orderTotalPriceState, deliveryPriceState } from '@recoil/cartItems/selectors';
+import { orderResultState } from '@recoil/cartItems/selectors';
 
 export default function CartFooterSection() {
-  const totalPrice = useRecoilValue(orderTotalPriceState);
-  const deliveryPrice = useRecoilValue(deliveryPriceState);
+  const { totalOrderPrice, deliveryPrice } = useRecoilValue(orderResultState);
 
   return (
     <section css={cartFooterSection}>
@@ -20,9 +19,9 @@ export default function CartFooterSection() {
         <span css={freeDeliveryGuide}>총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</span>
       </div>
       <div css={borderTopWrapper}>
-        <Receipt title="주문 금액" price={totalPrice} />
+        <Receipt title="주문 금액" price={totalOrderPrice} />
         <Receipt title="배송비" price={deliveryPrice} />
-        <Receipt title="총 결제 금액" price={totalPrice + deliveryPrice} />
+        <Receipt title="총 결제 금액" price={totalOrderPrice + deliveryPrice} />
       </div>
     </section>
   );

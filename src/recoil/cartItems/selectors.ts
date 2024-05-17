@@ -27,26 +27,6 @@ export const allCheckedState = selector<boolean>({
   },
 });
 
-export const orderTotalPriceState = selector<number>({
-  key: 'orderTotalPriceState',
-  get: ({ get }) => {
-    const cartItems = get(cartItemsState);
-    const checkedItems = cartItems.filter((cartItem) => get(checkedItemsState(cartItem.id)));
-
-    return checkedItems.reduce((acc, cur) => acc + cur.quantity * cur.product.price, 0);
-  },
-});
-
-export const totalQuantityState = selector<number>({
-  key: 'totalQuantityState',
-  get: ({ get }) => {
-    const cartItems = get(cartItemsState);
-    const checkedItems = cartItems.filter((cartItem) => get(checkedItemsState(cartItem.id)));
-
-    return checkedItems.reduce((acc, cur) => acc + cur.quantity, 0);
-  },
-});
-
 export const productTypesCountState = selector<number>({
   key: 'productTypesCountState',
   get: ({ get }) => {
@@ -57,20 +37,27 @@ export const productTypesCountState = selector<number>({
   },
 });
 
-export const deliveryPriceState = selector<number>({
-  key: 'deliveryPriceState',
+export const orderResultState = selector({
+  key: 'orderResultState',
   get: ({ get }) => {
-    const cartItems = get(orderTotalPriceState);
-    return cartItems >= 100000 ? 0 : 3000;
-  },
-});
+    const cartItems = get(cartItemsState);
+    const checkedItems = cartItems.filter((cartItem) => get(checkedItemsState(cartItem.id)));
+    const orderResult = {
+      totalOrderPrice: 0,
+      totalQuantity: 0,
+      deliveryPrice: 3000,
+      totalPurchasePrice: 0,
+    };
 
-export const purchaseTotalPriceState = selector<number>({
-  key: 'purchaseTotalPriceState',
-  get: ({ get }) => {
-    const orderTotalPrice = get(orderTotalPriceState);
-    const deliveryPrice = get(deliveryPriceState);
+    const result = checkedItems.reduce((acc, cur) => {
+      orderResult['totalOrderPrice'] += cur.quantity * cur.product.price;
+      orderResult['totalQuantity'] += cur.quantity;
+      return acc;
+    }, orderResult);
 
-    return orderTotalPrice + deliveryPrice;
+    result.totalPurchasePrice = result.totalOrderPrice + result.deliveryPrice;
+    result.deliveryPrice = result.totalOrderPrice >= 100000 ? 0 : 3000;
+
+    return result;
   },
 });
