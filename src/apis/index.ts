@@ -6,7 +6,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
 const USER_ID = import.meta.env.VITE_USER_ID;
 
-const fetchCartItemList = async (): Promise<TCartItem[]> => {
+export const fetchCartItemList = async (): Promise<TCartItem[]> => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
   const response = await fetch(`${API_URL}/cart-items`, {
@@ -23,7 +23,7 @@ const fetchCartItemList = async (): Promise<TCartItem[]> => {
   return data.content;
 };
 
-const addCartItem = async (cartItemId: number): Promise<void> => {
+export const addCartItem = async (cartItemId: number): Promise<void> => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
   const response = await fetch(`${API_URL}/cart-items`, {
@@ -39,7 +39,7 @@ const addCartItem = async (cartItemId: number): Promise<void> => {
     throw new Error(CART_ITEM_ERROR_MESSAGE.ADD);
   }
 };
-const removeCartItem = async (cartItemId: number): Promise<void> => {
+export const removeCartItem = async (cartItemId: number): Promise<void> => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
   const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
@@ -52,7 +52,7 @@ const removeCartItem = async (cartItemId: number): Promise<void> => {
   }
 };
 
-const updateCartItemQuantity = async (cartItemId: number, quantity: number): Promise<void> => {
+export const updateCartItemQuantity = async (cartItemId: number, quantity: number): Promise<void> => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
   const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
@@ -68,5 +68,3 @@ const updateCartItemQuantity = async (cartItemId: number, quantity: number): Pro
     throw new Error(CART_ITEM_ERROR_MESSAGE.UPDATE);
   }
 };
-
-export { fetchCartItemList, addCartItem, removeCartItem, updateCartItemQuantity };
