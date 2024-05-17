@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Main = styled.div`
-  height: calc(100vh - ${({ theme }) => theme.boxHeight});
+  height: calc(100vh - ${({ theme }) => theme.boxHeight.md});
   display: flex;
   flex-direction: column;
   row-gap: 50px;

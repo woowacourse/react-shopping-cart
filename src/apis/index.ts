@@ -1,5 +1,5 @@
 import type { TCartItem } from '../types/CartItem.type';
-import { generateBasicToken } from '../utils/auth';
+import generateBasicToken from '../utils/auth';
 import { CART_ITEM_ERROR_MESSAGE } from '../constants/MESSAGES';
 
 const API_URL = import.meta.env.VITE_API_URL;

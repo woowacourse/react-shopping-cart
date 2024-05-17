@@ -5,7 +5,7 @@ export const ButtonWrapper = styled.button<{ $isActive: boolean }>`
   left: 0;
   bottom: 0;
   width: 100%;
-  height: ${({ theme }) => theme.boxHeight};
+  height: ${({ theme }) => theme.boxHeight.md};
   color: white;
   font-size: ${({ theme }) => theme.fontSize.md};
   font-weight: ${({ theme }) => theme.fontWeight.medium};

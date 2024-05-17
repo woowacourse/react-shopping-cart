@@ -18,7 +18,11 @@ const fontWeight = {
   bold: '700',
 };
 
-const boxHeight = '64px';
+const boxHeight = {
+  sm: '40px',
+  md: '64px',
+  lg: '88px',
+};
 
 const theme = {
   color,

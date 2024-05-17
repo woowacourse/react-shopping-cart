@@ -7,7 +7,7 @@ export const Layout = styled.div`
   align-items: center;
   row-gap: 24px;
   width: 100%;
-  height: calc(100vh - ${({ theme }) => theme.boxHeight} * 2);
+  height: calc(100vh - ${({ theme }) => theme.boxHeight.md} * 2);
   text-align: center;
 `;
 
