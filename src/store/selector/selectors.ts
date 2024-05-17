@@ -22,6 +22,8 @@ export const orderAmountState = selector({
   key: "orderAmount",
   get: ({ get }) => {
     const cartItems = get(cartState);
+
+    if (!cartItems) return 0;
     return cartItems.reduce((acc: number, cur: CartItemInfo) => {
       const isChecked = get(itemEachCheckState(cur.id));
       if (isChecked) {

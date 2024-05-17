@@ -5,7 +5,7 @@ type MethodType = "GET" | "POST";
 export const fetchProducts = async (method: MethodType) => {
   try {
     const token = API_TOKEN;
-    const url = import.meta.env.VITE_API_BASE_URL + "/cart-items";
+    const url = process.env.VITE_API_BASE_URL + "/cart-items";
     const response = await fetch(url, {
       method,
       headers: { Authorization: token },
@@ -20,7 +20,7 @@ export const fetchProducts = async (method: MethodType) => {
 };
 
 export const deleteProduct = async (cartId: number) => {
-  await fetch(import.meta.env.VITE_API_BASE_URL + `/cart-items/${cartId}`, {
+  await fetch(process.env.VITE_API_BASE_URL + `/cart-items/${cartId}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
   });
@@ -33,7 +33,7 @@ interface ChangeProductAmountProps {
 }
 
 export const changeProductAmount = async ({ quantity, id, type }: ChangeProductAmountProps) => {
-  await fetch(import.meta.env.VITE_API_BASE_URL + `/cart-items/${id}`, {
+  await fetch(process.env.VITE_API_BASE_URL + `/cart-items/${id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
     body: JSON.stringify({
@@ -43,7 +43,7 @@ export const changeProductAmount = async ({ quantity, id, type }: ChangeProductA
 };
 
 export const fetchCartItemsCounts = async () => {
-  const response = await fetch(import.meta.env.VITE_API_BASE_URL + "/cart-items/counts", {
+  const response = await fetch(process.env.VITE_API_BASE_URL + "/cart-items/counts", {
     method: "GET",
     headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
   });
