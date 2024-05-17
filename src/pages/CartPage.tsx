@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import {
   CartDescription,
   CartItemList,
@@ -6,9 +7,7 @@ import {
   Footer,
   CartPrice,
 } from "../components";
-import { ErrorBoundary } from "react-error-boundary";
-
-import CartLayout from "../layouts/Cart";
+import { CartLayout } from "../layouts/";
 
 const CartPage = () => {
   return (

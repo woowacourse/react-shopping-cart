@@ -1,5 +1,5 @@
 import { generateBasicToken } from "../utils/auth";
-import { API_URL, USER_ID, USER_PASSWORD } from "../constants";
+import { API_URL, USER_ID, USER_PASSWORD } from "../constants/cart";
 
 export const getCartItems = async () => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);

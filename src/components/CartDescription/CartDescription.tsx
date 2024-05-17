@@ -1,7 +1,6 @@
-import React from "react";
 import { useRecoilValue } from "recoil";
-import styled from "styled-components";
 import { cartItemsState } from "../../recoil/selectors/selectors";
+import { Wrapper } from "./style";
 
 const CartDescription = () => {
   const cartItemsLength = useRecoilValue(cartItemsState).length;
@@ -14,7 +13,3 @@ const CartDescription = () => {
 };
 
 export default CartDescription;
-
-const Wrapper = styled.div`
-  margin-bottom: 36px;
-`;

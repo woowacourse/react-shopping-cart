@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DebugObserver from "./recoil/DebugObserver.tsx";
 import { CartPage, OrderConfirmPage } from "./pages/index.ts";
 import GlobalStyle from "./GlobalStyle.tsx";
-import { ENVIRONMENT } from "./constants/index.ts";
+import { ENVIRONMENT } from "./constants/cart.ts";
 
 const router = createBrowserRouter([
   {

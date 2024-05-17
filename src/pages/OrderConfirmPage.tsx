@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { Header, Footer, OrderConfirm } from "../components";
-import CartLayout from "../layouts/Cart";
+import { CartLayout } from "../layouts";
 
 const OrderConfirmPage = () => {
   return (

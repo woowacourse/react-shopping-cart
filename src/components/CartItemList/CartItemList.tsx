@@ -4,14 +4,14 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { cartItemsState } from "../../recoil/selectors/selectors";
 import { isSelectedState } from "../../recoil/atoms/atoms";
 
-import CartItem from "../CartItem";
+import CartItem from "../CartItem/CartItem";
 
 import { CartItemType } from "../../types";
 import { Wrapper, Footer, AllCheckWrapper } from "./style";
 import infoOutline from "../../assets/images/infoOutline.png";
 import OutlineCheck from "../../assets/icon/OutlineCheck";
 import FilledCheck from "../../assets/icon/FilledCheck";
-import Button from "../common/Button";
+import Button from "../common/Button/Button";
 
 const CartItemList = () => {
   const cartItemList = useRecoilValue(cartItemsState);

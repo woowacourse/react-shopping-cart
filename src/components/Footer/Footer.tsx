@@ -1,9 +1,8 @@
-import React from "react";
 import { useRecoilValue } from "recoil";
 import { isSelectedState } from "../../recoil/atoms/atoms";
 import { cartItemsState } from "../../recoil/selectors/selectors";
 import { useLocation, useNavigate } from "react-router-dom";
-import Button from "../common/Button";
+import Button from "../common/Button/Button";
 import { Wrapper } from "./style";
 
 const Footer = () => {

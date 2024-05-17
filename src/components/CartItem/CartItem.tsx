@@ -1,7 +1,7 @@
 import { useRecoilState, useRecoilRefresher_UNSTABLE } from "recoil";
 import { isSelectedState } from "../../recoil/atoms/atoms";
 
-import Button from "../common/Button";
+import Button from "../common/Button/Button";
 
 import { deleteCartItem, patchCartItemQuantity } from "../../apis";
 

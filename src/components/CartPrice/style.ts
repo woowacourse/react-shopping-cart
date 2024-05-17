@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { PriceStyleProps } from "./index";
+import { PriceStyleProps } from "./CartPrcie";
 
 export const Wrapper = styled.section``;
 

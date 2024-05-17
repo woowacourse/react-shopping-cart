@@ -1,10 +1,9 @@
-import React from "react";
 import {
   cartItemsState,
   cartPriceState,
 } from "../../recoil/selectors/selectors";
 import { useRecoilValue } from "recoil";
-import styled from "styled-components";
+import { Wrapper, Title, Info, PriceWrapper, PriceText, Price } from "./style";
 
 const OrderConfirm = () => {
   const { totalPrice } = useRecoilValue(cartPriceState);
@@ -31,40 +30,3 @@ const OrderConfirm = () => {
 };
 
 export default OrderConfirm;
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 24px;
-  height: calc(100vh - 210px);
-  width: 100%;
-  text-align: center;
-`;
-
-const Title = styled.div`
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-extra-bold);
-`;
-
-const Info = styled.div`
-  display: flex;
-  flex-direction: column;
-  line-height: 18px;
-`;
-
-const PriceWrapper = styled.div`
-  font-weight: var(--font-weight-extra-bold);
-`;
-
-const PriceText = styled.div`
-  font-size: var(--font-size-base);
-  line-height: 16px;
-`;
-
-const Price = styled.div`
-  margin-top: 12px;
-  font-size: var(--font-size-xl);
-  line-height: 35px;
-`;

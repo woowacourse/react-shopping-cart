@@ -2,7 +2,10 @@ import { selector } from "recoil";
 import { getCartItems } from "../../apis";
 import { CartItemType } from "../../types";
 import { isSelectedState } from "../atoms/atoms";
-import { DEFAULT_DELIVERY_FEE, DELIVERY_FEE_THRESHOLD } from "../../constants";
+import {
+  DEFAULT_DELIVERY_FEE,
+  DELIVERY_FEE_THRESHOLD,
+} from "../../constants/cart";
 
 export const cartItemsState = selector<CartItemType[]>({
   key: "cartItemsState",
