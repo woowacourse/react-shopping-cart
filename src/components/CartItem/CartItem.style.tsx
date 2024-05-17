@@ -1,9 +1,10 @@
 import styled from 'styled-components';
+import theme from '../../styles/theme';
 
 export const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  border-top: 1px solid ${({ theme }) => theme.color.primary.light};
+  border-top: 1px solid ${theme.color.primary.light};
   padding-top: 12px;
   row-gap: 12px;
 `;
@@ -15,15 +16,14 @@ export const Header = styled.div`
 
 export const Body = styled.div`
   display: flex;
-  column-gap: 24px;
 `;
 
 export const DeleteButton = styled.button`
   width: 40px;
   height: 24px;
   border-radius: 4px;
-  border: 1px solid ${({ theme }) => theme.color.primary.light};
-  font-size: ${({ theme }) => theme.fontSize.sm};
+  border: 1px solid ${theme.color.primary.light};
+  font-size: ${theme.fontSize.sm};
   text-align: center;
   padding: 0px 8px;
 `;
@@ -49,10 +49,10 @@ export const ItemInfoContainer = styled.div`
 `;
 
 export const ItemNameText = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.sm};
+  font-size: ${theme.fontSize.sm};
 `;
 
 export const ItemPriceText = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.lg};
-  font-weight: 700;
+  font-size: ${theme.fontSize.lg};
+  font-weight: ${theme.fontWeight.bold};
 `;

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import theme from '../../../styles/theme';
 
 export const ButtonWrapper = styled.button<{ $isChecked: boolean }>`
   display: flex;
@@ -6,11 +7,7 @@ export const ButtonWrapper = styled.button<{ $isChecked: boolean }>`
   align-items: center;
   width: 24px;
   height: 24px;
-  border: 1px solid ${(props) => (props.$isChecked ? 'black' : 'lightgrey')};
+  background-color: ${(props) => (props.$isChecked ? theme.color.primary.main : 'white')};
+  border: 1px solid ${(props) => (props.$isChecked ? theme.color.primary.main : theme.color.primary.light)};
   border-radius: 8px;
-  background-color: ${(props) => (props.$isChecked ? 'black' : 'white')};
-
-  img {
-    filter: ${(props) => (props.$isChecked ? 'brightness(95%)' : 'brightness(95%)')};
-  }
 `;

@@ -1,15 +1,15 @@
 import styled from 'styled-components';
+import theme from '../../../styles/theme';
 
 export const ButtonWrapper = styled.button<{ $isActive: boolean }>`
   position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
-  height: ${({ theme }) => theme.boxHeight};
+  height: ${theme.boxHeight};
   color: white;
-  font-size: ${({ theme }) => theme.fontSize.md};
-  font-weight: ${({ theme }) => theme.fontWeight.medium};
+  font-size: ${theme.fontSize.md};
+  font-weight: ${theme.fontWeight.medium};
   text-align: center;
-  background-color: ${(props) =>
-    props.$isActive ? ({ theme }) => theme.color.primary.main : ({ theme }) => theme.color.primary.light};
+  background-color: ${(props) => (props.$isActive ? theme.color.primary.main : theme.color.primary.light)};
 `;

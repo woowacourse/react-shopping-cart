@@ -13,7 +13,7 @@ function Header() {
     <S.HeaderWrapper>
       {isMainPage ? (
         <Link to={PATHS.ROOT}>
-          <S.MainLogo src={MainLogo} alt="메인 로고" />
+          <img src={MainLogo} alt="메인 로고" />
         </Link>
       ) : (
         <S.GoBackButton onClick={() => navigate(-1)}>

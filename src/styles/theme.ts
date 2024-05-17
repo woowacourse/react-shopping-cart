@@ -8,6 +8,7 @@ const color = {
 
 const fontSize = {
   sm: '12px',
+  base: '14px',
   md: '16px',
   lg: '24px',
 };
@@ -15,6 +16,7 @@ const fontSize = {
 const fontWeight = {
   light: '400',
   medium: '500',
+  semibold: '600',
   bold: '700',
 };
 

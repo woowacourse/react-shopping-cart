@@ -13,6 +13,6 @@ export const SelectAllButtonContainer = styled.div`
   align-items: center;
 
   p {
-    font-size: 12px;
+    font-size: ${({ theme }) => theme.fontSize.sm};
   }
 `;

@@ -3,20 +3,15 @@ import styled from 'styled-components';
 export const HeaderWrapper = styled.header`
   display: flex;
   justify-content: space-between;
-  justify-items: center;
   align-items: center;
   width: 100%;
   height: ${({ theme }) => theme.boxHeight};
   padding: 0px 24px;
-  background: #000000;
+  background: ${({ theme }) => theme.color.primary.main};
 
   img {
     width: 56px;
   }
-`;
-
-export const MainLogo = styled.img`
-  width: 56px;
 `;
 
 export const GoBackButton = styled.button`

@@ -18,10 +18,7 @@ function CartItemList({ cartItemList, updateCartItemList }: CartItemListProps) {
 
   const isAllSelected = selectedItemList.length === cartItemList.length;
 
-  const handleAllSelect = () => {
-    if (isAllSelected) setSelectedItemList([]);
-    else setSelectedItemList(cartItemList);
-  };
+  const handleAllSelect = () => setSelectedItemList(isAllSelected ? [] : cartItemList);
 
   const handleUpdateQuantity = async (cartItemId: number, quantity: number) => {
     try {

@@ -1,18 +1,19 @@
 import styled from 'styled-components';
+import theme from '../../styles/theme';
 
 export const Layout = styled.div`
   display: flex;
   flex-direction: column;
+  row-gap: 24px;
   justify-content: center;
   align-items: center;
-  row-gap: 24px;
   width: 100%;
-  height: calc(100vh - ${({ theme }) => theme.boxHeight} * 2);
+  height: calc(100vh - ${theme.boxHeight} * 2);
   text-align: center;
 `;
 
 export const OrderDetailText = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.sm};
+  font-size: ${theme.fontSize.sm};
   line-height: 1.5;
 `;
 
@@ -23,11 +24,11 @@ export const TotalPriceContainer = styled.div`
 `;
 
 export const TotalPriceTitle = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.md};
-  font-weight: 700;
+  font-size: ${theme.fontSize.md};
+  font-weight: ${theme.fontWeight.bold};
 `;
 
 export const TotalPriceValue = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.lg};
-  font-weight: 700;
+  font-size: ${theme.fontSize.lg};
+  font-weight: ${theme.fontWeight.bold};
 `;
