@@ -3,11 +3,9 @@ import { Navigate } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import TitleContainer from '../../components/Container/TitleContainer/TitleContainer';
 import SubmitButton from '../../components/Button/SubmitButton/SubmitButton';
-import { selectedCartItemListState } from '../ShoppingCartPage/recoil/atom/';
-import {
-  selectedCartItemListTotalPriceSelector,
-  selectedCartItemListTotalCountSelector,
-} from '../ShoppingCartPage/recoil/selector/selectedCartItemListSelector';
+import { selectedCartItemListState } from '../ShoppingCartPage/recoil/atom/selectedCartItemListState';
+import { selectedCartItemListTotalPriceSelector } from '../ShoppingCartPage/recoil/selector/selectedCartItemListTotalPriceSelector';
+import { selectedCartItemListTotalCountSelector } from '../ShoppingCartPage/recoil/selector/selectedCartItemListTotalCountSelector';
 import { calculateDeliveryFee } from '../../utils/calculateDeliveryFee';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './OrderConfirmPage.style';

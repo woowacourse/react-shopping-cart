@@ -1,16 +1,22 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './ErrorPage.style';
+import { CART_ITEM_ERROR_MESSAGE } from '../../constants/MESSAGES';
+import { TErrorType } from './Error.type';
 
 const ErrorPage = () => {
+  const location = useLocation();
+  const errorType = (location.state?.errorType as TErrorType) || 'UNKNOWN';
+
+  const errorMessage = CART_ITEM_ERROR_MESSAGE[errorType];
   return (
     <>
       <Header />
       <S.Main>
         <S.ErrorTextContainer>
           <h1>ERROR</h1>
-          <h2>죄송합니다. 현재 요청을 처리할 수 없습니다.</h2>
+          <h2>{errorMessage}</h2>
           <p>
             페이지의 주소가 잘못 입력되었거나,
             <br />

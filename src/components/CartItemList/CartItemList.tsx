@@ -28,7 +28,7 @@ function CartItemList({ cartItemList, updateCartItemList }: CartItemListProps) {
       await updateCartItemQuantity(cartItemId, quantity);
       updateCartItemList();
     } catch (error) {
-      navigate('/error');
+      navigate('/error', { state: { errorType: 'UPDATE' } });
     }
   };
 
@@ -37,7 +37,7 @@ function CartItemList({ cartItemList, updateCartItemList }: CartItemListProps) {
       await removeCartItem(cartItemId);
       updateCartItemList();
     } catch (error) {
-      navigate('/error');
+      navigate('/error', { state: { errorType: 'REMOVE' } });
     }
   };
 
