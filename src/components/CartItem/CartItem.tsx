@@ -6,13 +6,13 @@ import { selectedCartItemListSelector } from '../../recoil/selectors/selectors';
 
 import * as S from './CartItem.style';
 
-interface CardItemProps {
+interface CartItemProps {
   item: TCartItem;
   onRemoveItem: (cartItemId: number) => void;
   onUpdateQuantity: (cardItemId: number, quantity: number) => void;
 }
 
-function CartItem({ item, onRemoveItem, onUpdateQuantity }: CardItemProps) {
+function CartItem({ item, onRemoveItem, onUpdateQuantity }: CartItemProps) {
   const { id, quantity, product } = item;
 
   const [isSelected, setIsSelected] = useRecoilState(selectedCartItemListSelector(item));
