@@ -1,12 +1,9 @@
 import { useEffect } from "react";
-
 import { useRecoilState, useRecoilValue } from "recoil";
 import { cartItemsState } from "../../recoil/selectors/selectors";
 import { isSelectedState } from "../../recoil/atoms/atoms";
-
 import CartItem from "../CartItem/CartItem";
-
-import { CartItemType } from "../../types";
+import { CartItemType } from "../../types/cart";
 import { Wrapper, Footer, AllCheckWrapper } from "./style";
 import infoOutline from "../../assets/images/infoOutline.png";
 import OutlineCheck from "../../assets/icon/OutlineCheck";
