@@ -3,7 +3,6 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { deleteItem } from '../../apis/cartItem';
 import { CHECKED, UNCHECKED } from '../../assets/images';
-import LocalStorage, { CART_ITEM } from '../../Storage';
 
 import { cartItemsState, checkedItemsState } from '@recoil/cartItems/atoms';
 
@@ -17,13 +16,11 @@ const CartItemHeaderSection = ({ cartId }: CartItemHeaderSectionProps) => {
 
   const handleClickCheck = () => {
     setIsChecked((prev) => !prev);
-    LocalStorage.addData(CART_ITEM, cartId, !isChecked);
   };
 
   const handleDeleteItem = async () => {
     setCartItems((prevItems) => prevItems.filter((cartItem) => cartItem.id !== cartId));
     await deleteItem(cartId);
-    LocalStorage.deleteData(CART_ITEM, cartId);
   };
 
   return (

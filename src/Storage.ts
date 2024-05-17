@@ -1,7 +1,7 @@
 export const CART_ITEM = 'CART_ITEM';
 
 const LocalStorage = {
-  getData(key: string, id: number | string) {
+  getData(key: string, id: number | string): boolean | null {
     const storage = localStorage.getItem(key) ?? '{}';
     const parseStorage = JSON.parse(storage);
 

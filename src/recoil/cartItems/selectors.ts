@@ -2,8 +2,6 @@ import { selector } from 'recoil';
 
 import { cartItemsState, checkedItemsState } from './atoms';
 
-import LocalStorage, { CART_ITEM } from '@/Storage';
-
 export const isAllUnCheckedState = selector<boolean>({
   key: 'isAllUnCheckedState',
   get: ({ get }) => {
@@ -25,7 +23,6 @@ export const allCheckedState = selector<boolean>({
 
     cartItems.forEach((cartItem) => {
       set(checkedItemsState(cartItem.id), newValue);
-      LocalStorage.addData(CART_ITEM, cartItem.id, newValue as boolean);
     });
   },
 });

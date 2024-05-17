@@ -23,4 +23,16 @@ export const checkedItemsState = atomFamily<boolean, number>({
   default: (cartId) => {
     return LocalStorage.getData(CART_ITEM, cartId) ?? true;
   },
+  effects: (cartId) => [
+    ({ setSelf, onSet }) => {
+      const storageCheckedState = LocalStorage.getData(CART_ITEM, cartId);
+      if (storageCheckedState) {
+        setSelf(storageCheckedState);
+      }
+
+      onSet((newQuantity) => {
+        LocalStorage.addData(CART_ITEM, cartId, newQuantity);
+      });
+    },
+  ],
 });
