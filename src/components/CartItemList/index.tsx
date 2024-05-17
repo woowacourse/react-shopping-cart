@@ -12,9 +12,9 @@ const CartItemList = () => {
   const checkAllCartItem = useSetRecoilState(checkAllCartSelector);
   const uncheckAllCartItem = useSetRecoilState(uncheckAllCartItemSelector);
 
-  const isAllChecked = checkedCartItems.length === cartItems?.length ? true : false;
+  const isAllChecked = checkedCartItems.length === cartItems?.length;
 
-  const allCartItems = cartItems ? cartItems.map((item) => item.id) : [];
+  const allCartItemsId = cartItems ? cartItems.map((item) => item.id) : [];
 
   const removeCartItem = (itemId: number) => {
     setCartItems((prevItems) => prevItems?.filter((item) => item.id !== itemId));
@@ -27,7 +27,7 @@ const CartItemList = () => {
           <CheckboxButton
             id={"checkAllButton"}
             isChecked={isAllChecked}
-            onClick={() => (isAllChecked ? uncheckAllCartItem() : checkAllCartItem(allCartItems))}
+            onClick={() => (isAllChecked ? uncheckAllCartItem() : checkAllCartItem(allCartItemsId))}
           />
         )}
         <CheckAllLabel htmlFor={"checkAllButton"}>전체선택</CheckAllLabel>
