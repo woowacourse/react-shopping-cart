@@ -15,22 +15,22 @@ const CartItemList = () => {
   const [isSelected, setIsSelected] = useRecoilState(isSelectedState);
   const isAllSelected = Object.values(isSelected).every((value) => value);
 
-  useEffect(() => {
-    const newDate: { [key: number]: boolean } = {};
-    cartItemList.forEach((cartItem) => {
-      if (Object.keys(isSelected).includes(cartItem.id.toString())) {
-        newDate[cartItem.id] = isSelected[cartItem.id];
-      } else {
-        newDate[cartItem.id] = false;
-      }
-    });
-    setIsSelected(newDate);
-  }, []);
+  // useEffect(() => {
+  //   const newDate: { [key: number]: boolean } = {};
+  //   cartItemList.forEach((cartItem) => {
+  //     if (Object.keys(isSelected).includes(cartItem.id.toString())) {
+  //       newDate[cartItem.id] = isSelected[cartItem.id];
+  //     } else {
+  //       newDate[cartItem.id] = false;
+  //     }
+  //   });
+  //   setIsSelected(newDate);
+  // }, []);
 
   const handleSelectAllItem = (type: boolean) => {
     const copyIsSelected = { ...isSelected };
     Object.keys(copyIsSelected).forEach(
-      (isSelected) => (copyIsSelected[isSelected] = type)
+      (isSelected) => (copyIsSelected[Number(isSelected)] = type)
     );
 
     setIsSelected(copyIsSelected);

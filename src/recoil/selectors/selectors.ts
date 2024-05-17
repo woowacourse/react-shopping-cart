@@ -1,6 +1,6 @@
 import { selector } from "recoil";
 import { getCartItems } from "../../apis";
-import { CartItemType } from "../../types";
+import { CartItemType } from "../../types/cart";
 import { isSelectedState } from "../atoms/atoms";
 import {
   DEFAULT_DELIVERY_FEE,
@@ -23,7 +23,7 @@ export const cartPriceState = selector({
     const isSelected = get(isSelectedState);
 
     const orderPrice = cartItems.reduce((acc, cartItem) => {
-      if (isSelected[cartItem.id.toString()]) {
+      if (isSelected[cartItem.id]) {
         return acc + cartItem.product.price * cartItem.quantity;
       }
       return acc;
