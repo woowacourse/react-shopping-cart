@@ -29,15 +29,15 @@ export const selectedCartItemListSelector = selectorFamily<boolean, TCartItem>({
 export const selectedCartItemListTotalPriceSelector = selector<number>({
   key: 'selectedCartItemListTotalPriceSelector',
   get: ({ get }) => {
-    const selectedCardItemList = get(selectedCartItemListState);
-    return selectedCardItemList.reduce((acc, cur) => acc + cur.quantity * cur.product.price, 0);
+    const selectedCartItemList = get(selectedCartItemListState);
+    return selectedCartItemList.reduce((acc, cur) => acc + cur.quantity * cur.product.price, 0);
   },
 });
 
 export const selectedCartItemListTotalCountSelector = selector<number>({
   key: 'selectedCartItemListTotalCountSelector',
   get: ({ get }) => {
-    const selectedCardItemList = get(selectedCartItemListState);
-    return selectedCardItemList.reduce((acc, cur) => acc + cur.quantity, 0);
+    const selectedCartItemList = get(selectedCartItemListState);
+    return selectedCartItemList.reduce((acc, cur) => acc + cur.quantity, 0);
   },
 });

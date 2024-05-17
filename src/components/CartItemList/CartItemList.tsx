@@ -23,9 +23,9 @@ function CartItemList({ cartItemList, updateCartItemList }: CartItemListProps) {
     else setSelectedItemList(cartItemList);
   };
 
-  const handleUpdateQuantity = async (cardItemId: number, quantity: number) => {
+  const handleUpdateQuantity = async (cartItemId: number, quantity: number) => {
     try {
-      await updateCartItemQuantity(cardItemId, quantity);
+      await updateCartItemQuantity(cartItemId, quantity);
       updateCartItemList();
     } catch {
       navigate('/error');
