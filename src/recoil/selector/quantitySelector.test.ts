@@ -2,7 +2,7 @@ import { cartItemsAtom } from "../atom/atom";
 import { RecoilRoot, useRecoilState } from "recoil";
 import { renderHook } from "@testing-library/react";
 import { act } from "react";
-import { quantitySelector } from "./selector";
+import { itemQuantitiesSelector } from "./selector";
 import { Product } from "../../types";
 
 // mock data
@@ -19,7 +19,7 @@ describe("quantitySelector 테스트", () => {
     const hook = renderHook(
       () => {
         const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
-        const [quantities, setQuantity] = useRecoilState(quantitySelector);
+        const [quantities, setQuantity] = useRecoilState(itemQuantitiesSelector);
         return { cartItems, setCartItems, quantities, setQuantity };
       },
       {

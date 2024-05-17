@@ -3,12 +3,12 @@ import Button from "../default/Button";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
 import MinusIcon from "../../assets/MinusIcon.svg?react";
 import PlusIcon from "../../assets/PlusIcon.svg?react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { Product } from "../../types";
 
 import { patchCartItemQuantity } from "../../api/cartItem";
-import { cartItemCheckedIdsAtom, cartItemsAtom } from "../../recoil/atom/atom";
-import { quantitySelector } from "../../recoil/selector/selector";
+import { cartItemCheckedIdsAtom } from "../../recoil/atom/atom";
+import { itemQuantitiesSelector } from "../../recoil/selector/selector";
 import { formatCurrency } from "../../utils/formatCurrency";
 
 interface CardItemProps {
@@ -17,7 +17,7 @@ interface CardItemProps {
 }
 
 const CartItem = ({ product, handleDelete }: CardItemProps) => {
-  const [quantities, setQuantity] = useRecoilState(quantitySelector);
+  const [quantities, setQuantity] = useRecoilState(itemQuantitiesSelector);
   const quantity = quantities[product.id];
   const [checkedIds, setCheckedIds] = useRecoilState(cartItemCheckedIdsAtom);
 

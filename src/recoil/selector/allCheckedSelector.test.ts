@@ -2,7 +2,7 @@ import { cartItemCheckedIdsAtom, cartItemsAtom } from "../atom/atom";
 import { RecoilRoot, useRecoilState } from "recoil";
 import { renderHook } from "@testing-library/react";
 import { act } from "react";
-import { allCheckedSelector } from "./selector";
+import { isAllCheckedSelector } from "./selector";
 import { Product } from "../../types";
 
 // mock data
@@ -22,7 +22,7 @@ describe("allCheckedSelector 테스트", () => {
       () => {
         const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
         const [checkedIds, setCheckedIds] = useRecoilState(cartItemCheckedIdsAtom);
-        const [allChecked, setAllChecked] = useRecoilState(allCheckedSelector);
+        const [allChecked, setAllChecked] = useRecoilState(isAllCheckedSelector);
         return { cartItems, setCartItems, checkedIds, setCheckedIds, allChecked, setAllChecked };
       },
       {

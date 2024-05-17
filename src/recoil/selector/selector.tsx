@@ -1,9 +1,9 @@
 import { selector } from "recoil";
 import { cartItemCheckedIdsAtom, cartItemsAtom } from "../atom/atom";
 
-// 전체 id에 대한 양을 가지고 있는 셀렉터. (get: {id: quantity, ...}. set: 해당 id를 해당 quantity로 변경 )
-export const quantitySelector = selector<Record<string, number>>({
-  key: "cartItemQuantity",
+// items들의 quantities를 관리 {id: quantity}꼴의 객체. (set: cartItemsAtom을 업데이트)
+export const itemQuantitiesSelector = selector<Record<string, number>>({
+  key: "itemQuantities",
   get: ({ get }) => {
     const cartItems = get(cartItemsAtom);
     return Object.fromEntries(cartItems.map((item) => [item.id, item.quantity]));
@@ -22,9 +22,9 @@ export const quantitySelector = selector<Record<string, number>>({
   },
 });
 
-// 전체선택 여부를 관리하는 셀렉터. (get: 현재 전체선택 여부. set: 전체선택/해제. )
-export const allCheckedSelector = selector({
-  key: "allCheckedSelector",
+// (get: 현재 전체선택 여부. set: 전체선택/해제. )
+export const isAllCheckedSelector = selector({
+  key: "isAllCheckedSelector",
   get: ({ get }) => {
     const cartItems = get(cartItemsAtom);
     const checkedIds = get(cartItemCheckedIdsAtom);
@@ -43,7 +43,7 @@ export const allCheckedSelector = selector({
   },
 });
 
-//주문 금액 계산
+// 주문 금액 계산
 export const orderPriceSelector = selector({
   key: "orderPriceSelector",
   get: ({ get }) => {
@@ -67,7 +67,7 @@ export const shippingFeeSelector = selector({
   },
 });
 
-//전체 금액 계산
+// 전체 금액 계산
 export const totalPriceSelector = selector({
   key: "totalPriceSelector",
   get: ({ get }) => {
@@ -77,7 +77,7 @@ export const totalPriceSelector = selector({
   },
 });
 
-//전체 수량 계산
+// 전체 수량 계산
 export const totalCountSelector = selector({
   key: "totalCountSelector",
   get: ({ get }) => {
