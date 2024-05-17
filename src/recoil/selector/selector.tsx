@@ -1,5 +1,11 @@
 import { selector } from "recoil";
 import { cartItemCheckedIdsAtom, cartItemsAtom } from "../atom/atom";
+import { fetchCartItems } from "../../api/cartItem";
+
+export const fetchCartItemsSelector = selector({
+  key: "fetchCartItemsSelector",
+  get: fetchCartItems,
+});
 
 // items들의 quantities를 관리 {id: quantity}꼴의 객체. (set: cartItemsAtom을 업데이트)
 export const itemQuantitiesSelector = selector<Record<string, number>>({

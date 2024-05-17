@@ -8,20 +8,15 @@ import CartItems from "../components/CartPage/CartItems";
 import OrderSummary from "../components/CartPage/OrderSummary";
 import EmptyCart from "../components/CartPage/EmptyCart";
 import { CartLayout, Header, Content, Footer } from "../components/layout";
+import { fetchCartItemsSelector } from "../recoil/selector/selector";
 
 const CartPage = () => {
   const navigate = useNavigate();
   const [cartItems, setCartItmes] = useRecoilState(cartItemsAtom);
   const cartItemCheckedIds = useRecoilValue(cartItemCheckedIdsAtom);
+  const fetchCartItemsValue = useRecoilValue(fetchCartItemsSelector);
 
-  useEffect(() => {
-    // addCartItem(11);
-    const loadCartItems = async () => {
-      const data = await fetchCartItems();
-      setCartItmes(data);
-    };
-    loadCartItems();
-  }, []);
+  setCartItmes(fetchCartItemsValue);
 
   const handleClick = () => {
     navigate("/orderConfirmation");
