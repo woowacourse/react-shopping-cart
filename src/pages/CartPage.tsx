@@ -1,9 +1,11 @@
 import { css } from '@emotion/react';
 import { Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { useNavigate } from 'react-router-dom';
 
 import Header from '@/components/common/Header';
 import LoadingComponent from '@/components/common/LoadingComponent';
+import ErrorComponent from '@/components/ErrorComponent';
 import CartMainSection from '@components/Cart/CartMainSection';
 import OrderConfirmButton from '@components/Cart/OrderConfirmButton';
 
@@ -19,10 +21,12 @@ function CartPage() {
       <Header buttonStyle={homeButton} onClick={handleClickLogo}>
         SHOP
       </Header>
-      <Suspense fallback={<LoadingComponent />}>
-        <CartMainSection />
-        <OrderConfirmButton />
-      </Suspense>
+      <ErrorBoundary FallbackComponent={ErrorComponent}>
+        <Suspense fallback={<LoadingComponent />}>
+          <CartMainSection />
+          <OrderConfirmButton />
+        </Suspense>
+      </ErrorBoundary>
     </>
   );
 }
