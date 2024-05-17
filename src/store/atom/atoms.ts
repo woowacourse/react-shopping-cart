@@ -1,6 +1,19 @@
 import { atomFamily, atom, selector } from "recoil";
-import { fetchCartState } from "../selector/selectors";
 import { LOCAL_STORAGE_KEY } from "../../constants";
+import { fetchProducts } from "../api";
+
+export const fetchCartState = selector({
+  key: "fetchCartState",
+  get: async () => {
+    const { content }: { content: CartItemInfo[] } = await fetchProducts("GET");
+    const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}");
+    content.forEach((cartItem) => {
+      if (localData[cartItem.id] === undefined) localData[cartItem.id] = true;
+    });
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(localData));
+    return content;
+  },
+});
 
 export const cartState = atom({
   key: "cartState",
