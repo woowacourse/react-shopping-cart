@@ -20,8 +20,7 @@ function CartItemList({ cartItemList, updateCartItemList }: CartItemListProps) {
   const navigate = useNavigate();
 
   const handleAllSelect = () => {
-    if (isAllSelected) setSelectedItemList([]);
-    else setSelectedItemList(cartItemList);
+    setSelectedItemList(isAllSelected ? [] : cartItemList);
   };
 
   const handleUpdateQuantity = async (cardItemId: number, quantity: number) => {
