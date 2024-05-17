@@ -2,6 +2,7 @@ import { PRICE } from '@constants/index';
 import { cartItemsSelector, orderCostsSelector, selectedIdsAtom } from '@recoil/shoppingCart';
 import { renderHook, waitFor } from '@testing-library/react';
 import { RecoilRoot, useRecoilValue } from 'recoil';
+import { describe, expect, it } from 'vitest';
 
 import { INITIAL_ITEMS, SHIPPING_FREE_ITEMS } from './constants/cartItems';
 

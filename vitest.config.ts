@@ -1,15 +1,11 @@
-import react from '@vitejs/plugin-react-swc';
 import { resolve } from 'path';
-import { defineConfig } from 'vite';
-import svgr from 'vite-plugin-svgr';
+import { defineConfig } from 'vitest/config';
 
-const BASE_URL = '/react-shopping-cart/dist/';
-
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), svgr()],
-  envPrefix: 'VITE_',
-  base: BASE_URL,
+  test: {
+    environment: 'jsdom',
+    setupFiles: ['./vitest.setup.ts'],
+  },
   resolve: {
     alias: [
       { find: '@src', replacement: resolve(__dirname, 'src') },

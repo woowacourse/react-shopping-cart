@@ -20,7 +20,7 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Testing */
-    "types": ["jest", "vite-plugin-svgr/client", "vite/client"],
+    "types": ["vite-plugin-svgr/client", "vite/client"],
     "esModuleInterop": true,
 
     "baseUrl": "src",

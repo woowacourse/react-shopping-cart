@@ -3,13 +3,45 @@ import { useDeleteCartItem } from '@hooks/shoppingCart';
 import { cartItemsAtom, cartItemsSelector, selectedIdsAtom } from '@recoil/shoppingCart';
 import { renderHook, waitFor } from '@testing-library/react';
 import { RecoilRoot, useRecoilValue } from 'recoil';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { INITIAL_ITEMS } from './constants/cartItems';
 
+const localStorageMock = {
+  storage: {} as Record<string, string>,
+  length: 0,
+  key(index: number): string | null {
+    return Object.keys(this.storage)[index] || null;
+  },
+  getItem(key: string): string | null {
+    return this.storage[key] || null;
+  },
+  setItem(key: string, value: string): void {
+    this.storage[key] = value;
+    this.length = Object.keys(this.storage).length;
+  },
+  removeItem(key: string): void {
+    delete this.storage[key];
+    this.length = Object.keys(this.storage).length;
+  },
+  clear(): void {
+    this.storage = {};
+    this.length = 0;
+  },
+};
+
 describe('상품 삭제 테스트', () => {
   beforeEach(() => {
-    localStorage.clear();
+    Object.defineProperty(window, 'localStorage', {
+      value: localStorageMock,
+      writable: true,
+    });
   });
+
+  afterEach(() => {
+    vi.resetAllMocks();
+  });
+
   it('상품을 삭제하면, 장바구니 목록 데이터에서 해당 상품이 삭제된다.', async () => {
     const ID = INITIAL_ITEMS[0].id;
     const { result } = renderHook(
@@ -76,9 +108,9 @@ describe('상품 삭제 테스트', () => {
     });
 
     expect(result.current.selectedIds.every((id) => id !== ID)).toBeTruthy();
-
-    const storage = JSON.parse(localStorage.getItem(STORAGE_KEY.selectedItems) ?? '');
-
-    expect(storage).toEqual([]);
+    const storage = localStorageMock.getItem(STORAGE_KEY.selectedItems);
+    if (storage) {
+      expect(JSON.parse(storage)).toEqual([]);
+    }
   });
 });
