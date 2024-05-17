@@ -24,6 +24,6 @@
     "types": ["jest"],
     "esModuleInterop": true
   },
-  "include": ["src"],
+  "include": ["src", "src/pages/ShoppingCartPage/recoil/atom/selectedCartItemListState.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
