@@ -2,11 +2,10 @@ import { css } from '@emotion/react';
 import { Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import LoadingComponent from '@/components/LoadingComponent';
+import Header from '@/components/common/Header';
+import LoadingComponent from '@/components/common/LoadingComponent';
 import CartMainSection from '@components/Cart/CartMainSection';
 import OrderConfirmButton from '@components/Cart/OrderConfirmButton';
-
-import Header from '@components/Header';
 
 function CartPage() {
   const navigate = useNavigate();

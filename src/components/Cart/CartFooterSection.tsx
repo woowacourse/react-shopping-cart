@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 import { useRecoilValue } from 'recoil';
 
-import Receipt from '../Receipt';
+import Receipt from './Receipt';
 
-import { INFO_ICON } from '@/assets/images';
+import { INFO_ICON } from '@assets/images';
 import { orderTotalPriceState, deliveryPriceState } from '@recoil/cartItems/selectors';
 
 export default function CartFooterSection() {

@@ -1,8 +1,8 @@
 import { css } from '@emotion/react';
 import { useRecoilState } from 'recoil';
 
-import { CHECKED, UNCHECKED } from '../assets/images';
-import { allCheckedState } from '../recoil/cartItems/selectors';
+import { CHECKED, UNCHECKED } from '@assets/images';
+import { allCheckedState } from '@recoil/cartItems/selectors';
 
 const AllCheckBox = () => {
   const [allChecked, setAllChecked] = useRecoilState(allCheckedState);
