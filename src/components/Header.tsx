@@ -1,8 +1,19 @@
 import { css } from '@emotion/react';
-import { PropsWithChildren } from 'react';
 
-export default function Header({ children }: PropsWithChildren) {
-  return <header css={headerContainer}>{children}</header>;
+interface HeaderProps {
+  buttonStyle: ReturnType<typeof css>;
+  title: string;
+  onClick: () => void;
+}
+
+export default function Header({ buttonStyle, onClick, title }: HeaderProps) {
+  return (
+    <header css={headerContainer}>
+      <button css={buttonStyle} onClick={onClick}>
+        {title}
+      </button>
+    </header>
+  );
 }
 
 const headerContainer = css`
