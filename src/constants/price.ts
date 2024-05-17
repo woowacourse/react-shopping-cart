@@ -1,0 +1,4 @@
+export const DELIVERY_FEE = {
+  DEFAULT: 3_000,
+  FREE_THRESHOLD: 100_000,
+};
