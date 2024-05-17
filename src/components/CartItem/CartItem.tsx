@@ -23,9 +23,7 @@ function CartItem({ item, onRemoveItem, onUpdateQuantity }: CartItemProps) {
     <S.Layout>
       <S.Header>
         <CheckButton isChecked={isSelected} onClick={handleIsSelected} />
-        <S.DeleteButton className="DeleteButton" onClick={() => onRemoveItem(id)}>
-          삭제
-        </S.DeleteButton>
+        <S.DeleteButton onClick={() => onRemoveItem(id)}>삭제</S.DeleteButton>
       </S.Header>
       <S.Body>
         <S.ItemImage src={product.imageUrl} />

@@ -9,7 +9,7 @@ interface CheckButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 function CheckButton({ isChecked, ...rest }: CheckButtonProps) {
   return (
     <S.ButtonWrapper $isChecked={isChecked} {...rest}>
-      {isChecked ? <img src={CheckedIcon}></img> : <img src={UncheckedIcon}></img>}
+      {isChecked ? <img src={CheckedIcon} alt="체크 아이콘" /> : <img src={UncheckedIcon} alt="미체크 아이콘" />}
     </S.ButtonWrapper>
   );
 }

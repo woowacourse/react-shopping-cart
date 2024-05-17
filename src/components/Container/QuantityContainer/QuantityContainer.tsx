@@ -10,12 +10,12 @@ interface QuantityContainerProps {
 function QuantityContainer({ quantity, onMinusButtonClick, onPlusButtonClick }: QuantityContainerProps) {
   return (
     <S.Layout>
-      <S.QuantityButton className="MinusButton" onClick={onMinusButtonClick}>
-        <img src={MinusIcon}></img>
+      <S.QuantityButton onClick={onMinusButtonClick}>
+        <img src={MinusIcon} alt="마이너스 아이콘" />
       </S.QuantityButton>
       <p>{quantity}</p>
-      <S.QuantityButton className="PlusButton" onClick={onPlusButtonClick}>
-        <img src={PlusIcon}></img>
+      <S.QuantityButton onClick={onPlusButtonClick}>
+        <img src={PlusIcon} alt="플러스 아이콘" />
       </S.QuantityButton>
     </S.Layout>
   );

@@ -40,7 +40,7 @@ function ShoppingCartPage() {
 
   const renderEmptyCartSection = () => (
     <S.CartEmptyContainer>
-      <img src={EmptyCart} />
+      <img src={EmptyCart} alt="빈 장바구니" />
       <p>장바구니에 담은 상품이 없습니다.</p>
     </S.CartEmptyContainer>
   );
