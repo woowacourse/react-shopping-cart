@@ -20,7 +20,7 @@ export const refreshCartItemsState = atom<CartItem[]>({
 export const cartItemsCalculatorState = selector({
   key: 'cartItemsCalculatorSelector',
   get: async ({ get }) => {
-    const cartItems = get(refreshCartItemsState);
+    const cartItems = get(fetchedCartItemsState);
 
     const selectedCartItems = cartItems.filter((cartItem) =>
       get(selectedCartItemState(cartItem.id)),
