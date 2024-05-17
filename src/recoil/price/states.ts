@@ -2,6 +2,7 @@ import { selector } from 'recoil';
 import { cartItemListAtom } from '../cartItemList/states';
 import { selectedCartItemIdListAtom } from '../selectedCartItemIdList/states';
 import { cartItemQuantityAtomFamily } from '../cartItem/states';
+import { DELIVERY_FEE } from '../../constants/price';
 
 export const totalCartPriceSelector = selector<number>({
   key: 'totalCartPriceSelector',
@@ -18,5 +19,14 @@ export const totalCartPriceSelector = selector<number>({
     }, 0);
 
     return totalCartPrice;
+  },
+});
+
+export const cartDeliveryFeeSelector = selector<number>({
+  key: 'cartDeliveryFeeSelector',
+  get: ({ get }) => {
+    const totalCartPrice = get(totalCartPriceSelector);
+
+    return totalCartPrice >= DELIVERY_FEE.FREE_THRESHOLD ? 0 : DELIVERY_FEE.DEFAULT;
   },
 });
