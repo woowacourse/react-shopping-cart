@@ -1,4 +1,5 @@
 import AppLayout from '@components/layout/AppLayout/AppLayout';
+import ErrorPage from '@pages/ErrorPage/ErrorPage';
 import { OrderConfirmPage, OrderPage } from '@pages/index';
 import { createBrowserRouter } from 'react-router-dom';
 
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
           element: <OrderConfirmPage />,
         },
       ],
+      errorElement: <ErrorPage />,
     },
   ],
   {
