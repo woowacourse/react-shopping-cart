@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { COLOR } from "../../constants/styles";
 
 interface FooterButtonProps {
   buttonText: string;
@@ -27,8 +28,8 @@ const Button = styled.button`
   left: 50%;
   transform: translate(-50%);
   text-align: center;
-  background: black;
-  color: white;
+  background: ${COLOR.black};
+  color: ${COLOR.white};
   width: 429px;
 
   @media (max-width: 768px) {
@@ -36,7 +37,7 @@ const Button = styled.button`
   }
 
   &:disabled {
-    background-color: #bebebe;
+    background-color: ${COLOR.grey.light};
     cursor: not-allowed;
   }
 `;

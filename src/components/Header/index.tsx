@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import IMAGES from "../../assets/images/Images";
+import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../constants/styles";
 
 type HeaderType = "logo" | "goBack";
 
@@ -31,24 +32,24 @@ export default Header;
 const HeaderContainer = styled.div`
   width: 100%;
   height: 64px;
-  background: black;
+  background: ${COLOR.black};
   align-items: center;
   display: flex;
-  color: white;
+  color: ${COLOR.white};
   padding: 24px;
   box-sizing: border-box;
 `;
 
 const HeaderTitle = styled.h2`
-  font-size: 20px;
-  font-weight: 800;
+  font-size: ${FONT_SIZE.large};
+  font-weight: ${FONT_WEIGHT.extraBold};
   line-height: 16px;
   text-align: left;
 `;
 
 const GoBackButton = styled.button`
   background: transparent;
-  color: white;
+  color: ${COLOR.white};
   padding: 0;
 `;
 

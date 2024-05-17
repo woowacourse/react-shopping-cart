@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { checkedCartItemsState } from "../recoil/atoms";
 import { checkedCartItemsQuantityState, totalCheckedCartItemsPriceState } from "../recoil/selectors";
 import Header from "../components/Header/index";
+import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../constants/styles";
 
 const CheckOrder = () => {
   const totalCheckedCartItemsPrice = useRecoilValue(totalCheckedCartItemsPriceState);
@@ -36,19 +37,19 @@ const PageContainer = styled.div`
 `;
 
 const Title = styled.p`
-  font-size: 24px;
-  font-weight: 700;
+  font-size: ${FONT_SIZE.large};
+  font-weight: ${FONT_WEIGHT.bold};
   line-height: 34.75px;
   text-align: left;
-  color: black;
+  color: ${COLOR.black};
 `;
 
 const Description = styled.p`
-  font-size: 12px;
-  font-weight: 500;
+  font-size: ${FONT_SIZE.small};
+  font-weight: ${FONT_WEIGHT.medium};
   line-height: 18px;
   text-align: center;
-  color: #0a0d13;
+  color: ${COLOR.black};
 `;
 
 const TotalPaymentsWrapper = styled.div`
@@ -60,11 +61,11 @@ const TotalPaymentsWrapper = styled.div`
 `;
 
 const TotalAmount = styled.p`
-  font-size: 16px;
-  font-weight: 700;
+  font-size: ${FONT_SIZE.medium};
+  font-weight: ${FONT_WEIGHT.bold};
   line-height: 16px;
   text-align: center;
-  color: black;
+  color: ${COLOR.black};
 `;
 
 export default CheckOrder;

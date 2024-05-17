@@ -1,12 +1,17 @@
 import styled from "styled-components";
+import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../../constants/styles";
 
-interface BasicButtonProps {
+interface BasicButtonProps extends React.PropsWithChildren<React.ButtonHTMLAttributes<HTMLButtonElement>> {
   label: string;
   onClick: () => void;
 }
 
-const BasicButton = ({ label, onClick }: BasicButtonProps) => {
-  return <Button onClick={onClick}>{label}</Button>;
+const BasicButton = ({ label, onClick, ...props }: BasicButtonProps) => {
+  return (
+    <Button onClick={onClick} {...props}>
+      {label}
+    </Button>
+  );
 };
 
 export default BasicButton;
@@ -17,9 +22,9 @@ const Button = styled.button`
   border-radius: 4px;
   width: 40px;
   height: 24px;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: ${FONT_SIZE.small};
+  font-weight: ${FONT_WEIGHT.medium};
   padding: 0;
-  background: white;
-  color: black;
+  background: ${COLOR.white};
+  color: ${COLOR.black};
 `;

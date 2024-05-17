@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../constants/styles";
 
 interface PageTitleProps {
   title: string;
@@ -23,13 +24,13 @@ const PageTitleContainer = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 24px;
-  font-weight: 700;
-  color: black;
+  font-size: ${FONT_SIZE.extraLarge};
+  font-weight: ${FONT_WEIGHT.bold};
+  color: ${COLOR.black};
 `;
 
 const SubTitle = styled.h3`
-  font-size: 12px;
-  font-weight: 500;
-  color: #0a0d13;
+  font-size: ${FONT_SIZE.small};
+  font-weight: ${FONT_WEIGHT.medium};
+  color: ${COLOR.black};
 `;

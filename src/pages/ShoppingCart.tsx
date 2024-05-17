@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { fetchCartItems } from "../api/cartItem";
 import { cartItemsState } from "../recoil/atoms";
 import Header from "../components/Header/index";
+import { COLOR } from "../constants/styles";
 
 const ShoppingCart = () => {
   const setCartItems = useSetRecoilState(cartItemsState);
@@ -62,5 +63,5 @@ export default ShoppingCart;
 
 const PageContainer = styled.div`
   padding: 36px 25px 104px 36px;
-  background-color: white;
+  background-color: ${COLOR.white};
 `;

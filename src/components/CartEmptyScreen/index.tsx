@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import IMAGES from "../../assets/images/Images";
+import { COLOR, FONT_SIZE } from "../../constants/styles";
 
 const CartEmptyScreen = () => {
   return (
@@ -21,8 +22,8 @@ const CartEmptyScreenContainer = styled.div`
 `;
 
 const CartEmptyMessage = styled.p`
-  color: rgb(150, 150, 150);
-  font-size: 11px;
+  color: ${COLOR.grey.dark};
+  font-size: ${FONT_SIZE.small};
   text-align: center;
 `;
 

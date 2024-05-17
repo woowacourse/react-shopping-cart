@@ -4,6 +4,7 @@ import CartItem from "../CartItem/index";
 import { uncheckAllCartItemSelector, checkAllCartSelector } from "../../recoil/selectors";
 import { cartItemsState, checkedCartItemsState } from "../../recoil/atoms";
 import styled from "styled-components";
+import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../constants/styles";
 
 const CartItemList = () => {
   const [cartItems, setCartItems] = useRecoilState(cartItemsState);
@@ -54,9 +55,9 @@ const TopContainer = styled.div`
 `;
 
 const CheckAllLabel = styled.label`
-  font-size: 12px;
-  font-weight: 500;
+  font-size: ${FONT_SIZE.small};
+  font-weight: ${FONT_WEIGHT.medium};
   line-height: 15px;
   text-align: left;
-  color: black;
+  color: ${COLOR.black};
 `;

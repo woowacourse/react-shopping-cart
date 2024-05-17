@@ -9,6 +9,7 @@ import { checkCartItemSelector } from "../../recoil/selectors";
 import { uncheckCartItemSelector } from "../../recoil/selectors";
 import { checkedCartItemsState } from "../../recoil/atoms";
 import { deleteCartItem, patchCartItemQuantity } from "../../api/cartItem";
+import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../constants/styles";
 
 interface CartItemProps extends Omit<CartItemResponse, "quantity"> {
   removeCartItem: (itemId: number) => void;
@@ -72,7 +73,7 @@ const CartItemContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  color: black;
+  color: ${COLOR.black};
   border-top: 1px solid #0000001a;
 `;
 
@@ -91,12 +92,11 @@ const Thumbnail = styled.img`
 const Name = styled.p`
   width: 100%;
   height: 15px;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: ${FONT_SIZE.small};
+  font-weight: ${FONT_WEIGHT.medium};
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-weight: 500;
   line-height: 15px;
   text-align: left;
 `;
@@ -104,8 +104,8 @@ const Name = styled.p`
 const Price = styled.p`
   width: 100%;
   height: 26px;
-  font-size: 24px;
-  font-weight: 700;
+  font-size: ${FONT_SIZE.extraLarge};
+  font-weight: ${FONT_WEIGHT.bold};
   line-height: 34.75px;
   text-align: left;
   margin-bottom: 19px;

@@ -3,6 +3,7 @@ import ORDER from "../../constants/order";
 import { totalCheckedCartItemsPriceState, shippingFeeState } from "../../recoil/selectors";
 import { useRecoilValue } from "recoil";
 import IMAGES from "../../assets/images/Images";
+import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../constants/styles";
 
 const OrderSummary = () => {
   const totalCheckedCartItemsPrice = useRecoilValue(totalCheckedCartItemsPriceState);
@@ -50,11 +51,11 @@ const OrderSummaryContainer = styled.div`
 const OrderInfo = styled.p`
   display: flex;
   align-items: center;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: ${FONT_SIZE.small};
+  font-weight: ${FONT_WEIGHT.medium};
   line-height: 15px;
   text-align: left;
-  color: black;
+  color: ${COLOR.black};
 `;
 
 const InfoImg = styled.img`
@@ -67,19 +68,19 @@ const SummaryWrapper = styled.div`
 `;
 
 const SummaryTitle = styled.p`
-  font-size: 16px;
-  font-weight: 700;
+  font-size: ${FONT_SIZE.medium};
+  font-weight: ${FONT_WEIGHT.bold};
   line-height: 16px;
   text-align: left;
-  color: black;
+  color: ${COLOR.black};
 `;
 
 const SummaryPrice = styled.p`
-  font-size: 24px;
-  font-weight: 700;
+  font-size: ${FONT_SIZE.large};
+  font-weight: ${FONT_WEIGHT.bold};
   line-height: 34.75px;
   text-align: right;
-  color: black;
+  color: ${COLOR.black};
 `;
 
 const HorizontalLine = styled.div`
