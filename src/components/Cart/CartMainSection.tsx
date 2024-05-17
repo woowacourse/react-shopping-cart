@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 import CartFooterSection from './CartFooterSection';
 import CartHeaderSection from './CartHeaderSection';
 
-import AllCheckBox from '@/AllCheckBox';
+import AllCheckBox from '@/components/AllCheckBox';
 import { cartItemsState } from '@recoil/cartItems/atoms';
 
 import CartItem from '@components/CartItem';

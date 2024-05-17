@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import { Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import LoadingComponent from '@/LoadingComponent';
+import LoadingComponent from '@/components/LoadingComponent';
 import CartMainSection from '@components/Cart/CartMainSection';
 import OrderConfirmButton from '@components/Cart/OrderConfirmButton';
 
