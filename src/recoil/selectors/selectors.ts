@@ -2,6 +2,7 @@ import { selector } from "recoil";
 import { getCartItems } from "../../apis";
 import { CartItemType } from "../../types";
 import { isSelectedState } from "../atoms/atoms";
+import { DEFAULT_DELIVERY_FEE, DELIVERY_FEE_THRESHOLD } from "../../constants";
 
 export const cartItemsState = selector<CartItemType[]>({
   key: "cartItemsState",
@@ -25,7 +26,12 @@ export const cartPriceState = selector({
       return acc;
     }, 0);
 
-    const deliveryFee = orderPrice === 0 ? 0 : orderPrice >= 100000 ? 0 : 3000;
+    const deliveryFee =
+      orderPrice === 0
+        ? 0
+        : orderPrice >= DEFAULT_DELIVERY_FEE
+        ? 0
+        : DELIVERY_FEE_THRESHOLD;
 
     return { orderPrice, deliveryFee, totalPrice: orderPrice + deliveryFee };
   },
