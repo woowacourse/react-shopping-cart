@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Layout = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: center;
   column-gap: 8px;
   font-size: ${({ theme }) => theme.fontSize.sm};

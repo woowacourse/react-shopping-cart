@@ -1,6 +1,6 @@
 import { useRecoilState } from 'recoil';
 import CheckBox from '../Button/CheckBox/CheckBox';
-import QuantityContainer from '../Container/QuantityContainer/QuantityContainer';
+import QuantityContainer from '../Container/QuantityStepper/QuantityStepper';
 import type { TCartItem } from '../../types/CartItem.type';
 import { selectedCartItemListSelector } from '../../recoil/selectors/selectors';
 

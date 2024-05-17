@@ -1,13 +1,13 @@
 import { MinusIcon, PlusIcon } from '../../../assets';
-import * as S from './QuantityContainer.style';
+import * as S from './QuantityStepper.style';
 
-interface QuantityContainerProps {
+interface QuantityStepperProps {
   quantity: number;
   onMinusButtonClick: () => void;
   onPlusButtonClick: () => void;
 }
 
-function QuantityContainer({ quantity, onMinusButtonClick, onPlusButtonClick }: QuantityContainerProps) {
+function QuantityStepper({ quantity, onMinusButtonClick, onPlusButtonClick }: QuantityStepperProps) {
   return (
     <S.Layout>
       <S.QuantityButton onClick={onMinusButtonClick}>
@@ -20,4 +20,4 @@ function QuantityContainer({ quantity, onMinusButtonClick, onPlusButtonClick }: 
     </S.Layout>
   );
 }
-export default QuantityContainer;
+export default QuantityStepper;
