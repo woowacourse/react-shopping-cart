@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { cartItemsState } from "../../recoil/selectors/selectors";
 import { isSelectedState } from "../../recoil/atoms/atoms";
@@ -15,18 +14,6 @@ const CartItemList = () => {
   const [isSelected, setIsSelected] = useRecoilState(isSelectedState);
   const isAllSelected = Object.values(isSelected).every((value) => value);
 
-  // useEffect(() => {
-  //   const newDate: { [key: number]: boolean } = {};
-  //   cartItemList.forEach((cartItem) => {
-  //     if (Object.keys(isSelected).includes(cartItem.id.toString())) {
-  //       newDate[cartItem.id] = isSelected[cartItem.id];
-  //     } else {
-  //       newDate[cartItem.id] = false;
-  //     }
-  //   });
-  //   setIsSelected(newDate);
-  // }, []);
-
   const handleSelectAllItem = (type: boolean) => {
     const copyIsSelected = { ...isSelected };
     Object.keys(copyIsSelected).forEach(
@@ -40,10 +27,7 @@ const CartItemList = () => {
     <Wrapper>
       <AllCheckWrapper>
         {isAllSelected ? (
-          <Button
-            $borderRadius="8px"
-            onClick={() => handleSelectAllItem(false)}
-          >
+          <Button $borderRadius="8px" onClick={() => handleSelectAllItem(false)}>
             <FilledCheck color="white" />
           </Button>
         ) : (
