@@ -1,8 +1,8 @@
 import { useRecoilState } from 'recoil';
-import CheckBox from '../Button/CheckBox/CheckBox';
-import QuantityContainer from '../Container/QuantityStepper/QuantityStepper';
-import type { TCartItem } from '../../types/CartItem.type';
-import { selectedCartItemListSelector } from '../../recoil/selectors/selectors';
+import CheckBox from '../../common/CheckBox/CheckBox';
+import QuantityStepper from '../QuantityStepper/QuantityStepper';
+import type { TCartItem } from '../../../types/CartItem.type';
+import { selectedCartItemListSelector } from '../../../recoil/selectors/selectors';
 
 import * as S from './CartItem.style';
 
@@ -32,7 +32,7 @@ function CartItem({ item, onRemoveItem, onUpdateQuantity }: CartItemProps) {
             <S.ItemNameText>{product.name}</S.ItemNameText>
             <S.ItemPriceText>{product.price.toLocaleString()}원</S.ItemPriceText>
           </S.ItemInfoContainer>
-          <QuantityContainer
+          <QuantityStepper
             quantity={quantity}
             onMinusButtonClick={() => onUpdateQuantity(id, quantity - 1)}
             onPlusButtonClick={() => onUpdateQuantity(id, quantity + 1)}

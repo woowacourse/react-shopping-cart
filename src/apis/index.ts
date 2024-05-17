@@ -39,6 +39,7 @@ export const addCartItem = async (cartItemId: number): Promise<void> => {
     throw new Error(CART_ITEM_ERROR_MESSAGE.ADD);
   }
 };
+
 export const removeCartItem = async (cartItemId: number): Promise<void> => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
 

@@ -1,8 +1,8 @@
 import { useRecoilValue } from 'recoil';
 import { Navigate } from 'react-router-dom';
 import Header from '../../components/Header/Header';
-import TitleContainer from '../../components/Container/TitleContainer/TitleContainer';
-import SubmitButton from '../../components/Button/SubmitButton/SubmitButton';
+import TitleContainer from '../../components/common/TitleContainer/TitleContainer';
+import SubmitButton from '../../components/common/SubmitButton/SubmitButton';
 import { selectedCartItemListState } from '../../recoil/atoms/atoms';
 import { cartOrderTotalPriceSelector, cartOrderTotalCountSelector } from '../../recoil/selectors/selectors';
 import { calculateDeliveryFee } from '../../utils/calculateDeliveryFee';
