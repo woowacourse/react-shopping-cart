@@ -14,19 +14,16 @@ export const selectedCartItemListSelector = selectorFamily<boolean, TCartItem>({
     (newItem: TCartItem) =>
     ({ set, get }) => {
       const selectedCartItemList = get(selectedCartItemListState);
+      const isSelected = selectedCartItemList.some((item) => item.id === newItem.id);
 
-      if (!selectedCartItemList.some((item) => item.id === newItem.id)) {
-        set(selectedCartItemListState, [...selectedCartItemList, newItem]);
-      } else {
-        set(
-          selectedCartItemListState,
-          selectedCartItemList.filter((item) => item.id !== newItem.id),
-        );
-      }
+      set(
+        selectedCartItemListState,
+        isSelected ? selectedCartItemList.filter((item) => item.id !== newItem.id) : [...selectedCartItemList, newItem],
+      );
     },
 });
 
-export const selectedCartItemListTotalPriceSelector = selector<number>({
+export const cartOrderTotalPriceSelector = selector({
   key: 'selectedCartItemListTotalPriceSelector',
   get: ({ get }) => {
     const selectedCartItemList = get(selectedCartItemListState);
@@ -34,7 +31,7 @@ export const selectedCartItemListTotalPriceSelector = selector<number>({
   },
 });
 
-export const selectedCartItemListTotalCountSelector = selector<number>({
+export const cartOrderTotalCountSelector = selector({
   key: 'selectedCartItemListTotalCountSelector',
   get: ({ get }) => {
     const selectedCartItemList = get(selectedCartItemListState);

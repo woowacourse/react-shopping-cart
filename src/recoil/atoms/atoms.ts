@@ -1,8 +1,8 @@
 import { atom, AtomEffect } from 'recoil';
 import type { TCartItem } from '../../types/CartItem.type';
 
-const localStorageEffect: <T>(key: string) => AtomEffect<T> =
-  (key: string) =>
+const localStorageEffect =
+  <T>(key: string): AtomEffect<T> =>
   ({ setSelf, onSet }) => {
     const savedValue = localStorage.getItem(key);
 
@@ -11,9 +11,11 @@ const localStorageEffect: <T>(key: string) => AtomEffect<T> =
     }
 
     onSet((newValue, _, isReset) => {
-      if (isReset) return localStorage.removeItem(key);
-
-      return localStorage.setItem(key, JSON.stringify(newValue));
+      if (isReset) {
+        localStorage.removeItem(key);
+      } else {
+        localStorage.setItem(key, JSON.stringify(newValue));
+      }
     });
   };
 
