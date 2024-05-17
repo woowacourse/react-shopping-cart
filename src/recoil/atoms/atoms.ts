@@ -3,7 +3,6 @@ import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist({
   key: "select",
-  storage: localStorage,
 });
 
 export const isSelectedState = atom({

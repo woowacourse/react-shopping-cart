@@ -1,12 +1,6 @@
 import { generateBasicToken } from "../utils/auth";
+import { API_URL, USER_ID, USER_PASSWORD } from "../constants";
 
-const API_URL = import.meta.env.VITE_API_URL;
-const USER_ID = import.meta.env.VITE_USER_ID;
-const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
-
-/**
- * 사용자의 장바구니 목록 조회
- */
 export const getCartItems = async () => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const response = await fetch(`${API_URL}/cart-items`, {
@@ -22,9 +16,6 @@ export const getCartItems = async () => {
   return data.content;
 };
 
-/**
- * 장바구니 아이템 삭제
- */
 export const deleteCartItem = async (id: number) => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const response = await fetch(`${API_URL}/cart-items/${id}`, {
@@ -37,9 +28,6 @@ export const deleteCartItem = async (id: number) => {
   }
 };
 
-/**
- * 장바구니 아이템 수량 변경
- */
 export const patchCartItemQuantity = async (id: number, quantity: number) => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const response = await fetch(`${API_URL}/cart-items/${id}`, {
@@ -55,9 +43,6 @@ export const patchCartItemQuantity = async (id: number, quantity: number) => {
   }
 };
 
-/**
- * 장바구니 아이템 수량 조회
- */
 export const getCartItemQuantity = async () => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const response = await fetch(`${API_URL}/cart-items/counts`, {
