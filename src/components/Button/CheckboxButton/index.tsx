@@ -10,7 +10,7 @@ interface CheckboxButtonProps {
 const CheckboxButton = ({ id, onClick, isChecked }: CheckboxButtonProps) => {
   return (
     <Button id={id} type="button" onClick={onClick}>
-      <Image alt="checkbox" src={isChecked ? IMAGES.checkedButton : IMAGES.uncheckedButton}></Image>
+      <Image alt="checkbox" src={isChecked ? IMAGES.checkedButton : IMAGES.uncheckedButton} />
     </Button>
   );
 };
