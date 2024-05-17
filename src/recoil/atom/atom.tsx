@@ -13,5 +13,5 @@ export const cartItemsAtom = atom<Product[]>({
 export const cartItemCheckedIdsAtom = atom<number[]>({
   key: "cartItemCheckedIdsAtom",
   default: [],
-  effects_UNSTABLE: [persistAtom],
+  effects: [persistAtom],
 });
