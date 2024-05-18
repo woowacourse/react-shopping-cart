@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
+import Button from '@/components/common/Button';
 import { fetchCartItems } from '@apis/cartItem';
 import { BACK_ARROW } from '@assets/images';
 import FooterButton from '@components/common/FooterButton';
@@ -36,9 +37,9 @@ export default function CartConfirmPage() {
   return (
     <>
       <Header>
-        <button css={backButton} onClick={() => navigate(-1)}>
+        <Button id="back-button" css={backButton} onClick={() => navigate(-1)}>
           <img src={BACK_ARROW} alt="back arrow icon" />
-        </button>
+        </Button>
       </Header>
       <div css={container}>
         <h2 css={title}>주문 확인</h2>
@@ -52,7 +53,7 @@ export default function CartConfirmPage() {
           <span css={orderResult}>{totalPurchasePrice.toLocaleString('ko-KR')}원</span>
         </div>
       </div>
-      <FooterButton id="결제하기" isDisabled={true}>
+      <FooterButton id="pay-button" isDisabled={true}>
         결제하기
       </FooterButton>
     </>

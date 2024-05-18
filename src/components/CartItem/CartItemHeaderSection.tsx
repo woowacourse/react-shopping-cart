@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
+import Button from '../common/Button';
+
 import LocalStorage, { CART_ITEM } from '@/Storage';
 import { deleteItem } from '@apis/cartItem';
 import Checkbox from '@components/common/Checkbox';
@@ -29,9 +31,9 @@ const CartItemHeaderSection = ({ cartId, productName }: CartItemHeaderSectionPro
   return (
     <div css={cartItemHeader}>
       <Checkbox checked={isChecked} onChange={handleClickCheck} id={productName + 'checkbox'} />
-      <button css={deleteButton} onClick={handleDeleteItem}>
+      <Button id={productName + 'delete-button'} css={deleteButton} onClick={handleDeleteItem}>
         삭제
-      </button>
+      </Button>
     </div>
   );
 };
@@ -61,4 +63,8 @@ const deleteButton = css`
   background-color: #fff;
 
   font-size: 12px;
+
+  &:hover {
+    opacity: 0.7;
+  }
 `;

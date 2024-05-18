@@ -8,6 +8,7 @@ import CartFooterSection from '@components/Cart/CartOrderInfo';
 import CartMainSection from '@components/Cart/CartProducts';
 import CartHeaderSection from '@components/Cart/CartTitle';
 import OrderConfirmButton from '@components/Cart/OrderConfirmButton';
+import Button from '@components/common/Button';
 import { cartItemsState } from '@recoil/cartItems/atoms';
 
 import Header from '@components/Header';
@@ -33,9 +34,9 @@ function CartPage() {
   return (
     <>
       <Header>
-        <button css={homeButton} onClick={goHome}>
+        <Button id="home-button" onClick={goHome} css={homeButton}>
           SHOP
-        </button>
+        </Button>
       </Header>
       <main css={main}>
         <section css={cartSection}>
