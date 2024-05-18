@@ -13,7 +13,7 @@ const PriceTable = () => {
   return (
     <S.Container>
       <S.NoticeContainer>
-        <ImageBox src={NOTICE} width={16} height={16} border="none" />
+        <ImageBox src={NOTICE} width={16} height={16} border="none" alt='notice-icon' />
         <Text size="s" weight="m">
           총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
         </Text>

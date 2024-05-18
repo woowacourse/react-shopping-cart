@@ -42,7 +42,7 @@ const CartItem = ({ product, quantity: initialQuantity, cartItemId }: CartItemPr
         </Button>
       </S.ItemHeader>
       <S.ItemBody>
-        <ImageBox width={112} height={112} radius="m" border="lightGray" src={imageUrl} />
+        <ImageBox width={112} height={112} radius="m" border="lightGray" src={imageUrl} alt='product-image' />
         <S.ItemDetail>
           <S.ItemNameAndCost>
             <Text size="s" weight="m">
