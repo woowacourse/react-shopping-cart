@@ -2,7 +2,7 @@ import { FlexRow, WhiteSpace } from "@/style/common.style";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import CartItem from "@/components/Cart/CartItem";
-import CheckBox from "@/components/Button/CheckBoxButton";
+import CheckBox from "@/components/common/CheckBox";
 import { allSelectedState } from "@/store/selectors/allSelectedSelector";
 import { cartListState } from "@/store/atoms";
 import styled from "@emotion/styled";
@@ -18,7 +18,11 @@ const CartList = () => {
   return (
     <StyledListWrapper>
       <StyledAllCheckBox>
-        <CheckBox isSelected={isAllSelected} onClick={handleAllSelect} />
+        <CheckBox
+          id="all-select-checkbox"
+          isSelected={isAllSelected}
+          onClick={handleAllSelect}
+        />
         <span>전체선택</span>
       </StyledAllCheckBox>
       <StyledList>
