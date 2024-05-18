@@ -1,8 +1,8 @@
-import { cartItemsSelector, selectedIdsAtom } from '@recoil/shoppingCart';
+import { cartItemsAtom, selectedIdsAtom } from '@recoil/shoppingCart';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 const useCheckCartItem = () => {
-  const cartItems = useRecoilValue(cartItemsSelector);
+  const cartItems = useRecoilValue(cartItemsAtom);
 
   const [selectedCartItemIds, setSelectedCartItemIds] = useRecoilState(selectedIdsAtom);
 

@@ -1,3 +1,4 @@
+import { fetchCartItems } from '@apis/shoppingCart';
 import { CartItem } from '@appTypes/shoppingCart';
 import { STORAGE_KEY } from '@constants/storage';
 import { localStorageEffect } from '@recoil/common/localStorageEffect';
@@ -5,7 +6,7 @@ import { atom } from 'recoil';
 
 export const cartItemsAtom = atom<CartItem[]>({
   key: 'cartItemsAtom',
-  default: [],
+  default: Promise.resolve(fetchCartItems()),
 });
 
 export const selectedIdsAtom = atom<number[]>({

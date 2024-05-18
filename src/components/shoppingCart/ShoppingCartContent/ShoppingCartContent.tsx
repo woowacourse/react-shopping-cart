@@ -1,12 +1,12 @@
 import { UpsideDownExclamation } from '@assets/index';
 import { CartItemCount, CartList, OrderPrice } from '@components/shoppingCart';
-import { cartItemsSelector } from '@recoil/shoppingCart';
+import { cartItemsAtom } from '@recoil/shoppingCart';
 import { useRecoilValue } from 'recoil';
 
 import * as Styled from './ShoppingCardContent.styled';
 
 const ShoppingCartContent = () => {
-  const cartItems = useRecoilValue(cartItemsSelector);
+  const cartItems = useRecoilValue(cartItemsAtom);
 
   return (
     <>

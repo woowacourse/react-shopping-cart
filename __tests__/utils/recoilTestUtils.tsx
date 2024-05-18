@@ -1,5 +1,5 @@
 import { CartItem } from '@appTypes/shoppingCart';
-import { cartItemsSelector, selectedIdsAtom } from '@recoil/shoppingCart';
+import { cartItemsAtom, selectedIdsAtom } from '@recoil/shoppingCart';
 import { renderHook } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
 
@@ -14,7 +14,7 @@ export const renderHookWithRecoilRoot = <T,>(
     wrapper: ({ children }) => (
       <RecoilRoot
         initializeState={({ set }) => {
-          set(cartItemsSelector, initialItems || INITIAL_ITEMS);
+          set(cartItemsAtom, initialItems || INITIAL_ITEMS);
           set(selectedIdsAtom, initialSelectedIds || []);
         }}
       >

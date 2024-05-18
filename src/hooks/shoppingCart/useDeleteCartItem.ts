@@ -1,10 +1,10 @@
 import { fetchDeleteCartItem } from '@apis/shoppingCart';
-import { cartItemsSelector, selectedIdsAtom } from '@recoil/shoppingCart';
+import { cartItemsAtom, selectedIdsAtom } from '@recoil/shoppingCart';
 import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 const useDeleteCartItem = (id: number) => {
-  const setCartItems = useSetRecoilState(cartItemsSelector);
+  const setCartItems = useSetRecoilState(cartItemsAtom);
   const setSelectedCartItemIds = useSetRecoilState(selectedIdsAtom);
   const [fetchError, setFetchError] = useState<Error | null>(null);
 

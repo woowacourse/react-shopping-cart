@@ -1,12 +1,12 @@
 import { fetchCartItemCount } from '@apis/shoppingCart';
 import { CartItem, Sign } from '@appTypes/shoppingCart';
 import { COUNTS } from '@constants/shippingCart';
-import { cartItemsSelector } from '@recoil/shoppingCart';
+import { cartItemsAtom } from '@recoil/shoppingCart';
 import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 const useUpdateCartItemCount = ({ id, quantity }: CartItem) => {
-  const setCartItems = useSetRecoilState(cartItemsSelector);
+  const setCartItems = useSetRecoilState(cartItemsAtom);
   const [errorMessage, setErrorMessage] = useState('');
   const [fetchError, setFetchError] = useState<Error | null>(null);
 
