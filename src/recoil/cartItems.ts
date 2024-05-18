@@ -1,5 +1,4 @@
-import { getCartItems } from "@/apis";
-
+import { getCartItems } from "@/apis/cart";
 import { CartItem } from "@/types/cart";
 import { atom, selector } from "recoil";
 

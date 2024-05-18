@@ -1,4 +1,6 @@
-export const CartItemListMock = [
+import { CartItem } from "@/types/cart";
+
+export const CartItemListMock: CartItem[] = [
   {
     id: 1,
     quantity: 1,

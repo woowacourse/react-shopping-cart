@@ -1,7 +1,7 @@
 import { useRecoilState } from "recoil";
 
-import { patchCartItemQuantity } from "@/apis";
 import { cartItemQuantity } from "@/recoil/cartItemQuantity";
+import { patchCartItemQuantity } from "@/apis/cart";
 
 const useUpdateItemQuantity = (id: number) => {
   const [quantity, setQuantity] = useRecoilState(cartItemQuantity(id));

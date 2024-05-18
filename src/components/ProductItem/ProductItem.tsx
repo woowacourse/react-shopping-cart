@@ -13,10 +13,10 @@ import { CartItem } from "@/types/cart";
 
 import * as S from "./ProductItem.style";
 
-import { removeCartItem } from "@/apis";
 import { cartItems } from "@/recoil/cartItems";
 import { formatToWon } from "@/utils/stringHelper";
 import { selectedCartItemsIdState } from "@/recoil/selectedCardItems";
+import { removeCartItem } from "@/apis/cart";
 
 const ProductItem = ({ item }: { item: CartItem }) => {
   const { product, id } = item;
