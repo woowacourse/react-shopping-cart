@@ -59,9 +59,9 @@ const CartItem = ({ item }: Props) => {
   };
 
   const handleQuantity = (quantity: number) => {
-    setLoading(true);
     try {
       const patchData = async () => {
+        setLoading(true);
         await patchCartItem(id, quantity);
         const newValue = { ...filteredItemState };
         newValue.quantity = quantity;
