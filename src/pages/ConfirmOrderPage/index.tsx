@@ -1,23 +1,26 @@
-import { PropsWithChildren } from "react";
-import { useRecoilValue, useRecoilValueLoadable } from "recoil";
-import Header from "../../components/Header";
-import BottomButton from "../../components/common/BottomButton";
-import RecoilSuspense from "../../components/common/RecoilSuspense";
-import Layout from "../../layout";
+import { PropsWithChildren } from 'react';
+import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
+
+import Layout from '../../layout';
+import Header from '../../components/Header';
+import BottomButton from '../../components/common/BottomButton';
+import RecoilSuspense from '../../components/common/RecoilSuspense';
+
 import {
   cartListState,
   cartListTotalPrice,
   cartListTotalQuantity,
-} from "../../recoil/selectors";
+} from '../../recoil/selectors';
+
 import {
   ConfirmOrderContainer,
   OrderSummary,
   SubTitle,
   Title,
   TotalPrice,
-} from "./styles";
+} from './styles';
 
-const ConfirmOrderPage: React.FC<PropsWithChildren<{}>> = () => {
+const ConfirmOrderPage: React.FC<PropsWithChildren> = () => {
   const cartList = useRecoilValueLoadable(cartListState);
   const totalPrice = useRecoilValue(cartListTotalPrice);
   const totalQuantity = useRecoilValue(cartListTotalQuantity);
@@ -36,7 +39,7 @@ const ConfirmOrderPage: React.FC<PropsWithChildren<{}>> = () => {
           <Title>주문 확인</Title>
           <OrderSummary>
             <p>{`총 ${cartList.contents.length}종류의 상품 ${totalQuantity}개를 주문합니다.`}</p>
-            <p>최종 결제 금액을 확인해주세요.</p>
+            <p>최종 결제 금액을 확인해 주세요.</p>
           </OrderSummary>
 
           <TotalPrice>

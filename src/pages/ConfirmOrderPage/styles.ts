@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const ConfirmOrderContainer = styled.div`
   display: flex;
@@ -9,7 +9,7 @@ export const ConfirmOrderContainer = styled.div`
   gap: ${({ theme }) => theme.spacer.spacing4};
 `;
 
-export const Title = styled.div`
+export const Title = styled.h1`
   font-size: 24px;
   font-weight: 700;
 `;
