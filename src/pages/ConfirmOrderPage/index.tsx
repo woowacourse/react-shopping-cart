@@ -5,6 +5,8 @@ import Layout from '../../layout';
 import Header from '../../components/Header';
 import BottomButton from '../../components/common/BottomButton';
 import RecoilSuspense from '../../components/common/RecoilSuspense';
+import Fallback from '../../components/common/Fallback';
+import LoadingSpinner from '../../components/common/LoadingSpinner';
 
 import {
   cartListState,
@@ -34,7 +36,15 @@ const ConfirmOrderPage: React.FC<PropsWithChildren> = () => {
         </BottomButton>
       }
     >
-      <RecoilSuspense loadable={cartList} fallback={<div>안쪽 로딩 중...</div>}>
+      <RecoilSuspense
+        loadable={cartList}
+        fallback={
+          <Fallback
+            spinner={<LoadingSpinner />}
+            message="주문 정보 로딩 중입니다. 잠시만 기다려 주세요."
+          />
+        }
+      >
         <ConfirmOrderContainer>
           <Title>주문 확인</Title>
           <OrderSummary>
