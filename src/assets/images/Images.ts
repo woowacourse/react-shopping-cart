@@ -5,6 +5,7 @@ import minusButton from "./minusButton.png";
 import infoOutline from "./infoOutline.svg";
 import thunk from "./thunk.png";
 import goBack from "./goBack.svg";
+import seaOtter from "./seaOtter.mp4";
 
 const IMAGES = {
   checkedButton,
@@ -14,6 +15,7 @@ const IMAGES = {
   infoOutline,
   thunk,
   goBack,
+  seaOtter,
 };
 
 export default IMAGES;
