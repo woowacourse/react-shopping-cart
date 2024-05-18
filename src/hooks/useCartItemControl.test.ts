@@ -39,7 +39,7 @@ describe("useCartItemControl", () => {
     const mockUpdatingCartItemId = 1;
     const updatingQuantity = 2;
     const mockCartItems = [{ id: 1, quantity: 1 }];
-    it("1. patch api 요청 2. 상태 변경", async () => {
+    it(`updateQuantity 함수를 호출하면 -> 1. patch api 요청을 위해 'updateCartItemQuantity' 함수를 호출하고,  2. 상태 변경을 위해 'setRawCartItems' 함수를 호출한다.`, async () => {
       const mockUpdateCartItemQuantity = updateCartItemQuantity as jest.Mock;
       const setRawCartItems = jest.fn();
 
