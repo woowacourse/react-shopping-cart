@@ -13,24 +13,38 @@ const CartItemMainSection = ({ item }: CartItemMainSectionProps) => {
   const setCartItems = useSetRecoilState(cartItemsState);
 
   const handleDecrementQuantity = async () => {
-    setCartItems((prevItems) =>
-      prevItems.map((cartItem) =>
-        cartItem.id === item.id
-          ? { ...cartItem, quantity: Math.max(cartItem.quantity - 1, 1) }
-          : cartItem,
-      ),
-    );
-    await updateItemQuantity(item.id, item.quantity - 1);
+    try {
+      const newQuantity = Math.max(item.quantity - 1, 1);
+      const { status } = await updateItemQuantity(item.id, newQuantity);
+
+      if (status === 200) {
+        setCartItems((prevItems) =>
+          prevItems.map((cartItem) =>
+            cartItem.id === item.id ? { ...cartItem, quantity: newQuantity } : cartItem,
+          ),
+        );
+      }
+    } catch (err: unknown) {
+      const error = err as Error;
+      throw new Error(error.message);
+    }
   };
 
   const handleIncrementQuantity = async () => {
-    setCartItems((prevItems) =>
-      prevItems.map((cartItem) =>
-        cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem,
-      ),
-    );
+    try {
+      const { status } = await updateItemQuantity(item.id, item.quantity + 1);
 
-    await updateItemQuantity(item.id, item.quantity + 1);
+      if (status === 200) {
+        setCartItems((prevItems) =>
+          prevItems.map((cartItem) =>
+            cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem,
+          ),
+        );
+      }
+    } catch (err: unknown) {
+      const error = err as Error;
+      throw new Error(error.message);
+    }
   };
 
   return (
@@ -41,15 +55,16 @@ const CartItemMainSection = ({ item }: CartItemMainSectionProps) => {
         <span css={price}>{item.product.price.toLocaleString('ko-KR')}원</span>
         <div css={countWrapper}>
           <button
+            id="minus-button"
             css={countButton(item.quantity === 1)}
             onClick={handleDecrementQuantity}
             disabled={item.quantity === 1}
           >
-            <img src={MINUS} />
+            <img src={MINUS} alt={`${item.product.name}-minus`} />
           </button>
           <span>{item.quantity}</span>
           <button css={countButton()} onClick={handleIncrementQuantity}>
-            <img src={PLUS} />
+            <img src={PLUS} alt={`${item.product.name}-plus`} />
           </button>
         </div>
       </div>

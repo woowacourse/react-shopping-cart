@@ -19,8 +19,15 @@ const CartItemHeaderSection = ({ cartId }: CartItemHeaderSectionProps) => {
   };
 
   const handleDeleteItem = async () => {
-    setCartItems((prevItems) => prevItems.filter((cartItem) => cartItem.id !== cartId));
-    await deleteItem(cartId);
+    try {
+      const { status } = await deleteItem(cartId);
+      if (status === 204) {
+        setCartItems((prevItems) => prevItems.filter((cartItem) => cartItem.id !== cartId));
+      }
+    } catch (err: unknown) {
+      const error = err as Error;
+      throw new Error(error.message);
+    }
   };
 
   return (
