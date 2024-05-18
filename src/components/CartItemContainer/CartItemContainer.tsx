@@ -1,14 +1,14 @@
-import { useRecoilState } from 'recoil';
-import styled from '@emotion/styled';
+import { removeCartItem, updateCartItemQuantity } from '../../apis';
 
 import CartItem from '../CartItem/CartItem';
 import CheckBox from '../CheckBox/CheckBox';
-import { currentCartItemsState } from '../../recoil/atoms';
-import { removeCartItem, updateCartItemQuantity } from '../../apis';
+import { cartItemsState } from '../../recoil/selectors';
+import styled from '@emotion/styled';
 import useCheckedItemIds from '../../hooks/useCheckedItemIds';
+import { useRecoilState } from 'recoil';
 
 export default function CartItemContainer() {
-  const [items, setItems] = useRecoilState(currentCartItemsState);
+  const [items, setItems] = useRecoilState(cartItemsState);
   const { getIsChecked, checkId, uncheckId, deleteId } = useCheckedItemIds();
 
   const ids = items.map((item) => item.id);

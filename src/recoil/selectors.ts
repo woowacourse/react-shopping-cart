@@ -1,20 +1,24 @@
-import { selector } from 'recoil';
-import { isCheckedItemIdsState, itemQuantityState, currentCartItemsState } from './atoms';
-import { Product } from '../type';
-import { fetchCartItems } from '../apis';
+import { CartItem, Product } from '../type';
+import { isCheckedItemIdsState, itemQuantityState } from './atoms';
 
-export const cartItemsState = selector({
+import { fetchCartItems } from '../apis';
+import { selector } from 'recoil';
+
+export const cartItemsState = selector<CartItem[]>({
   key: 'cartItemsState',
   get: async () => {
     const cartItems = await fetchCartItems();
     return cartItems;
+  },
+  set: (_, newValue) => {
+    return newValue;
   },
 });
 
 export const orderAmountState = selector<number>({
   key: 'orderAmountState',
   get: ({ get }) => {
-    const cartItems = get(currentCartItemsState);
+    const cartItems = get(cartItemsState);
     const isCheckedItemIds = get(isCheckedItemIdsState);
 
     return cartItems.reduce((acc, cartItem) => {
@@ -29,7 +33,7 @@ export const orderAmountState = selector<number>({
 export const checkedItemState = selector({
   key: 'checkedItemState',
   get: ({ get }) => {
-    const cartItems = get(currentCartItemsState);
+    const cartItems = get(cartItemsState);
     const isCheckedItemIds = get(isCheckedItemIdsState);
 
     const result = cartItems.reduce(
@@ -49,7 +53,7 @@ export const checkedItemState = selector({
 export const hasCheckedItemsState = selector<boolean>({
   key: 'hasCheckedItemsState',
   get: ({ get }) => {
-    const cartItems = get(currentCartItemsState);
+    const cartItems = get(cartItemsState);
     const isCheckedItemIds = get(isCheckedItemIdsState);
 
     return cartItems.some((item) => isCheckedItemIds[item.id] !== false);
