@@ -35,7 +35,7 @@ export const FloatingButtonStyle = styled.button`
   bottom: 0;
   z-index: 1;
 
-  &.disabled {
+  &:disabled {
     background-color: rgba(190, 190, 190, 1);
     color: rgba(255, 255, 255, 1);
   }

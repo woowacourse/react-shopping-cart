@@ -32,7 +32,7 @@ export default function OrderConfirmPage() {
         <TotalPriceLabel>총 결제 금액</TotalPriceLabel>
         <TotalPrice>{totalPrice.toLocaleString('ko-kr')}원</TotalPrice>
       </OrderConfirmStyle>
-      <FloatingButton text="결제하기" isDisable={true} />
+      <FloatingButton text="결제하기" disabled />
     </div>
   );
 }

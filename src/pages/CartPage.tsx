@@ -16,7 +16,7 @@ export default function CartPage() {
       <Cart />
       <FloatingButton
         text="주문 확인"
-        isDisable={cartTotalCount ? false : true}
+        disabled={cartTotalCount ? false : true}
         onClick={() => {
           cartTotalCount && navigate('/order-confirm');
         }}

@@ -2,18 +2,15 @@ import { FloatingButtonStyle } from './Button.style';
 
 export default function FloatingButton({
   text,
-  isDisable,
+  disabled,
   onClick,
 }: {
   text: string;
-  isDisable?: boolean;
+  disabled?: boolean;
   onClick?: () => void;
 }) {
   return (
-    <FloatingButtonStyle
-      className={isDisable ? 'disabled' : ''}
-      onClick={onClick}
-    >
+    <FloatingButtonStyle onClick={onClick} disabled={disabled}>
       {text}
     </FloatingButtonStyle>
   );
