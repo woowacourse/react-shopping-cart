@@ -9,9 +9,10 @@ export const CheckboxContainer = styled.div`
 export const HiddenCheckbox = styled.input`
   border: 0;
   clip: rect(0 0 0 0);
-  clippath: inset(50%);
+  clip-path: inset(50%);
   width: 1px;
   height: 1px;
+  background: red;
   margin: -1px;
   overflow: hidden;
   padding: 0;
