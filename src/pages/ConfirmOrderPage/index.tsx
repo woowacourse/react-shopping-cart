@@ -9,6 +9,7 @@ import Fallback from '../../components/common/Fallback';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 
 import {
+  cartListNumberOfTypes,
   cartListState,
   cartListTotalPrice,
   cartListTotalQuantity,
@@ -26,6 +27,7 @@ const ConfirmOrderPage: React.FC<PropsWithChildren> = () => {
   const cartList = useRecoilValueLoadable(cartListState);
   const totalPrice = useRecoilValue(cartListTotalPrice);
   const totalQuantity = useRecoilValue(cartListTotalQuantity);
+  const numOfTypes = useRecoilValue(cartListNumberOfTypes);
 
   return (
     <Layout
@@ -48,7 +50,7 @@ const ConfirmOrderPage: React.FC<PropsWithChildren> = () => {
         <ConfirmOrderContainer>
           <Title>주문 확인</Title>
           <OrderSummary>
-            <p>{`총 ${cartList.contents.length}종류의 상품 ${totalQuantity}개를 주문합니다.`}</p>
+            <p>{`총 ${numOfTypes}종류의 상품 ${totalQuantity}개를 주문합니다.`}</p>
             <p>최종 결제 금액을 확인해 주세요.</p>
           </OrderSummary>
 

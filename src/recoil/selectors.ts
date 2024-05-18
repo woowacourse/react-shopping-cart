@@ -48,11 +48,29 @@ export const cartListTotalQuantity = selector({
   get: ({ get }) => {
     const cartList = get(cartListState);
     const totalQuantity = cartList.reduce((acc, cartItem) => {
+      const isSelectedItem = get(cartItemSelected(cartItem.id));
       const quantity = get(cartItemQuantity(cartItem.id));
-      return acc + quantity;
+
+      if (isSelectedItem) return acc + quantity;
+      return acc;
     }, 0);
 
     return totalQuantity;
+  },
+});
+
+export const cartListNumberOfTypes = selector({
+  key: 'cartListNumberOfTypes',
+  get: ({ get }) => {
+    const cartList = get(cartListState);
+    const numberOfTypes = cartList.reduce((acc, cartItem) => {
+      const isSelectedItem = get(cartItemSelected(cartItem.id));
+
+      if (isSelectedItem) return acc + 1;
+      return acc;
+    }, 0);
+
+    return numberOfTypes;
   },
 });
 
@@ -86,6 +104,7 @@ export const cartItemAllSelected = selector<boolean>({
     const storageState = CartItemLocalStorage.get(
       CART_ITEM_SELECTED_STORAGE_KEY
     );
+
     if (storageState) {
       Object.keys(storageState).forEach((id) => {
         set(cartItemSelected(parseInt(id)), newValue);
