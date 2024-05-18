@@ -22,7 +22,7 @@ const CartItem = ({ id, product, removeCartItem }: CartItemProps) => {
   const checkCartItem = useSetRecoilState(checkCartItemSelector);
   const uncheckCartItem = useSetRecoilState(uncheckCartItemSelector);
 
-  const isCheckedItem = checkItems.includes(id) ? true : false;
+  const isCheckedItem = checkItems.includes(id);
 
   const handleRemoveItem = () => {
     if (!confirm("정말로 삭제하시겠습니까?")) return;
