@@ -12,7 +12,7 @@ import {
 } from './selectors';
 import { itemDetailsState, itemsState } from './atoms';
 import { act } from 'react';
-import { Products } from '../types/Product';
+import { CartItems } from '../types/Item';
 
 const dataA = {
   id: 1,
@@ -108,7 +108,7 @@ describe('totalPriceSelector', () => {
       };
 
       act(() => {
-        result.current.setItems((preState: Products[]) => [...preState, data]);
+        result.current.setItems((preState: CartItems[]) => [...preState, data]);
       });
       act(() => {
         result.current.setItemDetails({
@@ -246,7 +246,7 @@ describe('totalCountSelector', () => {
       );
 
       act(() => {
-        result.current.setItems((preState: Products[]) => [
+        result.current.setItems((preState: CartItems[]) => [
           ...preState,
           ...input,
         ]);

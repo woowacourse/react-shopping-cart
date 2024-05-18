@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { removeCartItem } from '../../api';
 import { itemDetailsState, itemsState } from '../../recoil/atoms';
-import { Products } from '../../types/Product';
+import { CartItems } from '../../types/Item';
 import { fetchCartItemQuantity } from '../../api';
 import CheckBox from '../CheckBox/CheckBox';
 import {
@@ -94,39 +94,39 @@ const DeleteButton = styled.button`
 `;
 
 interface ProductProps {
-  product: Products;
+  item: CartItems;
 }
 
-function ProductCard({ product }: ProductProps) {
-  const [details, setDetails] = useRecoilState(itemDetailsState(product.id));
+function ItemCard({ item }: ProductProps) {
+  const [details, setDetails] = useRecoilState(itemDetailsState(item.id));
   const setItems = useSetRecoilState(itemsState);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const localStorageList = getLocalStorage();
     const localStorageProduct = localStorageList.find(
-      (value) => value.id === product.id,
+      (value) => value.id === item.id,
     );
     setDetails({
-      quantity: product.quantity,
-      price: product.product.price,
+      quantity: item.quantity,
+      price: item.product.price,
       isChecked: localStorageProduct ? localStorageProduct.isChecked : true,
     });
-  }, [product.quantity, product.product.price, setDetails, product.id]);
+  }, [item.quantity, item.product.price, setDetails, item.id]);
 
   useEffect(() => {
     const fetchData = async () => {
       setError(null);
 
       try {
-        await fetchCartItemQuantity(product.id, details.quantity);
+        await fetchCartItemQuantity(item.id, details.quantity);
       } catch (error) {
         setError(error as Error);
       }
     };
 
     fetchData();
-  }, [details, product.id]);
+  }, [details, item.id]);
 
   const handleDecreasedQuantity = () => {
     setDetails((prevQuantity) => ({
@@ -153,7 +153,7 @@ function ProductCard({ product }: ProductProps) {
       isChecked: !prevState.isChecked,
     }));
 
-    UpdateLocalStorage({ id: product.id, isChecked: !details.isChecked });
+    UpdateLocalStorage({ id: item.id, isChecked: !details.isChecked });
   };
 
   if (error) {
@@ -164,22 +164,17 @@ function ProductCard({ product }: ProductProps) {
     <CardContainer>
       <CardHeader>
         <CheckBox isChecked={details.isChecked} onClick={handleCheckedItem} />
-        <DeleteButton onClick={() => handleRemoveItem(product.id)}>
+        <DeleteButton onClick={() => handleRemoveItem(item.id)}>
           {MESSAGES.delete}
         </DeleteButton>
       </CardHeader>
 
       <CardContent>
-        <ItemImg
-          src={product.product.imageUrl}
-          alt={`${product.product.name}사진`}
-        />
+        <ItemImg src={item.product.imageUrl} alt={`${item.product.name}사진`} />
         <CardDetail>
           <CardInfo>
-            <ProductName>{product.product.name}</ProductName>
-            <ProductPrice>
-              {product.product.price.toLocaleString()}원
-            </ProductPrice>
+            <ProductName>{item.product.name}</ProductName>
+            <ProductPrice>{item.product.price.toLocaleString()}원</ProductPrice>
           </CardInfo>
           <CardQuantityButton>
             <CountButton onClick={handleDecreasedQuantity}>-</CountButton>
@@ -192,4 +187,4 @@ function ProductCard({ product }: ProductProps) {
   );
 }
 
-export default ProductCard;
+export default ItemCard;

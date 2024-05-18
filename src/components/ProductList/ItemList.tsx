@@ -1,5 +1,5 @@
-import { Products } from '../../types/Product';
-import ProductCard from '../ProductCard/ProductCard';
+import { CartItems } from '../../types/Item';
+import ItemCard from '../ProductCard/ItemCard';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { itemsState } from '../../recoil/atoms';
 import styled from 'styled-components';
@@ -31,7 +31,7 @@ const CartItemListContainer = styled.ul`
   gap: 15px;
 `;
 
-function ProductList() {
+function ItemList() {
   const items = useRecoilValue(itemsState);
 
   const isAllChecked = useRecoilValue(toggleAllSelector);
@@ -53,12 +53,12 @@ function ProductList() {
       </CheckBoxContainer>
 
       <CartItemListContainer>
-        {items.map((product: Products) => {
-          return <ProductCard key={product.id} product={product} />;
+        {items.map((product: CartItems) => {
+          return <ItemCard key={product.id} item={product} />;
         })}
       </CartItemListContainer>
     </ProductListContainer>
   );
 }
 
-export default ProductList;
+export default ItemList;

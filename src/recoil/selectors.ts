@@ -1,8 +1,8 @@
 import { DefaultValue, selector } from 'recoil';
 import { itemDetailsState, itemsState } from './atoms';
-import { Products } from '../types/Product';
+import { CartItems } from '../types/Item';
 import { UpdateLocalStorage } from '../utils/UpdateLocalStorage';
-import { fetchProducts } from '../api';
+import { fetchItems } from '../api';
 
 /**
  * 전체 금액, 배송비 계산, 총 결제 금액 계산
@@ -35,14 +35,14 @@ export const totalPriceSelector = selector({
 export const toggleAllSelector = selector<boolean>({
   key: 'toggleAllSelector',
   get: ({ get }): boolean => {
-    const items: Products[] = get(itemsState);
+    const items: CartItems[] = get(itemsState);
     return items.every((item) => get(itemDetailsState(item.id)).isChecked);
   },
   set: ({ get, set }, newValue: boolean | DefaultValue) => {
     if (newValue instanceof DefaultValue) {
       return;
     }
-    const items: Products[] = get(itemsState);
+    const items: CartItems[] = get(itemsState);
     items.forEach((item) => {
       set(itemDetailsState(item.id), (prev) => ({
         ...prev,
@@ -75,10 +75,10 @@ export const totalCountSelector = selector({
 /**
  * 장바구니 초기 데이터 API 호출
  */
-export const fetchProductsSelector = selector({
-  key: 'fetchProductsSelector',
+export const fetchItemsSelector = selector({
+  key: 'fetchItemsSelector',
   get: async () => {
-    const data = await fetchProducts();
+    const data = await fetchItems();
     return data;
   },
   set: ({ set }, newValue) => {
