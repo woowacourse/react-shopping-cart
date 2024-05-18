@@ -28,7 +28,7 @@ export const deliveryPriceState = selector<number>({
   key: 'deliveryPriceState',
   get: ({ get }) => {
     const orderPrice = get(orderPriceState);
-    const deliveryPrice = orderPrice > 100000 ? 0 : 3000;
+    const deliveryPrice = orderPrice > 100000 || orderPrice === 0 ? 0 : 3000;
     return deliveryPrice;
   },
 });
