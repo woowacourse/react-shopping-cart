@@ -8,13 +8,12 @@ interface Props {
 }
 
 const CheckBox = ({ isSelected, onClick }: Props) => {
-  return isSelected ? (
+  return (
     <StyledButton onClick={onClick}>
-      <img src={Checked} alt="checkbox" />
-    </StyledButton>
-  ) : (
-    <StyledButton onClick={onClick}>
-      <img src={UnChecked} alt="checkbox" />
+      <img
+        src={isSelected ? Checked : UnChecked}
+        alt={isSelected ? 'Checked box' : 'Unchecked box'}
+      />
     </StyledButton>
   );
 };
