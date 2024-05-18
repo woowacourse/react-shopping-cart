@@ -1,5 +1,4 @@
 .header {
-  font-family: Noto Sans;
   font-size: 20px;
   font-weight: 800;
   line-height: 16px;
@@ -18,7 +17,6 @@
   color: #fff;
   position: absolute;
   bottom: 0;
-  font-family: Noto Sans;
   font-size: 16px;
 }
 
