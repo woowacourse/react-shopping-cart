@@ -35,11 +35,7 @@ export default function CartItemList({ cartItems }: ICartItemList) {
       </S.SelectAll>
       <S.CartItemList>
         {cartItems.map((cartItem) => (
-          <CartItemView
-            key={cartItem.product.id}
-            cartItem={cartItem}
-            cartItemControl={cartItemControl}
-          />
+          <CartItemView key={cartItem.id} cartItem={cartItem} cartItemControl={cartItemControl} />
         ))}
       </S.CartItemList>
     </S.CartItemListContainer>

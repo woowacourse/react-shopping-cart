@@ -13,7 +13,11 @@ export default {
               path: "node_modules/ts-jest-mock-import-meta",
               options: {
                 metaObjectReplacement: {
-                  env: { VITE_API_URL: "empty", VITE_USERNAME: "empty", VITE_PASSWORD: "empty" },
+                  env: {
+                    VITE_CART_API_URL: "empty",
+                    VITE_USERNAME: "empty",
+                    VITE_PASSWORD: "empty",
+                  },
                 },
               },
             },
