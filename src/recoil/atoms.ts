@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 import { KEY } from '../constants/constants';
-import localStorageEffect from '../utils/localStorageEffect';
+import syncWithLocalStorage from '../utils/syncWithLocalStorage';
 
 export interface SelectedCartItem {
   cartItemId: number;
@@ -11,7 +11,7 @@ export interface SelectedCartItem {
 export const selectedCartItems = atom<SelectedCartItem[]>({
   key: KEY.CART_ITEMS,
   default: [],
-  effects: [localStorageEffect<SelectedCartItem[]>(KEY.CART_ITEMS)],
+  effects: [syncWithLocalStorage<SelectedCartItem[]>(KEY.CART_ITEMS)],
 });
 
 export interface ItemQuantity {
