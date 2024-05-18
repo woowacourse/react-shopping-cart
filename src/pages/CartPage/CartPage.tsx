@@ -1,4 +1,4 @@
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { totalItemOrderCountSelector } from "@/recoil/orderInformation";
 
 import Caption from "@/components/_common/Caption/Caption";
@@ -14,34 +14,41 @@ import ProductList from "@/components/ProductList/ProductList";
 import OrderConfirmButton from "@/components/OrderConfirmButton/OrderConfirmButton";
 import useSelectAll from "@/hooks/useSelectAll";
 import { cartItems } from "@/recoil/cartItems";
+import CartPageSkeleton from "./CartPage.skeleton";
 
 const CartPage = () => {
   const { isAllItemSelected, selectAllItem, unselectAllItem } = useSelectAll();
   const selectedItems = useRecoilValue(totalItemOrderCountSelector);
-  const cartItemList = useRecoilValue(cartItems);
+  const cartItemList = useRecoilState(cartItems);
 
   return (
     <>
-      <S.CartPageLayout>
-        <TitleSet
-          title={CART_PAGE_TITLES.cart}
-          subTitle={CART_PAGE_MESSAGES.itemCount(cartItemList.length)}
-        />
-        <S.CheckBoxWrapper>
-          <CheckBox
-            isChecked={isAllItemSelected}
-            onClick={isAllItemSelected ? unselectAllItem : selectAllItem}
-          />
-          <Caption text={CART_PAGE_TITLES.selectAll} />
-        </S.CheckBoxWrapper>
-        <ProductList />
-        <Caption
-          asset={() => <MoreInfo />}
-          text={CART_PAGE_MESSAGES.freeShippingInfo}
-        />
-        <PriceSection />
-      </S.CartPageLayout>
-      <OrderConfirmButton disabled={!selectedItems} />
+      {cartItemList.length ? (
+        <>
+          <S.CartPageLayout>
+            <TitleSet
+              title={CART_PAGE_TITLES.cart}
+              subTitle={CART_PAGE_MESSAGES.itemCount(cartItemList.length)}
+            />
+            <S.CheckBoxWrapper>
+              <CheckBox
+                isChecked={isAllItemSelected}
+                onClick={isAllItemSelected ? unselectAllItem : selectAllItem}
+              />
+              <Caption text={CART_PAGE_TITLES.selectAll} />
+            </S.CheckBoxWrapper>
+            <ProductList />
+            <Caption
+              asset={() => <MoreInfo />}
+              text={CART_PAGE_MESSAGES.freeShippingInfo}
+            />
+            <PriceSection />
+          </S.CartPageLayout>
+          <OrderConfirmButton disabled={!selectedItems} />
+        </>
+      ) : (
+        <CartPageSkeleton />
+      )}
     </>
   );
 };

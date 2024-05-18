@@ -1,7 +1,7 @@
 import { CartItem } from "@/types/cart";
 import { basicToken } from ".";
 import { ErrorMessage } from "@/constants/error";
-import { API_URL } from "@/constants/url";
+import { API_URL } from "./url";
 
 export async function getCartItems(): Promise<CartItem[]> {
   const response = await fetch(`${API_URL.cartItems}`, {
