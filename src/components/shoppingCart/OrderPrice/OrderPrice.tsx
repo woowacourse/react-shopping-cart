@@ -1,10 +1,13 @@
-import { orderCostsSelector } from '@recoil/shoppingCart';
+import { orderPriceSelector, shippingFeeSelector, totalPriceSelector } from '@recoil/shoppingCart';
 import { formatKoreanCurrency } from '@utils/index';
 import { useRecoilValue } from 'recoil';
 
 import * as Styled from './OrderPrice.styled';
 const OrderPrice = () => {
-  const { orderPrice, shippingPrice, totalPrice } = useRecoilValue(orderCostsSelector);
+  const orderPrice = useRecoilValue(orderPriceSelector);
+  const shippingFee = useRecoilValue(shippingFeeSelector);
+  const totalPrice = useRecoilValue(totalPriceSelector);
+
   return (
     <Styled.OrderPrice>
       <Styled.PriceGroup>
@@ -14,7 +17,7 @@ const OrderPrice = () => {
         </Styled.PriceRow>
         <Styled.PriceRow>
           <Styled.PriceLabel>배송비</Styled.PriceLabel>
-          <Styled.PriceAmount>{formatKoreanCurrency(shippingPrice)}</Styled.PriceAmount>
+          <Styled.PriceAmount>{formatKoreanCurrency(shippingFee)}</Styled.PriceAmount>
         </Styled.PriceRow>
       </Styled.PriceGroup>
       <Styled.PriceGroup>
