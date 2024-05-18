@@ -1,6 +1,7 @@
+import { isCheckedItemIdsState } from '../recoil/atoms';
+import parseJsonSafely from '../utils/parseJsonSafely';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { isCheckedItemIdsState } from '../recoil/atoms';
 
 const IS_CHECKED_ITEM = 'isCheckedItem';
 
@@ -10,7 +11,7 @@ const useCheckedItemIds = () => {
   useEffect(() => {
     const localStorageItemIds = localStorage.getItem(IS_CHECKED_ITEM);
     const parsedCheckedItemIds: Record<number, boolean> = localStorageItemIds
-      ? JSON.parse(localStorageItemIds)
+      ? parseJsonSafely(localStorageItemIds) ?? {}
       : {};
     setRecoilCheckedItemIds(parsedCheckedItemIds);
   }, [setRecoilCheckedItemIds]);
