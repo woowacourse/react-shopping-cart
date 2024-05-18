@@ -15,14 +15,14 @@ const TotalAmountContainer = styled.div`
 `;
 
 const NotificationIconImg = styled.img`
-  width: 1rem;
-  height: 1rem;
+  width: 1.2rem;
+  height: 1.2rem;
 `;
 
 const InformationMsg = styled.div`
   display: flex;
   align-items: center;
-  font-size: 1rem;
+  font-size: 1.2rem;
   gap: 0.4rem;
 `;
 
