@@ -1,25 +1,30 @@
-import { useRecoilState } from "recoil";
-import { updateCartItemQuantity } from "../../../api";
-import MinusIcon from "../../../assets/minusIcon.png";
-import PlusIcon from "../../../assets/plusIcon.png";
-import { cartItemQuantity } from "../../../recoil/atoms";
-import BorderButton from "../../common/BorderButton";
-import QuantityContainer from "./style";
+import { useRecoilState } from 'recoil';
+import { updateCartItemQuantity } from '../../../api';
+import MinusIcon from '../../../assets/minusIcon.png';
+import PlusIcon from '../../../assets/plusIcon.png';
+import { cartItemQuantity } from '../../../recoil/atoms';
+import BorderButton from '../../common/BorderButton';
+import QuantityContainer from './style';
 
 export default function CartItemQuantity({ itemId }: { itemId: number }) {
   const [quantity, setQuantity] = useRecoilState(cartItemQuantity(itemId));
 
+  const updateQuantity = (newQuantity: number) => {
+    updateCartItemQuantity(itemId, newQuantity).then(() => {
+      setQuantity(newQuantity);
+    });
+  };
+
   const handleIncreaseQuantity = () => {
-    updateCartItemQuantity(itemId, quantity + 1);
-    setQuantity(quantity + 1);
+    const newQuantity = quantity + 1;
+    updateQuantity(newQuantity);
   };
 
   const handleDecreaseQuantity = () => {
-    if (quantity - 1 >= 0) {
-      updateCartItemQuantity(itemId, quantity - 1);
+    const newQuantity = quantity - 1;
+    if (newQuantity >= 1) {
+      updateQuantity(newQuantity);
     }
-
-    setQuantity(Math.max(quantity - 1, 0));
   };
 
   return (
