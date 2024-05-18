@@ -5,7 +5,7 @@ const useToggleAllChecked = () => {
   const [isAllChecked, setIsAllChecked] = useRecoilState(isAllCheckedCartItems);
 
   const handleToggleAll = () => {
-    setIsAllChecked(!isAllChecked); // 토글 상태를 반전하여 set 함수 호출
+    setIsAllChecked((prev) => !prev);
   };
   return {
     isAllChecked,
