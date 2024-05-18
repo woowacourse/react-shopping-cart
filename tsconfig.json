@@ -35,6 +35,7 @@
       "@routes/*": ["routes/*"],
       "@pages/*": ["pages/*"],
       "@apis/*": ["apis/*"],
+      "@errors/*": ["errors/*"],
       "@appTypes/*": ["appTypes/*"],
       "@recoil/*": ["recoil/*"]
     }

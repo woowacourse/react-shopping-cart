@@ -1,4 +1,5 @@
 import { CartItem } from '@appTypes/shoppingCart';
+import HTTPError from '@errors/HTTPError';
 import { generateBasicToken } from '@utils/auth';
 
 const API_URL = process.env.VITE_API_URL as string;
@@ -14,7 +15,7 @@ export async function fetchCartItems(): Promise<CartItem[]> {
   });
 
   if (!response.ok) {
-    throw new Error('Failed to fetch products');
+    throw new HTTPError(response.status, 'Failed to fetch products');
   }
 
   const data = await response.json();
@@ -37,8 +38,12 @@ export async function fetchCartItemCount(productId: number, quantity: number) {
   });
 
   if (!response.ok) {
-    throw new Error('Failed to add cart item');
+    throw new HTTPError(response.status, 'Failed to add cart item');
   }
+
+  const result = await response.json();
+
+  return result;
 }
 
 export async function fetchDeleteCartItem(productId: number) {
@@ -53,6 +58,6 @@ export async function fetchDeleteCartItem(productId: number) {
   });
 
   if (!response.ok) {
-    throw new Error('Failed to delete cart item');
+    throw new HTTPError(response.status, 'Failed to delete cart item');
   }
 }

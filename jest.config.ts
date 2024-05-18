@@ -18,6 +18,7 @@ export default {
     '^@pages/(.*)$': '<rootDir>/src/pages/$1',
     '^@apis/(.*)$': '<rootDir>/src/apis/$1',
     '^@appTypes/(.*)$': '<rootDir>/src/appTypes/$1',
+    '^@errors/(.*)$': '<rootDir>/src/errors/$1',
     '^@recoil/(.*)$': '<rootDir>/src/recoil/$1',
   },
   testPathIgnorePatterns: ['<rootDir>/__tests__/constants/'],
