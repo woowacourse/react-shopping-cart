@@ -1,3 +1,4 @@
+import { Sign } from '@appTypes/shoppingCart';
 import { Minus, Plus } from '@assets/index';
 import React from 'react';
 
@@ -7,10 +8,8 @@ const SIGN = {
   minus: <Minus />,
   plus: <Plus />,
 };
-const CountButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement> & { sign: 'plus' | 'minus' }> = ({
-  sign,
-  ...rest
-}) => {
+
+const CountButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement> & { sign: Sign }> = ({ sign, ...rest }) => {
   return <Styled.CounterButton {...rest}>{SIGN[sign]}</Styled.CounterButton>;
 };
 

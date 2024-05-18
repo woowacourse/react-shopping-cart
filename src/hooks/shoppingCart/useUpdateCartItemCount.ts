@@ -1,25 +1,43 @@
 import { fetchCartItemCount } from '@apis/shoppingCart';
-import { CartItem } from '@appTypes/shoppingCart';
+import { CartItem, Sign } from '@appTypes/shoppingCart';
+import { COUNTS } from '@constants/shippingCart';
 import { cartItemsSelector } from '@recoil/shoppingCart';
 import { useSetRecoilState } from 'recoil';
 
 const useUpdateCartItemCount = ({ id, quantity }: CartItem) => {
   const setCartItems = useSetRecoilState(cartItemsSelector);
 
-  const getNewQuantity = (sign: 'minus' | 'plus') => {
-    const newQuantity = quantity + (sign === 'minus' && quantity ? -1 : +1);
+  const getNewQuantity = (sign: Sign) => {
+    return quantity + COUNTS[sign];
+  };
+  /**
+   * 최대 수량을 넘는 수량 변경을 시도하는지 여부
+   * @param quantity :현재 수량
+   * @param sign  : 수량 변경 버튼 기호
+   */
+  const isAttemptingToGoOverMax = (quantity: number, sign: Sign) => {
+    const { max, message } = COUNTS;
+    const isTry = quantity === max && sign === 'plus';
+    return isTry;
+  };
 
-    if (newQuantity === 0) {
-      alert('상품의 최소 주문 수량은 1개입니다. 상품을 삭제하시려면 삭제 버튼을 이용해 주세요.');
-      return quantity;
-    }
+  /**
+   * 최소 수량을 미만의 수량 변경을 시도하는지 여부
+   * @param quantity :현재 수량
+   * @param sign  : 수량 변경 버튼 기호
+   */
+  const isAttemptingToGoUnderMin = (quantity: number, sign: Sign) => {
+    const { min, message } = COUNTS;
+    const isTry = quantity === min && sign === 'minus';
 
-    if (newQuantity === 101) {
-      alert('상품의 최대 주문 수량은 100개입니다. 100개 이하로 주문해 주세요.');
-      return quantity;
-    }
+    return isTry;
+  };
 
-    return newQuantity;
+  const validateQuantity = (quantity: number, sign: Sign) => {
+    const isValidated = !(isAttemptingToGoUnderMin(quantity, sign) || isAttemptingToGoOverMax(quantity, sign));
+
+
+    return isValidated;
   };
 
   const updateCartItems = (newQuantity: number) => {
@@ -30,7 +48,9 @@ const useUpdateCartItemCount = ({ id, quantity }: CartItem) => {
     );
   };
 
-  const onUpdateCartItemCount = async (sign: 'minus' | 'plus') => {
+  const onUpdateCartItemCount = async (sign: Sign) => {
+    if (!validateQuantity(quantity, sign)) return;
+    //유효한 수량변경일 경우 fetch 및 상태 변경
     const newQuantity = getNewQuantity(sign);
 
     await fetchCartItemCount(id, newQuantity);

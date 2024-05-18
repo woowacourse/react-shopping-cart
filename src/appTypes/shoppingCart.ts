@@ -13,3 +13,5 @@ export interface CartItem {
 }
 
 export type CheckedStates = Pick<CartItem, 'id'> & { isChecked: boolean };
+
+export type Sign = 'minus' | 'plus';
