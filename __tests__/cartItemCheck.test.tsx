@@ -60,7 +60,7 @@ describe('상품 선택 테스트', () => {
     });
 
     await waitFor(() => {
-      result.current.onCheckCartItem(true, ID);
+      result.current.onCheckCartItem(ID);
     });
 
     expect(result.current.isChecked(ID)).toBeTruthy();
@@ -89,8 +89,10 @@ describe('상품 선택 테스트', () => {
       return result.current !== undefined;
     });
 
+    console.log(result.current.isAllChecked);
+
     await waitFor(() => {
-      result.current.onCheckAllCartItems(true);
+      result.current.onCheckAllCartItems();
     });
 
     expect(result.current.isAllChecked).toBeTruthy();
@@ -120,11 +122,11 @@ describe('상품 선택 테스트', () => {
     });
 
     await waitFor(() => {
-      result.current.onCheckAllCartItems(true);
+      result.current.onCheckAllCartItems();
     });
 
     await waitFor(() => {
-      result.current.onCheckAllCartItems(false);
+      result.current.onCheckAllCartItems();
     });
 
     expect(result.current.isAllChecked).toBeFalsy();
@@ -153,11 +155,13 @@ describe('상품 선택 테스트', () => {
     });
 
     await waitFor(() => {
-      result.current.onCheckAllCartItems(true);
+      result.current.onCheckAllCartItems();
     });
 
+    console.log(result.current.isAllChecked);
+
     await waitFor(() => {
-      result.current.onCheckCartItem(false, INITIAL_ITEMS[0].id);
+      result.current.onCheckCartItem(INITIAL_ITEMS[0].id);
     });
 
     expect(result.current.isAllChecked).toBeFalsy();
