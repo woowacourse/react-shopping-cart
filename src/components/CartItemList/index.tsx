@@ -1,13 +1,18 @@
 import CheckboxButton from "../Button/CheckboxButton/index";
-import { useSetRecoilState, useRecoilValue, useRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 import CartItem from "../CartItem/index";
 import { uncheckAllCartItemSelector, checkAllCartSelector } from "../../recoil/selectors";
-import { cartItemsState, checkedCartItemsState } from "../../recoil/atoms";
+import { checkedCartItemsState } from "../../recoil/atoms";
 import styled from "styled-components";
 import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../constants/styles";
+import { CartItemResponse } from "../../types/ShoppingCart";
 
-const CartItemList = () => {
-  const [cartItems, setCartItems] = useRecoilState(cartItemsState);
+interface CartItemListProps {
+  cartItems: CartItemResponse[];
+  removeCartItem: (itemId: number) => void;
+}
+
+const CartItemList = ({ cartItems, removeCartItem }: CartItemListProps) => {
   const checkedCartItems = useRecoilValue(checkedCartItemsState);
   const checkAllCartItem = useSetRecoilState(checkAllCartSelector);
   const uncheckAllCartItem = useSetRecoilState(uncheckAllCartItemSelector);
@@ -15,10 +20,6 @@ const CartItemList = () => {
   const isAllChecked = checkedCartItems.length === cartItems?.length;
 
   const allCartItemsId = cartItems ? cartItems.map((item) => item.id) : [];
-
-  const removeCartItem = (itemId: number) => {
-    setCartItems((prevItems) => prevItems?.filter((item) => item.id !== itemId));
-  };
 
   return (
     <CartItemListContainer>
