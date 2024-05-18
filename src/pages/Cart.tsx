@@ -1,14 +1,14 @@
-import CartList from '@/components/Cart/CartList';
-import CartRecipe from '@/components/Cart/CartRecipe';
-import CartTitle from '@/components/Cart/CartTitle';
-import EmptyCart from '@/components/EmptyCart';
-import FullWidthButton from '@/components/Button/FullWidthButton';
-import Header from '@/components/Header.tsx';
-import { cartListState } from '@/store/atoms';
-import { recipeState } from '@/store/selectors/recipeSelector';
-import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import CartList from "@/components/Cart/CartList";
+import CartRecipe from "@/components/Cart/CartRecipe";
+import CartTitle from "@/components/Cart/CartTitle";
+import EmptyCart from "@/components/EmptyCart";
+import FullWidthButton from "@/components/Button/FullWidthButton";
+import Header from "@/components/Header.tsx";
+import { cartListState } from "@/store/atoms";
+import { recipeState } from "@/store/selectors/recipeSelector";
+import styled from "@emotion/styled";
+import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const Cart = () => {
             <CartRecipe />
             <FullWidthButton
               onClick={() => {
-                navigate('/order-confirm');
+                navigate("/order-confirm");
               }}
               disable={orderPrice === 0 ? true : false}
             >

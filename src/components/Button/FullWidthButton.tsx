@@ -1,5 +1,5 @@
-import { FlexCenter } from '@/style/common.style';
-import styled from '@emotion/styled';
+import { FlexCenter } from "@/style/common.style";
+import styled from "@emotion/styled";
 
 interface Props {
   disable?: boolean;
@@ -32,5 +32,5 @@ const StyledButton = styled.button<{ disable: boolean }>`
   font-weight: 700;
   border: none;
   cursor: pointer;
-  background-color: ${({ disable }) => (disable ? '#BEBEBE' : '#000000')};
+  background-color: ${({ disable }) => (disable ? "#BEBEBE" : "#000000")};
 `;

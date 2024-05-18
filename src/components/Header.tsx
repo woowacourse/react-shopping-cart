@@ -1,19 +1,19 @@
-import ArrowBack from '@/assets/Arrow-Back.svg';
-import { Link } from 'react-router-dom';
-import Logo from '@/assets/Logo.svg';
-import styled from '@emotion/styled';
+import ArrowBack from "@/assets/Arrow-Back.svg";
+import { Link } from "react-router-dom";
+import Logo from "@/assets/Logo.svg";
+import styled from "@emotion/styled";
 
-type HeaderType = 'Logo' | 'ArrowBack';
+type HeaderType = "Logo" | "ArrowBack";
 
 interface Props {
   type?: HeaderType;
 }
 
-const Header = ({ type = 'Logo' }: Props) => {
+const Header = ({ type = "Logo" }: Props) => {
   return (
     <StyledHeader>
       <Link to="/">
-        <img src={type === 'Logo' ? Logo : ArrowBack} alt="" />
+        <img src={type === "Logo" ? Logo : ArrowBack} alt="" />
       </Link>
     </StyledHeader>
   );

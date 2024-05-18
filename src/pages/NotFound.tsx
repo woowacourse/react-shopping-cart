@@ -1,8 +1,8 @@
-import { FlexCenter, FlexColumn } from '@/style/common.style';
+import { FlexCenter, FlexColumn } from "@/style/common.style";
 
-import Header from '@/components/Header';
-import NotFound404 from '@/assets/NotFound404.avif';
-import styled from '@emotion/styled';
+import Header from "@/components/Header";
+import NotFound404 from "@/assets/NotFound404.avif";
+import styled from "@emotion/styled";
 
 const NotFound = () => {
   return (

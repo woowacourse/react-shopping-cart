@@ -3,7 +3,7 @@ export const CART_MESSAGE = {
     `현재 ${itemQuantity}종류의 상품이 담겨있습니다`,
   freeShipping: (price: number) =>
     `총 주문 금액이 ${price.toLocaleString(
-      'ko-KR'
+      "ko-KR"
     )}원 이상일 경우 무료 배송됩니다`,
   emptyCart: `장바구니에 담은 상품이 없습니다.`,
   confirmOrder: (itemCount: number, totalQuantity: number) =>

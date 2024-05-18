@@ -1,4 +1,4 @@
-import { AtomEffect } from 'recoil';
+import { AtomEffect } from "recoil";
 
 const localStorageEffect: <T>(key: string) => AtomEffect<T> =
   (key: string) =>

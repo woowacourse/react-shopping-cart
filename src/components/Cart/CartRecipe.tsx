@@ -3,14 +3,14 @@ import {
   FlexRow,
   FlexSpaceBetween,
   WhiteSpace,
-} from '@/style/common.style';
+} from "@/style/common.style";
 
-import { CART_MESSAGE } from '@/constants/message';
-import { FREE_SHIPPING_CONDITION } from '@/constants/system';
-import Info from '@/assets/Info.svg';
-import { recipeState } from '@/store/selectors/recipeSelector';
-import styled from '@emotion/styled';
-import { useRecoilValue } from 'recoil';
+import { CART_MESSAGE } from "@/constants/message";
+import { FREE_SHIPPING_CONDITION } from "@/constants/system";
+import Info from "@/assets/Info.svg";
+import { recipeState } from "@/store/selectors/recipeSelector";
+import styled from "@emotion/styled";
+import { useRecoilValue } from "recoil";
 
 const CartRecipe = () => {
   const { orderPrice, shippingFee, totalPrice } = useRecoilValue(recipeState);
@@ -25,19 +25,19 @@ const CartRecipe = () => {
         <StyledBetweenBox>
           <StyledBoldText>주문 금액</StyledBoldText>
           <StyledBoldText>
-            {orderPrice.toLocaleString('ko-KR')}원
+            {orderPrice.toLocaleString("ko-KR")}원
           </StyledBoldText>
         </StyledBetweenBox>
         <StyledBetweenBox>
           <StyledBoldText>배송비</StyledBoldText>
           <StyledBoldText>
-            {shippingFee.toLocaleString('ko-KR')}원
+            {shippingFee.toLocaleString("ko-KR")}원
           </StyledBoldText>
         </StyledBetweenBox>
       </StyledBox>
       <StyledBetweenBox>
         <StyledBoldText>총 결제 금액</StyledBoldText>
-        <StyledBoldText>{totalPrice.toLocaleString('ko-KR')}원</StyledBoldText>
+        <StyledBoldText>{totalPrice.toLocaleString("ko-KR")}원</StyledBoldText>
       </StyledBetweenBox>
     </StyledRecipeWrapper>
   );

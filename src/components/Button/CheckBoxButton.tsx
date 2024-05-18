@@ -1,6 +1,6 @@
-import Checked from '@/assets/checked.svg';
-import UnChecked from '@/assets/unchecked.svg';
-import styled from '@emotion/styled';
+import Checked from "@/assets/checked.svg";
+import UnChecked from "@/assets/unchecked.svg";
+import styled from "@emotion/styled";
 
 interface Props {
   isSelected: boolean;

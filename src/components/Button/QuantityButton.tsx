@@ -1,8 +1,8 @@
-import BorderButton from './BorderButton';
-import { FlexCenter } from '@/style/common.style';
-import Minus from '@/assets/Minus.svg';
-import Plus from '@/assets/Plus.svg';
-import styled from '@emotion/styled';
+import BorderButton from "./BorderButton";
+import { FlexCenter } from "@/style/common.style";
+import Minus from "@/assets/Minus.svg";
+import Plus from "@/assets/Plus.svg";
+import styled from "@emotion/styled";
 
 interface Props {
   onClick: () => void;

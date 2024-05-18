@@ -1,15 +1,15 @@
-import { FlexColumn, FlexRow, FlexSpaceBetween } from '@/style/common.style';
-import { MinusButton, PlusButton } from '@/components/Button/QuantityButton';
-import { cartListState, filteredCartItemState } from '@/store/atoms';
-import { deleteCartItem, patchCartItem } from '@/api/cartItem';
-import { useEffect, useState } from 'react';
+import { FlexColumn, FlexRow, FlexSpaceBetween } from "@/style/common.style";
+import { MinusButton, PlusButton } from "@/components/Button/QuantityButton";
+import { cartListState, filteredCartItemState } from "@/store/atoms";
+import { deleteCartItem, patchCartItem } from "@/api/cartItem";
+import { useEffect, useState } from "react";
 
-import BorderButton from '@/components/Button/BorderButton';
-import { CartItemType } from '@/types/cart.type';
-import CheckBox from '@/components/Button/CheckBoxButton';
-import Loading from '@/assets/loading.gif';
-import styled from '@emotion/styled';
-import { useRecoilState } from 'recoil';
+import BorderButton from "@/components/Button/BorderButton";
+import { CartItemType } from "@/types/cart.type";
+import CheckBox from "@/components/Button/CheckBoxButton";
+import Loading from "@/assets/loading.gif";
+import styled from "@emotion/styled";
+import { useRecoilState } from "recoil";
 
 interface Props {
   item: CartItemType;
@@ -90,7 +90,7 @@ const CartItem = ({ item }: Props) => {
         <StyledColumnBox>
           <StyledItemName>{product.name}</StyledItemName>
           <StyledItemPrice>
-            {product.price.toLocaleString('ko-KR')}원
+            {product.price.toLocaleString("ko-KR")}원
           </StyledItemPrice>
           <StyledQuantityBox>
             <MinusButton

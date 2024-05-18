@@ -1,7 +1,7 @@
-import { FlexCenter, FlexColumn } from '@/style/common.style';
+import { FlexCenter, FlexColumn } from "@/style/common.style";
 
-import Loading from '@/assets/loading.gif';
-import styled from '@emotion/styled';
+import Loading from "@/assets/loading.gif";
+import styled from "@emotion/styled";
 
 const LoadingFallBack = () => {
   return (

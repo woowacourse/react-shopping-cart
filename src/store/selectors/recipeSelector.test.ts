@@ -1,22 +1,22 @@
 import {
   MOCK_FILTERED_CART_LIST_FREE_SHIPPING_FEE,
   MOCK_FILTERED_CART_LIST_NEED_SHIPPING_FEE,
-} from '@/constants/_mock/mockFilteredCartList';
-import { RecoilRoot, useRecoilValue, useSetRecoilState } from 'recoil';
-import { cartListState, filteredCartItemState } from '@/store/atoms';
+} from "@/constants/_mock/mockFilteredCartList";
+import { RecoilRoot, useRecoilValue, useSetRecoilState } from "recoil";
+import { cartListState, filteredCartItemState } from "@/store/atoms";
 
-import MOCK_CART_LIST from '@/constants/_mock/mockCartList';
-import { recipeState } from '@/store/selectors/recipeSelector';
-import { renderHook } from '@testing-library/react';
+import MOCK_CART_LIST from "@/constants/_mock/mockCartList";
+import { recipeState } from "@/store/selectors/recipeSelector";
+import { renderHook } from "@testing-library/react";
 
-jest.mock('../../api/config', () => ({
+jest.mock("../../api/config", () => ({
   config: {
-    apiUrl: 'http://localhost:mock',
+    apiUrl: "http://localhost:mock",
   },
 }));
 
-describe('cartTotalPriceState', () => {
-  it('상품 개수에 따른 총 가격 계산(10만원 이하 배송비 포함)', () => {
+describe("cartTotalPriceState", () => {
+  it("상품 개수에 따른 총 가격 계산(10만원 이하 배송비 포함)", () => {
     const { result } = renderHook(
       () => {
         const setCartList = useSetRecoilState(cartListState);
@@ -44,7 +44,7 @@ describe('cartTotalPriceState', () => {
     expect(result.current.totalPrice).toBe(10000);
   });
 
-  it('상품 개수에 따른 총 가격 계산(10만원 이상 배송비 무료)', () => {
+  it("상품 개수에 따른 총 가격 계산(10만원 이상 배송비 무료)", () => {
     const { result } = renderHook(
       () => {
         const setCartList = useSetRecoilState(cartListState);

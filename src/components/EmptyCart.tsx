@@ -1,8 +1,8 @@
-import { FlexCenter, WhiteSpace } from '@/style/common.style';
+import { FlexCenter, WhiteSpace } from "@/style/common.style";
 
-import { CART_MESSAGE } from '@/constants/message';
-import FullWidthButton from '@/components/Button/FullWidthButton';
-import styled from '@emotion/styled';
+import { CART_MESSAGE } from "@/constants/message";
+import FullWidthButton from "@/components/Button/FullWidthButton";
+import styled from "@emotion/styled";
 
 const EmptyCart = () => {
   return (

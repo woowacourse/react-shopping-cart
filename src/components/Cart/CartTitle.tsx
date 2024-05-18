@@ -1,8 +1,8 @@
-import { CART_MESSAGE } from '@/constants/message';
-import { WhiteSpace } from '@/style/common.style';
-import { cartListState } from '@/store/atoms';
-import styled from '@emotion/styled';
-import { useRecoilValue } from 'recoil';
+import { CART_MESSAGE } from "@/constants/message";
+import { WhiteSpace } from "@/style/common.style";
+import { cartListState } from "@/store/atoms";
+import styled from "@emotion/styled";
+import { useRecoilValue } from "recoil";
 
 const CartTitle = () => {
   const cartItemCount = useRecoilValue(cartListState);

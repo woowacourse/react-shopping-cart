@@ -1,11 +1,11 @@
-import { FlexRow, WhiteSpace } from '@/style/common.style';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { FlexRow, WhiteSpace } from "@/style/common.style";
+import { useRecoilState, useRecoilValue } from "recoil";
 
-import CartItem from '@/components/Cart/CartItem';
-import CheckBox from '@/components/Button/CheckBoxButton';
-import { allSelectedState } from '@/store/selectors/allSelectedSelector';
-import { cartListState } from '@/store/atoms';
-import styled from '@emotion/styled';
+import CartItem from "@/components/Cart/CartItem";
+import CheckBox from "@/components/Button/CheckBoxButton";
+import { allSelectedState } from "@/store/selectors/allSelectedSelector";
+import { cartListState } from "@/store/atoms";
+import styled from "@emotion/styled";
 
 const CartList = () => {
   const cartList = useRecoilValue(cartListState);

@@ -1,8 +1,8 @@
-import { DefaultValue, selector } from 'recoil';
-import { cartListState, filteredCartItemState } from '@/store/atoms';
+import { DefaultValue, selector } from "recoil";
+import { cartListState, filteredCartItemState } from "@/store/atoms";
 
 export const allSelectedState = selector<boolean>({
-  key: 'allSelectedState',
+  key: "allSelectedState",
   get: ({ get }) => {
     const cartList = get(cartListState);
 

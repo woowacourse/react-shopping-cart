@@ -1,14 +1,14 @@
-import { FlexCenter, FlexColumn } from '@/style/common.style';
+import { FlexCenter, FlexColumn } from "@/style/common.style";
 import {
   orderedItemState,
   recipeState,
-} from '@/store/selectors/recipeSelector';
+} from "@/store/selectors/recipeSelector";
 
-import FullWidthButton from '@/components/Button/FullWidthButton';
-import Header from '@/components/Header';
-import { ORDER_CONFIRM_MESSAGE } from '@/constants/message';
-import styled from '@emotion/styled';
-import { useRecoilValue } from 'recoil';
+import FullWidthButton from "@/components/Button/FullWidthButton";
+import Header from "@/components/Header";
+import { ORDER_CONFIRM_MESSAGE } from "@/constants/message";
+import styled from "@emotion/styled";
+import { useRecoilValue } from "recoil";
 
 const OrderConfirm = () => {
   const { totalPrice } = useRecoilValue(recipeState);
@@ -29,7 +29,7 @@ const OrderConfirm = () => {
 
         <StyledTextSubTitle>총 결제 금액</StyledTextSubTitle>
         <StyledTextPrice>
-          {totalPrice.toLocaleString('ko-KR')}원
+          {totalPrice.toLocaleString("ko-KR")}원
         </StyledTextPrice>
       </StyledCenterBox>
 
