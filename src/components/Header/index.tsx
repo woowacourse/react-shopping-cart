@@ -20,7 +20,7 @@ export default function Header({ isShowLogo }: HeaderProps) {
         <img src={HeaderLogo} />
       ) : (
         <HeaderButtonContainer onClick={handleGoBack}>
-          <img src={ArrowIcon} />
+          <img src={ArrowIcon} alt="Previous Page" />
         </HeaderButtonContainer>
       )}
     </HeaderContainer>
