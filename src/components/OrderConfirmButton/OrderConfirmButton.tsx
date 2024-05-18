@@ -1,4 +1,4 @@
-import { TITLES } from "@/constants/cart";
+import { CART_PAGE_TITLES } from "@/constants/cart";
 import Button from "../_common/Button/Button";
 import * as S from "./OrderConfirmButton.style";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +13,7 @@ const OrderConfirmButton = ({ disabled }: { disabled: boolean }) => {
   return (
     <S.OrderConfirmButton onClick={onMoveOrderConfirmPage}>
       <Button width="full" size="xLarge" theme="dark" disabled={disabled}>
-        <S.ButtonText>{TITLES.orderConfirm}</S.ButtonText>
+        <S.ButtonText>{CART_PAGE_TITLES.orderConfirm}</S.ButtonText>
       </Button>
     </S.OrderConfirmButton>
   );

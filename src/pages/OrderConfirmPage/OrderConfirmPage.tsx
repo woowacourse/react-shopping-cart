@@ -10,7 +10,7 @@ import {
   totalItemOrderCountSelector,
   totalOrderPriceSelector,
 } from "@/recoil/orderInformation";
-import { MESSAGES, TITLES } from "@/constants/cart";
+import { CART_PAGE_TITLES, CART_PAGE_MESSAGES } from "@/constants/cart";
 import { formatToWon } from "@/utils/stringHelper";
 import { selectedCartItemsIdState } from "@/recoil/selectedCardItems";
 const OrderConfirmPage = () => {
@@ -22,21 +22,24 @@ const OrderConfirmPage = () => {
   const selectedItemsId = useRecoilValue(selectedCartItemsIdState);
   return (
     <S.FlexWrapper>
-      <Title text={TITLES.orderConfirm} />
+      <Title text={CART_PAGE_TITLES.orderConfirm} />
 
       <>
         <Caption
-          text={MESSAGES.orderInfo(selectedItemsId.length, totalItemsCount)}
+          text={CART_PAGE_MESSAGES.orderInfo(
+            selectedItemsId.length,
+            totalItemsCount
+          )}
         />
-        <Caption text={MESSAGES.askOrderConfirm} />
+        <Caption text={CART_PAGE_MESSAGES.askOrderConfirm} />
       </>
 
-      <S.ButtonText>{TITLES.totalPrice}</S.ButtonText>
+      <S.ButtonText>{CART_PAGE_TITLES.totalPrice}</S.ButtonText>
       <Title text={formatToWon(totalPrice)} />
 
       <S.OrderConfirmButton>
         <Button width="full" size="xLarge" theme="dark" disabled>
-          <S.ButtonText>{TITLES.pay}</S.ButtonText>
+          <S.ButtonText>{CART_PAGE_TITLES.pay}</S.ButtonText>
         </Button>
       </S.OrderConfirmButton>
     </S.FlexWrapper>
