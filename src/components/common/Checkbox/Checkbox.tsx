@@ -1,17 +1,19 @@
-import { CheckIcon, NoneCheckIcon } from '@assets/index';
+import CheckIcon from '@assets/check.svg';
+import NoneCheckIcon from '@assets/noneCheck.svg';
 
 import * as Styled from './Checkbox.styled';
 
-interface CheckBoxProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   checked: boolean;
 }
 
-const CheckBox = ({ checked, onClick, ...props }: CheckBoxProps) => {
+const Checkbox = ({ checked, ...props }: CheckboxProps) => {
   return (
-    <Styled.CheckBoxButton $checked={checked} onClick={onClick} {...props}>
-      {checked ? <CheckIcon /> : <NoneCheckIcon />}
-    </Styled.CheckBoxButton>
+    <Styled.Checkbox>
+      <Styled.CheckboxInput type="checkbox" {...props}></Styled.CheckboxInput>
+      <Styled.CheckIcon $checked={checked} src={checked ? CheckIcon : NoneCheckIcon} alt="check icon" />
+    </Styled.Checkbox>
   );
 };
 
-export default CheckBox;
+export default Checkbox;

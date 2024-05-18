@@ -12,13 +12,14 @@ interface CartListItemProps {
 const CartListItem: React.FC<CartListItemProps> = ({ cartItem }) => {
   const { onDeleteItem } = useDeleteCartItem(cartItem.id);
   const { isChecked, onCheckCartItem } = useCheckCartItem();
-  const handleClick = () => {
-    onCheckCartItem(!isChecked(cartItem.id), cartItem.id);
-  };
+
   return (
     <Styled.CartListContainer>
       <Styled.CartItemSelectionGroup>
-        <Checkbox checked={isChecked(cartItem.id)} onClick={handleClick} />
+        <Checkbox
+          checked={isChecked(cartItem.id)}
+          onChange={(event) => onCheckCartItem(event.target.checked, cartItem.id)}
+        />
         <DeleteButton onClick={onDeleteItem}>삭제</DeleteButton>
       </Styled.CartItemSelectionGroup>
       <Styled.CartItemDetailContainer>
