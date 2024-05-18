@@ -13,12 +13,12 @@ import { productsState } from '../../store/atoms';
 export default function CartPage() {
   const products = useRecoilValue(productsState);
   const { handleFooterButtonClick } = useCheckoutNavigate();
-  const { handleHomeButtonClick } = useCartNavigate();
+  const { navigateCartPage } = useCartNavigate();
 
   return (
     <>
       <Header>
-        <Button variant="header" onClick={handleHomeButtonClick}>
+        <Button variant="header" onClick={navigateCartPage}>
           SHOP
         </Button>
       </Header>

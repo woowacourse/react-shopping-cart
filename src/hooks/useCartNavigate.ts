@@ -4,11 +4,11 @@ import ROUTES from '../constants/routes';
 const useCartNavigate = () => {
   const navigate = useNavigate();
 
-  const handleHomeButtonClick = () => {
+  const navigateCartPage = () => {
     navigate(ROUTES.CART);
   };
 
-  return { handleHomeButtonClick };
+  return { navigateCartPage };
 };
 
 export default useCartNavigate;
