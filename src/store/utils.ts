@@ -1,1 +1,3 @@
-export const API_TOKEN = `Basic ${btoa(`${process.env.VITE_API_USER_ID}:${process.env.VITE_API_USER_PASSWORD}`)}`;
+export const API_TOKEN = `Basic ${btoa(
+  `${import.meta.env.VITE_API_USER_ID}:${import.meta.env.VITE_API_USER_PASSWORD}`
+)}`;

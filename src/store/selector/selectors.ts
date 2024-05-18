@@ -14,6 +14,7 @@ export const fetchCartState = selector({
       if (localData[cartItem.id] === undefined) localData[cartItem.id] = true;
     });
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(localData));
+    console.log(content);
     return content;
   },
 });
