@@ -31,7 +31,6 @@ export const ItemInfoTextBox = styled.div`
 export const ItemImgBox = styled.div`
   width: 112px;
   height: 112px;
-
   border-radius: 10px;
   background-size: cover;
   background-repeat: no-repeat;

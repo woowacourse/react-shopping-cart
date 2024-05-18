@@ -5,16 +5,15 @@ import SkTitleSet from "@/components/_common/TitleSet/TitleSet.skeleton";
 
 const CartPageSkeleton = () => {
   return (
-    <>
-      <S.CartPageLayout>
-        <SkTitleSet />
+    <S.CartPageLayout>
+      <SkTitleSet />
+      <S.SkCheckBoxWrapper />
+      <S.CheckBoxWrapper>
         <S.SkCheckBoxWrapper />
-        <S.CheckBoxWrapper>
-          <S.SkCheckBoxWrapper />
-        </S.CheckBoxWrapper>
-        <SkeletonProductList /> <PriceSectionSkeleton />
-      </S.CartPageLayout>
-    </>
+      </S.CheckBoxWrapper>
+      <SkeletonProductList />
+      <PriceSectionSkeleton />
+    </S.CartPageLayout>
   );
 };
 
