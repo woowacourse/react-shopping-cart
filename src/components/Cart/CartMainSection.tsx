@@ -21,7 +21,13 @@ export default function CartMainSection() {
         onChange={(e) => setAllChecked(e.target.checked)}
       />
       <label css={label} htmlFor="allChecked">
-        <img src={allChecked ? CHECKED : UNCHECKED} width={24} height={24} css={checkIcon} />
+        <img
+          src={allChecked ? CHECKED : UNCHECKED}
+          width={24}
+          height={24}
+          css={checkIcon}
+          alt="check icon"
+        />
         <span css={labelText}>전체 선택</span>
       </label>
 

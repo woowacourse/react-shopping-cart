@@ -29,7 +29,13 @@ const CartItemHeaderSection = ({ cartId }: CartItemHeaderSectionProps) => {
   return (
     <div css={cartItemHeader}>
       <div onClick={handleClickCheck}>
-        <img src={isChecked ? CHECKED : UNCHECKED} width={24} height={24} css={checkIcon} />
+        <img
+          src={isChecked ? CHECKED : UNCHECKED}
+          width={24}
+          height={24}
+          css={checkIcon}
+          alt="check icon"
+        />
       </div>
       <button css={deleteButton} onClick={handleDeleteItem}>
         삭제

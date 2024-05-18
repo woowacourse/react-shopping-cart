@@ -35,7 +35,13 @@ const CartItemMainSection = ({ item }: CartItemMainSectionProps) => {
 
   return (
     <div css={cartItemBody}>
-      <img css={image} src={item.product.imageUrl} width={112} height={112} />
+      <img
+        css={image}
+        src={item.product.imageUrl}
+        width={112}
+        height={112}
+        alt={item.product.name + 'image'}
+      />
       <div css={cartItemInfoWrapper}>
         <span>{item.product.name}</span>
         <span css={price}>{item.product.price.toLocaleString('ko-KR')}원</span>
@@ -45,11 +51,11 @@ const CartItemMainSection = ({ item }: CartItemMainSectionProps) => {
             onClick={handleDecrementQuantity}
             disabled={item.quantity === 1}
           >
-            <img src={MINUS} />
+            <img src={MINUS} alt="minus icon" />
           </button>
           <span>{item.quantity}</span>
           <button css={countButton()} onClick={handleIncrementQuantity}>
-            <img src={PLUS} />
+            <img src={PLUS} alt="plus icon" />
           </button>
         </div>
       </div>
