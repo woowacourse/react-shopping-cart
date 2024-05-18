@@ -69,17 +69,17 @@
       - [ ] returnType: number
       - dependency: deliveryCost, orderAmount
 
-    - [ ] 장바구니 상품 종류 수
+    - [ ] ~~장바구니 상품 종류 수~~
 
-      - [ ] key: uniqueCartItemsCount
-      - [ ] returnType: number
-      - dependency: cartItems
+      - [ ] ~~key: uniqueCartItemsCount~~
+      - [ ] ~~returnType: number~~
+      - ~~dependency: cartItems~~
 
-    - [ ] 선택된 장바구니 상품 종류 수
+    - [ ] ~~선택된 장바구니 상품 종류 수~~
 
-      - [ ] key: selectedUniqueCartItemsCount
-      - [ ] returnType: number
-      - dependency: selectedCartItemIds
+      - [ ] ~~key: selectedUniqueCartItemsCount~~
+      - [ ] ~~returnType: number~~
+      - ~~dependency: selectedCartItemIds~~
 
     - [ ] 선택된 총 장바구니 상품 개수
 
@@ -134,14 +134,14 @@
 
 3. CartTitle
 
-- [x] selector 정의 (uniqueCartItemsCount)
+- [x] ~~selector 정의 (uniqueCartItemsCount)~~
 - [x] UI 구현
 
 1. Header, Footer
 
 2. OrderSummary
 
-- [x] selector 정의 (selectedUniqueCartItemsCount, selectedCartItemsCount, totalOrderAmount)
+- [x] selector 정의 (~~selectedUniqueCartItemsCount~~, selectedCartItemsCount, totalOrderAmount)
 - [x] UI 구현
 
 1. UX 최적화

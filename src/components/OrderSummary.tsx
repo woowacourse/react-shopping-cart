@@ -1,13 +1,15 @@
-import { selectedUniqueCartItemsCountState } from "../recoil/selectedUniqueCartItemsCount";
+import { selectedCartItemIdsState } from "../recoil/selectedCartItemIds";
 import { selectedCartItemsCountState } from "../recoil/selectedCartItemsCount";
-import { useRecoilValue } from "recoil";
-import { totalOrderAmountState } from "../recoil/cartAmount";
 import styled from "styled-components";
+import { totalOrderAmountState } from "../recoil/cartAmount";
+import { useRecoilValue } from "recoil";
 
 export interface IOrderSummaryProps {}
 
 export default function OrderSummary() {
-  const selectedUniqueCartItemsCount = useRecoilValue(selectedUniqueCartItemsCountState);
+  const selectedUniqueCartItemsCount = useRecoilValue(
+    selectedCartItemIdsState
+  ).length;
   const selectedCartItemsCount = useRecoilValue(selectedCartItemsCountState);
   const totalOrderAmount = useRecoilValue(totalOrderAmountState);
   return (
@@ -15,13 +17,16 @@ export default function OrderSummary() {
       <S.Title>주문 확인</S.Title>
       <S.OrderSummaryInfoWrapper>
         <S.OrderSummaryInfo>
-          총 {selectedUniqueCartItemsCount}종류의 상품 {selectedCartItemsCount}개를 주문합니다.
+          총 {selectedUniqueCartItemsCount}종류의 상품 {selectedCartItemsCount}
+          개를 주문합니다.
         </S.OrderSummaryInfo>
         <S.OrderSummaryInfo>최종 결제 금액을 확인해 주세요.</S.OrderSummaryInfo>
       </S.OrderSummaryInfoWrapper>
       <S.ToTalOrderAmountWrapper>
         <S.ToTalOrderAmountText>총 결제 금액</S.ToTalOrderAmountText>
-        <S.TotalOrderAmount>{totalOrderAmount.toLocaleString()}원</S.TotalOrderAmount>
+        <S.TotalOrderAmount>
+          {totalOrderAmount.toLocaleString()}원
+        </S.TotalOrderAmount>
       </S.ToTalOrderAmountWrapper>
     </S.Container>
   );

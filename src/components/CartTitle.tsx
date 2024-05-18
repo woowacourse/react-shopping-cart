@@ -1,11 +1,11 @@
+import { rawCartItemsState } from "../recoil/rawCartItems";
 import styled from "styled-components";
-import { uniqueCartItemsCountState } from "../recoil/uniqueCartItemsCount";
 import { useRecoilValue } from "recoil";
 
 export interface ICartTitleProps {}
 
 function CartTitle() {
-  const cartItemCount = useRecoilValue(uniqueCartItemsCountState);
+  const cartItemCount = useRecoilValue(rawCartItemsState).length;
 
   return (
     <S.Container>
