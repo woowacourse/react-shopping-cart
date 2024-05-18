@@ -18,7 +18,7 @@ export const priceInfoStore = selector<PriceInfo>({
   key: KEY.PRICE_INFO,
   get: ({ get }) => {
     const selected = get(selectedCartItems);
-    const price = selected.reduce((acc, cur) => (acc += cur.price * cur.quantity), 0);
+    const price = selected.reduce((acc, cur) => acc + cur.price * cur.quantity, 0);
     const isShippingFree = price >= ORDER.SHIPPING_FREE_PRICE || price === 0;
     const shipping = isShippingFree ? 0 : ORDER.SHIPPING_FEE;
     return {
@@ -34,7 +34,7 @@ export const orderInfoStore = selector<IOrderInfo>({
   get: ({ get }) => {
     const selected = get(selectedCartItems);
     const kindCount = selected.length;
-    const productCount = selected.reduce((acc, cur) => (acc += cur.quantity), 0);
+    const productCount = selected.reduce((acc, cur) => acc + cur.quantity, 0);
     const totalPrice = get(priceInfoStore).total;
     return {
       kindCount,
