@@ -26,11 +26,7 @@ const ConfirmOrderPage: React.FC<PropsWithChildren<{}>> = () => {
   return (
     <Layout
       header={<Header isShowLogo={false} />}
-      bottom={
-        <BottomButton onClick={() => {}} isDisabled={true}>
-          결제하기
-        </BottomButton>
-      }
+      bottom={<BottomButton isDisabled={true}>결제하기</BottomButton>}
     >
       <RecoilSuspense loadable={cartList} fallback={<div>안쪽 로딩 중...</div>}>
         <ConfirmOrderContainer>
