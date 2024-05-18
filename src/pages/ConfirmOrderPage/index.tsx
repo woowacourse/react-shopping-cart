@@ -18,7 +18,7 @@ import {
   TotalPrice,
 } from "./styles";
 
-const ConfirmOrderPage: React.FC<PropsWithChildren<{}>> = () => {
+const ConfirmOrderPage: React.FC<PropsWithChildren> = () => {
   const cartList = useRecoilValueLoadable(cartListState);
   const totalPrice = useRecoilValue(cartListTotalPrice);
   const totalQuantity = useRecoilValue(cartListTotalQuantity);
