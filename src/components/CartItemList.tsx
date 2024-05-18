@@ -1,15 +1,15 @@
-import { useSetRecoilState } from "recoil";
-import CartItemView from "./CartItemView";
-import styled from "styled-components";
-import { selectedCartItemIdsState } from "../recoil/selectedCartItemIds";
 import { CartItem } from "../types/cartItems";
+import CartItemView from "./CartItemView";
+import { selectedCartItemIdsState } from "../recoil/selectedCartItemIds";
+import styled from "styled-components";
 import { useCartItemControl } from "../hooks/useCartItemControl";
+import { useSetRecoilState } from "recoil";
 
 export interface ICartItemList {
   cartItems: CartItem[];
 }
 
-export default function CartItemList({ cartItems }: ICartItemList) {
+function CartItemList({ cartItems }: ICartItemList) {
   const cartItemControl = useCartItemControl();
   const setSelectedCartItemIds = useSetRecoilState(selectedCartItemIdsState);
   const isAllSelected = cartItems.every(({ isSelected }) => isSelected);
@@ -31,7 +31,9 @@ export default function CartItemList({ cartItems }: ICartItemList) {
           checked={isAllSelected}
           onChange={handleSelectAllChange}
         />
-        <S.SelectAllLabel htmlFor="select-all-checkbox">전체선택</S.SelectAllLabel>
+        <S.SelectAllLabel htmlFor="select-all-checkbox">
+          전체선택
+        </S.SelectAllLabel>
       </S.SelectAll>
       <S.CartItemList>
         {cartItems.map((cartItem) => (
@@ -45,6 +47,23 @@ export default function CartItemList({ cartItems }: ICartItemList) {
     </S.CartItemListContainer>
   );
 }
+
+CartItemList.Skeleton = () => {
+  return (
+    <S.CartItemListContainer>
+      <S.SelectAll>
+        <S.CheckboxSkeleton />
+      </S.SelectAll>
+      <S.CartItemList>
+        {Array.from({ length: 3 }).map((_, idx) => (
+          <CartItemView.Skeleton key={idx} />
+        ))}
+      </S.CartItemList>
+    </S.CartItemListContainer>
+  );
+};
+
+export default CartItemList;
 
 const S = {
   CartItemListContainer: styled.div`
@@ -78,5 +97,12 @@ const S = {
     font-size: 12px;
     font-weight: 500;
     line-height: 15px;
+  `,
+
+  CheckboxSkeleton: styled.div`
+    width: 24px;
+    height: 24px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
   `,
 };

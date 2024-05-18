@@ -7,10 +7,7 @@ export interface CartItemViewProps {
   cartItemControl: UseCartItemsReturn;
 }
 
-export default function CartItemView({
-  cartItem,
-  cartItemControl,
-}: CartItemViewProps) {
+function CartItemView({ cartItem, cartItemControl }: CartItemViewProps) {
   const { remove, updateQuantity, toggleSelection } = cartItemControl;
   const cartItemId = cartItem.id;
 
@@ -65,6 +62,34 @@ export default function CartItemView({
     </S.CartItemContainer>
   );
 }
+
+CartItemView.Skeleton = () => {
+  return (
+    <S.CartItemContainer>
+      <S.TopWrapper>
+        <S.CheckboxSkeleton />
+        <S.RemoveButtonSkeleton />
+      </S.TopWrapper>
+
+      <S.ProductOuterWrapper>
+        <S.ProductImageSkeleton />
+        <S.ProductInnerWrapper>
+          <S.ProductInfo>
+            <S.ProductNameSkeleton />
+            <S.ProductPriceSkeleton />
+          </S.ProductInfo>
+          <S.CartItemCountControl>
+            <S.CountButtonSkeleton />
+            <S.CountSkeleton />
+            <S.CountButtonSkeleton />
+          </S.CartItemCountControl>
+        </S.ProductInnerWrapper>
+      </S.ProductOuterWrapper>
+    </S.CartItemContainer>
+  );
+};
+
+export default CartItemView;
 
 const S = {
   CartItemContainer: styled.div`
@@ -155,5 +180,54 @@ const S = {
     font-size: 12px;
     width: 20px;
     text-align: center;
+  `,
+
+  CheckboxSkeleton: styled.div`
+    width: 24px;
+    height: 24px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+  `,
+
+  RemoveButtonSkeleton: styled.div`
+    width: 40px;
+    height: 24px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+  `,
+
+  ProductImageSkeleton: styled.div`
+    width: 112px;
+    height: 112px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+  `,
+
+  ProductNameSkeleton: styled.div`
+    width: 100px;
+    height: 15px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+  `,
+
+  ProductPriceSkeleton: styled.div`
+    width: 80px;
+    height: 35px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+  `,
+
+  CountButtonSkeleton: styled.div`
+    width: 24px;
+    height: 24px;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+  `,
+
+  CountSkeleton: styled.div`
+    width: 20px;
+    height: 12px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
   `,
 };

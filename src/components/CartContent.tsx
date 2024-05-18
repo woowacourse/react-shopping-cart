@@ -1,12 +1,12 @@
-import styled from "styled-components";
-import { cartItemsState } from "../recoil/cartItems";
-import { useRecoilValue } from "recoil";
-import CartTitle from "./CartTitle";
-import CartItemList from "./CartItemList";
 import CartAmount from "./CartAmount";
 import CartButton from "./CartButton";
+import CartItemList from "./CartItemList";
+import CartTitle from "./CartTitle";
+import { cartItemsState } from "../recoil/cartItems";
+import styled from "styled-components";
+import { useRecoilValue } from "recoil";
 
-export default function CartContent() {
+function CartContent() {
   const cartItems = useRecoilValue(cartItemsState);
 
   const 내용물 =
@@ -29,6 +29,18 @@ export default function CartContent() {
     </>
   );
 }
+
+CartContent.Skeleton = () => {
+  return (
+    <S.Content>
+      <CartTitle.Skeleton />
+      <CartItemList.Skeleton />
+      <CartAmount.Skeleton />
+    </S.Content>
+  );
+};
+
+export default CartContent;
 
 const S = {
   EmptyMessage: styled.div`

@@ -11,7 +11,7 @@ import { useRecoilValue } from "recoil";
 
 export interface ICartAmountProps {}
 
-export default function CartAmount() {
+function CartAmount() {
   const orderAmount = useRecoilValue(orderAmountState);
   const deliveryCost = useRecoilValue(deliveryCostState);
   const totalOrderAmount = useRecoilValue(totalOrderAmountState);
@@ -45,6 +45,36 @@ export default function CartAmount() {
     </S.CartAmountContainer>
   );
 }
+
+CartAmount.Skeleton = () => {
+  return (
+    <S.CartAmountContainer>
+      <S.CartAmountNoti>
+        <S.InfoIcon />
+        <S.CartAmountNotiText>
+          총 주문 금액이 {MINIMUM_AMOUNT_FOR_FREE_DELIVERY.toLocaleString()}원
+          이상일 경우 무료 배송됩니다.
+        </S.CartAmountNotiText>
+      </S.CartAmountNoti>
+
+      <S.UpperCartAmountInfoWrapper>
+        <S.CartAmountInfo>
+          <S.AmountText>주문 금액</S.AmountText> <S.Amount></S.Amount>
+        </S.CartAmountInfo>
+        <S.CartAmountInfo>
+          <S.AmountText>배송비</S.AmountText> <S.Amount></S.Amount>
+        </S.CartAmountInfo>
+      </S.UpperCartAmountInfoWrapper>
+      <S.LowerCartAmountInfoWrapper>
+        <S.CartAmountInfo>
+          <S.AmountText>총 주문 금액</S.AmountText> <S.Amount></S.Amount>
+        </S.CartAmountInfo>
+      </S.LowerCartAmountInfoWrapper>
+    </S.CartAmountContainer>
+  );
+};
+
+export default CartAmount;
 
 const S = {
   CartAmountContainer: styled.div`

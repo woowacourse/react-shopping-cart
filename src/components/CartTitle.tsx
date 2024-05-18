@@ -1,19 +1,32 @@
-import { useRecoilValue } from "recoil";
-import { uniqueCartItemsCountState } from "../recoil/uniqueCartItemsCount";
 import styled from "styled-components";
+import { uniqueCartItemsCountState } from "../recoil/uniqueCartItemsCount";
+import { useRecoilValue } from "recoil";
 
 export interface ICartTitleProps {}
 
-export default function CartTitle() {
+function CartTitle() {
   const cartItemCount = useRecoilValue(uniqueCartItemsCountState);
 
   return (
     <S.Container>
       <S.Title>장바구니</S.Title>
-      {!!cartItemCount && <S.Info>현재 {cartItemCount}종류의 상품이 담겨있습니다.</S.Info>}
+      {!!cartItemCount && (
+        <S.Info>현재 {cartItemCount}종류의 상품이 담겨있습니다.</S.Info>
+      )}
     </S.Container>
   );
 }
+
+CartTitle.Skeleton = () => {
+  return (
+    <S.Container>
+      <S.Title>장바구니</S.Title>
+      <S.InfoSkeleton />
+    </S.Container>
+  );
+};
+
+export default CartTitle;
 
 const S = {
   Container: styled.div`
@@ -33,5 +46,12 @@ const S = {
     line-height: 15px;
     font-weight: 500;
     color: rgba(10, 13, 19, 1);
+  `,
+
+  InfoSkeleton: styled.div`
+    width: 200px;
+    height: 15px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
   `,
 };
