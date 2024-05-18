@@ -1,4 +1,5 @@
 import useItemQuantity from '../../hooks/useItemQuantity';
+import useSelectAll from '../../hooks/useSelectAll';
 import useSelectedItems from '../../hooks/useSelectedItems';
 import { CartItem } from '../../types/cartItem';
 import SelectAll from '../SelectAll/SelectAll';
@@ -13,8 +14,12 @@ interface ShoppingCartListProps {
 const ShoppingCartList = ({ cartItems, refetch }: ShoppingCartListProps) => {
   const { getOneItemQuantity, setOneItemQuantity } = useItemQuantity(cartItems);
 
-  const { onCheckboxClick, isSelected, all, onSelectAllClick, selectedItemQuantity } =
-    useSelectedItems(cartItems, getOneItemQuantity);
+  const { onCheckboxClick, isSelected, selectedItemQuantity } = useSelectedItems(
+    cartItems,
+    getOneItemQuantity,
+  );
+
+  const { all, onSelectAllClick } = useSelectAll(cartItems, getOneItemQuantity);
 
   return (
     <S.Container>
