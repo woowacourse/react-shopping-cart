@@ -1,11 +1,14 @@
 import { useRecoilValue } from 'recoil';
 import noticeIcon from '../../../asset/noticeIcon.png';
-import { totalOrderAmountState } from '../../../store/selectors';
+import { deliveryFee, orderAmount, totalOrderAmount } from '../../../store/selectors';
 import styles from '../Cart.module.css';
 import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
 
 export default function CartTotals() {
-  const { orderAmount, deliveryCharge, totalAmount } = useRecoilValue(totalOrderAmountState);
+  const orderAmountValue = useRecoilValue(orderAmount);
+  const deliveryFeeValue = useRecoilValue(deliveryFee);
+  const totalAmountValue = useRecoilValue(totalOrderAmount);
+
   return (
     <div className={styles.cartContentWrapper}>
       <div className={styles.cartTotalsNoticeWrapper}>
@@ -17,17 +20,17 @@ export default function CartTotals() {
       <div className={styles.cartTotalsWrapper}>
         <div className={styles.cartToTalsTextWrapper}>
           <span className={styles.subtitleText}>주문 금액</span>
-          <span className={styles.titleText}>{formatKoreanCurrency(orderAmount)}원</span>
+          <span className={styles.titleText}>{formatKoreanCurrency(orderAmountValue)}원</span>
         </div>
         <div className={styles.cartToTalsTextWrapper}>
           <span className={styles.subtitleText}>배송비</span>
-          <span className={styles.titleText}>{formatKoreanCurrency(deliveryCharge)}원</span>
+          <span className={styles.titleText}>{formatKoreanCurrency(deliveryFeeValue)}원</span>
         </div>
       </div>
       <div className={styles.cartTotalsWrapper}>
         <div className={styles.cartToTalsTextWrapper}>
           <span className={styles.subtitleText}>총 결제 금액</span>
-          <span className={styles.titleText}>{formatKoreanCurrency(totalAmount)}원</span>
+          <span className={styles.titleText}>{formatKoreanCurrency(totalAmountValue)}원</span>
         </div>
       </div>
     </div>
