@@ -1,7 +1,6 @@
-import { createGlobalStyle } from "styled-components";
+import { css } from "styled-components";
 
-const GlobalStyle = createGlobalStyle`
-
+const resetStyle = css`
   html,
   body,
   div,
@@ -88,7 +87,8 @@ const GlobalStyle = createGlobalStyle`
     border: 0;
     font-size: 100%;
     font: inherit;
-    vertical-align: baseline;  box-sizing: border-box;
+    vertical-align: baseline;
+    box-sizing: border-box;
   }
   article,
   aside,
@@ -106,7 +106,7 @@ const GlobalStyle = createGlobalStyle`
   * {
     user-select: none;
     margin: 0;
-    padding: 0
+    padding: 0;
   }
   body {
     font-family: sans-serif;
@@ -123,7 +123,7 @@ const GlobalStyle = createGlobalStyle`
   blockquote:after,
   q:before,
   q:after {
-    content: '';
+    content: "";
     content: none;
   }
   table {
@@ -133,22 +133,16 @@ const GlobalStyle = createGlobalStyle`
   button {
     border: none;
     background-color: transparent;
-  
   }
-  input[type="text"]{
+  input[type="text"] {
     padding: 0;
     padding-inline: 0;
     padding-block: 0;
   }
 
-  body{
-    /* -ms-overflow-style: none; */
-    }
-    
-   ::-webkit-scrollbar {
-     display: none;
-   }
-  
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
-export default GlobalStyle;
+export default resetStyle;
