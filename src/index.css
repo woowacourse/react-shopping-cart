@@ -1,6 +1,7 @@
 :root {
   background-color: #fff;
   color: #000;
+  overflow: hidden;
 }
 
 body {
@@ -8,5 +9,5 @@ body {
   display: flex;
   place-items: center;
   min-width: 320px;
-  min-height: 100vh;
+  height: 100vh;
 }
