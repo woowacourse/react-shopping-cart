@@ -1,4 +1,5 @@
 import styles from '../Cart.module.css';
+import common from '../../../styles/common.module.css';
 
 interface Props {
   productsCount: number;
@@ -7,7 +8,7 @@ interface Props {
 export default function CartTitle({ productsCount }: Props) {
   return (
     <div className={styles.cartContentWrapper}>
-      <h1 className={styles.titleText}>장바구니</h1>
+      <h1 className={common.titleText}>장바구니</h1>
       <span className={styles.cartTitleCaption}>
         현재 {productsCount}종류의 상품이 담겨있습니다.
       </span>

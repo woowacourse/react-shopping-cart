@@ -1,0 +1,21 @@
+/* text */
+.titleText {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 34.75px;
+  text-align: left;
+}
+
+.subtitleText {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: left;
+}
+
+.labelText {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+  text-align: left;
+}

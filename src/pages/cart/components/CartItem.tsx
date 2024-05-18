@@ -1,5 +1,4 @@
 import { ProductType } from '../../../types';
-import styles from '../Cart.module.css';
 import Button from '../../../components/common/Button';
 import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
 import { useRecoilValue } from 'recoil';
@@ -7,6 +6,8 @@ import { productQuantityState } from '../../../store/selectors';
 import useQuantityCount from '../../../hooks/useQuantityCount';
 import useToggleIndividualChecked from '../../../hooks/useToggleIndividualChecked';
 import useDeleteProduct from '../../../hooks/useDeleteProduct';
+import styles from '../Cart.module.css';
+import common from '../../../styles/common.module.css';
 
 interface Props extends ProductType {
   quantity: number;
@@ -41,7 +42,7 @@ export default function CartItem({ id, price, imageUrl, name, setAllChecked }: P
 
         <div className={styles.itemInfoContainer}>
           <span className={styles.name}> {name}</span>
-          <span className={styles.titleText}> {formatKoreanCurrency(price)}원</span>
+          <span className={common.titleText}> {formatKoreanCurrency(price)}원</span>
           <div className={styles.plusMinusButtonContainer}>
             <Button
               className={styles.plusMinusButton}
