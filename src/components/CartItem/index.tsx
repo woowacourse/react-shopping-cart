@@ -12,7 +12,7 @@ interface Props {
 const CartItem = ({ item }: Props) => {
   return (
     <li css={cartItemContainer}>
-      <CartItemHeaderSection cartId={item.id} />
+      <CartItemHeaderSection cartId={item.id} productName={item.product.name} />
       <CartItemMainSection item={item} />
     </li>
   );

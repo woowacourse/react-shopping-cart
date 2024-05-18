@@ -1,17 +1,17 @@
 import { css } from '@emotion/react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { deleteItem } from '../../apis/cartItem';
-import { CHECKED, UNCHECKED } from '../../assets/images';
-import LocalStorage, { CART_ITEM } from '../../Storage';
-
+import LocalStorage, { CART_ITEM } from '@/Storage';
+import { deleteItem } from '@apis/cartItem';
+import Checkbox from '@components/common/Checkbox';
 import { cartItemsState, checkedItemsState } from '@recoil/cartItems/atoms';
 
 interface CartItemHeaderSectionProps {
   cartId: number;
+  productName: string;
 }
 
-const CartItemHeaderSection = ({ cartId }: CartItemHeaderSectionProps) => {
+const CartItemHeaderSection = ({ cartId, productName }: CartItemHeaderSectionProps) => {
   const [isChecked, setIsChecked] = useRecoilState(checkedItemsState(cartId));
   const setCartItems = useSetRecoilState(cartItemsState);
 
@@ -28,15 +28,7 @@ const CartItemHeaderSection = ({ cartId }: CartItemHeaderSectionProps) => {
 
   return (
     <div css={cartItemHeader}>
-      <div onClick={handleClickCheck}>
-        <img
-          src={isChecked ? CHECKED : UNCHECKED}
-          width={24}
-          height={24}
-          css={checkIcon}
-          alt="check icon"
-        />
-      </div>
+      <Checkbox checked={isChecked} onChange={handleClickCheck} id={productName + 'checkbox'} />
       <button css={deleteButton} onClick={handleDeleteItem}>
         삭제
       </button>
@@ -69,8 +61,4 @@ const deleteButton = css`
   background-color: #fff;
 
   font-size: 12px;
-`;
-
-const checkIcon = css`
-  cursor: pointer;
 `;
