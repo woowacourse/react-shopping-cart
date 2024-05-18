@@ -1,10 +1,12 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import ShoppingCartPage from './page/ShoppingCartPage';
-import ConfirmOrderPage from './page/ConfirmOrderPage';
-
 import './App.css';
 import './reset.css';
+
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+
+import ConfirmOrderPage from './page/ConfirmOrderPage';
 import ENDPOINTS from './constants/endpoints';
+import ShoppingCartPage from './page/ShoppingCartPage';
+import { Suspense } from 'react';
 
 const router = createBrowserRouter([
   {
@@ -13,7 +15,11 @@ const router = createBrowserRouter([
   },
   {
     path: ENDPOINTS.confirmOrder,
-    element: <ConfirmOrderPage />,
+    element: (
+      <Suspense>
+        <ConfirmOrderPage />
+      </Suspense>
+    ),
   },
 ]);
 

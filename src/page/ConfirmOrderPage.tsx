@@ -1,24 +1,32 @@
-import { useEffect } from 'react';
+import {
+  totalAmountState,
+  totalCartItemsCountState,
+  totalProductsCountState,
+} from '../recoil/selectors';
 import { useLocation, useNavigate } from 'react-router-dom';
-import styled from '@emotion/styled';
 
+import ENDPOINTS from '../constants/endpoints';
 import FooterButton from '../components/FooterButton/FooterButton';
 import Header from '../components/Header/Header';
 import PreviousPageButton from '../components/PreviousPageButton/PreviousPageButton';
 import convertToLocaleAmount from '../utils/convertToLocalePrice';
-import ENDPOINTS from '../constants/endpoints';
+import styled from '@emotion/styled';
+import { useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
 
 export default function ConfirmOrderPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    if (!location.state) {
-      navigate(ENDPOINTS.shoppingCart);
-    }
-  }, [location.state, navigate]);
+    if (location === null) navigate(ENDPOINTS.shoppingCart);
+    if (!location.state) navigate(ENDPOINTS.shoppingCart);
+    if (location.state && !location.state.isSubmitted) navigate(ENDPOINTS.shoppingCart);
+  }, [location, navigate]);
 
-  const { totalCartItemsCount, totalProductsCount, totalAmount } = location.state || {};
+  const totalCartItemsCount = useRecoilValue(totalCartItemsCountState);
+  const totalProductsCount = useRecoilValue(totalProductsCountState);
+  const totalAmount = useRecoilValue(totalAmountState);
 
   const handleClickPreviousPageButton = () => {
     navigate(ENDPOINTS.shoppingCart);
