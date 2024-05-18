@@ -24,7 +24,7 @@ describe('상품 삭제 테스트', () => {
           <RecoilRoot
             initializeState={({ set }) => {
               set(cartItemsSelector, INITIAL_ITEMS);
-              set(selectedIdsAtom, []);
+              set(selectedIdsAtom, new Set());
             }}
           >
             {children}
@@ -58,7 +58,7 @@ describe('상품 삭제 테스트', () => {
           <RecoilRoot
             initializeState={({ set }) => {
               set(cartItemsSelector, INITIAL_ITEMS);
-              set(selectedIdsAtom, [ID]);
+              set(selectedIdsAtom, new Set([ID]));
             }}
           >
             {children}
@@ -75,10 +75,10 @@ describe('상품 삭제 테스트', () => {
       result.current.updateSelectedCartItemIds();
     });
 
-    expect(result.current.selectedIds.every((id) => id !== ID)).toBeTruthy();
+    expect(result.current.selectedIds.has(ID)).toBeTruthy();
 
     const storage = JSON.parse(localStorage.getItem(STORAGE_KEY.selectedItems) ?? '');
 
-    expect(storage).toEqual([]);
+    expect(storage).toEqual({});
   });
 });
