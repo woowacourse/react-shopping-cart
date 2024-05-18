@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import MobileLayout from './components/common/MobileLayout/MobileLayout';
 import CartPage from './pages/CartPage';
 import ConfirmPurchasePage from './pages/ConfirmPurchasePage';
 import { ErrorBoundary } from 'react-error-boundary';
