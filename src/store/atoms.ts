@@ -3,7 +3,7 @@ import { atom, atomFamily } from 'recoil';
 
 import { INIT_CART_ITEM_STATE } from '@/constants/defaultStateValue';
 import { cartState } from '@/store/selectors/dataFetchSelector';
-import localStorageEffect from '@/utils/localStorageEffect';
+import localStorageEffect from '@/store/localStorageEffect';
 
 export const filteredCartItemState = atomFamily<
   FilteredCartItemStateType,
