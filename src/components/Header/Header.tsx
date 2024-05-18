@@ -28,17 +28,17 @@ interface HeaderProps {
   headerIconType: 'home' | 'back';
 }
 
+const handleHeaderIcon = ({ headerIconType }: HeaderProps) => {
+  switch (headerIconType) {
+    case 'back':
+      return { icon: BackArrowIcon, width: '2.1rem', url: -1 };
+
+    default:
+      return { icon: LogoIcon, width: '5.6rem', url: '/cart' };
+  }
+};
+
 function Header({ headerIconType }: HeaderProps) {
-  const handleHeaderIcon = ({ headerIconType }: HeaderProps) => {
-    switch (headerIconType) {
-      case 'back':
-        return { icon: BackArrowIcon, width: '2.1rem', url: -1 };
-
-      default:
-        return { icon: LogoIcon, width: '5.6rem', url: '/cart' };
-    }
-  };
-
   const { icon, width, url } = handleHeaderIcon({ headerIconType });
   const navigate = useNavigate();
 
