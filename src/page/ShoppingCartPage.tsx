@@ -1,42 +1,11 @@
-import {
-  totalAmountState,
-  totalCartItemsCountState,
-  totalProductsCountState,
-} from '../recoil/selectors';
-
 import CartContainer from '../components/CartContainer/CartContainer';
 import ConfirmButton from '../components/ConfirmButton/ConfirmButton';
-import ENDPOINTS from '../constants/endpoints';
 import Header from '../components/Header/Header';
 import { Suspense } from 'react';
 import TitleContainer from '../components/TitleContainer/TitleContainer';
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilValueLoadable } from 'recoil';
 
 export default function ShoppingCartPage() {
-  const navigate = useNavigate();
-
-  const totalCartItemsCount = useRecoilValueLoadable(totalCartItemsCountState);
-  const totalProductsCount = useRecoilValueLoadable(totalProductsCountState);
-  const totalAmount = useRecoilValueLoadable(totalAmountState);
-
-  const handleClickConfirmButton = () => {
-    if (
-      totalCartItemsCount.state === 'hasValue' &&
-      totalProductsCount.state === 'hasValue' &&
-      totalAmount.state === 'hasValue'
-    ) {
-      navigate(ENDPOINTS.confirmOrder, {
-        state: {
-          totalCartItemsCount: totalCartItemsCount.contents,
-          totalProductsCount: totalProductsCount.contents,
-          totalAmount: totalAmount.contents,
-        },
-      });
-    }
-  };
-
   return (
     <>
       <Header>SHOP</Header>
@@ -47,7 +16,7 @@ export default function ShoppingCartPage() {
         </Suspense>
       </Content>
       <Suspense>
-        <ConfirmButton onClick={handleClickConfirmButton} />
+        <ConfirmButton />
       </Suspense>
     </>
   );
