@@ -13,7 +13,7 @@ interface Request {
   body?: Record<string, string | number>;
 }
 
-const fetchClient = {
+const fetcher = {
   get({ requestUrl, headers }: Omit<Request, 'method' | 'body'>) {
     return this.request({ requestUrl, method: 'GET', headers });
   },
@@ -43,4 +43,4 @@ const fetchClient = {
   },
 };
 
-export default fetchClient;
+export default fetcher;

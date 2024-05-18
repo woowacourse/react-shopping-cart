@@ -1,16 +1,16 @@
-import fetchClient from './fetchClient';
+import fetcher from './fetcher';
 
 import { REQUEST_URL } from '@/constants/url';
 
 export const fetchCartItems = async () => {
-  const res = await fetchClient.get({ requestUrl: REQUEST_URL.cartItems });
+  const res = await fetcher.get({ requestUrl: REQUEST_URL.cartItems });
   const result = await res.json();
 
   return result.content;
 };
 
 export const updateItemQuantity = async (cartId: number, quantity: number) => {
-  const res = await fetchClient.patch({
+  const res = await fetcher.patch({
     requestUrl: REQUEST_URL.updateItemQuantity(cartId),
     body: { quantity },
   });
@@ -19,7 +19,7 @@ export const updateItemQuantity = async (cartId: number, quantity: number) => {
 };
 
 export const deleteItem = async (cartId: number) => {
-  const res = await fetchClient.delete({
+  const res = await fetcher.delete({
     requestUrl: REQUEST_URL.deleteItem(cartId),
   });
 

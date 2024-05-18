@@ -4,12 +4,15 @@ import { fetchCartItems } from '@/apis/cartItem';
 import LocalStorage, { CART_ITEM } from '@/Storage';
 import { CartItemProps } from '@/types/cartItem';
 
-const fetchCartItemsSelector = selector<CartItemProps[]>({
+export const fetchCartItemsSelector = selector<CartItemProps[]>({
   key: 'fetchCartItemsSelector',
   get: async () => {
     const cartItems = await fetchCartItems();
 
     return cartItems;
+  },
+  cachePolicy_UNSTABLE: {
+    eviction: 'most-recent',
   },
 });
 
