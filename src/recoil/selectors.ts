@@ -36,28 +36,6 @@ export const shippingFeeState = selector({
   },
 });
 
-export const checkCartItemSelector = selector({
-  key: "checkCartItemSelector",
-  get: () => {
-    return 0;
-  },
-  set: ({ set }, id) => {
-    if (typeof id !== "number") return;
-    set(checkedCartItemsState, (prevSelected) => [...prevSelected, id]);
-  },
-});
-
-export const uncheckCartItemSelector = selector({
-  key: "uncheckCartItemSelector",
-  get: () => {
-    return 0;
-  },
-  set: ({ set }, id) => {
-    if (typeof id !== "number") return;
-    set(checkedCartItemsState, (prevSelected) => prevSelected.filter((_id) => _id !== id));
-  },
-});
-
 export const uncheckAllCartItemSelector = selector({
   key: "uncheckAllCartItemSelector",
   get: () => {
