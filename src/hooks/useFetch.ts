@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 
 const useFetch = <T>(fetchFunction: () => Promise<T>) => {
   const [data, setData] = useState<T>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const fetch = async () => {
     try {
