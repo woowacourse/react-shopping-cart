@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { ROUTE_PATH } from "../constants/routePath";
-import Button from "./Button";
+import Button from "./common/Button";
 import { useRecoilValue } from "recoil";
 import { selectedCartItemIdsState } from "../recoil/selectedCartItemIds";
 

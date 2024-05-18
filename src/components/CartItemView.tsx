@@ -1,6 +1,7 @@
 import { CartItem } from "../types/cartItems";
 import styled from "styled-components";
 import { UseCartItemsReturn } from "../hooks/useCartItemControl";
+import Counter from "./common/Counter";
 
 export interface CartItemViewProps {
   cartItem: CartItem;
@@ -11,21 +12,13 @@ export default function CartItemView({ cartItem, cartItemControl }: CartItemView
   const { remove, updateQuantity, toggleSelection } = cartItemControl;
   const cartItemId = cartItem.id;
 
-  const handleCheckboxChange = () => {
-    toggleSelection(cartItemId);
-  };
+  const handleCheckboxChange = () => toggleSelection(cartItemId);
+  const handleRemoveButtonClick = () => remove(cartItemId);
 
-  const handleRemoveButtonClick = () => {
-    remove(cartItemId);
-  };
+  const increaseQuantity = () => updateQuantity(cartItemId, cartItem.quantity + 1);
+  const decreaseQuantity = () => updateQuantity(cartItemId, cartItem.quantity - 1);
 
-  const handleIncreaseButtonClick = () => {
-    updateQuantity(cartItemId, cartItem.quantity + 1);
-  };
-
-  const handleDecreaseButtonClick = () => {
-    updateQuantity(cartItemId, cartItem.quantity - 1);
-  };
+  const MIN_QUANTITY = 1;
 
   return (
     <S.CartItemContainer>
@@ -41,11 +34,12 @@ export default function CartItemView({ cartItem, cartItemControl }: CartItemView
             <S.ProductName>{cartItem.product.name}</S.ProductName>
             <S.ProductPrice>{cartItem.product.price.toLocaleString()}원</S.ProductPrice>
           </S.ProductInfo>
-          <S.CartItemCountControl>
-            <S.CountButton onClick={handleDecreaseButtonClick}>-</S.CountButton>
-            <S.Count>{cartItem.quantity}</S.Count>
-            <S.CountButton onClick={handleIncreaseButtonClick}>+</S.CountButton>
-          </S.CartItemCountControl>
+          <Counter
+            count={cartItem.quantity}
+            onIncrease={increaseQuantity}
+            onDecrease={decreaseQuantity}
+            minCount={MIN_QUANTITY}
+          />
         </S.ProductInnerWrapper>
       </S.ProductOuterWrapper>
     </S.CartItemContainer>
@@ -104,12 +98,6 @@ const S = {
     margin: 9.5px 0;
   `,
 
-  CartItemCountControl: styled.div`
-    display: flex;
-    gap: 4px;
-    align-items: center;
-  `,
-
   ProductInfo: styled.div`
     display: flex;
     flex-direction: column;
@@ -126,20 +114,5 @@ const S = {
     font-size: 24px;
     font-weight: 700;
     line-height: 34.75px;
-  `,
-
-  CountButton: styled.button`
-    width: 24px;
-    height: 24px;
-    line-height: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    background-color: white;
-    border-radius: 8px;
-  `,
-
-  Count: styled.div`
-    font-size: 12px;
-    width: 20px;
-    text-align: center;
   `,
 };

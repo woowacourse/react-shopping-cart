@@ -1,4 +1,4 @@
-import Header from "../components/Header";
+import Header from "../components/common/Header";
 import styled from "styled-components";
 import CartContent from "../components/CartContent";
 import { Suspense } from "react";
@@ -17,6 +17,9 @@ export default function CartPage() {
 const S = {
   Container: styled.div`
     width: 429px;
+    height: 100vh;
+    overflow: scroll;
+    scrollbar-width: none;
     border: 1px solid #808080;
   `,
 };

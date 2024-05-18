@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { ReactComponent as BackIcon } from "../assets/back-icon.svg";
+import { ReactComponent as BackIcon } from "../../assets/back-icon.svg";
 
 export interface IHeaderProps {
   hasBackButton: boolean;
