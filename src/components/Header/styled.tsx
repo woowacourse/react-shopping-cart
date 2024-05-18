@@ -10,3 +10,11 @@ export const Header = styled.header`
   color: ${props => props.theme.color.white};
   ${props => props.theme.typography.heading};
 `;
+
+export const Button = styled.button`
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+`;

@@ -13,7 +13,9 @@ const Header = () => {
   return (
     <S.Header>
       {matchOrderInfo !== null ? (
-        <img src={back} alt="" onClick={goBack} style={{ cursor: 'pointer' }} />
+        <S.Button onClick={goBack}>
+          <img src={back} alt=""></img>
+        </S.Button>
       ) : (
         '쇼핑하기'
       )}
