@@ -2,9 +2,9 @@ import * as S from './styled';
 import Checkbox from '../Checkbox/Checkbox';
 import DeleteButton from '../DeleteButton/DeleteButton';
 import SetQuantity from '../SetQuantity/SetQuantity';
-import { CartItem } from '../../api/get/getItems';
-import deleteItem from '../../api/delete/deleteItem';
-import changeQuantity from '../../api/patch/changeQuantity';
+import { CartItem } from '../../api/get/getCartItems';
+import deleteCartItem from '../../api/delete/deleteCartItem';
+import changeCartItemQuantity from '../../api/patch/changeCartItemQuantity';
 
 interface ShoppingCartItemProps {
   cartItem: CartItem;
@@ -26,7 +26,7 @@ const ShoppingCartItem = ({
   setOneItemQuantity,
 }: ShoppingCartItemProps) => {
   const onDelete = async () => {
-    await deleteItem(cartItem.id);
+    await deleteCartItem(cartItem.id);
     await refetch();
   };
 
@@ -34,14 +34,14 @@ const ShoppingCartItem = ({
 
   const handleIncrement = async () => {
     const newQuantity = quantity + 1;
-    await changeQuantity({ id: cartItem.id, quantity: newQuantity });
+    await changeCartItemQuantity({ id: cartItem.id, quantity: newQuantity });
     setOneItemQuantity(cartItem.id, newQuantity);
     selectedItemQuantity(cartItem, newQuantity);
   };
 
   const handleDecrement = async () => {
     const newQuantity = Math.max(quantity - 1, 0);
-    await changeQuantity({ id: cartItem.id, quantity: newQuantity });
+    await changeCartItemQuantity({ id: cartItem.id, quantity: newQuantity });
     setOneItemQuantity(cartItem.id, newQuantity);
     selectedItemQuantity(cartItem, newQuantity);
   };

@@ -1,7 +1,6 @@
 import ShoppingCartDescription from '../ShoppingCartDescription/ShoppingCartDescription';
 import ShoppingCartList from '../ShoppingCartList/ShoppingCartList';
 import PaymentTotal from '../PaymentTotal/PaymentTotal';
-import getItems from '../../api/get/getItems';
 import * as S from './styled';
 import useFetch from '../../hooks/useFetch';
 import FloatingButton from '../FloatingButton/FloatingButton';
@@ -11,9 +10,10 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTER_URLS } from '../../constants/constants';
 import Fallback from '../Fallback/Fallback';
 import { selectedCartItems } from '../../recoil/atoms';
+import getCartItems from './../../api/get/getCartItems';
 
 const ShoppingCartOverview = () => {
-  const { data, refetch } = useFetch(getItems);
+  const { data, refetch } = useFetch(getCartItems);
   const orderInfo = useRecoilValue(orderInfoStore);
   const navigate = useNavigate();
   const selectItemsLength = useRecoilValue(selectedCartItems).length;

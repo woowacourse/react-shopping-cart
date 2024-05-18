@@ -1,4 +1,4 @@
-import { CartItem } from '../../api/get/getItems';
+import { CartItem } from '../../api/get/getCartItems';
 import useItemQuantity from '../../hooks/useItemQuantity';
 import useSelectedItems from '../../hooks/useSelectedItems';
 import SelectAll from '../SelectAll/SelectAll';

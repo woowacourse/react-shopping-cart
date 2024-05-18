@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { SelectedCartItem, selectedCartItems } from '../recoil/atoms';
-import { CartItem } from '../api/get/getItems';
+import { CartItem } from '../api/get/getCartItems';
 import intersectionByProperty from '../utils/getArrayIntersection';
 
 const useSelectedItems = (

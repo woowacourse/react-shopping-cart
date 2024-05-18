@@ -6,8 +6,8 @@ export interface QuantityParams {
   quantity: number;
 }
 
-const changeQuantity = async ({ id, quantity }: QuantityParams) => {
+const changeCartItemQuantity = async ({ id, quantity }: QuantityParams) => {
   await axiosInstance.patch(URLS.QUANTITY_TO_CHANGE(id), { quantity: quantity });
 };
 
-export default changeQuantity;
+export default changeCartItemQuantity;

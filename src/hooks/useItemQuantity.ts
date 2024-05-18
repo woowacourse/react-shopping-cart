@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil';
 import { itemQuantityState } from '../recoil/atoms';
 import { useEffect } from 'react';
-import { CartItem } from '../api/get/getItems';
+import { CartItem } from '../api/get/getCartItems';
 
 const useItemQuantity = (cartItems: CartItem[]) => {
   const [quantity, setQuantity] = useRecoilState(itemQuantityState);
