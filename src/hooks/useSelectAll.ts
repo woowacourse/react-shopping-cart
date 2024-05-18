@@ -1,24 +1,24 @@
-import { useRecoilCallback, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 import { cartItems } from "@/recoil/cartItems";
-import { isAllItemSelectedSelector } from "@/recoil/selectedCardItems";
-import { selectedCartItems } from "@/recoil/selectedCardItems";
+import { selectedCartItemsIdState } from "@/recoil/selectedCardItems";
 
 const useSelectAll = () => {
+  const [selectedItemsId, setSelectedItemsId] = useRecoilState(
+    selectedCartItemsIdState
+  );
   const cartItemState = useRecoilValue(cartItems);
-  const isAllItemSelected = useRecoilValue(isAllItemSelectedSelector);
 
-  const selectAllItem = useRecoilCallback(({ set }) => () => {
-    cartItemState.forEach((cartItem) => {
-      set(selectedCartItems(cartItem.id), true);
-    });
-  });
+  const isAllItemSelected = cartItemState.length === selectedItemsId.length;
 
-  const unselectAllItem = useRecoilCallback(({ set }) => () => {
-    cartItemState.forEach((cartItem) => {
-      set(selectedCartItems(cartItem.id), false);
-    });
-  });
+  const selectAllItem = () => {
+    const allItemsId = cartItemState.map((item) => item.id);
+    setSelectedItemsId(allItemsId);
+  };
+
+  const unselectAllItem = () => {
+    setSelectedItemsId([]);
+  };
 
   return {
     selectAllItem,

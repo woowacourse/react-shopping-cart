@@ -1,45 +1,17 @@
-import { AtomEffect, atomFamily, selector } from "recoil";
-
-import { cartItems } from "./cartItems";
+import { AtomEffect, atom } from "recoil";
 
 const SELECTED_ITEM_STORAGE_KEY = "selectedItems";
 
 const localStorageEffectForItem =
-  (id: number): AtomEffect<boolean> =>
-  ({ setSelf, onSet }) => {
-    const savedValue = localStorage.getItem(SELECTED_ITEM_STORAGE_KEY);
-
-    if (savedValue) {
-      const selectedItems: number[] = JSON.parse(savedValue);
-      setSelf(selectedItems.includes(id));
-    }
-
+  (): AtomEffect<number[]> =>
+  ({ onSet }) => {
     onSet((newValue) => {
-      const savedValue = localStorage.getItem(SELECTED_ITEM_STORAGE_KEY);
-
-      const selectedItems: number[] = savedValue ? JSON.parse(savedValue) : [];
-
-      const updatedItems = newValue
-        ? [...selectedItems, id]
-        : selectedItems.filter((itemId) => itemId !== id);
-
-      localStorage.setItem(
-        SELECTED_ITEM_STORAGE_KEY,
-        JSON.stringify(updatedItems)
-      );
+      localStorage.setItem(SELECTED_ITEM_STORAGE_KEY, JSON.stringify(newValue));
     });
   };
 
-export const selectedCartItems = atomFamily<boolean, number>({
+export const selectedCartItemsIdState = atom<number[]>({
   key: "selectedCartItems",
-  default: false,
-  effects: (id) => [localStorageEffectForItem(id)],
-});
-
-export const isAllItemSelectedSelector = selector({
-  key: "isAllItemSelectedSelector",
-  get: ({ get }) => {
-    const cartItemList = get(cartItems);
-    return cartItemList.every((item) => get(selectedCartItems(item.id)));
-  },
+  default: [],
+  effects: [localStorageEffectForItem()],
 });

@@ -6,28 +6,28 @@ import Caption from "@/components/_common/Caption/Caption";
 import Button from "@/components/_common/Button/Button";
 
 import {
-  finalOrderItemCountSelector,
   shippingFeeSelector,
+  totalItemOrderCountSelector,
   totalOrderPriceSelector,
 } from "@/recoil/orderInformation";
 import { MESSAGES, TITLES } from "@/constants/cart";
 import { formatToWon } from "@/utils/stringHelper";
-
+import { selectedCartItemsIdState } from "@/recoil/selectedCardItems";
 const OrderConfirmPage = () => {
   const totalPrice =
     useRecoilValue(totalOrderPriceSelector) +
     useRecoilValue(shippingFeeSelector);
 
-  const { typeLength, totalCount } = useRecoilValue(
-    finalOrderItemCountSelector
-  );
-  0;
+  const totalItemsCount = useRecoilValue(totalItemOrderCountSelector);
+  const selectedItemsId = useRecoilValue(selectedCartItemsIdState);
   return (
     <S.FlexWrapper>
       <Title text={TITLES.orderConfirm} />
 
       <>
-        <Caption text={MESSAGES.orderInfo(typeLength, totalCount)} />
+        <Caption
+          text={MESSAGES.orderInfo(selectedItemsId.length, totalItemsCount)}
+        />
         <Caption text={MESSAGES.askOrderConfirm} />
       </>
 

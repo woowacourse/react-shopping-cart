@@ -75,8 +75,6 @@ export const BUTTON_THEME: Record<ButtonTheme, RuleSet<object>> = {
   `,
 };
 
-// export type ButtonRadiusVariant = "square" | "rounded" | "floating";
-
 export const BUTTON_RADIUS: Record<
   ButtonRadiusVariant,
   CSSProperties["borderRadius"]

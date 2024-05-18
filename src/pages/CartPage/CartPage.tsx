@@ -1,10 +1,8 @@
-import { selectorFamily, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import {
-  finalOrderItemCountSelector,
   totalItemLengthSelector,
+  totalItemOrderCountSelector,
 } from "@/recoil/orderInformation";
-
-import useSelectAll from "@/hooks/useSelectAll";
 
 import Caption from "@/components/_common/Caption/Caption";
 import CheckBox from "@/components/_common/CheckBox/CheckBox";
@@ -17,11 +15,12 @@ import * as S from "./CartPage.style";
 import { MESSAGES, TITLES } from "@/constants/cart";
 import ProductList from "@/components/ProductList/ProductList";
 import OrderConfirmButton from "@/components/OrderConfirmButton/OrderConfirmButton";
+import useSelectAll from "@/hooks/useSelectAll";
 
 const CartPage = () => {
   const totalItemLength = useRecoilValue(totalItemLengthSelector);
   const { isAllItemSelected, selectAllItem, unselectAllItem } = useSelectAll();
-  const selectedItems = useRecoilValue(finalOrderItemCountSelector);
+  const selectedItems = useRecoilValue(totalItemOrderCountSelector);
 
   return (
     <>
@@ -41,7 +40,7 @@ const CartPage = () => {
         <Caption asset={() => <MoreInfo />} text={MESSAGES.freeShippingInfo} />
         <PriceSection />
       </S.CartPageLayout>
-      <OrderConfirmButton disabled={!selectedItems.typeLength} />
+      <OrderConfirmButton disabled={!selectedItems} />
     </>
   );
 };

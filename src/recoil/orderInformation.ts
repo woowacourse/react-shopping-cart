@@ -3,20 +3,19 @@ import { selector } from "recoil";
 import { cartItems } from "./cartItems";
 
 import { cartItemQuantity } from "./cartItemQuantity";
-import { selectedCartItems } from "./selectedCardItems";
+import { selectedCartItemsIdState } from "./selectedCardItems";
 
 export const totalOrderPriceSelector = selector({
   key: "totalOrderPriceSelector",
   get: ({ get }) => {
     const cartItemList = get(cartItems);
+    const selectedItemsId = get(selectedCartItemsIdState);
 
-    const totalPrice = [...cartItemList].reduce((accPrice, currItem) => {
-      const currentQuantity = get(cartItemQuantity(currItem.id));
-      const isSelected = get(selectedCartItems(currItem.id));
-
-      accPrice += isSelected ? currentQuantity * currItem.product.price : 0;
-
-      return accPrice;
+    const totalPrice = selectedItemsId.reduce((acc, productId) => {
+      const productInfo = cartItemList.find((item) => item.id == productId)!;
+      const quantity = get(cartItemQuantity(productId));
+      acc += productInfo.product.price * quantity;
+      return acc;
     }, 0);
 
     return totalPrice;
@@ -40,29 +39,16 @@ export const totalItemLengthSelector = selector({
   },
 });
 
-export const finalOrderItemCountSelector = selector({
+export const totalItemOrderCountSelector = selector({
   key: "finalOrderItemCountSelector",
 
   get: ({ get }) => {
-    const cardItemList = get(cartItems);
-
-    const finalOrderItemCount = cardItemList.reduce(
-      (acc, cur) => {
-        const itemQuantity = get(cartItemQuantity(cur.id));
-        const isSelected = get(selectedCartItems(cur.id));
-
-        return {
-          typeLength: isSelected ? (acc.typeLength += 1) : acc.typeLength,
-          totalCount: isSelected
-            ? (acc.totalCount += itemQuantity)
-            : acc.totalCount,
-        };
-      },
-      {
-        typeLength: 0,
-        totalCount: 0,
-      }
-    );
+    const selectedItemsId = get(selectedCartItemsIdState);
+    const finalOrderItemCount = selectedItemsId.reduce((acc, id) => {
+      const itemQuantity = get(cartItemQuantity(id));
+      acc += itemQuantity;
+      return acc;
+    }, 0);
 
     return finalOrderItemCount;
   },

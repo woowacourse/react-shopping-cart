@@ -15,8 +15,8 @@ import * as S from "./ProductItem.style";
 
 import { removeCartItem } from "@/apis";
 import { cartItems } from "@/recoil/cartItems";
-import { selectedCartItems } from "@/recoil/selectedCardItems";
 import { formatToWon } from "@/utils/stringHelper";
+import { selectedCartItemsIdState } from "@/recoil/selectedCardItems";
 
 const ProductItem = ({ item }: { item: CartItem }) => {
   const { product, id } = item;
@@ -24,8 +24,11 @@ const ProductItem = ({ item }: { item: CartItem }) => {
 
   const { quantity, handleIncreaseQuantity, handleDecreaseQuantity } =
     useUpdateItemQuantity(id);
-  const [isSelected, setIsSelected] = useRecoilState(selectedCartItems(id));
+  const [selectItems, setSelectItems] = useRecoilState(
+    selectedCartItemsIdState
+  );
 
+  const isItemSelected = selectItems.includes(id);
   const setCartItemList = useSetRecoilState(cartItems);
 
   const handleRemoveItem = async () => {
@@ -38,13 +41,17 @@ const ProductItem = ({ item }: { item: CartItem }) => {
     }
   };
 
+  const onClickCheckBox = isItemSelected
+    ? () => setSelectItems((prev) => prev.filter((id) => id !== id))
+    : () => setSelectItems((prev) => [...prev, id]);
+
   return (
     <S.ItemWrapper>
       <S.ItemButtonWrapper>
         <CheckBox
           id={`check-box-${id}`}
-          isChecked={isSelected}
-          onClick={() => setIsSelected((prevSelected) => !prevSelected)}
+          isChecked={isItemSelected}
+          onClick={onClickCheckBox}
         />
         <Button
           width="fit"

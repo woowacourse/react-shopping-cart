@@ -9,7 +9,7 @@ import { RecoilRoot } from "recoil";
 import { act } from "react";
 import { CartItemListMock } from "./mock";
 
-import { selectedCartItems } from "../recoil/selectedCardItems";
+import { selectedCartItemsIdState } from "../recoil/selectedCardItems";
 import { cartItemQuantity } from "../recoil/cartItemQuantity";
 import { cartItems } from "../recoil/cartItems";
 
@@ -33,7 +33,7 @@ const initializeState = ({ set }: { set: SetRecoilState }) => {
   set(cartItems, CartItemListMock);
 
   CartItemListMock.forEach((item) => {
-    set(selectedCartItems(item.id), true);
+    set(selectedCartItemsIdState, (prev) => [...prev, item.id]);
     set(cartItemQuantity(item.id), item.quantity);
   });
 };
@@ -182,32 +182,17 @@ describe("상품 제거 기능", () => {
 
     const [items, setItems] = result.current;
 
-    // 초기 상태 확인
     expect(items.length).toBe(CartItemListMock.length);
 
-    // 첫 번째 상품 제거
     act(() => {
       setItems((prevItems) =>
         prevItems.filter((item) => item.id !== CartItemListMock[0].id)
       );
     });
 
-    // 상태 업데이트 후 확인
     await waitFor(() => {
       const [updatedItems] = result.current;
       expect(updatedItems.length).toBe(CartItemListMock.length - 1);
     });
   });
 });
-
-// 초기 모킹 데이터 페칭 테스트
-
-/*
-상품 선택 기능: 개별 상품의 선택/해제 시 선택 여부가 정상적으로 변경되는지 테스트한다.
-수량 변경 기능: 상품의 수량을 변경할 때 올바르게 반영되는지 테스트한다.
-상품 제거 기능: 장바구니에서 상품을 제거할 때 정상적으로 동작하는지 테스트한다.
-
-결제 금액 계산: 선택된 상품들의 가격 합계가 결제 금액으로 정상 반영되는지 테스트한다.
-
-배송비 계산: 결제 금액에 따라 배송비가 정상적으로 계산되는지 (10만원 이상 무료) 테스트한다.
-*/
