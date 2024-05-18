@@ -1,9 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import CartPage from './pages/CartPage';
 import ConfirmPurchasePage from './pages/ConfirmPurchasePage';
-import { ErrorBoundary } from 'react-error-boundary';
-import ErrorFallback from './components/ErrorFallback/ErrorFallback';
-import { Suspense } from 'react';
 import styled from 'styled-components';
 
 const AppContainer = styled.div`
@@ -18,23 +15,11 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={
-              // <ErrorBoundary FallbackComponent={ErrorFallback}>
-              //   <Suspense fallback={<div>suspense</div>}>
-              <CartPage />
-              //   </Suspense>
-              // </ErrorBoundary>
-            }
+            element={<CartPage />}
           />
           <Route
             path="/confirm-purchase"
-            element={
-              <ErrorBoundary FallbackComponent={ErrorFallback}>
-                <Suspense fallback={<div>suspense</div>}>
-                  <ConfirmPurchasePage />
-                </Suspense>
-              </ErrorBoundary>
-            }
+            element={<ConfirmPurchasePage />}
           />
         </Routes>
       </AppContainer>
