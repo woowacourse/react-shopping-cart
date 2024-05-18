@@ -3,7 +3,7 @@ interface LocalShoppingCartType {
   isChecked: boolean;
 }
 
-export const UpdateLocalStorage = ({
+export const updateLocalStorage = ({
   id,
   isChecked,
 }: LocalShoppingCartType) => {
