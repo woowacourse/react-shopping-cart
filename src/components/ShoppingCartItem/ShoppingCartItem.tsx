@@ -1,6 +1,5 @@
 import * as S from './styled';
 import Checkbox from '../Checkbox/Checkbox';
-import DeleteButton from '../DeleteButton/DeleteButton';
 import SetQuantity from '../SetQuantity/SetQuantity';
 import deleteCartItem from '../../api/delete/deleteCartItem';
 import changeCartItemQuantity from '../../api/patch/changeCartItemQuantity';
@@ -51,7 +50,9 @@ const ShoppingCartItem = ({
       <S.Hr />
       <S.Header>
         <Checkbox isChecked={isSelected(cartItem.id)} onClick={() => onCheckboxClick(cartItem)} />
-        <DeleteButton onClick={onDelete} />
+        <S.DeleteButton type="button" onClick={onDelete}>
+          삭제
+        </S.DeleteButton>
       </S.Header>
       <S.Contents>
         <S.ProductImage src={cartItem.product.imageUrl} alt="product" />

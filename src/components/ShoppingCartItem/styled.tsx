@@ -42,3 +42,13 @@ export const ProductPrice = styled.p`
   margin-bottom: 2rem;
   ${props => props.theme.typography.pageTitle};
 `;
+
+export const DeleteButton = styled.button`
+  padding: 0.4rem 0.8rem;
+  border: 0.1rem solid ${props => props.theme.color.black10};
+  border-radius: 0.4rem;
+  background-color: ${props => props.theme.color.white};
+  ${props => props.theme.typography.label};
+
+  cursor: pointer;
+`;
