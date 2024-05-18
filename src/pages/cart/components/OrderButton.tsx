@@ -4,11 +4,11 @@ import { allCartItemStates } from '@/store/atoms';
 import { useRecoilValue } from 'recoil';
 
 export default function OrderButton() {
-  const { handleFooterButtonClick } = useCheckoutNavigate();
+  const { handleOrderButton } = useCheckoutNavigate();
   const cartItems = useRecoilValue(allCartItemStates);
 
   return (
-    <Button onClick={handleFooterButtonClick} variant="footer" disabled={cartItems.length === 0}>
+    <Button onClick={handleOrderButton} variant="footer" disabled={cartItems.length === 0}>
       주문 하기
     </Button>
   );
