@@ -1,7 +1,7 @@
-import { HeaderButton } from "../button/headerButton/HeaderButton";
-import { StyledHeaderContainer } from "./Header.styled";
+import { HeaderButton } from '../headerButton/HeaderButton';
+import { StyledHeaderContainer } from './Header.styled';
 
-const Header: React.FC<{ type: "shop" | "back" }> = ({ type }) => {
+const Header: React.FC<{ type: 'shop' | 'back' }> = ({ type }) => {
   return (
     <StyledHeaderContainer>
       <HeaderButton type={type} />

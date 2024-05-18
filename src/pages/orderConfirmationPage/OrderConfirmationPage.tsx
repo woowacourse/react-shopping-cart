@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { getCartItemCounts } from '../../api';
-import { ConfirmButton } from '../../components/button/confirmButton/ConfirmButton';
+import { ConfirmButton } from '../../components/confirmButton/ConfirmButton';
 import Header from '../../components/header/Header';
 import { cartItemsCountState } from '../../recoil/atoms/atoms';
 import {
