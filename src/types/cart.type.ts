@@ -1,14 +1,13 @@
-import { Product } from "./product.type";
+import { ProductType } from "./product.type";
 
 export interface CartItemType {
   id: number;
   quantity: number;
-  product: Product;
+  product: ProductType;
 }
 
-export interface Cart {
+export interface CartType {
   content: CartItemType[];
-  empty: boolean;
 }
 
 export interface FilteredCartItemStateType {

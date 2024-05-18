@@ -1,10 +1,10 @@
-export interface Recipe {
+export interface RecipeType {
   orderPrice: number;
   shippingFee: number;
   totalPrice: number;
 }
 
-export interface OrderedItem {
+export interface OrderedItemType {
   itemCount: number;
   totalQuantity: number;
 }

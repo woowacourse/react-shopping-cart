@@ -1,10 +1,10 @@
 import { FREE_SHIPPING_CONDITION, SHIPPING_FEE } from "@/constants/system";
-import { OrderedItem, Recipe } from "@/types/recipe.type";
+import { OrderedItemType, RecipeType } from "@/types/recipe.type";
 import { cartListState, filteredCartItemState } from "@/store/atoms";
 
 import { selector } from "recoil";
 
-export const recipeState = selector<Recipe>({
+export const recipeState = selector<RecipeType>({
   key: "recipeState",
   get: ({ get }) => {
     const cartList = get(cartListState);
@@ -30,7 +30,7 @@ export const recipeState = selector<Recipe>({
   },
 });
 
-export const orderedItemState = selector<OrderedItem>({
+export const orderedItemState = selector<OrderedItemType>({
   key: "orderedItemState",
   get: ({ get }) => {
     const cartList = get(cartListState);
