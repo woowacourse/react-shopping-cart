@@ -5,3 +5,4 @@ export { default as MINUS } from './minusIcon.svg';
 export { default as PLUS } from './plusIcon.svg';
 export { default as UNCHECKED } from './unchecked.svg';
 export { default as EMPTY_CART } from './emptyCart.svg';
+export { default as WARNING } from './warning.svg';
