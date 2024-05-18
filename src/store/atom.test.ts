@@ -13,7 +13,7 @@ jest.mock('../api/config', () => ({
 
 describe('filteredCartItemState test', () => {
   const mockId = 1;
-  it('초기값은 default value', () => {
+  it('초기값은 default value로 지정된다.', () => {
     const { result } = renderHook(
       () => useRecoilState(filteredCartItemState(mockId)),
       {
@@ -24,7 +24,7 @@ describe('filteredCartItemState test', () => {
     expect(1).toBe(1);
   });
 
-  it('값 변경 가능', () => {
+  it('값을 변경할 수 있다.', () => {
     const { result } = renderHook(
       () => useRecoilState(filteredCartItemState(mockId)),
       {

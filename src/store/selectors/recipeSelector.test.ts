@@ -16,7 +16,7 @@ jest.mock('../../api/config', () => ({
 }));
 
 describe('cartTotalPriceState', () => {
-  it('상품 개수에 따른 총 가격 계산(10만원 이하 배송비 포함)', () => {
+  it('선택된 상품들의 최종 가격을 계산하고, 10만원 이하 시 배송비가 포함된다.', () => {
     const { result } = renderHook(
       () => {
         const setCartList = useSetRecoilState(cartListState);
@@ -44,7 +44,7 @@ describe('cartTotalPriceState', () => {
     expect(result.current.totalPrice).toBe(10000);
   });
 
-  it('상품 개수에 따른 총 가격 계산(10만원 이상 배송비 무료)', () => {
+  it('선택된 상품들의 최종 가격을 계산하고, 10만원 이상 시 배송비가 무료이다.', () => {
     const { result } = renderHook(
       () => {
         const setCartList = useSetRecoilState(cartListState);

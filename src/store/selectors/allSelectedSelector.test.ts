@@ -16,7 +16,7 @@ jest.mock('../../api/config', () => ({
 }));
 
 describe('allSelectedState Test', () => {
-  it('모든 아이템 선택 확인 (전체 선택 on)', () => {
+  it('모든 아이템이 `선택됨` 상태이면 전체 선택 상태가 True 가 된다.', () => {
     const { result } = renderHook(
       () => {
         const setCartList = useSetRecoilState(cartListState);
@@ -39,7 +39,7 @@ describe('allSelectedState Test', () => {
     expect(result.current).toBe(true);
   });
 
-  it('모든 아이템 선택 확인 (전체 선택 off)', () => {
+  it('하나의 아이템이라도 `선택됨`이 아니라면 전체 선택 상태가 False 가 된다.', () => {
     const { result } = renderHook(
       () => {
         const setCartList = useSetRecoilState(cartListState);
@@ -62,7 +62,7 @@ describe('allSelectedState Test', () => {
     expect(result.current).toBe(false);
   });
 
-  it('전체선택 클릭시 모든 아이템이 `선택됨`으로 변경', () => {
+  it('전체선택 체크박스 클릭시 모든 아이템이 `선택됨`으로 변경된다.', () => {
     const { result } = renderHook(
       () => {
         const setCartList = useSetRecoilState(cartListState);
