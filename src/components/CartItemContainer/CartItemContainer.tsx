@@ -14,12 +14,9 @@ export default function CartItemContainer() {
   const ids = items.map((item) => item.id);
   const isAllChecked = ids.every((id) => getIsChecked(id));
 
-  const handleAllCheck = () => {
-    checkId(...ids);
-  };
-
-  const handleAllUncheck = () => {
-    uncheckId(...ids);
+  const handleAllCheckToggle = () => {
+    if (isAllChecked) return uncheckId(...ids);
+    return checkId(...ids);
   };
 
   const handleDeleteItem = async (cartItemId: number) => {
@@ -39,10 +36,7 @@ export default function CartItemContainer() {
       )}
       <CartItemListContainer>
         <CheckAllBoxContainer>
-          <CheckBox
-            isChecked={isAllChecked}
-            onClick={isAllChecked ? handleAllUncheck : handleAllCheck}
-          />
+          <CheckBox isChecked={isAllChecked} onClick={handleAllCheckToggle} />
           <span>전체선택</span>
         </CheckAllBoxContainer>
 
