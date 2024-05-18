@@ -16,10 +16,7 @@ describe('주문 비용(주문 금액, 배송비, 총 결제 금액) 테스트',
           <RecoilRoot
             initializeState={({ set }) => {
               set(cartItemsSelector, INITIAL_ITEMS);
-              set(
-                selectedIdsAtom,
-                INITIAL_ITEMS.map((item) => item.id),
-              );
+              set(selectedIdsAtom, new Set(INITIAL_ITEMS.map((item) => item.id)));
             }}
           >
             {children}
@@ -45,10 +42,7 @@ describe('주문 비용(주문 금액, 배송비, 총 결제 금액) 테스트',
           <RecoilRoot
             initializeState={({ set }) => {
               set(cartItemsSelector, INITIAL_ITEMS);
-              set(
-                selectedIdsAtom,
-                INITIAL_ITEMS.map((item) => item.id),
-              );
+              set(selectedIdsAtom, new Set(INITIAL_ITEMS.map((item) => item.id)));
             }}
           >
             {children}
@@ -75,10 +69,7 @@ describe('주문 비용(주문 금액, 배송비, 총 결제 금액) 테스트',
           <RecoilRoot
             initializeState={({ set }) => {
               set(cartItemsSelector, SHIPPING_FREE_ITEMS);
-              set(
-                selectedIdsAtom,
-                SHIPPING_FREE_ITEMS.map((item) => item.id),
-              );
+              set(selectedIdsAtom, new Set(SHIPPING_FREE_ITEMS.map((item) => item.id)));
             }}
           >
             {children}

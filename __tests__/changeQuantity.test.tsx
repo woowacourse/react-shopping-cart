@@ -21,10 +21,7 @@ describe('수량 변경 테스트', () => {
           <RecoilRoot
             initializeState={({ set }) => {
               set(cartItemsSelector, INITIAL_ITEMS);
-              set(
-                selectedIdsAtom,
-                INITIAL_ITEMS.map((item) => item.id),
-              );
+              set(selectedIdsAtom, new Set(INITIAL_ITEMS.map((item) => item.id)));
             }}
           >
             {children}
@@ -62,10 +59,7 @@ describe('수량 변경 테스트', () => {
           <RecoilRoot
             initializeState={({ set }) => {
               set(cartItemsSelector, INITIAL_ITEMS);
-              set(
-                selectedIdsAtom,
-                INITIAL_ITEMS.map((item) => item.id),
-              );
+              set(selectedIdsAtom, new Set(INITIAL_ITEMS.map((item) => item.id)));
             }}
           >
             {children}
@@ -105,10 +99,7 @@ describe('수량 변경 테스트', () => {
             <RecoilRoot
               initializeState={({ set }) => {
                 set(cartItemsSelector, INITIAL_ITEMS);
-                set(
-                  selectedIdsAtom,
-                  INITIAL_ITEMS.map((item) => item.id),
-                );
+                set(selectedIdsAtom, new Set(INITIAL_ITEMS.map((item) => item.id)));
               }}
             >
               {children}
@@ -147,10 +138,7 @@ describe('수량 변경 테스트', () => {
             <RecoilRoot
               initializeState={({ set }) => {
                 set(cartItemsSelector, QUANTITY_TEST_ITEMS);
-                set(
-                  selectedIdsAtom,
-                  QUANTITY_TEST_ITEMS.map((item) => item.id),
-                );
+                set(selectedIdsAtom, new Set(INITIAL_ITEMS.map((item) => item.id)));
               }}
             >
               {children}

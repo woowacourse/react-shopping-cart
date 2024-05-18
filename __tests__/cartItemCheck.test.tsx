@@ -19,7 +19,7 @@ describe('상품 선택 테스트', () => {
           <RecoilRoot
             initializeState={({ set }) => {
               set(cartItemsSelector, INITIAL_ITEMS);
-              set(selectedIdsAtom, []);
+              set(selectedIdsAtom, new Set());
             }}
           >
             {children}
@@ -46,7 +46,7 @@ describe('상품 선택 테스트', () => {
           <RecoilRoot
             initializeState={({ set }) => {
               set(cartItemsSelector, INITIAL_ITEMS);
-              set(selectedIdsAtom, []);
+              set(selectedIdsAtom, new Set());
             }}
           >
             {children}
@@ -76,7 +76,7 @@ describe('상품 선택 테스트', () => {
           <RecoilRoot
             initializeState={({ set }) => {
               set(cartItemsSelector, INITIAL_ITEMS);
-              set(selectedIdsAtom, []);
+              set(selectedIdsAtom, new Set());
             }}
           >
             {children}
@@ -88,8 +88,6 @@ describe('상품 선택 테스트', () => {
     await waitFor(() => {
       return result.current !== undefined;
     });
-
-    console.log(result.current.isAllChecked);
 
     await waitFor(() => {
       result.current.onCheckAllCartItems();
@@ -108,7 +106,7 @@ describe('상품 선택 테스트', () => {
           <RecoilRoot
             initializeState={({ set }) => {
               set(cartItemsSelector, INITIAL_ITEMS);
-              set(selectedIdsAtom, []);
+              set(selectedIdsAtom, new Set());
             }}
           >
             {children}
@@ -141,7 +139,7 @@ describe('상품 선택 테스트', () => {
           <RecoilRoot
             initializeState={({ set }) => {
               set(cartItemsSelector, INITIAL_ITEMS);
-              set(selectedIdsAtom, []);
+              set(selectedIdsAtom, new Set());
             }}
           >
             {children}

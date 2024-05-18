@@ -75,10 +75,10 @@ describe('상품 삭제 테스트', () => {
       result.current.updateSelectedCartItemIds();
     });
 
-    expect(result.current.selectedIds.has(ID)).toBeTruthy();
+    expect(result.current.selectedIds.has(ID)).toBeFalsy();
 
-    const storage = JSON.parse(localStorage.getItem(STORAGE_KEY.selectedItems) ?? '');
+    const storage = JSON.parse(localStorage.getItem(STORAGE_KEY.selectedItems) ?? '[]');
 
-    expect(storage).toEqual({});
+    expect(storage).toStrictEqual([]);
   });
 });
