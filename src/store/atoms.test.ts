@@ -37,7 +37,7 @@ beforeEach(() => {
 });
 
 describe('productsState Atom 테스트', () => {
-  it('초기값을 잘 가져오는가', async () => {
+  it('productsState Atom을 첫 호출시, "/cart-item"에 GET 요청을 보내 response를 default 값으로 받아온다.', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ content: mockData }));
 
     const { result } = renderHook(() => useRecoilState(productsState), {
@@ -51,7 +51,7 @@ describe('productsState Atom 테스트', () => {
     });
   });
 
-  it('productsIds selector를 잘 가져오는가', async () => {
+  it('productsIds selector를 첫 호출시, productsState Atom에서 파생된 상태를 default 값으로 받아온다.', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ content: mockData }));
 
     const { result } = renderHook(() => useRecoilValue(productsIds), {
