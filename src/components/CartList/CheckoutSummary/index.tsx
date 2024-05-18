@@ -44,7 +44,7 @@ export default function CheckoutSummary({
 
       <PriceRow>
         <Label>총 결제 금액</Label>
-        <Price>{formatPriceToKoreanWon(totalPrice + shippingFee)}원</Price>
+        <Price>{formatPriceToKoreanWon(totalPrice + shippingFee)}</Price>
       </PriceRow>
     </Container>
   );
