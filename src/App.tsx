@@ -5,11 +5,17 @@ import ConfirmPurchasePage from './pages/ConfirmPurchasePage';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from './components/ErrorFallback/ErrorFallback';
 import { Suspense } from 'react';
+import styled from 'styled-components';
+
+const AppContainer = styled.div`
+  max-width: 768px;
+  width: 100%;
+`
 
 function App() {
   return (
     <BrowserRouter>
-      <MobileLayout>
+      <AppContainer>
         <Routes>
           <Route
             path="/"
@@ -32,7 +38,7 @@ function App() {
             }
           />
         </Routes>
-      </MobileLayout>
+      </AppContainer>
     </BrowserRouter>
   );
 }

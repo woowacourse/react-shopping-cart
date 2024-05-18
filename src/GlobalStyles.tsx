@@ -131,6 +131,10 @@ const GlobalStyles = createGlobalStyle`
   button {
     border: none;
   }
+  #root {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 export default GlobalStyles;

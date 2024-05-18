@@ -72,7 +72,7 @@ const CartPage = () => {
         width="full"
         radius={0}
         size="l"
-        style={{ position: 'fixed', bottom: '0', width: 'inherit' }}
+        style={{ position: 'fixed', maxWidth: '768px', bottom: '0' }}
         isDisabled={selectedItemList.length === 0 || (cartItemList !== null && cartItemList.length === 0)}
         onClick={() => navigate('/confirm-purchase', { state: cartItemList.filter(({ cartItemId }) => selectedItemList.includes(cartItemId)) })}
       >
