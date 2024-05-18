@@ -1,4 +1,5 @@
 export const API_URLS = {
+  PRODUCTS: '/products',
   CART_ITEMS: '/cart-items',
   QUANTITY_TO_CHANGE: (id: number) => `/cart-items/${id}`,
   DELETE_ITEMS: (id: number) => `/cart-items/${id}`,
@@ -14,6 +15,7 @@ export const RECOIL_KEYS = {
 export const ROUTER_URLS = {
   MAIN: '',
   ORDER_INFO: '/order-info',
+  ADMIN: '/admin',
   ERROR: '/error',
 };
 

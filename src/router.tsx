@@ -3,6 +3,7 @@ import App from './App';
 import ShoppingCartOverview from './components/ShoppingCartOverview/ShoppingCartOverview';
 import OrderInfo from './components/OrderInfo/OrderInfo';
 import { ROUTER_URLS } from './constants/constants';
+import ProductList from './components/Admin/ProductList/ProductList';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
         path: ROUTER_URLS.ORDER_INFO,
         element: <OrderInfo />,
         errorElement: <div>이상해요</div>,
+      },
+      {
+        path: ROUTER_URLS.ADMIN,
+        element: <ProductList />,
       },
     ],
     errorElement: <div>이상해요</div>,
