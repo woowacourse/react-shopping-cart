@@ -27,7 +27,7 @@ export const totalCheckedCartItemsPriceState = selector({
   },
 });
 
-export const setCartPriceSelector = selector({
+export const setCartPriceAndQuantitySelector = selector({
   key: "setCartPrice",
   get: () => {
     const cartItems: CartItemResponse[] = [

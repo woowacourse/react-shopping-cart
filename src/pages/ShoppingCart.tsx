@@ -3,7 +3,7 @@ import styled from "styled-components";
 import CartItemList from "../components/ShoppingCart/CartItemList/index";
 import OrderSummary from "../components/ShoppingCart/OrderSummary";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { checkedCartItemsQuantityState, getCartItems, setCartPriceSelector } from "../recoil/selectors";
+import { checkedCartItemsQuantityState, getCartItems, setCartPriceAndQuantitySelector } from "../recoil/selectors";
 import FooterButton from "../components/common/FooterButton/index";
 import CartEmptyScreen from "../components/ShoppingCart/CartEmptyScreen/index";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +17,7 @@ const ShoppingCart = () => {
   const [cartItems, setCartItems] = useState(fetchedCartItems);
 
   const checkedCartItemsQuantity = useRecoilValue(checkedCartItemsQuantityState);
-  const setCartPrice = useSetRecoilState(setCartPriceSelector);
+  const setCartPrice = useSetRecoilState(setCartPriceAndQuantitySelector);
   const router = useNavigate();
 
   setCartPrice(cartItems);
