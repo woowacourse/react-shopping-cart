@@ -6,21 +6,24 @@ import OrderConfirmPage from "@/pages/OrderConfirmPage/OrderConfirmPage";
 import CartPage from "@/pages/CartPage/CartPage";
 
 import { PAGE_URL } from "./constants/url";
+import { TITLES } from "./constants/cart";
 
 const router = createBrowserRouter([
   {
     path: PAGE_URL.home,
-    element: <MainLayout />,
-    children: [
-      {
-        path: PAGE_URL.home,
-        element: <CartPage />,
-      },
-      {
-        path: PAGE_URL.orderConfirm,
-        element: <OrderConfirmPage />,
-      },
-    ],
+    element: (
+      <MainLayout type="title" title={TITLES.cart}>
+        <CartPage />
+      </MainLayout>
+    ),
+  },
+  {
+    path: PAGE_URL.orderConfirm,
+    element: (
+      <MainLayout type="backButton">
+        <OrderConfirmPage />
+      </MainLayout>
+    ),
   },
 ]);
 

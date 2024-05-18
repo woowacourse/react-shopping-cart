@@ -20,3 +20,7 @@ export const LayoutWrapper = styled.div`
   background-color: white;
   color: black;
 `;
+
+export const CartHeaderTitle = styled.span`
+  ${({ theme }) => theme.TEXT.Title};
+`;

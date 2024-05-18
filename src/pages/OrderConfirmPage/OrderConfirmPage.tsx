@@ -1,11 +1,8 @@
 import * as S from "./OrderConfirmPage.style";
 import { useRecoilValue } from "recoil";
 
-import Header from "@/components/layout/Header/Header";
-
 import Title from "@/components/_common/Title/Title";
 import Caption from "@/components/_common/Caption/Caption";
-import BackButton from "@/components/_common/BackButton/BackButton";
 import Button from "@/components/_common/Button/Button";
 
 import {
@@ -27,9 +24,6 @@ const OrderConfirmPage = () => {
   0;
   return (
     <S.FlexWrapper>
-      <Header>
-        <BackButton />
-      </Header>
       <Title text={TITLES.orderConfirm} />
 
       <>
