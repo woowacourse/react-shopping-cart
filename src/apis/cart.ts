@@ -3,7 +3,7 @@ import { API_URL, basicToken } from ".";
 import { ErrorMessage } from "@/constants/error";
 
 export async function getCartItems(): Promise<CartItem[]> {
-  const response = await fetch(`${API_URL}/cart-item`, {
+  const response = await fetch(`${API_URL}/cart-items`, {
     method: "GET",
     headers: { Authorization: basicToken },
   });
