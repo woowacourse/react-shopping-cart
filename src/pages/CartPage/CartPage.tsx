@@ -1,8 +1,5 @@
 import { useRecoilValue } from "recoil";
-import {
-  totalItemLengthSelector,
-  totalItemOrderCountSelector,
-} from "@/recoil/orderInformation";
+import { totalItemOrderCountSelector } from "@/recoil/orderInformation";
 
 import Caption from "@/components/_common/Caption/Caption";
 import CheckBox from "@/components/_common/CheckBox/CheckBox";
@@ -16,18 +13,19 @@ import { CART_PAGE_MESSAGES, CART_PAGE_TITLES } from "@/constants/cart";
 import ProductList from "@/components/ProductList/ProductList";
 import OrderConfirmButton from "@/components/OrderConfirmButton/OrderConfirmButton";
 import useSelectAll from "@/hooks/useSelectAll";
+import { cartItems } from "@/recoil/cartItems";
 
 const CartPage = () => {
-  const totalItemLength = useRecoilValue(totalItemLengthSelector);
   const { isAllItemSelected, selectAllItem, unselectAllItem } = useSelectAll();
   const selectedItems = useRecoilValue(totalItemOrderCountSelector);
+  const cartItemList = useRecoilValue(cartItems);
 
   return (
     <>
       <S.CartPageLayout>
         <TitleSet
           title={CART_PAGE_TITLES.cart}
-          subTitle={CART_PAGE_MESSAGES.itemCount(totalItemLength)}
+          subTitle={CART_PAGE_MESSAGES.itemCount(cartItemList.length)}
         />
         <S.CheckBoxWrapper>
           <CheckBox

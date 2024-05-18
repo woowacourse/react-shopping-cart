@@ -35,26 +35,17 @@ export const shippingFeeSelector = selector({
   },
 });
 
-export const totalItemLengthSelector = selector({
-  key: "totalItemLengthSelector",
-  get: ({ get }) => {
-    const cartItemList = get(cartItems);
-
-    return cartItemList.length;
-  },
-});
-
 export const totalItemOrderCountSelector = selector({
-  key: "finalOrderItemCountSelector",
+  key: "totalItemOrderCountSelector",
 
   get: ({ get }) => {
     const selectedItemsId = get(selectedCartItemsIdState);
-    const finalOrderItemCount = selectedItemsId.reduce((acc, id) => {
+    const totalItemOrderCount = selectedItemsId.reduce((acc, id) => {
       const itemQuantity = get(cartItemQuantity(id));
       acc += itemQuantity;
       return acc;
     }, 0);
 
-    return finalOrderItemCount;
+    return totalItemOrderCount;
   },
 });
