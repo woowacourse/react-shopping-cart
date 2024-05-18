@@ -1,6 +1,6 @@
 import * as S from './styled';
 import Checkbox from '../Checkbox/Checkbox';
-import SetQuantity from '../SetQuantity/SetQuantity';
+import Stepper from '../Stepper/Stepper';
 import deleteCartItem from '../../api/delete/deleteCartItem';
 import changeCartItemQuantity from '../../api/patch/changeCartItemQuantity';
 import { CartItem } from '../../types/cartItem';
@@ -59,8 +59,8 @@ const ShoppingCartItem = ({
         <S.ProductDescription>
           <S.ProductName>{cartItem.product.name}</S.ProductName>
           <S.ProductPrice>{cartItem.product.price.toLocaleString()}원</S.ProductPrice>
-          <SetQuantity
-            quantity={quantity}
+          <Stepper
+            value={quantity}
             handleIncrement={handleIncrement}
             handleDecrement={handleDecrement}
           />

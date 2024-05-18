@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import SetQuantity from './SetQuantity';
+import Stepper from './Stepper';
 
 const meta = {
-  title: 'SetQuantity',
-  component: SetQuantity,
-} satisfies Meta<typeof SetQuantity>;
+  title: 'Stepper',
+  component: Stepper,
+} satisfies Meta<typeof Stepper>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const 기본_SetQuantity: Story = {
+export const 기본: Story = {
   decorators: [
     Story => {
       const [quantity, setQuantity] = useState<number>(0);
@@ -24,7 +24,7 @@ export const 기본_SetQuantity: Story = {
       return (
         <Story
           args={{
-            quantity: quantity,
+            value: quantity,
             handleIncrement: handleIncrement,
             handleDecrement: handleDecrement,
           }}
@@ -33,7 +33,7 @@ export const 기본_SetQuantity: Story = {
     },
   ],
   args: {
-    quantity: 0,
+    value: 0,
     handleIncrement: async () => console.log('올리'),
     handleDecrement: async () => console.log('쿠키'),
   },

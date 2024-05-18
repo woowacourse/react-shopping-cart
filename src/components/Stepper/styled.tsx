@@ -21,6 +21,6 @@ export const Image = styled.img`
   object-fit: contain;
 `;
 
-export const Quantity = styled.span`
+export const Value = styled.span`
   ${props => props.theme.typography.label};
 `;

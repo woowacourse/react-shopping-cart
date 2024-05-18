@@ -2,19 +2,19 @@ import * as S from './styled';
 import minus from '../../assets/minus.svg';
 import plus from '../../assets/plus.svg';
 
-interface SetQuantityProps {
-  quantity: number;
+interface StepperProps {
+  value: number;
   handleIncrement: () => Promise<void>;
   handleDecrement: () => Promise<void>;
 }
 
-const SetQuantity = ({ quantity, handleIncrement, handleDecrement }: SetQuantityProps) => {
+const Stepper = ({ value, handleIncrement, handleDecrement }: StepperProps) => {
   return (
     <S.Container>
       <S.Button onClick={handleDecrement}>
         <S.Image src={minus} alt="" />
       </S.Button>
-      <S.Quantity>{quantity}</S.Quantity>
+      <S.Value>{value}</S.Value>
       <S.Button onClick={handleIncrement}>
         <S.Image src={plus} alt="" />
       </S.Button>
@@ -22,4 +22,4 @@ const SetQuantity = ({ quantity, handleIncrement, handleDecrement }: SetQuantity
   );
 };
 
-export default SetQuantity;
+export default Stepper;
