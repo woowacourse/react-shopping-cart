@@ -12,6 +12,7 @@ export default function CartList({ items }: { items: CartItemType[] }) {
   return (
     <CartListContainer>
       <CheckBox
+        id="totalCheck"
         isSelected={isAllSelected}
         toggleSelected={toggleAllSelected}
         label="전체 선택"

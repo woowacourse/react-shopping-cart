@@ -9,6 +9,7 @@ import {
 } from "./style";
 
 interface CheckBoxProps {
+  id: string;
   isSelected: boolean;
   toggleSelected: () => void;
   label?: string;
@@ -18,10 +19,12 @@ export default function CheckBox({
   isSelected,
   toggleSelected,
   label,
+  id,
 }: CheckBoxProps) {
   return (
     <CheckboxContainer>
       <HiddenCheckbox
+        id={id}
         type="checkbox"
         defaultChecked={isSelected}
         onChange={toggleSelected}
@@ -35,7 +38,7 @@ export default function CheckBox({
         )}
       </StyledCheckbox>
 
-      {label && <StyledLabel>{label}</StyledLabel>}
+      {label && <StyledLabel htmlFor={id}>{label}</StyledLabel>}
     </CheckboxContainer>
   );
 }

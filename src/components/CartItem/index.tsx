@@ -31,7 +31,11 @@ export default function CartItem({ cartItem: { id, product } }: CartItemProps) {
   return (
     <CartItemContainer key={id}>
       <CartItemHeader>
-        <CheckBox isSelected={isSelected} toggleSelected={toggleSelected} />
+        <CheckBox
+          isSelected={isSelected}
+          toggleSelected={toggleSelected}
+          id={`checkbox_${id}`}
+        />
         <BorderButton className="deleteBtn" onClick={handleDelete} size="large">
           삭제
         </BorderButton>
