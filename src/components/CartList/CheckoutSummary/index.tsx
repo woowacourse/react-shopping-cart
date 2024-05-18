@@ -1,4 +1,5 @@
 import InfoIconSrc from "../../../assets/infoIcon.png";
+import formatPriceToKoreanWon from "../../../util/formatPriceToKoreanWon";
 import {
   Container,
   Divider,
@@ -31,11 +32,11 @@ export default function CheckoutSummary({
       <PriceRowContainer>
         <PriceRow>
           <Label>주문 금액</Label>
-          <Price>{totalPrice.toLocaleString()}원</Price>
+          <Price>{formatPriceToKoreanWon(totalPrice)}</Price>
         </PriceRow>
         <PriceRow>
           <Label>배송비</Label>
-          <Price>{shippingFee.toLocaleString()}원</Price>
+          <Price>{formatPriceToKoreanWon(shippingFee)}</Price>
         </PriceRow>
       </PriceRowContainer>
 
@@ -43,7 +44,7 @@ export default function CheckoutSummary({
 
       <PriceRow>
         <Label>총 결제 금액</Label>
-        <Price>{(totalPrice + shippingFee).toLocaleString()}원</Price>
+        <Price>{formatPriceToKoreanWon(totalPrice + shippingFee)}원</Price>
       </PriceRow>
     </Container>
   );

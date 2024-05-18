@@ -18,6 +18,7 @@ import CartItemQuantity from "./CartItemQuantity";
 
 import useDeleteCartItem from "../../hooks/useDeleteCartItem";
 import useSelectCartItem from "../../hooks/useSelectCartItem";
+import formatPriceToKoreanWon from "../../util/formatPriceToKoreanWon";
 
 interface CartItemProps {
   cartItem: CartItemType;
@@ -41,7 +42,7 @@ export default function CartItem({ cartItem: { id, product } }: CartItemProps) {
         <CartItemDetails>
           <CartItemInfo>
             <ProductName>{product.name}</ProductName>
-            <Price>{product.price.toLocaleString()}</Price>
+            <Price>{formatPriceToKoreanWon(product.price)}</Price>
           </CartItemInfo>
           <CartItemQuantity itemId={id} />
         </CartItemDetails>

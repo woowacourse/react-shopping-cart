@@ -9,6 +9,7 @@ import {
   cartListTotalPrice,
   cartListTotalQuantity,
 } from "../../recoil/selectors";
+import formatPriceToKoreanWon from "../../util/formatPriceToKoreanWon";
 import {
   ConfirmOrderContainer,
   OrderSummary,
@@ -41,7 +42,7 @@ const ConfirmOrderPage: React.FC<PropsWithChildren<{}>> = () => {
 
           <TotalPrice>
             <SubTitle>총 결제 금액</SubTitle>
-            <Title>{`${totalPrice.toLocaleString()}원`}</Title>
+            <Title>{formatPriceToKoreanWon(totalPrice)}</Title>
           </TotalPrice>
         </ConfirmOrderContainer>
       </RecoilSuspense>
