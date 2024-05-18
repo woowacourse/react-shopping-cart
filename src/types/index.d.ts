@@ -18,4 +18,8 @@ export type CartItemData = {
   product: ProductType;
 };
 
-export type Variant = 'header' | 'footer' | 'image';
+export type CartItemData = {
+  id: number;
+  quantity: number;
+  product: ProductType;
+};
