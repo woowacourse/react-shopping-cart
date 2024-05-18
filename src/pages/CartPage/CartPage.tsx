@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { totalItemLengthSelector } from "@/recoil/orderInformation";
@@ -44,7 +43,6 @@ const CartPage = () => {
               title={TITLES.cart}
               subTitle={MESSAGES.itemCount(totalItemLength)}
             />
-
             <S.CheckBoxWrapper>
               <CheckBox
                 isChecked={isAllItemSelected}
@@ -52,16 +50,11 @@ const CartPage = () => {
               />
               <Caption text={TITLES.selectAll} />
             </S.CheckBoxWrapper>
-
-            <Suspense fallback={<div>loading....</div>}>
-              <ProductList />
-            </Suspense>
-
+            <ProductList />
             <Caption
               asset={() => <MoreInfo />}
               text={MESSAGES.freeShippingInfo}
             />
-
             <PriceSection />
           </S.CartPageLayout>
           <S.OrderConfirmButton onClick={onMoveOrderConfirmPage}>
@@ -72,10 +65,13 @@ const CartPage = () => {
         </>
       ) : (
         <>
-          <S.CartPageLayout>
-            <TitleSet title={TITLES.cart} />
-            <CartEmpty />
-          </S.CartPageLayout>
+          <TitleSet title={TITLES.cart} />
+          <CartEmpty />
+          <S.OrderConfirmButton onClick={onMoveOrderConfirmPage}>
+            <Button width="full" size="xLarge" theme="dark" disabled={false}>
+              <S.ButtonText>{TITLES.orderConfirm}</S.ButtonText>
+            </Button>
+          </S.OrderConfirmButton>
         </>
       )}
     </>
