@@ -2,10 +2,12 @@ import { fetchCartItemCount } from '@apis/shoppingCart';
 import { CartItem, Sign } from '@appTypes/shoppingCart';
 import { COUNTS } from '@constants/shippingCart';
 import { cartItemsSelector } from '@recoil/shoppingCart';
+import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 const useUpdateCartItemCount = ({ id, quantity }: CartItem) => {
   const setCartItems = useSetRecoilState(cartItemsSelector);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const getNewQuantity = (sign: Sign) => {
     return quantity + COUNTS[sign];
@@ -18,6 +20,7 @@ const useUpdateCartItemCount = ({ id, quantity }: CartItem) => {
   const isAttemptingToGoOverMax = (quantity: number, sign: Sign) => {
     const { max, message } = COUNTS;
     const isTry = quantity === max && sign === 'plus';
+    if (isTry) setErrorMessage(message.max);
     return isTry;
   };
 
@@ -29,6 +32,7 @@ const useUpdateCartItemCount = ({ id, quantity }: CartItem) => {
   const isAttemptingToGoUnderMin = (quantity: number, sign: Sign) => {
     const { min, message } = COUNTS;
     const isTry = quantity === min && sign === 'minus';
+    if (isTry) setErrorMessage(message.min);
 
     return isTry;
   };
@@ -36,6 +40,7 @@ const useUpdateCartItemCount = ({ id, quantity }: CartItem) => {
   const validateQuantity = (quantity: number, sign: Sign) => {
     const isValidated = !(isAttemptingToGoUnderMin(quantity, sign) || isAttemptingToGoOverMax(quantity, sign));
 
+    if (isValidated) setErrorMessage('');
 
     return isValidated;
   };
@@ -58,7 +63,7 @@ const useUpdateCartItemCount = ({ id, quantity }: CartItem) => {
     updateCartItems(newQuantity);
   };
 
-  return { updateCartItems, getNewQuantity, onUpdateCartItemCount };
+  return { errorMessage, updateCartItems, getNewQuantity, validateQuantity, onUpdateCartItemCount };
 };
 
 export default useUpdateCartItemCount;

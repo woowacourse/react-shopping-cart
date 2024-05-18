@@ -5,7 +5,7 @@ import * as Styled from './AppLayout.styled';
 
 const AppLayout: React.FC<React.PropsWithChildren> = () => {
   return (
-    <Styled.AppLayoutContainer>
+    <Styled.AppLayoutContainer id="app__layout">
       <Navigation />
       <Styled.OutletContainer>
         <Outlet />

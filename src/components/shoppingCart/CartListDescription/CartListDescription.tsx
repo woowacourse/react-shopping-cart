@@ -4,6 +4,7 @@ import { useUpdateCartItemCount } from '@hooks/shoppingCart';
 import { formatKoreanCurrency } from '@utils/index';
 
 import * as Styled from './CartListDescription.styled';
+import CountAlertModal from './CountAlertModal';
 
 interface CartListDescriptionContainerProps {
   cartItem: CartItem;
@@ -11,8 +12,7 @@ interface CartListDescriptionContainerProps {
 
 const CartListDescription: React.FC<CartListDescriptionContainerProps> = ({ cartItem }) => {
   const { product, quantity } = cartItem;
-
-  const { onUpdateCartItemCount } = useUpdateCartItemCount(cartItem);
+  const { onUpdateCartItemCount, errorMessage } = useUpdateCartItemCount(cartItem);
 
   return (
     <Styled.CartItemDescription>
@@ -23,6 +23,7 @@ const CartListDescription: React.FC<CartListDescriptionContainerProps> = ({ cart
         <span>{quantity}</span>
         <CountButton onClick={() => onUpdateCartItemCount('plus')} sign="plus" />
       </Styled.CartItemButtonGroup>
+      <CountAlertModal errorMessage={errorMessage} />
     </Styled.CartItemDescription>
   );
 };
