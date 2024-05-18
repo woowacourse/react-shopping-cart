@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 import BorderButton from '@/components/Button/BorderButton';
 import { CartItemType } from '@/types/cart.type';
 import CheckBox from '@/components/Button/CheckBoxButton';
-import Loading from '@/assets/loading.gif';
 import { THEME } from '@/style/theme';
 import styled from '@emotion/styled';
 import { useRecoilState } from 'recoil';
@@ -23,7 +22,6 @@ const CartItem = ({ item }: Props) => {
     filteredCartItemState(item.id)
   );
   const [cartList, setCartList] = useRecoilState(cartListState);
-  const [loading, setLoading] = useState(false);
 
   const [, setError] = useState<Error | null>(null);
 
@@ -62,13 +60,9 @@ const CartItem = ({ item }: Props) => {
   const handleQuantity = (quantity: number) => {
     try {
       const patchData = async () => {
-        setLoading(true);
         await patchCartItem(id, quantity);
-        const newValue = { ...filteredItemState };
-        newValue.quantity = quantity;
+        const newValue = { ...filteredItemState, quantity };
         setFilteredItemState(newValue);
-
-        setLoading(false);
       };
 
       if (quantity > 0) patchData();
@@ -97,11 +91,7 @@ const CartItem = ({ item }: Props) => {
             <MinusButton
               onClick={() => handleQuantity(filteredItemState.quantity - 1)}
             />
-            {loading ? (
-              <Img src={Loading} alt="로딩 중" />
-            ) : (
-              filteredItemState.quantity
-            )}
+            {filteredItemState.quantity}
             <PlusButton
               onClick={() => handleQuantity(filteredItemState.quantity + 1)}
             />
@@ -160,8 +150,4 @@ const StyledQuantityBox = styled.div`
   align-items: center;
   gap: 10px;
   margin-top: 10px;
-`;
-
-const Img = styled.img`
-  width: 14px;
 `;

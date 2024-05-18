@@ -14,7 +14,10 @@ const Header = ({ type = 'Logo' }: Props) => {
   return (
     <StyledHeader>
       <Link to="/">
-        <img src={type === 'Logo' ? Logo : ArrowBack} alt="" />
+        <img
+          src={type === 'Logo' ? Logo : ArrowBack}
+          alt={type === 'Logo' ? 'Logo' : 'return'}
+        />
       </Link>
     </StyledHeader>
   );
