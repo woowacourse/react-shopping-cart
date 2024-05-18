@@ -1,8 +1,13 @@
-import { useSetRecoilState } from "recoil";
-import { deleteCartItem, patchCartItemQuantityChange } from "../../api";
-import { cartItemsState } from "../../recoil/atoms/atoms";
-import { CartItem } from "../../types";
-import { ActionButton } from "../button/actionButton/ActionButton";
+import { useSetRecoilState } from 'recoil';
+import { deleteCartItem, patchCartItemQuantityChange } from '../../api';
+import { cartItemsState } from '../../recoil/atoms/atoms';
+import { CartItem } from '../../types';
+import { Button } from '../../components/common/button/Button';
+import CheckedButtonIcon from '../../assets/CheckedButtonIcon.png';
+import UnCheckedButtonIcon from '../../assets/UncheckedButtonIcon.png';
+import MinusButtonIcon from '../../assets/MinusButtonIcon.png';
+import PlusButtonIcon from '../../assets/PlusButtonIcon.png';
+
 import {
   StyledCartItemCard,
   StyledCartItemCardHeader,
@@ -13,7 +18,7 @@ import {
   StyledProductPrice,
   StyledProductQuantityContainer,
   StyledProductQuantityText,
-} from "./CartItemCard.styled";
+} from './CartItemCard.styled';
 interface CartItemProps extends CartItem {
   selected: boolean;
   onSelect: () => void;
@@ -33,7 +38,7 @@ export const CartItemCard: React.FC<CartItemProps> = ({
       await deleteCartItem(id);
       setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
     } catch (error) {
-      console.error("Failed to delete cart item:", error);
+      console.error('Failed to delete cart item:', error);
     }
   };
 
@@ -43,11 +48,11 @@ export const CartItemCard: React.FC<CartItemProps> = ({
       await patchCartItemQuantityChange(id, newQuantity);
       setCartItems((prevItems) =>
         prevItems.map((item) =>
-          item.id === id ? { ...item, quantity: newQuantity } : item
-        )
+          item.id === id ? { ...item, quantity: newQuantity } : item,
+        ),
       );
     } catch (error) {
-      console.error("Failed to increase item quantity:", error);
+      console.error('Failed to increase item quantity:', error);
     }
   };
 
@@ -58,11 +63,11 @@ export const CartItemCard: React.FC<CartItemProps> = ({
         await patchCartItemQuantityChange(id, newQuantity);
         setCartItems((prevItems) =>
           prevItems.map((item) =>
-            item.id === id ? { ...item, quantity: newQuantity } : item
-          )
+            item.id === id ? { ...item, quantity: newQuantity } : item,
+          ),
         );
       } catch (error) {
-        console.error("Failed to decrease item quantity:", error);
+        console.error('Failed to decrease item quantity:', error);
       }
     }
   };
@@ -70,25 +75,32 @@ export const CartItemCard: React.FC<CartItemProps> = ({
   return (
     <StyledCartItemCard>
       <StyledCartItemCardHeader>
-        <ActionButton type="select" clicked={selected} onSelect={onSelect} />
-        <ActionButton
-          type="delete"
-          onDelete={() => handleItemDelete(id)}
+        <Button
+          onClick={onSelect}
+          clicked={selected}
+          iconSrc={selected ? CheckedButtonIcon : UnCheckedButtonIcon}
+        />
+        <Button
+          onClick={() => handleItemDelete(id)}
           disabled={selected}
+          text='삭제'
         />
       </StyledCartItemCardHeader>
       <StyledCartItemCardProductContents>
-        <StyledProductImg src={imageUrl} alt="" />
+        <StyledProductImg src={imageUrl} alt='' />
         <StyledProductInfo>
           <StyledProductName>{name}</StyledProductName>
           <StyledProductPrice>{price.toLocaleString()}원</StyledProductPrice>
           <StyledProductQuantityContainer>
-            <ActionButton
-              type="minus"
-              onMinus={() => handleItemCountMinus(id)}
+            <Button
+              onClick={() => handleItemCountMinus(id)}
+              iconSrc={MinusButtonIcon}
             />
             <StyledProductQuantityText>{quantity}</StyledProductQuantityText>
-            <ActionButton type="plus" onPlus={() => handleItemCountPlus(id)} />
+            <Button
+              onClick={() => handleItemCountPlus(id)}
+              iconSrc={PlusButtonIcon}
+            />
           </StyledProductQuantityContainer>
         </StyledProductInfo>
       </StyledCartItemCardProductContents>

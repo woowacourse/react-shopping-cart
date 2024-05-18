@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-export const StyledActionButton = styled.button`
+export const StyledButton = styled.button`
   background-color: transparent;
   border: none;
   padding: 0;
@@ -11,12 +11,12 @@ export const StyledActionButton = styled.button`
   }
 `;
 
-export const StyledActionButtonImg = styled.img`
+export const StyledButtonImg = styled.img`
   width: 24px;
   height: 24px;
 `;
 
-export const StyledActionButtonText = styled.span`
+export const StyledButtonText = styled.span`
   width: 40px;
   height: 24px;
   padding: 4px 8px;

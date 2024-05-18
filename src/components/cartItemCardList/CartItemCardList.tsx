@@ -5,8 +5,10 @@ import {
   isAllSelectedState,
   selectedItemsState,
 } from '../../recoil/atoms/atoms';
-import { ActionButton } from '../button/actionButton/ActionButton';
 import { CartItemCard } from '../cartItemCard/CartItemCard';
+import { Button } from '../common/button/Button';
+import CheckedButtonIcon from '../../assets/CheckedButtonIcon.png';
+import UnCheckedButtonIcon from '../../assets/UncheckedButtonIcon.png';
 import {
   StyledCartItemCardList,
   StyledCartItemSelectContainer,
@@ -50,10 +52,9 @@ export const CartItemCardList: React.FC = () => {
   return (
     <StyledCartItemCardList>
       <StyledCartItemSelectContainer>
-        <ActionButton
-          type='select'
-          clicked={isAllSelected}
-          onSelect={handleSelectAll}
+        <Button
+          onClick={handleSelectAll}
+          iconSrc={isAllSelected ? CheckedButtonIcon : UnCheckedButtonIcon}
         />
         <StyledCartItemSelectText>전체선택</StyledCartItemSelectText>
       </StyledCartItemSelectContainer>
