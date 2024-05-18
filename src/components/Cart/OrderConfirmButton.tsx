@@ -1,6 +1,7 @@
-import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
+
+import FooterButton from '../common/FooterButton';
 
 import { isAllUnCheckedState } from '@recoil/cartItems/selectors';
 
@@ -15,23 +16,8 @@ export default function OrderConfirmButton() {
   };
 
   return (
-    <button
-      css={orderConfirmButton(isAllUnChecked)}
-      onClick={handleClickOrderConfirm}
-      disabled={isAllUnChecked}
-    >
+    <FooterButton id="주문확인" isDisabled={isAllUnChecked} onClick={handleClickOrderConfirm}>
       주문확인
-    </button>
+    </FooterButton>
   );
 }
-
-const orderConfirmButton = (isDisabled: boolean) => css`
-  width: 100%;
-  height: 64px;
-
-  background-color: ${isDisabled ? '#BEBEBE' : '#000'};
-
-  font-size: 16px;
-  font-weight: 700;
-  color: #fff;
-`;

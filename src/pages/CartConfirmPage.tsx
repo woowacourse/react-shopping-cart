@@ -5,6 +5,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { fetchCartItems } from '@apis/cartItem';
 import { BACK_ARROW } from '@assets/images';
+import FooterButton from '@components/common/FooterButton';
 import { cartItemsState } from '@recoil/cartItems/atoms';
 import {
   productTypesCountState,
@@ -13,7 +14,6 @@ import {
 } from '@recoil/cartItems/selectors';
 
 import Header from '@components/Header';
-import PurchaseButton from '@components/PurchaseButton';
 
 export default function CartConfirmPage() {
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ export default function CartConfirmPage() {
   return (
     <>
       <Header>
-        <button css={button} onClick={() => navigate(-1)}>
+        <button css={backButton} onClick={() => navigate(-1)}>
           <img src={BACK_ARROW} alt="back arrow icon" />
         </button>
       </Header>
@@ -52,7 +52,9 @@ export default function CartConfirmPage() {
           <span css={orderResult}>{totalPurchasePrice.toLocaleString('ko-KR')}원</span>
         </div>
       </div>
-      <PurchaseButton />
+      <FooterButton id="결제하기" isDisabled={true}>
+        결제하기
+      </FooterButton>
     </>
   );
 }
@@ -102,7 +104,7 @@ const orderResult = css`
   font-weight: 700;
 `;
 
-const button = css`
+const backButton = css`
   padding-left: 24px;
 
   background-color: inherit;
