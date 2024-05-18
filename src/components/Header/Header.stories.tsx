@@ -1,18 +1,40 @@
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import type { Meta, StoryObj } from '@storybook/react';
 import Header from './Header';
 
-const meta = {
+interface HeaderStoryArgs {
+  path: string;
+}
+
+const meta: Meta<typeof Header> = {
   title: 'Header',
   component: Header,
-} satisfies Meta<typeof Header>;
+  decorators: [
+    (Story, context) => {
+      const { path } = context.args as HeaderStoryArgs;
+      return (
+        <MemoryRouter initialEntries={[path]}>
+          <Routes>
+            <Route path="*" element={<Story />} />
+          </Routes>
+        </MemoryRouter>
+      );
+    },
+  ],
+};
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<HeaderStoryArgs>;
 
 export const Default: Story = {
   args: {
-    imgType: 'logo',
-    onClick: () => {},
+    path: '/',
+  },
+};
+
+export const OrderConfirm: Story = {
+  args: {
+    path: '/order-confirm',
   },
 };

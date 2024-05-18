@@ -1,5 +1,4 @@
 import { useRecoilValue } from 'recoil';
-import { useNavigate } from 'react-router-dom';
 import { calculateOrderPrice, checkedCartItems } from '../recoil/selectors';
 
 import Header from '../components/Header/Header';
@@ -13,8 +12,6 @@ import {
 } from './OrderConfirmPage.style';
 
 export default function OrderConfirmPage() {
-  const navigate = useNavigate();
-
   const orderProduct = useRecoilValue(checkedCartItems);
   const cartTotalCount = orderProduct.reduce(
     (acc, cartItem) => acc + cartItem.quantity,
@@ -25,12 +22,7 @@ export default function OrderConfirmPage() {
 
   return (
     <div id="orderConfirmPage">
-      <Header
-        imgType="arrow"
-        onClick={() => {
-          navigate(-1);
-        }}
-      />
+      <Header />
       <OrderConfirmStyle>
         <Title>주문 확인</Title>
         <SubTitle>

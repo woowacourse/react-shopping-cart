@@ -12,12 +12,7 @@ export default function CartPage() {
 
   return (
     <div id="app">
-      <Header
-        imgType="logo"
-        onClick={() => {
-          navigate('/');
-        }}
-      />
+      <Header />
       <Cart />
       <FloatingButton
         text="주문 확인"

@@ -7,7 +7,10 @@ export const HeaderStyle = styled.section`
   height: 64px;
   position: fixed;
   z-index: 1;
-  cursor: pointer;
+
+  button {
+    cursor: pointer;
+  }
 
   img {
     margin-left: 24px;
