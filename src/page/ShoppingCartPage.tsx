@@ -11,7 +11,7 @@ export default function ShoppingCartPage() {
       <Header>SHOP</Header>
       <Content>
         <TitleContainer title="장바구니" />
-        <Suspense fallback={<div>로딩 중입니다...</div>}>
+        <Suspense>
           <CartContainer />
         </Suspense>
       </Content>
