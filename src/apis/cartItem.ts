@@ -1,10 +1,11 @@
+import { CartItemProps } from '@/types/cartItem';
 import { generateBasicToken } from '@/utils/auth';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const USER_ID = import.meta.env.VITE_USER_ID;
 const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
 
-export const fetchCartItems = async () => {
+export const fetchCartItems = async (): Promise<CartItemProps[]> => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const response = await fetch(`${BASE_URL}/cart-items`, {
     method: 'GET',
@@ -19,7 +20,7 @@ export const fetchCartItems = async () => {
   return data.content;
 };
 
-export const fetchTotalQuantity = async () => {
+export const fetchTotalQuantity = async (): Promise<number> => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const response = await fetch(`${BASE_URL}/cart-items/counts`, {
     method: 'GET',
