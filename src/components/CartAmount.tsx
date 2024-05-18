@@ -1,12 +1,10 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { shippingCostState, orderAmountState, totalOrderAmountState } from "../recoil/cartAmount";
+import { cartAmountState } from "../recoil/cartAmount";
 import { ReactComponent as InfoIcon } from "../assets/info-icon.svg";
 
 export default function CartAmount() {
-  const orderAmount = useRecoilValue(orderAmountState);
-  const shippingCost = useRecoilValue(shippingCostState);
-  const totalOrderAmount = useRecoilValue(totalOrderAmountState);
+  const { orderAmount, shippingCost, totalOrderAmount } = useRecoilValue(cartAmountState);
 
   return (
     <S.CartAmountContainer>
