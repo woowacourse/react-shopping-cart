@@ -4,6 +4,7 @@ import { cartItems } from "./cartItems";
 
 import { cartItemQuantity } from "./cartItemQuantity";
 import { selectedCartItemsIdState } from "./selectedCardItems";
+import { SHIPPING_INFO } from "@/constants/cart";
 
 export const totalOrderPriceSelector = selector({
   key: "totalOrderPriceSelector",
@@ -26,7 +27,11 @@ export const shippingFeeSelector = selector({
   key: "shippingFeeSelector",
   get: ({ get }) => {
     const totalOrderPrice = get(totalOrderPriceSelector);
-    return totalOrderPrice >= 100000 ? 0 : 3000;
+    const hasSelectedItems = get(selectedCartItemsIdState).length;
+    return hasSelectedItems &&
+      totalOrderPrice < SHIPPING_INFO.FREE_SHIPPING_THRESHOLD
+      ? SHIPPING_INFO.SHIPPING_FEE
+      : 0;
   },
 });
 
