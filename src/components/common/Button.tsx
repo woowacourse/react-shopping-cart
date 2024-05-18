@@ -1,9 +1,10 @@
 import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 import styles from './Button.module.css';
-import { Variant } from '../../types';
+
+type VariantType = 'header' | 'footer' | 'image';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: Variant;
+  variant: VariantType;
 }
 
 export default function Button({
