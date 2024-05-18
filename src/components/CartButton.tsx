@@ -9,9 +9,7 @@ export default function CartButton() {
   const selectedCartItemIds = useRecoilValue(selectedCartItemIdsState);
   const isDisabled = selectedCartItemIds.length === 0;
 
-  const handleOrderConfirmButtonClick = () => {
-    navigate(ROUTE_PATH.orderSummary);
-  };
+  const handleOrderConfirmButtonClick = () => navigate(ROUTE_PATH.orderSummary);
 
   return (
     <Button disabled={isDisabled} onClick={handleOrderConfirmButtonClick}>

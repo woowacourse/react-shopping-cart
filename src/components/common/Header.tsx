@@ -2,17 +2,15 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as BackIcon } from "../../assets/back-icon.svg";
 
-export interface IHeaderProps {
+export interface HeaderProps {
   hasBackButton: boolean;
   title?: string;
 }
 
-export default function Header({ hasBackButton, title }: IHeaderProps) {
+export default function Header({ hasBackButton, title }: HeaderProps) {
   const navigate = useNavigate();
 
-  const handleBackButtonClick = () => {
-    navigate(-1);
-  };
+  const handleBackButtonClick = () => navigate(-1);
 
   return (
     <S.HeaderContainer>

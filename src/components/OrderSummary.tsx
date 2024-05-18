@@ -4,8 +4,6 @@ import { useRecoilValue } from "recoil";
 import { totalOrderAmountState } from "../recoil/cartAmount";
 import styled from "styled-components";
 
-export interface IOrderSummaryProps {}
-
 export default function OrderSummary() {
   const selectedUniqueCartItemsCount = useRecoilValue(selectedUniqueCartItemsCountState);
   const selectedCartItemsCount = useRecoilValue(selectedCartItemsCountState);

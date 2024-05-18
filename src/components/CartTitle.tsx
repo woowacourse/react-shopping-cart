@@ -2,8 +2,6 @@ import { useRecoilValue } from "recoil";
 import { uniqueCartItemsCountState } from "../recoil/uniqueCartItemsCount";
 import styled from "styled-components";
 
-export interface ICartTitleProps {}
-
 export default function CartTitle() {
   const cartItemCount = useRecoilValue(uniqueCartItemsCountState);
 

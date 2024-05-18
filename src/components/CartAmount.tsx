@@ -3,8 +3,6 @@ import styled from "styled-components";
 import { deliveryCostState, orderAmountState, totalOrderAmountState } from "../recoil/cartAmount";
 import { ReactComponent as InfoIcon } from "../assets/info-icon.svg";
 
-export interface ICartAmountProps {}
-
 export default function CartAmount() {
   const orderAmount = useRecoilValue(orderAmountState);
   const deliveryCost = useRecoilValue(deliveryCostState);

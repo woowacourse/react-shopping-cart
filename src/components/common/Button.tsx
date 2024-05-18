@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-export interface IButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
 }
 
-export default function Button({ children, ...attributes }: IButtonProps) {
+export default function Button({ children, ...attributes }: ButtonProps) {
   return <S.Button {...attributes}>{children}</S.Button>;
 }
 

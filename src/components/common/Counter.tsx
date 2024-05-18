@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export interface ICounterProps {
+export interface CounterProps {
   count: number;
   onIncrease: () => void;
   onDecrease: () => void;
@@ -14,7 +14,7 @@ export default function Counter({
   onDecrease,
   minCount,
   maxCount,
-}: ICounterProps) {
+}: CounterProps) {
   const isDecreaseDisabled = minCount !== undefined && count <= minCount;
   const isIncreaseDisabled = maxCount !== undefined && count >= maxCount;
 

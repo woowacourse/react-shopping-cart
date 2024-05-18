@@ -5,11 +5,11 @@ import { selectedCartItemIdsState } from "../recoil/selectedCartItemIds";
 import { CartItem } from "../types/cartItems";
 import { useCartItemControl } from "../hooks/useCartItemControl";
 
-export interface ICartItemList {
+export interface CartItemListProps {
   cartItems: CartItem[];
 }
 
-export default function CartItemList({ cartItems }: ICartItemList) {
+export default function CartItemList({ cartItems }: CartItemListProps) {
   const cartItemControl = useCartItemControl();
   const setSelectedCartItemIds = useSetRecoilState(selectedCartItemIdsState);
   const isAllSelected = cartItems.every(({ isSelected }) => isSelected);
