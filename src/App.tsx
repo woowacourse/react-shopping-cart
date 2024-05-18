@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import CartPage from "./pages/CartPage";
 import { ROUTE_PATH } from "./constants/routePath";
-import OrderSummaryPage from "./pages/OrderSummaryPage";
+import CheckoutPage from "./pages/CheckoutPage";
 import { ErrorBoundary } from "react-error-boundary";
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
         <ErrorBoundary fallbackRender={({ error }) => error.message}>
           <Routes>
             <Route path={ROUTE_PATH.cart} element={<CartPage />} />
-            <Route path={ROUTE_PATH.orderSummary} element={<OrderSummaryPage />} />
+            <Route path={ROUTE_PATH.orderSummary} element={<CheckoutPage />} />
           </Routes>
         </ErrorBoundary>
       </RecoilRoot>

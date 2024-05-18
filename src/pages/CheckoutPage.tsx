@@ -1,16 +1,16 @@
 import { Suspense } from "react";
-import OrderSummary from "../components/OrderSummary";
+import Checkout from "../components/Checkout";
 import styled from "styled-components";
 import Header from "../components/common/Header";
 import Button from "../components/common/Button";
 
-export default function OrderSummaryPage() {
+export default function CheckoutPage() {
   return (
     <S.Container>
       <Header hasBackButton={true} />
       <S.InnerWrapper>
         <Suspense fallback={<div>Loading...</div>}>
-          <OrderSummary />
+          <Checkout />
         </Suspense>
       </S.InnerWrapper>
       <Button disabled>결제하기</Button>

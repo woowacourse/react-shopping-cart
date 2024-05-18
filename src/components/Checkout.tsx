@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import { totalOrderAmountState } from "../recoil/cartAmount";
 import styled from "styled-components";
 
-export default function OrderSummary() {
+export default function Checkout() {
   const selectedUniqueCartItemsCount = useRecoilValue(selectedUniqueCartItemsCountState);
   const selectedCartItemsCount = useRecoilValue(selectedCartItemsCountState);
   const totalOrderAmount = useRecoilValue(totalOrderAmountState);
@@ -12,12 +12,12 @@ export default function OrderSummary() {
   return (
     <S.Container>
       <S.Title>주문 확인</S.Title>
-      <S.OrderSummaryInfoWrapper>
-        <S.OrderSummaryInfo>
+      <S.CheckoutInfoWrapper>
+        <S.CheckoutInfo>
           총 {selectedUniqueCartItemsCount}종류의 상품 {selectedCartItemsCount}개를 주문합니다.
-        </S.OrderSummaryInfo>
-        <S.OrderSummaryInfo>최종 결제 금액을 확인해 주세요.</S.OrderSummaryInfo>
-      </S.OrderSummaryInfoWrapper>
+        </S.CheckoutInfo>
+        <S.CheckoutInfo>최종 결제 금액을 확인해 주세요.</S.CheckoutInfo>
+      </S.CheckoutInfoWrapper>
       <S.ToTalOrderAmountWrapper>
         <S.ToTalOrderAmountText>총 결제 금액</S.ToTalOrderAmountText>
         <S.TotalOrderAmount>{totalOrderAmount.toLocaleString()}원</S.TotalOrderAmount>
@@ -37,8 +37,8 @@ const S = {
     font-size: 24px;
     font-weight: bold;
   `,
-  OrderSummaryInfoWrapper: styled.div``,
-  OrderSummaryInfo: styled.p`
+  CheckoutInfoWrapper: styled.div``,
+  CheckoutInfo: styled.p`
     font-size: 12px;
   `,
   ToTalOrderAmountWrapper: styled.div`
