@@ -1,5 +1,5 @@
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { removeCartItem, updateCartItemQuantity } from "../api/cartItems";
+import { useSetRecoilState } from "recoil";
+import { fetchCartItems, removeCartItem, updateCartItemQuantity } from "../api/cartItems";
 import { CartItemId } from "../types/cartItems";
 import { rawCartItemsState } from "../recoil/rawCartItems";
 import { selectedCartItemIdsState } from "../recoil/selectedCartItemIds";
@@ -11,27 +11,30 @@ export interface UseCartItemsReturn {
 }
 
 export const useCartItemControl = (): UseCartItemsReturn => {
-  const [rawCartItems, setRawCartItems] = useRecoilState(rawCartItemsState);
+  const setRawCartItems = useSetRecoilState(rawCartItemsState);
   const setSelectedCartItemIds = useSetRecoilState(selectedCartItemIdsState);
+
+  const refreshCartItems = async () => {
+    const cartItems = await fetchCartItems();
+    setRawCartItems(cartItems);
+  };
+
+  const removeSelectedCartItemId = (cartItemId: CartItemId) => {
+    setSelectedCartItemIds((prev) => prev.filter((id) => id !== cartItemId));
+  };
 
   const remove = async (cartItemId: CartItemId) => {
     await removeCartItem(cartItemId);
+    await refreshCartItems();
 
-    setSelectedCartItemIds((prev) => prev.filter((id) => id !== cartItemId));
-
-    const filteredCartItems = rawCartItems.filter((cartItem) => cartItem.id !== cartItemId);
-    setRawCartItems(filteredCartItems);
+    removeSelectedCartItemId(cartItemId);
   };
 
   const updateQuantity = async (cartItemId: CartItemId, quantity: number) => {
     if (quantity < 1) return;
 
     await updateCartItemQuantity(cartItemId, quantity);
-
-    const updatedCartItems = rawCartItems.map((cartItem) =>
-      cartItem.id === cartItemId ? { ...cartItem, quantity } : cartItem
-    );
-    setRawCartItems(updatedCartItems);
+    await refreshCartItems();
   };
 
   const toggleSelection = (cartItemId: CartItemId) => {
