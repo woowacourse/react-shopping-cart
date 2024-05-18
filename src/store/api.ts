@@ -4,8 +4,7 @@ type MethodType = "GET" | "POST";
 
 export const fetchProducts = async (method: MethodType) => {
   try {
-    console.log(import.meta.env.VITE_API_BASE_URL, import.meta.env.API_BASE_URL);
-    const url = "http://54.180.95.212:8080" + "/cart-items";
+    const url = import.meta.env.VITE_API_BASE_URL + "/cart-items";
     const response = await fetch(url, {
       method,
       headers: { Authorization: API_TOKEN },

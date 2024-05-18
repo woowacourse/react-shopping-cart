@@ -3,7 +3,7 @@ import { RecoilRoot, useRecoilValue } from "recoil";
 import { cartState } from "../store/atom/atoms";
 
 import { server } from "./mock/server";
-// import { API_TOKEN } from "../store/utils";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
 const DUMMY_CART_ITEMS = [
   {
@@ -33,10 +33,6 @@ const DUMMY_CART_ITEMS = [
 describe("fetchMocking테스트", () => {
   beforeAll(async () => {
     server.listen();
-  });
-
-  beforeEach(() => {
-    // server.resetHandlers();
   });
 
   afterAll(() => {

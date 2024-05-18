@@ -1,5 +1,7 @@
 export default {
-  testEnvironment: "jsdom",
+  test: {
+    environment: "jsdom",
+  },
   transform: {
     "^.+\\.tsx?$": "ts-jest",
   },
@@ -7,6 +9,6 @@ export default {
     "^.+\\.svg$": "jest-svg-transformer",
     "\\.(css|less|sass|scss)$": "identity-obj-proxy",
   },
-  setupFiles: ["./jest.polyfills.js"],
+  setupFiles: ["./vitest.polyfills.js"],
   testEnvironmentOptions: { customExportConditions: [""] },
 };

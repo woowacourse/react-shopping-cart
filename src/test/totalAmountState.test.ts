@@ -3,6 +3,7 @@ import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from "r
 import { totalAmountState } from "../store/selector/selectors";
 import { act } from "react";
 import { cartState, itemEachCheckState, itemQuantityState } from "../store/atom/atoms";
+import { describe, expect, it } from "vitest";
 
 const DUMMY_CART_ITEMS: CartItemInfo[] = [
   {
