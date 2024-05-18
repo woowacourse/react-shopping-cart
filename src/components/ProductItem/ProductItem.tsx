@@ -33,6 +33,8 @@ export default function ProductItem({ cartItem }: { cartItem: Cart }) {
   };
 
   const handleDecrement = () => {
+    if (quantity === 1) return;
+
     const newQuantity = Math.max(quantity - 1, 1);
     patchCartItem(cartItem.id, newQuantity).then(() => {
       setQuantity(newQuantity);
