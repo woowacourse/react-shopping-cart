@@ -1,9 +1,10 @@
 import { atom, atomFamily } from 'recoil';
 import { fetchCartItem, getCartCounts } from '../api';
+import { fetchCartData } from './selectors';
 
 export const cartData = atom<Cart[]>({
   key: 'cartData',
-  default: fetchCartItem(),
+  default: fetchCartData,
 });
 
 export const cartQuantity = atom<number>({

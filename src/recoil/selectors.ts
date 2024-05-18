@@ -1,5 +1,14 @@
 import { selector } from 'recoil';
 import { cartData, cartItemCheckState } from './atoms';
+import { fetchCartItem } from '../api';
+
+export const fetchCartData = selector<Cart[]>({
+  key: 'fetchCartData',
+  get: async () => {
+    const cartData = await fetchCartItem();
+    return cartData;
+  },
+});
 
 export const allCartItemsCheckState = selector<boolean>({
   key: 'allCartItemsCheckState',
