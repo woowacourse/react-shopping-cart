@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import ORDER from "../../constants/order";
-import { totalCheckedCartItemsPriceState, shippingFeeState } from "../../recoil/selectors";
+import { totalCheckedCartItemsPriceState } from "../../recoil/selectors";
 import { useRecoilValue } from "recoil";
 import IMAGES from "../../assets/images/Images";
 import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../constants/styles";
 
 const OrderSummary = () => {
-  const totalCheckedCartItemsPrice = useRecoilValue(totalCheckedCartItemsPriceState);
-  const shippingFee = useRecoilValue(shippingFeeState);
-  const totalPayments = totalCheckedCartItemsPrice + shippingFee;
+  const totalPrice = useRecoilValue(totalCheckedCartItemsPriceState);
+  const shippingFee = totalPrice && totalPrice < ORDER.shippingFreeThreshold ? ORDER.shippingFee : 0;
+  const totalPayments = totalPrice + shippingFee;
 
   return (
     <OrderSummaryContainer>
@@ -21,7 +21,7 @@ const OrderSummary = () => {
 
       <SummaryWrapper>
         <SummaryTitle>주문 금액</SummaryTitle>
-        <SummaryPrice>{totalCheckedCartItemsPrice.toLocaleString()}</SummaryPrice>
+        <SummaryPrice>{totalPrice.toLocaleString()}</SummaryPrice>
       </SummaryWrapper>
 
       <SummaryWrapper>

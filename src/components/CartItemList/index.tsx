@@ -1,7 +1,6 @@
 import CheckboxButton from "../Button/CheckboxButton/index";
-import { useSetRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import CartItem from "../CartItem/index";
-import { uncheckAllCartItemSelector, checkAllCartSelector } from "../../recoil/selectors";
 import { checkedCartItemsState } from "../../recoil/atoms";
 import styled from "styled-components";
 import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../constants/styles";
@@ -13,9 +12,9 @@ interface CartItemListProps {
 }
 
 const CartItemList = ({ cartItems, removeCartItem }: CartItemListProps) => {
-  const checkedCartItems = useRecoilValue(checkedCartItemsState);
-  const checkAllCartItem = useSetRecoilState(checkAllCartSelector);
-  const uncheckAllCartItem = useSetRecoilState(uncheckAllCartItemSelector);
+  const [checkedCartItems, setCheckedCartItems] = useRecoilState(checkedCartItemsState);
+  const checkAllCartItem = (cartItemIds: number[]) => setCheckedCartItems(cartItemIds);
+  const uncheckAllCartItem = () => setCheckedCartItems([]);
 
   const isAllChecked = checkedCartItems.length === cartItems?.length;
 

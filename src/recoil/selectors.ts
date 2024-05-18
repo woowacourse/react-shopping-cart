@@ -1,6 +1,5 @@
 import { DefaultValue, selector } from "recoil";
 import { cartItemQuantityStates, cartItemPriceStates, checkedCartItemsState } from "./atoms";
-import ORDER from "../constants/order";
 import { CartItemResponse } from "../types/ShoppingCart";
 import { fetchCartItems } from "../api/cartItem";
 
@@ -25,34 +24,6 @@ export const totalCheckedCartItemsPriceState = selector({
       const price = get(cartItemPriceStates(id));
       return total + quantity * price;
     }, 0);
-  },
-});
-
-export const shippingFeeState = selector({
-  key: "shippingFeeState",
-  get: ({ get }) => {
-    const totalPrice = get(totalCheckedCartItemsPriceState);
-    return totalPrice < ORDER.shippingFreeThreshold && totalPrice !== 0 ? ORDER.shippingFee : 0;
-  },
-});
-
-export const uncheckAllCartItemSelector = selector({
-  key: "uncheckAllCartItemSelector",
-  get: () => {
-    return;
-  },
-  set: ({ reset }) => {
-    reset(checkedCartItemsState);
-  },
-});
-
-export const checkAllCartSelector = selector({
-  key: "checkAllCartSelector",
-  get: () => {
-    return [0];
-  },
-  set: ({ set }, ids) => {
-    set(checkedCartItemsState, ids);
   },
 });
 
