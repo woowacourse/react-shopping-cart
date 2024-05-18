@@ -40,4 +40,3 @@ export const CartPage: React.FC = () => {
     </>
   );
 };
-38;
