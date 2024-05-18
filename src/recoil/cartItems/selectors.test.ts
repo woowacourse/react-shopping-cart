@@ -12,11 +12,16 @@ import {
   totalQuantityState,
 } from './selectors';
 
+import {
+  DELIVERY_CHARGE,
+  DELIVERY_CHARGE_FREE,
+  MINIMUM_FREE_SHIPPING_AMOUNT,
+} from '@/constants/cart';
 import { TOTAL_PRICE_OVER_100000_DATA, TOTAL_PRICE_UNDER_100000_DATA } from '@/constants/mock';
 
 describe('selectors', () => {
   describe('deliveryPriceState', () => {
-    it('총 결제금액이 100,000원 미만일 때, 배송비가 3000원이다.', () => {
+    it(`총 결제금액이 ${MINIMUM_FREE_SHIPPING_AMOUNT.toLocaleString('ko-KR')}원 미만일 때, 배송비가 ${DELIVERY_CHARGE.toLocaleString('ko-KR')}원이다.`, () => {
       const { result } = renderHook(
         () => {
           const deliveryPrice = useRecoilValue(deliveryPriceState);
@@ -35,7 +40,7 @@ describe('selectors', () => {
       expect(result.current.deliveryPrice).toBe(3000);
     });
 
-    it('총 결제금액이 100,000원 이상일 때, 배송비가 0원이다.', () => {
+    it(`총 결제금액이 ${MINIMUM_FREE_SHIPPING_AMOUNT.toLocaleString('ko-KR')}원 이상일 때, 배송비가 ${DELIVERY_CHARGE_FREE}원이다.`, () => {
       const { result } = renderHook(
         () => {
           const deliveryPrice = useRecoilValue(deliveryPriceState);

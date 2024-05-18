@@ -2,6 +2,11 @@ import { selector } from 'recoil';
 
 import { cartItemsState, checkedItemsState } from './atoms';
 
+import {
+  DELIVERY_CHARGE,
+  DELIVERY_CHARGE_FREE,
+  MINIMUM_FREE_SHIPPING_AMOUNT,
+} from '@/constants/cart';
 import LocalStorage, { CART_ITEM } from '@/Storage';
 
 export const isAllUnCheckedState = selector<boolean>({
@@ -64,7 +69,7 @@ export const deliveryPriceState = selector<number>({
   key: 'deliveryPriceState',
   get: ({ get }) => {
     const cartItems = get(orderTotalPriceState);
-    return cartItems >= 100000 ? 0 : 3000;
+    return cartItems >= MINIMUM_FREE_SHIPPING_AMOUNT ? DELIVERY_CHARGE_FREE : DELIVERY_CHARGE;
   },
 });
 

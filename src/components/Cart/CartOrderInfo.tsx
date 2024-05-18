@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import { useRecoilValue } from 'recoil';
 
+import { MINIMUM_FREE_SHIPPING_AMOUNT } from '@/constants/cart';
 import { INFO_ICON } from '@assets/images';
 import { orderTotalPriceState, deliveryPriceState } from '@recoil/cartItems/selectors';
 
@@ -16,8 +17,10 @@ export default function CartOrderInfo() {
         <span css={infoIcon}>
           <img src={INFO_ICON} alt="info icon" />
         </span>
-        {/* TODO: 100,000 상수 분리 */}
-        <span css={freeDeliveryGuide}>총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</span>
+        <span css={freeDeliveryGuide}>
+          총 주문 금액이 {MINIMUM_FREE_SHIPPING_AMOUNT.toLocaleString('ko-KR')}원 이상일 경우 무료
+          배송됩니다.
+        </span>
       </div>
 
       <div css={borderTopWrapper}>
