@@ -5,7 +5,7 @@ export const itemQuantityState = atomFamily<number, number>({
   default: 1,
 });
 
-export const isCheckedItemIdsState = atom<Record<number, boolean>>({
+export const uncheckedItemIdsState = atom<number[]>({
   key: 'isCheckedItemIdsState',
-  default: {},
+  default: [],
 });

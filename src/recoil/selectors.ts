@@ -1,5 +1,5 @@
 import { CartItem, Product } from '../type';
-import { isCheckedItemIdsState, itemQuantityState } from './atoms';
+import { itemQuantityState, uncheckedItemIdsState } from './atoms';
 
 import { fetchCartItems } from '../apis';
 import { selector } from 'recoil';
@@ -19,10 +19,10 @@ export const orderAmountState = selector<number>({
   key: 'orderAmountState',
   get: ({ get }) => {
     const cartItems = get(cartItemsState);
-    const isCheckedItemIds = get(isCheckedItemIdsState);
+    const uncheckedItemIds = get(uncheckedItemIdsState);
 
     return cartItems.reduce((acc, cartItem) => {
-      if (isCheckedItemIds[cartItem.id] === false) return acc;
+      if (uncheckedItemIds.includes(cartItem.id)) return acc;
       const quantity = get(itemQuantityState(cartItem.id));
       const currentItemAmount = cartItem.product.price * quantity;
       return acc + currentItemAmount;
@@ -34,11 +34,11 @@ export const checkedItemState = selector({
   key: 'checkedItemState',
   get: ({ get }) => {
     const cartItems = get(cartItemsState);
-    const isCheckedItemIds = get(isCheckedItemIdsState);
+    const uncheckedItemIds = get(uncheckedItemIdsState);
 
     const result = cartItems.reduce(
       (arr, item) => {
-        if (isCheckedItemIds[item.id] === false) return arr;
+        if (uncheckedItemIds.includes(item.id)) return arr;
         const currentObj = { product: item.product, quantity: get(itemQuantityState(item.id)) };
         arr.push(currentObj);
         return arr;
@@ -54,9 +54,9 @@ export const hasCheckedItemsState = selector<boolean>({
   key: 'hasCheckedItemsState',
   get: ({ get }) => {
     const cartItems = get(cartItemsState);
-    const isCheckedItemIds = get(isCheckedItemIdsState);
+    const uncheckedItemIds = get(uncheckedItemIdsState);
 
-    return cartItems.some((item) => isCheckedItemIds[item.id] !== false);
+    return cartItems.some((item) => !uncheckedItemIds.includes(item.id));
   },
 });
 
