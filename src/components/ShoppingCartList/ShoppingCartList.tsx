@@ -1,8 +1,10 @@
-import { CartItem } from '../../api/get/getItems';
-import useItemQuantity from '../../hooks/useItemQuantity';
-import useSelectedItems from '../../hooks/useSelectedItems';
 import SelectAll from '../SelectAll/SelectAll';
 import ShoppingCartItem from '../ShoppingCartItem/ShoppingCartItem';
+
+import { CartItem } from '../../api/get/getItems';
+import useItemQuantity from '../../hooks/useItemQuantity';
+import useSelectedItem from '../../hooks/useSelectedItem';
+import useSelectedItems from '../../hooks/useSelectedItems';
 import * as S from './styled';
 
 interface ShoppingCartListProps {
@@ -13,19 +15,20 @@ interface ShoppingCartListProps {
 const ShoppingCartList = ({ cartItems, refetch }: ShoppingCartListProps) => {
   const { getOneItemQuantity, setOneItemQuantity } = useItemQuantity(cartItems);
 
-  const { onCheckboxClick, isSelected, all, onSelectAllClick, selectedItemQuantity } =
-    useSelectedItems(cartItems, getOneItemQuantity);
+  const { isSelected, toggleItemSelection, updateSelectedItemQuantity } =
+    useSelectedItem(getOneItemQuantity);
+  const { allSelectedItems, onSelectAllClick } = useSelectedItems(cartItems);
 
   return (
     <S.Container>
-      <SelectAll isSelectAll={all} onSelectAllClick={onSelectAllClick} />
+      <SelectAll isSelectAll={allSelectedItems} onSelectAllClick={onSelectAllClick} />
       {cartItems.map(cartItem => (
         <ShoppingCartItem
           key={cartItem.id}
           cartItem={cartItem}
           isSelected={isSelected}
-          onCheckboxClick={onCheckboxClick}
-          selectedItemQuantity={selectedItemQuantity}
+          toggleItemSelection={toggleItemSelection}
+          updateSelectedItemQuantity={updateSelectedItemQuantity}
           getOneItemQuantity={getOneItemQuantity}
           setOneItemQuantity={setOneItemQuantity}
           refetch={refetch}

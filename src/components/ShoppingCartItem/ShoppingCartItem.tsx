@@ -13,8 +13,8 @@ interface ShoppingCartItemProps {
   cartItem: CartItem;
   refetch: () => Promise<void>;
   isSelected: (id: number) => boolean;
-  onCheckboxClick: (cartItem: CartItem) => void;
-  selectedItemQuantity: (cartItem: CartItem, newQuantity: number) => void;
+  toggleItemSelection: (cartItem: CartItem) => void;
+  updateSelectedItemQuantity: (cartItem: CartItem, newQuantity: number) => void;
   getOneItemQuantity: (id: number) => number | undefined;
   setOneItemQuantity: (id: number, newQuantity: number) => void;
 }
@@ -23,8 +23,8 @@ const ShoppingCartItem = ({
   cartItem,
   refetch,
   isSelected,
-  onCheckboxClick,
-  selectedItemQuantity,
+  toggleItemSelection,
+  updateSelectedItemQuantity,
   getOneItemQuantity,
   setOneItemQuantity,
 }: ShoppingCartItemProps) => {
@@ -40,7 +40,7 @@ const ShoppingCartItem = ({
     await changeQuantity({ id: cartItem.id, quantity: newQuantity });
 
     setOneItemQuantity(cartItem.id, newQuantity);
-    selectedItemQuantity(cartItem, newQuantity);
+    updateSelectedItemQuantity(cartItem, newQuantity);
   };
 
   const handleDecrement = async () => {
@@ -48,14 +48,17 @@ const ShoppingCartItem = ({
     await changeQuantity({ id: cartItem.id, quantity: newQuantity });
 
     setOneItemQuantity(cartItem.id, newQuantity);
-    selectedItemQuantity(cartItem, newQuantity);
+    updateSelectedItemQuantity(cartItem, newQuantity);
   };
 
   return (
     <S.Container>
       <S.Hr />
       <S.Header>
-        <Checkbox isChecked={isSelected(cartItem.id)} onClick={() => onCheckboxClick(cartItem)} />
+        <Checkbox
+          isChecked={isSelected(cartItem.id)}
+          onClick={() => toggleItemSelection(cartItem)}
+        />
         <DeleteButton onClick={onDelete} />
       </S.Header>
       <S.Contents>
