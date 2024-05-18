@@ -1,13 +1,17 @@
 import { css } from '@emotion/react';
+import { Suspense } from 'react';
 import { RouterProvider } from 'react-router-dom';
 
+import LoadingPage from './pages/LoadingPage';
 import { router } from './router';
 
 function App() {
   return (
     <div css={container}>
       <div css={wrapper}>
-        <RouterProvider router={router} />
+        <Suspense fallback={<LoadingPage />}>
+          <RouterProvider router={router} />
+        </Suspense>
       </div>
     </div>
   );

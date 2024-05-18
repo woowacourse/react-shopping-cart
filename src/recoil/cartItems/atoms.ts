@@ -1,11 +1,21 @@
-import { atom, atomFamily } from 'recoil';
+import { atom, atomFamily, selector } from 'recoil';
 
 import LocalStorage, { CART_ITEM } from '@/Storage';
 import { CartItemProps } from '@/types/cartItem';
+import { fetchCartItems } from '@apis/cartItem';
+
+const cartItemSelector = selector({
+  key: 'getCartItems',
+  get: async () => {
+    const cartItems = await fetchCartItems();
+
+    return cartItems;
+  },
+});
 
 export const cartItemsState = atom<CartItemProps[]>({
   key: 'cartItemsState',
-  default: [],
+  default: cartItemSelector,
 });
 
 export const checkedItemsState = atomFamily<boolean, number>({

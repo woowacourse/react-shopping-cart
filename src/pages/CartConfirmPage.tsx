@@ -1,13 +1,10 @@
 import { css } from '@emotion/react';
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import Button from '@/components/common/Button';
-import { fetchCartItems } from '@apis/cartItem';
 import { BACK_ARROW } from '@assets/images';
 import FooterButton from '@components/common/FooterButton';
-import { cartItemsState } from '@recoil/cartItems/atoms';
 import {
   productTypesCountState,
   purchaseTotalPriceState,
@@ -18,21 +15,10 @@ import Header from '@components/Header';
 
 export default function CartConfirmPage() {
   const navigate = useNavigate();
-  const setCartItems = useSetRecoilState(cartItemsState);
 
   const totalPurchasePrice = useRecoilValue(purchaseTotalPriceState);
   const totalQuantity = useRecoilValue(totalQuantityState);
   const productTypesCount = useRecoilValue(productTypesCountState);
-
-  useEffect(() => {
-    const getCartItems = async () => {
-      const result = await fetchCartItems();
-
-      setCartItems(result);
-    };
-
-    getCartItems();
-  }, []);
 
   return (
     <>
