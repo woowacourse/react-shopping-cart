@@ -27,7 +27,7 @@ export const orderCostsSelector = selector({
     const cartItems = get(cartItemsSelector);
     const selectedIds = get(selectedIdsAtom);
 
-    const selectedCartItems = cartItems.filter(({ id }) => selectedIds.includes(id));
+    const selectedCartItems = cartItems.filter(({ id }) => selectedIds.has(id));
 
     const orderPrice = selectedCartItems.reduce((acc, { product, quantity }) => acc + product.price * quantity, 0);
 

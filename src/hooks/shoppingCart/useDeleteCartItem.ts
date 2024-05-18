@@ -11,7 +11,11 @@ const useDeleteCartItem = (id: number) => {
   };
 
   const updateSelectedCartItemIds = () => {
-    setSelectedCartItemIds((prevSelectedIds) => prevSelectedIds.filter((prevSelectedId) => prevSelectedId !== id));
+    setSelectedCartItemIds((prevSelectedIds) => {
+      prevSelectedIds.delete(id);
+
+      return prevSelectedIds;
+    });
   };
 
   const onDeleteItem = async () => {

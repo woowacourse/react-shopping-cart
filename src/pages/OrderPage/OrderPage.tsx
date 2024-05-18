@@ -15,7 +15,7 @@ const OrderPage: React.FC = () => {
   const cartItems = useRecoilValue(cartItemsSelector);
   const selectedIds = useRecoilValue(selectedIdsAtom);
 
-  const isButtonDisabled = cartItems.length === 0 || selectedIds.length === 0;
+  const isButtonDisabled = cartItems.length === 0 || selectedIds.size === 0;
 
   const navigate = useNavigate();
 

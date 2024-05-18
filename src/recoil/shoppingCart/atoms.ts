@@ -8,8 +8,8 @@ export const cartItemsAtom = atom<CartItem[]>({
   default: [],
 });
 
-export const selectedIdsAtom = atom<number[]>({
+export const selectedIdsAtom = atom({
   key: 'selectedIdsAtom',
-  default: JSON.parse(localStorage.getItem(STORAGE_KEY.selectedItems) ?? '[]') ?? [],
+  default: new Set(JSON.parse(localStorage.getItem(STORAGE_KEY.selectedItems) ?? '[]')) ?? new Set(),
   effects: [localStorageEffect(STORAGE_KEY.selectedItems)],
 });
