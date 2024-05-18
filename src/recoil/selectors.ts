@@ -1,14 +1,8 @@
 import { DefaultValue, selector } from "recoil";
-import { cartItemQuantityStates, cartItemPriceStates, checkedCartItemsState, cartItemsState } from "./atoms";
+import { cartItemQuantityStates, cartItemPriceStates, checkedCartItemsState } from "./atoms";
 import ORDER from "../constants/order";
 import { CartItemResponse } from "../types/ShoppingCart";
-
-export const cartItemsLengthState = selector({
-  key: "cartItemsLengthState",
-  get: ({ get }) => {
-    return get(cartItemsState).length;
-  },
-});
+import { fetchCartItems } from "../api/cartItem";
 
 export const checkedCartItemsQuantityState = selector({
   key: "checkedCartItemsQuantityState",
@@ -110,5 +104,14 @@ export const setCartPriceSelector = selector({
       set(cartItemQuantityStates(item.id), item.quantity);
       set(cartItemPriceStates(item.id), item.product.price);
     });
+  },
+});
+
+export const getCartItems = selector({
+  key: "getCartItems",
+  get: async () => {
+    const cartItems = await fetchCartItems();
+
+    return cartItems;
   },
 });

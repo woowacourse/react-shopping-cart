@@ -1,13 +1,7 @@
 import { atom, atomFamily } from "recoil";
 import { recoilPersist } from "recoil-persist";
-import { CartItemResponse } from "../types/ShoppingCart";
 
 const { persistAtom } = recoilPersist();
-
-export const cartItemsState = atom<CartItemResponse[]>({
-  key: "cartItemsState",
-  default: [],
-});
 
 export const checkedCartItemsState = atom<number[]>({
   key: "checkedCartItemsState",
