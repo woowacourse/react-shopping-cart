@@ -1,5 +1,5 @@
 import { CartItem } from '@appTypes/shoppingCart';
-import { CheckBoxButton, DeleteButton } from '@components/common';
+import { Checkbox, DeleteButton } from '@components/common';
 import { CartListDescription } from '@components/shoppingCart';
 import { useCheckCartItem, useDeleteCartItem } from '@hooks/shoppingCart';
 
@@ -16,7 +16,7 @@ const CartListItem: React.FC<CartListItemProps> = ({ cartItem }) => {
   return (
     <Styled.CartListContainer>
       <Styled.CartItemSelectionGroup>
-        <CheckBoxButton checked={isChecked(cartItem.id)} onClick={() => onCheckCartItem(cartItem.id)} />
+        <Checkbox checked={isChecked(cartItem.id)} onChange={() => onCheckCartItem(cartItem.id)} />
         <DeleteButton onClick={onDeleteItem}>삭제</DeleteButton>
       </Styled.CartItemSelectionGroup>
       <Styled.CartItemDetailContainer>

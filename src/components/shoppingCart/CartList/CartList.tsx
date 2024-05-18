@@ -1,5 +1,5 @@
 import { CartItem } from '@appTypes/shoppingCart';
-import { CheckBoxButton } from '@components/common';
+import { Checkbox } from '@components/common';
 import { CartListItem } from '@components/shoppingCart';
 import { useCheckCartItem } from '@hooks/shoppingCart';
 import { cartItemsSelector } from '@recoil/shoppingCart';
@@ -18,7 +18,7 @@ const CartList: React.FC<CartListProps> = () => {
   return (
     <div>
       <Styled.CartListButtonGroup>
-        <CheckBoxButton checked={isAllChecked} onClick={onCheckAllCartItems} />
+        <Checkbox checked={isAllChecked} onChange={onCheckAllCartItems} />
         <Styled.CartItemSelectionText>전체 선택</Styled.CartItemSelectionText>
       </Styled.CartListButtonGroup>
       <Styled.CartItemContainer>
