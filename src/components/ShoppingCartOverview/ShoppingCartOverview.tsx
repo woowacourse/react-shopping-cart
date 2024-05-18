@@ -8,7 +8,7 @@ import { orderInfoStore } from '../../recoil/selectors';
 import { useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { ROUTER_URLS } from '../../constants/constants';
-import Fallback from '../Fallback/Fallback';
+import CartItemEmptyFallback from '../CartItemEmptyFallback/CartItemEmptyFallback';
 import { selectedCartItems } from '../../recoil/atoms';
 import getCartItems from './../../api/get/getCartItems';
 
@@ -41,7 +41,7 @@ const ShoppingCartOverview = () => {
         <>
           <S.Container>
             <ShoppingCartDescription kindCount={0} />
-            <Fallback />
+            <CartItemEmptyFallback />
           </S.Container>
           <FloatingButton label={'주문 확인'} disabled />
         </>
