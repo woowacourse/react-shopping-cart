@@ -8,6 +8,8 @@ import CartPage from "@/pages/CartPage/CartPage";
 import { PAGE_URL } from "./constants/url";
 import { CART_PAGE_TITLES } from "./constants/cart";
 import CartPageSkeleton from "./pages/CartPage/CartPage.skeleton";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "./pages/Error/ErrorPage";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +20,9 @@ const router = createBrowserRouter([
         title={CART_PAGE_TITLES.cart}
         fallback={<CartPageSkeleton />}
       >
-        <CartPage />
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <CartPage />
+        </ErrorBoundary>
       </MainLayout>
     ),
   },
@@ -26,7 +30,9 @@ const router = createBrowserRouter([
     path: PAGE_URL.orderConfirm,
     element: (
       <MainLayout type="backButton">
-        <OrderConfirmPage />
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <OrderConfirmPage />
+        </ErrorBoundary>
       </MainLayout>
     ),
   },

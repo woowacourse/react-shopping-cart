@@ -7,8 +7,8 @@ export const FlexCenter = css`
 `;
 
 export const Skeleton = `
-  background: linear-gradient(-90deg, #aaa, #f0f0f0, #aaa, #f0f0f0);
-  background-size: 400%;
+  background: linear-gradient(-90deg, #aaa, #f0f0f0, #aaa, #f00f0);
+  background-size: 400%;f
   animation: skeleton-animation 5s infinite ease-out;
   border-radius: 8px;
 

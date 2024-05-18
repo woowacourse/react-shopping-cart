@@ -1,16 +1,15 @@
 import { CartItem } from "@/types/cart";
 import { API_URL, basicToken } from ".";
+import { ErrorMessage } from "@/constants/error";
 
 export async function getCartItems(): Promise<CartItem[]> {
-  const response = await fetch(`${API_URL}/cart-items`, {
+  const response = await fetch(`${API_URL}/cart-item`, {
     method: "GET",
     headers: { Authorization: basicToken },
   });
 
   if (!response.ok) {
-    throw new Error(
-      "장바구니 데이터를 불러올 수 없습니다. 나중에 다시 시도해 주세요."
-    );
+    throw new Error(ErrorMessage.failGetCartList);
   }
 
   const data = await response.json();
@@ -32,7 +31,7 @@ export async function patchCartItemQuantity(
   });
 
   if (!response.ok) {
-    throw new Error("상품 수량 변경에 실패했습니다. 나중에 다시 시도해 주세요");
+    throw new Error(ErrorMessage.failPatchItemQuantity);
   }
 
   return response.ok;
@@ -47,7 +46,7 @@ export async function removeCartItem(cartItemId: number): Promise<boolean> {
   });
 
   if (!response.ok) {
-    throw new Error("아이템을 삭제할 수 없습니다. 나중에 다시 시도해 주세요.");
+    throw new Error(ErrorMessage.failDeleteItem);
   }
 
   return response.ok;
