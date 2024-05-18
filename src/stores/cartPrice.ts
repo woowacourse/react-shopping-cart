@@ -1,25 +1,15 @@
 import { selector } from "recoil";
-import { getCartItems } from "../../apis";
-import { CartItemType } from "../../types";
-import { isSelectedState } from "../atoms/atoms";
-
-export const cartItemsState = selector<CartItemType[]>({
-  key: "cartItemsState",
-  get: async () => {
-    const cartItems = await getCartItems();
-
-    return cartItems;
-  },
-});
+import { cartItemsState } from "./cartItems";
+import { isCartItemSelectedState } from "./cartItemSelected";
 
 export const cartPriceState = selector({
   key: "cartPriceState",
   get: ({ get }) => {
     const cartItems = get(cartItemsState);
-    const isSelected = get(isSelectedState);
+    const isCartItemSelected = get(isCartItemSelectedState);
 
     const orderPrice = cartItems.reduce((acc, cartItem) => {
-      if (isSelected[cartItem.id.toString()]) {
+      if (isCartItemSelected[cartItem.id.toString()]) {
         return acc + cartItem.product.price * cartItem.quantity;
       }
       return acc;

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
 import { useRecoilState, useRecoilValue } from "recoil";
-import { cartItemsState } from "../../recoil/selectors/selectors";
-import { isSelectedState } from "../../recoil/atoms/atoms";
+import { cartItemsState } from "../../stores/cartItems";
+import { isCartItemSelectedState } from "../../stores/cartItemSelected";
 
 import CartItem from "../CartItem";
 
@@ -15,14 +15,18 @@ import Button from "../common/Button";
 
 const CartItemList = () => {
   const cartItemList = useRecoilValue(cartItemsState);
-  const [isSelected, setIsSelected] = useRecoilState(isSelectedState);
-  const isAllSelected = Object.values(isSelected).every((value) => value);
+  const [isCartItemSelected, setIsSelected] = useRecoilState(
+    isCartItemSelectedState
+  );
+  const isAllSelected = Object.values(isCartItemSelected).every(
+    (value) => value
+  );
 
   useEffect(() => {
     const newDate: { [key: number]: boolean } = {};
     cartItemList.forEach((cartItem) => {
-      if (Object.keys(isSelected).includes(cartItem.id.toString())) {
-        newDate[cartItem.id] = isSelected[cartItem.id];
+      if (Object.keys(isCartItemSelected).includes(cartItem.id.toString())) {
+        newDate[cartItem.id] = isCartItemSelected[cartItem.id];
       } else {
         newDate[cartItem.id] = false;
       }
@@ -31,7 +35,7 @@ const CartItemList = () => {
   }, []);
 
   const handleSelectAllItem = (type: boolean) => {
-    const copyIsSelected = { ...isSelected };
+    const copyIsSelected = { ...isCartItemSelected };
     Object.keys(copyIsSelected).forEach(
       (isSelected) => (copyIsSelected[isSelected] = type)
     );

@@ -1,14 +1,12 @@
-import React from "react";
-import {
-  cartItemsState,
-  cartPriceState,
-} from "../../recoil/selectors/selectors";
 import { useRecoilValue } from "recoil";
+import { cartItemsState } from "../../stores/cartItems";
+import { cartPriceState } from "../../stores/cartPrice";
 import styled from "styled-components";
 
 const OrderConfirm = () => {
   const { totalPrice } = useRecoilValue(cartPriceState);
   const cartItems = useRecoilValue(cartItemsState);
+
   const totalItemLength = cartItems.reduce((acc, cur) => {
     return cur.quantity + acc;
   }, 0);

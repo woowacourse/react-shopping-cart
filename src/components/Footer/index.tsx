@@ -1,18 +1,19 @@
-import React from "react";
-import { useRecoilValue } from "recoil";
-import { isSelectedState } from "../../recoil/atoms/atoms";
-import { cartItemsState } from "../../recoil/selectors/selectors";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { cartItemsState } from "../../stores/cartItems";
+import { isCartItemSelectedState } from "../../stores/cartItemSelected";
 import Button from "../common/Button";
 import { Wrapper } from "./style";
 
 const Footer = () => {
   const location = useLocation();
   const navigate = useNavigate();
+
   const cartItems = useRecoilValue(cartItemsState);
-  const isSelected = useRecoilValue(isSelectedState);
+  const iscartItemSelected = useRecoilValue(isCartItemSelectedState);
+
   const disabledButton =
-    Object.values(isSelected).every((isSelect) => !isSelect) ||
+    Object.values(iscartItemSelected).every((isSelect) => !isSelect) ||
     cartItems.length === 0 ||
     location.pathname === "/cart-confirm";
 

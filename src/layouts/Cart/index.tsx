@@ -1,6 +1,6 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
-import { cartItemsState } from "../../recoil/selectors/selectors";
+import { cartItemsState } from "../../stores/cartItems";
 import { useLocation } from "react-router-dom";
 import { Wrapper, Title } from "./style";
 
