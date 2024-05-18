@@ -2,6 +2,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { checkedCartItems } from '../recoil/selectors';
 import { useEffect } from 'react';
 import { cartItemCheckState } from '../recoil/atoms';
+import RULE from '../constants/rule';
 
 export default function useLocalStorageCheckedCart({
   cartId,
@@ -11,13 +12,16 @@ export default function useLocalStorageCheckedCart({
   const [isCheck, setIsCheck] = useRecoilState(cartItemCheckState(cartId));
 
   const localStorageCheckedCart = JSON.parse(
-    localStorage.getItem('checkedCart')!,
+    localStorage.getItem(RULE.CheckedLocalStorageName)!,
   );
   const checkedCart = useRecoilValue(checkedCartItems).map((item) => item.id);
 
   useEffect(() => {
     if (!localStorageCheckedCart) {
-      localStorage.setItem('checkedCart', JSON.stringify(checkedCart));
+      localStorage.setItem(
+        RULE.CheckedLocalStorageName,
+        JSON.stringify(checkedCart),
+      );
     }
 
     if (localStorageCheckedCart && localStorageCheckedCart.includes(cartId)) {
@@ -26,6 +30,9 @@ export default function useLocalStorageCheckedCart({
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('checkedCart', JSON.stringify(checkedCart));
+    localStorage.setItem(
+      RULE.CheckedLocalStorageName,
+      JSON.stringify(checkedCart),
+    );
   }, [isCheck]);
 }
