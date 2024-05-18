@@ -31,7 +31,11 @@ export default function CartItem({ id, price, imageUrl, name, setAllChecked }: P
           onChange={() => handleToggleSelect(id)}
         />
         <label htmlFor={`item-${id}`} className={styles.customCheckboxLabel} />
-        <Button variant="image" className={styles.deleteButton} onClick={handleDeleteButton}>
+        <Button
+          variant="image"
+          className={`${styles.deleteButton} ${common.captionText}`}
+          onClick={handleDeleteButton}
+        >
           삭제
         </Button>
       </div>
@@ -41,7 +45,7 @@ export default function CartItem({ id, price, imageUrl, name, setAllChecked }: P
         </div>
 
         <div className={styles.itemInfoContainer}>
-          <span className={styles.name}> {name}</span>
+          <span className={common.captionText}> {name}</span>
           <span className={common.titleText}> {formatKoreanCurrency(price)}원</span>
           <div className={styles.plusMinusButtonContainer}>
             <Button

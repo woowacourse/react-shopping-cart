@@ -1,7 +1,8 @@
 import { CartItemType } from '../../../types';
 import CartItem from './CartItem';
-import styles from '../Cart.module.css';
 import useToggleAllChecked from '../../../hooks/useToggleAllChecked';
+import styles from '../Cart.module.css';
+import common from '../../../styles/common.module.css';
 
 interface Props {
   products: CartItemType[];
@@ -21,7 +22,7 @@ export default function CartList({ products }: Props) {
           onChange={handleToggleAll}
         />
         <label htmlFor={'checkAll'} className={styles.customCheckboxLabel} />
-        <div className={styles.allCheckText}>전체 선택</div>
+        <div className={`${styles.allCheckText} ${common.captionText}`}>전체 선택</div>
       </div>
 
       <ul>

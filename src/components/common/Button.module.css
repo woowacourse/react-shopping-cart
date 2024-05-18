@@ -3,23 +3,23 @@
   font-weight: 800;
   line-height: 16px;
   text-align: left;
-  color: #fff;
+  color: var(--background-color);
 }
 
 .footer {
   width: 100%;
-  background-color: black;
+  background-color: var(--primary-color);
   height: 64px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0 24px;
-  color: #fff;
+  color: var(--background-color);
   position: absolute;
   bottom: 0;
   font-size: 16px;
 }
 
 .disable {
-  background: rgba(190, 190, 190, 1);
+  background: var(--secondary-color);
 }

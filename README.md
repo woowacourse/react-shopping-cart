@@ -1,6 +1,11 @@
 # 🎯 1단계 Refactoring
 
 - [x] updateCartItemQuantity, deleteCartItem - API 반환값 사용
+- [x] self-closing tag 수정
+- [x] handleHomeButtonClick 함수명을 navigateCartPage로 의도가 드러나도록 변경
+- [x] VariantType 선언 위치 변경
+- [x] atoms 테스트 명세를 구체적으로 변경
+- [x] 전역 스타일 반영
 
 # 🎯 쇼핑 카트 1단계 기능 구현 목록
 
