@@ -3,11 +3,11 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
-import OrderConfirmButton from '@/components/Cart/OrderConfirmButton';
 import { fetchCartItems } from '@apis/cartItem';
-import CartFooterSection from '@components/Cart/CartFooterSection';
-import CartHeaderSection from '@components/Cart/CartHeaderSection';
-import CartMainSection from '@components/Cart/CartMainSection';
+import CartFooterSection from '@components/Cart/CartOrderInfo';
+import CartMainSection from '@components/Cart/CartProducts';
+import CartHeaderSection from '@components/Cart/CartTitle';
+import OrderConfirmButton from '@components/Cart/OrderConfirmButton';
 import { cartItemsState } from '@recoil/cartItems/atoms';
 
 import Header from '@components/Header';
@@ -38,17 +38,19 @@ function CartPage() {
         </button>
       </Header>
       <main css={main}>
-        <CartHeaderSection cartItemLength={cartItems.length} />
-        {cartItems.length ? (
-          <>
-            <CartMainSection />
-            <CartFooterSection />
-          </>
-        ) : (
-          <div css={cartEmptyContainer}>
-            <span css={cartEmptyText}>장바구니에 담은 상품이 없습니다.</span>
-          </div>
-        )}
+        <section css={cartSection}>
+          <CartHeaderSection cartItemLength={cartItems.length} />
+          {cartItems.length ? (
+            <>
+              <CartMainSection />
+              <CartFooterSection />
+            </>
+          ) : (
+            <div css={cartEmptyContainer}>
+              <span css={cartEmptyText}>장바구니에 담은 상품이 없습니다.</span>
+            </div>
+          )}
+        </section>
       </main>
       <OrderConfirmButton />
     </>
@@ -70,12 +72,15 @@ const homeButton = css`
 `;
 
 const main = css`
-  display: flex;
-  flex-direction: column;
   flex: 1;
-  padding: 0 24px;
+  padding: 36px 24px;
 
   overflow-y: scroll;
+`;
+
+const cartSection = css`
+  display: flex;
+  flex-direction: column;
 `;
 
 const cartEmptyContainer = css`
