@@ -3,6 +3,10 @@ import { itemDetailsState, itemsState } from './atoms';
 import { CartItems } from '../types/Item';
 import { updateLocalStorage } from '../utils/UpdateLocalStorage';
 import { fetchItems } from '../api';
+import {
+  DELIVERY_FEE,
+  FREE_DELIVERY_THRESHOLD,
+} from '../constants/ShopingCart';
 
 /**
  * 전체 금액, 배송비 계산, 총 결제 금액 계산
@@ -20,7 +24,10 @@ export const totalPriceSelector = selector({
         totalAmount += quantity * price;
       }
     });
-    const deliveryFee = totalAmount >= 100000 || totalAmount === 0 ? 0 : 3000;
+    const deliveryFee =
+      totalAmount >= FREE_DELIVERY_THRESHOLD || totalAmount === 0
+        ? 0
+        : DELIVERY_FEE;
     const calculatedTotalAmount = totalAmount + deliveryFee;
     return { totalAmount, deliveryFee, calculatedTotalAmount };
   },
