@@ -22,9 +22,8 @@ const CartItem = ({ item }: Props) => {
     filteredCartItemState(item.id)
   );
   const [cartList, setCartList] = useRecoilState(cartListState);
-  const [loading, setLoading] = useState(false);
-
-  const [, setError] = useState<Error | null>(null);
+  const [quantityLoading, setQuantityLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   useEffect(() => {
     setFilteredItemState({
@@ -44,36 +43,31 @@ const CartItem = ({ item }: Props) => {
   };
 
   const handleDelete = () => {
-    try {
-      const deleteData = async () => {
-        await deleteCartItem(id);
+    const deleteData = async () => {
+      setDeleteLoading(true);
 
-        const newList = cartList.filter((item) => item.id !== id);
-        setCartList(newList);
-      };
+      await deleteCartItem(id);
+      const newList = cartList.filter((item) => item.id !== id);
+      setCartList(newList);
 
-      deleteData();
-    } catch (error) {
-      setError(error as Error);
-    }
+      setDeleteLoading(false);
+    };
+
+    deleteData();
   };
 
   const handleQuantity = (quantity: number) => {
-    setLoading(true);
-    try {
-      const patchData = async () => {
-        await patchCartItem(id, quantity);
-        const newValue = { ...filteredItemState };
-        newValue.quantity = quantity;
-        setFilteredItemState(newValue);
+    const patchData = async () => {
+      setQuantityLoading(true);
 
-        setLoading(false);
-      };
+      await patchCartItem(id, quantity);
+      const newValue = { ...filteredItemState, quantity };
+      setFilteredItemState(newValue);
 
-      if (quantity > 0) patchData();
-    } catch (error) {
-      setError(error as Error);
-    }
+      setQuantityLoading(false);
+    };
+
+    if (quantity > 0) patchData();
   };
 
   return (
@@ -83,7 +77,11 @@ const CartItem = ({ item }: Props) => {
           isSelected={filteredItemState.isSelected}
           onClick={handleSelect}
         />
-        <BorderButton onClick={handleDelete}>삭제</BorderButton>
+        {deleteLoading ? (
+          <Img src={Loading} alt="로딩 중" />
+        ) : (
+          <BorderButton onClick={handleDelete}>삭제</BorderButton>
+        )}
       </StyledFlexBetweenBox>
       <StyledRowBox>
         <StyledImg src={product.imageUrl} alt={product.name} />
@@ -96,7 +94,7 @@ const CartItem = ({ item }: Props) => {
             <MinusButton
               onClick={() => handleQuantity(filteredItemState.quantity - 1)}
             />
-            {loading ? (
+            {quantityLoading ? (
               <Img src={Loading} alt="로딩 중" />
             ) : (
               filteredItemState.quantity
