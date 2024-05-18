@@ -1,8 +1,8 @@
-import { selector } from "recoil";
-import { cartItemsState } from "../atoms/atoms";
+import { selector } from 'recoil';
+import { cartItemsState, selectedItemsState } from '../atoms/atoms';
 
 export const categoryCountState = selector<number>({
-  key: "categoryCountState",
+  key: 'categoryCountState',
   get: ({ get }) => {
     const cartItems = get(cartItemsState);
     return cartItems.length;
@@ -10,18 +10,22 @@ export const categoryCountState = selector<number>({
 });
 
 export const orderPriceState = selector<number>({
-  key: "orderPriceState",
+  key: 'orderPriceState',
   get: ({ get }) => {
     const cartItems = get(cartItemsState);
+    const selectedItems = get(selectedItemsState);
     const orderPrice = cartItems.reduce((total, item) => {
-      return total + item.product.price * item.quantity;
+      if (selectedItems[item.id]) {
+        return total + item.product.price * item.quantity;
+      }
+      return total;
     }, 0);
     return orderPrice;
   },
 });
 
 export const deliveryPriceState = selector<number>({
-  key: "deliveryPriceState",
+  key: 'deliveryPriceState',
   get: ({ get }) => {
     const orderPrice = get(orderPriceState);
     const deliveryPrice = orderPrice > 100000 ? 0 : 3000;
@@ -30,7 +34,7 @@ export const deliveryPriceState = selector<number>({
 });
 
 export const totalPriceState = selector<number>({
-  key: "totalPriceState",
+  key: 'totalPriceState',
   get: ({ get }) => {
     const orderPrice = get(orderPriceState);
     const deliveryPrice = get(deliveryPriceState);
