@@ -21,7 +21,7 @@ const OrderPage: React.FC = () => {
   return (
     <>
       <Styled.OrderPageTitle>장바구니</Styled.OrderPageTitle>
-      <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <ErrorBoundary FallbackComponent={({ error }) => <ErrorFallback $height="70vh" error={error} />}>
         <Suspense fallback={<LoadingSpinner $width="100%" $height="70vh" />}>
           <OrderPageContents />
         </Suspense>

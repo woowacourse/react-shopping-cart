@@ -1,7 +1,7 @@
 import { CartItem } from '@appTypes/shoppingCart';
 import { Checkbox, DeleteButton } from '@components/common';
 import { CartListDescription } from '@components/shoppingCart';
-import { useCheckCartItem, useDeleteCartItem } from '@hooks/shoppingCart';
+import { useCheckCartItem, useDeleteCartItem, useFetchErrorBoundary } from '@hooks/index';
 
 import * as Styled from './CartListItem.styled';
 
@@ -10,9 +10,9 @@ interface CartListItemProps {
 }
 
 const CartListItem: React.FC<CartListItemProps> = ({ cartItem }) => {
-  const { onDeleteItem } = useDeleteCartItem(cartItem.id);
+  const { onDeleteItem, fetchError } = useDeleteCartItem(cartItem.id);
   const { isChecked, onCheckCartItem } = useCheckCartItem();
-
+  useFetchErrorBoundary(fetchError);
   return (
     <Styled.CartListContainer>
       <Styled.CartItemSelectionGroup>

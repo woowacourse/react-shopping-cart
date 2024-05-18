@@ -8,6 +8,7 @@ import { useSetRecoilState } from 'recoil';
 const useUpdateCartItemCount = ({ id, quantity }: CartItem) => {
   const setCartItems = useSetRecoilState(cartItemsSelector);
   const [errorMessage, setErrorMessage] = useState('');
+  const [fetchError, setFetchError] = useState<Error | null>(null);
 
   const getNewQuantity = (sign: Sign) => {
     return quantity + COUNTS[sign];
@@ -58,12 +59,17 @@ const useUpdateCartItemCount = ({ id, quantity }: CartItem) => {
     //유효한 수량변경일 경우 fetch 및 상태 변경
     const newQuantity = getNewQuantity(sign);
 
-    await fetchCartItemCount(id, newQuantity);
-
-    updateCartItems(newQuantity);
+    try {
+      await fetchCartItemCount(id, newQuantity);
+      updateCartItems(newQuantity);
+      setFetchError(null);
+    } catch (error) {
+      if (error instanceof Error) return setFetchError(error);
+      setFetchError(new Error('수량 변경 fetch 오류'));
+    }
   };
 
-  return { errorMessage, updateCartItems, getNewQuantity, validateQuantity, onUpdateCartItemCount };
+  return { errorMessage, fetchError, updateCartItems, getNewQuantity, validateQuantity, onUpdateCartItemCount };
 };
 
 export default useUpdateCartItemCount;

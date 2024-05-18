@@ -1,6 +1,6 @@
 import { CartItem } from '@appTypes/shoppingCart';
 import { CountButton } from '@components/common';
-import { useUpdateCartItemCount } from '@hooks/shoppingCart';
+import { useFetchErrorBoundary, useUpdateCartItemCount } from '@hooks/index';
 import { formatKoreanCurrency } from '@utils/index';
 
 import * as Styled from './CartListDescription.styled';
@@ -12,7 +12,8 @@ interface CartListDescriptionContainerProps {
 
 const CartListDescription: React.FC<CartListDescriptionContainerProps> = ({ cartItem }) => {
   const { product, quantity } = cartItem;
-  const { onUpdateCartItemCount, errorMessage } = useUpdateCartItemCount(cartItem);
+  const { onUpdateCartItemCount, errorMessage, fetchError } = useUpdateCartItemCount(cartItem);
+  useFetchErrorBoundary(fetchError);
 
   return (
     <Styled.CartItemDescription>
