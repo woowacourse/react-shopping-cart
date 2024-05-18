@@ -8,6 +8,7 @@ import BorderButton from '@/components/Button/BorderButton';
 import { CartItemType } from '@/types/cart.type';
 import CheckBox from '@/components/Button/CheckBoxButton';
 import Loading from '@/assets/loading.gif';
+import { THEME } from '@/style/theme';
 import styled from '@emotion/styled';
 import { useRecoilState } from 'recoil';
 
@@ -118,7 +119,7 @@ const StyledItemWrapper = styled.div`
   width: 100%;
   height: 160px;
   margin-top: 10px;
-  border-top: 1px solid #bebebe;
+  border-top: 1px solid ${THEME.color.grey};
   padding: 10px 0;
 `;
 
@@ -146,12 +147,12 @@ const StyledImg = styled.img`
 `;
 
 const StyledItemName = styled.span`
-  font-size: 14px;
+  font-size: ${THEME.fontSize.small};
 `;
 
 const StyledItemPrice = styled.span`
-  font-size: 24px;
-  font-weight: 700;
+  font-size: ${THEME.fontSize.large};
+  font-weight: ${THEME.fontWeight.bold};
 `;
 
 const StyledQuantityBox = styled.div`

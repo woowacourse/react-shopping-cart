@@ -2,6 +2,7 @@ import { FlexCenter, WhiteSpace } from '@/style/common.style';
 
 import { CART_MESSAGE } from '@/constants/message';
 import FullWidthButton from '@/components/Button/FullWidthButton';
+import { THEME } from '@/style/theme';
 import styled from '@emotion/styled';
 
 const EmptyCart = () => {
@@ -29,8 +30,8 @@ const StyledEmptyWrapper = styled.div`
 `;
 
 const StyledTitle = styled.h1`
-  font-size: 24px;
-  font-weight: 700;
+  font-size: ${THEME.fontSize.large};
+  font-weight: ${THEME.fontWeight.bold};
   margin-top: 20px;
 `;
 

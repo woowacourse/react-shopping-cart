@@ -1,3 +1,4 @@
+import { THEME } from '../../style/theme';
 import styled from '@emotion/styled';
 
 interface Props {
@@ -17,8 +18,8 @@ const StyledButton = styled.button`
   width: fit-content;
   padding: 6px 8px;
   border-radius: 4px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
-  font-size: 14px;
+  border: 1px solid ${THEME.color.blackWithOpacity};
+  background-color: ${THEME.color.white};
+  font-size: ${THEME.fontSize.small};
   cursor: pointer;
 `;

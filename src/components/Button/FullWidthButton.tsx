@@ -1,4 +1,5 @@
 import { FlexCenter } from '@/style/common.style';
+import { THEME } from '@/style/theme';
 import styled from '@emotion/styled';
 
 interface Props {
@@ -27,10 +28,11 @@ const StyledButton = styled.button<{ disable: boolean }>`
 
   ${FlexCenter}
 
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: 700;
+  color: ${THEME.color.white};
+  font-size: ${THEME.fontSize.medium};
+  font-weight: ${THEME.fontWeight.bold};
   border: none;
   cursor: pointer;
-  background-color: ${({ disable }) => (disable ? '#BEBEBE' : '#000000')};
+  background-color: ${({ disable }) =>
+    disable ? THEME.color.grey : THEME.color.black};
 `;

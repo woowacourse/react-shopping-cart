@@ -8,6 +8,7 @@ import {
 import { CART_MESSAGE } from '@/constants/message';
 import { FREE_SHIPPING_CONDITION } from '@/constants/system';
 import Info from '@/assets/Info.svg';
+import { THEME } from '@/style/theme';
 import { recipeState } from '@/store/selectors/recipeSelector';
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
@@ -47,7 +48,7 @@ export default CartRecipe;
 const StyledRecipeWrapper = styled.div`
   ${FlexColumn}
   gap: 10px;
-  background-color: white;
+  background-color: ${THEME.color.white};
   padding: 16px 0;
   ${WhiteSpace}
 `;
@@ -55,13 +56,13 @@ const StyledRecipeWrapper = styled.div`
 const StyledInfoBox = styled.div`
   ${FlexRow}
   align-items: flex-start;
-  font-size: 12px;
+  font-size: ${THEME.fontSize.xsmall};
   gap: 5px;
 `;
 
 const StyledBox = styled.div`
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid ${THEME.color.blackWithOpacity};
+  border-bottom: 1px solid ${THEME.color.blackWithOpacity};
 `;
 
 const StyledBetweenBox = styled.div`
@@ -70,6 +71,6 @@ const StyledBetweenBox = styled.div`
 `;
 
 const StyledBoldText = styled.span`
-  font-size: 16px;
-  font-weight: 700;
+  font-size: ${THEME.fontSize.medium};
+  font-weight: ${THEME.fontWeight.bold};
 `;
