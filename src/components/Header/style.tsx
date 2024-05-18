@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 
-export const HeaderContainer = styled.header(({ theme }) => ({
+export const HeaderContainer = styled.div(({ theme }) => ({
   background: `${theme.colors.black}`,
   width: "100%",
   height: "64px",
   display: "flex",
-  justifyContent: "space-between",
+  justifyContent: "flex-start",
   alignItems: "center",
   padding: `${theme.spacer.spacing3}`,
   img: {

@@ -23,7 +23,6 @@ export default function Header({ isShowLogo }: HeaderProps) {
           <img src={ArrowIcon} />
         </HeaderButtonContainer>
       )}
-      <div></div>
     </HeaderContainer>
   );
 }
