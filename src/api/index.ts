@@ -47,7 +47,7 @@ export async function updateCartItemQuantity(id: number, newQuantity: number) {
     throw new Error('Failed to fetch cart items');
   }
 
-  return { success: true };
+  return { success: response.ok };
 }
 
 /**
@@ -67,5 +67,5 @@ export async function deleteCartItem(id: number) {
     throw new Error('Failed to fetch cart items');
   }
 
-  return { success: true };
+  return { success: response.ok };
 }

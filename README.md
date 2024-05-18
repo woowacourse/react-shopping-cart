@@ -1,4 +1,8 @@
-🎯 쇼핑 카트 1단계 기능 구현 목록
+# 🎯 1단계 Refactoring
+
+- [x] updateCartItemQuantity, deleteCartItem - API 반환값 사용
+
+# 🎯 쇼핑 카트 1단계 기능 구현 목록
 
 step 1. API 호출 데이터 확인
 
