@@ -15,7 +15,7 @@ const ProductListContainer = styled.div`
   gap: 2rem;
 `;
 
-const CheckBoxContainer = styled.div`
+const CheckBoxContainer = styled.label`
   display: flex;
   gap: 0.8rem;
   align-items: center;
@@ -43,8 +43,12 @@ function ProductList() {
 
   return (
     <ProductListContainer>
-      <CheckBoxContainer>
-        <CheckBox isChecked={isAllChecked} onClick={handleToggleAll} />
+      <CheckBoxContainer htmlFor="select-all-checkbox">
+        <CheckBox
+          id={'select-all-checkbox'}
+          isChecked={isAllChecked}
+          onClick={handleToggleAll}
+        />
         {MESSAGES.allSelected}
       </CheckBoxContainer>
 

@@ -1,22 +1,32 @@
-import React from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { CheckedBox, NoneCheckedBox } from '../../asset';
+
+const CheckBoxButton = styled.button`
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+`;
 
 const CheckBoxImg = styled.img`
   width: 2.4rem;
   height: 2.4rem;
 `;
 
-interface CheckBoxProps {
+interface CheckBoxProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isChecked: boolean;
   onClick: (e: React.MouseEvent) => void;
 }
-function CheckBox({ isChecked, onClick }: CheckBoxProps) {
+
+function CheckBox({ isChecked, onClick, ...rest }: CheckBoxProps) {
   return (
-    <CheckBoxImg
-      src={isChecked ? CheckedBox : NoneCheckedBox}
-      onClick={onClick}
-    />
+    <CheckBoxButton onClick={onClick} {...rest}>
+      <CheckBoxImg
+        src={isChecked ? CheckedBox : NoneCheckedBox}
+        alt="CheckBox"
+      />
+    </CheckBoxButton>
   );
 }
 
