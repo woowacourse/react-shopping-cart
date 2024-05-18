@@ -23,6 +23,8 @@ export default defineConfig({
       { find: '@apis', replacement: path.resolve(__dirname, 'src/apis') },
       { find: '@recoil', replacement: path.resolve(__dirname, 'src/recoil') },
       { find: '@assets', replacement: path.resolve(__dirname, 'src/assets') },
+      { find: '@constants', replacement: path.resolve(__dirname, 'src/constants') },
+      { find: '@mocks', replacement: path.resolve(__dirname, 'src/mocks') },
     ],
   },
 });

@@ -22,7 +22,7 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Testing */
-    "types": ["jest"],
+    "types": ["jest", "@testing-library/jest-dom", "node"],
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
@@ -32,9 +32,11 @@
       "@hooks/*": ["src/hooks/*"],
       "@apis/*": ["src/apis/*"],
       "@recoil/*": ["src/recoil/*"],
-      "@assets/*": ["src/assets/*"]
+      "@assets/*": ["src/assets/*"],
+      "@constants/*": ["src/constants/*"],
+      "@mocks/*": ["src/mocks/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", ""],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

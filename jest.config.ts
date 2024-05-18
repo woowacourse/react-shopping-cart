@@ -13,5 +13,7 @@ export default {
     '@apis/(.*)': '<rootDir>/src/apis/$1',
     '@recoil/(.*)': '<rootDir>/src/recoil/$1',
     '@assets/(.*)': '<rootDir>/src/assets/$1',
+    '@constants/(.*)': '<rootDir>/src/constants/$1',
+    '@mocks/(.*)': '<rootDir>/src/mocks/$1',
   },
 };
