@@ -1,14 +1,12 @@
-import { API_URL, ENDPOINT, USER_ID, USER_PASSWORD } from '@/api/config';
-
 import { CartItemType } from '@/types/cart.type';
+import { ENDPOINT } from '@/api/config';
 import { ERROR_MESSAGE } from '@/constants/error';
-import { generateBasicToken } from '@/utils/auth';
+import apiFetch from '@/api/apiFetch';
 
 export async function getCartList(): Promise<CartItemType[]> {
-  const token = generateBasicToken(USER_ID, USER_PASSWORD);
-  const response = await fetch(`${API_URL}${ENDPOINT.cartItem.getList}`, {
-    method: 'GET',
-    headers: { Authorization: token },
+  const response = await apiFetch({
+    url: ENDPOINT.cartItem.getList,
+    options: { method: 'GET' },
   });
 
   if (!response.ok) {
@@ -20,14 +18,15 @@ export async function getCartList(): Promise<CartItemType[]> {
 }
 
 export async function postCartItem(productId: number): Promise<void> {
-  const token = generateBasicToken(USER_ID, USER_PASSWORD);
-  const response = await fetch(`${API_URL}${ENDPOINT.cartItem.postItem}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: token,
+  const response = await apiFetch({
+    url: ENDPOINT.cartItem.postItem,
+    options: {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ productId }),
     },
-    body: JSON.stringify({ productId }),
   });
 
   if (!response.ok) {
@@ -36,16 +35,12 @@ export async function postCartItem(productId: number): Promise<void> {
 }
 
 export async function deleteCartItem(cartItemId: number): Promise<void> {
-  const token = generateBasicToken(USER_ID, USER_PASSWORD);
-  const response = await fetch(
-    `${API_URL}${ENDPOINT.cartItem.deleteItem(cartItemId)}`,
-    {
+  const response = await apiFetch({
+    url: ENDPOINT.cartItem.deleteItem(cartItemId),
+    options: {
       method: 'DELETE',
-      headers: {
-        Authorization: token,
-      },
-    }
-  );
+    },
+  });
 
   if (!response.ok) {
     throw new Error(ERROR_MESSAGE.deleteCartItem);
@@ -56,30 +51,26 @@ export async function patchCartItem(
   cartItemId: number,
   quantity: number
 ): Promise<void> {
-  const token = generateBasicToken(USER_ID, USER_PASSWORD);
-  const response = await fetch(
-    `${API_URL}${ENDPOINT.cartItem.patchItem(cartItemId)}`,
-    {
+  const response = await apiFetch({
+    url: ENDPOINT.cartItem.patchItem(cartItemId),
+    options: {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: token,
       },
       body: JSON.stringify({ quantity }),
-    }
-  );
+    },
+  });
+
   if (!response.ok) {
     throw new Error(ERROR_MESSAGE.patchCartItem);
   }
 }
 
 export async function getCartItemCount(): Promise<number> {
-  const token = generateBasicToken(USER_ID, USER_PASSWORD);
-  const response = await fetch(`${API_URL}${ENDPOINT.cartItem.getItemCount}`, {
-    method: 'GET',
-    headers: {
-      Authorization: token,
-    },
+  const response = await apiFetch({
+    url: ENDPOINT.cartItem.getItemCount,
+    options: { method: 'GET' },
   });
 
   if (!response.ok) {
