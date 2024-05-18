@@ -28,18 +28,3 @@ export const priceInfoStore = selector<PriceInfo>({
     };
   },
 });
-
-export const orderInfoStore = selector<IOrderInfo>({
-  key: RECOIL_KEYS.ORDER_INFO,
-  get: ({ get }) => {
-    const selected = get(selectedCartItems);
-    const kindCount = selected.length;
-    const productCount = selected.reduce((acc, cur) => (acc += cur.quantity), 0);
-    const totalPrice = get(priceInfoStore).total;
-    return {
-      kindCount,
-      productCount,
-      totalPrice,
-    };
-  },
-});

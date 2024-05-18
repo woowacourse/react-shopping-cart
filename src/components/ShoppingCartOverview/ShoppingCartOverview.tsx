@@ -4,22 +4,28 @@ import PaymentTotal from '../PaymentTotal/PaymentTotal';
 import * as S from './styled';
 import useFetch from '../../hooks/useFetch';
 import FloatingButton from '../FloatingButton/FloatingButton';
-import { orderInfoStore } from '../../recoil/selectors';
 import { useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { ROUTER_URLS } from '../../constants/constants';
 import CartItemEmptyFallback from '../CartItemEmptyFallback/CartItemEmptyFallback';
 import { selectedCartItems } from '../../recoil/atoms';
 import getCartItems from './../../api/get/getCartItems';
+import { priceInfoStore } from '../../recoil/selectors';
 
 const ShoppingCartOverview = () => {
   const { data, refetch } = useFetch(getCartItems);
-  const orderInfo = useRecoilValue(orderInfoStore);
   const navigate = useNavigate();
-  const selectItemsLength = useRecoilValue(selectedCartItems).length;
+  const selectItems = useRecoilValue(selectedCartItems);
+  const priceInfo = useRecoilValue(priceInfoStore);
 
   const goOrderInfo = () => {
-    navigate(ROUTER_URLS.ORDER_INFO, { state: orderInfo });
+    navigate(ROUTER_URLS.ORDER_INFO, {
+      state: {
+        kindCount: selectItems.length,
+        productCount: selectItems.reduce((acc, cur) => (acc += cur.quantity), 0),
+        totalPrice: priceInfo.total,
+      },
+    });
   };
 
   return (
@@ -34,7 +40,7 @@ const ShoppingCartOverview = () => {
           <FloatingButton
             label={'주문 확인'}
             onClick={goOrderInfo}
-            disabled={selectItemsLength <= 0}
+            disabled={selectItems.length <= 0}
           />
         </>
       ) : (
