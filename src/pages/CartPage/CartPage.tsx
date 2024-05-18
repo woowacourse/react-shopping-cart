@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { totalItemOrderCountSelector } from "@/recoil/orderInformation";
 
 import Caption from "@/components/_common/Caption/Caption";
@@ -14,12 +14,12 @@ import ProductList from "@/components/ProductList/ProductList";
 import OrderConfirmButton from "@/components/OrderConfirmButton/OrderConfirmButton";
 import useSelectAll from "@/hooks/useSelectAll";
 import { cartItems } from "@/recoil/cartItems";
-import CartPageSkeleton from "./CartPage.skeleton";
+import CartEmpty from "@/components/CartEmpty/CartEmpty";
 
 const CartPage = () => {
   const { isAllItemSelected, selectAllItem, unselectAllItem } = useSelectAll();
   const selectedItems = useRecoilValue(totalItemOrderCountSelector);
-  const cartItemList = useRecoilState(cartItems);
+  const cartItemList = useRecoilValue(cartItems);
 
   return (
     <>
@@ -44,11 +44,13 @@ const CartPage = () => {
             />
             <PriceSection />
           </S.CartPageLayout>
-          <OrderConfirmButton disabled={!selectedItems} />
         </>
       ) : (
-        <CartPageSkeleton />
+        <S.CartPageLayout>
+          <CartEmpty />
+        </S.CartPageLayout>
       )}
+      <OrderConfirmButton disabled={!selectedItems} />
     </>
   );
 };
