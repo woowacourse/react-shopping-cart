@@ -10,14 +10,14 @@ const useCheckCartItem = () => {
 
   const isAllChecked = selectedCartItemIds.length === cartItems.length;
 
-  const onCheckAllCartItems = (checked: boolean) => {
-    const newCheckState = checked ? cartItems.map((cartItem) => cartItem.id) : [];
+  const onCheckAllCartItems = () => {
+    const newCheckState = !isAllChecked ? cartItems.map((cartItem) => cartItem.id) : [];
 
     setSelectedCartItemIds(newCheckState);
   };
 
-  const onCheckCartItem = (checked: boolean, id: number) => {
-    const newSelectedCartItemIds = checked
+  const onCheckCartItem = (id: number) => {
+    const newSelectedCartItemIds = !isChecked(id)
       ? [...selectedCartItemIds, id]
       : selectedCartItemIds.filter((selectedId) => selectedId !== id);
 

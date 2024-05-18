@@ -18,7 +18,7 @@ const CartList: React.FC<CartListProps> = () => {
   return (
     <div>
       <Styled.CartListButtonGroup>
-        <CheckBoxButton checked={isAllChecked} onClick={() => onCheckAllCartItems(!isAllChecked)} />
+        <CheckBoxButton checked={isAllChecked} onClick={onCheckAllCartItems} />
         <Styled.CartItemSelectionText>전체 선택</Styled.CartItemSelectionText>
       </Styled.CartListButtonGroup>
       <Styled.CartItemContainer>
