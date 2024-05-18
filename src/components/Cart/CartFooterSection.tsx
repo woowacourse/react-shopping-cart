@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 import Receipt from './Receipt';
 
 import { INFO_ICON } from '@assets/images';
+import { CONFIG } from '@constants/config';
 import { orderResultState } from '@recoil/cartItems/selectors';
 
 export default function CartFooterSection() {
@@ -15,8 +16,9 @@ export default function CartFooterSection() {
         <span css={infoIcon}>
           <img src={INFO_ICON} />
         </span>
-        {/* TODO: 100,000 상수 분리 */}
-        <span css={freeDeliveryGuide}>총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</span>
+        <span css={freeDeliveryGuide}>
+          총 주문 금액이 {CONFIG.FREE_DELIVERY_CONDITION}원 이상일 경우 무료 배송됩니다.
+        </span>
       </div>
       <div css={borderTopWrapper}>
         <Receipt title="주문 금액" price={totalOrderPrice} />

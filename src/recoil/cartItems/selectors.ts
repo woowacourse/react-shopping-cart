@@ -2,6 +2,8 @@ import { selector } from 'recoil';
 
 import { cartItemsState, checkedItemsState } from './atoms';
 
+import { PRICE } from '@constants/config';
+
 export const isAllUnCheckedState = selector<boolean>({
   key: 'isAllUnCheckedState',
   get: ({ get }) => {
@@ -45,7 +47,7 @@ export const orderResultState = selector({
     const orderResult = {
       totalOrderPrice: 0,
       totalQuantity: 0,
-      deliveryPrice: 3000,
+      deliveryPrice: PRICE.DELIVERY_PRICE,
       totalPurchasePrice: 0,
     };
 
@@ -56,7 +58,8 @@ export const orderResultState = selector({
     }, orderResult);
 
     result.totalPurchasePrice = result.totalOrderPrice + result.deliveryPrice;
-    result.deliveryPrice = result.totalOrderPrice >= 100000 ? 0 : 3000;
+    result.deliveryPrice =
+      result.totalOrderPrice >= PRICE.FREE_DELIVERY_CONDITION ? PRICE.FREE : PRICE.DELIVERY_PRICE;
 
     return result;
   },

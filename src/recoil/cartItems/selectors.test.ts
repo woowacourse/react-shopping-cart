@@ -1,30 +1,34 @@
 import { renderHook } from '@testing-library/react';
-// import { act } from 'react';
 import { act } from 'react';
 import { RecoilRoot, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { cartItemsState } from './atoms';
-import {
-  deliveryPriceState,
-  orderTotalPriceState,
-  productTypesCountState,
-  purchaseTotalPriceState,
-  totalQuantityState,
-} from './selectors';
+import { orderResultState, productTypesCountState } from './selectors';
 
-import { TOTAL_PRICE_OVER_100000_DATA, TOTAL_PRICE_UNDER_100000_DATA } from '@/constants/mock';
+import { fetchCartItems } from '@apis/cartItem';
+import { CONFIG } from '@constants/config';
+import asyncRecoilWrapper from '@mocks/customWrapper';
+import { TOTAL_PRICE_OVER_100000_DATA, TOTAL_PRICE_UNDER_100000_DATA } from '@mocks/mock';
+
+jest.mock('@apis/cartItem', () => ({
+  fetchCartItems: jest.fn(),
+}));
 
 describe('selectors', () => {
-  describe('deliveryPriceState', () => {
-    it('총 결제금액이 100,000원 미만일 때, 배송비가 3000원이다.', () => {
+  beforeEach(() => {
+    (fetchCartItems as jest.Mock).mockResolvedValue(TOTAL_PRICE_UNDER_100000_DATA);
+  });
+
+  describe.only('deliveryPriceState', () => {
+    it(`총 결제금액이 ${CONFIG.FREE_DELIVERY_CONDITION}원 미만일 때, 배송비가 ${CONFIG.DELIVERY_PRICE}원이다.`, async () => {
       const { result } = renderHook(
         () => {
-          const deliveryPrice = useRecoilValue(deliveryPriceState);
+          const { deliveryPrice } = useRecoilValue(orderResultState);
           const setCartItems = useSetRecoilState(cartItemsState);
           return { deliveryPrice, setCartItems };
         },
         {
-          wrapper: RecoilRoot,
+          wrapper: asyncRecoilWrapper,
         },
       );
 
@@ -35,15 +39,15 @@ describe('selectors', () => {
       expect(result.current.deliveryPrice).toBe(3000);
     });
 
-    it('총 결제금액이 100,000원 이상일 때, 배송비가 0원이다.', () => {
+    it(`총 결제금액이 ${CONFIG.FREE_DELIVERY_CONDITION}원 이상일 때, 배송비가 0원이다.`, () => {
       const { result } = renderHook(
         () => {
-          const deliveryPrice = useRecoilValue(deliveryPriceState);
+          const { deliveryPrice } = useRecoilValue(orderResultState);
           const setCartItems = useSetRecoilState(cartItemsState);
           return { deliveryPrice, setCartItems };
         },
         {
-          wrapper: RecoilRoot,
+          wrapper: asyncRecoilWrapper,
         },
       );
 
@@ -62,9 +66,9 @@ describe('selectors', () => {
     ])('체크된 상품의 개수와 금액을 곱한 총 결제금액을 계산한다', (data, TOTAL_PRICE) => {
       const { result } = renderHook(
         () => {
-          const orderTotalPrice = useRecoilValue(orderTotalPriceState);
+          const { totalOrderPrice } = useRecoilValue(orderResultState);
           const setCartItems = useSetRecoilState(cartItemsState);
-          return { orderTotalPrice, setCartItems };
+          return { totalOrderPrice, setCartItems };
         },
         {
           wrapper: RecoilRoot,
@@ -75,7 +79,7 @@ describe('selectors', () => {
         result.current.setCartItems(data);
       });
 
-      expect(result.current.orderTotalPrice).toBe(TOTAL_PRICE);
+      expect(result.current.totalOrderPrice).toBe(TOTAL_PRICE);
     });
   });
 
@@ -87,7 +91,7 @@ describe('selectors', () => {
     `('체크된 상품의 총 개수($TOTAL_QUANTITY)를 계산한다.', ({ data, TOTAL_QUANTITY }) => {
       const { result } = renderHook(
         () => {
-          const totalQuantity = useRecoilValue(totalQuantityState);
+          const { totalQuantity } = useRecoilValue(orderResultState);
           const setCartItems = useSetRecoilState(cartItemsState);
           return { totalQuantity, setCartItems };
         },
@@ -112,9 +116,9 @@ describe('selectors', () => {
     `('구매한 상품의 총 금액($TOTAL_PRICE)을 계산한다.', ({ data, TOTAL_PRICE }) => {
       const { result } = renderHook(
         () => {
-          const purchaseTotalPrice = useRecoilValue(purchaseTotalPriceState);
+          const { totalPurchasePrice } = useRecoilValue(orderResultState);
           const setCartItems = useSetRecoilState(cartItemsState);
-          return { purchaseTotalPrice, setCartItems };
+          return { totalPurchasePrice, setCartItems };
         },
         {
           wrapper: RecoilRoot,
@@ -125,7 +129,7 @@ describe('selectors', () => {
         result.current.setCartItems(data);
       });
 
-      expect(result.current.purchaseTotalPrice).toBe(TOTAL_PRICE);
+      expect(result.current.totalPurchasePrice).toBe(TOTAL_PRICE);
     });
   });
 
