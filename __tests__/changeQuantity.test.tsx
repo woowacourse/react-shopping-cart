@@ -12,9 +12,9 @@ describe('수량 변경 테스트', () => {
     const { result } = renderHook(
       () => {
         const cartItems = useRecoilValue(cartItemsSelector);
-        const { updateCartItems, getNewQuantity } = useUpdateCartItemCount(cartItems[0]);
+        const { updateCartItems, getDecreasedQuantity, getIncreasedQuantity } = useUpdateCartItemCount(cartItems[0]);
 
-        return { cartItems, updateCartItems, getNewQuantity };
+        return { cartItems, updateCartItems, getDecreasedQuantity, getIncreasedQuantity };
       },
       {
         wrapper: ({ children }) => (
@@ -37,7 +37,7 @@ describe('수량 변경 테스트', () => {
       return result.current !== undefined;
     });
 
-    const newQuantity = result.current.getNewQuantity('minus');
+    const newQuantity = result.current.getDecreasedQuantity();
 
     await waitFor(() => {
       result.current.updateCartItems(newQuantity);
@@ -53,9 +53,9 @@ describe('수량 변경 테스트', () => {
     const { result } = renderHook(
       () => {
         const cartItems = useRecoilValue(cartItemsSelector);
-        const { updateCartItems, getNewQuantity } = useUpdateCartItemCount(cartItems[0]);
+        const { updateCartItems, getIncreasedQuantity } = useUpdateCartItemCount(cartItems[0]);
 
-        return { cartItems, updateCartItems, getNewQuantity };
+        return { cartItems, updateCartItems, getIncreasedQuantity };
       },
       {
         wrapper: ({ children }) => (
@@ -78,7 +78,7 @@ describe('수량 변경 테스트', () => {
       return result.current !== undefined;
     });
 
-    const newQuantity = result.current.getNewQuantity('plus');
+    const newQuantity = result.current.getIncreasedQuantity();
 
     await waitFor(() => {
       result.current.updateCartItems(newQuantity);
@@ -96,9 +96,9 @@ describe('수량 변경 테스트', () => {
         () => {
           const cartItems = useRecoilValue(cartItemsSelector);
 
-          const { updateCartItems, getNewQuantity } = useUpdateCartItemCount(cartItems[1]);
+          const { updateCartItems, getDecreasedQuantity } = useUpdateCartItemCount(cartItems[1]);
 
-          return { cartItems, updateCartItems, getNewQuantity };
+          return { cartItems, updateCartItems, getDecreasedQuantity };
         },
         {
           wrapper: ({ children }) => (
@@ -121,7 +121,7 @@ describe('수량 변경 테스트', () => {
         return result.current !== undefined;
       });
 
-      const newQuantity = result.current.getNewQuantity('minus');
+      const newQuantity = result.current.getDecreasedQuantity();
 
       await waitFor(() => {
         result.current.updateCartItems(newQuantity);
@@ -138,9 +138,9 @@ describe('수량 변경 테스트', () => {
         () => {
           const cartItems = useRecoilValue(cartItemsSelector);
 
-          const { updateCartItems, getNewQuantity } = useUpdateCartItemCount(cartItems[0]);
+          const { updateCartItems, getIncreasedQuantity } = useUpdateCartItemCount(cartItems[0]);
 
-          return { cartItems, updateCartItems, getNewQuantity };
+          return { cartItems, updateCartItems, getIncreasedQuantity };
         },
         {
           wrapper: ({ children }) => (
@@ -163,7 +163,7 @@ describe('수량 변경 테스트', () => {
         return result.current !== undefined;
       });
 
-      const newQuantity = result.current.getNewQuantity('plus');
+      const newQuantity = result.current.getIncreasedQuantity();
 
       await waitFor(() => {
         result.current.updateCartItems(newQuantity);
