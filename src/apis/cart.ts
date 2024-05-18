@@ -1,9 +1,10 @@
 import { CartItem } from "@/types/cart";
-import { API_URL, basicToken } from ".";
+import { basicToken } from ".";
 import { ErrorMessage } from "@/constants/error";
+import { API_URL } from "@/constants/url";
 
 export async function getCartItems(): Promise<CartItem[]> {
-  const response = await fetch(`${API_URL}/cart-items`, {
+  const response = await fetch(`${API_URL.cartItems}`, {
     method: "GET",
     headers: { Authorization: basicToken },
   });
@@ -21,7 +22,7 @@ export async function patchCartItemQuantity(
   cartItemId: number,
   quantity: number
 ): Promise<boolean> {
-  const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
+  const response = await fetch(API_URL.cartItemsWithId(cartItemId), {
     method: "PATCH",
     headers: {
       Authorization: basicToken,
@@ -38,7 +39,7 @@ export async function patchCartItemQuantity(
 }
 
 export async function removeCartItem(cartItemId: number): Promise<boolean> {
-  const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
+  const response = await fetch(API_URL.cartItemsWithId(cartItemId), {
     method: "DELETE",
     headers: {
       Authorization: basicToken,
