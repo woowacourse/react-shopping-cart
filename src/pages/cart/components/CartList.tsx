@@ -1,12 +1,11 @@
-import { CartItemData } from '@/types';
 import CartItem from './CartItem';
 import AllSelectCheckBox from './AllSelectCheckBox';
+import { allCartItemStates } from '@/store/atoms';
+import { useRecoilValue } from 'recoil';
 
-interface Props {
-  cartItems: CartItemData[];
-}
+export default function CartList() {
+  const cartItems = useRecoilValue(allCartItemStates);
 
-export default function CartList({ cartItems }: Props) {
   return (
     <>
       <AllSelectCheckBox />
