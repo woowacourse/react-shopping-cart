@@ -40,10 +40,6 @@ export async function fetchCartItemCount(productId: number, quantity: number) {
   if (!response.ok) {
     throw new HTTPError(response.status, 'Failed to add cart item');
   }
-
-  const result = await response.json();
-
-  return result;
 }
 
 export async function fetchDeleteCartItem(productId: number) {
