@@ -1,5 +1,6 @@
 import { selector } from "recoil";
 import { cartItemsState } from "./cartItems";
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST } from "../constants/pricing";
 
 export const orderAmountState = selector({
   key: "orderAmountState",
@@ -14,18 +15,18 @@ export const orderAmountState = selector({
   },
 });
 
-export const deliveryCostState = selector({
-  key: "deliveryCostState",
+export const shippingCostState = selector({
+  key: "shippingCostState",
   get: async ({ get }) => {
     const orderAmount = get(orderAmountState);
 
     if (orderAmount === 0) {
       return 0;
     }
-    if (orderAmount >= 100_000) {
+    if (orderAmount >= FREE_SHIPPING_THRESHOLD) {
       return 0;
     }
-    return 3000;
+    return SHIPPING_COST;
   },
 });
 
@@ -33,7 +34,7 @@ export const totalOrderAmountState = selector({
   key: "totalOrderAmountState",
   get: ({ get }) => {
     const orderAmount = get(orderAmountState);
-    const deliveryCost = get(deliveryCostState);
-    return orderAmount + deliveryCost;
+    const shippingCost = get(shippingCostState);
+    return orderAmount + shippingCost;
   },
 });

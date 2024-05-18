@@ -1,11 +1,11 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { deliveryCostState, orderAmountState, totalOrderAmountState } from "../recoil/cartAmount";
+import { shippingCostState, orderAmountState, totalOrderAmountState } from "../recoil/cartAmount";
 import { ReactComponent as InfoIcon } from "../assets/info-icon.svg";
 
 export default function CartAmount() {
   const orderAmount = useRecoilValue(orderAmountState);
-  const deliveryCost = useRecoilValue(deliveryCostState);
+  const shippingCost = useRecoilValue(shippingCostState);
   const totalOrderAmount = useRecoilValue(totalOrderAmountState);
 
   return (
@@ -23,7 +23,7 @@ export default function CartAmount() {
           <S.Amount>{orderAmount.toLocaleString()}원</S.Amount>
         </S.CartAmountInfo>
         <S.CartAmountInfo>
-          <S.AmountText>배송비</S.AmountText> <S.Amount>{deliveryCost.toLocaleString()}원</S.Amount>
+          <S.AmountText>배송비</S.AmountText> <S.Amount>{shippingCost.toLocaleString()}원</S.Amount>
         </S.CartAmountInfo>
       </S.UpperCartAmountInfoWrapper>
       <S.LowerCartAmountInfoWrapper>
