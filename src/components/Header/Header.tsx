@@ -1,7 +1,7 @@
-import { useMatch, useNavigate } from 'react-router-dom';
-import * as S from './styled';
 import { ROUTER_URL } from '../../constants/constants';
 import back from '../../assets/back.svg';
+import { useMatch, useNavigate } from 'react-router-dom';
+import * as S from './styled';
 
 const Header = () => {
   const matchOrderInfo = useMatch(ROUTER_URL.ORDER_INFO);
