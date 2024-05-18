@@ -8,11 +8,7 @@ interface CheckboxProps {
 }
 
 const Checkbox = ({ isChecked, onClick }: CheckboxProps) => {
-  return (
-    <S.Button type="button" onClick={onClick}>
-      {isChecked ? <S.Image src={checked} alt="" /> : <S.Image src={unchecked} alt="" />}
-    </S.Button>
-  );
+  return <S.Input type="image" onClick={onClick} src={isChecked ? checked : unchecked} />;
 };
 
 export default Checkbox;
