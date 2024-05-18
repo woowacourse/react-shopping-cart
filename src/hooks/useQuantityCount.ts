@@ -11,9 +11,15 @@ const useQuantityCount = (id: number) => {
   };
 
   const handleDecrementQuantity = async () => {
-    const { success } = await updateCartItemQuantity(id, productQuantity + 1);
+    const newQuantity = Math.max(productQuantity - 1, 1);
 
-    success && setProductQuantity(Math.max(productQuantity - 1, 1));
+    if (newQuantity < productQuantity) {
+      const { success } = await updateCartItemQuantity(id, newQuantity);
+
+      if (success) {
+        setProductQuantity(newQuantity);
+      }
+    }
   };
 
   return {
