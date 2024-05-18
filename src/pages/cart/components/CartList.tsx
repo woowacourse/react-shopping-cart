@@ -1,41 +1,28 @@
-import { CartItemType } from '../../../types';
+import { CartItemData } from '@/types';
 import CartItem from './CartItem';
-import styles from '../Cart.module.css';
-import useToggleAllChecked from '../../../hooks/useToggleAllChecked';
+import AllSelectCheckBox from './AllSelectCheckBox';
 
 interface Props {
-  products: CartItemType[];
+  cartItems: CartItemData[];
 }
 
-export default function CartList({ products }: Props) {
-  const { handleToggleAll, allChecked, setAllChecked } = useToggleAllChecked({ products });
-
+export default function CartList({ cartItems }: Props) {
   return (
     <>
-      <div className={styles.allCheckContainer}>
-        <input
-          type="checkbox"
-          id={'checkAll'}
-          className={styles.customCheckbox}
-          checked={allChecked}
-          onChange={handleToggleAll}
-        ></input>
-        <label htmlFor={'checkAll'} className={styles.customCheckboxLabel}></label>
-        <div className={styles.allCheckText}>전체 선택</div>
-      </div>
+      <AllSelectCheckBox />
 
       <ul>
-        {products.map((product) => {
+        {cartItems.map((cartItem) => {
           return (
             <CartItem
-              key={product.id}
-              id={product.id}
-              quantity={product.quantity}
-              name={product.product.name}
-              price={product.product.price}
-              category={product.product.category}
-              imageUrl={product.product.imageUrl}
-              setAllChecked={setAllChecked}
+              key={cartItem.id}
+              id={cartItem.id}
+              quantity={cartItem.quantity}
+              name={cartItem.product.name}
+              price={cartItem.product.price}
+              category={cartItem.product.category}
+              imageUrl={cartItem.product.imageUrl}
+              isChecked={cartItem.product.isChecked}
             />
           );
         })}
