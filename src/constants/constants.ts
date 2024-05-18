@@ -18,6 +18,7 @@ export const ROUTER_URLS = {
 };
 
 export const ORDER = {
+  MINIMUM_QUANTITY: 1,
   SHIPPING_FEE: 3000,
   SHIPPING_FREE_PRICE: 100000,
 };

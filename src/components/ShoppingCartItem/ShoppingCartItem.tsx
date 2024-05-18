@@ -1,10 +1,13 @@
-import * as S from './styled';
+import { ORDER } from '../../constants/constants';
+
 import Checkbox from '../Checkbox/Checkbox';
 import DeleteButton from '../DeleteButton/DeleteButton';
 import SetQuantity from '../SetQuantity/SetQuantity';
+
 import { CartItem } from '../../api/get/getItems';
 import deleteItem from '../../api/delete/deleteItem';
 import changeQuantity from '../../api/patch/changeQuantity';
+import * as S from './styled';
 
 interface ShoppingCartItemProps {
   cartItem: CartItem;
@@ -30,18 +33,20 @@ const ShoppingCartItem = ({
     await refetch();
   };
 
-  const quantity = getOneItemQuantity(cartItem.id) ?? 0;
+  const quantity = getOneItemQuantity(cartItem.id) ?? ORDER.MINIMUM_QUANTITY;
 
   const handleIncrement = async () => {
     const newQuantity = quantity + 1;
     await changeQuantity({ id: cartItem.id, quantity: newQuantity });
+
     setOneItemQuantity(cartItem.id, newQuantity);
     selectedItemQuantity(cartItem, newQuantity);
   };
 
   const handleDecrement = async () => {
-    const newQuantity = Math.max(quantity - 1, 0);
+    const newQuantity = Math.max(quantity - 1, ORDER.MINIMUM_QUANTITY);
     await changeQuantity({ id: cartItem.id, quantity: newQuantity });
+
     setOneItemQuantity(cartItem.id, newQuantity);
     selectedItemQuantity(cartItem, newQuantity);
   };
