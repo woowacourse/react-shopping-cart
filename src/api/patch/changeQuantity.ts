@@ -1,5 +1,5 @@
 import axiosInstance from '../../utils/axios';
-import { URLS } from '../../constants/constants';
+import { URL } from '../../constants/constants';
 
 export interface QuantityParams {
   id: number;
@@ -7,7 +7,7 @@ export interface QuantityParams {
 }
 
 const changeQuantity = async ({ id, quantity }: QuantityParams) => {
-  await axiosInstance.patch(URLS.QUANTITY_TO_CHANGE(id), { quantity: quantity });
+  await axiosInstance.patch(URL.QUANTITY_TO_CHANGE(id), { quantity: quantity });
 };
 
 export default changeQuantity;

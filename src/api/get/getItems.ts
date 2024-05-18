@@ -1,6 +1,6 @@
 import { Pageable } from '../../types/pageable';
 import axiosInstance from '../../utils/axios';
-import { URLS } from '../../constants/constants';
+import { URL } from '../../constants/constants';
 
 export interface CartItem {
   id: number;
@@ -17,7 +17,7 @@ export interface Product {
 }
 
 const getItems = async () => {
-  const response = await axiosInstance.get<Pageable<CartItem>>(URLS.CART_ITEMS, {
+  const response = await axiosInstance.get<Pageable<CartItem>>(URL.CART_ITEMS, {
     params: {
       page: 0,
       size: 20,

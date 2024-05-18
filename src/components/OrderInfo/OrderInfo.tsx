@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { IOrderInfo } from '../../recoil/selectors';
 import * as S from './styled';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ROUTER_URLS } from '../../constants/constants';
+import { ROUTER_URL } from '../../constants/constants';
 import FloatingButton from '../FloatingButton/FloatingButton';
 
 const OrderInfo = () => {
@@ -12,7 +12,7 @@ const OrderInfo = () => {
   const orderInfo = location.state as IOrderInfo | null;
 
   useEffect(() => {
-    if (orderInfo === null) navigate(ROUTER_URLS.ERROR);
+    if (orderInfo === null) navigate(ROUTER_URL.ERROR);
   }, [location.pathname, navigate, orderInfo]);
 
   return (

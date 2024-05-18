@@ -1,8 +1,8 @@
 import axiosInstance from '../../utils/axios';
-import { URLS } from '../../constants/constants';
+import { URL } from '../../constants/constants';
 
 const addToCart = async (productId: number) => {
-  await axiosInstance.post(URLS.CART_ITEMS, { productId: productId });
+  await axiosInstance.post(URL.CART_ITEMS, { productId: productId });
 };
 
 export default addToCart;

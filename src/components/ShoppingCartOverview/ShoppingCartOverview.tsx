@@ -1,16 +1,19 @@
+import { ROUTER_URL } from '../../constants/constants';
+
 import ShoppingCartDescription from '../ShoppingCartDescription/ShoppingCartDescription';
 import ShoppingCartList from '../ShoppingCartList/ShoppingCartList';
 import PaymentTotal from '../PaymentTotal/PaymentTotal';
-import getItems from '../../api/get/getItems';
-import * as S from './styled';
-import useFetch from '../../hooks/useFetch';
 import FloatingButton from '../FloatingButton/FloatingButton';
+import Fallback from '../Fallback/Fallback';
+
+import getItems from '../../api/get/getItems';
+import useFetch from '../../hooks/useFetch';
 import { orderInfoStore } from '../../recoil/selectors';
+import { selectedCartItems } from '../../recoil/atoms';
+
 import { useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom';
-import { ROUTER_URLS } from '../../constants/constants';
-import Fallback from '../Fallback/Fallback';
-import { selectedCartItems } from '../../recoil/atoms';
+import * as S from './styled';
 
 const ShoppingCartOverview = () => {
   const { data, refetch } = useFetch(getItems);
@@ -19,7 +22,7 @@ const ShoppingCartOverview = () => {
   const selectItemsLength = useRecoilValue(selectedCartItems).length;
 
   const goOrderInfo = () => {
-    navigate(ROUTER_URLS.ORDER_INFO, { state: orderInfo });
+    navigate(ROUTER_URL.ORDER_INFO, { state: orderInfo });
   };
 
   return (
