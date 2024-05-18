@@ -1,6 +1,6 @@
-import { CartItem } from '../../api/get/getCartItems';
 import useItemQuantity from '../../hooks/useItemQuantity';
 import useSelectedItems from '../../hooks/useSelectedItems';
+import { CartItem } from '../../types/cartItem';
 import SelectAll from '../SelectAll/SelectAll';
 import ShoppingCartItem from '../ShoppingCartItem/ShoppingCartItem';
 import * as S from './styled';

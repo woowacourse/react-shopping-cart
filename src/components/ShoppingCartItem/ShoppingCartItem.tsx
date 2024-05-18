@@ -2,9 +2,9 @@ import * as S from './styled';
 import Checkbox from '../Checkbox/Checkbox';
 import DeleteButton from '../DeleteButton/DeleteButton';
 import SetQuantity from '../SetQuantity/SetQuantity';
-import { CartItem } from '../../api/get/getCartItems';
 import deleteCartItem from '../../api/delete/deleteCartItem';
 import changeCartItemQuantity from '../../api/patch/changeCartItemQuantity';
+import { CartItem } from '../../types/cartItem';
 
 interface ShoppingCartItemProps {
   cartItem: CartItem;
