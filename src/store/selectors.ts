@@ -1,79 +1,116 @@
 import { selector, selectorFamily } from 'recoil';
-import { isCheckedState, productsState } from './atoms';
-import { CartItemType } from '../types';
+import { allCartItemStates } from './atoms';
 
-type AmountType = {
-  orderAmount: number;
-  deliveryCharge: number;
-  totalAmount: number;
-};
-
-export const productsIds = selector({
-  key: 'productsIds',
+export const isAllCheckedCartItems = selector({
+  key: 'allCheckedCartItems',
   get: ({ get }) => {
-    const keys = get(productsState).map((product: CartItemType) => {
-      return product.id;
-    });
+    const isAllChecked = get(allCartItemStates).every((cartItem) => cartItem.product.isChecked);
 
-    return keys;
+    return isAllChecked;
   },
 });
 
-export const productQuantityState = selectorFamily<number, number>({
-  key: 'productQuantityState',
+export const isCheckedIndividualCartItem = selectorFamily<boolean, number>({
+  key: 'isCheckedIndividualCartItem',
   get:
     (id: number) =>
     ({ get }) => {
-      const products = get(productsState);
-      const product = products.find((item) => item.id === id);
-      return product ? product.quantity : 0;
+      const allCartItems = get(allCartItemStates);
+      const cartItem = allCartItems.find((item) => item.id === id);
+      return cartItem ? cartItem.product.isChecked : false;
+    },
+  set:
+    (id: number) =>
+    ({ get, set }) => {
+      const allCartItems = get(allCartItemStates);
+      const updatedCartItem = allCartItems.map((item) =>
+        item.id === id
+          ? { ...item, product: { ...item.product, isChecked: !item.product.isChecked } }
+          : item,
+      );
+      set(allCartItemStates, updatedCartItem);
     },
 });
 
-export const totalOrderAmountState = selector<AmountType>({
-  key: 'totalOrderAmountState',
+export const individualCartItemQuantity = selectorFamily<number, number>({
+  key: 'individualCartItemQuantity',
+  get:
+    (id: number) =>
+    ({ get }) => {
+      const allCartItems = get(allCartItemStates);
+      const cartItem = allCartItems.find((item) => item.id === id);
+      return cartItem ? cartItem.quantity : 0;
+    },
+  set:
+    (id: number) =>
+    ({ get, set }, newValue) => {
+      const allCartItems = get(allCartItemStates);
+      const updatedCartItems = allCartItems.map((item) =>
+        item.id === id
+          ? { ...item, quantity: typeof newValue === 'number' ? newValue : item.quantity }
+          : item,
+      );
+      set(allCartItemStates, updatedCartItems);
+    },
+});
+
+export const orderAmount = selector({
+  key: 'orderAmount',
   get: ({ get }) => {
-    const products = get(productsState);
-    const orderAmount = products.reduce((accumulator, product) => {
-      const isChecked = get(isCheckedState(product.id));
-      if (isChecked) {
-        const quantity = get(productQuantityState(product.id));
-        return accumulator + product.product.price * quantity;
-      }
-      return accumulator;
-    }, 0);
+    const allCartItems = get(allCartItemStates);
 
-    const deliveryCharge = orderAmount < 100000 ? 3000 : 0;
-    const totalAmount = orderAmount + deliveryCharge;
+    const totalAmount = allCartItems
+      .filter((cartItem) => cartItem.product.isChecked)
+      .reduce((acc, cartItem) => {
+        return acc + cartItem.quantity * cartItem.product.price;
+      }, 0);
 
-    return {
-      orderAmount,
-      deliveryCharge,
-      totalAmount,
-    };
+    return totalAmount;
   },
 });
 
-export const totalProductQuantity = selector({
-  key: 'totalProductQuantity',
+export const deliveryFee = selector({
+  key: 'deliveryFee',
   get: ({ get }) => {
-    let totalCount = 0;
-    let totalQuantity = 0;
+    const FREE_SHIPPING_CONDITION = 100_000;
+    const SHIPPING_FEE = 3000;
+    const totalAmount = get(orderAmount);
 
-    const keys = get(productsIds);
-    keys.forEach((key) => {
-      const value = get(isCheckedState(key));
+    return totalAmount >= FREE_SHIPPING_CONDITION ? 0 : SHIPPING_FEE;
+  },
+});
 
-      if (value === true) {
-        const quantity = get(productQuantityState(key));
-        totalCount++;
-        totalQuantity += quantity;
+export const totalOrderAmount = selector({
+  key: 'totalOrderAmount',
+  get: ({ get }) => {
+    return get(orderAmount) + get(deliveryFee);
+  },
+});
+
+export const totalCategoryCount = selector({
+  key: 'totalCategoryCount',
+  get: ({ get }) => {
+    const allCartItems = get(allCartItemStates);
+    const categorySet = new Set();
+
+    allCartItems.forEach((cartItem) => {
+      if (cartItem.product.isChecked) {
+        categorySet.add(cartItem.product.category);
       }
     });
 
-    return {
-      totalCount,
-      totalQuantity,
-    };
+    return categorySet.size;
+  },
+});
+
+export const totalOrderQuantity = selector({
+  key: 'totalOrderQuantity',
+  get: ({ get }) => {
+    const allCartItems = get(allCartItemStates);
+    const checkCartItems = allCartItems.filter((cartItem) => cartItem.product.isChecked);
+
+    return checkCartItems.reduce((acc, checkItem) => {
+      return acc + checkItem.quantity;
+    }, 0);
   },
 });
