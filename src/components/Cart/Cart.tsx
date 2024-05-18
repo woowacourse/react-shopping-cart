@@ -11,19 +11,19 @@ import { CartStyle, EmptyCart, Loading } from './Cart.style';
 export default function Cart() {
   const cartTotalCount = useRecoilValue(cartQuantity);
   const cartCount = useRecoilValue(cartData).length;
+  const isEmptyCart = cartTotalCount === 0;
 
   return (
     <CartStyle>
       <CartHeader count={cartCount} />
-
-      {cartTotalCount ? (
+      {isEmptyCart ? (
+        <EmptyCart>장바구니에 담은 상품이 없습니다.</EmptyCart>
+      ) : (
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <Suspense fallback={<Loading>로딩중!</Loading>}>
             <ProductList />
           </Suspense>
         </ErrorBoundary>
-      ) : (
-        <EmptyCart>장바구니에 담은 상품이 없습니다.</EmptyCart>
       )}
     </CartStyle>
   );
