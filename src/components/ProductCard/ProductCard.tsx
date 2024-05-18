@@ -73,9 +73,19 @@ const ProductPrice = styled.p`
 
 const QuantityCount = styled(ProductName)``;
 
-const Button = styled.button`
-  min-width: 2.4rem;
-  min-height: 2.4rem;
+const CountButton = styled.button`
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 1px solid gray;
+  background-color: #ffffff;
+  border-radius: 0.8rem;
+  box-sizing: border-box;
+  color: rgba(54, 54, 54, 1);
+`;
+
+const DeleteButton = styled.button`
+  width: 4rem;
+  height: 2.4rem;
   border: 1px solid gray;
   background-color: #ffffff;
   border-radius: 0.8rem;
@@ -154,13 +164,16 @@ function ProductCard({ product }: ProductProps) {
     <CardContainer>
       <CardHeader>
         <CheckBox isChecked={details.isChecked} onClick={handleCheckedItem} />
-        <Button onClick={() => handleRemoveItem(product.id)}>
+        <DeleteButton onClick={() => handleRemoveItem(product.id)}>
           {MESSAGES.delete}
-        </Button>
+        </DeleteButton>
       </CardHeader>
 
       <CardContent>
-        <ItemImg src={product.product.imageUrl} alt={product.product.name} />
+        <ItemImg
+          src={product.product.imageUrl}
+          alt={`${product.product.name}사진`}
+        />
         <CardDetail>
           <CardInfo>
             <ProductName>{product.product.name}</ProductName>
@@ -169,9 +182,9 @@ function ProductCard({ product }: ProductProps) {
             </ProductPrice>
           </CardInfo>
           <CardQuantityButton>
-            <Button onClick={handleDecreasedQuantity}>-</Button>
+            <CountButton onClick={handleDecreasedQuantity}>-</CountButton>
             <QuantityCount>{details.quantity}</QuantityCount>
-            <Button onClick={handleIncreasedQuantity}>+</Button>
+            <CountButton onClick={handleIncreasedQuantity}>+</CountButton>
           </CardQuantityButton>
         </CardDetail>
       </CardContent>
