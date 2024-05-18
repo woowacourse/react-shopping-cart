@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import TotalAmount from '../TotalAmount/TotalAmount';
-import ItemList from '../ProductList/ItemList';
+import ItemList from '../ItemList/ItemList';
 import Title from '../Title/Title';
 import { fetchItemsSelector } from '../../recoil/selectors';
 import styled from 'styled-components';

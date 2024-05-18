@@ -1,5 +1,5 @@
 import { CartItems } from '../../types/Item';
-import ItemCard from '../ProductCard/ItemCard';
+import ItemCard from '../ItemCard/ItemCard';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { itemsState } from '../../recoil/atoms';
 import styled from 'styled-components';

@@ -6,7 +6,7 @@ import { CartItems } from '../../types/Item';
 import { fetchCartItemQuantity } from '../../api';
 import CheckBox from '../CheckBox/CheckBox';
 import {
-  UpdateLocalStorage,
+  updateLocalStorage,
   getLocalStorage,
 } from '../../utils/UpdateLocalStorage';
 import styled from 'styled-components';
@@ -53,7 +53,7 @@ const CardInfo = styled.div`
   width: 100%;
 `;
 
-const CardQuantityButton = styled.div`
+const CardQuantityButtonContainer = styled.div`
   display: flex;
   gap: 15px;
   align-items: center;
@@ -81,6 +81,7 @@ const CountButton = styled.button`
   border-radius: 0.8rem;
   box-sizing: border-box;
   color: rgba(54, 54, 54, 1);
+  cursor: pointer;
 `;
 
 const DeleteButton = styled.button`
@@ -91,6 +92,7 @@ const DeleteButton = styled.button`
   border-radius: 0.8rem;
   box-sizing: border-box;
   color: rgba(54, 54, 54, 1);
+  cursor: pointer;
 `;
 
 interface ProductProps {
@@ -153,7 +155,7 @@ function ItemCard({ item }: ProductProps) {
       isChecked: !prevState.isChecked,
     }));
 
-    UpdateLocalStorage({ id: item.id, isChecked: !details.isChecked });
+    updateLocalStorage({ id: item.id, isChecked: !details.isChecked });
   };
 
   if (error) {
@@ -176,11 +178,11 @@ function ItemCard({ item }: ProductProps) {
             <ProductName>{item.product.name}</ProductName>
             <ProductPrice>{item.product.price.toLocaleString()}원</ProductPrice>
           </CardInfo>
-          <CardQuantityButton>
+          <CardQuantityButtonContainer>
             <CountButton onClick={handleDecreasedQuantity}>-</CountButton>
             <QuantityCount>{details.quantity}</QuantityCount>
             <CountButton onClick={handleIncreasedQuantity}>+</CountButton>
-          </CardQuantityButton>
+          </CardQuantityButtonContainer>
         </CardDetail>
       </CardContent>
     </CardContainer>
