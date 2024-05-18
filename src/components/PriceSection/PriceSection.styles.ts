@@ -1,3 +1,4 @@
+import { Skeleton } from "@/styles/common";
 import styled from "styled-components";
 
 export const PriceSection = styled.div`
@@ -12,4 +13,14 @@ export const PriceSection = styled.div`
 export const BorderLine = styled.div`
   width: 100%;
   border-top: 1px solid ${({ theme }) => theme.COLOR.grey};
+`;
+
+export const SkPriceInfoBox = styled.div`
+  width: 100%;
+  height: 42px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  ${Skeleton}
 `;

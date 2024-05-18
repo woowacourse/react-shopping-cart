@@ -1,4 +1,4 @@
-import { S } from "./TitleSet.style";
+import * as S from "./TitleSet.style";
 
 interface TitleSetProps {
   title: string;

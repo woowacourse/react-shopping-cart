@@ -1,5 +1,4 @@
-import styled from "styled-components";
-
+import * as S from "./ProductList.style";
 import { useRecoilValue } from "recoil";
 
 import ProductItem from "../ProductItem/ProductItem";
@@ -18,11 +17,3 @@ const ProductList = () => {
 };
 
 export default ProductList;
-
-const ListWrapper = styled.div`
-  margin-bottom: 52px;
-`;
-
-const S = {
-  ListWrapper,
-};

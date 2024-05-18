@@ -7,12 +7,17 @@ import CartPage from "@/pages/CartPage/CartPage";
 
 import { PAGE_URL } from "./constants/url";
 import { TITLES } from "./constants/cart";
+import CartPageSkeleton from "./pages/CartPage/CartPage.skeleton";
 
 const router = createBrowserRouter([
   {
     path: PAGE_URL.home,
     element: (
-      <MainLayout type="title" title={TITLES.cart}>
+      <MainLayout
+        type="title"
+        title={TITLES.cart}
+        fallback={<CartPageSkeleton />}
+      >
         <CartPage />
       </MainLayout>
     ),

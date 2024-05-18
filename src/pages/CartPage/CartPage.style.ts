@@ -1,3 +1,4 @@
+import { Skeleton } from "@/styles/common";
 import styled from "styled-components";
 
 export const CartHeaderTitle = styled.span`
@@ -22,4 +23,17 @@ export const ButtonText = styled.span`
   font-size: 16px;
   line-height: 16px;
   font-weight: 700;
+`;
+
+export const SkCartHeaderTitle = styled.span`
+  ${({ theme }) => theme.TEXT.Title};
+  ${Skeleton}
+`;
+
+export const SkCheckBoxWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px;
+  ${Skeleton}
 `;
