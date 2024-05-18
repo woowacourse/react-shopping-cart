@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 import { useRecoilValue } from 'recoil';
 
+import CartEmpty from './CartEmpty';
+
 import CartOrderInfo from '@components/Cart/CartOrderInfo';
 import CartProducts from '@components/Cart/CartProducts';
 import CartTitle from '@components/Cart/CartTitle';
@@ -19,9 +21,7 @@ export default function CartMain() {
             <CartOrderInfo />
           </>
         ) : (
-          <div css={cartEmptyContainer}>
-            <span css={cartEmptyText}>장바구니에 담은 상품이 없습니다.</span>
-          </div>
+          <CartEmpty />
         )}
       </section>
     </main>
@@ -38,19 +38,7 @@ const main = css`
 const cartSection = css`
   display: flex;
   flex-direction: column;
-`;
-
-const cartEmptyContainer = css`
-  display: flex;
-  justify-content: center;
-  flex: 1;
-  align-items: center;
 
   width: 100%;
   height: 100%;
-`;
-
-const cartEmptyText = css`
-  font-size: 16px;
-  font-weight: 400;
 `;

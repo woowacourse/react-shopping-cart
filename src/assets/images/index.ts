@@ -1,8 +1,7 @@
-import BACK_ARROW from './backArrow.svg';
-import CHECKED from './checked.svg';
-import INFO_ICON from './informationIcon.svg';
-import MINUS from './minusIcon.svg';
-import PLUS from './plusIcon.svg';
-import UNCHECKED from './unchecked.svg';
-
-export { INFO_ICON, UNCHECKED, CHECKED, MINUS, PLUS, BACK_ARROW };
+export { default as BACK_ARROW } from './backArrow.svg';
+export { default as CHECKED } from './checked.svg';
+export { default as INFO_ICON } from './informationIcon.svg';
+export { default as MINUS } from './minusIcon.svg';
+export { default as PLUS } from './plusIcon.svg';
+export { default as UNCHECKED } from './unchecked.svg';
+export { default as EMPTY_CART } from './emptyCart.svg';
