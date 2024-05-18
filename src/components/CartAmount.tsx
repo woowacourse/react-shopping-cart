@@ -1,7 +1,13 @@
-import { useRecoilValue } from "recoil";
-import styled from "styled-components";
-import { deliveryCostState, orderAmountState, totalOrderAmountState } from "../recoil/cartAmount";
+import {
+  deliveryCostState,
+  orderAmountState,
+  totalOrderAmountState,
+} from "../recoil/cartAmount";
+
 import { ReactComponent as InfoIcon } from "../assets/info-icon.svg";
+import { MINIMUM_AMOUNT_FOR_FREE_DELIVERY } from "../constants/servicePolicy";
+import styled from "styled-components";
+import { useRecoilValue } from "recoil";
 
 export interface ICartAmountProps {}
 
@@ -15,7 +21,8 @@ export default function CartAmount() {
       <S.CartAmountNoti>
         <S.InfoIcon />
         <S.CartAmountNotiText>
-          총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+          총 주문 금액이 {MINIMUM_AMOUNT_FOR_FREE_DELIVERY.toLocaleString()}원
+          이상일 경우 무료 배송됩니다.
         </S.CartAmountNotiText>
       </S.CartAmountNoti>
 
@@ -25,7 +32,8 @@ export default function CartAmount() {
           <S.Amount>{orderAmount.toLocaleString()}원</S.Amount>
         </S.CartAmountInfo>
         <S.CartAmountInfo>
-          <S.AmountText>배송비</S.AmountText> <S.Amount>{deliveryCost.toLocaleString()}원</S.Amount>
+          <S.AmountText>배송비</S.AmountText>{" "}
+          <S.Amount>{deliveryCost.toLocaleString()}원</S.Amount>
         </S.CartAmountInfo>
       </S.UpperCartAmountInfoWrapper>
       <S.LowerCartAmountInfoWrapper>
