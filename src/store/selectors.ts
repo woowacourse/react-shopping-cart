@@ -1,3 +1,4 @@
+import LocalStorage from '@/services/LocalStorage';
 import { selector, selectorFamily } from 'recoil';
 import { allCartItemStates } from './atoms';
 
@@ -5,8 +6,27 @@ export const isAllCheckedCartItems = selector({
   key: 'allCheckedCartItems',
   get: ({ get }) => {
     const isAllChecked = get(allCartItemStates).every((cartItem) => cartItem.product.isChecked);
-
     return isAllChecked;
+  },
+  set: ({ get, set }) => {
+    const allCartItems = get(allCartItemStates);
+    const allChecked = allCartItems.every((cartItem) => cartItem.product.isChecked);
+
+    const updatedCartItems = allCartItems.map((cartItem) => ({
+      ...cartItem,
+      product: {
+        ...cartItem.product,
+        isChecked: !allChecked,
+      },
+    }));
+
+    if (!allChecked) {
+      const checkedProductIds = updatedCartItems.map((cartItem) => cartItem.id);
+      LocalStorage.setCheckedProductIds(checkedProductIds);
+    } else {
+      LocalStorage.clearCheckedProductIds();
+    }
+    set(allCartItemStates, updatedCartItems);
   },
 });
 
@@ -29,6 +49,11 @@ export const isCheckedIndividualCartItem = selectorFamily<boolean, number>({
           : item,
       );
       set(allCartItemStates, updatedCartItem);
+
+      const checkedProductIds = updatedCartItem
+        .filter((item) => item.product.isChecked)
+        .map((item) => item.id);
+      LocalStorage.setCheckedProductIds(checkedProductIds);
     },
 });
 

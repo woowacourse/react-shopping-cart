@@ -1,4 +1,4 @@
-import useToggleAllChecked from '@/hooks/useToggleAllChecked2';
+import useToggleAllChecked from '@/hooks/useToggleAllChecked';
 import { isAllCheckedCartItems } from '@/store/selectors';
 import { useRecoilValue } from 'recoil';
 import styles from '../Cart.module.css';
