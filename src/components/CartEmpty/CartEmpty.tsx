@@ -5,12 +5,10 @@ import OrderConfirmButton from "../OrderConfirmButton/OrderConfirmButton";
 
 const CartEmpty = () => {
   return (
-    <>
-      <Wrapper>
-        <Caption text="장바구니에 담은 상품이 없습니다."></Caption>
-        <OrderConfirmButton disabled={true} />
-      </Wrapper>
-    </>
+    <Wrapper>
+      <Caption text="장바구니에 담은 상품이 없습니다."></Caption>
+      <OrderConfirmButton disabled={true} />
+    </Wrapper>
   );
 };
 

@@ -19,6 +19,7 @@ import CartEmpty from "@/components/CartEmpty/CartEmpty";
 import { PAGE_URL } from "@/constants/url";
 
 import * as S from "./CartPage.style";
+import { MESSAGES, TITLES } from "@/constants/cart";
 
 const ProductList = React.lazy(
   () => import("../../components/ProductList/ProductList")
@@ -37,14 +38,14 @@ const CartPage = () => {
   return (
     <>
       <Header>
-        <S.CartHeaderTitle>SHOP</S.CartHeaderTitle>
+        <S.CartHeaderTitle>{TITLES.shop}</S.CartHeaderTitle>
       </Header>
       {totalItemLength ? (
         <>
           <S.CartPageLayout>
             <TitleSet
-              title="장바구니"
-              subTitle={`현재 ${totalItemLength}종류의 상품이 담겨있습니다.`}
+              title={TITLES.cart}
+              subTitle={MESSAGES.itemCount(totalItemLength)}
             />
 
             <S.CheckBoxWrapper>
@@ -52,7 +53,7 @@ const CartPage = () => {
                 isChecked={isAllItemSelected}
                 onClick={isAllItemSelected ? unselectAllItem : selectAllItem}
               />
-              <Caption text="전체선택" />
+              <Caption text={TITLES.selectAll} />
             </S.CheckBoxWrapper>
 
             <Suspense fallback={<div>loading....</div>}>
@@ -61,21 +62,21 @@ const CartPage = () => {
 
             <Caption
               asset={() => <MoreInfo />}
-              text="총 주문 금액이 100,00원 이상일 경우 무료 배송됩니다."
+              text={MESSAGES.freeShippingInfo}
             />
 
             <PriceSection />
           </S.CartPageLayout>
           <S.OrderConfirmButton onClick={onMoveOrderConfirmPage}>
             <Button width="full" size="xLarge" theme="dark">
-              <S.ButtonText>주문 확인</S.ButtonText>
+              <S.ButtonText>{TITLES.orderConfirm}</S.ButtonText>
             </Button>
           </S.OrderConfirmButton>
         </>
       ) : (
         <>
           <S.CartPageLayout>
-            <TitleSet title="장바구니" />
+            <TitleSet title={TITLES.cart} />
             <CartEmpty />
           </S.CartPageLayout>
         </>
