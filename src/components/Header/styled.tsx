@@ -8,3 +8,7 @@ export const Header = styled.header`
   color: ${props => props.theme.color.white};
   ${props => props.theme.typography.heading};
 `;
+
+export const Undo = styled.img`
+  cursor: pointer;
+`;

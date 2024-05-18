@@ -12,11 +12,7 @@ const Header = () => {
 
   return (
     <S.Header>
-      {matchOrderInfo !== null ? (
-        <img src={back} alt="" onClick={goBack} style={{ cursor: 'pointer' }} />
-      ) : (
-        '쇼핑하기'
-      )}
+      {matchOrderInfo !== null ? <S.Undo src={back} alt="undo" onClick={goBack} /> : '쇼핑하기'}
     </S.Header>
   );
 };
