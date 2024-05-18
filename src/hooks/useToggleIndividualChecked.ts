@@ -13,5 +13,4 @@ const useToggleIndividualChecked = (id: number) => {
     handleToggleSelect,
   };
 };
-
 export default useToggleIndividualChecked;
