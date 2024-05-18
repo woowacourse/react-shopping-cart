@@ -6,7 +6,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import CartHeader from '../CartHeader/CartHeader';
 import ProductList from '../ProductList/ProductList';
 import ErrorFallback from '../ErrorFallback/ErrorFallback';
-import { CartStyle, EmptyCart, Loading } from './Cart.style';
+import * as C from './Cart.style';
 
 export default function Cart() {
   const cartTotalCount = useRecoilValue(cartQuantity);
@@ -14,17 +14,17 @@ export default function Cart() {
   const isEmptyCart = cartTotalCount === 0;
 
   return (
-    <CartStyle>
+    <C.CartStyle>
       <CartHeader count={cartCount} />
       {isEmptyCart ? (
-        <EmptyCart>장바구니에 담은 상품이 없습니다.</EmptyCart>
+        <C.EmptyCart>장바구니에 담은 상품이 없습니다.</C.EmptyCart>
       ) : (
         <ErrorBoundary FallbackComponent={ErrorFallback}>
-          <Suspense fallback={<Loading>로딩중!</Loading>}>
+          <Suspense fallback={<C.Loading>로딩중!</C.Loading>}>
             <ProductList />
           </Suspense>
         </ErrorBoundary>
       )}
-    </CartStyle>
+    </C.CartStyle>
   );
 }

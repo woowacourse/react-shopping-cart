@@ -9,12 +9,7 @@ import { patchCartItem, removeCartItem } from '../../api';
 
 import CheckBox from '../CheckBox/CheckBox';
 import { Button, CountButton } from '../Button';
-import {
-  Img,
-  ProductItemStyle,
-  ProductItemTop,
-  ProductItemBundle,
-} from './ProductItem.style';
+import * as P from './ProductItem.style';
 
 import useLocalStorageCheckedCart from '../../hooks/useLocalStorageCheckedCart';
 
@@ -69,13 +64,13 @@ export default function ProductItem({ cartItem }: { cartItem: Cart }) {
   };
 
   return (
-    <ProductItemStyle>
-      <ProductItemTop>
+    <P.ProductItemStyle>
+      <P.ProductItemTop>
         <CheckBox isCheck={isCheck} onClick={handleCheckCartItem} />
         <Button text="삭제" onClick={handleRemoveCartItem} />
-      </ProductItemTop>
-      <ProductItemBundle>
-        <Img
+      </P.ProductItemTop>
+      <P.ProductItemBundle>
+        <P.Img
           src={cartItem.product.imageUrl}
           alt={`${cartItem.product.name}의 상품 사진`}
           className="product-item_img"
@@ -93,7 +88,7 @@ export default function ProductItem({ cartItem }: { cartItem: Cart }) {
             <CountButton type="plus" onClick={handleIncrement} />
           </div>
         </div>
-      </ProductItemBundle>
-    </ProductItemStyle>
+      </P.ProductItemBundle>
+    </P.ProductItemStyle>
   );
 }

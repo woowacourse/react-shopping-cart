@@ -6,11 +6,7 @@ import CheckBox from '../CheckBox/CheckBox';
 import ProductItem from '../ProductItem/ProductItem';
 import ProductTotalPriceList from '../ProductTotalPriceList/ProductTotalPriceList';
 
-import {
-  CheckBoxGroup,
-  CheckBoxText,
-  ProductListStyle,
-} from './ProductList.style';
+import * as PL from './ProductList.style';
 
 export default function ProductList() {
   const cart = useRecoilValue(cartData);
@@ -22,15 +18,15 @@ export default function ProductList() {
   };
 
   return (
-    <ProductListStyle>
-      <CheckBoxGroup>
+    <PL.ProductListStyle>
+      <PL.CheckBoxGroup>
         <CheckBox isCheck={isAllCheck} onClick={handleToggleAllCheck} />
-        <CheckBoxText>전체선택</CheckBoxText>
-      </CheckBoxGroup>
+        <PL.CheckBoxText>전체선택</PL.CheckBoxText>
+      </PL.CheckBoxGroup>
       {cart.map((cartItem) => {
         return <ProductItem cartItem={cartItem} key={cartItem.id} />;
       })}
       <ProductTotalPriceList />
-    </ProductListStyle>
+    </PL.ProductListStyle>
   );
 }
