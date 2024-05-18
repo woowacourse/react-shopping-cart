@@ -5,6 +5,7 @@ import EnvironmentPlugin from 'vite-plugin-environment';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/react-shopping-cart/dist',
   plugins: [react(), EnvironmentPlugin('all')],
   resolve: {
     alias: {

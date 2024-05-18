@@ -8,7 +8,6 @@
 
     /* Bundler mode */
     "moduleResolution": "Node",
-    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -22,13 +21,13 @@
 
     /* Testing */
     "types": ["jest", "node"],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "include": ["src"],
-  "baseUrl": "./",
-  "paths": {
-    "@/*": ["src/*"],
-    "@types/*": ["@types/*"]
-  },
+
   "references": [{ "path": "./tsconfig.node.json" }]
 }
