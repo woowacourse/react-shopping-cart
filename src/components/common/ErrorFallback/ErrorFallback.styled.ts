@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-export const ErrorPageContents = styled.div`
+export const ErrorPageContents = styled.div<{ $height: string }>`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 100vh;
+  height: ${({ $height }) => $height};
 `;
 
 export const ErrorPageHeader = styled.h3`

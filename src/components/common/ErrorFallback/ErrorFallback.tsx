@@ -1,14 +1,19 @@
+import * as Styled from './ErrorFallback.styled';
+
 interface ErrorFallbackProps {
   error: Error;
+  $height: string;
 }
 
-function ErrorFallback({ error }: ErrorFallbackProps) {
+function ErrorFallback({ error, $height }: ErrorFallbackProps) {
   return (
-    <div>
-      <div>
-        <p>오류 메세지:{error.message}</p>
-      </div>
-    </div>
+    <Styled.ErrorPageContents $height={$height}>
+      <Styled.ErrorPageHeader>⚠️ 오류</Styled.ErrorPageHeader>
+      <Styled.ErrorPageText>오류가 발생했어요.😥</Styled.ErrorPageText>
+      <Styled.ErrorPageText>
+        <i>오류: {error.message}</i>
+      </Styled.ErrorPageText>
+    </Styled.ErrorPageContents>
   );
 }
 
