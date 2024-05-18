@@ -55,6 +55,6 @@ export const deleteItem = async (cartId: number) => {
   });
 
   if (!response.ok) {
-    throw new Error('failed to patch cart items');
+    throw new Error('failed to delete cart items');
   }
 };
