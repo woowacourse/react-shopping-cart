@@ -1,5 +1,3 @@
-import { cartItems } from "@/recoil/cartItems";
-
 export const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 /**
@@ -9,5 +7,5 @@ export const API_BASE_URL = import.meta.env.VITE_API_URL;
  */
 export const API_URL = {
   cartItems: API_BASE_URL + "/cart-items",
-  cartItemsWithId: (cartItemId: number) => cartItems + `/${cartItemId}`,
+  cartItemsWithId: (cartItemId: number) => API_URL.cartItems + `/${cartItemId}`,
 };

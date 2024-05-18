@@ -31,7 +31,7 @@ const ProductItem = ({ item }: { item: CartItem }) => {
   const isItemSelected = selectItems.includes(id);
   const setCartItemList = useSetRecoilState(cartItems);
 
-  const handleRemoveItem = async () => {
+  const onClickRemoveItem = async () => {
     const canRemoveItem = await removeCartItem(id);
 
     if (canRemoveItem) {
@@ -57,7 +57,7 @@ const ProductItem = ({ item }: { item: CartItem }) => {
           width="fit"
           size="small"
           radiusVariant="rounded"
-          onClick={handleRemoveItem}
+          onClick={onClickRemoveItem}
         >
           <Caption text="삭제" />
         </Button>
