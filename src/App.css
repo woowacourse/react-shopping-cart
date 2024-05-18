@@ -8,6 +8,7 @@ body {
 #root {
   max-width: 1280px;
   margin: 0 auto;
+  position: relative;
 
   h1 {
     margin: 0;

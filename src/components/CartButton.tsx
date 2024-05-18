@@ -4,7 +4,9 @@ import Button from "./common/Button";
 import { useRecoilValue } from "recoil";
 import { selectedCartItemIdsState } from "../recoil/selectedCartItemIds";
 
-export default function CartButton() {
+interface CartButtonProps extends React.HTMLAttributes<HTMLButtonElement> {}
+
+export default function CartButton(attributes: CartButtonProps) {
   const navigate = useNavigate();
   const selectedCartItemIds = useRecoilValue(selectedCartItemIdsState);
   const isDisabled = selectedCartItemIds.length === 0;
@@ -12,7 +14,7 @@ export default function CartButton() {
   const handleOrderConfirmButtonClick = () => navigate(ROUTE_PATH.orderSummary);
 
   return (
-    <Button disabled={isDisabled} onClick={handleOrderConfirmButtonClick}>
+    <Button disabled={isDisabled} onClick={handleOrderConfirmButtonClick} {...attributes}>
       주문 확인
     </Button>
   );

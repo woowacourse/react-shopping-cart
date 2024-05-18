@@ -20,13 +20,10 @@ export default function CartContent() {
     );
 
   return (
-    <>
-      <S.Container>
-        <CartTitle />
-        {content}
-      </S.Container>
-      <CartButton />
-    </>
+    <S.Container>
+      <CartTitle />
+      {content}
+    </S.Container>
   );
 }
 
@@ -47,5 +44,11 @@ const S = {
     color: rgba(10, 13, 19, 1);
     width: fit-content;
     margin: 0 auto;
+  `,
+
+  CartButton: styled(CartButton)`
+    position: absolute;
+    bottom: 0;
+    left: 0;
   `,
 };

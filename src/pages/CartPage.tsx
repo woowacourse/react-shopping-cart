@@ -2,6 +2,7 @@ import Header from "../components/common/Header";
 import styled from "styled-components";
 import CartContent from "../components/CartContent";
 import { Suspense } from "react";
+import CartButton from "../components/CartButton";
 
 export default function CartPage() {
   return (
@@ -9,6 +10,7 @@ export default function CartPage() {
       <Header hasBackButton={false} title="SHOP" />
       <Suspense fallback={<div>Loading...</div>}>
         <CartContent />
+        <S.CartButton />
       </Suspense>
     </S.Container>
   );
@@ -21,5 +23,11 @@ const S = {
     overflow: scroll;
     scrollbar-width: none;
     border: 1px solid #808080;
+  `,
+
+  CartButton: styled(CartButton)`
+    position: absolute;
+    bottom: 0;
+    left: 0;
   `,
 };

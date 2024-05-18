@@ -10,8 +10,6 @@ export default function Button({ children, ...attributes }: ButtonProps) {
 
 const S = {
   Button: styled.button`
-    position: fixed;
-    bottom: 0;
     max-width: 429px;
 
     height: 64px;
