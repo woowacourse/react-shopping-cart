@@ -4,6 +4,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { deleteItem } from '../../apis/cartItem';
 import { CHECKED, UNCHECKED } from '../../assets/images';
 
+import { THEME } from '@/constants/theme';
 import { cartItemsState, checkedItemsState } from '@recoil/cartItems/atoms';
 
 interface CartItemHeaderSectionProps {
@@ -60,11 +61,11 @@ const deleteButton = css`
   justify-content: center;
   align-items: center;
 
-  border: 1px solid #0000001a;
+  border: 1px solid ${THEME.LIGHT_BLACK};
   border-radius: 4px;
   padding: 4px 8px;
 
-  background-color: #fff;
+  background-color: ${THEME.WHITE};
 
   font-size: 12px;
 `;

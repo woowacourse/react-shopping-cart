@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
+import { THEME } from '@/constants/theme';
 import { isAllUnCheckedState } from '@recoil/cartItems/selectors';
 
 export default function OrderConfirmButton() {
@@ -29,9 +30,9 @@ const orderConfirmButton = (isDisabled: boolean) => css`
   width: 100%;
   height: 64px;
 
-  background-color: ${isDisabled ? '#BEBEBE' : '#000'};
+  background-color: ${isDisabled ? THEME.DISABLED : THEME.BLACK};
 
   font-size: 16px;
   font-weight: 700;
-  color: #fff;
+  color: ${THEME.WHITE};
 `;

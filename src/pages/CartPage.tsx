@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '@/components/common/Header';
 import LoadingComponent from '@/components/common/LoadingComponent';
 import ErrorComponent from '@/components/ErrorComponent';
+import { THEME } from '@/constants/theme';
 import CartMainSection from '@components/Cart/CartMainSection';
 import OrderConfirmButton from '@components/Cart/OrderConfirmButton';
 
@@ -42,5 +43,5 @@ const homeButton = css`
 
   font-size: 20px;
   font-weight: 800;
-  color: #fff;
+  color: ${THEME.WHITE};
 `;

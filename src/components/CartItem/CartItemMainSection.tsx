@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import { useSetRecoilState } from 'recoil';
 
+import { THEME } from '@/constants/theme';
 import { CartItemProps } from '@/types/cartItem';
 import { updateItemQuantity } from '@apis/cartItem';
 import { MINUS, PLUS } from '@assets/images';
@@ -111,18 +112,18 @@ const countButton = (isDisabled?: boolean) => css`
   justify-content: center;
   align-items: center;
 
-  border: 1px solid #0000001a;
+  border: 1px solid ${THEME.LIGHT_BLACK};
   border-radius: 8px;
   padding: 4px;
 
-  background-color: #fff;
+  background-color: ${THEME.WHITE};
 
   font-size: 24px;
 
   &:hover {
-    opacity: ${isDisabled ? 0.1 : 0.6};
+    opacity: ${isDisabled ? THEME.DISABLED_OPACITY : THEME.HOVER_OPACITY};
   }
 
   cursor: ${isDisabled ? 'auto' : 'pointer'};
-  opacity: ${isDisabled ? 0.1 : 1};
+  opacity: ${isDisabled ? THEME.DISABLED_OPACITY : 1};
 `;
