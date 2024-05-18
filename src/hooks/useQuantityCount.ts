@@ -1,54 +1,25 @@
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { productsState } from '../store/atoms';
-import { productQuantityState } from '../store/selectors';
+import { useRecoilState } from 'recoil';
+import { individualCartItemQuantity } from '../store/selectors';
 import { updateCartItemQuantity } from '../api/index';
-import { CartItemType } from '../types';
 
-const useQuantityCount = ({ id }: { id: number }) => {
-  const [products, setProducts] = useRecoilState(productsState);
-  const productQuantity = useRecoilValue(productQuantityState(id));
+const useQuantityCount = (id: number) => {
+  const [productQuantity, setProductQuantity] = useRecoilState(individualCartItemQuantity(id));
 
-  const handleIncrementButton = async () => {
-    const newQuantity = productQuantity + 1;
-    const { success } = await updateCartItemQuantity(id, newQuantity);
-
-    if (success) {
-      const newProducts = products.map((product: CartItemType) => {
-        if (product.id === id) {
-          return {
-            ...product,
-            quantity: newQuantity,
-          };
-        }
-        return product;
-      });
-
-      setProducts(newProducts);
-    }
+  const handleIncrementQuantity = async () => {
+    const { success } = await updateCartItemQuantity(id, productQuantity + 1);
+    success && setProductQuantity(productQuantity + 1);
   };
 
-  const handleDecrementButton = async () => {
-    const newQuantity = productQuantity - 1;
-    const { success } = await updateCartItemQuantity(id, newQuantity);
+  const handleDecrementQuantity = async () => {
+    const { success } = await updateCartItemQuantity(id, productQuantity + 1);
 
-    if (success) {
-      const newProducts = products.map((product: CartItemType) => {
-        if (product.id === id) {
-          return {
-            ...product,
-            quantity: newQuantity,
-          };
-        }
-        return product;
-      });
-
-      setProducts(newProducts);
-    }
+    success && setProductQuantity(Math.max(productQuantity - 1, 1));
   };
 
   return {
-    handleIncrementButton,
-    handleDecrementButton,
+    productQuantity,
+    handleIncrementQuantity,
+    handleDecrementQuantity,
   };
 };
 
