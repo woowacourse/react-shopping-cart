@@ -4,6 +4,7 @@ import CartItemHeaderSection from './CartItemHeaderSection';
 import CartItemMainSection from './CartItemMainSection';
 
 import { CartItemProps } from '@/types/cartItem';
+import { THEME } from '@constants/theme';
 
 interface Props {
   item: CartItemProps;
@@ -21,6 +22,6 @@ const CartItem = ({ item }: Props) => {
 export default CartItem;
 
 const cartItemContainer = css`
-  border-top: 1px solid #0000001a;
+  border-top: 1px solid ${THEME.LIGHT_BLACK};
   padding: 10px 0;
 `;

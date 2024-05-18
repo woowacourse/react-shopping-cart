@@ -57,9 +57,9 @@ export const orderResultState = selector({
       return acc;
     }, orderResult);
 
-    result.totalPurchasePrice = result.totalOrderPrice + result.deliveryPrice;
     result.deliveryPrice =
       result.totalOrderPrice >= PRICE.FREE_DELIVERY_CONDITION ? PRICE.FREE : PRICE.DELIVERY_PRICE;
+    result.totalPurchasePrice = result.totalOrderPrice + result.deliveryPrice;
 
     return result;
   },
