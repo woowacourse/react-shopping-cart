@@ -10,14 +10,12 @@ export default function CartList({ cartItems }: Props) {
   return (
     <>
       <AllSelectCheckBox />
-
       <ul>
         {cartItems.map((cartItem) => {
           return (
             <CartItem
               key={cartItem.id}
               id={cartItem.id}
-              quantity={cartItem.quantity}
               name={cartItem.product.name}
               price={cartItem.product.price}
               category={cartItem.product.category}
