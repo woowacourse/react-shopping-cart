@@ -34,7 +34,7 @@ const OrderConfirm = () => {
       </StyledCenterBox>
 
       <StyledFixedBottom>
-        <FullWidthButton onClick={() => {}} disable>
+        <FullWidthButton onClick={() => {}} disabled>
           결제하기
         </FullWidthButton>
       </StyledFixedBottom>

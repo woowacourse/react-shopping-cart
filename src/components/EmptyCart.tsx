@@ -12,7 +12,7 @@ const EmptyCart = () => {
         <StyledCenterBox>{CART_MESSAGE.emptyCart}</StyledCenterBox>
       </StyledEmptyWrapper>
       <StyledFixedBottom>
-        <FullWidthButton onClick={() => {}} disable>
+        <FullWidthButton onClick={() => {}} disabled>
           주문 확인
         </FullWidthButton>
       </StyledFixedBottom>

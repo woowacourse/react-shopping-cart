@@ -2,17 +2,17 @@ import { FlexCenter } from "@/style/common.style";
 import styled from "@emotion/styled";
 
 interface Props {
-  disable?: boolean;
+  disabled?: boolean;
   onClick: () => void;
 }
 
 const FullWidthButton = ({
   children,
-  disable = false,
+  disabled = false,
   onClick,
 }: React.PropsWithChildren<Props>) => {
   return (
-    <StyledButton disable={disable} onClick={disable ? () => {} : onClick}>
+    <StyledButton disabled={disabled} onClick={onClick}>
       {children}
     </StyledButton>
   );
@@ -20,7 +20,7 @@ const FullWidthButton = ({
 
 export default FullWidthButton;
 
-const StyledButton = styled.button<{ disable: boolean }>`
+const StyledButton = styled.button<{ disabled: boolean }>`
   width: 100%;
   height: 64px;
   box-sizing: border-box;
@@ -31,6 +31,6 @@ const StyledButton = styled.button<{ disable: boolean }>`
   font-size: 16px;
   font-weight: 700;
   border: none;
-  cursor: pointer;
-  background-color: ${({ disable }) => (disable ? "#BEBEBE" : "#000000")};
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  background-color: ${({ disabled }) => (disabled ? "#BEBEBE" : "#000000")};
 `;

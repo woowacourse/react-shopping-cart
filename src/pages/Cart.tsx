@@ -33,7 +33,7 @@ const Cart = () => {
               onClick={() => {
                 navigate("/order-confirm");
               }}
-              disable={orderPrice === 0 ? true : false}
+              disabled={orderPrice === 0 ? true : false}
             >
               주문 확인
             </FullWidthButton>
