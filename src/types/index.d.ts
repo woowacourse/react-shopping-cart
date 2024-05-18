@@ -1,6 +1,6 @@
 declare module '*.png';
 
-export type ProductType = {
+export type CartItemProduct = {
   id: number;
   name: string;
   price: number;
@@ -8,10 +8,18 @@ export type ProductType = {
   category: string;
 };
 
-export type CartItemType = {
+export interface FormattedProduct extends CartItemProduct {
+  isChecked: boolean;
+}
+
+export type CartItemData = {
   id: number;
   quantity: number;
   product: ProductType;
 };
 
-export type Variant = 'header' | 'footer' | 'image';
+export type CartItemData = {
+  id: number;
+  quantity: number;
+  product: ProductType;
+};
