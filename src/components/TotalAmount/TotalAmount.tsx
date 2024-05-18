@@ -66,7 +66,7 @@ function TotalAmount() {
   return (
     <TotalAmountContainer>
       <InformationMsg>
-        <NotificationIconImg src={NotificationIcon} />
+        <NotificationIconImg src={NotificationIcon} alt="Notification Icon" />
         {MESSAGES.cartNotification}
       </InformationMsg>
       <TotalContent>
