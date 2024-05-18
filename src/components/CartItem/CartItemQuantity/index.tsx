@@ -25,11 +25,11 @@ export default function CartItemQuantity({ itemId }: { itemId: number }) {
   return (
     <QuantityContainer>
       <BorderButton onClick={handleDecreaseQuantity} size="small">
-        <img src={MinusIcon} />
+        <img src={MinusIcon} alt="Decrease quantity" />
       </BorderButton>
       <p className="quantity">{quantity}</p>
       <BorderButton onClick={handleIncreaseQuantity} size="small">
-        <img src={PlusIcon} />
+        <img src={PlusIcon} alt="Increase quantity" />
       </BorderButton>
     </QuantityContainer>
   );

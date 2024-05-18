@@ -17,7 +17,7 @@ export default function Header({ isShowLogo }: HeaderProps) {
   return (
     <HeaderContainer>
       {isShowLogo ? (
-        <img src={HeaderLogo} />
+        <img src={HeaderLogo} alt="Shop Logo" />
       ) : (
         <HeaderButtonContainer onClick={handleGoBack}>
           <img src={ArrowIcon} alt="Previous Page" />
