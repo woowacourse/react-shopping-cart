@@ -28,8 +28,8 @@ export default function CartItem({ id, price, imageUrl, name, setAllChecked }: P
           checked={isChecked}
           className={styles.customCheckbox}
           onChange={() => handleToggleSelect(id)}
-        ></input>
-        <label htmlFor={`item-${id}`} className={styles.customCheckboxLabel}></label>
+        />
+        <label htmlFor={`item-${id}`} className={styles.customCheckboxLabel} />
         <Button variant="image" className={styles.deleteButton} onClick={handleDeleteButton}>
           삭제
         </Button>

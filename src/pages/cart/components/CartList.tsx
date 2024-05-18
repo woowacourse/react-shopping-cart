@@ -19,8 +19,8 @@ export default function CartList({ products }: Props) {
           className={styles.customCheckbox}
           checked={allChecked}
           onChange={handleToggleAll}
-        ></input>
-        <label htmlFor={'checkAll'} className={styles.customCheckboxLabel}></label>
+        />
+        <label htmlFor={'checkAll'} className={styles.customCheckboxLabel} />
         <div className={styles.allCheckText}>전체 선택</div>
       </div>
 
