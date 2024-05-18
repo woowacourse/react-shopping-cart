@@ -19,8 +19,8 @@ const OrderPage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <Styled.OrderPageContainer>
-      <h1 className="cart-item-count">장바구니</h1>
+    <>
+      <Styled.OrderPageTitle>장바구니</Styled.OrderPageTitle>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Suspense fallback={<LoadingSpinner $width="100%" $height="70vh" />}>
           <OrderPageContents />
@@ -29,7 +29,7 @@ const OrderPage: React.FC = () => {
       <BottomButton onClick={() => navigate(ROUTE_PATHS.confirm)} disabled={isButtonDisabled}>
         주문 확인
       </BottomButton>
-    </Styled.OrderPageContainer>
+    </>
   );
 };
 

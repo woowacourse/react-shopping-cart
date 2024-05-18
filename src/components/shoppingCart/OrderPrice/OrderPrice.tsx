@@ -9,18 +9,18 @@ const OrderPrice = () => {
     <Styled.OrderPrice>
       <Styled.PriceGroup>
         <Styled.PriceRow>
-          <span>주문 금액</span>
-          <span>{formatKoreanCurrency(orderPrice)}</span>
+          <Styled.PriceLabel>주문 금액</Styled.PriceLabel>
+          <Styled.PriceAmount>{formatKoreanCurrency(orderPrice)}</Styled.PriceAmount>
         </Styled.PriceRow>
         <Styled.PriceRow>
-          <span>배송비</span>
-          <span>{formatKoreanCurrency(shippingPrice)}</span>
+          <Styled.PriceLabel>배송비</Styled.PriceLabel>
+          <Styled.PriceAmount>{formatKoreanCurrency(shippingPrice)}</Styled.PriceAmount>
         </Styled.PriceRow>
       </Styled.PriceGroup>
       <Styled.PriceGroup>
         <Styled.PriceRow>
-          <span>총 결제 금액</span>
-          <span>{formatKoreanCurrency(totalPrice)}</span>
+          <Styled.PriceLabel>총 결제 금액</Styled.PriceLabel>
+          <Styled.PriceAmount>{formatKoreanCurrency(totalPrice)}</Styled.PriceAmount>
         </Styled.PriceRow>
       </Styled.PriceGroup>
     </Styled.OrderPrice>

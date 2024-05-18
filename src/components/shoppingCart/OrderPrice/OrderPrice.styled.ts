@@ -17,13 +17,15 @@ export const PriceRow = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  span {
-    font-weight: 700;
-  }
-  span:nth-child(1) {
-    font-size: 16px;
-  }
-  span:nth-child(2) {
-    font-size: 24px;
-  }
+`;
+
+export const PriceLabel = styled.h4`
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 700;
+`;
+
+export const PriceAmount = styled.span`
+  font-size: 24px;
+  font-weight: 700;
 `;
