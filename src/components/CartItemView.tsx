@@ -1,13 +1,16 @@
 import { CartItem } from "../types/cartItems";
-import styled from "styled-components";
 import { UseCartItemsReturn } from "../hooks/useCartItemControl";
+import styled from "styled-components";
 
 export interface CartItemViewProps {
   cartItem: CartItem;
   cartItemControl: UseCartItemsReturn;
 }
 
-export default function CartItemView({ cartItem, cartItemControl }: CartItemViewProps) {
+export default function CartItemView({
+  cartItem,
+  cartItemControl,
+}: CartItemViewProps) {
   const { remove, updateQuantity, toggleSelection } = cartItemControl;
   const cartItemId = cartItem.id;
 
@@ -30,7 +33,11 @@ export default function CartItemView({ cartItem, cartItemControl }: CartItemView
   return (
     <S.CartItemContainer>
       <S.TopWrapper>
-        <S.Checkbox type="checkbox" checked={cartItem.isSelected} onChange={handleCheckboxChange} />
+        <S.Checkbox
+          type="checkbox"
+          checked={cartItem.isSelected}
+          onChange={handleCheckboxChange}
+        />
         <S.RemoveButton onClick={handleRemoveButtonClick}>삭제</S.RemoveButton>
       </S.TopWrapper>
 
@@ -39,10 +46,17 @@ export default function CartItemView({ cartItem, cartItemControl }: CartItemView
         <S.ProductInnerWrapper>
           <S.ProductInfo>
             <S.ProductName>{cartItem.product.name}</S.ProductName>
-            <S.ProductPrice>{cartItem.product.price.toLocaleString()}원</S.ProductPrice>
+            <S.ProductPrice>
+              {cartItem.product.price.toLocaleString()}원
+            </S.ProductPrice>
           </S.ProductInfo>
           <S.CartItemCountControl>
-            <S.CountButton onClick={handleDecreaseButtonClick}>-</S.CountButton>
+            <S.CountButton
+              onClick={handleDecreaseButtonClick}
+              disabled={cartItem.quantity === 1}
+            >
+              -
+            </S.CountButton>
             <S.Count>{cartItem.quantity}</S.Count>
             <S.CountButton onClick={handleIncreaseButtonClick}>+</S.CountButton>
           </S.CartItemCountControl>
