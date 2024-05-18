@@ -11,7 +11,7 @@ interface StepperProps {
 const Stepper = ({ value, handleIncrement, handleDecrement }: StepperProps) => {
   return (
     <S.Container>
-      <S.Button onClick={handleDecrement}>
+      <S.Button onClick={handleDecrement} disabled={value <= 1}>
         <S.Image src={minus} alt="" />
       </S.Button>
       <S.Value>{value}</S.Value>

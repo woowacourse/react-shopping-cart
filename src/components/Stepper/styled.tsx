@@ -13,6 +13,10 @@ export const Button = styled.button`
   background-color: transparent;
   border: none;
   cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
 
 export const Image = styled.img`
