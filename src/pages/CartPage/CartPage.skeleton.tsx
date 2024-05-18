@@ -8,6 +8,7 @@ const CartPageSkeleton = () => {
     <>
       <S.CartPageLayout>
         <SkTitleSet />
+        <S.SkCheckBoxWrapper />
         <S.CheckBoxWrapper>
           <S.SkCheckBoxWrapper />
         </S.CheckBoxWrapper>

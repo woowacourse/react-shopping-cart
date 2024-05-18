@@ -1,5 +1,8 @@
-import { useRecoilValue } from "recoil";
-import { totalItemLengthSelector } from "@/recoil/orderInformation";
+import { selectorFamily, useRecoilValue } from "recoil";
+import {
+  finalOrderItemCountSelector,
+  totalItemLengthSelector,
+} from "@/recoil/orderInformation";
 
 import useSelectAll from "@/hooks/useSelectAll";
 
@@ -13,11 +16,12 @@ import MoreInfo from "@/assets/more-info.svg?react";
 import * as S from "./CartPage.style";
 import { MESSAGES, TITLES } from "@/constants/cart";
 import ProductList from "@/components/ProductList/ProductList";
-import { OrderConfirmButton } from "../OrderConfirmPage/OrderConfirmPage.style";
+import OrderConfirmButton from "@/components/OrderConfirmButton/OrderConfirmButton";
 
 const CartPage = () => {
   const totalItemLength = useRecoilValue(totalItemLengthSelector);
   const { isAllItemSelected, selectAllItem, unselectAllItem } = useSelectAll();
+  const selectedItems = useRecoilValue(finalOrderItemCountSelector);
 
   return (
     <>
@@ -37,7 +41,7 @@ const CartPage = () => {
         <Caption asset={() => <MoreInfo />} text={MESSAGES.freeShippingInfo} />
         <PriceSection />
       </S.CartPageLayout>
-      <OrderConfirmButton />
+      <OrderConfirmButton disabled={!selectedItems.typeLength} />
     </>
   );
 };

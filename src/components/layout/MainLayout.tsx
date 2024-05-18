@@ -29,9 +29,9 @@ const MainLayout = (props: HeaderType) => {
           <BackButton />
         )}
       </Header>
-      <Suspense fallback={props.fallback}>
-        <S.LayoutWrapper>{props.children}</S.LayoutWrapper>
-      </Suspense>
+      <S.LayoutWrapper>
+        <Suspense fallback={props.fallback}>{props.children}</Suspense>
+      </S.LayoutWrapper>
     </S.Wrapper>
   );
 };
