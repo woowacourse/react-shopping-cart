@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { ButtonProps } from './Button';
-import hoverColorGenerator from '../../../utils/hoverColorGenerator';
 
 export const Button = styled.button<ButtonProps>`
   cursor: pointer;
@@ -90,15 +89,18 @@ export const Button = styled.button<ButtonProps>`
     }
   }};
 
-  &:hover {
-    background-color: ${({ color }) => {
-      switch (color) {
-        case 'default':
-          return hoverColorGenerator('#FFFFFF');
-        default:
-          return hoverColorGenerator('#333333');
-      }
-    }};
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      cursor: pointer;
+      background-color: ${({ color }) => {
+        switch (color) {
+          case 'default':
+            return '#f5f5f5';
+          default:
+            return '#333333';
+        }
+      }};
+    }
   }
 
   &:disabled {
@@ -106,9 +108,9 @@ export const Button = styled.button<ButtonProps>`
     background-color: ${({ color }) => {
       switch (color) {
         case 'default':
-          return hoverColorGenerator('#FFFFFF');
+          return '#dddddd';
         default:
-          return hoverColorGenerator('#999999');
+          return '#aaaaaa';
       }
     }};
   }
