@@ -1,60 +1,27 @@
-import { generateBasicToken } from '@/utils/auth';
+import fetchClient from './fetchClient';
 
-const BASE_URL = import.meta.env.VITE_BASE_URL;
-const USER_ID = import.meta.env.VITE_USER_ID;
-const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
+import { REQUEST_URL } from '@/constants/url';
 
 export const fetchCartItems = async () => {
-  const token = generateBasicToken(USER_ID, USER_PASSWORD);
-  const response = await fetch(`${BASE_URL}/cart-items`, {
-    method: 'GET',
-    headers: { Authorization: token },
-  });
+  const res = await fetchClient.get({ requestUrl: REQUEST_URL.cartItems });
+  const result = await res.json();
 
-  if (!response.ok) {
-    throw new Error('failed to fetch cart items');
-  }
-
-  const data = await response.json();
-  return data.content;
-};
-
-export const fetchTotalQuantity = async () => {
-  const token = generateBasicToken(USER_ID, USER_PASSWORD);
-  const response = await fetch(`${BASE_URL}/cart-items/counts`, {
-    method: 'GET',
-    headers: { Authorization: token },
-  });
-
-  if (!response.ok) {
-    throw new Error('failed to fetch cart items');
-  }
-
-  const data = await response.json();
-  return data.quantity;
+  return result.content;
 };
 
 export const updateItemQuantity = async (cartId: number, quantity: number) => {
-  const token = generateBasicToken(USER_ID, USER_PASSWORD);
-  const response = await fetch(`${BASE_URL}/cart-items/${cartId}`, {
-    method: 'PATCH',
-    headers: { Authorization: token, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ quantity }),
+  const res = await fetchClient.patch({
+    requestUrl: REQUEST_URL.updateItemQuantity(cartId),
+    body: { quantity },
   });
 
-  if (!response.ok) {
-    throw new Error('failed to patch cart items');
-  }
+  return { type: 'UPDATE', status: res.status };
 };
 
 export const deleteItem = async (cartId: number) => {
-  const token = generateBasicToken(USER_ID, USER_PASSWORD);
-  const response = await fetch(`${BASE_URL}/cart-items/${cartId}`, {
-    method: 'DELETE',
-    headers: { Authorization: token },
+  const res = await fetchClient.delete({
+    requestUrl: REQUEST_URL.deleteItem(cartId),
   });
 
-  if (!response.ok) {
-    throw new Error('failed to patch cart items');
-  }
+  return { type: 'DELETE', status: res.status };
 };
