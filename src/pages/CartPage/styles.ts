@@ -1,10 +1,9 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const CartPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacer.spacing5};
-  // height: 100%;
 `;
 
 export const CartListWrapper = styled.div`

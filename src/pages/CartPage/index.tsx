@@ -1,24 +1,25 @@
-import { useRecoilValue, useRecoilValueLoadable } from "recoil";
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import {
   cartListState,
   cartListTotalPrice,
   shippingFee,
-} from "../../recoil/selectors";
+} from '../../recoil/selectors';
 
-import { useNavigate } from "react-router-dom";
-import BlankCart from "../../components/BlankCart";
-import CartList from "../../components/CartList";
-import CheckoutSummary from "../../components/CartList/CheckoutSummary";
-import Header from "../../components/Header";
-import BottomButton from "../../components/common/BottomButton";
-import RecoilSuspense from "../../components/common/RecoilSuspense";
-import Layout from "../../layout";
-import { Description, Title } from "../ConfirmOrderPage/styles";
+import Layout from '../../layout';
+import BlankCart from '../../components/BlankCart';
+import CartList from '../../components/CartList';
+import CheckoutSummary from '../../components/CartList/CheckoutSummary';
+import Header from '../../components/Header';
+import BottomButton from '../../components/common/BottomButton';
+import RecoilSuspense from '../../components/common/RecoilSuspense';
+
+import { Description, Title } from '../ConfirmOrderPage/styles';
 import {
   CartHeaderContainer,
   CartListWrapper,
   CartPageContainer,
-} from "./styles";
+} from './styles';
 
 export default function CartPage() {
   const cartList = useRecoilValueLoadable(cartListState);
@@ -27,15 +28,7 @@ export default function CartPage() {
   const navigate = useNavigate();
 
   const handleConfirmOrder = async () => {
-    // const cartItemSeleted = CartItemLocalStorage.get(KEY);
-    // if (cartItemSeleted) {
-    //   const cartItemIds = Object.keys(cartItemSeleted).filter(
-    //     (key) => cartItemSeleted[key] === true
-    //   );
-    //   await orderItems(cartItemIds);
-    //   navigate("/confirm");
-    // }
-    navigate("/confirm");
+    navigate('/confirm');
   };
 
   return (
