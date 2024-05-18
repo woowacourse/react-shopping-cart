@@ -2,7 +2,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { checkedCartItemsState } from "../recoil/atoms";
 import { checkedCartItemsQuantityState, totalCheckedCartItemsPriceState } from "../recoil/selectors";
-import Header from "../components/Header/index";
+import Header from "../components/common/Header/index";
 import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../constants/styles";
 
 const CheckOrder = () => {

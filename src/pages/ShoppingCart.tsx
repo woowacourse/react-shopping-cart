@@ -1,14 +1,14 @@
-import PageTitle from "../components/PageTitle";
+import PageTitle from "../components/common/PageTitle";
 import styled from "styled-components";
-import CartItemList from "../components/CartItemList/index";
-import OrderSummary from "../components/OrderSummary";
+import CartItemList from "../components/ShoppingCart/CartItemList/index";
+import OrderSummary from "../components/ShoppingCart/OrderSummary";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { checkedCartItemsQuantityState, getCartItems, setCartPriceSelector } from "../recoil/selectors";
-import FooterButton from "../components/FooterButton/index";
-import CartEmptyScreen from "../components/CartEmptyScreen/index";
+import FooterButton from "../components/common/FooterButton/index";
+import CartEmptyScreen from "../components/ShoppingCart/CartEmptyScreen/index";
 import { useNavigate } from "react-router-dom";
 import PAGE_URL from "../constants/pageURL";
-import Header from "../components/Header/index";
+import Header from "../components/common/Header/index";
 import { COLOR } from "../constants/styles";
 import { useState } from "react";
 

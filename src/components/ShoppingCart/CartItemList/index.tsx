@@ -1,10 +1,10 @@
-import CheckboxButton from "../Button/CheckboxButton/index";
+import CheckboxButton from "../../common/Button/CheckboxButton/index";
 import { useRecoilState } from "recoil";
-import CartItem from "../CartItem/index";
-import { checkedCartItemsState } from "../../recoil/atoms";
+import { checkedCartItemsState } from "../../../recoil/atoms";
 import styled from "styled-components";
-import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../constants/styles";
-import { CartItemResponse } from "../../types/ShoppingCart";
+import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../../constants/styles";
+import { CartItemResponse } from "../../../types/ShoppingCart";
+import CartItem from "../CartItem";
 
 interface CartItemListProps {
   cartItems: CartItemResponse[];

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import IMAGES from "../../../assets/images/Images";
+import IMAGES from "../../../../assets/images/Images";
 
 const BUTTON_TYPE = {
   increase: "increase",

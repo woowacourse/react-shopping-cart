@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import IMAGES from "../../assets/images/Images";
-import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../constants/styles";
+import IMAGES from "../../../assets/images/Images";
+import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../../constants/styles";
 
 type HeaderType = "logo" | "goBack";
 

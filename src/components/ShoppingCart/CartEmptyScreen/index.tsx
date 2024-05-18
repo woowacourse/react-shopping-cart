@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import IMAGES from "../../assets/images/Images";
-import { COLOR, FONT_SIZE } from "../../constants/styles";
+import IMAGES from "../../../assets/images/Images";
+import { COLOR, FONT_SIZE } from "../../../constants/styles";
 
 const CartEmptyScreen = () => {
   return (

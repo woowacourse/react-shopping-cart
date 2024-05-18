@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import ORDER from "../../constants/order";
-import { totalCheckedCartItemsPriceState } from "../../recoil/selectors";
+import ORDER from "../../../constants/order";
+import { totalCheckedCartItemsPriceState } from "../../../recoil/selectors";
 import { useRecoilValue } from "recoil";
-import IMAGES from "../../assets/images/Images";
-import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../constants/styles";
+import IMAGES from "../../../assets/images/Images";
+import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../../constants/styles";
 
 const OrderSummary = () => {
   const totalPrice = useRecoilValue(totalCheckedCartItemsPriceState);

@@ -1,13 +1,12 @@
-import { CartItemResponse } from "../../types/ShoppingCart";
+import { CartItemResponse } from "../../../types/ShoppingCart";
 import styled from "styled-components";
-import ItemCounter from "../ItemCounter/index";
+import ItemCounter from "../../common/ItemCounter";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { cartItemQuantityStates } from "../../recoil/atoms";
-import BasicButton from "../Button/BasicButton/index";
-import CheckboxButton from "../Button/CheckboxButton/index";
-import { checkedCartItemsState } from "../../recoil/atoms";
-import { deleteCartItem, patchCartItemQuantity } from "../../api/cartItem";
-import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../constants/styles";
+import { cartItemQuantityStates, checkedCartItemsState } from "../../../recoil/atoms";
+import BasicButton from "../../common/Button/BasicButton";
+import CheckboxButton from "../../common/Button/CheckboxButton";
+import { deleteCartItem, patchCartItemQuantity } from "../../../api/cartItem";
+import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../../constants/styles";
 
 interface CartItemProps extends Omit<CartItemResponse, "quantity"> {
   removeCartItem: (itemId: number) => void;

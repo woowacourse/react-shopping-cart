@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../../constants/styles";
+import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../../../constants/styles";
 
 interface BasicButtonProps extends React.PropsWithChildren<React.ButtonHTMLAttributes<HTMLButtonElement>> {
   label: string;

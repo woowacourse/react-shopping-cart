@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import CountingButton from "../Button/CountingButton/index";
-import { FONT_SIZE, FONT_WEIGHT } from "../../constants/styles";
+import { FONT_SIZE, FONT_WEIGHT } from "../../../constants/styles";
 
 interface ItemCountProps {
   value: number;

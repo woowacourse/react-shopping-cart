@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLOR } from "../../constants/styles";
+import { COLOR } from "../../../constants/styles";
 
 interface FooterButtonProps {
   buttonText: string;
