@@ -1,7 +1,7 @@
 import styles from '../Cart.module.css';
-import Button from '../../../components/common/Button';
-import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
-import useDeleteProduct from '../../../hooks/useDeleteProduct';
+import Button from '@/components/common/Button';
+import formatKoreanCurrency from '@/utils/formatKoreanCurrency';
+import useDeleteProduct from '@/hooks/useDeleteProduct';
 import CartItemCheckBox from './CartItemCheckBox';
 import { FormattedProduct } from '@/types';
 import CountButton from './CountButton';

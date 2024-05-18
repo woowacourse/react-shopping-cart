@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
-import Button from '../../components/common/Button';
-import formatKoreanCurrency from '../../utils/formatKoreanCurrency';
+import Button from '@/components/common/Button';
+import formatKoreanCurrency from '@/utils/formatKoreanCurrency';
 import styles from './CheckoutPage.module.css';
 import CheckoutPageHeader from './components/CheckoutPageHeader';
 
