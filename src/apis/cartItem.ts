@@ -25,3 +25,9 @@ export const deleteItem = async (cartId: number) => {
 
   return { type: 'DELETE', status: res.status };
 };
+
+export const addItem = async (productId: number) => {
+  const res = await fetcher.post({ requestUrl: REQUEST_URL.cartItems, body: { productId } });
+
+  return { type: 'POST', status: res.status };
+};

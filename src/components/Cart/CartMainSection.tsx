@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 import CartFooterSection from './CartFooterSection';
 import CartHeaderSection from './CartHeaderSection';
 
+import AddButton from '@/pages/AddButton';
 import AllCheckBox from '@components/common/AllCheckBox';
 import { cartItemsState } from '@recoil/cartItems/atoms';
 
@@ -32,6 +33,7 @@ export default function CartMainSection() {
           <span css={cartEmptyText}>장바구니에 담은 상품이 없습니다.</span>
         </div>
       )}
+      <AddButton />
     </main>
   );
 }
@@ -44,6 +46,7 @@ const main = css`
   display: flex;
   flex-direction: column;
   flex: 1;
+
   padding: 0 24px;
 
   overflow-y: scroll;
