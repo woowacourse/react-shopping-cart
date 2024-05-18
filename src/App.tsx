@@ -19,11 +19,11 @@ function App() {
           <Route
             path="/"
             element={
-              <ErrorBoundary FallbackComponent={ErrorFallback}>
-                <Suspense fallback={<div>suspense</div>}>
-                  <CartPage />
-                </Suspense>
-              </ErrorBoundary>
+              // <ErrorBoundary FallbackComponent={ErrorFallback}>
+              //   <Suspense fallback={<div>suspense</div>}>
+              <CartPage />
+              //   </Suspense>
+              // </ErrorBoundary>
             }
           />
           <Route

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import * as S from './CartItem.style';
 
@@ -24,10 +24,39 @@ const CartItem = ({ product, quantity: initialQuantity, cartItemId }: CartItemPr
   const { quantity, setQuantity, increaseQuantity, decreaseQuantity } = useCartItemQuantity(cartItemId);
   const { getIsSelected, addSelectedId, removeSelectedId } = useCartItemSelectedIdList();
   const { deleteCartItem } = useCartItemList();
+  const [error, setError] = useState<Error | null>(null)
 
   useEffect(() => {
     setQuantity(initialQuantity);
   }, []);
+
+  const deleteCartItemWithErrorHandling = async (cartItemId: number) => {
+    try {
+      await deleteCartItem(cartItemId)
+    } catch (error) {
+      setError(error as Error);
+    }
+  }
+
+  const increaseQuantityWithErrorHandling = async () => {
+    try {
+      await increaseQuantity();
+    } catch (error) {
+      setError(error as Error);
+    }
+  }
+
+  const decreaseQuantityWithErrorHandling = async () => {
+    try {
+      await decreaseQuantity();
+    } catch (error) {
+      setError(error as Error);
+    }
+  }
+
+  if (error) {
+    throw error;
+  }
 
   return (
     <S.CartItem>
@@ -37,7 +66,7 @@ const CartItem = ({ product, quantity: initialQuantity, cartItemId }: CartItemPr
           state={getIsSelected(cartItemId)}
           handleClick={getIsSelected(cartItemId) ? () => removeSelectedId(cartItemId) : () => addSelectedId(cartItemId)}
         />
-        <Button size="s" radius="s" onClick={() => deleteCartItem(cartItemId)}>
+        <Button size="s" radius="s" onClick={() => deleteCartItemWithErrorHandling(cartItemId)}>
           삭제
         </Button>
       </S.ItemHeader>
@@ -52,7 +81,7 @@ const CartItem = ({ product, quantity: initialQuantity, cartItemId }: CartItemPr
               {`${price.toLocaleString('ko-KR')}원`}
             </Text>
           </S.ItemNameAndCost>
-          <ChangeQuantity quantity={quantity} increaseQuantity={increaseQuantity} decreaseQuantity={decreaseQuantity} />
+          <ChangeQuantity quantity={quantity} increaseQuantity={increaseQuantityWithErrorHandling} decreaseQuantity={decreaseQuantityWithErrorHandling} />
         </S.ItemDetail>
       </S.ItemBody>
     </S.CartItem>

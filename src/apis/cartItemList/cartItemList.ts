@@ -66,22 +66,23 @@ const transformCartItemListData = (arr: ResponseCartItem[]): TransformedCartItem
 };
 
 export const requestCartItemList = async (): Promise<TransformedCartItem[]> => {
-  try {
-    const token = generateBasicToken(USER_ID, USER_PASSWORD);
-    const response = await fetch(`${API_URL}/cart-items`, {
-      method: 'GET',
-      headers: { Authorization: token, 'Content-Type': 'application/json' },
-    });
-    const data = await response.json();
-    return transformCartItemListData(data.content);
-  } catch (error) {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+  const response = await fetch(`${API_URL}/cart-items`, {
+    method: 'GET',
+    headers: { Authorization: token, 'Content-Type': 'application/json' },
+  });
+
+  if (!response.ok) {
     throw new Error('Failed to fetch products:');
   }
+  const data = await response.json();
+
+  return transformCartItemListData(data.content);
 };
 
 export const requestSetCartItemQuantity = async (cartItemId: number, quantity: number) => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
-  const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
+  const response = await fetch(`${API_URL}/cart-items1/${cartItemId}`, {
     method: 'PATCH',
     headers: { Authorization: token, 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -90,13 +91,13 @@ export const requestSetCartItemQuantity = async (cartItemId: number, quantity: n
   });
 
   if (!response.ok) {
-    throw new Error('Failed to addCartItemQuantity');
+    throw new Error('Failed to setCartItemQuantity');
   }
 };
 
 export const requestDeleteCartItem = async (cartItemId: number) => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
-  const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
+  const response = await fetch(`${API_URL}/cart-items1/${cartItemId}`, {
     method: 'DELETE',
     headers: { Authorization: token, 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -105,6 +106,6 @@ export const requestDeleteCartItem = async (cartItemId: number) => {
   });
 
   if (!response.ok) {
-    throw new Error('Failed to addCartItemQuantity');
+    throw new Error('Failed to deleteCartItem');
   }
 };
