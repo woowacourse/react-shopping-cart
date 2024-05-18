@@ -16,6 +16,7 @@ import * as S from "./ProductItem.style";
 import { removeCartItem } from "@/apis";
 import { cartItems } from "@/recoil/cartItems";
 import { selectedCartItems } from "@/recoil/selectedCardItems";
+import { formatToWon } from "@/utils/stringHelper";
 
 const ProductItem = ({ item }: { item: CartItem }) => {
   const { product, id } = item;
@@ -61,7 +62,7 @@ const ProductItem = ({ item }: { item: CartItem }) => {
         <S.ItemInfoTextBox>
           <S.FlexBox>
             <Caption text={name} />
-            <Title text={price.toLocaleString() + "원"} />
+            <Title text={formatToWon(price)} />
           </S.FlexBox>
 
           <S.UpdateButtonWrapper>

@@ -1,3 +1,4 @@
+import { formatToWon } from "@/utils/stringHelper";
 import styled from "styled-components";
 
 interface PriceInfoBoxProps {
@@ -9,7 +10,7 @@ const PriceInfoBox = ({ priceLabel, price }: PriceInfoBoxProps) => {
   return (
     <Wrapper>
       <PriceLabel>{priceLabel}</PriceLabel>
-      <Price>{price.toLocaleString() + "원"}</Price>
+      <Price>{formatToWon(price)}</Price>
     </Wrapper>
   );
 };

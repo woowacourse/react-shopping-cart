@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { totalItemLengthSelector } from "@/recoil/orderInformation";
@@ -20,10 +20,7 @@ import { PAGE_URL } from "@/constants/url";
 
 import * as S from "./CartPage.style";
 import { MESSAGES, TITLES } from "@/constants/cart";
-
-const ProductList = React.lazy(
-  () => import("../../components/ProductList/ProductList")
-);
+import ProductList from "@/components/ProductList/ProductList";
 
 const CartPage = () => {
   const totalItemLength = useRecoilValue(totalItemLengthSelector);
