@@ -1,6 +1,8 @@
 import { selector } from 'recoil';
 import { fetchCartItems } from '../api';
-import CartItemLocalStorage, { KEY } from '../services/CartItemLocalStorage';
+import CartItemLocalStorage, {
+  CART_ITEM_SELECTED_STORAGE_KEY,
+} from '../services/CartItemLocalStorage';
 import { CartItemType } from '../types';
 import { cartItemQuantity, cartItemSelected } from './atoms';
 
@@ -67,7 +69,9 @@ export const shippingFee = selector({
 export const cartItemAllSelected = selector<boolean>({
   key: 'cartItemAllSelected',
   get: ({ get }) => {
-    const storageState = CartItemLocalStorage.get(KEY);
+    const storageState = CartItemLocalStorage.get(
+      CART_ITEM_SELECTED_STORAGE_KEY
+    );
 
     if (storageState) {
       const cartItemIds = Object.keys(storageState);
@@ -79,7 +83,9 @@ export const cartItemAllSelected = selector<boolean>({
     return false;
   },
   set: ({ set }, newValue) => {
-    const storageState = CartItemLocalStorage.get(KEY);
+    const storageState = CartItemLocalStorage.get(
+      CART_ITEM_SELECTED_STORAGE_KEY
+    );
     if (storageState) {
       Object.keys(storageState).forEach((id) => {
         set(cartItemSelected(parseInt(id)), newValue);
