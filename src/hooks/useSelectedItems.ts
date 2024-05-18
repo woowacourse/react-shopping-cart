@@ -12,21 +12,29 @@ const useSelectedItems = (
 
   useEffect(() => {
     if (data.length !== 0) {
-      setSelectedItems(prev => {
-        const intersection = intersectionByProperty<SelectedCartItem>(
-          [...prev],
-          data.map(item => ({
-            cartItemId: item.id,
-            quantity: item.quantity,
-            price: item.product.price,
-          })),
-          'cartItemId',
-        );
+      const newDataState = data.map(item => ({
+        cartItemId: item.id,
+        quantity: item.quantity,
+        price: item.product.price,
+      }));
 
-        return intersection;
-      });
+      setSelectedItems(prev => getIntersectionForMaintainingSelectState([...prev], newDataState));
     }
   }, [data, setSelectedItems]);
+
+  // 전 상태와 현 상태를 비교해서 선택 상태를 유지하는 함수
+  const getIntersectionForMaintainingSelectState = (
+    prevState: SelectedCartItem[],
+    newDataState: SelectedCartItem[],
+  ) => {
+    const intersection = intersectionByProperty<SelectedCartItem>(
+      prevState,
+      newDataState,
+      'cartItemId',
+    );
+
+    return intersection;
+  };
 
   // 현재 selectedItems에서 id가 있는지에 대한 함수
   // id를 받아서 id가 있는지를 boolean
