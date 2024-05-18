@@ -1,13 +1,13 @@
-import { useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { getCartItemCounts } from "../../api";
-import { ConfirmButton } from "../../components/button/confirmButton/ConfirmButton";
-import Header from "../../components/header/Header";
-import { cartItemsCountState } from "../../recoil/atoms/atoms";
+import { useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { getCartItemCounts } from '../../api';
+import { ConfirmButton } from '../../components/button/confirmButton/ConfirmButton';
+import Header from '../../components/header/Header';
+import { cartItemsCountState } from '../../recoil/atoms/atoms';
 import {
   categoryCountState,
   totalPriceState,
-} from "../../recoil/selector/selector";
+} from '../../recoil/selector/selector';
 import {
   StyledConfirmationPagePriceContainer,
   StyledConfirmationPage,
@@ -15,7 +15,7 @@ import {
   StyledConfirmationPagePrice,
   StyledConfirmationPageSubTitle,
   StyledConfirmationPageTitle,
-} from "./OrderConfirmationPage.styled";
+} from './OrderConfirmationPage.styled';
 
 export const OrderConfirmationPage: React.FC = () => {
   const totalPrice = useRecoilValue(totalPriceState);
@@ -29,16 +29,16 @@ export const OrderConfirmationPage: React.FC = () => {
         const { quantity } = await getCartItemCounts();
         setCartItemsCount(quantity);
       } catch (error) {
-        console.error("Failed to fetch cart items:", error);
+        console.error('Failed to fetch cart items:', error);
       }
     };
 
     fetchCartItems();
-  }, [setCartItemsCount]);
+  }, []);
 
   return (
     <>
-      <Header type="back" />
+      <Header type='back' />
       <StyledConfirmationPage>
         <StyledConfirmationPageTitle>주문확인 </StyledConfirmationPageTitle>
         <StyledConfirmationPageDescription>
@@ -56,7 +56,7 @@ export const OrderConfirmationPage: React.FC = () => {
           </StyledConfirmationPagePrice>
         </StyledConfirmationPagePriceContainer>
       </StyledConfirmationPage>
-      <ConfirmButton text="결제하기" backgroundColor="rgba(190, 190, 190, 1)" />
+      <ConfirmButton text='결제하기' backgroundColor='rgba(190, 190, 190, 1)' />
     </>
   );
 };
