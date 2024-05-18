@@ -2,7 +2,7 @@ import CartList from "@/components/Cart/CartList";
 import CartRecipe from "@/components/Cart/CartRecipe";
 import CartTitle from "@/components/Cart/CartTitle";
 import EmptyCart from "@/components/EmptyCart";
-import FullWidthButton from "@/components/Button/FullWidthButton";
+import FullWidthButton from "@/components/common/Button/FullWidthButton";
 import Header from "@/components/Header.tsx";
 import { cartListState } from "@/store/atoms";
 import { recipeState } from "@/store/selectors/recipeSelector";

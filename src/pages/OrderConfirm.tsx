@@ -4,7 +4,7 @@ import {
   recipeState,
 } from "@/store/selectors/recipeSelector";
 
-import FullWidthButton from "@/components/Button/FullWidthButton";
+import FullWidthButton from "@/components/common/Button/FullWidthButton";
 import Header from "@/components/Header";
 import { ORDER_CONFIRM_MESSAGE } from "@/constants/message";
 import styled from "@emotion/styled";

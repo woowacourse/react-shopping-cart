@@ -1,8 +1,8 @@
 import { Global, css } from "@emotion/react";
 
 import { ErrorBoundary } from "react-error-boundary";
-import ErrorFallback from "./components/ErrorFallback.tsx";
-import LoadingFallback from "./components/LoadingFallback.tsx";
+import ErrorFallback from "./components/common/ErrorFallback.tsx";
+import LoadingFallback from "./components/common/LoadingFallback.tsx";
 import Router from "./Router.tsx";
 import { Suspense } from "react";
 import emotionNormalize from "emotion-normalize";
