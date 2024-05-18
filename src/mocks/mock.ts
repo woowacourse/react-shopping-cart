@@ -13,7 +13,7 @@ export const TOTAL_PRICE_UNDER_100000_DATA = [
   },
   {
     id: 532,
-    quantity: 3,
+    quantity: 2,
     product: {
       id: 10,
       name: '퓨마',
