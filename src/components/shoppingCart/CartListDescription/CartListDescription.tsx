@@ -15,15 +15,15 @@ const CartListDescription: React.FC<CartListDescriptionContainerProps> = ({ cart
   const { onUpdateCartItemCount } = useUpdateCartItemCount(cartItem);
 
   return (
-    <Styled.CartItemDescription>
-      <span className="label">{product.name}</span>
-      <span className="productPrice">{formatKoreanCurrency(product.price)}</span>
+    <Styled.CartItemDescriptionWrapper>
+      <Styled.CartItemDescriptionTitle>{product.name}</Styled.CartItemDescriptionTitle>
+      <Styled.CartItemDescriptionPrice>{formatKoreanCurrency(product.price)}</Styled.CartItemDescriptionPrice>
       <Styled.CartItemButtonGroup>
         <CountButton onClick={() => onUpdateCartItemCount('minus')} sign="minus" />
         <span>{quantity}</span>
         <CountButton onClick={() => onUpdateCartItemCount('plus')} sign="plus" />
       </Styled.CartItemButtonGroup>
-    </Styled.CartItemDescription>
+    </Styled.CartItemDescriptionWrapper>
   );
 };
 

@@ -7,6 +7,13 @@ export const CartItemSelectionGroup = styled.div`
   justify-content: space-between;
 `;
 
+export const CartItemSelectionText = styled.span`
+  color: rgba(10, 13, 19, 1);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+`;
+
 export const CartListButtonGroup = styled.div`
   margin-top: 36px;
   display: flex;

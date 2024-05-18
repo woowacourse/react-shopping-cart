@@ -9,7 +9,7 @@ import { useRecoilValue } from 'recoil';
 
 import * as Styled from './OrderPage.styled';
 
-const OrderPageContents = lazy(() => import('@components/shoppingCart/ShoppingCartContent/ShoppingCartContent'));
+const ShoppingCartContent = lazy(() => import('@components/shoppingCart/ShoppingCartContent/ShoppingCartContent'));
 
 const OrderPage: React.FC = () => {
   const cartItems = useRecoilValue(cartItemsSelector);
@@ -20,17 +20,17 @@ const OrderPage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <Styled.OrderPageContainer>
-      <h1 className="cart-item-count">장바구니</h1>
+    <>
+      <Styled.OrderPageTitle>장바구니</Styled.OrderPageTitle>
       <APIErrorBoundary onReset={() => navigate(-1)} fallback={ErrorFallback}>
         <Suspense fallback={<LoadingSpinner $width="100%" $height="70vh" />}>
-          <OrderPageContents />
+          <ShoppingCartContent />
         </Suspense>
       </APIErrorBoundary>
       <BottomButton onClick={() => navigate(ROUTE_PATHS.confirm)} disabled={isButtonDisabled}>
         주문 확인
       </BottomButton>
-    </Styled.OrderPageContainer>
+    </>
   );
 };
 
