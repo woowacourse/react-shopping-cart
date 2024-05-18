@@ -1,30 +1,23 @@
-import { atom } from "recoil";
-import { CartItem } from "../../types";
-
-export const getLocalStorageState = (
-  key: string,
-  defaultValue: object | boolean
-) => {
-  const storedValue = localStorage.getItem(key);
-  return storedValue ? JSON.parse(storedValue) : defaultValue;
-};
+import { atom } from 'recoil';
+import { CartItem } from '../../types';
+import { getLocalStorage } from '../../utils/getLocalStorage';
 
 export const cartItemsState = atom<CartItem[]>({
-  key: "cartItemsState",
+  key: 'cartItemsState',
   default: [],
 });
 
 export const selectedItemsState = atom<Record<number, boolean>>({
-  key: "selectedItemsState",
-  default: getLocalStorageState("selectedItemsState", {}),
+  key: 'selectedItemsState',
+  default: getLocalStorage('selectedItemsState', {}),
 });
 
 export const isAllSelectedState = atom<boolean>({
-  key: "isAllSelectedState",
-  default: getLocalStorageState("isAllSelectedState", false),
+  key: 'isAllSelectedState',
+  default: getLocalStorage('isAllSelectedState', false),
 });
 
 export const cartItemsCountState = atom<number>({
-  key: "cartItemsCount",
+  key: 'cartItemsCount',
   default: 0,
 });
