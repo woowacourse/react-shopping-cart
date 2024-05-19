@@ -1,28 +1,43 @@
-const dotenv = require("dotenv");
+import { vi } from 'vitest';
+import server from './mocks/server';
+import CartItemLocalStorage, {
+  CART_ITEM_SELECTED_KEY,
+  CartItemSelected,
+} from './services/CartItemLocalStorage';
 
-// .env.test 파일에서 환경 변수를 로드합니다.
-dotenv.config({ path: ".env.test" });
-
-// import.meta.env를 모킹합니다.
-(global as any).import = {
-  meta: {
-    env: {
-      VITE_BASE_URL: process.env.REACT_APP_BASE_URL,
-      VITE_USERNAME: process.env.REACT_APP_USERNAME,
-      VITE_PASSWORD: process.env.REACT_APP_PASSWORD,
-      // 필요한 다른 환경 변수도 여기에 추가합니다.
-    },
-  },
-};
-
-import server from "./mocks/server";
+let mockedStorage: CartItemSelected = {};
 
 beforeAll(() => {
   server.listen();
+
+  vi.spyOn(CartItemLocalStorage, 'get').mockImplementation((key: string) => {
+    if (key === CART_ITEM_SELECTED_KEY) {
+      const isStorageEmpty = Object.keys(mockedStorage).length === 0;
+      return isStorageEmpty ? undefined : mockedStorage;
+    }
+    return undefined;
+  });
+
+  vi.spyOn(CartItemLocalStorage, 'set').mockImplementation(
+    (key: string, value: CartItemSelected) => {
+      if (key === CART_ITEM_SELECTED_KEY) {
+        mockedStorage = value;
+      }
+    }
+  );
+
+  vi.spyOn(CartItemLocalStorage, 'delete').mockImplementation((key, id) => {
+    if (key === CART_ITEM_SELECTED_KEY) {
+      delete mockedStorage[id];
+    }
+  });
 });
 
 afterEach(() => {
   server.resetHandlers();
+
+  mockedStorage = {};
+  vi.clearAllMocks();
 });
 
 afterAll(() => {

@@ -1,6 +1,6 @@
 export type CartItemSelected = Record<number, boolean>;
 
-export const CART_ITEM_SELECTED_STORAGE_KEY = 'cartItemSelected';
+export const CART_ITEM_SELECTED_KEY = 'cartItemSelected';
 
 const CartItemLocalStorage = {
   get(key: string): CartItemSelected | undefined {
