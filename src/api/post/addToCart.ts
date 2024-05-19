@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const addToCart = async (productId: number) => {
   try {
-    await axiosInstance.post(URL.CART_ITEMS, { productId: productId });
+    await axiosInstance.post(URL.CART_ITEMS, { productId });
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error('API 호출 중 오류 발생:', error.message);

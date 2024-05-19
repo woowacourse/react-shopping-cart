@@ -9,7 +9,7 @@ export interface QuantityParams {
 
 const changeQuantity = async ({ id, quantity }: QuantityParams) => {
   try {
-    await axiosInstance.patch(URL.QUANTITY_TO_CHANGE(id), { quantity: quantity });
+    await axiosInstance.patch(URL.QUANTITY_TO_CHANGE(id), { quantity });
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error('API 호출 중 오류 발생:', error.message);
