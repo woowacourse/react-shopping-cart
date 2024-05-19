@@ -1,8 +1,8 @@
 import { CartItem, Product } from '../type';
-import { itemQuantityState, uncheckedItemIdsState } from './atoms';
 
 import { fetchCartItems } from '../apis';
 import { selector } from 'recoil';
+import { uncheckedItemIdsState } from './atoms';
 
 export const cartItemsState = selector<CartItem[]>({
   key: 'cartItemsState',
@@ -23,8 +23,7 @@ export const orderAmountState = selector<number>({
 
     return cartItems.reduce((acc, cartItem) => {
       if (uncheckedItemIds.includes(cartItem.id)) return acc;
-      const quantity = get(itemQuantityState(cartItem.id));
-      const currentItemAmount = cartItem.product.price * quantity;
+      const currentItemAmount = cartItem.product.price * cartItem.quantity;
       return acc + currentItemAmount;
     }, 0);
   },
@@ -39,7 +38,7 @@ export const checkedItemState = selector({
     const result = cartItems.reduce(
       (arr, item) => {
         if (uncheckedItemIds.includes(item.id)) return arr;
-        const currentObj = { product: item.product, quantity: get(itemQuantityState(item.id)) };
+        const currentObj = { product: item.product, quantity: item.quantity };
         arr.push(currentObj);
         return arr;
       },
