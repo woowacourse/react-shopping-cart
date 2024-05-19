@@ -24,7 +24,10 @@ export default function CartItemContainer() {
   const handleDeleteItem = async (cartItemId: number) => {
     checkId(cartItemId);
     setItems((prevItems) => prevItems.filter((item) => item.id !== cartItemId));
-    await removeCartItem(cartItemId);
+    await removeCartItem(cartItemId).catch(() => {
+      alert('네트워크 접속이 불안정합니다. 다시 시도해주세요');
+      setItems(items);
+    });
   };
 
   return (
