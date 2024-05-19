@@ -9,13 +9,7 @@ const USER_PASSWORD = process.env.VITE_API_USER_PASSWORD || 'password';
 const PreprocessCartItemList = (arr: ResponseCartItem[]): CartItem[] => {
   return arr.map(({ id, quantity, product }) => ({
     quantity,
-    product: {
-      id,
-      name: product.name,
-      price: product.price,
-      imageUrl: product.imageUrl,
-      category: product.category,
-    },
+    product: product,
     cartItemId: id,
   }));
 };
