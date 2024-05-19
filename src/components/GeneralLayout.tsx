@@ -1,16 +1,31 @@
-import { Suspense } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
+import { css } from '@emotion/react';
 import { Outlet } from 'react-router-dom';
-
-import ErrorPage from '@/pages/ErrorPage';
-import LoadingPage from '@/pages/LoadingPage';
 
 export default function GeneralLayout() {
   return (
-    <ErrorBoundary fallback={<ErrorPage />}>
-      <Suspense fallback={<LoadingPage />}>
+    <div css={container}>
+      <div css={wrapper}>
         <Outlet />
-      </Suspense>
-    </ErrorBoundary>
+      </div>
+    </div>
   );
 }
+
+const container = css`
+  width: 100vw;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const wrapper = css`
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  width: 430px;
+
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+`;
