@@ -8,7 +8,7 @@ export const ItemWrapper = styled.div`
   margin-top: 20px;
 `;
 
-export const FlexBox = styled.div`
+export const ItemFlexBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -51,12 +51,28 @@ export const ItemImgBox = styled.div<{ $imageUrl: string }>`
 export const UpdateButtonWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
 `;
 
 export const ProductQuantity = styled.span`
+  width: 25px;
   height: 15px;
   font-size: 12px;
   line-height: 15px;
   font-weight: 500;
+
+  text-align: center;
 `;
+
+const Styled = {
+  ItemWrapper,
+  ItemFlexBox,
+  ItemButtonWrapper,
+  ItemInfoBox,
+  ItemInfoTextBox,
+  ItemImgBox,
+  UpdateButtonWrapper,
+  ProductQuantity,
+};
+
+export default Styled;

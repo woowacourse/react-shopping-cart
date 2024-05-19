@@ -1,31 +1,38 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
+import { cartItems } from "@/recoil/cartItems";
+import { selectedCartItems } from "@/recoil/selectedCardItems";
+
 import useUpdateItemQuantity from "@/hooks/useUpdateItemQuantity";
+
+import { removeCartItem } from "@/apis";
 
 import Button from "../_common/Button/Button";
 import CheckBox from "../_common/CheckBox/CheckBox";
 import Title from "../_common/Title/Title";
 import Caption from "../_common/Caption/Caption";
+import {
+  StyledMinusButton,
+  StyledPlusButton,
+} from "../_common/QuantityButton/QuantityButton";
 
-import MinusButton from "@/assets/minus-button.svg?react";
-import PlusButton from "@/assets/plus-button.svg?react";
+import LoadingSpinner from "@/assets/loading-spinner.svg?react";
 
 import { CartItem } from "@/types/cart";
 
-import * as S from "./ProductItem.style";
-
-import { removeCartItem } from "@/apis";
-import { cartItems } from "@/recoil/cartItems";
-import { selectedCartItems } from "@/recoil/selectedCardItems";
+import Styled from "./ProductItem.style";
 
 const ProductItem = ({ item }: { item: CartItem }) => {
   const { product, id } = item;
   const { name, imageUrl, price } = product;
 
-  const { quantity, handleIncreaseQuantity, handleDecreaseQuantity } =
-    useUpdateItemQuantity(id);
-  const [isSelected, setIsSelected] = useRecoilState(selectedCartItems(id));
-
   const setCartItemList = useSetRecoilState(cartItems);
+  const [isSelected, setIsSelected] = useRecoilState(selectedCartItems(id));
+  const {
+    isUpdateLoading,
+    quantity,
+    handleIncreaseQuantity,
+    handleDecreaseQuantity,
+  } = useUpdateItemQuantity(id);
 
   const handleRemoveItem = async () => {
     const canRemoveItem = await removeCartItem(id);
@@ -34,14 +41,14 @@ const ProductItem = ({ item }: { item: CartItem }) => {
       setCartItemList((prevCartItems) => {
         return prevCartItems.filter((item) => item.id !== id);
       });
+      setIsSelected(false);
     }
   };
 
   return (
-    <S.ItemWrapper>
-      <S.ItemButtonWrapper>
+    <Styled.ItemWrapper>
+      <Styled.ItemButtonWrapper>
         <CheckBox
-          id={`check-box-${id}`}
           isChecked={isSelected}
           onClick={() => setIsSelected((prevSelected) => !prevSelected)}
         />
@@ -53,25 +60,36 @@ const ProductItem = ({ item }: { item: CartItem }) => {
         >
           <Caption text="삭제" />
         </Button>
-      </S.ItemButtonWrapper>
+      </Styled.ItemButtonWrapper>
 
-      <S.ItemInfoBox>
-        <S.ItemImgBox $imageUrl={imageUrl} />
+      <Styled.ItemInfoBox>
+        <Styled.ItemImgBox $imageUrl={imageUrl} />
 
-        <S.ItemInfoTextBox>
-          <S.FlexBox>
+        <Styled.ItemInfoTextBox>
+          <Styled.ItemFlexBox>
             <Caption text={name} />
-            <Title text={price.toLocaleString() + "원"} />
-          </S.FlexBox>
+            <Title text={`${price.toLocaleString()}원`} />
+          </Styled.ItemFlexBox>
 
-          <S.UpdateButtonWrapper>
-            <MinusButton onClick={handleDecreaseQuantity} />
-            <S.ProductQuantity>{quantity}</S.ProductQuantity>
-            <PlusButton onClick={handleIncreaseQuantity} />
-          </S.UpdateButtonWrapper>
-        </S.ItemInfoTextBox>
-      </S.ItemInfoBox>
-    </S.ItemWrapper>
+          <Styled.UpdateButtonWrapper>
+            <StyledMinusButton
+              onClick={handleDecreaseQuantity}
+              disabled={isUpdateLoading}
+            />
+            {isUpdateLoading ? (
+              <LoadingSpinner />
+            ) : (
+              <Styled.ProductQuantity>{quantity}</Styled.ProductQuantity>
+            )}
+
+            <StyledPlusButton
+              onClick={handleIncreaseQuantity}
+              disabled={isUpdateLoading}
+            />
+          </Styled.UpdateButtonWrapper>
+        </Styled.ItemInfoTextBox>
+      </Styled.ItemInfoBox>
+    </Styled.ItemWrapper>
   );
 };
 
