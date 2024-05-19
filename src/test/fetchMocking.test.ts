@@ -1,4 +1,5 @@
 import { renderHook, waitFor } from "@testing-library/react";
+
 import { RecoilRoot, useRecoilValue } from "recoil";
 import { cartState } from "../store/atom/atoms";
 
@@ -31,7 +32,7 @@ const DUMMY_CART_ITEMS = [
 ];
 
 describe("fetchMocking테스트", () => {
-  beforeAll(async () => {
+  beforeAll(() => {
     server.listen();
   });
 
