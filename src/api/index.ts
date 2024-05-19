@@ -55,3 +55,15 @@ export const deleteCartItem = async (id: CartItemType['id']) => {
     throw new Error('Failed to delete cart item');
   }
 };
+
+export const addCartItem = async (id: CartItemType['id']) => {
+  const response = await fetch(`${BASE_URL}/cart-items`, {
+    method: 'POST',
+    headers: HEADERS,
+    body: JSON.stringify({ productId: id }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to add cart item');
+  }
+};
