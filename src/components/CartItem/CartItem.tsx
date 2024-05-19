@@ -15,21 +15,15 @@ import useCartItemList from '../../recoil/cartItemList/useCartItemList';
 
 export type CartItemProps = {
   product: Product;
-  quantity: number;
   id: number;
 };
 
-const CartItem = ({ product, quantity: initialQuantity, id }: CartItemProps) => {
+const CartItem = ({ product, id }: CartItemProps) => {
   const { name, price, imageUrl } = product;
-  const { quantity, setQuantity, increaseQuantity, decreaseQuantity } = useCartItemQuantity(id);
+  const { quantity, increaseQuantity, decreaseQuantity } = useCartItemQuantity(id);
   const { isSelected, addSelectedId, removeSelectedId } = useCartItemSelectedIdList();
   const { deleteCartItem } = useCartItemList();
   const [error, setError] = useState<Error | null>(null)
-
-  useEffect(() => {
-    setQuantity(initialQuantity);
-    console.log(id, quantity)
-  }, []);
 
   const deleteCartItemWithErrorHandling = async (id: number) => {
     try {

@@ -21,8 +21,8 @@ const CartItemList = () => {
           전체선택
         </Text>
       </S.SelectAllContainer>
-      {cartItemList.map(({ product, quantity, id }: CartItem) => {
-        return <CartItem key={id} product={product} quantity={quantity} id={id} />;
+      {cartItemList.map(({ product, id }: CartItem) => {
+        return <CartItem key={id} product={product} id={id} />;
       })}
     </S.CartItemList>
   );
