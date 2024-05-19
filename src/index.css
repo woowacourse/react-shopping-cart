@@ -140,3 +140,7 @@ button {
   cursor: pointer;
   border: none;
 }
+
+body {
+  overflow-y: hidden;
+}

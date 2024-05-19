@@ -27,7 +27,7 @@ export default function CartProducts() {
         />
       </div>
 
-      <ul>
+      <ul css={cartItemList}>
         {cartItems.map((cartItem) => (
           <CartItem key={cartItem.id} item={cartItem} />
         ))}
@@ -45,4 +45,10 @@ const productsContainer = css`
 
 const allCheckedContainer = css`
   padding-bottom: 20px;
+`;
+
+const cartItemList = css`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;

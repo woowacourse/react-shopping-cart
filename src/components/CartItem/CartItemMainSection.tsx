@@ -55,7 +55,7 @@ const CartItemMainSection = ({ item }: CartItemMainSectionProps) => {
             onClick={handleDecrementQuantity}
             disabled={item.quantity === 1}
           >
-            <img src={MINUS} alt="minus icon" />
+            <img css={countImage} src={MINUS} alt="minus icon" />
           </Button>
           <span>{item.quantity}</span>
           <Button
@@ -63,7 +63,7 @@ const CartItemMainSection = ({ item }: CartItemMainSectionProps) => {
             css={countButton()}
             onClick={handleIncrementQuantity}
           >
-            <img src={PLUS} alt="plus icon" />
+            <img css={countImage} src={PLUS} alt="plus icon" />
           </Button>
         </div>
       </div>
@@ -110,9 +110,9 @@ const countButton = (isDisabled?: boolean) => css`
   justify-content: center;
   align-items: center;
 
-  border: 1px solid #0000001a;
+  padding: 0;
+
   border-radius: 8px;
-  padding: 4px;
 
   background-color: #fff;
 
@@ -124,4 +124,9 @@ const countButton = (isDisabled?: boolean) => css`
 
   cursor: ${isDisabled ? 'auto' : 'pointer'};
   opacity: ${isDisabled ? 0.1 : 1};
+`;
+
+const countImage = css`
+  width: 100%;
+  height: 100%;
 `;

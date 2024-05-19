@@ -21,6 +21,9 @@ const CartItem = ({ item }: Props) => {
 export default CartItem;
 
 const cartItemContainer = css`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   border-top: 1px solid #0000001a;
-  padding: 10px 0;
+  padding-top: 10px;
 `;
