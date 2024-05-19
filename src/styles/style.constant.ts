@@ -4,6 +4,7 @@ export const COLOR = {
   lightGray: '#f7f7f7',
   disableButtonColor: '#BEBEBE',
   borderColor: '#0000001a',
+  gray: '#EEEEEE',
 } as const;
 
 export const SIZE = {
