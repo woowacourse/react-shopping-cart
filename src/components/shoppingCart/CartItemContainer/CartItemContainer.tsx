@@ -41,6 +41,7 @@ export default function CartItemContainer() {
       <Styled.CartItemListContainer>
         <Styled.CheckAllBoxContainer>
           <CheckBox
+            type="button"
             isChecked={isAllChecked}
             onClick={isAllChecked ? handleAllUncheck : handleAllCheck}
           />

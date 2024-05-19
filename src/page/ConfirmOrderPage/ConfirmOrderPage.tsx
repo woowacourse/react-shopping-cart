@@ -45,7 +45,7 @@ export default function ConfirmOrderPage() {
         </Styled.ConfirmOrderContainer>
       )}
 
-      <FooterButton buttonText="결제하기" disabled />
+      <FooterButton type="button" buttonText="결제하기" disabled />
     </>
   );
 }

@@ -18,12 +18,14 @@ export default function QuantityController({
   return (
     <QuantityControllerContainer>
       <QuantityControlButton
+        type="button"
         $controlType="decrease"
         $isEnabled={minQuantity < quantity}
         onClick={handleDecreaseQuantity}
       />
       {quantity}
       <QuantityControlButton
+        type="button"
         $controlType="increase"
         $isEnabled={quantity < maxQuantity}
         onClick={handleIncreaseQuantity}

@@ -5,5 +5,5 @@ interface PreviousPageButtonProps {
 }
 
 export default function PreviousPageButton({ onClick }: PreviousPageButtonProps) {
-  return <Styled.PreviousPageButton onClick={onClick} />;
+  return <Styled.PreviousPageButton type="button" onClick={onClick} />;
 }

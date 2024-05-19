@@ -50,6 +50,7 @@ export default function ShoppingCartPage() {
         </Suspense>
       </Styled.CartContent>
       <FooterButton
+        type="button"
         buttonText="주문 확인"
         disabled={isConfirmButtonDisabled}
         onClick={handleClickConfirmButton}

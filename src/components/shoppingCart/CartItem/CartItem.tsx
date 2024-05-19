@@ -58,7 +58,7 @@ export default function CartItem({
     <Styled.CartItemContainer>
       <Styled.CardItemHeader>
         <CheckBox isChecked={getIsChecked(cartItemId)} onClick={handleClickCheckBox} />
-        <DeleteItemButton buttonText="삭제" onClick={handleClickDeleteButton} />
+        <DeleteItemButton type="button" buttonText="삭제" onClick={handleClickDeleteButton} />
       </Styled.CardItemHeader>
       <Styled.CardItemContent>
         <Styled.ProductImageBox src={product.imageUrl} alt={product.name} />
