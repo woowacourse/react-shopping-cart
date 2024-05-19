@@ -1,7 +1,8 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { cartItemsState } from "../../stores/cartItems";
-import { isCartItemSelectedState } from "../../stores/cartItemSelected";
+import { isAnyCartItemSelectedState } from "../../stores/cartItemSelected";
+
 import Button from "../common/Button";
 import { Wrapper } from "./style";
 
@@ -10,12 +11,12 @@ const Footer = () => {
   const navigate = useNavigate();
 
   const cartItems = useRecoilValue(cartItemsState);
-  const iscartItemSelected = useRecoilValue(isCartItemSelectedState);
+  const isAnyCartItemSelected = useRecoilValue(isAnyCartItemSelectedState);
 
   const disabledButton =
-    Object.values(iscartItemSelected).every((isSelect) => !isSelect) ||
+    location.pathname === "/cart-confirm" ||
     cartItems.length === 0 ||
-    location.pathname === "/cart-confirm";
+    !isAnyCartItemSelected;
 
   const handleClick = () => {
     if (location.pathname === "/") {

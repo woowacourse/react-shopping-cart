@@ -1,21 +1,25 @@
 import { selector } from "recoil";
 import { cartItemsState } from "./cartItems";
-import { isCartItemSelectedState } from "./cartItemSelected";
+import { isCartItemsSelectedState } from "./cartItemSelected";
+
+const DELIVERY_FEE = 3_000;
+const MIN_ORDER_PRICE = 1_00_000;
 
 export const cartPriceState = selector({
   key: "cartPriceState",
   get: ({ get }) => {
     const cartItems = get(cartItemsState);
-    const isCartItemSelected = get(isCartItemSelectedState);
 
     const orderPrice = cartItems.reduce((acc, cartItem) => {
-      if (isCartItemSelected[cartItem.id.toString()]) {
+      const isCartItemSelected = get(isCartItemsSelectedState(cartItem.id));
+      if (isCartItemSelected) {
         return acc + cartItem.product.price * cartItem.quantity;
       }
       return acc;
     }, 0);
 
-    const deliveryFee = orderPrice === 0 ? 0 : orderPrice >= 100000 ? 0 : 3000;
+    const deliveryFee =
+      orderPrice === 0 ? 0 : orderPrice >= MIN_ORDER_PRICE ? 0 : DELIVERY_FEE;
 
     return { orderPrice, deliveryFee, totalPrice: orderPrice + deliveryFee };
   },

@@ -1,8 +1,6 @@
-import { useEffect } from "react";
-
 import { useRecoilState, useRecoilValue } from "recoil";
 import { cartItemsState } from "../../stores/cartItems";
-import { isCartItemSelectedState } from "../../stores/cartItemSelected";
+import { isAllCartItemSelectedState } from "../../stores/cartItemSelected";
 
 import CartItem from "../CartItem";
 
@@ -15,46 +13,25 @@ import Button from "../common/Button";
 
 const CartItemList = () => {
   const cartItemList = useRecoilValue(cartItemsState);
-  const [isCartItemSelected, setIsSelected] = useRecoilState(
-    isCartItemSelectedState
+  const [isAllCartItemSelected, setIsAllCartItemSelected] = useRecoilState(
+    isAllCartItemSelectedState
   );
-  const isAllSelected = Object.values(isCartItemSelected).every(
-    (value) => value
-  );
-
-  useEffect(() => {
-    const newDate: { [key: number]: boolean } = {};
-    cartItemList.forEach((cartItem) => {
-      if (Object.keys(isCartItemSelected).includes(cartItem.id.toString())) {
-        newDate[cartItem.id] = isCartItemSelected[cartItem.id];
-      } else {
-        newDate[cartItem.id] = false;
-      }
-    });
-    setIsSelected(newDate);
-  }, []);
-
-  const handleSelectAllItem = (type: boolean) => {
-    const copyIsSelected = { ...isCartItemSelected };
-    Object.keys(copyIsSelected).forEach(
-      (isSelected) => (copyIsSelected[isSelected] = type)
-    );
-
-    setIsSelected(copyIsSelected);
-  };
 
   return (
     <Wrapper>
       <AllCheckWrapper>
-        {isAllSelected ? (
+        {isAllCartItemSelected ? (
           <Button
             $borderRadius="8px"
-            onClick={() => handleSelectAllItem(false)}
+            onClick={() => setIsAllCartItemSelected(false)}
           >
             <FilledCheck color="white" />
           </Button>
         ) : (
-          <Button $borderRadius="8px" onClick={() => handleSelectAllItem(true)}>
+          <Button
+            $borderRadius="8px"
+            onClick={() => setIsAllCartItemSelected(true)}
+          >
             <OutlineCheck />
           </Button>
         )}

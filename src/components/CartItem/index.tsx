@@ -1,7 +1,7 @@
 import { useRecoilState, useRecoilRefresher_UNSTABLE } from "recoil";
 
 import { cartItemsState } from "../../stores/cartItems";
-import { isCartItemSelectedState } from "../../stores/cartItemSelected";
+import { isCartItemsSelectedState } from "../../stores/cartItemSelected";
 
 import Button from "../common/Button";
 
@@ -28,18 +28,12 @@ interface CardItemProps {
 }
 
 const CartItem = ({ cartItem }: CardItemProps) => {
-  const [isCartItemSelected, setIsSelected] = useRecoilState(
-    isCartItemSelectedState
-  );
-  const refresh = useRecoilRefresher_UNSTABLE(cartItemsState);
-
   const { id, product, quantity } = cartItem;
 
-  const handleToggleSelectItem = () => {
-    const copyIsSelected = { ...isCartItemSelected };
-    copyIsSelected[id] = !copyIsSelected[id];
-    setIsSelected(copyIsSelected);
-  };
+  const [isCartItemsSelected, setIsCartItemsSelected] = useRecoilState(
+    isCartItemsSelectedState(id)
+  );
+  const refresh = useRecoilRefresher_UNSTABLE(cartItemsState);
 
   const handleDeleteItem = async () => {
     try {
@@ -55,20 +49,24 @@ const CartItem = ({ cartItem }: CardItemProps) => {
       await patchCartItemQuantity(id, quantity + number);
       refresh();
     } catch (error) {
-      console.error("Failed to remove cart item:", error);
+      console.error("Failed to update cart item quantity:", error);
     }
   };
 
   return (
     <Wrapper>
       <Header>
-        <Button $borderRadius="8px" onClick={handleToggleSelectItem}>
-          {isCartItemSelected[id] ? (
+        <Button
+          $borderRadius="8px"
+          onClick={() => setIsCartItemsSelected((prev: boolean) => !prev)}
+        >
+          {isCartItemsSelected ? (
             <FilledCheck color="white" />
           ) : (
             <OutlineCheck />
           )}
         </Button>
+
         <Button $theme="white" $size="s" onClick={handleDeleteItem}>
           삭제
         </Button>
