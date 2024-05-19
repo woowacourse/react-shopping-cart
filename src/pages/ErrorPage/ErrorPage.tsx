@@ -8,12 +8,15 @@ interface RouteError {
   status: number;
   statusText: string;
   internal: boolean;
+  data?: {
+    message?: string;
+  };
 }
 
 const ErrorPage = () => {
-  const routeError = useRouteError() as RouteError;
+  const routeError = useRouteError();
   const navigate = useNavigate();
-  const error = new Error(routeError.statusText);
+  const error = routeError instanceof Error ? routeError : new Error((routeError as RouteError).statusText);
 
   const handleClickHomeButton = () => {
     navigate('/');
