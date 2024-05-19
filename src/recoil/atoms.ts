@@ -1,6 +1,20 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
+
+import { CartItem } from '../type';
+import { fetchCartItems } from '../apis';
 
 const UNCHECKED_ITEM_IDS = 'uncheckedItemIds';
+
+export const cartItemsState = atom<CartItem[]>({
+  key: 'cartItemsState',
+  default: selector({
+    key: 'cartItemsState/Default',
+    get: async () => {
+      const products = await fetchCartItems();
+      return products;
+    },
+  }),
+});
 
 export const uncheckedItemIdsState = atom<number[]>({
   key: 'isCheckedItemIdsState',

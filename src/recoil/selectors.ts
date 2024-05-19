@@ -1,18 +1,7 @@
-import { CartItem } from '../type';
-import { fetchCartItems } from '../apis';
-import { selector } from 'recoil';
-import { uncheckedItemIdsState } from './atoms';
+import { cartItemsState, uncheckedItemIdsState } from './atoms';
 
-export const cartItemsState = selector<CartItem[]>({
-  key: 'cartItemsState',
-  get: async () => {
-    const cartItems = await fetchCartItems();
-    return cartItems;
-  },
-  set: (_, newValue) => {
-    return newValue;
-  },
-});
+import { CartItem } from '../type';
+import { selector } from 'recoil';
 
 export const checkedItemsState = selector<CartItem[]>({
   key: 'checkedItemState',
