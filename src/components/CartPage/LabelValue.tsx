@@ -32,17 +32,12 @@ const containerCSS = css`
 `;
 
 const labelCSS = css`
-  font-family: Noto Sans;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 16px;
+  font: var(--cart-subtitle);
+  color: var(--grey-400);
   text-align: left;
 `;
 
 const valueCSS = css`
-  font-family: Noto Sans KR;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 34.75px;
+  font: var(--cart-title);
   text-align: right;
 `;

@@ -18,10 +18,19 @@ const OrderSummary = () => {
         <span className={InfoTextCSS}>총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</span>
       </div>
       <Splitter />
-      <LabelValue label="주문 금액" value={formatCurrency(orderPrice)} />
-      <LabelValue label="배송비" value={formatCurrency(shippingFee)} />
+      <LabelValue
+        label="주문 금액"
+        value={formatCurrency(orderPrice)}
+      />
+      <LabelValue
+        label="배송비"
+        value={formatCurrency(shippingFee)}
+      />
       <Splitter />
-      <LabelValue label="총 결제금액" value={formatCurrency(totalPrice)} />
+      <LabelValue
+        label="총 결제금액"
+        value={formatCurrency(totalPrice)}
+      />
     </div>
   );
 };
@@ -40,9 +49,7 @@ const InfoContainer = css`
 `;
 
 const InfoTextCSS = css`
-  font-family: Noto Sans;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 15px;
+  font: var(--cart-label);
+  color: var(--grey-400);
   text-align: left;
 `;

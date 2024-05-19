@@ -8,11 +8,7 @@ const CartTitle = () => {
   return (
     <div className={cartTitleCSS}>
       <div className={cartTitleTextCSS}>장바구니</div>
-      {cartItems.length > 0 && (
-        <div className={cartTitleSubTextCSS}>
-          <p>현재 {cartItems.length}종류의 상품이 담겨있습니다.</p>
-        </div>
-      )}
+      {cartItems.length > 0 && <p className={cartTitleSubTextCSS}>현재 {cartItems.length}종류의 상품이 담겨있습니다.</p>}
     </div>
   );
 };
@@ -26,17 +22,12 @@ const cartTitleCSS = css`
 `;
 
 const cartTitleTextCSS = css`
-  font-family: Noto Sans KR;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 34.75px;
+  font: var(--cart-title);
   text-align: left;
 `;
 
 const cartTitleSubTextCSS = css`
-  font-family: Noto Sans;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 15px;
+  font: var(--cart-label);
+  color: var(--grey-400);
   text-align: left;
 `;

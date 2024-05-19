@@ -31,9 +31,9 @@ const CartItems = () => {
           variant={isAllChecked ? "primary" : "secondary"}
           onClick={handleAllChecked}
         >
-          <CheckIcon fill={isAllChecked ? "#ffffff" : "#0000001A"} />
+          <CheckIcon fill={isAllChecked ? "var(--grey-100)" : "var(--grey-200)"} />
         </Button>
-        <span>전체 선택</span>
+        <span className={allCheckedTestCSS}>전체 선택</span>
       </div>
       <div>
         {cartItems.map((item) => (
@@ -61,4 +61,9 @@ const allCheckContainerCSS = css`
   align-items: center;
   gap: 8px;
   margin-bottom: 20px;
+`;
+
+const allCheckedTestCSS = css`
+  font: var(--cart-label);
+  color: var(--grey-400);
 `;

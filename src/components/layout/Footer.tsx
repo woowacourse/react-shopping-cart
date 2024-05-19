@@ -8,7 +8,10 @@ interface FooterPrps {
 
 const Footer = ({ text, isActive, onClick }: FooterPrps) => {
   return (
-    <footer className={footerCSS(isActive)} onClick={isActive ? onClick : undefined}>
+    <footer
+      className={footerCSS(isActive)}
+      onClick={isActive ? onClick : undefined}
+    >
       {text}
     </footer>
   );
@@ -28,10 +31,8 @@ const footerCSS = (isActive: boolean) => css`
   height: 64px;
   padding: 0 24px;
   cursor: ${isActive ? "pointer" : "not-allowed"};
-  background-color: ${isActive ? "#000000" : "#BEBEBE"};
+  background-color: ${isActive ? "var(--grey-500)" : "#BEBEBE"};
 
-  color: #ffffff;
-  font-family: Noto Sans;
-  font-size: 16px;
-  font-weight: 700;
+  font: var(--cart-subtitle);
+  color: var(--grey-100);
 `;

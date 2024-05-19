@@ -23,7 +23,10 @@ const OrderConfirmationPage = () => {
   return (
     <CartLayout>
       <Header>
-        <LeftArrow className={leftArrowBtnCSS} onClick={handleClick} />
+        <LeftArrow
+          className={leftArrowBtnCSS}
+          onClick={handleClick}
+        />
       </Header>
       <Content>
         <div className={confirmTextCSS}>
@@ -33,7 +36,10 @@ const OrderConfirmationPage = () => {
           <div className={totalPriceCSS}> {formatCurrency(cartTotalPrice)}</div>
         </div>
       </Content>
-      <Footer text="결제하기" isActive={false} />
+      <Footer
+        text="결제하기"
+        isActive={false}
+      />
     </CartLayout>
   );
 };
@@ -54,31 +60,21 @@ const confirmTextCSS = css`
 `;
 
 const headerCSS = css`
-  font-family: Noto Sans KR;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 34.75px;
+  font: var(--cart-title);
 `;
 
 const textCSS = css`
   white-space: pre-line;
-  font-family: Noto Sans;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 18px;
+  font: var(--cart-label);
+  color: var(--grey-400);
   text-align: center;
 `;
 
 const totalPriceTitleCSS = css`
-  font-family: Noto Sans;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 16px;
+  font: var(--cart-subtitle);
+  color: var(--grey-400);
 `;
 
 const totalPriceCSS = css`
-  font-family: Noto Sans KR;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 34.75px;
+  font: var(--cart-title);
 `;

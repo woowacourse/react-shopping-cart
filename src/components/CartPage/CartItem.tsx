@@ -49,7 +49,7 @@ const CartItem = ({ product, handleDelete }: CardItemProps) => {
           variant={checkedIds.includes(product.id) ? "primary" : "secondary"}
           onClick={handleChecked}
         >
-          <CheckIcon fill={checkedIds.includes(product.id) ? "#ffffff" : "#0000001A"} />
+          <CheckIcon fill={checkedIds.includes(product.id) ? "var(--grey-100)" : "var(--grey-200)"} />
         </Button>
         <Button onClick={handleDelete}>삭제</Button>
       </div>
@@ -123,17 +123,12 @@ const ItemInfoCSS = css`
 `;
 
 const ItemNameCSS = css`
-  font-family: Noto Sans;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 15px;
+  font: var(--cart-label);
+  color: var(--grey-400);
   text-align: left;
 `;
 const ItemPriceCSS = css`
-  font-family: Noto Sans KR;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 34.75px;
+  font: var(--cart-title);
   text-align: left;
 `;
 const ItemCountCSS = css`
@@ -141,9 +136,7 @@ const ItemCountCSS = css`
   column-gap: 8px;
   justify-content: flex-start;
   align-items: center;
-  font-family: Noto Sans;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 15px;
+  font: var(--cart-label);
+  color: var(--grey-400);
   text-align: center;
 `;

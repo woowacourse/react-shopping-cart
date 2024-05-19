@@ -10,7 +10,10 @@ interface ButtonProps extends React.ComponentPropsWithRef<"button"> {
 
 const Button = ({ children, variant = "text", ...rest }: ButtonProps) => {
   return (
-    <button className={getButtonClassName(variant)} {...rest}>
+    <button
+      className={getButtonClassName(variant)}
+      {...rest}
+    >
       {children}
     </button>
   );
@@ -25,12 +28,13 @@ const getButtonClassName = (variant: ButtonVariant) => {
     align-items: center;
     width: ${variant === "text" ? "fit-content" : "24px"};
     height: 24px;
-    border-radius: ${variant === "text" ? "4px" : "8px"};
-    border: 1px solid #0000001a;
-    outline: none;
-    background-color: ${variant === "primary" ? "#000000" : "#ffffff"};
-    color: ${variant === "primary" ? "#ffffff" : "#212529"};
-    cursor: pointer;
     padding: ${variant === "text" ? "0 8px" : "0"};
+    border-radius: ${variant === "text" ? "4px" : "8px"};
+    border: 1px solid var(--grey-200);
+    outline: none;
+    background-color: ${variant === "primary" ? "var(--grey-500)" : "var(--grey-100)"};
+    font: var(--cart-label);
+    color: ${variant === "primary" ? "var(--grey-100)" : "#212529"};
+    cursor: pointer;
   `;
 };

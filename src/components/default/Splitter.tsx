@@ -4,6 +4,6 @@ const Splitter = () => <div className={splitterCSS}></div>;
 
 const splitterCSS = css`
   height: 1px;
-  background-color: #0000001a;
+  background-color: var(--grey-200);
 `;
 export default Splitter;

@@ -22,10 +22,9 @@ const headerCSS = css`
   width: 429px;
   height: 64px;
   padding: 0 24px;
-  background: #000000;
+  background: var(--grey-500);
 
-  color: #ffffff;
-  font-family: Noto Sans;
+  color: var(--grey-100);
   font-size: 20px;
   font-weight: 800;
 `;
