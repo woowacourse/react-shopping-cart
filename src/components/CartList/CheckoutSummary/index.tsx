@@ -1,5 +1,8 @@
+import { useRecoilValue } from "recoil";
 import InfoIconSrc from "../../../assets/infoIcon.png";
+import { cartListTotalPrice } from "../../../recoil/selectors";
 import formatPriceToKoreanWon from "../../../util/formatPriceToKoreanWon";
+import getShippingFee from "../../../util/getShippingFee";
 import {
   Container,
   Divider,
@@ -11,15 +14,10 @@ import {
   PriceRowContainer,
 } from "./style";
 
-interface CheckoutSummaryProps {
-  totalPrice: number;
-  shippingFee: number;
-}
+export default function CheckoutSummary() {
+  const totalPrice = useRecoilValue(cartListTotalPrice);
+  const shippingFee = getShippingFee(totalPrice);
 
-export default function CheckoutSummary({
-  totalPrice,
-  shippingFee,
-}: CheckoutSummaryProps) {
   return (
     <Container>
       <Info>

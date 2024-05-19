@@ -1,5 +1,4 @@
-import { useRecoilValue, useRecoilValueLoadable } from "recoil";
-import { cartListTotalPrice } from "../../recoil/selectors";
+import { useRecoilValueLoadable } from "recoil";
 
 import { useNavigate } from "react-router-dom";
 import BlankCart from "../../components/BlankCart";
@@ -10,7 +9,6 @@ import BottomButton from "../../components/common/BottomButton";
 import RecoilSuspense from "../../components/common/RecoilSuspense";
 import Layout from "../../layout";
 import { cartListState } from "../../recoil/atoms";
-import getShippingFee from "../../util/getShippingFee";
 import { Description, Title } from "../ConfirmOrderPage/styles";
 import {
   CartHeaderContainer,
@@ -20,8 +18,6 @@ import {
 
 export default function CartPage() {
   const cartList = useRecoilValueLoadable(cartListState);
-  const totalPrice = useRecoilValue(cartListTotalPrice);
-  const shipping = getShippingFee(totalPrice);
   const navigate = useNavigate();
 
   const handleConfirmOrder = async () => {
@@ -53,7 +49,7 @@ export default function CartPage() {
             <CartListWrapper>
               <CartList items={cartList.contents} />
             </CartListWrapper>
-            <CheckoutSummary totalPrice={totalPrice} shippingFee={shipping} />
+            <CheckoutSummary />
           </CartPageContainer>
         ) : (
           <BlankCart />
