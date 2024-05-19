@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { getCartItemCounts } from '../../api';
 import { ConfirmButton } from '../../components/confirmButton/ConfirmButton';
-import Header from '../../components/header/Header';
+
 import {
   cartErrorMessageState,
   cartItemsCountState,
+  selectedItemsState,
 } from '../../recoil/atoms/atoms';
 import {
-  categoryCountState,
+  selectedItemsCountState,
   totalPriceState,
 } from '../../recoil/selector/selector';
 import {
@@ -21,12 +22,13 @@ import {
 } from './OrderConfirmationPage.styled';
 import { ErrorAlertModal } from '../../components/errorAlertModal/ErrorAlertModal';
 import { CART_MESSAGES, ORDER_MESSAGES } from '../../constants/cart';
+import Header from '../../components/header/Header';
 
 export const OrderConfirmationPage: React.FC = () => {
   const totalPrice = useRecoilValue(totalPriceState);
-  const categoryCount = useRecoilValue(categoryCountState);
-  const [cartItemsCount, setCartItemsCount] =
-    useRecoilState(cartItemsCountState);
+  const selectedItems = useRecoilValue(selectedItemsState);
+  const selectedItemsCount = useRecoilValue(selectedItemsCountState);
+  const setCartItemsCount = useSetRecoilState(cartItemsCountState);
   const [cartErrorMessage, setCartErrorMessage] = useRecoilState(
     cartErrorMessageState,
   );
@@ -43,7 +45,7 @@ export const OrderConfirmationPage: React.FC = () => {
     };
 
     fetchCartItems();
-  }, []);
+  }, [setCartItemsCount, setCartErrorMessage]);
 
   return (
     <>
@@ -52,7 +54,10 @@ export const OrderConfirmationPage: React.FC = () => {
         <StyledConfirmationPageTitle>주문확인</StyledConfirmationPageTitle>
         <StyledConfirmationPageDescription>
           <span>
-            {ORDER_MESSAGES.ORDER_SUMMARY(categoryCount, cartItemsCount)}
+            {ORDER_MESSAGES.ORDER_SUMMARY(
+              Object.keys(selectedItems).length,
+              selectedItemsCount,
+            )}
           </span>
           <span>{ORDER_MESSAGES.FINAL_AMOUNT_CONFIRM}</span>
         </StyledConfirmationPageDescription>

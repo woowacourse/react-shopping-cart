@@ -10,6 +10,21 @@ export const categoryCountState = selector<number>({
   },
 });
 
+export const selectedItemsCountState = selector<number>({
+  key: 'selectedItemsCountState',
+  get: ({ get }) => {
+    const cartItems = get(cartItemsState);
+    const selectedItems = get(selectedItemsState);
+    const selectedItemsCount = cartItems.reduce((total, item) => {
+      if (selectedItems[item.id]) {
+        return total + item.quantity;
+      }
+      return total;
+    }, 0);
+    return selectedItemsCount;
+  },
+});
+
 export const orderPriceState = selector<number>({
   key: 'orderPriceState',
   get: ({ get }) => {
