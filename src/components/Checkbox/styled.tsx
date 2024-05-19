@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import checked from '../../assets/checked.svg';
-import unchecked from '../../assets/unchecked.svg';
+import checked from '../../assets/checked.png';
+import unchecked from '../../assets/unchecked.png';
 
 export const Checkbox = styled.label`
   width: 2.5rem;
