@@ -10,6 +10,7 @@ import infoOutline from "../../assets/images/infoOutline.png";
 import OutlineCheck from "../../assets/icon/OutlineCheck";
 import FilledCheck from "../../assets/icon/FilledCheck";
 import Button from "../common/Button";
+import { CART_PRICE } from "../../constants/cart";
 
 const CartItemList = () => {
   const cartItemList = useRecoilValue(cartItemsState);
@@ -42,7 +43,9 @@ const CartItemList = () => {
       ))}
       <Footer>
         <img src={infoOutline} />
-        <div>총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</div>
+        <div>
+          총 주문 금액이 {CART_PRICE.minOrderPrice} 이상일 경우 무료 배송됩니다.
+        </div>
       </Footer>
     </Wrapper>
   );

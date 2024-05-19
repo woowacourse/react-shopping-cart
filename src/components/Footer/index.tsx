@@ -7,19 +7,21 @@ import Button from "../common/Button";
 import { Wrapper } from "./style";
 
 const Footer = () => {
-  const location = useLocation();
+  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const cartItems = useRecoilValue(cartItemsState);
   const isAnyCartItemSelected = useRecoilValue(isAnyCartItemSelectedState);
 
   const disabledButton =
-    location.pathname === "/cart-confirm" ||
+    pathname === "/cart-confirm" ||
     cartItems.length === 0 ||
     !isAnyCartItemSelected;
 
-  const handleClick = () => {
-    if (location.pathname === "/") {
+  const buttonText = pathname === "/" ? "주문 확인" : "결제하기";
+
+  const handleButtonClick = () => {
+    if (pathname === "/") {
       navigate("/cart-confirm");
     }
   };
@@ -27,13 +29,13 @@ const Footer = () => {
   return (
     <Wrapper>
       <Button
-        onClick={handleClick}
+        onClick={handleButtonClick}
         $theme={disabledButton ? "disabled" : "black"}
         $size="full"
         $borderRadius="0"
         disabled={disabledButton ? true : false}
       >
-        {location.pathname === "/" ? "주문 확인" : "결제하기"}
+        {buttonText}
       </Button>
     </Wrapper>
   );

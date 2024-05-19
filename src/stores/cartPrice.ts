@@ -1,9 +1,7 @@
 import { selector } from "recoil";
 import { cartItemsState } from "./cartItems";
 import { isCartItemsSelectedState } from "./cartItemSelected";
-
-const DELIVERY_FEE = 3_000;
-const MIN_ORDER_PRICE = 1_00_000;
+import { CART_PRICE } from "../constants/cart";
 
 export const cartPriceState = selector({
   key: "cartPriceState",
@@ -19,7 +17,11 @@ export const cartPriceState = selector({
     }, 0);
 
     const deliveryFee =
-      orderPrice === 0 ? 0 : orderPrice >= MIN_ORDER_PRICE ? 0 : DELIVERY_FEE;
+      orderPrice === 0
+        ? 0
+        : orderPrice >= CART_PRICE.minOrderPrice
+        ? 0
+        : CART_PRICE.deliveryFee;
 
     return { orderPrice, deliveryFee, totalPrice: orderPrice + deliveryFee };
   },
