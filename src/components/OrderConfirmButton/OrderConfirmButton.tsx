@@ -1,13 +1,19 @@
 import Button from "../_common/Button/Button";
-import * as S from "./OrderConfirmButton.style";
 
-const OrderConfirmButton = ({ disabled }: { disabled: boolean }) => {
+import Styled from "./OrderConfirmButton.style";
+
+interface OrderConfirmButtonProps {
+  onClick?: () => void;
+  disabled: boolean;
+}
+
+const OrderConfirmButton = ({ ...props }: OrderConfirmButtonProps) => {
   return (
-    <S.OrderConfirmButton>
-      <Button width="full" size="xLarge" theme="dark" disabled={disabled}>
-        <S.ButtonText>주문 확인</S.ButtonText>
+    <Styled.OrderConfirmButton>
+      <Button width="full" size="xLarge" theme="dark" {...props}>
+        <Styled.ButtonText>주문 확인</Styled.ButtonText>
       </Button>
-    </S.OrderConfirmButton>
+    </Styled.OrderConfirmButton>
   );
 };
 
