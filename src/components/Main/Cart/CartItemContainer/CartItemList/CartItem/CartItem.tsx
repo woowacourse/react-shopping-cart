@@ -60,7 +60,7 @@ const CartItem = ({ CartItemInfo }: CartItemProps) => {
   };
 
   const handleMinusButtonClick = () => {
-    changeProductAmount({ type: "minus", quantity: quantity[id], id });
+    changeProductAmount({ quantity: quantity[id] - 1, id });
     if (quantity[id] === 1) {
       executeDeleteProduct();
       return;
@@ -70,7 +70,7 @@ const CartItem = ({ CartItemInfo }: CartItemProps) => {
   };
 
   const handlePlusButtonClick = () => {
-    changeProductAmount({ type: "plus", quantity: quantity[id], id });
+    changeProductAmount({ quantity: quantity[id] + 1, id });
     setQuantity((prev) => ({ ...prev, [id]: prev[id] + 1 }));
   };
 

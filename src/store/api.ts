@@ -9,6 +9,7 @@ export const fetchProducts = async (method: MethodType) => {
       method,
       headers: { Authorization: API_TOKEN },
     });
+
     const data = await response.json();
     return data;
   } catch (error) {
@@ -27,15 +28,14 @@ export const deleteProduct = async (cartId: number) => {
 interface ChangeProductAmountProps {
   quantity: number;
   id: number;
-  type: "plus" | "minus";
 }
 
-export const changeProductAmount = async ({ quantity, id, type }: ChangeProductAmountProps) => {
+export const changeProductAmount = async ({ quantity, id }: ChangeProductAmountProps) => {
   await fetch(import.meta.env.VITE_API_BASE_URL + `/cart-items/${id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
     body: JSON.stringify({
-      quantity: type === "plus" ? quantity + 1 : quantity - 1,
+      quantity,
     }),
   });
 };

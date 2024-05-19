@@ -1,22 +1,7 @@
 import { selector } from "recoil";
 import { itemEachCheckState, itemQuantityState } from "../atom/atoms";
-import { fetchProducts } from "../api";
 import { SHIPPING_CONSTANT } from "../../constants";
 import { cartState } from "../atom/atoms";
-import { LOCAL_STORAGE_KEY } from "../../constants";
-
-export const fetchCartState = selector({
-  key: "fetchCartState",
-  get: async () => {
-    const { content }: { content: CartItemInfo[] } = await fetchProducts("GET");
-    const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}");
-    content.forEach((cartItem) => {
-      if (localData[cartItem.id] === undefined) localData[cartItem.id] = true;
-    });
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(localData));
-    return content;
-  },
-});
 
 export const orderAmountState = selector({
   key: "orderAmount",
