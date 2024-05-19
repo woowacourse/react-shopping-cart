@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Suspense } from "react";
 import { CartItemContainerStyle, CartItemEmptyStyle } from "./CartItemContainer.style";
-import CartItemControls from "./CartItemControls/CartItemControls";
+import CartItemControls from "./CartItemsToolBar/CartItemsToolBar";
 import CartItemList from "./CartItemList/CartItemList";
 
 import { useRecoilValue } from "recoil";

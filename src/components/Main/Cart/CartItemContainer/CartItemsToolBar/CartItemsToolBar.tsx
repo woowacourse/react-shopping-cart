@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { useRecoilState } from "recoil";
 import Checkbox from "../../../../Button/Checkbox/Checkbox";
-import { ControlStyle } from "./CartItemControls.style";
+import { ControlStyle } from "./CartItemsToolBar.style";
 import { checkAllItemState } from "../../../../../store/atom/atoms";
 
-const CartItemControls = () => {
+const CartItemsToolBar = () => {
   const [state, setState] = useRecoilState(checkAllItemState);
 
   const handleClick = () => {
@@ -21,4 +21,4 @@ const CartItemControls = () => {
   );
 };
 
-export default CartItemControls;
+export default CartItemsToolBar;
