@@ -9,13 +9,13 @@ export const StyledCartItemCardList = styled.div`
   margin-bottom: 52px;
 `;
 
-export const StyledCartItemSelectContainer = styled.div`
+export const StyledCartItemCheckContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
 `;
 
-export const StyledCartItemSelectText = styled.span`
+export const StyledCartItemCheckText = styled.span`
   font-family: Noto Sans;
   font-size: 12px;
   font-weight: 500;

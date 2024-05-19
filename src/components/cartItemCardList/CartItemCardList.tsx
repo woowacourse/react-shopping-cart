@@ -1,65 +1,60 @@
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { cartItemsState, isAllSelectedState, selectedItemsState } from "../../recoil/atoms/atoms";
-import { ActionButton } from "../button/actionButton/ActionButton";
+import { cartItemsState, isAllCheckedState, checkedItemState } from "../../recoil/atoms/atoms";
+import { CheckboxButton } from "../button/checkboxButton/CheckboxButton";
 import { CartItemCard } from "../cartItemCard/CartItemCard";
 import {
   StyledCartItemCardList,
-  StyledCartItemSelectContainer,
-  StyledCartItemSelectText,
+  StyledCartItemCheckContainer,
+  StyledCartItemCheckText,
 } from "./CartItemCardList.styled";
-import { ACTION_TYPES } from "../../constants";
 
 export const CartItemCardList: React.FC = () => {
   const cartItems = useRecoilValue(cartItemsState);
-  const [selectedItems, setSelectedItems] = useRecoilState(selectedItemsState);
-  const [isAllSelected, setIsAllSelected] = useRecoilState(isAllSelectedState);
+  const [chekcedItems, setCheckedItems] = useRecoilState(checkedItemState);
+  const [isAllChecked, setIsAllChecked] = useRecoilState(isAllCheckedState);
 
   useEffect(() => {
-    const allSelected = cartItems.every((item) => selectedItems[item.id]);
-    setIsAllSelected(allSelected);
-  }, [cartItems, selectedItems, setIsAllSelected]);
+    const allChecked = cartItems.every((item) => chekcedItems[item.id]);
+    setIsAllChecked(allChecked);
+  }, [cartItems, chekcedItems, setIsAllChecked]);
 
   useEffect(() => {
-    localStorage.setItem("selectedItemsState", JSON.stringify(selectedItems));
-    localStorage.setItem("isAllSelectedState", JSON.stringify(isAllSelected));
-  }, [selectedItems, isAllSelected]);
+    localStorage.setItem("checkedItemState", JSON.stringify(chekcedItems));
+    localStorage.setItem("isAllCheckedState", JSON.stringify(isAllChecked));
+  }, [chekcedItems, isAllChecked]);
 
-  const handleSelectAll = () => {
-    const newSelectedItems: Record<number, boolean> = {};
-    if (!isAllSelected) {
+  const handleCheckAll = () => {
+    const newCheckedItem: Record<number, boolean> = {};
+    if (!isAllChecked) {
       cartItems.forEach((item) => {
-        newSelectedItems[item.id] = true;
+        newCheckedItem[item.id] = true;
       });
     }
 
-    setSelectedItems(newSelectedItems);
-    setIsAllSelected(!isAllSelected);
+    setCheckedItems(newCheckedItem);
+    setIsAllChecked(!isAllChecked);
   };
 
-  const handleSelectItem = (id: number) => {
-    setSelectedItems((prev) => {
-      const newSelectedItems = { ...prev, [id]: !prev[id] };
-      return newSelectedItems;
+  const handleCheckItem = (id: number) => {
+    setCheckedItems((prev) => {
+      const newCheckedItem = { ...prev, [id]: !prev[id] };
+      return newCheckedItem;
     });
   };
 
   return (
     <StyledCartItemCardList>
-      <StyledCartItemSelectContainer>
-        <ActionButton
-          type={ACTION_TYPES.SELECT}
-          clicked={isAllSelected}
-          onSelect={handleSelectAll}
-        />
-        <StyledCartItemSelectText>전체선택</StyledCartItemSelectText>
-      </StyledCartItemSelectContainer>
+      <StyledCartItemCheckContainer>
+        <CheckboxButton clicked={isAllChecked} onCheck={handleCheckAll} />
+        <StyledCartItemCheckText>전체선택</StyledCartItemCheckText>
+      </StyledCartItemCheckContainer>
       {cartItems.map((item) => (
         <CartItemCard
           key={item.id}
           {...item}
-          selected={!!selectedItems[item.id]}
-          onSelect={() => handleSelectItem(item.id)}
+          checked={!!chekcedItems[item.id]}
+          onCheck={() => handleCheckItem(item.id)}
         />
       ))}
     </StyledCartItemCardList>
