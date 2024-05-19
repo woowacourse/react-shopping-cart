@@ -6,12 +6,29 @@ const API_URL = import.meta.env.VITE_API_URL;
 const USER_ID = import.meta.env.VITE_USER_ID;
 const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
 
-export async function getCartItems(): Promise<CartItem[]> {
+type HttpMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+
+interface APIOptions {
+  method: HttpMethod;
+  headers?: HeadersInit;
+  body?: object;
+}
+
+const cartAPIClient = async (endPoint: string, apiOptions: APIOptions) => {
+  const { method, headers, body } = apiOptions;
+
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
-  const response = await fetch(`${API_URL}/cart-items`, {
-    method: "GET",
-    headers: { Authorization: token },
+  const response = await fetch(`${API_URL}${endPoint}`, {
+    method: method,
+    headers: { Authorization: token, ...headers },
+    body: body ? JSON.stringify(body) : null,
   });
+
+  return response;
+};
+
+export const getCartItems = async (): Promise<CartItem[]> => {
+  const response = await cartAPIClient("/cart-items", { method: "GET" });
 
   if (!response.ok) {
     throw new Error(
@@ -20,23 +37,19 @@ export async function getCartItems(): Promise<CartItem[]> {
   }
 
   const data = await response.json();
-
   return data.content;
-}
+};
 
-export async function patchCartItemQuantity(
+export const patchCartItemQuantity = async (
   cartItemId: number,
   quantity: number
-): Promise<boolean> {
-  const token = generateBasicToken(USER_ID, USER_PASSWORD);
-
-  const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
+): Promise<boolean> => {
+  const response = await cartAPIClient(`/cart-items/${cartItemId}`, {
     method: "PATCH",
     headers: {
-      Authorization: token,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ quantity }),
+    body: { quantity },
   });
 
   if (!response.ok) {
@@ -44,15 +57,11 @@ export async function patchCartItemQuantity(
   }
 
   return response.ok;
-}
+};
 
-export async function removeCartItem(cartItemId: number): Promise<boolean> {
-  const token = generateBasicToken(USER_ID, USER_PASSWORD);
-  const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
+export const removeCartItem = async (cartItemId: number): Promise<boolean> => {
+  const response = await cartAPIClient(`/cart-items/${cartItemId}`, {
     method: "DELETE",
-    headers: {
-      Authorization: token,
-    },
   });
 
   if (!response.ok) {
@@ -60,4 +69,4 @@ export async function removeCartItem(cartItemId: number): Promise<boolean> {
   }
 
   return response.ok;
-}
+};
