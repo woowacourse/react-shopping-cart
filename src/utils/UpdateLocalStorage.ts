@@ -1,7 +1,4 @@
-interface LocalShoppingCartType {
-  id: number;
-  isChecked: boolean;
-}
+import { LocalShoppingCartType } from "../types/localStorage";
 
 export const updateLocalStorage = ({
   id,
