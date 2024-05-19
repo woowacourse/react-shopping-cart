@@ -5,7 +5,7 @@ import { ConfirmButton } from "../../components/button/confirmButton/ConfirmButt
 import Header from "../../components/header/Header";
 import { BUTTON_COLORS, ERROR_MESSAGES, HEADER_TYPES, INFO_MESSAGES } from "../../constants";
 import { totalItemCountState } from "../../recoil/atoms/atoms";
-import { uniqueItemCountState, totalPriceState } from "../../recoil/selector/selector";
+import { cartSummarySelectorState, uniqueItemCountState } from "../../recoil/selector/selector";
 import {
   StyledConfirmationPage,
   StyledConfirmationPageDescription,
@@ -16,7 +16,7 @@ import {
 } from "./OrderConfirmationPage.styled";
 
 export const OrderConfirmationPage: React.FC = () => {
-  const totalPrice = useRecoilValue(totalPriceState);
+  const { totalPrice } = useRecoilValue(cartSummarySelectorState);
   const uniqueItemCount = useRecoilValue(uniqueItemCountState);
   const [totalItemCount, setTotalItemCount] = useRecoilState(totalItemCountState);
 
