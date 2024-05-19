@@ -2,18 +2,18 @@ import { useRecoilValue } from 'recoil';
 import Header from '../../Header/Header';
 import OrderButton from '../../OrderButton/OrderButton';
 import * as Styled from './style';
-import { CartItemsCalculatorSelector } from '../../../recoil/cartItems';
+import { cartItemsCalculatorState } from '../../../recoil/cartItems';
 import { useNavigate } from 'react-router-dom';
 
 const OrderConfirmation = () => {
   const navigator = useNavigate();
 
   const { totalCartItemQuantity, selectedCartItemCount, totalPaymentAmount } =
-    useRecoilValue(CartItemsCalculatorSelector);
+    useRecoilValue(cartItemsCalculatorState);
 
   return (
     <Styled.OrderConfirmation>
-      <Header title="⬅" onClick={() => navigator(-1)} />
+      <Header onClick={() => navigator(-1)} />
       <Styled.Container>
         <Styled.Content>
           <Styled.Title>주문 확인</Styled.Title>
@@ -32,11 +32,9 @@ const OrderConfirmation = () => {
           </Styled.TotalPaymentAmountContainer>
         </Styled.Content>
       </Styled.Container>
-      <OrderButton
-        onClick={() => console.log('주문 확인')}
-        label="주문 확인"
-        isOrderable={false}
-      />
+      <OrderButton onClick={() => console.log('주문 확인')} isOrderable={false}>
+        "주문 확인"
+      </OrderButton>
     </Styled.OrderConfirmation>
   );
 };
