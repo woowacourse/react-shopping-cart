@@ -26,8 +26,7 @@ interface CartItemProps {
   CartItemInfo: CartItemInfo;
 }
 
-const CartItem = ({ CartItemInfo }: CartItemProps) => {
-  const { id } = CartItemInfo;
+const CartItem = ({ CartItemInfo: { id, product } }: CartItemProps) => {
   const [quantity, setQuantity] = useRecoilState(itemQuantityState);
   const [isCheck, setIsCheck] = useRecoilState(itemEachCheckState(id));
   const setCartState = useSetRecoilState(cartState);
@@ -54,17 +53,12 @@ const CartItem = ({ CartItemInfo }: CartItemProps) => {
     });
   };
 
-  const handleDeleteButtonClick = () => {
-    executeDeleteProduct();
-  };
-
   const handleMinusButtonClick = () => {
     changeProductAmount({ quantity: quantity[id] - 1, id });
     if (quantity[id] === 1) {
       executeDeleteProduct();
       return;
     }
-
     setQuantity((prev) => ({ ...prev, [id]: prev[id] - 1 }));
   };
 
@@ -78,15 +72,15 @@ const CartItem = ({ CartItemInfo }: CartItemProps) => {
       <Divider />
       <div css={CartItemDetailControlsStyle}>
         <Checkbox isCheck={isCheck} onClick={handleCheckBoxClick} />
-        <DeleteButton onClick={handleDeleteButtonClick} />
+        <DeleteButton onClick={executeDeleteProduct} />
       </div>
       <div css={CartItemInfoStyle}>
         <div>
-          <img src={CartItemInfo.product.imageUrl} css={CartItemImageStyle} />
+          <img src={product.imageUrl} css={CartItemImageStyle} />
         </div>
         <div>
-          <div css={CartItemNameStyle}>{CartItemInfo.product.name}</div>
-          <div css={CartItemPriceStyle}>{CartItemInfo.product.price.toLocaleString() + "원"}</div>
+          <div css={CartItemNameStyle}>{product.name}</div>
+          <div css={CartItemPriceStyle}>{product.price.toLocaleString() + "원"}</div>
           <div css={CartItemQuantityContainerStyle}>
             <QuantityButton onClick={handleMinusButtonClick} type={"minus"} />
             <div css={CartItemQuantityStyle}>{quantity[id]}</div>
