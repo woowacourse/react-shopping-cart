@@ -10,11 +10,11 @@ const router = createBrowserRouter(
       element: <AppLayout />,
       children: [
         {
-          path: '/',
+          index: true,
           element: <OrderPage />,
         },
         {
-          path: '/confirm',
+          path: 'confirm',
           element: <OrderConfirmPage />,
         },
       ],
