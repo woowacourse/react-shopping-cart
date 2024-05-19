@@ -5,7 +5,7 @@ import { NavigationBar, PreviousPageButton, FooterButton } from '../../component
 import * as Styled from './ConfirmOrderPage.style';
 
 import { convertToLocaleAmount } from '../../utils';
-import { ENDPOINTS } from '../../constants';
+import { ENDPOINT } from '../../constants';
 
 export default function ConfirmOrderPage() {
   const navigate = useNavigate();
@@ -13,14 +13,14 @@ export default function ConfirmOrderPage() {
 
   useEffect(() => {
     if (!location.state) {
-      navigate(ENDPOINTS.shoppingCart);
+      navigate(ENDPOINT.shoppingCart);
     }
   }, [location.state, navigate]);
 
   const { totalCartItemsCount, totalProductsCount, totalAmount } = location.state || {};
 
   const handleClickPreviousPageButton = () => {
-    navigate(ENDPOINTS.shoppingCart);
+    navigate(ENDPOINT.shoppingCart);
   };
 
   return (

@@ -1,17 +1,17 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ShoppingCartPage, ConfirmOrderPage } from './page';
 
-import { ENDPOINTS } from './constants';
+import { ENDPOINT } from './constants';
 import './App.css';
 import './reset.css';
 
 const router = createBrowserRouter([
   {
-    path: ENDPOINTS.shoppingCart,
+    path: ENDPOINT.shoppingCart,
     element: <ShoppingCartPage />,
   },
   {
-    path: ENDPOINTS.confirmOrder,
+    path: ENDPOINT.confirmOrder,
     element: <ConfirmOrderPage />,
   },
 ]);

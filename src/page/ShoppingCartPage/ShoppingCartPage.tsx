@@ -6,7 +6,7 @@ import { NavigationBar, PageTitle, FooterButton } from '../../components/common'
 import { CartContainer } from '../../components/shoppingCart';
 import * as Styled from './ShoppingCartPage.style';
 
-import { ENDPOINTS } from '../../constants';
+import { ENDPOINT } from '../../constants';
 
 import {
   totalAmountState,
@@ -30,7 +30,7 @@ export default function ShoppingCartPage() {
       totalProductsCount.state === 'hasValue' &&
       totalAmount.state === 'hasValue'
     ) {
-      navigate(ENDPOINTS.confirmOrder, {
+      navigate(ENDPOINT.confirmOrder, {
         state: {
           totalCartItemsCount: totalCartItemsCount.contents,
           totalProductsCount: totalProductsCount.contents,
