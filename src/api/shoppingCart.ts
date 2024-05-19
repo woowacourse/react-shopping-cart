@@ -1,8 +1,8 @@
 import { BASE_URL, USER_ID, USER_PASSWORD } from '.';
-import { CartItem } from '../type';
+import { CartItemType } from '../type';
 import { generateBasicToken } from './auth';
 
-export const fetchCartItems = async (): Promise<CartItem[]> => {
+export const fetchCartItems = async (): Promise<CartItemType[]> => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
   const response = await fetch(`${BASE_URL}/cart-items`, {
