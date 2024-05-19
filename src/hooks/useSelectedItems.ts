@@ -4,10 +4,7 @@ import { SelectedCartItem, selectedCartItems } from '../recoil/atoms';
 import intersectionByProperty from '../utils/getArrayIntersection';
 import { CartItem } from '../types/cartItem';
 
-const useSelectedItems = (
-  data: CartItem[],
-  getOneItemQuantity: (id: number) => number | undefined,
-) => {
+const useSelectedItems = (data: CartItem[]) => {
   const [selectedItems, setSelectedItems] = useRecoilState(selectedCartItems);
 
   useEffect(() => {
@@ -59,25 +56,9 @@ const useSelectedItems = (
         {
           cartItemId: cartItem.id,
           price: cartItem.product.price,
-          quantity: getOneItemQuantity(cartItem.id) ?? cartItem.quantity,
+          quantity: cartItem.quantity,
         },
       ]);
-    }
-  };
-
-  // 전체선택을 눌렀을 때 선택 해제와 전체 선택을 해주는 기능
-  // 장바구니가 담긴 요소들이 모두 선택된다면 전체선택 활성화
-
-  const selectedItemQuantity = (cartItem: CartItem, newQuantity: number) => {
-    const selectedItemIndex = selectedItems.findIndex(item => item.cartItemId === cartItem.id);
-
-    if (selectedItemIndex !== -1) {
-      const updatedSelectedItems = [...selectedItems];
-      updatedSelectedItems[selectedItemIndex] = {
-        ...updatedSelectedItems[selectedItemIndex],
-        quantity: newQuantity,
-      };
-      setSelectedItems(updatedSelectedItems);
     }
   };
 
@@ -85,7 +66,6 @@ const useSelectedItems = (
     selectedItems,
     onCheckboxClick,
     isSelected,
-    selectedItemQuantity,
   };
 };
 

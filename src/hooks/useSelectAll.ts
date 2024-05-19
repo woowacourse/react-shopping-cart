@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 import { selectedCartItems } from '../recoil/atoms';
 import { CartItem } from '../types/cartItem';
 
-const useSelectAll = (data: CartItem[], getOneItemQuantity: (id: number) => number | undefined) => {
+const useSelectAll = (data: CartItem[]) => {
   const [selectedItems, setSelectedItems] = useRecoilState(selectedCartItems);
   const [all, setAll] = useState<boolean>(data.length === selectedItems.length);
 
@@ -16,7 +16,7 @@ const useSelectAll = (data: CartItem[], getOneItemQuantity: (id: number) => numb
       setSelectedItems(
         data.map(item => ({
           cartItemId: item.id,
-          quantity: getOneItemQuantity(item.id) ?? item.quantity,
+          quantity: item.quantity,
           price: item.product.price,
         })),
       );
