@@ -1,5 +1,5 @@
 import { atom, atomFamily } from 'recoil';
-import { localStorageEffect } from '../../utils/localStorageEffect';
+import { localStorageEffectForAtom } from '../../utils/localStorageEffectForAtom';
 
 export const cartItemQuantityAtomFamily = atomFamily<number, number>({
   key: 'cartItemQuantity',
@@ -9,5 +9,5 @@ export const cartItemQuantityAtomFamily = atomFamily<number, number>({
 export const cartItemSelectedIdListAtom = atom<number[]>({
   key: 'cartItemSelectedIdList',
   default: [],
-  effects: [localStorageEffect<number[]>('cartItemSelectedIdList')],
+  effects: [localStorageEffectForAtom<number[]>('cartItemSelectedIdList')],
 });
