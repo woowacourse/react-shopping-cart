@@ -34,13 +34,15 @@ const Footer = () => {
   }
 
   return (
-    <button
-      disabled={footerInfo[pathname].isButtonDisabled}
-      css={FooterStyle}
-      onClick={footerInfo[pathname].handleClick}
-    >
-      {footerInfo[pathname].content}
-    </button>
+    <footer>
+      <button
+        disabled={footerInfo[pathname].isButtonDisabled}
+        css={FooterStyle}
+        onClick={footerInfo[pathname].handleClick}
+      >
+        {footerInfo[pathname].content}
+      </button>
+    </footer>
   );
 };
 

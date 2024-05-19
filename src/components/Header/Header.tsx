@@ -35,7 +35,11 @@ const Header = () => {
     "/order": <BackButton />,
   };
 
-  return <div css={HeaderStyle}>{routeTitle[pathname]}</div>;
+  return (
+    <header>
+      <div css={HeaderStyle}>{routeTitle[pathname]}</div>
+    </header>
+  );
 };
 
 export default Header;
