@@ -4,12 +4,11 @@ import NotChecked from "@/assets/not-checked.svg?react";
 interface CheckBoxProps {
   isChecked: boolean;
   onClick: () => void;
-  id?: string;
 }
 
-const CheckBox = ({ isChecked, onClick, id }: CheckBoxProps) => {
+const CheckBox = ({ isChecked, onClick }: CheckBoxProps) => {
   return (
-    <button onClick={onClick} role="checkbox" id={id}>
+    <button onClick={onClick} role="checkbox">
       {isChecked ? <Checked /> : <NotChecked />}
     </button>
   );
