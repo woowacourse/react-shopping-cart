@@ -10,7 +10,7 @@ import { useRecoilState } from 'recoil';
 
 export default function CartItemContainer() {
   const [items, setItems] = useRecoilState(cartItemsState);
-  const { getIsChecked, checkId, uncheckId, deleteId } = useCheckedItemIds();
+  const { getIsChecked, checkId, uncheckId } = useCheckedItemIds();
 
   const ids = items.map((item) => item.id);
   const isAllChecked = ids.every((id) => getIsChecked(id));
@@ -22,7 +22,7 @@ export default function CartItemContainer() {
 
   const handleDeleteItem = async (cartItemId: number) => {
     await removeCartItem(cartItemId);
-    deleteId(cartItemId);
+    uncheckId(cartItemId);
     setItems((prevItems) => prevItems.filter((item) => item.id !== cartItemId));
   };
 
