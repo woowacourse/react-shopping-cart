@@ -30,7 +30,7 @@ const CartItemList = () => {
           />
         )}
         <CheckAllLabel htmlFor={"checkAllButton"}>전체선택</CheckAllLabel>
-      </TopContainer>{" "}
+      </TopContainer>
       {cartItems?.map((item) => (
         <CartItem key={item.id} id={item.id} product={item.product} removeCartItem={removeCartItem} />
       ))}
