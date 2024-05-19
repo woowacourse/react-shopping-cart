@@ -27,7 +27,7 @@ const CartItemList = ({ itemList }: CartItemListProps) => {
         </Text>
       </S.SelectAllContainer>
       {itemList.map(({ product, quantity, cartItemId }: CartItem) => {
-        return <CartItem product={product} quantity={quantity} cartItemId={cartItemId} />;
+        return <CartItem key={`{$cartItemID}`} product={product} quantity={quantity} cartItemId={cartItemId} />;
       })}
     </S.CartItemList>
   );
