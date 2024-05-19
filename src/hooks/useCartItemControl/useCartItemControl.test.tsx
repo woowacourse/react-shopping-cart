@@ -1,11 +1,11 @@
 import { renderHook } from "@testing-library/react";
 import { RecoilRoot, useRecoilValue } from "recoil";
 import { act } from "react";
-import { fetchCartItems, removeCartItem, updateCartItemQuantity } from "../api/cartItems";
-import { useCartItemControl } from "./useCartItemControl";
-import { selectedCartItemIdsState } from "../recoil/selectedCartItemIds";
+import { fetchCartItems, removeCartItem, updateCartItemQuantity } from "../../api/cartItems";
+import { useCartItemControl } from ".";
+import { selectedCartItemIdsState } from "../../recoil/selectedCartItemIds";
 
-jest.mock("../api/cartItems");
+jest.mock("../../api/cartItems");
 
 const mockRecoil = () => {
   jest.mock("recoil", () => ({

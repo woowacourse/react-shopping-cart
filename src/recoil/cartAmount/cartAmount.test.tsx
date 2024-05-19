@@ -6,8 +6,6 @@ import { selectedCartItemIdsState } from "../selectedCartItemIds";
 import { EXPECTED_CART_AMOUNT, MOCK_RAW_CART_ITEMS, MOCK_SELECTED_CART_ITEM_IDS } from "./mock";
 import { Suspense } from "react";
 
-// 유틸리티 함수 모킹
-
 describe("cartAmountState selector", () => {
   it("장바구니 목록의 금액 합계를 올바르게 계산한다.", async () => {
     const { result, rerender } = renderHook(() => useRecoilValue(cartAmountState), {

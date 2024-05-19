@@ -1,8 +1,8 @@
 import { useSetRecoilState } from "recoil";
-import { fetchCartItems, removeCartItem, updateCartItemQuantity } from "../api/cartItems";
-import { CartItemId } from "../types/cartItems";
-import { rawCartItemsState } from "../recoil/rawCartItems";
-import { selectedCartItemIdsState } from "../recoil/selectedCartItemIds";
+import { fetchCartItems, removeCartItem, updateCartItemQuantity } from "../../api/cartItems";
+import { CartItemId } from "../../types/cartItems";
+import { rawCartItemsState } from "../../recoil/rawCartItems";
+import { selectedCartItemIdsState } from "../../recoil/selectedCartItemIds";
 
 export interface UseCartItemsReturn {
   remove: (cartItemId: CartItemId) => void;

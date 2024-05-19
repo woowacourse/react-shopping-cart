@@ -1,6 +1,6 @@
 import { atom, selector } from "recoil";
-import { fetchCartItems } from "../../api/cartItems";
-import { RawCartItem } from "../../types/cartItems";
+import { fetchCartItems } from "../api/cartItems";
+import { RawCartItem } from "../types/cartItems";
 
 const cartItemsSelector = selector({
   key: "cartItemsSelector",

@@ -1,6 +1,6 @@
 import { atom, selector } from "recoil";
-import { CartItemId } from "../../types/cartItems";
-import { putInSelectedCartItemIds, takeOutSelectedCartItemIds } from "../../store/cart";
+import { CartItemId } from "../types/cartItems";
+import { putInSelectedCartItemIds, takeOutSelectedCartItemIds } from "../store/cart";
 
 const selectedCartItemIdsSelector = selector({
   key: "selectedCartItemIdsSelector",
