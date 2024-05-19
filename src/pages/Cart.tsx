@@ -28,8 +28,8 @@ const ContentWrapper = styled.div`
 function Cart() {
   return (
     <CartContainer>
+      <Header headerIconType="home" />
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Header headerIconType="home" />
         <ContentWrapper>
           <Suspense
             fallback={<NoCartItemContainer>Loading...</NoCartItemContainer>}
