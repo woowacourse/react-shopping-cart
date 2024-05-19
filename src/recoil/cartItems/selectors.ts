@@ -18,8 +18,8 @@ export const isAllUnCheckedState = selector<boolean>({
   },
 });
 
-export const allCheckedState = selector<boolean>({
-  key: 'allCheckedState',
+export const isAllCheckedState = selector<boolean>({
+  key: 'isAllCheckedState',
   get: ({ get }) => {
     const cartItems = get(cartItemsState);
 

@@ -4,23 +4,23 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 
 import Checkbox from '@components/common/Checkbox';
 import { cartItemsState } from '@recoil/cartItems/atoms';
-import { allCheckedState } from '@recoil/cartItems/selectors';
+import { isAllCheckedState } from '@recoil/cartItems/selectors';
 
 import CartItem from '@components/CartItem';
 
 export default function CartProducts() {
   const cartItems = useRecoilValue(cartItemsState);
-  const [allChecked, setAllChecked] = useRecoilState(allCheckedState);
+  const [isAllChecked, setIsAllChecked] = useRecoilState(isAllCheckedState);
 
   const handleClickCheck = (e: ChangeEvent<HTMLInputElement>) => {
-    setAllChecked(e.target.checked);
+    setIsAllChecked(e.target.checked);
   };
 
   return (
     <div css={productsContainer}>
       <div css={allCheckedContainer}>
         <Checkbox
-          checked={allChecked}
+          checked={isAllChecked}
           onChange={handleClickCheck}
           id="전체 선택"
           description="전체 선택"
