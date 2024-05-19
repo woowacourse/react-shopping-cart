@@ -3,7 +3,7 @@ import { RecoilRoot, useRecoilState } from 'recoil';
 import { isCheckedState } from './atoms';
 import { act } from 'react';
 
-describe('isCheckedState Selector 테스트', () => {
+describe('isCheckedState AtomFamily 테스트', () => {
   beforeEach(() => {
     // 로컬 스토리지 clear
     window.localStorage.clear();
@@ -32,7 +32,7 @@ describe('isCheckedState Selector 테스트', () => {
     });
   });
 
-  it('로컬 스토리지 내에서 Id 200가 없으면, recoil의 상태값인 isCheckedState는 기본값 true저장한다.,', async () => {
+  it('로컬 스토리지 내에서 Id 200가 없으면, recoil의 상태값인 isCheckedState는 기본값 true로 저장한다.,', async () => {
     const { result } = renderHook(() => useRecoilState(isCheckedState(200)), {
       wrapper: RecoilRoot,
     });
