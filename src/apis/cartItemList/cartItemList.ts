@@ -82,7 +82,7 @@ export const requestCartItemList = async (): Promise<TransformedCartItem[]> => {
 
 export const requestSetCartItemQuantity = async (cartItemId: number, quantity: number) => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
-  const response = await fetch(`${API_URL}/cart-items1/${cartItemId}`, {
+  const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
     method: 'PATCH',
     headers: { Authorization: token, 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -97,7 +97,7 @@ export const requestSetCartItemQuantity = async (cartItemId: number, quantity: n
 
 export const requestDeleteCartItem = async (cartItemId: number) => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
-  const response = await fetch(`${API_URL}/cart-items1/${cartItemId}`, {
+  const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
     method: 'DELETE',
     headers: { Authorization: token, 'Content-Type': 'application/json' },
     body: JSON.stringify({
