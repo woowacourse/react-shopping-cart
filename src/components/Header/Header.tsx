@@ -14,9 +14,9 @@ const Header = ({ type = 'logo' }: HeaderProps) => {
 
   return (
     <S.Header>
-      <S.Prefix>
-        {type === 'logo' ? <S.Logo>SHOP</S.Logo> : <S.SvgContainer src={BACK} onClick={() => navigate(-1)} />}
-      </S.Prefix>
+      <S.PrefixButton onClick={() => navigate(-1)}>
+        {type === 'logo' ? <S.Logo>SHOP</S.Logo> : <S.SvgContainer src={BACK} alt="go back" />}
+      </S.PrefixButton>
       <S.Suffix></S.Suffix>
     </S.Header>
   );

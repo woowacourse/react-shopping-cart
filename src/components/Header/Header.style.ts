@@ -12,7 +12,9 @@ export const Header = styled.div`
   background-color: black;
 `;
 
-export const Prefix = styled.div``;
+export const PrefixButton = styled.button`
+  background: none;
+`;
 
 export const Suffix = styled.div``;
 
