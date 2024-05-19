@@ -1,18 +1,19 @@
 import * as Styled from './style';
+
 interface OrderButtonProp {
   isOrderable: boolean;
-  label: string;
+  children: string;
   onClick: () => void;
 }
 
-const OrderButton = ({ label, isOrderable, onClick }: OrderButtonProp) => {
+const OrderButton = ({ children, isOrderable, onClick }: OrderButtonProp) => {
   return (
     <Styled.OrderButton
       onClick={() => onClick()}
       $isOrderable={isOrderable}
       disabled={!isOrderable}
     >
-      {label}
+      {children}
     </Styled.OrderButton>
   );
 };

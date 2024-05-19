@@ -1,29 +1,50 @@
-import { atom, selector } from 'recoil';
-import { CartItem } from '../type';
+import { atom, atomFamily, selector, selectorFamily } from 'recoil';
 import { fetchCartItems } from '../api/shoppingCart';
-import { SelectedCartItems } from './selectedCardItems';
+import { selectedCartItemsState } from './selectedCardItems';
 
-export const CartItemsSelector = selector({
+export const fetchedCartItemsState = selector({
   key: 'cartItemStateSelector',
   get: async ({ get }) => {
-    get(CartItemsState);
+    get(refreshCartItemsState);
     const cartItems = await fetchCartItems();
     return cartItems;
   },
 });
 
-export const CartItemsState = atom<CartItem[]>({
+export const refreshCartItemsState = atom({
   key: 'cartItemsState',
   default: [],
 });
 
-export const CartItemsCalculatorSelector = selector({
+export const cartItemQuantityAdjust = selectorFamily({
+  key: `cartItemQuantityAdjust`,
+  get:
+    (id: number) =>
+    ({ get }) => {
+      const item = get(fetchedCartItemsState).find(
+        (cartItem) => cartItem.id === id,
+      );
+      return item ? item.quantity : 0;
+    },
+  set:
+    (id) =>
+    ({ set }, newValue) => {
+      set(cartItemQuantity(id), newValue);
+    },
+});
+
+export const cartItemQuantity = atomFamily({
+  key: `cartItemQuantity`,
+  default: cartItemQuantityAdjust,
+});
+
+export const cartItemsCalculatorState = selector({
   key: 'cartItemsCalculatorSelector',
   get: async ({ get }) => {
-    const cartItems = get(CartItemsSelector);
+    const cartItems = get(fetchedCartItemsState);
 
     const selectedCartItems = cartItems.filter((cartItem) =>
-      get(SelectedCartItems(cartItem.id)),
+      get(selectedCartItemsState(cartItem.id)),
     );
 
     const totalCartItemQuantity = selectedCartItems.reduce(
