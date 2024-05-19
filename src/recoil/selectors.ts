@@ -6,7 +6,7 @@ import { fetchItems } from '../api';
 import {
   DELIVERY_FEE,
   FREE_DELIVERY_THRESHOLD,
-} from '../constants/ShopingCart';
+} from '../constants/ShoppingCart';
 
 /**
  * 전체 금액, 배송비 계산, 총 결제 금액 계산
