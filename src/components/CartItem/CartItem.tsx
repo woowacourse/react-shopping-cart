@@ -1,16 +1,14 @@
 import * as S from './style';
 
-import { isCheckedItemIdsState, itemQuantityState } from '../../recoil/atoms';
-
-import { CartItem as CartItemType } from '../../type';
 import CheckBox from '../CheckBox/CheckBox';
+import { Product } from '../../type';
 import QuantityController from '../QuantityController/QuantityController';
 import SmallButton from '../SmallButton/SmallButton';
 import convertToLocaleAmount from '../../utils/convertToLocalePrice';
 import { itemQuantityState } from '../../recoil/atoms';
-import { useRecoilState } from 'recoil';
-import { useEffect } from 'react';
 import useCheckedItemIds from '../../hooks/useCheckedItemIds';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
@@ -60,17 +58,17 @@ export default function CartItem({
   };
 
   return (
-    <CartItemContainer>
-      <CardItemHeader>
+    <S.CartItemContainer>
+      <S.CardItemHeader>
         <CheckBox isChecked={getIsChecked(cartItemId)} onClick={handelClickCheckBox} />
         <SmallButton buttonText="삭제" onClick={handleClickDeleteButton} />
-      </CardItemHeader>
-      <CardItemContent>
-        <ProductImageBox src={product.imageUrl} alt={product.name} />
-        <ProductInfoBox>
+      </S.CardItemHeader>
+      <S.CardItemContent>
+        <S.ProductImageBox src={product.imageUrl} alt={product.name} />
+        <S.ProductInfoBox>
           <div>
-            <S.ProductName>{cartItem.product.name}</S.ProductName>
-            <S.ProductPrice>{convertToLocaleAmount(cartItem.product.price)}</S.ProductPrice>
+            <S.ProductName>{product.name}</S.ProductName>
+            <S.ProductPrice>{convertToLocaleAmount(product.price)}</S.ProductPrice>
           </div>
           <QuantityController
             quantity={itemQuantity}
@@ -78,68 +76,8 @@ export default function CartItem({
             handleIncreaseQuantity={handleClickIncreaseQuantity}
             handleDecreaseQuantity={handleClickDecreaseQuantity}
           />
-        </ProductInfoBox>
-      </CardItemContent>
-    </CartItemContainer>
+        </S.ProductInfoBox>
+      </S.CardItemContent>
+    </S.CartItemContainer>
   );
 }
-
-const CartItemContainer = styled.li({
-  borderTop: '1px solid #E5E5E5',
-  padding: '12px 0 20px',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '12px',
-});
-
-const CardItemHeader = styled.div({
-  height: '24px',
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-});
-
-const CardItemContent = styled.div({
-  display: 'flex',
-  flexDirection: 'row',
-  gap: '24px',
-});
-
-interface ProductImageBoxProps {
-  src: string;
-  alt: string;
-}
-
-const ProductImageBox = styled.img<ProductImageBoxProps>(({ src, alt }: ProductImageBoxProps) => {
-  return {
-    width: '112px',
-    height: '112px',
-    border: '1px solid #E5E5E5',
-    borderRadius: '8px',
-    src,
-    alt,
-  };
-});
-
-const ProductInfoBox = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-  alignContent: 'space-between',
-  maxWidth: '246px',
-
-  margin: '9px 0',
-  textOverflow: 'ellipsis',
-});
-
-const ProductName = styled.p({
-  color: '#0A0D13',
-  fontSize: '12px',
-  fontWeight: '500',
-});
-
-const ProductPrice = styled.p({
-  color: '#000000',
-  fontSize: '24px',
-  fontWeight: '700',
-  marginBottom: '14px',
-});
