@@ -1,8 +1,8 @@
 // 환경 변수
 export const ENV = {
-  API_URL: process.env.VITE_BASE_URL,
-  USER_ID: process.env.VITE_USER_ID,
-  USER_PASSWORD: process.env.VITE_USER_PASSWORD,
+  API_URL: import.meta.env.VITE_BASE_URL,
+  USER_ID: import.meta.env.VITE_USER_ID,
+  USER_PASSWORD: import.meta.env.VITE_USER_PASSWORD,
 };
 
 // 경로 상수
