@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValueLoadable } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import { NavigationBar, PageTitle, FooterButton } from '../../components/common';
 import { CartContainer } from '../../components/shoppingCart';
@@ -17,27 +17,20 @@ import {
 export default function ShoppingCartPage() {
   const navigate = useNavigate();
 
-  const totalCartItemsCount = useRecoilValueLoadable(totalCartItemsCountState);
-  const totalProductsCount = useRecoilValueLoadable(totalProductsCountState);
-  const totalAmount = useRecoilValueLoadable(totalAmountState);
+  const totalCartItemsCount = useRecoilValue(totalCartItemsCountState);
+  const totalProductsCount = useRecoilValue(totalProductsCountState);
+  const totalAmount = useRecoilValue(totalAmountState);
 
-  const isConfirmButtonDisabled =
-    totalCartItemsCount.state !== 'hasValue' || totalCartItemsCount.contents === 0;
+  const isConfirmButtonDisabled = totalCartItemsCount === 0;
 
   const handleClickConfirmButton = () => {
-    if (
-      totalCartItemsCount.state === 'hasValue' &&
-      totalProductsCount.state === 'hasValue' &&
-      totalAmount.state === 'hasValue'
-    ) {
-      navigate(ENDPOINT.confirmOrder, {
-        state: {
-          totalCartItemsCount: totalCartItemsCount.contents,
-          totalProductsCount: totalProductsCount.contents,
-          totalAmount: totalAmount.contents,
-        },
-      });
-    }
+    navigate(ENDPOINT.confirmOrder, {
+      state: {
+        totalCartItemsCount,
+        totalProductsCount,
+        totalAmount,
+      },
+    });
   };
 
   return (

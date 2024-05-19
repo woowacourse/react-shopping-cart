@@ -1,3 +1,5 @@
+import { RecoilRoot } from 'recoil';
+import { Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ShoppingCartPage, ConfirmOrderPage } from './page';
 
@@ -17,5 +19,11 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <RecoilRoot>
+      <Suspense fallback={<div>로딩 중입니다...</div>}>
+        <RouterProvider router={router} />
+      </Suspense>
+    </RecoilRoot>
+  );
 }
