@@ -1,9 +1,9 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { totalCountSelector, totalPriceSelector } from '../recoil/selectors';
-import Footer from '../components/Footer/Footer';
-import Header from '../components/Header/Header';
-import { URL_PATH } from '../constants/UrlPath';
+import { totalCountSelector, totalPriceSelector } from '../../recoil/selectors';
+import Footer from '../../components/Footer/Footer';
+import Header from '../../components/Header/Header';
+import { URL_PATH } from '../../constants/UrlPath';
 import * as S from './Completed.styled';
 
 function Completed() {

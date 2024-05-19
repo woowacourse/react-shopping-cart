@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { NoCartItemContainer } from '../components/CartContent/CartContent.styled';
+import { NoCartItemContainer } from '../../components/CartContent/CartContent.styled';
 
 export const CartContainer = styled.div`
   display: flex;

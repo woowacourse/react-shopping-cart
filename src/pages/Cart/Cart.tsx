@@ -1,10 +1,10 @@
 import React, { Suspense } from 'react';
-import Header from '../components/Header/Header';
-import Footer from '../components/Footer/Footer';
-import ErrorFallback from '../components/ErrorFallback/ErrorFallback';
+import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
+import ErrorFallback from '../../components/ErrorFallback/ErrorFallback';
 import { ErrorBoundary } from 'react-error-boundary';
-import CartContent from '../components/CartContent/CartContent';
-import { URL_PATH } from '../constants/UrlPath';
+import CartContent from '../../components/CartContent/CartContent';
+import { URL_PATH } from '../../constants/UrlPath';
 import * as S from './Cart.styled';
 
 function Cart() {
