@@ -49,7 +49,11 @@ const ShoppingCartItem = ({
     <S.Container>
       <S.Hr />
       <S.Header>
-        <Checkbox isChecked={isSelected(cartItem.id)} onClick={() => onCheckboxClick(cartItem)} />
+        <Checkbox
+          id={cartItem.id}
+          isChecked={isSelected(cartItem.id)}
+          onChange={() => onCheckboxClick(cartItem)}
+        />
         <S.DeleteButton type="button" onClick={onDelete}>
           삭제
         </S.DeleteButton>

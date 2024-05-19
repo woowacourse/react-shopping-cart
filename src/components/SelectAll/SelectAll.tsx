@@ -9,7 +9,7 @@ interface SelectAllProps {
 const SelectAll = ({ isSelectAll, onSelectAllClick }: SelectAllProps) => {
   return (
     <S.Container>
-      <Checkbox isChecked={isSelectAll} onClick={onSelectAllClick} />
+      <Checkbox id={0} isChecked={isSelectAll} onChange={onSelectAllClick} />
       <S.SelectAllLabel>전체선택</S.SelectAllLabel>
     </S.Container>
   );
