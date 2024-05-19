@@ -1,9 +1,9 @@
 import { selector } from "recoil";
-
 import { cartItems } from "./cartItems";
-
 import { cartItemQuantity } from "./cartItemQuantity";
 import { selectedCartItems } from "./selectedCardItems";
+
+import { CART_FEE } from "@/constants/cart";
 
 export const totalOrderPriceSelector = selector({
   key: "totalOrderPriceSelector",
@@ -27,7 +27,9 @@ export const shippingFeeSelector = selector({
   key: "shippingFeeSelector",
   get: ({ get }) => {
     const totalOrderPrice = get(totalOrderPriceSelector);
-    return totalOrderPrice >= 100000 ? 0 : 3000;
+    return totalOrderPrice >= CART_FEE.shippingFeeThreshold
+      ? 0
+      : CART_FEE.shippingFee;
   },
 });
 
