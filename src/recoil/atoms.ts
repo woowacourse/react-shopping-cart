@@ -2,6 +2,7 @@ import { atom, selector } from 'recoil';
 
 import { CartItem } from '../type';
 import { fetchCartItems } from '../apis';
+import parseJsonSafely from '../utils/parseJsonSafely';
 
 const UNCHECKED_ITEM_IDS = 'uncheckedItemIds';
 
@@ -23,7 +24,7 @@ export const uncheckedItemIdsState = atom<number[]>({
     ({ setSelf, onSet }) => {
       const savedValue = localStorage.getItem(UNCHECKED_ITEM_IDS);
       if (savedValue != null) {
-        setSelf(JSON.parse(savedValue));
+        setSelf(parseJsonSafely(savedValue) ?? []);
       }
 
       onSet((newValue, _, isReset) => {
