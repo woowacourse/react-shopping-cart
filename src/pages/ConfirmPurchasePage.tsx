@@ -3,6 +3,9 @@ import Header from '../components/Header/Header';
 import Text from '../components/common/Text/Text';
 import { useLocation } from 'react-router-dom';
 import Button from '../components/common/Button/Button';
+import { useRecoilValue } from 'recoil';
+import { totalCartItemQuantitySelector } from '../recoil/cartItem/states';
+import { finalCartPriceSelector } from '../recoil/price/states';
 
 const CartPageContainer = styled.main`
   width: 100%;
@@ -14,6 +17,7 @@ const CartPageContainer = styled.main`
   align-items: center;
   gap: 24px;
 `;
+
 const PriceContainer = styled.main`
   display: flex;
   flex-direction: column;
@@ -24,18 +28,8 @@ const PriceContainer = styled.main`
 
 const ConfirmPurchasePage = () => {
   const { state } = useLocation();
-
-  const calcTotalQuantity = () => {
-    return state.reduce((sum, { quantity }) => {
-      return sum + quantity;
-    }, 0);
-  };
-
-  const calcTotalPrice = () => {
-    return state.reduce((sum, { quantity, product }) => {
-      return sum + quantity * product.price;
-    }, 0);
-  };
+  const totalCartItemQuantity = useRecoilValue(totalCartItemQuantitySelector);
+  const finalCartPrice = useRecoilValue(finalCartPriceSelector);
 
   return (
     <>
@@ -45,7 +39,7 @@ const ConfirmPurchasePage = () => {
           주문 확인
         </Text>
         <Text size="s" weight="m">
-          총 {state.length}종류의 상품 {calcTotalQuantity()}개를 주문합니다.
+          총 {state.length}종류의 상품 {totalCartItemQuantity}개를 주문합니다.
           <br />
           최종 결제 금액을 확인해 주세요.
         </Text>
@@ -54,7 +48,7 @@ const ConfirmPurchasePage = () => {
             총 결제 금액
           </Text>
           <Text size="l" weight="l">
-            {calcTotalPrice().toLocaleString('ko-kr')}원
+            {finalCartPrice.toLocaleString('ko-kr')}원
           </Text>
         </PriceContainer>
       </CartPageContainer>
