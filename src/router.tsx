@@ -4,6 +4,7 @@ import ShoppingCartOverview from './components/ShoppingCartOverview/ShoppingCart
 import OrderInfo from './components/OrderInfo/OrderInfo';
 import { ROUTER_URLS } from './constants/constants';
 import ProductList from './components/Admin/ProductList/ProductList';
+import InvalidAccessFallback from './components/InvalidAccessFallback/InvalidAccessFallback';
 
 const router = createBrowserRouter([
   {
@@ -18,14 +19,14 @@ const router = createBrowserRouter([
       {
         path: ROUTER_URLS.ORDER_INFO,
         element: <OrderInfo />,
-        errorElement: <div>이상해요</div>,
+        errorElement: <InvalidAccessFallback />,
       },
       {
         path: ROUTER_URLS.ADMIN,
         element: <ProductList />,
       },
     ],
-    errorElement: <div>이상해요</div>,
+    errorElement: <InvalidAccessFallback />,
   },
 ]);
 
