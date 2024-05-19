@@ -10,7 +10,7 @@ interface CounterButtonProps {
 }
 
 export const CounterButton: React.FC<CounterButtonProps> = ({ type, onClick, disabled }) => {
-  const src = type === "increment" ? PlusButtonIcon : MinusButtonIcon;
+  const src = type === COUNTER_BUTTON_TYPES.INCREMENT ? PlusButtonIcon : MinusButtonIcon;
   return (
     <StyledCounterButton onClick={onClick} disabled={disabled}>
       <StyledCounterButtonImg src={src} />
