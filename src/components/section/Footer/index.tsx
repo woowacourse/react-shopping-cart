@@ -1,9 +1,9 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { cartItemsState } from "../../stores/cartItems";
-import { isAnyCartItemSelectedState } from "../../stores/cartItemSelected";
+import { cartItemsState } from "../../../stores/cartItems";
+import { isAnyCartItemSelectedState } from "../../../stores/cartItemSelected";
 
-import Button from "../_common/Button";
+import Button from "../../_common/Button";
 import { Wrapper } from "./style";
 
 const Footer = () => {

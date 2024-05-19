@@ -1,14 +1,14 @@
 import { useRecoilState, useRecoilRefresher_UNSTABLE } from "recoil";
 
-import { cartItemsState } from "../../stores/cartItems";
-import { isCartItemsSelectedState } from "../../stores/cartItemSelected";
+import { cartItemsState } from "../../../stores/cartItems";
+import { isCartItemsSelectedState } from "../../../stores/cartItemSelected";
 
-import Button from "../_common/Button";
-import { MinusButton, PlusButton } from "../button/QuantityButton";
+import Button from "../../_common/Button";
+import { MinusButton, PlusButton } from "../../button/QuantityButton";
 
-import { deleteCartItem, patchCartItemQuantity } from "../../apis";
+import { deleteCartItem, patchCartItemQuantity } from "../../../apis";
 
-import { CartItemType } from "../../types";
+import { CartItemType } from "../../../types";
 
 import {
   Wrapper,
@@ -20,7 +20,7 @@ import {
   ItemInfoWrapper,
   ItemQuantity,
 } from "./style";
-import CheckButton from "../button/CheckButton";
+import CheckButton from "../../button/CheckButton";
 
 interface CardItemProps {
   cartItem: CartItemType;

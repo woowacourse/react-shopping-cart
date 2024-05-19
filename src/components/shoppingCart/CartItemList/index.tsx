@@ -1,14 +1,14 @@
 import { useRecoilState, useRecoilValue } from "recoil";
-import { cartItemsState } from "../../stores/cartItems";
-import { isAllCartItemSelectedState } from "../../stores/cartItemSelected";
+import { cartItemsState } from "../../../stores/cartItems";
+import { isAllCartItemSelectedState } from "../../../stores/cartItemSelected";
 
 import CartItem from "../CartItem";
-import CheckButton from "../button/CheckButton";
+import CheckButton from "../../button/CheckButton";
 
-import { CartItemType } from "../../types";
-import { CART_PRICE } from "../../constants/cart";
+import { CartItemType } from "../../../types";
+import { CART_PRICE } from "../../../constants/cart";
 import { Wrapper, Footer, AllCheckWrapper } from "./style";
-import infoOutline from "../../assets/images/infoOutline.png";
+import infoOutline from "../../../assets/images/infoOutline.png";
 
 const CartItemList = () => {
   const cartItemList = useRecoilValue(cartItemsState);

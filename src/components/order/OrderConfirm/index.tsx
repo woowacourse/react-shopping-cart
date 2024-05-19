@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
-import { cartItemsState } from "../../stores/cartItems";
-import { cartPriceState } from "../../stores/cartPrice";
+import { cartItemsState } from "../../../stores/cartItems";
+import { cartPriceState } from "../../../stores/cartPrice";
 import styled from "styled-components";
 
 const OrderConfirm = () => {
