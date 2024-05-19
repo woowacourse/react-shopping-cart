@@ -29,7 +29,7 @@ const CartItem = ({ product, quantity: initialQuantity, cartItemId }: CartItem) 
       <Divider />
       <S.ItemHeader>
         <Checkbox
-          state={getIsSelected(cartItemId)}
+          checked={getIsSelected(cartItemId)}
           handleClick={
             getIsSelected(cartItemId) ? () => deleteSelectedItemId(cartItemId) : () => addSelectedItemId(cartItemId)
           }

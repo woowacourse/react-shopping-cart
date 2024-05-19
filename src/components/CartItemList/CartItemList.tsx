@@ -16,7 +16,7 @@ const CartItemList = () => {
   return (
     <S.CartItemList>
       <S.SelectAllContainer>
-        <Checkbox alt="상품 선택" state={isSelectedAll} handleClick={isSelectedAll ? clear : selectAll} />
+        <Checkbox alt="상품 선택" checked={isSelectedAll} handleClick={isSelectedAll ? clear : selectAll} />
         <Text size="s" weight="m">
           전체선택
         </Text>
