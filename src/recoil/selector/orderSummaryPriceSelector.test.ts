@@ -3,17 +3,9 @@ import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
 import { renderHook } from "@testing-library/react";
 import { act } from "react";
 import { orderPriceSelector, shippingFeeSelector, totalPriceSelector } from "./selector";
-import { Product } from "../../types";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { ORDER_PRICE_THRESHOLD, SHIPPING_FEE } from "../../constants/setting";
-
-// mock data
-const mockCartItems: Product[] = [
-  { id: 1, product: { id: 3, name: "상품이름A", price: 35000, imageUrl: "", category: "" }, quantity: 2 },
-  { id: 2, product: { id: 4, name: "상품이름B", price: 25000, imageUrl: "", category: "" }, quantity: 3 },
-  { id: 3, product: { id: 5, name: "상품이름C", price: 20000, imageUrl: "", category: "" }, quantity: 1 },
-];
-const mockCheckedIds: number[] = [1, 2];
+import { mockCartItems, mockCheckedIds } from "../mockData";
 
 describe("orderPriceSelector 테스트", () => {
   let result;

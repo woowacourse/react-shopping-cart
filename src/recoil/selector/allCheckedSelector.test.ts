@@ -1,18 +1,9 @@
 import { renderHook, act } from "@testing-library/react";
 import { RecoilRoot } from "recoil";
 import useCartItemChecks from "../../hooks/useCartItemChecks";
-import { Product } from "../../types";
+import { mockCartItems, mockCheckedIds } from "../mockData";
 
-// mock data
-const mockCartItems: Product[] = [
-  { id: 1, product: { id: 3, name: "상품이름A", price: 35000, imageUrl: "", category: "" }, quantity: 2 },
-  { id: 2, product: { id: 4, name: "상품이름B", price: 25000, imageUrl: "", category: "" }, quantity: 3 },
-  { id: 3, product: { id: 5, name: "상품이름C", price: 20000, imageUrl: "", category: "" }, quantity: 1 },
-];
-
-const mockCheckedIds: number[] = [1, 2];
-
-describe("allCheckedSelector 테스트", () => {
+describe("isAllCheckedSelector 테스트", () => {
   let result;
 
   beforeEach(() => {
@@ -29,9 +20,9 @@ describe("allCheckedSelector 테스트", () => {
       result.current.setCheckedIds(mockCheckedIds);
     });
 
-    act(() => result.current.setAllChecked(true));
+    act(() => result.current.setIsAllChecked(true));
 
-    expect(result.current.allChecked).toEqual(true);
+    expect(result.current.isAllChecked).toEqual(true);
     expect(result.current.checkedIds).toEqual([1, 2, 3]);
   });
 
@@ -41,9 +32,9 @@ describe("allCheckedSelector 테스트", () => {
       result.current.setCheckedIds([1, 2, 3]);
     });
 
-    act(() => result.current.setAllChecked(false));
+    act(() => result.current.setIsAllChecked(false));
 
-    expect(result.current.allChecked).toEqual(false);
+    expect(result.current.isAllChecked).toEqual(false);
     expect(result.current.checkedIds).toEqual([]);
   });
 
@@ -55,7 +46,7 @@ describe("allCheckedSelector 테스트", () => {
 
     act(() => result.current.setCheckedIds([1, 2]));
 
-    expect(result.current.allChecked).toEqual(false);
+    expect(result.current.isAllChecked).toEqual(false);
   });
 
   it("하나를 선택했을 때 전체가 선택된 상태이면 전체 선택이 true가 된다.", () => {
@@ -66,6 +57,6 @@ describe("allCheckedSelector 테스트", () => {
 
     act(() => result.current.setCheckedIds([1, 2, 3]));
 
-    expect(result.current.allChecked).toEqual(true);
+    expect(result.current.isAllChecked).toEqual(true);
   });
 });
