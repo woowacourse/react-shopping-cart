@@ -1,5 +1,5 @@
 import React from 'react';
-import { NoCartItemContainer } from './CartContent/CartContent';
+import * as S from './ErrorFallback.styled';
 
 interface ErrorFallbackProps {
   error: Error;
@@ -7,9 +7,9 @@ interface ErrorFallbackProps {
 
 const ErrorFallback: React.FC<ErrorFallbackProps> = () => {
   return (
-    <NoCartItemContainer role="alert">
+    <S.ErrorFallBack role="alert">
       <p>다시 시도해 주세요.</p>
-    </NoCartItemContainer>
+    </S.ErrorFallBack>
   );
 };
 

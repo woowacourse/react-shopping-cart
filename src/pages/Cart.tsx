@@ -1,45 +1,28 @@
 import React, { Suspense } from 'react';
 import Header from '../components/Header/Header';
-import styled from 'styled-components';
 import Footer from '../components/Footer/Footer';
-import ErrorFallback from '../components/ErrorFallback';
+import ErrorFallback from '../components/ErrorFallback/ErrorFallback';
 import { ErrorBoundary } from 'react-error-boundary';
-import CartContent, {
-  NoCartItemContainer,
-} from '../components/CartContent/CartContent';
+import CartContent from '../components/CartContent/CartContent';
 import { URL_PATH } from '../constants/UrlPath';
-
-const CartContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-`;
-
-const ContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 3.6rem 2.4rem 10.4rem 2.4rem;
-  box-sizing: border-box;
-  height: 100%;
-`;
+import * as S from './Cart.styled';
 
 function Cart() {
   return (
-    <CartContainer>
+    <S.CartContainer>
       <Header headerIconType="home" />
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <ContentWrapper>
+        <S.ContentWrapper>
           <Suspense
-            fallback={<NoCartItemContainer>Loading...</NoCartItemContainer>}
+            fallback={<S.SuspenseFallBack>Loading...</S.SuspenseFallBack>}
           >
             <CartContent />
           </Suspense>
-        </ContentWrapper>
+        </S.ContentWrapper>
         <Footer isDisabled={false} url={URL_PATH.completed} />
       </ErrorBoundary>
-    </CartContainer>
+    </S.CartContainer>
   );
 }
+
 export default Cart;

@@ -1,28 +1,7 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
 import { LogoIcon, BackArrowIcon } from '../../asset';
 import { useNavigate } from 'react-router-dom';
-
-const HeaderContainer = styled.div`
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-  padding-left: 3rem;
-  background-color: #000000;
-  width: 100%;
-  height: 6.4rem;
-`;
-
-interface HeaderIconProps {
-  $width: string;
-}
-
-const HeaderIcon = styled.img<HeaderIconProps>`
-  ${(props) => css`
-    width: ${props.$width};
-    aspect-ratio: 1;
-  `}
-`;
+import * as S from './Header.styled';
 
 interface HeaderProps {
   headerIconType: 'home' | 'back';
@@ -51,15 +30,15 @@ function Header({ headerIconType }: HeaderProps) {
   };
 
   return (
-    <HeaderContainer>
-      <HeaderIcon
+    <S.HeaderContainer>
+      <S.HeaderIcon
         $width={width}
         src={icon}
         onClick={() => {
           handleNavigate(url);
         }}
       />
-    </HeaderContainer>
+    </S.HeaderContainer>
   );
 }
 

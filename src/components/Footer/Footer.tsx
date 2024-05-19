@@ -1,31 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled, { css } from 'styled-components';
 import { MESSAGES } from '../../constants/Messages';
-
-interface FooterContainerProps {
-  $backgroundColor: string;
-}
-
-const FooterContainer = styled.div<FooterContainerProps>`
-  ${(props) => css`
-    display: flex;
-    position: fixed;
-    bottom: 0;
-    background-color: ${props.$backgroundColor};
-    width: 100%;
-    height: 6.4rem;
-
-    color: #ffffff;
-    font-size: 1.6rem;
-    font-weight: 700;
-    line-height: 1.6rem;
-    text-align: center;
-
-    justify-content: center;
-    align-items: center;
-  `}
-`;
+import * as S from './Footer.styled';
 
 interface FooterProps {
   url: string;
@@ -43,12 +19,12 @@ function Footer({ url, isDisabled = false }: FooterProps) {
   };
 
   return (
-    <FooterContainer
+    <S.FooterContainer
       onClick={(e) => handleClick(e)}
       $backgroundColor={isDisabled ? '#BEBEBE' : '#000000'}
     >
       {MESSAGES.confirm}
-    </FooterContainer>
+    </S.FooterContainer>
   );
 }
 
