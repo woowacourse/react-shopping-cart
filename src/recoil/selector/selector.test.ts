@@ -1,22 +1,22 @@
-import { act, renderHook } from "@testing-library/react";
-import { RecoilRoot, useRecoilValue, useSetRecoilState } from "recoil";
-import { mockCartItemsData } from "../../mocks/mockCartItemsData";
-import { cartItemsState } from "../atoms/atoms";
+import { act, renderHook } from '@testing-library/react';
+import { RecoilRoot, useRecoilValue, useSetRecoilState } from 'recoil';
+import { mockCartItemsData } from '../../mocks/mockCartItemsData';
+import { cartItemsState } from '../atoms/atoms';
 import {
   categoryCountState,
   deliveryPriceState,
   orderPriceState,
-} from "./selector";
+} from './selector';
 
-describe("초기값 테스트", () => {
-  it("상품 종류 수량 초기값은 0이다.", () => {
+describe('초기값 테스트', () => {
+  it('상품 종류 수량 초기값은 0이다.', () => {
     const { result } = renderHook(() => useRecoilValue(categoryCountState), {
       wrapper: RecoilRoot,
     });
 
     expect(result.current).toBe(0);
   });
-  it("주문 금액 초기값은 0이다.", () => {
+  it('주문 금액 초기값은 0이다.', () => {
     const { result } = renderHook(() => useRecoilValue(orderPriceState), {
       wrapper: RecoilRoot,
     });
@@ -25,8 +25,8 @@ describe("초기값 테스트", () => {
   });
 });
 
-describe("mockData를 이용한 테스트", () => {
-  it("주문 금액이 올바르게 계산되는지 확인한다.", () => {
+describe('mockData를 이용한 테스트', () => {
+  it('주문 금액이 올바르게 계산되는지 확인한다.', () => {
     const { result } = renderHook(
       () => {
         const setCartItems = useSetRecoilState(cartItemsState);
@@ -35,7 +35,7 @@ describe("mockData를 이용한 테스트", () => {
       },
       {
         wrapper: RecoilRoot,
-      }
+      },
     );
 
     act(() => {
@@ -50,7 +50,7 @@ describe("mockData를 이용한 테스트", () => {
             category: item.product.category,
           },
           quantity: item.quantity,
-        }))
+        })),
       );
     });
 
@@ -58,13 +58,13 @@ describe("mockData를 이용한 테스트", () => {
       (total, item) => {
         return total + item.product.price * item.quantity;
       },
-      0
+      0,
     );
 
     expect(expectedOrderPrice).toBe(23000);
   });
 
-  it("주문 금액이 10만원 미만이면 배송비 3천원이 올바르게 계산되는지 확인한다.", () => {
+  it('주문 금액이 10만원 미만이면 배송비 3천원이 올바르게 계산되는지 확인한다.', () => {
     const { result } = renderHook(
       () => {
         const setCartItems = useSetRecoilState(cartItemsState);
@@ -74,7 +74,7 @@ describe("mockData를 이용한 테스트", () => {
       },
       {
         wrapper: RecoilRoot,
-      }
+      },
     );
 
     act(() => {
@@ -89,7 +89,7 @@ describe("mockData를 이용한 테스트", () => {
             category: item.product.category,
           },
           quantity: item.quantity,
-        }))
+        })),
       );
     });
 
@@ -97,7 +97,7 @@ describe("mockData를 이용한 테스트", () => {
       (total, item) => {
         return total + item.product.price * item.quantity;
       },
-      0
+      0,
     );
 
     const expectedDeliveryPrice = expectedOrderPrice > 100000 ? 0 : 3000;

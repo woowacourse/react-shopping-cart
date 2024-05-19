@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledConfirmButton = styled.button<{ $backgroundColor?: string }>`
   width: 100%;
@@ -6,7 +6,7 @@ export const StyledConfirmButton = styled.button<{ $backgroundColor?: string }>`
   top: 872px;
   padding: 24px 65px;
   background-color: ${({ $backgroundColor }) =>
-    $backgroundColor || "rgba(0, 0, 0, 1)"};
+    $backgroundColor || 'rgba(0, 0, 0, 1)'};
   border: none;
   border-radius: 0px;
 

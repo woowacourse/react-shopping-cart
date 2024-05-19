@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
-import { StyledConfirmButton } from "./ConfirmButton.styled";
+import { useNavigate } from 'react-router-dom';
+import { StyledConfirmButton } from './ConfirmButton.styled';
 
 export interface ConfirmButtonProps {
   text: string;
@@ -13,7 +13,7 @@ export const ConfirmButton: React.FC<ConfirmButtonProps> = ({
   const navigate = useNavigate();
 
   const navigateToOrderConfirmationPage = () => {
-    navigate("/order-confirmation");
+    navigate('/order-confirmation');
   };
 
   return (

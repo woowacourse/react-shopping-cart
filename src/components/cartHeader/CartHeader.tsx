@@ -2,7 +2,7 @@ import {
   StyledCartHeaderDescription,
   StyledCartHeaderTitle,
   StyledCartHeaderWrapper,
-} from "./CartHeader.styled";
+} from './CartHeader.styled';
 
 export const CartHeader: React.FC<{ categoryCount: number }> = ({
   categoryCount,

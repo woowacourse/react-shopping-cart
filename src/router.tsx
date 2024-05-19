@@ -1,12 +1,12 @@
-import { createBrowserRouter } from "react-router-dom";
-import App from "./App";
-import { CartPage } from "./pages/cartPage/CartPage";
-import { OrderConfirmationPage } from "./pages/orderConfirmationPage/OrderConfirmationPage";
+import { createBrowserRouter } from 'react-router-dom';
+import App from './App';
+import { CartPage } from './pages/cartPage/CartPage';
+import { OrderConfirmationPage } from './pages/orderConfirmationPage/OrderConfirmationPage';
 
 const router = createBrowserRouter(
   [
     {
-      path: "/",
+      path: '/',
       element: <App />,
       children: [
         {
@@ -14,13 +14,13 @@ const router = createBrowserRouter(
           element: <CartPage />,
         },
         {
-          path: "/order-confirmation",
+          path: '/order-confirmation',
           element: <OrderConfirmationPage />,
         },
       ],
     },
   ],
-  { basename: "/react-shopping-cart/" }
+  { basename: '/react-shopping-cart/' },
 );
 
 export default router;

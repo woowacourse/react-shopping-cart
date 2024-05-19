@@ -1,10 +1,10 @@
-import { CartItemCardList } from "../cartItemCardList/CartItemCardList";
-import { CartSummary } from "../cartSummary/cartSummary/CartSummary";
+import { CartItemCardList } from '../cartItemCardList/CartItemCardList';
+import { CartSummary } from '../cartSummary/cartSummary/CartSummary';
 import {
   StyledCartContentSection,
   StyledContentContainer,
   StyledEmptyCartItemCard,
-} from "./CartContentSection.styled";
+} from './CartContentSection.styled';
 
 export const CartContentSection: React.FC<{ categoryCount: number }> = ({
   categoryCount,

@@ -2,7 +2,7 @@ import {
   StyledCartSummaryItem,
   StyledSummaryItemPrice,
   StyledSummaryItemTitle,
-} from "./CartSummaryItem.styled";
+} from './CartSummaryItem.styled';
 
 interface CartSummaryItemProps {
   title: string;

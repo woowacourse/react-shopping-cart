@@ -1,17 +1,17 @@
-import { act, renderHook } from "@testing-library/react";
-import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
-import { mockCartItemsData } from "../../mocks/mockCartItemsData";
-import { mockChangeCountData } from "../../mocks/mockChangeCountData";
-import { mockSelectedItemsData } from "../../mocks/mockSelectedItemsData";
+import { act, renderHook } from '@testing-library/react';
+import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil';
+import { mockCartItemsData } from '../../mocks/mockCartItemsData';
+import { mockChangeCountData } from '../../mocks/mockChangeCountData';
+import { mockSelectedItemsData } from '../../mocks/mockSelectedItemsData';
 import {
   cartItemsCountState,
   cartItemsState,
   isAllSelectedState,
   selectedItemsState,
-} from "./atoms";
+} from './atoms';
 
-describe("초기값 테스트", () => {
-  it("상품 목록 조회 초기값은 빈 배열이다.", () => {
+describe('초기값 테스트', () => {
+  it('상품 목록 조회 초기값은 빈 배열이다.', () => {
     const { result } = renderHook(() => useRecoilState(cartItemsState), {
       wrapper: RecoilRoot,
     });
@@ -19,7 +19,7 @@ describe("초기값 테스트", () => {
     expect(result.current[0]).toEqual([]);
   });
 
-  it("상품 총 수량 초기값은 0이다. ", () => {
+  it('상품 총 수량 초기값은 0이다. ', () => {
     const { result } = renderHook(() => useRecoilState(cartItemsCountState), {
       wrapper: RecoilRoot,
     });
@@ -28,8 +28,8 @@ describe("초기값 테스트", () => {
   });
 });
 
-describe("mockData를 이용한 테스트", () => {
-  it("장바구니 데이터 로딩 ", () => {
+describe('mockData를 이용한 테스트', () => {
+  it('장바구니 데이터 로딩 ', () => {
     const { result } = renderHook(() => useRecoilState(cartItemsState), {
       wrapper: RecoilRoot,
     });
@@ -39,7 +39,7 @@ describe("mockData를 이용한 테스트", () => {
     expect(result.current[0].length).toBe(3);
   });
 
-  it("개별 상품 선택 기능", () => {
+  it('개별 상품 선택 기능', () => {
     const { result } = renderHook(() => useRecoilState(selectedItemsState), {
       wrapper: RecoilRoot,
     });
@@ -47,18 +47,18 @@ describe("mockData를 이용한 테스트", () => {
     act(() => result.current[1](mockSelectedItemsData.selectedItemsState));
 
     const selectedCount = Object.values(result.current[0]).filter(
-      (value) => value === true
+      (value) => value === true,
     ).length;
 
     const unselectedCount = Object.values(result.current[0]).filter(
-      (value) => value === false
+      (value) => value === false,
     ).length;
 
     expect(selectedCount).toBe(3);
     expect(unselectedCount).toBe(1);
   });
 
-  it("전체 상품 선택 기능", () => {
+  it('전체 상품 선택 기능', () => {
     const { result } = renderHook(() => useRecoilState(isAllSelectedState), {
       wrapper: RecoilRoot,
     });
@@ -68,7 +68,7 @@ describe("mockData를 이용한 테스트", () => {
     expect(result.current[0]).toBe(false);
   });
 
-  it("수량 증가 기능", () => {
+  it('수량 증가 기능', () => {
     const { result } = renderHook(
       () => {
         const [cartItems, setCartItems] = useRecoilState(cartItemsState);
@@ -77,7 +77,7 @@ describe("mockData를 이용한 테스트", () => {
       },
       {
         wrapper: RecoilRoot,
-      }
+      },
     );
 
     act(() => {
@@ -92,20 +92,20 @@ describe("mockData를 이용한 테스트", () => {
             category: item.product.category,
           },
           quantity: item.quantity,
-        }))
+        })),
       );
     });
 
     act(() => {
       result.current.setCartItems((prevItems) =>
         prevItems.map((item) =>
-          item.id === 429 ? { ...item, quantity: item.quantity + 1 } : item
-        )
+          item.id === 429 ? { ...item, quantity: item.quantity + 1 } : item,
+        ),
       );
     });
 
     const expectedCount = result.current.cartItems.find(
-      (item) => item.id === 429
+      (item) => item.id === 429,
     );
 
     if (expectedCount) {
