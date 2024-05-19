@@ -7,7 +7,7 @@ import Button from '../components/common/Button/Button';
 const CartPageContainer = styled.main`
   width: 100%;
   padding: 30px 20px 80px 20px;
-  min-height: 90%;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
