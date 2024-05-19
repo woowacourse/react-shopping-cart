@@ -20,10 +20,7 @@ export default function useItemQuantity() {
       quantity: nextCartItems[targetIndex].quantity + 1,
     };
     setCartItems(nextCartItems);
-    await updateCartItemQuantity(id, nextCartItems[targetIndex].quantity + 1).catch(() => {
-      alert('네트워크 접속이 불안정합니다. 다시 시도해주세요');
-      setCartItems(cartItems);
-    });
+    await updateCartItemQuantity(id, nextCartItems[targetIndex].quantity + 1);
   };
 
   const decreaseQuantity = async (id: number) => {
@@ -33,10 +30,7 @@ export default function useItemQuantity() {
     const nextTargetQuantity = Math.max(0, targetItem.quantity - 1);
     targetItem.quantity = nextTargetQuantity;
     setCartItems(nextCartItems);
-    await updateCartItemQuantity(id, nextTargetQuantity).catch(() => {
-      alert('네트워크 접속이 불안정합니다. 다시시도해주세요');
-      setCartItems(cartItems);
-    });
+    await updateCartItemQuantity(id, nextTargetQuantity);
   };
 
   return { getQuantity, increaseQuantity, decreaseQuantity };

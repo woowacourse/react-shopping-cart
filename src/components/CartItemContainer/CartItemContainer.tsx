@@ -22,9 +22,9 @@ export default function CartItemContainer() {
   };
 
   const handleDeleteItem = async (cartItemId: number) => {
-    await removeCartItem(cartItemId);
     checkId(cartItemId);
     setItems((prevItems) => prevItems.filter((item) => item.id !== cartItemId));
+    await removeCartItem(cartItemId);
   };
 
   return (
