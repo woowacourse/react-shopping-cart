@@ -28,10 +28,13 @@ export default function useItemQuantity() {
 
   const decreaseQuantity = async (id: number) => {
     const nextCartItems = [...cartItems];
-    const targetItem = nextCartItems.find((item) => item.id === id);
-    if (targetItem === undefined) return;
-    const nextTargetQuantity = Math.max(0, targetItem.quantity - 1);
-    targetItem.quantity = nextTargetQuantity;
+    const targetIndex = nextCartItems.findIndex((item) => item.id === id);
+    if (targetIndex === -1) return;
+    const nextTargetQuantity = Math.max(0, cartItems[targetIndex].quantity - 1);
+    nextCartItems[targetIndex] = {
+      ...nextCartItems[targetIndex],
+      quantity: nextTargetQuantity,
+    };
     setCartItems(nextCartItems);
     await updateCartItemQuantity(id, nextTargetQuantity).catch(() => {
       alert('네트워크 접속이 불안정합니다. 다시시도해주세요');
