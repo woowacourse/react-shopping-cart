@@ -6,7 +6,7 @@ import CHECK_FALSE from '../../../assets/check-false.svg';
 export interface CheckboxProps {
   state: boolean;
   handleClick: () => void;
-  alt: string;
+  alt?: string;
 }
 
 const Checkbox = ({ state, handleClick, alt = 'Checkbox' }: CheckboxProps) => {
