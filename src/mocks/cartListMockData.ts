@@ -1,15 +1,15 @@
-const fixtures = {
+const cartListMockData = {
   content: [
     {
       id: 597,
       quantity: 1,
       product: {
         id: 11,
-        name: "리복",
+        name: '리복',
         price: 20000,
         imageUrl:
-          "https://image.msscdn.net/images/goods_img/20221031/2909092/2909092_6_500.jpg",
-        category: "fashion",
+          'https://image.msscdn.net/images/goods_img/20221031/2909092/2909092_6_500.jpg',
+        category: 'fashion',
       },
     },
     {
@@ -17,11 +17,11 @@ const fixtures = {
       quantity: 7,
       product: {
         id: 10,
-        name: "퓨마",
+        name: '퓨마',
         price: 10000,
         imageUrl:
-          "https://sitem.ssgcdn.com/47/78/22/item/1000031227847_i1_750.jpg",
-        category: "fashion",
+          'https://sitem.ssgcdn.com/47/78/22/item/1000031227847_i1_750.jpg',
+        category: 'fashion',
       },
     },
     {
@@ -29,11 +29,11 @@ const fixtures = {
       quantity: 1,
       product: {
         id: 10,
-        name: "퓨마",
+        name: '퓨마',
         price: 10000,
         imageUrl:
-          "https://sitem.ssgcdn.com/47/78/22/item/1000031227847_i1_750.jpg",
-        category: "fashion",
+          'https://sitem.ssgcdn.com/47/78/22/item/1000031227847_i1_750.jpg',
+        category: 'fashion',
       },
     },
   ],
@@ -64,4 +64,4 @@ const fixtures = {
   empty: false,
 };
 
-export default fixtures;
+export default cartListMockData;

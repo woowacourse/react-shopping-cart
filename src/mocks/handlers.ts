@@ -1,9 +1,9 @@
-import { http, HttpResponse } from "msw";
-import fixtures from "../../fixtures";
+import { http, HttpResponse } from 'msw';
+import cartListMockData from './cartListMockData';
 
 const handlers = [
-  http.get("http://54.180.95.212:8080/cart-items", () => {
-    return HttpResponse.json(fixtures);
+  http.get('http://54.180.95.212:8080/cart-items', () => {
+    return HttpResponse.json(cartListMockData);
   }),
 ];
 
