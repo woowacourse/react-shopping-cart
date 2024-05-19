@@ -1,5 +1,6 @@
-import BackButtonIcon from "@/assets/back-button.svg?react";
 import { useNavigate } from "react-router-dom";
+
+import BackButtonIcon from "@/assets/back-button.svg?react";
 
 const BackButton = () => {
   const navigate = useNavigate();
