@@ -13,6 +13,10 @@ import {
 import { itemDetailsState, itemsState } from './atoms';
 import { act } from 'react';
 import { CartItems } from '../types/Item';
+import {
+  DELIVERY_FEE,
+  FREE_DELIVERY_THRESHOLD,
+} from '../constants/ShoppingCart';
 
 const dataA = {
   id: 1,
@@ -56,7 +60,11 @@ describe('totalPriceSelector', () => {
       () => {
         const { totalAmount, deliveryFee, calculatedTotalAmount } =
           useRecoilValue(totalPriceSelector);
-        return { totalAmount, deliveryFee, calculatedTotalAmount };
+        return {
+          totalAmount,
+          deliveryFee,
+          calculatedTotalAmount,
+        };
       },
       {
         wrapper: RecoilRoot,
@@ -113,7 +121,6 @@ describe('totalPriceSelector', () => {
       act(() => {
         result.current.setItemDetails({
           quantity: data.quantity,
-          price: data.product.price,
           isChecked: true,
         });
       });
@@ -148,7 +155,6 @@ describe('toggleAllSelector', () => {
     act(() => {
       result.current.setItemDetails({
         quantity: 1,
-        price: 0,
         isChecked: true,
       });
     });
@@ -180,7 +186,6 @@ describe('toggleAllSelector', () => {
     act(() => {
       result.current.setItemDetails({
         quantity: 1,
-        price: 0,
         isChecked: false,
       });
     });
@@ -253,7 +258,6 @@ describe('totalCountSelector', () => {
         result.current.setItemDetailsList.forEach((setItemDetails, index) => {
           setItemDetails({
             quantity: input[index].quantity,
-            price: input[index].product.price,
             isChecked: true,
           });
         });

@@ -66,7 +66,6 @@ describe('itemsState', () => {
       });
       expect(result.current).toMatchObject({
         quantity: 1,
-        price: 0,
         isChecked: true,
       });
     });

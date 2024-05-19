@@ -3,7 +3,7 @@ import { useRecoilValue, useRecoilState } from 'recoil';
 import TotalAmount from '../TotalAmount/TotalAmount';
 import ItemList from '../ItemList/ItemList';
 import Title from '../Title/Title';
-import { fetchItemsSelector } from '../../recoil/selectors';
+import { fetchItemsSelector } from '../../recoil/fetchSelectors';
 import styled from 'styled-components';
 import { itemsState } from '../../recoil/atoms';
 import { MESSAGES, MESSAGES_PROPS } from '../../constants/Messages';

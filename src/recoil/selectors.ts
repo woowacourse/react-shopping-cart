@@ -2,7 +2,6 @@ import { DefaultValue, selector } from 'recoil';
 import { itemDetailsState, itemsState } from './atoms';
 import { CartItems } from '../types/Item';
 import { updateLocalStorage } from '../utils/UpdateLocalStorage';
-import { fetchItems } from '../api';
 import {
   DELIVERY_FEE,
   FREE_DELIVERY_THRESHOLD,
@@ -15,11 +14,16 @@ export const totalPriceSelector = selector({
   key: 'totalPriceSelector',
   get: ({ get }) => {
     const productIds = get(itemsState);
-    const totalAmount = productIds.reduce((prevTotalAmount, { id }) => {
-      const { quantity, price, isChecked } = get(itemDetailsState(id));
+    const totalAmount = productIds.reduce(
+      (prevTotalAmount, { id, product }) => {
+        const { quantity, isChecked } = get(itemDetailsState(id));
 
-      return isChecked ? prevTotalAmount + price * quantity : prevTotalAmount;
-    }, 0);
+        return isChecked
+          ? prevTotalAmount + product.price * quantity
+          : prevTotalAmount;
+      },
+      0,
+    );
     const deliveryFee =
       totalAmount >= FREE_DELIVERY_THRESHOLD || totalAmount === 0
         ? 0
@@ -64,27 +68,14 @@ export const totalCountSelector = selector({
   get: ({ get }) => {
     const productIds = get(itemsState);
     const totalItemTypeCount = productIds.length;
-    let totalCount = 0;
-    productIds.forEach((itemsState) => {
+
+    const totalCount = productIds.reduce((prevTotalCount, itemsState) => {
       const { quantity, isChecked } = get(itemDetailsState(itemsState.id));
       if (isChecked) {
-        totalCount += quantity;
+        return prevTotalCount + quantity;
       }
-    });
+      return prevTotalCount;
+    }, 0);
     return { totalItemTypeCount, totalCount };
-  },
-});
-
-/**
- * 장바구니 초기 데이터 API 호출
- */
-export const fetchItemsSelector = selector({
-  key: 'fetchItemsSelector',
-  get: async () => {
-    const data = await fetchItems();
-    return data;
-  },
-  set: ({ set }, newValue) => {
-    set(itemsState, newValue);
   },
 });

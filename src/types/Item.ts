@@ -13,6 +13,5 @@ export interface CartItems {
 }
 export interface ItemDetailsStateType {
   quantity: number;
-  price: number;
   isChecked: boolean;
 }

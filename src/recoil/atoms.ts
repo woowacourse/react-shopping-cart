@@ -10,7 +10,6 @@ export const itemDetailsState = atomFamily<ItemDetailsStateType, number>({
   key: 'itemDetailsState',
   default: {
     quantity: 1,
-    price: 0,
     isChecked: true,
   },
 });
