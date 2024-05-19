@@ -8,15 +8,7 @@ export const updateSelectedCartItemIdListLocalStorage =
     if (savedValue !== null) {
       setSelf(JSON.parse(savedValue));
     } else {
-      requestCartItemList()
-        .then((cartItemList) => {
-          const cartItemIdList = cartItemList.map(({ cartItemId }) => cartItemId);
-          setSelf(cartItemIdList);
-        })
-        .catch((error) => {
-          console.error(error);
-          setSelf([]);
-        });
+      setSelf([]);
     }
 
     onSet((selectedCartItemIdList: number[], _: number[] | DefaultValue, isReset: boolean) => {
