@@ -18,32 +18,29 @@ const useUpdateCartItemCount = ({ id, quantity }: CartItem) => {
    * @param quantity :현재 수량
    * @param sign  : 수량 변경 버튼 기호
    */
-  const isAttemptingToGoOverMax = (quantity: number, sign: Sign) => {
-    const { max, message } = COUNTS;
-    const isTry = quantity === max && sign === 'plus';
-    if (isTry) setErrorMessage(message.max);
-    return isTry;
-  };
+  const isAttemptingToGoOverMax = (quantity: number, sign: Sign) => quantity === COUNTS.max && sign === 'plus';
 
   /**
    * 최소 수량을 미만의 수량 변경을 시도하는지 여부
    * @param quantity :현재 수량
    * @param sign  : 수량 변경 버튼 기호
    */
-  const isAttemptingToGoUnderMin = (quantity: number, sign: Sign) => {
-    const { min, message } = COUNTS;
-    const isTry = quantity === min && sign === 'minus';
-    if (isTry) setErrorMessage(message.min);
-
-    return isTry;
-  };
+  const isAttemptingToGoUnderMin = (quantity: number, sign: Sign) => quantity === COUNTS.min && sign === 'minus';
 
   const validateQuantity = (quantity: number, sign: Sign) => {
-    const isValidated = !(isAttemptingToGoUnderMin(quantity, sign) || isAttemptingToGoOverMax(quantity, sign));
+    if (isAttemptingToGoOverMax(quantity, sign)) {
+      setErrorMessage(COUNTS.message.max);
+      return false;
+    }
 
-    if (isValidated) setErrorMessage('');
+    if (isAttemptingToGoUnderMin(quantity, sign)) {
+      setErrorMessage(COUNTS.message.min);
+      return false;
+    }
 
-    return isValidated;
+    setErrorMessage('');
+
+    return true;
   };
 
   const updateCartItems = (newQuantity: number) => {
@@ -56,6 +53,7 @@ const useUpdateCartItemCount = ({ id, quantity }: CartItem) => {
 
   const onUpdateCartItemCount = async (sign: Sign) => {
     if (!validateQuantity(quantity, sign)) return;
+
     //유효한 수량변경일 경우 fetch 및 상태 변경
     const newQuantity = getNewQuantity(sign);
 
