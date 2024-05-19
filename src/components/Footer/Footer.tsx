@@ -28,7 +28,6 @@ const Footer = () => {
     },
   };
 
-  console.log(Object.keys(footerInfo), pathname);
   if (!Object.keys(footerInfo).includes(pathname)) {
     return;
   }

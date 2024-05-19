@@ -16,6 +16,7 @@ const routes = [
 
 function App() {
   const router = createBrowserRouter(routes);
+
   return (
     <>
       <React.StrictMode>
