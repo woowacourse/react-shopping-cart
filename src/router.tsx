@@ -1,9 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import MainLayout from "@/components/layout/MainLayout";
-
 import OrderConfirmPage from "@/pages/OrderConfirmPage/OrderConfirmPage";
 import CartPage from "@/pages/CartPage/CartPage";
+
+import MainLayout from "./components/_layout/MainLayout/MainLayout";
 
 import { PAGE_URL } from "./constants/url";
 
