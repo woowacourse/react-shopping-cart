@@ -6,6 +6,7 @@ import Button from '../components/common/Button/Button';
 import { useRecoilValue } from 'recoil';
 import { totalCartItemQuantitySelector } from '../recoil/cartItem/states';
 import { finalCartPriceSelector } from '../recoil/price/states';
+import { CartItem } from '../apis/cartItem/cartItem.type';
 
 const CartPageContainer = styled.main`
   width: 100%;
@@ -27,7 +28,8 @@ const PriceContainer = styled.main`
 `;
 
 const ConfirmPurchasePage = () => {
-  const { state } = useLocation();
+  const location = useLocation();
+  const state: CartItem[] = location.state;
   const totalCartItemQuantity = useRecoilValue(totalCartItemQuantitySelector);
   const finalCartPrice = useRecoilValue(finalCartPriceSelector);
 
