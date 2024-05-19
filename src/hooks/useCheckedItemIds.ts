@@ -1,20 +1,8 @@
-import parseJsonSafely from '../utils/parseJsonSafely';
 import { uncheckedItemIdsState } from '../recoil/atoms';
-import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-
-const UNCHECKED_ITEM_IDS = 'uncheckedItemIds';
 
 const useCheckedItemIds = () => {
   const [uncheckedItemIds, setRecoilCheckedItemIds] = useRecoilState(uncheckedItemIdsState);
-
-  useEffect(() => {
-    const localStorageItemIds = localStorage.getItem(UNCHECKED_ITEM_IDS);
-    const parsedCheckedItemIds: number[] = localStorageItemIds
-      ? parseJsonSafely(localStorageItemIds) ?? {}
-      : [];
-    setRecoilCheckedItemIds(parsedCheckedItemIds);
-  }, [setRecoilCheckedItemIds]);
 
   const getIsChecked = (id: number) => {
     return !uncheckedItemIds.includes(id);
@@ -32,7 +20,6 @@ const useCheckedItemIds = () => {
     );
 
     setRecoilCheckedItemIds(nextCheckedItemIds);
-    localStorage.setItem(UNCHECKED_ITEM_IDS, JSON.stringify(nextCheckedItemIds));
   };
 
   const uncheckId = (...ids: number[]) => {
@@ -45,7 +32,6 @@ const useCheckedItemIds = () => {
       [...uncheckedItemIds],
     );
     setRecoilCheckedItemIds(nextUncheckedIds);
-    localStorage.setItem(UNCHECKED_ITEM_IDS, JSON.stringify(nextUncheckedIds));
   };
 
   return { getIsChecked, checkId, uncheckId };
