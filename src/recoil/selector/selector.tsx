@@ -1,5 +1,6 @@
 import { selector } from "recoil";
 import { cartItemCheckedIdsAtom, cartItemsAtom } from "../atom/atom";
+import { ORDER_PRICE_THRESHOLD, SHIPPING_FEE } from "../../constants/setting";
 
 // 전체 id에 대한 양을 가지고 있는 셀렉터. (get: {id: quantity, ...}. set: 해당 id를 해당 quantity로 변경 )
 export const quantitySelector = selector<Record<string, number>>({
@@ -63,7 +64,7 @@ export const shippingFeeSelector = selector({
   key: "shippingFeeSelector",
   get: ({ get }) => {
     const orderPrice = get(orderPriceSelector);
-    return orderPrice >= 100000 ? 0 : 3000;
+    return orderPrice >= ORDER_PRICE_THRESHOLD ? 0 : SHIPPING_FEE;
   },
 });
 

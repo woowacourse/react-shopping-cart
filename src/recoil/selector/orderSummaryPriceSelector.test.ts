@@ -4,6 +4,8 @@ import { renderHook } from "@testing-library/react";
 import { act } from "react";
 import { orderPriceSelector, shippingFeeSelector, totalPriceSelector } from "./selector";
 import { Product } from "../../types";
+import { formatCurrency } from "../../utils/formatCurrency";
+import { ORDER_PRICE_THRESHOLD, SHIPPING_FEE } from "../../constants/setting";
 
 // mock data
 const mockCartItems: Product[] = [
@@ -46,7 +48,7 @@ describe("orderPriceSelector 테스트", () => {
   });
 
   describe("shippingFeeSelector 테스트", () => {
-    it("주문 금액이 100,000원이 넘지 않으면 배달비가 3,000원이다.", () => {
+    it(`주문 금액이 ${formatCurrency(ORDER_PRICE_THRESHOLD)}이 넘지 않으면 배달비가 ${formatCurrency(SHIPPING_FEE)}이다.`, () => {
       act(() => {
         result.current.setCartItems(mockCartItems);
         result.current.setCheckedIds([1]);
