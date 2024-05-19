@@ -63,3 +63,9 @@ export const CART = {
   MINIMUM_QUANTITY: 1,
   QUANTITY_CHANGE_STEP: 1,
 };
+
+// 버튼 색 관련 상수
+export const BUTTON_COLORS = {
+  LIGHT: "LIGHT",
+  DARK: "DARK",
+} as const;
