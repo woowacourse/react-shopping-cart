@@ -6,21 +6,31 @@ const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD as string;
 
 type Method = "GET" | "POST" | "PATCH" | "DELETE";
 
+interface ApiProps {
+  endpoint: string;
+  headers?: Record<string, string>;
+  body?: object | null;
+}
+
+interface RequestProps extends ApiProps {
+  method: Method;
+}
+
 const apiClient = {
-  get(endpoint: string, headers: object) {
-    return this.request("GET", endpoint, headers, null);
+  get({ endpoint, headers = {} }: ApiProps) {
+    return this.request({ method: "GET", endpoint, headers });
   },
-  post(endpoint: string, headers: object, body: object) {
-    return this.request("POST", endpoint, headers, body);
+  post({ endpoint, headers = {}, body = {} }: ApiProps) {
+    return this.request({ method: "POST", endpoint, headers, body });
   },
-  patch(endpoint: string, headers: object, body: object) {
-    return this.request("PATCH", endpoint, headers, body);
+  patch({ endpoint, headers = {}, body = {} }: ApiProps) {
+    return this.request({ method: "PATCH", endpoint, headers, body });
   },
-  delete(endpoint: string, headers: object) {
-    return this.request("DELETE", endpoint, headers, null);
+  delete({ endpoint, headers = {} }: ApiProps) {
+    return this.request({ method: "DELETE", endpoint, headers });
   },
 
-  request(method: Method, endpoint: string, headers: object, body: object | null) {
+  request({ method, endpoint, headers = {}, body = null }: RequestProps) {
     const token = generateBasicToken(USER_ID, USER_PASSWORD);
     const requestInit = {
       method,
