@@ -1,10 +1,9 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import ShoppingCartPage from './page/ShoppingCartPage';
-import ConfirmOrderPage from './page/ConfirmOrderPage';
+import { ShoppingCartPage, ConfirmOrderPage } from './page';
 
+import { ENDPOINTS } from './constants';
 import './App.css';
 import './reset.css';
-import ENDPOINTS from './constants/endpoints';
 
 const router = createBrowserRouter([
   {

@@ -4,7 +4,7 @@ import { isCheckedItemIdsState } from '../recoil/atoms';
 
 const IS_CHECKED_ITEM = 'isCheckedItem';
 
-const useCheckedItemIds = () => {
+export const useCheckedItemIds = () => {
   const [checkedItemIds, setRecoilCheckedItemIds] = useRecoilState(isCheckedItemIdsState);
 
   useEffect(() => {
@@ -42,5 +42,3 @@ const useCheckedItemIds = () => {
 
   return { getIsChecked, checkId, uncheckId, deleteId };
 };
-
-export default useCheckedItemIds;
