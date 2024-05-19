@@ -1,4 +1,4 @@
-import { S } from "./TitleSet.style";
+import Styled from "./TitleSet.style";
 
 interface TitleSetProps {
   title: string;
@@ -7,10 +7,10 @@ interface TitleSetProps {
 
 const TitleSet = ({ title, subTitle }: TitleSetProps) => {
   return (
-    <S.Wrapper>
-      <S.Title>{title}</S.Title>
-      {subTitle && <S.SubTitle>{subTitle}</S.SubTitle>}
-    </S.Wrapper>
+    <Styled.Wrapper>
+      <Styled.Title>{title}</Styled.Title>
+      {subTitle && <Styled.SubTitle>{subTitle}</Styled.SubTitle>}
+    </Styled.Wrapper>
   );
 };
 
