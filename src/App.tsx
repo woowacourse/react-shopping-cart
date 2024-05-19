@@ -1,31 +1,23 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import CartPage from "./pages/CartPage";
-import "./App.css";
 import { Suspense } from "react";
-import OrderConfirmationPage from "./pages/OrderConfirmationPage";
+import { routes } from "./routes";
+import "./App.css";
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <CartPage />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/orderConfirmation"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <OrderConfirmationPage />
-              </Suspense>
-            }
-          />
-        </Routes>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            {routes.map(({ path, element }) => (
+              <Route
+                key={path}
+                path={path}
+                element={element}
+              />
+            ))}
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </>
   );
