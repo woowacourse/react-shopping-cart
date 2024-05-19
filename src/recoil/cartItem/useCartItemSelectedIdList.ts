@@ -20,7 +20,7 @@ export const useCartItemSelectedIdList = () => {
     setSelectedIdList(totalIdList);
   };
 
-  const removeAll = () => {
+  const unselectAll = () => {
     setSelectedIdList([]);
   };
 
@@ -34,6 +34,6 @@ export const useCartItemSelectedIdList = () => {
     addSelectedId,
     removeSelectedId,
     selectAll,
-    removeAll,
+    unselectAll,
   };
 };

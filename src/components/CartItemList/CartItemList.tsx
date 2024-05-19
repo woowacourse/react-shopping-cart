@@ -16,12 +16,12 @@ export interface CartItemListProps {
 const CartItemList = ({ itemList }: CartItemListProps) => {
   const selectedIdList = useRecoilValue(cartItemSelectedIdListAtom);
   const isSelectedAll = selectedIdList.length === itemList.length;
-  const { removeAll, selectAll } = useCartItemSelectedIdList();
+  const { unselectAll, selectAll } = useCartItemSelectedIdList();
 
   return (
     <S.CartItemList>
       <S.SelectAllContainer>
-        <Checkbox state={isSelectedAll} handleClick={isSelectedAll ? removeAll : selectAll} />
+        <Checkbox state={isSelectedAll} handleClick={isSelectedAll ? unselectAll : selectAll} />
         <Text size="s" weight="m">
           전체선택
         </Text>

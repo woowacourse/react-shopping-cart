@@ -49,7 +49,7 @@ describe('CartItemList 컴포넌트', () => {
   beforeEach(() => {
     mockedUseRecoilValue.mockReturnValue([]);
     mockedUseCartItemSelectedIdList.mockReturnValue({
-      removeAll: jest.fn(),
+      unselectAll: jest.fn(),
       selectAll: jest.fn(),
     });
   });
@@ -85,9 +85,9 @@ describe('CartItemList 컴포넌트', () => {
     expect(selectAll).toHaveBeenCalledTimes(1);
   });
 
-  test('전체선택 체크박스를 클릭했을 때 removeAll 함수가 호출된다', () => {
+  test('전체선택 체크박스를 클릭했을 때 unselectAll 함수가 호출된다', () => {
     mockedUseRecoilValue.mockReturnValue(mockCartItemListProps.itemList.map((item) => item.cartItemId));
-    const { removeAll } = mockedUseCartItemSelectedIdList();
+    const { unselectAll } = mockedUseCartItemSelectedIdList();
 
     render(
       <RecoilRoot>
@@ -97,6 +97,6 @@ describe('CartItemList 컴포넌트', () => {
 
     const selectAllCheckbox = screen.getByRole('checkbox');
     fireEvent.click(selectAllCheckbox);
-    expect(removeAll).toHaveBeenCalledTimes(1);
+    expect(unselectAll).toHaveBeenCalledTimes(1);
   });
 });
