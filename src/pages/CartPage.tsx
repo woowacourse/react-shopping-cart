@@ -5,6 +5,7 @@ import {
   Header,
   Footer,
   CartPrice,
+  Loading,
 } from "../components";
 
 import CartLayout from "../layouts/Cart";
@@ -12,7 +13,7 @@ import HomeButton from "../components/button/HomeButton";
 
 const CartPage = () => {
   return (
-    <Suspense fallback={<div>Loading</div>}>
+    <Suspense fallback={<Loading />}>
       <Header>
         <HomeButton />
       </Header>
