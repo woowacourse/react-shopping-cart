@@ -1,8 +1,9 @@
+import { AtomEffect, DefaultValue } from 'recoil';
 import { requestCartItemList } from '../../apis/cartItemList/cartItemList';
 
 export const updateSelectedCartItemIdListLocalStorage =
-  (key: string) =>
-  ({ setSelf, onSet }: any) => {
+  (key: string): AtomEffect<number[]> =>
+  ({ setSelf, onSet }) => {
     const savedValue = localStorage.getItem(key);
     if (savedValue !== null) {
       setSelf(JSON.parse(savedValue));
@@ -18,7 +19,8 @@ export const updateSelectedCartItemIdListLocalStorage =
         });
     }
 
-    onSet((newValue: any, _: any, isReset: boolean) => {
-      isReset ? localStorage.removeItem(key) : localStorage.setItem(key, JSON.stringify(newValue));
+    onSet((selectedCartItemIdList: number[], _: number[] | DefaultValue, isReset: boolean) => {
+      if (isReset) localStorage.removeItem(key);
+      else localStorage.setItem(key, JSON.stringify(selectedCartItemIdList));
     });
   };
