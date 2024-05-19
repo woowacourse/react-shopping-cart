@@ -1,4 +1,4 @@
-import { ErrorFallback } from '@components/common';
+import { BasicButton, ErrorFallback } from '@components/common';
 import { AppLayoutContainer } from '@components/layout/AppLayout/AppLayout.styled';
 import { useNavigate, useRouteError } from 'react-router-dom';
 
@@ -26,7 +26,7 @@ const ErrorPage = () => {
     <AppLayoutContainer>
       <Styled.ErrorPageInner>
         <ErrorFallback error={error} $height="20vh" />
-        <Styled.HomeButton onClick={handleClickHomeButton}>홈으로 돌아가기</Styled.HomeButton>
+        <BasicButton onClick={handleClickHomeButton}>홈으로 돌아가기</BasicButton>
       </Styled.ErrorPageInner>
     </AppLayoutContainer>
   );

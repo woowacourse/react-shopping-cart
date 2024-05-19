@@ -1,3 +1,4 @@
+export { default as BasicButton } from './BasicButton/BasicButton';
 export { default as BackButton } from './BackButton/BackButton';
 export { default as BottomButton } from './BottomButton/BottomButton';
 export { default as Checkbox } from './Checkbox/Checkbox';
