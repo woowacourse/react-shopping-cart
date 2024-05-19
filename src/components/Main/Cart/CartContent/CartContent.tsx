@@ -8,9 +8,9 @@ import CartTitle from "../CartTitle/CartTitle";
 const CartContent = () => {
   return (
     <main css={CartContentStyle}>
-      <CartTitle></CartTitle>
-      <CartItemContainer></CartItemContainer>
-      <CartResults></CartResults>
+      <CartTitle />
+      <CartItemContainer />
+      <CartResults />
     </main>
   );
 };
