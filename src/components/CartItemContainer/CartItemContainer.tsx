@@ -44,13 +44,15 @@ export default function CartItemContainer() {
         {items.map((item) => {
           return (
             <CartItem
+              handleClickCheckBox={() =>
+                getIsChecked(item.id) ? uncheckId(item.id) : checkId(item.id)
+              }
               key={item.id}
               cartItemId={item.id}
+              isChecked={getIsChecked(item.id)}
               product={item.product}
               quantity={item.quantity}
-              handleDelete={(cartItemId: number) => {
-                handleDeleteItem(cartItemId);
-              }}
+              handleDelete={() => handleDeleteItem(item.id)}
               handleIncreaseQuantity={(cartItemId: number, quantity: number) => {
                 handleUpdateQuantity(cartItemId, quantity);
               }}
