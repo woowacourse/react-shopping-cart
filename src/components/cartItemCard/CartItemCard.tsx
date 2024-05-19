@@ -1,7 +1,7 @@
-import { useSetRecoilState } from "recoil";
-import { deleteCartItem, patchCartItemQuantityChange } from "../../api";
-import { CART, COUNTER_BUTTON_TYPES, ERROR_MESSAGES } from "../../constants";
-import { cartItemsState } from "../../recoil/atoms/atoms";
+import { COUNTER_BUTTON_TYPES } from "../../constants";
+import { useDecreaseCartItemQuantity } from "../../hooks/useDecreaseCartItemQuantity";
+import { useDeleteCartItem } from "../../hooks/useDeleteCartItem";
+import { useIncreaseCartItemQuantity } from "../../hooks/useIncreaseCartItemQuantity";
 import { CartItem } from "../../types";
 import { CheckboxButton } from "../button/checkboxButton/CheckboxButton";
 import { CounterButton } from "../button/counterButton/CounterButton";
@@ -29,42 +29,10 @@ export const CartItemCard: React.FC<CartItemProps> = ({
   onCheck,
 }) => {
   const { name, price, imageUrl } = product;
-  const setCartItems = useSetRecoilState(cartItemsState);
 
-  const handleItemDelete = async (id: number) => {
-    try {
-      await deleteCartItem(id);
-      setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
-    } catch (error) {
-      console.error(ERROR_MESSAGES.DELETE_CART_ITEM, error);
-    }
-  };
-
-  const handleItemCountPlus = async (id: number) => {
-    try {
-      const newQuantity = quantity + CART.QUANTITY_CHANGE_STEP;
-      await patchCartItemQuantityChange(id, newQuantity);
-      setCartItems((prevItems) =>
-        prevItems.map((item) => (item.id === id ? { ...item, quantity: newQuantity } : item))
-      );
-    } catch (error) {
-      console.error(ERROR_MESSAGES.PLUS_CART_ITEM, error);
-    }
-  };
-
-  const handleItemCountMinus = async (id: number) => {
-    if (quantity > 1) {
-      try {
-        const newQuantity = quantity - CART.QUANTITY_CHANGE_STEP;
-        await patchCartItemQuantityChange(id, newQuantity);
-        setCartItems((prevItems) =>
-          prevItems.map((item) => (item.id === id ? { ...item, quantity: newQuantity } : item))
-        );
-      } catch (error) {
-        console.error(ERROR_MESSAGES.MINUS_CART_ITEM, error);
-      }
-    }
-  };
+  const handleItemDelete = useDeleteCartItem();
+  const handleItemCountPlus = useIncreaseCartItemQuantity();
+  const handleItemCountMinus = useDecreaseCartItemQuantity();
 
   return (
     <StyledCartItemCard>
@@ -80,12 +48,12 @@ export const CartItemCard: React.FC<CartItemProps> = ({
           <StyledProductQuantityContainer>
             <CounterButton
               type={COUNTER_BUTTON_TYPES.DECREMENT}
-              onClick={() => handleItemCountMinus(id)}
+              onClick={() => handleItemCountMinus({ id, quantity })}
             />
             <StyledProductQuantityText>{quantity}</StyledProductQuantityText>
             <CounterButton
               type={COUNTER_BUTTON_TYPES.INCREMENT}
-              onClick={() => handleItemCountPlus(id)}
+              onClick={() => handleItemCountPlus({ id, quantity })}
             />
           </StyledProductQuantityContainer>
         </StyledProductInfo>
