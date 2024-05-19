@@ -1,4 +1,9 @@
 import { selector } from "recoil";
+import {
+  FREE_SHIPPING_FEE,
+  FREE_SHIPPING_THRESHOLD,
+  SHIPPING_FEE,
+} from "../constants";
 import CartItemLocalStorage, { KEY } from "../services/CartItemLocalStorage";
 import { CartItemType } from "../types";
 import { cartItemQuantity, cartItemSelected, cartListState } from "./atoms";
@@ -50,8 +55,8 @@ export const shippingFee = selector({
   get: ({ get }) => {
     const totalPrice = get(cartListTotalPrice);
 
-    if (totalPrice >= 100_000) return 0;
-    return 3000;
+    if (totalPrice >= FREE_SHIPPING_THRESHOLD) return FREE_SHIPPING_FEE;
+    return SHIPPING_FEE;
   },
 });
 

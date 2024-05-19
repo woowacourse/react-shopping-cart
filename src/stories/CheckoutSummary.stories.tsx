@@ -3,6 +3,7 @@ import theme from "../styles/theme";
 
 import type { Meta, StoryObj } from "@storybook/react";
 import CheckoutSummary from "../components/CartList/CheckoutSummary";
+import { SHIPPING_FEE } from "../constants";
 
 const meta: Meta<typeof CheckoutSummary> = {
   title: "ShoppingCart/CheckoutSummary",
@@ -34,7 +35,7 @@ type Story = StoryObj<typeof meta>;
 export const Summary: Story = {
   args: {
     totalPrice: 10000,
-    shippingFee: 3000,
+    shippingFee: SHIPPING_FEE,
   },
   decorators: [
     (Story) => (
