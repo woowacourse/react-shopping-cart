@@ -1,3 +1,4 @@
+import { CART_MESSAGES } from '../../constants/cart';
 import {
   StyledCartHeaderDescription,
   StyledCartHeaderTitle,
@@ -12,7 +13,7 @@ export const CartHeader: React.FC<{ categoryCount: number }> = ({
       <StyledCartHeaderTitle>장바구니</StyledCartHeaderTitle>
       {categoryCount > 0 ? (
         <StyledCartHeaderDescription>
-          현재 {categoryCount}종류의 상품이 담겨있습니다.
+          {CART_MESSAGES.ITEMS_PRESENT(categoryCount)}
         </StyledCartHeaderDescription>
       ) : (
         <StyledCartHeaderDescription />

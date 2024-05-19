@@ -22,6 +22,7 @@ import {
   StyledProductQuantityContainer,
   StyledProductQuantityText,
 } from './CartItemCard.styled';
+import { CART_MESSAGES } from '../../constants/cart';
 interface CartItemProps extends CartItem {
   selected: boolean;
   onSelect: () => void;
@@ -43,7 +44,7 @@ export const CartItemCard: React.FC<CartItemProps> = ({
       setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
     } catch (error) {
       if (error instanceof Error) {
-        setCartErrorMessage('아이템을 삭제하는데 실패했습니다.');
+        setCartErrorMessage(CART_MESSAGES.DELETE_ITEM_FAIL);
         console.error('Failed to delete cart item:', error.message);
       }
     }
@@ -60,7 +61,7 @@ export const CartItemCard: React.FC<CartItemProps> = ({
       );
     } catch (error) {
       if (error instanceof Error) {
-        setCartErrorMessage('수량을 늘리는데 실패했습니다.');
+        setCartErrorMessage(CART_MESSAGES.INCREASE_QUANTITY_FAIL);
         console.error('Failed to increase item quantity:', error);
       }
     }
@@ -79,7 +80,7 @@ export const CartItemCard: React.FC<CartItemProps> = ({
       } catch (error) {
         if (error instanceof Error) {
           console.error('Failed to decrease item quantity', error.message);
-          setCartErrorMessage('수량을 줄이는데 실패했습니다.');
+          setCartErrorMessage(CART_MESSAGES.DECREASE_QUANTITY_FAIL);
         }
       }
     }

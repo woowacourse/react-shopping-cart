@@ -20,6 +20,7 @@ import {
   StyledConfirmationPageTitle,
 } from './OrderConfirmationPage.styled';
 import { ErrorAlertModal } from '../../components/errorAlertModal/ErrorAlertModal';
+import { CART_MESSAGES, ORDER_MESSAGES } from '../../constants/cart';
 
 export const OrderConfirmationPage: React.FC = () => {
   const totalPrice = useRecoilValue(totalPriceState);
@@ -37,7 +38,7 @@ export const OrderConfirmationPage: React.FC = () => {
         setCartItemsCount(quantity);
       } catch (error) {
         console.error('Failed to fetch cart items:', error);
-        setCartErrorMessage('주문 확인을 불러오는 데 실패했습니다.');
+        setCartErrorMessage(CART_MESSAGES.ORDER_FAIL);
       }
     };
 
@@ -51,13 +52,13 @@ export const OrderConfirmationPage: React.FC = () => {
         <StyledConfirmationPageTitle>주문확인</StyledConfirmationPageTitle>
         <StyledConfirmationPageDescription>
           <span>
-            총 {categoryCount}종류의 상품 {cartItemsCount}개를 주문합니다.
+            {ORDER_MESSAGES.ORDER_SUMMARY(categoryCount, cartItemsCount)}
           </span>
-          <span> 최종 결제 금액을 확인해 주세요.</span>
+          <span>{ORDER_MESSAGES.FINAL_AMOUNT_CONFIRM}</span>
         </StyledConfirmationPageDescription>
         <StyledConfirmationPagePriceContainer>
           <StyledConfirmationPageSubTitle>
-            총 결제 금액
+            {ORDER_MESSAGES.FINAL_AMOUNT}
           </StyledConfirmationPageSubTitle>
           <StyledConfirmationPagePrice>
             {totalPrice.toLocaleString()}원

@@ -5,6 +5,7 @@ import {
   StyledModalBackdrop,
   StyledModalButton,
 } from './ErrorAlertModal.styled';
+import { CART_MESSAGES } from '../../constants/cart';
 
 export const ErrorAlertModal: React.FC<{ errorMessage: string }> = ({
   errorMessage,
@@ -15,7 +16,7 @@ export const ErrorAlertModal: React.FC<{ errorMessage: string }> = ({
       <StyledModal>
         <StyledMessageWrapper>
           <span>{errorMessage}</span>
-          <span>잠시 후 다시 시도해주세요.</span>
+          <span>{CART_MESSAGES.TRY_AGAIN}</span>
         </StyledMessageWrapper>
         <StyledModalButton onClick={() => setModalOpen(false)}>
           확인

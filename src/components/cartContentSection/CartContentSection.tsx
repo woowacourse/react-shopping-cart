@@ -5,6 +5,7 @@ import {
   StyledContentContainer,
   StyledEmptyCartItemCard,
 } from './CartContentSection.styled';
+import { CART_MESSAGES } from '../../constants/cart';
 
 export const CartContentSection: React.FC<{ categoryCount: number }> = ({
   categoryCount,
@@ -17,9 +18,7 @@ export const CartContentSection: React.FC<{ categoryCount: number }> = ({
           <CartSummary />
         </StyledContentContainer>
       ) : (
-        <StyledEmptyCartItemCard>
-          장바구니에 담은 상품이 없습니다.
-        </StyledEmptyCartItemCard>
+        <StyledEmptyCartItemCard>{CART_MESSAGES.EMPTY}</StyledEmptyCartItemCard>
       )}
     </StyledCartContentSection>
   );

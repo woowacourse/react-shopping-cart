@@ -1,5 +1,6 @@
 import { selector } from 'recoil';
 import { cartItemsState, selectedItemsState } from '../atoms/atoms';
+import { DELIVERY_INFO } from '../../constants/cart';
 
 export const categoryCountState = selector<number>({
   key: 'categoryCountState',
@@ -28,7 +29,10 @@ export const deliveryPriceState = selector<number>({
   key: 'deliveryPriceState',
   get: ({ get }) => {
     const orderPrice = get(orderPriceState);
-    const deliveryPrice = orderPrice > 100000 || orderPrice === 0 ? 0 : 3000;
+    const deliveryPrice =
+      orderPrice > DELIVERY_INFO.FREE_DELIVERY_THRESHOLD || orderPrice === 0
+        ? 0
+        : DELIVERY_INFO.DELIVERY_AMOUT;
     return deliveryPrice;
   },
 });
