@@ -1,36 +1,14 @@
-import { useEffect, useState } from 'react';
 import * as S from './CartItemListSection.style'
-import useCartListItem from '../../recoil/cartItemList/useCartItemList';
 
 import Title from '../common/Title/Title';
 import Spacer from '../common/Spacer/Spacer';
 import CartItemList from '../CartItemList/CartItemList';
 import PriceTable from '../PriceTable/PriceTable';
 import { useRecoilValue } from 'recoil';
-import { cartItemListState } from '../../recoil/cartItemList/cartItemListSelector';
+import { cartItemListQuery } from '../../recoil/cartItemList/cartItemListSelector';
 
 const CartItemListSection = () => {
-
-  const { updateCartItemList } = useCartListItem();
-  const cartItemList = useRecoilValue(cartItemListState);
-
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await updateCartItemList();
-      } catch (err) {
-        setError(err as Error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (error) {
-    throw error;
-  }
+  const cartItemList = useRecoilValue(cartItemListQuery);
 
   return (
     <S.CartItemListSection>

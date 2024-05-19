@@ -4,7 +4,7 @@ export const FallbackContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 400px;
+  height: 80vh;
   width: 100%;
 `;
 
