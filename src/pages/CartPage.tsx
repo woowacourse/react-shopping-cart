@@ -11,14 +11,14 @@ import { CartLayout, Header, Content, Footer } from "../components/layout";
 
 const CartPage = () => {
   const navigate = useNavigate();
-  const [cartItems, setCartItmes] = useRecoilState(cartItemsAtom);
+  const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
   const cartItemCheckedIds = useRecoilValue(cartItemCheckedIdsAtom);
 
   useEffect(() => {
     // addCartItem(3); //아이템 추가할 때 사용
     const loadCartItems = async () => {
       const data = await fetchCartItems();
-      setCartItmes(data);
+      setCartItems(data);
     };
     loadCartItems();
   }, []);
