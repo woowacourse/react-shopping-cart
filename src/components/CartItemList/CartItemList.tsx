@@ -1,27 +1,22 @@
 import * as S from './CartItemList.style';
-
 import CartItem from '../CartItem/CartItem';
-
 import Checkbox from '../common/Checkbox/Checkbox';
 import Text from '../common/Text/Text';
-
 import { useRecoilValue } from 'recoil';
-import { cartItemSelectedIdListAtom } from '../../recoil/cartItem/cartItemAtom';
-import { useCartItemSelectedIdList } from '../../recoil/cartItem/useCartItemSelectedIdList';
+import { selectedCartItemIdListAtom } from '../../recoil/selectedCartItemIdList/states';
+import { useSelectedCartItemIdList } from '../../recoil/selectedCartItemIdList/hooks';
+import { cartItemListAtom } from '../../recoil/cartItemList/states';
 
-export interface CartItemListProps {
-  itemList: CartItem[];
-}
-
-const CartItemList = ({ itemList }: CartItemListProps) => {
-  const selectedIdList = useRecoilValue(cartItemSelectedIdListAtom);
+const CartItemList = () => {
+  const itemList = useRecoilValue(cartItemListAtom);
+  const selectedIdList = useRecoilValue(selectedCartItemIdListAtom);
   const isSelectedAll = selectedIdList.length === itemList.length;
-  const { removeAll, selectAll } = useCartItemSelectedIdList();
+  const { clear, selectAll } = useSelectedCartItemIdList();
 
   return (
     <S.CartItemList>
       <S.SelectAllContainer>
-        <Checkbox alt="상품 선택" state={isSelectedAll} handleClick={isSelectedAll ? removeAll : selectAll} />
+        <Checkbox alt="상품 선택" state={isSelectedAll} handleClick={isSelectedAll ? clear : selectAll} />
         <Text size="s" weight="m">
           전체선택
         </Text>
