@@ -1,4 +1,4 @@
-import { cartItemsState } from '../recoil/atoms';
+import { cartItemsState } from '../recoil/selectors';
 import { updateCartItemQuantity } from '../apis';
 import { useRecoilState } from 'recoil';
 
@@ -13,34 +13,21 @@ export default function useItemQuantity() {
 
   const increaseQuantity = async (id: number) => {
     const nextCartItems = [...cartItems];
-    const targetIndex = nextCartItems.findIndex((item) => item.id === id);
-    if (targetIndex === -1) return;
-    nextCartItems[targetIndex] = {
-      ...nextCartItems[targetIndex],
-      quantity: nextCartItems[targetIndex].quantity + 1,
-    };
+    const targetItem = nextCartItems.find((item) => item.id === id);
+    if (targetItem === undefined) return;
+    await updateCartItemQuantity(id, targetItem.quantity + 1);
+    targetItem.quantity++;
     setCartItems(nextCartItems);
-    await updateCartItemQuantity(id, nextCartItems[targetIndex].quantity + 1).catch(() => {
-      alert('네트워크 접속이 불안정합니다. 다시 시도해주세요');
-      setCartItems(cartItems);
-    });
   };
 
   const decreaseQuantity = async (id: number) => {
     const nextCartItems = [...cartItems];
-    const targetIndex = nextCartItems.findIndex((item) => item.id === id);
-    if (targetIndex === -1) return;
-    if (cartItems[targetIndex].quantity === 1) return;
-    const nextTargetQuantity = cartItems[targetIndex].quantity - 1;
-    nextCartItems[targetIndex] = {
-      ...nextCartItems[targetIndex],
-      quantity: nextTargetQuantity,
-    };
+    const targetItem = nextCartItems.find((item) => item.id === id);
+    if (targetItem === undefined) return;
+    const nextTargetQuantity = Math.max(0, targetItem.quantity - 1);
+    await updateCartItemQuantity(id, nextTargetQuantity);
+    targetItem.quantity = nextTargetQuantity;
     setCartItems(nextCartItems);
-    await updateCartItemQuantity(id, nextTargetQuantity).catch(() => {
-      alert('네트워크 접속이 불안정합니다. 다시시도해주세요');
-      setCartItems(cartItems);
-    });
   };
 
   return { getQuantity, increaseQuantity, decreaseQuantity };

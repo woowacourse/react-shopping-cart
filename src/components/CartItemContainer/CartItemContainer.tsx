@@ -1,16 +1,17 @@
 import * as S from './style';
 
-import { removeCartItem, updateCartItemQuantity } from '../../apis';
-
 import CartItem from '../CartItem/CartItem';
 import CheckBox from '../CheckBox/CheckBox';
 import { cartItemsState } from '../../recoil/selectors';
+import { removeCartItem } from '../../apis';
 import useCheckedItemIds from '../../hooks/useCheckedItemIds';
+import useItemQuantity from '../../hooks/useItemQuantity';
 import { useRecoilState } from 'recoil';
 
 export default function CartItemContainer() {
   const [items, setItems] = useRecoilState(cartItemsState);
   const { getIsChecked, checkId, uncheckId } = useCheckedItemIds();
+  const { increaseQuantity, decreaseQuantity } = useItemQuantity();
 
   const ids = items.map((item) => item.id);
   const isAllChecked = ids.every((id) => getIsChecked(id));
@@ -22,12 +23,8 @@ export default function CartItemContainer() {
 
   const handleDeleteItem = async (cartItemId: number) => {
     await removeCartItem(cartItemId);
-    uncheckId(cartItemId);
+    checkId(cartItemId);
     setItems((prevItems) => prevItems.filter((item) => item.id !== cartItemId));
-  };
-
-  const handleUpdateQuantity = async (cartItemId: number, quantity: number) => {
-    await updateCartItemQuantity(cartItemId, quantity);
   };
 
   return (
@@ -48,17 +45,11 @@ export default function CartItemContainer() {
                 getIsChecked(item.id) ? uncheckId(item.id) : checkId(item.id)
               }
               key={item.id}
-              cartItemId={item.id}
+              cartItem={item}
               isChecked={getIsChecked(item.id)}
-              product={item.product}
-              quantity={item.quantity}
               handleDelete={() => handleDeleteItem(item.id)}
-              handleIncreaseQuantity={(cartItemId: number, quantity: number) => {
-                handleUpdateQuantity(cartItemId, quantity);
-              }}
-              handleDecreaseQuantity={(cartItemId: number, quantity: number) => {
-                handleUpdateQuantity(cartItemId, quantity);
-              }}
+              handleIncreaseQuantity={async () => increaseQuantity(item.id)}
+              handleDecreaseQuantity={async () => decreaseQuantity(item.id)}
             />
           );
         })}
