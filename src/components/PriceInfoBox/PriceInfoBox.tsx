@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import Styled from "./PriceInfoBox.style";
 
 interface PriceInfoBoxProps {
   priceLabel: string;
@@ -7,34 +7,11 @@ interface PriceInfoBoxProps {
 
 const PriceInfoBox = ({ priceLabel, price }: PriceInfoBoxProps) => {
   return (
-    <Wrapper>
-      <PriceLabel>{priceLabel}</PriceLabel>
-      <Price>{price.toLocaleString() + "원"}</Price>
-    </Wrapper>
+    <Styled.Wrapper>
+      <Styled.PriceLabel>{priceLabel}</Styled.PriceLabel>
+      <Styled.Price>{price.toLocaleString()}원</Styled.Price>
+    </Styled.Wrapper>
   );
 };
 
 export default PriceInfoBox;
-
-const Wrapper = styled.div`
-  width: 100%;
-  height: 42px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const PriceLabel = styled.span`
-  height: 16px;
-  font-size: 16px;
-  line-height: 16px;
-  font-weight: 700;
-`;
-
-const Price = styled.span`
-  height: 34px;
-  line-height: 34px;
-  font-size: 24px;
-  font-weight: 700;
-`;
