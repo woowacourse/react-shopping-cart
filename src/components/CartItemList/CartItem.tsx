@@ -4,7 +4,7 @@ import CheckedBox from '../assets/CheckedBox.svg';
 import UnCheckedBox from '../assets/UnCheckedBox.svg';
 import PlusButton from '../assets/PlusButton.svg';
 import MinusButton from '../assets/MinusButton.svg';
-import BinButton from '../assets/BinButton.svg';
+import BlockMinusButton from '../assets/BlockMinusButton.svg';
 import { useRecoilState } from 'recoil';
 import { selectedCartItemsState } from '../../recoil/selectedCardItems';
 import { adjustCartItemQuantity } from '../../api/shoppingCart';
@@ -61,12 +61,13 @@ const CartItem = ({ id, cartItemProduct, onRemoveItem }: ItemProp) => {
             <Styled.ItemQuantityAdjustment>
               <Styled.Button
                 onClick={() => {
+                  if (quantity === 1) return;
                   const updatedItemQuantity = quantity - 1;
                   handleAdjustCartItemQuantity(id, updatedItemQuantity);
                 }}
               >
                 <img
-                  src={quantity === 1 ? BinButton : MinusButton}
+                  src={quantity === 1 ? BlockMinusButton : MinusButton}
                   alt="-"
                 ></img>
               </Styled.Button>
