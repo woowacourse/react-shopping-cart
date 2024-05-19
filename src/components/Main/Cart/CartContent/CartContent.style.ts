@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-export const MainStyle = css({
+export const CartContentStyle = css({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",

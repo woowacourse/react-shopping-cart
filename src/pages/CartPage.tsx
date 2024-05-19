@@ -1,20 +1,20 @@
 import Header from "../components/Header/Header";
-import Main from "../components/Main/Main";
-import Footer from "../components/Footer/Footer";
+import CartContent from "../components/Main/Cart/CartContent/CartContent";
 import AddButton from "../components/AddButton/AddButton";
 import { Suspense } from "react";
+import CartFooter from "../components/Footer/CartFooter/CartFooter";
 
-const Cart = () => {
+const CartPage = () => {
   return (
     <>
       <Header />
       <Suspense fallback={<div>outer</div>}>
-        <Main />
-        <Footer />
+        <CartContent />
+        <CartFooter />
       </Suspense>
       {import.meta.env.DEV ? <AddButton /> : null}
     </>
   );
 };
 
-export default Cart;
+export default CartPage;
