@@ -24,14 +24,6 @@ export default function CartPage() {
   const navigate = useNavigate();
 
   const handleConfirmOrder = async () => {
-    // const cartItemSeleted = CartItemLocalStorage.get(KEY);
-    // if (cartItemSeleted) {
-    //   const cartItemIds = Object.keys(cartItemSeleted).filter(
-    //     (key) => cartItemSeleted[key] === true
-    //   );
-    //   await orderItems(cartItemIds);
-    //   navigate("/confirm");
-    // }
     navigate("/confirm");
   };
 
