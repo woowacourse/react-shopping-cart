@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import Styled from "./Caption.style";
 
 interface CaptionProps {
   asset?: () => JSX.Element;
@@ -7,18 +7,11 @@ interface CaptionProps {
 
 const Caption = ({ asset, text }: CaptionProps) => {
   return (
-    <CaptionText>
+    <Styled.CaptionText>
       {asset && asset()}
       {text}
-    </CaptionText>
+    </Styled.CaptionText>
   );
 };
 
 export default Caption;
-
-const CaptionText = styled.span`
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  ${({ theme }) => theme.TEXT.Subtitle}
-`;
