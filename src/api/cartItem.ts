@@ -38,7 +38,7 @@ export async function patchCartItem(
 ): Promise<void> {
   await fetchWithBasicToken({
     method: "PATCH",
-    endPoint: ENDPOINT.cartItem.patchItem(cartItemId) + "}}",
+    endPoint: ENDPOINT.cartItem.patchItem(cartItemId),
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ quantity }),
     errorMessage: ERROR_MESSAGE.patchCartItem,
