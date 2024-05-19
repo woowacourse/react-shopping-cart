@@ -2,7 +2,7 @@ import * as S from './style';
 
 import CartItemContainer from '../CartItemContainer/CartItemContainer';
 import OrderAmount from '../OrderAmount/OrderAmount';
-import { cartItemsState } from '../../recoil/selectors';
+import { cartItemsState } from '../../recoil/atoms';
 import { useRecoilValue } from 'recoil';
 
 export default function CartContainer() {
