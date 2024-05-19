@@ -4,33 +4,42 @@ import { FooterStyle } from "./Footer.style";
 import { orderAmountState } from "../../store/selector/selectors";
 import { useLocation, useNavigate } from "react-router-dom";
 
+interface FooterInfo {
+  content: string;
+  isButtonDisabled: boolean;
+  handleClick: () => void;
+}
+
 const Footer = () => {
   const orderAmount = useRecoilValue(orderAmountState);
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  if (pathname !== "/" && pathname !== "/order") {
+  const footerInfo: Record<string, FooterInfo> = {
+    "/": {
+      content: "주문 확인",
+      isButtonDisabled: orderAmount === 0,
+      handleClick: () => navigate("/order"),
+    },
+    "/order": {
+      content: "결제하기",
+      isButtonDisabled: true,
+      handleClick: () => navigate(0),
+    },
+  };
+
+  console.log(Object.keys(footerInfo), pathname);
+  if (!Object.keys(footerInfo).includes(pathname)) {
     return;
   }
 
-  const footerContent = {
-    "/": "주문 확인",
-    "/order": "결제하기",
-  };
-
-  const footerButtonDisabled = {
-    "/": orderAmount === 0,
-    "/order": true,
-  };
-
-  const footerButtonClick = {
-    "/": () => navigate("/order"),
-    "/order": () => navigate(0),
-  };
-
   return (
-    <button disabled={footerButtonDisabled[pathname]} css={FooterStyle} onClick={footerButtonClick[pathname]}>
-      {footerContent[pathname]}
+    <button
+      disabled={footerInfo[pathname].isButtonDisabled}
+      css={FooterStyle}
+      onClick={footerInfo[pathname].handleClick}
+    >
+      {footerInfo[pathname].content}
     </button>
   );
 };
