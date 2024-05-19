@@ -1,11 +1,17 @@
+import Button from '../common/Button/Button';
+import Text from '../common/Text/Text';
 import * as S from './ErrorFallback.style';
 
 interface ErrorFallbackProps {
   error?: Error;
+  resetErrorBoundary: () => void;
 }
-//TODO : Errorcode 받아서 반환하는게 나을듯
-const ErrorFallback = ({ error }: ErrorFallbackProps) => {
-  return <S.FallbackContainer>{error ? `${error.message}` : '장바구니에 담은 상품이 없습니다.'}</S.FallbackContainer>;
+
+const ErrorFallback = ({ error, resetErrorBoundary }: ErrorFallbackProps) => {
+  return <S.FallbackContainer>
+    <Text>{error ? `${error.message}` : '장바구니에 담은 상품이 없습니다.'}</Text>
+    <Button onClick={resetErrorBoundary}>다시 시도하기</Button>
+  </S.FallbackContainer>;
 };
 
 export default ErrorFallback;

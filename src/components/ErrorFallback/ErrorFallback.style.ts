@@ -2,9 +2,11 @@ import styled from 'styled-components';
 
 export const FallbackContainer = styled.div`
   display: flex;
+  flex-direction: column;
+  gap: 24px;
   justify-content: center;
   align-items: center;
-  height: 400px;
+  height: 80vh;
   width: 100%;
 `;
 
