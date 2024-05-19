@@ -76,12 +76,12 @@ describe('totalPriceSelector', () => {
 
   test.each([
     {
-      input: 99999,
-      expected: 102999,
+      input: FREE_DELIVERY_THRESHOLD - 1,
+      expected: FREE_DELIVERY_THRESHOLD + DELIVERY_FEE - 1,
     },
     {
-      input: 100000,
-      expected: 100000,
+      input: FREE_DELIVERY_THRESHOLD,
+      expected: FREE_DELIVERY_THRESHOLD,
     },
   ])(
     '상품 금액이 $input원일 때 총 결제 금액은 $expected원이어야 한다.',
