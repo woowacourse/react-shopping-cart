@@ -1,12 +1,10 @@
 import { CartItemResponse } from "../../types/ShoppingCart";
 import styled from "styled-components";
 import ItemCounter from "../ItemCounter/index";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { cartItemQuantityStates } from "../../recoil/atoms";
 import BasicButton from "../Button/BasicButton/index";
 import CheckboxButton from "../Button/CheckboxButton/index";
-import { checkCartItemSelector } from "../../recoil/selectors";
-import { uncheckCartItemSelector } from "../../recoil/selectors";
 import { checkedCartItemsState } from "../../recoil/atoms";
 import { deleteCartItem, patchCartItemQuantity } from "../../api/cartItem";
 
@@ -17,11 +15,11 @@ interface CartItemProps extends Omit<CartItemResponse, "quantity"> {
 const CartItem = ({ id, product, removeCartItem }: CartItemProps) => {
   const [quantity, setQuantity] = useRecoilState(cartItemQuantityStates(id));
 
-  const checkItems = useRecoilValue(checkedCartItemsState);
-  const checkCartItem = useSetRecoilState(checkCartItemSelector);
-  const uncheckCartItem = useSetRecoilState(uncheckCartItemSelector);
+  const [checkedItems, setCheckedItems] = useRecoilState(checkedCartItemsState);
 
-  const isCheckedItem = checkItems.includes(id) ? true : false;
+  const checkCartItem = (itemId: number) => setCheckedItems((prev) => prev.concat([itemId]));
+  const uncheckCartItem = (itemId: number) => setCheckedItems((prev) => prev.filter((id) => id !== itemId));
+  const isCheckedItem = checkedItems.includes(id) ? true : false;
 
   const handleRemoveItem = () => {
     if (!confirm("정말로 삭제하시겠습니까?")) return;
