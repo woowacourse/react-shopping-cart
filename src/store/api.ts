@@ -2,27 +2,43 @@ import { API_TOKEN } from "./utils";
 
 type MethodType = "GET" | "POST";
 
-export const fetchProducts = async (method: MethodType) => {
-  try {
-    const url = import.meta.env.VITE_API_BASE_URL + "/cart-items";
-    const response = await fetch(url, {
-      method,
-      headers: { Authorization: API_TOKEN },
-    });
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type FetchWrapper = (input: string | URL | Request, init?: RequestInit | undefined) => any;
 
-    const data = await response.json();
-    return data;
+const fetchWrapper: FetchWrapper = async (url, init) => {
+  try {
+    const response = await fetch(url, {
+      ...init,
+      headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
+    });
+    if (response.ok && init?.method === "GET") {
+      const data = await response.json();
+      return data;
+    }
+    if (!response.ok) {
+      console.error("Fetch error:", response.status, response.statusText);
+      return null;
+    }
   } catch (error) {
-    console.error("Failed to fetch products:", error);
-    return error;
+    console.error("Fetch error:", error);
   }
 };
 
+export const fetchProducts = async (method: MethodType) => {
+  const url = import.meta.env.VITE_API_BASE_URL + "/cart-items";
+  const init = {
+    method,
+  };
+  const products = await fetchWrapper(url, init);
+  return products;
+};
+
 export const deleteProduct = async (cartId: number) => {
-  await fetch(import.meta.env.VITE_API_BASE_URL + `/cart-items/${cartId}`, {
+  const url = import.meta.env.VITE_API_BASE_URL + `/cart-items/${cartId}`;
+  const init = {
     method: "DELETE",
-    headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
-  });
+  };
+  await fetchWrapper(url, init);
 };
 
 interface ChangeProductAmountProps {
@@ -31,20 +47,21 @@ interface ChangeProductAmountProps {
 }
 
 export const changeProductAmount = async ({ quantity, id }: ChangeProductAmountProps) => {
-  await fetch(import.meta.env.VITE_API_BASE_URL + `/cart-items/${id}`, {
+  const url = import.meta.env.VITE_API_BASE_URL + `/cart-items/${id}`;
+  const init = {
     method: "PATCH",
-    headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
     body: JSON.stringify({
       quantity,
     }),
-  });
+  };
+  await fetchWrapper(url, init);
 };
 
 export const fetchCartItemsCounts = async () => {
-  const response = await fetch(import.meta.env.VITE_API_BASE_URL + "/cart-items/counts", {
+  const url = import.meta.env.VITE_API_BASE_URL + "/cart-items/counts";
+  const init = {
     method: "GET",
-    headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
-  });
-  const data = await response.json();
-  return data.quantity;
+  };
+  const { quantity } = await fetchWrapper(url, init);
+  return quantity;
 };
