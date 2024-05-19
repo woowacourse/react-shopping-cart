@@ -4,8 +4,8 @@ import Header from "../../components/Header";
 import BottomButton from "../../components/common/BottomButton";
 import RecoilSuspense from "../../components/common/RecoilSuspense";
 import Layout from "../../layout";
+import { cartListState } from "../../recoil/atoms";
 import {
-  cartListState,
   cartListTotalPrice,
   cartListTotalQuantity,
 } from "../../recoil/selectors";

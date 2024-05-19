@@ -1,6 +1,20 @@
-import { AtomEffect, atomFamily, selectorFamily } from "recoil";
+import { AtomEffect, atom, atomFamily, selector, selectorFamily } from "recoil";
+import { fetchCartItems } from "../api";
 import CartItemLocalStorage from "../services/CartItemLocalStorage";
-import { cartListState } from "./selectors";
+import { CartItemType } from "../types";
+import { initializeCartItemStorage } from "./selectors";
+
+export const cartListState = atom<CartItemType[]>({
+  key: "cartListState",
+  default: selector<CartItemType[]>({
+    key: "cartListSelector",
+    get: async () => {
+      const items = await fetchCartItems();
+      initializeCartItemStorage(items);
+      return items;
+    },
+  }),
+});
 
 const cartItemQuantity = atomFamily<number, number>({
   key: "cartItemQuantity",

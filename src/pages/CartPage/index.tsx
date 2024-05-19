@@ -1,9 +1,5 @@
 import { useRecoilValue, useRecoilValueLoadable } from "recoil";
-import {
-  cartListState,
-  cartListTotalPrice,
-  shippingFee,
-} from "../../recoil/selectors";
+import { cartListTotalPrice, shippingFee } from "../../recoil/selectors";
 
 import { useNavigate } from "react-router-dom";
 import BlankCart from "../../components/BlankCart";
@@ -13,6 +9,7 @@ import Header from "../../components/Header";
 import BottomButton from "../../components/common/BottomButton";
 import RecoilSuspense from "../../components/common/RecoilSuspense";
 import Layout from "../../layout";
+import { cartListState } from "../../recoil/atoms";
 import { Description, Title } from "../ConfirmOrderPage/styles";
 import {
   CartHeaderContainer,

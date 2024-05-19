@@ -1,10 +1,9 @@
 import { selector } from "recoil";
-import { fetchCartItems } from "../api";
 import CartItemLocalStorage, { KEY } from "../services/CartItemLocalStorage";
 import { CartItemType } from "../types";
-import { cartItemQuantity, cartItemSelected } from "./atoms";
+import { cartItemQuantity, cartItemSelected, cartListState } from "./atoms";
 
-const initializeCartItemStorage = (items: CartItemType[]) => {
+export const initializeCartItemStorage = (items: CartItemType[]) => {
   const storageState = CartItemLocalStorage.get("cartItemSelected");
   if (!storageState) {
     const newStorageState = items.reduce(
@@ -16,15 +15,6 @@ const initializeCartItemStorage = (items: CartItemType[]) => {
     CartItemLocalStorage.set("cartItemSelected", newStorageState);
   }
 };
-
-export const cartListState = selector<CartItemType[]>({
-  key: "cartListState",
-  get: async () => {
-    const items = await fetchCartItems();
-    initializeCartItemStorage(items);
-    return items;
-  },
-});
 
 export const cartListTotalPrice = selector({
   key: "cartListTotalPrice",
