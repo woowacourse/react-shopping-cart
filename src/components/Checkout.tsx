@@ -1,12 +1,17 @@
-import { selectedUniqueCartItemsCountState } from "../recoil/selectedUniqueCartItemsCount";
-import { selectedCartItemsCountState } from "../recoil/selectedCartItemsCount";
 import { useRecoilValue } from "recoil";
 import { cartAmountState } from "../recoil/cartAmount";
 import styled from "styled-components";
+import { selectedCartItemIdsState } from "../recoil/selectedCartItemIds";
+import { cartItemsState } from "../recoil/cartItems";
+import { calculateSelectedCartItemsCount } from "../utils/domain/calculateSelectedCartItemsCount";
 
 export default function Checkout() {
-  const selectedUniqueCartItemsCount = useRecoilValue(selectedUniqueCartItemsCountState);
-  const selectedCartItemsCount = useRecoilValue(selectedCartItemsCountState);
+  const selectedCartItemIds = useRecoilValue(selectedCartItemIdsState);
+  const selectedUniqueCartItemsCount = selectedCartItemIds.length;
+
+  const cartItems = useRecoilValue(cartItemsState);
+  const selectedCartItemsCount = calculateSelectedCartItemsCount(cartItems);
+
   const { totalOrderAmount } = useRecoilValue(cartAmountState);
 
   return (
