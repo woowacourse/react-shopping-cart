@@ -11,11 +11,10 @@ export const priceSelector = selector({
     const cartItemList = get(cartItemListState);
     const cartItemSelectedIdList = get(cartItemSelectedIdListAtom);
     const filteredCartItemList = cartItemList.filter(({ cartItemId }) => cartItemSelectedIdList.includes(cartItemId));
-    console.log(cartItemSelectedIdList);
 
     const orderedPrice = filteredCartItemList.reduce((sum, { product, cartItemId }) => {
       const { price } = product;
-      const quantity = get(cartItemQuantityAtomFamily(`${cartItemId}`));
+      const quantity = get(cartItemQuantityAtomFamily(cartItemId));
 
       return (sum += price * quantity);
     }, 0);
