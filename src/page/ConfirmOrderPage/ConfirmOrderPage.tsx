@@ -1,12 +1,13 @@
-import { checkedItemsState, deliveryFeeState } from '../recoil/selectors';
+import * as S from './style';
+
+import { checkedItemsState, deliveryFeeState } from '../../recoil/selectors';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import ENDPOINTS from '../constants/endpoints';
-import FooterButton from '../components/FooterButton/FooterButton';
-import Header from '../components/Header/Header';
-import PreviousPageButton from '../components/PreviousPageButton/PreviousPageButton';
-import convertToLocaleAmount from '../utils/convertToLocalePrice';
-import styled from '@emotion/styled';
+import ENDPOINTS from '../../constants/endpoints';
+import FooterButton from '../../components/FooterButton/FooterButton';
+import Header from '../../components/Header/Header';
+import PreviousPageButton from '../../components/PreviousPageButton/PreviousPageButton';
+import convertToLocaleAmount from '../../utils/convertToLocalePrice';
 import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
@@ -41,55 +42,22 @@ export default function ConfirmOrderPage() {
       </Header>
 
       {location.state && (
-        <ConfirmPurchaseContainer>
-          <Title>주문 확인</Title>
-          <Description>
+        <S.ConfirmPurchaseContainer>
+          <S.Title>주문 확인</S.Title>
+          <S.Description>
             총 {totalCartItemsCount}종류의 상품 {totalProductsCount}개를 주문합니다.
             <br />
             최종 결제 금액을 확인해 주세요.
-          </Description>
+          </S.Description>
 
-          <TotalAmount>
-            <TotalAmountTitle>총 결제 금액</TotalAmountTitle>
+          <S.TotalAmount>
+            <S.TotalAmountTitle>총 결제 금액</S.TotalAmountTitle>
             {convertToLocaleAmount(totalAmount)}
-          </TotalAmount>
-        </ConfirmPurchaseContainer>
+          </S.TotalAmount>
+        </S.ConfirmPurchaseContainer>
       )}
 
       <FooterButton buttonText="결제하기" disabled />
     </>
   );
 }
-
-const ConfirmPurchaseContainer = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  textAlign: 'center',
-  gap: '24px',
-  height: '100%',
-  flex: '1 0 auto',
-});
-
-const Title = styled.h2({
-  fontSize: '24px',
-  fontWeight: '700',
-});
-
-const Description = styled.p({
-  color: '#0A0D13',
-  fontSize: '12px',
-  fontWeight: '500',
-});
-
-const TotalAmountTitle = styled.h3({
-  color: '#0A0D13',
-  fontSize: '16px',
-  fontWeight: '700',
-});
-
-const TotalAmount = styled.div({
-  fontSize: '24px',
-  fontWeight: '700',
-});
