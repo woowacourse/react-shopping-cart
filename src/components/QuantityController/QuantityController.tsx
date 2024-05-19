@@ -1,4 +1,4 @@
-import { QuantityControlButton, QuantityControllerContainer } from './QuantityController.style';
+import * as S from './style';
 
 interface QuantityControllerProps {
   quantity: number;
@@ -16,18 +16,18 @@ export default function QuantityController({
   maxQuantity = Infinity,
 }: QuantityControllerProps) {
   return (
-    <QuantityControllerContainer>
-      <QuantityControlButton
+    <S.QuantityControllerContainer>
+      <S.QuantityControlButton
         $controlType="decrease"
         $isEnabled={minQuantity < quantity}
         onClick={handleDecreaseQuantity}
       />
       {quantity}
-      <QuantityControlButton
+      <S.QuantityControlButton
         $controlType="increase"
         $isEnabled={quantity < maxQuantity}
         onClick={handleIncreaseQuantity}
       />
-    </QuantityControllerContainer>
+    </S.QuantityControllerContainer>
   );
 }
