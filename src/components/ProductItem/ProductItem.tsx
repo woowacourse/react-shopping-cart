@@ -29,35 +29,44 @@ export default function ProductItem({ cartItem }: { cartItem: Cart }) {
   const [isCheck, setIsCheck] = useRecoilState(cartItemCheckState(cartItem.id));
   const setCart = useSetRecoilState(cartData);
 
-  const handleIncrement = () => {
-    const newQuantity = quantity + 1;
-    patchCartItem(cartItem.id, newQuantity).then(() => {
+  const handleIncrement = async () => {
+    try {
+      const newQuantity = quantity + 1;
+      await patchCartItem(cartItem.id, newQuantity);
       setQuantity(newQuantity);
       updateCart(newQuantity);
-    });
+    } catch (error) {
+      console.error('Failed to increment cart item quantity:', error);
+    }
   };
 
-  const handleDecrement = () => {
-    const newQuantity = Math.max(quantity - 1, 1);
-    patchCartItem(cartItem.id, newQuantity).then(() => {
+  const handleDecrement = async () => {
+    try {
+      const newQuantity = Math.max(quantity - 1, 1);
+      await patchCartItem(cartItem.id, newQuantity);
       setQuantity(newQuantity);
       updateCart(newQuantity);
-    });
+    } catch (error) {
+      console.error('Failed to decrement cart item quantity:', error);
+    }
   };
 
-  const handleRemoveCartItem = () => {
-    const newTotalProductCount = Math.max(
-      totalProductCount - cartItem.quantity,
-      0,
-    );
-    removeCartItem(cartItem.id).then(() => {
+  const handleRemoveCartItem = async () => {
+    try {
+      const newTotalProductCount = Math.max(
+        totalProductCount - cartItem.quantity,
+        0,
+      );
+      await removeCartItem(cartItem.id);
       setTotalProductCount(newTotalProductCount);
       setCart((prevCart) => prevCart.filter((item) => item.id !== cartItem.id));
-    });
+    } catch (error) {
+      console.error('Failed to remove cart item:', error);
+    }
   };
 
   const handleCheckCartItem = () => {
-    setIsCheck(!isCheck);
+    setIsCheck((prevIsCheck) => !prevIsCheck);
   };
 
   const updateCart = (newQuantity: number) => {
