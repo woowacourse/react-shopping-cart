@@ -1,11 +1,11 @@
 import { atomFamily, selector } from "recoil";
-import persistAtom from "./utils/persist";
 import { cartItemsState } from "./cartItems";
+import { getPersistenceConfig } from "./utils/getPersistenceConfig";
 
 export const isCartItemsSelectedState = atomFamily({
   key: "isCartItemsSelectedState",
   default: false,
-  effects_UNSTABLE: [persistAtom],
+  effects_UNSTABLE: [getPersistenceConfig("cartItemSelections").persistAtom],
 });
 
 export const isAllCartItemSelectedState = selector({
