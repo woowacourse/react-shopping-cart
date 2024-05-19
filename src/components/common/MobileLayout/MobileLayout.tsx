@@ -11,15 +11,15 @@ const Background = styled.div`
 
 const LimitedWidthContainer = styled.div`
   position: relative;
-  width: 430px;
-  height: 100vh;
+  width: 100%;
+  max-width: 768px;
+  min-height: 100vh;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
 
   background-color: white;
-  overflow: scroll;
   scrollbar-width: none;
 `;
 

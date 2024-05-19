@@ -1,15 +1,17 @@
 import styled from 'styled-components';
 
 export const Header = styled.div`
-  position: fixed;
-  width: 430px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  height: 64px;
+  min-height: 64px;
   padding: 0 24px;
   background-color: black;
+
+  position: sticky;
+  top: 0;
 `;
 
 export const PrefixButton = styled.button`

@@ -15,8 +15,10 @@ import CartItemListLoader from './CartItemListLoader';
 
 const CartPageContainer = styled.main`
   width: 100%;
-  padding: 100px 20px 80px 20px;
+  height: 100%;
+  padding: 50px 20px 80px 20px;
 `;
+
 const CartPage = () => {
   const { updateCartItemList } = useCartItemList();
   const cartItemList = useRecoilValue(cartItemListAtom);
@@ -51,7 +53,7 @@ const CartPage = () => {
         width="full"
         radius={0}
         size="l"
-        style={{ position: 'fixed', bottom: '0', width: 'inherit' }}
+        style={{ position: 'fixed', bottom: '0', width: '100%', maxWidth: '768px' }}
         isDisabled={selectedItemList.length === 0 || (cartItemList !== null && cartItemList.length === 0)}
         onClick={moveToConfirmPurchasePage}
       >
