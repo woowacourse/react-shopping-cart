@@ -1,7 +1,7 @@
 import { renderHook } from "@testing-library/react";
 import { RecoilRoot, useRecoilValue, useSetRecoilState } from "recoil";
-import { selectedCartItemIdsState } from "./selectedCartItemIds";
-import { putInSelectedCartItemIds, takeOutSelectedCartItemIds } from "../utils/sessionStorage";
+import { selectedCartItemIdsState } from ".";
+import { putInSelectedCartItemIds, takeOutSelectedCartItemIds } from "../../utils/sessionStorage";
 import { act } from "react";
 
 jest.mock("../utils/sessionStorage");
