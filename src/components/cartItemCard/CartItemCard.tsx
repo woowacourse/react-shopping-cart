@@ -1,6 +1,9 @@
 import { useSetRecoilState } from 'recoil';
 import { deleteCartItem, patchCartItemQuantityChange } from '../../api';
-import { cartItemsState } from '../../recoil/atoms/atoms';
+import {
+  cartErrorMessageState,
+  cartItemsState,
+} from '../../recoil/atoms/atoms';
 import { CartItem } from '../../types';
 import { Button } from '../../components/common/button/Button';
 import CheckedButtonIcon from '../../assets/CheckedButtonIcon.png';
@@ -32,13 +35,17 @@ export const CartItemCard: React.FC<CartItemProps> = ({
 }) => {
   const { name, price, imageUrl } = product;
   const setCartItems = useSetRecoilState(cartItemsState);
+  const setCartErrorMessage = useSetRecoilState(cartErrorMessageState);
 
   const handleItemDelete = async (id: number) => {
     try {
       await deleteCartItem(id);
       setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
     } catch (error) {
-      console.error('Failed to delete cart item:', error);
+      if (error instanceof Error) {
+        setCartErrorMessage('아이템을 삭제하는데 실패했습니다.');
+        console.error('Failed to delete cart item:', error.message);
+      }
     }
   };
 
@@ -52,7 +59,10 @@ export const CartItemCard: React.FC<CartItemProps> = ({
         ),
       );
     } catch (error) {
-      console.error('Failed to increase item quantity:', error);
+      if (error instanceof Error) {
+        setCartErrorMessage('수량을 늘리는데 실패했습니다.');
+        console.error('Failed to increase item quantity:', error);
+      }
     }
   };
 
@@ -67,7 +77,10 @@ export const CartItemCard: React.FC<CartItemProps> = ({
           ),
         );
       } catch (error) {
-        console.error('Failed to decrease item quantity:', error);
+        if (error instanceof Error) {
+          console.error('Failed to decrease item quantity', error.message);
+          setCartErrorMessage('수량을 줄이는데 실패했습니다.');
+        }
       }
     }
   };

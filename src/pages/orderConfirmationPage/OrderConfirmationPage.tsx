@@ -3,7 +3,10 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { getCartItemCounts } from '../../api';
 import { ConfirmButton } from '../../components/confirmButton/ConfirmButton';
 import Header from '../../components/header/Header';
-import { cartItemsCountState } from '../../recoil/atoms/atoms';
+import {
+  cartErrorMessageState,
+  cartItemsCountState,
+} from '../../recoil/atoms/atoms';
 import {
   categoryCountState,
   totalPriceState,
@@ -16,12 +19,16 @@ import {
   StyledConfirmationPageSubTitle,
   StyledConfirmationPageTitle,
 } from './OrderConfirmationPage.styled';
+import { ErrorAlertModal } from '../../components/errorAlertModal/ErrorAlertModal';
 
 export const OrderConfirmationPage: React.FC = () => {
   const totalPrice = useRecoilValue(totalPriceState);
   const categoryCount = useRecoilValue(categoryCountState);
   const [cartItemsCount, setCartItemsCount] =
     useRecoilState(cartItemsCountState);
+  const [cartErrorMessage, setCartErrorMessage] = useRecoilState(
+    cartErrorMessageState,
+  );
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -30,6 +37,7 @@ export const OrderConfirmationPage: React.FC = () => {
         setCartItemsCount(quantity);
       } catch (error) {
         console.error('Failed to fetch cart items:', error);
+        setCartErrorMessage('주문 확인을 불러오는 데 실패했습니다.');
       }
     };
 
@@ -40,7 +48,7 @@ export const OrderConfirmationPage: React.FC = () => {
     <>
       <Header type='back' />
       <StyledConfirmationPage>
-        <StyledConfirmationPageTitle>주문확인 </StyledConfirmationPageTitle>
+        <StyledConfirmationPageTitle>주문확인</StyledConfirmationPageTitle>
         <StyledConfirmationPageDescription>
           <span>
             총 {categoryCount}종류의 상품 {cartItemsCount}개를 주문합니다.
@@ -55,6 +63,9 @@ export const OrderConfirmationPage: React.FC = () => {
             {totalPrice.toLocaleString()}원
           </StyledConfirmationPagePrice>
         </StyledConfirmationPagePriceContainer>
+        {cartErrorMessage.length > 0 && (
+          <ErrorAlertModal errorMessage={cartErrorMessage} />
+        )}
       </StyledConfirmationPage>
       <ConfirmButton text='결제하기' backgroundColor='rgba(190, 190, 190, 1)' />
     </>

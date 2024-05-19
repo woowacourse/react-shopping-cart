@@ -21,3 +21,8 @@ export const cartItemsCountState = atom<number>({
   key: 'cartItemsCount',
   default: 0,
 });
+
+export const cartErrorMessageState = atom<string>({
+  key: 'cartErrorMessage',
+  default: '',
+});
