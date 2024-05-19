@@ -1,6 +1,7 @@
 import { useRecoilValue } from "recoil";
-import styled from "styled-components";
 import { cartItemsState } from "../../stores/cartItems";
+
+import styled from "styled-components";
 
 const CartDescription = () => {
   const cartItemsLength = useRecoilValue(cartItemsState).length;

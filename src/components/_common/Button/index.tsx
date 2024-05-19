@@ -14,7 +14,7 @@ const BUTTON_THEME = {
     color: "#000000",
   },
   disabled: {
-    backgroundColor: "#BEBEBE",
+    backgroundColor: "#d0d0d0",
     color: "#ffffff",
   },
 };

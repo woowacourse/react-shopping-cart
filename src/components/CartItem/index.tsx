@@ -3,14 +3,12 @@ import { useRecoilState, useRecoilRefresher_UNSTABLE } from "recoil";
 import { cartItemsState } from "../../stores/cartItems";
 import { isCartItemsSelectedState } from "../../stores/cartItemSelected";
 
-import Button from "../common/Button";
+import Button from "../_common/Button";
+import { MinusButton, PlusButton } from "../button/QuantityButton";
 
 import { deleteCartItem, patchCartItemQuantity } from "../../apis";
 
 import { CartItemType } from "../../types";
-
-import OutlineCheck from "../../assets/icon/OutlineCheck";
-import FilledCheck from "../../assets/icon/FilledCheck";
 
 import {
   Wrapper,
@@ -22,6 +20,7 @@ import {
   ItemInfoWrapper,
   ItemQuantity,
 } from "./style";
+import CheckButton from "../button/CheckButton";
 
 interface CardItemProps {
   cartItem: CartItemType;
@@ -56,17 +55,10 @@ const CartItem = ({ cartItem }: CardItemProps) => {
   return (
     <Wrapper>
       <Header>
-        <Button
-          $borderRadius="8px"
-          onClick={() => setIsCartItemsSelected((prev: boolean) => !prev)}
-        >
-          {isCartItemsSelected ? (
-            <FilledCheck color="white" />
-          ) : (
-            <OutlineCheck />
-          )}
-        </Button>
-
+        <CheckButton
+          isChecked={isCartItemsSelected}
+          onToggle={() => setIsCartItemsSelected((prev: boolean) => !prev)}
+        />
         <Button $theme="white" $size="s" onClick={handleDeleteItem}>
           삭제
         </Button>
@@ -79,21 +71,15 @@ const CartItem = ({ cartItem }: CardItemProps) => {
             <ItemPrice>{product.price.toLocaleString("ko-KR")}</ItemPrice>
           </ItemInfo>
           <ItemQuantity>
-            <Button
-              $theme="white"
-              $size="xs"
+            <MinusButton
+              quantity={quantity}
               onClick={() => handleChangeItemQuantity(-1)}
-            >
-              -
-            </Button>
+            />
             <span>{quantity}</span>
-            <Button
-              $theme="white"
-              $size="xs"
+            <PlusButton
+              quantity={quantity}
               onClick={() => handleChangeItemQuantity(1)}
-            >
-              +
-            </Button>
+            />
           </ItemQuantity>
         </ItemInfoWrapper>
       </Body>

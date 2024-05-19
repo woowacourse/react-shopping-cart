@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import { cartItemsState } from "../../stores/cartItems";
 import { isAnyCartItemSelectedState } from "../../stores/cartItemSelected";
 
-import Button from "../common/Button";
+import Button from "../_common/Button";
 import { Wrapper } from "./style";
 
 const Footer = () => {

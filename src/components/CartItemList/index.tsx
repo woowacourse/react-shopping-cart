@@ -3,14 +3,12 @@ import { cartItemsState } from "../../stores/cartItems";
 import { isAllCartItemSelectedState } from "../../stores/cartItemSelected";
 
 import CartItem from "../CartItem";
+import CheckButton from "../button/CheckButton";
 
 import { CartItemType } from "../../types";
+import { CART_PRICE } from "../../constants/cart";
 import { Wrapper, Footer, AllCheckWrapper } from "./style";
 import infoOutline from "../../assets/images/infoOutline.png";
-import OutlineCheck from "../../assets/icon/OutlineCheck";
-import FilledCheck from "../../assets/icon/FilledCheck";
-import Button from "../common/Button";
-import { CART_PRICE } from "../../constants/cart";
 
 const CartItemList = () => {
   const cartItemList = useRecoilValue(cartItemsState);
@@ -21,21 +19,10 @@ const CartItemList = () => {
   return (
     <Wrapper>
       <AllCheckWrapper>
-        {isAllCartItemSelected ? (
-          <Button
-            $borderRadius="8px"
-            onClick={() => setIsAllCartItemSelected(false)}
-          >
-            <FilledCheck color="white" />
-          </Button>
-        ) : (
-          <Button
-            $borderRadius="8px"
-            onClick={() => setIsAllCartItemSelected(true)}
-          >
-            <OutlineCheck />
-          </Button>
-        )}
+        <CheckButton
+          isChecked={isAllCartItemSelected}
+          onToggle={() => setIsAllCartItemSelected((prev) => !prev)}
+        />
         <span>전체선택</span>
       </AllCheckWrapper>
       {cartItemList.map((cartItem: CartItemType) => (
