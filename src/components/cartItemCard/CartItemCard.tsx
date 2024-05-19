@@ -1,9 +1,11 @@
 import { useSetRecoilState } from "recoil";
 import { deleteCartItem, patchCartItemQuantityChange } from "../../api";
-import { ACTION_TYPES, CART, ERROR_MESSAGES } from "../../constants";
+import { CART, COUNTER_BUTTON_TYPES, ERROR_MESSAGES } from "../../constants";
 import { cartItemsState } from "../../recoil/atoms/atoms";
 import { CartItem } from "../../types";
-import { ActionButton } from "../button/actionButton/ActionButton";
+import { CheckboxButton } from "../button/checkboxButton/CheckboxButton";
+import { CounterButton } from "../button/counterButton/CounterButton";
+import { DeleteButton } from "../button/deleteButton/DeleteButton";
 import {
   StyledCartItemCard,
   StyledCartItemCardHeader,
@@ -16,15 +18,15 @@ import {
   StyledProductQuantityText,
 } from "./CartItemCard.styled";
 interface CartItemProps extends CartItem {
-  selected: boolean;
-  onSelect: () => void;
+  checked: boolean;
+  onCheck: () => void;
 }
 export const CartItemCard: React.FC<CartItemProps> = ({
   id,
   product,
   quantity,
-  selected,
-  onSelect,
+  checked,
+  onCheck,
 }) => {
   const { name, price, imageUrl } = product;
   const setCartItems = useSetRecoilState(cartItemsState);
@@ -67,12 +69,8 @@ export const CartItemCard: React.FC<CartItemProps> = ({
   return (
     <StyledCartItemCard>
       <StyledCartItemCardHeader>
-        <ActionButton type={ACTION_TYPES.SELECT} clicked={selected} onSelect={onSelect} />
-        <ActionButton
-          type={ACTION_TYPES.DELETE}
-          onDelete={() => handleItemDelete(id)}
-          disabled={selected}
-        />
+        <CheckboxButton clicked={checked} onCheck={onCheck} />
+        <DeleteButton onDelete={() => handleItemDelete(id)} disabled={checked} />
       </StyledCartItemCardHeader>
       <StyledCartItemCardProductContents>
         <StyledProductImg src={imageUrl} alt="" />
@@ -80,9 +78,15 @@ export const CartItemCard: React.FC<CartItemProps> = ({
           <StyledProductName>{name}</StyledProductName>
           <StyledProductPrice>{price.toLocaleString()}원</StyledProductPrice>
           <StyledProductQuantityContainer>
-            <ActionButton type={ACTION_TYPES.MINUS} onMinus={() => handleItemCountMinus(id)} />
+            <CounterButton
+              type={COUNTER_BUTTON_TYPES.DECREMENT}
+              onClick={() => handleItemCountMinus(id)}
+            />
             <StyledProductQuantityText>{quantity}</StyledProductQuantityText>
-            <ActionButton type={ACTION_TYPES.PLUS} onPlus={() => handleItemCountPlus(id)} />
+            <CounterButton
+              type={COUNTER_BUTTON_TYPES.INCREMENT}
+              onClick={() => handleItemCountPlus(id)}
+            />
           </StyledProductQuantityContainer>
         </StyledProductInfo>
       </StyledCartItemCardProductContents>
