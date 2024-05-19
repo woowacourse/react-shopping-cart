@@ -1,11 +1,13 @@
-export const CartItemListMock = [
+import { CartItem } from "@/types/cart";
+
+const mockedCartItemList: CartItem[] = [
   {
     id: 1,
     quantity: 1,
     product: {
       id: 1,
       name: "나이키",
-      price: 1000,
+      price: 10000,
       imageUrl: "",
       category: "fashion",
     },
@@ -16,7 +18,7 @@ export const CartItemListMock = [
     product: {
       id: 2,
       name: "퓨마",
-      price: 500,
+      price: 20000,
       imageUrl: "",
       category: "fashion",
     },
@@ -27,9 +29,11 @@ export const CartItemListMock = [
     product: {
       id: 3,
       name: "아디다스",
-      price: 100,
+      price: 30000,
       imageUrl: "",
       category: "fashion",
     },
   },
 ];
+
+export default mockedCartItemList;
