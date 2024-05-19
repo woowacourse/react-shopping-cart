@@ -18,7 +18,7 @@ const CartItemListSection = () => {
     <S.CartItemListSection>
       <Title title="장바구니" description={`현재 ${cartItemList.length}종류의 상품이 담겨있습니다.`} />
       <Spacer height={36} />
-      <CartItemList itemList={cartItemList} />
+      <CartItemList />
       <Spacer height={52} />
       <PriceTable />
     </S.CartItemListSection>

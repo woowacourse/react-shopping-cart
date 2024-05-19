@@ -8,14 +8,13 @@ import Text from '../common/Text/Text';
 import { useRecoilValue } from 'recoil';
 import { cartItemSelectedIdListAtom } from '../../recoil/cartItem/cartItemAtom';
 import { useCartItemSelectedIdList } from '../../recoil/cartItem/useCartItemSelectedIdList';
+import { cartItemListState } from '../../recoil/cartItemList/cartItemListSelector';
 
-export interface CartItemListProps {
-  itemList: CartItem[];
-}
 
-const CartItemList = ({ itemList }: CartItemListProps) => {
+const CartItemList = () => {
+  const cartItemList = useRecoilValue(cartItemListState);
   const selectedIdList = useRecoilValue(cartItemSelectedIdListAtom);
-  const isSelectedAll = selectedIdList.length === itemList.length;
+  const isSelectedAll = selectedIdList.length === cartItemList.length;
   const { unselectAll, selectAll } = useCartItemSelectedIdList();
 
   return (
@@ -26,7 +25,7 @@ const CartItemList = ({ itemList }: CartItemListProps) => {
           전체선택
         </Text>
       </S.SelectAllContainer>
-      {itemList.map(({ product, quantity, cartItemId }: CartItem) => {
+      {cartItemList.map(({ product, quantity, cartItemId }: CartItem) => {
         return <CartItem key={cartItemId} product={product} quantity={quantity} cartItemId={cartItemId} />;
       })}
     </S.CartItemList>
