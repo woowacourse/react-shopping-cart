@@ -1,10 +1,13 @@
-import "./App.css";
+import { AppStyle } from './App.styled';
+import Header from './components/Header/Header';
+import { Outlet } from 'react-router-dom';
 
 function App() {
   return (
-    <>
-      <h1>react-shopping-cart</h1>
-    </>
+    <AppStyle>
+      <Header />
+      <Outlet />
+    </AppStyle>
   );
 }
 
