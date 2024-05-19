@@ -5,17 +5,13 @@ import CartItem from '../CartItem/CartItem';
 import Checkbox from '../common/Checkbox/Checkbox';
 import Text from '../common/Text/Text';
 
-import { useRecoilValue } from 'recoil';
-import { cartItemSelectedIdListAtom } from '../../recoil/cartItem/cartItemAtom';
 import { useCartItemSelectedIdList } from '../../recoil/cartItem/useCartItemSelectedIdList';
-import { cartItemListState } from '../../recoil/cartItemList/cartItemListSelector';
+import useCartItemList from '../../recoil/cartItemList/useCartItemList';
 
 
 const CartItemList = () => {
-  const cartItemList = useRecoilValue(cartItemListState);
-  const selectedIdList = useRecoilValue(cartItemSelectedIdListAtom);
-  const isSelectedAll = selectedIdList.length === cartItemList.length;
-  const { unselectAll, selectAll } = useCartItemSelectedIdList();
+  const { cartItemList } = useCartItemList();
+  const { isSelectedAll, unselectAll, selectAll } = useCartItemSelectedIdList();
 
   return (
     <S.CartItemList>
@@ -25,8 +21,8 @@ const CartItemList = () => {
           전체선택
         </Text>
       </S.SelectAllContainer>
-      {cartItemList.map(({ product, quantity, cartItemId }: CartItem) => {
-        return <CartItem key={cartItemId} product={product} quantity={quantity} cartItemId={cartItemId} />;
+      {cartItemList.map(({ product, quantity, id }: CartItem) => {
+        return <CartItem key={id} product={product} quantity={quantity} id={id} />;
       })}
     </S.CartItemList>
   );

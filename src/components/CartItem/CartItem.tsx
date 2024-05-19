@@ -16,23 +16,24 @@ import useCartItemList from '../../recoil/cartItemList/useCartItemList';
 export type CartItemProps = {
   product: Product;
   quantity: number;
-  cartItemId: number;
+  id: number;
 };
 
-const CartItem = ({ product, quantity: initialQuantity, cartItemId }: CartItemProps) => {
+const CartItem = ({ product, quantity: initialQuantity, id }: CartItemProps) => {
   const { name, price, imageUrl } = product;
-  const { quantity, setQuantity, increaseQuantity, decreaseQuantity } = useCartItemQuantity(cartItemId);
-  const { getIsSelected, addSelectedId, removeSelectedId } = useCartItemSelectedIdList();
+  const { quantity, setQuantity, increaseQuantity, decreaseQuantity } = useCartItemQuantity(id);
+  const { isSelected, addSelectedId, removeSelectedId } = useCartItemSelectedIdList();
   const { deleteCartItem } = useCartItemList();
   const [error, setError] = useState<Error | null>(null)
 
   useEffect(() => {
     setQuantity(initialQuantity);
+    console.log(id, quantity)
   }, []);
 
-  const deleteCartItemWithErrorHandling = async (cartItemId: number) => {
+  const deleteCartItemWithErrorHandling = async (id: number) => {
     try {
-      await deleteCartItem(cartItemId)
+      await deleteCartItem(id)
     } catch (error) {
       setError(error as Error);
     }
@@ -63,10 +64,10 @@ const CartItem = ({ product, quantity: initialQuantity, cartItemId }: CartItemPr
       <Divider />
       <S.ItemHeader>
         <Checkbox
-          state={getIsSelected(cartItemId)}
-          handleClick={getIsSelected(cartItemId) ? () => removeSelectedId(cartItemId) : () => addSelectedId(cartItemId)}
+          state={isSelected(id)}
+          handleClick={isSelected(id) ? () => removeSelectedId(id) : () => addSelectedId(id)}
         />
-        <Button size="s" radius="s" onClick={() => deleteCartItemWithErrorHandling(cartItemId)}>
+        <Button size="s" radius="s" onClick={() => deleteCartItemWithErrorHandling(id)}>
           삭제
         </Button>
       </S.ItemHeader>

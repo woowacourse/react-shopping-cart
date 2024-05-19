@@ -4,15 +4,11 @@ import Title from '../common/Title/Title';
 import Spacer from '../common/Spacer/Spacer';
 import CartItemList from '../CartItemList/CartItemList';
 import PriceTable from '../PriceTable/PriceTable';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { cartItemListQuery, cartItemListState } from '../../recoil/cartItemList/cartItemListSelector';
+import useCartItemList from '../../recoil/cartItemList/useCartItemList';
 
 const CartItemListSection = () => {
-  const [cartItemList, setCartItemList] = useRecoilState(cartItemListState);
-  if (cartItemList.length === 0) {
-    const fetchedCartItemList = useRecoilValue(cartItemListQuery);
-    setCartItemList(fetchedCartItemList);
-  }
+  const { cartItemList, fetchCartItemList } = useCartItemList();
+  fetchCartItemList();
 
   return (
     <S.CartItemListSection>

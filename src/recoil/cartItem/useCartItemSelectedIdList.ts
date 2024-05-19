@@ -15,7 +15,7 @@ export const useCartItemSelectedIdList = () => {
   };
 
   const selectAll = () => {
-    const totalIdList = cartItemList.map(({ cartItemId }) => cartItemId);
+    const totalIdList = cartItemList.map(({ id }) => id);
 
     setSelectedIdList(totalIdList);
   };
@@ -24,12 +24,15 @@ export const useCartItemSelectedIdList = () => {
     setSelectedIdList([]);
   };
 
-  const getIsSelected = (cartItemId: number) => {
+  const isSelected = (cartItemId: number) => {
     return selectedIdList.some((id) => id === cartItemId);
   };
 
+  const isSelectedAll = selectedIdList.length === cartItemList.length;
+
   return {
-    getIsSelected,
+    isSelected,
+    isSelectedAll,
     selectedIdList,
     addSelectedId,
     removeSelectedId,

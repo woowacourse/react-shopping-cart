@@ -10,11 +10,11 @@ export const priceSelector = selector({
   get: ({ get }) => {
     const cartItemList = get(cartItemListState);
     const cartItemSelectedIdList = get(cartItemSelectedIdListAtom);
-    const filteredCartItemList = cartItemList.filter(({ cartItemId }) => cartItemSelectedIdList.includes(cartItemId));
+    const filteredCartItemList = cartItemList.filter(({ id }) => cartItemSelectedIdList.includes(id));
 
-    const orderedPrice = filteredCartItemList.reduce((sum, { product, cartItemId }) => {
+    const orderedPrice = filteredCartItemList.reduce((sum, { product, id }) => {
       const { price } = product;
-      const quantity = get(cartItemQuantityAtomFamily(cartItemId));
+      const quantity = get(cartItemQuantityAtomFamily(id));
 
       return (sum += price * quantity);
     }, 0);

@@ -1,5 +1,5 @@
 interface Product {
-  productId: number;
+  id: number;
   name: string;
   price: number;
   imageUrl: string;
@@ -7,7 +7,7 @@ interface Product {
 }
 
 interface CartItem {
-  cartItemId: number;
+  id: number;
   quantity: number;
   product: Product;
 }

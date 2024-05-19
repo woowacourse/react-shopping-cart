@@ -9,11 +9,13 @@ import { ErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '../components/ErrorFallback/ErrorFallback';
 import { Suspense } from 'react';
 import LoadingFallback from '../components/LoadingFallback/LoadingFallback';
+import useCartItemList from '../recoil/cartItemList/useCartItemList';
+import { useCartItemSelectedIdList } from '../recoil/cartItem/useCartItemSelectedIdList';
 
 const CartPage = () => {
 
-  const cartItemList = useRecoilValue(cartItemListState);
-  const selectedItemList = useRecoilValue(cartItemSelectedIdListAtom);
+  const { cartItemList } = useCartItemList();
+  const { selectedIdList } = useCartItemSelectedIdList();
 
   const navigate = useNavigate();
 
@@ -31,8 +33,8 @@ const CartPage = () => {
         radius={0}
         size="l"
         style={{ position: 'fixed', maxWidth: '768px', bottom: '0' }}
-        isDisabled={selectedItemList.length === 0 || (cartItemList !== null && cartItemList.length === 0)}
-        onClick={() => navigate('/confirm-purchase', { state: cartItemList.filter(({ cartItemId }) => selectedItemList.includes(cartItemId)) })}
+        isDisabled={selectedIdList.length === 0 || (cartItemList !== null && cartItemList.length === 0)}
+        onClick={() => navigate('/confirm-purchase', { state: cartItemList.filter(({ id }) => selectedIdList.includes(id)) })}
       >
         주문 확인
       </Button>
