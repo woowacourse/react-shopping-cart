@@ -2,6 +2,7 @@ import { selector } from "recoil";
 import { itemEachCheckState, itemQuantityState } from "@/store/atom/atoms";
 import { SHIPPING_CONSTANT } from "@/constants";
 import { cartState } from "@/store/atom/atoms";
+import { fetchCartItemsCounts } from "../api";
 
 export const orderAmountState = selector({
   key: "orderAmount",
@@ -26,5 +27,13 @@ export const totalAmountState = selector({
   get: ({ get }) => {
     const tempAmount = get(orderAmountState);
     return tempAmount >= SHIPPING_CONSTANT.FREE_CRITERIA ? tempAmount : tempAmount + SHIPPING_CONSTANT.FEE;
+  },
+});
+
+export const cartItemsCounts = selector({
+  key: "cartItemsCounts",
+  get: async () => {
+    const counts = await fetchCartItemsCounts();
+    return counts;
   },
 });
