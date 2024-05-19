@@ -25,3 +25,12 @@ export const totalItemCountState = atom<number>({
   key: "totalItemCountState",
   default: 0,
 });
+
+export const cartSummaryState = atom({
+  key: "cartSummaryState",
+  default: {
+    orderPrice: 0,
+    deliveryPrice: 0,
+    totalPrice: 0,
+  },
+});

@@ -1,5 +1,6 @@
 import { selector } from "recoil";
 import { DELIVERY } from "../../constants";
+import { CartSummary } from "../../types";
 import { cartItemsState } from "../atoms/atoms";
 
 export const uniqueItemCountState = selector<number>({
@@ -10,31 +11,23 @@ export const uniqueItemCountState = selector<number>({
   },
 });
 
-export const orderPriceState = selector<number>({
-  key: "orderPriceState",
+export const cartSummarySelectorState = selector<CartSummary>({
+  key: "cartSummarySelectorState",
   get: ({ get }) => {
     const cartItems = get(cartItemsState);
-    const orderPrice = cartItems.reduce((total, item) => {
-      return total + item.product.price * item.quantity;
-    }, 0);
-    return orderPrice;
-  },
-});
 
-export const deliveryPriceState = selector<number>({
-  key: "deliveryPriceState",
-  get: ({ get }) => {
-    const orderPrice = get(orderPriceState);
+    const orderPrice = cartItems.reduce(
+      (total, item) => total + item.product.price * item.quantity,
+      0
+    );
     const deliveryPrice = orderPrice > DELIVERY.FREE_THRESHOLD ? DELIVERY.FREE : DELIVERY.STANDARD;
-    return deliveryPrice;
-  },
-});
+    const totalPrice = orderPrice + deliveryPrice;
 
-export const totalPriceState = selector<number>({
-  key: "totalPriceState",
-  get: ({ get }) => {
-    const orderPrice = get(orderPriceState);
-    const deliveryPrice = get(deliveryPriceState);
-    return orderPrice + deliveryPrice;
+    return {
+      cartItems,
+      orderPrice,
+      deliveryPrice,
+      totalPrice,
+    };
   },
 });
