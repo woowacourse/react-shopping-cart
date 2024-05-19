@@ -49,13 +49,11 @@ export default function ShoppingCartPage() {
           <CartContainer />
         </Suspense>
       </Styled.CartContent>
-      <Suspense>
-        <FooterButton
-          buttonText="주문 확인"
-          disabled={isConfirmButtonDisabled}
-          onClick={handleClickConfirmButton}
-          />
-      </Suspense>
+      <FooterButton
+        buttonText="주문 확인"
+        disabled={isConfirmButtonDisabled}
+        onClick={handleClickConfirmButton}
+      />
     </>
   );
 }
