@@ -1,8 +1,8 @@
 import Header from "../components/Header/Header";
-import CartContent from "../components/Main/Cart/CartContent/CartContent";
 import AddButton from "../components/AddButton/AddButton";
 import { Suspense } from "react";
 import CartFooter from "../components/Footer/CartFooter/CartFooter";
+import CartContent from "../components/Cart/CartContent/CartContent";
 
 const CartPage = () => {
   return (

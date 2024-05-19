@@ -1,8 +1,5 @@
 /** @jsxImportSource @emotion/react */
 
-import Checkbox from "../../../../../Button/Checkbox/Checkbox";
-import DeleteButton from "../../../../../Button/DeleteButton/DeleteButton";
-
 import {
   CartItemContainerStyle,
   CartItemDetailControlsStyle,
@@ -13,14 +10,15 @@ import {
   CartItemQuantityContainerStyle,
   CartItemQuantityStyle,
 } from "./CartItem.style";
-import QuantityButton from "../../../../../Button/QuantityButton/QuantityButton";
-import Divider from "../../../../../Divider/Divider";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useCallback } from "react";
-import { cartState, itemEachCheckState, itemIdsState, itemQuantityState } from "../../../../../../store/atom/atoms";
-import { changeProductAmount, deleteProduct } from "../../../../../../store/api";
-
-import { deleteCheck } from "../../../../../../store/localStorage/localStorage";
+import { cartState, itemEachCheckState, itemIdsState, itemQuantityState } from "../../../../../store/atom/atoms";
+import { changeProductAmount, deleteProduct } from "../../../../../store/api";
+import { deleteCheck } from "../../../../../store/localStorage/localStorage";
+import Divider from "../../../../Divider/Divider";
+import Checkbox from "../../../../Button/Checkbox/Checkbox";
+import DeleteButton from "../../../../Button/DeleteButton/DeleteButton";
+import QuantityButton from "../../../../Button/QuantityButton/QuantityButton";
 
 interface CartItemProps {
   CartItemInfo: CartItemInfo;

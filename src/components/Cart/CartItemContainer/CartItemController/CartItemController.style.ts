@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-export const ControlStyle = css({
+export const ControllerStyle = css({
   display: "flex",
   justifyContent: "flex-start",
   alignItems: "center",
