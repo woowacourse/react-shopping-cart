@@ -2,8 +2,8 @@ import { selector } from "recoil";
 import { DELIVERY } from "../../constants";
 import { cartItemsState } from "../atoms/atoms";
 
-export const categoryCountState = selector<number>({
-  key: "categoryCountState",
+export const uniqueItemCountState = selector<number>({
+  key: "uniqueItemCountState",
   get: ({ get }) => {
     const cartItems = get(cartItemsState);
     return cartItems.length;

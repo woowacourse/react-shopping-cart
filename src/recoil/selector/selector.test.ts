@@ -2,15 +2,11 @@ import { act, renderHook } from "@testing-library/react";
 import { RecoilRoot, useRecoilValue, useSetRecoilState } from "recoil";
 import { mockCartItemsData } from "../../mocks/mockCartItemsData";
 import { cartItemsState } from "../atoms/atoms";
-import {
-  categoryCountState,
-  deliveryPriceState,
-  orderPriceState,
-} from "./selector";
+import { uniqueItemCountState, deliveryPriceState, orderPriceState } from "./selector";
 
 describe("초기값 테스트", () => {
   it("상품 종류 수량 초기값은 0이다.", () => {
-    const { result } = renderHook(() => useRecoilValue(categoryCountState), {
+    const { result } = renderHook(() => useRecoilValue(uniqueItemCountState), {
       wrapper: RecoilRoot,
     });
 
@@ -54,12 +50,9 @@ describe("mockData를 이용한 테스트", () => {
       );
     });
 
-    const expectedOrderPrice = mockCartItemsData.content.reduce(
-      (total, item) => {
-        return total + item.product.price * item.quantity;
-      },
-      0
-    );
+    const expectedOrderPrice = mockCartItemsData.content.reduce((total, item) => {
+      return total + item.product.price * item.quantity;
+    }, 0);
 
     expect(expectedOrderPrice).toBe(23000);
   });
@@ -93,12 +86,9 @@ describe("mockData를 이용한 테스트", () => {
       );
     });
 
-    const expectedOrderPrice = mockCartItemsData.content.reduce(
-      (total, item) => {
-        return total + item.product.price * item.quantity;
-      },
-      0
-    );
+    const expectedOrderPrice = mockCartItemsData.content.reduce((total, item) => {
+      return total + item.product.price * item.quantity;
+    }, 0);
 
     const expectedDeliveryPrice = expectedOrderPrice > 100000 ? 0 : 3000;
 

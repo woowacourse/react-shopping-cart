@@ -4,8 +4,8 @@ import { getCartItemCounts } from "../../api";
 import { ConfirmButton } from "../../components/button/confirmButton/ConfirmButton";
 import Header from "../../components/header/Header";
 import { BUTTON_COLORS, ERROR_MESSAGES, HEADER_TYPES, INFO_MESSAGES } from "../../constants";
-import { cartItemsCountState } from "../../recoil/atoms/atoms";
-import { categoryCountState, totalPriceState } from "../../recoil/selector/selector";
+import { totalItemCountState } from "../../recoil/atoms/atoms";
+import { uniqueItemCountState, totalPriceState } from "../../recoil/selector/selector";
 import {
   StyledConfirmationPage,
   StyledConfirmationPageDescription,
@@ -17,21 +17,21 @@ import {
 
 export const OrderConfirmationPage: React.FC = () => {
   const totalPrice = useRecoilValue(totalPriceState);
-  const categoryCount = useRecoilValue(categoryCountState);
-  const [cartItemsCount, setCartItemsCount] = useRecoilState(cartItemsCountState);
+  const uniqueItemCount = useRecoilValue(uniqueItemCountState);
+  const [totalItemCount, setTotalItemCount] = useRecoilState(totalItemCountState);
 
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
         const { quantity } = await getCartItemCounts();
-        setCartItemsCount(quantity);
+        setTotalItemCount(quantity);
       } catch (error) {
         console.error(ERROR_MESSAGES.FETCH_CART_ITEMS, error);
       }
     };
 
     fetchCartItems();
-  }, [setCartItemsCount]);
+  }, [setTotalItemCount]);
 
   return (
     <>
@@ -40,7 +40,7 @@ export const OrderConfirmationPage: React.FC = () => {
         <StyledConfirmationPageTitle>주문확인 </StyledConfirmationPageTitle>
         <StyledConfirmationPageDescription>
           <span>
-            총 {categoryCount}종류의 상품 {cartItemsCount}개를 주문합니다.
+            총 {uniqueItemCount}종류의 상품 {totalItemCount}개를 주문합니다.
           </span>
           <span>{INFO_MESSAGES.CHECK_TOTAL_PRICE}</span>
         </StyledConfirmationPageDescription>

@@ -21,7 +21,7 @@ export const isAllCheckedState = atom<boolean>({
   default: getLocalStorageState("isAllCheckedState", false),
 });
 
-export const cartItemsCountState = atom<number>({
-  key: "cartItemsCount",
+export const totalItemCountState = atom<number>({
+  key: "totalItemCountState",
   default: 0,
 });

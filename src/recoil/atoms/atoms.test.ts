@@ -4,7 +4,7 @@ import { mockCartItemsData } from "../../mocks/mockCartItemsData";
 import { mockChangeCountData } from "../../mocks/mockChangeCountData";
 import { mockSelectedItemsData } from "../../mocks/mockSelectedItemsData";
 import {
-  cartItemsCountState,
+  totalItemCountState,
   cartItemsState,
   isAllSelectedState,
   selectedItemsState,
@@ -20,7 +20,7 @@ describe("초기값 테스트", () => {
   });
 
   it("상품 총 수량 초기값은 0이다. ", () => {
-    const { result } = renderHook(() => useRecoilState(cartItemsCountState), {
+    const { result } = renderHook(() => useRecoilState(totalItemCountState), {
       wrapper: RecoilRoot,
     });
 
@@ -46,9 +46,7 @@ describe("mockData를 이용한 테스트", () => {
 
     act(() => result.current[1](mockSelectedItemsData.selectedItemsState));
 
-    const selectedCount = Object.values(result.current[0]).filter(
-      (value) => value === true
-    ).length;
+    const selectedCount = Object.values(result.current[0]).filter((value) => value === true).length;
 
     const unselectedCount = Object.values(result.current[0]).filter(
       (value) => value === false
@@ -72,8 +70,8 @@ describe("mockData를 이용한 테스트", () => {
     const { result } = renderHook(
       () => {
         const [cartItems, setCartItems] = useRecoilState(cartItemsState);
-        const cartItemsCount = useRecoilValue(cartItemsCountState);
-        return { cartItems, setCartItems, cartItemsCount };
+        const totalItemCount = useRecoilValue(totalItemCountState);
+        return { cartItems, setCartItems, totalItemCount };
       },
       {
         wrapper: RecoilRoot,
@@ -98,15 +96,11 @@ describe("mockData를 이용한 테스트", () => {
 
     act(() => {
       result.current.setCartItems((prevItems) =>
-        prevItems.map((item) =>
-          item.id === 429 ? { ...item, quantity: item.quantity + 1 } : item
-        )
+        prevItems.map((item) => (item.id === 429 ? { ...item, quantity: item.quantity + 1 } : item))
       );
     });
 
-    const expectedCount = result.current.cartItems.find(
-      (item) => item.id === 429
-    );
+    const expectedCount = result.current.cartItems.find((item) => item.id === 429);
 
     if (expectedCount) {
       expect(expectedCount.quantity).toBe(2);
