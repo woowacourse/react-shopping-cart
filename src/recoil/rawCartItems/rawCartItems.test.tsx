@@ -4,7 +4,7 @@ import { RecoilRoot, useRecoilValue } from "recoil";
 import { rawCartItemsState } from ".";
 import { Suspense } from "react";
 
-jest.mock("../api/cartItems");
+jest.mock("../../api/cartItems");
 
 const mockFetchCartItems = fetchCartItems as jest.Mock;
 
