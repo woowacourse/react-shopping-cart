@@ -3,7 +3,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { getCartItemCounts } from "../../api";
 import { ConfirmButton } from "../../components/button/confirmButton/ConfirmButton";
 import Header from "../../components/header/Header";
-import { ERROR_MESSAGES, HEADER_TYPES, INFO_MESSAGES } from "../../constants";
+import { BUTTON_COLORS, ERROR_MESSAGES, HEADER_TYPES, INFO_MESSAGES } from "../../constants";
 import { cartItemsCountState } from "../../recoil/atoms/atoms";
 import { categoryCountState, totalPriceState } from "../../recoil/selector/selector";
 import {
@@ -49,7 +49,7 @@ export const OrderConfirmationPage: React.FC = () => {
           <StyledConfirmationPagePrice>{totalPrice.toLocaleString()}원</StyledConfirmationPagePrice>
         </StyledConfirmationPagePriceContainer>
       </StyledConfirmationPage>
-      <ConfirmButton text="결제하기" backgroundColor="rgba(190, 190, 190, 1)" />
+      <ConfirmButton text="결제하기" mode={BUTTON_COLORS.LIGHT} />
     </>
   );
 };

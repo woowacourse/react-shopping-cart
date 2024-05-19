@@ -5,7 +5,7 @@ import { ConfirmButton } from "../../components/button/confirmButton/ConfirmButt
 import { CartContentSection } from "../../components/cartContentSection/CartContentSection";
 import { CartHeader } from "../../components/cartHeader/CartHeader";
 import Header from "../../components/header/Header";
-import { CART, ERROR_MESSAGES, HEADER_TYPES } from "../../constants";
+import { BUTTON_COLORS, CART, ERROR_MESSAGES, HEADER_TYPES } from "../../constants";
 import { cartItemsState } from "../../recoil/atoms/atoms";
 import { categoryCountState } from "../../recoil/selector/selector";
 import { StyledCartPage } from "./CartPage.styled";
@@ -27,8 +27,8 @@ export const CartPage: React.FC = () => {
     fetchCartItems();
   }, []);
 
-  const buttonBackgroundColor =
-    categoryCount === CART.EMPTY_THRESHOLD ? "rgba(190, 190, 190, 1)" : "rgba(0, 0, 0, 1)";
+  const buttonMode =
+    categoryCount === CART.EMPTY_THRESHOLD ? BUTTON_COLORS.LIGHT : BUTTON_COLORS.DARK;
 
   return (
     <>
@@ -37,8 +37,7 @@ export const CartPage: React.FC = () => {
         <CartHeader categoryCount={categoryCount} />
         <CartContentSection categoryCount={categoryCount} />
       </StyledCartPage>
-      <ConfirmButton text="주문 확인" backgroundColor={buttonBackgroundColor} />
+      <ConfirmButton text="주문 확인" mode={buttonMode} />
     </>
   );
 };
-38;
