@@ -16,7 +16,7 @@ const CartContainer = styled.div`
   height: 100%;
 `;
 
-const ContentWrapper = styled.div`
+const ContentWrapper = styled.section`
   display: flex;
   flex-direction: column;
   gap: 1rem;

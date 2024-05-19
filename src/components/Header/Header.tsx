@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { LogoIcon, BackArrowIcon } from '../../asset';
 import { useNavigate } from 'react-router-dom';
 
-const HeaderContainer = styled.div`
+const HeaderContainer = styled.header`
   display: flex;
   align-items: center;
   box-sizing: border-box;

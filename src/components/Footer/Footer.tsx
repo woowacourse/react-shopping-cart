@@ -7,7 +7,7 @@ interface FooterContainerProps {
   $backgroundColor: string;
 }
 
-const FooterContainer = styled.div<FooterContainerProps>`
+const FooterContainer = styled.footer<FooterContainerProps>`
   ${(props) => css`
     display: flex;
     position: fixed;
