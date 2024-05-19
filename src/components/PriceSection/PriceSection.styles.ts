@@ -13,3 +13,10 @@ export const BorderLine = styled.div`
   width: 100%;
   border-top: 1px solid ${({ theme }) => theme.COLOR.grey};
 `;
+
+const Styled = {
+  PriceSection,
+  BorderLine,
+};
+
+export default Styled;

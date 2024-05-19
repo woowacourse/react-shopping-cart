@@ -1,13 +1,12 @@
 import { useRecoilValue } from "recoil";
-
-import PriceInfoBox from "../PriceInfoBox/PriceInfoBox";
-
-import * as S from "./PriceSection.styles";
-
 import {
   shippingFeeSelector,
   totalOrderPriceSelector,
 } from "@/recoil/orderInformation";
+
+import PriceInfoBox from "../PriceInfoBox/PriceInfoBox";
+
+import Styled from "./PriceSection.styles";
 
 const PriceSection = () => {
   const orderPrice = useRecoilValue(totalOrderPriceSelector);
@@ -15,16 +14,16 @@ const PriceSection = () => {
   const totalPrice = orderPrice + shippingFee;
 
   return (
-    <S.PriceSection>
-      <S.BorderLine />
+    <Styled.PriceSection>
+      <Styled.BorderLine />
 
       <PriceInfoBox priceLabel="주문 금액" price={orderPrice} />
       <PriceInfoBox priceLabel="배송비" price={shippingFee} />
 
-      <S.BorderLine />
+      <Styled.BorderLine />
 
       <PriceInfoBox priceLabel="총 결제 금액" price={totalPrice} />
-    </S.PriceSection>
+    </Styled.PriceSection>
   );
 };
 
