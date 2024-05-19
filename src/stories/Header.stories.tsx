@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Header from '../components/Header';
 import { StoryContainer } from './styles';
-import { ThemeProvider } from '@emotion/react';
-import theme from '../styles/theme';
 
 const meta = {
   title: 'ShoppingCart/Header',
@@ -12,11 +10,9 @@ const meta = {
   },
   decorators: [
     (Story) => (
-      <ThemeProvider theme={theme}>
-        <StoryContainer>
-          <Story />
-        </StoryContainer>
-      </ThemeProvider>
+      <StoryContainer>
+        <Story />
+      </StoryContainer>
     ),
   ],
 } satisfies Meta<typeof Header>;

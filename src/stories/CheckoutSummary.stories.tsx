@@ -1,28 +1,28 @@
-import { ThemeProvider } from "@emotion/react";
-import theme from "../styles/theme";
+import { ThemeProvider } from '@emotion/react';
+import theme from '../styles/theme';
 
-import type { Meta, StoryObj } from "@storybook/react";
-import CheckoutSummary from "../components/CartList/CheckoutSummary";
+import type { Meta, StoryObj } from '@storybook/react';
+import CheckoutSummary from '../components/CartList/CheckoutSummary';
 
 const meta: Meta<typeof CheckoutSummary> = {
-  title: "ShoppingCart/CheckoutSummary",
+  title: 'ShoppingCart/CheckoutSummary',
   component: CheckoutSummary,
   parameters: {
     docs: {
       description: {
-        component: "결제 요약 컴포넌트입니다.",
+        component: '결제 요약 컴포넌트입니다.',
       },
     },
   },
 
-  tags: ["autodocs"],
+  tags: ['autodocs'],
 
   argTypes: {
     totalPrice: {
-      description: "상품의 총 금액입니다.",
+      description: '상품의 총 금액입니다.',
     },
     shippingFee: {
-      description: "배송비입니다.",
+      description: '배송비입니다.',
     },
   },
 };
@@ -36,11 +36,4 @@ export const Summary: Story = {
     totalPrice: 10000,
     shippingFee: 3000,
   },
-  decorators: [
-    (Story) => (
-      <ThemeProvider theme={theme}>
-        <Story />
-      </ThemeProvider>
-    ),
-  ],
 };
