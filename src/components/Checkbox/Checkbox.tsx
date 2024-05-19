@@ -3,12 +3,21 @@ import unchecked from '../../assets/unchecked.svg';
 import * as S from './styled';
 
 interface CheckboxProps {
+  id: string;
   isChecked: boolean;
   onClick: () => void;
 }
 
-const Checkbox = ({ isChecked, onClick }: CheckboxProps) => {
-  return <S.Input type="image" onClick={onClick} src={isChecked ? checked : unchecked} />;
+const Checkbox = ({ id, isChecked, onClick }: CheckboxProps) => {
+  return (
+    <S.CheckboxContainer onClick={onClick}>
+      <input type="checkbox" checked={isChecked} readOnly />
+      <S.CheckboxLabel htmlFor={id}>
+        <img src={isChecked ? checked : unchecked} alt="checkbox" />
+      </S.CheckboxLabel>
+    </S.CheckboxContainer>
+  );
 };
+// };
 
 export default Checkbox;

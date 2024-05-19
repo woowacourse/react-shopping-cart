@@ -56,6 +56,7 @@ const ShoppingCartItem = ({
       <S.Hr />
       <S.Header>
         <Checkbox
+          id={cartItem.id.toString()}
           isChecked={isSelected(cartItem.id)}
           onClick={() => toggleItemSelection(cartItem)}
         />
