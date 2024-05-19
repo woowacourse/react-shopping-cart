@@ -13,26 +13,12 @@ export const fetchCartItems = async (): Promise<CartItemProps[]> => {
   });
 
   if (!response.ok) {
-    throw new Error('failed to fetch cart items');
+    throw new Error('Failed to fetch cart items');
   }
 
   const data = await response.json();
+
   return data.content;
-};
-
-export const fetchTotalQuantity = async (): Promise<number> => {
-  const token = generateBasicToken(USER_ID, USER_PASSWORD);
-  const response = await fetch(`${BASE_URL}/cart-items/counts`, {
-    method: 'GET',
-    headers: { Authorization: token },
-  });
-
-  if (!response.ok) {
-    throw new Error('failed to fetch cart items');
-  }
-
-  const data = await response.json();
-  return data.quantity;
 };
 
 export const updateItemQuantity = async (cartId: number, quantity: number) => {
@@ -44,7 +30,7 @@ export const updateItemQuantity = async (cartId: number, quantity: number) => {
   });
 
   if (!response.ok) {
-    throw new Error('failed to patch cart items');
+    throw new Error('Failed to patch cart items');
   }
 };
 
@@ -56,6 +42,6 @@ export const deleteItem = async (cartId: number) => {
   });
 
   if (!response.ok) {
-    throw new Error('failed to delete cart items');
+    throw new Error('Failed to delete cart items');
   }
 };
