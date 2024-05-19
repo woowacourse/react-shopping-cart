@@ -9,5 +9,5 @@ export const cartItemQuantityAtomFamily = atomFamily<number, number>({
 export const cartItemSelectedIdListAtom = atom<number[]>({
   key: 'cartItemSelectedIdList',
   default: [],
-  effects: [localStorageEffect('cartItemSelectedIdList')],
+  effects: [localStorageEffect<number[]>('cartItemSelectedIdList')],
 });
