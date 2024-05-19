@@ -15,15 +15,11 @@ export const totalPriceSelector = selector({
   key: 'totalPriceSelector',
   get: ({ get }) => {
     const productIds = get(itemsState);
-    let totalAmount = 0;
-    productIds.forEach((itemsState) => {
-      const { quantity, price, isChecked } = get(
-        itemDetailsState(itemsState.id),
-      );
-      if (isChecked) {
-        totalAmount += quantity * price;
-      }
-    });
+    const totalAmount = productIds.reduce((prevTotalAmount, { id }) => {
+      const { quantity, price, isChecked } = get(itemDetailsState(id));
+
+      return isChecked ? prevTotalAmount + price * quantity : prevTotalAmount;
+    }, 0);
     const deliveryFee =
       totalAmount >= FREE_DELIVERY_THRESHOLD || totalAmount === 0
         ? 0
