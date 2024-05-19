@@ -1,7 +1,7 @@
 const cartListMockData = {
   content: [
     {
-      id: 597,
+      id: 1029,
       quantity: 1,
       product: {
         id: 11,
@@ -13,8 +13,32 @@ const cartListMockData = {
       },
     },
     {
-      id: 598,
-      quantity: 7,
+      id: 1030,
+      quantity: 3,
+      product: {
+        id: 12,
+        name: '컨버스',
+        price: 20000,
+        imageUrl:
+          'https://sitem.ssgcdn.com/65/73/69/item/1000163697365_i1_750.jpg',
+        category: 'fashion',
+      },
+    },
+    {
+      id: 1123,
+      quantity: 1,
+      product: {
+        id: 3,
+        name: '아디다스',
+        price: 2000,
+        imageUrl:
+          'https://sitem.ssgcdn.com/74/25/04/item/1000373042574_i1_750.jpg',
+        category: 'fashion',
+      },
+    },
+    {
+      id: 1124,
+      quantity: 1,
       product: {
         id: 10,
         name: '퓨마',
@@ -25,14 +49,14 @@ const cartListMockData = {
       },
     },
     {
-      id: 599,
+      id: 1125,
       quantity: 1,
       product: {
-        id: 10,
-        name: '퓨마',
-        price: 10000,
+        id: 12,
+        name: '컨버스',
+        price: 20000,
         imageUrl:
-          'https://sitem.ssgcdn.com/47/78/22/item/1000031227847_i1_750.jpg',
+          'https://sitem.ssgcdn.com/65/73/69/item/1000163697365_i1_750.jpg',
         category: 'fashion',
       },
     },
@@ -51,7 +75,7 @@ const cartListMockData = {
   },
   last: true,
   totalPages: 1,
-  totalElements: 3,
+  totalElements: 5,
   first: true,
   sort: {
     sorted: false,
@@ -59,7 +83,7 @@ const cartListMockData = {
     empty: true,
   },
   number: 0,
-  numberOfElements: 3,
+  numberOfElements: 5,
   size: 20,
   empty: false,
 };

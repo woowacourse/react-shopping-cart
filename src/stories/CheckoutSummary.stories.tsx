@@ -1,8 +1,6 @@
-import { ThemeProvider } from '@emotion/react';
-import theme from '../styles/theme';
-
 import type { Meta, StoryObj } from '@storybook/react';
 import CheckoutSummary from '../components/CartList/CheckoutSummary';
+import { StoryContainer } from './styles';
 
 const meta: Meta<typeof CheckoutSummary> = {
   title: 'ShoppingCart/CheckoutSummary',
@@ -25,6 +23,14 @@ const meta: Meta<typeof CheckoutSummary> = {
       description: '배송비입니다.',
     },
   },
+
+  decorators: [
+    (Story) => (
+      <StoryContainer>
+        <Story />
+      </StoryContainer>
+    ),
+  ],
 };
 
 export default meta;
