@@ -1,9 +1,9 @@
 import { useSetRecoilState } from "recoil";
 import CartItemView from "./CartItemView";
 import styled from "styled-components";
-import { selectedCartItemIdsState } from "../recoil/selectedCartItemIds";
-import { CartItem } from "../types/cartItems";
-import { useCartItemControl } from "../hooks/useCartItemControl";
+import { selectedCartItemIdsState } from "../../recoil/selectedCartItemIds";
+import { CartItem } from "../../types/cartItems";
+import { useCartItemControl } from "../../hooks/useCartItemControl";
 
 export interface CartItemListProps {
   cartItems: CartItem[];

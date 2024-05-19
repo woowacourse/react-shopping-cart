@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { cartAmountState } from "../recoil/cartAmount";
-import { ReactComponent as InfoIcon } from "../assets/info-icon.svg";
+import { cartAmountState } from "../../recoil/cartAmount";
+import { ReactComponent as InfoIcon } from "../../assets/info-icon.svg";
 
 export default function CartAmount() {
   const { orderAmount, shippingCost, totalOrderAmount } = useRecoilValue(cartAmountState);

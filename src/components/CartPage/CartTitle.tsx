@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { rawCartItemsState } from "../recoil/rawCartItems";
+import { rawCartItemsState } from "../../recoil/rawCartItems";
 
 export default function CartTitle() {
   const cartItems = useRecoilValue(rawCartItemsState);

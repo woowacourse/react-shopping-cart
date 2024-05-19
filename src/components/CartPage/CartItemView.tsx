@@ -1,7 +1,7 @@
-import { CartItem } from "../types/cartItems";
+import { CartItem } from "../../types/cartItems";
 import styled from "styled-components";
-import { UseCartItemsReturn } from "../hooks/useCartItemControl";
-import Counter from "./common/Counter";
+import { UseCartItemsReturn } from "../../hooks/useCartItemControl";
+import Counter from "../common/Counter";
 
 export interface CartItemViewProps {
   cartItem: CartItem;

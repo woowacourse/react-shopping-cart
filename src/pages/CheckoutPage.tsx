@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import Checkout from "../components/Checkout";
+import Checkout from "../components/CheckoutPage/Checkout";
 import styled from "styled-components";
 import Header from "../components/common/Header";
 import Button from "../components/common/Button";

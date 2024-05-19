@@ -1,9 +1,9 @@
 import { useRecoilValue } from "recoil";
-import { cartAmountState } from "../recoil/cartAmount";
+import { cartAmountState } from "../../recoil/cartAmount";
 import styled from "styled-components";
-import { selectedCartItemIdsState } from "../recoil/selectedCartItemIds";
-import { cartItemsState } from "../recoil/cartItems";
-import { calculateSelectedCartItemsCount } from "../utils/domain/calculateSelectedCartItemsCount";
+import { selectedCartItemIdsState } from "../../recoil/selectedCartItemIds";
+import { cartItemsState } from "../../recoil/cartItems";
+import { calculateSelectedCartItemsCount } from "../../utils/domain/calculateSelectedCartItemsCount";
 
 export default function Checkout() {
   const selectedCartItemIds = useRecoilValue(selectedCartItemIdsState);

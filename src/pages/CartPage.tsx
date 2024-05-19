@@ -1,8 +1,8 @@
 import Header from "../components/common/Header";
 import styled from "styled-components";
-import CartContent from "../components/CartContent";
+import CartContent from "../components/CartPage/CartContent";
 import { Suspense } from "react";
-import CartButton from "../components/CartButton";
+import CartButton from "../components/CartPage/CartButton";
 
 export default function CartPage() {
   return (
