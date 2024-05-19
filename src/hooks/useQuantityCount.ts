@@ -29,6 +29,10 @@ const useQuantityCount = ({ id }: { id: number }) => {
 
   const handleDecrementButton = async () => {
     const newQuantity = productQuantity - 1;
+    if (newQuantity < 1) {
+      alert('1개 이상의 수량을 선택해주세요.');
+      return;
+    }
     const { success } = await updateCartItemQuantity(id, newQuantity);
 
     if (success) {
