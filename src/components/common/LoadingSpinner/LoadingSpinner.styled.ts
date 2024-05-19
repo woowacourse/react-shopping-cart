@@ -1,3 +1,4 @@
+import { COLOR } from '@styles/style.constant';
 import styled, { keyframes } from 'styled-components';
 
 const spin = keyframes`
@@ -22,8 +23,8 @@ export const LoadingSpinnerWrapper = styled.div<WrapperProps>`
 `;
 
 export const LoadingSpinner = styled.div`
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #3498db;
+  border: 4px solid ${COLOR.white};
+  border-top: 4px solid ${COLOR.black};
   border-radius: 50%;
   width: 100px;
   height: 100px;

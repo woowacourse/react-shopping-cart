@@ -7,7 +7,7 @@ interface CartItemCountProps {
 const CartItemCount: React.FC<CartItemCountProps> = ({ count }) => {
   return (
     <Styled.CartItemCount>
-      <p className="label">현재 {count}종류의 상품이 담겨 있습니다.</p>
+      <Styled.CountInfo>현재 {count}종류의 상품이 담겨 있습니다.</Styled.CountInfo>
     </Styled.CartItemCount>
   );
 };

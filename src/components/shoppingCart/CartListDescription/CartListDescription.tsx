@@ -17,8 +17,8 @@ const CartListDescription: React.FC<CartListDescriptionContainerProps> = ({ cart
 
   return (
     <Styled.CartItemDescription>
-      <span className="label">{product.name}</span>
-      <span className="productPrice">{formatKoreanCurrency(product.price)}</span>
+      <Styled.ItemName>{product.name}</Styled.ItemName>
+      <Styled.ItemPrice>{formatKoreanCurrency(product.price)}</Styled.ItemPrice>
       <Styled.CartItemButtonGroup>
         <CountButton onClick={() => onUpdateCartItemCount('minus')} sign="minus" />
         <span>{quantity}</span>
