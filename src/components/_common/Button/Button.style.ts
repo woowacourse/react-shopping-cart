@@ -1,4 +1,4 @@
-import { CSSProperties, RuleSet, css } from "styled-components";
+import styled, { CSSProperties, RuleSet, css } from "styled-components";
 import {
   ButtonRadiusVariant,
   ButtonSize,
@@ -29,6 +29,35 @@ export const BUTTON_SIZE: Record<ButtonSize, RuleSet<object>> = {
   `,
 };
 
+export const BUTTON_THEME: Record<ButtonTheme, RuleSet<object>> = {
+  dark: css`
+    background-color: #000000;
+    color: #ffffff;
+
+    &:hover {
+      background-color: #1f1f1f;
+    }
+    &:disabled {
+      background-color: #bebebe;
+      color: #aaaaaa;
+    }
+  `,
+
+  white: css`
+    background-color: #ffffff;
+    color: #8b95a1;
+
+    &:hover {
+      border: 0.5px solid #dfdfdf;
+      background-color: #f0f0f0;
+    }
+    &:disabled {
+      background-color: #eeeeee;
+      color: #cccccc;
+    }
+  `,
+};
+
 export const BUTTON_WIDTH: Record<
   ButtonWidth | ButtonSize,
   CSSProperties["width"]
@@ -41,42 +70,6 @@ export const BUTTON_WIDTH: Record<
   fit: "fit-content",
 };
 
-export const BUTTON_THEME: Record<ButtonTheme, RuleSet<object>> = {
-  dark: css`
-    background-color: #000000;
-
-    color: #ffffff;
-
-    &:hover {
-      background-color: #1f1f1f;
-    }
-
-    &:disabled {
-      background-color: #555555;
-      color: #aaaaaa;
-    }
-  `,
-
-  white: css`
-    background-color: #ffffff;
-
-    color: #8b95a1;
-
-    &:hover {
-      border: 0.5px solid #dfdfdf;
-      background-color: #f0f0f0;
-    }
-
-    &:disabled {
-      background-color: #eeeeee;
-      color: #cccccc;
-      border: 0.5px solid #cccccc;
-    }
-  `,
-};
-
-// export type ButtonRadiusVariant = "square" | "rounded" | "floating";
-
 export const BUTTON_RADIUS: Record<
   ButtonRadiusVariant,
   CSSProperties["borderRadius"]
@@ -85,3 +78,36 @@ export const BUTTON_RADIUS: Record<
   rounded: "4px",
   floating: "24px",
 };
+
+type ButtonWidthProps = ButtonWidth | "fixed";
+
+const Button = styled.button<{
+  $theme: ButtonTheme;
+  $size: ButtonSize;
+  $width: ButtonWidthProps;
+  $radiusVariant: ButtonRadiusVariant;
+}>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
+  border: 0.5px solid #8b95a1;
+
+  ${({ $size, $theme, $width, $radiusVariant }) => css`
+    ${BUTTON_SIZE[$size]};
+    ${BUTTON_THEME[$theme]};
+    border-radius: ${BUTTON_RADIUS[$radiusVariant]};
+    width: ${$width === "fixed" ? BUTTON_WIDTH[$size] : BUTTON_WIDTH[$width]};
+
+    &:disabled {
+      cursor: not-allowed;
+      border: none;
+    }
+  `}
+`;
+
+const Styled = {
+  Button,
+};
+
+export default Styled;
