@@ -1,7 +1,7 @@
 import { STORAGE_KEY } from '@constants/storage';
 import { useDeleteCartItem } from '@hooks/shoppingCart';
 import { cartItemsAtom, selectedIdsAtom } from '@recoil/shoppingCart';
-import { waitFor } from '@testing-library/react';
+import { act } from '@testing-library/react';
 import { useRecoilValue } from 'recoil';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -32,30 +32,30 @@ describe('상품 삭제 테스트', () => {
     vi.resetAllMocks();
   });
 
-  it('상품을 삭제하면, 장바구니 목록 데이터에서 해당 상품이 삭제된다.', async () => {
+  it('상품을 삭제하면, 장바구니 목록 데이터에서 해당 상품이 삭제된다.', () => {
     const ID = INITIAL_ITEMS[0].id;
     const result = renderUseDeleteCartItem(ID);
 
-    await waitFor(() => {
+    act(() => {
       expect(result.current).toBeDefined();
     });
 
-    await waitFor(() => {
+    act(() => {
       result.current.updateCartItems();
     });
 
     expect(result.current.cartItems.every((item) => item.id !== ID)).toBeTruthy();
   });
 
-  it('체크 박스를 선택한 상품을 삭제하면, 로컬 스토리지에서 해당 상품 아이디가 삭제된다.', async () => {
+  it('체크 박스를 선택한 상품을 삭제하면, 로컬 스토리지에서 해당 상품 아이디가 삭제된다.', () => {
     const ID = INITIAL_ITEMS[0].id;
     const result = renderUseDeleteCartItem(ID);
 
-    await waitFor(() => {
+    act(() => {
       expect(result.current).toBeDefined();
     });
 
-    await waitFor(() => {
+    act(() => {
       result.current.updateSelectedCartItemIds();
     });
 

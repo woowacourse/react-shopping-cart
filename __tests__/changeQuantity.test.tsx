@@ -1,7 +1,7 @@
 import { CartItem } from '@appTypes/shoppingCart';
 import { useUpdateCartItemCount } from '@hooks/shoppingCart';
 import { cartItemsAtom } from '@recoil/shoppingCart';
-import { waitFor } from '@testing-library/react';
+import { act } from '@testing-library/react';
 import { useRecoilValue } from 'recoil';
 import { describe, expect, it } from 'vitest';
 
@@ -20,20 +20,20 @@ const renderUseUpdateCartItemCount = (index: number, initialItems?: CartItem[]) 
 };
 
 describe('수량 변경 테스트', () => {
-  it('- 버튼을 누를 경우, 변경 가능한 수량이라면 수량이 1 감소한다.', async () => {
+  it('- 버튼을 누를 경우, 변경 가능한 수량이라면 수량이 1 감소한다.', () => {
     const QUANTITY = INITIAL_ITEMS[0].quantity;
     const EXPECTED_QUANTITY = QUANTITY - 1;
 
     const result = renderUseUpdateCartItemCount(0);
 
-    await waitFor(() => {
+    act(() => {
       expect(result.current).toBeDefined();
     });
 
     const newQuantity = result.current.getNewQuantity('minus');
     const validatedQuantity = result.current.validateQuantity(QUANTITY, 'minus');
 
-    await waitFor(() => {
+    act(() => {
       result.current.updateCartItems(newQuantity);
     });
 
@@ -45,20 +45,20 @@ describe('수량 변경 테스트', () => {
     expect(result.current.cartItems[0].quantity).toBe(EXPECTED_QUANTITY);
   });
 
-  it('+ 버튼을 누를 경우, 변경 가능한 수량이라면 수량이 1 증가한다.', async () => {
+  it('+ 버튼을 누를 경우, 변경 가능한 수량이라면 수량이 1 증가한다.', () => {
     const QUANTITY = INITIAL_ITEMS[0].quantity;
     const EXPECTED_QUANTITY = QUANTITY + 1;
 
     const result = renderUseUpdateCartItemCount(0);
 
-    await waitFor(() => {
+    act(() => {
       expect(result.current).toBeDefined();
     });
 
     const validatedQuantity = result.current.validateQuantity(QUANTITY, 'plus');
     const newQuantity = result.current.getNewQuantity('plus');
 
-    await waitFor(() => {
+    act(() => {
       result.current.updateCartItems(newQuantity);
     });
 
@@ -71,16 +71,16 @@ describe('수량 변경 테스트', () => {
   });
 
   describe('최저 수량, 최대 수량 테스트', () => {
-    it('수량이 1일때 - 버튼을 누를 경우, 수량이 변경되지 않는다.', async () => {
+    it('수량이 1일때 - 버튼을 누를 경우, 수량이 변경되지 않는다.', () => {
       const QUANTITY = QUANTITY_TEST_ITEMS[0].quantity;
 
       const result = renderUseUpdateCartItemCount(1, QUANTITY_TEST_ITEMS);
 
-      await waitFor(() => {
+      act(() => {
         expect(result.current).toBeDefined();
       });
 
-      await waitFor(() => {
+      act(() => {
         result.current.onUpdateCartItemCount('minus');
       });
 
@@ -90,16 +90,16 @@ describe('수량 변경 테스트', () => {
       expect(result.current.cartItems[0].quantity).toBe(QUANTITY);
     });
 
-    it('수량이 100개 일때 + 버튼을 누를 경우, 수량이 변경되지 않는다.', async () => {
+    it('수량이 100개 일때 + 버튼을 누를 경우, 수량이 변경되지 않는다.', () => {
       const QUANTITY = QUANTITY_TEST_ITEMS[1].quantity;
 
       const result = renderUseUpdateCartItemCount(0, QUANTITY_TEST_ITEMS);
 
-      await waitFor(() => {
+      act(() => {
         expect(result.current).toBeDefined();
       });
 
-      await waitFor(() => {
+      act(() => {
         result.current.onUpdateCartItemCount('plus');
       });
 
