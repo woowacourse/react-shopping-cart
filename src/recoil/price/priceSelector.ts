@@ -16,7 +16,7 @@ export const priceSelector = selector({
       const { price } = product;
       const quantity = get(cartItemQuantityAtomFamily(id));
 
-      return (sum += price * quantity);
+      return sum + price * quantity;
     }, 0);
 
     const deliveryFee = orderedPrice <= 0 || orderedPrice >= DELIVERY_FEE_THRESHOLD ? 0 : DELIVERY_FEE;
