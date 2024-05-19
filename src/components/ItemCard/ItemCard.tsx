@@ -111,7 +111,6 @@ function ItemCard({ item }: ProductProps) {
     );
     setDetails({
       quantity: item.quantity,
-      price: item.product.price,
       isChecked: localStorageProduct ? localStorageProduct.isChecked : true,
     });
   }, [item.quantity, item.product.price, setDetails, item.id]);
