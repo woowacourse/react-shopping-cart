@@ -31,7 +31,7 @@ export async function addCartItem(productId: number): Promise<void> {
   });
 
   if (!response.ok) {
-    throw new Error('Failed to add cart item');
+    throw new Error('장바구니 항목 추가에 실패했습니다.');
   }
 }
 
@@ -46,7 +46,7 @@ export async function removeCartItem(cartItemId: number): Promise<void> {
   });
 
   if (!response.ok) {
-    throw new Error('Failed to remove cart item');
+    throw new Error('장바구니 항목 삭제에 실패했습니다.');
   }
 }
 
@@ -67,7 +67,7 @@ export async function patchCartItem(
   });
 
   if (!response.ok) {
-    throw new Error('Failed to patch cart item');
+    throw new Error('장바구니 항목 수정에 실패했습니다.');
   }
 }
 
