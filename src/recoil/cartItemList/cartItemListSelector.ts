@@ -12,7 +12,4 @@ export const cartItemListQuery = selector<CartItem[]>({
     const result = await requestCartItemList();
     return result;
   },
-  set: ({ set }, cartItemList) => {
-    set(cartItemListState, cartItemList);
-  },
 });
