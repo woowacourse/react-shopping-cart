@@ -6,7 +6,7 @@ import { Products } from '../../types/Product';
 import { fetchCartItemQuantity } from '../../api';
 import CheckBox from '../CheckBox/CheckBox';
 import {
-  UpdateLocalStorage,
+  updateLocalStorage,
   getLocalStorage,
 } from '../../utils/UpdateLocalStorage';
 import styled from 'styled-components';
@@ -143,7 +143,7 @@ function ProductCard({ product }: ProductProps) {
       isChecked: !prevState.isChecked,
     }));
 
-    UpdateLocalStorage({ id: product.id, isChecked: !details.isChecked });
+    updateLocalStorage({ id: product.id, isChecked: !details.isChecked });
   };
 
   if (error) {

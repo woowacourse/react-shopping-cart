@@ -1,7 +1,7 @@
 import { DefaultValue, selector } from 'recoil';
 import { itemDetailsState, itemsState } from './atoms';
 import { Products } from '../types/Product';
-import { UpdateLocalStorage } from '../utils/UpdateLocalStorage';
+import { updateLocalStorage } from '../utils/UpdateLocalStorage';
 import { fetchProducts } from '../api';
 
 /**
@@ -48,7 +48,7 @@ export const toggleAllSelector = selector<boolean>({
         ...prev,
         isChecked: newValue,
       }));
-      UpdateLocalStorage({ id: item.id, isChecked: newValue });
+      updateLocalStorage({ id: item.id, isChecked: newValue });
     });
   },
 });
