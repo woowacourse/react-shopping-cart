@@ -30,7 +30,8 @@ export default function useItemQuantity() {
     const nextCartItems = [...cartItems];
     const targetIndex = nextCartItems.findIndex((item) => item.id === id);
     if (targetIndex === -1) return;
-    const nextTargetQuantity = Math.max(0, cartItems[targetIndex].quantity - 1);
+    const nextTargetQuantity = Math.max(1, cartItems[targetIndex].quantity - 1);
+    console.log(nextTargetQuantity);
     nextCartItems[targetIndex] = {
       ...nextCartItems[targetIndex],
       quantity: nextTargetQuantity,
