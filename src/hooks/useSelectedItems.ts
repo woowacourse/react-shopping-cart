@@ -1,3 +1,4 @@
+import useItemQuantity from './useItemQuantity';
 import { selectedCartItems } from '../recoil/atoms';
 import { CartItem } from '../api/get/getItems';
 import { useEffect, useState } from 'react';
@@ -7,8 +8,26 @@ const useSelectedItems = (data: CartItem[]) => {
   const [selectedItems, setSelectedItems] = useRecoilState(selectedCartItems);
   const [allSelectedItems, setAllSelectedItems] = useState(false);
 
+  const { getOneItemQuantity } = useItemQuantity(data);
+
   useEffect(() => {
-    setAllSelectedItems(data.length === selectedItems.length);
+    const isEveryItemSelected = data.every(item =>
+      selectedItems.some(selected => selected.cartItemId === item.id),
+    );
+
+    setAllSelectedItems(isEveryItemSelected);
+  }, [data, selectedItems]);
+
+  useEffect(() => {
+    if (data.length > 0) {
+      const updatedSelectedItems = selectedItems.filter(selected =>
+        data.some(item => item.id === selected.cartItemId),
+      );
+
+      if (updatedSelectedItems.length !== selectedItems.length) {
+        setSelectedItems(updatedSelectedItems);
+      }
+    }
   }, [data, selectedItems]);
 
   const onSelectAllClick = () => {
@@ -16,14 +35,12 @@ const useSelectedItems = (data: CartItem[]) => {
       setSelectedItems(
         data.map(item => ({
           cartItemId: item.id,
-          quantity: item.quantity,
+          quantity: getOneItemQuantity(item.id) ?? item.quantity,
           price: item.product.price,
         })),
       );
-      setAllSelectedItems(true);
     } else {
       setSelectedItems([]);
-      setAllSelectedItems(false);
     }
   };
 
