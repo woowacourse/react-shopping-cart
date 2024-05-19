@@ -26,15 +26,11 @@ const useSelectedItem = (getOneItemQuantity: (id: number) => number | undefined)
   };
 
   const updateSelectedItemQuantity = (cartItem: CartItem, newQuantity: number) => {
-    const selectedItemIndex = selectedItems.findIndex(item => item.cartItemId === cartItem.id);
-    if (selectedItemIndex !== -1) {
-      const updatedSelectedItems = [...selectedItems];
-      updatedSelectedItems[selectedItemIndex] = {
-        ...updatedSelectedItems[selectedItemIndex],
-        quantity: newQuantity,
-      };
-      setSelectedItems(updatedSelectedItems);
-    }
+    setSelectedItems(
+      selectedItems.map(item =>
+        item.cartItemId === cartItem.id ? { ...item, quantity: newQuantity } : item,
+      ),
+    );
   };
 
   return {

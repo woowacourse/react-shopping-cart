@@ -23,16 +23,7 @@ const useItemQuantity = (cartItems: CartItem[]) => {
 
   // 특정 아이템의 quantity를 수정하는 함수
   const setOneItemQuantity = (id: number, newQuantity: number) => {
-    const oneItemIndex = quantity.findIndex(item => item.id === id);
-
-    if (oneItemIndex !== -1) {
-      const updatedQuantity = [...quantity];
-      updatedQuantity[oneItemIndex] = {
-        ...updatedQuantity[oneItemIndex],
-        quantity: newQuantity,
-      };
-      setQuantity(updatedQuantity);
-    }
+    setQuantity(quantity.map(item => (item.id === id ? { ...item, quantity: newQuantity } : item)));
   };
 
   return {
