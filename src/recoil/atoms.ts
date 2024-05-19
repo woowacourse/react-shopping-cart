@@ -1,7 +1,8 @@
-import { CART_ITEM_SELECTED_STORAGE_KEY } from './../services/CartItemLocalStorage';
 import { AtomEffect, atomFamily, selectorFamily } from 'recoil';
-import CartItemLocalStorage from '../services/CartItemLocalStorage';
 import { cartListState } from './selectors';
+
+import CartItemLocalStorage from '../services/CartItemLocalStorage';
+import { CART_ITEM_SELECTED_STORAGE_KEY } from './../services/CartItemLocalStorage';
 
 const cartItemQuantity = atomFamily<number, number>({
   key: 'cartItemQuantity',

@@ -1,26 +1,26 @@
-import type { Preview } from "@storybook/react";
-import React from "react";
-import { MemoryRouter } from "react-router-dom";
-import { RecoilRoot } from "recoil";
-import { ThemeProvider } from "styled-components";
+import type { Preview } from '@storybook/react';
+import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
+import { ThemeProvider } from 'styled-components';
 
-import { Global } from "@emotion/react";
-import globalStyles from "../src/styles/GlobalStyle";
-import theme from "../src/styles/theme";
+import { Global } from '@emotion/react';
+import globalStyles from '../src/styles/GlobalStyle';
+import theme from '../src/styles/theme';
 
 const customViewports = {
   Default: {
-    name: "Default",
+    name: 'Default',
     styles: {
-      width: "1280px",
-      height: "832px",
+      width: '1280px',
+      height: '832px',
     },
   },
 };
 
 const preview: Preview = {
   parameters: {
-    actions: { argTypesRegex: "^on[A-Z].*" },
+    actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -29,7 +29,7 @@ const preview: Preview = {
     },
     viewport: {
       viewports: { ...customViewports },
-      defaultViewport: "Default",
+      defaultViewport: 'Default',
     },
   },
 };
@@ -43,10 +43,10 @@ const localStorageResetDecorator = (Story) => {
 
 export const decorators = [
   (Story) => (
-    <MemoryRouter initialEntries={["/"]}>
+    <MemoryRouter initialEntries={['/']}>
       <RecoilRoot>
         <ThemeProvider theme={theme}>
-          <Global styles={globalStyles(theme)} />
+          <Global styles={globalStyles()} />
           <Story />
         </ThemeProvider>
       </RecoilRoot>

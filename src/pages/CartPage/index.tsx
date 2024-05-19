@@ -13,6 +13,8 @@ import CheckoutSummary from '../../components/CartList/CheckoutSummary';
 import Header from '../../components/Header';
 import BottomButton from '../../components/common/BottomButton';
 import RecoilSuspense from '../../components/common/RecoilSuspense';
+import Fallback from '../../components/common/Fallback';
+import LoadingSpinner from '../../components/common/LoadingSpinner';
 
 import { Description, Title } from '../ConfirmOrderPage/styles';
 import {
@@ -32,7 +34,12 @@ export default function CartPage() {
   };
 
   return (
-    <RecoilSuspense loadable={cartList} fallback={<div>로딩 중...</div>}>
+    <RecoilSuspense
+      loadable={cartList}
+      fallback={
+        <Fallback spinner={<LoadingSpinner />} message="로딩 중입니다..." />
+      }
+    >
       <Layout
         header={<Header isShowLogo={true} />}
         bottom={
