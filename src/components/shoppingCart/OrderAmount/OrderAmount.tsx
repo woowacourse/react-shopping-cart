@@ -12,7 +12,8 @@ export default function OrderAmount() {
   return (
     <div>
       <Styled.DeliveryFeeInfoBox>
-        <img src={InfoIcon} />총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+        <img src={InfoIcon} alt="무료 배송 기준 메시지 아이콘" />총 주문 금액이 100,000원 이상일
+        경우 무료 배송됩니다.
       </Styled.DeliveryFeeInfoBox>
 
       <Styled.OrderAmountContainer>
