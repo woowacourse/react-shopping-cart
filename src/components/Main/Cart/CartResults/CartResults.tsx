@@ -6,7 +6,7 @@ import { CartResultGuideStyle, CartResultGuideContainerStyle, CartResultsContain
 
 import { SHIPPING_CONSTANT } from "@/constants";
 import { orderAmountState, totalAmountState } from "@/store/selector/selectors";
-import { itemIdsState } from "@/store/atom/atoms";
+import { cartState } from "@/store/atom/atoms";
 
 import PaymentDetail from "@/components/PaymentDetail/PaymentDetail";
 import Divider from "@/components/Divider/Divider";
@@ -14,11 +14,11 @@ import Divider from "@/components/Divider/Divider";
 const CartResults = () => {
   const orderAmount = useRecoilValue(orderAmountState);
   const totalAmount = useRecoilValue(totalAmountState);
-  const ids = useRecoilValue(itemIdsState);
+  const itemCount = useRecoilValue(cartState).length;
 
   return (
     <div css={CartResultsContainerStyle}>
-      {ids.length !== 0 && (
+      {itemCount !== 0 && (
         <>
           <div css={CartResultGuideContainerStyle}>
             <IoIosInformationCircleOutline size={15} />

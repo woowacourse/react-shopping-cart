@@ -3,7 +3,7 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useCallback } from "react";
 
-import { cartState, itemEachCheckState, itemIdsState, itemQuantityState } from "@/store/atom/atoms";
+import { cartState, itemEachCheckState, itemQuantityState } from "@/store/atom/atoms";
 import { changeProductAmount, deleteProduct } from "@/store/api";
 import { deleteCheck } from "@/store/localStorage/localStorage";
 
@@ -30,7 +30,6 @@ const CartItem = ({ CartItemInfo }: CartItemProps) => {
   const { id } = CartItemInfo;
   const [quantity, setQuantity] = useRecoilState(itemQuantityState);
   const [isCheck, setIsCheck] = useRecoilState(itemEachCheckState(id));
-  const setItemIds = useSetRecoilState(itemIdsState);
   const setCartState = useSetRecoilState(cartState);
 
   const handleCheckBoxClick = () => {
@@ -38,12 +37,12 @@ const CartItem = ({ CartItemInfo }: CartItemProps) => {
   };
 
   const deleteProductId = useCallback(() => {
-    setItemIds((prev) => {
-      const index = prev.findIndex((value) => value === id);
+    setCartState((prev) => {
+      const index = prev.findIndex((item) => item.id === id);
       const arr = [...prev];
       return [...arr.slice(0, index), ...arr.slice(index + 1)];
     });
-  }, [id, setItemIds]);
+  }, [id, setCartState]);
 
   const executeDeleteProduct = () => {
     deleteProductId();

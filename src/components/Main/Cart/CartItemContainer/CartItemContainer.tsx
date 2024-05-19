@@ -5,14 +5,14 @@ import CartItemControls from "./CartItemsToolBar/CartItemsToolBar";
 import CartItemList from "./CartItemList/CartItemList";
 
 import { useRecoilValue } from "recoil";
-import { itemIdsState } from "@/store/atom/atoms";
+import { cartState } from "@/store/atom/atoms";
 
 const CartItemContainer = () => {
-  const ids = useRecoilValue(itemIdsState);
+  const cartCount = useRecoilValue(cartState).length;
 
   return (
     <div css={CartItemContainerStyle}>
-      {ids.length !== 0 ? (
+      {cartCount !== 0 ? (
         <>
           <CartItemControls />
           <Suspense fallback={<div>Loading</div>}>

@@ -23,11 +23,11 @@ export const cartState = atom<CartItemInfo[]>({
 export const checkAllItemState = selector({
   key: "checkAllItemState",
   get: ({ get }) => {
-    const itemIds = get(itemIdsState);
+    const itemIds = get(cartState).map((item: CartItemInfo) => item.id);
     return itemIds.every((itemId) => get(itemEachCheckState(itemId)));
   },
   set: ({ set, get }, newValue) => {
-    const itemIds = get(itemIdsState);
+    const itemIds = get(cartState).map((item: CartItemInfo) => item.id);
     itemIds.forEach((itemId) => set(itemEachCheckState(itemId), newValue));
   },
 });
@@ -49,16 +49,6 @@ export const itemEachCheckState = atomFamily<boolean, number>({
       });
     },
   ],
-});
-
-export const itemIdsState = atom<number[]>({
-  key: "itemIdsState",
-  default: selector({
-    key: "itemIdsList",
-    get: ({ get }) => {
-      return get(cartState).map((item: CartItemInfo) => item.id);
-    },
-  }),
 });
 
 export const itemQuantityState = atom<Record<number, number>>({
