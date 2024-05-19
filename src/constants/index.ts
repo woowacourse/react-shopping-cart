@@ -20,12 +20,10 @@ export const PAGINATION = {
   ITEM_LIMIT_PER_PAGE: 20,
 };
 
-// 액션 타입 상수
-export const ACTION_TYPES = {
-  SELECT: "select",
-  DELETE: "delete",
-  PLUS: "plus",
-  MINUS: "minus",
+// 카운터버튼 타입 상수
+export const COUNTER_BUTTON_TYPES = {
+  INCREMENT: "increment",
+  DECREMENT: "decrement",
 } as const;
 
 // 헤더 타입 상수
