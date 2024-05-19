@@ -2,12 +2,9 @@ import { css, keyframes } from '@emotion/react';
 
 import FooterButton from '@components/common/FooterButton';
 
-import Header from '@components/Header';
-
-export default function LoadingPage() {
+export default function Loading() {
   return (
     <>
-      <Header></Header>
       <main css={loadingMain}>
         <div css={loader}>
           <li css={ball}></li>
@@ -54,15 +51,15 @@ const ball = css`
 
   background-color: #333;
 
-  &:nth-child(1) {
+  &:nth-of-type(1) {
     animation: ${bounce} 2.1s ease-in-out infinite;
   }
 
-  &:nth-child(2) {
+  &:nth-of-type(2) {
     animation: ${bounce} 2.1s ease-in-out 0.3s infinite;
   }
 
-  &:nth-child(3) {
+  &:nth-of-type(3) {
     animation: ${bounce} 2.1s ease-in-out 0.6s infinite;
   }
 `;

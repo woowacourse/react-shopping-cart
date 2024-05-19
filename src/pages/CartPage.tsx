@@ -1,9 +1,12 @@
 import { css } from '@emotion/react';
+import { Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { useNavigate } from 'react-router-dom';
 
-import CartMain from '@components/Cart/CartMain';
-import OrderConfirmButton from '@components/Cart/OrderConfirmButton';
+import Cart from '@components/Cart/Cart';
 import Button from '@components/common/Button';
+import Error from '@components/common/Error';
+import Loading from '@components/common/Loading';
 
 import Header from '@components/Header';
 
@@ -21,8 +24,12 @@ function CartPage() {
           <h1>SHOP</h1>
         </Button>
       </Header>
-      <CartMain />
-      <OrderConfirmButton />
+
+      <ErrorBoundary fallbackRender={({ error }) => <Error errorMessage={error.message} />}>
+        <Suspense fallback={<Loading />}>
+          <Cart />
+        </Suspense>
+      </ErrorBoundary>
     </>
   );
 }
