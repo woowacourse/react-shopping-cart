@@ -1,4 +1,4 @@
-import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST } from "../../constants/pricing";
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST } from "../../../constants/pricing";
 
 type ShoppingCost = number;
 export const determineShippingCost = (orderAmount: number): ShoppingCost => {
