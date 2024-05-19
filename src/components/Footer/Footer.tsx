@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { useRecoilValue } from "recoil";
 import { FooterStyle } from "./Footer.style";
-import { orderAmountState } from "../../store/selector/selectors";
+import { orderAmountState } from "@/store/selector/selectors";
 import { useLocation, useNavigate } from "react-router-dom";
 
 interface FooterInfo {

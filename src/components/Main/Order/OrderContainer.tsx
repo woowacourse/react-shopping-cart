@@ -1,13 +1,14 @@
 /** @jsxImportSource @emotion/react */
 
-import { useRecoilValue } from "recoil";
-import PaymentDetail from "../../PaymentDetail/PaymentDetail";
-import { totalAmountState } from "../../../store/selector/selectors";
-import { orderContainerStyle, orderDescriptionStyle, orderTitleStyle } from "./OrderContainer.style";
-import { itemIdsState } from "../../../store/atom/atoms";
-
 import { useEffect, useState } from "react";
-import { fetchCartItemsCounts } from "../../../store/api";
+import { useRecoilValue } from "recoil";
+
+import { totalAmountState } from "@/store/selector/selectors";
+import { itemIdsState } from "@/store/atom/atoms";
+import { fetchCartItemsCounts } from "@/store/api";
+
+import { orderContainerStyle, orderDescriptionStyle, orderTitleStyle } from "./OrderContainer.style";
+import PaymentDetail from "@/components/PaymentDetail/PaymentDetail";
 
 const OrderContainer = () => {
   const totalAmount = useRecoilValue(totalAmountState);

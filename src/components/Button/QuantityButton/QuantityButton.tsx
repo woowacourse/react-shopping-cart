@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
+
 import { HiOutlineMinus, HiOutlinePlus } from "react-icons/hi";
-import Button from "../Button";
+import Button from "@/components/Button/Button";
 
 export type ButtonType = "plus" | "minus";
 

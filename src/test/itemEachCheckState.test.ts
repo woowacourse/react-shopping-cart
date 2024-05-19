@@ -1,7 +1,8 @@
 import { renderHook, act } from "@testing-library/react";
 import { RecoilRoot, useRecoilState } from "recoil";
-import { itemEachCheckState } from "../store/atom/atoms";
 import { beforeEach, describe, expect, it } from "vitest";
+
+import { itemEachCheckState } from "@/store/atom/atoms";
 
 describe("itemEachCheckState", () => {
   const LOCAL_STORAGE_KEY = "itemCheckedMap";

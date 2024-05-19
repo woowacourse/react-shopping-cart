@@ -1,10 +1,9 @@
 import { renderHook, waitFor } from "@testing-library/react";
-
 import { RecoilRoot, useRecoilValue } from "recoil";
-import { cartState } from "../store/atom/atoms";
-
-import { server } from "./mock/server";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
+
+import { cartState } from "@/store/atom/atoms";
+import { server } from "@/mock/server";
 
 const DUMMY_CART_ITEMS = [
   {

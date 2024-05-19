@@ -1,4 +1,4 @@
-import { LOCAL_STORAGE_KEY } from "../../constants";
+import { LOCAL_STORAGE_KEY } from "@/constants";
 
 export const toggleCheck = (id: number, isCheck: boolean) => {
   const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}");

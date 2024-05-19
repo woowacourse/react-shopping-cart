@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { useRecoilValue } from "recoil";
 import { CartItemTypesCountStyle, CartTitleStyle } from "./CartTitle.style";
-import { itemIdsState } from "../../../../store/atom/atoms";
+import { itemIdsState } from "@/store/atom/atoms";
 
 const CartTitle = () => {
   const ids = useRecoilValue(itemIdsState);

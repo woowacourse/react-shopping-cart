@@ -5,7 +5,7 @@ import CartItemControls from "./CartItemsToolBar/CartItemsToolBar";
 import CartItemList from "./CartItemList/CartItemList";
 
 import { useRecoilValue } from "recoil";
-import { itemIdsState } from "../../../../store/atom/atoms";
+import { itemIdsState } from "@/store/atom/atoms";
 
 const CartItemContainer = () => {
   const ids = useRecoilValue(itemIdsState);

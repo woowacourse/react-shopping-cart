@@ -1,7 +1,7 @@
 import { selector } from "recoil";
-import { itemEachCheckState, itemQuantityState } from "../atom/atoms";
-import { SHIPPING_CONSTANT } from "../../constants";
-import { cartState } from "../atom/atoms";
+import { itemEachCheckState, itemQuantityState } from "@/store/atom/atoms";
+import { SHIPPING_CONSTANT } from "@/constants";
+import { cartState } from "@/store/atom/atoms";
 
 export const orderAmountState = selector({
   key: "orderAmount",

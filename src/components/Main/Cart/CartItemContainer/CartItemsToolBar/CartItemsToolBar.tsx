@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { useRecoilState } from "recoil";
-import Checkbox from "../../../../Button/Checkbox/Checkbox";
+import Checkbox from "@/components/Button/Checkbox/Checkbox";
 import { ControlStyle } from "./CartItemsToolBar.style";
-import { checkAllItemState } from "../../../../../store/atom/atoms";
+import { checkAllItemState } from "@/store/atom/atoms";
 
 const CartItemsToolBar = () => {
   const [state, setState] = useRecoilState(checkAllItemState);

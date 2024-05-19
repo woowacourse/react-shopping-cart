@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import Button from "../Button";
+
+import Button from "@/components/Button/Button";
 
 interface CheckboxProps {
   isCheck: boolean;

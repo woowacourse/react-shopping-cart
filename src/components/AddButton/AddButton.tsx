@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { API_TOKEN } from "../../store/utils";
+import { API_TOKEN } from "@/store/utils";
 import { AddButtonStyle } from "./AddButton.style";
 
 const AddButton = () => {

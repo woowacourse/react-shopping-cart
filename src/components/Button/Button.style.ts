@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { COLOR_PALETTE } from "../../colorPalette";
+import { COLOR_PALETTE } from "@/colorPalette";
 
 export const ButtonStyle = (width: string, height: string, fontSize: string, isHighlight: boolean) =>
   css({
