@@ -4,6 +4,7 @@ import { totalOrderAmountState } from '../../../store/selectors';
 import styles from '../Cart.module.css';
 import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
 import common from '../../../styles/common.module.css';
+import { NOTICE_MESSAGE } from '../../../constants/messages';
 
 export default function CartTotals() {
   const { orderAmount, deliveryCharge, totalAmount } = useRecoilValue(totalOrderAmountState);
@@ -11,9 +12,7 @@ export default function CartTotals() {
     <div className={styles.cartContentWrapper}>
       <div className={styles.cartTotalsNoticeWrapper}>
         <img src={noticeIcon} width={13} height={13} />
-        <span className={common.labelText}>
-          총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
-        </span>
+        <span className={common.labelText}>{NOTICE_MESSAGE.shipping}</span>
       </div>
       <div className={styles.cartTotalsWrapper}>
         <div className={styles.cartToTalsTextWrapper}>
