@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { RouterProvider } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 
@@ -13,10 +12,7 @@ function App() {
     <RecoilRoot>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-
-        <Suspense fallback={<div>loading...</div>}>
-          <RouterProvider router={router} />
-        </Suspense>
+        <RouterProvider router={router} />
       </ThemeProvider>
     </RecoilRoot>
   );
