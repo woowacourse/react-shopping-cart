@@ -48,11 +48,7 @@ const useCheckedItemIds = () => {
     localStorage.setItem(UNCHECKED_ITEM_IDS, JSON.stringify(nextUncheckedIds));
   };
 
-  const deleteId = (id: number) => {
-    checkId(id);
-  };
-
-  return { getIsChecked, checkId, uncheckId, deleteId };
+  return { getIsChecked, checkId, uncheckId };
 };
 
 export default useCheckedItemIds;
