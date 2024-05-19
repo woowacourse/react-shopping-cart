@@ -5,10 +5,12 @@ import Text from '../common/Text/Text';
 import Divider from '../common/Divider/Divider';
 import ContentRow from '../common/ContentRow/ContentRow';
 import { useRecoilValue } from 'recoil';
-import { priceSelector } from '../../recoil/price/priceSelector';
+import { cartDeliveryFeeSelector, finalCartPriceSelector, totalCartPriceSelector } from '../../recoil/price/states';
 
 const PriceTable = () => {
-  const { orderedPrice, deliveryFee, totalPrice } = useRecoilValue(priceSelector);
+  const totalCartPrice = useRecoilValue(totalCartPriceSelector);
+  const deliveryFee = useRecoilValue(cartDeliveryFeeSelector);
+  const finalCartPrice = useRecoilValue(finalCartPriceSelector);
 
   return (
     <S.Container>
@@ -20,11 +22,11 @@ const PriceTable = () => {
       </S.NoticeContainer>
       <Divider />
       <S.Rows>
-        <ContentRow title="주문 금액" content={`${orderedPrice.toLocaleString('ko-kr')}원`} />
+        <ContentRow title="주문 금액" content={`${totalCartPrice.toLocaleString('ko-kr')}원`} />
         <ContentRow title="배송비" content={`${deliveryFee.toLocaleString('ko-kr')}원`} />
       </S.Rows>
       <Divider />
-      <ContentRow title="총 결제 금액" content={`${totalPrice.toLocaleString('ko-kr')}원`} />
+      <ContentRow title="총 결제 금액" content={`${finalCartPrice.toLocaleString('ko-kr')}원`} />
     </S.Container>
   );
 };
