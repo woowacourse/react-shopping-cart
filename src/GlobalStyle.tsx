@@ -3,32 +3,27 @@ import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`${reset}
 
-html {
-    font-size: 62.5%;
-   
+html, body {
+  font-size: 62.5%;
+  height: 100%;
+  margin: auto;
 }
 
 body {
-  font-size: 1.6rem;
+  display: flex;
+  flex-direction: column;
   max-width: 480px;
-  max-height: 100vh;
-  margin: auto;
-
-}
-
-button{
-    padding: 0;
+  font-size: 1.6rem;
 }
 
 #root {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  line-height: 15px
-  
+  line-height: 15px;
+  height: 100%;
 }
 
 :root {
-  
   --black-color: #000000;
   --white-color: #ffffff;
 
@@ -44,7 +39,6 @@ button{
   --font-weight-bold: 700;
   --font-weight-extra-bold: 800;
 }
-
 `;
 
 export default GlobalStyle;

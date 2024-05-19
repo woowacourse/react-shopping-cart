@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 176px);
+  height: calc(100% - 176px);
+  overflow-y: auto;
   padding: 24px;
 `;
 
