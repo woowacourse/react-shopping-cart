@@ -1,10 +1,6 @@
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  cartItemsState,
-  isAllSelectedState,
-  selectedItemsState,
-} from "../../recoil/atoms/atoms";
+import { cartItemsState, isAllSelectedState, selectedItemsState } from "../../recoil/atoms/atoms";
 import { ActionButton } from "../button/actionButton/ActionButton";
 import { CartItemCard } from "../cartItemCard/CartItemCard";
 import {
@@ -12,6 +8,7 @@ import {
   StyledCartItemSelectContainer,
   StyledCartItemSelectText,
 } from "./CartItemCardList.styled";
+import { ACTION_TYPES } from "../../constants";
 
 export const CartItemCardList: React.FC = () => {
   const cartItems = useRecoilValue(cartItemsState);
@@ -51,7 +48,7 @@ export const CartItemCardList: React.FC = () => {
     <StyledCartItemCardList>
       <StyledCartItemSelectContainer>
         <ActionButton
-          type="select"
+          type={ACTION_TYPES.SELECT}
           clicked={isAllSelected}
           onSelect={handleSelectAll}
         />

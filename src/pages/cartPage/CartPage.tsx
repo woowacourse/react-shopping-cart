@@ -5,6 +5,7 @@ import { ConfirmButton } from "../../components/button/confirmButton/ConfirmButt
 import { CartContentSection } from "../../components/cartContentSection/CartContentSection";
 import { CartHeader } from "../../components/cartHeader/CartHeader";
 import Header from "../../components/header/Header";
+import { CART, ERROR_MESSAGES, HEADER_TYPES } from "../../constants";
 import { cartItemsState } from "../../recoil/atoms/atoms";
 import { categoryCountState } from "../../recoil/selector/selector";
 import { StyledCartPage } from "./CartPage.styled";
@@ -19,7 +20,7 @@ export const CartPage: React.FC = () => {
         const items = await getCartItems();
         setCartItems(items);
       } catch (error) {
-        console.error("Failed to fetch cart items:", error);
+        console.error(ERROR_MESSAGES.FETCH_CART_ITEMS, error);
       }
     };
 
@@ -27,11 +28,11 @@ export const CartPage: React.FC = () => {
   }, [cartItems]);
 
   const buttonBackgroundColor =
-    categoryCount === 0 ? "rgba(190, 190, 190, 1)" : "rgba(0, 0, 0, 1)";
+    categoryCount === CART.EMPTY_THRESHOLD ? "rgba(190, 190, 190, 1)" : "rgba(0, 0, 0, 1)";
 
   return (
     <>
-      <Header type="shop" />
+      <Header type={HEADER_TYPES.SHOP} />
       <StyledCartPage>
         <CartHeader categoryCount={categoryCount} />
         <CartContentSection categoryCount={categoryCount} />

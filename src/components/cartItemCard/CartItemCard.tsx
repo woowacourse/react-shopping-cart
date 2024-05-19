@@ -1,5 +1,6 @@
 import { useSetRecoilState } from "recoil";
 import { deleteCartItem, patchCartItemQuantityChange } from "../../api";
+import { ACTION_TYPES, CART, ERROR_MESSAGES } from "../../constants";
 import { cartItemsState } from "../../recoil/atoms/atoms";
 import { CartItem } from "../../types";
 import { ActionButton } from "../button/actionButton/ActionButton";
@@ -33,36 +34,32 @@ export const CartItemCard: React.FC<CartItemProps> = ({
       await deleteCartItem(id);
       setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
     } catch (error) {
-      console.error("Failed to delete cart item:", error);
+      console.error(ERROR_MESSAGES.DELETE_CART_ITEM, error);
     }
   };
 
   const handleItemCountPlus = async (id: number) => {
     try {
-      const newQuantity = quantity + 1;
+      const newQuantity = quantity + CART.QUANTITY_CHANGE_STEP;
       await patchCartItemQuantityChange(id, newQuantity);
       setCartItems((prevItems) =>
-        prevItems.map((item) =>
-          item.id === id ? { ...item, quantity: newQuantity } : item
-        )
+        prevItems.map((item) => (item.id === id ? { ...item, quantity: newQuantity } : item))
       );
     } catch (error) {
-      console.error("Failed to increase item quantity:", error);
+      console.error(ERROR_MESSAGES.PLUS_CART_ITEM, error);
     }
   };
 
   const handleItemCountMinus = async (id: number) => {
     if (quantity > 1) {
       try {
-        const newQuantity = quantity - 1;
+        const newQuantity = quantity - CART.QUANTITY_CHANGE_STEP;
         await patchCartItemQuantityChange(id, newQuantity);
         setCartItems((prevItems) =>
-          prevItems.map((item) =>
-            item.id === id ? { ...item, quantity: newQuantity } : item
-          )
+          prevItems.map((item) => (item.id === id ? { ...item, quantity: newQuantity } : item))
         );
       } catch (error) {
-        console.error("Failed to decrease item quantity:", error);
+        console.error(ERROR_MESSAGES.MINUS_CART_ITEM, error);
       }
     }
   };
@@ -70,9 +67,9 @@ export const CartItemCard: React.FC<CartItemProps> = ({
   return (
     <StyledCartItemCard>
       <StyledCartItemCardHeader>
-        <ActionButton type="select" clicked={selected} onSelect={onSelect} />
+        <ActionButton type={ACTION_TYPES.SELECT} clicked={selected} onSelect={onSelect} />
         <ActionButton
-          type="delete"
+          type={ACTION_TYPES.DELETE}
           onDelete={() => handleItemDelete(id)}
           disabled={selected}
         />
@@ -83,12 +80,9 @@ export const CartItemCard: React.FC<CartItemProps> = ({
           <StyledProductName>{name}</StyledProductName>
           <StyledProductPrice>{price.toLocaleString()}원</StyledProductPrice>
           <StyledProductQuantityContainer>
-            <ActionButton
-              type="minus"
-              onMinus={() => handleItemCountMinus(id)}
-            />
+            <ActionButton type={ACTION_TYPES.MINUS} onMinus={() => handleItemCountMinus(id)} />
             <StyledProductQuantityText>{quantity}</StyledProductQuantityText>
-            <ActionButton type="plus" onPlus={() => handleItemCountPlus(id)} />
+            <ActionButton type={ACTION_TYPES.PLUS} onPlus={() => handleItemCountPlus(id)} />
           </StyledProductQuantityContainer>
         </StyledProductInfo>
       </StyledCartItemCardProductContents>

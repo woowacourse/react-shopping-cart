@@ -2,6 +2,7 @@ import CheckedButtonIcon from "../../../assets/CheckedButtonIcon.png";
 import MinusButtonIcon from "../../../assets/MinusButtonIcon.png";
 import PlusButtonIcon from "../../../assets/PlusButtonIcon.png";
 import UnCheckedButtonIcon from "../../../assets/UncheckedButtonIcon.png";
+import { ACTION_TYPES } from "../../../constants";
 import {
   StyledActionButton,
   StyledActionButtonImg,
@@ -10,7 +11,7 @@ import {
 
 interface ActionButtonProps {
   clicked?: boolean;
-  type: "select" | "delete" | "plus" | "minus";
+  type: (typeof ACTION_TYPES)[keyof typeof ACTION_TYPES];
   onDelete?: () => void;
   onSelect?: () => void;
   onPlus?: () => void;
@@ -29,11 +30,11 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
 }) => {
   const determineSrc = () => {
     switch (type) {
-      case "select":
+      case ACTION_TYPES.SELECT:
         return clicked ? CheckedButtonIcon : UnCheckedButtonIcon;
-      case "plus":
+      case ACTION_TYPES.PLUS:
         return PlusButtonIcon;
-      case "minus":
+      case ACTION_TYPES.MINUS:
         return MinusButtonIcon;
       default:
         return "";
@@ -42,17 +43,17 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
 
   const handleClick = () => {
     switch (type) {
-      case "select":
+      case ACTION_TYPES.SELECT:
         if (onSelect) onSelect();
         break;
-      case "delete":
+      case ACTION_TYPES.DELETE:
         if (disabled) return;
         if (onDelete) onDelete();
         break;
-      case "plus":
+      case ACTION_TYPES.PLUS:
         if (onPlus) onPlus();
         break;
-      case "minus":
+      case ACTION_TYPES.MINUS:
         if (onMinus) onMinus();
         break;
       default:
@@ -62,12 +63,10 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
 
   return (
     <StyledActionButton onClick={handleClick} disabled={disabled}>
-      {type === "delete" && (
-        <StyledActionButtonText>삭제</StyledActionButtonText>
-      )}
-      {(type === "select" || type === "plus" || type === "minus") && (
-        <StyledActionButtonImg src={determineSrc()} />
-      )}
+      {type === ACTION_TYPES.DELETE && <StyledActionButtonText>삭제</StyledActionButtonText>}
+      {(type === ACTION_TYPES.SELECT ||
+        type === ACTION_TYPES.PLUS ||
+        type === ACTION_TYPES.MINUS) && <StyledActionButtonImg src={determineSrc()} />}
     </StyledActionButton>
   );
 };

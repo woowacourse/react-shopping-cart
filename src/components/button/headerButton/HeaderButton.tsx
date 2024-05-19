@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import BackIcon from "../../../assets/BackIcon.png";
+import { HEADER_TYPES, PATHS } from "../../../constants";
 import {
   StyledHeaderButtonContainer,
   StyledHeaderButtonContent,
@@ -7,22 +8,20 @@ import {
 } from "./HeaderButton.styled";
 
 export interface HeaderButtonProps {
-  type: "shop" | "back";
+  type: (typeof HEADER_TYPES)[keyof typeof HEADER_TYPES];
 }
 
 export const HeaderButton: React.FC<HeaderButtonProps> = ({ type }) => {
   const navigate = useNavigate();
 
   const navigateToCartPage = () => {
-    navigate("/");
+    navigate(PATHS.BASE);
   };
 
   return (
     <StyledHeaderButtonContainer>
-      {type === "shop" ? (
-        <StyledHeaderButtonContent onClick={navigateToCartPage}>
-          SHOP
-        </StyledHeaderButtonContent>
+      {type === HEADER_TYPES.SHOP ? (
+        <StyledHeaderButtonContent onClick={navigateToCartPage}>SHOP</StyledHeaderButtonContent>
       ) : (
         <StyledHeaderButtonImg src={BackIcon} onClick={navigateToCartPage} />
       )}

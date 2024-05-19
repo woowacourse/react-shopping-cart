@@ -1,4 +1,5 @@
 import { selector } from "recoil";
+import { DELIVERY } from "../../constants";
 import { cartItemsState } from "../atoms/atoms";
 
 export const categoryCountState = selector<number>({
@@ -24,7 +25,7 @@ export const deliveryPriceState = selector<number>({
   key: "deliveryPriceState",
   get: ({ get }) => {
     const orderPrice = get(orderPriceState);
-    const deliveryPrice = orderPrice > 100000 ? 0 : 3000;
+    const deliveryPrice = orderPrice > DELIVERY.FREE_THRESHOLD ? DELIVERY.FREE : DELIVERY.STANDARD;
     return deliveryPrice;
   },
 });

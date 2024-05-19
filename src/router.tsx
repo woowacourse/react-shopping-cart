@@ -1,12 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
+import { PATHS } from "./constants";
 import { CartPage } from "./pages/cartPage/CartPage";
 import { OrderConfirmationPage } from "./pages/orderConfirmationPage/OrderConfirmationPage";
 
 const router = createBrowserRouter(
   [
     {
-      path: "/",
+      path: PATHS.BASE,
       element: <App />,
       children: [
         {
@@ -14,13 +15,13 @@ const router = createBrowserRouter(
           element: <CartPage />,
         },
         {
-          path: "/order-confirmation",
+          path: PATHS.ORDER_CONFIRMATION,
           element: <OrderConfirmationPage />,
         },
       ],
     },
   ],
-  { basename: "/react-shopping-cart/" }
+  { basename: PATHS.SHOPPING_CART }
 );
 
 export default router;

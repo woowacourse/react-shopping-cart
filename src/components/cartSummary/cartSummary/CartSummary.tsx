@@ -1,10 +1,11 @@
 import { useRecoilValue } from "recoil";
+import InfoIcon from "../../../assets/InfoIcon.png";
+import { INFO_MESSAGES } from "../../../constants";
 import {
   deliveryPriceState,
   orderPriceState,
   totalPriceState,
 } from "../../../recoil/selector/selector";
-import InfoIcon from "../../../assets/InfoIcon.png";
 import { CartSummaryItem } from "../cartSummaryItem/CartSummaryItem";
 import {
   StyledCartSummaryDetailPrice,
@@ -24,9 +25,7 @@ export const CartSummary: React.FC = () => {
     <div>
       <StyledDeliveryInfo>
         <StyledDeliveryInfoImg src={InfoIcon} alt="info" />
-        <StyledDeliveryInfoText>
-          총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
-        </StyledDeliveryInfoText>
+        <StyledDeliveryInfoText>{INFO_MESSAGES.FREE_DELIVERY}</StyledDeliveryInfoText>
       </StyledDeliveryInfo>
 
       <StyledCartSummaryTotalContainer>

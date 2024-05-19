@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { PATHS } from "../../../constants";
 import { StyledConfirmButton } from "./ConfirmButton.styled";
 
 export interface ConfirmButtonProps {
@@ -6,14 +7,11 @@ export interface ConfirmButtonProps {
   backgroundColor?: string;
 }
 
-export const ConfirmButton: React.FC<ConfirmButtonProps> = ({
-  text,
-  backgroundColor,
-}) => {
+export const ConfirmButton: React.FC<ConfirmButtonProps> = ({ text, backgroundColor }) => {
   const navigate = useNavigate();
 
   const navigateToOrderConfirmationPage = () => {
-    navigate("/order-confirmation");
+    navigate(PATHS.ORDER_CONFIRMATION);
   };
 
   return (

@@ -1,3 +1,4 @@
+import { CART, INFO_MESSAGES } from "../../constants";
 import { CartItemCardList } from "../cartItemCardList/CartItemCardList";
 import { CartSummary } from "../cartSummary/cartSummary/CartSummary";
 import {
@@ -6,20 +7,16 @@ import {
   StyledEmptyCartItemCard,
 } from "./CartContentSection.styled";
 
-export const CartContentSection: React.FC<{ categoryCount: number }> = ({
-  categoryCount,
-}) => {
+export const CartContentSection: React.FC<{ categoryCount: number }> = ({ categoryCount }) => {
   return (
     <StyledCartContentSection>
-      {categoryCount > 0 ? (
+      {categoryCount > CART.EMPTY_THRESHOLD ? (
         <StyledContentContainer>
           <CartItemCardList />
           <CartSummary />
         </StyledContentContainer>
       ) : (
-        <StyledEmptyCartItemCard>
-          장바구니에 담은 상품이 없습니다.
-        </StyledEmptyCartItemCard>
+        <StyledEmptyCartItemCard>{INFO_MESSAGES.EMPTY_CART}</StyledEmptyCartItemCard>
       )}
     </StyledCartContentSection>
   );
