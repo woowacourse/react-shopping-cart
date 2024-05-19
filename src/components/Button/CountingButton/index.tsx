@@ -1,17 +1,12 @@
 import styled from "styled-components";
 import IMAGES from "../../../assets/images/Images";
 
-const BUTTON_TYPE = {
-  increase: "increase",
-  decrease: "decrease",
-} as const;
+type ButtonType = "increase" | "decrease";
 
-const imageSrc = {
-  [BUTTON_TYPE.increase]: IMAGES.plusButton,
-  [BUTTON_TYPE.decrease]: IMAGES.minusButton,
+const imageSrc: Record<ButtonType, string> = {
+  increase: IMAGES.plusButton,
+  decrease: IMAGES.minusButton,
 };
-
-type ButtonType = keyof typeof BUTTON_TYPE;
 
 interface CountingButton {
   type: ButtonType;
