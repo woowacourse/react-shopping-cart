@@ -46,14 +46,14 @@ export const CartItemCardList: React.FC = () => {
   return (
     <StyledCartItemCardList>
       <StyledCartItemCheckContainer>
-        <CheckboxButton clicked={isAllChecked} onCheck={handleCheckAll} />
+        <CheckboxButton isChecked={isAllChecked} onCheck={handleCheckAll} />
         <StyledCartItemCheckText>전체선택</StyledCartItemCheckText>
       </StyledCartItemCheckContainer>
       {cartItems.map((item) => (
         <CartItemCard
           key={item.id}
           {...item}
-          checked={!!chekcedItems[item.id]}
+          isChecked={!!chekcedItems[item.id]}
           onCheck={() => handleCheckItem(item.id)}
         />
       ))}

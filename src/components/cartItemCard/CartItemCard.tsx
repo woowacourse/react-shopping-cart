@@ -18,14 +18,14 @@ import {
   StyledProductQuantityText,
 } from "./CartItemCard.styled";
 interface CartItemProps extends CartItem {
-  checked: boolean;
+  isChecked: boolean;
   onCheck: () => void;
 }
 export const CartItemCard: React.FC<CartItemProps> = ({
   id,
   product,
   quantity,
-  checked,
+  isChecked,
   onCheck,
 }) => {
   const { name, price, imageUrl } = product;
@@ -69,8 +69,8 @@ export const CartItemCard: React.FC<CartItemProps> = ({
   return (
     <StyledCartItemCard>
       <StyledCartItemCardHeader>
-        <CheckboxButton clicked={checked} onCheck={onCheck} />
-        <DeleteButton onDelete={() => handleItemDelete(id)} disabled={checked} />
+        <CheckboxButton isChecked={isChecked} onCheck={onCheck} />
+        <DeleteButton onDelete={() => handleItemDelete(id)} disabled={isChecked} />
       </StyledCartItemCardHeader>
       <StyledCartItemCardProductContents>
         <StyledProductImg src={imageUrl} alt="" />
