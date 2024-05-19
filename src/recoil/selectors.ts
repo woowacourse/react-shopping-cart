@@ -1,5 +1,4 @@
-import { CartItem, Product } from '../type';
-
+import { CartItem } from '../type';
 import { fetchCartItems } from '../apis';
 import { selector } from 'recoil';
 import { uncheckedItemIdsState } from './atoms';
@@ -15,81 +14,30 @@ export const cartItemsState = selector<CartItem[]>({
   },
 });
 
-export const orderAmountState = selector<number>({
-  key: 'orderAmountState',
-  get: ({ get }) => {
-    const cartItems = get(cartItemsState);
-    const uncheckedItemIds = get(uncheckedItemIdsState);
-
-    return cartItems.reduce((acc, cartItem) => {
-      if (uncheckedItemIds.includes(cartItem.id)) return acc;
-      const currentItemAmount = cartItem.product.price * cartItem.quantity;
-      return acc + currentItemAmount;
-    }, 0);
-  },
-});
-
-export const checkedItemState = selector({
+export const checkedItemsState = selector<CartItem[]>({
   key: 'checkedItemState',
   get: ({ get }) => {
     const cartItems = get(cartItemsState);
     const uncheckedItemIds = get(uncheckedItemIdsState);
 
-    const result = cartItems.reduce(
-      (arr, item) => {
-        if (uncheckedItemIds.includes(item.id)) return arr;
-        const currentObj = { product: item.product, quantity: item.quantity };
-        arr.push(currentObj);
-        return arr;
-      },
-      [] as { product: Product; quantity: number }[],
-    );
+    const result = cartItems.reduce((arr, item) => {
+      if (uncheckedItemIds.includes(item.id)) return arr;
+      arr.push(item);
+      return arr;
+    }, [] as CartItem[]);
 
     return result;
-  },
-});
-
-export const hasCheckedItemsState = selector<boolean>({
-  key: 'hasCheckedItemsState',
-  get: ({ get }) => {
-    const cartItems = get(cartItemsState);
-    const uncheckedItemIds = get(uncheckedItemIdsState);
-
-    return cartItems.some((item) => !uncheckedItemIds.includes(item.id));
-  },
-});
-
-export const totalCartItemsCountState = selector<number>({
-  key: 'totalCartItemsCountState',
-  get: ({ get }) => {
-    const checkedItems = get(checkedItemState);
-    return checkedItems.length;
-  },
-});
-
-export const totalProductsCountState = selector<number>({
-  key: 'totalProductsCountState',
-  get: ({ get }) => {
-    const checkedItems = get(checkedItemState);
-    return checkedItems.reduce((acc, cur) => acc + cur.quantity, 0);
   },
 });
 
 export const deliveryFeeState = selector<number>({
   key: 'deliveryFeeState',
   get: ({ get }) => {
-    const hasCheckedItems = get(hasCheckedItemsState);
-
-    const orderAmount = get(orderAmountState);
-    return orderAmount >= 100000 || !hasCheckedItems ? 0 : 3000;
-  },
-});
-
-export const totalAmountState = selector<number>({
-  key: 'totalAmountState',
-  get: ({ get }) => {
-    const orderAmount = get(orderAmountState);
-    const deliveryFee = get(deliveryFeeState);
-    return orderAmount + deliveryFee;
+    const checkedItem = get(checkedItemsState);
+    const orderAmount = checkedItem.reduce(
+      (acc, item) => acc + item.quantity * item.product.price,
+      0,
+    );
+    return orderAmount >= 100000 || checkedItem.length === 0 ? 0 : 3000;
   },
 });
