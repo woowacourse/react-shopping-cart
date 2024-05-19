@@ -1,7 +1,7 @@
 import { selector } from "recoil";
-import { cartItemsState } from "./cartItems";
-import { sumCartOrderAmount } from "../utils/domain/sumCartOrderAmount";
-import { determineShippingCost } from "../utils/domain/determineShippingCost";
+import { cartItemsState } from "../cartItems";
+import { sumCartOrderAmount } from "../../utils/domain/sumCartOrderAmount";
+import { determineShippingCost } from "../../utils/domain/determineShippingCost";
 
 export const cartAmountState = selector({
   key: "cartAmountState",
