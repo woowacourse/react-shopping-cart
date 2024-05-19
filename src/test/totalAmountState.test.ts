@@ -1,70 +1,35 @@
-import { renderHook } from "@testing-library/react";
-import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { snapshot_UNSTABLE } from "recoil";
+import { cartState } from "../store/atom/atoms";
 import { totalAmountState } from "../store/selector/selectors";
-import { act } from "react";
-import { cartState, itemEachCheckState, itemQuantityState } from "../store/atom/atoms";
-import { describe, expect, it } from "vitest";
 
-const DUMMY_CART_ITEMS: CartItemInfo[] = [
-  {
-    id: 1,
-    product: {
-      id: 100,
-      name: "abc",
-      price: 20000,
-      imageUrl: "",
-      category: "fashion",
-    },
-    quantity: 4,
-  },
-  {
-    id: 2,
-    product: {
-      id: 101,
-      name: "def",
-      price: 10000,
-      imageUrl: "",
-      category: "fashion",
-    },
-    quantity: 2,
-  },
-];
+import { chargeShippingDummy, freeShippingDummy } from "./mock/dummy";
+import { describe, it, expect } from "vitest";
 
 describe("totalAmountState", () => {
-  it("상품 개수에 따른 총 가격 계산", () => {
-    const { result } = renderHook(
-      () => {
-        const totalPrice = useRecoilValue(totalAmountState);
-        const [cartItems, setCartState] = useRecoilState(cartState);
-        const setItemEachCheckState1 = useSetRecoilState(itemEachCheckState(1));
-        const setItemEachCheckState2 = useSetRecoilState(itemEachCheckState(2));
-        const setItemQuantityState = useSetRecoilState(itemQuantityState);
-        return {
-          cartItems,
-          totalPrice,
-          setCartState,
-          setItemEachCheckState1,
-          setItemEachCheckState2,
-          setItemQuantityState,
-        };
-      },
-      {
-        wrapper: RecoilRoot,
-      }
-    );
+  it("상품 개수에 따른 총 가격 계산", async () => {
+    // Arrange
+    // dummy데이터를 cartState에 mocking한다.
+    const testSnapshot = snapshot_UNSTABLE(({ set }) => set(cartState, freeShippingDummy.content));
 
-    act(() => {
-      result.current.setCartState(DUMMY_CART_ITEMS);
-      result.current.setItemEachCheckState1(true);
-      result.current.setItemEachCheckState2(true);
-    });
+    // mocking되었는지 확인
+    expect(testSnapshot.getLoadable(cartState).valueOrThrow()).toBe(freeShippingDummy.content);
 
-    expect(result.current.totalPrice).toBe(100000);
+    //Assert
+    const AMOUNT_EXPECTED = 100_000;
+    expect(testSnapshot.getLoadable(totalAmountState).valueOrThrow()).toBe(AMOUNT_EXPECTED);
+  });
 
-    act(() => {
-      result.current.setItemEachCheckState2(false);
-    });
+  it("총 금액이 100,000원 미만인 경우 배송비가 3,000원 붙는다.", async () => {
+    // Arrange
+    // dummy데이터를 cartState에 mocking한다.
+    const testSnapshot = snapshot_UNSTABLE(({ set }) => set(cartState, chargeShippingDummy.content));
 
-    expect(result.current.totalPrice).toBe(83000);
+    // mocking되었는지 확인
+    expect(testSnapshot.getLoadable(cartState).valueOrThrow()).toBe(chargeShippingDummy.content);
+
+    //Assert
+    const AMOUNT_EXPECTED = 40_000;
+    const SHIPPING_FEE = 3_000;
+    expect(testSnapshot.getLoadable(totalAmountState).valueOrThrow()).toBe(AMOUNT_EXPECTED + SHIPPING_FEE);
   });
 });
