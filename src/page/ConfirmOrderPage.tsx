@@ -1,8 +1,4 @@
-import {
-  totalAmountState,
-  totalCartItemsCountState,
-  totalProductsCountState,
-} from '../recoil/selectors';
+import { checkedItemsState, deliveryFeeState } from '../recoil/selectors';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import ENDPOINTS from '../constants/endpoints';
@@ -24,9 +20,15 @@ export default function ConfirmOrderPage() {
     if (location.state && !location.state.isSubmitted) navigate(ENDPOINTS.shoppingCart);
   }, [location, navigate]);
 
-  const totalCartItemsCount = useRecoilValue(totalCartItemsCountState);
-  const totalProductsCount = useRecoilValue(totalProductsCountState);
-  const totalAmount = useRecoilValue(totalAmountState);
+  const checkedItems = useRecoilValue(checkedItemsState);
+  const totalCartItemsCount = checkedItems.length;
+  const totalProductsCount = checkedItems.reduce((acc, item) => acc + item.quantity, 0);
+  const orderAmount = checkedItems.reduce(
+    (acc, item) => acc + item.quantity * item.product.price,
+    0,
+  );
+  const deliveryFee = useRecoilValue(deliveryFeeState);
+  const totalAmount = orderAmount + deliveryFee;
 
   const handleClickPreviousPageButton = () => {
     navigate(ENDPOINTS.shoppingCart);

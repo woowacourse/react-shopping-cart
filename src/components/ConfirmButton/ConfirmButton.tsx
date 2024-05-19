@@ -1,16 +1,17 @@
 import ENDPOINTS from '../../constants/endpoints';
 import FooterButton from '../FooterButton/FooterButton';
-import { hasCheckedItemsState } from '../../recoil/selectors';
+import { checkedItemsState } from '../../recoil/selectors';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
 export default function ConfirmButton({ ...props }) {
   const navigate = useNavigate();
-  const hasCheckedItems = useRecoilValue(hasCheckedItemsState);
+  const hasCheckedItems = useRecoilValue(checkedItemsState).length > 0;
 
   const handleClickConfirmButton = () => {
     navigate(ENDPOINTS.confirmOrder, { state: { isSubmitted: true } });
   };
+
   return (
     <FooterButton
       {...props}

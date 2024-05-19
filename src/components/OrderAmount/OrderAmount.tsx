@@ -1,15 +1,19 @@
 import * as S from './style';
 
-import { deliveryFeeState, orderAmountState, totalAmountState } from '../../recoil/selectors';
+import { checkedItemsState, deliveryFeeState } from '../../recoil/selectors';
 
 import { InfoIcon } from '../../assets';
 import convertToLocaleAmount from '../../utils/convertToLocalePrice';
 import { useRecoilValue } from 'recoil';
 
 export default function OrderAmount() {
-  const orderAmount = useRecoilValue(orderAmountState);
+  const checkedItems = useRecoilValue(checkedItemsState);
+  const orderAmount = checkedItems.reduce(
+    (acc, item) => acc + item.quantity * item.product.price,
+    0,
+  );
   const deliveryFee = useRecoilValue(deliveryFeeState);
-  const totalAmount = useRecoilValue(totalAmountState);
+  const totalAmount = orderAmount + deliveryFee;
 
   return (
     <div>
