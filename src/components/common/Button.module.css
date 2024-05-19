@@ -1,0 +1,25 @@
+.header {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 16px;
+  text-align: left;
+  color: var(--background-color);
+}
+
+.footer {
+  width: 100%;
+  background-color: var(--primary-color);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  color: var(--background-color);
+  position: absolute;
+  bottom: 0;
+  font-size: 16px;
+}
+
+.disable {
+  background: var(--secondary-color);
+}
