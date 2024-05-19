@@ -5,14 +5,10 @@ import Splitter from "../default/Splitter";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
 
 import { deleteCartItem } from "../../api/cartItemApi";
-import { useRecoilState } from "recoil";
-import { cartItemCheckedIdsAtom, cartItemsAtom } from "../../recoil/atom/atom";
-import { allCheckedSelector } from "../../recoil/selector/selector";
+import useCartChecked from "../../hooks/useCartItemChecks";
 
 const CartItems = () => {
-  const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
-  const [checkedIds, setCheckedIds] = useRecoilState(cartItemCheckedIdsAtom);
-  const [isAllChecked, setIsAllChecked] = useRecoilState(allCheckedSelector);
+  const { cartItems, setCartItems, setCheckedIds, isAllChecked, setIsAllChecked } = useCartChecked();
 
   const handleAllChecked = () => {
     setIsAllChecked((prev) => !prev);
