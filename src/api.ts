@@ -1,4 +1,4 @@
-import { API_TOKEN } from "./utils";
+import { API_TOKEN } from "./store/utils";
 
 type MethodType = "GET" | "POST";
 
@@ -16,11 +16,14 @@ const fetchWrapper: FetchWrapper = async (url, init) => {
       return data;
     }
     if (!response.ok) {
-      console.error("Fetch error:", response.status, response.statusText);
-      return null;
+      const message = `Fetch error. status: ${response.status}. ${response.statusText}`;
+      throw new Error(message);
     }
   } catch (error) {
-    console.error("Fetch error:", error);
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw new Error(String(error));
   }
 };
 

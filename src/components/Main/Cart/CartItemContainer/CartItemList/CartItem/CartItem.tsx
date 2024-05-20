@@ -4,7 +4,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { useCallback } from "react";
 
 import { cartState, itemEachCheckState, itemQuantityState } from "@/store/atom/atoms";
-import { changeProductAmount, deleteProduct } from "@/store/api";
+import { changeProductAmount, deleteProduct } from "@/api";
 import { deleteCheck } from "@/store/localStorage/localStorage";
 
 import Checkbox from "@/components/Button/Checkbox/Checkbox";

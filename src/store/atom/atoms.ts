@@ -1,6 +1,6 @@
 import { atomFamily, atom, selector } from "recoil";
 import { LOCAL_STORAGE_KEY } from "@/constants";
-import { fetchProducts } from "@/store/api";
+import { fetchProducts } from "@/api";
 
 export const cartState = atom<CartItemInfo[]>({
   key: "cartState",

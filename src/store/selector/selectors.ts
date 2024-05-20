@@ -2,7 +2,7 @@ import { selector } from "recoil";
 import { itemEachCheckState, itemQuantityState } from "@/store/atom/atoms";
 import { SHIPPING_CONSTANT } from "@/constants";
 import { cartState } from "@/store/atom/atoms";
-import { fetchCartItemsCounts } from "../api";
+import { fetchCartItemsCounts } from "../../api";
 
 export const orderAmountState = selector({
   key: "orderAmount",
