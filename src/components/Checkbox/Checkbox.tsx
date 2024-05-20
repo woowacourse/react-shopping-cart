@@ -18,6 +18,5 @@ const Checkbox = ({ id, isChecked, onClick }: CheckboxProps) => {
     </S.CheckboxContainer>
   );
 };
-// };
 
 export default Checkbox;
