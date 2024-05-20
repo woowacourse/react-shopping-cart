@@ -2,8 +2,11 @@ import { atom, atomFamily } from 'recoil';
 import { CartItem } from '../type';
 import { fetchCartItems } from '../apis';
 
-export const currentCartItemsState = atom<CartItem[]>({
-  key: 'currentCartItemsState',
+import { AtomEffect } from 'recoil';
+import { STORAGE } from '../constants';
+
+export const cartItemsState = atom<CartItem[]>({
+  key: 'cartItemsState',
   default: Promise.resolve(fetchCartItems()),
 });
 
@@ -12,7 +15,21 @@ export const itemQuantityState = atomFamily<number, number>({
   default: 1,
 });
 
-export const isCheckedItemIdsState = atom<Record<number, boolean>>({
-  key: 'isCheckedItemIdsState',
-  default: {},
+export const checkedCartItemsState = atom<number[]>({
+  key: 'checkedCartItemsState',
+  default: JSON.parse(localStorage.getItem(STORAGE.checkedCartItems) ?? '[]') ?? [],
+  effects: [localStorageEffect(STORAGE.checkedCartItems)],
 });
+
+function localStorageEffect<T>(key: string): AtomEffect<T> {
+  return function ({ setSelf, onSet }) {
+    const loadedData = localStorage.getItem(key);
+    if (loadedData !== null) {
+      setSelf(JSON.parse(loadedData));
+    }
+
+    onSet((newData: T) => {
+      localStorage.setItem(key, JSON.stringify(newData));
+    });
+  };
+}
