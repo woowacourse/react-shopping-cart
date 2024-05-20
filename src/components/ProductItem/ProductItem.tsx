@@ -11,8 +11,8 @@ import CheckBox from "../_common/CheckBox/CheckBox";
 import Title from "../_common/Title/Title";
 import Caption from "../_common/Caption/Caption";
 import {
-  StyledMinusButton,
-  StyledPlusButton,
+  QuantityMinusButton,
+  QuantityPlusButton,
 } from "../_common/QuantityButton/QuantityButton";
 
 import LoadingSpinner from "@/assets/loading-spinner.svg?react";
@@ -21,10 +21,16 @@ import { CartItem } from "@/types/cart";
 
 import Styled from "./ProductItem.style";
 
-const ProductItem = ({ item }: { item: CartItem }) => {
-  const { product, id } = item;
-  const { name, imageUrl, price } = product;
+interface ProductItemProps {
+  item: CartItem;
+}
 
+const ProductItem = ({
+  item: {
+    id,
+    product: { name, imageUrl, price },
+  },
+}: ProductItemProps) => {
   const setCartItemList = useSetRecoilState(cartItems);
   const [isSelected, setIsSelected] = useRecoilState(selectedCartItems(id));
   const {
@@ -35,13 +41,17 @@ const ProductItem = ({ item }: { item: CartItem }) => {
   } = useUpdateItemQuantity(id);
 
   const handleRemoveItem = async () => {
-    const canRemoveItem = await removeCartItem(id);
+    try {
+      await removeCartItem(id);
 
-    if (canRemoveItem) {
       setCartItemList((prevCartItems) => {
         return prevCartItems.filter((item) => item.id !== id);
       });
       setIsSelected(false);
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
     }
   };
 
@@ -53,7 +63,7 @@ const ProductItem = ({ item }: { item: CartItem }) => {
           onClick={() => setIsSelected((prevSelected) => !prevSelected)}
         />
         <Button
-          width="fit"
+          width="fixed"
           size="small"
           radiusVariant="rounded"
           onClick={handleRemoveItem}
@@ -72,7 +82,7 @@ const ProductItem = ({ item }: { item: CartItem }) => {
           </Styled.ItemFlexBox>
 
           <Styled.UpdateButtonWrapper>
-            <StyledMinusButton
+            <QuantityMinusButton
               onClick={handleDecreaseQuantity}
               disabled={isUpdateLoading}
             />
@@ -81,8 +91,7 @@ const ProductItem = ({ item }: { item: CartItem }) => {
             ) : (
               <Styled.ProductQuantity>{quantity}</Styled.ProductQuantity>
             )}
-
-            <StyledPlusButton
+            <QuantityPlusButton
               onClick={handleIncreaseQuantity}
               disabled={isUpdateLoading}
             />
