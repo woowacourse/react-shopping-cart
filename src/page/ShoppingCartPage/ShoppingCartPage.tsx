@@ -1,8 +1,9 @@
 import { Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
-import { NavigationBar, PageTitle, FooterButton } from '../../components/common';
+import { NavigationBar, PageTitle, FooterButton, ErrorFallback } from '../../components/common';
 import { CartContainer } from '../../components/shoppingCart';
 import * as Styled from './ShoppingCartPage.style';
 
@@ -38,9 +39,11 @@ export default function ShoppingCartPage() {
       <NavigationBar>SHOP</NavigationBar>
       <Styled.CartContent>
         <PageTitle title="장바구니" />
-        <Suspense fallback={<div>로딩 중입니다...</div>}>
-          <CartContainer />
-        </Suspense>
+        <ErrorBoundary FallbackComponent={({ error }) => <ErrorFallback error={error} />}>
+          <Suspense fallback={<div>로딩 중입니다...</div>}>
+            <CartContainer />
+          </Suspense>
+        </ErrorBoundary>
       </Styled.CartContent>
       <FooterButton
         type="button"
