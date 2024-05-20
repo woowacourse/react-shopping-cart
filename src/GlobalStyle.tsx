@@ -13,7 +13,9 @@ body {
   display: flex;
   flex-direction: column;
   max-width: 480px;
+  margin: 0 auto;
   font-size: 1.6rem;
+  background-color: var(--white-color);
 }
 
 #root {
@@ -21,6 +23,7 @@ body {
   font-weight: var(--font-weight-medium);
   line-height: 15px;
   height: 100%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 :root {
