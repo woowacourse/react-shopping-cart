@@ -1,4 +1,6 @@
-export const TOTAL_PRICE_UNDER_100000_DATA = [
+import { CartItemProps } from '@/types/cartItem';
+
+export const TOTAL_PRICE_UNDER_100000_DATA: CartItemProps[] = [
   {
     id: 496,
     quantity: 1,
@@ -24,7 +26,7 @@ export const TOTAL_PRICE_UNDER_100000_DATA = [
   },
 ] as const;
 
-export const TOTAL_PRICE_OVER_100000_DATA = [
+export const TOTAL_PRICE_OVER_100000_DATA: CartItemProps[] = [
   {
     id: 532,
     quantity: 10,
