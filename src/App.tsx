@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MobileLayout from './components/common/MobileLayout/MobileLayout';
 import CartPage from './pages/CartPage/CartPage';
-import ConfirmPurchasePage from './pages/ConfirmPurchasePage';
+import ConfirmPurchasePage from './pages/ConfirmPurchasePage/ConfirmPurchasePage';
 
 function App() {
   return (
