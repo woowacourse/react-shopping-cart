@@ -14,7 +14,7 @@ const Footer = () => {
   const cartItems = useRecoilValue(cartItemsState);
   const isAnyCartItemSelected = useRecoilValue(isAnyCartItemSelectedState);
 
-  const disabledButton =
+  const isDisabled =
     pathname === ROUTE_PATH.cartConfirm ||
     cartItems.length === 0 ||
     !isAnyCartItemSelected;
@@ -31,10 +31,10 @@ const Footer = () => {
     <S.Container>
       <Button
         onClick={handleButtonClick}
-        $theme={disabledButton ? "disabled" : "black"}
+        $theme={isDisabled ? "disabled" : "black"}
         $size="full"
         $borderRadius="0"
-        disabled={disabledButton ? true : false}
+        disabled={isDisabled}
       >
         {buttonText}
       </Button>
