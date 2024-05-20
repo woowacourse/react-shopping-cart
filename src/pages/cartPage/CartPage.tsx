@@ -9,13 +9,17 @@ import {
   cartErrorMessageState,
   cartItemsState,
 } from '../../recoil/atoms/atoms';
-import { categoryCountState } from '../../recoil/selector/selector';
+import {
+  categoryCountState,
+  selectedItemsCountState,
+} from '../../recoil/selector/selector';
 import { StyledCartPage } from './CartPage.styled';
 import { ErrorAlertModal } from '../../components/errorAlertModal/ErrorAlertModal';
 
 export const CartPage: React.FC = () => {
   const setCartItems = useSetRecoilState(cartItemsState);
   const categoryCount = useRecoilValue(categoryCountState);
+  const selectedItemsCount = useRecoilValue(selectedItemsCountState);
   const [cartErrorMessage, setCartErrorMessage] = useRecoilState(
     cartErrorMessageState,
   );
@@ -34,10 +38,7 @@ export const CartPage: React.FC = () => {
     };
 
     fetchCartItems();
-  }, [setCartItems, setCartErrorMessage]);
-
-  const buttonBackgroundColor =
-    categoryCount === 0 ? 'rgba(190, 190, 190, 1)' : 'rgba(0, 0, 0, 1)';
+  }, [selectedItemsCount, categoryCount]);
 
   return (
     <>
@@ -49,7 +50,7 @@ export const CartPage: React.FC = () => {
           <ErrorAlertModal errorMessage={cartErrorMessage} />
         )}
       </StyledCartPage>
-      <ConfirmButton text='주문 확인' backgroundColor={buttonBackgroundColor} />
+      <ConfirmButton text='주문 확인' disabled={selectedItemsCount < 1} />
     </>
   );
 };

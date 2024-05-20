@@ -3,12 +3,12 @@ import { StyledConfirmButton } from './ConfirmButton.styled';
 
 export interface ConfirmButtonProps {
   text: string;
-  backgroundColor?: string;
+  disabled: boolean;
 }
 
 export const ConfirmButton: React.FC<ConfirmButtonProps> = ({
   text,
-  backgroundColor,
+  disabled,
 }) => {
   const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ export const ConfirmButton: React.FC<ConfirmButtonProps> = ({
   return (
     <StyledConfirmButton
       onClick={navigateToOrderConfirmationPage}
-      $backgroundColor={backgroundColor}
+      disabled={disabled}
     >
       {text}
     </StyledConfirmButton>

@@ -32,12 +32,10 @@ export const CartItemCardList: React.FC = () => {
 
   const handleSelectAll = () => {
     const newSelectedItems: Record<number, boolean> = {};
-    if (!isAllSelected) {
-      cartItems.forEach((item) => {
-        newSelectedItems[item.id] = true;
-      });
-    }
-
+    const newIsAllSelected = !isAllSelected;
+    cartItems.forEach((item) => {
+      newSelectedItems[item.id] = newIsAllSelected;
+    });
     setSelectedItems(newSelectedItems);
     setIsAllSelected(!isAllSelected);
   };
