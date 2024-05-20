@@ -30,7 +30,7 @@ export const isAllCheckedSelector = selector({
   get: ({ get }) => {
     const cartItems = get(cartItemsAtom);
     const checkedIds = get(cartItemCheckedIdsAtom);
-    return cartItems.length === checkedIds.length;
+    return new Set(cartItems.map((item) => item.id)) === new Set(checkedIds) && checkedIds.length > 0;
   },
   set: ({ get, set }, newIsAllChecked) => {
     const cartItems = get(cartItemsAtom);
