@@ -5,7 +5,7 @@ import Footer from "@/components/Footer/Footer";
 import CartTitle from "@/components/Main/Cart/CartTitle/CartTitle";
 import CartItemContainer from "@/components/Main/Cart/CartItemContainer/CartItemContainer";
 import CartResults from "@/components/Main/Cart/CartResults/CartResults";
-import Error from "@/components/APIComponent/Error";
+import Error from "@/components/Fallbacks/Error";
 
 import { ErrorBoundary } from "react-error-boundary";
 
