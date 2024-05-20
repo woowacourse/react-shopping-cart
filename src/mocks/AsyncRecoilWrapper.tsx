@@ -1,14 +1,15 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, Suspense } from 'react';
 import { RecoilRoot, RecoilState } from 'recoil';
 
 import { CartItemProps } from '@/types/cartItem';
+import LoadingComponent from '@components/common/LoadingComponent';
 
 interface AsyncRecoilWrapperProps {
-  atom: RecoilState<CartItemProps[]>;
-  INITIAL_DATA: CartItemProps[];
+  atom?: RecoilState<CartItemProps[]>;
+  INITIAL_DATA?: CartItemProps[];
 }
 
-const asyncRecoilWrapper = ({
+const AsyncRecoilWrapper = ({
   atom,
   INITIAL_DATA,
   children,
@@ -16,12 +17,12 @@ const asyncRecoilWrapper = ({
   return (
     <RecoilRoot
       initializeState={({ set }) => {
-        set(atom, INITIAL_DATA);
+        if (atom && INITIAL_DATA) set(atom, INITIAL_DATA);
       }}
     >
-      {children}
+      <Suspense fallback={<LoadingComponent />}>{children}</Suspense>
     </RecoilRoot>
   );
 };
 
-export default asyncRecoilWrapper;
+export default AsyncRecoilWrapper;

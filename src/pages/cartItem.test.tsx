@@ -1,12 +1,10 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { Suspense } from 'react';
-import { RecoilRoot } from 'recoil';
 
 import '@testing-library/jest-dom';
 
+import AsyncRecoilWrapper from '@/mocks/AsyncRecoilWrapper';
 import { fetchCartItems } from '@apis/cartItem';
 import CartMainSection from '@components/Cart/CartMainSection';
-import LoadingComponent from '@components/common/LoadingComponent';
 import { TOTAL_PRICE_UNDER_100000_DATA } from '@mocks/mock';
 
 const NIKE = '나이키';
@@ -26,11 +24,9 @@ describe('cartItem', () => {
 
   it('API 호출을 통해 장바구니 데이터를 불러와 화면에 보여준다.', async () => {
     render(
-      <RecoilRoot>
-        <Suspense fallback={<LoadingComponent />}>
-          <CartMainSection />
-        </Suspense>
-      </RecoilRoot>,
+      <AsyncRecoilWrapper>
+        <CartMainSection />
+      </AsyncRecoilWrapper>,
     );
 
     // 로딩 화면 확인
@@ -45,11 +41,9 @@ describe('cartItem', () => {
 
   it('삭제 버튼을 클릭하면 해당 아이템이 장바구니에서 제거된다.', async () => {
     render(
-      <RecoilRoot>
-        <Suspense fallback={<LoadingComponent />}>
-          <CartMainSection />
-        </Suspense>
-      </RecoilRoot>,
+      <AsyncRecoilWrapper>
+        <CartMainSection />
+      </AsyncRecoilWrapper>,
     );
 
     const deleteButtons = screen.getAllByRole('button', { name: /삭제/i });
