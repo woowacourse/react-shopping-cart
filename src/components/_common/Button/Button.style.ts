@@ -56,13 +56,18 @@ export const BUTTON_THEME: Record<ButtonTheme, RuleSet<object>> = {
       color: #cccccc;
     }
   `,
+
+  transparent: css`
+    background-color: transparent;
+    border: none;
+  `,
 };
 
 export const BUTTON_WIDTH: Record<
   ButtonWidth | ButtonSize,
   CSSProperties["width"]
 > = {
-  small: "60px",
+  small: "36px",
   medium: "80px",
   large: "120px",
   xLarge: "160px",
@@ -90,7 +95,6 @@ const Button = styled.button<{
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 4px;
   border: 0.5px solid #8b95a1;
 
   ${({ $size, $theme, $width, $radiusVariant }) => css`
