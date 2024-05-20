@@ -3,6 +3,10 @@ import { useCartItemSelectedIdList } from './useCartItemSelectedIdList';
 import { RecoilRoot } from 'recoil';
 import { act } from 'react';
 
+jest.mock('../../apis/cartItemList/cartItemList', () => ({
+  requestSetCartItemQuantity: jest.fn(),
+}));
+
 describe('useCartItemSelectedIdList hook test', () => {
   test('초기 quantity는 초기값 "[]"과 같아야 한다', () => {
     const { result } = renderHook(() => useCartItemSelectedIdList(), {
