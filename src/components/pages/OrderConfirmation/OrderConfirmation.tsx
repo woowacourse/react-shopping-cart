@@ -1,19 +1,25 @@
 import * as Styled from './style';
 
+import { useNavigate } from 'react-router-dom';
+
 import Header from '../../Header/Header';
 import OrderButton from '../../OrderButton/OrderButton';
 
 import { useRecoilValue } from 'recoil';
-import { cartItemsCalculatorState } from '../../../recoil/cartItems';
-import { useNavigate } from 'react-router-dom';
+import {
+  selectedCartItemCountState,
+  totalCartItemQuantityState,
+  totalPaymentAmountState,
+} from '../../../recoil/cartItems';
 
 import MESSAGE from '../../../constants/Message';
 
 const OrderConfirmation = () => {
   const navigator = useNavigate();
 
-  const { totalCartItemQuantity, selectedCartItemCount, totalPaymentAmount } =
-    useRecoilValue(cartItemsCalculatorState);
+  const totalCartItemQuantity = useRecoilValue(totalCartItemQuantityState);
+  const selectedCartItemCount = useRecoilValue(selectedCartItemCountState);
+  const totalPaymentAmount = useRecoilValue(totalPaymentAmountState);
 
   return (
     <Styled.OrderConfirmation>

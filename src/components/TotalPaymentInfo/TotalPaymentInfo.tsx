@@ -4,14 +4,18 @@ import PaymentInfo from './PaymentInfo';
 import CaptionEmoji from '../assets/CaptionEmoji.svg';
 
 import { useRecoilValue } from 'recoil';
-import { cartItemsCalculatorState } from '../../recoil/cartItems';
+import {
+  shippingFeeState,
+  totalOrderAmountState,
+  totalPaymentAmountState,
+} from '../../recoil/cartItems';
 
 import MESSAGE from '../../constants/Message';
 
 const TotalPaymentInfo = () => {
-  const { totalOrderAmount, shippingFee, totalPaymentAmount } = useRecoilValue(
-    cartItemsCalculatorState,
-  );
+  const totalOrderAmount = useRecoilValue(totalOrderAmountState);
+  const shippingFee = useRecoilValue(shippingFeeState);
+  const totalPaymentAmount = useRecoilValue(totalPaymentAmountState);
 
   return (
     <Styled.TotalPaymentInfo>

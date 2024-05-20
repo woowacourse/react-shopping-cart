@@ -1,6 +1,7 @@
 import { atom, selector } from 'recoil';
 import { fetchCartItems } from '../api/shoppingCart';
-import { selectedCartItemState } from './selectedCardItems';
+import { selectedCartItemsState } from './selectedCardItems';
+import CONDITION from '../constants/Condition';
 
 export const fetchedCartItemsState = selector({
   key: 'fetchedCartItemsState',
@@ -14,43 +15,50 @@ export const cartItemsState = atom({
   default: fetchedCartItemsState,
 });
 
-export const cartItemsCalculatorState = selector({
-  key: 'cartItemsCalculatorSelector',
-  get: async ({ get }) => {
-    const cartItems = get(cartItemsState);
+export const totalOrderAmountState = selector<number>({
+  key: 'totalOrderAmount',
+  get: ({ get }) => {
+    return get(selectedCartItemsState).reduce((totalOrderAmount, cartItem) => {
+      const orderAmount = cartItem.product.price * cartItem.quantity;
+      return totalOrderAmount + orderAmount;
+    }, 0);
+  },
+});
 
-    const selectedCartItems = cartItems.filter((cartItem) =>
-      get(selectedCartItemState(cartItem.id)),
-    );
-
-    const selectedCartItemCount = selectedCartItems.length;
-
-    const totalCartItemQuantity = selectedCartItems.reduce(
+export const totalCartItemQuantityState = selector<number>({
+  key: 'totalCartItemQuantity',
+  get: ({ get }) => {
+    return get(selectedCartItemsState).reduce(
       (totalCartItemQuantity, cartItem) => {
         return totalCartItemQuantity + cartItem.quantity;
       },
       0,
     );
+  },
+});
 
-    const totalOrderAmount = selectedCartItems.reduce(
-      (totalOrderAmount, cartItem) => {
-        const orderAmount = cartItem.product.price * cartItem.quantity;
-        return totalOrderAmount + orderAmount;
-      },
-      0,
-    );
+export const selectedCartItemCountState = selector<number>({
+  key: 'selectedCartItemCount',
+  get: ({ get }) => {
+    return get(selectedCartItemsState).length;
+  },
+});
 
-    const shippingFee =
-      totalOrderAmount >= 100000 || totalOrderAmount === 0 ? 0 : 3000;
+export const shippingFeeState = selector<number>({
+  key: 'shippingFee',
+  get: ({ get }) => {
+    const totalOrderAmount = get(totalOrderAmountState);
 
-    const totalPaymentAmount = totalOrderAmount + shippingFee;
+    return totalOrderAmount >= CONDITION.freeShippingFee ||
+      totalOrderAmount === CONDITION.noneSelected
+      ? VALUE.freeShippingFee
+      : VALUE.shippingFee;
+  },
+});
 
-    return {
-      totalOrderAmount,
-      selectedCartItemCount,
-      totalCartItemQuantity,
-      shippingFee,
-      totalPaymentAmount,
-    };
+export const totalPaymentAmountState = selector<number>({
+  key: 'totalPaymentAmount',
+  get: ({ get }) => {
+    return get(totalOrderAmountState) + get(shippingFeeState);
   },
 });
