@@ -14,6 +14,11 @@ const mockCartItems: Product[] = [
 
 const mockCheckedIds: number[] = [1, 2];
 
+jest.mock("../../api/cartItem", () => {
+  return {
+    fetchCartItems: jest.fn().mockImplementation(async () => mockCartItems),
+  };
+});
 describe("allCheckedSelector 테스트", () => {
   let result;
 

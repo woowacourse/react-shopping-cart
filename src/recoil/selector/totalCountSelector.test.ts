@@ -12,7 +12,11 @@ const mockCartItems: Product[] = [
   { id: 3, product: { id: 5, name: "상품이름C", price: 20000, imageUrl: "", category: "" }, quantity: 1 },
 ];
 const mockCheckedIds: number[] = [1, 2];
-
+jest.mock("../../api/cartItem", () => {
+  return {
+    fetchCartItems: jest.fn().mockImplementation(async () => mockCartItems),
+  };
+});
 describe("quantitySelector 테스트", () => {
   let result;
 
