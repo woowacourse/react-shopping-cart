@@ -5,6 +5,7 @@ import { isAnyCartItemSelectedState } from "../../../stores/cartItemSelected";
 
 import Button from "../../_common/Button";
 import * as S from "./styled";
+import { ROUTE_PATH } from "../../../constants/route";
 
 const Footer = () => {
   const { pathname } = useLocation();
@@ -14,15 +15,15 @@ const Footer = () => {
   const isAnyCartItemSelected = useRecoilValue(isAnyCartItemSelectedState);
 
   const disabledButton =
-    pathname === "/cart-confirm" ||
+    pathname === ROUTE_PATH.cartConfirm ||
     cartItems.length === 0 ||
     !isAnyCartItemSelected;
 
-  const buttonText = pathname === "/" ? "주문 확인" : "결제하기";
+  const buttonText = pathname === ROUTE_PATH.base ? "주문 확인" : "결제하기";
 
   const handleButtonClick = () => {
-    if (pathname === "/") {
-      navigate("/cart-confirm");
+    if (pathname === ROUTE_PATH.base) {
+      navigate(ROUTE_PATH.cartConfirm);
     }
   };
 
