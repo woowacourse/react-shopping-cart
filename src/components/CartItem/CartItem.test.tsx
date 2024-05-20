@@ -85,7 +85,6 @@ describe('CartItem 컴포넌트에서 장바구니 항목 선택 테스트', () 
     // screen.debug(); // 콘솔에 DOM 출력
 
     const checkButton = screen.getAllByAltText('Checkbox')[0];
-    console.log(checkButton);
 
     await waitFor(async () => fireEvent.click(checkButton));
     expect(checkButton).toBeChecked();
