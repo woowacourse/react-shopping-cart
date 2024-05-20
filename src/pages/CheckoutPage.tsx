@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import Checkout from "../components/CheckoutPage/Checkout";
+import CheckoutContent from "../components/CheckoutPage/CheckoutContent";
 import styled from "styled-components";
 import Header from "../components/common/Header";
 import Button from "../components/common/Button";
@@ -10,10 +10,10 @@ export default function CheckoutPage() {
       <Header hasBackButton={true} />
       <S.InnerWrapper>
         <Suspense fallback={<div>Loading...</div>}>
-          <Checkout />
+          <CheckoutContent />
         </Suspense>
       </S.InnerWrapper>
-      <Button disabled>결제하기</Button>
+      <S.PayButton disabled>결제하기</S.PayButton>
     </S.Container>
   );
 }
@@ -30,5 +30,10 @@ const S = {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  `,
+
+  PayButton: styled(Button)`
+    position: fixed;
+    bottom: 0;
   `,
 };
