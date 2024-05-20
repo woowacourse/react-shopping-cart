@@ -14,7 +14,7 @@ function App() {
         <ErrorBoundary fallbackRender={({ error }) => error.message}>
           <Routes>
             <Route path={ROUTE_PATH.cart} element={<CartPage />} />
-            <Route path={ROUTE_PATH.orderSummary} element={<CheckoutPage />} />
+            <Route path={ROUTE_PATH.checkout} element={<CheckoutPage />} />
           </Routes>
         </ErrorBoundary>
       </RecoilRoot>
