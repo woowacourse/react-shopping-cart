@@ -1,5 +1,5 @@
 import { useRecoilValue } from "recoil";
-import { ConfirmButton } from "../../components/button/confirmButton/ConfirmButton";
+import { ConfirmButton } from "../../components/button";
 import Header from "../../components/header/Header";
 import { BUTTON_COLORS, HEADER_TYPES, INFO_MESSAGES } from "../../constants";
 import { cartSummarySelectorState } from "../../recoil/selector/selector";

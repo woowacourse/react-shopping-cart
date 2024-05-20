@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { cartItemsState, checkedItemState, isAllCheckedState } from "../../recoil/atoms/atoms";
-import { CheckboxButton } from "../button/checkboxButton/CheckboxButton";
+import { CheckboxButton } from "../button";
 import { CartItemCard } from "../cartItemCard/CartItemCard";
 import {
   StyledCartItemCardList,

@@ -3,9 +3,7 @@ import { useDecreaseCartItemQuantity } from "../../hooks/useDecreaseCartItemQuan
 import { useDeleteCartItem } from "../../hooks/useDeleteCartItem";
 import { useIncreaseCartItemQuantity } from "../../hooks/useIncreaseCartItemQuantity";
 import { CartItem } from "../../types";
-import { CheckboxButton } from "../button/checkboxButton/CheckboxButton";
-import { CounterButton } from "../button/counterButton/CounterButton";
-import { DeleteButton } from "../button/deleteButton/DeleteButton";
+import { CheckboxButton, CounterButton, DeleteButton } from "../button";
 import {
   StyledCartItemCard,
   StyledCartItemCardHeader,
