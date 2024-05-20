@@ -33,23 +33,23 @@ const CartItem = ({ CartItemInfo }: CartItemProps) => {
   const { id } = CartItemInfo;
   const [quantity, setQuantity] = useRecoilState(itemQuantityState);
   const [isCheck, setIsCheck] = useRecoilState(CartItemCheckedState(id));
-  const setItemIds = useSetRecoilState(CartItemIdListState);
+  const setItemIdList = useSetRecoilState(CartItemIdListState);
   const setCartState = useSetRecoilState(cartState);
 
   const handleCheckBoxClick = () => {
     setIsCheck(!isCheck);
   };
 
-  const deleteProductId = useCallback(() => {
-    setItemIds((prev) => {
+  const deleteCartItemIdFromState = useCallback(() => {
+    setItemIdList((prev) => {
       const index = prev.findIndex((value) => value === id);
       const arr = [...prev];
       return [...arr.slice(0, index), ...arr.slice(index + 1)];
     });
-  }, [id, setItemIds]);
+  }, [id, setItemIdList]);
 
   const executeDeleteProduct = () => {
-    deleteProductId();
+    deleteCartItemIdFromState();
     deleteProduct(id);
     deleteCartItemCheckedStateInStorage(id);
     setCartState((prev) => {
