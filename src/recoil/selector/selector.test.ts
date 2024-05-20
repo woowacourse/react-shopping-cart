@@ -3,17 +3,7 @@ import { RecoilRoot, useRecoilValue, useSetRecoilState } from "recoil";
 import { DELIVERY } from "../../constants";
 import { mockCartItemsData } from "../../mocks/mockCartItemsData";
 import { cartItemsState } from "../atoms/atoms";
-import { cartSummarySelectorState, uniqueItemCountState } from "./selector";
-
-describe("초기값 테스트", () => {
-  it("uniqueItemCountState(상품 종류 수량)의 초기값은 0이야 합니다.", () => {
-    const { result } = renderHook(() => useRecoilValue(uniqueItemCountState), {
-      wrapper: RecoilRoot,
-    });
-
-    expect(result.current).toBe(0);
-  });
-});
+import { cartSummarySelectorState } from "./selector";
 
 describe("mockData를 이용한 테스트", () => {
   it("cartSummarySelectorState에 mockData를 로드하고, 금액이 올바르게 계산되는지 확인한다.", () => {
