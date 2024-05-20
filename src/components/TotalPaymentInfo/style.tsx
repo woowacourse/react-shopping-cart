@@ -11,11 +11,13 @@ export const PaymentInfo = styled.div`
   justify-content: space-between;
 `;
 
-export const PaymentCaption = styled.p`
+export const PaymentCaptionContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 0.25rem;
+`;
 
+export const PaymentCaption = styled.p`
   ${(props) => props.theme.typography.caption}
   color: ${(props) => props.theme.color.captionBlack};
 `;
