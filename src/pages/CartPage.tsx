@@ -6,10 +6,12 @@ import CartItems from "../components/CartPage/CartItems";
 import OrderSummary from "../components/CartPage/OrderSummary";
 import EmptyCart from "../components/CartPage/EmptyCart";
 import { CartLayout, Header, Content, Footer } from "../components/layout";
+import { isVacantSelector } from "../recoil/selector/selector";
 
 const CartPage = () => {
   const navigate = useNavigate();
   const cartItems = useRecoilValue(cartItemsAtom);
+  const isCartVacant = useRecoilValue(isVacantSelector);
   const cartItemCheckedIds = useRecoilValue(cartItemCheckedIdsAtom);
 
   const handleClick = () => {
@@ -21,7 +23,7 @@ const CartPage = () => {
       <Header>SHOP</Header>
       <Content>
         <CartTitle />
-        {cartItems.length > 0 ? (
+        {!isCartVacant ? (
           <>
             <CartItems />
             <OrderSummary />

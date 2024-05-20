@@ -90,3 +90,11 @@ export const totalCountSelector = selector({
     }, 0);
   },
 });
+
+export const isVacantSelector = selector({
+  key: "isVacantSelector",
+  get: ({ get }) => {
+    const cartItems = get(cartItemsAtom);
+    return cartItems.length === 0;
+  },
+});
