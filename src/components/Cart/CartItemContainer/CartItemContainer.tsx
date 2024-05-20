@@ -9,9 +9,11 @@ import { useRecoilValue } from "recoil";
 const CartItemContainer = () => {
   const ids = useRecoilValue(itemIdsState);
 
+  const isEmpty = ids.length === 0;
+
   return (
     <div css={CartItemContainerStyle}>
-      {ids.length !== 0 ? (
+      {!isEmpty ? (
         <>
           <CartItemController />
           <CartItemList />
