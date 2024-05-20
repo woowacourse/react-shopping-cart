@@ -7,7 +7,7 @@ export const fetchCartState = selector({
   key: "fetchCartState",
   get: async () => {
     const { content }: { content: CartItemInfo[] } = await fetchProducts("GET");
-    const localData = getStorage(LOCAL_STORAGE_KEY);
+    const localData = getStorage<CartItemCheckedStateInStorage>(LOCAL_STORAGE_KEY, {});
     content.forEach((cartItem) => {
       if (localData[cartItem.id] === undefined) localData[cartItem.id] = true;
     });
@@ -26,13 +26,13 @@ export const CartItemCheckedState = atomFamily<boolean, number>({
   default: true,
   effects: (id) => [
     ({ setSelf, onSet }) => {
-      const localData = getStorage(LOCAL_STORAGE_KEY);
+      const localData = getStorage<CartItemCheckedStateInStorage>(LOCAL_STORAGE_KEY, {});
       if (localData[id]) {
         setSelf(localData[id]);
       }
 
       onSet((newValue) => {
-        const localData = getStorage(LOCAL_STORAGE_KEY);
+        const localData = getStorage<CartItemCheckedStateInStorage>(LOCAL_STORAGE_KEY, {});
         localData[id] = newValue;
         setStorage(LOCAL_STORAGE_KEY, localData);
       });

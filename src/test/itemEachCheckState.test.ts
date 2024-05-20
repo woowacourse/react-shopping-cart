@@ -26,7 +26,7 @@ describe("itemEachCheckState", () => {
     });
 
     //Assert
-    const localData = getStorage(LOCAL_STORAGE_KEY);
+    const localData = getStorage<CartItemCheckedStateInStorage>(LOCAL_STORAGE_KEY, {});
     expect(result.current[0]).toBe(false);
     expect(localData[itemId]).toBe(false);
   });

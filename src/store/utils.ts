@@ -6,13 +6,13 @@ export const API_TOKEN = `Basic ${btoa(
 )}`;
 
 export const setCartItemCheckedStateInStorage = (id: number, isCheck: boolean) => {
-  const localData = getStorage(LOCAL_STORAGE_KEY);
+  const localData = getStorage<CartItemCheckedStateInStorage>(LOCAL_STORAGE_KEY, {});
   const newData = { ...localData, [id]: isCheck };
   setStorage(LOCAL_STORAGE_KEY, newData);
 };
 
 export const deleteCartItemCheckedStateInStorage = (id: number) => {
-  const localData = getStorage(LOCAL_STORAGE_KEY);
+  const localData = getStorage<CartItemCheckedStateInStorage>(LOCAL_STORAGE_KEY, {});
   delete localData[id];
   setStorage(LOCAL_STORAGE_KEY, localData);
 };

@@ -11,3 +11,7 @@ type CartItemInfo = {
   product: Product;
   quantity: number;
 };
+
+type CartItemCheckedStateInStorage = {
+  [key: number]: boolean;
+};
