@@ -30,7 +30,7 @@ const cartItemQuantity = atomFamily<number, number>({
   }),
 });
 
-const cartItemSelected = atomFamily<boolean, number>({
+export const cartItemSelected = atomFamily<boolean, number>({
   key: "cartItemSelected",
   default: (id: number) => {
     const storageState = CartItemLocalStorage.get("cartItemSelected");
@@ -43,8 +43,8 @@ const cartItemSelected = atomFamily<boolean, number>({
   effects: (id: number): AtomEffect<boolean>[] => [
     ({ onSet }) => {
       onSet((newValue) => {
-        // storage 업데이트
         const storageState = CartItemLocalStorage.get("cartItemSelected");
+
         if (storageState) {
           storageState[id] = newValue;
           CartItemLocalStorage.set("cartItemSelected", storageState);
@@ -54,4 +54,4 @@ const cartItemSelected = atomFamily<boolean, number>({
   ],
 });
 
-export { cartItemQuantity, cartItemSelected };
+export { cartItemQuantity };
