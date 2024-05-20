@@ -2,6 +2,7 @@ import { CartItemType, FilteredCartItemStateType } from '@/types/cart.type';
 import { atom, atomFamily } from 'recoil';
 
 import { INIT_CART_ITEM_STATE } from '@/constants/defaultStateValue';
+import { ShippingArea } from '@/types/recipe.type';
 import { cartState } from '@/store/selectors/dataFetchSelector';
 import localStorageEffect from '@/store/localStorageEffect';
 
@@ -19,7 +20,7 @@ export const cartListState = atom<CartItemType[]>({
   default: cartState,
 });
 
-export const shippingAreaState = atom({
+export const shippingAreaState = atom<ShippingArea>({
   key: 'shippingAreaState',
   default: 'normal',
 });
