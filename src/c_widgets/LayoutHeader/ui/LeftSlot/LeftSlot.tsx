@@ -18,6 +18,10 @@ export const LeftSlot = ({ type }: LeftSlotProps) => {
       return null;
 
     case 'goBack':
-      return <img src={imgMap.goBack} alt={type} className={cn('image')} />;
+      return (
+        <button className={cn('button')}>
+          <img src={imgMap.goBack} alt={type} className={cn('image')} />
+        </button>
+      );
   }
 };
