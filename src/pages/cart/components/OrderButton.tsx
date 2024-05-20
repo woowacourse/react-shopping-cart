@@ -1,14 +1,14 @@
 import Button from '@/components/common/Button';
 import useCheckoutNavigate from '@/hooks/useCheckoutNavigate';
-import { allCartItemStates } from '@/store/atoms';
+import { orderAmount } from '@/store/selectors';
 import { useRecoilValue } from 'recoil';
 
 export default function OrderButton() {
   const { handleOrderButton } = useCheckoutNavigate();
-  const cartItems = useRecoilValue(allCartItemStates);
+  const orderAmountValue = useRecoilValue(orderAmount);
 
   return (
-    <Button onClick={handleOrderButton} variant="footer" disabled={cartItems.length === 0}>
+    <Button onClick={handleOrderButton} variant="footer" disabled={!orderAmountValue}>
       주문 하기
     </Button>
   );

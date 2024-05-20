@@ -2,7 +2,6 @@ import { useRecoilValue } from 'recoil';
 import noticeIcon from '../../../asset/noticeIcon.png';
 import { deliveryFee, orderAmount, totalOrderAmount } from '../../../store/selectors';
 import styles from '../Cart.module.css';
-import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
 import CartResultInfo from './CartResultInfo';
 
 export default function CartTotals() {

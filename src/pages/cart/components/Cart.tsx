@@ -5,7 +5,6 @@ import { CartContext } from '../context/CartContext';
 import CartTotals from './CartTotals';
 import CartList from './CartList';
 import CartTitle from './CartTitle';
-import CartWrapper from './CartWrapper';
 
 export const Cart = ({ children }: PropsWithChildren<object>) => {
   const cartItems = useRecoilValue(allCartItemStates);
@@ -20,4 +19,3 @@ export const Cart = ({ children }: PropsWithChildren<object>) => {
 Cart.Title = CartTitle;
 Cart.Result = CartTotals;
 Cart.List = CartList;
-Cart.Wrapper = CartWrapper;

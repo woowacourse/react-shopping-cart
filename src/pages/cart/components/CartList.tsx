@@ -1,16 +1,15 @@
 import CartItem from './CartItem';
 import AllSelectCheckBox from './AllSelectCheckBox';
-import { allCartItemStates } from '@/store/atoms';
-import { useRecoilValue } from 'recoil';
+import { useCartContext } from '../context/CartContext';
 
 export default function CartList() {
-  const cartItems = useRecoilValue(allCartItemStates);
+  const { allCartItems } = useCartContext();
 
   return (
     <>
       <AllSelectCheckBox />
       <ul>
-        {cartItems.map((cartItem) => {
+        {allCartItems.map((cartItem) => {
           return (
             <CartItem
               key={cartItem.id}

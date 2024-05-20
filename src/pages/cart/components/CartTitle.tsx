@@ -1,15 +1,14 @@
-import { allCartItemStates } from '@/store/atoms';
 import styles from '../Cart.module.css';
-import { useRecoilValue } from 'recoil';
+import { useCartContext } from '../context/CartContext';
 
 export default function CartTitle() {
-  const cartItems = useRecoilValue(allCartItemStates);
+  const { allCartItems } = useCartContext();
 
   return (
     <div className={styles.cartContentWrapper}>
       <h1 className={styles.titleText}>장바구니</h1>
       <span className={styles.cartTitleCaption}>
-        현재 {cartItems.length}종류의 상품이 담겨있습니다.
+        현재 {allCartItems.length}종류의 상품이 담겨있습니다.
       </span>
     </div>
   );
