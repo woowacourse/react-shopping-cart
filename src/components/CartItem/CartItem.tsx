@@ -15,7 +15,6 @@ import useCartItemList from '../../recoil/cartItemList/useCartItemList';
 
 export type CartItemProps = {
   product: Product;
-  quantity: number;
   id: number;
 };
 
