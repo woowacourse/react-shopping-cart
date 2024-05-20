@@ -68,8 +68,6 @@ describe("isCheckedState AtomFamily 테스트", () => {
     window.localStorage.clear();
 
     CartItemLocalStorage.set(KEY, { 172: true, 373: false });
-
-    console.log(CartItemLocalStorage.get(KEY));
   });
 
   it("로컬 스토리지 내에서 Id가 172이고 값이 true인 isChecked 상태를, recoil의 상태값인 isCheckedState에 저장한다", async () => {
