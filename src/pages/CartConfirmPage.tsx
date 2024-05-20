@@ -17,7 +17,7 @@ export default function CartConfirmPage() {
   return (
     <>
       <Header>
-        <Button id="back-button" css={backButton} onClick={() => navigate(-1)}>
+        <Button id="back-button" css={backButton} onClick={() => navigate('/')}>
           <img src={BACK_ARROW} alt="back arrow icon" />
         </Button>
       </Header>

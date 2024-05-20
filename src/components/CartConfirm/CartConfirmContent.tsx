@@ -1,4 +1,6 @@
 import { css } from '@emotion/react';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
 import FooterButton from '@components/common/FooterButton';
@@ -9,9 +11,14 @@ import {
 } from '@recoil/cartItems/selectors';
 
 export default function CartConfirmContent() {
+  const navigate = useNavigate();
   const totalPurchasePrice = useRecoilValue(purchaseTotalPriceState);
   const totalQuantity = useRecoilValue(totalQuantityState);
   const productTypesCount = useRecoilValue(productTypesCountState);
+
+  useEffect(() => {
+    if (!totalQuantity) navigate('/');
+  }, []);
 
   return (
     <>
