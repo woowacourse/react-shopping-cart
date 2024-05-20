@@ -14,11 +14,11 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { useCallback } from "react";
 import { cartState, CartItemCheckedState, itemIdsState, itemQuantityState } from "../../../../../store/atom/atoms";
 import { changeProductAmount, deleteProduct } from "../../../../../store/api";
-import { deleteCheck } from "../../../../../store/localStorage/localStorage";
 import Divider from "../../../../Divider/Divider";
 import Checkbox from "../../../../Button/Checkbox/Checkbox";
 import DeleteButton from "../../../../Button/DeleteButton/DeleteButton";
 import QuantityButton from "../../../../Button/QuantityButton/QuantityButton";
+import { deleteCartItemCheckedStateInStorage } from "../../../../../store/utils";
 
 interface CartItemProps {
   CartItemInfo: CartItemInfo;
@@ -46,7 +46,7 @@ const CartItem = ({ CartItemInfo }: CartItemProps) => {
   const executeDeleteProduct = () => {
     deleteProductId();
     deleteProduct(id);
-    deleteCheck(id);
+    deleteCartItemCheckedStateInStorage(id);
     setCartState((prev) => {
       const temp = JSON.parse(JSON.stringify(prev));
       return temp.filter((item: CartItemInfo) => item.id !== id);
