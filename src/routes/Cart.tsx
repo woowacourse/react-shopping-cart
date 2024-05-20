@@ -13,7 +13,7 @@ const Cart = () => {
   return (
     <>
       <Header />
-      <ErrorBoundary fallback={<Error />}>
+      <ErrorBoundary FallbackComponent={Error}>
         <Main>
           <CartTitle />
           <CartItemContainer />
