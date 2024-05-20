@@ -1,4 +1,4 @@
-import addToCart from '../../../api/post/addToCart';
+import useAddToCart from '../../../api/post/addToCart';
 import { Product } from '../../../types/cartItem';
 import * as S from './styled';
 
@@ -7,6 +7,8 @@ interface ProductItemProps {
 }
 
 const ProductItem = ({ product }: ProductItemProps) => {
+  const { addToCart } = useAddToCart();
+
   const onAdd = async () => {
     await addToCart(product.id);
   };
