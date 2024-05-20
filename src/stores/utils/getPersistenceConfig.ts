@@ -1,6 +1,6 @@
 import { recoilPersist } from "recoil-persist";
 
-export const getPersistenceConfig = (key: string) => {
+const getPersistenceConfig = (key: string) => {
   const { persistAtom } = recoilPersist({
     key,
     storage: localStorage,
@@ -8,3 +8,5 @@ export const getPersistenceConfig = (key: string) => {
 
   return { persistAtom };
 };
+
+export default getPersistenceConfig;

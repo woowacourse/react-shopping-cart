@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { cartItemsState } from "../../../stores/cartItems";
-import { isAnyCartItemSelectedState } from "../../../stores/cartItemSelected";
+import { isAnyCartItemSelectedState } from "../../../stores/cartItemSelections";
 
 import Button from "../../_common/Button";
 import * as S from "./styled";

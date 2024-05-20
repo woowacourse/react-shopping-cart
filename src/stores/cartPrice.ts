@@ -1,6 +1,6 @@
 import { selector } from "recoil";
 import { cartItemsState } from "./cartItems";
-import { isCartItemsSelectedState } from "./cartItemSelected";
+import { isCartItemsSelectedState } from "./cartItemSelections";
 
 import { CART_PRICE } from "../constants/cart";
 

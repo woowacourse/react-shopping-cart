@@ -1,6 +1,6 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { cartItemsState } from "../../../stores/cartItems";
-import { isAllCartItemSelectedState } from "../../../stores/cartItemSelected";
+import { isAllCartItemSelectedState } from "../../../stores/cartItemSelections";
 
 import CartItemCard from "../CartItemCard";
 import { CheckButton } from "../../button";

@@ -1,7 +1,7 @@
 import { useRecoilState, useRecoilRefresher_UNSTABLE } from "recoil";
 
 import { cartItemsState } from "../../../stores/cartItems";
-import { isCartItemsSelectedState } from "../../../stores/cartItemSelected";
+import { isCartItemsSelectedState } from "../../../stores/cartItemSelections";
 
 import Button from "../../_common/Button";
 import { CheckButton, MinusButton, PlusButton } from "../../button";
