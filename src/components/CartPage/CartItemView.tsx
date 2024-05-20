@@ -2,6 +2,7 @@ import { CartItem } from "../../types/cartItems";
 import styled from "styled-components";
 import { UseCartItemsReturn } from "../../hooks/useCartItemControl";
 import Counter from "../common/Counter";
+import { formatToKRW } from "../../utils/formatToKRW";
 
 export interface CartItemViewProps {
   cartItem: CartItem;
@@ -32,7 +33,7 @@ export default function CartItemView({ cartItem, cartItemControl }: CartItemView
         <S.ProductInnerWrapper>
           <S.ProductInfo>
             <S.ProductName>{cartItem.product.name}</S.ProductName>
-            <S.ProductPrice>{cartItem.product.price.toLocaleString()}원</S.ProductPrice>
+            <S.ProductPrice>{formatToKRW(cartItem.product.price)}</S.ProductPrice>
           </S.ProductInfo>
           <Counter
             count={cartItem.quantity}

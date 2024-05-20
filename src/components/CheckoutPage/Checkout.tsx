@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { selectedCartItemIdsState } from "../../recoil/selectedCartItemIds";
 import { cartItemsState } from "../../recoil/cartItems";
 import { calculateSelectedCartItemsCount } from "../../utils/domain/calculateSelectedCartItemsCount";
+import { formatToKRW } from "../../utils/formatToKRW";
 
 export default function Checkout() {
   const selectedCartItemIds = useRecoilValue(selectedCartItemIdsState);
@@ -25,7 +26,7 @@ export default function Checkout() {
       </S.CheckoutInfoWrapper>
       <S.ToTalOrderAmountWrapper>
         <S.ToTalOrderAmountText>총 결제 금액</S.ToTalOrderAmountText>
-        <S.TotalOrderAmount>{totalOrderAmount.toLocaleString()}원</S.TotalOrderAmount>
+        <S.TotalOrderAmount>{formatToKRW(totalOrderAmount)}</S.TotalOrderAmount>
       </S.ToTalOrderAmountWrapper>
     </S.Container>
   );
