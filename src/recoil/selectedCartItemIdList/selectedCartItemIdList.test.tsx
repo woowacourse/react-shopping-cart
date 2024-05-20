@@ -31,7 +31,7 @@ const cartItemListDummyData = [
   },
 ];
 
-describe('장바구니 선택 목록 테스트', () => {
+describe('useSelectedCartItemIdList', () => {
   beforeEach(() => {
     localStorage.clear();
   });
