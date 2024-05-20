@@ -63,12 +63,16 @@ const CartItem = ({ CartItemInfo }: CartItemProps) => {
   };
 
   const handleMinusButtonClick = () => {
-    changeProductAmount({ quantity: quantity[id] - 1, id });
     if (quantity[id] === 1) {
-      executeDeleteProduct();
+      if (confirm("정말 삭제하시겠습니까?")) {
+        executeDeleteProduct();
+      } else {
+        return;
+      }
       return;
     }
 
+    changeProductAmount({ quantity: quantity[id] - 1, id });
     setQuantity((prev) => ({ ...prev, [id]: prev[id] - 1 }));
   };
 
@@ -92,7 +96,7 @@ const CartItem = ({ CartItemInfo }: CartItemProps) => {
           <div css={CartItemNameStyle}>{CartItemInfo.product.name}</div>
           <div css={CartItemPriceStyle}>{CartItemInfo.product.price.toLocaleString() + "원"}</div>
           <div css={CartItemQuantityContainerStyle}>
-            <QuantityButton onClick={handleMinusButtonClick} type={"minus"} />
+            <QuantityButton onClick={handleMinusButtonClick} type={quantity[id] === 1 ? "canDelete" : "minus"} />
             <div css={CartItemQuantityStyle}>{quantity[id]}</div>
             <QuantityButton onClick={handlePlusButtonClick} type={"plus"} />
           </div>

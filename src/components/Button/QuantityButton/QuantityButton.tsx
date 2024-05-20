@@ -1,8 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { HiOutlineMinus, HiOutlinePlus } from "react-icons/hi";
+import { MdDelete } from "react-icons/md";
+
 import Button from "../Button";
 
-export type ButtonType = "plus" | "minus";
+export type ButtonType = "plus" | "minus" | "canDelete";
 
 interface QuantityProps {
   type: ButtonType;
@@ -10,9 +12,15 @@ interface QuantityProps {
 }
 
 const QuantityButton = ({ type, onClick }: QuantityProps) => {
+  const buttonMap = {
+    plus: <HiOutlinePlus size={16} />,
+    minus: <HiOutlineMinus size={16} />,
+    canDelete: <MdDelete size={16} />,
+  };
+
   return (
     <Button fontSize="24px" onClick={onClick}>
-      {type === "plus" ? <HiOutlinePlus size={16} /> : <HiOutlineMinus size={16} />}
+      {buttonMap[type]}
     </Button>
   );
 };
