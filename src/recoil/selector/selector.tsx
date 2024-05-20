@@ -7,7 +7,6 @@ export const fetchCartItemsSelector = selector({
   get: fetchCartItems,
 });
 
-// items들의 quantities를 관리 {id: quantity}꼴의 객체. (set: cartItemsAtom을 업데이트)
 export const itemQuantitiesSelector = selector<Record<string, number>>({
   key: "itemQuantities",
   get: ({ get }) => {
@@ -28,7 +27,6 @@ export const itemQuantitiesSelector = selector<Record<string, number>>({
   },
 });
 
-// (get: 현재 전체선택 여부. set: 전체선택/해제. )
 export const isAllCheckedSelector = selector({
   key: "isAllCheckedSelector",
   get: ({ get }) => {
@@ -49,7 +47,6 @@ export const isAllCheckedSelector = selector({
   },
 });
 
-// 주문 금액 계산
 export const orderPriceSelector = selector({
   key: "orderPriceSelector",
   get: ({ get }) => {
@@ -64,7 +61,6 @@ export const orderPriceSelector = selector({
   },
 });
 
-// 배달비 계산
 export const shippingFeeSelector = selector({
   key: "shippingFeeSelector",
   get: ({ get }) => {
@@ -73,7 +69,6 @@ export const shippingFeeSelector = selector({
   },
 });
 
-// 전체 금액 계산
 export const totalPriceSelector = selector({
   key: "totalPriceSelector",
   get: ({ get }) => {
@@ -83,7 +78,6 @@ export const totalPriceSelector = selector({
   },
 });
 
-// 전체 수량 계산
 export const totalCountSelector = selector({
   key: "totalCountSelector",
   get: ({ get }) => {

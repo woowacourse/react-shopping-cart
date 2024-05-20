@@ -1,11 +1,10 @@
-import { cartItemCheckedIdsAtom, cartItemsAtom } from "../atom/atom";
+import { cartItemCheckedIdsAtom } from "../atom/atom";
 import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
 import { renderHook, waitFor } from "@testing-library/react";
 import { act } from "react";
 import { orderPriceSelector, shippingFeeSelector, totalPriceSelector } from "./selector";
 import { CartItem } from "../../types";
 
-// mock data
 const mockCartItems: CartItem[] = [
   { id: 1, product: { id: 3, name: "상품이름A", price: 35000, imageUrl: "", category: "" }, quantity: 2 },
   { id: 2, product: { id: 4, name: "상품이름B", price: 25000, imageUrl: "", category: "" }, quantity: 3 },
@@ -25,12 +24,11 @@ describe("orderPriceSelector 테스트", () => {
   beforeEach(async () => {
     const hook = renderHook(
       () => {
-        const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
         const [checkedIds, setCheckedIds] = useRecoilState(cartItemCheckedIdsAtom);
         const orderPrice = useRecoilValue(orderPriceSelector);
         const shippingFee = useRecoilValue(shippingFeeSelector);
         const totalPrice = useRecoilValue(totalPriceSelector);
-        return { cartItems, setCartItems, checkedIds, setCheckedIds, orderPrice, shippingFee, totalPrice };
+        return { checkedIds, setCheckedIds, orderPrice, shippingFee, totalPrice };
       },
       {
         wrapper: RecoilRoot,
@@ -40,7 +38,7 @@ describe("orderPriceSelector 테스트", () => {
     result = hook.result;
 
     await waitFor(() => {
-      expect(result.current.setCartItems).toBeDefined();
+      expect(result.current.checkedIds).toBeDefined();
     });
   });
 

@@ -1,11 +1,10 @@
-import { cartItemCheckedIdsAtom, cartItemsAtom } from "../atom/atom";
+import { cartItemCheckedIdsAtom } from "../atom/atom";
 import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
 import { renderHook, waitFor } from "@testing-library/react";
 import { act } from "react";
 import { totalCountSelector } from "./selector";
 import { CartItem } from "../../types";
 
-// mock data
 const mockCartItems: CartItem[] = [
   { id: 1, product: { id: 3, name: "상품이름A", price: 35000, imageUrl: "", category: "" }, quantity: 2 },
   { id: 2, product: { id: 4, name: "상품이름B", price: 25000, imageUrl: "", category: "" }, quantity: 3 },
