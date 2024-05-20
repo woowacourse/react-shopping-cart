@@ -1,9 +1,12 @@
-import { useRecoilValue } from 'recoil';
+import * as Styled from './style';
+
 import Header from '../../Header/Header';
 import OrderButton from '../../OrderButton/OrderButton';
-import * as Styled from './style';
+
+import { useRecoilValue } from 'recoil';
 import { cartItemsCalculatorState } from '../../../recoil/cartItems';
 import { useNavigate } from 'react-router-dom';
+
 import MESSAGE from '../../../constants/Message';
 
 const OrderConfirmation = () => {
@@ -15,6 +18,7 @@ const OrderConfirmation = () => {
   return (
     <Styled.OrderConfirmation>
       <Header children={MESSAGE.backSpace} onClick={() => navigator(-1)} />
+
       <Styled.Container>
         <Styled.Content>
           <Styled.Title>{MESSAGE.orderConfirmation}</Styled.Title>
@@ -34,6 +38,7 @@ const OrderConfirmation = () => {
           </Styled.TotalPaymentAmountContainer>
         </Styled.Content>
       </Styled.Container>
+
       <OrderButton
         onClick={() => console.log(MESSAGE.orderConfirmation)}
         children={MESSAGE.pay}

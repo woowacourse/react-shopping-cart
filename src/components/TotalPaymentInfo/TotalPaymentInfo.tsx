@@ -1,8 +1,11 @@
-import PaymentInfo from './PaymentInfo';
 import * as Styled from './style';
+
+import PaymentInfo from './PaymentInfo';
 import CaptionEmoji from '../assets/CaptionEmoji.svg';
+
 import { useRecoilValue } from 'recoil';
 import { cartItemsCalculatorState } from '../../recoil/cartItems';
+
 import MESSAGE from '../../constants/Message';
 
 const TotalPaymentInfo = () => {

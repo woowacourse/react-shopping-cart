@@ -1,5 +1,6 @@
-import MESSAGE from '../../constants/Message';
 import * as Styled from './style';
+
+import MESSAGE from '../../constants/Message';
 
 interface PaymentInfoType {
   label: string;
