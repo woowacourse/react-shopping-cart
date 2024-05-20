@@ -1,10 +1,16 @@
 import { useRecoilValueLoadable } from 'recoil';
 import { cartItemListQuery } from '../../recoil/cartItemList/states';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import LoadingFallback from '../../components/LoadingFallback/LoadingFallback';
+import { useCartItemList } from '../../recoil/cartItemList/hooks';
 
 const CartItemListLoader = ({ children }: { children: ReactNode }) => {
+  const { updateCartItemList } = useCartItemList();
   const cartItemListLoadable = useRecoilValueLoadable(cartItemListQuery);
+
+  useEffect(() => {
+    updateCartItemList();
+  }, []);
 
   switch (cartItemListLoadable.state) {
     case 'hasValue':
