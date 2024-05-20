@@ -20,7 +20,8 @@ export const cartSummarySelectorState = selector<CartSummary>({
       (total, item) => total + item.product.price * item.quantity,
       0
     );
-    const deliveryPrice = orderPrice > DELIVERY.FREE_THRESHOLD ? DELIVERY.FREE : DELIVERY.STANDARD;
+    const deliveryPrice =
+      orderPrice === 0 || orderPrice > DELIVERY.FREE_THRESHOLD ? DELIVERY.FREE : DELIVERY.STANDARD;
     const totalPrice = orderPrice + deliveryPrice;
 
     return {
