@@ -1,3 +1,4 @@
+import MESSAGE from '../../constants/Message';
 import * as Styled from './style';
 
 interface ErrorFallbackProps {
@@ -5,11 +6,9 @@ interface ErrorFallbackProps {
 }
 
 function ErrorFallback({ error }: ErrorFallbackProps) {
-  return (
-    <Styled.ErrorMessage>
-      {error.message} 오류가 발생하였습니다!
-    </Styled.ErrorMessage>
-  );
+  const errorMessage = `${error.message} ${MESSAGE.alertingError}`;
+
+  return <Styled.ErrorMessage>{errorMessage}</Styled.ErrorMessage>;
 }
 
 export default ErrorFallback;

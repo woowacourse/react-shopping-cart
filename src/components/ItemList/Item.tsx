@@ -1,12 +1,14 @@
 import { CartItem } from '../../type';
 import * as Styled from './style';
-import CheckedBox from '../assets/CheckedBox.svg';
-import UnCheckedBox from '../assets/UnCheckedBox.svg';
+import selectedBox from '../assets/SelectedBox.svg';
+import UnSelectedBox from '../assets/UnSelectedBox.svg';
 import PlusButton from '../assets/PlusButton.svg';
 import MinusButton from '../assets/MinusButton.svg';
-import BinButton from '../assets/BinButton.svg';
+import RemoveButton from '../assets/RemoveButton.svg';
 import { useRecoilState } from 'recoil';
 import { selectedCartItemState } from '../../recoil/selectedCardItems';
+import MESSAGE from '../../constants/Message';
+import CONDITION from '../../constants/Condition';
 
 interface ItemProp {
   cartItem: CartItem;
@@ -22,47 +24,53 @@ const Item = ({ cartItem, onRemoveItem, onAdjustItemQuantity }: ItemProp) => {
     <Styled.Item>
       <Styled.Divider />
       <Styled.ButtonContainer>
-        <Styled.Button onClick={() => setIsSelected((prop) => !prop)}>
+        <Styled.SelectButton onClick={() => setIsSelected((prop) => !prop)}>
           <img
-            src={isSelected ? CheckedBox : UnCheckedBox}
-            alt={isSelected ? '선택됨' : '선택되지 않음'}
+            src={isSelected ? selectedBox : UnSelectedBox}
+            alt={isSelected ? MESSAGE.selected : MESSAGE.unSelected}
           />
-        </Styled.Button>
-        <Styled.DeleteButton onClick={() => onRemoveItem(cartItem.id)}>
-          삭제
-        </Styled.DeleteButton>
+        </Styled.SelectButton>
+        <Styled.RemoveButton onClick={() => onRemoveItem(cartItem.id)}>
+          {MESSAGE.remove}
+        </Styled.RemoveButton>
       </Styled.ButtonContainer>
-
       <Styled.ItemInfoContainer>
         <Styled.ItemImg src={cartItem.product.imageUrl} />
         <Styled.ItemInfo>
           <Styled.ItemDetails>
             <Styled.ItemName>{cartItem.product.name}</Styled.ItemName>
             <Styled.ItemPrice>
-              {cartItem.product.price.toLocaleString('ko-kr')}원
+              {cartItem.product.price.toLocaleString('ko-kr')}
+              {MESSAGE.koreanCurrencyUnit}
             </Styled.ItemPrice>
           </Styled.ItemDetails>
           <Styled.ItemQuantityAdjustment>
-            <Styled.Button
+            <Styled.SelectButton
               onClick={() => {
-                const updatedItemQuantity = cartItem.quantity - 1;
-                onAdjustItemQuantity(cartItem.id, updatedItemQuantity);
+                onAdjustItemQuantity(cartItem.id, cartItem.quantity - 1);
               }}
             >
               <img
-                src={cartItem.quantity === 1 ? BinButton : MinusButton}
-                alt={cartItem.quantity === 1 ? '삭제 버튼' : '마이너스 버튼'}
+                src={
+                  cartItem.quantity === CONDITION.RemoveButtonAppeared
+                    ? RemoveButton
+                    : MinusButton
+                }
+                alt={
+                  cartItem.quantity === CONDITION.RemoveButtonAppeared
+                    ? MESSAGE.removeButton
+                    : MESSAGE.minusButton
+                }
               />
-            </Styled.Button>
+            </Styled.SelectButton>
             <Styled.ItemQuantity>{cartItem.quantity}</Styled.ItemQuantity>
-            <Styled.Button
+            <Styled.SelectButton
               onClick={() => {
-                const updatedItemQuantity = cartItem.quantity + 1;
-                onAdjustItemQuantity(cartItem.id, updatedItemQuantity);
+                onAdjustItemQuantity(cartItem.id, cartItem.quantity + 1);
               }}
             >
-              <img src={PlusButton} alt="+"></img>
-            </Styled.Button>
+              <img src={PlusButton} alt={MESSAGE.plusButton} />
+            </Styled.SelectButton>
           </Styled.ItemQuantityAdjustment>
         </Styled.ItemInfo>
       </Styled.ItemInfoContainer>

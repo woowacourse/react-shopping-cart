@@ -3,26 +3,26 @@ import * as Styled from './style';
 import CaptionEmoji from '../assets/CaptionEmoji.svg';
 import { useRecoilValue } from 'recoil';
 import { cartItemsCalculatorState } from '../../recoil/cartItems';
+import MESSAGE from '../../constants/Message';
 
 const TotalPaymentInfo = () => {
-  const koMoneyFormat = (money: number) => `${money.toLocaleString('ko-kr')}원`;
   const { totalOrderAmount, shippingFee, totalPaymentAmount } = useRecoilValue(
     cartItemsCalculatorState,
   );
 
   return (
     <Styled.TotalPaymentInfo>
-      <Styled.PaymentCaption>
-        <img src={CaptionEmoji} />총 주문 금액이 100,000원 이상일 경우 무료
-        배송됩니다.
-      </Styled.PaymentCaption>
+      <Styled.PaymentCaptionContainer>
+        <img src={CaptionEmoji} />
+        <Styled.PaymentCaption>{MESSAGE.paymentCaption}</Styled.PaymentCaption>
+      </Styled.PaymentCaptionContainer>
       <Styled.Divider />
-      <PaymentInfo label="주문 금액" price={koMoneyFormat(totalOrderAmount)} />
-      <PaymentInfo label="배송비" price={koMoneyFormat(shippingFee)} />
+      <PaymentInfo label={MESSAGE.paymentAmount} price={totalOrderAmount} />
+      <PaymentInfo label={MESSAGE.shippingFee} price={shippingFee} />
       <Styled.Divider />
       <PaymentInfo
-        label="총 결제 금액"
-        price={koMoneyFormat(totalPaymentAmount)}
+        label={MESSAGE.totalPaymentAmount}
+        price={totalPaymentAmount}
       />
     </Styled.TotalPaymentInfo>
   );

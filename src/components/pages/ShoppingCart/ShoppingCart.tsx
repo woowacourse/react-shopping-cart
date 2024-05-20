@@ -10,27 +10,29 @@ import { useRecoilValue } from 'recoil';
 import { fetchedCartItemsState } from '../../../recoil/cartItems';
 import { selectedSomeCartItemState } from '../../../recoil/selectedCardItems';
 import { useNavigate } from 'react-router-dom';
+import MESSAGE from '../../../constants/Message';
 
 const ShoppingCart = () => {
   const navigator = useNavigate();
 
   const cartItems = useRecoilValue(fetchedCartItemsState);
 
-  const hasSomeCartItem = !!cartItems.length;
+  const cartItemCount = cartItems.length;
+  const hasSomeCartItem = !!cartItemCount;
   const isSomeCartItemSelected = useRecoilValue(selectedSomeCartItemState);
 
   const isOrderable = hasSomeCartItem && isSomeCartItemSelected;
 
   return (
     <Styled.ShoppingCart>
-      <Header children="SHOP" />
+      <Header children={MESSAGE.shop} />
 
       <Styled.Container>
         {hasSomeCartItem && (
           <>
             <Title
-              title="장바구니"
-              caption={`현재 ${cartItems.length}종류의 상품이 담겨있습니다.`}
+              title={MESSAGE.shoppingCart}
+              caption={MESSAGE.titleCaption(cartItemCount)}
             />
             <ItemList />
             <TotalPaymentInfo />
@@ -39,10 +41,10 @@ const ShoppingCart = () => {
 
         {!hasSomeCartItem && (
           <>
-            <Title title="장바구니" />
+            <Title title={MESSAGE.shoppingCart} />
             <Styled.Content>
               <Styled.EmptyCartMessage>
-                장바구니에 담은 상품이 없습니다.
+                {MESSAGE.emptyCart}
               </Styled.EmptyCartMessage>
             </Styled.Content>
           </>
@@ -51,7 +53,7 @@ const ShoppingCart = () => {
 
       <OrderButton
         onClick={() => navigator('/orderConfirmation')}
-        children="주문 확인"
+        children={MESSAGE.orderConfirmation}
         isOrderable={isOrderable}
       />
     </Styled.ShoppingCart>

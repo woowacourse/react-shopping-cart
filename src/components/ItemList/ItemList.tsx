@@ -1,8 +1,8 @@
 import { CartItem } from '../../type';
 import Item from './Item';
 import * as Styled from './style';
-import CheckedBox from '../assets/CheckedBox.svg';
-import UnCheckedBox from '../assets/UnCheckedBox.svg';
+import SelectedBox from '../assets/SelectedBox.svg';
+import UnSelectedBox from '../assets/UnSelectedBox.svg';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { selectedAllCartItemState } from '../../recoil/selectedCardItems';
 import { adjustCartItemQuantity, removeCartItem } from '../../api/shoppingCart';
@@ -10,19 +10,21 @@ import {
   fetchedCartItemsState,
   refreshCartItemsState,
 } from '../../recoil/cartItems';
+import MESSAGE from '../../constants/Message';
 
 const ItemList = () => {
   const updateCartItem = useSetRecoilState(refreshCartItemsState);
   const cartItems = useRecoilValue(fetchedCartItemsState);
 
-  const handleDeleteCartItem = async (cartItemId: number) => {
+  const handleRemoveCartItem = async (cartItemId: number) => {
     try {
       await removeCartItem(cartItemId);
       updateCartItem([]);
     } catch (error) {
-      console.error('Failed to remove cart item:', error);
+      console.error(MESSAGE.removeError, error);
     }
   };
+
   const handleAdjustCartItemQuantity = async (
     cartItemId: number,
     quantity: number,
@@ -31,35 +33,35 @@ const ItemList = () => {
       await adjustCartItemQuantity(cartItemId, quantity);
       updateCartItem([]);
     } catch (error) {
-      console.error('수량변경 실패', error);
+      console.error(MESSAGE.adjustQuantityError, error);
     }
   };
 
   const cartItemIds = cartItems.map((cartItem) => cartItem.id);
-  const [selectedAll, setSelectedAll] = useRecoilState(
+  const [isAllSelected, setisAllSelected] = useRecoilState(
     selectedAllCartItemState(cartItemIds),
   );
   const handleSelectedAll = () => {
-    setSelectedAll((isSelectedAll) => !isSelectedAll);
+    setisAllSelected((isSelectedAll) => !isSelectedAll);
   };
 
   return (
     <Styled.ItemList>
-      <Styled.TotalSelect>
-        <Styled.Button onClick={handleSelectedAll}>
+      <Styled.AllSelectContainer>
+        <Styled.SelectButton onClick={handleSelectedAll}>
           <img
-            src={selectedAll ? CheckedBox : UnCheckedBox}
-            alt={selectedAll ? '전체 선택' : '전체 선택 해제'}
+            src={isAllSelected ? SelectedBox : UnSelectedBox}
+            alt={isAllSelected ? MESSAGE.allSelected : MESSAGE.notAllSelected}
           />
-        </Styled.Button>
-        <div>전체 선택</div>
-      </Styled.TotalSelect>
+        </Styled.SelectButton>
+        <Styled.SelectMessage>{MESSAGE.allSelected}</Styled.SelectMessage>
+      </Styled.AllSelectContainer>
       {cartItems.map((cartItem: CartItem) => {
         return (
           <Item
             key={cartItem.id}
             cartItem={cartItem}
-            onRemoveItem={handleDeleteCartItem}
+            onRemoveItem={handleRemoveCartItem}
             onAdjustItemQuantity={handleAdjustCartItemQuantity}
           />
         );
