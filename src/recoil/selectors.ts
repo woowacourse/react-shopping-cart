@@ -32,7 +32,7 @@ export const cartListTotalPrice = selector({
       if (isSelectedItem) return acc + quantity * cartItem.product.price;
       return acc;
     }, 0);
-    console.log(totalPrice);
+
     return totalPrice;
   },
 });
