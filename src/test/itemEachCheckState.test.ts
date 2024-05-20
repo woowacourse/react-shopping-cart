@@ -1,6 +1,7 @@
 import { renderHook, act } from "@testing-library/react";
 import { RecoilRoot, useRecoilState } from "recoil";
 import { CartItemCheckedState } from "../store/atom/atoms";
+import { getStorage } from "../store/localStorage/localStorage";
 
 describe("itemEachCheckState", () => {
   const LOCAL_STORAGE_KEY = "itemCheckedMap";
@@ -25,7 +26,7 @@ describe("itemEachCheckState", () => {
     });
 
     //Assert
-    const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || "{}");
+    const localData = getStorage(LOCAL_STORAGE_KEY);
     expect(result.current[0]).toBe(false);
     expect(localData[itemId]).toBe(false);
   });

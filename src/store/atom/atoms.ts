@@ -1,16 +1,17 @@
 import { atomFamily, atom, selector } from "recoil";
 import { LOCAL_STORAGE_KEY } from "../../constants";
 import { fetchProducts } from "../api";
+import { getStorage, setStorage } from "../localStorage/localStorage";
 
 export const fetchCartState = selector({
   key: "fetchCartState",
   get: async () => {
     const { content }: { content: CartItemInfo[] } = await fetchProducts("GET");
-    const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}");
+    const localData = getStorage(LOCAL_STORAGE_KEY);
     content.forEach((cartItem) => {
       if (localData[cartItem.id] === undefined) localData[cartItem.id] = true;
     });
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(localData));
+    setStorage(LOCAL_STORAGE_KEY, localData);
     return content;
   },
 });
@@ -25,15 +26,15 @@ export const CartItemCheckedState = atomFamily<boolean, number>({
   default: true,
   effects: (id) => [
     ({ setSelf, onSet }) => {
-      const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}");
+      const localData = getStorage(LOCAL_STORAGE_KEY);
       if (localData[id]) {
         setSelf(localData[id]);
       }
 
       onSet((newValue) => {
-        const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}");
+        const localData = getStorage(LOCAL_STORAGE_KEY);
         localData[id] = newValue;
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(localData));
+        setStorage(LOCAL_STORAGE_KEY, localData);
       });
     },
   ],
