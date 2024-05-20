@@ -6,10 +6,23 @@ export const ItemList = styled.ul`
   gap: 1.25rem;
 `;
 
-export const TotalSelect = styled.div`
+export const AllSelectContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+`;
+
+export const SelectButton = styled.button`
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+
+  cursor: pointer;
+`;
+
+export const SelectMessage = styled.p`
   ${(props) => props.theme.typography.caption}
 `;
 
@@ -28,17 +41,7 @@ export const ButtonContainer = styled.div`
   justify-content: space-between;
 `;
 
-export const Button = styled.button`
-  width: 1.5rem;
-  height: 1.5rem;
-  padding: 0;
-  border: none;
-  border-radius: 8px;
-
-  cursor: pointer;
-`;
-
-export const DeleteButton = styled.button`
+export const RemoveButton = styled.button`
   width: 2.5rem;
   height: 1.5rem;
   padding: 0;
