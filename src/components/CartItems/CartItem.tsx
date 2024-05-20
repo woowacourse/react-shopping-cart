@@ -1,8 +1,13 @@
 import * as Styled from './style';
 
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { selectedCartItemState } from '../../recoil/selectedCardItems';
+import { isCartItemSelectedState } from '../../recoil/selectedCardItems';
 import { cartItemsState } from '../../recoil/cartItems';
+
+import {
+  fetchAdjustCartItemQuantity,
+  fetchRemoveCartItem,
+} from '../../api/shoppingCart';
 
 import selectedBox from '../assets/SelectedBox.svg';
 import UnSelectedBox from '../assets/UnSelectedBox.svg';
@@ -14,36 +19,31 @@ import MESSAGE from '../../constants/Message';
 import CONDITION from '../../constants/Condition';
 import { CartItemType } from '../../type';
 
-type OperatorType = 'increase' | 'decrease';
-
 interface CartItemProps {
   inputCartItem: CartItemType;
 }
 
 const CartItem = ({ inputCartItem }: CartItemProps) => {
   const [isSelected, setIsSelected] = useRecoilState(
-    selectedCartItemState(inputCartItem.id),
+    isCartItemSelectedState(inputCartItem.id),
   );
 
   const setCartItems = useSetRecoilState(cartItemsState);
 
-  const handleRemoveCartItem = () => {
+  const removeCartItem = () => {
     setCartItems((prevCartItems) =>
       [...prevCartItems].filter((cartItem) => cartItem.id !== inputCartItem.id),
     );
   };
 
-  const adjustCartItemQuantity = (operator: OperatorType) => {
+  const adjustCartItemQuantity = (adjustedQuantity: number) => {
     setCartItems((prevCartItems) =>
       [...prevCartItems].map((cartItem) => {
         if (cartItem.id === inputCartItem.id)
           return {
             id: cartItem.id,
             product: cartItem.product,
-            quantity:
-              operator === 'increase'
-                ? cartItem.quantity + CONDITION.adjustTerm
-                : cartItem.quantity - CONDITION.adjustTerm,
+            quantity: adjustedQuantity,
           };
 
         return cartItem;
@@ -51,15 +51,40 @@ const CartItem = ({ inputCartItem }: CartItemProps) => {
     );
   };
 
-  const handleIncreaseCartItemQuantity = () => {
-    adjustCartItemQuantity('increase');
+  const handleCartItemRemoval = async () => {
+    try {
+      removeCartItem();
+      await fetchRemoveCartItem(inputCartItem.id);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const handleDecreaseCartItemQuantity = () => {
-    adjustCartItemQuantity('decrease');
+  const handleCartItemQuantityIncrement = async () => {
+    try {
+      adjustCartItemQuantity(inputCartItem.quantity + VALUE.adjustTerm);
+      await fetchAdjustCartItemQuantity(
+        inputCartItem.id,
+        inputCartItem.quantity + VALUE.adjustTerm,
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-    if (inputCartItem.quantity === CONDITION.RemoveButtonAppeared)
-      handleRemoveCartItem();
+  const handleCartItemQuantityDecrement = async () => {
+    try {
+      if (inputCartItem.quantity === CONDITION.RemoveButtonAppeared)
+        await handleCartItemRemoval();
+
+      adjustCartItemQuantity(inputCartItem.quantity - VALUE.adjustTerm);
+      await fetchAdjustCartItemQuantity(
+        inputCartItem.id,
+        inputCartItem.quantity - VALUE.adjustTerm,
+      );
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -73,7 +98,7 @@ const CartItem = ({ inputCartItem }: CartItemProps) => {
             alt={isSelected ? MESSAGE.selected : MESSAGE.unSelected}
           />
         </Styled.SelectButton>
-        <Styled.RemoveButton onClick={handleRemoveCartItem}>
+        <Styled.RemoveButton onClick={() => handleCartItemRemoval()}>
           {MESSAGE.remove}
         </Styled.RemoveButton>
       </Styled.ButtonContainer>
@@ -89,7 +114,9 @@ const CartItem = ({ inputCartItem }: CartItemProps) => {
             </Styled.ItemPrice>
           </Styled.ItemDetails>
           <Styled.ItemQuantityAdjustment>
-            <Styled.SelectButton onClick={handleDecreaseCartItemQuantity}>
+            <Styled.SelectButton
+              onClick={() => handleCartItemQuantityDecrement()}
+            >
               <img
                 src={
                   inputCartItem.quantity === CONDITION.RemoveButtonAppeared
@@ -104,7 +131,9 @@ const CartItem = ({ inputCartItem }: CartItemProps) => {
               />
             </Styled.SelectButton>
             <Styled.ItemQuantity>{inputCartItem.quantity}</Styled.ItemQuantity>
-            <Styled.SelectButton onClick={handleIncreaseCartItemQuantity}>
+            <Styled.SelectButton
+              onClick={() => handleCartItemQuantityIncrement()}
+            >
               <img src={PlusButton} alt={MESSAGE.plusButton} />
             </Styled.SelectButton>
           </Styled.ItemQuantityAdjustment>
