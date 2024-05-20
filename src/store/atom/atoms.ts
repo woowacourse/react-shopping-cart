@@ -40,7 +40,7 @@ export const CartItemCheckedState = atomFamily<boolean, number>({
   ],
 });
 
-export const itemIdsState = atom<number[]>({
+export const CartItemIdListState = atom<number[]>({
   key: "itemIdsState",
   default: selector({
     key: "itemIdsList",

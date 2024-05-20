@@ -3,7 +3,7 @@ import { IoIosInformationCircleOutline } from "react-icons/io";
 import { CartResultGuideStyle, CartResultGuideContainerStyle, CartResultsContainerStyle } from "./CartResults.style";
 import { useRecoilValue } from "recoil";
 import { orderAmountState, totalAmountState } from "../../../store/selector/selectors";
-import { itemIdsState } from "../../../store/atom/atoms";
+import { CartItemIdListState } from "../../../store/atom/atoms";
 import { SHIPPING_CONSTANT } from "../../../constants";
 import Divider from "../../Divider/Divider";
 import PaymentDetail from "../../PaymentDetail/PaymentDetail";
@@ -11,7 +11,7 @@ import PaymentDetail from "../../PaymentDetail/PaymentDetail";
 const CartResults = () => {
   const orderAmount = useRecoilValue(orderAmountState);
   const totalAmount = useRecoilValue(totalAmountState);
-  const ids = useRecoilValue(itemIdsState);
+  const ids = useRecoilValue(CartItemIdListState);
 
   return (
     <div css={CartResultsContainerStyle}>

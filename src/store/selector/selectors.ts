@@ -1,5 +1,5 @@
 import { selector } from "recoil";
-import { CartItemCheckedState, itemIdsState, itemQuantityState } from "../atom/atoms";
+import { CartItemCheckedState, CartItemIdListState, itemQuantityState } from "../atom/atoms";
 // import { fetchProducts } from "../api";
 import { SHIPPING_CONSTANT } from "../../constants";
 import { cartState } from "../atom/atoms";
@@ -8,11 +8,11 @@ import { cartState } from "../atom/atoms";
 export const checkAllItemState = selector({
   key: "checkAllItemState",
   get: ({ get }) => {
-    const itemIds = get(itemIdsState);
+    const itemIds = get(CartItemIdListState);
     return itemIds.every((itemId) => get(CartItemCheckedState(itemId)));
   },
   set: ({ set, get }, newValue) => {
-    const itemIds = get(itemIdsState);
+    const itemIds = get(CartItemIdListState);
     itemIds.forEach((itemId) => set(CartItemCheckedState(itemId), newValue));
   },
 });

@@ -5,13 +5,13 @@ import { orderContainerStyle, orderDescriptionStyle, orderTitleStyle } from "./O
 
 import { useEffect, useState } from "react";
 import { fetchCartItemsCounts } from "../../store/api";
-import { itemIdsState } from "../../store/atom/atoms";
+import { CartItemIdListState } from "../../store/atom/atoms";
 import { totalAmountState } from "../../store/selector/selectors";
 import PaymentDetail from "../PaymentDetail/PaymentDetail";
 
 const OrderContainer = () => {
   const totalAmount = useRecoilValue(totalAmountState);
-  const ids = useRecoilValue(itemIdsState);
+  const ids = useRecoilValue(CartItemIdListState);
 
   const [cartItemsCounts, setCartItemsCounts] = useState(0);
 
