@@ -1,4 +1,4 @@
-import { renderHook, waitFor } from '@testing-library/react';
+import { renderHook } from '@testing-library/react';
 import { useCartItemQuantity } from './useCartItemQuantity';
 import { RecoilRoot } from 'recoil';
 import { act } from 'react';
@@ -33,7 +33,7 @@ describe('useCartItemQuantity hook test', () => {
     });
 
     act(() => result.current.setQuantity(33));
-    await act(async () => await waitFor(() => result.current.increaseQuantity()));
+    await act(async () => await result.current.increaseQuantity());
 
     expect(result.current.quantity).toEqual(34);
   });
@@ -44,7 +44,7 @@ describe('useCartItemQuantity hook test', () => {
     });
 
     act(() => result.current.setQuantity(33));
-    await act(async () => await waitFor(() => result.current.decreaseQuantity()));
+    await act(async () => await result.current.decreaseQuantity());
 
     expect(result.current.quantity).toEqual(32);
   });
