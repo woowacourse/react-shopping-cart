@@ -7,10 +7,10 @@ import {
   StyledEmptyCartItemCard,
 } from "./CartContentSection.styled";
 
-export const CartContentSection: React.FC<{ uniqueItemCount: number }> = ({ uniqueItemCount }) => {
+export const CartContentSection: React.FC<{ cartItemCount: number }> = ({ cartItemCount }) => {
   return (
     <StyledCartContentSection>
-      {uniqueItemCount > CART.EMPTY_THRESHOLD ? (
+      {cartItemCount > CART.EMPTY_THRESHOLD ? (
         <StyledContentContainer>
           <CartItemCardList />
           <CartSummary />

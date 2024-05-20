@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { getCartItems } from "../../api";
 import { ConfirmButton } from "../../components/button/confirmButton/ConfirmButton";
 import { CartContentSection } from "../../components/cartContentSection/CartContentSection";
@@ -11,7 +11,7 @@ import { cartSummarySelectorState } from "../../recoil/selector/selector";
 import { StyledCartPage } from "./CartPage.styled";
 
 export const CartPage: React.FC = () => {
-  const setCartItems = useSetRecoilState(cartItemsState);
+  const [cartItems, setCartItems] = useRecoilState(cartItemsState);
   const { uniqueItemCount } = useRecoilValue(cartSummarySelectorState);
 
   useEffect(() => {
@@ -34,8 +34,8 @@ export const CartPage: React.FC = () => {
     <>
       <Header type={HEADER_TYPES.SHOP} />
       <StyledCartPage>
-        <CartHeader uniqueItemCount={uniqueItemCount} />
-        <CartContentSection uniqueItemCount={uniqueItemCount} />
+        <CartHeader cartItemCount={cartItems.length} />
+        <CartContentSection cartItemCount={cartItems.length} />
       </StyledCartPage>
       <ConfirmButton text="주문 확인" mode={buttonMode} />
     </>

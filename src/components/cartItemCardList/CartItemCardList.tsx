@@ -22,7 +22,7 @@ export const CartItemCardList: React.FC = () => {
   useEffect(() => {
     localStorage.setItem("checkedItemState", JSON.stringify(chekcedItems));
     localStorage.setItem("isAllCheckedState", JSON.stringify(isAllChecked));
-  }, [isAllChecked]);
+  }, [chekcedItems, isAllChecked]);
 
   const handleCheckAll = () => {
     const newCheckedItem: Record<number, boolean> = {};
