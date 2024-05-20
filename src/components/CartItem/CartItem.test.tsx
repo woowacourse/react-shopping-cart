@@ -2,6 +2,8 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import CartItem from './CartItem';
 import { RecoilRoot, useRecoilValue } from 'recoil';
 import { cartItemQuantityAtomFamily } from '../../recoil/cartItem/states';
+import { act } from 'react';
+import '@testing-library/jest-dom';
 
 jest.mock('../../apis/cartItemList/cartItemList', () => ({
   requestSetCartItemQuantity: jest.fn(),
@@ -19,7 +21,7 @@ const cartItemDummyData = {
   cartItemId: 1,
 };
 
-describe('CartItem 컴포넌트', () => {
+describe('CartItem 컴포넌트의 상품 개수 증감 테스트', () => {
   const QuantityChecker = ({ cartItemId }: { cartItemId: number }) => {
     const quantity = useRecoilValue(cartItemQuantityAtomFamily(cartItemId));
     return <span data-testid="quantity-value">{quantity}</span>;
@@ -60,5 +62,35 @@ describe('CartItem 컴포넌트', () => {
 
     // 이후 상태
     expect(screen.getByTestId('quantity-value').textContent).toBe((cartItemDummyData.quantity - 1).toString());
+  });
+});
+
+describe('CartItem 컴포넌트에서 장바구니 항목 선택 테스트', () => {
+  const QuantityChecker = ({ cartItemId }: { cartItemId: number }) => {
+    const quantity = useRecoilValue(cartItemQuantityAtomFamily(cartItemId));
+    return <span data-testid="quantity-value">{quantity}</span>;
+  };
+
+  const renderCartItem = ({ cartItemId }: { cartItemId: number }) => {
+    return render(
+      <RecoilRoot>
+        <CartItem {...cartItemDummyData} />
+        <QuantityChecker cartItemId={cartItemId} />
+      </RecoilRoot>,
+    );
+  };
+
+  it('장바구니 항목의 선택 input을 누르면 토글된다.', async () => {
+    renderCartItem({ cartItemId: cartItemDummyData.cartItemId });
+    // screen.debug(); // 콘솔에 DOM 출력
+
+    const checkButton = screen.getAllByAltText('Checkbox')[0];
+    console.log(checkButton);
+
+    await waitFor(async () => fireEvent.click(checkButton));
+    expect(checkButton).toBeChecked();
+
+    await act(async () => fireEvent.click(checkButton));
+    expect(checkButton).not.toBeChecked();
   });
 });
