@@ -6,6 +6,7 @@ import { act } from 'react';
 jest.mock('../../apis/cartItemList/cartItemList', () => ({
   requestSetCartItemQuantity: jest.fn(),
 }));
+
 describe('useCartItemQuantity hook test', () => {
   test('초기 quantity는 초기값 0과 같아야 한다', () => {
     const { result } = renderHook(() => useCartItemQuantity(0), {

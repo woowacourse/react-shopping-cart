@@ -1,4 +1,4 @@
-import * as S from './CartItemListSection.style'
+import * as S from './CartItemListSection.style';
 
 import Title from '../common/Title/Title';
 import Spacer from '../common/Spacer/Spacer';
@@ -18,7 +18,7 @@ const CartItemListSection = () => {
       <Spacer height={52} />
       <PriceTable />
     </S.CartItemListSection>
-  )
-}
+  );
+};
 
 export default CartItemListSection;

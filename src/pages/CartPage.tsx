@@ -1,8 +1,5 @@
 import Header from '../components/Header/Header';
-import { cartItemListState } from '../recoil/cartItemList/cartItemListSelector';
-import { useRecoilValue } from 'recoil';
 import Button from '../components/common/Button/Button';
-import { cartItemSelectedIdListAtom } from '../recoil/cartItem/cartItemAtom';
 import { useNavigate } from 'react-router-dom';
 import CartItemListSection from '../components/CartItemListSection/CartItemListSection';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -13,7 +10,6 @@ import useCartItemList from '../recoil/cartItemList/useCartItemList';
 import { useCartItemSelectedIdList } from '../recoil/cartItem/useCartItemSelectedIdList';
 
 const CartPage = () => {
-
   const { cartItemList } = useCartItemList();
   const { selectedIdList } = useCartItemSelectedIdList();
 
@@ -34,7 +30,9 @@ const CartPage = () => {
         size="l"
         style={{ position: 'fixed', maxWidth: '768px', bottom: '0' }}
         isDisabled={selectedIdList.length === 0 || (cartItemList !== null && cartItemList.length === 0)}
-        onClick={() => navigate('/confirm-purchase', { state: cartItemList.filter(({ id }) => selectedIdList.includes(id)) })}
+        onClick={() =>
+          navigate('/confirm-purchase', { state: cartItemList.filter(({ id }) => selectedIdList.includes(id)) })
+        }
       >
         주문 확인
       </Button>
