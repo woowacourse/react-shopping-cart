@@ -10,32 +10,36 @@ const useUpdateItemQuantity = (id: number) => {
   const [isUpdateLoading, setIsUpdateLoading] = useState(false);
 
   const handleIncreaseQuantity = async () => {
-    setIsUpdateLoading(true);
-
-    const canUpdateCardItemQuantity = await patchCartItemQuantity(
-      id,
-      quantity + 1
-    );
-
-    setIsUpdateLoading(false);
-    if (canUpdateCardItemQuantity) {
+    try {
       setQuantity((prevQuantity) => prevQuantity + 1);
+
+      setIsUpdateLoading(true);
+      await patchCartItemQuantity(id, quantity + 1);
+      setIsUpdateLoading(false);
+    } catch (error) {
+      setIsUpdateLoading(false);
+      setQuantity((prevQuantity) => prevQuantity - 1);
+
+      if (error instanceof Error) {
+        alert(error.message);
+      }
     }
   };
 
   const handleDecreaseQuantity = async () => {
-    if (quantity === 1) return;
-
-    setIsUpdateLoading(true);
-
-    const canUpdateCardItemQuantity = await patchCartItemQuantity(
-      id,
-      quantity - 1
-    );
-
-    setIsUpdateLoading(false);
-    if (canUpdateCardItemQuantity) {
+    try {
       setQuantity((prevQuantity) => prevQuantity - 1);
+
+      setIsUpdateLoading(true);
+      await patchCartItemQuantity(id, quantity - 1);
+      setIsUpdateLoading(false);
+    } catch (error) {
+      setIsUpdateLoading(false);
+      setQuantity((prevQuantity) => prevQuantity + 1);
+
+      if (error instanceof Error) {
+        alert(error.message);
+      }
     }
   };
 
