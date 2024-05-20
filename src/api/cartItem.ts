@@ -17,7 +17,7 @@ async function requestServer<T = void>(path: string, method: string, bodyData?: 
     throw new Error("Failed to fetch data");
   }
 
-  return method !== "DELETE" ? response.json() : null;
+  return method === "GET" ? response.json() : null;
 }
 
 export async function fetchCartItems(): Promise<CartItemResponse[]> {
