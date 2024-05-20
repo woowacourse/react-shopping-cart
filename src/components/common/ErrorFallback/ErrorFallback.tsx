@@ -1,4 +1,4 @@
-import { ErrorResponse, isRouteErrorResponse } from 'react-router-dom';
+import { ErrorResponse, isRouteErrorResponse, useNavigate } from 'react-router-dom';
 import * as Styled from './ErrorFallback.style';
 
 interface ErrorFallbackProps {
@@ -6,6 +6,7 @@ interface ErrorFallbackProps {
 }
 
 export default function ErrorFallback({ error }: ErrorFallbackProps) {
+  const navigate = useNavigate();
   const errorMessage = isRouteErrorResponse(error) ? error.statusText : (error as Error).message;
 
   return (
@@ -17,6 +18,7 @@ export default function ErrorFallback({ error }: ErrorFallbackProps) {
         서둘러 복구하겠습니다. 🙇‍♂️
       </Styled.ErrorDescription>
       <Styled.ErrorMessage>{errorMessage}</Styled.ErrorMessage>
+      <Styled.RefreshButton onClick={() => navigate(0)}>화면 새로고침하기</Styled.RefreshButton>
     </Styled.ErrorContainer>
   );
 }

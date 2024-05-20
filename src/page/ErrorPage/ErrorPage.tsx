@@ -1,10 +1,5 @@
 import { useRouteError, isRouteErrorResponse, useNavigate } from 'react-router-dom';
-import {
-  ErrorFallback,
-  FooterButton,
-  NavigationBar,
-  PreviousPageButton,
-} from '../../components/common';
+import { ErrorFallback, FooterButton, NavigationBar } from '../../components/common';
 
 export default function ErrorPage() {
   const routeError = useRouteError();
@@ -14,9 +9,7 @@ export default function ErrorPage() {
 
   return (
     <>
-      <NavigationBar>
-        <PreviousPageButton onClick={() => navigate(-1)} />
-      </NavigationBar>
+      <NavigationBar />
       <ErrorFallback error={error} />
       <FooterButton type="button" buttonText="홈으로 돌아가기" onClick={() => navigate('/')} />
     </>

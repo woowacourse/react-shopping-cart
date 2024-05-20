@@ -6,24 +6,36 @@ import * as Styled from './CartItemContainer.style';
 
 import { cartItemsState } from '../../../recoil/atoms';
 import { removeCartItem, updateCartItemQuantity } from '../../../apis';
-import { useCheckCartItem } from '../../../hooks';
+import { useCheckCartItem, useFetchError } from '../../../hooks';
+import { ERROR_MESSAGE } from '../../../apis/fetchData/fetchData.constants';
 
 export default function CartItemContainer() {
   const [items, setItems] = useRecoilState(cartItemsState);
   const { isAllChecked, onCheckCartItem, onCheckAllCartItem } = useCheckCartItem();
+  const { throwFetchError, resetFetchError } = useFetchError();
 
   const toggleAllCheck = () => {
     onCheckAllCartItem(!isAllChecked);
   };
 
   const handleDeleteItem = async (cartItemId: number) => {
-    await removeCartItem(cartItemId);
-    onCheckCartItem(cartItemId, false);
-    setItems((prevItems) => prevItems.filter((item) => item.id !== cartItemId));
+    try {
+      await removeCartItem(cartItemId);
+      onCheckCartItem(cartItemId, false);
+      setItems((prevItems) => prevItems.filter((item) => item.id !== cartItemId));
+      resetFetchError();
+    } catch (error) {
+      throwFetchError(error, ERROR_MESSAGE.REMOVE_FROM_CART_FAILED);
+    }
   };
 
   const handleUpdateQuantity = async (cartItemId: number, quantity: number) => {
-    await updateCartItemQuantity(cartItemId, quantity);
+    try {
+      await updateCartItemQuantity(cartItemId, quantity);
+      resetFetchError();
+    } catch (error) {
+      throwFetchError(error, ERROR_MESSAGE.UPDATE_QUANTITY_FAILED);
+    }
   };
 
   return (
@@ -44,13 +56,8 @@ export default function CartItemContainer() {
               cartItemId={item.id}
               product={item.product}
               quantity={item.quantity}
-              handleDelete={(cartItemId: number) => {
-                handleDeleteItem(cartItemId);
-              }}
-              handleIncreaseQuantity={(cartItemId: number, quantity: number) => {
-                handleUpdateQuantity(cartItemId, quantity);
-              }}
-              handleDecreaseQuantity={(cartItemId: number, quantity: number) => {
+              onDelete={(cartItemId: number) => handleDeleteItem(cartItemId)}
+              onUpdateQuantity={(cartItemId: number, quantity: number) => {
                 handleUpdateQuantity(cartItemId, quantity);
               }}
             />

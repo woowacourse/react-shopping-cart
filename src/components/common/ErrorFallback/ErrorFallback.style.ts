@@ -33,3 +33,20 @@ export const ErrorMessage = styled.p`
   white-space: break-spaces;
   text-align: center;
 `;
+
+export const RefreshButton = styled.button`
+  background: #000000;
+  padding: 8px 16px;
+  border-radius: 5px;
+  margin-top: 16px;
+
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  cursor: pointer;
+  transition: 0.3s ease;
+
+  &:hover {
+    background: #222222;
+  }
+`;

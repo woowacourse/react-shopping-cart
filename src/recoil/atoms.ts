@@ -33,3 +33,8 @@ function localStorageEffect<T>(key: string): AtomEffect<T> {
     });
   };
 }
+
+export const fetchErrorState = atom<Error | null>({
+  key: 'fetchErrorState',
+  default: null,
+});
