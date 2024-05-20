@@ -7,7 +7,7 @@ const meta: Meta<typeof LayoutHeader> = {
   component: LayoutHeader,
   decorators: [
     (Story) => (
-      <div style={{ width: '90vw', border: '1px solid black' }}>
+      <div style={{ width: '90vw', border: '1px dashed black' }}>
         <Story />
       </div>
     ),
