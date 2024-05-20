@@ -1,6 +1,6 @@
 import { atomFamily, selector, selectorFamily } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
-import { refreshCartItemsState, fetchedCartItemsState } from './cartItems';
+import { cartItemsState } from './cartItems';
 
 const { persistAtom } = recoilPersist({
   key: 'selectedCartItem',
@@ -32,7 +32,6 @@ export const selectedAllCartItemState = selectorFamily<boolean, number[]>({
 export const selectedSomeCartItemState = selector<boolean>({
   key: 'selectedSomeCartItem',
   get: ({ get }) => {
-    get(refreshCartItemsState);
     return get(cartItemIdsState).some((cartItemId) =>
       get(selectedCartItemState(cartItemId)),
     );
@@ -42,6 +41,6 @@ export const selectedSomeCartItemState = selector<boolean>({
 export const cartItemIdsState = selector({
   key: 'CartItemIds',
   get: ({ get }) => {
-    return get(fetchedCartItemsState).map((cartItem) => cartItem.id);
+    return get(cartItemsState).map((cartItem) => cartItem.id);
   },
 });

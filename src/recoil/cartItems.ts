@@ -1,30 +1,29 @@
 import { atom, selector } from 'recoil';
-import { CartItem } from '../type';
 import { fetchCartItems } from '../api/shoppingCart';
 import { selectedCartItemState } from './selectedCardItems';
 
 export const fetchedCartItemsState = selector({
   key: 'fetchedCartItemsState',
-  get: async ({ get }) => {
-    get(refreshCartItemsState);
-    const cartItems = await fetchCartItems();
-    return cartItems;
+  get: async () => {
+    return await fetchCartItems();
   },
 });
 
-export const refreshCartItemsState = atom<CartItem[]>({
-  key: 'cartItemsState',
-  default: [],
+export const cartItemsState = atom({
+  key: 'cartItems',
+  default: fetchedCartItemsState,
 });
 
 export const cartItemsCalculatorState = selector({
   key: 'cartItemsCalculatorSelector',
   get: async ({ get }) => {
-    const cartItems = get(fetchedCartItemsState);
+    const cartItems = get(cartItemsState);
 
     const selectedCartItems = cartItems.filter((cartItem) =>
       get(selectedCartItemState(cartItem.id)),
     );
+
+    const selectedCartItemCount = selectedCartItems.length;
 
     const totalCartItemQuantity = selectedCartItems.reduce(
       (totalCartItemQuantity, cartItem) => {
@@ -48,8 +47,8 @@ export const cartItemsCalculatorState = selector({
 
     return {
       totalOrderAmount,
+      selectedCartItemCount,
       totalCartItemQuantity,
-      selectedCartItemCount: selectedCartItems.length,
       shippingFee,
       totalPaymentAmount,
     };
