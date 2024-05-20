@@ -1,4 +1,6 @@
 import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+
 import {
   CartDescription,
   CartItemList,
@@ -10,20 +12,25 @@ import {
 
 import CartLayout from "../layouts/Cart";
 import HomeButton from "../components/button/HomeButton";
+import ErrorFallback from "../components/_common/ErrorFallback";
 
 const CartPage = () => {
   return (
-    <Suspense fallback={<Loading />}>
+    <>
       <Header>
         <HomeButton />
       </Header>
-      <CartLayout>
-        <CartDescription />
-        <CartItemList />
-        <CartPrice />
-      </CartLayout>
-      <Footer />
-    </Suspense>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <Suspense fallback={<Loading />}>
+          <CartLayout>
+            <CartDescription />
+            <CartItemList />
+            <CartPrice />
+          </CartLayout>
+          <Footer />
+        </Suspense>
+      </ErrorBoundary>
+    </>
   );
 };
 
