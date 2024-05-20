@@ -18,3 +18,8 @@ export const cartListState = atom<CartItemType[]>({
   key: 'cartListState',
   default: cartState,
 });
+
+export const shippingAreaState = atom({
+  key: 'shippingAreaState',
+  default: 'normal',
+});

@@ -1,13 +1,16 @@
-import { FREE_SHIPPING_CONDITION, SHIPPING_FEE } from '@/constants/system';
 import { OrderedItem, Recipe } from '@/types/recipe.type';
 import { cartListState, filteredCartItemState } from '@/store/atoms';
 
+import { FREE_SHIPPING_CONDITION } from '@/constants/system';
 import { selector } from 'recoil';
+import { shippingFeeState } from './shippingFeeSelector';
 
 export const recipeState = selector<Recipe>({
   key: 'recipeState',
   get: ({ get }) => {
     const cartList = get(cartListState);
+    const shippingAreaFee = get(shippingFeeState);
+
     const cartItemStates = cartList.map((state) =>
       get(filteredCartItemState(state.id))
     );
@@ -19,7 +22,8 @@ export const recipeState = selector<Recipe>({
       return acc;
     }, 0);
 
-    const shippingFee = orderPrice > FREE_SHIPPING_CONDITION ? 0 : SHIPPING_FEE;
+    const shippingFee =
+      orderPrice > FREE_SHIPPING_CONDITION ? 0 : shippingAreaFee;
     const totalPrice = orderPrice + shippingFee;
 
     return {
