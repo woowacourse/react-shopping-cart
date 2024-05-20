@@ -23,7 +23,7 @@ import {
   shippingFeeSelector,
 } from "@/recoil/orderInformation";
 
-jest.mock("../apis/index", () => ({
+jest.mock("../auth/utils/index", () => ({
   config: {
     apiUrl: "http://localhost:mock",
   },

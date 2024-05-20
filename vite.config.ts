@@ -17,6 +17,7 @@ export default defineConfig({
       { find: "@/apis", replacement: "/src/apis" },
       { find: "@/utils", replacement: "/src/utils" },
       { find: "@/constants", replacement: "/src/constants" },
+      { find: "@/auth", replacement: "/src/auth" },
     ],
   },
 });

@@ -16,7 +16,7 @@ import * as S from "./ProductItem.style";
 import { cartItems } from "@/recoil/cartItems";
 import { formatToWon } from "@/utils/stringHelper";
 import { selectedCartItemsIdState } from "@/recoil/selectedCardItems";
-import { removeCartItem } from "@/apis/cart";
+import { removeCartItem } from "@/auth/apis/cart";
 
 const ProductItem = ({ item }: { item: CartItem }) => {
   const { product, id } = item;
