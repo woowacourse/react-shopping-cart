@@ -7,7 +7,7 @@ import UnSelectedBox from '../assets/UnSelectedBox.svg';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   cartItemIdsState,
-  selectedAllCartItemState,
+  isAllCartItemSelectedState,
 } from '../../recoil/selectedCardItems';
 import { cartItemsState } from '../../recoil/cartItems';
 
@@ -19,7 +19,7 @@ const CartItems = () => {
   const cartItemIds = useRecoilValue(cartItemIdsState);
 
   const [isAllSelected, setIsAllSelected] = useRecoilState(
-    selectedAllCartItemState(cartItemIds),
+    isAllCartItemSelectedState(cartItemIds),
   );
 
   const handleSelectedAll = () => {
