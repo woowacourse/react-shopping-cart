@@ -19,7 +19,7 @@ export const SubTitle = styled.div`
   font-weight: 700;
 `;
 
-export const Description = styled.div`
+export const Description = styled.p`
   font-size: 12px;
 `;
 
