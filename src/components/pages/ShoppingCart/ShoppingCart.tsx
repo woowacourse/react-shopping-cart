@@ -7,15 +7,16 @@ import Title from '../../Title/Title';
 import TotalPaymentInfo from '../../TotalPaymentInfo/TotalPaymentInfo';
 
 import { useRecoilValue } from 'recoil';
-import { fetchedCartItemsState } from '../../../recoil/cartItems';
+import { cartItemsState } from '../../../recoil/cartItems';
 import { selectedSomeCartItemState } from '../../../recoil/selectedCardItems';
 import { useNavigate } from 'react-router-dom';
+
 import MESSAGE from '../../../constants/Message';
 
 const ShoppingCart = () => {
   const navigator = useNavigate();
 
-  const cartItems = useRecoilValue(fetchedCartItemsState);
+  const cartItems = useRecoilValue(cartItemsState);
 
   const cartItemCount = cartItems.length;
   const hasSomeCartItem = !!cartItemCount;
