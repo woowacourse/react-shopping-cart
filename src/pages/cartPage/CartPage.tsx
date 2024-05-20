@@ -7,12 +7,12 @@ import { CartHeader } from "../../components/cartHeader/CartHeader";
 import Header from "../../components/header/Header";
 import { BUTTON_COLORS, CART, ERROR_MESSAGES, HEADER_TYPES } from "../../constants";
 import { cartItemsState } from "../../recoil/atoms/atoms";
-import { uniqueItemCountState } from "../../recoil/selector/selector";
+import { cartSummarySelectorState } from "../../recoil/selector/selector";
 import { StyledCartPage } from "./CartPage.styled";
 
 export const CartPage: React.FC = () => {
   const setCartItems = useSetRecoilState(cartItemsState);
-  const uniqueItemCount = useRecoilValue(uniqueItemCountState);
+  const { uniqueItemCount } = useRecoilValue(cartSummarySelectorState);
 
   useEffect(() => {
     const fetchCartItems = async () => {

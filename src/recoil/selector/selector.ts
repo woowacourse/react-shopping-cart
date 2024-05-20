@@ -3,33 +3,32 @@ import { DELIVERY } from "../../constants";
 import { CartSummary } from "../../types";
 import { cartItemsState, checkedItemState } from "../atoms/atoms";
 
-export const uniqueItemCountState = selector<number>({
-  key: "uniqueItemCountState",
-  get: ({ get }) => {
-    const cartItems = get(cartItemsState);
-    return cartItems.length;
-  },
-});
-
 export const cartSummarySelectorState = selector<CartSummary>({
   key: "cartSummarySelectorState",
   get: ({ get }) => {
     const cartItems = get(cartItemsState);
     const checkedItems = get(checkedItemState);
 
-    const orderPrice = cartItems.reduce(
-      (total, item) => (checkedItems[item.id] ? total + item.product.price * item.quantity : total),
+    const checkedCartItems = cartItems.filter((item) => checkedItems[item.id]);
+
+    const orderPrice = checkedCartItems.reduce(
+      (total, item) => total + item.product.price * item.quantity,
       0
     );
     const deliveryPrice =
       orderPrice === 0 || orderPrice >= DELIVERY.FREE_THRESHOLD ? DELIVERY.FREE : DELIVERY.STANDARD;
     const totalPrice = orderPrice + deliveryPrice;
 
+    const uniqueItemCount = checkedCartItems.length;
+    const totalItemCount = checkedCartItems.reduce((total, item) => total + item.quantity, 0);
+
     return {
       cartItems,
       orderPrice,
       deliveryPrice,
       totalPrice,
+      uniqueItemCount,
+      totalItemCount,
     };
   },
 });

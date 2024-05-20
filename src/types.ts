@@ -19,4 +19,6 @@ export interface CartSummary {
   orderPrice: number;
   deliveryPrice: number;
   totalPrice: number;
+  uniqueItemCount: number;
+  totalItemCount: number;
 }

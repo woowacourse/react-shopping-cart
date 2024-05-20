@@ -1,11 +1,8 @@
-import { useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { getCartItemCounts } from "../../api";
+import { useRecoilValue } from "recoil";
 import { ConfirmButton } from "../../components/button/confirmButton/ConfirmButton";
 import Header from "../../components/header/Header";
-import { BUTTON_COLORS, ERROR_MESSAGES, HEADER_TYPES, INFO_MESSAGES } from "../../constants";
-import { totalItemCountState } from "../../recoil/atoms/atoms";
-import { cartSummarySelectorState, uniqueItemCountState } from "../../recoil/selector/selector";
+import { BUTTON_COLORS, HEADER_TYPES, INFO_MESSAGES } from "../../constants";
+import { cartSummarySelectorState } from "../../recoil/selector/selector";
 import {
   StyledConfirmationPage,
   StyledConfirmationPageDescription,
@@ -16,22 +13,7 @@ import {
 } from "./OrderConfirmationPage.styled";
 
 export const OrderConfirmationPage: React.FC = () => {
-  const { totalPrice } = useRecoilValue(cartSummarySelectorState);
-  const uniqueItemCount = useRecoilValue(uniqueItemCountState);
-  const [totalItemCount, setTotalItemCount] = useRecoilState(totalItemCountState);
-
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      try {
-        const { quantity } = await getCartItemCounts();
-        setTotalItemCount(quantity);
-      } catch (error) {
-        console.error(ERROR_MESSAGES.FETCH_CART_ITEMS, error);
-      }
-    };
-
-    fetchCartItems();
-  }, [setTotalItemCount]);
+  const { totalPrice, uniqueItemCount, totalItemCount } = useRecoilValue(cartSummarySelectorState);
 
   return (
     <>
