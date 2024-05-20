@@ -51,8 +51,8 @@ const Item = ({ cartItem, onRemoveItem, onAdjustItemQuantity }: ItemProp) => {
             >
               <img
                 src={cartItem.quantity === 1 ? BinButton : MinusButton}
-                alt="-"
-              ></img>
+                alt={cartItem.quantity === 1 ? '삭제 버튼' : '마이너스 버튼'}
+              />
             </Styled.Button>
             <Styled.ItemQuantity>{cartItem.quantity}</Styled.ItemQuantity>
             <Styled.Button
