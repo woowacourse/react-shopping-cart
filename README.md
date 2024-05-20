@@ -4,22 +4,22 @@
 
 ### App Page
 
-- [ ] Header
+- [x] Header
 
 ### Cart Page
 
-- [ ] PageTitle : 각 페이지 타이틀, 설명
-- [ ] CartItemList : 장바구니 상품 목록
-  - [ ] CheckboxButton : 전체선택 버튼
-  - [ ] CartItem : 장바구니 상품
-    - [ ] Img : 상품 이미지
-    - [ ] Button : 버튼 스타일 1
-      - [ ] CheckboxButton : 상품 선택 버튼
-      - [ ] DeleteButton : 상품 삭제 버튼
-      - [ ] ItemCounter : 상품 수량 증감
-        - [ ] CountingButton : 상품 수량 증감 버튼
-- [ ] OrderSummary : 선택 상품 주문 요약 요약
-- [ ] FooterButton : 앱 하단 버틑 (주문확인, 결제하기)
+- [x] PageTitle : 각 페이지 타이틀, 설명
+- [x] CartItemList : 장바구니 상품 목록
+  - [x] CheckboxButton : 전체선택 버튼
+  - [x] CartItem : 장바구니 상품
+    - [x] Img : 상품 이미지
+    - [x] Button : 버튼 스타일 1
+      - [x] CheckboxButton : 상품 선택 버튼
+      - [x] DeleteButton : 상품 삭제 버튼
+      - [x] ItemCounter : 상품 수량 증감
+        - [x] CountingButton : 상품 수량 증감 버튼
+- [x] OrderSummary : 선택 상품 주문 요약 요약
+- [x] FooterButton : 앱 하단 버틑 (주문확인, 결제하기)
 
 ### OrderConfirm Page
 
@@ -37,13 +37,13 @@
 
 ### Atoms
 
-- [ ] 개별 상품의 선택 여부
-- [ ] 개별 상품의 수량
+- [x] 개별 상품의 선택 여부
+- [x] 개별 상품의 수량
 
 ### Selectors
 
-- [ ] 결제 금액
-- [ ] 배송비
+- [x] 결제 금액
+- [x] 배송비
 
 ### recoil-persist
 
