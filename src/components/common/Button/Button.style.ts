@@ -90,15 +90,18 @@ export const Button = styled.button<ButtonProps>`
     }
   }};
 
-  &:hover {
-    background-color: ${({ color }) => {
-      switch (color) {
-        case 'default':
-          return hoverColorGenerator('#FFFFFF');
-        default:
-          return hoverColorGenerator('#333333');
-      }
-    }};
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      cursor: pointer;
+      background-color: ${({ color }) => {
+        switch (color) {
+          case 'default':
+            return '#f5f5f5';
+          default:
+            return '#333333';
+        }
+      }};
+    }
   }
 
   &:disabled {
