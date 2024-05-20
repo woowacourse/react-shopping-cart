@@ -16,13 +16,13 @@ export const TOTAL_PRICE_UNDER_100000_DATA = [
     quantity: 2,
     product: {
       id: 10,
-      name: '퓨마',
+      name: '아디다스',
       price: 10000,
       imageUrl: 'https://sitem.ssgcdn.com/47/78/22/item/1000031227847_i1_750.jpg',
       category: 'fashion',
     },
   },
-];
+] as const;
 
 export const TOTAL_PRICE_OVER_100000_DATA = [
   {
@@ -36,4 +36,4 @@ export const TOTAL_PRICE_OVER_100000_DATA = [
       category: 'fashion',
     },
   },
-];
+] as const;

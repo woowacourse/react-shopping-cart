@@ -57,7 +57,7 @@ const CartItemMainSection = ({ item }: CartItemMainSectionProps) => {
           >
             <img css={countImage} src={MINUS} alt="minus icon" />
           </Button>
-          <span>{item.quantity}</span>
+          <span data-testid={item.product.name + 'quantity'}>{item.quantity}</span>
           <Button
             id={item.product.name + 'plus-button'}
             css={countButton()}
