@@ -1,6 +1,4 @@
 import { css } from "@emotion/css";
-import { useRecoilState } from "recoil";
-import { cartItemsAtom } from "../../recoil/atom/atom";
 
 interface LabelValueProps {
   label: string;
@@ -8,7 +6,6 @@ interface LabelValueProps {
 }
 
 const LabelValue = ({ label, value }: LabelValueProps) => {
-  useRecoilState(cartItemsAtom);
   return (
     <div className={containerCSS}>
       <div>
