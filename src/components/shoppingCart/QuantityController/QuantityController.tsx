@@ -21,6 +21,7 @@ export default function QuantityController({
         $controlType="decrease"
         onClick={() => onChangeQuantity('decrease')}
         disabled={minQuantity >= quantity}
+        data-testid="cart-item-decrease-button"
       />
       {quantity}
       <QuantityControlButton
@@ -28,6 +29,7 @@ export default function QuantityController({
         $controlType="increase"
         onClick={() => onChangeQuantity('increase')}
         disabled={quantity >= maxQuantity}
+        data-testid="cart-item-increase-button"
       />
     </QuantityControllerContainer>
   );

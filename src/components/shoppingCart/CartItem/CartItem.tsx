@@ -49,7 +49,11 @@ export default function CartItem({
   return (
     <Styled.CartItemContainer>
       <Styled.CardItemHeader>
-        <CheckBox isChecked={isChecked(cartItemId)} onClick={toggleCheckBox} />
+        <CheckBox
+          isChecked={isChecked(cartItemId)}
+          onClick={toggleCheckBox}
+          data-testid="cart-item-checkbox"
+        />
         <DeleteItemButton type="button" buttonText="삭제" onClick={handleClickDeleteButton} />
       </Styled.CardItemHeader>
       <Styled.CardItemContent>
