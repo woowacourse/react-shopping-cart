@@ -5,7 +5,6 @@ import MinusIcon from "../../assets/MinusIcon.svg?react";
 import PlusIcon from "../../assets/PlusIcon.svg?react";
 import { useRecoilState } from "recoil";
 import { Product } from "../../types";
-
 import { patchCartItemQuantity } from "../../api/cartItemApi";
 import { cartItemCheckedIdsAtom } from "../../recoil/atom/atom";
 import { quantitySelector } from "../../recoil/selector/selector";
@@ -22,24 +21,12 @@ const CartItem = ({ product, handleDelete }: CardItemProps) => {
   const [checkedIds, setCheckedIds] = useRecoilState(cartItemCheckedIdsAtom);
 
   const handleChecked = () => {
-    const alreadyChecked = checkedIds.includes(product.id);
-    if (alreadyChecked) {
-      setCheckedIds(checkedIds.filter((id) => id !== product.id));
-    } else {
-      setCheckedIds([...checkedIds, product.id]);
-    }
+    setCheckedIds((prev) => (prev.includes(product.id) ? prev.filter((id) => id !== product.id) : [...prev, product.id]));
   };
 
-  const handleIncrement = () => {
-    const increasedQuantity = quantity + 1;
-    patchCartItemQuantity(product.id, increasedQuantity);
-    setQuantity({ [String(product.id)]: increasedQuantity });
-  };
-
-  const handleDecrement = () => {
-    const decreasedQuantity = Math.max(quantity - 1, 1);
-    patchCartItemQuantity(product.id, decreasedQuantity);
-    setQuantity({ [String(product.id)]: decreasedQuantity });
+  const updateQuantity = (newQuantity: number) => {
+    patchCartItemQuantity(product.id, newQuantity);
+    setQuantity({ [String(product.id)]: newQuantity });
   };
 
   return (
@@ -66,14 +53,14 @@ const CartItem = ({ product, handleDelete }: CardItemProps) => {
           <div className={ItemCountCSS}>
             <Button
               variant="secondary"
-              onClick={handleDecrement}
+              onClick={() => updateQuantity(Math.max(quantity - 1, 1))}
             >
               <MinusIcon />
             </Button>
             <p>{quantity}</p>
             <Button
               variant="secondary"
-              onClick={handleIncrement}
+              onClick={() => updateQuantity(quantity + 1)}
             >
               <PlusIcon />
             </Button>

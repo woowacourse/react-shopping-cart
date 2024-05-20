@@ -13,23 +13,21 @@ export const fetchCartItemsSelector = selector({
 });
 
 // 전체 id에 대한 양을 가지고 있는 셀렉터. (get: {id: quantity, ...}. set: 해당 id를 해당 quantity로 변경 )
-export const quantitySelector = selector<Record<string, number>>({
-  key: "cartItemQuantity",
+export const quantitySelector = selector({
+  key: "quantitySelector",
   get: ({ get }) => {
     const cartItems = get(cartItemsAtom);
-    return Object.fromEntries(cartItems.map((item) => [item.id, item.quantity]));
+    return cartItems.reduce((acc, item) => {
+      acc[item.id] = item.quantity;
+      return acc;
+    }, {});
   },
-  set: ({ set }, newValue) => {
+  set: ({ get, set }, newValue) => {
+    const cartItems = get(cartItemsAtom);
     const id = Number(Object.keys(newValue)[0]);
     const newQuantity = Object.values(newValue)[0];
-    set(cartItemsAtom, (prev) =>
-      prev.map((item) => {
-        if (item.id === id) {
-          return { ...item, quantity: newQuantity };
-        }
-        return item;
-      })
-    );
+    const updatedItems = cartItems.map((item) => (item.id === id ? { ...item, quantity: newQuantity } : item));
+    set(cartItemsAtom, updatedItems);
   },
 });
 
@@ -39,18 +37,12 @@ export const allCheckedSelector = selector({
   get: ({ get }) => {
     const cartItems = get(cartItemsAtom);
     const checkedIds = get(cartItemCheckedIdsAtom);
-    return cartItems.length === checkedIds.length;
+    return cartItems.length > 0 && cartItems.length === checkedIds.length;
   },
   set: ({ get, set }, newIsAllChecked) => {
     const cartItems = get(cartItemsAtom);
-    if (!newIsAllChecked) {
-      set(cartItemCheckedIdsAtom, []);
-      return;
-    }
-    set(
-      cartItemCheckedIdsAtom,
-      cartItems.map((item) => item.id)
-    );
+    const newCheckedIds = newIsAllChecked ? cartItems.map((item) => item.id) : [];
+    set(cartItemCheckedIdsAtom, newCheckedIds);
   },
 });
 
