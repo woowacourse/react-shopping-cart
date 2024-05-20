@@ -18,7 +18,7 @@ import {
   CartItemIdListState,
   itemQuantityState,
 } from "../../../../../store/atom/atoms";
-import { changeProductAmount, deleteProduct } from "../../../../../store/api";
+import { changeProductAmount, deleteCartItemResponse } from "../../../../../store/api";
 import Divider from "../../../../Divider/Divider";
 import Checkbox from "../../../../Button/Checkbox/Checkbox";
 import DeleteButton from "../../../../Button/DeleteButton/DeleteButton";
@@ -50,7 +50,7 @@ const CartItem = ({ CartItemInfo }: CartItemProps) => {
 
   const executeDeleteProduct = () => {
     deleteProductId();
-    deleteProduct(id);
+    deleteCartItemResponse(id);
     deleteCartItemCheckedStateInStorage(id);
     setCartState((prev) => {
       const temp = JSON.parse(JSON.stringify(prev));
