@@ -1,28 +1,71 @@
-import { CartItem } from '../../type';
 import * as Styled from './style';
+
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { selectedCartItemState } from '../../recoil/selectedCardItems';
+import { cartItemsState } from '../../recoil/cartItems';
+
 import selectedBox from '../assets/SelectedBox.svg';
 import UnSelectedBox from '../assets/UnSelectedBox.svg';
 import PlusButton from '../assets/PlusButton.svg';
 import MinusButton from '../assets/MinusButton.svg';
 import RemoveButton from '../assets/RemoveButton.svg';
-import { useRecoilState } from 'recoil';
-import { selectedCartItemState } from '../../recoil/selectedCardItems';
+
 import MESSAGE from '../../constants/Message';
 import CONDITION from '../../constants/Condition';
+import { CartItem } from '../../type';
+
+type OperatorType = 'increase' | 'decrease';
 
 interface ItemProp {
-  cartItem: CartItem;
-  onRemoveItem: (id: number) => void;
-  onAdjustItemQuantity: (cartItemId: number, quantity: number) => void;
+  inputCartItem: CartItem;
 }
-const Item = ({ cartItem, onRemoveItem, onAdjustItemQuantity }: ItemProp) => {
+
+const Item = ({ inputCartItem }: ItemProp) => {
   const [isSelected, setIsSelected] = useRecoilState(
-    selectedCartItemState(cartItem.id),
+    selectedCartItemState(inputCartItem.id),
   );
+
+  const setCartItems = useSetRecoilState(cartItemsState);
+
+  const handleRemoveCartItem = () => {
+    setCartItems((prevCartItems) =>
+      [...prevCartItems].filter((cartItem) => cartItem.id !== inputCartItem.id),
+    );
+  };
+
+  const adjustCartItemQuantity = (operator: OperatorType) => {
+    setCartItems((prevCartItems) =>
+      [...prevCartItems].map((cartItem) => {
+        if (cartItem.id === inputCartItem.id)
+          return {
+            id: cartItem.id,
+            product: cartItem.product,
+            quantity:
+              operator === 'increase'
+                ? cartItem.quantity + CONDITION.adjustTerm
+                : cartItem.quantity - CONDITION.adjustTerm,
+          };
+
+        return cartItem;
+      }),
+    );
+  };
+
+  const handleIncreaseCartItemQuantity = () => {
+    adjustCartItemQuantity('increase');
+  };
+
+  const handleDecreaseCartItemQuantity = () => {
+    adjustCartItemQuantity('decrease');
+
+    if (inputCartItem.quantity === CONDITION.RemoveButtonAppeared)
+      handleRemoveCartItem();
+  };
 
   return (
     <Styled.Item>
       <Styled.Divider />
+
       <Styled.ButtonContainer>
         <Styled.SelectButton onClick={() => setIsSelected((prop) => !prop)}>
           <img
@@ -30,45 +73,38 @@ const Item = ({ cartItem, onRemoveItem, onAdjustItemQuantity }: ItemProp) => {
             alt={isSelected ? MESSAGE.selected : MESSAGE.unSelected}
           />
         </Styled.SelectButton>
-        <Styled.RemoveButton onClick={() => onRemoveItem(cartItem.id)}>
+        <Styled.RemoveButton onClick={handleRemoveCartItem}>
           {MESSAGE.remove}
         </Styled.RemoveButton>
       </Styled.ButtonContainer>
+
       <Styled.ItemInfoContainer>
-        <Styled.ItemImg src={cartItem.product.imageUrl} />
+        <Styled.ItemImg src={inputCartItem.product.imageUrl} />
         <Styled.ItemInfo>
           <Styled.ItemDetails>
-            <Styled.ItemName>{cartItem.product.name}</Styled.ItemName>
+            <Styled.ItemName>{inputCartItem.product.name}</Styled.ItemName>
             <Styled.ItemPrice>
-              {cartItem.product.price.toLocaleString('ko-kr')}
+              {inputCartItem.product.price.toLocaleString('ko-kr')}
               {MESSAGE.koreanCurrencyUnit}
             </Styled.ItemPrice>
           </Styled.ItemDetails>
           <Styled.ItemQuantityAdjustment>
-            <Styled.SelectButton
-              onClick={() => {
-                onAdjustItemQuantity(cartItem.id, cartItem.quantity - 1);
-              }}
-            >
+            <Styled.SelectButton onClick={handleDecreaseCartItemQuantity}>
               <img
                 src={
-                  cartItem.quantity === CONDITION.RemoveButtonAppeared
+                  inputCartItem.quantity === CONDITION.RemoveButtonAppeared
                     ? RemoveButton
                     : MinusButton
                 }
                 alt={
-                  cartItem.quantity === CONDITION.RemoveButtonAppeared
+                  inputCartItem.quantity === CONDITION.RemoveButtonAppeared
                     ? MESSAGE.removeButton
                     : MESSAGE.minusButton
                 }
               />
             </Styled.SelectButton>
-            <Styled.ItemQuantity>{cartItem.quantity}</Styled.ItemQuantity>
-            <Styled.SelectButton
-              onClick={() => {
-                onAdjustItemQuantity(cartItem.id, cartItem.quantity + 1);
-              }}
-            >
+            <Styled.ItemQuantity>{inputCartItem.quantity}</Styled.ItemQuantity>
+            <Styled.SelectButton onClick={handleIncreaseCartItemQuantity}>
               <img src={PlusButton} alt={MESSAGE.plusButton} />
             </Styled.SelectButton>
           </Styled.ItemQuantityAdjustment>

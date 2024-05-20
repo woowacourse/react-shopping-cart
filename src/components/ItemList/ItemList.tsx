@@ -1,41 +1,18 @@
-import { CartItem } from '../../type';
-import Item from './Item';
 import * as Styled from './style';
+
+import Item from './Item';
 import SelectedBox from '../assets/SelectedBox.svg';
 import UnSelectedBox from '../assets/UnSelectedBox.svg';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedAllCartItemState } from '../../recoil/selectedCardItems';
-import { adjustCartItemQuantity, removeCartItem } from '../../api/shoppingCart';
-import {
-  fetchedCartItemsState,
-  refreshCartItemsState,
-} from '../../recoil/cartItems';
+import { cartItemsState } from '../../recoil/cartItems';
+
 import MESSAGE from '../../constants/Message';
+import { CartItem } from '../../type';
 
 const ItemList = () => {
-  const updateCartItem = useSetRecoilState(refreshCartItemsState);
-  const cartItems = useRecoilValue(fetchedCartItemsState);
-
-  const handleRemoveCartItem = async (cartItemId: number) => {
-    try {
-      await removeCartItem(cartItemId);
-      updateCartItem([]);
-    } catch (error) {
-      console.error(MESSAGE.removeError, error);
-    }
-  };
-
-  const handleAdjustCartItemQuantity = async (
-    cartItemId: number,
-    quantity: number,
-  ) => {
-    try {
-      await adjustCartItemQuantity(cartItemId, quantity);
-      updateCartItem([]);
-    } catch (error) {
-      console.error(MESSAGE.adjustQuantityError, error);
-    }
-  };
+  const cartItems = useRecoilValue(cartItemsState);
 
   const cartItemIds = cartItems.map((cartItem) => cartItem.id);
   const [isAllSelected, setisAllSelected] = useRecoilState(
@@ -57,14 +34,7 @@ const ItemList = () => {
         <Styled.SelectMessage>{MESSAGE.allSelected}</Styled.SelectMessage>
       </Styled.AllSelectContainer>
       {cartItems.map((cartItem: CartItem) => {
-        return (
-          <Item
-            key={cartItem.id}
-            cartItem={cartItem}
-            onRemoveItem={handleRemoveCartItem}
-            onAdjustItemQuantity={handleAdjustCartItemQuantity}
-          />
-        );
+        return <Item inputCartItem={cartItem} />;
       })}
     </Styled.ItemList>
   );
