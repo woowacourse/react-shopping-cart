@@ -2,9 +2,9 @@ import Header from '../components/Header/Header';
 import Cart from '../components/Cart/Cart';
 import { FloatingButton } from '../components/Button';
 import { useNavigate } from 'react-router-dom';
-import { cartQuantity } from '../recoil/atoms';
+import { cartQuantity } from '../recoil/atoms/atoms';
 import { useRecoilValue } from 'recoil';
-import { checkedCartItems } from '../recoil/selectors';
+import { checkedCartItems } from '../recoil/selectors/selectors';
 
 export default function CartPage() {
   const navigate = useNavigate();

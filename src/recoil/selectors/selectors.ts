@@ -1,5 +1,5 @@
 import { selector } from 'recoil';
-import { cartData, cartItemCheckState } from './atoms';
+import { cartData, cartItemCheckState } from '../atoms/atoms';
 
 export const allCartItemsCheckState = selector<boolean>({
   key: 'allCartItemsCheckState',

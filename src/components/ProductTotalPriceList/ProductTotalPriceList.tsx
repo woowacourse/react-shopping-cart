@@ -5,7 +5,7 @@ import {
   PriceGroup,
 } from './ProductTotalPriceList.style';
 import { useRecoilValue } from 'recoil';
-import { calculateOrderPrice } from '../../recoil/selectors';
+import { calculateOrderPrice } from '../../recoil/selectors/selectors';
 
 export default function ProductTotalPriceList() {
   const { totalOrderPrice, deliveryFee, totalPrice } =

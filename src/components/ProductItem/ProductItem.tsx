@@ -4,7 +4,7 @@ import {
   cartData,
   cartItemCheckState,
   cartQuantity,
-} from '../../recoil/atoms';
+} from '../../recoil/atoms/atoms';
 import { patchCartItem, removeCartItem } from '../../api';
 
 import CheckBox from '../CheckBox/CheckBox';

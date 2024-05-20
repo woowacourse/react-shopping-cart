@@ -1,6 +1,9 @@
 import { useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom';
-import { calculateOrderPrice, checkedCartItems } from '../recoil/selectors';
+import {
+  calculateOrderPrice,
+  checkedCartItems,
+} from '../recoil/selectors/selectors';
 
 import Header from '../components/Header/Header';
 import { FloatingButton } from '../components/Button';

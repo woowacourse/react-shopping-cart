@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import { cartData, cartQuantity } from '../../recoil/atoms';
+import { cartData, cartQuantity } from '../../recoil/atoms/atoms';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 

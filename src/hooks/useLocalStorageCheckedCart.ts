@@ -1,7 +1,7 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { checkedCartItems } from '../recoil/selectors';
+import { checkedCartItems } from '../recoil/selectors/selectors';
 import { useEffect } from 'react';
-import { cartItemCheckState } from '../recoil/atoms';
+import { cartItemCheckState } from '../recoil/atoms/atoms';
 
 export default function useLocalStorageCheckedCart({
   cartId,

@@ -1,6 +1,6 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { cartData } from '../../recoil/atoms';
-import { allCartItemsCheckState } from '../../recoil/selectors';
+import { cartData } from '../../recoil/atoms/atoms';
+import { allCartItemsCheckState } from '../../recoil/selectors/selectors';
 
 import CheckBox from '../CheckBox/CheckBox';
 import ProductItem from '../ProductItem/ProductItem';

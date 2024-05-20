@@ -1,5 +1,5 @@
 import { atom, atomFamily } from 'recoil';
-import { fetchCartItem, getCartCounts } from '../api';
+import { fetchCartItem, getCartCounts } from '../../api';
 
 export const cartData = atom<Cart[]>({
   key: 'cartData',
