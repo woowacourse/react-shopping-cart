@@ -16,28 +16,26 @@ import useLocalStorageCheckedCart from '../../hooks/useLocalStorageCheckedCart';
 export default function ProductItem({ cartItem }: { cartItem: Cart }) {
   useLocalStorageCheckedCart({ cartId: cartItem.id });
 
-  const [quantity, setQuantity] = useRecoilState(
-    cartItemQuantityState(cartItem.id),
-  );
+  const [quantity, setQuantity] = useRecoilState(cartItemQuantityState);
   const [totalProductCount, setTotalProductCount] =
     useRecoilState(cartQuantity);
   const [isCheck, setIsCheck] = useRecoilState(cartItemCheckState(cartItem.id));
   const setCart = useSetRecoilState(cartData);
 
   const handleIncrement = () => {
-    const newQuantity = quantity + 1;
+    const newQuantity = quantity[cartItem.id] + 1;
     patchCartItem(cartItem.id, newQuantity).then(() => {
-      setQuantity(newQuantity);
+      setQuantity((prev) => ({ ...prev, [cartItem.id]: newQuantity }));
       updateCart(newQuantity);
     });
   };
 
   const handleDecrement = () => {
-    if (quantity === 1) return;
+    if (quantity[cartItem.id] === 1) return;
 
-    const newQuantity = Math.max(quantity - 1, 1);
+    const newQuantity = Math.max(quantity[cartItem.id] - 1, 1);
     patchCartItem(cartItem.id, newQuantity).then(() => {
-      setQuantity(newQuantity);
+      setQuantity((prev) => ({ ...prev, [cartItem.id]: newQuantity }));
       updateCart(newQuantity);
     });
   };
@@ -86,7 +84,9 @@ export default function ProductItem({ cartItem }: { cartItem: Cart }) {
           </span>
           <div className="product-item_content_amount-bundle">
             <CountButton type="minus" onClick={handleDecrement} />
-            <span className="product-item_content_amount">{quantity}</span>
+            <span className="product-item_content_amount">
+              {quantity[cartItem.id]}
+            </span>
             <CountButton type="plus" onClick={handleIncrement} />
           </div>
         </div>
