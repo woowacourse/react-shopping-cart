@@ -8,7 +8,7 @@ import {
 import { CART_MESSAGE } from '@/constants/message';
 import { FREE_SHIPPING_CONDITION } from '@/constants/system';
 import Info from '@/assets/Info.svg';
-import { THEME } from '@/style/theme';
+import { THEME } from '@/style/theme.style';
 import { recipeState } from '@/store/selectors/recipeSelector';
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';

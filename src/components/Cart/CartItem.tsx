@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import BorderButton from '@/components/Button/BorderButton';
 import { CartItemType } from '@/types/cart.type';
 import CheckBox from '@/components/Button/CheckBoxButton';
-import { THEME } from '@/style/theme';
+import { THEME } from '@/style/theme.style';
 import styled from '@emotion/styled';
 import { useRecoilState } from 'recoil';
 

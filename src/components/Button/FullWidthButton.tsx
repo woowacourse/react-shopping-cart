@@ -1,5 +1,5 @@
 import { FlexCenter } from '@/style/common.style';
-import { THEME } from '@/style/theme';
+import { THEME } from '@/style/theme.style';
 import styled from '@emotion/styled';
 
 interface Props {

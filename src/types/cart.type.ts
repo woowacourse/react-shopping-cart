@@ -1,14 +1,9 @@
-import { Product } from './product.type';
+import { Product } from '@/types/product.type';
 
 export interface CartItemType {
   id: number;
   quantity: number;
   product: Product;
-}
-
-export interface Cart {
-  content: CartItemType[];
-  empty: boolean;
 }
 
 export interface FilteredCartItemStateType {

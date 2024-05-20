@@ -1,5 +1,5 @@
 import { CART_MESSAGE } from '@/constants/message';
-import { THEME } from '@/style/theme';
+import { THEME } from '@/style/theme.style';
 import { WhiteSpace } from '@/style/common.style';
 import { cartListState } from '@/store/atoms';
 import styled from '@emotion/styled';
