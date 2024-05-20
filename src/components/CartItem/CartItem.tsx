@@ -9,7 +9,7 @@ import Divider from '../common/Divider/Divider';
 import ImageBox from '../common/ImageBox/ImageBox';
 import Text from '../common/Text/Text';
 
-import { CartItem } from '../../apis/cartItem/cartItem.type';
+import type { CartItem } from '../../apis/cartItem/cartItem.type';
 import { useCartItemQuantity } from '../../recoil/cartItem/hooks';
 import { useSelectedCartItemIdList } from '../../recoil/selectedCartItemIdList/hooks';
 import { useCartItemList } from '../../recoil/cartItemList/hooks';
