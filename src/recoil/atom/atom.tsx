@@ -1,11 +1,11 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
-import { Product } from "../../types";
+import { CartItem } from "../../types";
 import { fetchCartItemsSelector } from "../selector/selector";
 
 const { persistAtom } = recoilPersist();
 
-export const cartItemsAtom = atom<Product[]>({
+export const cartItemsAtom = atom<CartItem[]>({
   key: "cartItemsAtom",
   default: fetchCartItemsSelector,
 });

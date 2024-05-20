@@ -1,7 +1,7 @@
-import { Product } from "../types";
+import { CartItem } from "../types";
 import apiClient from "./apiClient";
 
-export function fetchCartItems(): Promise<Product[]> {
+export function fetchCartItems(): Promise<CartItem[]> {
   return apiClient.get("/cart-items", {}).then((data) => data.content);
 }
 

@@ -3,9 +3,9 @@ import { RecoilRoot, useRecoilState } from "recoil";
 import { renderHook, waitFor } from "@testing-library/react";
 import { act } from "react";
 import { itemQuantitiesSelector } from "./selector";
-import { Product } from "../../types";
+import { CartItem } from "../../types";
 
-const mockCartItems: Product[] = [
+const mockCartItems: CartItem[] = [
   { id: 1, product: { id: 3, name: "상품이름A", price: 35000, imageUrl: "", category: "" }, quantity: 2 },
   { id: 2, product: { id: 4, name: "상품이름B", price: 25000, imageUrl: "", category: "" }, quantity: 3 },
   { id: 3, product: { id: 5, name: "상품이름C", price: 20000, imageUrl: "", category: "" }, quantity: 1 },

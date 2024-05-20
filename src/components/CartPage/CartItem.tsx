@@ -4,7 +4,7 @@ import CheckIcon from "../../assets/CheckIcon.svg?react";
 import MinusIcon from "../../assets/MinusIcon.svg?react";
 import PlusIcon from "../../assets/PlusIcon.svg?react";
 import { useRecoilState } from "recoil";
-import { Product } from "../../types";
+import { CartItem } from "../../types";
 
 import { patchCartItemQuantity } from "../../api/cartItem";
 import { cartItemCheckedIdsAtom } from "../../recoil/atom/atom";
@@ -12,7 +12,7 @@ import { itemQuantitiesSelector } from "../../recoil/selector/selector";
 import { formatCurrency } from "../../utils/formatCurrency";
 
 interface CardItemProps {
-  product: Product;
+  product: CartItem;
   handleDelete: () => void;
 }
 
