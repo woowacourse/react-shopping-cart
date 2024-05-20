@@ -1,5 +1,6 @@
+import { cartItemAllSelected } from "./../recoil/selectors";
+
 import { useRecoilState } from "recoil";
-import { cartItemAllSelected } from "../recoil/selectors";
 
 export default function useSelectAllCartItem() {
   const [isAllSelected, setAllSelected] = useRecoilState(cartItemAllSelected);
