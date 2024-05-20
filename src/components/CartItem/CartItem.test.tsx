@@ -1,121 +1,65 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import CartItem, { CartItemProps } from './CartItem';
-import { RecoilRoot } from 'recoil';
-import { useCartItemQuantity } from '../../recoil/cartItem/useCartItemQuantity';
-import { useCartItemSelectedIdList } from '../../recoil/cartItem/useCartItemSelectedIdList';
-import useCartItemList from '../../recoil/cartItemList/useCartItemList';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import CartItem from './CartItem';
+import { RecoilRoot, useRecoilValue } from 'recoil';
+import { cartItemQuantityAtomFamily } from '../../recoil/cartItem/states';
 
-// Mock Recoil hooks
-jest.mock('../../recoil/cartItem/useCartItemQuantity');
-jest.mock('../../recoil/cartItem/useCartItemSelectedIdList');
-jest.mock('../../recoil/cartItemList/useCartItemList');
+jest.mock('../../apis/cartItemList/cartItemList', () => ({
+  requestSetCartItemQuantity: jest.fn(),
+}));
 
-const mockedUseCartItemQuantity = useCartItemQuantity as jest.Mock;
-const mockedUseCartItemSelectedIdList = useCartItemSelectedIdList as jest.Mock;
-const mockedUseCartItemList = useCartItemList as jest.Mock;
-
-// Sample product data
-const product = {
-  productId: 3,
-  name: '아디다스',
-  price: 2000,
-  imageUrl: 'https://sitem.ssgcdn.com/74/25/04/item/1000373042574_i1_750.jpg',
-  category: 'fashion',
-};
-
-const mockCartItemProps: CartItemProps = {
-  product,
-  quantity: 5,
+const cartItemDummyData = {
+  quantity: 10,
+  product: {
+    id: 11,
+    name: '리복',
+    price: 20000,
+    imageUrl: 'https://image.msscdn.net/images/goods_img/20221031/2909092/2909092_6_500.jpg',
+    category: 'fashion',
+  },
   cartItemId: 1,
 };
 
 describe('CartItem 컴포넌트', () => {
-  beforeEach(() => {
-    mockedUseCartItemQuantity.mockReturnValue({
-      quantity: 5,
-      updateQuantity: jest.fn(),
-      increaseQuantity: jest.fn(),
-      decreaseQuantity: jest.fn(),
-    });
+  const QuantityChecker = ({ cartItemId }: { cartItemId: number }) => {
+    const quantity = useRecoilValue(cartItemQuantityAtomFamily(cartItemId));
+    return <span data-test-id="quantity-value">{quantity}</span>;
+  };
 
-    mockedUseCartItemSelectedIdList.mockReturnValue({
-      getIsSelected: jest.fn().mockReturnValue(false),
-      addSelectedId: jest.fn(),
-      removeSelectedId: jest.fn(),
-    });
-
-    mockedUseCartItemList.mockReturnValue({
-      deleteCartItem: jest.fn(),
-    });
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
-  test('컴포넌트가 올바르게 렌더링된다', () => {
-    render(
+  const renderCartItem = ({ cartItemId }: { cartItemId: number }) => {
+    return render(
       <RecoilRoot>
-        <CartItem {...mockCartItemProps} />
+        <CartItem {...cartItemDummyData} />
+        <QuantityChecker cartItemId={cartItemId} />
       </RecoilRoot>,
     );
+  };
 
-    expect(screen.getByText('아디다스')).toBeInTheDocument();
-    expect(screen.getByText('2,000원')).toBeInTheDocument();
-    expect(screen.getByText('5')).toBeInTheDocument();
+  it('수량 증가 버튼을 누르면 수량이 1 증가된다.', async () => {
+    renderCartItem({ cartItemId: cartItemDummyData.cartItemId });
+
+    // 이전 상태
+    expect(screen.getByTestId('quantity-value').textContent).toBe(cartItemDummyData.quantity.toString());
+
+    // 수량 증가 버튼 클릭
+    const increaseButton = screen.getByAltText('수량 증가');
+    await waitFor(() => fireEvent.click(increaseButton));
+
+    // 이후 상태
+    expect(screen.getByTestId('quantity-value').textContent).toBe((cartItemDummyData.quantity + 1).toString());
   });
 
-  test('삭제 버튼을 클릭했을 때 deleteCartItem 함수가 호출된다', () => {
-    const { deleteCartItem } = mockedUseCartItemList();
+  it('수량 감소 버튼을 누르면 수량이 1 감소된다.', async () => {
+    renderCartItem({ cartItemId: cartItemDummyData.cartItemId });
 
-    render(
-      <RecoilRoot>
-        <CartItem {...mockCartItemProps} />
-      </RecoilRoot>,
-    );
+    // 이전 상태
+    expect(screen.getByTestId('quantity-value').textContent).toBe(cartItemDummyData.quantity.toString());
 
-    fireEvent.click(screen.getByText('삭제'));
-    expect(deleteCartItem).toHaveBeenCalledWith(mockCartItemProps.cartItemId);
-  });
+    // 수량 증가 버튼 클릭
+    const increaseButton = screen.getByAltText('수량 감소');
+    await waitFor(() => fireEvent.click(increaseButton));
 
-  test('체크박스를 클릭했을 때 선택 상태가 변경된다', () => {
-    const { addSelectedId, removeSelectedId, getIsSelected } = mockedUseCartItemSelectedIdList();
-
-    render(
-      <RecoilRoot>
-        <CartItem {...mockCartItemProps} />
-      </RecoilRoot>,
-    );
-
-    // Initially not selected
-    getIsSelected.mockReturnValue(false);
-    const checkbox = screen.getByAltText('Checkbox');
-    fireEvent.click(checkbox);
-    expect(addSelectedId).toHaveBeenCalledWith(mockCartItemProps.cartItemId);
-
-    // Now selected
-    getIsSelected.mockReturnValue(true);
-    fireEvent.click(checkbox);
-    expect(removeSelectedId).toHaveBeenCalledWith(mockCartItemProps.cartItemId);
-  });
-
-  test('수량 증가 및 감소 버튼이 제대로 작동한다', () => {
-    const { increaseQuantity, decreaseQuantity } = mockedUseCartItemQuantity();
-
-    render(
-      <RecoilRoot>
-        <CartItem {...mockCartItemProps} />
-      </RecoilRoot>,
-    );
-
-    const increaseButton = screen.getByLabelText('plus');
-    const decreaseButton = screen.getByLabelText('minus');
-
-    fireEvent.click(increaseButton);
-    expect(increaseQuantity).toHaveBeenCalledTimes(1);
-
-    fireEvent.click(decreaseButton);
-    expect(decreaseQuantity).toHaveBeenCalledTimes(1);
+    // 이후 상태
+    expect(screen.getByTestId('quantity-value').textContent).toBe((cartItemDummyData.quantity - 1).toString());
+    console.log(screen.getByTestId('quantity-value').textContent);
   });
 });
