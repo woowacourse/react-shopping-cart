@@ -22,7 +22,7 @@ const cartItemDummyData = {
 describe('CartItem 컴포넌트', () => {
   const QuantityChecker = ({ cartItemId }: { cartItemId: number }) => {
     const quantity = useRecoilValue(cartItemQuantityAtomFamily(cartItemId));
-    return <span data-test-id="quantity-value">{quantity}</span>;
+    return <span data-testid="quantity-value">{quantity}</span>;
   };
 
   const renderCartItem = ({ cartItemId }: { cartItemId: number }) => {
@@ -60,6 +60,5 @@ describe('CartItem 컴포넌트', () => {
 
     // 이후 상태
     expect(screen.getByTestId('quantity-value').textContent).toBe((cartItemDummyData.quantity - 1).toString());
-    console.log(screen.getByTestId('quantity-value').textContent);
   });
 });
