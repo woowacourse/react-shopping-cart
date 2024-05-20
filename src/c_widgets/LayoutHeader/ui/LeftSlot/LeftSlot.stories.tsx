@@ -14,13 +14,13 @@ export default meta;
 
 type Story = StoryObj<typeof LeftSlot>;
 
-export const logoType: Story = {
+export const NoneType: Story = {
   args: {
-    type: 'logo',
+    type: 'none',
   },
 };
 
-export const goBackType: Story = {
+export const GoBackType: Story = {
   args: {
     type: 'goBack',
   },

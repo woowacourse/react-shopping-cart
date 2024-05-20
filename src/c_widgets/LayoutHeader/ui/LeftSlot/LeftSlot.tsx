@@ -1,22 +1,23 @@
 import classNames from 'classnames/bind';
 
 import { imgMap } from '../../../../f_shared/index';
-import { LayoutHeaderType } from '../../model/types';
+import { LeftSlotType } from '../../model/types';
 
 import css from './LeftSlot.module.css';
 
 const cn = classNames.bind(css);
 
-const srcMap: Record<LayoutHeaderType, string> = {
-  logo: imgMap.logoBlack,
-  goBack: imgMap.goBackBlack,
-};
-
 interface LeftSlotProps {
-  type: LayoutHeaderType;
+  type: LeftSlotType;
 }
 
 // TODO: Add Router Link
 export const LeftSlot = ({ type }: LeftSlotProps) => {
-  return <img src={srcMap[type]} alt={type} className={cn('image')} />;
+  switch (type) {
+    case 'none':
+      return null;
+
+    case 'goBack':
+      return <img src={imgMap.goBack} alt={type} className={cn('image')} />;
+  }
 };

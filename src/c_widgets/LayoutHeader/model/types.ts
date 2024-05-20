@@ -1,1 +1,1 @@
-export type LayoutHeaderType = 'logo' | 'goBack';
+export type LeftSlotType = 'none' | 'goBack';
