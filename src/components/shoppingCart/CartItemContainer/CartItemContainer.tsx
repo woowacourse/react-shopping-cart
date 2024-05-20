@@ -4,28 +4,21 @@ import { CartItem } from '../';
 import { CheckBox } from '../../common';
 import * as Styled from './CartItemContainer.style';
 
-import { currentCartItemsState } from '../../../recoil/atoms';
+import { cartItemsState } from '../../../recoil/atoms';
 import { removeCartItem, updateCartItemQuantity } from '../../../apis';
-import { useCheckedItemIds } from '../../../hooks';
+import { useCheckCartItem } from '../../../hooks';
 
 export default function CartItemContainer() {
-  const [items, setItems] = useRecoilState(currentCartItemsState);
-  const { getIsChecked, checkId, uncheckId, deleteId } = useCheckedItemIds();
+  const [items, setItems] = useRecoilState(cartItemsState);
+  const { isAllChecked, onCheckCartItem, onCheckAllCartItem } = useCheckCartItem();
 
-  const ids = items.map((item) => item.id);
-  const isAllChecked = ids.every((id) => getIsChecked(id));
-
-  const handleAllCheck = () => {
-    checkId(...ids);
-  };
-
-  const handleAllUncheck = () => {
-    uncheckId(...ids);
+  const toggleAllCheck = () => {
+    onCheckAllCartItem(!isAllChecked);
   };
 
   const handleDeleteItem = async (cartItemId: number) => {
     await removeCartItem(cartItemId);
-    deleteId(cartItemId);
+    onCheckCartItem(cartItemId, false);
     setItems((prevItems) => prevItems.filter((item) => item.id !== cartItemId));
   };
 
@@ -40,11 +33,7 @@ export default function CartItemContainer() {
       )}
       <Styled.CartItemListContainer>
         <Styled.CheckAllBoxContainer>
-          <CheckBox
-            type="button"
-            isChecked={isAllChecked}
-            onClick={isAllChecked ? handleAllUncheck : handleAllCheck}
-          />
+          <CheckBox type="button" isChecked={isAllChecked} onClick={toggleAllCheck} />
           <span>전체선택</span>
         </Styled.CheckAllBoxContainer>
 

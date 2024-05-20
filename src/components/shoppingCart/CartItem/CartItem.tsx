@@ -6,7 +6,7 @@ import { QuantityController } from '../';
 import * as Styled from './CartItem.style';
 
 import { convertToLocaleAmount } from '../../../utils';
-import { useCheckedItemIds } from '../../../hooks';
+import { useCheckCartItem } from '../../../hooks';
 import { itemQuantityState } from '../../../recoil/atoms';
 import { Product } from '../../../type';
 
@@ -28,14 +28,14 @@ export default function CartItem({
   handleDecreaseQuantity,
 }: CartItemProps) {
   const [itemQuantity, setItemQuantity] = useRecoilState(itemQuantityState(cartItemId));
-  const { getIsChecked, checkId, uncheckId } = useCheckedItemIds();
+  const { isChecked, onCheckCartItem } = useCheckCartItem();
 
   useEffect(() => {
     setItemQuantity(quantity);
   }, [quantity, setItemQuantity]);
 
-  const handleClickCheckBox = () => {
-    getIsChecked(cartItemId) ? uncheckId(cartItemId) : checkId(cartItemId);
+  const toggleCheckBox = () => {
+    onCheckCartItem(cartItemId, !isChecked(cartItemId));
   };
 
   const handleClickIncreaseQuantity = () => {
@@ -57,7 +57,7 @@ export default function CartItem({
   return (
     <Styled.CartItemContainer>
       <Styled.CardItemHeader>
-        <CheckBox isChecked={getIsChecked(cartItemId)} onClick={handleClickCheckBox} />
+        <CheckBox isChecked={isChecked(cartItemId)} onClick={toggleCheckBox} />
         <DeleteItemButton type="button" buttonText="삭제" onClick={handleClickDeleteButton} />
       </Styled.CardItemHeader>
       <Styled.CardItemContent>

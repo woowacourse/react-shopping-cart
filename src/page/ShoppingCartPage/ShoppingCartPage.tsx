@@ -9,25 +9,22 @@ import * as Styled from './ShoppingCartPage.style';
 
 import { ENDPOINT } from '../../routes/router.constants';
 
-import {
-  totalAmountState,
-  totalCartItemsCountState,
-  totalProductsCountState,
-} from '../../recoil/selectors';
+import { totalAmountState, totalCheckedQuantityState } from '../../recoil/selectors';
+import { checkedCartItemsState } from '../../recoil/atoms';
 
 export default function ShoppingCartPage() {
   const navigate = useNavigate();
 
-  const totalCartItemsCount = useRecoilValue(totalCartItemsCountState);
-  const totalProductsCount = useRecoilValue(totalProductsCountState);
+  const totalCheckedCartItems = useRecoilValue(checkedCartItemsState);
+  const totalProductsCount = useRecoilValue(totalCheckedQuantityState);
   const totalAmount = useRecoilValue(totalAmountState);
 
-  const isConfirmButtonDisabled = totalCartItemsCount === 0;
+  const isConfirmButtonDisabled = totalCheckedCartItems.length === 0;
 
   const handleClickConfirmButton = () => {
     navigate(ENDPOINT.confirmOrder, {
       state: {
-        totalCartItemsCount,
+        totalCartItemsCount: totalCheckedCartItems.length,
         totalProductsCount,
         totalAmount,
       },
