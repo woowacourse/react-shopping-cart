@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { cartItemsState, isAllCheckedState, checkedItemState } from "../../recoil/atoms/atoms";
+import { cartItemsState, checkedItemState, isAllCheckedState } from "../../recoil/atoms/atoms";
 import { CheckboxButton } from "../button/checkboxButton/CheckboxButton";
 import { CartItemCard } from "../cartItemCard/CartItemCard";
 import {
@@ -17,7 +17,7 @@ export const CartItemCardList: React.FC = () => {
   useEffect(() => {
     const allChecked = cartItems.every((item) => chekcedItems[item.id]);
     setIsAllChecked(allChecked);
-  }, [setIsAllChecked]);
+  }, [cartItems, chekcedItems, setIsAllChecked]);
 
   useEffect(() => {
     localStorage.setItem("checkedItemState", JSON.stringify(chekcedItems));
