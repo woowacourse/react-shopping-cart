@@ -21,8 +21,12 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Testing */
-    "types": ["jest"],
-    "esModuleInterop": true
+    "types": ["jest", "@testing-library/jest-dom", "@types/node"],
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
