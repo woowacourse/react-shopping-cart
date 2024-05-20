@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-
 import { DividerStyle } from "./Divider.style";
 
 const Divider = () => {

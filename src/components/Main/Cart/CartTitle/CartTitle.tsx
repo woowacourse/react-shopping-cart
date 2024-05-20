@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { useRecoilValue } from "recoil";
 import { CartItemTypesCountStyle, CartTitleStyle } from "./CartTitle.style";
 import { cartState } from "@/store/atom/atoms";

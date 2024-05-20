@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-
 import { FallbackProps } from "react-error-boundary";
 import { centerAlignStyle } from "./common.style";
 

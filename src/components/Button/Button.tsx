@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { ButtonStyle } from "./Button.style";
 
 interface ButtonProps {

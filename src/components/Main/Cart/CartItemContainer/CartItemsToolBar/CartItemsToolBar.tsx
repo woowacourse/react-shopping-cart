@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { useRecoilState } from "recoil";
 import Checkbox from "@/components/Button/Checkbox/Checkbox";
 import { ControlStyle } from "./CartItemsToolBar.style";

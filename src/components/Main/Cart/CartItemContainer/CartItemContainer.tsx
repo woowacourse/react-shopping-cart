@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { Suspense } from "react";
 import { useRecoilValue } from "recoil";
 

@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-
 import { PaymentDetailContainerStyle, PaymentDetailAmountStyle, PaymentDetailTitleStyle } from "./PaymentDetail.style";
 
 interface PaymentDetailProps {

@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import { useRecoilValue } from "recoil";
 

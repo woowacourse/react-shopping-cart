@@ -28,7 +28,9 @@
 
     /* Testing */
     "types": ["jest", "node"],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+
+    "jsxImportSource": "@emotion/react"
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

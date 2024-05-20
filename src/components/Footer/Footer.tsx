@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { useRecoilValue } from "recoil";
 import { FooterStyle } from "./Footer.style";
 import { orderAmountState } from "@/store/selector/selectors";

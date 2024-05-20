@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { MainStyle } from "./Main.style";
 import { PropsWithChildren } from "react";
 

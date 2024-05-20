@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-
 import { centerAlignStyle } from "./common.style";
 
 const Loading = () => {

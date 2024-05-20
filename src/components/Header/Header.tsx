@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { BackButtonStyle, HeaderStyle, ShopButtonStyle } from "./Header.style";
 import { useLocation, useNavigate } from "react-router-dom";
 import { RiArrowLeftLine } from "react-icons/ri";

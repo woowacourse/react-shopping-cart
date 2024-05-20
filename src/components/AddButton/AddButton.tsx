@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-
 import { AddButtonStyle } from "./AddButton.style";
 import { AddItem } from "@/api";
 

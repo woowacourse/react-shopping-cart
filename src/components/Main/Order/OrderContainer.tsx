@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { useRecoilValue } from "recoil";
 
 import { cartItemsCounts, totalAmountState } from "@/store/selector/selectors";

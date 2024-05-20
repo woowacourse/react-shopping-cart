@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-
 import Button from "@/components/Button/Button";
 
 interface DeleteButtonProps {

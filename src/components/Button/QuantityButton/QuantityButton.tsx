@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-
 import { HiOutlineMinus, HiOutlinePlus } from "react-icons/hi";
 import Button from "@/components/Button/Button";
 

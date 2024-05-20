@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useCallback } from "react";
 
