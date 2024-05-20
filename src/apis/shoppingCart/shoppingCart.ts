@@ -26,7 +26,7 @@ export async function addCartItem(productId: number): Promise<void> {
 export async function removeCartItem(cartItemId: number): Promise<void> {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   await fetchData({
-    url: `${API_ROUTE.CART_ITEMS}2/${cartItemId}`,
+    url: `${API_ROUTE.CART_ITEMS}/${cartItemId}`,
     method: 'DELETE',
     token,
     defaultErrorMessage: ERROR_MESSAGE.REMOVE_FROM_CART_FAILED,
