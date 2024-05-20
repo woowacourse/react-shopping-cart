@@ -1,17 +1,16 @@
+import { QuantityControlType } from '../../../type';
 import { QuantityControlButton, QuantityControllerContainer } from './QuantityController.style';
 
 interface QuantityControllerProps {
   quantity: number;
-  handleIncreaseQuantity: () => void;
-  handleDecreaseQuantity: () => void;
+  onChangeQuantity: (type: QuantityControlType) => void;
   minQuantity?: number;
   maxQuantity?: number;
 }
 
 export default function QuantityController({
   quantity,
-  handleDecreaseQuantity,
-  handleIncreaseQuantity,
+  onChangeQuantity,
   minQuantity = 1,
   maxQuantity = Infinity,
 }: QuantityControllerProps) {
@@ -20,15 +19,15 @@ export default function QuantityController({
       <QuantityControlButton
         type="button"
         $controlType="decrease"
-        $isEnabled={minQuantity < quantity}
-        onClick={handleDecreaseQuantity}
+        onClick={() => onChangeQuantity('decrease')}
+        disabled={minQuantity >= quantity}
       />
       {quantity}
       <QuantityControlButton
         type="button"
         $controlType="increase"
-        $isEnabled={quantity < maxQuantity}
-        onClick={handleIncreaseQuantity}
+        onClick={() => onChangeQuantity('increase')}
+        disabled={quantity >= maxQuantity}
       />
     </QuantityControllerContainer>
   );

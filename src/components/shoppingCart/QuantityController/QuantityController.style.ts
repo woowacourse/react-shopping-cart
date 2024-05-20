@@ -5,6 +5,7 @@ import {
   DecreaseIcon,
   DecreaseIconDisabled,
 } from '../../../assets';
+import { QuantityControlType } from '../../../type';
 
 export const QuantityControllerContainer = styled.div({
   width: '80px',
@@ -20,24 +21,19 @@ export const QuantityControllerContainer = styled.div({
 });
 
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
-  $controlType: 'increase' | 'decrease';
-  $isEnabled: boolean;
+  $controlType: QuantityControlType;
 }
 
-const buttonBackgroundMatcher = ({ $controlType, $isEnabled }: ButtonProps) => {
-  if ($controlType === 'increase') {
-    return $isEnabled ? IncreaseIcon : IncreaseIconDisabled;
-  }
-  if ($controlType === 'decrease') {
-    return $isEnabled ? DecreaseIcon : DecreaseIconDisabled;
-  }
-};
-
-export const QuantityControlButton = styled.button<ButtonProps>(({ $controlType, $isEnabled }) => ({
+export const QuantityControlButton = styled.button<ButtonProps>(({ $controlType }) => ({
   width: '24px',
   height: '24px',
   border: '1px solid #dfdfdf',
   borderRadius: '8px',
-  background: `url("${buttonBackgroundMatcher({ $controlType, $isEnabled })}") no-repeat center`,
-  cursor: $isEnabled ? `pointer` : 'inherit',
+  background: `url("${$controlType === 'increase' ? IncreaseIcon : DecreaseIcon}") no-repeat center`,
+  cursor: `pointer`,
+
+  '&:disabled': {
+    background: `url("${$controlType === 'increase' ? IncreaseIconDisabled : DecreaseIconDisabled}") no-repeat center`,
+    cursor: 'default',
+  },
 }));

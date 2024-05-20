@@ -11,3 +11,5 @@ export interface CartItem {
   quantity: number;
   product: Product;
 }
+
+export type QuantityControlType = 'increase' | 'decrease';

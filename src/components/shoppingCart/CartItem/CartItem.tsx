@@ -8,24 +8,22 @@ import * as Styled from './CartItem.style';
 import { convertToLocaleAmount } from '../../../utils';
 import { useCheckCartItem } from '../../../hooks';
 import { itemQuantityState } from '../../../recoil/atoms';
-import { Product } from '../../../type';
+import { Product, QuantityControlType } from '../../../type';
 
 interface CartItemProps {
   cartItemId: number;
   product: Product;
   quantity: number;
-  handleDelete: (cartItemId: number) => void;
-  handleIncreaseQuantity: (cartItemId: number, quantity: number) => void;
-  handleDecreaseQuantity: (cartItemId: number, quantity: number) => void;
+  onDelete: (cartItemId: number) => void;
+  onUpdateQuantity: (cartItemId: number, quantity: number) => void;
 }
 
 export default function CartItem({
   cartItemId,
   product,
   quantity,
-  handleDelete,
-  handleIncreaseQuantity,
-  handleDecreaseQuantity,
+  onDelete,
+  onUpdateQuantity,
 }: CartItemProps) {
   const [itemQuantity, setItemQuantity] = useRecoilState(itemQuantityState(cartItemId));
   const { isChecked, onCheckCartItem } = useCheckCartItem();
@@ -38,20 +36,14 @@ export default function CartItem({
     onCheckCartItem(cartItemId, !isChecked(cartItemId));
   };
 
-  const handleClickIncreaseQuantity = () => {
-    const quantity = itemQuantity + 1;
-    setItemQuantity(quantity);
-    handleIncreaseQuantity(cartItemId, quantity);
-  };
-
-  const handleClickDecreaseQuantity = () => {
-    const quantity = Math.max(1, itemQuantity - 1);
-    setItemQuantity(quantity);
-    handleDecreaseQuantity(cartItemId, quantity);
+  const handleChangeQuantity = (type: QuantityControlType) => {
+    const newQuantity = type === 'increase' ? itemQuantity + 1 : Math.max(1, itemQuantity - 1);
+    setItemQuantity(newQuantity);
+    onUpdateQuantity(cartItemId, newQuantity);
   };
 
   const handleClickDeleteButton = () => {
-    handleDelete(cartItemId);
+    onDelete(cartItemId);
   };
 
   return (
@@ -70,8 +62,8 @@ export default function CartItem({
           <QuantityController
             quantity={itemQuantity}
             minQuantity={1}
-            handleIncreaseQuantity={handleClickIncreaseQuantity}
-            handleDecreaseQuantity={handleClickDecreaseQuantity}
+            maxQuantity={100}
+            onChangeQuantity={(type: QuantityControlType) => handleChangeQuantity(type)}
           />
         </Styled.ProductInfoBox>
       </Styled.CardItemContent>
