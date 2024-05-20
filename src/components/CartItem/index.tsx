@@ -1,4 +1,4 @@
-import type { CartItemType } from "../../types";
+import type { CartItemType } from '../../types';
 
 import {
   CartItemContainer,
@@ -8,16 +8,16 @@ import {
   CartItemInfo,
   ItemImage,
   ProductName,
-} from "./style";
+} from './style';
 
-import { Price } from "../CartList/CheckoutSummary/style";
+import { Price } from '../CartList/CheckoutSummary/style';
 
-import BorderButton from "../common/BorderButton";
-import CheckBox from "../common/CheckBox";
-import CartItemQuantity from "./CartItemQuantity";
+import BorderButton from '../common/BorderButton';
+import CheckBox from '../common/CheckBox';
+import CartItemQuantity from './CartItemQuantity';
 
-import useDeleteCartItem from "../../hooks/useDeleteCartItem";
-import useSelectCartItem from "../../hooks/useSelectCartItem";
+import useDeleteCartItem from '../../hooks/useDeleteCartItem';
+import useSelectCartItem from '../../hooks/useSelectCartItem';
 
 interface CartItemProps {
   cartItem: CartItemType;
@@ -41,7 +41,7 @@ export default function CartItem({ cartItem: { id, product } }: CartItemProps) {
         <CartItemDetails>
           <CartItemInfo>
             <ProductName>{product.name}</ProductName>
-            <Price>{product.price.toLocaleString()}</Price>
+            <Price>{product.price.toLocaleString()}원</Price>
           </CartItemInfo>
           <CartItemQuantity itemId={id} />
         </CartItemDetails>

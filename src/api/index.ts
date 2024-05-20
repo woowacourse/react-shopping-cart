@@ -23,7 +23,7 @@ export const fetchCartItems = async (): Promise<CartItemType[]> => {
   });
 
   if (!response.ok) {
-    throw new Error('Failed to fetch cart items');
+    throw new Error(`${response.status}`);
   }
 
   const data = await response.json();
@@ -34,36 +34,36 @@ export const updateCartItemQuantity = async (
   id: CartItemType['id'],
   quantity: CartItemType['quantity']
 ) => {
-  const response = await fetch(`${BASE_URL}/cart-items/${id}`, {
+  const response = await fetch(`${CART_ITEMS_API_URL}/${id}`, {
     method: 'PATCH',
     headers: HEADERS,
     body: JSON.stringify({ quantity }),
   });
 
   if (!response.ok) {
-    throw new Error('Failed to update cart item quantity');
+    throw new Error(`${response.status}`);
   }
 };
 
 export const deleteCartItem = async (id: CartItemType['id']) => {
-  const response = await fetch(`${BASE_URL}/cart-items/${id}`, {
+  const response = await fetch(`${CART_ITEMS_API_URL}${id}`, {
     method: 'DELETE',
     headers: HEADERS,
   });
 
   if (!response.ok) {
-    throw new Error('Failed to delete cart item');
+    throw new Error(`${response.status}`);
   }
 };
 
 export const addCartItem = async (id: CartItemType['id']) => {
-  const response = await fetch(`${BASE_URL}/cart-items`, {
+  const response = await fetch(`${CART_ITEMS_API_URL}`, {
     method: 'POST',
     headers: HEADERS,
     body: JSON.stringify({ productId: id }),
   });
 
   if (!response.ok) {
-    throw new Error('Failed to add cart item');
+    throw new Error(`${response.status}`);
   }
 };
