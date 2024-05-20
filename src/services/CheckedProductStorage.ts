@@ -1,6 +1,12 @@
 const LOCAL_STORAGE_KEY = 'checkedProductIds';
 
-const LocalStorage = {
+interface CheckedCartItemStorageData {
+  getCheckedProductIds: () => number[];
+  setCheckedProductIds: (ids: number[]) => void;
+  clearCheckedProductIds: () => void;
+}
+
+const CheckedCartItemStorage: CheckedCartItemStorageData = {
   getCheckedProductIds: (): number[] => {
     const data = localStorage.getItem(LOCAL_STORAGE_KEY);
     return data ? JSON.parse(data) : [];
@@ -15,4 +21,4 @@ const LocalStorage = {
   },
 };
 
-export default LocalStorage;
+export default CheckedCartItemStorage;
