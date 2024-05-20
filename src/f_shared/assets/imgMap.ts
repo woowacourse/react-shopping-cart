@@ -1,11 +1,11 @@
-import goBackBlack from './goBack/goBackBlack.png';
-import goBackWhite from './goBack/goBackWhite.png';
-import logoBlack from './logo/logoBlack.png';
-import logoWhite from './logo/logoWhite.png';
+import goBack from './goBack/goBack.png';
+import goBack_dark from './goBack/goBack_dark.png';
+import logo from './logo/logo.png';
+import logo_dark from './logo/logo_dark.png';
 
 export const imgMap = {
-  logoBlack,
-  logoWhite,
-  goBackBlack,
-  goBackWhite,
+  logo,
+  logo_dark,
+  goBack,
+  goBack_dark,
 };
