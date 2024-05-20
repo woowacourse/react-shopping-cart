@@ -3,7 +3,6 @@ import { renderHook, act } from '@testing-library/react';
 import { cartItemListState } from './cartItemListSelector';
 import { cartItemQuantityAtomFamily, cartItemSelectedIdListAtom } from '../cartItem/cartItemAtom';
 import { totalItemQuantitySelector } from './totalItemQuantitySelector';
-import { CartItemProps } from '../../components/CartItem/CartItem';
 
 jest.mock('../../apis/cartItemList/cartItemList', () => ({
   requestCartItemList: jest.fn(),
@@ -17,7 +16,7 @@ const MOCK_PRODUCT1 = {
   category: 'fashion',
 };
 
-const MOCK_CART_ITEM1: CartItemProps = {
+const MOCK_CART_ITEM1: CartItem = {
   product: MOCK_PRODUCT1,
   quantity: 5,
   id: 1,
@@ -31,7 +30,7 @@ const MOCK_PRODUCT2 = {
   category: 'fashion',
 };
 
-const MOCK_CART_ITEM2: CartItemProps = {
+const MOCK_CART_ITEM2: CartItem = {
   product: MOCK_PRODUCT2,
   quantity: 2,
   id: 2,

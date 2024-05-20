@@ -1,6 +1,5 @@
 import { RecoilRoot, useRecoilValue, useSetRecoilState } from 'recoil';
 import { cartItemListQuery, cartItemListState } from './cartItemListSelector';
-import { CartItemProps } from '../../components/CartItem/CartItem';
 import { renderHook, waitFor } from '@testing-library/react';
 import { act } from 'react';
 
@@ -16,7 +15,7 @@ const MOCK_PRODUCT1 = {
   category: 'fashion',
 };
 
-const MOCK_CART_ITEM1: CartItemProps = {
+const MOCK_CART_ITEM1: CartItem = {
   product: MOCK_PRODUCT1,
   quantity: 5,
   id: 1,
@@ -30,7 +29,7 @@ const MOCK_PRODUCT2 = {
   category: 'fashion',
 };
 
-const MOCK_CART_ITEM2: CartItemProps = {
+const MOCK_CART_ITEM2: CartItem = {
   product: MOCK_PRODUCT2,
   quantity: 2,
   id: 2,

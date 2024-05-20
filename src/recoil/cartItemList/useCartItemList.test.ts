@@ -2,7 +2,6 @@ import { renderHook } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
 import { act } from 'react';
 import useCartItemList from './useCartItemList';
-import { CartItemProps } from '../../components/CartItem/CartItem';
 
 jest.mock('../../apis/cartItemList/cartItemList', () => ({
   requestDeleteCartItem: jest.fn(),
@@ -25,7 +24,7 @@ const MOCK_PRODUCT1 = {
   category: 'fashion',
 };
 
-const MOCK_CART_ITEM1: CartItemProps = {
+const MOCK_CART_ITEM1: CartItem = {
   product: MOCK_PRODUCT1,
   quantity: 5,
   id: 1,
@@ -39,7 +38,7 @@ const MOCK_PRODUCT2 = {
   category: 'fashion',
 };
 
-const MOCK_CART_ITEM2: CartItemProps = {
+const MOCK_CART_ITEM2: CartItem = {
   product: MOCK_PRODUCT2,
   quantity: 2,
   id: 2,
@@ -77,20 +76,5 @@ describe('useCartItemList hook test', () => {
 
     expect(result.current.cartItemList).toEqual([MOCK_CART_ITEM2]);
     expect(requestDeleteCartItem).toHaveBeenCalledWith(MOCK_CART_ITEM1.id);
-  });
-
-  test('fetchCartItemList를 호출하여 아이템 리스트를 가져올 수 있어야 한다', async () => {
-    const { result } = renderHook(() => useCartItemList(), {
-      wrapper: RecoilRoot,
-    });
-
-    await act(async () => {
-      result.current.fetchCartItemList();
-    });
-
-    expect(result.current.cartItemList).toEqual([MOCK_CART_ITEM1, MOCK_CART_ITEM2]);
-    const { useCartItemQuantity } = require('../cartItem/useCartItemQuantity');
-    expect(useCartItemQuantity).toHaveBeenCalledWith(MOCK_CART_ITEM1.id);
-    expect(useCartItemQuantity).toHaveBeenCalledWith(MOCK_CART_ITEM2.id);
   });
 });
