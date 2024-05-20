@@ -8,15 +8,15 @@ import { CheckButton, MinusButton, PlusButton } from "../../button";
 
 import { deleteCartItem, patchCartItemQuantity } from "../../../apis/cart";
 
-import { CartItemType } from "../../../types";
+import { CartItem } from "../../../types";
 
 import * as S from "./styled";
 
-interface CardItemProps {
-  cartItem: CartItemType;
+interface CartItemCardProps {
+  cartItem: CartItem;
 }
 
-const CartItem = ({ cartItem }: CardItemProps) => {
+const CartItemCard = ({ cartItem }: CartItemCardProps) => {
   const { id, product, quantity } = cartItem;
 
   const [isCartItemsSelected, setIsCartItemsSelected] = useRecoilState(
@@ -77,4 +77,4 @@ const CartItem = ({ cartItem }: CardItemProps) => {
   );
 };
 
-export default CartItem;
+export default CartItemCard;

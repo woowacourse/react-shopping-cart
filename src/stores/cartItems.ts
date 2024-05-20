@@ -1,8 +1,8 @@
 import { selector } from "recoil";
 import { getCartItems } from "../apis/cart";
-import { CartItemType } from "../types";
+import { CartItem } from "../types";
 
-export const cartItemsState = selector<CartItemType[]>({
+export const cartItemsState = selector<CartItem[]>({
   key: "cartItemsState",
   get: async () => {
     const cartItems = await getCartItems();

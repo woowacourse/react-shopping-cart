@@ -2,10 +2,10 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { cartItemsState } from "../../../stores/cartItems";
 import { isAllCartItemSelectedState } from "../../../stores/cartItemSelected";
 
-import CartItem from "../CartItem";
+import CartItemCard from "../CartItemCard";
 import { CheckButton } from "../../button";
 
-import { CartItemType } from "../../../types";
+import { CartItem } from "../../../types";
 import { CART_PRICE } from "../../../constants/cart";
 
 import infoOutline from "../../../assets/images/infoOutline.png";
@@ -26,8 +26,8 @@ const CartItemList = () => {
         />
         <span>전체선택</span>
       </S.AllCheckWrapper>
-      {cartItemList.map((cartItem: CartItemType) => (
-        <CartItem key={cartItem.id} cartItem={cartItem} />
+      {cartItemList.map((cartItem: CartItem) => (
+        <CartItemCard key={cartItem.id} cartItem={cartItem} />
       ))}
       <S.Footer>
         <img src={infoOutline} />
