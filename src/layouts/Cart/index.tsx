@@ -10,12 +10,12 @@ interface CartLayoutProps {
 
 const CartLayout = ({ children }: CartLayoutProps) => {
   const { pathname } = useLocation();
-  const cartItemsLength = useRecoilValue(cartItemsState).length;
+  const cartItemCount = useRecoilValue(cartItemsState).length;
 
   return (
     <Container>
       {pathname === "/" && <Title>장바구니</Title>}
-      {cartItemsLength !== 0 ? (
+      {cartItemCount !== 0 ? (
         children
       ) : (
         <div>장바구니에 담은 상품이 없습니다.</div>

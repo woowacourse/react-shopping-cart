@@ -8,7 +8,7 @@ const OrderConfirm = () => {
   const { totalPrice } = useRecoilValue(cartPriceState);
   const cartItems = useRecoilValue(cartItemsState);
 
-  const totalItemLength = cartItems.reduce((acc, cur) => {
+  const totalItemCount = cartItems.reduce((acc, cur) => {
     return cur.quantity + acc;
   }, 0);
 
@@ -17,7 +17,7 @@ const OrderConfirm = () => {
       <S.Title>주문 확인</S.Title>
       <S.Info>
         <div>
-          총 {cartItems.length}종류의 상품 {totalItemLength}개를 주문합니다.
+          총 {cartItems.length}종류의 상품 {totalItemCount}개를 주문합니다.
         </div>
         <div>최종 결제 금액을 확인해 주세요.</div>
       </S.Info>

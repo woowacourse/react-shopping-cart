@@ -4,11 +4,11 @@ import { cartItemsState } from "../../../stores/cartItems";
 import * as S from "./styled";
 
 const CartDescription = () => {
-  const cartItemsLength = useRecoilValue(cartItemsState).length;
+  const cartItemCount = useRecoilValue(cartItemsState).length;
 
   return (
     <S.Container>
-      <div>현재 {cartItemsLength}종류의 상품이 담겨있습니다.</div>
+      <div>현재 {cartItemCount}종류의 상품이 담겨있습니다.</div>
     </S.Container>
   );
 };
