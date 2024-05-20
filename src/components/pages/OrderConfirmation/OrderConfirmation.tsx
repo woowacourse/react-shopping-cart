@@ -7,7 +7,7 @@ import OrderButton from '../../OrderButton/OrderButton';
 
 import { useRecoilValue } from 'recoil';
 import {
-  selectedCartItemCountState,
+  selectedCartItemsCountState,
   totalCartItemQuantityState,
   totalPaymentAmountState,
 } from '../../../recoil/cartItems';
@@ -18,7 +18,7 @@ const OrderConfirmation = () => {
   const navigator = useNavigate();
 
   const totalCartItemQuantity = useRecoilValue(totalCartItemQuantityState);
-  const selectedCartItemCount = useRecoilValue(selectedCartItemCountState);
+  const selectedCartItemsCount = useRecoilValue(selectedCartItemsCountState);
   const totalPaymentAmount = useRecoilValue(totalPaymentAmountState);
 
   return (
@@ -29,7 +29,10 @@ const OrderConfirmation = () => {
         <Styled.Content>
           <Styled.Title>{MESSAGE.orderConfirmation}</Styled.Title>
           <Styled.OrderSuccessMessage>
-            {MESSAGE.orderSuccess(selectedCartItemCount, totalCartItemQuantity)}
+            {MESSAGE.orderSuccess(
+              selectedCartItemsCount,
+              totalCartItemQuantity,
+            )}
             <br />
             {MESSAGE.paymentAmountConfirmation}
           </Styled.OrderSuccessMessage>
