@@ -12,15 +12,15 @@ import RemoveButton from '../assets/RemoveButton.svg';
 
 import MESSAGE from '../../constants/Message';
 import CONDITION from '../../constants/Condition';
-import { CartItem } from '../../type';
+import { CartItemType } from '../../type';
 
 type OperatorType = 'increase' | 'decrease';
 
-interface ItemProp {
-  inputCartItem: CartItem;
+interface CartItemProps {
+  inputCartItem: CartItemType;
 }
 
-const Item = ({ inputCartItem }: ItemProp) => {
+const CartItem = ({ inputCartItem }: CartItemProps) => {
   const [isSelected, setIsSelected] = useRecoilState(
     selectedCartItemState(inputCartItem.id),
   );
@@ -114,4 +114,4 @@ const Item = ({ inputCartItem }: ItemProp) => {
   );
 };
 
-export default Item;
+export default CartItem;

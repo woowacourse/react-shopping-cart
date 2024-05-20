@@ -1,7 +1,7 @@
 import * as Styled from './style';
 
 import Header from '../../Header/Header';
-import ItemList from '../../ItemList/ItemList';
+import CartItems from '../../CartItems/CartItems';
 import OrderButton from '../../OrderButton/OrderButton';
 import Title from '../../Title/Title';
 import TotalPaymentInfo from '../../TotalPaymentInfo/TotalPaymentInfo';
@@ -35,7 +35,7 @@ const ShoppingCart = () => {
               title={MESSAGE.shoppingCart}
               caption={MESSAGE.titleCaption(cartItemCount)}
             />
-            <ItemList />
+            <CartItems />
             <TotalPaymentInfo />
           </>
         )}
