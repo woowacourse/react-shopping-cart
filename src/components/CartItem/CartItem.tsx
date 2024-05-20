@@ -5,7 +5,7 @@ import Button from "../common/Button/Button";
 
 import { deleteCartItem, patchCartItemQuantity } from "../../apis";
 
-import { CartItemType } from "../../types";
+import { CartItemType } from "../../types/cart";
 
 import OutlineCheck from "../../assets/icon/OutlineCheck";
 import FilledCheck from "../../assets/icon/FilledCheck";

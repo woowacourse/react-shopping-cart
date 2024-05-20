@@ -1,4 +1,3 @@
-import React from "react";
 import { useRecoilValue } from "recoil";
 import { cartPriceState } from "../../recoil/selectors/selectors";
 import { Wrapper, PriceKind, PriceNumber, Price } from "./style";
