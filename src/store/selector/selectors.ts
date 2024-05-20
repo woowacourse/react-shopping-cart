@@ -1,5 +1,5 @@
 import { selector } from "recoil";
-import { itemEachCheckState, itemIdsState, itemQuantityState } from "../atom/atoms";
+import { CartItemCheckedState, itemIdsState, itemQuantityState } from "../atom/atoms";
 // import { fetchProducts } from "../api";
 import { SHIPPING_CONSTANT } from "../../constants";
 import { cartState } from "../atom/atoms";
@@ -9,11 +9,11 @@ export const checkAllItemState = selector({
   key: "checkAllItemState",
   get: ({ get }) => {
     const itemIds = get(itemIdsState);
-    return itemIds.every((itemId) => get(itemEachCheckState(itemId)));
+    return itemIds.every((itemId) => get(CartItemCheckedState(itemId)));
   },
   set: ({ set, get }, newValue) => {
     const itemIds = get(itemIdsState);
-    itemIds.forEach((itemId) => set(itemEachCheckState(itemId), newValue));
+    itemIds.forEach((itemId) => set(CartItemCheckedState(itemId), newValue));
   },
 });
 
@@ -24,7 +24,7 @@ export const orderAmountState = selector({
 
     if (!cartItems) return 0;
     return cartItems.reduce((acc: number, cur: CartItemInfo) => {
-      const isChecked = get(itemEachCheckState(cur.id));
+      const isChecked = get(CartItemCheckedState(cur.id));
       if (isChecked) {
         const price = cur.product.price;
         const quantity = get(itemQuantityState);

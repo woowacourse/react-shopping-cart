@@ -20,8 +20,8 @@ export const cartState = atom({
   default: fetchCartState,
 });
 
-export const itemEachCheckState = atomFamily<boolean, number>({
-  key: "itemEachCheckState",
+export const CartItemCheckedState = atomFamily<boolean, number>({
+  key: "cartItemCheckedState",
   default: true,
   effects: (id) => [
     ({ setSelf, onSet }) => {

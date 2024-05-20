@@ -12,7 +12,7 @@ import {
 } from "./CartItem.style";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useCallback } from "react";
-import { cartState, itemEachCheckState, itemIdsState, itemQuantityState } from "../../../../../store/atom/atoms";
+import { cartState, CartItemCheckedState, itemIdsState, itemQuantityState } from "../../../../../store/atom/atoms";
 import { changeProductAmount, deleteProduct } from "../../../../../store/api";
 import { deleteCheck } from "../../../../../store/localStorage/localStorage";
 import Divider from "../../../../Divider/Divider";
@@ -27,7 +27,7 @@ interface CartItemProps {
 const CartItem = ({ CartItemInfo }: CartItemProps) => {
   const { id } = CartItemInfo;
   const [quantity, setQuantity] = useRecoilState(itemQuantityState);
-  const [isCheck, setIsCheck] = useRecoilState(itemEachCheckState(id));
+  const [isCheck, setIsCheck] = useRecoilState(CartItemCheckedState(id));
   const setItemIds = useSetRecoilState(itemIdsState);
   const setCartState = useSetRecoilState(cartState);
 
