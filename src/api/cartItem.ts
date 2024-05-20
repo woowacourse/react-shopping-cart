@@ -1,22 +1,22 @@
 import { CartItem } from "../types";
 import apiClient from "./apiClient";
 
-export function fetchCartItems(): Promise<CartItem[]> {
-  return apiClient.get("/cart-items", {}).then((data) => data.content);
+export async function fetchCartItems(): Promise<CartItem[]> {
+  return await apiClient.get("/cart-items", {}).then((data) => data.content);
 }
 
-export function addCartItem(productId: number): void {
-  apiClient.post("/cart-items", {}, { productId });
+export async function addCartItem(productId: number): Promise<void> {
+  await apiClient.post("/cart-items", {}, { productId });
 }
 
-export function deleteCartItem(addToCartId: number): void {
-  apiClient.delete(`/cart-items/${addToCartId}`, {});
+export async function deleteCartItem(addToCartId: number): Promise<void> {
+  await apiClient.delete(`/cart-items/${addToCartId}`, {});
 }
 
-export function patchCartItemQuantity(addToCartId: number, quantity: number) {
-  apiClient.patch(`/cart-items/${addToCartId}`, {}, { quantity });
+export async function patchCartItemQuantity(addToCartId: number, quantity: number) {
+  await apiClient.patch(`/cart-items/${addToCartId}`, {}, { quantity });
 }
 
-export function fetchCartItemsCounts(): Promise<number> {
-  return apiClient.get("/cart-items/counts", {}).then((data) => data.quantity);
+export async function fetchCartItemsCounts(): Promise<number> {
+  return await apiClient.get("/cart-items/counts", {}).then((data) => data.quantity);
 }

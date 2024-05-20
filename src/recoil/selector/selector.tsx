@@ -7,15 +7,13 @@ export const fetchCartItemsSelector = selector({
   get: fetchCartItems,
 });
 
-export const itemQuantitiesSelector = selector<Record<string, number>>({
+export const itemQuantitiesSelector = selector({
   key: "itemQuantities",
   get: ({ get }) => {
     const cartItems = get(cartItemsAtom);
     return Object.fromEntries(cartItems.map((item) => [item.id, item.quantity]));
   },
-  set: ({ set }, newValue) => {
-    const id = Number(Object.keys(newValue)[0]);
-    const newQuantity = Object.values(newValue)[0];
+  set: ({ set }, { id, quantity: newQuantity }: { id: number; quantity: number }) => {
     set(cartItemsAtom, (prev) =>
       prev.map((item) => {
         if (item.id === id) {

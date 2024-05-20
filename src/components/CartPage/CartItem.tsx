@@ -33,13 +33,13 @@ const CartItem = ({ product, handleDelete }: CardItemProps) => {
   const handleIncrement = () => {
     const increasedQuantity = quantity + 1;
     patchCartItemQuantity(product.id, increasedQuantity);
-    setQuantity({ [String(product.id)]: increasedQuantity });
+    setQuantity({ id: product.id, quantity: increasedQuantity });
   };
 
   const handleDecrement = () => {
     const decreasedQuantity = Math.max(quantity - 1, 1);
     patchCartItemQuantity(product.id, decreasedQuantity);
-    setQuantity({ [String(product.id)]: decreasedQuantity });
+    setQuantity({ id: product.id, quantity: decreasedQuantity });
   };
 
   return (

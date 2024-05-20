@@ -41,7 +41,7 @@ describe("quantitySelector 테스트", () => {
   });
 
   it("cartItems의 quantity를 변경하고 quantities 상태를 확인했을때, 변경된 cartItems의 quantity들이 얻어진다.", () => {
-    act(() => result.current.setQuantity({ 3: 5 }));
+    act(() => result.current.setQuantity({ id: 3, quantity: 5 }));
 
     expect(result.current.quantities).toEqual({ 1: 2, 2: 3, 3: 5 });
   });
