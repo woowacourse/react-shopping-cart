@@ -7,7 +7,7 @@ import Title from '../../Title/Title';
 import TotalPaymentInfo from '../../TotalPaymentInfo/TotalPaymentInfo';
 
 import { useRecoilValue } from 'recoil';
-import { cartItemsState } from '../../../recoil/cartItems';
+import { cartItemsCountState } from '../../../recoil/cartItems';
 import { isSomeCartItemSelectedState } from '../../../recoil/selectedCardItems';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,10 +16,9 @@ import MESSAGE from '../../../constants/Message';
 const ShoppingCart = () => {
   const navigator = useNavigate();
 
-  const cartItems = useRecoilValue(cartItemsState);
+  const cartItemsCount = useRecoilValue(cartItemsCountState);
 
-  const cartItemCount = cartItems.length;
-  const hasSomeCartItem = !!cartItemCount;
+  const hasSomeCartItem = !!cartItemsCount;
   const isSomeCartItemSelected = useRecoilValue(isSomeCartItemSelectedState);
 
   const isOrderable = hasSomeCartItem && isSomeCartItemSelected;
@@ -33,7 +32,7 @@ const ShoppingCart = () => {
           <>
             <Title
               title={MESSAGE.shoppingCart}
-              caption={MESSAGE.titleCaption(cartItemCount)}
+              caption={MESSAGE.titleCaption(cartItemsCount)}
             />
             <CartItems />
             <TotalPaymentInfo />
