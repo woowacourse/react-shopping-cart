@@ -1,11 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { Suspense } from "react";
+import { useRecoilValue } from "recoil";
+
+import { cartState } from "@/store/atom/atoms";
+
 import { CartItemContainerStyle, CartItemEmptyStyle } from "./CartItemContainer.style";
 import CartItemControls from "./CartItemsToolBar/CartItemsToolBar";
 import CartItemList from "./CartItemList/CartItemList";
-
-import { useRecoilValue } from "recoil";
-import { cartState } from "@/store/atom/atoms";
+import Loading from "@/components/APIComponent/Loading";
 
 const CartItemContainer = () => {
   const cartCount = useRecoilValue(cartState).length;
@@ -15,7 +17,7 @@ const CartItemContainer = () => {
       {cartCount !== 0 ? (
         <>
           <CartItemControls />
-          <Suspense fallback={<div>Loading</div>}>
+          <Suspense fallback={<Loading />}>
             <CartItemList />
           </Suspense>
         </>

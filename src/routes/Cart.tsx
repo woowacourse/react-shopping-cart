@@ -5,17 +5,22 @@ import Footer from "@/components/Footer/Footer";
 import CartTitle from "@/components/Main/Cart/CartTitle/CartTitle";
 import CartItemContainer from "@/components/Main/Cart/CartItemContainer/CartItemContainer";
 import CartResults from "@/components/Main/Cart/CartResults/CartResults";
+import Error from "@/components/APIComponent/Error";
+
+import { ErrorBoundary } from "react-error-boundary";
 
 const Cart = () => {
   return (
     <>
       <Header />
-      <Main>
-        <CartTitle />
-        <CartItemContainer />
-        <CartResults />
-      </Main>
-      <Footer />
+      <ErrorBoundary fallback={<Error />}>
+        <Main>
+          <CartTitle />
+          <CartItemContainer />
+          <CartResults />
+        </Main>
+        <Footer />
+      </ErrorBoundary>
       {import.meta.env.DEV && <AddButton />}
     </>
   );
