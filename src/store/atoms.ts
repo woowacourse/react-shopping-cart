@@ -1,26 +1,38 @@
 import { CartItemType, FilteredCartItemStateType } from "@/types/cart.type";
-import { atom, atomFamily } from "recoil";
+import { atom, atomFamily, selectorFamily } from "recoil";
 
 import { cartState } from "@/store/selectors/dataFetchSelector";
 import localStorageEffect from "@/store/localStorageEffect";
 
-const INIT_CART_ITEM_STATE = {
-  id: 0,
-  quantity: 0,
-  price: 0,
-  isSelected: false,
-};
+export const cartListState = atom<CartItemType[]>({
+  key: "cartListState",
+  default: cartState,
+});
 
 export const filteredCartItemState = atomFamily<
   FilteredCartItemStateType,
   number
 >({
   key: "cartItemState",
-  default: INIT_CART_ITEM_STATE,
-  effects: (id) => [localStorageEffect(`cartItemState_${id}`)],
-});
+  default: selectorFamily({
+    key: "cartItemState/Default",
+    get:
+      (id) =>
+      ({ get }) => {
+        const cartList = get(cartListState);
+        const item = cartList.find((item) => item.id);
 
-export const cartListState = atom<CartItemType[]>({
-  key: "cartListState",
-  default: cartState,
+        if (!item) {
+          throw new Error("item does not exist in cartList");
+        }
+
+        return {
+          id,
+          quantity: item.quantity,
+          price: item.product.price,
+          isSelected: false,
+        };
+      },
+  }),
+  effects: (id) => [localStorageEffect(`cartItemState_${id}`)],
 });

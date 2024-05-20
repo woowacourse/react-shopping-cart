@@ -5,7 +5,6 @@ import {
 } from "@/components/common/Button/QuantityButton";
 import { cartListState, filteredCartItemState } from "@/store/atoms";
 import { deleteCartItem, patchCartItem } from "@/api/cartItem";
-import { useEffect, useState } from "react";
 
 import BorderButton from "@/components/common/Button/BorderButton";
 import { CartItemType } from "@/types/cart.type";
@@ -13,6 +12,7 @@ import CheckBox from "@/components/common/CheckBox";
 import Loading from "@/assets/loading.gif";
 import styled from "@emotion/styled";
 import { useRecoilState } from "recoil";
+import { useState } from "react";
 
 interface Props {
   item: CartItemType;
@@ -27,17 +27,6 @@ const CartItem = ({ item }: Props) => {
   const [cartList, setCartList] = useRecoilState(cartListState);
   const [quantityLoading, setQuantityLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
-
-  useEffect(() => {
-    setFilteredItemState({
-      id,
-      quantity: filteredItemState.quantity
-        ? filteredItemState.quantity
-        : item.quantity,
-      price: item.product.price,
-      isSelected: filteredItemState.isSelected,
-    });
-  }, []);
 
   const handleSelect = () => {
     const newValue = { ...filteredItemState };
