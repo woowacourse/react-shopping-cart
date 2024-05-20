@@ -1,17 +1,24 @@
-import { renderHook, act } from "@testing-library/react";
+import { renderHook, act, waitFor } from "@testing-library/react";
 import { RecoilRoot } from "recoil";
 import useCartItemChecks from "../../hooks/useCartItemChecks";
 import { mockCartItems, mockCheckedIds } from "../mockData";
 
+jest.mock("../../api/cartItemApi", () => ({
+  fetchCartItems: jest.fn().mockImplementation(async () => mockCartItems),
+}));
+
 describe("isAllCheckedSelector 테스트", () => {
   let result;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     const hook = renderHook(() => useCartItemChecks(), {
       wrapper: RecoilRoot,
     });
 
     result = hook.result;
+    await waitFor(() => {
+      expect(result.current.setCartItems).toBeDefined();
+    });
   });
 
   it("전체 선택을 선택했을 때 모든 아이템들이 선택된다.", () => {

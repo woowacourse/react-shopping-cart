@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { cartItemCheckedIdsAtom, cartItemsAtom } from "../recoil/atom/atom";
-import { addCartItem, fetchCartItems } from "../api/cartItemApi";
+import { addCartItem } from "../api/cartItemApi";
 import CartTitle from "../components/CartPage/CartTitle";
 import CartItems from "../components/CartPage/CartItems";
 import OrderSummary from "../components/CartPage/OrderSummary";
@@ -13,15 +13,6 @@ const CartPage = () => {
   const navigate = useNavigate();
   const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
   const cartItemCheckedIds = useRecoilValue(cartItemCheckedIdsAtom);
-
-  useEffect(() => {
-    // addCartItem(3); //아이템 추가할 때 사용
-    const loadCartItems = async () => {
-      const data = await fetchCartItems();
-      setCartItems(data);
-    };
-    loadCartItems();
-  }, []);
 
   const handleClick = () => {
     navigate("/orderConfirmation");

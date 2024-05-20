@@ -1,14 +1,18 @@
 import { cartItemsAtom } from "../atom/atom";
 import { RecoilRoot, useRecoilState } from "recoil";
-import { renderHook } from "@testing-library/react";
+import { renderHook, waitFor } from "@testing-library/react";
 import { act } from "react";
 import { quantitySelector } from "./selector";
 import { mockCartItems } from "../mockData";
 
+jest.mock("../../api/cartItemApi", () => ({
+  fetchCartItems: jest.fn().mockImplementation(async () => mockCartItems),
+}));
+
 describe("quantitySelector 테스트", () => {
   let result;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     const hook = renderHook(
       () => {
         const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
@@ -21,6 +25,9 @@ describe("quantitySelector 테스트", () => {
     );
 
     result = hook.result;
+    await waitFor(() => {
+      expect(result.current.setCartItems).toBeDefined();
+    });
   });
 
   it("quantities의 상태를 확인했을 때, cartItems의 quantity들이 얻어진다.", () => {

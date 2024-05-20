@@ -1,16 +1,20 @@
 import { cartItemCheckedIdsAtom, cartItemsAtom } from "../atom/atom";
 import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
-import { renderHook } from "@testing-library/react";
+import { renderHook, waitFor } from "@testing-library/react";
 import { act } from "react";
 import { orderPriceSelector, shippingFeeSelector, totalPriceSelector } from "./selector";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { ORDER_PRICE_THRESHOLD, SHIPPING_FEE } from "../../constants/setting";
 import { mockCartItems, mockCheckedIds } from "../mockData";
 
+jest.mock("../../api/cartItemApi", () => ({
+  fetchCartItems: jest.fn().mockImplementation(async () => mockCartItems),
+}));
+
 describe("orderPriceSelector 테스트", () => {
   let result;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     const hook = renderHook(
       () => {
         const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
@@ -26,6 +30,9 @@ describe("orderPriceSelector 테스트", () => {
     );
 
     result = hook.result;
+    await waitFor(() => {
+      expect(result.current.setCartItems).toBeDefined();
+    });
   });
 
   describe("orderPriceSelector 테스트", () => {

@@ -1,6 +1,16 @@
 import { selector } from "recoil";
 import { cartItemCheckedIdsAtom, cartItemsAtom } from "../atom/atom";
 import { ORDER_PRICE_THRESHOLD, SHIPPING_FEE } from "../../constants/setting";
+import { fetchCartItems } from "../../api/cartItemApi";
+
+// 장바구니 상품 조회 api 호출
+export const fetchCartItemsSelector = selector({
+  key: "fetchCartItemsSelector",
+  get: async () => {
+    const cartItems = await fetchCartItems();
+    return cartItems;
+  },
+});
 
 // 전체 id에 대한 양을 가지고 있는 셀렉터. (get: {id: quantity, ...}. set: 해당 id를 해당 quantity로 변경 )
 export const quantitySelector = selector<Record<string, number>>({
