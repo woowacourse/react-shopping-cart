@@ -1,10 +1,9 @@
 import * as S from './styled';
 import Checkbox from '../Checkbox/Checkbox';
 import Stepper from '../Stepper/Stepper';
-import deleteCartItem from '../../api/delete/deleteCartItem';
-import changeCartItemQuantity from '../../api/patch/changeCartItemQuantity';
 import { CartItem } from '../../types/cartItem';
-import { useState } from 'react';
+import useDeleteCartItem from '../../api/delete/deleteCartItem';
+import useChangeCartItemQuantity from '../../api/patch/changeCartItemQuantity';
 
 interface ShoppingCartItemProps {
   cartItem: CartItem;
@@ -19,25 +18,21 @@ const ShoppingCartItem = ({
   isSelected,
   onCheckboxClick,
 }: ShoppingCartItemProps) => {
-  const [quantity, setQuantity] = useState<number>(cartItem.quantity);
+  const { changeCartItemQuantity } = useChangeCartItemQuantity(refetch);
+  const { deleteCartItem } = useDeleteCartItem(refetch);
 
   const onDelete = async () => {
-    await deleteCartItem(cartItem.id);
-    await refetch();
+    if (window.confirm('정말 상품을 삭제하시겠습니까?')) await deleteCartItem(cartItem.id);
   };
 
   const handleIncrement = async () => {
-    const newQuantity = quantity + 1;
+    const newQuantity = cartItem.quantity + 1;
     await changeCartItemQuantity({ id: cartItem.id, quantity: newQuantity });
-    await refetch();
-    setQuantity(newQuantity);
   };
 
   const handleDecrement = async () => {
-    const newQuantity = Math.max(quantity - 1, 0);
+    const newQuantity = Math.max(cartItem.quantity - 1, 0);
     await changeCartItemQuantity({ id: cartItem.id, quantity: newQuantity });
-    await refetch();
-    setQuantity(newQuantity);
   };
 
   return (
@@ -59,7 +54,7 @@ const ShoppingCartItem = ({
           <S.ProductName>{cartItem.product.name}</S.ProductName>
           <S.ProductPrice>{cartItem.product.price.toLocaleString()}원</S.ProductPrice>
           <Stepper
-            value={quantity}
+            value={cartItem.quantity}
             handleIncrement={handleIncrement}
             handleDecrement={handleDecrement}
           />
