@@ -1,22 +1,10 @@
 import { RecoilRoot } from 'recoil';
 import { Suspense } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { ShoppingCartPage, ConfirmOrderPage } from './page';
+import { RouterProvider } from 'react-router-dom';
+import router from './routes/router';
 
-import { ENDPOINT } from './constants';
 import './App.css';
 import './reset.css';
-
-const router = createBrowserRouter([
-  {
-    path: ENDPOINT.shoppingCart,
-    element: <ShoppingCartPage />,
-  },
-  {
-    path: ENDPOINT.confirmOrder,
-    element: <ConfirmOrderPage />,
-  },
-]);
 
 export default function App() {
   return (

@@ -6,7 +6,7 @@ import { NavigationBar, PageTitle, FooterButton } from '../../components/common'
 import { CartContainer } from '../../components/shoppingCart';
 import * as Styled from './ShoppingCartPage.style';
 
-import { ENDPOINT } from '../../constants';
+import { ENDPOINT } from '../../routes/router.constants';
 
 import {
   totalAmountState,

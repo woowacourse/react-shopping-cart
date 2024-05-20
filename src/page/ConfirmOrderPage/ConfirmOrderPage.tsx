@@ -5,7 +5,7 @@ import { NavigationBar, PreviousPageButton, FooterButton } from '../../component
 import * as Styled from './ConfirmOrderPage.style';
 
 import { convertToLocaleAmount } from '../../utils';
-import { ENDPOINT } from '../../constants';
+import { ENDPOINT } from '../../routes/router.constants';
 
 export default function ConfirmOrderPage() {
   const navigate = useNavigate();
