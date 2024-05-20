@@ -27,9 +27,7 @@ export default function Checkbox({
           css={checkIcon}
           alt="check icon"
         />
-        {description && (
-          <span css={[labelText, labelHidden && screenReaderOnly]}>{description}</span>
-        )}
+        <span css={[labelText, labelHidden && screenReaderOnly]}>{description}</span>
       </label>
     </>
   );
