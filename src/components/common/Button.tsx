@@ -9,10 +9,10 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export default function Button({ id, children, css, ...props }: PropsWithChildren<ButtonProps>) {
   return (
     <>
-      <label css={screenReaderOnly} id={id}>
+      <label css={screenReaderOnly} htmlFor={id}>
         {id}
       </label>
-      <button css={css} {...props}>
+      <button id={id} css={css} {...props}>
         {children}
       </button>
     </>

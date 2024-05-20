@@ -20,6 +20,7 @@ export default function CartProducts() {
     <div css={productsContainer}>
       <div css={allCheckedContainer}>
         <Checkbox
+          labelHidden={false}
           checked={isAllChecked}
           onChange={handleClickCheck}
           id="전체 선택"

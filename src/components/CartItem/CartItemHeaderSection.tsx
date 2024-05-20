@@ -30,7 +30,13 @@ const CartItemHeaderSection = ({ cartId, productName }: CartItemHeaderSectionPro
 
   return (
     <div css={cartItemHeader}>
-      <Checkbox checked={isChecked} onChange={handleClickCheck} id={productName + 'checkbox'} />
+      <Checkbox
+        checked={isChecked}
+        onChange={handleClickCheck}
+        id={productName + 'checkbox'}
+        description={productName + 'checkbox'}
+        labelHidden={true}
+      />
       <Button id={productName + 'delete-button'} css={deleteButton} onClick={handleDeleteItem}>
         삭제
       </Button>

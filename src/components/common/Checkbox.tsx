@@ -5,14 +5,21 @@ import { CHECKED, UNCHECKED } from '@assets/images';
 
 interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
-  description?: string;
+  labelHidden: boolean;
+  description: string;
 }
 
-export default function Checkbox({ id, checked, description, onChange }: CheckboxProps) {
+export default function Checkbox({
+  id,
+  checked,
+  labelHidden,
+  description,
+  onChange,
+}: CheckboxProps) {
   return (
     <>
       <input id={id} type="checkbox" checked={checked} css={screenReaderOnly} onChange={onChange} />
-      <label css={label} htmlFor={id}>
+      <label css={[label, labelHidden && screenReaderOnly]} htmlFor={id}>
         <img
           src={checked ? CHECKED : UNCHECKED}
           width={24}
