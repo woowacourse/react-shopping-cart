@@ -9,9 +9,14 @@ export const cartListState = atom<CartItemType[]>({
   default: selector<CartItemType[]>({
     key: "cartListSelector",
     get: async () => {
-      const items = await fetchCartItems();
-      initializeCartItemStorage(items);
-      return items;
+      try {
+        const items = await fetchCartItems();
+        initializeCartItemStorage(items);
+        return items;
+      } catch (error) {
+        console.error("Failed to fetch cart items : ", error);
+        return [];
+      }
     },
   }),
 });
