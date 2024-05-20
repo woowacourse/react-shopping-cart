@@ -2,10 +2,9 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": ["ES2020", "DOM", "DOM.Iterable", "WebWorker"],
     "module": "ESNext",
     "skipLibCheck": true,
-
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -21,9 +20,27 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Testing */
-    "types": ["jest"],
-    "esModuleInterop": true
+    "types": ["jest", "vite-plugin-svgr/client", "vite/client"],
+    "esModuleInterop": true,
+
+    "baseUrl": "src",
+    "paths": {
+      "@components/*": ["components/*"],
+      "@styles/*": ["styles/*"],
+      "@utils/*": ["utils/*"],
+      "@assets/*": ["assets/*"],
+      "@constants/*": ["constants/*"],
+      "@hooks/*": ["hooks/*"],
+      "@domain/*": ["domain/*"],
+      "@routes/*": ["routes/*"],
+      "@pages/*": ["pages/*"],
+      "@apis/*": ["apis/*"],
+      "@errors/*": ["errors/*"],
+      "@appTypes/*": ["appTypes/*"],
+      "@recoil/*": ["recoil/*"]
+    }
   },
-  "include": ["src"],
+
+  "include": ["src", "__tests__"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
