@@ -1,12 +1,11 @@
-import { PropsWithChildren } from 'react';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 
-import Layout from '../../layout';
 import Header from '../../components/Header';
 import BottomButton from '../../components/common/BottomButton';
-import RecoilSuspense from '../../components/common/RecoilSuspense';
 import Fallback from '../../components/common/Fallback';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
+import RecoilSuspense from '../../components/common/RecoilSuspense';
+import Layout from '../../layout';
 
 import {
   cartListNumberOfTypes,
@@ -23,7 +22,7 @@ import {
   TotalPrice,
 } from './styles';
 
-const ConfirmOrderPage: React.FC<PropsWithChildren> = () => {
+export default function ConfirmOrderPage() {
   const cartList = useRecoilValueLoadable(cartListState);
   const totalPrice = useRecoilValue(cartListTotalPrice);
   const totalQuantity = useRecoilValue(cartListTotalQuantity);
@@ -62,6 +61,4 @@ const ConfirmOrderPage: React.FC<PropsWithChildren> = () => {
       </RecoilSuspense>
     </Layout>
   );
-};
-
-export default ConfirmOrderPage;
+}
