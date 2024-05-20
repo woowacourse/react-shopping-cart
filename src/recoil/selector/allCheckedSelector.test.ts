@@ -1,6 +1,6 @@
 import { cartItemCheckedIdsAtom, cartItemsAtom } from "../atom/atom";
 import { RecoilRoot, useRecoilState } from "recoil";
-import { renderHook } from "@testing-library/react";
+import { renderHook, waitFor } from "@testing-library/react";
 import { act } from "react";
 import { isAllCheckedSelector } from "./selector";
 import { Product } from "../../types";
@@ -22,13 +22,12 @@ jest.mock("../../api/cartItem", () => {
 describe("allCheckedSelector 테스트", () => {
   let result;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     const hook = renderHook(
       () => {
-        const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
         const [checkedIds, setCheckedIds] = useRecoilState(cartItemCheckedIdsAtom);
         const [allChecked, setAllChecked] = useRecoilState(isAllCheckedSelector);
-        return { cartItems, setCartItems, checkedIds, setCheckedIds, allChecked, setAllChecked };
+        return { checkedIds, setCheckedIds, allChecked, setAllChecked };
       },
       {
         wrapper: RecoilRoot,
@@ -36,11 +35,14 @@ describe("allCheckedSelector 테스트", () => {
     );
 
     result = hook.result;
+
+    await waitFor(() => {
+      expect(result.current.checkedIds).toBeDefined();
+    });
   });
 
   it("전체 선택을 선택했을 때 모든 아이템들이 선택된다.", () => {
     act(() => {
-      result.current.setCartItems(mockCartItems);
       result.current.setCheckedIds(mockCheckedIds);
     });
 
@@ -52,7 +54,6 @@ describe("allCheckedSelector 테스트", () => {
 
   it("전체 선택을 해제했을 때, 모든 아이템의 선택이 해제된다.", () => {
     act(() => {
-      result.current.setCartItems(mockCartItems);
       result.current.setCheckedIds([1, 2, 3]);
     });
 
@@ -64,7 +65,6 @@ describe("allCheckedSelector 테스트", () => {
 
   it("전체 선택 상태에서 하나만 선택을 해제했을 때, 전체 선택 상태는 false가 된다.", () => {
     act(() => {
-      result.current.setCartItems(mockCartItems);
       result.current.setCheckedIds([1, 2, 3]);
     });
 
@@ -75,7 +75,6 @@ describe("allCheckedSelector 테스트", () => {
 
   it("하나를 선택했을 때 전체가 선택된 상태이면 전체 선택이 true가 된다.", () => {
     act(() => {
-      result.current.setCartItems(mockCartItems);
       result.current.setCheckedIds([1, 2]);
     });
 

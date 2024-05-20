@@ -1,6 +1,6 @@
 import { cartItemCheckedIdsAtom, cartItemsAtom } from "../atom/atom";
 import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
-import { renderHook } from "@testing-library/react";
+import { renderHook, waitFor } from "@testing-library/react";
 import { act } from "react";
 import { orderPriceSelector, shippingFeeSelector, totalPriceSelector } from "./selector";
 import { Product } from "../../types";
@@ -22,7 +22,7 @@ jest.mock("../../api/cartItem", () => {
 describe("orderPriceSelector 테스트", () => {
   let result;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     const hook = renderHook(
       () => {
         const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
@@ -38,12 +38,15 @@ describe("orderPriceSelector 테스트", () => {
     );
 
     result = hook.result;
+
+    await waitFor(() => {
+      expect(result.current.setCartItems).toBeDefined();
+    });
   });
 
   describe("orderPriceSelector 테스트", () => {
     it("orderPrice 상태를 확인했을때, 체크되어있는 아이템들의 가격과 수량으로 계산된 주문 금액이 얻어진다.", () => {
       act(() => {
-        result.current.setCartItems(mockCartItems);
         result.current.setCheckedIds(mockCheckedIds);
       });
 
@@ -54,7 +57,6 @@ describe("orderPriceSelector 테스트", () => {
   describe("shippingFeeSelector 테스트", () => {
     it("주문 금액이 100,000원이 넘지 않으면 배달비가 3,000원이다.", () => {
       act(() => {
-        result.current.setCartItems(mockCartItems);
         result.current.setCheckedIds([1]);
       });
 
@@ -64,7 +66,6 @@ describe("orderPriceSelector 테스트", () => {
 
     it("주문 금액이 100,000원이 넘으면 배달비가 0원이다.", () => {
       act(() => {
-        result.current.setCartItems(mockCartItems);
         result.current.setCheckedIds(mockCheckedIds);
       });
 
@@ -75,7 +76,6 @@ describe("orderPriceSelector 테스트", () => {
   describe("totalPriceSelector 테스트", () => {
     it("배달비가 0원일 때, 주문 금액과 배달비를 합한 전체 금액을 계산한다.", () => {
       act(() => {
-        result.current.setCartItems(mockCartItems);
         result.current.setCheckedIds(mockCheckedIds);
       });
 
@@ -84,7 +84,6 @@ describe("orderPriceSelector 테스트", () => {
 
     it("배달비가 3,000원일 때, 주문 금액과 배달비를 합한 전체 금액을 계산한다.", () => {
       act(() => {
-        result.current.setCartItems(mockCartItems);
         result.current.setCheckedIds([1]);
       });
 
