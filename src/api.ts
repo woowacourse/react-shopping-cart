@@ -1,6 +1,11 @@
 import { API_TOKEN } from "./store/utils";
 
-type MethodType = "GET" | "POST";
+enum MethodType {
+  Get = "GET",
+  Post = "POST",
+  Delete = "DELETE",
+  Patch = "PATCH",
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type FetchWrapper = (input: string | URL | Request, init?: RequestInit | undefined) => any;
@@ -11,7 +16,7 @@ const fetchWrapper: FetchWrapper = async (url, init) => {
       ...init,
       headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
     });
-    if (response.ok && init?.method === "GET") {
+    if (response.ok && init?.method === MethodType.Get) {
       const data = await response.json();
       return data;
     }
@@ -39,7 +44,7 @@ export const fetchProducts = async (method: MethodType) => {
 export const deleteProduct = async (cartId: number) => {
   const url = import.meta.env.VITE_API_BASE_URL + `/cart-items/${cartId}`;
   const init = {
-    method: "DELETE",
+    method: MethodType.Delete,
   };
   await fetchWrapper(url, init);
 };
@@ -52,7 +57,7 @@ interface ChangeProductAmountProps {
 export const changeProductAmount = async ({ quantity, id }: ChangeProductAmountProps) => {
   const url = import.meta.env.VITE_API_BASE_URL + `/cart-items/${id}`;
   const init = {
-    method: "PATCH",
+    method: MethodType.Patch,
     body: JSON.stringify({
       quantity,
     }),
@@ -63,7 +68,7 @@ export const changeProductAmount = async ({ quantity, id }: ChangeProductAmountP
 export const fetchCartItemsCounts = async () => {
   const url = import.meta.env.VITE_API_BASE_URL + "/cart-items/counts";
   const init = {
-    method: "GET",
+    method: MethodType.Get,
   };
   const { quantity } = await fetchWrapper(url, init);
   return quantity;
@@ -72,7 +77,7 @@ export const fetchCartItemsCounts = async () => {
 export const AddItem = async ({ productId }: { productId: number }) => {
   const url = import.meta.env.VITE_API_BASE_URL + "/cart-items";
   const init = {
-    method: "POST",
+    method: MethodType.Post,
     body: JSON.stringify({
       productId,
     }),
