@@ -19,7 +19,7 @@ export default function Checkbox({
   return (
     <>
       <input id={id} type="checkbox" checked={checked} css={screenReaderOnly} onChange={onChange} />
-      <label css={[label, labelHidden && screenReaderOnly]} htmlFor={id}>
+      <label css={label} htmlFor={id}>
         <img
           src={checked ? CHECKED : UNCHECKED}
           width={24}
@@ -27,7 +27,9 @@ export default function Checkbox({
           css={checkIcon}
           alt="check icon"
         />
-        {description && <span css={labelText}>{description}</span>}
+        {description && (
+          <span css={[labelText, labelHidden && screenReaderOnly]}>{description}</span>
+        )}
       </label>
     </>
   );
