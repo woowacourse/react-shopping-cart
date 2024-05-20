@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-import ROUTES from '../constants/routes';
+import { PAGE_ROUTES } from '@/constants/routes';
 
 const useCartNavigate = () => {
   const navigate = useNavigate();
 
   const handleHomeButtonClick = () => {
-    navigate(ROUTES.CART);
+    navigate(PAGE_ROUTES.CART);
   };
 
   return { handleHomeButtonClick };

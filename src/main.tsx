@@ -1,15 +1,14 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import CartPage from './pages/cart/CartPage';
 import CheckoutPage from './pages/checkout/CheckoutPage';
 import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
-import { Suspense } from 'react';
+import React, { Suspense } from 'react';
 import NotFoundPage from './pages/notfound/NotFoundPage';
 import './styles/reset.css';
 import './styles/index.css';
 import { RecoilRoot } from 'recoil';
-import ROUTES from './constants/routes';
+import { PAGE_ROUTES } from './constants/routes';
 
 const CommonLayout = () => (
   <ErrorBoundary fallback={<div>에러</div>}>
@@ -24,11 +23,11 @@ const routes = [
     element: <CommonLayout />,
     children: [
       {
-        path: ROUTES.CART,
+        path: PAGE_ROUTES.CART,
         element: <CartPage />,
       },
       {
-        path: ROUTES.CHECK_OUT,
+        path: PAGE_ROUTES.CHECK_OUT,
         element: <CheckoutPage />,
       },
       { path: '*', element: <NotFoundPage /> },
@@ -37,7 +36,7 @@ const routes = [
 ];
 
 const router = createBrowserRouter(routes, {
-  basename: ROUTES.CART,
+  // basename: PAGE_ROUTES.CART,
 });
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
