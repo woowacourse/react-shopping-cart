@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
 
-import { imgMap } from '../../../../f_shared/index';
+import { imgMap } from '@/f_shared/index';
+
 import { MiddleSlotType } from '../../model/types';
 
 import css from './MiddleSlot.module.css';
