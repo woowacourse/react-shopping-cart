@@ -38,7 +38,7 @@ const CartItems = () => {
         <Styled.SelectMessage>{MESSAGE.allSelected}</Styled.SelectMessage>
       </Styled.AllSelectContainer>
       {cartItems.map((cartItem: CartItemType) => {
-        return <CartItem inputCartItem={cartItem} />;
+        return <CartItem key={cartItem.id} inputCartItem={cartItem} />;
       })}
     </Styled.ItemList>
   );
