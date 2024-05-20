@@ -1,23 +1,14 @@
 /** @jsxImportSource @emotion/react */
 
-import { API_TOKEN } from "@/store/utils";
 import { AddButtonStyle } from "./AddButton.style";
+import { AddItem } from "@/api";
 
 const AddButton = () => {
   return (
     <div
       css={AddButtonStyle}
       onClick={() => {
-        const fn = async () => {
-          await fetch(import.meta.env.VITE_API_BASE_URL + "/cart-items", {
-            method: "POST",
-            headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
-            body: JSON.stringify({
-              productId: 10,
-            }),
-          });
-        };
-        fn();
+        AddItem({ productId: 2 });
       }}
     >
       ADD

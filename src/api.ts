@@ -68,3 +68,14 @@ export const fetchCartItemsCounts = async () => {
   const { quantity } = await fetchWrapper(url, init);
   return quantity;
 };
+
+export const AddItem = async ({ productId }: { productId: number }) => {
+  const url = import.meta.env.VITE_API_BASE_URL + "/cart-items";
+  const init = {
+    method: "POST",
+    body: JSON.stringify({
+      productId,
+    }),
+  };
+  await fetchWrapper(url, init);
+};
