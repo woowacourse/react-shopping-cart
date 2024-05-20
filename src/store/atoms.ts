@@ -17,7 +17,7 @@ export const filteredCartItemState = atomFamily<
 >({
   key: "cartItemState",
   default: INIT_CART_ITEM_STATE,
-  effects_UNSTABLE: (id) => [localStorageEffect(`cartItemState_${id}`)],
+  effects: (id) => [localStorageEffect(`cartItemState_${id}`)],
 });
 
 export const cartListState = atom<CartItemType[]>({
