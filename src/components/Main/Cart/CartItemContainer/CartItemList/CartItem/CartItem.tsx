@@ -6,7 +6,6 @@ import { changeProductAmount, deleteProduct } from "@/api";
 import { deleteCheck } from "@/store/localStorage/localStorage";
 
 import Checkbox from "@/components/Button/Checkbox/Checkbox";
-import DeleteButton from "@/components/Button/DeleteButton/DeleteButton";
 import {
   CartItemContainerStyle,
   CartItemDetailControlsStyle,
@@ -19,6 +18,7 @@ import {
 } from "./CartItem.style";
 import QuantityButton from "@/components/Button/QuantityButton/QuantityButton";
 import Divider from "@/components/Divider/Divider";
+import Button from "@/components/Button/Button";
 
 interface CartItemProps {
   CartItemInfo: CartItemInfo;
@@ -70,7 +70,9 @@ const CartItem = ({ CartItemInfo: { id, product } }: CartItemProps) => {
       <Divider />
       <div css={CartItemDetailControlsStyle}>
         <Checkbox isCheck={isCheck} onClick={handleCheckBoxClick} />
-        <DeleteButton onClick={executeDeleteProduct} />
+        <Button width="40px" onClick={executeDeleteProduct}>
+          삭제
+        </Button>
       </div>
       <div css={CartItemInfoStyle}>
         <div>
