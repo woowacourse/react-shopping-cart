@@ -23,7 +23,8 @@ const ShoppingCart = () => {
 
   return (
     <Styled.ShoppingCart>
-      <Header title="SHOP" />
+      <Header children="SHOP" />
+
       <Styled.Container>
         {hasSomeCartItem && (
           <>
@@ -47,9 +48,10 @@ const ShoppingCart = () => {
           </>
         )}
       </Styled.Container>
+
       <OrderButton
         onClick={() => navigator('/orderConfirmation')}
-        label="주문 확인"
+        children="주문 확인"
         isOrderable={isOrderable}
       />
     </Styled.ShoppingCart>

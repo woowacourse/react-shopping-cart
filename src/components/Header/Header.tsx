@@ -1,15 +1,15 @@
 import * as Styled from './style';
 
 interface HeaderProps {
-  title: string;
+  children: React.ReactNode;
   onClick?: () => void;
 }
 
-const Header = ({ title, onClick }: HeaderProps) => {
+const Header = ({ children, onClick }: HeaderProps) => {
   return (
     <Styled.Header>
       <Styled.AppTitle onClick={() => onClick && onClick()}>
-        {title}
+        {children}
       </Styled.AppTitle>
     </Styled.Header>
   );

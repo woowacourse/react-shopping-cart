@@ -13,7 +13,7 @@ const OrderConfirmation = () => {
 
   return (
     <Styled.OrderConfirmation>
-      <Header title="⬅" onClick={() => navigator(-1)} />
+      <Header children="⬅" onClick={() => navigator(-1)} />
       <Styled.Container>
         <Styled.Content>
           <Styled.Title>주문 확인</Styled.Title>
@@ -34,7 +34,7 @@ const OrderConfirmation = () => {
       </Styled.Container>
       <OrderButton
         onClick={() => console.log('주문 확인')}
-        label="결제하기"
+        children="결제하기"
         isOrderable={false}
       />
     </Styled.OrderConfirmation>
