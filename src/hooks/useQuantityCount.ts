@@ -6,18 +6,27 @@ const useQuantityCount = (id: number) => {
   const [productQuantity, setProductQuantity] = useRecoilState(individualCartItemQuantity(id));
 
   const handleIncrementQuantity = async () => {
-    const { success } = await updateCartItemQuantity(id, productQuantity + 1);
-    success && setProductQuantity(productQuantity + 1);
+    try {
+      await updateCartItemQuantity(id, productQuantity + 1);
+      setProductQuantity(productQuantity + 1);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
+    }
   };
 
   const handleDecrementQuantity = async () => {
-    const newQuantity = Math.max(productQuantity - 1, 1);
+    try {
+      const newQuantity = Math.max(productQuantity - 1, 1);
 
-    if (newQuantity < productQuantity) {
-      const { success } = await updateCartItemQuantity(id, newQuantity);
-
-      if (success) {
+      if (newQuantity < productQuantity) {
+        await updateCartItemQuantity(id, newQuantity);
         setProductQuantity(newQuantity);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
       }
     }
   };

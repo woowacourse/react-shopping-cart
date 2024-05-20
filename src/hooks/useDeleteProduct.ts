@@ -6,11 +6,14 @@ const useDeleteProduct = (id: number) => {
   const [, setProducts] = useRecoilState(allCartItemStates);
 
   const handleDeleteButton = async () => {
-    const { success } = await deleteCartItem(id);
-
-    if (success) {
+    try {
+      await deleteCartItem(id);
       setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
       localStorage.removeItem(JSON.stringify(id));
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
     }
   };
 
