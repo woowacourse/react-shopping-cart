@@ -2,6 +2,7 @@ import { atom, selector } from 'recoil';
 import { fetchCartItems } from '../api/shoppingCart';
 import { selectedCartItemsState } from './selectedCardItems';
 import CONDITION from '../constants/Condition';
+import VALUE from '../constants/Value';
 
 export const fetchedCartItemsState = selector({
   key: 'fetchedCartItemsState',
@@ -13,6 +14,13 @@ export const fetchedCartItemsState = selector({
 export const cartItemsState = atom({
   key: 'cartItems',
   default: fetchedCartItemsState,
+});
+
+export const cartItemsCountState = selector<number>({
+  key: 'cartItemsCount',
+  get: ({ get }) => {
+    return get(cartItemsState).length;
+  },
 });
 
 export const totalOrderAmountState = selector<number>({
@@ -37,7 +45,7 @@ export const totalCartItemQuantityState = selector<number>({
   },
 });
 
-export const selectedCartItemCountState = selector<number>({
+export const selectedCartItemsCountState = selector<number>({
   key: 'selectedCartItemCount',
   get: ({ get }) => {
     return get(selectedCartItemsState).length;

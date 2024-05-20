@@ -3,3 +3,5 @@ const VALUE = {
   shippingFee: 3000,
   freeShippingFee: 0,
 };
+
+export default VALUE;

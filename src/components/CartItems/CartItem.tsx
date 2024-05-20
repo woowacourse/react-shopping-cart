@@ -17,6 +17,8 @@ import RemoveButton from '../assets/RemoveButton.svg';
 
 import MESSAGE from '../../constants/Message';
 import CONDITION from '../../constants/Condition';
+import VALUE from '../../constants/Value';
+
 import { CartItemType } from '../../type';
 
 interface CartItemProps {
