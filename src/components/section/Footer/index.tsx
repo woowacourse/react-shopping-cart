@@ -4,7 +4,7 @@ import { cartItemsState } from "../../../stores/cartItems";
 import { isAnyCartItemSelectedState } from "../../../stores/cartItemSelected";
 
 import Button from "../../_common/Button";
-import { Wrapper } from "./style";
+import * as S from "./styled";
 
 const Footer = () => {
   const { pathname } = useLocation();
@@ -27,7 +27,7 @@ const Footer = () => {
   };
 
   return (
-    <Wrapper>
+    <S.Container>
       <Button
         onClick={handleButtonClick}
         $theme={disabledButton ? "disabled" : "black"}
@@ -37,7 +37,7 @@ const Footer = () => {
       >
         {buttonText}
       </Button>
-    </Wrapper>
+    </S.Container>
   );
 };
 

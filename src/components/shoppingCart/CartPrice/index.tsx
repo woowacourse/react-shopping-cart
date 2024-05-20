@@ -1,30 +1,27 @@
 import { useRecoilValue } from "recoil";
 import { cartPriceState } from "../../../stores/cartPrice";
-import { Wrapper, PriceKind, PriceNumber, Price } from "./style";
 
-export interface PriceStyleProps {
-  $borderTop?: string;
-}
+import * as S from "./styled";
 
 const CartPrice = () => {
   const { orderPrice, deliveryFee, totalPrice } =
     useRecoilValue(cartPriceState);
 
   return (
-    <Wrapper>
-      <Price>
-        <PriceKind>주문 금액</PriceKind>
-        <PriceNumber>{orderPrice.toLocaleString("ko-KR")}원</PriceNumber>
-      </Price>
-      <Price>
-        <PriceKind>배송비</PriceKind>
-        <PriceNumber>{deliveryFee.toLocaleString("ko-KR")}원</PriceNumber>
-      </Price>
-      <Price $borderTop="1px solid rgba(0, 0, 0, 0.1)">
-        <PriceKind>총 결제 금액</PriceKind>
-        <PriceNumber>{totalPrice.toLocaleString("ko-KR")}원</PriceNumber>
-      </Price>
-    </Wrapper>
+    <S.Container>
+      <S.PriceWrapper>
+        <S.PriceTitle>주문 금액</S.PriceTitle>
+        <S.PriceNumber>{orderPrice.toLocaleString("ko-KR")}원</S.PriceNumber>
+      </S.PriceWrapper>
+      <S.PriceWrapper>
+        <S.PriceTitle>배송비</S.PriceTitle>
+        <S.PriceNumber>{deliveryFee.toLocaleString("ko-KR")}원</S.PriceNumber>
+      </S.PriceWrapper>
+      <S.PriceWrapper>
+        <S.PriceTitle>총 결제 금액</S.PriceTitle>
+        <S.PriceNumber>{totalPrice.toLocaleString("ko-KR")}원</S.PriceNumber>
+      </S.PriceWrapper>
+    </S.Container>
   );
 };
 

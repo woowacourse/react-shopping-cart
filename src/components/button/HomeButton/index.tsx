@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import Button from "../../_common/Button";
-import styled from "styled-components";
+import * as S from "./styled";
 
 const HomeButton = () => {
   const navigate = useNavigate();
@@ -9,13 +8,7 @@ const HomeButton = () => {
     navigate("/");
   };
 
-  return <StyledButton onClick={handleMoveToHomePage}>SHOP</StyledButton>;
+  return <S.StyledButton onClick={handleMoveToHomePage}>SHOP</S.StyledButton>;
 };
 
 export default HomeButton;
-
-const StyledButton = styled(Button)`
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-extra-bold);
-  line-height: 16px;
-`;

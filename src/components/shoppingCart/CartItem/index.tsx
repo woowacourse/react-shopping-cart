@@ -4,23 +4,13 @@ import { cartItemsState } from "../../../stores/cartItems";
 import { isCartItemsSelectedState } from "../../../stores/cartItemSelected";
 
 import Button from "../../_common/Button";
-import { MinusButton, PlusButton } from "../../button/QuantityButton";
+import { CheckButton, MinusButton, PlusButton } from "../../button";
 
 import { deleteCartItem, patchCartItemQuantity } from "../../../apis";
 
 import { CartItemType } from "../../../types";
 
-import {
-  Wrapper,
-  ItemImg,
-  Header,
-  Body,
-  ItemPrice,
-  ItemInfo,
-  ItemInfoWrapper,
-  ItemQuantity,
-} from "./style";
-import CheckButton from "../../button/CheckButton";
+import * as S from "./styled";
 
 interface CardItemProps {
   cartItem: CartItemType;
@@ -53,8 +43,8 @@ const CartItem = ({ cartItem }: CardItemProps) => {
   };
 
   return (
-    <Wrapper>
-      <Header>
+    <S.Container>
+      <S.Header>
         <CheckButton
           isChecked={isCartItemsSelected}
           onToggle={() => setIsCartItemsSelected((prev: boolean) => !prev)}
@@ -62,15 +52,15 @@ const CartItem = ({ cartItem }: CardItemProps) => {
         <Button $theme="white" $size="s" onClick={handleDeleteItem}>
           삭제
         </Button>
-      </Header>
-      <Body>
-        <ItemImg src={product.imageUrl} />
-        <ItemInfoWrapper>
-          <ItemInfo>
+      </S.Header>
+      <S.Body>
+        <S.ItemImg src={product.imageUrl} />
+        <S.ItemInfoWrapper>
+          <S.ItemInfo>
             <span>{product.name}</span>
-            <ItemPrice>{product.price.toLocaleString("ko-KR")}</ItemPrice>
-          </ItemInfo>
-          <ItemQuantity>
+            <S.ItemPrice>{product.price.toLocaleString("ko-KR")}</S.ItemPrice>
+          </S.ItemInfo>
+          <S.ItemQuantity>
             <MinusButton
               quantity={quantity}
               onClick={() => handleChangeItemQuantity(-1)}
@@ -80,10 +70,10 @@ const CartItem = ({ cartItem }: CardItemProps) => {
               quantity={quantity}
               onClick={() => handleChangeItemQuantity(1)}
             />
-          </ItemQuantity>
-        </ItemInfoWrapper>
-      </Body>
-    </Wrapper>
+          </S.ItemQuantity>
+        </S.ItemInfoWrapper>
+      </S.Body>
+    </S.Container>
   );
 };
 

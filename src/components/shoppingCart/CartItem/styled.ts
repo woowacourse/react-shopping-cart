@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+export const Container = styled.div`
   width: 100%;
-  padding: 12px 0 8px;
+  padding: 20px 0;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 `;
 

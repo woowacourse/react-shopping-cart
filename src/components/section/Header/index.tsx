@@ -1,11 +1,11 @@
-import { Wrapper } from "./style";
+import * as S from "./styled";
 
 interface HeaderProps {
   children: React.ReactNode;
 }
 
 const Header = ({ children }: HeaderProps) => {
-  return <Wrapper>{children}</Wrapper>;
+  return <S.Container>{children}</S.Container>;
 };
 
 export default Header;

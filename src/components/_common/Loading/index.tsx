@@ -3,9 +3,9 @@ import loading from "../../../assets/images/loading.png";
 
 const Loading = () => {
   return (
-    <S.Wrapper>
+    <S.Container>
       <S.Loading src={loading} alt="loading image" />
-    </S.Wrapper>
+    </S.Container>
   );
 };
 

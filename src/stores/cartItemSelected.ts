@@ -1,6 +1,6 @@
 import { atomFamily, selector } from "recoil";
 import { cartItemsState } from "./cartItems";
-import { getPersistenceConfig } from "./utils/getPersistenceConfig";
+import getPersistenceConfig from "./utils/getPersistenceConfig";
 
 export const isCartItemsSelectedState = atomFamily({
   key: "isCartItemsSelectedState",
