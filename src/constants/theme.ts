@@ -1,0 +1,8 @@
+export const THEME = {
+  BLACK: '#000',
+  WHITE: '#fff',
+  DISABLED: '#BEBEBE',
+  LIGHT_BLACK: '#0000001a',
+  DISABLED_OPACITY: 0.1,
+  HOVER_OPACITY: 0.6,
+};
