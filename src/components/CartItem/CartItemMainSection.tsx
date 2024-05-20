@@ -15,6 +15,8 @@ const CartItemMainSection = ({ item }: CartItemMainSectionProps) => {
   const setCartItems = useSetRecoilState(cartItemsState);
 
   const handleDecrementQuantity = async () => {
+    if (item.quantity <= 1) return;
+
     setCartItems((prevItems) =>
       prevItems.map((cartItem) =>
         cartItem.id === item.id
@@ -23,7 +25,15 @@ const CartItemMainSection = ({ item }: CartItemMainSectionProps) => {
       ),
     );
 
-    if (item.quantity > 1) await updateItemQuantity(item.id, item.quantity - 1);
+    try {
+      await updateItemQuantity(item.id, item.quantity - 1);
+    } catch {
+      setCartItems((prevItems) =>
+        prevItems.map((cartItem) =>
+          cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem,
+        ),
+      );
+    }
   };
 
   const handleIncrementQuantity = async () => {
@@ -33,7 +43,17 @@ const CartItemMainSection = ({ item }: CartItemMainSectionProps) => {
       ),
     );
 
-    await updateItemQuantity(item.id, item.quantity + 1);
+    try {
+      await updateItemQuantity(item.id, item.quantity + 1);
+    } catch {
+      setCartItems((prevItems) =>
+        prevItems.map((cartItem) =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: Math.max(cartItem.quantity - 1, 1) }
+            : cartItem,
+        ),
+      );
+    }
   };
 
   return (
