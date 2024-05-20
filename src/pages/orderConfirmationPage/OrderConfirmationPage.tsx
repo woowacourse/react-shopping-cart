@@ -2,14 +2,13 @@ import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { getCartItemCounts } from '../../api';
 import { ConfirmButton } from '../../components/confirmButton/ConfirmButton';
-
 import {
   cartErrorMessageState,
   cartItemsCountState,
-  selectedItemsState,
 } from '../../recoil/atoms/atoms';
 import {
   selectedItemsCountState,
+  selectedItemsTotalQuantityState,
   totalPriceState,
 } from '../../recoil/selector/selector';
 import {
@@ -26,7 +25,9 @@ import Header from '../../components/header/Header';
 
 export const OrderConfirmationPage: React.FC = () => {
   const totalPrice = useRecoilValue(totalPriceState);
-  const selectedItems = useRecoilValue(selectedItemsState);
+  const selectedItemsTotalQuantity = useRecoilValue(
+    selectedItemsTotalQuantityState,
+  );
   const selectedItemsCount = useRecoilValue(selectedItemsCountState);
   const setCartItemsCount = useSetRecoilState(cartItemsCountState);
   const [cartErrorMessage, setCartErrorMessage] = useRecoilState(
@@ -45,7 +46,7 @@ export const OrderConfirmationPage: React.FC = () => {
     };
 
     fetchCartItems();
-  }, [setCartItemsCount, setCartErrorMessage]);
+  }, []);
 
   return (
     <>
@@ -55,8 +56,8 @@ export const OrderConfirmationPage: React.FC = () => {
         <StyledConfirmationPageDescription>
           <span>
             {ORDER_MESSAGES.ORDER_SUMMARY(
-              Object.keys(selectedItems).length,
               selectedItemsCount,
+              selectedItemsTotalQuantity,
             )}
           </span>
           <span>{ORDER_MESSAGES.FINAL_AMOUNT_CONFIRM}</span>
@@ -73,7 +74,7 @@ export const OrderConfirmationPage: React.FC = () => {
           <ErrorAlertModal errorMessage={cartErrorMessage} />
         )}
       </StyledConfirmationPage>
-      <ConfirmButton text='결제하기' backgroundColor='rgba(190, 190, 190, 1)' />
+      <ConfirmButton text='결제하기' disabled={true} />
     </>
   );
 };

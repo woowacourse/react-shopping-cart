@@ -13,15 +13,23 @@ export const categoryCountState = selector<number>({
 export const selectedItemsCountState = selector<number>({
   key: 'selectedItemsCountState',
   get: ({ get }) => {
+    const selectedItems = get(selectedItemsState);
+    return Object.values(selectedItems).filter((item) => item === true).length;
+  },
+});
+
+export const selectedItemsTotalQuantityState = selector<number>({
+  key: 'selectedItemsTotalQuantityState',
+  get: ({ get }) => {
     const cartItems = get(cartItemsState);
     const selectedItems = get(selectedItemsState);
-    const selectedItemsCount = cartItems.reduce((total, item) => {
+    const selectedItemsTotalQuantity = cartItems.reduce((total, item) => {
       if (selectedItems[item.id]) {
         return total + item.quantity;
       }
       return total;
     }, 0);
-    return selectedItemsCount;
+    return selectedItemsTotalQuantity;
   },
 });
 
