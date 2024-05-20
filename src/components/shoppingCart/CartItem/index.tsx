@@ -6,7 +6,7 @@ import { isCartItemsSelectedState } from "../../../stores/cartItemSelected";
 import Button from "../../_common/Button";
 import { CheckButton, MinusButton, PlusButton } from "../../button";
 
-import { deleteCartItem, patchCartItemQuantity } from "../../../apis";
+import { deleteCartItem, patchCartItemQuantity } from "../../../apis/cart";
 
 import { CartItemType } from "../../../types";
 
