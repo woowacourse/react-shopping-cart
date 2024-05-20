@@ -1,3 +1,4 @@
+import { COLOR_PALETTE } from "@/colorPalette";
 import Button from "@/components/Button/Button";
 
 interface CheckImageProps {
@@ -12,7 +13,13 @@ interface CheckboxProps {
 }
 
 const CheckImage = ({ width, height, isCheck }: CheckImageProps) => {
-  const data = "M5.88425 11.17L1.71425 7L0.29425 8.41L5.88425 14L17.8843 2L16.4743 0.589996L5.88425 11.17Z";
+  const DATA = "M5.88425 11.17L1.71425 7L0.29425 8.41L5.88425 14L17.8843 2L16.4743 0.589996L5.88425 11.17Z";
+
+  const CHECK_PATH_INFO = (isCheck: boolean) => ({
+    d: DATA,
+    fill: isCheck ? COLOR_PALETTE.white : COLOR_PALETTE.black,
+    fillOpacity: isCheck ? "1" : "0.1",
+  });
 
   return (
     <svg
@@ -22,7 +29,7 @@ const CheckImage = ({ width, height, isCheck }: CheckImageProps) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path d={data} fill={isCheck ? "white" : "black"} fillOpacity={isCheck ? "1" : "0.1"} />
+      <path {...CHECK_PATH_INFO(isCheck)} />
     </svg>
   );
 };
