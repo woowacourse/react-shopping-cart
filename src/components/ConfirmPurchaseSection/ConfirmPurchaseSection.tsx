@@ -35,7 +35,7 @@ const ConfirmPurchaseSection = () => {
       `}
       />
       <Spacer height={36} />
-      <CartItemList />
+      <CartItemList type="confirm" />
       <Spacer height={32} />
       <Button size="l" width="full" color="default">
         쿠폰 적용

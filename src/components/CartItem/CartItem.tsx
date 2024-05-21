@@ -14,11 +14,12 @@ import { useCartItemSelectedIdList } from '../../recoil/cartItem/useCartItemSele
 import useCartItemList from '../../recoil/cartItemList/useCartItemList';
 
 export type CartItemProps = {
+  type: 'cart' | 'confirm';
   product: Product;
   id: number;
 };
 
-const CartItem = ({ product, id }: CartItemProps) => {
+const CartItem = ({ type, product, id }: CartItemProps) => {
   const { name, price, imageUrl } = product;
   const { quantity, increaseQuantity, decreaseQuantity } = useCartItemQuantity(id);
   const { isSelected, addSelectedId, removeSelectedId } = useCartItemSelectedIdList();
@@ -56,15 +57,17 @@ const CartItem = ({ product, id }: CartItemProps) => {
   return (
     <S.CartItem>
       <Divider />
-      <S.ItemHeader>
-        <Checkbox
-          state={isSelected(id)}
-          handleClick={isSelected(id) ? () => removeSelectedId(id) : () => addSelectedId(id)}
-        />
-        <Button size="s" radius="s" onClick={() => deleteCartItemWithErrorHandling(id)}>
-          삭제
-        </Button>
-      </S.ItemHeader>
+      {type === 'cart' ? (
+        <S.ItemHeader>
+          <Checkbox
+            state={isSelected(id)}
+            handleClick={isSelected(id) ? () => removeSelectedId(id) : () => addSelectedId(id)}
+          />
+          <Button size="s" radius="s" onClick={() => deleteCartItemWithErrorHandling(id)}>
+            삭제
+          </Button>
+        </S.ItemHeader>
+      ) : null}
       <S.ItemBody>
         <ImageBox width={112} height={112} radius="m" border="lightGray" src={imageUrl} alt="product-image" />
         <S.ItemDetail>
@@ -76,11 +79,17 @@ const CartItem = ({ product, id }: CartItemProps) => {
               {`${price.toLocaleString('ko-KR')}원`}
             </Text>
           </S.ItemNameAndCost>
-          <ChangeQuantity
-            quantity={quantity}
-            increaseQuantity={increaseQuantityWithErrorHandling}
-            decreaseQuantity={decreaseQuantityWithErrorHandling}
-          />
+          {type === 'cart' ? (
+            <ChangeQuantity
+              quantity={quantity}
+              increaseQuantity={increaseQuantityWithErrorHandling}
+              decreaseQuantity={decreaseQuantityWithErrorHandling}
+            />
+          ) : (
+            <Text size="s" weight="m">
+              {`${quantity}개`}
+            </Text>
+          )}
         </S.ItemDetail>
       </S.ItemBody>
     </S.CartItem>
