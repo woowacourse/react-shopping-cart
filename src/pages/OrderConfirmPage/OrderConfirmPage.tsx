@@ -17,7 +17,7 @@ import * as S from "./OrderConfirmPage.style";
 import PriceSection from "@/components/cart/PriceSection/PriceSection";
 import { useNavigate } from "react-router-dom";
 import { PAGE_URL } from "@/constants/url";
-import CouponModal from "@/components/modal/CouponModal";
+import CouponModal from "@/components/modal/CouponModal/CouponModal";
 import MoreInfo from "@/components/_common/MoreInfo/MoreInfo";
 
 const OrderConfirmPage = () => {
