@@ -11,19 +11,19 @@ import { cartItemsState } from '@recoil/cartItems/atoms';
 export default function Cart() {
   const cartItems = useRecoilValue(cartItemsState);
 
+  const CartItems = () => (
+    <>
+      <CartProducts />
+      <CartOrderInfo />
+    </>
+  );
+
   return (
     <>
       <main css={main}>
         <section css={cartSection}>
           <CartTitle cartItemLength={cartItems.length} />
-          {cartItems.length ? (
-            <>
-              <CartProducts />
-              <CartOrderInfo />
-            </>
-          ) : (
-            <CartEmpty />
-          )}
+          {cartItems.length ? <CartItems /> : <CartEmpty />}
         </section>
       </main>
       <OrderConfirmButton />
