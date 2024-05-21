@@ -5,7 +5,11 @@ import { itemDetailsState, itemsState } from '../../recoil/atoms';
 import { Products } from '../../types/Product';
 import { fetchCartItemQuantity } from '../../api';
 import CheckBox from '../CheckBox/CheckBox';
-import { updateLocalStorage, getLocalStorage } from '../../utils/LocalStorage';
+import {
+  updateLocalStorage,
+  getLocalStorage,
+  removeLocalStorage,
+} from '../../utils/LocalStorage';
 import { MESSAGES } from '../../constants/Messages';
 import * as S from './ProductCard.styled';
 
@@ -28,7 +32,7 @@ function ProductCard({ product }: ProductProps) {
       price: product.product.price,
       isChecked: localStorageProduct ? localStorageProduct.isChecked : true,
     });
-  }, [product.quantity, product.product.price, setDetails, product.id]);
+  }, [product.quantity, product.product.price, product.id]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,6 +64,7 @@ function ProductCard({ product }: ProductProps) {
 
   const handleRemoveItem = async (id: number) => {
     await removeCartItem(id);
+    removeLocalStorage(id);
     setItems((prevState) => prevState.filter((item) => item.id !== id));
   };
 
