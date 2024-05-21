@@ -6,6 +6,12 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
+    /*absolute path*/
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -21,8 +27,10 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Testing */
-    "types": ["jest"],
-    "esModuleInterop": true
+    "types": ["jest", "node"],
+    "esModuleInterop": true,
+
+    "jsxImportSource": "@emotion/react"
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
