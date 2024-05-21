@@ -28,20 +28,20 @@ type Story = StoryObj<typeof Button>;
 
 export const Common: Story = {
   args: {
-    label: 'Button',
+    children: 'Button',
   },
 };
 
 export const Primary: Story = {
   args: {
-    label: 'Button',
+    children: 'Button',
     theme: 'primary',
   },
 };
 
 export const Disabled: Story = {
   args: {
-    label: 'Button',
+    children: 'Button',
     disabled: true,
   },
 };

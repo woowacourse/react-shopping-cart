@@ -1,4 +1,5 @@
 import classnames from 'classnames/bind';
+import { ReactNode } from 'react';
 
 import css from './Button.module.css';
 
@@ -7,18 +8,18 @@ const cn = classnames.bind(css);
 type ButtonTheme = 'common' | 'primary';
 
 interface ButtonProps {
+  children?: ReactNode;
   className?: string;
   disabled?: boolean;
-  label: string;
   theme?: ButtonTheme;
   type?: 'button' | 'submit';
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export function Button({
+  children,
   className,
   disabled = false,
-  label,
   theme = 'common',
   type = 'button',
   onClick,
@@ -31,7 +32,7 @@ export function Button({
       type={type}
       onClick={onClick}
     >
-      {label}
+      {children}
     </button>
   );
 }
