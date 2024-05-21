@@ -11,7 +11,7 @@ interface CartFooterProps {
   type: 'CART' | 'ORDER';
 }
 
-const CartFooter = ({ type }: CartFooterProps) => {
+const OrderInfo = ({ type }: CartFooterProps) => {
   const { totalOrderPrice, deliveryPrice } = useRecoilValue(orderResultState);
 
   return (
@@ -38,7 +38,7 @@ const CartFooter = ({ type }: CartFooterProps) => {
   );
 };
 
-export default CartFooter;
+export default OrderInfo;
 
 const cartFooterSection = css`
   display: flex;
