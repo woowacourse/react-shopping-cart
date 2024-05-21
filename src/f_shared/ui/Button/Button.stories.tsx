@@ -5,21 +5,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 const meta: Meta<typeof Button> = {
   title: 'shared/Button',
   component: Button,
-  decorators: [
-    (Story) => (
-      <div
-        style={{
-          padding: '50px',
-          backgroundColor: 'lightgray',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Story />
-      </div>
-    ),
-  ],
 };
 
 export default meta;
@@ -39,9 +24,17 @@ export const Primary: Story = {
   },
 };
 
-export const Disabled: Story = {
+export const CommonDisabled: Story = {
   args: {
     children: 'Button',
+    disabled: true,
+  },
+};
+
+export const PrimaryDisabled: Story = {
+  args: {
+    children: 'Button',
+    theme: 'primary',
     disabled: true,
   },
 };
