@@ -25,6 +25,7 @@ export default defineConfig({
       { find: '@assets', replacement: path.resolve(__dirname, 'src/assets') },
       { find: '@constants', replacement: path.resolve(__dirname, 'src/constants') },
       { find: '@mocks', replacement: path.resolve(__dirname, 'src/mocks') },
+      { find: '@common', replacement: path.resolve(__dirname, 'src/components/common') },
     ],
   },
 });
