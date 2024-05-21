@@ -2,11 +2,12 @@ import { css } from '@emotion/react';
 import { ChangeEvent, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
-import CartFooterSection from './common/CartFooter';
-import CartItem from './common/CartItem';
+import HeaderTitleContainer from './common/HeaderTitleContainer';
 
-import { CHECKED, UNCHECKED } from '@/assets/images';
-import { THEME } from '@/constants/theme';
+import OrderInfo from '@/components/common/OrderInfo';
+import CartItem from '@common/CartItem';
+import Checkbox from '@common/Checkbox';
+import { THEME } from '@constants/theme';
 import {
   checkedCartItemsState,
   orderResultState,
@@ -26,17 +27,10 @@ const CartConfirmMainSection = () => {
 
   return (
     <div css={container}>
-      <section css={cartHeaderSection}>
-        <div css={cartTitleWrapper}>
-          <h2 css={cartTitle}>주문 확인</h2>
-        </div>
-        <div css={descriptionWrapper}>
-          <span css={description}>
-            총 {productTypesCount}종류의 상품 {totalQuantity}개를 주문합니다. <br />
-            최종 결제 금액을 확인해주세요.
-          </span>
-        </div>
-      </section>
+      <HeaderTitleContainer
+        title="주문 확인"
+        description={`총 ${productTypesCount}종류의 상품 ${totalQuantity}개를 주문합니다.\n최종 결제 금액을 확인해주세요.`}
+      />
 
       <div>
         {checkedCartItems.map((checkedCartItem) => (
@@ -45,24 +39,16 @@ const CartConfirmMainSection = () => {
       </div>
       {/* TODO: 쿠폰 할인 적용 값 recoil로 관리 */}
       <button css={couponButton}>쿠폰 적용</button>
-      <div style={{ margin: '16px 0' }}>
-        <span>배송 정보</span>
-        <div>
-          {/* TODO: 체크 박스 공통 컴포넌트로 분리 */}
-          <input
-            id="far-location"
-            type="checkbox"
-            checked={isAdditionalDelivery}
-            css={screenReaderOnly}
-            onChange={handleClickAdditionalDelivery}
-          />
-          <label css={label} htmlFor="far-location">
-            <img src={isAdditionalDelivery ? CHECKED : UNCHECKED} css={checkIcon} />
-            <span css={labelText}>제주도 및 도서 산간 지역</span>
-          </label>
-        </div>
+      <div css={additionalDeliveryWrapper}>
+        <span css={additionalDeliveryText}>배송 정보</span>
+        <Checkbox
+          checked={isAdditionalDelivery}
+          onChange={handleClickAdditionalDelivery}
+          htmlFor="additional-delivery"
+          label="제주도 및 도서 산간 지역"
+        />
       </div>
-      <CartFooterSection type="ORDER" />
+      <OrderInfo type="ORDER" />
     </div>
   );
 };
@@ -80,40 +66,16 @@ const container = css`
   overflow-y: scroll;
 `;
 
-const cartHeaderSection = css`
+const additionalDeliveryWrapper = css`
   display: flex;
   flex-direction: column;
+  margin: 16px 0;
   gap: 12px;
-
-  width: 100%;
-
-  padding: 36px 0;
 `;
 
-const cartTitleWrapper = css`
-  display: flex;
-  align-items: center;
-
-  height: 35px;
-`;
-
-const cartTitle = css`
-  font-size: 24px;
+const additionalDeliveryText = css`
   font-weight: 700;
-`;
-
-const descriptionWrapper = css`
-  display: flex;
-  align-items: center;
-  width: 100%;
-`;
-
-const description = css`
-  color: #0a0d13;
-
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 18px;
+  font-size: 16px;
 `;
 
 const couponButton = css`
@@ -126,34 +88,4 @@ const couponButton = css`
   font-weight: 700;
   font-size: 15px;
   color: #333333bf;
-`;
-
-const screenReaderOnly = css`
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  border: 0;
-
-  overflow: hidden;
-  clip-path: inset(50%);
-  clip: rect(0 0 0 0);
-`;
-
-const label = css`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;
-
-const labelText = css`
-  font-size: 12px;
-  font-weight: 500;
-`;
-
-const checkIcon = css`
-  width: 24px;
-  height: 24px;
-
-  cursor: pointer;
 `;

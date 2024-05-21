@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 import CartItemInfo from './CartItemInfo';
-import CartItemHeaderSection from '../CartItem/CartItemHeaderSection';
+import CartItemHeaderSection from '../CartItem/CartItemHeader';
 
 import { CartItemProps } from '@/types/cartItem';
 import { THEME } from '@constants/theme';
