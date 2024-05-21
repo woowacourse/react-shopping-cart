@@ -10,14 +10,20 @@ import css from './LayoutHeader.module.css';
 const cn = classNames.bind(css);
 
 interface LayoutHeaderProps {
+  color?: string;
   leftSlotType?: LeftSlotType;
   middleSlotType?: MiddleSlotType;
   rightSlot?: ReactNode;
 }
 
-export const LayoutHeader = ({ leftSlotType = 'none', middleSlotType = 'none', rightSlot }: LayoutHeaderProps) => {
+export const LayoutHeader = ({
+  color: backgroundColor,
+  leftSlotType = 'none',
+  middleSlotType = 'none',
+  rightSlot,
+}: LayoutHeaderProps) => {
   return (
-    <div className={cn('root')}>
+    <div style={{ backgroundColor }} className={cn('root')}>
       <div className={cn('slot', ' leftSlot')}>
         <LeftSlot type={leftSlotType} />
       </div>
