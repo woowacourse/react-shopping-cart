@@ -2,6 +2,9 @@
   font-family: Noto Sans;
   font-weight: 500;
   line-height: 1.5rem;
+
+  --black-color-1: #000000;
+  --black-color-2: #0a0d13;
 }
 
 html {
