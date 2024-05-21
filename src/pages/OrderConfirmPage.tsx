@@ -1,13 +1,17 @@
+import { Suspense } from "react";
 import OrderConfirmFooter from "../components/Footer/OrderConfirmFooter/OrderConfirmFooter";
 import Header from "../components/Header/Header";
-import OrderContainer from "../components/OrderConfirm/OrderContainer";
+import LoadingPage from "./LoadingPage/LoadingPage";
+import OrderContent from "../components/OrderConfirm/OrderContent/OrderContent";
 
 const OrderConfirmPage = () => {
   return (
     <>
       <Header />
-      <OrderContainer />
-      <OrderConfirmFooter />
+      <Suspense fallback={<LoadingPage />}>
+        <OrderContent />
+        <OrderConfirmFooter />
+      </Suspense>
     </>
   );
 };
