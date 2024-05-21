@@ -1,11 +1,7 @@
-import "./App.css";
+import { Outlet } from "react-router-dom";
 
 function App() {
-  return (
-    <>
-      <h1>react-shopping-cart</h1>
-    </>
-  );
+  return <Outlet />;
 }
 
 export default App;
