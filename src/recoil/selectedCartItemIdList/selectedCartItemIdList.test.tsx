@@ -1,10 +1,10 @@
 import { renderHook } from '@testing-library/react';
-import { useSelectedCartItemIdList } from './hooks';
+import { useSelectedCartItemIdList } from './useSelectedCartItemIdList';
 import { RecoilRoot } from 'recoil';
 import { act } from 'react';
-import { selectedCartItemIdListAtom } from './states';
-import { cartItemListAtom } from '../cartItemList/states';
+import { cartItemListState } from '../cartItemList/cartItemListState';
 import { cartItemListTestData } from '../testData/cartItemListTestData';
+import { selectedCartItemIdListState } from './selectedCartItemIdListState';
 
 describe('useSelectedCartItemIdList', () => {
   beforeEach(() => {
@@ -27,7 +27,7 @@ describe('useSelectedCartItemIdList', () => {
 
     const { result } = renderHook(() => useSelectedCartItemIdList(), {
       wrapper: ({ children }) => (
-        <RecoilRoot initializeState={({ set }) => set(selectedCartItemIdListAtom, cartItemIdList)}>
+        <RecoilRoot initializeState={({ set }) => set(selectedCartItemIdListState, cartItemIdList)}>
           {children}
         </RecoilRoot>
       ),
@@ -45,7 +45,7 @@ describe('useSelectedCartItemIdList', () => {
 
     const { result } = renderHook(() => useSelectedCartItemIdList(), {
       wrapper: ({ children }) => (
-        <RecoilRoot initializeState={({ set }) => set(selectedCartItemIdListAtom, cartItemIdList)}>
+        <RecoilRoot initializeState={({ set }) => set(selectedCartItemIdListState, cartItemIdList)}>
           {children}
         </RecoilRoot>
       ),
@@ -65,8 +65,8 @@ describe('useSelectedCartItemIdList', () => {
       wrapper: ({ children }) => (
         <RecoilRoot
           initializeState={({ set }) => {
-            set(selectedCartItemIdListAtom, []);
-            set(cartItemListAtom, cartItemListTestData);
+            set(selectedCartItemIdListState, []);
+            set(cartItemListState, cartItemListTestData);
           }}
         >
           {children}
@@ -90,8 +90,8 @@ describe('useSelectedCartItemIdList', () => {
       wrapper: ({ children }) => (
         <RecoilRoot
           initializeState={({ set }) => {
-            set(selectedCartItemIdListAtom, cartItemIdList);
-            set(cartItemListAtom, cartItemListTestData);
+            set(selectedCartItemIdListState, cartItemIdList);
+            set(cartItemListState, cartItemListTestData);
           }}
         >
           {children}
