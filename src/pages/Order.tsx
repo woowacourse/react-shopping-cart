@@ -1,6 +1,7 @@
 import { StyledFixedBottom, StyledFixedTop } from '@/style/styledBox.style';
 
 import CartRecipe from '@/components/Cart/CartRecipe';
+import CouponModal from '@/components/Coupon/CouponModal';
 import FullWidthButton from '@/components/Button/FullWidthButton';
 import Header from '@/components/Header';
 import OrderList from '@/components/Order/OrderList';
@@ -10,8 +11,11 @@ import { WhiteSpace } from '@/style/common.style';
 import WideButton from '@/components/Button/WideButton';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const Order = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const navigate = useNavigate();
   return (
     <>
@@ -24,7 +28,12 @@ const Order = () => {
       </StyledScrollBox>
       <StyledFixedBottom>
         <StyledFlexCenter>
-          <WideButton onClick={() => {}} color="white">
+          <WideButton
+            onClick={() => {
+              setIsOpen(!isOpen);
+            }}
+            color="white"
+          >
             쿠폰 적용
           </WideButton>
         </StyledFlexCenter>
@@ -38,6 +47,9 @@ const Order = () => {
           결제하기
         </FullWidthButton>
       </StyledFixedBottom>
+      {isOpen && (
+        <CouponModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      )}
     </>
   );
 };
