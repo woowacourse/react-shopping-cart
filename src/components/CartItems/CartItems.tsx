@@ -27,7 +27,7 @@ const CartItems = () => {
   };
 
   return (
-    <Styled.ItemList>
+    <Styled.CartItems>
       <Styled.AllSelectContainer>
         <Styled.SelectButton onClick={handleSelectedAll}>
           <img
@@ -40,7 +40,7 @@ const CartItems = () => {
       {cartItems.map((cartItem: CartItemType) => {
         return <CartItem key={cartItem.id} inputCartItem={cartItem} />;
       })}
-    </Styled.ItemList>
+    </Styled.CartItems>
   );
 };
 

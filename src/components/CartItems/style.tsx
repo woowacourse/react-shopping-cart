@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ItemList = styled.ul`
+export const CartItems = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
@@ -26,7 +26,7 @@ export const SelectMessage = styled.p`
   ${(props) => props.theme.typography.caption}
 `;
 
-export const Item = styled.li`
+export const CartItem = styled.li`
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -94,8 +94,6 @@ export const ItemQuantityAdjustment = styled.div`
   align-items: center;
   gap: 0.8125rem;
 `;
-
-// export const ItemQuantityButton = styled.button``;
 
 export const ItemQuantity = styled.p`
   ${(props) => props.theme.typography.caption};

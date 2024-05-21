@@ -90,7 +90,7 @@ const CartItem = ({ inputCartItem }: CartItemProps) => {
   };
 
   return (
-    <Styled.Item>
+    <Styled.CartItem>
       <Styled.Divider />
 
       <Styled.ButtonContainer>
@@ -141,7 +141,7 @@ const CartItem = ({ inputCartItem }: CartItemProps) => {
           </Styled.ItemQuantityAdjustment>
         </Styled.ItemInfo>
       </Styled.ItemInfoContainer>
-    </Styled.Item>
+    </Styled.CartItem>
   );
 };
 
