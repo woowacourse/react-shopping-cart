@@ -14,14 +14,7 @@ export const itemQuantitiesSelector = selector({
     return Object.fromEntries(cartItems.map((item) => [item.id, item.quantity]));
   },
   set: ({ set }, { id, quantity: newQuantity }: { id: number; quantity: number }) => {
-    set(cartItemsAtom, (prev) =>
-      prev.map((item) => {
-        if (item.id === id) {
-          return { ...item, quantity: newQuantity };
-        }
-        return item;
-      })
-    );
+    set(cartItemsAtom, (prev) => prev.map((item) => (item.id !== id ? item : { ...item, quantity: newQuantity })));
   },
 });
 
@@ -30,7 +23,8 @@ export const isAllCheckedSelector = selector({
   get: ({ get }) => {
     const cartItems = get(cartItemsAtom);
     const checkedIds = get(cartItemCheckedIdsAtom);
-    return new Set(cartItems.map((item) => item.id)) === new Set(checkedIds) && checkedIds.length > 0;
+    const idList = cartItems.map((item) => item.id);
+    return Array.from(idList).every((id) => checkedIds.includes(id)) && idList.length === checkedIds.length;
   },
   set: ({ get, set }, newIsAllChecked) => {
     const cartItems = get(cartItemsAtom);
