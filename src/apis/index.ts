@@ -1,6 +1,7 @@
 import type { TCartItem } from '../types/CartItem.type';
 import generateBasicToken from '../utils/auth';
 import { CART_ITEM_ERROR_MESSAGE } from '../constants/MESSAGES';
+import {TCoupon} from "../types/Coupon.type.ts";
 
 const API_URL = import.meta.env.VITE_API_URL;
 const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
@@ -15,8 +16,8 @@ const fetchCartItemList = async (): Promise<TCartItem[]> => {
   });
 
   if (!response.ok) {
-    alert(CART_ITEM_ERROR_MESSAGE.FETCH);
-    throw new Error(CART_ITEM_ERROR_MESSAGE.FETCH);
+    alert(CART_ITEM_ERROR_MESSAGE.FETCH_CART_ITEMS);
+    throw new Error(CART_ITEM_ERROR_MESSAGE.FETCH_CART_ITEMS);
   }
 
   const data = await response.json();
@@ -37,8 +38,8 @@ const addCartItem = async (cartItemId: number): Promise<void> => {
   });
 
   if (!response.ok) {
-    alert(CART_ITEM_ERROR_MESSAGE.ADD);
-    throw new Error(CART_ITEM_ERROR_MESSAGE.ADD);
+    alert(CART_ITEM_ERROR_MESSAGE.ADD_CART_ITEMS);
+    throw new Error(CART_ITEM_ERROR_MESSAGE.ADD_CART_ITEMS);
   }
 };
 const removeCartItem = async (cartItemId: number): Promise<void> => {
@@ -50,8 +51,8 @@ const removeCartItem = async (cartItemId: number): Promise<void> => {
   });
 
   if (!response.ok) {
-    alert(CART_ITEM_ERROR_MESSAGE.REMOVE);
-    throw new Error(CART_ITEM_ERROR_MESSAGE.REMOVE);
+    alert(CART_ITEM_ERROR_MESSAGE.REMOVE_CART_ITEMS);
+    throw new Error(CART_ITEM_ERROR_MESSAGE.REMOVE_CART_ITEMS);
   }
 };
 
@@ -68,9 +69,28 @@ const updateCartItemQuantity = async (cartItemId: number, quantity: number): Pro
   });
 
   if (!response.ok) {
-    alert(CART_ITEM_ERROR_MESSAGE.UPDATE);
-    throw new Error(CART_ITEM_ERROR_MESSAGE.UPDATE);
+    alert(CART_ITEM_ERROR_MESSAGE.UPDATE_PRODUCT_QUANTITY);
+    throw new Error(CART_ITEM_ERROR_MESSAGE.UPDATE_PRODUCT_QUANTITY);
   }
 };
 
-export { fetchCartItemList, addCartItem, removeCartItem, updateCartItemQuantity };
+const fetchCouponList = async (): Promise<TCoupon[]> => {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+
+  const response = await fetch(`${API_URL}/coupons`, {
+    method: 'GET',
+    headers: { Authorization: token },
+  });
+
+  if (!response.ok) {
+    alert(CART_ITEM_ERROR_MESSAGE.FETCH_COUPONS);
+    throw new Error(CART_ITEM_ERROR_MESSAGE.FETCH_COUPONS);
+  }
+
+  const data = await response.json();
+
+  return data.content;
+};
+
+
+export { fetchCartItemList, addCartItem, removeCartItem, updateCartItemQuantity, fetchCouponList };
