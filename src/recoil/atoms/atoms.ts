@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { CartItem } from '../../types';
+import { CartItem, selectedItems } from '../../types';
 import { getLocalStorage } from '../../utils/getLocalStorage';
 
 export const cartItemsState = atom<CartItem[]>({
@@ -7,7 +7,7 @@ export const cartItemsState = atom<CartItem[]>({
   default: [],
 });
 
-export const selectedItemsState = atom<Record<number, boolean>>({
+export const selectedItemsState = atom<Record<number, selectedItems>>({
   key: 'selectedItemsState',
   default: getLocalStorage('selectedItemsState', {}),
 });

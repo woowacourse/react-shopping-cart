@@ -30,3 +30,11 @@ export interface Coupon {
   };
   expirationDate: string;
 }
+
+export interface selectedItems {
+  name: string;
+  price: number;
+  quantity: number;
+  imageUrl: string;
+  isSelected: boolean;
+}
