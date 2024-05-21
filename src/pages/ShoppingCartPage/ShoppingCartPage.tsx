@@ -27,7 +27,7 @@ const OrderPage: React.FC = () => {
           <ShoppingCartContent />
         </Suspense>
       </APIErrorBoundary>
-      <BottomButton onClick={() => navigate(ROUTE_PATHS.confirm)} disabled={isButtonDisabled}>
+      <BottomButton onClick={() => navigate(ROUTE_PATHS.orderConfirm)} disabled={isButtonDisabled}>
         주문 확인
       </BottomButton>
     </>

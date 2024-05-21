@@ -1,6 +1,7 @@
 import RootErrorBoundary from '@components/common/ErrorBoundary/RootErrorBoundary';
 import AppLayout from '@components/layout/AppLayout/AppLayout';
-import { OrderConfirmPage, OrderPage } from '@pages/index';
+import { OrderConfirmPage, PaymentConfirmPage, ShoppingCartPage } from '@pages/index';
+import { ROUTE_PATHS } from '@routes/route.constant';
 import { createBrowserRouter } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -9,16 +10,20 @@ const router = createBrowserRouter([
     element: <AppLayout />,
     children: [
       {
-        path: '/',
+        path: ROUTE_PATHS.root,
         element: (
           <RootErrorBoundary>
-            <OrderPage />
+            <ShoppingCartPage />
           </RootErrorBoundary>
         ),
       },
       {
-        path: '/confirm',
+        path: ROUTE_PATHS.orderConfirm,
         element: <OrderConfirmPage />,
+      },
+      {
+        path: ROUTE_PATHS.paymentConfirm,
+        element: <PaymentConfirmPage />,
       },
     ],
   },
