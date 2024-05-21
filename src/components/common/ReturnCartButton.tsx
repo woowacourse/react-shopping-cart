@@ -3,23 +3,23 @@ import { useNavigate } from 'react-router-dom';
 
 import { THEME } from '@/constants/theme';
 
-const PurchaseButton = () => {
+const ReturnCartButton = () => {
   const navigate = useNavigate();
 
   const handleClickPurchase = () => {
-    navigate('/completed');
+    navigate('/');
   };
 
   return (
-    <button css={purchaseButton} onClick={handleClickPurchase}>
-      결제하기
+    <button css={returnCartButton} onClick={handleClickPurchase}>
+      장바구니로 돌아가기
     </button>
   );
 };
 
-export default PurchaseButton;
+export default ReturnCartButton;
 
-const purchaseButton = css`
+const returnCartButton = css`
   width: 100%;
   height: 64px;
 

@@ -3,14 +3,15 @@ import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useNavigate } from 'react-router-dom';
 
-import CartConfirmMainSection from '../components/CartConfirmMainSection';
-
-import Header from '@/components/common/Header';
-import LoadingComponent from '@/components/common/LoadingComponent';
-import ErrorComponent from '@/components/ErrorComponent';
 import { BACK_ARROW } from '@assets/images';
+import Header from '@components/common/Header';
+import LoadingComponent from '@components/common/LoadingComponent';
+import PurchaseButton from '@components/common/PurchaseButton';
 
-export default function CartConfirmPage() {
+import CartConfirmMainSection from '@components/CartConfirmMainSection';
+import ErrorComponent from '@components/ErrorComponent';
+
+export default function OrderConfirmPage() {
   const navigate = useNavigate();
 
   const handleClickBack = () => {
@@ -25,6 +26,7 @@ export default function CartConfirmPage() {
       <ErrorBoundary FallbackComponent={ErrorComponent}>
         <Suspense fallback={<LoadingComponent />}>
           <CartConfirmMainSection />
+          <PurchaseButton />
         </Suspense>
       </ErrorBoundary>
     </>
