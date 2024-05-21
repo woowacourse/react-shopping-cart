@@ -1,6 +1,6 @@
 import ShoppingCart from './components/pages/ShoppingCart/ShoppingCart';
 import { ErrorBoundary } from 'react-error-boundary';
-import ErrorFallback from './components/ErrorFallback/ErrorFallback';
+import ErrorFallback from './components/pages/ErrorFallback/ErrorFallback';
 
 import { Route, Routes } from 'react-router-dom';
 import OrderConfirmation from './components/pages/OrderConfirmation/OrderConfirmation';
