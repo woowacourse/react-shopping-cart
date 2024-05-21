@@ -15,7 +15,7 @@ export const CartItemCheckedState = atomFamily<boolean, number>({
   effects: (id) => [
     ({ setSelf, onSet }) => {
       const localData = getStorage<CartItemCheckedStateInStorage>(LOCAL_STORAGE_KEY, {});
-      if (localData[id]) {
+      if (localData[id] !== undefined) {
         setSelf(localData[id]);
       }
 
