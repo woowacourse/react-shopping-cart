@@ -8,8 +8,8 @@ import * as S from './CartItem.style';
 
 interface CartItemProps {
   item: CartItem;
-  onRemoveItem: (cartItemId: number) => void;
-  onUpdateQuantity: (cartItemId: number, quantity: number) => void;
+  onRemoveItem?: (cartItemId: number) => void;
+  onUpdateQuantity?: (cartItemId: number, quantity: number) => void;
 }
 
 function CartItemContainer({ item, onRemoveItem, onUpdateQuantity }: CartItemProps) {
@@ -19,13 +19,27 @@ function CartItemContainer({ item, onRemoveItem, onUpdateQuantity }: CartItemPro
 
   const handleIsSelected = () => setIsSelected(isSelected);
 
+  const renderQuantityContainer = () => {
+    return onUpdateQuantity ? (
+      <QuantityContainer
+        quantity={quantity.toString()}
+        onMinusButtonClick={() => onUpdateQuantity(id, quantity - 1)}
+        onPlusButtonClick={() => onUpdateQuantity(id, quantity + 1)}
+      />
+    ) : (
+      <QuantityContainer quantity={`${quantity}개`}></QuantityContainer>
+    );
+  };
+
   return (
     <S.Layout>
       <S.Header>
         <CheckButton isChecked={isSelected} onClick={handleIsSelected} />
-        <S.DeleteButton className="DeleteButton" onClick={() => onRemoveItem(id)}>
-          삭제
-        </S.DeleteButton>
+        {onRemoveItem && (
+          <S.DeleteButton className="DeleteButton" onClick={() => onRemoveItem(id)}>
+            삭제
+          </S.DeleteButton>
+        )}
       </S.Header>
       <S.Body>
         <S.ItemImage src={product.imageUrl} />
@@ -34,11 +48,7 @@ function CartItemContainer({ item, onRemoveItem, onUpdateQuantity }: CartItemPro
             <S.ItemNameText>{product.name}</S.ItemNameText>
             <S.ItemPriceText>{product.price.toLocaleString()}원</S.ItemPriceText>
           </S.ItemInfoContainer>
-          <QuantityContainer
-            quantity={quantity}
-            onMinusButtonClick={() => onUpdateQuantity(id, quantity - 1)}
-            onPlusButtonClick={() => onUpdateQuantity(id, quantity + 1)}
-          />
+          {renderQuantityContainer()}
         </S.ItemContainer>
       </S.Body>
     </S.Layout>
