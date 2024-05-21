@@ -3,8 +3,7 @@ import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 
-import { Global, ThemeProvider } from "@emotion/react";
-import globalStyles from "../src/styles/GlobalStyle";
+import { ThemeProvider } from "@emotion/react";
 import theme from "../src/styles/theme";
 
 const customViewports = {
@@ -45,7 +44,6 @@ export const decorators = [
     <MemoryRouter initialEntries={["/"]}>
       <RecoilRoot>
         <ThemeProvider theme={theme}>
-          <Global styles={globalStyles(theme)} />
           <Story />
         </ThemeProvider>
       </RecoilRoot>

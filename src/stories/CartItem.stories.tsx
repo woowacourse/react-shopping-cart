@@ -1,9 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import CartItem from "../components/CartItem";
 
-import { ThemeProvider } from "@emotion/react";
-import theme from "../styles/theme";
-
 const meta: Meta<typeof CartItem> = {
   title: "ShoppingCart/CartItem",
   component: CartItem,
@@ -24,14 +21,6 @@ const meta: Meta<typeof CartItem> = {
         "장바구니 아이템 정보가 객체로 전달됩니다. 장바구니 아이템의 아이디, 수량, 상품 정보가 담겨 있습니다.",
     },
   },
-
-  decorators: [
-    (Story) => (
-      <ThemeProvider theme={theme}>
-        <Story />
-      </ThemeProvider>
-    ),
-  ],
 };
 export default meta;
 

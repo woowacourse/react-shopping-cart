@@ -1,6 +1,3 @@
-import { ThemeProvider } from "@emotion/react";
-import theme from "../styles/theme";
-
 import type { Meta, StoryObj } from "@storybook/react";
 import CheckoutSummary from "../components/CartList/CheckoutSummary";
 import { SHIPPING_FEE } from "../constants";
@@ -37,11 +34,4 @@ export const Summary: Story = {
     totalPrice: 10000,
     shippingFee: SHIPPING_FEE,
   },
-  decorators: [
-    (Story) => (
-      <ThemeProvider theme={theme}>
-        <Story />
-      </ThemeProvider>
-    ),
-  ],
 };
