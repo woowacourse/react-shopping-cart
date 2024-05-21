@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { requestSetCartItemQuantity } from '../../apis/cartItemList';
+import { requestSetCartItemQuantity } from '../../apis/requests/cartItemList';
 import { cartItemQuantityFamilyState } from './cartItemQuantityFamilyState';
 
 export const useCartItemQuantity = (cartItemId: number) => {

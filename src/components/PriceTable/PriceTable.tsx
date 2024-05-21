@@ -5,12 +5,14 @@ import Text from '../common/Text/Text';
 import Divider from '../common/Divider/Divider';
 import ContentRow from '../common/ContentRow/ContentRow';
 import { useRecoilValue } from 'recoil';
-import { cartDeliveryFeeSelector, finalCartPriceSelector, totalCartPriceSelector } from '../../recoil/price/states';
+import { totalCartPriceState } from '../../recoil/price/totalCartPriceState';
+import { cartShippingFeeState } from '../../recoil/price/cartShippingFeeState';
+import { finalCartPriceState } from '../../recoil/price/finalCartPriceState';
 
 const PriceTable = () => {
-  const totalCartPrice = useRecoilValue(totalCartPriceSelector);
-  const deliveryFee = useRecoilValue(cartDeliveryFeeSelector);
-  const finalCartPrice = useRecoilValue(finalCartPriceSelector);
+  const totalCartPrice = useRecoilValue(totalCartPriceState);
+  const deliveryFee = useRecoilValue(cartShippingFeeState);
+  const finalCartPrice = useRecoilValue(finalCartPriceState);
 
   return (
     <S.Container>

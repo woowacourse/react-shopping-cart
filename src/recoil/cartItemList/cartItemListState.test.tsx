@@ -3,10 +3,10 @@ import { useCartItemList } from './useCartItemList';
 import { RecoilRoot, useRecoilValue } from 'recoil';
 import { ReactNode, act } from 'react';
 import { cartItemListState } from './cartItemListState';
-import { cartItemListTestData } from '../testData/cartItemListTestData';
+import { mockCartItemList } from '../../mocks/cartItemList';
 
 jest.mock('../../apis/cartItemList/cartItemList', () => ({
-  requestCartItemList: jest.fn().mockImplementation(() => cartItemListTestData),
+  requestCartItemList: jest.fn().mockImplementation(() => mockCartItemList),
   requestDeleteCartItem: jest.fn(),
 }));
 
@@ -28,12 +28,12 @@ describe('useCardItemList 테스트', () => {
 
     await act(() => result.current.updateCartItemList());
 
-    expect(result.current.state).toEqual(cartItemListTestData);
+    expect(result.current.state).toEqual(mockCartItemList);
   });
 
   it('장바구니 목록 중 아이템 하나를 제거한다.', async () => {
     const wrapper = ({ children }: { children: ReactNode }) => (
-      <RecoilRoot initializeState={({ set }) => set(cartItemListState, cartItemListTestData)}>{children}</RecoilRoot>
+      <RecoilRoot initializeState={({ set }) => set(cartItemListState, mockCartItemList)}>{children}</RecoilRoot>
     );
 
     const { result } = renderHook(
@@ -46,8 +46,8 @@ describe('useCardItemList 테스트', () => {
       { wrapper },
     );
 
-    await act(() => result.current.deleteCartItem(cartItemListTestData[0].cartItemId));
+    await act(() => result.current.deleteCartItem(mockCartItemList[0].cartItemId));
 
-    expect(result.current.state).toEqual([cartItemListTestData[1]]);
+    expect(result.current.state).toEqual([mockCartItemList[1]]);
   });
 });

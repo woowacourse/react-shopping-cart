@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
 import CartItemList from './CartItemList';
 import { cartItemListState } from '../../recoil/cartItemList/cartItemListState';
-import { cartItemListTestData } from '../../recoil/testData/cartItemListTestData';
+import { mockCartItemList } from '../../mocks/cartItemList';
 import '@testing-library/jest-dom';
 import { act } from 'react';
 import { selectedCartItemIdListState } from '../../recoil/selectedCartItemIdList/selectedCartItemIdListState';
@@ -12,7 +12,7 @@ describe('CartItemList 컴포넌트의 전체 선택 버튼 테스트', () => {
     return render(
       <RecoilRoot
         initializeState={({ set }) => {
-          set(cartItemListState, cartItemListTestData);
+          set(cartItemListState, mockCartItemList);
           set(selectedCartItemIdListState, initialSelectedIdList);
         }}
       >
@@ -49,7 +49,7 @@ describe('CartItemList 컴포넌트의 전체 선택 버튼 테스트', () => {
   });
 
   it('선택 목록이 가득 찬 채로 전체 선택 버튼을 누르면 모든 아이템이 선택 해제된다.', async () => {
-    renderCartItemList(cartItemListTestData.map(({ cartItemId }) => cartItemId));
+    renderCartItemList(mockCartItemList.map(({ cartItemId }) => cartItemId));
 
     const selectAllButton = screen.getByAltText('상품 선택');
 

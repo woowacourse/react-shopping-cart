@@ -3,7 +3,7 @@ import { useSelectedCartItemIdList } from './useSelectedCartItemIdList';
 import { RecoilRoot } from 'recoil';
 import { act } from 'react';
 import { cartItemListState } from '../cartItemList/cartItemListState';
-import { cartItemListTestData } from '../testData/cartItemListTestData';
+import { mockCartItemList } from '../../mocks/cartItemList';
 import { selectedCartItemIdListState } from './selectedCartItemIdListState';
 
 describe('useSelectedCartItemIdList', () => {
@@ -66,7 +66,7 @@ describe('useSelectedCartItemIdList', () => {
         <RecoilRoot
           initializeState={({ set }) => {
             set(selectedCartItemIdListState, []);
-            set(cartItemListState, cartItemListTestData);
+            set(cartItemListState, mockCartItemList);
           }}
         >
           {children}
@@ -91,7 +91,7 @@ describe('useSelectedCartItemIdList', () => {
         <RecoilRoot
           initializeState={({ set }) => {
             set(selectedCartItemIdListState, cartItemIdList);
-            set(cartItemListState, cartItemListTestData);
+            set(cartItemListState, mockCartItemList);
           }}
         >
           {children}
