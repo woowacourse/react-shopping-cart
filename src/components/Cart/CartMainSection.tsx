@@ -1,16 +1,22 @@
 import { css } from '@emotion/react';
-import { useRecoilValue } from 'recoil';
+import { ChangeEvent } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
-import CartHeaderSection from './CartHeaderSection';
-import CartFooterSection from '../common/CartFooter';
-import CartItem from '../common/CartItem';
-
-import RandomAddButton from '@/components/common/RandomAddButton';
-import AllCheckBox from '@components/common/AllCheckBox';
+import CartItem from '@common/CartItem';
+import Checkbox from '@common/Checkbox';
+import HeaderTitleContainer from '@common/HeaderTitleContainer';
+import OrderInfo from '@common/OrderInfo';
+import RandomAddButton from '@components/common/RandomAddButton';
 import { cartItemsState } from '@recoil/cartItems/atoms';
+import { allCheckedState } from '@recoil/cartItems/selectors';
 
 export default function CartMainSection() {
   const cartItems = useRecoilValue(cartItemsState);
+  const [allChecked, setAllChecked] = useRecoilState(allCheckedState);
+
+  const handleChangeChecked = (e: ChangeEvent<HTMLInputElement>) => {
+    setAllChecked(e.target.checked);
+  };
 
   if (cartItems.length === 0) {
     return (
@@ -22,16 +28,26 @@ export default function CartMainSection() {
 
   return (
     <main css={main}>
-      <CartHeaderSection cartItemLength={cartItems.length} />
+      <HeaderTitleContainer
+        title="장바구니"
+        description={`현재 ${cartItems.length}종류의 상품이 담겨있습니다.`}
+      />
       <section css={cartMainSection}>
-        <AllCheckBox />
+        <div css={allCheckboxWrapper}>
+          <Checkbox
+            checked={allChecked}
+            onChange={handleChangeChecked}
+            htmlFor="allChecked"
+            label="전체 선택"
+          />
+        </div>
         <ul>
           {cartItems.map((cartItem) => (
             <CartItem key={cartItem.id} item={cartItem} type="CART" />
           ))}
         </ul>
       </section>
-      <CartFooterSection type="CART" />
+      <OrderInfo type="CART" />
       <RandomAddButton />
     </main>
   );
@@ -51,6 +67,10 @@ const main = css`
 
 const cartMainSection = css`
   padding-bottom: 42px;
+`;
+
+const allCheckboxWrapper = css`
+  margin-bottom: 10px;
 `;
 
 const cartEmptyContainer = css`
