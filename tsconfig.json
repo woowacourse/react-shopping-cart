@@ -22,7 +22,23 @@
 
     /* Testing */
     "types": ["jest"],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+
+    "jsxImportSource": "@emotion/react",
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/components": ["src/components/*"],
+      "@/pages": ["src/pages/*"],
+      "@/types": ["src/types/*"],
+      "@/utils": ["src/utils/*"],
+      "@/constants": ["src/constants/*"],
+      "@/assets": ["src/assets/*"],
+      "@/store": ["src/store/*"],
+      "@/style": ["src/style/*"],
+      "@/api": ["src/api/*"]
+    }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

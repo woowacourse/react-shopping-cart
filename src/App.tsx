@@ -1,9 +1,30 @@
-import "./App.css";
+import { Global, css } from "@emotion/react";
+
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "./components/common/ErrorFallback.tsx";
+import LoadingFallback from "./components/common/LoadingFallback.tsx";
+import Router from "./Router.tsx";
+import { Suspense } from "react";
+import emotionNormalize from "emotion-normalize";
+
+const baseStyle = css`
+  ${emotionNormalize};
+  body {
+    width: 430px;
+    height: 100vh;
+    margin: auto;
+  }
+`;
 
 function App() {
   return (
     <>
-      <h1>react-shopping-cart</h1>
+      <Global styles={baseStyle} />
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <Suspense fallback={<LoadingFallback />}>
+          <Router />
+        </Suspense>
+      </ErrorBoundary>
     </>
   );
 }
