@@ -1,13 +1,13 @@
-import type { TCartItem } from '../types/CartItem.type';
+import type { CartItem } from '../types/CartItem.type';
 import generateBasicToken from '../utils/auth';
 import { CART_ITEM_ERROR_MESSAGE } from '../constants/MESSAGES';
-import {TCoupon} from "../types/Coupon.type.ts";
+import { Coupon } from '../types/Coupon.type.ts';
 
 const API_URL = import.meta.env.VITE_API_URL;
 const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
 const USER_ID = import.meta.env.VITE_USER_ID;
 
-const fetchCartItemList = async (): Promise<TCartItem[]> => {
+const fetchCartItemList = async (): Promise<CartItem[]> => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
   const response = await fetch(`${API_URL}/cart-items`, {
@@ -74,7 +74,7 @@ const updateCartItemQuantity = async (cartItemId: number, quantity: number): Pro
   }
 };
 
-const fetchCouponList = async (): Promise<TCoupon[]> => {
+const fetchCouponList = async (): Promise<Coupon[]> => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
   const response = await fetch(`${API_URL}/coupons`, {
@@ -91,6 +91,5 @@ const fetchCouponList = async (): Promise<TCoupon[]> => {
 
   return data.content;
 };
-
 
 export { fetchCartItemList, addCartItem, removeCartItem, updateCartItemQuantity, fetchCouponList };

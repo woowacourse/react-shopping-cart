@@ -1,7 +1,3 @@
-export type ErrorType =
-  | 'FETCH_CART_ITEMS'
-  | 'FETCH_COUPONS'
-  | 'ADD_CART_ITEMS'
-  | 'REMOVE_CART_ITEMS'
-  | 'UPDATE_PRODUCT_QUANTITY'
-  | 'UNKNOWN';
+import { CART_ITEM_ERROR_MESSAGE } from '../../constants/MESSAGES';
+
+export type ErrorType = keyof typeof CART_ITEM_ERROR_MESSAGE;
