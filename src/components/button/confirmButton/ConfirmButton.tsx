@@ -13,12 +13,12 @@ export const ConfirmButton: React.FC<ConfirmButtonProps> = ({
 }) => {
   const navigate = useNavigate();
 
-  const navigateToOrderConfirmationPage = () => {
-    navigate(PATHS.ORDER_CONFIRMATION);
+  const navigateToPaymentsConfirmationPage = () => {
+    navigate(PATHS.PAYMENTS_CONFIRMATION);
   };
 
   return (
-    <StyledConfirmButton onClick={navigateToOrderConfirmationPage} mode={mode}>
+    <StyledConfirmButton onClick={navigateToPaymentsConfirmationPage} mode={mode}>
       {text}
     </StyledConfirmButton>
   );

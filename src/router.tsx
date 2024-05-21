@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import { PATHS } from "./constants";
 import { CartPage } from "./pages/cartPage/CartPage";
-import { OrderConfirmationPage } from "./pages/orderConfirmationPage/OrderConfirmationPage";
+import { PaymentsConfirmationPage } from "./pages/paymentsConfirmationPage/PaymentsConfirmationPage";
 
 const router = createBrowserRouter(
   [
@@ -15,8 +15,8 @@ const router = createBrowserRouter(
           element: <CartPage />,
         },
         {
-          path: PATHS.ORDER_CONFIRMATION,
-          element: <OrderConfirmationPage />,
+          path: PATHS.PAYMENTS_CONFIRMATION,
+          element: <PaymentsConfirmationPage />,
         },
       ],
     },
