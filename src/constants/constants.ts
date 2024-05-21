@@ -15,6 +15,7 @@ export const ROUTER_URLS = {
   MAIN: '',
   ORDER_INFO: '/order-info',
   ADMIN: '/admin',
+  PAYMENT_INFO: '/payment-info',
   ERROR: '/error',
 };
 
