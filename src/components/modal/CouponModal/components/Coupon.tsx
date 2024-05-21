@@ -5,17 +5,19 @@ import { Coupon } from "@/types/coupon";
 
 const CouponItem = ({ coupon }: { coupon: Coupon }) => {
   return (
-    <div>
+    <S.Wrapper>
+      <S.BorderLine />
       <S.FlexBox>
         <CheckBox isChecked={false} onClick={() => {}} />
-        <TextBox text={coupon.description} type="xSmall" />
-        <TextBox type="xSmall" text={`만료일: ${coupon.expirationDate}`} />
-        <TextBox
-          type="xSmall"
-          text={`최소 주문 금액: ${coupon.minimumAmount}`}
-        />
+        <TextBox text={coupon.description} type="small" />
       </S.FlexBox>
-    </div>
+      <TextBox
+        type="xSmall"
+        text={`만료일: ${coupon.expirationDate}`}
+        style={{ paddingTop: "3px" }}
+      />
+      <TextBox type="xSmall" text={`최소 주문 금액: ${coupon.minimumAmount}`} />
+    </S.Wrapper>
   );
 };
 

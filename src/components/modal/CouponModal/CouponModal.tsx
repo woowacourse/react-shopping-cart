@@ -7,7 +7,8 @@ import DeleteButton from "@/assets/delete-icon.svg?react";
 import { mockCoupons } from "@/mocks/coupons";
 import { Coupon } from "@/types/coupon";
 import CouponItem from "./components/Coupon";
-
+import Button from "@/components/_common/Button/Button";
+import { theme } from "@/styles/theme";
 const CouponModal = ({
   isOpen,
   onCloseModal,
@@ -28,7 +29,7 @@ const CouponModal = ({
         text={CART_PAGE_MESSAGES.choiceCoupon}
         style={{ paddingBottom: "20px" }}
       />
-      <S.Wrapper>
+      <>
         <MoreInfo text={CART_PAGE_MESSAGES.couponLimit} />
         <Modal.CloseIcon onClick={onCloseModal}>
           <DeleteButton />
@@ -41,7 +42,21 @@ const CouponModal = ({
             </>
           );
         })}
-      </S.Wrapper>
+        <Button
+          onClick={() => {}}
+          style={{
+            backgroundColor: theme.COLOR["grey-3"],
+            color: "white",
+            opacity: 100,
+            marginTop: "30px",
+          }}
+          width="full"
+          radiusVariant="rounded"
+          color="white"
+        >
+          총 6000원 할인 쿠폰 사용하기
+        </Button>
+      </>
     </Modal>
   );
 };

@@ -30,19 +30,19 @@ const PaymentConfirmPage = () => {
 
   return (
     <S.FlexWrapper>
-      <TextBox type="title" text={CART_PAGE_CAPTION.payConfirm} />
+      <TextBox type="xLarge" text={CART_PAGE_CAPTION.payConfirm} />
       <>
         <TextBox
-          type="caption"
+          type="xSmall"
           text={CART_PAGE_MESSAGES.orderInfo(
             selectedItemsId.length,
             totalItemsCount
           )}
         />
-        <TextBox type="caption" text={CART_PAGE_MESSAGES.askOrderConfirm} />
+        <TextBox type="xSmall" text={CART_PAGE_MESSAGES.askOrderConfirm} />
       </>
       <S.ButtonText>{CART_PAGE_CAPTION.totalPaymentAmount}</S.ButtonText>
-      <TextBox type="title" text={formatToWon(totalPrice)} />
+      <TextBox type="xLarge" text={formatToWon(totalPrice)} />
       <Button
         position="bottom"
         size="large"
