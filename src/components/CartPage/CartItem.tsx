@@ -4,7 +4,7 @@ import CheckIcon from "../../assets/CheckIcon.svg?react";
 import MinusIcon from "../../assets/MinusIcon.svg?react";
 import PlusIcon from "../../assets/PlusIcon.svg?react";
 import { useRecoilState } from "recoil";
-import { Product } from "../../types";
+import { Product } from "../../types/product";
 import { patchCartItemQuantity } from "../../api/cartItemApi";
 import { cartItemCheckedIdsAtom } from "../../recoil/atom/atom";
 import { quantitySelector } from "../../recoil/selector/selector";

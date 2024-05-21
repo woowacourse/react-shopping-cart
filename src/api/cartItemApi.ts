@@ -1,4 +1,4 @@
-import { Product } from "../types";
+import { Product } from "../types/product";
 import apiClient from "./apiClient";
 
 export function fetchCartItems(): Promise<Product[]> {

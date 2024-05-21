@@ -1,4 +1,4 @@
-import { Product } from "../types";
+import { Product } from "../types/product";
 
 export const mockCartItems: Product[] = [
   { id: 1, product: { id: 3, name: "상품이름A", price: 35000, imageUrl: "", category: "" }, quantity: 2 },
