@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CartHeaderStyle = styled.div`
+export const PageHeaderStyle = styled.div`
   margin-bottom: 36px;
 `;
 
