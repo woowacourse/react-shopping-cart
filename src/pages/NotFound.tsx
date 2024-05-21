@@ -2,6 +2,7 @@ import { FlexCenter, FlexColumn } from '@/style/common.style';
 
 import Header from '@/components/Header';
 import NotFound404 from '@/assets/NotFound404.avif';
+import { StyledFixedTop } from '@/style/styledBox.style';
 import styled from '@emotion/styled';
 
 const NotFound = () => {
@@ -19,12 +20,6 @@ const NotFound = () => {
   );
 };
 export default NotFound;
-
-const StyledFixedTop = styled.div`
-  width: 430px;
-  position: fixed;
-  top: 0;
-`;
 
 const StyledCenterBox = styled.div`
   ${FlexColumn}

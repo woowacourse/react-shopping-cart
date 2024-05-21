@@ -7,6 +7,8 @@ import {
 import FullWidthButton from '@/components/Button/FullWidthButton';
 import Header from '@/components/Header';
 import { ORDER_CONFIRM_MESSAGE } from '@/constants/message';
+import { StyledFixedBottom } from '@/style/styledBox.style';
+import { StyledFixedTop } from '../style/styledBox.style';
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
 
@@ -43,18 +45,6 @@ const OrderConfirm = () => {
 };
 
 export default OrderConfirm;
-
-const StyledFixedTop = styled.div`
-  width: 430px;
-  position: fixed;
-  top: 0;
-`;
-
-const StyledFixedBottom = styled.div`
-  width: 430px;
-  position: fixed;
-  bottom: 0;
-`;
 
 const StyledCenterBox = styled.div`
   ${FlexColumn}
