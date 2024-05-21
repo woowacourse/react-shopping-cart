@@ -15,6 +15,10 @@
 - 장바구니에 담긴 상품을 제거할 수 있다.
 - 새로고침해도 선택한 상품 상태를 유지해서 보여준다.
 
+## 컴포넌트 구성도
+
+![Drawing 2024-04-21 22 17 23 excalidraw](https://github.com/Largopie/react-shopping-cart/assets/106071687/0cde0e9f-e7dc-4f00-ab52-78252c763bd4)
+
 ## 0.1 버전
 
 > 프로그램의 한 사이클을 경험할 수 있는 가장 작은 기능으로 구성해본다면?
