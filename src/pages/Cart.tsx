@@ -37,7 +37,7 @@ function Cart() {
             <CartContent />
           </Suspense>
         </ContentWrapper>
-        <Footer isDisabled={false} url={URL_PATH.completed} />
+        <Footer isDisabled={false} url={URL_PATH.orderConfirm} />
       </ErrorBoundary>
     </CartContainer>
   );
