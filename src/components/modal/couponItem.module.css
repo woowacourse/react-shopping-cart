@@ -1,0 +1,30 @@
+.coupon_item_container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+}
+
+.coupon_item_header {
+  display: flex;
+  align-items: center;
+}
+
+.coupon_info {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+  margin-bottom: 24px;
+}
+
+.info_text {
+  margin-bottom: 4px;
+  font-family: Noto Sans;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+  text-align: left;
+}
+
+.text {
+  margin-left: 8px;
+}
