@@ -1,13 +1,10 @@
 import styled from 'styled-components';
 import Header from '../components/Header/Header';
 import Text from '../components/common/Text/Text';
-import { useLocation } from 'react-router-dom';
 import Button from '../components/common/Button/Button';
 import useCartItemList from '../recoil/cartItemList/useCartItemList';
 import { useCartItemSelectedIdList } from '../recoil/cartItem/useCartItemSelectedIdList';
-import { useRecoilValue } from 'recoil';
-import { priceSelector } from '../recoil/price/priceSelector';
-import { includes } from 'lodash';
+import usePriceSelector from '../recoil/price/usePriceSelector';
 
 const CartPageContainer = styled.main`
   width: 100%;
@@ -30,18 +27,17 @@ const PriceContainer = styled.main`
 const ConfirmPurchasePage = () => {
   const { cartItemList } = useCartItemList();
   const { selectedIdList } = useCartItemSelectedIdList();
-  const { totalPrice } = useRecoilValue(priceSelector);
+  const { totalPrice } = usePriceSelector();
 
   const totalProducts = selectedIdList.length;
 
-  const totalQuantity =
-    cartItemList.filter(({ id }) => selectedIdList.includes(id))
-      .reduce((sum, { quantity }) => {
+  const totalQuantity = cartItemList
+    .filter(({ id }) => selectedIdList.includes(id))
+    .reduce((sum, { quantity }) => {
+      return sum + quantity;
+    }, 0);
 
-        return (sum + quantity);
-      }, 0);
-
-  console.log(cartItemList, selectedIdList, totalPrice)
+  console.log(cartItemList, selectedIdList, totalPrice);
   return (
     <>
       <Header type="back" />
