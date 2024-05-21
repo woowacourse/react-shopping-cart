@@ -1,9 +1,7 @@
 import { LOCAL_STORAGE_KEY } from "../constants";
 import { getStorage, setStorage } from "./localStorage/localStorage";
 
-export const API_TOKEN = `Basic ${btoa(
-  `${import.meta.env.VITE_API_USER_ID}:${import.meta.env.VITE_API_USER_PASSWORD}`
-)}`;
+export const API_TOKEN = `Basic ${btoa(`${process.env.VITE_API_USER_ID}:${process.env.VITE_API_USER_PASSWORD}`)}`;
 
 export const setCartItemCheckedStateInStorage = (id: number, isCheck: boolean) => {
   const localData = getStorage<CartItemCheckedStateInStorage>(LOCAL_STORAGE_KEY, {});

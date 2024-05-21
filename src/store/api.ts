@@ -1,6 +1,6 @@
 import { API_TOKEN } from "./utils";
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const BASE_URL = process.env.VITE_API_BASE_URL;
 
 type MethodType = "GET" | "POST";
 

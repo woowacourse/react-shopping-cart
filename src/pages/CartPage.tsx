@@ -13,7 +13,7 @@ const CartPage = () => {
         <CartContent />
         <CartFooter />
       </Suspense>
-      {import.meta.env.DEV ? <AddButton /> : null}
+      {process.env.DEV ? <AddButton /> : null}
     </>
   );
 };
