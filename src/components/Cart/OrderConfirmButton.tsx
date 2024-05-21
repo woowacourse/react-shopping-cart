@@ -5,7 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { THEME } from '@/constants/theme';
 import { isAllUnCheckedState } from '@recoil/cartItems/selectors';
 
-export default function OrderConfirmButton() {
+const OrderConfirmButton = () => {
   const navigate = useNavigate();
   const isAllUnChecked = useRecoilValue(isAllUnCheckedState);
 
@@ -21,10 +21,12 @@ export default function OrderConfirmButton() {
       onClick={handleClickOrderConfirm}
       disabled={isAllUnChecked}
     >
-      주문확인
+      주문 확인
     </button>
   );
-}
+};
+
+export default OrderConfirmButton;
 
 const orderConfirmButton = (isDisabled: boolean) => css`
   width: 100%;

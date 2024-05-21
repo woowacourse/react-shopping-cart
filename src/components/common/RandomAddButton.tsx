@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 import { addItem } from '@/apis/cartItem';
 
-const AddButton = () => {
+const RandomAddButton = () => {
   const handleClick = async () => {
     const ids = [2, 3, 10, 11, 12];
     const randomValue = ids[Math.floor(Math.random() * ids.length)];
@@ -17,20 +17,20 @@ const AddButton = () => {
   );
 };
 
-export default AddButton;
+export default RandomAddButton;
 
 const floatingAddButton = css`
-  position: fixed;
+  position: absolute;
   display: flex;
   align-items: center;
 
   padding: 14px 19px;
   right: 0;
-  bottom: 10px;
+  top: 10px;
   border-radius: 24px;
   gap: 8px;
 
-  background-color: gray;
+  background-color: lightgray;
 
   color: black;
   font-size: 14px;

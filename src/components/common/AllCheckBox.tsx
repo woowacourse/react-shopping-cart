@@ -13,7 +13,7 @@ const AllCheckBox = () => {
         id="allChecked"
         type="checkbox"
         checked={allChecked}
-        css={srOnly}
+        css={screenReaderOnly}
         onChange={(e) => setAllChecked(e.target.checked)}
       />
       <label css={label} htmlFor="allChecked">
@@ -26,7 +26,7 @@ const AllCheckBox = () => {
 
 export default AllCheckBox;
 
-const srOnly = css`
+const screenReaderOnly = css`
   position: absolute;
 
   width: 1px;
