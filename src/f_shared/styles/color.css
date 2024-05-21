@@ -1,6 +1,11 @@
 :root {
   --primary-color: black;
   --primary-inverse-color: white;
-  --title-color: black;
-  --content-color: #0a0d13;
+
+  /* Common: Text */
+  --text-title-color: black;
+  --text-content-color: #0a0d13;
+
+  /* CartPage */
+  --cart-content-bg-color: #ffffff;
 }
