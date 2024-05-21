@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 
 import { imgMap } from '@/f_shared/index';
 
+import { Button } from '../../../../f_shared/ui/Button/Button';
 import { MiddleSlotType } from '../../model/types';
 
 import css from './MiddleSlot.module.css';
@@ -20,9 +21,9 @@ export const MiddleSlot = ({ type }: MiddleSlotProps) => {
 
     case 'logo':
       return (
-        <button className={cn('button')}>
+        <Button className={cn('button')}>
           <img src={imgMap.logo} alt={type} className={cn('image')} />
-        </button>
+        </Button>
       );
   }
 };

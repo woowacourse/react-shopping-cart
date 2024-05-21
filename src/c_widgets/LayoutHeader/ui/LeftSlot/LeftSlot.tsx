@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 
 import { imgMap } from '@/f_shared/index';
 
+import { Button } from '../../../../f_shared/ui/Button/Button';
 import { LeftSlotType } from '../../model/types';
 
 import css from './LeftSlot.module.css';
@@ -20,9 +21,9 @@ export const LeftSlot = ({ type }: LeftSlotProps) => {
 
     case 'goBack':
       return (
-        <button className={cn('button')}>
+        <Button className={cn('button')}>
           <img src={imgMap.goBack} alt={type} className={cn('image')} />
-        </button>
+        </Button>
       );
   }
 };
