@@ -1,5 +1,5 @@
 import { useCheckCartItem } from '@hooks/shoppingCart';
-import { cartItemsSelector, selectedIdsAtom } from '@recoil/shoppingCart';
+import { cartItemsAtom, selectedIdsAtom } from '@recoil/shoppingCart';
 import { renderHook, waitFor } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
 
@@ -18,7 +18,7 @@ describe('상품 선택 테스트', () => {
         wrapper: ({ children }) => (
           <RecoilRoot
             initializeState={({ set }) => {
-              set(cartItemsSelector, INITIAL_ITEMS);
+              set(cartItemsAtom, INITIAL_ITEMS);
               set(selectedIdsAtom, new Set());
             }}
           >
@@ -45,7 +45,7 @@ describe('상품 선택 테스트', () => {
         wrapper: ({ children }) => (
           <RecoilRoot
             initializeState={({ set }) => {
-              set(cartItemsSelector, INITIAL_ITEMS);
+              set(cartItemsAtom, INITIAL_ITEMS);
               set(selectedIdsAtom, new Set());
             }}
           >
@@ -75,7 +75,7 @@ describe('상품 선택 테스트', () => {
         wrapper: ({ children }) => (
           <RecoilRoot
             initializeState={({ set }) => {
-              set(cartItemsSelector, INITIAL_ITEMS);
+              set(cartItemsAtom, INITIAL_ITEMS);
               set(selectedIdsAtom, new Set());
             }}
           >
@@ -105,7 +105,7 @@ describe('상품 선택 테스트', () => {
         wrapper: ({ children }) => (
           <RecoilRoot
             initializeState={({ set }) => {
-              set(cartItemsSelector, INITIAL_ITEMS);
+              set(cartItemsAtom, INITIAL_ITEMS);
               set(selectedIdsAtom, new Set());
             }}
           >
@@ -138,7 +138,7 @@ describe('상품 선택 테스트', () => {
         wrapper: ({ children }) => (
           <RecoilRoot
             initializeState={({ set }) => {
-              set(cartItemsSelector, INITIAL_ITEMS);
+              set(cartItemsAtom, INITIAL_ITEMS);
               set(selectedIdsAtom, new Set());
             }}
           >
@@ -155,8 +155,6 @@ describe('상품 선택 테스트', () => {
     await waitFor(() => {
       result.current.onCheckAllCartItems();
     });
-
-    console.log(result.current.isAllChecked);
 
     await waitFor(() => {
       result.current.onCheckCartItem(INITIAL_ITEMS[0].id);

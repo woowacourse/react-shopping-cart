@@ -1,6 +1,7 @@
 import { useUpdateCartItemCount } from '@hooks/shoppingCart';
-import { cartItemsSelector, selectedIdsAtom } from '@recoil/shoppingCart';
+import { cartItemsAtom, cartItemsSelector, selectedIdsAtom } from '@recoil/shoppingCart';
 import { renderHook, waitFor } from '@testing-library/react';
+import { act } from 'react';
 import { RecoilRoot, useRecoilValue } from 'recoil';
 
 import { INITIAL_ITEMS, QUANTITY_TEST_ITEMS } from './constants/cartItems';
@@ -20,7 +21,7 @@ describe('수량 변경 테스트', () => {
         wrapper: ({ children }) => (
           <RecoilRoot
             initializeState={({ set }) => {
-              set(cartItemsSelector, INITIAL_ITEMS);
+              set(cartItemsAtom, INITIAL_ITEMS);
               set(selectedIdsAtom, new Set(INITIAL_ITEMS.map((item) => item.id)));
             }}
           >
@@ -30,7 +31,7 @@ describe('수량 변경 테스트', () => {
       },
     );
 
-    await waitFor(() => {
+    act(() => {
       return result.current !== undefined;
     });
 
@@ -49,7 +50,7 @@ describe('수량 변경 테스트', () => {
 
     const { result } = renderHook(
       () => {
-        const cartItems = useRecoilValue(cartItemsSelector);
+        const cartItems = useRecoilValue(cartItemsAtom);
         const { updateCartItems, getIncreasedQuantity } = useUpdateCartItemCount(cartItems[0]);
 
         return { cartItems, updateCartItems, getIncreasedQuantity };
@@ -58,7 +59,7 @@ describe('수량 변경 테스트', () => {
         wrapper: ({ children }) => (
           <RecoilRoot
             initializeState={({ set }) => {
-              set(cartItemsSelector, INITIAL_ITEMS);
+              set(cartItemsAtom, INITIAL_ITEMS);
               set(selectedIdsAtom, new Set(INITIAL_ITEMS.map((item) => item.id)));
             }}
           >
@@ -88,7 +89,7 @@ describe('수량 변경 테스트', () => {
 
       const { result } = renderHook(
         () => {
-          const cartItems = useRecoilValue(cartItemsSelector);
+          const cartItems = useRecoilValue(cartItemsAtom);
 
           const { updateCartItems, getDecreasedQuantity } = useUpdateCartItemCount(cartItems[1]);
 
@@ -98,7 +99,7 @@ describe('수량 변경 테스트', () => {
           wrapper: ({ children }) => (
             <RecoilRoot
               initializeState={({ set }) => {
-                set(cartItemsSelector, INITIAL_ITEMS);
+                set(cartItemsAtom, INITIAL_ITEMS);
                 set(selectedIdsAtom, new Set(INITIAL_ITEMS.map((item) => item.id)));
               }}
             >
@@ -127,7 +128,7 @@ describe('수량 변경 테스트', () => {
 
       const { result } = renderHook(
         () => {
-          const cartItems = useRecoilValue(cartItemsSelector);
+          const cartItems = useRecoilValue(cartItemsAtom);
 
           const { updateCartItems, getIncreasedQuantity } = useUpdateCartItemCount(cartItems[0]);
 
@@ -137,7 +138,7 @@ describe('수량 변경 테스트', () => {
           wrapper: ({ children }) => (
             <RecoilRoot
               initializeState={({ set }) => {
-                set(cartItemsSelector, QUANTITY_TEST_ITEMS);
+                set(cartItemsAtom, QUANTITY_TEST_ITEMS);
                 set(selectedIdsAtom, new Set(INITIAL_ITEMS.map((item) => item.id)));
               }}
             >

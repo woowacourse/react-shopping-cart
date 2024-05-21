@@ -1,5 +1,5 @@
 import { PRICE } from '@constants/index';
-import { cartItemsSelector, orderCostsSelector, selectedIdsAtom } from '@recoil/shoppingCart';
+import { cartItemsAtom, orderCostsSelector, selectedIdsAtom } from '@recoil/shoppingCart';
 import { renderHook, waitFor } from '@testing-library/react';
 import { RecoilRoot, useRecoilValue } from 'recoil';
 
@@ -15,7 +15,7 @@ describe('주문 비용(주문 금액, 배송비, 총 결제 금액) 테스트',
         wrapper: ({ children }) => (
           <RecoilRoot
             initializeState={({ set }) => {
-              set(cartItemsSelector, INITIAL_ITEMS);
+              set(cartItemsAtom, INITIAL_ITEMS);
               set(selectedIdsAtom, new Set(INITIAL_ITEMS.map((item) => item.id)));
             }}
           >
@@ -41,7 +41,7 @@ describe('주문 비용(주문 금액, 배송비, 총 결제 금액) 테스트',
         wrapper: ({ children }) => (
           <RecoilRoot
             initializeState={({ set }) => {
-              set(cartItemsSelector, INITIAL_ITEMS);
+              set(cartItemsAtom, INITIAL_ITEMS);
               set(selectedIdsAtom, new Set(INITIAL_ITEMS.map((item) => item.id)));
             }}
           >
@@ -62,13 +62,16 @@ describe('주문 비용(주문 금액, 배송비, 총 결제 금액) 테스트',
   it('주문 금액이 100,000원이 넘을 때 배송비를 포함하지 않는다.', async () => {
     const { result } = renderHook(
       () => {
-        return useRecoilValue(orderCostsSelector);
+        const cartItems = useRecoilValue(cartItemsAtom);
+        const orderCosts = useRecoilValue(orderCostsSelector);
+
+        return { ...orderCosts, cartItems };
       },
       {
         wrapper: ({ children }) => (
           <RecoilRoot
             initializeState={({ set }) => {
-              set(cartItemsSelector, SHIPPING_FREE_ITEMS);
+              set(cartItemsAtom, SHIPPING_FREE_ITEMS);
               set(selectedIdsAtom, new Set(SHIPPING_FREE_ITEMS.map((item) => item.id)));
             }}
           >

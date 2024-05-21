@@ -1,6 +1,6 @@
 import { STORAGE_KEY } from '@constants/storage';
 import { useDeleteCartItem } from '@hooks/shoppingCart';
-import { cartItemsAtom, cartItemsSelector, selectedIdsAtom } from '@recoil/shoppingCart';
+import { cartItemsAtom, selectedIdsAtom } from '@recoil/shoppingCart';
 import { renderHook, waitFor } from '@testing-library/react';
 import { RecoilRoot, useRecoilValue } from 'recoil';
 
@@ -23,7 +23,7 @@ describe('상품 삭제 테스트', () => {
         wrapper: ({ children }) => (
           <RecoilRoot
             initializeState={({ set }) => {
-              set(cartItemsSelector, INITIAL_ITEMS);
+              set(cartItemsAtom, INITIAL_ITEMS);
               set(selectedIdsAtom, new Set());
             }}
           >
@@ -57,7 +57,7 @@ describe('상품 삭제 테스트', () => {
         wrapper: ({ children }) => (
           <RecoilRoot
             initializeState={({ set }) => {
-              set(cartItemsSelector, INITIAL_ITEMS);
+              set(cartItemsAtom, INITIAL_ITEMS);
               set(selectedIdsAtom, new Set([ID]));
             }}
           >
