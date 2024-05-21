@@ -4,11 +4,11 @@ export const Layout = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  column-gap: 8px;
+  justify-content: space-between;
+  width: 90px;
   font-size: ${({ theme }) => theme.fontSize.sm};
 
   p {
-    width: 30px;
     text-align: center;
   }
 `;
