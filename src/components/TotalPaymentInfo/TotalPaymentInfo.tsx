@@ -2,13 +2,17 @@ import PaymentInfo from './PaymentInfo';
 import * as Styled from './style';
 import CaptionEmoji from '../assets/CaptionEmoji.svg';
 import { useRecoilValue } from 'recoil';
-import { cartItemsCalculatorState } from '../../recoil/cartItems';
+import {
+  shippingFeeSelector,
+  totalOrderAmountSelector,
+  totalPaymentAmountSelector,
+} from '../../recoil/cartItems';
 
 const TotalPaymentInfo = () => {
   const koMoneyFormat = (money: number) => `${money.toLocaleString('ko-kr')}원`;
-  const { totalOrderAmount, shippingFee, totalPaymentAmount } = useRecoilValue(
-    cartItemsCalculatorState,
-  );
+  const totalOrderAmount = useRecoilValue(totalOrderAmountSelector);
+  const shippingFee = useRecoilValue(shippingFeeSelector);
+  const totalPaymentAmount = useRecoilValue(totalPaymentAmountSelector);
 
   return (
     <Styled.TotalPaymentInfo>

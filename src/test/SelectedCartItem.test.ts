@@ -2,7 +2,7 @@ import { RecoilRoot, useRecoilState } from 'recoil';
 import { renderHook } from '@testing-library/react';
 import {
   cartItemsIdState,
-  selectedAllCartItemState,
+  selectedAllCartItemSelector,
   selectedCartItemsState,
 } from '../recoil/selectedCardItems';
 describe('SelectedCartItems', () => {
@@ -23,7 +23,7 @@ describe('SelectedCartItems', () => {
       { id: 2, name: 'Product 2' },
     ];
     const { result } = renderHook(
-      () => useRecoilState(selectedAllCartItemState),
+      () => useRecoilState(selectedAllCartItemSelector),
       {
         wrapper: RecoilRoot,
         initialProps: {

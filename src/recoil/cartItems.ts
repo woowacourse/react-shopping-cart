@@ -8,7 +8,7 @@ export const refreshCartItemsState = atom({
 });
 
 export const cartItemQuantityAdjustSelector = selectorFamily({
-  key: `cartItemQuantityAdjust`,
+  key: `cartItemQuantityAdjustSelector`,
   get:
     (id: number) =>
     ({ get }) => {
@@ -29,47 +29,77 @@ export const cartItemQuantityState = atomFamily({
   default: cartItemQuantityAdjustSelector,
 });
 
-//TODO: 여기 좀 정리하자~~~!~!~
-export const cartItemsCalculatorState = selector({
-  key: 'cartItemsCalculatorSelector',
+export const cartItemsIdState = selector({
+  key: 'cartItemsId',
+  get: ({ get }) => {
+    return get(fetchedCartItemsSelector).map((cartItem) => cartItem.id);
+  },
+});
+
+/**
+ * 선택된 상품 리스트
+ */
+export const selectedCartItemsSelector = selector({
+  key: 'selectedCartItemsSelector',
   get: async ({ get }) => {
     const cartItems = get(fetchedCartItemsSelector);
-
-    const selectedCartItems = cartItems.filter((cartItem) =>
+    return cartItems.filter((cartItem) =>
       get(selectedCartItemsState(cartItem.id)),
     );
+  },
+});
 
-    const totalCartItemQuantity = selectedCartItems.reduce(
-      (totalCartItemQuantity, cartItem) => {
-        if (get(cartItemQuantityState(cartItem.id)))
-          return (
-            totalCartItemQuantity + get(cartItemQuantityState(cartItem.id))
-          );
-        return totalCartItemQuantity;
-      },
-      0,
-    );
+/**
+ * 전체 장바구니 아이템의 수량
+ */
+export const totalCartItemQuantitySelector = selector({
+  key: 'totalCartItemQuantitySelector',
+  get: async ({ get }) => {
+    const selectedCartItems = get(selectedCartItemsSelector);
 
-    const totalOrderAmount = selectedCartItems.reduce(
-      (totalOrderAmount, cartItem) => {
-        const orderAmount =
-          cartItem.product.price * get(cartItemQuantityState(cartItem.id));
-        return totalOrderAmount + orderAmount;
-      },
-      0,
-    );
+    return selectedCartItems.reduce((totalCartItemQuantity, cartItem) => {
+      if (get(cartItemQuantityState(cartItem.id)))
+        return totalCartItemQuantity + get(cartItemQuantityState(cartItem.id));
+      return totalCartItemQuantity;
+    }, 0);
+  },
+});
 
-    const shippingFee =
-      totalOrderAmount >= 100000 || totalOrderAmount === 0 ? 0 : 3000;
+/**
+ * 주문 가격
+ */
+export const totalOrderAmountSelector = selector({
+  key: 'totalOrderAmountSelector',
+  get: async ({ get }) => {
+    const selectedCartItems = get(selectedCartItemsSelector);
 
-    const totalPaymentAmount = totalOrderAmount + shippingFee;
+    return selectedCartItems.reduce((totalOrderAmount, cartItem) => {
+      const orderAmount =
+        cartItem.product.price * get(cartItemQuantityState(cartItem.id));
+      return totalOrderAmount + orderAmount;
+    }, 0);
+  },
+});
 
-    return {
-      totalOrderAmount,
-      totalCartItemQuantity,
-      selectedCartItemCount: selectedCartItems.length,
-      shippingFee,
-      totalPaymentAmount,
-    };
+/**
+ * 배송비
+ */
+export const shippingFeeSelector = selector({
+  key: 'shippingFeeSelector',
+  get: ({ get }) => {
+    const totalOrderAmount = get(totalOrderAmountSelector);
+    return totalOrderAmount >= 100000 || totalOrderAmount === 0 ? 0 : 3000;
+  },
+});
+
+/**
+ * 최종 주문 가격
+ */
+export const totalPaymentAmountSelector = selector({
+  key: 'totalPaymentAmountSelector',
+  get: ({ get }) => {
+    const totalOrderAmount = get(totalOrderAmountSelector);
+    const shippingFee = get(shippingFeeSelector);
+    return totalOrderAmount + shippingFee;
   },
 });

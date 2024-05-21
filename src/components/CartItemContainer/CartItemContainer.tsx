@@ -2,7 +2,7 @@ import { useRecoilValue } from 'recoil';
 import Title from '../Title/Title';
 import TotalPaymentInfo from '../TotalPaymentInfo/TotalPaymentInfo';
 import * as Styled from './style';
-import { selectedSomeCartItemsState } from '../../recoil/selectedCardItems';
+import { selectedSomeCartItemsSelector } from '../../recoil/selectedCardItems';
 import OrderButton from '../OrderButton/OrderButton';
 import { useNavigate } from 'react-router-dom';
 import CartItemList from '../CartItemList/CartItemList';
@@ -13,7 +13,7 @@ const CartItemContainer = () => {
   const cartItems = useRecoilValue(fetchedCartItemsSelector);
 
   const hasSomeCartItem = !!cartItems.length;
-  const isSomeCartItemSelected = useRecoilValue(selectedSomeCartItemsState);
+  const isSomeCartItemSelected = useRecoilValue(selectedSomeCartItemsSelector);
   const isOrderable = hasSomeCartItem && isSomeCartItemSelected;
 
   return (

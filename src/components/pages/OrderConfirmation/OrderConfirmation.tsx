@@ -1,39 +1,25 @@
-import { useRecoilValue } from 'recoil';
+import { Suspense } from 'react';
 import Header from '../../Header/Header';
 import OrderButton from '../../OrderButton/OrderButton';
+import OrderConfirmationContent from './OrderConfirmationContent';
 import * as Styled from './style';
-import { cartItemsCalculatorState } from '../../../recoil/cartItems';
+
 import { useNavigate } from 'react-router-dom';
+import { LoadingMessage } from '../../LoadingFallback/style';
 
 const OrderConfirmation = () => {
   const navigator = useNavigate();
-
-  const { totalCartItemQuantity, selectedCartItemCount, totalPaymentAmount } =
-    useRecoilValue(cartItemsCalculatorState);
 
   return (
     <Styled.OrderConfirmation>
       <Header onClick={() => navigator(-1)} />
       <Styled.Container>
-        <Styled.Content>
-          <Styled.Title>주문 확인</Styled.Title>
-          <Styled.OrderSuccessMessage>
-            총 {selectedCartItemCount}종류의 상품 {totalCartItemQuantity}개를
-            주문합니다.
-            <br /> 최종 결제 금액을 확인해 주세요.
-          </Styled.OrderSuccessMessage>
-          <Styled.TotalPaymentAmountContainer>
-            <Styled.TotalPaymentAmountMessage>
-              총 결제 금액
-            </Styled.TotalPaymentAmountMessage>
-            <Styled.TotalPaymentAmount>
-              {totalPaymentAmount.toLocaleString('ko-kr')}원
-            </Styled.TotalPaymentAmount>
-          </Styled.TotalPaymentAmountContainer>
-        </Styled.Content>
+        <Suspense fallback={<LoadingMessage>로딩중...</LoadingMessage>}>
+          <OrderConfirmationContent />
+        </Suspense>
       </Styled.Container>
       <OrderButton onClick={() => console.log('주문 확인')} isOrderable={false}>
-        "주문 확인"
+        주문 확인
       </OrderButton>
     </Styled.OrderConfirmation>
   );

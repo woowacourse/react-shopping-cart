@@ -4,7 +4,7 @@ import * as Styled from './style';
 import CheckedBox from '../assets/CheckedBox.svg';
 import UnCheckedBox from '../assets/UnCheckedBox.svg';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { selectedAllCartItemState } from '../../recoil/selectedCardItems';
+import { selectedAllCartItemSelector } from '../../recoil/selectedCardItems';
 import { removeCartItem } from '../../api/shoppingCart';
 import { refreshCartItemsState } from '../../recoil/cartItems';
 import { fetchedCartItemsSelector } from '../../recoil/fetch';
@@ -13,7 +13,7 @@ const CartItemList = () => {
   const cartItems = useRecoilValue(fetchedCartItemsSelector);
 
   const [selectedAll, setSelectedAll] = useRecoilState(
-    selectedAllCartItemState,
+    selectedAllCartItemSelector,
   );
   const handleSelectedAll = () => {
     setSelectedAll((isSelectedAll) => !isSelectedAll);

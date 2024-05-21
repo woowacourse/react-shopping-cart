@@ -7,8 +7,7 @@ import MinusButton from '../assets/MinusButton.svg';
 import BlockMinusButton from '../assets/BlockMinusButton.svg';
 import { useRecoilState } from 'recoil';
 import { selectedCartItemsState } from '../../recoil/selectedCardItems';
-import { adjustCartItemQuantity } from '../../api/shoppingCart';
-import { cartItemQuantityState } from '../../recoil/cartItems';
+import useAdjustCartItemQuantity from '../../hooks/useAdjustCartItemQuantity';
 
 interface CartItemProp {
   id: number;
@@ -20,37 +19,8 @@ const CartItem = ({ id, cartItemProduct, onRemoveItem }: CartItemProp) => {
     selectedCartItemsState(id),
   );
 
-  const [cartItemQuantity, setCartItemQuantity] = useRecoilState(
-    cartItemQuantityState(id),
-  );
-
-  const handleAdjustCartItemQuantity = async (
-    cartItemId: number,
-    updateQuantity: number,
-  ) => {
-    try {
-      await adjustCartItemQuantity(cartItemId, updateQuantity);
-      setCartItemQuantity(updateQuantity);
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message);
-      }
-    }
-  };
-
-  const handleMinusCartItemQuantity = () => {
-    if (cartItemQuantity === 1) {
-      alert('수량은 1개 이상이어야 합니다!');
-      return;
-    }
-    const updatedItemQuantity = cartItemQuantity - 1;
-    handleAdjustCartItemQuantity(id, updatedItemQuantity);
-  };
-
-  const handlePlusCartItemQuantity = () => {
-    const updatedItemQuantity = cartItemQuantity + 1;
-    handleAdjustCartItemQuantity(id, updatedItemQuantity);
-  };
+  const { minusCartItemQuantity, plusCartItemQuantity, cartItemQuantity } =
+    useAdjustCartItemQuantity(id);
 
   return (
     <Styled.Item>
@@ -77,14 +47,14 @@ const CartItem = ({ id, cartItemProduct, onRemoveItem }: CartItemProp) => {
               </Styled.ItemPrice>
             </Styled.ItemDetails>
             <Styled.ItemQuantityAdjustment>
-              <Styled.Button onClick={handleMinusCartItemQuantity}>
+              <Styled.Button onClick={minusCartItemQuantity}>
                 <img
                   src={cartItemQuantity === 1 ? BlockMinusButton : MinusButton}
                   alt="-"
                 ></img>
               </Styled.Button>
               <Styled.ItemQuantity>{cartItemQuantity}</Styled.ItemQuantity>
-              <Styled.Button onClick={handlePlusCartItemQuantity}>
+              <Styled.Button onClick={plusCartItemQuantity}>
                 <img src={PlusButton} alt="+"></img>
               </Styled.Button>
             </Styled.ItemQuantityAdjustment>
