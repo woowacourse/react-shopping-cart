@@ -1,9 +1,7 @@
 import { selector } from "recoil";
 import { CartItemCheckedState, CartItemIdListState, itemQuantityState } from "../atom/atoms";
-// import { fetchProducts } from "../api";
 import { SHIPPING_CONSTANT } from "../../constants";
 import { cartState } from "../atom/atoms";
-// import { LOCAL_STORAGE_KEY } from "../../constants";
 
 export const checkAllItemState = selector({
   key: "checkAllItemState",
