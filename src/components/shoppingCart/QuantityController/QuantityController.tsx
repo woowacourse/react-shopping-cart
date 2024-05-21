@@ -12,7 +12,7 @@ export default function QuantityController({
   quantity,
   onChangeQuantity,
   minQuantity = 1,
-  maxQuantity = Infinity,
+  maxQuantity = 100,
 }: QuantityControllerProps) {
   return (
     <QuantityControllerContainer>
