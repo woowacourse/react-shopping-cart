@@ -7,7 +7,7 @@ import {
 
 import { CART_MESSAGE } from '@/constants/message';
 import { FREE_SHIPPING_CONDITION } from '@/constants/system';
-import Info from '@/assets/Info.svg';
+import Info from '@/assets/Info.svg?react';
 import { recipeState } from '@/store/selectors/recipeSelector';
 import styled from '@emotion/styled';
 import { theme } from '@/style/theme.style';
@@ -23,7 +23,7 @@ const CartRecipe = ({ isCoupon = false }: Props) => {
   return (
     <StyledRecipeWrapper>
       <StyledInfoBox>
-        <img src={Info} alt="추가정보" />
+        <Info />
         {CART_MESSAGE.freeShipping(FREE_SHIPPING_CONDITION)}
       </StyledInfoBox>
       <StyledBox>

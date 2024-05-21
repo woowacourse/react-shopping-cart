@@ -40,6 +40,6 @@
       "@/api": ["src/api/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src/**/*", "src/types/svg.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

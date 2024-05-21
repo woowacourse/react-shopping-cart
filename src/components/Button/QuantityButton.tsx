@@ -1,8 +1,6 @@
 import BorderButton from './BorderButton';
-import { FlexCenter } from '@/style/common.style';
-import Minus from '@/assets/Minus.svg';
-import Plus from '@/assets/Plus.svg';
-import styled from '@emotion/styled';
+import Minus from '@/assets/Minus.svg?react';
+import Plus from '@/assets/Plus.svg?react';
 
 interface Props {
   onClick: () => void;
@@ -11,7 +9,7 @@ interface Props {
 export const PlusButton = ({ onClick }: Props) => {
   return (
     <BorderButton onClick={onClick}>
-      <StyledImg src={Plus} alt="increase button" />
+      <Plus />
     </BorderButton>
   );
 };
@@ -19,13 +17,7 @@ export const PlusButton = ({ onClick }: Props) => {
 export const MinusButton = ({ onClick }: Props) => {
   return (
     <BorderButton onClick={onClick}>
-      <StyledImg src={Minus} alt="decrease button" />
+      <Minus />
     </BorderButton>
   );
 };
-
-const StyledImg = styled.img`
-  ${FlexCenter}
-  width: 12px;
-  height: 12px;
-`;

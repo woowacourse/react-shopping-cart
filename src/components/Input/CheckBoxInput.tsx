@@ -1,5 +1,5 @@
-import Checked from '@/assets/checked.svg';
-import UnChecked from '@/assets/unchecked.svg';
+import Checked from '@/assets/checked.svg?react';
+import UnChecked from '@/assets/unchecked.svg?react';
 import styled from '@emotion/styled';
 
 interface Props {
@@ -17,7 +17,7 @@ const CheckBox = ({ isSelected, onClick }: Props) => {
           readOnly
           onClick={onClick}
         />
-        <ImgLabel isSelected={isSelected}></ImgLabel>
+        {isSelected ? <Checked /> : <UnChecked />}
       </Container>
     </>
   );
@@ -33,14 +33,4 @@ const Container = styled.div`
 
 const StyledInput = styled.input`
   display: none;
-`;
-
-const ImgLabel = styled.label<{ isSelected: boolean }>`
-  width: 1.5em;
-  height: 1.5em;
-  background-image: url(${({ isSelected }) =>
-    isSelected ? Checked : UnChecked});
-  background-size: contain;
-  background-repeat: no-repeat;
-  cursor: pointer;
 `;

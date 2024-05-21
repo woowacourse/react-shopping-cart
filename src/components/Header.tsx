@@ -1,6 +1,6 @@
-import ArrowBack from '@/assets/Arrow-Back.svg';
+import ArrowBack from '@/assets/Arrow-Back.svg?react';
 import { Link } from 'react-router-dom';
-import Logo from '@/assets/Logo.svg';
+import Logo from '@/assets/Logo.svg?react';
 import styled from '@emotion/styled';
 import { theme } from '@/style/theme.style';
 
@@ -15,10 +15,7 @@ const Header = ({ type = 'Logo', navigatePath }: Props) => {
   return (
     <StyledHeader>
       <Link to={navigatePath}>
-        <img
-          src={type === 'Logo' ? Logo : ArrowBack}
-          alt={type === 'Logo' ? 'Logo' : 'return'}
-        />
+        {type === 'Logo' ? <Logo /> : <ArrowBack />}
       </Link>
     </StyledHeader>
   );

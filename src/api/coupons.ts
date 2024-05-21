@@ -1,4 +1,4 @@
-import type { Coupon } from '@/types/coupon';
+import type { Coupon } from '@/types/coupon.type';
 import { ENDPOINT } from '@/api/config';
 import { ERROR_MESSAGE } from '@/constants/error';
 import apiFetch from '@/api/apiFetch';
