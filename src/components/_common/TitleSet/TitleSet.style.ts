@@ -15,5 +15,5 @@ export const Title = styled.h1`
 `;
 
 export const SubTitle = styled.div`
-  ${({ theme }) => theme.TEXT.Subtitle}
+  ${({ theme }) => theme.TEXT.caption}
 `;

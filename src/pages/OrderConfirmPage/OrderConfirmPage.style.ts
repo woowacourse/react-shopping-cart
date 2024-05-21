@@ -10,3 +10,16 @@ export const CartItemListWrapper = styled.div`
   height: 160px;
   overflow-y: scroll;
 `;
+
+export const FlexBox = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+export const ShippingInfoBox = styled.div`
+  display: flex;
+  gap: 10px;
+  height: 56px;
+  flex-direction: column;
+  margin: 30px 0;
+`;

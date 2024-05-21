@@ -1,9 +1,9 @@
 import Button from "@/components/_common/Button/Button";
-import Title from "@/components/_common/Title/Title";
 import styled from "styled-components";
 import { FlexCenter } from "@/styles/common";
 import { PAGE_URL } from "@/constants/url";
 import { useNavigate } from "react-router-dom";
+import TextBox from "@/components/_common/TextBox/TextBox";
 
 const ErrorFallback = ({ error }: { error: Error }) => {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const ErrorFallback = ({ error }: { error: Error }) => {
         size="large"
         onClick={handleReload}
       >
-        <Title text="home" />
+        <TextBox type="title" text="home" />
       </Button>
     </Wrapper>
   );

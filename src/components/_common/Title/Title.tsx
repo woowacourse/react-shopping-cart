@@ -1,15 +1,15 @@
-import styled from "styled-components";
+// import styled from "styled-components";
 
-interface TitleProps {
-  text: string;
-}
+// interface TitleProps {
+//   text: string;
+// }
 
-const Title = ({ text }: TitleProps) => {
-  return <TitleText>{text}</TitleText>;
-};
+// const Title = ({ text }: TitleProps) => {
+//   return <TitleText>{text}</TitleText>;
+// };
 
-export default Title;
+// export default Title;
 
-const TitleText = styled.span`
-  ${({ theme }) => theme.TEXT.Title}
-`;
+// const TitleText = styled.span`
+//   ${({ theme }) => theme.TEXT.Title}
+// `;

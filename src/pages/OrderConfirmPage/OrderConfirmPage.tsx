@@ -1,30 +1,43 @@
-import Caption from "@/components/_common/Caption/Caption";
-import TitleSet from "@/components/_common/TitleSet/TitleSet";
+import { useState } from "react";
+
 import { CART_PAGE_CAPTION, CART_PAGE_MESSAGES } from "@/constants/cart";
+
 import { totalItemOrderCountSelector } from "@/recoil/orderInformation";
 import { selectedCartItemsIdState } from "@/recoil/selectedCardItems";
 import { useRecoilValue } from "recoil";
-import * as S from "./OrderConfirmPage.style";
+
+import TitleSet from "@/components/_common/TitleSet/TitleSet";
 import ProductList from "@/components/ProductList/ProductList";
 import Button from "@/components/_common/Button/Button";
+import TextBox from "@/components/_common/TextBox/TextBox";
+import CheckBox from "@/components/_common/CheckBox/CheckBox";
+
+import * as S from "./OrderConfirmPage.style";
+import MoreInfo from "@/assets/more-info.svg?react";
 
 const OrderConfirmPage = () => {
   const totalItemsCount = useRecoilValue(totalItemOrderCountSelector);
   const selectedItemsId = useRecoilValue(selectedCartItemsIdState);
 
+  const [isDoubleShippingFee, setIsDoubleShippingFee] = useState(false);
+
+  const onClickDoubleShippingFee = () => {
+    setIsDoubleShippingFee((prev) => !prev);
+  };
   return (
     <S.Wrapper>
       <TitleSet
         title={CART_PAGE_CAPTION.orderConfirm}
         subTitle={
           <>
-            <Caption
+            <TextBox
+              type="caption"
               text={CART_PAGE_MESSAGES.orderInfo(
                 selectedItemsId.length,
                 totalItemsCount
               )}
             />
-            <Caption text={CART_PAGE_MESSAGES.askOrderConfirm} />
+            <TextBox type="caption" text={CART_PAGE_MESSAGES.askOrderConfirm} />
           </>
         }
       />
@@ -32,6 +45,21 @@ const OrderConfirmPage = () => {
         <ProductList type="readonly" />
       </S.CartItemListWrapper>
       <Button radiusVariant="rounded">쿠폰 적용</Button>
+      <S.ShippingInfoBox>
+        <TextBox type="subTitle" text="배송 정보" />
+        <S.FlexBox>
+          <CheckBox
+            isChecked={isDoubleShippingFee}
+            onClick={onClickDoubleShippingFee}
+          />
+          <TextBox type="caption" text="제주도 및 도서 산간 지역" />
+        </S.FlexBox>
+      </S.ShippingInfoBox>
+      <TextBox
+        type="caption"
+        asset={() => <MoreInfo />}
+        text={CART_PAGE_MESSAGES.freeShippingInfo}
+      />
     </S.Wrapper>
   );
 };

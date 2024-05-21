@@ -9,14 +9,20 @@ const COLOR = {
 };
 
 const TEXT = {
-  Title: css`
+  title: css`
     font-size: 20px;
     line-height: 16px;
     font-weight: 800;
   `,
-  Subtitle: css`
+  subTitle: css`
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 700;
+  `,
+  caption: css`
     font-size: 12px;
     line-height: 15px;
+    font-weight: 500;
   `,
 };
 

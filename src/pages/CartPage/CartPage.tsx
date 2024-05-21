@@ -1,7 +1,6 @@
 import { useRecoilValue } from "recoil";
 import { totalItemOrderCountSelector } from "@/recoil/orderInformation";
 
-import Caption from "@/components/_common/Caption/Caption";
 import CheckBox from "@/components/_common/CheckBox/CheckBox";
 import TitleSet from "@/components/_common/TitleSet/TitleSet";
 
@@ -21,6 +20,7 @@ import CartEmpty from "@/components/CartEmpty/CartEmpty";
 import Button from "@/components/_common/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { PAGE_URL } from "@/constants/url";
+import TextBox from "@/components/_common/TextBox/TextBox";
 
 const CartPage = () => {
   const { isAllItemSelected, selectAllItem, unselectAllItem } = useSelectAll();
@@ -46,10 +46,14 @@ const CartPage = () => {
                 isChecked={isAllItemSelected}
                 onClick={isAllItemSelected ? unselectAllItem : selectAllItem}
               />
-              <Caption text={CART_PAGE_CAPTION.allItemSelected} />
+              <TextBox
+                type="caption"
+                text={CART_PAGE_CAPTION.allItemSelected}
+              />
             </S.CheckBoxWrapper>
             <ProductList />
-            <Caption
+            <TextBox
+              type="caption"
               asset={() => <MoreInfo />}
               text={CART_PAGE_MESSAGES.freeShippingInfo}
             />

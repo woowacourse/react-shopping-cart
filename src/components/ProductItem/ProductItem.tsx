@@ -3,8 +3,6 @@ import useUpdateItemQuantity from "@/hooks/useUpdateItemQuantity";
 
 import Button from "../_common/Button/Button";
 import CheckBox from "../_common/CheckBox/CheckBox";
-import Title from "../_common/Title/Title";
-import Caption from "../_common/Caption/Caption";
 
 import MinusButton from "@/assets/minus-button.svg?react";
 import PlusButton from "@/assets/plus-button.svg?react";
@@ -17,6 +15,7 @@ import { cartItems } from "@/recoil/cartItems";
 import { formatToWon } from "@/utils/stringHelper";
 import { selectedCartItemsIdState } from "@/recoil/selectedCardItems";
 import { removeCartItem } from "@/auth/apis/cart";
+import TextBox from "../_common/TextBox/TextBox";
 
 export type CartItemShowType = "readonly" | "edit";
 
@@ -68,7 +67,7 @@ const ProductItem = ({
             radiusVariant="rounded"
             onClick={onClickRemoveItem}
           >
-            <Caption text="삭제" />
+            <TextBox type="caption" text="삭제" />
           </Button>
         </S.ItemButtonWrapper>
       )}
@@ -78,8 +77,8 @@ const ProductItem = ({
 
         <S.ItemInfoTextBox>
           <S.FlexBox>
-            <Caption text={name} />
-            <Title text={formatToWon(price)} />
+            <TextBox type="caption" text={name} />
+            <TextBox type="title" text={formatToWon(price)} />
           </S.FlexBox>
           {type === "edit" && (
             <S.UpdateButtonWrapper>
