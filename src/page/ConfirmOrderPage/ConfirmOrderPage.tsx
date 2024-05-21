@@ -6,18 +6,23 @@ import * as Styled from './ConfirmOrderPage.style';
 
 import { convertToLocaleAmount } from '../../utils';
 import { ENDPOINT } from '../../routes/router.constants';
+import { useRecoilValue } from 'recoil';
+import { checkedCartItemsState } from '../../recoil/atoms';
+import { totalAmountState, totalCheckedQuantityState } from '../../recoil/selectors';
 
 export default function ConfirmOrderPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    if (!location.state) {
+    if (!location.state || !location.state.isFromCartPage) {
       navigate(ENDPOINT.shoppingCart);
     }
   }, [location.state, navigate]);
 
-  const { totalCartItemsCount, totalProductsCount, totalAmount } = location.state || {};
+  const totalCheckedCartItems = useRecoilValue(checkedCartItemsState);
+  const totalProductsCount = useRecoilValue(totalCheckedQuantityState);
+  const totalAmount = useRecoilValue(totalAmountState);
 
   const handleClickPreviousPageButton = () => {
     navigate(ENDPOINT.shoppingCart);
@@ -33,7 +38,7 @@ export default function ConfirmOrderPage() {
         <Styled.ConfirmOrderContainer>
           <Styled.Title>주문 확인</Styled.Title>
           <Styled.Description>
-            총 {totalCartItemsCount}종류의 상품 {totalProductsCount}개를 주문합니다.
+            총 {totalCheckedCartItems.length}종류의 상품 {totalProductsCount}개를 주문합니다.
             <br />
             최종 결제 금액을 확인해 주세요.
           </Styled.Description>
