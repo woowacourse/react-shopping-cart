@@ -31,7 +31,19 @@
 .wrapper {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   align-items: center;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.coupon_list_container {
+  width: 100%;
 }
 
 @keyframes fadeIn {
