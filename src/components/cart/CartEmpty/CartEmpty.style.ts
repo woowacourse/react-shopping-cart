@@ -1,4 +1,4 @@
-import { FlexCenter } from "@/styles/common";
+import {FlexCenter} from "@/styles/common.ts";
 import styled from "styled-components";
 
 export const OrderConfirmButton = styled.div`
@@ -11,7 +11,7 @@ export const OrderConfirmButton = styled.div`
 
 export const Wrapper = styled.div`
   ${FlexCenter}
-  height:calc(100% - 128px);
+  height: calc(100% - 128px);
 `;
 
 export const ButtonText = styled.span`

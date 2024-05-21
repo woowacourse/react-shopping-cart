@@ -1,9 +1,9 @@
-import * as S from "./ProductItem.style";
-import * as Sk from "./ProductItem.skeleton.style";
+import * as S from "./ProductItem.style.ts";
+import * as Sk from "./ProductItem.skeleton.style.ts";
 
 const ProductItemSkeleton = () => {
   return (
-    <S.ItemWrapper>
+    <S.ItemWrapper type="edit">
       <S.ItemButtonWrapper>
         <Sk.ButtonSection />
       </S.ItemButtonWrapper>

@@ -1,4 +1,4 @@
-import { Skeleton } from "@/styles/common";
+import {Skeleton} from "@/styles/common.ts";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
 
 export const BorderLine = styled.div`
   width: 100%;
-  border-top: 1px solid ${({ theme }) => theme.COLOR.grey};
+  border-top: 1px solid ${({theme}) => theme.COLOR.grey};
 `;
 
 export const SkPriceInfoBox = styled.div`

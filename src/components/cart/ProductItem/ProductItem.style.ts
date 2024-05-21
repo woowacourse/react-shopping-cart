@@ -1,12 +1,25 @@
-import { Skeleton } from "@/styles/common";
 import styled from "styled-components";
+import {CartItemShowType} from "./ProductItem.tsx";
+
+export const ItemWrapper = styled.div<{ type: CartItemShowType }>`
+  height: ${({type}) => (type === "edit" ? 160 : 124)}px;
+  border-top: 1px solid ${({theme}) => theme.COLOR["grey"]};
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+`;
+
+export const FlexBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
 
 export const ItemButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   height: 24px;
   margin-top: 12px;
-  ${Skeleton}
 `;
 
 export const ItemInfoBox = styled.div`
@@ -14,7 +27,6 @@ export const ItemInfoBox = styled.div`
   margin-top: 12px;
   display: flex;
   align-items: center;
-  ${Skeleton}
 `;
 
 export const ItemInfoTextBox = styled.div`
@@ -25,22 +37,22 @@ export const ItemInfoTextBox = styled.div`
   justify-content: space-between;
 
   margin-left: 30px;
-  ${Skeleton}
 `;
 
-export const ItemImgBox = styled.div`
+export const ItemImgBox = styled.div<{ $imageUrl: string }>`
   width: 112px;
   height: 112px;
+
   border-radius: 10px;
   background-size: cover;
   background-repeat: no-repeat;
-  ${Skeleton}
+  background-image: url(${({$imageUrl}) => $imageUrl});
 `;
 
 export const UpdateButtonWrapper = styled.div`
-  width: 70px;
-  height: 30px;
-  ${Skeleton}
+  display: flex;
+  align-items: center;
+  gap: 5px;
 `;
 
 export const ProductQuantity = styled.span`
@@ -48,17 +60,4 @@ export const ProductQuantity = styled.span`
   font-size: 12px;
   line-height: 15px;
   font-weight: 500;
-  ${Skeleton}
-`;
-
-export const ButtonSection = styled.div`
-  height: 24px;
-  width: 100%;
-  ${Skeleton}
-`;
-
-export const TextSection = styled.span`
-  height: 24px;
-  width: 150px;
-  ${Skeleton}
 `;
