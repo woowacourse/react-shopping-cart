@@ -1,18 +1,18 @@
 import { atom, atomFamily } from 'recoil';
-import { Products } from '../types/Product';
+import { Items } from '../types/Item';
 
-interface itemDetailsStateType {
+interface ItemDetailsStateType {
   quantity: number;
   price: number;
   isChecked: boolean;
 }
 
-export const itemsState = atom<Products[]>({
+export const itemsState = atom<Items[]>({
   key: 'itemsState',
   default: [],
 });
 
-export const itemDetailsState = atomFamily<itemDetailsStateType, number>({
+export const itemDetailsState = atomFamily<ItemDetailsStateType, number>({
   key: 'itemDetailsState',
   default: {
     quantity: 1,

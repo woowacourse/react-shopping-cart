@@ -1,21 +1,21 @@
 import React from 'react';
 import CheckBox from '../CheckBox/CheckBox';
 import { MESSAGES } from '../../constants/Messages';
-import * as S from './ProductCardHeader.styled';
+import * as S from './ItemCardHeader.styled';
 
-interface ProductCardHeaderProps {
+interface ItemCardHeaderProps {
   isChecked: boolean;
   id: number;
   handleCheckedItem: () => void;
   handleRemoveItem: (id: number) => void;
 }
 
-function ProductCardHeader({
+function ItemCardHeader({
   isChecked,
   id,
   handleCheckedItem,
   handleRemoveItem,
-}: ProductCardHeaderProps) {
+}: ItemCardHeaderProps) {
   return (
     <S.CardHeader>
       <CheckBox isChecked={isChecked} onClick={handleCheckedItem} />
@@ -26,4 +26,4 @@ function ProductCardHeader({
   );
 }
 
-export default ProductCardHeader;
+export default ItemCardHeader;

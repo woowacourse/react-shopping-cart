@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ProductListContainer = styled.div`
+export const ItemListContainer = styled.div`
   margin-top: 3.6rem;
   margin-bottom: 5.2rem;
   display: flex;

@@ -42,19 +42,19 @@ export const CardQuantityButton = styled.div`
   align-items: center;
 `;
 
-export const ProductName = styled.p`
+export const ItemName = styled.p`
   font-size: 1.2rem;
   font-weight: 500;
   line-height: 1.5rem;
 `;
 
-export const ProductPrice = styled.p`
+export const ItemPrice = styled.p`
   font-size: 2.4rem;
   font-weight: 700;
   line-height: 3.47rem;
 `;
 
-export const QuantityCount = styled(ProductName)``;
+export const QuantityCount = styled(ItemName)``;
 
 export const Button = styled.button`
   min-width: 2.4rem;

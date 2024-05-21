@@ -1,18 +1,18 @@
 import React from 'react';
-import { Products } from '../../types/Product';
-import ProductCard from '../ProductCard/ProductCard';
+import { Items } from '../../types/Item';
+import ItemCard from '../ItemCard/ItemCard';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { itemsState } from '../../recoil/atoms';
 import { toggleAllSelector } from '../../recoil/selectors';
 import LabeledCheckBox from '../LabeledCheckBox/LabeledCheckBox';
-import * as S from './ProductList.styled';
+import * as S from './ItemList.styled';
 import { PageType } from '../../types/Page';
 
-interface ProductListProps {
+interface ItemListProps {
   type: PageType;
 }
 
-function ProductList({ type }: ProductListProps) {
+function ItemList({ type }: ItemListProps) {
   const items = useRecoilValue(itemsState);
 
   const isAllChecked = useRecoilValue(toggleAllSelector);
@@ -23,7 +23,7 @@ function ProductList({ type }: ProductListProps) {
   };
 
   return (
-    <S.ProductListContainer>
+    <S.ItemListContainer>
       {type === 'cart' && (
         <LabeledCheckBox
           isAllChecked={isAllChecked}
@@ -31,12 +31,12 @@ function ProductList({ type }: ProductListProps) {
         />
       )}
       <S.CartItemListContainer>
-        {items.map((product: Products) => {
-          return <ProductCard key={product.id} product={product} type={type} />;
+        {items.map((item: Items) => {
+          return <ItemCard key={item.id} item={item} type={type} />;
         })}
       </S.CartItemListContainer>
-    </S.ProductListContainer>
+    </S.ItemListContainer>
   );
 }
 
-export default ProductList;
+export default ItemList;

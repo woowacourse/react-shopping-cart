@@ -1,8 +1,8 @@
 import { DefaultValue, selector } from 'recoil';
 import { itemDetailsState, itemsState } from './atoms';
-import { Products } from '../types/Product';
+import { Items } from '../types/Item';
 import { updateLocalStorage } from '../utils/LocalStorage';
-import { fetchProducts } from '../api';
+import { fetchItems } from '../api';
 
 /**
  * 전체 금액, 배송비 계산, 총 결제 금액 계산
@@ -10,9 +10,9 @@ import { fetchProducts } from '../api';
 export const totalPriceSelector = selector({
   key: 'totalPriceSelector',
   get: ({ get }) => {
-    const productIds = get(itemsState);
+    const items = get(itemsState);
     let totalAmount = 0;
-    productIds.forEach((itemsState) => {
+    items.forEach((itemsState) => {
       const { quantity, price, isChecked } = get(
         itemDetailsState(itemsState.id),
       );
@@ -35,14 +35,14 @@ export const totalPriceSelector = selector({
 export const toggleAllSelector = selector<boolean>({
   key: 'toggleAllSelector',
   get: ({ get }): boolean => {
-    const items: Products[] = get(itemsState);
+    const items: Items[] = get(itemsState);
     return items.every((item) => get(itemDetailsState(item.id)).isChecked);
   },
   set: ({ get, set }, newValue: boolean | DefaultValue) => {
     if (newValue instanceof DefaultValue) {
       return;
     }
-    const items: Products[] = get(itemsState);
+    const items: Items[] = get(itemsState);
     items.forEach((item) => {
       set(itemDetailsState(item.id), (prev) => ({
         ...prev,
@@ -59,10 +59,10 @@ export const toggleAllSelector = selector<boolean>({
 export const totalCountSelector = selector({
   key: 'totalCountSelector',
   get: ({ get }) => {
-    const productIds = get(itemsState);
-    const totalItemTypeCount = productIds.length;
+    const items = get(itemsState);
+    const totalItemTypeCount = items.length;
     let totalCount = 0;
-    productIds.forEach((itemsState) => {
+    items.forEach((itemsState) => {
       const { quantity, isChecked } = get(itemDetailsState(itemsState.id));
       if (isChecked) {
         totalCount += quantity;
@@ -75,13 +75,21 @@ export const totalCountSelector = selector({
 /**
  * 장바구니 초기 데이터 API 호출
  */
-export const fetchProductsSelector = selector({
-  key: 'fetchProductsSelector',
+export const fetchItemsSelector = selector({
+  key: 'fetchItemsSelector',
   get: async () => {
-    const data = await fetchProducts();
+    const data = await fetchItems();
     return data;
   },
   set: ({ set }, newValue) => {
     set(itemsState, newValue);
   },
 });
+
+// export const orderItemsSelector = selector({
+//   key: 'orderItemsSelector',
+//   get: ({ get }) => {
+//     const Items = get(itemsState);
+//     Items.forEach
+//   },
+// });

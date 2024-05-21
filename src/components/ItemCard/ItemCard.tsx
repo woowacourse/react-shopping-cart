@@ -2,52 +2,52 @@ import React, { useEffect, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { removeCartItem } from '../../api';
 import { itemDetailsState, itemsState } from '../../recoil/atoms';
-import { Products } from '../../types/Product';
+import { Items } from '../../types/Item';
 import { fetchCartItemQuantity } from '../../api';
 import {
   updateLocalStorage,
   getLocalStorage,
   removeLocalStorage,
 } from '../../utils/LocalStorage';
-import * as S from './ProductCard.styled';
-import ProductCardHeader from '../ProductCardHeader/ProductCardHeader';
+import * as S from './ItemCard.styled';
+import ItemCardHeader from '../ItemCardHeader/ItemCardHeader';
 import { PageType } from '../../types/Page';
 
-interface ProductProps {
-  product: Products;
+interface ItemProps {
+  item: Items;
   type: PageType;
 }
 
-function ProductCard({ product, type }: ProductProps) {
-  const [details, setDetails] = useRecoilState(itemDetailsState(product.id));
+function ItemCard({ item, type }: ItemProps) {
+  const [details, setDetails] = useRecoilState(itemDetailsState(item.id));
   const setItems = useSetRecoilState(itemsState);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const localStorageList = getLocalStorage();
-    const localStorageProduct = localStorageList.find(
-      (value) => value.id === product.id,
+    const localStorageItem = localStorageList.find(
+      (value) => value.id === item.id,
     );
     setDetails({
-      quantity: product.quantity,
-      price: product.product.price,
-      isChecked: localStorageProduct ? localStorageProduct.isChecked : true,
+      quantity: item.quantity,
+      price: item.product.price,
+      isChecked: localStorageItem ? localStorageItem.isChecked : true,
     });
-  }, [product.quantity, product.product.price, product.id]);
+  }, [item.quantity, item.product.price, item.id]);
 
   useEffect(() => {
     const fetchData = async () => {
       setError(null);
 
       try {
-        await fetchCartItemQuantity(product.id, details.quantity);
+        await fetchCartItemQuantity(item.id, details.quantity);
       } catch (error) {
         setError(error as Error);
       }
     };
 
     fetchData();
-  }, [details, product.id]);
+  }, [details, item.id]);
 
   const handleDecreasedQuantity = () => {
     setDetails((prevQuantity) => ({
@@ -75,7 +75,7 @@ function ProductCard({ product, type }: ProductProps) {
       isChecked: !prevState.isChecked,
     }));
 
-    updateLocalStorage({ id: product.id, isChecked: !details.isChecked });
+    updateLocalStorage({ id: item.id, isChecked: !details.isChecked });
   };
 
   if (error) {
@@ -85,21 +85,19 @@ function ProductCard({ product, type }: ProductProps) {
   return (
     <S.CardContainer>
       {type === 'cart' && (
-        <ProductCardHeader
+        <ItemCardHeader
           isChecked={details.isChecked}
-          id={product.id}
+          id={item.id}
           handleCheckedItem={handleCheckedItem}
           handleRemoveItem={handleRemoveItem}
         />
       )}
       <S.CardContent>
-        <S.ItemImg src={product.product.imageUrl} alt={product.product.name} />
+        <S.ItemImg src={item.product.imageUrl} alt={item.product.name} />
         <S.CardDetail>
           <S.CardInfo>
-            <S.ProductName>{product.product.name}</S.ProductName>
-            <S.ProductPrice>
-              {product.product.price.toLocaleString()}원
-            </S.ProductPrice>
+            <S.ItemName>{item.product.name}</S.ItemName>
+            <S.ItemPrice>{item.product.price.toLocaleString()}원</S.ItemPrice>
           </S.CardInfo>
           <S.CardQuantityButton>
             {type === 'cart' && (
@@ -119,4 +117,4 @@ function ProductCard({ product, type }: ProductProps) {
   );
 }
 
-export default ProductCard;
+export default ItemCard;

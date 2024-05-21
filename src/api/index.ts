@@ -1,4 +1,4 @@
-import { Products } from '../types/Product';
+import { Items } from '../types/Item';
 import { FetchResponseType } from '../types/api';
 import { generateBasicToken } from '../utils/Auth';
 
@@ -25,14 +25,14 @@ const fetchResponse = async ({
   return response;
 };
 
-export async function fetchProducts(): Promise<Products[]> {
+export async function fetchItems(): Promise<Items[]> {
   const response = await fetchResponse({
     url: `/cart-items`,
     method: 'GET',
   });
 
   if (!response.ok) {
-    throw new Error('Failed to fetch products');
+    throw new Error('Failed to fetch Items');
   }
 
   const data = await response.json();
