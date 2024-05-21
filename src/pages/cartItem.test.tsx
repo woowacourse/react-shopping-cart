@@ -2,10 +2,10 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import '@testing-library/jest-dom';
 
-import AsyncRecoilWrapper from '@/mocks/AsyncRecoilWrapper';
 import { fetchCartItems } from '@apis/cartItem';
 import CartMainSection from '@components/Cart/CartMainSection';
-import { TOTAL_PRICE_UNDER_100000_DATA } from '@mocks/mock';
+import AsyncRecoilWrapper from '@mocks/AsyncRecoilWrapper';
+import { TOTAL_PRICE_UNDER_100000_DATA } from '@mocks/cart';
 
 const NIKE = '나이키';
 const PUMA = '퓨마';

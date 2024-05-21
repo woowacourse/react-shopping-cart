@@ -6,7 +6,7 @@ import { orderResultState, productTypesCountState } from './selectors';
 
 import { PRICE } from '@constants/config';
 import AsyncRecoilWrapper from '@mocks/AsyncRecoilWrapper';
-import { TOTAL_PRICE_OVER_100000_DATA, TOTAL_PRICE_UNDER_100000_DATA } from '@mocks/mock';
+import { TOTAL_PRICE_OVER_100000_DATA, TOTAL_PRICE_UNDER_100000_DATA } from '@mocks/cart';
 
 jest.mock('@apis/cartItem', () => ({
   fetchCartItems: jest.fn(),
