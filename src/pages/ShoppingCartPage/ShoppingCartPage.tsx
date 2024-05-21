@@ -34,6 +34,7 @@ function ShoppingCartPage() {
   const renderCartItemListSection = () => (
     <>
       <CartItemList cartItemList={cartItemList} updateCartItemList={updateCartItemList} />
+
       <TotalPriceContainer />
     </>
   );

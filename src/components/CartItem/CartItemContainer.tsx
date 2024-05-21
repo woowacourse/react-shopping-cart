@@ -1,18 +1,18 @@
 import { useRecoilState } from 'recoil';
 import CheckButton from '../Button/CheckButton/CheckButton';
 import QuantityContainer from '../Container/QuantityContainer/QuantityContainer';
-import type { TCartItem } from '../../types/CartItem.type';
+import type { CartItem } from '../../types/CartItem.type';
 import { selectedCartItemListSelector } from '../../pages/ShoppingCartPage/recoil/selector/selectedCartItemListSelector';
 
 import * as S from './CartItem.style';
 
 interface CartItemProps {
-  item: TCartItem;
+  item: CartItem;
   onRemoveItem: (cartItemId: number) => void;
   onUpdateQuantity: (cartItemId: number, quantity: number) => void;
 }
 
-function CartItem({ item, onRemoveItem, onUpdateQuantity }: CartItemProps) {
+function CartItemContainer({ item, onRemoveItem, onUpdateQuantity }: CartItemProps) {
   const { id, quantity, product } = item;
 
   const [isSelected, setIsSelected] = useRecoilState(selectedCartItemListSelector(item));
@@ -45,4 +45,4 @@ function CartItem({ item, onRemoveItem, onUpdateQuantity }: CartItemProps) {
   );
 }
 
-export default CartItem;
+export default CartItemContainer;
