@@ -4,20 +4,21 @@ import { removeCartItem } from '../../api';
 import { itemDetailsState, itemsState } from '../../recoil/atoms';
 import { Products } from '../../types/Product';
 import { fetchCartItemQuantity } from '../../api';
-import CheckBox from '../CheckBox/CheckBox';
 import {
   updateLocalStorage,
   getLocalStorage,
   removeLocalStorage,
 } from '../../utils/LocalStorage';
-import { MESSAGES } from '../../constants/Messages';
 import * as S from './ProductCard.styled';
+import ProductCardHeader from '../ProductCardHeader/ProductCardHeader';
+import { PageType } from '../../types/Page';
 
 interface ProductProps {
   product: Products;
+  type: PageType;
 }
 
-function ProductCard({ product }: ProductProps) {
+function ProductCard({ product, type }: ProductProps) {
   const [details, setDetails] = useRecoilState(itemDetailsState(product.id));
   const setItems = useSetRecoilState(itemsState);
   const [error, setError] = useState<Error | null>(null);
@@ -83,13 +84,14 @@ function ProductCard({ product }: ProductProps) {
 
   return (
     <S.CardContainer>
-      <S.CardHeader>
-        <CheckBox isChecked={details.isChecked} onClick={handleCheckedItem} />
-        <S.Button onClick={() => handleRemoveItem(product.id)}>
-          {MESSAGES.delete}
-        </S.Button>
-      </S.CardHeader>
-
+      {type === 'cart' && (
+        <ProductCardHeader
+          isChecked={details.isChecked}
+          id={product.id}
+          handleCheckedItem={handleCheckedItem}
+          handleRemoveItem={handleRemoveItem}
+        />
+      )}
       <S.CardContent>
         <S.ItemImg src={product.product.imageUrl} alt={product.product.name} />
         <S.CardDetail>
@@ -100,9 +102,16 @@ function ProductCard({ product }: ProductProps) {
             </S.ProductPrice>
           </S.CardInfo>
           <S.CardQuantityButton>
-            <S.Button onClick={handleDecreasedQuantity}>-</S.Button>
-            <S.QuantityCount>{details.quantity}</S.QuantityCount>
-            <S.Button onClick={handleIncreasedQuantity}>+</S.Button>
+            {type === 'cart' && (
+              <S.Button onClick={handleDecreasedQuantity}>-</S.Button>
+            )}
+            <S.QuantityCount>
+              {details.quantity}
+              {type === 'order' && '개'}
+            </S.QuantityCount>
+            {type === 'cart' && (
+              <S.Button onClick={handleIncreasedQuantity}>+</S.Button>
+            )}
           </S.CardQuantityButton>
         </S.CardDetail>
       </S.CardContent>

@@ -31,7 +31,7 @@ function CartContent() {
             title={MESSAGES.cart}
             subTitle={MESSAGES_PROPS.includedItems(items.length)}
           />
-          <ProductList />
+          <ProductList type="cart" />
           <TotalAmount />
         </>
       ) : (

@@ -10,11 +10,6 @@ export const CardContainer = styled.li`
   border-style: solid;
 `;
 
-export const CardHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
 export const CardContent = styled.div`
   display: flex;
   gap: 2.4rem;

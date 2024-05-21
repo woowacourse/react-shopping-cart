@@ -4,10 +4,15 @@ import ProductCard from '../ProductCard/ProductCard';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { itemsState } from '../../recoil/atoms';
 import { toggleAllSelector } from '../../recoil/selectors';
-import * as S from './ProductList.styled';
 import LabeledCheckBox from '../LabeledCheckBox/LabeledCheckBox';
+import * as S from './ProductList.styled';
+import { PageType } from '../../types/Page';
 
-function ProductList() {
+interface ProductListProps {
+  type: PageType;
+}
+
+function ProductList({ type }: ProductListProps) {
   const items = useRecoilValue(itemsState);
 
   const isAllChecked = useRecoilValue(toggleAllSelector);
@@ -19,13 +24,15 @@ function ProductList() {
 
   return (
     <S.ProductListContainer>
-      <LabeledCheckBox
-        isAllChecked={isAllChecked}
-        handleToggleAll={handleToggleAll}
-      />
+      {type === 'cart' && (
+        <LabeledCheckBox
+          isAllChecked={isAllChecked}
+          handleToggleAll={handleToggleAll}
+        />
+      )}
       <S.CartItemListContainer>
         {items.map((product: Products) => {
-          return <ProductCard key={product.id} product={product} />;
+          return <ProductCard key={product.id} product={product} type={type} />;
         })}
       </S.CartItemListContainer>
     </S.ProductListContainer>
