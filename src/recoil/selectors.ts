@@ -8,7 +8,7 @@ export interface PriceInfo {
   total: number;
 }
 
-export interface IOrderInfo {
+export interface IPaymentInfo {
   kindCount: number;
   productCount: number;
   totalPrice: number;
@@ -18,7 +18,7 @@ export const priceInfoStore = selector<PriceInfo>({
   key: RECOIL_KEYS.PRICE_INFO,
   get: ({ get }) => {
     const selected = get(selectedCartItems);
-    const price = selected.reduce((acc, cur) => (acc += cur.price * cur.quantity), 0);
+    const price = selected.reduce((acc, cur) => acc + cur.product.price * cur.quantity, 0);
     const isShippingFree = price >= ORDER.SHIPPING_FREE_PRICE || price === 0;
     const shipping = isShippingFree ? 0 : ORDER.SHIPPING_FEE;
     return {

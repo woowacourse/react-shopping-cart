@@ -22,7 +22,7 @@ const ShoppingCartOverview = () => {
     navigate(ROUTER_URLS.ORDER_INFO, {
       state: {
         kindCount: selectItems.length,
-        productCount: selectItems.reduce((acc, cur) => (acc += cur.quantity), 0),
+        productCount: selectItems.reduce((acc, cur) => acc + cur.quantity, 0),
         totalPrice: priceInfo.total,
       },
     });
@@ -33,7 +33,10 @@ const ShoppingCartOverview = () => {
       {data?.length !== 0 ? (
         <>
           <S.Container>
-            <ShoppingCartDescription kindCount={data?.length ?? 0} />
+            <ShoppingCartDescription
+              descriptionShowingCondition={(data?.length ?? 0) > 0}
+              description={`현재 ${data?.length ?? 0}종류의 상품이 담겨있습니다.`}
+            />
             <ShoppingCartList cartItems={data ?? []} refetch={refetch} />
             <PaymentTotal />
           </S.Container>
@@ -46,7 +49,7 @@ const ShoppingCartOverview = () => {
       ) : (
         <>
           <S.Container>
-            <ShoppingCartDescription kindCount={0} />
+            <ShoppingCartDescription descriptionShowingCondition={false} description="" />
             <CartItemEmptyFallback />
           </S.Container>
           <FloatingButton label={'주문 확인'} disabled />

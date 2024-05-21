@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { SelectedCartItem, selectedCartItems } from '../recoil/atoms';
+import { selectedCartItems } from '../recoil/atoms';
 import intersectionByProperty from '../utils/getArrayIntersection';
 import { CartItem } from '../types/cartItem';
 
@@ -9,26 +9,16 @@ const useSelectedItems = (data: CartItem[]) => {
 
   useEffect(() => {
     if (data.length !== 0) {
-      const newDataState = data.map(item => ({
-        cartItemId: item.id,
-        quantity: item.quantity,
-        price: item.product.price,
-      }));
-
-      setSelectedItems(prev => getIntersectionForMaintainingSelectState([...prev], newDataState));
+      setSelectedItems(prev => getIntersectionForMaintainingSelectState([...prev], data));
     }
   }, [data, setSelectedItems]);
 
   // 전 상태와 현 상태를 비교해서 선택 상태를 유지하는 함수
   const getIntersectionForMaintainingSelectState = (
-    prevState: SelectedCartItem[],
-    newDataState: SelectedCartItem[],
+    prevState: CartItem[],
+    newDataState: CartItem[],
   ) => {
-    const intersection = intersectionByProperty<SelectedCartItem>(
-      prevState,
-      newDataState,
-      'cartItemId',
-    );
+    const intersection = intersectionByProperty<CartItem>(prevState, newDataState, 'id');
 
     return intersection;
   };
@@ -37,7 +27,7 @@ const useSelectedItems = (data: CartItem[]) => {
   // id를 받아서 id가 있는지를 boolean
 
   const isSelected = (id: number) => {
-    return selectedItems.find(item => item.cartItemId === id) !== undefined;
+    return selectedItems.find(item => item.id === id) !== undefined;
   };
 
   // checkbox의 onClick handler
@@ -49,16 +39,9 @@ const useSelectedItems = (data: CartItem[]) => {
     const isSelectedItem = isSelected(cartItem.id);
 
     if (isSelectedItem) {
-      setSelectedItems(prev => prev.filter(item => item.cartItemId !== cartItem.id));
+      setSelectedItems(prev => prev.filter(item => item.id !== cartItem.id));
     } else {
-      setSelectedItems(prev => [
-        ...prev,
-        {
-          cartItemId: cartItem.id,
-          price: cartItem.product.price,
-          quantity: cartItem.quantity,
-        },
-      ]);
+      setSelectedItems(prev => [...prev, cartItem]);
     }
   };
 

@@ -13,13 +13,7 @@ const useSelectAll = (data: CartItem[]) => {
 
   const onSelectAllClick = () => {
     if (!all) {
-      setSelectedItems(
-        data.map(item => ({
-          cartItemId: item.id,
-          quantity: item.quantity,
-          price: item.product.price,
-        })),
-      );
+      setSelectedItems(data);
       setAll(true);
     } else {
       setSelectedItems([]);
