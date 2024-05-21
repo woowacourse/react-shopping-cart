@@ -27,7 +27,7 @@ export function Button({
   console.log(`root_theme_${theme}`);
   return (
     <button
-      className={cn('root', `theme_${theme}`, { root_disabled: disabled }, className)}
+      className={cn('root', `theme_${theme}`, { disabled }, className)}
       disabled={disabled}
       type={type}
       onClick={onClick}
