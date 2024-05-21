@@ -5,17 +5,23 @@ import TitleContainer from '../../components/Container/TitleContainer/TitleConta
 import SubmitButton from '../../components/Button/SubmitButton/SubmitButton';
 import TotalPriceContainer from '../../components/Container/TotalPriceContainer/TotalPriceContainer';
 import CartItemContainer from '../../components/CartItem/CartItemContainer';
+import DeliveryInfoContainer from '../../components/DeliveryInfoContainer/DeliveryInfoContainer';
 import ShowModalButton from '../../components/Button/ShowModalButton/ShowModalButton';
 import { selectedCartItemListState } from '../ShoppingCartPage/recoil/atom/selectedCartItemListState';
 import { selectedCartItemListTotalCountSelector } from '../ShoppingCartPage/recoil/selector/selectedCartItemListTotalCountSelector';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './OrderConfirmPage.style';
-import DeliveryInfoContainer from '../../components/DeleveryInfo/DeliveryInfoContainer';
+import { applyCouponModalState } from '../../modals/ApplyCouponModal/recoil/atoms';
+import { useToggleModal } from '../../modals/ApplyCouponModal/hooks/useToggleModal';
+import ApplyCouponModal from '../../modals/ApplyCouponModal/ApplyCouponModal';
 
 function OrderConfirmPage() {
   const selectedItemList = useRecoilValue(selectedCartItemListState);
 
   const selectedCartItemTotalCount = useRecoilValue(selectedCartItemListTotalCountSelector);
+
+  const isOpen = useRecoilValue(applyCouponModalState);
+  const { openModal } = useToggleModal();
 
   if (selectedItemList.length === 0) {
     return <Navigate to={PATHS.ERROR} />;
@@ -26,7 +32,7 @@ function OrderConfirmPage() {
       {selectedItemList.map((el) => (
         <CartItemContainer key={el.id} item={el} />
       ))}
-      <ShowModalButton content="쿠폰 적용" onClick={() => {}} />
+      <ShowModalButton content="쿠폰 적용" onClick={openModal} />
       <DeliveryInfoContainer></DeliveryInfoContainer>
       <TotalPriceContainer />
     </>
@@ -34,6 +40,7 @@ function OrderConfirmPage() {
 
   return (
     <div>
+      {isOpen && <ApplyCouponModal />}
       <Header />
       <S.Layout>
         <TitleContainer
