@@ -1,4 +1,4 @@
-import type { ResponseCartItem } from '../cartItem/cartItem.type';
+import type { ResponseCartItem } from './cartItem.type';
 
 export type ResponseCartItemList = {
   content: ResponseCartItem[];
