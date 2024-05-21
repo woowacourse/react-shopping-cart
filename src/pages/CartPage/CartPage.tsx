@@ -7,9 +7,9 @@ import { useRecoilValue } from 'recoil';
 import Button from '../../components/common/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import Spacer from '../../components/common/Spacer/Spacer';
-import { cartItemListAtom } from '../../recoil/cartItemList/states';
-import { selectedCartItemIdListAtom } from '../../recoil/selectedCartItemIdList/states';
+import { cartItemListState } from '../../recoil/cartItemList/cartItemListState';
 import CartItemListLoader from './CartItemListLoader';
+import { selectedCartItemIdListState } from '../../recoil/selectedCartItemIdList/selectedCartItemIdListState';
 
 const CartPageContainer = styled.main`
   width: 100%;
@@ -18,8 +18,8 @@ const CartPageContainer = styled.main`
 `;
 
 const CartPage = () => {
-  const cartItemList = useRecoilValue(cartItemListAtom);
-  const selectedCartItemIdList = useRecoilValue(selectedCartItemIdListAtom);
+  const cartItemList = useRecoilValue(cartItemListState);
+  const selectedCartItemIdList = useRecoilValue(selectedCartItemIdListState);
 
   const navigate = useNavigate();
 

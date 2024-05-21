@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import CartItem from './CartItem';
 import { RecoilRoot, useRecoilValue } from 'recoil';
-import { cartItemQuantityAtomFamily } from '../../recoil/cartItem/states';
+import { cartItemQuantityFamilyState } from '../../recoil/cartItem/cartItemQuantityFamilyState';
 import { act } from 'react';
 import '@testing-library/jest-dom';
 
@@ -23,7 +23,7 @@ const cartItemDummyData = {
 
 describe('CartItem 컴포넌트의 상품 개수 증감 테스트', () => {
   const QuantityChecker = ({ cartItemId }: { cartItemId: number }) => {
-    const quantity = useRecoilValue(cartItemQuantityAtomFamily(cartItemId));
+    const quantity = useRecoilValue(cartItemQuantityFamilyState(cartItemId));
     return <span data-testid="quantity-value">{quantity}</span>;
   };
 
@@ -67,7 +67,7 @@ describe('CartItem 컴포넌트의 상품 개수 증감 테스트', () => {
 
 describe('CartItem 컴포넌트에서 장바구니 항목 선택 테스트', () => {
   const QuantityChecker = ({ cartItemId }: { cartItemId: number }) => {
-    const quantity = useRecoilValue(cartItemQuantityAtomFamily(cartItemId));
+    const quantity = useRecoilValue(cartItemQuantityFamilyState(cartItemId));
     return <span data-testid="quantity-value">{quantity}</span>;
   };
 

@@ -1,19 +1,19 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
 import CartItemList from './CartItemList';
-import { cartItemListAtom } from '../../recoil/cartItemList/states';
+import { cartItemListState } from '../../recoil/cartItemList/cartItemListState';
 import { cartItemListTestData } from '../../recoil/testData/cartItemListTestData';
-import { selectedCartItemIdListAtom } from '../../recoil/selectedCartItemIdList/states';
 import '@testing-library/jest-dom';
 import { act } from 'react';
+import { selectedCartItemIdListState } from '../../recoil/selectedCartItemIdList/selectedCartItemIdListState';
 
 describe('CartItemList 컴포넌트의 전체 선택 버튼 테스트', () => {
   const renderCartItemList = (initialSelectedIdList: number[] = []) => {
     return render(
       <RecoilRoot
         initializeState={({ set }) => {
-          set(cartItemListAtom, cartItemListTestData);
-          set(selectedCartItemIdListAtom, initialSelectedIdList);
+          set(cartItemListState, cartItemListTestData);
+          set(selectedCartItemIdListState, initialSelectedIdList);
         }}
       >
         <CartItemList />

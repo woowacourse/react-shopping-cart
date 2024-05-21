@@ -1,13 +1,13 @@
 import { ReactNode, useEffect } from 'react';
-import { useCartItemList } from '../../recoil/cartItemList/hooks';
+import { useCartItemList } from '../../recoil/cartItemList/useCartItemList';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
-import { cartItemListQuery } from '../../recoil/cartItemList/states';
-import { selectedCartItemIdListAtom } from '../../recoil/selectedCartItemIdList/states';
+import { cartItemListStateQuery } from '../../recoil/cartItemList/cartItemListState';
+import { selectedCartItemIdListState } from '../../recoil/selectedCartItemIdList/selectedCartItemIdListState';
 
 const ConfirmPurchasePageLoader = ({ children }: { children: ReactNode }) => {
   const { updateCartItemList } = useCartItemList();
-  const cartItemListLoadable = useRecoilValueLoadable(cartItemListQuery);
-  const selectedCartItemIdList = useRecoilValue(selectedCartItemIdListAtom);
+  const cartItemListLoadable = useRecoilValueLoadable(cartItemListStateQuery);
+  const selectedCartItemIdList = useRecoilValue(selectedCartItemIdListState);
 
   useEffect(() => {
     updateCartItemList();

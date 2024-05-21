@@ -3,9 +3,9 @@ import Header from '../../components/Header/Header';
 import Text from '../../components/common/Text/Text';
 import Button from '../../components/common/Button/Button';
 import { useRecoilValue } from 'recoil';
-import { cartItemListAtom } from '../../recoil/cartItemList/states';
+import { cartItemListState } from '../../recoil/cartItemList/cartItemListState';
 import ConfirmPurchasePageLoader from './ConfirmPurchasePageLoader';
-import { selectedCartItemIdListAtom } from '../../recoil/selectedCartItemIdList/states';
+import { selectedCartItemIdListState } from '../../recoil/selectedCartItemIdList/selectedCartItemIdListState';
 
 const CartPageContainer = styled.main`
   width: 100%;
@@ -27,8 +27,8 @@ const PriceContainer = styled.main`
 `;
 
 const ConfirmPurchasePage = () => {
-  const cartItemList = useRecoilValue(cartItemListAtom);
-  const selectedCartItemIdList = useRecoilValue(selectedCartItemIdListAtom);
+  const cartItemList = useRecoilValue(cartItemListState);
+  const selectedCartItemIdList = useRecoilValue(selectedCartItemIdListState);
 
   const selectedCartItemList = cartItemList.filter(({ cartItemId }) => selectedCartItemIdList.includes(cartItemId));
   const totalCartItemQuantity = selectedCartItemList.reduce(

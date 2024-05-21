@@ -3,13 +3,13 @@ import CartItem from '../CartItem/CartItem';
 import Checkbox from '../common/Checkbox/Checkbox';
 import Text from '../common/Text/Text';
 import { useRecoilValue } from 'recoil';
-import { selectedCartItemIdListAtom } from '../../recoil/selectedCartItemIdList/states';
-import { useSelectedCartItemIdList } from '../../recoil/selectedCartItemIdList/hooks';
-import { cartItemListAtom } from '../../recoil/cartItemList/states';
+import { useSelectedCartItemIdList } from '../../recoil/selectedCartItemIdList/useSelectedCartItemIdList';
+import { cartItemListState } from '../../recoil/cartItemList/cartItemListState';
+import { selectedCartItemIdListState } from '../../recoil/selectedCartItemIdList/selectedCartItemIdListState';
 
 const CartItemList = () => {
-  const itemList = useRecoilValue(cartItemListAtom);
-  const selectedIdList = useRecoilValue(selectedCartItemIdListAtom);
+  const itemList = useRecoilValue(cartItemListState);
+  const selectedIdList = useRecoilValue(selectedCartItemIdListState);
   const isSelectedAll = selectedIdList.length === itemList.length;
   const { clear, selectAll } = useSelectedCartItemIdList();
 
