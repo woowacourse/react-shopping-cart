@@ -5,9 +5,8 @@ import { useNavigate } from 'react-router-dom';
 
 import Cart from '@components/Cart/Cart';
 import Error from '@components/common/Error';
+import Header from '@components/common/Header';
 import Loading from '@components/common/Loading';
-
-import Header from '@components/Header';
 
 function CartPage() {
   const navigate = useNavigate();

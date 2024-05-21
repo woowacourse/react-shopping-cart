@@ -6,9 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { BACK_ARROW } from '@assets/images';
 import CartConfirmContent from '@components/CartConfirm/CartConfirmContent';
 import Error from '@components/common/Error';
+import Header from '@components/common/Header';
 import Loading from '@components/common/Loading';
-
-import Header from '@components/Header';
 
 export default function CartConfirmPage() {
   const navigate = useNavigate();
