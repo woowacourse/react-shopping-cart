@@ -10,6 +10,7 @@ import { selectedCartItemListState } from '../ShoppingCartPage/recoil/atom/selec
 import { selectedCartItemListTotalCountSelector } from '../ShoppingCartPage/recoil/selector/selectedCartItemListTotalCountSelector';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './OrderConfirmPage.style';
+import DeliveryInfoContainer from '../../components/DeleveryInfo/DeliveryInfoContainer';
 
 function OrderConfirmPage() {
   const selectedItemList = useRecoilValue(selectedCartItemListState);
@@ -26,6 +27,7 @@ function OrderConfirmPage() {
         <CartItemContainer key={el.id} item={el} />
       ))}
       <ShowModalButton content="쿠폰 적용" onClick={() => {}} />
+      <DeliveryInfoContainer></DeliveryInfoContainer>
       <TotalPriceContainer />
     </>
   );
