@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import {
+  ButtonPosition,
   ButtonRadiusVariant,
   ButtonSize,
   ButtonTheme,
@@ -21,6 +22,7 @@ export interface ButtonProps
   size?: ButtonSize;
   width?: ButtonWidthProps;
   radiusVariant?: ButtonRadiusVariant;
+  position?: ButtonPosition;
 }
 type ButtonWidthProps = ButtonWidth | "fixed";
 
@@ -32,6 +34,7 @@ const Button = ({
   width = "full",
   radiusVariant = "square",
   disabled = false,
+  position = "center",
   ...props
 }: ButtonProps) => {
   return (
@@ -42,6 +45,7 @@ const Button = ({
       $radiusVariant={radiusVariant}
       onClick={onClick}
       disabled={disabled}
+      $position={position}
       {...props}
     >
       {children}
@@ -56,6 +60,7 @@ const StyledButton = styled.button<{
   $size: ButtonSize;
   $width: ButtonWidthProps;
   $radiusVariant: ButtonRadiusVariant;
+  $position: ButtonPosition;
 }>`
   display: flex;
   justify-content: center;
@@ -66,7 +71,13 @@ const StyledButton = styled.button<{
   padding: 4px;
 
   ${({ $size }) => BUTTON_SIZE[$size]};
+
   ${({ $theme }) => BUTTON_THEME[$theme]};
+
+  position: ${({ $position }) => ($position === "bottom" ? "fixed" : "auto")};
+  bottom: ${({ $position }) => $position === "bottom" && 0};
+
+  max-width: 430px;
   width: ${({ $width, $size }) =>
     $width === "fixed" ? BUTTON_WIDTH[$size] : BUTTON_WIDTH[$width]};
   border-radius: ${({ $radiusVariant }) => BUTTON_RADIUS[$radiusVariant]};

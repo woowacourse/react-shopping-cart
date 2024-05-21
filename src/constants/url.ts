@@ -1,4 +1,5 @@
 export const PAGE_URL = {
   home: "/",
-  orderConfirm: "/order-confirm",
+  orderConfirm: "/order/confirm",
+  paymentConfirm: "/payment/confirm",
 };

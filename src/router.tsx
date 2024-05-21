@@ -9,6 +9,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "./pages/Error/ErrorPage";
 import CartPage from "./pages/CartPage/CartPage";
 import OrderConfirmPage from "./pages/OrderConfirmPage/OrderConfirmPage";
+import PaymentConfirmPage from "./pages/PaymentConfimPage/PaymentConfirmPage";
 
 const router = createBrowserRouter([
   {
@@ -29,9 +30,15 @@ const router = createBrowserRouter([
     path: PAGE_URL.orderConfirm,
     element: (
       <MainLayout type="backButton">
-        <ErrorBoundary FallbackComponent={ErrorFallback}>
-          <OrderConfirmPage />
-        </ErrorBoundary>
+        <OrderConfirmPage />
+      </MainLayout>
+    ),
+  },
+  {
+    path: PAGE_URL.paymentConfirm,
+    element: (
+      <MainLayout type="title" title={""} fallback={<CartPageSkeleton />}>
+        <PaymentConfirmPage />
       </MainLayout>
     ),
   },
