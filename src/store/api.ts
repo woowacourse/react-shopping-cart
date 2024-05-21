@@ -51,3 +51,12 @@ export const fetchCartItemsCounts = async () => {
   const data = await response.json();
   return data.quantity;
 };
+
+export const fetchCoupons = async () => {
+  const response = await fetch(BASE_URL + "/coupons", {
+    method: "GET",
+    headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
+  });
+  const data = await response.json();
+  return data;
+};

@@ -2,6 +2,7 @@ import { atomFamily, atom, selector } from "recoil";
 import { LOCAL_STORAGE_KEY } from "../../constants";
 import { getStorage, setStorage } from "../localStorage/localStorage";
 import { fetchCartState } from "../selector/fetchCartState";
+import { fetchCouponsState } from "../selector/fetchCouponsState";
 
 export const cartState = atom({
   key: "cartState",
@@ -49,4 +50,9 @@ export const itemQuantityState = atom<Record<number, number>>({
       return obj;
     },
   }),
+});
+
+export const CouponsState = atom<Coupon[]>({
+  key: "couponsState",
+  default: fetchCouponsState,
 });
