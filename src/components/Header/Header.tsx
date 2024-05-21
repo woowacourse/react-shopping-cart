@@ -34,7 +34,7 @@ function Header({ headerIconType }: HeaderProps) {
         return { icon: BackArrowIcon, width: '2.1rem', url: -1 };
 
       default:
-        return { icon: LogoIcon, width: '5.6rem', url: '/cart' };
+        return { icon: LogoIcon, width: '5.6rem', url: '/' };
     }
   };
 
