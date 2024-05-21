@@ -6,21 +6,27 @@ import css from './Layout.module.css';
 const cn = classNames.bind(css);
 
 interface LayoutProps {
-  fixedHeaderSlot?: ReactNode;
   headerSlot?: ReactNode;
-  contentSlot: ReactNode;
+  contentHeaderSlot?: ReactNode;
+  contentBodySlot: ReactNode;
+  contentFooterSlot?: ReactNode;
   footerSlot?: ReactNode;
-  fixedFooterSlot?: ReactNode;
 }
 
-export const Layout = ({ fixedHeaderSlot, headerSlot, contentSlot, footerSlot, fixedFooterSlot }: LayoutProps) => {
+export const Layout = ({
+  headerSlot,
+  contentHeaderSlot,
+  contentBodySlot,
+  contentFooterSlot,
+  footerSlot,
+}: LayoutProps) => {
   return (
     <div className={cn('root')}>
-      {fixedHeaderSlot && <header className={cn('fixedHeader')}>{fixedHeaderSlot}</header>}
       {headerSlot && <header className={cn('header')}>{headerSlot}</header>}
-      <div className={cn('content')}>{contentSlot}</div>
+      {contentHeaderSlot && <header className={cn('contentHeader')}>{contentHeaderSlot}</header>}
+      <div className={cn('contentBody')}>{contentBodySlot}</div>
+      {contentFooterSlot && <footer className={cn('contentFooter')}>{contentFooterSlot}</footer>}
       {footerSlot && <footer className={cn('footer')}>{footerSlot}</footer>}
-      {fixedFooterSlot && <footer className={cn('fixedFooter')}>{fixedFooterSlot}</footer>}
     </div>
   );
 };

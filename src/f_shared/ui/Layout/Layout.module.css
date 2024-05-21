@@ -5,17 +5,17 @@
   min-height: 100vh;
 }
 
-.content {
+.contentBody {
   flex-grow: 1;
 }
 
-.fixedHeader {
+.header {
   position: sticky;
   top: 0;
   width: 100%;
 }
 
-.fixedFooter {
+.footer {
   position: sticky;
   bottom: 0;
   width: 100%;

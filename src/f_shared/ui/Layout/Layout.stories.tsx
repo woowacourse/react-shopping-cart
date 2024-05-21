@@ -13,20 +13,20 @@ const meta: Meta<typeof Layout> = {
   component: Layout,
   render: () => (
     <Layout
-      fixedHeaderSlot={
-        <div style={{ backgroundColor: 'blue', ...commonStyle }}>
-          <h1>fixedHeaderSlot</h1>
-        </div>
-      }
       headerSlot={
-        <div style={{ backgroundColor: 'lightblue', ...commonStyle }}>
-          <h1>headerSlot</h1>
+        <div style={{ backgroundColor: 'blue', ...commonStyle }}>
+          <h1>Header</h1>
         </div>
       }
-      contentSlot={
+      contentHeaderSlot={
+        <div style={{ backgroundColor: 'lightblue', ...commonStyle }}>
+          <h1>ContentHeader</h1>
+        </div>
+      }
+      contentBodySlot={
         <div
           style={{
-            height: '120vh',
+            height: '110vh',
             width: '90vw',
             backgroundColor: 'lightsalmon',
             display: 'flex',
@@ -35,17 +35,17 @@ const meta: Meta<typeof Layout> = {
             alignItems: 'center',
           }}
         >
-          <h1>contentSlot</h1>
+          <h1>ContentBody</h1>
+        </div>
+      }
+      contentFooterSlot={
+        <div style={{ backgroundColor: 'lightgreen', ...commonStyle }}>
+          <h1>ContentFooter</h1>
         </div>
       }
       footerSlot={
-        <div style={{ backgroundColor: 'lightgreen', ...commonStyle }}>
-          <h1>footerSlot</h1>
-        </div>
-      }
-      fixedFooterSlot={
         <div style={{ backgroundColor: 'green', ...commonStyle }}>
-          <h1>fixedFooterSlot</h1>
+          <h1>Footer</h1>
         </div>
       }
     />
