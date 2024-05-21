@@ -6,11 +6,16 @@ import Cart from './pages/Cart.tsx';
 import Completed from './pages/Completed.tsx';
 import './reset.css';
 import './index.css';
+import OrderConfirm from './pages/OrderConfirm.tsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Cart />,
+  },
+  {
+    path: '/order-confirm',
+    element: <OrderConfirm />,
   },
   {
     path: '/completed',
