@@ -4,8 +4,12 @@ import { calculateOrderPrice, checkedCartItems } from '../recoil/selectors';
 import Header from '../components/Header/Header';
 import { FloatingButton } from '../components/Button';
 import * as PC from './PaymentConfirmPage.style';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '../constants/rule';
 
 export default function PaymentConfirmPage() {
+  const navigate = useNavigate();
+
   const orderProduct = useRecoilValue(checkedCartItems);
   const cartTotalCount = orderProduct.reduce(
     (acc, cartItem) => acc + cartItem.quantity,
@@ -26,7 +30,10 @@ export default function PaymentConfirmPage() {
         <PC.TotalPriceLabel>총 결제 금액</PC.TotalPriceLabel>
         <PC.TotalPrice>{totalPrice.toLocaleString('ko-kr')}원</PC.TotalPrice>
       </PC.PaymentConfirmPageStyle>
-      <FloatingButton text="결제하기" disabled />
+      <FloatingButton
+        text="장바구니로 돌아가기"
+        onClick={() => navigate(PATH.CartPage)}
+      />
     </div>
   );
 }
