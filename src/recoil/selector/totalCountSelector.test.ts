@@ -3,14 +3,8 @@ import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
 import { renderHook, waitFor } from "@testing-library/react";
 import { act } from "react";
 import { totalCountSelector } from "./selector";
-import { CartItem } from "../../types";
+import { mockCartItems, mockCheckedIds } from "../mocks";
 
-const mockCartItems: CartItem[] = [
-  { id: 1, product: { id: 3, name: "상품이름A", price: 35000, imageUrl: "", category: "" }, quantity: 2 },
-  { id: 2, product: { id: 4, name: "상품이름B", price: 25000, imageUrl: "", category: "" }, quantity: 3 },
-  { id: 3, product: { id: 5, name: "상품이름C", price: 20000, imageUrl: "", category: "" }, quantity: 1 },
-];
-const mockCheckedIds: number[] = [1, 2];
 jest.mock("../../api/cartItem", () => ({
   fetchCartItems: jest.fn().mockImplementation(async () => mockCartItems),
 }));

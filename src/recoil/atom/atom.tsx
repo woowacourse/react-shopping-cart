@@ -10,7 +10,7 @@ export const cartItemListAtom = atom<CartItem[]>({
   default: fetchCartItemListSelector,
 });
 
-export const checkedIdListAtom = atom<number[]>({
+export const checkedIdListAtom = atom<Array<number>>({
   key: "checkedIdListAtom",
   default: [],
   effects: [persistAtom],
