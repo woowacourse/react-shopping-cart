@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Title = styled.h1`
-  ${({ theme }) => theme.TEXT.Title}
+  ${({ theme }) => theme.TEXT.title}
 `;
 
 export const SubTitle = styled.div`

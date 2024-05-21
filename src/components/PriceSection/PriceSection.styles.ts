@@ -1,9 +1,9 @@
 import { Skeleton } from "@/styles/common";
 import styled from "styled-components";
 
-export const PriceSection = styled.div`
+export const Wrapper = styled.div`
   min-height: 170px;
-  margin-top: 20px;
+  margin-top: 15px;
   gap: 8px;
   display: flex;
   flex-direction: column;

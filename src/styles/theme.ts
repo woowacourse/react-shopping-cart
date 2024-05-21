@@ -11,17 +11,17 @@ const COLOR = {
 const TEXT = {
   title: css`
     font-size: 20px;
-    line-height: 16px;
+    line-height: 18px;
     font-weight: 800;
   `,
   subTitle: css`
     font-size: 16px;
-    line-height: 16px;
+    line-height: 18px;
     font-weight: 700;
   `,
   caption: css`
     font-size: 12px;
-    line-height: 15px;
+    line-height: 18px;
     font-weight: 500;
   `,
 };

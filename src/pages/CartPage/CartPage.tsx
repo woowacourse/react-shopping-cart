@@ -57,7 +57,7 @@ const CartPage = () => {
               asset={() => <MoreInfo />}
               text={CART_PAGE_MESSAGES.freeShippingInfo}
             />
-            <PriceSection />
+            <PriceSection isApplyCoupon={false} />
           </>
         ) : (
           <>
