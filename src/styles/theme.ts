@@ -1,6 +1,7 @@
 const color = {
   primary: {
     light: 'lightgrey',
+    semiLight: 'grey',
     main: 'black',
   },
   error: '#FF3D3D',

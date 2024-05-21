@@ -8,11 +8,12 @@ import * as S from './CartItem.style';
 
 interface CartItemProps {
   item: TCartItem;
-  onRemoveItem: (cartItemId: number) => void;
-  onUpdateQuantity: (cartItemId: number, quantity: number) => void;
+  isConfirm?: boolean;
+  onRemoveItem?: (cartItemId: number) => void;
+  onUpdateQuantity?: (cartItemId: number, quantity: number) => void;
 }
 
-function CartItem({ item, onRemoveItem, onUpdateQuantity }: CartItemProps) {
+function CartItem({ item, isConfirm = false, onRemoveItem, onUpdateQuantity }: CartItemProps) {
   const { id, quantity, product } = item;
 
   const [isSelected, setIsSelected] = useRecoilState(selectedCartItemListSelector(item));
@@ -21,22 +22,28 @@ function CartItem({ item, onRemoveItem, onUpdateQuantity }: CartItemProps) {
 
   return (
     <S.Layout>
-      <S.Header>
-        <CheckBox id={product.name} isChecked={isSelected} onChange={handleIsSelected} />
-        <S.DeleteButton onClick={() => onRemoveItem(id)}>삭제</S.DeleteButton>
-      </S.Header>
+      {!isConfirm && onRemoveItem && (
+        <S.Header>
+          <CheckBox id={product.name} isChecked={isSelected} onChange={handleIsSelected} />
+          <S.DeleteButton onClick={() => onRemoveItem(id)}>삭제</S.DeleteButton>
+        </S.Header>
+      )}
       <S.Body>
         <S.ItemImage src={product.imageUrl} />
         <S.ItemContainer>
           <S.ItemInfoContainer>
-            <S.ItemNameText>{product.name}</S.ItemNameText>
+            <S.ItemText>{product.name}</S.ItemText>
             <S.ItemPriceText>{product.price.toLocaleString()}원</S.ItemPriceText>
           </S.ItemInfoContainer>
-          <QuantityStepper
-            quantity={quantity}
-            onMinusButtonClick={() => onUpdateQuantity(id, quantity - 1)}
-            onPlusButtonClick={() => onUpdateQuantity(id, quantity + 1)}
-          />
+          {!isConfirm && onUpdateQuantity ? (
+            <QuantityStepper
+              quantity={quantity}
+              onMinusButtonClick={() => onUpdateQuantity(id, quantity - 1)}
+              onPlusButtonClick={() => onUpdateQuantity(id, quantity + 1)}
+            />
+          ) : (
+            <S.ItemText>{quantity}개</S.ItemText>
+          )}
         </S.ItemContainer>
       </S.Body>
     </S.Layout>

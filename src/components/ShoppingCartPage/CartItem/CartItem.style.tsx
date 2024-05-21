@@ -16,6 +16,7 @@ export const Header = styled.div`
 
 export const Body = styled.div`
   display: flex;
+  column-gap: 20px;
 `;
 
 export const DeleteButton = styled.button`
@@ -48,7 +49,7 @@ export const ItemInfoContainer = styled.div`
   row-gap: 4px;
 `;
 
-export const ItemNameText = styled.p`
+export const ItemText = styled.p`
   font-size: ${theme.fontSize.sm};
 `;
 

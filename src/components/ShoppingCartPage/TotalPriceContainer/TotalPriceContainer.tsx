@@ -1,11 +1,15 @@
 import { useRecoilValue } from 'recoil';
-import PriceContainer from '../PriceContainer/PriceContainer';
 import { cartOrderTotalPriceSelector } from '../../../recoil/selectors/selectors';
+import PriceContainer from '../PriceContainer/PriceContainer';
 import { DELIVERY_FEE_DISCOUNT_THRESHOLD, calculateDeliveryFee } from '../../../utils/calculateDeliveryFee';
 import { InfoIcon } from '../../../assets';
 import * as S from './TotalPriceContainer.style';
 
-function TotalPriceContainer() {
+interface TotalPriceContainerProps {
+  isConfirm?: boolean;
+}
+
+function TotalPriceContainer({ isConfirm = false }: TotalPriceContainerProps) {
   const orderTotalPrice = useRecoilValue(cartOrderTotalPriceSelector);
 
   const deliveryFee = calculateDeliveryFee(orderTotalPrice);
@@ -19,6 +23,7 @@ function TotalPriceContainer() {
       </S.NotificationContainer>
       <S.PriceDetailContainer>
         <PriceContainer title="주문 금액" value={orderTotalPrice} />
+        {isConfirm && <PriceContainer title="쿠폰 할인 금액" value={0} />}
         <PriceContainer title="배송비" value={deliveryFee} />
       </S.PriceDetailContainer>
       <PriceContainer title="총 결제 금액" value={paymentTotalPrice} />
