@@ -9,7 +9,7 @@ const NotFound = () => {
   return (
     <>
       <StyledFixedTop>
-        <Header />
+        <Header navigatePath="/" />
       </StyledFixedTop>
       <StyledCenterBox>
         <Img src={NotFound404} alt="Not Found" />

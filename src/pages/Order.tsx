@@ -1,8 +1,4 @@
-import {
-  StyledFixedBottom,
-  StyledFixedTop,
-  StyledScrollBox,
-} from '@/style/styledBox.style';
+import { StyledFixedBottom, StyledFixedTop } from '@/style/styledBox.style';
 
 import CartRecipe from '@/components/Cart/CartRecipe';
 import FullWidthButton from '@/components/Button/FullWidthButton';
@@ -20,7 +16,7 @@ const Order = () => {
   return (
     <>
       <StyledFixedTop>
-        <Header />
+        <Header type="ArrowBack" navigatePath={'/'} />
       </StyledFixedTop>
       <StyledScrollBox>
         <OrderTitle />
@@ -52,4 +48,11 @@ const StyledFlexCenter = styled.div`
   display: flex;
   justify-content: center;
   ${WhiteSpace}
+`;
+
+export const StyledScrollBox = styled.div`
+  margin-top: 64px;
+  overflow-y: scroll;
+  height: calc(100vh - 500px);
+  width: 430px;
 `;

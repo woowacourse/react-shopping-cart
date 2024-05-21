@@ -24,7 +24,7 @@ const Cart = () => {
   return (
     <>
       <StyledFixedTop>
-        <Header />
+        <Header navigatePath="/" />
       </StyledFixedTop>
       {cartList.length ? (
         <>

@@ -21,7 +21,7 @@ const OrderConfirm = () => {
   return (
     <>
       <StyledFixedTop>
-        <Header type="ArrowBack" />
+        <Header type="ArrowBack" navigatePath={'/order'} />
       </StyledFixedTop>
       <StyledCenterBox>
         <StyledTextTitle>주문 확인</StyledTextTitle>

@@ -8,12 +8,13 @@ type HeaderType = 'Logo' | 'ArrowBack';
 
 interface Props {
   type?: HeaderType;
+  navigatePath: string;
 }
 
-const Header = ({ type = 'Logo' }: Props) => {
+const Header = ({ type = 'Logo', navigatePath }: Props) => {
   return (
     <StyledHeader>
-      <Link to="/">
+      <Link to={navigatePath}>
         <img
           src={type === 'Logo' ? Logo : ArrowBack}
           alt={type === 'Logo' ? 'Logo' : 'return'}
