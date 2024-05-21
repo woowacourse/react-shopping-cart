@@ -1,9 +1,6 @@
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { useCallback } from "react";
+import { useRecoilState } from "recoil";
 
-import { cartState, itemEachCheckState, itemQuantityState } from "@/store/atom/atoms";
-import { changeProductAmount, deleteProduct } from "@/api";
-import { deleteCheck } from "@/store/localStorage/localStorage";
+import { itemEachCheckState } from "@/store/atom/atoms";
 
 import Checkbox from "@/components/Button/Checkbox/Checkbox";
 import {
@@ -19,58 +16,22 @@ import {
 import QuantityButton from "@/components/Button/QuantityButton/QuantityButton";
 import Divider from "@/components/Divider/Divider";
 import Button from "@/components/Button/Button";
+import useCartItemModifier from "@/hooks/useCartItemModifier";
 
 interface CartItemProps {
   CartItemInfo: CartItemInfo;
 }
 
 const CartItem = ({ CartItemInfo: { id, product } }: CartItemProps) => {
-  const [quantity, setQuantity] = useRecoilState(itemQuantityState);
   const [isCheck, setIsCheck] = useRecoilState(itemEachCheckState(id));
-  const setCartState = useSetRecoilState(cartState);
-
-  const handleCheckBoxClick = () => {
-    setIsCheck(!isCheck);
-  };
-
-  const deleteProductId = useCallback(() => {
-    setCartState((prev) => {
-      const index = prev.findIndex((item) => item.id === id);
-      const arr = [...prev];
-      return [...arr.slice(0, index), ...arr.slice(index + 1)];
-    });
-  }, [id, setCartState]);
-
-  const executeDeleteProduct = () => {
-    deleteProductId();
-    deleteProduct(id);
-    deleteCheck(id);
-    setCartState((prev) => {
-      const temp = JSON.parse(JSON.stringify(prev));
-      return temp.filter((item: CartItemInfo) => item.id !== id);
-    });
-  };
-
-  const handleMinusButtonClick = () => {
-    changeProductAmount({ quantity: quantity[id] - 1, id });
-    if (quantity[id] === 1) {
-      executeDeleteProduct();
-      return;
-    }
-    setQuantity((prev) => ({ ...prev, [id]: prev[id] - 1 }));
-  };
-
-  const handlePlusButtonClick = () => {
-    changeProductAmount({ quantity: quantity[id] + 1, id });
-    setQuantity((prev) => ({ ...prev, [id]: prev[id] + 1 }));
-  };
+  const { quantity, increaseQuantity, decreaseQuantity, deleteProduct } = useCartItemModifier(id);
 
   return (
     <div css={CartItemContainerStyle}>
       <Divider />
       <div css={CartItemDetailControlsStyle}>
-        <Checkbox isCheck={isCheck} onClick={handleCheckBoxClick} />
-        <Button width="40px" onClick={executeDeleteProduct}>
+        <Checkbox isCheck={isCheck} onClick={() => setIsCheck(!isCheck)} />
+        <Button width="40px" onClick={deleteProduct}>
           삭제
         </Button>
       </div>
@@ -82,9 +43,9 @@ const CartItem = ({ CartItemInfo: { id, product } }: CartItemProps) => {
           <div css={CartItemNameStyle}>{product.name}</div>
           <div css={CartItemPriceStyle}>{product.price.toLocaleString() + "원"}</div>
           <div css={CartItemQuantityContainerStyle}>
-            <QuantityButton onClick={handleMinusButtonClick} type={"minus"} />
-            <div css={CartItemQuantityStyle}>{quantity[id]}</div>
-            <QuantityButton onClick={handlePlusButtonClick} type={"plus"} />
+            <QuantityButton onClick={decreaseQuantity} type={"minus"} />
+            <div css={CartItemQuantityStyle}>{quantity}</div>
+            <QuantityButton onClick={increaseQuantity} type={"plus"} />
           </div>
         </div>
       </div>
