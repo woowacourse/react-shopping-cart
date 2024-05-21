@@ -70,7 +70,7 @@ export const couponsDummy = [
     description: "5,000원 할인 쿠폰",
     expirationDate: "2024-11-30",
     discount: 5000,
-    minimumAmount: 100000,
+    minimumAmount: 20000,
     discountType: "fixed",
   },
   {
@@ -101,5 +101,23 @@ export const couponsDummy = [
       end: "07:00:00",
     },
     discountType: "percentage",
+  },
+  {
+    id: 5,
+    code: "BOGO",
+    description: "2개 구매 시 1개 무료 쿠폰",
+    expirationDate: "2024-05-30",
+    buyQuantity: 2,
+    getQuantity: 1,
+    discountType: "buyXgetY",
+  },
+  {
+    id: 6,
+    code: "FIXED5000",
+    description: "5,000원 할인 쿠폰",
+    expirationDate: "2024-11-30",
+    discount: 5000,
+    minimumAmount: 100000,
+    discountType: "fixed",
   },
 ];
