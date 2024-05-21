@@ -6,14 +6,17 @@ import TitleContainer from '../../components/common/TitleContainer/TitleContaine
 import SubmitButton from '../../components/common/SubmitButton/SubmitButton';
 import CheckBox from '../../components/common/CheckBox/CheckBox';
 import TotalPriceContainer from '../../components/ShoppingCartPage/TotalPriceContainer/TotalPriceContainer';
+import CouponModal from '../../components/OrderConfirmPage/CouponModal/CouponModal';
 import { selectedCartItemListState } from '../../recoil/atoms/atoms';
 import { cartOrderTotalCountSelector } from '../../recoil/selectors/selectors';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './OrderConfirmPage.style';
+import { useState } from 'react';
 
 function OrderConfirmPage() {
-  const selectedItemList = useRecoilValue(selectedCartItemListState);
+  const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
 
+  const selectedItemList = useRecoilValue(selectedCartItemListState);
   const orderTotalCount = useRecoilValue(cartOrderTotalCountSelector);
 
   if (selectedItemList.length === 0) {
@@ -33,7 +36,9 @@ function OrderConfirmPage() {
             <CartItem item={item} isConfirm={true} />
           ))}
         </S.SelectedCartItemContainer>
-        <S.CouponModalButton type="button">쿠폰 적용</S.CouponModalButton>
+        <S.CouponModalButton type="button" onClick={() => setIsCouponModalOpen(true)}>
+          쿠폰 적용
+        </S.CouponModalButton>
         <S.CartInfoContainer>
           <S.CartInfoTitle>배송 정보</S.CartInfoTitle>
           <CheckBox id="배송 정보" text="제주도 및 도서 산간 지역" isChecked={false} />
@@ -43,6 +48,7 @@ function OrderConfirmPage() {
       <Link to={PATHS.PAYMENT_CONFIRM}>
         <SubmitButton isActive={true} content="결제하기" />
       </Link>
+      {isCouponModalOpen && <CouponModal isOpen={isCouponModalOpen} close={() => setIsCouponModalOpen(false)} />}
     </div>
   );
 }
