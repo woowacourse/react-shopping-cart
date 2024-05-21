@@ -32,10 +32,10 @@ const fetchWrapper: FetchWrapper = async (url, init) => {
   }
 };
 
-export const fetchProducts = async (method: MethodType) => {
+export const fetchProducts = async () => {
   const url = import.meta.env.VITE_API_BASE_URL + "/cart-items";
   const init = {
-    method,
+    method: MethodType.Get,
   };
   const products = await fetchWrapper(url, init);
   return products;
