@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { theme } from './theme.style';
 
 export const StyledFixedTop = styled.div`
   width: 430px;
@@ -16,5 +17,6 @@ export const StyledScrollBox = styled.div`
 export const StyledFixedBottom = styled.div`
   width: 430px;
   position: fixed;
+  background-color: ${theme.color.white};
   bottom: 0;
 `;
