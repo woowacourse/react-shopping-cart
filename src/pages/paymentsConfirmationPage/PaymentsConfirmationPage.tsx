@@ -10,9 +10,9 @@ import {
   StyledConfirmationPagePriceContainer,
   StyledConfirmationPageSubTitle,
   StyledConfirmationPageTitle,
-} from "./OrderConfirmationPage.styled";
+} from "./PaymentsConfirmationPage.styled";
 
-export const OrderConfirmationPage: React.FC = () => {
+export const PaymentsConfirmationPage: React.FC = () => {
   const { totalPrice, uniqueItemCount, totalItemCount } = useRecoilValue(cartSummarySelectorState);
 
   return (
