@@ -52,7 +52,7 @@ function ShoppingCartPage() {
     if (!hasSelectedCartItemList) return <SubmitButton isActive={false} content="주문 확인" />;
 
     return (
-      <Link to={PATHS.CONFIRM}>
+      <Link to={PATHS.ORDER_CONFIRM}>
         <SubmitButton isActive={hasSelectedCartItemList} content="주문 확인" />
       </Link>
     );

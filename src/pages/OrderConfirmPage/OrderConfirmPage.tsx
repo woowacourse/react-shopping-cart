@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import CartItem from '../../components/ShoppingCartPage/CartItem/CartItem';
 import TitleContainer from '../../components/common/TitleContainer/TitleContainer';
@@ -40,7 +40,9 @@ function OrderConfirmPage() {
         </S.CartInfoContainer>
         <TotalPriceContainer isConfirm={true} />
       </S.Main>
-      <SubmitButton isActive={true} content="결제하기" />
+      <Link to={PATHS.PAYMENT_CONFIRM}>
+        <SubmitButton isActive={true} content="결제하기" />
+      </Link>
     </div>
   );
 }
