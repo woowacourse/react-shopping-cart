@@ -1,8 +1,7 @@
 import classNames from 'classnames/bind';
 
-import { imgMap } from '@/f_shared/index';
+import { imgMap, Button } from '@/f_shared';
 
-import { Button } from '../../../../f_shared/ui/Button/Button';
 import { LeftSlotType } from '../../model/types';
 
 import css from './LeftSlot.module.css';
