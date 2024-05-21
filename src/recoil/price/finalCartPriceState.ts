@@ -2,8 +2,8 @@ import { selector } from 'recoil';
 import { cartShippingFeeState } from './cartShippingFeeState';
 import { totalCartPriceState } from './totalCartPriceState';
 
-export const finalCartPriceSelector = selector<number>({
-  key: 'finalCartPriceSelector',
+export const finalCartPriceState = selector<number>({
+  key: 'finalCartPriceState',
   get: ({ get }) => {
     const totalCartPrice = get(totalCartPriceState);
     const deliveryFee = get(cartShippingFeeState);
