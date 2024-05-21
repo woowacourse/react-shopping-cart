@@ -7,8 +7,8 @@ import { useEffect, useState } from 'react';
 import BorderButton from '@/components/Button/BorderButton';
 import { CartItemType } from '@/types/cart.type';
 import CheckBox from '@/components/Input/CheckBoxInput';
-import { THEME } from '@/style/theme.style';
 import styled from '@emotion/styled';
+import { theme } from '@/style/theme.style';
 import { useRecoilState } from 'recoil';
 
 interface Props {
@@ -109,7 +109,7 @@ const StyledItemWrapper = styled.div`
   width: 100%;
   height: 160px;
   margin-top: 10px;
-  border-top: 1px solid ${THEME.color.grey};
+  border-top: 1px solid ${theme.color.grey};
   padding: 10px 0;
 `;
 
@@ -137,12 +137,12 @@ const StyledImg = styled.img`
 `;
 
 const StyledItemName = styled.span`
-  font-size: ${THEME.fontSize.small};
+  font-size: ${theme.fontSize.small};
 `;
 
 const StyledItemPrice = styled.span`
-  font-size: ${THEME.fontSize.large};
-  font-weight: ${THEME.fontWeight.bold};
+  font-size: ${theme.fontSize.large};
+  font-weight: ${theme.fontWeight.bold};
 `;
 
 const StyledQuantityBox = styled.div`

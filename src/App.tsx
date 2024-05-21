@@ -6,6 +6,7 @@ import LoadingFallback from './components/LoadingFallback.tsx';
 import Router from './Router.tsx';
 import { Suspense } from 'react';
 import emotionNormalize from 'emotion-normalize';
+import { theme } from '@/style/theme.style.ts';
 
 const baseStyle = css`
   ${emotionNormalize};
@@ -13,6 +14,8 @@ const baseStyle = css`
     width: 430px;
     height: 100vh;
     margin: auto;
+    border-right: 1px solid ${theme.color.grey};
+    border-left: 1px solid ${theme.color.grey};
   }
 `;
 

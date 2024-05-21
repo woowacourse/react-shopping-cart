@@ -8,12 +8,16 @@ import {
 import { CART_MESSAGE } from '@/constants/message';
 import { FREE_SHIPPING_CONDITION } from '@/constants/system';
 import Info from '@/assets/Info.svg';
-import { THEME } from '@/style/theme.style';
 import { recipeState } from '@/store/selectors/recipeSelector';
 import styled from '@emotion/styled';
+import { theme } from '@/style/theme.style';
 import { useRecoilValue } from 'recoil';
 
-const CartRecipe = () => {
+interface Props {
+  isCoupon?: boolean;
+}
+
+const CartRecipe = ({ isCoupon = false }: Props) => {
   const { orderPrice, shippingFee, totalPrice } = useRecoilValue(recipeState);
 
   return (
@@ -29,6 +33,14 @@ const CartRecipe = () => {
             {orderPrice.toLocaleString('ko-KR')}원
           </StyledBoldText>
         </StyledBetweenBox>
+        {isCoupon && (
+          <StyledBetweenBox>
+            <StyledBoldText>쿠폰 할인 금액</StyledBoldText>
+            <StyledBoldText>
+              {orderPrice.toLocaleString('ko-KR')}원
+            </StyledBoldText>
+          </StyledBetweenBox>
+        )}
         <StyledBetweenBox>
           <StyledBoldText>배송비</StyledBoldText>
           <StyledBoldText>
@@ -48,7 +60,7 @@ export default CartRecipe;
 const StyledRecipeWrapper = styled.div`
   ${FlexColumn}
   gap: 10px;
-  background-color: ${THEME.color.white};
+  background-color: ${theme.color.white};
   padding: 16px 0;
   ${WhiteSpace}
 `;
@@ -56,21 +68,21 @@ const StyledRecipeWrapper = styled.div`
 const StyledInfoBox = styled.div`
   ${FlexRow}
   align-items: flex-start;
-  font-size: ${THEME.fontSize.xsmall};
+  font-size: ${theme.fontSize.xsmall};
   gap: 5px;
 `;
 
 const StyledBox = styled.div`
-  border-top: 1px solid ${THEME.color.blackWithOpacity};
-  border-bottom: 1px solid ${THEME.color.blackWithOpacity};
+  border-top: 1px solid ${theme.color.blackWithOpacity};
+  border-bottom: 1px solid ${theme.color.blackWithOpacity};
 `;
 
 const StyledBetweenBox = styled.div`
   ${FlexSpaceBetween}
-  margin: 12px 0;
+  margin: 20px 0;
 `;
 
 const StyledBoldText = styled.span`
-  font-size: ${THEME.fontSize.medium};
-  font-weight: ${THEME.fontWeight.bold};
+  font-size: ${theme.fontSize.medium};
+  font-weight: ${theme.fontWeight.bold};
 `;

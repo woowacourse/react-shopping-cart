@@ -1,8 +1,8 @@
 import { CART_MESSAGE } from '@/constants/message';
-import { THEME } from '@/style/theme.style';
 import { WhiteSpace } from '@/style/common.style';
 import { cartListState } from '@/store/atoms';
 import styled from '@emotion/styled';
+import { theme } from '@/style/theme.style';
 import { useRecoilValue } from 'recoil';
 
 const CartTitle = () => {
@@ -24,11 +24,11 @@ const StyledTitleWrapper = styled.div`
 `;
 
 const StyledTitle = styled.h1`
-  font-size: ${THEME.fontSize.large};
-  font-weight: ${THEME.fontWeight.bold};
+  font-size: ${theme.fontSize.large};
+  font-weight: ${theme.fontWeight.bold};
   margin-top: 20px;
 `;
 
 const StyledDetail = styled.p`
-  font-size: ${THEME.fontSize.xsmall};
+  font-size: ${theme.fontSize.xsmall};
 `;
