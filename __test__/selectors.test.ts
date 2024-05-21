@@ -64,7 +64,7 @@ describe("cartListTotalPrice 테스트", () => {
     (fetchCartItems as vi.Mock).mockResolvedValue(mockData);
   });
 
-  it("선택된 상품들의 총 가격을 계산한다.", async () => {
+  it("선택된 상품들의 총 가격을 계산해야한다.", async () => {
     const { result } = renderHook(
       () => {
         const [products, setProducts] = useRecoilState(cartListState);
@@ -103,7 +103,7 @@ describe("cartListTotalQuantity 테스트", () => {
     (fetchCartItems as vi.Mock).mockResolvedValue(mockData);
   });
 
-  it("장바구니 상품들의 총 수량을 계산한다.", async () => {
+  it("장바구니 상품들의 총 수량을 계산해야한다.", async () => {
     const { result } = renderHook(() => useRecoilValue(cartListTotalQuantity), {
       wrapper: RecoilRoot,
     });
@@ -119,7 +119,7 @@ describe("shippingFee 테스트", () => {
     (fetchCartItems as vi.Mock).mockResolvedValue(mockData);
   });
 
-  it("총 가격이 무료 배송 기준 이상이면 무료 배송비를 반환한다.", async () => {
+  it("총 가격이 무료 배송 기준 이상이면 무료 배송비를 반환해야한다.", async () => {
     const { result } = renderHook(
       () => {
         const [products, setProducts] = useRecoilState(cartListState);
@@ -154,7 +154,7 @@ describe("shippingFee 테스트", () => {
     });
   });
 
-  it("총 가격이 무료 배송 기준 미만이면 배송비를 반환한다.", async () => {
+  it("총 가격이 무료 배송 기준 미만이면 배송비를 반환해야한다.", async () => {
     const { result } = renderHook(
       () => {
         const [products, setProducts] = useRecoilState(cartListState);
@@ -200,7 +200,7 @@ describe("cartItemAllSelected 테스트", () => {
     CartItemLocalStorage.set(KEY, {});
   });
 
-  it("모든 상품이 선택되었는지 확인한다.", async () => {
+  it("모든 상품이 선택되었는지 확인해야한다.", async () => {
     const { result } = renderHook(
       () => {
         const [products, setProducts] = useRecoilState(cartListState);
@@ -233,7 +233,7 @@ describe("cartItemAllSelected 테스트", () => {
     });
   });
 
-  it("일부 상품이 선택되지 않았을 때 false를 반환한다.", async () => {
+  it("일부 상품이 선택되지 않았을 때 false를 반환해야한다.", async () => {
     CartItemLocalStorage.set(KEY, { 172: true, 373: false, 200: true });
 
     const { result } = renderHook(() => useRecoilValue(cartItemAllSelected), {
