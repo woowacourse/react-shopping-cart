@@ -8,16 +8,34 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "jest"
+    "test": "vitest",
+    "test:run": "vitest run",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-error-boundary": "^4.0.13",
+    "react-router-dom": "^6.23.1",
     "recoil": "^0.7.7",
-    "styled-components": "^6.1.11"
+    "styled-components": "^6.1.11",
+    "util": "^0.12.5",
+    "vite-plugin-svgr": "^4.2.0"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^1.4.0",
+    "@storybook/addon-actions": "^8.1.1",
+    "@storybook/addon-essentials": "^8.1.1",
+    "@storybook/addon-interactions": "^8.1.1",
+    "@storybook/addon-links": "^8.1.1",
+    "@storybook/addon-onboarding": "^8.1.1",
+    "@storybook/blocks": "^8.1.1",
+    "@storybook/react": "^8.1.1",
+    "@storybook/react-vite": "^8.1.1",
+    "@storybook/test": "^8.1.1",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^15.0.7",
     "@types/jest": "^29.5.12",
@@ -27,13 +45,35 @@
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
+    "buffer": "^6.0.3",
+    "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
+    "eslint-plugin-storybook": "^0.8.0",
     "jest-environment-jsdom": "^29.7.0",
+    "msw": "^2.3.0",
+    "storybook": "^8.1.1",
     "ts-jest": "^29.1.2",
+    "ts-jest-mock-import-meta": "^1.2.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.2.2",
-    "vite": "^5.2.0"
+    "undici": "^6.16.1",
+    "vite": "^5.2.0",
+    "vitest": "^1.6.0",
+    "web-streams-polyfill": "^4.0.0"
+  },
+  "transform": {
+    "^.+\\.tsx?$": [
+      "ts-jest",
+      {
+        "tsconfig": "tsconfig.json"
+      }
+    ]
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

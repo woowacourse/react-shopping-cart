@@ -1,10 +1,14 @@
+import { Suspense } from "react";
+import { Outlet } from "react-router-dom";
 import "./App.css";
 
 function App() {
   return (
-    <>
-      <h1>react-shopping-cart</h1>
-    </>
+    <Suspense fallback={<div>로딩 중입니다..</div>}>
+      <div className="app">
+        <Outlet />
+      </div>
+    </Suspense>
   );
 }
 
