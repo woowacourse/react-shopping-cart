@@ -10,7 +10,7 @@ import { ThemeProvider } from "styled-components";
 import theme from "./styles/theme.ts";
 
 async function enableMocking() {
-  if (process.env.ENVIRONMENT !== "development") {
+  if (process.env.ENVIRONMENT == "development") {
     return;
   }
 

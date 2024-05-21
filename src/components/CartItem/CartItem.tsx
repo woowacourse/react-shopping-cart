@@ -1,5 +1,5 @@
 import { useRecoilState, useRecoilRefresher_UNSTABLE } from "recoil";
-import { isSelectedState } from "../../recoil/atoms/atoms";
+import { selectedListState } from "../../recoil/atoms/atoms";
 
 import Button from "../common/Button/Button";
 
@@ -26,16 +26,16 @@ interface CardItemProps {
   cartItem: CartItemType;
 }
 
-const CartItem = ({ cartItem }: CardItemProps) => {
-  const [isSelected, setIsSelected] = useRecoilState(isSelectedState);
+const CartItem = ({ cartItem: { id, product, quantity } }: CardItemProps) => {
+  const [selectedList, setSelectedList] = useRecoilState(selectedListState);
   const refresh = useRecoilRefresher_UNSTABLE(cartItemsState);
 
-  const { id, product, quantity } = cartItem;
-
   const handleToggleSelectItem = () => {
-    const copyIsSelected = { ...isSelected };
-    copyIsSelected[id] = !copyIsSelected[id];
-    setIsSelected(copyIsSelected);
+    if (selectedList.includes(id)) {
+      setSelectedList(selectedList.filter((selected) => selected !== id));
+    } else {
+      setSelectedList([...selectedList, id]);
+    }
   };
 
   const handleDeleteItem = async () => {
@@ -60,7 +60,11 @@ const CartItem = ({ cartItem }: CardItemProps) => {
     <Wrapper>
       <Header>
         <Button $borderRadius="8px" onClick={handleToggleSelectItem}>
-          {isSelected[id] ? <FilledCheck color="white" /> : <OutlineCheck />}
+          {selectedList.includes(id) ? (
+            <FilledCheck color="white" />
+          ) : (
+            <OutlineCheck />
+          )}
         </Button>
         <Button $theme="white" $size="s" onClick={handleDeleteItem}>
           삭제

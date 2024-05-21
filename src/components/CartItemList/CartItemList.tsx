@@ -1,6 +1,6 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { cartItemsState } from "../../recoil/selectors/selectors";
-import { isSelectedState } from "../../recoil/atoms/atoms";
+import { selectedListState } from "../../recoil/atoms/atoms";
 import CartItem from "../CartItem/CartItem";
 import { CartItemType } from "../../types/cart";
 import { Wrapper, Footer, AllCheckWrapper } from "./style";
@@ -11,27 +11,37 @@ import Button from "../common/Button/Button";
 
 const CartItemList = () => {
   const cartItemList = useRecoilValue(cartItemsState);
-  const [isSelected, setIsSelected] = useRecoilState(isSelectedState);
-  const isAllSelected = Object.values(isSelected).every((value) => value);
+  const [selectedList, setSelectedListState] =
+    useRecoilState(selectedListState);
+  const isAllSelected = cartItemList.every((cartItem) =>
+    selectedList.includes(cartItem.id)
+  );
 
-  const handleSelectAllItem = (type: boolean) => {
-    const copyIsSelected = { ...isSelected };
-    Object.keys(copyIsSelected).forEach(
-      (isSelected) => (copyIsSelected[Number(isSelected)] = type)
-    );
-
-    setIsSelected(copyIsSelected);
+  const handleSelectAllItem = (type: "turnOn" | "turnOff") => {
+    if (type === "turnOn") {
+      setSelectedListState(cartItemList.map((cartItem) => cartItem.id));
+    } else if (type === "turnOff") {
+      setSelectedListState([]);
+    } else {
+      throw new Error("전체선택 버튼의 타입이 올바르지 않습니다.");
+    }
   };
 
   return (
     <Wrapper>
       <AllCheckWrapper>
         {isAllSelected ? (
-          <Button $borderRadius="8px" onClick={() => handleSelectAllItem(false)}>
+          <Button
+            $borderRadius="8px"
+            onClick={() => handleSelectAllItem("turnOff")}
+          >
             <FilledCheck color="white" />
           </Button>
         ) : (
-          <Button $borderRadius="8px" onClick={() => handleSelectAllItem(true)}>
+          <Button
+            $borderRadius="8px"
+            onClick={() => handleSelectAllItem("turnOn")}
+          >
             <OutlineCheck />
           </Button>
         )}

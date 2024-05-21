@@ -1,20 +1,9 @@
-import { renderHook } from "@testing-library/react";
-import { useRecoilValue, snapshot_UNSTABLE } from "recoil";
-import { RecoilRoot } from "recoil";
-import { cartItemsState } from "./selectors";
+import { RecoilRoot, useRecoilValue } from "recoil";
+import { cartItemsState, cartPriceState } from "./selectors";
+import { renderHook, waitFor } from "@testing-library/react";
+// import { getCartItems } from "../../apis";
 import { Suspense } from "react";
-import { HttpResponse, http } from "msw";
-import { setupServer } from "msw/node";
-import { API_URL } from "../../constants/cart";
-import "@testing-library/jest-dom";
-
-const Wrapper = () => {
-  return (
-    <RecoilRoot>
-      <Suspense></Suspense>
-    </RecoilRoot>
-  );
-};
+// import { isSelectedState } from "../atoms/atoms";
 
 const cartsJson = {
   content: [
@@ -45,40 +34,44 @@ const cartsJson = {
   ],
 };
 
-export const handlers = [
-  // Intercept "GET https://example.com/user" requests...
-  http.get(`${API_URL}/cart-items`, () => {
-    // ...and respond to them using this JSON response.
-    return HttpResponse.json(cartsJson);
-  }),
-];
+jest.mock("../../apis", () => ({
+  getCartItems: jest.fn().mockImplementation(() => Promise.resolve(cartsJson)),
+}));
 
-const server = setupServer(...handlers);
-
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
+localStorage.getItem = jest.fn().mockResolvedValue([1284, 1274]);
 
 describe("장바구니", () => {
   it("장바구니 데이터 로딩.", async () => {
-    const initialSnapshot = snapshot_UNSTABLE();
-    const release = initialSnapshot.retain();
-    renderHook(
-      () => {
-        const value = useRecoilValue(cartItemsState);
-        console.log(value);
-        return value;
-      },
-      {
-        wrapper: Wrapper,
-      }
-    );
+    const { result } = renderHook(() => useRecoilValue(cartItemsState), {
+      wrapper: ({ children }) => (
+        <RecoilRoot>
+          <Suspense>{children}</Suspense>
+        </RecoilRoot>
+      ),
+    });
 
-    try {
-      const value = await initialSnapshot.getPromise(cartItemsState);
-      console.log(value);
-    } finally {
-      release();
-    }
+    await waitFor(() => {
+      expect(result.current).toEqual(cartsJson);
+    });
+  });
+
+  it("장바구니 가격 측정", async () => {
+    const expectedOrderPrice = 1000 * 5 + 20000 * 1;
+    const expectedDeliveryFee = 3000;
+    const expectedTotalPrice = expectedOrderPrice + expectedDeliveryFee;
+
+    const { result } = renderHook(() => useRecoilValue(cartPriceState), {
+      wrapper: ({ children }) => (
+        <RecoilRoot>
+          <Suspense>{children}</Suspense>
+        </RecoilRoot>
+      ),
+    });
+
+    await waitFor(() => {
+      expect(result.current.orderPrice).toBe(expectedOrderPrice);
+      expect(result.current.deliveryFee).toBe(expectedDeliveryFee);
+      expect(result.current.totalPrice).toBe(expectedTotalPrice);
+    });
   });
 });
