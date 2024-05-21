@@ -20,7 +20,7 @@ const WideButton = ({
 export default WideButton;
 
 const StyledButton = styled.button<{ color: string }>`
-  width: 90%;
+  width: 100%;
   height: 52px;
   box-sizing: border-box;
 

@@ -9,7 +9,6 @@ export const shippingFeeState = selector<number>({
     const shippingArea = get(shippingAreaState);
 
     if (shippingArea === 'island') return EXTRA_SHIPPING_FEE;
-
     return DEFAULT_SHIPPING_FEE;
   },
 });

@@ -10,9 +10,11 @@ import { ORDER_CONFIRM_MESSAGE } from '@/constants/message';
 import { StyledFixedBottom } from '@/style/styledBox.style';
 import { StyledFixedTop } from '../style/styledBox.style';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
 const OrderConfirm = () => {
+  const navigator = useNavigate();
   const { totalPrice } = useRecoilValue(recipeState);
   const { itemCount, totalQuantity } = useRecoilValue(orderedItemState);
 
@@ -36,8 +38,12 @@ const OrderConfirm = () => {
       </StyledCenterBox>
 
       <StyledFixedBottom>
-        <FullWidthButton onClick={() => {}} disable>
-          결제하기
+        <FullWidthButton
+          onClick={() => {
+            navigator('/');
+          }}
+        >
+          장바구니로 돌아가기
         </FullWidthButton>
       </StyledFixedBottom>
     </>

@@ -109,7 +109,7 @@ const StyledItemWrapper = styled.div`
   width: 100%;
   height: 160px;
   margin-top: 10px;
-  border-top: 1px solid ${theme.color.grey};
+  border-top: 1px solid ${theme.color.blackWithOpacity};
   padding: 10px 0;
 `;
 
