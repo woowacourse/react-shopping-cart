@@ -6,7 +6,7 @@ import TitleContainer from '../../components/Container/TitleContainer/TitleConta
 import SubmitButton from '../../components/Button/SubmitButton/SubmitButton';
 import CartItemList from '../../components/CartItemList/CartItemList';
 import TotalPriceContainer from '../../components/Container/TotalPriceContainer/TotalPriceContainer';
-import type { TCartItem } from '../../types/CartItem.type';
+import type { CartItem } from '../../types/CartItem.type';
 import { selectedCartItemListState } from './recoil/atom/selectedCartItemListState';
 import { fetchCartItemList } from '../../apis';
 import { EmptyCart } from '../../assets';
@@ -14,9 +14,9 @@ import { PATHS } from '../../constants/PATHS';
 import * as S from './ShoppingCartPage.style';
 
 function ShoppingCartPage() {
-  const initialValue = useLoaderData() as TCartItem[];
+  const initialValue = useLoaderData() as CartItem[];
 
-  const [cartItemList, setCartItemList] = useState<TCartItem[]>(initialValue);
+  const [cartItemList, setCartItemList] = useState<CartItem[]>(initialValue);
 
   const [selectedItemList, setSelectedItemList] = useRecoilState(selectedCartItemListState);
 
