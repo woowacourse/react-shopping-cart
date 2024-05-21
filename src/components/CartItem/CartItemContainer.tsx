@@ -4,7 +4,7 @@ import QuantityContainer from '../Container/QuantityContainer/QuantityContainer'
 import type { CartItem } from '../../types/CartItem.type';
 import { selectedCartItemListSelector } from '../../pages/ShoppingCartPage/recoil/selector/selectedCartItemListSelector';
 
-import * as S from './CartItem.style';
+import * as S from './CartItemContainer.style';
 
 interface CartItemProps {
   item: CartItem;
@@ -34,7 +34,7 @@ function CartItemContainer({ item, onRemoveItem, onUpdateQuantity }: CartItemPro
   return (
     <S.Layout>
       <S.Header>
-        <CheckButton isChecked={isSelected} onClick={handleIsSelected} />
+        {onRemoveItem && <CheckButton isChecked={isSelected} onClick={handleIsSelected} />}
         {onRemoveItem && (
           <S.DeleteButton className="DeleteButton" onClick={() => onRemoveItem(id)}>
             삭제
