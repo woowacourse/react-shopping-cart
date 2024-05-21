@@ -1,0 +1,45 @@
+.page_wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 36px 24px 40px 24px;
+  height: calc(100vh - 145px);
+  overflow-y: scroll;
+}
+
+.container {
+  padding: 24px;
+}
+
+.infoContainer {
+  display: flex;
+  margin-bottom: 36px;
+}
+
+.divide_line {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.infoContainer p {
+  text-align: left;
+}
+
+.orderInfoContainer {
+  font-family: Noto Sans;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  text-align: center;
+  margin-top: 24px;
+}
+
+.mainText {
+  font-family: Noto Sans KR;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 34.75px;
+}
+
+.itemImageAndInfoContainer {
+  display: flex;
+  padding-top: 12px;
+}

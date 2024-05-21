@@ -1,0 +1,26 @@
+.container {
+}
+
+.shipping_title {
+  font-family: Noto Sans;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: left;
+  margin-bottom: 16px;
+}
+
+.checkbox_container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.text {
+  font-family: Noto Sans;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+  text-align: left;
+  margin-left: 8px;
+}
