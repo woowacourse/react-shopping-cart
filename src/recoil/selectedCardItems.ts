@@ -1,11 +1,12 @@
 import { atomFamily, selector } from 'recoil';
-import { fetchedCartItemsState } from './cartItems';
+
 import { localStorageEffect } from '../util/localStorage';
+import { fetchedCartItemsSelector } from './fetch';
 
 export const selectedCartItemsState = atomFamily<boolean, number>({
   key: 'cartItem',
   default: true,
-  effects_UNSTABLE: (param) => [localStorageEffect(`cartItem_${param}`, true)],
+  effects: (param) => [localStorageEffect(`cartItem_${param}`, true)],
 });
 
 /**
@@ -42,6 +43,6 @@ export const selectedSomeCartItemsState = selector<boolean>({
 export const cartItemsIdState = selector({
   key: 'cartItemsId',
   get: ({ get }) => {
-    return get(fetchedCartItemsState).map((cartItem) => cartItem.id);
+    return get(fetchedCartItemsSelector).map((cartItem) => cartItem.id);
   },
 });
