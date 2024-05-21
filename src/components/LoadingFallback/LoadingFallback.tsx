@@ -8,4 +8,4 @@ const LoadingFallback = () => {
   )
 }
 
-export default LoadingFallback
+export default LoadingFallback;
