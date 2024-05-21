@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export type TextType = "title" | "subTitle" | "caption";
+export type TextType = "xLarge" | "large" | "medium" | "small" | "xSmall";
 
 interface TextBoxProps {
   asset?: () => JSX.Element;

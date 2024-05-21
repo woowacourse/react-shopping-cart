@@ -11,9 +11,9 @@ export const Wrapper = styled.div`
 `;
 
 export const Title = styled.h1`
-  ${({ theme }) => theme.TEXT.title}
+  ${({ theme }) => theme.TEXT.xLarge}
 `;
 
 export const SubTitle = styled.div`
-  ${({ theme }) => theme.TEXT.caption}
+  ${({ theme }) => theme.TEXT.xSmall}
 `;

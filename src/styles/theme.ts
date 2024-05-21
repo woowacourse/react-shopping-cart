@@ -9,17 +9,27 @@ const COLOR = {
 };
 
 const TEXT = {
-  title: css`
+  xLarge: css`
+    font-size: 24px;
+    line-height: 18px;
+    font-weight: 800;
+  `,
+  large: css`
     font-size: 20px;
     line-height: 18px;
     font-weight: 800;
   `,
-  subTitle: css`
+  medium: css`
+    font-size: 18px;
+    line-height: 18px;
+    font-weight: 700;
+  `,
+  small: css`
     font-size: 16px;
     line-height: 18px;
     font-weight: 700;
   `,
-  caption: css`
+  xSmall: css`
     font-size: 12px;
     line-height: 18px;
     font-weight: 500;

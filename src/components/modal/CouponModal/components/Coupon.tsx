@@ -1,18 +1,22 @@
 import CheckBox from "@/components/_common/CheckBox/CheckBox";
 import * as S from "./Coupon.style";
 import TextBox from "@/components/_common/TextBox/TextBox";
+import { Coupon } from "@/types/coupon";
 
-const Coupon = () => {
+const CouponItem = ({ coupon }: { coupon: Coupon }) => {
   return (
     <div>
       <S.FlexBox>
         <CheckBox isChecked={false} onClick={() => {}} />
-        <TextBox text="5000원 할인 쿠폰" type="caption" />
-        <TextBox type="caption" text="만료일: 2024년 11월 30일" />
-        <TextBox type="caption" text="최소 주문 금액: 100,000원" />
+        <TextBox text={coupon.description} type="xSmall" />
+        <TextBox type="xSmall" text={`만료일: ${coupon.expirationDate}`} />
+        <TextBox
+          type="xSmall"
+          text={`최소 주문 금액: ${coupon.minimumAmount}`}
+        />
       </S.FlexBox>
     </div>
   );
 };
 
-export default Coupon;
+export default CouponItem;

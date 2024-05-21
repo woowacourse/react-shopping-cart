@@ -46,10 +46,7 @@ const CartPage = () => {
                 isChecked={isAllItemSelected}
                 onClick={isAllItemSelected ? unselectAllItem : selectAllItem}
               />
-              <TextBox
-                type="caption"
-                text={CART_PAGE_CAPTION.allItemSelected}
-              />
+              <TextBox type="xSmall" text={CART_PAGE_CAPTION.allItemSelected} />
             </S.CheckBoxWrapper>
             <ProductList />
             <MoreInfo text={CART_PAGE_MESSAGES.freeShippingInfo} />

@@ -67,7 +67,7 @@ const ProductItem = ({
             radiusVariant="rounded"
             onClick={onClickRemoveItem}
           >
-            <TextBox type="caption" text="삭제" />
+            <TextBox type="xSmall" text="삭제" />
           </Button>
         </S.ItemButtonWrapper>
       )}
@@ -77,8 +77,8 @@ const ProductItem = ({
 
         <S.ItemInfoTextBox>
           <S.FlexBox>
-            <TextBox type="caption" text={name} />
-            <TextBox type="title" text={formatToWon(price)} />
+            <TextBox type="xSmall" text={name} />
+            <TextBox type="xLarge" text={formatToWon(price)} />
           </S.FlexBox>
           {type === "edit" && (
             <S.UpdateButtonWrapper>
@@ -87,7 +87,9 @@ const ProductItem = ({
               <PlusButton onClick={handleIncreaseQuantity} />
             </S.UpdateButtonWrapper>
           )}
-          <S.ProductQuantity>{quantity}개</S.ProductQuantity>
+          {type === "readonly" && (
+            <S.ProductQuantity>{quantity}개</S.ProductQuantity>
+          )}
         </S.ItemInfoTextBox>
       </S.ItemInfoBox>
     </S.ItemWrapper>

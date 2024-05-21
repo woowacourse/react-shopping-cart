@@ -49,14 +49,14 @@ const OrderConfirmPage = () => {
           subTitle={
             <>
               <TextBox
-                type="caption"
+                type="xSmall"
                 text={CART_PAGE_MESSAGES.orderInfo(
                   selectedItemsId.length,
                   totalItemsCount
                 )}
               />
               <TextBox
-                type="caption"
+                type="xSmall"
                 text={CART_PAGE_MESSAGES.askOrderConfirm}
               />
             </>
@@ -77,13 +77,13 @@ const OrderConfirmPage = () => {
         </Button>
 
         <S.ShippingInfoBox>
-          <TextBox type="subTitle" text="배송 정보" />
+          <TextBox type="small" text="배송 정보" />
           <S.FlexBox>
             <CheckBox
               isChecked={isDoubleShippingFee}
               onClick={onClickDoubleShippingFee}
             />
-            <TextBox type="caption" text="제주도 및 도서 산간 지역" />
+            <TextBox type="xSmall" text="제주도 및 도서 산간 지역" />
           </S.FlexBox>
         </S.ShippingInfoBox>
         <MoreInfo text={CART_PAGE_MESSAGES.freeShippingInfo} />

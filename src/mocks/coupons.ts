@@ -1,4 +1,4 @@
-import { Coupon } from "../types/coupon";
+import { Coupon } from "@/types/coupon";
 
 export const mockCoupons: Coupon[] = [
   {
