@@ -21,7 +21,7 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Testing */
-    "types": ["jest"],
+    "types": ["jest", "node"],
     "esModuleInterop": true
   },
   "include": ["src"],
