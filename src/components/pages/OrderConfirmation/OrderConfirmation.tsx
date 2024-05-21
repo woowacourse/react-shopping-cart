@@ -23,7 +23,7 @@ const OrderConfirmation = () => {
 
   return (
     <Styled.OrderConfirmation>
-      <Header children={MESSAGE.backSpace} onClick={() => navigator(-1)} />
+      <Header onClick={() => navigator('/')} />
 
       <Styled.Container>
         <Styled.Content>

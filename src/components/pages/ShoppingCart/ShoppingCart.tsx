@@ -25,7 +25,7 @@ const ShoppingCart = () => {
 
   return (
     <Styled.ShoppingCart>
-      <Header children={MESSAGE.shop} />
+      <Header />
 
       <Styled.Container>
         {hasSomeCartItem && (
