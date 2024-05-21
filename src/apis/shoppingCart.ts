@@ -57,3 +57,22 @@ export async function fetchDeleteCartItem(productId: number) {
     throw new HTTPError(response.status, 'Failed to delete cart item');
   }
 }
+
+export async function fetchCoupons() {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+
+  const response = await fetch(`${API_URL}/coupons`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
+  });
+
+  if (!response.ok) {
+    throw new HTTPError(response.status, 'Failed to coupons');
+  }
+
+  const data = await response.json();
+  return data;
+}

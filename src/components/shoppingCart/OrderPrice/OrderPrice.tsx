@@ -13,6 +13,10 @@ const OrderPrice = () => {
           <span>{formatKoreanCurrency(orderPrice)}</span>
         </Styled.PriceRow>
         <Styled.PriceRow>
+          <span>쿠폰 할인 금액</span>
+          <span>{`-${formatKoreanCurrency(shippingPrice)}`}</span>
+        </Styled.PriceRow>
+        <Styled.PriceRow>
           <span>배송비</span>
           <span>{formatKoreanCurrency(shippingPrice)}</span>
         </Styled.PriceRow>

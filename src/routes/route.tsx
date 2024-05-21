@@ -19,7 +19,11 @@ const router = createBrowserRouter([
       },
       {
         path: ROUTE_PATHS.orderConfirm,
-        element: <OrderConfirmPage />,
+        element: (
+          <RootErrorBoundary>
+            <OrderConfirmPage />
+          </RootErrorBoundary>
+        ),
       },
       {
         path: ROUTE_PATHS.paymentConfirm,

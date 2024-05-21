@@ -7,7 +7,7 @@ import { lazy, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
-import * as Styled from './OrderPage.styled';
+import * as Styled from './ShoppingCartPage.styled';
 
 const ShoppingCartContent = lazy(() => import('@components/shoppingCart/ShoppingCartContent/ShoppingCartContent'));
 
