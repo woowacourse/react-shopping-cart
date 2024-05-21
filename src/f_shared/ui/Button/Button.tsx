@@ -24,7 +24,6 @@ export function Button({
   type = 'button',
   onClick,
 }: ButtonProps) {
-  console.log(`root_theme_${theme}`);
   return (
     <button
       className={cn('root', `theme_${theme}`, { disabled }, className)}
