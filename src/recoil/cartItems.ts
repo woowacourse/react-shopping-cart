@@ -1,5 +1,5 @@
 import { atom, selector } from 'recoil';
-import { fetchCartItems } from '../api/shoppingCart';
+import { fetchGetCartItems } from '../api/shoppingCart';
 import { selectedCartItemsState } from './selectedCardItems';
 import CONDITION from '../constants/Condition';
 import VALUE from '../constants/Value';
@@ -7,7 +7,7 @@ import VALUE from '../constants/Value';
 export const fetchedCartItemsState = selector({
   key: 'fetchedCartItemsState',
   get: async () => {
-    return await fetchCartItems();
+    return await fetchGetCartItems();
   },
 });
 
