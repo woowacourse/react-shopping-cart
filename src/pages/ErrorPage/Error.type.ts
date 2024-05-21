@@ -1,1 +1,7 @@
-export type TErrorType = 'FETCH' | 'ADD' | 'REMOVE' | 'UPDATE' | 'UNKNOWN';
+export type ErrorType =
+  | 'FETCH_CART_ITEMS'
+  | 'FETCH_COUPONS'
+  | 'ADD_CART_ITEMS'
+  | 'REMOVE_CART_ITEMS'
+  | 'UPDATE_PRODUCT_QUANTITY'
+  | 'UNKNOWN';

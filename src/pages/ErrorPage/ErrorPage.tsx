@@ -3,11 +3,11 @@ import Header from '../../components/Header/Header';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './ErrorPage.style';
 import { CART_ITEM_ERROR_MESSAGE } from '../../constants/MESSAGES';
-import { TErrorType } from './Error.type';
+import { ErrorType } from './Error.type';
 
 const ErrorPage = () => {
   const location = useLocation();
-  const errorType = (location.state?.errorType as TErrorType) || 'UNKNOWN';
+  const errorType = location.state?.errorType as ErrorType;
 
   const errorMessage = CART_ITEM_ERROR_MESSAGE[errorType];
   return (
