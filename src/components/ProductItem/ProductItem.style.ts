@@ -1,7 +1,8 @@
 import styled from "styled-components";
+import { CartItemShowType } from "./ProductItem";
 
-export const ItemWrapper = styled.div`
-  height: 160px;
+export const ItemWrapper = styled.div<{ type: CartItemShowType }>`
+  height: ${({ type }) => (type === "edit" ? 160 : 124)}px;
   border-top: 1px solid ${({ theme }) => theme.COLOR["grey"]};
   display: flex;
   flex-direction: column;

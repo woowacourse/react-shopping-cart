@@ -5,15 +5,10 @@ export const CartHeaderTitle = styled.span`
   ${({ theme }) => theme.TEXT.Title};
 `;
 
-export const CartPageWrapper = styled.div`
-  width: 100%;
-  padding-bottom: 64px;
-`;
-
 export const CartItemListWrapper = styled.div`
   padding: 36px 24px 0px 24px;
   width: 100%;
-
+  padding-bottom: 64px;
   overflow-y: scroll;
 `;
 

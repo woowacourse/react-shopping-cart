@@ -33,7 +33,7 @@ const CartPage = () => {
   };
 
   return (
-    <S.CartPageWrapper>
+    <>
       <S.CartItemListWrapper>
         {cartItemList.length ? (
           <>
@@ -62,16 +62,16 @@ const CartPage = () => {
         )}
       </S.CartItemListWrapper>
       <Button
+        size="large"
         position="bottom"
-        size="xLarge"
         width="full"
         theme="dark"
         disabled={!selectedItems}
         onClick={onMoveOrderConfirmPage}
       >
-        <S.ButtonText>{CART_PAGE_CAPTION.orderConfirm}</S.ButtonText>
+        {CART_PAGE_CAPTION.orderConfirm}
       </Button>
-    </S.CartPageWrapper>
+    </>
   );
 };
 

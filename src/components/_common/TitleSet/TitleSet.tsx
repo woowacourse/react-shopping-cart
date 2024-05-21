@@ -1,8 +1,9 @@
+import { ReactNode } from "react";
 import * as S from "./TitleSet.style";
 
 interface TitleSetProps {
   title: string;
-  subTitle?: string;
+  subTitle?: string | ReactNode;
 }
 
 const TitleSet = ({ title, subTitle }: TitleSetProps) => {

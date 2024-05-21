@@ -18,7 +18,15 @@ import { formatToWon } from "@/utils/stringHelper";
 import { selectedCartItemsIdState } from "@/recoil/selectedCardItems";
 import { removeCartItem } from "@/auth/apis/cart";
 
-const ProductItem = ({ item }: { item: CartItem }) => {
+export type CartItemShowType = "readonly" | "edit";
+
+const ProductItem = ({
+  item,
+  type = "edit",
+}: {
+  item: CartItem;
+  type: CartItemShowType;
+}) => {
   const { product, id } = item;
   const { name, imageUrl, price } = product;
 
@@ -46,22 +54,24 @@ const ProductItem = ({ item }: { item: CartItem }) => {
     : () => setSelectItems((prev) => [...prev, id]);
 
   return (
-    <S.ItemWrapper>
-      <S.ItemButtonWrapper>
-        <CheckBox
-          id={`check-box-${id}`}
-          isChecked={isItemSelected}
-          onClick={onClickCheckBox}
-        />
-        <Button
-          width="fit"
-          size="small"
-          radiusVariant="rounded"
-          onClick={onClickRemoveItem}
-        >
-          <Caption text="삭제" />
-        </Button>
-      </S.ItemButtonWrapper>
+    <S.ItemWrapper type={type}>
+      {type === "edit" && (
+        <S.ItemButtonWrapper>
+          <CheckBox
+            id={`check-box-${id}`}
+            isChecked={isItemSelected}
+            onClick={onClickCheckBox}
+          />
+          <Button
+            width="fit"
+            size="small"
+            radiusVariant="rounded"
+            onClick={onClickRemoveItem}
+          >
+            <Caption text="삭제" />
+          </Button>
+        </S.ItemButtonWrapper>
+      )}
 
       <S.ItemInfoBox>
         <S.ItemImgBox $imageUrl={imageUrl} />
@@ -71,12 +81,14 @@ const ProductItem = ({ item }: { item: CartItem }) => {
             <Caption text={name} />
             <Title text={formatToWon(price)} />
           </S.FlexBox>
-
-          <S.UpdateButtonWrapper>
-            <MinusButton onClick={handleDecreaseQuantity} />
-            <S.ProductQuantity>{quantity}</S.ProductQuantity>
-            <PlusButton onClick={handleIncreaseQuantity} />
-          </S.UpdateButtonWrapper>
+          {type === "edit" && (
+            <S.UpdateButtonWrapper>
+              <MinusButton onClick={handleDecreaseQuantity} />
+              <S.ProductQuantity>{quantity}</S.ProductQuantity>
+              <PlusButton onClick={handleIncreaseQuantity} />
+            </S.UpdateButtonWrapper>
+          )}
+          <S.ProductQuantity>{quantity}개</S.ProductQuantity>
         </S.ItemInfoTextBox>
       </S.ItemInfoBox>
     </S.ItemWrapper>

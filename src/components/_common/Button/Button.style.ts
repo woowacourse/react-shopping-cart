@@ -13,19 +13,16 @@ export const BUTTON_SIZE: Record<ButtonSize, RuleSet<object>> = {
     font-size: 12px;
   `,
   medium: css`
-    height: 36px;
-    line-height: 18px;
-    font-size: 14px;
+    height: 48px;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 700;
   `,
   large: css`
-    height: 44px;
-    line-height: 22px;
-    font-size: 18px;
-  `,
-  xLarge: css`
     height: 64px;
-    line-height: 28px;
-    font-size: 24px;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 700;
   `,
 };
 
@@ -36,7 +33,6 @@ export const BUTTON_WIDTH: Record<
   small: "60px",
   medium: "80px",
   large: "120px",
-  xLarge: "160px",
   full: "100%",
   fit: "fit-content",
 };
@@ -44,7 +40,6 @@ export const BUTTON_WIDTH: Record<
 export const BUTTON_THEME: Record<ButtonTheme, RuleSet<object>> = {
   dark: css`
     background-color: #000000;
-
     color: #ffffff;
 
     &:hover {
@@ -60,7 +55,8 @@ export const BUTTON_THEME: Record<ButtonTheme, RuleSet<object>> = {
   white: css`
     background-color: #ffffff;
 
-    color: #8b95a1;
+    color: ${({ theme }) => theme.COLOR["grey-3"]};
+    opacity: 0.75;
 
     &:hover {
       border: 0.5px solid #dfdfdf;

@@ -5,7 +5,7 @@ import SkTitleSet from "@/components/_common/TitleSet/TitleSet.skeleton";
 
 const CartPageSkeleton = () => {
   return (
-    <S.CartPageWrapper>
+    <S.CartItemListWrapper>
       <SkTitleSet />
       <S.SkCheckBoxWrapper />
       <S.CheckBoxWrapper>
@@ -13,7 +13,7 @@ const CartPageSkeleton = () => {
       </S.CheckBoxWrapper>
       <SkeletonProductList />
       <PriceSectionSkeleton />
-    </S.CartPageWrapper>
+    </S.CartItemListWrapper>
   );
 };
 
