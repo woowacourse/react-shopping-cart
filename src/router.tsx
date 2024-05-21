@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import GeneralLayout from './components/GeneralLayout';
+import GeneralLayout from './layouts/GeneralLayout';
 import CartConfirmPage from './pages/CartConfirmPage';
 import CartPage from './pages/CartPage';
 
