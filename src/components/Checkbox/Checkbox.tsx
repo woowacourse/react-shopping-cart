@@ -10,8 +10,8 @@ interface CheckboxProps {
 
 const Checkbox = ({ id, isChecked, onClick }: CheckboxProps) => {
   return (
-    <S.CheckboxContainer onClick={onClick}>
-      <input id={id} type="checkbox" checked={isChecked} readOnly />
+    <S.CheckboxContainer>
+      <input id={id} type="checkbox" checked={isChecked} onClick={onClick} readOnly />
       <S.CheckboxLabel htmlFor={id}>
         <img src={isChecked ? checked : unchecked} alt="checkbox" />
       </S.CheckboxLabel>
