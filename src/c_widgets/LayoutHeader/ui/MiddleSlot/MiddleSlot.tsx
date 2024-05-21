@@ -21,7 +21,7 @@ export const MiddleSlot = ({ type }: MiddleSlotProps) => {
     case 'logo':
       return (
         <Button className={cn('button')}>
-          <img src={imgMap.logo} alt={type} className={cn('image')} />
+          <img src={imgMap.logo_dark} alt={type} className={cn('image')} />
         </Button>
       );
   }
