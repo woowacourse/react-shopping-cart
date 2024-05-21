@@ -29,7 +29,11 @@ export default function Header() {
 
   return (
     <HeaderStyle>
-      {pathname === PATH.CartPage ? <LogoButton /> : <BackButton />}
+      {pathname === PATH.CartPage ? (
+        <LogoButton />
+      ) : pathname === PATH.OrderConfirmPage ? (
+        <BackButton />
+      ) : null}
     </HeaderStyle>
   );
 }
