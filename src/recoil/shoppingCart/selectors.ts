@@ -6,25 +6,17 @@ import { selector } from 'recoil';
 
 export const cartItemsSelector = selector<CartItem[]>({
   key: 'cartItemsSelector',
-  get: async ({ get }) => {
-    const prevCartItems = get(cartItemsAtom);
-
-    if (prevCartItems.length > 0) return prevCartItems;
-
+  get: async () => {
     const cartItems = await fetchCartItems();
 
     return cartItems;
-  },
-
-  set: ({ set }, newValue) => {
-    set(cartItemsAtom, newValue);
   },
 });
 
 export const orderCostsSelector = selector({
   key: 'orderCostsSelector',
   get: ({ get }) => {
-    const cartItems = get(cartItemsSelector);
+    const cartItems = get(cartItemsAtom);
     const selectedIds = get(selectedIdsAtom);
 
     const selectedCartItems = cartItems.filter(({ id }) => selectedIds.has(id));

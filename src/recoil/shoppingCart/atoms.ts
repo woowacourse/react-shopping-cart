@@ -1,11 +1,12 @@
 import { CartItem } from '@appTypes/shoppingCart';
 import { STORAGE_KEY } from '@constants/storage';
 import { localStorageEffect } from '@recoil/common/localStorageEffect';
+import { cartItemsSelector } from '@recoil/shoppingCart/selectors';
 import { atom } from 'recoil';
 
 export const cartItemsAtom = atom<CartItem[]>({
   key: 'cartItemsAtom',
-  default: [],
+  default: cartItemsSelector,
 });
 
 export const selectedIdsAtom = atom({

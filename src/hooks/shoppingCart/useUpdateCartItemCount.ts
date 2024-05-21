@@ -1,11 +1,11 @@
 import { fetchCartItemCount } from '@apis/shoppingCart';
 import { CartItem } from '@appTypes/shoppingCart';
 import { QUANTITY } from '@constants/shippingCart';
-import { cartItemsSelector } from '@recoil/shoppingCart';
+import { cartItemsAtom } from '@recoil/shoppingCart';
 import { useSetRecoilState } from 'recoil';
 
 const useUpdateCartItemCount = ({ id, quantity }: CartItem) => {
-  const setCartItems = useSetRecoilState(cartItemsSelector);
+  const setCartItems = useSetRecoilState(cartItemsAtom);
 
   const getIncreasedQuantity = () => {
     const newQuantity = quantity + 1;

@@ -1,8 +1,8 @@
-import { cartItemsSelector, selectedIdsAtom } from '@recoil/shoppingCart';
+import { cartItemsAtom, selectedIdsAtom } from '@recoil/shoppingCart';
 import { useRecoilValue } from 'recoil';
 
 const useSelectedCartItems = () => {
-  const cartItems = useRecoilValue(cartItemsSelector);
+  const cartItems = useRecoilValue(cartItemsAtom);
   const selectedIds = useRecoilValue(selectedIdsAtom);
 
   const selectedItems = cartItems.filter((cartItem) => selectedIds.has(cartItem.id));
