@@ -14,9 +14,9 @@ export default function CartOrderInfo() {
     <div css={cartOrderInfoContainer}>
       <FreeShippingInfo />
       <div css={borderTopWrapper}>
-        <Receipt title="주문 금액" price={totalPrice} />
-        <Receipt title="배송비" price={deliveryPrice} />
-        <Receipt title="총 결제 금액" price={totalPrice + deliveryPrice} />
+        <Receipt description="주문 금액" price={totalPrice} />
+        <Receipt description="배송비" price={deliveryPrice} />
+        <Receipt description="총 결제 금액" price={totalPrice + deliveryPrice} />
       </div>
     </div>
   );
