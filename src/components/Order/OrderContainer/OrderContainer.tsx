@@ -1,4 +1,4 @@
-import Checkbox from "../../Button/Checkbox/Checkbox";
+import Checkbox from "../../common/Buttons/Checkbox/Checkbox";
 import OrderItemList from "./OrderItemList/OrderItemList";
 
 const OrderContainer = () => {

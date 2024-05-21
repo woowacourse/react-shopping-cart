@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
 import { useRecoilState } from "recoil";
-import Checkbox from "../../../../Button/Checkbox/Checkbox";
 import { CheckAllButtonStyle } from "./CheckAllButton.style";
 import { checkAllItemState } from "../../../../../store/selector/selectors";
+import Checkbox from "../../../../common/Buttons/Checkbox/Checkbox";
 
 const CheckAllButton = () => {
   const [state, setState] = useRecoilState(checkAllItemState);

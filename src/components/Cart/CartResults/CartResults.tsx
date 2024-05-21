@@ -5,8 +5,8 @@ import { useRecoilValue } from "recoil";
 import { orderAmountState, totalAmountState } from "../../../store/selector/selectors";
 import { CartItemIdListState } from "../../../store/atom/atoms";
 import { SHIPPING_CONSTANT } from "../../../constants";
-import Divider from "../../Divider/Divider";
-import PaymentDetail from "../../PaymentDetail/PaymentDetail";
+import PaymentDetail from "../../common/PaymentDetail/PaymentDetail";
+import Divider from "../../common/Divider/Divider";
 
 const CartResults = () => {
   const orderAmount = useRecoilValue(orderAmountState);

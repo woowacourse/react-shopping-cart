@@ -19,11 +19,11 @@ import {
   itemQuantityState,
 } from "../../../../../store/atom/atoms";
 import { changeProductAmount, deleteProduct } from "../../../../../store/api";
-import Divider from "../../../../Divider/Divider";
-import Checkbox from "../../../../Button/Checkbox/Checkbox";
-import DeleteButton from "../../../../Button/DeleteButton/DeleteButton";
-import QuantityButton from "../../../../Button/QuantityButton/QuantityButton";
 import { deleteCartItemCheckedStateInStorage } from "../../../../../store/utils";
+import Divider from "../../../../common/Divider/Divider";
+import Checkbox from "../../../../common/Buttons/Checkbox/Checkbox";
+import DeleteButton from "../../../../common/Buttons/DeleteButton/DeleteButton";
+import QuantityButton from "../../../../common/Buttons/QuantityButton/QuantityButton";
 
 interface CartItemProps {
   CartItemInfo: CartItemInfo;

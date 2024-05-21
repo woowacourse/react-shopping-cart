@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { COLOR_PALETTE } from "../../../colorPalette";
 
-export const OrderConfirmFooterStyle = css({
+export const OrderFooterStyle = css({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
