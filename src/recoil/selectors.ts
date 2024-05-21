@@ -1,7 +1,7 @@
 import { DefaultValue, selector } from 'recoil';
 import { itemDetailsState, itemsState } from './atoms';
 import { Products } from '../types/Product';
-import { updateLocalStorage } from '../utils/UpdateLocalStorage';
+import { updateLocalStorage } from '../utils/LocalStorage';
 import { fetchProducts } from '../api';
 
 /**

@@ -5,10 +5,7 @@ import { itemDetailsState, itemsState } from '../../recoil/atoms';
 import { Products } from '../../types/Product';
 import { fetchCartItemQuantity } from '../../api';
 import CheckBox from '../CheckBox/CheckBox';
-import {
-  updateLocalStorage,
-  getLocalStorage,
-} from '../../utils/UpdateLocalStorage';
+import { updateLocalStorage, getLocalStorage } from '../../utils/LocalStorage';
 import { MESSAGES } from '../../constants/Messages';
 import * as S from './ProductCard.styled';
 
