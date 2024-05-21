@@ -13,12 +13,7 @@ import { useCartItemQuantity } from '../../recoil/cartItem/useCartItemQuantity';
 import { useCartItemSelectedIdList } from '../../recoil/cartItem/useCartItemSelectedIdList';
 import useCartItemList from '../../recoil/cartItemList/useCartItemList';
 
-export type CartItemProps = {
-  product: Product;
-  id: number;
-};
-
-const CartItem = ({ product, id }: CartItemProps) => {
+const CartItem = ({ product, id }: CartItem) => {
   const { name, price, imageUrl } = product;
   const { quantity, increaseQuantity, decreaseQuantity } =
     useCartItemQuantity(id);
