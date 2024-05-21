@@ -1,4 +1,5 @@
 import type { TCartItem } from '../types/CartItem.type';
+import type { Coupon } from '../types/Coupon.type';
 import { generateBasicToken } from '../utils/auth';
 import { CART_ITEM_ERROR_MESSAGE } from '../constants/MESSAGES';
 
@@ -68,4 +69,21 @@ export const updateCartItemQuantity = async (cartItemId: number, quantity: numbe
   if (!response.ok) {
     throw new Error(CART_ITEM_ERROR_MESSAGE.UPDATE);
   }
+};
+
+export const fetchCoupons = async (): Promise<Coupon[]> => {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+
+  const response = await fetch(`${API_URL}/coupons`, {
+    method: 'GET',
+    headers: { Authorization: token },
+  });
+
+  if (!response.ok) {
+    throw new Error('쿠폰을 불러오던 중 문제가 발생했습니다.');
+  }
+
+  const data = await response.json();
+
+  return data;
 };

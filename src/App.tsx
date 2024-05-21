@@ -3,7 +3,7 @@ import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
 import OrderConfirmPage from './pages/OrderConfirmPage/OrderConfirmPage';
 import PaymentConfirmPage from './pages/PaymentConfirmPage/PaymentConfirmPage';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
-import { fetchCartItemList } from './apis';
+import { fetchCartItemList, fetchCoupons } from './apis';
 import { PATHS } from './constants/PATHS';
 
 import { ThemeProvider } from 'styled-components';
@@ -21,6 +21,7 @@ function App() {
       },
       {
         path: PATHS.ORDER_CONFIRM,
+        loader: () => fetchCoupons(),
         element: <OrderConfirmPage />,
       },
       {

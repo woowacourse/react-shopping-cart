@@ -1,5 +1,6 @@
 import { useRecoilValue } from 'recoil';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useLoaderData } from 'react-router-dom';
+import type { Coupon } from '../../types/Coupon.type';
 import Header from '../../components/Header/Header';
 import CartItem from '../../components/ShoppingCartPage/CartItem/CartItem';
 import TitleContainer from '../../components/common/TitleContainer/TitleContainer';
@@ -14,7 +15,10 @@ import * as S from './OrderConfirmPage.style';
 import { useState } from 'react';
 
 function OrderConfirmPage() {
+  const couponList = useLoaderData() as Coupon[];
+
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
+  const [isSigol, setIsSigol] = useState(false);
 
   const selectedItemList = useRecoilValue(selectedCartItemListState);
   const orderTotalCount = useRecoilValue(cartOrderTotalCountSelector);
@@ -22,6 +26,8 @@ function OrderConfirmPage() {
   if (selectedItemList.length === 0) {
     return <Navigate to={PATHS.ERROR} />;
   }
+
+  const handleIsSigol = () => setIsSigol((prev) => !prev);
 
   return (
     <div>
@@ -33,7 +39,7 @@ function OrderConfirmPage() {
         />
         <S.SelectedCartItemContainer>
           {selectedItemList.map((item) => (
-            <CartItem item={item} isConfirm={true} />
+            <CartItem key={item.id} item={item} isConfirm={true} />
           ))}
         </S.SelectedCartItemContainer>
         <S.CouponModalButton type="button" onClick={() => setIsCouponModalOpen(true)}>
@@ -41,14 +47,16 @@ function OrderConfirmPage() {
         </S.CouponModalButton>
         <S.CartInfoContainer>
           <S.CartInfoTitle>배송 정보</S.CartInfoTitle>
-          <CheckBox id="배송 정보" text="제주도 및 도서 산간 지역" isChecked={false} />
+          <CheckBox id="배송 정보" text="제주도 및 도서 산간 지역" isChecked={isSigol} onChange={handleIsSigol} />
         </S.CartInfoContainer>
         <TotalPriceContainer isConfirm={true} />
       </S.Main>
       <Link to={PATHS.PAYMENT_CONFIRM}>
         <SubmitButton isActive={true} content="결제하기" />
       </Link>
-      {isCouponModalOpen && <CouponModal isOpen={isCouponModalOpen} close={() => setIsCouponModalOpen(false)} />}
+      {isCouponModalOpen && (
+        <CouponModal couponList={couponList} isOpen={isCouponModalOpen} close={() => setIsCouponModalOpen(false)} />
+      )}
     </div>
   );
 }
