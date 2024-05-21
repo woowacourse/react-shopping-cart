@@ -7,7 +7,7 @@ import { STORAGE } from '../constants';
 
 export const cartItemsState = atom<CartItem[]>({
   key: 'cartItemsState',
-  default: Promise.resolve(fetchCartItems()),
+  default: fetchCartItems(),
 });
 
 export const itemQuantityState = atomFamily<number, number>({
