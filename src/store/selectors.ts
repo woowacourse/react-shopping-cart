@@ -2,7 +2,14 @@ import CheckedCartItemStorage from '@/services/CheckedProductStorage';
 import { selector, selectorFamily } from 'recoil';
 import { allCartItemStates } from './atoms';
 
-export const isAllCheckedCartItems = selector({
+export const totalCartItemsSelector = selector({
+  key: 'totalCartItems',
+  get: ({ get }) => {
+    return get(allCartItemStates).filter((cartItem) => cartItem.product.isChecked);
+  },
+});
+
+export const isAllCheckedCartItemsSelector = selector({
   key: 'allCheckedCartItems',
   get: ({ get }) => {
     const isAllChecked = get(allCartItemStates).every((cartItem) => cartItem.product.isChecked);
@@ -20,17 +27,18 @@ export const isAllCheckedCartItems = selector({
       },
     }));
 
+    set(allCartItemStates, updatedCartItems);
+
     if (!allChecked) {
       const checkedProductIds = updatedCartItems.map((cartItem) => cartItem.id);
       CheckedCartItemStorage.setCheckedProductIds(checkedProductIds);
     } else {
       CheckedCartItemStorage.clearCheckedProductIds();
     }
-    set(allCartItemStates, updatedCartItems);
   },
 });
 
-export const isCheckedIndividualCartItem = selectorFamily<boolean, number>({
+export const isCheckedIndividualCartItemSelector = selectorFamily<boolean, number>({
   key: 'isCheckedIndividualCartItem',
   get:
     (id: number) =>
@@ -57,7 +65,7 @@ export const isCheckedIndividualCartItem = selectorFamily<boolean, number>({
     },
 });
 
-export const individualCartItemQuantity = selectorFamily<number, number>({
+export const individualCartItemQuantitySelector = selectorFamily<number, number>({
   key: 'individualCartItemQuantity',
   get:
     (id: number) =>
@@ -79,7 +87,7 @@ export const individualCartItemQuantity = selectorFamily<number, number>({
     },
 });
 
-export const orderAmount = selector({
+export const orderAmountSelector = selector({
   key: 'orderAmount',
   get: ({ get }) => {
     const allCartItems = get(allCartItemStates);
@@ -94,25 +102,25 @@ export const orderAmount = selector({
   },
 });
 
-export const deliveryFee = selector({
+export const deliveryFeeSelector = selector({
   key: 'deliveryFee',
   get: ({ get }) => {
     const FREE_SHIPPING_CONDITION = 100_000;
     const SHIPPING_FEE = 3000;
-    const totalAmount = get(orderAmount);
+    const totalAmount = get(orderAmountSelector);
 
     return totalAmount >= FREE_SHIPPING_CONDITION ? 0 : SHIPPING_FEE;
   },
 });
 
-export const totalOrderAmount = selector({
+export const totalOrderAmountSelector = selector({
   key: 'totalOrderAmount',
   get: ({ get }) => {
-    return get(orderAmount) + get(deliveryFee);
+    return get(orderAmountSelector) + get(deliveryFeeSelector);
   },
 });
 
-export const totalCategoryCount = selector({
+export const totalCategoryCountSelector = selector({
   key: 'totalCategoryCount',
   get: ({ get }) => {
     const allCartItems = get(allCartItemStates);
@@ -128,7 +136,7 @@ export const totalCategoryCount = selector({
   },
 });
 
-export const totalOrderQuantity = selector({
+export const totalOrderQuantitySelector = selector({
   key: 'totalOrderQuantity',
   get: ({ get }) => {
     const allCartItems = get(allCartItemStates);

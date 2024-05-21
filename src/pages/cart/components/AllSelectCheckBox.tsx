@@ -1,11 +1,11 @@
 import useToggleAllChecked from '@/hooks/useToggleAllChecked';
-import { isAllCheckedCartItems } from '@/store/selectors';
+import { isAllCheckedCartItemsSelector } from '@/store/selectors';
 import { useRecoilValue } from 'recoil';
 import styles from '../Cart.module.css';
 
 export default function AllSelectCheckBox() {
   const { handleToggleAll } = useToggleAllChecked();
-  const isAllChecked = useRecoilValue(isAllCheckedCartItems);
+  const isAllChecked = useRecoilValue(isAllCheckedCartItemsSelector);
 
   return (
     <div className={styles.allCheckContainer}>

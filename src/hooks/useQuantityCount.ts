@@ -1,9 +1,11 @@
 import { useRecoilState } from 'recoil';
-import { individualCartItemQuantity } from '../store/selectors';
+import { individualCartItemQuantitySelector } from '../store/selectors';
 import { updateCartItemQuantity } from '../api/index';
 
 const useQuantityCount = (id: number) => {
-  const [productQuantity, setProductQuantity] = useRecoilState(individualCartItemQuantity(id));
+  const [productQuantity, setProductQuantity] = useRecoilState(
+    individualCartItemQuantitySelector(id),
+  );
 
   const handleIncrementQuantity = async () => {
     try {
