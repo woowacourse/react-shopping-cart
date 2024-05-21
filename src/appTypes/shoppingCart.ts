@@ -15,3 +15,24 @@ export interface CartItem {
 export type CheckedStates = Pick<CartItem, 'id'> & { isChecked: boolean };
 
 export type Sign = 'minus' | 'plus';
+
+export type DiscountType = 'fixed' | 'percentage' | 'buyXgetY' | 'freeShipping';
+
+export type CouponCode = 'FIXED5000' | 'BOGO' | 'FREESHIPPING' | 'MIRACLESALE';
+
+export type AvailableTime = {
+  start: string;
+  end: string;
+};
+export interface Coupon {
+  id: number;
+  code: string;
+  description: string;
+  discount?: number;
+  discountType: DiscountType;
+  minimumAmount?: number;
+  buyQuantity?: number;
+  expirationDate: string;
+  availableTime?: AvailableTime;
+  getQuantity?: number;
+}

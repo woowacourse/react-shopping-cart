@@ -3,6 +3,7 @@ export const PRICE = {
   shippingFee: {
     free: 0,
     basic: 3000,
+    surcharge: 3000,
   },
 };
 

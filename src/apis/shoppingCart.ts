@@ -1,4 +1,4 @@
-import { CartItem } from '@appTypes/shoppingCart';
+import { CartItem, Coupon } from '@appTypes/shoppingCart';
 import { generateBasicToken } from '@utils/auth';
 
 const API_URL = import.meta.env.VITE_API_URL as string;
@@ -55,4 +55,21 @@ export async function fetchDeleteCartItem(productId: number) {
   if (!response.ok) {
     throw new Error('Failed to delete cart item');
   }
+}
+
+export async function fetchCouponList(): Promise<Map<string, Coupon>> {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+
+  const response = await fetch(`${API_URL}/coupons`, {
+    method: 'GET',
+    headers: { Authorization: token },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch products');
+  }
+
+  const data = await response.json();
+
+  return new Map(data.map((coupon: Coupon) => [coupon.code, coupon]));
 }
