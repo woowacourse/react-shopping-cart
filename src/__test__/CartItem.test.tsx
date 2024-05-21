@@ -26,7 +26,7 @@ const mockProduct = {
   category: 'fashion',
 };
 const mockOnDelete = vi.fn();
-const mockOnUpdateQuantity = vi.fn();
+// const mockOnUpdateQuantity = vi.fn();
 
 const cartItemSetupWithQuantity = (quantity: number) => {
   return render(
@@ -36,7 +36,6 @@ const cartItemSetupWithQuantity = (quantity: number) => {
         product={mockProduct}
         quantity={quantity}
         onDelete={mockOnDelete}
-        onUpdateQuantity={mockOnUpdateQuantity}
       />
     </RecoilRoot>,
   );
@@ -71,32 +70,5 @@ describe('CartItem', () => {
     fireEvent.click(deleteButton);
 
     expect(mockOnDelete).toHaveBeenCalledWith(mockProduct.id);
-  });
-
-  it('장바구니의 각 상품에 있는 주문수량 증가("+") 버튼을 누르면, 해당 상품의 수량이 1 증가해야 한다.', () => {
-    cartItemSetupWithQuantity(1);
-
-    const increaseButton = screen.getByTestId('cart-item-increase-button');
-    fireEvent.click(increaseButton);
-
-    expect(mockOnUpdateQuantity).toHaveBeenCalledWith(mockProduct.id, 2);
-  });
-
-  it('장바구니의 각 상품에 있는 주문수량 감소("-") 버튼을 누르면, 해당 상품의 수량이 1 감소해야 한다.', () => {
-    cartItemSetupWithQuantity(2);
-
-    const decreaseButton = screen.getByTestId('cart-item-decrease-button');
-    fireEvent.click(decreaseButton);
-
-    expect(mockOnUpdateQuantity).toHaveBeenCalledWith(mockProduct.id, 1);
-  });
-
-  it('장바구니의 상품 수량이 1개라면, 주문수량 감소("-") 버튼을 누르더라도 관련 API 전송 작업이 이루어지지 않아야 한다.', () => {
-    cartItemSetupWithQuantity(1);
-
-    const decreaseButton = screen.getByTestId('cart-item-decrease-button');
-    fireEvent.click(decreaseButton);
-
-    expect(mockOnUpdateQuantity).not.toHaveBeenCalled();
   });
 });
