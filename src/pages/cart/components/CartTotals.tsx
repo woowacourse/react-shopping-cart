@@ -1,14 +1,18 @@
 import { useRecoilValue } from 'recoil';
 import noticeIcon from '../../../asset/noticeIcon.png';
-import { deliveryFee, orderAmount, totalOrderAmount } from '../../../store/selectors';
+import {
+  deliveryFeeSelector,
+  orderAmountSelector,
+  totalOrderAmountSelector,
+} from '../../../store/selectors';
 import styles from '../Cart.module.css';
 import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
 import CartResultInfo from './CartResultInfo';
 
 export default function CartTotals() {
-  const orderAmountValue = useRecoilValue(orderAmount);
-  const deliveryFeeValue = useRecoilValue(deliveryFee);
-  const totalAmountValue = useRecoilValue(totalOrderAmount);
+  const orderAmount = useRecoilValue(orderAmountSelector);
+  const deliveryFee = useRecoilValue(deliveryFeeSelector);
+  const totalAmount = useRecoilValue(totalOrderAmountSelector);
 
   return (
     <div className={styles.cartContentWrapper}>
@@ -19,11 +23,11 @@ export default function CartTotals() {
         </span>
       </div>
       <div className={styles.cartTotalsWrapper}>
-        <CartResultInfo titleText="주문 금액" price={orderAmountValue} />
-        <CartResultInfo titleText="배송비" price={deliveryFeeValue} />
+        <PriceInfo titleText="주문 금액" price={orderAmount} />
+        <PriceInfo titleText="배송비" price={deliveryFee} />
       </div>
       <div className={styles.cartTotalsWrapper}>
-        <CartResultInfo titleText="총 결제 금액" price={totalAmountValue} />
+        <PriceInfo titleText="총 결제 금액" price={totalAmount} />
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import Button from '@/components/common/Button';
-import Header from '@/components/Header/Header';
+import Header from '@/components/header/Header';
 import { PAGE_ROUTES } from '@/constants/routes';
 import { useNavigate } from 'react-router-dom';
 import BackIcon from '@/asset/back.png';

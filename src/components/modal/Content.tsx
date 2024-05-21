@@ -6,6 +6,7 @@ import { allCouponStates } from '@/store/atoms';
 import { useRecoilValue } from 'recoil';
 import CouponItem from './CouponItem';
 import CouponBanner from './CouponBanner';
+import DiscountApplyButton from './DiscountApplyButton';
 
 type Props = {
   handleModalClose: () => void;
@@ -45,6 +46,7 @@ export default function Content({ handleModalClose }: Props) {
             );
           })}
         </ul>
+        <DiscountApplyButton />
       </div>
     </div>
   );
