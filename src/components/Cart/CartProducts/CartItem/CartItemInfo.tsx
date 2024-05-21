@@ -61,7 +61,7 @@ export default function CartItemInfo({ item }: CartItemMainSectionProps) {
         src={item.product.imageUrl}
         width={112}
         height={112}
-        alt={item.product.name + 'image'}
+        alt={item.product.name + '상품 이미지'}
       />
       <div css={cartItemInfoWrapper}>
         <span>{item.product.name}</span>
@@ -72,11 +72,11 @@ export default function CartItemInfo({ item }: CartItemMainSectionProps) {
             onClick={handleDecrementQuantity}
             disabled={item.quantity === 1}
           >
-            <img css={countImage} src={MINUS} alt={item.product.name + '수량감소버튼'} />
+            <img css={countImage} src={MINUS} alt={item.product.name + '수량 감소 버튼'} />
           </button>
           <span data-testid={item.product.name + 'quantity'}>{item.quantity}</span>
           <button css={countButton()} onClick={handleIncrementQuantity}>
-            <img css={countImage} src={PLUS} alt={item.product.name + '수량증가버튼'} />
+            <img css={countImage} src={PLUS} alt={item.product.name + '수량 증가 버튼'} />
           </button>
         </div>
       </div>

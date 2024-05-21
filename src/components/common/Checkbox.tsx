@@ -6,28 +6,16 @@ import { CHECKED, UNCHECKED } from '@assets/images';
 interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
   labelHidden: boolean;
-  description: string;
+  label: string;
 }
 
-export default function Checkbox({
-  id,
-  checked,
-  labelHidden,
-  description,
-  onChange,
-}: CheckboxProps) {
+export default function Checkbox({ id, checked, labelHidden, label, onChange }: CheckboxProps) {
   return (
     <>
       <input id={id} type="checkbox" checked={checked} css={screenReaderOnly} onChange={onChange} />
-      <label css={label} htmlFor={id}>
-        <img
-          src={checked ? CHECKED : UNCHECKED}
-          width={24}
-          height={24}
-          css={checkIcon}
-          alt="check icon"
-        />
-        <span css={[labelText, labelHidden && screenReaderOnly]}>{description}</span>
+      <label css={labelStyle} htmlFor={id}>
+        <img src={checked ? CHECKED : UNCHECKED} width={24} height={24} css={checkIcon} alt="" />
+        <span css={[labelText, labelHidden && screenReaderOnly]}>{label}</span>
       </label>
     </>
   );
@@ -47,7 +35,7 @@ const screenReaderOnly = css`
   clip: rect(0 0 0 0);
 `;
 
-const label = css`
+const labelStyle = css`
   display: flex;
   align-items: center;
   gap: 8px;

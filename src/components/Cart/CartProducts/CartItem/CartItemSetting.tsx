@@ -31,8 +31,8 @@ export default function CartItemSetting({ cartId, productName }: CartItemHeaderS
       <Checkbox
         checked={isChecked}
         onChange={handleClickCheck}
-        id={productName + 'checkbox'}
-        description={productName + 'checkbox'}
+        id={productName + '-checkbox'}
+        label={productName + '체크 박스'}
         labelHidden={true}
       />
       <button css={deleteButton} onClick={handleDeleteItem}>

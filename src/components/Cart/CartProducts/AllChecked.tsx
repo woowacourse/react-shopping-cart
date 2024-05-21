@@ -19,7 +19,7 @@ export default function AllChecked() {
         checked={isAllChecked}
         onChange={handleClickCheck}
         id="전체 선택"
-        description="전체 선택"
+        label="전체 선택"
       />
     </div>
   );

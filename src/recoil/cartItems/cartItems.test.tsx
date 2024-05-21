@@ -51,7 +51,7 @@ describe('cartItems 동작 테스트', () => {
     });
 
     await waitFor(() => {
-      const checkbox = screen.getByLabelText(PUMA + 'checkbox', { selector: 'input' });
+      const checkbox = screen.getByLabelText(PUMA + '체크 박스', { selector: 'input' });
 
       fireEvent.click(checkbox);
 
@@ -75,7 +75,7 @@ describe('cartItems 동작 테스트', () => {
     });
 
     await waitFor(() => {
-      fireEvent.click(screen.getByAltText(PUMA + '수량증가버튼'));
+      fireEvent.click(screen.getByAltText(PUMA + '수량 증가 버튼'));
 
       expect(screen.getByTestId(PUMA + 'quantity')).toHaveTextContent('11');
     });
@@ -97,7 +97,7 @@ describe('cartItems 동작 테스트', () => {
     });
 
     await waitFor(() => {
-      fireEvent.click(screen.getByAltText(PUMA + '수량감소버튼'));
+      fireEvent.click(screen.getByAltText(PUMA + '수량 감소 버튼'));
 
       expect(screen.getByTestId(PUMA + 'quantity')).toHaveTextContent('9');
     });
@@ -119,7 +119,7 @@ describe('cartItems 동작 테스트', () => {
     });
 
     await waitFor(() => {
-      fireEvent.click(screen.getByLabelText(PUMA + 'delete-button', { selector: 'button' }));
+      fireEvent.click(screen.getAllByText('삭제')[0]);
 
       expect(screen.queryByText(PUMA)).not.toBeInTheDocument();
     });

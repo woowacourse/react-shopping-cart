@@ -7,7 +7,7 @@ export default function FreeShippingInfo() {
   return (
     <div css={freeDeliveryGuideWrapper}>
       <span css={infoIcon}>
-        <img src={INFO_ICON} alt="info icon" />
+        <img src={INFO_ICON} alt="중요 정보" />
       </span>
       <span css={freeDeliveryGuide}>
         총 주문 금액이 {MINIMUM_FREE_SHIPPING_AMOUNT.toLocaleString('ko-KR')}원 이상일 경우 무료
