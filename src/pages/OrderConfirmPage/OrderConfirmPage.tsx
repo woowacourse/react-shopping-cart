@@ -3,12 +3,13 @@ import { Navigate } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import TitleContainer from '../../components/Container/TitleContainer/TitleContainer';
 import SubmitButton from '../../components/Button/SubmitButton/SubmitButton';
+import TotalPriceContainer from '../../components/Container/TotalPriceContainer/TotalPriceContainer';
+import CartItemContainer from '../../components/CartItem/CartItemContainer';
+import ShowModalButton from '../../components/Button/ShowModalButton/ShowModalButton';
 import { selectedCartItemListState } from '../ShoppingCartPage/recoil/atom/selectedCartItemListState';
 import { selectedCartItemListTotalCountSelector } from '../ShoppingCartPage/recoil/selector/selectedCartItemListTotalCountSelector';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './OrderConfirmPage.style';
-import TotalPriceContainer from '../../components/Container/TotalPriceContainer/TotalPriceContainer';
-import CartItemContainer from '../../components/CartItem/CartItemContainer';
 
 function OrderConfirmPage() {
   const selectedItemList = useRecoilValue(selectedCartItemListState);
@@ -24,7 +25,7 @@ function OrderConfirmPage() {
       {selectedItemList.map((el) => (
         <CartItemContainer key={el.id} item={el} />
       ))}
-
+      <ShowModalButton content="쿠폰 적용" onClick={() => {}} />
       <TotalPriceContainer />
     </>
   );
