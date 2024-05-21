@@ -13,10 +13,9 @@ function DeliveryInfoContainer() {
             <S.CheckListContent>{option.title}</S.CheckListContent>
           </S.CheckListItemContainer>
         ))}
-        // TODO: 선택 시 배송비 +3000 기능 구현하기
       </S.CheckListContainer>
     </S.Layout>
   );
 }
-
+// TODO: 선택 시 배송비 +3000 기능 구현하기
 export default DeliveryInfoContainer;
