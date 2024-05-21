@@ -21,7 +21,7 @@ export default function OrderButton() {
   const totalCartItems = useRecoilValue(totalCartItemsSelector);
 
   const handleOrderButton = () => {
-    if (totalOrderQuantity > MIN_ORDER_QUANTITY) {
+    if (totalOrderQuantity >= MIN_ORDER_QUANTITY) {
       navigate(PAGE_ROUTES.ORDER_CONFIRM, {
         state: {
           totalCategoryCount,
