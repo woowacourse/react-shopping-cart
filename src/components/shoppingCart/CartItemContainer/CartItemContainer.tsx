@@ -5,7 +5,7 @@ import { CheckBox } from '../../common';
 import * as Styled from './CartItemContainer.style';
 
 import { cartItemsState } from '../../../recoil/atoms';
-import { removeCartItem, updateCartItemQuantity } from '../../../apis';
+import { removeCartItem } from '../../../apis';
 import { useCheckCartItem, useFetchError } from '../../../hooks';
 import { ERROR_MESSAGE } from '../../../apis/fetchData/errorMessage';
 
@@ -29,15 +29,6 @@ export default function CartItemContainer() {
     }
   };
 
-  const handleUpdateQuantity = async (cartItemId: number, quantity: number) => {
-    try {
-      await updateCartItemQuantity(cartItemId, quantity);
-      resetFetchError();
-    } catch (error) {
-      throwFetchError(error, ERROR_MESSAGE.UPDATE_QUANTITY_FAILED);
-    }
-  };
-
   return (
     <>
       {items.length > 0 && (
@@ -57,9 +48,6 @@ export default function CartItemContainer() {
               product={item.product}
               quantity={item.quantity}
               onDelete={(cartItemId: number) => handleDeleteItem(cartItemId)}
-              onUpdateQuantity={(cartItemId: number, quantity: number) => {
-                handleUpdateQuantity(cartItemId, quantity);
-              }}
             />
           );
         })}

@@ -5,28 +5,24 @@ import { CheckBox, DeleteItemButton } from '../../common';
 import { QuantityController } from '../';
 import * as Styled from './CartItem.style';
 
+import { useCheckCartItem, useFetchError } from '../../../hooks';
+import { updateCartItemQuantity } from '../../../apis';
 import { convertToLocaleAmount } from '../../../utils';
-import { useCheckCartItem } from '../../../hooks';
-import { itemQuantityState } from '../../../recoil/atoms';
 import { Product, QuantityControlType } from '../../../type';
+import { itemQuantityState } from '../../../recoil/atoms';
+import { ERROR_MESSAGE } from '../../../apis/fetchData/errorMessage';
 
 interface CartItemProps {
   cartItemId: number;
   product: Product;
   quantity: number;
   onDelete: (cartItemId: number) => void;
-  onUpdateQuantity: (cartItemId: number, quantity: number) => void;
 }
 
-export default function CartItem({
-  cartItemId,
-  product,
-  quantity,
-  onDelete,
-  onUpdateQuantity,
-}: CartItemProps) {
+export default function CartItem({ cartItemId, product, quantity, onDelete }: CartItemProps) {
   const [itemQuantity, setItemQuantity] = useRecoilState(itemQuantityState(cartItemId));
   const { isChecked, onCheckCartItem } = useCheckCartItem();
+  const { throwFetchError, resetFetchError } = useFetchError();
 
   useEffect(() => {
     setItemQuantity(quantity);
@@ -36,10 +32,19 @@ export default function CartItem({
     onCheckCartItem(cartItemId, !isChecked(cartItemId));
   };
 
-  const handleChangeQuantity = (type: QuantityControlType) => {
+  const handleChangeQuantity = async (type: QuantityControlType) => {
     const newQuantity = type === 'increase' ? itemQuantity + 1 : Math.max(1, itemQuantity - 1);
     setItemQuantity(newQuantity);
-    onUpdateQuantity(cartItemId, newQuantity);
+    await updateQuantity(cartItemId, newQuantity);
+  };
+
+  const updateQuantity = async (cartItemId: number, quantity: number) => {
+    try {
+      await updateCartItemQuantity(cartItemId, quantity);
+      resetFetchError();
+    } catch (error) {
+      throwFetchError(error, ERROR_MESSAGE.UPDATE_QUANTITY_FAILED);
+    }
   };
 
   const handleClickDeleteButton = () => {
