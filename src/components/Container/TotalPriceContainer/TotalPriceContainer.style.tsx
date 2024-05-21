@@ -4,7 +4,6 @@ export const Layout = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 15px;
-  margin-top: 15px;
 `;
 
 export const InfoIcon = styled.img`
