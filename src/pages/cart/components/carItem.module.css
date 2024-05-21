@@ -1,0 +1,58 @@
+.cartItemContainer {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.cartItemInputButtonContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0;
+}
+
+.itemImageAndInfoContainer {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.itemImage {
+  width: 112px;
+  height: 112px;
+  border-radius: 8px;
+  margin-right: 24px;
+}
+
+.itemInfoContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-family: Noto Sans;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+  text-align: left;
+}
+
+.deleteButton {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 1);
+  border-radius: 4px;
+  font-family: Noto Sans;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+  text-align: left;
+  padding: 4px 8px;
+}
+
+.plusMinusButtonContainer {
+  margin-top: 24px;
+}
+
+.plusMinusButton {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
