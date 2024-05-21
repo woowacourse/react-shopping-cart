@@ -1,12 +1,12 @@
 import { useRecoilValueLoadable } from 'recoil';
-import { cartItemListQuery } from '../../recoil/cartItemList/states';
+import { cartItemListStateQuery } from '../../recoil/cartItemList/cartItemListState';
 import { ReactNode, useEffect } from 'react';
 import LoadingFallback from '../../components/LoadingFallback/LoadingFallback';
-import { useCartItemList } from '../../recoil/cartItemList/hooks';
+import { useCartItemList } from '../../recoil/cartItemList/useCartItemList';
 
 const CartItemListLoader = ({ children }: { children: ReactNode }) => {
   const { updateCartItemList } = useCartItemList();
-  const cartItemListLoadable = useRecoilValueLoadable(cartItemListQuery);
+  const cartItemListLoadable = useRecoilValueLoadable(cartItemListStateQuery);
 
   useEffect(() => {
     updateCartItemList();
