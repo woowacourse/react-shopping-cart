@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/react';
-import '/src/f_shared/styles/reset.css';
+import '@/f_shared/styles/reset.css';
+import '@/f_shared/styles/color.css';
 
 const preview: Preview = {
   parameters: {
