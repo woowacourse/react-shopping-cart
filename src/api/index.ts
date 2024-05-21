@@ -1,4 +1,4 @@
-import { CartItem, CartItemCounts } from '../types';
+import { CartItem, CartItemCounts, Coupon } from '../types';
 import { generateBasicToken } from '../utils/auth';
 
 const API_URL = import.meta.env.VITE_BASE_URL;
@@ -95,4 +95,23 @@ export async function deleteCartItem(cartItemId: number): Promise<void> {
   if (!response.ok) {
     throw new Error('Failed to remove cart item');
   }
+}
+
+// GET : /coupons 쿠폰 목록 조회
+export async function getCouponList(): Promise<Coupon[]> {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+  const response = await fetch(`${API_URL}/coupons`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch coupon list');
+  }
+
+  const data = await response.json();
+  return data;
 }
