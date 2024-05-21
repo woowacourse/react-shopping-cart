@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import NotificationContainer from '../../NotificationContainer/NotificationContainer';
+import NotificationContainer from '../NotificationContainer/NotificationContainer';
 import PriceContainer from '../PriceContainer/PriceContainer';
 import { selectedCartItemListTotalPriceSelector } from '../../../pages/ShoppingCartPage/recoil/selector/selectedCartItemListTotalPriceSelector';
 import { DELIVERY_FEE_DISCOUNT_THRESHOLD, calculateDeliveryFee } from '../../../utils/calculateDeliveryFee';

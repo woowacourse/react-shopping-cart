@@ -1,5 +1,5 @@
-import { DELIVERY_INFOS } from '../../constants/DELIVERY_INFOS';
-import CheckButton from '../Button/CheckButton/CheckButton';
+import { DELIVERY_INFOS } from '../../../constants/DELIVERY_INFOS';
+import CheckButton from '../../Button/CheckButton/CheckButton';
 import * as S from './DeliveryInfoContainer.style';
 
 function DeliveryInfoContainer() {

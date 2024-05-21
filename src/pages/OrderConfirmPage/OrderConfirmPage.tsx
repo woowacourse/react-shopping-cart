@@ -5,7 +5,7 @@ import TitleContainer from '../../components/Container/TitleContainer/TitleConta
 import SubmitButton from '../../components/Button/SubmitButton/SubmitButton';
 import TotalPriceContainer from '../../components/Container/TotalPriceContainer/TotalPriceContainer';
 import CartItemContainer from '../../components/CartItem/CartItemContainer';
-import DeliveryInfoContainer from '../../components/DeliveryInfoContainer/DeliveryInfoContainer';
+import DeliveryInfoContainer from '../../components/Container/DeliveryInfoContainer/DeliveryInfoContainer';
 import ShowModalButton from '../../components/Button/ShowModalButton/ShowModalButton';
 import { selectedCartItemListState } from '../ShoppingCartPage/recoil/atom/selectedCartItemListState';
 import { selectedCartItemListTotalCountSelector } from '../ShoppingCartPage/recoil/selector/selectedCartItemListTotalCountSelector';

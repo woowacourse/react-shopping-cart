@@ -1,4 +1,4 @@
-import { InfoIcon } from '../../assets';
+import { InfoIcon } from '../../../assets';
 import * as S from './NotificationContainer.style';
 
 interface NotificationContainerProps {
