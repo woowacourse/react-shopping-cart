@@ -3,7 +3,7 @@ import { RecoilRoot, useRecoilState } from "recoil";
 import { renderHook, waitFor } from "@testing-library/react";
 import { act } from "react";
 import { quantitySelector } from "./selector";
-import { mockCartItems } from "../mockData";
+import { mockCartItems } from "../../mocks/cartItems";
 
 jest.mock("../../api/cartItemApi", () => ({
   fetchCartItems: jest.fn().mockImplementation(async () => mockCartItems),

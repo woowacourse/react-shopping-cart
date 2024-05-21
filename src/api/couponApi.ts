@@ -1,6 +1,6 @@
-import { Product } from "../types/product";
+import { Coupon } from "../types/coupon";
 import apiClient from "./apiClient";
 
-export function fetchCartItems(): Promise<Product[]> {
-  return apiClient.get({ endpoint: "/cart-items" }).then((data) => data.content);
+export function fetchCoupons(): Promise<Coupon[]> {
+  return apiClient.get({ endpoint: "/coupons" }).then((data) => data);
 }

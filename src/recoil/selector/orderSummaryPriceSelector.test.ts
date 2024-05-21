@@ -5,7 +5,7 @@ import { act } from "react";
 import { orderPriceSelector, shippingFeeSelector, totalPriceSelector } from "./selector";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { ORDER_PRICE_THRESHOLD, SHIPPING_FEE } from "../../constants/setting";
-import { mockCartItems, mockCheckedIds } from "../mockData";
+import { mockCartItems, mockCheckedIds } from "../../mocks/cartItems";
 
 jest.mock("../../api/cartItemApi", () => ({
   fetchCartItems: jest.fn().mockImplementation(async () => mockCartItems),

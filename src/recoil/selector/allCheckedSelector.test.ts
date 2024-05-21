@@ -1,7 +1,7 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
 import { RecoilRoot } from "recoil";
 import useCartItemChecks from "../../hooks/useCartItemChecks";
-import { mockCartItems, mockCheckedIds } from "../mockData";
+import { mockCartItems, mockCheckedIds } from "../../mocks/cartItems";
 
 jest.mock("../../api/cartItemApi", () => ({
   fetchCartItems: jest.fn().mockImplementation(async () => mockCartItems),

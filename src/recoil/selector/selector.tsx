@@ -2,6 +2,7 @@ import { selector } from "recoil";
 import { cartItemCheckedIdsAtom, cartItemsAtom } from "../atom/atom";
 import { ORDER_PRICE_THRESHOLD, SHIPPING_FEE } from "../../constants/setting";
 import { fetchCartItems } from "../../api/cartItemApi";
+import { fetchCoupons } from "../../api/couponApi";
 
 // 장바구니 상품 조회 api 호출
 export const fetchCartItemsSelector = selector({
@@ -93,5 +94,14 @@ export const totalCountSelector = selector({
       }
       return acc;
     }, 0);
+  },
+});
+
+// 쿠폰 조회 api 호출
+export const fetchCouponsSelector = selector({
+  key: "fetchCouponsSelector",
+  get: async () => {
+    const coupons = await fetchCoupons();
+    return coupons;
   },
 });
