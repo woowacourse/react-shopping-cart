@@ -1,0 +1,22 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 13px 0;
+}
+
+.title_text {
+  font-family: Noto Sans;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: left;
+}
+
+.price_text {
+  font-family: Noto Sans KR;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 34.75px;
+  text-align: left;
+}
