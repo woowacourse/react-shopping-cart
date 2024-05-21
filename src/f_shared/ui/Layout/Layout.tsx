@@ -23,9 +23,11 @@ export const Layout = ({
   return (
     <div className={cn('root')}>
       {headerSlot && <header className={cn('header')}>{headerSlot}</header>}
-      {contentHeaderSlot && <header className={cn('contentHeader')}>{contentHeaderSlot}</header>}
-      <div className={cn('contentBody')}>{contentBodySlot}</div>
-      {contentFooterSlot && <footer className={cn('contentFooter')}>{contentFooterSlot}</footer>}
+      <div className={cn('content')}>
+        {contentHeaderSlot && <header className={cn('contentHeader')}>{contentHeaderSlot}</header>}
+        <div className={cn('contentBody')}>{contentBodySlot}</div>
+        {contentFooterSlot && <footer className={cn('contentFooter')}>{contentFooterSlot}</footer>}
+      </div>
       {footerSlot && <footer className={cn('footer')}>{footerSlot}</footer>}
     </div>
   );

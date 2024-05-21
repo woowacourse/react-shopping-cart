@@ -5,6 +5,13 @@
   min-height: 100vh;
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 36px 24px 24px 40px;
+  flex-grow: 1;
+}
+
 .contentBody {
   flex-grow: 1;
 }
