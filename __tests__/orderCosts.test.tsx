@@ -4,7 +4,7 @@ import { act } from '@testing-library/react';
 import { useRecoilValue } from 'recoil';
 import { describe, expect, it } from 'vitest';
 
-import { INITIAL_ITEMS, SHIPPING_FREE_ITEMS } from './constants/cartItems';
+import { INITIAL_ITEMS, SHIPPING_FREE_ITEMS } from './mockData/cartItems';
 import { renderHookWithRecoilRoot } from './utils/recoilTestUtils';
 
 const initialSelectedIds = INITIAL_ITEMS.map((item) => item.id);

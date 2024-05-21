@@ -5,7 +5,7 @@ import { act } from '@testing-library/react';
 import { useRecoilValue } from 'recoil';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { INITIAL_ITEMS } from './constants/cartItems';
+import { INITIAL_ITEMS } from './mockData/cartItems';
 import { localStorageMock } from './utils/localStorageMock';
 import { renderHookWithRecoilRoot } from './utils/recoilTestUtils';
 

@@ -2,7 +2,7 @@ import { useCheckCartItem } from '@hooks/shoppingCart';
 import { act } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import { INITIAL_ITEMS } from './constants/cartItems';
+import { INITIAL_ITEMS } from './mockData/cartItems';
 import { renderHookWithRecoilRoot } from './utils/recoilTestUtils';
 
 const renderUseCheckCartItem = () => renderHookWithRecoilRoot(() => useCheckCartItem());

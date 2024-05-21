@@ -5,7 +5,7 @@ import { act } from '@testing-library/react';
 import { useRecoilValue } from 'recoil';
 import { describe, expect, it } from 'vitest';
 
-import { INITIAL_ITEMS, QUANTITY_TEST_ITEMS } from './constants/cartItems';
+import { INITIAL_ITEMS, QUANTITY_TEST_ITEMS } from './mockData/cartItems';
 import { renderHookWithRecoilRoot } from './utils/recoilTestUtils';
 
 const renderUseUpdateCartItemCount = (index: number, initialItems?: CartItem[]) => {

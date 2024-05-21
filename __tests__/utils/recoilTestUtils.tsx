@@ -3,7 +3,7 @@ import { cartItemsAtom, selectedIdsAtom } from '@recoil/shoppingCart';
 import { renderHook } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
 
-import { INITIAL_ITEMS } from '../constants/cartItems';
+import { INITIAL_ITEMS } from '../mockData/cartItems';
 
 export const renderHookWithRecoilRoot = <T,>(
   hook: () => T,
