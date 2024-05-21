@@ -1,6 +1,7 @@
 import { BackButtonStyle, HeaderStyle, ShopButtonStyle } from "./Header.style";
 import { useLocation, useNavigate } from "react-router-dom";
 import { RiArrowLeftLine } from "react-icons/ri";
+import { RoutePaths, RoutesObject } from "@/App";
 
 const BackButton = () => {
   const navigate = useNavigate();
@@ -23,20 +24,17 @@ const ShopButton = () => {
 };
 
 const Header = () => {
-  const { pathname } = useLocation();
+  const location = useLocation();
+  const pathname = location.pathname as RoutePaths;
 
-  if (pathname !== "/" && pathname !== "/order") {
-    return;
-  }
-
-  const routeTitle = {
+  const navButton: RoutesObject<React.ReactElement> = {
     "/": <ShopButton />,
     "/order": <BackButton />,
   };
 
   return (
     <header>
-      <div css={HeaderStyle}>{routeTitle[pathname]}</div>
+      <div css={HeaderStyle}>{navButton[pathname]}</div>
     </header>
   );
 };

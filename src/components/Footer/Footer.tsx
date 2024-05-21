@@ -1,7 +1,11 @@
 import { useRecoilValue } from "recoil";
-import { FooterStyle } from "./Footer.style";
-import { orderAmountState } from "@/store/selector/selectors";
 import { useLocation, useNavigate } from "react-router-dom";
+
+import { FooterStyle } from "./Footer.style";
+
+import { orderAmountState } from "@/store/selector/selectors";
+
+import { RoutePaths, RoutesObject } from "@/App";
 
 interface FooterInfo {
   content: string;
@@ -11,10 +15,11 @@ interface FooterInfo {
 
 const Footer = () => {
   const orderAmount = useRecoilValue(orderAmountState);
-  const { pathname } = useLocation();
+  const location = useLocation();
+  const pathname = location.pathname as RoutePaths;
   const navigate = useNavigate();
 
-  const footerInfo: Record<string, FooterInfo> = {
+  const footerInfo: RoutesObject<FooterInfo> = {
     "/": {
       content: "주문 확인",
       isButtonDisabled: orderAmount === 0,
@@ -26,10 +31,6 @@ const Footer = () => {
       handleClick: () => navigate(0),
     },
   };
-
-  if (!Object.keys(footerInfo).includes(pathname)) {
-    return;
-  }
 
   return (
     <footer>
