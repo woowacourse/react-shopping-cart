@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { css } from "@emotion/css";
 import { useRecoilValue } from "recoil";
-import { cartItemCheckedIdsAtom } from "../recoil/atom/atom";
+import { checkedIdListAtom } from "../recoil/atom/atom";
 import { totalCountSelector, totalPriceSelector } from "../recoil/selector/selector";
 import { formatCurrency } from "../utils/formatCurrency";
 import LeftArrow from "../assets/LeftArrow.svg?react";
@@ -9,7 +9,7 @@ import { CartLayout, Header, Content, Footer } from "../components/layout";
 
 const OrderConfirmationPage = () => {
   const navigate = useNavigate();
-  const cartItemCheckedIds = useRecoilValue(cartItemCheckedIdsAtom);
+  const cartItemCheckedIds = useRecoilValue(checkedIdListAtom);
   const cartTotalPrice = useRecoilValue(totalPriceSelector);
   const cartTotalCount = useRecoilValue(totalCountSelector);
 

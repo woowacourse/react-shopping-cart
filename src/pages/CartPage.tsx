@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { cartItemCheckedIdsAtom, cartItemsAtom } from "../recoil/atom/atom";
+import { checkedIdListAtom, cartItemsAtom } from "../recoil/atom/atom";
 import CartTitle from "../components/CartPage/CartTitle";
 import CartItems from "../components/CartPage/CartItems";
 import OrderSummary from "../components/CartPage/OrderSummary";
@@ -12,7 +12,7 @@ const CartPage = () => {
   const navigate = useNavigate();
   const cartItems = useRecoilValue(cartItemsAtom);
   const isCartVacant = useRecoilValue(isVacantSelector);
-  const cartItemCheckedIds = useRecoilValue(cartItemCheckedIdsAtom);
+  const cartItemCheckedIds = useRecoilValue(checkedIdListAtom);
 
   const handleClick = () => {
     navigate("/orderConfirmation");

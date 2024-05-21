@@ -7,7 +7,7 @@ import { useRecoilState } from "recoil";
 import { CartItem } from "../../types";
 
 import { patchCartItemQuantity } from "../../api/cartItem";
-import { cartItemCheckedIdsAtom } from "../../recoil/atom/atom";
+import { checkedIdListAtom } from "../../recoil/atom/atom";
 import { itemQuantitiesSelector } from "../../recoil/selector/selector";
 import { formatCurrency } from "../../utils/formatCurrency";
 
@@ -19,7 +19,7 @@ interface CardItemProps {
 const CartItem = ({ product, handleDelete }: CardItemProps) => {
   const [quantities, setQuantity] = useRecoilState(itemQuantitiesSelector);
   const quantity = quantities[product.id];
-  const [checkedIds, setCheckedIds] = useRecoilState(cartItemCheckedIdsAtom);
+  const [checkedIds, setCheckedIds] = useRecoilState(checkedIdListAtom);
 
   const handleChecked = () => {
     const alreadyChecked = checkedIds.includes(product.id);
