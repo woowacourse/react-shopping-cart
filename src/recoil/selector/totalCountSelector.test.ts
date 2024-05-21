@@ -1,4 +1,4 @@
-import { cartItemCheckedIdsAtom } from "../atom/atom";
+import { checkedIdListAtom } from "../atom/atom";
 import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
 import { renderHook, waitFor } from "@testing-library/react";
 import { act } from "react";
@@ -20,7 +20,7 @@ describe("quantitySelector 테스트", () => {
   beforeEach(async () => {
     const hook = renderHook(
       () => {
-        const [checkedIds, setCheckedIds] = useRecoilState(cartItemCheckedIdsAtom);
+        const [checkedIds, setCheckedIds] = useRecoilState(checkedIdListAtom);
         const totalCount = useRecoilValue(totalCountSelector);
         return { checkedIds, setCheckedIds, totalCount };
       },

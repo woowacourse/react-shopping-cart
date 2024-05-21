@@ -1,39 +1,39 @@
 import { selector } from "recoil";
-import { cartItemCheckedIdsAtom, cartItemsAtom } from "../atom/atom";
+import { checkedIdListAtom, cartItemListAtom } from "../atom/atom";
 import { fetchCartItems } from "../../api/cartItem";
 
-export const fetchCartItemsSelector = selector({
-  key: "fetchCartItemsSelector",
+export const fetchCartItemListSelector = selector({
+  key: "fetchCartItemListSelector",
   get: fetchCartItems,
 });
 
 export const itemQuantitiesSelector = selector({
-  key: "itemQuantities",
+  key: "itemQuantitiesSelector",
   get: ({ get }) => {
-    const cartItems = get(cartItemsAtom);
+    const cartItems = get(cartItemListAtom);
     return Object.fromEntries(cartItems.map((item) => [item.id, item.quantity]));
   },
   set: ({ set }, { id, quantity: newQuantity }: { id: number; quantity: number }) => {
-    set(cartItemsAtom, (prev) => prev.map((item) => (item.id !== id ? item : { ...item, quantity: newQuantity })));
+    set(cartItemListAtom, (prev) => prev.map((item) => (item.id !== id ? item : { ...item, quantity: newQuantity })));
   },
 });
 
 export const isAllCheckedSelector = selector({
   key: "isAllCheckedSelector",
   get: ({ get }) => {
-    const cartItems = get(cartItemsAtom);
-    const checkedIds = get(cartItemCheckedIdsAtom);
+    const cartItems = get(cartItemListAtom);
+    const checkedIds = get(checkedIdListAtom);
     const idList = cartItems.map((item) => item.id);
     return Array.from(idList).every((id) => checkedIds.includes(id)) && idList.length === checkedIds.length;
   },
   set: ({ get, set }, newIsAllChecked) => {
-    const cartItems = get(cartItemsAtom);
+    const cartItems = get(cartItemListAtom);
     if (!newIsAllChecked) {
-      set(cartItemCheckedIdsAtom, []);
+      set(checkedIdListAtom, []);
       return;
     }
     set(
-      cartItemCheckedIdsAtom,
+      checkedIdListAtom,
       cartItems.map((item) => item.id)
     );
   },
@@ -42,8 +42,8 @@ export const isAllCheckedSelector = selector({
 export const orderPriceSelector = selector({
   key: "orderPriceSelector",
   get: ({ get }) => {
-    const cartItems = get(cartItemsAtom);
-    const checkedIds = get(cartItemCheckedIdsAtom);
+    const cartItems = get(cartItemListAtom);
+    const checkedIds = get(checkedIdListAtom);
     return cartItems.reduce((acc, item) => {
       if (checkedIds.includes(item.id)) {
         return acc + item.product.price * item.quantity;
@@ -73,8 +73,8 @@ export const totalPriceSelector = selector({
 export const totalCountSelector = selector({
   key: "totalCountSelector",
   get: ({ get }) => {
-    const cartItems = get(cartItemsAtom);
-    const checkedIds = get(cartItemCheckedIdsAtom);
+    const cartItems = get(cartItemListAtom);
+    const checkedIds = get(checkedIdListAtom);
 
     return cartItems.reduce((acc, item) => {
       if (checkedIds.includes(item.id)) {
@@ -88,7 +88,7 @@ export const totalCountSelector = selector({
 export const isVacantSelector = selector({
   key: "isVacantSelector",
   get: ({ get }) => {
-    const cartItems = get(cartItemsAtom);
+    const cartItems = get(cartItemListAtom);
     return cartItems.length === 0;
   },
 });

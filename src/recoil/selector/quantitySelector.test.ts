@@ -1,4 +1,4 @@
-import { cartItemsAtom } from "../atom/atom";
+import { cartItemListAtom } from "../atom/atom";
 import { RecoilRoot, useRecoilState } from "recoil";
 import { renderHook, waitFor } from "@testing-library/react";
 import { act } from "react";
@@ -20,7 +20,7 @@ describe("quantitySelector 테스트", () => {
   beforeEach(async () => {
     const hook = renderHook(
       () => {
-        const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
+        const [cartItems, setCartItems] = useRecoilState(cartItemListAtom);
         const [quantities, setQuantity] = useRecoilState(itemQuantitiesSelector);
         return { cartItems, setCartItems, quantities, setQuantity };
       },
