@@ -19,7 +19,7 @@ function Cart() {
             <CartContent />
           </Suspense>
         </S.ContentWrapper>
-        <Footer isDisabled={false} url={URL_PATH.completed} />
+        <Footer isDisabled={false} url={URL_PATH.order} />
       </ErrorBoundary>
     </S.CartContainer>
   );

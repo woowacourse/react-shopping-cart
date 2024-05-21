@@ -7,6 +7,7 @@ import Completed from './pages/Completed/Completed.tsx';
 import App from './App.tsx';
 import './reset.css';
 import './index.css';
+import Order from './pages/Order/Order.tsx';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: '/cart',
     element: <Cart />,
+  },
+  {
+    path: '/order',
+    element: <Order />,
   },
   {
     path: '/completed',
