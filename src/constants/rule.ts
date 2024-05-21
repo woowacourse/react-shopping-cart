@@ -1,4 +1,9 @@
-const RULE = {
+export const RULE = {
   CheckedLocalStorageName: 'checkedCart',
 };
-export default RULE;
+
+export const PATH = {
+  CartPage: '/',
+  OrderConfirmPage: '/order-confirm',
+  PaymentConfirmPage: '/payment-confirm',
+};

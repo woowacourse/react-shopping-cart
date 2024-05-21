@@ -1,7 +1,10 @@
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import { PATH } from '../../constants/rule';
+
 import { HeaderStyle } from './Header.style';
 import Logo from '../../assets/logo.svg';
 import Arrow from '../../assets/arrow.svg';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 const BackButton = () => {
   const navigate = useNavigate();
@@ -26,11 +29,7 @@ export default function Header() {
 
   return (
     <HeaderStyle>
-      {pathname === '/' ? (
-        <LogoButton />
-      ) : pathname === '/order-confirm' ? (
-        <BackButton />
-      ) : null}
+      {pathname === PATH.CartPage ? <LogoButton /> : <BackButton />}
     </HeaderStyle>
   );
 }
