@@ -34,9 +34,7 @@ export default function CartConfirmContent() {
           <span css={orderResult}>{totalPurchasePrice.toLocaleString('ko-KR')}원</span>
         </div>
       </div>
-      <FooterButton id="pay-button" isDisabled={true}>
-        결제하기
-      </FooterButton>
+      <FooterButton isDisabled={true}>결제하기</FooterButton>
     </>
   );
 }

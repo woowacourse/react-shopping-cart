@@ -3,21 +3,16 @@ import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isDisabled: boolean;
-  id: string;
 }
 
 export default function FooterButton({
   isDisabled,
-  id,
   onClick,
   children,
 }: PropsWithChildren<ButtonProps>) {
   return (
     <footer css={footer}>
-      <label css={screenReaderOnly} htmlFor={id}>
-        {id}
-      </label>
-      <button id={id} css={button(isDisabled)} onClick={onClick} disabled={isDisabled}>
+      <button css={button(isDisabled)} onClick={onClick} disabled={isDisabled}>
         {children}
       </button>
     </footer>
@@ -44,18 +39,4 @@ const button = (isDisabled: boolean) => css`
   }
 
   cursor: ${isDisabled ? 'default' : 'pointer'};
-`;
-
-const screenReaderOnly = css`
-  position: absolute;
-  overflow: hidden;
-
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  border: 0;
-
-  clip-path: inset(50%);
-  clip: rect(0 0 0 0);
 `;

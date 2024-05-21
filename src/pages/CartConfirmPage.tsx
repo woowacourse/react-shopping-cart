@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { BACK_ARROW } from '@assets/images';
 import CartConfirmContent from '@components/CartConfirm/CartConfirmContent';
-import Button from '@components/common/Button';
 import Error from '@components/common/Error';
 import Loading from '@components/common/Loading';
 
@@ -17,9 +16,9 @@ export default function CartConfirmPage() {
   return (
     <>
       <Header>
-        <Button id="back-button" css={backButton} onClick={() => navigate('/')}>
-          <img src={BACK_ARROW} alt="back arrow icon" />
-        </Button>
+        <button css={backButton} onClick={() => navigate('/')}>
+          <img src={BACK_ARROW} alt="뒤로가기 버튼" />
+        </button>
       </Header>
 
       <ErrorBoundary fallbackRender={({ error }) => <Error errorMessage={error.message} />}>

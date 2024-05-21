@@ -1,8 +1,6 @@
 import { css } from '@emotion/react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import Button from '../common/Button';
-
 import LocalStorage, { CART_ITEM } from '@/Storage';
 import { deleteItem } from '@apis/cartItem';
 import Checkbox from '@components/common/Checkbox';
@@ -37,9 +35,9 @@ const CartItemHeaderSection = ({ cartId, productName }: CartItemHeaderSectionPro
         description={productName + 'checkbox'}
         labelHidden={true}
       />
-      <Button id={productName + 'delete-button'} css={deleteButton} onClick={handleDeleteItem}>
+      <button css={deleteButton} onClick={handleDeleteItem}>
         삭제
-      </Button>
+      </button>
     </div>
   );
 };

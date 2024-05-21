@@ -4,7 +4,6 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { useNavigate } from 'react-router-dom';
 
 import Cart from '@components/Cart/Cart';
-import Button from '@components/common/Button';
 import Error from '@components/common/Error';
 import Loading from '@components/common/Loading';
 
@@ -20,9 +19,9 @@ function CartPage() {
   return (
     <>
       <Header>
-        <Button id="home-button" onClick={goHome} css={homeButton}>
+        <button onClick={goHome} css={homeButton}>
           <h1>SHOP</h1>
-        </Button>
+        </button>
       </Header>
 
       <ErrorBoundary fallbackRender={({ error }) => <Error errorMessage={error.message} />}>

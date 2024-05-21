@@ -16,7 +16,7 @@ export default function OrderConfirmButton() {
   };
 
   return (
-    <FooterButton id="주문확인" isDisabled={isAllUnChecked} onClick={handleClickOrderConfirm}>
+    <FooterButton isDisabled={isAllUnChecked} onClick={handleClickOrderConfirm}>
       주문확인
     </FooterButton>
   );

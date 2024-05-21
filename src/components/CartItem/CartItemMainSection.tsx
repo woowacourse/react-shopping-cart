@@ -1,8 +1,6 @@
 import { css } from '@emotion/react';
 import { useSetRecoilState } from 'recoil';
 
-import Button from '../common/Button';
-
 import { CartItemProps } from '@/types/cartItem';
 import { updateItemQuantity } from '@apis/cartItem';
 import { MINUS, PLUS } from '@assets/images';
@@ -69,22 +67,17 @@ const CartItemMainSection = ({ item }: CartItemMainSectionProps) => {
         <span>{item.product.name}</span>
         <span css={price}>{item.product.price.toLocaleString('ko-KR')}원</span>
         <div css={countWrapper}>
-          <Button
-            id={item.product.name + 'minus-button'}
+          <button
             css={countButton(item.quantity === 1)}
             onClick={handleDecrementQuantity}
             disabled={item.quantity === 1}
           >
-            <img css={countImage} src={MINUS} alt="minus icon" />
-          </Button>
+            <img css={countImage} src={MINUS} alt={item.product.name + '수량감소버튼'} />
+          </button>
           <span data-testid={item.product.name + 'quantity'}>{item.quantity}</span>
-          <Button
-            id={item.product.name + 'plus-button'}
-            css={countButton()}
-            onClick={handleIncrementQuantity}
-          >
-            <img css={countImage} src={PLUS} alt="plus icon" />
-          </Button>
+          <button css={countButton()} onClick={handleIncrementQuantity}>
+            <img css={countImage} src={PLUS} alt={item.product.name + '수량증가버튼'} />
+          </button>
         </div>
       </div>
     </div>

@@ -75,7 +75,7 @@ describe('cartItems 동작 테스트', () => {
     });
 
     await waitFor(() => {
-      fireEvent.click(screen.getByLabelText(PUMA + 'plus-button', { selector: 'button' }));
+      fireEvent.click(screen.getByAltText(PUMA + '수량증가버튼'));
 
       expect(screen.getByTestId(PUMA + 'quantity')).toHaveTextContent('11');
     });
@@ -97,7 +97,7 @@ describe('cartItems 동작 테스트', () => {
     });
 
     await waitFor(() => {
-      fireEvent.click(screen.getByLabelText(PUMA + 'minus-button', { selector: 'button' }));
+      fireEvent.click(screen.getByAltText(PUMA + '수량감소버튼'));
 
       expect(screen.getByTestId(PUMA + 'quantity')).toHaveTextContent('9');
     });
