@@ -2,7 +2,7 @@ import { renderHook, waitFor } from "@testing-library/react";
 import { RecoilRoot, useRecoilValue } from "recoil";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
-import { cartState } from "@/store/atom/atoms";
+import { cartState, couponsState } from "@/store/atom/atoms";
 import { server } from "@/mock/server";
 import { couponsDummy, freeShippingDummy } from "@/mock/dummy";
 

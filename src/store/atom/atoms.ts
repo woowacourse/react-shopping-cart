@@ -1,6 +1,6 @@
 import { atomFamily, atom, selector } from "recoil";
 import { LOCAL_STORAGE_KEY } from "@/constants";
-import { fetchProducts } from "@/api";
+import { fetchCoupons, fetchProducts } from "@/api";
 import { setCartItemsLocalStorage } from "../localStorage/localStorage";
 
 export const cartState = atom<CartItemInfo[]>({
@@ -56,6 +56,17 @@ export const itemQuantityState = atom<Record<number, number>>({
         obj[cartItem.id] = cartItem.quantity;
       });
       return obj;
+    },
+  }),
+});
+
+export const couponsState = atom({
+  key: "couponsState",
+  default: selector({
+    key: "fetchCoupons",
+    get: async () => {
+      const coupons = await fetchCoupons();
+      return coupons;
     },
   }),
 });
