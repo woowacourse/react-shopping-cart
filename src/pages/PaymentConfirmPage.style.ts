@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const OrderConfirmStyle = styled.div`
+export const PaymentConfirmPageStyle = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;

@@ -5,20 +5,22 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { checkedCartItems } from '../recoil/selectors';
 
+import { PATH } from '../constants/rule';
+
 export default function CartPage() {
   const navigate = useNavigate();
 
   const cartTotalCount = useRecoilValue(checkedCartItems).length;
 
   return (
-    <div id="app">
+    <div id="cart-page">
       <Header />
       <Cart />
       <FloatingButton
         text="주문 확인"
         disabled={cartTotalCount ? false : true}
         onClick={() => {
-          cartTotalCount && navigate('/order-confirm');
+          cartTotalCount && navigate(PATH.OrderConfirmPage);
         }}
       />
     </div>
