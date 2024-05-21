@@ -3,11 +3,15 @@ import styled from 'styled-components';
 export const StyledConfirmationPage = styled.div`
   height: 100%;
   display: flex;
+  gap: 12px;
+  padding: 0 24px;
+`;
+
+export const StyledOrderSummaryContainer = styled.section`
+  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  gap: 24px;
+  gap: 12px;
+  margin: 36px 0;
 `;
 
 export const StyledConfirmationPageTitle = styled.span`
