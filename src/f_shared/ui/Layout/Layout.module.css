@@ -1,25 +1,21 @@
 .root {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-}
-
-.header,
-.footer {
   width: 100%;
+  min-height: 100vh;
 }
 
 .content {
   flex-grow: 1;
 }
 
-.fixHeader {
+.fixedHeader {
   position: sticky;
   top: 0;
   width: 100%;
 }
 
-.fixFooter {
+.fixedFooter {
   position: sticky;
   bottom: 0;
   width: 100%;

@@ -2,13 +2,24 @@ import { Layout } from './Layout';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
+const commonStyle: Record<string, string> = {
+  height: '50px',
+  textAlign: 'center',
+  alignContent: 'center',
+};
+
 const meta: Meta<typeof Layout> = {
   title: 'shared/Layout',
   component: Layout,
-  render: ({ fixHeader = false, fixFooter = false }) => (
+  render: () => (
     <Layout
+      fixedHeaderSlot={
+        <div style={{ backgroundColor: 'blue', ...commonStyle }}>
+          <h1>fixedHeaderSlot</h1>
+        </div>
+      }
       headerSlot={
-        <div style={{ backgroundColor: 'lightblue', height: '50px', textAlign: 'center', alignContent: 'center' }}>
+        <div style={{ backgroundColor: 'lightblue', ...commonStyle }}>
           <h1>headerSlot</h1>
         </div>
       }
@@ -28,12 +39,15 @@ const meta: Meta<typeof Layout> = {
         </div>
       }
       footerSlot={
-        <div style={{ backgroundColor: 'lightgreen', height: '50px', textAlign: 'center', alignContent: 'center' }}>
+        <div style={{ backgroundColor: 'lightgreen', ...commonStyle }}>
           <h1>footerSlot</h1>
         </div>
       }
-      fixHeader={fixHeader}
-      fixFooter={fixFooter}
+      fixedFooterSlot={
+        <div style={{ backgroundColor: 'green', ...commonStyle }}>
+          <h1>fixedFooterSlot</h1>
+        </div>
+      }
     />
   ),
 };
@@ -42,13 +56,4 @@ export default meta;
 
 type Story = StoryObj<typeof Layout>;
 
-export const Unfixed: Story = {
-  name: 'Unfixed (Default)',
-};
-
-export const FixedHeaderAndFooter: Story = {
-  args: {
-    fixHeader: true,
-    fixFooter: true,
-  },
-};
+export const Common: Story = {};
