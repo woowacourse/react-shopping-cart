@@ -5,7 +5,12 @@ const BorderButton: React.FC<
   PropsWithChildren<{ onClick: () => void; size: SizeType; className?: string }>
 > = ({ children, onClick, size, className }) => {
   return (
-    <BorderButtonContainer className={className} onClick={onClick} size={size}>
+    <BorderButtonContainer
+      type="button"
+      className={className}
+      onClick={onClick}
+      size={size}
+    >
       {children}
     </BorderButtonContainer>
   );

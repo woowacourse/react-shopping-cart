@@ -30,7 +30,7 @@ export default function CheckBox({
         onChange={toggleSelected}
       />
 
-      <StyledCheckbox onClick={toggleSelected}>
+      <StyledCheckbox onClick={toggleSelected} type="button">
         {isSelected ? (
           <img src={CheckedIcon} alt="checked icon" />
         ) : (
