@@ -37,7 +37,6 @@ const ConfirmPurchasePage = () => {
       return sum + quantity;
     }, 0);
 
-  console.log(cartItemList, selectedIdList, totalPrice);
   return (
     <>
       <Header type="back" />
