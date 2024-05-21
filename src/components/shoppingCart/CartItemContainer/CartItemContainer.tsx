@@ -36,7 +36,7 @@ export default function CartItemContainer() {
       )}
       <Styled.CartItemListContainer>
         <Styled.CheckAllBoxContainer>
-          <CheckBox type="button" isChecked={isAllChecked} onClick={toggleAllCheck} />
+          <CheckBox isChecked={isAllChecked} onClick={toggleAllCheck} />
           <span>전체선택</span>
         </Styled.CheckAllBoxContainer>
 

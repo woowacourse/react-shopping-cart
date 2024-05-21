@@ -1,16 +1,17 @@
-import styled from '@emotion/styled';
-import { CheckedIcon, UncheckedIcon } from '../../../assets';
+import * as Styled from './CheckBox.style';
 
-interface CheckBoxProps {
+export interface CheckBoxProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  cartItemId?: number;
   isChecked: boolean;
 }
 
-const CheckBox = styled.button<CheckBoxProps>(({ isChecked }) => ({
-  width: '24px',
-  height: '24px',
-  background: `url("${isChecked ? CheckedIcon : UncheckedIcon}") center no-repeat`,
-  backgroundSize: 'contain',
-  cursor: 'pointer',
-}));
+export default function CheckBox({ cartItemId, isChecked, ...props }: CheckBoxProps) {
+  const checkBoxId = cartItemId ? `cart-item-${cartItemId}` : 'cart-select-all';
 
-export default CheckBox;
+  return (
+    <>
+      <Styled.CheckBoxInput type="checkbox" id={checkBoxId} {...props} />
+      <Styled.CheckBox htmlFor={checkBoxId} isChecked={isChecked}></Styled.CheckBox>
+    </>
+  );
+}
