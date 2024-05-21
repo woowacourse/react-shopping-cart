@@ -13,5 +13,5 @@ export const Title = styled.span`
 export const SubTitle = styled.p`
   font-size: 12px;
   font-weight: 500;
-  line-height: 15px;
+  line-height: 18px;
 `;
