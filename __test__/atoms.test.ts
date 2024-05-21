@@ -23,7 +23,7 @@ describe("cartListState 테스트", () => {
     (fetchCartItems as jest.Mock).mockResolvedValue(mockCartItems);
   });
 
-  it("fetchCartItems를 호출하여 장바구니 아이템 목록을 불러와야한다.", async () => {
+  it("장바구니 목록을 성공적으로 불러와야 한다.", async () => {
     const { result } = renderHook(() => useRecoilValue(cartListState), {
       wrapper: RecoilRoot,
     });
@@ -39,7 +39,7 @@ describe("cartItemQuantity 테스트", () => {
     (fetchCartItems as jest.Mock).mockResolvedValue(mockCartItems);
   });
 
-  it("fetchCartItems를 호출하여 cartItemQuantity를 초기화해야한다.", async () => {
+  it("장바구니 상품의 초기 수량이 올바르게 표시되어야 한다.", async () => {
     const itemId = 597;
 
     const { result } = renderHook(
@@ -56,7 +56,7 @@ describe("cartItemQuantity 테스트", () => {
     });
   });
 
-  it("상품의 수량을 변경할 때 올바르게 반영되어야 한다.", () => {
+  it("장바구니 상품의 수량을 변경할 수 있어야 한다.", () => {
     const itemId = 597;
     const newQuantity = 3;
 
@@ -89,14 +89,14 @@ import CartItemLocalStorage, {
   KEY,
 } from "../src/services/CartItemLocalStorage";
 
-describe("isCheckedState AtomFamily 테스트", () => {
+describe("cartItemSelected 테스트", () => {
   beforeEach(() => {
     window.localStorage.clear();
 
     CartItemLocalStorage.set(KEY, { 172: true, 373: false });
   });
 
-  it("로컬 스토리지 내에서 Id가 172이고 값이 true인 isChecked 상태를, recoil의 상태값인 isCheckedState에 저장해야한다.", async () => {
+  it("이미 선택된 상품은 선택 상태로 표시되어야 한다.", async () => {
     const { result } = renderHook(() => useRecoilState(cartItemSelected(172)), {
       wrapper: RecoilRoot,
     });
@@ -106,7 +106,7 @@ describe("isCheckedState AtomFamily 테스트", () => {
     });
   });
 
-  it("로컬 스토리지 내에서 Id가 373이고 값이 false인 isChecked 상태를, recoil의 상태값인 isCheckedState에 저장해야한다.", async () => {
+  it("선택되지 않은 상품은 미선택 상태로 표시되어야 한다.", async () => {
     const { result } = renderHook(() => useRecoilState(cartItemSelected(373)), {
       wrapper: RecoilRoot,
     });
@@ -116,7 +116,7 @@ describe("isCheckedState AtomFamily 테스트", () => {
     });
   });
 
-  it("isCheckedState selector의 변수를 false와 true로 업데이트 할 수 있어야한다.", async () => {
+  it("장바구니 상품의 선택 상태를 변경할 수 있어야 한다.", async () => {
     const { result } = renderHook(() => useRecoilState(cartItemSelected(172)), {
       wrapper: RecoilRoot,
     });
