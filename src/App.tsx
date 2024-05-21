@@ -6,8 +6,17 @@ import CartPage from "./pages/CartPage";
 import { ROUTE_PATH } from "./constants/routePath";
 import CheckoutPage from "./pages/CheckoutPage";
 import { ErrorBoundary } from "react-error-boundary";
+import { useEffect } from "react";
+import { fetchCoupons } from "./api/coupons";
 
 function App() {
+  useEffect(() => {
+    (async function () {
+      const coupons = await fetchCoupons();
+      console.log(coupons);
+    })();
+  }, []);
+
   return (
     <BrowserRouter>
       <RecoilRoot>
