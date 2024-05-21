@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import { ChangeEvent, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
-import HeaderTitleContainer from './common/HeaderTitleContainer';
+import HeaderTitleContainer from '../common/HeaderTitleContainer';
 
 import OrderInfo from '@/components/common/OrderInfo';
 import CartItem from '@common/CartItem';
@@ -14,7 +14,7 @@ import {
   productTypesCountState,
 } from '@recoil/cartItems/selectors';
 
-const CartConfirmMainSection = () => {
+const OrderConfirmMainSection = () => {
   const { totalQuantity } = useRecoilValue(orderResultState);
   const productTypesCount = useRecoilValue(productTypesCountState);
   const checkedCartItems = useRecoilValue(checkedCartItemsState);
@@ -53,7 +53,7 @@ const CartConfirmMainSection = () => {
   );
 };
 
-export default CartConfirmMainSection;
+export default OrderConfirmMainSection;
 
 const container = css`
   display: flex;

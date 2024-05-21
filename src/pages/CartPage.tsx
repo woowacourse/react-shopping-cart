@@ -3,9 +3,9 @@ import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useNavigate } from 'react-router-dom';
 
+import ErrorComponent from '@/components/common/ErrorComponent';
 import Header from '@/components/common/Header';
 import LoadingComponent from '@/components/common/LoadingComponent';
-import ErrorComponent from '@/components/ErrorComponent';
 import { THEME } from '@/constants/theme';
 import CartMainSection from '@components/Cart/CartMainSection';
 import OrderConfirmButton from '@components/Cart/OrderConfirmButton';

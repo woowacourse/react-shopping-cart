@@ -3,13 +3,12 @@ import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useNavigate } from 'react-router-dom';
 
+import ErrorComponent from '@/components/common/ErrorComponent';
+import CartConfirmMainSection from '@/components/Order/OrderConfirmMainSection';
 import { BACK_ARROW } from '@assets/images';
 import Header from '@components/common/Header';
 import LoadingComponent from '@components/common/LoadingComponent';
 import PurchaseButton from '@components/common/PurchaseButton';
-
-import CartConfirmMainSection from '@components/CartConfirmMainSection';
-import ErrorComponent from '@components/ErrorComponent';
 
 export default function OrderConfirmPage() {
   const navigate = useNavigate();
