@@ -8,19 +8,21 @@ import BlockMinusButton from '../assets/BlockMinusButton.svg';
 import { useRecoilState } from 'recoil';
 import { selectedCartItemsState } from '../../recoil/selectedCardItems';
 import { adjustCartItemQuantity } from '../../api/shoppingCart';
-import { cartItemQuantity } from '../../recoil/cartItems';
+import { cartItemQuantityState } from '../../recoil/cartItems';
 
-interface ItemProp {
+interface CartItemProp {
   id: number;
   cartItemProduct: ProductType;
   onRemoveItem: (id: number) => void;
 }
-const CartItem = ({ id, cartItemProduct, onRemoveItem }: ItemProp) => {
+const CartItem = ({ id, cartItemProduct, onRemoveItem }: CartItemProp) => {
   const [isSelected, setIsSelected] = useRecoilState(
     selectedCartItemsState(id),
   );
 
-  const [quantity, setQuantity] = useRecoilState(cartItemQuantity(id));
+  const [cartItemQuantity, setCartItemQuantity] = useRecoilState(
+    cartItemQuantityState(id),
+  );
 
   const handleAdjustCartItemQuantity = async (
     cartItemId: number,
@@ -28,10 +30,27 @@ const CartItem = ({ id, cartItemProduct, onRemoveItem }: ItemProp) => {
   ) => {
     try {
       await adjustCartItemQuantity(cartItemId, updateQuantity);
-      setQuantity(updateQuantity);
     } catch (error) {
-      console.error('수량변경 실패', error);
+      if (error instanceof Error) {
+        console.log(error.message);
+        alert(error.message);
+      }
     }
+    setCartItemQuantity(updateQuantity);
+  };
+
+  const handleMinusCartItemQuantity = () => {
+    if (cartItemQuantity === 1) {
+      alert('수량은 1개 이상이어야 합니다!');
+      return;
+    }
+    const updatedItemQuantity = cartItemQuantity - 1;
+    handleAdjustCartItemQuantity(id, updatedItemQuantity);
+  };
+
+  const handlePlusCartItemQuantity = () => {
+    const updatedItemQuantity = cartItemQuantity + 1;
+    handleAdjustCartItemQuantity(id, updatedItemQuantity);
   };
 
   return (
@@ -59,25 +78,14 @@ const CartItem = ({ id, cartItemProduct, onRemoveItem }: ItemProp) => {
               </Styled.ItemPrice>
             </Styled.ItemDetails>
             <Styled.ItemQuantityAdjustment>
-              <Styled.Button
-                onClick={() => {
-                  if (quantity === 1) return;
-                  const updatedItemQuantity = quantity - 1;
-                  handleAdjustCartItemQuantity(id, updatedItemQuantity);
-                }}
-              >
+              <Styled.Button onClick={handleMinusCartItemQuantity}>
                 <img
-                  src={quantity === 1 ? BlockMinusButton : MinusButton}
+                  src={cartItemQuantity === 1 ? BlockMinusButton : MinusButton}
                   alt="-"
                 ></img>
               </Styled.Button>
-              <Styled.ItemQuantity>{quantity}</Styled.ItemQuantity>
-              <Styled.Button
-                onClick={() => {
-                  const updatedItemQuantity = quantity + 1;
-                  handleAdjustCartItemQuantity(id, updatedItemQuantity);
-                }}
-              >
+              <Styled.ItemQuantity>{cartItemQuantity}</Styled.ItemQuantity>
+              <Styled.Button onClick={handlePlusCartItemQuantity}>
                 <img src={PlusButton} alt="+"></img>
               </Styled.Button>
             </Styled.ItemQuantityAdjustment>

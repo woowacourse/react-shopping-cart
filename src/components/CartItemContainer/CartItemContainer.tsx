@@ -2,15 +2,15 @@ import { useRecoilValue } from 'recoil';
 import Title from '../Title/Title';
 import TotalPaymentInfo from '../TotalPaymentInfo/TotalPaymentInfo';
 import * as Styled from './style';
-import { fetchedCartItemsState } from '../../recoil/cartItems';
 import { selectedSomeCartItemsState } from '../../recoil/selectedCardItems';
 import OrderButton from '../OrderButton/OrderButton';
 import { useNavigate } from 'react-router-dom';
 import CartItemList from '../CartItemList/CartItemList';
+import { fetchedCartItemsSelector } from '../../recoil/fetch';
 
 const CartItemContainer = () => {
   const navigator = useNavigate();
-  const cartItems = useRecoilValue(fetchedCartItemsState);
+  const cartItems = useRecoilValue(fetchedCartItemsSelector);
 
   const hasSomeCartItem = !!cartItems.length;
   const isSomeCartItemSelected = useRecoilValue(selectedSomeCartItemsState);
@@ -43,7 +43,7 @@ const CartItemContainer = () => {
         onClick={() => navigator('/orderConfirmation')}
         isOrderable={isOrderable}
       >
-        "주문 확인"
+        주문 확인
       </OrderButton>
     </>
   );
