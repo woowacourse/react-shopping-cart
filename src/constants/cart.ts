@@ -20,7 +20,10 @@ export const SHIPPING_INFO = {
   SHIPPING_FEE: 3000,
 };
 
+export const COUPON_APPLY_LIMIT = 2;
+
 export const CART_PAGE_MESSAGES = {
+  choiceCoupon: "쿠폰을 선택해 주세요",
   freeShippingInfo: `총 주문 금액이 ${formatToWon(
     SHIPPING_INFO.FREE_SHIPPING_THRESHOLD
   )} 이상일 경우 무료 배송됩니다.`,
@@ -28,4 +31,5 @@ export const CART_PAGE_MESSAGES = {
   itemCount: (count: number) => `현재 ${count}종류의 상품이 담겨있습니다.`,
   orderInfo: (typeLength: number, totalCount: number) =>
     `총 ${typeLength}종류의 상품 ${totalCount}개를 주문합니다.`,
+  couponLimit: `쿠폰은 최대 ${COUPON_APPLY_LIMIT}개까지 사용할 수 있습니다.`,
 };

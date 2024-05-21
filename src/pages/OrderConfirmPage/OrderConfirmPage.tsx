@@ -1,10 +1,10 @@
-import {useState} from "react";
+import { useState } from "react";
 
-import {CART_PAGE_CAPTION, CART_PAGE_MESSAGES} from "@/constants/cart";
+import { CART_PAGE_CAPTION, CART_PAGE_MESSAGES } from "@/constants/cart";
 
-import {totalItemOrderCountSelector} from "@/recoil/orderInformation";
-import {selectedCartItemsIdState} from "@/recoil/selectedCardItems";
-import {useRecoilValue} from "recoil";
+import { totalItemOrderCountSelector } from "@/recoil/orderInformation";
+import { selectedCartItemsIdState } from "@/recoil/selectedCardItems";
+import { useRecoilValue } from "recoil";
 
 import TitleSet from "@/components/_common/TitleSet/TitleSet";
 import ProductList from "@/components/cart/ProductList/ProductList";
@@ -13,86 +13,97 @@ import TextBox from "@/components/_common/TextBox/TextBox";
 import CheckBox from "@/components/_common/CheckBox/CheckBox";
 
 import * as S from "./OrderConfirmPage.style";
-import MoreInfo from "@/assets/more-info.svg?react";
+
 import PriceSection from "@/components/cart/PriceSection/PriceSection";
-import {useNavigate} from "react-router-dom";
-import {PAGE_URL} from "@/constants/url";
+import { useNavigate } from "react-router-dom";
+import { PAGE_URL } from "@/constants/url";
+import CouponModal from "@/components/modal/CouponModal";
+import MoreInfo from "@/components/_common/MoreInfo/MoreInfo";
 
 const OrderConfirmPage = () => {
-    const totalItemsCount = useRecoilValue(totalItemOrderCountSelector);
-    const selectedItemsId = useRecoilValue(selectedCartItemsIdState);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const [isDoubleShippingFee, setIsDoubleShippingFee] = useState(false);
+  const onCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  const totalItemsCount = useRecoilValue(totalItemOrderCountSelector);
+  const selectedItemsId = useRecoilValue(selectedCartItemsIdState);
 
-    const navigate = useNavigate();
+  const [isDoubleShippingFee, setIsDoubleShippingFee] = useState(false);
 
-    const onClickDoubleShippingFee = () => {
-        setIsDoubleShippingFee((prev) => !prev);
-    };
+  const navigate = useNavigate();
 
-    const onMovePaymentConfirmPage = () => {
-        navigate(PAGE_URL.paymentConfirm);
-    };
+  const onClickDoubleShippingFee = () => {
+    setIsDoubleShippingFee((prev) => !prev);
+  };
 
-    return (
-        <>
-            <S.Wrapper>
-                <TitleSet
-                    title={CART_PAGE_CAPTION.orderConfirm}
-                    subTitle={
-                        <>
-                            <TextBox
-                                type="caption"
-                                text={CART_PAGE_MESSAGES.orderInfo(
-                                    selectedItemsId.length,
-                                    totalItemsCount
-                                )}
-                            />
-                            <TextBox
-                                type="caption"
-                                text={CART_PAGE_MESSAGES.askOrderConfirm}
-                            />
-                        </>
-                    }
-                />
+  const onMovePaymentConfirmPage = () => {
+    navigate(PAGE_URL.paymentConfirm);
+  };
 
-                <S.CartItemListWrapper>
-                    <ProductList type="readonly"/>
-                </S.CartItemListWrapper>
+  return (
+    <>
+      <S.Wrapper>
+        <TitleSet
+          title={CART_PAGE_CAPTION.orderConfirm}
+          subTitle={
+            <>
+              <TextBox
+                type="caption"
+                text={CART_PAGE_MESSAGES.orderInfo(
+                  selectedItemsId.length,
+                  totalItemsCount
+                )}
+              />
+              <TextBox
+                type="caption"
+                text={CART_PAGE_MESSAGES.askOrderConfirm}
+              />
+            </>
+          }
+        />
 
-                <Button radiusVariant="rounded">쿠폰 적용</Button>
+        <S.CartItemListWrapper>
+          <ProductList type="readonly" />
+        </S.CartItemListWrapper>
 
-                <S.ShippingInfoBox>
-                    <TextBox type="subTitle" text="배송 정보"/>
-                    <S.FlexBox>
-                        <CheckBox
-                            isChecked={isDoubleShippingFee}
-                            onClick={onClickDoubleShippingFee}
-                        />
-                        <TextBox type="caption" text="제주도 및 도서 산간 지역"/>
-                    </S.FlexBox>
-                </S.ShippingInfoBox>
+        <Button
+          radiusVariant="rounded"
+          onClick={() => {
+            setIsModalOpen(true);
+          }}
+        >
+          쿠폰 적용
+        </Button>
 
-                <TextBox
-                    type="caption"
-                    asset={() => <MoreInfo/>}
-                    text={CART_PAGE_MESSAGES.freeShippingInfo}
-                />
-                <PriceSection isApplyCoupon={true}/>
-            </S.Wrapper>
+        <S.ShippingInfoBox>
+          <TextBox type="subTitle" text="배송 정보" />
+          <S.FlexBox>
+            <CheckBox
+              isChecked={isDoubleShippingFee}
+              onClick={onClickDoubleShippingFee}
+            />
+            <TextBox type="caption" text="제주도 및 도서 산간 지역" />
+          </S.FlexBox>
+        </S.ShippingInfoBox>
+        <MoreInfo text={CART_PAGE_MESSAGES.freeShippingInfo} />
 
-            <Button
-                size="large"
-                position="bottom"
-                width="full"
-                theme="dark"
-                disabled={false}
-                onClick={onMovePaymentConfirmPage}
-            >
-                {CART_PAGE_CAPTION.pay}
-            </Button>
-        </>
-    );
+        <PriceSection isApplyCoupon={true} />
+      </S.Wrapper>
+
+      <Button
+        size="large"
+        position="bottom"
+        width="full"
+        theme="dark"
+        disabled={false}
+        onClick={onMovePaymentConfirmPage}
+      >
+        {CART_PAGE_CAPTION.pay}
+      </Button>
+      <CouponModal onCloseModal={onCloseModal} isOpen={isModalOpen} />
+    </>
+  );
 };
 
 export default OrderConfirmPage;
