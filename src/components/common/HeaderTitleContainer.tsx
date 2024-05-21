@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { Fragment } from 'react';
 
 interface HeaderTitleProps {
   title: string;
@@ -13,11 +14,11 @@ export default function HeaderTitleContainer({ title, description }: HeaderTitle
       </div>
       <div css={descriptionWrapper}>
         <span css={descriptionText}>
-          {description.split('\n').map((text) => (
-            <>
+          {description.split('\n').map((text, idx) => (
+            <Fragment key={idx}>
               {text}
               {<br />}
-            </>
+            </Fragment>
           ))}
         </span>
       </div>

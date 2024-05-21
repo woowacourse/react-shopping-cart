@@ -11,7 +11,7 @@ interface CountButtonContainerProps {
 }
 
 const CountButtonContainer = ({ item }: CountButtonContainerProps) => {
-  const { handleDecrementQuantity, handleIncrementQuantity } = useCounter(item);
+  const { handleDecrementQuantity, handleIncrementQuantity, isLoading } = useCounter(item);
 
   return (
     <div css={countWrapper}>
@@ -23,7 +23,13 @@ const CountButtonContainer = ({ item }: CountButtonContainerProps) => {
       >
         <img src={MINUS} alt={`${item.product.name}-minus`} />
       </button>
-      <span>{item.quantity}</span>
+      {isLoading ? (
+        <div css={loadingWrapper}>
+          <span css={loadingSpinner}></span>
+        </div>
+      ) : (
+        <span>{item.quantity}</span>
+      )}
       <button css={countButton()} onClick={handleIncrementQuantity}>
         <img src={PLUS} alt={`${item.product.name}-plus`} />
       </button>
@@ -33,13 +39,38 @@ const CountButtonContainer = ({ item }: CountButtonContainerProps) => {
 
 export default CountButtonContainer;
 
+const loadingWrapper = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const loadingSpinner = css`
+  width: 16px;
+  height: 16px;
+
+  border: 2px solid #3498db;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+
+  animation: rotate 1s linear infinite;
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
 const countWrapper = css`
-  width: 80px;
+  width: 120px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 8px;
 `;
 
 const countButton = (isDisabled?: boolean) => css`
