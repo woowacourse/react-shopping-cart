@@ -11,7 +11,7 @@ interface CartItemHeaderSectionProps {
   productName: string;
 }
 
-const CartItemHeaderSection = ({ cartId, productName }: CartItemHeaderSectionProps) => {
+export default function CartItemSetting({ cartId, productName }: CartItemHeaderSectionProps) {
   const [isChecked, setIsChecked] = useRecoilState(checkedItemsState(cartId));
   const setCartItems = useSetRecoilState(cartItemsState);
 
@@ -40,9 +40,7 @@ const CartItemHeaderSection = ({ cartId, productName }: CartItemHeaderSectionPro
       </button>
     </div>
   );
-};
-
-export default CartItemHeaderSection;
+}
 
 const cartItemHeader = css`
   display: flex;

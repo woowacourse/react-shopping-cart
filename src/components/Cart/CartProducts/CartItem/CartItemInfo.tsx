@@ -9,7 +9,7 @@ import { cartItemsState } from '@recoil/cartItems/atoms';
 interface CartItemMainSectionProps {
   item: CartItemProps;
 }
-const CartItemMainSection = ({ item }: CartItemMainSectionProps) => {
+export default function CartItemInfo({ item }: CartItemMainSectionProps) {
   const setCartItems = useSetRecoilState(cartItemsState);
 
   const handleDecrementQuantity = async () => {
@@ -82,9 +82,7 @@ const CartItemMainSection = ({ item }: CartItemMainSectionProps) => {
       </div>
     </div>
   );
-};
-
-export default CartItemMainSection;
+}
 
 const cartItemBody = css`
   display: flex;

@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
-import CartItemHeaderSection from './CartItemHeaderSection';
-import CartItemMainSection from './CartItemMainSection';
+import CartItemInfo from './CartItemInfo';
+import CartItemSetting from './CartItemSetting';
 
 import { CartItemProps } from '@/types/cartItem';
 
@@ -12,8 +12,8 @@ interface Props {
 const CartItem = ({ item }: Props) => {
   return (
     <li css={cartItemContainer}>
-      <CartItemHeaderSection cartId={item.id} productName={item.product.name} />
-      <CartItemMainSection item={item} />
+      <CartItemSetting cartId={item.id} productName={item.product.name} />
+      <CartItemInfo item={item} />
     </li>
   );
 };
