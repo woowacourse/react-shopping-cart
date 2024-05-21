@@ -4,31 +4,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
 import { cartState } from "@/store/atom/atoms";
 import { server } from "@/mock/server";
-
-const DUMMY_CART_ITEMS = [
-  {
-    id: 1,
-    product: {
-      id: 100,
-      name: "abc",
-      price: 20000,
-      imageUrl: "",
-      category: "fashion",
-    },
-    quantity: 4,
-  },
-  {
-    id: 2,
-    product: {
-      id: 101,
-      name: "def",
-      price: 10000,
-      imageUrl: "",
-      category: "fashion",
-    },
-    quantity: 2,
-  },
-];
+import { freeShippingDummy } from "@/mock/dummy";
 
 describe("fetchMocking테스트", () => {
   beforeAll(() => {
@@ -53,7 +29,7 @@ describe("fetchMocking테스트", () => {
     );
 
     await waitFor(() => {
-      expect(result.current.cartItems).toEqual(DUMMY_CART_ITEMS);
+      expect(result.current.cartItems).toEqual(freeShippingDummy.content);
     });
   });
 });

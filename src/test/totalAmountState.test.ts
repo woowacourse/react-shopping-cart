@@ -16,7 +16,7 @@ describe("totalAmountState", () => {
     expect(testSnapshot.getLoadable(cartState).valueOrThrow()).toBe(freeShippingDummy.content);
 
     //Assert
-    const AMOUNT_EXPECTED = 100_000;
+    const AMOUNT_EXPECTED = 120_000;
     expect(testSnapshot.getLoadable(totalAmountState).valueOrThrow()).toBe(AMOUNT_EXPECTED);
   });
 

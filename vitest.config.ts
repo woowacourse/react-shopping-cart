@@ -1,14 +1,15 @@
-export default {
+import { resolve } from "path";
+import { defineConfig } from "vitest/config";
+
+export default defineConfig({
+  resolve: {
+    alias: [
+      { find: "@/constants", replacement: resolve(__dirname, "src/constants") },
+      { find: "@", replacement: resolve(__dirname, "src") },
+    ],
+  },
   test: {
     environment: "jsdom",
+    setupFiles: ["./vitest.polyfills.js"],
   },
-  transform: {
-    "^.+\\.tsx?$": "ts-jest",
-  },
-  moduleNameMapper: {
-    "^.+\\.svg$": "jest-svg-transformer",
-    "\\.(css|less|sass|scss)$": "identity-obj-proxy",
-  },
-  setupFiles: ["./vitest.polyfills.js"],
-  testEnvironmentOptions: { customExportConditions: [""] },
-};
+});
