@@ -16,7 +16,7 @@ const Header = ({ onClick }: HeaderProps) => {
 
   return (
     <Styled.Header>
-      <Styled.AppTitle onClick={() => onClick && onClick()}>
+      <Styled.AppTitle onClick={onClick}>
         {getHeaderTitle(location.pathname)}
       </Styled.AppTitle>
     </Styled.Header>

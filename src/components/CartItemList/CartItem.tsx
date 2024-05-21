@@ -30,13 +30,12 @@ const CartItem = ({ id, cartItemProduct, onRemoveItem }: CartItemProp) => {
   ) => {
     try {
       await adjustCartItemQuantity(cartItemId, updateQuantity);
+      setCartItemQuantity(updateQuantity);
     } catch (error) {
       if (error instanceof Error) {
-        console.log(error.message);
         alert(error.message);
       }
     }
-    setCartItemQuantity(updateQuantity);
   };
 
   const handleMinusCartItemQuantity = () => {
