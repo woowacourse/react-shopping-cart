@@ -9,9 +9,9 @@ import {
   SubTitle,
   TotalPrice,
   TotalPriceLabel,
-} from './OrderConfirmPage.style';
+} from './PaymentConfirmPage.style';
 
-export default function OrderConfirmPage() {
+export default function PaymentConfirmPage() {
   const orderProduct = useRecoilValue(checkedCartItems);
   const cartTotalCount = orderProduct.reduce(
     (acc, cartItem) => acc + cartItem.quantity,
@@ -21,7 +21,7 @@ export default function OrderConfirmPage() {
   const { totalPrice } = useRecoilValue(calculateOrderPrice);
 
   return (
-    <div id="orderConfirmPage">
+    <div id="PaymentConfirmPage">
       <Header />
       <OrderConfirmStyle>
         <Title>주문 확인</Title>

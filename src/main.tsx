@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import CartPage from './pages/CartPage';
-import OrderConfirmPage from './pages/OrderConfirmPage';
+import PaymentConfirmPage from './pages/PaymentConfirmPage';
 
 import './index.css';
 
@@ -15,7 +15,7 @@ const router = createBrowserRouter(
     },
     {
       path: '/order-confirm',
-      Component: OrderConfirmPage,
+      Component: PaymentConfirmPage,
     },
   ],
   { basename: import.meta.env.BASE_URL },
