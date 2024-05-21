@@ -21,6 +21,7 @@ const ShoppingCartOverview = () => {
   const goOrderInfo = () => {
     navigate(ROUTER_URLS.ORDER_INFO, {
       state: {
+        orderItems: selectItems,
         kindCount: selectItems.length,
         productCount: selectItems.reduce((acc, cur) => acc + cur.quantity, 0),
         totalPrice: priceInfo.total,
@@ -34,6 +35,7 @@ const ShoppingCartOverview = () => {
         <>
           <S.Container>
             <ShoppingCartDescription
+              title="장바구니"
               descriptionShowingCondition={(data?.length ?? 0) > 0}
               description={`현재 ${data?.length ?? 0}종류의 상품이 담겨있습니다.`}
             />
@@ -49,7 +51,11 @@ const ShoppingCartOverview = () => {
       ) : (
         <>
           <S.Container>
-            <ShoppingCartDescription descriptionShowingCondition={false} description="" />
+            <ShoppingCartDescription
+              title="장바구니"
+              descriptionShowingCondition={false}
+              description=""
+            />
             <CartItemEmptyFallback />
           </S.Container>
           <FloatingButton label={'주문 확인'} disabled />

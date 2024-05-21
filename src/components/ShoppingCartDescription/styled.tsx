@@ -12,4 +12,5 @@ export const Title = styled.h1`
 
 export const Description = styled.p`
   ${props => props.theme.typography.label};
+  white-space: pre-line;
 `;

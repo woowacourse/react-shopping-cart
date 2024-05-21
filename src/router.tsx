@@ -5,6 +5,7 @@ import PaymentInfo from './components/PaymentInfo/PaymentInfo.tsx';
 import { ROUTER_URLS } from './constants/constants';
 import ProductList from './components/Admin/ProductList/ProductList';
 import InvalidAccessFallback from './components/InvalidAccessFallback/InvalidAccessFallback';
+import OrderInfo from './components/OrderInfo/OrderInfo.tsx';
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,11 @@ const router = createBrowserRouter([
         index: true,
         path: ROUTER_URLS.MAIN,
         element: <ShoppingCartOverview />,
+      },
+      {
+        path: ROUTER_URLS.ORDER_INFO,
+        element: <OrderInfo />,
+        errorElement: <InvalidAccessFallback />,
       },
       {
         path: ROUTER_URLS.PAYMENT_INFO,
