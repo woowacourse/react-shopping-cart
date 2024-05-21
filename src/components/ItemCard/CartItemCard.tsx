@@ -99,7 +99,7 @@ interface ProductProps {
   item: CartItems;
 }
 
-function ItemCard({ item }: ProductProps) {
+function CartItemCard({ item }: ProductProps) {
   const [details, setDetails] = useRecoilState(itemDetailsState(item.id));
   const setItems = useSetRecoilState(itemsState);
   const [error, setError] = useState<Error | null>(null);
@@ -188,4 +188,4 @@ function ItemCard({ item }: ProductProps) {
   );
 }
 
-export default ItemCard;
+export default CartItemCard;
