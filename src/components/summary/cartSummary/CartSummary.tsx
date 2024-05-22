@@ -6,9 +6,9 @@ import {
 } from '../../../recoil/selector/selector';
 import InfoIcon from '../../../assets/InfoIcon.png';
 import {
-  StyledCartSummaryDetailPrice,
-  StyledCartSummaryTotalContainer,
-  StyledCartSummaryTotalPrice,
+  StyledSummaryDetailPrice,
+  StyledSummaryTotalContainer,
+  StyledSummaryTotalPrice,
   StyledDeliveryInfo,
   StyledDeliveryInfoImg,
   StyledDeliveryInfoText,
@@ -29,15 +29,15 @@ export const CartSummary: React.FC = () => {
           {DELIVERY_INFO.FREE_DELIVERY_MESSAGE}
         </StyledDeliveryInfoText>
       </StyledDeliveryInfo>
-      <StyledCartSummaryTotalContainer>
-        <StyledCartSummaryDetailPrice>
+      <StyledSummaryTotalContainer>
+        <StyledSummaryDetailPrice>
           <SummaryItem title='주문 금액' price={orderPrice} />
           <SummaryItem title='배송비' price={deliveryPrice} />
-        </StyledCartSummaryDetailPrice>
-        <StyledCartSummaryTotalPrice>
+        </StyledSummaryDetailPrice>
+        <StyledSummaryTotalPrice>
           <SummaryItem title='총 결제 금액' price={totalPrice} />
-        </StyledCartSummaryTotalPrice>
-      </StyledCartSummaryTotalContainer>
+        </StyledSummaryTotalPrice>
+      </StyledSummaryTotalContainer>
     </div>
   );
 };
