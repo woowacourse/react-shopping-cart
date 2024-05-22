@@ -1,23 +1,54 @@
-import { useRecoilState } from 'recoil';
 import { requestSetCartItemQuantity } from '../../apis/cartItemList/cartItemList';
-import { cartItemQuantityAtomFamily } from './cartItemAtom';
+import useCartItemList from '../cartItemList/useCartItemList';
 
-export const useCartItemQuantity = (cartItemId: number) => {
-  const [quantity, setQuantity] = useRecoilState(cartItemQuantityAtomFamily(cartItemId));
+export const useCartItemQuantity = () => {
+  const { cartItemList, setCartItemList } = useCartItemList();
 
-  const increaseQuantity = async () => {
+  const cartItemQuantity = (cartItemId: number) => {
+    return (
+      cartItemList.find((cartItem) => cartItem.id === cartItemId)?.quantity ?? 0
+    );
+  };
+
+  const increaseQuantity = async (cartItemId: number) => {
+    const quantity =
+      cartItemList.find((cartItem) => cartItem.id === cartItemId)?.quantity ??
+      0;
     const increasedQuantity = quantity + 1;
+    const newCartItemList = cartItemList.map((cartItem) => {
+      const newCartItem = { ...cartItem };
+
+      if (cartItem.id === cartItemId) {
+        newCartItem.quantity = increasedQuantity;
+      }
+
+      return newCartItem;
+    });
+
     await requestSetCartItemQuantity(cartItemId, increasedQuantity);
 
-    setQuantity(increasedQuantity);
+    setCartItemList(newCartItemList);
   };
 
-  const decreaseQuantity = async () => {
-    const decreasedQuantity = Math.max(0, quantity - 1);
+  const decreaseQuantity = async (cartItemId: number) => {
+    const quantity =
+      cartItemList.find((cartItem) => cartItem.id === cartItemId)?.quantity ??
+      0;
+    const decreasedQuantity = Math.max(quantity - 1, 1);
+    const newCartItemList = cartItemList.map((cartItem) => {
+      const newCartItem = { ...cartItem };
+
+      if (cartItem.id === cartItemId) {
+        newCartItem.quantity = decreasedQuantity;
+      }
+
+      return newCartItem;
+    });
+
     await requestSetCartItemQuantity(cartItemId, decreasedQuantity);
 
-    setQuantity(decreasedQuantity);
+    setCartItemList(newCartItemList);
   };
 
-  return { quantity, setQuantity, increaseQuantity, decreaseQuantity };
+  return { cartItemQuantity, increaseQuantity, decreaseQuantity };
 };

@@ -1,8 +1,10 @@
 import { generateBasicToken } from '../../utils/auth';
+import convertCartItem from '../../utils/convertCartItem';
 
-const API_URL = process.env.VITE_API_URL || 'url';
-const USER_ID = process.env.VITE_API_USER_ID || 'id';
-const USER_PASSWORD = process.env.VITE_API_USER_PASSWORD || 'password';
+const API_URL = process.env.VITE_API_URL ?? 'undefined_URL';
+const USER_ID = process.env.VITE_API_USER_ID ?? 'undefined_USER_ID';
+const USER_PASSWORD =
+  process.env.VITE_API_USER_PASSWORD ?? 'undefined_USER_PASSWORD';
 
 export const requestCartItemList = async () => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
@@ -16,10 +18,13 @@ export const requestCartItemList = async () => {
   }
   const data = await response.json();
 
-  return data.content;
+  return convertCartItem(data.content);
 };
 
-export const requestSetCartItemQuantity = async (cartItemId: number, quantity: number) => {
+export const requestSetCartItemQuantity = async (
+  cartItemId: number,
+  quantity: number,
+) => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
     method: 'PATCH',

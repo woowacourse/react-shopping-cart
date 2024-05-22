@@ -3,15 +3,14 @@ import * as S from './CartItemList.style';
 import CartItem from '../CartItem/CartItem';
 
 import { useCartItemSelectedIdList } from '../../recoil/cartItem/useCartItemSelectedIdList';
-import useCartItemList from '../../recoil/cartItemList/useCartItemList';
 import CheckboxWithLabel from '../CheckboxWithLabel/CheckboxWithLabel';
 
-interface cartItemListProp {
+interface CartItemListProp {
   type?: 'cart' | 'confirm';
+  cartItemList: CartItem[];
 }
 
-const CartItemList = ({ type = 'cart' }: cartItemListProp) => {
-  const { cartItemList } = useCartItemList();
+const CartItemList = ({ type = 'cart', cartItemList }: CartItemListProp) => {
   const { isSelectedAll, unselectAll, selectAll } = useCartItemSelectedIdList();
 
   return (
@@ -23,8 +22,8 @@ const CartItemList = ({ type = 'cart' }: cartItemListProp) => {
           labelText="전체선택"
         />
       ) : null}
-      {cartItemList.map(({ product, id }: CartItem) => {
-        return <CartItem type={type} key={id} product={product} id={id} />;
+      {cartItemList.map((cartItem: CartItem) => {
+        return <CartItem type={type} key={cartItem.id} cartItem={cartItem} />;
       })}
     </S.CartItemList>
   );

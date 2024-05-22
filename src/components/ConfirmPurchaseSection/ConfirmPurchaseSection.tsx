@@ -15,13 +15,15 @@ const ConfirmPurchaseSection = () => {
   const { cartItemList } = useCartItemList();
   const { selectedIdList } = useCartItemSelectedIdList();
 
+  const selectedCartItemList = cartItemList.filter(({ id }) =>
+    selectedIdList.includes(id),
+  );
+
   const totalProducts = selectedIdList.length;
 
-  const totalQuantity = cartItemList
-    .filter(({ id }) => selectedIdList.includes(id))
-    .reduce((sum, { quantity }) => {
-      return sum + quantity;
-    }, 0);
+  const totalQuantity = selectedCartItemList.reduce((sum, { quantity }) => {
+    return sum + quantity;
+  }, 0);
 
   const [kkangchon, setKkangchon] = useState(false);
 
@@ -35,7 +37,7 @@ const ConfirmPurchaseSection = () => {
       `}
       />
       <Spacer height={36} />
-      <CartItemList type="confirm" />
+      <CartItemList type="confirm" cartItemList={selectedCartItemList} />
       <Spacer height={32} />
       <Button size="l" width="full" color="default">
         쿠폰 적용
@@ -45,7 +47,11 @@ const ConfirmPurchaseSection = () => {
         <Text size="m" weight="l">
           배송 정보
         </Text>
-        <CheckboxWithLabel labelText="제주도 및 도서 산간 지역" isChecked={kkangchon} onClick={() => setKkangchon} />
+        <CheckboxWithLabel
+          labelText="제주도 및 도서 산간 지역"
+          isChecked={kkangchon}
+          onClick={() => setKkangchon}
+        />
       </S.CheckboxTitleContainer>
       <Spacer height={32} />
       <PriceTable />

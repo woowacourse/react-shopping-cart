@@ -19,7 +19,7 @@ const CartItemListSection = () => {
         description={`현재 ${cartItemList.length}종류의 상품이 담겨있습니다.`}
       />
       <Spacer height={36} />
-      <CartItemList />
+      <CartItemList cartItemList={cartItemList} />
       <Spacer height={52} />
       <PriceTable />
     </S.CartItemListSection>

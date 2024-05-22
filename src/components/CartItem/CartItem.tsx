@@ -15,14 +15,13 @@ import useCartItemList from '../../recoil/cartItemList/useCartItemList';
 
 export type CartItemProps = {
   type: 'cart' | 'confirm';
-  product: Product;
-  id: number;
+  cartItem: CartItem;
 };
 
-const CartItem = ({ type, product, id }: CartItemProps) => {
-  const { name, price, imageUrl } = product;
-  const { quantity, increaseQuantity, decreaseQuantity } =
-    useCartItemQuantity(id);
+const CartItem = ({ type, cartItem }: CartItemProps) => {
+  const { id, name, price, imageUrl } = cartItem;
+  const { cartItemQuantity, increaseQuantity, decreaseQuantity } =
+    useCartItemQuantity();
   const { isSelected, addSelectedId, removeSelectedId } =
     useCartItemSelectedIdList();
   const { deleteCartItem } = useCartItemList();
@@ -38,7 +37,7 @@ const CartItem = ({ type, product, id }: CartItemProps) => {
 
   const increaseQuantityWithErrorHandling = async () => {
     try {
-      await increaseQuantity();
+      await increaseQuantity(id);
     } catch (error) {
       setError(error as Error);
     }
@@ -46,7 +45,7 @@ const CartItem = ({ type, product, id }: CartItemProps) => {
 
   const decreaseQuantityWithErrorHandling = async () => {
     try {
-      await decreaseQuantity();
+      await decreaseQuantity(id);
     } catch (error) {
       setError(error as Error);
     }
@@ -98,13 +97,13 @@ const CartItem = ({ type, product, id }: CartItemProps) => {
           </S.ItemNameAndCost>
           {type === 'cart' ? (
             <ChangeQuantity
-              quantity={quantity}
+              quantity={cartItemQuantity(id)}
               increaseQuantity={increaseQuantityWithErrorHandling}
               decreaseQuantity={decreaseQuantityWithErrorHandling}
             />
           ) : (
             <Text size="s" weight="m">
-              {`${quantity}개`}
+              {`${cartItemQuantity(id)}개`}
             </Text>
           )}
         </S.ItemDetail>
