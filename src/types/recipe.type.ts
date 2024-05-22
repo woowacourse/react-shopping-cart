@@ -9,4 +9,4 @@ export interface OrderedItem {
   totalQuantity: number;
 }
 
-export type ShippingArea = 'normal' | 'island';
+export type ShippingArea = 'normal' | 'island' | 'free';
