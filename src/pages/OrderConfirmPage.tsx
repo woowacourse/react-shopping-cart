@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import Header from '../components/Header/Header';
-import Order from '../components/Order/Order';
+import Order from '../components/PageSection/Order';
 import { FloatingButton } from '../components/Button';
 
 import { PATH } from '../constants/rule';
