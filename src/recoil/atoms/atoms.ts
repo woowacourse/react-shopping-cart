@@ -1,7 +1,6 @@
-import { atom, atomFamily, selector } from "recoil";
+import { atom, selector } from "recoil";
 import { getCartItems } from "../../api/cart";
 import { CartItem } from "../../types/cart";
-// import { cartItemsState } from "../selectors/selectors";
 
 export const cartItemsSelector = selector<CartItem[]>({
   key: "cartItemsSelector",
@@ -26,9 +25,4 @@ export const selectedListState = atom<number[]>({
       });
     },
   ],
-});
-
-export const cartItemQuantityState = atomFamily<number, number>({
-  key: "cartItemQuantityState",
-  default: 0,
 });

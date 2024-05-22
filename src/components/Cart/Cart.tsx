@@ -1,14 +1,10 @@
-import { useRecoilState, useRecoilRefresher_UNSTABLE } from "recoil";
-import {
-  selectedListState,
-  cartItemQuantityState,
-} from "../../recoil/atoms/atoms";
+import { useRecoilState } from "recoil";
+import { selectedListState } from "../../recoil/atoms/atoms";
 import Button from "../common/Button/Button";
 import { deleteCartItem, patchCartItemQuantity } from "../../api/cart";
 import type { CartItem } from "../../types/cart";
 import OutlineCheck from "../../assets/icon/OutlineCheck";
 import FilledCheck from "../../assets/icon/FilledCheck";
-import { useEffect } from "react";
 import { cartItemsAtom } from "../../recoil/atoms/atoms";
 
 import {
@@ -28,10 +24,7 @@ interface CardItemProps {
 
 const CartItem = ({ cartItem: { id, product, quantity } }: CardItemProps) => {
   const [selectedList, setSelectedList] = useRecoilState(selectedListState);
-  const [cartItemQuantity, setCartItemQuantity] = useRecoilState(
-    cartItemQuantityState(id)
-  );
-  const refresh = useRecoilRefresher_UNSTABLE(cartItemsAtom);
+  const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
 
   const handleToggleSelectItem = () => {
     if (selectedList.includes(id)) {
@@ -43,31 +36,35 @@ const CartItem = ({ cartItem: { id, product, quantity } }: CardItemProps) => {
 
   const handleDeleteItem = async () => {
     try {
+      setCartItems([...cartItems.filter((cartItem) => cartItem.id !== id)]);
       await deleteCartItem(id);
-      refresh();
     } catch (error) {
       console.error("Failed to remove cart item:", error);
     }
   };
 
   const handleChangeItemQuantity = async (number: number) => {
-    if (cartItemQuantity + number < 1) {
+    if (quantity + number < 1) {
       alert("개수는 1보다 작을 수 없습니다");
       return;
     }
 
     try {
-      setCartItemQuantity(() => cartItemQuantity + number);
-      await patchCartItemQuantity(id, cartItemQuantity + number);
+      setCartItems((prev) =>
+        prev.map((cartItem) => {
+          if (cartItem.id !== id) {
+            return cartItem;
+          } else {
+            return { ...cartItem, quantity: cartItem.quantity + number };
+          }
+        })
+      );
+      await patchCartItemQuantity(id, quantity + number);
     } catch (error) {
-      setCartItemQuantity(cartItemQuantity);
+      setCartItems(cartItems);
       console.error("Failed to remove cart item:", error);
     }
   };
-
-  useEffect(() => {
-    setCartItemQuantity(quantity);
-  }, [quantity, setCartItemQuantity]);
 
   return (
     <Wrapper>
@@ -98,7 +95,7 @@ const CartItem = ({ cartItem: { id, product, quantity } }: CardItemProps) => {
             >
               -
             </Button>
-            <span>{cartItemQuantity}</span>
+            <span>{quantity}</span>
             <Button
               $theme="white"
               $size="xs"

@@ -1,11 +1,5 @@
 import { selector } from "recoil";
-import { getCartItems } from "../../api/cart";
-import { CartItem } from "../../types/cart";
-import {
-  cartItemQuantityState,
-  selectedListState,
-  cartItemsAtom,
-} from "../atoms/atoms";
+import { selectedListState, cartItemsAtom } from "../atoms/atoms";
 import {
   DEFAULT_DELIVERY_FEE,
   DELIVERY_FEE_THRESHOLD,
@@ -19,8 +13,7 @@ export const cartPriceState = selector({
 
     const orderPrice = cartItems.reduce((acc, cartItem) => {
       if (selectedList.includes(cartItem.id)) {
-        const cartItemQuantity = get(cartItemQuantityState(cartItem.id));
-        return acc + cartItem.product.price * cartItemQuantity;
+        return acc + cartItem.product.price * cartItem.quantity;
       }
       return acc;
     }, 0);
