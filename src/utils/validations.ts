@@ -6,3 +6,10 @@ export const isCouponValid = (coupon: Coupon) => {
 
   return couponExpirationDate >= now;
 };
+
+export const isOverMinimumOrderAmount = (coupon: Coupon, amount: number) => {
+  if (coupon.minimumAmount === undefined) return true;
+
+  return coupon.minimumAmount <= amount;
+};
+
