@@ -1,6 +1,10 @@
-import { atom, selector } from 'recoil';
+import { selector, selectorFamily } from 'recoil';
+
+import { cartItemsState, isCartItemSelectedState } from './atoms';
+
 import { fetchGetCartItems } from '../api/shoppingCart';
-import { selectedCartItemsState } from './selectedCardItems';
+
+import { CartItemType } from '../type';
 import CONDITION from '../constants/Condition';
 import VALUE from '../constants/Value';
 
@@ -11,9 +15,47 @@ export const fetchedCartItemsState = selector({
   },
 });
 
-export const cartItemsState = atom({
-  key: 'cartItems',
-  default: fetchedCartItemsState,
+export const selectedCartItemsState = selector<CartItemType[]>({
+  key: 'selectedCartItemsState',
+  get: ({ get }) => {
+    return get(cartItemsState).filter((cartItem) =>
+      get(isCartItemSelectedState(cartItem.id)),
+    );
+  },
+});
+
+export const isAllCartItemSelectedState = selectorFamily<boolean, number[]>({
+  key: 'selectedAllCartItem',
+  get:
+    (cartItemIds) =>
+    ({ get }) => {
+      return cartItemIds.every((itemId) =>
+        get(isCartItemSelectedState(itemId)),
+      );
+    },
+  set:
+    (cartItemIds) =>
+    ({ set }, newValue) => {
+      cartItemIds.forEach((itemId) => {
+        set(isCartItemSelectedState(itemId), newValue);
+      });
+    },
+});
+
+export const isSomeCartItemSelectedState = selector<boolean>({
+  key: 'selectedSomeCartItem',
+  get: ({ get }) => {
+    return get(cartItemIdsState).some((cartItemId) =>
+      get(isCartItemSelectedState(cartItemId)),
+    );
+  },
+});
+
+export const cartItemIdsState = selector({
+  key: 'CartItemIds',
+  get: ({ get }) => {
+    return get(cartItemsState).map((cartItem) => cartItem.id);
+  },
 });
 
 export const cartItemsCountState = selector<number>({
