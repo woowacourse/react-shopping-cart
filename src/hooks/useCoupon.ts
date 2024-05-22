@@ -1,16 +1,14 @@
 import { ChangeEvent, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
+import { couponSavedCheckListState } from '@/recoil/coupons/atoms';
 import { fetchCouponSelector } from '@/recoil/coupons/fetchCouponSelector';
 
 const useCoupon = () => {
   const couponList = useRecoilValue(fetchCouponSelector);
-  const [couponCheckList, setCouponCheckList] = useState(() =>
-    couponList.map((coupon) => ({
-      id: coupon.id,
-      isChecked: false,
-    })),
-  );
+  const couponSavedCheckList = useRecoilValue(couponSavedCheckListState);
+  const [couponCheckList, setCouponCheckList] = useState(() => couponSavedCheckList);
+
   const isValidCouponCount = couponCheckList.filter((coupon) => coupon.isChecked).length < 2;
 
   const handleChangeChecked = (e: ChangeEvent<HTMLInputElement>) => {

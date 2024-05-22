@@ -1,10 +1,12 @@
 import { css } from '@emotion/react';
 import { Modal } from 'maru-nice-modal';
 import { useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 
 import CouponItem from './CouponItem';
 import { couponValidator } from './couponValidator';
 
+import { couponSavedCheckListState } from '@/recoil/coupons/atoms';
 import GuideText from '@common/GuideText';
 
 import useCoupon from '@hooks/useCoupon';
@@ -17,8 +19,14 @@ interface CouponModalProps {
 const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
   const { couponList, couponCheckList, handleChangeChecked, isValidCouponCount } = useCoupon();
   const { isCouponValid } = couponValidator();
+  const setCouponSavedCheckList = useSetRecoilState(couponSavedCheckListState);
 
   const [discountTotal, setDiscountTotal] = useState(0);
+
+  const handleClickApplyCoupon = () => {
+    setCouponSavedCheckList(couponCheckList);
+    onClose();
+  };
 
   return (
     <Modal isOpen={isOpen}>
@@ -47,7 +55,7 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
       <Modal.ConfirmButton
         css={confirmButton}
         label={`총 ${discountTotal.toLocaleString('ko-KR')}원 할인 쿠폰 사용하기`}
-        onConfirm={onClose}
+        onConfirm={handleClickApplyCoupon}
       />
     </Modal>
   );

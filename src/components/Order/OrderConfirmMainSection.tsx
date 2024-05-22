@@ -60,7 +60,7 @@ const OrderConfirmMainSection = () => {
         />
       </div>
       <OrderInfo type="ORDER" />
-      <CouponModal isOpen={isOpen} onClose={handleCloseModal} />
+      {isOpen && <CouponModal isOpen={isOpen} onClose={handleCloseModal} />}
     </div>
   );
 };
