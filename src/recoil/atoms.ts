@@ -8,8 +8,15 @@ export const itemsState = atom<CartItems[]>({
 
 export const itemDetailsState = atomFamily<ItemDetailsStateType, number>({
   key: 'itemDetailsState',
+export const couponsState = atom<Coupon[]>({
+  key: 'couponsState',
+  default: [],
+});
+
+export const couponDetailState = atomFamily<CouponDetailState, number>({
+  key: 'couponDetailState',
   default: {
-    quantity: 1,
-    isChecked: true,
+    isChecked: false,
+    disabled: false,
   },
 });
