@@ -1,8 +1,7 @@
 import { UpsideDownExclamation } from '@assets/index';
-import { CartItemCount, CartList, OrderPrice } from '@components/shoppingCart';
-import { PRICE } from '@constants/shippingCart';
+import { OrderPrice, ShippingFeeInfo } from '@components/common';
+import { CartItemCount, CartList } from '@components/shoppingCart';
 import { cartItemsAtom } from '@recoil/shoppingCart';
-import { formatKoreanCurrency } from '@utils/currency';
 import { useRecoilValue } from 'recoil';
 
 import * as Styled from './ShoppingCardContent.styled';
@@ -22,9 +21,7 @@ const ShoppingCartContent = () => {
           </Styled.CartItemContainer>
           <Styled.CartInfoBanner>
             <UpsideDownExclamation />
-            <Styled.ShippingFeeInfo>
-              총 주문 금액이 {formatKoreanCurrency(PRICE.freeShippingMinAmount)} 이상일 경우 무료 배송됩니다.
-            </Styled.ShippingFeeInfo>
+            <ShippingFeeInfo />
           </Styled.CartInfoBanner>
           <OrderPrice />
         </>

@@ -7,12 +7,6 @@ export const CartListContainer = styled.li`
   margin-top: 12px;
 `;
 
-export const CartItemImage = styled.img`
-  width: 112px;
-  height: 112px;
-  border-radius: 8px;
-`;
-
 export const CartItemDetailContainer = styled.div`
   display: flex;
   gap: 24px;

@@ -1,3 +1,6 @@
+export { default as ShippingFeeInfo } from './ShippingFeeInfo/ShippingFeeInfo';
+export { default as OrderPrice } from './OrderPrice/OrderPrice';
+export { default as CartItemInfo } from './CartItemInfo/CartItemInfo';
 export { default as BasicButton } from './BasicButton/BasicButton';
 export { default as BackButton } from './BackButton/BackButton';
 export { default as BottomButton } from './BottomButton/BottomButton';

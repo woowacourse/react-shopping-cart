@@ -1,5 +1,5 @@
 import { CartItem } from '@appTypes/shoppingCart';
-import { Checkbox, DeleteButton } from '@components/common';
+import { CartItemInfo, Checkbox, DeleteButton } from '@components/common';
 import { CartListDescription } from '@components/shoppingCart';
 import { useCheckCartItem, useDeleteCartItem, useFetchErrorBoundary } from '@hooks/index';
 
@@ -23,7 +23,7 @@ const CartListItem: React.FC<CartListItemProps> = ({ cartItem }) => {
         <DeleteButton onClick={onDeleteItem}>삭제</DeleteButton>
       </Styled.CartItemSelectionGroup>
       <Styled.CartItemDetailContainer>
-        <Styled.CartItemImage src={cartItem.product.imageUrl} />
+        <CartItemInfo.Img cartItem={cartItem} />
         <CartListDescription cartItem={cartItem} />
       </Styled.CartItemDetailContainer>
     </Styled.CartListContainer>
