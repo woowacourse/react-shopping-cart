@@ -7,4 +7,7 @@ export const ROUTE = {
     path: '/orderConfirmation',
     headerTitle: '⬅',
   },
+  buyItem: {
+    path: '/buyItem',
+  },
 };
