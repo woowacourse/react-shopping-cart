@@ -1,7 +1,7 @@
 import { Coupon } from '@/types/coupon.type';
 import { RecoilRoot } from 'recoil';
+import couponValidator from './couponValidator';
 import { renderHook } from '@testing-library/react';
-import useCouponValidator from '../hooks/useCouponValidator';
 
 jest.mock('../api/config', () => ({
   config: {
@@ -9,7 +9,7 @@ jest.mock('../api/config', () => ({
   },
 }));
 
-describe('useCouponValidator test', () => {
+describe('couponValidator test', () => {
   it('[유효한 쿠폰] 쿠폰의 유효성을 확인한 후 가능 여부를 알려준다. (존재 여부, 만료일 체크)', () => {
     const { result } = renderHook(
       () => {
@@ -22,7 +22,7 @@ describe('useCouponValidator test', () => {
         };
         const today = new Date();
 
-        const validateCoupon = useCouponValidator({
+        const validateCoupon = couponValidator({
           coupon: validCoupon,
           date: today,
         });
@@ -51,7 +51,7 @@ describe('useCouponValidator test', () => {
 
         const today = new Date();
 
-        const invalidateCoupon = useCouponValidator({
+        const invalidateCoupon = couponValidator({
           coupon: expiredCoupon,
           date: today,
         });
