@@ -1,6 +1,7 @@
 import { useRecoilState } from "recoil";
 import { isAllCartItemSelectedState } from "@/stores/cartItemSelections";
 
+import useCartItems from "@/hooks/useCartItems";
 
 import CartItemCard from "@/components/shoppingCart/CartItemCard";
 import { CheckButton } from "@/components/button";
@@ -12,7 +13,7 @@ import infoOutline from "@/assets/images/infoOutline.png";
 import * as S from "./styled";
 
 const CartItemList = () => {
-  const cartItemList = useRecoilValue(cartItemsState);
+  const { cartItems } = useCartItems();
   const [isAllCartItemSelected, setIsAllCartItemSelected] = useRecoilState(
     isAllCartItemSelectedState
   );
@@ -26,7 +27,7 @@ const CartItemList = () => {
         />
         <span>전체선택</span>
       </S.AllCheckWrapper>
-      {cartItemList.map((cartItem: CartItem) => (
+      {cartItems.map((cartItem: CartItem) => (
         <CartItemCard key={cartItem.id} cartItem={cartItem} />
       ))}
       <S.Footer>
