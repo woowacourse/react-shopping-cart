@@ -1,9 +1,10 @@
-import { selector } from 'recoil';
+import { atom, selector } from 'recoil';
 import { cartItemListState } from '../cartItemList/cartItemListSelector';
 import { cartItemSelectedIdListAtom } from '../cartItem/cartItemAtom';
 
 const DELIVERY_FEE_THRESHOLD = 100_000;
 const DELIVERY_FEE = 3_000;
+const EXTRA_DELIVERY_FEE = 3_000;
 
 export const orderedPriceSelector = selector({
   key: 'orderedPrice',
@@ -24,6 +25,11 @@ export const orderedPriceSelector = selector({
   },
 });
 
+export const hasExtraDeliveryFeeAtom = atom<boolean>({
+  key: 'hasExtraDeliveryFee',
+  default: false,
+});
+
 export const deliveryFeeSelector = selector({
   key: 'deliveryFee',
   get: ({ get }) => {
@@ -34,7 +40,11 @@ export const deliveryFeeSelector = selector({
         ? 0
         : DELIVERY_FEE;
 
-    return deliveryFee;
+    const totalDeliveryFee = get(hasExtraDeliveryFeeAtom)
+      ? deliveryFee + EXTRA_DELIVERY_FEE
+      : deliveryFee;
+
+    return totalDeliveryFee;
   },
 });
 

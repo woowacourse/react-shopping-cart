@@ -9,11 +9,15 @@ import Button from '../common/Button/Button';
 import { useCartItemSelectedIdList } from '../../recoil/cartItem/useCartItemSelectedIdList';
 import Text from '../common/Text/Text';
 import CheckboxWithLabel from '../CheckboxWithLabel/CheckboxWithLabel';
-import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { hasExtraDeliveryFeeAtom } from '../../recoil/price/priceSelector';
 
 const ConfirmPurchaseSection = () => {
   const { cartItemList } = useCartItemList();
   const { selectedIdList } = useCartItemSelectedIdList();
+  const [hasExtraDeliveryFee, setHasExtraDeliveryFee] = useRecoilState(
+    hasExtraDeliveryFeeAtom,
+  );
 
   const selectedCartItemList = cartItemList.filter(({ id }) =>
     selectedIdList.includes(id),
@@ -24,8 +28,6 @@ const ConfirmPurchaseSection = () => {
   const totalQuantity = selectedCartItemList.reduce((sum, { quantity }) => {
     return sum + quantity;
   }, 0);
-
-  const [kkangchon, setKkangchon] = useState(false);
 
   return (
     <S.ConfirmPurchaseSection>
@@ -49,8 +51,8 @@ const ConfirmPurchaseSection = () => {
         </Text>
         <CheckboxWithLabel
           labelText="제주도 및 도서 산간 지역"
-          isChecked={kkangchon}
-          onClick={() => setKkangchon}
+          isChecked={hasExtraDeliveryFee}
+          onClick={() => setHasExtraDeliveryFee(!hasExtraDeliveryFee)}
         />
       </S.CheckboxTitleContainer>
       <Spacer height={32} />

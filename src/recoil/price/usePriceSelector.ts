@@ -1,5 +1,9 @@
 import { useRecoilValue } from 'recoil';
-import { deliveryFeeSelector, orderedPriceSelector, totalPriceSelector } from './priceSelector';
+import {
+  deliveryFeeSelector,
+  orderedPriceSelector,
+  totalPriceSelector,
+} from './priceSelector';
 
 const usePriceSelector = () => {
   const orderedPrice = useRecoilValue(orderedPriceSelector);
