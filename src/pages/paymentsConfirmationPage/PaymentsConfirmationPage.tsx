@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { CartLayout } from "../../components/cartLayout/CartLayout";
-import { PaymentsSummary } from "../../components/cartSummary";
+import { PaymentsSummary } from "../../components/paymentsSummary/PaymentsSummary";
 import { BUTTON_COLORS, HEADER_TYPES, PATHS } from "../../constants";
 
 export const PaymentsConfirmationPage: React.FC = () => {
