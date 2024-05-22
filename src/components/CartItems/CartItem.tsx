@@ -77,7 +77,7 @@ const CartItem = ({ inputCartItem }: CartItemProps) => {
   const handleCartItemQuantityDecrement = async () => {
     try {
       if (inputCartItem.quantity === CONDITION.RemoveButtonAppeared)
-        await handleCartItemRemoval();
+        return await handleCartItemRemoval();
 
       adjustCartItemQuantity(inputCartItem.quantity - VALUE.adjustTerm);
       await fetchAdjustCartItemQuantity(
