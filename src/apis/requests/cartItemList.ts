@@ -4,7 +4,7 @@ import { requestDelete, requestGet, requestPatch } from '../fetcher';
 import { BASE_URL_LIST } from '../baseUrlList';
 import { ENDPOINT_LIST } from '../endpointList';
 
-const PreprocessCartItemList = (arr: ResponseCartItem[]): CartItem[] => {
+const preprocessCartItemList = (arr: ResponseCartItem[]): CartItem[] => {
   return arr.map(({ id, quantity, product }) => ({
     quantity,
     product: product,
@@ -18,7 +18,7 @@ export const requestCartItemList = async (): Promise<CartItem[]> => {
     endpoint: ENDPOINT_LIST.CART_LIST,
   });
 
-  return PreprocessCartItemList(data.content);
+  return preprocessCartItemList(data.content);
 };
 
 export const requestSetCartItemQuantity = async (cartItemId: number, quantity: number) => {
