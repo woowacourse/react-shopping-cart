@@ -1,6 +1,6 @@
 import { UpsideDownExclamation } from '@assets/index';
-import { OrderPrice, ShippingFeeInfo } from '@components/common';
-import { CartItemCount, CartList } from '@components/shoppingCart';
+import { OrderPrice, PageExplanation, ShippingFeeInfo } from '@components/common';
+import { CartList } from '@components/shoppingCart';
 import { cartItemsAtom } from '@recoil/shoppingCart';
 import { useRecoilValue } from 'recoil';
 
@@ -15,7 +15,9 @@ const ShoppingCartContent = () => {
         <Styled.EmptyCart>장바구니에 담은 상품이 없습니다.</Styled.EmptyCart>
       ) : (
         <>
-          <CartItemCount count={cartItems.length} />
+          <PageExplanation>
+            <PageExplanation.Row>현재 {cartItems.length}종류의 상품이 담겨 있습니다.</PageExplanation.Row>
+          </PageExplanation>
           <Styled.CartItemContainer>
             <CartList cartItems={cartItems} />
           </Styled.CartItemContainer>

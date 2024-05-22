@@ -1,3 +1,4 @@
+export { default as PageExplanation } from './PageExplanation/PageExplanation';
 export { default as ShippingFeeInfo } from './ShippingFeeInfo/ShippingFeeInfo';
 export { default as OrderPrice } from './OrderPrice/OrderPrice';
 export { default as CartItemInfo } from './CartItemInfo/CartItemInfo';
