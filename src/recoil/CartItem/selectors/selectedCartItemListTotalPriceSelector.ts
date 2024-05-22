@@ -1,5 +1,5 @@
 import { selector } from 'recoil';
-import { selectedCartItemListState } from '../atom/selectedCartItemListState';
+import { selectedCartItemListState } from '../atoms/selectedCartItemListState';
 
 export const selectedCartItemListTotalPriceSelector = selector<number>({
   key: 'selectedCartItemListTotalPriceSelector',

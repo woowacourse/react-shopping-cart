@@ -1,6 +1,6 @@
 import { renderHook, act } from '@testing-library/react';
 import { RecoilRoot, useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
-import { selectedCartItemListState } from '../atom/selectedCartItemListState';
+import { selectedCartItemListState } from '../atoms/selectedCartItemListState';
 import { selectedCartItemListSelector } from './selectedCartItemListSelector';
 import { selectedCartItemListTotalPriceSelector } from './selectedCartItemListTotalPriceSelector';
 import { selectedCartItemListTotalCountSelector } from './selectedCartItemListTotalCountSelector';

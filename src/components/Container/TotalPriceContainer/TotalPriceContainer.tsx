@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import NotificationContainer from '../NotificationContainer/NotificationContainer';
 import PriceContainer from '../PriceContainer/PriceContainer';
-import { selectedCartItemListTotalPriceSelector } from '../../../recoil/CartItem/selector/selectedCartItemListTotalPriceSelector';
+import { selectedCartItemListTotalPriceSelector } from '../../../recoil/CartItem/selectors/selectedCartItemListTotalPriceSelector';
 import * as S from './TotalPriceContainer.style';
 import { useCalculateDeliveryFee } from '../../../hooks/useCalculateDeliveryFee';
 import { DELIVERY_FEE_DISCOUNT_THRESHOLD } from '../../../constants/DELIVERY_INFOS';

@@ -1,7 +1,7 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedDeliveryInfoListState } from '../recoil/DeliveryInfo/atoms/selectedDeliveryInfoListState';
 import { deliveryFeeState } from '../pages/OrderConfirmPage/recoil/atoms/deliveryFeeState';
-import { selectedCartItemListTotalPriceSelector } from '../recoil/CartItem/selector/selectedCartItemListTotalPriceSelector';
+import { selectedCartItemListTotalPriceSelector } from '../recoil/CartItem/selectors/selectedCartItemListTotalPriceSelector';
 import { DELIVERY_FEE_DISCOUNT_THRESHOLD } from '../constants/DELIVERY_INFOS';
 
 export function useCalculateDeliveryFee() {
