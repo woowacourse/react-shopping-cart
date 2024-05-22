@@ -10,7 +10,7 @@ import { useRecoilState } from 'recoil';
 
 export default function CartItemContainer() {
   const [items, setItems] = useRecoilState(cartItemsState);
-  const { getIsChecked, checkId, uncheckId } = useCheckedItemIds();
+  const { getIsChecked, checkIds: checkId, uncheckIds: uncheckId } = useCheckedItemIds();
   const { increaseQuantity, decreaseQuantity } = useItemQuantity();
 
   const ids = items.map((item) => item.id);

@@ -1,8 +1,8 @@
-import { renderHook } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
-
 import { act } from 'react';
+import { renderHook } from '@testing-library/react';
 import useCheckedItemIds from '../hooks/useCheckedItemIds';
+
 jest.mock('../apis/config', () => ({
   API_CONFIG: {
     API_URL: 'http://localhost:mock',
@@ -28,7 +28,7 @@ describe('useCheckedItemIds', () => {
       wrapper: RecoilRoot,
     });
 
-    const { getIsChecked, checkId } = result.current;
+    const { getIsChecked, checkIds: checkId } = result.current;
 
     act(() => checkId(TARGET_ID));
 
@@ -42,7 +42,7 @@ describe('useCheckedItemIds', () => {
       wrapper: RecoilRoot,
     });
 
-    act(() => result.current.uncheckId(TARGET_ID));
+    act(() => result.current.uncheckIds(TARGET_ID));
     expect(result.current.getIsChecked(TARGET_ID)).toBe(false);
   });
 });
