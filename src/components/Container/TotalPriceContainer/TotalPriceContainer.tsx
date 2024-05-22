@@ -2,13 +2,16 @@ import { useRecoilValue } from 'recoil';
 import NotificationContainer from '../NotificationContainer/NotificationContainer';
 import PriceContainer from '../PriceContainer/PriceContainer';
 import { selectedCartItemListTotalPriceSelector } from '../../../pages/ShoppingCartPage/recoil/selector/selectedCartItemListTotalPriceSelector';
-import { DELIVERY_FEE_DISCOUNT_THRESHOLD, calculateDeliveryFee } from '../../../utils/calculateDeliveryFee';
 import * as S from './TotalPriceContainer.style';
+import {
+  DELIVERY_FEE_DISCOUNT_THRESHOLD,
+  useCalculateDeliveryFee,
+} from '../../../pages/OrderConfirmPage/hooks/useCalculateDeliveryFee';
 
 function TotalPriceContainer() {
   const selectedCartItemTotalPrice = useRecoilValue(selectedCartItemListTotalPriceSelector);
-
-  const deliveryFee = calculateDeliveryFee(selectedCartItemTotalPrice);
+  const { deliveryFee, calculateDeliveryFee } = useCalculateDeliveryFee();
+  calculateDeliveryFee();
   const totalPrice = selectedCartItemTotalPrice + deliveryFee;
 
   return (
