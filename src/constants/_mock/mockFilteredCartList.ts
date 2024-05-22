@@ -1,7 +1,7 @@
 import { FilteredCartItemStateType } from '@/types/cart.type';
 
 // 배송비 유무 확인 목 데이터
-export const MOCK_FILTERED_CART_LIST_FREE_SHIPPING_FEE: FilteredCartItemStateType[] =
+export const MOCK_FILTERED_CART_LIST_OVER_100000: FilteredCartItemStateType[] =
   [
     {
       id: 624,
@@ -29,7 +29,7 @@ export const MOCK_FILTERED_CART_LIST_FREE_SHIPPING_FEE: FilteredCartItemStateTyp
     },
   ];
 
-export const MOCK_FILTERED_CART_LIST_NEED_SHIPPING_FEE = [
+export const MOCK_FILTERED_CART_LIST_LESS_100000 = [
   {
     id: 624,
     quantity: 5,
