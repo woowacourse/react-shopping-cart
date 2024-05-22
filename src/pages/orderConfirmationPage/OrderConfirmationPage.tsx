@@ -5,6 +5,7 @@ import { ConfirmButton } from '../../components/confirmButton/ConfirmButton';
 import {
   cartErrorMessageState,
   cartItemsCountState,
+  selectedItemsState,
 } from '../../recoil/atoms/atoms';
 import {
   selectedItemsCountState,
@@ -19,6 +20,7 @@ import {
 import { ErrorAlertModal } from '../../components/errorAlertModal/ErrorAlertModal';
 import { CART_MESSAGES, ORDER_MESSAGES } from '../../constants/cart';
 import Header from '../../components/header/Header';
+import { OrderItemCard } from '../../components/itemCard/orderItemCard/OrderItemCard';
 
 export const OrderConfirmationPage: React.FC = () => {
   const selectedItemsCount = useRecoilValue(selectedItemsCountState);
@@ -29,6 +31,7 @@ export const OrderConfirmationPage: React.FC = () => {
   const [cartErrorMessage, setCartErrorMessage] = useRecoilState(
     cartErrorMessageState,
   );
+  const selectedItems = useRecoilValue(selectedItemsState);
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -42,7 +45,7 @@ export const OrderConfirmationPage: React.FC = () => {
     };
 
     fetchCartItems();
-  }, []);
+  }, [setCartErrorMessage, setCartItemsCount]);
 
   return (
     <>
@@ -60,6 +63,9 @@ export const OrderConfirmationPage: React.FC = () => {
             <span>{ORDER_MESSAGES.FINAL_AMOUNT_CONFIRM}</span>
           </StyledConfirmationPageDescription>
         </StyledOrderSummaryContainer>
+        {Object.values(selectedItems).map((item) => (
+          <OrderItemCard item={item} />
+        ))}
         {cartErrorMessage.length > 0 && (
           <ErrorAlertModal errorMessage={cartErrorMessage} />
         )}

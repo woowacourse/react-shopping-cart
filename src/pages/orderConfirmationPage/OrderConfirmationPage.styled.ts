@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const StyledConfirmationPage = styled.div`
   height: 100%;
   display: flex;
+  flex-direction: column;
   gap: 12px;
   padding: 0 24px;
 `;
