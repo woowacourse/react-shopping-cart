@@ -1,16 +1,23 @@
-import { coupons } from "../../constants/coupons";
+import { useFetchCoupons } from "../../hooks/useFetchCoupons";
 import { CouponItemCard } from "../couponItemCard/CouponItemCard";
 import { StyledCouponItemCardList } from "./CouponItemCardList.styled";
 
 export const CouponItemCardList = () => {
+  const coupons = useFetchCoupons();
+
   return (
     <StyledCouponItemCardList>
-      {coupons.map((coupon, index) => (
+      {coupons.map((coupon) => (
         <CouponItemCard
-          key={index}
-          title={coupon.title}
-          expiryDate={coupon.expiryDate}
-          additionalInfo={coupon.additionalInfo}
+          key={coupon.id}
+          id={coupon.id}
+          description={coupon.description}
+          expirationDate={coupon.expirationDate}
+          discountType={coupon.discountType}
+          minimumAmount={coupon.minimumAmount}
+          buyQuantity={coupon.buyQuantity}
+          getQuantity={coupon.getQuantity}
+          availableTime={coupon.availableTime}
         />
       ))}
     </StyledCouponItemCardList>

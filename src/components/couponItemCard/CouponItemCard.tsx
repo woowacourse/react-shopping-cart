@@ -1,3 +1,6 @@
+import { Coupon } from "../../types";
+import { formatDate } from "../../utils/formatDate";
+import { formatTime } from "../../utils/formatTime";
 import { CheckboxButton } from "../button";
 import {
   StyledCouponItemCard,
@@ -7,16 +10,29 @@ import {
   StyledCouponItemCardTitle,
 } from "./CouponItemCard.styled";
 
-interface CouponItemCardProps {
-  title: string;
-  expiryDate: string;
-  additionalInfo: string;
-}
+const getAdditionalInfo = (coupon: Coupon): string => {
+  switch (coupon.discountType) {
+    case "fixed":
+      return `최소 주문 금액: ${coupon.minimumAmount?.toLocaleString()}원`;
+    case "buyXgetY":
+      return "";
+    case "freeShipping":
+      return `최소 주문 금액: ${coupon.minimumAmount?.toLocaleString()}원`;
+    case "percentage":
+      return `사용 가능 시간: ${formatTime(coupon.availableTime?.start || "")}부터 ${formatTime(coupon.availableTime?.end || "")}까지`;
+    default:
+      return "";
+  }
+};
 
-export const CouponItemCard: React.FC<CouponItemCardProps> = ({
-  title,
-  expiryDate,
-  additionalInfo,
+export const CouponItemCard: React.FC<Coupon> = ({
+  description,
+  expirationDate,
+  discountType,
+  minimumAmount,
+  buyQuantity,
+  getQuantity,
+  availableTime,
 }) => {
   const isChecked = true;
   const onCheck = () => {};
@@ -25,11 +41,24 @@ export const CouponItemCard: React.FC<CouponItemCardProps> = ({
     <StyledCouponItemCard>
       <StyledCouponItemCardHeader>
         <CheckboxButton isChecked={isChecked} onCheck={onCheck} />
-        <StyledCouponItemCardTitle>{title}</StyledCouponItemCardTitle>
+        <StyledCouponItemCardTitle>{description}</StyledCouponItemCardTitle>
       </StyledCouponItemCardHeader>
       <StyledCouponItemCardContentsWrapper>
-        <StyledCouponItemCardContent>{expiryDate}</StyledCouponItemCardContent>
-        <StyledCouponItemCardContent>{additionalInfo}</StyledCouponItemCardContent>
+        <StyledCouponItemCardContent>
+          만료일: {formatDate(expirationDate)}
+        </StyledCouponItemCardContent>
+        <StyledCouponItemCardContent>
+          {getAdditionalInfo({
+            id: "",
+            description,
+            expirationDate,
+            discountType,
+            minimumAmount,
+            buyQuantity,
+            getQuantity,
+            availableTime,
+          })}
+        </StyledCouponItemCardContent>
       </StyledCouponItemCardContentsWrapper>
     </StyledCouponItemCard>
   );
