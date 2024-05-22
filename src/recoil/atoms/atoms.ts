@@ -19,6 +19,11 @@ const localStorageEffect =
     });
   };
 
+export const isSigolState = atom<boolean>({
+  key: 'isSigolState',
+  default: false,
+});
+
 export const selectedCartItemListState = atom<TCartItem[]>({
   key: 'selectedCartItemListState',
   default: [],

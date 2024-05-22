@@ -1,6 +1,7 @@
 import { selector, selectorFamily } from 'recoil';
 import type { TCartItem } from '../../types/CartItem.type';
-import { selectedCartItemListState } from '../atoms/atoms';
+import { isSigolState, selectedCartItemListState } from '../atoms/atoms';
+import { calculateDeliveryFee } from '../../utils/calculateDeliveryFee';
 
 export const selectedCartItemListSelector = selectorFamily<boolean, TCartItem>({
   key: 'selectedCartItemListSelector',
@@ -21,6 +22,16 @@ export const selectedCartItemListSelector = selectorFamily<boolean, TCartItem>({
         isSelected ? selectedCartItemList.filter((item) => item.id !== newItem.id) : [...selectedCartItemList, newItem],
       );
     },
+});
+
+export const deliveryFeeSelector = selector({
+  key: 'deliveryFeeSelector',
+  get: ({ get }) => {
+    const isSigol = get(isSigolState);
+    const cartItemTotalPrice = get(cartOrderTotalPriceSelector);
+
+    return calculateDeliveryFee(cartItemTotalPrice, isSigol);
+  },
 });
 
 export const cartOrderTotalPriceSelector = selector({

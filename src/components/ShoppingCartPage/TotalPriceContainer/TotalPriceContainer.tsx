@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
-import { cartOrderTotalPriceSelector } from '../../../recoil/selectors/selectors';
 import PriceContainer from '../PriceContainer/PriceContainer';
-import { DELIVERY_FEE_DISCOUNT_THRESHOLD, calculateDeliveryFee } from '../../../utils/calculateDeliveryFee';
+import { cartOrderTotalPriceSelector, deliveryFeeSelector } from '../../../recoil/selectors/selectors';
+import { DELIVERY_FEE_DISCOUNT_THRESHOLD } from '../../../utils/calculateDeliveryFee';
 import { InfoIcon } from '../../../assets';
 import * as S from './TotalPriceContainer.style';
 
@@ -11,8 +11,8 @@ interface TotalPriceContainerProps {
 
 function TotalPriceContainer({ isConfirm = false }: TotalPriceContainerProps) {
   const orderTotalPrice = useRecoilValue(cartOrderTotalPriceSelector);
+  const deliveryFee = useRecoilValue(deliveryFeeSelector);
 
-  const deliveryFee = calculateDeliveryFee(orderTotalPrice);
   const paymentTotalPrice = orderTotalPrice + deliveryFee;
 
   return (

@@ -1,20 +1,23 @@
 import { useRecoilValue } from 'recoil';
-import { selectedCartItemListState } from '../../recoil/atoms/atoms';
-import { cartOrderTotalCountSelector, cartOrderTotalPriceSelector } from '../../recoil/selectors/selectors';
 import Header from '../../components/Header/Header';
 import TitleContainer from '../../components/common/TitleContainer/TitleContainer';
 import SubmitButton from '../../components/common/SubmitButton/SubmitButton';
-import { calculateDeliveryFee } from '../../utils/calculateDeliveryFee';
+import { selectedCartItemListState } from '../../recoil/atoms/atoms';
+import {
+  cartOrderTotalCountSelector,
+  cartOrderTotalPriceSelector,
+  deliveryFeeSelector,
+} from '../../recoil/selectors/selectors';
 
 import * as S from './PaymentConfirmPage.style';
 
 function PaymentConfirmPage() {
   const selectedItemList = useRecoilValue(selectedCartItemListState);
-
   const orderTotalPrice = useRecoilValue(cartOrderTotalPriceSelector);
   const orderTotalCount = useRecoilValue(cartOrderTotalCountSelector);
+  const deliveryFee = useRecoilValue(deliveryFeeSelector);
 
-  const paymentTotalPrice = orderTotalPrice + calculateDeliveryFee(orderTotalPrice);
+  const paymentTotalPrice = orderTotalPrice + deliveryFee;
 
   return (
     <div>

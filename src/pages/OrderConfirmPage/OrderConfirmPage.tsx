@@ -1,4 +1,4 @@
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Link, Navigate, useLoaderData } from 'react-router-dom';
 import type { Coupon } from '../../types/Coupon.type';
 import Header from '../../components/Header/Header';
@@ -8,7 +8,7 @@ import SubmitButton from '../../components/common/SubmitButton/SubmitButton';
 import CheckBox from '../../components/common/CheckBox/CheckBox';
 import TotalPriceContainer from '../../components/ShoppingCartPage/TotalPriceContainer/TotalPriceContainer';
 import CouponModal from '../../components/OrderConfirmPage/CouponModal/CouponModal';
-import { selectedCartItemListState } from '../../recoil/atoms/atoms';
+import { selectedCartItemListState, isSigolState } from '../../recoil/atoms/atoms';
 import { cartOrderTotalCountSelector } from '../../recoil/selectors/selectors';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './OrderConfirmPage.style';
@@ -18,7 +18,7 @@ function OrderConfirmPage() {
   const couponList = useLoaderData() as Coupon[];
 
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
-  const [isSigol, setIsSigol] = useState(false);
+  const [isSigol, setIsSigol] = useRecoilState(isSigolState);
 
   const selectedItemList = useRecoilValue(selectedCartItemListState);
   const orderTotalCount = useRecoilValue(cartOrderTotalCountSelector);
