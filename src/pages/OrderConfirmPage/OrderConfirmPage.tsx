@@ -11,7 +11,7 @@ import { selectedCartItemListState } from '../../recoil/CartItem/atom/selectedCa
 import { selectedCartItemListTotalCountSelector } from '../../recoil/CartItem/selector/selectedCartItemListTotalCountSelector';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './OrderConfirmPage.style';
-import { applyCouponModalState } from '../../recoil/Coupon/atoms';
+import { applyCouponModalState } from '../../recoil/DeliveryInfo/atoms/applyCouponModalState';
 import { useToggleModal } from '../../hooks/useToggleModal';
 import ApplyCouponModal from '../../modals/ApplyCouponModal/ApplyCouponModal';
 

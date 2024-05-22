@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { applyCouponModalState } from '../recoil/Coupon/atoms';
+import { applyCouponModalState } from '../recoil/DeliveryInfo/atoms/applyCouponModalState';
 
 export function useToggleModal() {
   const [isOpen, setIsOpen] = useRecoilState(applyCouponModalState);
