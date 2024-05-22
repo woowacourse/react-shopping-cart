@@ -1,13 +1,13 @@
 import { css } from '@emotion/react';
 import { Modal } from 'maru-nice-modal';
-import { ChangeEvent, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useState } from 'react';
 
 import CouponItem from './CouponItem';
 import { couponValidator } from './couponValidator';
 
-import { fetchCouponSelector } from '@/recoil/coupons/fetchCouponSelector';
 import GuideText from '@common/GuideText';
+
+import useCoupon from '@hooks/useCoupon';
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -15,26 +15,8 @@ interface CouponModalProps {
 }
 
 const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
-  const couponList = useRecoilValue(fetchCouponSelector);
-  const [couponCheckList, setCouponCheckList] = useState(() =>
-    couponList.map((coupon) => ({
-      id: coupon.id,
-      isChecked: false,
-    })),
-  );
-  const isValidCouponCount = couponCheckList.filter((coupon) => coupon.isChecked).length < 2;
+  const { couponList, couponCheckList, handleChangeChecked, isValidCouponCount } = useCoupon();
   const { isCouponValid } = couponValidator();
-
-  const handleChangeChecked = (e: ChangeEvent<HTMLInputElement>) => {
-    const clickedCouponId = Number(e.target.id);
-
-    setCouponCheckList(
-      couponCheckList.map((coupon) => ({
-        ...coupon,
-        isChecked: clickedCouponId === coupon.id ? !coupon.isChecked : coupon.isChecked,
-      })),
-    );
-  };
 
   const [discountTotal, setDiscountTotal] = useState(0);
 
