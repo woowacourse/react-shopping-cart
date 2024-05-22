@@ -1,13 +1,12 @@
+import { useRecoilState } from 'recoil';
 import { Modal } from '@hanuuny/react-modal';
 import CouponItem from '../CouponItem/CouponItem';
-import { useRecoilState } from 'recoil';
-import useCartCalculator from '../../../hooks/useCartCalculator';
+import useSelectedCoupons from '../../../hooks/useSelectedCoupons';
+import useCouponCalculator from '../../../hooks/useCouponCalculator';
+import { selectedCouponListState } from '../../../recoil/Coupon/atoms/atoms';
 import { Coupon } from '../../../types/Coupon.type';
 import { InfoIcon } from '../../../assets';
-
 import * as S from './CouponModal.style';
-import { selectedCouponListState } from '../../../recoil/Coupon/atoms/atoms';
-import { useState } from 'react';
 
 interface CouponModalProps {
   couponList: Coupon[];
@@ -16,23 +15,13 @@ interface CouponModalProps {
 }
 
 function CouponModal({ couponList, isOpen, close }: CouponModalProps) {
-  const [savedSelectedCoupons, setSavedSelectedCoupons] = useRecoilState(selectedCouponListState);
-  const [selectedCoupons, setSelectedCoupons] = useState(savedSelectedCoupons);
+  const [savedCoupons, setSavedCoupons] = useRecoilState(selectedCouponListState);
 
-  const { calculateTotalDiscoutPrice } = useCartCalculator();
+  const { selectedCoupons, handleSelectedCoupons } = useSelectedCoupons(savedCoupons);
+  const { calculateTotalDiscountPrice } = useCouponCalculator();
 
-  const handleSelectedCoupons = (newCoupon: Coupon) => {
-    const isSelected = selectedCoupons.some((coupon) => coupon.id === newCoupon.id);
-
-    const newSelectedCoupons = isSelected
-      ? selectedCoupons.filter((coupon) => coupon.id !== newCoupon.id)
-      : [...selectedCoupons, newCoupon];
-
-    setSelectedCoupons(newSelectedCoupons);
-  };
-
-  const handleModalButtonClick = () => {
-    setSavedSelectedCoupons(selectedCoupons);
+  const updateSavedCoupons = () => {
+    setSavedCoupons(selectedCoupons);
     close();
   };
 
@@ -63,8 +52,8 @@ function CouponModal({ couponList, isOpen, close }: CouponModalProps) {
       </Modal.Body>
       <Modal.Footer>
         <Modal.Button
-          text={`총 ${calculateTotalDiscoutPrice(selectedCoupons).toLocaleString()}원 할인 쿠폰 사용하기`}
-          onClick={handleModalButtonClick}
+          text={`총 ${calculateTotalDiscountPrice(selectedCoupons).toLocaleString()}원 할인 쿠폰 사용하기`}
+          onClick={updateSavedCoupons}
         />
       </Modal.Footer>
     </Modal>
