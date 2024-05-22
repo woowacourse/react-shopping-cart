@@ -24,8 +24,6 @@ export default function ShoppingCartPage() {
 
 const Content = styled.section({
   padding: '36px 24px',
-  display: 'flex',
-  flexDirection: 'column',
   height: '100%',
   flex: '1 0 auto',
 });

@@ -13,6 +13,7 @@ export const CheckAllBoxContainer = styled.div({
   flexDirection: 'row',
   gap: '8px',
   alignItems: 'center',
+
   color: '#0A0D13',
   fontSize: '12px',
   fontWeight: '500',
@@ -20,5 +21,5 @@ export const CheckAllBoxContainer = styled.div({
 });
 
 export const CartItemListContainer = styled.ul({
-  margin: '36px 0',
+  margin: '36px 0 0 0',
 });
