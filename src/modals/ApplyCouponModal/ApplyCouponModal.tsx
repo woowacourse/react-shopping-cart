@@ -3,7 +3,7 @@ import * as S from './ApplyCouponModal.style';
 import NotificationContainer from '../../components/Container/NotificationContainer/NotificationContainer';
 import { useToggleModal } from '../../hooks/useToggleModal';
 import { Coupon } from '../../types/Coupon.type';
-import CouponList from '../../components/CouponList/CouponList';
+import CouponList from '../../components/List/CouponList/CouponList';
 
 interface ApplyCouponModalProps {
   couponList: Coupon[];

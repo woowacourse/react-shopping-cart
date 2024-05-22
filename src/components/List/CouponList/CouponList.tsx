@@ -1,5 +1,5 @@
-import { Coupon } from '../../types/Coupon.type';
-import CouponContainer from '../Container/CouponContainer/CouponContainer';
+import { Coupon } from '../../../types/Coupon.type';
+import CouponContainer from '../../Container/CouponContainer/CouponContainer';
 import * as S from './CouponList.style';
 
 interface CouponListProps {
