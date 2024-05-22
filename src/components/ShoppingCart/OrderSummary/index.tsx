@@ -4,6 +4,7 @@ import { totalCheckedCartItemsPriceState } from "../../../recoil/selectors";
 import { useRecoilValue } from "recoil";
 import IMAGES from "../../../assets/images/Images";
 import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../../constants/styles";
+import { SHOPPING_MESSAGE } from "../../../constants/messages";
 
 const OrderSummary = () => {
   const totalPrice = useRecoilValue(totalCheckedCartItemsPriceState);
@@ -13,26 +14,26 @@ const OrderSummary = () => {
   return (
     <OrderSummaryContainer>
       <OrderInfo>
-        <InfoImg src={IMAGES.infoOutline} />총 주문 금액이 {ORDER.shippingFreeThreshold.toLocaleString()} 원 이상일 경우
-        무료 배송됩니다.
+        <InfoImg src={IMAGES.infoOutline} />
+        {SHOPPING_MESSAGE.freeShippingFeeInfo(ORDER.shippingFreeThreshold.toLocaleString())}
       </OrderInfo>
 
       <HorizontalLine />
 
       <SummaryWrapper>
-        <SummaryTitle>주문 금액</SummaryTitle>
+        <SummaryTitle>{SHOPPING_MESSAGE.orderAmount}</SummaryTitle>
         <SummaryPrice>{totalPrice.toLocaleString()}</SummaryPrice>
       </SummaryWrapper>
 
       <SummaryWrapper>
-        <SummaryTitle>배송비</SummaryTitle>
+        <SummaryTitle>{SHOPPING_MESSAGE.shippingFee}</SummaryTitle>
         <SummaryPrice>{shippingFee.toLocaleString()}</SummaryPrice>
       </SummaryWrapper>
 
       <HorizontalLine />
 
       <SummaryWrapper>
-        <SummaryTitle>총 결제 금액</SummaryTitle>
+        <SummaryTitle>{SHOPPING_MESSAGE.totalPayAmount}</SummaryTitle>
         <SummaryPrice>{totalPayments.toLocaleString()}</SummaryPrice>
       </SummaryWrapper>
     </OrderSummaryContainer>

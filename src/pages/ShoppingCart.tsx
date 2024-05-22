@@ -11,6 +11,7 @@ import PAGE_URL from "../constants/pageURL";
 import Header from "../components/common/Header/index";
 import { COLOR } from "../constants/styles";
 import { useEffect, useState } from "react";
+import { SHOPPING_MESSAGE } from "../constants/messages";
 
 const ShoppingCart = () => {
   const fetchedCartItems = useRecoilValue(getCartItems);
@@ -31,15 +32,13 @@ const ShoppingCart = () => {
   const cartItemsLength = cartItems.length;
   const isCartEmpty = cartItemsLength === 0;
 
-  const subTitle = isCartEmpty
-    ? "장바구니에 상품을 추가해주세요"
-    : `현재 ${cartItemsLength}종류의 상품이 담겨있습니다.`;
+  const subTitle = isCartEmpty ? SHOPPING_MESSAGE.cartAdd : SHOPPING_MESSAGE.currentBasket(cartItemsLength);
 
   return (
     <>
       <Header type="logo" />
       <PageContainer>
-        <PageTitle title="장바구니" subTitle={subTitle} />
+        <PageTitle title={SHOPPING_MESSAGE.basket} subTitle={subTitle} />
         {isCartEmpty ? (
           <CartEmptyScreen />
         ) : (
@@ -50,7 +49,7 @@ const ShoppingCart = () => {
         )}
         <FooterButton
           disabled={checkedCartItemsQuantity === 0}
-          buttonText="주문 확인"
+          buttonText={SHOPPING_MESSAGE.confirmOrder}
           onClick={() => router(PAGE_URL.CheckOrder)}
         />
       </PageContainer>
