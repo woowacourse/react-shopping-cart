@@ -5,7 +5,7 @@ import { RecoilRoot, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { checkedItemsState } from './atoms';
 
-import { TOTAL_PRICE_UNDER_100000_DATA } from '@/constants/mock';
+import { TOTAL_PRICE_UNDER_100000_DATA } from '@/mocks/cartItems';
 import { fetchCartItems } from '@apis/cartItem';
 import Loading from '@components/common/Loading';
 

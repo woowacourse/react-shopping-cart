@@ -8,7 +8,7 @@ import {
   DELIVERY_CHARGE_FREE,
   MINIMUM_FREE_SHIPPING_AMOUNT,
 } from '@/constants/cart';
-import { TOTAL_PRICE_OVER_100000_DATA, TOTAL_PRICE_UNDER_100000_DATA } from '@/constants/mock';
+import { TOTAL_PRICE_OVER_100000_DATA, TOTAL_PRICE_UNDER_100000_DATA } from '@/mocks/cartItems';
 import { cartItemsState } from '@recoil/cartItems/atoms';
 import {
   deliveryPriceState,
