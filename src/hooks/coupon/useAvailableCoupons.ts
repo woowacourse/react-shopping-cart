@@ -21,9 +21,9 @@ const useAvailableCoupons = () => {
   };
 
   const isAvailableBOGO = () => {
-    const { expirationDate, buyQuantity } = bogoCoupon;
+    const { expirationDate, buyQuantity, getQuantity } = bogoCoupon;
     if (!isValidatedExpiration(expirationDate)) return false;
-    if (!buyQuantity || !isValidatedBuyQuantity(buyQuantity, selectedItems)) return false;
+    if (!buyQuantity || !getQuantity || !isValidatedBuyQuantity(buyQuantity + getQuantity, selectedItems)) return false;
 
     return true;
   };

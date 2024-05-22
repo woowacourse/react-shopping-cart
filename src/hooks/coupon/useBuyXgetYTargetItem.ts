@@ -9,15 +9,15 @@ const useBuyXgetYTargetItem = () => {
   const bogoCoupon = getCoupon('BOGO');
 
   const getBuyXgetYTargetItem = () => {
-    const { buyQuantity } = bogoCoupon;
+    const { buyQuantity, getQuantity } = bogoCoupon;
 
-    if (!buyQuantity) {
-      console.error('BOGO 쿠폰의 buyQuantity를 찾을 수 없어요.');
+    if (!buyQuantity || !getQuantity) {
+      console.error('BOGO 쿠폰 적용 수량을 찾을 수 없어요.');
       return null;
     }
 
     return selectedItems
-      .filter((item) => item.quantity >= buyQuantity)
+      .filter((item) => item.quantity >= buyQuantity + getQuantity)
       .sort((prev, cur) => cur.product.price - prev.product.price)[0];
   };
 
