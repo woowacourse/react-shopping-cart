@@ -10,24 +10,25 @@ import { useNavigate } from "react-router-dom";
 import PAGE_URL from "../constants/pageURL";
 import Header from "../components/common/Header/index";
 import { COLOR } from "../constants/styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ShoppingCart = () => {
   const fetchedCartItems = useRecoilValue(getCartItems);
   const [cartItems, setCartItems] = useState(fetchedCartItems);
-
   const checkedCartItemsQuantity = useRecoilValue(checkedCartItemsQuantityState);
   const setCartPrice = useSetRecoilState(setCartPriceAndQuantitySelector);
+
+  useEffect(() => {
+    setCartPrice(fetchedCartItems);
+  }, [fetchedCartItems, setCartPrice]);
+
   const router = useNavigate();
-
-  setCartPrice(cartItems);
-
-  const cartItemsLength = cartItems.length;
 
   const removeCartItem = (itemId: number) => {
     setCartItems((prevItems) => prevItems?.filter((item) => item.id !== itemId));
   };
 
+  const cartItemsLength = cartItems.length;
   const isCartEmpty = cartItemsLength === 0;
 
   const subTitle = isCartEmpty
