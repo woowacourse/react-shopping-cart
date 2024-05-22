@@ -1,24 +1,30 @@
 /** @jsxImportSource @emotion/react */
+import { CSSProperties } from "react";
 import { ButtonStyle } from "./Button.style";
+import { COLOR_PALETTE } from "../../../colorPalette";
 
 interface ButtonProps {
-  width?: string;
-  height?: string;
-  fontSize?: string;
+  width?: CSSProperties["width"];
+  height?: CSSProperties["height"];
+  fontSize?: CSSProperties["fontSize"];
+  fontWeight?: CSSProperties["fontWeight"];
+  border?: CSSProperties["border"];
   isHighlight?: boolean;
   onClick?: () => void;
 }
 
 const Button = ({
   children,
-  width = "24px",
+  width = "fit-content",
   height = "24px",
   fontSize = "12px",
+  fontWeight = "500",
+  border = `1px solid ${COLOR_PALETTE.lightGrey}`,
   isHighlight = false,
   onClick,
 }: React.PropsWithChildren<ButtonProps>) => {
   return (
-    <button css={ButtonStyle(width, height, fontSize, isHighlight)} onClick={onClick}>
+    <button css={ButtonStyle(width, height, fontSize, fontWeight, border, isHighlight)} onClick={onClick}>
       {children}
     </button>
   );

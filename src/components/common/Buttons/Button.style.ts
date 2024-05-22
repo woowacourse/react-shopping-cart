@@ -1,7 +1,15 @@
 import { css } from "@emotion/react";
 import { COLOR_PALETTE } from "../../../colorPalette";
+import { CSSProperties } from "react";
 
-export const ButtonStyle = (width: string, height: string, fontSize: string, isHighlight: boolean) =>
+export const ButtonStyle = (
+  width: CSSProperties["width"],
+  height: CSSProperties["height"],
+  fontSize: CSSProperties["fontSize"],
+  fontWeight: CSSProperties["fontWeight"],
+  border: CSSProperties["border"],
+  isHighlight: boolean
+) =>
   css({
     display: "flex",
     justifyContent: "center",
@@ -10,11 +18,12 @@ export const ButtonStyle = (width: string, height: string, fontSize: string, isH
     width,
     height,
 
-    border: `1px solid ${COLOR_PALETTE.lightGrey}`,
+    border,
     borderRadius: "4px",
     backgroundColor: isHighlight ? COLOR_PALETTE.black : COLOR_PALETTE.white,
 
     fontSize,
+    fontWeight,
     overflow: "hidden",
     color: COLOR_PALETTE.textBlack,
 
