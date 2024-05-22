@@ -36,6 +36,19 @@ export const shippingFeeSelector = selector({
   },
 });
 
+export const doubleShippingFeeSelector = selector({
+  key: "doubleShippingFeeSelector",
+  get: ({ get }) => {
+    const totalOrderPrice = get(totalOrderPriceSelector);
+    const hasSelectedItems = get(selectedCartItemsIdState).length;
+
+    return hasSelectedItems &&
+      totalOrderPrice < SHIPPING_INFO.FREE_SHIPPING_THRESHOLD
+      ? SHIPPING_INFO.DOUBLE_SHIPPING_FEE
+      : 0;
+  },
+});
+
 export const shippingFeeState = atom({
   key: "shippingFee",
   default: shippingFeeSelector,

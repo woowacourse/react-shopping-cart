@@ -7,11 +7,18 @@ interface TextBoxProps {
   text: string;
   type: TextType;
   style?: React.CSSProperties;
+  disabled?: boolean;
 }
 
-const TextBox = ({ asset, text, type, style }: TextBoxProps) => {
+const TextBox = ({
+  asset,
+  text,
+  type,
+  style,
+  disabled = false,
+}: TextBoxProps) => {
   return (
-    <CaptionText type={type} style={style}>
+    <CaptionText type={type} style={style} disabled={disabled}>
       {asset && asset()}
       {text}
     </CaptionText>
@@ -20,9 +27,10 @@ const TextBox = ({ asset, text, type, style }: TextBoxProps) => {
 
 export default TextBox;
 
-const CaptionText = styled.span<{ type: TextType }>`
+const CaptionText = styled.span<{ disabled: boolean; type: TextType }>`
   display: flex;
   align-items: center;
   gap: 5px;
   ${({ theme, type }) => theme.TEXT[type]};
+  color: ${({ theme, disabled }) => disabled && theme.COLOR["grey-2"]};
 `;
