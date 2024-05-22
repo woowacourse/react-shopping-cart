@@ -1,6 +1,6 @@
 import { UpsideDownExclamation } from '@assets/index';
-import { OrderPrice, PageExplanation, ShippingFeeInfo } from '@components/common';
-import { CartList } from '@components/shoppingCart';
+import { PageExplanation, ShippingFeeInfo } from '@components/common';
+import { AmountsList, CartList } from '@components/shoppingCart';
 import { cartItemsAtom } from '@recoil/shoppingCart';
 import { useRecoilValue } from 'recoil';
 
@@ -25,7 +25,7 @@ const ShoppingCartContent = () => {
             <UpsideDownExclamation />
             <ShippingFeeInfo />
           </Styled.CartInfoBanner>
-          <OrderPrice />
+          <AmountsList />
         </>
       )}
     </>
