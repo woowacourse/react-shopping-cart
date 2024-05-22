@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from "@testing-library/react";
 import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { totalAmountState } from "../store/selector/selectors";
+import { totalAmountSelector } from "../store/selector/selectors";
 import { act } from "react";
 import { cartState, CartItemCheckedState, itemQuantityState } from "../store/atom/atoms";
 
@@ -39,7 +39,7 @@ describe("totalAmountState", () => {
   it("상품 개수에 따른 총 가격 계산", async () => {
     const { result } = renderHook(
       () => {
-        const totalPrice = useRecoilValue(totalAmountState);
+        const totalPrice = useRecoilValue(totalAmountSelector);
         const [cartItems, setCartState] = useRecoilState(cartState);
         const setItemEachCheckState1 = useSetRecoilState(CartItemCheckedState(1));
         const setItemEachCheckState2 = useSetRecoilState(CartItemCheckedState(2));

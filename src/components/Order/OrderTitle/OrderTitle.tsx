@@ -1,20 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { CartItemIdListState } from "../../../store/atom/atoms";
-import { fetchCartItemsCounts } from "../../../store/api";
 import { orderDescriptionStyle, orderTitleStyle } from "./OrderTitle.style";
+import { checkedCartItemsSelector } from "../../../store/selector/selectors";
 
 const OrderTitle = () => {
-  const ids = useRecoilValue(CartItemIdListState);
+  const checkedCartItems = useRecoilValue(checkedCartItemsSelector);
 
-  const [cartItemsCounts, setCartItemsCounts] = useState(0);
+  const totalAmount = checkedCartItems.reduce((acc: number, cur: CartItemInfo) => {
+    return acc + cur.quantity;
+  }, 0);
 
-  useEffect(() => {
-    fetchCartItemsCounts().then((counts) => setCartItemsCounts(counts));
-  }, []);
-
-  const orderInfoContent = `총 ${ids.length}종류의 상품 ${cartItemsCounts}개를 주문합니다.
+  const orderInfoContent = `총 ${checkedCartItems.length}종류의 상품 ${totalAmount}개를 주문합니다.
   최종 결제 금액을 확인해 주세요.`;
 
   return (

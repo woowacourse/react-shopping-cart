@@ -3,7 +3,7 @@ import { CartItemCheckedState, CartItemIdListState, itemQuantityState } from "..
 import { SHIPPING_CONSTANT } from "../../constants";
 import { cartState } from "../atom/atoms";
 
-export const checkAllItemState = selector({
+export const checkAllItemSelector = selector({
   key: "checkAllItemState",
   get: ({ get }) => {
     const itemIds = get(CartItemIdListState);
@@ -15,7 +15,7 @@ export const checkAllItemState = selector({
   },
 });
 
-export const orderAmountState = selector({
+export const orderAmountSelector = selector({
   key: "orderAmount",
   get: ({ get }) => {
     const cartItems = get(cartState);
@@ -33,10 +33,18 @@ export const orderAmountState = selector({
   },
 });
 
-export const totalAmountState = selector({
+export const totalAmountSelector = selector({
   key: "totalAmount",
   get: ({ get }) => {
-    const tempAmount = get(orderAmountState);
+    const tempAmount = get(orderAmountSelector);
     return tempAmount >= SHIPPING_CONSTANT.FREE_CRITERIA ? tempAmount : tempAmount + SHIPPING_CONSTANT.FEE;
+  },
+});
+
+export const checkedCartItemsSelector = selector({
+  key: "checkedCartItems",
+  get: ({ get }) => {
+    const cartItems = get(cartState);
+    return cartItems.filter((item) => get(CartItemCheckedState(item.id)));
   },
 });

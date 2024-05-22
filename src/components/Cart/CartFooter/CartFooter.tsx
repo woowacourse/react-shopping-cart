@@ -2,10 +2,10 @@
 import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { CartFooterStyle } from "./CartFooter.style";
-import { orderAmountState } from "../../../store/selector/selectors";
+import { orderAmountSelector } from "../../../store/selector/selectors";
 
 const CartFooter = () => {
-  const orderAmount = useRecoilValue(orderAmountState);
+  const orderAmount = useRecoilValue(orderAmountSelector);
   const navigate = useNavigate();
 
   const isDisabled = orderAmount === 0;
