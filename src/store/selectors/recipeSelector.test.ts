@@ -1,6 +1,6 @@
 import {
-  MOCK_FILTERED_CART_LIST_FREE_SHIPPING_FEE,
-  MOCK_FILTERED_CART_LIST_NEED_SHIPPING_FEE,
+  MOCK_FILTERED_CART_LIST_LESS_100000,
+  MOCK_FILTERED_CART_LIST_OVER_100000,
 } from '@/constants/_mock/mockFilteredCartList';
 import { RecoilRoot, useRecoilValue, useSetRecoilState } from 'recoil';
 import { cartListState, filteredCartItemState } from '@/store/atoms';
@@ -22,7 +22,7 @@ describe('cartTotalPriceState', () => {
         const setCartList = useSetRecoilState(cartListState);
         setCartList(MOCK_CART_LIST);
 
-        MOCK_FILTERED_CART_LIST_NEED_SHIPPING_FEE.forEach((item) => {
+        MOCK_FILTERED_CART_LIST_LESS_100000.forEach((item) => {
           const setFilteredCartList = useSetRecoilState(
             filteredCartItemState(item.id)
           );
@@ -50,7 +50,7 @@ describe('cartTotalPriceState', () => {
         const setCartList = useSetRecoilState(cartListState);
         setCartList(MOCK_CART_LIST);
 
-        MOCK_FILTERED_CART_LIST_FREE_SHIPPING_FEE.forEach((item) => {
+        MOCK_FILTERED_CART_LIST_OVER_100000.forEach((item) => {
           const setFilteredCartList = useSetRecoilState(
             filteredCartItemState(item.id)
           );
