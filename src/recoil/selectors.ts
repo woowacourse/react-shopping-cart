@@ -15,12 +15,33 @@ export const fetchedCartItemsSelector = selector({
   },
 });
 
+export const cartItemsCountSelector = selector<number>({
+  key: 'cartItemsCount',
+  get: ({ get }) => {
+    return get(cartItemsState).length;
+  },
+});
+
+export const cartItemIdsSelector = selector({
+  key: 'CartItemIds',
+  get: ({ get }) => {
+    return get(cartItemsState).map((cartItem) => cartItem.id);
+  },
+});
+
 export const selectedCartItemsSelector = selector<CartItemType[]>({
   key: 'selectedCartItems',
   get: ({ get }) => {
     return get(cartItemsState).filter((cartItem) =>
       get(isCartItemSelectedState(cartItem.id)),
     );
+  },
+});
+
+export const selectedCartItemsCountSelector = selector<number>({
+  key: 'selectedCartItemCount',
+  get: ({ get }) => {
+    return get(selectedCartItemsSelector).length;
   },
 });
 
@@ -54,20 +75,6 @@ export const isSomeCartItemSelectedSelector = selector<boolean>({
   },
 });
 
-export const cartItemIdsSelector = selector({
-  key: 'CartItemIds',
-  get: ({ get }) => {
-    return get(cartItemsState).map((cartItem) => cartItem.id);
-  },
-});
-
-export const cartItemsCountSelector = selector<number>({
-  key: 'cartItemsCount',
-  get: ({ get }) => {
-    return get(cartItemsState).length;
-  },
-});
-
 export const totalOrderAmountSelector = selector<number>({
   key: 'totalOrderAmount',
   get: ({ get }) => {
@@ -90,13 +97,6 @@ export const totalCartItemQuantitySelector = selector<number>({
       },
       0,
     );
-  },
-});
-
-export const selectedCartItemsCountSelector = selector<number>({
-  key: 'selectedCartItemCount',
-  get: ({ get }) => {
-    return get(selectedCartItemsSelector).length;
   },
 });
 
