@@ -2,7 +2,11 @@ import { renderHook } from '@testing-library/react';
 import { Suspense } from 'react';
 import { RecoilRoot, useRecoilValue } from 'recoil';
 
-import { applicableCouponSelector, couponSelector } from './selector';
+import {
+  applicableCouponSelector,
+  calculateDiscountAmountSelector,
+  couponSelector,
+} from './selector';
 import { cartItemsState } from '../cartItems/atoms';
 
 import { TOTAL_PRICE_OVER_100000_DATA } from '@/mocks/cartItems';
@@ -65,6 +69,25 @@ describe('coupon selector', () => {
       );
 
       expect(result.current).toBeTruthy();
+    });
+  });
+
+  describe('calculateDiscountAmountSelector', () => {
+    it('유효한 "fixed"타입의 쿠폰을 적용하면 해당 금액만큼 할인된다.', () => {
+      const { result } = renderHook(
+        () => useRecoilValue(calculateDiscountAmountSelector(VALID_COUPON.code)),
+        {
+          wrapper: ({ children }) => (
+            <RecoilRoot
+              initializeState={({ set }) => set(cartItemsState, TOTAL_PRICE_OVER_100000_DATA)}
+            >
+              <Suspense>{children}</Suspense>
+            </RecoilRoot>
+          ),
+        },
+      );
+
+      expect(result.current).toBe(5000);
     });
   });
 });

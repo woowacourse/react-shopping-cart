@@ -1,6 +1,7 @@
 import { selector, selectorFamily } from 'recoil';
 
 import { couponsState } from './atom';
+import { calculateFixedDiscountSelector } from './calculateDiscountSelector';
 import { orderTotalPriceState } from '../cartItems/selectors';
 
 import { Coupon } from '@/types/coupon';
@@ -41,5 +42,21 @@ export const applicableCouponSelector = selectorFamily<boolean, string>({
       if (coupon.availableTime && !isCouponUsableTime(coupon)) return false;
 
       return true;
+    },
+});
+
+export const calculateDiscountAmountSelector = selectorFamily<number, string>({
+  key: 'calculateDiscountAmountSelector',
+  get:
+    (couponCode) =>
+    ({ get }) => {
+      const coupon = get(couponSelector(couponCode)) as Coupon;
+
+      switch (coupon.discountType) {
+        case 'fixed':
+          return get(calculateFixedDiscountSelector(couponCode));
+        default:
+          return 0;
+      }
     },
 });
