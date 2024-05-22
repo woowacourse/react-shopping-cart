@@ -1,10 +1,7 @@
-import { DefaultValue, selector, selectorFamily } from 'recoil';
+import { DefaultValue, selector } from 'recoil';
 import { couponsState, itemDetailsState, itemsState } from './atoms';
 import { CartItems } from '../types/Item';
-import {
-  getLocalStorage,
-  updateLocalStorage,
-} from '../utils/UpdateLocalStorage';
+import { updateLocalStorage } from '../utils/UpdateLocalStorage';
 import {
   DELIVERY_FEE,
   FREE_DELIVERY_THRESHOLD,

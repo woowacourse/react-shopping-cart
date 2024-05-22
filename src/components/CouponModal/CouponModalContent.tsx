@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { NotificationIcon } from '../../asset';
 import { MESSAGES } from '../../constants/Messages';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { couponsState } from '../../recoil/atoms';
 import { Coupon } from '../../types/coupon';
 import CouponCard from '../\bCouponCard';

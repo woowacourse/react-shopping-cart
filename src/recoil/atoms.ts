@@ -1,5 +1,5 @@
-import { atom, atomFamily, selectorFamily, useRecoilValue } from 'recoil';
-import { CartItems, ItemDetailsStateType } from '../types/Item';
+import { atom, atomFamily, selectorFamily } from 'recoil';
+import { CartItems } from '../types/Item';
 import { Coupon, CouponDetailState } from '../types/coupon';
 import { fetchItemsSelector } from './fetchSelectors';
 import { getLocalStorage } from '../utils/UpdateLocalStorage';
@@ -9,13 +9,6 @@ export const itemsState = atom<CartItems[]>({
   default: fetchItemsSelector,
 });
 
-// export const itemDetailsState = atomFamily<ItemDetailsStateType, number>({
-//   key: 'itemDetailsState',
-//   default: {
-//     quantity: 1,
-//     isChecked: true,
-//   },
-// });
 export const itemDetailsState = atomFamily({
   key: 'itemDetailsState',
   default: selectorFamily({
