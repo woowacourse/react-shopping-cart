@@ -2,7 +2,7 @@ import { DefaultValue, selector } from 'recoil';
 import { itemDetailsState, itemsState } from './atoms';
 import { Items } from '../types/Item';
 import { updateLocalStorage } from '../utils/LocalStorage';
-import { fetchItems } from '../api';
+import { fetchCoupons, fetchItems } from '../api';
 
 /**
  * 전체 금액, 배송비 계산, 총 결제 금액 계산
@@ -83,6 +83,14 @@ export const fetchItemsSelector = selector({
   },
   set: ({ set }, newValue) => {
     set(itemsState, newValue);
+  },
+});
+
+export const fetchCouponsSelector = selector({
+  key: 'fetchCouponsSelector',
+  get: async () => {
+    const data = await fetchCoupons();
+    return data;
   },
 });
 

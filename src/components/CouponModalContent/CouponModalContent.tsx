@@ -1,7 +1,14 @@
 import React from 'react';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import { MESSAGES } from '../../constants/Messages';
+import { useRecoilValue } from 'recoil';
+import { fetchCouponsSelector } from '../../recoil/selectors';
+import CouponModalCard from '../CouponModalCard/CouponModalCard';
 
 function CouponModalContent() {
-  return <h1>CouponModalContent</h1>;
+  const fetchedCoupons = useRecoilValue(fetchCouponsSelector);
+
+  return <></>;
 }
 
 export default CouponModalContent;

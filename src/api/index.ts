@@ -1,3 +1,4 @@
+import { Coupon } from '../types/Coupon';
 import { Items } from '../types/Item';
 import { FetchResponseType } from '../types/api';
 import { generateBasicToken } from '../utils/Auth';
@@ -27,7 +28,7 @@ const fetchResponse = async ({
 
 export async function fetchItems(): Promise<Items[]> {
   const response = await fetchResponse({
-    url: `/cart-items`,
+    url: '/cart-items',
     method: 'GET',
   });
 
@@ -63,4 +64,18 @@ export async function removeCartItem(cartItemId: number): Promise<void> {
   if (!response.ok) {
     throw new Error('Failed to remove cart item');
   }
+}
+
+export async function fetchCoupons(): Promise<Coupon[]> {
+  const response = await fetchResponse({
+    url: '/coupons',
+    method: 'GET',
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch Coupons');
+  }
+
+  const data = await response.json();
+  return data;
 }
