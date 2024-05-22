@@ -1,6 +1,5 @@
 import React from "react";
-import CheckedButtonIcon from "../../../assets/CheckedButtonIcon.png";
-import UnCheckedButtonIcon from "../../../assets/UncheckedButtonIcon.png";
+import { CheckedButtonIcon, UncheckedButtonIcon } from "../../../assets";
 import BaseButton from "../baseButton/baseButton";
 import { StyledBaseButtonImg } from "../baseButton/baseButton.styled";
 
@@ -11,7 +10,7 @@ interface CheckboxButtonProps {
 }
 
 export const CheckboxButton: React.FC<CheckboxButtonProps> = ({ isChecked, onCheck, disabled }) => {
-  const src = isChecked ? CheckedButtonIcon : UnCheckedButtonIcon;
+  const src = isChecked ? CheckedButtonIcon : UncheckedButtonIcon;
   return (
     <BaseButton onClick={onCheck} disabled={disabled}>
       <StyledBaseButtonImg src={src} />

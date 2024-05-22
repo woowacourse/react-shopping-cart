@@ -1,5 +1,5 @@
 import { useRecoilValue } from "recoil";
-import InfoIcon from "../../../assets/InfoIcon.png";
+import { InfoIcon } from "../../../assets";
 import { INFO_MESSAGES } from "../../../constants";
 import { cartSummarySelectorState } from "../../../recoil/selector/selector";
 import { CartSummaryItem } from "../cartSummaryItem/CartSummaryItem";

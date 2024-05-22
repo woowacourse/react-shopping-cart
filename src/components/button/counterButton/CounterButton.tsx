@@ -1,5 +1,4 @@
-import MinusButtonIcon from "../../../assets/MinusButtonIcon.png";
-import PlusButtonIcon from "../../../assets/PlusButtonIcon.png";
+import { MinusButtonIcon, PlusButtonIcon } from "../../../assets";
 import { COUNTER_BUTTON_TYPES } from "../../../constants";
 import BaseButton from "../baseButton/baseButton";
 import { StyledBaseButtonImg } from "../baseButton/baseButton.styled";

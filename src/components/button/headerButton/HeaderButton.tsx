@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import BackIcon from "../../../assets/BackIcon.png";
+import { BackIcon } from "../../../assets";
 import { HEADER_TYPES, PATHS } from "../../../constants";
-import { StyledHeaderButtonContent, StyledHeaderButtonImg } from "./HeaderButton.styled";
 import BaseButton from "../baseButton/baseButton";
+import { StyledHeaderButtonContent, StyledHeaderButtonImg } from "./HeaderButton.styled";
 
 export interface HeaderButtonProps {
   type: (typeof HEADER_TYPES)[keyof typeof HEADER_TYPES];
