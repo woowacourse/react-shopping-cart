@@ -17,3 +17,7 @@ interface Price {
   deliveryFee: number;
   totalPrice: number;
 }
+
+interface PriceList {
+  [key: number]: [string, number];
+}

@@ -4,13 +4,16 @@ import {
   OrderPrice,
   PriceGroup,
 } from './ProductTotalPriceList.style';
-import { useRecoilValue } from 'recoil';
-import { calculateOrderPrice } from '../../recoil/selectors';
 
-export default function ProductTotalPriceList() {
-  const { totalOrderPrice, deliveryFee, totalPrice } =
-    useRecoilValue(calculateOrderPrice);
+interface Props {
+  priceList: PriceList;
+  totalPrice: number;
+}
 
+export default function ProductTotalPriceList({
+  priceList,
+  totalPrice,
+}: Props) {
   return (
     <section className="product-total-price-list">
       <Notification>
@@ -20,18 +23,16 @@ export default function ProductTotalPriceList() {
         </span>
       </Notification>
       <OrderPrice>
-        <PriceGroup>
-          <span className="price-group_title">주문 금액</span>
-          <span className="price-group_price">
-            {totalOrderPrice.toLocaleString('ko-kr')}원
-          </span>
-        </PriceGroup>
-        <PriceGroup>
-          <span className="price-group_title">배송비</span>
-          <span className="price-group_price">
-            {deliveryFee.toLocaleString('ko-kr')}원
-          </span>
-        </PriceGroup>
+        {Object.values(priceList).map((item) => {
+          return (
+            <PriceGroup>
+              <span className="price-group_title">{item[0]}</span>
+              <span className="price-group_price">
+                {item[1].toLocaleString('ko-kr')}원
+              </span>
+            </PriceGroup>
+          );
+        })}
       </OrderPrice>
       <OrderPrice>
         <PriceGroup>
