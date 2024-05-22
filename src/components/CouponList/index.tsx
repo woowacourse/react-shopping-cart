@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { title } from "process";
 import { PropsWithChildren } from "react";
+import { mockCoupons } from "../../mocks";
 import { caption } from "../../styles/font";
-import { Coupon } from "../../types";
 import formatAvailableTime from "../../util/formatAvailableTime";
 import formatExpirationDate from "../../util/formatExpirationDate";
 import formatPriceToKoreanWon from "../../util/formatPriceToKoreanWon";
@@ -14,51 +14,10 @@ import {
   CouponListTitle,
 } from "./style";
 
-const coupons: Coupon[] = [
-  {
-    id: 1,
-    code: "FIXED5000",
-    description: "5,000원 할인 쿠폰",
-    expirationDate: "2024-11-30",
-    discount: 5000,
-    minimumAmount: 100000,
-    discountType: "fixed",
-  },
-  {
-    id: 2,
-    code: "BOGO",
-    description: "2개 구매 시 1개 무료 쿠폰",
-    expirationDate: "2024-04-30",
-    buyQuantity: 2,
-    getQuantity: 1,
-    discountType: "buyXgetY",
-  },
-  {
-    id: 3,
-    code: "FREESHIPPING",
-    description: "5만원 이상 구매 시 무료 배송 쿠폰",
-    expirationDate: "2024-08-31",
-    minimumAmount: 50000,
-    discountType: "freeShipping",
-  },
-  {
-    id: 4,
-    code: "MIRACLESALE",
-    description: "미라클모닝 30% 할인 쿠폰",
-    expirationDate: "2024-07-31",
-    discount: 30,
-    availableTime: {
-      start: "04:00:00",
-      end: "07:00:00",
-    },
-    discountType: "percentage",
-  },
-];
-
 const CouponList: React.FC<PropsWithChildren> = () => {
   return (
     <>
-      {coupons.map(
+      {mockCoupons.map(
         ({ id, description, expirationDate, minimumAmount, availableTime }) => (
           <>
             <Divider />
