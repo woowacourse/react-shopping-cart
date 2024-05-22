@@ -1,4 +1,4 @@
-import { useUpdateCartItemCount } from '@hooks/shoppingCart';
+import { useCartItemQuantity } from '@hooks/shoppingCart';
 import { cartItemsAtom } from '@recoil/shoppingCart';
 import { act } from 'react';
 import { useRecoilValue } from 'recoil';
@@ -15,21 +15,20 @@ describe('수량 변경 테스트', () => {
     const { result } = executeCartItemRenderHook(
       () => {
         const cartItems = useRecoilValue(cartItemsAtom);
-        const { updateCartItems, getDecreasedQuantity } = useUpdateCartItemCount(cartItems[0]);
+        const { quantity, updateCartItemQuantity } = useCartItemQuantity(cartItems[0].id);
 
-        return { cartItems, updateCartItems, getDecreasedQuantity };
+        return { cartItems, updateCartItemQuantity, quantity };
       },
       INITIAL_ITEMS,
       new Set(INITIAL_ITEMS.map((item) => item.id)),
     );
 
     act(() => {
-      const newQuantity = result.current.getDecreasedQuantity();
-      result.current.updateCartItems(newQuantity);
+      result.current.updateCartItemQuantity(result.current.quantity - 1);
     });
 
     // then
-    expect(result.current.cartItems[0].quantity).toBe(QUANTITY - 1);
+    expect(result.current.quantity).toBe(QUANTITY - 1);
   });
 
   it('+ 버튼을 누를 경우, 수량이 1 증가한다.', () => {
@@ -40,23 +39,20 @@ describe('수량 변경 테스트', () => {
     const { result } = executeCartItemRenderHook(
       () => {
         const cartItems = useRecoilValue(cartItemsAtom);
-        const { updateCartItems, getIncreasedQuantity } = useUpdateCartItemCount(cartItems[0]);
+        const { quantity, updateCartItemQuantity } = useCartItemQuantity(cartItems[0].id);
 
-        return { cartItems, updateCartItems, getIncreasedQuantity };
+        return { cartItems, updateCartItemQuantity, quantity };
       },
       INITIAL_ITEMS,
       new Set(INITIAL_ITEMS.map((item) => item.id)),
     );
 
-    const newQuantity = result.current.getIncreasedQuantity();
-
     act(() => {
-      result.current.updateCartItems(newQuantity);
+      result.current.updateCartItemQuantity(result.current.quantity + 1);
     });
 
     // then
-    expect(newQuantity).toBe(QUANTITY + 1);
-    expect(result.current.cartItems[0].quantity).toBe(newQuantity);
+    expect(result.current.quantity).toBe(QUANTITY + 1);
   });
 
   describe('최저 수량, 최대 수량 테스트', () => {
@@ -69,9 +65,9 @@ describe('수량 변경 테스트', () => {
         () => {
           const cartItems = useRecoilValue(cartItemsAtom);
 
-          const { updateCartItems, getDecreasedQuantity } = useUpdateCartItemCount(cartItems[1]);
+          const { quantity, updateCartItemQuantity, getDecreasedQuantity } = useCartItemQuantity(cartItems[1].id);
 
-          return { cartItems, updateCartItems, getDecreasedQuantity };
+          return { quantity, cartItems, updateCartItemQuantity, getDecreasedQuantity };
         },
         INITIAL_ITEMS,
         new Set(INITIAL_ITEMS.map((item) => item.id)),
@@ -79,13 +75,15 @@ describe('수량 변경 테스트', () => {
 
       const newQuantity = result.current.getDecreasedQuantity();
 
+      console.log(newQuantity, result.current.quantity);
+
       act(() => {
-        result.current.updateCartItems(newQuantity);
+        result.current.updateCartItemQuantity(newQuantity);
       });
 
       // then
       expect(newQuantity).toBe(QUANTITY);
-      expect(result.current.cartItems[1].quantity).toBe(newQuantity);
+      expect(result.current.quantity).toBe(newQuantity);
     });
 
     it('수량이 100개 일때 + 버튼을 누를 경우, 수량이 변경되지 않는다.', () => {
@@ -97,9 +95,9 @@ describe('수량 변경 테스트', () => {
         () => {
           const cartItems = useRecoilValue(cartItemsAtom);
 
-          const { updateCartItems, getIncreasedQuantity } = useUpdateCartItemCount(cartItems[0]);
+          const { updateCartItemQuantity, getIncreasedQuantity } = useCartItemQuantity(cartItems[0].id);
 
-          return { cartItems, updateCartItems, getIncreasedQuantity };
+          return { cartItems, updateCartItemQuantity, getIncreasedQuantity };
         },
         QUANTITY_TEST_ITEMS,
         new Set(QUANTITY_TEST_ITEMS.map((item) => item.id)),
@@ -108,7 +106,7 @@ describe('수량 변경 테스트', () => {
       const newQuantity = result.current.getIncreasedQuantity();
 
       act(() => {
-        result.current.updateCartItems(newQuantity);
+        result.current.updateCartItemQuantity(newQuantity);
       });
 
       // then

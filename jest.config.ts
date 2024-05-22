@@ -21,5 +21,5 @@ export default {
     '^@errors/(.*)$': '<rootDir>/src/errors/$1',
     '^@recoil/(.*)$': '<rootDir>/src/recoil/$1',
   },
-  testPathIgnorePatterns: ['<rootDir>/__tests__/constants/'],
+  testPathIgnorePatterns: ['<rootDir>/__tests__/constants/', '<rootDir>/__tests__/utils/'],
 };
