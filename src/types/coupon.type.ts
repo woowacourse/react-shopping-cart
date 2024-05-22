@@ -1,9 +1,11 @@
-export type Coupon = {
+export type CouponDiscountType = 'fixed' | 'percentage' | 'buyXgetY' | 'freeShipping';
+
+export type ResponseCoupon = {
   id: number;
   code: string;
   description: string;
   discount?: number;
-  discountType: 'fixed' | 'percentage' | 'buyXgetY' | 'freeShipping';
+  discountType: CouponDiscountType;
   minimumAmount?: number;
   buyQuantity?: number;
   getQuantity?: number;
@@ -12,4 +14,10 @@ export type Coupon = {
     end: string;
   };
   expirationDate: string;
+};
+
+export type CouponPriority = 0 | 1;
+
+export type Coupon = ResponseCoupon & {
+  priority: CouponPriority;
 };

@@ -9,6 +9,7 @@ export const mockCouponList: Coupon[] = [
     discountType: 'fixed',
     minimumAmount: 100000,
     expirationDate: '2024-11-30',
+    priority: 0,
   },
   {
     id: 2,
@@ -18,6 +19,7 @@ export const mockCouponList: Coupon[] = [
     buyQuantity: 2,
     getQuantity: 1,
     expirationDate: '2024-04-30',
+    priority: 0,
   },
   {
     id: 3,
@@ -26,6 +28,7 @@ export const mockCouponList: Coupon[] = [
     discountType: 'freeShipping',
     minimumAmount: 50000,
     expirationDate: '2024-08-31',
+    priority: 0,
   },
   {
     id: 4,
@@ -38,5 +41,6 @@ export const mockCouponList: Coupon[] = [
       end: '07:00:00',
     },
     expirationDate: '2024-07-31',
+    priority: 1,
   },
 ];
