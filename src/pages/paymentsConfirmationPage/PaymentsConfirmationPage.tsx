@@ -1,37 +1,22 @@
-import { useRecoilValue } from "recoil";
-import { ConfirmButton } from "../../components/button";
-import Header from "../../components/header/Header";
-import { BUTTON_COLORS, HEADER_TYPES, INFO_MESSAGES } from "../../constants";
-import { cartSummarySelectorState } from "../../recoil/selector/selector";
-import {
-  StyledConfirmationPage,
-  StyledConfirmationPageDescription,
-  StyledConfirmationPagePrice,
-  StyledConfirmationPagePriceContainer,
-  StyledConfirmationPageSubTitle,
-  StyledConfirmationPageTitle,
-} from "./PaymentsConfirmationPage.styled";
+import { useNavigate } from "react-router-dom";
+import { CartLayout } from "../../components/cartLayout/CartLayout";
+import { PaymentsSummary } from "../../components/cartSummary";
+import { BUTTON_COLORS, HEADER_TYPES, PATHS } from "../../constants";
 
 export const PaymentsConfirmationPage: React.FC = () => {
-  const { totalPrice, uniqueItemCount, totalItemCount } = useRecoilValue(cartSummarySelectorState);
+  const navigate = useNavigate();
+  const navigateToCartPage = () => {
+    navigate(PATHS.BASE);
+  };
 
   return (
-    <>
-      <Header type={HEADER_TYPES.BACK} />
-      <StyledConfirmationPage>
-        <StyledConfirmationPageTitle>주문확인 </StyledConfirmationPageTitle>
-        <StyledConfirmationPageDescription>
-          <span>
-            총 {uniqueItemCount}종류의 상품 {totalItemCount}개를 주문합니다.
-          </span>
-          <span>{INFO_MESSAGES.CHECK_TOTAL_PRICE}</span>
-        </StyledConfirmationPageDescription>
-        <StyledConfirmationPagePriceContainer>
-          <StyledConfirmationPageSubTitle>총 결제 금액</StyledConfirmationPageSubTitle>
-          <StyledConfirmationPagePrice>{totalPrice.toLocaleString()}원</StyledConfirmationPagePrice>
-        </StyledConfirmationPagePriceContainer>
-      </StyledConfirmationPage>
-      <ConfirmButton text="결제하기" mode={BUTTON_COLORS.LIGHT} />
-    </>
+    <CartLayout
+      headerType={HEADER_TYPES.NONE}
+      buttonText="장바구니로 돌아가기"
+      buttonMode={BUTTON_COLORS.DARK}
+      onButtonClick={navigateToCartPage}
+    >
+      <PaymentsSummary />
+    </CartLayout>
   );
 };
