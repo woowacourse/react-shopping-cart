@@ -7,7 +7,7 @@ const useCouponApplicable = () => {
   const totalPrice = useRecoilValue(cartOrderTotalPriceSelector);
 
   const isCouponApplicable = (coupon: Coupon) => {
-    const now = new Date();
+    const now = new Date(2024, 3, 20);
 
     if (isCouponExpired(coupon.expirationDate, now)) return false;
 

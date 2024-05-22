@@ -1,5 +1,6 @@
 import { atom, AtomEffect } from 'recoil';
 import type { TCartItem } from '../../types/CartItem.type';
+import { Coupon } from '../../types/Coupon.type';
 
 const localStorageEffect =
   <T>(key: string): AtomEffect<T> =>
@@ -22,6 +23,11 @@ const localStorageEffect =
 export const isSigolState = atom<boolean>({
   key: 'isSigolState',
   default: false,
+});
+
+export const selectedCouponListState = atom<Coupon[]>({
+  key: 'couponListState',
+  default: [],
 });
 
 export const selectedCartItemListState = atom<TCartItem[]>({

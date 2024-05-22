@@ -1,6 +1,7 @@
 import { selector, selectorFamily } from 'recoil';
 import type { TCartItem } from '../../types/CartItem.type';
-import { isSigolState, selectedCartItemListState } from '../atoms/atoms';
+import type { Coupon } from '../../types/Coupon.type';
+import { isSigolState, selectedCartItemListState, selectedCouponListState } from '../atoms/atoms';
 import { calculateDeliveryFee } from '../../utils/calculateDeliveryFee';
 
 export const selectedCartItemListSelector = selectorFamily<boolean, TCartItem>({
@@ -22,6 +23,37 @@ export const selectedCartItemListSelector = selectorFamily<boolean, TCartItem>({
         isSelected ? selectedCartItemList.filter((item) => item.id !== newItem.id) : [...selectedCartItemList, newItem],
       );
     },
+});
+
+export const selectedCouponListSelector = selectorFamily<boolean, Coupon>({
+  key: 'selectedCouponListSelector',
+  get:
+    (newCoupon: Coupon) =>
+    ({ get }) => {
+      const selectedCouponList = get(selectedCouponListState);
+      return selectedCouponList.some((coupon) => coupon.id === newCoupon.id);
+    },
+  set:
+    (newCoupon: Coupon) =>
+    ({ set, get }) => {
+      const selectedCouponList = get(selectedCouponListState);
+      const isSelected = selectedCouponList.some((coupon) => coupon.id === newCoupon.id);
+
+      set(
+        selectedCouponListState,
+        isSelected
+          ? selectedCouponList.filter((coupon) => coupon.id !== newCoupon.id)
+          : [...selectedCouponList, newCoupon],
+      );
+    },
+});
+
+export const isCouponListMaxLength = selector({
+  key: 'isCouponListMaxLength',
+  get: ({ get }) => {
+    const selectedCouponList = get(selectedCouponListState);
+    return selectedCouponList.length >= 2;
+  },
 });
 
 export const deliveryFeeSelector = selector({

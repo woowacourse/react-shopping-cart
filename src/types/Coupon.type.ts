@@ -1,4 +1,4 @@
-export interface Coupon {
+export type Coupon = {
   id: number;
   code: string;
   description: string;
@@ -12,4 +12,4 @@ export interface Coupon {
     end: string;
   };
   expirationDate: string;
-}
+};
