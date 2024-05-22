@@ -22,3 +22,17 @@ export interface CartSummary {
   uniqueItemCount: number;
   totalItemCount: number;
 }
+
+export interface Coupon {
+  id: string;
+  description: string;
+  expirationDate: string;
+  discountType: string;
+  minimumAmount?: number;
+  buyQuantity?: number;
+  getQuantity?: number;
+  availableTime?: {
+    start: string;
+    end: string;
+  };
+}

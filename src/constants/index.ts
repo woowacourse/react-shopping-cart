@@ -13,6 +13,7 @@ export const PATHS = {
   ORDER_CONFIRMATION: "/order-confirmation",
   PAYMENTS_CONFIRMATION: "/payments-confirmation",
   COUNTS: "/counts",
+  COUPONS: "/coupons",
 };
 
 // 페이징 상수
@@ -43,6 +44,7 @@ export const ERROR_MESSAGES = {
   FETCH_CART_ITEM_QUANTITY: "Failed to fetch cart item quantity",
   ADD_CART_ITEM: "Failed to add cart item",
   DELETE_CART_ITEM: "Failed to delete cart item",
+  FETCH_COUPONS: "Failed to fetch coupons",
 };
 
 // 정보 메시지 상수

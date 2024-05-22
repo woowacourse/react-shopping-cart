@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { CartItem } from "../../types";
+import { CartItem, Coupon } from "../../types";
 import { getLocalStorageState } from "../../utils/getLocalStorageStore";
 
 export const cartItemsState = atom<CartItem[]>({
@@ -26,4 +26,9 @@ export const cartSummaryState = atom({
     uniqueItemCount: 0,
     totalItemCount: 0,
   },
+});
+
+export const couponsState = atom<Coupon[]>({
+  key: "couponState",
+  default: [],
 });
