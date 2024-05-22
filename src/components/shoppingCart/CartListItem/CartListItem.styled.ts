@@ -7,12 +7,6 @@ export const CartListContainer = styled.li`
   margin-top: 12px;
 `;
 
-export const CartItemDetailContainer = styled.div`
-  display: flex;
-  gap: 24px;
-  margin-top: 12px;
-`;
-
 export const CartItemSelectionGroup = styled.div`
   width: 100%;
   display: flex;

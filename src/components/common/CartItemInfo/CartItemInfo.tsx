@@ -1,5 +1,6 @@
 import { CartItem } from '@appTypes/shoppingCart';
 import { formatKoreanCurrency } from '@utils/currency';
+import { ReactNode } from 'react';
 
 import * as Styled from './CartItemInfo.styled';
 
@@ -19,10 +20,25 @@ const CartItemImg = ({ cartItem }: { cartItem: CartItem }) => {
   return <Styled.ItemImage src={cartItem.product.imageUrl} />;
 };
 
+const CartItemQuantity = ({ cartItem }: { cartItem: CartItem }) => {
+  return <Styled.ItemQuantity>{cartItem.quantity}개</Styled.ItemQuantity>;
+};
+
+const CartItemDescription = ({ children }: { children: ReactNode }) => {
+  return <Styled.Description>{children}</Styled.Description>;
+};
+
+const CartItemDetailContainer = ({ children }: { children: ReactNode }) => {
+  return <Styled.DetailContainer>{children}</Styled.DetailContainer>;
+};
+
 const CartItemInfo = Object.assign(Info, {
   Name: CartItemName,
   Price: CartItemPrice,
   Img: CartItemImg,
+  Quantity: CartItemQuantity,
+  Description: CartItemDescription,
+  DetailContainer: CartItemDetailContainer,
 });
 
 export default CartItemInfo;

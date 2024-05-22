@@ -22,10 +22,10 @@ const CartListItem: React.FC<CartListItemProps> = ({ cartItem }) => {
         />
         <DeleteButton onClick={onDeleteItem}>삭제</DeleteButton>
       </Styled.CartItemSelectionGroup>
-      <Styled.CartItemDetailContainer>
+      <CartItemInfo.DetailContainer>
         <CartItemInfo.Img cartItem={cartItem} />
         <CartListDescription cartItem={cartItem} />
-      </Styled.CartItemDetailContainer>
+      </CartItemInfo.DetailContainer>
     </Styled.CartListContainer>
   );
 };

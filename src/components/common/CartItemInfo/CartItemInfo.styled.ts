@@ -19,3 +19,22 @@ export const ItemImage = styled.img`
   height: 112px;
   border-radius: 8px;
 `;
+
+export const ItemQuantity = styled.p`
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+`;
+
+export const Description = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+`;
+
+export const DetailContainer = styled.div`
+  display: flex;
+  gap: 24px;
+  margin-top: 12px;
+`;
