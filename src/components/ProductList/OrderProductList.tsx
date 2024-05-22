@@ -1,5 +1,9 @@
 import { useRecoilValue } from 'recoil';
-import { calculateOrderPrice, checkedCartItems } from '../../recoil/selectors';
+import {
+  calculateOrderPrice,
+  checkedCartItems,
+  fetchCouponList,
+} from '../../recoil/selectors';
 
 import { Modal } from 'soha-components';
 
@@ -10,11 +14,13 @@ import ProductTotalPriceList from '../ProductTotalPriceList/ProductTotalPriceLis
 import * as P from './ProductList.style';
 import * as OP from './OrderProductList.style';
 import { useState } from 'react';
+import Coupon from '../Coupon/Coupon';
 
 export default function OrderProductList() {
   const order = useRecoilValue(checkedCartItems);
   const { totalOrderPrice, deliveryFee, totalPrice } =
     useRecoilValue(calculateOrderPrice);
+  const couponList = useRecoilValue(fetchCouponList);
 
   const [isCheck, setIsCheck] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -57,7 +63,7 @@ export default function OrderProductList() {
           buttonText="총 00원 할인 쿠폰 사용하기"
           buttonClick={() => alert('쿠폰 적용 완료')}
         >
-          modal 내용은 이곳에 작성해주세요.
+          <Coupon coupons={couponList} />
         </Modal>
       )}
     </P.ProductListStyle>
