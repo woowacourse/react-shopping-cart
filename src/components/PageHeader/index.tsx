@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import { PageHeaderContainer } from "../../pages/CartPage/styles";
-import { Description, Title } from "../../pages/ConfirmOrderPage/styles";
+import { Description, Title } from "../../pages/PaymentConfirmationPage/styles";
 
 interface PageHeaderProps {
   title: string;
