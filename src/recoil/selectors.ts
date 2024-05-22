@@ -1,6 +1,6 @@
 import { selector } from 'recoil';
 import { cartData, cartItemCheckState } from './atoms';
-import { fetchCartItem } from '../api';
+import { fetchCartItem, fetchCoupon } from '../api';
 
 export const fetchCartData = selector<Cart[]>({
   key: 'fetchCartData',
@@ -48,5 +48,13 @@ export const calculateOrderPrice = selector<Price>({
     const totalPrice = totalOrderPrice + deliveryFee;
 
     return { totalOrderPrice, deliveryFee, totalPrice };
+  },
+});
+
+export const fetchCouponList = selector<Coupon[]>({
+  key: 'fetchCouponList',
+  get: async () => {
+    const couponData = await fetchCoupon();
+    return couponData;
   },
 });

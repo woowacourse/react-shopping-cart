@@ -21,3 +21,16 @@ interface Price {
 interface PriceList {
   [key: number]: [string, number];
 }
+
+interface Coupon {
+  id: number;
+  code: string;
+  description: string;
+  expirationDate: string;
+  discount: number;
+  minimumAmount: number;
+  discountType: string;
+  buyQuantity?: number;
+  getQuantity?: number;
+  availableTime?: { end: string; start: string };
+}
