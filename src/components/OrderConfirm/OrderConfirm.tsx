@@ -1,13 +1,11 @@
-import {
-  cartItemsState,
-  cartPriceState,
-} from "../../recoil/selectors/selectors";
+import { cartPriceState } from "../../recoil/selectors/selectors";
 import { useRecoilValue } from "recoil";
 import { Wrapper, Title, Info, PriceWrapper, PriceText, Price } from "./style";
+import { cartItemsAtom } from "../../recoil/atoms/atoms";
 
 const OrderConfirm = () => {
   const { totalPrice } = useRecoilValue(cartPriceState);
-  const cartItems = useRecoilValue(cartItemsState);
+  const cartItems = useRecoilValue(cartItemsAtom);
   const totalItemLength = cartItems.reduce((acc, cur) => {
     return cur.quantity + acc;
   }, 0);

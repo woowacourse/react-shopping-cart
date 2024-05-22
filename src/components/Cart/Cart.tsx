@@ -3,16 +3,13 @@ import {
   selectedListState,
   cartItemQuantityState,
 } from "../../recoil/atoms/atoms";
-
 import Button from "../common/Button/Button";
-
 import { deleteCartItem, patchCartItemQuantity } from "../../api/cart";
-
 import type { CartItem } from "../../types/cart";
-
 import OutlineCheck from "../../assets/icon/OutlineCheck";
 import FilledCheck from "../../assets/icon/FilledCheck";
-import { cartItemsState } from "../../recoil/selectors/selectors";
+import { useEffect } from "react";
+import { cartItemsAtom } from "../../recoil/atoms/atoms";
 
 import {
   Wrapper,
@@ -34,7 +31,7 @@ const CartItem = ({ cartItem: { id, product, quantity } }: CardItemProps) => {
   const [cartItemQuantity, setCartItemQuantity] = useRecoilState(
     cartItemQuantityState(id)
   );
-  const refresh = useRecoilRefresher_UNSTABLE(cartItemsState);
+  const refresh = useRecoilRefresher_UNSTABLE(cartItemsAtom);
 
   const handleToggleSelectItem = () => {
     if (selectedList.includes(id)) {
@@ -54,21 +51,23 @@ const CartItem = ({ cartItem: { id, product, quantity } }: CardItemProps) => {
   };
 
   const handleChangeItemQuantity = async (number: number) => {
-    const newQuantity = cartItemQuantity ? cartItemQuantity : quantity;
-
-    if (newQuantity + number < 1) {
+    if (cartItemQuantity + number < 1) {
       alert("개수는 1보다 작을 수 없습니다");
       return;
     }
 
     try {
-      setCartItemQuantity(() => newQuantity + number);
-      patchCartItemQuantity(id, newQuantity + number);
+      setCartItemQuantity(() => cartItemQuantity + number);
+      await patchCartItemQuantity(id, cartItemQuantity + number);
     } catch (error) {
-      setCartItemQuantity(() => newQuantity - number);
+      setCartItemQuantity(cartItemQuantity);
       console.error("Failed to remove cart item:", error);
     }
   };
+
+  useEffect(() => {
+    setCartItemQuantity(quantity);
+  }, [quantity, setCartItemQuantity]);
 
   return (
     <Wrapper>
@@ -99,7 +98,7 @@ const CartItem = ({ cartItem: { id, product, quantity } }: CardItemProps) => {
             >
               -
             </Button>
-            <span>{cartItemQuantity ? cartItemQuantity : quantity}</span>
+            <span>{cartItemQuantity}</span>
             <Button
               $theme="white"
               $size="xs"

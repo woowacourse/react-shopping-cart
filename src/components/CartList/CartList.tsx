@@ -1,5 +1,4 @@
 import { useRecoilState, useRecoilValue } from "recoil";
-import { cartItemsState } from "../../recoil/selectors/selectors";
 import { selectedListState } from "../../recoil/atoms/atoms";
 import Cart from "../Cart/Cart";
 import type { CartItem } from "../../types/cart";
@@ -8,18 +7,20 @@ import infoOutline from "../../assets/images/infoOutline.png";
 import OutlineCheck from "../../assets/icon/OutlineCheck";
 import FilledCheck from "../../assets/icon/FilledCheck";
 import Button from "../common/Button/Button";
+import { cartItemsAtom } from "../../recoil/atoms/atoms";
 
 const CartList = () => {
-  const cartItemList = useRecoilValue(cartItemsState);
+  const cartItems = useRecoilValue(cartItemsAtom);
+
   const [selectedList, setSelectedListState] =
     useRecoilState(selectedListState);
-  const isAllSelected = cartItemList.every((cartItem) =>
+  const isAllSelected = cartItems.every((cartItem) =>
     selectedList.includes(cartItem.id)
   );
 
   const handleSelectAllItem = (type: "turnOn" | "turnOff") => {
     if (type === "turnOn") {
-      setSelectedListState(cartItemList.map((cartItem) => cartItem.id));
+      setSelectedListState(cartItems.map((cartItem) => cartItem.id));
     } else if (type === "turnOff") {
       setSelectedListState([]);
     } else {
@@ -47,7 +48,7 @@ const CartList = () => {
         )}
         <span>전체선택</span>
       </AllCheckWrapper>
-      {cartItemList.map((cartItem: CartItem) => (
+      {cartItems.map((cartItem: CartItem) => (
         <Cart key={cartItem.id} cartItem={cartItem} />
       ))}
       <Footer>

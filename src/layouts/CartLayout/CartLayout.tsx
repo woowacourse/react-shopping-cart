@@ -1,8 +1,8 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
-import { cartItemsState } from "../../recoil/selectors/selectors";
 import { useLocation } from "react-router-dom";
 import { Wrapper, Title } from "./style";
+import { cartItemsAtom } from "../../recoil/atoms/atoms";
 
 interface CartLayoutProps {
   children: React.ReactNode;
@@ -10,7 +10,7 @@ interface CartLayoutProps {
 
 const CartLayout = ({ children }: CartLayoutProps) => {
   const { pathname } = useLocation();
-  const cartItemsLength = useRecoilValue(cartItemsState).length;
+  const cartItemsLength = useRecoilValue(cartItemsAtom).length;
 
   return (
     <Wrapper>

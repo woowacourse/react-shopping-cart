@@ -1,31 +1,26 @@
 import { selector } from "recoil";
 import { getCartItems } from "../../api/cart";
 import { CartItem } from "../../types/cart";
-import { selectedListState } from "../atoms/atoms";
+import {
+  cartItemQuantityState,
+  selectedListState,
+  cartItemsAtom,
+} from "../atoms/atoms";
 import {
   DEFAULT_DELIVERY_FEE,
   DELIVERY_FEE_THRESHOLD,
 } from "../../constants/cart";
 
-export const cartItemsState = selector<CartItem[]>({
-  key: "cartItemsState",
-  get: async () => {
-    const cartItems = await getCartItems();
-    return cartItems;
-  },
-  // set: ({}, newValue) => {
-  // }
-});
-
 export const cartPriceState = selector({
   key: "cartPriceState",
   get: ({ get }) => {
-    const cartItems = get(cartItemsState);
+    const cartItems = get(cartItemsAtom);
     const selectedList = get(selectedListState);
 
     const orderPrice = cartItems.reduce((acc, cartItem) => {
       if (selectedList.includes(cartItem.id)) {
-        return acc + cartItem.product.price * cartItem.quantity;
+        const cartItemQuantity = get(cartItemQuantityState(cartItem.id));
+        return acc + cartItem.product.price * cartItemQuantity;
       }
       return acc;
     }, 0);
@@ -40,3 +35,10 @@ export const cartPriceState = selector({
     return { orderPrice, deliveryFee, totalPrice: orderPrice + deliveryFee };
   },
 });
+
+// export const cartResult = selector({
+//   key: 'cartResult',
+//   get: ({get}) => {
+
+//   }
+// })

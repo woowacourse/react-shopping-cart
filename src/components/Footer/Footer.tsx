@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
 import { selectedListState } from "../../recoil/atoms/atoms";
-import { cartItemsState } from "../../recoil/selectors/selectors";
+import { cartItemsAtom } from "../../recoil/atoms/atoms";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../common/Button/Button";
 import { Wrapper } from "./style";
@@ -8,7 +8,7 @@ import { Wrapper } from "./style";
 const Footer = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const cartItems = useRecoilValue(cartItemsState);
+  const cartItems = useRecoilValue(cartItemsAtom);
   const selectedList = useRecoilValue(selectedListState);
   const disabledButton =
     Object.values(selectedList).every((isSelect) => !isSelect) ||
