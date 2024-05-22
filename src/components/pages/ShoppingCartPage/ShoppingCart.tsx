@@ -1,8 +1,8 @@
 import * as Styled from './style';
-import Header from '../../Header/Header';
+import Header from '../../common/Header/Header';
 
-import CartItemContainer from '../../CartItemContainer/CartItemContainer';
 import { Suspense } from 'react';
+import CartItemContainer from '../../CartItemContainer/CartItemContainer';
 
 const ShoppingCart = () => {
   return (

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ErrorMessage = styled.p`
+export const LoadingMessage = styled.p`
   position: absolute;
   top: 50%;
   left: 50%;
