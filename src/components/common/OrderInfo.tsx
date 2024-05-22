@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 import { useRecoilValue } from 'recoil';
 
+import GuideText from './GuideText';
 import Receipt from '../Cart/Receipt';
 
-import { INFO_ICON } from '@assets/images';
 import { CONFIG } from '@constants/config';
 import { orderResultState } from '@recoil/cartItems/selectors';
 
@@ -16,14 +16,9 @@ const OrderInfo = ({ type }: CartFooterProps) => {
 
   return (
     <section css={cartFooterSection}>
-      <div css={freeDeliveryGuideWrapper}>
-        <span css={infoIcon}>
-          <img src={INFO_ICON} />
-        </span>
-        <span css={freeDeliveryGuide}>
-          총 주문 금액이 {CONFIG.FREE_DELIVERY_CONDITION}원 이상일 경우 무료 배송됩니다.
-        </span>
-      </div>
+      <GuideText
+        label={`총 주문 금액이 ${CONFIG.FREE_DELIVERY_CONDITION}원 이상일 경우 무료 배송됩니다.`}
+      />
       <div>
         <div css={borderTopWrapper}>
           <Receipt title="주문 금액" price={totalOrderPrice} />
@@ -53,26 +48,4 @@ const borderTopWrapper = css`
 
   border-top: 1px solid #0000001a;
   padding: 10px 0;
-`;
-
-const freeDeliveryGuideWrapper = css`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-
-  height: 16px;
-`;
-
-const infoIcon = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 16px;
-  height: 16px;
-`;
-
-const freeDeliveryGuide = css`
-  font-size: 12px;
-  font-weight: 500;
-  color: #0a0d13;
 `;
