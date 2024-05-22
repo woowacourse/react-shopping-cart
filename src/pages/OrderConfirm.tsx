@@ -1,6 +1,6 @@
 import { FlexCenter, FlexColumn } from '@/style/common.style';
 import {
-  orderedItemState,
+  orderedItemQuantityState,
   recipeState,
 } from '@/store/selectors/recipeSelector';
 
@@ -16,7 +16,7 @@ import { useRecoilValue } from 'recoil';
 const OrderConfirm = () => {
   const navigator = useNavigate();
   const { totalPrice } = useRecoilValue(recipeState);
-  const { itemCount, totalQuantity } = useRecoilValue(orderedItemState);
+  const { itemCount, totalQuantity } = useRecoilValue(orderedItemQuantityState);
 
   return (
     <>

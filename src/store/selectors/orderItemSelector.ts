@@ -3,7 +3,7 @@ import { cartListState, filteredCartItemState } from '../atoms';
 import { selector } from 'recoil';
 
 export const orderItemState = selector({
-  key: 'orderItemSelector',
+  key: 'orderItemState',
   get: ({ get }) => {
     const cartList = get(cartListState);
 
@@ -19,8 +19,6 @@ export const orderItemState = selector({
       const itemState = get(filteredCartItemState(item.id));
       return itemState.isSelected;
     });
-
-    console.log(selectedItems);
 
     return selectedItems;
   },

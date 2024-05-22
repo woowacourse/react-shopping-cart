@@ -1,24 +1,19 @@
 import { OrderedItem, Recipe } from '@/types/recipe.type';
-import { cartListState, filteredCartItemState } from '@/store/atoms';
 
 import { FREE_SHIPPING_CONDITION } from '@/constants/system';
+import { orderItemState } from './orderItemSelector';
 import { selector } from 'recoil';
 import { shippingFeeState } from './shippingFeeSelector';
 
 export const recipeState = selector<Recipe>({
   key: 'recipeState',
   get: ({ get }) => {
-    const cartList = get(cartListState);
+    const orderedList = get(orderItemState);
     const shippingAreaFee = get(shippingFeeState);
 
-    const cartItemStates = cartList.map((state) =>
-      get(filteredCartItemState(state.id))
-    );
+    const orderPrice = orderedList.reduce((acc, cur) => {
+      acc += cur.product.price * cur.quantity;
 
-    const orderPrice = cartItemStates.reduce((acc, cur) => {
-      if (cur.isSelected) {
-        acc += cur.price * cur.quantity;
-      }
       return acc;
     }, 0);
 
@@ -34,20 +29,16 @@ export const recipeState = selector<Recipe>({
   },
 });
 
-export const orderedItemState = selector<OrderedItem>({
-  key: 'orderedItemState',
+export const orderedItemQuantityState = selector<OrderedItem>({
+  key: 'orderedItemQuantityState',
   get: ({ get }) => {
-    const cartList = get(cartListState);
-    const cartItemStates = cartList.map((state) =>
-      get(filteredCartItemState(state.id))
-    );
+    const orderedList = get(orderItemState);
 
-    return cartItemStates.reduce(
+    return orderedList.reduce(
       (acc, cur) => {
-        if (cur.isSelected) {
-          acc.itemCount++;
-          acc.totalQuantity += cur.quantity;
-        }
+        acc.itemCount++;
+        acc.totalQuantity += cur.quantity;
+
         return acc;
       },
       { itemCount: 0, totalQuantity: 0 }

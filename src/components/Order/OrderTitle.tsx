@@ -1,12 +1,12 @@
 import { ORDER_CONFIRM_MESSAGE } from '@/constants/message';
 import { WhiteSpace } from '@/style/common.style';
-import { orderedItemState } from '@/store/selectors/recipeSelector';
+import { orderedItemQuantityState } from '@/store/selectors/recipeSelector';
 import styled from '@emotion/styled';
 import { theme } from '@/style/theme.style';
 import { useRecoilValue } from 'recoil';
 
 const OrderTitle = () => {
-  const { itemCount, totalQuantity } = useRecoilValue(orderedItemState);
+  const { itemCount, totalQuantity } = useRecoilValue(orderedItemQuantityState);
 
   return (
     <StyledTitleWrapper>
