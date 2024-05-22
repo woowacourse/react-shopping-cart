@@ -1,10 +1,9 @@
 import { css } from "@emotion/css";
 import { useRecoilValue } from "recoil";
-import Splitter from "../default/Splitter";
-import LabelValue from "./LabelValue";
 import { orderPriceSelector, shippingFeeSelector, totalPriceSelector } from "../../recoil/selector/selector";
 import { formatCurrency } from "../../utils/formatCurrency";
-import InfoIcon from "../../assets/InfoIcon.svg?react";
+
+import { Information, LabelValue, Splitter } from "../default";
 
 const OrderSummary = () => {
   const orderPrice = useRecoilValue(orderPriceSelector);
@@ -13,10 +12,7 @@ const OrderSummary = () => {
 
   return (
     <div className={OrderSummaryCSS}>
-      <div className={InfoContainer}>
-        <InfoIcon />
-        <span className={InfoTextCSS}>총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</span>
-      </div>
+      <Information title="총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다."></Information>
       <Splitter />
       <LabelValue
         label="주문 금액"
@@ -41,15 +37,4 @@ const OrderSummaryCSS = css`
   display: flex;
   flex-direction: column;
   gap: 13px;
-`;
-
-const InfoContainer = css`
-  display: flex;
-  gap: 4px;
-`;
-
-const InfoTextCSS = css`
-  font: var(--cart-label);
-  color: var(--grey-400);
-  text-align: left;
 `;
