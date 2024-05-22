@@ -1,11 +1,10 @@
 import { css } from "@emotion/css";
 import CartItem from "./CartItem";
-import Button from "../default/Button";
-import Splitter from "../default/Splitter";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
 
 import { deleteCartItem } from "../../api/cartItemApi";
 import useCartChecked from "../../hooks/useCartItemChecks";
+import { Button, Splitter } from "../default";
 
 const CartItems = () => {
   const { cartItems, setCartItems, setCheckedIds, isAllChecked, setIsAllChecked } = useCartChecked();
@@ -25,6 +24,7 @@ const CartItems = () => {
       <div className={allCheckContainerCSS}>
         <Button
           variant={isAllChecked ? "primary" : "secondary"}
+          size="small"
           onClick={handleAllChecked}
         >
           <CheckIcon fill={isAllChecked ? "var(--grey-100)" : "var(--grey-200)"} />

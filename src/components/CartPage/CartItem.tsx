@@ -1,5 +1,4 @@
 import { css } from "@emotion/css";
-import Button from "../default/Button";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
 import MinusIcon from "../../assets/MinusIcon.svg?react";
 import PlusIcon from "../../assets/PlusIcon.svg?react";
@@ -9,6 +8,7 @@ import { patchCartItemQuantity } from "../../api/cartItemApi";
 import { cartItemCheckedIdsAtom } from "../../recoil/atom/atom";
 import { quantitySelector } from "../../recoil/selector/selector";
 import { formatCurrency } from "../../utils/formatCurrency";
+import { Button } from "../default";
 
 interface CardItemProps {
   product: Product;
@@ -34,11 +34,18 @@ const CartItem = ({ product, handleDelete }: CardItemProps) => {
       <div className={ItemHeaderCSS}>
         <Button
           variant={checkedIds.includes(product.id) ? "primary" : "secondary"}
+          size="small"
           onClick={handleChecked}
         >
           <CheckIcon fill={checkedIds.includes(product.id) ? "var(--grey-100)" : "var(--grey-200)"} />
         </Button>
-        <Button onClick={handleDelete}>삭제</Button>
+        <Button
+          variant="secondary"
+          size="medium"
+          onClick={handleDelete}
+        >
+          삭제
+        </Button>
       </div>
       <div className={ItemContentCSS}>
         <img
@@ -53,6 +60,7 @@ const CartItem = ({ product, handleDelete }: CardItemProps) => {
           <div className={ItemCountCSS}>
             <Button
               variant="secondary"
+              size="small"
               onClick={() => updateQuantity(Math.max(quantity - 1, 1))}
             >
               <MinusIcon />
@@ -60,6 +68,7 @@ const CartItem = ({ product, handleDelete }: CardItemProps) => {
             <p>{quantity}</p>
             <Button
               variant="secondary"
+              size="small"
               onClick={() => updateQuantity(quantity + 1)}
             >
               <PlusIcon />
