@@ -1,15 +1,21 @@
-import { DefaultValue, selector } from 'recoil';
-import { itemDetailsState, itemsState } from './atoms';
+import { DefaultValue, selector, selectorFamily } from 'recoil';
+import { couponsState, itemDetailsState, itemsState } from './atoms';
 import { CartItems } from '../types/Item';
-import { updateLocalStorage } from '../utils/UpdateLocalStorage';
+import {
+  getLocalStorage,
+  updateLocalStorage,
+} from '../utils/UpdateLocalStorage';
 import {
   DELIVERY_FEE,
   FREE_DELIVERY_THRESHOLD,
 } from '../constants/ShoppingCart';
+import { Coupon } from '../types/coupon';
+import { formatAvailableTime, formatDate } from '../utils/Time';
 
 /**
  * 전체 금액, 배송비 계산, 총 결제 금액 계산
  */
+
 export const totalPriceSelector = selector({
   key: 'totalPriceSelector',
   get: ({ get }) => {
@@ -77,5 +83,49 @@ export const totalCountSelector = selector({
       return prevTotalCount;
     }, 0);
     return { totalItemTypeCount, totalCount };
+  },
+});
+
+/**
+ * 선택된 모든 item을 배열로 반환하는 함수
+ */
+export const checkedItemsSelector = selector({
+  key: 'checkedItemsSelector',
+  get: ({ get }) => {
+    const productIds = get(itemsState);
+    const checkedItem = productIds.reduce<CartItems[]>((prev, item) => {
+      const temp = get(itemDetailsState(item.id));
+      if (temp.isChecked) {
+        prev.push({
+          ...item,
+          quantity: temp.quantity,
+        });
+      }
+      return prev;
+    }, []);
+    return checkedItem;
+  },
+});
+
+export const formattingCouponsSelector = selector({
+  key: 'formattingCouponsSelector',
+  get: ({ get }) => {
+    const coupons = get(couponsState);
+    const formattingCoupons = coupons.map((coupon: Coupon) => {
+      const formattedCoupon = {
+        ...coupon,
+        expirationDate: formatDate(coupon.expirationDate),
+      };
+
+      if (coupon.availableTime) {
+        formattedCoupon.availableTime = formatAvailableTime(
+          coupon.availableTime.start,
+          coupon.availableTime.end,
+        );
+      }
+      return formattedCoupon;
+    });
+
+    return formattingCoupons;
   },
 });

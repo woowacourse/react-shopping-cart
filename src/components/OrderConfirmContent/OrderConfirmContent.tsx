@@ -9,6 +9,7 @@ import {
 } from '../../recoil/selectors';
 import { CartItems } from '../../types/Item';
 import ConfirmItemCard from '../ItemCard/ConfirmItemCard';
+import CouponButton from '../CouponModal/CouponModal';
 
 export const NoCartItemContainer = styled.p`
   width: 100%;
@@ -34,6 +35,7 @@ function OrderConfirmContent() {
       {checkedItem.map((product: CartItems) => {
         return <ConfirmItemCard key={product.id} item={product} />;
       })}
+      <CouponButton></CouponButton>
       <TotalAmount />
     </>
   );
