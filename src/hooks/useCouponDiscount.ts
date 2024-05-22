@@ -14,13 +14,13 @@ interface Props {
 
 const useCouponDiscount = ({ coupon, date, orderPrice }: Props) => {
   const fixedCoupon = () => {
-    return coupon.discount;
+    return coupon.discount || 0;
   };
 
   const bogoCoupon = (orderedList: CartItemType[]) => {
     const { buyQuantity, getQuantity } = coupon;
 
-    if (!buyQuantity || !getQuantity) return true;
+    if (!buyQuantity || !getQuantity) return 0;
 
     return orderedList.reduce((acc, cur) => {
       if (
@@ -34,27 +34,25 @@ const useCouponDiscount = ({ coupon, date, orderPrice }: Props) => {
   };
 
   const percentCoupon = (orderPrice: number) => {
-    console.log(orderPrice, coupon.discount);
-    return coupon.discount && orderPrice * coupon.discount * 0.01;
+    return (coupon.discount && orderPrice * coupon.discount * 0.01) || 0;
   };
 
-  {
-    const isValid = useCouponValidator({ coupon, date });
-    const isAvailable = useCouponAvailable({ coupon, date });
+  const isValid = useCouponValidator({ coupon, date });
+  const isAvailable = useCouponAvailable({ coupon, date });
 
-    const shippingFee = useRecoilValue(shippingFeeState);
+  const shippingFee = useRecoilValue(shippingFeeState);
 
-    const orderedList = useRecoilValue(orderItemState);
+  const orderedList = useRecoilValue(orderItemState);
 
-    if (!isValid || !isAvailable) return 0;
+  if (!isValid || !isAvailable) return 0;
 
-    if (coupon.discountType === 'fixed') return fixedCoupon();
-    if (coupon.discountType === 'buyXgetY') return bogoCoupon(orderedList);
-    if (coupon.discountType === 'freeShipping') return shippingFee;
-    if (coupon.discountType === 'percentage' && orderPrice)
-      return percentCoupon(orderPrice);
-    return 0;
-  }
+  if (coupon.discountType === 'fixed') return fixedCoupon();
+  if (coupon.discountType === 'buyXgetY') return bogoCoupon(orderedList);
+  if (coupon.discountType === 'freeShipping') return shippingFee;
+  if (coupon.discountType === 'percentage' && orderPrice)
+    return percentCoupon(orderPrice);
+
+  return 0;
 };
 
 export default useCouponDiscount;
