@@ -1,7 +1,7 @@
 import * as S from './styled';
 
 interface CheckboxProps {
-  id: number;
+  id: number | string;
   isChecked: boolean;
   onChange: () => void;
 }

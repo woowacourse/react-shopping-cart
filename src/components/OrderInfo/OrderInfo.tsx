@@ -3,6 +3,8 @@ import * as S from './styled';
 import ShoppingCartItemView from '../ShoppingCartItemView/ShoppingCartItemView';
 import { useLocation } from 'react-router-dom';
 import { CartItem } from '../../types/cartItem';
+import IsolatedRegionShippingFee from '../IsolatedRegionShippingFee/IsolatedRegionShippingFee';
+import PaymentTotalWithDiscount from '../PaymentTotalWithDiscount/PaymentTotalWithDiscount';
 
 interface OrderInfoState {
   orderItems: CartItem[];
@@ -23,7 +25,10 @@ const OrderInfo = () => {
         description={`총 ${orderInfo?.kindCount}종류의 상품 ${orderInfo?.productCount}개를 주문합니다.
 최종 결제 금액을 확인해 주세요.`}
       />
-      {orderInfo?.orderItems.map(item => <ShoppingCartItemView cartItem={item} />)}
+      {orderInfo?.orderItems.map(item => <ShoppingCartItemView key={item.id} cartItem={item} />)}
+      <S.ApplyCouponButton>쿠폰 적용</S.ApplyCouponButton>
+      <IsolatedRegionShippingFee />
+      <PaymentTotalWithDiscount />
     </S.Container>
   );
 };
