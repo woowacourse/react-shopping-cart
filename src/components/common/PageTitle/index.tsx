@@ -33,4 +33,6 @@ const SubTitle = styled.h3`
   font-size: ${FONT_SIZE.small};
   font-weight: ${FONT_WEIGHT.medium};
   color: ${COLOR.black};
+  white-space: pre-wrap;
+  line-height: 18px;
 `;
