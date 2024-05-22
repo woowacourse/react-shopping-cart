@@ -12,9 +12,9 @@ import {
   StyledDeliveryInfo,
   StyledDeliveryInfoImg,
   StyledDeliveryInfoText,
-} from './CartSummary.styled';
+} from '../Summary.styled';
 import { DELIVERY_INFO } from '../../../constants/cart';
-import { SummaryItem } from '../../summaryItem/SummaryItem';
+import { SummaryItem } from '../summaryItem/SummaryItem';
 
 export const CartSummary: React.FC = () => {
   const orderPrice = useRecoilValue(orderPriceState);
