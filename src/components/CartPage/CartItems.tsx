@@ -4,14 +4,14 @@ import Button from "../default/Button";
 import Splitter from "../default/Splitter";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
 
-import { deleteCartItem } from "../../api/cartItem";
+import { deleteCartItem as deleteRequestCartItem } from "../../api/cartItem";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { checkedIdListAtom, cartItemsAtom } from "../../recoil/atom/atom";
-import { isAllCheckedSelector } from "../../recoil/selector/selector";
+import { cartItemListAtom } from "../../recoil/cartItemState";
+import { checkedIdSetSelector, isAllCheckedSelector } from "../../recoil/checkedState";
 
 const CartItems = () => {
-  const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
-  const setCheckedIds = useSetRecoilState(checkedIdListAtom);
+  const [cartItems, setCartItems] = useRecoilState(cartItemListAtom);
+  // const [checkedIdSet, setCheckedIdSet] = useRecoilState(checkedIdSetSelector);
   const [isAllChecked, setIsAllChecked] = useRecoilState(isAllCheckedSelector);
 
   const handleAllChecked = () => {
@@ -19,9 +19,8 @@ const CartItems = () => {
   };
 
   const handleDelete = (id: number) => {
-    deleteCartItem(id);
+    deleteRequestCartItem(id);
     setCartItems((prev) => prev.filter((cartItem) => id !== cartItem.id));
-    setCheckedIds((prev) => prev.filter((itemId) => id !== itemId));
   };
 
   return (

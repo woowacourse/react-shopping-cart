@@ -1,19 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import { css } from "@emotion/css";
 import { useRecoilValue } from "recoil";
-import { checkedIdListAtom } from "../recoil/atom/atom";
-import { totalCountSelector, totalPriceSelector } from "../recoil/selector/selector";
 import { formatCurrency } from "../utils/formatCurrency";
 import LeftArrow from "../assets/LeftArrow.svg?react";
 import { CartLayout, Header, Content, Footer } from "../components/layout";
+import { checkedIdSetSelector } from "../recoil/checkedState";
+import { totalCountSelector, totalPriceSelector } from "../recoil/orderSummaryState";
 
 const OrderConfirmationPage = () => {
   const navigate = useNavigate();
-  const cartItemCheckedIds = useRecoilValue(checkedIdListAtom);
+  const cartItemCheckedIds = useRecoilValue(checkedIdSetSelector);
   const cartTotalPrice = useRecoilValue(totalPriceSelector);
   const cartTotalCount = useRecoilValue(totalCountSelector);
 
-  const text = `총 ${cartItemCheckedIds.length}종류의 상품 ${cartTotalCount}개를 주문합니다.
+  const text = `총 ${cartItemCheckedIds.size}종류의 상품 ${cartTotalCount}개를 주문합니다.
   최종 결제 금액을 확인해 주세요.`;
 
   const handleClick = () => {

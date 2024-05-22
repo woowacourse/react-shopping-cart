@@ -7,9 +7,9 @@ import { useRecoilState } from "recoil";
 import { CartItem } from "../../types";
 
 import { patchCartItemQuantity } from "../../api/cartItem";
-import { checkedIdListAtom } from "../../recoil/atom/atom";
-import { itemQuantitiesSelector } from "../../recoil/selector/selector";
 import { formatCurrency } from "../../utils/formatCurrency";
+import { checkedIdSetSelector, isCheckedSelectorFamily } from "../../recoil/checkedState";
+import { quantitySelectorFamily } from "../../recoil/cartItemState";
 
 interface CardItemProps {
   product: CartItem;
@@ -17,36 +17,31 @@ interface CardItemProps {
 }
 
 const CartItem = ({ product, handleDelete }: CardItemProps) => {
-  const [quantities, setQuantity] = useRecoilState(itemQuantitiesSelector);
-  const quantity = quantities[product.id];
-  const [checkedIds, setCheckedIds] = useRecoilState(checkedIdListAtom);
+  const [quantity, setQuantity] = useRecoilState(quantitySelectorFamily(product.id));
+
+  const [isChecked, setIsChecked] = useRecoilState(isCheckedSelectorFamily(product.id));
 
   const handleChecked = () => {
-    const alreadyChecked = checkedIds.includes(product.id);
-    if (alreadyChecked) {
-      setCheckedIds(checkedIds.filter((id) => id !== product.id));
-    } else {
-      setCheckedIds([...checkedIds, product.id]);
-    }
+    setIsChecked(!isChecked);
   };
 
   const handleIncrement = () => {
     const increasedQuantity = quantity + 1;
+    setQuantity(increasedQuantity);
     patchCartItemQuantity(product.id, increasedQuantity);
-    setQuantity({ id: product.id, quantity: increasedQuantity });
   };
 
   const handleDecrement = () => {
     const decreasedQuantity = Math.max(quantity - 1, 1);
+    setQuantity(decreasedQuantity);
     patchCartItemQuantity(product.id, decreasedQuantity);
-    setQuantity({ id: product.id, quantity: decreasedQuantity });
   };
 
   return (
     <div className={ItemCSS}>
       <div className={ItemHeaderCSS}>
-        <Button variant={checkedIds.includes(product.id) ? "primary" : "secondary"} onClick={handleChecked}>
-          <CheckIcon fill={checkedIds.includes(product.id) ? "#ffffff" : "#0000001A"} />
+        <Button variant={isChecked ? "primary" : "secondary"} onClick={handleChecked}>
+          <CheckIcon fill={isChecked ? "#ffffff" : "#0000001A"} />
         </Button>
         <Button onClick={handleDelete}>삭제</Button>
       </div>
