@@ -27,7 +27,7 @@ declare global {
 
   export type Timestamp = number;
 
-  export type Penny = number;
+  export type KRW = number;
 
   export type Url = string;
 
