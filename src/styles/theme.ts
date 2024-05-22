@@ -39,6 +39,7 @@ const theme: DefaultTheme = {
     lightGray: '#BEBEBE',
     lightGray2: '#33333340',
     lightGray3: '#333333BF',
+    lightGray4: '#333333',
     black10: '#0000001A',
   },
 };
