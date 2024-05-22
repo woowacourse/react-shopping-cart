@@ -8,6 +8,7 @@ import {
   MINIMUM_FREE_SHIPPING_AMOUNT,
 } from '@/constants/cart';
 import LocalStorage, { CART_ITEM } from '@/Storage';
+import { CartItemProps } from '@/types/cartItem';
 
 export const isAllUnCheckedState = selector<boolean>({
   key: 'isAllUnCheckedState',
@@ -32,6 +33,15 @@ export const isAllCheckedState = selector<boolean>({
       set(checkedItemsState(cartItem.id), newValue);
       LocalStorage.addData(CART_ITEM, cartItem.id, newValue as boolean);
     });
+  },
+});
+
+export const checkedItemsSelector = selector<CartItemProps[]>({
+  key: 'checkedItemsSelector',
+  get: ({ get }) => {
+    const cartItems = get(cartItemsState);
+
+    return cartItems.filter((cartItem) => get(checkedItemsState(cartItem.id)));
   },
 });
 

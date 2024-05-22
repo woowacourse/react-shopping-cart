@@ -2,6 +2,7 @@ import { selector, selectorFamily } from 'recoil';
 
 import { couponsState } from './atom';
 import {
+  calculateBuyXgetYDiscountSelector,
   calculateFixedDiscountSelector,
   calculateFreeShippingDiscountSelector,
   calculatePercentageDiscountSelector,
@@ -63,6 +64,8 @@ export const calculateDiscountAmountSelector = selectorFamily<number, string>({
           return get(calculatePercentageDiscountSelector(couponCode));
         case 'freeShipping':
           return calculateFreeShippingDiscountSelector(couponCode);
+        case 'buyXgetY':
+          return calculateBuyXgetYDiscountSelector(couponCode);
         default:
           return 0;
       }

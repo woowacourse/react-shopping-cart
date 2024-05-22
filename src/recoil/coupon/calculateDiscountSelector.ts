@@ -1,7 +1,11 @@
 import { selectorFamily } from 'recoil';
 
 import { applicableCouponSelector, couponSelector } from './selector';
-import { deliveryPriceState, orderTotalPriceState } from '../cartItems/selectors';
+import {
+  checkedItemsSelector,
+  deliveryPriceState,
+  orderTotalPriceState,
+} from '../cartItems/selectors';
 
 import { Coupon } from '@/types/coupon';
 
@@ -43,5 +47,27 @@ export const calculateFreeShippingDiscountSelector = selectorFamily<number, stri
       if (!get(applicableCouponSelector(coupon.code))) return 0;
 
       return deliveryPrice;
+    },
+});
+
+export const calculateBuyXgetYDiscountSelector = selectorFamily<number, string>({
+  key: 'calculateBuyXgetYDiscountSelector',
+  get:
+    (couponCode) =>
+    ({ get }) => {
+      const coupon = get(couponSelector(couponCode)) as Coupon;
+      const checkedItems = get(checkedItemsSelector);
+
+      if (!get(applicableCouponSelector(coupon.code))) return 0;
+
+      const filteredOverBuyQuantity = checkedItems.filter(
+        ({ quantity }) => quantity >= coupon.buyQuantity!,
+      );
+
+      const maxAmountPerItemPrice = Math.max(
+        ...filteredOverBuyQuantity.map(({ product: { price } }) => price),
+      );
+
+      return maxAmountPerItemPrice * coupon.getQuantity!;
     },
 });

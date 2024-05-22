@@ -182,4 +182,35 @@ describe('coupon selector', () => {
       expect(result.current.discountAmount).toBe(result.current.deliveryPrice);
     });
   });
+
+  it('유효한 "buyXgetY"타입의 쿠폰을 적용하면 1개당 금액이 가장 비싼 제품이 할인된다.', () => {
+    const { result } = renderHook(
+      () => {
+        const discountAmount = useRecoilValue(
+          calculateDiscountAmountSelector(VALID_BuyXgetY_COUPON.code),
+        );
+        const checkedItems = useRecoilValue(checkedItemsSelector);
+
+        return { discountAmount, checkedItems };
+      },
+      {
+        wrapper: ({ children }) => (
+          <RecoilRoot
+            initializeState={({ set }) => (
+              set(cartItemsState, TOTAL_PRICE_UNDER_100000_DATA),
+              set(couponsState, [VALID_BuyXgetY_COUPON])
+            )}
+          >
+            <Suspense>{children}</Suspense>
+          </RecoilRoot>
+        ),
+      },
+    );
+
+    const maxAmountPerItemPrice = Math.max(
+      ...result.current.checkedItems.map(({ product: { price } }) => price),
+    );
+
+    expect(result.current.discountAmount).toBe(maxAmountPerItemPrice);
+  });
 });

@@ -82,3 +82,13 @@ export const VALID_FREE_SHIPPING_COUPON: Coupon = {
   minimumAmount: 50000,
   discountType: 'freeShipping',
 } as const;
+
+export const VALID_BuyXgetY_COUPON: Coupon = {
+  id: 2,
+  code: 'BOGO',
+  description: '2개 구매 시 1개 무료 쿠폰',
+  expirationDate: '2024-07-30',
+  buyQuantity: 2,
+  getQuantity: 1,
+  discountType: 'buyXgetY',
+};
