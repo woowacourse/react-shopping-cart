@@ -5,12 +5,12 @@
   width: 100%;
 }
 
-.header {
+.actionSlotContainer {
   display: flex;
   justify-content: space-between;
 }
 
-.content {
+.contentContainer {
   display: flex;
   gap: 24px;
   height: 112px;

@@ -12,24 +12,24 @@ const cn = classNames.bind(css);
 interface ProductCardProps {
   product: Product;
 
-  headerLeftSlot?: ReactNode;
-  headerRightSlot?: ReactNode;
-  contentBottomSlot?: ReactNode;
+  actionSlotLeft?: ReactNode;
+  actionSlotRight?: ReactNode;
+  counterSlot?: ReactNode;
 }
 
-export const ProductCard = ({ product, headerLeftSlot, headerRightSlot, contentBottomSlot }: ProductCardProps) => {
+export const ProductCard = ({ product, actionSlotLeft, actionSlotRight, counterSlot }: ProductCardProps) => {
   const { name, price, imageUrl } = product;
 
   return (
     <div className={cn('root')}>
       <HorizontalLine opacity={0.1} />
-      {headerLeftSlot || headerRightSlot ? (
-        <div className={cn('header')}>
-          <div>{headerLeftSlot}</div>
-          <div>{headerRightSlot}</div>
+      {actionSlotLeft || actionSlotRight ? (
+        <div className={cn('actionSlotContainer')}>
+          <div>{actionSlotLeft}</div>
+          <div>{actionSlotRight}</div>
         </div>
       ) : null}
-      <div className={cn('content')}>
+      <div className={cn('contentContainer')}>
         <div className={cn('imageContainer')}>
           <img className={cn('image')} src={imageUrl} alt={name} />
         </div>
@@ -38,7 +38,7 @@ export const ProductCard = ({ product, headerLeftSlot, headerRightSlot, contentB
             <Text type='b2'>{name}</Text>
             <Text type='h1'>{`${price.toLocaleString()}원`}</Text>
           </div>
-          <div>{contentBottomSlot}</div>
+          <div>{counterSlot}</div>
         </div>
       </div>
     </div>
