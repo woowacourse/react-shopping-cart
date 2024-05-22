@@ -1,21 +1,24 @@
-import { DELIVERY_INFOS } from '../../../constants/DELIVERY_INFOS';
-import CheckButton from '../../Button/CheckButton/CheckButton';
+import { useRecoilState } from 'recoil';
+import { selectedDeliveryInfoListSelector } from '../../DeliveryInfoList/recoil/selectors/selectedDeliveryInfoListSelector';
+import { DeliveryInfo } from '../../../types/DeliveryInfo.type';
 import * as S from './DeliveryInfoContainer.style';
+import CheckButton from '../../Button/CheckButton/CheckButton';
 
-function DeliveryInfoContainer() {
+interface DeliveryInfoContainerProps {
+  item: DeliveryInfo;
+}
+
+function DeliveryInfoContainer({ item }: DeliveryInfoContainerProps) {
+  const [isSelected, setIsSelected] = useRecoilState(selectedDeliveryInfoListSelector(item));
+
+  const handleIsSelected = () => setIsSelected(isSelected);
+
   return (
-    <S.Layout>
-      <S.Title>배송 정보</S.Title>
-      <S.CheckListContainer>
-        {Object.values(DELIVERY_INFOS).map((option) => (
-          <S.CheckListItemContainer>
-            <CheckButton isChecked={true} />
-            <S.CheckListContent>{option.title}</S.CheckListContent>
-          </S.CheckListItemContainer>
-        ))}
-      </S.CheckListContainer>
-    </S.Layout>
+    <S.CheckListItemContainer key={item.title}>
+      <CheckButton isChecked={isSelected} onClick={handleIsSelected} />
+      <S.CheckListContent>{item.title}</S.CheckListContent>
+    </S.CheckListItemContainer>
   );
 }
-// TODO: 선택 시 배송비 +3000 기능 구현하기
+
 export default DeliveryInfoContainer;

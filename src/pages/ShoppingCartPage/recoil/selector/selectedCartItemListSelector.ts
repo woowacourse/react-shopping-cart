@@ -1,17 +1,17 @@
 import { selectorFamily } from 'recoil';
-import type { TCartItem } from '../../../../types/CartItem.type';
+import type { CartItem } from '../../../../types/CartItem.type';
 import { selectedCartItemListState } from '../atom/selectedCartItemListState';
 
-export const selectedCartItemListSelector = selectorFamily<boolean, TCartItem>({
+export const selectedCartItemListSelector = selectorFamily<boolean, CartItem>({
   key: 'selectedCartItemListSelector',
   get:
-    (newItem: TCartItem) =>
+    (newItem: CartItem) =>
     ({ get }) => {
       const selectedCartItemList = get(selectedCartItemListState);
       return selectedCartItemList.some((item) => item.id === newItem.id);
     },
   set:
-    (newItem: TCartItem) =>
+    (newItem: CartItem) =>
     ({ set, get }) => {
       const selectedCartItemList = get(selectedCartItemListState);
 
