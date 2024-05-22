@@ -1,6 +1,7 @@
 :root {
   --primary-color: #2ac1bc;
   --primary-inverse-color: white;
+  --border-color: #e5e5e5;
 
   /* Common: Text */
   --text-title-color: black;
