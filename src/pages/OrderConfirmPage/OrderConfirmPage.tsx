@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLoaderData } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import TitleContainer from '../../components/Container/TitleContainer/TitleContainer';
 import SubmitButton from '../../components/Button/SubmitButton/SubmitButton';
@@ -14,8 +14,11 @@ import * as S from './OrderConfirmPage.style';
 import { applyCouponModalState } from '../../recoil/ApplyCouponModal/atoms/applyCouponModalState';
 import { useToggleModal } from '../../hooks/useToggleModal';
 import ApplyCouponModal from '../../modals/ApplyCouponModal/ApplyCouponModal';
+import { Coupon } from '../../types/Coupon.type';
 
 function OrderConfirmPage() {
+  const couponList = useLoaderData() as Coupon[];
+
   const selectedItemList = useRecoilValue(selectedCartItemListState);
 
   const selectedCartItemTotalCount = useRecoilValue(selectedCartItemListTotalCountSelector);
@@ -40,7 +43,7 @@ function OrderConfirmPage() {
 
   return (
     <>
-      {isOpen && <ApplyCouponModal />}
+      {isOpen && <ApplyCouponModal coupon={couponList} />}
       <Header />
       <S.Layout>
         <TitleContainer

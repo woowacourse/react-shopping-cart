@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
 import OrderConfirmPage from './pages/OrderConfirmPage/OrderConfirmPage';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
-import { fetchCartItemList } from './apis/index';
+import { fetchCartItemList, fetchCouponList } from './apis/index';
 import { ThemeProvider } from 'styled-components';
 import { PATHS } from './constants/PATHS';
 
@@ -20,6 +20,7 @@ function App() {
     {
       path: PATHS.CONFIRM,
       element: <OrderConfirmPage />,
+      loader: () => fetchCouponList(),
     },
     {
       path: PATHS.ERROR,

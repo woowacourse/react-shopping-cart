@@ -2,9 +2,15 @@ import { Modal } from 'paran-simple-modal';
 import * as S from './ApplyCouponModal.style';
 import NotificationContainer from '../../components/Container/NotificationContainer/NotificationContainer';
 import { useToggleModal } from '../../hooks/useToggleModal';
+import { Coupon } from '../../types/Coupon.type';
 
-function ApplyCouponModal() {
+interface ApplyCouponModalProps {
+  coupon: Coupon[];
+}
+
+function ApplyCouponModal({ coupon, ...rest }: ApplyCouponModalProps) {
   const { openModal } = useToggleModal();
+  console.log(coupon);
   return (
     <Modal
       style={{ width: '90%', justifyContent: 'space-between', rowGap: '32px' }}

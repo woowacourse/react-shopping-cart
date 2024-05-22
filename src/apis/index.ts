@@ -89,7 +89,7 @@ const fetchCouponList = async (): Promise<Coupon[]> => {
 
   const data = await response.json();
 
-  return data.content;
+  return data;
 };
 
 export { fetchCartItemList, addCartItem, removeCartItem, updateCartItemQuantity, fetchCouponList };
