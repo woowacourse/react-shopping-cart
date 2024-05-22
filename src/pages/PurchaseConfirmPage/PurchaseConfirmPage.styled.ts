@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const OrderConfirmPageContainer = styled.section`
+export const PurchaseConfirmPageContainer = styled.section`
   margin-top: 20px;
   width: 100%;
   height: calc(100vh - 64px * 2 - 48px - 64px);

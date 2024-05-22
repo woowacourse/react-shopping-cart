@@ -4,19 +4,23 @@ import { availableCouponsAtom, cartItemsAtom, selectedIdsAtom } from '@recoil/sh
 import { ROUTE_PATHS } from '@routes/route.constant';
 import { lazy } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 const OrderPageContents = lazy(() => import('@components/shoppingCart/ShoppingCartContent/ShoppingCartContent'));
 
 const OrderPage: React.FC = () => {
   const cartItems = useRecoilValue(cartItemsAtom);
   const selectedIds = useRecoilValue(selectedIdsAtom);
+  const setAvailableCoupons = useSetRecoilState(availableCouponsAtom);
+  const { getAvailableCoupons } = useAvailableCoupons();
 
   const isButtonDisabled = cartItems.length === 0 || selectedIds.length === 0;
 
   const navigate = useNavigate();
 
   const handleClickConfirmOderButton = () => {
-    navigate(ROUTE_PATHS.confirm);
+    setAvailableCoupons(getAvailableCoupons());
+    navigate(ROUTE_PATHS.orderConfirm);
   };
 
   return (
