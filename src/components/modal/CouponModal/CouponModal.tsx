@@ -2,7 +2,6 @@ import { Modal } from "rian-modal-component";
 import MoreInfo from "@/components/_common/MoreInfo/MoreInfo";
 import { CART_PAGE_MESSAGES } from "@/constants/cart";
 import TextBox from "@/components/_common/TextBox/TextBox";
-import * as S from "./CouponModal.style";
 import DeleteButton from "@/assets/delete-icon.svg?react";
 import { mockCoupons } from "@/mocks/coupons";
 import { Coupon } from "@/types/coupon";

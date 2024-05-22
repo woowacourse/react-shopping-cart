@@ -1,10 +1,17 @@
 import { useState } from "react";
 
-import { CART_PAGE_CAPTION, CART_PAGE_MESSAGES } from "@/constants/cart";
+import {
+  CART_PAGE_CAPTION,
+  CART_PAGE_MESSAGES,
+  SHIPPING_INFO,
+} from "@/constants/cart";
 
-import { totalItemOrderCountSelector } from "@/recoil/orderInformation";
+import {
+  shippingFeeState,
+  totalItemOrderCountSelector,
+} from "@/recoil/orderInformation";
 import { selectedCartItemsIdState } from "@/recoil/selectedCardItems";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import TitleSet from "@/components/_common/TitleSet/TitleSet";
 import ProductList from "@/components/cart/ProductList/ProductList";
@@ -29,12 +36,19 @@ const OrderConfirmPage = () => {
   const totalItemsCount = useRecoilValue(totalItemOrderCountSelector);
   const selectedItemsId = useRecoilValue(selectedCartItemsIdState);
 
+  const setShippingFee = useSetRecoilState(shippingFeeState);
+
   const [isDoubleShippingFee, setIsDoubleShippingFee] = useState(false);
 
   const navigate = useNavigate();
 
   const onClickDoubleShippingFee = () => {
     setIsDoubleShippingFee((prev) => !prev);
+    if (isDoubleShippingFee) {
+      setShippingFee(SHIPPING_INFO.SHIPPING_FEE);
+    } else {
+      setShippingFee(SHIPPING_INFO.DOUBLE_SHIPPING_FEE);
+    }
   };
 
   const onMovePaymentConfirmPage = () => {

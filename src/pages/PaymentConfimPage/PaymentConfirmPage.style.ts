@@ -7,7 +7,6 @@ export const FlexWrapper = styled.div`
   height: calc(100vh - 128px);
   gap: 20px;
   width: 100%;
-  border: 1px solid red;
 `;
 
 export const OrderConfirmButton = styled.div`

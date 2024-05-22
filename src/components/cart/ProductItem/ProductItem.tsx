@@ -48,9 +48,19 @@ const ProductItem = ({
     }
   };
 
-  const onClickCheckBox = isItemSelected
-    ? () => setSelectItems((prev) => prev.filter((id) => id !== id))
-    : () => setSelectItems((prev) => [...prev, id]);
+  const onClickCheckBox = () => {
+    isItemSelected ? onDeleteFromSelectedItems(id) : onAddToSelectedItems(id);
+  };
+
+  const onDeleteFromSelectedItems = (targetId: number) => {
+    const newItems = selectItems.filter((id) => id !== targetId);
+    setSelectItems(newItems);
+  };
+
+  const onAddToSelectedItems = (targetId: number) => {
+    const newItems = [...selectItems, targetId];
+    setSelectItems(newItems);
+  };
 
   return (
     <S.ItemWrapper type={type}>
