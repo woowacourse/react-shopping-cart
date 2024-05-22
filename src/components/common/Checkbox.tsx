@@ -8,9 +8,11 @@ interface CheckboxProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   htmlFor: string;
   label: string;
+  labelCSS?: ReturnType<typeof css>;
+  isDisabled?: boolean;
 }
 
-const Checkbox = ({ checked, onChange, htmlFor, label }: CheckboxProps) => {
+const Checkbox = ({ checked, onChange, htmlFor, label, labelCSS, isDisabled }: CheckboxProps) => {
   return (
     <>
       <input
@@ -19,10 +21,11 @@ const Checkbox = ({ checked, onChange, htmlFor, label }: CheckboxProps) => {
         checked={checked}
         css={screenReaderOnly}
         onChange={onChange}
+        disabled={isDisabled}
       />
       <label css={labelTag} htmlFor={htmlFor}>
         <img src={checked ? CHECKED : UNCHECKED} css={checkIcon} />
-        <span css={labelText}>{label}</span>
+        <span css={labelCSS || labelText}>{label}</span>
       </label>
     </>
   );

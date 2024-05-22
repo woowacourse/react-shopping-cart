@@ -1,30 +1,38 @@
 import { css } from '@emotion/react';
+import { ChangeEvent } from 'react';
+
+import Checkbox from '../common/Checkbox';
 
 import { Coupon } from '@/types/coupon';
+import { convertAvailableDateFormat, convertExpiryDateFormat } from '@/utils/date';
 
 interface CouponItemProps {
   coupon: Coupon;
   type: 'fixed' | 'buyXgetY' | 'freeShipping' | 'percentage';
+  isCouponValid: boolean;
+  isChecked: boolean;
+  handleChangeChecked: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const CouponItem = ({ coupon, type }: CouponItemProps) => {
+const CouponItem = ({
+  coupon,
+  type,
+  isChecked,
+  isCouponValid,
+  handleChangeChecked,
+}: CouponItemProps) => {
   const { description, expirationDate, minimumAmount, availableTime } = coupon;
 
-  const convertExpiryDateFormat = (expirationDate: string) => {
-    const date = new Date(expirationDate);
-    return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
-  };
-
-  const convertAvailableDateFormat = (start: string, end: string) => {
-    const startHour = start.split(':')[0][1];
-    const endHour = end.split(':')[0][1];
-    return `사용 가능 시간 : 오전 ${startHour}시부터 ${endHour}시까지`;
-  };
-
   return (
-    <div css={couponItemContainer}>
-      {/* <Checkbox checked={} /> */}
-      <h2 css={title}>{description}</h2>
+    <div css={couponItemContainer(isCouponValid)}>
+      <Checkbox
+        checked={isChecked}
+        onChange={handleChangeChecked}
+        htmlFor={coupon.id.toString()}
+        label={description}
+        labelCSS={title}
+        isDisabled={!isCouponValid}
+      />
       <div css={couponDescriptionWrapper}>
         <span css={couponDescription}>만료일 : {convertExpiryDateFormat(expirationDate)}</span>
         {(type === 'fixed' || type === 'freeShipping') && minimumAmount && (
@@ -44,13 +52,16 @@ const CouponItem = ({ coupon, type }: CouponItemProps) => {
 
 export default CouponItem;
 
-const couponItemContainer = css`
+const couponItemContainer = (isCouponValid: boolean) => css`
   display: flex;
   flex-direction: column;
   gap: 16px;
 
   border-top: 1px solid #0000001a;
   padding: 16px 0;
+
+  background-color: white;
+  opacity: ${isCouponValid ? 1 : 0.3};
 `;
 
 const title = css`
