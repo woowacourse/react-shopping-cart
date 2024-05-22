@@ -51,3 +51,8 @@ export const CartItemQuantityStyle = css({
   textAlign: "center",
   minWidth: "24px",
 });
+
+export const OrderItemQuantityStyle = css({
+  fontSize: "12px",
+  fontWeight: "500",
+});

@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
-import CartItem from "./CartItem/CartItem";
 import { cartState } from "../../../../store/atom/atoms";
+import CartItem from "../../../common/CartItem/CartItem";
 
 const CartItemList = () => {
   const cartItems = useRecoilValue<CartItemInfo[]>(cartState);
@@ -8,7 +8,7 @@ const CartItemList = () => {
   return (
     <div>
       {cartItems.map((item) => (
-        <CartItem CartItemInfo={item} key={item.id} />
+        <CartItem CartItemInfo={item} key={item.id} type="cart" />
       ))}
     </div>
   );
