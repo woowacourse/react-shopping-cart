@@ -3,7 +3,7 @@ import { CartItemProps } from '@/types/cartItem';
 export const TOTAL_PRICE_UNDER_100000_DATA: CartItemProps[] = [
   {
     id: 496,
-    quantity: 1,
+    quantity: 3,
     product: {
       id: 2,
       name: '나이키',
@@ -15,11 +15,22 @@ export const TOTAL_PRICE_UNDER_100000_DATA: CartItemProps[] = [
   },
   {
     id: 532,
-    quantity: 5,
+    quantity: 4,
     product: {
       id: 10,
       name: '아디다스',
       price: 10000,
+      imageUrl: 'https://sitem.ssgcdn.com/47/78/22/item/1000031227847_i1_750.jpg',
+      category: 'fashion',
+    },
+  },
+  {
+    id: 123,
+    quantity: 3,
+    product: {
+      id: 21,
+      name: '코카콜라',
+      price: 12000,
       imageUrl: 'https://sitem.ssgcdn.com/47/78/22/item/1000031227847_i1_750.jpg',
       category: 'fashion',
     },
