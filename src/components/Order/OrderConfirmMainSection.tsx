@@ -3,6 +3,7 @@ import { ChangeEvent, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import HeaderTitleContainer from '../common/HeaderTitleContainer';
+import CouponModal from '../Coupon/CouponModal';
 
 import OrderInfo from '@/components/common/OrderInfo';
 import CartItem from '@common/CartItem';
@@ -20,9 +21,18 @@ const OrderConfirmMainSection = () => {
   const checkedCartItems = useRecoilValue(checkedCartItemsState);
 
   const [isAdditionalDelivery, setIsAdditionalDelivery] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleClickAdditionalDelivery = (e: ChangeEvent<HTMLInputElement>) => {
     setIsAdditionalDelivery(e.target.checked);
+  };
+
+  const handleOpenModal = () => {
+    setIsOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -31,14 +41,15 @@ const OrderConfirmMainSection = () => {
         title="주문 확인"
         description={`총 ${productTypesCount}종류의 상품 ${totalQuantity}개를 주문합니다.\n최종 결제 금액을 확인해주세요.`}
       />
-
       <div>
         {checkedCartItems.map((checkedCartItem) => (
           <CartItem key={checkedCartItem.id} item={checkedCartItem} type="ORDER" />
         ))}
       </div>
       {/* TODO: 쿠폰 할인 적용 값 recoil로 관리 */}
-      <button css={couponButton}>쿠폰 적용</button>
+      <button css={couponButton} onClick={handleOpenModal}>
+        쿠폰 적용
+      </button>
       <div css={additionalDeliveryWrapper}>
         <span css={additionalDeliveryText}>배송 정보</span>
         <Checkbox
@@ -49,6 +60,7 @@ const OrderConfirmMainSection = () => {
         />
       </div>
       <OrderInfo type="ORDER" />
+      <CouponModal isOpen={isOpen} onClose={handleCloseModal} />
     </div>
   );
 };

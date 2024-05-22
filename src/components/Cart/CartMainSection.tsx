@@ -2,11 +2,11 @@ import { css } from '@emotion/react';
 import { ChangeEvent } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
+import RandomAddButton from '@/components/common/Button/RandomAddButton';
 import CartItem from '@common/CartItem';
 import Checkbox from '@common/Checkbox';
 import HeaderTitleContainer from '@common/HeaderTitleContainer';
 import OrderInfo from '@common/OrderInfo';
-import RandomAddButton from '@components/common/RandomAddButton';
 import { cartItemsState } from '@recoil/cartItems/atoms';
 import { allCheckedState } from '@recoil/cartItems/selectors';
 
