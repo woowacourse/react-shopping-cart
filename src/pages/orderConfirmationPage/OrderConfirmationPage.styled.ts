@@ -33,6 +33,15 @@ export const StyledConfirmationPageDescription = styled.span`
   gap: 0px;
 `;
 
+export const StyledCouponRedeemButton = styled.button`
+  border: 1px solid #33333340;
+  border-radius: 5px;
+  background-color: transparent;
+  font-size: 15px;
+
+  cursor: pointer;
+`;
+
 export const StyledConfirmationPagePriceContainer = styled.div`
   display: flex;
   flex-direction: column;

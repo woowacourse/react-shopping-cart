@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { getCartItemCounts } from '../../api';
 import { ConfirmButton } from '../../components/confirmButton/ConfirmButton';
@@ -15,6 +15,7 @@ import {
   StyledConfirmationPage,
   StyledConfirmationPageDescription,
   StyledConfirmationPageTitle,
+  StyledCouponRedeemButton,
   StyledOrderSummaryContainer,
 } from './OrderConfirmationPage.styled';
 import { ErrorAlertModal } from '../../components/errorAlertModal/ErrorAlertModal';
@@ -66,6 +67,9 @@ export const OrderConfirmationPage: React.FC = () => {
         {Object.values(selectedItems).map((item) => (
           <OrderItemCard item={item} />
         ))}
+        <StyledCouponRedeemButton onClick={() => setCouponModalOpen(true)}>
+          쿠폰 적용
+        </StyledCouponRedeemButton>
         {cartErrorMessage.length > 0 && (
           <ErrorAlertModal errorMessage={cartErrorMessage} />
         )}
