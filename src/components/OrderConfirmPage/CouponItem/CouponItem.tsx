@@ -1,5 +1,6 @@
 import CheckBox from '../../common/CheckBox/CheckBox';
 import type { Coupon } from '../../../types/Coupon.type';
+import useCouponApplicable from '../../hooks/useCouponApplicable';
 
 import * as S from './CouponItems.style';
 
@@ -9,11 +10,14 @@ interface CouponItemProps {
 
 function CouponItem({ coupon }: CouponItemProps) {
   const { code, description, expirationDate, minimumAmount, availableTime } = coupon;
+  const { isCouponApplicable } = useCouponApplicable();
+
+  const isApplicable = isCouponApplicable(coupon);
 
   return (
-    <S.Layout>
+    <S.Layout $isApplicable={isApplicable}>
       <S.CouponTitle>
-        <CheckBox id={code} isChecked={true} />
+        <CheckBox id={code} isChecked={isApplicable} disabled={!isApplicable} />
         <p>{description}</p>
       </S.CouponTitle>
       <S.CouponDetail>
