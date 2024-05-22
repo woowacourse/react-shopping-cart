@@ -1,7 +1,7 @@
 import { AtomEffect, atom, atomFamily, selector, selectorFamily } from "recoil";
-import { fetchCartItems } from "../api";
+import { fetchCartItems, fetchCoupons } from "../api";
 import CartItemLocalStorage from "../services/CartItemLocalStorage";
-import { CartItemType } from "../types";
+import { CartItemType, Coupon } from "../types";
 import { initializeCartItemStorage } from "./selectors";
 
 export const cartListState = atom<CartItemType[]>({
@@ -21,7 +21,7 @@ export const cartListState = atom<CartItemType[]>({
   }),
 });
 
-const cartItemQuantity = atomFamily<number, number>({
+export const cartItemQuantity = atomFamily<number, number>({
   key: "cartItemQuantity",
   default: selectorFamily({
     key: "initialCartItemQuantity",
@@ -59,4 +59,19 @@ export const cartItemSelected = atomFamily<boolean, number>({
   ],
 });
 
-export { cartItemQuantity };
+export const couponsState = atom<Coupon[]>({
+  key: "couponState",
+  default: selector<Coupon[]>({
+    key: "couponsSelector",
+    get: async () => {
+      try {
+        const items = await fetchCoupons();
+
+        return items;
+      } catch (error) {
+        console.error("Failed to fetch coupons : ", error);
+        return [];
+      }
+    },
+  }),
+});
