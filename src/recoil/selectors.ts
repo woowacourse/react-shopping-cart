@@ -2,18 +2,9 @@ import { selector, selectorFamily } from 'recoil';
 
 import { cartItemsState, isCartItemSelectedState } from './atoms';
 
-import { fetchGetCartItems } from '../api/shoppingCart';
-
 import { CartItemType } from '../type';
 import CONDITION from '../constants/Condition';
 import VALUE from '../constants/Value';
-
-export const fetchedCartItemsSelector = selector({
-  key: 'fetchedCartItems',
-  get: async () => {
-    return await fetchGetCartItems();
-  },
-});
 
 export const cartItemsCountSelector = selector<number>({
   key: 'cartItemsCount',
