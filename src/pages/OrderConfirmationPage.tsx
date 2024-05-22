@@ -21,8 +21,12 @@ const OrderConfirmationPage = () => {
   const description = `총 ${cartItemCheckedIds.length}종류의 상품 ${cartTotalCount}개를 주문합니다.
   최종 결제 금액을 확인해 주세요.`;
 
-  const handleClick = () => {
+  const handlePrevClick = () => {
     navigate(-1);
+  };
+
+  const handleClick = () => {
+    navigate("/paymentConfirmation");
   };
 
   console.log(coupons);
@@ -32,7 +36,7 @@ const OrderConfirmationPage = () => {
       <Header>
         <LeftArrow
           className={leftArrowBtnCSS}
-          onClick={handleClick}
+          onClick={handlePrevClick}
         />
       </Header>
       <Content>
@@ -53,6 +57,7 @@ const OrderConfirmationPage = () => {
       <Footer
         text="결제하기"
         isActive={true}
+        onClick={handleClick}
       />
     </CartLayout>
   );
