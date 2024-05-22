@@ -1,11 +1,15 @@
 import { ButtonStyle } from './Button.style';
 
-export default function Button({
-  text,
-  onClick,
-}: {
+interface ButtonType {
   text: string;
   onClick?: () => void;
-}) {
-  return <ButtonStyle onClick={onClick}>{text}</ButtonStyle>;
+  className: string;
+}
+
+export default function Button({ text, onClick, className }: ButtonType) {
+  return (
+    <ButtonStyle onClick={onClick} className={className}>
+      {text}
+    </ButtonStyle>
+  );
 }

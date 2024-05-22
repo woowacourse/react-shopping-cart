@@ -8,6 +8,11 @@ export const ButtonStyle = styled.button`
   font-weight: 500;
   font-size: 12px;
   color: rgba(10, 13, 19, 1);
+
+  ${(props) =>
+    props.className === 'couponButton' &&
+    `border: 1px solid rgba(51, 51, 51, 0.25); width: 100%; height:48px; font-weight: 700; font-size:15px; color: rgba(51, 51, 51, 0.75);
+  `}
 `;
 
 export const CountButtonStyle = styled.button`
@@ -39,4 +44,9 @@ export const FloatingButtonStyle = styled.button`
     background-color: rgba(190, 190, 190, 1);
     color: rgba(255, 255, 255, 1);
   }
+`;
+
+export const couponButton = styled.button`
+  width: 100%;
+  background: red;
 `;
