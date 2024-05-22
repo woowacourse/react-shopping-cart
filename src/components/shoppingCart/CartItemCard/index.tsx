@@ -1,6 +1,6 @@
 import { useRecoilState } from "recoil";
 import { isCartItemsSelectedState } from "@/stores/cartItemSelections";
-import useCartItems from "@/hooks/useCartItems";
+import useCartItems from "@/hooks/carts/useCartItems";
 
 import Button from "../../_common/Button";
 import { CheckButton, MinusButton, PlusButton } from "@/components/button";
