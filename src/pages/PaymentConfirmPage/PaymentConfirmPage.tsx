@@ -2,12 +2,12 @@ import { useRecoilValue } from 'recoil';
 import Header from '../../components/Header/Header';
 import TitleContainer from '../../components/common/TitleContainer/TitleContainer';
 import SubmitButton from '../../components/common/SubmitButton/SubmitButton';
-import { selectedCartItemListState } from '../../recoil/atoms/atoms';
+import { selectedCartItemListState } from '../../recoil/CartItem/atoms/atoms';
 import {
-  cartOrderTotalCountSelector,
   cartOrderTotalPriceSelector,
+  cartOrderTotalCountSelector,
   deliveryFeeSelector,
-} from '../../recoil/selectors/selectors';
+} from '../../recoil/CartItem/selectors/selectors';
 
 import * as S from './PaymentConfirmPage.style';
 

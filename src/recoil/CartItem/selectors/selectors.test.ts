@@ -2,7 +2,7 @@ import { renderHook, act } from '@testing-library/react';
 import { RecoilRoot, useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
 import { selectedCartItemListState } from '../atoms/atoms';
 import { selectedCartItemListSelector, cartOrderTotalPriceSelector, cartOrderTotalCountSelector } from './selectors';
-import { cartItemListMockData, newYujoCartItemData, newKyleCartItemData } from '../../data/cartItemListMockData';
+import { cartItemListMockData, newYujoCartItemData, newKyleCartItemData } from '../../../data/cartItemListMockData';
 
 describe('selectedCartItemListSelector', () => {
   it('개별 상품을 선택할 시 선택된 상품이 배열에 삽입된다.', () => {

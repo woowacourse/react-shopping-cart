@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import { cartOrderTotalPriceSelector } from '../../recoil/selectors/selectors';
+import { cartOrderTotalPriceSelector } from '../../recoil/CartItem/selectors/selectors';
 import { isCouponExpired, isCouponMinimumAmount, isCouponAvaliable } from '../../utils/couponValidator';
 import { Coupon } from '../../types/Coupon.type';
 

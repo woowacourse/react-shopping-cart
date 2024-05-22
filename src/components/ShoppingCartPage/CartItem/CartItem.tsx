@@ -2,7 +2,7 @@ import { useRecoilState } from 'recoil';
 import CheckBox from '../../common/CheckBox/CheckBox';
 import QuantityStepper from '../QuantityStepper/QuantityStepper';
 import type { TCartItem } from '../../../types/CartItem.type';
-import { selectedCartItemListSelector } from '../../../recoil/selectors/selectors';
+import { selectedCartItemListSelector } from '../../../recoil/CartItem/selectors/selectors';
 
 import * as S from './CartItem.style';
 

@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 import CheckBox from '../../common/CheckBox/CheckBox';
 import CartItem from '../CartItem/CartItem';
 import type { TCartItem } from '../../../types/CartItem.type';
-import { selectedCartItemListState } from '../../../recoil/atoms/atoms';
+import { selectedCartItemListState } from '../../../recoil/CartItem/atoms/atoms';
 import { removeCartItem, updateCartItemQuantity } from '../../../apis';
 import * as S from './CartItemList.style';
 
