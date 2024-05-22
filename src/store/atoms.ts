@@ -20,7 +20,7 @@ export const filteredCartItemState = atomFamily<
       (id) =>
       ({ get }) => {
         const cartList = get(cartListState);
-        const item = cartList.find((item) => item.id);
+        const item = cartList.find((item) => item.id === id);
 
         if (!item) {
           throw new Error("item does not exist in cartList");
@@ -30,7 +30,7 @@ export const filteredCartItemState = atomFamily<
           id,
           quantity: item.quantity,
           price: item.product.price,
-          isSelected: false,
+          isSelected: true,
         };
       },
   }),
