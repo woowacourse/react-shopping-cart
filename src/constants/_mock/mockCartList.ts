@@ -1,4 +1,6 @@
-const MOCK_CART_LIST = [
+import { CartItemType } from '@/types/cart.type';
+
+const MOCK_CART_LIST: CartItemType[] = [
   {
     id: 624,
     quantity: 5,
