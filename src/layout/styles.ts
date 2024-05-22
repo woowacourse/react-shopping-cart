@@ -10,7 +10,7 @@ export const LayoutWrapper = styled.div`
 export const HeaderWrapper = styled.header`
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 500;
   background-color: white;
 `;
 
@@ -25,6 +25,6 @@ export const BottomWrapper = styled.footer`
   position: fixed;
   bottom: 0;
   width: 430px;
-  z-index: 1000;
+  z-index: 500;
   background-color: white;
 `;
