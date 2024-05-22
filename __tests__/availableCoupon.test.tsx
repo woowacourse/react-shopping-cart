@@ -111,10 +111,10 @@ describe('사용 가능한 쿠폰 테스트', () => {
     });
 
     it.each([
-      { quantity: 1, isValid: false },
-      { quantity: 2, isValid: true },
+      { quantity: 2, isValid: false },
       { quantity: 3, isValid: true },
-    ])('수량이 2개 이상인 상품이 선택되어야 쿠폰을 사용할 수 있다.(수량: %s)', ({ quantity, isValid }) => {
+      { quantity: 4, isValid: true },
+    ])('수량이 3개 이상인 상품이 선택되어야 쿠폰을 사용할 수 있다.(수량: %s)', ({ quantity, isValid }) => {
       const testItems = [{ ...ITEMS[0], quantity }];
 
       vi.setSystemTime(new Date(BOGO.expirationDate));
@@ -128,7 +128,7 @@ describe('사용 가능한 쿠폰 테스트', () => {
       });
     });
 
-    it('수량이 2개 이상인 상품이 존재하고 만료일 이전이라면 쿠폰을 사용할 수 있다.', () => {
+    it('수량이 3개 이상인 상품이 존재하고 만료일 이전이라면 쿠폰을 사용할 수 있다.', () => {
       vi.setSystemTime(new Date(BOGO.expirationDate));
 
       const { result } = renderAvailableCoupon(ITEMS, [ITEMS[0].id]);

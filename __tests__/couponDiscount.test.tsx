@@ -18,7 +18,7 @@ const TEST_ITEMS: CartItem[] = [
   },
   {
     id: 306,
-    quantity: 2,
+    quantity: 3,
     product: {
       id: 3,
       name: '아디다스',
