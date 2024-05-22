@@ -4,6 +4,7 @@ import { CartLayout } from "../../components/cartLayout/CartLayout";
 import { ContentHeader } from "../../components/contentHeader/ContentHeader";
 import { BUTTON_COLORS, CART, HEADER_TYPES, PATHS } from "../../constants";
 import { cartSummarySelectorState } from "../../recoil/selector/selector";
+import { OrderContentSection } from "../../components/orderContentSection/OrderContentSection";
 
 export const OrderConfirmationPage: React.FC = () => {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ export const OrderConfirmationPage: React.FC = () => {
       onButtonClick={navigateToPaymentsConfirmationPage}
     >
       <ContentHeader title="주문 확인" description={description} />
+      <OrderContentSection />
     </CartLayout>
   );
 };
