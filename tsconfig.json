@@ -37,7 +37,8 @@
       "@/assets": ["src/assets/*"],
       "@/store": ["src/store/*"],
       "@/style": ["src/style/*"],
-      "@/api": ["src/api/*"]
+      "@/api": ["src/api/*"],
+      "@/hooks": ["src/hooks/*"]
     }
   },
   "include": ["src/**/*", "src/types/svg.d.ts"],

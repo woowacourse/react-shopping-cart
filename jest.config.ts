@@ -16,5 +16,6 @@ export default {
     '^@/store/(.*)$': '<rootDir>/src/store/$1',
     '^@/style/(.*)$': '<rootDir>/src/style/$1',
     '^@/api/(.*)$': '<rootDir>/src/api/$1',
+    '^@/hooks/(.*)$': '<rootDir>/src/hooks/$1',
   },
 };

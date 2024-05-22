@@ -6,24 +6,6 @@ import svgr from 'vite-plugin-svgr';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  build: {
-    lib: {
-      entry: path.resolve(__dirname, 'src/lib/index.ts'),
-      name: 'index',
-      fileName: 'index',
-    },
-    rollupOptions: {
-      external: ['react'],
-      output: {
-        globals: {
-          react: 'React',
-        },
-      },
-    },
-    commonjsOptions: {
-      esmExternals: ['react'],
-    },
-  },
   plugins: [
     react({
       jsxImportSource: '@emotion/react',
