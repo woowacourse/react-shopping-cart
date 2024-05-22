@@ -4,5 +4,6 @@ export const COLOR_PALETTE = {
   textBlack: "#0A0D13",
 
   lightGrey: "#E6E6E6",
+  lightNormalGrey: "#CCCCCC",
   normalGrey: "#BEBEBE",
 };
