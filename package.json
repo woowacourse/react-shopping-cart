@@ -16,7 +16,7 @@
   "dependencies": {
     "@emotion/styled": "^11.11.5",
     "gh-pages": "^6.1.1",
-    "le-sserafim": "^0.0.5",
+    "le-sserafim": "^0.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-error-boundary": "^4.0.13",
