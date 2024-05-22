@@ -4,3 +4,10 @@ export const SHIPPING_CONSTANT = {
 };
 
 export const LOCAL_STORAGE_KEY = "itemCheckedMap";
+
+export enum COUPON_DISCOUNT_TYPE {
+  Percentage = "percentage",
+  Fixed = "fixed",
+  BuyXgetY = "buyXgetY",
+  FreeShipping = "freeShipping",
+}
