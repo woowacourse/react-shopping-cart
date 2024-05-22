@@ -1,24 +1,24 @@
 import {
-  StyledCartSummaryItem,
+  StyledSummaryItem,
   StyledSummaryItemPrice,
   StyledSummaryItemTitle,
-} from './CartSummaryItem.styled';
+} from './SummaryItem.styled';
 
 interface CartSummaryItemProps {
   title: string;
   price: number;
 }
 
-export const CartSummaryItem: React.FC<CartSummaryItemProps> = ({
+export const SummaryItem: React.FC<CartSummaryItemProps> = ({
   title,
   price,
 }) => {
   return (
-    <StyledCartSummaryItem>
+    <StyledSummaryItem>
       <StyledSummaryItemTitle>{title}</StyledSummaryItemTitle>
       <StyledSummaryItemPrice>
         {price.toLocaleString()}원
       </StyledSummaryItemPrice>
-    </StyledCartSummaryItem>
+    </StyledSummaryItem>
   );
 };

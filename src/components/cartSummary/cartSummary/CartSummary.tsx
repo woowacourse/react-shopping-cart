@@ -5,7 +5,6 @@ import {
   totalPriceState,
 } from '../../../recoil/selector/selector';
 import InfoIcon from '../../../assets/InfoIcon.png';
-import { CartSummaryItem } from '../cartSummaryItem/CartSummaryItem';
 import {
   StyledCartSummaryDetailPrice,
   StyledCartSummaryTotalContainer,
@@ -15,6 +14,7 @@ import {
   StyledDeliveryInfoText,
 } from './CartSummary.styled';
 import { DELIVERY_INFO } from '../../../constants/cart';
+import { SummaryItem } from '../../summaryItem/SummaryItem';
 
 export const CartSummary: React.FC = () => {
   const orderPrice = useRecoilValue(orderPriceState);
@@ -29,14 +29,13 @@ export const CartSummary: React.FC = () => {
           {DELIVERY_INFO.FREE_DELIVERY_MESSAGE}
         </StyledDeliveryInfoText>
       </StyledDeliveryInfo>
-
       <StyledCartSummaryTotalContainer>
         <StyledCartSummaryDetailPrice>
-          <CartSummaryItem title='주문 금액' price={orderPrice} />
-          <CartSummaryItem title='배송비' price={deliveryPrice} />
+          <SummaryItem title='주문 금액' price={orderPrice} />
+          <SummaryItem title='배송비' price={deliveryPrice} />
         </StyledCartSummaryDetailPrice>
         <StyledCartSummaryTotalPrice>
-          <CartSummaryItem title='총 결제 금액' price={totalPrice} />
+          <SummaryItem title='총 결제 금액' price={totalPrice} />
         </StyledCartSummaryTotalPrice>
       </StyledCartSummaryTotalContainer>
     </div>
