@@ -38,7 +38,17 @@ const useCoupon = (id: number) => {
       const endTime = new Date(timeString + coupon.availableTime.end + "Z");
       return currentDate >= startTime && currentDate <= endTime;
     };
-    if (isNotOver2OrChecked && isOverMinimumAmount && isValidBuyXGetY && isValidPeriod && isValidTime()) {
+    //배송비가 청구되는 경우 쿠폰 활성화
+    const isFreeShipCouponValid = coupon.discountType !== "freeShipping" || totalAmount < 100_000;
+
+    if (
+      isNotOver2OrChecked &&
+      isOverMinimumAmount &&
+      isValidBuyXGetY &&
+      isValidPeriod &&
+      isValidTime() &&
+      isFreeShipCouponValid
+    ) {
       setIsDisabled(false);
     } else {
       setIsDisabled(true);

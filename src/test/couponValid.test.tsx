@@ -3,7 +3,7 @@ import { RecoilRoot } from "recoil";
 import { describe, it, vi, beforeAll, afterAll, expect } from "vitest";
 import { renderHook } from "@testing-library/react";
 
-import { chargeShippingDummy, couponsDummy } from "@/mock/dummy";
+import { chargeShippingDummy, couponsDummy, freeShippingDummy } from "@/mock/dummy";
 import { cartState, couponsState, couponEachCheckState } from "@/store/atom/atoms";
 
 import useCoupon from "@/hooks/useCoupon";
@@ -187,7 +187,7 @@ describe("coupon disable 테스트", () => {
       },
       {
         wrapper: ({ children }) => (
-          <ReactRootComponent checkDummy={NoCouponsCheckedDummy} cartDummy={chargeShippingDummy}>
+          <ReactRootComponent checkDummy={NoCouponsCheckedDummy} cartDummy={freeShippingDummy}>
             {children}
           </ReactRootComponent>
         ),
