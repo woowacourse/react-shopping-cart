@@ -11,14 +11,6 @@ const meta = {
       description: '',
       control: { type: 'number' },
     },
-    decreaseQuantity: {
-      description: '',
-      // control: { type: 'number' }
-    },
-    increaseQuantity: {
-      description: '',
-      // control: { type: 'number' }
-    },
   },
 } satisfies Meta<typeof ChangeQuantity>;
 
@@ -29,7 +21,7 @@ type Story = StoryObj<typeof meta>;
 export const Playground: Story = {
   decorators: [
     () => {
-      const [value, setValue] = useState(0);
+      const [value, setValue] = useState(3);
       return (
         <ChangeQuantity
           quantity={value}

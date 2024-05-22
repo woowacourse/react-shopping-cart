@@ -23,20 +23,13 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
-  decorators: [
-    () => {
-      return (
-        <BrowserRouter>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Header type='logo' />
-              } />
-          </Routes >
-        </BrowserRouter>
-      );
-    },
-  ],
-}
-
+  render: ({ type }) => {
+    return (
+      <BrowserRouter>
+        <div style={{ height: '160px' }}>
+          <Header type={type} />
+        </div>
+      </BrowserRouter>
+    );
+  },
+};
