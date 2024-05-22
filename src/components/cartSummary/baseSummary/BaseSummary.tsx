@@ -1,16 +1,13 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
-import { InfoIcon } from "../../../assets";
 import { INFO_MESSAGES } from "../../../constants";
 import { cartSummarySelectorState } from "../../../recoil/selector/selector";
+import { InfoDescription } from "../../infoDescription/InfoDescription";
 import { BaseSummaryItem } from "../baseSummaryItem/BaseSummaryItem";
 import {
   StyledBaseSummaryDetailPrice,
   StyledBaseSummaryTotalContainer,
   StyledBaseSummaryTotalPrice,
-  StyledDeliveryInfo,
-  StyledDeliveryInfoImg,
-  StyledDeliveryInfoText,
 } from "./BaseSummary.styled";
 
 interface BaseSummaryProps {
@@ -25,12 +22,8 @@ const BaseSummary: React.FC<BaseSummaryProps> = ({
   const { orderPrice, deliveryPrice, totalPrice } = useRecoilValue(cartSummarySelectorState);
 
   return (
-    <div>
-      <StyledDeliveryInfo>
-        <StyledDeliveryInfoImg src={InfoIcon} alt="info" />
-        <StyledDeliveryInfoText>{INFO_MESSAGES.FREE_DELIVERY}</StyledDeliveryInfoText>
-      </StyledDeliveryInfo>
-
+    <>
+      <InfoDescription text={INFO_MESSAGES.FREE_DELIVERY} />
       <StyledBaseSummaryTotalContainer>
         <StyledBaseSummaryDetailPrice>
           <BaseSummaryItem title="주문 금액" price={orderPrice} />
@@ -43,7 +36,7 @@ const BaseSummary: React.FC<BaseSummaryProps> = ({
           <BaseSummaryItem title="총 결제 금액" price={totalPrice} />
         </StyledBaseSummaryTotalPrice>
       </StyledBaseSummaryTotalContainer>
-    </div>
+    </>
   );
 };
 
