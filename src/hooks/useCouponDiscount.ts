@@ -1,7 +1,6 @@
 import { CartItemType } from '@/types/cart.type';
 import { Coupon } from '@/types/coupon.type';
 import { orderItemState } from '@/store/selectors/orderItemSelector';
-import { recipeState } from '@/store/selectors/recipeSelector';
 import { shippingFeeState } from '../store/selectors/shippingFeeSelector';
 import useCouponAvailable from './useCouponAvailable';
 import useCouponValidator from './useCouponValidator';
@@ -10,9 +9,10 @@ import { useRecoilValue } from 'recoil';
 interface Props {
   coupon: Coupon;
   date: Date;
+  orderPrice?: number;
 }
 
-const useCouponDiscount = ({ coupon, date }: Props) => {
+const useCouponDiscount = ({ coupon, date, orderPrice }: Props) => {
   const fixedCoupon = () => {
     return coupon.discount;
   };
@@ -45,19 +45,14 @@ const useCouponDiscount = ({ coupon, date }: Props) => {
     const shippingFee = useRecoilValue(shippingFeeState);
 
     const orderedList = useRecoilValue(orderItemState);
-    const { orderPrice } = useRecoilValue(recipeState);
-
-    console.log('isValid', isValid);
-    console.log('isAvailable', isAvailable);
 
     if (!isValid || !isAvailable) return 0;
-
-    console.log('discountType', coupon.discountType);
 
     if (coupon.discountType === 'fixed') return fixedCoupon();
     if (coupon.discountType === 'buyXgetY') return bogoCoupon(orderedList);
     if (coupon.discountType === 'freeShipping') return shippingFee;
-    if (coupon.discountType === 'percentage') return percentCoupon(orderPrice);
+    if (coupon.discountType === 'percentage' && orderPrice)
+      return percentCoupon(orderPrice);
     return 0;
   }
 };

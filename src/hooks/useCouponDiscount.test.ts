@@ -1,4 +1,4 @@
-import { RecoilRoot, useSetRecoilState } from 'recoil';
+import { RecoilRoot, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   cartListState,
   couponListState,
@@ -8,6 +8,7 @@ import {
 import { Coupon } from '@/types/coupon.type';
 import MOCK_CART_LIST from '@/constants/_mock/mockCartList';
 import { MOCK_COUPON_LIST } from '@/constants/_mock/mockCouponList';
+import { recipeState } from '@/store/selectors/recipeSelector';
 import { renderHook } from '@testing-library/react';
 import useCouponDiscount from './useCouponDiscount';
 
@@ -157,9 +158,11 @@ describe('useCouponDiscount test', () => {
         };
 
         const AM4 = new Date(2024, 4, 22, 4, 0, 0, 0);
+        const { orderPrice } = useRecoilValue(recipeState);
         const discountedPrice = useCouponDiscount({
           coupon,
           date: AM4,
+          orderPrice,
         });
 
         return { discountedPrice };
