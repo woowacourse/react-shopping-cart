@@ -25,8 +25,8 @@ export const ProductCard = ({ product, actionSlotLeft, actionSlotRight, counterS
       <HorizontalLine opacity={0.1} />
       {actionSlotLeft || actionSlotRight ? (
         <div className={cn('actionSlotContainer')}>
-          <div>{actionSlotLeft}</div>
-          <div>{actionSlotRight}</div>
+          {actionSlotLeft && <div>{actionSlotLeft}</div>}
+          {actionSlotRight && <div>{actionSlotRight}</div>}
         </div>
       ) : null}
       <div className={cn('contentContainer')}>
@@ -38,7 +38,7 @@ export const ProductCard = ({ product, actionSlotLeft, actionSlotRight, counterS
             <Text type='b2'>{name}</Text>
             <Text type='h1'>{`${price.toLocaleString()}원`}</Text>
           </div>
-          <div>{counterSlot}</div>
+          {counterSlot && <div>{counterSlot}</div>}
         </div>
       </div>
     </div>
