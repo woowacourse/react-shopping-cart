@@ -2,7 +2,12 @@ import { renderHook, waitFor } from '@testing-library/react';
 import { useRecoilValue } from 'recoil';
 
 import { cartItemsState } from './atoms';
-import { orderResultState, productTypesCountState } from './selectors';
+import {
+  deliveryPriceState,
+  orderResultState,
+  productTypesCountState,
+  totalPurchasePriceState,
+} from './selectors';
 
 import { PRICE } from '@constants/config';
 import AsyncRecoilWrapper from '@mocks/AsyncRecoilWrapper';
@@ -23,7 +28,8 @@ describe('selectors', () => {
       async ({ data, DELIVERY_PRICE }) => {
         const { result } = renderHook(
           () => {
-            const { deliveryPrice } = useRecoilValue(orderResultState);
+            const deliveryPrice = useRecoilValue(deliveryPriceState);
+
             return { deliveryPrice };
           },
           {
@@ -50,6 +56,7 @@ describe('selectors', () => {
       const { result } = renderHook(
         () => {
           const { totalOrderPrice } = useRecoilValue(orderResultState);
+
           return { totalOrderPrice };
         },
         {
@@ -76,6 +83,7 @@ describe('selectors', () => {
       const { result } = renderHook(
         () => {
           const { totalQuantity } = useRecoilValue(orderResultState);
+
           return { totalQuantity };
         },
         {
@@ -99,7 +107,8 @@ describe('selectors', () => {
     `('구매한 상품의 총 금액($TOTAL_PRICE)을 계산한다.', ({ data, TOTAL_PRICE }) => {
       const { result } = renderHook(
         () => {
-          const { totalPurchasePrice } = useRecoilValue(orderResultState);
+          const totalPurchasePrice = useRecoilValue(totalPurchasePriceState);
+
           return { totalPurchasePrice };
         },
         {

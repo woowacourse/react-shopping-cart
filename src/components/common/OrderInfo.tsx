@@ -5,14 +5,15 @@ import GuideText from './GuideText';
 import Receipt from '../Cart/Receipt';
 
 import { CONFIG } from '@constants/config';
-import { orderResultState } from '@recoil/cartItems/selectors';
+import { deliveryPriceState, orderResultState } from '@recoil/cartItems/selectors';
 
 interface CartFooterProps {
   type: 'CART' | 'ORDER';
 }
 
 const OrderInfo = ({ type }: CartFooterProps) => {
-  const { totalOrderPrice, deliveryPrice } = useRecoilValue(orderResultState);
+  const { totalOrderPrice } = useRecoilValue(orderResultState);
+  const deliveryPrice = useRecoilValue(deliveryPriceState);
 
   return (
     <section css={cartFooterSection}>
