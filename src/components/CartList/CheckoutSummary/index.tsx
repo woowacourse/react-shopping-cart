@@ -1,5 +1,6 @@
 import { useRecoilValue } from "recoil";
 import InfoIconSrc from "../../../assets/infoIcon.png";
+import { FREE_SHIPPING_THRESHOLD } from "../../../constants";
 import { cartListTotalPrice } from "../../../recoil/selectors";
 import formatPriceToKoreanWon from "../../../util/formatPriceToKoreanWon";
 import getShippingFee from "../../../util/getShippingFee";
@@ -21,8 +22,8 @@ export default function CheckoutSummary() {
   return (
     <Container>
       <Info>
-        <InfoIcon src={InfoIconSrc} alt="Info Icon" />총 주문 금액이 100,000원
-        이상일 경우 무료 배송됩니다.
+        <InfoIcon src={InfoIconSrc} alt="Info Icon" />
+        {`총 주문 금액이 ${formatPriceToKoreanWon(FREE_SHIPPING_THRESHOLD)} 이상일 경우 무료 배송됩니다.`}
       </Info>
 
       <Divider />
@@ -31,6 +32,10 @@ export default function CheckoutSummary() {
         <PriceRow>
           <Label>주문 금액</Label>
           <Price>{formatPriceToKoreanWon(totalPrice)}</Price>
+        </PriceRow>
+        <PriceRow>
+          <Label>쿠폰 할인 금액</Label>
+          <Price>-{formatPriceToKoreanWon(shippingFee)}</Price>
         </PriceRow>
         <PriceRow>
           <Label>배송비</Label>
