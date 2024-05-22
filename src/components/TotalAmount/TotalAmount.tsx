@@ -1,9 +1,9 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { totalPriceSelector } from '../../recoil/selectors';
-import { NotificationIcon } from '../../asset';
 import { MESSAGES } from '../../constants/Messages';
 import * as S from './TotalAmount.styled';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
 
 function TotalAmount() {
   const { totalAmount, deliveryFee, calculatedTotalAmount } =
@@ -11,10 +11,7 @@ function TotalAmount() {
 
   return (
     <S.TotalAmountContainer>
-      <S.InformationMsg>
-        <S.NotificationIconImg src={NotificationIcon} />
-        {MESSAGES.cartNotification}
-      </S.InformationMsg>
+      <NotificationMessage message={MESSAGES.cartNotification} />
       <S.TotalContent>
         <S.Border />
 
