@@ -50,6 +50,7 @@ export const INFO_MESSAGES = {
   EMPTY_CART: "장바구니에 담은 상품이 없습니다.",
   FREE_DELIVERY: "총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.",
   CHECK_TOTAL_PRICE: "최종 결제 금액을 확인해 주세요.",
+  COUPON_USAGE_LIMIT: "쿠폰은 최대 2개까지 사용할 수 있습니다.",
 };
 
 // 배송비 관련 상수
