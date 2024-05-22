@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import Button from "../../_common/Button";
-import BackArrow from "../../../assets/icons/BackArrow";
+import Button from "@/components/_common/Button";
+import BackArrow from "@/assets/icons/BackArrow";
 
 const BackButton = () => {
   const navigate = useNavigate();

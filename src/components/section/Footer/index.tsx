@@ -1,11 +1,11 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { cartItemsState } from "../../../stores/cartItems";
-import { isAnyCartItemSelectedState } from "../../../stores/cartItemSelections";
+import { cartItemsState } from "@/stores/cartItems";
+import { isAnyCartItemSelectedState } from "@/stores/cartItemSelections";
 
-import Button from "../../_common/Button";
+import Button from "@/components/_common/Button";
+import { ROUTE_PATH } from "@/constants/route";
 import * as S from "./styled";
-import { ROUTE_PATH } from "../../../constants/route";
 
 const Footer = () => {
   const { pathname } = useLocation();

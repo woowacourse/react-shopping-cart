@@ -3,9 +3,10 @@ import { renderHook, waitFor } from "@testing-library/react";
 import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
 
 import { isCartItemsSelectedState } from "../stores/cartItemSelections";
-import { MOCK_CART_LIST } from "./__mocks__/cart";
-import { CART_PRICE } from "../constants/cart";
 import { cartPriceState } from "../stores/cartPrice";
+
+import { CART_PRICE } from "../constants/cart";
+import { MOCK_CART_LIST } from "./__mocks__/cart";
 
 jest.mock("../apis/cart", () => ({
   getCartItems: jest.fn(),

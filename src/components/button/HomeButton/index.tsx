@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ROUTE_PATH } from "../../../constants/route";
+import { ROUTE_PATH } from "@/constants/route";
 import * as S from "./styled";
 
 const HomeButton = () => {

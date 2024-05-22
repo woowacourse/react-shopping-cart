@@ -1,5 +1,5 @@
 import { useRecoilValue } from "recoil";
-import { cartItemsState } from "../../../stores/cartItems";
+import { cartItemsState } from "@/stores/cartItems";
 
 import * as S from "./styled";
 

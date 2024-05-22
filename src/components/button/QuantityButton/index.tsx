@@ -1,4 +1,4 @@
-import Button from "../../_common/Button";
+import Button from "@/components/_common/Button";
 
 interface QuantityButtonProps {
   quantity: number;

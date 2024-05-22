@@ -2,7 +2,7 @@ import { selector } from "recoil";
 import { cartItemsState } from "./cartItems";
 import { isCartItemsSelectedState } from "./cartItemSelections";
 
-import { CART_PRICE } from "../constants/cart";
+import { CART_PRICE } from "@/constants/cart";
 
 const calculateDeliveryFee = (orderPrice: number) => {
   if (orderPrice === 0) return 0;

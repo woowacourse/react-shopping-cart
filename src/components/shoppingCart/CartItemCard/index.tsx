@@ -1,14 +1,9 @@
-import { useRecoilState, useRecoilRefresher_UNSTABLE } from "recoil";
-
-import { cartItemsState } from "../../../stores/cartItems";
-import { isCartItemsSelectedState } from "../../../stores/cartItemSelections";
+import { useRecoilState } from "recoil";
+import { isCartItemsSelectedState } from "@/stores/cartItemSelections";
 
 import Button from "../../_common/Button";
-import { CheckButton, MinusButton, PlusButton } from "../../button";
-
-import { deleteCartItem, patchCartItemQuantity } from "../../../apis/cart";
-
-import { CartItem } from "../../../types";
+import { CheckButton, MinusButton, PlusButton } from "@/components/button";
+import { CartItem } from "@/types/cart";
 
 import * as S from "./styled";
 

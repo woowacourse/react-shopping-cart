@@ -8,11 +8,11 @@ import {
   Footer,
   CartPrice,
   Loading,
-} from "../components";
+} from "@/components/index";
 
-import CartLayout from "../layouts/Cart";
-import HomeButton from "../components/button/HomeButton";
-import ErrorFallback from "../components/_common/ErrorFallback";
+import CartLayout from "@/layouts/Cart";
+import HomeButton from "@/components/button/HomeButton";
+import ErrorFallback from "@/components/_common/ErrorFallback";
 
 const CartPage = () => {
   return (

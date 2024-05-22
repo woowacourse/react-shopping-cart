@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { RecoilRoot } from "recoil";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { CartPage, OrderConfirmPage } from "./pages/index.ts";
+import { CartPage, OrderConfirmPage } from "@/pages/index.ts";
 import GlobalStyle from "./GlobalStyle.tsx";
 import { ROUTE_PATH } from "./constants/route.ts";
 
