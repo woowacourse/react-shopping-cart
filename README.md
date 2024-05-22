@@ -78,9 +78,9 @@
   - [x] ApplyCouponButton
   - [x] ShippingInfo
   - [ ] CouponSelectionModal
-  - [ ] CouponDescription
-  - [ ] CouponList
-  - [ ] CouponItem
+  - [x] CouponDescription
+  - [x] CouponList
+  - [x] CouponItem
   - [ ] SubmitCouponButton
 
 - UI 페이지 작업
