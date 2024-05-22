@@ -18,7 +18,7 @@ export const recipeState = selector<Recipe>({
     }, 0);
 
     const shippingFee =
-      orderPrice > FREE_SHIPPING_CONDITION ? 0 : shippingAreaFee;
+      orderPrice >= FREE_SHIPPING_CONDITION ? 0 : shippingAreaFee;
     const totalPrice = orderPrice + shippingFee;
 
     return {
