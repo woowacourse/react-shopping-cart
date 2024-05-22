@@ -4,20 +4,22 @@ import TitleContainer from '../../components/common/TitleContainer/TitleContaine
 import SubmitButton from '../../components/common/SubmitButton/SubmitButton';
 import { selectedCartItemListState } from '../../recoil/CartItem/atoms/atoms';
 import {
-  cartOrderTotalPriceSelector,
-  cartOrderTotalCountSelector,
+  totalOrderPriceSelector,
+  totalOrderCountSelector,
   deliveryFeeSelector,
 } from '../../recoil/CartItem/selectors/selectors';
+import { totalCouponDiscountPriceSelector } from '../../recoil/Coupon/selectors/selectors';
 
 import * as S from './PaymentConfirmPage.style';
 
 function PaymentConfirmPage() {
   const selectedItemList = useRecoilValue(selectedCartItemListState);
-  const orderTotalPrice = useRecoilValue(cartOrderTotalPriceSelector);
-  const orderTotalCount = useRecoilValue(cartOrderTotalCountSelector);
+  const totalOrderPrice = useRecoilValue(totalOrderPriceSelector);
+  const totalOrderCount = useRecoilValue(totalOrderCountSelector);
+  const totalCouponDiscountPrice = useRecoilValue(totalCouponDiscountPriceSelector);
   const deliveryFee = useRecoilValue(deliveryFeeSelector);
 
-  const paymentTotalPrice = orderTotalPrice + deliveryFee;
+  const paymentTotalPrice = totalOrderPrice + deliveryFee - totalCouponDiscountPrice;
 
   return (
     <div>
@@ -25,7 +27,7 @@ function PaymentConfirmPage() {
       <S.Main>
         <TitleContainer title="결제 확인" />
         <S.OrderDetailText>
-          총 {selectedItemList.length}종류의 상품 {orderTotalCount}개를 주문했습니다.
+          총 {selectedItemList.length}종류의 상품 {totalOrderCount}개를 주문했습니다.
           <br />
           최종 결제 금액을 확인해주세요.
         </S.OrderDetailText>

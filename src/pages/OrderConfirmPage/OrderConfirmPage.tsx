@@ -9,7 +9,7 @@ import CheckBox from '../../components/common/CheckBox/CheckBox';
 import TotalPriceContainer from '../../components/ShoppingCartPage/TotalPriceContainer/TotalPriceContainer';
 import CouponModal from '../../components/OrderConfirmPage/CouponModal/CouponModal';
 import { selectedCartItemListState, isSigolState } from '../../recoil/CartItem/atoms/atoms';
-import { cartOrderTotalCountSelector } from '../../recoil/CartItem/selectors/selectors';
+import { totalOrderCountSelector } from '../../recoil/CartItem/selectors/selectors';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './OrderConfirmPage.style';
 import { useState } from 'react';
@@ -21,7 +21,7 @@ function OrderConfirmPage() {
   const [isSigol, setIsSigol] = useRecoilState(isSigolState);
 
   const selectedItemList = useRecoilValue(selectedCartItemListState);
-  const orderTotalCount = useRecoilValue(cartOrderTotalCountSelector);
+  const totalOrderCount = useRecoilValue(totalOrderCountSelector);
 
   if (selectedItemList.length === 0) {
     return <Navigate to={PATHS.ERROR} />;
@@ -35,7 +35,7 @@ function OrderConfirmPage() {
       <S.Main>
         <TitleContainer
           title="주문 확인"
-          subTitle={`총 ${selectedItemList.length}종류의 상품 ${orderTotalCount}개를 주문합니다.`}
+          subTitle={`총 ${selectedItemList.length}종류의 상품 ${totalOrderCount}개를 주문합니다.`}
         />
         <S.SelectedCartItemContainer>
           {selectedItemList.map((item) => (

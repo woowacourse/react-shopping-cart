@@ -24,16 +24,16 @@ export const selectedCartItemListSelector = selectorFamily<boolean, TCartItem>({
     },
 });
 
-export const cartOrderTotalPriceSelector = selector({
-  key: 'selectedCartItemListTotalPriceSelector',
+export const totalOrderPriceSelector = selector({
+  key: 'totalOrderPriceSelector',
   get: ({ get }) => {
     const selectedCartItemList = get(selectedCartItemListState);
     return selectedCartItemList.reduce((acc, cur) => acc + cur.quantity * cur.product.price, 0);
   },
 });
 
-export const cartOrderTotalCountSelector = selector({
-  key: 'selectedCartItemListTotalCountSelector',
+export const totalOrderCountSelector = selector({
+  key: 'totalOrderCountSelector',
   get: ({ get }) => {
     const selectedCartItemList = get(selectedCartItemListState);
     return selectedCartItemList.reduce((acc, cur) => acc + cur.quantity, 0);
@@ -44,8 +44,8 @@ export const deliveryFeeSelector = selector({
   key: 'deliveryFeeSelector',
   get: ({ get }) => {
     const isSigol = get(isSigolState);
-    const cartItemTotalPrice = get(cartOrderTotalPriceSelector);
+    const totalOrderPrice = get(totalOrderPriceSelector);
 
-    return calculateDeliveryFee(cartItemTotalPrice, isSigol);
+    return calculateDeliveryFee(totalOrderPrice, isSigol);
   },
 });
