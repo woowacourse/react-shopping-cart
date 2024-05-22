@@ -40,3 +40,23 @@ export const coupons: Coupon[] = [
     discountType: 'percentage',
   },
 ];
+
+export const INVALID_COUPON: Coupon = {
+  id: 2,
+  code: 'BOGO',
+  description: '2개 구매 시 1개 무료 쿠폰',
+  expirationDate: '2024-04-30',
+  buyQuantity: 2,
+  getQuantity: 1,
+  discountType: 'buyXgetY',
+} as const;
+
+export const VALID_COUPON: Coupon = {
+  id: 1,
+  code: 'FIXED5000',
+  description: '5,000원 할인 쿠폰',
+  expirationDate: '2024-11-30',
+  discount: 5000,
+  minimumAmount: 100000,
+  discountType: 'fixed',
+} as const;
