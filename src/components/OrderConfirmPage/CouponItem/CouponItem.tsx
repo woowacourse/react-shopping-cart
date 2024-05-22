@@ -1,6 +1,6 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedCouponListSelector, isCouponListMaxLength } from '../../../recoil/Coupon/selectors/selectors';
-import useCouponApplicable from '../../hooks/useCouponApplicable';
+import useCouponApplicable from '../../../hooks/useCouponApplicable';
 import CheckBox from '../../common/CheckBox/CheckBox';
 import type { Coupon } from '../../../types/Coupon.type';
 
