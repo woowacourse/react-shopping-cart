@@ -7,6 +7,7 @@ import {
   isCouponAvaliableTime,
   isCouponAvaliableQuantity,
 } from '../utils/couponValidator';
+import { getKoreanTime } from '../utils/time';
 import { Coupon } from '../types/Coupon.type';
 
 const useCouponApplicable = () => {
@@ -14,7 +15,7 @@ const useCouponApplicable = () => {
   const totalOrderPrice = useRecoilValue(totalOrderPriceSelector);
 
   const isCouponApplicable = (coupon: Coupon) => {
-    const now = new Date(2024, 3, 20, 4, 30, 30);
+    const now = getKoreanTime();
 
     if (isCouponExpired(coupon.expirationDate, now)) return false;
 
