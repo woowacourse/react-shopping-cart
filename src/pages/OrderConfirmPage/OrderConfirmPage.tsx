@@ -43,7 +43,7 @@ function OrderConfirmPage() {
 
   return (
     <>
-      {isOpen && <ApplyCouponModal coupon={couponList} />}
+      {isOpen && <ApplyCouponModal couponList={couponList} />}
       <Header />
       <S.Layout>
         <TitleContainer

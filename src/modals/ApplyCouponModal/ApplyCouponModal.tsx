@@ -3,14 +3,14 @@ import * as S from './ApplyCouponModal.style';
 import NotificationContainer from '../../components/Container/NotificationContainer/NotificationContainer';
 import { useToggleModal } from '../../hooks/useToggleModal';
 import { Coupon } from '../../types/Coupon.type';
+import CouponList from '../../components/CouponList/CouponList';
 
 interface ApplyCouponModalProps {
-  coupon: Coupon[];
+  couponList: Coupon[];
 }
 
-function ApplyCouponModal({ coupon, ...rest }: ApplyCouponModalProps) {
+function ApplyCouponModal({ couponList }: ApplyCouponModalProps) {
   const { openModal } = useToggleModal();
-  console.log(coupon);
   return (
     <Modal
       style={{ width: '90%', justifyContent: 'space-between', rowGap: '32px' }}
@@ -21,6 +21,7 @@ function ApplyCouponModal({ coupon, ...rest }: ApplyCouponModalProps) {
       <Modal.Title title="쿠폰을 선택해 주세요" />
       <S.CouponListContainer>
         <NotificationContainer content={`쿠폰은 최대 2개까지 사용할 수 있습니다.`} />
+        <CouponList couponList={couponList}></CouponList>
       </S.CouponListContainer>
       <Modal.ConfirmButton />
     </Modal>
