@@ -73,3 +73,12 @@ export const VALID_PERCENTAGE_COUPON: Coupon = {
   },
   discountType: 'percentage',
 } as const;
+
+export const VALID_FREE_SHIPPING_COUPON: Coupon = {
+  id: 3,
+  code: 'FREESHIPPING',
+  description: '5만원 이상 구매 시 무료 배송 쿠폰',
+  expirationDate: '2024-08-31',
+  minimumAmount: 50000,
+  discountType: 'freeShipping',
+} as const;

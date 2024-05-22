@@ -15,7 +15,7 @@ export const TOTAL_PRICE_UNDER_100000_DATA: CartItemProps[] = [
   },
   {
     id: 532,
-    quantity: 2,
+    quantity: 5,
     product: {
       id: 10,
       name: '아디다스',

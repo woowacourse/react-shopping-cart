@@ -8,12 +8,13 @@ import {
   couponSelector,
 } from './selector';
 import { cartItemsState } from '../cartItems/atoms';
-import { orderTotalPriceState } from '../cartItems/selectors';
+import { deliveryPriceState, orderTotalPriceState } from '../cartItems/selectors';
 
-import { TOTAL_PRICE_OVER_100000_DATA } from '@/mocks/cartItems';
+import { TOTAL_PRICE_OVER_100000_DATA, TOTAL_PRICE_UNDER_100000_DATA } from '@/mocks/cartItems';
 import {
   INVALID_BOGO_COUPON,
   VALID_FIXED_COUPON,
+  VALID_FREE_SHIPPING_COUPON,
   VALID_PERCENTAGE_COUPON,
   coupons,
 } from '@/mocks/coupons';
@@ -134,6 +135,30 @@ describe('coupon selector', () => {
       );
 
       expect(result.current.discountAmount).toBe(discountedFromTotalAmount);
+    });
+
+    it('유효한 "freeShipping"타입의 쿠폰을 적용하면 배송비만큼 할인된다.', () => {
+      const { result } = renderHook(
+        () => {
+          const discountAmount = useRecoilValue(
+            calculateDiscountAmountSelector(VALID_FREE_SHIPPING_COUPON.code),
+          );
+          const deliveryPrice = useRecoilValue(deliveryPriceState);
+
+          return { discountAmount, deliveryPrice };
+        },
+        {
+          wrapper: ({ children }) => (
+            <RecoilRoot
+              initializeState={({ set }) => set(cartItemsState, TOTAL_PRICE_UNDER_100000_DATA)}
+            >
+              <Suspense>{children}</Suspense>
+            </RecoilRoot>
+          ),
+        },
+      );
+
+      expect(result.current.discountAmount).toBe(result.current.deliveryPrice);
     });
   });
 });

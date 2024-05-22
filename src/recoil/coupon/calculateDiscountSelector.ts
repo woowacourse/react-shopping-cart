@@ -1,7 +1,7 @@
 import { selectorFamily } from 'recoil';
 
 import { applicableCouponSelector, couponSelector } from './selector';
-import { orderTotalPriceState } from '../cartItems/selectors';
+import { deliveryPriceState, orderTotalPriceState } from '../cartItems/selectors';
 
 import { Coupon } from '@/types/coupon';
 
@@ -29,5 +29,19 @@ export const calculatePercentageDiscountSelector = selectorFamily<number, string
       if (!get(applicableCouponSelector(coupon.code))) return 0;
 
       return Math.floor((totalAmount * (coupon.discount ?? 0)) / 100);
+    },
+});
+
+export const calculateFreeShippingDiscountSelector = selectorFamily<number, string>({
+  key: 'calculateFreeShippingDiscountSelector',
+  get:
+    (couponCode) =>
+    ({ get }) => {
+      const coupon = get(couponSelector(couponCode)) as Coupon;
+      const deliveryPrice = get(deliveryPriceState);
+
+      if (!get(applicableCouponSelector(coupon.code))) return 0;
+
+      return deliveryPrice;
     },
 });
