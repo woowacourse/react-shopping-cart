@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledCartSummaryItem = styled.div`
+export const StyledBaseSummaryItem = styled.div`
   width: 100%;
   height: 42px;
   display: flex;
@@ -8,7 +8,7 @@ export const StyledCartSummaryItem = styled.div`
   align-items: center;
 `;
 
-export const StyledSummaryItemTitle = styled.span`
+export const StyledBaseSummaryItemTitle = styled.span`
   font-family: Noto Sans;
   font-size: 16px;
   font-weight: 700;
@@ -17,7 +17,7 @@ export const StyledSummaryItemTitle = styled.span`
   color: rgba(10, 13, 19, 1);
 `;
 
-export const StyledSummaryItemPrice = styled.span`
+export const StyledBaseSummaryItemPrice = styled.span`
   font-family: Noto Sans KR;
   font-size: 24px;
   font-weight: 700;
