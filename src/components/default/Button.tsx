@@ -1,17 +1,20 @@
 import React, { ReactNode } from "react";
 import { css } from "@emotion/css";
 
-type ButtonVariant = "primary" | "secondary" | "text";
+type ButtonVariant = "primary" | "secondary";
+
+type ButtonSize = "small" | "medium" | "large";
 
 interface ButtonProps extends React.ComponentPropsWithRef<"button"> {
   children?: ReactNode;
   variant?: ButtonVariant;
+  size?: ButtonSize;
 }
 
-const Button = ({ children, variant = "text", ...rest }: ButtonProps) => {
+const Button = ({ children, variant = "primary", size = "large", ...rest }: ButtonProps) => {
   return (
     <button
-      className={getButtonClassName(variant)}
+      className={getButtonClassName(variant, size)}
       {...rest}
     >
       {children}
@@ -21,20 +24,47 @@ const Button = ({ children, variant = "text", ...rest }: ButtonProps) => {
 
 export default Button;
 
-const getButtonClassName = (variant: ButtonVariant) => {
-  return css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: ${variant === "text" ? "fit-content" : "24px"};
+const getButtonClassName = (variant: ButtonVariant, size: ButtonSize) => {
+  return `${baseStyle} ${styles[variant]} ${styles[size]}`;
+};
+
+const baseStyle = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--grey-200);
+  outline: none;
+  cursor: pointer;
+`;
+
+const styles = {
+  primary: css`
+    background-color: var(--grey-500);
+    color: var(--grey-100);
+  `,
+  secondary: css`
+    background-color: var(--grey-100);
+    color: #212529;
+  `,
+  small: css`
+    width: 24px;
     height: 24px;
-    padding: ${variant === "text" ? "0 8px" : "0"};
-    border-radius: ${variant === "text" ? "4px" : "8px"};
-    border: 1px solid var(--grey-200);
-    outline: none;
-    background-color: ${variant === "primary" ? "var(--grey-500)" : "var(--grey-100)"};
+    padding: 0;
+    border-radius: 8px;
     font: var(--cart-label);
-    color: ${variant === "primary" ? "var(--grey-100)" : "#212529"};
-    cursor: pointer;
-  `;
+  `,
+  medium: css`
+    width: fit-content;
+    height: 24px;
+    padding: 0 8px;
+    border-radius: 4px;
+    font: var(--cart-label);
+  `,
+  large: css`
+    width: 100%;
+    height: 48px;
+    border-radius: 5px;
+    font: var(--cart-subtitle);
+    color: #333333bf;
+  `,
 };
