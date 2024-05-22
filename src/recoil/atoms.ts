@@ -4,8 +4,10 @@ import syncWithLocalStorage from '../utils/syncWithLocalStorage';
 
 export interface SelectedCartItem {
   cartItemId: number;
+  name: string;
   quantity: number;
   price: number;
+  imageUrl: string;
 }
 
 export const selectedCartItems = atom<SelectedCartItem[]>({
