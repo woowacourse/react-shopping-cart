@@ -1,6 +1,6 @@
 import { Coupon } from '@/types/coupon';
 
-export const Coupons: Coupon[] = [
+export const coupons: Coupon[] = [
   {
     id: 1,
     code: 'FIXED5000',
