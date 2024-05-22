@@ -1,2 +1,2 @@
 export { CartSummary } from "./cartSummary/CartSummary";
-export { CartSummaryItem } from "./cartSummaryItem/CartSummaryItem";
+export { OrderSummary } from "./orderSummary/OrderSummary";
