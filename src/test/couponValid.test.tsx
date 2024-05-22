@@ -132,6 +132,7 @@ describe("coupon disable 테스트", () => {
         wrapper: ({ children }) => (
           <RecoilRoot
             initializeState={({ set }) => {
+              set(cartState, chargeShippingDummy.content);
               set(couponsState, couponsDummy);
               couponEachCheckDummy.forEach(({ id }) => {
                 set(couponEachCheckState(id), false);
@@ -143,7 +144,7 @@ describe("coupon disable 테스트", () => {
         ),
       }
     );
-    expect(result.current.isDisabled).toBeFalsy();
+    expect(result.current.isDisabled).toBeTruthy();
   });
 
   it("최소 주문 금액이 넘지 않으면 비활성화된다.", () => {
