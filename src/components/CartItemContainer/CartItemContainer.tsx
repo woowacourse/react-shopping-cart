@@ -1,12 +1,12 @@
 import { useRecoilValue } from 'recoil';
-import Title from '../Title/Title';
-import TotalPaymentInfo from '../TotalPaymentInfo/TotalPaymentInfo';
 import * as Styled from './style';
 import { selectedSomeCartItemsSelector } from '../../recoil/selectedCardItems';
-import OrderButton from '../OrderButton/OrderButton';
 import { useNavigate } from 'react-router-dom';
 import CartItemList from '../CartItemList/CartItemList';
 import { fetchedCartItemsSelector } from '../../recoil/fetch';
+import Title from '../common/Title/Title';
+import TotalPaymentInfo from '../common/TotalPaymentInfo/TotalPaymentInfo';
+import OrderButton from '../common/OrderButton/OrderButton';
 
 const CartItemContainer = () => {
   const navigator = useNavigate();
