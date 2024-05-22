@@ -1,4 +1,4 @@
-import { CartItem } from "@/types/cart";
+import { CartItem } from "@/types/cartItem";
 
 export const MOCK_CART_LIST: CartItem[] = [
   {

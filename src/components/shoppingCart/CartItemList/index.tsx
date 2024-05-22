@@ -6,7 +6,7 @@ import useCartItems from "@/hooks/useCartItems";
 import CartItemCard from "@/components/shoppingCart/CartItemCard";
 import { CheckButton } from "@/components/button";
 
-import { CartItem } from "@/types/cart";
+import { CartItem } from "@/types/cartItem";
 import { CART_PRICE } from "@/constants/cart";
 
 import infoOutline from "@/assets/images/infoOutline.png";

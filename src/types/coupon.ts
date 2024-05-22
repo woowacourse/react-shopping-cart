@@ -1,17 +1,3 @@
-export interface Product {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
-  category: string;
-}
-
-export interface CartItem {
-  id: number;
-  product: Product;
-  quantity: number;
-}
-
 export interface Coupon {
   id: number;
   code: string;

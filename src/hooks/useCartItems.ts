@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { deleteCartItem, patchCartItemQuantity } from "@/apis/cart";
+import { deleteCartItem, patchCartItemQuantity } from "@/apis/cartItem";
 import { cartItemsState } from "@/stores/cartItems";
 
 const useCartItems = () => {

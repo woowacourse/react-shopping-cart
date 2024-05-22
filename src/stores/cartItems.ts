@@ -1,6 +1,6 @@
 import { atom, selector } from "recoil";
-import { getCartItems } from "@/apis/cart";
-import { CartItem } from "@/types/cart";
+import { getCartItems } from "@/apis/cartItem";
+import { CartItem } from "@/types/cartItem";
 
 export const cartItemsStateResponse = selector<CartItem[]>({
   key: "cartItemsStateResponse",

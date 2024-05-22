@@ -4,7 +4,7 @@ import useCartItems from "@/hooks/useCartItems";
 
 import Button from "../../_common/Button";
 import { CheckButton, MinusButton, PlusButton } from "@/components/button";
-import { CartItem } from "@/types/cart";
+import { CartItem } from "@/types/cartItem";
 
 import * as S from "./styled";
 
