@@ -8,6 +8,9 @@ export const SHOPPING_MESSAGE = {
   selectAll: "전체선택",
   confirmDelete: "정말로 삭제하시겠습니까?",
   emptyBasket: "장바구니가 비었어요 ㅠㅠ",
+  orderAmount: "주문 금액",
+  shippingFee: "배송비",
+  totalPayAmount: "총 결제 금액",
   freeShippingFeeInfo(price: string) {
     return `총 주문 금액이 ${price}원 이상일 경우 무료 배송됩니다.`;
   },
