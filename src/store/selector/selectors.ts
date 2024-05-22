@@ -1,5 +1,5 @@
 import { selector } from "recoil";
-import { itemEachCheckState, itemQuantityState } from "@/store/atom/atoms";
+import { couponEachCheckState, couponsState, itemEachCheckState, itemQuantityState } from "@/store/atom/atoms";
 import { SHIPPING_CONSTANT } from "@/constants";
 import { cartState } from "@/store/atom/atoms";
 import { fetchCartItemsCounts } from "../../api";
@@ -35,5 +35,24 @@ export const cartItemsCounts = selector({
   get: async () => {
     const counts = await fetchCartItemsCounts();
     return counts;
+  },
+});
+
+export const isOver2CouponsCheckedState = selector({
+  key: "isOver2CouponsChecked",
+  get: ({ get }) => {
+    const couponIds = get(couponsState).map((c) => c.id);
+
+    let checkedCount = 0;
+    let index = 0;
+
+    while (checkedCount < 2 && index < couponIds.length) {
+      const curId = couponIds[index];
+      const isChecked = get(couponEachCheckState(curId));
+      if (isChecked) checkedCount += 1;
+      index += 1;
+    }
+
+    return checkedCount === 2;
   },
 });

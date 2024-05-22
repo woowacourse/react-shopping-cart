@@ -14,15 +14,16 @@ export const couponEachCheckDummy = [
   { id: 3, isCheck: true },
   { id: 4, isCheck: false },
   { id: 5, isCheck: false },
-  { id: 5, isCheck: false },
+  { id: 6, isCheck: false },
 ];
 
 const ReactRootComponent = ({ children }: PropsWithChildren) => (
   <RecoilRoot
     initializeState={({ set }) => {
+      set(cartState, chargeShippingDummy.content);
       set(couponsState, couponsDummy);
-      couponEachCheckDummy.forEach(({ id }) => {
-        set(couponEachCheckState(id), false);
+      couponEachCheckDummy.forEach(({ id, isCheck }) => {
+        set(couponEachCheckState(id), isCheck);
       });
     }}
   >
@@ -39,6 +40,7 @@ describe("coupon disable 테스트", () => {
   afterAll(() => {
     vi.useRealTimers();
   });
+
   it("체크된 쿠폰이 2개 이상인 경우, 체크되지 않은 쿠폰은 비활성화여야 한다.", () => {
     const { result } = renderHook(
       () => {
@@ -50,6 +52,7 @@ describe("coupon disable 테스트", () => {
         wrapper: ReactRootComponent,
       }
     );
+
     expect(result.current.isDisabled).toBeTruthy();
   });
 

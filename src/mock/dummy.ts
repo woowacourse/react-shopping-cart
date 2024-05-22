@@ -63,7 +63,7 @@ export const chargeShippingDummy: { content: CartItemInfo[] } = {
   ],
 };
 
-export const couponsDummy = [
+export const couponsDummy: Coupon[] = [
   {
     id: 1,
     code: "FIXED5000",

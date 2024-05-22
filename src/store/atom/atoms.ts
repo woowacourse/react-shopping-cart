@@ -60,7 +60,7 @@ export const itemQuantityState = atom<Record<number, number>>({
   }),
 });
 
-export const couponsState = atom({
+export const couponsState = atom<Coupon[]>({
   key: "couponsState",
   default: selector({
     key: "fetchCoupons",
@@ -69,4 +69,9 @@ export const couponsState = atom({
       return coupons;
     },
   }),
+});
+
+export const couponEachCheckState = atomFamily({
+  key: "couponEachCheckState",
+  default: false,
 });
