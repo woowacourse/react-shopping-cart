@@ -8,10 +8,18 @@ interface Props {
 const useCouponValidator = ({ date }: Props) => {
   const couponList = useRecoilValue(couponListState);
 
-  const canSelectCouponList = couponList.filter((item) => {
-    if (!item.expirationDate) return item;
-    const expirationDate = new Date(item.expirationDate);
-    if (expirationDate > date) return item;
+  const canSelectCouponList = couponList.map((item) => {
+    if (!item.expirationDate || new Date(item.expirationDate) > date) {
+      return {
+        ...item,
+        isValid: true,
+      };
+    } else {
+      return {
+        ...item,
+        isValid: false,
+      };
+    }
   });
 
   return canSelectCouponList;
