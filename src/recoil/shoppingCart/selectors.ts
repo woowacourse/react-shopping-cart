@@ -50,7 +50,9 @@ export const selectedItemsSelector = selector({
   get: ({ get }) => {
     const cartItems = get(cartItemsAtom);
 
-    const selectedItems = cartItems.filter((cartItem) => get(selectedIdsAtom).has(cartItem.id));
+    const selectedItems = cartItems
+      .filter((cartItem) => get(selectedIdsAtom).has(cartItem.id))
+      .map((item) => ({ ...item, quantity: get(quantityAtomFamily(item.id)) }));
 
     return selectedItems;
   },

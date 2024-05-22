@@ -13,7 +13,7 @@ import { useState } from 'react';
 import * as Styled from './OrderConfirmPage.styled';
 
 const OrderConfirmPage = () => {
-  const { totalSelectedItemLength, selectedTotalQuantity } = useSelectedCartItems();
+  const { selectedItems, totalSelectedItemLength, selectedTotalQuantity } = useSelectedCartItems();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -25,12 +25,16 @@ const OrderConfirmPage = () => {
         확인해주세요.
       </Styled.OrderConfirmSubTitle>
 
-      <Item>
-        <Item.ItemImage url="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/a28864e3-de02-48bb-b861-9c592bc9a68b/%EB%B6%81-1-ep-%EB%86%8D%EA%B5%AC%ED%99%94-UOp6QQvg.png" />
-        <Item.ItemDescription name="상품이름A" price={35000}>
-          <Styled.LabelText>2개</Styled.LabelText>
-        </Item.ItemDescription>
-      </Item>
+      <>
+        {selectedItems.map(({ id, quantity, product }) => (
+          <Item key={id}>
+            <Item.ItemImage url={product.imageUrl} />
+            <Item.ItemDescription name={product.name} price={product.price}>
+              <Styled.LabelText>{quantity}개</Styled.LabelText>
+            </Item.ItemDescription>
+          </Item>
+        ))}
+      </>
       <ItemCouponButton onClick={() => setIsOpen((prev) => !prev)} style={{ margin: '32px 0px' }}>
         쿠폰 적용
       </ItemCouponButton>
