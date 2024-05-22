@@ -1,7 +1,5 @@
-import { RecoilRoot, useSetRecoilState } from 'recoil';
-
 import { Coupon } from '@/types/coupon.type';
-import { couponListState } from '@/store/atoms';
+import { RecoilRoot } from 'recoil';
 import { renderHook } from '@testing-library/react';
 import useCouponValidator from '../hooks/useCouponValidator';
 
@@ -12,7 +10,7 @@ jest.mock('../api/config', () => ({
 }));
 
 describe('useCouponValidator test', () => {
-  it('[사용 가능] 쿠폰의 유효성을 확인한 후 가능 여부를 알려준다. (존재 여부, 만료일 체크)', () => {
+  it('[유효한 쿠폰] 쿠폰의 유효성을 확인한 후 가능 여부를 알려준다. (존재 여부, 만료일 체크)', () => {
     const { result } = renderHook(
       () => {
         const validCoupon: Coupon = {
@@ -22,24 +20,25 @@ describe('useCouponValidator test', () => {
           discountType: 'fixed',
           expirationDate: '2025-01-01',
         };
-        const setCouponList = useSetRecoilState(couponListState);
-        setCouponList([validCoupon]);
-
         const today = new Date();
 
-        const validateCouponList = useCouponValidator({ date: today });
+        const validateCoupon = useCouponValidator({
+          coupon: validCoupon,
+          date: today,
+        });
 
-        return validateCouponList;
+        return validateCoupon;
       },
       {
         wrapper: RecoilRoot,
       }
     );
+    console.log(result.current);
 
-    expect(result.current[0].isValid).toBe(true);
+    expect(result.current).toBe(true);
   });
 
-  it('[사용 불가능] 쿠폰의 유효성을 확인한 후 가능 여부를 알려준다. (존재 여부, 만료일 체크)', () => {
+  it('[만료된 쿠폰] 쿠폰의 유효성을 확인한 후 가능 여부를 알려준다. (존재 여부, 만료일 체크)', () => {
     const { result } = renderHook(
       () => {
         const expiredCoupon: Coupon = {
@@ -49,20 +48,21 @@ describe('useCouponValidator test', () => {
           discountType: 'fixed',
           expirationDate: '2024-05-01',
         };
-        const setCouponList = useSetRecoilState(couponListState);
-        setCouponList([expiredCoupon]);
 
         const today = new Date();
 
-        const validateCouponList = useCouponValidator({ date: today });
+        const invalidateCoupon = useCouponValidator({
+          coupon: expiredCoupon,
+          date: today,
+        });
 
-        return validateCouponList;
+        return invalidateCoupon;
       },
       {
         wrapper: RecoilRoot,
       }
     );
 
-    expect(result.current[0].isValid).toBe(false);
+    expect(result.current).toBe(false);
   });
 });
