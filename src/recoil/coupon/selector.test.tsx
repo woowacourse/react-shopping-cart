@@ -2,13 +2,18 @@ import { renderHook } from '@testing-library/react';
 import { Suspense } from 'react';
 import { RecoilRoot, useRecoilValue } from 'recoil';
 
+import { couponsState } from './atom';
 import {
   applicableCouponSelector,
   calculateDiscountAmountSelector,
   couponSelector,
 } from './selector';
 import { cartItemsState } from '../cartItems/atoms';
-import { deliveryPriceState, orderTotalPriceState } from '../cartItems/selectors';
+import {
+  checkedItemsSelector,
+  deliveryPriceState,
+  orderTotalPriceState,
+} from '../cartItems/selectors';
 
 import { TOTAL_PRICE_OVER_100000_DATA, TOTAL_PRICE_UNDER_100000_DATA } from '@/mocks/cartItems';
 import {
@@ -16,6 +21,7 @@ import {
   VALID_FIXED_COUPON,
   VALID_FREE_SHIPPING_COUPON,
   VALID_PERCENTAGE_COUPON,
+  VALID_BuyXgetY_COUPON,
   coupons,
 } from '@/mocks/coupons';
 
@@ -53,7 +59,10 @@ describe('coupon selector', () => {
         {
           wrapper: ({ children }) => (
             <RecoilRoot
-              initializeState={({ set }) => set(cartItemsState, TOTAL_PRICE_OVER_100000_DATA)}
+              initializeState={({ set }) => (
+                set(cartItemsState, TOTAL_PRICE_OVER_100000_DATA),
+                set(couponsState, [INVALID_BOGO_COUPON])
+              )}
             >
               <Suspense>{children}</Suspense>
             </RecoilRoot>
@@ -70,7 +79,10 @@ describe('coupon selector', () => {
         {
           wrapper: ({ children }) => (
             <RecoilRoot
-              initializeState={({ set }) => set(cartItemsState, TOTAL_PRICE_OVER_100000_DATA)}
+              initializeState={({ set }) => (
+                set(cartItemsState, TOTAL_PRICE_OVER_100000_DATA),
+                set(couponsState, [VALID_FIXED_COUPON])
+              )}
             >
               <Suspense>{children}</Suspense>
             </RecoilRoot>
@@ -98,7 +110,10 @@ describe('coupon selector', () => {
         {
           wrapper: ({ children }) => (
             <RecoilRoot
-              initializeState={({ set }) => set(cartItemsState, TOTAL_PRICE_OVER_100000_DATA)}
+              initializeState={({ set }) => (
+                set(cartItemsState, TOTAL_PRICE_OVER_100000_DATA),
+                set(couponsState, [VALID_FIXED_COUPON])
+              )}
             >
               <Suspense>{children}</Suspense>
             </RecoilRoot>
@@ -122,7 +137,10 @@ describe('coupon selector', () => {
         {
           wrapper: ({ children }) => (
             <RecoilRoot
-              initializeState={({ set }) => set(cartItemsState, TOTAL_PRICE_OVER_100000_DATA)}
+              initializeState={({ set }) => (
+                set(cartItemsState, TOTAL_PRICE_OVER_100000_DATA),
+                set(couponsState, [VALID_PERCENTAGE_COUPON])
+              )}
             >
               <Suspense>{children}</Suspense>
             </RecoilRoot>
@@ -150,7 +168,10 @@ describe('coupon selector', () => {
         {
           wrapper: ({ children }) => (
             <RecoilRoot
-              initializeState={({ set }) => set(cartItemsState, TOTAL_PRICE_UNDER_100000_DATA)}
+              initializeState={({ set }) => (
+                set(cartItemsState, TOTAL_PRICE_UNDER_100000_DATA),
+                set(couponsState, [VALID_FREE_SHIPPING_COUPON])
+              )}
             >
               <Suspense>{children}</Suspense>
             </RecoilRoot>
