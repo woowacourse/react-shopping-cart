@@ -18,5 +18,6 @@ export const COLOR = {
   grey: {
     light: "#bebebe",
     dark: "#969696",
+    smoky: "#333333BF",
   },
 };
