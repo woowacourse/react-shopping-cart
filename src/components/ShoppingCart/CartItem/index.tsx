@@ -7,12 +7,16 @@ import BasicButton from "../../common/Button/BasicButton";
 import CheckboxButton from "../../common/Button/CheckboxButton";
 import { deleteCartItem, patchCartItemQuantity } from "../../../api/cartItem";
 import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../../constants/styles";
+import { SHOPPING_MESSAGE } from "../../../constants/messages";
+
+type CartItemType = "edit" | "readonly";
 
 interface CartItemProps extends Omit<CartItemResponse, "quantity"> {
-  removeCartItem: (itemId: number) => void;
+  cartItemType: CartItemType;
+  removeCartItem?: (itemId: number) => void;
 }
 
-const CartItem = ({ id, product, removeCartItem }: CartItemProps) => {
+const CartItem = ({ id, product, cartItemType, removeCartItem }: CartItemProps) => {
   const [quantity, setQuantity] = useRecoilState(cartItemQuantityStates(id));
   const setCheckedCartItems = useSetRecoilState(checkedCartItemsState);
 
@@ -22,23 +26,24 @@ const CartItem = ({ id, product, removeCartItem }: CartItemProps) => {
     setCheckedCartItems((prevSelected) => prevSelected.filter((_id) => _id !== id));
 
   const isCheckedItem = checkItems.includes(id);
+  const isEditable = cartItemType === "edit";
 
   const handleRemoveItem = () => {
-    if (!confirm("정말로 삭제하시겠습니까?")) return;
-    removeCartItem(id);
+    if (!confirm(SHOPPING_MESSAGE.confirmDelete)) return;
+    removeCartItem && removeCartItem(id);
     uncheckCartItem(id);
     deleteCartItem(id);
   };
 
   const handleIncrease = () => {
+    setQuantity((prev) => prev + 1);
     patchCartItemQuantity(id, quantity + 1);
-    setQuantity(quantity + 1);
   };
 
   const handleDecrease = () => {
     if (quantity > 1) {
+      setQuantity((prev) => prev - 1);
       patchCartItemQuantity(id, quantity - 1);
-      setQuantity(quantity - 1);
       return;
     }
 
@@ -46,20 +51,26 @@ const CartItem = ({ id, product, removeCartItem }: CartItemProps) => {
   };
 
   return (
-    <CartItemContainer>
-      <TopContainer>
-        <CheckboxButton
-          onClick={() => (isCheckedItem ? uncheckCartItem(id) : checkCartItem(id))}
-          isChecked={isCheckedItem}
-        />
-        <BasicButton label="삭제" onClick={handleRemoveItem} />
-      </TopContainer>
+    <CartItemContainer isReadonly={!isEditable}>
+      {isEditable && (
+        <TopContainer>
+          <CheckboxButton
+            onClick={() => (isCheckedItem ? uncheckCartItem(id) : checkCartItem(id))}
+            isChecked={isCheckedItem}
+          />
+          <BasicButton label="삭제" onClick={handleRemoveItem} />
+        </TopContainer>
+      )}
       <CartItemWrapper>
         <Thumbnail src={product.imageUrl} />
         <CartItemContents>
           <Name>{product.name}</Name>
           <Price>{product.price.toLocaleString()}원</Price>
-          <ItemCounter value={quantity} handleIncrease={handleIncrease} handleDecrease={handleDecrease} />
+          {isEditable ? (
+            <ItemCounter value={quantity} handleIncrease={handleIncrease} handleDecrease={handleDecrease} />
+          ) : (
+            <CartItemCount>{quantity}개</CartItemCount>
+          )}
         </CartItemContents>
       </CartItemWrapper>
     </CartItemContainer>
@@ -68,7 +79,8 @@ const CartItem = ({ id, product, removeCartItem }: CartItemProps) => {
 
 export default CartItem;
 
-const CartItemContainer = styled.div`
+const CartItemContainer = styled.div<{ isReadonly: boolean }>`
+  ${({ isReadonly }) => isReadonly && "padding-top: 12px"};
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -116,4 +128,9 @@ const CartItemWrapper = styled.div`
 
 const CartItemContents = styled.div`
   margin: 9.5px 0 9.5px 24px;
+`;
+
+const CartItemCount = styled.p`
+  font-size: 12px;
+  height: 24px;
 `;

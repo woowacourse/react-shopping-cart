@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../../constants/styles";
 import { CartItemResponse } from "../../../types/ShoppingCart";
 import CartItem from "../CartItem";
+import { SHOPPING_MESSAGE } from "../../../constants/messages";
 
 interface CartItemListProps {
   cartItems: CartItemResponse[];
@@ -25,15 +26,21 @@ const CartItemList = ({ cartItems, removeCartItem }: CartItemListProps) => {
       <TopContainer>
         {cartItems && (
           <CheckboxButton
-            id={"checkAllButton"}
+            id="checkAllButton"
             isChecked={isAllChecked}
             onClick={() => (isAllChecked ? uncheckAllCartItem() : checkAllCartItem(allCartItemsId))}
           />
         )}
-        <CheckAllLabel htmlFor={"checkAllButton"}>전체선택</CheckAllLabel>
-      </TopContainer>{" "}
+        <CheckAllLabel htmlFor="checkAllButton">{SHOPPING_MESSAGE.selectAll}</CheckAllLabel>
+      </TopContainer>
       {cartItems?.map((item) => (
-        <CartItem key={item.id} id={item.id} product={item.product} removeCartItem={removeCartItem} />
+        <CartItem
+          key={item.id}
+          id={item.id}
+          product={item.product}
+          removeCartItem={removeCartItem}
+          cartItemType="edit"
+        />
       ))}
     </CartItemListContainer>
   );
