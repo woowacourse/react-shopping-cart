@@ -1,14 +1,14 @@
-import CouponItem from './CouponItem';
-import { couponState } from '@/store/selectors/dataFetchSelector';
+import CouponItem from '@/components/Coupon/CouponItem';
+import { couponListState } from '@/store/atoms';
 import { useRecoilValue } from 'recoil';
 
 const CouponList = () => {
-  const couponList = useRecoilValue(couponState);
-  console.log(couponList);
+  const couponList = useRecoilValue(couponListState);
+
   return (
     <>
       {couponList.map((coupon) => (
-        <CouponItem coupon={coupon} />
+        <CouponItem key={coupon.id} coupon={coupon} />
       ))}
     </>
   );

@@ -41,7 +41,6 @@ const useCouponAvailable = ({ coupon, date }: Props) => {
 
   const checkMinimumQuantity = () => {
     const { buyQuantity, getQuantity } = coupon;
-    console.log(buyQuantity);
 
     if (!buyQuantity || !getQuantity) return true;
 
