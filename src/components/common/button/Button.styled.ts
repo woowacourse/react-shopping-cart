@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledButton = styled.button`
+  display: flex;
   background-color: transparent;
   border: none;
   padding: 0;
@@ -17,8 +18,6 @@ export const StyledButtonImg = styled.img`
 `;
 
 export const StyledButtonText = styled.span`
-  width: 40px;
-  height: 24px;
   padding: 4px 8px;
   border-radius: 4px;
   border: 1px solid rgba(0, 0, 0, 0.1);

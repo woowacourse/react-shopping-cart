@@ -26,3 +26,8 @@ export const cartErrorMessageState = atom<string>({
   key: 'cartErrorMessage',
   default: '',
 });
+
+export const isLandAndMoutainAreaCheckedState = atom<boolean>({
+  key: 'isLandAndMoutainAreaChecked',
+  default: false,
+});

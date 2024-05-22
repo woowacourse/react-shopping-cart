@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { getCartItemCounts } from '../../api';
 import { ConfirmButton } from '../../components/confirmButton/ConfirmButton';
@@ -22,6 +22,7 @@ import { ErrorAlertModal } from '../../components/errorAlertModal/ErrorAlertModa
 import { CART_MESSAGES, ORDER_MESSAGES } from '../../constants/cart';
 import Header from '../../components/header/Header';
 import { OrderItemCard } from '../../components/itemCard/orderItemCard/OrderItemCard';
+import { IslandAndMountainAreaCheckSection } from '../../components/islandAndMountainAreaCheckSection/IslandAndMountainAreaCheckSection';
 
 export const OrderConfirmationPage: React.FC = () => {
   const selectedItemsCount = useRecoilValue(selectedItemsCountState);
@@ -53,7 +54,7 @@ export const OrderConfirmationPage: React.FC = () => {
       <Header type='back' />
       <StyledConfirmationPage>
         <StyledOrderSummaryContainer>
-          <StyledConfirmationPageTitle>주문확인</StyledConfirmationPageTitle>
+          <StyledConfirmationPageTitle>주문 확인</StyledConfirmationPageTitle>
           <StyledConfirmationPageDescription>
             <span>
               {ORDER_MESSAGES.ORDER_SUMMARY(
@@ -70,6 +71,7 @@ export const OrderConfirmationPage: React.FC = () => {
         <StyledCouponRedeemButton onClick={() => setCouponModalOpen(true)}>
           쿠폰 적용
         </StyledCouponRedeemButton>
+        <IslandAndMountainAreaCheckSection />
         {cartErrorMessage.length > 0 && (
           <ErrorAlertModal errorMessage={cartErrorMessage} />
         )}
