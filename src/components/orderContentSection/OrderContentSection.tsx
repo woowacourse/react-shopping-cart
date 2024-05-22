@@ -1,4 +1,4 @@
-import { CouponButton } from "../button";
+import { SelectCouponButton } from "../button/selectCouponButton/SelectCouponButton";
 import { CartItemCard } from "../cartItemCard/CartItemCard";
 import { OrderSummary } from "../cartSummary";
 import { ShippingRegionInfo } from "../shippingRegionInfo/ShippingRegionInfo";
@@ -36,7 +36,7 @@ export const OrderContentSection: React.FC = () => {
     <StyledOrderContentSection>
       <CartItemCard key={data.id} {...data} isChecked={true} onCheck={() => {}} />
       <CartItemCard key={data2.id} {...data2} isChecked={true} onCheck={() => {}} />
-      <CouponButton onClick={onClick}></CouponButton>
+      <SelectCouponButton onClick={onClick}></SelectCouponButton>
       <ShippingRegionInfo />
       <OrderSummary />
     </StyledOrderContentSection>
