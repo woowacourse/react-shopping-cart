@@ -1,5 +1,3 @@
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { selectedCouponListSelector, isCouponListMaxLength } from '../../../recoil/Coupon/selectors/selectors';
 import useCouponApplicable from '../../../hooks/useCouponApplicable';
 import CheckBox from '../../common/CheckBox/CheckBox';
 import type { Coupon } from '../../../types/Coupon.type';
@@ -8,14 +6,14 @@ import * as S from './CouponItems.style';
 
 interface CouponItemProps {
   coupon: Coupon;
+  isSelected: boolean;
+  isMaxLength: boolean;
+  handleSelectedCoupons: (newCoupon: Coupon) => void;
 }
 
-function CouponItem({ coupon }: CouponItemProps) {
+function CouponItem({ coupon, isSelected, isMaxLength, handleSelectedCoupons }: CouponItemProps) {
   const { code, description, expirationDate, minimumAmount, availableTime } = coupon;
   const { isCouponApplicable } = useCouponApplicable();
-
-  const [isSelected, setIsSelected] = useRecoilState(selectedCouponListSelector(coupon));
-  const isMaxLength = useRecoilValue(isCouponListMaxLength);
 
   const handleIsActive = () => {
     if (!isCouponApplicable(coupon)) {
@@ -27,7 +25,7 @@ function CouponItem({ coupon }: CouponItemProps) {
 
   const isActive = handleIsActive();
 
-  const handleIsSelected = () => setIsSelected(isSelected);
+  const handleIsSelected = () => handleSelectedCoupons(coupon);
 
   return (
     <S.Layout $isApplicable={isActive}>
