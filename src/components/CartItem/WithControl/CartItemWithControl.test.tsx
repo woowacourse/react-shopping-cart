@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import CartItem from './CartItem';
+import CartItemWithControl from './CartItemWithControl';
 import { RecoilRoot, useRecoilValue } from 'recoil';
-import { cartItemQuantityState } from '../../recoil/cartItem/cartItemQuantityState';
+import { cartItemQuantityState } from '../../../recoil/cartItem/cartItemQuantityState';
 import { act } from 'react';
 import '@testing-library/jest-dom';
 
@@ -30,7 +30,7 @@ describe('CartItem 컴포넌트의 상품 개수 증감 테스트', () => {
   const renderCartItem = ({ cartItemId }: { cartItemId: number }) => {
     return render(
       <RecoilRoot>
-        <CartItem {...cartItemDummyData} />
+        <CartItemWithControl {...cartItemDummyData} />
         <QuantityChecker cartItemId={cartItemId} />
       </RecoilRoot>,
     );
@@ -74,7 +74,7 @@ describe('CartItem 컴포넌트에서 장바구니 항목 선택 테스트', () 
   const renderCartItem = ({ cartItemId }: { cartItemId: number }) => {
     return render(
       <RecoilRoot>
-        <CartItem {...cartItemDummyData} />
+        <CartItemWithControl {...cartItemDummyData} />
         <QuantityChecker cartItemId={cartItemId} />
       </RecoilRoot>,
     );

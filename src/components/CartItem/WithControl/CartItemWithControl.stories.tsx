@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import CartItemWithControl from './CartItemWithControl';
 import { RecoilRoot } from 'recoil';
-import CartItem from './CartItem';
 
 const meta = {
-  title: 'Components/CartItem',
-  component: CartItem,
+  title: 'Components/CartItemWithControl',
+  component: CartItemWithControl,
   tags: ['autodocs'],
   argTypes: {
     product: {
@@ -30,18 +30,18 @@ const meta = {
     quantity: 1,
     cartItemId: 1,
   },
-} satisfies Meta<typeof CartItem>;
+} satisfies Meta<typeof CartItemWithControl>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
-  render: ({ ...args }) => {
+  render: ({ ...args }: CartItemWithControl) => {
     return (
       <RecoilRoot>
         <div style={{ width: '430px' }}>
-          <CartItem {...args} />
+          <CartItemWithControl {...args} />
         </div>
       </RecoilRoot>
     );
