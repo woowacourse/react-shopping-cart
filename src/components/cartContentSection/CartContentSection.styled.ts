@@ -4,7 +4,7 @@ export const StyledCartContentSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 710px;
+  height: 680px;
 `;
 
 export const StyledContentContainer = styled.div`
