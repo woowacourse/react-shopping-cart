@@ -6,6 +6,10 @@ import { totalCountSelector, totalPriceSelector } from "../recoil/selector/selec
 import { formatCurrency } from "../utils/formatCurrency";
 import LeftArrow from "../assets/LeftArrow.svg?react";
 import { CartLayout, Header, Content, Footer } from "../components/layout";
+import { Button, Title } from "../components/default";
+import OrderItems from "../components/orderConfirmationPage/OrderItems";
+import ShippingInfo from "../components/orderConfirmationPage/ShippingInfo";
+import PaymentSummary from "../components/orderConfirmationPage/PaymentSummary";
 
 const OrderConfirmationPage = () => {
   const navigate = useNavigate();
@@ -14,7 +18,7 @@ const OrderConfirmationPage = () => {
   const cartTotalCount = useRecoilValue(totalCountSelector);
   const [coupons, setCoupons] = useRecoilState(couponsAtom);
 
-  const text = `총 ${cartItemCheckedIds.length}종류의 상품 ${cartTotalCount}개를 주문합니다.
+  const description = `총 ${cartItemCheckedIds.length}종류의 상품 ${cartTotalCount}개를 주문합니다.
   최종 결제 금액을 확인해 주세요.`;
 
   const handleClick = () => {
@@ -32,16 +36,23 @@ const OrderConfirmationPage = () => {
         />
       </Header>
       <Content>
-        <div className={confirmTextCSS}>
-          <div className={headerCSS}>주문 확인</div>
-          <div className={textCSS}>{text}</div>
-          <div className={totalPriceTitleCSS}> 총 결제 금액</div>
-          <div className={totalPriceCSS}> {formatCurrency(cartTotalPrice)}</div>
-        </div>
+        <Title
+          title="장바구니"
+          description={description}
+        />
+        <OrderItems />
+        <Button
+          variant="secondary"
+          size="large"
+        >
+          쿠폰 적용
+        </Button>
+        <ShippingInfo />
+        <PaymentSummary />
       </Content>
       <Footer
         text="결제하기"
-        isActive={false}
+        isActive={true}
       />
     </CartLayout>
   );
@@ -51,33 +62,4 @@ export default OrderConfirmationPage;
 
 const leftArrowBtnCSS = css`
   cursor: pointer;
-`;
-
-const confirmTextCSS = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  row-gap: 24px;
-  height: 100%;
-`;
-
-const headerCSS = css`
-  font: var(--cart-title);
-`;
-
-const textCSS = css`
-  white-space: pre-line;
-  font: var(--cart-label);
-  color: var(--grey-400);
-  text-align: center;
-`;
-
-const totalPriceTitleCSS = css`
-  font: var(--cart-subtitle);
-  color: var(--grey-400);
-`;
-
-const totalPriceCSS = css`
-  font: var(--cart-title);
 `;
