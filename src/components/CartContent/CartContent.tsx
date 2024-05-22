@@ -21,12 +21,8 @@ export const NoCartItemContainer = styled.p`
 `;
 
 function CartContent() {
-  const fetchedItems = useRecoilValue(fetchItemsSelector);
-  const [items, setItems] = useRecoilState(itemsState);
-
-  useEffect(() => {
-    setItems(fetchedItems);
-  }, [fetchedItems, setItems]);
+  const [items] = useRecoilState(itemsState);
+  console.log(items);
 
   return (
     <>

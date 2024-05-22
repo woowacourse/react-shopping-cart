@@ -1,7 +1,7 @@
 import { CartItems } from '../../types/Item';
 import CartItemCard from '../ItemCard/CartItemCard';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { itemsState } from '../../recoil/atoms';
+import { itemDetailsState, itemsState } from '../../recoil/atoms';
 import styled from 'styled-components';
 import CheckBox from '../CheckBox/CheckBox';
 import { toggleAllSelector } from '../../recoil/selectors';
@@ -33,7 +33,6 @@ const CartItemListContainer = styled.ul`
 
 function ItemList() {
   const items = useRecoilValue(itemsState);
-
   const isAllChecked = useRecoilValue(toggleAllSelector);
   const setAllChecked = useSetRecoilState(toggleAllSelector);
 

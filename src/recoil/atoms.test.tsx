@@ -1,7 +1,9 @@
 import { renderHook } from '@testing-library/react';
 import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil';
-import { itemDetailsState, itemsState } from './atoms';
+import { couponsState, itemDetailsState, itemsState } from './atoms';
 import { act } from 'react';
+import { fetchCoupons } from '../api/index';
+import { mockCoupons } from '../mocks/coupons';
 
 describe('itemsState', () => {
   it('초기값은 빈 배열이어야 한다.', () => {
@@ -86,5 +88,25 @@ describe('itemsState', () => {
       });
       expect(result.current[0]).toMatchObject(newData);
     });
+  });
+});
+jest.mock('../api/index', () => ({
+  fetchCoupons: jest.fn(),
+}));
+
+describe('couponsState', () => {
+  it('초기값이 제대로 작동된다.', async () => {
+    (fetchCoupons as jest.Mock).mockResolvedValue(mockCoupons);
+    const { result } = renderHook(() => useRecoilState(couponsState), {
+      wrapper: ({ children }) => <RecoilRoot>{children}</RecoilRoot>,
+    });
+
+    // act를 사용하여 비동기 업데이트를 처리
+    act(() => {
+      result.current[1](mockCoupons);
+    });
+
+    // 초기 상태가 빈 배열인지 확인
+    expect(result.current[0].length).toEqual(4);
   });
 });

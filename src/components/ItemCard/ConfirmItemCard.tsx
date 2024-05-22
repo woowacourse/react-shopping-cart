@@ -1,16 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { removeCartItem } from '../../api';
-import { itemDetailsState, itemsState } from '../../recoil/atoms';
 import { CartItems } from '../../types/Item';
-import { fetchCartItemQuantity } from '../../api';
-import CheckBox from '../CheckBox/CheckBox';
-import {
-  updateLocalStorage,
-  getLocalStorage,
-} from '../../utils/UpdateLocalStorage';
 import styled from 'styled-components';
-import { MESSAGES } from '../../constants/Messages';
 
 const CardContainer = styled.li`
   display: flex;
@@ -20,11 +9,6 @@ const CardContainer = styled.li`
   border-color: rgba(0, 0, 0, 0.1);
   border-width: 0.5px 0 0 0;
   border-style: solid;
-`;
-
-const CardHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
 `;
 
 const CardContent = styled.div`
