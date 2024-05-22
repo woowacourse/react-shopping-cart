@@ -1,8 +1,11 @@
+import { ShippingDiscountType } from '../../recoil/price/discountPriceByCouponListState';
 import { CartItem } from '../../types/cartItem.type';
 import { Coupon } from '../../types/coupon.type';
 
 export const calcFixedDiscountAmount = (coupon: Coupon, price: number) => {
-  if (price < (coupon.discount ?? 0)) return price;
+  if (coupon.discount === undefined) return 0;
+
+  if (price < coupon.discount) return price;
 
   return coupon.discount;
 };
@@ -11,7 +14,7 @@ export const calcPercentageDiscountAmount = (coupon: Coupon, price: number) => {
   return Math.floor(price * ((coupon.discount ?? 0) / 100));
 };
 
-export const calcShippingFeeDiscountAmount = (_: Coupon): 'free' | number => {
+export const calcShippingFeeDiscountAmount = (_: Coupon): ShippingDiscountType => {
   // 배송비 일부 할인 쿠폰이 나오는 것을 대비함
   return 'free';
 };
