@@ -12,21 +12,21 @@ const cn = classNames.bind(css);
 interface ProductCardProps {
   product: Product;
 
-  actionSlotLeft?: ReactNode;
-  actionSlotRight?: ReactNode;
+  leftActionSlot?: ReactNode;
+  rightActionSlot?: ReactNode;
   counterSlot?: ReactNode;
 }
 
-export const ProductCard = ({ product, actionSlotLeft, actionSlotRight, counterSlot }: ProductCardProps) => {
+export const ProductCard = ({ product, leftActionSlot, rightActionSlot, counterSlot }: ProductCardProps) => {
   const { name, price, imageUrl } = product;
 
   return (
     <div className={cn('root')}>
       <HorizontalLine opacity={0.1} />
-      {actionSlotLeft || actionSlotRight ? (
+      {leftActionSlot || rightActionSlot ? (
         <div className={cn('actionSlotContainer')}>
-          {actionSlotLeft && <div>{actionSlotLeft}</div>}
-          {actionSlotRight && <div>{actionSlotRight}</div>}
+          {leftActionSlot && <div>{leftActionSlot}</div>}
+          {rightActionSlot && <div>{rightActionSlot}</div>}
         </div>
       ) : null}
       <div className={cn('contentContainer')}>

@@ -35,8 +35,8 @@ export const Common: Story = {};
 
 export const AllSlotFilled: Story = {
   args: {
-    actionSlotLeft: <div style={style}>LeftSlot</div>,
-    actionSlotRight: <div style={style}>RightSlot</div>,
+    leftActionSlot: <div style={style}>LeftSlot</div>,
+    rightActionSlot: <div style={style}>RightSlot</div>,
     counterSlot: <div style={style}>BottomSlot</div>,
   },
 };
