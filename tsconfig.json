@@ -27,8 +27,10 @@
     "baseUrl": "./src",
     "paths": {
       "@/*": ["*"]
-    }
+    },
+
+    "typeRoots": ["node_modules/@types", "types/"]
   },
-  "include": ["src", "types/vite-env.d.ts"],
+  "include": ["src", "types/"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
