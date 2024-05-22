@@ -1,22 +1,21 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { css } from "@emotion/css";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { cartItemCheckedIdsAtom, couponsAtom } from "../recoil/atom/atom";
 import { totalCountSelector, totalPriceSelector } from "../recoil/selector/selector";
-import { formatCurrency } from "../utils/formatCurrency";
+
 import LeftArrow from "../assets/LeftArrow.svg?react";
 import { CartLayout, Header, Content, Footer } from "../components/layout";
 import { Button, Title } from "../components/default";
-import OrderItems from "../components/orderConfirmationPage/OrderItems";
-import ShippingInfo from "../components/orderConfirmationPage/ShippingInfo";
-import PaymentSummary from "../components/orderConfirmationPage/PaymentSummary";
+import { CouponModal, OrderItems, PaymentSummary, ShippingInfo } from "../components/orderConfirmationPage";
 
 const OrderConfirmationPage = () => {
   const navigate = useNavigate();
   const cartItemCheckedIds = useRecoilValue(cartItemCheckedIdsAtom);
   const cartTotalPrice = useRecoilValue(totalPriceSelector);
   const cartTotalCount = useRecoilValue(totalCountSelector);
-  const [coupons, setCoupons] = useRecoilState(couponsAtom);
+  const [isOpen, setIsOpen] = useState(false);
 
   const description = `총 ${cartItemCheckedIds.length}종류의 상품 ${cartTotalCount}개를 주문합니다.
   최종 결제 금액을 확인해 주세요.`;
@@ -29,7 +28,8 @@ const OrderConfirmationPage = () => {
     navigate("/paymentConfirmation");
   };
 
-  console.log(coupons);
+  const handleClose = () => setIsOpen(false);
+  const handleOpen = () => setIsOpen(true);
 
   return (
     <CartLayout>
@@ -48,9 +48,14 @@ const OrderConfirmationPage = () => {
         <Button
           variant="secondary"
           size="large"
+          onClick={handleOpen}
         >
           쿠폰 적용
         </Button>
+        <CouponModal
+          isOpen={isOpen}
+          onClose={handleClose}
+        />
         <ShippingInfo />
         <PaymentSummary />
       </Content>

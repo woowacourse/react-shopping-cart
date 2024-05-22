@@ -65,6 +65,5 @@ const styles = {
     padding: 16px 0;
     border-radius: 5px;
     font: var(--cart-subtitle);
-    color: #333333bf;
   `,
 };
