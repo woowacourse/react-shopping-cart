@@ -1,4 +1,5 @@
-import { useRecoilValue } from 'recoil';
+import { Link } from 'react-router-dom';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import Header from '../../components/Header/Header';
 import TitleContainer from '../../components/common/TitleContainer/TitleContainer';
 import SubmitButton from '../../components/common/SubmitButton/SubmitButton';
@@ -9,11 +10,11 @@ import {
   deliveryFeeSelector,
 } from '../../recoil/CartItem/selectors/selectors';
 import { totalCouponDiscountPriceSelector } from '../../recoil/Coupon/selectors/selectors';
-
 import * as S from './PaymentConfirmPage.style';
 
 function PaymentConfirmPage() {
-  const selectedItemList = useRecoilValue(selectedCartItemListState);
+  const [selectedItemList, setSelectedItemList] = useRecoilState(selectedCartItemListState);
+
   const totalOrderPrice = useRecoilValue(totalOrderPriceSelector);
   const totalOrderCount = useRecoilValue(totalOrderCountSelector);
   const totalCouponDiscountPrice = useRecoilValue(totalCouponDiscountPriceSelector);
@@ -36,7 +37,9 @@ function PaymentConfirmPage() {
           <S.TotalPriceValue>{paymentTotalPrice.toLocaleString()}원</S.TotalPriceValue>
         </S.TotalPriceContainer>
       </S.Main>
-      <SubmitButton isActive={true} content="장바구니로 돌아가기" />
+      <Link to="/" onClick={() => setSelectedItemList([])}>
+        <SubmitButton isActive={true} content="장바구니로 돌아가기" />
+      </Link>
     </div>
   );
 }
