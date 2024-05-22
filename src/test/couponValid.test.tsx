@@ -28,12 +28,13 @@ const NoCouponsCheckedDummy = [
 
 interface RecoilRootComponent extends PropsWithChildren {
   checkDummy: { id: number; isCheck: boolean }[];
+  cartDummy: { content: CartItemInfo[] };
 }
 
-const ReactRootComponent = ({ children, checkDummy }: RecoilRootComponent) => (
+const ReactRootComponent = ({ children, checkDummy, cartDummy }: RecoilRootComponent) => (
   <RecoilRoot
     initializeState={({ set }) => {
-      set(cartState, chargeShippingDummy.content);
+      set(cartState, cartDummy.content);
       set(couponsState, couponsDummy);
       checkDummy.forEach(({ id, isCheck }) => {
         set(couponEachCheckState(id), isCheck);
@@ -63,7 +64,9 @@ describe("coupon disable 테스트", () => {
       },
       {
         wrapper: ({ children }) => (
-          <ReactRootComponent checkDummy={twoCouponsCheckedDummy}>{children}</ReactRootComponent>
+          <ReactRootComponent checkDummy={twoCouponsCheckedDummy} cartDummy={chargeShippingDummy}>
+            {children}
+          </ReactRootComponent>
         ),
       }
     );
@@ -80,7 +83,9 @@ describe("coupon disable 테스트", () => {
       },
       {
         wrapper: ({ children }) => (
-          <ReactRootComponent checkDummy={twoCouponsCheckedDummy}>{children}</ReactRootComponent>
+          <ReactRootComponent checkDummy={twoCouponsCheckedDummy} cartDummy={chargeShippingDummy}>
+            {children}
+          </ReactRootComponent>
         ),
       }
     );
@@ -110,17 +115,9 @@ describe("coupon disable 테스트", () => {
       },
       {
         wrapper: ({ children }) => (
-          <RecoilRoot
-            initializeState={({ set }) => {
-              set(cartState, CART_STATE);
-              set(couponsState, couponsDummy);
-              twoCouponsCheckedDummy.forEach(({ id }) => {
-                set(couponEachCheckState(id), false);
-              });
-            }}
-          >
+          <ReactRootComponent checkDummy={NoCouponsCheckedDummy} cartDummy={{ content: CART_STATE }}>
             {children}
-          </RecoilRoot>
+          </ReactRootComponent>
         ),
       }
     );
@@ -136,7 +133,9 @@ describe("coupon disable 테스트", () => {
       },
       {
         wrapper: ({ children }) => (
-          <ReactRootComponent checkDummy={NoCouponsCheckedDummy}>{children}</ReactRootComponent>
+          <ReactRootComponent checkDummy={NoCouponsCheckedDummy} cartDummy={chargeShippingDummy}>
+            {children}
+          </ReactRootComponent>
         ),
       }
     );
@@ -152,7 +151,9 @@ describe("coupon disable 테스트", () => {
       },
       {
         wrapper: ({ children }) => (
-          <ReactRootComponent checkDummy={NoCouponsCheckedDummy}>{children}</ReactRootComponent>
+          <ReactRootComponent checkDummy={NoCouponsCheckedDummy} cartDummy={chargeShippingDummy}>
+            {children}
+          </ReactRootComponent>
         ),
       }
     );
@@ -168,10 +169,30 @@ describe("coupon disable 테스트", () => {
       },
       {
         wrapper: ({ children }) => (
-          <ReactRootComponent checkDummy={NoCouponsCheckedDummy}>{children}</ReactRootComponent>
+          <ReactRootComponent checkDummy={NoCouponsCheckedDummy} cartDummy={chargeShippingDummy}>
+            {children}
+          </ReactRootComponent>
         ),
       }
     );
     expect(result.current.isDisabled).toBeFalsy();
+  });
+
+  it("최종 금액이 10만원이 넘는 경우(배송비가 청구되는 않는 경우), 배송비 무료 쿠폰이 비활성화 된다.", () => {
+    const { result } = renderHook(
+      () => {
+        const id = 3;
+        const { isDisabled } = useCoupon(id);
+        return { isDisabled };
+      },
+      {
+        wrapper: ({ children }) => (
+          <ReactRootComponent checkDummy={NoCouponsCheckedDummy} cartDummy={chargeShippingDummy}>
+            {children}
+          </ReactRootComponent>
+        ),
+      }
+    );
+    expect(result.current.isDisabled).toBeTruthy();
   });
 });
