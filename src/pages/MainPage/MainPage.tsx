@@ -6,10 +6,10 @@ import {
   Header,
   Footer,
   CartPrice,
-} from "../components";
-import { CartLayout } from "../layouts/";
+} from "../../components";
+import { CartLayout } from "../../layouts";
 
-const CartPage = () => {
+const MainPage = () => {
   return (
     <ErrorBoundary fallback={<div>Error!</div>}>
       <Suspense fallback={<div>Loading</div>}>
@@ -25,4 +25,4 @@ const CartPage = () => {
   );
 };
 
-export default CartPage;
+export default MainPage;

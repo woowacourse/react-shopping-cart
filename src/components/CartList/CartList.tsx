@@ -7,10 +7,10 @@ import infoOutline from "../../assets/images/infoOutline.png";
 import OutlineCheck from "../../assets/icon/OutlineCheck";
 import FilledCheck from "../../assets/icon/FilledCheck";
 import Button from "../common/Button/Button";
-import { cartItemsAtom } from "../../recoil/atoms/atoms";
+import { cartItemsState } from "../../recoil/atoms/atoms";
 
 const CartList = () => {
-  const cartItems = useRecoilValue(cartItemsAtom);
+  const cartItems = useRecoilValue(cartItemsState);
 
   const [selectedList, setSelectedListState] =
     useRecoilState(selectedListState);

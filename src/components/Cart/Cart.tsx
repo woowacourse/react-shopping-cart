@@ -5,7 +5,7 @@ import { deleteCartItem, patchCartItemQuantity } from "../../api/cart";
 import type { CartItem } from "../../types/cart";
 import OutlineCheck from "../../assets/icon/OutlineCheck";
 import FilledCheck from "../../assets/icon/FilledCheck";
-import { cartItemsAtom } from "../../recoil/atoms/atoms";
+import { cartItemsState } from "../../recoil/atoms/atoms";
 
 import {
   Wrapper,
@@ -24,7 +24,7 @@ interface CardItemProps {
 
 const CartItem = ({ cartItem: { id, product, quantity } }: CardItemProps) => {
   const [selectedList, setSelectedList] = useRecoilState(selectedListState);
-  const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
+  const [cartItems, setCartItems] = useRecoilState(cartItemsState);
 
   const handleToggleSelectItem = () => {
     if (selectedList.includes(id)) {

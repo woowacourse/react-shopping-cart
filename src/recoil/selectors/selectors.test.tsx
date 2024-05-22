@@ -1,6 +1,6 @@
 import { RecoilRoot, useRecoilValue } from "recoil";
 import { cartPriceState } from "./selectors";
-import { cartItemsAtom, selectedListState } from "../atoms/atoms";
+import { cartItemsState, selectedListState } from "../atoms/atoms";
 import { renderHook, waitFor } from "@testing-library/react";
 import { Suspense } from "react";
 
@@ -37,7 +37,7 @@ jest.mock("../../api/cart", () => ({
 
 describe("장바구니", () => {
   it("장바구니 데이터 로딩.", async () => {
-    const { result } = renderHook(() => useRecoilValue(cartItemsAtom), {
+    const { result } = renderHook(() => useRecoilValue(cartItemsState), {
       wrapper: ({ children }) => (
         <RecoilRoot>
           <Suspense>{children}</Suspense>

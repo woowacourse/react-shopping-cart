@@ -2,17 +2,17 @@ import { atom, selector } from "recoil";
 import { getCartItems } from "../../api/cart";
 import { CartItem } from "../../types/cart";
 
-export const cartItemsSelector = selector<CartItem[]>({
-  key: "cartItemsSelector",
+export const cartItems = selector<CartItem[]>({
+  key: "cartItems",
   get: async () => {
     const cartItems = await getCartItems();
     return cartItems;
   },
 });
 
-export const cartItemsAtom = atom({
-  key: "cartItemsAtom",
-  default: cartItemsSelector,
+export const cartItemsState = atom({
+  key: "cartItemsState",
+  default: cartItems,
 });
 
 export const selectedListState = atom<number[]>({

@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { Header, Footer, OrderConfirm } from "../components";
-import { CartLayout } from "../layouts";
+import { Header, Footer, OrderConfirm } from "../../components";
+import { CartLayout } from "../../layouts";
 
-const OrderConfirmPage = () => {
+const PaymentResultPage = () => {
   return (
     <ErrorBoundary fallback={<div>Error!</div>}>
       <Suspense fallback={<div>Loading</div>}>
@@ -17,4 +17,4 @@ const OrderConfirmPage = () => {
   );
 };
 
-export default OrderConfirmPage;
+export default PaymentResultPage;

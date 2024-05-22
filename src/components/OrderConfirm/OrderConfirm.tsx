@@ -1,21 +1,19 @@
 import { cartPriceState } from "../../recoil/selectors/selectors";
 import { useRecoilValue } from "recoil";
 import { Wrapper, Title, Info, PriceWrapper, PriceText, Price } from "./style";
-import { cartItemsAtom } from "../../recoil/atoms/atoms";
+import { cartSummaryState } from "../../recoil/selectors/selectors";
 
 const OrderConfirm = () => {
   const { totalPrice } = useRecoilValue(cartPriceState);
-  const cartItems = useRecoilValue(cartItemsAtom);
-  const totalItemLength = cartItems.reduce((acc, cur) => {
-    return cur.quantity + acc;
-  }, 0);
+  const { cartItemKind, cartItemTotalQuantity } =
+    useRecoilValue(cartSummaryState);
 
   return (
     <Wrapper>
       <Title>주문 확인</Title>
       <Info>
         <div>
-          총 {cartItems.length}종류의 상품 {totalItemLength}개를 주문합니다.
+          총 {cartItemKind}종류의 상품 {cartItemTotalQuantity}개를 주문합니다.
         </div>
         <div>최종 결제 금액을 확인해 주세요.</div>
       </Info>
