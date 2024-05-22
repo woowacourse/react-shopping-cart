@@ -1,5 +1,5 @@
 import Header from '../components/Header/Header';
-import Cart from '../components/Cart/Cart';
+import Cart from '../components/PageSection/Cart';
 import { FloatingButton } from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
