@@ -1,3 +1,5 @@
+import { useRecoilState } from 'recoil';
+import { selectedCouponListSelector } from '../../../recoil/Coupon/selectors/selectedCouponListSelector';
 import { Coupon } from '../../../types/Coupon.type';
 import { formatExpirationDate, formatMinimumAmount } from '../../../utils/formatStrings';
 import CheckButton from '../../Button/CheckButton/CheckButton';
@@ -8,10 +10,16 @@ interface CouponContainerProps {
 }
 
 function CouponContainer({ coupon }: CouponContainerProps) {
+  const [isSelected, setIsSelected] = useRecoilState(selectedCouponListSelector(coupon));
+
+  const handleIsSelected = () => {
+    setIsSelected(isSelected);
+  };
+
   return (
     <S.Layout>
       <S.CheckButtonAndDescription>
-        <CheckButton isChecked={false} />
+        <CheckButton isChecked={isSelected} onClick={handleIsSelected} />
         <h2>{coupon.description}</h2>
       </S.CheckButtonAndDescription>
 
