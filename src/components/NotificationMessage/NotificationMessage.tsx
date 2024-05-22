@@ -8,10 +8,10 @@ interface NotificationMessageProps {
 
 function NotificationMessage({ message }: NotificationMessageProps) {
   return (
-    <S.InformationMsg>
+    <S.InformationMsgContainer>
       <S.NotificationIconImg src={NotificationIcon} />
-      {message}
-    </S.InformationMsg>
+      <S.InformationMsg>{message}</S.InformationMsg>
+    </S.InformationMsgContainer>
   );
 }
 
