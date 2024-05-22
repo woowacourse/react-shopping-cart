@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import Spacer from '../../components/common/Spacer/Spacer';
 import { cartItemListState } from '../../recoil/cartItemList/cartItemListState';
 import CartItemListLoader from './CartItemListLoader';
-import { selectedCartItemIdListState } from '../../recoil/selectedCartItemIdList/selectedCartItemIdListState';
+import { selectedCartItemIdListState } from '../../recoil/selectedCartItemList/selectedCartItemIdListState';
 
 const CartPageContainer = styled.main`
   width: 100%;

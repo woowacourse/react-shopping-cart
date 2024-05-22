@@ -1,7 +1,7 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { requestCartItemList, requestDeleteCartItem } from '../../apis/requests/cartItemList';
 import { cartItemListState, cartItemListStateQuery } from './cartItemListState';
-import { selectedCartItemIdListState } from '../selectedCartItemIdList/selectedCartItemIdListState';
+import { selectedCartItemIdListState } from '../selectedCartItemList/selectedCartItemIdListState';
 
 export const useCartItemList = () => {
   const setCartItemList = useSetRecoilState(cartItemListStateQuery);

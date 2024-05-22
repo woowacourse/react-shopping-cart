@@ -2,7 +2,7 @@ import { ReactNode, useEffect } from 'react';
 import { useCartItemList } from '../../recoil/cartItemList/useCartItemList';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import { cartItemListStateQuery } from '../../recoil/cartItemList/cartItemListState';
-import { selectedCartItemIdListState } from '../../recoil/selectedCartItemIdList/selectedCartItemIdListState';
+import { selectedCartItemIdListState } from '../../recoil/selectedCartItemList/selectedCartItemIdListState';
 
 const ConfirmPurchasePageLoader = ({ children }: { children: ReactNode }) => {
   const { updateCartItemList } = useCartItemList();

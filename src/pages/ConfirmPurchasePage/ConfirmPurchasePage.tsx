@@ -5,7 +5,7 @@ import Button from '../../components/common/Button/Button';
 import { useRecoilValue } from 'recoil';
 import { cartItemListState } from '../../recoil/cartItemList/cartItemListState';
 import ConfirmPurchasePageLoader from './ConfirmPurchasePageLoader';
-import { selectedCartItemIdListState } from '../../recoil/selectedCartItemIdList/selectedCartItemIdListState';
+import { selectedCartItemIdListState } from '../../recoil/selectedCartItemList/selectedCartItemIdListState';
 
 const CartPageContainer = styled.main`
   width: 100%;

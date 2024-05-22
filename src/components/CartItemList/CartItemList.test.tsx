@@ -5,7 +5,7 @@ import { cartItemListState } from '../../recoil/cartItemList/cartItemListState';
 import { mockCartItemList } from '../../mocks/cartItemList';
 import '@testing-library/jest-dom';
 import { act } from 'react';
-import { selectedCartItemIdListState } from '../../recoil/selectedCartItemIdList/selectedCartItemIdListState';
+import { selectedCartItemIdListState } from '../../recoil/selectedCartItemList/selectedCartItemIdListState';
 
 describe('CartItemList 컴포넌트의 전체 선택 버튼 테스트', () => {
   const renderCartItemList = (initialSelectedIdList: number[] = []) => {

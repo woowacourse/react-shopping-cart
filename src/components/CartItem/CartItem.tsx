@@ -11,7 +11,7 @@ import Text from '../common/Text/Text';
 
 import type { CartItem } from '../../types/cartItem.type';
 import { useCartItemQuantity } from '../../recoil/cartItem/useCartItemQuantity';
-import { useSelectedCartItemIdList } from '../../recoil/selectedCartItemIdList/useSelectedCartItemIdList';
+import { useSelectedCartItemIdList } from '../../recoil/selectedCartItemList/useSelectedCartItemIdList';
 import { useCartItemList } from '../../recoil/cartItemList/useCartItemList';
 
 const CartItem = ({ product, quantity: initialQuantity, cartItemId }: CartItem) => {

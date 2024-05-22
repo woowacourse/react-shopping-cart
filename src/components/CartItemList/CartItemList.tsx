@@ -3,9 +3,9 @@ import CartItem from '../CartItem/CartItem';
 import Checkbox from '../common/Checkbox/Checkbox';
 import Text from '../common/Text/Text';
 import { useRecoilValue } from 'recoil';
-import { useSelectedCartItemIdList } from '../../recoil/selectedCartItemIdList/useSelectedCartItemIdList';
+import { useSelectedCartItemIdList } from '../../recoil/selectedCartItemList/useSelectedCartItemIdList';
 import { cartItemListState } from '../../recoil/cartItemList/cartItemListState';
-import { selectedCartItemIdListState } from '../../recoil/selectedCartItemIdList/selectedCartItemIdListState';
+import { selectedCartItemIdListState } from '../../recoil/selectedCartItemList/selectedCartItemIdListState';
 
 const CartItemList = () => {
   const itemList = useRecoilValue(cartItemListState);
