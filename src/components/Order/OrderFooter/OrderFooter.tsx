@@ -5,7 +5,7 @@ import { OrderFooterStyle } from "./OrderFooter.style";
 const OrderFooter = () => {
   const navigate = useNavigate();
 
-  const isDisabled = true;
+  const isDisabled = false;
 
   return (
     <button disabled={isDisabled} css={OrderFooterStyle} onClick={() => navigate(0)}>
