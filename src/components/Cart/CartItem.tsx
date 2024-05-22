@@ -3,16 +3,13 @@ import {
   MinusButton,
   PlusButton,
 } from "@/components/common/Button/QuantityButton";
-import { cartListState, filteredCartItemState } from "@/store/atoms";
-import { deleteCartItem, patchCartItem } from "@/api/cartItem";
 
 import BorderButton from "@/components/common/Button/BorderButton";
 import { CartItemType } from "@/types/cart.type";
 import CheckBox from "@/components/common/CheckBox";
 import Loading from "@/assets/loading.gif";
 import styled from "@emotion/styled";
-import { useRecoilState } from "recoil";
-import { useState } from "react";
+import useHandleCartItem from "@/hooks/useHandleCartItem";
 
 interface Props {
   item: CartItemType;
@@ -21,46 +18,14 @@ interface Props {
 const CartItem = ({ item }: Props) => {
   const { id, product } = item;
 
-  const [filteredItemState, setFilteredItemState] = useRecoilState(
-    filteredCartItemState(item.id)
-  );
-  const [cartList, setCartList] = useRecoilState(cartListState);
-  const [quantityLoading, setQuantityLoading] = useState(false);
-  const [deleteLoading, setDeleteLoading] = useState(false);
-
-  const handleSelect = () => {
-    const newValue = { ...filteredItemState };
-    newValue.isSelected = !newValue.isSelected;
-    setFilteredItemState(newValue);
-  };
-
-  const handleDelete = () => {
-    const deleteData = async () => {
-      setDeleteLoading(true);
-
-      await deleteCartItem(id);
-      const newList = cartList.filter((item) => item.id !== id);
-      setCartList(newList);
-
-      setDeleteLoading(false);
-    };
-
-    deleteData();
-  };
-
-  const handleQuantity = (quantity: number) => {
-    const patchData = async () => {
-      setQuantityLoading(true);
-
-      await patchCartItem(id, quantity);
-      const newValue = { ...filteredItemState, quantity };
-      setFilteredItemState(newValue);
-
-      setQuantityLoading(false);
-    };
-
-    if (quantity > 0) patchData();
-  };
+  const {
+    filteredItemState,
+    handleDelete,
+    handleSelect,
+    handleQuantity,
+    deleteLoading,
+    quantityLoading,
+  } = useHandleCartItem(id);
 
   return (
     <StyledItemWrapper>
