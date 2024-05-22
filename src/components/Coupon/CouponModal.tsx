@@ -1,12 +1,13 @@
 import { css } from '@emotion/react';
 import { Modal } from 'maru-nice-modal';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import CouponItem from './CouponItem';
+import { couponValidator } from './couponValidator';
 
+import { fetchCouponSelector } from '@/recoil/coupons/fetchCouponSelector';
 import GuideText from '@common/GuideText';
-import { couponListState } from '@recoil/coupons/atoms';
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -14,7 +15,27 @@ interface CouponModalProps {
 }
 
 const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
-  const couponList = useRecoilValue(couponListState);
+  const couponList = useRecoilValue(fetchCouponSelector);
+  const [couponCheckList, setCouponCheckList] = useState(() =>
+    couponList.map((coupon) => ({
+      id: coupon.id,
+      isChecked: false,
+    })),
+  );
+  const isValidCouponCount = couponCheckList.filter((coupon) => coupon.isChecked).length < 2;
+  const { isCouponValid } = couponValidator();
+
+  const handleChangeChecked = (e: ChangeEvent<HTMLInputElement>) => {
+    const clickedCouponId = Number(e.target.id);
+
+    setCouponCheckList(
+      couponCheckList.map((coupon) => ({
+        ...coupon,
+        isChecked: clickedCouponId === coupon.id ? !coupon.isChecked : coupon.isChecked,
+      })),
+    );
+  };
+
   const [discountTotal, setDiscountTotal] = useState(0);
 
   return (
@@ -27,8 +48,17 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
       <Modal.Content css={contentWrapper}>
         <GuideText label="쿠폰은 최대 2개까지 사용할 수 있습니다." />
         <div css={couponListWrapper}>
-          {couponList.map((coupon) => (
-            <CouponItem key={coupon.id} coupon={coupon} type={coupon.discountType} />
+          {couponList.map((coupon, idx) => (
+            <CouponItem
+              key={coupon.id}
+              coupon={coupon}
+              type={coupon.discountType}
+              isCouponValid={
+                isValidCouponCount ? isCouponValid(coupon) : couponCheckList[idx].isChecked
+              }
+              isChecked={couponCheckList[idx].isChecked}
+              handleChangeChecked={handleChangeChecked}
+            />
           ))}
         </div>
       </Modal.Content>
@@ -41,13 +71,15 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
   );
 };
 
+export default CouponModal;
+
 const contentWrapper = css`
   display: flex;
   flex-direction: column;
   gap: 10px;
-`;
 
-export default CouponModal;
+  margin-bottom: 16px;
+`;
 
 const couponListWrapper = css`
   display: flex;

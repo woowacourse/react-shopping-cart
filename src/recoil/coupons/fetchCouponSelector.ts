@@ -3,8 +3,8 @@ import { selector } from 'recoil';
 import { fetchCouponList } from '@/apis/coupon';
 import { Coupon } from '@/types/coupon';
 
-export const couponListSelector = selector<Coupon[]>({
-  key: 'couponListSelector',
+export const fetchCouponSelector = selector<Coupon[]>({
+  key: 'fetchCouponSelector',
   get: async () => {
     const couponList = await fetchCouponList();
 
