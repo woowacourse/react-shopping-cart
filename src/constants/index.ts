@@ -10,6 +10,7 @@ export const PATHS = {
   BASE: "/",
   SHOPPING_CART: "/react-shopping-cart/",
   CART_ITEMS: "/cart-items",
+  ORDER_CONFIRMATION: "/order-confirmation",
   PAYMENTS_CONFIRMATION: "/payments-confirmation",
   COUNTS: "/counts",
 };

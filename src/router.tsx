@@ -3,6 +3,7 @@ import App from "./App";
 import { PATHS } from "./constants";
 import { CartPage } from "./pages/cartPage/CartPage";
 import { PaymentsConfirmationPage } from "./pages/paymentsConfirmationPage/PaymentsConfirmationPage";
+import { OrderConfirmationPage } from "./pages/orderConfirmationPage/OrderConfirmationPage";
 
 const router = createBrowserRouter(
   [
@@ -13,6 +14,10 @@ const router = createBrowserRouter(
         {
           index: true,
           element: <CartPage />,
+        },
+        {
+          path: PATHS.ORDER_CONFIRMATION,
+          element: <OrderConfirmationPage />,
         },
         {
           path: PATHS.PAYMENTS_CONFIRMATION,
