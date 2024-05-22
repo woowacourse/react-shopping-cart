@@ -1,9 +1,7 @@
-import { useEffect } from 'react';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import TotalAmount from '../TotalAmount/TotalAmount';
 import ItemList from '../ItemList/ItemList';
 import Title from '../Title/Title';
-import { fetchItemsSelector } from '../../recoil/fetchSelectors';
 import styled from 'styled-components';
 import { itemsState } from '../../recoil/atoms';
 import { MESSAGES, MESSAGES_PROPS } from '../../constants/Messages';
@@ -22,8 +20,6 @@ export const NoCartItemContainer = styled.p`
 
 function CartContent() {
   const [items] = useRecoilState(itemsState);
-  console.log(items);
-
   return (
     <>
       {items.length !== 0 ? (
