@@ -11,12 +11,19 @@ import { CART_PRICE } from "@/constants/cart";
 
 import infoOutline from "@/assets/images/infoOutline.png";
 import * as S from "./styled";
+import useCouponValidator from "@/hooks/coupons/useCouponValidator";
+import { couponsState } from "@/stores/coupons"; // TODO 지우기
 
 const CartItemList = () => {
   const { cartItems } = useCartItems();
   const [isAllCartItemSelected, setIsAllCartItemSelected] = useRecoilState(
     isAllCartItemSelectedState
   );
+
+  // TODO: 아래 테스트 코드 지우기
+  const { isCouponValid } = useCouponValidator();
+  const coupons = useRecoilValue(couponsState);
+  coupons.forEach((coupon) => isCouponValid(coupon));
 
   return (
     <S.Container>
