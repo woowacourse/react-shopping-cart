@@ -1,3 +1,3 @@
-import CartLayout from "./CartLayout/CartLayout";
+import CartLayout from "./AppLayout/AppLayout";
 
 export { CartLayout };
