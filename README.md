@@ -75,9 +75,8 @@
   - [ ] 최종 결제 금액
 - UI 컴포넌트 작업
 
-  - [ ] 모달 라이브러리 활용하기
-  - [ ] ApplyCouponButton
-  - [ ] ShippingInfo
+  - [x] ApplyCouponButton
+  - [x] ShippingInfo
   - [ ] CouponSelectionModal
   - [ ] CouponDescription
   - [ ] CouponList
@@ -85,8 +84,8 @@
   - [ ] SubmitCouponButton
 
 - UI 페이지 작업
-  - [ ] OrderConfirmation
-  - [ ] PaymentsConfirmation
+  - [x] OrderConfirmation
+  - [x] PaymentsConfirmation
 - RTL
 
 </div>
