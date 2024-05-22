@@ -1,9 +1,11 @@
 import { Modal } from '@hanuuny/react-modal';
 import CouponItem from '../CouponItem/CouponItem';
+import { useRecoilValue } from 'recoil';
 import { Coupon } from '../../../types/Coupon.type';
 import { InfoIcon } from '../../../assets';
 
 import * as S from './CouponModal.style';
+import { couponDiscountPriceSelector } from '../../../recoil/Coupon/selectors/selectors';
 
 interface CouponModalProps {
   couponList: Coupon[];
@@ -12,6 +14,8 @@ interface CouponModalProps {
 }
 
 function CouponModal({ couponList, isOpen, close }: CouponModalProps) {
+  const couponDiscountPrice = useRecoilValue(couponDiscountPriceSelector);
+
   return (
     <Modal isOpen={isOpen} close={close}>
       <Modal.Header>
@@ -32,7 +36,7 @@ function CouponModal({ couponList, isOpen, close }: CouponModalProps) {
         </S.CouponItemList>
       </Modal.Body>
       <Modal.Footer>
-        <Modal.Button text="총 6,000원 할인 쿠폰 사용하기" />
+        <Modal.Button text={`총 ${couponDiscountPrice.toLocaleString()}원 할인 쿠폰 사용하기`} onClick={close} />
       </Modal.Footer>
     </Modal>
   );
