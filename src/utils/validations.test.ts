@@ -1,4 +1,4 @@
-import { isCouponValid, isOverMinimumOrderAmount } from './validations';
+import { isCouponUsableTime, isCouponValid, isOverMinimumOrderAmount } from './validations';
 
 import { Coupon } from '@/types/coupon';
 
@@ -62,5 +62,37 @@ describe('validations', () => {
 
       expect(isOverMinimumOrderAmount(coupon, orderTotal)).toBeFalsy();
     });
+  });
+
+  describe('isCouponUsableTime', () => {
+    const coupon: Coupon = {
+      id: 4,
+      code: 'MIRACLESALE',
+      description: '미라클모닝 30% 할인 쿠폰',
+      expirationDate: '2024-07-31',
+      discount: 30,
+      availableTime: {
+        start: '04:00:00',
+        end: '07:00:00',
+      },
+      discountType: 'percentage',
+    };
+    it.each([['2024-05-22T07:00:01'], ['2024-05-22T03:59:59']])(
+      '쿠폰 적용 가능 시간이 아니라면, "false"를 반환합니다.',
+      (date: string) => {
+        const testTime = new Date(date);
+
+        expect(isCouponUsableTime(coupon, testTime)).toBeFalsy();
+      },
+    );
+
+    it.each([['2024-05-22T04:00:00'], ['2024-05-22T07:00:00']])(
+      '쿠폰 적용 가능 시간이라면, "true"를 반환합니다.',
+      (date: string) => {
+        const testTime = new Date(date);
+
+        expect(isCouponUsableTime(coupon, testTime)).toBeTruthy();
+      },
+    );
   });
 });
