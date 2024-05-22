@@ -1,59 +1,21 @@
 import { css } from '@emotion/react';
 import { Modal } from 'maru-nice-modal';
+import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 
 import CouponItem from './CouponItem';
-import GuideText from '../common/GuideText';
 
-import { Coupon } from '@/types/coupon';
+import GuideText from '@common/GuideText';
+import { couponListState } from '@recoil/coupons/atoms';
 
 interface CouponModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const coupons: Coupon[] = [
-  {
-    id: 1,
-    code: 'FIXED5000',
-    description: '5,000원 할인 쿠폰',
-    expirationDate: '2024-11-30',
-    discount: 5000,
-    minimumAmount: 100000,
-    discountType: 'fixed',
-  },
-  {
-    id: 2,
-    code: 'BOGO',
-    description: '2개 구매 시 1개 무료 쿠폰',
-    expirationDate: '2024-04-30',
-    buyQuantity: 2,
-    getQuantity: 1,
-    discountType: 'buyXgetY',
-  },
-  {
-    id: 3,
-    code: 'FREESHIPPING',
-    description: '5만원 이상 구매 시 무료 배송 쿠폰',
-    expirationDate: '2024-08-31',
-    minimumAmount: 50000,
-    discountType: 'freeShipping',
-  },
-  {
-    id: 4,
-    code: 'MIRACLESALE',
-    description: '미라클모닝 30% 할인 쿠폰',
-    expirationDate: '2024-07-31',
-    discount: 30,
-    availableTime: {
-      start: '04:00:00',
-      end: '07:00:00',
-    },
-    discountType: 'percentage',
-  },
-];
-
 const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
-  const discountTotal = 0;
+  const couponList = useRecoilValue(couponListState);
+  const [discountTotal, setDiscountTotal] = useState(0);
 
   return (
     <Modal isOpen={isOpen}>
@@ -65,7 +27,7 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
       <Modal.Content css={contentWrapper}>
         <GuideText label="쿠폰은 최대 2개까지 사용할 수 있습니다." />
         <div css={couponListWrapper}>
-          {coupons.map((coupon) => (
+          {couponList.map((coupon) => (
             <CouponItem key={coupon.id} coupon={coupon} type={coupon.discountType} />
           ))}
         </div>
