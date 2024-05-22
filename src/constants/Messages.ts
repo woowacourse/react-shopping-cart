@@ -1,7 +1,8 @@
 export const MESSAGES = {
-  cartNotification: '총 주문 금액은 100,000원 이상일 경우 무료 배송됩니다.',
+  cartNotification: '총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.',
   couponModalNotification: '쿠폰은 최대 2개까지 사용할 수 있습니다.',
   totalInfoLabel: '주문 금액',
+  discountAmount: '쿠폰 할인 금액',
   deliveryFee: '배송비',
   totalAmountLabel: '총 결제 금액',
   allSelected: '전체 선택',

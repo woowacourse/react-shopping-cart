@@ -4,8 +4,13 @@ import { totalPriceSelector } from '../../recoil/selectors';
 import { MESSAGES } from '../../constants/Messages';
 import * as S from './TotalAmount.styled';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import { PageType } from '../../types/Page';
 
-function TotalAmount() {
+interface TotalAmountProps {
+  type: PageType;
+}
+
+function TotalAmount({ type }: TotalAmountProps) {
   const { totalAmount, deliveryFee, calculatedTotalAmount } =
     useRecoilValue(totalPriceSelector);
 
@@ -22,6 +27,16 @@ function TotalAmount() {
               {totalAmount.toLocaleString()}원
             </S.TotalInfoAmount>
           </S.TotalInfoBox>
+
+          {type === 'order' && (
+            <S.TotalInfoBox>
+              <S.TotalInfoLabel>{MESSAGES.discountAmount}</S.TotalInfoLabel>
+              <S.TotalInfoAmount>
+                00원
+                {/* {discountAmount.toLocaleString()}원 */}
+              </S.TotalInfoAmount>
+            </S.TotalInfoBox>
+          )}
 
           <S.TotalInfoBox>
             <S.TotalInfoLabel>{MESSAGES.deliveryFee}</S.TotalInfoLabel>
