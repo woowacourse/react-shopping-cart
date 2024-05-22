@@ -1,6 +1,6 @@
 import { CartItem } from '@appTypes/shoppingCart';
 import { CountButton } from '@components/common';
-import { useUpdateCartItemCount } from '@hooks/shoppingCart';
+import { useCartItemQuantity } from '@hooks/shoppingCart';
 import { formatKoreanCurrency } from '@utils/index';
 
 import * as Styled from './CartListDescription.styled';
@@ -10,9 +10,9 @@ interface CartListDescriptionContainerProps {
 }
 
 const CartListDescription: React.FC<CartListDescriptionContainerProps> = ({ cartItem }) => {
-  const { product, quantity } = cartItem;
+  const { product } = cartItem;
 
-  const { onUpdateCartItemCount } = useUpdateCartItemCount(cartItem);
+  const { quantity, onUpdateCartItemCount } = useCartItemQuantity(cartItem.id);
 
   return (
     <Styled.CartItemDescriptionWrapper>

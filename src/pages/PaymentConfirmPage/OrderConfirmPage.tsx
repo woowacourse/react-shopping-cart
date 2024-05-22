@@ -1,13 +1,12 @@
 import { BottomButton } from '@components/common';
 import { useSelectedCartItems } from '@hooks/shoppingCart';
-import { orderCostsSelector } from '@recoil/shoppingCart';
+import useOrderCosts from '@hooks/shoppingCart/useOrderCosts';
 import { formatKoreanCurrency } from '@utils/index';
-import { useRecoilValue } from 'recoil';
 
 import * as Styled from './PaymentConfirmPage.styled';
 
 const PaymentConfirmPage: React.FC = () => {
-  const { totalPrice } = useRecoilValue(orderCostsSelector);
+  const { totalPrice } = useOrderCosts();
 
   const { totalSelectedItemLength, selectedTotalQuantity } = useSelectedCartItems();
 
