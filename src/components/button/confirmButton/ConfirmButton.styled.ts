@@ -9,7 +9,6 @@ const backgroundColors = {
 export const StyledConfirmButton = styled.button<{ mode: keyof typeof BUTTON_COLORS }>`
   width: 100%;
   height: 64px;
-  top: 872px;
   padding: 24px 65px;
   background-color: ${({ mode }) => backgroundColors[mode]};
   border: none;
@@ -20,9 +19,4 @@ export const StyledConfirmButton = styled.button<{ mode: keyof typeof BUTTON_COL
   line-height: 16px;
   text-align: center;
   color: rgba(255, 255, 255, 1);
-
-  cursor: pointer;
-  &:focus {
-    outline: none;
-  }
 `;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledCouponButton = styled.button`
-  width: 100%;
+  width: 382px;
   height: 48px;
   border-radius: 5px;
   border: 1px solid rgba(51, 51, 51, 0.25);
@@ -15,10 +15,4 @@ export const StyledCouponButton = styled.button`
   text-align: center;
   align-items: center;
   color: rgba(51, 51, 51, 0.75);
-
-  cursor: pointer;
-
-  &:focus {
-    outline: none;
-  }
 `;

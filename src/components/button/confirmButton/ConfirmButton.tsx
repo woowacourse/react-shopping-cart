@@ -1,4 +1,5 @@
 import { BUTTON_COLORS } from "../../../constants";
+import BaseButton from "../baseButton/baseButton";
 import { StyledConfirmButton } from "./ConfirmButton.styled";
 
 export interface ConfirmButtonProps {
@@ -13,8 +14,8 @@ export const ConfirmButton: React.FC<ConfirmButtonProps> = ({
   onClick = () => {},
 }) => {
   return (
-    <StyledConfirmButton onClick={onClick} mode={mode}>
-      {text}
-    </StyledConfirmButton>
+    <BaseButton onClick={onClick}>
+      <StyledConfirmButton mode={mode}>{text}</StyledConfirmButton>
+    </BaseButton>
   );
 };
