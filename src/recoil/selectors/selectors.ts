@@ -1,13 +1,13 @@
 import { selector } from "recoil";
-import { getCartItems } from "../../apis";
-import { CartItemType } from "../../types/cart";
+import { getCartItems } from "../../api/cartItem";
+import { CartItem } from "../../types/cart";
 import { selectedListState } from "../atoms/atoms";
 import {
   DEFAULT_DELIVERY_FEE,
   DELIVERY_FEE_THRESHOLD,
 } from "../../constants/cart";
 
-export const cartItemsState = selector<CartItemType[]>({
+export const cartItemsState = selector<CartItem[]>({
   key: "cartItemsState",
   get: async () => {
     const cartItems = await getCartItems();

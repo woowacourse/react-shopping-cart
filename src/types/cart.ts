@@ -1,4 +1,4 @@
-export interface ProductType {
+export interface Product {
   id: number;
   name: string;
   price: number;
@@ -6,8 +6,8 @@ export interface ProductType {
   category: string;
 }
 
-export interface CartItemType {
+export interface CartItem {
   id: number;
-  product: ProductType;
+  product: Product;
   quantity: number;
 }

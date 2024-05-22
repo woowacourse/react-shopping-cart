@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import {
   CartDescription,
-  CartItemList,
+  CartList,
   Header,
   Footer,
   CartPrice,
@@ -16,7 +16,7 @@ const CartPage = () => {
         <Header />
         <CartLayout>
           <CartDescription />
-          <CartItemList />
+          <CartList />
           <CartPrice />
         </CartLayout>
         <Footer />

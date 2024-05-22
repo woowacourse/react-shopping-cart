@@ -1,8 +1,8 @@
 import { generateBasicToken } from "../utils/auth";
 import { API_URL, USER_ID, USER_PASSWORD } from "../constants/cart";
-import { CartItemType } from "../types/cart";
+import type { CartItem } from "../types/cart";
 
-export const getCartItems = async (): Promise<CartItemType[]> => {
+export const getCartItems = async (): Promise<CartItem[]> => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const response = await fetch(`${API_URL}/cart-items`, {
     method: "GET",

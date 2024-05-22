@@ -1,15 +1,15 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { cartItemsState } from "../../recoil/selectors/selectors";
 import { selectedListState } from "../../recoil/atoms/atoms";
-import CartItem from "../CartItem/CartItem";
-import { CartItemType } from "../../types/cart";
+import Cart from "../Cart/Cart";
+import type { CartItem } from "../../types/cart";
 import { Wrapper, Footer, AllCheckWrapper } from "./style";
 import infoOutline from "../../assets/images/infoOutline.png";
 import OutlineCheck from "../../assets/icon/OutlineCheck";
 import FilledCheck from "../../assets/icon/FilledCheck";
 import Button from "../common/Button/Button";
 
-const CartItemList = () => {
+const CartList = () => {
   const cartItemList = useRecoilValue(cartItemsState);
   const [selectedList, setSelectedListState] =
     useRecoilState(selectedListState);
@@ -47,8 +47,8 @@ const CartItemList = () => {
         )}
         <span>전체선택</span>
       </AllCheckWrapper>
-      {cartItemList.map((cartItem: CartItemType) => (
-        <CartItem key={cartItem.id} cartItem={cartItem} />
+      {cartItemList.map((cartItem: CartItem) => (
+        <Cart key={cartItem.id} cartItem={cartItem} />
       ))}
       <Footer>
         <img src={infoOutline} />
@@ -58,4 +58,4 @@ const CartItemList = () => {
   );
 };
 
-export default CartItemList;
+export default CartList;

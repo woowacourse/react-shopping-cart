@@ -3,9 +3,9 @@ import { selectedListState } from "../../recoil/atoms/atoms";
 
 import Button from "../common/Button/Button";
 
-import { deleteCartItem, patchCartItemQuantity } from "../../apis";
+import { deleteCartItem, patchCartItemQuantity } from "../../api/cartItem";
 
-import { CartItemType } from "../../types/cart";
+import type { CartItem } from "../../types/cart";
 
 import OutlineCheck from "../../assets/icon/OutlineCheck";
 import FilledCheck from "../../assets/icon/FilledCheck";
@@ -23,7 +23,7 @@ import {
 } from "./style";
 
 interface CardItemProps {
-  cartItem: CartItemType;
+  cartItem: CartItem;
 }
 
 const CartItem = ({ cartItem: { id, product, quantity } }: CardItemProps) => {
