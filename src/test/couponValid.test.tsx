@@ -8,7 +8,7 @@ import { cartState, couponsState, couponEachCheckState } from "@/store/atom/atom
 
 import useCoupon from "@/hooks/useCoupon";
 
-export const couponEachCheckDummy = [
+export const twoCouponsCheckedDummy = [
   { id: 1, isCheck: true },
   { id: 2, isCheck: false },
   { id: 3, isCheck: true },
@@ -17,12 +17,25 @@ export const couponEachCheckDummy = [
   { id: 6, isCheck: false },
 ];
 
-const ReactRootComponent = ({ children }: PropsWithChildren) => (
+const NoCouponsCheckedDummy = [
+  { id: 1, isCheck: false },
+  { id: 2, isCheck: false },
+  { id: 3, isCheck: false },
+  { id: 4, isCheck: false },
+  { id: 5, isCheck: false },
+  { id: 6, isCheck: false },
+];
+
+interface RecoilRootComponent extends PropsWithChildren {
+  checkDummy: { id: number; isCheck: boolean }[];
+}
+
+const ReactRootComponent = ({ children, checkDummy }: RecoilRootComponent) => (
   <RecoilRoot
     initializeState={({ set }) => {
       set(cartState, chargeShippingDummy.content);
       set(couponsState, couponsDummy);
-      couponEachCheckDummy.forEach(({ id, isCheck }) => {
+      checkDummy.forEach(({ id, isCheck }) => {
         set(couponEachCheckState(id), isCheck);
       });
     }}
@@ -49,7 +62,9 @@ describe("coupon disable 테스트", () => {
         return { isDisabled };
       },
       {
-        wrapper: ReactRootComponent,
+        wrapper: ({ children }) => (
+          <ReactRootComponent checkDummy={twoCouponsCheckedDummy}>{children}</ReactRootComponent>
+        ),
       }
     );
 
@@ -65,17 +80,7 @@ describe("coupon disable 테스트", () => {
       },
       {
         wrapper: ({ children }) => (
-          <RecoilRoot
-            initializeState={({ set }) => {
-              set(cartState, chargeShippingDummy.content);
-              set(couponsState, couponsDummy);
-              couponEachCheckDummy.forEach(({ id }) => {
-                set(couponEachCheckState(id), false);
-              });
-            }}
-          >
-            {children}
-          </RecoilRoot>
+          <ReactRootComponent checkDummy={twoCouponsCheckedDummy}>{children}</ReactRootComponent>
         ),
       }
     );
@@ -96,6 +101,7 @@ describe("coupon disable 테스트", () => {
         quantity: 1,
       },
     ];
+
     const { result } = renderHook(
       () => {
         const BOGO_ID = 5;
@@ -108,7 +114,7 @@ describe("coupon disable 테스트", () => {
             initializeState={({ set }) => {
               set(cartState, CART_STATE);
               set(couponsState, couponsDummy);
-              couponEachCheckDummy.forEach(({ id }) => {
+              twoCouponsCheckedDummy.forEach(({ id }) => {
                 set(couponEachCheckState(id), false);
               });
             }}
@@ -130,17 +136,7 @@ describe("coupon disable 테스트", () => {
       },
       {
         wrapper: ({ children }) => (
-          <RecoilRoot
-            initializeState={({ set }) => {
-              set(cartState, chargeShippingDummy.content);
-              set(couponsState, couponsDummy);
-              couponEachCheckDummy.forEach(({ id }) => {
-                set(couponEachCheckState(id), false);
-              });
-            }}
-          >
-            {children}
-          </RecoilRoot>
+          <ReactRootComponent checkDummy={NoCouponsCheckedDummy}>{children}</ReactRootComponent>
         ),
       }
     );
@@ -156,22 +152,13 @@ describe("coupon disable 테스트", () => {
       },
       {
         wrapper: ({ children }) => (
-          <RecoilRoot
-            initializeState={({ set }) => {
-              set(cartState, chargeShippingDummy.content);
-              set(couponsState, couponsDummy);
-              couponEachCheckDummy.forEach(({ id }) => {
-                set(couponEachCheckState(id), false);
-              });
-            }}
-          >
-            {children}
-          </RecoilRoot>
+          <ReactRootComponent checkDummy={NoCouponsCheckedDummy}>{children}</ReactRootComponent>
         ),
       }
     );
     expect(result.current.isDisabled).toBeFalsy();
   });
+
   it("사용 시간에 해당하면 활성화 된다.", () => {
     const { result } = renderHook(
       () => {
@@ -181,17 +168,7 @@ describe("coupon disable 테스트", () => {
       },
       {
         wrapper: ({ children }) => (
-          <RecoilRoot
-            initializeState={({ set }) => {
-              set(cartState, chargeShippingDummy.content);
-              set(couponsState, couponsDummy);
-              couponEachCheckDummy.forEach(({ id }) => {
-                set(couponEachCheckState(id), false);
-              });
-            }}
-          >
-            {children}
-          </RecoilRoot>
+          <ReactRootComponent checkDummy={NoCouponsCheckedDummy}>{children}</ReactRootComponent>
         ),
       }
     );
