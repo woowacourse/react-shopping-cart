@@ -2,7 +2,7 @@ import { useRecoilState } from 'recoil';
 import CheckButton from '../Button/CheckButton/CheckButton';
 import QuantityContainer from '../Container/QuantityContainer/QuantityContainer';
 import type { CartItem } from '../../types/CartItem.type';
-import { selectedCartItemListSelector } from '../../pages/ShoppingCartPage/recoil/selector/selectedCartItemListSelector';
+import { selectedCartItemListSelector } from '../../recoil/CartItem/selector/selectedCartItemListSelector';
 
 import * as S from './CartItemContainer.style';
 
@@ -17,7 +17,9 @@ function CartItemContainer({ item, onRemoveItem, onUpdateQuantity }: CartItemPro
 
   const [isSelected, setIsSelected] = useRecoilState(selectedCartItemListSelector(item));
 
-  const handleIsSelected = () => setIsSelected(isSelected);
+  const handleIsSelected = () => {
+    setIsSelected(isSelected);
+  };
 
   const renderQuantityContainer = () => {
     return onUpdateQuantity ? (

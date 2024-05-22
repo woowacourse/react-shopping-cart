@@ -4,7 +4,7 @@ import { selectedCartItemListState } from '../atom/selectedCartItemListState';
 import { selectedCartItemListSelector } from './selectedCartItemListSelector';
 import { selectedCartItemListTotalPriceSelector } from './selectedCartItemListTotalPriceSelector';
 import { selectedCartItemListTotalCountSelector } from './selectedCartItemListTotalCountSelector';
-import { cartItemListMockData, newYujoCartItemData, newKyleCartItemData } from '../../../../data/cartItemListMockData';
+import { cartItemListMockData, newYujoCartItemData, newKyleCartItemData } from '../../../data/cartItemListMockData';
 
 describe('selectedCartItemListSelector', () => {
   it('개별 상품을 선택할 시 선택된 상품이 배열에 삽입된다.', () => {

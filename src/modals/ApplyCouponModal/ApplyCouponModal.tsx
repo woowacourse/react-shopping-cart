@@ -1,7 +1,7 @@
 import { Modal } from 'paran-simple-modal';
 import * as S from './ApplyCouponModal.style';
 import NotificationContainer from '../../components/Container/NotificationContainer/NotificationContainer';
-import { useToggleModal } from './hooks/useToggleModal';
+import { useToggleModal } from '../../hooks/useToggleModal';
 
 function ApplyCouponModal() {
   const { openModal } = useToggleModal();

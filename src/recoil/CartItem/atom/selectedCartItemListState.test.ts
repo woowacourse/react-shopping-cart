@@ -1,7 +1,7 @@
 import { renderHook, act } from '@testing-library/react';
 import { RecoilRoot, useRecoilState } from 'recoil';
 import { selectedCartItemListState } from './selectedCartItemListState';
-import { cartItemListMockData } from '../../../../data/cartItemListMockData';
+import { cartItemListMockData } from '../../../data/cartItemListMockData';
 
 describe('selectedCartItemListState', () => {
   it('초기 배열은 빈 배열이다.', () => {

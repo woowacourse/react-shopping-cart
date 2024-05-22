@@ -1,7 +1,7 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { selectedDeliveryInfoListState } from '../../../components/DeliveryInfoList/recoil/atoms/selectedDeliveryInfoListState';
-import { deliveryFeeState } from '../recoil/atoms/deliveryFeeState';
-import { selectedCartItemListTotalPriceSelector } from '../../ShoppingCartPage/recoil/selector/selectedCartItemListTotalPriceSelector';
+import { selectedDeliveryInfoListState } from '../recoil/DeliveryInfo/atoms/selectedDeliveryInfoListState';
+import { deliveryFeeState } from '../pages/OrderConfirmPage/recoil/atoms/deliveryFeeState';
+import { selectedCartItemListTotalPriceSelector } from '../recoil/CartItem/selector/selectedCartItemListTotalPriceSelector';
 
 export const DELIVERY_FEE_DISCOUNT_THRESHOLD = 100000;
 

@@ -1,5 +1,5 @@
 import { selectorFamily } from 'recoil';
-import { DeliveryInfo } from '../../../../types/DeliveryInfo.type';
+import { DeliveryInfo } from '../../../types/DeliveryInfo.type';
 import { selectedDeliveryInfoListState } from '../atoms/selectedDeliveryInfoListState';
 
 export const selectedDeliveryInfoListSelector = selectorFamily<boolean, DeliveryInfo>({

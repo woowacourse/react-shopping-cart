@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { selectedDeliveryInfoListSelector } from '../../DeliveryInfoList/recoil/selectors/selectedDeliveryInfoListSelector';
+import { selectedDeliveryInfoListSelector } from '../../../recoil/DeliveryInfo/selectors/selectedDeliveryInfoListSelector';
 import { DeliveryInfo } from '../../../types/DeliveryInfo.type';
 import * as S from './DeliveryInfoContainer.style';
 import CheckButton from '../../Button/CheckButton/CheckButton';

@@ -7,7 +7,7 @@ import SubmitButton from '../../components/Button/SubmitButton/SubmitButton';
 import CartItemList from '../../components/CartItemList/CartItemList';
 import TotalPriceContainer from '../../components/Container/TotalPriceContainer/TotalPriceContainer';
 import type { CartItem } from '../../types/CartItem.type';
-import { selectedCartItemListState } from './recoil/atom/selectedCartItemListState';
+import { selectedCartItemListState } from '../../recoil/CartItem/atom/selectedCartItemListState';
 import { fetchCartItemList } from '../../apis';
 import { EmptyCart } from '../../assets';
 import { PATHS } from '../../constants/PATHS';

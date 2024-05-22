@@ -1,19 +1,15 @@
 import { useRecoilValue } from 'recoil';
 import NotificationContainer from '../NotificationContainer/NotificationContainer';
 import PriceContainer from '../PriceContainer/PriceContainer';
-import { selectedCartItemListTotalPriceSelector } from '../../../pages/ShoppingCartPage/recoil/selector/selectedCartItemListTotalPriceSelector';
+import { selectedCartItemListTotalPriceSelector } from '../../../recoil/CartItem/selector/selectedCartItemListTotalPriceSelector';
 import * as S from './TotalPriceContainer.style';
-import {
-  DELIVERY_FEE_DISCOUNT_THRESHOLD,
-  useCalculateDeliveryFee,
-} from '../../../pages/OrderConfirmPage/hooks/useCalculateDeliveryFee';
+import { DELIVERY_FEE_DISCOUNT_THRESHOLD, useCalculateDeliveryFee } from '../../../hooks/useCalculateDeliveryFee';
 
 function TotalPriceContainer() {
   const selectedCartItemTotalPrice = useRecoilValue(selectedCartItemListTotalPriceSelector);
-  const { deliveryFee, calculateDeliveryFee } = useCalculateDeliveryFee();
-  calculateDeliveryFee();
-  const totalPrice = selectedCartItemTotalPrice + deliveryFee;
+  const { deliveryFee } = useCalculateDeliveryFee();
 
+  const totalPrice = selectedCartItemTotalPrice + deliveryFee;
   return (
     <S.Layout>
       <NotificationContainer

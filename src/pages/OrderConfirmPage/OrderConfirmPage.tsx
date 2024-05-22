@@ -7,12 +7,12 @@ import TotalPriceContainer from '../../components/Container/TotalPriceContainer/
 import CartItemContainer from '../../components/CartItem/CartItemContainer';
 import DeliveryInfoContainer from '../../components/DeliveryInfoList/DeliveryInfoList';
 import ShowModalButton from '../../components/Button/ShowModalButton/ShowModalButton';
-import { selectedCartItemListState } from '../ShoppingCartPage/recoil/atom/selectedCartItemListState';
-import { selectedCartItemListTotalCountSelector } from '../ShoppingCartPage/recoil/selector/selectedCartItemListTotalCountSelector';
+import { selectedCartItemListState } from '../../recoil/CartItem/atom/selectedCartItemListState';
+import { selectedCartItemListTotalCountSelector } from '../../recoil/CartItem/selector/selectedCartItemListTotalCountSelector';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './OrderConfirmPage.style';
-import { applyCouponModalState } from '../../modals/ApplyCouponModal/recoil/atoms';
-import { useToggleModal } from '../../modals/ApplyCouponModal/hooks/useToggleModal';
+import { applyCouponModalState } from '../../recoil/Coupon/atoms';
+import { useToggleModal } from '../../hooks/useToggleModal';
 import ApplyCouponModal from '../../modals/ApplyCouponModal/ApplyCouponModal';
 
 function OrderConfirmPage() {
@@ -39,7 +39,7 @@ function OrderConfirmPage() {
   );
 
   return (
-    <div>
+    <>
       {isOpen && <ApplyCouponModal />}
       <Header />
       <S.Layout>
@@ -50,7 +50,7 @@ function OrderConfirmPage() {
         {renderSelectedItemListSection()}
       </S.Layout>
       <SubmitButton isActive={false} content="결제하기" />
-    </div>
+    </>
   );
 }
 

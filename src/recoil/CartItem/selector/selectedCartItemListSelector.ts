@@ -1,5 +1,5 @@
 import { selectorFamily } from 'recoil';
-import type { CartItem } from '../../../../types/CartItem.type';
+import type { CartItem } from '../../../types/CartItem.type';
 import { selectedCartItemListState } from '../atom/selectedCartItemListState';
 
 export const selectedCartItemListSelector = selectorFamily<boolean, CartItem>({
@@ -14,7 +14,6 @@ export const selectedCartItemListSelector = selectorFamily<boolean, CartItem>({
     (newItem: CartItem) =>
     ({ set, get }) => {
       const selectedCartItemList = get(selectedCartItemListState);
-
       if (!selectedCartItemList.some((item) => item.id === newItem.id)) {
         set(selectedCartItemListState, [...selectedCartItemList, newItem]);
       } else {

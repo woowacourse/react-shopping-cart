@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import CheckButton from '../Button/CheckButton/CheckButton';
 import CartItemContainer from '../CartItem/CartItemContainer';
 import type { CartItem } from '../../types/CartItem.type';
-import { selectedCartItemListState } from '../../pages/ShoppingCartPage/recoil/atom/selectedCartItemListState';
+import { selectedCartItemListState } from '../../recoil/CartItem/atom/selectedCartItemListState';
 import { removeCartItem, updateCartItemQuantity } from '../../apis';
 import * as S from './CartItemList.style';
 
