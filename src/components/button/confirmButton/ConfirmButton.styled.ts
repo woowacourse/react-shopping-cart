@@ -6,13 +6,14 @@ const backgroundColors = {
   [BUTTON_COLORS.DARK]: "rgba(0, 0, 0, 1)",
 };
 
-export const StyledConfirmButton = styled.button<{ mode: keyof typeof BUTTON_COLORS }>`
+export const StyledConfirmButton = styled.div<{ mode: keyof typeof BUTTON_COLORS }>`
   width: 100%;
   height: 64px;
   padding: 24px 65px;
   background-color: ${({ mode }) => backgroundColors[mode]};
   border: none;
   border-radius: 0px;
+  box-sizing: border-box;
 
   font-size: 16px;
   font-weight: 700;
