@@ -1,7 +1,10 @@
 import { selector, selectorFamily } from 'recoil';
 
 import { couponsState } from './atom';
-import { calculateFixedDiscountSelector } from './calculateDiscountSelector';
+import {
+  calculateFixedDiscountSelector,
+  calculatePercentageDiscountSelector,
+} from './calculateDiscountSelector';
 import { orderTotalPriceState } from '../cartItems/selectors';
 
 import { Coupon } from '@/types/coupon';
@@ -55,6 +58,8 @@ export const calculateDiscountAmountSelector = selectorFamily<number, string>({
       switch (coupon.discountType) {
         case 'fixed':
           return get(calculateFixedDiscountSelector(couponCode));
+        case 'percentage':
+          return get(calculatePercentageDiscountSelector(couponCode));
         default:
           return 0;
       }

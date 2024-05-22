@@ -8,9 +8,15 @@ import {
   couponSelector,
 } from './selector';
 import { cartItemsState } from '../cartItems/atoms';
+import { orderTotalPriceState } from '../cartItems/selectors';
 
 import { TOTAL_PRICE_OVER_100000_DATA } from '@/mocks/cartItems';
-import { INVALID_COUPON, VALID_COUPON, coupons } from '@/mocks/coupons';
+import {
+  INVALID_BOGO_COUPON,
+  VALID_FIXED_COUPON,
+  VALID_PERCENTAGE_COUPON,
+  coupons,
+} from '@/mocks/coupons';
 
 describe('coupon selector', () => {
   describe('couponSelector', () => {
@@ -27,10 +33,13 @@ describe('coupon selector', () => {
     );
 
     it('쿠폰이 존재하지 않으면 undefined를 반환한다.', () => {
-      const INVALID_COUPON_CODE = 'INVALID_COUPON';
-      const { result } = renderHook(() => useRecoilValue(couponSelector(INVALID_COUPON_CODE)), {
-        wrapper: RecoilRoot,
-      });
+      const INVALID_BOGO_COUPON_CODE = 'INVALID_BOGO_COUPON';
+      const { result } = renderHook(
+        () => useRecoilValue(couponSelector(INVALID_BOGO_COUPON_CODE)),
+        {
+          wrapper: RecoilRoot,
+        },
+      );
 
       expect(result.current).toBeUndefined();
     });
@@ -39,7 +48,7 @@ describe('coupon selector', () => {
   describe('applicableCouponSelector', () => {
     it('쿠폰이 유효하지 않다면, "false"를 반환한다.', () => {
       const { result } = renderHook(
-        () => useRecoilValue(applicableCouponSelector(INVALID_COUPON.code)),
+        () => useRecoilValue(applicableCouponSelector(INVALID_BOGO_COUPON.code)),
         {
           wrapper: ({ children }) => (
             <RecoilRoot
@@ -56,7 +65,7 @@ describe('coupon selector', () => {
 
     it('쿠폰이 유효하다면, "true"를 반환한다.', () => {
       const { result } = renderHook(
-        () => useRecoilValue(applicableCouponSelector(VALID_COUPON.code)),
+        () => useRecoilValue(applicableCouponSelector(VALID_FIXED_COUPON.code)),
         {
           wrapper: ({ children }) => (
             <RecoilRoot
@@ -73,9 +82,18 @@ describe('coupon selector', () => {
   });
 
   describe('calculateDiscountAmountSelector', () => {
+    beforeAll(() => {
+      jest.useFakeTimers();
+      jest.setSystemTime(new Date('2024-05-22T05:00'));
+    });
+
+    afterAll(() => {
+      jest.useRealTimers();
+    });
+
     it('유효한 "fixed"타입의 쿠폰을 적용하면 해당 금액만큼 할인된다.', () => {
       const { result } = renderHook(
-        () => useRecoilValue(calculateDiscountAmountSelector(VALID_COUPON.code)),
+        () => useRecoilValue(calculateDiscountAmountSelector(VALID_FIXED_COUPON.code)),
         {
           wrapper: ({ children }) => (
             <RecoilRoot
@@ -87,7 +105,35 @@ describe('coupon selector', () => {
         },
       );
 
-      expect(result.current).toBe(5000);
+      expect(result.current).toBe(VALID_FIXED_COUPON.discount);
+    });
+
+    it('유효한 "percentage"타입의 쿠폰을 적용하면 해당 금액만큼 할인된다.', () => {
+      const { result } = renderHook(
+        () => {
+          const discountAmount = useRecoilValue(
+            calculateDiscountAmountSelector(VALID_PERCENTAGE_COUPON.code),
+          );
+          const orderTotalAmount = useRecoilValue(orderTotalPriceState);
+
+          return { discountAmount, orderTotalAmount };
+        },
+        {
+          wrapper: ({ children }) => (
+            <RecoilRoot
+              initializeState={({ set }) => set(cartItemsState, TOTAL_PRICE_OVER_100000_DATA)}
+            >
+              <Suspense>{children}</Suspense>
+            </RecoilRoot>
+          ),
+        },
+      );
+
+      const discountedFromTotalAmount = Math.floor(
+        (result.current.orderTotalAmount * VALID_PERCENTAGE_COUPON.discount!) / 100,
+      );
+
+      expect(result.current.discountAmount).toBe(discountedFromTotalAmount);
     });
   });
 });
