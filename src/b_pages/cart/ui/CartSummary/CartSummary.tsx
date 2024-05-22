@@ -2,12 +2,12 @@ import classNames from 'classnames/bind';
 
 import { HorizontalLine, Text, imgMap } from '@/f_shared';
 
-import css from './OrderAmountPreview.module.css';
+import css from './CartSummary.module.css';
 
 const cn = classNames.bind(css);
 
 // TODO: Connect to state
-export const OrderAmountPreview = () => {
+export const CartSummary = () => {
   const Row = ({ title, amount }: { title: string; amount: number }) => (
     <div className={cn('row')}>
       <Text type={'h2'}>{title}</Text>
