@@ -21,8 +21,10 @@ export type CartItemProps = {
 
 const CartItem = ({ type, product, id }: CartItemProps) => {
   const { name, price, imageUrl } = product;
-  const { quantity, increaseQuantity, decreaseQuantity } = useCartItemQuantity(id);
-  const { isSelected, addSelectedId, removeSelectedId } = useCartItemSelectedIdList();
+  const { quantity, increaseQuantity, decreaseQuantity } =
+    useCartItemQuantity(id);
+  const { isSelected, addSelectedId, removeSelectedId } =
+    useCartItemSelectedIdList();
   const { deleteCartItem } = useCartItemList();
   const [error, setError] = useState<Error | null>(null);
 
@@ -61,15 +63,30 @@ const CartItem = ({ type, product, id }: CartItemProps) => {
         <S.ItemHeader>
           <Checkbox
             state={isSelected(id)}
-            handleClick={isSelected(id) ? () => removeSelectedId(id) : () => addSelectedId(id)}
+            handleClick={
+              isSelected(id)
+                ? () => removeSelectedId(id)
+                : () => addSelectedId(id)
+            }
           />
-          <Button size="s" radius="s" onClick={() => deleteCartItemWithErrorHandling(id)}>
+          <Button
+            size="s"
+            radius="s"
+            onClick={() => deleteCartItemWithErrorHandling(id)}
+          >
             삭제
           </Button>
         </S.ItemHeader>
       ) : null}
       <S.ItemBody>
-        <ImageBox width={112} height={112} radius="m" border="lightGray" src={imageUrl} alt="product-image" />
+        <ImageBox
+          width={112}
+          height={112}
+          radius="m"
+          border="lightGray"
+          src={imageUrl}
+          alt="상품 이미지"
+        />
         <S.ItemDetail>
           <S.ItemNameAndCost>
             <Text size="s" weight="m">

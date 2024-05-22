@@ -1,4 +1,5 @@
 module.exports = {
+  parser: '@typescript-eslint/parser',
   plugins: [
     'react',
     '@typescript-eslint',
@@ -17,11 +18,22 @@ module.exports = {
     'plugin:import/warnings',
     'plugin:import/typescript',
   ],
+  parserOptions: {
+    project: './tsconfig.json',
+    tsconfigRootDir: __dirname,
+    ecmaVersion: 2020,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
   rules: {
     'prettier/prettier': 'warn',
     'react/react-in-jsx-scope': 'off', // React 17+ no need to import React in JSX files
     'react/jsx-filename-extension': [1, { extensions: ['.jsx', '.tsx'] }],
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
+    '@typescript-eslint/explicit-module-boundary-types': 'warn',
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'no-console': 'warn',
     'no-debugger': 'warn',
@@ -56,6 +68,7 @@ module.exports = {
         },
       },
     ],
+    'import/prefer-default-export': 'warn',
     'import/no-unresolved': 'error',
     'import/named': 'error',
     'import/default': 'error',

@@ -8,25 +8,17 @@ export const Button = styled.button<ButtonProps>`
   align-items: center;
 
   ${({ color }) => {
-    switch (color) {
-      case 'default':
-        return `
-          background-color: white;
-          color: black;
-          border: 1px solid lightGray;
-        `;
-      case 'primary':
-        return `
+    if (color === 'primary') {
+      return `
           background-color: black;
           color: white;
         `;
-      default:
-        return `
+    }
+    return `
           background-color: white;
           color: black;
           border: 1px solid lightGray;
         `;
-    }
   }}
 
   ${({ size, square }) => {
@@ -35,11 +27,6 @@ export const Button = styled.button<ButtonProps>`
         return `
           height: 24px;
           padding: ${square ? '4px 4px' : '4px 8px'};
-        `;
-      case 'm':
-        return `
-          height: 36px;
-          padding: ${square ? '8px 8px' : '8px 12px'};
         `;
       case 'l':
         return `
@@ -93,12 +80,10 @@ export const Button = styled.button<ButtonProps>`
     &:hover {
       cursor: pointer;
       background-color: ${({ color }) => {
-        switch (color) {
-          case 'default':
-            return '#f5f5f5';
-          default:
-            return '#333333';
+        if (color === 'default') {
+          return '#f5f5f5';
         }
+        return '#333333';
       }};
     }
   }
@@ -106,12 +91,10 @@ export const Button = styled.button<ButtonProps>`
   &:disabled {
     cursor: default;
     background-color: ${({ color }) => {
-      switch (color) {
-        case 'default':
-          return '#dddddd';
-        default:
-          return '#aaaaaa';
+      if (color === 'default') {
+        return '#ddddddd';
       }
+      return '#aaaaaaa';
     }};
   }
 `;

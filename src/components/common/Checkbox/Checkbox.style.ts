@@ -5,7 +5,8 @@ export const CheckboxLabel = styled.label`
   width: 24px;
 `;
 export const Checkbox = styled.input`
-  display: none;
+  position: absolute;
+  clip-path: polygon(0 0, 0 0, 0 0, 0 0);
 `;
 
 export const CheckboxImage = styled.img`
