@@ -5,8 +5,8 @@ import { useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
 import {
-  cartItemsCountState,
-  isSomeCartItemSelectedState,
+  cartItemsCountSelector,
+  isSomeCartItemSelectedSelector,
 } from '../../recoil/selectors';
 
 import MESSAGE from '../../constants/Message';
@@ -16,8 +16,8 @@ interface OrderButtonProp {
 }
 
 const OrderButton = ({ onClick }: OrderButtonProp) => {
-  const cartItemsCount = useRecoilValue(cartItemsCountState);
-  const isSomeCartItemSelected = useRecoilValue(isSomeCartItemSelectedState);
+  const cartItemsCount = useRecoilValue(cartItemsCountSelector);
+  const isSomeCartItemSelected = useRecoilValue(isSomeCartItemSelectedSelector);
 
   const hasSomeCartItem = !!cartItemsCount;
   const isOrderable = hasSomeCartItem && isSomeCartItemSelected;

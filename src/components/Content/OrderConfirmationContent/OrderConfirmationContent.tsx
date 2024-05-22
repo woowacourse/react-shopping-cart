@@ -4,17 +4,17 @@ import { Content } from '../style';
 import { useRecoilValue } from 'recoil';
 
 import {
-  selectedCartItemsCountState,
-  totalCartItemQuantityState,
-  totalPaymentAmountState,
+  selectedCartItemsCountSelector,
+  totalCartItemQuantitySelector,
+  totalPaymentAmountSelector,
 } from '../../../recoil/selectors';
 
 import MESSAGE from '../../../constants/Message';
 
 const OrderConfirmationContent = () => {
-  const totalCartItemQuantity = useRecoilValue(totalCartItemQuantityState);
-  const selectedCartItemsCount = useRecoilValue(selectedCartItemsCountState);
-  const totalPaymentAmount = useRecoilValue(totalPaymentAmountState);
+  const totalCartItemQuantity = useRecoilValue(totalCartItemQuantitySelector);
+  const selectedCartItemsCount = useRecoilValue(selectedCartItemsCountSelector);
+  const totalPaymentAmount = useRecoilValue(totalPaymentAmountSelector);
 
   return (
     <Content>

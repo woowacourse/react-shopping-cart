@@ -8,15 +8,15 @@ import { CartItemType } from '../type';
 import CONDITION from '../constants/Condition';
 import VALUE from '../constants/Value';
 
-export const fetchedCartItemsState = selector({
-  key: 'fetchedCartItemsState',
+export const fetchedCartItemsSelector = selector({
+  key: 'fetchedCartItems',
   get: async () => {
     return await fetchGetCartItems();
   },
 });
 
-export const selectedCartItemsState = selector<CartItemType[]>({
-  key: 'selectedCartItemsState',
+export const selectedCartItemsSelector = selector<CartItemType[]>({
+  key: 'selectedCartItems',
   get: ({ get }) => {
     return get(cartItemsState).filter((cartItem) =>
       get(isCartItemSelectedState(cartItem.id)),
@@ -24,7 +24,10 @@ export const selectedCartItemsState = selector<CartItemType[]>({
   },
 });
 
-export const isAllCartItemSelectedState = selectorFamily<boolean, number[]>({
+export const isAllCartItemSelectedSelectorFamily = selectorFamily<
+  boolean,
+  number[]
+>({
   key: 'selectedAllCartItem',
   get:
     (cartItemIds) =>
@@ -42,43 +45,46 @@ export const isAllCartItemSelectedState = selectorFamily<boolean, number[]>({
     },
 });
 
-export const isSomeCartItemSelectedState = selector<boolean>({
+export const isSomeCartItemSelectedSelector = selector<boolean>({
   key: 'selectedSomeCartItem',
   get: ({ get }) => {
-    return get(cartItemIdsState).some((cartItemId) =>
+    return get(cartItemIdsSelector).some((cartItemId) =>
       get(isCartItemSelectedState(cartItemId)),
     );
   },
 });
 
-export const cartItemIdsState = selector({
+export const cartItemIdsSelector = selector({
   key: 'CartItemIds',
   get: ({ get }) => {
     return get(cartItemsState).map((cartItem) => cartItem.id);
   },
 });
 
-export const cartItemsCountState = selector<number>({
+export const cartItemsCountSelector = selector<number>({
   key: 'cartItemsCount',
   get: ({ get }) => {
     return get(cartItemsState).length;
   },
 });
 
-export const totalOrderAmountState = selector<number>({
+export const totalOrderAmountSelector = selector<number>({
   key: 'totalOrderAmount',
   get: ({ get }) => {
-    return get(selectedCartItemsState).reduce((totalOrderAmount, cartItem) => {
-      const orderAmount = cartItem.product.price * cartItem.quantity;
-      return totalOrderAmount + orderAmount;
-    }, 0);
+    return get(selectedCartItemsSelector).reduce(
+      (totalOrderAmount, cartItem) => {
+        const orderAmount = cartItem.product.price * cartItem.quantity;
+        return totalOrderAmount + orderAmount;
+      },
+      0,
+    );
   },
 });
 
-export const totalCartItemQuantityState = selector<number>({
+export const totalCartItemQuantitySelector = selector<number>({
   key: 'totalCartItemQuantity',
   get: ({ get }) => {
-    return get(selectedCartItemsState).reduce(
+    return get(selectedCartItemsSelector).reduce(
       (totalCartItemQuantity, cartItem) => {
         return totalCartItemQuantity + cartItem.quantity;
       },
@@ -87,17 +93,17 @@ export const totalCartItemQuantityState = selector<number>({
   },
 });
 
-export const selectedCartItemsCountState = selector<number>({
+export const selectedCartItemsCountSelector = selector<number>({
   key: 'selectedCartItemCount',
   get: ({ get }) => {
-    return get(selectedCartItemsState).length;
+    return get(selectedCartItemsSelector).length;
   },
 });
 
-export const shippingFeeState = selector<number>({
+export const shippingFeeSelector = selector<number>({
   key: 'shippingFee',
   get: ({ get }) => {
-    const totalOrderAmount = get(totalOrderAmountState);
+    const totalOrderAmount = get(totalOrderAmountSelector);
 
     return totalOrderAmount >= CONDITION.freeShippingFee ||
       totalOrderAmount === CONDITION.noneSelected
@@ -106,9 +112,9 @@ export const shippingFeeState = selector<number>({
   },
 });
 
-export const totalPaymentAmountState = selector<number>({
+export const totalPaymentAmountSelector = selector<number>({
   key: 'totalPaymentAmount',
   get: ({ get }) => {
-    return get(totalOrderAmountState) + get(shippingFeeState);
+    return get(totalOrderAmountSelector) + get(shippingFeeSelector);
   },
 });

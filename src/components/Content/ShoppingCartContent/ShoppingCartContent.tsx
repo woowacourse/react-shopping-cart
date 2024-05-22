@@ -7,12 +7,12 @@ import TotalPaymentInfo from '../../TotalPaymentInfo/TotalPaymentInfo';
 
 import { useRecoilValue } from 'recoil';
 
-import { cartItemsCountState } from '../../../recoil/selectors';
+import { cartItemsCountSelector } from '../../../recoil/selectors';
 
 import MESSAGE from '../../../constants/Message';
 
 const ShoppingCartContent = () => {
-  const cartItemsCount = useRecoilValue(cartItemsCountState);
+  const cartItemsCount = useRecoilValue(cartItemsCountSelector);
 
   const hasSomeCartItem = !!cartItemsCount;
 

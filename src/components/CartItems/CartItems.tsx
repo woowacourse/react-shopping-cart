@@ -8,8 +8,8 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { cartItemsState } from '../../recoil/atoms';
 import {
-  cartItemIdsState,
-  isAllCartItemSelectedState,
+  cartItemIdsSelector,
+  isAllCartItemSelectedSelectorFamily,
 } from '../../recoil/selectors';
 
 import MESSAGE from '../../constants/Message';
@@ -17,10 +17,10 @@ import { CartItemType } from '../../type';
 
 const CartItems = () => {
   const cartItems = useRecoilValue(cartItemsState);
-  const cartItemIds = useRecoilValue(cartItemIdsState);
+  const cartItemIds = useRecoilValue(cartItemIdsSelector);
 
   const [isAllSelected, setIsAllSelected] = useRecoilState(
-    isAllCartItemSelectedState(cartItemIds),
+    isAllCartItemSelectedSelectorFamily(cartItemIds),
   );
 
   const handleSelectedAll = () => {
