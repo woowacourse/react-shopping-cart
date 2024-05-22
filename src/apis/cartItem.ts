@@ -1,5 +1,5 @@
 import { CartItem } from "@/types/cartItem";
-import fetchWithAuth from "./utils/fetchWithAuth";
+import { fetchWithAuth } from "./utils/fetchClient";
 
 /**
  * 사용자의 장바구니 목록 조회
