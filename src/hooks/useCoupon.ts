@@ -1,4 +1,4 @@
-import { couponEachCheckState, couponsState } from "@/store/atom/atoms";
+import { cartState, couponEachCheckState, couponsState } from "@/store/atom/atoms";
 import { isOver2CouponsCheckedState, totalAmountState } from "@/store/selector/selectors";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
@@ -11,29 +11,23 @@ const useCoupon = (id: number) => {
   const coupons = useRecoilValue(couponsState);
   const coupon = coupons.find((coupon) => coupon.id === id);
   const totalAmount = useRecoilValue(totalAmountState);
+  const cartItems = useRecoilValue(cartState);
 
-  //2개 이상 체크되지 않고, 되었다면 해당 쿠폰이 체크된 경우 활성화
   useEffect(() => {
-    if (!isOver2CouponsChecked || (isOver2CouponsChecked && isCouponChecked)) {
+    //2개 이상 체크되지 않고, 되었다면 해당 쿠폰이 체크된 경우 활성화
+    const isNotOver2OrChecked = !isOver2CouponsChecked || isCouponChecked;
+    // 최소 주문금액이 넘었을 경우 체크 활성화
+    const isOverMinimumAmount = !coupon?.minimumAmount || coupon.minimumAmount >= totalAmount;
+    //buyXgetY 확인
+    const isValidBuyXgetY = !coupon?.buyQuantity || coupon?.buyQuantity >= cartItems.length;
+    //TODO: 유효기간 검사
+
+    if (isNotOver2OrChecked && isOverMinimumAmount && isValidBuyXgetY) {
       setIsDisabled(false);
-    }
-    if (isOver2CouponsChecked && !isCouponChecked) {
+    } else {
       setIsDisabled(true);
     }
-  }, [isOver2CouponsChecked, isCouponChecked]);
-
-  // 최소 주문금액이 넘었을 경우 체크 활성화
-  useEffect(() => {
-    if (coupon?.minimumAmount && coupon.minimumAmount >= totalAmount) {
-      setIsDisabled(false);
-    }
-    if (coupon?.minimumAmount && coupon?.minimumAmount < totalAmount) {
-      setIsDisabled(true);
-    }
-  }, [coupon?.minimumAmount, totalAmount]);
-
-  //TODO: buyXgetY 확인
-  //TODO: 유효기간 확인
+  }, [isOver2CouponsChecked, isCouponChecked, coupon, totalAmount, cartItems]);
 
   return { isDisabled };
 };
