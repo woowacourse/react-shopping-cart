@@ -19,7 +19,7 @@ const QuantityButton = ({ type, onClick }: QuantityProps) => {
   };
 
   return (
-    <Button fontSize="24px" onClick={onClick}>
+    <Button width="24px" fontSize="24px" onClick={onClick}>
       {buttonMap[type]}
     </Button>
   );
