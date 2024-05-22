@@ -1,7 +1,10 @@
+import { RecoilRoot, useSetRecoilState } from 'recoil';
+
 import { Coupon } from '@/types/coupon.type';
-import { RecoilRoot } from 'recoil';
-import couponValidator from './couponValidator';
+import { MOCK_COUPON_LIST } from '@/constants/_mock/mockCouponList';
+import { couponListState } from '@/store/atoms';
 import { renderHook } from '@testing-library/react';
+import useCouponValidator from '@/hooks/useCouponValidator';
 
 jest.mock('../api/config', () => ({
   config: {
@@ -9,10 +12,13 @@ jest.mock('../api/config', () => ({
   },
 }));
 
-describe('couponValidator test', () => {
+describe('useCouponValidator test', () => {
   it('[유효한 쿠폰] 쿠폰의 유효성을 확인한 후 가능 여부를 알려준다. (존재 여부, 만료일 체크)', () => {
     const { result } = renderHook(
       () => {
+        const setCouponList = useSetRecoilState(couponListState);
+        setCouponList(MOCK_COUPON_LIST);
+
         const validCoupon: Coupon = {
           id: 2,
           code: 'VALID_COUPON',
@@ -22,7 +28,7 @@ describe('couponValidator test', () => {
         };
         const today = new Date();
 
-        const validateCoupon = couponValidator({
+        const validateCoupon = useCouponValidator({
           coupon: validCoupon,
           date: today,
         });
@@ -33,7 +39,6 @@ describe('couponValidator test', () => {
         wrapper: RecoilRoot,
       }
     );
-    console.log(result.current);
 
     expect(result.current).toBe(true);
   });
@@ -41,6 +46,9 @@ describe('couponValidator test', () => {
   it('[만료된 쿠폰] 쿠폰의 유효성을 확인한 후 가능 여부를 알려준다. (존재 여부, 만료일 체크)', () => {
     const { result } = renderHook(
       () => {
+        const setCouponList = useSetRecoilState(couponListState);
+        setCouponList(MOCK_COUPON_LIST);
+
         const expiredCoupon: Coupon = {
           id: 1,
           code: 'EXPIRED_COUPON',
@@ -51,7 +59,7 @@ describe('couponValidator test', () => {
 
         const today = new Date();
 
-        const invalidateCoupon = couponValidator({
+        const invalidateCoupon = useCouponValidator({
           coupon: expiredCoupon,
           date: today,
         });
