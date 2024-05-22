@@ -2,9 +2,9 @@ import styled from "styled-components";
 import ORDER from "../../../constants/order";
 import { totalCheckedCartItemsPriceState } from "../../../recoil/selectors";
 import { useRecoilValue } from "recoil";
-import IMAGES from "../../../assets/images/Images";
 import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../../constants/styles";
 import { SHOPPING_MESSAGE } from "../../../constants/messages";
+import InfoText from "../../common/InfoText";
 
 const OrderSummary = () => {
   const totalPrice = useRecoilValue(totalCheckedCartItemsPriceState);
@@ -13,10 +13,7 @@ const OrderSummary = () => {
 
   return (
     <OrderSummaryContainer>
-      <OrderInfo>
-        <InfoImg src={IMAGES.infoOutline} />
-        {SHOPPING_MESSAGE.freeShippingFeeInfo(ORDER.shippingFreeThreshold.toLocaleString())}
-      </OrderInfo>
+      <InfoText text={SHOPPING_MESSAGE.freeShippingFeeInfo(ORDER.shippingFreeThreshold.toLocaleString())} />
 
       <HorizontalLine />
 
@@ -47,20 +44,6 @@ const OrderSummaryContainer = styled.div`
   flex-direction: column;
   gap: 12px;
   margin-top: 52px;
-`;
-
-const OrderInfo = styled.p`
-  display: flex;
-  align-items: center;
-  font-size: ${FONT_SIZE.small};
-  font-weight: ${FONT_WEIGHT.medium};
-  line-height: 15px;
-  text-align: left;
-  color: ${COLOR.black};
-`;
-
-const InfoImg = styled.img`
-  padding-right: 4px;
 `;
 
 const SummaryWrapper = styled.div`
