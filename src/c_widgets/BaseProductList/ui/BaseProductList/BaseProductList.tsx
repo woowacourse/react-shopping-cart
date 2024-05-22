@@ -9,17 +9,17 @@ const cn = classNames.bind(css);
 
 type BaseProductListProps = {
   products: Product[];
-  leftActionSlot?: (productId: ProductId) => ReactNode;
-  rightActionSlot?: (productId: ProductId) => ReactNode;
-  counterSlot?: (productId: ProductId) => ReactNode;
+  cardLeftActionSlot?: (productId: ProductId) => ReactNode;
+  cardRightActionSlot?: (productId: ProductId) => ReactNode;
+  cardCounterSlot?: (productId: ProductId) => ReactNode;
   isFetching?: boolean;
 };
 
 export function BaseProductList({
   products,
-  leftActionSlot,
-  rightActionSlot,
-  counterSlot,
+  cardLeftActionSlot,
+  cardRightActionSlot,
+  cardCounterSlot,
   isFetching,
 }: BaseProductListProps) {
   return (
@@ -28,9 +28,9 @@ export function BaseProductList({
         <ProductCard
           key={product.id}
           product={product}
-          leftActionSlot={leftActionSlot ? leftActionSlot(product.id) : null}
-          rightActionSlot={rightActionSlot ? rightActionSlot(product.id) : null}
-          counterSlot={counterSlot ? counterSlot(product.id) : null}
+          leftActionSlot={cardLeftActionSlot ? cardLeftActionSlot(product.id) : null}
+          rightActionSlot={cardRightActionSlot ? cardRightActionSlot(product.id) : null}
+          counterSlot={cardCounterSlot ? cardCounterSlot(product.id) : null}
         />
       ))}
     </div>
