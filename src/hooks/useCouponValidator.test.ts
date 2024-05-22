@@ -36,7 +36,7 @@ describe('useCouponValidator test', () => {
       }
     );
 
-    expect(result.current.length).toBe(1);
+    expect(result.current[0].isValid).toBe(true);
   });
 
   it('[사용 불가능] 쿠폰의 유효성을 확인한 후 가능 여부를 알려준다. (존재 여부, 만료일 체크)', () => {
@@ -63,6 +63,6 @@ describe('useCouponValidator test', () => {
       }
     );
 
-    expect(result.current.length).toBe(0);
+    expect(result.current[0].isValid).toBe(false);
   });
 });
