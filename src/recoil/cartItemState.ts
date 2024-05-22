@@ -1,4 +1,4 @@
-import { atom, atomFamily, selector } from "recoil";
+import { atom, atomFamily, selector, selectorFamily } from "recoil";
 import { fetchCartItems } from "../api/cartItem";
 import { checkedIdSetSelector } from "./checkedState";
 import { CartItem } from "../types";
@@ -19,4 +19,22 @@ export const cartIdSetSelector = selector<Set<number>>({
   get: ({ get }) => new Set(get(cartItemListAtom).map((item) => item.id)),
 });
 
-export const quantityAtomFamily = atomFamily<number, number>({ key: "quantityAtomFamily", default: null });
+export const quantitySelectorFamily = selectorFamily<number, number>({
+  key: "quantityAtomFamily",
+  get:
+    (id: number) =>
+    ({ get }) =>
+      get(cartItemListAtom).find((item) => item.id === id).quantity,
+  set:
+    (id: number) =>
+    ({ get, set }, newQuantity) => {
+      const cartItemList = get(cartItemListAtom);
+      const result = cartItemList.map((item) => (item.id === id ? { ...item, quantity: newQuantity } : item));
+      set(cartItemListAtom, result);
+    },
+});
+
+export const isVacantCartSelector = selector<boolean>({
+  key: "isVacantCartSelector",
+  get: ({ get }) => get(cartItemListAtom).length === 0,
+});
