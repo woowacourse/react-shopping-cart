@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom, atomFamily } from "recoil";
 
 export const selectedListState = atom<number[]>({
   key: "selectedListState",
@@ -10,4 +10,9 @@ export const selectedListState = atom<number[]>({
       });
     },
   ],
+});
+
+export const cartItemQuantityState = atomFamily<number, number>({
+  key: "cartItemQuantityState",
+  default: 0,
 });

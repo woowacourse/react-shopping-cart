@@ -1,9 +1,12 @@
 import { useRecoilState, useRecoilRefresher_UNSTABLE } from "recoil";
-import { selectedListState } from "../../recoil/atoms/atoms";
+import {
+  selectedListState,
+  cartItemQuantityState,
+} from "../../recoil/atoms/atoms";
 
 import Button from "../common/Button/Button";
 
-import { deleteCartItem, patchCartItemQuantity } from "../../api/cartItem";
+import { deleteCartItem, patchCartItemQuantity } from "../../api/cart";
 
 import type { CartItem } from "../../types/cart";
 
@@ -28,6 +31,9 @@ interface CardItemProps {
 
 const CartItem = ({ cartItem: { id, product, quantity } }: CardItemProps) => {
   const [selectedList, setSelectedList] = useRecoilState(selectedListState);
+  const [cartItemQuantity, setCartItemQuantity] = useRecoilState(
+    cartItemQuantityState(id)
+  );
   const refresh = useRecoilRefresher_UNSTABLE(cartItemsState);
 
   const handleToggleSelectItem = () => {
@@ -48,10 +54,18 @@ const CartItem = ({ cartItem: { id, product, quantity } }: CardItemProps) => {
   };
 
   const handleChangeItemQuantity = async (number: number) => {
+    const newQuantity = cartItemQuantity ? cartItemQuantity : quantity;
+
+    if (newQuantity + number < 1) {
+      alert("개수는 1보다 작을 수 없습니다");
+      return;
+    }
+
     try {
-      await patchCartItemQuantity(id, quantity + number);
-      refresh();
+      setCartItemQuantity(() => newQuantity + number);
+      patchCartItemQuantity(id, newQuantity + number);
     } catch (error) {
+      setCartItemQuantity(() => newQuantity - number);
       console.error("Failed to remove cart item:", error);
     }
   };
@@ -85,7 +99,7 @@ const CartItem = ({ cartItem: { id, product, quantity } }: CardItemProps) => {
             >
               -
             </Button>
-            <span>{quantity}</span>
+            <span>{cartItemQuantity ? cartItemQuantity : quantity}</span>
             <Button
               $theme="white"
               $size="xs"

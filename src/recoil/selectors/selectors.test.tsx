@@ -34,7 +34,7 @@ const cartsJson = {
   ],
 };
 
-jest.mock("../../apis", () => ({
+jest.mock("../../api/cart", () => ({
   getCartItems: jest.fn().mockImplementation(() => Promise.resolve(cartsJson)),
 }));
 

@@ -1,5 +1,5 @@
 import { selector } from "recoil";
-import { getCartItems } from "../../api/cartItem";
+import { getCartItems } from "../../api/cart";
 import { CartItem } from "../../types/cart";
 import { selectedListState } from "../atoms/atoms";
 import {
@@ -13,6 +13,8 @@ export const cartItemsState = selector<CartItem[]>({
     const cartItems = await getCartItems();
     return cartItems;
   },
+  // set: ({}, newValue) => {
+  // }
 });
 
 export const cartPriceState = selector({
