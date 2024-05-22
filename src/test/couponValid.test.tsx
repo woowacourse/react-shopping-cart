@@ -8,7 +8,7 @@ import { cartState, couponsState, couponEachCheckState } from "@/store/atom/atom
 
 import useCoupon from "@/hooks/useCoupon";
 
-export const twoCouponsCheckedDummy = [
+const twoCouponsCheckedDummy = [
   { id: 1, isCheck: true },
   { id: 2, isCheck: false },
   { id: 3, isCheck: true },

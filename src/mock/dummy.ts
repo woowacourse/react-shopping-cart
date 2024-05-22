@@ -1,3 +1,17 @@
+export const productDummy = {
+  id: 100,
+  name: "퓨마",
+  price: 20000,
+  imageUrl: "https://sitem.ssgcdn.com/47/78/22/item/1000031227847_i1_750.jpg",
+  category: "fashion",
+} as const;
+
+export const cartItemDummy: CartItemInfo = {
+  id: 1,
+  product: { ...productDummy },
+  quantity: 4,
+};
+
 export const freeShippingDummy: { content: CartItemInfo[] } = {
   content: [
     {
