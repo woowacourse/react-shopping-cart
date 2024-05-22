@@ -32,7 +32,7 @@ const ShoppingCartOverview = () => {
           <S.Container>
             <ShoppingCartDescription kindCount={data?.length ?? 0} />
             <ShoppingCartList cartItems={data ?? []} refetch={refetch} />
-            <PaymentTotal />
+            <PaymentTotal isUseDiscount={false} />
           </S.Container>
           <FloatingButton
             label={'주문 확인'}

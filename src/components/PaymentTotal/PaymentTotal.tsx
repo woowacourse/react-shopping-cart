@@ -1,11 +1,11 @@
+import { ORDER } from '../../constants/constants';
 import info from '../../assets/info.svg';
-import * as S from './styled';
 import PriceInfo from '../PriceInfo/PriceInfo';
 import { useRecoilValue } from 'recoil';
 import { priceInfoStore } from '../../recoil/selectors';
-import { ORDER } from '../../constants/constants';
+import * as S from './styled';
 
-const PaymentTotal = () => {
+const PaymentTotal = ({ isUseDiscount }) => {
   const priceInfo = useRecoilValue(priceInfoStore);
 
   return (
@@ -16,6 +16,8 @@ const PaymentTotal = () => {
       </S.Info>
       <S.Hr />
       <PriceInfo title="주문 금액" price={priceInfo.order} />
+      {/* 쿠폰 할인 금액의 1000은 퍼블리싱을 위한 값 */}
+      {isUseDiscount && <PriceInfo title="쿠폰 할인 금액" price={1000} />}
       <PriceInfo title="배송비" price={priceInfo.shipping || 0} />
       <S.Hr />
       <PriceInfo title="총 결제 금액" price={priceInfo.total} />
