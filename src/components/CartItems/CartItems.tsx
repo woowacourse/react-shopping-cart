@@ -5,11 +5,12 @@ import SelectedBox from '../assets/SelectedBox.svg';
 import UnSelectedBox from '../assets/UnSelectedBox.svg';
 
 import { useRecoilState, useRecoilValue } from 'recoil';
+
+import { cartItemsState } from '../../recoil/atoms';
 import {
   cartItemIdsState,
   isAllCartItemSelectedState,
-} from '../../recoil/selectedCardItems';
-import { cartItemsState } from '../../recoil/cartItems';
+} from '../../recoil/selectors';
 
 import MESSAGE from '../../constants/Message';
 import { CartItemType } from '../../type';

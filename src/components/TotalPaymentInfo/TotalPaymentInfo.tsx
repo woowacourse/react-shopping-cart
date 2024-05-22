@@ -4,11 +4,12 @@ import PaymentInfo from './PaymentInfo';
 import CaptionEmoji from '../assets/CaptionEmoji.svg';
 
 import { useRecoilValue } from 'recoil';
+
 import {
   shippingFeeState,
   totalOrderAmountState,
   totalPaymentAmountState,
-} from '../../recoil/cartItems';
+} from '../../recoil/selectors';
 
 import MESSAGE from '../../constants/Message';
 

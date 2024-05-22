@@ -6,7 +6,8 @@ import Title from '../../Title/Title';
 import TotalPaymentInfo from '../../TotalPaymentInfo/TotalPaymentInfo';
 
 import { useRecoilValue } from 'recoil';
-import { cartItemsCountState } from '../../../recoil/cartItems';
+
+import { cartItemsCountState } from '../../../recoil/selectors';
 
 import MESSAGE from '../../../constants/Message';
 

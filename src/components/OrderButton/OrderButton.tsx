@@ -1,9 +1,14 @@
 import * as Styled from './style';
 
-import { useRecoilValue } from 'recoil';
-import { cartItemsCountState } from '../../recoil/cartItems';
-import { isSomeCartItemSelectedState } from '../../recoil/selectedCardItems';
 import { useLocation } from 'react-router-dom';
+
+import { useRecoilValue } from 'recoil';
+
+import {
+  cartItemsCountState,
+  isSomeCartItemSelectedState,
+} from '../../recoil/selectors';
+
 import MESSAGE from '../../constants/Message';
 
 interface OrderButtonProp {

@@ -1,8 +1,8 @@
 import * as Styled from './style';
 
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { isCartItemSelectedState } from '../../recoil/selectedCardItems';
-import { cartItemsState } from '../../recoil/cartItems';
+
+import { cartItemsState, isCartItemSelectedState } from '../../recoil/atoms';
 
 import {
   fetchAdjustCartItemQuantity,

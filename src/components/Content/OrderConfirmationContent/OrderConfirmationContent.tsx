@@ -1,12 +1,13 @@
 import * as Styled from './style';
 import { Content } from '../style';
 
+import { useRecoilValue } from 'recoil';
+
 import {
   selectedCartItemsCountState,
   totalCartItemQuantityState,
   totalPaymentAmountState,
-} from '../../../recoil/cartItems';
-import { useRecoilValue } from 'recoil';
+} from '../../../recoil/selectors';
 
 import MESSAGE from '../../../constants/Message';
 
