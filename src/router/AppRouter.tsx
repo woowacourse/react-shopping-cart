@@ -1,7 +1,8 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import CartPage from "../pages/CartPage";
-import ConfirmOrderPage from "../pages/ConfirmOrderPage";
+import OrderConfirmPage from "../pages/OrderConfirmPage";
+import PaymentConfirmationPage from "../pages/PaymentConfirmationPage";
 
 const router = createBrowserRouter([
   {
@@ -16,8 +17,12 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/confirm",
-    element: <ConfirmOrderPage />,
+    path: "/orderConfirm",
+    element: <OrderConfirmPage />,
+  },
+  {
+    path: "/paymentConfirm",
+    element: <PaymentConfirmationPage />,
   },
   {
     path: "*",
