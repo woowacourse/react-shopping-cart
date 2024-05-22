@@ -1,8 +1,7 @@
 import { renderHook } from '@testing-library/react';
+import { act } from 'react';
 
 import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil';
-
-import mockCartItems from '../mocks/cartItems';
 import { cartItemsState, isCartItemSelectedState } from '../recoil/atoms';
 import {
   cartItemIdsSelector,
@@ -16,10 +15,11 @@ import {
   totalOrderAmountSelector,
   totalPaymentAmountSelector,
 } from '../recoil/selectors';
-import mockIsCartItemsSelected from '../mocks/isCartItemsSelected';
-import { act } from 'react';
 
-describe('cartItemsCountSelector의', () => {
+import mockCartItems from '../mocks/cartItems';
+import mockIsCartItemsSelected from '../mocks/isCartItemsSelected';
+
+describe('cartItemsCountSelector', () => {
   it('장바구니에 담긴 cartItem의 갯수를 반환한다.', () => {
     const { result } = renderHook(
       () => useRecoilValue(cartItemsCountSelector),
