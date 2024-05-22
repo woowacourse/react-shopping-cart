@@ -1,12 +1,13 @@
 import { DefaultValue, atom, selector } from "recoil";
-import { cartIdSetSelector } from "./a.test";
+import { cartIdSetSelector } from "./cartItemState";
 
 const isEqual = (aSet: Set<number>, bSet: Set<number>) =>
   aSet.size === bSet.size && [...aSet].every((num) => bSet.has(num));
 const filterIn = (aSet: Set<number>, bSet: Set<number>) => new Set([...aSet].filter((num) => bSet.has(num)));
 
 const checkedIdSetAtom = atom<Set<number>>({ key: "checkedIdListAtom", default: new Set() });
-export const checkedIdSetSelector = selector({
+
+export const checkedIdSetSelector = selector<Set<number>>({
   key: "checkedIdSetSelector",
   get: ({ get }) => {
     const checkedIdSet = get(checkedIdSetAtom);
