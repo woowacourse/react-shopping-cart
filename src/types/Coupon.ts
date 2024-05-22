@@ -1,4 +1,4 @@
-interface AvailableTime {
+export interface AvailableTime {
   start: Date;
   end: Date;
 }
