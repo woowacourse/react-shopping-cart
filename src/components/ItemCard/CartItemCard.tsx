@@ -104,21 +104,23 @@ function CartItemCard({ item }: ProductProps) {
   const setItems = useSetRecoilState(itemsState);
   const [error, setError] = useState<Error | null>(null);
 
-  useEffect(() => {
-    const localStorageList = getLocalStorage();
-    const localStorageProduct = localStorageList.find(
-      (value) => value.id === item.id,
-    );
-    setDetails({
-      quantity: item.quantity,
-      isChecked: localStorageProduct ? localStorageProduct.isChecked : true,
-    });
-  }, [item.quantity, item.product.price, setDetails, item.id]);
+  // 최초 로드 시 localStorage에서 값을 설정
+  // useEffect(() => {
+  //   const localStorageList = getLocalStorage();
+  //   const localStorageProduct = localStorageList.find(
+  //     (value) => value.id === item.id,
+  //   );
+  //   if (localStorageProduct) {
+  //     setDetails({
+  //       quantity: item.quantity,
+  //       isChecked: localStorageProduct.isChecked,
+  //     });
+  //   }
+  // }, [item.id, item.quantity, setDetails]);
 
+  // details가 변경될 때 서버와 동기화
   useEffect(() => {
     const fetchData = async () => {
-      setError(null);
-
       try {
         await fetchCartItemQuantity(item.id, details.quantity);
       } catch (error) {
@@ -127,7 +129,7 @@ function CartItemCard({ item }: ProductProps) {
     };
 
     fetchData();
-  }, [details, item.id]);
+  }, [details.quantity, item.id]);
 
   const handleDecreasedQuantity = () => {
     setDetails((prevQuantity) => ({
