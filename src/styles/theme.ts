@@ -32,6 +32,12 @@ const theme: DefaultTheme = {
       font-weight: 700;
       line-height: 1.6rem;
     `,
+    labelTitle: `
+      font-family: Noto Sans KR;
+      font-weight: 700;
+      line-height: 2.606rem;
+      font-size: 1.8rem;  
+    `,
   },
   color: {
     black: '#000000',
