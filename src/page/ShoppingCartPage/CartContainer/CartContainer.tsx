@@ -1,9 +1,8 @@
 import * as S from './style';
 
 import CartItemContainer from '../CartItemContainer/CartItemContainer';
-import DeliveryInfo from '../DeliveryInfo/DeliveryInfo';
-import OrderAmount from '../OrderAmount/OrderAmount';
-import { cartItemsState } from '../../recoil/atoms';
+import OrderAmount from '../CartAmount/CartAmount';
+import { cartItemsState } from '../../../recoil/atoms';
 import { useRecoilValue } from 'recoil';
 
 export default function CartContainer() {
@@ -16,8 +15,6 @@ export default function CartContainer() {
   return (
     <>
       <CartItemContainer />
-      <S.SetCouponButton>쿠폰 적용</S.SetCouponButton>
-      <DeliveryInfo />
       <OrderAmount />
     </>
   );

@@ -1,11 +1,11 @@
 import * as S from './style';
 
 import CartItem from '../CartItem/CartItem';
-import CheckBox from '../CheckBox/CheckBox';
-import { cartItemsState } from '../../recoil/atoms';
-import { removeCartItem } from '../../apis';
-import useCheckedItemIds from '../../hooks/useCheckedItemIds';
-import useItemQuantity from '../../hooks/useItemQuantity';
+import CheckBox from '../../../components/CheckBox/CheckBox';
+import { cartItemsState } from '../../../recoil/atoms';
+import { removeCartItem } from '../../../apis';
+import useCheckedItemIds from '../../../hooks/useCheckedItemIds';
+import useItemQuantity from '../../../hooks/useItemQuantity';
 import { useRecoilState } from 'recoil';
 
 export default function CartItemContainer() {

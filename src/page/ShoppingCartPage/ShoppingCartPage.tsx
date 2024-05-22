@@ -1,8 +1,8 @@
-import CartContainer from '../components/CartContainer/CartContainer';
-import ConfirmButton from '../components/ConfirmButton/ConfirmButton';
-import Header from '../components/Header/Header';
+import CartContainer from './CartContainer/CartContainer';
+import ConfirmButton from '../../components/ConfirmButton/ConfirmButton';
+import Header from '../../components/Header/Header';
 import { Suspense } from 'react';
-import TitleContainer from '../components/TitleContainer/TitleContainer';
+import TitleContainer from '../../components/TitleContainer/TitleContainer';
 import styled from '@emotion/styled';
 
 export default function ShoppingCartPage() {

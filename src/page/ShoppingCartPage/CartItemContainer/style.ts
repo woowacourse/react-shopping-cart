@@ -21,5 +21,5 @@ export const CheckAllBoxContainer = styled.div({
 });
 
 export const CartItemListContainer = styled.ul({
-  margin: '36px 0 0 0',
+  margin: '36px 0 52px 0',
 });

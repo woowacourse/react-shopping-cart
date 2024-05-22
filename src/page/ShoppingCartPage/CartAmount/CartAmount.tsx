@@ -1,9 +1,9 @@
 import * as S from './style';
 
-import { checkedItemsState, deliveryFeeState } from '../../recoil/selectors';
+import { checkedItemsState, deliveryFeeState } from '../../../recoil/selectors';
 
-import { InfoIcon } from '../../assets';
-import convertToLocaleAmount from '../../utils/convertToLocalePrice';
+import { InfoIcon } from '../../../assets';
+import convertToLocaleAmount from '../../../utils/convertToLocalePrice';
 import { useRecoilValue } from 'recoil';
 
 export default function OrderAmount() {

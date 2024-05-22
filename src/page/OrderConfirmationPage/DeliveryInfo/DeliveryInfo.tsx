@@ -1,6 +1,6 @@
 import * as S from './style';
 
-import CheckBox from '../CheckBox/CheckBox';
+import CheckBox from '../../../components/CheckBox/CheckBox';
 
 export default function DeliveryInfo() {
   return (

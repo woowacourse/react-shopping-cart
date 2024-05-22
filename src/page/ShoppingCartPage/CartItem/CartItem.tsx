@@ -1,10 +1,10 @@
 import * as S from './style';
 
-import { CartItem as CartItemType } from '../../type';
-import CheckBox from '../CheckBox/CheckBox';
-import QuantityController from '../QuantityController/QuantityController';
-import SmallButton from '../SmallButton/SmallButton';
-import convertToLocaleAmount from '../../utils/convertToLocalePrice';
+import { CartItem as CartItemType } from '../../../type';
+import CheckBox from '../../../components/CheckBox/CheckBox';
+import QuantityController from '../../../components/QuantityController/QuantityController';
+import SmallButton from '../../../components/SmallButton/SmallButton';
+import convertToLocaleAmount from '../../../utils/convertToLocalePrice';
 
 interface CartItemProps {
   cartItem: CartItemType;
