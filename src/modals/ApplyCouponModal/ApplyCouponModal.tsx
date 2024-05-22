@@ -13,15 +13,15 @@ function ApplyCouponModal({ couponList }: ApplyCouponModalProps) {
   const { openModal } = useToggleModal();
   return (
     <Modal
-      style={{ width: '90%', justifyContent: 'space-between', rowGap: '32px' }}
+      style={{ width: '90%', justifyContent: 'space-between', rowGap: '16px' }}
       position="center"
       onBackdropClick={openModal}
     >
-      <Modal.CloseButton onClick={openModal}></Modal.CloseButton>
-      <Modal.Title title="쿠폰을 선택해 주세요" />
+      <Modal.CloseButton onClick={openModal} style={{ top: '34px', right: '20px' }} />
+      <Modal.Title title="쿠폰을 선택해 주세요" style={{ marginTop: '14px' }} />
       <S.CouponListContainer>
         <NotificationContainer content={`쿠폰은 최대 2개까지 사용할 수 있습니다.`} />
-        <CouponList couponList={couponList}></CouponList>
+        <CouponList couponList={couponList} />
       </S.CouponListContainer>
       <Modal.ConfirmButton />
     </Modal>

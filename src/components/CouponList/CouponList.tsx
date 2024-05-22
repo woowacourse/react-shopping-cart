@@ -1,4 +1,5 @@
 import { Coupon } from '../../types/Coupon.type';
+import CouponContainer from '../Container/CouponContainer/CouponContainer';
 import * as S from './CouponList.style';
 
 interface CouponListProps {
@@ -9,11 +10,7 @@ function CouponList({ couponList }: CouponListProps) {
   return (
     <S.Layout>
       {couponList.map((coupon) => (
-        <>
-          <div>{coupon.description}</div>
-          <div>{coupon.expirationDate}</div>
-          {coupon.minimumAmount && <div>{coupon.minimumAmount}</div>}
-        </>
+        <CouponContainer key={coupon.code} coupon={coupon} />
       ))}
     </S.Layout>
   );
