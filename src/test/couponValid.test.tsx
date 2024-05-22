@@ -82,7 +82,7 @@ describe("coupon disable 테스트", () => {
     expect(result.current.isDisabled).toBeFalsy();
   });
 
-  it("'2개 구매 시 1개 무료 쿠폰'의 경우, 장바구니에 2개 미만의 상품이 담겨 있다면 비활성화 된다.", () => {
+  it("'2개 구매 시 1개 무료 쿠폰'의 경우, 장바구니에 2개 이상의 상품이 담겨 있다면 활성화 된다.", () => {
     const CART_STATE: CartItemInfo[] = [
       {
         id: 1,
@@ -147,10 +147,35 @@ describe("coupon disable 테스트", () => {
     expect(result.current.isDisabled).toBeTruthy();
   });
 
-  it("최소 주문 금액이 넘지 않으면 비활성화된다.", () => {
+  it("최소 주문 금액이 넘으면 활성화된다.", () => {
     const { result } = renderHook(
       () => {
         const id = 6;
+        const { isDisabled } = useCoupon(id);
+        return { isDisabled };
+      },
+      {
+        wrapper: ({ children }) => (
+          <RecoilRoot
+            initializeState={({ set }) => {
+              set(cartState, chargeShippingDummy.content);
+              set(couponsState, couponsDummy);
+              couponEachCheckDummy.forEach(({ id }) => {
+                set(couponEachCheckState(id), false);
+              });
+            }}
+          >
+            {children}
+          </RecoilRoot>
+        ),
+      }
+    );
+    expect(result.current.isDisabled).toBeFalsy();
+  });
+  it("사용 시간에 해당하면 활성화 된다.", () => {
+    const { result } = renderHook(
+      () => {
+        const id = 4;
         const { isDisabled } = useCoupon(id);
         return { isDisabled };
       },
