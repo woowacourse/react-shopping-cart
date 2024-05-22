@@ -9,7 +9,7 @@ export interface HeaderButtonProps {
 const Header: React.FC<HeaderButtonProps> = ({ type }) => {
   return (
     <StyledHeaderContainer>
-      <HeaderButton type={type} />
+      {type !== HEADER_TYPES.NONE && <HeaderButton type={type} />}
     </StyledHeaderContainer>
   );
 };

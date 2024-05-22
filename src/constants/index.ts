@@ -28,8 +28,9 @@ export const COUNTER_BUTTON_TYPES = {
 
 // 헤더 타입 상수
 export const HEADER_TYPES = {
-  SHOP: "shop",
-  BACK: "back",
+  SHOP: "SHOP",
+  BACK: "BACK",
+  NONE: "NONE",
 } as const;
 
 // 에러 메시지 상수
