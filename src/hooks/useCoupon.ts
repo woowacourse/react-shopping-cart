@@ -23,13 +23,22 @@ const useCoupon = (id: number) => {
     //최소 주문금액이 넘었을 경우 체크 활성화
     const isOverMinimumAmount = !coupon?.minimumAmount || coupon.minimumAmount >= totalAmount;
     //buyXgetY 확인
-    const isValidBuyXgetY = !coupon?.buyQuantity || coupon?.buyQuantity >= cartItems.length;
+    const isValidBuyXGetY = !coupon?.buyQuantity || coupon?.buyQuantity >= cartItems.length;
     //유효기간이 안지난 쿠폰만 활성화
     const currentDate = new Date();
     const couponExpirationDate = new Date(coupon.expirationDate);
     const isValidPeriod = currentDate <= couponExpirationDate;
-
-    if (isNotOver2OrChecked && isOverMinimumAmount && isValidBuyXgetY && isValidPeriod) {
+    //사용 시간에 포함된 쿠폰만 활성화
+    const isValidTime = () => {
+      if (!coupon.availableTime) return true;
+      const timeString = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)
+        .toString()
+        .padStart(2, "0")}-${currentDate.getDate()}T`;
+      const startTime = new Date(timeString + coupon.availableTime.start + "Z");
+      const endTime = new Date(timeString + coupon.availableTime.end + "Z");
+      return currentDate >= startTime && currentDate <= endTime;
+    };
+    if (isNotOver2OrChecked && isOverMinimumAmount && isValidBuyXGetY && isValidPeriod && isValidTime()) {
       setIsDisabled(false);
     } else {
       setIsDisabled(true);
