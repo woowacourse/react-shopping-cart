@@ -21,10 +21,8 @@ const OrderConfirm = () => {
   const { totalPrice } = useRecoilValue(recipeState);
 
   const selectedCoupon = useRecoilValue(selectedCouponListState);
-  const date = new Date();
   const totalDiscountPrice = useTotalCouponDiscount({
     coupons: selectedCoupon,
-    date,
   });
 
   const { itemCount, totalQuantity } = useRecoilValue(orderedItemQuantityState);

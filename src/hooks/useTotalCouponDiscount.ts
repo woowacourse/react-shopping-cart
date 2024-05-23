@@ -5,10 +5,9 @@ import { useRecoilValue } from 'recoil';
 
 interface Props {
   coupons: Coupon[];
-  date: Date;
 }
 
-const useTotalCouponDiscount = ({ coupons, date }: Props) => {
+const useTotalCouponDiscount = ({ coupons }: Props) => {
   const { orderPrice } = useRecoilValue(recipeState);
 
   const coupon1 = coupons[0] || null;
@@ -16,13 +15,11 @@ const useTotalCouponDiscount = ({ coupons, date }: Props) => {
 
   const coupon1Discount = useCouponDiscount({
     coupon: coupon1,
-    date,
     orderPrice,
   });
 
   const coupon2Discount = useCouponDiscount({
     coupon: coupon2,
-    date,
     orderPrice,
   });
 
@@ -30,7 +27,6 @@ const useTotalCouponDiscount = ({ coupons, date }: Props) => {
     coupon1Discount +
     useCouponDiscount({
       coupon: coupon2,
-      date,
       orderPrice: orderPrice - coupon1Discount,
     });
 
@@ -38,7 +34,6 @@ const useTotalCouponDiscount = ({ coupons, date }: Props) => {
     coupon2Discount +
     useCouponDiscount({
       coupon: coupon1,
-      date,
       orderPrice: orderPrice - coupon2Discount,
     });
 

@@ -2,17 +2,14 @@ import { CartItemType } from '@/types/cart.type';
 import { Coupon } from '@/types/coupon.type';
 import { orderItemState } from '@/store/selectors/orderItemSelector';
 import { recipeState } from '@/store/selectors/recipeSelector';
-import useCouponAvailable from './useCouponAvailable';
-import useCouponValidator from './useCouponValidator';
 import { useRecoilValue } from 'recoil';
 
 interface Props {
   coupon: Coupon;
-  date: Date;
   orderPrice?: number;
 }
 
-const useCouponDiscount = ({ coupon, date, orderPrice }: Props) => {
+const useCouponDiscount = ({ coupon, orderPrice }: Props) => {
   const fixedCoupon = () => {
     return coupon.discount || 0;
   };
@@ -36,13 +33,10 @@ const useCouponDiscount = ({ coupon, date, orderPrice }: Props) => {
     return (coupon.discount && orderPrice * coupon.discount * 0.01) || 0;
   };
 
-  const isValid = useCouponValidator({ coupon, date });
-  const isAvailable = useCouponAvailable({ coupon, date });
-
   const { shippingFee } = useRecoilValue(recipeState);
   const orderedList = useRecoilValue(orderItemState);
 
-  if (!isValid || !isAvailable) return 0;
+  if (!coupon) return 0;
 
   if (coupon.discountType === 'fixed') return fixedCoupon();
   if (coupon.discountType === 'buyXgetY') return bogoCoupon(orderedList);

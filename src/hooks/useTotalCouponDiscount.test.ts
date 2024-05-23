@@ -18,7 +18,6 @@ jest.mock('@/api/config', () => ({
 }));
 
 describe('useTotalCouponDiscount 훅을 사용하여 적용된 모든 쿠폰들에 대한 최종 할인 가격을 가져올 수 있다.', () => {
-  const date = new Date();
   it('쿠폰을 하나만 사용시 하나의 할인 금액만 보여준다.', () => {
     const { result } = renderHook(
       () => {
@@ -56,10 +55,8 @@ describe('useTotalCouponDiscount 훅을 사용하여 적용된 모든 쿠폰들�
           },
         ];
 
-        const AM4 = new Date(2024, 4, 22, 4, 0, 0, 0);
         const totalDiscountedPrice = useTotalCouponDiscount({
           coupons,
-          date: AM4,
         });
 
         return { totalDiscountedPrice };
@@ -122,10 +119,8 @@ describe('useTotalCouponDiscount 훅을 사용하여 적용된 모든 쿠폰들�
           },
         ];
 
-        const AM4 = new Date(2024, 4, 22, 4, 0, 0, 0);
         const totalDiscountedPrice = useTotalCouponDiscount({
           coupons,
-          date: AM4,
         });
 
         return { totalDiscountedPrice };
@@ -188,10 +183,8 @@ describe('useTotalCouponDiscount 훅을 사용하여 적용된 모든 쿠폰들�
           },
         ];
 
-        const AM4 = new Date(2024, 4, 22, 4, 0, 0, 0);
         const totalDiscountedPrice = useTotalCouponDiscount({
           coupons,
-          date: AM4,
         });
 
         return { totalDiscountedPrice };
@@ -253,10 +246,8 @@ describe('useTotalCouponDiscount 훅을 사용하여 적용된 모든 쿠폰들�
           },
         ];
 
-        const AM4 = new Date(2024, 4, 22, 4, 0, 0, 0);
         const totalDiscountedPrice = useTotalCouponDiscount({
           coupons,
-          date: AM4,
         });
 
         return { totalDiscountedPrice };
@@ -317,7 +308,6 @@ describe('useTotalCouponDiscount 훅을 사용하여 적용된 모든 쿠폰들�
 
         const totalDiscountedPrice = useTotalCouponDiscount({
           coupons,
-          date,
         });
 
         return { totalDiscountedPrice };
@@ -377,7 +367,6 @@ describe('useTotalCouponDiscount 훅을 사용하여 적용된 모든 쿠폰들�
 
         const totalDiscountedPrice = useTotalCouponDiscount({
           coupons,
-          date,
         });
 
         return { totalDiscountedPrice };
@@ -439,7 +428,6 @@ describe('useTotalCouponDiscount 훅을 사용하여 적용된 모든 쿠폰들�
 
         const totalDiscountedPrice = useTotalCouponDiscount({
           coupons,
-          date,
         });
 
         return { totalDiscountedPrice };

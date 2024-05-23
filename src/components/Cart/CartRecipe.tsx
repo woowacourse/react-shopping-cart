@@ -23,10 +23,9 @@ const CartRecipe = ({ isCoupon = false }: Props) => {
   const { orderPrice, shippingFee, totalPrice } = useRecoilValue(recipeState);
 
   const selectedCoupon = useRecoilValue(selectedCouponListState);
-  const date = new Date();
+
   const totalDiscountPrice = useTotalCouponDiscount({
     coupons: selectedCoupon,
-    date,
   });
 
   const displayTotalPrice = isCoupon

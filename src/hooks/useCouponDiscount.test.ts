@@ -19,7 +19,6 @@ jest.mock('@/api/config', () => ({
 }));
 
 describe('useCouponDiscount test', () => {
-  const date = new Date();
   it('[5000원 할인 쿠폰] 쿠폰으로 할인된 가격을 보여준다.', () => {
     const { result } = renderHook(
       () => {
@@ -57,7 +56,6 @@ describe('useCouponDiscount test', () => {
 
         const discountedPrice = useCouponDiscount({
           coupon,
-          date,
         });
 
         return { discountedPrice };
@@ -106,7 +104,6 @@ describe('useCouponDiscount test', () => {
 
         const discountedPrice = useCouponDiscount({
           coupon,
-          date,
         });
 
         return { discountedPrice };
@@ -157,11 +154,9 @@ describe('useCouponDiscount test', () => {
           discountType: 'percentage',
         };
 
-        const AM4 = new Date(2024, 4, 22, 4, 0, 0, 0);
         const { orderPrice } = useRecoilValue(recipeState);
         const discountedPrice = useCouponDiscount({
           coupon,
-          date: AM4,
           orderPrice,
         });
 
@@ -212,7 +207,6 @@ describe('useCouponDiscount test', () => {
 
         const discountedPrice = useCouponDiscount({
           coupon,
-          date,
         });
 
         return { discountedPrice };
@@ -268,7 +262,6 @@ describe('useCouponDiscount test', () => {
 
         const discountedPrice = useCouponDiscount({
           coupon,
-          date,
         });
 
         return { discountedPrice };
