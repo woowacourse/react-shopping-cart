@@ -1,5 +1,8 @@
 import { selector } from 'recoil';
-import { orderedPriceSelector } from '../price/priceSelector';
+import {
+  deliveryFeeSelector,
+  orderedPriceSelector,
+} from '../price/priceSelector';
 import { selectedCouponListAtom } from '../coupon/couponListAtom';
 
 export const percentageDiscountSelector = selector<number>({
@@ -38,12 +41,27 @@ export const fixedDiscountSelector = selector<number>({
   },
 });
 
+export const freeShippingDiscountSelector = selector<number>({
+  key: 'freeShippingDiscount',
+  get: ({ get }) => {
+    const deliveryFee = get(deliveryFeeSelector);
+    const selectedCouponList = get(selectedCouponListAtom);
+
+    return selectedCouponList.find(
+      (coupon) => coupon.discountType === 'freeShipping',
+    )
+      ? deliveryFee
+      : 0;
+  },
+});
+
 export const totalDiscountSelector = selector<number>({
   key: 'totalDiscount',
   get: ({ get }) => {
     const percentageDiscount = get(percentageDiscountSelector);
     const fixedDiscount = get(fixedDiscountSelector);
+    const freeShippingDiscount = get(freeShippingDiscountSelector);
 
-    return percentageDiscount + fixedDiscount;
+    return percentageDiscount + fixedDiscount + freeShippingDiscount;
   },
 });
