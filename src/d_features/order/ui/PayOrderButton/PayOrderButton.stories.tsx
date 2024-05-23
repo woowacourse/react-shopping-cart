@@ -3,7 +3,7 @@ import { PayOrderButton } from './PayOrderButton';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof PayOrderButton> = {
-  title: '4. features/cart/PayOrderButton',
+  title: '4. features/order/PayOrderButton',
   component: PayOrderButton,
 };
 
