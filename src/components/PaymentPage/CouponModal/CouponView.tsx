@@ -38,13 +38,17 @@ export default function CouponView({
           <S.Description>{description}</S.Description>
         </label>
       </S.Title>
-      {expirationDate && <S.Requirement>만료일: {expirationDate}까지</S.Requirement>}
-      {minimumAmount && <S.Requirement>최소 주문 금액: {formatToKRW(minimumAmount)}</S.Requirement>}
-      {availableTime && (
-        <S.Requirement>
-          사용 가능 시간: {availableTime.start} ~ {availableTime.end}
-        </S.Requirement>
-      )}
+      <S.RequirementWrapper>
+        {expirationDate && <S.Requirement>만료일: {expirationDate}까지</S.Requirement>}
+        {minimumAmount && (
+          <S.Requirement>최소 주문 금액: {formatToKRW(minimumAmount)}</S.Requirement>
+        )}
+        {availableTime && (
+          <S.Requirement>
+            사용 가능 시간: {availableTime.start} ~ {availableTime.end}
+          </S.Requirement>
+        )}
+      </S.RequirementWrapper>
     </S.Container>
   );
 }
@@ -56,6 +60,7 @@ const S = {
 
     color: ${({ $isSelectable }) => ($isSelectable ? "" : "rgba(51, 51, 51, 0.35)")};
 
+    min-height: 60px;
     cursor: pointer;
   `,
 
@@ -70,6 +75,10 @@ const S = {
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
+  `,
+
+  RequirementWrapper: styled.div`
+    margin-top: 8px;
   `,
 
   Requirement: styled.div`

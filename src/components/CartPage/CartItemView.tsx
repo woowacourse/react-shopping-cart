@@ -67,6 +67,7 @@ const S = {
     margin: 0;
     width: 24px;
     height: 24px;
+    cursor: pointer;
   `,
 
   RemoveButton: styled.button`
