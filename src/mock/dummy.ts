@@ -101,7 +101,7 @@ export const couponsDummy: Coupon[] = [
     code: "FREESHIPPING",
     description: "5만원 이상 구매 시 무료 배송 쿠폰",
     expirationDate: "2024-08-31",
-    minimumAmount: 50000,
+    minimumAmount: 40000,
     discountType: "freeShipping",
   },
   {

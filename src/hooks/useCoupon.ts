@@ -1,5 +1,6 @@
+import { COUPON_DISCOUNT_TYPE } from "@/constants";
 import { cartState, couponEachCheckState, couponsState } from "@/store/atom/atoms";
-import { isOver2CouponsCheckedState, totalAmountState } from "@/store/selector/selectors";
+import { isOver2CouponsCheckedState, orderAmountState } from "@/store/selector/selectors";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 
@@ -10,7 +11,7 @@ const useCoupon = (id: number) => {
   const isCouponChecked = useRecoilValue(couponEachCheckState(id));
   const coupons = useRecoilValue(couponsState);
   const coupon = coupons.find((coupon) => coupon.id === id);
-  const totalAmount = useRecoilValue(totalAmountState);
+  const orderAmount = useRecoilValue(orderAmountState);
   const cartItems = useRecoilValue(cartState);
 
   if (!coupon) {
@@ -21,9 +22,10 @@ const useCoupon = (id: number) => {
     //2개 이상 체크되지 않고, 되었다면 해당 쿠폰이 체크된 경우 활성화
     const isNotOver2OrChecked = !isOver2CouponsChecked || isCouponChecked;
     //최소 주문금액이 넘었을 경우 체크 활성화
-    const isOverMinimumAmount = !coupon?.minimumAmount || coupon.minimumAmount >= totalAmount;
+    const isOverMinimumAmount = !coupon?.minimumAmount || coupon.minimumAmount <= orderAmount;
     //buyXgetY 확인
-    const isValidBuyXGetY = !coupon?.buyQuantity || coupon?.buyQuantity >= cartItems.length;
+    const isValidBuyXGetY =
+      coupon.discountType !== COUPON_DISCOUNT_TYPE.BuyXgetY || coupon.buyQuantity >= cartItems.length;
     //유효기간이 안지난 쿠폰만 활성화
     const currentDate = new Date();
     const couponExpirationDate = new Date(coupon.expirationDate);
@@ -39,8 +41,16 @@ const useCoupon = (id: number) => {
       return currentDate >= startTime && currentDate <= endTime;
     };
     //배송비가 청구되는 경우 쿠폰 활성화
-    const isFreeShipCouponValid = coupon.discountType !== "freeShipping" || totalAmount < 100_000;
-
+    const isFreeShipCouponValid = coupon.discountType !== "freeShipping" || orderAmount < 100_000;
+    console.log(coupon.discountType, orderAmount);
+    console.log(
+      isNotOver2OrChecked,
+      isOverMinimumAmount,
+      isValidBuyXGetY,
+      isValidPeriod,
+      isValidTime(),
+      isFreeShipCouponValid
+    );
     if (
       isNotOver2OrChecked &&
       isOverMinimumAmount &&
@@ -53,7 +63,7 @@ const useCoupon = (id: number) => {
     } else {
       setIsDisabled(true);
     }
-  }, [isOver2CouponsChecked, isCouponChecked, coupon, totalAmount, cartItems]);
+  }, [isOver2CouponsChecked, isCouponChecked, coupon, orderAmount, cartItems]);
 
   return { isDisabled };
 };
