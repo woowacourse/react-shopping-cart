@@ -5,14 +5,14 @@ import CartList from './components/CartList';
 import CartTitle from './components/CartTitle';
 import CartTotals from './components/CartTotals';
 import useCartNavigate from '../../hooks/useCartNavigate';
-import usePaymentsNavigate from '../../hooks/usePaymentsNavigate';
+import useCheckoutNavigate from '../../hooks/useCheckoutNavigate';
 
 import styles from './Cart.module.css';
 import { productsState } from '../../store/atoms';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
 export default function CartPage() {
-  const { handleFooterButtonClick } = usePaymentsNavigate();
+  const { handleCheckoutNavigate } = useCheckoutNavigate();
   const { navigateCartPage } = useCartNavigate();
   const products = useRecoilValue(productsState);
 
@@ -37,7 +37,7 @@ export default function CartPage() {
           </div>
         </>
       )}
-      <Button onClick={handleFooterButtonClick} variant="footer" disabled={products.length === 0}>
+      <Button onClick={handleCheckoutNavigate} variant="footer" disabled={products.length === 0}>
         주문 하기
       </Button>
     </>

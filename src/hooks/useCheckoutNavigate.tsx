@@ -3,13 +3,13 @@ import { totalProductQuantity, totalOrderAmountState } from '../store/selectors'
 import { useNavigate } from 'react-router-dom';
 import ROUTES from '../constants/routes';
 
-const usePaymentsNavigate = () => {
+const useCheckoutNavigate = () => {
   const navigate = useNavigate();
   const { totalCount, totalQuantity } = useRecoilValue(totalProductQuantity);
   const { totalAmount } = useRecoilValue(totalOrderAmountState);
 
-  const handleFooterButtonClick = () => {
-    navigate(ROUTES.CHECK_OUT, {
+  const handleCheckoutNavigate = () => {
+    navigate(ROUTES.CHECKOUT, {
       state: {
         totalCount,
         totalQuantity,
@@ -19,8 +19,8 @@ const usePaymentsNavigate = () => {
   };
 
   return {
-    handleFooterButtonClick,
+    handleCheckoutNavigate,
   };
 };
 
-export default usePaymentsNavigate;
+export default useCheckoutNavigate;

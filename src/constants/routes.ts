@@ -1,6 +1,7 @@
 const ROUTES = {
   CART: '/',
-  CHECK_OUT: '/payments',
+  CHECKOUT: '/checkout',
+  PAYMENTS: '/payments',
 } as const;
 
 export default ROUTES;

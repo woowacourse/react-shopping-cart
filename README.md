@@ -3,6 +3,7 @@
 step 1 : checkout 페이지 UI 구성
 
 - [x] 기존의 checkout 페이지를 payments 페이지로 이름 변경
+- [x] checkout 페이지 생성 및 라우팅
 
 # 🎯 1단계 Refactoring
 

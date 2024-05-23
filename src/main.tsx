@@ -8,6 +8,7 @@ import './styles/reset.css';
 import './styles/index.css';
 import { RecoilRoot } from 'recoil';
 import Layout from './components/common/Layout.tsx';
+import CheckoutPage from './pages/checkout/CheckoutPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <CartPage />,
+      },
+      {
+        path: '/checkout',
+        element: <CheckoutPage />,
       },
       {
         path: '/payments',
