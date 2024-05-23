@@ -15,7 +15,7 @@ export interface CartItemCounts {
   quantity: number;
 }
 
-export interface Coupon {
+export interface CouponProps {
   id: number;
   code: string;
   description: string;

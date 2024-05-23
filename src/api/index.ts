@@ -1,4 +1,4 @@
-import { CartItem, CartItemCounts, Coupon } from '../types';
+import { CartItem, CartItemCounts, CouponProps } from '../types';
 import { generateBasicToken } from '../utils/auth';
 
 const API_URL = import.meta.env.VITE_BASE_URL;
@@ -98,7 +98,7 @@ export async function deleteCartItem(cartItemId: number): Promise<void> {
 }
 
 // GET : /coupons 쿠폰 목록 조회
-export async function getCouponList(): Promise<Coupon[]> {
+export async function getCouponList(): Promise<CouponProps[]> {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const response = await fetch(`${API_URL}/coupons`, {
     method: 'GET',
