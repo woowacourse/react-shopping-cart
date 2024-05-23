@@ -4,3 +4,7 @@
   justify-content: center;
   flex-direction: column;
 }
+
+.desc {
+  line-height: 18px;
+}

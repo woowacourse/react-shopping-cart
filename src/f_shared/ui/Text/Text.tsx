@@ -5,7 +5,7 @@ import css from './Text.module.css';
 const cn = classNames.bind(css);
 
 type Children = string | number;
-type Tag = 'p' | 'span';
+type Tag = 'p' | 'span' | 'pre';
 type Type = 'h1' | 'h2' | 'b1' | 'b2';
 
 interface TextProps {
