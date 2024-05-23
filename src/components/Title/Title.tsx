@@ -7,7 +7,7 @@ const TitleContainer = styled.div`
   gap: 1.2rem;
 `;
 
-const TitleStyle = styled.div`
+const TitleStyle = styled.h1`
   font-size: 2.4rem;
   font-weight: 700;
   line-height: 3.475rem;

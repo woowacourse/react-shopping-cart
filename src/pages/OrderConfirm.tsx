@@ -19,7 +19,7 @@ const CartContainer = styled.div`
 const ContentWrapper = styled.section`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
   padding: 3.6rem 2.4rem 10.4rem 2.4rem;
   box-sizing: border-box;
   height: 100%;

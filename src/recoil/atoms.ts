@@ -37,3 +37,8 @@ export const couponDetailState = atomFamily<boolean, number>({
   key: 'couponDetailState',
   default: false,
 });
+
+export const shippingInformationState = atom({
+  key: 'shippingInformationState',
+  default: false,
+});
