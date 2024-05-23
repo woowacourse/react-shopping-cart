@@ -30,6 +30,9 @@ export function useCalculateCouponDiscount() {
       case 'percentage': {
         return Math.round(selectedCartItemTotalPrice * (coupon.discount! / 100));
       }
+      default: {
+        return 0;
+      }
     }
   };
   return { calculateCouponDiscount };
