@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import useSelectedCouponList from '../../recoil/coupon/useSelectedCouponList';
 import { toKoreanDate, toKoreanTime } from '../../utils/date';
 import Checkbox from '../common/Checkbox/Checkbox';
@@ -22,7 +21,6 @@ const SelectCouponItem = ({ coupon }: SelectCouponItemProps) => {
   const disabled =
     !validateCouponAvailable(coupon) || selectedCouponList.length === 2;
 
-  // const [disabled, setDisabled] = useState(false);
   const { isSelected, toggleSelectedCoupon } = useSelectedCouponList();
   return (
     <S.SelectCouponItem disabled={disabled}>
