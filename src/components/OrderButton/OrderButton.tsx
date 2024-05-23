@@ -1,6 +1,6 @@
 import * as Styled from './style';
 
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useRecoilValue } from 'recoil';
 
@@ -10,12 +10,9 @@ import {
 } from '../../recoil/selectors';
 
 import MESSAGE from '../../constants/Message';
+import CONDITION from '../../constants/Condition';
 
-interface OrderButtonProp {
-  onClick: () => void;
-}
-
-const OrderButton = ({ onClick }: OrderButtonProp) => {
+const OrderButton = () => {
   const cartItemsCount = useRecoilValue(cartItemsCountSelector);
   const isSomeCartItemSelected = useRecoilValue(isSomeCartItemSelectedSelector);
 
@@ -23,23 +20,37 @@ const OrderButton = ({ onClick }: OrderButtonProp) => {
   const isOrderable = hasSomeCartItem && isSomeCartItemSelected;
 
   const location = useLocation();
+  const navigator = useNavigate();
 
   const label = () => {
     switch (location.pathname) {
-      case '/':
+      case CONDITION.shoppingCartPage:
         return MESSAGE.orderConfirmation;
-      case '/orderConfirmation':
+      case CONDITION.orderConfirmationPage:
         return MESSAGE.pay;
-      case '/paymentConfirmation':
+      case CONDITION.paymentConfirmationPage:
         return MESSAGE.returningToShoppingCart;
       default:
         return '';
     }
   };
 
+  const navigatorPath = () => {
+    switch (location.pathname) {
+      case CONDITION.shoppingCartPage:
+        return CONDITION.orderConfirmationPage;
+      case CONDITION.orderConfirmationPage:
+        return CONDITION.paymentConfirmationPage;
+      case CONDITION.paymentConfirmationPage:
+        return CONDITION.shoppingCartPage;
+      default:
+        return CONDITION.shoppingCartPage;
+    }
+  };
+
   return (
     <Styled.OrderButton
-      onClick={() => onClick()}
+      onClick={() => navigator(navigatorPath())}
       $isOrderable={isOrderable}
       disabled={!isOrderable}
     >
