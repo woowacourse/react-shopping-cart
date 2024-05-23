@@ -1,6 +1,6 @@
 import { PropsWithChildren, createContext } from "react";
 import { useRecoilValue } from "recoil";
-import { useNavigate } from "react-router-dom";
+import { To } from "react-router-dom";
 
 import { orderAmountState } from "@/store/selector/selectors";
 
@@ -30,30 +30,29 @@ export type RoutesObject<T> = Record<RoutePaths, T>;
 interface FooterInfo {
   content: string;
   isButtonDisabled: boolean;
-  handleClick: () => void;
+  linkTo: To | number;
 }
 
 export const FooterRouteInfoContext = createContext<null | RoutesObject<FooterInfo>>(null);
 
 const RouteInfoProvider = ({ children }: PropsWithChildren) => {
-  const navigate = useNavigate();
   const orderAmount = useRecoilValue(orderAmountState);
 
   const footerInfo: RoutesObject<FooterInfo> = {
     "/": {
       content: "주문 확인",
       isButtonDisabled: orderAmount === 0,
-      handleClick: () => navigate("/check-order"),
+      linkTo: "/check-order",
     },
     "/check-order": {
       content: "결제하기",
       isButtonDisabled: orderAmount === 0,
-      handleClick: () => navigate("/order"),
+      linkTo: "/order",
     },
     "/order": {
       content: "결제하기",
       isButtonDisabled: true,
-      handleClick: () => navigate(0),
+      linkTo: 0,
     },
   };
 

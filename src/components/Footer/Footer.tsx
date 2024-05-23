@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { FooterStyle } from "./Footer.style";
 import { FooterRouteInfoContext, RoutePaths } from "@/Providers/RouteInfoProvider";
 import useCustomContext from "@/hooks/useCustomContext";
+import CustomLink from "../CustomLink/CustomLink";
 
 const Footer = () => {
   const location = useLocation();
@@ -11,9 +12,9 @@ const Footer = () => {
 
   return (
     <footer>
-      <button disabled={footerInfo.isButtonDisabled} css={FooterStyle} onClick={footerInfo.handleClick}>
+      <CustomLink disabled={footerInfo.isButtonDisabled} style={FooterStyle} To={footerInfo.linkTo}>
         {footerInfo.content}
-      </button>
+      </CustomLink>
     </footer>
   );
 };
