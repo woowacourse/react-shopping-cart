@@ -1,11 +1,12 @@
-import { COUPON_DISCOUNT_TYPE } from "@/constants";
-import { cartState } from "@/store/atom/atoms";
+import { COUPON_DISCOUNT_TYPE, SHIPPING_CONSTANT } from "@/constants";
+import { cartState, isExtraShippingFeeState } from "@/store/atom/atoms";
 import { orderAmountState } from "@/store/selector/selectors";
 import { useRecoilValue } from "recoil";
 
 const useCouponCalculate = (coupons: Coupon[]) => {
   const orderAmount = useRecoilValue(orderAmountState);
   const cartItems = useRecoilValue(cartState);
+  const isExtraShippingFee = useRecoilValue(isExtraShippingFeeState);
   let discountAmount = 0;
 
   // 1. 퍼센트 우선 계산
@@ -36,6 +37,17 @@ const useCouponCalculate = (coupons: Coupon[]) => {
     discountAmount += getItemAmount * buyXgetYCoupon.getQuantity;
   }
   // 4. 무료배송 할인
+  const freeShippingCoupon = coupons.find(
+    (coupon): coupon is FreeShippingCoupon => coupon.discountType === COUPON_DISCOUNT_TYPE.FreeShipping
+  );
+  if (
+    freeShippingCoupon &&
+    orderAmount < SHIPPING_CONSTANT.FREE_CRITERIA &&
+    (!freeShippingCoupon.minimumAmount || orderAmount >= freeShippingCoupon.minimumAmount)
+  ) {
+    const discountShipFee = isExtraShippingFee ? SHIPPING_CONSTANT.EXTRA_FEE : SHIPPING_CONSTANT.FEE;
+    discountAmount += discountShipFee;
+  }
 
   return { discountAmount };
 };
