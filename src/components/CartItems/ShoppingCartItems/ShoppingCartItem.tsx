@@ -1,31 +1,31 @@
-import * as Styled from './style';
+import * as Styled from '../style';
 
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { cartItemsState, isCartItemSelectedState } from '../../recoil/atoms';
+import { cartItemsState, isCartItemSelectedState } from '../../../recoil/atoms';
 
 import {
   fetchAdjustCartItemQuantity,
   fetchRemoveCartItem,
-} from '../../api/shoppingCart';
+} from '../../../api/shoppingCart';
 
-import selectedBox from '../assets/SelectedBox.svg';
-import UnSelectedBox from '../assets/UnSelectedBox.svg';
-import PlusButton from '../assets/PlusButton.svg';
-import MinusButton from '../assets/MinusButton.svg';
-import RemoveButton from '../assets/RemoveButton.svg';
+import selectedBox from '../../assets/SelectedBox.svg';
+import UnSelectedBox from '../../assets/UnSelectedBox.svg';
+import PlusButton from '../../assets/PlusButton.svg';
+import MinusButton from '../../assets/MinusButton.svg';
+import RemoveButton from '../../assets/RemoveButton.svg';
 
-import MESSAGE from '../../constants/Message';
-import CONDITION from '../../constants/Condition';
-import VALUE from '../../constants/Value';
+import MESSAGE from '../../../constants/Message';
+import CONDITION from '../../../constants/Condition';
+import VALUE from '../../../constants/Value';
 
-import { CartItemType } from '../../type';
+import { CartItemType } from '../../../type';
 
 interface CartItemProps {
   inputCartItem: CartItemType;
 }
 
-const CartItem = ({ inputCartItem }: CartItemProps) => {
+const ShoppingCartItem = ({ inputCartItem }: CartItemProps) => {
   const [isSelected, setIsSelected] = useRecoilState(
     isCartItemSelectedState(inputCartItem.id),
   );
@@ -101,7 +101,7 @@ const CartItem = ({ inputCartItem }: CartItemProps) => {
           />
         </Styled.SelectButton>
         <Styled.RemoveButton onClick={() => handleCartItemRemoval()}>
-          {MESSAGE.remove}
+          {MESSAGE.removal}
         </Styled.RemoveButton>
       </Styled.ButtonContainer>
 
@@ -127,7 +127,7 @@ const CartItem = ({ inputCartItem }: CartItemProps) => {
                 }
                 alt={
                   inputCartItem.quantity === CONDITION.RemoveButtonAppeared
-                    ? MESSAGE.removeButton
+                    ? MESSAGE.removalButton
                     : MESSAGE.minusButton
                 }
               />
@@ -145,4 +145,4 @@ const CartItem = ({ inputCartItem }: CartItemProps) => {
   );
 };
 
-export default CartItem;
+export default ShoppingCartItem;
