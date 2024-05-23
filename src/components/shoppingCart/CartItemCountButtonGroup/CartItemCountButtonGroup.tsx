@@ -3,7 +3,7 @@ import { CountButton } from '@components/common';
 import { useUpdateCartItemCount } from '@hooks/shoppingCart';
 import useFetchErrorBoundary from '@hooks/useFetchErrorBoundary';
 
-import CountAlertModal from '../CartListDescription/CountAlertModal';
+import CountAlertModal from '../CountAlertModal/CountAlertModal';
 
 import * as Styled from './CartItemCountButtonGroup.styled';
 
