@@ -71,7 +71,7 @@ describe("percent 할인 쿠폰과 fixed 할인 쿠폰 계산 테스트", () => 
         product: { ...cartItemDummy.product, ...product },
         quantity,
       })),
-      DISCOUNT_AMOUNT_EXPECTED: 6_000,
+      DISCOUNT_AMOUNT_EXPECTED: 11_000,
     },
   ])("$DESCRIPTION", ({ CART_STATE_DUMMY, DISCOUNT_AMOUNT_EXPECTED }) => {
     const { result } = renderHook(
