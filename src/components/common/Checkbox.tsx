@@ -7,14 +7,29 @@ interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
   labelHidden: boolean;
   label: string;
+  disabled?: boolean;
 }
 
-export default function Checkbox({ id, checked, labelHidden, label, onChange }: CheckboxProps) {
+export default function Checkbox({
+  id,
+  checked,
+  labelHidden,
+  label,
+  disabled,
+  onChange,
+}: CheckboxProps) {
   return (
     <>
-      <input id={id} type="checkbox" checked={checked} css={screenReaderOnly} onChange={onChange} />
-      <label css={labelStyle} htmlFor={id}>
-        <img src={checked ? CHECKED : UNCHECKED} width={24} height={24} css={checkIcon} alt="" />
+      <input
+        disabled={disabled}
+        id={id}
+        type="checkbox"
+        checked={checked}
+        css={screenReaderOnly}
+        onChange={onChange}
+      />
+      <label css={labelStyle(Boolean(disabled))} htmlFor={id}>
+        <img src={checked ? CHECKED : UNCHECKED} css={checkIcon} alt="" />
         <span css={[labelText, labelHidden && screenReaderOnly]}>{label}</span>
       </label>
     </>
@@ -35,16 +50,19 @@ const screenReaderOnly = css`
   clip: rect(0 0 0 0);
 `;
 
-const labelStyle = css`
+const labelStyle = (disabled: boolean) => css`
   display: flex;
   align-items: center;
   gap: 8px;
 
   height: 24px;
+
+  cursor: ${disabled ? 'default' : 'pointer'};
 `;
 
 const checkIcon = css`
-  cursor: pointer;
+  width: 24px;
+  height: 24px;
 `;
 
 const labelText = css`
