@@ -33,16 +33,33 @@ const useMaxDiscountCalculator = () => {
    * @returns
    */
 
-  const getMaxDiscountAmount = (coupons: Coupon[]): number => {
+  const isPercentageCoupon = (coupons: Coupon[]) => {
+    return coupons.some((coupon) => coupon.discountType === 'percentage');
+  };
+
+  /**
+   * 쿠폰 순서에 따라 금액이 달라지는 경우, 순열을 사용해 다양한 쿠폰 순서 조합에 따라 최대 할인금액을 계산하는 함수
+   * @param coupons
+   * @returns
+   */
+  const getPermutationsMaxDiscountAmount = (coupons: Coupon[]) => {
     // 쿠폰 순열
     const permutations = getPermutations(coupons);
-    // 쿠폰을 조합해 최대 할인 금액 계산
+
     const maxDiscount = permutations.reduce((max, p) => {
       const totalDiscount = getTotalDiscountAmount(p);
       return totalDiscount > max ? totalDiscount : max;
     }, 0);
 
     return maxDiscount;
+  };
+
+  /**
+   * percentage 타입의 쿠폰이 있는 경우, 순열을 사용해 최대 할인 금액을 계산하고 그렇지 않을 경우에는 파라미터로 받은 쿠폰 순서대로 최대 할인 금액을 계산하는 함수
+   * @param coupons 선택한 쿠폰들
+   */
+  const getMaxDiscountAmount = (coupons: Coupon[]): number => {
+    return isPercentageCoupon(coupons) ? getPermutationsMaxDiscountAmount(coupons) : getTotalDiscountAmount(coupons);
   };
 
   return { getMaxDiscountAmount };

@@ -1,5 +1,6 @@
 export const getPermutations = <T>(arr: T[]): T[][] => {
   if (arr.length <= 1) return [arr];
+
   const result: T[][] = [];
   for (let i = 0; i < arr.length; i++) {
     const rest = [...arr.slice(0, i), ...arr.slice(i + 1)];
@@ -8,5 +9,6 @@ export const getPermutations = <T>(arr: T[]): T[][] => {
       result.push([arr[i], ...p]);
     }
   }
+
   return result;
 };
