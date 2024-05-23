@@ -44,7 +44,6 @@ export default function CouponView({
           사용 가능 시간: {availableTime.start} ~ {availableTime.end}
         </S.Requirement>
       )}
-      <S.Requirement>사용 가능 여부: {isSelectable ? "사용 가능" : "사용 불가능"}</S.Requirement>
     </S.Container>
   );
 }
