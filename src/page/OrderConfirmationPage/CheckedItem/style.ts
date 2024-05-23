@@ -27,6 +27,9 @@ export const ProductInfoBox = styled.div({
   alignContent: 'space-between',
   maxWidth: '246px',
 
+  fontSize: '12px',
+  fontWeight: 500,
+
   margin: '9px 0',
   textOverflow: 'ellipsis',
 });
