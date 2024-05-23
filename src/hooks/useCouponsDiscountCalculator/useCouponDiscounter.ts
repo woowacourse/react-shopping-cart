@@ -15,19 +15,20 @@ import {
   calculatePercentageDiscountAmount,
 } from "./discountCalculators";
 
-type CalculateCouponDiscount = (coupon: Coupon) => number;
+type CalculateCouponDiscount = (coupon: Coupon, discountAmount: number) => number;
 
 export const useCouponDiscountCalculator = (): CalculateCouponDiscount => {
   const cartItems = useRecoilValue(cartItemsState);
   const { orderAmount, shippingCost } = useRecoilValue(cartAmountState);
 
-  return (coupon: Coupon) => {
+  return (coupon: Coupon, discountAmount: number) => {
     if (!coupon.isSelected) return 0;
 
+    const currentDiscountedOrderAmount = orderAmount - discountAmount;
     if (isFixedDiscountCoupon(coupon)) {
       return calculateFixedDiscountAmount(coupon);
     } else if (isPercentageDiscountCoupon(coupon)) {
-      return calculatePercentageDiscountAmount(coupon, orderAmount);
+      return calculatePercentageDiscountAmount(coupon, currentDiscountedOrderAmount);
     } else if (isBuyXGetYCoupon(coupon)) {
       return calculateBuyXGetYDiscountAmount(coupon, cartItems);
     } else if (isFreeShippingCoupon(coupon)) {

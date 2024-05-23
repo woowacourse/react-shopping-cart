@@ -12,7 +12,7 @@ export const useCouponsDiscountCalculator = (): CouponsDiscountCalculator => {
 
     const couponsPermutations = getPermutations(selectedCoupons);
     const possibleDiscounts = couponsPermutations.map((coupons) => {
-      return coupons.reduce((total, coupon) => total + calculateCouponDiscount(coupon), 0);
+      return coupons.reduce((total, coupon) => total + calculateCouponDiscount(coupon, total), 0);
     });
 
     return Math.max(...possibleDiscounts);

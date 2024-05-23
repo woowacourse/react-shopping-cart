@@ -4,7 +4,6 @@ import { Coupon } from "../../types/coupon";
 import { useToggleList } from "../useToggleList";
 import { useCouponsDiscountCalculator } from "../useCouponsDiscountCalculator";
 import { useCouponSelectabilityChecker } from "../useCouponsSelectabilityChecker";
-import { MAX_SELECTABLE_COUPON_COUNT } from "./ruleConstants";
 
 interface UseCouponReturn {
   coupons: Coupon[];
@@ -22,8 +21,7 @@ export const useCoupons = (): UseCouponReturn => {
   const coupons: Coupon[] = rawCoupons.map((coupon) => ({
     ...coupon,
     isSelected: selectedCouponIds.includes(coupon.id),
-    isSelectable:
-      isCouponSelectable(coupon) && selectedCouponIds.length < MAX_SELECTABLE_COUPON_COUNT,
+    isSelectable: isCouponSelectable(coupon),
   }));
 
   const discountAmount = calculateCouponsDiscount(coupons);

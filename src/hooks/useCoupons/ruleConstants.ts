@@ -1,1 +1,1 @@
-export const MAX_SELECTABLE_COUPON_COUNT = 3;
+export const MAX_SELECTABLE_COUPON_COUNT = 2;

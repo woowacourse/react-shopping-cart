@@ -14,10 +14,11 @@ export const calculateFixedDiscountAmount = (coupon: FixedDiscountRawCoupon): nu
 
 export const calculatePercentageDiscountAmount = (
   coupon: PercentageDiscountRawCoupon,
-  orderAmount: number
+  totalAmount: number
 ): number => {
-  const discountAmount = calculateProportionalAmount(coupon.discount, orderAmount);
+  const discountAmount = calculateProportionalAmount(coupon.discount, totalAmount);
   const roundedDiscountAmount = roundDownToTens(discountAmount);
+
   return roundedDiscountAmount;
 };
 
