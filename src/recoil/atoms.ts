@@ -23,3 +23,8 @@ export const cartItemsState = atom({
     },
   }),
 });
+
+export const isCountrysideSelectedState = atom({
+  key: 'isCountrysideSelected',
+  default: false,
+});
