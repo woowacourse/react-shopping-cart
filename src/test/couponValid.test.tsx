@@ -83,7 +83,7 @@ describe("coupon disable 테스트", () => {
       },
       {
         wrapper: ({ children }) => (
-          <ReactRootComponent checkDummy={twoCouponsCheckedDummy} cartDummy={chargeShippingDummy}>
+          <ReactRootComponent checkDummy={NoCouponsCheckedDummy} cartDummy={chargeShippingDummy}>
             {children}
           </ReactRootComponent>
         ),
@@ -151,7 +151,7 @@ describe("coupon disable 테스트", () => {
       },
       {
         wrapper: ({ children }) => (
-          <ReactRootComponent checkDummy={NoCouponsCheckedDummy} cartDummy={chargeShippingDummy}>
+          <ReactRootComponent checkDummy={NoCouponsCheckedDummy} cartDummy={freeShippingDummy}>
             {children}
           </ReactRootComponent>
         ),
