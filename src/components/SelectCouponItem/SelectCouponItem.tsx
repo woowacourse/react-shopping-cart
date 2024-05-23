@@ -5,6 +5,9 @@ import Checkbox from '../common/Checkbox/Checkbox';
 import { Divider } from '../common/Divider/Divider.style';
 import Text from '../common/Text/Text';
 import * as S from './SelectCouponItem.style';
+import { validateCouponAvailable } from '../../utils/validateCouponAvailable';
+import { useRecoilValue } from 'recoil';
+import { selectedCouponListAtom } from '../../recoil/coupon/couponListAtom';
 
 interface SelectCouponItemProps {
   coupon: Coupon;
@@ -13,8 +16,13 @@ interface SelectCouponItemProps {
 const SelectCouponItem = ({ coupon }: SelectCouponItemProps) => {
   const { id, description, expirationDate, minimumAmount, availableTime } =
     coupon;
+  const selectedCouponList = useRecoilValue(selectedCouponListAtom);
+  // TODO: magic number 상수화
 
-  const [disabled, setDisabled] = useState(false);
+  const disabled =
+    !validateCouponAvailable(coupon) || selectedCouponList.length === 2;
+
+  // const [disabled, setDisabled] = useState(false);
   const { isSelected, toggleSelectedCoupon } = useSelectedCouponList();
   return (
     <S.SelectCouponItem disabled={disabled}>
