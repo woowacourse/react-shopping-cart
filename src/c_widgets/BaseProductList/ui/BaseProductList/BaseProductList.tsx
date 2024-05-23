@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import { ReactNode } from 'react';
 
 import { Cart, CartItemCard, CartId } from '@/e_entities/cart';
+import { HorizontalLine } from '@/f_shared/index';
 
 import css from './BaseProductList.module.css';
 
@@ -25,13 +26,17 @@ export function BaseProductList({
   return (
     <div className={cn('root', { rootIsFetching: isFetching })}>
       {carts.map((cart) => (
-        <CartItemCard
-          key={cart.product.id}
-          product={cart.product}
-          leftActionSlot={cardLeftActionSlot ? cardLeftActionSlot(cart.id) : null}
-          rightActionSlot={cardRightActionSlot ? cardRightActionSlot(cart.id) : null}
-          counterSlot={cardCounterSlot ? cardCounterSlot(cart.id, cart.quantity) : null}
-        />
+        <>
+          <HorizontalLine opacity={0.1} />
+
+          <CartItemCard
+            key={cart.product.id}
+            product={cart.product}
+            leftActionSlot={cardLeftActionSlot ? cardLeftActionSlot(cart.id) : null}
+            rightActionSlot={cardRightActionSlot ? cardRightActionSlot(cart.id) : null}
+            counterSlot={cardCounterSlot ? cardCounterSlot(cart.id, cart.quantity) : null}
+          />
+        </>
       ))}
     </div>
   );

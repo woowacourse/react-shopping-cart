@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import { ReactNode } from 'react';
 
-import { HorizontalLine, Text } from '@/f_shared';
+import { Text } from '@/f_shared';
 
 import { Product } from '../../model/types';
 
@@ -22,7 +22,6 @@ export const CartItemCard = ({ product: product, leftActionSlot, rightActionSlot
 
   return (
     <div className={cn('root')}>
-      <HorizontalLine opacity={0.1} />
       {leftActionSlot || rightActionSlot ? (
         <div className={cn('actionSlotContainer')}>
           {leftActionSlot && <div>{leftActionSlot}</div>}
