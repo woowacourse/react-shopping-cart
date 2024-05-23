@@ -2,7 +2,7 @@ type DiscountType = "fixed" | "percentage" | "buyXgetY" | "freeShipping"; // 할
 
 type AvailableTime = { start: string; end: string }; // 적용 가능 조건: 사용 가능 시간
 
-export interface RequiredProps {
+interface RequiredProps {
   id: number; // 식별자
   code: string; // 할인 코드
   description: string; // 할인 설명
@@ -29,11 +29,12 @@ export interface BOGOCoupon extends RequiredProps {
 }
 
 export interface FreeShippingCoupon extends RequiredProps {
-  minimumAmount?: number; // 적용 가능 조건: 최소 주문 금액
+  minimumAmount: number; // 적용 가능 조건: 최소 주문 금액
   availableTime?: AvailableTime; // 적용 가능 조건: 사용 가능 시간
 }
 
 export type Coupon =
+  | RequiredProps
   | FixedDiscountCoupon
   | PercentageDiscountCoupon
   | BOGOCoupon

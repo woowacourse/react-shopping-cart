@@ -1,0 +1,29 @@
+import { Coupon } from "../types/coupons";
+
+const expiredYearCoupon: Coupon = {
+  id: 2,
+  code: "EXPIRED",
+  description: "만료된 쿠폰",
+  discountType: "fixed",
+  expirationDate: "2000-12-31",
+};
+const expiredMonthCoupon: Coupon = {
+  id: 2,
+  code: "EXPIRED",
+  description: "만료된 쿠폰",
+  discountType: "fixed",
+  expirationDate: "2024-04-31",
+};
+const expiredDayCoupon: Coupon = {
+  id: 2,
+  code: "EXPIRED",
+  description: "만료된 쿠폰",
+  discountType: "fixed",
+  expirationDate: "2024-05-01",
+};
+
+export const expiredCoupons: Coupon[] = [
+  expiredYearCoupon,
+  expiredMonthCoupon,
+  expiredDayCoupon,
+];
