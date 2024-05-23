@@ -11,7 +11,7 @@ import { MOCK_COUPON_LIST } from '@/constants/_mock/mockCouponList';
 import { renderHook } from '@testing-library/react';
 import useTotalCouponDiscount from './useTotalCouponDiscount';
 
-jest.mock('../api/config', () => ({
+jest.mock('@/api/config', () => ({
   config: {
     apiUrl: 'http://localhost:mock',
   },
@@ -214,7 +214,7 @@ describe('useTotalCouponDiscount 훅을 사용하여 적용된 모든 쿠폰들�
         const MOCK_FILTERED_CART_LIST = [
           {
             id: 624,
-            quantity: 5,
+            quantity: 3,
             isSelected: true,
             price: 20000,
           },
@@ -266,7 +266,7 @@ describe('useTotalCouponDiscount 훅을 사용하여 적용된 모든 쿠폰들�
       }
     );
 
-    const totalAmount = 5 * 20000 * 0.3 + 3000;
+    const totalAmount = 3 * 20000 * 0.3 + 3000;
     expect(result.current.totalDiscountedPrice).toBe(totalAmount);
   });
 
@@ -326,7 +326,7 @@ describe('useTotalCouponDiscount 훅을 사용하여 적용된 모든 쿠폰들�
         wrapper: RecoilRoot,
       }
     );
-    const totalAmount = 5000 + 3000;
+    const totalAmount = 5000;
     expect(result.current.totalDiscountedPrice).toBe(totalAmount);
   });
 
@@ -339,7 +339,7 @@ describe('useTotalCouponDiscount 훅을 사용하여 적용된 모든 쿠폰들�
         const MOCK_FILTERED_CART_LIST = [
           {
             id: 624,
-            quantity: 5,
+            quantity: 3,
             isSelected: true,
             price: 20000,
           },

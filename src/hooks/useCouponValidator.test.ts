@@ -6,7 +6,7 @@ import { couponListState } from '@/store/atoms';
 import { renderHook } from '@testing-library/react';
 import useCouponValidator from '@/hooks/useCouponValidator';
 
-jest.mock('../api/config', () => ({
+jest.mock('@/api/config', () => ({
   config: {
     apiUrl: 'http://localhost:mock',
   },

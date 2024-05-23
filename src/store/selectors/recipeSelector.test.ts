@@ -9,7 +9,7 @@ import MOCK_CART_LIST from '@/constants/_mock/mockCartList';
 import { recipeState } from '@/store/selectors/recipeSelector';
 import { renderHook } from '@testing-library/react';
 
-jest.mock('../../api/config', () => ({
+jest.mock('@/api/config', () => ({
   config: {
     apiUrl: 'http://localhost:mock',
   },

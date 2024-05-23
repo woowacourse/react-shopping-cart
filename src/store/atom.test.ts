@@ -11,7 +11,7 @@ import { MOCK_COUPON_LIST } from '@/constants/_mock/mockCouponList';
 import { act } from 'react';
 import { renderHook } from '@testing-library/react';
 
-jest.mock('../api/config', () => ({
+jest.mock('@/api/config', () => ({
   config: {
     apiUrl: 'http://localhost:mock',
   },
