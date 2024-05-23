@@ -80,3 +80,15 @@ export const newKyleCartItemData = {
     category: 'reviewer',
   },
 };
+
+export const newParselyCartItemData = {
+  id: 613,
+  quantity: 1,
+  product: {
+    id: 13,
+    name: '파슬리',
+    price: 1000,
+    imageUrl: 'https://ca.slack-edge.com/TFELTJB7V-U01K9J5UVKR-0f4f1aa2ab8b-512',
+    category: 'crew',
+  },
+};
