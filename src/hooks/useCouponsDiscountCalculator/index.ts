@@ -1,4 +1,4 @@
-import { useCouponDiscountCalculator } from "./useCouponDiscounter";
+import { useCouponDiscountCalculator } from "./useCouponDiscountCalculator";
 import { Coupon } from "../../types/coupon";
 import { getPermutations } from "../../utils/math/getPermutations";
 
