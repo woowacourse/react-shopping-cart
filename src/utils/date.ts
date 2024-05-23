@@ -9,9 +9,7 @@ export const isInTimeRange = (startTime: string, endTime: string) => {
   const now = new Date();
 
   // 오늘 날짜에 start와 end 시간을 추가합니다.
-  const [startHour, startMinute, startSecond] = startTime
-    .split(":")
-    .map(Number);
+  const [startHour, startMinute, startSecond] = startTime.split(":").map(Number);
   const [endHour, endMinute, endSecond] = endTime.split(":").map(Number);
 
   const startDate = new Date(
@@ -32,5 +30,5 @@ export const isInTimeRange = (startTime: string, endTime: string) => {
   );
 
   // 현재 시간이 start와 end 사이에 있는지 확인합니다.
-  return now >= startDate && now <= endDate;
+  return startDate <= now && now <= endDate;
 };

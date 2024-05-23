@@ -10,7 +10,7 @@ interface FooterProps {
 
 const Footer = ({ children, onClick, disable = false }: FooterProps) => {
   return (
-    <Wrapper onClick={onClick}>
+    <Wrapper onClick={onClick} disable={disable}>
       <SmallText>{children}</SmallText>
     </Wrapper>
   );
