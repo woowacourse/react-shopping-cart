@@ -18,7 +18,11 @@ const Checkbox = ({ state, handleClick, disabled }: CheckboxProps) => {
         onChange={handleClick}
         disabled={disabled}
       />
-      {state ? <CHECK_TRUE /> : <CHECK_FALSE />}
+      {state ? (
+        <CHECK_TRUE className="icon-small" />
+      ) : (
+        <CHECK_FALSE className="icon-small" />
+      )}
     </S.CheckboxLabel>
   );
 };
