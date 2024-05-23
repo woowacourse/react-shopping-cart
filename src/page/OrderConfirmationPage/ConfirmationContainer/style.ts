@@ -5,6 +5,7 @@ export const SetCouponButton = styled.div({
   border: 'solid 1px #3333334F',
   borderRadius: '5px',
   marginBottom: '32px',
+  cursor: 'pointer',
 
   textAlign: 'center',
   lineHeight: '48px',
