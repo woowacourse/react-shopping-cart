@@ -1,6 +1,6 @@
 import { atom, atomFamily, selectorFamily } from 'recoil';
 import { CartItems } from '../types/Item';
-import { Coupon, CouponDetailState } from '../types/coupon';
+import { Coupon } from '../types/coupon';
 import { fetchItemsSelector } from './fetchSelectors';
 import { getLocalStorage } from '../utils/UpdateLocalStorage';
 
@@ -17,9 +17,7 @@ export const itemDetailsState = atomFamily({
       (itemId) =>
       ({ get }) => {
         const items = get(itemsState);
-        console.log(items);
         const item = items.find((value) => value.id === itemId);
-        console.log(item);
         const localStorageValue = getLocalStorage().find(
           (value) => value.id === itemId,
         );
@@ -35,10 +33,7 @@ export const couponsState = atom<Coupon[]>({
   default: [],
 });
 
-export const couponDetailState = atomFamily<CouponDetailState, number>({
+export const couponDetailState = atomFamily<boolean, number>({
   key: 'couponDetailState',
-  default: {
-    isChecked: false,
-    disabled: false,
-  },
+  default: false,
 });
