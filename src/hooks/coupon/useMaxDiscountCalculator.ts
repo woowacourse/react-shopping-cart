@@ -17,7 +17,7 @@ const useMaxDiscountCalculator = () => {
   const calculateAccumulatedDiscount = (accumulatedDiscount: number, coupon: Coupon): number => {
     const prevDiscountedAmount = orderPrice - accumulatedDiscount;
     const discount = calculateCouponDiscount(coupon.code as CouponCode, prevDiscountedAmount);
-    console.log('di', discount, 'a', accumulatedDiscount);
+
     return accumulatedDiscount + discount;
   };
 
