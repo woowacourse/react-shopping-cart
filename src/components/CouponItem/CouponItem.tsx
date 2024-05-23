@@ -9,6 +9,9 @@ import {
   CouponItemContainerStyle,
   CouponItemInfoContainerStyle,
 } from "./CouponItem.style";
+import { useCouponApplicabilityChecker } from "../../hooks/useCouponApplicabilityChecker";
+import { useRecoilValue } from "recoil";
+import { orderAmountSelector } from "../../store/selector/selectors";
 
 interface CouponItemProps {
   couponInfo: Coupon;
@@ -16,6 +19,10 @@ interface CouponItemProps {
 
 const CouponItem = ({ couponInfo }: CouponItemProps) => {
   const [isCheck, setIsCheck] = useState<boolean>(false);
+  const totalAmount = useRecoilValue(orderAmountSelector);
+  const { isCouponApplicable } = useCouponApplicabilityChecker();
+
+  const isDisabled = !isCouponApplicable(couponInfo, totalAmount);
 
   const handleClickCheckbox = () => {
     setIsCheck((prev) => !prev);
@@ -25,12 +32,12 @@ const CouponItem = ({ couponInfo }: CouponItemProps) => {
     <div css={CouponItemContainerStyle}>
       <Divider />
       <div css={CouponItemCheckboxContainerStyle}>
-        <Checkbox isCheck={isCheck} onClick={() => handleClickCheckbox()} />
-        <div css={CouponItemCheckboxTitleStyle}>{couponInfo.description}</div>
+        <Checkbox isCheck={isCheck} isDisabled={isDisabled} onClick={() => handleClickCheckbox()} />
+        <div css={CouponItemCheckboxTitleStyle(isDisabled)}>{couponInfo.description}</div>
       </div>
-      <div css={CouponItemInfoContainerStyle}>
+      <div css={CouponItemInfoContainerStyle(isDisabled)}>
         <div>{"만료일: " + couponInfo.expirationDate}</div>
-        {couponInfo.minimumAmount && <div>{"최소 주문 금액: " + couponInfo.minimumAmount}</div>}
+        {couponInfo.minimumAmount && <div>{"최소 주문 금액: " + couponInfo.minimumAmount.toLocaleString() + "원"}</div>}
         {couponInfo.availableTime && (
           <div>
             {"사용 가능 시간: " +

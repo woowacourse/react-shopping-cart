@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { COLOR_PALETTE } from "../../colorPalette";
 
 export const CouponItemContainerStyle = css({
   display: "flex",
@@ -15,20 +16,28 @@ export const CouponItemCheckboxContainerStyle = css({
   gap: "8px",
 });
 
-export const CouponItemCheckboxTitleStyle = css({
-  fontSize: "16px",
-  fontWeight: "700",
-});
+export const CouponItemCheckboxTitleStyle = (isDisabled: boolean) =>
+  css({
+    fontSize: "16px",
+    fontWeight: "700",
 
-export const CouponItemInfoContainerStyle = css({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "flex-start",
+    color: isDisabled ? COLOR_PALETTE.disabledTitle : "",
+  });
 
-  gap: "4px",
+export const CouponItemInfoContainerStyle = (isDisabled: boolean) =>
+  css({
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
 
-  "&>div": {
-    fontSize: "12px",
-    fontWeight: "500",
-  },
-});
+    gap: "4px",
+
+    "&>*": {
+      color: isDisabled ? COLOR_PALETTE.disabledSubtitle : "",
+    },
+
+    "&>div": {
+      fontSize: "12px",
+      fontWeight: "500",
+    },
+  });

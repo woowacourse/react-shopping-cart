@@ -8,7 +8,8 @@ export const ButtonStyle = (
   fontSize: CSSProperties["fontSize"],
   fontWeight: CSSProperties["fontWeight"],
   border: CSSProperties["border"],
-  isHighlight: boolean
+  isHighlight: boolean,
+  isDisabled: boolean
 ) =>
   css({
     display: "flex",
@@ -28,8 +29,9 @@ export const ButtonStyle = (
     color: COLOR_PALETTE.textBlack,
 
     transition: "all 0.2s",
+    cursor: isDisabled ? "default" : "pointer",
 
     "&:hover": {
-      filter: "brightness(0.96)",
+      filter: isDisabled ? "" : "brightness(0.96)",
     },
   });

@@ -5,9 +5,6 @@ import CouponItem from "../../CouponItem/CouponItem";
 import { useCoupons } from "../../../hooks/useCoupons";
 import { CouponGuideContainerStyle, CouponGuideStyle, CouponModalContainerStyle } from "./CouponModal.style";
 import { useCouponApplicabilityChecker } from "../../../hooks/useCouponApplicabilityChecker";
-import { orderAmountSelector } from "../../../store/selector/selectors";
-import { useRecoilValue } from "recoil";
-import { useDiscountCalculator } from "../../../hooks/useDiscountCalculator";
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -15,7 +12,6 @@ interface CouponModalProps {
 }
 
 const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
-  const totalAmount = useRecoilValue(orderAmountSelector);
   const { coupons } = useCoupons();
   const { isCouponApplicable } = useCouponApplicabilityChecker();
   // const { calculateDiscountAmount } = useDiscountCalculator();
@@ -48,7 +44,7 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
               <div css={CouponGuideStyle}>쿠폰은 최대 2개까지 사용할 수 있습니다.</div>
             </div>
             {coupons.map((coupon: Coupon) => (
-              <CouponItem couponInfo={coupon} key={coupon.id} isDisabled={!isCouponApplicable(coupon, totalAmount)} />
+              <CouponItem couponInfo={coupon} key={coupon.id} />
             ))}
           </div>
         </Modal>

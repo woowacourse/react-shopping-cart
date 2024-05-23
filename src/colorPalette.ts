@@ -6,4 +6,7 @@ export const COLOR_PALETTE = {
   lightGrey: "#E6E6E6",
   lightNormalGrey: "#CCCCCC",
   normalGrey: "#BEBEBE",
+
+  disabledSubtitle: "#C2C2C4",
+  disabledTitle: "#BFBFBF",
 };
