@@ -9,6 +9,7 @@ import './styles/reset.css';
 import './styles/index.css';
 import { RecoilRoot } from 'recoil';
 import { PAGE_ROUTES } from './constants/routes';
+import OrderConfirmPage from './pages/orderConfirm/OrderConfirmPage';
 
 const CommonLayout = () => (
   <ErrorBoundary fallback={<div>에러</div>}>
@@ -27,6 +28,10 @@ const routes = [
         element: <CartPage />,
       },
       {
+        path: PAGE_ROUTES.ORDER_CONFIRM,
+        element: <OrderConfirmPage />,
+      },
+      {
         path: PAGE_ROUTES.CHECK_OUT,
         element: <CheckoutPage />,
       },
@@ -36,7 +41,7 @@ const routes = [
 ];
 
 const router = createBrowserRouter(routes, {
-  // basename: PAGE_ROUTES.CART,
+  basename: PAGE_ROUTES.CART,
 });
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
