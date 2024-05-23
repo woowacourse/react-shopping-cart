@@ -6,12 +6,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import ENDPOINTS from '../../constants/endpoints';
 import FooterButton from '../../components/FooterButton/FooterButton';
 import Header from '../../components/Header/Header';
-import PreviousPageButton from '../../components/PreviousPageButton/PreviousPageButton';
 import convertToLocaleAmount from '../../utils/convertToLocalePrice';
 import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
-export default function ConfirmOrderPage() {
+export default function OrderLastPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -31,15 +30,9 @@ export default function ConfirmOrderPage() {
   const deliveryFee = useRecoilValue(deliveryFeeState);
   const totalAmount = orderAmount + deliveryFee;
 
-  const handleClickPreviousPageButton = () => {
-    navigate(ENDPOINTS.shoppingCart);
-  };
-
   return (
     <>
-      <Header>
-        <PreviousPageButton onClick={handleClickPreviousPageButton} />
-      </Header>
+      <Header />
 
       {location.state && (
         <S.ConfirmPurchaseContainer>
@@ -57,7 +50,10 @@ export default function ConfirmOrderPage() {
         </S.ConfirmPurchaseContainer>
       )}
 
-      <FooterButton buttonText="결제하기" disabled />
+      <FooterButton
+        buttonText="장바구니로 돌아가기"
+        onClick={() => navigate(ENDPOINTS.shoppingCart)}
+      />
     </>
   );
 }
