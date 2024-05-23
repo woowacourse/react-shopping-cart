@@ -1,4 +1,4 @@
-import { atom, atomFamily, selector } from 'recoil';
+import { atom, selector } from 'recoil';
 import { fetchCartItems } from '../api';
 
 export const productsState = atom({
@@ -12,10 +12,14 @@ export const productsState = atom({
   }),
 });
 
-export const isCheckedState = atomFamily<boolean, number>({
+export const isCheckedState = atom<Record<number, boolean>>({
   key: 'isCheckedState',
-  default: (id: number) => {
-    const item = window.localStorage.getItem(JSON.stringify(id));
-    return item ? JSON.parse(item) : true;
-  },
+  default: {},
+  effects: [
+    ({ onSet }) => {
+      onSet((state: Record<number, boolean>) => {
+        window.localStorage.setItem('isChecked', JSON.stringify(state));
+      });
+    },
+  ],
 });

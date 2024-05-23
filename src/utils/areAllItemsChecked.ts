@@ -1,8 +1,5 @@
-const areAllItemsChecked = (productIds: number[]) => {
-  return productIds.every((id) => {
-    const item = window.localStorage.getItem(JSON.stringify(id));
-    return item ? JSON.parse(item) : false;
-  });
+const areAllItemsChecked = (isCheckedMap: Record<number, boolean>) => {
+  return Object.values(isCheckedMap).every((value) => value === true);
 };
 
 export default areAllItemsChecked;

@@ -1,23 +1,26 @@
-import { ProductType } from '../../../types';
 import Button from '../../../components/common/Button';
-import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
 import { useRecoilValue } from 'recoil';
 import { productQuantityState } from '../../../store/selectors';
+
 import useQuantityCount from '../../../hooks/useQuantityCount';
 import useToggleIndividualChecked from '../../../hooks/useToggleIndividualChecked';
 import useDeleteProduct from '../../../hooks/useDeleteProduct';
+import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
+
+import { ProductType } from '../../../types';
 import styles from '../Cart.module.css';
 import common from '../../../styles/common.module.css';
 
 interface Props extends ProductType {
   quantity: number;
+  isChecked: boolean;
   setAllChecked: (value: boolean) => void;
 }
 
-export default function CartItem({ id, price, imageUrl, name, setAllChecked }: Props) {
+export default function CartItem({ id, price, imageUrl, name, isChecked, setAllChecked }: Props) {
   const { handleIncrementButton, handleDecrementButton } = useQuantityCount({ id });
   const productQuantity = useRecoilValue(productQuantityState(id));
-  const { handleToggleSelect, isChecked } = useToggleIndividualChecked({ id, setAllChecked });
+  const { handleToggleSelect } = useToggleIndividualChecked({ id, setAllChecked });
   const { handleDeleteButton } = useDeleteProduct({ id });
 
   return (

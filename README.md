@@ -1,5 +1,9 @@
 # 🎯 1단계 Refactoring
 
+- [x] isChecked의 localStorage 동기화 로직(persist) -> atom Effect로 처리
+- [x] localStorage 로직을 모아서 커스텀 훅으로 처리 -> 응집성
+- [x] isChecked 변수를 하나의 객체로 변경
+
 - [x] updateCartItemQuantity, deleteCartItem - API 반환값 사용
 - [x] self-closing tag 수정
 - [x] handleHomeButtonClick 함수명을 navigateCartPage로 의도가 드러나도록 변경

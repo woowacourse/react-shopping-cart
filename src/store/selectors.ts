@@ -35,8 +35,9 @@ export const totalOrderAmountState = selector<AmountType>({
   key: 'totalOrderAmountState',
   get: ({ get }) => {
     const products = get(productsState);
+    const isCheckedMap = get(isCheckedState);
     const orderAmount = products.reduce((accumulator, product) => {
-      const isChecked = get(isCheckedState(product.id));
+      const isChecked = isCheckedMap[product.id];
       if (isChecked) {
         const quantity = get(productQuantityState(product.id));
         return accumulator + product.product.price * quantity;
@@ -62,10 +63,11 @@ export const totalProductQuantity = selector({
     let totalQuantity = 0;
 
     const keys = get(productsIds);
+    const isAllCheckedMap = get(isCheckedState);
     keys.forEach((key) => {
-      const value = get(isCheckedState(key));
+      const isChecked = isAllCheckedMap[key];
 
-      if (value === true) {
+      if (isChecked === true) {
         const quantity = get(productQuantityState(key));
         totalCount++;
         totalQuantity += quantity;

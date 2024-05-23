@@ -9,11 +9,14 @@ import useCheckoutNavigate from '../../hooks/useCheckoutNavigate';
 
 import styles from './Cart.module.css';
 import { productsState } from '../../store/atoms';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 export default function CartPage() {
-  const products = useRecoilValue(productsState);
   const { handleFooterButtonClick } = useCheckoutNavigate();
   const { navigateCartPage } = useCartNavigate();
+  const products = useRecoilValue(productsState);
+
+  useLocalStorage();
 
   return (
     <>

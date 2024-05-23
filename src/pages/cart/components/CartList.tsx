@@ -3,13 +3,16 @@ import CartItem from './CartItem';
 import useToggleAllChecked from '../../../hooks/useToggleAllChecked';
 import styles from '../Cart.module.css';
 import common from '../../../styles/common.module.css';
+import { useRecoilValue } from 'recoil';
+import { isCheckedState } from '../../../store/atoms';
 
 interface Props {
   products: CartItemType[];
 }
 
 export default function CartList({ products }: Props) {
-  const { handleToggleAll, allChecked, setAllChecked } = useToggleAllChecked({ products });
+  const { handleToggleAll, allChecked, setAllChecked } = useToggleAllChecked();
+  const isCheckedMap = useRecoilValue(isCheckedState);
 
   return (
     <>
@@ -36,6 +39,7 @@ export default function CartList({ products }: Props) {
               price={product.product.price}
               category={product.product.category}
               imageUrl={product.product.imageUrl}
+              isChecked={isCheckedMap[product.id]}
               setAllChecked={setAllChecked}
             />
           );
