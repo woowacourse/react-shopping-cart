@@ -36,6 +36,11 @@ export interface CouponData {
   expirationDate: string;
 }
 
+export interface isFarShippingLocationData {
+  isAvailable: boolean;
+  isChecked: boolean;
+}
+
 export interface FormattedCoupon extends CouponData {
   isChecked: boolean;
   isAvailable: boolean;
