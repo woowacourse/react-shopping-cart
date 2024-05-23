@@ -3,7 +3,13 @@ import { cartItemsState } from "../cartItems";
 import { sumCartOrderAmount } from "../../utils/domain/sumCartOrderAmount";
 import { determineShippingCost } from "../../utils/domain/determineShippingCost";
 
-export const cartAmountState = selector({
+export interface CartAmount {
+  orderAmount: number;
+  shippingCost: number;
+  totalOrderAmount: number;
+}
+
+export const cartAmountState = selector<CartAmount>({
   key: "cartAmountState",
   get: async ({ get }) => {
     const cartItems = get(cartItemsState);
