@@ -8,8 +8,16 @@ interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, 'id'> {
 export default function CheckBox({ id, ...props }: Props) {
   return (
     <>
-      <input type="checkbox" id={id} className={styles.customCheckbox} {...props}></input>
-      <label htmlFor={id} className={styles.customCheckboxLabel}></label>
+      <input
+        type="checkbox"
+        id={id}
+        className={`${styles.customCheckbox} ${props.disabled ? styles.disabled : ''}`}
+        {...props}
+      ></input>
+      <label
+        htmlFor={id}
+        className={`${styles.customCheckboxLabel} ${props.disabled ? styles.disabled : ''}`}
+      ></label>
     </>
   );
 }

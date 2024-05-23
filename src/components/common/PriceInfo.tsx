@@ -5,11 +5,14 @@ import formatKoreanCurrency from '@/utils/formatKoreanCurrency';
 type Props = {
   titleText: string;
   price: number;
+  className?: string;
 };
 
-export default function PriceInfo({ titleText, price }: Props) {
+export default function PriceInfo({ className, titleText, price }: Props) {
+  const wrapperClassName = className ? className : styles.wrapper;
+
   return (
-    <div className={styles.wrapper}>
+    <div className={wrapperClassName}>
       <span className={common.title_text}>{titleText}</span>
       <span className={styles.price_text}>{formatKoreanCurrency(price)}원</span>
     </div>
