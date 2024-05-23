@@ -1,5 +1,5 @@
 import { selector } from "recoil";
-import { couponEachCheckState, couponsState, itemEachCheckState } from "@/store/atom/atoms";
+import { couponEachCheckState, couponsState, isExtraShippingFeeState, itemEachCheckState } from "@/store/atom/atoms";
 import { SHIPPING_CONSTANT } from "@/constants";
 import { cartState } from "@/store/atom/atoms";
 import { fetchCartItemsCounts } from "../../api";
@@ -24,7 +24,9 @@ export const totalAmountState = selector({
   key: "totalAmount",
   get: ({ get }) => {
     const tempAmount = get(orderAmountState);
-    return tempAmount >= SHIPPING_CONSTANT.FREE_CRITERIA ? tempAmount : tempAmount + SHIPPING_CONSTANT.FEE;
+    const isExtraShippingFee = get(isExtraShippingFeeState);
+    const shippingFee = isExtraShippingFee ? SHIPPING_CONSTANT.EXTRA_FEE : SHIPPING_CONSTANT.FEE;
+    return tempAmount >= SHIPPING_CONSTANT.FREE_CRITERIA ? tempAmount : tempAmount + shippingFee;
   },
 });
 

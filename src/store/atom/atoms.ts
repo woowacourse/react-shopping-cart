@@ -75,3 +75,8 @@ export const couponEachCheckState = atomFamily({
   key: "couponEachCheckState",
   default: false,
 });
+
+export const isExtraShippingFeeState = atom({
+  key: "isExtraShippingFeeState",
+  default: false,
+});

@@ -1,7 +1,7 @@
 import { SHIPPING_CONSTANT } from "@/constants";
 import useCouponCalculate from "@/hooks/useCouponCalculate";
 import { cartItemDummy } from "@/mock/dummy";
-import { cartState } from "@/store/atom/atoms";
+import { cartState, isExtraShippingFeeState } from "@/store/atom/atoms";
 import { renderHook } from "@testing-library/react";
 import { RecoilRoot } from "recoil";
 import { describe, expect, it, vi, beforeAll, afterAll } from "vitest";
