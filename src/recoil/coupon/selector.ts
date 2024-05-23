@@ -9,6 +9,7 @@ import {
 } from './calculateDiscountSelector';
 import { orderTotalPriceState } from '../cartItems/selectors';
 
+import { MAX_SELECTED_COUPON_LENGTH } from '@/constants/coupon';
 import { Coupon } from '@/types/coupon';
 import { isCouponUsableTime, isCouponValid, isOverMinimumOrderAmount } from '@/utils/validations';
 
@@ -37,7 +38,7 @@ export const isMaxSelectedCouponsSelector = selector({
   get: ({ get }) => {
     const selectedCoupons = get(selectedCouponsState);
 
-    return selectedCoupons.length === 2;
+    return selectedCoupons.length === MAX_SELECTED_COUPON_LENGTH;
   },
 });
 

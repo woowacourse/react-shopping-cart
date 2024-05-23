@@ -39,6 +39,15 @@ export const coupons: Coupon[] = [
     },
     discountType: 'percentage',
   },
+  {
+    id: 5,
+    code: 'FIXED10000',
+    description: '10,000원 할인 쿠폰',
+    expirationDate: '2024-11-30',
+    discount: 10000,
+    minimumAmount: 100000,
+    discountType: 'fixed',
+  },
 ];
 
 export const INVALID_BOGO_COUPON: Coupon = {

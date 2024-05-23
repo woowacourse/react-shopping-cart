@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 import CouponList from './CouponList';
 import InformationText from '../common/InformationText';
 
+import { MAX_SELECTED_COUPON_LENGTH } from '@/constants/coupon';
 import { isCouponModalOpenState } from '@recoil/coupon/atom';
 
 export default function CouponModal() {
@@ -21,7 +22,9 @@ export default function CouponModal() {
         </Modal.Header>
         <Modal.Main>
           <Modal.Label color="basic">
-            <InformationText>쿠폰은 최대 2개까지 사용할 수 있습니다.</InformationText>
+            <InformationText>
+              쿠폰은 최대 {MAX_SELECTED_COUPON_LENGTH}개까지 사용할 수 있습니다.
+            </InformationText>
           </Modal.Label>
           <CouponList />
         </Modal.Main>

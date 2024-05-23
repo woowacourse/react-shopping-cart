@@ -4,10 +4,11 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 
 import Checkbox from '../common/Checkbox';
 
+import { MAX_SELECTED_COUPON_LENGTH } from '@/constants/coupon';
 import { Coupon } from '@/types/coupon';
 import { dateFormat, timeFormat } from '@/utils/format';
 import { selectedCouponsState } from '@recoil/coupon/atom';
-import { applicableCouponSelector } from '@recoil/coupon/selector';
+import { applicableCouponSelector, isMaxSelectedCouponsSelector } from '@recoil/coupon/selector';
 
 interface CouponItemProps {
   coupon: Coupon;
@@ -16,8 +17,14 @@ interface CouponItemProps {
 export default function CouponItem({ coupon }: CouponItemProps) {
   const [selectedCoupons, setSelectedCoupons] = useRecoilState(selectedCouponsState);
   const isCouponApplicable = useRecoilValue(applicableCouponSelector(coupon.code));
+  const isMaxSelectedCoupons = useRecoilValue(isMaxSelectedCouponsSelector);
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked && isMaxSelectedCoupons) {
+      alert(`쿠폰은 최대 ${MAX_SELECTED_COUPON_LENGTH}개만 선택 가능합니다!`);
+      return;
+    }
+
     if (e.target.checked) {
       setSelectedCoupons([...selectedCoupons, coupon.code]);
     } else {
