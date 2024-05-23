@@ -1,12 +1,13 @@
-import { useRecoilState } from 'recoil';
-import { isAllCheckedCartItemsSelector } from '@/store/selectors';
+import { useCartManager } from '@/store/custom/useCartManager';
 
 const useToggleAllChecked = () => {
-  const [isAllChecked, setIsAllChecked] = useRecoilState(isAllCheckedCartItemsSelector);
+  const { isAllCheckedCartItems } = useCartManager();
+  const [isAllChecked, setIsAllChecked] = isAllCheckedCartItems;
 
   const handleToggleAll = () => {
-    setIsAllChecked((prev) => !prev);
+    setIsAllChecked((prev: boolean) => !prev);
   };
+
   return {
     isAllChecked,
     handleToggleAll,

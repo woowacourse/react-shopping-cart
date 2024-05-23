@@ -5,12 +5,9 @@ import formatKoreanCurrency from '@/utils/formatKoreanCurrency';
 import formatStartToEndTime from '@/utils/formatStartToEndTime';
 import formatDateToKorea from '@/utils/formatDateToKorea';
 import Divider from '../common/Divider';
-import {
-  isCheckedIndividualCouponSelector,
-  isMaxLengthCheckedCouponLengthSelector,
-} from '@/store/couponSelector';
-import { useRecoilState, useRecoilValue } from 'recoil';
 import { CouponDataWithoutProperties } from '@/types';
+import { useCouponManager } from '@/store/custom/useCouponManager';
+import useToggleIndividualCoupon from '@/hooks/useToggleIndividualCoupon';
 
 interface Props extends CouponDataWithoutProperties {
   isAvailable: boolean;
@@ -26,13 +23,9 @@ export default function CouponItem({
 }: Props) {
   const formattedAvailableTime =
     availableTime && formatStartToEndTime(availableTime.start, availableTime.end);
-  const [isChecked, setIsChecked] = useRecoilState(isCheckedIndividualCouponSelector(id));
-  const isMaxLengthCheckedCouponLength = useRecoilValue(isMaxLengthCheckedCouponLengthSelector);
+  const { isChecked, handleCouponCheckState } = useToggleIndividualCoupon(id);
+  const { isMaxLengthCheckedCouponLength } = useCouponManager();
   const isCouponDisabled = !isAvailable || (isMaxLengthCheckedCouponLength && !isChecked);
-
-  const handleCouponCheckState = () => {
-    setIsChecked((prev) => !prev);
-  };
 
   return (
     <Divider>

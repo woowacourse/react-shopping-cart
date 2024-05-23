@@ -1,11 +1,12 @@
-import { useRecoilState } from 'recoil';
-import { isCheckedIndividualCartItemSelector } from '../store/selectors';
+import { useCartManager } from '@/store/custom/useCartManager';
 
 const useToggleIndividualChecked = (id: number) => {
-  const [isChecked, setIsChecked] = useRecoilState(isCheckedIndividualCartItemSelector(id));
+  const { isCheckedIndividualCartItem } = useCartManager();
+
+  const [isChecked, setIsChecked] = isCheckedIndividualCartItem(id);
 
   const handleToggleSelect = () => {
-    setIsChecked((prevState) => !prevState);
+    setIsChecked((prevState: boolean) => !prevState);
   };
 
   return {
@@ -13,4 +14,5 @@ const useToggleIndividualChecked = (id: number) => {
     handleToggleSelect,
   };
 };
+
 export default useToggleIndividualChecked;

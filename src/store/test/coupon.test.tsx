@@ -1,11 +1,17 @@
 import { renderHook, act } from '@testing-library/react';
 import { RecoilRoot, useRecoilValue, useSetRecoilState } from 'recoil';
 import MOCK_FORMATTED_COUPONS from '@/__mocks__/response/coupons';
-import { allCouponStates } from '../atoms';
+import { allCartItemStates } from '../cartStates';
 import {
   isCheckedIndividualCouponSelector,
   isMaxLengthCheckedCouponLengthSelector,
-} from '../couponSelector';
+  totalMaxDiscountPriceSelector,
+  allCouponStates,
+} from '../couponStates';
+import MOCK_CART_ITEMS from '@/__mocks__/response/cartItems';
+import selectMaxDiscountCase from '@/services/selectMaxDiscountCase';
+
+const MOCK_ORDER_AMOUNT = 100_000;
 
 describe('초기 쿠폰을 불러올때의 테스트 코드를 작성한다.', () => {
   it('초기에 모든 쿠폰 데이터를 받아와서 초기 state로 넣어준다.', () => {
@@ -122,5 +128,31 @@ describe('isMaxLengthCheckedCouponLengthSelector 테스트', () => {
     rerender();
 
     expect(result.current.isMaxLengthCheckedCouponLength).toBe(false);
+  });
+});
+
+describe('totalMaxDiscountPriceSelector 테스트', () => {
+  it('두 개의 쿠폰을 사용할 때 최대 할인 금액을 계산한다.', () => {
+    const { result } = renderHook(() => useRecoilValue(totalMaxDiscountPriceSelector), {
+      wrapper: ({ children }) => (
+        <RecoilRoot
+          initializeState={({ set }) => {
+            set(allCouponStates, MOCK_FORMATTED_COUPONS);
+            set(allCartItemStates, MOCK_CART_ITEMS);
+          }}
+        >
+          {children}
+        </RecoilRoot>
+      ),
+    });
+
+    const maxDiscountPrice = result.current;
+    const expectedMaxDiscount = selectMaxDiscountCase(
+      MOCK_FORMATTED_COUPONS.filter((coupon) => coupon.isChecked),
+      MOCK_ORDER_AMOUNT,
+      MOCK_CART_ITEMS,
+    );
+
+    expect(maxDiscountPrice).toBe(expectedMaxDiscount);
   });
 });

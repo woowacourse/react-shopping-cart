@@ -1,19 +1,20 @@
-import { allCouponStates } from '@/store/atoms';
-import { fetchCouponsSelector } from '@/store/couponSelector';
+import { fetchCouponsSelector } from '@/store/couponStates';
 import { useEffect } from 'react';
-import { useRecoilState, useRecoilValueLoadable } from 'recoil';
+import { useRecoilValueLoadable } from 'recoil';
+import { useCouponManager } from '@/store/custom/useCouponManager';
 
 const useGetAllCoupons = () => {
-  const [allCoupons, setAllCoupons] = useRecoilState(allCouponStates);
+  const { allCoupons } = useCouponManager();
+  const [coupons, setCoupons] = allCoupons;
   const couponsLoadable = useRecoilValueLoadable(fetchCouponsSelector);
 
   useEffect(() => {
-    if (!allCoupons.length && couponsLoadable.state === 'hasValue') {
-      setAllCoupons(couponsLoadable.contents);
+    if (!coupons.length && couponsLoadable.state === 'hasValue') {
+      setCoupons(couponsLoadable.contents);
     }
-  }, [allCoupons, couponsLoadable, setAllCoupons]);
+  }, [coupons, couponsLoadable, setCoupons]);
 
-  return { allCoupons };
+  return { coupons };
 };
 
 export default useGetAllCoupons;
