@@ -18,7 +18,7 @@ export const AllCheckWrapper = styled.div`
 
 export const Footer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
   margin-top: 30px;
 `;

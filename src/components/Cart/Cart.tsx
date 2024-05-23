@@ -12,14 +12,18 @@ import {
   ItemInfo,
   ItemInfoWrapper,
   ItemQuantity,
+  CountButton,
+  DeleteButton,
 } from "./style";
-import { SmallText, Button, LargeText } from "../common";
+import { SmallText, LargeText } from "../common";
+import { useLocation } from "react-router-dom";
 
 interface CardItemProps {
   cartItem: CartItem;
 }
 
 const CartItem = ({ cartItem: { id, product, quantity } }: CardItemProps) => {
+  const location = useLocation();
   const [selectedList, setSelectedList] = useRecoilState(selectedListState);
   const [cartItems, setCartItems] = useRecoilState(cartItemsState);
 
@@ -65,18 +69,19 @@ const CartItem = ({ cartItem: { id, product, quantity } }: CardItemProps) => {
 
   return (
     <Wrapper>
-      <Header>
-        <Button $borderRadius="8px" onClick={handleToggleSelectItem}>
+      {location.pathname === "/" && (
+        <Header>
           {selectedList.includes(id) ? (
-            <FilledCheckSvg color="white" />
+            <FilledCheckSvg onClick={handleToggleSelectItem} />
           ) : (
-            <OutlineCheckSvg />
+            <OutlineCheckSvg onClick={handleToggleSelectItem} />
           )}
-        </Button>
-        <Button $theme="white" $size="s" onClick={handleDeleteItem}>
-          <SmallText>삭제</SmallText>
-        </Button>
-      </Header>
+          <DeleteButton onClick={handleDeleteItem}>
+            <SmallText>삭제</SmallText>
+          </DeleteButton>
+        </Header>
+      )}
+
       <Body>
         <ItemImg src={product.imageUrl} />
         <ItemInfoWrapper>
@@ -85,21 +90,20 @@ const CartItem = ({ cartItem: { id, product, quantity } }: CardItemProps) => {
             <LargeText>{product.price.toLocaleString("ko-KR")}</LargeText>
           </ItemInfo>
           <ItemQuantity>
-            <Button
-              $theme="white"
-              $size="xs"
-              onClick={() => handleChangeItemQuantity(-1)}
-            >
-              -
-            </Button>
-            <SmallText>{quantity}</SmallText>
-            <Button
-              $theme="white"
-              $size="xs"
-              onClick={() => handleChangeItemQuantity(1)}
-            >
-              +
-            </Button>
+            {location.pathname === "/" && (
+              <>
+                <CountButton onClick={() => handleChangeItemQuantity(-1)}>
+                  -
+                </CountButton>
+                <SmallText>{quantity}</SmallText>
+                <CountButton onClick={() => handleChangeItemQuantity(1)}>
+                  +
+                </CountButton>
+              </>
+            )}
+            {location.pathname === "/order" && (
+              <SmallText>{quantity}개</SmallText>
+            )}
           </ItemQuantity>
         </ItemInfoWrapper>
       </Body>

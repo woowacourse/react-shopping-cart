@@ -4,10 +4,12 @@ import Cart from "../Cart/Cart";
 import type { CartItem } from "../../types/cart";
 import { Wrapper, Footer, AllCheckWrapper } from "./style";
 import { FilledCheckSvg, OutlineCheckSvg, infoOutline } from "../../assets";
-import { Button, SmallText } from "../common";
+import { SmallText } from "../common";
+import { useLocation } from "react-router-dom";
 
 const CartList = () => {
   const cartItems = useRecoilValue(cartItemsState);
+  const location = useLocation();
 
   const [selectedList, setSelectedListState] =
     useRecoilState(selectedListState);
@@ -29,19 +31,9 @@ const CartList = () => {
     <Wrapper>
       <AllCheckWrapper>
         {isAllSelected ? (
-          <Button
-            $borderRadius="8px"
-            onClick={() => handleSelectAllItem("turnOff")}
-          >
-            <FilledCheckSvg color="white" />
-          </Button>
+          <FilledCheckSvg onClick={() => handleSelectAllItem("turnOff")} />
         ) : (
-          <Button
-            $borderRadius="8px"
-            onClick={() => handleSelectAllItem("turnOn")}
-          >
-            <OutlineCheckSvg />
-          </Button>
+          <OutlineCheckSvg onClick={() => handleSelectAllItem("turnOn")} />
         )}
         <SmallText>전체선택</SmallText>
       </AllCheckWrapper>

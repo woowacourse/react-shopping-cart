@@ -41,3 +41,19 @@ export const ItemQuantity = styled.div`
   align-items: center;
   width: 80px;
 `;
+
+export const CountButton = styled.button`
+  width: 24px;
+  height: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: ${({ theme }) => theme.color.white};
+`;
+
+export const DeleteButton = styled.button`
+  width: 40px;
+  height: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  background-color: ${({ theme }) => theme.color.white};
+`;
