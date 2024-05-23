@@ -16,7 +16,7 @@ function CouponModalContent({ toggleModal }: CouponModalContentProps) {
   const setCoupons = useSetRecoilState(couponsState);
 
   useEffect(() => {
-    setCoupons(coupons);
+    setCoupons(coupons.map((coupon) => ({ ...coupon, isChecked: false })));
   }, [coupons]);
 
   return (

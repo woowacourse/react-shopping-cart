@@ -14,4 +14,5 @@ export interface Coupon {
   buyQuantity?: number;
   getQuantity?: number;
   availableTime?: AvailableTime;
+  isChecked: boolean;
 }
