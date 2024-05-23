@@ -1,33 +1,18 @@
 import { css } from '@emotion/react';
-import { useRecoilValue } from 'recoil';
 
 import GuideText from './GuideText';
 import Receipt from '../Cart/Receipt';
-import { calculateShippingPrice } from '../Cart/utils';
 
-import { totalDiscountPriceState } from '@/recoil/coupons/atoms';
+import useOrderInfo from '@/hooks/useOrderInfo';
 import { CONFIG } from '@constants/config';
-import {
-  orderResultState,
-  shippingPriceState,
-  totalPurchasePriceState,
-} from '@recoil/cartItems/selectors';
 
 interface CartFooterProps {
   type: 'CART' | 'ORDER';
 }
 
 const OrderInfo = ({ type }: CartFooterProps) => {
-  const totalDiscountPrice = useRecoilValue(totalDiscountPriceState);
-  const { totalOrderPrice } = useRecoilValue(orderResultState);
-  const totalPurchasePrice = useRecoilValue(totalPurchasePriceState);
-
-  const shippingPriceWithCoupon = useRecoilValue(shippingPriceState);
-  const shippingPrice = calculateShippingPrice(totalOrderPrice);
-  const finalShippingPrice = type === 'ORDER' ? shippingPriceWithCoupon : shippingPrice;
-
-  const finalPurchasePrice =
-    type === 'ORDER' ? totalPurchasePrice : totalOrderPrice + finalShippingPrice;
+  const { totalOrderPrice, totalDiscountPrice, shippingPrice, totalPurchasePrice } =
+    useOrderInfo(type);
 
   return (
     <section css={cartFooterSection}>
@@ -37,16 +22,11 @@ const OrderInfo = ({ type }: CartFooterProps) => {
       <div>
         <div css={borderTopWrapper}>
           <Receipt title="주문 금액" price={totalOrderPrice} />
-          {type === 'ORDER' && (
-            <Receipt
-              title="쿠폰 할인 금액"
-              price={totalDiscountPrice > 0 ? totalDiscountPrice * -1 : 0}
-            />
-          )}
-          <Receipt title="배송비" price={finalShippingPrice} />
+          {type === 'ORDER' && <Receipt title="쿠폰 할인 금액" price={totalDiscountPrice} />}
+          <Receipt title="배송비" price={shippingPrice} />
         </div>
         <div css={borderTopWrapper}>
-          <Receipt title="총 결제 금액" price={finalPurchasePrice} />
+          <Receipt title="총 결제 금액" price={totalPurchasePrice} />
         </div>
       </div>
     </section>
