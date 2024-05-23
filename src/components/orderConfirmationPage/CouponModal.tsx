@@ -38,7 +38,7 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
         </div>
       </Modal.Content>
       <Modal.Footer>
-        <Button>총 6,000원 할인 쿠폰 사용하기</Button>
+        <Button onClick={onClose}>총 6,000원 할인 쿠폰 사용하기</Button>
       </Modal.Footer>
     </Modal>
   );
