@@ -3,4 +3,5 @@ export const SHIPPING_CONSTANT = {
   FEE: 3_000,
 };
 
-export const LOCAL_STORAGE_KEY = "itemCheckedMap";
+export const ITEM_CHECKING_STATE_KEY = "itemCheckedMap";
+export const REMOTE_AREA_STATE_KEY = "isRemoteArea";

@@ -1,5 +1,5 @@
 import { atomFamily, atom, selector } from "recoil";
-import { LOCAL_STORAGE_KEY } from "../../constants";
+import { ITEM_CHECKING_STATE_KEY } from "../../constants";
 import { getStorage, setStorage } from "../localStorage/localStorage";
 import { fetchCartState } from "../selector/fetchCartState";
 import { fetchCouponsState } from "../selector/fetchCouponsState";
@@ -14,15 +14,15 @@ export const cartItemCheckedState = atomFamily<boolean, number>({
   default: true,
   effects: (id) => [
     ({ setSelf, onSet }) => {
-      const localData = getStorage<CartItemCheckedStateInStorage>(LOCAL_STORAGE_KEY, {});
+      const localData = getStorage<CartItemCheckedStateInStorage>(ITEM_CHECKING_STATE_KEY, {});
       if (localData[id] !== undefined) {
         setSelf(localData[id]);
       }
 
       onSet((newValue) => {
-        const localData = getStorage<CartItemCheckedStateInStorage>(LOCAL_STORAGE_KEY, {});
+        const localData = getStorage<CartItemCheckedStateInStorage>(ITEM_CHECKING_STATE_KEY, {});
         localData[id] = newValue;
-        setStorage(LOCAL_STORAGE_KEY, localData);
+        setStorage(ITEM_CHECKING_STATE_KEY, localData);
       });
     },
   ],
@@ -55,4 +55,9 @@ export const itemQuantityState = atom<Record<number, number>>({
 export const couponsState = atom<Coupon[]>({
   key: "couponsState",
   default: fetchCouponsState,
+});
+
+export const selectedCouponsState = atom<Coupon[]>({
+  key: "selectedCoupons",
+  default: [],
 });

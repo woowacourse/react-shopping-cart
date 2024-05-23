@@ -12,9 +12,12 @@ import {
 import OrderItemList from "./OrderItemList/OrderItemList";
 
 import CouponModal from "../../common/CouponModal/CouponModal";
+import { getStorage, setStorage } from "../../../store/localStorage/localStorage";
+import { REMOTE_AREA_STATE_KEY } from "../../../constants";
 
 const OrderContainer = () => {
   const [modalOpened, setModalOpened] = useState(false);
+  const [isRemoteArea, setIsRemoteArea] = useState(getStorage(REMOTE_AREA_STATE_KEY, false));
 
   const handleModalOpen = () => {
     setModalOpened(true);
@@ -22,6 +25,11 @@ const OrderContainer = () => {
 
   const handleModalClose = () => {
     setModalOpened(false);
+  };
+
+  const handleRemoteAreaCheckboxClick = () => {
+    setIsRemoteArea((prev) => !prev);
+    setStorage(REMOTE_AREA_STATE_KEY, !isRemoteArea);
   };
 
   return (
@@ -40,7 +48,7 @@ const OrderContainer = () => {
       <div css={ShippingOptionContainerStyle}>
         <div css={ShippingOptionTitleStyle}>배송 정보</div>
         <div css={ShippingOptionCheckboxStyle}>
-          <Checkbox isCheck={false} />
+          <Checkbox isCheck={isRemoteArea} onClick={handleRemoteAreaCheckboxClick} />
           <div>제주도 및 도서 산간 지역</div>
         </div>
       </div>
