@@ -13,3 +13,8 @@ export const couponListQuery = selector<Coupon[]>({
     return result;
   },
 });
+
+export const selectedCouponListAtom = atom<Coupon[]>({
+  key: 'selectedCouponList',
+  default: [],
+});

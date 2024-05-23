@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import useSelectedCouponList from '../../recoil/coupon/useSelectedCouponList';
 import { toKoreanDate, toKoreanTime } from '../../utils/date';
 import Checkbox from '../common/Checkbox/Checkbox';
 import { Divider } from '../common/Divider/Divider.style';
@@ -9,12 +11,20 @@ interface SelectCouponItemProps {
 }
 
 const SelectCouponItem = ({ coupon }: SelectCouponItemProps) => {
-  const { description, expirationDate, minimumAmount, availableTime } = coupon;
+  const { id, description, expirationDate, minimumAmount, availableTime } =
+    coupon;
+
+  const [disabled, setDisabled] = useState(false);
+  const { isSelected, toggleSelectedCoupon } = useSelectedCouponList();
   return (
-    <S.SelectCouponItem>
+    <S.SelectCouponItem disabled={disabled}>
       <Divider />
       <S.CheckboxContainer>
-        <Checkbox state={false} handleClick={() => {}} />
+        <Checkbox
+          state={isSelected(id)}
+          handleClick={() => toggleSelectedCoupon(coupon)}
+          disabled={disabled}
+        />
         <Text size="m">{description}</Text>
       </S.CheckboxContainer>
       <S.DescriptionContainer>
