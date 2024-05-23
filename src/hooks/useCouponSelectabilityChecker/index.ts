@@ -1,4 +1,4 @@
-import { cartItemsState } from "./../../recoil/cartItems";
+import { cartItemsState } from "../../recoil/cartItems";
 import { useRecoilValue } from "recoil";
 import { cartAmountState } from "../../recoil/cartAmount";
 import { RawCoupon } from "../../types/rawCoupon";

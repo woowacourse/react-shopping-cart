@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
 import { useToggleList } from "../useToggleList";
 import { useCouponsDiscountCalculator } from "../useCouponsDiscountCalculator";
-import { useCouponSelectabilityChecker } from "../useCouponsSelectabilityChecker";
+import { useCouponSelectabilityChecker } from "../useCouponSelectabilityChecker";
 import { rawCouponsSelector } from "../../recoil/rawCoupons";
 import { cartAmountState } from "../../recoil/cartAmount";
 import { Coupon } from "../../types/coupon";
