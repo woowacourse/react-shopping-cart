@@ -12,7 +12,7 @@ import { recipeState } from '@/store/selectors/recipeSelector';
 import { renderHook } from '@testing-library/react';
 import useCouponDiscount from './useCouponDiscount';
 
-jest.mock('../api/config', () => ({
+jest.mock('@/api/config', () => ({
   config: {
     apiUrl: 'http://localhost:mock',
   },

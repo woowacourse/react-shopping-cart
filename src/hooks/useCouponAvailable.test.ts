@@ -10,7 +10,7 @@ import MOCK_CART_LIST from '@/constants/_mock/mockCartList';
 import { renderHook } from '@testing-library/react';
 import useCouponAvailable from './useCouponAvailable';
 
-jest.mock('../api/config', () => ({
+jest.mock('@/api/config', () => ({
   config: {
     apiUrl: 'http://localhost:mock',
   },

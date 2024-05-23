@@ -9,7 +9,6 @@ interface Props {
 
 const CouponConfirmButton = ({ onClick }: Props) => {
   const selectedCoupon = useRecoilValue(selectedCouponListState);
-
   const date = new Date();
   const totalDiscountPrice = useTotalCouponDiscount({
     coupons: selectedCoupon || [],

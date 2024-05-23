@@ -6,6 +6,7 @@ import { useRecoilValue } from 'recoil';
 
 const OrderList = () => {
   const orderedItems = useRecoilValue(orderItemState);
+
   return (
     <StyledListWrapper>
       <StyledList>
