@@ -1,10 +1,10 @@
 import { ContentHeader } from '@/c_widgets/ContentHeader';
 import { LayoutHeader } from '@/c_widgets/LayoutHeader';
+import { PaymentSummary } from '@/c_widgets/PaymentSummary';
 import { OrderCartButton } from '@/d_features/cart';
 import { Layout } from '@/f_shared';
 
-import { mockCarts } from '../../../../../mocks/index';
-import { PaymentSummary } from '../../../../c_widgets/PaymentSummary/ui/PaymentSummary/PaymentSummary';
+import { mockCarts } from '../../../../../mocks';
 import { CartProductList } from '../CartProductList/CartProductList';
 
 export const CartPage = () => {
