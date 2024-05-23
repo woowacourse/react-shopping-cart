@@ -94,7 +94,7 @@ export const couponDiscountPriceState = selector({
         throw new Error("존재하지 않는 쿠폰 타입입니다");
       });
 
-    return Math.max(orderPrice, couponDiscountPrice);
+    return Math.min(orderPrice, couponDiscountPrice);
   },
 });
 
