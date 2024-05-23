@@ -1,9 +1,24 @@
 import { fetchAllCoupons } from '@/api';
-import calculateTotalDiscountPrice from '@/services/calculateDiscount';
 import initializeCouponStates from '@/services/initializeCouponStates';
-import { selector, selectorFamily } from 'recoil';
-import { allCartItemStates, allCouponStates } from './atoms';
-import { orderAmountSelector } from './selectors';
+import selectMaxDiscountCase from '@/services/selectMaxDiscountCase';
+import { FormattedCoupon } from '@/types';
+import { atom, selector, selectorFamily } from 'recoil';
+import { allCartItemStates, orderAmountSelector } from './cartStates';
+
+export const allCouponStates = atom<FormattedCoupon[] | []>({
+  key: 'allCoupons',
+  default: [],
+});
+
+export const initializeCouponStatesSelector = selector({
+  key: 'initializeCouponStatesSelector',
+  get: ({ get }) => {
+    return get(allCouponStates);
+  },
+  set: ({ set }) => {
+    set(allCouponStates, []);
+  },
+});
 
 export const fetchCouponsSelector = selector({
   key: 'fetchCouponsSelector',
@@ -56,18 +71,14 @@ export const isCheckedIndividualCouponSelector = selectorFamily({
     },
 });
 
-export const totalDiscountPriceSelector = selector({
-  key: 'totalDiscountPriceSelector',
+export const totalMaxDiscountPriceSelector = selector({
+  key: 'totalMaxDiscountPriceSelector',
   get: ({ get }) => {
     const allCoupons = get(allCouponStates);
     const orderAmount = get(orderAmountSelector);
     const checkedCoupons = allCoupons.filter((coupon) => coupon.isChecked);
     const allCartItems = get(allCartItemStates);
 
-    const totalDiscount = checkedCoupons.reduce((acc, coupon) => {
-      return acc + calculateTotalDiscountPrice(coupon, orderAmount, allCartItems);
-    }, 0);
-
-    return totalDiscount;
+    return selectMaxDiscountCase(checkedCoupons, orderAmount, allCartItems);
   },
 });

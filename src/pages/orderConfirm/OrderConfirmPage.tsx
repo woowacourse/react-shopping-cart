@@ -11,21 +11,20 @@ import CouponModalTrigger from '../../components/modal/CouponModalTrigger';
 import ShippingInfoCheckbox from './components/ShippingInfoCheckbox';
 import PriceInfo from '@/components/common/PriceInfo';
 import Divider from '@/components/common/Divider';
-import { useRecoilValue } from 'recoil';
-import { deliveryFeeSelector } from '@/store/selectors';
-import { totalDiscountPriceSelector } from '@/store/couponSelector';
 import useGetAllCoupons from '@/hooks/useGetAllCoupons';
 import { PAGE_ROUTES } from '@/constants/routes';
+import { useShippingManager } from '@/store/custom/useShippingManager';
+import { useCouponManager } from '@/store/custom/useCouponManager';
 
 export default function OrderConfirmPage() {
   const location = useLocation();
   const {
     state: { totalCategoryCount, totalOrderQuantity, totalOrderAmount, totalCartItems },
   } = location;
-  const { allCoupons } = useGetAllCoupons();
-  const deliveryFee = useRecoilValue(deliveryFeeSelector);
-  const totalDiscountPrice = useRecoilValue(totalDiscountPriceSelector);
-  const totalOrderPrice = totalOrderAmount + deliveryFee - totalDiscountPrice;
+  const { coupons: allCoupons } = useGetAllCoupons();
+  const { deliveryFee } = useShippingManager();
+  const { totalMaxDiscountPrice } = useCouponManager();
+  const totalOrderPrice = totalOrderAmount + deliveryFee - totalMaxDiscountPrice;
 
   const navigate = useNavigate();
 
@@ -72,7 +71,7 @@ export default function OrderConfirmPage() {
           <PriceInfo titleText="주문 금액" price={totalOrderAmount} />
           <PriceInfo
             titleText="쿠폰 할인 금액"
-            price={totalDiscountPrice === 0 ? totalDiscountPrice : -totalDiscountPrice}
+            price={totalMaxDiscountPrice === 0 ? totalMaxDiscountPrice : -totalMaxDiscountPrice}
           />
           <PriceInfo titleText="배송비" price={deliveryFee} />
         </Divider>
