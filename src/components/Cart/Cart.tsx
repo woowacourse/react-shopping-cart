@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 import { useRecoilValue } from 'recoil';
 
+import Main from '../common/Main';
+
 import CartEmpty from '@components/Cart/CartEmpty';
 import CartOrderInfo from '@components/Cart/CartOrderInfo';
 import CartProducts from '@components/Cart/CartProducts';
@@ -20,23 +22,16 @@ export default function Cart() {
 
   return (
     <>
-      <main css={main}>
+      <Main>
         <section css={cartSection}>
           <CartTitle cartItemLength={cartItems.length} />
           {cartItems.length ? <CartItems /> : <CartEmpty />}
         </section>
-      </main>
+      </Main>
       <OrderConfirmButton />
     </>
   );
 }
-
-const main = css`
-  flex: 1;
-  padding: 36px 24px;
-
-  overflow-y: scroll;
-`;
 
 const cartSection = css`
   display: flex;
