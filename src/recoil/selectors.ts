@@ -1,6 +1,10 @@
-import { selector, selectorFamily } from 'recoil';
+import { selector, selectorFamily, useRecoilValue } from 'recoil';
 
-import { cartItemsState, isCartItemSelectedState } from './atoms';
+import {
+  cartItemsState,
+  isCartItemSelectedState,
+  isCountrysideSelectedState,
+} from './atoms';
 
 import { CartItemType } from '../type';
 import CONDITION from '../constants/Condition';
@@ -96,10 +100,27 @@ export const shippingFeeSelector = selector<number>({
   get: ({ get }) => {
     const totalOrderAmount = get(totalOrderAmountSelector);
 
-    return totalOrderAmount >= CONDITION.freeShippingFee ||
+    if (
+      totalOrderAmount >= CONDITION.freeShippingFee ||
       totalOrderAmount === CONDITION.noneSelected
-      ? VALUE.freeShippingFee
-      : VALUE.shippingFee;
+    )
+      return VALUE.shippingFee.free;
+
+    return VALUE.shippingFee.default;
+  },
+});
+
+export const finalShippingFeeSelector = selector<number>({
+  key: 'finalShippingFee',
+  get: ({ get }) => {
+    const shippingFee = get(shippingFeeSelector);
+    const isCountrysideSelected = get(isCountrysideSelectedState);
+    const isCountrysideShippingFee =
+      shippingFee !== VALUE.shippingFee.free && isCountrysideSelected;
+
+    return isCountrysideShippingFee
+      ? VALUE.shippingFee.countryside
+      : shippingFee;
   },
 });
 
@@ -107,5 +128,12 @@ export const totalPaymentAmountSelector = selector<number>({
   key: 'totalPaymentAmount',
   get: ({ get }) => {
     return get(totalOrderAmountSelector) + get(shippingFeeSelector);
+  },
+});
+
+export const finalTotalPaymentAmountSelector = selector<number>({
+  key: 'finalTotalPaymentAmount',
+  get: ({ get }) => {
+    return get(totalOrderAmountSelector) + get(finalShippingFeeSelector);
   },
 });

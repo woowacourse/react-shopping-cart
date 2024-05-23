@@ -6,17 +6,17 @@ import CaptionEmoji from '../../assets/CaptionEmoji.svg';
 import { useRecoilValue } from 'recoil';
 
 import {
-  shippingFeeSelector,
+  finalShippingFeeSelector,
+  finalTotalPaymentAmountSelector,
   totalOrderAmountSelector,
-  totalPaymentAmountSelector,
 } from '../../recoil/selectors';
 
 import MESSAGE from '../../constants/Message';
 
 const OrderConfirmationTotalPaymentInfo = () => {
   const totalOrderAmount = useRecoilValue(totalOrderAmountSelector);
-  const shippingFee = useRecoilValue(shippingFeeSelector);
-  const totalPaymentAmount = useRecoilValue(totalPaymentAmountSelector);
+  const shippingFee = useRecoilValue(finalShippingFeeSelector);
+  const totalPaymentAmount = useRecoilValue(finalTotalPaymentAmountSelector);
 
   return (
     <Styled.TotalPaymentInfo>
