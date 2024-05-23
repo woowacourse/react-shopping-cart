@@ -3,7 +3,7 @@ import { totalProductQuantity, totalOrderAmountState } from '../store/selectors'
 import { useNavigate } from 'react-router-dom';
 import ROUTES from '../constants/routes';
 
-const useCheckoutNavigate = () => {
+const usePaymentsNavigate = () => {
   const navigate = useNavigate();
   const { totalCount, totalQuantity } = useRecoilValue(totalProductQuantity);
   const { totalAmount } = useRecoilValue(totalOrderAmountState);
@@ -23,4 +23,4 @@ const useCheckoutNavigate = () => {
   };
 };
 
-export default useCheckoutNavigate;
+export default usePaymentsNavigate;

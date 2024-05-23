@@ -1,3 +1,9 @@
+# 🎯 쇼핑 카트 2단계 기능 구현 목록
+
+step 1 : checkout 페이지 UI 구성
+
+- [x] 기존의 checkout 페이지를 payments 페이지로 이름 변경
+
 # 🎯 1단계 Refactoring
 
 - [x] isChecked의 localStorage 동기화 로직(persist) -> atom Effect로 처리

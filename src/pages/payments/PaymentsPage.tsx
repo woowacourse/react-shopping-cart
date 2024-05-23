@@ -4,9 +4,9 @@ import Button from '../../components/common/Button';
 import Header from '../../components/Header/Header';
 import BackIcon from '../../asset/back.png';
 import formatKoreanCurrency from '../../utils/formatKoreanCurrency';
-import styles from './CheckoutPage.module.css';
+import styles from './PaymentsPage.module.css';
 
-export default function CheckoutPage() {
+export default function PaymentsPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const {

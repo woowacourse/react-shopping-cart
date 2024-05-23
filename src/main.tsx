@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import CartPage from './pages/cart/CartPage.tsx';
-import CheckoutPage from './pages/checkout/CheckoutPage.tsx';
+import PaymentsPage from './pages/payments/PaymentsPage.tsx';
 import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Suspense } from 'react';
@@ -27,8 +27,8 @@ const router = createBrowserRouter([
         element: <CartPage />,
       },
       {
-        path: '/checkout',
-        element: <CheckoutPage />,
+        path: '/payments',
+        element: <PaymentsPage />,
       },
       { path: '*', element: <NotFoundPage /> },
     ],

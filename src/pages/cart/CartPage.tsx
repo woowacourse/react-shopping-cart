@@ -5,14 +5,14 @@ import CartList from './components/CartList';
 import CartTitle from './components/CartTitle';
 import CartTotals from './components/CartTotals';
 import useCartNavigate from '../../hooks/useCartNavigate';
-import useCheckoutNavigate from '../../hooks/useCheckoutNavigate';
+import usePaymentsNavigate from '../../hooks/usePaymentsNavigate';
 
 import styles from './Cart.module.css';
 import { productsState } from '../../store/atoms';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
 export default function CartPage() {
-  const { handleFooterButtonClick } = useCheckoutNavigate();
+  const { handleFooterButtonClick } = usePaymentsNavigate();
   const { navigateCartPage } = useCartNavigate();
   const products = useRecoilValue(productsState);
 
