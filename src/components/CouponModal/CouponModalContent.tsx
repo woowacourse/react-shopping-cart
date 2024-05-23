@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 import { NotificationIcon } from '../../asset';
 import { MESSAGES } from '../../constants/Messages';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { couponsState } from '../../recoil/atoms';
 import { Coupon } from '../../types/coupon';
 import CouponCard from '../\bCouponCard';
 import { fetchCouponsSelector } from '../../recoil/fetchSelectors';
 import { useEffect } from 'react';
-import { formattingCouponsSelector } from '../../recoil/selectors';
 
 const CouponListContainer = styled.div`
   margin-top: 3.6rem;
@@ -30,19 +29,18 @@ const InformationMsg = styled.div`
 `;
 function CouponModalContent() {
   const fetchCoupons = useRecoilValue(fetchCouponsSelector);
-  const setCoupons = useSetRecoilState(couponsState);
+  const [coupons, setCoupons] = useRecoilState(couponsState);
   useEffect(() => {
     setCoupons(fetchCoupons);
   }, [fetchCoupons, setCoupons]);
 
-  const formattingCoupons = useRecoilValue(formattingCouponsSelector);
   return (
     <CouponListContainer>
       <InformationMsg>
         <NotificationIconImg src={NotificationIcon} alt="Notification Icon" />
         {MESSAGES.cartNotification}
       </InformationMsg>
-      {formattingCoupons.map((coupon: Coupon) => {
+      {coupons.map((coupon: Coupon) => {
         return <CouponCard key={coupon.id} coupon={coupon} />;
       })}
     </CouponListContainer>

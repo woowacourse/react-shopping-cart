@@ -20,7 +20,7 @@ const formatTime = (time: string) => {
 const formatAvailableTime = (start: string, end: string) => {
   const formattedStart = formatTime(start);
   const formattedEnd = formatTime(end);
-  return { start: formattedStart, end: formattedEnd };
+  return formattedStart + ' ' + formattedEnd;
 };
 
 export { formatDate, formatAvailableTime };
