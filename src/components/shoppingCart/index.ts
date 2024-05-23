@@ -1,3 +1,4 @@
+export { default as CountAlertModal } from './CountAlertModal/CountAlertModal';
 export { default as AmountsList } from './AmountsList/AmountsList';
 export { default as PurchaseProcessLayout } from '@components/layout/PurchaseProcessLayout/PurchaseProcessLayout';
 export { default as CartListDescription } from './CartListDescription/CartListDescription';
