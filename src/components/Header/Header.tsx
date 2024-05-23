@@ -1,20 +1,29 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import * as Styled from './style';
 import MESSAGE from '../../constants/Message';
+import CONDITION from '../../constants/Condition';
 
-interface HeaderProps {
-  onClick?: () => void;
-}
+const Header = () => {
+  const location = useLocation();
+  const navigator = useNavigate();
 
-const Header = ({ onClick }: HeaderProps) => {
   const title = () => {
-    const location = useLocation();
-
     switch (location.pathname) {
-      case '/':
+      case CONDITION.shoppingCartPage:
         return MESSAGE.shop;
-      case '/orderConfirmation':
+      case CONDITION.orderConfirmationPage:
         return MESSAGE.backSpace;
+      default:
+        return '';
+    }
+  };
+
+  const handleOnClick = () => {
+    switch (location.pathname) {
+      case CONDITION.shoppingCartPage:
+        return navigator(CONDITION.shoppingCartPage);
+      case CONDITION.orderConfirmationPage:
+        return navigator(CONDITION.shoppingCartPage);
       default:
         return '';
     }
@@ -22,7 +31,7 @@ const Header = ({ onClick }: HeaderProps) => {
 
   return (
     <Styled.Header>
-      <Styled.AppTitle onClick={() => onClick && onClick()}>
+      <Styled.AppTitle onClick={() => handleOnClick()}>
         {title()}
       </Styled.AppTitle>
     </Styled.Header>
