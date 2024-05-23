@@ -2,3 +2,4 @@ export { CartQuantityAdjuster } from './ui/CartQuantityAdjuster/CartQuantityAdju
 export { CheckCartButton } from './ui/CheckCartButton/CheckCartButton';
 export { DeleteCartButton } from './ui/DeleteCartButton/DeleteCartButton';
 export { OrderCartButton } from './ui/OrderCartButton/OrderCartButton';
+export { PayOrderButton } from './ui/PayOrderButton/PayOrderButton';
