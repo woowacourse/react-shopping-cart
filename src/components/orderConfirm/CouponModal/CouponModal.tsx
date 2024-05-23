@@ -46,7 +46,7 @@ const CouponModal = ({ openModal, setOpenModal, availableCoupons }: CouponModalP
     setSelectedCouponCodes((prev) => {
       if (isChecked) return prev?.includes(code) ? prev : prev.concat(code);
 
-      return prev.filter((i) => i === code);
+      return prev.filter((i) => i !== code);
     });
   };
 
