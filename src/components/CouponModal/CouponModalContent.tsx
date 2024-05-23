@@ -7,6 +7,7 @@ import { Coupon } from '../../types/coupon';
 import CouponCard from '../\bCouponCard';
 import { fetchCouponsSelector } from '../../recoil/fetchSelectors';
 import { useEffect } from 'react';
+import { useValidateCoupons } from '../../recoil/selectors';
 
 const CouponListContainer = styled.div`
   margin-top: 3.6rem;
@@ -29,6 +30,7 @@ const InformationMsg = styled.div`
 `;
 function CouponModalContent() {
   const fetchCoupons = useRecoilValue(fetchCouponsSelector);
+  useValidateCoupons()();
   const [coupons, setCoupons] = useRecoilState(couponsState);
   useEffect(() => {
     setCoupons(fetchCoupons);
