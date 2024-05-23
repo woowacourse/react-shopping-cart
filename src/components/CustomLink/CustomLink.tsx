@@ -8,6 +8,11 @@ interface CustomLinkProps extends PropsWithChildren {
   style?: SerializedStyles;
 }
 
+/**
+ *
+ * @param  style 값은 emoion CSS값 사용
+ * @returns
+ */
 const CustomLink = ({ disabled, To, children, style }: CustomLinkProps) => {
   const navigation = useNavigate();
 
