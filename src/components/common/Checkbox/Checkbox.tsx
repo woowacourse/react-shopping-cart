@@ -9,9 +9,11 @@ interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 const Checkbox = ({ checked, ...props }: CheckboxProps) => {
   return (
-    <Styled.Checkbox>
+    <Styled.Checkbox $checked={checked}>
       <Styled.CheckboxInput type="checkbox" {...props}></Styled.CheckboxInput>
-      <Styled.CheckIcon $checked={checked} src={checked ? CheckIcon : NoneCheckIcon} alt="check icon" />
+      <Styled.CheckIconWrapper>
+        <Styled.CheckIcon src={checked ? CheckIcon : NoneCheckIcon} alt="check icon" />
+      </Styled.CheckIconWrapper>
     </Styled.Checkbox>
   );
 };
