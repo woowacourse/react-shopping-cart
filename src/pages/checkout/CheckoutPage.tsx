@@ -9,6 +9,8 @@ import { useRecoilValue } from 'recoil';
 import { totalProductQuantityState } from '../../store/selectors';
 import { isCheckedState, productsState } from '../../store/atoms';
 import CheckoutItem from './components/CheckoutItem';
+import { useState } from 'react';
+import CouponModal from './components/CouponModal';
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
@@ -20,6 +22,12 @@ export default function CheckoutPage() {
   const products = useRecoilValue(productsState);
   const isCheckedMap = useRecoilValue(isCheckedState);
   const checkoutProducts = products.filter((product) => isCheckedMap[product.id] === true);
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleButtonClick = () => {
+    setModalOpen(!modalOpen);
+  };
 
   return (
     <>
@@ -44,12 +52,19 @@ export default function CheckoutPage() {
             return <CheckoutItem key={`checkout-${cartItem.id}`} cartItem={cartItem} />;
           })}
         </div>
+        <button
+          className={`${styles.couponModalButton} ${common.subtitleText}`}
+          onClick={handleButtonClick}
+        >
+          쿠폰 적용
+        </button>
       </div>
 
       {/* 다음 미션에서 기능 추가 예정 */}
       <Button variant="footer" disabled={true}>
         결제하기
       </Button>
+      <CouponModal isOpen={modalOpen} handleToggle={handleButtonClick} />
     </>
   );
 }

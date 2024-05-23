@@ -6,6 +6,8 @@ step 1 : checkout 페이지 UI 구성
 - [x] checkout 페이지 생성 및 라우팅
 - [x] checkout 페이지 title 컴포넌트 UI
 - [x] checkout 페이지 상품 목록 UI
+- [x] checkout 페이지 쿠폰 모달 버튼 UI
+- [x] 이전 미션의 모달 라이브러리 설치
 
 # 🎯 1단계 Refactoring
 
