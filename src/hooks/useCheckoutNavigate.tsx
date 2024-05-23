@@ -1,11 +1,11 @@
 import { useRecoilValue } from 'recoil';
-import { totalProductQuantity, totalOrderAmountState } from '../store/selectors';
+import { totalProductQuantityState, totalOrderAmountState } from '../store/selectors';
 import { useNavigate } from 'react-router-dom';
 import ROUTES from '../constants/routes';
 
 const useCheckoutNavigate = () => {
   const navigate = useNavigate();
-  const { totalCount, totalQuantity } = useRecoilValue(totalProductQuantity);
+  const { totalCount, totalQuantity } = useRecoilValue(totalProductQuantityState);
   const { totalAmount } = useRecoilValue(totalOrderAmountState);
 
   const handleCheckoutNavigate = () => {

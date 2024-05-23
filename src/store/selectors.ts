@@ -56,8 +56,8 @@ export const totalOrderAmountState = selector<AmountType>({
   },
 });
 
-export const totalProductQuantity = selector({
-  key: 'totalProductQuantity',
+export const totalProductQuantityState = selector({
+  key: 'totalProductQuantityState',
   get: ({ get }) => {
     let totalCount = 0;
     let totalQuantity = 0;

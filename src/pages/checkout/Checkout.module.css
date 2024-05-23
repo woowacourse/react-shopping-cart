@@ -1,0 +1,14 @@
+.titleWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bodyWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  padding: 36px 24px 40px 24px;
+  height: calc(100vh - 100px);
+  overflow-y: scroll;
+}
