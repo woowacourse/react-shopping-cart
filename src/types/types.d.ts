@@ -22,15 +22,15 @@ interface CartItem {
 
 type DiscountType = 'fixed' | 'buyXgetY' | 'freeShipping' | 'percentage';
 interface AvailableTime {
-  start: Date;
-  end: Date;
+  start: string;
+  end: string;
 }
 
 interface Coupon {
   id: number;
   code: string;
   description: string;
-  expirationDate: Date;
+  expirationDate: string;
   discount?: number;
   minimumAmount?: number;
   buyQuantity?: number;
