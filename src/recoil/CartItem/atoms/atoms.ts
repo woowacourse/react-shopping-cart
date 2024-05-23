@@ -29,3 +29,8 @@ export const isSigolState = atom<boolean>({
   key: 'isSigolState',
   default: false,
 });
+
+export const isPaidState = atom<boolean>({
+  key: 'isPaidState',
+  default: false,
+});

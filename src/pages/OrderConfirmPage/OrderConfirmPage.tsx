@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Link, Navigate, useLoaderData } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import CartItem from '../../components/ShoppingCartPage/CartItem/CartItem';
@@ -9,7 +9,7 @@ import CheckBox from '../../components/common/CheckBox/CheckBox';
 import TotalPriceContainer from '../../components/common/TotalPriceContainer/TotalPriceContainer';
 import CouponModal from '../../components/OrderConfirmPage/CouponModal/CouponModal';
 import type { Coupon } from '../../types/Coupon.type';
-import { selectedCartItemListState, isSigolState } from '../../recoil/CartItem/atoms/atoms';
+import { selectedCartItemListState, isSigolState, isPaidState } from '../../recoil/CartItem/atoms/atoms';
 import { totalOrderCountSelector } from '../../recoil/CartItem/selectors/selectors';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './OrderConfirmPage.style';
@@ -19,6 +19,8 @@ function OrderConfirmPage() {
 
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const [isSigol, setIsSigol] = useRecoilState(isSigolState);
+
+  const setIsPaid = useSetRecoilState(isPaidState);
 
   const selectedItemList = useRecoilValue(selectedCartItemListState);
   const totalOrderCount = useRecoilValue(totalOrderCountSelector);
@@ -52,7 +54,7 @@ function OrderConfirmPage() {
         <TotalPriceContainer isConfirm={true} />
       </S.Main>
       <Link to={PATHS.PAYMENT_CONFIRM}>
-        <SubmitButton isActive={true} content="결제하기" />
+        <SubmitButton isActive={true} content="결제하기" onClick={() => setIsPaid(true)} />
       </Link>
       {isCouponModalOpen && (
         <CouponModal couponList={couponList} isOpen={isCouponModalOpen} close={() => setIsCouponModalOpen(false)} />
