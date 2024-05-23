@@ -11,6 +11,10 @@ export interface Coupon {
   availableTime?: AvailableTime;
 }
 
+export interface CouponClint extends Coupon {
+  isChecked: boolean;
+}
+
 export interface AvailableTime {
   start: string;
   end: string;

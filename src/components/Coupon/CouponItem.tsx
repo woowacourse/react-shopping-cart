@@ -3,12 +3,12 @@ import { ChangeEvent } from 'react';
 
 import Checkbox from '../common/Checkbox';
 
-import { Coupon } from '@/types/coupon';
+import { Coupon, CouponDiscountType } from '@/types/coupon';
 import { convertAvailableDateFormat, convertExpiryDateFormat } from '@/utils/date';
 
 interface CouponItemProps {
   coupon: Coupon;
-  type: 'fixed' | 'buyXgetY' | 'freeShipping' | 'percentage';
+  discountType: CouponDiscountType;
   isCouponValid: boolean;
   isChecked: boolean;
   handleChangeChecked: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -16,15 +16,16 @@ interface CouponItemProps {
 
 const CouponItem = ({
   coupon,
-  type,
+  discountType,
   isChecked,
   isCouponValid,
   handleChangeChecked,
 }: CouponItemProps) => {
   const { description, expirationDate, minimumAmount, availableTime } = coupon;
 
-  const isRequiredMinimumAmount = (type === 'fixed' || type === 'freeShipping') && minimumAmount;
-  const isRequiredAvailableTime = type === 'percentage' && availableTime;
+  const isRequiredMinimumAmount =
+    (discountType === 'fixed' || discountType === 'freeShipping') && minimumAmount;
+  const isRequiredAvailableTime = discountType === 'percentage' && availableTime;
 
   return (
     <div css={couponItemContainer(isCouponValid)}>

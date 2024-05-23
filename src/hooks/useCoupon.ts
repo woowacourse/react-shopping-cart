@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import useDiscountCalculator from './useDiscountCalculator';
 

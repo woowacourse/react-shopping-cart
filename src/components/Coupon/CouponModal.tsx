@@ -3,6 +3,7 @@ import { Modal } from 'maru-nice-modal';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import CouponItem from './CouponItem';
+import { isCheckedCoupon } from './utils';
 
 import { useCouponApplicabilityChecker } from '@/hooks/useCouponApplicabilityChecker';
 import { orderResultState } from '@/recoil/cartItems/selectors';
@@ -30,9 +31,7 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
   const setCouponSavedCheckList = useSetRecoilState(couponSavedCheckListState);
   const setTotalDiscountPrice = useSetRecoilState(totalDiscountPriceState);
 
-  const isFreeShipping = couponCheckList.find(
-    (coupon) => coupon.code === 'FREESHIPPING',
-  )?.isChecked;
+  const isFreeShipping = isCheckedCoupon(couponCheckList, 'freeShipping');
   const displayDiscountLabel = `총 ${localDiscountPrice.toLocaleString('ko-KR')}원 할인 쿠폰 사용하기`;
 
   const handleClickApplyCoupon = () => {
@@ -55,7 +54,7 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
             <CouponItem
               key={coupon.code}
               coupon={coupon}
-              type={coupon.discountType}
+              discountType={coupon.discountType}
               isCouponValid={
                 isValidCouponCount
                   ? isCouponApplicable(coupon, totalOrderPrice)
