@@ -26,3 +26,13 @@ export const selectedListState = atom<number[]>({
     },
   ],
 });
+
+export const selectedCouponsState = atom<number[]>({
+  key: "selectedCouponsState",
+  default: [],
+});
+
+export const extremeDeliveryState = atom<boolean>({
+  key: "extremeDeliveryState",
+  default: false,
+});

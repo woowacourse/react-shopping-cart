@@ -5,3 +5,5 @@ export const ENVIRONMENT = process.env.ENVIRONMENT || "";
 
 export const DEFAULT_DELIVERY_FEE = 3_000;
 export const DELIVERY_FEE_THRESHOLD = 100_000;
+
+export const EXTREME_DELIVERY_FEE = 6_000;
