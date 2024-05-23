@@ -4,5 +4,16 @@ import CartPrice from "./CartPrice/CartPrcie";
 import PaymentConfirm from "./PaymentConfirm/PaymentConfirm";
 import Header from "./common/Header/Header";
 import Footer from "./common/Footer/Footer";
+import DeliveryInfo from "./DeliveryInfo/DeliveryInfo";
+import CouponButton from "./CouponButton/CouponButton";
 
-export { CartDescription, CartList, Header, Footer, CartPrice, PaymentConfirm };
+export {
+  CartDescription,
+  CartList,
+  Header,
+  Footer,
+  CartPrice,
+  PaymentConfirm,
+  DeliveryInfo,
+  CouponButton,
+};

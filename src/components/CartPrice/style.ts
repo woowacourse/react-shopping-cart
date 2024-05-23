@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { PriceStyleProps } from "./CartPrcie";
 
 export const Wrapper = styled.section``;
 
-export const Price = styled.div<PriceStyleProps>`
+export const Price = styled.div`
   display: flex;
   justify-content: space-between;
   padding-top: 24px;
   padding-bottom: 12px;
-  border-top: ${({ $borderTop }) => $borderTop || "none"};
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  margin-top: 12px;
 `;

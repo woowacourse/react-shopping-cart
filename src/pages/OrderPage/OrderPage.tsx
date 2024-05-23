@@ -6,11 +6,14 @@ import {
   Header,
   Footer,
   CartPrice,
+  CouponButton,
+  DeliveryInfo,
 } from "../../components";
 import { AppLayout, CartLayout } from "../../layouts";
 import { useNavigate } from "react-router-dom";
 import { BackArrowSvg } from "../../assets";
 import { SvgWrapper } from "./style";
+import { Tip } from "../../components/common";
 
 const OrderPage = () => {
   const navigate = useNavigate();
@@ -27,6 +30,9 @@ const OrderPage = () => {
           <Suspense fallback={<div>Loading</div>}>
             <CartDescription />
             <CartList />
+            <CouponButton />
+            <DeliveryInfo />
+            <Tip>총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</Tip>
             <CartPrice />
           </Suspense>
         </ErrorBoundary>

@@ -2,13 +2,15 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { selectedListState, cartItemsState } from "../../recoil/atoms/atoms";
 import Cart from "../Cart/Cart";
 import type { CartItem } from "../../types/cart";
-import { Wrapper, Footer, AllCheckWrapper } from "./style";
-import { FilledCheckSvg, OutlineCheckSvg, infoOutline } from "../../assets";
+import { Wrapper, AllCheckWrapper } from "./style";
+import { FilledCheckSvg, OutlineCheckSvg } from "../../assets";
 import { SmallText } from "../common";
 import { useLocation } from "react-router-dom";
+import { selectedCartItemsState } from "../../recoil/selectors/selectors";
 
 const CartList = () => {
   const cartItems = useRecoilValue(cartItemsState);
+  const selectedCartItems = useRecoilValue(selectedCartItemsState);
   const location = useLocation();
 
   const [selectedList, setSelectedListState] =
@@ -29,23 +31,25 @@ const CartList = () => {
 
   return (
     <Wrapper>
-      <AllCheckWrapper>
-        {isAllSelected ? (
-          <FilledCheckSvg onClick={() => handleSelectAllItem("turnOff")} />
-        ) : (
-          <OutlineCheckSvg onClick={() => handleSelectAllItem("turnOn")} />
-        )}
-        <SmallText>전체선택</SmallText>
-      </AllCheckWrapper>
-      {cartItems.map((cartItem: CartItem) => (
-        <Cart key={cartItem.id} cartItem={cartItem} />
-      ))}
-      <Footer>
-        <img src={infoOutline} />
-        <SmallText>
-          총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
-        </SmallText>
-      </Footer>
+      {location.pathname === "/" && (
+        <AllCheckWrapper>
+          {isAllSelected ? (
+            <FilledCheckSvg onClick={() => handleSelectAllItem("turnOff")} />
+          ) : (
+            <OutlineCheckSvg onClick={() => handleSelectAllItem("turnOn")} />
+          )}
+          <SmallText>전체선택</SmallText>
+        </AllCheckWrapper>
+      )}
+
+      {location.pathname === "/" &&
+        cartItems.map((cartItem: CartItem) => (
+          <Cart key={cartItem.id} cartItem={cartItem} />
+        ))}
+      {location.pathname === "/order" &&
+        selectedCartItems.map((cartItem: CartItem) => (
+          <Cart key={cartItem.id} cartItem={cartItem} />
+        ))}
     </Wrapper>
   );
 };

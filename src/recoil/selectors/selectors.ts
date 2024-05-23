@@ -8,14 +8,9 @@ import {
 export const cartPriceState = selector({
   key: "cartPriceState",
   get: ({ get }) => {
-    const cartItems = get(cartItemsState);
-    const selectedList = get(selectedListState);
-
-    const orderPrice = cartItems.reduce((acc, cartItem) => {
-      if (selectedList.includes(cartItem.id)) {
-        return acc + cartItem.product.price * cartItem.quantity;
-      }
-      return acc;
+    const selectedCartItems = get(selectedCartItemsState);
+    const orderPrice = selectedCartItems.reduce((acc, cartItem) => {
+      return acc + cartItem.product.price * cartItem.quantity;
     }, 0);
 
     const deliveryFee =
@@ -29,16 +24,28 @@ export const cartPriceState = selector({
   },
 });
 
+export const selectedCartItemsState = selector({
+  key: "selectedCartItemsState",
+  get: ({ get }) => {
+    const cartItems = get(cartItemsState);
+    const selectedList = get(selectedListState);
+    return cartItems.filter((cartItem) => selectedList.includes(cartItem.id));
+  },
+});
+
 export const cartSummaryState = selector({
   key: "cartSummaryState",
   get: ({ get }) => {
     const cartItems = get(cartItemsState);
+    const selectedCartItems = get(selectedCartItemsState);
     const cartItemKind = cartItems.length;
-    const cartItemTotalQuantity = cartItems.reduce(
+
+    const cartItemSelectedKind = selectedCartItems.length;
+    const cartItemSelectedQuantity = selectedCartItems.reduce(
       (acc, cartItem) => acc + cartItem.quantity,
       0
     );
 
-    return { cartItemKind, cartItemTotalQuantity };
+    return { cartItemKind, cartItemSelectedQuantity, cartItemSelectedKind };
   },
 });

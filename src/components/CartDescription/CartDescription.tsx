@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 
 const CartDescription = () => {
   const location = useLocation();
-  const { cartItemKind, cartItemTotalQuantity } =
+  const { cartItemKind, cartItemSelectedQuantity, cartItemSelectedKind } =
     useRecoilValue(cartSummaryState);
 
   return (
@@ -20,8 +20,8 @@ const CartDescription = () => {
         ) : (
           <>
             <div>
-              총 {cartItemKind}종류의 상품 {cartItemTotalQuantity}개를
-              주문합니다
+              총 {cartItemSelectedKind}종류의 상품 {cartItemSelectedQuantity}
+              개를 주문합니다
             </div>
             <div>최종 결제 금액을 확인해 주세요</div>
           </>

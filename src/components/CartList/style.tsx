@@ -5,7 +5,7 @@ export const Wrapper = styled.section`
   flex-direction: column;
   align-items: center;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 52px;
 `;
 
 export const AllCheckWrapper = styled.div`
@@ -14,11 +14,4 @@ export const AllCheckWrapper = styled.div`
   align-items: center;
   gap: 8px;
   margin-bottom: 20px;
-`;
-
-export const Footer = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  width: 100%;
-  margin-top: 30px;
 `;
