@@ -1,6 +1,6 @@
 import { selector, selectorFamily } from 'recoil';
 
-import { couponsState } from './atom';
+import { couponsState, selectedCouponsState } from './atom';
 import {
   calculateBuyXgetYDiscountSelector,
   calculateFixedDiscountSelector,
@@ -30,6 +30,15 @@ export const couponSelector = selectorFamily<Coupon | undefined, string>({
 
       return coupons.find(({ code }) => couponCode === code);
     },
+});
+
+export const isMaxSelectedCouponsSelector = selector({
+  key: 'isMaxSelectedCouponsSelector',
+  get: ({ get }) => {
+    const selectedCoupons = get(selectedCouponsState);
+
+    return selectedCoupons.length === 2;
+  },
 });
 
 export const applicableCouponSelector = selectorFamily<boolean, string>({

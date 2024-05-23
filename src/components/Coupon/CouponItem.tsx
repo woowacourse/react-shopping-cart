@@ -1,18 +1,30 @@
 import { css } from '@emotion/react';
-import { useRecoilValue } from 'recoil';
+import { ChangeEvent } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import Checkbox from '../common/Checkbox';
 
-import { applicableCouponSelector } from '@/recoil/coupon/selector';
 import { Coupon } from '@/types/coupon';
 import { dateFormat, timeFormat } from '@/utils/format';
+import { selectedCouponsState } from '@recoil/coupon/atom';
+import { applicableCouponSelector } from '@recoil/coupon/selector';
 
 interface CouponItemProps {
   coupon: Coupon;
 }
 
 export default function CouponItem({ coupon }: CouponItemProps) {
+  const [selectedCoupons, setSelectedCoupons] = useRecoilState(selectedCouponsState);
   const isCouponApplicable = useRecoilValue(applicableCouponSelector(coupon.code));
+
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      setSelectedCoupons([...selectedCoupons, coupon.code]);
+    } else {
+      if (selectedCoupons.includes(coupon.code))
+        setSelectedCoupons(selectedCoupons.filter((code) => coupon.code !== code));
+    }
+  };
 
   return (
     <>
@@ -20,10 +32,12 @@ export default function CouponItem({ coupon }: CouponItemProps) {
         <div css={couponSubContainer(isCouponApplicable)}>
           <div css={checkboxContainer}>
             <Checkbox
+              onChange={onChangeHandler}
+              checked={selectedCoupons.includes(coupon.code)}
               id={coupon.id.toString()}
               label={coupon.description + '체크박스'}
               labelHidden={true}
-              disabled={isCouponApplicable}
+              disabled={!isCouponApplicable}
             />
             <h2 css={checkboxTitle}>{coupon.description}</h2>
           </div>
@@ -63,7 +77,7 @@ const couponSubContainer = (isCouponApplicable: boolean) => css`
   flex-direction: column;
   gap: 12px;
 
-  opacity: ${isCouponApplicable ? '0.25' : '1'};
+  opacity: ${isCouponApplicable ? '1' : '0.25'};
 `;
 
 const checkboxContainer = css`

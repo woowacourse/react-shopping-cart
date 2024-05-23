@@ -12,3 +12,8 @@ export const isCouponModalOpenState = atom<boolean>({
   key: 'isCouponModalOpenState',
   default: false,
 });
+
+export const selectedCouponsState = atom<string[]>({
+  key: 'selectedCouponsState',
+  default: [],
+});
