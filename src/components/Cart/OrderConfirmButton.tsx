@@ -1,16 +1,28 @@
 import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { THEME } from '@/constants/theme';
-import { isAllUnCheckedState } from '@recoil/cartItems/selectors';
+import { useCouponApplicabilityChecker } from '@/hooks/useCouponApplicabilityChecker';
+import { couponSavedCheckListState } from '@/recoil/coupons/atoms';
+import { isAllUnCheckedState, orderResultState } from '@recoil/cartItems/selectors';
 
 const OrderConfirmButton = () => {
   const navigate = useNavigate();
   const isAllUnChecked = useRecoilValue(isAllUnCheckedState);
+  const { totalOrderPrice } = useRecoilValue(orderResultState);
+  const setCouponSavedCheckList = useSetRecoilState(couponSavedCheckListState);
+  const { isCouponApplicable } = useCouponApplicabilityChecker();
 
   const handleClickOrderConfirm = () => {
     if (isAllUnChecked) return;
+
+    setCouponSavedCheckList((prev) =>
+      prev.map((coupon) => ({
+        ...coupon,
+        isChecked: isCouponApplicable(coupon, totalOrderPrice) ? coupon.isChecked : false,
+      })),
+    );
 
     navigate('/confirm');
   };
