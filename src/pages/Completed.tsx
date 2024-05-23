@@ -4,6 +4,7 @@ import { totalCountSelector, totalPriceSelector } from '../recoil/selectors';
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 import { URL_PATH } from '../constants/UrlPath';
+import { MESSAGES } from '../constants/Messages';
 
 const CompletedContainer = styled.div`
   display: flex;
@@ -61,7 +62,11 @@ function Completed() {
         </TotalAmountStyle>
       </CompletedContainer>
 
-      <Footer isDisabled={true} url={URL_PATH.cart} />
+      <Footer
+        value={MESSAGES.returnCart}
+        isDisabled={true}
+        url={URL_PATH.cart}
+      />
     </>
   );
 }

@@ -8,6 +8,7 @@ import CartContent, {
   NoCartItemContainer,
 } from '../components/CartContent/CartContent';
 import { URL_PATH } from '../constants/UrlPath';
+import { MESSAGES } from '../constants/Messages';
 
 const CartContainer = styled.div`
   display: flex;
@@ -37,7 +38,11 @@ function Cart() {
             <CartContent />
           </Suspense>
         </ContentWrapper>
-        <Footer isDisabled={false} url={URL_PATH.orderConfirm} />
+        <Footer
+          value={MESSAGES.confirm}
+          isDisabled={false}
+          url={URL_PATH.orderConfirm}
+        />
       </ErrorBoundary>
     </CartContainer>
   );

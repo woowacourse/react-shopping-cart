@@ -7,6 +7,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { URL_PATH } from '../constants/UrlPath';
 import OrderConfirmContent from '../components/OrderConfirmContent/OrderConfirmContent';
 import { NoCartItemContainer } from '../components/CartContent/CartContent';
+import { MESSAGES } from '../constants/Messages';
 
 const CartContainer = styled.div`
   display: flex;
@@ -36,7 +37,11 @@ function OrderConfirm() {
             <OrderConfirmContent />
           </Suspense>
         </ContentWrapper>
-        <Footer isDisabled={false} url={URL_PATH.completed} />
+        <Footer
+          value={MESSAGES.payment}
+          isDisabled={false}
+          url={URL_PATH.completed}
+        />
       </ErrorBoundary>
     </CartContainer>
   );
