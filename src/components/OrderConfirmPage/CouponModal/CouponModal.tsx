@@ -1,7 +1,6 @@
 import { useRecoilState } from 'recoil';
 import { Modal } from '@hanuuny/react-modal';
 import CouponItem from '../CouponItem/CouponItem';
-import Button from '../../common/Button/Button';
 import NotificationLabel from '../../common/NotificationLabel/NotificationLabel';
 import useSelectedCoupons from '../../../hooks/useSelectedCoupons';
 import useCouponCalculator from '../../../hooks/useCouponCalculator';
@@ -49,14 +48,14 @@ function CouponModal({ couponList, isOpen, close }: CouponModalProps) {
         </S.CouponItemList>
       </Modal.Body>
       <Modal.Footer>
-        {selectedCoupons.length >= 1 ? (
-          <Modal.Button
-            text={`총 ${calculateTotalDiscountPrice(selectedCoupons).toLocaleString()}원 할인 쿠폰 사용하기`}
-            onClick={updateSavedCoupons}
-          />
-        ) : (
-          <Button isActive={false} content="쿠폰을 선택해 주세요" />
-        )}
+        <Modal.Button
+          text={
+            selectedCoupons.length >= 1
+              ? `총 ${calculateTotalDiscountPrice(selectedCoupons).toLocaleString()}원 할인 쿠폰 사용하기`
+              : '쿠폰 등록 취소하기'
+          }
+          onClick={updateSavedCoupons}
+        />
       </Modal.Footer>
     </Modal>
   );
