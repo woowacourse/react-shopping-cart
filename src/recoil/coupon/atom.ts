@@ -7,3 +7,8 @@ export const couponsState = atom<Coupon[]>({
   key: 'couponsState',
   default: coupons,
 });
+
+export const isCouponModalOpenState = atom<boolean>({
+  key: 'isCouponModalOpenState',
+  default: false,
+});
