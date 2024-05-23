@@ -6,10 +6,8 @@ import { useRecoilValue } from 'recoil';
 import { cartItemsCountSelector } from '../../../recoil/selectors';
 
 import ShoppingCartItems from '../../CartItems/ShoppingCartItems/ShoppingCartItems';
-import Title from '../../Title/Title';
 import ShoppingCartTotalPaymentInfo from '../../TotalPaymentInfo/ShoppingCartTotalPaymentInfo';
-import Caption from '../../Caption/Caption';
-import TitleContainer from '../../TitleContainer/TitleContainer';
+import ShoppingCartTitleContainer from '../../TitleContainer/ShoppingCartTitleContainer';
 
 import MESSAGE from '../../../constants/Message';
 
@@ -22,10 +20,7 @@ const ShoppingCartContent = () => {
     <StyledContent>
       {hasSomeCartItem && (
         <>
-          <TitleContainer>
-            <Title>{MESSAGE.shoppingCart}</Title>
-            <Caption>{MESSAGE.titleCaption(cartItemsCount)}</Caption>
-          </TitleContainer>
+          <ShoppingCartTitleContainer />
           <ShoppingCartItems />
           <ShoppingCartTotalPaymentInfo />
         </>
@@ -33,9 +28,7 @@ const ShoppingCartContent = () => {
 
       {!hasSomeCartItem && (
         <>
-          <TitleContainer>
-            <Title>{MESSAGE.shoppingCart}</Title>
-          </TitleContainer>
+          <ShoppingCartTitleContainer />
           <Styled.EmptyCartMessage>{MESSAGE.emptyCart}</Styled.EmptyCartMessage>
         </>
       )}
