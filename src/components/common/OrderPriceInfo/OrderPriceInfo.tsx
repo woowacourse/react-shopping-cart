@@ -6,12 +6,16 @@ import * as Styled from './OrderPriceInfo.styled';
 interface PriceInfoRowProps {
   price: number;
   title: string;
+  isDiscount?: boolean;
 }
-const Row = ({ price, title }: PriceInfoRowProps) => {
+const Row = ({ price, title, isDiscount = false }: PriceInfoRowProps) => {
   return (
     <Styled.PriceRow>
       <Styled.PriceLabel>{title}</Styled.PriceLabel>
-      <Styled.PriceAmount>{formatKoreanCurrency(price)}</Styled.PriceAmount>
+      <Styled.PriceAmount>
+        {price && isDiscount ? '-' : ''}
+        {formatKoreanCurrency(price)}
+      </Styled.PriceAmount>
     </Styled.PriceRow>
   );
 };
