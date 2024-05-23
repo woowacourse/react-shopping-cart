@@ -17,17 +17,32 @@ const CheckBoxImg = styled.img`
 interface CheckBoxProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isChecked: boolean;
   onClick: (e: React.MouseEvent) => void;
+
+  disabled?: boolean;
 }
 
-function CheckBox({ isChecked, onClick, ...rest }: CheckBoxProps) {
-  return (
-    <CheckBoxButton onClick={onClick} {...rest}>
-      <CheckBoxImg
-        src={isChecked ? CheckedBox : NoneCheckedBox}
-        alt="CheckBox"
-      />
-    </CheckBoxButton>
-  );
+function CheckBox({
+  isChecked,
+  onClick,
+  disabled = false,
+  ...rest
+}: CheckBoxProps) {
+  if (disabled) {
+    return (
+      <CheckBoxButton {...rest}>
+        <CheckBoxImg src={NoneCheckedBox} alt="CheckBox" />
+      </CheckBoxButton>
+    );
+  } else {
+    return (
+      <CheckBoxButton onClick={onClick} {...rest}>
+        <CheckBoxImg
+          src={isChecked ? CheckedBox : NoneCheckedBox}
+          alt="CheckBox"
+        />
+      </CheckBoxButton>
+    );
+  }
 }
 
 export default CheckBox;

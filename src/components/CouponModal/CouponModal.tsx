@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { Modal } from 'chico-custom-modal';
 import styled from 'styled-components';
 import CouponModalContent from './CouponModalContent';
+import { NoCartItemContainer } from '../CartContent/CartContent';
+import { useResetAllCoupons } from '../../recoil/selectors';
 
 const Button = styled.button`
   height: 4.2rem;
@@ -16,11 +18,17 @@ const Button = styled.button`
 
 function CouponModal() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const resetAllCoupons = useResetAllCoupons();
+
   const handleButton = () => {
     setIsModalOpen(true);
   };
 
-  const handleClose = (e: React.MouseEvent) => {
+  const handleClose = () => {
+    resetAllCoupons();
+    setIsModalOpen(false);
+  };
+  const handleConfirm = () => {
     setIsModalOpen(false);
   };
   return (
@@ -32,10 +40,14 @@ function CouponModal() {
             <Modal.Title title="쿠폰을 선택해 주세요" />
           </Modal.Header>
           <Modal.Body>
-            <CouponModalContent />
+            <Suspense
+              fallback={<NoCartItemContainer>Loading...</NoCartItemContainer>}
+            >
+              <CouponModalContent />
+            </Suspense>
           </Modal.Body>
           <Modal.Footer>
-            <Modal.Button onClick={handleClose}>확인</Modal.Button>
+            <Modal.Button onClick={handleConfirm}>확인</Modal.Button>
           </Modal.Footer>
         </Modal>
       )}
