@@ -1,22 +1,13 @@
 import useToggleAllChecked from '@/hooks/useToggleAllChecked';
-import { isAllCheckedCartItemsSelector } from '@/store/selectors';
-import { useRecoilValue } from 'recoil';
 import styles from '../Cart.module.css';
+import CheckBox from '@/components/common/CheckBox';
 
 export default function AllSelectCheckBox() {
-  const { handleToggleAll } = useToggleAllChecked();
-  const isAllChecked = useRecoilValue(isAllCheckedCartItemsSelector);
+  const { isAllChecked, handleToggleAll } = useToggleAllChecked();
 
   return (
     <div className={styles.allCheckContainer}>
-      <input
-        type="checkbox"
-        id={'checkAll'}
-        className={styles.customCheckbox}
-        checked={isAllChecked}
-        onChange={handleToggleAll}
-      ></input>
-      <label htmlFor={'checkAll'} className={styles.customCheckboxLabel}></label>
+      <CheckBox id={'checkAll'} checked={isAllChecked} onChange={handleToggleAll} />
       <div className={styles.allCheckText}>전체 선택</div>
     </div>
   );

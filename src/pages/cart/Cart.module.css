@@ -5,7 +5,7 @@
   gap: 12px;
 }
 
-.titleText {
+.title_text {
   font-family: Noto Sans KR;
   font-size: 24px;
   font-weight: 700;
@@ -30,7 +30,7 @@
 }
 
 /* CartPage */
-.cartBodyWrapper {
+.page_wrapper {
   display: flex;
   flex-direction: column;
   gap: 36px;
@@ -53,47 +53,9 @@
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.cartItemInputButtonContainer {
-  display: flex;
-  justify-content: space-between;
-  margin: 12px 0;
-}
-
-.itemImageAndInfoContainer {
-  display: flex;
-  margin-bottom: 20px;
-}
-
-.itemImage {
-  width: 112px;
-  height: 112px;
-  border-radius: 8px;
-  margin-right: 24px;
-}
-
 .itemInfoContainer {
   display: flex;
   flex-direction: column;
-}
-
-.name {
-  font-family: Noto Sans;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 15px;
-  text-align: left;
-}
-
-.deleteButton {
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  background: rgba(255, 255, 255, 1);
-  border-radius: 4px;
-  font-family: Noto Sans;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 15px;
-  text-align: left;
-  padding: 4px 8px;
 }
 
 .plusMinusButtonContainer {
@@ -124,36 +86,6 @@
   text-align: left;
 }
 
-/* 체크박스 초기에 none */
-
-.customCheckbox {
-  display: none;
-}
-
-/* 커스텀 체크박스 스타일 */
-.customCheckboxLabel {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  background-color: white;
-  border: 2px solid black;
-  border-radius: 4px;
-  cursor: pointer;
-  position: relative;
-}
-
-/* 체크된 상태의 커스텀 체크박스 스타일 */
-.customCheckbox:checked + .customCheckboxLabel::after {
-  content: '';
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 12px;
-  height: 12px;
-  background-color: black;
-  border-radius: 2px;
-}
-
 /* CartTotals */
 .cartTotalsNoticeWrapper {
   display: flex;
@@ -164,13 +96,6 @@
 .cartTotalsWrapper {
   padding-top: 12px;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.cartToTalsTextWrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 13px 0;
 }
 
 .noneProductContainer {

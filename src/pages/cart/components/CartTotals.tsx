@@ -16,7 +16,7 @@ export default function CartTotals() {
   return (
     <div className={styles.cartContentWrapper}>
       <div className={styles.cartTotalsNoticeWrapper}>
-        <img src={noticeIcon} width={13} height={13} />
+        <img src={noticeIcon} width={13} height={13} alt="알림 아이콘" />
         <span className={styles.labelText}>
           총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
         </span>

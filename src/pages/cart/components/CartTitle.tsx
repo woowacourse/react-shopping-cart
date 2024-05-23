@@ -1,5 +1,4 @@
 import styles from '../Cart.module.css';
-import common from '@/common.module.css';
 import { useCartContext } from '../context/CartContext';
 
 export default function CartTitle() {

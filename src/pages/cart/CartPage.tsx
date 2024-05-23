@@ -4,7 +4,6 @@ import { allCartItemStates } from '@/store/atoms';
 import OrderButton from './components/OrderButton';
 import { Cart } from './components/Cart';
 import styles from './Cart.module.css';
-import Wrapper from './components/Wrapper';
 
 export default function CartPage() {
   const isExistingCartItem = !!useRecoilValue(allCartItemStates).length;
@@ -13,13 +12,13 @@ export default function CartPage() {
     <>
       <CartPageHeader />
       {isExistingCartItem ? (
-        <Wrapper>
+        <div className={styles.page_wrapper}>
           <Cart>
             <Cart.Title />
             <Cart.List />
             <Cart.Result />
           </Cart>
-        </Wrapper>
+        </div>
       ) : (
         <div className={styles.noneProductContainer}>장바구니에 담은 상품이 없습니다.</div>
       )}
