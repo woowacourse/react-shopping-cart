@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { selectedCartItemIdsState } from "../../recoil/selectedCartItemIds";
 import { cartItemsState } from "../../recoil/cartItems";
 import { calculateSelectedCartItemsCount } from "../../utils/domain/calculateSelectedCartItemsCount";
-import { formatToKRW } from "../../utils/formatToKRW";
+import { formatToKRW } from "../../utils/domain/formatToKRW";
 
 export default function Checkout() {
   const selectedCartItemIds = useRecoilValue(selectedCartItemIdsState);

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { cartAmountState } from "../../recoil/cartAmount";
 import { ReactComponent as InfoIcon } from "../../assets/info-icon.svg";
 import { FREE_SHIPPING_THRESHOLD } from "../../constants/pricing";
-import { formatToKRW } from "../../utils/formatToKRW";
+import { formatToKRW } from "../../utils/domain/formatToKRW";
 
 export default function CartAmount() {
   const { orderAmount, shippingCost, totalOrderAmount } = useRecoilValue(cartAmountState);
