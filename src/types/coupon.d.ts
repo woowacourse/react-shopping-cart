@@ -14,17 +14,17 @@ type CouponBase = {
 
 type DiscountCoupon = CouponBase & {
   discount: number;
-  discountType: COUPON_DISCOUNT_TYPE.Fixed | "percentage";
+  discountType: typeof COUPON_DISCOUNT_TYPE.Fixed | typeof COUPON_DISCOUNT_TYPE.Percentage;
 };
 
 type BOGOCoupon = CouponBase & {
   buyQuantity: number;
   getQuantity: number;
-  discountType: "buyXgetY";
+  discountType: typeof COUPON_DISCOUNT_TYPE.BuyXgetY;
 };
 
 type FreeShippingCoupon = CouponBase & {
-  discountType: "freeShipping";
+  discountType: typeof COUPON_DISCOUNT_TYPE.FreeShipping;
 };
 
 declare global {

@@ -195,4 +195,22 @@ describe("coupon disable 테스트", () => {
     );
     expect(result.current.isDisabled).toBeTruthy();
   });
+
+  it("최종 금액이 최소금액을 넘지 않는 경우, 배송비 무료 쿠폰이 비활성화 된다.", () => {
+    const { result } = renderHook(
+      () => {
+        const id = 3;
+        const { isDisabled } = useCoupon(id);
+        return { isDisabled };
+      },
+      {
+        wrapper: ({ children }) => (
+          <ReactRootComponent checkDummy={NoCouponsCheckedDummy} cartDummy={chargeShippingDummy}>
+            {children}
+          </ReactRootComponent>
+        ),
+      }
+    );
+    expect(result.current.isDisabled).toBeTruthy();
+  });
 });
