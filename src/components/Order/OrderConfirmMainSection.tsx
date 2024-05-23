@@ -6,6 +6,7 @@ import HeaderTitleContainer from '../common/HeaderTitleContainer';
 import CouponModal from '../Coupon/CouponModal';
 
 import OrderInfo from '@/components/common/OrderInfo';
+import useModal from '@/hooks/useModal';
 import CartItem from '@common/CartItem';
 import Checkbox from '@common/Checkbox';
 import { THEME } from '@constants/theme';
@@ -21,18 +22,10 @@ const OrderConfirmMainSection = () => {
   const checkedCartItems = useRecoilValue(checkedCartItemsState);
 
   const [isAdditionalDelivery, setIsAdditionalDelivery] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, handleOpenModal, handleCloseModal } = useModal();
 
   const handleClickAdditionalDelivery = (e: ChangeEvent<HTMLInputElement>) => {
     setIsAdditionalDelivery(e.target.checked);
-  };
-
-  const handleOpenModal = () => {
-    setIsOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsOpen(false);
   };
 
   return (
