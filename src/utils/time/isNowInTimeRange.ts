@@ -29,10 +29,6 @@ export const isNowInTimeRange = (
     endSecond
   );
 
-  console.log(now);
-  console.log(startTime);
-  console.log(endTime);
-
   if (startTime >= endTime) {
     if (now >= endTime && now < startTime) {
       return true;
