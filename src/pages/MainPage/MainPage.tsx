@@ -7,20 +7,28 @@ import {
   Footer,
   CartPrice,
 } from "../../components";
-import { AppLayout } from "../../layouts";
+import { AppLayout, CartLayout } from "../../layouts";
+import { Title } from "./style";
+import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
+  const navigate = useNavigate();
+
   return (
     <AppLayout>
-      <ErrorBoundary fallback={<div>Error!</div>}>
-        <Suspense fallback={<div>Loading</div>}>
-          <Header>SHOP</Header>
-          <CartDescription />
-          <CartList />
-          <CartPrice />
-          <Footer />
-        </Suspense>
-      </ErrorBoundary>
+      <Header>
+        <Title>SHOP</Title>
+      </Header>
+      <CartLayout>
+        <ErrorBoundary fallback={<div>Error!</div>}>
+          <Suspense fallback={<div>Loading</div>}>
+            <CartDescription />
+            <CartList />
+            <CartPrice />
+          </Suspense>
+        </ErrorBoundary>
+      </CartLayout>
+      <Footer onClick={() => navigate("/order")}>주문 확인</Footer>
     </AppLayout>
   );
 };

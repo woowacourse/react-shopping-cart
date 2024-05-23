@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 64px;
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-  line-height: 16px;
+  color: ${({ theme }) => theme.color.white};
+  background-color: ${({ theme }) => theme.color.black};
+  cursor: pointer;
 `;

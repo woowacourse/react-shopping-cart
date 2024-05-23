@@ -74,7 +74,7 @@ const CartItem = ({ cartItem: { id, product, quantity } }: CardItemProps) => {
           )}
         </Button>
         <Button $theme="white" $size="s" onClick={handleDeleteItem}>
-          삭제
+          <SmallText>삭제</SmallText>
         </Button>
       </Header>
       <Body>
@@ -92,7 +92,7 @@ const CartItem = ({ cartItem: { id, product, quantity } }: CardItemProps) => {
             >
               -
             </Button>
-            <span>{quantity}</span>
+            <SmallText>{quantity}</SmallText>
             <Button
               $theme="white"
               $size="xs"
