@@ -30,6 +30,8 @@ const OrderButton = ({ onClick }: OrderButtonProp) => {
         return MESSAGE.orderConfirmation;
       case '/orderConfirmation':
         return MESSAGE.pay;
+      case '/paymentConfirmation':
+        return MESSAGE.returningToShoppingCart;
       default:
         return '';
     }
