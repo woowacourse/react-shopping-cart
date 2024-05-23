@@ -1,4 +1,4 @@
-import { CartItem, DiscountCondition } from "../types/types";
+import { CartItem, Coupon, DiscountCondition } from "../types/types";
 
 export const mockCartItems: CartItem[] = [
   { id: 1, product: { id: 3, name: "상품이름A", price: 35000, imageUrl: "", category: "" }, quantity: 2 },
@@ -6,33 +6,44 @@ export const mockCartItems: CartItem[] = [
   { id: 3, product: { id: 5, name: "상품이름C", price: 20000, imageUrl: "", category: "" }, quantity: 1 },
 ];
 
-export const mockCouponList: DiscountCondition[] = [
+export const mockCouponList: Coupon[] = [
   {
-    id: 0,
-    code: "string",
-    description: "string",
-    expirationDate: "2024-05-23",
-    discount: 0,
-    minimumAmount: 0,
-    discountType: "string",
+    id: 1,
+    code: "FIXED5000",
+    description: "5,000원 할인 쿠폰",
+    expirationDate: "2024-11-30",
+    discount: 5000,
+    minimumAmount: 100000,
+    discountType: "fixed",
   },
   {
-    id: 0,
-    code: "string",
-    description: "string",
-    expirationDate: "2024-05-23",
-    buyQuantity: 0,
-    getQuantity: 0,
-    discountType: "string",
+    id: 2,
+    code: "BOGO",
+    description: "2개 구매 시 1개 무료 쿠폰",
+    expirationDate: "2024-04-30",
+    buyQuantity: 2,
+    getQuantity: 1,
+    discountType: "buyXgetY",
   },
   {
-    id: 0,
-    code: "string",
-    description: "string",
-    expirationDate: "2024-05-23",
-    minimumAmount: 0,
-    discountType: "string",
+    id: 3,
+    code: "FREESHIPPING",
+    description: "5만원 이상 구매 시 무료 배송 쿠폰",
+    expirationDate: "2024-08-31",
+    minimumAmount: 50000,
+    discountType: "freeShipping",
+  },
+  {
+    id: 4,
+    code: "MIRACLESALE",
+    description: "미라클모닝 30% 할인 쿠폰",
+    expirationDate: "2024-07-31",
+    discount: 30,
+    availableTime: {
+      start: "04:00:00",
+      end: "07:00:00",
+    },
+    discountType: "percentage",
   },
 ];
-
 export const mockCheckedIds: number[] = [1, 2];
