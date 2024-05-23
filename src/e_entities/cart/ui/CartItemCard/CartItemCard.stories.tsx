@@ -5,7 +5,7 @@ import { CartItemCard } from './CartItemCard';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof CartItemCard> = {
-  title: '5. entities/product/CartItemCard',
+  title: '5. entities/cart/CartItemCard',
   component: CartItemCard,
   decorators: [
     (Story) => {
