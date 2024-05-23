@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Link, Navigate, useLoaderData } from 'react-router-dom';
 import Header from '../../components/Header/Header';
+import Button from '../../components/common/Button/Button';
 import CartItem from '../../components/ShoppingCartPage/CartItem/CartItem';
 import TitleContainer from '../../components/common/TitleContainer/TitleContainer';
 import SubmitButton from '../../components/common/SubmitButton/SubmitButton';
@@ -44,9 +45,7 @@ function OrderConfirmPage() {
             <CartItem key={item.id} item={item} isConfirm={true} />
           ))}
         </S.SelectedCartItemContainer>
-        <S.CouponModalButton type="button" onClick={() => setIsCouponModalOpen(true)}>
-          쿠폰 적용
-        </S.CouponModalButton>
+        <Button type="button" content="쿠폰 적용" onClick={() => setIsCouponModalOpen(true)} />
         <S.CartInfoContainer>
           <S.CartInfoTitle>배송 정보</S.CartInfoTitle>
           <CheckBox id="배송 정보" text="제주도 및 도서 산간 지역" isChecked={isSigol} onChange={handleIsSigol} />
