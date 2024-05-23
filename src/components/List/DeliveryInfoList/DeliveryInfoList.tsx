@@ -14,5 +14,5 @@ function DeliveryInfoList() {
     </S.Layout>
   );
 }
-// TODO: 선택 시 배송비 +3000 기능 구현하기
+
 export default DeliveryInfoList;

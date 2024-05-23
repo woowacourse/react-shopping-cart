@@ -13,6 +13,7 @@ export const Title = styled.div`
 
 export const CheckListContainer = styled.div`
   display: flex;
+  flex-direction: column;
   row-gap: 10px;
 `;
 
