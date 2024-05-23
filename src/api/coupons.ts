@@ -1,5 +1,5 @@
 import { API_PATH } from "../constants/apiPath";
-import { RawCoupon } from "../types/coupon";
+import { RawCoupon } from "../types/rawCoupon";
 import { cartApiClient } from "./cartApiClient";
 
 export const fetchCoupons = async (): Promise<RawCoupon[]> => {
