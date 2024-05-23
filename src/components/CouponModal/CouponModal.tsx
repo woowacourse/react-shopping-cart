@@ -3,7 +3,11 @@ import { Modal } from 'chico-custom-modal';
 import styled from 'styled-components';
 import CouponModalContent from './CouponModalContent';
 import { NoCartItemContainer } from '../CartContent/CartContent';
-import { useResetAllCoupons } from '../../recoil/selectors';
+import {
+  totalDiscountSelector,
+  useResetAllCoupons,
+} from '../../recoil/selectors';
+import { useRecoilValue } from 'recoil';
 
 const Button = styled.button`
   height: 4.2rem;
@@ -18,6 +22,7 @@ const Button = styled.button`
 
 function CouponModal() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const totalDiscount = useRecoilValue(totalDiscountSelector);
   const resetAllCoupons = useResetAllCoupons();
 
   const handleButton = () => {
@@ -47,7 +52,9 @@ function CouponModal() {
             </Suspense>
           </Modal.Body>
           <Modal.Footer>
-            <Modal.Button onClick={handleConfirm}>확인</Modal.Button>
+            <Modal.Button onClick={handleConfirm} width="stretch">
+              {totalDiscount}
+            </Modal.Button>
           </Modal.Footer>
         </Modal>
       )}

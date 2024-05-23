@@ -35,8 +35,7 @@ function CouponCard({ coupon }: CouponCardProps) {
   const [couponDetail, setCouponDetail] = useRecoilState(
     couponDetailState(coupon.id),
   );
-  const { isCouponApplicable } = useCouponApplicable();
-  const disabled = !isCouponApplicable(coupon, couponDetail);
+  const disabled = !useCouponApplicable(coupon, couponDetail);
 
   const handleCheckedItem = () => {
     setCouponDetail((prevState) => !prevState);

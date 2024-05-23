@@ -1,21 +1,23 @@
-import {
-  DefaultValue,
-  selector,
-  useRecoilCallback,
-  useRecoilValue,
-} from 'recoil';
+import { DefaultValue, selector, useRecoilCallback } from 'recoil';
 import {
   couponDetailState,
   couponsState,
   itemDetailsState,
   itemsState,
 } from './atoms';
-import { CartItems } from '../types/Item';
+import { CartItems, ItemPriceAndQuantity } from '../types/Item';
 import { updateLocalStorage } from '../utils/UpdateLocalStorage';
 import {
   DELIVERY_FEE,
   FREE_DELIVERY_THRESHOLD,
 } from '../constants/ShoppingCart';
+import { Coupon } from '../types/coupon';
+import {
+  calculateBuyXgetYDiscount,
+  calculateFixedDiscount,
+  calculatePercentageDiscount,
+} from '../utils/Calculate';
+import isCouponApplicable from '../validate/validateCoupon';
 /**
  * 전체 금액, 배송비 계산, 총 결제 금액 계산
  */
@@ -111,15 +113,33 @@ export const checkedItemsSelector = selector({
   },
 });
 
-export const allCheckedCoupons = selector({
-  key: 'resetAllCoupons',
+export const allCheckedCouponsSelector = selector({
+  key: 'allCheckedCouponsSelector',
   get: ({ get }) => {
     const coupons = get(couponsState);
-    return coupons
-      .map((coupon) => {
-        return { ...coupon, isChecked: get(couponDetailState(coupon.id)) };
-      })
-      .filter((value) => value.isChecked);
+    return coupons.reduce<Coupon[]>((prevCheckedCoupons, coupon) => {
+      if (get(couponDetailState(coupon.id))) {
+        prevCheckedCoupons.push(coupon);
+      }
+      return prevCheckedCoupons;
+    }, []);
+  },
+});
+
+export const allCheckedItemsSelector = selector({
+  key: 'allCheckedItemsSelector',
+  get: ({ get }) => {
+    const coupons = get(itemsState);
+    return coupons.reduce<ItemPriceAndQuantity[]>((prevCheckedItems, item) => {
+      const itemDetail = get(itemDetailsState(item.id));
+      if (itemDetail.isChecked) {
+        prevCheckedItems.push({
+          price: item.product.price,
+          quantity: itemDetail.quantity,
+        });
+      }
+      return prevCheckedItems;
+    }, []);
   },
 });
 
@@ -136,10 +156,49 @@ export const useResetAllCoupons = () => {
   );
 };
 
-export const totalDiscount = selector({
+export const useValidateCoupons = () => {
+  return useRecoilCallback(
+    ({ snapshot, set }) =>
+      async () => {
+        const coupons = await snapshot.getPromise(couponsState);
+        const { totalAmount } = await snapshot.getPromise(totalPriceSelector);
+        coupons.forEach(async (coupon) => {
+          const couponDetail = await snapshot.getPromise(
+            couponDetailState(coupon.id),
+          );
+          set(
+            couponDetailState(coupon.id),
+            couponDetail && isCouponApplicable(coupon, totalAmount),
+          );
+        });
+      },
+    [],
+  );
+};
+
+export const totalDiscountSelector = selector({
   key: 'totalDiscountSelector',
   get: ({ get }) => {
-    const checkedCoupons = get(allCheckedCoupons);
-    const totalAmount = get(totalPriceSelector);
+    const checkedCoupons = get(allCheckedCouponsSelector);
+    const { totalAmount } = get(totalPriceSelector);
+    const itemPriceAndQuantity = get(allCheckedItemsSelector);
+
+    return checkedCoupons.reduce((prevTotalDiscount, checkedCoupon) => {
+      switch (checkedCoupon.discountType) {
+        case 'fixed':
+          return prevTotalDiscount + calculateFixedDiscount(checkedCoupon);
+        case 'percentage':
+          return (
+            prevTotalDiscount +
+            calculatePercentageDiscount(checkedCoupon, totalAmount)
+          );
+        case 'buyXgetY':
+          return (
+            prevTotalDiscount + calculateBuyXgetYDiscount(itemPriceAndQuantity)
+          );
+        default:
+          return prevTotalDiscount + 0;
+      }
+    }, 0);
   },
 });
