@@ -25,12 +25,8 @@ const useCoupon = (id: number) => {
     const isOverMinimumAmount = !coupon?.minimumAmount || coupon.minimumAmount <= orderAmount;
     //buyXgetY 확인
     const isValidBuyXGetY =
-<<<<<<< HEAD
       coupon.discountType !== COUPON_DISCOUNT_TYPE.BuyXgetY ||
       cartItems.some((cartItem) => cartItem.quantity >= coupon.buyQuantity);
-=======
-      coupon.discountType !== COUPON_DISCOUNT_TYPE.BuyXgetY || coupon.buyQuantity >= cartItems.length;
->>>>>>> 0c89c35 (feat: 쿠폰 적용 금액 orderAmount로 수정)
     //유효기간이 안지난 쿠폰만 활성화
     const currentDate = new Date();
     const couponExpirationDate = new Date(coupon.expirationDate);
@@ -47,19 +43,7 @@ const useCoupon = (id: number) => {
     };
     //배송비가 청구되는 경우 쿠폰 활성화
     const isFreeShipCouponValid = coupon.discountType !== "freeShipping" || orderAmount < 100_000;
-<<<<<<< HEAD
 
-=======
-    console.log(coupon.discountType, orderAmount);
-    console.log(
-      isNotOver2OrChecked,
-      isOverMinimumAmount,
-      isValidBuyXGetY,
-      isValidPeriod,
-      isValidTime(),
-      isFreeShipCouponValid
-    );
->>>>>>> 0c89c35 (feat: 쿠폰 적용 금액 orderAmount로 수정)
     if (
       isNotOver2OrChecked &&
       isOverMinimumAmount &&
