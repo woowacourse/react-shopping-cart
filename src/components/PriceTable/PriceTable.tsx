@@ -1,24 +1,24 @@
 import * as S from './PriceTable.style';
-import NOTICE from '../../assets/notice.svg';
-import ImageBox from '../common/ImageBox/ImageBox';
+import NOTICE from '../../assets/notice.svg?react';
 import Text from '../common/Text/Text';
 import Divider from '../common/Divider/Divider';
 import ContentRow from '../common/ContentRow/ContentRow';
 import usePriceSelector from '../../recoil/price/usePriceSelector';
+import { useRecoilValue } from 'recoil';
+import { totalDiscountSelector } from '../../recoil/discount/discountSelector';
 
-const PriceTable = () => {
+interface PriceTableProps {
+  type?: 'cart' | 'confirm';
+}
+
+const PriceTable = ({ type = 'cart' }: PriceTableProps) => {
   const { orderedPrice, deliveryFee, totalPrice } = usePriceSelector();
+  const totalDiscount = useRecoilValue(totalDiscountSelector);
 
   return (
     <S.Container>
       <S.NoticeContainer>
-        <ImageBox
-          src={NOTICE}
-          width={16}
-          height={16}
-          border="none"
-          alt="알림 아이콘"
-        />
+        <NOTICE />
         <Text size="s" weight="m">
           총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
         </Text>
@@ -29,6 +29,12 @@ const PriceTable = () => {
           title="주문 금액"
           content={`${orderedPrice.toLocaleString('ko-kr')}원`}
         />
+        {type === 'confirm' ? (
+          <ContentRow
+            title="쿠폰 할인 금액"
+            content={`-${totalDiscount.toLocaleString('ko-kr')}원`}
+          />
+        ) : null}
         <ContentRow
           title="배송비"
           content={`${deliveryFee.toLocaleString('ko-kr')}원`}

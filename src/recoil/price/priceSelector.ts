@@ -1,6 +1,7 @@
 import { atom, selector } from 'recoil';
 import { cartItemListState } from '../cartItemList/cartItemListSelector';
 import { cartItemSelectedIdListAtom } from '../cartItem/cartItemAtom';
+import { totalDiscountSelector } from '../discount/discountSelector';
 
 const DELIVERY_FEE_THRESHOLD = 100_000;
 const DELIVERY_FEE = 3_000;
@@ -53,8 +54,10 @@ export const totalPriceSelector = selector({
   get: ({ get }) => {
     const orderedPrice = get(orderedPriceSelector);
     const deliveryFee = get(deliveryFeeSelector);
+    const totalDiscount = get(totalDiscountSelector);
+    console.log(`totalDiscount: ${totalDiscount}`);
 
-    const totalPrice = orderedPrice + deliveryFee;
+    const totalPrice = orderedPrice + deliveryFee - totalDiscount;
 
     return totalPrice;
   },
