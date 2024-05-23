@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import { ReactNode } from 'react';
 
-import { Product, ProductCard, ProductId } from '@/e_entities/product';
+import { Product, ProductCard, OrderId } from '@/e_entities/product';
 
 import css from './BaseProductList.module.css';
 
@@ -9,9 +9,9 @@ const cn = classNames.bind(css);
 
 type BaseProductListProps = {
   products: Product[];
-  cardLeftActionSlot?: (productId: ProductId) => ReactNode;
-  cardRightActionSlot?: (productId: ProductId) => ReactNode;
-  cardCounterSlot?: (productId: ProductId) => ReactNode;
+  cardLeftActionSlot?: (orderId: OrderId) => ReactNode;
+  cardRightActionSlot?: (orderId: OrderId) => ReactNode;
+  cardCounterSlot?: (orderId: OrderId, quantity: number) => ReactNode;
   isFetching?: boolean;
 };
 
@@ -30,7 +30,7 @@ export function BaseProductList({
           product={product}
           leftActionSlot={cardLeftActionSlot ? cardLeftActionSlot(product.id) : null}
           rightActionSlot={cardRightActionSlot ? cardRightActionSlot(product.id) : null}
-          counterSlot={cardCounterSlot ? cardCounterSlot(product.id) : null}
+          counterSlot={cardCounterSlot ? cardCounterSlot(product.id, quantity) : null}
         />
       ))}
     </div>

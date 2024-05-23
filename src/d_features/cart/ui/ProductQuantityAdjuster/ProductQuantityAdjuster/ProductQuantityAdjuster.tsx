@@ -1,4 +1,4 @@
-import { ProductId } from '@/e_entities/product';
+import { OrderId } from '@/e_entities/product';
 import { Text } from '@/f_shared';
 
 import { UpdateProductQuantityButton } from '../UpdateProductQuantityButton/UpdateProductQuantityButton';
@@ -6,18 +6,18 @@ import { UpdateProductQuantityButton } from '../UpdateProductQuantityButton/Upda
 import css from './ProductQuantityAdjuster.module.css';
 
 interface ProductQuantityAdjusterProps {
-  productId: ProductId;
+  orderId: OrderId;
   quantity: number;
 }
 
-export const ProductQuantityAdjuster = ({ productId, quantity }: ProductQuantityAdjusterProps) => {
+export const ProductQuantityAdjuster = ({ orderId, quantity }: ProductQuantityAdjusterProps) => {
   return (
     <div className={css.root}>
-      <UpdateProductQuantityButton productId={productId} type={'decrease'} />
+      <UpdateProductQuantityButton orderId={orderId} type={'decrease'} />
       <Text tag={'span'} type={'b2'} className={css.text}>
         {quantity}
       </Text>
-      <UpdateProductQuantityButton productId={productId} type={'increase'} />
+      <UpdateProductQuantityButton orderId={orderId} type={'increase'} />
     </div>
   );
 };

@@ -1,7 +1,7 @@
-export type ProductId = Brand<Id, 'ProductId'>;
+export type OrderId = Brand<Id, 'OrderId'>;
 
 export interface Product {
-  id: ProductId;
+  id: OrderId;
   name: string;
   price: KRW;
   imageUrl: Url;

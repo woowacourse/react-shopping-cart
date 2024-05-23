@@ -1,4 +1,4 @@
-import { ProductId } from '@/e_entities/product';
+import { OrderId } from '@/e_entities/product';
 import { Button, Text } from '@/f_shared';
 
 import css from './UpdateProductQuantityButton.module.css';
@@ -11,14 +11,14 @@ const label: Record<Type, string> = {
 };
 
 interface UpdateProductQuantityButtonProps {
-  productId: ProductId;
+  orderId: OrderId;
   type: Type;
 }
 
-export const UpdateProductQuantityButton = ({ productId, type }: UpdateProductQuantityButtonProps) => {
+export const UpdateProductQuantityButton = ({ orderId, type }: UpdateProductQuantityButtonProps) => {
   // TODO: Add handler with state
   const handleQuantityUpdate = () => {
-    productId;
+    orderId;
   };
 
   return (

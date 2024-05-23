@@ -1,4 +1,4 @@
-import { ProductId } from '@/e_entities/product';
+import { OrderId } from '@/e_entities/product';
 
 import { UpdateProductQuantityButton } from './UpdateProductQuantityButton';
 
@@ -8,7 +8,7 @@ const meta: Meta<typeof UpdateProductQuantityButton> = {
   title: 'features/cart/ProductQuantityAdjuster/UpdateProductQuantityButton',
   component: UpdateProductQuantityButton,
   args: {
-    productId: 1 as ProductId,
+    orderId: 1 as OrderId,
   },
 };
 
