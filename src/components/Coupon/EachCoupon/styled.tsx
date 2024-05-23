@@ -19,12 +19,14 @@ export const Header = styled.header`
   align-items: center;
 `;
 
-export const CouponTitle = styled.h3`
+export const CouponTitle = styled.h3<{ $disabled: boolean }>`
   ${props => props.theme.typography.boldLabel};
+  color: ${props => (props.$disabled ? props.theme.color.lightGray : props.theme.color.black)};
 `;
 
-export const Contents = styled.div`
+export const Contents = styled.div<{ $disabled: boolean }>`
   margin-bottom: 1.2rem;
+  color: ${props => (props.$disabled ? props.theme.color.lightGray : props.theme.color.black)};
 `;
 
 export const CouponCondition = styled.div`

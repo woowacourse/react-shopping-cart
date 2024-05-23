@@ -28,5 +28,10 @@ export const Input = styled.input`
     background-repeat: no-repeat;
   }
 
+  &:disabled {
+    cursor: not-allowed;
+    background-image: url(${unchecked});
+  }
+
   cursor: pointer;
 `;
