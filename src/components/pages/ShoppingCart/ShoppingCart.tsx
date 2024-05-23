@@ -16,7 +16,7 @@ const ShoppingCart = () => {
       <Header />
       <Suspense fallback={<LoadingMessage>Loading...</LoadingMessage>}>
         <ShoppingCartContent />
-        <OrderButton onClick={() => navigator('/orderConfirmation')} />
+        <OrderButton onClick={() => navigator('/paymentConfirmation')} />
       </Suspense>
     </Styled.ShoppingCart>
   );
