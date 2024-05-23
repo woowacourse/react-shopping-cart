@@ -1,5 +1,6 @@
 import { COUPON_MESSAGE } from '@/constants/message';
 import CloseIcon from '@/assets/close.svg?react';
+import CouponConfirmButton from './CouponConfirmButton';
 import CouponList from './CouponList';
 import { FlexRow } from '@/style/common.style';
 import Info from '@/assets/Info.svg?react';
@@ -26,11 +27,7 @@ const CouponModal = ({ isOpen, onClose }: Props) => {
         </StyledInfoBox>
         <CouponList />
       </Modal.Content>
-      <Modal.ConfirmButton
-        label={`총 6,000원 할인 쿠폰 사용하기`}
-        onConfirm={onClose}
-        size="large"
-      />
+      <CouponConfirmButton onClick={onClose} />
     </Modal>
   );
 };
