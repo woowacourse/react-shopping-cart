@@ -1,7 +1,6 @@
 import { selector } from 'recoil';
 import { orderedPriceSelector } from '../price/priceSelector';
 import { selectedCouponListAtom } from '../coupon/couponListAtom';
-import { validateCouponAvailable } from '../../utils/validateCouponAvailable';
 
 export const percentageDiscountSelector = selector<number>({
   key: 'percentageDiscount',
@@ -35,7 +34,6 @@ export const fixedDiscountSelector = selector<number>({
         return result + (discount ?? 0);
       }, 0);
 
-    selectedCouponList.forEach((coupon) => validateCouponAvailable(coupon));
     return discountAmount;
   },
 });
