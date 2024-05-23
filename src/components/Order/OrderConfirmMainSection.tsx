@@ -1,12 +1,13 @@
 import { css } from '@emotion/react';
-import { ChangeEvent, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { ChangeEvent } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import HeaderTitleContainer from '../common/HeaderTitleContainer';
 import CouponModal from '../Coupon/CouponModal';
 
 import OrderInfo from '@/components/common/OrderInfo';
 import useModal from '@/hooks/useModal';
+import { isAdditionalShippingState } from '@/recoil/coupons/atoms';
 import CartItem from '@common/CartItem';
 import Checkbox from '@common/Checkbox';
 import { THEME } from '@constants/theme';
@@ -20,12 +21,12 @@ const OrderConfirmMainSection = () => {
   const { totalQuantity } = useRecoilValue(orderResultState);
   const productTypesCount = useRecoilValue(productTypesCountState);
   const checkedCartItems = useRecoilValue(checkedCartItemsState);
+  const [isAdditionalShipping, setIsAdditionalShipping] = useRecoilState(isAdditionalShippingState);
 
-  const [isAdditionalDelivery, setIsAdditionalDelivery] = useState(false);
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
 
-  const handleClickAdditionalDelivery = (e: ChangeEvent<HTMLInputElement>) => {
-    setIsAdditionalDelivery(e.target.checked);
+  const handleClickAdditionalShipping = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsAdditionalShipping(e.target.checked);
   };
 
   return (
@@ -45,8 +46,8 @@ const OrderConfirmMainSection = () => {
       <div css={additionalDeliveryWrapper}>
         <span css={additionalDeliveryText}>배송 정보</span>
         <Checkbox
-          checked={isAdditionalDelivery}
-          onChange={handleClickAdditionalDelivery}
+          checked={isAdditionalShipping}
+          onChange={handleClickAdditionalShipping}
           htmlFor="additional-delivery"
           label="제주도 및 도서 산간 지역 (+3000원)"
         />
