@@ -5,7 +5,6 @@ const useModal = () => {
 
   const handleModalOpen = () => {
     setModalOpened(true);
-    console.log('open');
   };
 
   const handleModalClose = () => {

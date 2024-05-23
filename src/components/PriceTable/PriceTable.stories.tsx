@@ -59,7 +59,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
   render: () => {
-    console.log(MOCK_DATA.map((item) => item.id));
     return (
       <RecoilRoot
         initializeState={({ set }) => {
