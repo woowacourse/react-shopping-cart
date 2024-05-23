@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { ReactNode } from 'react';
+import { Fragment, ReactNode } from 'react';
 
 import { Cart, CartItemCard, CartId } from '@/e_entities/cart';
 import { HorizontalLine } from '@/f_shared/index';
@@ -26,17 +26,17 @@ export function BaseProductList({
   return (
     <div className={cn('root', { rootIsFetching: isFetching })}>
       {carts.map((cart) => (
-        <>
-          <HorizontalLine opacity={0.1} />
+        <Fragment key={`fr-${cart.id}`}>
+          <HorizontalLine key={`hr-${cart.id}`} opacity={0.1} />
 
           <CartItemCard
-            key={cart.product.id}
+            key={`card-${cart.id}`}
             product={cart.product}
             leftActionSlot={cardLeftActionSlot ? cardLeftActionSlot(cart.id) : null}
             rightActionSlot={cardRightActionSlot ? cardRightActionSlot(cart.id) : null}
             counterSlot={cardCounterSlot ? cardCounterSlot(cart.id, cart.quantity) : null}
           />
-        </>
+        </Fragment>
       ))}
     </div>
   );
