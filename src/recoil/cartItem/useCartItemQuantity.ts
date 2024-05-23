@@ -1,4 +1,4 @@
-import { requestSetCartItemQuantity } from '../../apis/cartItemList/cartItemList';
+import { requestSetCartItemQuantity } from '../../apis/cartItemList';
 import useCartItemList from '../cartItemList/useCartItemList';
 
 export const useCartItemQuantity = () => {

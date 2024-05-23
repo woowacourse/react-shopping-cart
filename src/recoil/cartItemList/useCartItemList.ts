@@ -1,6 +1,6 @@
 import { useRecoilState } from 'recoil';
 import { cartItemListState } from './cartItemListSelector';
-import { requestDeleteCartItem } from '../../apis/cartItemList/cartItemList';
+import { requestDeleteCartItem } from '../../apis/cartItemList';
 import { useCartItemSelectedIdList } from '../cartItem/useCartItemSelectedIdList';
 
 const useCartItemList = () => {

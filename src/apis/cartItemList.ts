@@ -1,5 +1,5 @@
-import { generateBasicToken } from '../../utils/auth';
-import convertCartItem from '../../utils/convertCartItem';
+import { generateBasicToken } from '../utils/auth';
+import convertCartItem from '../utils/convertCartItem';
 
 const API_URL = process.env.VITE_API_URL ?? 'undefined_URL';
 const USER_ID = process.env.VITE_API_USER_ID ?? 'undefined_USER_ID';

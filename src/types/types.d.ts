@@ -19,3 +19,22 @@ interface CartItem {
   imageUrl: string;
   quantity: number;
 }
+
+type DiscountType = 'fixed' | 'buyXgetY' | 'freeShipping' | 'percentage';
+interface AvailableTime {
+  start: Date;
+  end: Date;
+}
+
+interface Coupon {
+  id: number;
+  code: string;
+  description: string;
+  expirationDate: Date;
+  discount?: number;
+  minimumAmount?: number;
+  buyQuantity?: number;
+  getQuantity?: number;
+  availableTime?: AvailableTime;
+  discountType: DiscountType;
+}

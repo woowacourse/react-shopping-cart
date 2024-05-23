@@ -1,5 +1,5 @@
 import { atom, selector } from 'recoil';
-import { requestCartItemList } from '../../apis/cartItemList/cartItemList';
+import { requestCartItemList } from '../../apis/cartItemList';
 
 export const cartItemListState = atom<CartItem[]>({
   key: 'cartItemListState',
