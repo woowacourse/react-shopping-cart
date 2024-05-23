@@ -28,12 +28,3 @@ export const Logo = styled.h1`
   line-height: 16px;
   text-align: left;
 `;
-
-export const SvgContainer = styled.img`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  height: 24px;
-  width: 24px;
-`;

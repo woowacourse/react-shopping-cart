@@ -1,6 +1,6 @@
 import * as S from './Header.style';
 
-import BACK from '../../assets/chevron-back.svg';
+import BACK from '../../assets/chevron-back.svg?react';
 import { useNavigate } from 'react-router-dom';
 
 type HeaderType = 'logo' | 'back';
@@ -15,11 +15,7 @@ const Header = ({ type = 'logo' }: HeaderProps) => {
   return (
     <S.Header>
       <S.PrefixButton onClick={type === 'back' ? () => navigate(-1) : () => {}}>
-        {type === 'logo' ? (
-          <S.Logo>SHOP</S.Logo>
-        ) : (
-          <S.SvgContainer src={BACK} alt="chevron-back" />
-        )}
+        {type === 'logo' ? <S.Logo>SHOP</S.Logo> : <BACK />}
       </S.PrefixButton>
     </S.Header>
   );
