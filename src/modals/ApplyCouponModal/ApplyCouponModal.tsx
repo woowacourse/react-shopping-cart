@@ -28,7 +28,10 @@ function ApplyCouponModal({ couponList }: ApplyCouponModalProps) {
       {selectedCouponTotalDiscount === 0 ? (
         <Modal.CancelButton content={`선택된 쿠폰이 없습니다`} onClick={openModal} />
       ) : (
-        <Modal.ConfirmButton content={`총 ${selectedCouponTotalDiscount}원 할인 쿠폰 사용하기`} onClick={openModal} />
+        <Modal.ConfirmButton
+          content={`총 ${selectedCouponTotalDiscount.toLocaleString()}원 할인 쿠폰 사용하기`}
+          onClick={openModal}
+        />
       )}
     </Modal>
   );

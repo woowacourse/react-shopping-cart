@@ -5,13 +5,15 @@ import { selectedCartItemListTotalPriceSelector } from '../../../recoil/CartItem
 import * as S from './TotalPriceContainer.style';
 import { useCalculateDeliveryFee } from '../../../hooks/useCalculateDeliveryFee';
 import { DELIVERY_FEE_DISCOUNT_THRESHOLD } from '../../../constants/DELIVERY_INFOS';
-import { selectedCouponListState } from '../../../recoil/Coupon/atoms/selectedCouponListState';
 import { useCalculateTotalCouponDiscount } from '../../../hooks/useCalculateTotalCouponDiscount';
 
-function TotalPriceContainer() {
+interface TotalPriceContainerProps {
+  isOrderConfirmPage?: boolean;
+}
+
+function TotalPriceContainer({ isOrderConfirmPage = false }: TotalPriceContainerProps) {
   const selectedCartItemTotalPrice = useRecoilValue(selectedCartItemListTotalPriceSelector);
   const { deliveryFee, calculateDeliveryFee } = useCalculateDeliveryFee();
-  const selectedCouponList = useRecoilValue(selectedCouponListState);
   const { selectedCouponTotalDiscount, calculateTotalCouponDiscount } = useCalculateTotalCouponDiscount();
   calculateDeliveryFee();
   calculateTotalCouponDiscount();
@@ -25,7 +27,7 @@ function TotalPriceContainer() {
       />
       <S.PriceDetailContainer>
         <PriceContainer title="주문 금액" value={selectedCartItemTotalPrice} />
-        {selectedCouponList.length !== 0 && (
+        {isOrderConfirmPage && selectedCouponTotalDiscount !== 0 && (
           <PriceContainer title="쿠폰 할인 금액" value={-selectedCouponTotalDiscount} />
         )}
         <PriceContainer title="배송비" value={deliveryFee} />

@@ -1,4 +1,4 @@
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Navigate, useLoaderData } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import TitleContainer from '../../components/Container/TitleContainer/TitleContainer';
@@ -15,16 +15,28 @@ import { applyCouponModalState } from '../../recoil/ApplyCouponModal/atoms/apply
 import { useToggleModal } from '../../hooks/useToggleModal';
 import ApplyCouponModal from '../../modals/ApplyCouponModal/ApplyCouponModal';
 import { Coupon } from '../../types/Coupon.type';
+import { selectedCouponListState } from '../../recoil/Coupon/atoms/selectedCouponListState';
+import { useEffect } from 'react';
+import useSortCoupons from '../../hooks/useSortCoupons';
 
 function OrderConfirmPage() {
-  const couponList = useLoaderData() as Coupon[];
+  const initialValue = useLoaderData() as Coupon[];
+
+  const couponList = useSortCoupons(initialValue);
 
   const selectedItemList = useRecoilValue(selectedCartItemListState);
+
+  const setSelectedCouponList = useSetRecoilState(selectedCouponListState);
 
   const selectedCartItemTotalCount = useRecoilValue(selectedCartItemListTotalCountSelector);
 
   const isOpen = useRecoilValue(applyCouponModalState);
   const { openModal } = useToggleModal();
+
+  useEffect(() => {
+    setSelectedCouponList([]);
+  }, [setSelectedCouponList]);
+  // TODO: 개선 고민해보기
 
   if (selectedItemList.length === 0) {
     return <Navigate to={PATHS.ERROR} />;
@@ -37,7 +49,7 @@ function OrderConfirmPage() {
       ))}
       <ShowModalButton content="쿠폰 적용" onClick={openModal} />
       <DeliveryInfoContainer />
-      <TotalPriceContainer />
+      <TotalPriceContainer isOrderConfirmPage={true} />
     </>
   );
 

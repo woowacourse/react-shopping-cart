@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const Layout = styled.div`
+interface LayoutProps {
+  isAvailable: boolean;
+}
+
+export const Layout = styled.div<LayoutProps>`
   display: flex;
   flex-direction: column;
   margin: 16px 0;
@@ -17,6 +21,15 @@ export const Layout = styled.div`
     font-size: 12px;
     font-weight: 500;
   }
+  ${({ isAvailable }) =>
+    !isAvailable &&
+    `
+    pointer-events: none;
+
+    h2, p {
+      color: lightgrey;
+    }
+  `}
 `;
 
 export const CheckButtonAndDescription = styled.div`

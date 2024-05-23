@@ -7,9 +7,10 @@ import * as S from './CouponContainer.style';
 
 interface CouponContainerProps {
   coupon: Coupon;
+  isAvailable: boolean;
 }
 
-function CouponContainer({ coupon }: CouponContainerProps) {
+function CouponContainer({ coupon, isAvailable }: CouponContainerProps) {
   const [isSelected, setIsSelected] = useRecoilState(selectedCouponListSelector(coupon));
 
   const handleIsSelected = () => {
@@ -17,9 +18,9 @@ function CouponContainer({ coupon }: CouponContainerProps) {
   };
 
   return (
-    <S.Layout>
+    <S.Layout isAvailable={isAvailable}>
       <S.CheckButtonAndDescription>
-        <CheckButton isChecked={isSelected} onClick={handleIsSelected} />
+        <CheckButton isChecked={isAvailable ? isSelected : false} onClick={isAvailable ? handleIsSelected : () => {}} />
         <h2>{coupon.description}</h2>
       </S.CheckButtonAndDescription>
 
