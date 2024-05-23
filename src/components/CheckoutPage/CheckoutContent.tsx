@@ -1,26 +1,30 @@
-import { useRecoilValue } from "recoil";
-import { cartAmountState } from "../../recoil/cartAmount";
 import styled from "styled-components";
-import { selectedCartItemIdsState } from "../../recoil/selectedCartItemIds";
-import { cartItemsState } from "../../recoil/cartItems";
-import { calculateSelectedCartItemsCount } from "../../utils/domain/calculateSelectedCartItemsCount";
 import { formatToKRW } from "../../utils/domain/formatToKRW";
+import { useLocation } from "react-router-dom";
+
+interface CheckoutPageState {
+  boughtItemsCount: number;
+  uniqueBoughtItemsCount: number;
+  totalPayAmount: number;
+}
 
 export default function Checkout() {
-  const selectedCartItemIds = useRecoilValue(selectedCartItemIdsState);
-  const selectedUniqueCartItemsCount = selectedCartItemIds.length;
+  const location = useLocation() as { state: CheckoutPageState };
 
-  const cartItems = useRecoilValue(cartItemsState);
-  const selectedCartItemsCount = calculateSelectedCartItemsCount(cartItems);
+  const boughtItemsCount = location.state?.boughtItemsCount;
+  const uniqueBoughtItemsCount = location.state?.uniqueBoughtItemsCount;
+  const totalOrderAmount = location.state?.totalPayAmount;
 
-  const { totalOrderAmount } = useRecoilValue(cartAmountState);
+  if (!boughtItemsCount || !uniqueBoughtItemsCount || !totalOrderAmount) {
+    return <div>잘못된 접근입니다.</div>;
+  }
 
   return (
     <S.Container>
       <S.Title>주문 확인</S.Title>
       <S.CheckoutInfoWrapper>
         <S.CheckoutInfo>
-          총 {selectedUniqueCartItemsCount}종류의 상품 {selectedCartItemsCount}개를 주문합니다.
+          총 {uniqueBoughtItemsCount}종류의 상품 {boughtItemsCount}개를 주문했습니다.
         </S.CheckoutInfo>
         <S.CheckoutInfo>최종 결제 금액을 확인해 주세요.</S.CheckoutInfo>
       </S.CheckoutInfoWrapper>

@@ -3,8 +3,14 @@ import CheckoutContent from "../components/CheckoutPage/CheckoutContent";
 import styled from "styled-components";
 import Header from "../components/common/Header";
 import Button from "../components/common/Button";
+import { useNavigate } from "react-router-dom";
+import { ROUTE_PATH } from "../constants/routePath";
 
 export default function CheckoutPage() {
+  const navigate = useNavigate();
+
+  const onReturnToCartButtonClick = () => navigate(ROUTE_PATH.cart);
+
   return (
     <S.Container>
       <Header hasBackButton={true} />
@@ -13,7 +19,7 @@ export default function CheckoutPage() {
           <CheckoutContent />
         </Suspense>
       </S.InnerWrapper>
-      <S.PayButton disabled>결제하기</S.PayButton>
+      <S.PayButton onClick={onReturnToCartButtonClick}>장바구니로 돌아가기</S.PayButton>
     </S.Container>
   );
 }
