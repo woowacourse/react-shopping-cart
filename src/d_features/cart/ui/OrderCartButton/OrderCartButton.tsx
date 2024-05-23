@@ -1,10 +1,4 @@
-import classNames from 'classnames/bind';
-
-import { Button } from '@/f_shared';
-
-import css from './OrderCartButton.module.css';
-
-const cn = classNames.bind(css);
+import { FooterButton } from '@/f_shared';
 
 // TODO: Add OnClickHandler
 export const OrderCartButton = () => {
@@ -13,8 +7,8 @@ export const OrderCartButton = () => {
   const disabled = false; // temp
 
   return (
-    <Button disabled={disabled} className={cn('root')} theme={'primary'} onClick={() => {}}>
+    <FooterButton disabled={disabled} onClick={() => {}}>
       주문 확인
-    </Button>
+    </FooterButton>
   );
 };
