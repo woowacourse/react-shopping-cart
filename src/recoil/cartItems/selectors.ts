@@ -81,7 +81,7 @@ export const deliveryPriceState = selector<number>({
       return PRICE.FREE;
     }
 
-    return totalOrderPrice >= PRICE.FREE_DELIVERY_CONDITION ? PRICE.FREE : PRICE.DELIVERY_PRICE;
+    return totalOrderPrice >= PRICE.FREE_SHIPPING_CONDITION ? PRICE.FREE : PRICE.DELIVERY_PRICE;
   },
 });
 

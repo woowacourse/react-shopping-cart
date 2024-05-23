@@ -25,7 +25,7 @@ const OrderInfo = ({ type }: CartFooterProps) => {
   return (
     <section css={cartFooterSection}>
       <GuideText
-        label={`총 주문 금액이 ${CONFIG.FREE_DELIVERY_CONDITION}원 이상일 경우 무료 배송됩니다.`}
+        label={`총 주문 금액이 ${CONFIG.FREE_SHIPPING_CONDITION}원 이상일 경우 무료 배송됩니다.`}
       />
       <div>
         <div css={borderTopWrapper}>

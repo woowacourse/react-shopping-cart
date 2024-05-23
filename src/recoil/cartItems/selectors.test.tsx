@@ -24,7 +24,7 @@ describe('selectors', () => {
       ${TOTAL_PRICE_UNDER_100000_DATA} | ${'미만'} | ${3000}
       ${TOTAL_PRICE_OVER_100000_DATA}  | ${'이상'} | ${0}
     `(
-      `총 결제금액이 ${PRICE.FREE_DELIVERY_CONDITION}원 $CONDITION일 때, 배송비가 $DELIVERY_PRICE원이다.`,
+      `총 결제금액이 ${PRICE.FREE_SHIPPING_CONDITION}원 $CONDITION일 때, 배송비가 $DELIVERY_PRICE원이다.`,
       async ({ data, DELIVERY_PRICE }) => {
         const { result } = renderHook(
           () => {
