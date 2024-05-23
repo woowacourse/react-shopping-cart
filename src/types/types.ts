@@ -1,3 +1,8 @@
+export interface CartItem {
+  id: number;
+  quantity: number;
+  product: Product;
+}
 export interface Product {
   id: number;
   name: string;
@@ -5,18 +10,32 @@ export interface Product {
   imageUrl: string;
   category: string;
 }
-export interface CartItem {
-  id: number;
-  quantity: number;
-  product: Product;
-}
 
-export interface Coupon {
+export interface CouponBase {
   id: number;
   code: string;
   description: string;
   expirationDate: string;
-  discount: number;
+  discountType: DiscountType;
+}
+
+export type DiscountType = "fixed" | "BuyXGetY" | "freeShipping" | "percentage";
+
+export type DiscountCondition = BuyXGetYCondition | MinimumAmountCondition | AvailableTimeCondition;
+export type DiscountConditionType = "";
+
+export interface BuyXGetYCondition {
+  buyQuantity: number;
+  getQuantity: number;
+}
+export interface MinimumAmountCondition {
   minimumAmount: number;
-  discountType: string;
+}
+export interface AvailableTimeCondition {
+  availableTime: AvailableTime;
+}
+
+export interface AvailableTime {
+  start: string;
+  end: string;
 }
