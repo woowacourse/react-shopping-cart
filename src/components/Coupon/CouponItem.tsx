@@ -1,18 +1,62 @@
 import { FlexColumn, FlexRow } from '@/style/common.style';
+import { useEffect, useMemo, useState } from 'react';
 
 import CheckBox from '../Input/CheckBoxInput';
 import { Coupon } from '@/types/coupon.type';
+import { selectedCouponListState } from '@/store/atoms';
 import styled from '@emotion/styled';
 import { theme } from '@/style/theme.style';
-import { useState } from 'react';
+import useCouponAvailable from '@/hooks/useCouponAvailable';
+import useCouponValidator from '@/hooks/useCouponValidator';
+import { useRecoilState } from 'recoil';
 
 interface Props {
   coupon: Coupon;
 }
 
 const CouponItem = ({ coupon }: Props) => {
+  const date = new Date();
   const [clicked, setClicked] = useState(false);
-  const [disable, setDisable] = useState(false);
+
+  const isValid = useCouponValidator({ coupon, date });
+  const isAvailable = useCouponAvailable({ coupon, date });
+
+  const [selectedCoupon, setSelectedCoupon] = useRecoilState(
+    selectedCouponListState
+  );
+
+  const isSelected = selectedCoupon?.some((item) => item.id === coupon.id);
+
+  useEffect(() => {
+    if (isSelected) {
+      setClicked(true);
+    } else {
+      setClicked(false);
+    }
+  }, [isSelected, selectedCoupon, coupon.id]);
+
+  const disable = useMemo(() => {
+    if (selectedCoupon && selectedCoupon.length >= 2 && !isSelected) {
+      return true;
+    }
+
+    return !isValid || !isAvailable;
+  }, [isValid, isAvailable, selectedCoupon, isSelected]);
+
+  const handleClick = () => {
+    if (!clicked) {
+      selectedCoupon && setSelectedCoupon(() => [...selectedCoupon, coupon]);
+      !selectedCoupon && setSelectedCoupon([coupon]);
+      setClicked(true);
+    } else {
+      setSelectedCoupon((prevSelectedCoupons) =>
+        prevSelectedCoupons
+          ? prevSelectedCoupons.filter((item) => item.id !== coupon.id)
+          : []
+      );
+      setClicked(false);
+    }
+  };
 
   return (
     <StyledItemWrapper disable={disable}>
@@ -21,8 +65,9 @@ const CouponItem = ({ coupon }: Props) => {
         <CheckBox
           isSelected={clicked}
           onClick={() => {
-            !disable && setClicked(!clicked);
-            !disable && setDisable(!disable);
+            if (!disable || clicked) {
+              handleClick();
+            }
           }}
         />
         {coupon.description}
