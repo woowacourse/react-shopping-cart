@@ -30,7 +30,7 @@ const OrderConfirm = () => {
   return (
     <>
       <StyledFixedTop>
-        <Header type="ArrowBack" navigatePath={'/order'} />
+        <Header type="nothing" navigatePath={'/'} />
       </StyledFixedTop>
       <StyledCenterBox>
         <StyledTextTitle>주문 확인</StyledTextTitle>

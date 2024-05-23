@@ -4,7 +4,7 @@ import Logo from '@/assets/Logo.svg?react';
 import styled from '@emotion/styled';
 import { theme } from '@/style/theme.style';
 
-type HeaderType = 'Logo' | 'ArrowBack';
+type HeaderType = 'Logo' | 'ArrowBack' | 'nothing';
 
 interface Props {
   type?: HeaderType;
@@ -14,9 +14,11 @@ interface Props {
 const Header = ({ type = 'Logo', navigatePath }: Props) => {
   return (
     <StyledHeader>
-      <Link to={navigatePath}>
-        {type === 'Logo' ? <Logo /> : <ArrowBack />}
-      </Link>
+      {type !== 'nothing' && (
+        <Link to={navigatePath}>
+          {type === 'Logo' ? <Logo /> : <ArrowBack />}
+        </Link>
+      )}
     </StyledHeader>
   );
 };
