@@ -1,11 +1,11 @@
 import { useRecoilState } from 'recoil';
 import { Modal } from '@hanuuny/react-modal';
 import CouponItem from '../CouponItem/CouponItem';
+import NotificationLabel from '../../common/NotificationLabel/NotificationLabel';
 import useSelectedCoupons from '../../../hooks/useSelectedCoupons';
 import useCouponCalculator from '../../../hooks/useCouponCalculator';
 import { selectedCouponListState } from '../../../recoil/Coupon/atoms/atoms';
 import { Coupon } from '../../../types/Coupon.type';
-import { InfoIcon } from '../../../assets';
 import * as S from './CouponModal.style';
 
 interface CouponModalProps {
@@ -33,10 +33,7 @@ function CouponModal({ couponList, isOpen, close }: CouponModalProps) {
       </Modal.Header>
       <Modal.Body>
         <S.CouponItemList>
-          <S.NotificationContainer>
-            <S.InfoIcon src={InfoIcon} />
-            <p>쿠폰은 최대 2개까지 사용할 수 있습니다.</p>
-          </S.NotificationContainer>
+          <NotificationLabel text="쿠폰은 최대 2개까지 사용할 수 있습니다." />
           <S.CouponItemContainer>
             {couponList.map((coupon) => (
               <CouponItem
