@@ -6,12 +6,23 @@ export const MESSAGES = {
   allSelected: '전체 선택',
   delete: '삭제',
   confirm: '주문 확인',
+  payment: '결제하기',
+  returnCart: '장바구니로 돌아가기',
   cart: '장바구니',
   noItemsInCart: '장바구니에 담은 상품이 없습니다.',
+  freeDeliveryFee: '무료배송',
 };
 
 export const MESSAGES_PROPS = {
   includedItems: (length: number) => {
     return `현재 ${length}종류의 상품이 담겨있습니다.`;
+  },
+  couponConfirm: (totalDiscount: number, isFreeShipping: boolean) => {
+    if (totalDiscount === 0 && !isFreeShipping) {
+      return '쿠폰 사용하기';
+    }
+    return `${totalDiscount !== 0 ? totalDiscount : ''} ${
+      isFreeShipping ? '+ 무료배송' : ''
+    } ${'쿠폰 사용하기'}`;
   },
 };

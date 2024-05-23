@@ -182,23 +182,31 @@ export const totalDiscountSelector = selector({
     const checkedCoupons = get(allCheckedCouponsSelector);
     const { totalAmount } = get(totalPriceSelector);
     const itemPriceAndQuantity = get(allCheckedItemsSelector);
-
-    return checkedCoupons.reduce((prevTotalDiscount, checkedCoupon) => {
-      switch (checkedCoupon.discountType) {
-        case 'fixed':
-          return prevTotalDiscount + calculateFixedDiscount(checkedCoupon);
-        case 'percentage':
-          return (
-            prevTotalDiscount +
-            calculatePercentageDiscount(checkedCoupon, totalAmount)
-          );
-        case 'buyXgetY':
-          return (
-            prevTotalDiscount + calculateBuyXgetYDiscount(itemPriceAndQuantity)
-          );
-        default:
-          return prevTotalDiscount + 0;
-      }
-    }, 0);
+    let isFreeShipping = false;
+    const totalDiscount = checkedCoupons.reduce(
+      (prevTotalDiscount, checkedCoupon) => {
+        switch (checkedCoupon.discountType) {
+          case 'fixed':
+            return prevTotalDiscount + calculateFixedDiscount(checkedCoupon);
+          case 'percentage':
+            return (
+              prevTotalDiscount +
+              calculatePercentageDiscount(checkedCoupon, totalAmount)
+            );
+          case 'buyXgetY':
+            return (
+              prevTotalDiscount +
+              calculateBuyXgetYDiscount(itemPriceAndQuantity)
+            );
+          case 'freeShipping':
+            isFreeShipping = true;
+            return prevTotalDiscount + 0;
+          default:
+            return prevTotalDiscount + 0;
+        }
+      },
+      0,
+    );
+    return { totalDiscount, isFreeShipping };
   },
 });

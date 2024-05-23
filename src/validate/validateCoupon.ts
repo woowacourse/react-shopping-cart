@@ -1,3 +1,4 @@
+import { FREE_DELIVERY_THRESHOLD } from '../constants/ShoppingCart';
 import { Coupon } from '../types/coupon';
 
 const isCouponExpired = (expirationDate: string) => {
@@ -14,6 +15,13 @@ const isCouponApplicable = (
   if (!coupon || isCouponExpired(coupon.expirationDate)) return false;
 
   if (coupon.minimumAmount && totalAmount < coupon.minimumAmount) {
+    return false;
+  }
+
+  if (
+    coupon.discountType === 'freeShipping' &&
+    totalAmount > FREE_DELIVERY_THRESHOLD
+  ) {
     return false;
   }
 
