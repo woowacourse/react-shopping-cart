@@ -11,7 +11,7 @@ export default function CartButton(attributes: CartButtonProps) {
   const selectedCartItemIds = useRecoilValue(selectedCartItemIdsState);
   const isDisabled = selectedCartItemIds.length === 0;
 
-  const handleOrderConfirmButtonClick = () => navigate(ROUTE_PATH.checkout);
+  const handleOrderConfirmButtonClick = () => navigate(ROUTE_PATH.payment);
 
   return (
     <Button disabled={isDisabled} onClick={handleOrderConfirmButtonClick} {...attributes}>
