@@ -1,0 +1,15 @@
+const DISCOUNT_TYPES = {
+  FIXED: 'fixed',
+  PERCENTAGE: 'percentage',
+  BUY_X_GET_Y: 'buyXgetY',
+  FREE_SHIPPING: 'freeShipping',
+} as const;
+
+const DISCOUNT_CODE = {
+  FIXED5000: 'FIXED5000',
+  BOGO: 'BOGO',
+  FREE_SHIPPING: 'FREESHIPPING',
+  MIRACLESALE: 'MIRACLESALE',
+};
+
+export { DISCOUNT_TYPES, DISCOUNT_CODE };

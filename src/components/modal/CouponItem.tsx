@@ -1,43 +1,48 @@
-import { CouponData } from '@/types';
 import CheckBox from '../common/CheckBox';
 import common from '@/common.module.css';
 import styles from './couponItem.module.css';
 import formatKoreanCurrency from '@/utils/formatKoreanCurrency';
-import formatStartToEndTime from '@/formatStartToEndTime';
-import formatDateToKorea from '@/formatDateToKorea';
+import formatStartToEndTime from '@/utils/formatStartToEndTime';
+import formatDateToKorea from '@/utils/formatDateToKorea';
 import Divider from '../common/Divider';
+import { isCheckedIndividualCouponSelector } from '@/store/couponSelector';
+import { useRecoilState } from 'recoil';
+import { CouponDataWithoutProperties } from '@/types';
 
-function formatExpirationDate(dateString: string) {
-  const [year, month, day] = dateString.split('-').map(Number);
-
-  return `${year}년 ${month}월 ${day}일`;
+interface Props extends CouponDataWithoutProperties {
+  isAvailable: boolean;
 }
 
 export default function CouponItem({
   id,
-  code,
   description,
-  discount,
-  discountType,
   minimumAmount,
-  buyQuantity,
-  getQuantity,
   availableTime,
   expirationDate,
-}: CouponData) {
+  isAvailable,
+}: Props) {
   const formattedAvailableTime =
     availableTime && formatStartToEndTime(availableTime.start, availableTime.end);
-  const formattedExpirationDate = formatDateToKorea(expirationDate);
+  const [isChecked, setIsChecked] = useRecoilState(isCheckedIndividualCouponSelector(id));
+
+  const handleCouponCheckState = () => {
+    setIsChecked((prev) => !prev);
+  };
 
   return (
     <Divider>
-      <li className={styles.coupon_item_container}>
+      <li className={`${styles.coupon_item_container} ${!isAvailable ? styles.disable : ''}`}>
         <div className={styles.coupon_item_header}>
-          <CheckBox id={`coupon-item${id}`} onChange={() => {}} checked={false} />
+          <CheckBox
+            id={`coupon-item${id}`}
+            onChange={handleCouponCheckState}
+            checked={isChecked}
+            disabled={!isAvailable}
+          />
           <p className={`${common.title_text} ${styles.text}`}> {description}</p>
         </div>
         <div className={styles.coupon_info}>
-          <span className={styles.info_text}>만료일: {formattedExpirationDate}</span>
+          <span className={styles.info_text}>만료일: {formatDateToKorea(expirationDate)}</span>
           {minimumAmount ? (
             <span className={styles.info_text}>
               최소 주문 금액: {formatKoreanCurrency(minimumAmount)}원

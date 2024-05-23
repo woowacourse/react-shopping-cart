@@ -1,17 +1,15 @@
 import { Modal } from 'brgndyy-react-modal';
 import styles from './couponModal.module.css';
 import Content from './Content';
-
-export const CloseContent = () => {
-  return <div>Close Modal Button Content</div>;
-};
+import { FormattedCoupon } from '@/types';
 
 type Props = {
   modalOpen: boolean;
   handleModalClose: () => void;
+  allCoupons: FormattedCoupon[];
 };
 
-export default function CouponModal({ modalOpen, handleModalClose }: Props) {
+export default function CouponModal({ modalOpen, handleModalClose, allCoupons }: Props) {
   return (
     <Modal
       isOpen={modalOpen}
@@ -24,7 +22,7 @@ export default function CouponModal({ modalOpen, handleModalClose }: Props) {
       <Modal.Portal id="modal">
         <Modal.Backdrop opacity="rgba(0, 0, 0, 0.35)">
           <Modal.Container className="container">
-            <Content handleModalClose={handleModalClose} />
+            <Content handleModalClose={handleModalClose} allCoupons={allCoupons} />
           </Modal.Container>
         </Modal.Backdrop>
       </Modal.Portal>
