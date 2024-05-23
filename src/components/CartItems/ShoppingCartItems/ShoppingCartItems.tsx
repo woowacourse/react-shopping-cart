@@ -1,8 +1,8 @@
 import * as Styled from '../style';
 
 import ShoppingCartItem from './ShoppingCartItem';
-import SelectedBox from '../../assets/SelectedBox.svg';
-import UnSelectedBox from '../../assets/UnSelectedBox.svg';
+import SelectedBox from '../../../assets/SelectedBox.svg';
+import UnSelectedBox from '../../../assets/UnSelectedBox.svg';
 
 import { useRecoilState, useRecoilValue } from 'recoil';
 

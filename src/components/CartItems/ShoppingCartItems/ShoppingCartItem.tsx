@@ -9,11 +9,11 @@ import {
   fetchRemoveCartItem,
 } from '../../../api/shoppingCart';
 
-import selectedBox from '../../assets/SelectedBox.svg';
-import UnSelectedBox from '../../assets/UnSelectedBox.svg';
-import PlusButton from '../../assets/PlusButton.svg';
-import MinusButton from '../../assets/MinusButton.svg';
-import RemoveButton from '../../assets/RemoveButton.svg';
+import selectedBox from '../../../assets/SelectedBox.svg';
+import UnSelectedBox from '../../../assets/UnSelectedBox.svg';
+import PlusButton from '../../../assets/PlusButton.svg';
+import MinusButton from '../../../assets/MinusButton.svg';
+import RemoveButton from '../../../assets/RemoveButton.svg';
 
 import MESSAGE from '../../../constants/Message';
 import CONDITION from '../../../constants/Condition';
