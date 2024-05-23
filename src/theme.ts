@@ -18,7 +18,7 @@ const theme: DefaultTheme = {
       font-family: Noto Sans KR;
       font-weight: 300;
       font-size: 0.75rem;
-      line-height: 0.9rem;
+      line-height: 1.2rem;
     `,
     content: `
     font-family: Noto Sans KR;
@@ -51,6 +51,7 @@ const theme: DefaultTheme = {
     lightGray: '#BEBEBE',
     captionBlack: '#0A0D13',
     borderGray: '#0000001A',
+    darkGray: '#333333BF',
   },
 };
 

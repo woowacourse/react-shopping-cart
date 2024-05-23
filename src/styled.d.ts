@@ -17,6 +17,7 @@ declare module 'styled-components' {
       lightGray: string;
       captionBlack: string;
       borderGray: string;
+      darkGray: string;
     };
   }
 }
