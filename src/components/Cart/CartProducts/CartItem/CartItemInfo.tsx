@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import { useSetRecoilState } from 'recoil';
 
+import CartItemImage from '@/components/common/CartItemImage';
 import { CartItemProps } from '@/types/cartItem';
 import { updateItemQuantity } from '@apis/cartItem';
 import { MINUS, PLUS } from '@assets/images';
@@ -56,13 +57,8 @@ export default function CartItemInfo({ item }: CartItemMainSectionProps) {
 
   return (
     <div css={cartItemBody}>
-      <img
-        css={image}
-        src={item.product.imageUrl}
-        width={112}
-        height={112}
-        alt={item.product.name + '상품 이미지'}
-      />
+      <CartItemImage imageUrl={item.product.imageUrl} alt={item.product.name + '상품 이미지'} />
+
       <div css={cartItemInfoWrapper}>
         <span>{item.product.name}</span>
         <span css={price}>{item.product.price.toLocaleString('ko-KR')}원</span>
@@ -87,10 +83,6 @@ export default function CartItemInfo({ item }: CartItemMainSectionProps) {
 const cartItemBody = css`
   display: flex;
   gap: 20px;
-`;
-
-const image = css`
-  border-radius: 8px;
 `;
 
 const cartItemInfoWrapper = css`
