@@ -6,30 +6,27 @@ const useDiscountCalculator = () => {
 
   // 고정 할인
   const calculateFixedDiscount = (coupon: Coupon, totalAmount: number) => {
-    // FIXME: 테스트를 위해 유효성 검사 생략
-    // if (!isCouponApplicable(coupon, totalAmount)) {
-    //   return 0;
-    // }
+    if (!isCouponApplicable(coupon, totalAmount)) {
+      return 0;
+    }
 
     return coupon.discount ?? 0;
   };
 
   // 비율 할인
   const calculatePercentageDiscount = (coupon: Coupon, totalAmount: number) => {
-    // FIXME: 테스트를 위해 유효성 검사 생략
-    // if (!isCouponApplicable(coupon, totalAmount)) {
-    //   return 0;
-    // }
+    if (!isCouponApplicable(coupon, totalAmount)) {
+      return 0;
+    }
 
     return Math.floor((totalAmount * (coupon.discount ?? 0)) / 100);
   };
 
   // coupon 타입에 따라 반환값 분기처리
   const calculateDiscountAmount = (coupon: Coupon, totalAmount: number, now: Date = new Date()) => {
-    // FIXME: 테스트를 위해 유효성 검사 생략
-    // if (!isCouponApplicable(coupon, totalAmount, now)) {
-    //   return 0;
-    // }
+    if (!isCouponApplicable(coupon, totalAmount, now)) {
+      return 0;
+    }
 
     switch (coupon.discountType) {
       case 'fixed':

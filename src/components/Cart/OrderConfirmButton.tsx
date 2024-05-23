@@ -1,19 +1,22 @@
 import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { THEME } from '@/constants/theme';
 import { useCouponApplicabilityChecker } from '@/hooks/useCouponApplicabilityChecker';
-import { couponSavedCheckListState } from '@/recoil/coupons/atoms';
+import useDiscountCalculator from '@/hooks/useDiscountCalculator';
+import { couponSavedCheckListState, totalDiscountPriceState } from '@/recoil/coupons/atoms';
 import { isAllUnCheckedState, orderResultState } from '@recoil/cartItems/selectors';
 
 const OrderConfirmButton = () => {
   const navigate = useNavigate();
   const isAllUnChecked = useRecoilValue(isAllUnCheckedState);
   const { totalOrderPrice } = useRecoilValue(orderResultState);
-  const setCouponSavedCheckList = useSetRecoilState(couponSavedCheckListState);
-  const { isCouponApplicable } = useCouponApplicabilityChecker();
+  const [couponSavedCheckList, setCouponSavedCheckList] = useRecoilState(couponSavedCheckListState);
+  const setTotalDiscountPrice = useSetRecoilState(totalDiscountPriceState);
 
+  const { isCouponApplicable } = useCouponApplicabilityChecker();
+  const { calculateDiscountAmount } = useDiscountCalculator();
   const handleClickOrderConfirm = () => {
     if (isAllUnChecked) return;
 
@@ -23,6 +26,15 @@ const OrderConfirmButton = () => {
         isChecked: isCouponApplicable(coupon, totalOrderPrice) ? coupon.isChecked : false,
       })),
     );
+
+    const validDiscountTotal = couponSavedCheckList.reduce((acc, coupon) => {
+      if (coupon.isChecked) {
+        return acc + calculateDiscountAmount(coupon, totalOrderPrice);
+      }
+      return acc;
+    }, 0);
+
+    setTotalDiscountPrice(validDiscountTotal);
 
     navigate('/confirm');
   };
