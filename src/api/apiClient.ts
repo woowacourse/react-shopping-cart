@@ -12,20 +12,20 @@ export class FetchError extends Error {
 
 type Method = "GET" | "POST" | "PATCH" | "DELETE";
 const apiClient = {
-  get(endpoint: string, headers: object) {
-    return this.request("GET", endpoint, headers, null);
+  get(endpoint: string, headers: object = {}) {
+    return this.request("GET", endpoint, null, headers);
   },
-  post(endpoint: string, headers: object, body: object) {
-    return this.request("POST", endpoint, headers, body);
+  post(endpoint: string, body: object, headers: object = {}) {
+    return this.request("POST", endpoint, body, headers);
   },
-  patch(endpoint: string, headers: object, body: object) {
-    return this.request("PATCH", endpoint, headers, body);
+  patch(endpoint: string, body: object, headers: object = {}) {
+    return this.request("PATCH", endpoint, body, headers);
   },
-  delete(endpoint: string, headers: object) {
-    return this.request("DELETE", endpoint, headers, null);
+  delete(endpoint: string, headers: object = {}) {
+    return this.request("DELETE", endpoint, null, headers);
   },
 
-  request(method: Method, endpoint: string, headers: object, body: object | null) {
+  request(method: Method, endpoint: string, body: object | null, headers: object = {}) {
     const token = generateBasicToken(USER_ID, USER_PASSWORD);
     const requestInit = {
       method,

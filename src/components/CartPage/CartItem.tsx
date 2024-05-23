@@ -4,7 +4,7 @@ import CheckIcon from "../../assets/CheckIcon.svg?react";
 import MinusIcon from "../../assets/MinusIcon.svg?react";
 import PlusIcon from "../../assets/PlusIcon.svg?react";
 import { useRecoilState } from "recoil";
-import { CartItem } from "../../types";
+import { CartItem } from "../../types/types";
 
 import { patchCartItemQuantity } from "../../api/cartItem";
 import { formatCurrency } from "../../utils/formatCurrency";
