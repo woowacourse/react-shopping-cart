@@ -11,6 +11,8 @@ export const MESSAGES = {
   cart: '장바구니',
   noItemsInCart: '장바구니에 담은 상품이 없습니다.',
   freeDeliveryFee: '무료배송',
+  shippingInformation: '배송 정보',
+  additionalShippingFee: '제주도 및 도서 산간 지역',
 };
 
 export const MESSAGES_PROPS = {
