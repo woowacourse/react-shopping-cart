@@ -11,13 +11,17 @@ interface Props {
 const useTotalCouponDiscount = ({ coupons, date }: Props) => {
   const { orderPrice } = useRecoilValue(recipeState);
 
+  const coupon1 = coupons[0] || null;
+  const coupon2 = coupons[1] || null;
+
   const coupon1Discount = useCouponDiscount({
-    coupon: coupons[0],
+    coupon: coupon1,
     date,
     orderPrice,
   });
+
   const coupon2Discount = useCouponDiscount({
-    coupon: coupons[1],
+    coupon: coupon2,
     date,
     orderPrice,
   });
@@ -25,7 +29,7 @@ const useTotalCouponDiscount = ({ coupons, date }: Props) => {
   const discountAB =
     coupon1Discount +
     useCouponDiscount({
-      coupon: coupons[1],
+      coupon: coupon2,
       date,
       orderPrice: orderPrice - coupon1Discount,
     });
@@ -33,7 +37,7 @@ const useTotalCouponDiscount = ({ coupons, date }: Props) => {
   const discountBA =
     coupon2Discount +
     useCouponDiscount({
-      coupon: coupons[0],
+      coupon: coupon1,
       date,
       orderPrice: orderPrice - coupon2Discount,
     });
