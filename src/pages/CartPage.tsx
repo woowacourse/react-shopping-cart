@@ -4,6 +4,7 @@ import { cartItemCheckedIdsAtom, cartItemsAtom } from "../recoil/atom/atom";
 import { CartLayout, Header, Content, Footer } from "../components/layout";
 import { CartItems, EmptyCart, OrderSummary } from "../components/cartPage";
 import { Title } from "../components/default";
+import { useEffect } from "react";
 
 const CartPage = () => {
   const navigate = useNavigate();

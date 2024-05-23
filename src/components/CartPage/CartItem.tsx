@@ -6,9 +6,10 @@ import { useRecoilState } from "recoil";
 import { Product } from "../../types/product";
 import { patchCartItemQuantity } from "../../api/cartItemApi";
 import { cartItemCheckedIdsAtom } from "../../recoil/atom/atom";
-import { quantitySelector } from "../../recoil/selector/selector";
+import { quantitySelectorFamily } from "../../recoil/selector/selector";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { Button } from "../default";
+import { useEffect } from "react";
 
 interface CardItemProps {
   product: Product;
@@ -16,9 +17,12 @@ interface CardItemProps {
 }
 
 const CartItem = ({ product, handleDelete }: CardItemProps) => {
-  const [quantities, setQuantity] = useRecoilState(quantitySelector);
-  const quantity = quantities[product.id];
   const [checkedIds, setCheckedIds] = useRecoilState(cartItemCheckedIdsAtom);
+  const [quantity, setQuantity] = useRecoilState(quantitySelectorFamily(product.id));
+
+  useEffect(() => {
+    setQuantity(product.quantity);
+  }, []);
 
   const handleChecked = () => {
     setCheckedIds((prev) => (prev.includes(product.id) ? prev.filter((id) => id !== product.id) : [...prev, product.id]));
@@ -26,7 +30,7 @@ const CartItem = ({ product, handleDelete }: CardItemProps) => {
 
   const updateQuantity = (newQuantity: number) => {
     patchCartItemQuantity(product.id, newQuantity);
-    setQuantity({ [String(product.id)]: newQuantity });
+    setQuantity(newQuantity);
   };
 
   return (

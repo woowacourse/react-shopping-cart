@@ -1,7 +1,5 @@
 import { css } from "@emotion/css";
-import { useRecoilState } from "recoil";
 import { Product } from "../../types/product";
-import { quantitySelector } from "../../recoil/selector/selector";
 import { formatCurrency } from "../../utils/formatCurrency";
 
 interface CardItemProps {
@@ -9,9 +7,6 @@ interface CardItemProps {
 }
 
 const OrderItem = ({ product }: CardItemProps) => {
-  const [quantities, setQuantity] = useRecoilState(quantitySelector);
-  const quantity = quantities[product.id];
-
   return (
     <div className={ItemCSS}>
       <div className={ItemContentCSS}>
@@ -24,7 +19,7 @@ const OrderItem = ({ product }: CardItemProps) => {
             <div className={ItemNameCSS}>{product.product.name}</div>
             <div className={ItemPriceCSS}>{formatCurrency(product.product.price)}</div>
           </div>
-          <div className={ItemCountCSS}>{quantity}개</div>
+          <div className={ItemCountCSS}>{product.quantity}개</div>
         </div>
       </div>
     </div>
@@ -37,14 +32,13 @@ const ItemCSS = css`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding-top: 12px;
-  padding-bottom: 20px;
+  padding: 12px 0 20px 0;
 `;
 const ItemContentCSS = css`
   display: flex;
   flex-direction: row;
-  column-gap: 24px;
   align-items: center;
+  gap: 24px;
 `;
 
 const ItemImageCSS = css`
