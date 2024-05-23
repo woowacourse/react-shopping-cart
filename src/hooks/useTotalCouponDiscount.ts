@@ -11,25 +11,34 @@ interface Props {
 const useTotalCouponDiscount = ({ coupons, date }: Props) => {
   const { orderPrice } = useRecoilValue(recipeState);
 
-  const coupon1 = useCouponDiscount({ coupon: coupons[0], date, orderPrice });
-  const coupon2 = useCouponDiscount({
-    coupon: coupons[1],
-    date,
-    orderPrice: orderPrice - coupon1,
-  });
-
-  const AB = coupon1 + coupon2;
-
-  const coupon3 = useCouponDiscount({ coupon: coupons[1], date, orderPrice });
-  const coupon4 = useCouponDiscount({
+  const coupon1Discount = useCouponDiscount({
     coupon: coupons[0],
     date,
-    orderPrice: orderPrice - coupon3,
+    orderPrice,
+  });
+  const coupon2Discount = useCouponDiscount({
+    coupon: coupons[1],
+    date,
+    orderPrice,
   });
 
-  const BA = coupon3 + coupon4;
+  const discountAB =
+    coupon1Discount +
+    useCouponDiscount({
+      coupon: coupons[1],
+      date,
+      orderPrice: orderPrice - coupon1Discount,
+    });
 
-  return AB > BA ? AB : BA;
+  const discountBA =
+    coupon2Discount +
+    useCouponDiscount({
+      coupon: coupons[0],
+      date,
+      orderPrice: orderPrice - coupon2Discount,
+    });
+
+  return Math.max(discountAB, discountBA);
 };
 
 export default useTotalCouponDiscount;
