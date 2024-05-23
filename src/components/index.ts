@@ -4,7 +4,7 @@ import Footer from "@/components/section/Footer";
 import CartDescription from "@/components/shoppingCart/CartDescription";
 import CartItemCard from "@/components/shoppingCart/CartItemCard";
 import CartItemList from "@/components/shoppingCart/CartItemList";
-import CartPrice from "@/components/shoppingCart/CartPrice";
+import CartAmount from "@/components/shoppingCart/CartAmount";
 import OrderConfirm from "@/components/order/OrderConfirm";
 
 export {
@@ -14,6 +14,6 @@ export {
   CartDescription,
   CartItemCard,
   CartItemList,
-  CartPrice,
+  CartAmount,
   OrderConfirm,
 };

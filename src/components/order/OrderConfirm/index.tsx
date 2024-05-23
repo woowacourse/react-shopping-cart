@@ -1,11 +1,11 @@
 import { useRecoilValue } from "recoil";
 import { cartItemsState } from "@/stores/cartItems";
-import { cartPriceState } from "@/stores/cartPrice";
+import { cartAmountState } from "@/stores/cartAmount";
 
 import * as S from "./styled";
 
 const OrderConfirm = () => {
-  const { totalPrice } = useRecoilValue(cartPriceState);
+  const { totalAmount } = useRecoilValue(cartAmountState);
   const cartItems = useRecoilValue(cartItemsState);
 
   const totalItemCount = cartItems.reduce((acc, cur) => {
@@ -23,7 +23,7 @@ const OrderConfirm = () => {
       </S.Info>
       <S.PriceWrapper>
         <S.PriceText>총 결제 금액</S.PriceText>
-        <S.Price>{totalPrice.toLocaleString("ko-KR")}원</S.Price>
+        <S.Price>{totalAmount.toLocaleString("ko-KR")}원</S.Price>
       </S.PriceWrapper>
     </S.Container>
   );

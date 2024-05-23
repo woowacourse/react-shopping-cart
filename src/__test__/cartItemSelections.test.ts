@@ -3,12 +3,12 @@ import { renderHook, waitFor } from "@testing-library/react";
 import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
 
 import { isCartItemsSelectedState } from "../stores/cartItemSelections";
-import { cartPriceState } from "../stores/cartPrice";
+import { cartAmountState } from "../stores/cartAmount";
 
 import { CART_PRICE } from "../constants/cart";
 import { MOCK_CART_LIST } from "./__mocks__/cart";
 
-jest.mock("../apis/cart", () => ({
+jest.mock("../apis/cartItem", () => ({
   getCartItems: jest.fn(),
 }));
 
@@ -35,20 +35,22 @@ describe("CartItem Selections", () => {
   });
 });
 
-describe("cartPriceState", () => {
+describe("cartAmountState", () => {
   beforeEach(() => {
-    const { getCartItems } = require("../apis/cart");
+    const { getCartItems } = require("../apis/cartItem");
     getCartItems.mockResolvedValue(MOCK_CART_LIST);
   });
 
-  it(`총 결제금액이 ${CART_PRICE.minOrderPrice}원 미만일 때, 배송비가 ${CART_PRICE.deliveryFee}원이다.`, async () => {
-    const { result } = renderHook(() => useRecoilValue(cartPriceState), {
+  it(`총 결제금액이 ${CART_PRICE.minOrderAmount}원 미만일 때, 배송비가 ${CART_PRICE.shippingFees.standard}원이다.`, async () => {
+    const { result } = renderHook(() => useRecoilValue(cartAmountState), {
       wrapper: RecoilRoot,
     });
 
     await waitFor(() => {
-      expect(result.current.orderPrice).toBeLessThan(CART_PRICE.minOrderPrice);
-      expect(result.current.deliveryFee).toBe(CART_PRICE.deliveryFee);
+      expect(result.current.orderAmount).toBeLessThan(
+        CART_PRICE.minOrderAmount
+      );
+      expect(result.current.shippingFee).toBe(CART_PRICE.shippingFees.standard);
     });
   });
 
@@ -65,7 +67,7 @@ describe("cartPriceState", () => {
           setSelection3(true);
         });
 
-        return useRecoilValue(cartPriceState);
+        return useRecoilValue(cartAmountState);
       },
       {
         wrapper: RecoilRoot,
@@ -76,20 +78,20 @@ describe("cartPriceState", () => {
       [1274, 1335, 1336].includes(item.id)
     );
 
-    const expectedOrderPrice = selectedItems.reduce(
+    const expectedOrderAmount = selectedItems.reduce(
       (acc, item) => acc + item.product.price * item.quantity,
       0
     );
-    const expectedDeliveryFee =
-      expectedOrderPrice >= CART_PRICE.minOrderPrice
+    const expectedShippingFee =
+      expectedOrderAmount >= CART_PRICE.minOrderAmount
         ? 0
-        : CART_PRICE.deliveryFee;
-    const expectedTotalPrice = expectedOrderPrice + expectedDeliveryFee;
+        : CART_PRICE.shippingFees.standard;
+    const expectedTotalAmount = expectedOrderAmount + expectedShippingFee;
 
     await waitFor(() => {
-      expect(result.current.orderPrice).toBe(expectedOrderPrice);
-      expect(result.current.deliveryFee).toBe(expectedDeliveryFee);
-      expect(result.current.totalPrice).toBe(expectedTotalPrice);
+      expect(result.current.orderAmount).toBe(expectedOrderAmount);
+      expect(result.current.shippingFee).toBe(expectedShippingFee);
+      expect(result.current.totalAmount).toBe(expectedTotalAmount);
     });
   });
 });

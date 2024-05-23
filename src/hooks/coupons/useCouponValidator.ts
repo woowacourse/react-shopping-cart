@@ -7,7 +7,6 @@ const useCouponValidator = () => {
     const today = new Date();
     const expiration = new Date(expirationDate);
 
-    console.log(today, expiration);
     return today <= expiration;
   };
 

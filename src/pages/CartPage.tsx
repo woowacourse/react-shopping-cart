@@ -6,7 +6,7 @@ import {
   CartItemList,
   Header,
   Footer,
-  CartPrice,
+  CartAmount,
   Loading,
 } from "@/components/index";
 
@@ -25,7 +25,7 @@ const CartPage = () => {
           <CartLayout>
             <CartDescription />
             <CartItemList />
-            <CartPrice />
+            <CartAmount />
           </CartLayout>
           <Footer />
         </Suspense>

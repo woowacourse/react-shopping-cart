@@ -1,4 +1,6 @@
 export const CART_PRICE = {
-  deliveryFee: 3_000,
-  minOrderPrice: 100_000,
+  shippingFees: {
+    standard: 3000, // 일반 지역 배송비
+  },
+  minOrderAmount: 100_000,
 };

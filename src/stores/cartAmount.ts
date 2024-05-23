@@ -6,7 +6,7 @@ import { CART_PRICE } from "@/constants/cart";
 
 const calculateDeliveryFee = (orderPrice: number) => {
   if (orderPrice === 0) return 0;
-  return orderPrice >= CART_PRICE.minOrderPrice ? 0 : CART_PRICE.deliveryFee;
+  return orderPrice >= CART_PRICE.minOrderAmount ? 0 : CART_PRICE.deliveryFee;
 };
 
 export const cartPriceState = selector({
