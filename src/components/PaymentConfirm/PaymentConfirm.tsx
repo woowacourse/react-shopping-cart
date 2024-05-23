@@ -1,7 +1,8 @@
 import { cartPriceState } from "../../recoil/selectors/selectors";
 import { useRecoilValue } from "recoil";
-import { Wrapper, Title, Info, PriceWrapper, PriceText, Price } from "./style";
+import { Wrapper, Info, Price } from "./style";
 import { cartSummaryState } from "../../recoil/selectors/selectors";
+import { SmallText, MediumText, LargeText } from "../common";
 
 const OrderConfirm = () => {
   const { totalPrice } = useRecoilValue(cartPriceState);
@@ -10,17 +11,17 @@ const OrderConfirm = () => {
 
   return (
     <Wrapper>
-      <Title>주문 확인</Title>
+      <LargeText>주문 확인</LargeText>
       <Info>
-        <div>
+        <SmallText>
           총 {cartItemKind}종류의 상품 {cartItemTotalQuantity}개를 주문합니다.
-        </div>
-        <div>최종 결제 금액을 확인해 주세요.</div>
+        </SmallText>
+        <SmallText>최종 결제 금액을 확인해 주세요.</SmallText>
       </Info>
-      <PriceWrapper>
-        <PriceText>총 결제 금액</PriceText>
-        <Price>{totalPrice.toLocaleString("ko-KR")}원</Price>
-      </PriceWrapper>
+      <Price>
+        <MediumText>총 결제 금액</MediumText>
+        <LargeText>{totalPrice.toLocaleString("ko-KR")}원</LargeText>
+      </Price>
     </Wrapper>
   );
 };

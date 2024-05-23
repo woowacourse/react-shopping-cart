@@ -1,22 +1,19 @@
 import { useRecoilState } from "recoil";
 import { selectedListState } from "../../recoil/atoms/atoms";
-import Button from "../common/Button/Button";
 import { deleteCartItem, patchCartItemQuantity } from "../../api/cart";
 import type { CartItem } from "../../types/cart";
-import OutlineCheck from "../../assets/icon/OutlineCheckSvg";
-import FilledCheck from "../../assets/icon/FilledCheckSvg";
+import { OutlineCheckSvg, FilledCheckSvg } from "../../assets";
 import { cartItemsState } from "../../recoil/atoms/atoms";
-
 import {
   Wrapper,
   ItemImg,
   Header,
   Body,
-  ItemPrice,
   ItemInfo,
   ItemInfoWrapper,
   ItemQuantity,
 } from "./style";
+import { SmallText, Button, LargeText } from "../common";
 
 interface CardItemProps {
   cartItem: CartItem;
@@ -71,9 +68,9 @@ const CartItem = ({ cartItem: { id, product, quantity } }: CardItemProps) => {
       <Header>
         <Button $borderRadius="8px" onClick={handleToggleSelectItem}>
           {selectedList.includes(id) ? (
-            <FilledCheck color="white" />
+            <FilledCheckSvg color="white" />
           ) : (
-            <OutlineCheck />
+            <OutlineCheckSvg />
           )}
         </Button>
         <Button $theme="white" $size="s" onClick={handleDeleteItem}>
@@ -84,8 +81,8 @@ const CartItem = ({ cartItem: { id, product, quantity } }: CardItemProps) => {
         <ItemImg src={product.imageUrl} />
         <ItemInfoWrapper>
           <ItemInfo>
-            <span>{product.name}</span>
-            <ItemPrice>{product.price.toLocaleString("ko-KR")}</ItemPrice>
+            <SmallText>{product.name}</SmallText>
+            <LargeText>{product.price.toLocaleString("ko-KR")}</LargeText>
           </ItemInfo>
           <ItemQuantity>
             <Button

@@ -1,12 +1,12 @@
 import { Wrapper } from "./style";
 import { ReactNode } from "react";
 
-interface NormalTextProps {
+interface LargeTextProps {
   children: ReactNode;
 }
 
-const NormalText = ({ children }: NormalTextProps) => {
+const LargeText = ({ children }: LargeTextProps) => {
   return <Wrapper>{children}</Wrapper>;
 };
 
-export default NormalText;
+export default LargeText;

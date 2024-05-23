@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { RecoilRoot } from "recoil";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // import DebugObserver from "./recoil/DebugObserver.tsx";
-import { MainPage, PaymentPage, PaymentResultPage } from "./pages/index.ts";
+import { MainPage, OrderPage, PaymentPage } from "./pages/index.ts";
 import GlobalStyle from "./styles/GlobalStyle.tsx";
 import { ThemeProvider } from "styled-components";
 import theme from "./styles/theme.ts";
@@ -14,12 +14,12 @@ const router = createBrowserRouter([
     element: <MainPage />,
   },
   {
-    path: "/payment",
-    element: <PaymentPage />,
+    path: "/order",
+    element: <OrderPage />,
   },
   {
-    path: "/payment/result",
-    element: <PaymentResultPage />,
+    path: "/payment/",
+    element: <PaymentPage />,
   },
 ]);
 

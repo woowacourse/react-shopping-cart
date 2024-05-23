@@ -1,6 +1,7 @@
 import { useRecoilValue } from "recoil";
 import { cartPriceState } from "../../recoil/selectors/selectors";
-import { Wrapper, PriceKind, PriceNumber, Price } from "./style";
+import { Wrapper, Price } from "./style";
+import { MediumText, LargeText } from "../common";
 
 export interface PriceStyleProps {
   $borderTop?: string;
@@ -13,16 +14,16 @@ const CartPrice = () => {
   return (
     <Wrapper>
       <Price>
-        <PriceKind>주문 금액</PriceKind>
-        <PriceNumber>{orderPrice.toLocaleString("ko-KR")}원</PriceNumber>
+        <MediumText>주문 금액</MediumText>
+        <LargeText>{orderPrice.toLocaleString("ko-KR")}원</LargeText>
       </Price>
       <Price>
-        <PriceKind>배송비</PriceKind>
-        <PriceNumber>{deliveryFee.toLocaleString("ko-KR")}원</PriceNumber>
+        <MediumText>배송비</MediumText>
+        <LargeText>{deliveryFee.toLocaleString("ko-KR")}원</LargeText>
       </Price>
       <Price $borderTop="1px solid rgba(0, 0, 0, 0.1)">
-        <PriceKind>총 결제 금액</PriceKind>
-        <PriceNumber>{totalPrice.toLocaleString("ko-KR")}원</PriceNumber>
+        <MediumText>총 결제 금액</MediumText>
+        <LargeText>{totalPrice.toLocaleString("ko-KR")}원</LargeText>
       </Price>
     </Wrapper>
   );

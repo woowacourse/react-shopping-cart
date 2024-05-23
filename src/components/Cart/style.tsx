@@ -41,9 +41,3 @@ export const ItemQuantity = styled.div`
   align-items: center;
   width: 80px;
 `;
-
-export const ItemPrice = styled.span`
-  font-size: ${({ theme }) => theme.fontSize.md};
-  font-weight: ${({ theme }) => theme.fontWeight.ExtraBold};
-  line-height: 35px;
-`;

@@ -4,7 +4,7 @@ import Cart from "../Cart/Cart";
 import type { CartItem } from "../../types/cart";
 import { Wrapper, Footer, AllCheckWrapper } from "./style";
 import { FilledCheckSvg, OutlineCheckSvg, infoOutline } from "../../assets";
-import Button from "../common/Button/Button";
+import { Button, SmallText } from "../common";
 
 const CartList = () => {
   const cartItems = useRecoilValue(cartItemsState);
@@ -43,14 +43,16 @@ const CartList = () => {
             <OutlineCheckSvg />
           </Button>
         )}
-        <span>전체선택</span>
+        <SmallText>전체선택</SmallText>
       </AllCheckWrapper>
       {cartItems.map((cartItem: CartItem) => (
         <Cart key={cartItem.id} cartItem={cartItem} />
       ))}
       <Footer>
         <img src={infoOutline} />
-        <div>총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</div>
+        <SmallText>
+          총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+        </SmallText>
       </Footer>
     </Wrapper>
   );

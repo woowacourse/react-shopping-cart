@@ -1,5 +1,5 @@
 import MainPage from "./MainPage/MainPage";
+import OrderPage from "./OrderPage/OrderPage";
 import PaymentPage from "./PaymentPage/PaymentPage";
-import PaymentResultPage from "./PaymentResultPage/PaymentResultPage";
 
-export { MainPage, PaymentPage, PaymentResultPage };
+export { MainPage, OrderPage, PaymentPage };

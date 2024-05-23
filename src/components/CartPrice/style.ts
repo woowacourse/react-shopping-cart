@@ -10,15 +10,3 @@ export const Price = styled.div<PriceStyleProps>`
   padding-bottom: 12px;
   border-top: ${({ $borderTop }) => $borderTop || "none"};
 `;
-
-export const PriceKind = styled.span`
-  font-size: ${({ theme }) => theme.fontSize.md};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-  line-height: 16px;
-`;
-
-export const PriceNumber = styled.span`
-  font-size: ${({ theme }) => theme.fontSize.lg};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-  line-height: 35px;
-`;
