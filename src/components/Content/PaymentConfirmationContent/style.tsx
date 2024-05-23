@@ -14,16 +14,6 @@ export const Details = styled.div`
   text-align: center;
 `;
 
-export const Title = styled.p`
-  ${(props) => props.theme.typography.title};
-  color: ${(props) => props.theme.color.black};
-`;
-
-export const OrderSuccessMessage = styled.p`
-  ${(props) => props.theme.typography.successMessage};
-  color: ${(props) => props.theme.color.captionBlack};
-`;
-
 export const TotalPaymentAmountContainer = styled.div`
   display: flex;
   flex-direction: column;
