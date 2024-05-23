@@ -15,7 +15,11 @@ const Header = ({ type = 'logo' }: HeaderProps) => {
   return (
     <S.Header>
       <S.PrefixButton onClick={type === 'back' ? () => navigate(-1) : () => {}}>
-        {type === 'logo' ? <S.Logo>SHOP</S.Logo> : <BACK />}
+        {type === 'logo' ? (
+          <S.Logo>SHOP</S.Logo>
+        ) : (
+          <BACK className="icon-small" />
+        )}
       </S.PrefixButton>
     </S.Header>
   );

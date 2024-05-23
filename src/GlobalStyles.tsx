@@ -135,6 +135,10 @@ const GlobalStyles = createGlobalStyle`
     display: flex;
     justify-content: center;
   }
+  .icon-small{
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 export default GlobalStyles;
