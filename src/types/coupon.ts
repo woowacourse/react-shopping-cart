@@ -1,6 +1,6 @@
 export interface Coupon {
   id: number;
-  code: string;
+  code: CouponCode;
   description: string;
   expirationDate: string;
   discount?: number;

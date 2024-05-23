@@ -1,5 +1,6 @@
 import { useCouponFinder } from './useCouponFinder';
 
+import { PRICE } from '@/constants/config';
 import { Coupon } from '@/types/coupon';
 import { couponValidator } from '@components/Coupon/couponValidator';
 
@@ -18,8 +19,12 @@ export const useCouponApplicabilityChecker = () => {
       return false;
     }
 
+    // 총 주문 금액이 100000원 이상일 경우 무료 배송 쿠폰 사용 막기 유효성 검사
+    if (coupon.code === 'FREESHIPPING' && totalAmount >= PRICE.FREE_SHIPPING_CONDITION) {
+      return false;
+    }
+
     // 사용 가능 시간 유효성 검사
-    // 2023-04-30T23:00:00.000Z
     if (targetCoupon.availableTime) {
       const [startHour, startMinute, startSecond] = targetCoupon.availableTime.start
         .split(':')
