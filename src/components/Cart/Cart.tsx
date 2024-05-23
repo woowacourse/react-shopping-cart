@@ -3,8 +3,8 @@ import { selectedListState } from "../../recoil/atoms/atoms";
 import Button from "../common/Button/Button";
 import { deleteCartItem, patchCartItemQuantity } from "../../api/cart";
 import type { CartItem } from "../../types/cart";
-import OutlineCheck from "../../assets/icon/OutlineCheck";
-import FilledCheck from "../../assets/icon/FilledCheck";
+import OutlineCheck from "../../assets/icon/OutlineCheckSvg";
+import FilledCheck from "../../assets/icon/FilledCheckSvg";
 import { cartItemsState } from "../../recoil/atoms/atoms";
 
 import {

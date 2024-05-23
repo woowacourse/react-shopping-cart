@@ -7,21 +7,21 @@ import {
   Footer,
   CartPrice,
 } from "../../components";
-import { CartLayout } from "../../layouts";
+import { AppLayout } from "../../layouts";
 
 const MainPage = () => {
   return (
-    <ErrorBoundary fallback={<div>Error!</div>}>
-      <Suspense fallback={<div>Loading</div>}>
-        <Header />
-        <CartLayout>
+    <AppLayout>
+      <ErrorBoundary fallback={<div>Error!</div>}>
+        <Suspense fallback={<div>Loading</div>}>
+          <Header>SHOP</Header>
           <CartDescription />
           <CartList />
           <CartPrice />
-        </CartLayout>
-        <Footer />
-      </Suspense>
-    </ErrorBoundary>
+          <Footer />
+        </Suspense>
+      </ErrorBoundary>
+    </AppLayout>
   );
 };
 

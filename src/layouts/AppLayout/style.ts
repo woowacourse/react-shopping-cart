@@ -2,13 +2,11 @@ import styled from "styled-components";
 
 export const Wrapper = styled.section`
   display: flex;
-  flex-direction: column;
-  min-height: calc(100vh - 176px);
-  padding: 24px;
+  justify-content: center;
+  width: 100%;
 `;
 
-export const Title = styled.div`
-  font-size: ${({ theme }) => theme.fontSize.xl};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-  line-height: 35px;
+export const Content = styled.div`
+  width: 430px;
+  min-height: calc(100vh - 176px);
 `;

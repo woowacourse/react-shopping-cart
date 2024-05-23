@@ -1,13 +1,10 @@
 import { useRecoilState, useRecoilValue } from "recoil";
-import { selectedListState } from "../../recoil/atoms/atoms";
+import { selectedListState, cartItemsState } from "../../recoil/atoms/atoms";
 import Cart from "../Cart/Cart";
 import type { CartItem } from "../../types/cart";
 import { Wrapper, Footer, AllCheckWrapper } from "./style";
-import infoOutline from "../../assets/images/infoOutline.png";
-import OutlineCheck from "../../assets/icon/OutlineCheck";
-import FilledCheck from "../../assets/icon/FilledCheck";
+import { FilledCheckSvg, OutlineCheckSvg, infoOutline } from "../../assets";
 import Button from "../common/Button/Button";
-import { cartItemsState } from "../../recoil/atoms/atoms";
 
 const CartList = () => {
   const cartItems = useRecoilValue(cartItemsState);
@@ -36,14 +33,14 @@ const CartList = () => {
             $borderRadius="8px"
             onClick={() => handleSelectAllItem("turnOff")}
           >
-            <FilledCheck color="white" />
+            <FilledCheckSvg color="white" />
           </Button>
         ) : (
           <Button
             $borderRadius="8px"
             onClick={() => handleSelectAllItem("turnOn")}
           >
-            <OutlineCheck />
+            <OutlineCheckSvg />
           </Button>
         )}
         <span>전체선택</span>
