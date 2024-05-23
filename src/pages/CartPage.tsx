@@ -3,6 +3,7 @@ import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useNavigate } from 'react-router-dom';
 
+import { LOGO } from '@assets/images';
 import Cart from '@components/Cart/Cart';
 import Error from '@components/common/Error';
 import Header from '@components/common/Header';
@@ -19,7 +20,7 @@ function CartPage() {
     <>
       <Header>
         <button onClick={goHome} css={homeButton}>
-          <h1>SHOP</h1>
+          <img src={LOGO} alt="SHOP LOGO" />
         </button>
       </Header>
 
