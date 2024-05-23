@@ -1,20 +1,37 @@
 import * as S from './styled';
 import { Coupon } from '../../../types/coupon';
 import Checkbox from '../../Checkbox/Checkbox';
+import useApplicable from '../../../hooks/coupon/useApplicable';
 
 interface EachCouponProps {
   coupon: Coupon;
+  isSelect: boolean;
+  isAlreadyApplyingTwoCoupons: boolean;
+  changeApplying: (coupon: Coupon) => void;
 }
 
-const EachCoupon = ({ coupon }: EachCouponProps) => {
+const EachCoupon = ({
+  coupon,
+  isSelect,
+  isAlreadyApplyingTwoCoupons,
+  changeApplying,
+}: EachCouponProps) => {
+  const { isApplicable } = useApplicable();
+  const disabled = !isApplicable(coupon) || (isAlreadyApplyingTwoCoupons && !isSelect);
+
   return (
     <S.Container>
       <S.Hr />
       <S.Header>
-        <Checkbox id={coupon.id} isChecked onChange={() => console.log('하이')} />
-        <S.CouponTitle>{coupon.description}</S.CouponTitle>
+        <Checkbox
+          id={coupon.id}
+          disabled={disabled}
+          isChecked={isSelect}
+          onChange={() => changeApplying(coupon)}
+        />
+        <S.CouponTitle $disabled={disabled}>{coupon.description}</S.CouponTitle>
       </S.Header>
-      <S.Contents>
+      <S.Contents $disabled={disabled}>
         <S.CouponCondition>만료일: {coupon.expirationDate}</S.CouponCondition>
         {coupon.availableTime && (
           <S.CouponCondition>
