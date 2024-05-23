@@ -20,6 +20,7 @@ function TotalPriceContainer() {
       />
       <S.PriceDetailContainer>
         <PriceContainer title="주문 금액" value={selectedCartItemTotalPrice} />
+        <PriceContainer title="쿠폰 할인 금액" value={-5000} />
         <PriceContainer title="배송비" value={deliveryFee} />
       </S.PriceDetailContainer>
       <PriceContainer title="총 결제 금액" value={totalPrice} />
