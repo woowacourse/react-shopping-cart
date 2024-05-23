@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useLoaderData, Await, Link } from 'react-router-dom';
-import Header from '../../components/Header/Header';
+import Header, { MainLogoButton } from '../../components/Header/Header';
 import TitleContainer from '../../components/common/TitleContainer/TitleContainer';
 import SubmitButton from '../../components/common/SubmitButton/SubmitButton';
 import CartItemList from '../../components/ShoppingCartPage/CartItemList/CartItemList';
@@ -47,7 +47,9 @@ function ShoppingCartPage() {
 
   return (
     <div>
-      <Header />
+      <Header>
+        <MainLogoButton />
+      </Header>
       <Await resolve={cartItemList}>
         <S.Main>
           <TitleContainer

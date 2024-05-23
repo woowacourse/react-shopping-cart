@@ -1,9 +1,9 @@
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import Header from '../../components/Header/Header';
 import TitleContainer from '../../components/common/TitleContainer/TitleContainer';
 import SubmitButton from '../../components/common/SubmitButton/SubmitButton';
-import { selectedCartItemListState, isPaidState } from '../../recoil/CartItem/atoms/atoms';
+import { selectedCartItemListState } from '../../recoil/CartItem/atoms/atoms';
 import {
   totalOrderPriceSelector,
   totalOrderCountSelector,
@@ -15,22 +15,16 @@ import * as S from './PaymentConfirmPage.style';
 
 function PaymentConfirmPage() {
   const [selectedItemList, setSelectedItemList] = useRecoilState(selectedCartItemListState);
-  const [isPaid, setIsPaid] = useRecoilState(isPaidState);
 
   const totalOrderPrice = useRecoilValue(totalOrderPriceSelector);
   const totalOrderCount = useRecoilValue(totalOrderCountSelector);
   const totalCouponDiscountPrice = useRecoilValue(totalCouponDiscountPriceSelector);
   const deliveryFee = useRecoilValue(deliveryFeeSelector);
 
-  if (!isPaid) {
-    return <Navigate to={PATHS.ERROR} />;
-  }
-
   const paymentTotalPrice = totalOrderPrice + deliveryFee - totalCouponDiscountPrice;
 
   const clearStorage = () => {
     setSelectedItemList([]);
-    setIsPaid(false);
   };
 
   return (
@@ -48,8 +42,8 @@ function PaymentConfirmPage() {
           <S.TotalPriceValue>{paymentTotalPrice.toLocaleString()}원</S.TotalPriceValue>
         </S.TotalPriceContainer>
       </S.Main>
-      <Link to="/">
-        <SubmitButton isActive={true} content="장바구니로 돌아가기" onClick={clearStorage} />
+      <Link to={PATHS.ROOT} onClick={clearStorage}>
+        <SubmitButton isActive={true} content="장바구니로 돌아가기" />
       </Link>
     </div>
   );
