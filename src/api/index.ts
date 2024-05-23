@@ -1,5 +1,5 @@
 import { generateBasicToken } from './utils/auth';
-import { CartItemData } from '@/types';
+import { CartItemData, CouponData } from '@/types';
 import Fetcher from './Fetcher';
 import { API_ROUTES } from '@/constants/routes';
 import { ERROR_MESSAGE } from '@/constants/messages';
@@ -38,6 +38,8 @@ export async function updateCartItemQuantity(id: number, newQuantity: number) {
   } catch (error) {
     if (error instanceof Error) {
       throw new HttpError(`${ERROR_MESSAGE.FAIL_UPDATE_QUANTITY} ${error.message}`, 400);
+    } else {
+      throw new HttpError(ERROR_MESSAGE.FAIL_UPDATE_QUANTITY, 400);
     }
   }
 }
@@ -52,12 +54,14 @@ export async function deleteCartItem(id: number) {
   } catch (error) {
     if (error instanceof Error) {
       throw new HttpError(`${ERROR_MESSAGE.FAIL_DELETE_ITEM}${error.message}`, 400);
+    } else {
+      throw new HttpError(`${ERROR_MESSAGE.FAIL_DELETE_ITEM}`, 400);
     }
   }
 }
 
-export async function getAllCoupons() {
-  const data = Fetcher.get(`${API_URL}/coupons`);
+export async function fetchAllCoupons(): Promise<CouponData[]> {
+  const data = Fetcher.get<CouponData[]>(`${API_URL}/coupons`);
 
   return data;
 }
