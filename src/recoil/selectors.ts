@@ -130,3 +130,28 @@ export const orderItemsSelector = selector({
     return orderItems;
   },
 });
+
+/**
+ * coupon isChecked 상태 변경
+ * get: isChecked 쿠폰 개수 반환
+ * set: isChecked 상태 변경
+ */
+export const couponCheckedSelector = selector<number>({
+  key: 'couponCheckedSelector',
+  get: ({ get }): number => {
+    const coupons = get(couponsState);
+    return coupons.filter((coupon) => coupon.isChecked).length;
+  },
+  set: ({ set, get }, newValue: number | DefaultValue) => {
+    if (newValue instanceof DefaultValue) {
+      return;
+    }
+    const coupons = get(couponsState);
+    const updatedCoupons = coupons.map((coupon) =>
+      coupon.id === newValue
+        ? { ...coupon, isChecked: !coupon.isChecked }
+        : coupon,
+    );
+    set(couponsState, updatedCoupons);
+  },
+});

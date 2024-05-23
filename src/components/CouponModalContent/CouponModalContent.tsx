@@ -3,21 +3,32 @@ import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { MESSAGES } from '../../constants/Messages';
 import CouponModalCard from '../CouponModalCard/CouponModalCard';
 import * as S from './CouponModalContent.styled';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { couponsState } from '../../recoil/atoms';
-import { fetchCouponsSelector } from '../../recoil/selectors';
+import {
+  couponCheckedSelector,
+  fetchCouponsSelector,
+} from '../../recoil/selectors';
 
 interface CouponModalContentProps {
   toggleModal: () => void;
 }
 
 function CouponModalContent({ toggleModal }: CouponModalContentProps) {
-  const coupons = useRecoilValue(fetchCouponsSelector);
-  const setCoupons = useSetRecoilState(couponsState);
+  const fetchedCoupons = useRecoilValue(fetchCouponsSelector);
+  const [coupons, setCoupons] = useRecoilState(couponsState);
+
+  const setCouponChecked = useSetRecoilState(couponCheckedSelector);
 
   useEffect(() => {
-    setCoupons(coupons.map((coupon) => ({ ...coupon, isChecked: false })));
-  }, [coupons]);
+    setCoupons(
+      fetchedCoupons.map((coupon) => ({ ...coupon, isChecked: false })),
+    );
+  }, [fetchedCoupons]);
+
+  const handleCouponChecked = (id: number) => () => {
+    setCouponChecked(id);
+  };
 
   return (
     <>
@@ -25,10 +36,13 @@ function CouponModalContent({ toggleModal }: CouponModalContentProps) {
       {coupons.map((coupon, i) => (
         <CouponModalCard
           key={i}
+          id={coupon.id}
           name={coupon.description}
           expirationDate={coupon.expirationDate}
           minimumAmount={coupon.minimumAmount}
           availableTime={coupon.availableTime}
+          isChecked={coupon.isChecked}
+          handleCouponChecked={handleCouponChecked(coupon.id)}
         />
       ))}
       <S.CouponModalButton onClick={() => toggleModal()}>
