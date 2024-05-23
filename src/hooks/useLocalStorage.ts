@@ -1,10 +1,10 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { isCheckedState } from '../store/atoms';
 import { useEffect } from 'react';
-import { productsIds } from '../store/selectors';
+import { productsIdState } from '../store/selectors';
 
 const useLocalStorage = () => {
-  const keys = useRecoilValue(productsIds);
+  const keys = useRecoilValue(productsIdState);
   const setIsCheckedMap = useSetRecoilState(isCheckedState);
 
   useEffect(() => {

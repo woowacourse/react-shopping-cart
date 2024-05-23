@@ -9,8 +9,8 @@ type AmountType = {
   totalAmount: number;
 };
 
-export const productsIds = selector({
-  key: 'productsIds',
+export const productsIdState = selector({
+  key: 'productsIdState',
   get: ({ get }) => {
     const keys = get(productsState).map((product: CartItemType) => {
       return product.id;
@@ -62,7 +62,7 @@ export const totalProductQuantity = selector({
     let totalCount = 0;
     let totalQuantity = 0;
 
-    const keys = get(productsIds);
+    const keys = get(productsIdState);
     const isAllCheckedMap = get(isCheckedState);
     keys.forEach((key) => {
       const isChecked = isAllCheckedMap[key];
