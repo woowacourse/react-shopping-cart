@@ -14,7 +14,7 @@ export const selectedCouponListSelector = selectorFamily<boolean, Coupon>({
     (newItem: Coupon) =>
     ({ set, get }) => {
       const selectedCouponList = get(selectedCouponListState);
-      if (!selectedCouponList.some((item) => item.code === newItem.code)) {
+      if (!selectedCouponList.some((item) => item.code === newItem.code) && selectedCouponList.length !== 2) {
         set(selectedCouponListState, [...selectedCouponList, newItem]);
       } else {
         set(

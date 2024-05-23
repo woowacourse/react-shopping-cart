@@ -52,7 +52,7 @@ function OrderConfirmPage() {
         />
         {renderSelectedItemListSection()}
       </S.Layout>
-      <SubmitButton isActive={false} content="결제하기" />
+      <SubmitButton isActive={true} onClick={() => alert('결제 화면 준비 중입니다.')} content="결제하기" />
     </>
   );
 }
