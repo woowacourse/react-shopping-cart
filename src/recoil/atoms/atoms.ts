@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { CartItem, selectedItems } from '../../types';
+import { CartItem, CouponProps, selectedItems } from '../../types';
 import { getLocalStorage } from '../../utils/getLocalStorage';
 
 export const cartItemsState = atom<CartItem[]>({
@@ -30,4 +30,19 @@ export const cartErrorMessageState = atom<string>({
 export const isLandAndMoutainAreaCheckedState = atom<boolean>({
   key: 'isLandAndMoutainAreaChecked',
   default: false,
+});
+
+export const couponItemsState = atom<Record<number, CouponProps>>({
+  key: 'couponItemsState',
+  default: {},
+});
+
+export const previewSelectedCouponsState = atom<Record<string, CouponProps>>({
+  key: 'previewSelectedCouponsState',
+  default: {},
+});
+
+export const finalSelectedCouponsState = atom<Record<string, CouponProps>>({
+  key: 'finalSelectedCouponsState',
+  default: {},
 });
