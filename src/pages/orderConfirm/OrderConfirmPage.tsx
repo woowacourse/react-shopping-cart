@@ -1,5 +1,5 @@
 import Button from '@/components/common/Button';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import CheckoutPageHeader from '../checkout/components/CheckoutPageHeader';
 import styles from './orderConfirmPage.module.css';
 import OrderSummaryText from '@/components/common/OrderSummaryText';
@@ -11,12 +11,29 @@ import CouponModalTrigger from '../../components/modal/CouponModalTrigger';
 import ShippingInfoCheckbox from './components/ShippingInfoCheckbox';
 import PriceInfo from '@/components/common/PriceInfo';
 import Divider from '@/components/common/Divider';
+import { useRecoilValue } from 'recoil';
+import { deliveryFeeSelector } from '@/store/selectors';
+import { totalDiscountPriceSelector } from '@/store/couponSelector';
+import useGetAllCoupons from '@/hooks/useGetAllCoupons';
+import { PAGE_ROUTES } from '@/constants/routes';
 
 export default function OrderConfirmPage() {
   const location = useLocation();
   const {
     state: { totalCategoryCount, totalOrderQuantity, totalOrderAmount, totalCartItems },
   } = location;
+  const { allCoupons } = useGetAllCoupons();
+  const deliveryFee = useRecoilValue(deliveryFeeSelector);
+  const totalDiscountPrice = useRecoilValue(totalDiscountPriceSelector);
+  const totalOrderPrice = totalOrderAmount + deliveryFee - totalDiscountPrice;
+
+  const navigate = useNavigate();
+
+  const handlePaymentButtonClick = () => {
+    navigate(PAGE_ROUTES.CHECK_OUT, {
+      state: { totalCategoryCount, totalOrderQuantity, totalOrderPrice },
+    });
+  };
 
   return (
     <>
@@ -43,28 +60,28 @@ export default function OrderConfirmPage() {
                 imageUrl={cartItem.product.imageUrl}
                 name={cartItem.product.name}
                 price={cartItem.product.price}
-              />
+              >
+                <span className={styles.quantity_text}>{cartItem.quantity}개</span>
+              </CartItemImageAndInfo>
             </CartItem>
           );
         })}
-        <CouponModalTrigger />
+        <CouponModalTrigger allCoupons={allCoupons} />
         <ShippingInfoCheckbox />
-        {/* <div className={styles.totalAmount}>
-          <h2 className={styles.totalAmountText}>총 결제 금액</h2>
-          <h2 className={styles.totalAmountNumber}>{formatKoreanCurrency(totalOrderAmount)}원</h2>
-        </div> */}
         <Divider>
-          <PriceInfo titleText="주문 금액" price={70000} />
-          <PriceInfo titleText="쿠폰 할인 금액" price={-6000} />
-          <PriceInfo titleText="배송비" price={6000} />
+          <PriceInfo titleText="주문 금액" price={totalOrderAmount} />
+          <PriceInfo
+            titleText="쿠폰 할인 금액"
+            price={totalDiscountPrice === 0 ? totalDiscountPrice : -totalDiscountPrice}
+          />
+          <PriceInfo titleText="배송비" price={deliveryFee} />
         </Divider>
-
         <Divider>
-          <PriceInfo titleText="총 결제 금액" price={70000} />
+          <PriceInfo titleText="총 결제 금액" price={totalOrderPrice} />
         </Divider>
       </div>
 
-      <Button variant="footer" disabled={true}>
+      <Button variant="footer" onClick={handlePaymentButtonClick}>
         결제하기
       </Button>
     </>
