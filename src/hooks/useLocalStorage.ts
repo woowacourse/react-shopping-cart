@@ -26,7 +26,7 @@ const useLocalStorage = () => {
     }
 
     setIsCheckedMap(isCheckedMap);
-  }, []);
+  }, [keys, setIsCheckedMap]);
 };
 
 export default useLocalStorage;
