@@ -31,7 +31,7 @@ const MOCK_FORMATTED_COUPONS: FormattedCoupon[] = [
     minimumAmount: 50000,
     expirationDate: '2024-08-31',
     isChecked: false,
-    isAvailable: false,
+    isAvailable: true,
   },
   {
     id: 4,
@@ -44,7 +44,7 @@ const MOCK_FORMATTED_COUPONS: FormattedCoupon[] = [
       end: '07:00:00',
     },
     expirationDate: '2024-07-31',
-    isChecked: true,
+    isChecked: false,
     isAvailable: true,
   },
 ];

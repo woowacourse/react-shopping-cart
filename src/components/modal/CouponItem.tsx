@@ -5,8 +5,11 @@ import formatKoreanCurrency from '@/utils/formatKoreanCurrency';
 import formatStartToEndTime from '@/utils/formatStartToEndTime';
 import formatDateToKorea from '@/utils/formatDateToKorea';
 import Divider from '../common/Divider';
-import { isCheckedIndividualCouponSelector } from '@/store/couponSelector';
-import { useRecoilState } from 'recoil';
+import {
+  isCheckedIndividualCouponSelector,
+  isMaxLengthCheckedCouponLengthSelector,
+} from '@/store/couponSelector';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { CouponDataWithoutProperties } from '@/types';
 
 interface Props extends CouponDataWithoutProperties {
@@ -24,6 +27,8 @@ export default function CouponItem({
   const formattedAvailableTime =
     availableTime && formatStartToEndTime(availableTime.start, availableTime.end);
   const [isChecked, setIsChecked] = useRecoilState(isCheckedIndividualCouponSelector(id));
+  const isMaxLengthCheckedCouponLength = useRecoilValue(isMaxLengthCheckedCouponLengthSelector);
+  const isCouponDisabled = !isAvailable || (isMaxLengthCheckedCouponLength && !isChecked);
 
   const handleCouponCheckState = () => {
     setIsChecked((prev) => !prev);
@@ -31,13 +36,13 @@ export default function CouponItem({
 
   return (
     <Divider>
-      <li className={`${styles.coupon_item_container} ${!isAvailable ? styles.disable : ''}`}>
+      <li className={`${styles.coupon_item_container} ${isCouponDisabled ? styles.disable : ''}`}>
         <div className={styles.coupon_item_header}>
           <CheckBox
             id={`coupon-item${id}`}
             onChange={handleCouponCheckState}
             checked={isChecked}
-            disabled={!isAvailable}
+            disabled={isCouponDisabled}
           />
           <p className={`${common.title_text} ${styles.text}`}> {description}</p>
         </div>
