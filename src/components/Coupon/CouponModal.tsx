@@ -1,11 +1,11 @@
 import { css } from '@emotion/react';
 import { Modal } from 'maru-nice-modal';
-import { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import CouponItem from './CouponItem';
-import { couponValidator } from './couponValidator';
 
+import { useCouponApplicabilityChecker } from '@/hooks/useCouponApplicabilityChecker';
+import { orderResultState } from '@/recoil/cartItems/selectors';
 import { couponSavedCheckListState } from '@/recoil/coupons/atoms';
 import GuideText from '@common/GuideText';
 
@@ -17,11 +17,17 @@ interface CouponModalProps {
 }
 
 const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
-  const { couponList, couponCheckList, handleChangeChecked, isValidCouponCount } = useCoupon();
-  const { isCouponValid } = couponValidator();
-  const setCouponSavedCheckList = useSetRecoilState(couponSavedCheckListState);
+  const {
+    couponList,
+    couponCheckList,
+    handleChangeChecked,
+    isValidCouponCount,
+    totalDiscountPrice,
+  } = useCoupon();
+  const { isCouponApplicable } = useCouponApplicabilityChecker();
 
-  const [discountTotal, setDiscountTotal] = useState(0);
+  const { totalOrderPrice } = useRecoilValue(orderResultState);
+  const setCouponSavedCheckList = useSetRecoilState(couponSavedCheckListState);
 
   const handleClickApplyCoupon = () => {
     setCouponSavedCheckList(couponCheckList);
@@ -40,21 +46,23 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
         <div css={couponListWrapper}>
           {couponList.map((coupon, idx) => (
             <CouponItem
-              key={coupon.id}
+              key={coupon.code}
               coupon={coupon}
               type={coupon.discountType}
               isCouponValid={
-                isValidCouponCount ? isCouponValid(coupon) : couponCheckList[idx].isChecked
+                isValidCouponCount
+                  ? isCouponApplicable(coupon, totalOrderPrice)
+                  : couponCheckList[idx].isChecked
               }
               isChecked={couponCheckList[idx].isChecked}
-              handleChangeChecked={handleChangeChecked}
+              handleChangeChecked={(e) => handleChangeChecked(e, coupon)}
             />
           ))}
         </div>
       </Modal.Content>
       <Modal.ConfirmButton
         css={confirmButton}
-        label={`총 ${discountTotal.toLocaleString('ko-KR')}원 할인 쿠폰 사용하기`}
+        label={`총 ${totalDiscountPrice.toLocaleString('ko-KR')}원 할인 쿠폰 사용하기`}
         onConfirm={handleClickApplyCoupon}
       />
     </Modal>

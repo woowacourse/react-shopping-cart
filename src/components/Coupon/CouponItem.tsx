@@ -23,6 +23,9 @@ const CouponItem = ({
 }: CouponItemProps) => {
   const { description, expirationDate, minimumAmount, availableTime } = coupon;
 
+  const isRequiredMinimumAmount = (type === 'fixed' || type === 'freeShipping') && minimumAmount;
+  const isRequiredAvailableTime = type === 'percentage' && availableTime;
+
   return (
     <div css={couponItemContainer(isCouponValid)}>
       <Checkbox
@@ -35,12 +38,12 @@ const CouponItem = ({
       />
       <div css={couponDescriptionWrapper}>
         <span css={couponDescription}>만료일 : {convertExpiryDateFormat(expirationDate)}</span>
-        {(type === 'fixed' || type === 'freeShipping') && minimumAmount && (
+        {isRequiredMinimumAmount && (
           <span css={couponDescription}>
             최소 주문 금액 : {minimumAmount.toLocaleString('ko-KR')}원
           </span>
         )}
-        {type === 'percentage' && availableTime && (
+        {isRequiredAvailableTime && (
           <span css={couponDescription}>
             사용 가능 시간 : {convertAvailableDateFormat(availableTime.start, availableTime.end)}
           </span>
