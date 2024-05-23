@@ -15,7 +15,7 @@ export const mockCartItem = [
     product: {
       id: 1,
       name: 'Product 1',
-      price: 10000,
+      price: 100000,
       imageUrl: '',
       category: 'fashion',
     },
@@ -39,7 +39,7 @@ const mockCartQuantity = mockCartItem.reduce(
 );
 
 describe('cartData', () => {
-  it('fetchCartItem API 호출을 통해 초기 장바구니 데이터를 정상적으로 불러온다.', async () => {
+  it('fetchCartItem API 호출을 통해 초기 장바구니 데이터를 정상적으로 불러온다.', () => {
     const { result } = renderHook(() => useRecoilValue(cartData), {
       wrapper: ({ children }) => (
         <RecoilRoot initializeState={({ set }) => set(cartData, mockCartItem)}>
@@ -48,14 +48,12 @@ describe('cartData', () => {
       ),
     });
 
-    await waitFor(() => {
-      expect(result.current.length).toBe(2);
-    });
+    expect(result.current.length).toBe(2);
   });
 });
 
 describe('cartQuantity', () => {
-  it('장바구니에 담긴 상품의 총 주문 수량을 정상적으로 불러온다.', async () => {
+  it('장바구니에 담긴 상품의 총 주문 수량을 정상적으로 불러온다.', () => {
     const { result } = renderHook(() => useRecoilValue(cartQuantity), {
       wrapper: ({ children }) => (
         <RecoilRoot
@@ -65,9 +63,8 @@ describe('cartQuantity', () => {
         </RecoilRoot>
       ),
     });
-    await waitFor(() => {
-      expect(result.current).toBe(3);
-    });
+
+    expect(result.current).toBe(3);
   });
 });
 
@@ -96,7 +93,7 @@ describe('cartItemQuantityState', () => {
 });
 
 describe('cartItemCheckState', () => {
-  it('초기값이 false인지 확인한다.', async () => {
+  it('초기값이 false인지 확인한다.', () => {
     const { result } = renderHook(
       () => useRecoilState(cartItemCheckState(111)),
       {
@@ -110,8 +107,6 @@ describe('cartItemCheckState', () => {
       },
     );
 
-    await waitFor(() => {
-      expect(result.current[0]).toBe(false);
-    });
+    expect(result.current[0]).toBe(false);
   });
 });
