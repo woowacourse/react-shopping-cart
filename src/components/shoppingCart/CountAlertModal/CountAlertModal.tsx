@@ -1,5 +1,5 @@
 import { AlertModalPart } from '@components/common';
-import { useModalTargetEl } from '@hooks/index';
+import { useModalTargetEl, usePreventScroll } from '@hooks/index';
 import useOpenModalByErrorMessage from '@hooks/modal/useOpenModalByErrorMessage';
 import { AlertModal } from 'badahertz52-react-modules-components';
 
@@ -10,6 +10,7 @@ interface CountAlertModalProps {
 const CountAlertModal = (props: CountAlertModalProps) => {
   const { modalTargetEl } = useModalTargetEl();
   const { openModal, setOpenModal } = useOpenModalByErrorMessage({ errorMessage: props.errorMessage });
+  usePreventScroll({ targetEl: document.body as HTMLElement, isPreventScroll: openModal });
 
   return (
     <>

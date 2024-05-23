@@ -2,7 +2,7 @@ import { Coupon } from '@appTypes/shoppingCart';
 import { CrossIcon } from '@assets/index';
 import { InfoBanner } from '@components/common';
 import { MAX_NUMBER_OF_COUPON } from '@constants/coupon';
-import { useMaxDiscountCalculator, useModalTargetEl } from '@hooks/index';
+import { useMaxDiscountCalculator, useModalTargetEl, usePreventScroll } from '@hooks/index';
 import { couponListAtom, maxDiscountAtom } from '@recoil/shoppingCart';
 import { formatKoreanCurrency } from '@utils/currency';
 import { CenterModal, ModalContainer } from 'badahertz52-react-modules-components';
@@ -24,6 +24,7 @@ const CouponModal = ({ openModal, setOpenModal, availableCoupons }: CouponModalP
 
   const { getMaxDiscountAmount } = useMaxDiscountCalculator();
   const { modalTargetEl } = useModalTargetEl();
+  usePreventScroll({ targetEl: document.body as HTMLBodyElement, isPreventScroll: openModal });
 
   const [selectedCouponCodes, setSelectedCouponCodes] = useState<string[]>([]);
   const [discount, setDiscount] = useState<number>(0);
