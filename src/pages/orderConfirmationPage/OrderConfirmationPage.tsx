@@ -2,17 +2,19 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { CartLayout } from "../../components/cartLayout/CartLayout";
 import { ContentHeader } from "../../components/contentHeader/ContentHeader";
-import { BUTTON_COLORS, CART, HEADER_TYPES, PATHS } from "../../constants";
-import { cartSummarySelectorState } from "../../recoil/selector/selector";
 import { OrderContentSection } from "../../components/orderContentSection/OrderContentSection";
+import { BUTTON_COLORS, CART, HEADER_TYPES, PATHS } from "../../constants";
+import { selectedCartItemsState } from "../../recoil/atoms/atoms";
+import { cartSummarySelectorState } from "../../recoil/selector/selector";
 
 export const OrderConfirmationPage: React.FC = () => {
   const navigate = useNavigate();
+  const selectedCartItems = useRecoilValue(selectedCartItemsState);
+  const { uniqueItemCount, totalItemCount } = useRecoilValue(cartSummarySelectorState);
+
   const navigateToPaymentsConfirmationPage = () => {
     navigate(PATHS.PAYMENTS_CONFIRMATION);
   };
-
-  const { uniqueItemCount, totalItemCount } = useRecoilValue(cartSummarySelectorState);
 
   const buttonMode =
     uniqueItemCount === CART.EMPTY_THRESHOLD ? BUTTON_COLORS.LIGHT : BUTTON_COLORS.DARK;
@@ -27,7 +29,7 @@ export const OrderConfirmationPage: React.FC = () => {
       onButtonClick={navigateToPaymentsConfirmationPage}
     >
       <ContentHeader title="주문 확인" description={description} />
-      <OrderContentSection />
+      <OrderContentSection selectedCartItems={selectedCartItems} />
     </CartLayout>
   );
 };
