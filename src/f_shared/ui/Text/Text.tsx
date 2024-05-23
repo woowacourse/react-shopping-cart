@@ -4,15 +4,15 @@ import css from './Text.module.css';
 
 const cn = classNames.bind(css);
 
-type TextType = 'h1' | 'h2' | 'b1' | 'b2';
-
-type TextElement = 'p' | 'span';
+type Children = string | number;
+type Tag = 'p' | 'span';
+type Type = 'h1' | 'h2' | 'b1' | 'b2';
 
 interface TextProps {
-  children: string;
+  children: Children;
   className?: string;
-  tag?: TextElement;
-  type: TextType;
+  tag?: Tag;
+  type: Type;
 }
 
 export const Text = ({ className, children, tag: Tag = 'p', type }: TextProps) => {
