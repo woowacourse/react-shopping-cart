@@ -7,6 +7,8 @@ import styles from './Checkout.module.css';
 import common from '../../styles/common.module.css';
 import { useRecoilValue } from 'recoil';
 import { totalProductQuantityState } from '../../store/selectors';
+import { isCheckedState, productsState } from '../../store/atoms';
+import CheckoutItem from './components/CheckoutItem';
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
@@ -14,6 +16,10 @@ export default function CheckoutPage() {
     navigate(ROUTES.CART);
   };
   const { totalCount, totalQuantity } = useRecoilValue(totalProductQuantityState);
+
+  const products = useRecoilValue(productsState);
+  const isCheckedMap = useRecoilValue(isCheckedState);
+  const checkoutProducts = products.filter((product) => isCheckedMap[product.id] === true);
 
   return (
     <>
@@ -32,6 +38,11 @@ export default function CheckoutPage() {
             </div>
             <div className={common.captionText}>최종 결제 금액을 확인해 주세요.</div>
           </div>
+        </div>
+        <div>
+          {checkoutProducts.map((cartItem) => {
+            return <CheckoutItem key={`checkout-${cartItem.id}`} cartItem={cartItem} />;
+          })}
         </div>
       </div>
 

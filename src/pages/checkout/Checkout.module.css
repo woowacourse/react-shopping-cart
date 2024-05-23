@@ -12,3 +12,28 @@
   height: calc(100vh - 100px);
   overflow-y: scroll;
 }
+
+.itemContainer {
+  display: flex;
+  padding: 12px 0;
+  border-top: var(--border-divider);
+}
+
+.itemImage {
+  width: 112px;
+  height: 112px;
+  border-radius: 8px;
+  margin-right: 24px;
+}
+
+.itemInfoContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.itemNameAndPriceContainer {
+  display: flex;
+  flex-direction: column;
+  padding-top: 9px;
+}
