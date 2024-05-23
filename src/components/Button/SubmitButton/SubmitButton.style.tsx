@@ -12,4 +12,9 @@ export const ButtonWrapper = styled.button<{ $isActive: boolean }>`
   text-align: center;
   background-color: ${(props) =>
     props.$isActive ? ({ theme }) => theme.color.primary.main : ({ theme }) => theme.color.primary.light};
+
+  p {
+    font-size: 16px;
+    font-weight: 700;
+  }
 `;
