@@ -22,18 +22,19 @@ export default function CouponView({
   hasReachedMaxCount,
 }: CouponProps) {
   const isNoLongerSelectable = !isSelected && hasReachedMaxCount;
+  const couponId = `coupon-${id}`;
 
   return (
     <S.Container $isSelectable={isSelectable}>
       <S.Title>
         <S.Checkbox
-          id={`${id}`}
+          id={couponId}
           type="checkbox"
           checked={isSelected}
           onChange={toggleSelection}
           disabled={!isSelectable || isNoLongerSelectable}
         />
-        <label htmlFor={`${id}`}>
+        <label htmlFor={couponId}>
           <S.Description>{description}</S.Description>
         </label>
       </S.Title>
