@@ -4,8 +4,8 @@ import { OrderCartButton } from '@/d_features/cart';
 import { Layout } from '@/f_shared';
 
 import { mockCarts } from '../../../../../mocks/index';
+import { PaymentSummary } from '../../../../c_widgets/PaymentSummary/ui/PaymentSummary/PaymentSummary';
 import { CartProductList } from '../CartProductList/CartProductList';
-import { CartSummary } from '../CartSummary/CartSummary';
 
 export const CartPage = () => {
   // TODO: Connect to state
@@ -20,7 +20,7 @@ export const CartPage = () => {
         <ContentHeader title={'장바구니'} desc={`현재 ${cartItemCount}종류의 상품이 담겨있습니다.`}></ContentHeader>
       }
       contentBodySlot={<CartProductList carts={carts} />}
-      contentFooterSlot={<CartSummary />}
+      contentFooterSlot={<PaymentSummary />}
       footerSlot={<OrderCartButton />}
       gap={{ top: 36, bottom: 52 }}
     />

@@ -1,11 +1,11 @@
-import { CartSummary } from './CartSummary';
+import { PaymentSummary } from './PaymentSummary';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
 // TODO: Connect to state
-const meta: Meta<typeof CartSummary> = {
-  title: '2. pages/cart/CartSummary',
-  component: CartSummary,
+const meta: Meta<typeof PaymentSummary> = {
+  title: '2. pages/cart/PaymentSummary',
+  component: PaymentSummary,
   decorators: [
     (Story) => {
       return (
@@ -19,6 +19,6 @@ const meta: Meta<typeof CartSummary> = {
 
 export default meta;
 
-type Story = StoryObj<typeof CartSummary>;
+type Story = StoryObj<typeof PaymentSummary>;
 
 export const Common: Story = {};
