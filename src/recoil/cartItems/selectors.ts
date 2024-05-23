@@ -1,6 +1,6 @@
 import { selector } from 'recoil';
 
-import { cartItemsState, checkedItemsState } from './atoms';
+import { cartItemsState, checkedItemsState, isRemoteAreaState } from './atoms';
 
 import {
   DELIVERY_CHARGE,
@@ -78,8 +78,12 @@ export const productTypesCountState = selector<number>({
 export const deliveryPriceState = selector<number>({
   key: 'deliveryPriceState',
   get: ({ get }) => {
-    const cartItems = get(orderTotalPriceState);
-    return cartItems >= MINIMUM_FREE_SHIPPING_AMOUNT ? DELIVERY_CHARGE_FREE : DELIVERY_CHARGE;
+    const orderTotalPrice = get(orderTotalPriceState);
+    const isRemoteArea = get(isRemoteAreaState);
+
+    if (orderTotalPrice >= MINIMUM_FREE_SHIPPING_AMOUNT) return DELIVERY_CHARGE_FREE;
+
+    return isRemoteArea ? DELIVERY_CHARGE * 2 : DELIVERY_CHARGE;
   },
 });
 

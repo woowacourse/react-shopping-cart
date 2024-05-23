@@ -1,13 +1,16 @@
 import { css } from '@emotion/react';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
+import { useRecoilState } from 'recoil';
 
 import Checkbox from '../common/Checkbox';
 
+import { isRemoteAreaState } from '@recoil/cartItems/atoms';
+
 export default function ShippingCheck() {
-  const [checked, setChecked] = useState(true);
+  const [isRemoteArea, setIsRemoteArea] = useRecoilState(isRemoteAreaState);
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setChecked(e.target.checked);
+    setIsRemoteArea(e.target.checked);
   };
 
   return (
@@ -15,7 +18,7 @@ export default function ShippingCheck() {
       <h3 css={shippingCheckTitle}>배송 정보</h3>
       <Checkbox
         onChange={onChangeHandler}
-        checked={checked}
+        checked={isRemoteArea}
         id="shipping-checkbox"
         label="제주도 및 도서 산간 지역"
         labelHidden={false}

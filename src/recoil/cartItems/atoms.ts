@@ -24,3 +24,8 @@ export const checkedItemsState = atomFamily<boolean, number>({
     return LocalStorage.getData(CART_ITEM, cartId) ?? true;
   },
 });
+
+export const isRemoteAreaState = atom<boolean>({
+  key: 'isRemoteAreaState',
+  default: false,
+});
