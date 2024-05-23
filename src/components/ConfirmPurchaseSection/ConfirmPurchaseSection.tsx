@@ -11,6 +11,8 @@ import Text from '../common/Text/Text';
 import CheckboxWithLabel from '../CheckboxWithLabel/CheckboxWithLabel';
 import { useRecoilState } from 'recoil';
 import { hasExtraDeliveryFeeAtom } from '../../recoil/price/priceSelector';
+import useModal from '../../hooks/useModal';
+import SelectCouponModal from '../SelectCouponModal/SelectCouponModal';
 
 const ConfirmPurchaseSection = () => {
   const { cartItemList } = useCartItemList();
@@ -18,6 +20,8 @@ const ConfirmPurchaseSection = () => {
   const [hasExtraDeliveryFee, setHasExtraDeliveryFee] = useRecoilState(
     hasExtraDeliveryFeeAtom,
   );
+
+  const { modalOpened, handleModalOpen, handleModalClose } = useModal();
 
   const selectedCartItemList = cartItemList.filter(({ id }) =>
     selectedIdList.includes(id),
@@ -31,6 +35,7 @@ const ConfirmPurchaseSection = () => {
 
   return (
     <S.ConfirmPurchaseSection>
+      <SelectCouponModal modalOpened={modalOpened} onClose={handleModalClose} />
       <Title
         title="주문 확인"
         description={`
@@ -41,7 +46,7 @@ const ConfirmPurchaseSection = () => {
       <Spacer height={36} />
       <CartItemList type="confirm" cartItemList={selectedCartItemList} />
       <Spacer height={32} />
-      <Button size="l" width="full" color="default">
+      <Button size="l" width="full" color="default" onClick={handleModalOpen}>
         쿠폰 적용
       </Button>
       <Spacer height={32} />
