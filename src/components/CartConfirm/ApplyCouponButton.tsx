@@ -1,12 +1,22 @@
 import { css } from '@emotion/react';
+import { useSetRecoilState } from 'recoil';
+
+import CouponModal from '../Coupon/CouponModal';
+
+import { isCouponModalOpenState } from '@recoil/coupon/atom';
 
 export default function ApplyCouponButton() {
-  const onClickHandler = () => {};
+  const setIsCouponModalOpen = useSetRecoilState(isCouponModalOpenState);
+
+  const onClickHandler = () => setIsCouponModalOpen(true);
 
   return (
-    <button css={applyCouponButton} onClick={onClickHandler}>
-      쿠폰 적용
-    </button>
+    <>
+      <button css={applyCouponButton} onClick={onClickHandler}>
+        쿠폰 적용
+      </button>
+      <CouponModal />
+    </>
   );
 }
 
