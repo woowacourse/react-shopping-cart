@@ -42,7 +42,7 @@ function PaymentConfirmPage() {
           <S.TotalPriceValue>{totalPrice.toLocaleString()}원</S.TotalPriceValue>
         </S.TotalPriceContainer>
       </S.Layout>
-      <Link to={PATHS.CART}>
+      <Link to={PATHS.ROOT}>
         <SubmitButton isActive={true} content="장바구니로 돌아가기" />
       </Link>
     </div>

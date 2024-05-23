@@ -25,7 +25,7 @@ const ErrorPage = () => {
             서버와의 연결 상태가 좋지 않습니다.
           </p>
         </S.ErrorTextContainer>
-        <Link to={PATHS.CART}>
+        <Link to={PATHS.ROOT}>
           <S.ConfirmButton>메인으로</S.ConfirmButton>
         </Link>
       </S.Main>

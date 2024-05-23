@@ -13,7 +13,7 @@ import PaymentConfirmPage from './pages/PaymentConfirmPage/PaymentConfirmPage';
 function App() {
   const router = createBrowserRouter([
     {
-      path: PATHS.CART,
+      path: PATHS.ROOT,
       element: <ShoppingCartPage />,
       loader: () => fetchCartItemList(),
       errorElement: <ErrorPage />,
