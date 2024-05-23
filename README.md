@@ -70,7 +70,7 @@
     - [x] 쿠폰 적용 버튼
     - [x] 배송 정보
     - [x] 금액 안내
-    - [ ] 쿠폰 선택 모달
+    - [x] 쿠폰 선택 모달
 
   - PaymentConfirmationPage
 

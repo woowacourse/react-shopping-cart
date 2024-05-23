@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { getCartItemCounts } from '../../api';
+import { getCartItemCounts, getCouponList } from '../../api';
 import { ConfirmButton } from '../../components/confirmButton/ConfirmButton';
 import {
   cartErrorMessageState,
@@ -25,6 +25,7 @@ import Header from '../../components/header/Header';
 import { OrderItemCard } from '../../components/itemCard/orderItemCard/OrderItemCard';
 import { IslandAndMountainAreaCheckSection } from '../../components/islandAndMountainAreaCheckSection/IslandAndMountainAreaCheckSection';
 import { OrderSummary } from '../../components/summary/orderSummary/OrderSummary';
+import { CouponModal } from '../../components/couponModal/CouponModal';
 
 export const OrderConfirmationPage: React.FC = () => {
   const selectedItemsCount = useRecoilValue(selectedItemsCountState);
@@ -36,6 +37,7 @@ export const OrderConfirmationPage: React.FC = () => {
     cartErrorMessageState,
   );
   const selectedItems = useRecoilValue(selectedItemsState);
+  const [couponModalOpen, setCouponModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -77,6 +79,10 @@ export const OrderConfirmationPage: React.FC = () => {
           <IslandAndMountainAreaCheckSection />
           <OrderSummary />
         </StyledOrderContent>
+        <CouponModal
+          isOpen={couponModalOpen}
+          onClose={() => setCouponModalOpen(false)}
+        />
         {cartErrorMessage.length > 0 && (
           <ErrorAlertModal errorMessage={cartErrorMessage} />
         )}
