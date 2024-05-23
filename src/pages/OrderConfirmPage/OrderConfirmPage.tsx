@@ -2,11 +2,7 @@ import { useState } from "react";
 
 import { CART_PAGE_CAPTION, CART_PAGE_MESSAGES } from "@/constants/cart";
 
-import {
-  doubleShippingFeeSelector,
-  shippingFeeSelector,
-  totalItemOrderCountSelector,
-} from "@/recoil/orderInformation";
+import { totalItemOrderCountSelector } from "@/recoil/orderInformation";
 import { selectedCartItemsIdState } from "@/recoil/selectedCardItems";
 import { useRecoilValue } from "recoil";
 
@@ -23,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { PAGE_URL } from "@/constants/url";
 import CouponModal from "@/components/modal/CouponModal/CouponModal";
 import MoreInfo from "@/components/_common/MoreInfo/MoreInfo";
+import useCalculateShippingFee from "@/hooks/useCalculateShippingFee";
 
 const OrderConfirmPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,15 +30,15 @@ const OrderConfirmPage = () => {
   const totalItemsCount = useRecoilValue(totalItemOrderCountSelector);
   const selectedItemsId = useRecoilValue(selectedCartItemsIdState);
 
-  const [isDoubleShippingFee, setIsDoubleShippingFee] = useState(false);
-  const shippingFee = useRecoilValue(
-    isDoubleShippingFee ? doubleShippingFeeSelector : shippingFeeSelector
-  );
+  const { shippingFee, shippingFeeType, setShippingFeeType } =
+    useCalculateShippingFee();
 
   const navigate = useNavigate();
 
   const onClickDoubleShippingFee = () => {
-    setIsDoubleShippingFee((prev) => !prev);
+    shippingFeeType === "DOUBLE"
+      ? setShippingFeeType("BASIC")
+      : setShippingFeeType("DOUBLE");
   };
 
   const onMovePaymentConfirmPage = () => {
@@ -87,7 +84,7 @@ const OrderConfirmPage = () => {
           <TextBox type="small" text="배송 정보" />
           <S.FlexBox>
             <CheckBox
-              isChecked={isDoubleShippingFee}
+              isChecked={shippingFeeType === "DOUBLE"}
               onClick={onClickDoubleShippingFee}
               disabled={shippingFee === 0}
             />

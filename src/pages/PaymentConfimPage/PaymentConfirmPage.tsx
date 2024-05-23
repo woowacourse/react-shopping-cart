@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import Button from "@/components/_common/Button/Button";
 
 import {
-  shippingFeeSelector,
+  // shippingFeeSelector,
   totalItemOrderCountSelector,
   totalOrderPriceSelector,
 } from "@/recoil/orderInformation";
@@ -14,12 +14,14 @@ import { selectedCartItemsIdState } from "@/recoil/selectedCardItems";
 import { useNavigate } from "react-router-dom";
 import { PAGE_URL } from "@/constants/url";
 import TextBox from "@/components/_common/TextBox/TextBox";
+import useCalculateShippingFee from "@/hooks/useCalculateShippingFee";
 
 const PaymentConfirmPage = () => {
   const navigate = useNavigate();
-  const totalPrice =
-    useRecoilValue(totalOrderPriceSelector) +
-    useRecoilValue(shippingFeeSelector);
+  const { shippingFee } = useCalculateShippingFee();
+  const totalOrderPrice = useRecoilValue(totalOrderPriceSelector);
+
+  const totalPrice = shippingFee + totalOrderPrice;
 
   const totalItemsCount = useRecoilValue(totalItemOrderCountSelector);
   const selectedItemsId = useRecoilValue(selectedCartItemsIdState);

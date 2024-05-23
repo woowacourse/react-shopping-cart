@@ -15,10 +15,11 @@ export const CART_PAGE_CAPTION = {
   moveToCartPage: "장바구니로 돌아가기",
 };
 
-export const SHIPPING_INFO = {
-  FREE_SHIPPING_THRESHOLD: 100000,
-  SHIPPING_FEE: 3000,
-  DOUBLE_SHIPPING_FEE: 6000,
+export const FREE_SHIPPING_THRESHOLD = 100000;
+
+export const SHIPPING_FEE = {
+  BASIC: 3000,
+  DOUBLE: 6000,
 };
 
 export const COUPON_APPLY_LIMIT = 2;
@@ -26,7 +27,7 @@ export const COUPON_APPLY_LIMIT = 2;
 export const CART_PAGE_MESSAGES = {
   choiceCoupon: "쿠폰을 선택해 주세요",
   freeShippingInfo: `총 주문 금액이 ${formatToWon(
-    SHIPPING_INFO.FREE_SHIPPING_THRESHOLD
+    FREE_SHIPPING_THRESHOLD
   )} 이상일 경우 무료 배송됩니다.`,
   askOrderConfirm: `최종 결제 금액을 확인해 주세요.`,
   itemCount: (count: number) => `현재 ${count}종류의 상품이 담겨있습니다.`,

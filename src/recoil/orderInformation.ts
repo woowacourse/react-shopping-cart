@@ -4,7 +4,7 @@ import { cartItems } from "./cartItems";
 
 import { cartItemQuantity } from "./cartItemQuantity";
 import { selectedCartItemsIdState } from "./selectedCardItems";
-import { SHIPPING_INFO } from "@/constants/cart";
+// import { SHIPPING_INFO } from "@/constants/cart";
 
 export const totalOrderPriceSelector = selector({
   key: "totalOrderPriceSelector",
@@ -18,40 +18,26 @@ export const totalOrderPriceSelector = selector({
       acc += productInfo.product.price * quantity;
       return acc;
     }, 0);
-
     return totalPrice;
   },
 });
 
-export const shippingFeeSelector = selector({
-  key: "shippingFeeSelector",
-  get: ({ get }) => {
-    const totalOrderPrice = get(totalOrderPriceSelector);
-    const hasSelectedItems = get(selectedCartItemsIdState).length;
+// export const shippingFeeSelector = selector({
+//   key: "shippingFeeSelector",
+//   get: ({ get }) => {
+//     const totalOrderPrice = get(totalOrderPriceSelector);
+//     const hasSelectedItems = get(selectedCartItemsIdState).length;
 
-    return hasSelectedItems &&
-      totalOrderPrice < SHIPPING_INFO.FREE_SHIPPING_THRESHOLD
-      ? SHIPPING_INFO.SHIPPING_FEE
-      : 0;
-  },
-});
-
-export const doubleShippingFeeSelector = selector({
-  key: "doubleShippingFeeSelector",
-  get: ({ get }) => {
-    const totalOrderPrice = get(totalOrderPriceSelector);
-    const hasSelectedItems = get(selectedCartItemsIdState).length;
-
-    return hasSelectedItems &&
-      totalOrderPrice < SHIPPING_INFO.FREE_SHIPPING_THRESHOLD
-      ? SHIPPING_INFO.DOUBLE_SHIPPING_FEE
-      : 0;
-  },
-});
+//     return hasSelectedItems &&
+//       totalOrderPrice < SHIPPING_INFO.FREE_SHIPPING_THRESHOLD
+//       ? SHIPPING_INFO.SHIPPING_FEE
+//       : 0;
+//   },
+// });
 
 export const shippingFeeState = atom({
   key: "shippingFee",
-  default: shippingFeeSelector,
+  default: 0,
 });
 
 export const totalItemOrderCountSelector = selector({

@@ -8,6 +8,7 @@ import { Coupon } from "@/types/coupon";
 import CouponItem from "./components/Coupon";
 import Button from "@/components/_common/Button/Button";
 import { theme } from "@/styles/theme";
+
 const CouponModal = ({
   isOpen,
   onCloseModal,
@@ -37,7 +38,7 @@ const CouponModal = ({
         {mockCoupons.map((coupon: Coupon) => {
           return (
             <>
-              <CouponItem coupon={coupon} />
+              <CouponItem coupon={coupon} key={coupon.id} />
             </>
           );
         })}

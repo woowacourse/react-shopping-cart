@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import {CartItemShowType} from "./ProductItem.tsx";
+import { CartItemShowType } from "./ProductItem.tsx";
 
 export const ItemWrapper = styled.div<{ type: CartItemShowType }>`
-  height: ${({type}) => (type === "edit" ? 160 : 124)}px;
-  border-top: 1px solid ${({theme}) => theme.COLOR["grey"]};
+  height: ${({ type }) => (type === "edit" ? 160 : 120)}px;
+  border-top: 1px solid ${({ theme }) => theme.COLOR["grey"]};
   display: flex;
   flex-direction: column;
   margin-top: 20px;
@@ -46,7 +46,7 @@ export const ItemImgBox = styled.div<{ $imageUrl: string }>`
   border-radius: 10px;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url(${({$imageUrl}) => $imageUrl});
+  background-image: url(${({ $imageUrl }) => $imageUrl});
 `;
 
 export const UpdateButtonWrapper = styled.div`
