@@ -24,3 +24,13 @@ export const couponListAtom = atom<Map<string, Coupon>>({
   key: 'couponListAtom',
   default: Promise.resolve(fetchCouponList()),
 });
+
+export const surchargeShippingFeeAtom = atom<number>({
+  key: 'surchargeShippingFeeAtom',
+  default: 0,
+});
+
+export const maxDiscountAtom = atom<number>({
+  key: 'maxDiscountAtom',
+  default: 0,
+});
