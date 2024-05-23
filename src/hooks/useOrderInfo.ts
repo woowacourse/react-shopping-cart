@@ -6,7 +6,7 @@ import {
   shippingPriceState,
   totalPurchasePriceState,
 } from '@/recoil/cartItems/selectors';
-import { totalDiscountPriceState } from '@/recoil/coupons/atoms';
+import { totalDiscountPriceState } from '@/recoil/coupons/selectors';
 
 const useOrderInfo = (type: 'CART' | 'ORDER') => {
   const { totalOrderPrice } = useRecoilValue(orderResultState);

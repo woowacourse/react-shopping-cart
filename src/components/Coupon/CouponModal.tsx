@@ -3,11 +3,11 @@ import { Modal } from 'maru-nice-modal';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import CouponItem from './CouponItem';
-import { isCheckedCoupon } from './utils';
+import { isCheckedCoupon } from './utils/isCheckedCoupon';
 
-import { useCouponApplicabilityChecker } from '@/hooks/useCouponApplicabilityChecker';
+import { couponApplicabilityChecker } from '@/components/Coupon/utils/couponApplicabilityChecker';
 import { orderResultState } from '@/recoil/cartItems/selectors';
-import { couponSavedCheckListState, totalDiscountPriceState } from '@/recoil/coupons/atoms';
+import { couponSavedCheckListState } from '@/recoil/coupons/atoms';
 import GuideText from '@common/GuideText';
 
 import useCoupon from '@hooks/useCoupon';
@@ -25,18 +25,16 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
     isValidCouponCount,
     localDiscountPrice,
   } = useCoupon();
-  const { isCouponApplicable } = useCouponApplicabilityChecker();
+  const { isCouponApplicable } = couponApplicabilityChecker(couponList);
 
   const { totalOrderPrice } = useRecoilValue(orderResultState);
   const setCouponSavedCheckList = useSetRecoilState(couponSavedCheckListState);
-  const setTotalDiscountPrice = useSetRecoilState(totalDiscountPriceState);
 
   const isFreeShipping = isCheckedCoupon(couponCheckList, 'FREESHIPPING');
   const displayDiscountLabel = `총 ${localDiscountPrice.toLocaleString('ko-KR')}원 할인 쿠폰 사용하기`;
 
   const handleClickApplyCoupon = () => {
     setCouponSavedCheckList(couponCheckList);
-    setTotalDiscountPrice(localDiscountPrice);
     onClose();
   };
 

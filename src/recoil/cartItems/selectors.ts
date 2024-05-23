@@ -1,14 +1,11 @@
 import { selector } from 'recoil';
 
 import { cartItemsState, checkedItemsState } from './atoms';
-import {
-  couponSavedCheckListState,
-  isAdditionalShippingState,
-  totalDiscountPriceState,
-} from '../coupons/atoms';
+import { couponSavedCheckListState, isAdditionalShippingState } from '../coupons/atoms';
+import { totalDiscountPriceState } from '../coupons/selectors';
 
 import { calculateShippingPrice } from '@/components/Cart/utils';
-import { isCheckedCoupon } from '@/components/Coupon/utils';
+import { isCheckedCoupon } from '@/components/Coupon/utils/isCheckedCoupon';
 import { CartItemProps } from '@/types/cartItem';
 import { PRICE } from '@constants/config';
 

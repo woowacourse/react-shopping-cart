@@ -1,11 +1,12 @@
 import { ChangeEvent, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
-import useDiscountCalculator from './useDiscountCalculator';
+import useDiscountCalculator from '../components/Coupon/utils/couponDiscountCalculator';
 
 import { orderResultState } from '@/recoil/cartItems/selectors';
-import { couponSavedCheckListState, totalDiscountPriceState } from '@/recoil/coupons/atoms';
+import { couponSavedCheckListState } from '@/recoil/coupons/atoms';
 import { fetchCouponSelector } from '@/recoil/coupons/fetchCouponSelector';
+import { totalDiscountPriceState } from '@/recoil/coupons/selectors';
 import { Coupon } from '@/types/coupon';
 
 const useCoupon = () => {
@@ -16,7 +17,7 @@ const useCoupon = () => {
 
   const { totalOrderPrice } = useRecoilValue(orderResultState);
 
-  const { calculateDiscountAmount } = useDiscountCalculator();
+  const { calculateDiscountAmount } = useDiscountCalculator(couponList);
   const [couponCheckList, setCouponCheckList] = useState(() => couponSavedCheckList);
   const isValidCouponCount = couponCheckList.filter((coupon) => coupon.isChecked).length < 2;
 

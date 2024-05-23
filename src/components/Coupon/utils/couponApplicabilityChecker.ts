@@ -1,11 +1,11 @@
-import { useCouponFinder } from './useCouponFinder';
+import { couponFinder } from './couponFinder';
 
 import { PRICE } from '@/constants/config';
 import { Coupon } from '@/types/coupon';
 import { couponValidator } from '@components/Coupon/couponValidator';
 
-export const useCouponApplicabilityChecker = () => {
-  const { findCouponByCode } = useCouponFinder();
+export const couponApplicabilityChecker = (couponList: Coupon[]) => {
+  const { findCouponByCode } = couponFinder(couponList);
   const { isCouponValid } = couponValidator();
 
   const isCouponApplicable = (coupon: Coupon, totalAmount: number, now: Date = new Date()) => {

@@ -1,22 +1,22 @@
 import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
+import { couponApplicabilityChecker } from '@/components/Coupon/utils/couponApplicabilityChecker';
 import { THEME } from '@/constants/theme';
-import { useCouponApplicabilityChecker } from '@/hooks/useCouponApplicabilityChecker';
-import useDiscountCalculator from '@/hooks/useDiscountCalculator';
-import { couponSavedCheckListState, totalDiscountPriceState } from '@/recoil/coupons/atoms';
+import { couponSavedCheckListState } from '@/recoil/coupons/atoms';
+import { fetchCouponSelector } from '@/recoil/coupons/fetchCouponSelector';
 import { isAllUnCheckedState, orderResultState } from '@recoil/cartItems/selectors';
 
 const OrderConfirmButton = () => {
   const navigate = useNavigate();
   const isAllUnChecked = useRecoilValue(isAllUnCheckedState);
   const { totalOrderPrice } = useRecoilValue(orderResultState);
-  const [couponSavedCheckList, setCouponSavedCheckList] = useRecoilState(couponSavedCheckListState);
-  const setTotalDiscountPrice = useSetRecoilState(totalDiscountPriceState);
+  const couponList = useRecoilValue(fetchCouponSelector);
+  const setCouponSavedCheckList = useSetRecoilState(couponSavedCheckListState);
 
-  const { isCouponApplicable } = useCouponApplicabilityChecker();
-  const { calculateDiscountAmount } = useDiscountCalculator();
+  const { isCouponApplicable } = couponApplicabilityChecker(couponList);
+
   const handleClickOrderConfirm = () => {
     if (isAllUnChecked) return;
 
@@ -26,15 +26,6 @@ const OrderConfirmButton = () => {
         isChecked: isCouponApplicable(coupon, totalOrderPrice) ? coupon.isChecked : false,
       })),
     );
-
-    const validDiscountTotal = couponSavedCheckList.reduce((acc, coupon) => {
-      if (coupon.isChecked) {
-        return acc + calculateDiscountAmount(coupon, totalOrderPrice);
-      }
-      return acc;
-    }, 0);
-
-    setTotalDiscountPrice(validDiscountTotal);
 
     navigate('/confirm');
   };

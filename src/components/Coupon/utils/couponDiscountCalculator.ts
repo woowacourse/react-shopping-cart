@@ -1,8 +1,8 @@
-import { useCouponApplicabilityChecker } from './useCouponApplicabilityChecker';
-import { Coupon } from '../types/coupon';
+import { couponApplicabilityChecker } from './couponApplicabilityChecker';
+import { Coupon } from '../../../types/coupon';
 
-const useDiscountCalculator = () => {
-  const { isCouponApplicable } = useCouponApplicabilityChecker();
+const couponDiscountCalculator = (couponList: Coupon[]) => {
+  const { isCouponApplicable } = couponApplicabilityChecker(couponList);
 
   // 고정 할인
   const calculateFixedDiscount = (coupon: Coupon, totalAmount: number) => {
@@ -43,4 +43,4 @@ const useDiscountCalculator = () => {
   };
 };
 
-export default useDiscountCalculator;
+export default couponDiscountCalculator;
