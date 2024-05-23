@@ -2,8 +2,8 @@ import { selector } from 'recoil';
 import { selectedCouponListState } from '../atoms/atoms';
 import { selectedCartItemListState } from '../../CartItem/atoms/atoms';
 import { totalOrderPriceSelector, deliveryFeeSelector } from '../../CartItem/selectors/selectors';
-import { sortCouponsByDiscountRate } from '../../../utils/couponSorter';
-import { calculateDiscountPrice } from '../../../utils/couponCalculator';
+import { sortCouponsByDiscountRate } from '../../../utils/coupon/couponSorter';
+import { calculateDiscountPrice } from '../../../utils/coupon/couponCalculator';
 
 export const totalCouponDiscountPriceSelector = selector({
   key: 'totalCouponDiscountPriceSelector',
@@ -14,7 +14,7 @@ export const totalCouponDiscountPriceSelector = selector({
     const deliveryFee = get(deliveryFeeSelector);
 
     return sortCouponsByDiscountRate(selectedCouponList).reduce(
-      (acc, cur) => (acc += calculateDiscountPrice(cur, selectedCartItemList, deliveryFee, totalOrderPrice)),
+      (acc, cur) => (acc += calculateDiscountPrice(cur, selectedCartItemList, totalOrderPrice, deliveryFee)),
       0,
     );
   },

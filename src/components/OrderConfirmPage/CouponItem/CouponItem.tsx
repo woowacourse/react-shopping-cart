@@ -2,7 +2,6 @@ import useCouponApplicable from '../../../hooks/useCouponApplicable';
 import CheckBox from '../../common/CheckBox/CheckBox';
 import type { Coupon } from '../../../types/Coupon.type';
 import { formatExpirationDate, formatAvailableTime } from '../../../utils/format';
-
 import * as S from './CouponItems.style';
 
 interface CouponItemProps {
@@ -16,20 +15,12 @@ function CouponItem({ coupon, isSelected, isMaxLength, handleSelectedCoupons }: 
   const { code, description, expirationDate, minimumAmount, availableTime } = coupon;
   const { isCouponApplicable } = useCouponApplicable();
 
-  const handleIsActive = () => {
-    if (!isCouponApplicable(coupon)) {
-      return false;
-    }
-
-    return !isMaxLength || isSelected;
-  };
-
-  const isActive = handleIsActive();
+  const isActive = isCouponApplicable(coupon) && (!isMaxLength || isSelected);
 
   const handleIsSelected = () => handleSelectedCoupons(coupon);
 
   return (
-    <S.Layout $isApplicable={isActive}>
+    <S.Layout $isApplicable={isActive} aria-disabled={!isActive}>
       <S.CouponTitle>
         <CheckBox id={code} isChecked={isSelected} disabled={!isActive} onChange={handleIsSelected} />
         <p>{description}</p>

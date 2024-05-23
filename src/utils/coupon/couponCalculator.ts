@@ -1,5 +1,5 @@
-import { TCartItem } from '../types/CartItem.type';
-import { Coupon } from '../types/Coupon.type';
+import { TCartItem } from '../../types/CartItem.type';
+import { Coupon } from '../../types/Coupon.type';
 
 const calculateFixedDiscount = (coupon: Coupon) => {
   return coupon.discount ?? 0;
@@ -11,14 +11,14 @@ const calculatePercentageDiscount = (coupon: Coupon, totalPrice: number) => {
 
 const calculateBogoDiscount = (cartItem: TCartItem[]) => {
   const priceList = cartItem.filter((item) => item.quantity >= 2).map((item) => item.product.price);
-  return Math.max(...priceList);
+  return priceList.length > 0 ? Math.max(...priceList) : 0;
 };
 
 export const calculateDiscountPrice = (
   coupon: Coupon,
   cartItem: TCartItem[],
-  deliveryFee: number,
   totalPrice: number,
+  deliveryFee: number,
 ) => {
   switch (coupon.discountType) {
     case 'fixed':

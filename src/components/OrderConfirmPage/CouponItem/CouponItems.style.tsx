@@ -8,7 +8,6 @@ export const Layout = styled.div<{ $isApplicable: boolean }>`
   padding-top: 12px;
   row-gap: 12px;
   min-height: 80px;
-
   color: ${(props) => (props.$isApplicable ? theme.color.primary.main : theme.color.primary.light)};
 `;
 
