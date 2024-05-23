@@ -1,0 +1,12 @@
+.root {
+  border: 1px solid var(--border-color);
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.text {
+  font-size: 33px;
+  font-weight: 100;
+}
