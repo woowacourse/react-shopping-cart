@@ -1,5 +1,6 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { couponListQuery, couponListState } from './couponListAtom';
+import { validateCouponExpiration } from '../../utils/validateCouponExpiration';
 
 const useFetchCouponList = () => {
   const [CouponList, setCouponList] = useRecoilState(couponListState);
@@ -7,7 +8,9 @@ const useFetchCouponList = () => {
 
   const fetchCouponList = () => {
     if (CouponList.length === 0) {
-      setCouponList(newCouponList);
+      setCouponList(
+        newCouponList.filter((coupon) => validateCouponExpiration(coupon)),
+      );
     }
   };
 
