@@ -5,7 +5,7 @@ const USER_ID = process.env.VITE_API_USER_ID ?? 'undefined_USER_ID';
 const USER_PASSWORD =
   process.env.VITE_API_USER_PASSWORD ?? 'undefined_USER_PASSWORD';
 
-export const requestCoupons = async (): Promise<Coupon[]> => {
+export const requestCouponList = async (): Promise<Coupon[]> => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const response = await fetch(`${API_URL}/coupons`, {
     method: 'GET',
@@ -13,9 +13,9 @@ export const requestCoupons = async (): Promise<Coupon[]> => {
   });
 
   if (!response.ok) {
-    throw new Error('Failed to fetch products:');
+    throw new Error('Failed to fetch coupons:');
   }
   const data = await response.json();
 
-  return data.content;
+  return data;
 };
