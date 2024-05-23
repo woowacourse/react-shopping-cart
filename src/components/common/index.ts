@@ -1,5 +1,5 @@
+export { default as InfoBanner } from './InfoBanner/InfoBanner';
 export { default as PageExplanation } from './PageExplanation/PageExplanation';
-export { default as ShippingFeeInfo } from './ShippingFeeInfo/ShippingFeeInfo';
 export { default as OrderPriceInfo } from './OrderPriceInfo/OrderPriceInfo';
 export { default as CartItemInfo } from './CartItemInfo/CartItemInfo';
 export { default as BasicButton } from './BasicButton/BasicButton';
