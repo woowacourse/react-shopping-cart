@@ -3,7 +3,7 @@ import { LayoutHeader } from './LayoutHeader';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof LayoutHeader> = {
-  title: 'widgets/LayoutHeader/LayoutHeader',
+  title: '3. widgets/LayoutHeader/LayoutHeader',
   component: LayoutHeader,
   decorators: [
     (Story) => (

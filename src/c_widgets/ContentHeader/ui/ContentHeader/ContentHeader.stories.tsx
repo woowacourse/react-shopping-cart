@@ -3,7 +3,7 @@ import { ContentHeader } from './ContentHeader';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof ContentHeader> = {
-  title: 'widgets/ContentHeader',
+  title: '3. widgets/ContentHeader',
   component: ContentHeader,
 };
 

@@ -9,7 +9,7 @@ const commonStyle: Record<string, string> = {
 };
 
 const meta: Meta<typeof Layout> = {
-  title: 'shared/Layout',
+  title: '6. shared/Layout',
   component: Layout,
   render: () => (
     <Layout

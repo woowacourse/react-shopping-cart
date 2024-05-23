@@ -5,7 +5,7 @@ import { CartQuantityAdjuster } from './CartQuantityAdjuster';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof CartQuantityAdjuster> = {
-  title: 'features/cart/CartQuantityAdjuster/CartQuantityAdjuster',
+  title: '4. features/cart/CartQuantityAdjuster/CartQuantityAdjuster',
   component: CartQuantityAdjuster,
   args: {
     cartId: 1 as CartId,

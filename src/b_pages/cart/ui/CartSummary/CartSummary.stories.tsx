@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 // TODO: Connect to state
 const meta: Meta<typeof CartSummary> = {
-  title: 'features/cart/CartSummary',
+  title: '2. pages/cart/CartSummary',
   component: CartSummary,
   decorators: [
     (Story) => {

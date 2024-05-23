@@ -3,7 +3,7 @@ import { DeleteCartButton } from './DeleteCartButton';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof DeleteCartButton> = {
-  title: 'features/cart/DeleteCartButton',
+  title: '4. features/cart/DeleteCartButton',
   component: DeleteCartButton,
 };
 

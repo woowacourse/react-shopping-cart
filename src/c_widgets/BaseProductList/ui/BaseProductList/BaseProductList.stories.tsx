@@ -5,7 +5,7 @@ import { BaseProductList } from './BaseProductList';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof BaseProductList> = {
-  title: 'widgets/BaseProductList',
+  title: '3. widgets/BaseProductList',
   component: BaseProductList,
   decorators: [
     (Story) => (

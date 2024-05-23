@@ -3,7 +3,7 @@ import { HorizontalLine } from './HorizontalLine';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof HorizontalLine> = {
-  title: 'shared/HorizontalLine',
+  title: '6. shared/HorizontalLine',
   component: HorizontalLine,
   decorators: [
     (Story) => {

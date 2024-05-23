@@ -3,7 +3,7 @@ import { LeftSlot } from './LeftSlot';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof LeftSlot> = {
-  title: 'widgets/LayoutHeader/LeftSlot',
+  title: '3. widgets/LayoutHeader/LeftSlot',
   component: LeftSlot,
   parameters: {
     layout: 'centered',

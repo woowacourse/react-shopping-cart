@@ -5,7 +5,7 @@ import { UpdateCartQuantityButton } from './UpdateCartQuantityButton';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof UpdateCartQuantityButton> = {
-  title: 'features/cart/CartQuantityAdjuster/UpdateCartQuantityButton',
+  title: '4. features/cart/CartQuantityAdjuster/UpdateCartQuantityButton',
   component: UpdateCartQuantityButton,
   args: {
     cartId: 1 as CartId,
