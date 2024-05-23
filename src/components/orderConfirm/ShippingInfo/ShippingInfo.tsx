@@ -2,13 +2,13 @@ import { Checkbox } from '@components/common';
 import { PRICE } from '@constants/shippingCart';
 import { surchargeShippingFeeAtom } from '@recoil/shoppingCart';
 import { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import * as Styled from './ShippingInfo.styled';
 
 const ShippingInfo = () => {
-  const [isChecked, setIsChecked] = useState(false);
-  const setSurchargeShippingFee = useSetRecoilState(surchargeShippingFeeAtom);
+  const [surchargeShippingFee, setSurchargeShippingFee] = useRecoilState(surchargeShippingFeeAtom);
+  const [isChecked, setIsChecked] = useState(!!surchargeShippingFee);
 
   const handleChangeCheck = () => {
     const changedIsChecked = !isChecked;

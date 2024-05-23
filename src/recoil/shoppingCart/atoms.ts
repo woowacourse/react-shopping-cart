@@ -20,6 +20,11 @@ export const availableCouponsAtom = atom<Coupon[]>({
   default: [],
 });
 
+export const selectedCouponsAtom = atom<Coupon[]>({
+  key: 'selectedCouponsAtom',
+  default: [],
+});
+
 export const couponListAtom = atom<Map<string, Coupon>>({
   key: 'couponListAtom',
   default: Promise.resolve(fetchCouponList()),

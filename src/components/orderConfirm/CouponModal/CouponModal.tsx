@@ -3,11 +3,11 @@ import { CrossIcon } from '@assets/index';
 import { InfoBanner } from '@components/common';
 import { MAX_NUMBER_OF_COUPON } from '@constants/coupon';
 import { useMaxDiscountCalculator, useModalTargetEl, usePreventScroll } from '@hooks/index';
-import { couponListAtom, maxDiscountAtom } from '@recoil/shoppingCart';
+import { couponListAtom, maxDiscountAtom, selectedCouponsAtom } from '@recoil/shoppingCart';
 import { formatKoreanCurrency } from '@utils/currency';
 import { CenterModal, ModalContainer } from 'badahertz52-react-modules-components';
 import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import CouponCard from '../CouponCard/CouponCard';
 
@@ -21,12 +21,15 @@ interface CouponModalProps {
 const CouponModal = ({ openModal, setOpenModal, availableCoupons }: CouponModalProps) => {
   const couponMap = useRecoilValue(couponListAtom);
   const setMaxDiscount = useSetRecoilState(maxDiscountAtom);
+  const [selectedCoupons, setSelectedCoupons] = useRecoilState(selectedCouponsAtom);
 
   const { getMaxDiscountAmount } = useMaxDiscountCalculator();
   const { modalTargetEl } = useModalTargetEl();
   usePreventScroll({ targetEl: document.body as HTMLBodyElement, isPreventScroll: openModal });
 
-  const [selectedCouponCodes, setSelectedCouponCodes] = useState<string[]>([]);
+  const [selectedCouponCodes, setSelectedCouponCodes] = useState<string[]>(
+    selectedCoupons.map((coupon) => coupon.code),
+  );
   const [discount, setDiscount] = useState<number>(0);
 
   const coupons = Array.from(couponMap.values());
@@ -58,8 +61,17 @@ const CouponModal = ({ openModal, setOpenModal, availableCoupons }: CouponModalP
     setDiscount(getMaxDiscountAmount(selectedCoupons));
   };
 
+  const updateSelectedCoupons = () => {
+    const selectedCoupons = availableCoupons.filter((coupon) => selectedCouponCodes.includes(coupon.code));
+    setSelectedCoupons(selectedCoupons);
+  };
+
   const handleClickApplyCoupons = () => {
+    // 상태 업데이트
     setMaxDiscount(discount);
+    updateSelectedCoupons();
+
+    // 모달 닫기
     setOpenModal(false);
   };
 
