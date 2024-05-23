@@ -20,7 +20,7 @@ const Fetcher = {
         throw error;
       }
 
-      const data = await res.json();
+      const data: T = await res.json();
       return data;
     } catch (err) {
       throw err;
