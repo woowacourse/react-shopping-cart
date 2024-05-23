@@ -61,10 +61,12 @@ const S = {
     margin: 0;
     width: 20px;
     height: 20px;
+    cursor: pointer;
   `,
 
   Label: styled.label`
     font-size: 12px;
+    cursor: pointer;
   `,
 
   Noti: styled.div`

@@ -54,17 +54,21 @@ const S = {
     padding-top: 13px;
 
     color: ${({ $isSelectable }) => ($isSelectable ? "" : "rgba(51, 51, 51, 0.35)")};
+
+    cursor: pointer;
   `,
 
   Title: styled.div`
     display: flex;
     gap: 8px;
     align-items: center;
+    cursor: pointer;
   `,
 
   Description: styled.div`
     font-size: 16px;
     font-weight: 700;
+    cursor: pointer;
   `,
 
   Requirement: styled.div`
