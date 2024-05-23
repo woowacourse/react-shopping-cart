@@ -31,7 +31,7 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
   const setCouponSavedCheckList = useSetRecoilState(couponSavedCheckListState);
   const setTotalDiscountPrice = useSetRecoilState(totalDiscountPriceState);
 
-  const isFreeShipping = isCheckedCoupon(couponCheckList, 'freeShipping');
+  const isFreeShipping = isCheckedCoupon(couponCheckList, 'FREESHIPPING');
   const displayDiscountLabel = `총 ${localDiscountPrice.toLocaleString('ko-KR')}원 할인 쿠폰 사용하기`;
 
   const handleClickApplyCoupon = () => {

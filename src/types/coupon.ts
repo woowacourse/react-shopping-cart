@@ -20,4 +20,5 @@ export interface AvailableTime {
   end: string;
 }
 
+export type CouponCode = 'FIXED5000' | 'BOGO' | 'FREESHIPPING' | 'MIRACLESALE';
 export type CouponDiscountType = 'fixed' | 'buyXgetY' | 'freeShipping' | 'percentage';
