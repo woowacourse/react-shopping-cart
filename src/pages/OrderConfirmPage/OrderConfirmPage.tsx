@@ -1,5 +1,5 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { Navigate, useLoaderData } from 'react-router-dom';
+import { Link, Navigate, useLoaderData } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import TitleContainer from '../../components/Container/TitleContainer/TitleContainer';
 import SubmitButton from '../../components/Button/SubmitButton/SubmitButton';
@@ -64,7 +64,9 @@ function OrderConfirmPage() {
         />
         {renderSelectedItemListSection()}
       </S.Layout>
-      <SubmitButton isActive={true} onClick={() => alert('결제 화면 준비 중입니다.')} content="결제하기" />
+      <Link to={PATHS.PAYMENT_CONFIRM}>
+        <SubmitButton isActive={true} content="결제하기" />
+      </Link>
     </>
   );
 }

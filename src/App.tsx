@@ -8,19 +8,24 @@ import { PATHS } from './constants/PATHS';
 
 import GlobalStyles from './styles/Global.style';
 import theme from './styles/theme';
+import PaymentConfirmPage from './pages/PaymentConfirmPage/PaymentConfirmPage';
 
 function App() {
   const router = createBrowserRouter([
     {
-      path: PATHS.ROOT,
+      path: PATHS.CART,
       element: <ShoppingCartPage />,
       loader: () => fetchCartItemList(),
       errorElement: <ErrorPage />,
     },
     {
-      path: PATHS.CONFIRM,
+      path: PATHS.ORDER_CONFIRM,
       element: <OrderConfirmPage />,
       loader: () => fetchCouponList(),
+    },
+    {
+      path: PATHS.PAYMENT_CONFIRM,
+      element: <PaymentConfirmPage />,
     },
     {
       path: PATHS.ERROR,

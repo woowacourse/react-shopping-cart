@@ -1,8 +1,10 @@
 import { useCouponValidator } from './useCouponValidator';
 import { Coupon } from '../types/Coupon.type';
+import { useCalculateDeliveryFee } from './useCalculateDeliveryFee';
 
 export const useCouponApplicabilityChecker = () => {
   const { isCouponValid } = useCouponValidator();
+  const { deliveryFee } = useCalculateDeliveryFee();
 
   const isCouponApplicable = (coupon: Coupon, totalAmount: number, now: Date = new Date()) => {
     if (!coupon || !isCouponValid(coupon)) return false;
@@ -23,6 +25,10 @@ export const useCouponApplicabilityChecker = () => {
       if (now < startTime || now > endTime) {
         return false;
       }
+    }
+
+    if (coupon.discountType === 'freeShipping') {
+      if (deliveryFee === 0) return false;
     }
 
     return true;

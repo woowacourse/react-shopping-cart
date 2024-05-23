@@ -59,7 +59,7 @@ function ShoppingCartPage() {
         </S.Main>
       </Await>
       {hasSelectedCartItemList ? (
-        <Link to={PATHS.CONFIRM}>
+        <Link to={PATHS.ORDER_CONFIRM}>
           <SubmitButton isActive={true} content="주문 확인" />
         </Link>
       ) : (
