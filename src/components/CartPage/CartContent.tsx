@@ -5,10 +5,8 @@ import CartTitle from "./CartTitle";
 import CartItemList from "./CartItemList";
 import CartAmount from "../common/domain/CartAmount";
 import CartButton from "./CartButton";
-import { cartAmountState } from "../../recoil/cartAmount";
 
 export default function CartContent() {
-  const { orderAmount, shippingCost, totalOrderAmount } = useRecoilValue(cartAmountState);
   const cartItems = useRecoilValue(cartItemsState);
 
   const content =
@@ -17,11 +15,7 @@ export default function CartContent() {
     ) : (
       <>
         <CartItemList cartItems={cartItems} />
-        <CartAmount
-          orderAmount={orderAmount}
-          shippingCost={shippingCost}
-          totalOrderAmount={totalOrderAmount}
-        />
+        <CartAmount />
       </>
     );
 
@@ -29,6 +23,7 @@ export default function CartContent() {
     <S.Container>
       <CartTitle />
       {content}
+      <S.CartButton />
     </S.Container>
   );
 }

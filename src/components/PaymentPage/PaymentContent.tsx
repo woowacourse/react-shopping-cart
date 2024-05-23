@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 import PaymentTitle from "./PaymentTitle";
@@ -8,30 +7,44 @@ import ReadOnlyCartItemList from "./ReadOnlyCartItemList";
 import CartAmount from "../common/domain/CartAmount";
 import CouponModal from "./CouponModal";
 
-import { cartAmountState } from "../../recoil/cartAmount";
 import { useCoupons } from "../../hooks/useCoupons";
+import Button from "../common/Button";
+import { useNavigate } from "react-router-dom";
+import { ROUTE_PATH } from "../../constants/routePath";
+import { useSelectedCartItemCounts } from "../../hooks/useCartItemCounts";
+import { useSetRecoilState } from "recoil";
+import { selectedCartItemIdsState } from "../../recoil/selectedCartItemIds";
 
 export default function PaymentContent() {
-  const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
-  const { orderAmount, shippingCost, totalOrderAmount } = useRecoilValue(cartAmountState);
-  const { coupons, toggleSelection, discountAmount } = useCoupons();
+  const navigate = useNavigate();
 
+  const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const toggleCouponModal = () => setIsCouponModalOpen((prev) => !prev);
 
-  const isFreeShipping = shippingCost === 0;
+  const setSelectedCouponIds = useSetRecoilState(selectedCartItemIdsState);
+  const { selectedCartItemsCount, selectedUniqueCartItemsCount } = useSelectedCartItemCounts();
+
+  const { coupons, toggleSelection, discountAmount, totalPayAmount } = useCoupons();
+
+  const onPayButtonClick = () => {
+    // 결제 로직을 수행했다고 가정
+    setSelectedCouponIds([]);
+    navigate(ROUTE_PATH.checkout, {
+      state: {
+        boughtItemsCount: selectedCartItemsCount,
+        uniqueBoughtItemsCount: selectedUniqueCartItemsCount,
+        totalPayAmount,
+      },
+    });
+  };
 
   return (
     <S.Container>
       <PaymentTitle />
       <ReadOnlyCartItemList />
       <S.CouponApplyButton onClick={toggleCouponModal}>쿠폰 적용</S.CouponApplyButton>
-      <ShippingDetail isFreeShipping={isFreeShipping} />
-      <CartAmount
-        orderAmount={orderAmount}
-        shippingCost={shippingCost}
-        totalOrderAmount={totalOrderAmount}
-        discountAmount={discountAmount}
-      />
+      <ShippingDetail />
+      <CartAmount discountAmount={discountAmount} />
       {isCouponModalOpen && (
         <CouponModal
           isOpen={isCouponModalOpen}
@@ -41,6 +54,7 @@ export default function PaymentContent() {
           discountAmount={discountAmount}
         />
       )}
+      <S.PayButton onClick={onPayButtonClick}>결제하기</S.PayButton>
     </S.Container>
   );
 }
@@ -69,5 +83,11 @@ const S = {
       outline: none;
       border: 1px solid rgba(51, 51, 51, 0.25);
     }
+  `,
+
+  PayButton: styled(Button)`
+    position: absolute;
+    bottom: 0;
+    left: 0;
   `,
 };

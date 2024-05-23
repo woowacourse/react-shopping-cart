@@ -1,19 +1,18 @@
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 import { isRemoteDeliveryAreaState } from "../../recoil/isRemoteDeliveryArea";
 import { formatToKRW } from "../../utils/domain/formatToKRW";
 import { SHIPPING_COST_FOR_REMOTE } from "../../constants/pricing";
+import { cartAmountState } from "../../recoil/cartAmount";
 
-interface ShippingDetailProps {
-  isFreeShipping: boolean;
-}
-
-export default function ShippingDetail({ isFreeShipping }: ShippingDetailProps) {
+export default function ShippingDetail() {
+  const { shippingCost } = useRecoilValue(cartAmountState);
   const [isRemoteDeliveryArea, setIsRemoteDeliveryArea] = useRecoilState(isRemoteDeliveryAreaState);
 
   const toggleIsRemoteDeliveryArea = () => setIsRemoteDeliveryArea((prev) => !prev);
 
+  const isFreeShipping = shippingCost === 0;
   if (isFreeShipping) return null;
 
   return (

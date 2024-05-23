@@ -1,22 +1,19 @@
 import styled from "styled-components";
-import { ReactComponent as InfoIcon } from "../../assets/info-icon.svg";
+
+import { ReactComponent as InfoIcon } from "../../../assets/info-icon.svg";
 import { FREE_SHIPPING_THRESHOLD } from "../../../constants/pricing";
 import { formatToKRW } from "../../../utils/domain/formatToKRW";
+import { cartAmountState } from "../../../recoil/cartAmount";
+import { useRecoilValue } from "recoil";
 
 interface CartAmountProps {
-  orderAmount: number;
-  shippingCost: number;
-  totalOrderAmount: number;
   discountAmount?: number;
 }
 
-export default function CartAmount({
-  orderAmount,
-  shippingCost,
-  totalOrderAmount,
-  discountAmount,
-}: CartAmountProps) {
-  const totalAmount = totalOrderAmount - (discountAmount || 0);
+export default function CartAmount({ discountAmount }: CartAmountProps) {
+  const { orderAmount, shippingCost, totalOrderAmount } = useRecoilValue(cartAmountState);
+
+  const totalPayAmount = totalOrderAmount - (discountAmount || 0);
 
   const hasCouponDiscount = !!discountAmount && discountAmount > 0;
 
@@ -45,7 +42,8 @@ export default function CartAmount({
       </S.UpperCartAmountInfoWrapper>
       <S.LowerCartAmountInfoWrapper>
         <S.CartAmountInfo>
-          <S.AmountText>총 주문 금액</S.AmountText> <S.Amount>{formatToKRW(totalAmount)}</S.Amount>
+          <S.AmountText>총 주문 금액</S.AmountText>{" "}
+          <S.Amount>{formatToKRW(totalPayAmount)}</S.Amount>
         </S.CartAmountInfo>
       </S.LowerCartAmountInfoWrapper>
     </S.CartAmountContainer>
