@@ -3,7 +3,7 @@ import Header from '../../components/Header/Header';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './ErrorPage.style';
 import { CART_ITEM_ERROR_MESSAGE } from '../../constants/MESSAGES';
-import { ErrorType } from './Error.type';
+import { ErrorType } from '../../types/Error.type';
 
 const ErrorPage = () => {
   const location = useLocation();
