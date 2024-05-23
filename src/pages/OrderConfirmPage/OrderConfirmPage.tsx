@@ -1,5 +1,5 @@
 import { UpsideDownExclamation } from '@assets/index';
-import { BottomButton } from '@components/common';
+import { BottomButton, LoadingSpinner } from '@components/common';
 import CheckBox from '@components/common/Checkbox/Checkbox';
 import Item from '@components/common/Item/Item';
 import CouponSelectModal from '@components/orderConfirm/CouponSelectModal/CouponSelectModal';
@@ -7,15 +7,30 @@ import { ItemCouponButton } from '@components/orderConfirm/ItemCouponButton/Item
 import { OrderPrice } from '@components/shoppingCart';
 import { PRICE } from '@constants/shippingCart';
 import { useSelectedCartItems } from '@hooks/shoppingCart';
+import useOrderCosts from '@hooks/shoppingCart/useOrderCosts';
+import { couponListAtom, selectedCouponListAtom } from '@recoil/orderConfirm';
+import { cartItemsAtom } from '@recoil/shoppingCart';
 import { formatKoreanCurrency } from '@utils/currency';
-import { useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
+import { useResetRecoilState } from 'recoil';
 
 import * as Styled from './OrderConfirmPage.styled';
 
 const OrderConfirmPage = () => {
   const { selectedItems, totalSelectedItemLength, selectedTotalQuantity } = useSelectedCartItems();
+  const { orderPrice, shippingPrice, afterDiscountTotalPrice, totalDiscountPrice } = useOrderCosts();
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const resetCouponList = useResetRecoilState(couponListAtom);
+  const resetSelectedCouponList = useResetRecoilState(selectedCouponListAtom);
+  const resetTotalPrice = useResetRecoilState(cartItemsAtom);
+
+  useEffect(() => {
+    resetCouponList();
+    resetSelectedCouponList();
+    resetTotalPrice();
+  }, [resetCouponList, resetSelectedCouponList, resetTotalPrice]);
 
   return (
     <>
@@ -38,7 +53,9 @@ const OrderConfirmPage = () => {
       <ItemCouponButton onClick={() => setIsOpen((prev) => !prev)} style={{ margin: '32px 0px' }}>
         쿠폰 적용
       </ItemCouponButton>
-      <CouponSelectModal isOpen={isOpen} onToggle={() => setIsOpen((prev) => !prev)} />
+      <Suspense fallback={<LoadingSpinner $width="100%" $height="70vh" />}>
+        {isOpen && <CouponSelectModal isOpen={isOpen} onToggle={() => setIsOpen((prev) => !prev)} />}
+      </Suspense>
       <>
         <Styled.HeadingText>배송 정보</Styled.HeadingText>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', paddingTop: '20px' }}>
@@ -51,7 +68,12 @@ const OrderConfirmPage = () => {
             총 주문 금액이 {formatKoreanCurrency(PRICE.freeShippingMinAmount)} 이상일 경우 무료 배송됩니다.
           </Styled.CartInfoBannerText>
         </Styled.CartInfoBanner>
-        <OrderPrice />
+        <OrderPrice
+          orderPrice={orderPrice}
+          shippingPrice={shippingPrice}
+          discountPrice={totalDiscountPrice}
+          totalPrice={afterDiscountTotalPrice}
+        />
         <BottomButton>주문 확인</BottomButton>
       </>
     </>

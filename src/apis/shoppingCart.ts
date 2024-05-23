@@ -74,5 +74,6 @@ export async function fetchCoupons() {
   }
 
   const data = await response.json();
+
   return data;
 }

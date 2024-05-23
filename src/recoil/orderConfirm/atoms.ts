@@ -1,13 +1,21 @@
+import { fetchCoupons } from '@apis/shoppingCart';
 import { Coupon } from '@appTypes/orderConfirm';
-import { couponListSelector } from '@recoil/orderConfirm/selectors';
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
+
+export const couponListSelector = selector<Coupon[]>({
+  key: 'couponListSelector',
+  get: async () => {
+    const coupons = await fetchCoupons();
+    return coupons;
+  },
+});
 
 export const couponListAtom = atom<Coupon[]>({
   key: 'couponListAtom',
   default: couponListSelector,
 });
 
-export const totalDiscountPriceAtom = atom<number>({
-  key: 'totalDiscountPriceAtom',
-  default: 0,
+export const selectedCouponListAtom = atom<Required<Pick<Coupon, 'id' | 'discount'>>[]>({
+  key: 'selectedCouponListAtom',
+  default: [],
 });

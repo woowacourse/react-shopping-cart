@@ -1,6 +1,7 @@
 import { fetchCartItems } from '@apis/shoppingCart';
 import { CartItem } from '@appTypes/shoppingCart';
 import { PRICE } from '@constants/shippingCart';
+import { totalDiscountPriceSelector } from '@recoil/orderConfirm';
 import { cartItemsAtom, quantityAtomFamily, selectedIdsAtom } from '@recoil/shoppingCart/atoms';
 import { selector, selectorFamily } from 'recoil';
 
@@ -58,12 +59,22 @@ export const selectedItemsSelector = selector({
   },
 });
 
-export const totalPriceSelector = selector({
-  key: 'totalPriceSelector',
+export const beforeDiscountTotalPriceSelector = selector({
+  key: 'beforeDiscountTotalPriceSelector',
   get: ({ get }) => {
     const orderPrice = get(orderPriceSelector);
     const shippingPrice = get(shippingPriceSelector);
 
     return orderPrice + shippingPrice;
+  },
+});
+
+export const afterDiscountTotalPriceSelector = selector({
+  key: 'afterDiscountTotalPriceSelector',
+  get: ({ get }) => {
+    const beforeDiscountTotalPrice = get(beforeDiscountTotalPriceSelector);
+    const totalDiscountPrice = get(totalDiscountPriceSelector);
+
+    return beforeDiscountTotalPrice - totalDiscountPrice;
   },
 });

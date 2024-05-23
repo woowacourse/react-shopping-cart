@@ -1,6 +1,13 @@
+import { Coupon } from '@appTypes/orderConfirm';
 import { UpsideDownExclamation } from '@assets/index';
-import CouponList from '@components/orderConfirm/CouponList/CouponList';
+import CouponListItem from '@components/orderConfirm/CouponListItem/CouponListItem';
+import { useConfirmCouponApplication } from '@hooks/orderConfirm/useConfirmCouponApplication/useConfirmCouponApplication';
+import { useDiscountCalculator } from '@hooks/orderConfirm/useDiscountCalculator/useDiscountCalculator';
 import { Modal } from '@jinyyy/simple-modal';
+import { couponListAtom, selectedCouponListAtom } from '@recoil/orderConfirm/atoms';
+import { formatKoreanCurrency } from '@utils/currency';
+import { useState } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import * as Styled from './CouponSelectModal.styled';
 
@@ -10,6 +17,41 @@ interface CouponSelectModalProps {
 }
 
 const CouponSelectModal: React.FC<CouponSelectModalProps> = ({ isOpen, onToggle }) => {
+  const [selectedCouponList, setSelectedCouponList] = useRecoilState(selectedCouponListAtom);
+
+  const [temporarySelectedCouponList, setTemporarySelectedCouponList] =
+    useState<Required<Pick<Coupon, 'id' | 'discount'>>[]>(selectedCouponList);
+
+  const temporarySelectedTotalCouponAmount = temporarySelectedCouponList.reduce(
+    (acc, coupon) => coupon.discount + acc,
+    0,
+  );
+
+  const selectedCount = temporarySelectedCouponList.length;
+
+  const couponList = useRecoilValue(couponListAtom);
+
+  const isApplicabilityCoupon = useConfirmCouponApplication();
+
+  const { calculateDiscountAmount } = useDiscountCalculator();
+
+  const onAddTemporarySelectedCouponList = (checked: boolean, coupon: Coupon) => {
+    setTemporarySelectedCouponList((prevItemList) => {
+      const isAlreadySelected = prevItemList.some((item) => item.id === coupon.id);
+
+      if (!checked && isAlreadySelected) {
+        return prevItemList.filter((item) => item.id !== coupon.id);
+      }
+
+      if (checked && !isAlreadySelected && prevItemList.length < 2) {
+        const discount = calculateDiscountAmount(coupon);
+        return [...prevItemList, { id: coupon.id, discount }];
+      }
+
+      return prevItemList;
+    });
+  };
+
   return (
     <Modal position="center" isOpen={isOpen} onToggle={onToggle}>
       <Modal.ModalHeader style={{ display: 'flex', alignItems: 'center' }} title="쿠폰을 선택해 주세요">
@@ -21,12 +63,29 @@ const CouponSelectModal: React.FC<CouponSelectModalProps> = ({ isOpen, onToggle 
           <Styled.BannerText>쿠폰은 최대 2개까지 사용할 수 있습니다.</Styled.BannerText>
         </Styled.Banner>
         <>
-          <CouponList />
+          {couponList?.map((coupon) => (
+            <CouponListItem
+              key={coupon?.id}
+              isActive={
+                (selectedCount < 2 || temporarySelectedCouponList.some((tempCoupon) => tempCoupon.id === coupon.id)) &&
+                isApplicabilityCoupon(coupon)
+              }
+              isChecked={temporarySelectedCouponList.some((selectedCoupon) => selectedCoupon?.id === coupon.id)}
+              coupon={coupon}
+              onAddTemporarySelectedCouponList={onAddTemporarySelectedCouponList}
+            />
+          ))}
         </>
       </Modal.ModalContent>
       <Modal.ModalFooter direction="row">
-        <Modal.ModalButton onClick={onToggle} color="primary">
-          총 6,000원 할인 쿠폰 사용하기
+        <Modal.ModalButton
+          onClick={() => {
+            setSelectedCouponList([...temporarySelectedCouponList]);
+            onToggle();
+          }}
+          color="primary"
+        >
+          총 {formatKoreanCurrency(temporarySelectedTotalCouponAmount)} 할인 쿠폰 사용하기
         </Modal.ModalButton>
       </Modal.ModalFooter>
     </Modal>

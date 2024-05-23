@@ -1,11 +1,13 @@
-import { fetchCoupons } from '@apis/shoppingCart';
-import { Coupon } from '@appTypes/orderConfirm';
+import { selectedCouponListAtom } from '@recoil/orderConfirm/atoms';
 import { selector } from 'recoil';
 
-export const couponListSelector = selector<Coupon[]>({
-  key: 'couponListSelector',
-  get: async () => {
-    const coupons = await fetchCoupons();
-    return coupons;
+export const totalDiscountPriceSelector = selector({
+  key: 'totalDiscountPriceSelector',
+  get: ({ get }) => {
+    const selectedCouponList = get(selectedCouponListAtom);
+
+    return selectedCouponList.reduce((acc, { discount }) => {
+      return acc + discount;
+    }, 0);
   },
 });

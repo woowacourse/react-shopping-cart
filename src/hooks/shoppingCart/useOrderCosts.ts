@@ -1,16 +1,21 @@
 // import { totalDiscountPriceAtom } from '@recoil/orderConfirm/atoms';
-import { orderPriceSelector, shippingPriceSelector, totalPriceSelector } from '@recoil/shoppingCart';
+import { totalDiscountPriceSelector } from '@recoil/orderConfirm/selectors';
+import {
+  afterDiscountTotalPriceSelector,
+  beforeDiscountTotalPriceSelector,
+  orderPriceSelector,
+  shippingPriceSelector,
+} from '@recoil/shoppingCart';
 import { useRecoilValue } from 'recoil';
 
 const useOrderCosts = () => {
   const orderPrice = useRecoilValue(orderPriceSelector);
   const shippingPrice = useRecoilValue(shippingPriceSelector);
-  const totalPrice = useRecoilValue(totalPriceSelector);
-  // const totalDiscountPrice = useRecoilValue(totalDiscountPriceAtom);
+  const beforeDiscountTotalPrice = useRecoilValue(beforeDiscountTotalPriceSelector);
+  const afterDiscountTotalPrice = useRecoilValue(afterDiscountTotalPriceSelector);
+  const totalDiscountPrice = useRecoilValue(totalDiscountPriceSelector);
 
-  // console.log(totalDiscountPrice);
-
-  return { orderPrice, shippingPrice, totalPrice };
+  return { orderPrice, shippingPrice, beforeDiscountTotalPrice, afterDiscountTotalPrice, totalDiscountPrice };
 };
 
 export default useOrderCosts;
