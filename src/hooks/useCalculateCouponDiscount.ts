@@ -2,14 +2,12 @@ import { useRecoilValue } from 'recoil';
 import { selectedCartItemListState } from '../recoil/CartItem/atoms/selectedCartItemListState';
 import { deliveryFeeState } from '../recoil/DeliveryFee/atoms/deliveryFeeState';
 import { Coupon } from '../types/Coupon.type';
-import { selectedCartItemTotalPriceState } from '../recoil/CartItem/atoms/selectedCartItemTotalPriceState';
 
 export function useCalculateCouponDiscount() {
   const deliveryFee = useRecoilValue(deliveryFeeState);
   const selectedCartItemList = useRecoilValue(selectedCartItemListState);
-  const selectedCartItemTotalPrice = useRecoilValue(selectedCartItemTotalPriceState);
 
-  const calculateCouponDiscount = (coupon: Coupon) => {
+  const calculateCouponDiscount = (currentTotalPrice: number, coupon: Coupon) => {
     switch (coupon.discountType) {
       case 'fixed': {
         return coupon.discount!;
@@ -28,7 +26,7 @@ export function useCalculateCouponDiscount() {
         return deliveryFee;
       }
       case 'percentage': {
-        return Math.round(selectedCartItemTotalPrice * (coupon.discount! / 100));
+        return Math.round(currentTotalPrice * (coupon.discount! * 0.01));
       }
       default: {
         return 0;
