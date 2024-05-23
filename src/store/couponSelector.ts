@@ -21,6 +21,20 @@ export const fetchCouponsSelector = selector({
   },
 });
 
+export const isMaxLengthCheckedCouponLengthSelector = selector({
+  key: 'isMaxLengthCheckedCouponLengthSelector',
+  get: ({ get }) => {
+    const allCoupons = get(allCouponStates);
+
+    const MAX_COUPON_LENGTH = 2;
+
+    return (
+      allCoupons.filter((coupon) => coupon.isAvailable && coupon.isChecked).length ===
+      MAX_COUPON_LENGTH
+    );
+  },
+});
+
 export const isCheckedIndividualCouponSelector = selectorFamily({
   key: 'isCheckedIndividualCouponSelector',
   get:
