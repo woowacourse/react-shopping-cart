@@ -1,51 +1,22 @@
-export type RawCoupon =
+import {
+  BuyXGetYRawCoupon,
+  FixedDiscountRawCoupon,
+  FreeShippingRawCoupon,
+  PercentageDiscountRawCoupon,
+} from "./rawCoupon";
+
+export type Coupon =
   | FixedDiscountCoupon
   | PercentageDiscountCoupon
   | BuyXGetYCoupon
   | FreeShippingCoupon;
 
-export type Coupon = WithIsSelected<RawCoupon>;
+type WithSelectionStatus<T> = T & { isSelected: boolean; isSelectable: boolean };
 
-/**
- * @example "2024-05-21"
- */
-type DateString = string;
-/**
- * @example "07:00:00"
- */
-type TimeString = string;
+export type FixedDiscountCoupon = WithSelectionStatus<FixedDiscountRawCoupon>;
 
-interface BaseCoupon {
-  id: number;
-  code: string;
-  description: string;
-  expirationDate: DateString;
-  discountType: "fixed" | "percentage" | "buyXgetY" | "freeShipping";
-  minimumAmount?: number;
-  availableTime?: {
-    start: TimeString;
-    end: TimeString;
-  };
-}
+export type PercentageDiscountCoupon = WithSelectionStatus<PercentageDiscountRawCoupon>;
 
-interface FixedDiscountCoupon extends BaseCoupon {
-  discountType: "fixed";
-  discount: number;
-}
+export type BuyXGetYCoupon = WithSelectionStatus<BuyXGetYRawCoupon>;
 
-interface PercentageDiscountCoupon extends BaseCoupon {
-  discountType: "percentage";
-  discount: number;
-}
-
-interface BuyXGetYCoupon extends BaseCoupon {
-  discountType: "buyXgetY";
-  buyQuantity: number;
-  getQuantity: number;
-}
-
-interface FreeShippingCoupon extends BaseCoupon {
-  discountType: "freeShipping";
-}
-
-type WithIsSelected<T> = T & { isSelected: boolean };
+export type FreeShippingCoupon = WithSelectionStatus<FreeShippingRawCoupon>;
