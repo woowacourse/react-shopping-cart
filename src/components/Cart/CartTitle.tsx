@@ -1,5 +1,7 @@
 import { css } from '@emotion/react';
 
+import Title from '../common/Title';
+
 interface Props {
   cartItemLength: number;
 }
@@ -7,7 +9,7 @@ interface Props {
 export default function CartTitle({ cartItemLength }: Props) {
   return (
     <div css={cartSectionTitleContainer}>
-      <h2 css={cartTitle}>장바구니</h2>
+      <Title>장바구니</Title>
       <p css={description}>현재 {cartItemLength}종류의 상품이 담겨있습니다.</p>
     </div>
   );
@@ -21,14 +23,6 @@ const cartSectionTitleContainer = css`
   width: 100%;
 
   padding-bottom: 36px;
-`;
-
-const cartTitle = css`
-  height: 35px;
-
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 35px;
 `;
 
 const description = css`
