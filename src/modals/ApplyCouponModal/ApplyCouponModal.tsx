@@ -4,6 +4,7 @@ import NotificationContainer from '../../components/Container/NotificationContai
 import { useToggleModal } from '../../hooks/useToggleModal';
 import { Coupon } from '../../types/Coupon.type';
 import CouponList from '../../components/List/CouponList/CouponList';
+import { useCalculateTotalCouponDiscount } from '../../hooks/useCalculateTotalCouponDiscount';
 
 interface ApplyCouponModalProps {
   couponList: Coupon[];
@@ -11,6 +12,7 @@ interface ApplyCouponModalProps {
 
 function ApplyCouponModal({ couponList }: ApplyCouponModalProps) {
   const { openModal } = useToggleModal();
+  const { selectedCouponTotalDiscount } = useCalculateTotalCouponDiscount();
   return (
     <Modal
       style={{ width: '90%', justifyContent: 'space-between', rowGap: '16px' }}
@@ -23,7 +25,11 @@ function ApplyCouponModal({ couponList }: ApplyCouponModalProps) {
         <NotificationContainer content={`쿠폰은 최대 2개까지 사용할 수 있습니다.`} />
         <CouponList couponList={couponList} />
       </S.CouponListContainer>
-      <Modal.ConfirmButton />
+      {selectedCouponTotalDiscount === 0 ? (
+        <Modal.CancelButton content={`선택된 쿠폰이 없습니다`} onClick={openModal} />
+      ) : (
+        <Modal.ConfirmButton content={`총 ${selectedCouponTotalDiscount}원 할인 쿠폰 사용하기`} onClick={openModal} />
+      )}
     </Modal>
   );
 }
