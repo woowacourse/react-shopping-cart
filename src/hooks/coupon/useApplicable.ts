@@ -31,6 +31,8 @@ const useApplicable = () => {
         coupon.availableTime?.start ?? '',
         coupon.availableTime?.end ?? '',
       );
+
+    return false;
   };
 
   const isApplicableFixed = (minimumAmount: number, totalAmount: number) => {
