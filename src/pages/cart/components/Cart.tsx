@@ -1,16 +1,15 @@
-import { allCartItemStates } from '@/store/atoms';
 import { PropsWithChildren } from 'react';
-import { useRecoilValue } from 'recoil';
 import { CartContext } from '../context/CartContext';
 import CartTotals from './CartTotals';
 import CartList from './CartList';
 import CartTitle from './CartTitle';
+import { useCartManager } from '@/store/custom/useCartManager';
 
 export const Cart = ({ children }: PropsWithChildren<object>) => {
-  const cartItems = useRecoilValue(allCartItemStates);
+  const { totalCartItems } = useCartManager();
 
   return (
-    <CartContext.Provider value={{ allCartItems: cartItems }}>
+    <CartContext.Provider value={{ allCartItems: totalCartItems }}>
       <>{children}</>
     </CartContext.Provider>
   );

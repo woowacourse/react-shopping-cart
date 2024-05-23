@@ -1,17 +1,12 @@
-import { useRecoilValue } from 'recoil';
 import noticeIcon from '../../../asset/noticeIcon.png';
-import {
-  deliveryFeeSelector,
-  orderAmountSelector,
-  totalOrderAmountSelector,
-} from '../../../store/selectors';
 import styles from '../Cart.module.css';
 import PriceInfo from '@/components/common/PriceInfo';
+import { useCartManager } from '@/store/custom/useCartManager';
+import { useShippingManager } from '@/store/custom/useShippingManager';
 
 export default function CartTotals() {
-  const orderAmount = useRecoilValue(orderAmountSelector);
-  const deliveryFee = useRecoilValue(deliveryFeeSelector);
-  const totalAmount = useRecoilValue(totalOrderAmountSelector);
+  const { deliveryFee } = useShippingManager();
+  const { totalOrderAmount, orderAmount } = useCartManager();
 
   return (
     <div className={styles.cartContentWrapper}>
@@ -26,7 +21,7 @@ export default function CartTotals() {
         <PriceInfo titleText="배송비" price={deliveryFee} />
       </div>
       <div className={styles.cartTotalsWrapper}>
-        <PriceInfo titleText="총 결제 금액" price={totalAmount} />
+        <PriceInfo titleText="총 결제 금액" price={totalOrderAmount} />
       </div>
     </div>
   );

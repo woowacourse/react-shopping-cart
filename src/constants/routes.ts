@@ -1,5 +1,5 @@
 export const PAGE_ROUTES = {
-  CART: '/cart',
+  CART: '/',
   ORDER_CONFIRM: '/confirm',
   CHECK_OUT: '/checkout',
 } as const;

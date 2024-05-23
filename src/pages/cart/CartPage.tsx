@@ -1,12 +1,12 @@
-import { useRecoilValue } from 'recoil';
 import CartPageHeader from './components/CartPageHeader';
-import { allCartItemStates } from '@/store/atoms';
 import OrderButton from './components/OrderButton';
 import { Cart } from './components/Cart';
 import styles from './Cart.module.css';
+import { useCartManager } from '@/store/custom/useCartManager';
 
 export default function CartPage() {
-  const isExistingCartItem = !!useRecoilValue(allCartItemStates).length;
+  const { totalCartItems } = useCartManager();
+  const isExistingCartItem = !!totalCartItems.length;
 
   return (
     <>

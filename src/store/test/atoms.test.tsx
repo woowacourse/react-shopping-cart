@@ -1,13 +1,14 @@
 import { act, renderHook } from '@testing-library/react';
 import { RecoilRoot, useRecoilValue, useSetRecoilState } from 'recoil';
-import { allCartItemStates, isFarShippingLocationState, allCouponStates } from '../atoms';
+import { allCouponStates } from '../couponStates';
+import { isFarShippingLocationState, deliveryFeeSelector } from '../ShippingStates';
 import MOCK_CART_ITEMS from '@/__mocks__/response/cartItems';
 import {
-  deliveryFeeSelector,
   individualCartItemQuantitySelector,
   isCheckedIndividualCartItemSelector,
   orderAmountSelector,
-} from '../selectors';
+  allCartItemStates,
+} from '../cartStates';
 import ORDER_CONDITION from '@/constants/order';
 import MOCK_FORMATTED_COUPONS from '@/__mocks__/response/coupons';
 
