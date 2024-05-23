@@ -1,7 +1,10 @@
 const VALUE = {
   adjustTerm: 1,
-  shippingFee: 3000,
-  freeShippingFee: 0,
+  shippingFee: {
+    default: 3000,
+    free: 0,
+    countryside: 6000,
+  },
 };
 
 export default VALUE;
