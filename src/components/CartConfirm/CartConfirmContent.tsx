@@ -20,6 +20,8 @@ export default function CartConfirmContent() {
   const totalQuantity = useRecoilValue(totalQuantityState);
   const productTypesCount = useRecoilValue(productTypesCountState);
 
+  const onFooterButtonClickHandler = () => navigate('/payment-confirm');
+
   useEffect(() => {
     if (!totalQuantity) navigate('/');
   }, []);
@@ -47,7 +49,9 @@ export default function CartConfirmContent() {
         </section>
       </Main>
 
-      <FooterButton isDisabled={true}>결제하기</FooterButton>
+      <FooterButton onClick={onFooterButtonClickHandler} isDisabled={false}>
+        결제하기
+      </FooterButton>
     </>
   );
 }

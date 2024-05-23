@@ -7,6 +7,9 @@ export default function Main({ children }: PropsWithChildren) {
 
 const main = css`
   flex: 1;
+  display: flex;
+  flex-direction: column;
+
   padding: 36px 24px;
 
   overflow-y: scroll;
