@@ -1,6 +1,46 @@
 import CheckedCartItemStorage from '@/services/CheckedProductStorage';
-import { selector, selectorFamily } from 'recoil';
-import { allCartItemStates } from './atoms';
+import { DefaultValue, selector, selectorFamily } from 'recoil';
+import { allCartItemStates, isFarShippingLocationState, allCouponStates } from './atoms';
+import ORDER_CONDITION from '@/constants/order';
+import { DISCOUNT_CODE } from '@/constants/discount';
+
+export const isFarShippingLocationSelector = selector({
+  key: 'isFarShippingLocationSelector',
+  get: ({ get }) => {
+    return get(isFarShippingLocationState);
+  },
+  set: ({ set, get }, newValue) => {
+    if (!(newValue instanceof DefaultValue)) {
+      const orderAmount = get(orderAmountSelector);
+
+      set(isFarShippingLocationState, {
+        isAvailable: orderAmount < ORDER_CONDITION.FREE_SHIPPING_PRICE,
+        isChecked:
+          newValue.isChecked !== undefined
+            ? newValue.isChecked
+            : get(isFarShippingLocationState).isChecked,
+      });
+    }
+  },
+});
+
+export const deliveryFeeSelector = selector({
+  key: 'deliveryFee',
+  get: ({ get }) => {
+    const totalAmount = get(orderAmountSelector);
+    const isFarShippingLocation = get(isFarShippingLocationState);
+    const allCoupons = get(allCouponStates);
+    const deliveryCoupon = allCoupons.find((coupon) => coupon.code === DISCOUNT_CODE.FREE_SHIPPING);
+
+    return deliveryCoupon?.isChecked
+      ? 0
+      : isFarShippingLocation.isChecked
+        ? ORDER_CONDITION.SHIPPING_FEE * 2
+        : totalAmount >= ORDER_CONDITION.FREE_SHIPPING_PRICE
+          ? 0
+          : ORDER_CONDITION.SHIPPING_FEE;
+  },
+});
 
 export const totalCartItemsSelector = selector({
   key: 'totalCartItems',
@@ -12,8 +52,8 @@ export const totalCartItemsSelector = selector({
 export const isAllCheckedCartItemsSelector = selector({
   key: 'allCheckedCartItems',
   get: ({ get }) => {
-    const isAllChecked = get(allCartItemStates).every((cartItem) => cartItem.product.isChecked);
-    return isAllChecked;
+    const allCartItems = get(allCartItemStates);
+    return allCartItems.every((cartItem) => cartItem.product.isChecked);
   },
   set: ({ get, set }) => {
     const allCartItems = get(allCartItemStates);
@@ -30,7 +70,9 @@ export const isAllCheckedCartItemsSelector = selector({
     set(allCartItemStates, updatedCartItems);
 
     if (!allChecked) {
-      const checkedProductIds = updatedCartItems.map((cartItem) => cartItem.id);
+      const checkedProductIds = updatedCartItems
+        .filter((cartItem) => cartItem.product.isChecked)
+        .map((cartItem) => cartItem.id);
       CheckedCartItemStorage.setCheckedProductIds(checkedProductIds);
     } else {
       CheckedCartItemStorage.clearCheckedProductIds();
@@ -51,14 +93,14 @@ export const isCheckedIndividualCartItemSelector = selectorFamily<boolean, numbe
     (id: number) =>
     ({ get, set }) => {
       const allCartItems = get(allCartItemStates);
-      const updatedCartItem = allCartItems.map((item) =>
+      const updatedCartItems = allCartItems.map((item) =>
         item.id === id
           ? { ...item, product: { ...item.product, isChecked: !item.product.isChecked } }
           : item,
       );
-      set(allCartItemStates, updatedCartItem);
+      set(allCartItemStates, updatedCartItems);
 
-      const checkedProductIds = updatedCartItem
+      const checkedProductIds = updatedCartItems
         .filter((item) => item.product.isChecked)
         .map((item) => item.id);
       CheckedCartItemStorage.setCheckedProductIds(checkedProductIds);
@@ -99,17 +141,6 @@ export const orderAmountSelector = selector({
       }, 0);
 
     return totalAmount;
-  },
-});
-
-export const deliveryFeeSelector = selector({
-  key: 'deliveryFee',
-  get: ({ get }) => {
-    const FREE_SHIPPING_CONDITION = 100_000;
-    const SHIPPING_FEE = 3000;
-    const totalAmount = get(orderAmountSelector);
-
-    return totalAmount >= FREE_SHIPPING_CONDITION ? 0 : SHIPPING_FEE;
   },
 });
 
