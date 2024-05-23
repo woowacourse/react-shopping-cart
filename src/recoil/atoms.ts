@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { KEY } from '../constants/constants';
+import { KEY, ORDER } from '../constants/constants';
 import syncWithLocalStorage from '../utils/syncWithLocalStorage';
 
 export interface SelectedCartItem {
@@ -24,4 +24,17 @@ export interface ItemQuantity {
 export const itemQuantityState = atom<ItemQuantity[]>({
   key: KEY.QUANTITY_STATE,
   default: [],
+});
+
+export interface ShippingFee {
+  isFree: boolean;
+  shipping: number;
+}
+
+export const shippingFeeState = atom<ShippingFee>({
+  key: KEY.SHIPPING_FEE,
+  default: {
+    isFree: false,
+    shipping: ORDER.BASIC_SHIPPING_FEE,
+  },
 });

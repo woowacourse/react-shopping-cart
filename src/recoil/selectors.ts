@@ -1,10 +1,10 @@
 import { selector } from 'recoil';
 import { KEY, ORDER } from '../constants/constants';
-import { selectedCartItems } from './atoms';
+import { selectedCartItems, shippingFeeState } from './atoms';
 
 export interface PriceInfo {
   order: number;
-  shipping: number;
+  finalShipping: number;
   total: number;
 }
 
@@ -17,16 +17,20 @@ export interface IOrderInfo {
 export const priceInfoStore = selector<PriceInfo>({
   key: KEY.PRICE_INFO,
   get: ({ get }) => {
-    const selected = get(selectedCartItems);
-    const price = selected.reduce((acc, cur) => acc + cur.price * cur.quantity, 0);
+    const selectedItems = get(selectedCartItems);
+    const price = selectedItems.reduce((acc, cur) => acc + cur.price * cur.quantity, 0);
 
-    const isShippingFree = price >= ORDER.SHIPPING_FREE_PRICE;
-    const shipping = isShippingFree ? 0 : ORDER.SHIPPING_FEE;
+    const shippingInfo = get(shippingFeeState);
+    const pureShipping = shippingInfo.shipping;
+
+    const isShippingFree = price >= ORDER.SHIPPING_FREE_PRICE || shippingInfo.isFree;
+    const finalShipping = isShippingFree ? 0 : pureShipping;
+    console.log('finalShipping:' + finalShipping);
 
     return {
       order: price,
-      shipping,
-      total: price + shipping,
+      finalShipping,
+      total: price + finalShipping,
     };
   },
 });

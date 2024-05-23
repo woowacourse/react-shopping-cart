@@ -18,7 +18,7 @@ const PaymentTotal = ({ isUseDiscount }) => {
       <PriceInfo title="주문 금액" price={priceInfo.order} />
       {/* 쿠폰 할인 금액의 1000은 퍼블리싱을 위한 값 */}
       {isUseDiscount && <PriceInfo title="쿠폰 할인 금액" price={1000} />}
-      <PriceInfo title="배송비" price={priceInfo.shipping || 0} />
+      <PriceInfo title="배송비" price={priceInfo.finalShipping || 0} />
       <S.Hr />
       <PriceInfo title="총 결제 금액" price={priceInfo.total} />
     </S.Container>
