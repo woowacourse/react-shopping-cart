@@ -1,6 +1,7 @@
 import { selector } from 'recoil';
 
 import { cartItemsState, checkedItemsState } from './atoms';
+import { couponSavedCheckListState, totalDiscountPriceState } from '../coupons/atoms';
 
 import { CartItemProps } from '@/types/cartItem';
 import { PRICE } from '@constants/config';
@@ -71,6 +72,14 @@ export const deliveryPriceState = selector<number>({
   key: 'deliveryPriceState',
   get: ({ get }) => {
     const { totalOrderPrice } = get(orderResultState);
+    const couponCheckList = get(couponSavedCheckListState);
+    const checkedCouponList = couponCheckList.filter((coupon) => coupon.isChecked);
+
+    const isFreeShipping = checkedCouponList.find((coupon) => coupon.code === 'FREESHIPPING');
+
+    if (isFreeShipping) {
+      return PRICE.FREE;
+    }
 
     return totalOrderPrice >= PRICE.FREE_DELIVERY_CONDITION ? PRICE.FREE : PRICE.DELIVERY_PRICE;
   },
@@ -81,7 +90,8 @@ export const totalPurchasePriceState = selector<number>({
   get: ({ get }) => {
     const { totalOrderPrice } = get(orderResultState);
     const deliveryPrice = get(deliveryPriceState);
+    const totalDiscountPrice = get(totalDiscountPriceState);
 
-    return totalOrderPrice + deliveryPrice;
+    return totalOrderPrice + deliveryPrice - totalDiscountPrice;
   },
 });

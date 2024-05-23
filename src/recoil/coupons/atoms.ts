@@ -7,7 +7,7 @@ export const couponSavedCheckListState = atom({
   default: couponCheckListSelector,
 });
 
-export const totalCouponDiscountState = atom({
-  key: 'totalCouponDiscountState',
+export const totalDiscountPriceState = atom({
+  key: 'totalDiscountPriceState',
   default: 0,
 });

@@ -4,14 +4,16 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import useDiscountCalculator from './useDiscountCalculator';
 
 import { orderResultState } from '@/recoil/cartItems/selectors';
-import { couponSavedCheckListState, totalCouponDiscountState } from '@/recoil/coupons/atoms';
+import { couponSavedCheckListState, totalDiscountPriceState } from '@/recoil/coupons/atoms';
 import { fetchCouponSelector } from '@/recoil/coupons/fetchCouponSelector';
 import { Coupon } from '@/types/coupon';
 
 const useCoupon = () => {
   const couponList = useRecoilValue(fetchCouponSelector);
   const couponSavedCheckList = useRecoilValue(couponSavedCheckListState);
-  const [totalDiscountPrice, setTotalDiscountPrice] = useRecoilState(totalCouponDiscountState);
+  const totalDiscountPrice = useRecoilValue(totalDiscountPriceState);
+  const [localDiscountPrice, setLocalDiscountPrice] = useState(Number(totalDiscountPrice));
+
   const { totalOrderPrice } = useRecoilValue(orderResultState);
 
   const { calculateDiscountAmount } = useDiscountCalculator();
@@ -23,8 +25,7 @@ const useCoupon = () => {
     const discountAmount = calculateDiscountAmount(coupon, totalOrderPrice);
     const resultDiscount = e.target.checked ? discountAmount : discountAmount * -1;
 
-    // TODO: 2개 클릭 시 어떤 순서로 할인해야 더 큰 할인 금액인지 비교 로직 추가
-    setTotalDiscountPrice(totalDiscountPrice + resultDiscount);
+    setLocalDiscountPrice(localDiscountPrice + resultDiscount);
 
     setCouponCheckList(
       couponCheckList.map((coupon) => ({
@@ -39,7 +40,7 @@ const useCoupon = () => {
     couponCheckList,
     isValidCouponCount,
     handleChangeChecked,
-    totalDiscountPrice,
+    localDiscountPrice,
   };
 };
 

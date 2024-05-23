@@ -39,7 +39,6 @@ const OrderConfirmMainSection = () => {
           <CartItem key={checkedCartItem.id} item={checkedCartItem} type="ORDER" />
         ))}
       </div>
-      {/* TODO: 쿠폰 할인 적용 값 recoil로 관리 */}
       <button css={couponButton} onClick={handleOpenModal}>
         쿠폰 적용
       </button>
@@ -49,7 +48,7 @@ const OrderConfirmMainSection = () => {
           checked={isAdditionalDelivery}
           onChange={handleClickAdditionalDelivery}
           htmlFor="additional-delivery"
-          label="제주도 및 도서 산간 지역"
+          label="제주도 및 도서 산간 지역 (+3000원)"
         />
       </div>
       <OrderInfo type="ORDER" />

@@ -1,10 +1,15 @@
 import { css } from '@emotion/react';
 import { useRecoilValue } from 'recoil';
 
-import { orderResultState, productTypesCountState } from '@recoil/cartItems/selectors';
+import {
+  orderResultState,
+  productTypesCountState,
+  totalPurchasePriceState,
+} from '@recoil/cartItems/selectors';
 
 const PurchaseConfirmMainSection = () => {
-  const { totalQuantity, totalPurchasePrice } = useRecoilValue(orderResultState);
+  const { totalQuantity } = useRecoilValue(orderResultState);
+  const totalPurchasePrice = useRecoilValue(totalPurchasePriceState);
   const productTypesCount = useRecoilValue(productTypesCountState);
 
   return (

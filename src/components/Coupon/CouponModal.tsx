@@ -6,7 +6,7 @@ import CouponItem from './CouponItem';
 
 import { useCouponApplicabilityChecker } from '@/hooks/useCouponApplicabilityChecker';
 import { orderResultState } from '@/recoil/cartItems/selectors';
-import { couponSavedCheckListState } from '@/recoil/coupons/atoms';
+import { couponSavedCheckListState, totalDiscountPriceState } from '@/recoil/coupons/atoms';
 import GuideText from '@common/GuideText';
 
 import useCoupon from '@hooks/useCoupon';
@@ -22,15 +22,17 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
     couponCheckList,
     handleChangeChecked,
     isValidCouponCount,
-    totalDiscountPrice,
+    localDiscountPrice,
   } = useCoupon();
   const { isCouponApplicable } = useCouponApplicabilityChecker();
 
   const { totalOrderPrice } = useRecoilValue(orderResultState);
   const setCouponSavedCheckList = useSetRecoilState(couponSavedCheckListState);
+  const setTotalDiscountPrice = useSetRecoilState(totalDiscountPriceState);
 
   const handleClickApplyCoupon = () => {
     setCouponSavedCheckList(couponCheckList);
+    setTotalDiscountPrice(localDiscountPrice);
     onClose();
   };
 
@@ -62,7 +64,7 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
       </Modal.Content>
       <Modal.ConfirmButton
         css={confirmButton}
-        label={`총 ${totalDiscountPrice.toLocaleString('ko-KR')}원 할인 쿠폰 사용하기`}
+        label={`총 ${localDiscountPrice.toLocaleString('ko-KR')}원 할인 쿠폰 사용하기`}
         onConfirm={handleClickApplyCoupon}
       />
     </Modal>

@@ -7,7 +7,7 @@ export const couponCheckListSelector = selector({
   get: ({ get }) => {
     const couponList = get(fetchCouponSelector);
     return couponList.map((coupon) => ({
-      id: coupon.id,
+      ...coupon,
       isChecked: false,
     }));
   },
