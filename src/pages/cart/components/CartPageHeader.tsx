@@ -1,9 +1,14 @@
 import Header from '@/components/header/Header';
-import useCartNavigate from '@/hooks/useCartNavigate';
 import Button from '../../../components/common/Button';
+import { useNavigate } from 'react-router-dom';
+import { PAGE_ROUTES } from '@/constants/routes';
 
 export default function CartPageHeader() {
-  const { handleHomeButtonClick } = useCartNavigate();
+  const navigate = useNavigate();
+
+  const handleHomeButtonClick = () => {
+    navigate(PAGE_ROUTES.CART);
+  };
 
   return (
     <Header>

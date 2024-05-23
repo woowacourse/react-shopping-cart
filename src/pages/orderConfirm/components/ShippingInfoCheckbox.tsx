@@ -1,7 +1,7 @@
 import CheckBox from '@/components/common/CheckBox';
 import styles from './shippingInfoCheckbox.module.css';
-import { isFarShippingLocationSelector } from '@/store/selectors';
 import { useRecoilState } from 'recoil';
+import { isFarShippingLocationSelector } from '@/store/selectors';
 
 export default function ShippingInfoCheckbox() {
   const [isFarShippingLocation, setIsFarShippingLocation] = useRecoilState(
@@ -9,8 +9,15 @@ export default function ShippingInfoCheckbox() {
   );
 
   const handleFarShippingLocation = () => {
-    setIsFarShippingLocation((prev) => !prev);
+    setIsFarShippingLocation((prev) => ({
+      ...prev,
+      isChecked: !prev.isChecked,
+    }));
   };
+
+  if (!isFarShippingLocation.isAvailable) {
+    return null;
+  }
 
   return (
     <div className={styles.container}>
@@ -19,7 +26,7 @@ export default function ShippingInfoCheckbox() {
         <CheckBox
           id="isFarShippingLocation"
           onChange={handleFarShippingLocation}
-          checked={isFarShippingLocation}
+          checked={isFarShippingLocation.isChecked}
         />
         <span className={styles.text}>제주도 및 도서 산간 지역</span>
       </div>

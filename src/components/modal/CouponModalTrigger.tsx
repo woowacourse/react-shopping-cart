@@ -2,8 +2,13 @@ import { useState } from 'react';
 import CouponModal from './CouponModal';
 import styles from './couponModal.module.css';
 import Button from '@/components/common/Button';
+import { FormattedCoupon } from '@/types';
 
-export default function CouponModalTrigger() {
+type Props = {
+  allCoupons: FormattedCoupon[];
+};
+
+export default function CouponModalTrigger({ allCoupons }: Props) {
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleModalClose = () => {
@@ -24,7 +29,11 @@ export default function CouponModalTrigger() {
       >
         쿠폰 적용
       </Button>
-      <CouponModal modalOpen={modalOpen} handleModalClose={handleModalClose} />
+      <CouponModal
+        allCoupons={allCoupons}
+        modalOpen={modalOpen}
+        handleModalClose={handleModalClose}
+      />
     </>
   );
 }
