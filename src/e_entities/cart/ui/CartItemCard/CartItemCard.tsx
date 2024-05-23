@@ -5,11 +5,11 @@ import { HorizontalLine, Text } from '@/f_shared';
 
 import { Product } from '../../model/types';
 
-import css from './ProductCard.module.css';
+import css from './CartItemCard.module.css';
 
 const cn = classNames.bind(css);
 
-interface ProductCardProps {
+interface CartItemCardProps {
   product: Product;
 
   leftActionSlot?: ReactNode;
@@ -17,7 +17,7 @@ interface ProductCardProps {
   counterSlot?: ReactNode;
 }
 
-export const ProductCard = ({ product, leftActionSlot, rightActionSlot, counterSlot }: ProductCardProps) => {
+export const CartItemCard = ({ product: product, leftActionSlot, rightActionSlot, counterSlot }: CartItemCardProps) => {
   const { name, price, imageUrl } = product;
 
   return (

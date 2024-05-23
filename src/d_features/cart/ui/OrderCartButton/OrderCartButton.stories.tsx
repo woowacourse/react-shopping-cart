@@ -1,15 +1,15 @@
-import { OrderConfirmButton } from './OrderConfirmButton';
+import { OrderCartButton } from './OrderCartButton';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
-const meta: Meta<typeof OrderConfirmButton> = {
-  title: 'features/cart/OrderConfirmButton',
-  component: OrderConfirmButton,
+const meta: Meta<typeof OrderCartButton> = {
+  title: 'features/cart/OrderCartButton',
+  component: OrderCartButton,
 };
 
 export default meta;
 
-type Story = StoryObj<typeof OrderConfirmButton>;
+type Story = StoryObj<typeof OrderCartButton>;
 
 // TODO: Connect to disable state
 export const Enabled: Story = {

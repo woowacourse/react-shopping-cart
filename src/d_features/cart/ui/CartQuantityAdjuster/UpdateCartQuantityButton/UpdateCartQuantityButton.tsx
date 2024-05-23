@@ -1,7 +1,7 @@
-import { OrderId } from '@/e_entities/product';
+import { CartId } from '@/e_entities/cart';
 import { Button, Text } from '@/f_shared';
 
-import css from './UpdateProductQuantityButton.module.css';
+import css from './UpdateCartQuantityButton.module.css';
 
 type Type = 'increase' | 'decrease';
 
@@ -10,15 +10,15 @@ const label: Record<Type, string> = {
   decrease: '-',
 };
 
-interface UpdateProductQuantityButtonProps {
-  orderId: OrderId;
+interface UpdateCartQuantityButtonProps {
+  cartId: CartId;
   type: Type;
 }
 
-export const UpdateProductQuantityButton = ({ orderId, type }: UpdateProductQuantityButtonProps) => {
+export const UpdateCartQuantityButton = ({ cartId, type }: UpdateCartQuantityButtonProps) => {
   // TODO: Add handler with state
   const handleQuantityUpdate = () => {
-    orderId;
+    cartId;
   };
 
   return (

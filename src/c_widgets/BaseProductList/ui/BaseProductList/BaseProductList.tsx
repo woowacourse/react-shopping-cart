@@ -1,22 +1,22 @@
 import classNames from 'classnames/bind';
 import { ReactNode } from 'react';
 
-import { Product, ProductCard, OrderId } from '@/e_entities/product';
+import { Cart, CartItemCard, CartId } from '@/e_entities/cart';
 
 import css from './BaseProductList.module.css';
 
 const cn = classNames.bind(css);
 
 type BaseProductListProps = {
-  products: Product[];
-  cardLeftActionSlot?: (orderId: OrderId) => ReactNode;
-  cardRightActionSlot?: (orderId: OrderId) => ReactNode;
-  cardCounterSlot?: (orderId: OrderId, quantity: number) => ReactNode;
+  carts: Cart[];
+  cardLeftActionSlot?: (cartId: CartId) => ReactNode;
+  cardRightActionSlot?: (cartId: CartId) => ReactNode;
+  cardCounterSlot?: (cartId: CartId, quantity: number) => ReactNode;
   isFetching?: boolean;
 };
 
 export function BaseProductList({
-  products,
+  carts,
   cardLeftActionSlot,
   cardRightActionSlot,
   cardCounterSlot,
@@ -24,13 +24,13 @@ export function BaseProductList({
 }: BaseProductListProps) {
   return (
     <div className={cn('root', { rootIsFetching: isFetching })}>
-      {products.map((product) => (
-        <ProductCard
-          key={product.id}
-          product={product}
-          leftActionSlot={cardLeftActionSlot ? cardLeftActionSlot(product.id) : null}
-          rightActionSlot={cardRightActionSlot ? cardRightActionSlot(product.id) : null}
-          counterSlot={cardCounterSlot ? cardCounterSlot(product.id, quantity) : null}
+      {carts.map((cart) => (
+        <CartItemCard
+          key={cart.product.id}
+          product={cart.product}
+          leftActionSlot={cardLeftActionSlot ? cardLeftActionSlot(cart.id) : null}
+          rightActionSlot={cardRightActionSlot ? cardRightActionSlot(cart.id) : null}
+          counterSlot={cardCounterSlot ? cardCounterSlot(cart.id, cart.quantity) : null}
         />
       ))}
     </div>

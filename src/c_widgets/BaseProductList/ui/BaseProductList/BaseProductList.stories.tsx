@@ -1,4 +1,4 @@
-import { mockProducts } from '../../../../../mocks';
+import { mockCarts } from '../../../../../mocks';
 
 import { BaseProductList } from './BaseProductList';
 
@@ -15,7 +15,7 @@ const meta: Meta<typeof BaseProductList> = {
     ),
   ],
   args: {
-    products: mockProducts.slice(0, 5),
+    carts: mockCarts.slice(0, 5),
   },
 };
 

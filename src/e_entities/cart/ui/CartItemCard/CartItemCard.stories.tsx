@@ -1,10 +1,12 @@
-import { ProductCard } from './ProductCard';
+import { mockProducts } from '../../../../../mocks/index';
+
+import { CartItemCard } from './CartItemCard';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
-const meta: Meta<typeof ProductCard> = {
-  title: 'entities/product/ProductCard',
-  component: ProductCard,
+const meta: Meta<typeof CartItemCard> = {
+  title: 'entities/product/CartItemCard',
+  component: CartItemCard,
   decorators: [
     (Story) => {
       return (
@@ -15,19 +17,13 @@ const meta: Meta<typeof ProductCard> = {
     },
   ],
   args: {
-    product: {
-      id: 1,
-      name: '상품명',
-      price: 1000,
-      imageUrl: 'https://picsum.photos/200',
-      category: '카테고리',
-    },
+    product: mockProducts[0],
   },
 };
 
 export default meta;
 
-type Story = StoryObj<typeof ProductCard>;
+type Story = StoryObj<typeof CartItemCard>;
 
 const style = { padding: '3px', border: '1px dashed black' };
 
