@@ -13,7 +13,7 @@ import {
 
 import MESSAGE from '../../constants/Message';
 
-const TotalPaymentInfo = () => {
+const ShoppingCartTotalPaymentInfo = () => {
   const totalOrderAmount = useRecoilValue(totalOrderAmountSelector);
   const shippingFee = useRecoilValue(shippingFeeSelector);
   const totalPaymentAmount = useRecoilValue(totalPaymentAmountSelector);
@@ -36,4 +36,4 @@ const TotalPaymentInfo = () => {
   );
 };
 
-export default TotalPaymentInfo;
+export default ShoppingCartTotalPaymentInfo;
