@@ -1,12 +1,24 @@
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { cartAmountState } from "../../recoil/cartAmount";
 import { ReactComponent as InfoIcon } from "../../assets/info-icon.svg";
-import { FREE_SHIPPING_THRESHOLD } from "../../constants/pricing";
-import { formatToKRW } from "../../utils/domain/formatToKRW";
+import { FREE_SHIPPING_THRESHOLD } from "../../../constants/pricing";
+import { formatToKRW } from "../../../utils/domain/formatToKRW";
 
-export default function CartAmount() {
-  const { orderAmount, shippingCost, totalOrderAmount } = useRecoilValue(cartAmountState);
+interface CartAmountProps {
+  orderAmount: number;
+  shippingCost: number;
+  totalOrderAmount: number;
+  discountAmount?: number;
+}
+
+export default function CartAmount({
+  orderAmount,
+  shippingCost,
+  totalOrderAmount,
+  discountAmount,
+}: CartAmountProps) {
+  const totalAmount = totalOrderAmount - (discountAmount || 0);
+
+  const hasCouponDiscount = !!discountAmount && discountAmount > 0;
 
   return (
     <S.CartAmountContainer>
@@ -21,14 +33,19 @@ export default function CartAmount() {
         <S.CartAmountInfo>
           <S.AmountText>주문 금액</S.AmountText> <S.Amount>{formatToKRW(orderAmount)}</S.Amount>
         </S.CartAmountInfo>
+        {hasCouponDiscount && (
+          <S.CartAmountInfo>
+            <S.AmountText>쿠폰 할인 금액</S.AmountText>{" "}
+            <S.Amount>-{formatToKRW(discountAmount)}</S.Amount>
+          </S.CartAmountInfo>
+        )}
         <S.CartAmountInfo>
           <S.AmountText>배송비</S.AmountText> <S.Amount>{formatToKRW(shippingCost)}</S.Amount>
         </S.CartAmountInfo>
       </S.UpperCartAmountInfoWrapper>
       <S.LowerCartAmountInfoWrapper>
         <S.CartAmountInfo>
-          <S.AmountText>총 주문 금액</S.AmountText>{" "}
-          <S.Amount>{formatToKRW(totalOrderAmount)}</S.Amount>
+          <S.AmountText>총 주문 금액</S.AmountText> <S.Amount>{formatToKRW(totalAmount)}</S.Amount>
         </S.CartAmountInfo>
       </S.LowerCartAmountInfoWrapper>
     </S.CartAmountContainer>
