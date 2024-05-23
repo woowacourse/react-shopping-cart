@@ -1,5 +1,5 @@
 import { selector } from "recoil";
-import { couponEachCheckState, couponsState, itemEachCheckState, itemQuantityState } from "@/store/atom/atoms";
+import { couponEachCheckState, couponsState, itemEachCheckState } from "@/store/atom/atoms";
 import { SHIPPING_CONSTANT } from "@/constants";
 import { cartState } from "@/store/atom/atoms";
 import { fetchCartItemsCounts } from "../../api";
@@ -8,14 +8,12 @@ export const orderAmountState = selector({
   key: "orderAmount",
   get: ({ get }) => {
     const cartItems = get(cartState);
-
     if (!cartItems) return 0;
     return cartItems.reduce((acc: number, cur: CartItemInfo) => {
       const isChecked = get(itemEachCheckState(cur.id));
       if (isChecked) {
         const price = cur.product.price;
-        const quantity = get(itemQuantityState);
-        return acc + price * quantity[cur.id];
+        return acc + price * cur.quantity;
       }
       return acc;
     }, 0);

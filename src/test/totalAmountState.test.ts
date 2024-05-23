@@ -29,7 +29,7 @@ describe("totalAmountState", () => {
     expect(testSnapshot.getLoadable(cartState).valueOrThrow()).toBe(chargeShippingDummy.content);
 
     //Assert
-    const AMOUNT_EXPECTED = 40_000;
+    const AMOUNT_EXPECTED = 50_000;
     const SHIPPING_FEE = 3_000;
     expect(testSnapshot.getLoadable(totalAmountState).valueOrThrow()).toBe(AMOUNT_EXPECTED + SHIPPING_FEE);
   });

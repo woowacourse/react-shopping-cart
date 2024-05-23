@@ -61,7 +61,7 @@ export const chargeShippingDummy: { content: CartItemInfo[] } = {
         imageUrl: "",
         category: "fashion",
       },
-      quantity: 1,
+      quantity: 3,
     },
     {
       id: 2,
