@@ -1,5 +1,5 @@
 import * as Styled from './style';
-import { Content } from '../style';
+import { Content as StyledContent } from '../style';
 
 import { useRecoilValue } from 'recoil';
 
@@ -19,7 +19,7 @@ const PaymentConfirmationContent = () => {
   const totalPaymentAmount = useRecoilValue(totalPaymentAmountSelector);
 
   return (
-    <Content>
+    <StyledContent>
       <Styled.Details>
         <Title>{MESSAGE.paymentConfirmation}</Title>
         <Caption>
@@ -37,7 +37,7 @@ const PaymentConfirmationContent = () => {
           </Styled.TotalPaymentAmount>
         </Styled.TotalPaymentAmountContainer>
       </Styled.Details>
-    </Content>
+    </StyledContent>
   );
 };
 

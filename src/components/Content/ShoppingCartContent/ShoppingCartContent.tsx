@@ -1,18 +1,17 @@
 import * as Styled from './style';
-import { Content } from '../style';
-
-import ShoppingCartItems from '../../CartItems/ShoppingCartItems/ShoppingCartItems';
-import Title from '../../Title/Title';
-import TotalPaymentInfo from '../../TotalPaymentInfo/TotalPaymentInfo';
+import { Content as StyledContent } from '../style';
 
 import { useRecoilValue } from 'recoil';
 
 import { cartItemsCountSelector } from '../../../recoil/selectors';
 
-import MESSAGE from '../../../constants/Message';
-
+import ShoppingCartItems from '../../CartItems/ShoppingCartItems/ShoppingCartItems';
+import Title from '../../Title/Title';
+import ShoppingCartTotalPaymentInfo from '../../TotalPaymentInfo/ShoppingCartTotalPaymentInfo';
 import Caption from '../../Caption/Caption';
 import TitleContainer from '../../TitleContainer/TitleContainer';
+
+import MESSAGE from '../../../constants/Message';
 
 const ShoppingCartContent = () => {
   const cartItemsCount = useRecoilValue(cartItemsCountSelector);
@@ -20,7 +19,7 @@ const ShoppingCartContent = () => {
   const hasSomeCartItem = !!cartItemsCount;
 
   return (
-    <Content>
+    <StyledContent>
       {hasSomeCartItem && (
         <>
           <TitleContainer>
@@ -28,7 +27,7 @@ const ShoppingCartContent = () => {
             <Caption>{MESSAGE.titleCaption(cartItemsCount)}</Caption>
           </TitleContainer>
           <ShoppingCartItems />
-          <TotalPaymentInfo />
+          <ShoppingCartTotalPaymentInfo />
         </>
       )}
 
@@ -40,7 +39,7 @@ const ShoppingCartContent = () => {
           <Styled.EmptyCartMessage>{MESSAGE.emptyCart}</Styled.EmptyCartMessage>
         </>
       )}
-    </Content>
+    </StyledContent>
   );
 };
 
