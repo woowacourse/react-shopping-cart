@@ -1,9 +1,8 @@
 import { Modal } from "ryan-modal";
 import styled from "styled-components";
 
-import CouponView from "./CouponView";
+import CouponList from "./CouponList";
 
-import { MAX_SELECTABLE_COUPON_COUNT } from "../../../hooks/useCoupons/ruleConstants";
 import { Coupon } from "../../../types/coupon";
 import { formatToKRW } from "../../../utils/domain/formatToKRW";
 import { ReactComponent as InfoIcon } from "../../../assets/info-icon.svg";
@@ -26,8 +25,6 @@ export default function CouponModal({
   const onClose = () => setIsOpen(false);
 
   const isButtonDisabled = discountAmount === 0;
-  const isMaxCouponsSelected =
-    coupons.filter(({ isSelected }) => isSelected).length >= MAX_SELECTABLE_COUPON_COUNT;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -39,18 +36,9 @@ export default function CouponModal({
           <div>
             <S.Info>
               <S.InfoIcon />
-              <span>쿠폰은 최대 2개까지 사용할 수 있습니다.</span>
+              쿠폰은 최대 2개까지 사용할 수 있습니다.
             </S.Info>
-            <S.CouponList>
-              {coupons.map((coupon) => (
-                <CouponView
-                  key={coupon.id}
-                  coupon={coupon}
-                  toggleSelection={() => toggleCouponSelection(coupon.id)}
-                  hasReachedMaxCount={isMaxCouponsSelected}
-                />
-              ))}
-            </S.CouponList>
+            <CouponList coupons={coupons} toggleCouponSelection={toggleCouponSelection} />
           </div>
           <Modal.Button disabled={isButtonDisabled} fullWidth onClick={onClose}>
             총 {formatToKRW(discountAmount)} 할인 쿠폰 사용하기
