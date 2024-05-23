@@ -4,7 +4,7 @@ import { Link, Navigate, useLoaderData } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Button from '../../components/common/Button/Button';
 import CartItem from '../../components/ShoppingCartPage/CartItem/CartItem';
-import TitleContainer from '../../components/common/TitleContainer/TitleContainer';
+import TitleContainer, { SubTitle } from '../../components/common/TitleContainer/TitleContainer';
 import SubmitButton from '../../components/common/SubmitButton/SubmitButton';
 import CheckBox from '../../components/common/CheckBox/CheckBox';
 import TotalPriceContainer from '../../components/common/TotalPriceContainer/TotalPriceContainer';
@@ -36,10 +36,13 @@ function OrderConfirmPage() {
     <div>
       <Header />
       <S.Main>
-        <TitleContainer
-          title="주문 확인"
-          subTitle={`총 ${selectedItemList.length}종류의 상품 ${totalOrderCount}개를 주문합니다.`}
-        />
+        <TitleContainer title="주문 확인">
+          <SubTitle>
+            총 {selectedItemList.length}종류의 상품 {totalOrderCount}개를 주문합니다.
+            <br />
+            최종 결제 금액을 확인해 주세요.
+          </SubTitle>
+        </TitleContainer>
         <S.SelectedCartItemContainer>
           {selectedItemList.map((item) => (
             <CartItem key={item.id} item={item} isConfirm={true} />
