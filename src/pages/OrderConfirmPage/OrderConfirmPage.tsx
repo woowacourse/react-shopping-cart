@@ -1,9 +1,7 @@
 import { PageExplanation } from '@components/common';
-import { OrderAmountsList, SelectedItemList, ShippingInfo } from '@components/orderConfirm';
-import CouponModalContainer from '@components/orderConfirm/CouponModalContainer/CouponModalContainer';
-import { PurchaseProcessLayout } from '@components/shoppingCart';
-import { useAvailableCoupons } from '@hooks/coupon';
-import { useSelectedCartItems } from '@hooks/shoppingCart';
+import { PurchaseProcessLayout } from '@components/layout';
+import { CouponModalContainer, OrderAmountsList, SelectedItemList, ShippingInfo } from '@components/orderConfirm';
+import { useAvailableCoupons, useSelectedCartItems } from '@hooks/index';
 import { availableCouponsAtom } from '@recoil/shoppingCart';
 import { ROUTE_PATHS } from '@routes/route.constant';
 import { useEffect } from 'react';
@@ -38,7 +36,6 @@ const OrderConfirmPage: React.FC = () => {
         <PageExplanation.Row>최종 결제 금액을 확인해주세요.</PageExplanation.Row>
       </PageExplanation>
       <SelectedItemList selectedItems={selectedItems} />
-      {/*쿠폰 모달 -> 쿠폰 모달 적용 시, maxDiscount atom 상태 변경*/}
       <CouponModalContainer />
       <ShippingInfo />
       <OrderAmountsList />

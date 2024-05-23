@@ -11,6 +11,7 @@ interface CouponCardProps {
   handleChangeChecked: (e: ChangeEvent<HTMLInputElement>, code: string) => void;
   isDisabled: boolean;
 }
+
 const CouponCard = ({ coupon, isChecked, handleChangeChecked, isDisabled }: CouponCardProps) => {
   return (
     <Styled.CouponCard $isDisabled={isDisabled}>

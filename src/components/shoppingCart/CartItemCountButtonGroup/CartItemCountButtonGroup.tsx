@@ -1,7 +1,6 @@
 import { CartItem } from '@appTypes/shoppingCart';
 import { CountButton } from '@components/common';
-import { useUpdateCartItemCount } from '@hooks/shoppingCart';
-import useFetchErrorBoundary from '@hooks/useFetchErrorBoundary';
+import { useFetchErrorBoundary, useUpdateCartItemCount } from '@hooks/index';
 
 import CountAlertModal from '../CountAlertModal/CountAlertModal';
 
@@ -16,7 +15,7 @@ const CartItemCountButtonGroup = ({ cartItem }: { cartItem: CartItem }) => {
   return (
     <Styled.CartItemButtonGroup>
       <CountButton onClick={() => onUpdateCartItemCount('minus')} sign="minus" />
-      <span>{quantity}</span>
+      {quantity}
       <CountButton onClick={() => onUpdateCartItemCount('plus')} sign="plus" />
       <CountAlertModal errorMessage={errorMessage} />
     </Styled.CartItemButtonGroup>

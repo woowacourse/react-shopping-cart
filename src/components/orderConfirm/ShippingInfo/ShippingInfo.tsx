@@ -8,6 +8,7 @@ import * as Styled from './ShippingInfo.styled';
 
 const ShippingInfo = () => {
   const [surchargeShippingFee, setSurchargeShippingFee] = useRecoilState(surchargeShippingFeeAtom);
+
   const [isChecked, setIsChecked] = useState(!!surchargeShippingFee);
 
   const handleChangeCheck = () => {

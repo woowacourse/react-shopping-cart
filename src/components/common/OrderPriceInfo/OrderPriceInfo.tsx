@@ -8,12 +8,15 @@ interface PriceInfoRowProps {
   title: string;
   isDiscount?: boolean;
 }
+
+const DISCOUNT_SIGN = '-';
+
 const Row = ({ price, title, isDiscount = false }: PriceInfoRowProps) => {
   return (
     <Styled.PriceRow>
       <Styled.PriceLabel>{title}</Styled.PriceLabel>
       <Styled.PriceAmount>
-        {price && isDiscount ? '-' : ''}
+        {price && isDiscount ? DISCOUNT_SIGN : ''}
         {formatKoreanCurrency(price)}
       </Styled.PriceAmount>
     </Styled.PriceRow>

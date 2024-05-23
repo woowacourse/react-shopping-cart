@@ -13,6 +13,7 @@ const CartListItem: React.FC<CartListItemProps> = ({ cartItem }) => {
   const { onDeleteItem, fetchError } = useDeleteCartItem(cartItem.id);
   const { isChecked, onCheckCartItem } = useCheckCartItem();
   useFetchErrorBoundary(fetchError);
+
   return (
     <Styled.CartListContainer>
       <Styled.CartItemSelectionGroup>

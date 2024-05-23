@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import CouponModal from '../CouponModal/CouponModal';
-import { CouponModalButton } from '../CouponModalButton/CouponModalButton.styled';
+import CouponModalButton from '../CouponModalButton/CouponModalButton';
 
 const CouponModalContainer = () => {
   const [openModal, setOpenModal] = useState(false);

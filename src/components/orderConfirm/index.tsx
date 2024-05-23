@@ -1,3 +1,4 @@
+export { default as CouponModalContainer } from './CouponModalContainer/CouponModalContainer';
 export { default as CouponModal } from './CouponModal/CouponModal';
 export { default as CouponModalButton } from './CouponModalButton/CouponModalButton';
 export { default as OrderAmountsList } from './OrderAmountsList/OrderAmountsList';

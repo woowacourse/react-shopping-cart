@@ -1,3 +1,4 @@
+import { CartItem } from '@appTypes/shoppingCart';
 import { selectedItemsSelector } from '@recoil/shoppingCart';
 import { useRecoilValue } from 'recoil';
 
@@ -8,6 +9,18 @@ const useBuyXgetYTargetItem = () => {
   const { getCoupon } = useCouponFinder();
   const bogoCoupon = getCoupon('BOGO');
 
+  /**
+   * 특정 수량 이상인 상품들 중 상품 가격이 가장 비싼 상품을 반환하는 함수
+   * @param items
+   * @param quantity
+   * @returns
+   */
+  const getHighestPricedItem = (items: CartItem[], quantity: number) =>
+    items.filter((item) => item.quantity >= quantity).sort((a, b) => b.product.price - a.product.price)[0];
+
+  /**
+   * buyXgetY 쿠폰 적용 대상인 상품을 반환하는 함수
+   */
   const getBuyXgetYTargetItem = () => {
     const { buyQuantity, getQuantity } = bogoCoupon;
 
@@ -16,9 +29,7 @@ const useBuyXgetYTargetItem = () => {
       return null;
     }
 
-    return selectedItems
-      .filter((item) => item.quantity >= buyQuantity + getQuantity)
-      .sort((prev, cur) => cur.product.price - prev.product.price)[0];
+    return getHighestPricedItem(selectedItems, buyQuantity + getQuantity);
   };
 
   return { getBuyXgetYTargetItem };

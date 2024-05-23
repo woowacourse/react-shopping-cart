@@ -1,5 +1,5 @@
 import { BottomButton } from '@components/common';
-import { useSelectedCartItems } from '@hooks/shoppingCart';
+import { useSelectedCartItems } from '@hooks/index';
 import { totalPriceSelector } from '@recoil/shoppingCart';
 import { ROUTE_PATHS } from '@routes/route.constant';
 import { formatKoreanCurrency } from '@utils/currency';
@@ -16,6 +16,7 @@ const PurchaseConfirmPage = () => {
   const handleClickBottomButton = () => {
     navigate(ROUTE_PATHS.root);
   };
+
   return (
     <Styled.PurchaseConfirmPageContainer>
       <Styled.Title>주문 확인</Styled.Title>

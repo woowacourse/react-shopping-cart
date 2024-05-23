@@ -1,4 +1,4 @@
-import { PurchaseProcessLayout } from '@components/shoppingCart';
+import { PurchaseProcessLayout } from '@components/layout';
 import { useResetCouponRecoil } from '@hooks/coupon';
 import { cartItemsAtom, selectedIdsAtom } from '@recoil/shoppingCart';
 import { ROUTE_PATHS } from '@routes/route.constant';
