@@ -4,7 +4,7 @@ import { cartItems } from "./cartItems";
 
 import { cartItemQuantity } from "./cartItemQuantity";
 import { selectedCartItemsIdState } from "./selectedCardItems";
-// import { SHIPPING_INFO } from "@/constants/cart";
+import { ShippingFeeType } from "@/constants/cart";
 
 export const totalOrderPriceSelector = selector({
   key: "totalOrderPriceSelector",
@@ -22,22 +22,9 @@ export const totalOrderPriceSelector = selector({
   },
 });
 
-// export const shippingFeeSelector = selector({
-//   key: "shippingFeeSelector",
-//   get: ({ get }) => {
-//     const totalOrderPrice = get(totalOrderPriceSelector);
-//     const hasSelectedItems = get(selectedCartItemsIdState).length;
-
-//     return hasSelectedItems &&
-//       totalOrderPrice < SHIPPING_INFO.FREE_SHIPPING_THRESHOLD
-//       ? SHIPPING_INFO.SHIPPING_FEE
-//       : 0;
-//   },
-// });
-
-export const shippingFeeState = atom({
-  key: "shippingFee",
-  default: 0,
+export const shippingFeeTypeState = atom<ShippingFeeType>({
+  key: "shippingTypeFee",
+  default: "BASIC",
 });
 
 export const totalItemOrderCountSelector = selector({

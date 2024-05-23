@@ -30,12 +30,12 @@ const OrderConfirmPage = () => {
   const totalItemsCount = useRecoilValue(totalItemOrderCountSelector);
   const selectedItemsId = useRecoilValue(selectedCartItemsIdState);
 
-  const { shippingFee, shippingFeeType, setShippingFeeType } =
-    useCalculateShippingFee();
+  const { shippingFeeType, setShippingFeeType } = useCalculateShippingFee();
 
   const navigate = useNavigate();
 
   const onClickDoubleShippingFee = () => {
+    console.log("aaa");
     shippingFeeType === "DOUBLE"
       ? setShippingFeeType("BASIC")
       : setShippingFeeType("DOUBLE");
@@ -86,12 +86,12 @@ const OrderConfirmPage = () => {
             <CheckBox
               isChecked={shippingFeeType === "DOUBLE"}
               onClick={onClickDoubleShippingFee}
-              disabled={shippingFee === 0}
+              disabled={shippingFeeType === "FREE"}
             />
             <TextBox
               type="xSmall"
               text="제주도 및 도서 산간 지역"
-              disabled={shippingFee === 0}
+              disabled={shippingFeeType === "FREE"}
             />
           </S.FlexBox>
         </S.ShippingInfoBox>
