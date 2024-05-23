@@ -16,5 +16,4 @@ export interface Coupon {
 
 export interface CouponDetailState {
   isChecked: boolean;
-  disabled: boolean;
 }

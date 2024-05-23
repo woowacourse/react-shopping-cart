@@ -1,14 +1,21 @@
-import { DefaultValue, selector } from 'recoil';
-import { couponsState, itemDetailsState, itemsState } from './atoms';
+import {
+  DefaultValue,
+  selector,
+  useRecoilCallback,
+  useRecoilValue,
+} from 'recoil';
+import {
+  couponDetailState,
+  couponsState,
+  itemDetailsState,
+  itemsState,
+} from './atoms';
 import { CartItems } from '../types/Item';
 import { updateLocalStorage } from '../utils/UpdateLocalStorage';
 import {
   DELIVERY_FEE,
   FREE_DELIVERY_THRESHOLD,
 } from '../constants/ShoppingCart';
-import { Coupon } from '../types/coupon';
-import { formatAvailableTime, formatDate } from '../utils/Time';
-
 /**
  * 전체 금액, 배송비 계산, 총 결제 금액 계산
  */
@@ -104,25 +111,35 @@ export const checkedItemsSelector = selector({
   },
 });
 
-export const formattingCouponsSelector = selector({
-  key: 'formattingCouponsSelector',
+export const allCheckedCoupons = selector({
+  key: 'resetAllCoupons',
   get: ({ get }) => {
     const coupons = get(couponsState);
-    const formattingCoupons = coupons.map((coupon: Coupon) => {
-      const formattedCoupon = {
-        ...coupon,
-        expirationDate: formatDate(coupon.expirationDate),
-      };
+    return coupons
+      .map((coupon) => {
+        return { ...coupon, isChecked: get(couponDetailState(coupon.id)) };
+      })
+      .filter((value) => value.isChecked);
+  },
+});
 
-      if (coupon.availableTime) {
-        formattedCoupon.availableTime = formatAvailableTime(
-          coupon.availableTime.start,
-          coupon.availableTime.end,
-        );
-      }
-      return formattedCoupon;
-    });
+export const useResetAllCoupons = () => {
+  return useRecoilCallback(
+    ({ snapshot, set }) =>
+      async () => {
+        const coupons = await snapshot.getPromise(couponsState);
+        coupons.forEach((coupon) => {
+          set(couponDetailState(coupon.id), false);
+        });
+      },
+    [],
+  );
+};
 
-    return formattingCoupons;
+export const totalDiscount = selector({
+  key: 'totalDiscountSelector',
+  get: ({ get }) => {
+    const checkedCoupons = get(allCheckedCoupons);
+    const totalAmount = get(totalPriceSelector);
   },
 });

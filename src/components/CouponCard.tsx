@@ -4,8 +4,10 @@ import CheckBox from './CheckBox/CheckBox';
 import Title from './Title/Title';
 import { useRecoilState } from 'recoil';
 import { couponDetailState } from '../recoil/atoms';
+import { formatAvailableTime, formatDate } from '../utils/Time';
+import useCouponApplicable from '../hooks/useCouponApplicable';
 
-const CardContainer = styled.li`
+const CardContainer = styled.li<{ $disabled: boolean }>`
   display: flex;
   flex-direction: column;
   padding: 1rem 0 0 0;
@@ -13,12 +15,14 @@ const CardContainer = styled.li`
   border-color: rgba(0, 0, 0, 0.1);
   border-width: 0.5px 0 0 0;
   border-style: solid;
+  color: ${(props) => (props.$disabled ? 'rgba(0, 0, 0, 0.1)' : '')};
 `;
 
 const CardHeader = styled.div`
   display: flex;
   gap: 5px;
 `;
+
 const CardDetail = styled.div`
   display: flex;
   flex-direction: column;
@@ -31,31 +35,34 @@ function CouponCard({ coupon }: CouponCardProps) {
   const [couponDetail, setCouponDetail] = useRecoilState(
     couponDetailState(coupon.id),
   );
+  const { isCouponApplicable } = useCouponApplicable();
+  const disabled = !isCouponApplicable(coupon, couponDetail);
 
   const handleCheckedItem = () => {
-    setCouponDetail((prevState) => ({
-      ...prevState,
-      isChecked: !prevState.isChecked,
-    }));
+    setCouponDetail((prevState) => !prevState);
   };
 
   return (
-    <CardContainer>
+    <CardContainer $disabled={disabled}>
       <CardHeader>
         <CheckBox
-          isChecked={couponDetail.isChecked}
+          isChecked={couponDetail}
           onClick={handleCheckedItem}
+          disabled={disabled}
         />
         <Title title={coupon.description}></Title>
       </CardHeader>
       <CardDetail>
-        <span>{coupon.expirationDate}</span>
+        <span>{formatDate(coupon.expirationDate)}</span>
         {coupon.minimumAmount && (
           <span>{`${coupon.minimumAmount.toLocaleString()}원`}</span>
         )}
         {coupon.availableTime && (
           <span>
-            {coupon.availableTime.start + ' ' + coupon.availableTime.end}
+            {formatAvailableTime(
+              coupon.availableTime.start,
+              coupon.availableTime.end,
+            )}
           </span>
         )}
       </CardDetail>
