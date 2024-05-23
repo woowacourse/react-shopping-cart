@@ -4,16 +4,24 @@ import ImageBox from '../common/ImageBox/ImageBox';
 import Text from '../common/Text/Text';
 import Divider from '../common/Divider/Divider';
 import ContentRow from '../common/ContentRow/ContentRow';
-import { useRecoilValue } from 'recoil';
-import { totalCartPriceState } from '../../recoil/price/totalCartPriceState';
-import { cartShippingFeeState } from '../../recoil/price/cartShippingFeeState';
-import { finalCartPriceState } from '../../recoil/price/finalCartPriceState';
+import { ReactNode } from 'react';
 
-const PriceTable = () => {
-  const totalCartPrice = useRecoilValue(totalCartPriceState);
-  const deliveryFee = useRecoilValue(cartShippingFeeState);
-  const finalCartPrice = useRecoilValue(finalCartPriceState);
+type PriceTableProps = {
+  name: string;
+  price: number;
+  upperDivider?: boolean;
+};
 
+const PriceTableRow = ({ name, price, upperDivider }: PriceTableProps) => {
+  return (
+    <>
+      {upperDivider && <Divider />}
+      <ContentRow title={name} content={`${price.toLocaleString('ko-kr')}원`} />
+    </>
+  );
+};
+
+const PriceTableMain = ({ children }: { children: ReactNode }) => {
   return (
     <S.Container>
       <S.NoticeContainer>
@@ -23,14 +31,11 @@ const PriceTable = () => {
         </Text>
       </S.NoticeContainer>
       <Divider />
-      <S.Rows>
-        <ContentRow title="주문 금액" content={`${totalCartPrice.toLocaleString('ko-kr')}원`} />
-        <ContentRow title="배송비" content={`${deliveryFee.toLocaleString('ko-kr')}원`} />
-      </S.Rows>
-      <Divider />
-      <ContentRow title="총 결제 금액" content={`${finalCartPrice.toLocaleString('ko-kr')}원`} />
+      <S.Rows>{children}</S.Rows>
     </S.Container>
   );
 };
 
-export default PriceTable;
+export const PriceTable = Object.assign(PriceTableMain, {
+  Row: PriceTableRow,
+});
