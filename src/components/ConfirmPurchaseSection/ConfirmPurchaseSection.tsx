@@ -61,7 +61,7 @@ const ConfirmPurchaseSection = () => {
         />
       </S.CheckboxTitleContainer>
       <Spacer height={32} />
-      <PriceTable />
+      <PriceTable type="confirm" />
     </S.ConfirmPurchaseSection>
   );
 };
