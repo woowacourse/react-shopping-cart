@@ -5,23 +5,21 @@ import { Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Header from '../../Header/Header';
-import OrderConfirmationContent from '../../Content/OrderConfirmationContent/OrderConfirmationContent';
+import PaymentConfirmationContent from '../../Content/PaymentConfirmationContent/PaymentConfirmationContent';
 import OrderButton from '../../OrderButton/OrderButton';
 
-import MESSAGE from '../../../constants/Message';
-
-const OrderConfirmation = () => {
+const PaymentConfirmation = () => {
   const navigator = useNavigate();
 
   return (
     <Styled.OrderConfirmation>
-      <Header onClick={() => navigator('/')} />
+      <Header />
       <Suspense fallback={<LoadingMessage>Loading...</LoadingMessage>}>
-        <OrderConfirmationContent />
-        <OrderButton onClick={() => console.log(MESSAGE.orderConfirmation)} />
+        <PaymentConfirmationContent />
+        <OrderButton onClick={() => navigator('/')} />
       </Suspense>
     </Styled.OrderConfirmation>
   );
 };
 
-export default OrderConfirmation;
+export default PaymentConfirmation;

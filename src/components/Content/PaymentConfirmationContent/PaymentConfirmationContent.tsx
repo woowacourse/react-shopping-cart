@@ -11,7 +11,7 @@ import {
 
 import MESSAGE from '../../../constants/Message';
 
-const OrderConfirmationContent = () => {
+const PaymentConfirmationContent = () => {
   const totalCartItemQuantity = useRecoilValue(totalCartItemQuantitySelector);
   const selectedCartItemsCount = useRecoilValue(selectedCartItemsCountSelector);
   const totalPaymentAmount = useRecoilValue(totalPaymentAmountSelector);
@@ -19,7 +19,7 @@ const OrderConfirmationContent = () => {
   return (
     <Content>
       <Styled.Details>
-        <Styled.Title>{MESSAGE.orderConfirmation}</Styled.Title>
+        <Styled.Title>{MESSAGE.paymentConfirmation}</Styled.Title>
         <Styled.OrderSuccessMessage>
           {MESSAGE.orderSuccess(selectedCartItemsCount, totalCartItemQuantity)}
           <br />
@@ -39,4 +39,4 @@ const OrderConfirmationContent = () => {
   );
 };
 
-export default OrderConfirmationContent;
+export default PaymentConfirmationContent;
