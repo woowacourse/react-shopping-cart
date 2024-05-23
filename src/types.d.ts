@@ -23,8 +23,8 @@ interface Coupon {
   couponType: "fixed" | "percentage" | "buyXgetY" | "freeShipping";
   discountAmount?: number;
   minimumAmount?: number;
-  buyQuantity: number;
-  getQuantity: number;
+  buyQuantity?: number;
+  getQuantity?: number;
   availableTime?: {
     start: string; // hh:mm:ss
     end: string; // hh:mm:ss

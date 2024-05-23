@@ -5,4 +5,5 @@ export const DividerStyle = css({
   width: "100%",
   borderStyle: "solid",
   borderColor: COLOR_PALETTE.lightGrey,
+  margin: 0,
 });
