@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { CartItemIdListState } from "../../../store/atom/atoms";
+import { cartItemIdListState } from "../../../store/atom/atoms";
 import { CartItemContainerStyle, CartItemEmptyStyle } from "./CartItemContainer.style";
 import CartItemController from "./CartItemController/CartItemController";
 import CartItemList from "./CartItemList/CartItemList";
@@ -7,7 +7,7 @@ import CartItemList from "./CartItemList/CartItemList";
 import { useRecoilValue } from "recoil";
 
 const CartItemContainer = () => {
-  const ids = useRecoilValue(CartItemIdListState);
+  const ids = useRecoilValue(cartItemIdListState);
 
   const isEmpty = ids.length === 0;
 

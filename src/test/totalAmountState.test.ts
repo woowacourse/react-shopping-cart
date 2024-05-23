@@ -2,7 +2,7 @@ import { renderHook, waitFor } from "@testing-library/react";
 import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { totalAmountSelector } from "../store/selector/selectors";
 import { act } from "react";
-import { cartState, CartItemCheckedState, itemQuantityState } from "../store/atom/atoms";
+import { cartState, cartItemCheckedState, itemQuantityState } from "../store/atom/atoms";
 
 const DUMMY_CART_ITEMS: { content: CartItemInfo[] } = {
   content: [
@@ -41,8 +41,8 @@ describe("totalAmountState", () => {
       () => {
         const totalPrice = useRecoilValue(totalAmountSelector);
         const [cartItems, setCartState] = useRecoilState(cartState);
-        const setItemEachCheckState1 = useSetRecoilState(CartItemCheckedState(1));
-        const setItemEachCheckState2 = useSetRecoilState(CartItemCheckedState(2));
+        const setItemEachCheckState1 = useSetRecoilState(cartItemCheckedState(1));
+        const setItemEachCheckState2 = useSetRecoilState(cartItemCheckedState(2));
         const setItemQuantityState = useSetRecoilState(itemQuantityState);
         return {
           cartItems,

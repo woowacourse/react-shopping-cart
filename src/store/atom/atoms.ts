@@ -9,7 +9,7 @@ export const cartState = atom({
   default: fetchCartState,
 });
 
-export const CartItemCheckedState = atomFamily<boolean, number>({
+export const cartItemCheckedState = atomFamily<boolean, number>({
   key: "cartItemCheckedState",
   default: true,
   effects: (id) => [
@@ -28,7 +28,7 @@ export const CartItemCheckedState = atomFamily<boolean, number>({
   ],
 });
 
-export const CartItemIdListState = atom<number[]>({
+export const cartItemIdListState = atom<number[]>({
   key: "itemIdsState",
   default: selector({
     key: "itemIdsList",
@@ -52,7 +52,7 @@ export const itemQuantityState = atom<Record<number, number>>({
   }),
 });
 
-export const CouponsState = atom<Coupon[]>({
+export const couponsState = atom<Coupon[]>({
   key: "couponsState",
   default: fetchCouponsState,
 });

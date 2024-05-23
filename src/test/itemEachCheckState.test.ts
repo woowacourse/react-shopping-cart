@@ -1,6 +1,6 @@
 import { renderHook, act } from "@testing-library/react";
 import { RecoilRoot, useRecoilState } from "recoil";
-import { CartItemCheckedState } from "../store/atom/atoms";
+import { cartItemCheckedState } from "../store/atom/atoms";
 import { getStorage } from "../store/localStorage/localStorage";
 
 describe("itemEachCheckState", () => {
@@ -14,7 +14,7 @@ describe("itemEachCheckState", () => {
   it("itemEachCheckState 변경시, localStorage의 상태도 변경되어야 한다.", () => {
     //Arrange
     const itemId = 123;
-    const { result } = renderHook(() => useRecoilState(CartItemCheckedState(itemId)), {
+    const { result } = renderHook(() => useRecoilState(cartItemCheckedState(itemId)), {
       wrapper: RecoilRoot,
     });
     const [checked, setChecked] = result.current;

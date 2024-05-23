@@ -4,7 +4,6 @@ import { IoIosInformationCircleOutline } from "react-icons/io";
 import CouponItem from "../../CouponItem/CouponItem";
 import { useCoupons } from "../../../hooks/useCoupons";
 import { CouponGuideContainerStyle, CouponGuideStyle, CouponModalContainerStyle } from "./CouponModal.style";
-import { useCouponApplicabilityChecker } from "../../../hooks/useCouponApplicabilityChecker";
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -13,7 +12,6 @@ interface CouponModalProps {
 
 const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
   const { coupons } = useCoupons();
-  const { isCouponApplicable } = useCouponApplicabilityChecker();
   // const { calculateDiscountAmount } = useDiscountCalculator();
 
   return (

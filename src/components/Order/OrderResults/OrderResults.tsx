@@ -8,8 +8,12 @@ import {
   OrderResultGuideStyle,
   OrderResultsContainerStyle,
 } from "./OrderResults.style";
+import { useRecoilValue } from "recoil";
+import { totalAmountSelector } from "../../../store/selector/selectors";
 
 const OrderResults = () => {
+  const totalAmount = useRecoilValue(totalAmountSelector);
+
   return (
     <div css={OrderResultsContainerStyle}>
       <div css={OrderResultGuideContainerStyle}>
@@ -20,7 +24,7 @@ const OrderResults = () => {
       </div>
 
       <Divider />
-      <PaymentDetail title="주문 금액" amount={1} />
+      <PaymentDetail title="주문 금액" amount={totalAmount} />
       <PaymentDetail title="쿠폰 할인 금액" amount={-2} />
       <PaymentDetail title="배송비" amount={3} />
       <Divider />
