@@ -1,23 +1,36 @@
+import { toKoreanDate, toKoreanTime } from '../../utils/date';
 import Checkbox from '../common/Checkbox/Checkbox';
 import { Divider } from '../common/Divider/Divider.style';
 import Text from '../common/Text/Text';
 import * as S from './SelectCouponItem.style';
 
-const SelectCouponItem = () => {
+interface SelectCouponItemProps {
+  coupon: Coupon;
+}
+
+const SelectCouponItem = ({ coupon }: SelectCouponItemProps) => {
+  const { description, expirationDate, minimumAmount, availableTime } = coupon;
   return (
     <S.SelectCouponItem>
       <Divider />
       <S.CheckboxContainer>
         <Checkbox state={false} handleClick={() => {}} />
-        <Text size="m">5,000원 할인 쿠폰</Text>
+        <Text size="m">{description}</Text>
       </S.CheckboxContainer>
       <S.DescriptionContainer>
         <Text size="s" weight="s">
-          최소 주문 금액: 100,000원
+          {`만료일: ${toKoreanDate(expirationDate)}`}
         </Text>
-        <Text size="s" weight="s">
-          만료일: 2024년 11월 30일
-        </Text>
+        {minimumAmount ? (
+          <Text size="s" weight="s">
+            {`최소 주문 금액: ${minimumAmount.toLocaleString('ko-kr')}원`}
+          </Text>
+        ) : null}
+        {availableTime ? (
+          <Text size="s" weight="s">
+            {`사용 가능 시간: ${toKoreanTime(availableTime.start)}부터 ${toKoreanTime(availableTime.end)}까지`}
+          </Text>
+        ) : null}
       </S.DescriptionContainer>
     </S.SelectCouponItem>
   );

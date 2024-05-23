@@ -4,8 +4,16 @@ import SelectCouponItem from '../SelectCouponItem/SelectCouponItem';
 
 import NOTICE from '../../assets/notice.svg?react';
 import Text from '../common/Text/Text';
+import useFetchCouponList from '../../recoil/coupon/useFetchCouponList';
+import { useRecoilValue } from 'recoil';
+import { couponListState } from '../../recoil/coupon/couponListAtom';
 
 const SelectCouponModalSection = () => {
+  const { fetchCouponList } = useFetchCouponList();
+  fetchCouponList();
+
+  const couponList = useRecoilValue(couponListState);
+
   return (
     <S.SelectCouponModalSection>
       <S.NoticeContainer>
@@ -15,10 +23,9 @@ const SelectCouponModalSection = () => {
         </Text>
       </S.NoticeContainer>
       <S.SelectCouponItemContainer>
-        <SelectCouponItem />
-        <SelectCouponItem />
-        <SelectCouponItem />
-        <SelectCouponItem />
+        {couponList.map((coupon) => (
+          <SelectCouponItem coupon={coupon} />
+        ))}
       </S.SelectCouponItemContainer>
     </S.SelectCouponModalSection>
   );
