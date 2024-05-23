@@ -1,4 +1,5 @@
 import { FlexColumn, FlexRow } from '@/style/common.style';
+import { formatDate, formatHour } from '@/utils/formatDate';
 import { useEffect, useMemo, useState } from 'react';
 
 import CheckBox from '../Input/CheckBoxInput';
@@ -15,6 +16,7 @@ interface Props {
 }
 
 const CouponItem = ({ coupon }: Props) => {
+  const { description, expirationDate, minimumAmount, availableTime } = coupon;
   const date = new Date();
   const [clicked, setClicked] = useState(false);
 
@@ -61,7 +63,6 @@ const CouponItem = ({ coupon }: Props) => {
   return (
     <StyledItemWrapper disable={disable}>
       <StyledRowBox isTitle={true}>
-        {/* TODO: 조건식 변경 */}
         <CheckBox
           isSelected={clicked}
           onClick={() => {
@@ -70,18 +71,16 @@ const CouponItem = ({ coupon }: Props) => {
             }
           }}
         />
-        {coupon.description}
+        {description}
       </StyledRowBox>
-      {/* TODO: 날짜 포맷팅 */}
-      <StyledRowBox>만료일 :{coupon.expirationDate}</StyledRowBox>
-      {coupon.minimumAmount && (
-        <StyledRowBox>최소 주문 금액: {coupon.minimumAmount}원</StyledRowBox>
+      <StyledRowBox>만료일 :{formatDate(expirationDate)}</StyledRowBox>
+      {minimumAmount && (
+        <StyledRowBox>최소 주문 금액: {minimumAmount}원</StyledRowBox>
       )}
-      {/* TODO: 시간 포맷팅 */}
-      {coupon.availableTime && (
+      {availableTime && (
         <StyledRowBox>
-          사용 가능 시간: {coupon.availableTime?.start}부터
-          {coupon.availableTime?.end}까지
+          {`사용 가능 시간: ${formatHour(availableTime?.start)}부터
+          ${formatHour(availableTime?.end)}까지`}
         </StyledRowBox>
       )}
     </StyledItemWrapper>

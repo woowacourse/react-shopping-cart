@@ -18,7 +18,6 @@ import useTotalCouponDiscount from '@/hooks/useTotalCouponDiscount';
 const OrderConfirm = () => {
   const navigator = useNavigate();
 
-  // TODO: 틀린 로ㅓ직 (쿠폰없음)
   const { totalPrice } = useRecoilValue(recipeState);
 
   const selectedCoupon = useRecoilValue(selectedCouponListState);
