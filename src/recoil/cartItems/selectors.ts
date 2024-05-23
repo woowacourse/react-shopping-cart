@@ -68,8 +68,8 @@ export const orderResultState = selector({
   },
 });
 
-export const deliveryPriceState = selector<number>({
-  key: 'deliveryPriceState',
+export const shippingPriceState = selector<number>({
+  key: 'shippingPriceState',
   get: ({ get }) => {
     const { totalOrderPrice } = get(orderResultState);
     const couponCheckList = get(couponSavedCheckListState);
@@ -89,9 +89,9 @@ export const totalPurchasePriceState = selector<number>({
   key: 'totalPurchasePriceState',
   get: ({ get }) => {
     const { totalOrderPrice } = get(orderResultState);
-    const deliveryPrice = get(deliveryPriceState);
+    const shippingPrice = get(shippingPriceState);
     const totalDiscountPrice = get(totalDiscountPriceState);
 
-    return totalOrderPrice + deliveryPrice - totalDiscountPrice;
+    return totalOrderPrice + shippingPrice - totalDiscountPrice;
   },
 });

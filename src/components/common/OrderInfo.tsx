@@ -3,24 +3,25 @@ import { useRecoilValue } from 'recoil';
 
 import GuideText from './GuideText';
 import Receipt from '../Cart/Receipt';
+import { calculateShippingPrice } from '../Cart/utils';
 
 import { totalDiscountPriceState } from '@/recoil/coupons/atoms';
 import { CONFIG } from '@constants/config';
-import {
-  deliveryPriceState,
-  orderResultState,
-  totalPurchasePriceState,
-} from '@recoil/cartItems/selectors';
+import { orderResultState, shippingPriceState } from '@recoil/cartItems/selectors';
 
 interface CartFooterProps {
   type: 'CART' | 'ORDER';
 }
 
 const OrderInfo = ({ type }: CartFooterProps) => {
-  const { totalOrderPrice } = useRecoilValue(orderResultState);
-  const deliveryPrice = useRecoilValue(deliveryPriceState);
   const totalDiscountPrice = useRecoilValue(totalDiscountPriceState);
-  const totalPurchasePrice = useRecoilValue(totalPurchasePriceState);
+  const { totalOrderPrice } = useRecoilValue(orderResultState);
+
+  const shippingPriceWithCoupon = useRecoilValue(shippingPriceState);
+  const shippingPrice = calculateShippingPrice(totalOrderPrice);
+  const finalShippingPrice = type === 'ORDER' ? shippingPriceWithCoupon : shippingPrice;
+
+  const totalPurchasePrice = totalOrderPrice + finalShippingPrice;
 
   return (
     <section css={cartFooterSection}>
@@ -31,7 +32,7 @@ const OrderInfo = ({ type }: CartFooterProps) => {
         <div css={borderTopWrapper}>
           <Receipt title="주문 금액" price={totalOrderPrice} />
           {type === 'ORDER' && <Receipt title="쿠폰 할인 금액" price={totalDiscountPrice} />}
-          <Receipt title="배송비" price={deliveryPrice} />
+          <Receipt title="배송비" price={finalShippingPrice} />
         </div>
         <div css={borderTopWrapper}>
           <Receipt title="총 결제 금액" price={totalPurchasePrice} />

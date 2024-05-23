@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 
 import { cartItemsState } from './atoms';
 import {
-  deliveryPriceState,
+  shippingPriceState,
   orderResultState,
   productTypesCountState,
   totalPurchasePriceState,
@@ -17,8 +17,13 @@ jest.mock('@apis/cartItem', () => ({
   fetchCartItems: jest.fn(),
 }));
 
+// FIXME: coupon recoil을 총 구매 금액 selector에서 가져와 테스트 케이스 깨지는 문제 해결 필요
+// jest.mock('@apis/coupon', () => ({
+//   fetchCouponList: jest.fn(),
+// }));
+
 describe('selectors', () => {
-  describe('deliveryPriceState', () => {
+  describe('shippingPriceState', () => {
     it.each`
       data                             | CONDITION | DELIVERY_PRICE
       ${TOTAL_PRICE_UNDER_100000_DATA} | ${'미만'} | ${3000}
@@ -28,7 +33,7 @@ describe('selectors', () => {
       async ({ data, DELIVERY_PRICE }) => {
         const { result } = renderHook(
           () => {
-            const deliveryPrice = useRecoilValue(deliveryPriceState);
+            const deliveryPrice = useRecoilValue(shippingPriceState);
 
             return { deliveryPrice };
           },
