@@ -31,32 +31,19 @@ function ShoppingCartPage() {
   const hasCartItemList = cartItemList.length !== 0;
   const hasSelectedCartItemList = selectedItemList.length !== 0;
 
-  const renderCartItemList = () => {
-    if (!hasCartItemList)
-      return (
-        <S.CartEmptyContainer>
-          <img src={EmptyCart} alt="빈 장바구니" />
-          <p>장바구니에 담은 상품이 없습니다.</p>
-        </S.CartEmptyContainer>
-      );
+  const EmptyCartContainer = (
+    <S.CartEmptyContainer>
+      <img src={EmptyCart} alt="빈 장바구니" />
+      <p>장바구니에 담은 상품이 없습니다.</p>
+    </S.CartEmptyContainer>
+  );
 
-    return (
-      <>
-        <CartItemList cartItemList={cartItemList} updateCartItemList={updateCartItemList} />
-        <TotalPriceContainer />
-      </>
-    );
-  };
-
-  const renderSubmitButton = () => {
-    if (!hasSelectedCartItemList) return <SubmitButton isActive={false} content="주문 확인" />;
-
-    return (
-      <Link to={PATHS.ORDER_CONFIRM}>
-        <SubmitButton isActive={hasSelectedCartItemList} content="주문 확인" />
-      </Link>
-    );
-  };
+  const CartListContainer = (
+    <>
+      <CartItemList cartItemList={cartItemList} updateCartItemList={updateCartItemList} />
+      <TotalPriceContainer />
+    </>
+  );
 
   return (
     <div>
@@ -67,10 +54,16 @@ function ShoppingCartPage() {
             title="장바구니"
             subTitle={cartItemList.length !== 0 ? `현재 ${cartItemList.length}종류의 상품이 담겨있습니다.` : ''}
           />
-          {renderCartItemList()}
+          {hasCartItemList ? CartListContainer : EmptyCartContainer}
         </S.Main>
       </Await>
-      {renderSubmitButton()}
+      {hasSelectedCartItemList ? (
+        <Link to={PATHS.ORDER_CONFIRM}>
+          <SubmitButton isActive={hasSelectedCartItemList} content="주문 확인" />
+        </Link>
+      ) : (
+        <SubmitButton isActive={false} content="주문 확인" />
+      )}
     </div>
   );
 }
