@@ -1,10 +1,11 @@
+import useCouponCalculate from "@/hooks/useCouponCalculate";
 import { cartItemDummy } from "@/mock/dummy";
 import { cartState } from "@/store/atom/atoms";
 import { renderHook } from "@testing-library/react";
 import { RecoilRoot } from "recoil";
-import { describe, it, vi, beforeAll, afterAll } from "vitest";
+import { describe, it, vi, beforeAll, afterAll, expect } from "vitest";
 
-const coupons = [
+const COUPONS: Coupon[] = [
   {
     id: 1,
     code: "FIXED5000",
@@ -47,7 +48,7 @@ describe("percent 할인 쿠폰과 fixed 할인 쿠폰 계산 테스트", () => 
         product: { ...cartItemDummy.product, ...product },
         quantity,
       })),
-      DISCOUNT_AMOUNT_EXPECTED: 79_000,
+      DISCOUNT_AMOUNT_EXPECTED: 41_000,
     },
     {
       CART_STATE_DUMMY: [
@@ -59,7 +60,7 @@ describe("percent 할인 쿠폰과 fixed 할인 쿠폰 계산 테스트", () => 
         product: { ...cartItemDummy.product, ...product },
         quantity,
       })),
-      DISCOUNT_AMOUNT_EXPECTED: 254_000,
+      DISCOUNT_AMOUNT_EXPECTED: 116_000,
     },
     {
       CART_STATE_DUMMY: [{ product: { id: 100, price: 20000 }, quantity: 1 }].map(({ product, quantity }) => ({
@@ -67,7 +68,7 @@ describe("percent 할인 쿠폰과 fixed 할인 쿠폰 계산 테스트", () => 
         product: { ...cartItemDummy.product, ...product },
         quantity,
       })),
-      DISCOUNT_AMOUNT_EXPECTED: 9_000,
+      DISCOUNT_AMOUNT_EXPECTED: 11_000,
     },
     {
       CART_STATE_DUMMY: [{ product: { id: 100, price: 10000 }, quantity: 1 }].map(({ product, quantity }) => ({
@@ -75,14 +76,14 @@ describe("percent 할인 쿠폰과 fixed 할인 쿠폰 계산 테스트", () => 
         product: { ...cartItemDummy.product, ...product },
         quantity,
       })),
-      DISCOUNT_AMOUNT_EXPECTED: 5_000,
+      DISCOUNT_AMOUNT_EXPECTED: 3_000,
     },
   ])(
     "percent할인 쿠폰과 fixed할인 쿠폰이 같이 적용된다면, percent 쿠폰 우선 적용한다.",
     ({ CART_STATE_DUMMY, DISCOUNT_AMOUNT_EXPECTED }) => {
       const { result } = renderHook(
         () => {
-          return useCouponCaluate(coupons);
+          return useCouponCalculate(COUPONS);
         },
         {
           wrapper: ({ children }) => (

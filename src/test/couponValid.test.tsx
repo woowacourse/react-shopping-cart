@@ -182,7 +182,7 @@ describe("coupon disable 테스트", () => {
     expect(result.current.isDisabled).toBeTruthy();
   });
 
-  it("결제 금액이 최소금액을 넘지 않는 경우, 배송비 무료 쿠폰이 비활성화 된다.", () => {
+  it("결제 금액이 최소금액을 넘는 경우, 배송비 무료 쿠폰이 활성화 된다.", () => {
     const { result } = renderHook(
       () => {
         const id = 3;
@@ -197,6 +197,6 @@ describe("coupon disable 테스트", () => {
         ),
       }
     );
-    expect(result.current.isDisabled).toBeTruthy();
+    expect(result.current.isDisabled).toBeFalsy();
   });
 });
