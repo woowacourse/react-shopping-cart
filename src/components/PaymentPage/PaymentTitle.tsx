@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useSelectedCartItemCounts } from "../../hooks/useCartItemCounts";
+import { useSelectedCartItemCounts } from "../../hooks/useSelectedCartItemCounts";
 
 export default function PaymentTitle() {
   const { selectedCartItemsCount, selectedUniqueCartItemsCount } = useSelectedCartItemCounts();

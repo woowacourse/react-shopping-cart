@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
-import { selectedCartItemIdsState } from "../recoil/selectedCartItemIds";
-import { cartItemsState } from "../recoil/cartItems";
-import { calculateSelectedCartItemsCount } from "../utils/domain/calculateSelectedCartItemsCount";
+import { selectedCartItemIdsState } from "../../recoil/selectedCartItemIds";
+import { cartItemsState } from "../../recoil/cartItems";
+import { calculateSelectedCartItemsCount } from "./calculateSelectedCartItemsCount";
 
 interface UseSelectCartItemsCountReturn {
   selectedCartItemsCount: number;

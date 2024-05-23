@@ -11,7 +11,7 @@ import { useCoupons } from "../../hooks/useCoupons";
 import Button from "../common/Button";
 import { useNavigate } from "react-router-dom";
 import { ROUTE_PATH } from "../../constants/routePath";
-import { useSelectedCartItemCounts } from "../../hooks/useCartItemCounts";
+import { useSelectedCartItemCounts } from "../../hooks/useSelectedCartItemCounts";
 import { useSetRecoilState } from "recoil";
 import { selectedCartItemIdsState } from "../../recoil/selectedCartItemIds";
 
