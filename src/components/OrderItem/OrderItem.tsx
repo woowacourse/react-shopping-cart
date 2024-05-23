@@ -7,7 +7,7 @@ interface OrderedItemProps {
   selectedItem: SelectedCartItem;
 }
 
-const OrderedItem = ({ selectedItem }: OrderedItemProps) => {
+const OrderItem = ({ selectedItem }: OrderedItemProps) => {
   return (
     <S.Container>
       <S.Hr />
@@ -23,4 +23,4 @@ const OrderedItem = ({ selectedItem }: OrderedItemProps) => {
   );
 };
 
-export default OrderedItem;
+export default OrderItem;
