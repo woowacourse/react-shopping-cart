@@ -16,9 +16,8 @@ const CouponConfirmButton = ({ onClick }: Props) => {
   });
 
   return (
-    // TODO: 금액 포맷팅하기
     <WideButton onClick={onClick} color="black">
-      {`총 ${totalDiscountPrice}원 할인 쿠폰 사용하기`}
+      {`총 ${totalDiscountPrice.toLocaleString('ko-KR')}원 할인 쿠폰 사용하기`}
     </WideButton>
   );
 };
