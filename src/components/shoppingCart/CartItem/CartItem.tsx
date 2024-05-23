@@ -10,7 +10,7 @@ import { updateCartItemQuantity } from '../../../apis';
 import { convertToLocaleAmount } from '../../../utils';
 import { Product, QuantityControlType } from '../../../type';
 import { itemQuantityState } from '../../../recoil/atoms';
-import { ERROR_MESSAGE } from '../../../apis/fetchData/errorMessage';
+import { ERROR_MESSAGE } from '../../../apis/constants/errorMessage';
 
 interface CartItemProps {
   cartItemId: number;

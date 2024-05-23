@@ -2,8 +2,8 @@ import { generateBasicToken } from '../../utils/auth';
 import { CartItem } from '../../type';
 
 import { fetchData } from '../';
-import { ERROR_MESSAGE } from '../fetchData/errorMessage';
-import { USER_ID, USER_PASSWORD, API_ROUTE } from './shoppingCart.constants';
+import { ERROR_MESSAGE } from '../constants/errorMessage';
+import { USER_ID, USER_PASSWORD, API_ROUTE } from '../constants/apiSetting';
 
 export async function fetchCartItems(): Promise<CartItem[]> {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);

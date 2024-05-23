@@ -7,7 +7,7 @@ import * as Styled from './CartItemContainer.style';
 import { cartItemsState } from '../../../recoil/atoms';
 import { removeCartItem } from '../../../apis';
 import { useCheckCartItem, useFetchError } from '../../../hooks';
-import { ERROR_MESSAGE } from '../../../apis/fetchData/errorMessage';
+import { ERROR_MESSAGE } from '../../../apis/constants/errorMessage';
 
 export default function CartItemContainer() {
   const [items, setItems] = useRecoilState(cartItemsState);

@@ -4,4 +4,5 @@ export const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
 
 export const API_ROUTE = {
   CART_ITEMS: `${API_URL}/cart-items`,
+  COUPONS: `${API_URL}/coupons`,
 };

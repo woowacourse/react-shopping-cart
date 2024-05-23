@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from './errorMessage';
+import { ERROR_MESSAGE } from '../constants/errorMessage';
 
 export interface fetchDataParams {
   url: string;
