@@ -42,7 +42,7 @@ const getPercentageCouponDiscount = (
   );
   const couponEndMinutes = getHHColonMMtoMinutes(percentageCoupon.availableTime.end.slice(0, 5));
   return couponStartMinutes <= nowMinutes && nowMinutes <= couponEndMinutes
-    ? Math.floor((itemsAmount * (100 - percentageCoupon.discount)) / 10000)
+    ? Math.floor((itemsAmount * percentageCoupon.discount) / 100)
     : 0;
 };
 
