@@ -49,6 +49,7 @@ function CouponModal() {
         <Modal position="center" size="large" onDimmedClick={handleClose}>
           <Modal.Header>
             <Modal.Title title="쿠폰을 선택해 주세요" />
+            <Modal.XButton onClick={handleClose}></Modal.XButton>
           </Modal.Header>
           <Modal.Body>
             <Suspense
