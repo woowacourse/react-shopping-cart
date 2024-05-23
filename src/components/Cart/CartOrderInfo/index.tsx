@@ -1,9 +1,10 @@
 import { css } from '@emotion/react';
 import { useRecoilValue } from 'recoil';
 
-import FreeShippingInfo from './FreeShippingInfo';
 import Receipt from './Receipt';
 
+import { MINIMUM_FREE_SHIPPING_AMOUNT } from '@/constants/cart';
+import InformationText from '@components/common/InformationText';
 import { orderTotalPriceState, deliveryPriceState } from '@recoil/cartItems/selectors';
 
 export default function CartOrderInfo() {
@@ -12,7 +13,10 @@ export default function CartOrderInfo() {
 
   return (
     <div css={cartOrderInfoContainer}>
-      <FreeShippingInfo />
+      <InformationText>
+        총 주문 금액이 {MINIMUM_FREE_SHIPPING_AMOUNT.toLocaleString('ko-KR')}원 이상일 경우 무료
+        배송됩니다.
+      </InformationText>
       <div css={borderTopWrapper}>
         <Receipt description="주문 금액" price={totalPrice} />
         <Receipt description="배송비" price={deliveryPrice} />
