@@ -1,17 +1,11 @@
 import { css } from "@emotion/css";
-import useCartChecked from "../../hooks/useCartItemChecks";
 import { Splitter } from "../default";
-import { Product } from "../../types/product";
 import OrderItem from "./OrderItem";
+import { useRecoilValue } from "recoil";
+import { checkedCartItemsSelector } from "../../recoil/selector/selector";
 
 const OrderItems = () => {
-  const { cartItems, checkedIds } = useCartChecked();
-
-  const filterCheckedItems = (cartItems: Product[], checkedIds: number[]): Product[] => {
-    return cartItems.filter((item) => checkedIds.includes(item.id));
-  };
-
-  const checkedCartItems = filterCheckedItems(cartItems, checkedIds);
+  const checkedCartItems = useRecoilValue(checkedCartItemsSelector);
 
   return (
     <div className={cardItemsCSS}>

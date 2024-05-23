@@ -1,5 +1,5 @@
-import { selector } from "recoil";
-import { cartItemCheckedIdsAtom, cartItemsAtom } from "../atom/atom";
+import { selector, selectorFamily } from "recoil";
+import { cartItemCheckedIdsAtom, cartItemsAtom, quantityAtomFamily, shippingCheckedAtom } from "../atom/atom";
 import { ORDER_PRICE_THRESHOLD, SHIPPING_FEE } from "../../constants/setting";
 import { fetchCartItems } from "../../api/cartItemApi";
 import { fetchCoupons } from "../../api/couponApi";
@@ -7,43 +7,37 @@ import { fetchCoupons } from "../../api/couponApi";
 // 장바구니 상품 조회 api 호출
 export const fetchCartItemsSelector = selector({
   key: "fetchCartItemsSelector",
-  get: async () => {
+  get: async ({ get }) => {
     const cartItems = await fetchCartItems();
     return cartItems;
   },
 });
 
-// 전체 id에 대한 양을 가지고 있는 셀렉터. (get: {id: quantity, ...}. set: 해당 id를 해당 quantity로 변경 )
-export const quantitySelector = selector({
-  key: "quantitySelector",
-  get: ({ get }) => {
-    const cartItems = get(cartItemsAtom);
-    return cartItems.reduce((acc, item) => {
-      acc[item.id] = item.quantity;
-      return acc;
-    }, {});
-  },
-  set: ({ get, set }, newValue) => {
-    const cartItems = get(cartItemsAtom);
-    const id = Number(Object.keys(newValue)[0]);
-    const newQuantity = Object.values(newValue)[0];
-    const updatedItems = cartItems.map((item) => (item.id === id ? { ...item, quantity: newQuantity } : item));
-    set(cartItemsAtom, updatedItems);
-  },
+// id에 대한 quantity를 가지고 있는 셀렉터
+export const quantitySelectorFamily = selectorFamily({
+  key: "quantitySelectorFamily",
+  get:
+    (id: number) =>
+    ({ get }) => {
+      return get(quantityAtomFamily(id));
+    },
+  set:
+    (id: number) =>
+    ({ get, set }, newQuantity) => {
+      set(quantityAtomFamily(id), newQuantity);
+      const cartItems = get(cartItemsAtom);
+      const updatedItems = cartItems.map((item) => (item.id === id ? { ...item, quantity: newQuantity } : item));
+      set(cartItemsAtom, updatedItems);
+    },
 });
 
-// 전체선택 여부를 관리하는 셀렉터. (get: 현재 전체선택 여부. set: 전체선택/해제. )
-export const allCheckedSelector = selector({
-  key: "allCheckedSelector",
+// 주문한 장바구니 목록 필터링
+export const checkedCartItemsSelector = selector({
+  key: "checkedCartItemsSelector",
   get: ({ get }) => {
     const cartItems = get(cartItemsAtom);
     const checkedIds = get(cartItemCheckedIdsAtom);
-    return cartItems.length > 0 && cartItems.length === checkedIds.length;
-  },
-  set: ({ get, set }, newIsAllChecked) => {
-    const cartItems = get(cartItemsAtom);
-    const newCheckedIds = newIsAllChecked ? cartItems.map((item) => item.id) : [];
-    set(cartItemCheckedIdsAtom, newCheckedIds);
+    return cartItems.filter((item) => checkedIds.includes(item.id));
   },
 });
 
@@ -66,8 +60,11 @@ export const orderPriceSelector = selector({
 export const shippingFeeSelector = selector({
   key: "shippingFeeSelector",
   get: ({ get }) => {
+    let shippingFee = 3000;
     const orderPrice = get(orderPriceSelector);
-    return orderPrice >= ORDER_PRICE_THRESHOLD ? 0 : SHIPPING_FEE;
+    const addShippingFee = get(shippingCheckedAtom);
+    if (addShippingFee) shippingFee += 3000;
+    return orderPrice >= ORDER_PRICE_THRESHOLD ? 0 : shippingFee;
   },
 });
 
