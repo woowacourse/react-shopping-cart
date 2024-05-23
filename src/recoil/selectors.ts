@@ -1,5 +1,5 @@
 import { DefaultValue, selector } from 'recoil';
-import { itemDetailsState, itemsState } from './atoms';
+import { couponsState, itemDetailsState, itemsState } from './atoms';
 import { Items } from '../types/Item';
 import { updateLocalStorage } from '../utils/LocalStorage';
 import { fetchCoupons, fetchItems } from '../api';
@@ -86,6 +86,9 @@ export const fetchItemsSelector = selector({
   },
 });
 
+/**
+ * 쿠폰 리스트 API 호출
+ */
 export const fetchCouponsSelector = selector({
   key: 'fetchCouponsSelector',
   get: async () => {
@@ -94,10 +97,36 @@ export const fetchCouponsSelector = selector({
   },
 });
 
-// export const orderItemsSelector = selector({
-//   key: 'orderItemsSelector',
+// /**
+//  * 쿠폰 리스트 반환
+//  */
+// export const couponListSelector = selector({
+//   key: 'couponListSelector',
 //   get: ({ get }) => {
-//     const Items = get(itemsState);
-//     Items.forEach
+//     const coupons = get(couponsState);
+//     return coupons;
 //   },
 // });
+
+/**
+ * 주문할 상품 목록
+ */
+export const orderItemsSelector = selector({
+  key: 'orderItemsSelector',
+  get: ({ get }) => {
+    const items = get(itemsState);
+    const orderItems = items
+      .map((item) => {
+        const { quantity, isChecked } = get(itemDetailsState(item.id));
+        if (isChecked) {
+          return {
+            ...item,
+            quantity: quantity,
+          };
+        }
+        return null;
+      })
+      .filter((item): item is Items => item !== null);
+    return orderItems;
+  },
+});

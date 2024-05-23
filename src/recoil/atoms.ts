@@ -1,5 +1,6 @@
 import { atom, atomFamily } from 'recoil';
 import { Items } from '../types/Item';
+import { Coupon } from '../types/Coupon';
 
 interface ItemDetailsStateType {
   quantity: number;
@@ -19,4 +20,9 @@ export const itemDetailsState = atomFamily<ItemDetailsStateType, number>({
     price: 0,
     isChecked: true,
   },
+});
+
+export const couponsState = atom<Coupon[]>({
+  key: 'couponsState',
+  default: [],
 });

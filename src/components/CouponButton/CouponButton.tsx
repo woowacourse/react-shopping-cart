@@ -16,7 +16,7 @@ function CouponButton() {
           closeOption="icon"
           handleCloseButton={toggleModal}
         />
-        <CouponModalContent />
+        <CouponModalContent toggleModal={toggleModal} />
       </Modal>
     </>
   );
