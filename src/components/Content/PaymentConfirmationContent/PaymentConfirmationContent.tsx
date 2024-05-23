@@ -10,6 +10,8 @@ import {
 } from '../../../recoil/selectors';
 
 import MESSAGE from '../../../constants/Message';
+import Title from '../../Title/Title';
+import Caption from '../../Caption/Caption';
 
 const PaymentConfirmationContent = () => {
   const totalCartItemQuantity = useRecoilValue(totalCartItemQuantitySelector);
@@ -19,12 +21,12 @@ const PaymentConfirmationContent = () => {
   return (
     <Content>
       <Styled.Details>
-        <Styled.Title>{MESSAGE.paymentConfirmation}</Styled.Title>
-        <Styled.OrderSuccessMessage>
+        <Title>{MESSAGE.paymentConfirmation}</Title>
+        <Caption>
           {MESSAGE.orderSuccess(selectedCartItemsCount, totalCartItemQuantity)}
           <br />
           {MESSAGE.paymentAmountConfirmation}
-        </Styled.OrderSuccessMessage>
+        </Caption>
         <Styled.TotalPaymentAmountContainer>
           <Styled.TotalPaymentAmountMessage>
             {MESSAGE.totalPaymentAmount}
