@@ -4,27 +4,36 @@ import { Button } from "../default";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { formatDate } from "../../utils/formatDate";
+import { useState } from "react";
+import useCouponValidation from "../../hooks/useCouponValidation/useCouponValidation";
 
 interface CouponItemProps {
   coupon: Coupon;
 }
 
 const CouponItem = ({ coupon }: CouponItemProps) => {
+  const [isChecked, setIsChecked] = useState(false);
+  const { isCouponValid } = useCouponValidation();
+  const isValid = isCouponValid(coupon);
+
+  const handleChecked = () => {
+    setIsChecked((prev) => !prev);
+  };
+
   return (
     <div className={ItemCSS}>
       <div className={ItemHeaderCSS}>
         <Button
-          // variant={checkedIds.includes(product.id) ? "primary" : "secondary"}
-          variant="secondary"
+          variant={isChecked ? "primary" : "secondary"}
           size="small"
-          // onClick={handleChecked}
+          onClick={handleChecked}
+          isDisabled={!isValid}
         >
-          {/* <CheckIcon fill={checkedIds.includes(product.id) ? "var(--grey-100)" : "var(--grey-200)"} /> */}
-          <CheckIcon fill="var(--grey-200)" />
+          <CheckIcon fill={isChecked ? "var(--grey-100)" : "var(--grey-200)"} />
         </Button>
-        <div>{coupon.description}</div>
+        <div className={ItemHeaderTextCSS(isValid)}>{coupon.description}</div>
       </div>
-      <div className={ItemContentCSS}>
+      <div className={ItemContentCSS(isValid)}>
         <p>만료일: {formatDate(coupon.expirationDate)}</p>
         <p>{coupon.minimumAmount && `최소 주문 금액: ${formatCurrency(coupon.minimumAmount)}`}</p>
       </div>
@@ -47,9 +56,13 @@ const ItemHeaderCSS = css`
   gap: 8px;
   font: var(--cart-subtitle);
 `;
-const ItemContentCSS = css`
+const ItemHeaderTextCSS = (isValid) => css`
+  opacity: ${isValid ? 1 : "40%"};
+`;
+const ItemContentCSS = (isValid) => css`
   display: flex;
   flex-direction: column;
   gap: 4px;
   font: var(--cart-label);
+  opacity: ${isValid ? 1 : "40%"};
 `;

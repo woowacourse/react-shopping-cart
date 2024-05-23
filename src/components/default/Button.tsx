@@ -9,12 +9,14 @@ interface ButtonProps extends React.ComponentPropsWithRef<"button"> {
   children?: ReactNode;
   variant?: ButtonVariant;
   size?: ButtonSize;
+  isDisabled?: boolean;
 }
 
-const Button = ({ children, variant = "primary", size = "large", ...rest }: ButtonProps) => {
+const Button = ({ children, variant = "primary", size = "large", isDisabled = false, ...rest }: ButtonProps) => {
   return (
     <button
       className={getButtonClassName(variant, size)}
+      disabled={isDisabled}
       {...rest}
     >
       {children}
