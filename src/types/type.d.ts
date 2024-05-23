@@ -27,9 +27,9 @@ interface Coupon {
   code: string;
   description: string;
   expirationDate: string;
-  discount: number;
-  minimumAmount: number;
-  discountType: string;
+  discountType: 'fixed' | 'percentage' | 'buyXgetY' | 'freeShipping';
+  discount?: number;
+  minimumAmount?: number;
   buyQuantity?: number;
   getQuantity?: number;
   availableTime?: { end: string; start: string };
