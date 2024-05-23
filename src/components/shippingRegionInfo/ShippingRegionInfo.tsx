@@ -1,3 +1,5 @@
+import { useRecoilState } from "recoil";
+import { isShippingRegionCheckedState } from "../../recoil/atoms/atoms";
 import { CheckboxButton } from "../button";
 import {
   StyledCheckShippingRegionCondition,
@@ -7,8 +9,11 @@ import {
 } from "./ShippingRegionInfo.styled";
 
 export const ShippingRegionInfo: React.FC = () => {
-  const isChecked = true;
-  const onCheck = () => {};
+  const [isChecked, setIsChecked] = useRecoilState(isShippingRegionCheckedState);
+
+  const onCheck = () => {
+    setIsChecked(!isChecked);
+  };
 
   return (
     <StyledShippingRegionInfoContainer>

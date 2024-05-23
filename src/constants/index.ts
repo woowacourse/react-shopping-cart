@@ -60,6 +60,7 @@ export const DELIVERY = {
   FREE_THRESHOLD: 100000,
   FREE: 0,
   STANDARD: 3000,
+  REGION_SPECIFIC: 6000,
 };
 
 // 카트 관련 상수

@@ -37,3 +37,8 @@ export const selectedCartItemsState = atom<CartItem[]>({
   key: "selectedCartItemsState",
   default: [],
 });
+
+export const isShippingRegionCheckedState = atom<boolean>({
+  key: "isShippingRegionCheckedState",
+  default: false,
+});

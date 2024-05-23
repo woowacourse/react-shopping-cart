@@ -1,13 +1,14 @@
 import { selector } from "recoil";
 import { DELIVERY } from "../../constants";
 import { CartSummary } from "../../types";
-import { cartItemsState, checkedItemState } from "../atoms/atoms";
+import { cartItemsState, checkedItemState, isShippingRegionCheckedState } from "../atoms/atoms";
 
 export const cartSummarySelectorState = selector<CartSummary>({
   key: "cartSummarySelectorState",
   get: ({ get }) => {
     const cartItems = get(cartItemsState);
     const checkedItems = get(checkedItemState);
+    const isShippingRegionChecked = get(isShippingRegionCheckedState);
 
     const checkedCartItems = cartItems.filter((item) => checkedItems[item.id]);
 
@@ -15,8 +16,14 @@ export const cartSummarySelectorState = selector<CartSummary>({
       (total, item) => total + item.product.price * item.quantity,
       0
     );
+
     const deliveryPrice =
-      orderPrice === 0 || orderPrice >= DELIVERY.FREE_THRESHOLD ? DELIVERY.FREE : DELIVERY.STANDARD;
+      orderPrice === 0 || orderPrice >= DELIVERY.FREE_THRESHOLD
+        ? DELIVERY.FREE
+        : isShippingRegionChecked
+          ? DELIVERY.REGION_SPECIFIC
+          : DELIVERY.STANDARD;
+
     const totalPrice = orderPrice + deliveryPrice;
 
     const uniqueItemCount = checkedCartItems.length;
