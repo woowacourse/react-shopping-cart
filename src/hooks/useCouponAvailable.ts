@@ -12,6 +12,8 @@ const useCouponAvailable = ({ coupon, date }: Props) => {
   const orderedList = useRecoilValue(orderItemState);
   const { orderPrice } = useRecoilValue(recipeState);
 
+  if (coupon === null) return false;
+
   const checkMinimumAmount = () => {
     const { minimumAmount } = coupon;
 

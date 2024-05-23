@@ -8,10 +8,12 @@ interface Props {
 }
 
 const useCouponValidator = ({ coupon, date }: Props) => {
-  const { id, expirationDate } = coupon;
   const couponList = useRecoilValue(couponListState);
+  if (coupon === null) return false;
 
-  const isExist = couponList.find((coupon) => coupon.id === id);
+  const { id, expirationDate } = coupon;
+
+  const isExist = couponList.find((item) => item.id === id);
   if (isExist === undefined) return false;
 
   return new Date(expirationDate) > date;
