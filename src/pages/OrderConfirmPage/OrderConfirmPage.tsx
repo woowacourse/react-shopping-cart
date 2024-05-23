@@ -1,18 +1,18 @@
-import { useState } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { Link, Navigate, useLoaderData, useNavigate } from 'react-router-dom';
 import Header, { GoBackButton } from '../../components/Header/Header';
-import Button from '../../components/common/Button/Button';
-import CartItem from '../../components/ShoppingCartPage/CartItem/CartItem';
 import TitleContainer, { SubTitle } from '../../components/common/TitleContainer/TitleContainer';
+import Button from '../../components/common/Button/Button';
 import SubmitButton from '../../components/common/SubmitButton/SubmitButton';
 import CheckBox from '../../components/common/CheckBox/CheckBox';
-import TotalPriceContainer from '../../components/common/TotalPriceContainer/TotalPriceContainer';
+import CartItem from '../../components/ShoppingCartPage/CartItem/CartItem';
 import CouponModal from '../../components/OrderConfirmPage/CouponModal/CouponModal';
+import TotalPriceContainer from '../../components/common/TotalPriceContainer/TotalPriceContainer';
 import type { Coupon } from '../../types/Coupon.type';
 import { selectedCartItemListState, isSigolState } from '../../recoil/CartItem/atoms/atoms';
-import { selectedCouponListState } from '../../recoil/Coupon/atoms/atoms';
 import { totalOrderCountSelector } from '../../recoil/CartItem/selectors/selectors';
+import { selectedCouponListState } from '../../recoil/Coupon/atoms/atoms';
+import useCouponModal from '../../hooks/useCouponModal';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './OrderConfirmPage.style';
 
@@ -20,13 +20,15 @@ function OrderConfirmPage() {
   const couponList = useLoaderData() as Coupon[];
   const navigate = useNavigate();
 
-  const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const [isSigol, setIsSigol] = useRecoilState(isSigolState);
 
-  const setSelectedCouponList = useSetRecoilState(selectedCouponListState);
+  const resetIsSigol = useResetRecoilState(isSigolState);
+  const resetSelectedCouponList = useResetRecoilState(selectedCouponListState);
 
   const selectedItemList = useRecoilValue(selectedCartItemListState);
   const totalOrderCount = useRecoilValue(totalOrderCountSelector);
+
+  const { isCouponModalOpen, openModal, closeModal } = useCouponModal();
 
   if (selectedItemList.length === 0) {
     return <Navigate to={PATHS.ERROR} />;
@@ -34,13 +36,9 @@ function OrderConfirmPage() {
 
   const handleIsSigol = () => setIsSigol((prev) => !prev);
 
-  const clearStorage = () => {
-    setIsSigol(false);
-    setSelectedCouponList([]);
-  };
-
   const handleHeaderClick = () => {
-    clearStorage();
+    resetIsSigol();
+    resetSelectedCouponList();
     navigate(-1);
   };
 
@@ -62,7 +60,7 @@ function OrderConfirmPage() {
             <CartItem key={item.id} item={item} isConfirm={true} />
           ))}
         </S.SelectedCartItemContainer>
-        <Button type="button" content="쿠폰 적용" onClick={() => setIsCouponModalOpen(true)} />
+        <Button type="button" content="쿠폰 적용" onClick={openModal} />
         <S.CartInfoContainer>
           <S.CartInfoTitle>배송 정보</S.CartInfoTitle>
           <CheckBox id="배송 정보" text="제주도 및 도서 산간 지역" isChecked={isSigol} onChange={handleIsSigol} />
@@ -72,9 +70,7 @@ function OrderConfirmPage() {
       <Link to={PATHS.PAYMENT_CONFIRM}>
         <SubmitButton isActive={true} content="결제하기" />
       </Link>
-      {isCouponModalOpen && (
-        <CouponModal couponList={couponList} isOpen={isCouponModalOpen} close={() => setIsCouponModalOpen(false)} />
-      )}
+      {isCouponModalOpen && <CouponModal couponList={couponList} isOpen={isCouponModalOpen} close={closeModal} />}
     </div>
   );
 }
