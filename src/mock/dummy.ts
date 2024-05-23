@@ -57,7 +57,7 @@ export const chargeShippingDummy: { content: CartItemInfo[] } = {
       product: {
         id: 100,
         name: "abc",
-        price: 20000,
+        price: 10000,
         imageUrl: "",
         category: "fashion",
       },

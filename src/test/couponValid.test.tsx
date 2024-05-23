@@ -93,29 +93,15 @@ describe("coupon disable 테스트", () => {
   });
 
   it("'2개 구매 시 1개 무료 쿠폰'의 경우, 장바구니에 2개 이상의 상품이 담겨 있다면 활성화 된다.", () => {
-    const CART_STATE: CartItemInfo[] = [
-      {
-        id: 1,
-        product: {
-          id: 100,
-          name: "abc",
-          price: 20000,
-          imageUrl: "",
-          category: "fashion",
-        },
-        quantity: 1,
-      },
-    ];
-
     const { result } = renderHook(
       () => {
-        const BOGO_ID = 5;
-        const { isDisabled } = useCoupon(BOGO_ID);
+        const ID = 5;
+        const { isDisabled } = useCoupon(ID);
         return { isDisabled };
       },
       {
         wrapper: ({ children }) => (
-          <ReactRootComponent checkDummy={NoCouponsCheckedDummy} cartDummy={{ content: CART_STATE }}>
+          <ReactRootComponent checkDummy={NoCouponsCheckedDummy} cartDummy={chargeShippingDummy}>
             {children}
           </ReactRootComponent>
         ),
@@ -178,7 +164,7 @@ describe("coupon disable 테스트", () => {
     expect(result.current.isDisabled).toBeFalsy();
   });
 
-  it("최종 금액이 10만원이 넘는 경우(배송비가 청구되는 않는 경우), 배송비 무료 쿠폰이 비활성화 된다.", () => {
+  it("결제 금액이 10만원이 넘는 경우(배송비가 청구되는 않는 경우), 배송비 무료 쿠폰이 비활성화 된다.", () => {
     const { result } = renderHook(
       () => {
         const id = 3;
@@ -196,7 +182,7 @@ describe("coupon disable 테스트", () => {
     expect(result.current.isDisabled).toBeTruthy();
   });
 
-  it("최종 금액이 최소금액을 넘지 않는 경우, 배송비 무료 쿠폰이 비활성화 된다.", () => {
+  it("결제 금액이 최소금액을 넘지 않는 경우, 배송비 무료 쿠폰이 비활성화 된다.", () => {
     const { result } = renderHook(
       () => {
         const id = 3;
