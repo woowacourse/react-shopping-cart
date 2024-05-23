@@ -1,4 +1,5 @@
 import { StyledFixedBottom, StyledFixedTop } from '@/style/styledBox.style';
+import { useEffect, useState } from 'react';
 
 import CartRecipe from '@/components/Cart/CartRecipe';
 import CouponModal from '@/components/Coupon/CouponModal';
@@ -9,14 +10,21 @@ import OrderTitle from '@/components/Order/OrderTitle';
 import ShippingInfo from '@/components/Order/ShippingInfo';
 import { WhiteSpace } from '@/style/common.style';
 import WideButton from '@/components/Button/WideButton';
+import { selectedCouponListState } from '@/store/atoms';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 
 const Order = () => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
-  const navigate = useNavigate();
+  const setSelectedCoupon = useSetRecoilState(selectedCouponListState);
+
+  useEffect(() => {
+    setSelectedCoupon([]);
+  }, [setSelectedCoupon]);
+
   return (
     <>
       <StyledFixedTop>
