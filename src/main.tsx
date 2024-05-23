@@ -2,25 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import CartPage from './pages/cart/CartPage.tsx';
 import PaymentsPage from './pages/payments/PaymentsPage.tsx';
-import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
-import { ErrorBoundary } from 'react-error-boundary';
-import { Suspense } from 'react';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import NotFoundPage from './pages/notfound/NotFoundPage.tsx';
 import './styles/reset.css';
 import './styles/index.css';
 import { RecoilRoot } from 'recoil';
-
-const CommonLayout = () => (
-  <ErrorBoundary fallback={<div>에러</div>}>
-    <Suspense fallback={<div>로딩중!</div>}>
-      <Outlet />
-    </Suspense>
-  </ErrorBoundary>
-);
+import Layout from './components/common/Layout.tsx';
 
 const router = createBrowserRouter([
   {
-    element: <CommonLayout />,
+    element: <Layout />,
     children: [
       {
         path: '/',
