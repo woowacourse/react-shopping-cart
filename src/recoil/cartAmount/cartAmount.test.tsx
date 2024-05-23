@@ -5,6 +5,7 @@ import { rawCartItemsState } from "../rawCartItems";
 import { selectedCartItemIdsState } from "../selectedCartItemIds";
 import { Suspense } from "react";
 import { CartItemId, RawCartItem } from "../../types/cartItems";
+import { isRemoteDeliveryAreaState } from "../isRemoteDeliveryArea";
 
 describe("cartAmountState selector", () => {
   const TEST_RAW_CART_ITEMS: RawCartItem[] = [
@@ -58,6 +59,7 @@ describe("cartAmountState selector", () => {
           initializeState={({ set }) => {
             set(rawCartItemsState, TEST_RAW_CART_ITEMS);
             set(selectedCartItemIdsState, TEST_SELECTED_CART_ITEM_IDS);
+            set(isRemoteDeliveryAreaState, false);
           }}
         >
           <Suspense>{children}</Suspense>
@@ -69,6 +71,32 @@ describe("cartAmountState selector", () => {
 
     await waitFor(() => {
       expect(result.current).toEqual(EXPECTED_CART_AMOUNT);
+    });
+  });
+
+  it("배송 산간 지역일 경우 배송 금액 및 최종 금액에 3,000을 추가한다.", async () => {
+    const { result, rerender } = renderHook(() => useRecoilValue(cartAmountState), {
+      wrapper: ({ children }) => (
+        <RecoilRoot
+          initializeState={({ set }) => {
+            set(rawCartItemsState, TEST_RAW_CART_ITEMS);
+            set(selectedCartItemIdsState, TEST_SELECTED_CART_ITEM_IDS);
+            set(isRemoteDeliveryAreaState, true);
+          }}
+        >
+          <Suspense>{children}</Suspense>
+        </RecoilRoot>
+      ),
+    });
+
+    rerender();
+
+    await waitFor(() => {
+      expect(result.current).toEqual({
+        ...EXPECTED_CART_AMOUNT,
+        shippingCost: EXPECTED_CART_AMOUNT.shippingCost + 3_000,
+        totalOrderAmount: EXPECTED_CART_AMOUNT.totalOrderAmount + 3_000,
+      });
     });
   });
 });
