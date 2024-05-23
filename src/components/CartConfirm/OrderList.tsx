@@ -11,7 +11,7 @@ export default function OrderList() {
   return (
     <ul css={orderItemsContainer}>
       {orderItems.map((orderItem) => (
-        <OrderItem orderItem={orderItem} />
+        <OrderItem key={orderItem.id} orderItem={orderItem} />
       ))}
     </ul>
   );
