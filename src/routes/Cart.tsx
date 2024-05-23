@@ -8,21 +8,22 @@ import CartResults from "@/components/Main/Cart/CartResults/CartResults";
 import Error from "@/components/Fallbacks/Error";
 
 import { ErrorBoundary } from "react-error-boundary";
+import RouteInfoProvider from "@/Providers/RouteInfoProvider";
 
 const Cart = () => {
   return (
-    <>
+    <RouteInfoProvider>
       <Header />
       <ErrorBoundary FallbackComponent={Error}>
         <Main>
-          <CartTitle />
+          <CartTitle>SHOP</CartTitle>
           <CartItemContainer />
           <CartResults />
         </Main>
         <Footer />
       </ErrorBoundary>
       {import.meta.env.DEV && <AddButton />}
-    </>
+    </RouteInfoProvider>
   );
 };
 
