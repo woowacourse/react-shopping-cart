@@ -19,7 +19,6 @@ const useCouponDiscount = ({ coupon, date, orderPrice }: Props) => {
 
   const bogoCoupon = (orderedList: CartItemType[]) => {
     const { buyQuantity, getQuantity } = coupon;
-
     if (!buyQuantity || !getQuantity) return 0;
 
     return orderedList.reduce((acc, cur) => {
@@ -41,7 +40,6 @@ const useCouponDiscount = ({ coupon, date, orderPrice }: Props) => {
   const isAvailable = useCouponAvailable({ coupon, date });
 
   const { shippingFee } = useRecoilValue(recipeState);
-
   const orderedList = useRecoilValue(orderItemState);
 
   if (!isValid || !isAvailable) return 0;

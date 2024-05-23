@@ -11,7 +11,6 @@ interface Props {
 const useCouponAvailable = ({ coupon, date }: Props) => {
   const orderedList = useRecoilValue(orderItemState);
   const { orderPrice } = useRecoilValue(recipeState);
-
   if (coupon === null) return false;
 
   const checkMinimumAmount = () => {
@@ -22,7 +21,6 @@ const useCouponAvailable = ({ coupon, date }: Props) => {
 
   const checkAvailableTime = () => {
     const { availableTime } = coupon;
-
     if (!availableTime) return true;
 
     const [startHour, startMinute, startSecond] = availableTime.start
@@ -43,7 +41,6 @@ const useCouponAvailable = ({ coupon, date }: Props) => {
 
   const checkMinimumQuantity = () => {
     const { buyQuantity, getQuantity } = coupon;
-
     if (!buyQuantity || !getQuantity) return true;
 
     return orderedList.reduce((acc, cur) => {

@@ -20,7 +20,6 @@ const Order = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const setSelectedCoupon = useSetRecoilState(selectedCouponListState);
-
   useEffect(() => {
     setSelectedCoupon([]);
   }, [setSelectedCoupon]);

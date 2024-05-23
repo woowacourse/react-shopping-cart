@@ -10,8 +10,7 @@ export const formatDate = (dateString: string) => {
 };
 
 export const formatHour = (timeString: string) => {
-  const [hoursString] = timeString.split(':');
-  const hours = parseInt(hoursString, 10);
+  const [hours] = timeString.split(':').map(Number);
 
   let formattedHour;
 

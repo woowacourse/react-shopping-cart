@@ -19,15 +19,20 @@ const CouponItem = ({ coupon }: Props) => {
   const { description, expirationDate, minimumAmount, availableTime } = coupon;
   const date = new Date();
   const [clicked, setClicked] = useState(false);
-
   const isValid = useCouponValidator({ coupon, date });
   const isAvailable = useCouponAvailable({ coupon, date });
-
   const [selectedCoupon, setSelectedCoupon] = useRecoilState(
     selectedCouponListState
   );
 
-  const isSelected = selectedCoupon?.some((item) => item.id === coupon.id);
+  const isSelected = selectedCoupon.some((item) => item.id === coupon.id);
+  const disable = useMemo(() => {
+    if (selectedCoupon.length >= 2 && !isSelected) {
+      return true;
+    }
+
+    return !isValid || !isAvailable;
+  }, [isValid, isAvailable, selectedCoupon, isSelected]);
 
   useEffect(() => {
     if (isSelected) {
@@ -36,14 +41,6 @@ const CouponItem = ({ coupon }: Props) => {
       setClicked(false);
     }
   }, [isSelected, selectedCoupon, coupon.id]);
-
-  const disable = useMemo(() => {
-    if (selectedCoupon && selectedCoupon.length >= 2 && !isSelected) {
-      return true;
-    }
-
-    return !isValid || !isAvailable;
-  }, [isValid, isAvailable, selectedCoupon, isSelected]);
 
   const handleClick = () => {
     if (!clicked) {

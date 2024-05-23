@@ -1,6 +1,7 @@
 import { FlexRow, WhiteSpace } from '@/style/common.style';
 
 import CheckBox from '../Input/CheckBoxInput';
+import { ORDER_CONFIRM_MESSAGE } from '@/constants/message';
 import { shippingAreaState } from '@/store/atoms';
 import styled from '@emotion/styled';
 import { theme } from '@/style/theme.style';
@@ -23,7 +24,7 @@ const ShippingInfo = () => {
       <StyledTitle>배송 정보</StyledTitle>
       <StyledBox>
         <CheckBox isSelected={isSelected} onClick={handleClick} />
-        제주도 및 도서 산간 지역
+        {ORDER_CONFIRM_MESSAGE.specialShippingArea}
       </StyledBox>
     </StyledInfoWrapper>
   );

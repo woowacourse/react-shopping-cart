@@ -19,9 +19,9 @@ import { useNavigate } from 'react-router-dom';
 const Cart = () => {
   const navigate = useNavigate();
   const { orderPrice } = useRecoilValue(recipeState);
-  const setShippingState = useSetRecoilState(shippingAreaState);
   const cartList = useRecoilValue(cartListState);
 
+  const setShippingState = useSetRecoilState(shippingAreaState);
   useEffect(() => {
     setShippingState('normal');
   }, []);
