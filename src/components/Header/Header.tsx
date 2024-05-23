@@ -10,18 +10,22 @@ function Header() {
   const isMainPage = location.pathname === PATHS.ROOT || location.pathname === PATHS.ERROR;
   const isOrderConfirmPage = location.pathname === PATHS.ORDER_CONFIRM;
 
+  const MainLogoButton = (
+    <Link to={PATHS.ROOT}>
+      <img src={MainLogo} alt="메인 로고" />
+    </Link>
+  );
+
+  const GoBackButton = (
+    <S.GoBackButton onClick={() => navigate(-1)}>
+      <img src={LeftArrow} alt="뒤로 가기" />
+    </S.GoBackButton>
+  );
+
   return (
     <S.HeaderWrapper>
-      {isMainPage && (
-        <Link to={PATHS.ROOT}>
-          <img src={MainLogo} alt="메인 로고" />
-        </Link>
-      )}
-      {isOrderConfirmPage && (
-        <S.GoBackButton onClick={() => navigate(-1)}>
-          <img src={LeftArrow} alt="뒤로 가기" />
-        </S.GoBackButton>
-      )}
+      {isMainPage && MainLogoButton}
+      {isOrderConfirmPage && GoBackButton}
     </S.HeaderWrapper>
   );
 }

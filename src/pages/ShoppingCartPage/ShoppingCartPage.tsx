@@ -5,7 +5,7 @@ import Header from '../../components/Header/Header';
 import TitleContainer from '../../components/common/TitleContainer/TitleContainer';
 import SubmitButton from '../../components/common/SubmitButton/SubmitButton';
 import CartItemList from '../../components/ShoppingCartPage/CartItemList/CartItemList';
-import TotalPriceContainer from '../../components/ShoppingCartPage/TotalPriceContainer/TotalPriceContainer';
+import TotalPriceContainer from '../../components/common/TotalPriceContainer/TotalPriceContainer';
 import type { TCartItem } from '../../types/CartItem.type';
 import { selectedCartItemListState } from '../../recoil/CartItem/atoms/atoms';
 import { fetchCartItemList } from '../../apis';

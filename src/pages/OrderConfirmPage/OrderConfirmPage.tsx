@@ -1,18 +1,18 @@
+import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Link, Navigate, useLoaderData } from 'react-router-dom';
-import type { Coupon } from '../../types/Coupon.type';
 import Header from '../../components/Header/Header';
 import CartItem from '../../components/ShoppingCartPage/CartItem/CartItem';
 import TitleContainer from '../../components/common/TitleContainer/TitleContainer';
 import SubmitButton from '../../components/common/SubmitButton/SubmitButton';
 import CheckBox from '../../components/common/CheckBox/CheckBox';
-import TotalPriceContainer from '../../components/ShoppingCartPage/TotalPriceContainer/TotalPriceContainer';
+import TotalPriceContainer from '../../components/common/TotalPriceContainer/TotalPriceContainer';
 import CouponModal from '../../components/OrderConfirmPage/CouponModal/CouponModal';
+import type { Coupon } from '../../types/Coupon.type';
 import { selectedCartItemListState, isSigolState } from '../../recoil/CartItem/atoms/atoms';
 import { totalOrderCountSelector } from '../../recoil/CartItem/selectors/selectors';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './OrderConfirmPage.style';
-import { useState } from 'react';
 
 function OrderConfirmPage() {
   const couponList = useLoaderData() as Coupon[];
