@@ -13,7 +13,7 @@ const SelectCouponModal = ({
   return (
     <CustomModal
       title="쿠폰을 선택해 주세요"
-      size="l"
+      size="medium"
       isOpened={modalOpened}
       onClose={onClose}
       primaryButton={{ text: '총 6,000원 할인 쿠폰 사용하기' }}
