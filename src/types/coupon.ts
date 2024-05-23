@@ -1,3 +1,8 @@
+export type AvailableTime = {
+  start: string;
+  end: string;
+};
+
 export interface Coupon {
   id: number;
   code: string;
@@ -7,9 +12,6 @@ export interface Coupon {
   minimumAmount?: number;
   buyQuantity?: number;
   getQuantity?: number;
-  availableTime?: {
-    start: string;
-    end: string;
-  };
+  availableTime?: AvailableTime;
   expirationDate: string;
 }
