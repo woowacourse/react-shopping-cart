@@ -1,7 +1,7 @@
 import { CartItemType } from '@/types/cart.type';
 import { Coupon } from '@/types/coupon.type';
 import { orderItemState } from '@/store/selectors/orderItemSelector';
-import { shippingFeeState } from '../store/selectors/shippingFeeSelector';
+import { recipeState } from '@/store/selectors/recipeSelector';
 import useCouponAvailable from './useCouponAvailable';
 import useCouponValidator from './useCouponValidator';
 import { useRecoilValue } from 'recoil';
@@ -40,7 +40,7 @@ const useCouponDiscount = ({ coupon, date, orderPrice }: Props) => {
   const isValid = useCouponValidator({ coupon, date });
   const isAvailable = useCouponAvailable({ coupon, date });
 
-  const shippingFee = useRecoilValue(shippingFeeState);
+  const { shippingFee } = useRecoilValue(recipeState);
 
   const orderedList = useRecoilValue(orderItemState);
 

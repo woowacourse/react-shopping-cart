@@ -9,9 +9,11 @@ import { CART_MESSAGE } from '@/constants/message';
 import { FREE_SHIPPING_CONDITION } from '@/constants/system';
 import Info from '@/assets/Info.svg?react';
 import { recipeState } from '@/store/selectors/recipeSelector';
+import { selectedCouponListState } from '@/store/atoms';
 import styled from '@emotion/styled';
 import { theme } from '@/style/theme.style';
 import { useRecoilValue } from 'recoil';
+import useTotalCouponDiscount from '@/hooks/useTotalCouponDiscount';
 
 interface Props {
   isCoupon?: boolean;
@@ -19,6 +21,17 @@ interface Props {
 
 const CartRecipe = ({ isCoupon = false }: Props) => {
   const { orderPrice, shippingFee, totalPrice } = useRecoilValue(recipeState);
+
+  const selectedCoupon = useRecoilValue(selectedCouponListState);
+  const date = new Date();
+  const totalDiscountPrice = useTotalCouponDiscount({
+    coupons: selectedCoupon || [],
+    date,
+  });
+
+  const displayTotalPrice = isCoupon
+    ? totalPrice - totalDiscountPrice
+    : totalPrice;
 
   return (
     <StyledRecipeWrapper>
@@ -37,7 +50,7 @@ const CartRecipe = ({ isCoupon = false }: Props) => {
           <StyledBetweenBox>
             <StyledBoldText>쿠폰 할인 금액</StyledBoldText>
             <StyledBoldText>
-              {orderPrice.toLocaleString('ko-KR')}원
+              -{totalDiscountPrice.toLocaleString('ko-KR')}원
             </StyledBoldText>
           </StyledBetweenBox>
         )}
@@ -50,7 +63,9 @@ const CartRecipe = ({ isCoupon = false }: Props) => {
       </StyledBox>
       <StyledBetweenBox>
         <StyledBoldText>총 결제 금액</StyledBoldText>
-        <StyledBoldText>{totalPrice.toLocaleString('ko-KR')}원</StyledBoldText>
+        <StyledBoldText>
+          {displayTotalPrice.toLocaleString('ko-KR')}원
+        </StyledBoldText>
       </StyledBetweenBox>
     </StyledRecipeWrapper>
   );

@@ -9,13 +9,25 @@ import Header from '@/components/Header';
 import { ORDER_CONFIRM_MESSAGE } from '@/constants/message';
 import { StyledFixedBottom } from '@/style/styledBox.style';
 import { StyledFixedTop } from '../style/styledBox.style';
+import { selectedCouponListState } from '@/store/atoms';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
+import useTotalCouponDiscount from '@/hooks/useTotalCouponDiscount';
 
 const OrderConfirm = () => {
   const navigator = useNavigate();
+
+  // TODO: 틀린 로ㅓ직 (쿠폰없음)
   const { totalPrice } = useRecoilValue(recipeState);
+
+  const selectedCoupon = useRecoilValue(selectedCouponListState);
+  const date = new Date();
+  const totalDiscountPrice = useTotalCouponDiscount({
+    coupons: selectedCoupon || [],
+    date,
+  });
+
   const { itemCount, totalQuantity } = useRecoilValue(orderedItemQuantityState);
 
   return (
@@ -33,7 +45,7 @@ const OrderConfirm = () => {
 
         <StyledTextSubTitle>총 결제 금액</StyledTextSubTitle>
         <StyledTextPrice>
-          {totalPrice.toLocaleString('ko-KR')}원
+          {(totalPrice - totalDiscountPrice).toLocaleString('ko-KR')}원
         </StyledTextPrice>
       </StyledCenterBox>
 
