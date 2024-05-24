@@ -1,9 +1,10 @@
 import { atom, atomFamily } from 'recoil';
-import { CartItem } from '../type';
+import { CartItem, Coupon } from '../type';
 import { fetchCartItems } from '../apis';
 
 import { AtomEffect } from 'recoil';
 import { STORAGE } from '../constants';
+import { fetchCoupons } from '../apis/coupon/coupon';
 
 export const cartItemsState = atom<CartItem[]>({
   key: 'cartItemsState',
@@ -37,4 +38,24 @@ function localStorageEffect<T>(key: string): AtomEffect<T> {
 export const fetchErrorState = atom<Error | null>({
   key: 'fetchErrorState',
   default: null,
+});
+
+export const couponsState = atom<Coupon[]>({
+  key: 'couponsState',
+  default: fetchCoupons(),
+});
+
+export const checkedCouponIdsState = atom<number[]>({
+  key: 'checkedCouponIdsState',
+  default: [],
+});
+
+export const remoteShippingOptionState = atom<boolean>({
+  key: 'remoteShippingOptionState',
+  default: false,
+});
+
+export const discountAmountState = atom<number>({
+  key: 'discountAmountState',
+  default: 0,
 });

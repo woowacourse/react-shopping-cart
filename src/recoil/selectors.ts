@@ -1,5 +1,21 @@
 import { selector } from 'recoil';
-import { checkedCartItemsState, itemQuantityState, cartItemsState } from './atoms';
+import {
+  checkedCartItemsState,
+  itemQuantityState,
+  cartItemsState,
+  remoteShippingOptionState,
+} from './atoms';
+import { CartItem } from '../type';
+
+export const totalCheckedCartItemsState = selector<CartItem[]>({
+  key: 'totalCheckedCartItemsState',
+  get: ({ get }) => {
+    const cartItems = get(cartItemsState);
+    const checkedItemIds = get(checkedCartItemsState);
+
+    return cartItems.filter((item) => checkedItemIds.includes(item.id));
+  },
+});
 
 export const totalCheckedQuantityState = selector<number>({
   key: 'totalCheckedQuantityState',
@@ -31,13 +47,17 @@ export const orderAmountState = selector<number>({
   },
 });
 
-export const deliveryFeeState = selector<number>({
-  key: 'deliveryFeeState',
+export const shippingCostState = selector<number>({
+  key: 'shippingCostState',
   get: ({ get }) => {
     const checkedItemIds = get(checkedCartItemsState);
     const orderAmount = get(orderAmountState);
+    const isRemoteShipping = get(remoteShippingOptionState);
 
-    return orderAmount >= 100000 || checkedItemIds.length < 1 ? 0 : 3000;
+    if (orderAmount >= 100000 || checkedItemIds.length < 1) {
+      return 0;
+    }
+    return isRemoteShipping ? 6000 : 3000;
   },
 });
 
@@ -45,8 +65,8 @@ export const totalAmountState = selector<number>({
   key: 'totalAmountState',
   get: ({ get }) => {
     const orderAmount = get(orderAmountState);
-    const deliveryFee = get(deliveryFeeState);
+    const shippingCost = get(shippingCostState);
 
-    return orderAmount + deliveryFee;
+    return orderAmount + shippingCost;
   },
 });
