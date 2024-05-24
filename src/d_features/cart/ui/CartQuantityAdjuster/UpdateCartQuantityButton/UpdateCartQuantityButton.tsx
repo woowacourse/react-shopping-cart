@@ -23,7 +23,7 @@ export const UpdateCartQuantityButton = ({ cartId, type }: UpdateCartQuantityBut
 
   return (
     <Button className={css.root} onClick={handleQuantityUpdate}>
-      <Text tag={'span'} type={'b1'} className={css.text}>
+      <Text tag={'span'} className={css.text}>
         {label[type]}
       </Text>
     </Button>

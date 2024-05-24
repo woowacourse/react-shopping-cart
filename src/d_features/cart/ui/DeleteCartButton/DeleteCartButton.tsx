@@ -13,7 +13,7 @@ export const DeleteCartButton = ({ cartId }: DeleteCartButton) => {
 
   return (
     <Button className={css.root} onClick={() => {}}>
-      <Text tag='span' type='b2'>
+      <Text tag='span' type='c4'>
         삭제
       </Text>
     </Button>

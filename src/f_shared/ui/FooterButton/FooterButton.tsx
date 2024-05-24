@@ -1,4 +1,4 @@
-import { Button } from '@/f_shared';
+import { Button, Text } from '@/f_shared';
 
 import css from './FooterButton.module.css';
 
@@ -11,7 +11,9 @@ interface FooterButtonProps {
 export const FooterButton = ({ children, disabled = false, onClick }: FooterButtonProps) => {
   return (
     <Button disabled={disabled} className={css.root} theme={'primary'} onClick={onClick}>
-      {children}
+      <Text tag={'span'} type={'c1'}>
+        {children}
+      </Text>
     </Button>
   );
 };
