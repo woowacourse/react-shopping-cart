@@ -23,6 +23,25 @@ const CouponModal = ({
   const totalItemsPrice = useRecoilValue(totalOrderPriceSelector);
   const { isCouponApplicable } = useCouponApplicabilityChecker();
 
+  const applicableCoupons: Coupon[] = [];
+  const nonApplicableCoupons: Coupon[] = [];
+
+  couponList.forEach((coupon) => {
+    if (
+      isCouponApplicable({
+        coupon: coupon,
+        price: totalItemsPrice,
+        time: new Date(),
+      })
+    ) {
+      applicableCoupons.push(coupon);
+    } else {
+      nonApplicableCoupons.push(coupon);
+    }
+  });
+
+  const sortedCoupons = [...applicableCoupons, ...nonApplicableCoupons];
+
   return (
     <Modal
       isOpen={isOpen}
@@ -42,7 +61,7 @@ const CouponModal = ({
           <DeleteButton />
         </Modal.CloseIcon>
 
-        {couponList.map((coupon: Coupon) => {
+        {sortedCoupons.map((coupon: Coupon) => {
           return (
             <>
               <CouponItem
