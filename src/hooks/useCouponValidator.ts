@@ -16,7 +16,7 @@ const useCouponValidator = ({ coupon, date }: Props) => {
   const isExist = couponList.find((item) => item.id === id);
   if (isExist === undefined) return false;
 
-  return new Date(expirationDate) > date;
+  return new Date(expirationDate) >= date;
 };
 
 export default useCouponValidator;
