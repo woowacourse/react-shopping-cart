@@ -8,22 +8,31 @@ import CartResults from "@/components/Main/Cart/CartResults/CartResults";
 import Error from "@/components/Fallbacks/Error";
 
 import { ErrorBoundary } from "react-error-boundary";
-import RouteInfoProvider from "@/Providers/RouteInfoProvider";
+
+import { useRecoilValue } from "recoil";
+import { cartState } from "@/store/atom/atoms";
+
+import CartDescription from "@/components/Main/Cart/CartDescription/CartDescription";
 
 const Cart = () => {
+  const itemCount = useRecoilValue(cartState).length;
+
   return (
-    <RouteInfoProvider>
+    <>
       <Header />
       <ErrorBoundary FallbackComponent={Error}>
         <Main>
-          <CartTitle>SHOP</CartTitle>
+          <div>
+            <CartTitle>SHOP</CartTitle>
+            {itemCount !== 0 && <CartDescription>현재 {itemCount}종류의 상품이 담겨 있습니다.</CartDescription>}
+          </div>
           <CartItemContainer />
           <CartResults />
         </Main>
         <Footer />
       </ErrorBoundary>
       {import.meta.env.DEV && <AddButton />}
-    </RouteInfoProvider>
+    </>
   );
 };
 

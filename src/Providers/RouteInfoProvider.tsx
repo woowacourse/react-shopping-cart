@@ -33,6 +33,10 @@ interface HeaderInfo {
   linkTo: To | number;
 }
 
+interface MainInfo {
+  cartDescription?: string;
+}
+
 interface FooterInfo {
   content: string;
   isButtonDisabled: boolean;
@@ -40,10 +44,34 @@ interface FooterInfo {
 }
 
 export const HeaderRouteInfoContext = createContext<null | RoutesObject<HeaderInfo>>(null);
+export const MainRouteInfoContext = createContext<null | RoutesObject<MainInfo>>(null);
 export const FooterRouteInfoContext = createContext<null | RoutesObject<FooterInfo>>(null);
 
 const RouteInfoProvider = ({ children }: PropsWithChildren) => {
   const orderAmount = useRecoilValue(orderAmountState);
+
+  const headerInfo: RoutesObject<HeaderInfo> = {
+    "/": {
+      leftButtonContent: "SHOP",
+      linkTo: 0,
+    },
+    "/check-order": {
+      leftButtonContent: <RiArrowLeftLine size={30} />,
+      linkTo: -1,
+    },
+    "/order": {
+      leftButtonContent: <RiArrowLeftLine size={30} />,
+      linkTo: -1,
+    },
+  };
+
+  const mainInfo: RoutesObject<MainInfo> = {
+    "/": {},
+    "/check-order": {
+      cartDescription: "최종 결제 금액을 확인해주세요.",
+    },
+    "/order": {},
+  };
 
   const footerInfo: RoutesObject<FooterInfo> = {
     "/": {
@@ -63,24 +91,11 @@ const RouteInfoProvider = ({ children }: PropsWithChildren) => {
     },
   };
 
-  const headerInfo: RoutesObject<HeaderInfo> = {
-    "/": {
-      leftButtonContent: "SHOP",
-      linkTo: 0,
-    },
-    "/check-order": {
-      leftButtonContent: <RiArrowLeftLine size={30} />,
-      linkTo: -1,
-    },
-    "/order": {
-      leftButtonContent: <RiArrowLeftLine size={30} />,
-      linkTo: -1,
-    },
-  };
-
   return (
     <HeaderRouteInfoContext.Provider value={headerInfo}>
-      <FooterRouteInfoContext.Provider value={footerInfo}>{children}</FooterRouteInfoContext.Provider>
+      <FooterRouteInfoContext.Provider value={footerInfo}>
+        <MainRouteInfoContext.Provider value={mainInfo}>{children}</MainRouteInfoContext.Provider>
+      </FooterRouteInfoContext.Provider>
     </HeaderRouteInfoContext.Provider>
   );
 };
