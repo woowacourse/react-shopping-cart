@@ -6,6 +6,7 @@ import { selectedCartItemIdsState } from "../selectedCartItemIds";
 import { Suspense } from "react";
 import { CartItemId, RawCartItem } from "../../types/cartItems";
 import { isRemoteDeliveryAreaState } from "../isRemoteDeliveryArea";
+import { SHIPPING_COST, SHIPPING_COST_FOR_REMOTE } from "../../constants/pricing";
 
 describe("cartAmountState selector", () => {
   const TEST_RAW_CART_ITEMS: RawCartItem[] = [
@@ -48,8 +49,10 @@ describe("cartAmountState selector", () => {
 
   const EXPECTED_CART_AMOUNT = {
     orderAmount: 65_000,
-    shippingCost: 3_000,
-    totalOrderAmount: 68_000,
+    shippingCost: SHIPPING_COST,
+    shippingCostForRemote: SHIPPING_COST_FOR_REMOTE,
+    totalOrderAmount: 65_000 + SHIPPING_COST,
+    totalOrderAmountForRemote: 65_000 + SHIPPING_COST_FOR_REMOTE,
   };
 
   it("장바구니 목록의 금액 합계를 올바르게 계산한다.", async () => {
@@ -74,7 +77,7 @@ describe("cartAmountState selector", () => {
     });
   });
 
-  it("배송 산간 지역일 경우 배송 금액 및 최종 금액에 3,000을 추가한다.", async () => {
+  it("배송 산간 지역일 경우 배송 금액 및 산간 지역 배송 금액을 반환한다.", async () => {
     const { result, rerender } = renderHook(() => useRecoilValue(cartAmountState), {
       wrapper: ({ children }) => (
         <RecoilRoot
@@ -94,8 +97,8 @@ describe("cartAmountState selector", () => {
     await waitFor(() => {
       expect(result.current).toEqual({
         ...EXPECTED_CART_AMOUNT,
-        shippingCost: EXPECTED_CART_AMOUNT.shippingCost + 3_000,
-        totalOrderAmount: EXPECTED_CART_AMOUNT.totalOrderAmount + 3_000,
+        shippingCost: EXPECTED_CART_AMOUNT.shippingCostForRemote,
+        totalOrderAmount: EXPECTED_CART_AMOUNT.totalOrderAmountForRemote,
       });
     });
   });
