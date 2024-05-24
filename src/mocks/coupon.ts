@@ -47,25 +47,21 @@ export const MOCK_COUPON_CHECK_LIST: CouponClint[] = [
 
 export const CHECKED_BOGO_COUPON: CouponClint[] = [
   {
-    id: 2,
-    code: 'BOGO',
-    description: '2개 구매 시 1개 무료 쿠폰',
-    expirationDate: '2024-04-30',
-    buyQuantity: 2,
-    getQuantity: 1,
-    discountType: 'buyXgetY',
+    ...MOCK_COUPON_CHECK_LIST[1],
     isChecked: true,
   },
 ];
 
 export const CHECKED_FREE_SHIPPING_COUPON: CouponClint[] = [
   {
-    id: 3,
-    code: 'FREESHIPPING',
-    description: '5만원 이상 구매 시 무료 배송 쿠폰',
-    expirationDate: '2024-08-31',
-    minimumAmount: 50000,
-    discountType: 'freeShipping',
+    ...MOCK_COUPON_CHECK_LIST[2],
+    isChecked: true,
+  },
+];
+
+export const CHECKED_MIRACLE_MORNING_COUPON: CouponClint[] = [
+  {
+    ...MOCK_COUPON_CHECK_LIST[3],
     isChecked: true,
   },
 ];
