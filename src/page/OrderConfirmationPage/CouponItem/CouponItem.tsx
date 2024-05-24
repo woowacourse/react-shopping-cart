@@ -60,7 +60,7 @@ export default function CouponItem({ isChecked, coupon, isAvailable }: CouponIte
   return (
     <S.CouponItemContainer>
       <S.CouponItemHeader>
-        <CheckBox isChecked={isChecked} />
+        <CheckBox isChecked={isChecked} disabled={!isAvailable} />
         <S.CouponTitle isAvailable={isAvailable}>{coupon.description}</S.CouponTitle>
       </S.CouponItemHeader>
       <S.CouponDescriptionContainer>{descriptions}</S.CouponDescriptionContainer>
