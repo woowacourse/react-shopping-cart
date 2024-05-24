@@ -1,5 +1,5 @@
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
-import { Link, Navigate, useLoaderData, useNavigate } from 'react-router-dom';
+import { Navigate, useLoaderData, useNavigate } from 'react-router-dom';
 import Header, { GoBackButton } from '../../components/Header/Header';
 import TitleContainer, { SubTitle } from '../../components/common/TitleContainer/TitleContainer';
 import Button from '../../components/common/Button/Button';
@@ -13,6 +13,7 @@ import { selectedCartItemListState, isSigolState } from '../../recoil/CartItem/a
 import { totalOrderCountSelector } from '../../recoil/CartItem/selectors/selectors';
 import { selectedCouponListState } from '../../recoil/Coupon/atoms/atoms';
 import useCouponModal from '../../hooks/useCouponModal';
+import { addOrder } from '../../apis';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './OrderConfirmPage.style';
 
@@ -39,6 +40,15 @@ function OrderConfirmPage() {
   };
 
   const handleIsSigol = () => setIsSigol((prev) => !prev);
+
+  const handleSubmitButtonClick = async () => {
+    try {
+      await addOrder(selectedItemList);
+      navigate(PATHS.PAYMENT_CONFIRM);
+    } catch {
+      navigate(PATHS.ERROR);
+    }
+  };
 
   if (selectedItemList.length === 0) return <Navigate to={PATHS.ERROR} />;
 
@@ -67,9 +77,7 @@ function OrderConfirmPage() {
         </S.CartInfoContainer>
         <TotalPriceContainer isConfirm={true} />
       </S.Main>
-      <Link to={PATHS.PAYMENT_CONFIRM}>
-        <SubmitButton isActive={true} content="결제하기" />
-      </Link>
+      <SubmitButton isActive={true} content="결제하기" onClick={handleSubmitButtonClick} />
       {isCouponModalOpen && <CouponModal couponList={couponList} isOpen={isCouponModalOpen} close={closeModal} />}
     </div>
   );
