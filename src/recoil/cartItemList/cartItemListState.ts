@@ -15,5 +15,5 @@ export const cartItemListStateQuery = selector<CartItem[]>({
 
 export const cartItemListState = atom<CartItem[]>({
   key: 'cartItemListState',
-  default: cartItemListStateQuery,
+  default: [],
 });
