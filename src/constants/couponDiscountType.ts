@@ -5,7 +5,7 @@ export const COUPON_DISCOUNT_TYPE = {
   freeShipping: "freeShipping",
 } as const;
 
-export type CouponDiscountType = (typeof COUPON_DISCOUNT_TYPE)[keyof typeof COUPON_DISCOUNT_TYPE];
+export type CouponDiscountType = FixedDiscount | PercentageDiscount | BuyXGetY | FreeShipping;
 
 export type FixedDiscount = typeof COUPON_DISCOUNT_TYPE.fixed;
 
