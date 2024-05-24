@@ -19,7 +19,7 @@
     "react-error-boundary": "^4.0.13",
     "react-router-dom": "^6.23.1",
     "recoil": "^0.7.7",
-    "styled-base-modal": "^0.0.12"
+    "styled-base-modal": "^1.0.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.5",
