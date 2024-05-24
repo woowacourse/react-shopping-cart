@@ -21,8 +21,8 @@ const useCalculateShippingFee = () => {
 
     const isFreeShipping = checkFreeShipping;
 
-    if (isFreeShipping) return setShippingFeeType("FREE");
-    if (shippingFeeType === "FREE") return setShippingFeeType("BASIC");
+    if (isFreeShipping) return setShippingFeeType("free");
+    if (shippingFeeType === "free") return setShippingFeeType("basic");
     setShippingFeeType(shippingFeeType);
   }, [setShippingFeeType, totalOrderPrice, shippingFeeType, selectedCartItems]);
 

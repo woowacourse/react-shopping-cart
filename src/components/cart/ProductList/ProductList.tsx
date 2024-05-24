@@ -2,11 +2,11 @@ import * as S from "./ProductList.style.ts";
 import { useRecoilValue } from "recoil";
 
 import ProductItem, { CartItemShowType } from "../ProductItem/ProductItem.tsx";
-import { cartItems } from "@/recoil/cartItems.ts";
+import { cartItemsState } from "@/recoil/cartItems.ts";
 import { selectedCartItemsIdState } from "@/recoil/selectedCardItems.ts";
 
 const ProductList = ({ type = "edit" }: { type?: CartItemShowType }) => {
-  const cartItemList = useRecoilValue(cartItems);
+  const cartItemList = useRecoilValue(cartItemsState);
   const selectedItemsId = useRecoilValue(selectedCartItemsIdState);
 
   const selectedItems = cartItemList.filter((item) =>

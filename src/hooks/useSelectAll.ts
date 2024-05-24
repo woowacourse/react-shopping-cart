@@ -1,13 +1,13 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 
-import { cartItems } from "@/recoil/cartItems";
+import { cartItemsState } from "@/recoil/cartItems";
 import { selectedCartItemsIdState } from "@/recoil/selectedCardItems";
 
 const useSelectAll = () => {
   const [selectedItemsId, setSelectedItemsId] = useRecoilState(
     selectedCartItemsIdState
   );
-  const cartItemState = useRecoilValue(cartItems);
+  const cartItemState = useRecoilValue(cartItemsState);
 
   const isAllItemSelected = cartItemState.length === selectedItemsId.length;
 

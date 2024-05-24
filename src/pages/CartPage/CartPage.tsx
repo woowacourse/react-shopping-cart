@@ -14,7 +14,7 @@ import {
 } from "@/constants/cart";
 import ProductList from "@/components/cart/ProductList/ProductList";
 import useSelectAll from "@/hooks/useSelectAll";
-import { cartItems } from "@/recoil/cartItems";
+import { cartItemsState } from "@/recoil/cartItems";
 import CartEmpty from "@/components/cart/CartEmpty/CartEmpty";
 import Button from "@/components/_common/Button/Button";
 import { useNavigate } from "react-router-dom";
@@ -25,7 +25,7 @@ import MoreInfo from "@/components/_common/MoreInfo/MoreInfo";
 const CartPage = () => {
   const { isAllItemSelected, selectAllItem, unselectAllItem } = useSelectAll();
   const selectedItems = useRecoilValue(totalItemOrderCountSelector);
-  const cartItemList = useRecoilValue(cartItems);
+  const cartItemList = useRecoilValue(cartItemsState);
   const navigate = useNavigate();
 
   const onMoveOrderConfirmPage = () => {

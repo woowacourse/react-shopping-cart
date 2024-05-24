@@ -10,7 +10,7 @@ export const cartItemSelector = selector<CartItem[]>({
   },
 });
 
-export const cartItems = atom<CartItem[]>({
-  key: "cartItemsAtom",
+export const cartItemsState = atom<CartItem[]>({
+  key: "cartItemsState",
   default: cartItemSelector,
 });

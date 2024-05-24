@@ -1,20 +1,20 @@
 import { atom, selector } from "recoil";
 
-import { cartItems } from "./cartItems";
+import { cartItemsState } from "./cartItems";
 
-import { cartItemQuantity } from "./cartItemQuantity";
+import { cartItemQuantityState } from "./cartItemQuantity";
 import { selectedCartItemsIdState } from "./selectedCardItems";
 import { ShippingFeeType } from "@/constants/cart";
 
 export const totalOrderPriceSelector = selector({
   key: "totalOrderPriceSelector",
   get: ({ get }) => {
-    const cartItemList = get(cartItems);
+    const cartItemList = get(cartItemsState);
     const selectedItemsId = get(selectedCartItemsIdState);
 
     const totalPrice = selectedItemsId.reduce((acc, productId) => {
       const productInfo = cartItemList.find((item) => item.id == productId)!;
-      const quantity = get(cartItemQuantity(productId));
+      const quantity = get(cartItemQuantityState(productId));
       acc += productInfo.product.price * quantity;
       return acc;
     }, 0);
@@ -33,7 +33,7 @@ export const totalItemOrderCountSelector = selector({
   get: ({ get }) => {
     const selectedItemsId = get(selectedCartItemsIdState);
     const totalItemOrderCount = selectedItemsId.reduce((acc, id) => {
-      const itemQuantity = get(cartItemQuantity(id));
+      const itemQuantity = get(cartItemQuantityState(id));
       acc += itemQuantity;
       return acc;
     }, 0);

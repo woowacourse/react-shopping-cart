@@ -11,7 +11,7 @@ import { CartItem } from "@/types/cart.ts";
 
 import * as S from "./ProductItem.style.ts";
 
-import { cartItems } from "@/recoil/cartItems.ts";
+import { cartItemsState } from "@/recoil/cartItems.ts";
 import { formatToWon } from "@/utils/stringHelper.ts";
 import { selectedCartItemsIdState } from "@/recoil/selectedCardItems.ts";
 import { removeCartItem } from "@/auth/apis/cart.ts";
@@ -36,7 +36,7 @@ const ProductItem = ({
   );
 
   const isItemSelected = selectItems.includes(id);
-  const setCartItemList = useSetRecoilState(cartItems);
+  const setCartItemList = useSetRecoilState(cartItemsState);
 
   const onClickRemoveItem = async () => {
     const canRemoveItem = await removeCartItem(id);

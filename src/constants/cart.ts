@@ -18,9 +18,9 @@ export const CART_PAGE_CAPTION = {
 export const FREE_SHIPPING_THRESHOLD = 100000;
 
 export const SHIPPING_FEE = {
-  FREE: 0,
-  BASIC: 3000,
-  DOUBLE: 6000,
+  free: 0,
+  basic: 3000,
+  remoteAreaShippingFee: 6000,
 };
 
 export type ShippingFeeType = keyof typeof SHIPPING_FEE;
