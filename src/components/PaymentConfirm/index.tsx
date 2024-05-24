@@ -1,21 +1,26 @@
 import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import Description from '../common/Description';
 import FooterButton from '../common/FooterButton';
 import Main from '../common/Main';
 import Title from '../common/Title';
 
-import { fixedSelectedCouponsState } from '@/recoil/coupon/atom';
+import LocalStorage, { CART_ITEM } from '@/Storage';
+import { cartItemsState } from '@recoil/cartItems/atoms';
 import {
   productTypesCountState,
   purchaseTotalPriceState,
   totalQuantityState,
 } from '@recoil/cartItems/selectors';
+import { fixedSelectedCouponsState } from '@recoil/coupon/atom';
+import { orderItemsIdSelector } from '@recoil/order/selector';
 
 export default function PaymentConfirm() {
   const navigate = useNavigate();
+  const [cartItems, setCartItems] = useRecoilState(cartItemsState);
+  const cartItemIds = useRecoilValue(orderItemsIdSelector);
   const totalQuantity = useRecoilValue(totalQuantityState);
   const productTypesCount = useRecoilValue(productTypesCountState);
   const totalPrice = useRecoilValue(purchaseTotalPriceState);
@@ -23,6 +28,9 @@ export default function PaymentConfirm() {
 
   const onFooterButtonClickHandler = () => {
     setFixedSelectedCoupons([]);
+    setCartItems(cartItems.filter(({ id }) => !cartItemIds.includes(id)));
+    cartItemIds.forEach((cartItemId) => LocalStorage.deleteData(CART_ITEM, cartItemId));
+
     navigate('/');
   };
 

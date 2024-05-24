@@ -11,16 +11,21 @@ import Description from '../common/Description';
 import Main from '../common/Main';
 import Title from '../common/Title';
 
+import useOrder from '@/hooks/useOrder';
 import FooterButton from '@components/common/FooterButton';
 import { productTypesCountState, totalQuantityState } from '@recoil/cartItems/selectors';
 
 export default function CartConfirmContent() {
+  const { order } = useOrder();
   const navigate = useNavigate();
 
   const totalQuantity = useRecoilValue(totalQuantityState);
   const productTypesCount = useRecoilValue(productTypesCountState);
 
-  const onFooterButtonClickHandler = () => navigate('/payment-confirm');
+  const onFooterButtonClickHandler = async () => {
+    await order();
+    navigate('/payment-confirm');
+  };
 
   useEffect(() => {
     if (!totalQuantity) navigate('/');
