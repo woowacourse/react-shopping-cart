@@ -1,11 +1,27 @@
-import React from "react";
+import { createBrowserRouter } from "react-router-dom";
+import CartPage from "../pages/CartPage";
+import OrderConfirmationPage from "../pages/OrderConfirmationPage";
+import PaymentConfirmationPage from "../pages/PaymentConfirmationPage";
+import { fetchCartItems } from "../api/cartItemApi";
 
-const CartPage = React.lazy(() => import("../pages/CartPage"));
-const OrderConfirmationPage = React.lazy(() => import("../pages/OrderConfirmationPage"));
-const PaymentConfirmationPage = React.lazy(() => import("../pages/PaymentConfirmationPage"));
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <CartPage />,
+    // loader: async () => {
+    //   const cartItems = await fetchCartItems();
+    //   console.log("cartItems 호출", cartItems);
+    //   return { cartItems };
+    // },
+  },
+  {
+    path: "/orderConfirmation",
+    element: <OrderConfirmationPage />,
+  },
+  {
+    path: "/paymentConfirmation",
+    element: <PaymentConfirmationPage />,
+  },
+]);
 
-export const routes = [
-  { path: "/", element: <CartPage /> },
-  { path: "/orderConfirmation", element: <OrderConfirmationPage /> },
-  { path: "/paymentConfirmation", element: <PaymentConfirmationPage /> },
-];
+export default router;
