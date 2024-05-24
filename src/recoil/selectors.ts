@@ -34,9 +34,10 @@ export const deliveryFeeState = selector<number>({
       (acc, item) => acc + item.quantity * item.product.price,
       0,
     );
-    if (orderAmount >= 100000 || checkedItem.length === 0) return 0;
-    if (isAdded) 3000 + 3000;
-    return 3000;
+    const defaultCouponFee = orderAmount >= 100000 ? 0 : 3000;
+    if (checkedItem.length === 0) return 0;
+    if (isAdded) return defaultCouponFee + 3000;
+    return defaultCouponFee;
   },
 });
 
