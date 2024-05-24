@@ -10,32 +10,15 @@ interface CouponItemProps {
   isChecked: boolean;
   isAvailable: boolean;
   coupon: Coupon;
+  isCheckedToggler: () => void;
 }
 
-const getFromToMinuteKoKR = (fromMinute: number, toMinute: number) => {
-  const isAMFrom = fromMinute < 12 * 60;
-  const isAMTo = toMinute < 12 * 60;
-
-  const restFromMinute = fromMinute % 60;
-  const restToMinute = toMinute % 60;
-
-  const AMKoKR = '오전';
-  const FMKoKR = '오후';
-
-  const hourKoKR = '시';
-  const minuteKoKR = '분';
-
-  const fromHour = Math.floor(fromMinute / 60) % 12 === 0 ? 12 : Math.floor(fromMinute / 60) % 12;
-  const toHour = Math.floor(toMinute / 60) % 12 === 0 ? 12 : Math.floor(toMinute / 60) % 12;
-
-  const from = `${isAMFrom ? AMKoKR : FMKoKR} ${fromHour}${hourKoKR}${restFromMinute > 0 ? ' ' + restFromMinute + minuteKoKR : ''}`;
-  const to = `${toHour}${hourKoKR}${restToMinute > 0 ? ' ' + restToMinute + minuteKoKR : ''}`;
-
-  const adjustedTo = isAMTo !== isAMFrom ? `${isAMTo ? AMKoKR : FMKoKR} ${to}` : to;
-  return { from, to: adjustedTo };
-};
-
-export default function CouponItem({ isChecked, coupon, isAvailable }: CouponItemProps) {
+export default function CouponItem({
+  isChecked,
+  coupon,
+  isAvailable,
+  isCheckedToggler,
+}: CouponItemProps) {
   const descriptions = useMemo(() => {
     const strings = [];
     strings.push(`만료일:${coupon.expirationDate.replace('-', '년 ').replace('-', '월 ') + '일'}`);
@@ -60,10 +43,33 @@ export default function CouponItem({ isChecked, coupon, isAvailable }: CouponIte
   return (
     <S.CouponItemContainer>
       <S.CouponItemHeader>
-        <CheckBox isChecked={isChecked} disabled={!isAvailable} />
+        <CheckBox isChecked={isChecked} disabled={!isAvailable} onClick={isCheckedToggler} />
         <S.CouponTitle isAvailable={isAvailable}>{coupon.description}</S.CouponTitle>
       </S.CouponItemHeader>
       <S.CouponDescriptionContainer>{descriptions}</S.CouponDescriptionContainer>
     </S.CouponItemContainer>
   );
 }
+
+const getFromToMinuteKoKR = (fromMinute: number, toMinute: number) => {
+  const isAMFrom = fromMinute < 12 * 60;
+  const isAMTo = toMinute < 12 * 60;
+
+  const restFromMinute = fromMinute % 60;
+  const restToMinute = toMinute % 60;
+
+  const AMKoKR = '오전';
+  const FMKoKR = '오후';
+
+  const hourKoKR = '시';
+  const minuteKoKR = '분';
+
+  const fromHour = Math.floor(fromMinute / 60) % 12 === 0 ? 12 : Math.floor(fromMinute / 60) % 12;
+  const toHour = Math.floor(toMinute / 60) % 12 === 0 ? 12 : Math.floor(toMinute / 60) % 12;
+
+  const from = `${isAMFrom ? AMKoKR : FMKoKR} ${fromHour}${hourKoKR}${restFromMinute > 0 ? ' ' + restFromMinute + minuteKoKR : ''}`;
+  const to = `${toHour}${hourKoKR}${restToMinute > 0 ? ' ' + restToMinute + minuteKoKR : ''}`;
+
+  const adjustedTo = isAMTo !== isAMFrom ? `${isAMTo ? AMKoKR : FMKoKR} ${to}` : to;
+  return { from, to: adjustedTo };
+};
