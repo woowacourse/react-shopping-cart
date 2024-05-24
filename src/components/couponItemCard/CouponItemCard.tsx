@@ -1,6 +1,6 @@
 import { Coupon } from "../../types";
 import { formatDate } from "../../utils/formatDate";
-import { formatTime } from "../../utils/formatTime";
+import { getAdditionalInfo } from "../../utils/getCouponAdditionalInfo";
 import { CheckboxButton } from "../button";
 import {
   StyledCouponItemCard,
@@ -9,21 +9,6 @@ import {
   StyledCouponItemCardHeader,
   StyledCouponItemCardTitle,
 } from "./CouponItemCard.styled";
-
-const getAdditionalInfo = (coupon: Coupon): string => {
-  switch (coupon.discountType) {
-    case "fixed":
-      return `최소 주문 금액: ${coupon.minimumAmount?.toLocaleString()}원`;
-    case "buyXgetY":
-      return "";
-    case "freeShipping":
-      return `최소 주문 금액: ${coupon.minimumAmount?.toLocaleString()}원`;
-    case "percentage":
-      return `사용 가능 시간: ${formatTime(coupon.availableTime?.start || "")}부터 ${formatTime(coupon.availableTime?.end || "")}까지`;
-    default:
-      return "";
-  }
-};
 
 export const CouponItemCard: React.FC<Coupon> = ({
   description,
@@ -49,9 +34,6 @@ export const CouponItemCard: React.FC<Coupon> = ({
         </StyledCouponItemCardContent>
         <StyledCouponItemCardContent>
           {getAdditionalInfo({
-            id: "",
-            description,
-            expirationDate,
             discountType,
             minimumAmount,
             buyQuantity,
