@@ -7,7 +7,7 @@ class PercentageCoupon extends Coupon {
   }
 
   public discountAmount(amount: number): number {
-    return this.data.discount ? amount / this.data.discount : 0;
+    return this.data.discount ? Math.floor((amount / 100) * this.data.discount) : 0;
   }
 }
 
