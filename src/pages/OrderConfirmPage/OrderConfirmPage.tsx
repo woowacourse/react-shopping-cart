@@ -1,6 +1,12 @@
 import { PageExplanation } from '@components/common';
 import { PurchaseProcessLayout } from '@components/layout';
-import { CouponModalContainer, OrderAmountsList, SelectedItemList, ShippingInfo } from '@components/orderConfirm';
+import {
+  CouponModalContainer,
+  InvalidOrderAccessError,
+  OrderAmountsList,
+  SelectedItemList,
+  ShippingInfo,
+} from '@components/orderConfirm';
 import { useAvailableCoupons, useSelectedCartItems } from '@hooks/index';
 import useOrderCartItems from '@hooks/order/useOrderCartItems';
 import { availableCouponsAtom, totalPriceSelector } from '@recoil/shoppingCart';
@@ -18,6 +24,7 @@ const OrderConfirmPage: React.FC = () => {
   const { fetchError, orderCartItems } = useOrderCartItems();
 
   const navigate = useNavigate();
+  const isValidAccess = selectedItems.length > 0;
 
   const handleClickBottomButton = async () => {
     await orderCartItems();
@@ -36,18 +43,25 @@ const OrderConfirmPage: React.FC = () => {
     <PurchaseProcessLayout
       pageTitle="주문 확인"
       handleBottomBtnClick={handleClickBottomButton}
+      bottomButtonDisable={!isValidAccess}
       bottomButtonText="결제하기"
     >
-      <PageExplanation>
-        <PageExplanation.Row>
-          총 {totalSelectedItemLength}종류의 상품 {selectedTotalQuantity}개를 주문합니다.
-        </PageExplanation.Row>
-        <PageExplanation.Row>최종 결제 금액을 확인해주세요.</PageExplanation.Row>
-      </PageExplanation>
-      <SelectedItemList selectedItems={selectedItems} />
-      <CouponModalContainer />
-      <ShippingInfo />
-      <OrderAmountsList />
+      {isValidAccess ? (
+        <>
+          <PageExplanation>
+            <PageExplanation.Row>
+              총 {totalSelectedItemLength}종류의 상품 {selectedTotalQuantity}개를 주문합니다.
+            </PageExplanation.Row>
+            <PageExplanation.Row>최종 결제 금액을 확인해주세요.</PageExplanation.Row>
+          </PageExplanation>
+          <SelectedItemList selectedItems={selectedItems} />
+          <CouponModalContainer />
+          <ShippingInfo />
+          <OrderAmountsList />
+        </>
+      ) : (
+        <InvalidOrderAccessError />
+      )}
     </PurchaseProcessLayout>
   );
 };

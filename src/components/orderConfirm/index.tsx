@@ -4,3 +4,4 @@ export { default as CouponModalButton } from './CouponModalButton/CouponModalBut
 export { default as OrderAmountsList } from './OrderAmountsList/OrderAmountsList';
 export { default as ShippingInfo } from './ShippingInfo/ShippingInfo';
 export { default as SelectedItemList } from './SelectedItemList/SelectedItemList';
+export { default as InvalidOrderAccessError } from './InvalidOrderAccessError/InvalidOrderAccessError';
