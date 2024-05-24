@@ -6,15 +6,19 @@ import NoticeMessage from '../NoticeMessage/NoticeMessage';
 
 type PriceTableProps = {
   name: string;
-  price: number;
+  price: number | string;
   upperDivider?: boolean;
 };
 
 const PriceTableRow = ({ name, price, upperDivider }: PriceTableProps) => {
+  const formatContent = () => {
+    if (typeof price === 'string') return price;
+    else return `${price.toLocaleString('ko-kr')}원`;
+  };
   return (
     <>
       {upperDivider && <Divider />}
-      <ContentRow title={name} content={`${price.toLocaleString('ko-kr')}원`} />
+      <ContentRow title={name} content={formatContent()} />
     </>
   );
 };
