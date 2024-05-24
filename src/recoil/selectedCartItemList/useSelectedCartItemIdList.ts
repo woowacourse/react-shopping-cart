@@ -15,23 +15,23 @@ export const useSelectedCartItemIdList = () => {
     setSelectedCartItemIdList((prev) => [...prev].filter((id) => id !== cartItemId));
   };
 
-  const selectAll = () => {
+  const selectAllCartItem = () => {
     setSelectedCartItemIdList([...cartItemList.map(({ cartItemId }) => cartItemId)]);
   };
 
-  const clear = () => {
+  const clearSelectedCartItemIdList = () => {
     setSelectedCartItemIdList([]);
   };
 
-  const getIsSelected = (cartItemId: number) => {
+  const getIsSelectedCartItem = (cartItemId: number) => {
     return selectedCartItemIdList.some((id) => id === cartItemId);
   };
 
   return {
     addSelectedItemId,
     deleteSelectedItemId,
-    selectAll,
-    clear,
-    getIsSelected,
+    selectAllCartItem,
+    clearSelectedCartItemIdList,
+    getIsSelectedCartItem,
   };
 };

@@ -11,12 +11,16 @@ const CartItemList = () => {
   const itemList = useRecoilValue(cartItemListState);
   const selectedIdList = useRecoilValue(selectedCartItemIdListState);
   const isSelectedAll = selectedIdList.length === itemList.length;
-  const { clear, selectAll } = useSelectedCartItemIdList();
+  const { clearSelectedCartItemIdList, selectAllCartItem } = useSelectedCartItemIdList();
 
   return (
     <S.CartItemList>
       <S.SelectAllContainer>
-        <Checkbox alt="상품 선택" checked={isSelectedAll} handleClick={isSelectedAll ? clear : selectAll} />
+        <Checkbox
+          alt="상품 선택"
+          checked={isSelectedAll}
+          handleClick={isSelectedAll ? clearSelectedCartItemIdList : selectAllCartItem}
+        />
         <Text size="s" weight="m">
           전체선택
         </Text>

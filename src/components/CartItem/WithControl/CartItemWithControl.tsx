@@ -17,7 +17,7 @@ import { useCartItemList } from '../../../recoil/cartItemList/useCartItemList';
 const CartItemWithControl = ({ product, quantity: initialQuantity, cartItemId }: CartItemWithControl) => {
   const { name, price, imageUrl } = product;
   const { quantity, setQuantity, increaseQuantity, decreaseQuantity } = useCartItemQuantity(cartItemId);
-  const { getIsSelected, addSelectedItemId, deleteSelectedItemId } = useSelectedCartItemIdList();
+  const { getIsSelectedCartItem, addSelectedItemId, deleteSelectedItemId } = useSelectedCartItemIdList();
   const { deleteCartItem } = useCartItemList();
 
   useEffect(() => {
@@ -29,9 +29,11 @@ const CartItemWithControl = ({ product, quantity: initialQuantity, cartItemId }:
       <Divider />
       <S.ItemHeader>
         <Checkbox
-          checked={getIsSelected(cartItemId)}
+          checked={getIsSelectedCartItem(cartItemId)}
           handleClick={
-            getIsSelected(cartItemId) ? () => deleteSelectedItemId(cartItemId) : () => addSelectedItemId(cartItemId)
+            getIsSelectedCartItem(cartItemId)
+              ? () => deleteSelectedItemId(cartItemId)
+              : () => addSelectedItemId(cartItemId)
           }
           alt="Checkbox"
         />
