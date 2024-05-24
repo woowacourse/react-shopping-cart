@@ -1,19 +1,11 @@
-import { useEffect } from 'react';
-
 import * as S from './CartItem.style';
-import { useCartItemQuantity } from '../../recoil/cartItem/useCartItemQuantity';
 import Divider from '../common/Divider/Divider';
 import ImageBox from '../common/ImageBox/ImageBox';
 import Text from '../common/Text/Text';
 import type { CartItem } from '../../types/cartItem.type';
 
-const CartItem = ({ product, quantity: initialQuantity, cartItemId }: CartItem) => {
+const CartItem = ({ product, quantity }: CartItem) => {
   const { name, price, imageUrl } = product;
-  const { quantity, setQuantity, increaseQuantity, decreaseQuantity } = useCartItemQuantity(cartItemId);
-
-  useEffect(() => {
-    setQuantity(initialQuantity);
-  }, []);
 
   return (
     <S.CartItem>
