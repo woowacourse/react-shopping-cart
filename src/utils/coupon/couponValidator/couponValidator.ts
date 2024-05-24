@@ -1,8 +1,9 @@
-import { TCartItem } from '../../types/CartItem.type';
+import { TCartItem } from '../../../types/CartItem.type';
 
 export const isCouponExpired = (expirationDate: string, now: Date) => {
   const expiration = new Date(expirationDate);
-  return expiration < now;
+  console.log(expiration, now);
+  return now > expiration;
 };
 
 export const isCouponMinimumAmount = (minimumAmount: number, totalPrice: number) => {

@@ -6,7 +6,7 @@ import {
   isCouponMinimumAmount,
   isCouponAvaliableTime,
   isCouponAvaliableQuantity,
-} from '../utils/coupon/couponValidator';
+} from '../utils/coupon/couponValidator/couponValidator';
 import { getKoreanTime } from '../utils/time';
 import { Coupon } from '../types/Coupon.type';
 
