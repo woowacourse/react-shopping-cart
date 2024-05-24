@@ -1,4 +1,5 @@
 import { Coupon } from '@/types/coupon.type';
+import { MAXIMUM_SELECT_COUPON_COUNT } from '@/constants/system';
 import { selectedCouponListState } from '@/store/atoms';
 import useCouponAvailable from './useCouponAvailable';
 import useCouponValidator from './useCouponValidator';
@@ -16,7 +17,7 @@ const useCanUseCoupon = ({ coupon }: Props) => {
   const isValid = useCouponValidator({ coupon, date });
   const isAvailable = useCouponAvailable({ coupon, date });
 
-  if (selectedCoupon.length >= 2 && !isSelected) {
+  if (selectedCoupon.length >= MAXIMUM_SELECT_COUPON_COUNT && !isSelected) {
     return false;
   }
 
