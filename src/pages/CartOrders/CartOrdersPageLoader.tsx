@@ -4,7 +4,7 @@ import { ReactNode, useEffect } from 'react';
 import LoadingFallback from '../../components/LoadingFallback/LoadingFallback';
 import { useCartItemList } from '../../recoil/cartItemList/useCartItemList';
 
-const CartPageLoader = ({ children }: { children: ReactNode }) => {
+const CartOrdersPageLoader = ({ children }: { children: ReactNode }) => {
   const cartItemListLoadable = useRecoilValueLoadable(cartItemListStateQuery);
   const { updateCartItemList } = useCartItemList();
 
@@ -22,4 +22,4 @@ const CartPageLoader = ({ children }: { children: ReactNode }) => {
   }
 };
 
-export default CartPageLoader;
+export default CartOrdersPageLoader;

@@ -14,13 +14,13 @@ import { cartShippingFeeState } from '../../recoil/price/cartShippingFeeState';
 import { finalCartPriceState } from '../../recoil/price/finalCartPriceState';
 import { ROUTES } from '../../constants/routes';
 
-const CartPageContainer = styled.main`
+const CartOrdersPageContainer = styled.main`
   width: 100%;
   height: 100%;
   padding: 50px 20px 80px 20px;
 `;
 
-const CartPage = () => {
+const CartOrdersPage = () => {
   const cartItemList = useRecoilValue(cartItemListState);
   const selectedCartItemIdList = useRecoilValue(selectedCartItemIdListState);
 
@@ -37,7 +37,7 @@ const CartPage = () => {
   return (
     <>
       <Header />
-      <CartPageContainer>
+      <CartOrdersPageContainer>
         <Title title="장바구니" description={`현재 ${cartItemList.length}종류의 상품이 담겨있습니다.`} />
         <Spacer height={36} />
         <CartItemList />
@@ -47,20 +47,20 @@ const CartPage = () => {
           <PriceTable.Row name="배송비" price={shippingFee} />
           <PriceTable.Row name="총 결제 금액" price={finalCartPrice} upperDivider />
         </PriceTable>
-      </CartPageContainer>
+      </CartOrdersPageContainer>
       <Button
         color="primary"
         width="full"
         radius={0}
         size="l"
         style={{ position: 'fixed', bottom: '0', width: '100%', maxWidth: '768px' }}
-        isDisabled={selectedCartItemIdList.length === 0 || (cartItemList !== null && cartItemList.length === 0)}
+        disabled={selectedCartItemIdList.length === 0 || (cartItemList !== null && cartItemList.length === 0)}
         onClick={moveToConfirmPurchasePage}
       >
-        주문 확인
+        결제하기
       </Button>
     </>
   );
 };
 
-export default CartPage;
+export default CartOrdersPage;
