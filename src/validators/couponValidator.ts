@@ -8,11 +8,11 @@ const couponValidator = () => {
     return expiration < today;
   };
 
-  const isCouponValid = (coupon: CouponType) => {
+  const validateCoupon = (coupon: CouponType) => {
     return !isCouponExpired(coupon.expirationDate);
   };
 
-  return { isCouponValid };
+  return { validateCoupon };
 };
 
 export default couponValidator;
