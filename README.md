@@ -9,6 +9,7 @@ step 1 : checkout 페이지 UI 구성
 - [x] checkout 페이지 쿠폰 모달 버튼 UI
 - [x] checkout 페이지 배송 정보 체크박스 UI
   - [x] 배송 정보를 담은 shippingFeeState 생성
+- [x] checkout 페이지 Totals UI
 - [x] 이전 미션의 모달 라이브러리 설치
 
 # 🎯 1단계 Refactoring

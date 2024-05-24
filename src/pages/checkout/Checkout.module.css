@@ -39,8 +39,8 @@
 }
 
 .couponModalButton {
-  width: 380px;
-  height: 48px;
+  width: 100%;
+  padding: 15px 0px;
   border-radius: 5px;
   border: 1px solid rgba(51, 51, 51, 0.25);
   text-align: center;
@@ -59,4 +59,12 @@
   justify-content: flex-start;
   align-items: center;
   gap: 8px;
+}
+
+/* CheckoutTotals */
+.checkoutTotalsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 40px;
 }

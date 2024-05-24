@@ -12,6 +12,7 @@ import CheckoutItem from './components/CheckoutItem';
 import { useState } from 'react';
 import CouponModal from './components/CouponModal';
 import ShippingFeeCheck from './components/ShippingFeeCheck';
+import CheckoutTotals from './components/CheckoutTotals';
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
@@ -60,6 +61,7 @@ export default function CheckoutPage() {
           쿠폰 적용
         </button>
         <ShippingFeeCheck />
+        <CheckoutTotals />
       </div>
 
       {/* 다음 미션에서 기능 추가 예정 */}
