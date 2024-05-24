@@ -1,6 +1,8 @@
 import SERVER_URL from "../config/serverUrl";
+import { CouponInstances } from "../domain/coupons/AbstractCoupon";
 import { CartItemResponse } from "../types/ShoppingCart";
 import { generateBasicToken } from "../utils/auth";
+import convertToCouponDTO from "../utils/convertToCouponDTO";
 
 export async function fetchCartItems(): Promise<CartItemResponse[]> {
   const token = generateBasicToken(SERVER_URL.userId, SERVER_URL.userPassword);
@@ -50,4 +52,20 @@ export async function deleteCartItem(itemId: number): Promise<void> {
   if (!response.ok) {
     throw new Error("Failed to fetch cart items");
   }
+}
+
+export async function fetchCoupons(): Promise<CouponInstances[]> {
+  const token = generateBasicToken(SERVER_URL.userId, SERVER_URL.userPassword);
+
+  const response = await fetch(`${SERVER_URL.apiUrl}/coupons`, {
+    method: "get",
+    headers: { Authorization: token },
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch coupons");
+  }
+
+  const data = await response.json();
+  return convertToCouponDTO(data);
 }
