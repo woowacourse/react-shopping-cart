@@ -24,6 +24,6 @@
     "types": ["jest"],
     "esModuleInterop": true
   },
-  "include": ["src"],
+  "include": ["src", "river-modal-component.d.ts", "src/hooks/coupons/.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
