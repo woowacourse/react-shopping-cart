@@ -92,4 +92,22 @@ const fetchCouponList = async (): Promise<Coupon[]> => {
   return data;
 };
 
-export { fetchCartItemList, addCartItem, removeCartItem, updateCartItemQuantity, fetchCouponList };
+const createOrder = async (cartItemIds: number[]): Promise<void> => {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+
+  const response = await fetch(`${API_URL}/orders`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
+    body: JSON.stringify({ cartItemIds: cartItemIds }),
+  });
+
+  if (!response.ok) {
+    alert(CART_ITEM_ERROR_MESSAGE.CREATE_ORDER);
+    throw new Error(CART_ITEM_ERROR_MESSAGE.CREATE_ORDER);
+  }
+};
+
+export { fetchCartItemList, addCartItem, removeCartItem, updateCartItemQuantity, fetchCouponList, createOrder };

@@ -28,6 +28,7 @@ function PaymentConfirmPage() {
   if (totalPrice <= 0) {
     return <Navigate to={PATHS.ERROR} />;
   }
+
   return (
     <div>
       <Header />

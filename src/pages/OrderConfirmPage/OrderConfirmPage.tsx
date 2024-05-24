@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
-import { Link, Navigate, useLoaderData } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { Link, Navigate, useLoaderData, useNavigate } from 'react-router-dom';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
+import { createOrder } from '../../apis';
 import ShowModalButton from '../../components/Button/ShowModalButton/ShowModalButton';
 import SubmitButton from '../../components/Button/SubmitButton/SubmitButton';
 import CartItemContainer from '../../components/Container/CartItemContainer/CartItemContainer';
@@ -25,7 +26,7 @@ function OrderConfirmPage() {
 
   const couponList = useSortCoupons(initialValue);
 
-  const selectedItemList = useRecoilValue(selectedCartItemListState);
+  const [selectedItemList, setSelectedItemList] = useRecoilState(selectedCartItemListState);
 
   const setSelectedCouponList = useSetRecoilState(selectedCouponListState);
 
@@ -33,6 +34,7 @@ function OrderConfirmPage() {
 
   const isOpen = useRecoilValue(applyCouponModalState);
   const { openModal } = useToggleModal();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setSelectedCouponList([]);
@@ -53,6 +55,15 @@ function OrderConfirmPage() {
       <TotalPriceContainer isOrderConfirmPage={true} />
     </>
   );
+  const handleSubmitClick = async () => {
+    try {
+      await createOrder(selectedItemList.map((item) => item.id));
+    } catch (error) {
+      navigate('/error', { state: { errorType: 'CREATE_ORDER' } });
+    }
+    setSelectedItemList([]);
+    window.localStorage.removeItem('selectedCartItemListState');
+  };
 
   return (
     <>
@@ -66,7 +77,7 @@ function OrderConfirmPage() {
         {renderSelectedItemListSection()}
       </S.Layout>
       <Link to={PATHS.PAYMENT_CONFIRM}>
-        <SubmitButton isActive={true} content="결제하기" />
+        <SubmitButton isActive={true} content="결제하기" onClick={handleSubmitClick} />
       </Link>
     </>
   );
