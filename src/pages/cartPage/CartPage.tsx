@@ -38,7 +38,7 @@ export const CartPage: React.FC = () => {
     };
 
     fetchCartItems();
-  }, [selectedItemsCount, categoryCount]);
+  }, [setCartItems, setCartErrorMessage]);
 
   return (
     <>
