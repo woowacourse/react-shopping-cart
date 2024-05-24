@@ -1,29 +1,9 @@
-import { useNavigate } from "react-router-dom";
-import ArrowIcon from "../../assets/arrowIcon.png";
-import HeaderLogo from "../../assets/headerLogo.png";
-import { HeaderButtonContainer, HeaderContainer } from "./style";
+import * as S from './style';
 
 interface HeaderProps {
-  isShowLogo: boolean;
+  homeButton: React.ReactNode;
 }
 
-export default function Header({ isShowLogo }: HeaderProps) {
-  const navigate = useNavigate();
-
-  const handleGoBack = () => {
-    navigate("/");
-  };
-
-  return (
-    <HeaderContainer>
-      {isShowLogo ? (
-        <img src={HeaderLogo} />
-      ) : (
-        <HeaderButtonContainer onClick={handleGoBack}>
-          <img src={ArrowIcon} />
-        </HeaderButtonContainer>
-      )}
-      <div></div>
-    </HeaderContainer>
-  );
+export default function Header({ homeButton }: HeaderProps) {
+  return <S.HeaderContainer>{homeButton}</S.HeaderContainer>;
 }

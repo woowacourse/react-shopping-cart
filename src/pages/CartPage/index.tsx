@@ -22,6 +22,7 @@ import {
   CartListWrapper,
   CartPageContainer,
 } from './styles';
+import { HomeButton } from '../../components/Header/HeaderButton';
 
 export default function CartPage() {
   const cartList = useRecoilValueLoadable(cartListState);
@@ -41,7 +42,7 @@ export default function CartPage() {
       }
     >
       <Layout
-        header={<Header isShowLogo={true} />}
+        header={<Header homeButton={<HomeButton />} />}
         bottom={
           <BottomButton
             onClick={handleConfirmOrder}

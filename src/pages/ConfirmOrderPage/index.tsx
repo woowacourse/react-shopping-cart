@@ -21,6 +21,7 @@ import {
   Title,
   TotalPrice,
 } from './styles';
+import { BackButton } from '../../components/Header/HeaderButton';
 
 export default function ConfirmOrderPage() {
   const cartList = useRecoilValueLoadable(cartListState);
@@ -30,7 +31,7 @@ export default function ConfirmOrderPage() {
 
   return (
     <Layout
-      header={<Header isShowLogo={false} />}
+      header={<Header homeButton={<BackButton />} />}
       bottom={
         <BottomButton onClick={() => {}} isDisabled={true}>
           결제하기
