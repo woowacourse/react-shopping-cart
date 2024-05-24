@@ -13,6 +13,8 @@ export const SHOPPING_MESSAGE = {
   orderAmount: "주문 금액",
   shippingFee: "배송비",
   totalPayAmount: "총 결제 금액",
+  makePayment: "결제하기",
+  goBackToBasket: "장바구니로 돌아가기",
   couponInfo: `쿠폰은 최대 ${ORDER.maxCouponCount}개까지 사용할 수 있습니다.`,
 
   freeShippingFeeInfo(price: string) {
