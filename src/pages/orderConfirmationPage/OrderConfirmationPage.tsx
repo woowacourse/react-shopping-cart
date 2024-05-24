@@ -4,12 +4,14 @@ import { CartLayout } from "../../components/cartLayout/CartLayout";
 import { ContentHeader } from "../../components/contentHeader/ContentHeader";
 import { OrderContentSection } from "../../components/orderContentSection/OrderContentSection";
 import { BUTTON_COLORS, CART, HEADER_TYPES, PATHS } from "../../constants";
-import { selectedCartItemsState } from "../../recoil/atoms/atoms";
-import { cartSummarySelectorState } from "../../recoil/selector/selector";
+import {
+  cartSummarySelectorState,
+  selectedCartItemsSelectorState,
+} from "../../recoil/selector/selector";
 
 export const OrderConfirmationPage: React.FC = () => {
   const navigate = useNavigate();
-  const selectedCartItems = useRecoilValue(selectedCartItemsState);
+  const selectedCartItems = useRecoilValue(selectedCartItemsSelectorState);
   const { uniqueItemCount, totalItemCount } = useRecoilValue(cartSummarySelectorState);
 
   const navigateToPaymentsConfirmationPage = () => {

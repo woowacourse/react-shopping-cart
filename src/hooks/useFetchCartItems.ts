@@ -17,8 +17,10 @@ export const useFetchCartItems = () => {
       }
     };
 
-    fetchCartItems();
-  }, [setCartItems]);
+    if (cartItems.length === 0) {
+      fetchCartItems();
+    }
+  }, [cartItems, setCartItems]);
 
   return { cartItems, setCartItems };
 };
