@@ -13,6 +13,7 @@ interface CheckBoxProps {
   isSelected: boolean;
   toggleSelected: () => void;
   label?: string;
+  isApplicable?: boolean;
 }
 
 export default function CheckBox({
@@ -20,6 +21,7 @@ export default function CheckBox({
   toggleSelected,
   label,
   id,
+  isApplicable = false,
 }: CheckBoxProps) {
   return (
     <CheckboxContainer>
@@ -28,9 +30,14 @@ export default function CheckBox({
         type="checkbox"
         defaultChecked={isSelected}
         onChange={toggleSelected}
+        disabled={!isApplicable}
       />
 
-      <StyledCheckbox onClick={toggleSelected} type="button">
+      <StyledCheckbox
+        onClick={isApplicable ? toggleSelected : undefined}
+        type="button"
+        className={!isApplicable ? "disabled" : ""}
+      >
         {isSelected ? (
           <img src={CheckedIcon} alt="checked icon" />
         ) : (
