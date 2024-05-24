@@ -69,3 +69,23 @@ export async function fetchCoupons(): Promise<CouponInstances[]> {
   const data = await response.json();
   return convertToCouponDTO(data);
 }
+
+export async function postOrders(cartItemIds: number[]) {
+  const token = generateBasicToken(SERVER_URL.userId, SERVER_URL.userPassword);
+
+  const bodyData = {
+    cartItemIds,
+  };
+
+  const response = await fetch(`${SERVER_URL.apiUrl}/orders`, {
+    method: "post",
+    headers: { Authorization: token, "Content-Type": "application/json" },
+    body: JSON.stringify(bodyData),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to post order");
+  }
+
+  return response;
+}
