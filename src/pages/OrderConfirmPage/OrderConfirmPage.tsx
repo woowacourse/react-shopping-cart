@@ -17,8 +17,9 @@ import { applyCouponModalState } from '../../recoil/ApplyCouponModal/atoms/apply
 import { selectedCartItemListState } from '../../recoil/CartItem/atoms/selectedCartItemListState';
 import { selectedCartItemListTotalCountSelector } from '../../recoil/CartItem/selectors/selectedCartItemListTotalCountSelector';
 import { selectedCouponListState } from '../../recoil/Coupon/atoms/selectedCouponListState';
-import { Coupon } from '../../types/Coupon.type';
 import * as S from './OrderConfirmPage.style';
+
+import type { Coupon } from '../../types/Coupon.type';
 
 function OrderConfirmPage() {
   const couponList = useLoaderData() as Coupon[];

@@ -1,9 +1,10 @@
 import { useRecoilState } from 'recoil';
 
 import { selectedDeliveryInfoListSelector } from '../../../recoil/DeliveryInfo/selectors/selectedDeliveryInfoListSelector';
-import { DeliveryInfo } from '../../../types/DeliveryInfo.type';
 import CheckButton from '../../Button/CheckButton/CheckButton';
 import * as S from './DeliveryInfoContainer.style';
+
+import type { DeliveryInfo } from '../../../types/DeliveryInfo.type';
 
 interface DeliveryInfoContainerProps {
   item: DeliveryInfo;

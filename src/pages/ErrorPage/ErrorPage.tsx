@@ -3,8 +3,9 @@ import { Link, useLocation } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import { CART_ITEM_ERROR_MESSAGE } from '../../constants/MESSAGES';
 import { PATHS } from '../../constants/PATHS';
-import { ErrorType } from '../../types/Error.type';
 import * as S from './ErrorPage.style';
+
+import type { ErrorType } from '../../types/Error.type';
 
 interface ErrorPageProps {
   error?: string;

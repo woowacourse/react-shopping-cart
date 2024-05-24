@@ -4,8 +4,9 @@ import NotificationContainer from '../../components/Container/NotificationContai
 import CouponList from '../../components/List/CouponList/CouponList';
 import { useCalculateTotalCouponDiscount } from '../../hooks/useCalculateCouponDiscount';
 import { useToggleModal } from '../../hooks/useToggleModal';
-import { Coupon } from '../../types/Coupon.type';
 import * as S from './ApplyCouponModal.style';
+
+import type { Coupon } from '../../types/Coupon.type';
 
 interface ApplyCouponModalProps {
   couponList: Coupon[];

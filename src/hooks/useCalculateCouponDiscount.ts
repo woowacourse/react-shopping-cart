@@ -5,7 +5,8 @@ import { selectedCartItemListTotalPriceSelector } from '../recoil/CartItem/selec
 import { selectedCouponListState } from '../recoil/Coupon/atoms/selectedCouponListState';
 import { selectedCouponTotalDiscountState } from '../recoil/Coupon/atoms/selectedCouponTotalDiscountState';
 import { deliveryFeeState } from '../recoil/DeliveryFee/atoms/deliveryFeeState';
-import { Coupon } from '../types/Coupon.type';
+
+import type { Coupon } from '../types/Coupon.type';
 
 export function useCalculateCouponDiscount() {
   const deliveryFee = useRecoilValue(deliveryFeeState);

@@ -1,10 +1,11 @@
 import { useRecoilState } from 'recoil';
 
 import { selectedCouponListSelector } from '../../../recoil/Coupon/selectors/selectedCouponListSelector';
-import { Coupon } from '../../../types/Coupon.type';
 import { formatExpirationDate, formatMinimumAmount, formatTimeRange } from '../../../utils/formatStrings';
 import CheckButton from '../../Button/CheckButton/CheckButton';
 import * as S from './CouponContainer.style';
+
+import type { Coupon } from '../../../types/Coupon.type';
 
 interface CouponContainerProps {
   coupon: Coupon;

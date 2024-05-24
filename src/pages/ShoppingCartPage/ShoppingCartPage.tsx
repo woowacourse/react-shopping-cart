@@ -14,6 +14,7 @@ import { selectedCartItemListState } from '../../recoil/CartItem/atoms/selectedC
 import * as S from './ShoppingCartPage.style';
 
 import type { CartItem } from '../../types/CartItem.type';
+
 function ShoppingCartPage() {
   const initialValue = useLoaderData() as CartItem[];
 

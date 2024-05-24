@@ -1,8 +1,9 @@
 import { useRecoilValue } from 'recoil';
 
 import { selectedCouponListState } from '../recoil/Coupon/atoms/selectedCouponListState';
-import { Coupon } from '../types/Coupon.type';
 import { useCalculateDeliveryFee } from './useCalculateDeliveryFee';
+
+import type { Coupon } from '../types/Coupon.type';
 
 export const useCouponCheck = () => {
   const { deliveryFee } = useCalculateDeliveryFee();

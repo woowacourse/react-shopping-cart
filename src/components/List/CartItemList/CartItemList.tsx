@@ -8,6 +8,7 @@ import CartItemContainer from '../../Container/CartItemContainer/CartItemContain
 import * as S from './CartItemList.style';
 
 import type { CartItem } from '../../../types/CartItem.type';
+
 interface CartItemListProps {
   cartItemList: CartItem[];
   updateCartItemList: () => void;
