@@ -1,7 +1,7 @@
 import { renderHook, act } from '@testing-library/react';
 import { RecoilRoot, useRecoilState } from 'recoil';
 import { isSigolState, selectedCartItemListState } from './atoms';
-import { cartItemListMockData } from '../../../data/cartItemListMockData';
+import { mockCartItems } from '../../../mocks/cartItems';
 
 describe('selectedCartItemListState', () => {
   it('초기 배열은 빈 배열이다.', () => {
@@ -17,7 +17,7 @@ describe('selectedCartItemListState', () => {
       wrapper: RecoilRoot,
     });
 
-    act(() => result.current[1](cartItemListMockData));
+    act(() => result.current[1](mockCartItems));
 
     expect(result.current[0].length).toBe(5);
   });

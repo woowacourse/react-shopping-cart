@@ -8,11 +8,11 @@ import {
   deliveryFeeSelector,
 } from './selectors';
 import {
-  cartItemListMockData,
+  mockCartItems,
   newYujoCartItemData,
   newKyleCartItemData,
   newParselyCartItemData,
-} from '../../../data/cartItemListMockData';
+} from '../../../mocks/cartItems';
 
 describe('selectedCartItemListSelector', () => {
   it('개별 상품을 선택할 시 선택된 상품이 배열에 삽입된다.', () => {
@@ -29,7 +29,7 @@ describe('selectedCartItemListSelector', () => {
     );
 
     act(() => {
-      result.current.setSelectedCartItemList(cartItemListMockData);
+      result.current.setSelectedCartItemList(mockCartItems);
       result.current.setIsSelected(result.current.isSelected);
     });
 
@@ -50,7 +50,7 @@ describe('selectedCartItemListSelector', () => {
     );
 
     act(() => {
-      result.current.setSelectedCartItemList([...cartItemListMockData, newKyleCartItemData]);
+      result.current.setSelectedCartItemList([...mockCartItems, newKyleCartItemData]);
       result.current.setIsSelected(result.current.isSelected);
     });
 

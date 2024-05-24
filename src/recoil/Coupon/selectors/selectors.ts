@@ -3,7 +3,7 @@ import { selectedCouponListState } from '../atoms/atoms';
 import { selectedCartItemListState } from '../../CartItem/atoms/atoms';
 import { totalOrderPriceSelector, deliveryFeeSelector } from '../../CartItem/selectors/selectors';
 import { sortCouponsByDiscountRate } from '../../../utils/coupon/couponSorter';
-import { calculateDiscountPrice } from '../../../utils/coupon/couponCalculator';
+import { calculateDiscountPrice } from '../../../utils/coupon/couponCalculator/couponCalculator';
 
 export const totalCouponDiscountPriceSelector = selector({
   key: 'totalCouponDiscountPriceSelector',
