@@ -4,7 +4,7 @@ import {
   cartErrorMessageState,
   cartItemsState,
 } from '../../../recoil/atoms/atoms';
-import { CartItem } from '../../../types';
+import { CartItemProps } from '../../../types';
 import { Button } from '../../common/button/Button';
 import CheckedButtonIcon from '../../../assets/CheckedButtonIcon.png';
 import UnCheckedButtonIcon from '../../../assets/UncheckedButtonIcon.png';
@@ -23,11 +23,11 @@ import {
   StyledProductQuantityText,
 } from '../ItemCard.styled';
 
-interface CartItemProps extends CartItem {
+interface CartItemCardProps extends CartItemProps {
   selected: boolean;
   onSelect: () => void;
 }
-export const CartItemCard: React.FC<CartItemProps> = ({
+export const CartItemCard: React.FC<CartItemCardProps> = ({
   id,
   product,
   quantity,

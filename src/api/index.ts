@@ -1,4 +1,4 @@
-import { CartItem, CartItemCounts, CouponProps } from '../types';
+import { CartItemProps, CartItemCountsProps, CouponProps } from '../types';
 import { generateBasicToken } from '../utils/auth';
 
 const API_URL = import.meta.env.VITE_BASE_URL;
@@ -26,7 +26,7 @@ export async function postAddCartItem(productId: number): Promise<void> {
 export async function getCartItems(
   page: number = 0,
   size: number = 20,
-): Promise<CartItem[]> {
+): Promise<CartItemProps[]> {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const response = await fetch(
     `${API_URL}/cart-items?page=${page}&size=${size}`,
@@ -45,7 +45,7 @@ export async function getCartItems(
 }
 
 // GET : /cart-items/counts 장바구니 아이템 수량 조회
-export async function getCartItemCounts(): Promise<CartItemCounts> {
+export async function getCartItemCounts(): Promise<CartItemCountsProps> {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const response = await fetch(`${API_URL}/cart-items/counts`, {
     method: 'GET',

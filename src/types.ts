@@ -1,17 +1,17 @@
-export interface Product {
+export interface ProductProps {
   id: number;
   name: string;
   price: number;
   imageUrl: string;
 }
 
-export interface CartItem {
+export interface CartItemProps {
   id: number;
   quantity: number;
-  product: Product;
+  product: ProductProps;
 }
 
-export interface CartItemCounts {
+export interface CartItemCountsProps {
   quantity: number;
 }
 
@@ -31,7 +31,7 @@ export interface CouponProps {
   expirationDate: string;
 }
 
-export interface selectedItems {
+export interface SelectedItemsProps {
   name: string;
   price: number;
   quantity: number;
