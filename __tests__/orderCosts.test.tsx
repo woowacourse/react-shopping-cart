@@ -1,13 +1,34 @@
+import { CartItem } from '@appTypes/shoppingCart';
 import { PRICE } from '@constants/index';
 import { orderPriceSelector, shippingFeeSelector, totalPriceSelector } from '@recoil/shoppingCart';
 import { act } from '@testing-library/react';
 import { useRecoilValue } from 'recoil';
 import { describe, expect, it } from 'vitest';
 
-import { INITIAL_ITEMS, SHIPPING_FREE_ITEMS } from './mockData/cartItems';
+import { ADIDAS, ASICS, INITIAL_ITEMS, NIKE } from './mockData/cartItems';
 import { renderHookWithRecoilRoot } from './utils/recoilTestUtils';
 
 const initialSelectedIds = INITIAL_ITEMS.map((item) => item.id);
+
+const SHIPPING_FREE_ITEMS: CartItem[] = [
+  {
+    ...NIKE,
+    quantity: 3,
+    product: {
+      ...NIKE.product,
+      price: 20000,
+    },
+  },
+  {
+    ...ADIDAS,
+    quantity: 4,
+    product: {
+      ...ADIDAS.product,
+      price: 10000,
+    },
+  },
+  ASICS,
+];
 
 const renderTotalSelector = (isShippingFree: boolean) =>
   renderHookWithRecoilRoot(

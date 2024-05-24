@@ -2,32 +2,26 @@ import { CartItem } from '@appTypes/shoppingCart';
 import { useMaxDiscountCalculator } from '@hooks/coupon';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { COUPONS } from './mockData/coupon';
+import { ADIDAS, COUPONS, NIKE } from './mockData';
 import { renderCouponHookWithRecoilRoot } from './utils';
 
 const [FIXED_5000, BOGO, FREE_SHIPPING, MIRACLE_SALE] = COUPONS;
 
 const TEST_ITEMS: CartItem[] = [
   {
-    id: 106,
+    ...NIKE,
     quantity: 3,
     product: {
-      id: 2,
-      name: '나이키',
+      ...NIKE.product,
       price: 20000,
-      imageUrl: '',
-      category: 'fashion',
     },
   },
   {
-    id: 306,
+    ...ADIDAS,
     quantity: 3,
     product: {
-      id: 3,
-      name: '아디다스',
+      ...ADIDAS.product,
       price: 15000,
-      imageUrl: '',
-      category: 'fashion',
     },
   },
 ];

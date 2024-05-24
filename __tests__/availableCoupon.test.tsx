@@ -3,8 +3,8 @@ import { useAvailableCoupons } from '@hooks/index';
 import { act } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { COUPONS } from './mockData/coupon';
-import { renderCouponHookWithRecoilRoot } from './utils/recoilTestUtils';
+import { COUPONS, NIKE } from './mockData';
+import { renderCouponHookWithRecoilRoot } from './utils';
 
 const renderAvailableCoupon = (initialItems: CartItem[], selectedIds: number[]) =>
   renderCouponHookWithRecoilRoot(() => useAvailableCoupons(), initialItems, selectedIds);
@@ -23,14 +23,11 @@ describe('사용 가능한 쿠폰 테스트', () => {
   describe('5000원 할인 쿠폰 테스트', () => {
     const ITEMS: CartItem[] = [
       {
-        id: 106,
+        ...NIKE,
         quantity: 1,
         product: {
-          id: 2,
-          name: '나이키',
+          ...NIKE.product,
           price: 100000,
-          imageUrl: '',
-          category: 'fashion',
         },
       },
     ];
@@ -82,14 +79,11 @@ describe('사용 가능한 쿠폰 테스트', () => {
   describe('2+1 쿠폰 테스트', () => {
     const ITEMS: CartItem[] = [
       {
-        id: 106,
+        ...NIKE,
         quantity: 3,
         product: {
-          id: 2,
-          name: '나이키',
+          ...NIKE.product,
           price: 1000,
-          imageUrl: '',
-          category: 'fashion',
         },
       },
     ];
@@ -144,14 +138,11 @@ describe('사용 가능한 쿠폰 테스트', () => {
   describe('5만원 이상 구매 시 무료 배송 쿠폰 테스트', () => {
     const ITEMS: CartItem[] = [
       {
-        id: 106,
+        ...NIKE,
         quantity: 1,
         product: {
-          id: 2,
-          name: '나이키',
+          ...NIKE.product,
           price: 50000,
-          imageUrl: '',
-          category: 'fashion',
         },
       },
     ];
@@ -203,14 +194,11 @@ describe('사용 가능한 쿠폰 테스트', () => {
   describe('미라클모닝 30% 할인 쿠폰 테스트', () => {
     const ITEMS: CartItem[] = [
       {
-        id: 106,
+        ...NIKE,
         quantity: 3,
         product: {
-          id: 2,
-          name: '나이키',
+          ...NIKE.product,
           price: 50000,
-          imageUrl: '',
-          category: 'fashion',
         },
       },
     ];

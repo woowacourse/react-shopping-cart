@@ -2,40 +2,32 @@ import { CartItem } from '@appTypes/shoppingCart';
 import { useCouponDiscount } from '@hooks/coupon';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { ADIDAS, ASICS, NIKE } from './mockData';
 import { renderCouponHookWithRecoilRoot } from './utils';
 //주문 금액: 73,000원
 const TEST_ITEMS: CartItem[] = [
   {
-    id: 106,
+    ...NIKE,
     quantity: 3,
     product: {
-      id: 2,
-      name: '나이키',
+      ...NIKE.product,
       price: 1000,
-      imageUrl: '',
-      category: 'fashion',
     },
   },
   {
-    id: 306,
-    quantity: 3,
+    ...ADIDAS,
+    quantity: 2,
     product: {
-      id: 3,
-      name: '아디다스',
+      ...ADIDAS.product,
       price: 20000,
-      imageUrl: '',
-      category: 'fashion',
     },
   },
   {
-    id: 634,
+    ...ASICS,
     quantity: 1,
     product: {
-      id: 21,
-      name: '아식스',
+      ...ASICS.product,
       price: 30000,
-      imageUrl: '',
-      category: 'fashion',
     },
   },
 ];
