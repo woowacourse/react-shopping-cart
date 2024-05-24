@@ -3,13 +3,13 @@ import {
   MOCK_FILTERED_CART_LIST_PARTLY_SELECTED,
 } from "@/constants/_mock/mockFilteredCartList";
 import { RecoilRoot, useRecoilValue, useSetRecoilState } from "recoil";
-import { cartListState, filteredCartItemState } from "@/store/atoms";
+import { cartListState, filteredCartItemState } from "@/store/atoms/atoms";
 
 import MOCK_CART_LIST from "@/constants/_mock/mockCartList";
-import { allSelectedState } from "@/store/selectors/allSelectedSelector";
+import { allSelectedState } from "@/store/selectors/allSelectedSelector/allSelectedSelector";
 import { renderHook } from "@testing-library/react";
 
-jest.mock("../../api/config", () => ({
+jest.mock("../../../api/config", () => ({
   config: {
     apiUrl: "http://localhost:mock",
   },

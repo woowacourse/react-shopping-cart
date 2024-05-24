@@ -1,7 +1,8 @@
 import { CartItemType, FilteredCartItemStateType } from "@/types/cart.type";
 import { atom, atomFamily, selectorFamily } from "recoil";
 
-import { cartState } from "@/store/selectors/dataFetchSelector";
+import { CouponType } from "@/types/coupon.type";
+import { cartState } from "@/store/selectors/dataFetchSelector/dataFetchSelector";
 import localStorageEffect from "@/store/localStorageEffect";
 
 export const cartListState = atom<CartItemType[]>({
@@ -35,4 +36,9 @@ export const filteredCartItemState = atomFamily<
       },
   }),
   effects: (id) => [localStorageEffect(`cartItemState_${id}`)],
+});
+
+export const couponsState = atom<CouponType[]>({
+  key: "couponsState",
+  default: [],
 });

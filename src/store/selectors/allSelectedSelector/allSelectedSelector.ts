@@ -1,5 +1,5 @@
 import { DefaultValue, selector } from "recoil";
-import { cartListState, filteredCartItemState } from "@/store/atoms";
+import { cartListState, filteredCartItemState } from "@/store/atoms/atoms";
 
 export const allSelectedState = selector<boolean>({
   key: "allSelectedState",

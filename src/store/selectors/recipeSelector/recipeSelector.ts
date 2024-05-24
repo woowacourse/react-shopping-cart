@@ -1,6 +1,6 @@
 import { FREE_SHIPPING_CONDITION, SHIPPING_FEE } from "@/constants/system";
 import { OrderedItemType, RecipeType } from "@/types/recipe.type";
-import { cartListState, filteredCartItemState } from "@/store/atoms";
+import { cartListState, filteredCartItemState } from "@/store/atoms/atoms";
 
 import { selector } from "recoil";
 
