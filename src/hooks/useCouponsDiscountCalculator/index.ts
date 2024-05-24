@@ -1,6 +1,7 @@
 import { useCouponDiscountCalculator } from "./useCouponDiscountCalculator";
 import { Coupon } from "../../types/coupon";
 import { getPermutations } from "../../utils/math/getPermutations";
+import { getMaxNumberFromList } from "../../utils/math/getMaxFromNumberList";
 
 type CouponsDiscountCalculator = (coupons: Coupon[]) => number;
 
@@ -15,6 +16,6 @@ export const useCouponsDiscountCalculator = (): CouponsDiscountCalculator => {
       return coupons.reduce((total, coupon) => total + calculateCouponDiscount(coupon, total), 0);
     });
 
-    return Math.max(...possibleDiscounts);
+    return getMaxNumberFromList(possibleDiscounts);
   };
 };
