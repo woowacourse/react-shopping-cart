@@ -22,6 +22,11 @@ interface PriceList {
   [key: number]: [string, number];
 }
 
+interface Time {
+  end: string;
+  start: string;
+}
+
 interface Coupon {
   id: number;
   code: string;
@@ -32,5 +37,5 @@ interface Coupon {
   minimumAmount?: number;
   buyQuantity?: number;
   getQuantity?: number;
-  availableTime?: { end: string; start: string };
+  availableTime?: Time;
 }

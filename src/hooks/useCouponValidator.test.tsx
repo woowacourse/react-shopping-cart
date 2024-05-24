@@ -1,7 +1,7 @@
 import { vi } from 'vitest';
 import useCouponValidator from './useCouponValidator';
 
-const mockCouponList: Coupon[] = [
+export const mockCouponList: Coupon[] = [
   {
     id: 1,
     code: 'FIXED5000',
