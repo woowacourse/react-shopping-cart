@@ -1,14 +1,15 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { totalCountSelector, totalPriceSelector } from '../../recoil/selectors';
+import { totalCountSelector } from '../../recoil/selectors';
 import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
 import { URL_PATH } from '../../constants/UrlPath';
 import * as S from './Completed.styled';
+import { useOrderCalculator } from '../../hooks/useOrderCalculator';
 
 function Completed() {
   const { totalItemTypeCount, totalCount } = useRecoilValue(totalCountSelector);
-  const { calculatedTotalAmount } = useRecoilValue(totalPriceSelector);
+  const { calculateTotalWithCoupon } = useOrderCalculator();
 
   return (
     <>
@@ -22,7 +23,7 @@ function Completed() {
         </S.SubTitle>
         <S.TotalAmountLabel>총 결제 금액</S.TotalAmountLabel>
         <S.TotalAmountStyle>
-          {calculatedTotalAmount.toLocaleString()}원
+          {calculateTotalWithCoupon().toLocaleString()}원
         </S.TotalAmountStyle>
       </S.CompletedContainer>
 

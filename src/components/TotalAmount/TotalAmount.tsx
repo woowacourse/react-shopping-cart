@@ -1,18 +1,23 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
-import { totalPriceSelector } from '../../recoil/selectors';
 import { MESSAGES } from '../../constants/Messages';
 import * as S from './TotalAmount.styled';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { PageType } from '../../types/Page';
+import { useOrderCalculator } from '../../hooks/useOrderCalculator';
 
 interface TotalAmountProps {
   type: PageType;
 }
 
 function TotalAmount({ type }: TotalAmountProps) {
-  const { totalAmount, deliveryFee, calculatedTotalAmount } =
-    useRecoilValue(totalPriceSelector);
+  // const { totalAmount, deliveryFee, calculatedTotalAmount } =
+  // useRecoilValue(totalPriceSelector);
+  const {
+    calculateOrderTotal,
+    calculateDiscountWithCoupon,
+    calculateDeliveryFee,
+    calculateTotalWithCoupon,
+  } = useOrderCalculator();
 
   return (
     <S.TotalAmountContainer>
@@ -24,7 +29,7 @@ function TotalAmount({ type }: TotalAmountProps) {
           <S.TotalInfoBox>
             <S.TotalInfoLabel>{MESSAGES.totalInfoLabel}</S.TotalInfoLabel>
             <S.TotalInfoAmount>
-              {totalAmount.toLocaleString()}원
+              {calculateOrderTotal().toLocaleString()}원
             </S.TotalInfoAmount>
           </S.TotalInfoBox>
 
@@ -32,7 +37,7 @@ function TotalAmount({ type }: TotalAmountProps) {
             <S.TotalInfoBox>
               <S.TotalInfoLabel>{MESSAGES.discountAmount}</S.TotalInfoLabel>
               <S.TotalInfoAmount>
-                00원
+                {calculateDiscountWithCoupon().toLocaleString()}원
                 {/* {discountAmount.toLocaleString()}원 */}
               </S.TotalInfoAmount>
             </S.TotalInfoBox>
@@ -41,7 +46,7 @@ function TotalAmount({ type }: TotalAmountProps) {
           <S.TotalInfoBox>
             <S.TotalInfoLabel>{MESSAGES.deliveryFee}</S.TotalInfoLabel>
             <S.TotalInfoAmount>
-              {deliveryFee.toLocaleString()}원
+              {calculateDeliveryFee().toLocaleString()}원
             </S.TotalInfoAmount>
           </S.TotalInfoBox>
         </S.TotalInfoWrapper>
@@ -51,7 +56,7 @@ function TotalAmount({ type }: TotalAmountProps) {
       <S.TotalInfoBox>
         <S.TotalInfoLabel>{MESSAGES.totalAmountLabel}</S.TotalInfoLabel>
         <S.TotalInfoAmount>
-          {calculatedTotalAmount.toLocaleString()}원
+          {calculateTotalWithCoupon().toLocaleString()}원
         </S.TotalInfoAmount>
       </S.TotalInfoBox>
     </S.TotalAmountContainer>

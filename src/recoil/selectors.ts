@@ -4,27 +4,27 @@ import { Items } from '../types/Item';
 import { updateLocalStorage } from '../utils/LocalStorage';
 import { fetchCoupons, fetchItems } from '../api';
 
-/**
- * 전체 금액, 배송비 계산, 총 결제 금액 계산
- */
-export const totalPriceSelector = selector({
-  key: 'totalPriceSelector',
-  get: ({ get }) => {
-    const items = get(itemsState);
-    let totalAmount = 0;
-    items.forEach((itemsState) => {
-      const { quantity, price, isChecked } = get(
-        itemDetailsState(itemsState.id),
-      );
-      if (isChecked) {
-        totalAmount += quantity * price;
-      }
-    });
-    const deliveryFee = totalAmount >= 100000 ? 0 : 3000;
-    const calculatedTotalAmount = totalAmount + deliveryFee;
-    return { totalAmount, deliveryFee, calculatedTotalAmount };
-  },
-});
+// /**
+//  * 전체 금액, 배송비 계산, 총 결제 금액, 할인받은 금액 계산
+//  */
+// export const totalPriceSelector = selector({
+//   key: 'totalPriceSelector',
+//   get: ({ get }) => {
+//     const items = get(itemsState);
+//     let totalAmount = 0;
+//     items.forEach((itemsState) => {
+//       const { quantity, price, isChecked } = get(
+//         itemDetailsState(itemsState.id),
+//       );
+//       if (isChecked) {
+//         totalAmount += quantity * price;
+//       }
+//     });
+//     const deliveryFee = totalAmount >= 100000 ? 0 : 3000;
+//     const calculatedTotalAmount = totalAmount + deliveryFee;
+//     return { totalAmount, deliveryFee, calculatedTotalAmount };
+//   },
+// });
 
 /**
  * get: () => boolean
