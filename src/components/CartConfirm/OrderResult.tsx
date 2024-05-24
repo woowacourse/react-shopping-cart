@@ -11,10 +11,12 @@ import {
   orderTotalPriceState,
   purchaseTotalPriceState,
 } from '@recoil/cartItems/selectors';
+import { calculateTotalDiscountAmountSelector } from '@recoil/coupon/selector';
 
 export default function OrderResult() {
   const orderTotalPrice = useRecoilValue(orderTotalPriceState);
   const deliveryPrice = useRecoilValue(deliveryPriceState);
+  const totalDiscountAmount = useRecoilValue(calculateTotalDiscountAmountSelector(true));
   const totalPurchasePrice = useRecoilValue(purchaseTotalPriceState);
 
   return (
@@ -27,7 +29,7 @@ export default function OrderResult() {
 
       <div css={orderDetailReceipt}>
         <Receipt description="주문 금액" price={orderTotalPrice} />
-        <Receipt description="쿠폰 할인 금액" price={-0} />
+        <Receipt description="쿠폰 할인 금액" price={-totalDiscountAmount} />
         <Receipt description="배송비" price={deliveryPrice} />
       </div>
 

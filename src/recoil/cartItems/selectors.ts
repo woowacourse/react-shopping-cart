@@ -1,6 +1,7 @@
 import { selector } from 'recoil';
 
 import { cartItemsState, checkedItemsState, isRemoteAreaState } from './atoms';
+import { calculateTotalDiscountAmountSelector } from '../coupon/selector';
 
 import {
   DELIVERY_CHARGE,
@@ -92,7 +93,8 @@ export const purchaseTotalPriceState = selector<number>({
   get: ({ get }) => {
     const orderTotalPrice = get(orderTotalPriceState);
     const deliveryPrice = get(deliveryPriceState);
+    const discountTotalPrice = get(calculateTotalDiscountAmountSelector(true));
 
-    return orderTotalPrice + deliveryPrice;
+    return orderTotalPrice + deliveryPrice - discountTotalPrice;
   },
 });

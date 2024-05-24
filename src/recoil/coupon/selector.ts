@@ -1,6 +1,6 @@
 import { selector, selectorFamily } from 'recoil';
 
-import { couponsState, selectedCouponsState } from './atom';
+import { couponsState, fixedSelectedCouponsState, selectedCouponsState } from './atom';
 import {
   calculateBuyXgetYDiscountSelector,
   calculateFixedDiscountSelector,
@@ -79,5 +79,20 @@ export const calculateDiscountAmountSelector = selectorFamily<number, string>({
         default:
           return 0;
       }
+    },
+});
+
+export const calculateTotalDiscountAmountSelector = selectorFamily<number, boolean>({
+  key: 'calculateTotalDiscountAmountSelector',
+  get:
+    (fixed) =>
+    ({ get }) => {
+      const selectedCoupons = fixed ? get(fixedSelectedCouponsState) : get(selectedCouponsState);
+
+      const discountAmounts = selectedCoupons
+        .map((code) => get(calculateDiscountAmountSelector(code)))
+        .reduce((total, discountAmount) => total + discountAmount, 0);
+
+      return discountAmounts;
     },
 });
