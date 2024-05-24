@@ -15,6 +15,7 @@ interface CouponModalProps {
 
 function CouponModal({ couponList, isOpen, close }: CouponModalProps) {
   const [savedCouponIdList, setSavedCouponIdList] = useRecoilState(selectedCouponIdListState);
+
   const setTotalDiscountPrice = useSetRecoilState(totalDiscountPriceState);
 
   const { selectedCoupons, totalDiscountPrice, handleSelectedCoupons } = useSelectedCoupons(
