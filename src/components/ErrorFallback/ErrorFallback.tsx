@@ -6,7 +6,7 @@ interface ErrorFallbackProps {
 }
 
 function ErrorFallback({ error }: ErrorFallbackProps) {
-  const errorMessage = `${error.message} ${MESSAGE.alertingError}`;
+  const errorMessage = `${error.message} ${MESSAGE.error.alerting}`;
 
   return <Styled.ErrorMessage>{errorMessage}</Styled.ErrorMessage>;
 }
