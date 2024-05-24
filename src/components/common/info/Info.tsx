@@ -1,4 +1,4 @@
-import InfoIcon from '../../assets/InfoIcon.png';
+import InfoIcon from '../../../assets/InfoIcon.png';
 import {
   StyledDeliveryInfo,
   StyledDeliveryInfoImg,
