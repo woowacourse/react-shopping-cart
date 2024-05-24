@@ -16,6 +16,7 @@ const HEADERS = {
 
 const CART_ITEMS_API_URL = `${BASE_URL}/cart-items`;
 const COUPON_API_URL = `${BASE_URL}/coupons`;
+const ORDER_API_URL = `${BASE_URL}/orders`;
 
 export const fetchCartItems = async (): Promise<CartItemType[]> => {
   const response = await fetch(`${CART_ITEMS_API_URL}`, {
@@ -70,4 +71,18 @@ export const fetchCoupons = async (): Promise<Coupon[]> => {
   const data = await response.json();
 
   return data;
+};
+
+export const updateOrderItems = async (orderItemIds: number[]) => {
+  const response = await fetch(`${ORDER_API_URL}`, {
+    method: "POST",
+    headers: HEADERS,
+    body: JSON.stringify({
+      cartItemIds: orderItemIds,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to update cart items");
+  }
 };
