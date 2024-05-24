@@ -1,7 +1,7 @@
 import { useRecoilState } from "recoil";
 import { cartItemCheckedIdsAtom, cartItemsAtom } from "../../recoil/atom/atom";
 
-export const useAllChecked = (): [boolean, (newIsAllChecked: boolean) => void] => {
+export const useAllChecked = () => {
   const [cartItems] = useRecoilState(cartItemsAtom);
   const [checkedIds, setCheckedIds] = useRecoilState(cartItemCheckedIdsAtom);
 
@@ -12,5 +12,5 @@ export const useAllChecked = (): [boolean, (newIsAllChecked: boolean) => void] =
     setCheckedIds(newCheckedIds);
   };
 
-  return [isAllChecked, setAllChecked];
+  return { isAllChecked, setAllChecked };
 };
