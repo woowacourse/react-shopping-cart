@@ -1,4 +1,5 @@
 import { Coupon } from "../../types";
+import { couponValidator } from "../../utils/couponValidator";
 import { formatDate } from "../../utils/formatDate";
 import { getAdditionalInfo } from "../../utils/getCouponAdditionalInfo";
 import { CheckboxButton } from "../button";
@@ -11,6 +12,8 @@ import {
 } from "./CouponItemCard.styled";
 
 export const CouponItemCard: React.FC<Coupon> = ({
+  id,
+  code,
   description,
   expirationDate,
   discountType,
@@ -19,11 +22,14 @@ export const CouponItemCard: React.FC<Coupon> = ({
   getQuantity,
   availableTime,
 }) => {
+  const { isCouponValid } = couponValidator();
+  const isValid = isCouponValid({ id, code, description, expirationDate, discountType });
+
   const isChecked = true;
   const onCheck = () => {};
 
   return (
-    <StyledCouponItemCard>
+    <StyledCouponItemCard disabled={!isValid}>
       <StyledCouponItemCardHeader>
         <CheckboxButton isChecked={isChecked} onCheck={onCheck} />
         <StyledCouponItemCardTitle>{description}</StyledCouponItemCardTitle>

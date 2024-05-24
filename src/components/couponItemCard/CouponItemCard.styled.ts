@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledCouponItemCard = styled.div`
+export const StyledCouponItemCard = styled.div<{ disabled: boolean }>`
   width: 100%;
   height: 82px;
   display: flex;
@@ -8,6 +8,13 @@ export const StyledCouponItemCard = styled.div`
   gap: 12px;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   padding-top: 12px;
+
+  ${({ disabled }) =>
+    disabled &&
+    `
+      opacity: 0.5;
+      pointer-events: none;
+    `}
 `;
 
 export const StyledCouponItemCardHeader = styled.div`
