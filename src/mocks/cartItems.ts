@@ -1,4 +1,4 @@
-export const cartItemListMockData = [
+export const mockCartItems = [
   {
     id: 606,
     quantity: 1,
@@ -83,7 +83,7 @@ export const newKyleCartItemData = {
 
 export const newParselyCartItemData = {
   id: 613,
-  quantity: 1,
+  quantity: 3,
   product: {
     id: 13,
     name: '파슬리',

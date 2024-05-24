@@ -1,15 +1,15 @@
-import { TCartItem } from '../../types/CartItem.type';
-import { Coupon } from '../../types/Coupon.type';
+import { TCartItem } from '../../../types/CartItem.type';
+import { Coupon } from '../../../types/Coupon.type';
 
-const calculateFixedDiscount = (coupon: Coupon) => {
+export const calculateFixedDiscount = (coupon: Coupon) => {
   return coupon.discount ?? 0;
 };
 
-const calculatePercentageDiscount = (coupon: Coupon, totalPrice: number) => {
+export const calculatePercentageDiscount = (coupon: Coupon, totalPrice: number) => {
   return Math.floor((totalPrice * (coupon.discount ?? 0)) / 100);
 };
 
-const calculateBogoDiscount = (cartItem: TCartItem[]) => {
+export const calculateBogoDiscount = (cartItem: TCartItem[]) => {
   const priceList = cartItem.filter((item) => item.quantity >= 2).map((item) => item.product.price);
   return priceList.length > 0 ? Math.max(...priceList) : 0;
 };
