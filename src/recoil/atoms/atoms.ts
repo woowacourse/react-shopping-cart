@@ -1,7 +1,7 @@
 import { atom, selector } from "recoil";
 import { getCartItems } from "../../api";
 import { ERROR_MESSAGES } from "../../constants";
-import { CartItem, Coupon } from "../../types";
+import { CartItem } from "../../types";
 import { getLocalStorageState } from "../../utils/getLocalStorageStore";
 
 export const cartItemsState = atom<CartItem[]>({
@@ -49,4 +49,14 @@ export const selectedCartItemsState = atom<CartItem[]>({
 export const isShippingRegionCheckedState = atom<boolean>({
   key: "isShippingRegionCheckedState",
   default: false,
+});
+
+export const cartDeliveryPriceState = atom<number>({
+  key: "cartDeliveryPriceState",
+  default: 0,
+});
+
+export const orderDeliveryPriceState = atom<number>({
+  key: "orderDeliveryPriceState",
+  default: 0,
 });

@@ -1,7 +1,5 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
 import { INFO_MESSAGES } from "../../../constants";
-import { cartSummarySelectorState } from "../../../recoil/selector/selector";
 import { InfoDescription } from "../../infoDescription/InfoDescription";
 import { BaseSummaryItem } from "../baseSummaryItem/BaseSummaryItem";
 import {
@@ -11,16 +9,20 @@ import {
 } from "./BaseSummary.styled";
 
 interface BaseSummaryProps {
+  orderPrice: number;
+  deliveryPrice: number;
+  totalPrice: number;
   showCouponDiscount?: boolean;
   couponDiscountPrice?: number;
 }
 
 const BaseSummary: React.FC<BaseSummaryProps> = ({
+  orderPrice,
+  deliveryPrice,
+  totalPrice,
   showCouponDiscount = false,
   couponDiscountPrice = 0,
 }) => {
-  const { orderPrice, deliveryPrice, totalPrice } = useRecoilValue(cartSummarySelectorState);
-
   return (
     <>
       <InfoDescription text={INFO_MESSAGES.FREE_DELIVERY} />

@@ -17,8 +17,10 @@ export interface CartItemCounts {
 
 export interface CartSummary {
   orderPrice: number;
-  deliveryPrice: number;
-  totalPrice: number;
+  cartDeliveryPrice: number;
+  orderDeliveryPrice: number;
+  cartTotalPrice: number;
+  orderTotalPrice: number;
   uniqueItemCount: number;
   totalItemCount: number;
 }

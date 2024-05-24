@@ -1,6 +1,6 @@
 import { selector } from "recoil";
 import { DELIVERY } from "../../constants";
-import { CartSummary } from "../../types";
+import { CartItem, CartSummary } from "../../types";
 import { cartItemsState, checkedItemState, isShippingRegionCheckedState } from "../atoms/atoms";
 
 export const cartSummarySelectorState = selector<CartSummary>({
@@ -17,14 +17,18 @@ export const cartSummarySelectorState = selector<CartSummary>({
       0
     );
 
-    const deliveryPrice =
+    const cartDeliveryPrice =
+      orderPrice === 0 || orderPrice >= DELIVERY.FREE_THRESHOLD ? DELIVERY.FREE : DELIVERY.STANDARD;
+
+    const orderDeliveryPrice =
       orderPrice === 0 || orderPrice >= DELIVERY.FREE_THRESHOLD
         ? DELIVERY.FREE
         : isShippingRegionChecked
           ? DELIVERY.REGION_SPECIFIC
           : DELIVERY.STANDARD;
 
-    const totalPrice = orderPrice + deliveryPrice;
+    const cartTotalPrice = orderPrice + cartDeliveryPrice;
+    const orderTotalPrice = orderPrice + orderDeliveryPrice;
 
     const uniqueItemCount = checkedCartItems.length;
     const totalItemCount = checkedCartItems.reduce((total, item) => total + item.quantity, 0);
@@ -32,10 +36,22 @@ export const cartSummarySelectorState = selector<CartSummary>({
     return {
       cartItems,
       orderPrice,
-      deliveryPrice,
-      totalPrice,
+      cartDeliveryPrice,
+      orderDeliveryPrice,
+      cartTotalPrice,
+      orderTotalPrice,
       uniqueItemCount,
       totalItemCount,
     };
+  },
+});
+
+export const selectedCartItemsSelectorState = selector<CartItem[]>({
+  key: "selectedCartItemsSelectorState",
+  get: ({ get }) => {
+    const cartItems = get(cartItemsState);
+    const checkedItems = get(checkedItemState);
+
+    return cartItems.filter((item) => checkedItems[item.id]);
   },
 });
