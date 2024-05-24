@@ -8,8 +8,8 @@ import CartPageSkeleton from "./pages/CartPage/CartPage.skeleton";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "./pages/Error/ErrorPage";
 import CartPage from "./pages/CartPage/CartPage";
-import OrderConfirmPage from "./pages/OrderConfirmPage/OrderConfirmPage";
 import PaymentConfirmPage from "./pages/PaymentConfimPage/PaymentConfirmPage";
+import OrderConfirmDataLoader from "./pages/OrderConfirmPage/OrderConfirmDataLoader";
 
 const router = createBrowserRouter([
   {
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
     path: PAGE_URL.orderConfirm,
     element: (
       <MainLayout type="backButton">
-        <OrderConfirmPage />
+        <OrderConfirmDataLoader />
       </MainLayout>
     ),
   },

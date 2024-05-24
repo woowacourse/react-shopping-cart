@@ -3,7 +3,6 @@ import { useState } from "react";
 import { CART_PAGE_CAPTION, CART_PAGE_MESSAGES } from "@/constants/cart";
 
 import { totalItemOrderCountSelector } from "@/recoil/orderInformation";
-import { selectedCartItemsIdState } from "@/recoil/selectedCardItems";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import TitleSet from "@/components/_common/TitleSet/TitleSet";
@@ -17,21 +16,27 @@ import * as S from "./OrderConfirmPage.style";
 import PriceSection from "@/components/cart/PriceSection/PriceSection";
 import { useNavigate } from "react-router-dom";
 import { PAGE_URL } from "@/constants/url";
-import CouponModal from "@/components/modal/CouponModal/CouponModal";
+
 import MoreInfo from "@/components/_common/MoreInfo/MoreInfo";
 import {
   shippingFeeSelector,
   shippingFeeState,
 } from "@/recoil/shippingFeeType";
+import CouponModal from "../CouponModal/CouponModal";
+import { CartItem } from "@/types/cart";
 
-const OrderConfirmPage = () => {
+const OrderConfirmPage = ({
+  selectedCartItems,
+}: {
+  selectedCartItems: CartItem[];
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const onCloseModal = () => {
     setIsModalOpen(false);
   };
+
   const totalItemsCount = useRecoilValue(totalItemOrderCountSelector);
-  const selectedItemsId = useRecoilValue(selectedCartItemsIdState);
+  const selectedItemsId = localStorage.getItem("selectedItem") || "[]";
 
   const setShippingFeeType = useSetRecoilState(shippingFeeState);
   const shippingFeeType = useRecoilValue(shippingFeeSelector);
@@ -71,7 +76,7 @@ const OrderConfirmPage = () => {
         />
 
         <S.CartItemListWrapper>
-          <ProductList type="readonly" />
+          <ProductList type="readonly" productList={selectedCartItems} />
         </S.CartItemListWrapper>
 
         <Button

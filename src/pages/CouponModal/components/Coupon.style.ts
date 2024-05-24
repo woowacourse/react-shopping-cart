@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ disabled: boolean }>`
   width: 100%;
   height: 82px;
   padding: 10px 0;
   margin-top: 10px;
+  color: ${({ disabled, theme }) => disabled && theme.COLOR["grey-2"]};
 `;
 
 export const BorderLine = styled.div`

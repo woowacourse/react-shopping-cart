@@ -4,7 +4,7 @@ import { basicToken } from "../utils";
 import { ErrorMessage } from "@/constants/error";
 
 export async function getCoupons(): Promise<Coupon[]> {
-  const response = await fetch(`${API_URL.cartItems}`, {
+  const response = await fetch(`${API_URL.coupons}`, {
     method: "GET",
     headers: { Authorization: basicToken },
   });
@@ -14,5 +14,5 @@ export async function getCoupons(): Promise<Coupon[]> {
   }
 
   const data = await response.json();
-  return data.content;
+  return data;
 }

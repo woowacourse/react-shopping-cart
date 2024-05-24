@@ -26,6 +26,7 @@ const CartPage = () => {
   const { isAllItemSelected, selectAllItem, unselectAllItem } = useSelectAll();
   const selectedItems = useRecoilValue(totalItemOrderCountSelector);
   const cartItemList = useRecoilValue(cartItemsState);
+
   const navigate = useNavigate();
 
   const onMoveOrderConfirmPage = () => {
@@ -48,7 +49,7 @@ const CartPage = () => {
               />
               <TextBox type="xSmall" text={CART_PAGE_CAPTION.allItemSelected} />
             </S.CheckBoxWrapper>
-            <ProductList />
+            <ProductList productList={cartItemList} />
             <MoreInfo text={CART_PAGE_MESSAGES.freeShippingInfo} />
             <PriceSection isApplyCoupon={false} />
           </>

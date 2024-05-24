@@ -1,26 +1,23 @@
 import * as S from "./ProductList.style.ts";
-import { useRecoilValue } from "recoil";
 
 import ProductItem, { CartItemShowType } from "../ProductItem/ProductItem.tsx";
-import { cartItemsState } from "@/recoil/cartItems.ts";
-import { selectedCartItemsIdState } from "@/recoil/selectedCardItems.ts";
+import { CartItem } from "@/types/cart.ts";
 
-const ProductList = ({ type = "edit" }: { type?: CartItemShowType }) => {
-  const cartItemList = useRecoilValue(cartItemsState);
-  const selectedItemsId = useRecoilValue(selectedCartItemsIdState);
-
-  const selectedItems = cartItemList.filter((item) =>
-    selectedItemsId.includes(item.id)
-  );
-
+const ProductList = ({
+  type = "edit",
+  productList,
+}: {
+  type?: CartItemShowType;
+  productList: CartItem[];
+}) => {
   return (
     <S.ListWrapper>
       {type === "edit" &&
-        cartItemList.map((item) => (
+        productList.map((item) => (
           <ProductItem key={item.product.id} item={item} type={type} />
         ))}
       {type === "readonly" &&
-        selectedItems.map((item) => (
+        productList.map((item) => (
           <ProductItem key={item.product.id} item={item} type={type} />
         ))}
     </S.ListWrapper>
