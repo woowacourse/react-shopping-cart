@@ -3,6 +3,7 @@ import * as S from './style';
 import CheckBox from '../../../components/CheckBox/CheckBox';
 import { Coupon } from '../../../type';
 import convertToLocaleAmount from '../../../utils/convertToLocalePrice';
+import { getHHColonMMtoMinutes } from '../../../utils/translateFormat';
 import { useMemo } from 'react';
 
 interface CouponItemProps {
@@ -10,11 +11,6 @@ interface CouponItemProps {
   isAvailable: boolean;
   coupon: Coupon;
 }
-
-const getHHColonMMtoMinutes = (hhColonmm: string) => {
-  const time = hhColonmm.split(':');
-  return Number(time[0]) * 60 + Number(time[1]);
-};
 
 const getFromToMinuteKoKR = (fromMinute: number, toMinute: number) => {
   const isAMFrom = fromMinute < 12 * 60;
@@ -48,8 +44,8 @@ export default function CouponItem({ isChecked, coupon, isAvailable }: CouponIte
       strings.push(`최소 주문 금액: ${convertToLocaleAmount(coupon.minimumAmount)}`);
 
     if (coupon.discountType === 'percentage') {
-      const startMinute = getHHColonMMtoMinutes(coupon.availableTime.start);
-      const endMinute = getHHColonMMtoMinutes(coupon.availableTime.end);
+      const startMinute = getHHColonMMtoMinutes(coupon.availableTime.start.slice(0, 5));
+      const endMinute = getHHColonMMtoMinutes(coupon.availableTime.end.slice(0, 5));
 
       const { from, to } = getFromToMinuteKoKR(startMinute, endMinute);
       strings.push(`사용 가능 시간: ${from}에서 ${to}까지`);
