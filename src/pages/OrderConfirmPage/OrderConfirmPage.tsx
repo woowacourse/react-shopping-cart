@@ -5,9 +5,9 @@ import TitleContainer, { SubTitle } from '../../components/common/TitleContainer
 import Button from '../../components/common/Button/Button';
 import SubmitButton from '../../components/common/SubmitButton/SubmitButton';
 import CheckBox from '../../components/common/CheckBox/CheckBox';
-import CartItem from '../../components/ShoppingCartPage/CartItem/CartItem';
-import CouponModal from '../../components/OrderConfirmPage/CouponModal/CouponModal';
-import TotalPriceContainer from '../../components/common/TotalPriceContainer/TotalPriceContainer';
+import CartItem from '../../components/ShoppingCart/CartItem/CartItem';
+import CouponModal from '../../components/Coupon/CouponModal/CouponModal';
+import TotalPriceContainer from '../../components/ShoppingCart/TotalPriceContainer/TotalPriceContainer';
 import type { Coupon } from '../../types/Coupon.type';
 import { selectedCartItemListState, isSigolState } from '../../recoil/CartItem/atoms/atoms';
 import { totalOrderCountSelector } from '../../recoil/CartItem/selectors/selectors';

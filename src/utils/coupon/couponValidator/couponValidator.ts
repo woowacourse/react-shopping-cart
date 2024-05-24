@@ -2,7 +2,6 @@ import { TCartItem } from '../../../types/CartItem.type';
 
 export const isCouponExpired = (expirationDate: string, now: Date) => {
   const expiration = new Date(expirationDate);
-  console.log(expiration, now);
   return now > expiration;
 };
 

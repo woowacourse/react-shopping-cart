@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import NotificationLabel from '../NotificationLabel/NotificationLabel';
+import NotificationLabel from '../../common/NotificationLabel/NotificationLabel';
 import PriceContainer from '../PriceContainer/PriceContainer';
 import { totalOrderPriceSelector, deliveryFeeSelector } from '../../../recoil/CartItem/selectors/selectors';
 import { totalDiscountPriceState } from '../../../recoil/Coupon/selectors/selectors';
