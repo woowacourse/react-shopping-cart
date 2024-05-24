@@ -12,8 +12,8 @@ const OutlineCheck = ({ onClick }: OutlineCheckProps) => {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         style={{
-          width: "100%",
-          height: "100%",
+          width: "24px",
+          height: "24px",
           border: "inherit",
           borderRadius: "6px",
           boxSizing: "content-box",

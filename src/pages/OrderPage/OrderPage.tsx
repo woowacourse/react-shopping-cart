@@ -19,11 +19,10 @@ import { Tip, Dialog } from "../../components/common";
 
 const OrderPage = () => {
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   const handleOpenModal = () => {
-    console.log(open);
-    setOpen(open);
+    dialogRef.current?.showModal();
   };
 
   return (
@@ -36,7 +35,7 @@ const OrderPage = () => {
       <CartLayout>
         <ErrorBoundary fallback={<div>Error!</div>}>
           <Suspense fallback={<div>Loading</div>}>
-            <Dialog open={open}>
+            <Dialog dialogRef={dialogRef}>
               <CouponList />
             </Dialog>
 
