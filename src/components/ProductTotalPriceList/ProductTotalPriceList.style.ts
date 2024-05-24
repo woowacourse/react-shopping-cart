@@ -5,7 +5,6 @@ export const Notification = styled.div`
   align-items: center;
   gap: 5px;
   margin-bottom: 12px;
-  margin-top: 32px;
 
   .notification-img {
     width: 16px;

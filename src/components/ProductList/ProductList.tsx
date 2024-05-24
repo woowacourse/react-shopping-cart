@@ -5,7 +5,7 @@ import { allCartItemsCheckState } from '../../recoil/selectors/selectors';
 import CheckBox from '../CheckBox/CheckBox';
 import ProductItem from '../ProductItem/ProductItem';
 import ProductTotalPriceList from '../ProductTotalPriceList/ProductTotalPriceList';
-import { ProductListStyle } from './ProductList.style';
+import { ProductListStyle, ProductItemWrapper } from './ProductList.style';
 
 export default function ProductList() {
   const cart = useRecoilValue(cartData);
@@ -20,9 +20,11 @@ export default function ProductList() {
     <ProductListStyle>
       <CheckBox text="전체선택" isCheck={isAllCheck} onClick={handleToggleAllCheck} />
 
-      {cart.map((cartItem) => {
-        return <ProductItem isCheckBox={true} cartItem={cartItem} key={cartItem.id} />;
-      })}
+      <ProductItemWrapper>
+        {cart.map((cartItem) => {
+          return <ProductItem isCheckBox={true} cartItem={cartItem} key={cartItem.id} />;
+        })}
+      </ProductItemWrapper>
       <ProductTotalPriceList />
     </ProductListStyle>
   );

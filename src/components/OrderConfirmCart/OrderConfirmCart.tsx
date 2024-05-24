@@ -10,12 +10,28 @@ import Button from '../Button/Button';
 import CheckBox from '../CheckBox/CheckBox';
 import ProductItem from '../ProductItem/ProductItem';
 
+import 'soosoo-react-modal-component/dist/style.css';
+import { Modal } from 'soosoo-react-modal-component';
+import { CheckBoxGroup } from './OrderConfirmCart.style';
+import CouponList from '../Modal/CouponList/CouponList';
+import { useState } from 'react';
+
 export default function OrderConfirmCart() {
   const cart = useRecoilValue(checkedCartItems);
 
   const orderProduct = useRecoilValue(checkedCartItems);
   const cartTotalCount = orderProduct.reduce((acc, cartItem) => acc + cartItem.quantity, 0);
   const [isSpecialZoneCheck, setIsSpecialZoneCheck] = useRecoilState(specialZoneCheckState);
+
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const modalFooterButtons = [
+    {
+      content: '총 6,000원 할인 쿠폰 사용하기',
+      onClick: () => setIsOpenModal(false),
+      className: 'confirmButton',
+    },
+  ];
 
   const handleToggleSpecialZoneCheck = () => {
     setIsSpecialZoneCheck(!isSpecialZoneCheck);
@@ -37,14 +53,34 @@ export default function OrderConfirmCart() {
             return <ProductItem isCheckBox={false} cartItem={cartItem} key={cartItem.id} />;
           })}
 
-          <Button text="쿠폰 적용" onClick={() => {}} className="couponButton" />
-
-          <CheckBox
-            title="배송 정보"
-            text="제주도 및 도서 산간 지역"
-            isCheck={isSpecialZoneCheck}
-            onClick={handleToggleSpecialZoneCheck}
+          <Button
+            text="쿠폰 적용"
+            onClick={() => {
+              setIsOpenModal(true);
+            }}
+            className="couponButton"
           />
+
+          <Modal
+            position="center"
+            size="medium"
+            title={{ position: 'left', content: '쿠폰을 선택해 주세요' }}
+            isOpen={isOpenModal}
+            onClose={() => setIsOpenModal(false)}
+            closeButton={{ onClose: () => setIsOpenModal(false) }}
+            footerButtons={modalFooterButtons}
+          >
+            <CouponList />
+          </Modal>
+
+          <CheckBoxGroup>
+            배송 정보
+            <CheckBox
+              text="제주도 및 도서 산간 지역"
+              isCheck={isSpecialZoneCheck}
+              onClick={handleToggleSpecialZoneCheck}
+            />
+          </CheckBoxGroup>
 
           <ProductTotalPriceList />
         </ProductListStyle>
