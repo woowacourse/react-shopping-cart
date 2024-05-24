@@ -1,12 +1,7 @@
 import API_CONFIG from './config';
 import { CartItem } from '../type';
-import API_CONFIG from './config';
-import { CartItem } from '../type';
 import { generateBasicToken } from '../utils/auth';
 
-const API_URL = API_CONFIG.API_URL;
-const USER_ID = API_CONFIG.USER_ID;
-const USER_PASSWORD = API_CONFIG.USER_PASSWORD;
 const API_URL = API_CONFIG.API_URL;
 const USER_ID = API_CONFIG.USER_ID;
 const USER_PASSWORD = API_CONFIG.USER_PASSWORD;
@@ -19,15 +14,9 @@ const AUTH_HEADER = {
   Authorization: generateBasicToken(USER_ID, USER_PASSWORD),
 };
 
-const AUTH_HEADER = {
-  'Content-Type': 'application/json',
-  Authorization: generateBasicToken(USER_ID, USER_PASSWORD),
-};
-
 export async function fetchCartItems(): Promise<CartItem[]> {
   const response = await fetch(`${API_URL}/${CART_ITEMS}`, {
     method: 'GET',
-    headers: AUTH_HEADER,
     headers: AUTH_HEADER,
   });
 
@@ -43,7 +32,6 @@ export async function addCartItem(productId: number): Promise<void> {
   const response = await fetch(`${API_URL}/${CART_ITEMS}`, {
     method: 'POST',
     headers: AUTH_HEADER,
-    headers: AUTH_HEADER,
     body: JSON.stringify({ productId }),
   });
 
@@ -56,7 +44,6 @@ export async function removeCartItem(cartItemId: number): Promise<void> {
   const response = await fetch(`${API_URL}/${CART_ITEMS}/${cartItemId}`, {
     method: 'DELETE',
     headers: AUTH_HEADER,
-    headers: AUTH_HEADER,
   });
 
   if (!response.ok) {
@@ -67,7 +54,6 @@ export async function removeCartItem(cartItemId: number): Promise<void> {
 export async function updateCartItemQuantity(cartItemId: number, quantity: number): Promise<void> {
   const response = await fetch(`${API_URL}/${CART_ITEMS}/${cartItemId}`, {
     method: 'PATCH',
-    headers: AUTH_HEADER,
     headers: AUTH_HEADER,
     body: JSON.stringify({ quantity }),
   });
