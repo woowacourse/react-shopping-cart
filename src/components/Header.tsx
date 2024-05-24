@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { ReactComponent as BackIcon } from "../assets/back-icon.svg";
 
 export interface IHeaderProps {
-  hasBackButton: boolean;
+  hasBackButton?: boolean;
   title?: string;
 }
 
-export default function Header({ hasBackButton, title }: IHeaderProps) {
+export default function Header({ hasBackButton = false, title }: IHeaderProps) {
   const navigate = useNavigate();
 
   const handleBackButtonClick = () => {
@@ -18,9 +18,9 @@ export default function Header({ hasBackButton, title }: IHeaderProps) {
     <S.HeaderContainer>
       {hasBackButton ? (
         <S.BackButton onClick={handleBackButtonClick} />
-      ) : (
+      ) : title ? (
         <S.Title>{title}</S.Title>
-      )}
+      ) : null}
     </S.HeaderContainer>
   );
 }

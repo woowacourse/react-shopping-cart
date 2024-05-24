@@ -25,5 +25,5 @@ export const useFetchCoupons = () => {
     })();
   }, [orderAmount]);
 
-  return { coupons, setCoupons };
+  return { coupons };
 };

@@ -6,7 +6,7 @@ import styled from "styled-components";
 export default function CartPage() {
   return (
     <S.Container>
-      <Header hasBackButton={false} title="SHOP" />
+      <Header title="SHOP" />
       <Suspense fallback={<CartContent.Skeleton />}>
         <CartContent />
       </Suspense>
@@ -18,12 +18,5 @@ const S = {
   Container: styled.div`
     width: 429px;
     border: 1px solid #808080;
-  `,
-
-  Loading: styled.div`
-    height: 808px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   `,
 };
