@@ -1,15 +1,13 @@
 import { css } from '@emotion/react';
+import { useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
-import {
-  orderResultState,
-  productTypesCountState,
-  totalPurchasePriceState,
-} from '@recoil/cartItems/selectors';
+import { orderResultState, productTypesCountState } from '@recoil/cartItems/selectors';
 
 const PurchaseConfirmMainSection = () => {
+  const location = useLocation();
+
   const { totalQuantity } = useRecoilValue(orderResultState);
-  const totalPurchasePrice = useRecoilValue(totalPurchasePriceState);
   const productTypesCount = useRecoilValue(productTypesCountState);
 
   return (
@@ -26,7 +24,7 @@ const PurchaseConfirmMainSection = () => {
 
         <div css={orderResultContainer}>
           <span css={orderResultText}>총 결제 금액</span>
-          <span css={orderResult}>{totalPurchasePrice.toLocaleString('ko-KR')}원</span>
+          <span css={orderResult}>{location.state.toLocaleString('ko-KR')}원</span>
         </div>
       </div>
     </>

@@ -1,17 +1,24 @@
 import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 
+import { fetchCartItems } from '@/apis/cartItem';
 import { THEME } from '@/constants/theme';
+import { cartItemsState } from '@/recoil/cartItems/atoms';
 
 const ReturnCartButton = () => {
   const navigate = useNavigate();
 
-  const handleClickPurchase = () => {
+  const setCartItems = useSetRecoilState(cartItemsState);
+
+  const handleClickReturnCart = async () => {
+    const cartItems = await fetchCartItems();
+    setCartItems(cartItems);
     navigate('/');
   };
 
   return (
-    <button css={returnCartButton} onClick={handleClickPurchase}>
+    <button css={returnCartButton} onClick={handleClickReturnCart}>
       장바구니로 돌아가기
     </button>
   );
