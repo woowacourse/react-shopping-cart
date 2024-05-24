@@ -1,4 +1,4 @@
-import { fetchCartItems } from '@apis/shoppingCart';
+import ShoppingCartFetcher, { fetchCartItems } from '@apis/shoppingCart';
 import { BottomButton } from '@components/common';
 import { useSelectedCartItems } from '@hooks/shoppingCart';
 import useOrderCosts from '@hooks/shoppingCart/useOrderCosts';
@@ -23,7 +23,7 @@ const PaymentConfirmPage: React.FC = () => {
   const handleBackToShoppingCartPage = async () => {
     setSelectedIds(new Set());
 
-    const cartItems = await fetchCartItems();
+    const cartItems = await ShoppingCartFetcher.getCartItems();
     setCartItems(cartItems);
 
     navigate(ROUTE_PATHS.root);

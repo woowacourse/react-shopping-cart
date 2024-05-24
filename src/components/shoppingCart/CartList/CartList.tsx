@@ -23,7 +23,7 @@ const CartList: React.FC<CartListProps> = () => {
       </Styled.CartListButtonGroup>
       <Styled.CartItemContainer>
         {cartItems.map((cartItem) => (
-          <CartListItem cartItem={cartItem} />
+          <CartListItem key={cartItem.id} cartItem={cartItem} />
         ))}
       </Styled.CartItemContainer>
     </div>

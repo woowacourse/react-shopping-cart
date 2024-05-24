@@ -1,4 +1,4 @@
-import { fetchNewOrders } from '@apis/shoppingCart';
+import OrderConfirmFetcher from '@apis/orderConfirm';
 import { UpsideDownExclamation } from '@assets/index';
 import { BottomButton, Checkbox, LoadingSpinner } from '@components/common';
 import { CouponSelectModal, ItemCouponButton, SelectedItemList } from '@components/orderConfirm';
@@ -45,7 +45,7 @@ const OrderConfirmPage = () => {
   const navigate = useNavigate();
 
   const handlePaymentConfirm = async () => {
-    await fetchNewOrders([...selectedIds]);
+    await OrderConfirmFetcher.postNewOrders([...selectedIds]);
 
     navigate(ROUTE_PATHS.paymentConfirm);
   };

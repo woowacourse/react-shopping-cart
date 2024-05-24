@@ -1,4 +1,4 @@
-import { fetchCartItems } from '@apis/shoppingCart';
+import ShoppingCartFetcher, { fetchCartItems } from '@apis/shoppingCart';
 import { CartItem } from '@appTypes/shoppingCart';
 import { PRICE } from '@constants/shippingCart';
 import { isInaccessibleAreaAtom, totalDiscountPriceSelector } from '@recoil/orderConfirm';
@@ -8,7 +8,7 @@ import { selector, selectorFamily } from 'recoil';
 export const cartItemsSelector = selector<CartItem[]>({
   key: 'cartItemsSelector',
   get: async () => {
-    const cartItems = await fetchCartItems();
+    const cartItems = await ShoppingCartFetcher.getCartItems();
     return cartItems;
   },
 });

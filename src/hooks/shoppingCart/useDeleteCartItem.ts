@@ -1,8 +1,9 @@
-import { fetchDeleteCartItem } from '@apis/shoppingCart';
+import ShoppingCartFetcher from '@apis/shoppingCart';
 import { cartItemsAtom, selectedIdsAtom } from '@recoil/shoppingCart';
 import { useSetRecoilState } from 'recoil';
 
 const useDeleteCartItem = (id: number) => {
+  console.log(id);
   const setCartItems = useSetRecoilState(cartItemsAtom);
   const setSelectedCartItemIds = useSetRecoilState(selectedIdsAtom);
 
@@ -19,10 +20,14 @@ const useDeleteCartItem = (id: number) => {
   };
 
   const onDeleteItem = async () => {
-    await fetchDeleteCartItem(id);
+    try {
+      await ShoppingCartFetcher.deleteCartItem(id);
 
-    updateCartItems();
-    updateSelectedCartItemIds();
+      updateCartItems();
+      updateSelectedCartItemIds();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return { updateCartItems, updateSelectedCartItemIds, onDeleteItem };

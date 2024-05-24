@@ -1,4 +1,4 @@
-import { fetchCartItemCount } from '@apis/shoppingCart';
+import ShoppingCartFetcher from '@apis/shoppingCart';
 import { QUANTITY } from '@constants/shippingCart';
 import { quantityAtomFamily } from '@recoil/shoppingCart';
 import { useRecoilState } from 'recoil';
@@ -40,7 +40,7 @@ const useCartItemQuantity = (id: number) => {
   const onUpdateCartItemCount = async (sign: 'minus' | 'plus') => {
     const newQuantity = NEW_QUANTITY_FUNCTION_MAP[sign]();
 
-    await fetchCartItemCount(id, newQuantity);
+    await ShoppingCartFetcher.patchCartItemCount(id, newQuantity);
 
     updateCartItemQuantity(newQuantity);
   };
