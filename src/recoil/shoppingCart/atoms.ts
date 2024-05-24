@@ -1,4 +1,4 @@
-import { fetchCartItems, fetchCouponList } from '@apis/shoppingCart';
+import { fetchCartItems, fetchCouponList } from '@apis/index';
 import { CartItem, Coupon } from '@appTypes/shoppingCart';
 import { STORAGE_KEY } from '@constants/storage';
 import { localStorageEffect } from '@recoil/common/localStorageEffect';

@@ -1,4 +1,4 @@
-import { fetchDeleteCartItem } from '@apis/shoppingCart';
+import { fetchDeleteCartItem } from '@apis/index';
 import { cartItemsAtom, selectedIdsAtom } from '@recoil/shoppingCart';
 import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';

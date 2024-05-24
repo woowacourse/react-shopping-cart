@@ -1,4 +1,4 @@
-import { fetchCartItemCount } from '@apis/shoppingCart';
+import { fetchCartItemCount } from '@apis/index';
 import { CartItem, Sign } from '@appTypes/shoppingCart';
 import { COUNTS } from '@constants/shippingCart';
 import { cartItemsAtom } from '@recoil/shoppingCart';
