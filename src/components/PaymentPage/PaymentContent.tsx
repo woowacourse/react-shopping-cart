@@ -8,35 +8,13 @@ import CartAmount from "../common/domain/CartAmount";
 import CouponModal from "./CouponModal";
 
 import { useCoupons } from "../../hooks/useCoupons";
-import Button from "../common/Button";
-import { useNavigate } from "react-router-dom";
-import { ROUTE_PATH } from "../../constants/routePath";
-import { useSelectedCartItemCounts } from "../../hooks/useSelectedCartItemCounts";
-import { useSetRecoilState } from "recoil";
-import { selectedCartItemIdsState } from "../../recoil/selectedCartItemIds";
+import PaymentButton from "./PaymentButton";
 
 export default function PaymentContent() {
-  const navigate = useNavigate();
-
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const toggleCouponModal = () => setIsCouponModalOpen((prev) => !prev);
 
-  const setSelectedCouponIds = useSetRecoilState(selectedCartItemIdsState);
-  const { selectedCartItemsCount, selectedUniqueCartItemsCount } = useSelectedCartItemCounts();
-
   const { coupons, toggleSelection, discountAmount, totalPayAmount } = useCoupons();
-
-  const onPayButtonClick = () => {
-    // 결제 로직을 수행했다고 가정
-    setSelectedCouponIds([]);
-    navigate(ROUTE_PATH.checkout, {
-      state: {
-        boughtItemsCount: selectedCartItemsCount,
-        uniqueBoughtItemsCount: selectedUniqueCartItemsCount,
-        totalPayAmount,
-      },
-    });
-  };
 
   return (
     <S.Container>
@@ -54,7 +32,7 @@ export default function PaymentContent() {
           discountAmount={discountAmount}
         />
       )}
-      <S.PayButton onClick={onPayButtonClick}>결제하기</S.PayButton>
+      <PaymentButton totalPayAmount={totalPayAmount} />
     </S.Container>
   );
 }
@@ -83,11 +61,5 @@ const S = {
       outline: none;
       border: 1px solid rgba(51, 51, 51, 0.25);
     }
-  `,
-
-  PayButton: styled(Button)`
-    position: absolute;
-    bottom: 0;
-    left: 0;
   `,
 };
