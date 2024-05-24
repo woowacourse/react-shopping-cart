@@ -19,7 +19,7 @@ export const mockCouponList: Coupon[] = [
     buyQuantity: 2,
     getQuantity: 1,
     expirationDate: '2024-04-30',
-    priority: 0,
+    priority: 2,
   },
   {
     id: 3,
