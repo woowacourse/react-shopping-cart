@@ -11,7 +11,6 @@ export const couponSelectorFamily = selectorFamily<Coupon, number>({
   key: "",
   get:
     (id) =>
-    ({ get }) => {
-      get(fetchCouponListSelector);
-    },
+    ({ get }) =>
+      get(fetchCouponListSelector).find((coupon) => coupon.id === id),
 });
