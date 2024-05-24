@@ -2,6 +2,7 @@ import { PageExplanation } from '@components/common';
 import { PurchaseProcessLayout } from '@components/layout';
 import { CouponModalContainer, OrderAmountsList, SelectedItemList, ShippingInfo } from '@components/orderConfirm';
 import { useAvailableCoupons, useSelectedCartItems } from '@hooks/index';
+import useOrderCartItems from '@hooks/order/useOrderCartItems';
 import { availableCouponsAtom, totalPriceSelector } from '@recoil/shoppingCart';
 import { ROUTE_PATHS } from '@routes/route.constant';
 import { useEffect } from 'react';
@@ -14,16 +15,22 @@ const OrderConfirmPage: React.FC = () => {
 
   const { totalSelectedItemLength, selectedTotalQuantity, selectedItems } = useSelectedCartItems();
   const { getAvailableCoupons } = useAvailableCoupons();
+  const { fetchError, orderCartItems } = useOrderCartItems();
 
   const navigate = useNavigate();
 
-  const handleClickBottomButton = () => {
+  const handleClickBottomButton = async () => {
+    await orderCartItems();
     navigate(ROUTE_PATHS.purchaseConfirm, { state: { totalPrice, totalSelectedItemLength, selectedTotalQuantity } });
   };
 
   useEffect(() => {
     setAvailableCoupons(getAvailableCoupons());
   }, []);
+
+  useEffect(() => {
+    if (fetchError) throw fetchError;
+  }, [fetchError]);
 
   return (
     <PurchaseProcessLayout

@@ -1,8 +1,7 @@
 import { PurchaseProcessLayout } from '@components/layout';
-import { useResetCouponRecoil } from '@hooks/coupon';
 import { cartItemsAtom, selectedIdsAtom } from '@recoil/shoppingCart';
 import { ROUTE_PATHS } from '@routes/route.constant';
-import { lazy, useEffect } from 'react';
+import { lazy } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
@@ -12,19 +11,13 @@ const OrderPage: React.FC = () => {
   const cartItems = useRecoilValue(cartItemsAtom);
   const selectedIds = useRecoilValue(selectedIdsAtom);
 
-  const { resetCouponRecoil } = useResetCouponRecoil();
+  const navigate = useNavigate();
 
   const isButtonDisabled = cartItems.length === 0 || selectedIds.length === 0;
-
-  const navigate = useNavigate();
 
   const handleClickConfirmOderButton = () => {
     navigate(ROUTE_PATHS.orderConfirm);
   };
-
-  useEffect(() => {
-    resetCouponRecoil();
-  }, []);
 
   return (
     <PurchaseProcessLayout
