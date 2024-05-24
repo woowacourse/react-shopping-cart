@@ -1,4 +1,8 @@
-import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST } from "../../../constants/pricing";
+import {
+  FREE_SHIPPING_THRESHOLD,
+  SHIPPING_COST,
+  SHIPPING_COST_FOR_REMOTE,
+} from "../../../constants/pricing";
 
 type ShoppingCost = number;
 export const determineShippingCost = (
@@ -14,7 +18,7 @@ export const determineShippingCost = (
   }
 
   if (isRemoteDeliveryArea) {
-    return SHIPPING_COST * 2;
+    return SHIPPING_COST_FOR_REMOTE;
   }
 
   return SHIPPING_COST;
