@@ -1,11 +1,10 @@
 import { Coupon } from '../type';
-import { selectedCoupons } from './../recoil/atoms';
-import { useRecoilState } from 'recoil';
+import { useState } from 'react';
 
-export default function useCoupon() {
+export default function useCoupons() {
   const MAX_COUPON_NUMBER = 2;
 
-  const [coupons, setCoupons] = useRecoilState(selectedCoupons);
+  const [coupons, setCoupons] = useState<Coupon[]>([]);
 
   const isSelectedCoupon = (targetCoupon: Coupon) =>
     coupons.some((coupon) => coupon.id === targetCoupon.id);
@@ -26,5 +25,5 @@ export default function useCoupon() {
 
   const IS_ADDABLE = coupons.length < MAX_COUPON_NUMBER;
 
-  return { isSelectedCoupon, addCoupon, deleteCoupon, IS_ADDABLE };
+  return { coupons, setCoupons, isSelectedCoupon, addCoupon, deleteCoupon, IS_ADDABLE };
 }
