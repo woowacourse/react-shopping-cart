@@ -11,7 +11,7 @@ export const useCouponChecker = () => {
     setCoupons(
       fetchedCoupons.map((coupon) => ({ ...coupon, isChecked: false })),
     );
-  }, [fetchedCoupons, setCoupons]);
+  }, [fetchedCoupons]);
 
   /**
    *  isChecked 상태를 토글
