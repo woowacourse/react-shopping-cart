@@ -8,6 +8,7 @@ import { isCheckedCoupon } from './utils/isCheckedCoupon';
 import { couponApplicabilityChecker } from '@/components/Coupon/utils/couponApplicabilityChecker';
 import { orderResultState } from '@/recoil/cartItems/selectors';
 import { couponSavedCheckListState } from '@/recoil/coupons/atoms';
+import { Coupon } from '@/types/coupon';
 import GuideText from '@common/GuideText';
 
 import useCoupon from '@hooks/useCoupon';
@@ -15,16 +16,12 @@ import useCoupon from '@hooks/useCoupon';
 interface CouponModalProps {
   isOpen: boolean;
   onClose: () => void;
+  couponList: Coupon[];
 }
 
-const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
-  const {
-    couponList,
-    couponCheckList,
-    handleChangeChecked,
-    isValidCouponCount,
-    localDiscountPrice,
-  } = useCoupon();
+const CouponModal = ({ isOpen, onClose, couponList }: CouponModalProps) => {
+  const { couponCheckList, handleChangeChecked, isValidCouponCount, localDiscountPrice } =
+    useCoupon(couponList);
   const { isCouponApplicable } = couponApplicabilityChecker(couponList);
 
   const { totalOrderPrice } = useRecoilValue(orderResultState);

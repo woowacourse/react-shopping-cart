@@ -8,6 +8,7 @@ import CouponModal from '../Coupon/CouponModal';
 import OrderInfo from '@/components/common/OrderInfo';
 import useModal from '@/hooks/useModal';
 import { isAdditionalShippingState } from '@/recoil/coupons/atoms';
+import { fetchCouponSelector } from '@/recoil/coupons/fetchCouponSelector';
 import CartItem from '@common/CartItem';
 import Checkbox from '@common/Checkbox';
 import { THEME } from '@constants/theme';
@@ -18,6 +19,7 @@ import {
 } from '@recoil/cartItems/selectors';
 
 const OrderConfirmMainSection = () => {
+  const couponList = useRecoilValue(fetchCouponSelector);
   const { totalQuantity } = useRecoilValue(orderResultState);
   const productTypesCount = useRecoilValue(productTypesCountState);
   const checkedCartItems = useRecoilValue(checkedCartItemsState);
@@ -53,7 +55,7 @@ const OrderConfirmMainSection = () => {
         />
       </div>
       <OrderInfo type="ORDER" />
-      {isOpen && <CouponModal isOpen={isOpen} onClose={handleCloseModal} />}
+      {isOpen && <CouponModal isOpen={isOpen} onClose={handleCloseModal} couponList={couponList} />}
     </div>
   );
 };

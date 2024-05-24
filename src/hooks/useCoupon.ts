@@ -3,13 +3,11 @@ import { useRecoilValue } from 'recoil';
 
 import { checkedCartItemsState, orderResultState } from '@/recoil/cartItems/selectors';
 import { couponSavedCheckListState } from '@/recoil/coupons/atoms';
-import { fetchCouponSelector } from '@/recoil/coupons/fetchCouponSelector';
 import { totalDiscountPriceState } from '@/recoil/coupons/selectors';
 import { Coupon } from '@/types/coupon';
 import couponDiscountCalculator from '@components/Coupon/utils/couponDiscountCalculator';
 
-const useCoupon = () => {
-  const couponList = useRecoilValue(fetchCouponSelector);
+const useCoupon = (couponList: Coupon[]) => {
   const couponSavedCheckList = useRecoilValue(couponSavedCheckListState);
   const totalDiscountPrice = useRecoilValue(totalDiscountPriceState);
   const [localDiscountPrice, setLocalDiscountPrice] = useState(Number(totalDiscountPrice));
@@ -37,7 +35,6 @@ const useCoupon = () => {
   };
 
   return {
-    couponList,
     couponCheckList,
     isValidCouponCount,
     handleChangeChecked,
