@@ -5,4 +5,5 @@ export const REQUEST_URL = {
   updateItemQuantity: (cartId: number) => `${BASE_URL}/cart-items/${cartId}`,
   deleteItem: (cartId: number) => `${BASE_URL}/cart-items/${cartId}`,
   coupons: `${BASE_URL}/coupons`,
+  orders: `${BASE_URL}/orders`,
 };

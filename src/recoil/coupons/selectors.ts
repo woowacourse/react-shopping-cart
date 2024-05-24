@@ -15,15 +15,20 @@ export const couponCheckListSelector = selector({
       isChecked: false,
     }));
   },
+  set: ({ reset }) => {
+    reset(couponSavedCheckListState);
+  },
 });
 
 export const totalDiscountPriceState = selector({
   key: 'totalDiscountPriceState',
   get: ({ get }) => {
+    const couponList = get(fetchCouponSelector);
     const checkedCartItems = get(checkedCartItemsState);
     const { totalOrderPrice } = get(orderResultState);
     const couponSavedCheckList = get(couponSavedCheckListState);
-    const couponList = get(fetchCouponSelector);
+
+    if (!couponSavedCheckList) return 0;
 
     const { calculateDiscountAmount } = couponDiscountCalculator(couponList);
     return couponSavedCheckList.reduce((acc, coupon) => {

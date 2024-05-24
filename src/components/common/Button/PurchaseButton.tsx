@@ -1,13 +1,33 @@
 import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 
+import { orderProductList } from '@/apis/order';
 import { THEME } from '@/constants/theme';
+import { checkedCartItemsState, totalPurchasePriceState } from '@/recoil/cartItems/selectors';
+import { couponCheckListSelector } from '@/recoil/coupons/selectors';
 
 const PurchaseButton = () => {
   const navigate = useNavigate();
 
-  const handleClickPurchase = () => {
-    navigate('/completed');
+  const totalPurchasePrice = useRecoilValue(totalPurchasePriceState);
+  const resetCouponCheckList = useResetRecoilState(couponCheckListSelector);
+  const checkedCartItems = useRecoilValue(checkedCartItemsState);
+  const cartItemIds = checkedCartItems.map((cartItem) => cartItem.id);
+
+  const handleClickPurchase = async () => {
+    try {
+      const { status } = await orderProductList(cartItemIds);
+
+      if (status === 201) {
+        resetCouponCheckList();
+        localStorage.clear();
+        navigate('/completed', { state: totalPurchasePrice });
+      }
+    } catch (err: unknown) {
+      const error = err as Error;
+      throw new Error(error.message);
+    }
   };
 
   return (
