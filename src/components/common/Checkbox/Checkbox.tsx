@@ -6,14 +6,15 @@ export interface CheckboxProps {
   handleClick: () => void;
   alt?: string;
   description?: ReactNode; // Text 컴포넌트를 넣을 수 있도록
+  disabled?: boolean;
 }
 
-const Checkbox = ({ checked, handleClick, alt = 'Checkbox', description }: CheckboxProps) => {
+const Checkbox = ({ checked, handleClick, alt = 'Checkbox', description, disabled }: CheckboxProps) => {
   return (
-    <>
-      <S.Checkbox checked={checked} onChange={handleClick} alt={alt} type="checkbox" />
+    <S.CheckboxWrapper>
+      <S.Checkbox checked={checked} onChange={handleClick} alt={alt} type="checkbox" disabled={disabled} />
       {description}
-    </>
+    </S.CheckboxWrapper>
   );
 };
 
