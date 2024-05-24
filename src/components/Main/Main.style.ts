@@ -8,7 +8,7 @@ export const MainStyle = css({
   margin: "64px 0",
   padding: "36px 24px",
 
-  gap: "36px",
+  gap: "32px",
 
   "&>div": {
     width: "100%",

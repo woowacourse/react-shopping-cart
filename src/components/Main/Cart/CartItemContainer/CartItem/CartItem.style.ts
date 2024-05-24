@@ -47,7 +47,8 @@ export const CartItemQuantityContainerStyle = css({
   gap: "4px",
 });
 
-export const CartItemQuantityStyle = css({
-  textAlign: "center",
-  minWidth: "24px",
-});
+export const CartItemQuantityStyle = (align: "center" | "left") =>
+  css({
+    textAlign: align,
+    minWidth: "24px",
+  });

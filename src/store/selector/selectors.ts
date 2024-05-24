@@ -56,3 +56,12 @@ export const isOver2CouponsCheckedState = selector({
     return checkedCount === 2;
   },
 });
+
+export const checkedItemList = selector({
+  key: "checkedItemList",
+  get: ({ get }) => {
+    return get(cartState).filter((cartItem) => {
+      return get(itemEachCheckState(cartItem.id));
+    });
+  },
+});
