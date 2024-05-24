@@ -1,15 +1,16 @@
 import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import Description from '../common/Description';
 import FooterButton from '../common/FooterButton';
 import Main from '../common/Main';
 import Title from '../common/Title';
 
+import { fixedSelectedCouponsState } from '@/recoil/coupon/atom';
 import {
-  orderTotalPriceState,
   productTypesCountState,
+  purchaseTotalPriceState,
   totalQuantityState,
 } from '@recoil/cartItems/selectors';
 
@@ -17,9 +18,13 @@ export default function PaymentConfirm() {
   const navigate = useNavigate();
   const totalQuantity = useRecoilValue(totalQuantityState);
   const productTypesCount = useRecoilValue(productTypesCountState);
-  const totalPrice = useRecoilValue(orderTotalPriceState);
+  const totalPrice = useRecoilValue(purchaseTotalPriceState);
+  const setFixedSelectedCoupons = useSetRecoilState(fixedSelectedCouponsState);
 
-  const onFooterButtonClickHandler = () => navigate('/');
+  const onFooterButtonClickHandler = () => {
+    setFixedSelectedCoupons([]);
+    navigate('/');
+  };
 
   return (
     <>

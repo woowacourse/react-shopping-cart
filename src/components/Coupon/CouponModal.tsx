@@ -1,16 +1,39 @@
 import { Modal } from 'nakta-react-payments-components';
-import { useRecoilState } from 'recoil';
+import { useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import CouponList from './CouponList';
 import InformationText from '../common/InformationText';
 
 import { MAX_SELECTED_COUPON_LENGTH } from '@/constants/coupon';
-import { isCouponModalOpenState } from '@recoil/coupon/atom';
+import {
+  fixedSelectedCouponsState,
+  isCouponModalOpenState,
+  selectedCouponsState,
+} from '@recoil/coupon/atom';
+import { calculateTotalDiscountAmountSelector } from '@recoil/coupon/selector';
 
 export default function CouponModal() {
   const [isCouponModalOpen, setIsCouponModalOpen] = useRecoilState(isCouponModalOpenState);
+  const [selectedCoupons, setSelectedCoupons] = useRecoilState(selectedCouponsState);
+  const [fixedSelectedCoupons, setFixedSelectedCoupons] = useRecoilState(fixedSelectedCouponsState);
+  const totalDiscountAmount = useRecoilValue(calculateTotalDiscountAmountSelector(false));
 
-  const onClose = () => setIsCouponModalOpen(false);
+  const onClose = () => {
+    setSelectedCoupons([]);
+    setIsCouponModalOpen(false);
+  };
+
+  const onApplyCouponButtonClick = () => {
+    onClose();
+    setFixedSelectedCoupons(selectedCoupons);
+  };
+
+  useEffect(() => {
+    if (!isCouponModalOpen) {
+      setSelectedCoupons(fixedSelectedCoupons);
+    }
+  }, [isCouponModalOpen]);
 
   return (
     <Modal position="center" isOpen={isCouponModalOpen} onClose={onClose}>
@@ -29,8 +52,8 @@ export default function CouponModal() {
           <CouponList />
         </Modal.Main>
         <Modal.Footer align="row" position="right">
-          <Modal.Button backgroundColor="primary" onClick={onClose} size="full">
-            총 120,000원 할인 쿠폰 사용하기
+          <Modal.Button backgroundColor="primary" onClick={onApplyCouponButtonClick} size="full">
+            총 {totalDiscountAmount.toLocaleString('ko-KR')}원 할인 쿠폰 사용하기
           </Modal.Button>
         </Modal.Footer>
       </Modal.Content>
