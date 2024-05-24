@@ -2,6 +2,7 @@ import { CouponInstances } from "../domain/coupons/AbstractCoupon";
 import BuyXgetYCoupon from "../domain/coupons/BuyXgetYCoupon";
 import FixedCoupon from "../domain/coupons/FixedCoupon";
 import FreeShippingCoupon from "../domain/coupons/FreeShippingCoupon";
+import PercentageCoupon from "../domain/coupons/PercentageCoupon";
 import { CouponType } from "../types/Coupon";
 
 const convertToCouponDTO = (coupons: CouponType[]): CouponInstances[] => {
@@ -14,7 +15,7 @@ const convertToCouponDTO = (coupons: CouponType[]): CouponInstances[] => {
       case "freeShipping":
         return new FreeShippingCoupon(coupon);
       case "percentage":
-        return new FreeShippingCoupon(coupon);
+        return new PercentageCoupon(coupon);
     }
   });
 };
