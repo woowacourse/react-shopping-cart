@@ -7,7 +7,7 @@ class BuyXgetYCoupon extends Coupon {
     super(coupon);
   }
 
-  public discountAmount(amount: number, shippingFee: number, itemInfo: CartItemQuantityAndPrice[]): number {
+  public discountAmount(_amount: number, _shippingFee: number, itemInfo: CartItemQuantityAndPrice[]): number {
     if (!this.data.buyQuantity || !this.data.getQuantity) return 0;
 
     return itemInfo.reduce((acc, cur) => {
