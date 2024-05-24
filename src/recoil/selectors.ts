@@ -1,7 +1,8 @@
 import { DefaultValue, selector } from "recoil";
-import { cartItemQuantityStates, cartItemPriceStates, checkedCartItemsState } from "./atoms";
+import { cartItemQuantityStates, cartItemPriceStates, checkedCartItemsState, userLiveInSigolStates } from "./atoms";
 import { CartItemResponse } from "../types/ShoppingCart";
-import { fetchCartItems } from "../api/cartItem";
+import { fetchCartItems, fetchCoupons } from "../api/cartItem";
+import ORDER from "../constants/order";
 
 export const checkedCartItemsQuantityState = selector({
   key: "checkedCartItemsQuantityState",
@@ -15,15 +16,40 @@ export const checkedCartItemsQuantityState = selector({
   },
 });
 
+export const checkedCartItemsQuantityAndPriceState = selector({
+  key: "checkedCartItemsQuantityAndPriceState",
+  get: ({ get }) => {
+    const ids = get(checkedCartItemsState);
+
+    return ids.map((id) => {
+      const quantity = get(cartItemQuantityStates(id));
+      const price = get(cartItemPriceStates(id));
+      return { id, quantity, price };
+    });
+  },
+});
+
 export const totalCheckedCartItemsPriceState = selector({
   key: "totalCheckedCartItemsPriceState",
   get: ({ get }) => {
     const ids = get(checkedCartItemsState);
+
     return ids.reduce((total, id) => {
       const quantity = get(cartItemQuantityStates(id));
       const price = get(cartItemPriceStates(id));
       return total + quantity * price;
     }, 0);
+  },
+});
+
+export const shippingFeeState = selector({
+  key: "shippingFeeState",
+  get: ({ get }) => {
+    const totalAmount = get(totalCheckedCartItemsPriceState);
+    if (totalAmount >= ORDER.shippingFreeThreshold) return 0;
+
+    const userLiveInSigol = get(userLiveInSigolStates);
+    return userLiveInSigol ? ORDER.sigolShippingFee : ORDER.shippingFee;
   },
 });
 
@@ -62,5 +88,14 @@ export const getCartItems = selector({
     const cartItems = await fetchCartItems();
 
     return cartItems;
+  },
+});
+
+export const getCoupons = selector({
+  key: "getCoupons",
+  get: async () => {
+    const coupons = await fetchCoupons();
+
+    return coupons;
   },
 });
