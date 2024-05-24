@@ -1,5 +1,5 @@
 import { Snapshot } from "recoil";
-import { Coupon } from "../../types/types";
+import { Coupon } from "../../types/Coupon";
 import { checkedIdSetSelector } from "../checkedState";
 import { orderPriceSelector } from "../orderSummaryState";
 import { quantitySelectorFamily } from "../cartItemState";

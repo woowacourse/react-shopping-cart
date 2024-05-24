@@ -1,4 +1,5 @@
-import { CartItem, Coupon } from "../types/types";
+import { CartItem } from "../types/types";
+import { Coupon } from "../types/Coupon";
 
 export const mockCartItems: CartItem[] = [
   { id: 1, product: { id: 3, name: "상품이름A", price: 35000, imageUrl: "", category: "" }, quantity: 2 },
