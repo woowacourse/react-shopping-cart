@@ -18,8 +18,8 @@ export const Content = styled.main`
   flex-direction: column;
   justify-content: center;
 
-  padding: ${({ theme }) => theme.spacer.spacing4};
-  margin-bottom: 50px;
+  padding: 36px 24px 40px;
+  margin-bottom: 64px;
   overflow-y: auto;
   min-height: calc(100vh - 128px);
 `;

@@ -16,12 +16,8 @@ import RecoilSuspense from '../../components/common/RecoilSuspense';
 import Fallback from '../../components/common/Fallback';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 
-import { Description, Title } from '../ConfirmOrderPage/styles';
-import {
-  CartHeaderContainer,
-  CartListWrapper,
-  CartPageContainer,
-} from './styles';
+import * as C from '../commonStyles';
+import * as S from './styles';
 import { HomeButton } from '../../components/Header/HeaderButton';
 
 export default function CartPage() {
@@ -30,7 +26,7 @@ export default function CartPage() {
   const shipping = useRecoilValue(shippingFee);
   const navigate = useNavigate();
 
-  const handleConfirmOrder = async () => {
+  const moveToConfirmPage = async () => {
     navigate('/confirm');
   };
 
@@ -45,27 +41,27 @@ export default function CartPage() {
         header={<Header homeButton={<HomeButton />} />}
         bottom={
           <BottomButton
-            onClick={handleConfirmOrder}
-            isDisabled={cartList.contents.length === 0}
+            onClick={moveToConfirmPage}
+            active={cartList.contents.length !== 0}
           >
             주문 확인
           </BottomButton>
         }
       >
         {cartList.contents.length !== 0 ? (
-          <CartPageContainer>
-            <CartHeaderContainer>
-              <Title>장바구니</Title>
-              <Description>
+          <S.Wrapper>
+            <S.CartHeaderContainer>
+              <C.Title>장바구니</C.Title>
+              <C.Description>
                 현재 {cartList.contents.length}종류의 아이템이 담겨져있습니다.
-              </Description>
-            </CartHeaderContainer>
+              </C.Description>
+            </S.CartHeaderContainer>
 
-            <CartListWrapper>
+            <S.CartListWrapper>
               <CartList items={cartList.contents} />
-            </CartListWrapper>
+            </S.CartListWrapper>
             <CheckoutSummary totalPrice={totalPrice} shippingFee={shipping} />
-          </CartPageContainer>
+          </S.Wrapper>
         ) : (
           <BlankCart />
         )}

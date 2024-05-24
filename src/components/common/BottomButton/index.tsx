@@ -1,20 +1,25 @@
-import React, { PropsWithChildren } from "react";
-import { BottomButtonContainer } from "./styles";
+import { PropsWithChildren } from 'react';
+import * as S from './styles';
 
-const BottomButton: React.FC<
-  PropsWithChildren<{ onClick: () => void; isDisabled: boolean }>
-> = ({ children, onClick, isDisabled }) => {
+export type BottomButtonProps = PropsWithChildren<{
+  onClick: () => void;
+  active: boolean;
+}>;
+
+export default function BottomButton({
+  children,
+  onClick,
+  active,
+}: BottomButtonProps) {
   const handleClick = () => {
-    if (!isDisabled) {
+    if (active) {
       onClick();
     }
   };
 
   return (
-    <BottomButtonContainer onClick={handleClick} isDisabled={isDisabled}>
+    <S.Button onClick={handleClick} active>
       {children}
-    </BottomButtonContainer>
+    </S.Button>
   );
-};
-
-export default BottomButton;
+}
