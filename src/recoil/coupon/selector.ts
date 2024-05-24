@@ -9,7 +9,7 @@ import {
 
 import { MAX_SELECTED_COUPON_LENGTH } from '@/constants/coupon';
 import { Coupon } from '@/types/coupon';
-import calculateDiscountAmount from '@/utils/\bcalculateDiscountAmount';
+import calculateDiscountAmount from '@/utils/calculateDiscountAmount';
 import permute from '@/utils/permute';
 import { isCouponUsableTime, isCouponValid, isOverMinimumOrderAmount } from '@/utils/validations';
 
