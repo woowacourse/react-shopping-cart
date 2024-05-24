@@ -5,11 +5,11 @@ import { useRecoilState } from 'recoil';
 export default function useCoupon() {
   const [coupons, setCoupons] = useRecoilState(selectedCoupons);
 
-  const isUsedCoupon = (targetCoupon: Coupon) =>
+  const isSelectedCoupon = (targetCoupon: Coupon) =>
     coupons.some((coupon) => coupon.id === targetCoupon.id);
 
   const addCoupon = (targetCoupon: Coupon) => {
-    if (isUsedCoupon(targetCoupon)) return;
+    if (isSelectedCoupon(targetCoupon)) return;
     if (coupons.length >= 2) return;
     setCoupons([...coupons, targetCoupon]);
   };
@@ -22,5 +22,5 @@ export default function useCoupon() {
     setCoupons(nextCoupons);
   };
 
-  return { isUsedCoupon, addCoupon, deleteCoupon };
+  return { isSelectedCoupon, addCoupon, deleteCoupon };
 }
