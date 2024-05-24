@@ -75,3 +75,8 @@ export const couponsState = atom<Coupon[]>({
     },
   }),
 });
+
+export const couponSelectedState = atomFamily<boolean, number>({
+  key: "couponSelectedState",
+  default: false,
+});
