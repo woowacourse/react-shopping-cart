@@ -35,7 +35,7 @@ export const mockCoupons: Coupon[] = [
     discountType: 'percentage',
     availableTime: {
       start: '04:00:00',
-      end: '23:00:00',
+      end: '07:00:00',
     },
     expirationDate: '2024-07-31',
   },
