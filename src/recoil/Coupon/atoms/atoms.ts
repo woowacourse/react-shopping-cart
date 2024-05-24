@@ -1,11 +1,7 @@
 import { atom } from 'recoil';
+import type { Coupon } from '../../../types/Coupon.type';
 
-export const selectedCouponIdListState = atom<number[]>({
+export const selectedCouponListState = atom<Coupon[]>({
   key: 'selectedCouponIdListState',
   default: [],
-});
-
-export const totalDiscountPriceState = atom<number>({
-  key: 'totalDiscountPriceState',
-  default: 0,
 });

@@ -11,39 +11,36 @@ import TotalPriceContainer from '../../components/common/TotalPriceContainer/Tot
 import type { Coupon } from '../../types/Coupon.type';
 import { selectedCartItemListState, isSigolState } from '../../recoil/CartItem/atoms/atoms';
 import { totalOrderCountSelector } from '../../recoil/CartItem/selectors/selectors';
-import { selectedCouponIdListState, totalDiscountPriceState } from '../../recoil/Coupon/atoms/atoms';
+import { selectedCouponListState } from '../../recoil/Coupon/atoms/atoms';
 import useCouponModal from '../../hooks/useCouponModal';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './OrderConfirmPage.style';
 
 function OrderConfirmPage() {
   const couponList = useLoaderData() as Coupon[];
+
   const navigate = useNavigate();
 
   const [isSigol, setIsSigol] = useRecoilState(isSigolState);
 
   const resetIsSigol = useResetRecoilState(isSigolState);
-  const resetTotalDiscountPrice = useResetRecoilState(totalDiscountPriceState);
-  const resetSelectedCouponIdList = useResetRecoilState(selectedCouponIdListState);
+  const resetSelectedCouponList = useResetRecoilState(selectedCouponListState);
 
   const selectedItemList = useRecoilValue(selectedCartItemListState);
   const totalOrderCount = useRecoilValue(totalOrderCountSelector);
 
   const { isCouponModalOpen, openModal, closeModal } = useCouponModal();
 
-  if (selectedItemList.length === 0) {
-    return <Navigate to={PATHS.ERROR} />;
-  }
-
-  const handleIsSigol = () => setIsSigol((prev) => !prev);
-
   const handleHeaderClick = () => {
     resetIsSigol();
-    resetTotalDiscountPrice();
-    resetSelectedCouponIdList();
+    resetSelectedCouponList();
 
     navigate(-1);
   };
+
+  const handleIsSigol = () => setIsSigol((prev) => !prev);
+
+  if (selectedItemList.length === 0) return <Navigate to={PATHS.ERROR} />;
 
   return (
     <div>

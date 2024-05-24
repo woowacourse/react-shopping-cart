@@ -1,9 +1,9 @@
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { Modal } from '@hanuuny/react-modal';
 import CouponItem from '../CouponItem/CouponItem';
 import NotificationLabel from '../../common/NotificationLabel/NotificationLabel';
 import useSelectedCoupons from '../../../hooks/useSelectedCoupons';
-import { selectedCouponIdListState, totalDiscountPriceState } from '../../../recoil/Coupon/atoms/atoms';
+import { selectedCouponListState } from '../../../recoil/Coupon/atoms/atoms';
 import { Coupon } from '../../../types/Coupon.type';
 import * as S from './CouponModal.style';
 
@@ -14,19 +14,12 @@ interface CouponModalProps {
 }
 
 function CouponModal({ couponList, isOpen, close }: CouponModalProps) {
-  const [savedCouponIdList, setSavedCouponIdList] = useRecoilState(selectedCouponIdListState);
+  const [savedCouponList, setSavedCouponList] = useRecoilState(selectedCouponListState);
 
-  const setTotalDiscountPrice = useSetRecoilState(totalDiscountPriceState);
-
-  const { selectedCoupons, totalDiscountPrice, handleSelectedCoupons } = useSelectedCoupons(
-    couponList,
-    savedCouponIdList,
-  );
+  const { selectedCoupons, totalDiscountPrice, handleSelectedCoupons } = useSelectedCoupons(savedCouponList);
 
   const updateSavedCoupons = () => {
-    setSavedCouponIdList(selectedCoupons.map((coupon) => coupon.id));
-    setTotalDiscountPrice(totalDiscountPrice);
-
+    setSavedCouponList(selectedCoupons);
     close();
   };
 

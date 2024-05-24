@@ -2,10 +2,8 @@ import { useState } from 'react';
 import useCouponCalculator from './useCouponCalculator';
 import { Coupon } from '../types/Coupon.type';
 
-const useSelectedCoupons = (couponList: Coupon[], initialCouponIds: number[] = []) => {
-  const [selectedCoupons, setSelectedCoupons] = useState(
-    couponList.filter((coupon) => initialCouponIds.includes(coupon.id)),
-  );
+const useSelectedCoupons = (initialCouponList: Coupon[]) => {
+  const [selectedCoupons, setSelectedCoupons] = useState(initialCouponList);
 
   const { calculateTotalDiscountPrice } = useCouponCalculator();
 

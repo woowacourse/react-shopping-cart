@@ -9,7 +9,7 @@ import {
   totalOrderCountSelector,
   deliveryFeeSelector,
 } from '../../recoil/CartItem/selectors/selectors';
-import { totalDiscountPriceState } from '../../recoil/Coupon/atoms/atoms';
+import { totalDiscountPriceState } from '../../recoil/Coupon/selectors/selectors';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './PaymentConfirmPage.style';
 
@@ -23,12 +23,8 @@ function PaymentConfirmPage() {
   const paymentTotalPrice = totalOrderPrice + deliveryFee - totalDiscountPrice;
 
   const resetSelectedItemList = useResetRecoilState(selectedCartItemListState);
-  const resetTotalDiscountPrice = useResetRecoilState(totalDiscountPriceState);
 
-  const clearStorage = () => {
-    resetSelectedItemList();
-    resetTotalDiscountPrice();
-  };
+  const clearStorage = () => resetSelectedItemList();
 
   return (
     <div>

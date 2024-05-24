@@ -2,7 +2,7 @@ import { useRecoilValue } from 'recoil';
 import NotificationLabel from '../NotificationLabel/NotificationLabel';
 import PriceContainer from '../PriceContainer/PriceContainer';
 import { totalOrderPriceSelector, deliveryFeeSelector } from '../../../recoil/CartItem/selectors/selectors';
-import { totalDiscountPriceState } from '../../../recoil/Coupon/atoms/atoms';
+import { totalDiscountPriceState } from '../../../recoil/Coupon/selectors/selectors';
 import { DELIVERY_FEE_DISCOUNT_THRESHOLD } from '../../../utils/calculateDeliveryFee';
 import * as S from './TotalPriceContainer.style';
 
