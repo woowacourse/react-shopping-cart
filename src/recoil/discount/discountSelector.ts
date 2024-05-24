@@ -1,9 +1,12 @@
 import { selector } from 'recoil';
+
+import { selectedCouponListAtom } from '../coupon/couponListAtom';
+import { cartItemSelectedIdListAtom } from '../cartItem/cartItemAtom';
+import { cartItemListState } from '../cartItemList/cartItemListSelector';
 import {
   deliveryFeeSelector,
   orderedPriceSelector,
 } from '../price/priceSelector';
-import { selectedCouponListAtom } from '../coupon/couponListAtom';
 
 export const percentageDiscountSelector = selector<number>({
   key: 'percentageDiscount',
@@ -41,6 +44,38 @@ export const fixedDiscountSelector = selector<number>({
   },
 });
 
+export const bogoDiscountSelector = selector<number>({
+  key: 'bogoDiscount',
+  get: ({ get }) => {
+    const selectedCouponList = get(selectedCouponListAtom);
+    const cartItemList = get(cartItemListState);
+    const selectedCartItemIdList = get(cartItemSelectedIdListAtom);
+    const selectedItemList = cartItemList.filter(({ id }) =>
+      selectedCartItemIdList.includes(id),
+    );
+
+    // TODO: 2개인 경우, quantity 올려주는 로직 추가
+    // const { increaseQuantity } = set(cartItemQuan);
+
+    const coupon = selectedCouponList.find(
+      (coupon) => coupon.discountType === 'buyXgetY',
+    );
+
+    const maxPrice = coupon
+      ? selectedItemList.reduce((max, { id, price, quantity }) => {
+          // if (quantity === coupon.buyQuantity ?? 0) {
+          //   increaseQuantity(id);
+          // }
+          return quantity >= (coupon?.buyQuantity ?? 0)
+            ? Math.max(max, price)
+            : max;
+        }, 0)
+      : 0;
+
+    return maxPrice * (coupon?.getQuantity ?? 1);
+  },
+});
+
 export const freeShippingDiscountSelector = selector<number>({
   key: 'freeShippingDiscount',
   get: ({ get }) => {
@@ -59,9 +94,12 @@ export const totalDiscountSelector = selector<number>({
   key: 'totalDiscount',
   get: ({ get }) => {
     const percentageDiscount = get(percentageDiscountSelector);
+    const bogoDiscount = get(bogoDiscountSelector);
     const fixedDiscount = get(fixedDiscountSelector);
     const freeShippingDiscount = get(freeShippingDiscountSelector);
 
-    return percentageDiscount + fixedDiscount + freeShippingDiscount;
+    return (
+      percentageDiscount + bogoDiscount + fixedDiscount + freeShippingDiscount
+    );
   },
 });
