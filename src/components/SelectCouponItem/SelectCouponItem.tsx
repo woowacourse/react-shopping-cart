@@ -19,7 +19,8 @@ const SelectCouponItem = ({ coupon }: SelectCouponItemProps) => {
   // TODO: magic number 상수화
 
   const disabled =
-    !validateCouponAvailable(coupon) || selectedCouponList.length === 2;
+    !validateCouponAvailable(coupon) ||
+    (selectedCouponList.length === 2 && !selectedCouponList.includes(coupon));
 
   const { isSelected, toggleSelectedCoupon } = useSelectedCouponList();
   return (
