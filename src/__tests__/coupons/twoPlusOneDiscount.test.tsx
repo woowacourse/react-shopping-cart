@@ -1,8 +1,8 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
 
-import { couponValidator } from '@/components/Coupon/couponValidator';
 import couponDiscountCalculator from '@/components/Coupon/utils/couponDiscountCalculator';
+import { couponValidator } from '@/components/Coupon/utils/couponValidator';
 import { OVER_THREE_COUNT_DATA } from '@/mocks/cart';
 import { CHECKED_BOGO_COUPON, MOCK_COUPON_CHECK_LIST } from '@/mocks/coupon';
 import { cartItemsState } from '@/recoil/cartItems/atoms';
@@ -33,7 +33,6 @@ jest.mock('@apis/coupon', () => ({
   fetchCouponList: jest.fn(),
 }));
 
-//  현재 시간이 만료일(2024년 5월 30일)이 지난 경우 쿠폰을 사용할 수 없다.
 describe('2개 구매 시 1개 무료 쿠폰', () => {
   describe('쿠폰 만료일 테스트', () => {
     beforeAll(() => {

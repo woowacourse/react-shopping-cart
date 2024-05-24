@@ -1,8 +1,8 @@
 import { couponFinder } from './couponFinder';
 
+import { couponValidator } from '@/components/Coupon/utils/couponValidator';
 import { PRICE } from '@/constants/config';
 import { Coupon } from '@/types/coupon';
-import { couponValidator } from '@components/Coupon/couponValidator';
 
 export const couponApplicabilityChecker = (couponList: Coupon[]) => {
   const { findCouponByCode } = couponFinder(couponList);

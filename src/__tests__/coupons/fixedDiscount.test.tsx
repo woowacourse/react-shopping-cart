@@ -1,9 +1,9 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
 
-import { couponValidator } from '@/components/Coupon/couponValidator';
 import { couponApplicabilityChecker } from '@/components/Coupon/utils/couponApplicabilityChecker';
 import couponDiscountCalculator from '@/components/Coupon/utils/couponDiscountCalculator';
+import { couponValidator } from '@/components/Coupon/utils/couponValidator';
 import { CONFIG } from '@/constants/config';
 import { TOTAL_PRICE_OVER_100000_DATA, TOTAL_PRICE_UNDER_100000_DATA } from '@/mocks/cart';
 import { MOCK_COUPON_CHECK_LIST } from '@/mocks/coupon';
