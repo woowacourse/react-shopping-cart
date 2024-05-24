@@ -1,14 +1,16 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { NavigationBar, PreviousPageButton, FooterButton } from '../../components/common';
+import {
+  NavigationBar,
+  PreviousPageButton,
+  FooterButton,
+  PageTitle,
+} from '../../components/common';
 import * as Styled from './ConfirmOrderPage.style';
 
-import { convertToLocaleAmount } from '../../utils';
 import { ENDPOINT } from '../../routes/router.constants';
-import { useRecoilValue } from 'recoil';
-import { checkedCartItemsState } from '../../recoil/atoms';
-import { totalAmountState, totalCheckedQuantityState } from '../../recoil/selectors';
+import { OrderContainer } from '../../components/confirmOrder';
 
 export default function ConfirmOrderPage() {
   const navigate = useNavigate();
@@ -20,10 +22,6 @@ export default function ConfirmOrderPage() {
     }
   }, [location.state, navigate]);
 
-  const totalCheckedCartItems = useRecoilValue(checkedCartItemsState);
-  const totalProductsCount = useRecoilValue(totalCheckedQuantityState);
-  const totalAmount = useRecoilValue(totalAmountState);
-
   const handleClickPreviousPageButton = () => {
     navigate(ENDPOINT.shoppingCart);
   };
@@ -34,21 +32,10 @@ export default function ConfirmOrderPage() {
         <PreviousPageButton onClick={handleClickPreviousPageButton} />
       </NavigationBar>
 
-      {location.state && (
-        <Styled.ConfirmOrderContainer>
-          <Styled.Title>주문 확인</Styled.Title>
-          <Styled.Description>
-            총 {totalCheckedCartItems.length}종류의 상품 {totalProductsCount}개를 주문합니다.
-            <br />
-            최종 결제 금액을 확인해 주세요.
-          </Styled.Description>
-
-          <Styled.TotalAmount>
-            <Styled.TotalAmountTitle>총 결제 금액</Styled.TotalAmountTitle>
-            {convertToLocaleAmount(totalAmount)}
-          </Styled.TotalAmount>
-        </Styled.ConfirmOrderContainer>
-      )}
+      <Styled.OrderContent>
+        <PageTitle title="주문 확인" />
+        <OrderContainer />
+      </Styled.OrderContent>
 
       <FooterButton type="button" buttonText="결제하기" disabled />
     </>
