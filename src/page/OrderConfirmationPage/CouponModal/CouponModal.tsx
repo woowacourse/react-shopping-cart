@@ -12,7 +12,7 @@ import convertToLocaleAmount from '../../../utils/convertToLocalePrice';
 import getCouponsAmount from '../../../utils/getCouponsAmount';
 import getLastTimeDate from '../../../utils/getLastTimeDate';
 import { iso8601ToDate } from '../../../utils/translateFormat';
-import { selectedCoupons as selectedCouponsState } from '../../../recoil/atoms';
+import { selectedCouponsState } from '../../../recoil/atoms';
 import useCoupons from '../../../hooks/useCoupons';
 
 interface CouponModalProps {
@@ -33,20 +33,13 @@ export default function CouponModal({ onClose, onConfirm }: CouponModalProps) {
 
   const {
     coupons: checkedCoupons,
-    setCoupons: setCheckedCoupons,
     isSelectedCoupon: isCheckedCoupon,
     addCoupon,
     deleteCoupon,
     IS_ADDABLE: isCouponAddable,
-  } = useCoupons();
+  } = useCoupons(selectedCoupon);
 
   const checkedCouponAmount = getCouponsAmount(checkedCoupons, checkedItems, deliveryFee);
-
-  // 모달을 닫음(esc, x 버튼) => 모달에서 체크된 쿠폰을 선택 쿠폰으로 바꿈
-  const closeHandler = () => {
-    setCheckedCoupons(selectedCoupon);
-    onClose();
-  };
 
   // 모달에서 확인을 누름 => 모달에서 체크된 쿠폰이 선택 쿠폰이 됨
   const confirmHandler = () => {
@@ -56,7 +49,7 @@ export default function CouponModal({ onClose, onConfirm }: CouponModalProps) {
 
   return (
     <Modal
-      onClose={closeHandler}
+      onClose={onClose}
       onConfirm={confirmHandler}
       buttonText={`총 ${convertToLocaleAmount(checkedCouponAmount)} 할인 쿠폰 사용하기`}
       title="쿠폰을 선택해 주세요"
