@@ -1,6 +1,7 @@
 export const MESSAGES = {
   cartNotification: '총 주문 금액은 100,000원 이상일 경우 무료 배송됩니다.',
   totalInfoLabel: '주문 금액',
+  totalDiscountLabel: '쿠폰 할인 금액',
   deliveryFee: '배송비',
   totalAmountLabel: '총 결제 금액',
   allSelected: '전체 선택',
@@ -22,6 +23,9 @@ export const MESSAGES_PROPS = {
   couponConfirm: (totalDiscount: number, isFreeShipping: boolean) => {
     if (totalDiscount === 0 && !isFreeShipping) {
       return '쿠폰 사용하기';
+    }
+    if (totalDiscount === 0 && isFreeShipping) {
+      return '무료배송 쿠폰 사용하기';
     }
     return `${totalDiscount !== 0 ? totalDiscount : ''} ${
       isFreeShipping ? '+ 무료배송' : ''
