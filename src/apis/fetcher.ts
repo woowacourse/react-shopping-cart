@@ -32,15 +32,15 @@ export const requestGet = <T>({ baseUrl, endpoint, headers = {} }: RequestProps)
 };
 
 export const requestPatch = ({ baseUrl, endpoint, headers = {}, body }: RequestProps) => {
-  fetcher({ method: 'PATCH', baseUrl, endpoint, headers, body });
+  return fetcher({ method: 'PATCH', baseUrl, endpoint, headers, body });
 };
 
 export const requestPost = ({ baseUrl, endpoint, headers = {}, body }: RequestProps) => {
-  fetcher({ method: 'POST', baseUrl, endpoint, headers, body });
+  return fetcher({ method: 'POST', baseUrl, endpoint, headers, body });
 };
 
 export const requestDelete = ({ baseUrl, endpoint, headers = {} }: RequestProps) => {
-  fetcher({ method: 'DELETE', baseUrl, endpoint, headers });
+  return fetcher({ method: 'DELETE', baseUrl, endpoint, headers });
 };
 
 // 실제 오류를 감지하고 처리하고, fetch툴을 이용해 fetch해오는 곳
