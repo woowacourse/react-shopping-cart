@@ -7,12 +7,10 @@ export const totalCartPriceState = selector<number>({
   get: ({ get }) => {
     const selectedCartItemList = get(selectedCartItemListState);
 
-    const totalCartPrice = selectedCartItemList.reduce((totalCartPrice, { product, cartItemId }) => {
-      const quantity = get(cartItemQuantityState(cartItemId));
-      const price = product.price;
-
-      return totalCartPrice + quantity * price;
-    }, 0);
+    const totalCartPrice = selectedCartItemList.reduce(
+      (totalCartPrice, { quantity, product }) => totalCartPrice + quantity * product.price,
+      0,
+    );
 
     return totalCartPrice;
   },
