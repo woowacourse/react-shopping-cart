@@ -1,4 +1,4 @@
-import { selector, selectorFamily, useRecoilValue } from 'recoil';
+import { selector, selectorFamily } from 'recoil';
 
 import {
   cartItemsState,
@@ -6,9 +6,10 @@ import {
   isCountrysideSelectedState,
 } from './atoms';
 
-import { CartItemType } from '../type';
+import { CartItemType, CouponType } from '../type';
 import CONDITION from '../constants/Condition';
 import VALUE from '../constants/Value';
+import { fetchGetCoupons } from '../api/coupons';
 
 export const cartItemsCountSelector = selector<number>({
   key: 'cartItemsCount',
@@ -135,5 +136,12 @@ export const finalTotalPaymentAmountSelector = selector<number>({
   key: 'finalTotalPaymentAmount',
   get: ({ get }) => {
     return get(totalOrderAmountSelector) + get(finalShippingFeeSelector);
+  },
+});
+
+export const couponsSelector = selector<CouponType[]>({
+  key: 'coupons',
+  get: async () => {
+    return await fetchGetCoupons();
   },
 });
