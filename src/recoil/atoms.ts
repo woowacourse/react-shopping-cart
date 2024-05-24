@@ -14,3 +14,13 @@ export const selectedCoupons = atom<Coupon[]>({
   key: RECOIL_KEYS.SELECTED_COUPONS,
   default: [],
 });
+
+export const isolatedRegionStore = atom({
+  key: RECOIL_KEYS.ISOLATED_REGION,
+  default: false,
+});
+
+export const discountAmountStore = atom({
+  key: RECOIL_KEYS.DISCOUNT_AMOUNT,
+  default: 0,
+});

@@ -9,6 +9,9 @@ export const RECOIL_KEYS = {
   CART_ITEMS: 'cartItems',
   PRICE_INFO: 'priceInfo',
   ORDER_INFO: 'orderInfo',
+  SHIPPING_FEE: 'shippingFee',
+  ISOLATED_REGION: 'isolatedRegion',
+  DISCOUNT_AMOUNT: 'discountAmount',
   SELECTED_COUPONS: 'selectedCoupons',
   DISCOUNT_INFO: 'discountInfo',
 };

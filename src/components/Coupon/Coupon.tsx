@@ -7,6 +7,8 @@ import useLoadCoupon from '../../hooks/coupon/useLoadCoupon';
 import useApplyCoupons from '../../hooks/coupon/useApplyCoupons';
 import { Coupon as CouponType } from '../../types/coupon';
 import useDiscount from '../../hooks/coupon/useDiscount';
+import { useSetRecoilState } from 'recoil';
+import { discountAmountStore } from '../../recoil/atoms';
 
 const Coupon = () => {
   const [couponModalOpen, toggleCouponModalOpen] = useReducer(prev => !prev, false);
@@ -16,8 +18,15 @@ const Coupon = () => {
   const { applyingCoupons, changeApplying } = useApplyCoupons();
   const { discountAmount } = useDiscount();
 
+  const setDiscountAmountStore = useSetRecoilState(discountAmountStore);
+
   const isSelect = (coupon: CouponType) => {
     return applyingCoupons.find(applying => applying.id === coupon.id) !== undefined;
+  };
+
+  const applyCouponAndCloseModal = () => {
+    setDiscountAmountStore(discountAmount);
+    toggleCouponModalOpen();
   };
 
   const isAlreadyApplyingTwoCoupons = applyingCoupons.length >= 2;
@@ -42,7 +51,7 @@ const Coupon = () => {
           closeButton={{ role: 'close', hide: true }}
           confirmButton={{
             customButton: (
-              <S.ConfirmButton>
+              <S.ConfirmButton onClick={applyCouponAndCloseModal}>
                 총 {`${discountAmount.toLocaleString()}`}원 할인 쿠폰 사용하기
               </S.ConfirmButton>
             ),

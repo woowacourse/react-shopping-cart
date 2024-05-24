@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import { selectedCartItems, selectedCoupons } from '../../recoil/atoms';
+import { isolatedRegionStore, selectedCartItems, selectedCoupons } from '../../recoil/atoms';
 import { Coupon } from '../../types/coupon';
 import { CartItem } from '../../types/cartItem';
 import { priceInfoStore } from '../../recoil/selectors';
@@ -8,6 +8,7 @@ const useDiscount = () => {
   const applyingCoupon = useRecoilValue(selectedCoupons);
   const selectedItems = useRecoilValue(selectedCartItems);
   const priceInfo = useRecoilValue(priceInfoStore);
+  const isolatedRegion = useRecoilValue(isolatedRegionStore);
 
   const discountByFixed = (coupon: Coupon) => {
     return coupon.discount as number;
@@ -26,9 +27,8 @@ const useDiscount = () => {
     return maxPrice;
   };
 
-  // 도서 산간지역은 아직 고려하지 않음
   const discountByFreeShipping = () => {
-    return priceInfo.shipping === 0 ? 0 : 3000;
+    return priceInfo.shipping === 0 ? 0 : isolatedRegion ? 6000 : 3000;
   };
 
   const discountByPercentage = (cartItemsPrice: number, coupon: Coupon) => {

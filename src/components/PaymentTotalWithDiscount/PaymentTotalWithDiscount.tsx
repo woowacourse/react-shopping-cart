@@ -4,9 +4,11 @@ import PriceInfo from '../PriceInfo/PriceInfo';
 import { useRecoilValue } from 'recoil';
 import { priceInfoStore } from '../../recoil/selectors';
 import { ORDER } from '../../constants/constants';
+import { discountAmountStore } from '../../recoil/atoms';
 
 const PaymentTotalWithDiscount = () => {
   const priceInfo = useRecoilValue(priceInfoStore);
+  const discountAmount = useRecoilValue(discountAmountStore);
 
   return (
     <S.Container>
@@ -16,7 +18,7 @@ const PaymentTotalWithDiscount = () => {
       </S.Info>
       <S.Hr />
       <PriceInfo title="주문 금액" price={priceInfo.order} />
-      <PriceInfo title="쿠폰 할인 금액" price={0} />
+      <PriceInfo title="쿠폰 할인 금액" price={discountAmount} />
       <PriceInfo title="배송비" price={priceInfo.shipping} />
       <S.Hr />
       <PriceInfo title="총 결제 금액" price={priceInfo.total} />

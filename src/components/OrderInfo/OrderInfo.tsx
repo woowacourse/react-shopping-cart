@@ -1,11 +1,15 @@
 import ShoppingCartDescription from '../ShoppingCartDescription/ShoppingCartDescription';
 import * as S from './styled';
 import ShoppingCartItemView from '../ShoppingCartItemView/ShoppingCartItemView';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CartItem } from '../../types/cartItem';
 import IsolatedRegionShippingFee from '../IsolatedRegionShippingFee/IsolatedRegionShippingFee';
 import PaymentTotalWithDiscount from '../PaymentTotalWithDiscount/PaymentTotalWithDiscount';
 import Coupon from '../Coupon/Coupon';
+import { useEffect } from 'react';
+import { ROUTER_URLS } from '../../constants/constants';
+import { useResetRecoilState } from 'recoil';
+import { discountAmountStore, selectedCoupons } from '../../recoil/atoms';
 
 interface OrderInfoState {
   orderItems: CartItem[];
@@ -16,7 +20,19 @@ interface OrderInfoState {
 
 const OrderInfo = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const resetCoupons = useResetRecoilState(selectedCoupons);
+  const resetDiscount = useResetRecoilState(discountAmountStore);
   const orderInfo = location.state as OrderInfoState | null;
+
+  useEffect(() => {
+    if (orderInfo === undefined) navigate(ROUTER_URLS.ERROR);
+
+    return () => {
+      resetDiscount();
+      resetCoupons();
+    };
+  }, [navigate, orderInfo, resetCoupons, resetDiscount]);
 
   return (
     <S.Container>
