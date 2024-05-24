@@ -1,33 +1,37 @@
+import { useRecoilValue } from "recoil";
 import { Coupon } from "../../types/coupon";
-import { useCouponApplicabilityChecker } from "../useCouponApplicabilityChecker/useCouponApplicabilityChecker";
+import { checkedCartItemsSelector, shippingFeeSelector } from "../../recoil/selector/selector";
 
 export const useDiscountCalculator = () => {
-  const { isCouponApplicable } = useCouponApplicabilityChecker();
+  const checkedCartItems = useRecoilValue(checkedCartItemsSelector);
+  const shippingFee = useRecoilValue(shippingFeeSelector);
 
-  const calculateFixedDiscount = (coupon: Coupon, totalAmount: number) => {
-    if (!isCouponApplicable(coupon, totalAmount)) {
-      return 0;
-    }
+  const calculateFixedDiscount = (coupon: Coupon) => {
     return coupon.discount ?? 0;
   };
 
-  const calculatePercentageDiscount = (coupon: Coupon, totalAmount: number) => {
-    if (!isCouponApplicable(coupon, totalAmount)) {
-      return 0;
-    }
-    return Math.floor((totalAmount * (coupon.discount ?? 0)) / 100);
+  const calculatePercentageDiscount = (coupon: Coupon, currentPrice: number) => {
+    return Math.floor((currentPrice * (coupon.discount ?? 0)) / 100);
   };
 
-  const calculateDiscountAmount = (coupon: Coupon, totalAmount: number, now: Date = new Date()) => {
-    if (!isCouponApplicable(coupon, totalAmount, now)) {
-      return 0;
-    }
+  const calculateBuyXgetYDiscount = (coupon: Coupon) => {
+    return Math.max(...checkedCartItems.map((item) => item.product.price)) * coupon.getQuantity;
+  };
 
+  const calculateFreeShippingDiscount = () => {
+    return shippingFee;
+  };
+
+  const calculateDiscountAmount = (coupon: Coupon, currentPrice: number) => {
     switch (coupon.discountType) {
       case "fixed":
-        return calculateFixedDiscount(coupon, totalAmount);
+        return calculateFixedDiscount(coupon);
       case "percentage":
-        return calculatePercentageDiscount(coupon, totalAmount);
+        return calculatePercentageDiscount(coupon, currentPrice);
+      case "buyXgetY":
+        return calculateBuyXgetYDiscount(coupon);
+      case "freeShipping":
+        return calculateFreeShippingDiscount();
       default:
         return 0;
     }

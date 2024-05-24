@@ -1,27 +1,41 @@
 import { useRecoilValue } from "recoil";
 import { useDiscountCalculator } from "../useDiscountCalculator/useDiscountCalculator";
 import { cartItemsAtom, couponsAtom } from "../../recoil/atom/atom";
+import { orderPriceSelector, shippingFeeSelector } from "../../recoil/selector/selector";
+import useSortedCheckedCoupons from "../useSortCheckedCoupons/useSortCheckedCoupons";
 
 export const useCartCalculator = () => {
-  const cartItems = useRecoilValue(cartItemsAtom);
-  const coupons = useRecoilValue(couponsAtom);
+  const orderPrice = useRecoilValue(orderPriceSelector);
+  const shippingFee = useRecoilValue(shippingFeeSelector);
+
+  const sortedCoupons = useSortedCheckedCoupons();
   const { calculateDiscountAmount } = useDiscountCalculator();
 
   const calculateCartTotal = () => {
-    return cartItems.reduce((total, item) => total + item.product.price * item.quantity, 0);
+    return orderPrice + shippingFee;
   };
 
-  const calculateTotalWithCoupon = (couponCode: string) => {
-    const cartTotal = calculateCartTotal();
-    const coupon = coupons.find((coupon) => coupon.code === couponCode);
-    if (!coupon) return cartTotal;
+  const calculateCouponTotal = () => {
+    return sortedCoupons.reduce(
+      (acc, coupon) => {
+        const discountAmount = calculateDiscountAmount(coupon, acc.currentOrderPrice);
+        acc.currentOrderPrice -= discountAmount;
+        acc.totalDiscount += discountAmount;
+        return acc;
+      },
+      { totalDiscount: 0, currentOrderPrice: orderPrice }
+    ).totalDiscount;
+  };
 
-    const discountAmount = calculateDiscountAmount(coupon, cartTotal);
-    return cartTotal - discountAmount;
+  const calculateTotalWithCoupon = () => {
+    const cartTotal = calculateCartTotal();
+    const couponTotal = calculateCouponTotal();
+    return cartTotal - couponTotal + shippingFee;
   };
 
   return {
     calculateCartTotal,
+    calculateCouponTotal,
     calculateTotalWithCoupon,
   };
 };

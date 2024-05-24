@@ -1,11 +1,12 @@
 import { atom, atomFamily } from "recoil";
 import { recoilPersist } from "recoil-persist";
 import { Product } from "../../types/product";
-import { fetchCartItemsSelector, fetchCouponsSelector } from "../selector/selector";
+import { fetchCartItemsSelector, fetchCouponsSelector } from "../selector/apiSelector";
 import { Coupon } from "../../types/coupon";
 
 const { persistAtom } = recoilPersist();
 
+//--장바구니--//
 export const cartItemsAtom = atom<Product[]>({
   key: "cartItemsAtom",
   default: fetchCartItemsSelector,
@@ -22,13 +23,18 @@ export const quantityAtomFamily = atomFamily<number, number>({
   default: 0,
 });
 
+export const shippingCheckedAtom = atom<boolean>({
+  key: "shippingCheckedAtom",
+  default: false,
+});
+
+//--쿠폰--//
 export const couponsAtom = atom<Coupon[]>({
   key: "couponsAtom",
   default: fetchCouponsSelector,
 });
 
-export const shippingCheckedAtom = atom<boolean>({
-  key: "shippingCheckedAtom",
-  default: false,
-  effects_UNSTABLE: [persistAtom],
+export const couponCheckedAtom = atom<Coupon[]>({
+  key: "couponCheckedAtom",
+  default: [],
 });

@@ -5,6 +5,8 @@ import { useRecoilState } from "recoil";
 import { couponsAtom } from "../../recoil/atom/atom";
 import { Button, Information, Splitter } from "../default";
 import CouponItem from "./CouponItem";
+import { formatCurrency } from "../../utils/formatCurrency";
+import { useCartCalculator } from "../../hooks/useCartCalculator/useCartCalculator";
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -13,7 +15,7 @@ interface CouponModalProps {
 
 const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
   const [coupons] = useRecoilState(couponsAtom);
-  console.log(coupons);
+  const { calculateCouponTotal } = useCartCalculator();
 
   return (
     <Modal
@@ -38,7 +40,7 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
         </div>
       </Modal.Content>
       <Modal.Footer>
-        <Button onClick={onClose}>총 6,000원 할인 쿠폰 사용하기</Button>
+        <Button onClick={onClose}>총 {formatCurrency(calculateCouponTotal())} 할인 쿠폰 사용하기</Button>
       </Modal.Footer>
     </Modal>
   );

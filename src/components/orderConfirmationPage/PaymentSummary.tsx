@@ -4,11 +4,13 @@ import { orderPriceSelector, shippingFeeSelector, totalPriceSelector } from "../
 import { formatCurrency } from "../../utils/formatCurrency";
 
 import { Information, LabelValue, Splitter } from "../default";
+import { useCartCalculator } from "../../hooks/useCartCalculator/useCartCalculator";
 
 const PaymentSummary = () => {
   const orderPrice = useRecoilValue(orderPriceSelector);
   const shippingFee = useRecoilValue(shippingFeeSelector);
   const totalPrice = useRecoilValue(totalPriceSelector);
+  const { calculateCouponTotal, calculateTotalWithCoupon } = useCartCalculator();
 
   return (
     <div className={PaymentSummaryCSS}>
@@ -20,7 +22,7 @@ const PaymentSummary = () => {
       />
       <LabelValue
         label="쿠폰 할인 금액"
-        value={`-2,000원`}
+        value={formatCurrency(calculateCouponTotal())}
       />
       <LabelValue
         label="배송비"
@@ -29,7 +31,7 @@ const PaymentSummary = () => {
       <Splitter />
       <LabelValue
         label="총 결제금액"
-        value={formatCurrency(totalPrice)}
+        value={formatCurrency(calculateTotalWithCoupon())}
       />
     </div>
   );

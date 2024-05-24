@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { cartItemCheckedIdsAtom, cartItemsAtom } from "../recoil/atom/atom";
+import { cartItemCheckedIdsAtom, cartItemsAtom, couponCheckedAtom } from "../recoil/atom/atom";
 import { CartLayout, Header, Content, Footer } from "../components/layout";
 import { CartItems, EmptyCart, OrderSummary } from "../components/cartPage";
 import { Title } from "../components/default";
@@ -10,6 +10,11 @@ const CartPage = () => {
   const navigate = useNavigate();
   const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
   const cartItemCheckedIds = useRecoilValue(cartItemCheckedIdsAtom);
+  const [checkedCoupons, setCheckedCoupons] = useRecoilState(couponCheckedAtom);
+
+  useEffect(() => {
+    setCheckedCoupons([]);
+  }, []);
 
   const handleClick = () => {
     navigate("/orderConfirmation");

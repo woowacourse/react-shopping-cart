@@ -4,11 +4,12 @@ import { orderPriceSelector, shippingFeeSelector, totalPriceSelector } from "../
 import { formatCurrency } from "../../utils/formatCurrency";
 
 import { Information, LabelValue, Splitter } from "../default";
+import { useCartCalculator } from "../../hooks/useCartCalculator/useCartCalculator";
 
 const OrderSummary = () => {
   const orderPrice = useRecoilValue(orderPriceSelector);
   const shippingFee = useRecoilValue(shippingFeeSelector);
-  const totalPrice = useRecoilValue(totalPriceSelector);
+  const { calculateCartTotal } = useCartCalculator();
 
   return (
     <div className={OrderSummaryCSS}>
@@ -25,7 +26,7 @@ const OrderSummary = () => {
       <Splitter />
       <LabelValue
         label="총 결제금액"
-        value={formatCurrency(totalPrice)}
+        value={formatCurrency(calculateCartTotal())}
       />
     </div>
   );
