@@ -1,13 +1,19 @@
-import { Coupon } from '@/types/coupon.type';
-import { MOCK_MOCK_COUPON_LIST } from '@/constants/_mock/mockCouponList';
-// import { getCouponList } from '@/api/coupons';
+import { getCartList } from '@/api/cartItem';
+import { getCouponList } from '@/api/coupons';
 import { selector } from 'recoil';
 
-export const couponState = selector<Coupon[]>({
+export const cartState = selector({
+  key: 'cartState',
+  get: async () => {
+    const cart = await getCartList();
+    return cart;
+  },
+});
+
+export const couponState = selector({
   key: 'couponState',
   get: async () => {
-    // const coupon = await getCouponList();
-    // return coupon;
-    return MOCK_MOCK_COUPON_LIST;
+    const coupon = await getCouponList();
+    return coupon;
   },
 });

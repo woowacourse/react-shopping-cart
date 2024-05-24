@@ -4,7 +4,7 @@ import {
   StyledScrollBox,
 } from '@/style/styledBox.style';
 import { cartListState, shippingAreaState } from '@/store/atoms';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import CartList from '@/components/Cart/CartList';
 import CartRecipe from '@/components/Cart/CartRecipe';
@@ -13,7 +13,6 @@ import EmptyCart from '@/components/EmptyCart';
 import FullWidthButton from '@/components/Button/FullWidthButton';
 import Header from '@/components/Header.tsx';
 import { ROUTE_PATH } from '@/constants/routePath';
-import { getCartList } from '@/api/cartItem';
 import { orderRecipeState } from '@/store/selectors/orderRecipeSelector';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -21,19 +20,11 @@ import { useNavigate } from 'react-router-dom';
 const Cart = () => {
   const navigate = useNavigate();
   const { orderPrice } = useRecoilValue(orderRecipeState);
-  const [cartList, setCartList] = useRecoilState(cartListState);
+  const cartList = useRecoilValue(cartListState);
 
   const setShippingState = useSetRecoilState(shippingAreaState);
-
   useEffect(() => {
     setShippingState('normal');
-
-    const fetchData = async () => {
-      const cartList = await getCartList();
-      setCartList(cartList);
-    };
-
-    fetchData();
   }, []);
 
   return (
