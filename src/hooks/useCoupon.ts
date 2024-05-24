@@ -2,17 +2,21 @@ import { COUPON_DISCOUNT_TYPE } from "@/constants";
 import { cartState, couponEachCheckState, couponsState } from "@/store/atom/atoms";
 import { isOver2CouponsCheckedState, orderAmountState } from "@/store/selector/selectors";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 const useCoupon = (id: number) => {
   const [isDisabled, setIsDisabled] = useState(true);
 
   const isOver2CouponsChecked = useRecoilValue(isOver2CouponsCheckedState);
-  const isCouponChecked = useRecoilValue(couponEachCheckState(id));
+  const [isCouponChecked, setIsCouponChecked] = useRecoilState(couponEachCheckState(id));
   const coupons = useRecoilValue(couponsState);
   const coupon = coupons.find((coupon) => coupon.id === id);
   const orderAmount = useRecoilValue(orderAmountState);
   const cartItems = useRecoilValue(cartState);
+
+  const handleCheckClick = () => {
+    setIsCouponChecked((prev) => !prev);
+  };
 
   if (!coupon) {
     throw new Error(`ERROR: 존재하지 않는 쿠폰 ID입니다. ${id}`);
@@ -58,7 +62,7 @@ const useCoupon = (id: number) => {
     }
   }, [isOver2CouponsChecked, isCouponChecked, coupon, orderAmount, cartItems]);
 
-  return { isDisabled };
+  return { isDisabled, isChecked: isCouponChecked, handleCheckClick };
 };
 
 export default useCoupon;

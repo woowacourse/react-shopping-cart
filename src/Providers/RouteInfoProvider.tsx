@@ -9,6 +9,8 @@ import CheckOrder from "@/routes/CheckOrder";
 import Order from "@/routes/Order";
 import { RiArrowLeftLine } from "react-icons/ri";
 
+import { ModalProvider } from "easy-payments-ui";
+
 export const routes = [
   {
     path: "/",
@@ -16,7 +18,11 @@ export const routes = [
   },
   {
     path: "/check-order",
-    element: <CheckOrder />,
+    element: (
+      <ModalProvider>
+        <CheckOrder />
+      </ModalProvider>
+    ),
   },
   {
     path: "/order",

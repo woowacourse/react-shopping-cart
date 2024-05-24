@@ -1,20 +1,28 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useLocation } from "react-router-dom";
 import { cartState, isExtraShippingFeeState } from "@/store/atom/atoms";
+import { useModalAction } from "easy-payments-ui";
 
 import useCustomContext from "@/hooks/useCustomContext";
-
-import CartDescription from "@/components/Main/Cart/CartDescription/CartDescription";
 import { MainRouteInfoContext, RoutePaths } from "@/Providers/RouteInfoProvider";
+
+import CartDescription from "@/components/Cart/CartDescription/CartDescription";
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
-import CartTitle from "@/components/Main/Cart/CartTitle/CartTitle";
+import CartTitle from "@/components/Cart/CartTitle/CartTitle";
 import Main from "@/components/Main/Main";
-import CartItemContainer from "@/components/Main/Cart/CartItemContainer/CartItemContainer";
-import CartItemCheckedList from "@/components/Main/Cart/CartItemContainer/CartItemCheckedList/CartItemCheckedList";
+import CartItemContainer from "@/components/Cart/CartItemContainer/CartItemContainer";
+import CartItemCheckedList from "@/components/Cart/CartItemContainer/CartItemCheckedList/CartItemCheckedList";
 import Button from "@/components/Button/Button";
 import ToolBar from "@/components/ToolBar/ToolBar";
-import CartResults from "@/components/Main/Cart/CartResults/CartResults";
+import CartResults from "@/components/Cart/CartResults/CartResults";
+import CouponModal from "@/components/CouponModal/CouponModal";
+import CouponList from "@/components/CouponModal/CouponList/CouponList";
+
+import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import Error from "@/components/Fallbacks/Error";
+import Loading from "@/components/Fallbacks/Loading";
 
 const CheckOrder = () => {
   const itemCount = useRecoilValue(cartState).length;
@@ -22,6 +30,7 @@ const CheckOrder = () => {
   const location = useLocation();
   const pathname = location.pathname as RoutePaths;
   const MainInfo = useCustomContext(MainRouteInfoContext)[pathname];
+  const action = useModalAction();
 
   const [isDoSeoSanGan, setIsDoSeoSanGan] = useRecoilState(isExtraShippingFeeState);
   const handleToolbarCheck = () => {
@@ -29,7 +38,7 @@ const CheckOrder = () => {
   };
 
   const handleCouponButtonClick = () => {
-    //TODO: 모달을 연다.
+    action.handleOpen();
   };
 
   return (
@@ -52,6 +61,13 @@ const CheckOrder = () => {
         </ToolBar>
         <CartResults isShowCouponDiscount={true} />
       </Main>
+      <CouponModal>
+        <ErrorBoundary FallbackComponent={Error}>
+          <Suspense fallback={<Loading />}>
+            <CouponList />
+          </Suspense>
+        </ErrorBoundary>
+      </CouponModal>
       <Footer />
     </>
   );
