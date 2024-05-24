@@ -1,11 +1,11 @@
 import { atom } from 'recoil';
 
-import { coupons } from '@/mocks/coupons';
+import { fetchCoupons } from '@/apis/coupon';
 import { Coupon } from '@/types/coupon';
 
 export const couponsState = atom<Coupon[]>({
   key: 'couponsState',
-  default: coupons,
+  default: fetchCoupons(),
 });
 
 export const isCouponModalOpenState = atom<boolean>({

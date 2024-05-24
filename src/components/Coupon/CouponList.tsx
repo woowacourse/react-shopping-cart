@@ -3,10 +3,10 @@ import { useRecoilValue } from 'recoil';
 
 import CouponItem from './CouponItem';
 
-import { couponListSelector } from '@recoil/coupon/selector';
+import { couponsState } from '@/recoil/coupon/atom';
 
 export default function CouponList() {
-  const coupons = useRecoilValue(couponListSelector);
+  const coupons = useRecoilValue(couponsState);
 
   return (
     <ul css={couponListContainer}>
