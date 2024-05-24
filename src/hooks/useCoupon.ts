@@ -3,6 +3,8 @@ import { selectedCoupons } from './../recoil/atoms';
 import { useRecoilState } from 'recoil';
 
 export default function useCoupon() {
+  const MAX_COUPON_NUMBER = 2;
+
   const [coupons, setCoupons] = useRecoilState(selectedCoupons);
 
   const isSelectedCoupon = (targetCoupon: Coupon) =>
@@ -10,7 +12,7 @@ export default function useCoupon() {
 
   const addCoupon = (targetCoupon: Coupon) => {
     if (isSelectedCoupon(targetCoupon)) return;
-    if (coupons.length >= 2) return;
+    if (coupons.length >= MAX_COUPON_NUMBER) return;
     setCoupons([...coupons, targetCoupon]);
   };
 
@@ -22,5 +24,7 @@ export default function useCoupon() {
     setCoupons(nextCoupons);
   };
 
-  return { isSelectedCoupon, addCoupon, deleteCoupon };
+  const isAddable = coupons.length < MAX_COUPON_NUMBER;
+
+  return { isSelectedCoupon, addCoupon, deleteCoupon, isAddable };
 }
