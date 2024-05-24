@@ -4,9 +4,11 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 
 import Checkbox from '../common/Checkbox';
 
+import { MINIMUM_FREE_SHIPPING_AMOUNT } from '@/constants/cart';
 import { MAX_SELECTED_COUPON_LENGTH } from '@/constants/coupon';
 import { Coupon } from '@/types/coupon';
 import { dateFormat, timeFormat } from '@/utils/format';
+import { orderTotalPriceState } from '@recoil/cartItems/selectors';
 import { selectedCouponsState } from '@recoil/coupon/atom';
 import { applicableCouponSelector, isMaxSelectedCouponsSelector } from '@recoil/coupon/selector';
 
@@ -18,6 +20,10 @@ export default function CouponItem({ coupon }: CouponItemProps) {
   const [selectedCoupons, setSelectedCoupons] = useRecoilState(selectedCouponsState);
   const isCouponApplicable = useRecoilValue(applicableCouponSelector(coupon.code));
   const isMaxSelectedCoupons = useRecoilValue(isMaxSelectedCouponsSelector);
+  const orderTotalPrice = useRecoilValue(orderTotalPriceState);
+
+  const isShippingFreeCouponDisabled =
+    coupon.discountType === 'freeShipping' && orderTotalPrice >= MINIMUM_FREE_SHIPPING_AMOUNT;
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked && isMaxSelectedCoupons) {
@@ -34,40 +40,36 @@ export default function CouponItem({ coupon }: CouponItemProps) {
   };
 
   return (
-    <>
-      <li css={couponContainer} key={coupon.id}>
-        <div css={couponSubContainer(isCouponApplicable)}>
-          <div css={checkboxContainer}>
-            <Checkbox
-              onChange={onChangeHandler}
-              checked={selectedCoupons.includes(coupon.code)}
-              id={coupon.id.toString()}
-              label={coupon.description + '체크박스'}
-              labelHidden={true}
-              disabled={!isCouponApplicable}
-            />
-            <h2 css={checkboxTitle}>{coupon.description}</h2>
-          </div>
-          <div css={checkBoxInfoWrapper}>
-            <span css={checkboxInfoText}>
-              만료일 : {dateFormat(new Date(coupon.expirationDate))}
-            </span>
-            {coupon.minimumAmount && (
-              <span css={checkboxInfoText}>
-                최소 주문 금액 : {coupon.minimumAmount.toLocaleString('ko-KR')}원
-              </span>
-            )}
-
-            {coupon.availableTime && (
-              <span css={checkboxInfoText}>
-                사용 가능 기간 : {timeFormat(coupon.availableTime.start, true)}부터{' '}
-                {timeFormat(coupon.availableTime.end, false)}까지
-              </span>
-            )}
-          </div>
+    <li css={couponContainer} key={coupon.id}>
+      <div css={couponSubContainer(isCouponApplicable, isShippingFreeCouponDisabled)}>
+        <div css={checkboxContainer}>
+          <Checkbox
+            onChange={onChangeHandler}
+            checked={selectedCoupons.includes(coupon.code)}
+            id={coupon.id.toString()}
+            label={coupon.description + '체크박스'}
+            labelHidden={true}
+            disabled={!isCouponApplicable || isShippingFreeCouponDisabled}
+          />
+          <h2 css={checkboxTitle}>{coupon.description}</h2>
         </div>
-      </li>
-    </>
+        <div css={checkBoxInfoWrapper}>
+          <span css={checkboxInfoText}>만료일 : {dateFormat(new Date(coupon.expirationDate))}</span>
+          {coupon.minimumAmount && (
+            <span css={checkboxInfoText}>
+              최소 주문 금액 : {coupon.minimumAmount.toLocaleString('ko-KR')}원
+            </span>
+          )}
+
+          {coupon.availableTime && (
+            <span css={checkboxInfoText}>
+              사용 가능 기간 : {timeFormat(coupon.availableTime.start, true)}부터{' '}
+              {timeFormat(coupon.availableTime.end, false)}까지
+            </span>
+          )}
+        </div>
+      </div>
+    </li>
   );
 }
 
@@ -79,12 +81,15 @@ const couponContainer = css`
   border-top: 1px solid #0000001a;
 `;
 
-const couponSubContainer = (isCouponApplicable: boolean) => css`
+const couponSubContainer = (
+  isCouponApplicable: boolean,
+  isShippingFreeCouponDisabled: boolean,
+) => css`
   display: flex;
   flex-direction: column;
   gap: 12px;
 
-  opacity: ${isCouponApplicable ? '1' : '0.25'};
+  opacity: ${!isCouponApplicable || isShippingFreeCouponDisabled ? '0.25' : '1'};
 `;
 
 const checkboxContainer = css`
