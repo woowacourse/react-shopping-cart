@@ -24,11 +24,11 @@ export const discountPriceByCouponListState = selector({
     const selectedCouponList = get(selectedCouponListState);
     const selectedCartItemList = get(selectedCartItemListState);
 
-    selectedCouponList.sort((a, b) => a.priority - b.priority);
+    const selectedCouponListSortByPriorityDesc = [...selectedCouponList].sort((a, b) => b.priority - a.priority);
 
     const totalDiscount: TotalDiscountPrice = { coupon: 0, shippingFee: 0 };
 
-    selectedCouponList.forEach((coupon) => {
+    selectedCouponListSortByPriorityDesc.forEach((coupon) => {
       let discountPrice: number | ShippingDiscountType = 0;
 
       switch (coupon.discountType) {
