@@ -1,4 +1,5 @@
 import { PropsWithChildren } from "react";
+import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useRecoilValueLoadable } from "recoil";
 import Header from "../../components/Header";
 import BottomButton from "../../components/common/BottomButton";
@@ -22,11 +23,18 @@ const PaymentConfirmationPage: React.FC<PropsWithChildren> = () => {
   const cartList = useRecoilValueLoadable(cartListState);
   const totalPrice = useRecoilValue(cartListTotalPrice);
   const totalQuantity = useRecoilValue(cartListTotalQuantity);
+  const navigation = useNavigate();
+
+  const handleClick = () => {
+    navigation("/");
+  };
 
   return (
     <Layout
       header={<Header isShowLogo={false} />}
-      bottom={<BottomButton isDisabled={true}>결제하기</BottomButton>}
+      bottom={
+        <BottomButton onClick={handleClick}>장바구니로 돌아가기</BottomButton>
+      }
     >
       <RecoilSuspense loadable={cartList} fallback={<div>안쪽 로딩 중...</div>}>
         <ConfirmOrderContainer>
