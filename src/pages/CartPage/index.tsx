@@ -1,4 +1,4 @@
-import { useRecoilValueLoadable } from "recoil";
+import { useRecoilValue, useRecoilValueLoadable } from "recoil";
 
 import { useNavigate } from "react-router-dom";
 import BlankCart from "../../components/BlankCart";
@@ -10,10 +10,12 @@ import BottomButton from "../../components/common/BottomButton";
 import RecoilSuspense from "../../components/common/RecoilSuspense";
 import Layout from "../../layout";
 import { cartListState } from "../../recoil/atoms";
+import { orderListTotalQuantitySelector } from "../../recoil/selectors";
 import { CartListWrapper, CartPageContainer } from "./styles";
 
 export default function CartPage() {
   const cartList = useRecoilValueLoadable(cartListState);
+  const orderListTotalQuantity = useRecoilValue(orderListTotalQuantitySelector);
   const navigate = useNavigate();
 
   const handleConfirmOrder = async () => {
@@ -27,7 +29,7 @@ export default function CartPage() {
         bottom={
           <BottomButton
             onClick={handleConfirmOrder}
-            isDisabled={cartList.contents.length === 0}
+            isDisabled={orderListTotalQuantity === 0}
           >
             주문 확인
           </BottomButton>
