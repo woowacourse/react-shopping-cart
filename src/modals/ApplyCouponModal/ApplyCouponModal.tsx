@@ -2,7 +2,7 @@ import { Modal } from 'paran-simple-modal';
 
 import NotificationContainer from '../../components/Container/NotificationContainer/NotificationContainer';
 import CouponList from '../../components/List/CouponList/CouponList';
-import { useCalculateTotalCouponDiscount } from '../../hooks/useCalculateTotalCouponDiscount';
+import { useCalculateTotalCouponDiscount } from '../../hooks/useCalculateCouponDiscount';
 import { useToggleModal } from '../../hooks/useToggleModal';
 import { Coupon } from '../../types/Coupon.type';
 import * as S from './ApplyCouponModal.style';
