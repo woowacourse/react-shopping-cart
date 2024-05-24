@@ -2,6 +2,8 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import '@testing-library/jest-dom';
 
+import { fetchCouponList } from '@/apis/coupon';
+import { MOCK_COUPON_CHECK_LIST } from '@/mocks/coupon';
 import { fetchCartItems } from '@apis/cartItem';
 import CartMainSection from '@components/Cart/CartMainSection';
 import AsyncRecoilWrapper from '@mocks/AsyncRecoilWrapper';
@@ -16,10 +18,15 @@ jest.mock('@apis/cartItem', () => ({
   deleteItem: jest.fn(() => ({ type: 'DELETE', status: 204 })),
 }));
 
+jest.mock('@apis/coupon', () => ({
+  fetchCouponList: jest.fn(),
+}));
+
 describe('cartItem', () => {
   beforeEach(() => {
     // 모킹된 데이터 반환값 설정
     (fetchCartItems as jest.Mock).mockResolvedValue(TOTAL_PRICE_UNDER_100000_DATA);
+    (fetchCouponList as jest.Mock).mockResolvedValue(MOCK_COUPON_CHECK_LIST);
   });
 
   it('API 호출을 통해 장바구니 데이터를 불러와 화면에 보여준다.', async () => {
