@@ -11,9 +11,9 @@ class BuyXgetYCoupon extends Coupon {
     if (!this.data.buyQuantity || !this.data.getQuantity) return 0;
 
     return itemInfo.reduce((acc, cur) => {
-      if (cur.quantity >= this.data.buyQuantity!) return acc;
+      if (cur.quantity <= this.data.buyQuantity!) return acc;
 
-      const discountItemCount = Math.max(cur.quantity - this.data.buyQuantity!, this.data.getQuantity!);
+      const discountItemCount = Math.min(cur.quantity - this.data.buyQuantity!, this.data.getQuantity!);
       const discountAmount = cur.price * discountItemCount;
 
       return Math.max(acc, discountAmount);
