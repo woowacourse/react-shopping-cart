@@ -2,7 +2,7 @@ import useApplicable from './useApplicable';
 import { renderHook } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
 import { selectedCartItems } from '@recoil/atoms';
-import mockCartItems from '@mocks/cartItems';
+import { mockCartItems } from '@mocks/cartItems';
 import { mockCoupons } from '@mocks/coupons';
 import { CartItem } from '@type/cartItem';
 import dayjs from '@utils/dayjs';
