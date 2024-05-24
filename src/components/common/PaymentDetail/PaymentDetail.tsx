@@ -4,7 +4,7 @@ import { PaymentDetailContainerStyle, PaymentDetailAmountStyle, PaymentDetailTit
 
 interface PaymentDetailProps {
   title: string;
-  amount: number;
+  amount: number | string;
   directionStyle?: "row" | "column";
 }
 
@@ -12,7 +12,7 @@ const PaymentDetail = ({ title, amount, directionStyle = "row" }: PaymentDetailP
   return (
     <div css={PaymentDetailContainerStyle(directionStyle)}>
       <div css={PaymentDetailTitleStyle}>{title}</div>
-      <div css={PaymentDetailAmountStyle}>{amount.toLocaleString() + "원"}</div>
+      <div css={PaymentDetailAmountStyle}>{typeof amount === "string" ? amount : amount.toLocaleString() + "원"}</div>
     </div>
   );
 };

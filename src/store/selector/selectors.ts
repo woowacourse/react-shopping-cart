@@ -1,5 +1,11 @@
 import { selector } from "recoil";
-import { cartItemCheckedState, cartItemIdListState, itemQuantityState } from "../atom/atoms";
+import {
+  cartItemCheckedState,
+  cartItemIdListState,
+  itemQuantityState,
+  remoteAreaState,
+  selectedCouponsState,
+} from "../atom/atoms";
 import { SHIPPING_CONSTANT } from "../../constants";
 import { cartState } from "../atom/atoms";
 
@@ -33,15 +39,34 @@ export const orderAmountSelector = selector({
   },
 });
 
-// export const shippingFeeSelector = selector({
+export const shippingFeeSelector = selector({
+  key: "shippingFee",
+  get: ({ get }) => {
+    const orderAmount = get(orderAmountSelector);
+    const isRemoteArea = get(remoteAreaState);
+    const couponList = get(selectedCouponsState);
 
-// });
+    if (couponList.some((coupon) => coupon.couponType === "freeShipping")) {
+      return 0;
+    }
+
+    if (orderAmount > SHIPPING_CONSTANT.FREE_CRITERIA) {
+      return 0;
+    }
+
+    if (isRemoteArea) {
+      return SHIPPING_CONSTANT.DEFAULT + SHIPPING_CONSTANT.ADDITIONAL;
+    }
+
+    return SHIPPING_CONSTANT.DEFAULT;
+  },
+});
 
 export const totalAmountSelector = selector({
   key: "totalAmount",
   get: ({ get }) => {
     const tempAmount = get(orderAmountSelector);
-    return tempAmount >= SHIPPING_CONSTANT.FREE_CRITERIA ? tempAmount : tempAmount + SHIPPING_CONSTANT.FEE;
+    return tempAmount >= SHIPPING_CONSTANT.FREE_CRITERIA ? tempAmount : tempAmount + SHIPPING_CONSTANT.DEFAULT;
   },
 });
 

@@ -12,12 +12,12 @@ import {
 import OrderItemList from "./OrderItemList/OrderItemList";
 
 import CouponModal from "../../common/CouponModal/CouponModal";
-import { getStorage, setStorage } from "../../../store/localStorage/localStorage";
-import { REMOTE_AREA_STATE_KEY } from "../../../constants";
+import { useRecoilState } from "recoil";
+import { remoteAreaState } from "../../../store/atom/atoms";
 
 const OrderContainer = () => {
   const [modalOpened, setModalOpened] = useState(false);
-  const [isRemoteArea, setIsRemoteArea] = useState(getStorage(REMOTE_AREA_STATE_KEY, false));
+  const [isRemoteArea, setIsRemoteArea] = useRecoilState(remoteAreaState);
 
   const handleModalOpen = () => {
     setModalOpened(true);
@@ -29,7 +29,6 @@ const OrderContainer = () => {
 
   const handleRemoteAreaCheckboxClick = () => {
     setIsRemoteArea((prev) => !prev);
-    setStorage(REMOTE_AREA_STATE_KEY, !isRemoteArea);
   };
 
   return (

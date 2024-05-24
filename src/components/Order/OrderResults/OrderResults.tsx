@@ -9,10 +9,17 @@ import {
   OrderResultsContainerStyle,
 } from "./OrderResults.style";
 import { useRecoilValue } from "recoil";
-import { totalAmountSelector } from "../../../store/selector/selectors";
+import { shippingFeeSelector, totalAmountSelector } from "../../../store/selector/selectors";
+import { useDiscountCalculator } from "../../../hooks/useDiscountCalculator";
+import { selectedCouponsState } from "../../../store/atom/atoms";
 
 const OrderResults = () => {
   const totalAmount = useRecoilValue(totalAmountSelector);
+  const couponList = useRecoilValue(selectedCouponsState);
+  const shippingFee = useRecoilValue(shippingFeeSelector);
+
+  const { calculateTotalDiscountAmount } = useDiscountCalculator();
+  const totalDiscountAmount = calculateTotalDiscountAmount(couponList);
 
   return (
     <div css={OrderResultsContainerStyle}>
@@ -25,8 +32,8 @@ const OrderResults = () => {
 
       <Divider />
       <PaymentDetail title="주문 금액" amount={totalAmount} />
-      <PaymentDetail title="쿠폰 할인 금액" amount={-2} />
-      <PaymentDetail title="배송비" amount={3} />
+      <PaymentDetail title="쿠폰 할인 금액" amount={totalDiscountAmount} />
+      <PaymentDetail title="배송비" amount={shippingFee} />
       <Divider />
       <PaymentDetail title="총 결제 금액" amount={4} />
     </div>

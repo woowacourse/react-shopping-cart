@@ -28,7 +28,7 @@ const CartResults = () => {
           <PaymentDetail title="주문 금액" amount={orderAmount} />
           <PaymentDetail
             title="배송비"
-            amount={orderAmount >= SHIPPING_CONSTANT.FREE_CRITERIA ? 0 : SHIPPING_CONSTANT.FEE}
+            amount={orderAmount >= SHIPPING_CONSTANT.FREE_CRITERIA ? 0 : SHIPPING_CONSTANT.DEFAULT}
           />
           <Divider />
           <PaymentDetail title="총 결제 금액" amount={totalAmount} />
