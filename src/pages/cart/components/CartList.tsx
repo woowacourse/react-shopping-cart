@@ -5,6 +5,7 @@ import styles from '../Cart.module.css';
 import common from '../../../styles/common.module.css';
 import { useRecoilValue } from 'recoil';
 import { isCheckedState } from '../../../store/atoms';
+import CheckBox from '../../../components/common/CheckBox/CheckBox';
 
 interface Props {
   products: CartItemType[];
@@ -17,14 +18,7 @@ export default function CartList({ products }: Props) {
   return (
     <>
       <div className={styles.allCheckContainer}>
-        <input
-          type="checkbox"
-          id={'checkAll'}
-          className={styles.customCheckbox}
-          checked={allChecked}
-          onChange={handleToggleAll}
-        />
-        <label htmlFor={'checkAll'} className={styles.customCheckboxLabel} />
+        <CheckBox id="checkAll" checked={allChecked} onChange={handleToggleAll} />
         <div className={`${styles.allCheckText} ${common.captionText}`}>전체 선택</div>
       </div>
 
