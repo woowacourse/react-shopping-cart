@@ -1,4 +1,4 @@
-import WideButton from '../Button/WideButton';
+import WideButton from '@/components/Button/WideButton';
 import { selectedCouponListState } from '@/store/atoms';
 import { useRecoilValue } from 'recoil';
 import useTotalCouponDiscount from '@/hooks/useTotalCouponDiscount';

@@ -1,4 +1,4 @@
-import { cartListState, filteredCartItemState } from '../atoms';
+import { cartListState, filteredCartItemState } from '@/store/atoms';
 
 import { OrderedItem } from '@/types/recipe.type';
 import { selector } from 'recoil';

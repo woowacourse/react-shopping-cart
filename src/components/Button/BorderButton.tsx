@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { theme } from '../../style/theme.style';
+import { theme } from '@/style/theme.style';
 
 interface Props {
   onClick: () => void;

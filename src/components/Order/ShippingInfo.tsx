@@ -1,6 +1,6 @@
 import { FlexRow, WhiteSpace } from '@/style/common.style';
 
-import CheckBox from '../Input/CheckBoxInput';
+import CheckBox from '@/components/Input/CheckBoxInput';
 import { ORDER_CONFIRM_MESSAGE } from '@/constants/message';
 import { shippingAreaState } from '@/store/atoms';
 import styled from '@emotion/styled';

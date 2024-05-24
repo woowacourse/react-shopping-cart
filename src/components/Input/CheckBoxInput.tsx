@@ -9,17 +9,15 @@ interface Props {
 
 const CheckBox = ({ isSelected, onClick }: Props) => {
   return (
-    <>
-      <Container onClick={onClick}>
-        <StyledInput
-          type="checkbox"
-          checked={isSelected}
-          readOnly
-          onClick={onClick}
-        />
-        {isSelected ? <Checked /> : <UnChecked />}
-      </Container>
-    </>
+    <Container onClick={onClick}>
+      <StyledInput
+        type="checkbox"
+        checked={isSelected}
+        readOnly
+        onClick={onClick}
+      />
+      {isSelected ? <Checked /> : <UnChecked />}
+    </Container>
   );
 };
 

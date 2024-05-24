@@ -5,7 +5,7 @@ import Header from '@/components/Header';
 import { ORDER_CONFIRM_MESSAGE } from '@/constants/message';
 import { ROUTE_PATH } from '@/constants/routePath';
 import { StyledFixedBottom } from '@/style/styledBox.style';
-import { StyledFixedTop } from '../style/styledBox.style';
+import { StyledFixedTop } from '@/style/styledBox.style';
 import { orderRecipeState } from '@/store/selectors/orderRecipeSelector';
 import { orderedItemQuantityState } from '@/store/selectors/orderItemSelector';
 import { selectedCouponListState } from '@/store/atoms';
