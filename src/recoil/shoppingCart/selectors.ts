@@ -16,13 +16,13 @@ export const orderPriceSelector = selector({
 export const shippingFeeSelector = selector({
   key: 'shippingFeeSelector',
   get: ({ get }) => {
+    const { freeShippingMinAmount, shippingFee } = PRICE;
     const orderPrice = get(orderPriceSelector);
+    if (orderPrice === 0 || orderPrice >= freeShippingMinAmount) return shippingFee.free;
+
     const surchargeShippingFee = get(surchargeShippingFeeAtom);
 
-    const { freeShippingMinAmount, shippingFee } = PRICE;
-    const feeByOrderPrice =
-      orderPrice === 0 || orderPrice >= freeShippingMinAmount ? shippingFee.free : shippingFee.basic;
-    return feeByOrderPrice + surchargeShippingFee;
+    return shippingFee.basic + surchargeShippingFee;
   },
 });
 

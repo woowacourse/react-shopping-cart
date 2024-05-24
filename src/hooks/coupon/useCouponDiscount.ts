@@ -1,10 +1,13 @@
 import { Coupon, CouponCode } from '@appTypes/shoppingCart';
-import { PRICE } from '@constants/shippingCart';
+import { shippingFeeSelector } from '@recoil/shoppingCart';
+import { useRecoilValue } from 'recoil';
 
 import useBuyXgetYTargetItem from './useBuyXgetYTargetItem';
 import useCouponFinder from './useCouponFinder';
 
 const useCouponDiscount = () => {
+  const shippingFee = useRecoilValue(shippingFeeSelector);
+
   const { getCoupon } = useCouponFinder();
   const { getBuyXgetYTargetItem } = useBuyXgetYTargetItem();
 
@@ -51,7 +54,7 @@ const useCouponDiscount = () => {
         return calculateBuyXgetYDiscount();
 
       case 'freeShipping':
-        return PRICE.shippingFee.basic;
+        return shippingFee;
 
       case 'percentage':
         return calculatePercentageDiscount(coupon, couponTargetPrice ?? 0);
