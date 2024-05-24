@@ -1,11 +1,22 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import TotalAmount from '../TotalAmount/TotalAmount';
 import ItemList from '../ItemList/ItemList';
 import Title from '../Title/Title';
 import styled from 'styled-components';
 import { itemsState } from '../../recoil/atoms';
 import { MESSAGES, MESSAGES_PROPS } from '../../constants/Messages';
+import { totalPriceSelector } from '../../recoil/selectors';
+import Footer from '../Footer/Footer';
+import { URL_PATH } from '../../constants/UrlPath';
 
+const ContentWrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 3.6rem 2.4rem 10.4rem 2.4rem;
+  box-sizing: border-box;
+  height: 100%;
+`;
 export const NoCartItemContainer = styled.p`
   width: 100%;
   position: fixed;
@@ -20,23 +31,40 @@ export const NoCartItemContainer = styled.p`
 
 function CartContent() {
   const [items] = useRecoilState(itemsState);
+  const { totalAmount, deliveryFee, calculatedTotalAmount } = useRecoilValue(
+    totalPriceSelector('Default'),
+  );
   return (
     <>
-      {items.length !== 0 ? (
-        <>
-          <Title
-            title={MESSAGES.cart}
-            subTitle={MESSAGES_PROPS.includedItems(items.length)}
-          />
-          <ItemList />
-          <TotalAmount />
-        </>
-      ) : (
-        <>
-          <Title title={MESSAGES.cart} />
-          <NoCartItemContainer>{MESSAGES.noItemsInCart}</NoCartItemContainer>
-        </>
-      )}
+      <ContentWrapper>
+        {items.length !== 0 ? (
+          <>
+            <Title
+              title={MESSAGES.cart}
+              subTitle={MESSAGES_PROPS.includedItems(items.length)}
+            />
+            <ItemList />
+            <TotalAmount
+              type={'noneDiscount'}
+              price={{
+                totalAmount,
+                deliveryFee,
+                calculatedTotalAmount,
+              }}
+            />
+          </>
+        ) : (
+          <>
+            <Title title={MESSAGES.cart} />
+            <NoCartItemContainer>{MESSAGES.noItemsInCart}</NoCartItemContainer>
+          </>
+        )}
+      </ContentWrapper>
+      <Footer
+        value={MESSAGES.confirm}
+        isDisabled={items.length === 0}
+        url={URL_PATH.orderConfirm}
+      />
     </>
   );
 }
