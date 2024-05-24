@@ -15,7 +15,6 @@ export const cartShippingFeeState = selector<number>({
 
     const shippingFee = SHIPPING_FEE.DEFAULT + (isMountainIslandArea ? SHIPPING_FEE.MOUNTAIN_ISLAND_AREA : 0);
 
-    if (totalCartPrice <= shippingFee || totalCartPrice <= 0) return 0;
     if (totalDiscount.shippingFee === 'free') return 0;
 
     return shippingFee;
