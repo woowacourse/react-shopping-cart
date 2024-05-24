@@ -1,25 +1,22 @@
 import { BackButtonStyle, HeaderStyle, ShopButtonStyle } from "./Header.style";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { RiArrowLeftLine } from "react-icons/ri";
-import { RoutePaths, RoutesObject } from "@/App";
+import { RoutePaths, RoutesObject } from "@/Providers/RouteInfoProvider";
+import CustomLink from "../CustomLink/CustomLink";
 
 const BackButton = () => {
-  const navigate = useNavigate();
-
   return (
-    <button css={BackButtonStyle} onClick={() => navigate(-1)}>
+    <CustomLink style={BackButtonStyle} To={-1}>
       <RiArrowLeftLine size={30} />
-    </button>
+    </CustomLink>
   );
 };
 
 const ShopButton = () => {
-  const navigate = useNavigate();
-
   return (
-    <button css={ShopButtonStyle} onClick={() => navigate(0)}>
+    <CustomLink style={ShopButtonStyle} To={0}>
       SHOP
-    </button>
+    </CustomLink>
   );
 };
 
@@ -29,6 +26,7 @@ const Header = () => {
 
   const navButton: RoutesObject<React.ReactElement> = {
     "/": <ShopButton />,
+    "/check-order": <BackButton />,
     "/order": <BackButton />,
   };
 

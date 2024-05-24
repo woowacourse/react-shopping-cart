@@ -3,7 +3,7 @@ import { PropsWithChildren } from "react";
 import { To, useNavigate } from "react-router-dom";
 
 interface CustomLinkProps extends PropsWithChildren {
-  disabled: boolean;
+  disabled?: boolean;
   To: To | number;
   style?: SerializedStyles;
 }
@@ -25,7 +25,7 @@ const CustomLink = ({ disabled, To, children, style }: CustomLinkProps) => {
   };
 
   return (
-    <button disabled={disabled} css={style} onClick={handleClick} role="link">
+    <button disabled={disabled || false} css={style} onClick={handleClick} role="link">
       {children}
     </button>
   );
