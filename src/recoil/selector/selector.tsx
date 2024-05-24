@@ -1,17 +1,6 @@
 import { selector, selectorFamily } from "recoil";
 import { cartItemCheckedIdsAtom, cartItemsAtom, quantityAtomFamily, shippingCheckedAtom } from "../atom/atom";
 import { ORDER_PRICE_THRESHOLD, SHIPPING_FEE } from "../../constants/setting";
-import { fetchCartItems } from "../../api/cartItemApi";
-import { fetchCoupons } from "../../api/couponApi";
-
-// 장바구니 상품 조회 api 호출
-export const fetchCartItemsSelector = selector({
-  key: "fetchCartItemsSelector",
-  get: async ({ get }) => {
-    const cartItems = await fetchCartItems();
-    return cartItems;
-  },
-});
 
 // id에 대한 quantity를 가지고 있는 셀렉터
 export const quantitySelectorFamily = selectorFamily({
@@ -45,14 +34,8 @@ export const checkedCartItemsSelector = selector({
 export const orderPriceSelector = selector({
   key: "orderPriceSelector",
   get: ({ get }) => {
-    const cartItems = get(cartItemsAtom);
-    const checkedIds = get(cartItemCheckedIdsAtom);
-    return cartItems.reduce((acc, item) => {
-      if (checkedIds.includes(item.id)) {
-        return acc + item.product.price * item.quantity;
-      }
-      return acc;
-    }, 0);
+    const checkedCartItems = get(checkedCartItemsSelector);
+    return checkedCartItems.reduce((total, item) => total + item.product.price * item.quantity, 0);
   },
 });
 
@@ -60,15 +43,15 @@ export const orderPriceSelector = selector({
 export const shippingFeeSelector = selector({
   key: "shippingFeeSelector",
   get: ({ get }) => {
-    let shippingFee = 3000;
+    let shippingFee = SHIPPING_FEE;
     const orderPrice = get(orderPriceSelector);
     const addShippingFee = get(shippingCheckedAtom);
-    if (addShippingFee) shippingFee += 3000;
+    if (addShippingFee) shippingFee += SHIPPING_FEE;
     return orderPrice >= ORDER_PRICE_THRESHOLD ? 0 : shippingFee;
   },
 });
 
-//전체 금액 계산
+//전체 금액 계산(hook으로 빼도 될 듯 -> 얘로 무언갈 하지 않음)
 export const totalPriceSelector = selector({
   key: "totalPriceSelector",
   get: ({ get }) => {
@@ -82,23 +65,7 @@ export const totalPriceSelector = selector({
 export const totalCountSelector = selector({
   key: "totalCountSelector",
   get: ({ get }) => {
-    const cartItems = get(cartItemsAtom);
-    const checkedIds = get(cartItemCheckedIdsAtom);
-
-    return cartItems.reduce((acc, item) => {
-      if (checkedIds.includes(item.id)) {
-        return acc + item.quantity;
-      }
-      return acc;
-    }, 0);
-  },
-});
-
-// 쿠폰 조회 api 호출
-export const fetchCouponsSelector = selector({
-  key: "fetchCouponsSelector",
-  get: async () => {
-    const coupons = await fetchCoupons();
-    return coupons;
+    const checkedCartItems = get(checkedCartItemsSelector);
+    return checkedCartItems.reduce((total, item) => total + item.quantity, 0);
   },
 });
