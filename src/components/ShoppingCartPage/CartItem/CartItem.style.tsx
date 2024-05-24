@@ -19,16 +19,6 @@ export const Body = styled.div`
   column-gap: 20px;
 `;
 
-export const DeleteButton = styled.button`
-  width: 40px;
-  height: 24px;
-  border-radius: 4px;
-  border: 1px solid ${theme.color.primary.light};
-  font-size: ${theme.fontSize.sm};
-  text-align: center;
-  padding: 0px 8px;
-`;
-
 export const ItemImage = styled.img`
   display: flex;
   width: 112px;
@@ -56,4 +46,12 @@ export const ItemText = styled.p`
 export const ItemPriceText = styled.p`
   font-size: ${theme.fontSize.lg};
   font-weight: ${theme.fontWeight.bold};
+`;
+
+export const DeleteButton = `
+  width: 40px;
+  height: 24px;
+  font-size: ${theme.fontSize.sm};
+  font-weight: ${theme.fontWeight.light};
+  padding: 0px 8px;
 `;

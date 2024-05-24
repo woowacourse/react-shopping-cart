@@ -21,7 +21,7 @@ const isActiveMapper = (isActive: boolean) => {
     `;
 };
 
-export const Layout = styled.button<{ $isActive: boolean }>`
+export const Layout = styled.button<{ $isActive: boolean; $customStyle: string }>`
   width: 100%;
   padding: 15px 0;
   border-radius: 5px;
@@ -29,4 +29,5 @@ export const Layout = styled.button<{ $isActive: boolean }>`
   font-weight: ${theme.fontWeight.bold};
   text-align: center;
   ${(props) => isActiveMapper(props.$isActive)}
+  ${(props) => props.$customStyle}
 `;

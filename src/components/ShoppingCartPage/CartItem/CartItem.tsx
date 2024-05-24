@@ -1,4 +1,5 @@
 import { useRecoilState } from 'recoil';
+import Button from '../../common/Button/Button';
 import CheckBox from '../../common/CheckBox/CheckBox';
 import QuantityStepper from '../QuantityStepper/QuantityStepper';
 import type { TCartItem } from '../../../types/CartItem.type';
@@ -25,7 +26,7 @@ function CartItem({ item, isConfirm = false, onRemoveItem, onUpdateQuantity }: C
       {!isConfirm && onRemoveItem && (
         <S.Header>
           <CheckBox id={product.name} isChecked={isSelected} onChange={handleIsSelected} />
-          <S.DeleteButton onClick={() => onRemoveItem(id)}>삭제</S.DeleteButton>
+          <Button customStyle={S.DeleteButton} content="삭제" onClick={() => onRemoveItem(id)} />
         </S.Header>
       )}
       <S.Body>
