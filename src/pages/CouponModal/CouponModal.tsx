@@ -4,13 +4,15 @@ import { CART_PAGE_MESSAGES } from "@/constants/cart";
 import TextBox from "@/components/_common/TextBox/TextBox";
 import DeleteButton from "@/assets/delete-icon.svg?react";
 import { Coupon } from "@/types/coupon";
-import CouponItem from "./components/Coupon";
 import Button from "@/components/_common/Button/Button";
 import { theme } from "@/styles/theme";
 import { useRecoilValue } from "recoil";
 import { couponListSelector } from "@/recoil/coupons";
 import useCouponApplicabilityChecker from "@/hooks/useCouponApplicabilityChecker";
 import { totalOrderPriceSelector } from "@/recoil/orderInformation";
+import CouponList from "./components/CouponList";
+
+export type CouponWithApplicablity = { coupon: Coupon; applicability: boolean };
 
 const CouponModal = ({
   isOpen,
@@ -23,8 +25,8 @@ const CouponModal = ({
   const totalItemsPrice = useRecoilValue(totalOrderPriceSelector);
   const { isCouponApplicable } = useCouponApplicabilityChecker();
 
-  const applicableCoupons: Coupon[] = [];
-  const nonApplicableCoupons: Coupon[] = [];
+  const applicableCoupons: CouponWithApplicablity[] = [];
+  const nonApplicableCoupons: CouponWithApplicablity[] = [];
 
   couponList.forEach((coupon) => {
     if (
@@ -34,13 +36,16 @@ const CouponModal = ({
         time: new Date(),
       })
     ) {
-      applicableCoupons.push(coupon);
+      applicableCoupons.push({ coupon: coupon, applicability: true });
     } else {
-      nonApplicableCoupons.push(coupon);
+      nonApplicableCoupons.push({ coupon: coupon, applicability: false });
     }
   });
 
-  const sortedCoupons = [...applicableCoupons, ...nonApplicableCoupons];
+  const sortedCouponsWithApplicability = [
+    ...applicableCoupons,
+    ...nonApplicableCoupons,
+  ];
 
   return (
     <Modal
@@ -61,7 +66,8 @@ const CouponModal = ({
           <DeleteButton />
         </Modal.CloseIcon>
 
-        {sortedCoupons.map((coupon: Coupon) => {
+        <CouponList couponsWithApplicability={sortedCouponsWithApplicability} />
+        {/* {sortedCoupons.map((coupon: Coupon) => {
           return (
             <>
               <CouponItem
@@ -77,7 +83,7 @@ const CouponModal = ({
               />
             </>
           );
-        })}
+        })} */}
         <Button
           onClick={() => {}}
           style={{
