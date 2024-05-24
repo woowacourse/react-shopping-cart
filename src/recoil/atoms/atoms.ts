@@ -1,9 +1,15 @@
 import { atom } from "recoil";
 import { getCartItems } from "../../api/cart";
+import { getCoupons } from "../../api/coupon";
 
 export const cartItemsState = atom({
   key: "cartItemsState",
   default: getCartItems(),
+});
+
+export const couponsState = atom({
+  key: "couponsState",
+  default: getCoupons(),
 });
 
 export const selectedListState = atom<number[]>({

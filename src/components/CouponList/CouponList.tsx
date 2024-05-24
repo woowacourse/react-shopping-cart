@@ -1,4 +1,4 @@
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   Wrapper,
   CouponConfirmButton,
@@ -7,9 +7,12 @@ import {
   Coupon,
   CouponHeader,
 } from "./style";
-import { couponDiscountPriceState, couponsState } from "../../recoil/selectors/selectors";
+import {
+  couponDiscountPriceState,
+  possibleCouponListState,
+} from "../../recoil/selectors/selectors";
 import { OutlineCheckSvg, FilledCheckSvg, XSvg } from "../../assets";
-import { selectedCouponsState } from "../../recoil/atoms/atoms";
+import { selectedCouponsState, couponsState } from "../../recoil/atoms/atoms";
 import { SmallText, MediumText, Tip } from "../common";
 
 interface CouponListProps {
@@ -19,7 +22,18 @@ interface CouponListProps {
 const CouponList = ({ handleCloseModal }: CouponListProps) => {
   const coupons = useRecoilValue(couponsState);
   const couponDiscountPrice = useRecoilValue(couponDiscountPriceState);
-  const selectedCoupons = useRecoilValue(selectedCouponsState);
+  const [selectedCoupons, setSelectedCoupons] = useRecoilState(selectedCouponsState);
+  const possibleCouponList = useRecoilValue(possibleCouponListState);
+
+  const handleClickCoupon = (couponId: number) => {
+    if (!possibleCouponList.includes(couponId)) return;
+
+    if (selectedCoupons.includes(couponId)) {
+      setSelectedCoupons(selectedCoupons.filter((coupon) => coupon !== couponId));
+    } else {
+      setSelectedCoupons([...selectedCoupons, couponId]);
+    }
+  };
 
   return (
     <Wrapper>
@@ -30,7 +44,11 @@ const CouponList = ({ handleCloseModal }: CouponListProps) => {
       <Tip>쿠폰은 최대 2개까지 사용할 수 있습니다</Tip>
       <CouponListBody>
         {coupons.map((coupon) => (
-          <Coupon key={coupon.id}>
+          <Coupon
+            key={coupon.id}
+            onClick={() => handleClickCoupon(coupon.id)}
+            disabled={!possibleCouponList.includes(coupon.id)}
+          >
             <CouponHeader>
               {selectedCoupons.includes(coupon.id) ? <FilledCheckSvg /> : <OutlineCheckSvg />}
               <MediumText>{coupon.description}</MediumText>
@@ -45,7 +63,7 @@ const CouponList = ({ handleCloseModal }: CouponListProps) => {
         ))}
       </CouponListBody>
       <CouponConfirmButton onClick={handleCloseModal}>
-        <MediumText color="white">
+        <MediumText>
           총 {couponDiscountPrice.toLocaleString("ko-KR")}원 할인 쿠폰 사용하기
         </MediumText>
       </CouponConfirmButton>

@@ -30,11 +30,13 @@ export const CouponListBody = styled.section`
   margin-bottom: 32px;
 `;
 
-export const Coupon = styled.div`
+export const Coupon = styled.div<{ disabled: boolean }>`
   display: flex;
   flex-direction: column;
   padding: 12px 0px 24px 0px;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
 `;
 
 export const CouponHeader = styled.div`

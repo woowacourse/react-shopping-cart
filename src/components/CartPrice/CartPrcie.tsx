@@ -30,7 +30,7 @@ const CartPrice = () => {
         <Price>
           <MediumText>쿠폰 할인 금액</MediumText>
           <LargeText>
-            {-couponDiscountPrice.toLocaleString("ko-KR")}원
+            {(-couponDiscountPrice || couponDiscountPrice).toLocaleString("ko-KR")}원
           </LargeText>
         </Price>
       )}

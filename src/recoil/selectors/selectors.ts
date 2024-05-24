@@ -4,13 +4,14 @@ import {
   cartItemsState,
   extremeDeliveryState,
   selectedCouponsState,
+  couponsState,
 } from "../atoms/atoms";
 import {
   DEFAULT_DELIVERY_FEE,
   DELIVERY_FEE_THRESHOLD,
   EXTREME_DELIVERY_FEE,
 } from "../../constants/cart";
-import { getCoupons } from "../../api/coupon";
+
 import { isInTimeRange, isValidDate } from "../../utils/date";
 
 export const orderPriceState = selector({
@@ -53,21 +54,14 @@ export const possibleCouponListState = selector({
           return orderPrice > coupon.minimumAmount;
         } else if (coupon.discountType === "buyXgetY" && coupon.buyQuantity) {
           return selectedCartItems.length >= coupon.buyQuantity;
-        } else if (
-          coupon.discountType === "freeShipping" &&
-          deliveryFee &&
-          coupon.minimumAmount
-        ) {
+        } else if (coupon.discountType === "freeShipping" && deliveryFee && coupon.minimumAmount) {
           return orderPrice > coupon.minimumAmount;
         } else if (
           coupon.discountType === "percentage" &&
           coupon.availableTime?.start &&
           coupon.availableTime?.end
         ) {
-          return isInTimeRange(
-            coupon.availableTime?.start,
-            coupon.availableTime?.end
-          );
+          return isInTimeRange(coupon.availableTime?.start, coupon.availableTime?.end);
         }
         return false;
       })
@@ -85,24 +79,21 @@ export const couponDiscountPriceState = selector({
     const selectedCartItems = get(selectedCartItemsState);
 
     let couponDiscountPrice = 0;
-
     coupons
       .filter((coupon) => selectedCoupons.includes(coupon.id))
       .forEach((coupon) => {
         if (coupon.discountType === "fixed" && coupon.discount) {
           couponDiscountPrice += coupon.discount;
         } else if (coupon.discountType === "buyXgetY") {
-          couponDiscountPrice += Math.max(
-            ...selectedCartItems.map((item) => item.product.price)
-          );
+          couponDiscountPrice += Math.max(...selectedCartItems.map((item) => item.product.price));
         } else if (coupon.discountType === "freeShipping") {
           couponDiscountPrice += deliveryFee;
         } else if (coupon.discountType === "percentage" && coupon.discount) {
           couponDiscountPrice += orderPrice * (coupon.discount / 100);
+        } else {
+          throw new Error("존재하지 않는 쿠폰 타입입니다");
         }
-        throw new Error("존재하지 않는 쿠폰 타입입니다");
       });
-
     return Math.min(orderPrice, couponDiscountPrice);
   },
 });
@@ -140,13 +131,5 @@ export const cartSummaryState = selector({
     );
 
     return { cartItemKind, cartItemSelectedQuantity, cartItemSelectedKind };
-  },
-});
-
-export const couponsState = selector({
-  key: "couponsState",
-  get: async () => {
-    const coupons = await getCoupons();
-    return coupons;
   },
 });
