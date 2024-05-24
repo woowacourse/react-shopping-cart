@@ -9,6 +9,6 @@ export const Wrapper = styled.dialog`
 `;
 
 export const DiaglogContent = styled.div`
-  width: 300px;
+  min-width: 300px;
   min-height: 300px;
 `;

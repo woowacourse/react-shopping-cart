@@ -1,6 +1,11 @@
-const BackArrow = () => {
+import { HTMLAttributes } from "react";
+
+interface BackArrowProps extends HTMLAttributes<SVGSVGElement> {}
+
+const BackArrow = ({ onClick }: BackArrowProps) => {
   return (
     <svg
+      onClick={onClick}
       width="32"
       height="32"
       viewBox="0 0 32 32"

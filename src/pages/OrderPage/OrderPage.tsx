@@ -1,4 +1,4 @@
-import { Suspense, useState, useRef } from "react";
+import { Suspense, useRef } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import {
   CartDescription,
@@ -15,7 +15,6 @@ import { useNavigate } from "react-router-dom";
 import { BackArrowSvg } from "../../assets";
 import { SvgWrapper } from "./style";
 import { Tip, Dialog } from "../../components/common";
-// import { Modal } from "easy-payments-ui-pome";
 
 const OrderPage = () => {
   const navigate = useNavigate();
@@ -25,18 +24,20 @@ const OrderPage = () => {
     dialogRef.current?.showModal();
   };
 
+  const handleCloseModal = () => {
+    dialogRef.current?.close();
+  };
+
   return (
     <AppLayout>
       <Header>
-        <SvgWrapper onClick={() => navigate("/")}>
-          <BackArrowSvg />
-        </SvgWrapper>
+        <BackArrowSvg onClick={() => navigate("/")} />
       </Header>
       <CartLayout>
         <ErrorBoundary fallback={<div>Error!</div>}>
           <Suspense fallback={<div>Loading</div>}>
             <Dialog dialogRef={dialogRef}>
-              <CouponList />
+              <CouponList handleCloseModal={handleCloseModal} />
             </Dialog>
 
             <CartDescription />

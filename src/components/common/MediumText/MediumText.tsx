@@ -6,8 +6,8 @@ interface MediumTextProps {
   color?: "black" | "white";
 }
 
-const MediumText = ({ children, color = "black" }: MediumTextProps) => {
-  return <Wrapper color={color}>{children}</Wrapper>;
+const MediumText = ({ children }: MediumTextProps) => {
+  return <Wrapper>{children}</Wrapper>;
 };
 
 export default MediumText;
