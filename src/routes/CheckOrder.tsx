@@ -5,7 +5,7 @@ import { cartState, isExtraShippingFeeState } from "@/store/atom/atoms";
 import useCustomContext from "@/hooks/useCustomContext";
 
 import CartDescription from "@/components/Main/Cart/CartDescription/CartDescription";
-import RouteInfoProvider, { MainRouteInfoContext, RoutePaths } from "@/Providers/RouteInfoProvider";
+import { MainRouteInfoContext, RoutePaths } from "@/Providers/RouteInfoProvider";
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
 import CartTitle from "@/components/Main/Cart/CartTitle/CartTitle";
@@ -28,8 +28,12 @@ const CheckOrder = () => {
     setIsDoSeoSanGan((prev) => !prev);
   };
 
+  const handleCouponButtonClick = () => {
+    //TODO: 모달을 연다.
+  };
+
   return (
-    <RouteInfoProvider>
+    <>
       <Header />
       <Main>
         <div>
@@ -40,7 +44,7 @@ const CheckOrder = () => {
         <CartItemContainer>
           <CartItemCheckedList />
         </CartItemContainer>
-        <Button width="100%" height="48px" fontSize="15px">
+        <Button width="100%" height="48px" fontSize="15px" onClick={handleCouponButtonClick}>
           쿠폰 적용
         </Button>
         <ToolBar handleCheck={handleToolbarCheck} isCheck={isDoSeoSanGan}>
@@ -49,7 +53,7 @@ const CheckOrder = () => {
         <CartResults isShowCouponDiscount={true} />
       </Main>
       <Footer />
-    </RouteInfoProvider>
+    </>
   );
 };
 
