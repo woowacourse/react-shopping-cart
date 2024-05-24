@@ -17,9 +17,9 @@ const useDiscount = () => {
   };
 
   const discountByBuyXGetY = (selectedItems: CartItem[], coupon: Coupon) => {
-    // 3개 이상인 상품을 선별해서
+    // 2개 이상인 상품을 선별해서
     const targetItems = selectedItems.filter(
-      item => item.quantity > (coupon.buyQuantity as number),
+      item => item.quantity >= (coupon.buyQuantity as number),
     );
 
     // 가장 가격이 비싼 상품을 고른다.
