@@ -35,8 +35,6 @@ export const discountPriceByCouponListState = selector({
         case 'fixed':
           discountPrice = calcFixedDiscountAmount(coupon, totalCartPrice);
           totalDiscount.price += discountPrice;
-
-          totalCartPrice -= discountPrice;
           break;
         case 'percentage':
           discountPrice = calcPercentageDiscountAmount(coupon, totalCartPrice);
