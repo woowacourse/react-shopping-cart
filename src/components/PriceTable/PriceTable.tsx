@@ -1,10 +1,8 @@
 import * as S from './PriceTable.style';
-import NOTICE from '../../assets/notice.svg';
-import ImageBox from '../common/ImageBox/ImageBox';
-import Text from '../common/Text/Text';
 import Divider from '../common/Divider/Divider';
 import ContentRow from '../common/ContentRow/ContentRow';
 import { ReactNode } from 'react';
+import NoticeMessage from '../NoticeMessage/NoticeMessage';
 
 type PriceTableProps = {
   name: string;
@@ -24,12 +22,7 @@ const PriceTableRow = ({ name, price, upperDivider }: PriceTableProps) => {
 const PriceTableMain = ({ children }: { children: ReactNode }) => {
   return (
     <S.Container>
-      <S.NoticeContainer>
-        <ImageBox src={NOTICE} width={16} height={16} border="none" />
-        <Text size="s" weight="m">
-          총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
-        </Text>
-      </S.NoticeContainer>
+      <NoticeMessage message="총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다." />
       <Divider />
       <S.Rows>{children}</S.Rows>
     </S.Container>
