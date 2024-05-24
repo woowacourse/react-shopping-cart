@@ -1,11 +1,11 @@
 import * as S from './style';
 
 import CheckBox from '../../../components/CheckBox/CheckBox';
-import { isIslandOrMountain } from '../../../recoil/atoms';
+import { isIslandOrMountainState } from '../../../recoil/atoms';
 import { useRecoilState } from 'recoil';
 
 export default function DeliveryInfo() {
-  const [isChecked, setIsChecked] = useRecoilState(isIslandOrMountain);
+  const [isChecked, setIsChecked] = useRecoilState(isIslandOrMountainState);
   const checkHandler = () => setIsChecked(!isChecked);
   return (
     <S.Container>
