@@ -6,6 +6,7 @@ import { MESSAGES } from '../../constants/Messages';
 import {
   checkedItemsSelector,
   totalCountSelector,
+  totalPriceSelector,
 } from '../../recoil/selectors';
 import { CartItems } from '../../types/Item';
 import ConfirmItemCard from '../ItemCard/ConfirmItemCard';
@@ -27,6 +28,8 @@ export const NoCartItemContainer = styled.p`
 function OrderConfirmContent() {
   const checkedItem = useRecoilValue(checkedItemsSelector);
   const { totalItemTypeCount, totalCount } = useRecoilValue(totalCountSelector);
+  const { totalAmount, deliveryFee, totalDiscount, calculatedTotalAmount } =
+    useRecoilValue(totalPriceSelector('Discount'));
   return (
     <>
       <Title
@@ -38,7 +41,15 @@ function OrderConfirmContent() {
       })}
       <CouponButton />
       <ShippingInformation />
-      <TotalAmount />
+      <TotalAmount
+        type={'discount'}
+        price={{
+          totalAmount,
+          deliveryFee,
+          totalDiscount,
+          calculatedTotalAmount,
+        }}
+      />
     </>
   );
 }

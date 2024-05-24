@@ -12,7 +12,7 @@ const useCouponApplicable = (
   now: Date = new Date(),
 ) => {
   const currentCheckedCoupon = useRecoilValue(allCheckedCouponsSelector);
-  const { totalAmount } = useRecoilValue(totalPriceSelector);
+  const { totalAmount } = useRecoilValue(totalPriceSelector('Default'));
   if (!couponDetail && currentCheckedCoupon.length >= 2) {
     return false;
   }
