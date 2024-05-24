@@ -53,7 +53,7 @@ export default function CartItem({ cartItemId, product, quantity, onDelete }: Ca
 
   return (
     <Styled.CartItemContainer>
-      <Styled.CardItemHeader>
+      <Styled.CartItemHeader>
         <CheckBox
           cartItemId={cartItemId}
           isChecked={isChecked(cartItemId)}
@@ -61,8 +61,8 @@ export default function CartItem({ cartItemId, product, quantity, onDelete }: Ca
           data-testid="cart-item-checkbox"
         />
         <DeleteItemButton type="button" buttonText="삭제" onClick={handleClickDeleteButton} />
-      </Styled.CardItemHeader>
-      <Styled.CardItemContent>
+      </Styled.CartItemHeader>
+      <Styled.CartItemContent>
         <Styled.ProductImageBox src={product.imageUrl} alt={product.name} />
         <Styled.ProductInfoBox>
           <div>
@@ -76,7 +76,7 @@ export default function CartItem({ cartItemId, product, quantity, onDelete }: Ca
             onChangeQuantity={(type: QuantityControlType) => handleChangeQuantity(type)}
           />
         </Styled.ProductInfoBox>
-      </Styled.CardItemContent>
+      </Styled.CartItemContent>
     </Styled.CartItemContainer>
   );
 }
