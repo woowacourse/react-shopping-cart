@@ -1,5 +1,6 @@
 import { StyledFixedBottom, StyledFixedTop } from '@/style/styledBox.style';
 import { useEffect, useState } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import CartRecipe from '@/components/Cart/CartRecipe';
 import CouponModal from '@/components/Coupon/CouponModal';
@@ -11,19 +12,30 @@ import { ROUTE_PATH } from '@/constants/routePath';
 import ShippingInfo from '@/components/Order/ShippingInfo';
 import { WhiteSpace } from '@/style/common.style';
 import WideButton from '@/components/Button/WideButton';
+import { orderItemState } from '@/store/selectors/orderItemSelector';
+import { postOrders } from '@/api/order';
 import { selectedCouponListState } from '@/store/atoms';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
 
 const Order = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const orderList = useRecoilValue(orderItemState);
 
   const setSelectedCoupon = useSetRecoilState(selectedCouponListState);
   useEffect(() => {
     setSelectedCoupon([]);
   }, [setSelectedCoupon]);
+
+  const handleClickOrder = () => {
+    const postData = async () => {
+      await postOrders(orderList.map((order) => order.id));
+    };
+
+    postData();
+    navigate(ROUTE_PATH.orderConfirm);
+  };
 
   return (
     <>
@@ -47,13 +59,7 @@ const Order = () => {
         </StyledFlexCenter>
         <ShippingInfo />
         <CartRecipe isCoupon={true} />
-        <FullWidthButton
-          onClick={() => {
-            navigate(ROUTE_PATH.orderConfirm);
-          }}
-        >
-          결제하기
-        </FullWidthButton>
+        <FullWidthButton onClick={handleClickOrder}>결제하기</FullWidthButton>
       </StyledFixedBottom>
       {isOpen && (
         <CouponModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
