@@ -12,6 +12,7 @@ const USER_ID = API_CONFIG.USER_ID;
 const USER_PASSWORD = API_CONFIG.USER_PASSWORD;
 
 const CART_ITEMS = 'cart-items';
+const ORDERS = 'orders';
 
 const AUTH_HEADER = {
   'Content-Type': 'application/json',
@@ -69,6 +70,18 @@ export async function updateCartItemQuantity(cartItemId: number, quantity: numbe
     headers: AUTH_HEADER,
     headers: AUTH_HEADER,
     body: JSON.stringify({ quantity }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to add cart item');
+  }
+}
+
+export async function orderItems(itemIds: number[]): Promise<void> {
+  const response = await fetch(`${API_URL}/${ORDERS}`, {
+    method: 'POST',
+    headers: AUTH_HEADER,
+    body: JSON.stringify({ cartItemIds: itemIds }),
   });
 
   if (!response.ok) {
