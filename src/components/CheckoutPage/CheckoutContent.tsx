@@ -3,19 +3,19 @@ import { formatToKRW } from "../../utils/domain/formatToKRW";
 import { useLocation } from "react-router-dom";
 
 interface CheckoutPageState {
-  boughtItemsCount: number;
-  uniqueBoughtItemsCount: number;
+  boughtItemCount: number;
+  uniqueBoughtItemCount: number;
   totalPayAmount: number;
 }
 
 export default function Checkout() {
   const location = useLocation() as { state: CheckoutPageState };
 
-  const boughtItemsCount = location.state?.boughtItemsCount;
-  const uniqueBoughtItemsCount = location.state?.uniqueBoughtItemsCount;
+  const boughtItemCount = location.state?.boughtItemCount;
+  const uniqueBoughtItemCount = location.state?.uniqueBoughtItemCount;
   const totalOrderAmount = location.state?.totalPayAmount;
 
-  if (!boughtItemsCount || !uniqueBoughtItemsCount || !totalOrderAmount) {
+  if (!boughtItemCount || !uniqueBoughtItemCount || !totalOrderAmount) {
     return <div>잘못된 접근입니다.</div>;
   }
 
@@ -24,7 +24,7 @@ export default function Checkout() {
       <S.Title>주문 확인</S.Title>
       <S.CheckoutInfoWrapper>
         <S.CheckoutInfo>
-          총 {uniqueBoughtItemsCount}종류의 상품 {boughtItemsCount}개를 주문했습니다.
+          총 {uniqueBoughtItemCount}종류의 상품 {boughtItemCount}개를 주문했습니다.
         </S.CheckoutInfo>
         <S.CheckoutInfo>최종 결제 금액을 확인해 주세요.</S.CheckoutInfo>
       </S.CheckoutInfoWrapper>

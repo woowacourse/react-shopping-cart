@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import Button from "../common/Button";
 
-import { useSelectedCartItemCounts } from "../../hooks/useSelectedCartItemCounts";
+import { useSelectedCartItemCount } from "../../hooks/useSelectedCartItemCount";
 import { useRefreshCartItems } from "../../hooks/useRefreshCartItems";
 import { ROUTE_PATH } from "../../constants/routePath";
 import { createOrder } from "../../api/orders";
@@ -17,7 +17,7 @@ export interface PaymentButtonProps {
 export default function PaymentButton({ totalPayAmount }: PaymentButtonProps) {
   const navigate = useNavigate();
   const [selectedCartItemIds, setSelectedCartItemIds] = useRecoilState(selectedCartItemIdsState);
-  const { selectedCartItemsCount, selectedUniqueCartItemsCount } = useSelectedCartItemCounts();
+  const { selectedCartItemCount, selectedUniqueCartItemCount } = useSelectedCartItemCount();
   const refreshCartItems = useRefreshCartItems();
 
   const resetCartItemSelection = () => setSelectedCartItemIds([]);
@@ -25,8 +25,8 @@ export default function PaymentButton({ totalPayAmount }: PaymentButtonProps) {
   const routeToCheckout = () => {
     navigate(ROUTE_PATH.checkout, {
       state: {
-        boughtItemsCount: selectedCartItemsCount,
-        uniqueBoughtItemsCount: selectedUniqueCartItemsCount,
+        boughtItemCount: selectedCartItemCount,
+        uniqueBoughtItemCount: selectedUniqueCartItemCount,
         totalPayAmount,
       },
     });

@@ -1,14 +1,14 @@
 import styled from "styled-components";
-import { useSelectedCartItemCounts } from "../../hooks/useSelectedCartItemCounts";
+import { useSelectedCartItemCount } from "../../hooks/useSelectedCartItemCount";
 
 export default function PaymentTitle() {
-  const { selectedCartItemsCount, selectedUniqueCartItemsCount } = useSelectedCartItemCounts();
+  const { selectedCartItemCount, selectedUniqueCartItemCount } = useSelectedCartItemCount();
   return (
     <S.Container>
       <S.Title>주문 확인</S.Title>
       <S.InfoWrapper>
         <S.Info>
-          총 {selectedUniqueCartItemsCount}종류의 상품 {selectedCartItemsCount}개를 주문합니다.
+          총 {selectedUniqueCartItemCount}종류의 상품 {selectedCartItemCount}개를 주문합니다.
         </S.Info>
         <S.Info>최종 결제 금액을 확인해 주세요.</S.Info>
       </S.InfoWrapper>
