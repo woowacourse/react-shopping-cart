@@ -1,3 +1,4 @@
+import { SIZE } from '@styles/style.constant';
 import styled from 'styled-components';
 
 export const CartItemSelectionGroup = styled.div`
@@ -17,6 +18,8 @@ export const CartListButtonGroup = styled.div`
 export const CartItemContainer = styled.section`
   margin-top: 20px;
   width: 100%;
+  max-height: calc(100vh - ${SIZE.navigationHeight} - ${SIZE.bottomButtonHeight} - 200px - 290px);
+  overflow-y: auto;
 `;
 
 export const CartListContainer = styled.li`

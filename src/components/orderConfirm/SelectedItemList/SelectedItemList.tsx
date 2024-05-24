@@ -1,9 +1,11 @@
 import { CartItem } from '@appTypes/shoppingCart';
 import { CartItemInfo } from '@components/common';
 
+import * as Styled from './SelectedItemList.styled';
+
 const SelectedItemList = ({ selectedItems }: { selectedItems: CartItem[] }) => {
   return (
-    <>
+    <Styled.SelectListItemList>
       {selectedItems.map((cartItem) => (
         <CartItemInfo.DetailContainer>
           <CartItemInfo.Img cartItem={cartItem} />
@@ -14,7 +16,7 @@ const SelectedItemList = ({ selectedItems }: { selectedItems: CartItem[] }) => {
           </CartItemInfo.Description>
         </CartItemInfo.DetailContainer>
       ))}
-    </>
+    </Styled.SelectListItemList>
   );
 };
 
