@@ -12,6 +12,7 @@ import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { discountAmountStore, selectedCoupons } from '../../recoil/atoms';
 import FloatingButton from '../FloatingButton/FloatingButton';
 import { priceInfoStore } from '../../recoil/selectors';
+import useOrderItems from '../../api/post/orderItems';
 
 interface OrderInfoState {
   orderItems: CartItem[];
@@ -23,6 +24,7 @@ interface OrderInfoState {
 const OrderInfo = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { orderItems, isPending } = useOrderItems();
   const resetCoupons = useResetRecoilState(selectedCoupons);
   const resetDiscount = useResetRecoilState(discountAmountStore);
   const orderInfo = location.state as OrderInfoState | null;
@@ -37,14 +39,12 @@ const OrderInfo = () => {
     };
   }, [navigate, orderInfo, resetCoupons, resetDiscount]);
 
-  const goPaymentInfo = () => {
-    navigate(ROUTER_URLS.PAYMENT_INFO, {
-      state: {
-        kindCount: orderInfo?.kindCount,
-        productCount: orderInfo?.productCount,
-        totalPrice,
-      },
-    });
+  const orderInfoNotNull = orderInfo as OrderInfoState;
+  const cartItemIds = orderInfoNotNull.orderItems.map(item => item.id);
+  const paymentInfo = {
+    kindCount: orderInfoNotNull.kindCount,
+    productCount: orderInfoNotNull.productCount,
+    totalPrice,
   };
 
   return (
@@ -61,7 +61,11 @@ const OrderInfo = () => {
         <IsolatedRegionShippingFee />
         <PaymentTotalWithDiscount />
       </S.Container>
-      <FloatingButton label="결제하기" onClick={goPaymentInfo} />
+      <FloatingButton
+        label="결제하기"
+        onClick={() => orderItems(cartItemIds, paymentInfo)}
+        disabled={isPending}
+      />
     </>
   );
 };
