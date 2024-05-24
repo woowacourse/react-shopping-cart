@@ -1,8 +1,8 @@
 import { useRecoilValue } from 'recoil';
-import { isolatedRegionStore, selectedCartItems, selectedCoupons } from '../../recoil/atoms';
-import { Coupon } from '../../types/coupon';
-import { CartItem } from '../../types/cartItem';
-import { priceInfoStore } from '../../recoil/selectors';
+import { isolatedRegionStore, selectedCartItems, selectedCoupons } from '@recoil/atoms';
+import { Coupon } from '@type/coupon';
+import { CartItem } from '@type/cartItem';
+import { priceInfoStore } from '@recoil/selectors';
 import { useEffect, useState } from 'react';
 
 const useDiscount = () => {

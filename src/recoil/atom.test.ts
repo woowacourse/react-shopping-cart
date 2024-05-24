@@ -1,7 +1,7 @@
 import { RecoilRoot, useRecoilState } from 'recoil';
 import { act, renderHook } from '@testing-library/react';
 import { selectedCartItems } from './atoms';
-import { CartItem } from '../types/cartItem';
+import { CartItem } from '@type/cartItem';
 
 describe('상품 선택 기능', () => {
   it('초기값으로는 아무것도 선택되지 않는다.', () => {

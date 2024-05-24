@@ -1,11 +1,11 @@
 import useApplicable from './useApplicable';
 import { renderHook } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
-import { selectedCartItems } from '../../recoil/atoms';
-import mockCartItems from '../../mocks/cartItems';
-import { mockCoupons } from '../../mocks/coupons';
-import { CartItem } from '../../types/cartItem';
-import dayjs from './../../utils/dayjs';
+import { selectedCartItems } from '@recoil/atoms';
+import mockCartItems from '@mocks/cartItems';
+import { mockCoupons } from '@mocks/coupons';
+import { CartItem } from '@type/cartItem';
+import dayjs from '@utils/dayjs';
 
 describe('쿠폰 적용가능 여부 테스트', () => {
   describe('context: fixed coupon', () => {

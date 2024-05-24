@@ -1,5 +1,5 @@
 import { selector } from 'recoil';
-import { RECOIL_KEYS, ORDER } from '../constants/constants';
+import { RECOIL_KEYS, ORDER } from '@constants/constants';
 import { discountAmountStore, isolatedRegionStore, selectedCartItems } from './atoms';
 
 export interface PriceInfo {

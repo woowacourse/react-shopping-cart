@@ -1,5 +1,5 @@
 import { API_URLS } from '../../constants/constants';
-import { Coupon } from '../../types/coupon';
+import { Coupon } from '../../type/coupon';
 import axiosInstance from '../../utils/axios';
 
 const getCoupons = async () => {

@@ -1,5 +1,5 @@
-import useAddToCart from '../../../api/post/addToCart';
-import { Product } from '../../../types/cartItem';
+import useAddToCart from '@api/post/addToCart';
+import { Product } from '@type/cartItem';
 import * as S from './styled';
 
 interface ProductItemProps {

@@ -1,4 +1,4 @@
-import dayjs from '../../utils/dayjs';
+import dayjs from '@utils/dayjs';
 
 const useExpirationDate = () => {
   const isExpired = (dateString: string) => {

@@ -1,6 +1,6 @@
-import { Coupon } from '../../types/coupon';
+import { Coupon } from '@type/coupon';
 import useExpirationDate from './useExpirationDate';
-import dayjs from '../../utils/dayjs';
+import dayjs from '@utils/dayjs';
 
 describe('쿠폰 유효기간 테스트', () => {
   beforeAll(() => {

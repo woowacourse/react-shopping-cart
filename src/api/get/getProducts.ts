@@ -1,7 +1,7 @@
-import { Pageable } from '../../types/pageable';
+import { Pageable } from '../../type/pageable';
 import axiosInstance from '../../utils/axios';
 import { API_URLS } from '../../constants/constants';
-import { Product } from '../../types/cartItem';
+import { Product } from '../../type/cartItem';
 
 interface PaginationParams {
   page: number;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { selectedCartItems } from '../recoil/atoms';
-import { CartItem } from '../types/cartItem';
+import { selectedCartItems } from '@recoil/atoms';
+import { CartItem } from '@type/cartItem';
 
 const useSelectAll = (data: CartItem[]) => {
   const [selectedItems, setSelectedItems] = useRecoilState(selectedCartItems);

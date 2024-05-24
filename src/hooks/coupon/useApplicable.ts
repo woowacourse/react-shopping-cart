@@ -1,9 +1,9 @@
 import { useRecoilValue } from 'recoil';
-import { CartItem } from '../../types/cartItem';
-import { Coupon } from '../../types/coupon';
-import dayjs from './../../utils/dayjs';
-import { selectedCartItems } from '../../recoil/atoms';
-import { priceInfoStore } from '../../recoil/selectors';
+import { CartItem } from '@type/cartItem';
+import { Coupon } from '@type/coupon';
+import dayjs from '@utils/dayjs';
+import { selectedCartItems } from '@recoil/atoms';
+import { priceInfoStore } from '@recoil/selectors';
 
 /**
  * 상황

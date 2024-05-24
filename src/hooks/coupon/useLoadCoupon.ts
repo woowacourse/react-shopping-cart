@@ -1,4 +1,4 @@
-import getCoupons from '../../api/get/getCoupons';
+import getCoupons from '@api/get/getCoupons';
 import useFetch from '../useFetch';
 
 const useLoadCoupon = () => {
