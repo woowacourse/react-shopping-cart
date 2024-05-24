@@ -1,5 +1,4 @@
 import * as S from './Checkbox.style';
-
 import CHECK_TRUE from '../../../assets/check-true.svg?react';
 import CHECK_FALSE from '../../../assets/check-false.svg?react';
 

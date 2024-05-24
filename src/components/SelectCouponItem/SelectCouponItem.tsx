@@ -1,12 +1,11 @@
-import useSelectedCouponList from '../../recoil/coupon/useSelectedCouponList';
-import { toKoreanDate, toKoreanTime } from '../../utils/date';
-import Checkbox from '../common/Checkbox/Checkbox';
-import { Divider } from '../common/Divider/Divider.style';
 import Text from '../common/Text/Text';
 import * as S from './SelectCouponItem.style';
+import Checkbox from '../common/Checkbox/Checkbox';
+import { Divider } from '../common/Divider/Divider.style';
+import { toKoreanDate, toKoreanTime } from '../../utils/date';
+import useSelectedCoupon from '../../hooks/coupon/useSelectedCoupon';
+import useSelectedCouponList from '../../hooks/coupon/useSelectedCouponList';
 import { validateCouponAvailable } from '../../utils/validateCouponAvailable';
-import { useRecoilValue } from 'recoil';
-import { selectedCouponListAtom } from '../../recoil/coupon/couponListAtom';
 
 interface SelectCouponItemProps {
   coupon: Coupon;
@@ -15,14 +14,14 @@ interface SelectCouponItemProps {
 const SelectCouponItem = ({ coupon }: SelectCouponItemProps) => {
   const { id, description, expirationDate, minimumAmount, availableTime } =
     coupon;
-  const selectedCouponList = useRecoilValue(selectedCouponListAtom);
+  const { selectedCouponList } = useSelectedCouponList();
   // TODO: magic number 상수화
 
   const disabled =
     !validateCouponAvailable(coupon) ||
     (selectedCouponList.length === 2 && !selectedCouponList.includes(coupon));
 
-  const { isSelected, toggleSelectedCoupon } = useSelectedCouponList();
+  const { isSelected, toggleSelectedCoupon } = useSelectedCoupon();
   return (
     <S.SelectCouponItem disabled={disabled}>
       <Divider />

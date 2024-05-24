@@ -1,10 +1,8 @@
-import * as S from './ChangeQuantity.style';
-
+import Text from '../Text/Text';
 import Button from '../Button/Button';
-
+import * as S from './ChangeQuantity.style';
 import PLUS from '../../../assets/plus.svg?react';
 import MINUS from '../../../assets/minus.svg?react';
-import Text from '../Text/Text';
 
 export interface ChangeQuantityProps {
   quantity: number;

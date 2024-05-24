@@ -4,15 +4,14 @@ import SelectCouponItem from '../SelectCouponItem/SelectCouponItem';
 
 import NOTICE from '../../assets/notice.svg?react';
 import Text from '../common/Text/Text';
-import useFetchCouponList from '../../recoil/coupon/useFetchCouponList';
-import { useRecoilValue } from 'recoil';
-import { couponListState } from '../../recoil/coupon/couponListAtom';
+import useFetchCouponList from '../../hooks/coupon/useFetchCouponList';
+import useCouponList from '../../hooks/coupon/useCouponList';
 
 const SelectCouponModalSection = () => {
   const { fetchCouponList } = useFetchCouponList();
   fetchCouponList();
 
-  const couponList = useRecoilValue(couponListState);
+  const { couponList } = useCouponList();
 
   return (
     <S.SelectCouponModalSection>

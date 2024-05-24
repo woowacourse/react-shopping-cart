@@ -1,11 +1,10 @@
-import * as S from './CartItemListSection.style';
-
 import Title from '../common/Title/Title';
 import Spacer from '../common/Spacer/Spacer';
-import CartItemList from '../CartItemList/CartItemList';
+import * as S from './CartItemListSection.style';
 import PriceTable from '../PriceTable/PriceTable';
-import useCartItemList from '../../recoil/cartItemList/useCartItemList';
-import useFetchCartItemList from '../../recoil/cartItemList/useFetchCartItemList';
+import CartItemList from '../CartItemList/CartItemList';
+import useCartItemList from '../../hooks/cartItem/useCartItemList';
+import useFetchCartItemList from '../../hooks/cartItem/useFetchCartItemList';
 
 const CartItemListSection = () => {
   const { cartItemList } = useCartItemList();

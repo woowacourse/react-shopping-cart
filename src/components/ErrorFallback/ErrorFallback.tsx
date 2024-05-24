@@ -1,6 +1,6 @@
-import Button from '../common/Button/Button';
 import Text from '../common/Text/Text';
 import * as S from './ErrorFallback.style';
+import Button from '../common/Button/Button';
 
 interface ErrorFallbackProps {
   error?: Error;

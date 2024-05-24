@@ -1,24 +1,24 @@
-import * as S from './ConfirmPurchaseSection.style';
-
-import Title from '../common/Title/Title';
-import Spacer from '../common/Spacer/Spacer';
-import CartItemList from '../CartItemList/CartItemList';
-import PriceTable from '../PriceTable/PriceTable';
-import useCartItemList from '../../recoil/cartItemList/useCartItemList';
-import Button from '../common/Button/Button';
-import { useCartItemSelectedIdList } from '../../recoil/cartItem/useCartItemSelectedIdList';
-import Text from '../common/Text/Text';
-import CheckboxWithLabel from '../CheckboxWithLabel/CheckboxWithLabel';
 import { useRecoilState } from 'recoil';
-import { hasExtraDeliveryFeeAtom } from '../../recoil/price/priceSelector';
+
+import Text from '../common/Text/Text';
+import Title from '../common/Title/Title';
 import useModal from '../../hooks/useModal';
+import Spacer from '../common/Spacer/Spacer';
+import Button from '../common/Button/Button';
+import PriceTable from '../PriceTable/PriceTable';
+import * as S from './ConfirmPurchaseSection.style';
+import CartItemList from '../CartItemList/CartItemList';
+import useCartItemList from '../../hooks/cartItem/useCartItemList';
+import { hasExtraDeliveryFeeState } from '../../recoil/cartItem/atom';
+import CheckboxWithLabel from '../CheckboxWithLabel/CheckboxWithLabel';
 import SelectCouponModal from '../SelectCouponModal/SelectCouponModal';
+import { useSelectedCartItemIdList } from '../../hooks/cartItem/useSelectedCartItemIdList';
 
 const ConfirmPurchaseSection = () => {
   const { cartItemList } = useCartItemList();
-  const { selectedIdList } = useCartItemSelectedIdList();
+  const { selectedIdList } = useSelectedCartItemIdList();
   const [hasExtraDeliveryFee, setHasExtraDeliveryFee] = useRecoilState(
-    hasExtraDeliveryFeeAtom,
+    hasExtraDeliveryFeeState,
   );
 
   const { modalOpened, handleModalOpen, handleModalClose } = useModal();

@@ -1,5 +1,7 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { couponListQuery, couponListState } from './couponListAtom';
+
+import { couponListState } from '../../recoil/coupon/atom';
+import { couponListQuery } from '../../recoil/coupon/selector';
 import { validateCouponExpiration } from '../../utils/validateCouponExpiration';
 
 const useFetchCouponList = () => {

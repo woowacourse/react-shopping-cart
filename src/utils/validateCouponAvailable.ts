@@ -1,4 +1,4 @@
-import usePriceSelector from '../recoil/price/usePriceSelector';
+import usePrice from '../hooks/price/usePrice';
 
 export const validateCouponAvailable = (coupon: Coupon) => {
   if (
@@ -22,7 +22,7 @@ const validateAvailableTime = (coupon: Coupon) => {
 };
 
 const validateAvailableMinimumAmount = (coupon: Coupon) => {
-  const { orderedPrice } = usePriceSelector();
+  const { orderedPrice } = usePrice();
 
   if (!coupon.minimumAmount) return true;
   if (coupon.minimumAmount <= orderedPrice) return true;
@@ -31,7 +31,7 @@ const validateAvailableMinimumAmount = (coupon: Coupon) => {
 };
 
 const validateAvailableFreeShipping = (coupon: Coupon) => {
-  const { deliveryFee } = usePriceSelector();
+  const { deliveryFee } = usePrice();
 
   if (coupon.discountType !== 'freeShipping') return true;
   if (deliveryFee === 0) return false;

@@ -1,9 +1,10 @@
 import { useRecoilState } from 'recoil';
-import { selectedCouponListAtom } from './couponListAtom';
 
-const useSelectedCouponList = () => {
+import { selectedCouponListState } from '../../recoil/coupon/atom';
+
+const useSelectedCoupon = () => {
   const [selectedIdList, setSelectedIdList] = useRecoilState(
-    selectedCouponListAtom,
+    selectedCouponListState,
   );
 
   const addSelectedCoupon = async (coupon: Coupon) => {
@@ -25,10 +26,9 @@ const useSelectedCouponList = () => {
   };
 
   return {
-    selectedIdList,
-    toggleSelectedCoupon,
     isSelected,
+    toggleSelectedCoupon,
   };
 };
 
-export default useSelectedCouponList;
+export default useSelectedCoupon;

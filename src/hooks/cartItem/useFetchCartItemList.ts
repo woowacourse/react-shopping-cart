@@ -1,5 +1,7 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { cartItemListQuery, cartItemListState } from './cartItemListSelector';
+
+import { cartItemListState } from '../../recoil/cartItem/atom';
+import { cartItemListQuery } from '../../recoil/cartItem/selector';
 
 const useFetchCartItemList = () => {
   const [cartItemList, setCartItemList] = useRecoilState(cartItemListState);

@@ -1,10 +1,12 @@
-import Header from '../components/Header/Header';
+import { Suspense } from 'react';
+
 import { ErrorBoundary } from 'react-error-boundary';
+
+import Header from '../components/Header/Header';
+import { Button } from '../components/common/Button/Button.style';
 import ErrorFallback from '../components/ErrorFallback/ErrorFallback';
 import LoadingFallback from '../components/LoadingFallback/LoadingFallback';
-import { Suspense } from 'react';
 import ConfirmPurchaseSection from '../components/ConfirmPurchaseSection/ConfirmPurchaseSection';
-import { Button } from '../components/common/Button/Button.style';
 
 const ConfirmPurchasePage = () => {
   return (

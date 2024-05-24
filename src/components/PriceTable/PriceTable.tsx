@@ -3,17 +3,17 @@ import NOTICE from '../../assets/notice.svg?react';
 import Text from '../common/Text/Text';
 import Divider from '../common/Divider/Divider';
 import ContentRow from '../common/ContentRow/ContentRow';
-import usePriceSelector from '../../recoil/price/usePriceSelector';
 import { useRecoilValue } from 'recoil';
-import { totalDiscountSelector } from '../../recoil/discount/discountSelector';
+import useDiscount from '../../hooks/price/useDiscount';
+import usePrice from '../../hooks/price/usePrice';
 
 interface PriceTableProps {
   type?: 'cart' | 'confirm';
 }
 
 const PriceTable = ({ type = 'cart' }: PriceTableProps) => {
-  const { orderedPrice, deliveryFee, totalPrice } = usePriceSelector();
-  const totalDiscount = useRecoilValue(totalDiscountSelector);
+  const { orderedPrice, deliveryFee, totalPrice } = usePrice();
+  const { totalDiscountAmount } = useDiscount();
 
   return (
     <S.Container>
@@ -32,7 +32,7 @@ const PriceTable = ({ type = 'cart' }: PriceTableProps) => {
         {type === 'confirm' ? (
           <ContentRow
             title="쿠폰 할인 금액"
-            content={`-${totalDiscount.toLocaleString('ko-kr')}원`}
+            content={`-${totalDiscountAmount.toLocaleString('ko-kr')}원`}
           />
         ) : null}
         <ContentRow

@@ -1,17 +1,19 @@
+import { Suspense } from 'react';
+
+import { useNavigate } from 'react-router-dom';
+import { ErrorBoundary } from 'react-error-boundary';
+
 import Header from '../components/Header/Header';
 import Button from '../components/common/Button/Button';
-import { useNavigate } from 'react-router-dom';
-import CartItemListSection from '../components/CartItemListSection/CartItemListSection';
-import { ErrorBoundary } from 'react-error-boundary';
+import useCartItemList from '../hooks/cartItem/useCartItemList';
 import ErrorFallback from '../components/ErrorFallback/ErrorFallback';
-import { Suspense } from 'react';
 import LoadingFallback from '../components/LoadingFallback/LoadingFallback';
-import useCartItemList from '../recoil/cartItemList/useCartItemList';
-import { useCartItemSelectedIdList } from '../recoil/cartItem/useCartItemSelectedIdList';
+import CartItemListSection from '../components/CartItemListSection/CartItemListSection';
+import { useSelectedCartItemIdList } from '../hooks/cartItem/useSelectedCartItemIdList';
 
 const CartPage = () => {
   const { cartItemList } = useCartItemList();
-  const { selectedIdList } = useCartItemSelectedIdList();
+  const { selectedIdList } = useSelectedCartItemIdList();
 
   const navigate = useNavigate();
 

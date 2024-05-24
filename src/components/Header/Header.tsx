@@ -1,7 +1,7 @@
-import * as S from './Header.style';
-
-import BACK from '../../assets/chevron-back.svg?react';
 import { useNavigate } from 'react-router-dom';
+
+import * as S from './Header.style';
+import BACK from '../../assets/chevron-back.svg?react';
 
 type HeaderType = 'logo' | 'back';
 

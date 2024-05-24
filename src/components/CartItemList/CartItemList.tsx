@@ -1,9 +1,7 @@
 import * as S from './CartItemList.style';
-
 import CartItem from '../CartItem/CartItem';
-
-import { useCartItemSelectedIdList } from '../../recoil/cartItem/useCartItemSelectedIdList';
 import CheckboxWithLabel from '../CheckboxWithLabel/CheckboxWithLabel';
+import { useSelectedCartItemIdList } from '../../hooks/cartItem/useSelectedCartItemIdList';
 
 interface CartItemListProp {
   type?: 'cart' | 'confirm';
@@ -11,7 +9,7 @@ interface CartItemListProp {
 }
 
 const CartItemList = ({ type = 'cart', cartItemList }: CartItemListProp) => {
-  const { isSelectedAll, unselectAll, selectAll } = useCartItemSelectedIdList();
+  const { isSelectedAll, unselectAll, selectAll } = useSelectedCartItemIdList();
 
   return (
     <S.CartItemList>

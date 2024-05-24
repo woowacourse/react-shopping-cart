@@ -1,7 +1,7 @@
 import { CustomModal } from 'woowacourse-todari-components';
+
+import useDiscount from '../../hooks/price/useDiscount';
 import SelectCouponModalSection from '../SelectCouponModalSection/SelectCouponModalSection';
-import { useRecoilValue } from 'recoil';
-import { totalDiscountSelector } from '../../recoil/discount/discountSelector';
 
 interface SelectCouponModalProps {
   modalOpened: boolean;
@@ -12,7 +12,8 @@ const SelectCouponModal = ({
   modalOpened,
   onClose,
 }: SelectCouponModalProps) => {
-  const totalDiscount = useRecoilValue(totalDiscountSelector);
+  const { totalDiscountAmount } = useDiscount();
+
   return (
     <CustomModal
       title="쿠폰을 선택해 주세요"
@@ -20,7 +21,8 @@ const SelectCouponModal = ({
       isOpened={modalOpened}
       onClose={onClose}
       primaryButton={{
-        text: `총 ${totalDiscount.toLocaleString('ko-kr')}원 할인 쿠폰 사용하기`,
+        text: `총 ${totalDiscountAmount.toLocaleString('ko-kr')}원 할인 쿠폰 사용하기`,
+        onClick: onClose,
       }}
       showCloseButton={true}
     >

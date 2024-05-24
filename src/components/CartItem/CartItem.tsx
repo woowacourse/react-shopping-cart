@@ -1,17 +1,15 @@
 import { useState } from 'react';
 
 import * as S from './CartItem.style';
-
-import Button from '../common/Button/Button';
-import ChangeQuantity from '../common/ChangeQuantity/ChangeQuantity';
-import Checkbox from '../common/Checkbox/Checkbox';
-import Divider from '../common/Divider/Divider';
-import ImageBox from '../common/ImageBox/ImageBox';
 import Text from '../common/Text/Text';
-
-import { useCartItemQuantity } from '../../recoil/cartItem/useCartItemQuantity';
-import { useCartItemSelectedIdList } from '../../recoil/cartItem/useCartItemSelectedIdList';
-import useCartItemList from '../../recoil/cartItemList/useCartItemList';
+import Button from '../common/Button/Button';
+import Divider from '../common/Divider/Divider';
+import Checkbox from '../common/Checkbox/Checkbox';
+import ImageBox from '../common/ImageBox/ImageBox';
+import useCartItemList from '../../hooks/cartItem/useCartItemList';
+import ChangeQuantity from '../common/ChangeQuantity/ChangeQuantity';
+import { useCartItemQuantity } from '../../hooks/cartItem/useCartItemQuantity';
+import { useSelectedCartItemId } from '../../hooks/cartItem/useSelectedCartItemId';
 
 export type CartItemProps = {
   type: 'cart' | 'confirm';
@@ -22,8 +20,8 @@ const CartItem = ({ type, cartItem }: CartItemProps) => {
   const { id, name, price, imageUrl } = cartItem;
   const { cartItemQuantity, increaseQuantity, decreaseQuantity } =
     useCartItemQuantity();
-  const { isSelected, addSelectedId, removeSelectedId } =
-    useCartItemSelectedIdList();
+  const { isSelectedId, selectCartItem, unselectCartItem } =
+    useSelectedCartItemId();
   const { deleteCartItem } = useCartItemList();
   const [error, setError] = useState<Error | null>(null);
 
@@ -61,11 +59,11 @@ const CartItem = ({ type, cartItem }: CartItemProps) => {
       {type === 'cart' ? (
         <S.ItemHeader>
           <Checkbox
-            state={isSelected(id)}
+            state={isSelectedId(id)}
             handleClick={
-              isSelected(id)
-                ? () => removeSelectedId(id)
-                : () => addSelectedId(id)
+              isSelectedId(id)
+                ? () => unselectCartItem(id)
+                : () => selectCartItem(id)
             }
           />
           <Button
