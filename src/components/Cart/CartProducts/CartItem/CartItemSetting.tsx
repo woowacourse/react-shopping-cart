@@ -1,10 +1,10 @@
 import { css } from '@emotion/react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
+import useCartItems from '@/hooks/useCartItems';
 import LocalStorage, { CART_ITEM } from '@/Storage';
-import { deleteItem } from '@apis/cartItem';
 import Checkbox from '@components/common/Checkbox';
-import { cartItemsState, checkedItemsState } from '@recoil/cartItems/atoms';
+import { checkedItemsState } from '@recoil/cartItems/atoms';
 
 interface CartItemHeaderSectionProps {
   cartId: number;
@@ -13,17 +13,11 @@ interface CartItemHeaderSectionProps {
 
 export default function CartItemSetting({ cartId, productName }: CartItemHeaderSectionProps) {
   const [isChecked, setIsChecked] = useRecoilState(checkedItemsState(cartId));
-  const setCartItems = useSetRecoilState(cartItemsState);
+  const { deleteCartItem } = useCartItems(cartId);
 
   const handleClickCheck = () => {
     setIsChecked((prev) => !prev);
     LocalStorage.addData(CART_ITEM, cartId, !isChecked);
-  };
-
-  const handleDeleteItem = async () => {
-    setCartItems((prevItems) => prevItems.filter((cartItem) => cartItem.id !== cartId));
-    await deleteItem(cartId);
-    LocalStorage.deleteData(CART_ITEM, cartId);
   };
 
   return (
@@ -35,7 +29,7 @@ export default function CartItemSetting({ cartId, productName }: CartItemHeaderS
         label={productName + '체크 박스'}
         labelHidden={true}
       />
-      <button css={deleteButton} onClick={handleDeleteItem}>
+      <button css={deleteButton} onClick={deleteCartItem}>
         삭제
       </button>
     </div>
