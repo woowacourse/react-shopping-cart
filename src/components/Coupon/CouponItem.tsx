@@ -1,14 +1,13 @@
 import { FlexColumn, FlexRow } from '@/style/common.style';
 import { formatDate, formatHour } from '@/utils/formatDate';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import CheckBox from '../Input/CheckBoxInput';
+import CheckBox from '@/components/Input/CheckBoxInput';
 import { Coupon } from '@/types/coupon.type';
 import { selectedCouponListState } from '@/store/atoms';
 import styled from '@emotion/styled';
 import { theme } from '@/style/theme.style';
-import useCouponAvailable from '@/hooks/useCouponAvailable';
-import useCouponValidator from '@/hooks/useCouponValidator';
+import useCanUseCoupon from '@/hooks/useCanUseCoupon';
 import { useRecoilState } from 'recoil';
 
 interface Props {
@@ -17,30 +16,20 @@ interface Props {
 
 const CouponItem = ({ coupon }: Props) => {
   const { description, expirationDate, minimumAmount, availableTime } = coupon;
-  const date = new Date();
+
   const [clicked, setClicked] = useState(false);
-  const isValid = useCouponValidator({ coupon, date });
-  const isAvailable = useCouponAvailable({ coupon, date });
+  const canUseCoupon = useCanUseCoupon({ coupon });
   const [selectedCoupon, setSelectedCoupon] = useRecoilState(
     selectedCouponListState
   );
 
-  const isSelected = selectedCoupon.some((item) => item.id === coupon.id);
-  const disable = useMemo(() => {
-    if (selectedCoupon.length >= 2 && !isSelected) {
-      return true;
-    }
-
-    return !isValid || !isAvailable;
-  }, [isValid, isAvailable, selectedCoupon, isSelected]);
-
   useEffect(() => {
-    if (isSelected) {
+    if (selectedCoupon.some((item) => item.id === coupon.id)) {
       setClicked(true);
     } else {
       setClicked(false);
     }
-  }, [isSelected, selectedCoupon, coupon.id]);
+  }, [selectedCoupon, coupon.id]);
 
   const handleClick = () => {
     if (!clicked) {
@@ -58,12 +47,12 @@ const CouponItem = ({ coupon }: Props) => {
   };
 
   return (
-    <StyledItemWrapper disable={disable}>
+    <StyledItemWrapper disable={!canUseCoupon}>
       <StyledRowBox isTitle={true}>
         <CheckBox
           isSelected={clicked}
           onClick={() => {
-            if (!disable || clicked) {
+            if (canUseCoupon || clicked) {
               handleClick();
             }
           }}
