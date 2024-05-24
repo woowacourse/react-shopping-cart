@@ -4,6 +4,7 @@ import styled from 'styled-components';
 export const CartListContainer = styled.li`
   border-top: 1px solid ${COLOR.borderColor};
   padding-top: 12px;
+  padding-right: 10px;
   margin-top: 12px;
 `;
 

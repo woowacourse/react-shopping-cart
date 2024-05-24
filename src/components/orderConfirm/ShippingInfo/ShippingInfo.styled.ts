@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const ShippingInfo = styled.section`
-  margin-top: 32px;
   margin-bottom: 36px;
 `;
 
