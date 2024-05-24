@@ -8,13 +8,13 @@ import css from './BaseProductList.module.css';
 
 const cn = classNames.bind(css);
 
-type BaseProductListProps = {
+interface BaseProductListProps {
   carts: Cart[];
   cardLeftActionSlot?: (cartId: CartId) => ReactNode;
   cardRightActionSlot?: (cartId: CartId) => ReactNode;
   cardCounterSlot?: (cartId: CartId, quantity: number) => ReactNode;
   isFetching?: boolean;
-};
+}
 
 export function BaseProductList({
   carts,
