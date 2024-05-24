@@ -1,5 +1,6 @@
 import { CartItem } from '@appTypes/shoppingCart';
-import { cartItemsAtom, couponListAtom, selectedIdsAtom } from '@recoil/shoppingCart';
+import { PRICE } from '@constants/shippingCart';
+import { cartItemsAtom, couponListAtom, selectedIdsAtom, surchargeShippingFeeAtom } from '@recoil/shoppingCart';
 import { renderHook } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
 
@@ -29,6 +30,7 @@ export const renderCouponHookWithRecoilRoot = <T,>(
   hook: () => T,
   initialItems: CartItem[],
   initialSelectedIds: number[],
+  isSurchargeShippingFee?: boolean,
 ) => {
   return renderHook(hook, {
     wrapper: ({ children }) => (
@@ -37,6 +39,7 @@ export const renderCouponHookWithRecoilRoot = <T,>(
           set(cartItemsAtom, initialItems);
           set(selectedIdsAtom, initialSelectedIds);
           set(couponListAtom, COUPON_LIST);
+          set(surchargeShippingFeeAtom, isSurchargeShippingFee ? PRICE.shippingFee.surcharge : 0);
         }}
       >
         {children}

@@ -45,9 +45,8 @@ describe('쿠폰 적용 시, 최대 할인 금액 테스트', () => {
   afterEach(() => {
     vi.useRealTimers();
   });
-
   it('사용한 쿠폰에 따라 누적된 할인 금액을 반환한다.', () => {
-    const EXPECTED_MAX_DISCOUNT_AMOUNT = 8000;
+    const EXPECTED_MAX_DISCOUNT_AMOUNT = 5000;
 
     vi.setSystemTime(new Date('2024-05-22T08:10:00'));
 

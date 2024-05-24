@@ -42,8 +42,8 @@ const TEST_ITEMS: CartItem[] = [
 const TEST_ITEM_IDS = TEST_ITEMS.map((item) => item.id);
 const TEST_ITEMS_TOTAL_AMOUNTS = TEST_ITEMS.reduce((acc, cur) => acc + cur.quantity * cur.product.price, 0);
 
-const renderCouponDiscount = (selectedItemIds: number[]) =>
-  renderCouponHookWithRecoilRoot(() => useCouponDiscount(), TEST_ITEMS, selectedItemIds);
+const renderCouponDiscount = (selectedItemIds: number[], isSurchargeShippingFee?: boolean) =>
+  renderCouponHookWithRecoilRoot(() => useCouponDiscount(), TEST_ITEMS, selectedItemIds, isSurchargeShippingFee);
 
 describe('쿠폰 할인 금액 테스트', () => {
   beforeEach(() => {
@@ -84,13 +84,24 @@ describe('쿠폰 할인 금액 테스트', () => {
     });
   });
 
-  it('5만원 이상 구매 시 무료 배송 쿠폰 사용 시, 배송비(3,000d원)가 무료이다.', () => {
-    const EXPECT_DISCOUNT = 3000;
+  describe('5만원 이상 구매 시 무료 배송 쿠폰 사용 시, 배송비가 무료이다.', () => {
+    it('기본 배송비가 있는 경우, 기본 배송비만큼 할인된다.', () => {
+      const EXPECT_DISCOUNT = 3000;
 
-    const { result } = renderCouponDiscount(TEST_ITEM_IDS);
-    const { calculateCouponDiscount } = result.current;
+      const { result } = renderCouponDiscount(TEST_ITEM_IDS);
+      const { calculateCouponDiscount } = result.current;
 
-    expect(calculateCouponDiscount('FREESHIPPING')).toBe(EXPECT_DISCOUNT);
+      expect(calculateCouponDiscount('FREESHIPPING')).toBe(EXPECT_DISCOUNT);
+    });
+
+    it('제주도 및 도서 산각 지역에 대한 추가 배송비가 있더고, 배송비가 무료이다.', () => {
+      const EXPECT_DISCOUNT = 3000 + 3000;
+
+      const { result } = renderCouponDiscount(TEST_ITEM_IDS, true);
+      const { calculateCouponDiscount } = result.current;
+
+      expect(calculateCouponDiscount('FREESHIPPING')).toBe(EXPECT_DISCOUNT);
+    });
   });
 
   it('미라클모닝 30% 할인 쿠폰을 사용하면 주문 가격의 30% 할인된다.', () => {
