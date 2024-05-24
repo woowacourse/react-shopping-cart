@@ -6,10 +6,10 @@ import CHECK_FALSE from '../../../assets/check-false.svg?react';
 export interface CheckboxProps {
   state: boolean;
   handleClick: () => void;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
-const Checkbox = ({ state, handleClick, disabled }: CheckboxProps) => {
+const Checkbox = ({ state, handleClick, disabled = false }: CheckboxProps) => {
   return (
     <S.CheckboxLabel>
       <S.Checkbox
