@@ -1,9 +1,6 @@
+import { CART_ITEM_URL, USER_ID, USER_PASSWORD } from '@/constants/api';
 import { CartItemProps } from '@/types/cartItem';
 import { generateBasicToken } from '@/utils/auth';
-
-const CART_ITEM_URL = import.meta.env.VITE_BASE_URL + '/cart-items';
-const USER_ID = import.meta.env.VITE_USER_ID;
-const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
 
 const cartItemURLWithCartId = (cartId: number) => CART_ITEM_URL + '/' + cartId;
 
