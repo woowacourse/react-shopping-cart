@@ -24,23 +24,23 @@ type FetcherProps = RequestProps & {
 type Options = {
   method: Method;
   headers: HeadersType;
-  body: Body | null;
+  body?: Body | null;
 };
 
 export const requestGet = <T>({ baseUrl, endpoint, headers = {} }: RequestProps): Promise<T> => {
   return fetcher<T>({ method: 'GET', baseUrl, endpoint, headers });
 };
 
-export const requestPatch = <T>({ baseUrl, endpoint, headers = {}, body }: RequestProps): Promise<T> => {
-  return fetcher({ method: 'GET', baseUrl, endpoint, headers, body });
+export const requestPatch = ({ baseUrl, endpoint, headers = {}, body }: RequestProps) => {
+  fetcher({ method: 'PATCH', baseUrl, endpoint, headers, body });
 };
 
-export const requestPost = <T>({ baseUrl, endpoint, headers = {}, body }: RequestProps): Promise<T> => {
-  return fetcher({ method: 'GET', baseUrl, endpoint, headers, body });
+export const requestPost = ({ baseUrl, endpoint, headers = {}, body }: RequestProps) => {
+  fetcher({ method: 'POST', baseUrl, endpoint, headers, body });
 };
 
-export const requestDelete = <T>({ baseUrl, endpoint, headers = {} }: RequestProps): Promise<T> => {
-  return fetcher({ method: 'GET', baseUrl, endpoint, headers });
+export const requestDelete = ({ baseUrl, endpoint, headers = {} }: RequestProps) => {
+  fetcher({ method: 'DELETE', baseUrl, endpoint, headers });
 };
 
 // 실제 오류를 감지하고 처리하고, fetch툴을 이용해 fetch해오는 곳
@@ -55,6 +55,7 @@ const fetcher = <T>({ method, baseUrl, endpoint, headers, body }: FetcherProps):
     },
     body: body ? JSON.stringify(body) : null,
   };
+
   const url = `${baseUrl}${endpoint}`;
 
   return errorHandler(url, options, endpoint);
@@ -63,9 +64,14 @@ const fetcher = <T>({ method, baseUrl, endpoint, headers, body }: FetcherProps):
 const errorHandler = async <T>(url: string, options: Options, endpoint: string): Promise<T> => {
   try {
     const response = await fetch(url, options);
-    const data = await response.json();
 
-    if (!response.ok) throw new Error(data.message || '오류가 발생했습니다.');
+    let data;
+
+    if (response.headers.get('content-length') !== '0') {
+      data = await response.json();
+    } else data = {};
+
+    if (!response.ok) throw new Error(data.message + '오류가 발생했습니다.');
 
     return data;
   } catch (error) {
