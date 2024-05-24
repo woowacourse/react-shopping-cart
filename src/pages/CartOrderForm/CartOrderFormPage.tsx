@@ -84,7 +84,12 @@ const CartOrderFormPage = () => {
           {selectedCartItemList.map((cartItem) => (
             <CartItem {...cartItem} />
           ))}
-        <Button width="full" onClick={openModal}>
+        </ListContainer>
+        <Button
+          width="full"
+          onClick={openModal}
+          disabled={couponList.every(({ isApplicable }) => isApplicable === false)}
+        >
           쿠폰 적용
         </Button>
         <ShippingAreaForm />
