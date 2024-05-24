@@ -1,15 +1,19 @@
 import styled from "styled-components";
 import ORDER from "../../../constants/order";
-import { totalCheckedCartItemsPriceState } from "../../../recoil/selectors";
+import { shippingFeeState, totalCheckedCartItemsPriceState } from "../../../recoil/selectors";
 import { useRecoilValue } from "recoil";
 import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../../constants/styles";
 import { SHOPPING_MESSAGE } from "../../../constants/messages";
 import InfoText from "../../common/InfoText";
 
-const OrderSummary = () => {
+interface OrderSummaryProps {
+  discountAmount?: number;
+}
+
+const OrderSummary = ({ discountAmount }: OrderSummaryProps) => {
   const totalPrice = useRecoilValue(totalCheckedCartItemsPriceState);
-  const shippingFee = totalPrice && totalPrice < ORDER.shippingFreeThreshold ? ORDER.shippingFee : 0;
-  const totalPayments = totalPrice + shippingFee;
+  const shippingFee = useRecoilValue(shippingFeeState);
+  const totalPayments = discountAmount ? totalPrice + shippingFee - discountAmount : totalPrice + shippingFee;
 
   return (
     <OrderSummaryContainer>
@@ -21,6 +25,13 @@ const OrderSummary = () => {
         <SummaryTitle>{SHOPPING_MESSAGE.orderAmount}</SummaryTitle>
         <SummaryPrice>{totalPrice.toLocaleString()}</SummaryPrice>
       </SummaryWrapper>
+
+      {discountAmount !== undefined && (
+        <SummaryWrapper>
+          <SummaryTitle>할인 금액</SummaryTitle>
+          <SummaryPrice>{discountAmount.toLocaleString()}</SummaryPrice>
+        </SummaryWrapper>
+      )}
 
       <SummaryWrapper>
         <SummaryTitle>{SHOPPING_MESSAGE.shippingFee}</SummaryTitle>
