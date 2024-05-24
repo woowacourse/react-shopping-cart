@@ -1,3 +1,5 @@
+import ORDER from "./order";
+
 export const SHOPPING_MESSAGE = {
   shop: "SHOP",
   basket: "장바구니",
@@ -11,6 +13,8 @@ export const SHOPPING_MESSAGE = {
   orderAmount: "주문 금액",
   shippingFee: "배송비",
   totalPayAmount: "총 결제 금액",
+  couponInfo: `쿠폰은 최대 ${ORDER.maxCouponCount}개까지 사용할 수 있습니다.`,
+
   freeShippingFeeInfo(price: string) {
     return `총 주문 금액이 ${price}원 이상일 경우 무료 배송됩니다.`;
   },
@@ -19,6 +23,9 @@ export const SHOPPING_MESSAGE = {
   },
   orderDescription(kind: number, total: number) {
     return `총 ${kind}종류의 상품 ${total}개를 주문합니다. \n최종 결제 금액을 확인해 주세요.`;
+  },
+  couponDiscountAmount(discountAmount: number) {
+    return `총 ${discountAmount.toLocaleString()}원 할인 쿠폰 사용하기`;
   },
 };
 
