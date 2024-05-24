@@ -1,5 +1,3 @@
-import { useRecoilValue } from 'recoil';
-import { totalPriceSelector } from '../../recoil/selectors';
 import styled from 'styled-components';
 import { NotificationIcon } from '../../asset';
 import { MESSAGES } from '../../constants/Messages';
@@ -59,10 +57,28 @@ const TotalInfoAmount = styled.p`
   text-align: right;
 `;
 
-function TotalAmount() {
-  const { totalAmount, deliveryFee, calculatedTotalAmount } =
-    useRecoilValue(totalPriceSelector);
+interface DiscountProps {
+  type: 'discount';
+  price: {
+    totalAmount: number;
+    totalDiscount: number | undefined;
+    deliveryFee: number;
+    calculatedTotalAmount: number;
+  };
+}
 
+interface NoDiscountProps {
+  type: 'noneDiscount';
+  price: {
+    totalAmount: number;
+    deliveryFee: number;
+    calculatedTotalAmount: number;
+  };
+}
+
+type ToTalAmountProps = DiscountProps | NoDiscountProps;
+
+function TotalAmount({ price, type }: ToTalAmountProps) {
   return (
     <TotalAmountContainer>
       <InformationMsg>
@@ -75,12 +91,25 @@ function TotalAmount() {
         <TotalInfoWrapper>
           <TotalInfoBox>
             <TotalInfoLabel>{MESSAGES.totalInfoLabel}</TotalInfoLabel>
-            <TotalInfoAmount>{totalAmount.toLocaleString()}원</TotalInfoAmount>
+            <TotalInfoAmount>
+              {price.totalAmount.toLocaleString()}원
+            </TotalInfoAmount>
           </TotalInfoBox>
+
+          {type === 'discount' && (
+            <TotalInfoBox>
+              <TotalInfoLabel>{MESSAGES.totalDiscountLabel}</TotalInfoLabel>
+              <TotalInfoAmount>
+                {price.totalDiscount?.toLocaleString()}원
+              </TotalInfoAmount>
+            </TotalInfoBox>
+          )}
 
           <TotalInfoBox>
             <TotalInfoLabel>{MESSAGES.deliveryFee}</TotalInfoLabel>
-            <TotalInfoAmount>{deliveryFee.toLocaleString()}원</TotalInfoAmount>
+            <TotalInfoAmount>
+              {price.deliveryFee.toLocaleString()}원
+            </TotalInfoAmount>
           </TotalInfoBox>
         </TotalInfoWrapper>
 
@@ -89,7 +118,7 @@ function TotalAmount() {
       <TotalInfoBox>
         <TotalInfoLabel>{MESSAGES.totalAmountLabel}</TotalInfoLabel>
         <TotalInfoAmount>
-          {calculatedTotalAmount.toLocaleString()}원
+          {price.calculatedTotalAmount.toLocaleString()}원
         </TotalInfoAmount>
       </TotalInfoBox>
     </TotalAmountContainer>
