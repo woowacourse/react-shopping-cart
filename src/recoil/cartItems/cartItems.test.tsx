@@ -15,8 +15,12 @@ jest.mock('@apis/cartItem', () => ({
   deleteItem: jest.fn(),
 }));
 
+jest.mock('@apis/coupon', () => ({
+  fetchCoupons: jest.fn(),
+}));
+
 describe('cartItems 동작 테스트', () => {
-  it('cartItem 리스트는 "나이키", "아디다스"가 렌더링된다.', async () => {
+  it('cartItem 리스트는 "나이키", "아디다스", "코카콜라"가 렌더링된다.', async () => {
     act(() => {
       render(
         <RecoilRoot
@@ -32,6 +36,7 @@ describe('cartItems 동작 테스트', () => {
     await waitFor(() => {
       expect(screen.getByText('나이키')).toBeInTheDocument();
       expect(screen.getByText('아디다스')).toBeInTheDocument();
+      expect(screen.getByText('코카콜라')).toBeInTheDocument();
     });
   });
 

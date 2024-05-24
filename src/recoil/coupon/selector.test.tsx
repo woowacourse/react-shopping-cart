@@ -26,6 +26,16 @@ import {
   VALID_TEN_PERCENT_COUPON,
 } from '@/mocks/coupons';
 
+jest.mock('@apis/cartItem', () => ({
+  fetchCartItems: jest.fn(),
+  updateItemQuantity: jest.fn(),
+  deleteItem: jest.fn(),
+}));
+
+jest.mock('@apis/coupon', () => ({
+  fetchCoupons: jest.fn(),
+}));
+
 describe('coupon selector', () => {
   describe('couponSelector', () => {
     const couponCodes = coupons.map(({ code }) => code);
@@ -33,7 +43,11 @@ describe('coupon selector', () => {
       '존재하는 쿠폰(%s)을 찾으면 해당 쿠폰을 반환한다.',
       (couponCode: string) => {
         const { result } = renderHook(() => useRecoilValue(couponSelector(couponCode)), {
-          wrapper: RecoilRoot,
+          wrapper: ({ children }) => (
+            <RecoilRoot initializeState={({ set }) => set(couponsState, coupons)}>
+              <Suspense>{children}</Suspense>
+            </RecoilRoot>
+          ),
         });
 
         expect(result.current).toBeDefined();
@@ -45,7 +59,11 @@ describe('coupon selector', () => {
       const { result } = renderHook(
         () => useRecoilValue(couponSelector(INVALID_BOGO_COUPON_CODE)),
         {
-          wrapper: RecoilRoot,
+          wrapper: ({ children }) => (
+            <RecoilRoot initializeState={({ set }) => set(couponsState, coupons)}>
+              <Suspense>{children}</Suspense>
+            </RecoilRoot>
+          ),
         },
       );
 

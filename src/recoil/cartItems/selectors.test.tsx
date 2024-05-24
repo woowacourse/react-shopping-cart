@@ -22,6 +22,10 @@ jest.mock('@apis/cartItem', () => ({
   fetchCartItems: jest.fn(),
 }));
 
+jest.mock('@apis/coupon', () => ({
+  fetchCoupons: jest.fn(),
+}));
+
 describe('selectors', () => {
   describe('deliveryPriceState', () => {
     it(`총 결제금액이 ${MINIMUM_FREE_SHIPPING_AMOUNT.toLocaleString('ko-KR')}원 미만일 때, 배송비가 ${DELIVERY_CHARGE.toLocaleString('ko-KR')}원이다.`, () => {
