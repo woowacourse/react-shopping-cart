@@ -4,19 +4,20 @@ import { Content as StyledContent } from '../style';
 import { useRecoilValue } from 'recoil';
 
 import {
+  finalTotalPaymentAmountSelector,
   selectedCartItemsCountSelector,
   totalCartItemQuantitySelector,
-  totalPaymentAmountSelector,
 } from '../../../recoil/selectors';
 
-import MESSAGE from '../../../constants/Message';
 import Title from '../../Title/Title';
 import Caption from '../../Caption/Caption';
+
+import MESSAGE from '../../../constants/Message';
 
 const PaymentConfirmationContent = () => {
   const totalCartItemQuantity = useRecoilValue(totalCartItemQuantitySelector);
   const selectedCartItemsCount = useRecoilValue(selectedCartItemsCountSelector);
-  const totalPaymentAmount = useRecoilValue(totalPaymentAmountSelector);
+  const totalPaymentAmount = useRecoilValue(finalTotalPaymentAmountSelector);
 
   return (
     <StyledContent>
