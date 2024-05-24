@@ -1,11 +1,15 @@
 import { selector, selectorFamily } from 'recoil';
 
 import { couponsState, fixedSelectedCouponsState, selectedCouponsState } from './atom';
-import { calculateBuyXgetYDiscountSelector } from './calculateDiscountSelector';
-import { deliveryPriceState, orderTotalPriceState } from '../cartItems/selectors';
+import {
+  checkedItemsSelector,
+  deliveryPriceState,
+  orderTotalPriceState,
+} from '../cartItems/selectors';
 
 import { MAX_SELECTED_COUPON_LENGTH } from '@/constants/coupon';
 import { Coupon } from '@/types/coupon';
+import calculateDiscountAmount from '@/utils/\bcalculateDiscountAmount';
 import permute from '@/utils/permute';
 import { isCouponUsableTime, isCouponValid, isOverMinimumOrderAmount } from '@/utils/validations';
 
@@ -64,26 +68,8 @@ export const calculateTotalDiscountAmountSelector = selectorFamily<number, boole
       const selectedCoupons = fixed ? get(fixedSelectedCouponsState) : get(selectedCouponsState);
       const couponPermutations = permute(selectedCoupons);
       const deliveryPrice = get(deliveryPriceState);
+      const checkedItems = get(checkedItemsSelector);
       const couponResults: number[] = [];
-
-      const calculateDiscountAmount = (
-        coupon: Coupon,
-        orderTotalPrice: number,
-        deliveryPrice: number,
-      ) => {
-        switch (coupon.discountType) {
-          case 'fixed':
-            return coupon.discount ?? 0;
-          case 'percentage':
-            return Math.floor((orderTotalPrice * (coupon.discount ?? 0)) / 100);
-          case 'freeShipping':
-            return deliveryPrice;
-          case 'buyXgetY':
-            return get(calculateBuyXgetYDiscountSelector(coupon.code));
-          default:
-            return 0;
-        }
-      };
 
       couponPermutations.forEach((couponCodes) => {
         let orderTotalPrice = get(orderTotalPriceState);
@@ -94,7 +80,12 @@ export const calculateTotalDiscountAmountSelector = selectorFamily<number, boole
 
           if (!isCouponApplicable) return 0;
 
-          const discountAmount = calculateDiscountAmount(coupon, orderTotalPrice, deliveryPrice);
+          const discountAmount = calculateDiscountAmount(
+            coupon,
+            orderTotalPrice,
+            deliveryPrice,
+            checkedItems,
+          );
 
           orderTotalPrice -= discountAmount;
 
