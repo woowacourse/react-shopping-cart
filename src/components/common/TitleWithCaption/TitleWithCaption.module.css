@@ -1,0 +1,8 @@
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.marginBottom {
+  margin-bottom: 12px;
+}
