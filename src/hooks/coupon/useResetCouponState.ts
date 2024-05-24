@@ -1,18 +1,18 @@
 import { availableCouponsAtom, maxDiscountAtom, surchargeShippingFeeAtom } from '@recoil/shoppingCart';
 import { useResetRecoilState } from 'recoil';
 
-const useResetCouponRecoil = () => {
+const useResetCouponState = () => {
   const resetAvailableCoupons = useResetRecoilState(availableCouponsAtom);
   const resetSurchargeShippingFee = useResetRecoilState(surchargeShippingFeeAtom);
   const resetMaxDiscountAtom = useResetRecoilState(maxDiscountAtom);
 
-  const resetCouponRecoil = () => {
+  const resetCouponState = () => {
     resetAvailableCoupons();
     resetSurchargeShippingFee();
     resetMaxDiscountAtom();
   };
 
-  return { resetCouponRecoil };
+  return { resetCouponState };
 };
 
-export default useResetCouponRecoil;
+export default useResetCouponState;
