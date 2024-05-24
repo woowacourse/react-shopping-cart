@@ -14,7 +14,7 @@ import './reset.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import ENDPOINTS from './constants/endpoints';
-import OrderConfirmationPage from './page/OrderConfirmationPage/OrderConfrimationPage';
+import OrderConfirmationPage from './page/OrderConfirmationPage/OrderConfirmationPage';
 import OrderLastPage from './page/OrderLastPage/OrderLastPage';
 import ShoppingCartPage from './page/ShoppingCartPage/ShoppingCartPage';
 import { Suspense } from 'react';
