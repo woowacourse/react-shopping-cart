@@ -12,12 +12,16 @@ type Story = StoryObj<typeof meta>;
 
 export const 기본: Story = {
   args: {
-    kindCount: 1,
+    title: '안녕',
+    descriptionShowingCondition: true,
+    description: '현재 1종류의 상품이 담겨있습니다.',
   },
 };
 
 export const 장바구니가_비었을_때: Story = {
   args: {
-    kindCount: 0,
+    title: '안녕',
+    descriptionShowingCondition: false,
+    description: '현재 1종류의 상품이 담겨있습니다.',
   },
 };
