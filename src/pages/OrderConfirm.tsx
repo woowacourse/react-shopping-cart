@@ -7,6 +7,7 @@ import {
 import FullWidthButton from '@/components/Button/FullWidthButton';
 import Header from '@/components/Header';
 import { ORDER_CONFIRM_MESSAGE } from '@/constants/message';
+import { ROUTE_PATH } from '@/constants/routePath';
 import { StyledFixedBottom } from '@/style/styledBox.style';
 import { StyledFixedTop } from '../style/styledBox.style';
 import { selectedCouponListState } from '@/store/atoms';
@@ -30,7 +31,7 @@ const OrderConfirm = () => {
   return (
     <>
       <StyledFixedTop>
-        <Header type="nothing" navigatePath={'/'} />
+        <Header type="nothing" navigatePath={ROUTE_PATH.cart} />
       </StyledFixedTop>
       <StyledCenterBox>
         <StyledTextTitle>주문 확인</StyledTextTitle>
@@ -49,7 +50,7 @@ const OrderConfirm = () => {
       <StyledFixedBottom>
         <FullWidthButton
           onClick={() => {
-            navigator('/');
+            navigator(ROUTE_PATH.cart);
           }}
         >
           장바구니로 돌아가기

@@ -12,6 +12,7 @@ import CartTitle from '@/components/Cart/CartTitle';
 import EmptyCart from '@/components/EmptyCart';
 import FullWidthButton from '@/components/Button/FullWidthButton';
 import Header from '@/components/Header.tsx';
+import { ROUTE_PATH } from '@/constants/routePath';
 import { recipeState } from '@/store/selectors/recipeSelector';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -29,7 +30,7 @@ const Cart = () => {
   return (
     <>
       <StyledFixedTop>
-        <Header navigatePath="/" />
+        <Header navigatePath={ROUTE_PATH.cart} />
       </StyledFixedTop>
       {cartList.length ? (
         <>
@@ -41,7 +42,7 @@ const Cart = () => {
             <CartRecipe />
             <FullWidthButton
               onClick={() => {
-                navigate('/order');
+                navigate(ROUTE_PATH.order);
               }}
               disable={orderPrice === 0 ? true : false}
             >

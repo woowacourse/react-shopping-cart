@@ -7,6 +7,7 @@ import FullWidthButton from '@/components/Button/FullWidthButton';
 import Header from '@/components/Header';
 import OrderList from '@/components/Order/OrderList';
 import OrderTitle from '@/components/Order/OrderTitle';
+import { ROUTE_PATH } from '@/constants/routePath';
 import ShippingInfo from '@/components/Order/ShippingInfo';
 import { WhiteSpace } from '@/style/common.style';
 import WideButton from '@/components/Button/WideButton';
@@ -27,7 +28,7 @@ const Order = () => {
   return (
     <>
       <StyledFixedTop>
-        <Header type="ArrowBack" navigatePath={'/'} />
+        <Header type="ArrowBack" navigatePath={ROUTE_PATH.cart} />
       </StyledFixedTop>
       <StyledScrollBox>
         <OrderTitle />
@@ -48,7 +49,7 @@ const Order = () => {
         <CartRecipe isCoupon={true} />
         <FullWidthButton
           onClick={() => {
-            navigate('/order-confirm');
+            navigate(ROUTE_PATH.orderConfirm);
           }}
         >
           결제하기
