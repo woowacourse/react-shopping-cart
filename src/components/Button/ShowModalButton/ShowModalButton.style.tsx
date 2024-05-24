@@ -10,4 +10,10 @@ export const Layout = styled.button`
   font-size: ${({ theme }) => theme.fontSize.md};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   text-align: center;
+  transition: 0.1s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: lightgrey;
+  }
 `;

@@ -26,6 +26,15 @@ export const DeleteButton = styled.button`
   font-size: ${({ theme }) => theme.fontSize.sm};
   text-align: center;
   padding: 0px 8px;
+  transition: background-color 0.1s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: lightgrey;
+  }
+  &:active {
+    background-color: grey;
+  }
 `;
 
 export const ItemImage = styled.img`

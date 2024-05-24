@@ -21,9 +21,17 @@ export const QuantityButton = styled.button`
   height: 24px;
   border-radius: 4px;
   border: 1px solid ${({ theme }) => theme.color.primary.light};
+  transition: background-color 0.1s;
+  cursor: pointer;
 
   img {
     width: 12px;
     height: 12px;
+  }
+  &:hover {
+    background-color: lightgrey;
+  }
+  &:active {
+    background-color: grey;
   }
 `;
