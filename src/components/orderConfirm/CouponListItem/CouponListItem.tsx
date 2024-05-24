@@ -1,5 +1,6 @@
 import { Coupon } from '@appTypes/orderConfirm';
 import CheckBox from '@components/common/Checkbox/Checkbox';
+import { convertTime } from '@utils/date';
 
 import * as Styled from './CouponListItem.styled';
 
@@ -9,10 +10,6 @@ interface CouponListItemProps {
   isActive: boolean;
   onAddTemporarySelectedCouponList: (checked: boolean, coupon: Coupon) => void;
 }
-
-const convertTime = (timeString: string) => {
-  return timeString.split(':')[0];
-};
 
 const CouponListItem: React.FC<CouponListItemProps> = ({
   coupon,

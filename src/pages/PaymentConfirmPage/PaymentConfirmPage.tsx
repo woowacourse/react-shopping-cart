@@ -20,6 +20,15 @@ const PaymentConfirmPage: React.FC = () => {
   const setSelectedIds = useSetRecoilState(selectedIdsAtom);
   const setCartItems = useSetRecoilState(cartItemsAtom);
 
+  const handleBackToShoppingCartPage = async () => {
+    setSelectedIds(new Set());
+
+    const cartItems = await fetchCartItems();
+    setCartItems(cartItems);
+
+    navigate(ROUTE_PATHS.root);
+  };
+
   return (
     <Styled.OrderConfirmPageContainer>
       <Styled.Title>주문 확인</Styled.Title>
@@ -29,18 +38,7 @@ const PaymentConfirmPage: React.FC = () => {
       <Styled.GuidText>최종 결제 금액을 확인해 주세요.</Styled.GuidText>
       <Styled.TotalPriceTitle>총 결제 금액 </Styled.TotalPriceTitle>
       <Styled.TotalPrice>{formatKoreanCurrency(afterDiscountTotalPrice)}</Styled.TotalPrice>
-      <BottomButton
-        onClick={async () => {
-          setSelectedIds(new Set());
-
-          const cartItems = await fetchCartItems();
-          setCartItems(cartItems);
-
-          navigate(ROUTE_PATHS.root);
-        }}
-      >
-        장바구니로 돌아가기
-      </BottomButton>
+      <BottomButton onClick={handleBackToShoppingCartPage}>장바구니로 돌아가기</BottomButton>
     </Styled.OrderConfirmPageContainer>
   );
 };

@@ -2,6 +2,7 @@ import { COLOR } from '@styles/style.constant';
 import styled from 'styled-components';
 
 export const CartListContainer = styled.li`
+  width: 100%;
   border-top: 1px solid ${COLOR.borderColor};
   padding-top: 12px;
   margin-top: 12px;

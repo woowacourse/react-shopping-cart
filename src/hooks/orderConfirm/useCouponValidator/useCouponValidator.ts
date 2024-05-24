@@ -1,6 +1,6 @@
 import { Coupon } from '@appTypes/orderConfirm';
 
-export const useCouponValidator = () => {
+const useCouponValidator = () => {
   const isExpiredCoupon = (expirationDate: string) => {
     const today = new Date();
     const expiration = new Date(expirationDate);
@@ -14,3 +14,5 @@ export const useCouponValidator = () => {
 
   return isCouponValid;
 };
+
+export default useCouponValidator;

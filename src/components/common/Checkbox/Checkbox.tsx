@@ -3,11 +3,11 @@ import NoneCheckIcon from '@assets/noneCheck.svg';
 
 import * as Styled from './Checkbox.styled';
 
-interface CheckBoxProps {
+interface CheckboxProps {
   checked: boolean;
 }
 
-const CheckBox: React.FC<React.InputHTMLAttributes<HTMLInputElement> & CheckBoxProps> = ({ checked, ...props }) => {
+const Checkbox: React.FC<React.InputHTMLAttributes<HTMLInputElement> & CheckboxProps> = ({ checked, ...props }) => {
   return (
     <Styled.CheckboxWrapper $checked={checked}>
       <Styled.Checkbox type="checkbox" checked={checked} {...props} />
@@ -16,4 +16,4 @@ const CheckBox: React.FC<React.InputHTMLAttributes<HTMLInputElement> & CheckBoxP
   );
 };
 
-export default CheckBox;
+export default Checkbox;

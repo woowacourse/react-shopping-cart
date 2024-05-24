@@ -44,3 +44,10 @@ export const HeadingText = styled.h1`
   line-height: 16px;
   color: rgba(10, 13, 19, 1);
 `;
+
+export const OrderDetailWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 20px;
+`;

@@ -1,10 +1,9 @@
 import { Coupon } from '@appTypes/orderConfirm';
 import { PRICE } from '@constants/shippingCart';
-import useOrderCosts from '@hooks/shoppingCart/useOrderCosts';
+import { useCouponValidator } from '@hooks/orderConfirm';
+import { useOrderCosts } from '@hooks/shoppingCart';
 
-import { useCouponValidator } from '../useCouponValidator/useCouponValidator';
-
-export const useConfirmCouponApplication = () => {
+const useConfirmCouponApplication = () => {
   const isCouponValid = useCouponValidator();
   const { beforeDiscountTotalPrice, shippingPrice } = useOrderCosts();
 
@@ -36,3 +35,5 @@ export const useConfirmCouponApplication = () => {
 
   return isApplicabilityCoupon;
 };
+
+export default useConfirmCouponApplication;
