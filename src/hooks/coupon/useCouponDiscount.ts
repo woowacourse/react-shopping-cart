@@ -1,4 +1,4 @@
-import { Coupon, CouponCode } from '@appTypes/shoppingCart';
+import { Coupon } from '@appTypes/shoppingCart';
 import { shippingFeeSelector } from '@recoil/shoppingCart';
 import { useRecoilValue } from 'recoil';
 
@@ -43,9 +43,8 @@ const useCouponDiscount = () => {
    * @param couponTargetPrice  : 쿠폰 적용 대상인 금액
    * @returns : 할인 금액
    */
-  const calculateCouponDiscount = (couponCode: CouponCode, couponTargetPrice?: number) => {
+  const calculateCouponDiscount = (couponCode: string, couponTargetPrice?: number) => {
     const coupon = getCoupon(couponCode);
-
     switch (coupon.discountType) {
       case 'fixed':
         return calculateFixedDiscount(coupon);

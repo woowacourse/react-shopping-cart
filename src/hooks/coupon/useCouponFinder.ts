@@ -1,9 +1,11 @@
+import { COUPON_CODE } from '@constants/coupon';
 import { couponListAtom } from '@recoil/shoppingCart';
 import { useRecoilValue } from 'recoil';
 
 const useCouponFinder = () => {
   const couponList = useRecoilValue(couponListAtom);
 
+  const { fixed500, bogo, freeShipping, miracleSale } = COUPON_CODE;
   /**
    * 특정 코드를 가진 쿠폰을 반환하는 함수
    */
@@ -19,10 +21,10 @@ const useCouponFinder = () => {
    * 서버로 부터 받은 모든 쿠폰을 객체 형태로 반환하는 함수
    */
   const getAllCoupons = () => ({
-    fixed5000Coupon: getCoupon('FIXED5000'),
-    bogoCoupon: getCoupon('BOGO'),
-    freeShippingCoupon: getCoupon('FREESHIPPING'),
-    miracleCoupon: getCoupon('MIRACLESALE'),
+    fixed5000Coupon: getCoupon(fixed500),
+    bogoCoupon: getCoupon(bogo),
+    freeShippingCoupon: getCoupon(freeShipping),
+    miracleCoupon: getCoupon(miracleSale),
   });
 
   return { getCoupon, getAllCoupons };

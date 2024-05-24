@@ -1,4 +1,4 @@
-import { Coupon, CouponCode } from '@appTypes/shoppingCart';
+import { Coupon } from '@appTypes/shoppingCart';
 import { orderPriceSelector } from '@recoil/shoppingCart';
 import { getPermutations } from '@utils/index';
 import { useRecoilValue } from 'recoil';
@@ -16,7 +16,7 @@ const useMaxDiscountCalculator = () => {
    */
   const calculateAccumulatedDiscount = (accumulatedDiscount: number, coupon: Coupon): number => {
     const prevDiscountedAmount = orderPrice - accumulatedDiscount;
-    const discount = calculateCouponDiscount(coupon.code as CouponCode, prevDiscountedAmount);
+    const discount = calculateCouponDiscount(coupon.code, prevDiscountedAmount);
 
     return accumulatedDiscount + discount;
   };
