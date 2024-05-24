@@ -1,3 +1,3 @@
 export * from './coupon';
-export * from './order';
+export * from './orders';
 export * from './shoppingCart';
