@@ -2,21 +2,23 @@ import { PageExplanation } from '@components/common';
 import { PurchaseProcessLayout } from '@components/layout';
 import { CouponModalContainer, OrderAmountsList, SelectedItemList, ShippingInfo } from '@components/orderConfirm';
 import { useAvailableCoupons, useSelectedCartItems } from '@hooks/index';
-import { availableCouponsAtom } from '@recoil/shoppingCart';
+import { availableCouponsAtom, totalPriceSelector } from '@recoil/shoppingCart';
 import { ROUTE_PATHS } from '@routes/route.constant';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 const OrderConfirmPage: React.FC = () => {
   const setAvailableCoupons = useSetRecoilState(availableCouponsAtom);
+  const totalPrice = useRecoilValue(totalPriceSelector);
+
+  const { totalSelectedItemLength, selectedTotalQuantity, selectedItems } = useSelectedCartItems();
   const { getAvailableCoupons } = useAvailableCoupons();
 
   const navigate = useNavigate();
-  const { totalSelectedItemLength, selectedTotalQuantity, selectedItems } = useSelectedCartItems();
 
   const handleClickBottomButton = () => {
-    navigate(ROUTE_PATHS.purchaseConfirm);
+    navigate(ROUTE_PATHS.purchaseConfirm, { state: { totalPrice, totalSelectedItemLength, selectedTotalQuantity } });
   };
 
   useEffect(() => {

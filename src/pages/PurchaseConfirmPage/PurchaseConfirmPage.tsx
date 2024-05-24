@@ -1,23 +1,17 @@
 import { BottomButton } from '@components/common';
-import { useSelectedCartItems } from '@hooks/index';
-import { selectedIdsAtom, totalPriceSelector } from '@recoil/shoppingCart';
 import { ROUTE_PATHS } from '@routes/route.constant';
 import { formatKoreanCurrency } from '@utils/currency';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import * as Styled from './PurchaseConfirmPage.styled';
 
 const PurchaseConfirmPage = () => {
-  const totalPrice = useRecoilValue(totalPriceSelector);
-  const resetSelectedIds = useResetRecoilState(selectedIdsAtom);
-
-  const { totalSelectedItemLength, selectedTotalQuantity } = useSelectedCartItems();
+  const location = useLocation();
   const navigate = useNavigate();
 
+  const { totalPrice, totalSelectedItemLength, selectedTotalQuantity } = location.state;
+
   const handleClickBottomButton = () => {
-    // 선택된 상품 목록 reset
-    resetSelectedIds();
     // 장바구니로 이동
     navigate(ROUTE_PATHS.root);
   };
