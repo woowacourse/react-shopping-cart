@@ -1,33 +1,36 @@
 import { useRecoilValue } from "recoil";
 import { useCouponFinder, useCouponValidator } from ".";
 import { Coupon } from "../../types";
-import { cartListTotalQuantity } from "./../../recoil/selectors";
+import { orderListTotalQuantitySelector } from "./../../recoil/selectors";
 
 const useCouponApplicabilityChecker = () => {
   const { findCouponByCode } = useCouponFinder();
   const { isCouponValid } = useCouponValidator();
-  const cartItemsTotalQuantity = useRecoilValue(cartListTotalQuantity);
+  const orderListTotalQuantity = useRecoilValue(orderListTotalQuantitySelector);
 
   const isCouponApplicable = ({
     coupon,
     totalAmount,
     now = new Date(),
   }: {
-    coupon: Coupon;
+    coupon?: Coupon;
     totalAmount: number;
     now?: Date;
   }) => {
+    if (!coupon) return false;
+
     const targetCoupon = findCouponByCode(coupon.code);
 
     if (!targetCoupon || !isCouponValid(targetCoupon)) return false;
 
     if (targetCoupon.getQuantity && targetCoupon.buyQuantity) {
       if (
-        cartItemsTotalQuantity !==
+        orderListTotalQuantity ===
         targetCoupon.buyQuantity + targetCoupon.getQuantity
       ) {
-        return false;
+        return true;
       }
+      return false;
     }
 
     if (

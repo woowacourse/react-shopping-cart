@@ -12,6 +12,7 @@ import {
   cartListState,
   couponSelectedState,
   couponsState,
+  islandMountainRegionCheckState,
 } from "./atoms";
 
 export const initializeCartItemStorage = (items: CartItemType[]) => {
@@ -43,6 +44,19 @@ export const cartListTotalPrice = selector({
   },
 });
 
+export const selectedCartItems = selector<CartItemType[]>({
+  key: "selectedCartItems",
+  get: ({ get }) => {
+    const cartList = get(cartListState);
+
+    const isSelectedItems = cartList.filter((cartItem) =>
+      get(cartItemSelected(cartItem.id))
+    );
+
+    return isSelectedItems;
+  },
+});
+
 export const cartListTotalQuantity = selector({
   key: "cartListTotalQuantity",
   get: ({ get }) => {
@@ -56,8 +70,8 @@ export const cartListTotalQuantity = selector({
   },
 });
 
-export const orderListTotalQuantity = selector({
-  key: "orderListTotalQuantity",
+export const orderListTotalQuantitySelector = selector({
+  key: "orderListTotalQuantitySelector",
   get: ({ get }) => {
     const selectedCartItem = get(selectedCartItems);
     const orderListTotalQuantity = selectedCartItem.reduce((acc, cartItem) => {
@@ -116,7 +130,6 @@ export const selectedCouponSelector = selector<Coupon[]>({
       get(couponSelectedState(coupon.id))
     );
 
-    console.log("Selected Coupons:", selectedCoupons);
     return selectedCoupons;
   },
 });
