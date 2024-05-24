@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 import Header from '../../components/Header/Header';
 import TitleContainer from '../../components/common/TitleContainer/TitleContainer';
 import SubmitButton from '../../components/common/SubmitButton/SubmitButton';
@@ -9,22 +9,25 @@ import {
   totalOrderCountSelector,
   deliveryFeeSelector,
 } from '../../recoil/CartItem/selectors/selectors';
-import { totalCouponDiscountPriceSelector } from '../../recoil/Coupon/selectors/selectors';
+import { totalDiscountPriceState } from '../../recoil/Coupon/atoms/atoms';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './PaymentConfirmPage.style';
 
 function PaymentConfirmPage() {
-  const [selectedItemList, setSelectedItemList] = useRecoilState(selectedCartItemListState);
-
+  const selectedItemList = useRecoilValue(selectedCartItemListState);
+  const totalDiscountPrice = useRecoilValue(totalDiscountPriceState);
   const totalOrderPrice = useRecoilValue(totalOrderPriceSelector);
   const totalOrderCount = useRecoilValue(totalOrderCountSelector);
-  const totalCouponDiscountPrice = useRecoilValue(totalCouponDiscountPriceSelector);
   const deliveryFee = useRecoilValue(deliveryFeeSelector);
 
-  const paymentTotalPrice = totalOrderPrice + deliveryFee - totalCouponDiscountPrice;
+  const paymentTotalPrice = totalOrderPrice + deliveryFee - totalDiscountPrice;
+
+  const resetSelectedItemList = useResetRecoilState(selectedCartItemListState);
+  const resetTotalDiscountPrice = useResetRecoilState(totalDiscountPriceState);
 
   const clearStorage = () => {
-    setSelectedItemList([]);
+    resetSelectedItemList();
+    resetTotalDiscountPrice();
   };
 
   return (

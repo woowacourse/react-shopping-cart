@@ -1,10 +1,9 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { Modal } from '@hanuuny/react-modal';
 import CouponItem from '../CouponItem/CouponItem';
 import NotificationLabel from '../../common/NotificationLabel/NotificationLabel';
 import useSelectedCoupons from '../../../hooks/useSelectedCoupons';
-import useCouponCalculator from '../../../hooks/useCouponCalculator';
-import { selectedCouponListState } from '../../../recoil/Coupon/atoms/atoms';
+import { selectedCouponIdListState, totalDiscountPriceState } from '../../../recoil/Coupon/atoms/atoms';
 import { Coupon } from '../../../types/Coupon.type';
 import * as S from './CouponModal.style';
 
@@ -15,13 +14,18 @@ interface CouponModalProps {
 }
 
 function CouponModal({ couponList, isOpen, close }: CouponModalProps) {
-  const [savedCoupons, setSavedCoupons] = useRecoilState(selectedCouponListState);
+  const [savedCouponIdList, setSavedCouponIdList] = useRecoilState(selectedCouponIdListState);
+  const setTotalDiscountPrice = useSetRecoilState(totalDiscountPriceState);
 
-  const { selectedCoupons, handleSelectedCoupons } = useSelectedCoupons(savedCoupons);
-  const { calculateTotalDiscountPrice } = useCouponCalculator();
+  const { selectedCoupons, totalDiscountPrice, handleSelectedCoupons } = useSelectedCoupons(
+    couponList,
+    savedCouponIdList,
+  );
 
   const updateSavedCoupons = () => {
-    setSavedCoupons(selectedCoupons);
+    setSavedCouponIdList(selectedCoupons.map((coupon) => coupon.id));
+    setTotalDiscountPrice(totalDiscountPrice);
+
     close();
   };
 
@@ -51,7 +55,7 @@ function CouponModal({ couponList, isOpen, close }: CouponModalProps) {
         <Modal.Button
           text={
             selectedCoupons.length >= 1
-              ? `총 ${calculateTotalDiscountPrice(selectedCoupons).toLocaleString()}원 할인 쿠폰 사용하기`
+              ? `총 ${totalDiscountPrice.toLocaleString()}원 할인 쿠폰 사용하기`
               : '쿠폰 등록 취소하기'
           }
           onClick={updateSavedCoupons}

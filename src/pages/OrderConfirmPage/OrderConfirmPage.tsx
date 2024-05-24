@@ -11,7 +11,7 @@ import TotalPriceContainer from '../../components/common/TotalPriceContainer/Tot
 import type { Coupon } from '../../types/Coupon.type';
 import { selectedCartItemListState, isSigolState } from '../../recoil/CartItem/atoms/atoms';
 import { totalOrderCountSelector } from '../../recoil/CartItem/selectors/selectors';
-import { selectedCouponListState } from '../../recoil/Coupon/atoms/atoms';
+import { selectedCouponIdListState, totalDiscountPriceState } from '../../recoil/Coupon/atoms/atoms';
 import useCouponModal from '../../hooks/useCouponModal';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './OrderConfirmPage.style';
@@ -23,7 +23,8 @@ function OrderConfirmPage() {
   const [isSigol, setIsSigol] = useRecoilState(isSigolState);
 
   const resetIsSigol = useResetRecoilState(isSigolState);
-  const resetSelectedCouponList = useResetRecoilState(selectedCouponListState);
+  const resetTotalDiscountPrice = useResetRecoilState(totalDiscountPriceState);
+  const resetSelectedCouponIdList = useResetRecoilState(selectedCouponIdListState);
 
   const selectedItemList = useRecoilValue(selectedCartItemListState);
   const totalOrderCount = useRecoilValue(totalOrderCountSelector);
@@ -38,7 +39,9 @@ function OrderConfirmPage() {
 
   const handleHeaderClick = () => {
     resetIsSigol();
-    resetSelectedCouponList();
+    resetTotalDiscountPrice();
+    resetSelectedCouponIdList();
+
     navigate(-1);
   };
 
