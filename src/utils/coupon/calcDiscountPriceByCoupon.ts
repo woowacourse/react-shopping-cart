@@ -20,13 +20,13 @@ export const calcShippingFeeDiscountAmount = (_: Coupon): ShippingDiscountType =
 };
 
 export const calcBuyXGetYDiscountAmount = (coupon: Coupon, selectedItemList: CartItem[]) => {
-  const minimumQuantity = (coupon.buyQuantity ?? 0) + (coupon.getQuantity ?? 0);
+  if (coupon.buyQuantity === undefined || coupon.getQuantity === undefined) return 0;
 
-  if (minimumQuantity === 0) return 0;
+  const minimumQuantity = coupon.buyQuantity + coupon.getQuantity;
 
   const priceListOverMinimumQuantity = selectedItemList
     .filter(({ quantity }) => quantity >= minimumQuantity)
     .map(({ product }) => product.price);
 
-  return Math.max(...priceListOverMinimumQuantity);
+  return Math.max(...priceListOverMinimumQuantity) * coupon.getQuantity;
 };
