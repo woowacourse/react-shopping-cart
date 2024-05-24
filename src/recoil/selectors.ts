@@ -1,7 +1,7 @@
 import {
   cartItemsState,
-  isIslandOrMountain,
-  selectedCoupons,
+  isIslandOrMountainState,
+  selectedCouponsState,
   uncheckedItemIdsState,
 } from './atoms';
 
@@ -29,7 +29,7 @@ export const deliveryFeeState = selector<number>({
   key: 'deliveryFeeState',
   get: ({ get }) => {
     const checkedItem = get(checkedItemsState);
-    const isAdded = get(isIslandOrMountain);
+    const isAdded = get(isIslandOrMountainState);
     const orderAmount = checkedItem.reduce(
       (acc, item) => acc + item.quantity * item.product.price,
       0,
@@ -45,7 +45,7 @@ export const couponAmountState = selector<number>({
   key: 'couponAmountState',
   get: ({ get }) => {
     const checkedItems = get(checkedItemsState);
-    const coupons = get(selectedCoupons);
+    const coupons = get(selectedCouponsState);
     const deliveryFee = get(deliveryFeeState);
     return getCouponsAmount(coupons, checkedItems, deliveryFee);
   },

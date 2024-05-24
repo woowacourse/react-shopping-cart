@@ -36,6 +36,9 @@ export const uncheckedItemIdsState = atom<number[]>({
   ],
 });
 
-export const selectedCoupons = atom<Coupon[]>({ key: 'selectedCouponIdsState', default: [] });
+export const selectedCouponsState = atom<Coupon[]>({ key: 'selectedCouponIdsState', default: [] });
 
-export const isIslandOrMountain = atom<boolean>({ key: 'isIslandOrMountainState', default: false });
+export const isIslandOrMountainState = atom<boolean>({
+  key: 'isIslandOrMountainState',
+  default: false,
+});
