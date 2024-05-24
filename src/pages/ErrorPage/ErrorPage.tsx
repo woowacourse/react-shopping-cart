@@ -5,7 +5,11 @@ import * as S from './ErrorPage.style';
 import { CART_ITEM_ERROR_MESSAGE } from '../../constants/MESSAGES';
 import { ErrorType } from '../../types/Error.type';
 
-const ErrorPage = () => {
+interface ErrorPageProps {
+  error?: string;
+}
+
+function ErrorPage({ error }: ErrorPageProps) {
   const location = useLocation();
   const errorType = location.state?.errorType as ErrorType;
 
@@ -16,7 +20,7 @@ const ErrorPage = () => {
       <S.Main>
         <S.ErrorTextContainer>
           <h1>ERROR</h1>
-          <h2>{errorMessage}</h2>
+          <h2>{error || errorMessage}</h2>
           <p>
             페이지의 주소가 잘못 입력되었거나,
             <br />
@@ -31,6 +35,6 @@ const ErrorPage = () => {
       </S.Main>
     </>
   );
-};
+}
 
 export default ErrorPage;
