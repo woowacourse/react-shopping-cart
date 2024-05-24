@@ -1,6 +1,6 @@
 import { ORDER_CONFIRM_MESSAGE } from '@/constants/message';
 import { WhiteSpace } from '@/style/common.style';
-import { orderedItemQuantityState } from '@/store/selectors/recipeSelector';
+import { orderedItemQuantityState } from '@/store/selectors/orderItemSelector';
 import styled from '@emotion/styled';
 import { theme } from '@/style/theme.style';
 import { useRecoilValue } from 'recoil';

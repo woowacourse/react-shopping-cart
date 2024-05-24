@@ -1,6 +1,6 @@
 import { Coupon } from '@/types/coupon.type';
 import { orderItemState } from '@/store/selectors/orderItemSelector';
-import { recipeState } from '@/store/selectors/recipeSelector';
+import { orderRecipeState } from '@/store/selectors/orderRecipeSelector';
 import { useRecoilValue } from 'recoil';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 
 const useCouponAvailable = ({ coupon, date }: Props) => {
   const orderedList = useRecoilValue(orderItemState);
-  const { orderPrice } = useRecoilValue(recipeState);
+  const { orderPrice } = useRecoilValue(orderRecipeState);
   if (coupon === null) return false;
 
   const checkMinimumAmount = () => {

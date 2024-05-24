@@ -1,7 +1,7 @@
 import { CartItemType } from '@/types/cart.type';
 import { Coupon } from '@/types/coupon.type';
 import { orderItemState } from '@/store/selectors/orderItemSelector';
-import { recipeState } from '@/store/selectors/recipeSelector';
+import { orderRecipeState } from '@/store/selectors/orderRecipeSelector';
 import { useRecoilValue } from 'recoil';
 
 interface Props {
@@ -33,7 +33,7 @@ const useCouponDiscount = ({ coupon, orderPrice }: Props) => {
     return (coupon.discount && orderPrice * coupon.discount * 0.01) || 0;
   };
 
-  const { shippingFee } = useRecoilValue(recipeState);
+  const { shippingFee } = useRecoilValue(orderRecipeState);
   const orderedList = useRecoilValue(orderItemState);
 
   if (!coupon) return 0;

@@ -13,13 +13,13 @@ import EmptyCart from '@/components/EmptyCart';
 import FullWidthButton from '@/components/Button/FullWidthButton';
 import Header from '@/components/Header.tsx';
 import { ROUTE_PATH } from '@/constants/routePath';
-import { recipeState } from '@/store/selectors/recipeSelector';
+import { orderRecipeState } from '@/store/selectors/orderRecipeSelector';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
   const navigate = useNavigate();
-  const { orderPrice } = useRecoilValue(recipeState);
+  const { orderPrice } = useRecoilValue(orderRecipeState);
   const cartList = useRecoilValue(cartListState);
 
   const setShippingState = useSetRecoilState(shippingAreaState);

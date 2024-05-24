@@ -1,8 +1,4 @@
 import { FlexCenter, FlexColumn } from '@/style/common.style';
-import {
-  orderedItemQuantityState,
-  recipeState,
-} from '@/store/selectors/recipeSelector';
 
 import FullWidthButton from '@/components/Button/FullWidthButton';
 import Header from '@/components/Header';
@@ -10,6 +6,8 @@ import { ORDER_CONFIRM_MESSAGE } from '@/constants/message';
 import { ROUTE_PATH } from '@/constants/routePath';
 import { StyledFixedBottom } from '@/style/styledBox.style';
 import { StyledFixedTop } from '../style/styledBox.style';
+import { orderRecipeState } from '@/store/selectors/orderRecipeSelector';
+import { orderedItemQuantityState } from '@/store/selectors/orderItemSelector';
 import { selectedCouponListState } from '@/store/atoms';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
@@ -19,7 +17,7 @@ import useTotalCouponDiscount from '@/hooks/useTotalCouponDiscount';
 const OrderConfirm = () => {
   const navigator = useNavigate();
 
-  const { totalPrice } = useRecoilValue(recipeState);
+  const { totalPrice } = useRecoilValue(orderRecipeState);
 
   const selectedCoupon = useRecoilValue(selectedCouponListState);
   const totalDiscountPrice = useTotalCouponDiscount({

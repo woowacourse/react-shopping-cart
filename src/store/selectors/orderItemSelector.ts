@@ -1,5 +1,6 @@
 import { cartListState, filteredCartItemState } from '../atoms';
 
+import { OrderedItem } from '@/types/recipe.type';
 import { selector } from 'recoil';
 
 export const orderItemState = selector({
@@ -21,5 +22,22 @@ export const orderItemState = selector({
     });
 
     return selectedItems;
+  },
+});
+
+export const orderedItemQuantityState = selector<OrderedItem>({
+  key: 'orderedItemQuantityState',
+  get: ({ get }) => {
+    const orderedList = get(orderItemState);
+
+    return orderedList.reduce(
+      (acc, cur) => {
+        acc.itemCount++;
+        acc.totalQuantity += cur.quantity;
+
+        return acc;
+      },
+      { itemCount: 0, totalQuantity: 0 }
+    );
   },
 });

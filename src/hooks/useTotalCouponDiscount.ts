@@ -1,5 +1,5 @@
 import { Coupon } from '@/types/coupon.type';
-import { recipeState } from '@/store/selectors/recipeSelector';
+import { orderRecipeState } from '@/store/selectors/orderRecipeSelector';
 import useCouponDiscount from './useCouponDiscount';
 import { useRecoilValue } from 'recoil';
 
@@ -8,7 +8,7 @@ interface Props {
 }
 
 const useTotalCouponDiscount = ({ coupons }: Props) => {
-  const { orderPrice } = useRecoilValue(recipeState);
+  const { orderPrice } = useRecoilValue(orderRecipeState);
 
   const coupon1 = coupons[0] || null;
   const coupon2 = coupons[1] || null;
