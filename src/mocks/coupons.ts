@@ -48,6 +48,22 @@ export const coupons: Coupon[] = [
     minimumAmount: 100000,
     discountType: 'fixed',
   },
+  {
+    id: 6,
+    code: 'TEN_PERCENTAGE_SALE',
+    description: '10% 할인 쿠폰',
+    expirationDate: '2024-07-31',
+    discount: 10,
+    discountType: 'percentage',
+  },
+  {
+    id: 7,
+    code: 'FIVE_PERCENTAGE_SALE',
+    description: '5% 할인 쿠폰',
+    expirationDate: '2024-07-31',
+    discount: 5,
+    discountType: 'percentage',
+  },
 ];
 
 export const INVALID_BOGO_COUPON: Coupon = {
@@ -100,4 +116,13 @@ export const VALID_BuyXgetY_COUPON: Coupon = {
   buyQuantity: 2,
   getQuantity: 1,
   discountType: 'buyXgetY',
+};
+
+export const VALID_TEN_PERCENT_COUPON: Coupon = {
+  id: 6,
+  code: 'TEN_PERCENTAGE_SALE',
+  description: '10% 할인 쿠폰',
+  expirationDate: '2024-07-31',
+  discount: 10,
+  discountType: 'percentage',
 };

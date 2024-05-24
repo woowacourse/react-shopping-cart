@@ -1,4 +1,4 @@
-import { selector } from 'recoil';
+import { selector, selectorFamily } from 'recoil';
 
 import { cartItemsState, checkedItemsState, isRemoteAreaState } from './atoms';
 import { calculateTotalDiscountAmountSelector } from '../coupon/selector';
@@ -54,6 +54,18 @@ export const orderTotalPriceState = selector<number>({
 
     return checkedItems.reduce((acc, cur) => acc + cur.quantity * cur.product.price, 0);
   },
+});
+
+export const orderTotalWithCouponsSelector = selectorFamily<number, boolean>({
+  key: 'orderTotalWithCouponsSelector',
+  get:
+    (fixed) =>
+    ({ get }) => {
+      const orderTotalPrice = get(orderTotalPriceState);
+      const discountTotalPrice = get(calculateTotalDiscountAmountSelector(fixed));
+
+      return orderTotalPrice - discountTotalPrice;
+    },
 });
 
 export const totalQuantityState = selector<number>({
