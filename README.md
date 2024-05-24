@@ -2,11 +2,30 @@
 
 ## 배포
 
-[🖱️ 배포 페이지 바로 가기](https://badahertz52.github.io/react-shopping-cart/dist/)
+[🖱️ 페이지 바로 가기](https://badahertz52.github.io/react-shopping-cart/)
 
 ## 구현
 
+### 1단계
+
 <img src="./readmeImage/cart_step1.gif" width="300px" alt="step1_구현" />
+
+### 2단계
+
+<img src="./readmeImage/step2.gif" width="300px" alt="step1_구현" />
+
+### 페이지
+
+<img src="./readmeImage/cart_mission_pages.jpg" height='300px' alt='step2_페이지'>
+
+## 기술
+
+- react (with vite)
+- vitest
+- react-router
+- recoil
+- styled-components
+- js,ts
 
 ## build
 
@@ -14,15 +33,11 @@
 npm run build
 ```
 
-- 빌드 시, EnvironmentPlugin 로 인해 오류가 나서 빌드 시에는 EnvironmentPlugin 관련 주석 처리와 import.meta.env로 설정 하고 빌드 해야 합니다.
-
 ## test
 
 ```dash
 npm run test
 ```
-
-- 로컬에서 테스트시 EnvironmentPlugin 관련 설정을 활성화 하고 import.meta.env 가 아니 process.env를 사용해야 합니다.
 
 ## 기능 구현 목록
 
@@ -169,3 +184,25 @@ npm run test
   - [x] 주문 확인 페이지에서 쿠폰,도서간 배송 여부 선택 후 다시 장바구니 페이지-> 주문 확인 페이지로 이동 시 이전에 선택이 해제된 상태여야 한다.
     </div>
   </details>
+
+## Recoil state
+
+### atom
+
+| 상태                     | 설명                                                             | 타입                  |
+| ------------------------ | ---------------------------------------------------------------- | --------------------- |
+| availableCouponAtom      | 주문 목록에 사용 가능한 쿠폰 목록                                | `Coupon[]`            |
+| cartItemsAtom            | 장바구니 목록                                                    | `CartItem[]`          |
+| couponListAtom           | 서버에서 받은 쿠폰 데이터                                        | `Map<string, Coupon>` |
+| maxDiscountAtom          | 쿠폰 사용에 따른 최대 할인 금액                                  | `number`              |
+| selectedIdsAtom          | 선택된 상품의 상품 아이디 목록, 업데이트 시 로컬 스토리지에 반영 | `numbers[]`           |
+| surchargeShippingFeeAtom | 제주도 및 도서 산간 지역에 대한 배송 선택에 따른 추가 배송비     | `number`              |
+
+### selector
+
+| 상태                  | 설명               | 타입         |
+| --------------------- | ------------------ | ------------ |
+| totalPriceSelector    | 총 결제 금액       | `number`     |
+| orderPriceSelector    | 주문 금액          | `number`     |
+| selectedItemsSelector | 선택된 상품 리스트 | `CartItem[]` |
+| shippingFeeSelector   | 배송비             | `number`     |
