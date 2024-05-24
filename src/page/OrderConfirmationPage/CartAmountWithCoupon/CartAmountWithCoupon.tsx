@@ -1,6 +1,6 @@
 import * as S from './style';
 
-import { checkedItemsState, deliveryFeeState } from '../../../recoil/selectors';
+import { checkedItemsState, couponAmountState, deliveryFeeState } from '../../../recoil/selectors';
 
 import { InfoIcon } from '../../../assets';
 import convertToLocaleAmount from '../../../utils/convertToLocalePrice';
@@ -12,8 +12,9 @@ export default function CartAmountWithCoupon() {
     (acc, item) => acc + item.quantity * item.product.price,
     0,
   );
+  const couponAmount = useRecoilValue(couponAmountState);
   const deliveryFee = useRecoilValue(deliveryFeeState);
-  const totalAmount = orderAmount + deliveryFee;
+  const totalAmount = orderAmount + deliveryFee - couponAmount;
 
   return (
     <div>
@@ -27,7 +28,7 @@ export default function CartAmountWithCoupon() {
         </S.AmountItem>
         <S.AmountItem>
           <S.Title>쿠폰 할인 금액</S.Title>
-          <S.Amount>{'-6,000원'}</S.Amount>
+          <S.Amount>{`-${convertToLocaleAmount(couponAmount)}`}</S.Amount>
         </S.AmountItem>
         <S.AmountItem>
           <S.Title>배송비</S.Title>
@@ -36,7 +37,7 @@ export default function CartAmountWithCoupon() {
       </S.OrderAmountContainer>
       <S.AmountItem>
         <S.Title>총 결제 금액</S.Title>
-        <S.Amount>{convertToLocaleAmount(totalAmount - 6000)}</S.Amount>
+        <S.Amount>{convertToLocaleAmount(totalAmount)}</S.Amount>
       </S.AmountItem>
     </div>
   );
