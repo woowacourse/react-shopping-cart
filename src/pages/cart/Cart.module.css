@@ -104,12 +104,6 @@
 }
 
 /* CartTotals */
-.cartTotalsNoticeWrapper {
-  display: flex;
-  justify-content: flex-start;
-  gap: 4px;
-}
-
 .cartTotalsWrapper {
   padding-top: 12px;
   border-top: var(--border-divider);

@@ -1,19 +1,17 @@
 import { useRecoilValue } from 'recoil';
-import noticeIcon from '../../../asset/noticeIcon.png';
 import { totalOrderAmountState } from '../../../store/selectors';
-import styles from '../Cart.module.css';
-import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
-import common from '../../../styles/common.module.css';
+import NoticeLabel from '../../../components/common/NoticeLabel/NoticeLabel';
 import { NOTICE_MESSAGE } from '../../../constants/messages';
+import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
+
+import common from '../../../styles/common.module.css';
+import styles from '../Cart.module.css';
 
 export default function CartTotals() {
   const { orderAmount, deliveryCharge, totalAmount } = useRecoilValue(totalOrderAmountState);
   return (
     <div className={styles.cartContentWrapper}>
-      <div className={styles.cartTotalsNoticeWrapper}>
-        <img src={noticeIcon} width={13} height={13} />
-        <span className={common.labelText}>{NOTICE_MESSAGE.shipping}</span>
-      </div>
+      <NoticeLabel>{NOTICE_MESSAGE.shipping}</NoticeLabel>
       <div className={styles.cartTotalsWrapper}>
         <div className={styles.cartToTalsTextWrapper}>
           <span className={common.subtitleText}>주문 금액</span>
