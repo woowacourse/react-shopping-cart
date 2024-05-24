@@ -11,6 +11,7 @@ import { isCheckedState, productsState } from '../../store/atoms';
 import CheckoutItem from './components/CheckoutItem';
 import { useState } from 'react';
 import CouponModal from './components/CouponModal';
+import ShippingFeeCheck from './components/ShippingFeeCheck';
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
@@ -58,6 +59,7 @@ export default function CheckoutPage() {
         >
           쿠폰 적용
         </button>
+        <ShippingFeeCheck />
       </div>
 
       {/* 다음 미션에서 기능 추가 예정 */}

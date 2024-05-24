@@ -46,3 +46,17 @@
   text-align: center;
   color: var(--disable-color);
 }
+
+/* ShippingFeeCheckContainer */
+.shippingFeeCheckContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.checkboxContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+}
