@@ -2,32 +2,22 @@ import PageTitle from "../components/common/PageTitle";
 import styled from "styled-components";
 import CartItemList from "../components/ShoppingCart/CartItemList/index";
 import OrderSummary from "../components/ShoppingCart/OrderSummary";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { checkedCartItemsQuantityState, getCartItems, setCartPriceAndQuantitySelector } from "../recoil/selectors";
+import { useRecoilValue } from "recoil";
+import { checkedCartItemsQuantityState } from "../recoil/selectors";
 import FooterButton from "../components/common/FooterButton/index";
 import CartEmptyScreen from "../components/ShoppingCart/CartEmptyScreen/index";
 import { useNavigate } from "react-router-dom";
 import PAGE_URL from "../constants/pageURL";
 import Header from "../components/common/Header/index";
 import { COLOR } from "../constants/styles";
-import { useEffect, useState } from "react";
 import { SHOPPING_MESSAGE } from "../constants/messages";
+import useFetchCartItems from "../hooks/useFetchCartItems";
 
 const ShoppingCart = () => {
-  const fetchedCartItems = useRecoilValue(getCartItems);
-  const [cartItems, setCartItems] = useState(fetchedCartItems);
+  const { cartItems, removeCartItem } = useFetchCartItems();
   const checkedCartItemsQuantity = useRecoilValue(checkedCartItemsQuantityState);
-  const setCartPrice = useSetRecoilState(setCartPriceAndQuantitySelector);
-
-  useEffect(() => {
-    setCartPrice(fetchedCartItems);
-  }, [fetchedCartItems, setCartPrice]);
 
   const router = useNavigate();
-
-  const removeCartItem = (itemId: number) => {
-    setCartItems((prevItems) => prevItems?.filter((item) => item.id !== itemId));
-  };
 
   const cartItemsLength = cartItems.length;
   const isCartEmpty = cartItemsLength === 0;
