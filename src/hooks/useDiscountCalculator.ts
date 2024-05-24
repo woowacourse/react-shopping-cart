@@ -1,16 +1,17 @@
 import { Coupon } from '../types/Coupon';
+import { useCouponApplicabilityChecker } from './useCouponApplicabilityChecker';
 
 export const useDiscountCalculator = () => {
-  // const { isCouponApplicable } = useCouponApplicabilityChecker();
+  const { isCouponApplicable } = useCouponApplicabilityChecker();
 
   /**
    * 고정값을 할인하는 쿠폰의 할인 금액 반환
    * @returns { number }
    */
   const calculateFixedDiscount = (coupon: Coupon, totalAmount: number) => {
-    // if (!isCouponApplicable(coupon, totalAmount)) {
-    //   return 0;
-    // }
+    if (!isCouponApplicable(coupon, totalAmount)) {
+      return 0;
+    }
     return coupon.discount ?? 0;
   };
 
@@ -19,9 +20,9 @@ export const useDiscountCalculator = () => {
    * @returns { number }
    */
   const calculatePercentageDiscount = (coupon: Coupon, totalAmount: number) => {
-    // if (!isCouponApplicable(coupon, totalAmount)) {
-    //   return 0;
-    // }
+    if (!isCouponApplicable(coupon, totalAmount)) {
+      return 0;
+    }
     return Math.floor((totalAmount * (coupon.discount ?? 0)) / 100);
   };
 
@@ -35,9 +36,9 @@ export const useDiscountCalculator = () => {
     totalAmount: number,
     now: Date = new Date(),
   ) => {
-    // if (!isCouponApplicable(coupon, totalAmount, now)) {
-    //   return 0;
-    // }
+    if (!isCouponApplicable(coupon, totalAmount, now)) {
+      return 0;
+    }
 
     switch (coupon.discountType) {
       case 'fixed':

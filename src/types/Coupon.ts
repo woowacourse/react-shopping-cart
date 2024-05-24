@@ -1,6 +1,6 @@
 export interface AvailableTime {
-  start: Date;
-  end: Date;
+  start: string;
+  end: string;
 }
 
 export interface Coupon {
