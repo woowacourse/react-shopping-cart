@@ -1,5 +1,5 @@
 import CartContainer from './CartContainer/CartContainer';
-import ConfirmButton from '../../components/ConfirmButton/ConfirmButton';
+import ConfirmButton from './ConfirmButton/ConfirmButton';
 import Header from '../../components/Header/Header';
 import { Suspense } from 'react';
 import TitleContainer from '../../components/TitleContainer/TitleContainer';
