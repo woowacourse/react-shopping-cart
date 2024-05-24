@@ -1,7 +1,12 @@
 import { selector } from "recoil";
 import { DELIVERY } from "../../constants";
 import { CartItem, CartSummary } from "../../types";
-import { cartItemsState, checkedItemState, isShippingRegionCheckedState } from "../atoms/atoms";
+import {
+  cartItemsState,
+  checkedItemState,
+  couponsState,
+  isShippingRegionCheckedState,
+} from "../atoms/atoms";
 
 export const cartSummarySelectorState = selector<CartSummary>({
   key: "cartSummarySelectorState",
@@ -53,5 +58,14 @@ export const selectedCartItemsSelectorState = selector<CartItem[]>({
     const checkedItems = get(checkedItemState);
 
     return cartItems.filter((item) => checkedItems[item.id]);
+  },
+});
+
+export const couponListSelectorState = selector({
+  key: "couponListSelectorState",
+  get: ({ get }) => {
+    const coupons = get(couponsState);
+
+    return coupons;
   },
 });

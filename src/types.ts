@@ -24,12 +24,13 @@ export interface CartSummary {
   uniqueItemCount: number;
   totalItemCount: number;
 }
-
 export interface Coupon {
-  id: string;
+  id: number;
+  code: string;
   description: string;
   expirationDate: string;
-  discountType: string;
+  discount?: number;
+  discountType: "fixed" | "percentage" | "buyXgetY" | "freeShipping";
   minimumAmount?: number;
   buyQuantity?: number;
   getQuantity?: number;

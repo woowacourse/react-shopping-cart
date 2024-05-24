@@ -1,12 +1,14 @@
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { getCoupons } from "../api";
 import { ERROR_MESSAGES } from "../constants";
 import { couponsState } from "../recoil/atoms/atoms";
+import { couponListSelectorState } from "../recoil/selector/selector";
 import { Coupon } from "../types";
 
 export const useFetchCoupons = (): Coupon[] => {
-  const [coupons, setCoupons] = useRecoilState<Coupon[]>(couponsState);
+  const setCoupons = useSetRecoilState(couponsState);
+  const coupons = useRecoilValue(couponListSelectorState);
 
   useEffect(() => {
     const fetchCoupons = async () => {
@@ -17,7 +19,6 @@ export const useFetchCoupons = (): Coupon[] => {
         console.error(ERROR_MESSAGES.FETCH_COUPONS, error);
       }
     };
-
     fetchCoupons();
   }, [setCoupons]);
 

@@ -1,7 +1,7 @@
 import { atom, selector } from "recoil";
 import { getCartItems } from "../../api";
 import { ERROR_MESSAGES } from "../../constants";
-import { CartItem } from "../../types";
+import { CartItem, Coupon } from "../../types";
 import { getLocalStorageState } from "../../utils/getLocalStorageStore";
 
 export const cartItemsState = atom<CartItem[]>({
@@ -59,4 +59,9 @@ export const cartDeliveryPriceState = atom<number>({
 export const orderDeliveryPriceState = atom<number>({
   key: "orderDeliveryPriceState",
   default: 0,
+});
+
+export const couponsState = atom<Coupon[]>({
+  key: "couponState",
+  default: [],
 });
