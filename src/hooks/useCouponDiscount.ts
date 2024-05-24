@@ -32,7 +32,8 @@ const useCouponDiscount = () => {
   useEffect(() => {
     const sortedCoupons = selectedCoupons.sort(couponPriorityCompare);
     const totalDiscountAmount = sortedCoupons.reduce(
-      (acc, cur) => acc + cur.discountAmount(totalAmount, shippingFee, itemQuantityAndPrice),
+      (discountAmount, coupon) =>
+        discountAmount + coupon.discountAmount(totalAmount - discountAmount, shippingFee, itemQuantityAndPrice),
       0
     );
 
