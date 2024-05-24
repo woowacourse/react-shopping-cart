@@ -3,6 +3,7 @@ export const PRICE = {
   shippingFee: {
     free: 0,
     basic: 3000,
+    inaccessibleAreas: 3000,
   },
 } as const;
 

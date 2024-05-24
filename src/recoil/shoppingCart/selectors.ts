@@ -1,7 +1,7 @@
 import { fetchCartItems } from '@apis/shoppingCart';
 import { CartItem } from '@appTypes/shoppingCart';
 import { PRICE } from '@constants/shippingCart';
-import { totalDiscountPriceSelector } from '@recoil/orderConfirm';
+import { isInaccessibleAreaAtom, totalDiscountPriceSelector } from '@recoil/orderConfirm';
 import { cartItemsAtom, quantityAtomFamily, selectedIdsAtom } from '@recoil/shoppingCart/atoms';
 import { selector, selectorFamily } from 'recoil';
 
@@ -39,10 +39,16 @@ export const shippingPriceSelector = selector({
   key: 'shippingPriceSelector',
   get: ({ get }) => {
     const orderPrice = get(orderPriceSelector);
+    const isInaccessibleArea = get(isInaccessibleAreaAtom);
 
     const { freeShippingMinAmount, shippingFee } = PRICE;
 
-    return orderPrice === 0 || orderPrice >= freeShippingMinAmount ? shippingFee.free : shippingFee.basic;
+    const shippingPrice =
+      orderPrice === 0 || orderPrice >= freeShippingMinAmount ? shippingFee.free : shippingFee.basic;
+
+    if (isInaccessibleArea) return shippingPrice + PRICE.shippingFee.inaccessibleAreas;
+
+    return shippingPrice;
   },
 });
 

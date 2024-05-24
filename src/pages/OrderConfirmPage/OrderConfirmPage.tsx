@@ -8,11 +8,13 @@ import { OrderPrice } from '@components/shoppingCart';
 import { PRICE } from '@constants/shippingCart';
 import { useSelectedCartItems } from '@hooks/shoppingCart';
 import useOrderCosts from '@hooks/shoppingCart/useOrderCosts';
-import { couponListAtom, selectedCouponListAtom } from '@recoil/orderConfirm';
+import { isInaccessibleAreaAtom, selectedCouponListAtom } from '@recoil/orderConfirm';
 import { cartItemsAtom } from '@recoil/shoppingCart';
+import { ROUTE_PATHS } from '@routes/route.constant';
 import { formatKoreanCurrency } from '@utils/currency';
 import { Suspense, useEffect, useState } from 'react';
-import { useResetRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 
 import * as Styled from './OrderConfirmPage.styled';
 
@@ -20,17 +22,21 @@ const OrderConfirmPage = () => {
   const { selectedItems, totalSelectedItemLength, selectedTotalQuantity } = useSelectedCartItems();
   const { orderPrice, shippingPrice, afterDiscountTotalPrice, totalDiscountPrice } = useOrderCosts();
 
+  const [isInaccessibleArea, setIsInaccessibleArea] = useRecoilState(isInaccessibleAreaAtom);
+
   const [isOpen, setIsOpen] = useState(false);
 
-  const resetCouponList = useResetRecoilState(couponListAtom);
   const resetSelectedCouponList = useResetRecoilState(selectedCouponListAtom);
-  const resetTotalPrice = useResetRecoilState(cartItemsAtom);
+  const resetCartItems = useResetRecoilState(cartItemsAtom);
+  const resetIsInaccessibleArea = useResetRecoilState(isInaccessibleAreaAtom);
 
   useEffect(() => {
-    resetCouponList();
     resetSelectedCouponList();
-    resetTotalPrice();
-  }, [resetCouponList, resetSelectedCouponList, resetTotalPrice]);
+    resetCartItems();
+    resetIsInaccessibleArea();
+  }, [resetSelectedCouponList, resetCartItems, resetIsInaccessibleArea]);
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -59,8 +65,14 @@ const OrderConfirmPage = () => {
       <>
         <Styled.HeadingText>배송 정보</Styled.HeadingText>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', paddingTop: '20px' }}>
-          <CheckBox checked />
-          <Styled.LabelText>제주도 및 도서 산간 지역</Styled.LabelText>
+          <CheckBox
+            disabled={orderPrice >= PRICE.freeShippingMinAmount}
+            checked={isInaccessibleArea}
+            onChange={() => setIsInaccessibleArea((prev) => !prev)}
+          />
+          <Styled.LabelText $isDisabled={orderPrice >= PRICE.freeShippingMinAmount}>
+            제주도 및 도서 산간 지역
+          </Styled.LabelText>
         </div>
         <Styled.CartInfoBanner>
           <UpsideDownExclamation />
@@ -74,7 +86,7 @@ const OrderConfirmPage = () => {
           discountPrice={totalDiscountPrice}
           totalPrice={afterDiscountTotalPrice}
         />
-        <BottomButton>주문 확인</BottomButton>
+        <BottomButton onClick={() => navigate(ROUTE_PATHS.paymentConfirm)}>결제 확인</BottomButton>
       </>
     </>
   );

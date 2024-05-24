@@ -17,7 +17,7 @@ export const OrderConfirmSubTitle = styled.p`
 `;
 
 export const CartInfoBanner = styled.p`
-  padding: 52px 0px 12px 0px;
+  padding: 32px 0px 12px 0px;
   display: flex;
   align-items: center;
   gap: 4px;
@@ -31,11 +31,11 @@ export const CartInfoBannerText = styled.span`
   line-height: 15px;
 `;
 
-export const LabelText = styled.span`
+export const LabelText = styled.span<{ $isDisabled?: boolean }>`
   font-size: 12px;
   font-weight: 500;
   line-height: 15px;
-  color: rgba(10, 13, 19, 1);
+  color: ${({ $isDisabled }) => ($isDisabled ? 'lightgray' : 'rgba(10, 13, 19, 1)')};
 `;
 
 export const HeadingText = styled.h1`

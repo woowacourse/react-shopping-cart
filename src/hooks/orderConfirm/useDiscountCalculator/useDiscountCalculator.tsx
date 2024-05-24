@@ -1,11 +1,11 @@
 import { Coupon } from '@appTypes/orderConfirm';
-import { beforeDiscountTotalPriceSelector, selectedItemsSelector, shippingPriceSelector } from '@recoil/shoppingCart';
+import { orderPriceSelector, selectedItemsSelector, shippingPriceSelector } from '@recoil/shoppingCart';
 import { useRecoilValue } from 'recoil';
 
 export const useDiscountCalculator = () => {
   const selectedCartItems = useRecoilValue(selectedItemsSelector);
   const shippingPrice = useRecoilValue(shippingPriceSelector);
-  const totalPrice = useRecoilValue(beforeDiscountTotalPriceSelector);
+  const orderPrice = useRecoilValue(orderPriceSelector);
 
   const calculateBOGODiscount = () => {
     const selectedCartItemDiscountPrices = selectedCartItems.map((selectedCartItem) => {
@@ -22,7 +22,7 @@ export const useDiscountCalculator = () => {
       case 'fixed':
         return coupon.discount ?? 0;
       case 'percentage':
-        return Math.floor((totalPrice * (coupon.discount ?? 0)) / 100);
+        return Math.floor((orderPrice * (coupon.discount ?? 0)) / 100);
       case 'buyXgetY':
         return calculateBOGODiscount();
       case 'freeShipping': {

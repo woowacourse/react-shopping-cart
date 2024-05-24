@@ -22,7 +22,7 @@ const OrderPage: React.FC = () => {
   return (
     <>
       <Styled.OrderPageTitle>장바구니</Styled.OrderPageTitle>
-      <APIErrorBoundary onReset={() => navigate(-1)} fallback={ErrorFallback}>
+      <APIErrorBoundary onReset={() => navigate(ROUTE_PATHS.root)} fallback={ErrorFallback}>
         <Suspense fallback={<LoadingSpinner $width="100%" $height="70vh" />}>
           <ShoppingCartContent />
         </Suspense>

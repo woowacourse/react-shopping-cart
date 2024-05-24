@@ -15,7 +15,12 @@ export const couponListAtom = atom<Coupon[]>({
   default: couponListSelector,
 });
 
-export const selectedCouponListAtom = atom<Required<Pick<Coupon, 'id' | 'discount'>>[]>({
+export const selectedCouponListAtom = atom<Coupon[]>({
   key: 'selectedCouponListAtom',
   default: [],
+});
+
+export const isInaccessibleAreaAtom = atom({
+  key: 'isInaccessibleAreaAtom',
+  default: false,
 });

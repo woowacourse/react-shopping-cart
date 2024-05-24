@@ -26,6 +26,7 @@ export default defineConfig({
       { find: '@appTypes', replacement: resolve(__dirname, 'src/appTypes') },
       { find: '@errors', replacement: resolve(__dirname, 'src/errors') },
       { find: '@recoil', replacement: resolve(__dirname, 'src/recoil') },
+      { find: '@domain', replacement: resolve(__dirname, 'src/domain') },
     ],
   },
 });
