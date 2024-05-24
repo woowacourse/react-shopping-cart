@@ -24,7 +24,7 @@ export default function useCoupon() {
     setCoupons(nextCoupons);
   };
 
-  const isAddable = coupons.length < MAX_COUPON_NUMBER;
+  const IS_ADDABLE = coupons.length < MAX_COUPON_NUMBER;
 
-  return { isSelectedCoupon, addCoupon, deleteCoupon, isAddable };
+  return { isSelectedCoupon, addCoupon, deleteCoupon, IS_ADDABLE };
 }
