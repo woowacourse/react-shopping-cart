@@ -77,3 +77,20 @@ export async function fetchCoupons() {
 
   return data;
 }
+
+export async function fetchNewOrders(cartItemIds: number[]) {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+
+  const response = await fetch(`${API_URL}/orders`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
+    body: JSON.stringify({ cartItemIds }),
+  });
+
+  if (!response.ok) {
+    throw new HTTPError(response.status, 'Failed to new orders');
+  }
+}

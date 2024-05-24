@@ -14,7 +14,7 @@ export const quantityAtomFamily = atomFamily<number, number>({
   default: quantitySelectorFamily,
 });
 
-export const selectedIdsAtom = atom({
+export const selectedIdsAtom = atom<Set<number>>({
   key: 'selectedIdsAtom',
   default: new Set(JSON.parse(localStorage.getItem(STORAGE_KEY.selectedItems) ?? '[]')) ?? new Set(),
   effects: [localStorageEffect(STORAGE_KEY.selectedItems)],

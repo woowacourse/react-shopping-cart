@@ -1,13 +1,12 @@
+import { fetchCartItems } from '@apis/shoppingCart';
 import { BottomButton } from '@components/common';
-import { STORAGE_KEY } from '@constants/storage';
 import { useSelectedCartItems } from '@hooks/shoppingCart';
 import useOrderCosts from '@hooks/shoppingCart/useOrderCosts';
-import { isInaccessibleAreaAtom, selectedCouponListAtom } from '@recoil/orderConfirm';
 import { cartItemsAtom, selectedIdsAtom } from '@recoil/shoppingCart';
 import { ROUTE_PATHS } from '@routes/route.constant';
 import { formatKoreanCurrency } from '@utils/index';
 import { useNavigate } from 'react-router-dom';
-import { useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 
 import * as Styled from './PaymentConfirmPage.styled';
 
@@ -18,10 +17,8 @@ const PaymentConfirmPage: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const resetSelectedCouponList = useResetRecoilState(selectedCouponListAtom);
-  const resetCartItems = useResetRecoilState(cartItemsAtom);
-  const resetIsInaccessibleArea = useResetRecoilState(isInaccessibleAreaAtom);
   const setSelectedIds = useSetRecoilState(selectedIdsAtom);
+  const setCartItems = useSetRecoilState(cartItemsAtom);
 
   return (
     <Styled.OrderConfirmPageContainer>
@@ -33,13 +30,11 @@ const PaymentConfirmPage: React.FC = () => {
       <Styled.TotalPriceTitle>총 결제 금액 </Styled.TotalPriceTitle>
       <Styled.TotalPrice>{formatKoreanCurrency(afterDiscountTotalPrice)}</Styled.TotalPrice>
       <BottomButton
-        onClick={() => {
-          resetSelectedCouponList();
-          resetCartItems();
-          resetIsInaccessibleArea();
-
-          localStorage.removeItem(STORAGE_KEY.selectedItems);
+        onClick={async () => {
           setSelectedIds(new Set());
+
+          const cartItems = await fetchCartItems();
+          setCartItems(cartItems);
 
           navigate(ROUTE_PATHS.root);
         }}

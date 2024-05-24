@@ -13,7 +13,7 @@ const useCheckCartItem = () => {
   const onCheckAllCartItems = () => {
     const newCheckState = !isAllChecked ? new Set(cartItems.map((item) => item.id)) : new Set();
 
-    setSelectedCartItemIds(newCheckState);
+    setSelectedCartItemIds(newCheckState as Set<number>);
   };
 
   const onCheckCartItem = (id: number) => {

@@ -1,3 +1,4 @@
+import { fetchNewOrders } from '@apis/shoppingCart';
 import { UpsideDownExclamation } from '@assets/index';
 import { BottomButton, LoadingSpinner } from '@components/common';
 import CheckBox from '@components/common/Checkbox/Checkbox';
@@ -9,18 +10,19 @@ import { PRICE } from '@constants/shippingCart';
 import { useSelectedCartItems } from '@hooks/shoppingCart';
 import useOrderCosts from '@hooks/shoppingCart/useOrderCosts';
 import { isInaccessibleAreaAtom, selectedCouponListAtom } from '@recoil/orderConfirm';
-import { cartItemsAtom } from '@recoil/shoppingCart';
+import { cartItemsAtom, selectedIdsAtom } from '@recoil/shoppingCart';
 import { ROUTE_PATHS } from '@routes/route.constant';
 import { formatKoreanCurrency } from '@utils/currency';
 import { Suspense, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 
 import * as Styled from './OrderConfirmPage.styled';
 
 const OrderConfirmPage = () => {
   const { selectedItems, totalSelectedItemLength, selectedTotalQuantity } = useSelectedCartItems();
   const { orderPrice, shippingPrice, afterDiscountTotalPrice, totalDiscountPrice } = useOrderCosts();
+  const selectedIds = useRecoilValue(selectedIdsAtom);
 
   const [isInaccessibleArea, setIsInaccessibleArea] = useRecoilState(isInaccessibleAreaAtom);
 
@@ -37,6 +39,12 @@ const OrderConfirmPage = () => {
   }, [resetSelectedCouponList, resetCartItems, resetIsInaccessibleArea]);
 
   const navigate = useNavigate();
+
+  const handlePaymentConfirm = async () => {
+    await fetchNewOrders([...selectedIds]);
+
+    navigate(ROUTE_PATHS.paymentConfirm);
+  };
 
   return (
     <>
@@ -86,7 +94,7 @@ const OrderConfirmPage = () => {
           discountPrice={totalDiscountPrice}
           totalPrice={afterDiscountTotalPrice}
         />
-        <BottomButton onClick={() => navigate(ROUTE_PATHS.paymentConfirm)}>결제 확인</BottomButton>
+        <BottomButton onClick={handlePaymentConfirm}>결제 확인</BottomButton>
       </>
     </>
   );
