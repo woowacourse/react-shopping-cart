@@ -24,10 +24,7 @@ export default function CheckoutItem({ cartItem }: Props) {
       <div className={styles.itemInfoContainer}>
         <div className={styles.itemNameAndPriceContainer}>
           <span className={common.captionText}> {cartItem.product.name}</span>
-          <span className={common.titleText}>
-            {' '}
-            {formatKoreanCurrency(cartItem.product.price)}원
-          </span>
+          <span className={common.titleText}> {formatKoreanCurrency(cartItem.product.price)}</span>
         </div>
         <span className={common.captionText}>{cartItem.quantity}개</span>
       </div>

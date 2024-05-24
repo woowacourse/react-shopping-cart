@@ -43,7 +43,7 @@ export default function CartItem({ id, price, imageUrl, name, isChecked, setAllC
 
         <div className={styles.itemInfoContainer}>
           <span className={common.captionText}> {name}</span>
-          <span className={common.titleText}> {formatKoreanCurrency(price)}원</span>
+          <span className={common.titleText}> {formatKoreanCurrency(price)}</span>
           <div className={styles.plusMinusButtonContainer}>
             <Button
               className={styles.plusMinusButton}

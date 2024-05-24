@@ -14,18 +14,12 @@ export default function CartTotals() {
     <div className={styles.cartTotalsContainer}>
       <NoticeLabel>{NOTICE_MESSAGE.shipping}</NoticeLabel>
       <Divider />
-      <SubtitleSpaceBetween
-        subtitle="주문 금액"
-        content={`${formatKoreanCurrency(orderAmount)}원`}
-      />
-      <SubtitleSpaceBetween
-        subtitle="배송비"
-        content={`${formatKoreanCurrency(deliveryCharge)}원`}
-      />
+      <SubtitleSpaceBetween subtitle="주문 금액" content={`${formatKoreanCurrency(orderAmount)}`} />
+      <SubtitleSpaceBetween subtitle="배송비" content={`${formatKoreanCurrency(deliveryCharge)}`} />
       <Divider />
       <SubtitleSpaceBetween
         subtitle="총 결제 금액"
-        content={`${formatKoreanCurrency(totalAmount)}원`}
+        content={`${formatKoreanCurrency(totalAmount)}`}
       />
     </div>
   );
