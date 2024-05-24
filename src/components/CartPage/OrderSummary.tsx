@@ -4,7 +4,7 @@ import Splitter from "../default/Splitter";
 import LabelValue from "./LabelValue";
 import { formatCurrency } from "../../utils/formatCurrency";
 import InfoIcon from "../../assets/InfoIcon.svg?react";
-import { orderPriceSelector, shippingFeeSelector, totalPriceSelector } from "../../recoil/orderSummaryState";
+import { orderPriceSelector, shippingFeeSelector, totalPriceSelector } from "../../recoil/cart/orderSummaryState";
 
 const OrderSummary = () => {
   const orderPrice = useRecoilValue(orderPriceSelector);

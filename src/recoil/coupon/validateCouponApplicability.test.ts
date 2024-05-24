@@ -1,6 +1,6 @@
 import { snapshot_UNSTABLE } from "recoil";
 import { Coupon } from "../../types/Coupon";
-import { checkedIdSetSelector } from "../checkedState";
+import { checkedIdSetSelector } from "../cart/checkedState";
 import { mockCartItems } from "../mocks";
 import { validateCouponAplicability } from "./validateCouponApplicability";
 

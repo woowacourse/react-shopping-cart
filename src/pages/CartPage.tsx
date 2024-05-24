@@ -6,8 +6,8 @@ import OrderSummary from "../components/CartPage/OrderSummary";
 import EmptyCart from "../components/CartPage/EmptyCart";
 import CartLayout from "../components/layout";
 
-import { isVacantCartSelector } from "../recoil/cartItemState";
-import { checkedIdSetSelector } from "../recoil/checkedState";
+import { isVacantCartSelector } from "../recoil/cart/cartItemState";
+import { checkedIdSetSelector } from "../recoil/cart/checkedState";
 
 const CartPage = () => {
   const navigate = useNavigate();

@@ -24,7 +24,8 @@ export const isSelectedCouponAtomFamily = atomFamily<boolean, number>({
   key: "isSelectedAtomFamily",
   default: false,
 });
-export const selectedCouponIdSetSelector = selector<Set<number>>({
+export const selectedCouponSetSelector = selector<Set<Coupon>>({
   key: "selectedCouponSetSelector",
-  get: ({ get }) => new Set([...get(couponIdSetSelector)].filter((id) => get(isSelectedCouponAtomFamily(id)))),
+  get: ({ get }) =>
+    new Set(get(fetchCouponListSelector).filter((coupon) => get(isSelectedCouponAtomFamily(coupon.id)))),
 });

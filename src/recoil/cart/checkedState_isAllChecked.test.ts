@@ -1,8 +1,8 @@
 import { snapshot_UNSTABLE } from "recoil";
 import { checkedIdSetSelector, isAllCheckedSelector } from "./checkedState";
-import { mockCartItems } from "./mocks";
+import { mockCartItems } from "../mocks";
 
-jest.mock("../api/cartItem", () => ({ fetchCartItems: () => mockCartItems }));
+jest.mock("../../api/cartItem", () => ({ fetchCartItems: () => mockCartItems }));
 describe("isAllCheckedSelector 테스트", () => {
   it("전체 선택을 했을 때, 전체선택 상태는 true를 반환한다.", () => {
     const snapshot = snapshot_UNSTABLE(({ set }) => {

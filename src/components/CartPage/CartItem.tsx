@@ -8,8 +8,8 @@ import { CartItem } from "../../types/types";
 
 import { patchCartItemQuantity } from "../../api/cartItem";
 import { formatCurrency } from "../../utils/formatCurrency";
-import { checkedIdSetSelector, isCheckedSelectorFamily } from "../../recoil/checkedState";
-import { quantitySelectorFamily } from "../../recoil/cartItemState";
+import { checkedIdSetSelector, isCheckedSelectorFamily } from "../../recoil/cart/checkedState";
+import { quantitySelectorFamily } from "../../recoil/cart/cartItemState";
 
 interface CardItemProps {
   product: CartItem;

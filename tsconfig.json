@@ -22,7 +22,10 @@
 
     /* Testing */
     "types": ["jest", "node"],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+
+    "baseUrl": "./",
+    "paths": { "@api/": ["src/api/"] }
   },
   "include": ["src", "src/svg.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]

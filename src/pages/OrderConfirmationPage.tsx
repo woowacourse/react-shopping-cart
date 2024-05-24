@@ -4,8 +4,8 @@ import { useRecoilValue } from "recoil";
 import { formatCurrency } from "../utils/formatCurrency";
 import LeftArrow from "../assets/LeftArrow.svg?react";
 import CartLayout from "../components/layout";
-import { checkedIdSetSelector } from "../recoil/checkedState";
-import { totalCountSelector, totalPriceSelector } from "../recoil/orderSummaryState";
+import { checkedIdSetSelector } from "../recoil/cart/checkedState";
+import { totalCountSelector, totalPriceSelector } from "../recoil/cart/orderSummaryState";
 
 const OrderConfirmationPage = () => {
   const navigate = useNavigate();

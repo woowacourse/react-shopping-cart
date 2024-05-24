@@ -4,7 +4,7 @@ import {
   couponIdSetSelector,
   couponSelectorFamily,
   isSelectedCouponAtomFamily,
-  selectedCouponIdSetSelector,
+  selectedCouponSetSelector,
 } from "./couponState";
 
 jest.mock("../../api/coupon", () => ({ fetchCouponList: () => mockCouponList }));
@@ -43,13 +43,14 @@ describe("couponState 테스트", () => {
     it("아무것도 선택되지 않았을 때, 빈 Set을 반환한다.", () => {
       const snapshot = snapshot_UNSTABLE();
 
-      expect(snapshot.getLoadable(selectedCouponIdSetSelector).contents).toEqual(new Set());
+      expect(snapshot.getLoadable(selectedCouponSetSelector).contents).toEqual(new Set());
     });
     describe("하나의 쿠폰만 선택된 상태일 때, 해당 id만 담은 Set을 반환한다.", () => {
       it.each([1, 2, 3, 4])("$s번 쿠폰만 선택하였을 때, 숫자 %s만 담은 Set을 반환한다.", (SELECTED_COUPON_ID) => {
         const snapshot = snapshot_UNSTABLE(({ set }) => set(isSelectedCouponAtomFamily(SELECTED_COUPON_ID), true));
+        const COUPON_SET_SELECTED = new Set([mockCouponList[SELECTED_COUPON_ID - 1]]);
 
-        expect(snapshot.getLoadable(selectedCouponIdSetSelector).contents).toEqual(new Set([SELECTED_COUPON_ID]));
+        expect(snapshot.getLoadable(selectedCouponSetSelector).contents).toEqual(COUPON_SET_SELECTED);
       });
     });
   });

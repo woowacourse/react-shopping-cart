@@ -1,10 +1,10 @@
 import { snapshot_UNSTABLE } from "recoil";
 import { checkedIdSetSelector } from "./checkedState";
 
-import { mockCartItems } from "./mocks";
+import { mockCartItems } from "../mocks";
 import { orderPriceSelector, shippingFeeSelector, totalCountSelector, totalPriceSelector } from "./orderSummaryState";
 
-jest.mock("../api/cartItem", () => ({ fetchCartItems: () => mockCartItems }));
+jest.mock("../../api/cartItem", () => ({ fetchCartItems: () => mockCartItems }));
 
 describe("orderSummary 테스트", () => {
   describe("orderPriceSelector 테스트", () => {

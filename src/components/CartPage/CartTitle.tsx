@@ -1,6 +1,6 @@
 import { css } from "@emotion/css";
 import { useRecoilValue } from "recoil";
-import { cartItemListAtom } from "../../recoil/cartItemState";
+import { cartItemListAtom } from "../../recoil/cart/cartItemState";
 
 const CartTitle = () => {
   const cartItems = useRecoilValue(cartItemListAtom);
