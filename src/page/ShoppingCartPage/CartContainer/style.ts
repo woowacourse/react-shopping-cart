@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
 
 export const EmptyCartContainer = styled.div({
-  width: '100%',
-  height: '100%',
+  height: '600px',
   flex: '1 0 auto',
   display: 'flex',
   flexDirection: 'column',
