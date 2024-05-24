@@ -34,4 +34,15 @@ export const CartItemListMock: CartItem[] = [
       category: "fashion",
     },
   },
+  {
+    id: 4,
+    quantity: 1,
+    product: {
+      id: 4,
+      name: "10만원",
+      price: 100000,
+      imageUrl: "",
+      category: "etc",
+    },
+  },
 ];

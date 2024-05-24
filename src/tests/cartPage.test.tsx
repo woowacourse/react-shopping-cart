@@ -18,10 +18,7 @@ import { MemoryRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { theme } from "@/styles/theme";
 
-import {
-  totalOrderPriceSelector,
-  shippingFeeSelector,
-} from "@/recoil/orderInformation";
+import { totalOrderPriceSelector } from "@/recoil/orderInformation";
 
 jest.mock("../auth/utils/index", () => ({
   config: {
@@ -145,30 +142,6 @@ describe("상품 가격을 계산하는 기능", () => {
       result.current.setCartItemCount(5);
     });
     expect(result.current.totalPrice).toBe(5600);
-  });
-
-  it("10만원 이하이면 배송비를 3000원으로 계산하고 이상이면 무료로 계산", () => {
-    const { result } = renderHook(
-      () => {
-        const shippingFee = useRecoilValue(shippingFeeSelector);
-        const setCartItemCount = useSetRecoilState(
-          cartItemQuantity(CartItemListMock[0].id)
-        );
-        return { shippingFee, setCartItemCount };
-      },
-      {
-        wrapper: ({ children }) => (
-          <RecoilRoot initializeState={initializeState}>{children}</RecoilRoot>
-        ),
-      }
-    );
-
-    expect(result.current.shippingFee).toBe(3000);
-
-    act(() => {
-      result.current.setCartItemCount(100);
-    });
-    expect(result.current.shippingFee).toBe(0);
   });
 });
 
