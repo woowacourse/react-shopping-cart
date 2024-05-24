@@ -10,6 +10,7 @@ import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
 import { ProductType } from '../../../types';
 import styles from '../Cart.module.css';
 import common from '../../../styles/common.module.css';
+import CheckBox from '../../../components/common/CheckBox/CheckBox';
 
 interface Props extends ProductType {
   quantity: number;
@@ -26,14 +27,7 @@ export default function CartItem({ id, price, imageUrl, name, isChecked, setAllC
   return (
     <li className={styles.cartItemContainer}>
       <div className={styles.cartItemInputButtonContainer}>
-        <input
-          type="checkbox"
-          id={`item-${id}`}
-          checked={isChecked}
-          className={styles.customCheckbox}
-          onChange={() => handleToggleSelect(id)}
-        />
-        <label htmlFor={`item-${id}`} className={styles.customCheckboxLabel} />
+        <CheckBox id={`item-${id}`} checked={isChecked} onChange={() => handleToggleSelect(id)} />
         <Button
           variant="image"
           className={`${styles.deleteButton} ${common.captionText}`}
