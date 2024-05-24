@@ -49,6 +49,8 @@ const CartOrderFormPage = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const { couponList } = useCouponList();
+  const { clearSelectedCartItemIdList } = useSelectedCartItemIdList();
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -56,6 +58,20 @@ const CartOrderFormPage = () => {
   const openModal = () => {
     setIsModalOpen(true);
   };
+
+  const { showBoundary } = useErrorBoundary();
+  const completeOrder = async () => {
+    try {
+      await requestOrders(selectedCartItemList.map(({ cartItemId }) => cartItemId));
+
+      clearSelectedCartItemIdList();
+      navigate(ROUTES.CART_ORDER_COMPLETE);
+    } catch (error) {
+      showBoundary(new Error('결제 요청에 실패했습니다.'));
+    }
+  };
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -65,9 +81,9 @@ const CartOrderFormPage = () => {
           title="주문 확인"
           description={`총 ${selectedCartItemList.length}종류의 상품 ${totalQuantity}개를 주문합니다. \n최종 결제 금액을 확인해주세요.`}
         />
-        {selectedCartItemList.map((cartItem) => (
-          <CartItem {...cartItem} />
-        ))}
+          {selectedCartItemList.map((cartItem) => (
+            <CartItem {...cartItem} />
+          ))}
         <Button width="full" onClick={openModal}>
           쿠폰 적용
         </Button>
@@ -86,7 +102,7 @@ const CartOrderFormPage = () => {
         radius={0}
         size="l"
         style={{ position: 'fixed', bottom: '0', width: '100%', maxWidth: '768px' }}
-        isDisabled
+        onClick={completeOrder}
       >
         결제하기
       </Button>
