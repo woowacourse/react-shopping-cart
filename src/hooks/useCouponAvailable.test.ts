@@ -10,12 +10,6 @@ import MOCK_CART_LIST from '@/constants/_mock/mockCartList';
 import { renderHook } from '@testing-library/react';
 import useCouponAvailable from './useCouponAvailable';
 
-jest.mock('@/api/config', () => ({
-  config: {
-    apiUrl: 'http://localhost:mock',
-  },
-}));
-
 describe('useCouponAvailable test', () => {
   const today = new Date();
   it('[최소 주문 금액 이상] 쿠폰 적용 가능 조건을 확인한 후 사용 가능 여부를 알려준다. (최소 주문 금액)', () => {

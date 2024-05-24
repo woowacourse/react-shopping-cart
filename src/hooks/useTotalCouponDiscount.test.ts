@@ -11,12 +11,6 @@ import { MOCK_COUPON_LIST } from '@/constants/_mock/mockCouponList';
 import { renderHook } from '@testing-library/react';
 import useTotalCouponDiscount from './useTotalCouponDiscount';
 
-jest.mock('@/api/config', () => ({
-  config: {
-    apiUrl: 'http://localhost:mock',
-  },
-}));
-
 describe('useTotalCouponDiscount 훅을 사용하여 적용된 모든 쿠폰들에 대한 최종 할인 가격을 가져올 수 있다.', () => {
   it('쿠폰을 하나만 사용시 하나의 할인 금액만 보여준다.', () => {
     const { result } = renderHook(

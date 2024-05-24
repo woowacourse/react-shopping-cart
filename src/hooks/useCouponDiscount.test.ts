@@ -8,15 +8,9 @@ import {
 import { Coupon } from '@/types/coupon.type';
 import MOCK_CART_LIST from '@/constants/_mock/mockCartList';
 import { MOCK_COUPON_LIST } from '@/constants/_mock/mockCouponList';
-import { recipeState } from '@/store/selectors/recipeSelector';
+import { orderRecipeState } from '@/store/selectors/orderRecipeSelector';
 import { renderHook } from '@testing-library/react';
 import useCouponDiscount from './useCouponDiscount';
-
-jest.mock('@/api/config', () => ({
-  config: {
-    apiUrl: 'http://localhost:mock',
-  },
-}));
 
 describe('useCouponDiscount test', () => {
   it('[5000원 할인 쿠폰] 쿠폰으로 할인된 가격을 보여준다.', () => {
@@ -154,7 +148,7 @@ describe('useCouponDiscount test', () => {
           discountType: 'percentage',
         };
 
-        const { orderPrice } = useRecoilValue(recipeState);
+        const { orderPrice } = useRecoilValue(orderRecipeState);
         const discountedPrice = useCouponDiscount({
           coupon,
           orderPrice,

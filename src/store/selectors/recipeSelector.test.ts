@@ -6,14 +6,8 @@ import { RecoilRoot, useRecoilValue, useSetRecoilState } from 'recoil';
 import { cartListState, filteredCartItemState } from '@/store/atoms';
 
 import MOCK_CART_LIST from '@/constants/_mock/mockCartList';
-import { recipeState } from '@/store/selectors/recipeSelector';
+import { orderRecipeState } from '@/store/selectors/orderRecipeSelector';
 import { renderHook } from '@testing-library/react';
-
-jest.mock('@/api/config', () => ({
-  config: {
-    apiUrl: 'http://localhost:mock',
-  },
-}));
 
 describe('cartTotalPriceState', () => {
   it('선택된 상품들의 최종 가격을 계산하고, 10만원 이하 시 배송비가 포함된다.', () => {
@@ -30,7 +24,7 @@ describe('cartTotalPriceState', () => {
         });
 
         const { orderPrice, shippingFee, totalPrice } =
-          useRecoilValue(recipeState);
+          useRecoilValue(orderRecipeState);
 
         return { orderPrice, shippingFee, totalPrice };
       },
@@ -58,7 +52,7 @@ describe('cartTotalPriceState', () => {
         });
 
         const { orderPrice, shippingFee, totalPrice } =
-          useRecoilValue(recipeState);
+          useRecoilValue(orderRecipeState);
 
         return { orderPrice, shippingFee, totalPrice };
       },

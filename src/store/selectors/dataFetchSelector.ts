@@ -1,5 +1,6 @@
+import { MOCK_MOCK_COUPON_LIST } from '@/constants/_mock/mockCouponList';
 import { getCartList } from '@/api/cartItem';
-import { getCouponList } from '@/api/coupons';
+// import { getCouponList } from '@/api/coupons';
 import { selector } from 'recoil';
 
 export const cartState = selector({
@@ -13,7 +14,8 @@ export const cartState = selector({
 export const couponState = selector({
   key: 'couponState',
   get: async () => {
-    const coupon = await getCouponList();
-    return coupon;
+    // const coupon = await getCouponList();
+    // return coupon;
+    return MOCK_MOCK_COUPON_LIST;
   },
 });

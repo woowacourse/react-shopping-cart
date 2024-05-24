@@ -11,12 +11,6 @@ import { MOCK_COUPON_LIST } from '@/constants/_mock/mockCouponList';
 import { act } from 'react';
 import { renderHook } from '@testing-library/react';
 
-jest.mock('@/api/config', () => ({
-  config: {
-    apiUrl: 'http://localhost:mock',
-  },
-}));
-
 describe('filteredCartItemState test', () => {
   const mockId = 1;
   it('초기값은 default value로 지정된다.', () => {
