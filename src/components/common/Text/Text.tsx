@@ -1,13 +1,14 @@
-import React, { ReactNode } from 'react';
+import React, { HTMLAttributes, ReactNode } from 'react';
 import * as S from './Text.style';
 
-export type TextProps = {
+export type TextProps = HTMLAttributes<HTMLParagraphElement> & {
   size?: 's' | 'm' | 'l' | number;
   weight?: 's' | 'm' | 'l';
   children: ReactNode;
 };
 
-const Text = ({ children, size = 'm', weight = 'l' }: TextProps) => {
+const Text = ({ children, size = 'm', weight = 'l', ...rest }: TextProps) => {
+  // TODO: 유틸로 분리
   const makeNewLine = (text: ReactNode) => {
     if (typeof text === 'string') {
       return text.split('\n').map((line, index) => (
@@ -21,7 +22,7 @@ const Text = ({ children, size = 'm', weight = 'l' }: TextProps) => {
   };
 
   return (
-    <S.Text size={size} weight={weight}>
+    <S.Text size={size} weight={weight} {...rest}>
       {makeNewLine(children)}
     </S.Text>
   );
