@@ -20,6 +20,22 @@ export const fetchCartItems = async (): Promise<CartItemProps[]> => {
   return data.content;
 };
 
+export const addCartItem = async (productId: number): Promise<void> => {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+  const response = await fetch(CART_ITEM_URL, {
+    method: 'POST',
+    headers: { Authorization: token, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      productId: productId,
+      quantity: 1,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to add cart item');
+  }
+};
+
 export const updateItemQuantity = async (cartId: number, quantity: number) => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const response = await fetch(cartItemURLWithCartId(cartId), {
