@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { useCouponApplicabilityChecker } from "../../hooks/coupons";
 import useSelectCoupon from "../../hooks/coupons/useSelectCoupon";
@@ -24,13 +25,22 @@ const CouponItem: React.FC<CouponItemProps> = ({ coupon }) => {
   const { id, description, expirationDate, minimumAmount, availableTime } =
     coupon;
 
-  const { isCouponSelected, toggleCouponSelected } = useSelectCoupon(id);
+  const { isCouponSelected, toggleCouponSelected, setCouponSelected } =
+    useSelectCoupon(id);
   const { isCouponApplicable } = useCouponApplicabilityChecker();
   const totalAmount = useRecoilValue(cartListTotalPrice);
+
   const isApplicable = isCouponApplicable({ coupon, totalAmount });
+
   const handleToggle = () => {
     toggleCouponSelected();
   };
+
+  useEffect(() => {
+    if (!isApplicable) {
+      setCouponSelected(false);
+    }
+  }, [isApplicable]);
 
   return (
     <div key={id}>

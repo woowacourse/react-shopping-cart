@@ -15,6 +15,7 @@ const useSelectCoupon = (id: number) => {
 
   return {
     isCouponSelected,
+    setCouponSelected,
     toggleCouponSelected,
   };
 };
