@@ -1,11 +1,9 @@
-import { Snapshot, snapshot_UNSTABLE, useRecoilCallback } from "recoil";
-import { CartItem, Coupon, CouponBase, DiscountCondition, DiscountType } from "../../types/types";
-import { orderPriceSelector, totalCountSelector } from "../orderSummaryState";
+import { Snapshot, snapshot_UNSTABLE } from "recoil";
+import { Coupon } from "../../types/types";
+import { orderPriceSelector } from "../orderSummaryState";
 import { checkedIdSetSelector } from "../checkedState";
 import { quantitySelectorFamily } from "../cartItemState";
 import { mockCartItems } from "../mocks";
-
-type DateType = `${number}-${number}-${number}`;
 
 // 가능여부 : 동적 판단 (덕타이핑).
 // 할인 : 정적 검사. DiscountType

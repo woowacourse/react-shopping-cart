@@ -15,9 +15,9 @@ export interface CouponBase {
   id: number;
   code: string;
   description: string;
-  expirationDate: string;
+  expirationDate: DateType;
 }
-
+type DateType = `${number}-${number}-${number}`;
 export type Coupon = CouponBase & DiscountType & DiscountCondition;
 
 export type DiscountType = FixedDiscount | BuyXGetYDiscount | freeShippingDiscount | PercentageDiscount;
