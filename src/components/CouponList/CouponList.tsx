@@ -26,13 +26,20 @@ const CouponList = ({ handleCloseModal }: CouponListProps) => {
   const possibleCouponList = useRecoilValue(possibleCouponListState);
 
   const handleClickCoupon = (couponId: number) => {
-    if (!possibleCouponList.includes(couponId)) return;
+    if (isDisableCoupon(couponId)) return;
 
     if (selectedCoupons.includes(couponId)) {
       setSelectedCoupons(selectedCoupons.filter((coupon) => coupon !== couponId));
     } else {
       setSelectedCoupons([...selectedCoupons, couponId]);
     }
+  };
+
+  const isDisableCoupon = (couponId: number) => {
+    return (
+      !selectedCoupons.includes(couponId) &&
+      (!possibleCouponList.includes(couponId) || selectedCoupons.length >= 2)
+    );
   };
 
   return (
@@ -47,7 +54,7 @@ const CouponList = ({ handleCloseModal }: CouponListProps) => {
           <Coupon
             key={coupon.id}
             onClick={() => handleClickCoupon(coupon.id)}
-            disabled={!possibleCouponList.includes(coupon.id)}
+            disabled={isDisableCoupon(coupon.id)}
           >
             <CouponHeader>
               {selectedCoupons.includes(coupon.id) ? <FilledCheckSvg /> : <OutlineCheckSvg />}
