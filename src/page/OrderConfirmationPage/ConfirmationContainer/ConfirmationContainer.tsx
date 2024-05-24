@@ -7,7 +7,7 @@ import DeliveryInfo from '../DeliveryInfo/DeliveryInfo';
 import { useState } from 'react';
 
 export default function ConfirmationContainer() {
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <>
       {isModalOpen && (
