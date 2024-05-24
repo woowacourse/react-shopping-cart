@@ -14,17 +14,25 @@ export function useCalculateTotalCouponDiscount() {
   const selectedCouponList = useRecoilValue(selectedCouponListState);
 
   const calculateTotalCouponDiscount = () => {
+    const bogoCoupons = selectedCouponList.filter((coupon) => coupon.discountType === 'buyXgetY');
+    const bogoDiscountedPrice = bogoCoupons.reduce((acc, cur) => {
+      return acc - calculateCouponDiscount(acc, cur);
+    }, selectedCartItemTotalPrice);
+
     const percentageCoupons = selectedCouponList.filter((coupon) => coupon.discountType === 'percentage');
     percentageCoupons.sort((a, b) => b.discount! - a.discount!);
     const percentageDiscountedPrice = percentageCoupons.reduce((acc, cur) => {
       return acc - calculateCouponDiscount(acc, cur);
-    }, selectedCartItemTotalPrice);
+    }, bogoDiscountedPrice);
 
-    const remainingCoupons = selectedCouponList.filter((coupon) => coupon.discountType !== 'percentage');
-    const remainingDiscountedPrice = remainingCoupons.reduce((acc, cur) => {
+    const fixedCoupons = selectedCouponList.filter(
+      (coupon) => coupon.discountType !== 'percentage' && coupon.discountType !== 'buyXgetY',
+    );
+    const totalDiscountedPrice = fixedCoupons.reduce((acc, cur) => {
       return acc - calculateCouponDiscount(acc, cur);
     }, percentageDiscountedPrice);
-    const totalCouponDiscount = selectedCartItemTotalPrice - remainingDiscountedPrice;
+
+    const totalCouponDiscount = selectedCartItemTotalPrice - totalDiscountedPrice;
     setSelectedCouponTotalDiscount(totalCouponDiscount);
   };
 
