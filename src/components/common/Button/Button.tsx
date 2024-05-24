@@ -6,7 +6,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   width?: 'fit' | 'full' | number;
   radius?: 's' | 'm' | 'l' | number;
   color?: 'default' | 'primary';
-  isDisabled?: boolean;
+  disabled?: boolean;
   isSquare?: boolean;
   children: ReactNode;
 }
@@ -18,14 +18,14 @@ const Button = ({
   color = 'default',
   isSquare = false,
   children,
-  isDisabled = false,
+  disabled = false,
   ...rest
 }: ButtonProps) => {
   return (
     <S.Button
       {...rest}
-      isSquare={isSquare}
-      disabled={isDisabled}
+      $isSquare={isSquare}
+      disabled={disabled}
       size={size}
       width={width}
       radius={radius}
