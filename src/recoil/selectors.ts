@@ -5,8 +5,14 @@ import {
   SHIPPING_FEE,
 } from "../constants";
 import CartItemLocalStorage, { KEY } from "../services/CartItemLocalStorage";
-import { CartItemType } from "../types";
-import { cartItemQuantity, cartItemSelected, cartListState } from "./atoms";
+import { CartItemType, Coupon } from "../types";
+import {
+  cartItemQuantity,
+  cartItemSelected,
+  cartListState,
+  couponSelectedState,
+  couponsState,
+} from "./atoms";
 
 export const initializeCartItemStorage = (items: CartItemType[]) => {
   const storageState = CartItemLocalStorage.get("cartItemSelected");
@@ -81,5 +87,19 @@ export const cartItemAllSelected = selector<boolean>({
         set(cartItemSelected(parseInt(id)), newValue);
       });
     }
+  },
+});
+
+export const selectedCouponSelector = selector<Coupon[]>({
+  key: "selectedCouponSelector",
+  get: ({ get }) => {
+    const coupons: Coupon[] = get(couponsState);
+
+    const selectedCoupons = coupons.filter((coupon: Coupon) =>
+      get(couponSelectedState(coupon.id))
+    );
+
+    console.log("Selected Coupons:", selectedCoupons);
+    return selectedCoupons;
   },
 });
