@@ -35,4 +35,5 @@ export const ERROR_MESSAGE = {
   failAccess: "페이지 접속 실패",
   networkError: "네트워크 에러가 발생했어요..",
   retry: "다시 시도",
+  paymentError: "에러가 발생했습니다. 다시 결제를 진행해주세요!",
 };

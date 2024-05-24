@@ -1,6 +1,6 @@
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { checkedCartItemsState, userLiveInSigolStates } from "../recoil/atoms";
+import { cartItemsStates, checkedCartItemsState, userLiveInSigolStates } from "../recoil/atoms";
 import { checkedCartItemsQuantityState, getCartItems, getCoupons } from "../recoil/selectors";
 import Header from "../components/common/Header/index";
 import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../constants/styles";
@@ -12,9 +12,12 @@ import OrderSummary from "../components/ShoppingCart/OrderSummary";
 import CheckboxButton from "../components/common/Button/CheckboxButton";
 import { useState } from "react";
 import { Modal } from "darr-modal-components";
-import { SHOPPING_MESSAGE } from "../constants/messages";
+import { ERROR_MESSAGE, SHOPPING_MESSAGE } from "../constants/messages";
 import CouponList from "../components/Coupon/CouponList";
 import useCouponDiscount from "../hooks/useCouponDiscount";
+import FooterButton from "../components/common/FooterButton";
+import { postOrders } from "../api/cartItem";
+import PAGE_URL from "../constants/pageURL";
 
 const CheckOrder = () => {
   const fetchedCartItems = useRecoilValue(getCartItems);
@@ -26,8 +29,21 @@ const CheckOrder = () => {
 
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const { selectedCoupons, handleSelectCoupons, discountAmount } = useCouponDiscount();
-
+  const setCartItems = useSetRecoilState(cartItemsStates);
   const router = useNavigate();
+
+  const postShoppingOrders = async () => {
+    if (!confirm("정말로 결제하겠습니까?")) return;
+
+    const res = await postOrders(checkedCartItems);
+    if (res.status === 201) {
+      router(PAGE_URL.CompleteOrder);
+      setCartItems((prevCartItems) => prevCartItems.filter((item) => !checkedCartItems.includes(item.id)));
+      return;
+    }
+
+    alert(ERROR_MESSAGE.paymentError);
+  };
 
   const checkedCartItemList = fetchedCartItems.filter((item) => checkedCartItems.includes(item.id));
   if (checkedCartItemList.length === 0) router(-1);
@@ -68,6 +84,7 @@ const CheckOrder = () => {
           <AboutShippingText htmlFor="extraShippingFee">{SHOPPING_MESSAGE.sigol}</AboutShippingText>
         </AboutShippingContent>
         <OrderSummary discountAmount={discountAmount} />
+        <FooterButton buttonText={SHOPPING_MESSAGE.makePayment} onClick={postShoppingOrders} />
       </PageContainer>
     </>
   );
