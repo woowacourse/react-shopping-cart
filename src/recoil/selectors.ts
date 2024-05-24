@@ -56,13 +56,30 @@ export const cartListTotalQuantity = selector({
   },
 });
 
-export const shippingFee = selector({
-  key: "shippingFee",
+export const orderListTotalQuantity = selector({
+  key: "orderListTotalQuantity",
+  get: ({ get }) => {
+    const selectedCartItem = get(selectedCartItems);
+    const orderListTotalQuantity = selectedCartItem.reduce((acc, cartItem) => {
+      const quantity = get(cartItemQuantity(cartItem.id));
+      return acc + quantity;
+    }, 0);
+
+    return orderListTotalQuantity;
+  },
+});
+
+export const shippingFeeSelector = selector({
+  key: "shippingFeeSelector",
   get: ({ get }) => {
     const totalPrice = get(cartListTotalPrice);
+    const islandMountainRegionCheck = get(islandMountainRegionCheckState);
 
-    if (totalPrice >= FREE_SHIPPING_THRESHOLD) return FREE_SHIPPING_FEE;
-    return SHIPPING_FEE;
+    if (totalPrice >= FREE_SHIPPING_THRESHOLD)
+      return islandMountainRegionCheck
+        ? FREE_SHIPPING_FEE + 3_000
+        : FREE_SHIPPING_FEE;
+    return islandMountainRegionCheck ? SHIPPING_FEE + 3_000 : SHIPPING_FEE;
   },
 });
 

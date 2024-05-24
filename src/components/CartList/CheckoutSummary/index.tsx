@@ -1,9 +1,12 @@
 import { useRecoilValue } from "recoil";
 import InfoIconSrc from "../../../assets/infoIcon.png";
 import { FREE_SHIPPING_THRESHOLD } from "../../../constants";
-import { cartListTotalPrice } from "../../../recoil/selectors";
+import { useCoupons } from "../../../hooks/coupons";
+import {
+  cartListTotalPrice,
+  shippingFeeSelector,
+} from "../../../recoil/selectors";
 import formatPriceToKoreanWon from "../../../util/formatPriceToKoreanWon";
-import getShippingFee from "../../../util/getShippingFee";
 import {
   Container,
   Divider,
@@ -17,7 +20,8 @@ import {
 
 export default function CheckoutSummary() {
   const totalPrice = useRecoilValue(cartListTotalPrice);
-  const shippingFee = getShippingFee(totalPrice);
+  const { totalDiscountAmount } = useCoupons();
+  const shippingFee = useRecoilValue(shippingFeeSelector);
 
   return (
     <Container>
@@ -35,7 +39,10 @@ export default function CheckoutSummary() {
         </PriceRow>
         <PriceRow>
           <Label>쿠폰 할인 금액</Label>
-          <Price>-{formatPriceToKoreanWon(shippingFee)}</Price>
+          <Price>
+            {totalDiscountAmount > 0 && "-"}
+            {formatPriceToKoreanWon(totalDiscountAmount)}
+          </Price>
         </PriceRow>
         <PriceRow>
           <Label>배송비</Label>
@@ -47,7 +54,11 @@ export default function CheckoutSummary() {
 
       <PriceRow>
         <Label>총 결제 금액</Label>
-        <Price>{formatPriceToKoreanWon(totalPrice + shippingFee)}</Price>
+        <Price>
+          {formatPriceToKoreanWon(
+            totalPrice + shippingFee - totalDiscountAmount
+          )}
+        </Price>
       </PriceRow>
     </Container>
   );
