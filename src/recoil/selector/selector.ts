@@ -14,9 +14,7 @@ export const selectedItemsCountState = selector<number>({
   key: 'selectedItemsCountState',
   get: ({ get }) => {
     const selectedItems = get(selectedItemsState);
-    return Object.values(selectedItems).filter(
-      (item) => item.isSelected === true,
-    ).length;
+    return selectedItems.length;
   },
 });
 
@@ -26,7 +24,10 @@ export const selectedItemsTotalQuantityState = selector<number>({
     const cartItems = get(cartItemsState);
     const selectedItems = get(selectedItemsState);
     const selectedItemsTotalQuantity = cartItems.reduce((total, item) => {
-      if (selectedItems[item.id].isSelected) {
+      const isSelected = selectedItems.some(
+        (selectedItem) => selectedItem.id === item.id,
+      );
+      if (isSelected) {
         return total + item.quantity;
       }
       return total;
@@ -41,7 +42,10 @@ export const orderPriceState = selector<number>({
     const cartItems = get(cartItemsState);
     const selectedItems = get(selectedItemsState);
     const orderPrice = cartItems.reduce((total, item) => {
-      if (selectedItems[item.id].isSelected) {
+      const isSelected = selectedItems.some(
+        (selectedItem) => selectedItem.id === item.id,
+      );
+      if (isSelected) {
         return total + item.product.price * item.quantity;
       }
       return total;

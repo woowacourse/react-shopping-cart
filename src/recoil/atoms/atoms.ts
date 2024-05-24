@@ -1,20 +1,16 @@
 import { atom } from 'recoil';
-import { CartItem, CouponProps, selectedItems } from '../../types';
-import { getLocalStorage } from '../../utils/getLocalStorage';
+import { CartItemProps, CouponProps } from '../../types';
+import { updateSelectedItemLocalStorage } from '../../utils/updateSelectedItemLocalStorage';
 
-export const cartItemsState = atom<CartItem[]>({
+export const cartItemsState = atom<CartItemProps[]>({
   key: 'cartItemsState',
   default: [],
 });
 
-export const selectedItemsState = atom<Record<number, selectedItems>>({
+export const selectedItemsState = atom<CartItemProps[]>({
   key: 'selectedItemsState',
-  default: getLocalStorage('selectedItemsState', {}),
-});
-
-export const isAllSelectedState = atom<boolean>({
-  key: 'isAllSelectedState',
-  default: getLocalStorage('isAllSelectedState', false),
+  default: [],
+  effects: [updateSelectedItemLocalStorage('selectedItemsState')],
 });
 
 export const cartItemsCountState = atom<number>({
@@ -32,17 +28,17 @@ export const isLandAndMoutainAreaCheckedState = atom<boolean>({
   default: false,
 });
 
-export const couponItemsState = atom<Record<number, CouponProps>>({
+export const couponItemsState = atom<CouponProps[]>({
   key: 'couponItemsState',
-  default: {},
+  default: [],
 });
 
-export const previewSelectedCouponsState = atom<Record<string, CouponProps>>({
-  key: 'previewSelectedCouponsState',
-  default: {},
-});
+// export const previewSelectedCouponsState = atom<Record<string, CouponProps>>({
+//   key: 'previewSelectedCouponsState',
+//   default: {},
+// });
 
-export const finalSelectedCouponsState = atom<Record<string, CouponProps>>({
-  key: 'finalSelectedCouponsState',
-  default: {},
-});
+// export const finalSelectedCouponsState = atom<Record<string, CouponProps>>({
+//   key: 'finalSelectedCouponsState',
+//   default: {},
+// });
