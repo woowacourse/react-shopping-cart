@@ -8,13 +8,13 @@ import styles from './cartItemImageAndInfo.module.css';
 import Divider from '@/components/common/Divider';
 
 export default function CartList() {
-  const cartItems = useRecoilValue(allCartItemStates);
+  const { allCartItems } = useCartContext();
 
   return (
     <>
       <AllSelectCheckBox />
       <ul>
-        {cartItems.map((cartItem) => {
+        {allCartItems.map((cartItem) => {
           return (
             <CartItem key={cartItem.id}>
               <Divider>

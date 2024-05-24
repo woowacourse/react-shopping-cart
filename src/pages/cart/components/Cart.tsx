@@ -18,4 +18,3 @@ export const Cart = ({ children }: PropsWithChildren<object>) => {
 Cart.Title = CartTitle;
 Cart.Result = CartTotals;
 Cart.List = CartList;
-Cart.Wrapper = CartWrapper;
