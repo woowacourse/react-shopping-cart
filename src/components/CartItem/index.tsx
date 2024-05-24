@@ -42,6 +42,7 @@ export default function CartItem({
       {widthHeader && (
         <CartItemHeader>
           <CheckBox
+            isApplicable
             isSelected={isSelected}
             toggleSelected={toggleSelected}
             id={`checkbox_${id}`}
