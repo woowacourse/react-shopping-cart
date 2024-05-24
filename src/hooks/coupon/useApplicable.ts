@@ -8,7 +8,7 @@ import { priceInfoStore } from '@recoil/selectors';
 /**
  * 상황
  * fixed -> minimumAmount를 비교해서 totalAmount보다 클 경우
- * buyXgetY -> 장바구니 상품에서 같은 종류를 3개 담았을 경우
+ * buyXgetY -> 장바구니 상품에서 같은 종류를 2개 담았을 경우
  * freeShipping -> totalAmount가 minimumAmount 이상일 경우
  * percentage -> 현재 시간이 start ~ end 사이일 경우
  */
