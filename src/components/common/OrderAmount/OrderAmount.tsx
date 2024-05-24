@@ -1,20 +1,26 @@
 import { useRecoilValue } from 'recoil';
-import { deliveryFeeState, orderAmountState, totalAmountState } from '../../../recoil/selectors';
+import { shippingCostState, orderAmountState, totalAmountState } from '../../../recoil/selectors';
 import { InfoIcon } from '../../../assets';
 import { convertToLocaleAmount } from '../../../utils';
 import * as Styled from './OrderAmount.styled';
+import { discountAmountState } from '../../../recoil/atoms';
 
-export default function OrderAmount() {
+interface OrderAmountProps {
+  pageRoute: 'shoppingCart' | 'confirmOrder';
+}
+
+export default function OrderAmount({ pageRoute }: OrderAmountProps) {
   const orderAmount = useRecoilValue(orderAmountState);
-  const deliveryFee = useRecoilValue(deliveryFeeState);
+  const discountAmount = useRecoilValue(discountAmountState);
+  const shippingCost = useRecoilValue(shippingCostState);
   const totalAmount = useRecoilValue(totalAmountState);
 
   return (
     <div>
-      <Styled.DeliveryFeeInfoBox>
+      <Styled.ShippingInfoBox>
         <img src={InfoIcon} alt="무료 배송 기준 메시지 아이콘" />총 주문 금액이 100,000원 이상일
         경우 무료 배송됩니다.
-      </Styled.DeliveryFeeInfoBox>
+      </Styled.ShippingInfoBox>
 
       <Styled.OrderAmountContainer>
         <Styled.AmountItem>
@@ -22,9 +28,16 @@ export default function OrderAmount() {
           <Styled.Amount>{convertToLocaleAmount(orderAmount)}</Styled.Amount>
         </Styled.AmountItem>
 
+        {pageRoute === 'confirmOrder' && (
+          <Styled.AmountItem>
+            <Styled.Title>쿠폰 할인 금액</Styled.Title>
+            <Styled.Amount>{convertToLocaleAmount(0 - discountAmount)}</Styled.Amount>
+          </Styled.AmountItem>
+        )}
+
         <Styled.AmountItem>
           <Styled.Title>배송비</Styled.Title>
-          <Styled.Amount>{convertToLocaleAmount(deliveryFee)}</Styled.Amount>
+          <Styled.Amount>{convertToLocaleAmount(shippingCost)}</Styled.Amount>
         </Styled.AmountItem>
       </Styled.OrderAmountContainer>
 

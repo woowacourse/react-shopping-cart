@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const DeliveryFeeInfoBox = styled.p({
+export const ShippingInfoBox = styled.p({
   display: 'flex',
   flexDirection: 'row',
   gap: '4px',

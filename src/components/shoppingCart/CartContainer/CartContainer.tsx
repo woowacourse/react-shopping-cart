@@ -1,7 +1,8 @@
 import { useRecoilValue } from 'recoil';
 import { cartItemsState } from '../../../recoil/atoms';
 
-import { CartItemContainer, OrderAmount } from '../';
+import { CartItemContainer } from '../';
+import { OrderAmount } from '../../common';
 import * as Styled from './CartContainer.style';
 
 export default function CartContainer() {
@@ -14,7 +15,7 @@ export default function CartContainer() {
   return (
     <>
       <CartItemContainer />
-      <OrderAmount />
+      <OrderAmount pageRoute="shoppingCart" />
     </>
   );
 }
