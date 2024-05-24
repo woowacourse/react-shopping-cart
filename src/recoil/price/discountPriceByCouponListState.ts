@@ -12,7 +12,7 @@ import {
 export type ShippingDiscountType = 'free' | number;
 
 export type TotalDiscountPrice = {
-  coupon: number;
+  price: number;
   shippingFee: ShippingDiscountType;
 };
 
@@ -26,7 +26,7 @@ export const discountPriceByCouponListState = selector({
 
     const selectedCouponListSortByPriorityDesc = [...selectedCouponList].sort((a, b) => b.priority - a.priority);
 
-    const totalDiscount: TotalDiscountPrice = { coupon: 0, shippingFee: 0 };
+    const totalDiscount: TotalDiscountPrice = { price: 0, shippingFee: 0 };
 
     selectedCouponListSortByPriorityDesc.forEach((coupon) => {
       let discountPrice: number | ShippingDiscountType = 0;
@@ -34,22 +34,24 @@ export const discountPriceByCouponListState = selector({
       switch (coupon.discountType) {
         case 'fixed':
           discountPrice = calcFixedDiscountAmount(coupon, totalCartPrice);
+          totalDiscount.price += discountPrice;
+
           totalCartPrice -= discountPrice;
-          totalDiscount.coupon += discountPrice;
           break;
         case 'percentage':
           discountPrice = calcPercentageDiscountAmount(coupon, totalCartPrice);
-          totalCartPrice -= discountPrice;
-          totalDiscount.coupon += discountPrice;
+          totalDiscount.price += discountPrice;
           break;
         case 'freeShipping':
           discountPrice = calcShippingFeeDiscountAmount(coupon);
           totalDiscount.shippingFee = discountPrice;
+
           break;
         case 'buyXgetY':
           discountPrice = calcBuyXGetYDiscountAmount(coupon, selectedCartItemList);
+          totalDiscount.price += discountPrice;
+
           totalCartPrice -= discountPrice;
-          totalDiscount.coupon += discountPrice;
           break;
         default:
           break;
