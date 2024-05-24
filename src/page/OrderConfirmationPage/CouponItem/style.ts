@@ -4,7 +4,7 @@ interface Props {
   isAvailable: boolean;
 }
 
-const UNAVAILABLE_COLOR = '#0A0D13';
+const UNAVAILABLE_COLOR = '#0000004A';
 const AVAILABLE_COLOR = '#000000';
 
 export const CouponItemContainer = styled.div({
