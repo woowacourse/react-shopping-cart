@@ -20,4 +20,5 @@ export type CouponPriority = 0 | 1 | 2;
 
 export type Coupon = ResponseCoupon & {
   priority: CouponPriority;
+  isApplicable: boolean;
 };
