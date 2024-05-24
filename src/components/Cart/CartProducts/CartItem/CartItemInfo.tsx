@@ -1,59 +1,15 @@
 import { css } from '@emotion/react';
-import { useSetRecoilState } from 'recoil';
 
 import CartItemImage from '@/components/common/CartItemImage';
+import useCartItems from '@/hooks/useCartItems';
 import { CartItemProps } from '@/types/cartItem';
-import { updateItemQuantity } from '@apis/cartItem';
 import { MINUS, PLUS } from '@assets/images';
-import { cartItemsState } from '@recoil/cartItems/atoms';
 
 interface CartItemMainSectionProps {
   item: CartItemProps;
 }
 export default function CartItemInfo({ item }: CartItemMainSectionProps) {
-  const setCartItems = useSetRecoilState(cartItemsState);
-
-  const handleDecrementQuantity = async () => {
-    if (item.quantity <= 1) return;
-
-    setCartItems((prevItems) =>
-      prevItems.map((cartItem) =>
-        cartItem.id === item.id
-          ? { ...cartItem, quantity: Math.max(cartItem.quantity - 1, 1) }
-          : cartItem,
-      ),
-    );
-
-    try {
-      await updateItemQuantity(item.id, item.quantity - 1);
-    } catch {
-      setCartItems((prevItems) =>
-        prevItems.map((cartItem) =>
-          cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem,
-        ),
-      );
-    }
-  };
-
-  const handleIncrementQuantity = async () => {
-    setCartItems((prevItems) =>
-      prevItems.map((cartItem) =>
-        cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem,
-      ),
-    );
-
-    try {
-      await updateItemQuantity(item.id, item.quantity + 1);
-    } catch {
-      setCartItems((prevItems) =>
-        prevItems.map((cartItem) =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: Math.max(cartItem.quantity - 1, 1) }
-            : cartItem,
-        ),
-      );
-    }
-  };
+  const { updateCartItemQuantity } = useCartItems(item.id);
 
   return (
     <div css={cartItemBody}>
@@ -65,13 +21,13 @@ export default function CartItemInfo({ item }: CartItemMainSectionProps) {
         <div css={countWrapper}>
           <button
             css={countButton(item.quantity === 1)}
-            onClick={handleDecrementQuantity}
+            onClick={() => updateCartItemQuantity(item.quantity - 1)}
             disabled={item.quantity === 1}
           >
             <img css={countImage} src={MINUS} alt={item.product.name + '수량 감소 버튼'} />
           </button>
           <span data-testid={item.product.name + 'quantity'}>{item.quantity}</span>
-          <button css={countButton()} onClick={handleIncrementQuantity}>
+          <button css={countButton()} onClick={() => updateCartItemQuantity(item.quantity + 1)}>
             <img css={countImage} src={PLUS} alt={item.product.name + '수량 증가 버튼'} />
           </button>
         </div>
