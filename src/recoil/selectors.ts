@@ -46,7 +46,7 @@ export const shippingFeeState = selector({
   key: "shippingFeeState",
   get: ({ get }) => {
     const totalAmount = get(totalCheckedCartItemsPriceState);
-    if (totalAmount >= ORDER.shippingFreeThreshold) return 0;
+    if (totalAmount >= ORDER.shippingFreeThreshold || totalAmount <= 0) return 0;
 
     const userLiveInSigol = get(userLiveInSigolStates);
     return userLiveInSigol ? ORDER.sigolShippingFee : ORDER.shippingFee;
@@ -54,7 +54,7 @@ export const shippingFeeState = selector({
 });
 
 export const setCartPriceAndQuantitySelector = selector({
-  key: "setCartPrice",
+  key: "setCartPriceAndQuantitySelector",
   get: () => {
     const cartItems: CartItemResponse[] = [
       {
