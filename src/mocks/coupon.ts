@@ -57,3 +57,15 @@ export const CHECKED_BOGO_COUPON: CouponClint[] = [
     isChecked: true,
   },
 ];
+
+export const CHECKED_FREE_SHIPPING_COUPON: CouponClint[] = [
+  {
+    id: 3,
+    code: 'FREESHIPPING',
+    description: '5만원 이상 구매 시 무료 배송 쿠폰',
+    expirationDate: '2024-08-31',
+    minimumAmount: 50000,
+    discountType: 'freeShipping',
+    isChecked: true,
+  },
+];
