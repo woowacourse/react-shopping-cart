@@ -20,8 +20,8 @@ interface Coupon {
   id: number;
   code: string;
   description: string;
-  couponType: "fixed" | "percentage" | "buyXgetY" | "freeShipping";
-  discountAmount?: number;
+  discountType: "fixed" | "percentage" | "buyXgetY" | "freeShipping";
+  discount?: number;
   minimumAmount?: number;
   buyQuantity?: number;
   getQuantity?: number;
