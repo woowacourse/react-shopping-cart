@@ -1,16 +1,23 @@
 import { ReactNode } from "react";
 import { Wrapper } from "./style";
 import SmallText from "../SmallText/SmallText";
+import { selectedCartItemsState } from "../../../recoil/selectors/selectors";
+import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 
 interface FooterProps {
   children?: ReactNode;
   onClick?: () => void;
-  disable?: boolean;
 }
 
-const Footer = ({ children, onClick, disable = false }: FooterProps) => {
+const Footer = ({ children, onClick }: FooterProps) => {
+  const selectedCartItemLength = useRecoilValue(selectedCartItemsState).length;
+
   return (
-    <Wrapper onClick={onClick} disable={disable}>
+    <Wrapper
+      onClick={selectedCartItemLength === 0 ? undefined : onClick}
+      $disable={selectedCartItemLength === 0}
+    >
       <SmallText>{children}</SmallText>
     </Wrapper>
   );
