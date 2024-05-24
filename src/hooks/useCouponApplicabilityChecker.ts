@@ -1,3 +1,6 @@
+import { useRecoilValue } from 'recoil';
+
+import { selectedCouponListState } from '../recoil/Coupon/atoms/selectedCouponListState';
 import { Coupon } from '../types/Coupon.type';
 import { useCalculateDeliveryFee } from './useCalculateDeliveryFee';
 import { useCouponValidator } from './useCouponValidator';
@@ -5,8 +8,10 @@ import { useCouponValidator } from './useCouponValidator';
 export const useCouponApplicabilityChecker = () => {
   const { isCouponValid } = useCouponValidator();
   const { deliveryFee } = useCalculateDeliveryFee();
+  const selectedCouponList = useRecoilValue(selectedCouponListState);
 
   const isCouponApplicable = (coupon: Coupon, totalAmount: number, now: Date = new Date()) => {
+    if (selectedCouponList.length === 2 && !selectedCouponList.find((item) => item.id == coupon.id)) return false;
     if (!coupon || !isCouponValid(coupon)) return false;
 
     if (coupon.minimumAmount && totalAmount < coupon.minimumAmount) {

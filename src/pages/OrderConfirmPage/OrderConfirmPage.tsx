@@ -11,7 +11,6 @@ import TotalPriceContainer from '../../components/Container/TotalPriceContainer/
 import Header from '../../components/Header/Header';
 import DeliveryInfoContainer from '../../components/List/DeliveryInfoList/DeliveryInfoList';
 import { PATHS } from '../../constants/PATHS';
-import useSortCoupons from '../../hooks/useSortCoupons';
 import { useToggleModal } from '../../hooks/useToggleModal';
 import ApplyCouponModal from '../../modals/ApplyCouponModal/ApplyCouponModal';
 import { applyCouponModalState } from '../../recoil/ApplyCouponModal/atoms/applyCouponModalState';
@@ -22,9 +21,7 @@ import { Coupon } from '../../types/Coupon.type';
 import * as S from './OrderConfirmPage.style';
 
 function OrderConfirmPage() {
-  const initialValue = useLoaderData() as Coupon[];
-
-  const couponList = useSortCoupons(initialValue);
+  const couponList = useLoaderData() as Coupon[];
 
   const [selectedItemList, setSelectedItemList] = useRecoilState(selectedCartItemListState);
 
