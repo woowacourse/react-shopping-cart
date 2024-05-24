@@ -1,11 +1,12 @@
 import { useRecoilValue } from 'recoil';
-import { couponsState } from '../recoil/atoms';
+import { couponsState, selectedCouponsState } from '../recoil/atoms';
 import { useDiscountCalculator } from './useDiscountCalculator';
 import { orderItemsSelector } from '../recoil/selectors';
 
 export const useOrderCalculator = () => {
   const orderItems = useRecoilValue(orderItemsSelector);
   const coupons = useRecoilValue(couponsState);
+  const selectedCoupons = useRecoilValue(selectedCouponsState);
   const { calculateDiscountAmount } = useDiscountCalculator();
   /**
    * orderItemsSelector value 순회하며 총합 계산
@@ -22,8 +23,11 @@ export const useOrderCalculator = () => {
    * 쿠폰으로 할인되는 금액 반환
    * @returns { number }
    */
-  const calculateDiscountWithCoupon = () => {
-    const checkedCoupons = coupons.filter((coupon) => coupon.isChecked);
+  const calculateDiscountWithCoupon = (type: 'modal' | null = null) => {
+    const checkedCoupons =
+      type === 'modal'
+        ? coupons.filter((coupon) => coupon.isChecked)
+        : selectedCoupons.filter((coupon) => coupon.isChecked);
 
     const orderTotal = calculateOrderTotal();
     const discountAmount = checkedCoupons.reduce(
@@ -37,9 +41,9 @@ export const useOrderCalculator = () => {
    * 주문 금액에서 쿠폰으로 할인되는 금액을 뺀 값 반환
    * @returns { number }
    */
-  const calculateTotalWithCoupon = () => {
+  const calculateTotalWithCoupon = (type: 'modal' | null = null) => {
     const orderTotal = calculateOrderTotal();
-    const discountAmount = calculateDiscountWithCoupon();
+    const discountAmount = calculateDiscountWithCoupon(type);
     const deliveryFee = calculateDeliveryFee();
     return orderTotal - discountAmount + deliveryFee;
   };
