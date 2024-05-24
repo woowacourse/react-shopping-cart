@@ -17,7 +17,7 @@ export const RECOIL_KEYS = {
 };
 
 export const ROUTER_URLS = {
-  MAIN: '',
+  MAIN: '/',
   ORDER_INFO: '/order-info',
   ADMIN: '/admin',
   PAYMENT_INFO: '/payment-info',
