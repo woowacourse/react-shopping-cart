@@ -1,9 +1,15 @@
+import { useRecoilValue } from "recoil";
 import { useCouponApplicabilityChecker } from ".";
-import { SHIPPING_FEE } from "../../constants";
 import { CartItemType, Coupon } from "../../types";
+import {
+  selectedCartItems,
+  shippingFeeSelector,
+} from "./../../recoil/selectors";
 
 const useDiscountCalculator = () => {
   const { isCouponApplicable } = useCouponApplicabilityChecker();
+  const selectedCartItem = useRecoilValue(selectedCartItems);
+  const shippingFFeee = useRecoilValue(shippingFeeSelector);
 
   const calculateFixedDiscount = (coupon: Coupon, totalAmount: number) => {
     if (!isCouponApplicable({ coupon, totalAmount })) {
@@ -17,6 +23,12 @@ const useDiscountCalculator = () => {
       return 0;
     }
     return Math.floor((totalAmount * (coupon.discount ?? 0)) / 100);
+  };
+
+  const calculateBuyXgetY = () => {
+    return Math.max(
+      ...selectedCartItem.map((orderItem) => orderItem.product.price)
+    );
   };
 
   const calculateDiscountAmount = ({
@@ -39,9 +51,9 @@ const useDiscountCalculator = () => {
       case "percentage":
         return calculatePercentageDiscount(coupon, totalAmount);
       case "freeShipping":
-        return SHIPPING_FEE;
+        return shippingFFeee;
       case "buyXgetY":
-        return 5_000;
+        return calculateBuyXgetY();
       default:
         return 0;
     }

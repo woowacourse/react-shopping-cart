@@ -80,3 +80,8 @@ export const couponSelectedState = atomFamily<boolean, number>({
   key: "couponSelectedState",
   default: false,
 });
+
+export const islandMountainRegionCheckState = atom<boolean>({
+  key: "islandMountainRegionCheckState",
+  default: false,
+});
