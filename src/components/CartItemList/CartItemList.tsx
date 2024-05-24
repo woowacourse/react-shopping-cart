@@ -1,5 +1,5 @@
 import * as S from './CartItemList.style';
-import CartItem from '../CartItem/CartItem';
+import CartItemWithControl from '../CartItem/WithControl/CartItemWithControl';
 import Checkbox from '../common/Checkbox/Checkbox';
 import Text from '../common/Text/Text';
 import { useRecoilValue } from 'recoil';
@@ -21,8 +21,8 @@ const CartItemList = () => {
           전체선택
         </Text>
       </S.SelectAllContainer>
-      {itemList.map(({ product, quantity, cartItemId }: CartItem) => {
-        return <CartItem key={cartItemId} product={product} quantity={quantity} cartItemId={cartItemId} />;
+      {itemList.map(({ product, quantity, cartItemId }: CartItemWithControl) => {
+        return <CartItemWithControl key={cartItemId} product={product} quantity={quantity} cartItemId={cartItemId} />;
       })}
     </S.CartItemList>
   );
