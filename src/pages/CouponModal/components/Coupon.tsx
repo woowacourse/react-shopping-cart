@@ -3,6 +3,7 @@ import * as S from "./Coupon.style";
 import TextBox from "@/components/_common/TextBox/TextBox";
 import { Coupon } from "@/types/coupon";
 import { formatToWon } from "@/utils/stringHelper";
+import useCoupons from "@/hooks/useCoupons";
 
 const CouponItem = ({
   coupon,
@@ -12,12 +13,24 @@ const CouponItem = ({
   disabled: boolean;
 }) => {
   const { description, expirationDate, minimumAmount } = coupon;
+  const { applyCoupon, unapplyCoupon, isCouponApplied } = useCoupons();
+  const isCouponItemApplied = isCouponApplied(coupon.id);
+
+  const onToggleApplyCoupon = () => {
+    if (isCouponItemApplied) {
+      return unapplyCoupon(coupon.id);
+    }
+    applyCoupon(coupon);
+  };
 
   return (
     <S.Wrapper disabled={disabled}>
       <S.BorderLine />
       <S.FlexBox>
-        <CheckBox isChecked={false} onClick={() => {}} />
+        <CheckBox
+          isChecked={!!isCouponItemApplied}
+          onClick={onToggleApplyCoupon}
+        />
         <TextBox text={description} type="small" />
       </S.FlexBox>
       <TextBox

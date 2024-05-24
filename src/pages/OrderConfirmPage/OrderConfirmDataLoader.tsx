@@ -1,25 +1,27 @@
-import { cartItemSelector } from "@/recoil/cartItems";
+import { cartItemSelector, cartItemsState } from "@/recoil/cartItems";
 import { Suspense } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import OrderConfirmPage from "./OrderConfirmPage";
+import { useEffect } from "react";
 
 const OrderConfirmDataLoader = () => {
-  const cartItemsSelector = useRecoilValue(cartItemSelector);
-  const cartItems = cartItemsSelector;
+  const cartItems = useRecoilValue(cartItemSelector);
+  const [cartItem, setCartItems] = useRecoilState(cartItemsState);
 
-  const selectedItemsId = JSON.parse(
-    localStorage.getItem("selectedItems") || "[]"
-  );
-  const selectedCartItems = cartItems.filter((item) =>
-    selectedItemsId.includes(item.id)
-  );
+  useEffect(() => {
+    const selectedItemsId = JSON.parse(
+      localStorage.getItem("selectedItems") || "[]"
+    );
+    const selectedCartItems = cartItems.filter((item) =>
+      selectedItemsId.includes(item.id)
+    );
+
+    setCartItems(selectedCartItems);
+  }, []);
+
   return (
-    <Suspense
-      fallback={<OrderConfirmPage selectedCartItems={cartItemsSelector} />}
-    >
-      {selectedCartItems && (
-        <OrderConfirmPage selectedCartItems={selectedCartItems} />
-      )}
+    <Suspense fallback={<OrderConfirmPage selectedCartItems={cartItems} />}>
+      {cartItem.length > 0 && <OrderConfirmPage selectedCartItems={cartItem} />}
     </Suspense>
   );
 };

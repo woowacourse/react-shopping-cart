@@ -67,23 +67,6 @@ const CouponModal = ({
         </Modal.CloseIcon>
 
         <CouponList couponsWithApplicability={sortedCouponsWithApplicability} />
-        {/* {sortedCoupons.map((coupon: Coupon) => {
-          return (
-            <>
-              <CouponItem
-                coupon={coupon}
-                key={coupon.id}
-                disabled={
-                  !isCouponApplicable({
-                    coupon: coupon,
-                    price: totalItemsPrice,
-                    time: new Date(),
-                  })
-                }
-              />
-            </>
-          );
-        })} */}
         <Button
           onClick={() => {}}
           style={{
