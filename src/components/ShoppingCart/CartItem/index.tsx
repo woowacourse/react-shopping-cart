@@ -1,13 +1,13 @@
 import { CartItemResponse } from "../../../types/ShoppingCart";
 import styled from "styled-components";
 import ItemCounter from "../../common/ItemCounter";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { cartItemQuantityStates, checkedCartItemsState } from "../../../recoil/atoms";
 import BasicButton from "../../common/Button/BasicButton";
 import CheckboxButton from "../../common/Button/CheckboxButton";
-import { deleteCartItem, patchCartItemQuantity } from "../../../api/cartItem";
+import { deleteCartItem } from "../../../api/cartItem";
 import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../../constants/styles";
 import { SHOPPING_MESSAGE } from "../../../constants/messages";
+import useCartItemQuantity from "../../../hooks/useCartItemQuantity";
+import useCheckCartItem from "../../../hooks/useCheckCartItem";
 
 type CartItemType = "edit" | "readonly";
 
@@ -17,15 +17,10 @@ interface CartItemProps extends Omit<CartItemResponse, "quantity"> {
 }
 
 const CartItem = ({ id, product, cartItemType, removeCartItem }: CartItemProps) => {
-  const [quantity, setQuantity] = useRecoilState(cartItemQuantityStates(id));
-  const setCheckedCartItems = useSetRecoilState(checkedCartItemsState);
+  const { quantity, handleIncrease, handleDecrease } = useCartItemQuantity(id);
+  const { checkedCartItems, checkCartItem, uncheckCartItem } = useCheckCartItem();
 
-  const checkItems = useRecoilValue(checkedCartItemsState);
-  const checkCartItem = (id: number) => setCheckedCartItems((prevSelected) => [...prevSelected, id]);
-  const uncheckCartItem = (id: number) =>
-    setCheckedCartItems((prevSelected) => prevSelected.filter((_id) => _id !== id));
-
-  const isCheckedItem = checkItems.includes(id);
+  const isCheckedItem = checkedCartItems.includes(id);
   const isEditable = cartItemType === "edit";
 
   const handleRemoveItem = () => {
@@ -33,21 +28,6 @@ const CartItem = ({ id, product, cartItemType, removeCartItem }: CartItemProps) 
     removeCartItem && removeCartItem(id);
     uncheckCartItem(id);
     deleteCartItem(id);
-  };
-
-  const handleIncrease = () => {
-    setQuantity((prev) => prev + 1);
-    patchCartItemQuantity(id, quantity + 1);
-  };
-
-  const handleDecrease = () => {
-    if (quantity > 1) {
-      setQuantity((prev) => prev - 1);
-      patchCartItemQuantity(id, quantity - 1);
-      return;
-    }
-
-    handleRemoveItem();
   };
 
   return (
@@ -67,7 +47,11 @@ const CartItem = ({ id, product, cartItemType, removeCartItem }: CartItemProps) 
           <Name>{product.name}</Name>
           <Price>{product.price.toLocaleString()}원</Price>
           {isEditable ? (
-            <ItemCounter value={quantity} handleIncrease={handleIncrease} handleDecrease={handleDecrease} />
+            <ItemCounter
+              value={quantity}
+              handleIncrease={handleIncrease}
+              handleDecrease={() => (quantity > 1 ? handleDecrease() : handleRemoveItem())}
+            />
           ) : (
             <CartItemCount>{quantity}개</CartItemCount>
           )}
