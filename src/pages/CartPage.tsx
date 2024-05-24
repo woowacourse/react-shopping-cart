@@ -4,11 +4,10 @@ import CartTitle from "../components/CartPage/CartTitle";
 import CartItems from "../components/CartPage/CartItems";
 import OrderSummary from "../components/CartPage/OrderSummary";
 import EmptyCart from "../components/CartPage/EmptyCart";
-import { CartLayout, Header, Content, Footer } from "../components/layout";
+import CartLayout from "../components/layout";
 
-import { cartItemListAtom, isVacantCartSelector } from "../recoil/cartItemState";
+import { isVacantCartSelector } from "../recoil/cartItemState";
 import { checkedIdSetSelector } from "../recoil/checkedState";
-import { addCartItem } from "../api/cartItem";
 
 const CartPage = () => {
   const navigate = useNavigate();
@@ -22,8 +21,8 @@ const CartPage = () => {
 
   return (
     <CartLayout>
-      <Header>SHOP</Header>
-      <Content>
+      <CartLayout.Header>SHOP</CartLayout.Header>
+      <CartLayout.Content>
         <CartTitle />
         {!isCartVacant ? (
           <>
@@ -33,8 +32,8 @@ const CartPage = () => {
         ) : (
           <EmptyCart />
         )}
-      </Content>
-      <Footer text="주문 확인" isActive={cartItemCheckedIds.size > 0} onClick={handleClick} />
+      </CartLayout.Content>
+      <CartLayout.Footer text="주문 확인" isActive={cartItemCheckedIds.size > 0} onClick={handleClick} />
     </CartLayout>
   );
 };

@@ -3,7 +3,7 @@ import { css } from "@emotion/css";
 import { useRecoilValue } from "recoil";
 import { formatCurrency } from "../utils/formatCurrency";
 import LeftArrow from "../assets/LeftArrow.svg?react";
-import { CartLayout, Header, Content, Footer } from "../components/layout";
+import CartLayout from "../components/layout";
 import { checkedIdSetSelector } from "../recoil/checkedState";
 import { totalCountSelector, totalPriceSelector } from "../recoil/orderSummaryState";
 
@@ -22,18 +22,18 @@ const OrderConfirmationPage = () => {
 
   return (
     <CartLayout>
-      <Header>
+      <CartLayout.Header>
         <LeftArrow className={leftArrowBtnCSS} onClick={handleClick} />
-      </Header>
-      <Content>
+      </CartLayout.Header>
+      <CartLayout.Content>
         <div className={confirmTextCSS}>
           <div className={headerCSS}>주문 확인</div>
           <div className={textCSS}>{text}</div>
           <div className={totalPriceTitleCSS}> 총 결제 금액</div>
           <div className={totalPriceCSS}> {formatCurrency(cartTotalPrice)}</div>
         </div>
-      </Content>
-      <Footer text="결제하기" isActive={false} />
+      </CartLayout.Content>
+      <CartLayout.Footer text="결제하기" isActive={false} />
     </CartLayout>
   );
 };

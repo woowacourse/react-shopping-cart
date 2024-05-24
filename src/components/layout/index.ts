@@ -1,4 +1,7 @@
-export { default as CartLayout } from "./CartLayout";
-export { default as Header } from "./Header";
-export { default as Content } from "./Content";
-export { default as Footer } from "./Footer";
+import Content from "./Content";
+import Footer from "./Footer";
+import Header from "./Header";
+import CartLayoutWrapper from "./CartLayoutWrapper";
+
+const CartLayout = Object.assign(CartLayoutWrapper, { Content, Footer, Header });
+export default CartLayout;
