@@ -19,8 +19,21 @@ const useSelectedCouponList = () => {
     setSelectedCouponList(updatedSelectedCouponList);
   };
 
+  // TODO: 이 메서드에 대한 테스트 작성
+  const toggleSelectedCoupon = (coupon: Coupon) => {
+    // TODO: 객체 포함이 되나?
+    if (isSelectedCoupon(coupon.id)) unselectCoupon(coupon.id);
+    else selectCoupon(coupon);
+  };
+
+  const isSelectedCoupon = (couponId: number) => {
+    return selectedCouponList.some(({ id }) => id === couponId);
+  };
+
   return {
     selectedCouponList,
+    isSelectedCoupon,
+    toggleSelectedCoupon,
     selectCoupon,
     unselectCoupon,
   };
