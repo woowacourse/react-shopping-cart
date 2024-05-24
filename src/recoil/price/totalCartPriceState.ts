@@ -1,5 +1,4 @@
 import { selector } from 'recoil';
-import { cartItemQuantityState } from '../cartItem/cartItemQuantityState';
 import { selectedCartItemListState } from '../selectedCartItemList/selectedCartItemList';
 
 export const totalCartPriceState = selector<number>({
