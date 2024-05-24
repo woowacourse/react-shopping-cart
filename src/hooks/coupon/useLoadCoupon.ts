@@ -1,8 +1,9 @@
-import { mockCoupons } from '../../mocks/coupons';
+import getCoupons from '../../api/get/getCoupons';
+import useFetch from '../useFetch';
 
 const useLoadCoupon = () => {
-  const coupons = mockCoupons;
-  return coupons;
+  const { data: coupons } = useFetch(getCoupons);
+  return coupons ?? [];
 };
 
 export default useLoadCoupon;

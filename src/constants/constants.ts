@@ -1,6 +1,7 @@
 export const API_URLS = {
   PRODUCTS: '/products',
   ORDERS: '/orders',
+  COUPONS: '/coupons',
   CART_ITEMS: '/cart-items',
   QUANTITY_TO_CHANGE: (id: number) => `/cart-items/${id}`,
   DELETE_ITEMS: (id: number) => `/cart-items/${id}`,
