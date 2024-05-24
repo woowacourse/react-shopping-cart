@@ -3,6 +3,7 @@ import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useNavigate } from 'react-router-dom';
 
+import RandomAddButton from '@/components/common/Button/RandomAddButton';
 import ErrorComponent from '@/components/common/ErrorComponent';
 import Header from '@/components/common/Header';
 import LoadingComponent from '@/components/common/LoadingComponent';
@@ -26,6 +27,7 @@ function CartPage() {
         <Suspense fallback={<LoadingComponent />}>
           <CartMainSection />
           <OrderConfirmButton />
+          <RandomAddButton />
         </Suspense>
       </ErrorBoundary>
     </>

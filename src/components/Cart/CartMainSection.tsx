@@ -2,7 +2,6 @@ import { css } from '@emotion/react';
 import { ChangeEvent } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-import RandomAddButton from '@/components/common/Button/RandomAddButton';
 import CartItem from '@common/CartItem';
 import Checkbox from '@common/Checkbox';
 import HeaderTitleContainer from '@common/HeaderTitleContainer';
@@ -12,6 +11,7 @@ import { allCheckedState } from '@recoil/cartItems/selectors';
 
 export default function CartMainSection() {
   const cartItems = useRecoilValue(cartItemsState);
+
   const [allChecked, setAllChecked] = useRecoilState(allCheckedState);
 
   const handleChangeChecked = (e: ChangeEvent<HTMLInputElement>) => {
@@ -48,7 +48,6 @@ export default function CartMainSection() {
         </ul>
       </section>
       <OrderInfo type="CART" />
-      <RandomAddButton />
     </main>
   );
 }
