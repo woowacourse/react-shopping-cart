@@ -4,11 +4,11 @@ import {
   SHIPPING_COST_FOR_REMOTE,
 } from "../../../constants/pricing";
 
-type ShoppingCost = number;
+type ShippingCost = number;
 export const determineShippingCost = (
   orderAmount: number,
   isRemoteDeliveryArea: boolean = false
-): ShoppingCost => {
+): ShippingCost => {
   if (orderAmount === 0) {
     return 0;
   }
