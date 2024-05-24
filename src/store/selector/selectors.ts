@@ -65,3 +65,11 @@ export const checkedItemList = selector({
     });
   },
 });
+
+export const checkedCouponList = selector({
+  key: "checkedCouponList",
+  get: ({ get }) => {
+    const allCoupons = get(couponsState);
+    return allCoupons.filter((coupon) => get(couponEachCheckState(coupon.id)));
+  },
+});

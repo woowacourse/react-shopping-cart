@@ -1,6 +1,8 @@
-import InformationCircleDescription from "@/components/InformationCircleDescription/InformationCircleDescription";
-import Coupon from "../Coupon/Coupon";
 import { useRecoilValue } from "recoil";
+
+import Coupon from "../Coupon/Coupon";
+
+import InformationCircleDescription from "@/components/InformationCircleDescription/InformationCircleDescription";
 import { couponsState } from "@/store/atom/atoms";
 
 const CouponList = () => {
