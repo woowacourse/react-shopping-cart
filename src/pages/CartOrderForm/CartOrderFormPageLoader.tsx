@@ -4,7 +4,7 @@ import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import { cartItemListStateQuery } from '../../recoil/cartItemList/cartItemListState';
 import { selectedCartItemIdListState } from '../../recoil/selectedCartItemList/selectedCartItemIdListState';
 
-const ConfirmPurchasePageLoader = ({ children }: { children: ReactNode }) => {
+const CartOrderFormPageLoader = ({ children }: { children: ReactNode }) => {
   const { updateCartItemList } = useCartItemList();
   const cartItemListLoadable = useRecoilValueLoadable(cartItemListStateQuery);
   const selectedCartItemIdList = useRecoilValue(selectedCartItemIdListState);
@@ -20,4 +20,4 @@ const ConfirmPurchasePageLoader = ({ children }: { children: ReactNode }) => {
   }
 };
 
-export default ConfirmPurchasePageLoader;
+export default CartOrderFormPageLoader;
