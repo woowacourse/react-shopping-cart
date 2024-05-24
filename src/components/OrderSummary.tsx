@@ -1,4 +1,4 @@
-import { selectedCartItemIdsState } from "../recoil/selectedCartItemIds";
+import { selectedCartItemIdsState } from "../recoil/cart/selectedCartItemIds";
 import { selectedCartItemsCountState } from "../recoil/selectedCartItemsCount";
 import styled from "styled-components";
 import { totalOrderAmountState } from "../recoil/cartAmount";

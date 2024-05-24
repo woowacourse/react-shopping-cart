@@ -1,8 +1,8 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { removeCartItem, updateCartItemQuantity } from "../api/cartItems";
 import { CartItemId } from "../types/cartItems";
-import { rawCartItemsState } from "../recoil/rawCartItems";
-import { selectedCartItemIdsState } from "../recoil/selectedCartItemIds";
+import { rawCartItemsState } from "../recoil/cart/rawCartItems";
+import { selectedCartItemIdsState } from "../recoil/cart/selectedCartItemIds";
 
 export interface UseCartItemsReturn {
   remove: (cartItemId: CartItemId) => void;
@@ -19,7 +19,9 @@ export const useCartItemControl = (): UseCartItemsReturn => {
 
     setSelectedCartItemIds((prev) => prev.filter((id) => id !== cartItemId));
 
-    const filteredCartItems = rawCartItems.filter((cartItem) => cartItem.id !== cartItemId);
+    const filteredCartItems = rawCartItems.filter(
+      (cartItem) => cartItem.id !== cartItemId
+    );
     setRawCartItems(filteredCartItems);
   };
 
@@ -37,7 +39,9 @@ export const useCartItemControl = (): UseCartItemsReturn => {
   const toggleSelection = (cartItemId: CartItemId) => {
     setSelectedCartItemIds((prev) => {
       const isSelected = prev.includes(cartItemId);
-      return isSelected ? prev.filter((id) => id !== cartItemId) : [...prev, cartItemId];
+      return isSelected
+        ? prev.filter((id) => id !== cartItemId)
+        : [...prev, cartItemId];
     });
   };
 

@@ -1,4 +1,4 @@
-import { rawCartItemsState } from "../recoil/rawCartItems";
+import { rawCartItemsState } from "../recoil/cart/rawCartItems";
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
 

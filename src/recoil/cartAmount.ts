@@ -1,5 +1,7 @@
 import { selector } from "recoil";
-import { cartItemsState } from "./cartItems";
+import { cartItemsState } from "./cart/cartItems";
+import { couponsState } from "./coupon/coupons";
+import { calculateDiscountAmountOfCoupon } from "../utils/calculateDiscountAmountOfCoupon";
 
 export const orderAmountState = selector({
   key: "orderAmountState",
@@ -11,6 +13,28 @@ export const orderAmountState = selector({
       0
     );
     return orderAmount;
+  },
+});
+
+export const discountAmountState = selector({
+  key: "discountAmountState",
+  get: ({ get }) => {
+    // TODO: BOGO 쿠폰에 필요할 것으로 예상
+    // const selectedCartItems = get(cartItemsState).filter(
+    //   ({ isSelected }) => isSelected
+    // );
+    const selectedCoupons = get(couponsState).filter(
+      ({ isSelected }) => isSelected
+    );
+    const orderAmount = get(orderAmountState);
+
+    // 일단 고정 할인만
+    // TODO: 다른 쿠폰 케이스도 적용해야함
+    return selectedCoupons.reduce(
+      (discountAmount, coupon) =>
+        discountAmount + calculateDiscountAmountOfCoupon(coupon, orderAmount),
+      0
+    );
   },
 });
 

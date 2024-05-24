@@ -14,6 +14,9 @@ describe("checkApplicableCoupon: 쿠폰 적용 조건 검사", () => {
         expirationDate: "2199-12-31",
         discount: 5000,
         minimumAmount: 10000,
+        isSelected: false,
+        isValidCoupon: true,
+        isApplicableCoupon: true,
       };
 
       expect(isMetMinimumAmount(coupon, 10000)).toBe(true);
@@ -28,6 +31,9 @@ describe("checkApplicableCoupon: 쿠폰 적용 조건 검사", () => {
         expirationDate: "2199-12-31",
         discount: 5000,
         minimumAmount: 10000,
+        isSelected: false,
+        isValidCoupon: true,
+        isApplicableCoupon: true,
       };
 
       expect(isMetMinimumAmount(coupon, 9999)).toBe(false);
@@ -41,6 +47,9 @@ describe("checkApplicableCoupon: 쿠폰 적용 조건 검사", () => {
         discountType: "fixed",
         expirationDate: "2199-12-31",
         discount: 5000,
+        isSelected: false,
+        isValidCoupon: true,
+        isApplicableCoupon: true,
       };
 
       expect(isMetMinimumAmount(coupon, 50)).toBe(true);

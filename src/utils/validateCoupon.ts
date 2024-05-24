@@ -1,4 +1,4 @@
-import { Coupon } from "../types/coupons";
+import { Coupon, RawCoupon } from "../types/coupons";
 
 const isExpiredCoupon = (expirationDate: string) => {
   const today = new Date();
@@ -6,6 +6,6 @@ const isExpiredCoupon = (expirationDate: string) => {
   return expiration < today;
 };
 
-export const isValidCoupon = (coupon: Coupon) => {
+export const isValidCoupon = (coupon: RawCoupon | Coupon) => {
   return !isExpiredCoupon(coupon.expirationDate);
 };

@@ -1,8 +1,8 @@
 import { PATH, fetchWithAuth } from "./fetchWithAuth";
 
-import { Coupon } from "../types/coupons";
+import { RawCoupon } from "../types/coupons";
 
-export const fetchCoupons = async (): Promise<Coupon[]> => {
+export const fetchCoupons = async (): Promise<RawCoupon[]> => {
   const response = await fetchWithAuth(PATH.coupons, {
     method: "GET",
   });

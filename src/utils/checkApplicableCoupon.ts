@@ -1,7 +1,7 @@
-import { Coupon } from "../types/coupons";
+import { Coupon, RawCoupon } from "../types/coupons";
 
 export function isMetMinimumAmount(
-  coupon: Coupon,
+  coupon: Coupon | RawCoupon,
   orderAmount: number
 ): boolean {
   if ("minimumAmount" in coupon && coupon.minimumAmount) {

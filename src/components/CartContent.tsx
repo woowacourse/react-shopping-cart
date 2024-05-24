@@ -2,7 +2,7 @@ import CartAmount from "./CartAmount";
 import CartButton from "./CartButton";
 import CartItemList from "./CartItemList";
 import CartTitle from "./CartTitle";
-import { cartItemsState } from "../recoil/cartItems";
+import { cartItemsState } from "../recoil/cart/cartItems";
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
 

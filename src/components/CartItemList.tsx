@@ -1,6 +1,6 @@
 import { CartItem } from "../types/cartItems";
 import CartItemView from "./CartItemView";
-import { selectedCartItemIdsState } from "../recoil/selectedCartItemIds";
+import { selectedCartItemIdsState } from "../recoil/cart/selectedCartItemIds";
 import styled from "styled-components";
 import { useCartItemControl } from "../hooks/useCartItemControl";
 import { useSetRecoilState } from "recoil";
