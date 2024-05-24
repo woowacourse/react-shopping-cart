@@ -2,18 +2,17 @@ import { renderHook, waitFor } from '@testing-library/react';
 import { Suspense } from 'react';
 import { RecoilRoot, useRecoilValue } from 'recoil';
 
-import { cartItemsState } from './atoms';
+import { MOCK_COUPON_CHECK_LIST } from '@/mocks/coupon';
+import { PRICE } from '@constants/config';
+import { TOTAL_PRICE_OVER_100000_DATA, TOTAL_PRICE_UNDER_100000_DATA } from '@mocks/cart';
+import { cartItemsState } from '@recoil/cartItems/atoms';
 import {
   shippingPriceState,
   orderResultState,
   productTypesCountState,
   totalPurchasePriceState,
-} from './selectors';
-import { couponSavedCheckListState } from '../coupons/atoms';
-
-import { MOCK_COUPON_CHECK_LIST } from '@/mocks/coupon';
-import { PRICE } from '@constants/config';
-import { TOTAL_PRICE_OVER_100000_DATA, TOTAL_PRICE_UNDER_100000_DATA } from '@mocks/cart';
+} from '@recoil/cartItems/selectors';
+import { couponSavedCheckListState } from '@recoil/coupons/atoms';
 
 jest.mock('@apis/cartItem', () => ({
   fetchCartItems: jest.fn(),
