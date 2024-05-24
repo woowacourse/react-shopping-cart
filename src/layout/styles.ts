@@ -14,10 +14,14 @@ export const HeaderWrapper = styled.header`
 `;
 
 export const Content = styled.main`
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   padding: ${({ theme }) => theme.spacer.spacing4};
   margin-bottom: 50px;
   overflow-y: auto;
+  min-height: calc(100vh - 128px);
 `;
 
 export const BottomWrapper = styled.footer`

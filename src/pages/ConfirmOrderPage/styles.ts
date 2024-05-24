@@ -4,7 +4,7 @@ export const ConfirmOrderContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-item: center;
+  align-items: center;
   height: 100%;
   gap: ${({ theme }) => theme.spacer.spacing4};
 `;
