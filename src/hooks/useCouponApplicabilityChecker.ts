@@ -1,6 +1,6 @@
-import { useCouponValidator } from './useCouponValidator';
 import { Coupon } from '../types/Coupon.type';
 import { useCalculateDeliveryFee } from './useCalculateDeliveryFee';
+import { useCouponValidator } from './useCouponValidator';
 
 export const useCouponApplicabilityChecker = () => {
   const { isCouponValid } = useCouponValidator();

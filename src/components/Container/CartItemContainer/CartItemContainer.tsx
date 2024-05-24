@@ -1,11 +1,11 @@
 import { useRecoilState } from 'recoil';
+
+import { selectedCartItemListSelector } from '../../../recoil/CartItem/selectors/selectedCartItemListSelector';
 import CheckButton from '../../Button/CheckButton/CheckButton';
 import QuantityContainer from '../QuantityContainer/QuantityContainer';
-import type { CartItem } from '../../../types/CartItem.type';
-import { selectedCartItemListSelector } from '../../../recoil/CartItem/selectors/selectedCartItemListSelector';
-
 import * as S from './CartItemContainer.style';
 
+import type { CartItem } from '../../../types/CartItem.type';
 interface CartItemProps {
   item: CartItem;
   onRemoveItem?: (cartItemId: number) => void;

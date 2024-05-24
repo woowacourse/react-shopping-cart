@@ -1,9 +1,10 @@
+import { useRecoilValue } from 'recoil';
+
+import { useCouponApplicabilityChecker } from '../../../hooks/useCouponApplicabilityChecker';
+import { selectedCartItemListTotalPriceSelector } from '../../../recoil/CartItem/selectors/selectedCartItemListTotalPriceSelector';
 import { Coupon } from '../../../types/Coupon.type';
 import CouponContainer from '../../Container/CouponContainer/CouponContainer';
 import * as S from './CouponList.style';
-import { useCouponApplicabilityChecker } from '../../../hooks/useCouponApplicabilityChecker';
-import { selectedCartItemListTotalPriceSelector } from '../../../recoil/CartItem/selectors/selectedCartItemListTotalPriceSelector';
-import { useRecoilValue } from 'recoil';
 
 interface CouponListProps {
   couponList: Coupon[];

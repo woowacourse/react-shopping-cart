@@ -1,8 +1,9 @@
-import { useCalculateCouponDiscount } from './useCalculateCouponDiscount';
-import { selectedCouponListState } from '../recoil/Coupon/atoms/selectedCouponListState';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { selectedCouponTotalDiscountState } from '../recoil/Coupon/atoms/selectedCouponTotalDiscountState';
+
 import { selectedCartItemListTotalPriceSelector } from '../recoil/CartItem/selectors/selectedCartItemListTotalPriceSelector';
+import { selectedCouponListState } from '../recoil/Coupon/atoms/selectedCouponListState';
+import { selectedCouponTotalDiscountState } from '../recoil/Coupon/atoms/selectedCouponTotalDiscountState';
+import { useCalculateCouponDiscount } from './useCalculateCouponDiscount';
 
 export function useCalculateTotalCouponDiscount() {
   const selectedCartItemTotalPrice = useRecoilValue(selectedCartItemListTotalPriceSelector);

@@ -1,18 +1,19 @@
 import { useState } from 'react';
+import { Await, Link, useLoaderData } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { useLoaderData, Await, Link } from 'react-router-dom';
-import Header from '../../components/Header/Header';
-import TitleContainer from '../../components/Container/TitleContainer/TitleContainer';
-import SubmitButton from '../../components/Button/SubmitButton/SubmitButton';
-import CartItemList from '../../components/List/CartItemList/CartItemList';
-import TotalPriceContainer from '../../components/Container/TotalPriceContainer/TotalPriceContainer';
-import type { CartItem } from '../../types/CartItem.type';
-import { selectedCartItemListState } from '../../recoil/CartItem/atoms/selectedCartItemListState';
+
 import { fetchCartItemList } from '../../apis';
 import { EmptyCart } from '../../assets';
+import SubmitButton from '../../components/Button/SubmitButton/SubmitButton';
+import TitleContainer from '../../components/Container/TitleContainer/TitleContainer';
+import TotalPriceContainer from '../../components/Container/TotalPriceContainer/TotalPriceContainer';
+import Header from '../../components/Header/Header';
+import CartItemList from '../../components/List/CartItemList/CartItemList';
 import { PATHS } from '../../constants/PATHS';
+import { selectedCartItemListState } from '../../recoil/CartItem/atoms/selectedCartItemListState';
 import * as S from './ShoppingCartPage.style';
 
+import type { CartItem } from '../../types/CartItem.type';
 function ShoppingCartPage() {
   const initialValue = useLoaderData() as CartItem[];
 

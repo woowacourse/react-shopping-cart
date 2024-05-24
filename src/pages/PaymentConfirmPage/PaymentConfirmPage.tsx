@@ -1,15 +1,16 @@
-import { useRecoilValue } from 'recoil';
 import { Link, Navigate } from 'react-router-dom';
-import Header from '../../components/Header/Header';
-import TitleContainer from '../../components/Container/TitleContainer/TitleContainer';
+import { useRecoilValue } from 'recoil';
+
 import SubmitButton from '../../components/Button/SubmitButton/SubmitButton';
-import { selectedCartItemListState } from '../../recoil/CartItem/atoms/selectedCartItemListState';
-import { selectedCartItemListTotalCountSelector } from '../../recoil/CartItem/selectors/selectedCartItemListTotalCountSelector';
+import TitleContainer from '../../components/Container/TitleContainer/TitleContainer';
+import Header from '../../components/Header/Header';
 import { PATHS } from '../../constants/PATHS';
-import * as S from './PaymentConfirmPage.style';
-import { selectedCartItemListTotalPriceSelector } from '../../recoil/CartItem/selectors/selectedCartItemListTotalPriceSelector';
 import { useCalculateDeliveryFee } from '../../hooks/useCalculateDeliveryFee';
 import { useCalculateTotalCouponDiscount } from '../../hooks/useCalculateTotalCouponDiscount';
+import { selectedCartItemListState } from '../../recoil/CartItem/atoms/selectedCartItemListState';
+import { selectedCartItemListTotalCountSelector } from '../../recoil/CartItem/selectors/selectedCartItemListTotalCountSelector';
+import { selectedCartItemListTotalPriceSelector } from '../../recoil/CartItem/selectors/selectedCartItemListTotalPriceSelector';
+import * as S from './PaymentConfirmPage.style';
 
 function PaymentConfirmPage() {
   const selectedItemList = useRecoilValue(selectedCartItemListState);

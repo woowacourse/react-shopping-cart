@@ -1,23 +1,24 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useEffect } from 'react';
 import { Link, Navigate, useLoaderData } from 'react-router-dom';
-import Header from '../../components/Header/Header';
-import TitleContainer from '../../components/Container/TitleContainer/TitleContainer';
-import SubmitButton from '../../components/Button/SubmitButton/SubmitButton';
-import TotalPriceContainer from '../../components/Container/TotalPriceContainer/TotalPriceContainer';
-import CartItemContainer from '../../components/Container/CartItemContainer/CartItemContainer';
-import DeliveryInfoContainer from '../../components/List/DeliveryInfoList/DeliveryInfoList';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+
 import ShowModalButton from '../../components/Button/ShowModalButton/ShowModalButton';
-import { selectedCartItemListState } from '../../recoil/CartItem/atoms/selectedCartItemListState';
-import { selectedCartItemListTotalCountSelector } from '../../recoil/CartItem/selectors/selectedCartItemListTotalCountSelector';
+import SubmitButton from '../../components/Button/SubmitButton/SubmitButton';
+import CartItemContainer from '../../components/Container/CartItemContainer/CartItemContainer';
+import TitleContainer from '../../components/Container/TitleContainer/TitleContainer';
+import TotalPriceContainer from '../../components/Container/TotalPriceContainer/TotalPriceContainer';
+import Header from '../../components/Header/Header';
+import DeliveryInfoContainer from '../../components/List/DeliveryInfoList/DeliveryInfoList';
 import { PATHS } from '../../constants/PATHS';
-import * as S from './OrderConfirmPage.style';
-import { applyCouponModalState } from '../../recoil/ApplyCouponModal/atoms/applyCouponModalState';
+import useSortCoupons from '../../hooks/useSortCoupons';
 import { useToggleModal } from '../../hooks/useToggleModal';
 import ApplyCouponModal from '../../modals/ApplyCouponModal/ApplyCouponModal';
-import { Coupon } from '../../types/Coupon.type';
+import { applyCouponModalState } from '../../recoil/ApplyCouponModal/atoms/applyCouponModalState';
+import { selectedCartItemListState } from '../../recoil/CartItem/atoms/selectedCartItemListState';
+import { selectedCartItemListTotalCountSelector } from '../../recoil/CartItem/selectors/selectedCartItemListTotalCountSelector';
 import { selectedCouponListState } from '../../recoil/Coupon/atoms/selectedCouponListState';
-import { useEffect } from 'react';
-import useSortCoupons from '../../hooks/useSortCoupons';
+import { Coupon } from '../../types/Coupon.type';
+import * as S from './OrderConfirmPage.style';
 
 function OrderConfirmPage() {
   const initialValue = useLoaderData() as Coupon[];

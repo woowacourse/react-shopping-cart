@@ -1,6 +1,6 @@
 import { DELIVERY_INFOS } from '../../../constants/DELIVERY_INFOS';
-import * as S from './DeliveryInfoList.style';
 import DeliveryInfoContainer from '../../Container/DeliveryInfoContainer/DeliveryInfoContainer';
+import * as S from './DeliveryInfoList.style';
 
 function DeliveryInfoList() {
   return (

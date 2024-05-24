@@ -1,7 +1,8 @@
-import { useCouponApplicabilityChecker } from './useCouponApplicabilityChecker';
-import { Coupon } from '../types/Coupon.type';
 import { useRecoilValue } from 'recoil';
+
 import { selectedCartItemListTotalPriceSelector } from '../recoil/CartItem/selectors/selectedCartItemListTotalPriceSelector';
+import { Coupon } from '../types/Coupon.type';
+import { useCouponApplicabilityChecker } from './useCouponApplicabilityChecker';
 
 function useSortCoupons(coupons: Coupon[]) {
   const { isCouponApplicable } = useCouponApplicabilityChecker();

@@ -1,4 +1,5 @@
 import { useRecoilState } from 'recoil';
+
 import { selectedCouponListSelector } from '../../../recoil/Coupon/selectors/selectedCouponListSelector';
 import { Coupon } from '../../../types/Coupon.type';
 import { formatExpirationDate, formatMinimumAmount, formatTimeRange } from '../../../utils/formatStrings';

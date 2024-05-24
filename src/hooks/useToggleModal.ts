@@ -1,4 +1,5 @@
 import { useRecoilState } from 'recoil';
+
 import { applyCouponModalState } from '../recoil/ApplyCouponModal/atoms/applyCouponModalState';
 
 export function useToggleModal() {
