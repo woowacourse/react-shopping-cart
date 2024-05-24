@@ -13,6 +13,6 @@ export const finalCartPriceState = selector<number>({
     // TODO: 상품 가격이 배송료보다 쌀 경우 구현
     if (totalCartPrice === 0) return 0;
 
-    return Math.max(totalCartPrice - shippingFee - totalDiscount.coupon, 0);
+    return Math.max(totalCartPrice + shippingFee - totalDiscount.coupon, 0);
   },
 });
