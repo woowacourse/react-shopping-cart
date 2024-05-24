@@ -15,7 +15,7 @@ export const MOCK_COUPON_CHECK_LIST: CouponClint[] = [
     id: 2,
     code: 'BOGO',
     description: '2개 구매 시 1개 무료 쿠폰',
-    expirationDate: '2024-04-30',
+    expirationDate: '2024-06-30',
     buyQuantity: 2,
     getQuantity: 1,
     discountType: 'buyXgetY',
@@ -42,5 +42,18 @@ export const MOCK_COUPON_CHECK_LIST: CouponClint[] = [
     },
     discountType: 'percentage',
     isChecked: false,
+  },
+];
+
+export const CHECKED_BOGO_COUPON: CouponClint[] = [
+  {
+    id: 2,
+    code: 'BOGO',
+    description: '2개 구매 시 1개 무료 쿠폰',
+    expirationDate: '2024-04-30',
+    buyQuantity: 2,
+    getQuantity: 1,
+    discountType: 'buyXgetY',
+    isChecked: true,
   },
 ];

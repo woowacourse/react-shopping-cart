@@ -37,3 +37,28 @@ export const TOTAL_PRICE_OVER_100000_DATA = [
     },
   },
 ];
+
+export const OVER_THREE_COUNT_DATA = [
+  {
+    id: 532,
+    quantity: 3,
+    product: {
+      id: 10,
+      name: '퓨마',
+      price: 10000,
+      imageUrl: 'https://sitem.ssgcdn.com/47/78/22/item/1000031227847_i1_750.jpg',
+      category: 'fashion',
+    },
+  },
+  {
+    id: 123,
+    quantity: 4,
+    product: {
+      id: 10,
+      name: '코카롤라',
+      price: 15000,
+      imageUrl: 'https://sitem.ssgcdn.com/47/78/22/item/1000031227847_i1_750.jpg',
+      category: 'fashion',
+    },
+  },
+];
