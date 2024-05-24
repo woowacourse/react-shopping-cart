@@ -4,9 +4,9 @@ import { ReactNode, useEffect } from 'react';
 import LoadingFallback from '../../components/LoadingFallback/LoadingFallback';
 import { useCartItemList } from '../../recoil/cartItemList/useCartItemList';
 
-const CartItemListLoader = ({ children }: { children: ReactNode }) => {
-  const { updateCartItemList } = useCartItemList();
+const CartPageLoader = ({ children }: { children: ReactNode }) => {
   const cartItemListLoadable = useRecoilValueLoadable(cartItemListStateQuery);
+  const { updateCartItemList } = useCartItemList();
 
   useEffect(() => {
     updateCartItemList();
@@ -16,10 +16,10 @@ const CartItemListLoader = ({ children }: { children: ReactNode }) => {
     case 'hasValue':
       return children;
     case 'hasError':
-      return <div>장바구니 목록을 불러올 수 없습니다.</div>;
+      throw cartItemListLoadable.contents;
     case 'loading':
       return <LoadingFallback />;
   }
 };
 
-export default CartItemListLoader;
+export default CartPageLoader;
