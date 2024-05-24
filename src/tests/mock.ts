@@ -29,20 +29,9 @@ export const CartItemListMock: CartItem[] = [
     product: {
       id: 3,
       name: "아디다스",
-      price: 100,
-      imageUrl: "",
-      category: "fashion",
-    },
-  },
-  {
-    id: 4,
-    quantity: 1,
-    product: {
-      id: 4,
-      name: "10만원",
       price: 100000,
       imageUrl: "",
-      category: "etc",
+      category: "fashion",
     },
   },
 ];

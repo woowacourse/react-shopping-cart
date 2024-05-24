@@ -1,10 +1,9 @@
-import { atom, selector } from "recoil";
+import { selector } from "recoil";
 
 import { cartItemsState } from "./cartItems";
 
 import { cartItemQuantityState } from "./cartItemQuantity";
 import { selectedCartItemsIdState } from "./selectedCardItems";
-import { ShippingFeeType } from "@/constants/cart";
 
 export const totalOrderPriceSelector = selector({
   key: "totalOrderPriceSelector",
@@ -20,11 +19,6 @@ export const totalOrderPriceSelector = selector({
     }, 0);
     return totalPrice;
   },
-});
-
-export const shippingFeeTypeState = atom<ShippingFeeType>({
-  key: "shippingTypeFee",
-  default: "BASIC",
 });
 
 export const totalItemOrderCountSelector = selector({

@@ -5,12 +5,12 @@ import PriceInfoBox from "../PriceInfoBox/PriceInfoBox.tsx";
 import * as S from "./PriceSection.styles.ts";
 
 import { totalOrderPriceSelector } from "@/recoil/orderInformation.ts";
-import useCalculateShippingFee from "@/hooks/useCalculateShippingFee.ts";
 import { SHIPPING_FEE } from "@/constants/cart.ts";
+import { shippingFeeSelector } from "@/recoil/shippingFeeType.ts";
 
 const PriceSection = ({ isApplyCoupon }: { isApplyCoupon: boolean }) => {
   const orderPrice = useRecoilValue(totalOrderPriceSelector);
-  const { shippingFeeType } = useCalculateShippingFee();
+  const shippingFeeType = useRecoilValue(shippingFeeSelector);
   const totalPrice = orderPrice + SHIPPING_FEE[shippingFeeType];
 
   return (

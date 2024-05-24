@@ -4,7 +4,7 @@ import { CART_PAGE_CAPTION, CART_PAGE_MESSAGES } from "@/constants/cart";
 
 import { totalItemOrderCountSelector } from "@/recoil/orderInformation";
 import { selectedCartItemsIdState } from "@/recoil/selectedCardItems";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import TitleSet from "@/components/_common/TitleSet/TitleSet";
 import ProductList from "@/components/cart/ProductList/ProductList";
@@ -19,7 +19,10 @@ import { useNavigate } from "react-router-dom";
 import { PAGE_URL } from "@/constants/url";
 import CouponModal from "@/components/modal/CouponModal/CouponModal";
 import MoreInfo from "@/components/_common/MoreInfo/MoreInfo";
-import useCalculateShippingFee from "@/hooks/useCalculateShippingFee";
+import {
+  shippingFeeSelector,
+  shippingFeeState,
+} from "@/recoil/shippingFeeType";
 
 const OrderConfirmPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,15 +33,15 @@ const OrderConfirmPage = () => {
   const totalItemsCount = useRecoilValue(totalItemOrderCountSelector);
   const selectedItemsId = useRecoilValue(selectedCartItemsIdState);
 
-  const { shippingFeeType, setShippingFeeType } = useCalculateShippingFee();
+  const setShippingFeeType = useSetRecoilState(shippingFeeState);
+  const shippingFeeType = useRecoilValue(shippingFeeSelector);
 
   const navigate = useNavigate();
 
   const onClickDoubleShippingFee = () => {
-    console.log("aaa");
-    shippingFeeType === "DOUBLE"
-      ? setShippingFeeType("BASIC")
-      : setShippingFeeType("DOUBLE");
+    shippingFeeType === "remoteAreaShippingFee"
+      ? setShippingFeeType("basic")
+      : setShippingFeeType("remoteAreaShippingFee");
   };
 
   const onMovePaymentConfirmPage = () => {
@@ -84,14 +87,14 @@ const OrderConfirmPage = () => {
           <TextBox type="small" text="배송 정보" />
           <S.FlexBox>
             <CheckBox
-              isChecked={shippingFeeType === "DOUBLE"}
+              isChecked={shippingFeeType === "remoteAreaShippingFee"}
               onClick={onClickDoubleShippingFee}
-              disabled={shippingFeeType === "FREE"}
+              disabled={shippingFeeType === "free"}
             />
             <TextBox
               type="xSmall"
               text="제주도 및 도서 산간 지역"
-              disabled={shippingFeeType === "FREE"}
+              disabled={shippingFeeType === "free"}
             />
           </S.FlexBox>
         </S.ShippingInfoBox>
