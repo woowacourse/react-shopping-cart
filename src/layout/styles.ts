@@ -1,9 +1,8 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const LayoutWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
   overflow: hidden;
 `;
 
