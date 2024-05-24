@@ -2,8 +2,8 @@ import React, { PropsWithChildren } from "react";
 import { BottomButtonContainer } from "./styles";
 
 const BottomButton: React.FC<
-  PropsWithChildren<{ onClick?: () => void; isDisabled: boolean }>
-> = ({ children, onClick, isDisabled }) => {
+  PropsWithChildren<{ onClick?: () => void; isDisabled?: boolean }>
+> = ({ children, onClick, isDisabled = false }) => {
   const handleClick = () => {
     if (!isDisabled && onClick) {
       onClick();
