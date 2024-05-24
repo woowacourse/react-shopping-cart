@@ -1,16 +1,15 @@
 import Button from '../../../components/common/Button';
 import { useRecoilValue } from 'recoil';
 import { productQuantityState } from '../../../store/selectors';
-
 import useQuantityCount from '../../../hooks/useQuantityCount';
 import useToggleIndividualChecked from '../../../hooks/useToggleIndividualChecked';
 import useDeleteProduct from '../../../hooks/useDeleteProduct';
 import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
-
-import { ProductType } from '../../../types';
-import styles from '../Cart.module.css';
-import common from '../../../styles/common.module.css';
 import CheckBox from '../../../components/common/CheckBox/CheckBox';
+import CaptionText from '../../../components/common/CaptionText/CaptionText';
+import { ProductType } from '../../../types';
+import common from '../../../styles/common.module.css';
+import styles from '../Cart.module.css';
 
 interface Props extends ProductType {
   quantity: number;
@@ -42,7 +41,7 @@ export default function CartItem({ id, price, imageUrl, name, isChecked, setAllC
         </div>
 
         <div className={styles.itemInfoContainer}>
-          <span className={common.captionText}> {name}</span>
+          <CaptionText>{name}</CaptionText>
           <span className={common.titleText}> {formatKoreanCurrency(price)}</span>
           <div className={styles.plusMinusButtonContainer}>
             <Button
