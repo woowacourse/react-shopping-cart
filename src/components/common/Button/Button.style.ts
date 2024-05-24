@@ -30,22 +30,22 @@ export const Button = styled.button<ButtonProps>`
     }
   }}
 
-  ${({ size, square }) => {
+  ${({ size, isSquare }) => {
     switch (size) {
       case 's':
         return `
           height: 24px;
-          padding: ${square ? '4px 4px' : '4px 8px'};
+          padding: ${isSquare ? '4px 4px' : '4px 8px'};
         `;
       case 'm':
         return `
           height: 36px;
-          padding: ${square ? '8px 8px' : '8px 12px'};
+          padding: ${isSquare ? '8px 8px' : '8px 12px'};
         `;
       case 'l':
         return `
           height: 48px;
-          padding: ${square ? '12px 12px' : '12px 16px'};
+          padding: ${isSquare ? '12px 12px' : '12px 16px'};
         `;
       case 'fit':
         return `
@@ -55,13 +55,13 @@ export const Button = styled.button<ButtonProps>`
       default:
         return `
           height: 36px;
-          padding: ${square ? '8px 8px' : '8px 12px'};
+          padding: ${isSquare ? '8px 8px' : '8px 12px'};
         `;
     }
   }}
 
-  ${({ square }) =>
-    square &&
+  ${({ isSquare }) =>
+    isSquare &&
     `
     aspect-ratio: 1 / 1;
   `}
