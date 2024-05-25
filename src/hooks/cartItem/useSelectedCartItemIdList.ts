@@ -21,7 +21,8 @@ export const useSelectedCartItemIdList = () => {
     setSelectedIdList([]);
   };
 
-  const isSelectedAll = selectedIdList.length === cartItemList.length;
+  const isSelectedAll =
+    cartItemList.length !== 0 && selectedIdList.length === cartItemList.length;
 
   return {
     selectedIdList,
