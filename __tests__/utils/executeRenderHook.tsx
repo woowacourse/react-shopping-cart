@@ -5,7 +5,7 @@ import { RecoilRoot } from 'recoil';
 
 import { INITIAL_ITEMS } from '../constants/cartItems';
 
-const executeCartItemRenderHook = <T,>(callback: () => T, items?: CartItem[], ids?: Set<number | unknown>) => {
+const executeCartItemRenderHook = <T,>(callback: () => T, items?: CartItem[], ids?: Set<number>) => {
   return renderHook(callback, {
     wrapper: ({ children }) => (
       <RecoilRoot
