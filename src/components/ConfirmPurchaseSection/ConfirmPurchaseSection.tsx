@@ -13,8 +13,12 @@ import { hasExtraDeliveryFeeState } from '../../recoil/cartItem/atom';
 import CheckboxWithLabel from '../CheckboxWithLabel/CheckboxWithLabel';
 import SelectCouponModal from '../SelectCouponModal/SelectCouponModal';
 import { useSelectedCartItemIdList } from '../../hooks/cartItem/useSelectedCartItemIdList';
+import useFetchCouponList from '../../hooks/coupon/useFetchCouponList';
 
 const ConfirmPurchaseSection = () => {
+  const { fetchCouponList } = useFetchCouponList();
+  fetchCouponList();
+
   const { cartItemList } = useCartItemList();
   const { selectedIdList } = useSelectedCartItemIdList();
   const [hasExtraDeliveryFee, setHasExtraDeliveryFee] = useRecoilState(
