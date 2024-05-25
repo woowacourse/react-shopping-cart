@@ -194,7 +194,7 @@ describe('쿠폰 이용 여부 테스트', () => {
   describe('미라클 할인 쿠폰 테스트', () => {
     it('이용 일자가 지나지 않았다면 이용 가능한 쿠폰이다.', () => {
       // given
-      jest.setSystemTime(new Date(Date.UTC(2024, 4, 20, 4, 0, 1)));
+      jest.setSystemTime(new Date(Date.UTC(2024, 4, 19, 19, 0, 1)));
 
       const VALID_COUPON: Coupon = createMiracleCoupon('2024-05-22');
       const isApplicabilityCoupon = createIsApplicabilityCoupon();
@@ -215,9 +215,10 @@ describe('쿠폰 이용 여부 테스트', () => {
         expect(isApplicabilityCoupon(VALID_COUPON)).toBeFalsy();
       });
     });
+
     it('이용 가능한 시간 (4시 1초)에 쿠폰을 사용할 수 있다.', () => {
       // given
-      jest.setSystemTime(new Date(Date.UTC(2024, 4, 19, 4, 0, 1)));
+      jest.setSystemTime(new Date(Date.UTC(2024, 4, 19, 19, 0, 1)));
 
       const validCoupon = createMiracleCoupon('2024-05-21');
       const isApplicabilityCoupon = createIsApplicabilityCoupon();
@@ -230,7 +231,7 @@ describe('쿠폰 이용 여부 테스트', () => {
 
     it('이용 가능한 시간 (6시 59분 59초)에 쿠폰을 사용할 수 있다.', () => {
       // given
-      jest.setSystemTime(new Date(Date.UTC(2024, 4, 19, 6, 59, 59)));
+      jest.setSystemTime(new Date(Date.UTC(2024, 4, 18, 21, 59, 59)));
       const validCoupon = createMiracleCoupon('2024-05-21');
       const isApplicabilityCoupon = createIsApplicabilityCoupon();
 
@@ -242,7 +243,7 @@ describe('쿠폰 이용 여부 테스트', () => {
 
     it('이용 불가능 한 시간 (3시 59분 59초)에 쿠폰을 사용할 수 없다.', () => {
       // given
-      jest.setSystemTime(new Date(Date.UTC(2024, 4, 19, 3, 59, 59)));
+      jest.setSystemTime(new Date(Date.UTC(2024, 4, 18, 18, 59, 59)));
 
       const validCoupon = createMiracleCoupon('2024-05-21');
       const isApplicabilityCoupon = createIsApplicabilityCoupon();
@@ -255,7 +256,7 @@ describe('쿠폰 이용 여부 테스트', () => {
 
     it('이용 불가능 한 시간 (7시 1초)에 쿠폰을 사용할 수 없다.', () => {
       // given
-      jest.setSystemTime(new Date(Date.UTC(2024, 4, 19, 7, 0, 1)));
+      jest.setSystemTime(new Date(Date.UTC(2024, 4, 18, 22, 0, 1)));
 
       const validCoupon = createMiracleCoupon('2024-05-21');
       const isApplicabilityCoupon = createIsApplicabilityCoupon();

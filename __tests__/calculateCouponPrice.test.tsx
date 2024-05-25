@@ -198,22 +198,22 @@ describe('쿠폰 할인 금액 계산 테스트', () => {
     const testCases = [
       {
         title: '새벽 4시 1초일 경우 30% 할인이 적용 된다.',
-        date: new Date(Date.UTC(2024, 4, 20, 4, 0, 1)),
+        date: new Date(Date.UTC(2024, 4, 19, 19, 0, 1)),
         expectedDiscount: 18000,
       },
       {
         title: '새벽 6시 59분 59초일 경우 30% 할인이 적용 된다.',
-        date: new Date(Date.UTC(2024, 4, 20, 6, 59, 59)),
+        date: new Date(Date.UTC(2024, 4, 18, 21, 59, 59)),
         expectedDiscount: 18000,
       },
       {
         title: '새벽 3시 59분 59초일 경우 30% 할인이 적용 되지 않는다.',
-        date: new Date(Date.UTC(2024, 4, 20, 3, 59, 59)),
+        date: new Date(Date.UTC(2024, 4, 18, 18, 59, 59)),
         expectedDiscount: 0,
       },
       {
         title: '새벽 7시 1초일 경우 30% 할인이 적용 되지 않는다.',
-        date: new Date(Date.UTC(2024, 4, 20, 7, 0, 1)),
+        date: new Date(Date.UTC(2024, 4, 18, 22, 0, 1)),
         expectedDiscount: 0,
       },
     ];
