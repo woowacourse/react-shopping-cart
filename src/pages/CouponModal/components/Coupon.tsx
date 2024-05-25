@@ -28,6 +28,7 @@ const CouponItem = ({
       <S.BorderLine />
       <S.FlexBox>
         <CheckBox
+          disabled={disabled}
           isChecked={!!isCouponItemApplied}
           onClick={onToggleApplyCoupon}
         />
