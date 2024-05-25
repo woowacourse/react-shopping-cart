@@ -7,7 +7,7 @@ export const isValidFreeShippingCondition = (coupon: Coupon, shippingPrice: numb
   coupon.discountType === 'freeShipping' && shippingPrice === PRICE.shippingFee.free;
 
 export const isValidMinimumPriceCondition = (coupon: Coupon, totalPrice: number) =>
-  coupon?.minimumAmount && totalPrice > coupon.minimumAmount;
+  coupon?.minimumAmount && totalPrice >= coupon.minimumAmount;
 
 export const isValidTimeCondition = (coupon: Coupon, now = new Date()) => {
   if (!coupon.availableTime) return false;
