@@ -1,4 +1,4 @@
-export const productDummy = {
+const productDummy = {
   id: 100,
   name: "퓨마",
   price: 20000,

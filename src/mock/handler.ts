@@ -1,7 +1,6 @@
 import { HttpResponse, http } from "msw";
-import { couponsDummy, freeShippingDummy } from "./dummy";
-
-const DUMMY_CART_DATA = freeShippingDummy;
+import { freeShippingDummy } from "./testMockData";
+import { DUMMY_CART_DATA, DUMMY_COUPON_DATA } from "./fetchMockData";
 
 const TOTAL_COUNTS = freeShippingDummy.content.reduce((acc, product) => acc + product.quantity, 0);
 
@@ -13,6 +12,6 @@ export const handlers = [
     return HttpResponse.json({ quantity: TOTAL_COUNTS });
   }),
   http.get(`${import.meta.env.VITE_API_BASE_URL}/coupons`, () => {
-    return HttpResponse.json(couponsDummy);
+    return HttpResponse.json(DUMMY_COUPON_DATA);
   }),
 ];

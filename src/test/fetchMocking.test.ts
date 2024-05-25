@@ -4,7 +4,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
 import { cartState, couponsState } from "@/store/atom/atoms";
 import { server } from "@/mock/server";
-import { couponsDummy, freeShippingDummy } from "@/mock/dummy";
+import { couponsDummy, freeShippingDummy } from "@/mock/testMockData";
 
 describe("fetchMocking테스트", () => {
   beforeAll(() => {

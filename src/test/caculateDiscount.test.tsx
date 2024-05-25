@@ -1,5 +1,5 @@
 import useCouponCalculate from "@/hooks/useCouponCalculate";
-import { cartItemDummy } from "@/mock/dummy";
+import { cartItemDummy } from "@/mock/testMockData";
 import { cartState } from "@/store/atom/atoms";
 import { renderHook } from "@testing-library/react";
 import { RecoilRoot } from "recoil";

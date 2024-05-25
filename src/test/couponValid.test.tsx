@@ -3,7 +3,7 @@ import { RecoilRoot } from "recoil";
 import { describe, it, vi, beforeAll, afterAll, expect } from "vitest";
 import { renderHook } from "@testing-library/react";
 
-import { chargeShippingDummy, couponsDummy, freeShippingDummy } from "@/mock/dummy";
+import { chargeShippingDummy, couponsDummy, freeShippingDummy } from "@/mock/testMockData";
 import { cartState, couponsState, couponEachCheckState } from "@/store/atom/atoms";
 
 import useCoupon from "@/hooks/useCoupon";
