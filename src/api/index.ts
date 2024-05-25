@@ -17,7 +17,6 @@ export async function fetchItems(): Promise<CartItems[]> {
   if (!response.ok) {
     throw new Error('Failed to fetch Items');
   }
-
   const data = await response.json();
   return data.content;
 }
@@ -68,4 +67,19 @@ export async function fetchCoupons(): Promise<Coupon[]> {
 
   const data = await response.json();
   return data;
+}
+
+export async function fetchOrder(cartItemIds: number[]) {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+  const response = await fetch(`${API_URL}/orders`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: token },
+    body: JSON.stringify({
+      cartItemIds: cartItemIds,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch Items');
+  }
 }

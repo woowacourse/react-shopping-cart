@@ -1,10 +1,11 @@
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { totalCountSelector, totalPriceSelector } from '../recoil/selectors';
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 import { URL_PATH } from '../constants/UrlPath';
 import { MESSAGES } from '../constants/Messages';
+import { fetchOrder } from '../api';
+import { ResetAllState } from '../recoil/useRecoilCallback';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const CompletedContainer = styled.div`
   display: flex;
@@ -43,9 +44,25 @@ const TotalAmountStyle = styled.p`
 `;
 
 function Completed() {
-  const { totalItemTypeCount, totalCount } = useRecoilValue(totalCountSelector);
-  const { calculatedTotalAmount } = useRecoilValue(totalPriceSelector);
+  const {
+    state: {
+      totalItemTypeCount,
+      totalCount,
+      calculatedTotalAmount,
+      checkedItemId,
+    },
+  } = useLocation();
 
+  const updateOrder = async () => {
+    await fetchOrder(checkedItemId);
+  };
+
+  const navigate = useNavigate();
+  const handleFooterClick = () => {
+    navigate(URL_PATH.cart);
+  };
+  updateOrder();
+  ResetAllState();
   return (
     <>
       <Header headerIconType="back" />
@@ -64,8 +81,8 @@ function Completed() {
 
       <Footer
         value={MESSAGES.returnCart}
-        isDisabled={true}
-        url={URL_PATH.cart}
+        isDisabled={false}
+        onClick={handleFooterClick}
       />
     </>
   );
