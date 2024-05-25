@@ -142,40 +142,6 @@ export const allCheckedItemsSelector = selector({
     }, []);
   },
 });
-
-export const useResetAllCoupons = () => {
-  return useRecoilCallback(
-    ({ snapshot, set }) =>
-      async () => {
-        const coupons = await snapshot.getPromise(couponsState);
-        coupons.forEach((coupon) => {
-          set(couponDetailState(coupon.id), false);
-        });
-      },
-    [],
-  );
-};
-
-export const useValidateCoupons = () => {
-  return useRecoilCallback(
-    ({ snapshot, set }) =>
-      async () => {
-        const coupons = await snapshot.getPromise(couponsState);
-        const { totalAmount } = await snapshot.getPromise(totalPriceSelector);
-        coupons.forEach(async (coupon) => {
-          const couponDetail = await snapshot.getPromise(
-            couponDetailState(coupon.id),
-          );
-          set(
-            couponDetailState(coupon.id),
-            couponDetail && isCouponApplicable(coupon, totalAmount),
-          );
-        });
-      },
-    [],
-  );
-};
-
 export const totalDiscountSelector = selector({
   key: 'totalDiscountSelector',
   get: ({ get }) => {
