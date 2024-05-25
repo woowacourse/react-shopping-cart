@@ -1,4 +1,4 @@
-import { Coupon } from '@appTypes/shoppingCart';
+import { Coupon, CouponCode } from '@appTypes/shoppingCart';
 import { Checkbox } from '@components/common';
 import { formatDateToString, formatKoreanCurrency } from '@utils/index';
 import { ChangeEvent } from 'react';
@@ -8,7 +8,7 @@ import * as Styled from './CouponCard.styled';
 interface CouponCardProps {
   coupon: Coupon;
   isChecked: boolean;
-  handleChangeChecked: (e: ChangeEvent<HTMLInputElement>, code: string) => void;
+  handleChangeChecked: (e: ChangeEvent<HTMLInputElement>, code: CouponCode) => void;
   isDisabled: boolean;
 }
 

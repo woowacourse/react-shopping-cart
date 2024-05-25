@@ -1,5 +1,5 @@
 import { fetchCartItems, fetchCouponList } from '@apis/index';
-import { CartItem, Coupon } from '@appTypes/shoppingCart';
+import { CartItem, Coupon, CouponCode } from '@appTypes/shoppingCart';
 import { STORAGE_KEY } from '@constants/storage';
 import { localStorageEffect } from '@recoil/common/localStorageEffect';
 import { atom } from 'recoil';
@@ -20,7 +20,7 @@ export const availableCouponsAtom = atom<Coupon[]>({
   default: [],
 });
 
-export const couponListAtom = atom<Map<string, Coupon>>({
+export const couponListAtom = atom<Map<CouponCode, Coupon>>({
   key: 'couponListAtom',
   default: Promise.resolve(fetchCouponList()),
 });

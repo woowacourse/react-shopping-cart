@@ -1,3 +1,5 @@
+import { COUPON_CODE } from '@constants/coupon';
+
 export interface Product {
   id: number;
   name: string;
@@ -22,9 +24,13 @@ export type AvailableTime = {
   start: string;
   end: string;
 };
+
+export type ObjectValues<T> = T[keyof T];
+
+export type CouponCode = ObjectValues<typeof COUPON_CODE>;
 export interface Coupon {
   id: number;
-  code: string;
+  code: CouponCode;
   description: string;
   discount?: number;
   discountType: DiscountType;

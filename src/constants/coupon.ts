@@ -5,4 +5,4 @@ export const COUPON_CODE = {
   bogo: 'BOGO',
   freeShipping: 'FREESHIPPING',
   miracleSale: 'MIRACLESALE',
-};
+} as const;

@@ -1,3 +1,4 @@
+import { CouponCode } from '@appTypes/shoppingCart';
 import { COUPON_CODE } from '@constants/coupon';
 import { couponListAtom } from '@recoil/shoppingCart';
 import { useRecoilValue } from 'recoil';
@@ -9,7 +10,7 @@ const useCouponFinder = () => {
   /**
    * 특정 코드를 가진 쿠폰을 반환하는 함수
    */
-  const getCoupon = (code: string) => {
+  const getCoupon = (code: CouponCode) => {
     const coupon = couponList.get(code);
 
     if (!coupon) throw new Error('쿠폰을 찾을 수 없습니다.');

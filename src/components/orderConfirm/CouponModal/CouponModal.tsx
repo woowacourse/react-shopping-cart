@@ -1,4 +1,4 @@
-import { Coupon } from '@appTypes/shoppingCart';
+import { Coupon, CouponCode } from '@appTypes/shoppingCart';
 import { CrossIcon } from '@assets/index';
 import { InfoBanner } from '@components/common';
 import { MAX_NUMBER_OF_COUPON } from '@constants/coupon';
@@ -28,13 +28,13 @@ const CouponModal = ({ openModal, setOpenModal, availableCoupons }: CouponModalP
 
   usePreventScroll({ targetEl: document.body as HTMLBodyElement, isPreventScroll: openModal });
 
-  const [selectedCouponCodes, setSelectedCouponCodes] = useState<string[]>([]);
+  const [selectedCouponCodes, setSelectedCouponCodes] = useState<CouponCode[]>([]);
   const [discount, setDiscount] = useState<number>(0);
 
   const coupons = Object.values(getAllCoupons());
   const availableCouponCodes = availableCoupons.map((coupon) => coupon.code);
 
-  const isCouponDisabled = (code: string) => {
+  const isCouponDisabled = (code: CouponCode) => {
     // 사용 불가한 쿠폰인 경우
     if (!availableCouponCodes.includes(code)) return true;
     // 이미 최대 사용 가능한 쿠폰 개수만큼 쿠폰을 선택했지만, 해당 쿠폰은 선택되지 않은 경우
@@ -48,7 +48,7 @@ const CouponModal = ({ openModal, setOpenModal, availableCoupons }: CouponModalP
    * @param isChecked
    * @param code
    */
-  const getNewSelectedCouponCodes = (isChecked: boolean, code: string) => {
+  const getNewSelectedCouponCodes = (isChecked: boolean, code: CouponCode) => {
     if (isChecked) return selectedCouponCodes?.includes(code) ? selectedCouponCodes : selectedCouponCodes.concat(code);
 
     return selectedCouponCodes.filter((i) => i !== code);
@@ -57,10 +57,8 @@ const CouponModal = ({ openModal, setOpenModal, availableCoupons }: CouponModalP
   /**
    * 선택된 쿠폰에 따른 최대 할인 금액을 계산해, 로컬 상태인 discount를 업데이트하는 함수
    */
-  const updateDiscount = (newSelectedCouponCodes: string[]) => {
-    const selectedCoupons = newSelectedCouponCodes
-      .map((code) => getCoupon(code))
-      .filter((coupon): coupon is Coupon => coupon !== undefined);
+  const updateDiscount = (newSelectedCouponCodes: CouponCode[]) => {
+    const selectedCoupons = newSelectedCouponCodes.map((code) => getCoupon(code));
 
     setDiscount(getMaxDiscountAmount(selectedCoupons));
   };
@@ -69,7 +67,7 @@ const CouponModal = ({ openModal, setOpenModal, availableCoupons }: CouponModalP
    * 쿠폰에 대한 체크 박스의 선택 여부를 변경 시, 실행되는 기능(selectedCouponCodes,discount)에 대한 핸들러
    * @param code :해당 체크 박스의 타켓인 쿠폰의 코드
    */
-  const handleChangeChecked = (e: ChangeEvent<HTMLInputElement>, code: string) => {
+  const handleChangeChecked = (e: ChangeEvent<HTMLInputElement>, code: CouponCode) => {
     const isChecked = e.target.checked;
 
     const newSelectedCouponCodes = getNewSelectedCouponCodes(isChecked, code);
