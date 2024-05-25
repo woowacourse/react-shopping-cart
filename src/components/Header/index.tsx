@@ -5,5 +5,5 @@ interface HeaderProps {
 }
 
 export default function Header({ homeButton }: HeaderProps) {
-  return <S.HeaderContainer>{homeButton}</S.HeaderContainer>;
+  return <S.Header>{homeButton}</S.Header>;
 }

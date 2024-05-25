@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const HeaderContainer = styled.header(({ theme }) => ({
+export const Header = styled.header(({ theme }) => ({
   background: `${theme.colors.black}`,
   width: '100%',
   height: '64px',
