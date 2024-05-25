@@ -16,7 +16,6 @@ interface CouponModalProps {
 
 const CouponModal = ({ isOpen, onClose, onConfirm }: CouponModalProps) => {
   const [coupons] = useRecoilState(couponsAtom);
-
   const { calculateCouponTotal } = useCartCalculator();
 
   return (
@@ -34,9 +33,10 @@ const CouponModal = ({ isOpen, onClose, onConfirm }: CouponModalProps) => {
         <Information title="쿠폰은 최대 2개까지 사용할 수 있습니다." />
         <div className={couponItemsCSS}>
           {coupons.map((coupon, index) => (
-            <div key={index}>
-              <CouponItem coupon={coupon} />
-            </div>
+            <CouponItem
+              key={coupon.id}
+              coupon={coupon}
+            />
           ))}
         </div>
       </Modal.Content>
