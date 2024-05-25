@@ -1,13 +1,16 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
-import TotalAmount from '../TotalAmount/TotalAmount';
+import CartTotalAmount from '../TotalAmount/CartTotalAmount';
 import ItemList from '../ItemList/ItemList';
 import Title from '../Title/Title';
 import styled from 'styled-components';
 import { itemsState } from '../../recoil/atoms';
 import { MESSAGES, MESSAGES_PROPS } from '../../constants/Messages';
-import { totalPriceSelector } from '../../recoil/selectors';
 import Footer from '../Footer/Footer';
 import { URL_PATH } from '../../constants/UrlPath';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { fetchItems } from '../../api';
+import { checkedItemsSelector } from '../../recoil/selectors';
 
 const ContentWrapper = styled.section`
   display: flex;
@@ -30,10 +33,21 @@ export const NoCartItemContainer = styled.p`
 `;
 
 function CartContent() {
-  const [items] = useRecoilState(itemsState);
-  const { totalAmount, deliveryFee, calculatedTotalAmount } = useRecoilValue(
-    totalPriceSelector('Default'),
-  );
+  const [items, setItems] = useRecoilState(itemsState);
+  const checkedItems = useRecoilValue(checkedItemsSelector);
+  useEffect(() => {
+    fetchItems()
+      .then(setItems)
+      .catch((e) => {
+        throw new Error(e);
+      });
+  }, [setItems]);
+
+  const navigate = useNavigate();
+
+  const handleFooterClick = () => {
+    navigate(URL_PATH.orderConfirm);
+  };
   return (
     <>
       <ContentWrapper>
@@ -44,14 +58,7 @@ function CartContent() {
               subTitle={MESSAGES_PROPS.includedItems(items.length)}
             />
             <ItemList />
-            <TotalAmount
-              type={'noneDiscount'}
-              price={{
-                totalAmount,
-                deliveryFee,
-                calculatedTotalAmount,
-              }}
-            />
+            <CartTotalAmount />
           </>
         ) : (
           <>
@@ -62,8 +69,8 @@ function CartContent() {
       </ContentWrapper>
       <Footer
         value={MESSAGES.confirm}
-        isDisabled={items.length === 0}
-        url={URL_PATH.orderConfirm}
+        isDisabled={items.length === 0 || checkedItems.length === 0}
+        onClick={handleFooterClick}
       />
     </>
   );
