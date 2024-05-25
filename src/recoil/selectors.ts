@@ -145,7 +145,11 @@ export const totalPaymentAmountSelector = selector<number>({
 export const finalTotalPaymentAmountSelector = selector<number>({
   key: 'finalTotalPaymentAmount',
   get: ({ get }) => {
-    return get(totalOrderAmountSelector) + get(finalShippingFeeSelector);
+    return (
+      get(totalOrderAmountSelector) -
+      get(couponDiscountAmountSelector) +
+      get(finalShippingFeeSelector)
+    );
   },
 });
 
@@ -191,4 +195,72 @@ export const isAllCouponSelectedSelectorFamily = selectorFamily<
         set(isCouponSelectedState(couponId), newValue);
       });
     },
+});
+
+export const fixedDiscountSelector = selector<number>({
+  key: 'fixedDiscount',
+  get: () => {
+    return 5000;
+  },
+});
+
+export const bogoDiscountSelector = selector<number>({
+  key: 'bogoDiscount',
+  get: ({ get }) => {
+    return Math.max(
+      ...get(applicableBOGOCartItemsSelector).map(
+        (selectedCartItem) => selectedCartItem.product.price,
+      ),
+    );
+  },
+});
+
+export const shippingFeeDiscountSelector = selector<number>({
+  key: 'shippingFeeDiscount',
+  get: ({ get }) => {
+    return get(finalShippingFeeSelector);
+  },
+});
+
+export const miracleMorningDiscountSelector = selector<number>({
+  key: 'miracleMorningDiscount',
+  get: ({ get }) => {
+    return get(totalOrderAmountSelector) * 0.3;
+  },
+});
+
+export const couponDiscountPriceSelectorFamily = selectorFamily<number, number>(
+  {
+    key: 'couponDiscountPrice',
+    get:
+      (couponId: number) =>
+      ({ get }) => {
+        switch (couponId) {
+          case 1:
+            return get(fixedDiscountSelector);
+          case 2:
+            return get(bogoDiscountSelector);
+          case 3:
+            return get(shippingFeeDiscountSelector);
+          case 4:
+            return get(miracleMorningDiscountSelector);
+          default:
+            return 0;
+        }
+      },
+  },
+);
+
+export const couponDiscountAmountSelector = selector<number>({
+  key: 'couponDiscountAmount',
+  get: ({ get }) => {
+    const selectedCoupons = get(selectedCouponsSelector);
+
+    return selectedCoupons.reduce((couponDiscountAmount, selectedCoupon) => {
+      return (
+        couponDiscountAmount +
+        get(couponDiscountPriceSelectorFamily(selectedCoupon.id))
+      );
+    }, 0);
+  },
 });
