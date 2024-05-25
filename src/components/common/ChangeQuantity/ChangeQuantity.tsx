@@ -15,7 +15,7 @@ export interface ChangeQuantityProps {
 const ChangeQuantity = ({ quantity, decreaseQuantity, increaseQuantity }: ChangeQuantityProps) => {
   return (
     <S.ChangeQuantity>
-      <Button size="s" onClick={decreaseQuantity} isSquare={true} isDisabled={quantity === 1} aria-label="minus">
+      <Button size="s" onClick={decreaseQuantity} isSquare={true} disabled={quantity === 1} aria-label="minus">
         <img src={MINUS} alt="수량 감소" />
       </Button>
       <S.Quantity>
