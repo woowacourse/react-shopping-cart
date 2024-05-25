@@ -4,9 +4,9 @@ import { LoadingMessage } from '../../LoadingFallback/style';
 import { Suspense } from 'react';
 
 import Header from '../../Header/Header';
-
 import OrderButton from '../../OrderButton/OrderButton';
 import OrderConfirmationContent from '../../Content/OrderConfirmationContent/OrderConfirmationContent';
+import ApplyingCouponModal from '../../ApplyingCouponModal/ApplyingCouponModal';
 
 const OrderConfirmation = () => {
   return (
@@ -16,6 +16,7 @@ const OrderConfirmation = () => {
         <OrderConfirmationContent />
         <OrderButton />
       </Suspense>
+      <ApplyingCouponModal />
     </Styled.Page>
   );
 };
