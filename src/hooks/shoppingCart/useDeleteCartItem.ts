@@ -20,14 +20,10 @@ const useDeleteCartItem = (id: number) => {
   };
 
   const onDeleteItem = async () => {
-    try {
-      await ShoppingCartFetcher.deleteCartItem(id);
+    await ShoppingCartFetcher.deleteCartItem(id);
 
-      updateCartItems();
-      updateSelectedCartItemIds();
-    } catch (error) {
-      console.error(error);
-    }
+    updateCartItems();
+    updateSelectedCartItemIds();
   };
 
   return { updateCartItems, updateSelectedCartItemIds, onDeleteItem };

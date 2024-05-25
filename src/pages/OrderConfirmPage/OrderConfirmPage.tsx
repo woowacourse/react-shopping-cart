@@ -1,6 +1,8 @@
 import OrderConfirmFetcher from '@apis/orderConfirm';
 import { UpsideDownExclamation } from '@assets/index';
 import { BottomButton, Checkbox, LoadingSpinner } from '@components/common';
+import APIErrorBoundary from '@components/common/ErrorBoundary/APIErrorBoundary';
+import ErrorFallback from '@components/common/ErrorBoundary/ErrorFallback/ErrorFallback';
 import { CouponSelectModal, ItemCouponButton, SelectedItemList } from '@components/orderConfirm';
 import { OrderPrice } from '@components/shoppingCart';
 import { PRICE } from '@constants/shippingCart';
@@ -58,12 +60,14 @@ const OrderConfirmPage = () => {
         확인해주세요.
       </Styled.OrderConfirmSubTitle>
       <SelectedItemList selectedItems={selectedItems} />
-      <ItemCouponButton onClick={() => setIsOpen((prev) => !prev)} style={itemCouponButtonStyle}>
-        쿠폰 적용
-      </ItemCouponButton>
-      <Suspense fallback={<LoadingSpinner $width="100%" $height="70vh" />}>
-        {isOpen && <CouponSelectModal isOpen={isOpen} onToggle={() => setIsOpen((prev) => !prev)} />}
-      </Suspense>
+      <APIErrorBoundary onReset={() => navigate(ROUTE_PATHS.orderConfirm)} fallback={ErrorFallback}>
+        <Suspense fallback={<LoadingSpinner $width="100%" $height="10vh" />}>
+          <ItemCouponButton onClick={() => setIsOpen((prev) => !prev)} style={itemCouponButtonStyle}>
+            쿠폰 적용
+          </ItemCouponButton>
+          {isOpen && <CouponSelectModal isOpen={isOpen} onToggle={() => setIsOpen((prev) => !prev)} />}
+        </Suspense>
+      </APIErrorBoundary>
       <Styled.HeadingText>배송 정보</Styled.HeadingText>
       <Styled.OrderDetailWrapper>
         <Checkbox

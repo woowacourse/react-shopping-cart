@@ -1,3 +1,4 @@
+import ErrorFallback from '@components/common/ErrorBoundary/ErrorFallback/ErrorFallback';
 import RootErrorBoundary from '@components/common/ErrorBoundary/RootErrorBoundary';
 import AppLayout from '@components/layout/AppLayout/AppLayout';
 import { OrderConfirmPage, PaymentConfirmPage, ShoppingCartPage } from '@pages/index';
@@ -12,7 +13,9 @@ const router = createBrowserRouter([
       {
         path: ROUTE_PATHS.root,
         element: (
-          <RootErrorBoundary>
+          <RootErrorBoundary
+            fallback={<ErrorFallback onResetError={() => window.location.reload()} statusCode={500} />}
+          >
             <ShoppingCartPage />
           </RootErrorBoundary>
         ),
@@ -20,7 +23,9 @@ const router = createBrowserRouter([
       {
         path: ROUTE_PATHS.orderConfirm,
         element: (
-          <RootErrorBoundary>
+          <RootErrorBoundary
+            fallback={<ErrorFallback onResetError={() => window.location.reload()} statusCode={500} />}
+          >
             <OrderConfirmPage />
           </RootErrorBoundary>
         ),
