@@ -7,6 +7,7 @@ import { selectedCartItemIdListState } from '../selectedCartItemList/selectedCar
 import { Coupon } from '../../types/coupon.type';
 import { useCartItemList } from '../../hooks/useCartItemList';
 import { act } from 'react';
+import '@testing-library/jest-dom';
 
 jest.mock('../../apis/requests/cartItemList', () => ({
   requestCartItemList: jest.fn().mockImplementation(() => mockCartItemList),
@@ -88,7 +89,6 @@ describe('discountPriceByCouponListState 테스트', () => {
     it('fixed 타입의 쿠폰을 사용하면 고정 금액만큼 할인된다.', async () => {
       const { result } = initializeState([fixedCoupon]);
 
-      console.log(result);
       await act(() => result.current.updateCartItemList());
 
       expect(result.current.totalDiscount.price).toBe(fixedCoupon.discount);

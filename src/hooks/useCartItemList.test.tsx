@@ -4,8 +4,9 @@ import { RecoilRoot, useRecoilValue } from 'recoil';
 import { ReactNode, act } from 'react';
 import { cartItemListState } from '../recoil/cartItemList/cartItemListState';
 import { mockCartItemList } from '../mocks/cartItemList';
+import '@testing-library/jest-dom';
 
-jest.mock('../../apis/requests/cartItemList', () => ({
+jest.mock('../apis/requests/cartItemList', () => ({
   requestCartItemList: jest.fn().mockImplementation(() => mockCartItemList),
   requestDeleteCartItem: jest.fn(),
 }));
