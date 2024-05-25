@@ -17,7 +17,7 @@ function LabeledCheckBox({
 }: LabeledCheckBoxProps) {
   return (
     <S.LabeledCheckBoxContainer>
-      <S.Title>{title}</S.Title>
+      {title && <S.Title>{title}</S.Title>}
       <S.CheckBoxContainer>
         <CheckBox isChecked={isChecked} onClick={onToggleCheckBox} />
         {label}

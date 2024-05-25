@@ -5,16 +5,18 @@ import ErrorFallback from '../../components/ErrorFallback/ErrorFallback';
 import OrderContent from '../../components/OrderContent/OrderContent';
 import Footer from '../../components/Footer/Footer';
 import { URL_PATH } from '../../constants/UrlPath';
+import * as S from './Order.style';
 
-// TODO: 스타일 지정하기
 function Order() {
   return (
     <div>
       <Header headerIconType="back" />
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Suspense fallback={<div>Loading...</div>}>
-          <OrderContent />
-        </Suspense>
+        <S.ContentWrapper>
+          <Suspense fallback={<div>Loading...</div>}>
+            <OrderContent />
+          </Suspense>
+        </S.ContentWrapper>
         <Footer isDisabled={false} url={URL_PATH.completed} />
       </ErrorBoundary>
     </div>

@@ -24,15 +24,17 @@ function CartContent() {
   }, [fetchedItems]);
 
   return (
-    <>
+    <S.CartContentContainer>
       {items.length !== 0 ? (
         <>
           <Title
             title={MESSAGES.cart}
             subTitle={MESSAGES_PROPS.includedItems(items.length)}
           />
-          <ItemList type="cart" />
-          <TotalAmount />
+          <S.ItemListWrapper>
+            <ItemList type="cart" />
+          </S.ItemListWrapper>
+          <TotalAmount type="cart" />
         </>
       ) : (
         <>
@@ -42,7 +44,7 @@ function CartContent() {
           </S.NoCartItemContainer>
         </>
       )}
-    </>
+    </S.CartContentContainer>
   );
 }
 

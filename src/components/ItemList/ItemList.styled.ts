@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 export const ItemListContainer = styled.div`
-  margin-top: 3.6rem;
-  margin-bottom: 5.2rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;

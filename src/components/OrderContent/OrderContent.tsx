@@ -9,6 +9,7 @@ import { useSetRecoilState } from 'recoil';
 import { remoteAreaState } from '../../recoil/atoms';
 import { useModal } from 'woowacourse-react-modal-component';
 import CouponModal from '../CouponModal/CouponModal';
+import * as S from './OrderContent.styled';
 
 function OrderContent() {
   const [isRemoteAreaChecked, setIsRemoteAreaChecked] = useState(false);
@@ -21,12 +22,8 @@ function OrderContent() {
   };
 
   return (
-    <div>
-      <Title
-        title="주문 확인"
-        subTitle="총 1종류의 상품 2개를 주문합니다.<br/>
-        최종 결제 금액을 확인해 주세요."
-      />
+    <S.OrderContentContainer>
+      <Title title={LABEL.orderTitle} subTitle={LABEL.orderSubTitle} />
       <ItemList type="order" />
       <CouponButton onToggleModal={toggleModal} />
       <LabeledCheckBox
@@ -37,7 +34,7 @@ function OrderContent() {
       />
       <TotalAmount type="order" />
       <CouponModal isOpen={isOpen} onToggleModal={toggleModal} />
-    </div>
+    </S.OrderContentContainer>
   );
 }
 

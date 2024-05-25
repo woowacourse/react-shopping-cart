@@ -1,5 +1,15 @@
 import styled from 'styled-components';
 
+export const CartContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+`;
+
+export const ItemListWrapper = styled.div`
+  margin-bottom: 1.6rem;
+`;
+
 export const NoCartItemContainer = styled.p`
   width: 100%;
   position: fixed;
