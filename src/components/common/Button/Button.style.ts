@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { ButtonProps } from './Button';
 import hoverColorGenerator from '../../../utils/hoverColorGenerator';
 
-export const Button = styled.button<ButtonProps>`
+export const Button = styled.button<ButtonProps & { $isSquare?: boolean }>`
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -30,22 +30,22 @@ export const Button = styled.button<ButtonProps>`
     }
   }}
 
-  ${({ size, isSquare }) => {
+  ${({ size, $isSquare }) => {
     switch (size) {
       case 's':
         return `
           height: 24px;
-          padding: ${isSquare ? '4px 4px' : '4px 8px'};
+          padding: ${$isSquare ? '4px 4px' : '4px 8px'};
         `;
       case 'm':
         return `
           height: 36px;
-          padding: ${isSquare ? '8px 8px' : '8px 12px'};
+          padding: ${$isSquare ? '8px 8px' : '8px 12px'};
         `;
       case 'l':
         return `
           height: 48px;
-          padding: ${isSquare ? '12px 12px' : '12px 16px'};
+          padding: ${$isSquare ? '12px 12px' : '12px 16px'};
         `;
       case 'fit':
         return `
@@ -55,13 +55,13 @@ export const Button = styled.button<ButtonProps>`
       default:
         return `
           height: 36px;
-          padding: ${isSquare ? '8px 8px' : '8px 12px'};
+          padding: ${$isSquare ? '8px 8px' : '8px 12px'};
         `;
     }
   }}
 
-  ${({ isSquare }) =>
-    isSquare &&
+  ${({ $isSquare }) =>
+    $isSquare &&
     `
     aspect-ratio: 1 / 1;
   `}
