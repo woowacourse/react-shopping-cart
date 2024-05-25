@@ -1,9 +1,8 @@
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 
-import { cartItemCheckedIdsAtom, cartItemsAtom, couponCheckedAtom } from "../recoil/atom/atom";
-import { fetchCartItems } from "../api/cartItemApi";
+import { cartItemCheckedIdsAtom, cartItemsAtom } from "../recoil/atom/atom";
+import { useFetchCartItems } from "../hooks/useFetchCartItems/useFetchCartItems";
 import { CartLayout, Header, Content, Footer } from "../components/layout";
 import { CartItems, EmptyCart, OrderSummary } from "../components/cartPage";
 import { Title } from "../components/default";
@@ -12,18 +11,8 @@ const CartPage = () => {
   const navigate = useNavigate();
   const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
   const cartItemCheckedIds = useRecoilValue(cartItemCheckedIdsAtom);
-  const [checkedCoupons, setCheckedCoupons] = useRecoilState(couponCheckedAtom);
 
-  useEffect(() => {
-    setCheckedCoupons([]);
-
-    const fetchData = async () => {
-      const fetchedCartItems = await fetchCartItems();
-      setCartItems(fetchedCartItems);
-    };
-
-    fetchData();
-  }, []);
+  useFetchCartItems();
 
   const handleClick = () => {
     navigate("/orderConfirmation");

@@ -44,10 +44,11 @@ export const shippingFeeSelector = selector({
   key: "shippingFeeSelector",
   get: ({ get }) => {
     let shippingFee = SHIPPING_FEE;
+    const checkedCartItems = get(checkedCartItemsSelector);
     const orderPrice = get(orderPriceSelector);
     const addShippingFee = get(shippingCheckedAtom);
     if (addShippingFee) shippingFee += SHIPPING_FEE;
-    return orderPrice >= ORDER_PRICE_THRESHOLD ? 0 : shippingFee;
+    return orderPrice >= ORDER_PRICE_THRESHOLD || checkedCartItems.length === 0 ? 0 : shippingFee;
   },
 });
 

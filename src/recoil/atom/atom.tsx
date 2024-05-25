@@ -1,6 +1,6 @@
 import { atom, atomFamily } from "recoil";
 import { recoilPersist } from "recoil-persist";
-import { fetchCartItemsSelector, fetchCouponsSelector } from "../selector/apiSelector";
+import { fetchCouponsSelector } from "../selector/apiSelector";
 import { Product } from "../../types/product";
 import { Coupon } from "../../types/coupon";
 
@@ -9,7 +9,7 @@ const { persistAtom } = recoilPersist();
 //--장바구니--//
 export const cartItemsAtom = atom<Product[]>({
   key: "cartItemsAtom",
-  default: fetchCartItemsSelector,
+  default: [],
 });
 
 export const cartItemCheckedIdsAtom = atom<number[]>({
