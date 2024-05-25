@@ -1,6 +1,6 @@
 import { selector, selectorFamily } from "recoil";
 import { cartItemCheckedIdsAtom, cartItemsAtom, quantityAtomFamily, shippingCheckedAtom } from "../atom/atom";
-import { ORDER_PRICE_THRESHOLD, SHIPPING_FEE } from "../../constants/setting";
+import { EXTRA_SHIPPING_FEE, ORDER_PRICE_THRESHOLD, SHIPPING_FEE } from "../../constants/setting";
 
 // id에 대한 quantity를 가지고 있는 셀렉터
 export const quantitySelectorFamily = selectorFamily({
@@ -43,11 +43,10 @@ export const orderPriceSelector = selector({
 export const shippingFeeSelector = selector({
   key: "shippingFeeSelector",
   get: ({ get }) => {
-    let shippingFee = SHIPPING_FEE;
     const checkedCartItems = get(checkedCartItemsSelector);
     const orderPrice = get(orderPriceSelector);
-    const addShippingFee = get(shippingCheckedAtom);
-    if (addShippingFee) shippingFee += SHIPPING_FEE;
+    const isShippingChecked = get(shippingCheckedAtom);
+    const shippingFee = isShippingChecked ? SHIPPING_FEE + EXTRA_SHIPPING_FEE : SHIPPING_FEE;
     return orderPrice >= ORDER_PRICE_THRESHOLD || checkedCartItems.length === 0 ? 0 : shippingFee;
   },
 });

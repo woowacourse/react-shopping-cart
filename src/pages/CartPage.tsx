@@ -21,6 +21,7 @@ const CartPage = () => {
   return (
     <CartLayout>
       <Header>SHOP</Header>
+
       <Content>
         <Title
           title="장바구니"
@@ -37,6 +38,7 @@ const CartPage = () => {
           <EmptyCart />
         )}
       </Content>
+
       <Footer
         text="주문 확인"
         isActive={cartItemCheckedIds.length > 0}

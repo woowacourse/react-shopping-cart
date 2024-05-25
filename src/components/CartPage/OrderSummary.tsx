@@ -5,6 +5,7 @@ import { orderPriceSelector, shippingFeeSelector } from "../../recoil/selector/s
 import { useCartCalculator } from "../../hooks/useCartCalculator/useCartCalculator";
 import { Information, LabelValue, Splitter } from "../default";
 import { formatCurrency } from "../../utils/formatCurrency";
+import { ORDER_PRICE_THRESHOLD } from "../../constants/setting";
 
 const OrderSummary = () => {
   const orderPrice = useRecoilValue(orderPriceSelector);
@@ -13,7 +14,7 @@ const OrderSummary = () => {
 
   return (
     <div className={OrderSummaryCSS}>
-      <Information title="총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다."></Information>
+      <Information title={`총 주문 금액이 ${formatCurrency(ORDER_PRICE_THRESHOLD)} 이상일 경우 무료 배송됩니다.`}></Information>
       <Splitter />
       <LabelValue
         label="주문 금액"

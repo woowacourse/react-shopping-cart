@@ -44,9 +44,9 @@ const apiClient = {
   async fetchWithErrorHandling(endpoint: string, requestInit: RequestInit) {
     try {
       const response = await fetch(`${API_URL}${endpoint}`, requestInit);
-
+      // TODO: 오프라인일 때 추가
       if (!response.ok) {
-        throw new Error(`Failed to ${endpoint}`);
+        throw new Error(response.statusText);
       }
 
       const text = await response.text();

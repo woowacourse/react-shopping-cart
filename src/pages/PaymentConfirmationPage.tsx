@@ -28,6 +28,7 @@ const PaymentConfirmationPage = () => {
   return (
     <CartLayout>
       <Header></Header>
+
       <Content>
         <div className={confirmTextCSS}>
           <div className={headerCSS}>주문 확인</div>
@@ -36,6 +37,7 @@ const PaymentConfirmationPage = () => {
           <div className={totalPriceCSS}> {formatCurrency(calculateTotalWithCoupon())}</div>
         </div>
       </Content>
+
       <Footer
         text="장바구니 돌아가기"
         isActive={true}

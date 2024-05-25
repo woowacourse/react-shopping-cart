@@ -11,7 +11,4 @@ const EmptyCartCSS = css`
   justify-content: center;
   align-items: center;
   height: 100%;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 16px;
 `;

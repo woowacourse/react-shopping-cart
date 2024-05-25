@@ -8,7 +8,9 @@ const useSortedCheckedCoupons = () => {
 
   const nonPercentageCoupons = checkedCoupons.filter((coupon) => coupon.discountType !== "percentage");
 
-  return [...percentageCoupons, ...nonPercentageCoupons];
+  const sortedCoupons = [...percentageCoupons, ...nonPercentageCoupons];
+
+  return { sortedCoupons };
 };
 
 export default useSortedCheckedCoupons;

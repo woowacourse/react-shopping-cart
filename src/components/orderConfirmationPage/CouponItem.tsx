@@ -16,8 +16,8 @@ interface CouponItemProps {
 
 const CouponItem = ({ coupon }: CouponItemProps) => {
   const [checkedCoupons, setCheckedCoupons] = useRecoilState(couponCheckedAtom);
-
   const { isCouponValid } = useCouponValidation();
+
   const isValid = isCouponValid(coupon);
 
   const handleChecked = () => {

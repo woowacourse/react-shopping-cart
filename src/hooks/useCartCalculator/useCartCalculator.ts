@@ -9,7 +9,7 @@ export const useCartCalculator = () => {
   const shippingFee = useRecoilValue(shippingFeeSelector);
   const couponUsed = useRecoilValue(couponUsedAtom);
 
-  const sortedCoupons = useSortedCheckedCoupons();
+  const { sortedCoupons } = useSortedCheckedCoupons();
   const { calculateDiscountAmount } = useDiscountCalculator();
 
   const calculateCartTotal = () => {
