@@ -1,33 +1,30 @@
 import { Coupon } from '@appTypes/orderConfirm';
 import { PRICE } from '@constants/shippingCart';
-import { useCouponValidator } from '@hooks/orderConfirm';
 import { useOrderCosts } from '@hooks/shoppingCart';
+import { createDateTime, isExpiredDate } from '@utils/date';
 
 const useConfirmCouponApplication = () => {
-  const isCouponValid = useCouponValidator();
   const { beforeDiscountTotalPrice, shippingPrice } = useOrderCosts();
 
   const isApplicabilityCoupon = (coupon: Coupon, now: Date = new Date()) => {
-    if (!coupon || !isCouponValid(coupon)) return false;
+    /* 만료일 확인 */
+    if (!isExpiredDate(coupon.expirationDate)) return false;
 
-    if (coupon?.minimumAmount && beforeDiscountTotalPrice < coupon?.minimumAmount) {
+    /* 최소 주문 조건 확인 */
+    if (coupon?.minimumAmount && beforeDiscountTotalPrice < coupon.minimumAmount) {
       return false;
     }
 
+    /* 무료 배송 가능 여부 확인 */
     if (coupon.discountType === 'freeShipping' && shippingPrice === PRICE.shippingFee.free) return false;
 
+    /* 쿠폰 이용 시간 여부 확인  */
     if (coupon?.availableTime) {
-      const [startHour, startMinute, startSecond] = coupon.availableTime.start.split(':').map(Number);
+      const startTime = createDateTime(coupon.availableTime.start);
 
-      const [endHour, endMinute, endSecond] = coupon.availableTime.end.split(':').map(Number);
+      const endTime = createDateTime(coupon.availableTime.end);
 
-      const startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), startHour, startMinute, startSecond);
-
-      const endTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), endHour + 17, endMinute, endSecond);
-
-      if (now < startTime || now > endTime) {
-        return false;
-      }
+      if (now < startTime || now > endTime) return false;
     }
 
     return true;
