@@ -4,28 +4,6 @@ import { Items } from '../types/Item';
 import { updateLocalStorage } from '../utils/LocalStorage';
 import { fetchCoupons, fetchItems } from '../api';
 
-// /**
-//  * 전체 금액, 배송비 계산, 총 결제 금액, 할인받은 금액 계산
-//  */
-// export const totalPriceSelector = selector({
-//   key: 'totalPriceSelector',
-//   get: ({ get }) => {
-//     const items = get(itemsState);
-//     let totalAmount = 0;
-//     items.forEach((itemsState) => {
-//       const { quantity, price, isChecked } = get(
-//         itemDetailsState(itemsState.id),
-//       );
-//       if (isChecked) {
-//         totalAmount += quantity * price;
-//       }
-//     });
-//     const deliveryFee = totalAmount >= 100000 ? 0 : 3000;
-//     const calculatedTotalAmount = totalAmount + deliveryFee;
-//     return { totalAmount, deliveryFee, calculatedTotalAmount };
-//   },
-// });
-
 /**
  * get: () => boolean
  * set: (newValue: 변경할 boolean 값) => void
@@ -96,17 +74,6 @@ export const fetchCouponsSelector = selector({
     return data;
   },
 });
-
-// /**
-//  * 쿠폰 리스트 반환
-//  */
-// export const couponListSelector = selector({
-//   key: 'couponListSelector',
-//   get: ({ get }) => {
-//     const coupons = get(couponsState);
-//     return coupons;
-//   },
-// });
 
 /**
  * 주문할 상품 목록
