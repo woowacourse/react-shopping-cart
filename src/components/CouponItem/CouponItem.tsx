@@ -7,9 +7,7 @@ import Divider from '../common/Divider/Divider';
 import Text from '../common/Text/Text';
 import * as S from './CouponItem.style';
 
-type CouponItemProps = Coupon;
-
-const CouponItem = (coupon: CouponItemProps) => {
+const CouponItem = (coupon: Coupon) => {
   const { description, expirationDate, availableTime, minimumAmount, isApplicable } = coupon;
   const { toggleSelectedCoupon, isSelectedCoupon } = useSelectedCouponList();
 
