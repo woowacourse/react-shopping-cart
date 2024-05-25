@@ -2,6 +2,7 @@ import { useRecoilValue } from 'recoil';
 import { couponsState, selectedCouponsState } from '../recoil/atoms';
 import { useDiscountCalculator } from './useDiscountCalculator';
 import { orderItemsSelector } from '../recoil/selectors';
+import { DELIVERY } from '../constants/Delivery';
 
 export const useOrderCalculator = () => {
   const orderItems = useRecoilValue(orderItemsSelector);
@@ -54,7 +55,10 @@ export const useOrderCalculator = () => {
    */
   const calculateDeliveryFee = () => {
     const orderTotal = calculateOrderTotal();
-    const deliveryFee = orderTotal > 100000 ? 0 : 3000;
+    const deliveryFee =
+      orderTotal > DELIVERY.noDeliveryFeeStandard
+        ? DELIVERY.noDeliveryFee
+        : DELIVERY.deliveryFee;
     return deliveryFee;
   };
 
