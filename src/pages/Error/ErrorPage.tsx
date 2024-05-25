@@ -5,7 +5,7 @@ import { PAGE_URL } from "@/constants/url";
 import { useNavigate } from "react-router-dom";
 import TextBox from "@/components/_common/TextBox/TextBox";
 
-const ErrorFallback = ({ error }: { error: Error }) => {
+const ErrorPage = ({ error }: { error: Error }) => {
   const navigate = useNavigate();
 
   const handleReload = () => {
@@ -27,13 +27,13 @@ const ErrorFallback = ({ error }: { error: Error }) => {
         size="large"
         onClick={handleReload}
       >
-        <TextBox type="title" text="home" />
+        <TextBox type="xLarge" text="home" />
       </Button>
     </Wrapper>
   );
 };
 
-export default ErrorFallback;
+export default ErrorPage;
 
 const Wrapper = styled.div`
   ${FlexCenter}

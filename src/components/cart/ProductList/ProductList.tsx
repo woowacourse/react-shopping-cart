@@ -12,14 +12,9 @@ const ProductList = ({
 }) => {
   return (
     <S.ListWrapper>
-      {type === "edit" &&
-        productList.map((item) => (
-          <ProductItem key={item.product.id} item={item} type={type} />
-        ))}
-      {type === "readonly" &&
-        productList.map((item) => (
-          <ProductItem key={item.product.id} item={item} type={type} />
-        ))}
+      {productList.map((item) => (
+        <ProductItem key={item.product.id} item={item} type={type} />
+      ))}
     </S.ListWrapper>
   );
 };

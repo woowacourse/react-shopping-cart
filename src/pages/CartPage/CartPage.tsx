@@ -1,4 +1,4 @@
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 import { totalItemOrderCountSelector } from "@/recoil/orderInformation";
 
 import CheckBox from "@/components/_common/CheckBox/CheckBox";
@@ -23,18 +23,23 @@ import TextBox from "@/components/_common/TextBox/TextBox";
 import MoreInfo from "@/components/_common/MoreInfo/MoreInfo";
 import MainLayout from "@/components/layout/MainLayout";
 import CartPageSkeleton from "./CartPage.skeleton";
+import { useEffect } from "react";
+import { couponsState } from "@/recoil/coupons";
 
 const CartPage = () => {
   const { isAllItemSelected, selectAllItem, unselectAllItem } =
     useCartItemsSelectAll();
   const selectedItems = useRecoilValue(totalItemOrderCountSelector);
   const cartItemList = useRecoilValue(cartItemsState);
-
   const navigate = useNavigate();
-
+  const resetCoupons = useResetRecoilState(couponsState);
   const onMoveOrderConfirmPage = () => {
     navigate(PAGE_URL.orderConfirm);
   };
+
+  useEffect(() => {
+    resetCoupons();
+  }, []);
 
   return (
     <MainLayout>

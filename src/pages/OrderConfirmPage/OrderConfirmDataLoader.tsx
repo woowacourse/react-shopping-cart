@@ -1,16 +1,18 @@
 import { cartItemSelector, cartItemsState } from "@/recoil/cartItems";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import OrderConfirmPage from "./OrderConfirmPage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import CartPageSkeleton from "../CartPage/CartPage.skeleton";
 import MainLayout from "@/components/layout/MainLayout";
 import BackButton from "@/components/_common/BackButton/BackButton";
 import { useNavigate } from "react-router-dom";
 import { CART_PAGE_MESSAGES } from "@/constants/cart";
+import { CartItem } from "@/types/cart";
 
 const OrderConfirmDataLoader = () => {
   const cartItems = useRecoilValue(cartItemSelector);
-  const [cartItem, setCartItems] = useRecoilState(cartItemsState);
+  const cartItem = useRecoilValue(cartItemsState);
+  const [selectedItems, setSelectedItems] = useState<CartItem[]>([]);
 
   const navigate = useNavigate();
 
@@ -28,7 +30,7 @@ const OrderConfirmDataLoader = () => {
       selectedItemsId.includes(item.id)
     );
 
-    setCartItems(selectedCartItems);
+    setSelectedItems(selectedCartItems);
   }, []);
 
   return (
@@ -38,7 +40,7 @@ const OrderConfirmDataLoader = () => {
       </MainLayout.Header>
       <MainLayout.Body fallback={<CartPageSkeleton />}>
         {cartItem.length > 0 && (
-          <OrderConfirmPage selectedCartItems={cartItem} />
+          <OrderConfirmPage selectedCartItems={selectedItems} />
         )}
       </MainLayout.Body>
     </MainLayout>

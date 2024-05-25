@@ -5,14 +5,19 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "@/styles/theme";
 import GlobalStyles from "@/styles/global";
 import router from "./router";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorPage from "@/pages/Error/ErrorPage";
 
 function App() {
   return (
     <RecoilRoot>
-      <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        <RouterProvider router={router} />
-      </ThemeProvider>
+      <ErrorBoundary FallbackComponent={ErrorPage}>
+        <ThemeProvider theme={theme}>
+          <GlobalStyles />
+
+          <RouterProvider router={router} />
+        </ThemeProvider>
+      </ErrorBoundary>
     </RecoilRoot>
   );
 }
