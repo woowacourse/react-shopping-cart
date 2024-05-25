@@ -1,12 +1,16 @@
 import * as Styled from './style';
 
-import { HTMLAttributes, ReactNode } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 
-interface SelectButtonProps extends HTMLAttributes<HTMLButtonElement> {
+interface SelectButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
 }
 
-const SelectButton = ({ children, ...props }: SelectButtonProps) => {
+const SelectButton = ({
+  children,
+
+  ...props
+}: SelectButtonProps) => {
   return <Styled.SelectButton {...props}>{children}</Styled.SelectButton>;
 };
 
