@@ -3,8 +3,13 @@
   font-weight: 500;
   line-height: 1.5rem;
 
+  --font-Noto-Sans-KR: Noto Sans KR;
+
   --black-color-1: #000000;
   --black-color-2: #0a0d13;
+  --black-color-3: #333333;
+
+  --white-color-1: #ffffff;
 }
 
 html {

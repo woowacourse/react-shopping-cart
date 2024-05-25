@@ -7,7 +7,7 @@ export const useCouponApplicabilityChecker = () => {
 
   /**
    * 쿠폰 객체와 총 주문 금액, 현재 시간을 받아 해당 쿠폰의 적용 가능 여부 반환
-   * @returns { boolean}
+   * @returns { boolean }
    */
   const isCouponApplicable = (
     coupon: Coupon,
@@ -16,6 +16,10 @@ export const useCouponApplicabilityChecker = () => {
   ) => {
     const targetCoupon = findCouponByCode(coupon.code);
     if (!targetCoupon || isCouponExpired(coupon)) return false;
+
+    if (coupon.discountType === 'freeShipping' && totalAmount >= 100000) {
+      return false;
+    }
 
     if (
       targetCoupon.minimumAmount &&
