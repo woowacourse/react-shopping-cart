@@ -43,7 +43,7 @@ describe('Button 컴포넌트', () => {
   });
 
   test('isDisabled 속성을 올바르게 적용한다', () => {
-    render(<Button isDisabled>Disabled Button</Button>);
+    render(<Button disabled>Disabled Button</Button>);
     expect(screen.getByText('Disabled Button')).toBeDisabled();
   });
 
