@@ -16,8 +16,10 @@ export const useCouponApplicabilityChecker = () => {
       return false;
     }
 
-    if (targetCoupon.buyQuantity) {
-      return checkedItem.map((item) => item.quantity >= targetCoupon.buyQuantity!).some(Boolean);
+    if (targetCoupon.buyQuantity && targetCoupon.getQuantity) {
+      return checkedItem
+        .map((item) => item.quantity >= targetCoupon.buyQuantity! + targetCoupon.getQuantity!)
+        .some(Boolean);
     }
 
     if (targetCoupon.availableTime) {
