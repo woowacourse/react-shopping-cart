@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import * as S from '../CartItem.style';
 
 import Button from '../../common/Button/Button';
@@ -14,15 +12,11 @@ import { useCartItemQuantity } from '../../../recoil/cartItem/useCartItemQuantit
 import { useSelectedCartItemIdList } from '../../../recoil/selectedCartItemList/useSelectedCartItemIdList';
 import { useCartItemList } from '../../../recoil/cartItemList/useCartItemList';
 
-const CartItemWithControl = ({ product, quantity: initialQuantity, cartItemId }: CartItemWithControl) => {
+const CartItemWithControl = ({ product, cartItemId }: CartItemWithControl) => {
   const { name, price, imageUrl } = product;
-  const { quantity, setQuantity, increaseQuantity, decreaseQuantity } = useCartItemQuantity(cartItemId);
+  const { quantity, increaseQuantity, decreaseQuantity } = useCartItemQuantity(cartItemId);
   const { getIsSelectedCartItem, addSelectedItemId, deleteSelectedItemId } = useSelectedCartItemIdList();
   const { deleteCartItem } = useCartItemList();
-
-  useEffect(() => {
-    setQuantity(initialQuantity);
-  }, []);
 
   return (
     <S.CartItem>
