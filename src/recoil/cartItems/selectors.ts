@@ -8,7 +8,6 @@ import {
   DELIVERY_CHARGE_FREE,
   MINIMUM_FREE_SHIPPING_AMOUNT,
 } from '@/constants/cart';
-import LocalStorage, { CART_ITEM } from '@/Storage';
 import { CartItemProps } from '@/types/cartItem';
 
 export const isAllUnCheckedState = selector<boolean>({
@@ -32,7 +31,6 @@ export const isAllCheckedState = selector<boolean>({
 
     cartItems.forEach((cartItem) => {
       set(checkedItemsState(cartItem.id), newValue);
-      LocalStorage.addData(CART_ITEM, cartItem.id, newValue as boolean);
     });
   },
 });

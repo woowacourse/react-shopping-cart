@@ -2,7 +2,6 @@ import { css } from '@emotion/react';
 import { useRecoilState } from 'recoil';
 
 import useCartItems from '@/hooks/useCartItems';
-import LocalStorage, { CART_ITEM } from '@/Storage';
 import Checkbox from '@components/common/Checkbox';
 import { checkedItemsState } from '@recoil/cartItems/atoms';
 
@@ -17,7 +16,6 @@ export default function CartItemSetting({ cartId, productName }: CartItemHeaderS
 
   const handleClickCheck = () => {
     setIsChecked((prev) => !prev);
-    LocalStorage.addData(CART_ITEM, cartId, !isChecked);
   };
 
   return (

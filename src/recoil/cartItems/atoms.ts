@@ -11,9 +11,28 @@ export const cartItemsState = atom<CartItemProps[]>({
 
 export const checkedItemsState = atomFamily<boolean, number>({
   key: 'checkedItemsState',
-  default: (cartId) => {
-    return LocalStorage.getData(CART_ITEM, cartId) ?? true;
-  },
+  default: true,
+
+  effects: (cartId) => [
+    ({ setSelf, onSet }) => {
+      const localStorageCheckedState = LocalStorage.getData(CART_ITEM, cartId);
+
+      if (localStorageCheckedState) {
+        setSelf(localStorageCheckedState);
+      }
+
+      onSet((isChecked, _, isReset) => {
+        if (isReset) {
+          LocalStorage.deleteData(CART_ITEM, cartId);
+          return;
+        }
+
+        isChecked
+          ? LocalStorage.addData(CART_ITEM, cartId, isChecked)
+          : LocalStorage.deleteData(CART_ITEM, cartId);
+      });
+    },
+  ],
 });
 
 export const isRemoteAreaState = atom<boolean>({
