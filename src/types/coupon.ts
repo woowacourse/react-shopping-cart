@@ -20,6 +20,10 @@ export interface Coupon {
   expirationDate: string;
 }
 
+export interface CouponWithApplicablity extends Coupon {
+  applicability: boolean;
+}
+
 export interface CouponWithPriority extends Coupon {
   id: number;
   code: string;

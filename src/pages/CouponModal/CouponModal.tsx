@@ -1,16 +1,16 @@
 import { Modal } from "rian-modal-component";
 import MoreInfo from "@/components/_common/MoreInfo/MoreInfo";
-import { CART_PAGE_MESSAGES } from "@/constants/cart";
+import { CART_PAGE_MESSAGES, SHIPPING_FEE } from "@/constants/cart";
 import TextBox from "@/components/_common/TextBox/TextBox";
 import DeleteButton from "@/assets/delete-icon.svg?react";
-import { Coupon } from "@/types/coupon";
 import Button from "@/components/_common/Button/Button";
 import { theme } from "@/styles/theme";
 import CouponList from "./components/CouponList";
 import { useRecoilValue } from "recoil";
-import { couponListSelector } from "@/recoil/coupons";
-
-export type CouponWithApplicablity = { coupon: Coupon; applicability: boolean };
+import { couponListSelector, couponsState } from "@/recoil/coupons";
+import useDiscountCalculator from "@/hooks/coupon/useDiscountCalculator";
+import { totalOrderPriceSelector } from "@/recoil/orderInformation";
+import { shippingFeeSelector } from "@/recoil/shippingFeeType";
 
 const CouponModal = ({
   isOpen,
@@ -20,6 +20,12 @@ const CouponModal = ({
   onCloseModal: () => void;
 }) => {
   const couponList = useRecoilValue(couponListSelector);
+  const totalPrice = useRecoilValue(totalOrderPriceSelector);
+  const coupons = useRecoilValue(couponsState);
+  const shippingFeeType = useRecoilValue(shippingFeeSelector);
+
+  const { calculateTotalDiscount } = useDiscountCalculator();
+
   return (
     <Modal
       isOpen={isOpen}
@@ -52,7 +58,13 @@ const CouponModal = ({
           radiusVariant="rounded"
           color="white"
         >
-          총 6000원 할인 쿠폰 사용하기
+          {`총 ${
+            calculateTotalDiscount(
+              coupons,
+              totalPrice,
+              SHIPPING_FEE[shippingFeeType]
+            ) || 0
+          }원 할인 쿠폰 사용하기`}
         </Button>
       </>
     </Modal>

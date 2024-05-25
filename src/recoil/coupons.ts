@@ -1,5 +1,5 @@
 import { getCoupons } from "@/auth/apis/coupon";
-import { Coupon } from "@/types/coupon";
+import { Coupon, CouponDiscountType } from "@/types/coupon";
 import { atom, selector } from "recoil";
 import { selectedCartItemsIdState } from "./selectedCardItems";
 import { cartItemQuantityState } from "./cartItemQuantity";
@@ -25,31 +25,82 @@ export const discountCouponPriceState = atom<number>({
 });
 
 export const checkBuyXgetYSelector = selector({
-  key: "checkBuyXgetY",
+  key: "checkBuyXgetYSelector",
   get:
     ({ get }) =>
-    (minQuantity: number) => {
+    (couponId: number) => {
       const selectedItemsId = get(selectedCartItemsIdState);
+      const couponsInfo = get(couponListSelector);
+      const targetCouponInfo = couponsInfo.find(
+        (coupon) => coupon.id === couponId
+      )!;
 
-      const targetItemsId = selectedItemsId.filter((id: number) => {
-        return get(cartItemQuantityState(id)) >= minQuantity;
+      const filteredItemsId = selectedItemsId.filter((id: number) => {
+        return (
+          get(cartItemQuantityState(id)) >=
+          targetCouponInfo.buyQuantity! + targetCouponInfo.getQuantity!
+        );
       });
 
-      if (!targetItemsId.length) return false;
-
-      const cartItems = get(cartItemsState);
-
-      const maxPriceItem = targetItemsId.reduce((maxId, currentId) => {
-        const currentPrice = cartItems.find((item) => item.id === currentId)!
-          .product.price;
-        const targetPrice = cartItems.find((item) => item.id === maxId)!.product
-          .price;
-        if (currentPrice > targetPrice) {
-          maxId = currentId;
-        }
-        return maxId;
-      }, targetItemsId[0]);
-
-      return maxPriceItem;
+      return !!filteredItemsId.length;
     },
+});
+
+// export const findBuyXgetYCouponSelector = selector({
+//   key: "buyXgetYId",
+//   get: ({ get }) => {
+//     const couponList = get(couponListSelector);
+//     const buyXgetYCoupon = couponList.find(
+//       (coupon) => coupon.discountType === "buyXgetY"
+//     );
+//     return buyXgetYCoupon;
+//   },
+// });
+
+export const couponsByDiscountTypeSelector = selector({
+  key: "couponsByDiscountType",
+  get: ({ get }) => {
+    const couponList = get(couponsState);
+    return [...couponList].reduce((acc, cur) => {
+      acc[cur.discountType] = acc[cur.discountType]
+        ? [...acc[cur.discountType], cur]
+        : [cur];
+      return acc;
+    }, {} as Record<CouponDiscountType, Coupon[]>);
+  },
+});
+
+export const maxBuyXgetYItemSelector = selector({
+  key: "maxBuyXgetYSelector",
+  get: ({ get }) => {
+    const selectedItemsId = get(selectedCartItemsIdState);
+    const couponsInfo = get(couponListSelector);
+    const buyXgetYCoupon = get(couponsByDiscountTypeSelector).buyXgetY;
+
+    if (buyXgetYCoupon) {
+      const targetCouponInfo = couponsInfo.find(
+        (coupon) => coupon.id === buyXgetYCoupon[0].id
+      )!;
+
+      let maxDiscount = 0;
+
+      const filteredItemsId = selectedItemsId.filter((id: number) => {
+        return (
+          get(cartItemQuantityState(id)) >=
+          targetCouponInfo.buyQuantity! + targetCouponInfo.getQuantity!
+        );
+      });
+
+      filteredItemsId.forEach((id) => {
+        const cartItems = get(cartItemsState);
+        const targetItem = cartItems.find((item) => item.id === id);
+        const discount = targetItem!.product.price!;
+        if (maxDiscount < discount) {
+          maxDiscount = discount;
+        }
+      });
+      return maxDiscount;
+    }
+    return 0;
+  },
 });

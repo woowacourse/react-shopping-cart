@@ -1,7 +1,6 @@
 import useCouponApplicabilityChecker from "@/hooks/coupon/useCouponApplicabilityChecker";
 import CouponItem from "./Coupon";
-import { CouponWithApplicablity } from "../CouponModal";
-import { Coupon } from "@/types/coupon";
+import { Coupon, CouponWithApplicablity } from "@/types/coupon";
 import { useRecoilValue } from "recoil";
 import { totalOrderPriceSelector } from "@/recoil/orderInformation";
 
@@ -13,10 +12,16 @@ const CouponList = ({ couponList }: { couponList: Coupon[] }) => {
   const nonApplicableCoupons: CouponWithApplicablity[] = [];
 
   couponList.forEach((coupon) => {
-    if (isCouponApplicable(coupon, totalItemsPrice, new Date())) {
-      applicableCoupons.push({ coupon: coupon, applicability: true });
+    if (
+      isCouponApplicable({
+        coupon: coupon,
+        price: totalItemsPrice,
+        time: new Date(),
+      })
+    ) {
+      applicableCoupons.push({ ...coupon, applicability: true });
     } else {
-      nonApplicableCoupons.push({ coupon: coupon, applicability: false });
+      nonApplicableCoupons.push({ ...coupon, applicability: false });
     }
   });
 
@@ -27,13 +32,12 @@ const CouponList = ({ couponList }: { couponList: Coupon[] }) => {
 
   return (
     <>
-      {sortedCouponsWithApplicability.map((couponWithApplicability) => {
-        const { coupon, applicability } = couponWithApplicability;
+      {sortedCouponsWithApplicability.map((coupon) => {
         return (
           <CouponItem
             key={coupon.id}
             coupon={coupon}
-            disabled={!applicability}
+            disabled={!coupon.applicability}
           />
         );
       })}
