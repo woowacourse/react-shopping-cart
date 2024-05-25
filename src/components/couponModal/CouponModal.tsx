@@ -2,7 +2,7 @@ import { Modal } from '@roqkftjs/react-payments-module';
 import CloseIcon from '../../assets/CloseIcon.png';
 import { Info } from '../common/info/Info';
 import { CouponItemList } from '../couponItemList/CouponItemList';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import {
   finalSelectedCouponsState,
   previewSelectedCouponsState,
@@ -16,7 +16,9 @@ export const CouponModal: React.FC<CouponModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  const setFinalSelectedCoupons = useSetRecoilState(finalSelectedCouponsState);
+  const [finalSelectedCoupons, setFinalSelectedCoupons] = useRecoilState(
+    finalSelectedCouponsState,
+  );
   const [previewSelectedCoupons, setPreviewSelectedCoupons] = useRecoilState(
     previewSelectedCouponsState,
   );
@@ -28,12 +30,16 @@ export const CouponModal: React.FC<CouponModalProps> = ({
   };
 
   const handleModalClose = () => {
-    setPreviewSelectedCoupons([]);
+    if (finalSelectedCoupons.length !== 0) {
+      setPreviewSelectedCoupons(finalSelectedCoupons);
+    } else {
+      setPreviewSelectedCoupons([]);
+    }
     onClose();
   };
 
   return (
-    <Modal isOpen={isOpen} position='center' onClose={onClose}>
+    <Modal isOpen={isOpen} position='center' onClose={handleModalClose}>
       <Modal.Header>
         <Modal.Title>쿠폰을 선택해 주세요.</Modal.Title>
         <Modal.IconButton
