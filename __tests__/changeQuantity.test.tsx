@@ -75,8 +75,6 @@ describe('수량 변경 테스트', () => {
 
       const newQuantity = result.current.getDecreasedQuantity();
 
-      console.log(newQuantity, result.current.quantity);
-
       act(() => {
         result.current.updateCartItemQuantity(newQuantity);
       });

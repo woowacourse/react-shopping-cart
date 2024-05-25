@@ -26,7 +26,6 @@ export const calculateDiscountAmount = ({
     case 'fixed':
       return coupon?.discount ?? 0;
     case 'percentage':
-      console.log(orderPrice, coupon.discount);
       return Math.floor(((orderPrice ?? 0) * (coupon.discount ?? 0)) / 100);
     case 'buyXgetY':
       if (coupon.code === 'BOGO') return calculateBOGODiscount(selectedCartItems ?? []);
