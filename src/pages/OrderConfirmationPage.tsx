@@ -1,34 +1,27 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { css } from "@emotion/css";
 
 import { cartItemCheckedIdsAtom, cartItemsAtom, couponUsedAtom } from "../recoil/atom/atom";
 import { totalCountSelector } from "../recoil/selector/selector";
-import { fetchCartItems } from "../api/cartItemApi";
+import { useFetchCartItems } from "../hooks/useFetchCartItems/useFetchCartItems";
 import { CartLayout, Header, Content, Footer } from "../components/layout";
 import { CouponModal, OrderItems, PaymentSummary, ShippingInfo } from "../components/orderConfirmationPage";
 import { Button, Title } from "../components/default";
 import LeftArrow from "../assets/LeftArrow.svg?react";
+import { orderCartItems } from "../api/orderApi";
 
 const OrderConfirmationPage = () => {
   const navigate = useNavigate();
-  const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
-  const cartItemCheckedIds = useRecoilValue(cartItemCheckedIdsAtom);
+  const [checkedIds, setCheckedIds] = useRecoilState(cartItemCheckedIdsAtom);
   const cartTotalCount = useRecoilValue(totalCountSelector);
   const [couponUsed, setCouponUsed] = useRecoilState(couponUsedAtom);
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const fetchedCartItems = await fetchCartItems();
-      setCartItems(fetchedCartItems);
-    };
+  useFetchCartItems();
 
-    fetchData();
-  }, []);
-
-  const description = `총 ${cartItemCheckedIds.length}종류의 상품 ${cartTotalCount}개를 주문합니다.
+  const description = `총 ${checkedIds.length}종류의 상품 ${cartTotalCount}개를 주문합니다.
   최종 결제 금액을 확인해 주세요.`;
 
   const handlePrevClick = () => {
@@ -36,6 +29,7 @@ const OrderConfirmationPage = () => {
   };
 
   const handleClick = () => {
+    orderCartItems(checkedIds);
     navigate("/paymentConfirmation");
   };
 
