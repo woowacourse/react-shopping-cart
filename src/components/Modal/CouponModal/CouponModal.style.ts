@@ -26,6 +26,7 @@ export const Notification = styled.div`
 export const CouponList = styled.div`
   display: grid;
   gap: 24px;
+  color: rgba(10, 13, 19, 1);
 `;
 
 export const CheckBoxGroup = styled.div`

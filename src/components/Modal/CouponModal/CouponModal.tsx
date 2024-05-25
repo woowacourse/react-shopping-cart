@@ -1,12 +1,18 @@
-import { useRecoilValue } from 'recoil';
-
-import { couponListState } from '../../../recoil/atoms/atoms';
 import CouponItem from '../CouponItem/CouponItem';
 import Caution from '../../../assets/caution.svg';
 import { CouponContainer, Notification, CouponList } from './CouponModal.style';
+import { Coupon } from '../../../types/coupon';
+import { useCoupons } from '../../../hooks/useCoupons/useCoupons';
+import { useCouponApplicabilityChecker } from '../../../hooks/useCouponApplicabilityChecker/useCouponApplicabilityChecker';
+import { useRecoilValue } from 'recoil';
+import { calculateOrderPrice } from '../../../recoil/selectors/selectors';
 
 export default function CouponModal() {
-  const coupons = useRecoilValue(couponListState);
+  const { coupons } = useCoupons();
+
+  const { totalOrderPrice } = useRecoilValue(calculateOrderPrice);
+
+  const couponChecker = useCouponApplicabilityChecker();
 
   return (
     <CouponContainer>
@@ -16,9 +22,15 @@ export default function CouponModal() {
       </Notification>
 
       <CouponList>
-        {coupons.map((coupon) => (
-          <CouponItem key={coupon.code} coupon={coupon} />
-        ))}
+        {coupons.map((coupon: Coupon) => {
+          return (
+            <CouponItem
+              key={coupon.code}
+              coupon={coupon}
+              isCouponApplicable={couponChecker.isCouponApplicable(coupon, totalOrderPrice)}
+            />
+          );
+        })}
       </CouponList>
     </CouponContainer>
   );

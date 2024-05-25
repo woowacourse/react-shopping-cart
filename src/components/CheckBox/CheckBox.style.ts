@@ -6,7 +6,7 @@ export const CheckBoxLabel = styled.label`
   gap: 8px;
   font-size: 12px;
   font-weight: 500;
-  color: rgba(10, 13, 19, 1);
+  color: inherit;
 `;
 
 export const CheckBoxStyle = styled.button`
