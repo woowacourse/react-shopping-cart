@@ -1,13 +1,13 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
-const CartItemContainer = styled.li`
+export const CartItemWrapper = styled.li`
   list-style: none;
   width: 100%;
   height: fit-content;
   border-top: ${({ theme }) => `solid 1px ${theme.colors.semiBlack}`};
 `;
 
-const CartItemHeader = styled.div`
+export const CartItemHeader = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -23,7 +23,7 @@ const CartItemHeader = styled.div`
   }
 `;
 
-const CartItemContent = styled.div`
+export const CartItemContainer = styled.div`
   width: 100%;
 
   display: flex;
@@ -31,18 +31,15 @@ const CartItemContent = styled.div`
   padding: ${({ theme }) => theme.spacer.spacing1};
 `;
 
-const CartItemDetails = styled.div`
+export const CartItemInfo = styled.div`
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
 `;
 
-const CartItemInfo = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacer.spacing4};
-`;
-
-const ItemImage = styled.img`
+export const CartItemImage = styled.img`
   width: 112px;
   height: 112px;
   border-radius: 8px;
@@ -50,7 +47,7 @@ const ItemImage = styled.img`
   margin-right: ${({ theme }) => theme.spacer.spacing4};
 `;
 
-const ProductName = styled.h3`
+export const ProductName = styled.h3`
   font-size: 12px;
   font-weight: 500;
   line-height: 15px;
@@ -59,12 +56,19 @@ const ProductName = styled.h3`
   color: ${({ theme }) => theme.colors.text};
 `;
 
-export {
-  CartItemContainer,
-  CartItemContent,
-  CartItemDetails,
-  CartItemHeader,
-  CartItemInfo,
-  ItemImage,
-  ProductName,
-};
+export const QuantityContainer = styled.div`
+  margin-top: ${({ theme }) => theme.spacer.spacing4};
+`;
+
+export const QuantityControls = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+`;
+
+export const Quantity = styled.p`
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+  text-align: center;
+`;

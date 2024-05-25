@@ -1,14 +1,6 @@
-import InfoIconSrc from "../../../assets/infoIcon.png";
-import {
-  Container,
-  Divider,
-  Info,
-  InfoIcon,
-  Label,
-  Price,
-  PriceRow,
-  PriceRowContainer,
-} from "./style";
+import InfoIconSrc from '../../../assets/infoIcon.png';
+import * as S from './style';
+import * as C from '../../commonStyles';
 
 interface CheckoutSummaryProps {
   totalPrice: number;
@@ -20,31 +12,31 @@ export default function CheckoutSummary({
   shippingFee,
 }: CheckoutSummaryProps) {
   return (
-    <Container>
-      <Info>
-        <InfoIcon src={InfoIconSrc} alt="Info Icon" />총 주문 금액이 100,000원
+    <S.Container>
+      <S.Info>
+        <S.InfoIcon src={InfoIconSrc} alt="Info Icon" />총 주문 금액이 100,000원
         이상일 경우 무료 배송됩니다.
-      </Info>
+      </S.Info>
 
-      <Divider />
+      <S.Divider />
 
-      <PriceRowContainer>
-        <PriceRow>
-          <Label>주문 금액</Label>
-          <Price>{totalPrice.toLocaleString()}원</Price>
-        </PriceRow>
-        <PriceRow>
-          <Label>배송비</Label>
-          <Price>{shippingFee.toLocaleString()}원</Price>
-        </PriceRow>
-      </PriceRowContainer>
+      <S.PriceRowContainer>
+        <S.PriceRow>
+          <S.Label>주문 금액</S.Label>
+          <C.Price>{totalPrice.toLocaleString()}원</C.Price>
+        </S.PriceRow>
+        <S.PriceRow>
+          <S.Label>배송비</S.Label>
+          <C.Price>{shippingFee.toLocaleString()}원</C.Price>
+        </S.PriceRow>
+      </S.PriceRowContainer>
 
-      <Divider />
+      <S.Divider />
 
-      <PriceRow>
-        <Label>총 결제 금액</Label>
-        <Price>{(totalPrice + shippingFee).toLocaleString()}원</Price>
-      </PriceRow>
-    </Container>
+      <S.PriceRow>
+        <S.Label>총 결제 금액</S.Label>
+        <C.Price>{(totalPrice + shippingFee).toLocaleString()}원</C.Price>
+      </S.PriceRow>
+    </S.Container>
   );
 }

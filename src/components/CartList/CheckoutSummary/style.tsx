@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const Container = styled.div`
   max-width: 382px;
@@ -56,13 +56,4 @@ export const Label = styled.span`
   font-size: 16px;
   font-weight: 700;
   line-height: 16px;
-`;
-
-export const Price = styled.span`
-  display: block;
-
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 34.75px;
-  text-align: right;
 `;
