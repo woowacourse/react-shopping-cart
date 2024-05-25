@@ -1,5 +1,3 @@
-import React from "react";
-
 interface CouponAvailableTimeProps {
   availableTime: {
     start: string;
@@ -8,12 +6,16 @@ interface CouponAvailableTimeProps {
 }
 
 const CouponAvailableTime = ({ availableTime }: CouponAvailableTimeProps) => {
+  const SPLIT_CRITERION = ":";
+  const TIME_AM_LABEL = "오전";
+  const TIME_PM_LABEL = "오후";
+
   const { start, end } = availableTime;
-  const [startHour, startMinute] = start.split(":").map(Number);
-  const [endHour, endMinute] = end.split(":").map(Number);
+  const [startHour, startMinute] = start.split(SPLIT_CRITERION).map(Number);
+  const [endHour, endMinute] = end.split(SPLIT_CRITERION).map(Number);
 
   const formatHour = (hour: number): string => {
-    const formatting = hour >= 12 ? "오후" : "오전";
+    const formatting = hour >= 12 ? TIME_AM_LABEL : TIME_PM_LABEL;
     if (hour > 12) return formatting + (hour - 12);
     return formatting + hour;
   };
