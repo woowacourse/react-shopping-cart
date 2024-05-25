@@ -13,7 +13,7 @@ import ProductItem from '../ProductItem/ProductItem';
 import 'soosoo-react-modal-component/dist/style.css';
 import { Modal } from 'soosoo-react-modal-component';
 import { CheckBoxGroup } from './OrderConfirmCart.style';
-import CouponList from '../Modal/CouponList/CouponList';
+import CouponModal from '../Modal/CouponModal/CouponModal';
 import { useState } from 'react';
 
 export default function OrderConfirmCart() {
@@ -70,7 +70,7 @@ export default function OrderConfirmCart() {
             closeButton={{ onClose: () => setIsOpenModal(false) }}
             footerButtons={modalFooterButtons}
           >
-            <CouponList />
+            <CouponModal />
           </Modal>
 
           <CheckBoxGroup>

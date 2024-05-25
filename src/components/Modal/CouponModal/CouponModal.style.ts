@@ -23,19 +23,9 @@ export const Notification = styled.div`
   }
 `;
 
-export const CouponContent = styled.div`
+export const CouponList = styled.div`
   display: grid;
   gap: 24px;
-`;
-
-export const CouponBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding-top: 12px;
-  font-size: 12px;
-  font-weight: 500;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
 export const CheckBoxGroup = styled.div`
@@ -62,9 +52,4 @@ export const CheckBoxStyle = styled.button`
     width: 24px;
     height: 24px;
   }
-`;
-
-export const CouponDetails = styled.div`
-  display: flex;
-  flex-direction: column;
 `;

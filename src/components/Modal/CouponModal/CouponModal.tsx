@@ -1,39 +1,25 @@
-// import 'soosoo-react-modal-component/dist/style.css';
-// import { Modal } from 'soosoo-react-modal-component';
-// import { useState } from 'react';
-// import CouponList from '../CouponList/CouponList';
-// import { Notification } from './CouponModal.style';
-// import Caution from '../../../assets/caution.svg';
+import { useRecoilValue } from 'recoil';
 
-// export default function CouponModal({ isOpen }: { isOpen: boolean }) {
-//   const [isOpenModal, setIsOpenModal] = useState(isOpen);
-//   console.log(isOpenModal);
+import { couponListState } from '../../../recoil/atoms/atoms';
+import CouponItem from '../CouponItem/CouponItem';
+import Caution from '../../../assets/caution.svg';
+import { CouponContainer, Notification, CouponList } from './CouponModal.style';
 
-//   const modalFooterButtons = [
-//     {
-//       content: '총 6,000원 할인 쿠폰 사용하기',
-//       onClick: () => setIsOpenModal(false),
-//       className: 'confirmButton',
-//     },
-//   ];
+export default function CouponModal() {
+  const coupons = useRecoilValue(couponListState);
 
-//   return (
-//     <Modal
-//       position="center"
-//       size="medium"
-//       title={{ position: 'left', content: '쿠폰을 선택해 주세요' }}
-//       isOpen={isOpenModal}
-//       onClose={() => setIsOpenModal(false)}
-//       closeButton={{ onClose: () => setIsOpenModal(false) }}
-//       footerButtons={modalFooterButtons}
-//     >
-//       <div>
-//         <Notification>
-//           <img className="notification-img" src={Caution} />
-//           <span className="notification-text">쿠폰은 최대 2개까지 사용할 수 있습니다.</span>
-//         </Notification>
-//         <CouponList />
-//       </div>
-//     </Modal>
-//   );
-// }
+  return (
+    <CouponContainer>
+      <Notification>
+        <img className="notification-img" src={Caution} />
+        <span className="notification-text">쿠폰은 최대 2개까지 사용할 수 있습니다.</span>
+      </Notification>
+
+      <CouponList>
+        {coupons.map((coupon) => (
+          <CouponItem key={coupon.code} coupon={coupon} />
+        ))}
+      </CouponList>
+    </CouponContainer>
+  );
+}
