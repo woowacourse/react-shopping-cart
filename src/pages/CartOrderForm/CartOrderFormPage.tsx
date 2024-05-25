@@ -48,7 +48,6 @@ const CartOrderFormPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { couponList } = useCouponList();
-  const { clearSelectedCartItemIdList } = useSelectedCartItemIdList();
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -62,7 +61,6 @@ const CartOrderFormPage = () => {
     try {
       await requestOrders(selectedCartItemList.map(({ cartItemId }) => cartItemId));
 
-      clearSelectedCartItemIdList();
       navigate(ROUTES.CART_ORDER_COMPLETE);
     } catch (error) {
       showBoundary(new Error('결제 요청에 실패했습니다.'));
