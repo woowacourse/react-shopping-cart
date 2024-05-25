@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -13,11 +13,16 @@ import { useSelectedCartItemIdList } from '../hooks/cartItem/useSelectedCartItem
 import useAddCartItemsForTest from '../hooks/test/useAddCartItemsForTest';
 
 const CartPage = () => {
-  const { cartItemList } = useCartItemList();
+  const { cartItemList, fetchCartItemList } = useCartItemList();
   const { selectedIdList } = useSelectedCartItemIdList();
   const { addCartItemsForTest } = useAddCartItemsForTest();
-
+  const { unselectAll } = useSelectedCartItemIdList();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchCartItemList();
+    unselectAll();
+  }, []);
 
   return (
     <>

@@ -4,12 +4,9 @@ import * as S from './CartItemListSection.style';
 import PriceTable from '../PriceTable/PriceTable';
 import CartItemList from '../CartItemList/CartItemList';
 import useCartItemList from '../../hooks/cartItem/useCartItemList';
-import useFetchCartItemList from '../../hooks/cartItem/useFetchCartItemList';
 
 const CartItemListSection = () => {
   const { cartItemList } = useCartItemList();
-  const { fetchCartItemList } = useFetchCartItemList();
-  fetchCartItemList();
 
   return (
     <S.CartItemListSection>
