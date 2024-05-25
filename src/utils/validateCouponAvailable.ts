@@ -1,10 +1,13 @@
+import useCartItemList from '../hooks/cartItem/useCartItemList';
+import useSelectedCartItemList from '../hooks/cartItem/useSelectedCartItemList';
 import usePrice from '../hooks/price/usePrice';
 
 export const validateCouponAvailable = (coupon: Coupon) => {
   if (
     validateAvailableMinimumAmount(coupon) &&
     validateAvailableTime(coupon) &&
-    validateAvailableFreeShipping(coupon)
+    validateAvailableFreeShipping(coupon) &&
+    validateAvailableMinimumQuantity(coupon)
   )
     return true;
 
@@ -19,6 +22,19 @@ const validateAvailableTime = (coupon: Coupon) => {
     return true;
 
   return false;
+};
+
+const validateAvailableMinimumQuantity = (coupon: Coupon) => {
+  const { selectedCartItemList } = useSelectedCartItemList();
+
+  if (
+    !selectedCartItemList.some(
+      (cartItem) => cartItem.quantity >= (coupon.buyQuantity ?? 0) + 1,
+    )
+  ) {
+    return false;
+  }
+  return true;
 };
 
 const validateAvailableMinimumAmount = (coupon: Coupon) => {
