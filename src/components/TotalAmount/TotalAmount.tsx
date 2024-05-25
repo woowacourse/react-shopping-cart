@@ -10,8 +10,6 @@ interface TotalAmountProps {
 }
 
 function TotalAmount({ type }: TotalAmountProps) {
-  // const { totalAmount, deliveryFee, calculatedTotalAmount } =
-  // useRecoilValue(totalPriceSelector);
   const {
     calculateOrderTotal,
     calculateDiscountWithCoupon,
@@ -37,8 +35,7 @@ function TotalAmount({ type }: TotalAmountProps) {
             <S.TotalInfoBox>
               <S.TotalInfoLabel>{MESSAGES.discountAmount}</S.TotalInfoLabel>
               <S.TotalInfoAmount>
-                {calculateDiscountWithCoupon().toLocaleString()}원
-                {/* {discountAmount.toLocaleString()}원 */}
+                -{calculateDiscountWithCoupon().toLocaleString()}원
               </S.TotalInfoAmount>
             </S.TotalInfoBox>
           )}

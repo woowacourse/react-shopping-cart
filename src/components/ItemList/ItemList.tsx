@@ -7,6 +7,7 @@ import { orderItemsSelector, toggleAllSelector } from '../../recoil/selectors';
 import LabeledCheckBox from '../LabeledCheckBox/LabeledCheckBox';
 import * as S from './ItemList.styled';
 import { PageType } from '../../types/Page';
+import { LABEL } from '../../constants/Label';
 
 interface ItemListProps {
   type: PageType;
@@ -27,8 +28,9 @@ function ItemList({ type }: ItemListProps) {
     <S.ItemListContainer>
       {type === 'cart' && (
         <LabeledCheckBox
-          isAllChecked={isAllChecked}
-          handleToggleAll={handleToggleAll}
+          label={LABEL.allSelect}
+          isChecked={isAllChecked}
+          onToggleCheckBox={handleToggleAll}
         />
       )}
       <S.CartItemListContainer>

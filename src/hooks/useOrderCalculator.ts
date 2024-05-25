@@ -1,5 +1,9 @@
 import { useRecoilValue } from 'recoil';
-import { couponsState, selectedCouponsState } from '../recoil/atoms';
+import {
+  couponsState,
+  remoteAreaState,
+  selectedCouponsState,
+} from '../recoil/atoms';
 import { useDiscountCalculator } from './useDiscountCalculator';
 import { orderItemsSelector } from '../recoil/selectors';
 import { DELIVERY } from '../constants/Delivery';
@@ -9,6 +13,8 @@ export const useOrderCalculator = () => {
   const coupons = useRecoilValue(couponsState);
   const selectedCoupons = useRecoilValue(selectedCouponsState);
   const { calculateDiscountAmount } = useDiscountCalculator();
+  const isRemoteArea = useRecoilValue(remoteAreaState);
+
   /**
    * orderItemsSelector value 순회하며 총합 계산
    * @returns { number }
@@ -55,11 +61,15 @@ export const useOrderCalculator = () => {
    */
   const calculateDeliveryFee = () => {
     const orderTotal = calculateOrderTotal();
-    const deliveryFee =
-      orderTotal > DELIVERY.noDeliveryFeeStandard
-        ? DELIVERY.noDeliveryFee
-        : DELIVERY.deliveryFee;
-    return deliveryFee;
+    const standardDeliveryFee = DELIVERY.deliveryFee;
+
+    if (orderTotal > DELIVERY.noDeliveryFeeStandard) {
+      return DELIVERY.noDeliveryFee;
+    }
+    if (isRemoteArea) {
+      return standardDeliveryFee + DELIVERY.remoteArea;
+    }
+    return standardDeliveryFee;
   };
 
   return {

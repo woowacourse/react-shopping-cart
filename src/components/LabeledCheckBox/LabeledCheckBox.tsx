@@ -1,26 +1,26 @@
 import React from 'react';
 import CheckBox from '../CheckBox/CheckBox';
-import { MESSAGES } from '../../constants/Messages';
-
 import * as S from './LabeledCheckBox.styled';
 
 interface LabeledCheckBoxProps {
   title?: string;
-  isAllChecked: boolean;
-  handleToggleAll: () => void;
+  label: string;
+  isChecked: boolean;
+  onToggleCheckBox: () => void;
 }
 
 function LabeledCheckBox({
   title,
-  isAllChecked,
-  handleToggleAll,
+  label,
+  isChecked,
+  onToggleCheckBox,
 }: LabeledCheckBoxProps) {
   return (
     <S.LabeledCheckBoxContainer>
       <S.Title>{title}</S.Title>
       <S.CheckBoxContainer>
-        <CheckBox isChecked={isAllChecked} onClick={handleToggleAll} />
-        {MESSAGES.allSelected}
+        <CheckBox isChecked={isChecked} onClick={onToggleCheckBox} />
+        {label}
       </S.CheckBoxContainer>
     </S.LabeledCheckBoxContainer>
   );

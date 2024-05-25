@@ -31,3 +31,8 @@ export const selectedCouponsState = atom<Coupon[]>({
   key: 'selectedCouponsState',
   default: [],
 });
+
+export const remoteAreaState = atom<boolean>({
+  key: 'remoteAreaState',
+  default: false,
+});
