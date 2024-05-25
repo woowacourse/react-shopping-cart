@@ -27,8 +27,11 @@ type Options = {
   body?: Body | null;
 };
 
-export const requestGet = <T>({ baseUrl, endpoint, headers = {} }: RequestProps): Promise<T> => {
-  return fetcher<T>({ method: 'GET', baseUrl, endpoint, headers });
+export const requestGet = async <T>({ baseUrl, endpoint, headers = {} }: RequestProps): Promise<T> => {
+  const response = await fetcher({ method: 'GET', baseUrl, endpoint, headers });
+  const data: T = await response.json();
+
+  return data;
 };
 
 export const requestPatch = ({ baseUrl, endpoint, headers = {}, body }: RequestProps) => {
@@ -44,7 +47,7 @@ export const requestDelete = ({ baseUrl, endpoint, headers = {} }: RequestProps)
 };
 
 // 실제 오류를 감지하고 처리하고, fetch툴을 이용해 fetch해오는 곳
-const fetcher = <T>({ method, baseUrl, endpoint, headers, body }: FetcherProps): Promise<T> => {
+const fetcher = ({ method, baseUrl, endpoint, headers, body }: FetcherProps) => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const options = {
     method,
@@ -61,19 +64,13 @@ const fetcher = <T>({ method, baseUrl, endpoint, headers, body }: FetcherProps):
   return errorHandler(url, options, endpoint);
 };
 
-const errorHandler = async <T>(url: string, options: Options, endpoint: string): Promise<T> => {
+const errorHandler = async (url: string, options: Options, endpoint: string) => {
   try {
     const response = await fetch(url, options);
 
-    let data;
+    if (!response.ok) throw new Error('오류가 발생했습니다.');
 
-    if (response.headers.get('content-length') !== '0') {
-      data = await response.json();
-    } else data = {};
-
-    if (!response.ok) throw new Error(data.message + '오류가 발생했습니다.');
-
-    return data;
+    return response;
   } catch (error) {
     console.error(`fail to fetch ${endpoint}\n error message: ${error}`);
     throw new Error('데이터를 가져오는 중 오류가 발생했습니다.');
