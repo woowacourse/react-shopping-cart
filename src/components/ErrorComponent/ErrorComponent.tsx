@@ -15,9 +15,10 @@ const ErrorComponentContainer = styled.div`
 
 type ErrorComponentProps = {
   error: Error;
+  onReset: () => void;
 };
 
-const ErrorComponent = ({ error }: ErrorComponentProps) => {
+const ErrorComponent = ({ error, onReset }: ErrorComponentProps) => {
   return (
     <ErrorComponentContainer>
       <Text size="l" weight="l">
@@ -26,7 +27,9 @@ const ErrorComponent = ({ error }: ErrorComponentProps) => {
       <Text size="s" weight="s">
         {error.message}
       </Text>
-      <Button color="primary">다시 시도</Button>
+      <Button onClick={onReset} color="primary">
+        다시 시도
+      </Button>
     </ErrorComponentContainer>
   );
 };

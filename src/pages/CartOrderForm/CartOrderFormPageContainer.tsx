@@ -1,22 +1,16 @@
 import { ErrorBoundary } from 'react-error-boundary';
 import CartOrderFormPageLoader from './CartOrderFormPageLoader';
 import CartOrderFormPage from './CartOrderFormPage';
-import { useState } from 'react';
 import ErrorComponent from '../../components/ErrorComponent/ErrorComponent';
 
 const CartOrderFormPageContainer = () => {
-  const [retryKey, setRetryKey] = useState(0);
-
-  const handleRetry = () => {
-    setRetryKey((prevKey) => prevKey + 1);
+  const onReset = () => {
+    window.location.reload();
   };
 
   return (
-    <ErrorBoundary
-      FallbackComponent={({ error }) => <ErrorComponent error={error} onRetry={handleRetry} />}
-      resetKeys={[retryKey]}
-    >
-      <CartOrderFormPageLoader key={retryKey}>
+    <ErrorBoundary FallbackComponent={({ error }) => <ErrorComponent error={error} onReset={onReset} />}>
+      <CartOrderFormPageLoader>
         <CartOrderFormPage />
       </CartOrderFormPageLoader>
     </ErrorBoundary>
