@@ -15,7 +15,7 @@ const ErrorComponentContainer = styled.div`
 
 type ErrorComponentProps = {
   error: Error;
-  onReset: () => void;
+  onReset?: () => void;
 };
 
 const ErrorComponent = ({ error, onReset }: ErrorComponentProps) => {
