@@ -4,13 +4,9 @@ import SelectCouponItem from '../SelectCouponItem/SelectCouponItem';
 
 import NOTICE from '../../assets/notice.svg?react';
 import Text from '../common/Text/Text';
-import useFetchCouponList from '../../hooks/coupon/useFetchCouponList';
 import useCouponList from '../../hooks/coupon/useCouponList';
 
 const SelectCouponModalSection = () => {
-  const { fetchCouponList } = useFetchCouponList();
-  fetchCouponList();
-
   const { couponList } = useCouponList();
 
   return (
