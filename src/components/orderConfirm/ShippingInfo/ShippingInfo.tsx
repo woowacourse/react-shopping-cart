@@ -1,4 +1,4 @@
-import { Checkbox } from '@components/common';
+import { Checkbox, InfoBanner } from '@components/common';
 import { PRICE } from '@constants/shippingCart';
 import { surchargeShippingFeeAtom } from '@recoil/shoppingCart';
 import { useState } from 'react';
@@ -24,6 +24,7 @@ const ShippingInfo = () => {
         <Checkbox checked={isChecked} onChange={handleChangeCheck} />
         <Styled.SurchargeShippingInfo>제주도 및 도서 산간 지역</Styled.SurchargeShippingInfo>
       </Styled.SurchargeShippingFee>
+      <InfoBanner $padding="0">총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</InfoBanner>
     </Styled.ShippingInfo>
   );
 };
