@@ -30,4 +30,5 @@ export const CartItemSelectionGroup = styled.div`
 export const CartItemContentWrapper = styled.div`
   display: flex;
   gap: 24px;
+  margin-bottom: 12px;
 `;
