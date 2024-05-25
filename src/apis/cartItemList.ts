@@ -53,3 +53,19 @@ export const requestDeleteCartItem = async (cartItemId: number) => {
     throw new Error('Failed to deleteCartItem');
   }
 };
+
+// TEST를 위한 cartItem추가 API 실행
+export const requestAddCartItemForTest = async (cartItemId: number) => {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+  const response = await fetch(`${API_URL}/cart-items`, {
+    method: 'POST',
+    headers: { Authorization: token, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      productId: cartItemId,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to addCartItem');
+  }
+};
