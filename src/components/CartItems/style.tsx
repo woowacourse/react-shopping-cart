@@ -32,10 +32,6 @@ export const CartItem = styled.li`
   gap: 0.75rem;
 `;
 
-export const Divider = styled.div`
-  border: 0.5px solid ${(props) => props.theme.color.borderGray};
-`;
-
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;

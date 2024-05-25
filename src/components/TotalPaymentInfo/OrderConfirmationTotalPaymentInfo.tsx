@@ -1,15 +1,16 @@
 import * as Styled from './style';
 
-import PaymentInfo from './PaymentInfo';
-import CaptionEmoji from '../../assets/CaptionEmoji.svg';
-import Caption from '../Caption/Caption';
-
 import { useRecoilValue } from 'recoil';
 import {
   finalShippingFeeSelector,
   finalTotalPaymentAmountSelector,
   totalOrderAmountSelector,
 } from '../../recoil/selectors';
+
+import PaymentInfo from './PaymentInfo';
+import CaptionEmoji from '../../assets/CaptionEmoji.svg';
+import Caption from '../Caption/Caption';
+import Divider from '../Divider/Divider';
 
 import MESSAGE from '../../constants/Message';
 
@@ -24,11 +25,11 @@ const OrderConfirmationTotalPaymentInfo = () => {
         <img src={CaptionEmoji} />
         {MESSAGE.paymentCaption}
       </Caption>
-      <Styled.Divider />
+      <Divider />
       <PaymentInfo label={MESSAGE.paymentAmount} price={totalOrderAmount} />
       <PaymentInfo label={MESSAGE.couponDiscountAmount} price={-6000} />
       <PaymentInfo label={MESSAGE.shippingFee} price={shippingFee} />
-      <Styled.Divider />
+      <Divider />
       <PaymentInfo
         label={MESSAGE.totalPaymentAmount}
         price={totalPaymentAmount}

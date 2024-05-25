@@ -18,6 +18,7 @@ import RemoveButton from '../../../assets/RemoveButton.svg';
 import MESSAGE from '../../../constants/Message';
 import CONDITION from '../../../constants/Condition';
 import VALUE from '../../../constants/Value';
+import Divider from '../../Divider/Divider';
 
 import { CartItemType } from '../../../type';
 
@@ -91,7 +92,7 @@ const ShoppingCartItem = ({ inputCartItem }: CartItemProps) => {
 
   return (
     <Styled.CartItem>
-      <Styled.Divider />
+      <Divider />
 
       <Styled.ButtonContainer>
         <Styled.SelectButton onClick={() => setIsSelected((prop) => !prop)}>
