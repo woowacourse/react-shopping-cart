@@ -1,4 +1,3 @@
-// import { totalDiscountPriceAtom } from '@recoil/orderConfirm/atoms';
 import { totalDiscountPriceSelector } from '@recoil/orderConfirm/selectors';
 import {
   afterDiscountTotalPriceSelector,
