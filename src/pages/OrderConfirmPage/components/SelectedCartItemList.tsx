@@ -1,5 +1,6 @@
 import { useRecoilValue } from "recoil";
-import { selectedCartItemSelector } from "@/recoil/cartItems";
+
+import { selectedCartItemSelector } from "@/recoil/selectedCardItems";
 
 import SelectedCartItem from "./SelectedCartItem";
 
