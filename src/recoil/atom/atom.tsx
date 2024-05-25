@@ -38,3 +38,8 @@ export const couponCheckedAtom = atom<Coupon[]>({
   key: "couponCheckedAtom",
   default: [],
 });
+
+export const couponUsedAtom = atom<boolean>({
+  key: "couponUsedAtom",
+  default: false,
+});

@@ -1,8 +1,8 @@
-import React from "react";
 import { css } from "@emotion/css";
 import { Modal } from "chlwlstlf-modal";
-import { useRecoilState } from "recoil";
-import { couponsAtom } from "../../recoil/atom/atom";
+
+import { useRecoilState, useRecoilValue } from "recoil";
+import { couponUsedAtom, couponsAtom } from "../../recoil/atom/atom";
 import { Button, Information, Splitter } from "../default";
 import CouponItem from "./CouponItem";
 import { formatCurrency } from "../../utils/formatCurrency";
@@ -11,10 +11,12 @@ import { useCartCalculator } from "../../hooks/useCartCalculator/useCartCalculat
 interface CouponModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onConfirm: () => void;
 }
 
-const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
+const CouponModal = ({ isOpen, onClose, onConfirm }: CouponModalProps) => {
   const [coupons] = useRecoilState(couponsAtom);
+
   const { calculateCouponTotal } = useCartCalculator();
 
   return (
@@ -40,7 +42,7 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
         </div>
       </Modal.Content>
       <Modal.Footer>
-        <Button onClick={onClose}>총 {formatCurrency(calculateCouponTotal())} 할인 쿠폰 사용하기</Button>
+        <Button onClick={onConfirm}>총 {formatCurrency(calculateCouponTotal())} 할인 쿠폰 사용하기</Button>
       </Modal.Footer>
     </Modal>
   );

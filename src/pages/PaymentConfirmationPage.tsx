@@ -17,7 +17,7 @@ const PaymentConfirmationPage = () => {
   최종 결제 금액을 확인해 주세요.`;
 
   const handleClick = () => {
-    navigate(-1);
+    navigate("/");
   };
 
   return (
@@ -37,8 +37,9 @@ const PaymentConfirmationPage = () => {
         </div>
       </Content>
       <Footer
-        text="결제하기"
+        text="장바구니 돌아가기"
         isActive={true}
+        onClick={handleClick}
       />
     </CartLayout>
   );

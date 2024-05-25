@@ -1,12 +1,13 @@
 import { useRecoilValue } from "recoil";
 import { useDiscountCalculator } from "../useDiscountCalculator/useDiscountCalculator";
-import { cartItemsAtom, couponsAtom } from "../../recoil/atom/atom";
+import { cartItemsAtom, couponUsedAtom, couponsAtom } from "../../recoil/atom/atom";
 import { orderPriceSelector, shippingFeeSelector } from "../../recoil/selector/selector";
 import useSortedCheckedCoupons from "../useSortCheckedCoupons/useSortCheckedCoupons";
 
 export const useCartCalculator = () => {
   const orderPrice = useRecoilValue(orderPriceSelector);
   const shippingFee = useRecoilValue(shippingFeeSelector);
+  const couponUsed = useRecoilValue(couponUsedAtom);
 
   const sortedCoupons = useSortedCheckedCoupons();
   const { calculateDiscountAmount } = useDiscountCalculator();
@@ -29,7 +30,7 @@ export const useCartCalculator = () => {
 
   const calculateTotalWithCoupon = () => {
     const cartTotal = calculateCartTotal();
-    const couponTotal = calculateCouponTotal();
+    const couponTotal = couponUsed ? calculateCouponTotal() : 0;
     return cartTotal - couponTotal + shippingFee;
   };
 

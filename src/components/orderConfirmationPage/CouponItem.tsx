@@ -4,32 +4,34 @@ import { Button } from "../default";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { formatDate } from "../../utils/formatDate";
-import { useState } from "react";
 import useCouponValidation from "../../hooks/useCouponValidation/useCouponValidation";
+import { couponCheckedAtom } from "../../recoil/atom/atom";
+import { useRecoilState } from "recoil";
 
 interface CouponItemProps {
   coupon: Coupon;
 }
 
 const CouponItem = ({ coupon }: CouponItemProps) => {
-  const [isChecked, setIsChecked] = useState(false);
+  const [checkedCoupons, setCheckedCoupons] = useRecoilState(couponCheckedAtom);
+
   const { isCouponValid } = useCouponValidation();
   const isValid = isCouponValid(coupon);
 
   const handleChecked = () => {
-    setIsChecked((prev) => !prev);
+    setCheckedCoupons((prev) => (prev.includes(coupon) ? prev.filter((item) => item !== coupon) : [...prev, coupon]));
   };
 
   return (
     <div className={ItemCSS}>
       <div className={ItemHeaderCSS}>
         <Button
-          variant={isChecked ? "primary" : "secondary"}
+          variant={checkedCoupons.includes(coupon) && isValid ? "primary" : "secondary"}
           size="small"
           onClick={handleChecked}
           isDisabled={!isValid}
         >
-          <CheckIcon fill={isChecked ? "var(--grey-100)" : "var(--grey-200)"} />
+          <CheckIcon fill={checkedCoupons.includes(coupon) && isValid ? "var(--grey-100)" : "var(--grey-200)"} />
         </Button>
         <div className={ItemHeaderTextCSS(isValid)}>{coupon.description}</div>
       </div>
