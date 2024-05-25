@@ -1,5 +1,12 @@
 # 🎯 쇼핑 카트 2단계 기능 구현 목록
 
+step 2 : 쿠폰 적용 로직 구현
+
+- [x] FIXED5000 - checkout한 상품에 따른 쿠폰 적용 여부 구현
+- [x] 사용 불가능한 쿠폰의 상태를 isAvailable = false로 처리
+  - [ ] 사용 불가능한 쿠폰의 UI를 disable 상태로
+- [x] checkout 페이지를 렌더링시, 쿠폰 상태 전역 변수 초기화
+
 step 1 : checkout 페이지 UI 구성
 
 - [x] 기존의 checkout 페이지를 payments 페이지로 이름 변경
