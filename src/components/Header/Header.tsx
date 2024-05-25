@@ -26,13 +26,14 @@ const ShopButton = () => {
 const Header = () => {
   const { pathname } = useLocation();
 
-  if (pathname !== "/" && pathname !== "/order") {
+  if (pathname !== "/" && pathname !== "/order" && pathname !== "/payment") {
     return;
   }
 
   const routeTitle = {
     "/": <ShopButton />,
     "/order": <BackButton />,
+    "/payment": <></>,
   };
 
   return <div css={HeaderStyle}>{routeTitle[pathname]}</div>;
