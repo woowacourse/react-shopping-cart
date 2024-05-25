@@ -7,10 +7,13 @@ import TotalAmount from '../TotalAmount/TotalAmount';
 import { LABEL } from '../../constants/Label';
 import { useSetRecoilState } from 'recoil';
 import { remoteAreaState } from '../../recoil/atoms';
+import { useModal } from 'woowacourse-react-modal-component';
+import CouponModal from '../CouponModal/CouponModal';
 
 function OrderContent() {
   const [isRemoteAreaChecked, setIsRemoteAreaChecked] = useState(false);
   const setRemoteArea = useSetRecoilState(remoteAreaState);
+  const { isOpen, toggleModal } = useModal();
 
   const handleIsRemoteAreaChecked = () => {
     setIsRemoteAreaChecked(!isRemoteAreaChecked);
@@ -25,7 +28,7 @@ function OrderContent() {
         최종 결제 금액을 확인해 주세요."
       />
       <ItemList type="order" />
-      <CouponButton />
+      <CouponButton onToggleModal={toggleModal} />
       <LabeledCheckBox
         title={LABEL.remoteAreaTitle}
         label={LABEL.remoteArea}
@@ -33,6 +36,7 @@ function OrderContent() {
         onToggleCheckBox={handleIsRemoteAreaChecked}
       />
       <TotalAmount type="order" />
+      <CouponModal isOpen={isOpen} onToggleModal={toggleModal} />
     </div>
   );
 }
