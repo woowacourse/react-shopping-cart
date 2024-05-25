@@ -8,9 +8,9 @@ import ImageBox from '../../common/ImageBox/ImageBox';
 import Text from '../../common/Text/Text';
 
 import type { CartItem as CartItemWithControl } from '../../../types/cartItem.type';
-import { useCartItemQuantity } from '../../../recoil/cartItem/useCartItemQuantity';
-import { useSelectedCartItemIdList } from '../../../recoil/selectedCartItemList/useSelectedCartItemIdList';
-import { useCartItemList } from '../../../recoil/cartItemList/useCartItemList';
+import { useCartItemQuantity } from '../../../hooks/useCartItemQuantity';
+import { useSelectedCartItemIdList } from '../../../hooks/useSelectedCartItemIdList';
+import { useCartItemList } from '../../../hooks/useCartItemList';
 
 const CartItemWithControl = ({ product, cartItemId }: CartItemWithControl) => {
   const { name, price, imageUrl } = product;

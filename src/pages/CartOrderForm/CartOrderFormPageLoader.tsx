@@ -1,5 +1,5 @@
 import { ReactNode, useEffect } from 'react';
-import { useCartItemList } from '../../recoil/cartItemList/useCartItemList';
+import { useCartItemList } from '../../hooks/useCartItemList';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import { cartItemListStateQuery } from '../../recoil/cartItemList/cartItemListState';
 import { selectedCartItemIdListState } from '../../recoil/selectedCartItemList/selectedCartItemIdListState';

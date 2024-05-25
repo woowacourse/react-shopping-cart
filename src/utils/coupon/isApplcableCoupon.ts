@@ -1,6 +1,7 @@
 import { CartItem } from '../../types/cartItem.type';
 import { Coupon } from '../../types/coupon.type';
 
+// TODO: 리펙터링
 export const isApplicableCoupon = ({
   coupon,
   totalCartPrice,

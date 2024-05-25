@@ -1,10 +1,10 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { couponListState } from './couponListState';
-import { isValidCoupon } from '../../utils/coupon/isValidCoupon';
-import { Coupon } from '../../types/coupon.type';
-import { totalCartPriceState } from '../price/totalCartPriceState';
-import { selectedCartItemListState } from '../selectedCartItemList/selectedCartItemList';
-import { isApplicableCoupon } from '../../utils/coupon/isApplcableCoupon';
+import { couponListState } from '../recoil/couponList/couponListState';
+import { isValidCoupon } from '../utils/coupon/isValidCoupon';
+import { Coupon } from '../types/coupon.type';
+import { totalCartPriceState } from '../recoil/price/totalCartPriceState';
+import { selectedCartItemListState } from '../recoil/selectedCartItemList/selectedCartItemList';
+import { isApplicableCoupon } from '../utils/coupon/isApplcableCoupon';
 import { useEffect } from 'react';
 
 const useCouponList = () => {

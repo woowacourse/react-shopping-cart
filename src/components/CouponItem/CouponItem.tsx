@@ -1,4 +1,4 @@
-import useSelectedCouponList from '../../recoil/couponList/useSelectedCouponList';
+import useSelectedCouponList from '../../hooks/useSelectedCouponList';
 import { Coupon } from '../../types/coupon.type';
 import formatAvailableTime from '../../utils/format/formatAvailableTime';
 import formatExpirationDate from '../../utils/format/formatExpirationDate';

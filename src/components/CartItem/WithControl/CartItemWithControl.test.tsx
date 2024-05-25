@@ -5,7 +5,7 @@ import { cartItemQuantityState } from '../../../recoil/cartItem/cartItemQuantity
 import { act } from 'react';
 import '@testing-library/jest-dom';
 import { mockCartItemList } from '../../../mocks/cartItemList';
-import { useCartItemList } from '../../../recoil/cartItemList/useCartItemList';
+import { useCartItemList } from '../../../hooks/useCartItemList';
 
 jest.mock('../../apis/requests/cartItemList', () => ({
   requestCartItemList: jest.fn().mockImplementation(() => mockCartItemList),

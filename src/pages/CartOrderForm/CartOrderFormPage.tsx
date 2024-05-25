@@ -16,12 +16,12 @@ import { useState } from 'react';
 import CouponListModal from '../../components/CouponListModal/CouponListModal';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes';
-import useCouponList from '../../recoil/couponList/useCouponList';
+import useCouponList from '../../hooks/useCouponList';
 import ListContainer from '../../components/common/ListContainer/ListContainer';
 import ShippingAreaForm from '../../components/ShippingAreaForm/ShippingAreaForm';
 import { requestOrders } from '../../apis/requests/order';
 import { useErrorBoundary } from 'react-error-boundary';
-import { useSelectedCartItemIdList } from '../../recoil/selectedCartItemList/useSelectedCartItemIdList';
+import { useSelectedCartItemIdList } from '../../hooks/useSelectedCartItemIdList';
 
 // TODO: cartOrders 의 컴포넌트와 동일. 복붙으로 재사용하니 수정요망
 const CartPageContainer = styled.main`

@@ -1,6 +1,6 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { selectedCartItemIdListState } from './selectedCartItemIdListState';
-import { cartItemListState } from '../cartItemList/cartItemListState';
+import { selectedCartItemIdListState } from '../recoil/selectedCartItemList/selectedCartItemIdListState';
+import { cartItemListState } from '../recoil/cartItemList/cartItemListState';
 
 export const useSelectedCartItemIdList = () => {
   const [selectedCartItemIdList, setSelectedCartItemIdList] = useRecoilState(selectedCartItemIdListState);

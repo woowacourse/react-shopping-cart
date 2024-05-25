@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react';
-import { useCartItemList } from './useCartItemList';
+import { useCartItemList } from '../../hooks/useCartItemList';
 import { RecoilRoot, useRecoilValue } from 'recoil';
 import { ReactNode, act } from 'react';
 import { cartItemListState } from './cartItemListState';

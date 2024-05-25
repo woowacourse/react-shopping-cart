@@ -5,7 +5,7 @@ import { mockCartItemList } from '../../mocks/cartItemList';
 import { selectedCouponListState } from '../couponList/selectedCouponListState';
 import { selectedCartItemIdListState } from '../selectedCartItemList/selectedCartItemIdListState';
 import { Coupon } from '../../types/coupon.type';
-import { useCartItemList } from '../cartItemList/useCartItemList';
+import { useCartItemList } from '../../hooks/useCartItemList';
 import { act } from 'react';
 
 jest.mock('../../apis/requests/cartItemList', () => ({

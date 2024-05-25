@@ -2,9 +2,9 @@ import { renderHook } from '@testing-library/react';
 import useSelectedCouponList from './useSelectedCouponList';
 import { RecoilRoot } from 'recoil';
 import { act } from 'react';
-import { mockCouponList } from '../../mocks/couponList';
-import { selectedCouponListState } from './selectedCouponListState';
-import { MAX_COUPON_COUNT } from '../../constants/coupon';
+import { mockCouponList } from '../mocks/couponList';
+import { selectedCouponListState } from '../recoil/couponList/selectedCouponListState';
+import { MAX_COUPON_COUNT } from '../constants/coupon';
 
 describe('useSelectedCouponList', () => {
   it('처음 진입하면 선택된 쿠폰 목록은 비어있다.', () => {

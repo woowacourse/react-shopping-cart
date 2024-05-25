@@ -4,7 +4,7 @@ import { MAX_COUPON_COUNT } from '../../constants/coupon';
 import { useRecoilValue } from 'recoil';
 import CouponItem from '../CouponItem/CouponItem';
 import { discountPriceByCouponListState } from '../../recoil/price/discountPriceByCouponListState';
-import useCouponList from '../../recoil/couponList/useCouponList';
+import useCouponList from '../../hooks/useCouponList';
 
 const CouponListModalMain = ({ close }: { close: () => void }) => {
   const { couponList } = useCouponList();
