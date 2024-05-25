@@ -1,4 +1,4 @@
-const useCouponValidator = (couponList: Coupon[]) => {
+const findCouponValidator = (couponList: Coupon[]) => {
   const isCouponExpired = (expirationDate: string) => {
     const today = new Date();
     const expiration = new Date(expirationDate);
@@ -22,4 +22,4 @@ const useCouponValidator = (couponList: Coupon[]) => {
   };
 };
 
-export default useCouponValidator;
+export default findCouponValidator;

@@ -1,7 +1,7 @@
 import { vi } from 'vitest';
 import { renderHook } from '@testing-library/react';
-import useApplicableCoupons from './useApplicableCoupons';
-import { mockCouponList } from './useCouponValidator.test';
+import findApplicableCoupons from '../domain/findApplicableCoupons';
+import { mockCouponList } from './findCouponValidator.test';
 
 export const mockOrderList: Cart[] = [
   {
@@ -45,11 +45,11 @@ export const mockOrderTotalPrice: number = mockOrderList.reduce(
   0,
 );
 
-describe('useApplicableCoupons', () => {
+describe('findApplicableCoupons', () => {
   describe('checkOrderAmountCoupons: 최소 주문 금액', () => {
     it('totalPrice가 minimumAmount 보다 크면 true를 반환한다.', () => {
       const { result } = renderHook(() =>
-        useApplicableCoupons({
+        findApplicableCoupons({
           validCouponList: mockCouponList,
           totalPrice: mockOrderTotalPrice,
           orderList: mockOrderList,
@@ -62,7 +62,7 @@ describe('useApplicableCoupons', () => {
     it('totalPrice가 minimumAmount 보다 작다면 false를 반환한다.', () => {
       const invalidTotalPrice = 30000;
       const { result } = renderHook(() =>
-        useApplicableCoupons({
+        findApplicableCoupons({
           validCouponList: mockCouponList,
           totalPrice: invalidTotalPrice,
           orderList: mockOrderList,
@@ -82,7 +82,7 @@ describe('useApplicableCoupons', () => {
       vi.setSystemTime(testTime);
 
       const { result } = renderHook(() =>
-        useApplicableCoupons({
+        findApplicableCoupons({
           validCouponList: mockCouponList,
           totalPrice: mockOrderTotalPrice,
           orderList: mockOrderList,
@@ -99,7 +99,7 @@ describe('useApplicableCoupons', () => {
       vi.setSystemTime(testTime);
 
       const { result } = renderHook(() =>
-        useApplicableCoupons({
+        findApplicableCoupons({
           validCouponList: mockCouponList,
           totalPrice: mockOrderTotalPrice,
           orderList: mockOrderList,
@@ -115,7 +115,7 @@ describe('useApplicableCoupons', () => {
   describe('checkBulkPurchaseCoupon: 최소 주문 수량 (2 + 1)', () => {
     it('주문 상품 중 하나라도 주문 수량이 3개 이상이 존재한다면 true를 반환한다.', () => {
       const { result } = renderHook(() =>
-        useApplicableCoupons({
+        findApplicableCoupons({
           validCouponList: mockCouponList,
           totalPrice: mockOrderTotalPrice,
           orderList: mockOrderList,
@@ -128,7 +128,7 @@ describe('useApplicableCoupons', () => {
     it('주문 상품 중 하나라도 주문 수량이 3개 이상이 존재하지 않는다면 false를 반환한다.', () => {
       const invalidOrderList: Cart[] = [mockOrderList[0]];
       const { result } = renderHook(() =>
-        useApplicableCoupons({
+        findApplicableCoupons({
           validCouponList: mockCouponList,
           totalPrice: mockOrderTotalPrice,
           orderList: invalidOrderList,
@@ -154,7 +154,7 @@ describe('useApplicableCoupons', () => {
       vi.setSystemTime(notUseMiracleCouponTime);
 
       const { result } = renderHook(() =>
-        useApplicableCoupons({
+        findApplicableCoupons({
           validCouponList: mockCouponList,
           totalPrice: mockOrderTotalPrice,
           orderList: mockOrderList,
@@ -173,7 +173,7 @@ describe('useApplicableCoupons', () => {
       }, 0);
 
       const { result } = renderHook(() =>
-        useApplicableCoupons({
+        findApplicableCoupons({
           validCouponList: mockCouponList,
           totalPrice: testTotalPrice,
           orderList: testOrderList,
@@ -190,7 +190,7 @@ describe('useApplicableCoupons', () => {
       }, 0);
 
       const { result } = renderHook(() =>
-        useApplicableCoupons({
+        findApplicableCoupons({
           validCouponList: mockCouponList,
           totalPrice: testTotalPrice,
           orderList: testOrderList,
@@ -202,7 +202,7 @@ describe('useApplicableCoupons', () => {
 
     it('모든 쿠폰을 사용할 수 있어, 사용 가능한 쿠폰의 리스트는 4개이다.', () => {
       const { result } = renderHook(() =>
-        useApplicableCoupons({
+        findApplicableCoupons({
           validCouponList: mockCouponList,
           totalPrice: mockOrderTotalPrice,
           orderList: mockOrderList,

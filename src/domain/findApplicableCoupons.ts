@@ -4,7 +4,7 @@ interface Props {
   orderList: Cart[];
 }
 
-const useApplicableCoupons = ({
+const findApplicableCoupons = ({
   validCouponList,
   totalPrice,
   orderList,
@@ -83,4 +83,4 @@ const useApplicableCoupons = ({
   };
 };
 
-export default useApplicableCoupons;
+export default findApplicableCoupons;

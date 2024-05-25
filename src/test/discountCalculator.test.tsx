@@ -1,17 +1,17 @@
 import { renderHook } from '@testing-library/react';
-import useDiscountCalculator from './useDiscountCalculator';
-import { mockCouponList } from './useCouponValidator.test';
+import discountCalculator from '../domain/discountCalculator';
+import { mockCouponList } from './findCouponValidator.test';
 import {
   mockOrderList,
   mockOrderTotalPrice,
-} from './useApplicableCoupons.test';
+} from './findApplicableCoupons.test';
 
-describe('useDiscountCalculator 테스트', () => {
+describe('discountCalculator 테스트', () => {
   describe('discountType이 fixed 일 때', () => {
     it('총 주문 금액이 최소 주문 금액 이상일 때, 할인 금액은 5,000원 이다.', () => {
       const validTotalOrderPrice = 100000;
       const { result } = renderHook(() =>
-        useDiscountCalculator({
+        discountCalculator({
           coupon: mockCouponList[0],
           totalOrderPrice: validTotalOrderPrice,
           orderList: mockOrderList,
@@ -25,7 +25,7 @@ describe('useDiscountCalculator 테스트', () => {
     it('총 주문 금액이 최소 주문 금액 미만일 때, 할인 금액은 0원이다.', () => {
       const inValidTotalOrderPrice = 99999;
       const { result } = renderHook(() =>
-        useDiscountCalculator({
+        discountCalculator({
           coupon: mockCouponList[0],
           totalOrderPrice: inValidTotalOrderPrice,
           orderList: mockOrderList,
@@ -41,7 +41,7 @@ describe('useDiscountCalculator 테스트', () => {
     it('할인 금액은 총 주문 금액에서 30% 할인된 금액이다.', () => {
       const testTotalOrderPrice = 100000;
       const { result } = renderHook(() =>
-        useDiscountCalculator({
+        discountCalculator({
           coupon: mockCouponList[3],
           totalOrderPrice: testTotalOrderPrice,
           orderList: mockOrderList,
@@ -80,7 +80,7 @@ describe('useDiscountCalculator 테스트', () => {
         },
       ];
       const { result } = renderHook(() =>
-        useDiscountCalculator({
+        discountCalculator({
           coupon: mockCouponList[1],
           totalOrderPrice: mockOrderTotalPrice,
           orderList: testOrderList,
@@ -128,7 +128,7 @@ describe('useDiscountCalculator 테스트', () => {
         },
       ];
       const { result } = renderHook(() =>
-        useDiscountCalculator({
+        discountCalculator({
           coupon: mockCouponList[1],
           totalOrderPrice: mockOrderTotalPrice,
           orderList: testOrderList,
@@ -164,7 +164,7 @@ describe('useDiscountCalculator 테스트', () => {
         },
       ];
       const { result } = renderHook(() =>
-        useDiscountCalculator({
+        discountCalculator({
           coupon: mockCouponList[1],
           totalOrderPrice: mockOrderTotalPrice,
           orderList: testOrderList,
@@ -180,7 +180,7 @@ describe('useDiscountCalculator 테스트', () => {
     it('총 주문 금액이 최소 주문 금액 이상일 때, 할인 금액은 3000원이다.', () => {
       const validTotalOrderPrice = 50000;
       const { result } = renderHook(() =>
-        useDiscountCalculator({
+        discountCalculator({
           coupon: mockCouponList[2],
           totalOrderPrice: validTotalOrderPrice,
           orderList: mockOrderList,
@@ -194,7 +194,7 @@ describe('useDiscountCalculator 테스트', () => {
     it('총 주문 금액이 최소 주문 금액 미만일 때, 할인 금액은 0원이다.', () => {
       const validTotalOrderPrice = 49999;
       const { result } = renderHook(() =>
-        useDiscountCalculator({
+        discountCalculator({
           coupon: mockCouponList[2],
           totalOrderPrice: validTotalOrderPrice,
           orderList: mockOrderList,

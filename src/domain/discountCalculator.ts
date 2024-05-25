@@ -6,7 +6,7 @@ interface Props {
   orderList: Cart[];
 }
 
-export const useDiscountCalculator = ({
+export const discountCalculator = ({
   coupon,
   totalOrderPrice,
   orderList,
@@ -58,4 +58,4 @@ export const useDiscountCalculator = ({
   };
 };
 
-export default useDiscountCalculator;
+export default discountCalculator;
