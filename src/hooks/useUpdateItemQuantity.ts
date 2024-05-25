@@ -27,6 +27,8 @@ const useUpdateItemQuantity = (id: number) => {
   };
 
   const handleDecreaseQuantity = async () => {
+    if (quantity === 1) return;
+
     try {
       setQuantity((prevQuantity) => prevQuantity - 1);
 
