@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { css } from "@emotion/css";
 
 import { patchCartItemQuantity } from "../../api/cartItemApi";
@@ -11,6 +11,7 @@ import { formatCurrency } from "../../utils/formatCurrency";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
 import MinusIcon from "../../assets/MinusIcon.svg?react";
 import PlusIcon from "../../assets/PlusIcon.svg?react";
+import { useCartItemChecked } from "../../hooks/useCartItemChecked/useCartItemChecked";
 
 interface CartItemProps {
   product: Product;
@@ -18,16 +19,13 @@ interface CartItemProps {
 }
 
 const CartItem = ({ product, handleDelete }: CartItemProps) => {
-  const [checkedIds, setCheckedIds] = useRecoilState(cartItemCheckedIdsAtom);
+  const checkedIds = useRecoilValue(cartItemCheckedIdsAtom);
   const [quantity, setQuantity] = useRecoilState(quantitySelectorFamily(product.id));
+  const { handleCheckedIds } = useCartItemChecked();
 
   useEffect(() => {
     setQuantity(product.quantity);
-  }, []);
-
-  const handleChecked = () => {
-    setCheckedIds((prev) => (prev.includes(product.id) ? prev.filter((id) => id !== product.id) : [...prev, product.id]));
-  };
+  }, [product.quantity, setQuantity]);
 
   const updateQuantity = (newQuantity: number) => {
     patchCartItemQuantity(product.id, newQuantity);
@@ -42,7 +40,7 @@ const CartItem = ({ product, handleDelete }: CartItemProps) => {
         <Button
           variant={checkedIds.includes(product.id) ? "primary" : "secondary"}
           size="small"
-          onClick={handleChecked}
+          onClick={() => handleCheckedIds(product.id)}
         >
           <CheckIcon fill={checkedIds.includes(product.id) ? "var(--grey-100)" : "var(--grey-200)"} />
         </Button>

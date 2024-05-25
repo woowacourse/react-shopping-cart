@@ -1,21 +1,17 @@
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { css } from "@emotion/css";
 
 import { deleteCartItem } from "../../api/cartItemApi";
 import { cartItemCheckedIdsAtom, cartItemsAtom } from "../../recoil/atom/atom";
-import { useAllChecked } from "../../hooks/useAllChecked/useAllChecked";
+import { useCartItemChecked } from "../../hooks/useCartItemChecked/useCartItemChecked";
 import { CartItem } from "./index";
 import { Button } from "../default";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
 
 const CartItems = () => {
   const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
-  const [checkedIds, setCheckedIds] = useRecoilState(cartItemCheckedIdsAtom);
-  const { isAllChecked, setAllChecked } = useAllChecked();
-
-  const handleAllChecked = () => {
-    setAllChecked(!isAllChecked);
-  };
+  const setCheckedIds = useSetRecoilState(cartItemCheckedIdsAtom);
+  const { isAllChecked, handleAllChecked } = useCartItemChecked();
 
   const handleDelete = (id: number) => {
     deleteCartItem(id);
