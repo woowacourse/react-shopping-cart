@@ -14,3 +14,8 @@ export const couponsState = atom<Coupon[]>({
   key: "couponsState",
   default: couponsResponse,
 });
+
+export const selectedCouponsState = atom<Coupon[]>({
+  key: "selectedCouponsState",
+  default: [],
+});
