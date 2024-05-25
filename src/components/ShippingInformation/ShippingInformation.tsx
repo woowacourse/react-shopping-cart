@@ -1,14 +1,14 @@
 import styled from 'styled-components';
-import CheckBox from './CheckBox/CheckBox';
+import CheckBox from '../CheckBox/CheckBox';
 import { useRecoilState } from 'recoil';
-import { shippingInformationState } from '../recoil/atoms';
-import { MESSAGES } from '../constants/Messages';
+import { shippingInformationState } from '../../recoil/atoms';
+import { MESSAGES } from '../../constants/Messages';
 
 const Container = styled.li`
   display: flex;
   flex-direction: column;
   padding: 1rem 0 0 0;
-  gap: 5px;
+  gap: 1rem;
 `;
 
 const Title = styled.h2`
