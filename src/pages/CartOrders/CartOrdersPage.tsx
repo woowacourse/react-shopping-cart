@@ -13,6 +13,7 @@ import { totalCartPriceState } from '../../recoil/price/totalCartPriceState';
 import { cartShippingFeeState } from '../../recoil/price/cartShippingFeeState';
 import { finalCartPriceState } from '../../recoil/price/finalCartPriceState';
 import { ROUTES } from '../../constants/routes';
+import CenterBox from '../../components/common/CenterBox/CenterBox';
 
 const CartOrdersPageContainer = styled.main`
   width: 100%;
@@ -38,15 +39,24 @@ const CartOrdersPage = () => {
     <>
       <Header />
       <CartOrdersPageContainer>
-        <Title title="장바구니" description={`현재 ${cartItemList.length}종류의 상품이 담겨있습니다.`} />
-        <Spacer height={36} />
-        <CartItemList />
-        <Spacer height={52} />
-        <PriceTable>
-          <PriceTable.Row name="주문 금액" price={totalCartPrice} />
-          <PriceTable.Row name="배송비" price={shippingFee} />
-          <PriceTable.Row name="총 결제 금액" price={finalCartPrice} upperDivider />
-        </PriceTable>
+        <Title
+          title="장바구니"
+          description={cartItemList.length !== 0 ? `현재 ${cartItemList.length}종류의 상품이 담겨있습니다.` : ''}
+        />
+        {cartItemList.length === 0 ? (
+          <CenterBox>장바구니에 담은 상품이 없습니다.</CenterBox>
+        ) : (
+          <>
+            <Spacer height={36} />
+            <CartItemList />
+            <Spacer height={52} />
+            <PriceTable>
+              <PriceTable.Row name="주문 금액" price={totalCartPrice} />
+              <PriceTable.Row name="배송비" price={shippingFee} />
+              <PriceTable.Row name="총 결제 금액" price={finalCartPrice} upperDivider />
+            </PriceTable>
+          </>
+        )}
       </CartOrdersPageContainer>
       <Button
         color="primary"
@@ -54,7 +64,7 @@ const CartOrdersPage = () => {
         radius={0}
         size="l"
         style={{ position: 'fixed', bottom: '0', width: '100%', maxWidth: '768px' }}
-        disabled={selectedCartItemIdList.length === 0 || (cartItemList !== null && cartItemList.length === 0)}
+        disabled={selectedCartItemIdList.length === 0 || cartItemList.length === 0}
         onClick={moveToConfirmPurchasePage}
       >
         결제하기
