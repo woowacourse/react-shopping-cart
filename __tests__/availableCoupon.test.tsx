@@ -33,7 +33,13 @@ describe('사용 가능한 쿠폰 테스트', () => {
     ];
 
     it('주문 금액이 최소 주문 금액(100000원) 미만이면, 쿠폰을 사용할 수 없다', () => {
-      const INVALID_ITEMS = [{ ...ITEMS[0], product: { ...ITEMS[0].product, price: ITEMS[0].product.price - 100 } }];
+      const PRICE = (FIXED_5000.minimumAmount || ITEMS[0].product.price) - 10;
+      const INVALID_ITEMS = [
+        {
+          ...ITEMS[0],
+          product: { ...ITEMS[0].product, price: PRICE },
+        },
+      ];
 
       vi.setSystemTime(new Date(FIXED_5000.expirationDate));
 
@@ -148,8 +154,13 @@ describe('사용 가능한 쿠폰 테스트', () => {
     ];
 
     it('주문 금액이 최소 주문 금액(5만원) 미만이면, 쿠폰을 사용할 수 없다', () => {
-      const INVALID_ITEMS = [{ ...ITEMS[0], product: { ...ITEMS[0].product, price: ITEMS[0].product.price - 100 } }];
-
+      const PRICE = (FREE_SHIPPING.minimumAmount || ITEMS[0].product.price) - 10;
+      const INVALID_ITEMS = [
+        {
+          ...ITEMS[0],
+          product: { ...ITEMS[0].product, price: PRICE },
+        },
+      ];
       vi.setSystemTime(new Date(FREE_SHIPPING.expirationDate));
 
       const { result } = renderAvailableCoupon(INVALID_ITEMS, [INVALID_ITEMS[0].id]);
