@@ -7,9 +7,11 @@
 import { useRecoilValue } from "recoil";
 import { cartAmountState } from "@/stores/cartAmount";
 import { AvailableTime, Coupon } from "@/types/coupon";
+import useCouponValidator from "./useCouponValidator";
 
 const useCouponApplicabilityChecker = () => {
   const { orderAmount } = useRecoilValue(cartAmountState);
+  const { filteredValidCoupons } = useCouponValidator();
 
   const isAvailableTime = (availableTime?: AvailableTime) => {
     if (!availableTime) {
@@ -40,7 +42,15 @@ const useCouponApplicabilityChecker = () => {
     );
   };
 
-  return { isAvailableTime, isFulfillMinimumAmount, isCouponApplicable };
+  const filteredApplicableCoupons =
+    filteredValidCoupons.filter(isCouponApplicable);
+
+  return {
+    isAvailableTime,
+    isFulfillMinimumAmount,
+    isCouponApplicable,
+    filteredApplicableCoupons,
+  };
 };
 
 export default useCouponApplicabilityChecker;
