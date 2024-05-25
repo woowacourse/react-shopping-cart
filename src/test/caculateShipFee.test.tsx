@@ -29,7 +29,7 @@ const COUPONS: Coupon[] = [
 describe("무료 배송 쿠폰 계산 테스트", () => {
   beforeAll(() => {
     vi.useFakeTimers();
-    vi.setSystemTime(new Date("2024-05-20T06:00:00Z"));
+    vi.setSystemTime(new Date("2024-05-20T06:00:00"));
   });
 
   afterAll(() => {

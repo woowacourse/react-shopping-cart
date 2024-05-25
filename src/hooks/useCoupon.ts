@@ -41,8 +41,8 @@ const useCoupon = (id: number) => {
       const timeString = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)
         .toString()
         .padStart(2, "0")}-${currentDate.getDate()}T`;
-      const startTime = new Date(timeString + coupon.availableTime.start + "Z");
-      const endTime = new Date(timeString + coupon.availableTime.end + "Z");
+      const startTime = new Date(timeString + coupon.availableTime.start);
+      const endTime = new Date(timeString + coupon.availableTime.end);
       return currentDate >= startTime && currentDate <= endTime;
     };
     //배송비가 청구되는 경우 쿠폰 활성화
