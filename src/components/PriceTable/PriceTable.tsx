@@ -3,7 +3,6 @@ import NOTICE from '../../assets/notice.svg?react';
 import Text from '../common/Text/Text';
 import Divider from '../common/Divider/Divider';
 import ContentRow from '../common/ContentRow/ContentRow';
-import { useRecoilValue } from 'recoil';
 import useDiscount from '../../hooks/price/useDiscount';
 import usePrice from '../../hooks/price/usePrice';
 
@@ -43,7 +42,7 @@ const PriceTable = ({ type = 'cart' }: PriceTableProps) => {
       <Divider />
       <ContentRow
         title="총 결제 금액"
-        content={`${totalPrice.toLocaleString('ko-kr')}원`}
+        content={`${(totalPrice - totalDiscountAmount).toLocaleString('ko-kr')}원`}
       />
     </S.Container>
   );
