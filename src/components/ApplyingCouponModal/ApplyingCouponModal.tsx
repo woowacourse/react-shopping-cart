@@ -1,8 +1,12 @@
 import * as Styled from './style';
 
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { isApplyingCouponModalOpenState } from '../../recoil/atoms';
-import { couponsSelector } from '../../recoil/selectors';
+import {
+  couponIdsSelector,
+  couponsSelector,
+  isAllCouponSelectedSelectorFamily,
+} from '../../recoil/selectors';
 
 import CaptionEmoji from '../../assets/CaptionEmoji.svg';
 
@@ -17,8 +21,16 @@ const ApplyingCouponModal = () => {
     isApplyingCouponModalOpenState,
   );
   const coupons = useRecoilValue(couponsSelector);
+  const couponIds = useRecoilValue(couponIdsSelector);
 
-  const closeModal = () => setIsModalOpen(false);
+  const setIsAllCouponSelected = useSetRecoilState(
+    isAllCouponSelectedSelectorFamily(couponIds),
+  );
+
+  const closeModal = () => {
+    setIsAllCouponSelected(() => false);
+    setIsModalOpen(false);
+  };
 
   return (
     <Modal isOpen={isModalOpen}>
@@ -45,7 +57,11 @@ const ApplyingCouponModal = () => {
             </Styled.ModalContent>
             <Modal.ButtonContainer direction="row" position="center">
               <>
-                <Modal.Button color="dark" size="large" onClick={closeModal}>
+                <Modal.Button
+                  color="dark"
+                  size="large"
+                  onClick={() => setIsModalOpen(false)}
+                >
                   <span>총 6,000원 할인 쿠폰 사용하기</span>
                 </Modal.Button>
               </>
