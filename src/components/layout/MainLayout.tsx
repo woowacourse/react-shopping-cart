@@ -1,39 +1,43 @@
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 import * as S from "./MainLayout.style";
-import Header from "./Header/Header";
-import BackButton from "../_common/BackButton/BackButton";
 
-interface BaseHeader {
+interface HeaderProps {
   children: React.ReactNode;
-  fallback?: React.ReactNode;
 }
 
-interface TitleHeader extends BaseHeader {
-  type: "title";
-  title: string;
-}
+export const MainLayoutWrapper = ({ children }: HeaderProps) => {
+  return <S.Wrapper>{children}</S.Wrapper>;
+};
 
-interface BackButtonHeader extends BaseHeader {
-  type: "backButton";
-}
+export const Header = ({ children }: React.PropsWithChildren) => {
+  return <S.Header>{children}</S.Header>;
+};
 
-type HeaderType = TitleHeader | BackButtonHeader;
-
-const MainLayout = (props: HeaderType) => {
+export const TitleHeader = ({ text }: { text: string }) => {
   return (
-    <S.Wrapper>
-      <Header>
-        {props.type === "title" ? (
-          <S.CartHeaderTitle>{props.title}</S.CartHeaderTitle>
-        ) : (
-          <BackButton />
-        )}
-      </Header>
-      <S.LayoutWrapper>
-        <Suspense fallback={props.fallback}>{props.children}</Suspense>
-      </S.LayoutWrapper>
-    </S.Wrapper>
+    <S.Header>
+      <S.Title>{text}</S.Title>
+    </S.Header>
   );
 };
+
+export const Body = ({
+  fallback,
+  children,
+}: {
+  fallback?: React.ReactNode;
+  children: React.ReactNode;
+}) => {
+  return (
+    <S.LayoutWrapper>
+      <Suspense fallback={fallback}>{children}</Suspense>
+    </S.LayoutWrapper>
+  );
+};
+const MainLayout = Object.assign(MainLayoutWrapper, {
+  Header,
+  TitleHeader,
+  Body,
+});
 
 export default MainLayout;

@@ -3,7 +3,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { cartItemsState } from "@/recoil/cartItems";
 import { selectedCartItemsIdState } from "@/recoil/selectedCardItems";
 
-const useSelectAll = () => {
+const useCartItemsSelectAll = () => {
   const [selectedItemsId, setSelectedItemsId] = useRecoilState(
     selectedCartItemsIdState
   );
@@ -27,4 +27,4 @@ const useSelectAll = () => {
   };
 };
 
-export default useSelectAll;
+export default useCartItemsSelectAll;

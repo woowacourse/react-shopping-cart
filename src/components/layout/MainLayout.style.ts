@@ -21,6 +21,23 @@ export const LayoutWrapper = styled.div`
   color: black;
 `;
 
-export const CartHeaderTitle = styled.span`
-  ${({ theme }) => theme.TEXT.Title};
+export const Title = styled.span`
+  ${({ theme }) => theme.TEXT.xLarge};
+`;
+
+export const Header = styled.header`
+  width: 100%;
+  height: 64px;
+  max-width: 430px;
+  position: fixed;
+  top: 0;
+
+  padding: 24px;
+  display: flex;
+  align-items: center;
+
+  background-color: #000000;
+  color: #ffffff;
+
+  box-sizing: border-box;
 `;

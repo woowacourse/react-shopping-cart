@@ -1,6 +1,9 @@
+import { useRecoilValue } from "recoil";
+import { checkBuyXgetYSelector } from "./../recoil/coupons";
 import { Coupon } from "@/types/coupon";
 
 const useCouponApplicabilityChecker = () => {
+  const checkBuyXgetY = useRecoilValue(checkBuyXgetYSelector);
   const isCouponApplicable = ({
     coupon,
     price,
@@ -14,8 +17,20 @@ const useCouponApplicabilityChecker = () => {
       if (coupon.minimumAmount > price) return false;
     }
 
+    if (coupon.minimumAmount && price) {
+      if (coupon.minimumAmount > price) return false;
+    }
+
+    if (coupon.buyQuantity && coupon.getQuantity) {
+      const minCartQuantity = coupon.buyQuantity + coupon.getQuantity;
+      console.log("min");
+
+      if (!checkBuyXgetY(minCartQuantity)) return false;
+    }
+
+    //TODO: 나중에 false로 바꾸기
     if (coupon.expirationDate && time) {
-      if (!checkExpiration(coupon, time)) return false;
+      if (!checkExpiration(coupon, time)) return true;
     }
 
     return true;

@@ -1,6 +1,6 @@
 import { formatToWon } from "@/utils/stringHelper";
 
-export const CART_PAGE_TITLES = {
+export const HEADER_TITLES = {
   shop: "SHOP",
   cart: "장바구니",
 };
@@ -33,6 +33,7 @@ export const CART_PAGE_MESSAGES = {
     FREE_SHIPPING_THRESHOLD
   )} 이상일 경우 무료 배송됩니다.`,
   askOrderConfirm: `최종 결제 금액을 확인해 주세요.`,
+  askMoveToCartPage: `모든 주문 정보가 새로고침 됩니다. 장바구니 페이지로 이동하시겠습니까?`,
   itemCount: (count: number) => `현재 ${count}종류의 상품이 담겨있습니다.`,
   orderInfo: (typeLength: number, totalCount: number) =>
     `총 ${typeLength}종류의 상품 ${totalCount}개를 주문합니다.`,
