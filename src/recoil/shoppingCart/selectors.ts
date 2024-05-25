@@ -36,3 +36,13 @@ export const totalPriceSelector = selector({
     return orderPrice + shippingFee - maxDiscount;
   },
 });
+
+export const selectedItemsSelector = selector({
+  key: 'selectedItemsSelector',
+  get: ({ get }) => {
+    const selectedIds = get(selectedIdsAtom);
+    const cartItems = get(cartItemsAtom);
+
+    return cartItems.filter((item) => selectedIds.includes(item.id));
+  },
+});
