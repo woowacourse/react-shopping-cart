@@ -1,0 +1,34 @@
+.couponModalContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  /* height: auto !important; */
+}
+
+.couponModalContentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.couponModalButton {
+  width: 100%;
+}
+.couponItemContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.couponItemTitleContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+}
+
+.couponItemCaptionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

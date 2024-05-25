@@ -36,7 +36,7 @@ export const shippingFeeState = atom<HasShippingFeeType>({
   default: initialShippingFee,
 });
 
-const mockCoupons = [
+export const mockCoupons = [
   {
     id: 1,
     code: 'FIXED5000',
