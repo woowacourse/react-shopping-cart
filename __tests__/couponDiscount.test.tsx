@@ -16,7 +16,7 @@ const TEST_ITEMS: CartItem[] = [
   },
   {
     ...ADIDAS,
-    quantity: 2,
+    quantity: 3,
     product: {
       ...ADIDAS.product,
       price: 20000,
@@ -47,7 +47,7 @@ describe('쿠폰 할인 금액 테스트', () => {
     vi.useRealTimers();
   });
 
-  it('5,000 원 할인 쿠폰을 사용하면, 5,000원이 할인된다.', () => {
+  it('5,000원 할인 쿠폰을 사용하면, 5,000원이 할인된다.', () => {
     const EXPECT_DISCOUNT = 5000;
 
     const { result } = renderCouponDiscount(TEST_ITEM_IDS);
@@ -56,8 +56,8 @@ describe('쿠폰 할인 금액 테스트', () => {
     expect(calculateCouponDiscount('FIXED5000')).toBe(EXPECT_DISCOUNT);
   });
 
-  describe('2개 구매 시 1개 무료 쿠폰 테스트', () => {
-    it('2개 구매 시 1개 무료 쿠폰 사용 시, 수량 1개에 대한 가격만큼 할인된다.', () => {
+  describe('buyXgetY 쿠폰 (3개 이상 구매 시 1개 무료) 테스트', () => {
+    it('buyXgetY쿠폰 사용 시, 수량 1개에 대한 가격만큼 할인된다.', () => {
       const EXPECT_DISCOUNT = TEST_ITEMS[0].product.price;
 
       const { result } = renderCouponDiscount([TEST_ITEM_IDS[0]]);
@@ -66,7 +66,7 @@ describe('쿠폰 할인 금액 테스트', () => {
       expect(calculateCouponDiscount('BOGO')).toBe(EXPECT_DISCOUNT);
     });
 
-    it('2개 구매 시 1개 무료 쿠폰 사용 시, 적용 대상인 여러 상품 중 가격이 가장 높은 상품의 가격 만큼 할인된다.', () => {
+    it('buyXgetY 쿠폰 사용 시, 적용 대상인 여러 상품 중 가격이 가장 높은 상품의 가격 만큼 할인된다.', () => {
       const EXPECT_DISCOUNT = TEST_ITEMS[1].product.price;
 
       const { result } = renderCouponDiscount(TEST_ITEM_IDS);
