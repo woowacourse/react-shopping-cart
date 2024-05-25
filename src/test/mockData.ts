@@ -1,7 +1,31 @@
 export const cartJson = [
   {
-    id: 1274,
-    quantity: 5,
+    id: 1481,
+    quantity: 10,
+    product: {
+      id: 3,
+      name: "아디다스",
+      price: 2000,
+      imageUrl:
+        "https://sitem.ssgcdn.com/74/25/04/item/1000373042574_i1_750.jpg",
+      category: "fashion",
+    },
+  },
+  {
+    id: 1528,
+    quantity: 2,
+    product: {
+      id: 3,
+      name: "아디다스",
+      price: 2000,
+      imageUrl:
+        "https://sitem.ssgcdn.com/74/25/04/item/1000373042574_i1_750.jpg",
+      category: "fashion",
+    },
+  },
+  {
+    id: 1529,
+    quantity: 4,
     product: {
       id: 2,
       name: "나이키",
@@ -12,14 +36,15 @@ export const cartJson = [
     },
   },
   {
-    id: 1284,
-    quantity: 1,
+    id: 1530,
+    quantity: 21,
     product: {
-      id: 12,
-      name: "컨버스",
-      price: 20000,
-      imageUrl: "https://sitem.ssgcdn.com/65/73/69/item/1000163697365_i1_750.jpg",
-      category: "fashion",
+      id: 34,
+      name: "코카콜라",
+      price: 10000,
+      imageUrl:
+        "https://godomall.speedycdn.net/1cd80571a779bf8f2c08a18dc0965949/goods/1000000027/image/detail/1000000027_detail_012.jpg",
+      category: "beverage",
     },
   },
 ];
