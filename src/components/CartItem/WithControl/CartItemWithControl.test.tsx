@@ -7,7 +7,7 @@ import '@testing-library/jest-dom';
 import { mockCartItemList } from '../../../mocks/cartItemList';
 import { useCartItemList } from '../../../hooks/useCartItemList';
 
-jest.mock('../../apis/requests/cartItemList', () => ({
+jest.mock('../../../apis/requests/cartItemList', () => ({
   requestCartItemList: jest.fn().mockImplementation(() => mockCartItemList),
   requestSetCartItemQuantity: jest.fn(),
 }));
