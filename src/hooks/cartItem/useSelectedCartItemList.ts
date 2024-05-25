@@ -11,8 +11,11 @@ const useSelectedCartItemList = () => {
   const selectedCartItemList = cartItemList.filter(({ id }) =>
     selectedCartItemIdList.includes(id),
   );
+  const totalQuantity = selectedCartItemList.reduce((sum, { quantity }) => {
+    return sum + quantity;
+  }, 0);
 
-  return { selectedCartItemList };
+  return { selectedCartItemList, totalQuantity };
 };
 
 export default useSelectedCartItemList;
