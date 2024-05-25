@@ -5,7 +5,7 @@ import * as Styled from './SelectedItemList.styled';
 
 const SelectedItemList = ({ selectedItems }: { selectedItems: CartItem[] }) => {
   return (
-    <Styled.SelectListItemList>
+    <Styled.SelectedItemList>
       {selectedItems.map((cartItem) => (
         <CartItemInfo.DetailContainer key={`selected-item-${cartItem.id}`}>
           <CartItemInfo.Img cartItem={cartItem} />
@@ -16,7 +16,7 @@ const SelectedItemList = ({ selectedItems }: { selectedItems: CartItem[] }) => {
           </CartItemInfo.Description>
         </CartItemInfo.DetailContainer>
       ))}
-    </Styled.SelectListItemList>
+    </Styled.SelectedItemList>
   );
 };
 
