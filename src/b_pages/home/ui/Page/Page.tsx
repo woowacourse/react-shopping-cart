@@ -7,11 +7,7 @@ export const HomePage = () => {
     <Layout
       headerSlot={<LayoutHeader middleSlotType='logo' />}
       contentHeaderSlot={<ContentHeader title={'메인 페이지'} desc={`임시 메인 페이지 입니다.`}></ContentHeader>}
-      contentBodySlot={
-        <div style={{ display: 'flex', alignContent: 'center', justifyContent: 'center' }}>
-          <h4>메인 페이지</h4>
-        </div>
-      }
+      contentBodySlot={<></>}
       footerSlot={<button style={{ width: '100%', height: '64px' }}>장바구니 바로가기</button>}
     />
   );

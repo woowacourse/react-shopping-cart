@@ -27,12 +27,10 @@ export const Layout = ({
   contentBodySlot,
   contentFooterSlot,
   footerSlot,
-
   gap,
-  bgColor = 'white',
 }: LayoutProps) => {
   return (
-    <div style={{ backgroundColor: bgColor }} className={cn('root')}>
+    <div className={cn('root')}>
       {headerSlot && <header className={cn('header')}>{headerSlot}</header>}
       <div className={cn('content')}>
         {contentHeaderSlot && <header className={cn('contentHeader')}>{contentHeaderSlot}</header>}
