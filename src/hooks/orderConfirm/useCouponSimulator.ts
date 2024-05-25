@@ -7,10 +7,10 @@ const useCouponSimulator = () => {
 
   const {
     temporarySelectedCouponList,
-    temporarySelectedTotalCouponAmount,
+    temporaryTotalDiscountAmount,
     isActiveCoupon,
     isCheckedCoupon,
-    onAddTemporarySelectedCouponList,
+    onAddTemporarySelectedCoupon,
   } = useSimulateCouponCheck(selectedCouponList);
 
   const handleApplyCoupon = (onToggle: () => void) => {
@@ -19,10 +19,10 @@ const useCouponSimulator = () => {
   };
 
   return {
-    temporarySelectedTotalCouponAmount,
+    temporaryTotalDiscountAmount,
     isActiveCoupon,
     isCheckedCoupon,
-    onAddTemporarySelectedCouponList,
+    onAddTemporarySelectedCoupon,
     handleApplyCoupon,
   };
 };

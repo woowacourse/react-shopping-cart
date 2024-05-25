@@ -15,12 +15,12 @@ const useSimulateCouponCheck = (selectedCouponList: Coupon[]) => {
 
   const [temporarySelectedCouponList, setTemporarySelectedCouponList] = useState<Coupon[]>(selectedCouponList);
 
-  const temporarySelectedTotalCouponAmount = temporarySelectedCouponList.reduce(
+  const temporaryTotalDiscountAmount = temporarySelectedCouponList.reduce(
     (acc, coupon) => calculateDiscountAmount({ coupon, shippingPrice, orderPrice, selectedCartItems }) + acc,
     0,
   );
 
-  const onAddTemporarySelectedCouponList = (checked: boolean, coupon: Coupon) => {
+  const onAddTemporarySelectedCoupon = (checked: boolean, coupon: Coupon) => {
     setTemporarySelectedCouponList((prevItemList) => {
       const isAlreadySelected = prevItemList.some((item) => item.id === coupon.id);
 
@@ -47,10 +47,10 @@ const useSimulateCouponCheck = (selectedCouponList: Coupon[]) => {
 
   return {
     temporarySelectedCouponList,
-    temporarySelectedTotalCouponAmount,
+    temporaryTotalDiscountAmount,
     isActiveCoupon,
     isCheckedCoupon,
-    onAddTemporarySelectedCouponList,
+    onAddTemporarySelectedCoupon,
   };
 };
 

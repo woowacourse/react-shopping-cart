@@ -8,14 +8,14 @@ interface CouponListItemProps {
   coupon: Coupon;
   isChecked: boolean;
   isActive: boolean;
-  onAddTemporarySelectedCouponList: (checked: boolean, coupon: Coupon) => void;
+  onAddTemporarySelectedCoupon: (checked: boolean, coupon: Coupon) => void;
 }
 
 const CouponListItem: React.FC<CouponListItemProps> = ({
   coupon,
   isChecked,
   isActive,
-  onAddTemporarySelectedCouponList,
+  onAddTemporarySelectedCoupon,
 }) => {
   return (
     <Styled.CouponListItemWrapper key={coupon.id}>
@@ -24,7 +24,7 @@ const CouponListItem: React.FC<CouponListItemProps> = ({
           disabled={!isActive}
           checked={isChecked && isActive}
           onChange={(event) => {
-            onAddTemporarySelectedCouponList(event.target.checked, coupon);
+            onAddTemporarySelectedCoupon(event.target.checked, coupon);
           }}
         />
         <Styled.CouponTitle $isActive={isActive}>{coupon.description}</Styled.CouponTitle>

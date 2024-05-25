@@ -28,10 +28,10 @@ export const calculateDiscountAmount = ({
     case 'percentage':
       return Math.floor((orderPrice * (coupon.discount ?? 0)) / 100);
     case 'buyXgetY':
-      return calculateBOGODiscount(selectedCartItems);
-    case 'freeShipping': {
+      if (coupon.code === 'BOGO') return calculateBOGODiscount(selectedCartItems);
+      return 0;
+    case 'freeShipping':
       return shippingPrice;
-    }
     default:
       return 0;
   }

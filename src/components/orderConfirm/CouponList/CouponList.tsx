@@ -6,14 +6,10 @@ import { useRecoilValue } from 'recoil';
 interface CouponListProps {
   isActiveCoupon: (coupon: Coupon) => boolean;
   isCheckedCoupon: (coupon: Coupon) => boolean;
-  onAddTemporarySelectedCouponList: (checked: boolean, coupon: Coupon) => void;
+  onAddTemporarySelectedCoupon: (checked: boolean, coupon: Coupon) => void;
 }
 
-const CouponList: React.FC<CouponListProps> = ({
-  isActiveCoupon,
-  isCheckedCoupon,
-  onAddTemporarySelectedCouponList,
-}) => {
+const CouponList: React.FC<CouponListProps> = ({ isActiveCoupon, isCheckedCoupon, onAddTemporarySelectedCoupon }) => {
   const couponList = useRecoilValue(couponListAtom);
   return (
     <>
@@ -23,7 +19,7 @@ const CouponList: React.FC<CouponListProps> = ({
           isActive={isActiveCoupon(coupon)}
           isChecked={isCheckedCoupon(coupon)}
           coupon={coupon}
-          onAddTemporarySelectedCouponList={onAddTemporarySelectedCouponList}
+          onAddTemporarySelectedCoupon={onAddTemporarySelectedCoupon}
         />
       ))}
     </>
