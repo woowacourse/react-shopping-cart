@@ -19,7 +19,7 @@ describe('useSelectedCartItemIdList', () => {
       result.current.addSelectedItemId(cartItemId);
     });
 
-    expect(result.current.getIsSelected(cartItemId)).toBeTruthy();
+    expect(result.current.getIsSelectedCartItem(cartItemId)).toBeTruthy();
   });
 
   it('장바구니 선택 목록에 아이템을 제거할 수 있다.', async () => {
@@ -37,7 +37,7 @@ describe('useSelectedCartItemIdList', () => {
       result.current.deleteSelectedItemId(cartItemIdList[0]);
     });
 
-    expect(result.current.getIsSelected(cartItemIdList[0])).toBeFalsy();
+    expect(result.current.getIsSelectedCartItem(cartItemIdList[0])).toBeFalsy();
   });
 
   it('장바구니 선택 목록에 아이템을 제거할 수 있다.', async () => {
@@ -55,7 +55,7 @@ describe('useSelectedCartItemIdList', () => {
       result.current.deleteSelectedItemId(cartItemIdList[0]);
     });
 
-    expect(result.current.getIsSelected(cartItemIdList[0])).toBeFalsy();
+    expect(result.current.getIsSelectedCartItem(cartItemIdList[0])).toBeFalsy();
   });
 
   it('장바구니의 모든 아이템들을 선택한다.', async () => {
@@ -75,11 +75,11 @@ describe('useSelectedCartItemIdList', () => {
     });
 
     await act(async () => {
-      result.current.selectAll();
+      result.current.selectAllCartItem();
     });
 
     cartItemIdList.forEach((id: number) => {
-      expect(result.current.getIsSelected(id)).toBeTruthy();
+      expect(result.current.getIsSelectedCartItem(id)).toBeTruthy();
     });
   });
 
@@ -100,11 +100,11 @@ describe('useSelectedCartItemIdList', () => {
     });
 
     await act(async () => {
-      result.current.clear();
+      result.current.clearSelectedCartItemIdList();
     });
 
     cartItemIdList.forEach((id: number) => {
-      expect(result.current.getIsSelected(id)).toBeFalsy();
+      expect(result.current.getIsSelectedCartItem(id)).toBeFalsy();
     });
   });
 });
