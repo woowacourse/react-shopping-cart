@@ -15,7 +15,7 @@ const CouponAvailableTime = ({ availableTime }: CouponAvailableTimeProps) => {
   const [endHour, endMinute] = end.split(SPLIT_CRITERION).map(Number);
 
   const formatHour = (hour: number): string => {
-    const formatting = hour >= 12 ? TIME_AM_LABEL : TIME_PM_LABEL;
+    const formatting = hour >= 12 ? TIME_PM_LABEL : TIME_AM_LABEL;
     if (hour > 12) return formatting + (hour - 12);
     return formatting + hour;
   };
