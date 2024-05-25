@@ -7,13 +7,14 @@ export const PaymentDetailContainerStyle = (directionStyle: "row" | "column") =>
     justifyContent: directionStyle === "row" ? "space-between" : "center",
     alignItems: "center",
     textAlign: directionStyle === "column" ? "center" : "left",
+
+    gap: "12px",
   });
 
 export const PaymentDetailTitleStyle = css({
   fontSize: "16px",
   fontWeight: "700",
 
-  width: "40%",
   overflow: "hidden",
   textOverflow: "ellipsis",
   textWrap: "nowrap",
