@@ -27,3 +27,17 @@ export const PageContainer = styled.section`
 
   background-color: ${(props) => props.theme.color.white};
 `;
+
+export const Divider = styled.div`
+  border: 0.5px solid ${(props) => props.theme.color.borderGray};
+`;
+
+export const CommonButton = styled.button`
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+
+  cursor: pointer;
+`;

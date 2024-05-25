@@ -1,6 +1,6 @@
 import { ProductType } from '../../type';
 import * as Styled from './style';
-import { CartItemDelete, CartItemQuantity } from './CartItemButton';
+import { CartItemButtonHeader, CartItemQuantity } from './CartItemButton';
 import { useRecoilValue } from 'recoil';
 import { cartItemQuantityState } from '../../recoil/cartItems';
 
@@ -14,9 +14,9 @@ const CartItem = ({ id, cartItemProduct, readonly }: CartItemProp) => {
   return (
     <Styled.Item>
       <>
-        <Styled.Divider />
+        <Styled.CartItemDivider />
         <Styled.ButtonContainer>
-          {!readonly && <CartItemDelete id={id} />}
+          {!readonly && <CartItemButtonHeader id={id} />}
         </Styled.ButtonContainer>
         <Styled.ItemInfoContainer>
           <Styled.ItemImg src={cartItemProduct.imageUrl} />
