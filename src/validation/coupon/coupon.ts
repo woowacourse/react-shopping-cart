@@ -13,8 +13,10 @@ export const COUPON_VALIDATION_MAP = {
     return true;
   },
 
-  freeShipping({ coupon, shippingPrice }: CouponValidation) {
-    if (!isValidFreeShippingCondition(coupon, shippingPrice)) return false;
+  freeShipping({ coupon, totalPrice, shippingPrice }: CouponValidation) {
+    if (isValidFreeShippingCondition(coupon, shippingPrice)) return false;
+
+    if (coupon.code === 'FREESHIPPING' && totalPrice < 50000) return false;
 
     return true;
   },
