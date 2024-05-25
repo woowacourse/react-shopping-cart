@@ -2,8 +2,8 @@ import { RecoilRoot } from 'recoil';
 
 import { act, renderHook } from '@testing-library/react';
 
-import { cartItemListMockData } from '../data/cartItemListMockData';
-import { couponMockData } from '../data/couponsMockData';
+import { cartItemListMockData } from '../mockData/cartItemListMockData';
+import { couponListMockData } from '../mockData/couponListMockData';
 import { selectedCartItemListState } from '../recoil/CartItem/atoms/selectedCartItemListState';
 import { selectedCartItemListTotalPriceSelector } from '../recoil/CartItem/selectors/selectedCartItemListTotalPriceSelector';
 import { selectedCouponListState } from '../recoil/Coupon/atoms/selectedCouponListState';
@@ -18,7 +18,7 @@ describe('useCalculateCouponDiscount', () => {
     const calculateCouponDiscount = result.current.calculateCouponDiscount;
     const currentTotalPrice = 10000;
 
-    expect(calculateCouponDiscount(currentTotalPrice, couponMockData[0])).toEqual(5000);
+    expect(calculateCouponDiscount(currentTotalPrice, couponListMockData[0])).toEqual(5000);
   });
 
   it('discountType가 buyXgetY인 쿠폰은 가장 비싼 물건 1개의 가격만큼 할인해야 한다.', () => {
@@ -27,7 +27,7 @@ describe('useCalculateCouponDiscount', () => {
         <RecoilRoot
           initializeState={({ set }) => {
             set(selectedCartItemListState, cartItemListMockData);
-            set(selectedCouponListState, couponMockData);
+            set(selectedCouponListState, couponListMockData);
           }}
         >
           {children}
@@ -36,7 +36,7 @@ describe('useCalculateCouponDiscount', () => {
     });
     const calculateCouponDiscount = result.current.calculateCouponDiscount;
     const currentTotalPrice = 103000;
-    expect(calculateCouponDiscount(currentTotalPrice, couponMockData[1])).toEqual(20000);
+    expect(calculateCouponDiscount(currentTotalPrice, couponListMockData[1])).toEqual(20000);
   });
 
   it('discountType가 freeShipping인 쿠폰은 배송비만큼 할인해야 한다.', () => {
@@ -54,7 +54,7 @@ describe('useCalculateCouponDiscount', () => {
     const calculateCouponDiscount = result.current.calculateCouponDiscount;
     const currentTotalPrice = 200;
 
-    expect(calculateCouponDiscount(currentTotalPrice, couponMockData[2])).toEqual(3000);
+    expect(calculateCouponDiscount(currentTotalPrice, couponListMockData[2])).toEqual(3000);
   });
 
   it('discountType가 percentage인 쿠폰은 전체 금액의 discount% 만큼 할인해야 한다.', () => {
@@ -64,7 +64,7 @@ describe('useCalculateCouponDiscount', () => {
     const calculateCouponDiscount = result.current.calculateCouponDiscount;
     const currentTotalPrice = 10000;
 
-    expect(calculateCouponDiscount(currentTotalPrice, couponMockData[3])).toEqual(3000);
+    expect(calculateCouponDiscount(currentTotalPrice, couponListMockData[3])).toEqual(3000);
   });
 
   it('discountType가 존재하지 않는 타입인 경우 할인이 적용되지 않아야 한다.', () => {
@@ -74,7 +74,7 @@ describe('useCalculateCouponDiscount', () => {
     const calculateCouponDiscount = result.current.calculateCouponDiscount;
     const currentTotalPrice = 100;
 
-    expect(calculateCouponDiscount(currentTotalPrice, couponMockData[4])).toEqual(0);
+    expect(calculateCouponDiscount(currentTotalPrice, couponListMockData[4])).toEqual(0);
   });
 });
 
@@ -85,7 +85,7 @@ describe('useCalculateTotalCouponDiscount', () => {
         <RecoilRoot
           initializeState={({ set }) => {
             set(selectedCartItemListState, cartItemListMockData);
-            set(selectedCouponListState, couponMockData);
+            set(selectedCouponListState, couponListMockData);
             set(deliveryFeeState, 3000);
             set(selectedCartItemListTotalPriceSelector, 90000);
           }}

@@ -3,7 +3,7 @@ import { RecoilRoot, useRecoilCallback, useRecoilValue } from 'recoil';
 
 import { renderHook } from '@testing-library/react';
 
-import { couponMockData } from '../../../data/couponsMockData';
+import { couponListMockData } from '../../../mockData/couponListMockData';
 import { Coupon } from '../../../types/Coupon.type';
 import { selectedCouponListState } from '../atoms/selectedCouponListState';
 import { selectedCouponListSelector } from './selectedCouponListSelector';
@@ -25,10 +25,10 @@ describe('selectedCouponListSelector', () => {
     );
 
     act(() => {
-      result.current.setSelectedCoupon(couponMockData[0]);
+      result.current.setSelectedCoupon(couponListMockData[0]);
     });
     expect(result.current.selectedCouponList).toHaveLength(1);
-    expect(result.current.selectedCouponList[0].code).toBe(couponMockData[0].code);
+    expect(result.current.selectedCouponList[0].code).toBe(couponListMockData[0].code);
   });
 
   it('선택된 쿠폰이 올바르게 제거된다.', () => {
@@ -47,11 +47,11 @@ describe('selectedCouponListSelector', () => {
     );
 
     act(() => {
-      result.current.setSelectedCoupon(couponMockData[0]);
+      result.current.setSelectedCoupon(couponListMockData[0]);
     });
 
     act(() => {
-      result.current.setSelectedCoupon(couponMockData[0]);
+      result.current.setSelectedCoupon(couponListMockData[0]);
     });
 
     expect(result.current.selectedCouponList).toHaveLength(0);
@@ -73,12 +73,12 @@ describe('selectedCouponListSelector', () => {
     );
 
     act(() => {
-      result.current.setSelectedCoupon(couponMockData[1]);
-      result.current.setSelectedCoupon(couponMockData[2]);
+      result.current.setSelectedCoupon(couponListMockData[1]);
+      result.current.setSelectedCoupon(couponListMockData[2]);
     });
 
     act(() => {
-      result.current.setSelectedCoupon(couponMockData[3]);
+      result.current.setSelectedCoupon(couponListMockData[3]);
     });
 
     expect(result.current.selectedCouponList).toHaveLength(2);

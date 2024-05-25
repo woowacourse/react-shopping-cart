@@ -3,7 +3,7 @@ import { RecoilRoot, useRecoilCallback, useRecoilValue } from 'recoil';
 
 import { renderHook } from '@testing-library/react';
 
-import { selectedDeliveryInfoListMockData } from '../../../data/selectedDeliveryListMockData';
+import { selectedDeliveryInfoListMockData } from '../../../mockData/selectedDeliveryListMockData';
 import { DeliveryInfo } from '../../../types/DeliveryInfo.type';
 import { selectedDeliveryInfoListState } from '../atoms/selectedDeliveryInfoListState';
 import { selectedDeliveryInfoListSelector } from './selectedDeliveryInfoListSelector';

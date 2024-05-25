@@ -3,7 +3,7 @@ import { RecoilRoot, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { renderHook } from '@testing-library/react';
 
-import { cartItemListMockData } from '../../../data/cartItemListMockData';
+import { cartItemListMockData } from '../../../mockData/cartItemListMockData';
 import { selectedCartItemListState } from '../atoms/selectedCartItemListState';
 import { selectedCartItemListTotalCountSelector } from './selectedCartItemListTotalCountSelector';
 

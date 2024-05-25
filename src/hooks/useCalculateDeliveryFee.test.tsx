@@ -3,7 +3,7 @@ import { RecoilRoot } from 'recoil';
 import { act, renderHook } from '@testing-library/react';
 
 import { DELIVERY_FEE_DISCOUNT_THRESHOLD } from '../constants/DELIVERY_INFOS';
-import { selectedDeliveryInfoListMockData } from '../data/selectedDeliveryListMockData';
+import { selectedDeliveryInfoListMockData } from '../mockData/selectedDeliveryListMockData';
 import { selectedCartItemListState } from '../recoil/CartItem/atoms/selectedCartItemListState';
 import { deliveryFeeState } from '../recoil/DeliveryFee/atoms/deliveryFeeState';
 import { selectedDeliveryInfoListState } from '../recoil/DeliveryInfo/atoms/selectedDeliveryInfoListState';

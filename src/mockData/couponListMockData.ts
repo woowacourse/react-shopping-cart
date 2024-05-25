@@ -1,4 +1,4 @@
-export const couponMockData = [
+export const couponListMockData = [
   {
     id: 1,
     code: 'FIXED5000',
