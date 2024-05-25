@@ -1,14 +1,16 @@
-import { DefaultValue, selector, useRecoilCallback } from 'recoil';
+import { DefaultValue, selector, selectorFamily } from 'recoil';
 import {
   couponDetailState,
   couponsState,
   itemDetailsState,
   itemsState,
+  shippingInformationState,
 } from './atoms';
-import { CartItems, ItemPriceAndQuantity } from '../types/Item';
-import { updateLocalStorage } from '../utils/UpdateLocalStorage';
+import { CartItems } from '../types/Item';
+import { updateLocalStorage } from '../utils/LocalStorage';
 import {
-  DELIVERY_FEE,
+  ADDITIONAL_SHIPPING_FEE,
+  DEFAULT_SHIPPING_FEE,
   FREE_DELIVERY_THRESHOLD,
 } from '../constants/ShoppingCart';
 import { Coupon } from '../types/coupon';
@@ -17,31 +19,59 @@ import {
   calculateFixedDiscount,
   calculatePercentageDiscount,
 } from '../utils/Calculate';
-import isCouponApplicable from '../validate/validateCoupon';
 /**
  * 전체 금액, 배송비 계산, 총 결제 금액 계산
  */
+type Type = 'Default' | 'Discount';
 
-export const totalPriceSelector = selector({
+export const totalPriceSelector = selectorFamily({
   key: 'totalPriceSelector',
+  get:
+    (type: Type) =>
+    ({ get }) => {
+      const totalAmount = get(totalAmountSelector);
+
+      if (type === 'Default') {
+        const deliveryFee =
+          totalAmount >= FREE_DELIVERY_THRESHOLD || totalAmount === 0
+            ? 0
+            : DEFAULT_SHIPPING_FEE;
+
+        const calculatedTotalAmount = totalAmount + deliveryFee;
+
+        return { totalAmount, deliveryFee, calculatedTotalAmount };
+      }
+      const { totalDiscount, isFreeShipping } = get(totalDiscountSelector);
+      const deliveryFee =
+        totalAmount >= FREE_DELIVERY_THRESHOLD ||
+        totalAmount === 0 ||
+        isFreeShipping
+          ? 0
+          : get(shippingInformationState) === true
+          ? ADDITIONAL_SHIPPING_FEE
+          : DEFAULT_SHIPPING_FEE;
+
+      const calculatedTotalAmount = totalAmount + deliveryFee - totalDiscount;
+      return {
+        totalAmount,
+        deliveryFee,
+        totalDiscount,
+        calculatedTotalAmount,
+      };
+    },
+});
+
+export const totalAmountSelector = selector<number>({
+  key: 'totalAmountSelector',
   get: ({ get }) => {
     const productIds = get(itemsState);
-    const totalAmount = productIds.reduce(
-      (prevTotalAmount, { id, product }) => {
-        const { quantity, isChecked } = get(itemDetailsState(id));
+    return productIds.reduce((prevTotalAmount, { id, product }) => {
+      const { quantity, isChecked } = get(itemDetailsState(id));
 
-        return isChecked
-          ? prevTotalAmount + product.price * quantity
-          : prevTotalAmount;
-      },
-      0,
-    );
-    const deliveryFee =
-      totalAmount >= FREE_DELIVERY_THRESHOLD || totalAmount === 0
-        ? 0
-        : DELIVERY_FEE;
-    const calculatedTotalAmount = totalAmount + deliveryFee;
-    return { totalAmount, deliveryFee, calculatedTotalAmount };
+      return isChecked
+        ? prevTotalAmount + product.price * quantity
+        : prevTotalAmount;
+    }, 0);
   },
 });
 
@@ -126,28 +156,21 @@ export const allCheckedCouponsSelector = selector({
   },
 });
 
-export const allCheckedItemsSelector = selector({
-  key: 'allCheckedItemsSelector',
+export const checkShippingFreeSelector = selector({
+  key: 'checkShippingFreeSelector',
   get: ({ get }) => {
-    const coupons = get(itemsState);
-    return coupons.reduce<ItemPriceAndQuantity[]>((prevCheckedItems, item) => {
-      const itemDetail = get(itemDetailsState(item.id));
-      if (itemDetail.isChecked) {
-        prevCheckedItems.push({
-          price: item.product.price,
-          quantity: itemDetail.quantity,
-        });
-      }
-      return prevCheckedItems;
-    }, []);
+    const checkedCoupons = get(allCheckedCouponsSelector);
+    return checkedCoupons.some(
+      (checkedCoupon) => checkedCoupon.discountType === 'freeShipping',
+    );
   },
 });
 export const totalDiscountSelector = selector({
   key: 'totalDiscountSelector',
   get: ({ get }) => {
     const checkedCoupons = get(allCheckedCouponsSelector);
-    const { totalAmount } = get(totalPriceSelector);
-    const itemPriceAndQuantity = get(allCheckedItemsSelector);
+    const totalAmount = get(totalAmountSelector);
+    const itemPriceAndQuantity = get(checkedItemsSelector);
     let isFreeShipping = false;
     const totalDiscount = checkedCoupons.reduce(
       (prevTotalDiscount, checkedCoupon) => {
