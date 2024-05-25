@@ -88,7 +88,7 @@ const CouponModal = ({ openModal, setOpenModal, availableCoupons }: CouponModalP
       {modalTargetEl && (
         <CenterModal modalTargetEl={modalTargetEl} openModal={openModal} setOpenModal={setOpenModal}>
           <Styled.ModalHeader>
-            <Styled.ModalTitle>쿠폰을 선택헤주세요.</Styled.ModalTitle>
+            <Styled.ModalTitle>쿠폰을 선택해주세요.</Styled.ModalTitle>
             <ModalContainer.CloseButtonWrapper>
               <Styled.ModalCloseButton>
                 <CrossIcon />
