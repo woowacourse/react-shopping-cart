@@ -48,6 +48,7 @@ const CartItemCouponModal = ({
         />
         {coupons.map((coupon) => (
           <CartItemCoupon
+            key={coupon.id}
             coupon={coupon}
             checkSelectedCoupon={checkSelectedCoupon}
             handleAddCoupon={handleAddCoupon}
