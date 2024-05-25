@@ -3,12 +3,12 @@ import useAdjustCartItemQuantity from '../../hooks/useAdjustCartItemQuantity';
 import * as Styled from './style';
 import { selectedCartItemsState } from '../../recoil/selectedCardItems';
 import useDeleteCartItem from '../../hooks/useDeleteCartItem';
-import CheckedBox from '../assets/CheckedBox.svg';
-import UnCheckedBox from '../assets/UnCheckedBox.svg';
+
 import PlusButton from '../assets/PlusButton.svg';
 import MinusButton from '../assets/MinusButton.svg';
 import BlockMinusButton from '../assets/BlockMinusButton.svg';
 import { ReactNode } from 'react';
+import CheckButton from '../common/CheckButton/CheckButton';
 
 interface CartItemQuantityProp {
   id: number;
@@ -34,11 +34,11 @@ export const CartItemQuantity = ({ id, children }: CartItemQuantityProp) => {
   );
 };
 
-interface CartItemDeleteProp {
+interface CartItemButtonHeaderProp {
   id: number;
 }
 
-export const CartItemDelete = ({ id }: CartItemDeleteProp) => {
+export const CartItemButtonHeader = ({ id }: CartItemButtonHeaderProp) => {
   const [isSelected, setIsSelected] = useRecoilState(
     selectedCartItemsState(id),
   );
@@ -47,12 +47,10 @@ export const CartItemDelete = ({ id }: CartItemDeleteProp) => {
 
   return (
     <>
-      <Styled.Button onClick={() => setIsSelected((prop) => !prop)}>
-        <img
-          src={isSelected ? CheckedBox : UnCheckedBox}
-          alt={isSelected ? '선택됨' : '선택되지 않음'}
-        />
-      </Styled.Button>
+      <CheckButton
+        isSelected={isSelected}
+        setIsSelected={() => setIsSelected((prop) => !prop)}
+      />
       <Styled.DeleteButton onClick={() => handleDeleteCartItem(id)}>
         삭제
       </Styled.DeleteButton>
