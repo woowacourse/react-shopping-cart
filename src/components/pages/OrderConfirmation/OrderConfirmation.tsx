@@ -15,8 +15,8 @@ const OrderConfirmation = () => {
       <Suspense fallback={<LoadingMessage>Loading...</LoadingMessage>}>
         <OrderConfirmationContent />
         <OrderButton />
+        <ApplyingCouponModal />
       </Suspense>
-      <ApplyingCouponModal />
     </Styled.Page>
   );
 };
