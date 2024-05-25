@@ -6,7 +6,7 @@ import { totalProductQuantityState } from '../../store/selectors';
 import Button from '../../components/common/Button';
 import Header from '../../components/Header/Header';
 import CheckoutItem from './components/CheckoutItem';
-import CouponModal from './components/CouponModal';
+import CouponModal from './components/CouponModal/CouponModal';
 import ShippingFeeCheck from './components/ShippingFeeCheck';
 import CheckoutTotals from './components/CheckoutTotals';
 import CheckoutTitle from './components/CheckoutTitle';
@@ -47,7 +47,7 @@ export default function CheckoutPage() {
           })}
         </div>
         <button
-          className={`${styles.couponModalButton} ${common.subtitleText}`}
+          className={`${styles.checkoutModalButton} ${common.subtitleText}`}
           onClick={handleButtonClick}
         >
           쿠폰 적용
@@ -56,10 +56,7 @@ export default function CheckoutPage() {
         <CheckoutTotals />
       </div>
 
-      {/* 다음 미션에서 기능 추가 예정 */}
-      <Button variant="footer" disabled={true}>
-        결제하기
-      </Button>
+      <Button variant="footer">결제하기</Button>
       <CouponModal isOpen={modalOpen} handleToggle={handleButtonClick} />
     </>
   );
