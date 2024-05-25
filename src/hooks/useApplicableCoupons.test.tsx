@@ -3,7 +3,7 @@ import { renderHook } from '@testing-library/react';
 import useApplicableCoupons from './useApplicableCoupons';
 import { mockCouponList } from './useCouponValidator.test';
 
-const mockOrderList: Cart[] = [
+export const mockOrderList: Cart[] = [
   {
     id: 111,
     quantity: 1,
@@ -40,7 +40,7 @@ const mockOrderList: Cart[] = [
   },
 ];
 
-const mockOrderTotalPrice: number = mockOrderList.reduce(
+export const mockOrderTotalPrice: number = mockOrderList.reduce(
   (acc, cur) => acc + cur.product.price * cur.quantity,
   0,
 );
