@@ -6,6 +6,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import CartContent from '../../components/CartContent/CartContent';
 import { URL_PATH } from '../../constants/UrlPath';
 import * as S from './Cart.styled';
+import { MESSAGES } from '../../constants/Messages';
 
 function Cart() {
   return (
@@ -19,7 +20,7 @@ function Cart() {
             <CartContent />
           </Suspense>
         </S.ContentWrapper>
-        <Footer isDisabled={false} url={URL_PATH.order} />
+        <Footer message={MESSAGES.confirm} isDisabled={false} url={URL_PATH.order} />
       </ErrorBoundary>
     </S.CartContainer>
   );

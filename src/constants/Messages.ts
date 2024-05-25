@@ -10,6 +10,8 @@ export const MESSAGES = {
   confirm: '주문 확인',
   cart: '장바구니',
   noItemsInCart: '장바구니에 담은 상품이 없습니다.',
+  goToOrder: '결제하기',
+  goToCart: '장바구니로 돌아가기',
 };
 
 export const MESSAGES_PROPS = {

@@ -5,11 +5,17 @@ import * as S from './Footer.styled';
 
 interface FooterProps {
   url: string;
-  isDisabled: boolean;
+  message: string;
+  isDisabled?: boolean;
   onFetchEvent?: () => void;
 }
 
-function Footer({ url, isDisabled = false, onFetchEvent }: FooterProps) {
+function Footer({
+  url,
+  message,
+  isDisabled = false,
+  onFetchEvent,
+}: FooterProps) {
   const navigate = useNavigate();
   const handleClick = (event: React.MouseEvent) => {
     if (isDisabled) {
@@ -25,7 +31,7 @@ function Footer({ url, isDisabled = false, onFetchEvent }: FooterProps) {
       onClick={(e) => handleClick(e)}
       $backgroundColor={isDisabled ? '#BEBEBE' : '#000000'}
     >
-      {MESSAGES.confirm}
+      {message}
     </S.FooterContainer>
   );
 }

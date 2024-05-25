@@ -9,6 +9,7 @@ import * as S from './Order.style';
 import { useRecoilValue } from 'recoil';
 import { orderItemsSelector } from '../../recoil/selectors';
 import { fetchOrder } from '../../api';
+import { MESSAGES } from '../../constants/Messages';
 
 function Order() {
   const orderItems = useRecoilValue(orderItemsSelector);
@@ -22,11 +23,14 @@ function Order() {
       <Header headerIconType="back" />
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <S.ContentWrapper>
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={<S.SuspenseFallback>Loading...</S.SuspenseFallback>}
+          >
             <OrderContent />
           </Suspense>
         </S.ContentWrapper>
         <Footer
+          message={MESSAGES.goToOrder}
           isDisabled={false}
           url={URL_PATH.completed}
           onFetchEvent={handleSubmitButton}

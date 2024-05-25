@@ -6,6 +6,7 @@ import Header from '../../components/Header/Header';
 import { URL_PATH } from '../../constants/UrlPath';
 import * as S from './Completed.styled';
 import { useOrderCalculator } from '../../hooks/useOrderCalculator';
+import { MESSAGES } from '../../constants/Messages';
 
 function Completed() {
   const { totalItemTypeCount, totalCount } = useRecoilValue(totalCountSelector);
@@ -27,7 +28,7 @@ function Completed() {
         </S.TotalAmountStyle>
       </S.CompletedContainer>
 
-      <Footer isDisabled={true} url={URL_PATH.cart} />
+      <Footer message={MESSAGES.goToCart} url={URL_PATH.cart} />
     </>
   );
 }
