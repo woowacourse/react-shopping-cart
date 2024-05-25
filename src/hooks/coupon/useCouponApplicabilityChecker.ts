@@ -5,15 +5,8 @@ import { formatHourToDate } from "@/utils/timeHelper";
 
 const useCouponApplicabilityChecker = () => {
   const checkBuyXgetY = useRecoilValue(checkBuyXgetYSelector);
-  const isCouponApplicable = ({
-    coupon,
-    price,
-    time,
-  }: {
-    coupon: Coupon;
-    price?: number;
-    time?: Date;
-  }) => {
+
+  const isCouponApplicable = (coupon: Coupon, price?: number, time?: Date) => {
     if (coupon.minimumAmount && price) {
       if (coupon.minimumAmount > price) return false;
     }

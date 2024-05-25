@@ -49,6 +49,7 @@ export const checkBuyXgetYSelector = selector({
         }
         return maxId;
       }, targetItemsId[0]);
+
       return maxPriceItem;
     },
 });
