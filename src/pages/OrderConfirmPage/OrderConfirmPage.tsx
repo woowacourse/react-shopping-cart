@@ -37,7 +37,6 @@ function OrderConfirmPage() {
   useEffect(() => {
     setSelectedCouponList([]);
   }, [setSelectedCouponList]);
-  // TODO: 개선 고민해보기
 
   if (selectedItemList.length === 0) {
     return <Navigate to={PATHS.ERROR} />;
