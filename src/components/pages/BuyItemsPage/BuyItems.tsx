@@ -5,11 +5,24 @@ import * as Styled from './style';
 
 import { LoadingMessage } from '../../common/LoadingFallback/style';
 import BuyItemsContents from './BuyItemsContents';
-import { ROUTE } from '../../../constant/route';
 import { useNavigate } from 'react-router-dom';
+import { ROUTE } from '../../../constant/route';
+import { useResetRecoilState } from 'recoil';
+import {
+  applyCouponState,
+  shippingFeeDiscountState,
+} from '../../../recoil/coupons';
+import { mountainousAreaState } from '../../../recoil/cartItems';
 
 const BuyItems = () => {
   const navigator = useNavigate();
+  const applyCouponReset = useResetRecoilState(applyCouponState);
+  const shippingFeeDiscountReset = useResetRecoilState(
+    shippingFeeDiscountState,
+  );
+  const mountainousAreaReset = useResetRecoilState(mountainousAreaState);
+  //TODO: 이거 묶을 수 있는지 찾아보기
+
   return (
     <Styled.BuyItems>
       <Header />
@@ -20,7 +33,12 @@ const BuyItems = () => {
         </Suspense>
       </Styled.Container>
       <OrderButton
-        onClick={() => navigator(ROUTE.cart.path)}
+        onClick={() => {
+          navigator(ROUTE.cart.path);
+          applyCouponReset();
+          shippingFeeDiscountReset();
+          mountainousAreaReset();
+        }}
         isOrderable={true}
       >
         장바구니로 돌아가기
