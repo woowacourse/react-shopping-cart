@@ -1,12 +1,12 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
-export const StyledUl = styled.ul`
+export const CartListContainer = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 20px;
 `;
 
-export const CartListContainer = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;

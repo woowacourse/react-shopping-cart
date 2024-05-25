@@ -54,6 +54,7 @@ export const ProductName = styled.h3`
   text-align: left;
 
   color: ${({ theme }) => theme.colors.text};
+  margin-bottom: 4px;
 `;
 
 export const QuantityContainer = styled.div`
