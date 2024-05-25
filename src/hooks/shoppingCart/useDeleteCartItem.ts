@@ -3,7 +3,6 @@ import { cartItemsAtom, selectedIdsAtom } from '@recoil/shoppingCart';
 import { useSetRecoilState } from 'recoil';
 
 const useDeleteCartItem = (id: number) => {
-  console.log(id);
   const setCartItems = useSetRecoilState(cartItemsAtom);
   const setSelectedCartItemIds = useSetRecoilState(selectedIdsAtom);
 
