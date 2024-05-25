@@ -11,16 +11,21 @@ import {
 } from './CouponItem.styled';
 
 export interface CouponItemProps {
-  selected: boolean;
   item: CouponProps;
+  selected: boolean;
+  onSelect: () => void;
 }
 
-export const CouponItem: React.FC<CouponItemProps> = ({ item, selected }) => {
+export const CouponItem: React.FC<CouponItemProps> = ({
+  item,
+  selected,
+  onSelect,
+}) => {
   return (
     <StyledCouponContainer>
       <StyledCouponSelectWrapper>
         <Button
-          onClick={() => console.log('버튼 클릭')}
+          onClick={onSelect}
           clicked={selected}
           iconSrc={selected ? CheckedButtonIcon : UnCheckedButtonIcon}
         />

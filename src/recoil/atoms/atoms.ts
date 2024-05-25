@@ -33,12 +33,12 @@ export const couponItemsState = atom<CouponProps[]>({
   default: [],
 });
 
-// export const previewSelectedCouponsState = atom<Record<string, CouponProps>>({
-//   key: 'previewSelectedCouponsState',
-//   default: {},
-// });
+export const previewSelectedCouponsState = atom<CouponProps[]>({
+  key: 'previewSelectedCouponsState',
+  default: [],
+});
 
-// export const finalSelectedCouponsState = atom<Record<string, CouponProps>>({
-//   key: 'finalSelectedCouponsState',
-//   default: {},
-// });
+export const finalSelectedCouponsState = atom<CouponProps[]>({
+  key: 'finalSelectedCouponsState',
+  default: [],
+});
