@@ -28,3 +28,18 @@ export const isCountrysideSelectedState = atom({
   key: 'isCountrysideSelected',
   default: false,
 });
+
+export const isCouponApplicableState = atomFamily<boolean, number>({
+  key: 'isCouponApplicable',
+  default: true,
+});
+
+export const isCouponSelectedState = atomFamily<boolean, number>({
+  key: 'isCouponSelected',
+  default: false,
+});
+
+export const isApplyingCouponModalOpenState = atom({
+  key: 'isApplyingCouponModalOpen',
+  default: false,
+});
