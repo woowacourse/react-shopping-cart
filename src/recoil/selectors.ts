@@ -19,11 +19,12 @@ import {
   calculateFixedDiscount,
   calculatePercentageDiscount,
 } from '../utils/Calculate';
-/**
- * 전체 금액, 배송비 계산, 총 결제 금액 계산
- */
-type Type = 'Default' | 'Discount';
 
+type Type = 'Default' | 'Discount';
+/**
+ * 'Default' : 전체 금액, 배송비 계산, 총 결제 금액 계산
+ * 'Discount' : 전체 금액, 배송비 계산, 할인 금액 ,총 결제 금액 계산
+ */
 export const totalPriceSelector = selectorFamily({
   key: 'totalPriceSelector',
   get:
@@ -61,6 +62,9 @@ export const totalPriceSelector = selectorFamily({
     },
 });
 
+/**
+ * 전체 상품 금액 계산
+ */
 export const totalAmountSelector = selector<number>({
   key: 'totalAmountSelector',
   get: ({ get }) => {
@@ -143,6 +147,9 @@ export const checkedItemsSelector = selector({
   },
 });
 
+/**
+ * 선택된 모든 쿠폰을 배열로 반환하는 함수
+ */
 export const allCheckedCouponsSelector = selector({
   key: 'allCheckedCouponsSelector',
   get: ({ get }) => {
@@ -156,6 +163,9 @@ export const allCheckedCouponsSelector = selector({
   },
 });
 
+/**
+ * 선택된 모든 쿠폰을 배열로 반환하는 함수
+ */
 export const checkShippingFreeSelector = selector({
   key: 'checkShippingFreeSelector',
   get: ({ get }) => {
@@ -165,6 +175,11 @@ export const checkShippingFreeSelector = selector({
     );
   },
 });
+
+/**
+ * 전체 할인 금액을 반환하는 함수
+ */
+
 export const totalDiscountSelector = selector({
   key: 'totalDiscountSelector',
   get: ({ get }) => {
