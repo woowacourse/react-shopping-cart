@@ -1,15 +1,15 @@
-import { RULE } from '../constants/rule';
-
 interface Props {
   coupon: Coupon;
   totalOrderPrice: number;
   orderList: Cart[];
+  deliveryFee: number;
 }
 
 export const discountCalculator = ({
   coupon,
   totalOrderPrice,
   orderList,
+  deliveryFee,
 }: Props) => {
   const calculateFixedDiscount = () => {
     return totalOrderPrice >= coupon.minimumAmount! ? coupon.discount : 0;
@@ -35,7 +35,7 @@ export const discountCalculator = ({
   };
 
   const calculateFreeShippingDiscount = () => {
-    return totalOrderPrice >= coupon.minimumAmount! ? RULE.freeShipping : 0;
+    return totalOrderPrice >= coupon.minimumAmount! ? deliveryFee : 0;
   };
 
   const calculateDiscountAmount = () => {

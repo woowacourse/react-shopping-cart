@@ -6,6 +6,8 @@ import {
   mockOrderTotalPrice,
 } from './findApplicableCoupons.test';
 
+const mockDeliveryFee = 0;
+
 describe('discountCalculator 테스트', () => {
   describe('discountType이 fixed 일 때', () => {
     it('총 주문 금액이 최소 주문 금액 이상일 때, 할인 금액은 5,000원 이다.', () => {
@@ -15,6 +17,7 @@ describe('discountCalculator 테스트', () => {
           coupon: mockCouponList[0],
           totalOrderPrice: validTotalOrderPrice,
           orderList: mockOrderList,
+          deliveryFee: mockDeliveryFee,
         }).calculateDiscountAmount(),
       );
 
@@ -29,6 +32,7 @@ describe('discountCalculator 테스트', () => {
           coupon: mockCouponList[0],
           totalOrderPrice: inValidTotalOrderPrice,
           orderList: mockOrderList,
+          deliveryFee: mockDeliveryFee,
         }).calculateDiscountAmount(),
       );
 
@@ -45,6 +49,7 @@ describe('discountCalculator 테스트', () => {
           coupon: mockCouponList[3],
           totalOrderPrice: testTotalOrderPrice,
           orderList: mockOrderList,
+          deliveryFee: mockDeliveryFee,
         }).calculateDiscountAmount(),
       );
 
@@ -84,6 +89,7 @@ describe('discountCalculator 테스트', () => {
           coupon: mockCouponList[1],
           totalOrderPrice: mockOrderTotalPrice,
           orderList: testOrderList,
+          deliveryFee: mockDeliveryFee,
         }).calculateDiscountAmount(),
       );
 
@@ -132,6 +138,7 @@ describe('discountCalculator 테스트', () => {
           coupon: mockCouponList[1],
           totalOrderPrice: mockOrderTotalPrice,
           orderList: testOrderList,
+          deliveryFee: mockDeliveryFee,
         }).calculateDiscountAmount(),
       );
 
@@ -168,6 +175,7 @@ describe('discountCalculator 테스트', () => {
           coupon: mockCouponList[1],
           totalOrderPrice: mockOrderTotalPrice,
           orderList: testOrderList,
+          deliveryFee: mockDeliveryFee,
         }).calculateDiscountAmount(),
       );
 
@@ -179,11 +187,13 @@ describe('discountCalculator 테스트', () => {
   describe('discountType이 freeShipping 일 때', () => {
     it('총 주문 금액이 최소 주문 금액 이상일 때, 할인 금액은 3000원이다.', () => {
       const validTotalOrderPrice = 50000;
+      const testDeliveryFee = 3000;
       const { result } = renderHook(() =>
         discountCalculator({
           coupon: mockCouponList[2],
           totalOrderPrice: validTotalOrderPrice,
           orderList: mockOrderList,
+          deliveryFee: testDeliveryFee,
         }).calculateDiscountAmount(),
       );
 
@@ -193,11 +203,13 @@ describe('discountCalculator 테스트', () => {
 
     it('총 주문 금액이 최소 주문 금액 미만일 때, 할인 금액은 0원이다.', () => {
       const validTotalOrderPrice = 49999;
+      const testDeliveryFee = 3000;
       const { result } = renderHook(() =>
         discountCalculator({
           coupon: mockCouponList[2],
           totalOrderPrice: validTotalOrderPrice,
           orderList: mockOrderList,
+          deliveryFee: testDeliveryFee,
         }).calculateDiscountAmount(),
       );
 

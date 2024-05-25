@@ -10,7 +10,7 @@ const findApplicableCoupons = ({
   orderList,
 }: Props) => {
   const checkOrderAmountCoupons = (minimumAmount: number) => {
-    return totalPrice > minimumAmount;
+    return totalPrice >= minimumAmount;
   };
 
   const checkMiracleMorningCoupon = (availableTime: Time) => {
