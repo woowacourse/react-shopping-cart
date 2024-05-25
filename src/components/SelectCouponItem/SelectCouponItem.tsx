@@ -4,8 +4,7 @@ import Checkbox from '../common/Checkbox/Checkbox';
 import { Divider } from '../common/Divider/Divider.style';
 import { toKoreanDate, toKoreanTime } from '../../utils/date';
 import useSelectedCoupon from '../../hooks/coupon/useSelectedCoupon';
-import useSelectedCouponList from '../../hooks/coupon/useSelectedCouponList';
-import { validateCouponAvailable } from '../../utils/validateCouponAvailable';
+import useValidateAvailableCoupon from '../../hooks/coupon/useValidataeAvailableCoupon';
 
 interface SelectCouponItemProps {
   coupon: Coupon;
@@ -14,22 +13,18 @@ interface SelectCouponItemProps {
 const SelectCouponItem = ({ coupon }: SelectCouponItemProps) => {
   const { id, description, expirationDate, minimumAmount, availableTime } =
     coupon;
-  const { selectedCouponList } = useSelectedCouponList();
-  // TODO: magic number 상수화
-
-  const disabled =
-    !validateCouponAvailable(coupon) ||
-    (selectedCouponList.length === 2 && !selectedCouponList.includes(coupon));
 
   const { isSelected, toggleSelectedCoupon } = useSelectedCoupon();
+  const { isAvailableCoupon } = useValidateAvailableCoupon();
+
   return (
-    <S.SelectCouponItem disabled={disabled}>
+    <S.SelectCouponItem disabled={!isAvailableCoupon(coupon)}>
       <Divider />
       <S.CheckboxContainer>
         <Checkbox
           state={isSelected(id)}
           handleClick={() => toggleSelectedCoupon(coupon)}
-          disabled={disabled}
+          disabled={!isAvailableCoupon(coupon)}
         />
         <Text size="m">{description}</Text>
       </S.CheckboxContainer>
