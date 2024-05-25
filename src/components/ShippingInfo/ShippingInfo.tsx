@@ -9,6 +9,7 @@ import SelectedBox from '../../assets/SelectedBox.svg';
 import UnSelectedBox from '../../assets/UnSelectedBox.svg';
 
 import MESSAGE from '../../constants/Message';
+import SelectButtonContainer from '../SelectButtonContainer/SelectButtonContainer';
 
 const ShippingInfo = () => {
   const [isCountrysideSelected, setIsCountrysideSelected] = useRecoilState(
@@ -22,7 +23,7 @@ const ShippingInfo = () => {
   return (
     <Styled.ShippingInfo>
       <Styled.Title>배송 정보</Styled.Title>
-      <Styled.SelectContainer>
+      <SelectButtonContainer gap="narrow">
         <SelectButton handleOnClick={handleSelectButtonOnClick}>
           <img
             src={isCountrysideSelected ? SelectedBox : UnSelectedBox}
@@ -30,7 +31,7 @@ const ShippingInfo = () => {
           />
         </SelectButton>
         <Styled.SelectMessage>제주도 및 도서 산간 지역</Styled.SelectMessage>
-      </Styled.SelectContainer>
+      </SelectButtonContainer>
     </Styled.ShippingInfo>
   );
 };

@@ -9,6 +9,7 @@ import {
 } from '../../../recoil/selectors';
 
 import SelectButton from '../../SelectButton/SelectButton';
+import SelectButtonContainer from '../../SelectButtonContainer/SelectButtonContainer';
 
 import ShoppingCartItem from './ShoppingCartItem';
 import SelectedBox from '../../../assets/SelectedBox.svg';
@@ -31,7 +32,7 @@ const ShoppingCartItems = () => {
 
   return (
     <Styled.CartItems>
-      <Styled.AllSelectContainer>
+      <SelectButtonContainer gap="narrow">
         <SelectButton handleOnClick={handleSelectedAll}>
           <img
             src={isAllSelected ? SelectedBox : UnSelectedBox}
@@ -39,7 +40,7 @@ const ShoppingCartItems = () => {
           />
         </SelectButton>
         <Styled.SelectMessage>{MESSAGE.allSelected}</Styled.SelectMessage>
-      </Styled.AllSelectContainer>
+      </SelectButtonContainer>
       {cartItems.map((cartItem: CartItemType) => {
         return <ShoppingCartItem key={cartItem.id} inputCartItem={cartItem} />;
       })}

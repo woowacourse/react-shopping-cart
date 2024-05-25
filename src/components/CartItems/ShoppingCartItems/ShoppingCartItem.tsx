@@ -11,6 +11,7 @@ import {
 
 import Divider from '../../Divider/Divider';
 import SelectButton from '../../SelectButton/SelectButton';
+import SelectButtonContainer from '../../SelectButtonContainer/SelectButtonContainer';
 
 import selectedBox from '../../../assets/SelectedBox.svg';
 import UnSelectedBox from '../../../assets/UnSelectedBox.svg';
@@ -95,7 +96,7 @@ const ShoppingCartItem = ({ inputCartItem }: CartItemProps) => {
     <Styled.CartItem>
       <Divider />
 
-      <Styled.ButtonContainer>
+      <SelectButtonContainer gap="wide">
         <SelectButton handleOnClick={() => setIsSelected((prop) => !prop)}>
           <img
             src={isSelected ? selectedBox : UnSelectedBox}
@@ -105,7 +106,7 @@ const ShoppingCartItem = ({ inputCartItem }: CartItemProps) => {
         <Styled.RemoveButton onClick={() => handleCartItemRemoval()}>
           {MESSAGE.removal}
         </Styled.RemoveButton>
-      </Styled.ButtonContainer>
+      </SelectButtonContainer>
 
       <Styled.ItemInfoContainer>
         <Styled.ItemImg src={inputCartItem.product.imageUrl} />
@@ -117,7 +118,7 @@ const ShoppingCartItem = ({ inputCartItem }: CartItemProps) => {
               {MESSAGE.koreanCurrencyUnit}
             </Styled.ItemPrice>
           </Styled.ItemDetails>
-          <Styled.ItemQuantityAdjustment>
+          <SelectButtonContainer gap="narrow">
             <SelectButton
               handleOnClick={() => handleCartItemQuantityDecrement()}
             >
@@ -140,7 +141,7 @@ const ShoppingCartItem = ({ inputCartItem }: CartItemProps) => {
             >
               <img src={PlusButton} alt={MESSAGE.plusButton} />
             </SelectButton>
-          </Styled.ItemQuantityAdjustment>
+          </SelectButtonContainer>
         </Styled.ItemInfo>
       </Styled.ItemInfoContainer>
     </Styled.CartItem>
