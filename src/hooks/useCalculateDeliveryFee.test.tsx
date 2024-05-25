@@ -3,14 +3,12 @@ import { RecoilRoot } from 'recoil';
 import { act, renderHook } from '@testing-library/react';
 
 import { DELIVERY_FEE_DISCOUNT_THRESHOLD } from '../constants/DELIVERY_INFOS';
+import { selectedDeliveryInfoListMockData } from '../data/selectedDeliveryListMockData';
 import { selectedCartItemListState } from '../recoil/CartItem/atoms/selectedCartItemListState';
 import { deliveryFeeState } from '../recoil/DeliveryFee/atoms/deliveryFeeState';
 import { selectedDeliveryInfoListState } from '../recoil/DeliveryInfo/atoms/selectedDeliveryInfoListState';
 import { CartItem } from '../types/CartItem.type';
 import { useCalculateDeliveryFee } from './useCalculateDeliveryFee';
-
-// Mock Recoil state
-const mockSelectedDeliveryInfoList = [{ title: '제주도 및 도서 산간 지역', surcharge: 3000 }];
 
 describe('useCalculateDeliveryFee', () => {
   it(`총 결제 금액이 0과 ${DELIVERY_FEE_DISCOUNT_THRESHOLD} 사이일 경우 배송비를 정확히 계산하여야 한다. `, () => {
@@ -124,7 +122,7 @@ describe('useCalculateDeliveryFee', () => {
       wrapper: ({ children }) => (
         <RecoilRoot
           initializeState={({ set }) => {
-            set(selectedDeliveryInfoListState, mockSelectedDeliveryInfoList);
+            set(selectedDeliveryInfoListState, selectedDeliveryInfoListMockData);
             set(selectedCartItemListState, mockCartItems);
             set(deliveryFeeState, 0);
           }}

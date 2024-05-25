@@ -1,7 +1,18 @@
 export const cartItemListMockData = [
   {
-    id: 606,
-    quantity: 1,
+    id: 1578,
+    quantity: 5,
+    product: {
+      id: 12,
+      name: '컨버스',
+      price: 20000,
+      imageUrl: 'https://sitem.ssgcdn.com/65/73/69/item/1000163697365_i1_750.jpg',
+      category: 'fashion',
+    },
+  },
+  {
+    id: 1597,
+    quantity: 3,
     product: {
       id: 2,
       name: '나이키',
@@ -12,7 +23,7 @@ export const cartItemListMockData = [
     },
   },
   {
-    id: 607,
+    id: 1598,
     quantity: 1,
     product: {
       id: 3,
@@ -23,7 +34,7 @@ export const cartItemListMockData = [
     },
   },
   {
-    id: 608,
+    id: 1599,
     quantity: 1,
     product: {
       id: 10,
@@ -34,7 +45,7 @@ export const cartItemListMockData = [
     },
   },
   {
-    id: 609,
+    id: 1600,
     quantity: 1,
     product: {
       id: 11,
@@ -45,7 +56,7 @@ export const cartItemListMockData = [
     },
   },
   {
-    id: 610,
+    id: 1601,
     quantity: 1,
     product: {
       id: 12,
@@ -53,6 +64,30 @@ export const cartItemListMockData = [
       price: 20000,
       imageUrl: 'https://sitem.ssgcdn.com/65/73/69/item/1000163697365_i1_750.jpg',
       category: 'fashion',
+    },
+  },
+  {
+    id: 1602,
+    quantity: 1,
+    product: {
+      id: 21,
+      name: '나이키',
+      price: 20000,
+      imageUrl:
+        'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/a28864e3-de02-48bb-b861-9c592bc9a68b/%EB%B6%81-1-ep-%EB%86%8D%EA%B5%AC%ED%99%94-UOp6QQvg.png',
+      category: 'fashion',
+    },
+  },
+  {
+    id: 1603,
+    quantity: 1,
+    product: {
+      id: 34,
+      name: '코카콜라',
+      price: 10000,
+      imageUrl:
+        'https://godomall.speedycdn.net/1cd80571a779bf8f2c08a18dc0965949/goods/1000000027/image/detail/1000000027_detail_012.jpg',
+      category: 'beverage',
     },
   },
 ];
