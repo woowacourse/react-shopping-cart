@@ -11,17 +11,17 @@ const usePrice = () => {
   const hasExtraDeliveryFee = useRecoilValue(hasExtraDeliveryFeeState);
   const extraDeliveryFee = hasExtraDeliveryFee ? EXTRA_DELIVERY_FEE : 0;
 
-  const orderedPrice = selectedCartItemList.reduce(
+  const orderedPrice: number = selectedCartItemList.reduce(
     (acc, { price, quantity }) => acc + price * quantity,
     0,
   );
 
-  const deliveryFee =
+  const deliveryFee: number =
     orderedPrice < DELIVERY_FEE_THRESHOLD
       ? DELIVERY_FEE + extraDeliveryFee
       : 0 + extraDeliveryFee;
 
-  const totalPrice = orderedPrice + deliveryFee;
+  const totalPrice: number = orderedPrice + deliveryFee;
 
   return {
     orderedPrice,
