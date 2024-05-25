@@ -1,41 +1,7 @@
-import { formatToWon } from "@/utils/stringHelper";
-
-export const HEADER_TITLES = {
-  shop: "SHOP",
-  cart: "장바구니",
-};
-
-export const CART_PAGE_CAPTION = {
-  orderConfirm: "주문 확인",
-  payConfirm: "결제 확인",
-  totalPaymentAmount: "총 결제 금액",
-  allItemSelected: "전체선택",
-  selectAll: "전체선택",
-  pay: "결제하기",
-  moveToCartPage: "장바구니로 돌아가기",
-};
-
-export const FREE_SHIPPING_THRESHOLD = 100000;
-
-export const SHIPPING_FEE = {
-  free: 0,
-  basic: 3000,
-  remoteAreaShippingFee: 6000,
-};
-
-export type ShippingFeeType = keyof typeof SHIPPING_FEE;
-
-export const COUPON_APPLY_LIMIT = 2;
-
 export const CART_PAGE_MESSAGES = {
-  choiceCoupon: "쿠폰을 선택해 주세요",
-  freeShippingInfo: `총 주문 금액이 ${formatToWon(
-    FREE_SHIPPING_THRESHOLD
-  )} 이상일 경우 무료 배송됩니다.`,
-  askOrderConfirm: `최종 결제 금액을 확인해 주세요.`,
-  askMoveToCartPage: `모든 주문 정보가 새로고침 됩니다. 장바구니 페이지로 이동하시겠습니까?`,
-  itemCount: (count: number) => `현재 ${count}종류의 상품이 담겨있습니다.`,
-  orderInfo: (typeLength: number, totalCount: number) =>
-    `총 ${typeLength}종류의 상품 ${totalCount}개를 주문합니다.`,
-  couponLimit: `쿠폰은 최대 ${COUPON_APPLY_LIMIT}개까지 사용할 수 있습니다.`,
+    askMoveToCartPage: `모든 주문 정보가 새로고침 됩니다. 장바구니 페이지로 이동하시겠습니까?`,
+    itemCount: (count: number) => `현재 ${count}종류의 상품이 담겨있습니다.`,
+    orderInfo: (typeLength: number, totalCount: number) =>
+        `총 ${typeLength}종류의 상품 ${totalCount}개를 주문합니다.`,
 };
+
