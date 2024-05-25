@@ -18,20 +18,21 @@ export const calculateDiscountAmount = ({
   selectedCartItems,
 }: {
   coupon: Coupon;
-  shippingPrice: number;
-  orderPrice: number;
-  selectedCartItems: CartItem[];
+  shippingPrice?: number;
+  orderPrice?: number;
+  selectedCartItems?: CartItem[];
 }) => {
   switch (coupon.discountType) {
     case 'fixed':
-      return coupon.discount ?? 0;
+      return coupon?.discount ?? 0;
     case 'percentage':
-      return Math.floor((orderPrice * (coupon.discount ?? 0)) / 100);
+      console.log(orderPrice, coupon.discount);
+      return Math.floor(((orderPrice ?? 0) * (coupon.discount ?? 0)) / 100);
     case 'buyXgetY':
-      if (coupon.code === 'BOGO') return calculateBOGODiscount(selectedCartItems);
+      if (coupon.code === 'BOGO') return calculateBOGODiscount(selectedCartItems ?? []);
       return 0;
     case 'freeShipping':
-      return shippingPrice;
+      return shippingPrice ?? 0;
     default:
       return 0;
   }
