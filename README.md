@@ -181,6 +181,6 @@ Derived State, RTL advance
 
 쿠폰 로직과 관련하여 발생하는 파생 상태를 점진적으로 Recoil을 이용하여 관리해본다.
 
-- [ ] API
+- [x] API
 
 coupons API를 호출하여 쿠폰 목록을 불러와서 사용한다.

@@ -82,7 +82,6 @@ export const getCoupons = async (): Promise<Coupon[]> => {
 export const requestOrders = async (
   selectedCartItemIds: number[]
 ): Promise<void> => {
-  console.log(selectedCartItemIds);
   await cartAPIClient<void>(`/orders`, {
     method: "POST",
     exceptionText:
