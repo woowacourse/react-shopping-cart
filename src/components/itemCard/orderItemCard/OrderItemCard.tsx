@@ -1,3 +1,4 @@
+import { CartItemProps } from '../../../types';
 import {
   StyledItemCard,
   StyledItemCardProductContents,
@@ -8,23 +9,21 @@ import {
   StyledProductQuantityContainer,
   StyledProductQuantityText,
 } from '../ItemCard.styled';
-import { selectedItems } from '../../../types';
 
-interface OrderItemCardProps {
-  item: selectedItems;
-}
-export const OrderItemCard: React.FC<OrderItemCardProps> = ({
-  item: { imageUrl, name, price, quantity },
-}) => {
+export const OrderItemCard: React.FC<{ item: CartItemProps }> = ({ item }) => {
   return (
     <StyledItemCard>
       <StyledItemCardProductContents>
-        <StyledProductImg src={imageUrl} alt='' />
+        <StyledProductImg src={item.product.imageUrl} alt='' />
         <StyledProductInfo>
-          <StyledProductName>{name}</StyledProductName>
-          <StyledProductPrice>{price.toLocaleString()}원</StyledProductPrice>
+          <StyledProductName>{item.product.name}</StyledProductName>
+          <StyledProductPrice>
+            {item.product.price.toLocaleString()}원
+          </StyledProductPrice>
           <StyledProductQuantityContainer>
-            <StyledProductQuantityText>{quantity}개</StyledProductQuantityText>
+            <StyledProductQuantityText>
+              {item.quantity}개
+            </StyledProductQuantityText>
           </StyledProductQuantityContainer>
         </StyledProductInfo>
       </StyledItemCardProductContents>

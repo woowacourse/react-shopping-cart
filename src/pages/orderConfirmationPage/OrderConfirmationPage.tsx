@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { getCartItemCounts, getCouponList } from '../../api';
+import { getCartItemCounts } from '../../api';
 import { ConfirmButton } from '../../components/confirmButton/ConfirmButton';
 import {
   cartErrorMessageState,
@@ -70,7 +70,7 @@ export const OrderConfirmationPage: React.FC = () => {
           </StyledConfirmationPageDescription>
         </StyledOrderSummaryContainer>
         <StyledOrderContent>
-          {Object.values(selectedItems).map((item) => (
+          {selectedItems.map((item) => (
             <OrderItemCard item={item} />
           ))}
           <StyledCouponRedeemButton onClick={() => setCouponModalOpen(true)}>
