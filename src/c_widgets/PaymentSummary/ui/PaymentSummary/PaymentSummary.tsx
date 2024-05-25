@@ -6,8 +6,12 @@ import css from './PaymentSummary.module.css';
 
 const cn = classNames.bind(css);
 
+interface PaymentSummaryProps {
+  showCouponDiscountAmount?: boolean;
+}
+
 // TODO: Connect to state
-export const PaymentSummary = () => {
+export const PaymentSummary = ({ showCouponDiscountAmount = false }: PaymentSummaryProps) => {
   const Row = ({ title, amount }: { title: string; amount: number }) => (
     <div className={cn('row')}>
       <Text type={'h2'}>{title}</Text>
@@ -28,7 +32,8 @@ export const PaymentSummary = () => {
       <HorizontalLine opacity={0.1} />
 
       <div className={cn('rowWrapper')}>
-        <Row title={'주문 금액'} amount={97000} />
+        <Row title={'주문 금액'} amount={100000} />
+        {showCouponDiscountAmount && <Row title={'쿠폰 할인 금액'} amount={-3000} />}
         <Row title={'배송비'} amount={3000} />
       </div>
 
