@@ -1,10 +1,11 @@
 import { atom, atomFamily, selector, selectorFamily } from 'recoil';
 import { selectedCartItemsState } from './selectedCardItems';
 import { fetchedCartItemsSelector } from './fetch';
+import { applyCouponState } from './coupons';
 
-export const refreshCartItemsState = atom({
-  key: 'refreshCartItemsState',
-  default: [],
+export const cartItemsState = atom({
+  key: 'cartItemsState',
+  default: fetchedCartItemsSelector,
 });
 
 export const cartItemQuantityAdjustSelector = selectorFamily({
@@ -12,9 +13,7 @@ export const cartItemQuantityAdjustSelector = selectorFamily({
   get:
     (id: number) =>
     ({ get }) => {
-      const item = get(fetchedCartItemsSelector).find(
-        (cartItem) => cartItem.id === id,
-      );
+      const item = get(cartItemsState).find((cartItem) => cartItem.id === id);
       return item ? item.quantity : 0;
     },
   set:
@@ -32,17 +31,18 @@ export const cartItemQuantityState = atomFamily({
 export const cartItemsIdState = selector({
   key: 'cartItemsId',
   get: ({ get }) => {
-    return get(fetchedCartItemsSelector).map((cartItem) => cartItem.id);
+    return get(cartItemsState).map((cartItem) => cartItem.id);
   },
 });
 
 /**
  * 선택된 상품 리스트
+ *
  */
 export const selectedCartItemsSelector = selector({
   key: 'selectedCartItemsSelector',
   get: async ({ get }) => {
-    const cartItems = get(fetchedCartItemsSelector);
+    const cartItems = get(cartItemsState);
     return cartItems.filter((cartItem) =>
       get(selectedCartItemsState(cartItem.id)),
     );
@@ -84,11 +84,17 @@ export const totalOrderAmountSelector = selector({
 /**
  * 배송비
  */
+
+export const mountainousAreaState = atom({
+  key: 'mountainousAreaState',
+  default: false,
+});
 export const shippingFeeSelector = selector({
   key: 'shippingFeeSelector',
   get: ({ get }) => {
     const totalOrderAmount = get(totalOrderAmountSelector);
-    return totalOrderAmount >= 100000 || totalOrderAmount === 0 ? 0 : 3000;
+    if (totalOrderAmount >= 100000 || totalOrderAmount === 0) return 0;
+    return get(mountainousAreaState) ? 6000 : 3000;
   },
 });
 
@@ -100,6 +106,8 @@ export const totalPaymentAmountSelector = selector({
   get: ({ get }) => {
     const totalOrderAmount = get(totalOrderAmountSelector);
     const shippingFee = get(shippingFeeSelector);
-    return totalOrderAmount + shippingFee;
+    const applyCoupon = get(applyCouponState);
+
+    return totalOrderAmount + shippingFee - applyCoupon;
   },
 });

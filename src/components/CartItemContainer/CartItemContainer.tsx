@@ -3,14 +3,14 @@ import * as Styled from './style';
 import { selectedSomeCartItemsSelector } from '../../recoil/selectedCardItems';
 import { useNavigate } from 'react-router-dom';
 import CartItemList from '../CartItemList/CartItemList';
-import { fetchedCartItemsSelector } from '../../recoil/fetch';
 import Title from '../common/Title/Title';
 import TotalPaymentInfo from '../common/TotalPaymentInfo/TotalPaymentInfo';
 import OrderButton from '../common/OrderButton/OrderButton';
+import { cartItemsState } from '../../recoil/cartItems';
 
 const CartItemContainer = () => {
   const navigator = useNavigate();
-  const cartItems = useRecoilValue(fetchedCartItemsSelector);
+  const cartItems = useRecoilValue(cartItemsState);
 
   const hasSomeCartItem = !!cartItems.length;
   const isSomeCartItemSelected = useRecoilValue(selectedSomeCartItemsSelector);
