@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { css } from "@emotion/css";
 
 interface HeaderProps {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 const Header = ({ children }: HeaderProps) => {

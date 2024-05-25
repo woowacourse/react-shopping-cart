@@ -5,6 +5,7 @@ import { css } from "@emotion/css";
 
 import { cartItemCheckedIdsAtom, cartItemsAtom, couponUsedAtom } from "../recoil/atom/atom";
 import { totalCountSelector } from "../recoil/selector/selector";
+import { fetchCartItems } from "../api/cartItemApi";
 import { CartLayout, Header, Content, Footer } from "../components/layout";
 import { CouponModal, OrderItems, PaymentSummary, ShippingInfo } from "../components/orderConfirmationPage";
 import { Button, Title } from "../components/default";
@@ -17,6 +18,15 @@ const OrderConfirmationPage = () => {
   const cartTotalCount = useRecoilValue(totalCountSelector);
   const [couponUsed, setCouponUsed] = useRecoilState(couponUsedAtom);
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedCartItems = await fetchCartItems();
+      setCartItems(fetchedCartItems);
+    };
+
+    fetchData();
+  }, []);
 
   const description = `총 ${cartItemCheckedIds.length}종류의 상품 ${cartTotalCount}개를 주문합니다.
   최종 결제 금액을 확인해 주세요.`;
@@ -58,7 +68,7 @@ const OrderConfirmationPage = () => {
 
       <Content>
         <Title
-          title="장바구니"
+          title="주문 확인"
           description={description}
         />
         <OrderItems />

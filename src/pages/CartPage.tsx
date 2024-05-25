@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import { cartItemCheckedIdsAtom, cartItemsAtom, couponCheckedAtom } from "../recoil/atom/atom";
+import { fetchCartItems } from "../api/cartItemApi";
 import { CartLayout, Header, Content, Footer } from "../components/layout";
 import { CartItems, EmptyCart, OrderSummary } from "../components/cartPage";
 import { Title } from "../components/default";
@@ -15,6 +16,13 @@ const CartPage = () => {
 
   useEffect(() => {
     setCheckedCoupons([]);
+
+    const fetchData = async () => {
+      const fetchedCartItems = await fetchCartItems();
+      setCartItems(fetchedCartItems);
+    };
+
+    fetchData();
   }, []);
 
   const handleClick = () => {

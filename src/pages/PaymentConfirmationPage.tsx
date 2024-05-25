@@ -16,7 +16,7 @@ const PaymentConfirmationPage = () => {
 
   const { calculateTotalWithCoupon } = useCartCalculator();
 
-  const text = `총 ${cartItemCheckedIds.length}종류의 상품 ${cartTotalCount}개를 주문합니다.
+  const text = `총 ${cartItemCheckedIds.length}종류의 상품 ${cartTotalCount}개를 주문했습니다.
   최종 결제 금액을 확인해 주세요.`;
 
   const handleClick = () => {
@@ -25,12 +25,7 @@ const PaymentConfirmationPage = () => {
 
   return (
     <CartLayout>
-      <Header>
-        <LeftArrow
-          className={leftArrowBtnCSS}
-          onClick={handleClick}
-        />
-      </Header>
+      <Header></Header>
       <Content>
         <div className={confirmTextCSS}>
           <div className={headerCSS}>주문 확인</div>
