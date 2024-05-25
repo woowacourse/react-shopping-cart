@@ -4,8 +4,8 @@ import styled from 'styled-components';
 type Direction = 'row' | 'column';
 
 type ListContainerWIthDirectionProps = {
-  direction: Direction;
-  gap: string;
+  direction?: Direction;
+  gap?: string;
 };
 
 const ListContainerWIthDirection = styled.div<ListContainerWIthDirectionProps>`
@@ -20,7 +20,6 @@ const ListContainerWIthDirection = styled.div<ListContainerWIthDirectionProps>`
         `;
       case 'column':
         return `
-          width: 100%;
           flex-direction: column;
           row-gap: ${gap}
         `;
