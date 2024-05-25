@@ -1,7 +1,10 @@
 import { useRecoilState } from 'recoil';
 
 import { cartItemListState } from '../../recoil/cartItem/atom';
-import { requestDeleteCartItem } from '../../apis/cartItemList';
+import {
+  requestCartItemList,
+  requestDeleteCartItem,
+} from '../../apis/cartItemList';
 import { useSelectedCartItemId } from './useSelectedCartItemId';
 
 const useCartItemList = () => {
@@ -15,10 +18,16 @@ const useCartItemList = () => {
     unselectCartItem(cartItemId);
   };
 
+  const fetchCartItemList = async () => {
+    const result = await requestCartItemList();
+    setCartItemList(result);
+  };
+
   return {
     cartItemList,
     setCartItemList,
     deleteCartItem,
+    fetchCartItemList,
   };
 };
 
