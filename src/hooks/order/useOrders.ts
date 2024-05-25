@@ -1,22 +1,23 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { cartItemListQuery } from '../../recoil/cartItem/selector';
 import {
   cartItemListState,
   selectedCartItemIdListState,
 } from '../../recoil/cartItem/atom';
+import { requestOrders } from '../../apis/orders';
 
 const useOrder = () => {
   const setCartItemList = useSetRecoilState(cartItemListState);
   const newCartItemList = useRecoilValue(cartItemListQuery);
-  const setSelectedCartItemIdList = useSetRecoilState(
+  const [selectedCartItemIdList, setSelectedCartItemIdList] = useRecoilState(
     selectedCartItemIdListState,
   );
-  const resetCartItemList = () => {
-    setCartItemList(newCartItemList);
-    setSelectedCartItemIdList([]);
+
+  const orderSelectedCartItems = async () => {
+    await requestOrders(selectedCartItemIdList);
   };
 
-  return { resetCartItemList };
+  return { orderSelectedCartItems };
 };
 
 export default useOrder;
