@@ -8,6 +8,7 @@ import { Button, Splitter } from "../default";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { formatDate } from "../../utils/formatDate";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
+import { formatTimeRange } from "../../utils/formatTimeRange";
 
 interface CouponItemProps {
   coupon: Coupon;
@@ -42,6 +43,7 @@ const CouponItem = ({ coupon }: CouponItemProps) => {
       <div className={ItemContentCSS(isValid)}>
         <p>만료일: {formatDate(coupon.expirationDate)}</p>
         {coupon.minimumAmount && <p>최소 주문 금액: {formatCurrency(coupon.minimumAmount)}</p>}
+        {coupon.availableTime && <p>사용 가능 시간: {formatTimeRange(coupon.availableTime.start, coupon.availableTime.end)}</p>}
       </div>
     </div>
   );
