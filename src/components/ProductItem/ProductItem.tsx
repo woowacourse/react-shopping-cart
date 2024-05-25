@@ -5,6 +5,7 @@ import { patchCartItem, removeCartItem } from '../../api';
 import CheckBox from '../CheckBox/CheckBox';
 import { Button, CountButton } from '../Button';
 import { Img, ProductItemStyle, ProductItemTop, ProductItemBundle } from './ProductItem.style';
+import { Cart } from '../../types/cart';
 
 import useLocalStorageCheckedCart from '../../hooks/useLocalStorageCheckedCart';
 
