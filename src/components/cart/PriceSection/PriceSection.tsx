@@ -4,14 +4,20 @@ import PriceInfoBox from "../PriceInfoBox/PriceInfoBox.tsx";
 
 import * as S from "./PriceSection.styles.ts";
 
-import { totalOrderPriceSelector } from "@/recoil/orderInformation.ts";
+import { totalItemsPriceSelector } from "@/recoil/orderInformation.ts";
 import { SHIPPING_FEE } from "@/constants/cart.ts";
 import { shippingFeeSelector } from "@/recoil/shippingFeeType.ts";
+import { discountCouponPriceState } from "@/recoil/coupons.ts";
 
-const PriceSection = ({ isApplyCoupon }: { isApplyCoupon: boolean }) => {
-  const orderPrice = useRecoilValue(totalOrderPriceSelector);
+interface Props {
+  isApplyCoupon: boolean;
+}
+
+const PriceSection = ({ isApplyCoupon }: Props) => {
+  const orderPrice = useRecoilValue(totalItemsPriceSelector);
   const shippingFeeType = useRecoilValue(shippingFeeSelector);
   const totalPrice = orderPrice + SHIPPING_FEE[shippingFeeType];
+  const discountAmount = useRecoilValue(discountCouponPriceState);
 
   return (
     <S.Wrapper>
@@ -19,7 +25,7 @@ const PriceSection = ({ isApplyCoupon }: { isApplyCoupon: boolean }) => {
 
       <PriceInfoBox priceLabel="주문 금액" price={orderPrice} />
       {isApplyCoupon && (
-        <PriceInfoBox priceLabel="쿠폰 할인 금액 금액" price={0} />
+        <PriceInfoBox priceLabel="쿠폰 할인 금액 금액" price={discountAmount} />
       )}
       <PriceInfoBox priceLabel="배송비" price={SHIPPING_FEE[shippingFeeType]} />
 

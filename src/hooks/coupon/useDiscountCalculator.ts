@@ -1,4 +1,4 @@
-import { totalOrderPriceSelector } from "@/recoil/orderInformation";
+import { totalItemsPriceSelector } from "@/recoil/orderInformation";
 import { Coupon } from "@/types/coupon";
 import { useRecoilValue } from "recoil";
 import useCouponApplicabilityChecker from "./useCouponApplicabilityChecker";
@@ -10,7 +10,7 @@ import {
 
 const useDiscountCalculator = () => {
   const { isCouponApplicable } = useCouponApplicabilityChecker();
-  const totalItemsPrice = useRecoilValue(totalOrderPriceSelector);
+  const totalItemsPrice = useRecoilValue(totalItemsPriceSelector);
   const maxBuyXgetYItem = useRecoilValue(maxBuyXgetYItemSelector);
   const couponsByDiscountType = useRecoilValue(couponsByDiscountTypeSelector);
 
@@ -74,8 +74,8 @@ const useDiscountCalculator = () => {
       if (freeShipping) {
         totalDiscount += shippingFee;
       }
-      return totalDiscount;
     }
+    return totalDiscount;
   };
 
   return {

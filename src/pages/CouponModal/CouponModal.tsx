@@ -6,10 +6,17 @@ import DeleteButton from "@/assets/delete-icon.svg?react";
 import Button from "@/components/_common/Button/Button";
 import { theme } from "@/styles/theme";
 import CouponList from "./components/CouponList";
-import { useRecoilValue } from "recoil";
-import { couponListSelector, couponsState } from "@/recoil/coupons";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  couponListSelector,
+  couponsState,
+  discountCouponPriceState,
+} from "@/recoil/coupons";
 import useDiscountCalculator from "@/hooks/coupon/useDiscountCalculator";
-import { totalOrderPriceSelector } from "@/recoil/orderInformation";
+import {
+  finalOrderAmountState,
+  totalItemsPriceSelector,
+} from "@/recoil/orderInformation";
 import { shippingFeeState } from "@/recoil/shippingFeeType";
 
 const CouponModal = ({
@@ -20,11 +27,29 @@ const CouponModal = ({
   onCloseModal: () => void;
 }) => {
   const couponList = useRecoilValue(couponListSelector);
-  const totalPrice = useRecoilValue(totalOrderPriceSelector);
   const coupons = useRecoilValue(couponsState);
+
+  const totalPrice = useRecoilValue(totalItemsPriceSelector);
   const shippingFeeType = useRecoilValue(shippingFeeState);
 
+  const setFinalOrderAmount = useSetRecoilState(finalOrderAmountState);
+  const setDiscountCouponPrice = useSetRecoilState(discountCouponPriceState);
+  const totalItemsPrice = useRecoilValue(totalItemsPriceSelector);
+
   const { calculateTotalDiscount } = useDiscountCalculator();
+
+  const totalDiscountAmount = calculateTotalDiscount(
+    coupons,
+    totalPrice,
+    SHIPPING_FEE[shippingFeeType]
+  );
+
+  const onApplyCoupon = () => {
+    const finalOrderPrice = totalItemsPrice - totalDiscountAmount;
+    setFinalOrderAmount(finalOrderPrice);
+    setDiscountCouponPrice(totalDiscountAmount);
+    onCloseModal();
+  };
 
   return (
     <Modal
@@ -47,7 +72,7 @@ const CouponModal = ({
 
         <CouponList couponList={couponList} />
         <Button
-          onClick={() => {}}
+          onClick={onApplyCoupon}
           style={{
             backgroundColor: theme.COLOR["grey-3"],
             color: "white",
@@ -58,13 +83,7 @@ const CouponModal = ({
           radiusVariant="rounded"
           color="white"
         >
-          {`총 ${
-            calculateTotalDiscount(
-              coupons,
-              totalPrice,
-              SHIPPING_FEE[shippingFeeType]
-            ) || 0
-          }원 할인 쿠폰 사용하기`}
+          {`총 ${totalDiscountAmount}원 할인 쿠폰 사용하기`}
         </Button>
       </>
     </Modal>

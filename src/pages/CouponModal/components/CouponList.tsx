@@ -2,10 +2,10 @@ import useCouponApplicabilityChecker from "@/hooks/coupon/useCouponApplicability
 import CouponItem from "./Coupon";
 import { Coupon, CouponWithApplicablity } from "@/types/coupon";
 import { useRecoilValue } from "recoil";
-import { totalOrderPriceSelector } from "@/recoil/orderInformation";
+import { totalItemsPriceSelector } from "@/recoil/orderInformation";
 
 const CouponList = ({ couponList }: { couponList: Coupon[] }) => {
-  const totalItemsPrice = useRecoilValue(totalOrderPriceSelector);
+  const totalItemsPrice = useRecoilValue(totalItemsPriceSelector);
   const { isCouponApplicable } = useCouponApplicabilityChecker();
 
   const applicableCoupons: CouponWithApplicablity[] = [];

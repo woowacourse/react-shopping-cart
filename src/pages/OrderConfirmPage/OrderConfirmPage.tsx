@@ -31,12 +31,15 @@ const OrderConfirmPage = ({
   selectedCartItems: CartItem[];
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const onCloseModal = () => {
     setIsModalOpen(false);
   };
 
   const totalItemsCount = useRecoilValue(totalItemOrderCountSelector);
-  const selectedItemsId = localStorage.getItem("selectedItem") || "[]";
+  const selectedItemsId = JSON.parse(
+    localStorage.getItem("selectedItems") || "[]"
+  );
 
   const setShippingFeeType = useSetRecoilState(shippingFeeState);
   const shippingFeeType = useRecoilValue(shippingFeeSelector);
