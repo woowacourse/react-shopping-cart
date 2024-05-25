@@ -24,6 +24,29 @@ export const ResetAllCoupons = () => {
   );
 };
 
+export const ResetAllState = () => {
+  return useRecoilCallback(
+    ({ snapshot, set }) =>
+      async () => {
+        const items = await snapshot.getPromise(fetchItemsSelector);
+        console.log(items);
+        items.forEach((item) => {
+          set(itemDetailsState(item.id), {
+            quantity: item ? item.quantity : 1,
+            isChecked: true,
+          });
+        });
+
+        const coupons = await snapshot.getPromise(fetchCouponsSelector);
+        coupons.forEach((coupon) => {
+          set(couponDetailState(coupon.id), false);
+        });
+        set(shippingInformationState, false);
+        removeLocalStorage();
+      },
+    [],
+  )();
+};
 export const useValidateCoupons = () => {
   return useRecoilCallback(
     ({ snapshot, set }) =>
