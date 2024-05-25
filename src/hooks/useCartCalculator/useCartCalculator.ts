@@ -1,11 +1,11 @@
 import { useRecoilValue } from 'recoil';
 import { useDiscountCalculator } from '../useDiscountCalculator/useDiscountCalculator';
-import { couponListState } from '../../recoil/atoms/atoms';
+import { couponList } from '../../recoil/atoms/atoms';
 import { calculateOrderPrice } from '../../recoil/selectors/selectors';
 
 export const useCartCalculator = () => {
   const { totalOrderPrice } = useRecoilValue(calculateOrderPrice);
-  const coupons = useRecoilValue(couponListState);
+  const coupons = useRecoilValue(couponList);
   const { calculateDiscountAmount } = useDiscountCalculator();
 
   const calculateTotalWithCoupon = (couponCode: string) => {

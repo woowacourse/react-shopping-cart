@@ -1,11 +1,12 @@
 import { useCouponApplicabilityChecker } from '../useCouponApplicabilityChecker/useCouponApplicabilityChecker';
 import { Coupon } from '../../types/coupon';
-import { checkedCartItems } from '../../recoil/selectors/selectors';
+import { calculateOrderPrice, checkedCartItems } from '../../recoil/selectors/selectors';
 import { useRecoilValue } from 'recoil';
 
 export const useDiscountCalculator = () => {
   const { isCouponApplicable } = useCouponApplicabilityChecker();
   const checkedItems = useRecoilValue(checkedCartItems);
+  const { deliveryFee } = useRecoilValue(calculateOrderPrice);
 
   const calculateFixedDiscount = (coupon: Coupon, totalAmount: number) => {
     if (!isCouponApplicable(coupon, totalAmount)) {
@@ -38,7 +39,7 @@ export const useDiscountCalculator = () => {
     if (!isCouponApplicable(coupon, totalAmount)) {
       return 0;
     }
-    return Math.floor((totalAmount * (coupon.discount ?? 0)) / 100);
+    return deliveryFee;
   };
 
   const calculateDiscountAmount = (coupon: Coupon, totalAmount: number, now: Date = new Date()) => {

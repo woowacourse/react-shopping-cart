@@ -27,12 +27,22 @@ export const cartItemCheckState = atomFamily<boolean, number>({
   default: false,
 });
 
-export const couponListState = atom<Coupon[]>({
-  key: 'couponListState',
+export const couponList = atom<Coupon[]>({
+  key: 'couponList',
   default: fetchCouponList(),
 });
 
 export const specialZoneCheckState = atom<boolean>({
   key: 'remoteAreaCheckboxState',
   default: false,
+});
+
+export const couponCheckState = atomFamily<boolean, string>({
+  key: 'couponCheckState',
+  default: false,
+});
+
+export const totalDiscountAmount = atom<number>({
+  key: 'totalDiscountState',
+  default: 0,
 });
