@@ -32,7 +32,9 @@ const CartPage = () => {
   const selectedItems = useRecoilValue(totalItemOrderCountSelector);
   const cartItemList = useRecoilValue(cartItemsState);
   const navigate = useNavigate();
+
   const resetCoupons = useResetRecoilState(couponsState);
+
   const onMoveOrderConfirmPage = () => {
     navigate(PAGE_URL.orderConfirm);
   };

@@ -9,8 +9,8 @@ import {
 } from "@/recoil/coupons";
 
 const useDiscountCalculator = () => {
-  const totalItemsPrice = useRecoilValue(totalOrderPriceSelector);
   const { isCouponApplicable } = useCouponApplicabilityChecker();
+  const totalItemsPrice = useRecoilValue(totalOrderPriceSelector);
   const maxBuyXgetYItem = useRecoilValue(maxBuyXgetYItemSelector);
   const couponsByDiscountType = useRecoilValue(couponsByDiscountTypeSelector);
 

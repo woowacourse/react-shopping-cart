@@ -10,7 +10,7 @@ import { useRecoilValue } from "recoil";
 import { couponListSelector, couponsState } from "@/recoil/coupons";
 import useDiscountCalculator from "@/hooks/coupon/useDiscountCalculator";
 import { totalOrderPriceSelector } from "@/recoil/orderInformation";
-import { shippingFeeSelector } from "@/recoil/shippingFeeType";
+import { shippingFeeState } from "@/recoil/shippingFeeType";
 
 const CouponModal = ({
   isOpen,
@@ -22,7 +22,7 @@ const CouponModal = ({
   const couponList = useRecoilValue(couponListSelector);
   const totalPrice = useRecoilValue(totalOrderPriceSelector);
   const coupons = useRecoilValue(couponsState);
-  const shippingFeeType = useRecoilValue(shippingFeeSelector);
+  const shippingFeeType = useRecoilValue(shippingFeeState);
 
   const { calculateTotalDiscount } = useDiscountCalculator();
 

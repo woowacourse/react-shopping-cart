@@ -8,18 +8,28 @@ export const shippingFeeState = atom<ShippingFeeType>({
   default: "basic",
 });
 
-export const shippingFeeSelector = selector({
-  key: "shippingFeeSelector",
+export const isFreeShipping = selector({
+  key: "isFreeShipping",
   get: ({ get }) => {
     const selectedCartItems = get(selectedCartItemsIdState);
     const totalOrderPrice = get(totalOrderPriceSelector);
+    return (
+      selectedCartItems.length > 0 && totalOrderPrice >= FREE_SHIPPING_THRESHOLD
+    );
+  },
+});
+
+export const shippingFeeSelector = selector({
+  key: "shippingFeeSelector",
+  get: ({ get }) => {
+    const freeShipping = get(isFreeShipping);
     const shippingFeeType = get(shippingFeeState);
-
-    const isFreeShipping =
-      selectedCartItems.length > 0 &&
-      totalOrderPrice >= FREE_SHIPPING_THRESHOLD;
-
-    if (isFreeShipping) return "free";
-    return shippingFeeType;
+    return freeShipping ? "free" : shippingFeeType;
+  },
+  set: ({ get, set }) => {
+    const freeShipping = get(isFreeShipping);
+    if (freeShipping) {
+      set(shippingFeeState, "free");
+    }
   },
 });
