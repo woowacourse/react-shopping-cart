@@ -46,7 +46,8 @@ export const shippingPriceSelector = selector({
     const shippingPrice =
       orderPrice === 0 || orderPrice >= freeShippingMinAmount ? shippingFee.free : shippingFee.basic;
 
-    if (isInaccessibleArea) return shippingPrice + PRICE.shippingFee.inaccessibleAreas;
+    if (orderPrice < freeShippingMinAmount && isInaccessibleArea)
+      return shippingPrice + PRICE.shippingFee.inaccessibleAreas;
 
     return shippingPrice;
   },
