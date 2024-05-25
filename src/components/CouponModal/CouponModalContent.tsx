@@ -4,10 +4,10 @@ import { MESSAGES } from '../../constants/Messages';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { couponsState } from '../../recoil/atoms';
 import { Coupon } from '../../types/coupon';
-import CouponCard from '../\bCouponCard';
+import CouponCard from '../CouponCard/CouponCard';
 import { fetchCouponsSelector } from '../../recoil/fetchSelectors';
 import { useEffect } from 'react';
-import { useValidateCoupons } from '../../recoil/selectors';
+import { useValidateCoupons } from '../../recoil/useRecoilCallback';
 
 const CouponListContainer = styled.div`
   margin-top: 3.6rem;

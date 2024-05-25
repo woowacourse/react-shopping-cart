@@ -1,4 +1,4 @@
-import { CartItems, ItemPriceAndQuantity } from '../types/Item';
+import { CartItems } from '../types/Item';
 import { Coupon } from '../types/coupon';
 
 const calculateFixedDiscount = (coupon: Coupon) => {
@@ -9,9 +9,11 @@ const calculatePercentageDiscount = (coupon: Coupon, totalAmount: number) => {
   return Math.floor((totalAmount * (coupon.discount ?? 0)) / 100);
 };
 
-const calculateBuyXgetYDiscount = (items: ItemPriceAndQuantity[]) => {
+const calculateBuyXgetYDiscount = (items: CartItems[]) => {
   const exceedsThresholdCountItems = items.filter((item) => item.quantity >= 2);
-  return Math.max(...exceedsThresholdCountItems.map((item) => item.price));
+  return Math.max(
+    ...exceedsThresholdCountItems.map((item) => item.product.price),
+  );
 };
 
 export {
