@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { Coupon } from '../types/coupon';
-import CheckBox from './CheckBox/CheckBox';
-import Title from './Title/Title';
+import { Coupon } from '../../types/coupon';
+import CheckBox from '../CheckBox/CheckBox';
+import Title from '../Title/Title';
 import { useRecoilState } from 'recoil';
-import { couponDetailState } from '../recoil/atoms';
-import { formatAvailableTime, formatDate } from '../utils/Time';
-import useCouponApplicable from '../hooks/useCouponApplicable';
+import { couponDetailState } from '../../recoil/atoms';
+import { formatAvailableTime, formatDate } from '../../utils/Time';
+import useCouponApplicable from '../../hooks/useCouponApplicable';
 
 const CardContainer = styled.li<{ $disabled: boolean }>`
   display: flex;
