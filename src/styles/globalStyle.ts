@@ -136,6 +136,9 @@ const GlobalStyle = createGlobalStyle`
     color:inherit;
     font-size:inherit;
     font-weight: inherit ;
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
   input[type="text"]{
     padding: 0;
