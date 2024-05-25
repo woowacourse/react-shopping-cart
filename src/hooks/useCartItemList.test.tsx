@@ -1,9 +1,9 @@
 import { renderHook } from '@testing-library/react';
-import { useCartItemList } from '../../hooks/useCartItemList';
+import { useCartItemList } from './useCartItemList';
 import { RecoilRoot, useRecoilValue } from 'recoil';
 import { ReactNode, act } from 'react';
-import { cartItemListState } from './cartItemListState';
-import { mockCartItemList } from '../../mocks/cartItemList';
+import { cartItemListState } from '../recoil/cartItemList/cartItemListState';
+import { mockCartItemList } from '../mocks/cartItemList';
 
 jest.mock('../../apis/requests/cartItemList', () => ({
   requestCartItemList: jest.fn().mockImplementation(() => mockCartItemList),
