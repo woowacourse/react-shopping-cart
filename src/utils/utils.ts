@@ -15,9 +15,9 @@ export const formatAvailableTime = (start: string, end: string) => {
   const endHour = Number(end.split(':')[0]);
 
   if (startHour >= 12 && endHour >= 12)
-    return `오후 ${startHour}시부터 ${endHour}까지`;
+    return `오후 ${startHour}시부터 ${endHour}시까지`;
   if (startHour < 12 && endHour >= 12)
-    return `오전 ${startHour}시부터 오후 ${endHour}까지`;
+    return `오전 ${startHour}시부터 오후 ${endHour}시까지`;
   if (startHour < 12 && endHour < 12)
-    return `오전 ${startHour}시부터 ${endHour}까지`;
+    return `오전 ${startHour}시부터 ${endHour}시까지`;
 };
