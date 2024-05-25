@@ -1,6 +1,5 @@
 import PaymentInfo from './PaymentInfo';
 import * as Styled from './style';
-import CaptionEmoji from '../../assets/CaptionEmoji.svg';
 import { useRecoilValue } from 'recoil';
 import {
   shippingFeeSelector,
@@ -8,28 +7,29 @@ import {
   totalPaymentAmountSelector,
 } from '../../../recoil/cartItems';
 import { ReactNode } from 'react';
+import Caption from '../Caption/Caption';
+import { koMoneyFormat } from '../../util/koMoneyFormat';
 
 interface TotalPaymentInfoProp {
   children?: ReactNode;
 }
 
 const TotalPaymentInfo = ({ children }: TotalPaymentInfoProp) => {
-  const koMoneyFormat = (money: number) => `${money.toLocaleString('ko-kr')}원`;
   const totalOrderAmount = useRecoilValue(totalOrderAmountSelector);
   const shippingFee = useRecoilValue(shippingFeeSelector);
   const totalPaymentAmount = useRecoilValue(totalPaymentAmountSelector);
 
   return (
     <Styled.TotalPaymentInfo>
-      <Styled.PaymentCaption>
-        <img src={CaptionEmoji} />총 주문 금액이 100,000원 이상일 경우 무료
-        배송됩니다.
-      </Styled.PaymentCaption>
-      <Styled.Divider />
+      <Caption
+        message="총 주문 금액이 100,000원 이상일 경우 무료
+      배송됩니다."
+      />
+      <Styled.TotalDivider />
       <PaymentInfo label="주문 금액" price={koMoneyFormat(totalOrderAmount)} />
       {children}
       <PaymentInfo label="배송비" price={koMoneyFormat(shippingFee)} />
-      <Styled.Divider />
+      <Styled.TotalDivider />
       <PaymentInfo
         label="총 결제 금액"
         price={koMoneyFormat(totalPaymentAmount)}

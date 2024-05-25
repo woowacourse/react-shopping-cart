@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Divider } from '../../../commonStyle';
 
 export const TotalPaymentInfo = styled.section`
   display: flex;
@@ -11,18 +12,7 @@ export const PaymentInfo = styled.div`
   justify-content: space-between;
 `;
 
-export const PaymentCaption = styled.p`
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-
-  ${(props) => props.theme.typography.caption}
-  color: ${(props) => props.theme.color.captionBlack};
-`;
-
-export const Divider = styled.div`
-  border: 0.5px solid ${(props) => props.theme.color.borderGray};
-`;
+export const TotalDivider = Divider;
 
 export const PaymentLabel = styled.p`
   ${(props) => props.theme.typography.label}
