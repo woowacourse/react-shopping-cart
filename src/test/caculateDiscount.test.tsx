@@ -1,6 +1,6 @@
 import useCouponCalculate from "@/hooks/useCouponCalculate";
 import { cartItemDummy } from "@/mock/testMockData";
-import { cartState } from "@/store/atom/atoms";
+import { cartState, itemQuantityState } from "@/store/atom/atoms";
 import { renderHook } from "@testing-library/react";
 import { RecoilRoot } from "recoil";
 import { describe, it, vi, beforeAll, afterAll, expect } from "vitest";
@@ -43,8 +43,9 @@ describe("percent 할인 쿠폰과 fixed 할인 쿠폰 계산 테스트", () => 
       CART_STATE_DUMMY: [
         { product: { id: 100, price: 20000 }, quantity: 2 },
         { product: { id: 102, price: 40000 }, quantity: 2 },
-      ].map(({ product, quantity }) => ({
+      ].map(({ product, quantity }, index) => ({
         ...cartItemDummy,
+        id: index,
         product: { ...cartItemDummy.product, ...product },
         quantity,
       })),
@@ -55,24 +56,27 @@ describe("percent 할인 쿠폰과 fixed 할인 쿠폰 계산 테스트", () => 
         { product: { id: 100, price: 40000 }, quantity: 2 },
         { product: { id: 102, price: 40000 }, quantity: 7 },
         { product: { id: 105, price: 10000 }, quantity: 1 },
-      ].map(({ product, quantity }) => ({
+      ].map(({ product, quantity }, index) => ({
         ...cartItemDummy,
+        id: index,
         product: { ...cartItemDummy.product, ...product },
         quantity,
       })),
       DISCOUNT_AMOUNT_EXPECTED: 116_000,
     },
     {
-      CART_STATE_DUMMY: [{ product: { id: 100, price: 20000 }, quantity: 1 }].map(({ product, quantity }) => ({
+      CART_STATE_DUMMY: [{ product: { id: 100, price: 20000 }, quantity: 1 }].map(({ product, quantity }, index) => ({
         ...cartItemDummy,
+        id: index,
         product: { ...cartItemDummy.product, ...product },
         quantity,
       })),
       DISCOUNT_AMOUNT_EXPECTED: 11_000,
     },
     {
-      CART_STATE_DUMMY: [{ product: { id: 100, price: 10000 }, quantity: 1 }].map(({ product, quantity }) => ({
+      CART_STATE_DUMMY: [{ product: { id: 100, price: 10000 }, quantity: 1 }].map(({ product, quantity }, index) => ({
         ...cartItemDummy,
+        id: index,
         product: { ...cartItemDummy.product, ...product },
         quantity,
       })),
@@ -90,6 +94,12 @@ describe("percent 할인 쿠폰과 fixed 할인 쿠폰 계산 테스트", () => 
             <RecoilRoot
               initializeState={({ set }) => {
                 set(cartState, CART_STATE_DUMMY);
+                const obj: Record<number, number> = {};
+                CART_STATE_DUMMY.forEach((cartItem: CartItemInfo) => {
+                  obj[cartItem.id] = cartItem.quantity;
+                });
+                console.log(obj);
+                set(itemQuantityState, obj);
               }}
             >
               {children}

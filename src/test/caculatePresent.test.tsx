@@ -44,8 +44,9 @@ describe("percent 할인 쿠폰과 fixed 할인 쿠폰 계산 테스트", () => 
       CART_STATE_DUMMY: [
         { product: { id: 100, price: 20000 }, quantity: 2 },
         { product: { id: 102, price: 40000 }, quantity: 2 },
-      ].map(({ product, quantity }) => ({
+      ].map(({ product, quantity }, index) => ({
         ...cartItemDummy,
+        id: index,
         product: { ...cartItemDummy.product, ...product },
         quantity,
       })),
@@ -57,8 +58,9 @@ describe("percent 할인 쿠폰과 fixed 할인 쿠폰 계산 테스트", () => 
         { product: { id: 100, price: 40000 }, quantity: 2 },
         { product: { id: 102, price: 30000 }, quantity: 7 },
         { product: { id: 105, price: 10000 }, quantity: 1 },
-      ].map(({ product, quantity }) => ({
+      ].map(({ product, quantity }, index) => ({
         ...cartItemDummy,
+        id: index,
         product: { ...cartItemDummy.product, ...product },
         quantity,
       })),
@@ -66,8 +68,9 @@ describe("percent 할인 쿠폰과 fixed 할인 쿠폰 계산 테스트", () => 
     },
     {
       DESCRIPTION: "수량이 2개 이상인 제품이 없으면 할인되지 않는다.",
-      CART_STATE_DUMMY: [{ product: { id: 100, price: 20000 }, quantity: 1 }].map(({ product, quantity }) => ({
+      CART_STATE_DUMMY: [{ product: { id: 100, price: 20000 }, quantity: 1 }].map(({ product, quantity }, index) => ({
         ...cartItemDummy,
+        id: index,
         product: { ...cartItemDummy.product, ...product },
         quantity,
       })),
@@ -76,6 +79,7 @@ describe("percent 할인 쿠폰과 fixed 할인 쿠폰 계산 테스트", () => 
   ])("$DESCRIPTION", ({ CART_STATE_DUMMY, DISCOUNT_AMOUNT_EXPECTED }) => {
     const { result } = renderHook(
       () => {
+        console.log(COUPONS);
         return useCouponCalculate(COUPONS);
       },
       {
