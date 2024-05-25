@@ -4,7 +4,7 @@ import RouteInfoProvider, { routes } from "./Providers/RouteInfoProvider";
 
 function App() {
   // 튜플을 배열로 사용하기 위해서 얕은복사를 사용.
-  const router = createBrowserRouter([...routes]);
+  const router = createBrowserRouter([...routes], { basename: import.meta.env.BASE_URL });
 
   return (
     <RouteInfoProvider>
