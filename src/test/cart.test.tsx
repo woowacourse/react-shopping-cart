@@ -1,10 +1,15 @@
 import { RecoilRoot, useRecoilValue } from "recoil";
-import { cartPriceState } from "./selectors";
-import { cartItemsState, selectedListState } from "../atoms/atoms";
+import {
+  orderPriceState,
+  deliveryFeeState,
+  paymentPriceState,
+} from "../recoil/selectors/selectors";
+import { cartItemsState, selectedListState } from "../recoil/atoms/atoms";
 import { renderHook, waitFor } from "@testing-library/react";
 import { Suspense } from "react";
+// import { cartJson, couponsJson } from "./mockData";
 
-const cartsJson = [
+const cartJson = [
   {
     id: 1274,
     quantity: 5,
@@ -24,16 +29,19 @@ const cartsJson = [
       id: 12,
       name: "컨버스",
       price: 20000,
-      imageUrl:
-        "https://sitem.ssgcdn.com/65/73/69/item/1000163697365_i1_750.jpg",
+      imageUrl: "https://sitem.ssgcdn.com/65/73/69/item/1000163697365_i1_750.jpg",
       category: "fashion",
     },
   },
 ];
 
-jest.mock("../../api/cart", () => ({
-  getCartItems: jest.fn().mockImplementation(() => Promise.resolve(cartsJson)),
+jest.mock("../api/cart", () => ({
+  getCartItems: jest.fn().mockImplementation(() => Promise.resolve(cartJson)),
 }));
+
+// jest.mock("../api/coupon", () => ({
+//   getCoupons: jest.fn().mockImplementation(() => Promise.resolve(couponsJson)),
+// }));
 
 describe("장바구니", () => {
   it("장바구니 데이터 로딩.", async () => {
@@ -46,19 +54,21 @@ describe("장바구니", () => {
     });
 
     await waitFor(() => {
-      expect(result.current).toEqual(cartsJson);
+      expect(result.current).toEqual(cartJson);
     });
   });
 
   it("장바구니 가격 측정", async () => {
     const expectedOrderPrice = 1000 * 5 + 20000 * 1;
     const expectedDeliveryFee = 3000;
-    const expectedTotalPrice = expectedOrderPrice + expectedDeliveryFee;
+    const expectedPaymentPrice = expectedOrderPrice + expectedDeliveryFee;
 
     const { result } = renderHook(
       () => {
-        const cartPrice = useRecoilValue(cartPriceState);
-        return cartPrice;
+        const orderPrice = useRecoilValue(orderPriceState);
+        const deliveryFee = useRecoilValue(deliveryFeeState);
+        const paymentPrice = useRecoilValue(paymentPriceState);
+        return { orderPrice, deliveryFee, paymentPrice };
       },
       {
         wrapper: ({ children }) => (
@@ -76,7 +86,7 @@ describe("장바구니", () => {
     await waitFor(() => {
       expect(result.current.orderPrice).toBe(expectedOrderPrice);
       expect(result.current.deliveryFee).toBe(expectedDeliveryFee);
-      expect(result.current.totalPrice).toBe(expectedTotalPrice);
+      expect(result.current.paymentPrice).toBe(expectedPaymentPrice);
     });
   });
 });
