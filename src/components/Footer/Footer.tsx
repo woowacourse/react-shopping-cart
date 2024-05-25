@@ -6,15 +6,17 @@ import * as S from './Footer.styled';
 interface FooterProps {
   url: string;
   isDisabled: boolean;
+  onFetchEvent?: () => void;
 }
 
-function Footer({ url, isDisabled = false }: FooterProps) {
+function Footer({ url, isDisabled = false, onFetchEvent }: FooterProps) {
   const navigate = useNavigate();
   const handleClick = (event: React.MouseEvent) => {
     if (isDisabled) {
       event.preventDefault();
     } else {
       navigate(url);
+      onFetchEvent && onFetchEvent();
     }
   };
 

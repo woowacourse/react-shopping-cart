@@ -33,7 +33,7 @@ export async function fetchItems(): Promise<Items[]> {
   });
 
   if (!response.ok) {
-    throw new Error('Failed to fetch Items');
+    throw new Error('목록을 불러오는데 실패하였습니다. 다시 시도해 주세요.');
   }
 
   const data = await response.json();
@@ -51,7 +51,7 @@ export async function fetchCartItemQuantity(
   });
 
   if (!response.ok) {
-    throw new Error('Failed to fetch cart item quantity');
+    throw new Error('수량 업데이트에 실패하였습니다. 다시 시도해 주세요.');
   }
 }
 
@@ -62,7 +62,9 @@ export async function removeCartItem(cartItemId: number): Promise<void> {
   });
 
   if (!response.ok) {
-    throw new Error('Failed to remove cart item');
+    throw new Error(
+      '장바구니 목록을 불러오는데 실패하였습니다. 다시 시도해 주세요.',
+    );
   }
 }
 
@@ -73,9 +75,21 @@ export async function fetchCoupons(): Promise<Coupon[]> {
   });
 
   if (!response.ok) {
-    throw new Error('Failed to fetch Coupons');
+    throw new Error('쿠폰을 불러오는데 실패하였습니다. 다시 시도해 주세요.');
   }
 
   const data = await response.json();
   return data;
+}
+
+export async function fetchOrder(orderItems: Items[]): Promise<void> {
+  const response = await fetchResponse({
+    url: '/orders',
+    method: 'POST',
+    body: JSON.stringify({ cartItemIds: orderItems.map((item) => item.id) }),
+  });
+
+  if (!response.ok) {
+    throw new Error('주문 생성에 실패하였습니다. 다시 시도해 주세요.');
+  }
 }

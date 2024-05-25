@@ -6,8 +6,17 @@ import OrderContent from '../../components/OrderContent/OrderContent';
 import Footer from '../../components/Footer/Footer';
 import { URL_PATH } from '../../constants/UrlPath';
 import * as S from './Order.style';
+import { useRecoilValue } from 'recoil';
+import { orderItemsSelector } from '../../recoil/selectors';
+import { fetchOrder } from '../../api';
 
 function Order() {
+  const orderItems = useRecoilValue(orderItemsSelector);
+
+  const handleSubmitButton = () => {
+    fetchOrder(orderItems);
+  };
+
   return (
     <div>
       <Header headerIconType="back" />
@@ -17,7 +26,11 @@ function Order() {
             <OrderContent />
           </Suspense>
         </S.ContentWrapper>
-        <Footer isDisabled={false} url={URL_PATH.completed} />
+        <Footer
+          isDisabled={false}
+          url={URL_PATH.completed}
+          onFetchEvent={handleSubmitButton}
+        />
       </ErrorBoundary>
     </div>
   );
