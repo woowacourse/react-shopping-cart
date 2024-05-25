@@ -25,6 +25,7 @@ import MainLayout from "@/components/layout/MainLayout";
 import CartPageSkeleton from "./CartPage.skeleton";
 import { useEffect } from "react";
 import { couponsState } from "@/recoil/coupons";
+import { shippingFeeState } from "@/recoil/shippingFeeType";
 
 const CartPage = () => {
   const { isAllItemSelected, selectAllItem, unselectAllItem } =
@@ -34,6 +35,7 @@ const CartPage = () => {
   const navigate = useNavigate();
 
   const resetCoupons = useResetRecoilState(couponsState);
+  const resetShippingFee = useResetRecoilState(shippingFeeState);
 
   const onMoveOrderConfirmPage = () => {
     navigate(PAGE_URL.orderConfirm);
@@ -41,6 +43,7 @@ const CartPage = () => {
 
   useEffect(() => {
     resetCoupons();
+    resetShippingFee();
   }, []);
 
   return (

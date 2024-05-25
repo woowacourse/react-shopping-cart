@@ -42,7 +42,7 @@ const useDiscountCalculator = () => {
   const calculateTotalDiscount = (
     coupons: Coupon[],
     totalPrice: number,
-    shippingFee: number
+    shippingFee?: number
   ) => {
     let totalDiscount = 0;
 
@@ -71,7 +71,7 @@ const useDiscountCalculator = () => {
           return acc;
         }, 0);
       }
-      if (freeShipping) {
+      if (freeShipping && shippingFee) {
         totalDiscount += shippingFee;
       }
     }

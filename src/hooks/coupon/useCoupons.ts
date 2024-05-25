@@ -1,18 +1,28 @@
+import { COUPON_APPLY_LIMIT } from "@/constants/cart";
 import { couponsState } from "@/recoil/coupons";
+import { freeShippingCouponState } from "@/recoil/shippingFeeType";
 import { Coupon } from "@/types/coupon";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 const useCoupons = () => {
   const [couponList, setCouponList] = useRecoilState(couponsState);
+  const setFreeShippingCouponState = useSetRecoilState(freeShippingCouponState);
 
   const applyCoupon = (newCoupon: Coupon) => {
     if (isOverMaxCouponCount()) {
       replaceOldToNewCoupon();
     }
+    if (newCoupon.discountType === "freeShipping") {
+      setFreeShippingCouponState(true);
+    }
     setCouponList((prev) => [...prev, newCoupon]);
   };
 
   const unapplyCoupon = (couponId: number) => {
+    const targetCoupon = couponList.find((coupon) => coupon.id === couponId)!;
+    if (targetCoupon.discountType === "freeShipping") {
+      setFreeShippingCouponState(false);
+    }
     const newCouponList = couponList.filter((coupon) => coupon.id !== couponId);
     setCouponList(newCouponList);
   };
@@ -22,7 +32,7 @@ const useCoupons = () => {
   };
 
   const isOverMaxCouponCount = () => {
-    if (couponList.length >= 2) {
+    if (couponList.length >= COUPON_APPLY_LIMIT) {
       return true;
     }
     return false;
