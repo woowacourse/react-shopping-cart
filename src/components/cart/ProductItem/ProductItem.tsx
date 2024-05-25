@@ -1,5 +1,5 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
-import useUpdateItemQuantity from "@/hooks/useUpdateItemQuantity.ts";
+import useUpdateItemQuantity from "@/hooks/cart/useUpdateItemQuantity.ts";
 
 import Button from "../../_common/Button/Button.tsx";
 import CheckBox from "../../_common/CheckBox/CheckBox.tsx";

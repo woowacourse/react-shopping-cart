@@ -1,4 +1,4 @@
-import useCouponApplicabilityChecker from "@/hooks/useCouponApplicabilityChecker";
+import useCouponApplicabilityChecker from "./useCouponApplicabilityChecker";
 import { mockCartItemList } from "@/mocks/cartItemList";
 import { mockCoupons } from "@/mocks/coupons";
 import { renderHook, waitFor } from "@testing-library/react";

@@ -8,7 +8,7 @@ import Button from "@/components/_common/Button/Button";
 import { theme } from "@/styles/theme";
 import { useRecoilValue } from "recoil";
 import { couponListSelector } from "@/recoil/coupons";
-import useCouponApplicabilityChecker from "@/hooks/useCouponApplicabilityChecker";
+import useCouponApplicabilityChecker from "@/hooks/coupon/useCouponApplicabilityChecker";
 import { totalOrderPriceSelector } from "@/recoil/orderInformation";
 import CouponList from "./components/CouponList";
 

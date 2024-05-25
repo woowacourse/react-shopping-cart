@@ -13,7 +13,7 @@ import {
   HEADER_TITLES,
 } from "@/constants/cart";
 import ProductList from "@/components/cart/ProductList/ProductList";
-import useCartItemsSelectAll from "@/hooks/useCartItemsSelectAll";
+import useCartItemsSelectAll from "@/hooks/cart/useCartItemsSelectAll";
 import { cartItemsState } from "@/recoil/cartItems";
 import CartEmpty from "@/components/cart/CartEmpty/CartEmpty";
 import Button from "@/components/_common/Button/Button";

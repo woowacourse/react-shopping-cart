@@ -1,6 +1,7 @@
 import { useRecoilValue } from "recoil";
-import { checkBuyXgetYSelector } from "./../recoil/coupons";
+import { checkBuyXgetYSelector } from "@/recoil/coupons";
 import { Coupon } from "@/types/coupon";
+import { formatHourToDate } from "@/utils/timeHelper";
 
 const useCouponApplicabilityChecker = () => {
   const checkBuyXgetY = useRecoilValue(checkBuyXgetYSelector);
@@ -17,15 +18,13 @@ const useCouponApplicabilityChecker = () => {
       if (coupon.minimumAmount > price) return false;
     }
 
-    if (coupon.minimumAmount && price) {
-      if (coupon.minimumAmount > price) return false;
-    }
-
     if (coupon.buyQuantity && coupon.getQuantity) {
       const minCartQuantity = coupon.buyQuantity + coupon.getQuantity;
-      console.log("min");
-
       if (!checkBuyXgetY(minCartQuantity)) return false;
+    }
+
+    if (coupon.availableTime && time) {
+      if (!checkAvailableTime(coupon, time)) return false;
     }
 
     //TODO: 나중에 false로 바꾸기
@@ -40,6 +39,19 @@ const useCouponApplicabilityChecker = () => {
     const expiredDate = new Date(coupon.expirationDate).getTime();
     const currentTime = time.getTime();
     if (currentTime > expiredDate) return false;
+    return true;
+  };
+
+  const checkAvailableTime = (coupon: Coupon, time: Date) => {
+    const { start, end } = coupon.availableTime!;
+
+    const startParts = start.split(":").map(Number);
+    const endParts = end.split(":").map(Number);
+
+    const startTime = formatHourToDate(time, startParts);
+    const endTime = formatHourToDate(time, endParts);
+
+    if (time < startTime || time > endTime) return false;
     return true;
   };
 

@@ -3,7 +3,7 @@ import * as S from "./Coupon.style";
 import TextBox from "@/components/_common/TextBox/TextBox";
 import { Coupon } from "@/types/coupon";
 import { formatToWon } from "@/utils/stringHelper";
-import useCoupons from "@/hooks/useCoupons";
+import useCoupons from "@/hooks/coupon/useCoupons";
 
 const CouponItem = ({
   coupon,

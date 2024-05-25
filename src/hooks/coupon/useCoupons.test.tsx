@@ -1,6 +1,6 @@
 import { renderHook, act } from "@testing-library/react";
 import { RecoilRoot } from "recoil";
-import useCoupons from "@/hooks/useCoupons";
+import useCoupons from "@/hooks/coupon/useCoupons";
 import { mockCartItemList } from "@/mocks/cartItemList";
 import { mockCoupons } from "@/mocks/coupons";
 import { couponsState } from "@/recoil/coupons";
