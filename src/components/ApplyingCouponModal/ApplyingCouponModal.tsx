@@ -3,6 +3,7 @@ import * as Styled from './style';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { isApplyingCouponModalOpenState } from '../../recoil/atoms';
 import {
+  couponDiscountAmountSelector,
   couponIdsSelector,
   couponsSelector,
   isAllCouponSelectedSelectorFamily,
@@ -22,6 +23,7 @@ const ApplyingCouponModal = () => {
   );
   const coupons = useRecoilValue(couponsSelector);
   const couponIds = useRecoilValue(couponIdsSelector);
+  const couponDiscountAmount = useRecoilValue(couponDiscountAmountSelector);
 
   const setIsAllCouponSelected = useSetRecoilState(
     isAllCouponSelectedSelectorFamily(couponIds),
@@ -62,7 +64,10 @@ const ApplyingCouponModal = () => {
                   size="large"
                   onClick={() => setIsModalOpen(false)}
                 >
-                  <span>총 6,000원 할인 쿠폰 사용하기</span>
+                  <span>
+                    총 {couponDiscountAmount.toLocaleString('ko-kr')}원 할인
+                    쿠폰 사용하기
+                  </span>
                 </Modal.Button>
               </>
             </Modal.ButtonContainer>
