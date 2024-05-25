@@ -51,16 +51,6 @@ export const shippingFeeSelector = selector({
   },
 });
 
-//전체 금액 계산(hook으로 빼도 될 듯 -> 얘로 무언갈 하지 않음)
-export const totalPriceSelector = selector({
-  key: "totalPriceSelector",
-  get: ({ get }) => {
-    const orderPrice = get(orderPriceSelector);
-    const shippingFee = get(shippingFeeSelector);
-    return orderPrice + shippingFee;
-  },
-});
-
 //전체 수량 계산
 export const totalCountSelector = selector({
   key: "totalCountSelector",

@@ -1,7 +1,8 @@
-import { css } from "@emotion/css";
-import { Button } from "../default";
 import { useRecoilState } from "recoil";
+import { css } from "@emotion/css";
+
 import { shippingCheckedAtom } from "../../recoil/atom/atom";
+import { Button } from "../default";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
 
 const ShippingInfo = () => {
@@ -14,6 +15,7 @@ const ShippingInfo = () => {
   return (
     <div className={shippingInfoCSS}>
       <div className={shippingTextCSS}>배송 정보</div>
+
       <div className={shippingCheckContainerCSS}>
         <Button
           variant={isShippingChecked ? "primary" : "secondary"}
@@ -45,7 +47,6 @@ const shippingCheckContainerCSS = css`
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 20px;
 `;
 
 const allCheckedTestCSS = css`

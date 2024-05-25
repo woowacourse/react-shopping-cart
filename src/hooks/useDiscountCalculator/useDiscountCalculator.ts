@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
-import { Coupon } from "../../types/coupon";
 import { checkedCartItemsSelector, shippingFeeSelector } from "../../recoil/selector/selector";
+import { Coupon } from "../../types/coupon";
 
 export const useDiscountCalculator = () => {
   const checkedCartItems = useRecoilValue(checkedCartItemsSelector);

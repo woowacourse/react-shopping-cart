@@ -24,5 +24,4 @@ const InfoContainer = css`
 const InfoTextCSS = css`
   font: var(--cart-label);
   color: var(--grey-400);
-  text-align: left;
 `;

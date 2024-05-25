@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
-import { Coupon } from "../../types/coupon";
-import { checkedCartItemsSelector, orderPriceSelector, shippingFeeSelector } from "../../recoil/selector/selector";
 import { couponCheckedAtom } from "../../recoil/atom/atom";
+import { checkedCartItemsSelector, orderPriceSelector, shippingFeeSelector } from "../../recoil/selector/selector";
+import { Coupon } from "../../types/coupon";
 
 const useCouponValidation = () => {
   const checkedCartItems = useRecoilValue(checkedCartItemsSelector);
@@ -48,6 +48,7 @@ const useCouponValidation = () => {
       }
     }
 
+    // TODO: 2 상수화
     if (checkedCoupons.length === 2) {
       if (!checkedCoupons.includes(coupon)) {
         return false;

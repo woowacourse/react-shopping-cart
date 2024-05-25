@@ -1,28 +1,28 @@
-import { css } from "@emotion/css";
-import { Splitter } from "../default";
-import OrderItem from "./OrderItem";
 import { useRecoilValue } from "recoil";
+import { css } from "@emotion/css";
+
 import { checkedCartItemsSelector } from "../../recoil/selector/selector";
+import OrderItem from "./OrderItem";
 
 const OrderItems = () => {
   const checkedCartItems = useRecoilValue(checkedCartItemsSelector);
 
   return (
-    <div className={cardItemsCSS}>
-      <div>
-        {checkedCartItems.map((item) => (
-          <div key={item.id}>
-            <Splitter />
-            <OrderItem product={item} />
-          </div>
-        ))}
-      </div>
+    <div className={orderItemsCSS}>
+      {checkedCartItems.map((item) => (
+        <OrderItem
+          key={item.id}
+          product={item}
+        />
+      ))}
     </div>
   );
 };
 
 export default OrderItems;
 
-const cardItemsCSS = css`
-  width: 100%;
+const orderItemsCSS = css`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;

@@ -1,12 +1,13 @@
+import { useRecoilState } from "recoil";
 import { css } from "@emotion/css";
+
+import { couponCheckedAtom } from "../../recoil/atom/atom";
+import useCouponValidation from "../../hooks/useCouponValidation/useCouponValidation";
 import { Coupon } from "../../types/coupon";
-import { Button } from "../default";
-import CheckIcon from "../../assets/CheckIcon.svg?react";
+import { Button, Splitter } from "../default";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { formatDate } from "../../utils/formatDate";
-import useCouponValidation from "../../hooks/useCouponValidation/useCouponValidation";
-import { couponCheckedAtom } from "../../recoil/atom/atom";
-import { useRecoilState } from "recoil";
+import CheckIcon from "../../assets/CheckIcon.svg?react";
 
 interface CouponItemProps {
   coupon: Coupon;
@@ -24,6 +25,8 @@ const CouponItem = ({ coupon }: CouponItemProps) => {
 
   return (
     <div className={ItemCSS}>
+      <Splitter />
+
       <div className={ItemHeaderCSS}>
         <Button
           variant={checkedCoupons.includes(coupon) && isValid ? "primary" : "secondary"}
@@ -35,9 +38,10 @@ const CouponItem = ({ coupon }: CouponItemProps) => {
         </Button>
         <div className={ItemHeaderTextCSS(isValid)}>{coupon.description}</div>
       </div>
+
       <div className={ItemContentCSS(isValid)}>
         <p>만료일: {formatDate(coupon.expirationDate)}</p>
-        <p>{coupon.minimumAmount && `최소 주문 금액: ${formatCurrency(coupon.minimumAmount)}`}</p>
+        {coupon.minimumAmount && <p>최소 주문 금액: {formatCurrency(coupon.minimumAmount)}</p>}
       </div>
     </div>
   );
@@ -49,19 +53,21 @@ const ItemCSS = css`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding-top: 12px;
-  padding-bottom: 20px;
+  min-height: 82px;
 `;
+
 const ItemHeaderCSS = css`
   display: flex;
   align-items: center;
   gap: 8px;
   font: var(--cart-subtitle);
 `;
-const ItemHeaderTextCSS = (isValid) => css`
+
+const ItemHeaderTextCSS = (isValid: boolean) => css`
   opacity: ${isValid ? 1 : "40%"};
 `;
-const ItemContentCSS = (isValid) => css`
+
+const ItemContentCSS = (isValid: boolean) => css`
   display: flex;
   flex-direction: column;
   gap: 4px;

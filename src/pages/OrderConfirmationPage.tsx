@@ -1,26 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { css } from "@emotion/css";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { css } from "@emotion/css";
+
 import { cartItemCheckedIdsAtom, cartItemsAtom, couponUsedAtom } from "../recoil/atom/atom";
 import { totalCountSelector } from "../recoil/selector/selector";
-
-import LeftArrow from "../assets/LeftArrow.svg?react";
 import { CartLayout, Header, Content, Footer } from "../components/layout";
-import { Button, Title } from "../components/default";
 import { CouponModal, OrderItems, PaymentSummary, ShippingInfo } from "../components/orderConfirmationPage";
+import { Button, Title } from "../components/default";
+import LeftArrow from "../assets/LeftArrow.svg?react";
 
 const OrderConfirmationPage = () => {
   const navigate = useNavigate();
   const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
   const cartItemCheckedIds = useRecoilValue(cartItemCheckedIdsAtom);
   const cartTotalCount = useRecoilValue(totalCountSelector);
-  const [isOpen, setIsOpen] = useState(false);
   const [couponUsed, setCouponUsed] = useRecoilState(couponUsedAtom);
-
-  useEffect(() => {
-    setCartItems(cartItems);
-  }, [cartItems, setCartItems]);
+  const [isOpen, setIsOpen] = useState(false);
 
   const description = `총 ${cartItemCheckedIds.length}종류의 상품 ${cartTotalCount}개를 주문합니다.
   최종 결제 금액을 확인해 주세요.`;

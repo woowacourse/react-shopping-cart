@@ -14,5 +14,4 @@ const EmptyCartCSS = css`
   font-size: 16px;
   font-weight: 400;
   line-height: 16px;
-  text-align: center;
 `;

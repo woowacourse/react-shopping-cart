@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { css } from "@emotion/css";
 
 interface HeaderProps {
@@ -18,10 +18,10 @@ const headerCSS = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-sizing: border-box;
-  width: 429px;
+  width: 100%;
   height: 64px;
   padding: 0 24px;
+  box-sizing: border-box;
   background: var(--grey-500);
 
   color: var(--grey-100);

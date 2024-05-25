@@ -20,7 +20,6 @@ export default Title;
 const TitleContainerCSS = css`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: 12px;
 `;
 

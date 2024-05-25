@@ -1,22 +1,23 @@
-import { css } from "@emotion/css";
-import CheckIcon from "../../assets/CheckIcon.svg?react";
-import MinusIcon from "../../assets/MinusIcon.svg?react";
-import PlusIcon from "../../assets/PlusIcon.svg?react";
+import { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { Product } from "../../types/product";
+import { css } from "@emotion/css";
+
 import { patchCartItemQuantity } from "../../api/cartItemApi";
 import { cartItemCheckedIdsAtom } from "../../recoil/atom/atom";
 import { quantitySelectorFamily } from "../../recoil/selector/selector";
+import { Product } from "../../types/product";
+import { Button, Splitter } from "../default";
 import { formatCurrency } from "../../utils/formatCurrency";
-import { Button } from "../default";
-import { useEffect } from "react";
+import CheckIcon from "../../assets/CheckIcon.svg?react";
+import MinusIcon from "../../assets/MinusIcon.svg?react";
+import PlusIcon from "../../assets/PlusIcon.svg?react";
 
-interface CardItemProps {
+interface CartItemProps {
   product: Product;
   handleDelete: () => void;
 }
 
-const CartItem = ({ product, handleDelete }: CardItemProps) => {
+const CartItem = ({ product, handleDelete }: CartItemProps) => {
   const [checkedIds, setCheckedIds] = useRecoilState(cartItemCheckedIdsAtom);
   const [quantity, setQuantity] = useRecoilState(quantitySelectorFamily(product.id));
 
@@ -35,6 +36,8 @@ const CartItem = ({ product, handleDelete }: CardItemProps) => {
 
   return (
     <div className={ItemCSS}>
+      <Splitter />
+
       <div className={ItemHeaderCSS}>
         <Button
           variant={checkedIds.includes(product.id) ? "primary" : "secondary"}
@@ -51,6 +54,7 @@ const CartItem = ({ product, handleDelete }: CardItemProps) => {
           삭제
         </Button>
       </div>
+
       <div className={ItemContentCSS}>
         <img
           src={product.product.imageUrl}
@@ -90,20 +94,18 @@ const ItemCSS = css`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding-top: 12px;
-  padding-bottom: 20px;
 `;
+
 const ItemHeaderCSS = css`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
 `;
+
 const ItemContentCSS = css`
   display: flex;
-  flex-direction: row;
-  column-gap: 24px;
   align-items: center;
+  gap: 24px;
 `;
 
 const ItemImageCSS = css`
@@ -111,32 +113,30 @@ const ItemImageCSS = css`
   height: 112px;
   border-radius: 8px;
 `;
+
 const ItemInfoWithCountCSS = css`
   display: flex;
   flex-direction: column;
-  row-gap: 24px;
+  gap: 19px;
 `;
+
 const ItemInfoCSS = css`
   display: flex;
   flex-direction: column;
-  row-gap: 4px;
+  gap: 4px;
 `;
-
 const ItemNameCSS = css`
   font: var(--cart-label);
   color: var(--grey-400);
-  text-align: left;
 `;
 const ItemPriceCSS = css`
   font: var(--cart-title);
-  text-align: left;
 `;
+
 const ItemCountCSS = css`
   display: flex;
-  column-gap: 8px;
-  justify-content: flex-start;
   align-items: center;
+  gap: 8px;
   font: var(--cart-label);
   color: var(--grey-400);
-  text-align: center;
 `;

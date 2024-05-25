@@ -1,11 +1,11 @@
-import { css } from "@emotion/css";
 import { useRecoilValue } from "recoil";
-import { orderPriceSelector, shippingFeeSelector, totalPriceSelector } from "../../recoil/selector/selector";
-import { formatCurrency } from "../../utils/formatCurrency";
+import { css } from "@emotion/css";
 
-import { Information, LabelValue, Splitter } from "../default";
-import { useCartCalculator } from "../../hooks/useCartCalculator/useCartCalculator";
 import { couponUsedAtom } from "../../recoil/atom/atom";
+import { orderPriceSelector, shippingFeeSelector } from "../../recoil/selector/selector";
+import { useCartCalculator } from "../../hooks/useCartCalculator/useCartCalculator";
+import { Information, LabelValue, Splitter } from "../default";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 const PaymentSummary = () => {
   const orderPrice = useRecoilValue(orderPriceSelector);

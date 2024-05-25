@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
-import { useDiscountCalculator } from "../useDiscountCalculator/useDiscountCalculator";
-import { cartItemsAtom, couponUsedAtom, couponsAtom } from "../../recoil/atom/atom";
+import { couponUsedAtom } from "../../recoil/atom/atom";
 import { orderPriceSelector, shippingFeeSelector } from "../../recoil/selector/selector";
+import { useDiscountCalculator } from "../useDiscountCalculator/useDiscountCalculator";
 import useSortedCheckedCoupons from "../useSortCheckedCoupons/useSortCheckedCoupons";
 
 export const useCartCalculator = () => {

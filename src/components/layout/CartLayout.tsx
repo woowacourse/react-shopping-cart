@@ -1,5 +1,5 @@
+import { ReactNode } from "react";
 import { css } from "@emotion/css";
-import React, { ReactNode } from "react";
 
 interface CartLayoutProps {
   children: ReactNode;

@@ -1,7 +1,8 @@
-import { cartItemsAtom } from "../atom/atom";
+import { act } from "react";
 import { RecoilRoot, useRecoilState } from "recoil";
 import { renderHook, waitFor } from "@testing-library/react";
-import { act } from "react";
+
+import { cartItemsAtom } from "../atom/atom";
 import { quantitySelector } from "./selector";
 import { mockCartItems } from "../../mocks/cartItems";
 

@@ -1,10 +1,11 @@
-import { cartItemCheckedIdsAtom, cartItemsAtom } from "../atom/atom";
+import { act } from "react";
 import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
 import { renderHook, waitFor } from "@testing-library/react";
-import { act } from "react";
-import { orderPriceSelector, shippingFeeSelector, totalPriceSelector } from "./selector";
-import { formatCurrency } from "../../utils/formatCurrency";
+
+import { cartItemCheckedIdsAtom, cartItemsAtom } from "../atom/atom";
+import { orderPriceSelector, shippingFeeSelector } from "./selector";
 import { ORDER_PRICE_THRESHOLD, SHIPPING_FEE } from "../../constants/setting";
+import { formatCurrency } from "../../utils/formatCurrency";
 import { mockCartItems, mockCheckedIds } from "../../mocks/cartItems";
 
 jest.mock("../../api/cartItemApi", () => ({
@@ -21,8 +22,7 @@ describe("orderPriceSelector 테스트", () => {
         const [checkedIds, setCheckedIds] = useRecoilState(cartItemCheckedIdsAtom);
         const orderPrice = useRecoilValue(orderPriceSelector);
         const shippingFee = useRecoilValue(shippingFeeSelector);
-        const totalPrice = useRecoilValue(totalPriceSelector);
-        return { cartItems, setCartItems, checkedIds, setCheckedIds, orderPrice, shippingFee, totalPrice };
+        return { cartItems, setCartItems, checkedIds, setCheckedIds, orderPrice, shippingFee };
       },
       {
         wrapper: RecoilRoot,
@@ -57,6 +57,7 @@ describe("orderPriceSelector 테스트", () => {
       expect(result.current.shippingFee).toEqual(3000);
     });
 
+    //TODO: 상수화
     it("주문 금액이 100,000원이 넘으면 배달비가 0원이다.", () => {
       act(() => {
         result.current.setCartItems(mockCartItems);
@@ -64,26 +65,6 @@ describe("orderPriceSelector 테스트", () => {
       });
 
       expect(result.current.shippingFee).toEqual(0);
-    });
-  });
-
-  describe("totalPriceSelector 테스트", () => {
-    it("배달비가 0원일 때, 주문 금액과 배달비를 합한 전체 금액을 계산한다.", () => {
-      act(() => {
-        result.current.setCartItems(mockCartItems);
-        result.current.setCheckedIds(mockCheckedIds);
-      });
-
-      expect(result.current.totalPrice).toEqual(145000);
-    });
-
-    it("배달비가 3,000원일 때, 주문 금액과 배달비를 합한 전체 금액을 계산한다.", () => {
-      act(() => {
-        result.current.setCartItems(mockCartItems);
-        result.current.setCheckedIds([1]);
-      });
-
-      expect(result.current.totalPrice).toEqual(73000);
     });
   });
 });

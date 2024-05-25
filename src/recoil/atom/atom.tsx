@@ -1,7 +1,7 @@
 import { atom, atomFamily } from "recoil";
 import { recoilPersist } from "recoil-persist";
-import { Product } from "../../types/product";
 import { fetchCartItemsSelector, fetchCouponsSelector } from "../selector/apiSelector";
+import { Product } from "../../types/product";
 import { Coupon } from "../../types/coupon";
 
 const { persistAtom } = recoilPersist();

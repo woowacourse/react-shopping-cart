@@ -1,12 +1,12 @@
+import { useRecoilState } from "recoil";
 import { css } from "@emotion/css";
-import CheckIcon from "../../assets/CheckIcon.svg?react";
 
 import { deleteCartItem } from "../../api/cartItemApi";
-import { Button, Splitter } from "../default";
-import { useRecoilState } from "recoil";
 import { cartItemCheckedIdsAtom, cartItemsAtom } from "../../recoil/atom/atom";
 import { useAllChecked } from "../../hooks/useAllChecked/useAllChecked";
 import { CartItem } from "./index";
+import { Button } from "../default";
+import CheckIcon from "../../assets/CheckIcon.svg?react";
 
 const CartItems = () => {
   const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
@@ -24,7 +24,7 @@ const CartItems = () => {
   };
 
   return (
-    <div className={cardItemCSS}>
+    <div className={cartItemCSS}>
       <div className={allCheckContainerCSS}>
         <Button
           variant={isAllChecked ? "primary" : "secondary"}
@@ -35,15 +35,14 @@ const CartItems = () => {
         </Button>
         <span className={allCheckedTestCSS}>전체 선택</span>
       </div>
-      <div>
+
+      <div className={cartItemsCSS}>
         {cartItems.map((item) => (
-          <div key={item.id}>
-            <Splitter />
-            <CartItem
-              product={item}
-              handleDelete={() => handleDelete(item.id)}
-            />
-          </div>
+          <CartItem
+            key={item.id}
+            product={item}
+            handleDelete={() => handleDelete(item.id)}
+          />
         ))}
       </div>
     </div>
@@ -52,18 +51,25 @@ const CartItems = () => {
 
 export default CartItems;
 
-const cardItemCSS = css`
-  width: 100%;
+const cartItemCSS = css`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 
 const allCheckContainerCSS = css`
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 20px;
 `;
 
 const allCheckedTestCSS = css`
   font: var(--cart-label);
   color: var(--grey-400);
+`;
+
+const cartItemsCSS = css`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;

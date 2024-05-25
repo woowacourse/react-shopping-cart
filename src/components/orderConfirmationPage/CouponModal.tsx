@@ -1,12 +1,12 @@
+import { useRecoilState } from "recoil";
 import { css } from "@emotion/css";
 import { Modal } from "chlwlstlf-modal";
 
-import { useRecoilState, useRecoilValue } from "recoil";
-import { couponUsedAtom, couponsAtom } from "../../recoil/atom/atom";
-import { Button, Information, Splitter } from "../default";
+import { couponsAtom } from "../../recoil/atom/atom";
+import { useCartCalculator } from "../../hooks/useCartCalculator/useCartCalculator";
+import { Button, Information } from "../default";
 import CouponItem from "./CouponItem";
 import { formatCurrency } from "../../utils/formatCurrency";
-import { useCartCalculator } from "../../hooks/useCartCalculator/useCartCalculator";
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -35,7 +35,6 @@ const CouponModal = ({ isOpen, onClose, onConfirm }: CouponModalProps) => {
         <div className={couponItemsCSS}>
           {coupons.map((coupon, index) => (
             <div key={index}>
-              <Splitter />
               <CouponItem coupon={coupon} />
             </div>
           ))}
@@ -51,5 +50,8 @@ const CouponModal = ({ isOpen, onClose, onConfirm }: CouponModalProps) => {
 export default CouponModal;
 
 const couponItemsCSS = css`
-  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 16px;
 `;

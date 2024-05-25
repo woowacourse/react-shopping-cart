@@ -1,17 +1,20 @@
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import { css } from "@emotion/css";
-import { useRecoilState, useRecoilValue } from "recoil";
+
 import { cartItemCheckedIdsAtom } from "../recoil/atom/atom";
-import { totalCountSelector, totalPriceSelector } from "../recoil/selector/selector";
+import { totalCountSelector } from "../recoil/selector/selector";
+import { useCartCalculator } from "../hooks/useCartCalculator/useCartCalculator";
+import { CartLayout, Header, Content, Footer } from "../components/layout";
 import { formatCurrency } from "../utils/formatCurrency";
 import LeftArrow from "../assets/LeftArrow.svg?react";
-import { CartLayout, Header, Content, Footer } from "../components/layout";
 
 const PaymentConfirmationPage = () => {
   const navigate = useNavigate();
   const cartItemCheckedIds = useRecoilValue(cartItemCheckedIdsAtom);
-  const cartTotalPrice = useRecoilValue(totalPriceSelector);
   const cartTotalCount = useRecoilValue(totalCountSelector);
+
+  const { calculateTotalWithCoupon } = useCartCalculator();
 
   const text = `총 ${cartItemCheckedIds.length}종류의 상품 ${cartTotalCount}개를 주문합니다.
   최종 결제 금액을 확인해 주세요.`;
@@ -33,7 +36,7 @@ const PaymentConfirmationPage = () => {
           <div className={headerCSS}>주문 확인</div>
           <div className={textCSS}>{text}</div>
           <div className={totalPriceTitleCSS}> 총 결제 금액</div>
-          <div className={totalPriceCSS}> {formatCurrency(cartTotalPrice)}</div>
+          <div className={totalPriceCSS}> {formatCurrency(calculateTotalWithCoupon())}</div>
         </div>
       </Content>
       <Footer

@@ -1,7 +1,8 @@
-import { cartItemCheckedIdsAtom, cartItemsAtom } from "../atom/atom";
+import { act } from "react";
 import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
 import { renderHook, waitFor } from "@testing-library/react";
-import { act } from "react";
+
+import { cartItemCheckedIdsAtom, cartItemsAtom } from "../atom/atom";
 import { totalCountSelector } from "./selector";
 import { mockCartItems, mockCheckedIds } from "../../mocks/cartItems";
 
