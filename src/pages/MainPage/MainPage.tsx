@@ -1,12 +1,6 @@
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import {
-  CartDescription,
-  CartList,
-  Header,
-  Footer,
-  CartPrice,
-} from "../../components";
+import { CartDescription, CartList, Header, Footer, CartPrice } from "../../components";
 import { AppLayout, CartLayout } from "../../layouts";
 import { Title } from "./style";
 import { Tip } from "../../components/common";

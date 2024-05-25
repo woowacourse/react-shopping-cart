@@ -1,15 +1,31 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 import { getCartItems } from "../../api/cart";
 import { getCoupons } from "../../api/coupon";
 
+export const cartItems = selector({
+  key: "cartItems",
+  get: async () => {
+    const cartItems = getCartItems();
+    return cartItems;
+  },
+});
+
 export const cartItemsState = atom({
   key: "cartItemsState",
-  default: getCartItems(),
+  default: cartItems,
+});
+
+export const coupons = selector({
+  key: "coupons",
+  get: async () => {
+    const coupons = getCoupons();
+    return coupons;
+  },
 });
 
 export const couponsState = atom({
   key: "couponsState",
-  default: getCoupons(),
+  default: coupons,
 });
 
 export const selectedListState = atom<number[]>({
