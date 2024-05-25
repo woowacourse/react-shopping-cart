@@ -4,6 +4,7 @@ import {
   cartItemsState,
   isCartItemSelectedState,
   isCountrysideSelectedState,
+  isCouponSelectedState,
 } from './atoms';
 
 import { CartItemType, CouponType } from '../type';
@@ -30,6 +31,15 @@ export const selectedCartItemsSelector = selector<CartItemType[]>({
   get: ({ get }) => {
     return get(cartItemsState).filter((cartItem) =>
       get(isCartItemSelectedState(cartItem.id)),
+    );
+  },
+});
+
+export const applicableBOGOCartItemsSelector = selector<CartItemType[]>({
+  key: 'applicableBOGOCartItems',
+  get: ({ get }) => {
+    return get(selectedCartItemsSelector).filter(
+      (cartItem) => cartItem.quantity >= 3,
     );
   },
 });
@@ -144,4 +154,41 @@ export const couponsSelector = selector<CouponType[]>({
   get: async () => {
     return await fetchGetCoupons();
   },
+});
+
+export const couponIdsSelector = selector<number[]>({
+  key: 'selectedCouponIds',
+  get: ({ get }) => {
+    return get(couponsSelector).map((coupon) => coupon.id);
+  },
+});
+
+export const selectedCouponsSelector = selector<CouponType[]>({
+  key: 'selectedCoupons',
+  get: ({ get }) => {
+    return get(couponsSelector).filter((coupon) =>
+      get(isCouponSelectedState(coupon.id)),
+    );
+  },
+});
+
+export const isAllCouponSelectedSelectorFamily = selectorFamily<
+  boolean,
+  number[]
+>({
+  key: 'selectedAllCoupon',
+  get:
+    (couponIds) =>
+    ({ get }) => {
+      return couponIds.every((couponId) =>
+        get(isCouponSelectedState(couponId)),
+      );
+    },
+  set:
+    (couponIds) =>
+    ({ set }, newValue) => {
+      couponIds.forEach((couponId) => {
+        set(isCouponSelectedState(couponId), newValue);
+      });
+    },
 });
