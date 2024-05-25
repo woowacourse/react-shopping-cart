@@ -13,7 +13,7 @@ export const Title = styled.h3`
 export const SurchargeShippingFee = styled.div`
   display: flex;
   margin-top: 21px;
-  margin-bottom: 32px;
+  margin-bottom: 16px;
 `;
 
 export const SurchargeShippingInfo = styled.p`
