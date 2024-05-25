@@ -4,7 +4,7 @@ import SelectCouponModal from './SelectCouponModal';
 import { useState } from 'react';
 import Button from '../common/Button/Button';
 import { RecoilRoot } from 'recoil';
-import { couponListState } from '../../recoil/coupon/couponListAtom';
+import { couponListState } from '../../recoil/coupon/atom';
 
 const MOCK_DATA: Coupon[] = [
   {

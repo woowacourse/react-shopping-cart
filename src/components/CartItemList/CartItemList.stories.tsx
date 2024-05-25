@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import CartItemList from './CartItemList';
 import { RecoilRoot } from 'recoil';
-import { cartItemListState } from '../../recoil/cartItemList/cartItemListSelector';
+import { cartItemListState } from '../../recoil/cartItem/atom';
 
 const MOCK_DATA = [
   {

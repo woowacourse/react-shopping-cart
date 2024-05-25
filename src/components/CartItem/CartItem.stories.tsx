@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import CartItem from './CartItem';
 import { RecoilRoot } from 'recoil';
-import { cartItemListState } from '../../recoil/cartItemList/cartItemListSelector';
+import { cartItemListState } from '../../recoil/cartItem/atom';
 
 const MOCK_DATA = {
   id: 11,
@@ -11,7 +11,6 @@ const MOCK_DATA = {
   imageUrl:
     'https://image.msscdn.net/images/goods_img/20221031/2909092/2909092_6_500.jpg',
 };
-
 const meta = {
   title: 'Components/CartItem',
   component: CartItem,

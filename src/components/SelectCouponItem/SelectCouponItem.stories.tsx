@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import SelectCouponItem from './SelectCouponItem';
-import { couponListState } from '../../recoil/coupon/couponListAtom';
+import { couponListState } from '../../recoil/coupon/atom';
 import { RecoilRoot } from 'recoil';
 
-const MOCK_DATA: Coupon[] = {
+const MOCK_DATA: Coupon = {
   id: 1,
   code: 'FIXED5000',
   description: '5,000원 할인 쿠폰',
   expirationDate: '2024-11-30',
   discount: 5000,
-  minimumAmount: 100000,
+  minimumAmount: 0,
   discountType: 'fixed' as DiscountType,
 };
 

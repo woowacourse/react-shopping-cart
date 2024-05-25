@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import PriceTable from './PriceTable';
 import { RecoilRoot } from 'recoil';
-import { cartItemListState } from '../../recoil/cartItemList/cartItemListSelector';
-import { cartItemSelectedIdListAtom } from '../../recoil/cartItem/cartItemAtom';
+import { cartItemListState } from '../../recoil/cartItem/atom';
+import { selectedCartItemIdListState } from '../../recoil/cartItem/atom';
 
 const MOCK_DATA = [
   {
@@ -64,7 +64,7 @@ export const Playground: Story = {
         initializeState={({ set }) => {
           set(cartItemListState, MOCK_DATA);
           set(
-            cartItemSelectedIdListAtom,
+            selectedCartItemIdListState,
             MOCK_DATA.map((item) => item.id),
           );
         }}
