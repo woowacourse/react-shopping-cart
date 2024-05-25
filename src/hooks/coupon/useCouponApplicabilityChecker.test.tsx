@@ -1,8 +1,8 @@
-import useCouponApplicabilityChecker from "./useCouponApplicabilityChecker";
 import { mockCartItemList } from "@/mocks/cartItemList";
 import { mockCoupons } from "@/mocks/coupons";
 import { renderHook, waitFor } from "@testing-library/react";
 import { RecoilRoot } from "recoil";
+import useCouponApplicabilityChecker from "./useCouponApplicabilityChecker";
 
 jest.mock("../auth/apis/cart", () => ({
   getCartItems: jest.fn().mockImplementation(() => mockCartItemList),

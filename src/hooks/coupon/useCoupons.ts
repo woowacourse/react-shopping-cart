@@ -9,8 +9,7 @@ const useCoupons = () => {
     if (isOverMaxCouponCount()) {
       replaceOldToNewCoupon();
     }
-    // const couponWithPriority = addCouponPriority(newCoupon);
-    setCouponList((prev) => [...prev, { ...newCoupon }]);
+    setCouponList((prev) => [...prev, newCoupon]);
   };
 
   const unapplyCoupon = (couponId: number) => {
@@ -34,21 +33,6 @@ const useCoupons = () => {
     oldCouponList.shift();
     setCouponList(oldCouponList);
   };
-
-  // const addCouponPriority = (coupon: Coupon) => {
-  //   if (coupon.discountType === "buyXgetY") {
-  //     return { ...coupon, priority: 1 };
-  //   }
-  //   if (coupon.discountType === "fixed") {
-  //     return { ...coupon, priority: 2 };
-  //   }
-  //   if (coupon.discountType === "percentage") {
-  //     return { ...coupon, priority: 3 };
-  //   }
-  //   if (coupon.discountType === "freeShipping") {
-  //     return { ...coupon, priority: 4 };
-  //   }
-  // };
 
   return { applyCoupon, unapplyCoupon, isCouponApplied, couponList };
 };

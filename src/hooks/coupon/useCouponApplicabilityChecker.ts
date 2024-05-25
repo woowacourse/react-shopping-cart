@@ -5,24 +5,30 @@ import { formatHourToDate } from "@/utils/timeHelper";
 
 const useCouponApplicabilityChecker = () => {
   const checkBuyXgetY = useRecoilValue(checkBuyXgetYSelector);
-
-  const isCouponApplicable = (coupon: Coupon, price?: number, time?: Date) => {
+  const isCouponApplicable = ({
+    coupon,
+    price,
+    time = new Date(),
+  }: {
+    coupon: Coupon;
+    price?: number;
+    time?: Date;
+  }) => {
     if (coupon.minimumAmount && price) {
       if (coupon.minimumAmount > price) return false;
     }
 
     if (coupon.buyQuantity && coupon.getQuantity) {
-      const minCartQuantity = coupon.buyQuantity + coupon.getQuantity;
-      if (!checkBuyXgetY(minCartQuantity)) return false;
-    }
-
-    if (coupon.availableTime && time) {
-      if (!checkAvailableTime(coupon, time)) return false;
+      if (!checkBuyXgetY(coupon.id)) return false;
     }
 
     //TODO: 나중에 false로 바꾸기
     if (coupon.expirationDate && time) {
-      if (!checkExpiration(coupon, time)) return true;
+      if (!checkExpiration(coupon, time)) return false;
+    }
+
+    if (coupon.availableTime && time) {
+      if (!checkAvailableTime(coupon, time)) return true;
     }
 
     return true;
