@@ -1,33 +1,21 @@
 import { Coupon } from '@appTypes/orderConfirm';
-import { PRICE } from '@constants/shippingCart';
 import { useOrderCosts } from '@hooks/shoppingCart';
-import { createDateTime, isExpiredDate } from '@utils/date';
+import { selectedItemsSelector } from '@recoil/shoppingCart';
+import { isExpiredDate } from '@utils/date';
+import { COUPON_VALIDATION_MAP } from '@validation/coupon/coupon';
+import { useRecoilValue } from 'recoil';
 
 const useConfirmCouponApplication = () => {
-  const { beforeDiscountTotalPrice, shippingPrice } = useOrderCosts();
+  const { beforeDiscountTotalPrice: totalPrice, shippingPrice } = useOrderCosts();
 
-  const isApplicabilityCoupon = (coupon: Coupon, now: Date = new Date()) => {
-    /* 만료일 확인 */
-    if (!isExpiredDate(coupon.expirationDate)) return false;
+  const selectedCartItems = useRecoilValue(selectedItemsSelector);
 
-    /* 최소 주문 조건 확인 */
-    if (coupon?.minimumAmount && beforeDiscountTotalPrice < coupon.minimumAmount) {
-      return false;
-    }
+  const isApplicabilityCoupon = (coupon: Coupon) => {
+    if (isExpiredDate(coupon.expirationDate)) return false;
 
-    /* 무료 배송 가능 여부 확인 */
-    if (coupon.discountType === 'freeShipping' && shippingPrice === PRICE.shippingFee.free) return false;
+    const isValidCoupon = COUPON_VALIDATION_MAP[coupon.discountType];
 
-    /* 쿠폰 이용 시간 여부 확인  */
-    if (coupon?.availableTime) {
-      const startTime = createDateTime(coupon.availableTime.start);
-
-      const endTime = createDateTime(coupon.availableTime.end);
-
-      if (now < startTime || now > endTime) return false;
-    }
-
-    return true;
+    return isValidCoupon({ coupon, totalPrice, shippingPrice, selectedCartItems });
   };
 
   return isApplicabilityCoupon;

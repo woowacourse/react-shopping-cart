@@ -5,7 +5,7 @@ export const isExpiredDate = (dateString: string) => {
   const today = new Date();
   const compareDate = new Date(dateString);
 
-  return compareDate < today;
+  return today > compareDate;
 };
 
 export const createDateTime = (dateString: string, formatType = ':') => {
@@ -13,5 +13,5 @@ export const createDateTime = (dateString: string, formatType = ':') => {
 
   const now = new Date();
 
-  return new Date(now.getFullYear(), now.getMonth(), now.getDate(), hour, minute, second);
+  return new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), hour, minute, second));
 };

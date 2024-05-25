@@ -1,4 +1,4 @@
-import ShoppingCartFetcher, { fetchCartItems } from '@apis/shoppingCart';
+import ShoppingCartFetcher from '@apis/shoppingCart';
 import { CartItem } from '@appTypes/shoppingCart';
 import { PRICE } from '@constants/shippingCart';
 import { isInaccessibleAreaAtom, totalDiscountPriceSelector } from '@recoil/orderConfirm';
