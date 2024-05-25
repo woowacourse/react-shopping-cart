@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useRecoilValue, useResetRecoilState } from "recoil";
@@ -20,7 +20,7 @@ import TitleSet from "@/components/_common/TitleSet/TitleSet";
 import Button from "@/components/_common/Button/Button";
 
 import ShippingInfoCheckBox from "./components/ShippingInfoCheckBox";
-import CartItemCouponModal from "@/components/CartItemCouponModal/CartItemCouponModal";
+import CartItemCouponModal from "../../components/CartItemCouponModal/CartItemCouponModal";
 import BottomFixedButton from "@/components/BottomFixedButton/BottomFixedButton";
 import PriceSection from "./components/PriceSection";
 import SelectedCartItemList from "./components/SelectedCartItemList";
@@ -59,7 +59,12 @@ const OrderConfirmPage = () => {
 
   return (
     <>
-      <CartItemCouponModal isModalOpen={isModalOpen} closeModal={closeModal} />
+      <Suspense fallback={<div>loading...</div>}>
+        <CartItemCouponModal
+          isModalOpen={isModalOpen}
+          closeModal={closeModal}
+        />
+      </Suspense>
 
       <Header>
         <BackButton />
