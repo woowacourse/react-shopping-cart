@@ -1,19 +1,19 @@
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { specialZoneCheckState } from '../../recoil/atoms/atoms';
-
-import { CartHeaderStyle, SubTitle, Title } from '../CartHeader/CartHeader.style';
-import { ProductListStyle } from '../ProductList/ProductList.style';
-import ProductTotalPriceList from '../ProductTotalPriceList/ProductTotalPriceList';
-import { CartStyle } from '../Cart/Cart.style';
-import { checkedCartItems } from '../../recoil/selectors/selectors';
-import Button from '../Button/Button';
-import CheckBox from '../CheckBox/CheckBox';
-import ProductItem from '../ProductItem/ProductItem';
-
 import 'soosoo-react-modal-component/dist/style.css';
 import { Modal } from 'soosoo-react-modal-component';
+
+import { specialZoneCheckState, totalDiscountAmount } from '../../recoil/atoms/atoms';
+import { checkedCartItems } from '../../recoil/selectors/selectors';
+import { useRecoilState, useRecoilValue } from 'recoil';
+
+import Button from '../Button/Button';
+import { CartHeaderStyle, SubTitle, Title } from '../CartHeader/CartHeader.style';
+import { CartStyle } from '../Cart/Cart.style';
+import CheckBox from '../CheckBox/CheckBox';
 import { CheckBoxGroup } from './OrderConfirmCart.style';
 import CouponModal from '../Modal/CouponModal/CouponModal';
+import ProductItem from '../ProductItem/ProductItem';
+import ProductTotalPriceList from '../ProductTotalPriceList/ProductTotalPriceList';
+import { ProductListStyle } from '../ProductList/ProductList.style';
 import { useState } from 'react';
 
 export default function OrderConfirmCart() {
@@ -22,12 +22,13 @@ export default function OrderConfirmCart() {
   const orderProduct = useRecoilValue(checkedCartItems);
   const cartTotalCount = orderProduct.reduce((acc, cartItem) => acc + cartItem.quantity, 0);
   const [isSpecialZoneCheck, setIsSpecialZoneCheck] = useRecoilState(specialZoneCheckState);
+  const totalDiscount = useRecoilValue(totalDiscountAmount);
 
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const modalFooterButtons = [
     {
-      content: '총 6,000원 할인 쿠폰 사용하기',
+      content: `총 ${totalDiscount.toLocaleString()}원 할인 쿠폰 사용하기`,
       onClick: () => setIsOpenModal(false),
       className: 'confirmButton',
     },
