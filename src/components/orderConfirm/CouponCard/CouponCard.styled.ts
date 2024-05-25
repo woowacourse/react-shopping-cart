@@ -7,7 +7,7 @@ export const CouponCard = styled.div<{ $isDisabled: boolean }>`
   padding: 12px 0;
 `;
 
-export const CouponName = styled.h4`
+export const CouponName = styled.p`
   font-size: 16px;
   font-weight: 700;
   line-height: 24px;

@@ -19,7 +19,7 @@ export const PriceRow = styled.div`
   width: 100%;
 `;
 
-export const PriceLabel = styled.h4`
+export const PriceLabel = styled.span`
   display: inline-block;
   font-size: 16px;
   font-weight: 700;

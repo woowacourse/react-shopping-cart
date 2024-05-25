@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
-export const ItemName = styled.span`
+export const ItemName = styled.p`
   color: rgba(10, 13, 19, 1);
   font-weight: 500;
   font-size: 12px;
   line-height: 15px;
 `;
 
-export const ItemPrice = styled.span`
+export const ItemPrice = styled.p`
   color: rgba(0, 0, 0, 1);
   font-weight: 700;
   font-size: 24px;

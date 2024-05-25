@@ -12,7 +12,7 @@ const Checkbox = ({ checked, ...props }: CheckboxProps) => {
     <Styled.Checkbox $checked={checked}>
       <Styled.CheckboxInput type="checkbox" {...props}></Styled.CheckboxInput>
       <Styled.CheckIconWrapper>
-        <Styled.CheckIcon src={checked ? CheckIcon : NoneCheckIcon} alt="check icon" />
+        <Styled.CheckIcon src={checked ? CheckIcon : NoneCheckIcon} alt="체크 박스 체크 아이콘" />
       </Styled.CheckIconWrapper>
     </Styled.Checkbox>
   );
