@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { COLOR_PALETTE } from "../../../colorPalette";
 
 export const CartItemDetailControlsStyle = css({
   display: "flex",
@@ -17,6 +18,7 @@ export const CartItemImageStyle = css({
   width: "112px",
   height: "112px",
   borderRadius: "8px",
+  border: `1px solid ${COLOR_PALETTE.lightGrey}`,
 });
 
 export const CartItemInfoStyle = css({
