@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Await, Link, useLoaderData } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
@@ -19,7 +19,6 @@ function ShoppingCartPage() {
   const initialValue = useLoaderData() as CartItem[];
 
   const [cartItemList, setCartItemList] = useState<CartItem[]>(initialValue);
-
   const [selectedItemList, setSelectedItemList] = useRecoilState(selectedCartItemListState);
 
   const updateCartItemList = async () => {
@@ -29,6 +28,15 @@ function ShoppingCartPage() {
     const newSelectedItemList = newCartItemList.filter((el) => selectedItemList.some((item) => el.id === item.id));
     setSelectedItemList(newSelectedItemList);
   };
+
+  useEffect(() => {
+    const filteredSelectedItemList = selectedItemList.filter((selectedItem) =>
+      cartItemList.some((cartItem) => selectedItem.id === cartItem.id),
+    );
+    if (filteredSelectedItemList.length !== selectedItemList.length) {
+      setSelectedItemList(filteredSelectedItemList);
+    }
+  }, [cartItemList, selectedItemList, setSelectedItemList]);
 
   const hasCartItemList = cartItemList.length !== 0;
   const hasSelectedCartItemList = selectedItemList.length !== 0;

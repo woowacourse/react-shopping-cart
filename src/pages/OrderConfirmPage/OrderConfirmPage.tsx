@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link, Navigate, useLoaderData, useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { createOrder } from '../../apis';
 import ShowModalButton from '../../components/Button/ShowModalButton/ShowModalButton';
@@ -24,7 +24,7 @@ import type { Coupon } from '../../types/Coupon.type';
 function OrderConfirmPage() {
   const couponList = useLoaderData() as Coupon[];
 
-  const [selectedItemList, setSelectedItemList] = useRecoilState(selectedCartItemListState);
+  const selectedItemList = useRecoilValue(selectedCartItemListState);
 
   const setSelectedCouponList = useSetRecoilState(selectedCouponListState);
 
@@ -59,7 +59,6 @@ function OrderConfirmPage() {
     } catch (error) {
       navigate('/error', { state: { errorType: 'CREATE_ORDER' } });
     }
-    setSelectedItemList([]);
     window.localStorage.removeItem('selectedCartItemListState');
   };
 
