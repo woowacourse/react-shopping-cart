@@ -11,7 +11,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "hash-modal": "^0.0.13",
+    "hash-modal": "^0.1.6",
     "identity-obj-proxy": "^3.0.0",
     "jest-svg-transformer": "^1.0.0",
     "react": "^18.2.0",
