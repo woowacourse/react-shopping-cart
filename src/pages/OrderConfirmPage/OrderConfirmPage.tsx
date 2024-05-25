@@ -24,6 +24,7 @@ import {CartItem} from "@/types/cart";
 import {CAPTION} from "@/constants/titleAndCaption.ts";
 import {COUPON_ORDER_MESSAGE} from "@/constants/couponAndOrder.ts";
 import {SHIPPING_MESSSAGES} from "@/constants/shippingInfo.ts";
+import {postOrder} from "@/auth/apis/order.ts";
 
 const OrderConfirmPage = ({
                               selectedCartItems,
@@ -31,7 +32,6 @@ const OrderConfirmPage = ({
     selectedCartItems: CartItem[];
 }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-
     const onCloseModal = () => {
         setIsModalOpen(false);
     };
@@ -52,10 +52,11 @@ const OrderConfirmPage = ({
             : setShippingFeeType("remoteAreaShippingFee");
     };
 
-    const onMovePaymentConfirmPage = () => {
+    const onMovePaymentConfirmPage = async () => {
+        await postOrder(selectedItemsId);
         navigate(PAGE_URL.paymentConfirm);
     };
-
+    
     return (
         <>
             <S.Wrapper>

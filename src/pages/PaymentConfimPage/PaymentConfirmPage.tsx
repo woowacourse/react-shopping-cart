@@ -14,6 +14,7 @@ import {shippingFeeSelector} from "@/recoil/shippingFeeType";
 import {SHIPPING_FEE} from "@/constants/shippingInfo.ts";
 import {COUPON_ORDER_MESSAGE} from "@/constants/couponAndOrder.ts";
 import {CAPTION} from "@/constants/titleAndCaption.ts";
+import MainLayout from "@/components/layout/MainLayout.tsx";
 
 const PaymentConfirmPage = () => {
     const navigate = useNavigate();
@@ -30,31 +31,34 @@ const PaymentConfirmPage = () => {
     };
 
     return (
-        <S.FlexWrapper>
-            <TextBox type="xLarge" text={CAPTION.payConfirm}/>
-            <>
-                <TextBox
-                    type="xSmall"
-                    text={CART_PAGE_MESSAGES.orderInfo(
-                        selectedItemsId.length,
-                        totalItemsCount
-                    )}
-                />
-                <TextBox type="xSmall" text={COUPON_ORDER_MESSAGE.askOrderConfirm}/>
-            </>
-            <S.ButtonText>{CAPTION.totalPaymentAmount}</S.ButtonText>
-            <TextBox type="xLarge" text={formatToWon(totalPrice)}/>
-            <Button
-                position="bottom"
-                size="large"
-                width="full"
-                theme="dark"
-                disabled
-                onClick={onMoveCartPage}
-            >
-                <S.ButtonText>{CAPTION.payConfirm}</S.ButtonText>
-            </Button>
-        </S.FlexWrapper>
+        <MainLayout>
+            <MainLayout.TitleHeader text={''}/>
+            <MainLayout.Body>
+                <S.FlexWrapper>
+                    <TextBox type="xLarge" text={CAPTION.payConfirm}/>
+                    <>
+                        <TextBox
+                            type="xSmall"
+                            text={CART_PAGE_MESSAGES.orderInfo(
+                                selectedItemsId.length,
+                                totalItemsCount
+                            )}
+                        />
+                        <TextBox type="xSmall" text={COUPON_ORDER_MESSAGE.askOrderConfirm}/>
+                    </>
+                    <S.ButtonText>{CAPTION.totalPaymentAmount}</S.ButtonText>
+                    <TextBox type="xLarge" text={formatToWon(totalPrice)}/>
+                    <Button
+                        position="bottom"
+                        size="large"
+                        width="full"
+                        theme="dark"
+                        onClick={onMoveCartPage}
+                    >
+                        <S.ButtonText>{CAPTION.moveToCartPage}</S.ButtonText>
+                    </Button>
+                </S.FlexWrapper></MainLayout.Body>
+        </MainLayout>
     );
 };
 
