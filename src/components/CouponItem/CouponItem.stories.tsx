@@ -1,21 +1,15 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import CouponItem from './CouponItem';
 import { RecoilRoot } from 'recoil';
+import { Coupon } from '../../types/coupon.type';
+import { mockCouponList } from '../../mocks/couponList';
 
 const meta = {
   title: 'Components/CouponItem',
   component: CouponItem,
   tags: ['autodocs'],
   argTypes: {},
-  args: {
-    description: '5000원 할인 쿠폰',
-    expirationDate: '2024-04-30',
-    availableTime: {
-      start: '04:00:00',
-      end: '07:00:00',
-    },
-    minimumAmount: 50000,
-  },
+  args: mockCouponList[0],
 } satisfies Meta<typeof CouponItem>;
 
 export default meta;
@@ -23,7 +17,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
-  render: ({ ...args }) => {
+  render: ({ ...args }: Coupon) => {
     return (
       <RecoilRoot>
         <CouponItem {...args} />
@@ -33,10 +27,10 @@ export const Playground: Story = {
 };
 
 export const Disabled: Story = {
-  render: ({ ...args }) => {
+  render: ({ ...args }: Coupon) => {
     return (
       <RecoilRoot>
-        <CouponItem {...args} isApplicable={true} />
+        <CouponItem {...args} isApplicable={false} />
       </RecoilRoot>
     );
   },
