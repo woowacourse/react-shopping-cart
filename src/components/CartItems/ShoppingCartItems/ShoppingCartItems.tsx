@@ -1,9 +1,5 @@
 import * as Styled from '../style';
 
-import ShoppingCartItem from './ShoppingCartItem';
-import SelectedBox from '../../../assets/SelectedBox.svg';
-import UnSelectedBox from '../../../assets/UnSelectedBox.svg';
-
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { cartItemsState } from '../../../recoil/atoms';
@@ -11,6 +7,12 @@ import {
   cartItemIdsSelector,
   isAllCartItemSelectedSelectorFamily,
 } from '../../../recoil/selectors';
+
+import SelectButton from '../../SelectButton/SelectButton';
+
+import ShoppingCartItem from './ShoppingCartItem';
+import SelectedBox from '../../../assets/SelectedBox.svg';
+import UnSelectedBox from '../../../assets/UnSelectedBox.svg';
 
 import MESSAGE from '../../../constants/Message';
 import { CartItemType } from '../../../type';
@@ -30,12 +32,12 @@ const ShoppingCartItems = () => {
   return (
     <Styled.CartItems>
       <Styled.AllSelectContainer>
-        <Styled.SelectButton onClick={handleSelectedAll}>
+        <SelectButton handleOnClick={handleSelectedAll}>
           <img
             src={isAllSelected ? SelectedBox : UnSelectedBox}
             alt={isAllSelected ? MESSAGE.allSelected : MESSAGE.notAllSelected}
           />
-        </Styled.SelectButton>
+        </SelectButton>
         <Styled.SelectMessage>{MESSAGE.allSelected}</Styled.SelectMessage>
       </Styled.AllSelectContainer>
       {cartItems.map((cartItem: CartItemType) => {

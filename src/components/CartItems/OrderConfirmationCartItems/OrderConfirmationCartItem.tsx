@@ -1,7 +1,8 @@
 import * as Styled from '../style';
 
-import MESSAGE from '../../../constants/Message';
+import Divider from '../../Divider/Divider';
 
+import MESSAGE from '../../../constants/Message';
 import { CartItemType } from '../../../type';
 
 interface CartItemProps {
@@ -11,7 +12,7 @@ interface CartItemProps {
 const OrderConfirmationCartItem = ({ inputCartItem }: CartItemProps) => {
   return (
     <Styled.CartItem>
-      <Styled.Divider />
+      <Divider />
 
       <Styled.ItemInfoContainer>
         <Styled.ItemImg src={inputCartItem.product.imageUrl} />

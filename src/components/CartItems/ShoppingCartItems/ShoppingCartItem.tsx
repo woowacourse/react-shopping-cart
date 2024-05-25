@@ -9,6 +9,9 @@ import {
   fetchRemoveCartItem,
 } from '../../../api/shoppingCart';
 
+import Divider from '../../Divider/Divider';
+import SelectButton from '../../SelectButton/SelectButton';
+
 import selectedBox from '../../../assets/SelectedBox.svg';
 import UnSelectedBox from '../../../assets/UnSelectedBox.svg';
 import PlusButton from '../../../assets/PlusButton.svg';
@@ -18,8 +21,6 @@ import RemoveButton from '../../../assets/RemoveButton.svg';
 import MESSAGE from '../../../constants/Message';
 import CONDITION from '../../../constants/Condition';
 import VALUE from '../../../constants/Value';
-import Divider from '../../Divider/Divider';
-
 import { CartItemType } from '../../../type';
 
 interface CartItemProps {
@@ -95,12 +96,12 @@ const ShoppingCartItem = ({ inputCartItem }: CartItemProps) => {
       <Divider />
 
       <Styled.ButtonContainer>
-        <Styled.SelectButton onClick={() => setIsSelected((prop) => !prop)}>
+        <SelectButton handleOnClick={() => setIsSelected((prop) => !prop)}>
           <img
             src={isSelected ? selectedBox : UnSelectedBox}
             alt={isSelected ? MESSAGE.selected : MESSAGE.unSelected}
           />
-        </Styled.SelectButton>
+        </SelectButton>
         <Styled.RemoveButton onClick={() => handleCartItemRemoval()}>
           {MESSAGE.removal}
         </Styled.RemoveButton>
@@ -117,8 +118,8 @@ const ShoppingCartItem = ({ inputCartItem }: CartItemProps) => {
             </Styled.ItemPrice>
           </Styled.ItemDetails>
           <Styled.ItemQuantityAdjustment>
-            <Styled.SelectButton
-              onClick={() => handleCartItemQuantityDecrement()}
+            <SelectButton
+              handleOnClick={() => handleCartItemQuantityDecrement()}
             >
               <img
                 src={
@@ -132,13 +133,13 @@ const ShoppingCartItem = ({ inputCartItem }: CartItemProps) => {
                     : MESSAGE.minusButton
                 }
               />
-            </Styled.SelectButton>
+            </SelectButton>
             <Styled.ItemQuantity>{inputCartItem.quantity}</Styled.ItemQuantity>
-            <Styled.SelectButton
-              onClick={() => handleCartItemQuantityIncrement()}
+            <SelectButton
+              handleOnClick={() => handleCartItemQuantityIncrement()}
             >
               <img src={PlusButton} alt={MESSAGE.plusButton} />
-            </Styled.SelectButton>
+            </SelectButton>
           </Styled.ItemQuantityAdjustment>
         </Styled.ItemInfo>
       </Styled.ItemInfoContainer>
