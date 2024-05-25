@@ -7,15 +7,9 @@ export const ItemContainer = styled.li`
   margin-top: 12px;
 `;
 
-export const ItemDetailContainer = styled.div`
+export const ItemDetailContainer = styled.div<{ $direction: React.CSSProperties['flexDirection'] }>`
   display: flex;
+  flex-direction: ${({ $direction }) => $direction};
   gap: 24px;
   margin-top: 12px;
-`;
-
-export const ItemSelectionGroup = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 `;

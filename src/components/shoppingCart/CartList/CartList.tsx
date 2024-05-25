@@ -16,7 +16,7 @@ const CartList: React.FC<CartListProps> = () => {
   const cartItems = useRecoilValue(cartItemsAtom);
 
   return (
-    <div>
+    <>
       <Styled.CartListButtonGroup>
         <Checkbox checked={isAllChecked} onChange={onCheckAllCartItems} />
         <Styled.CartItemSelectionText>전체 선택</Styled.CartItemSelectionText>
@@ -26,7 +26,7 @@ const CartList: React.FC<CartListProps> = () => {
           <CartListItem key={cartItem.id} cartItem={cartItem} />
         ))}
       </Styled.CartItemContainer>
-    </div>
+    </>
   );
 };
 

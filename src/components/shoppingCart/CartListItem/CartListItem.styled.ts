@@ -26,3 +26,8 @@ export const CartItemSelectionGroup = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
+
+export const CartItemContentWrapper = styled.div`
+  display: flex;
+  gap: 24px;
+`;
