@@ -20,13 +20,13 @@ const CouponCard = ({ coupon, isChecked, handleChangeChecked, isDisabled }: Coup
         <Styled.CouponName>{coupon.description}</Styled.CouponName>
       </Styled.CouponCardTop>
       <div>
-        <Styled.CouponInfo>만료일:{formatDateToString(coupon.expirationDate)}</Styled.CouponInfo>
+        <Styled.CouponInfo>만료일: {formatDateToString(coupon.expirationDate)}</Styled.CouponInfo>
         {coupon.minimumAmount && (
-          <Styled.CouponInfo>최소 주문 금액:{formatKoreanCurrency(coupon.minimumAmount)}</Styled.CouponInfo>
+          <Styled.CouponInfo>최소 주문 금액: {formatKoreanCurrency(coupon.minimumAmount)}</Styled.CouponInfo>
         )}
         {coupon.availableTime && (
           <Styled.CouponInfo>
-            사용 가능 시간:오전 {coupon.availableTime.start}시 ~ 오전 {coupon.availableTime.end}시
+            사용 가능 시간: 오전 {coupon.availableTime.start}시 ~ 오전 {coupon.availableTime.end}시
           </Styled.CouponInfo>
         )}
       </div>
