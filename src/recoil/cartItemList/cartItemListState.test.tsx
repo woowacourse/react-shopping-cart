@@ -5,7 +5,7 @@ import { ReactNode, act } from 'react';
 import { cartItemListState } from './cartItemListState';
 import { mockCartItemList } from '../../mocks/cartItemList';
 
-jest.mock('../../apis/cartItemList/cartItemList', () => ({
+jest.mock('../../apis/requests/cartItemList', () => ({
   requestCartItemList: jest.fn().mockImplementation(() => mockCartItemList),
   requestDeleteCartItem: jest.fn(),
 }));
