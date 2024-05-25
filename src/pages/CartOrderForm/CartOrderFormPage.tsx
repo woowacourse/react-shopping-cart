@@ -56,12 +56,20 @@ const CartOrderFormPage = () => {
     setIsModalOpen(true);
   };
 
+  const { clearSelectedCartItemIdList } = useSelectedCartItemIdList();
   const { showBoundary } = useErrorBoundary();
   const completeOrder = async () => {
     try {
       await requestOrders(selectedCartItemList.map(({ cartItemId }) => cartItemId));
+      clearSelectedCartItemIdList();
 
-      navigate(ROUTES.CART_ORDER_COMPLETE);
+      navigate(ROUTES.CART_ORDER_COMPLETE, {
+        state: {
+          selectedCartItemLength: selectedCartItemList.length,
+          totalQuantity,
+          finalCartPrice,
+        },
+      });
     } catch (error) {
       showBoundary(new Error('결제 요청에 실패했습니다.'));
     }
