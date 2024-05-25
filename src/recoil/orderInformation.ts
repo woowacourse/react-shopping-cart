@@ -10,12 +10,12 @@ export const totalItemsPriceSelector = selector({
     get: ({get}) => {
         const cartItemList = get(cartItemsState);
         const selectedItemsId = get(selectedCartItemsIdState);
-        if (!selectedItemsId) return 0;
+        if (!selectedItemsId.length) return 0;
 
         const totalPrice = selectedItemsId?.reduce((acc, productId) => {
             const productInfo = cartItemList.find((item) => item.id == productId)!;
             const quantity = get(cartItemQuantityState(productId));
-            acc += productInfo.product.price * quantity;
+            acc += productInfo?.product?.price * quantity;
             return acc;
         }, 0);
         return totalPrice;
@@ -27,7 +27,8 @@ export const totalItemOrderCountSelector = selector({
 
     get: ({get}) => {
         const selectedItemsId = get(selectedCartItemsIdState);
-        if (!selectedItemsId) return 0;
+        if (!selectedItemsId.length) return 0;
+
         const totalItemOrderCount = selectedItemsId?.reduce((acc, id) => {
             const itemQuantity = get(cartItemQuantityState(id));
             acc += itemQuantity;

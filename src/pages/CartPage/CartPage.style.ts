@@ -12,13 +12,6 @@ export const CartItemListWrapper = styled.div`
   overflow-y: scroll;
 `;
 
-export const CheckBoxWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border-bottom: 1px;
-`;
-
 export const ButtonText = styled.span`
   font-size: 16px;
   line-height: 16px;
