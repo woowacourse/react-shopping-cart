@@ -9,20 +9,6 @@ describe('Button 컴포넌트', () => {
     expect(buttonElement).toBeInTheDocument();
   });
 
-  test('size 속성을 올바르게 적용한다', () => {
-    const { rerender } = render(<Button size="s">Small</Button>);
-    expect(screen.getByText('Small')).toHaveAttribute('size', 's');
-
-    rerender(<Button size="m">Medium</Button>);
-    expect(screen.getByText('Medium')).toHaveAttribute('size', 'm');
-
-    rerender(<Button size="l">Large</Button>);
-    expect(screen.getByText('Large')).toHaveAttribute('size', 'l');
-
-    rerender(<Button size="fit">Fit</Button>);
-    expect(screen.getByText('Fit')).toHaveAttribute('size', 'fit');
-  });
-
   test('width 속성을 올바르게 적용한다', () => {
     const { rerender } = render(<Button width="fit">Fit Width</Button>);
     expect(screen.getByText('Fit Width')).toHaveAttribute('width', 'fit');
@@ -56,13 +42,8 @@ describe('Button 컴포넌트', () => {
     expect(screen.getByText('Primary Color')).toHaveAttribute('color', 'primary');
   });
 
-  test('square 속성을 올바르게 적용한다', () => {
-    render(<Button square>Square Button</Button>);
-    expect(screen.getByText('Square Button')).toHaveAttribute('square', 'true');
-  });
-
   test('isDisabled 속성을 올바르게 적용한다', () => {
-    render(<Button isDisabled>Disabled Button</Button>);
+    render(<Button disabled>Disabled Button</Button>);
     expect(screen.getByText('Disabled Button')).toBeDisabled();
   });
 

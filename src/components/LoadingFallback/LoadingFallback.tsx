@@ -1,11 +1,11 @@
-import * as S from './LoadingFallback.style'
+import * as S from './LoadingFallback.style';
 
 const LoadingFallback = () => {
   return (
     <S.FallbackContainer>
       <S.Spinner />
-    </S.FallbackContainer >
-  )
-}
+    </S.FallbackContainer>
+  );
+};
 
-export default LoadingFallback
+export default LoadingFallback;

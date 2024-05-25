@@ -1,33 +1,32 @@
 import * as S from './CartItemList.style';
-
-import CartItem from '../CartItem/CartItem';
-
+import CartItemWithControl from '../CartItem/WithControl/CartItemWithControl';
 import Checkbox from '../common/Checkbox/Checkbox';
 import Text from '../common/Text/Text';
-
 import { useRecoilValue } from 'recoil';
-import { cartItemSelectedIdListAtom } from '../../recoil/cartItem/cartItemAtom';
-import { useCartItemSelectedIdList } from '../../recoil/cartItem/useCartItemSelectedIdList';
+import { useSelectedCartItemIdList } from '../../hooks/useSelectedCartItemIdList';
+import { cartItemListState } from '../../recoil/cartItemList/cartItemListState';
+import { selectedCartItemIdListState } from '../../recoil/selectedCartItemList/selectedCartItemIdListState';
 
-export interface CartItemListProps {
-  itemList: CartItem[];
-}
-
-const CartItemList = ({ itemList }: CartItemListProps) => {
-  const selectedIdList = useRecoilValue(cartItemSelectedIdListAtom);
+const CartItemList = () => {
+  const itemList = useRecoilValue(cartItemListState);
+  const selectedIdList = useRecoilValue(selectedCartItemIdListState);
   const isSelectedAll = selectedIdList.length === itemList.length;
-  const { removeAll, selectAll } = useCartItemSelectedIdList();
+  const { clearSelectedCartItemIdList, selectAllCartItem } = useSelectedCartItemIdList();
 
   return (
     <S.CartItemList>
       <S.SelectAllContainer>
-        <Checkbox state={isSelectedAll} handleClick={isSelectedAll ? removeAll : selectAll} />
+        <Checkbox
+          alt="상품 선택"
+          checked={isSelectedAll}
+          handleClick={isSelectedAll ? clearSelectedCartItemIdList : selectAllCartItem}
+        />
         <Text size="s" weight="m">
           전체선택
         </Text>
       </S.SelectAllContainer>
-      {itemList.map(({ product, quantity, cartItemId }: CartItem) => {
-        return <CartItem product={product} quantity={quantity} cartItemId={cartItemId} />;
+      {itemList.map(({ product, quantity, cartItemId }: CartItemWithControl) => {
+        return <CartItemWithControl key={cartItemId} product={product} quantity={quantity} cartItemId={cartItemId} />;
       })}
     </S.CartItemList>
   );

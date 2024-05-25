@@ -17,19 +17,19 @@ const meta = {
     },
     cartItemId: {
       description: '',
-    }
+    },
   },
   args: {
     product: {
-      "productId": 3,
-      "name": "아디다스",
-      "price": 2000,
-      "imageUrl": "https://sitem.ssgcdn.com/74/25/04/item/1000373042574_i1_750.jpg",
-      "category": "fashion"
+      productId: 3,
+      name: '아디다스',
+      price: 2000,
+      imageUrl: 'https://sitem.ssgcdn.com/74/25/04/item/1000373042574_i1_750.jpg',
+      category: 'fashion',
     },
     quantity: 1,
     cartItemId: 1,
-  }
+  },
 } satisfies Meta<typeof CartItem>;
 
 export default meta;
@@ -45,6 +45,6 @@ export const Playground: Story = {
           <CartItem {...args} />
         </div>
       </RecoilRoot>
-    )
-  }
+    );
+  },
 };

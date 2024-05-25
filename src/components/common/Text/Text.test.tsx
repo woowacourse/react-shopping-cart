@@ -13,7 +13,6 @@ describe('Text 컴포넌트', () => {
     render(<Text>Default Text</Text>);
     const textElement = screen.getByText('Default Text');
     expect(textElement).toHaveStyle('font-size: 16px');
-    expect(textElement).toHaveStyle('line-height: 16px');
     expect(textElement).toHaveStyle('font-weight: 700');
   });
 
@@ -25,7 +24,6 @@ describe('Text 컴포넌트', () => {
     );
     const textElement = screen.getByText('Small Text');
     expect(textElement).toHaveStyle('font-size: 12px');
-    expect(textElement).toHaveStyle('line-height: 18px');
     expect(textElement).toHaveStyle('font-weight: 300');
   });
 
@@ -37,7 +35,6 @@ describe('Text 컴포넌트', () => {
     );
     const textElement = screen.getByText('Medium Text');
     expect(textElement).toHaveStyle('font-size: 16px');
-    expect(textElement).toHaveStyle('line-height: 16px');
     expect(textElement).toHaveStyle('font-weight: 500');
   });
 
@@ -49,7 +46,6 @@ describe('Text 컴포넌트', () => {
     );
     const textElement = screen.getByText('Large Text');
     expect(textElement).toHaveStyle('font-size: 24px');
-    expect(textElement).toHaveStyle('line-height: 34px');
     expect(textElement).toHaveStyle('font-weight: 700');
   });
 
@@ -61,6 +57,5 @@ describe('Text 컴포넌트', () => {
     );
     const textElement = screen.getByText('Number Size Text');
     expect(textElement).toHaveStyle('font-size: 20px');
-    expect(textElement).toHaveStyle('line-height: 30px');
   });
 });

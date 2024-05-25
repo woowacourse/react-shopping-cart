@@ -1,32 +1,38 @@
 import * as S from './PriceTable.style';
-import NOTICE from '../../assets/notice.svg';
-import ImageBox from '../common/ImageBox/ImageBox';
-import Text from '../common/Text/Text';
 import Divider from '../common/Divider/Divider';
 import ContentRow from '../common/ContentRow/ContentRow';
-import { useRecoilValue } from 'recoil';
-import { priceSelector } from '../../recoil/price/priceSelector';
+import { ReactNode } from 'react';
+import NoticeMessage from '../NoticeMessage/NoticeMessage';
 
-const PriceTable = () => {
-  const { orderedPrice, deliveryFee, totalPrice } = useRecoilValue(priceSelector);
+type PriceTableProps = {
+  name: string;
+  price: number | string;
+  upperDivider?: boolean;
+};
 
+const PriceTableRow = ({ name, price, upperDivider }: PriceTableProps) => {
+  const formatContent = () => {
+    if (typeof price === 'string') return price;
+    else return `${price.toLocaleString('ko-kr')}원`;
+  };
+  return (
+    <>
+      {upperDivider && <Divider />}
+      <ContentRow title={name} content={formatContent()} />
+    </>
+  );
+};
+
+const PriceTableMain = ({ children }: { children: ReactNode }) => {
   return (
     <S.Container>
-      <S.NoticeContainer>
-        <ImageBox src={NOTICE} width={16} height={16} border="none" />
-        <Text size="s" weight="m">
-          총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
-        </Text>
-      </S.NoticeContainer>
+      <NoticeMessage message="총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다." />
       <Divider />
-      <S.Rows>
-        <ContentRow title="주문 금액" content={`${orderedPrice.toLocaleString('ko-kr')}원`} />
-        <ContentRow title="배송비" content={`${deliveryFee.toLocaleString('ko-kr')}원`} />
-      </S.Rows>
-      <Divider />
-      <ContentRow title="총 결제 금액" content={`${totalPrice.toLocaleString('ko-kr')}원`} />
+      <S.Rows>{children}</S.Rows>
     </S.Container>
   );
 };
 
-export default PriceTable;
+export const PriceTable = Object.assign(PriceTableMain, {
+  Row: PriceTableRow,
+});

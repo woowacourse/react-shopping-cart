@@ -1,102 +1,61 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import CartItemList, { CartItemListProps } from './CartItemList';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
-import { useRecoilValue } from 'recoil';
-import { cartItemSelectedIdListAtom } from '../../recoil/cartItem/cartItemAtom';
-import { useCartItemSelectedIdList } from '../../recoil/cartItem/useCartItemSelectedIdList';
+import CartItemList from './CartItemList';
+import { cartItemListState } from '../../recoil/cartItemList/cartItemListState';
+import { mockCartItemList } from '../../mocks/cartItemList';
+import '@testing-library/jest-dom';
+import { act } from 'react';
+import { selectedCartItemIdListState } from '../../recoil/selectedCartItemList/selectedCartItemIdListState';
 
-jest.mock('recoil');
-jest.mock('../../recoil/cartItem/useCartItemSelectedIdList');
-
-const product1 = {
-  id: 586,
-  quantity: 4,
-  product: {
-    productId: 2,
-    name: '나이키',
-    price: 1000,
-    imageUrl:
-      'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/a28864e3-de02-48bb-b861-9c592bc9a68b/%EB%B6%81-1-ep-%EB%86%8D%EA%B5%AC%ED%99%94-UOp6QQvg.png',
-    category: 'fashion',
-  },
-};
-
-const product2 = {
-  id: 587,
-  quantity: 3,
-  product: {
-    productId: 3,
-    name: '아디다스',
-    price: 2000,
-    imageUrl: 'https://sitem.ssgcdn.com/74/25/04/item/1000373042574_i1_750.jpg',
-    category: 'fashion',
-  },
-};
-
-const mockCartItemListProps: CartItemListProps = {
-  itemList: [
-    { id: 586, product: product1, quantity: 1, cartItemId: 1 },
-    { id: 586, product: product2, quantity: 2, cartItemId: 2 },
-  ],
-};
-
-// Mock functions
-const mockedUseRecoilValue = useRecoilValue as jest.Mock;
-const mockedUseCartItemSelectedIdList = useCartItemSelectedIdList as jest.Mock;
-
-describe('CartItemList 컴포넌트', () => {
-  beforeEach(() => {
-    mockedUseRecoilValue.mockReturnValue([]);
-    mockedUseCartItemSelectedIdList.mockReturnValue({
-      removeAll: jest.fn(),
-      selectAll: jest.fn(),
-    });
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
-  test('컴포넌트가 올바르게 렌더링된다', () => {
-    render(
-      <RecoilRoot>
-        <CartItemList {...mockCartItemListProps} />
+describe('CartItemList 컴포넌트의 전체 선택 버튼 테스트', () => {
+  const renderCartItemList = (initialSelectedIdList: number[] = []) => {
+    return render(
+      <RecoilRoot
+        initializeState={({ set }) => {
+          set(cartItemListState, mockCartItemList);
+          set(selectedCartItemIdListState, initialSelectedIdList);
+        }}
+      >
+        <CartItemList />
       </RecoilRoot>,
     );
+  };
 
-    expect(screen.getByText('전체선택')).toBeInTheDocument();
-    expect(screen.getByText('Product 1')).toBeInTheDocument();
-    expect(screen.getByText('Product 2')).toBeInTheDocument();
+  it('선택 목록이 빈 채로 cartItemList를 렌더링하면 전체 선택 버튼은 체크되어있지 않다.', async () => {
+    renderCartItemList();
+
+    const selectAllButton = screen.getByAltText('상품 선택');
+
+    expect(selectAllButton).not.toBeChecked();
   });
 
-  test('전체선택 체크박스를 클릭했을 때 selectAll 함수가 호출된다', () => {
-    mockedUseRecoilValue.mockReturnValue([]);
-    const { selectAll } = mockedUseCartItemSelectedIdList();
+  it('선택 목록이 빈 채로 cartItemList를 렌더링하면 모든 선택 버튼은 체크되어있지 않다.', async () => {
+    renderCartItemList();
 
-    render(
-      <RecoilRoot>
-        <CartItemList {...mockCartItemListProps} />
-      </RecoilRoot>,
-    );
+    const checkboxList = screen.getAllByAltText('Checkbox');
 
-    const selectAllCheckbox = screen.getByRole('checkbox');
-    fireEvent.click(selectAllCheckbox);
-    expect(selectAll).toHaveBeenCalledTimes(1);
+    checkboxList.forEach((checkbox) => expect(checkbox).not.toBeChecked());
   });
 
-  test('전체선택 체크박스를 클릭했을 때 removeAll 함수가 호출된다', () => {
-    mockedUseRecoilValue.mockReturnValue(mockCartItemListProps.itemList.map((item) => item.cartItemId));
-    const { removeAll } = mockedUseCartItemSelectedIdList();
+  it('선택 목록이 빈 채로 전체 선택 버튼을 누르면 모든 아이템이 선택된다.', async () => {
+    renderCartItemList();
 
-    render(
-      <RecoilRoot>
-        <CartItemList {...mockCartItemListProps} />
-      </RecoilRoot>,
-    );
+    const selectAllButton = screen.getByAltText('상품 선택');
 
-    const selectAllCheckbox = screen.getByRole('checkbox');
-    fireEvent.click(selectAllCheckbox);
-    expect(removeAll).toHaveBeenCalledTimes(1);
+    await act(() => fireEvent.click(selectAllButton));
+    const checkboxList = screen.getAllByAltText('Checkbox');
+
+    await waitFor(() => checkboxList.forEach((checkbox) => expect(checkbox).toBeChecked()));
+  });
+
+  it('선택 목록이 가득 찬 채로 전체 선택 버튼을 누르면 모든 아이템이 선택 해제된다.', async () => {
+    renderCartItemList(mockCartItemList.map(({ cartItemId }) => cartItemId));
+
+    const selectAllButton = screen.getByAltText('상품 선택');
+
+    await act(() => fireEvent.click(selectAllButton));
+    const checkboxList = screen.getAllByAltText('Checkbox');
+
+    await waitFor(() => checkboxList.forEach((checkbox) => expect(checkbox).not.toBeChecked()));
   });
 });
