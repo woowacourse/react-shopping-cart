@@ -1,8 +1,10 @@
+import getKoreanTime from './getKoreanTime';
+
 import { Coupon } from '@/types/coupon';
 
 export const isCouponValid = (coupon: Coupon) => {
   const couponExpirationDate = new Date(coupon.expirationDate);
-  const now = new Date();
+  const now = getKoreanTime();
 
   return couponExpirationDate >= now;
 };
@@ -13,7 +15,7 @@ export const isOverMinimumOrderAmount = (coupon: Coupon, amount: number) => {
   return coupon.minimumAmount <= amount;
 };
 
-export const isCouponUsableTime = (coupon: Coupon, now: Date = new Date()) => {
+export const isCouponUsableTime = (coupon: Coupon, now: Date = getKoreanTime()) => {
   if (coupon.availableTime === undefined) return true;
 
   const [startHours, startMinutes, startSeconds] = coupon.availableTime.start
