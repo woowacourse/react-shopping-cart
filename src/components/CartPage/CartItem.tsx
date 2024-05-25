@@ -2,35 +2,30 @@ import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { css } from "@emotion/css";
 
-import { patchCartItemQuantity } from "../../api/cartItemApi";
 import { cartItemCheckedIdsAtom } from "../../recoil/atom/atom";
 import { quantitySelectorFamily } from "../../recoil/selector/selector";
+import { useCartItemChecked } from "../../hooks/useCartItemChecked/useCartItemChecked";
+import { useCartActions } from "../../hooks/useCartActions/useCartActions";
 import { Product } from "../../types/product";
 import { Button, Splitter } from "../default";
 import { formatCurrency } from "../../utils/formatCurrency";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
 import MinusIcon from "../../assets/MinusIcon.svg?react";
 import PlusIcon from "../../assets/PlusIcon.svg?react";
-import { useCartItemChecked } from "../../hooks/useCartItemChecked/useCartItemChecked";
 
 interface CartItemProps {
   product: Product;
-  handleDelete: () => void;
 }
 
-const CartItem = ({ product, handleDelete }: CartItemProps) => {
+const CartItem = ({ product }: CartItemProps) => {
   const checkedIds = useRecoilValue(cartItemCheckedIdsAtom);
   const [quantity, setQuantity] = useRecoilState(quantitySelectorFamily(product.id));
   const { handleCheckedIds } = useCartItemChecked();
+  const { handleUpdateQuantity, handleDeleteItem } = useCartActions();
 
   useEffect(() => {
     setQuantity(product.quantity);
   }, [product.quantity, setQuantity]);
-
-  const updateQuantity = (newQuantity: number) => {
-    patchCartItemQuantity(product.id, newQuantity);
-    setQuantity(newQuantity);
-  };
 
   return (
     <div className={ItemCSS}>
@@ -47,7 +42,7 @@ const CartItem = ({ product, handleDelete }: CartItemProps) => {
         <Button
           variant="secondary"
           size="medium"
-          onClick={handleDelete}
+          onClick={() => handleDeleteItem(product.id)}
         >
           삭제
         </Button>
@@ -67,7 +62,7 @@ const CartItem = ({ product, handleDelete }: CartItemProps) => {
             <Button
               variant="secondary"
               size="small"
-              onClick={() => updateQuantity(Math.max(quantity - 1, 1))}
+              onClick={() => handleUpdateQuantity(product, Math.max(quantity - 1, 1))}
             >
               <MinusIcon />
             </Button>
@@ -75,7 +70,7 @@ const CartItem = ({ product, handleDelete }: CartItemProps) => {
             <Button
               variant="secondary"
               size="small"
-              onClick={() => updateQuantity(quantity + 1)}
+              onClick={() => handleUpdateQuantity(product, quantity + 1)}
             >
               <PlusIcon />
             </Button>
