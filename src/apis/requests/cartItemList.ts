@@ -1,6 +1,6 @@
 import type { CartItem, ResponseCartItem } from '../../types/cartItem.type';
 import { ResponseCartItemList } from '../../types/cartItemList.type';
-import { requestDelete, requestGet, requestPatch } from '../fetcher';
+import { requestDelete, requestGet, requestPatch, requestPost } from '../fetcher';
 import { BASE_URL_LIST } from '../baseUrlList';
 import { ENDPOINT_LIST } from '../endpointList';
 
@@ -34,5 +34,13 @@ export const requestDeleteCartItem = async (cartItemId: number) => {
     baseUrl: BASE_URL_LIST.CART,
     endpoint: ENDPOINT_LIST.CART_ITEM(cartItemId),
     body: { id: cartItemId },
+  });
+};
+
+export const requestAddCartItem = async ({ productId, quantity }: { productId: number; quantity: number }) => {
+  await requestPost({
+    baseUrl: BASE_URL_LIST.CART,
+    endpoint: ENDPOINT_LIST.CART_LIST,
+    body: { productId, quantity },
   });
 };
