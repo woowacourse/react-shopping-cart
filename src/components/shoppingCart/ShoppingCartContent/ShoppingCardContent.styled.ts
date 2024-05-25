@@ -8,7 +8,7 @@ export const CartItemContainer = styled.section`
 
 export const EmptyCart = styled.div`
   width: 100%;
-  height: calc(100vh - ${SIZE.bottomButtonHeight} - ${SIZE.navigationHeight}*2 - 24px);
+  height: calc(100vh - ${SIZE.bottomButtonHeight} - ${SIZE.navigationHeight}*2 - ${SIZE.layoutPadding});
   display: flex;
   justify-content: center;
   align-items: center;

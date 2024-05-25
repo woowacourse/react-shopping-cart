@@ -22,6 +22,7 @@ const CountAlertModal = (props: CountAlertModalProps) => {
           buttonContainerJustifyContent="center"
           button={<AlertModalPart.ConfirmButton text="확인" />}
           modalTargetEl={modalTargetEl}
+          contentsPadding={window.innerWidth <= 435 ? '10px' : undefined}
         />
       )}
     </>

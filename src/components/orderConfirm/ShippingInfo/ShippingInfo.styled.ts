@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ShippingInfo = styled.section`
-  margin-bottom: 36px;
+  margin-bottom: 13px;
 `;
 
 export const Title = styled.h3`
@@ -13,6 +13,7 @@ export const Title = styled.h3`
 export const SurchargeShippingFee = styled.div`
   display: flex;
   margin-top: 21px;
+  margin-bottom: 32px;
 `;
 
 export const SurchargeShippingInfo = styled.p`

@@ -6,7 +6,7 @@ export const AlertModalContentsText = styled.p<{ $textAlign: TextAlign }>`
   font-size: 16px;
   text-align: ${({ $textAlign }) => $textAlign};
   margin-top: 12px;
-  width: 100%;
+  width: 90%;
 `;
 
 export const AlertModalButton = styled.button`
@@ -15,6 +15,7 @@ export const AlertModalButton = styled.button`
   background-color: ${COLOR.white};
   border: 1px solid ${COLOR.black};
   padding: 10px 14px;
+  width: 100px;
   margin-top: 16px;
   &:hover {
     background-color: ${COLOR.black};

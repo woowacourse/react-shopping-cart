@@ -3,12 +3,11 @@ import React from 'react';
 
 import * as Styled from './InfoBanner.styled';
 
-const InfoBanner: React.FC<React.PropsWithChildren<React.HtmlHTMLAttributes<HTMLDivElement>>> = ({
-  children,
-  ...rest
-}) => {
+const InfoBanner: React.FC<
+  React.PropsWithChildren<React.HtmlHTMLAttributes<HTMLDivElement>> & { $padding?: string }
+> = ({ $padding, children, ...rest }) => {
   return (
-    <Styled.InfoBanner {...rest}>
+    <Styled.InfoBanner $padding={$padding} {...rest}>
       <UpsideDownExclamation />
       <Styled.InfoText>{children}</Styled.InfoText>
     </Styled.InfoBanner>

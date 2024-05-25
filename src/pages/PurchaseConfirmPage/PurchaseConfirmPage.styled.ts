@@ -1,9 +1,10 @@
+import { SIZE } from '@styles/style.constant';
 import styled from 'styled-components';
 
 export const PurchaseConfirmPageContainer = styled.section`
   margin-top: 20px;
   width: 100%;
-  height: calc(100vh - 64px * 2 - 48px - 64px);
+  height: calc(100vh - ${SIZE.navigationHeight} - ${SIZE.bottomButtonHeight} - ${SIZE.layoutPadding}*2);
   display: flex;
   flex-direction: column;
   justify-content: center;

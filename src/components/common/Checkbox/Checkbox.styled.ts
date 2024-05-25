@@ -23,7 +23,7 @@ export const CheckIconWrapper = styled.div`
 `;
 
 export const CheckIcon = styled.img`
-  width: 17.59px;
-  height: 13.41px;
+  width: 18px;
+  height: 13px;
   margin: auto;
 `;
