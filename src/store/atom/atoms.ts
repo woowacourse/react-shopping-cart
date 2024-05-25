@@ -38,20 +38,6 @@ export const cartItemIdListState = atom<number[]>({
   }),
 });
 
-export const itemQuantityState = atom<Record<number, number>>({
-  key: "itemQuantityState",
-  default: selector({
-    key: "itemQuantityObject",
-    get: ({ get }) => {
-      const obj: Record<number, number> = {};
-      get(cartState).forEach((cartItem: CartItemInfo) => {
-        obj[cartItem.id] = cartItem.quantity;
-      });
-      return obj;
-    },
-  }),
-});
-
 export const couponsState = atom<Coupon[]>({
   key: "couponsState",
   default: fetchCouponsState,

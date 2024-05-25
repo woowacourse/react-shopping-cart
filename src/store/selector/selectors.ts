@@ -1,15 +1,9 @@
 import { selector } from "recoil";
-import {
-  cartItemCheckedState,
-  cartItemIdListState,
-  itemQuantityState,
-  remoteAreaState,
-  selectedCouponsState,
-} from "../atom/atoms";
+import { cartItemCheckedState, cartItemIdListState, remoteAreaState, selectedCouponsState } from "../atom/atoms";
 import { SHIPPING_CONSTANT } from "../../constants";
 import { cartState } from "../atom/atoms";
 
-export const checkAllItemSelector = selector({
+export const checkAllItemSelector = selector<boolean>({
   key: "checkAllItemState",
   get: ({ get }) => {
     const itemIds = get(cartItemIdListState);
@@ -21,7 +15,7 @@ export const checkAllItemSelector = selector({
   },
 });
 
-export const orderAmountSelector = selector({
+export const orderAmountSelector = selector<number>({
   key: "orderAmount",
   get: ({ get }) => {
     const cartItems = get(cartState);
@@ -31,22 +25,21 @@ export const orderAmountSelector = selector({
       const isChecked = get(cartItemCheckedState(cur.id));
       if (isChecked) {
         const price = cur.product.price;
-        const quantity = get(itemQuantityState);
-        return acc + price * quantity[cur.id];
+        return acc + price * cur.quantity;
       }
       return acc;
     }, 0);
   },
 });
 
-export const shippingFeeSelector = selector({
+export const shippingFeeSelector = selector<number>({
   key: "shippingFee",
   get: ({ get }) => {
     const orderAmount = get(orderAmountSelector);
     const isRemoteArea = get(remoteAreaState);
     const couponList = get(selectedCouponsState);
 
-    if (couponList.some((coupon) => coupon.couponType === "freeShipping")) {
+    if (couponList.some((coupon) => coupon.discountType === "freeShipping")) {
       return 0;
     }
 
@@ -62,7 +55,7 @@ export const shippingFeeSelector = selector({
   },
 });
 
-export const totalAmountSelector = selector({
+export const totalAmountSelector = selector<number>({
   key: "totalAmount",
   get: ({ get }) => {
     const tempAmount = get(orderAmountSelector);
@@ -70,7 +63,7 @@ export const totalAmountSelector = selector({
   },
 });
 
-export const checkedCartItemsSelector = selector({
+export const checkedCartItemsSelector = selector<CartItemInfo[]>({
   key: "checkedCartItems",
   get: ({ get }) => {
     const cartItems = get(cartState);

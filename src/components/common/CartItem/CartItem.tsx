@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-
 import {
   CartItemContainerStyle,
   CartItemDetailControlsStyle,
@@ -13,7 +12,7 @@ import {
 } from "./CartItem.style";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useCallback } from "react";
-import { cartState, cartItemCheckedState, cartItemIdListState, itemQuantityState } from "../../../store/atom/atoms";
+import { cartState, cartItemCheckedState, cartItemIdListState } from "../../../store/atom/atoms";
 import { changeProductAmount, deleteProduct } from "../../../store/api";
 import { deleteCartItemCheckedStateInStorage } from "../../../store/utils";
 import Divider from "../../common/Divider/Divider";
@@ -28,7 +27,6 @@ interface CartItemProps {
 
 const CartItem = ({ CartItemInfo, type }: CartItemProps) => {
   const { id } = CartItemInfo;
-  const [quantity, setQuantity] = useRecoilState(itemQuantityState);
   const [isCheck, setIsCheck] = useRecoilState(cartItemCheckedState(id));
   const setItemIdList = useSetRecoilState(cartItemIdListState);
   const setCartState = useSetRecoilState(cartState);
@@ -60,7 +58,7 @@ const CartItem = ({ CartItemInfo, type }: CartItemProps) => {
   };
 
   const handleMinusButtonClick = () => {
-    if (quantity[id] === 1) {
+    if (CartItemInfo.quantity === 1) {
       if (confirm("정말 삭제하시겠습니까?")) {
         executeDeleteProduct();
       } else {
@@ -69,13 +67,17 @@ const CartItem = ({ CartItemInfo, type }: CartItemProps) => {
       return;
     }
 
-    changeProductAmount({ quantity: quantity[id] - 1, id });
-    setQuantity((prev) => ({ ...prev, [id]: prev[id] - 1 }));
+    changeProductAmount({ quantity: CartItemInfo.quantity - 1, id });
+    setCartState((prev) => {
+      return prev.map((item) => (item.id === id ? { ...item, quantity: item.quantity - 1 } : item));
+    });
   };
 
   const handlePlusButtonClick = () => {
-    changeProductAmount({ quantity: quantity[id] + 1, id });
-    setQuantity((prev) => ({ ...prev, [id]: prev[id] + 1 }));
+    changeProductAmount({ quantity: CartItemInfo.quantity + 1, id });
+    setCartState((prev) => {
+      return prev.map((item) => (item.id === id ? { ...item, quantity: item.quantity + 1 } : item));
+    });
   };
 
   return (
@@ -97,12 +99,15 @@ const CartItem = ({ CartItemInfo, type }: CartItemProps) => {
           <div css={CartItemPriceStyle}>{CartItemInfo.product.price.toLocaleString() + "원"}</div>
           {type === "cart" ? (
             <div css={CartItemQuantityContainerStyle}>
-              <QuantityButton onClick={handleMinusButtonClick} type={quantity[id] === 1 ? "canDelete" : "minus"} />
-              <div css={CartItemQuantityStyle}>{quantity[id]}</div>
+              <QuantityButton
+                onClick={handleMinusButtonClick}
+                type={CartItemInfo.quantity === 1 ? "canDelete" : "minus"}
+              />
+              <div css={CartItemQuantityStyle}>{CartItemInfo.quantity}</div>
               <QuantityButton onClick={handlePlusButtonClick} type={"plus"} />
             </div>
           ) : (
-            <div css={OrderItemQuantityStyle}>{quantity[id] + "개"}</div>
+            <div css={OrderItemQuantityStyle}>{CartItemInfo.quantity + "개"}</div>
           )}
         </div>
       </div>
