@@ -22,7 +22,8 @@ export const useSelectedCartItemIdList = () => {
   };
 
   const isSelectedAll =
-    cartItemList.length !== 0 && selectedIdList.length === cartItemList.length;
+    selectedIdList.length !== 0 &&
+    selectedIdList.length === cartItemList.length;
 
   return {
     selectedIdList,
