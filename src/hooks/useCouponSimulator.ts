@@ -13,8 +13,6 @@ const useCouponSimulator = () => {
     useRecoilValue(selectedCouponState)
   );
 
-  console.log(temporaryCoupons);
-
   const { getDiscountAmount } = useDiscountCalculator();
 
   const handleAddCoupon = (coupon: Coupon) => {
