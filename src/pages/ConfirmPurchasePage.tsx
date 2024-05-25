@@ -7,8 +7,10 @@ import { Button } from '../components/common/Button/Button.style';
 import ErrorFallback from '../components/ErrorFallback/ErrorFallback';
 import LoadingFallback from '../components/LoadingFallback/LoadingFallback';
 import ConfirmPurchaseSection from '../components/ConfirmPurchaseSection/ConfirmPurchaseSection';
+import { useNavigate } from 'react-router-dom';
 
 const ConfirmPurchasePage = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Header type="back" />
@@ -23,7 +25,9 @@ const ConfirmPurchasePage = () => {
         radius={0}
         size="l"
         style={{ position: 'fixed', maxWidth: '768px', bottom: '0' }}
-        onClick={() => {}}
+        onClick={() => {
+          navigate('/complete-purchase');
+        }}
       >
         결제 확인
       </Button>
