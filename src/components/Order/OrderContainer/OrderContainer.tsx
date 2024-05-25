@@ -51,7 +51,7 @@ const OrderContainer = () => {
           <div>제주도 및 도서 산간 지역</div>
         </div>
       </div>
-      <CouponModal isOpen={modalOpened} onClose={handleModalClose} />
+      <CouponModal isOpen={modalOpened} modalClose={handleModalClose} />
     </div>
   );
 };

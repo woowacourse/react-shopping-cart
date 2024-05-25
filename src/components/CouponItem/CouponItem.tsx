@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { useState } from "react";
 import { getCouponAvailableTimeString } from "../../store/utils";
 import Checkbox from "../common/Buttons/Checkbox/Checkbox";
 import Divider from "../common/Divider/Divider";
@@ -9,30 +8,26 @@ import {
   CouponItemContainerStyle,
   CouponItemInfoContainerStyle,
 } from "./CouponItem.style";
-import { useCouponApplicabilityChecker } from "../../hooks/useCouponApplicabilityChecker";
-import { useRecoilValue } from "recoil";
-import { orderAmountSelector } from "../../store/selector/selectors";
 
 interface CouponItemProps {
   couponInfo: Coupon;
+  isCheck: boolean;
+  isDisabled: boolean;
+  onSelect: (coupon: Coupon) => void;
 }
 
-const CouponItem = ({ couponInfo }: CouponItemProps) => {
-  const [isCheck, setIsCheck] = useState<boolean>(false);
-  const totalAmount = useRecoilValue(orderAmountSelector);
-  const { isCouponApplicable } = useCouponApplicabilityChecker();
-
-  const isDisabled = !isCouponApplicable(couponInfo, totalAmount);
-
+const CouponItem = ({ couponInfo, isCheck, isDisabled, onSelect }: CouponItemProps) => {
   const handleClickCheckbox = () => {
-    setIsCheck((prev) => !prev);
+    if (!isDisabled) {
+      onSelect(couponInfo);
+    }
   };
 
   return (
     <div css={CouponItemContainerStyle}>
       <Divider />
       <div css={CouponItemCheckboxContainerStyle}>
-        <Checkbox isCheck={isCheck} isDisabled={isDisabled} onClick={() => handleClickCheckbox()} />
+        <Checkbox isCheck={isCheck} isDisabled={isDisabled} onClick={handleClickCheckbox} />
         <div css={CouponItemCheckboxTitleStyle(isDisabled)}>{couponInfo.description}</div>
       </div>
       <div css={CouponItemInfoContainerStyle(isDisabled)}>
