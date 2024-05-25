@@ -3,7 +3,7 @@ import { CartItem } from '@appTypes/shoppingCart';
 import { useConfirmCouponApplication } from '@hooks/orderConfirm';
 import { act } from 'react';
 
-import { INITIAL_ITEMS, SHIPPING_FREE_ITEMS } from './constants/cartItems';
+import { FREE_SHIPPING_ITEMS, INITIAL_ITEMS, SHIPPING_FREE_ITEMS } from './constants/cartItems';
 import { create5000Coupon, createBOGOCoupon, createFreeShippingCoupon, createMiracleCoupon } from './utils/coupon';
 import executeCartItemRenderHook from './utils/executeRenderHook';
 
@@ -123,7 +123,10 @@ describe('쿠폰 이용 여부 테스트', () => {
     it('이용 일자가 지나지 않았다면 이용 가능한 쿠폰이다.', () => {
       // given
       const VALID_COUPON: Coupon = createFreeShippingCoupon('2024-05-21');
-      const isApplicabilityCoupon = createIsApplicabilityCoupon();
+      const isApplicabilityCoupon = createIsApplicabilityCoupon(
+        FREE_SHIPPING_ITEMS,
+        new Set(FREE_SHIPPING_ITEMS.map((item) => item.id)),
+      );
 
       // when - then
       act(() => {
@@ -134,7 +137,10 @@ describe('쿠폰 이용 여부 테스트', () => {
     it('이용 일자가 지났다면 이용 가능한 쿠폰이 아니다.', () => {
       // given
       const VALID_COUPON: Coupon = createFreeShippingCoupon('2024-05-19');
-      const isApplicabilityCoupon = createIsApplicabilityCoupon();
+      const isApplicabilityCoupon = createIsApplicabilityCoupon(
+        FREE_SHIPPING_ITEMS,
+        new Set(FREE_SHIPPING_ITEMS.map((item) => item.id)),
+      );
 
       // when - then
       act(() => {
@@ -145,7 +151,10 @@ describe('쿠폰 이용 여부 테스트', () => {
     it('5만원 이상 구매한 경우, 이용 가능한 쿠폰이다.', () => {
       // given
       const VALID_COUPON: Coupon = createFreeShippingCoupon();
-      const isApplicabilityCoupon = createIsApplicabilityCoupon();
+      const isApplicabilityCoupon = createIsApplicabilityCoupon(
+        FREE_SHIPPING_ITEMS,
+        new Set(FREE_SHIPPING_ITEMS.map((item) => item.id)),
+      );
 
       // when - then
       act(() => {
@@ -153,12 +162,26 @@ describe('쿠폰 이용 여부 테스트', () => {
       });
     });
 
-    it('5만원 이상 구매하지 않은 경우, 이용 가능한 쿠폰이 아니다.', () => {
+    it('5만원 미만 구매한 경우, 이용 가능한 쿠폰이 아니다.', () => {
       // given
       const VALID_COUPON: Coupon = createFreeShippingCoupon();
       const isApplicabilityCoupon = createIsApplicabilityCoupon(
         INITIAL_ITEMS,
         new Set(INITIAL_ITEMS.map((item) => item.id)),
+      );
+
+      // when - then
+      act(() => {
+        expect(isApplicabilityCoupon(VALID_COUPON)).toBeFalsy();
+      });
+    });
+
+    it('10만원 이상 구매한 경우, 무료 배송 조건을 만족했기 때문에 이용 가능한 쿠폰이 아니다.', () => {
+      // given
+      const VALID_COUPON: Coupon = createFreeShippingCoupon();
+      const isApplicabilityCoupon = createIsApplicabilityCoupon(
+        SHIPPING_FREE_ITEMS,
+        new Set(SHIPPING_FREE_ITEMS.map((item) => item.id)),
       );
 
       // when - then
