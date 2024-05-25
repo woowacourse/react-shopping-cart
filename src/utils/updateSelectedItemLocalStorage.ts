@@ -11,7 +11,7 @@ export const updateSelectedItemLocalStorage =
     onSet(
       (
         newSelectedValue: CartItemProps[] | DefaultValue,
-        oldValue: CartItemProps[] | DefaultValue,
+        _,
         isReset?: boolean,
       ) => {
         if (isReset) {
