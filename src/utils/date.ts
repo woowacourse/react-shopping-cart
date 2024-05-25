@@ -13,5 +13,5 @@ export const createDateTime = (dateString: string, formatType = ':') => {
 
   const now = new Date();
 
-  return new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), hour, minute, second));
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate(), hour, minute, second);
 };
