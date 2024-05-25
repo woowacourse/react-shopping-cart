@@ -1,13 +1,16 @@
 import { useRecoilValue } from "recoil";
 
-import { cartItemsCounts, totalAmountState } from "@/store/selector/selectors";
+import { cartItemsCounts, checkedCouponList, totalAmountState } from "@/store/selector/selectors";
 import { cartState } from "@/store/atom/atoms";
 
 import { orderContainerStyle, orderDescriptionStyle, orderTitleStyle } from "./OrderContainer.style";
 import PaymentDetail from "@/components/PaymentDetail/PaymentDetail";
+import useCouponCalculate from "@/hooks/useCouponCalculate";
 
 const OrderContainer = () => {
   const totalAmount = useRecoilValue(totalAmountState);
+  const coupons = useRecoilValue(checkedCouponList);
+  const { discountAmount } = useCouponCalculate(coupons);
   const itemCount = useRecoilValue(cartState).length;
 
   const counts = useRecoilValue(cartItemsCounts);
@@ -19,7 +22,7 @@ const OrderContainer = () => {
     <div css={orderContainerStyle}>
       <div css={orderTitleStyle}>주문 확인</div>
       <div css={orderDescriptionStyle}>{orderInfoContent}</div>
-      <PaymentDetail directionStyle="column" title="총 결제 금액" amount={totalAmount} />
+      <PaymentDetail directionStyle="column" title="총 결제 금액" amount={totalAmount - discountAmount} />
     </div>
   );
 };

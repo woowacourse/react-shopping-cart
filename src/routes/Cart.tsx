@@ -17,9 +17,15 @@ import CartItemList from "@/components/Cart/CartItemContainer/CartItemList/CartI
 import { Suspense } from "react";
 import Loading from "@/components/Fallbacks/Loading";
 import ToolBar from "@/components/ToolBar/ToolBar";
+import { SHIPPING_CONSTANT } from "@/constants";
+import { orderAmountState, totalAmountState } from "@/store/selector/selectors";
+import PaymentDetail from "@/components/PaymentDetail/PaymentDetail";
+import Divider from "@/components/Divider/Divider";
 
 const Cart = () => {
   const itemCount = useRecoilValue(cartState).length;
+  const orderAmount = useRecoilValue(orderAmountState);
+  const totalAmount = useRecoilValue(totalAmountState);
   const [isAllCheck, setIsAllCheck] = useRecoilState(checkAllItemState);
   const handleToolbarClick = () => {
     setIsAllCheck((prev) => !prev);
@@ -42,7 +48,16 @@ const Cart = () => {
               <CartItemList />
             </Suspense>
           </CartItemContainer>
-          <CartResults />
+          <CartResults>
+            {/* {isShowCouponDiscount && <PaymentDetail title="쿠폰 할인 금액" amount={discountAmount} />} */}
+            <PaymentDetail
+              title="배송비"
+              amount={orderAmount >= SHIPPING_CONSTANT.FREE_CRITERIA ? 0 : SHIPPING_CONSTANT.FEE}
+            />
+            <Divider />
+            {/* <PaymentDetail title="총 결제 금액" amount={totalAmount - (isShowCouponDiscount ? discountAmount : 0)} /> */}
+            <PaymentDetail title="총 결제 금액" amount={totalAmount} />
+          </CartResults>
         </Main>
         <Footer />
       </ErrorBoundary>

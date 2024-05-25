@@ -9,10 +9,7 @@ const useCartItemModifier = (id: number) => {
   const setCartState = useSetRecoilState(cartState);
 
   const deleteProductInCart = useCallback(() => {
-    setCartState((prev) => {
-      const temp = [...prev];
-      return temp.filter((item: CartItemInfo) => item.id !== id);
-    });
+    setCartState((prev) => [...prev].filter((item: CartItemInfo) => item.id !== id));
   }, [id, setCartState]);
 
   const executeDeleteProduct = () => {

@@ -23,9 +23,21 @@ import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import Error from "@/components/Fallbacks/Error";
 import Loading from "@/components/Fallbacks/Loading";
+import PaymentDetail from "@/components/PaymentDetail/PaymentDetail";
+import { checkedCouponList, orderAmountState, totalAmountState } from "@/store/selector/selectors";
+import useCouponCalculate from "@/hooks/useCouponCalculate";
+import { SHIPPING_CONSTANT } from "@/constants";
+import Divider from "@/components/Divider/Divider";
 
 const CheckOrder = () => {
   const itemCount = useRecoilValue(cartState).length;
+  const checkedCoupons = useRecoilValue(checkedCouponList);
+  const orderAmount = useRecoilValue(orderAmountState);
+  const totalAmount = useRecoilValue(totalAmountState);
+  const { discountAmount } = useCouponCalculate(checkedCoupons);
+  const isExtraShippingFee = useRecoilValue(isExtraShippingFeeState);
+
+  const SHIPPING_FEE = isExtraShippingFee ? SHIPPING_CONSTANT.EXTRA_FEE : SHIPPING_CONSTANT.FEE;
 
   const location = useLocation();
   const pathname = location.pathname as RoutePaths;
@@ -59,8 +71,17 @@ const CheckOrder = () => {
         <ToolBar handleCheck={handleToolbarCheck} isCheck={isDoSeoSanGan}>
           제주도 및 도서 산간 지역
         </ToolBar>
-        <CartResults isShowCouponDiscount={true} />
+        <CartResults>
+          <CartResults>
+            <PaymentDetail title="쿠폰 할인 금액" amount={discountAmount} />
+            <PaymentDetail title="배송비" amount={orderAmount >= SHIPPING_CONSTANT.FREE_CRITERIA ? 0 : SHIPPING_FEE} />
+            <Divider />
+            <PaymentDetail title="총 결제 금액" amount={totalAmount - discountAmount} />
+          </CartResults>
+        </CartResults>
       </Main>
+
+      {/*---MODAL---*/}
       <CouponModal>
         <ErrorBoundary FallbackComponent={Error}>
           <Suspense fallback={<Loading />}>
