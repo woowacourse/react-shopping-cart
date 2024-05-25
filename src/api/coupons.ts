@@ -12,5 +12,5 @@ export const fetchGetCoupons = async (): Promise<CouponType[]> => {
   });
 
   const data = await response.json();
-  return data.content;
+  return data;
 };
