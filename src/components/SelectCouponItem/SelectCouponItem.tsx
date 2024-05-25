@@ -4,7 +4,7 @@ import Checkbox from '../common/Checkbox/Checkbox';
 import { Divider } from '../common/Divider/Divider.style';
 import { toKoreanDate, toKoreanTime } from '../../utils/date';
 import useSelectedCoupon from '../../hooks/coupon/useSelectedCoupon';
-import useValidateAvailableCoupon from '../../hooks/coupon/useValidataeAvailableCoupon';
+import useValidateAvailableCoupon from '../../hooks/coupon/useValidateAvailableCoupon';
 
 interface SelectCouponItemProps {
   coupon: Coupon;
