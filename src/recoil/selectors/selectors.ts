@@ -51,17 +51,32 @@ export const possibleCouponListState = selector({
         if (!isValidDate(coupon.expirationDate)) return false;
 
         if (coupon.discountType === "fixed" && coupon.minimumAmount) {
-          return orderPrice > coupon.minimumAmount;
-        } else if (coupon.discountType === "buyXgetY" && coupon.buyQuantity) {
-          return selectedCartItems.length >= coupon.buyQuantity;
-        } else if (coupon.discountType === "freeShipping" && deliveryFee && coupon.minimumAmount) {
-          return orderPrice > coupon.minimumAmount;
+          return orderPrice >= coupon.minimumAmount;
+        } else if (
+          coupon.discountType === "buyXgetY" &&
+          coupon.buyQuantity &&
+          coupon.getQuantity
+        ) {
+          const buyQuantity = coupon.buyQuantity;
+          const getQuantity = coupon.getQuantity;
+          return selectedCartItems.some(
+            (item) => item.quantity >= buyQuantity + getQuantity
+          );
+        } else if (
+          coupon.discountType === "freeShipping" &&
+          deliveryFee &&
+          coupon.minimumAmount
+        ) {
+          return orderPrice >= coupon.minimumAmount;
         } else if (
           coupon.discountType === "percentage" &&
           coupon.availableTime?.start &&
           coupon.availableTime?.end
         ) {
-          return isInTimeRange(coupon.availableTime?.start, coupon.availableTime?.end);
+          return isInTimeRange(
+            coupon.availableTime?.start,
+            coupon.availableTime?.end
+          );
         }
         return false;
       })
@@ -85,7 +100,11 @@ export const couponDiscountPriceState = selector({
         if (coupon.discountType === "fixed" && coupon.discount) {
           couponDiscountPrice += coupon.discount;
         } else if (coupon.discountType === "buyXgetY") {
-          couponDiscountPrice += Math.max(...selectedCartItems.map((item) => item.product.price));
+          couponDiscountPrice += Math.max(
+            ...selectedCartItems
+              .filter((item) => item.quantity >= 3)
+              .map((item) => item.product.price)
+          );
         } else if (coupon.discountType === "freeShipping") {
           couponDiscountPrice += deliveryFee;
         } else if (coupon.discountType === "percentage" && coupon.discount) {

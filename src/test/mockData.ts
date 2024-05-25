@@ -47,6 +47,18 @@ export const cartJson = [
       category: "beverage",
     },
   },
+  {
+    id: 80000,
+    quantity: 1,
+    product: {
+      id: 34,
+      name: "8만원 음료",
+      price: 80000,
+      imageUrl:
+        "https://godomall.speedycdn.net/1cd80571a779bf8f2c08a18dc0965949/goods/1000000027/image/detail/1000000027_detail_012.jpg",
+      category: "beverage",
+    },
+  },
 ];
 
 export const couponsJson = [
