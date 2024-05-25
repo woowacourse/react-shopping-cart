@@ -3,7 +3,6 @@ import {
   couponDetailState,
   couponsState,
   itemDetailsState,
-  itemsState,
   shippingInformationState,
 } from './atoms';
 import isCouponApplicable from '../validate/validateCoupon';

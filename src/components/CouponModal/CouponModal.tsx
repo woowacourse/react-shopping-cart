@@ -6,10 +6,10 @@ import { NoCartItemContainer } from '../CartContent/CartContent';
 import {
   allCheckedCouponsSelector,
   totalDiscountSelector,
-  useResetAllCoupons,
 } from '../../recoil/selectors';
 import { useRecoilValue } from 'recoil';
 import { MESSAGES_PROPS } from '../../constants/Messages';
+import { ResetAllCoupons } from '../../recoil/useRecoilCallback';
 
 const Button = styled.button`
   height: 4.2rem;
@@ -28,8 +28,7 @@ function CouponModal() {
     totalDiscountSelector,
   );
   const allCheckedCoupons = useRecoilValue(allCheckedCouponsSelector);
-  console.log(allCheckedCoupons);
-  const resetAllCoupons = useResetAllCoupons();
+  const resetAllCoupons = ResetAllCoupons();
 
   const handleButton = () => {
     setIsModalOpen(true);
