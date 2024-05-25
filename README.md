@@ -95,6 +95,8 @@
 
 ## 🖥️ 컴포넌트 구성도
 
+![주문확인 컴포넌트 구조화](https://github.com/woowacourse/react-shopping-cart/assets/106071687/2f10b8af-dbba-47c1-b01b-1550e6e7c505)
+
 ## ♻️ v0.1
 
 > 프로그램의 한 사이클을 경험할 수 있는 가장 작은 기능으로 구성해본다면?
