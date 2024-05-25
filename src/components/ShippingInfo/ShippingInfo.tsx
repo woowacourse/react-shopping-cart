@@ -4,27 +4,27 @@ import { useRecoilState } from 'recoil';
 import { isCountrysideSelectedState } from '../../recoil/atoms';
 
 import SelectButton from '../SelectButton/SelectButton';
+import SelectButtonContainer from '../SelectButtonContainer/SelectButtonContainer';
 
 import SelectedBox from '../../assets/SelectedBox.svg';
 import UnSelectedBox from '../../assets/UnSelectedBox.svg';
 
 import MESSAGE from '../../constants/Message';
-import SelectButtonContainer from '../SelectButtonContainer/SelectButtonContainer';
 
 const ShippingInfo = () => {
   const [isCountrysideSelected, setIsCountrysideSelected] = useRecoilState(
     isCountrysideSelectedState,
   );
 
-  const handleSelectButtonOnClick = () => {
-    setIsCountrysideSelected((prevBoolean) => !prevBoolean);
-  };
-
   return (
     <Styled.ShippingInfo>
       <Styled.Title>배송 정보</Styled.Title>
       <SelectButtonContainer gap="narrow">
-        <SelectButton handleOnClick={handleSelectButtonOnClick}>
+        <SelectButton
+          onClick={() =>
+            setIsCountrysideSelected((prevBoolean) => !prevBoolean)
+          }
+        >
           <img
             src={isCountrysideSelected ? SelectedBox : UnSelectedBox}
             alt={isCountrysideSelected ? MESSAGE.selected : MESSAGE.unSelected}

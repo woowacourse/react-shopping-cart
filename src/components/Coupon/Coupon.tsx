@@ -29,7 +29,7 @@ const Coupon = ({ inputCoupon }: CouponProps) => {
       <Divider />
       <SelectButtonContainer gap="narrow">
         <SelectButton
-          handleOnClick={() => setIsSelected((prevBoolean) => !prevBoolean)}
+          onClick={() => setIsSelected((prevBoolean) => !prevBoolean)}
         >
           <img
             src={isSelected ? SelectedBox : UnSelectedBox}

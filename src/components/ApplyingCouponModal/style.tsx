@@ -6,7 +6,7 @@ export const ModalContent = styled.div`
   gap: 1rem;
 `;
 
-export const Coupons = styled.div`
+export const Coupons = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;

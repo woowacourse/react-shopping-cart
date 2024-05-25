@@ -33,7 +33,7 @@ const ShoppingCartItems = () => {
   return (
     <Styled.CartItems>
       <SelectButtonContainer gap="narrow">
-        <SelectButton handleOnClick={handleSelectedAll}>
+        <SelectButton onClick={handleSelectedAll}>
           <img
             src={isAllSelected ? SelectedBox : UnSelectedBox}
             alt={isAllSelected ? MESSAGE.allSelected : MESSAGE.notAllSelected}

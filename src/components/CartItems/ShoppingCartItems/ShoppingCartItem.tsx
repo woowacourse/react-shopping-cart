@@ -97,7 +97,7 @@ const ShoppingCartItem = ({ inputCartItem }: CartItemProps) => {
       <Divider />
 
       <SelectButtonContainer gap="wide">
-        <SelectButton handleOnClick={() => setIsSelected((prop) => !prop)}>
+        <SelectButton onClick={() => setIsSelected((prop) => !prop)}>
           <img
             src={isSelected ? selectedBox : UnSelectedBox}
             alt={isSelected ? MESSAGE.selected : MESSAGE.unSelected}
@@ -119,9 +119,7 @@ const ShoppingCartItem = ({ inputCartItem }: CartItemProps) => {
             </Styled.ItemPrice>
           </Styled.ItemDetails>
           <SelectButtonContainer gap="narrow">
-            <SelectButton
-              handleOnClick={() => handleCartItemQuantityDecrement()}
-            >
+            <SelectButton onClick={() => handleCartItemQuantityDecrement()}>
               <img
                 src={
                   inputCartItem.quantity === CONDITION.RemoveButtonAppeared
@@ -136,9 +134,7 @@ const ShoppingCartItem = ({ inputCartItem }: CartItemProps) => {
               />
             </SelectButton>
             <Styled.ItemQuantity>{inputCartItem.quantity}</Styled.ItemQuantity>
-            <SelectButton
-              handleOnClick={() => handleCartItemQuantityIncrement()}
-            >
+            <SelectButton onClick={() => handleCartItemQuantityIncrement()}>
               <img src={PlusButton} alt={MESSAGE.plusButton} />
             </SelectButton>
           </SelectButtonContainer>
