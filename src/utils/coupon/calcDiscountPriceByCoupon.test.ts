@@ -16,6 +16,7 @@ describe('쿠폰의 할인 금액을 계산하는 함수 테스트', () => {
       minimumAmount: 50000,
       expirationDate: '2024-08-31',
       priority: 0,
+      isApplicable: true,
     };
 
     it('배송비 무료 쿠폰인 경우 배송비는 free 문자열로 반환된다.', () => {
@@ -35,6 +36,7 @@ describe('쿠폰의 할인 금액을 계산하는 함수 테스트', () => {
       minimumAmount: 100000,
       expirationDate: '2024-11-30',
       priority: 0,
+      isApplicable: true,
     };
 
     it('할인 액은 고정 금액이다.', () => {
@@ -61,6 +63,7 @@ describe('쿠폰의 할인 금액을 계산하는 함수 테스트', () => {
       discountType: 'percentage',
       expirationDate: '2024-07-31',
       priority: 1,
+      isApplicable: true,
     };
 
     it('비율만큼의 금액이 할인 액이다.', () => {
@@ -88,6 +91,7 @@ describe('쿠폰의 할인 금액을 계산하는 함수 테스트', () => {
       getQuantity: 1,
       expirationDate: '2024-04-30',
       priority: 0,
+      isApplicable: true,
     };
 
     const selectedCartItemList = [

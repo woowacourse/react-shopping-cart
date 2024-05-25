@@ -19,6 +19,7 @@ describe('isValidCoupon 함수 테스트', () => {
       discountType: 'buyXgetY',
       expirationDate: '2001-03-24',
       priority: 0,
+      isApplicable: true,
     };
 
     expect(isValidCoupon(expiredCoupon)).toBeFalsy();
@@ -32,6 +33,7 @@ describe('isValidCoupon 함수 테스트', () => {
       discountType: 'buyXgetY',
       expirationDate: '2026-03-24',
       priority: 0,
+      isApplicable: true,
     };
 
     expect(isValidCoupon(validCoupon)).toBeTruthy();

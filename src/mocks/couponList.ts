@@ -10,6 +10,7 @@ export const mockCouponList: Coupon[] = [
     minimumAmount: 100000,
     expirationDate: '2024-11-30',
     priority: 0,
+    isApplicable: true,
   },
   {
     id: 2,
@@ -20,6 +21,7 @@ export const mockCouponList: Coupon[] = [
     getQuantity: 1,
     expirationDate: '2024-04-30',
     priority: 2,
+    isApplicable: true,
   },
   {
     id: 3,
@@ -29,6 +31,7 @@ export const mockCouponList: Coupon[] = [
     minimumAmount: 50000,
     expirationDate: '2024-08-31',
     priority: 0,
+    isApplicable: true,
   },
   {
     id: 4,
@@ -42,5 +45,6 @@ export const mockCouponList: Coupon[] = [
     },
     expirationDate: '2024-07-31',
     priority: 1,
+    isApplicable: true,
   },
 ];

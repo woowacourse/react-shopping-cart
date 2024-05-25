@@ -16,6 +16,8 @@ describe('isApplicableCoupon', () => {
       minimumAmount: 100_000,
       discountType: 'fixed',
       expirationDate: '2026-05-01',
+      isApplicable: true,
+      priority: 0,
     };
 
     it('최소 주문 금액 이상인 경우 쿠폰을 적용할 수 있다.', () => {
@@ -40,6 +42,8 @@ describe('isApplicableCoupon', () => {
       expirationDate: '2026-05-01',
       buyQuantity: 3,
       getQuantity: 1,
+      priority: 2,
+      isApplicable: true,
     };
 
     it('최소 구매 수량 이상인 경우 쿠폰을 적용할 수 있다.', () => {
@@ -94,6 +98,8 @@ describe('isApplicableCoupon', () => {
         start: '04:00:00',
         end: '07:00:00',
       },
+      priority: 2,
+      isApplicable: true,
     };
 
     beforeAll(() => {
