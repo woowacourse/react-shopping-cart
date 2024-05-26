@@ -1,12 +1,7 @@
-import { Suspense } from 'react';
-
 import { useNavigate } from 'react-router-dom';
-import { ErrorBoundary } from 'react-error-boundary';
 
 import Header from '../components/Header/Header';
 import { Button } from '../components/common/Button/Button.style';
-import ErrorFallback from '../components/ErrorFallback/ErrorFallback';
-import LoadingFallback from '../components/LoadingFallback/LoadingFallback';
 import CompletePurchaseSection from '../components/CompletePurchaseSection/CompletePurchaseSection';
 
 const CompletePurchasePage = () => {
@@ -14,11 +9,9 @@ const CompletePurchasePage = () => {
   return (
     <>
       <Header />
-      <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Suspense fallback={<LoadingFallback />}>
-          <CompletePurchaseSection />
-        </Suspense>
-      </ErrorBoundary>
+
+      <CompletePurchaseSection />
+
       <Button
         color="primary"
         width="full"

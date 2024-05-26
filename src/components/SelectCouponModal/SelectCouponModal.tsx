@@ -1,6 +1,11 @@
+import { Suspense } from 'react';
+
+import { ErrorBoundary } from 'react-error-boundary';
 import { CustomModal } from 'woowacourse-todari-components';
 
 import useDiscount from '../../hooks/price/useDiscount';
+import ErrorFallback from '../ErrorFallback/ErrorFallback';
+import LoadingFallback from '../LoadingFallback/LoadingFallback';
 import SelectCouponModalSection from '../SelectCouponModalSection/SelectCouponModalSection';
 
 interface SelectCouponModalProps {
@@ -26,7 +31,11 @@ const SelectCouponModal = ({
       }}
       showCloseButton={true}
     >
-      <SelectCouponModalSection />
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <Suspense fallback={<LoadingFallback />}>
+          <SelectCouponModalSection />
+        </Suspense>
+      </ErrorBoundary>
     </CustomModal>
   );
 };
