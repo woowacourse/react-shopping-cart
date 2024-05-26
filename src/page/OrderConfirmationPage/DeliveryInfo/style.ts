@@ -21,6 +21,9 @@ export const CheckItem = styled.div({
   alignItems: 'center',
   columnGap: '8px',
 
+  userSelect: 'none',
+  cursor: 'pointer',
+
   fontSize: '12px',
   fontWeight: 500,
 });

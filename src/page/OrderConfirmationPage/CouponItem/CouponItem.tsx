@@ -42,9 +42,13 @@ export default function CouponItem({
   }, [coupon, isAvailable]);
 
   return (
-    <S.CouponItemContainer>
+    <S.CouponItemContainer
+      onClick={isAvailable ? isCheckedToggler : undefined}
+      // @ts-expect-error : emotion flexContent Error
+      isAvailable={isAvailable}
+    >
       <S.CouponItemHeader>
-        <CheckBox isChecked={isChecked} disabled={!isAvailable} onClick={isCheckedToggler} />
+        <CheckBox isChecked={isChecked} disabled={!isAvailable} />
         <S.CouponTitle isAvailable={isAvailable}>{coupon.description}</S.CouponTitle>
       </S.CouponItemHeader>
       <S.CouponDescriptionContainer>{descriptions}</S.CouponDescriptionContainer>

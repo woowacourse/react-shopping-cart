@@ -11,8 +11,8 @@ export default function DeliveryInfo() {
     <S.Container>
       <S.Title>배송정보</S.Title>
 
-      <S.CheckItem>
-        <CheckBox isChecked={isChecked} onClick={checkHandler} />
+      <S.CheckItem onClick={checkHandler}>
+        <CheckBox isChecked={isChecked} />
         <p>제주도 및 도서 산간 지역</p>
       </S.CheckItem>
     </S.Container>

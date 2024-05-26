@@ -7,17 +7,23 @@ interface Props {
 const UNAVAILABLE_COLOR = '#0000004A';
 const AVAILABLE_COLOR = '#000000';
 
-export const CouponItemContainer = styled.div({
-  width: '318px',
-  height: '82px',
+// @ts-expect-error : emotion flexContent Error
+export const CouponItemContainer = styled.div<Props>(({ isAvailable }: Props) => {
+  return {
+    width: '318px',
+    height: '82px',
 
-  borderTop: '1px solid #0000001A',
-  paddingTop: '12px',
+    borderTop: '1px solid #0000001A',
+    paddingTop: '12px',
 
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-  rowGap: '12px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    rowGap: '12px',
+
+    userSelect: 'none',
+    cursor: isAvailable ? 'pointer' : 'default',
+  };
 });
 
 export const CouponItemHeader = styled.div({
