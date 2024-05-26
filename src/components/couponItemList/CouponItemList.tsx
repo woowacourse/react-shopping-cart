@@ -9,6 +9,7 @@ import { CouponItem } from '../couponItem/CouponItem';
 import { useEffect } from 'react';
 import { ErrorAlertModal } from '../errorAlertModal/ErrorAlertModal';
 import { CouponProps } from '../../types';
+import { CouponValidator } from '../../validators/couponValidtator/CouponValidator';
 
 export const CouponItemList: React.FC = () => {
   const [couponItems, setCouponItems] = useRecoilState(couponItemsState);
@@ -52,17 +53,20 @@ export const CouponItemList: React.FC = () => {
       setPreviewSelectedCoupons((prev) => [...prev, item]);
     }
   };
-
   return (
     <>
-      {couponItems.map((item) => (
-        <CouponItem
-          key={item.code}
-          item={item}
-          onSelect={() => handleSelectCoupon(item)}
-          selected={isSelected(item)}
-        />
-      ))}
+      {couponItems.map((item) => {
+        const isValidCoupon = CouponValidator().isCouponValid(item);
+        return (
+          <CouponItem
+            key={item.code}
+            item={item}
+            onSelect={() => handleSelectCoupon(item)}
+            selected={isSelected(item)}
+            isValid={isValidCoupon}
+          />
+        );
+      })}
       {cartErrorMessage.length > 0 && (
         <ErrorAlertModal errorMessage={cartErrorMessage} />
       )}

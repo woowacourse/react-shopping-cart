@@ -14,20 +14,23 @@ export interface CouponItemProps {
   item: CouponProps;
   selected: boolean;
   onSelect: () => void;
+  isValid: boolean;
 }
 
 export const CouponItem: React.FC<CouponItemProps> = ({
   item,
   selected,
   onSelect,
+  isValid,
 }) => {
   return (
-    <StyledCouponContainer>
+    <StyledCouponContainer isValid={isValid}>
       <StyledCouponSelectWrapper>
         <Button
           onClick={onSelect}
           clicked={selected}
           iconSrc={selected ? CheckedButtonIcon : UnCheckedButtonIcon}
+          disabled={!isValid}
         />
         <StyledCouponTitle>{item.description}</StyledCouponTitle>
       </StyledCouponSelectWrapper>

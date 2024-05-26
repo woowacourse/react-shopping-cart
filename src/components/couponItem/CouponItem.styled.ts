@@ -1,8 +1,12 @@
 import styled from 'styled-components';
 
-export const StyledCouponContainer = styled.section`
+export const StyledCouponContainer = styled.section<{ isValid: boolean }>`
   border-top: 1px solid #0000001a;
   padding-bottom: 24px;
+
+  span {
+    color: ${(props) => (props.isValid ? '#000000' : '#0000001A')};
+  }
 `;
 
 export const StyledCouponSelectWrapper = styled.div`

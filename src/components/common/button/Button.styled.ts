@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-export const StyledButton = styled.button`
+export const StyledButton = styled.button<{ disabled?: boolean }>`
   display: flex;
   background-color: transparent;
   border: none;
   padding: 0;
 
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
   &:focus {
     outline: none;
   }
