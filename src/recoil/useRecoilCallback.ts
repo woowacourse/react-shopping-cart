@@ -10,6 +10,9 @@ import { totalAmountSelector } from './selectors';
 import { removeLocalStorage } from '../utils/LocalStorage';
 import { fetchCouponsSelector, fetchItemsSelector } from './fetchSelectors';
 
+/**
+ * 전체 쿠폰의 선택 여부를 초기 상태(false)로 만드는 함수
+ */
 export const ResetAllCoupons = () => {
   return useRecoilCallback(
     ({ snapshot, set }) =>
@@ -23,6 +26,9 @@ export const ResetAllCoupons = () => {
   );
 };
 
+/**
+ * 모든 atomFamily과 shippingInformationState를 초기화 해주는 함수
+ */
 export const ResetAllState = () => {
   return useRecoilCallback(
     ({ snapshot, set }) =>
@@ -46,6 +52,11 @@ export const ResetAllState = () => {
     [],
   )();
 };
+
+/**
+ * 각 상품에의 수량과 가격에 따라 쿠펀 적용 여부를 검사하여 선택 가능 여부를 판별,
+ * 선택 가능하고 이전에 선택되었던 쿠포은 true로 설정
+ */
 export const useValidateCoupons = () => {
   return useRecoilCallback(
     ({ snapshot, set }) =>
