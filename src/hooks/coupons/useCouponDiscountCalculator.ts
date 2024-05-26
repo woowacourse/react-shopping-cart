@@ -44,14 +44,18 @@ export const useCouponDiscountCalculator = (coupons: Coupon[]) => {
 
   const applyPercentageDiscountFirst = (orderTotal: number, coupons: Coupon[]) => {
     // NOTE: 가장 할인 금액이 큰 경우를 만들어야 하므로 퍼센테이지 할인 쿠폰을 먼저 적용
-    const percentageCoupon = coupons.find(coupon => coupon.discountType === 'percentage');
+    const percentageCoupon = coupons.find(
+      coupon => coupon.discountType === COUPON_DISCOUNT_TYPE.PERCENTAGE,
+    );
     let discountedAmount = orderTotal;
 
     if (percentageCoupon) {
       discountedAmount -= calculateDiscountAmount(percentageCoupon, orderTotal);
     }
 
-    const remainingCoupons = coupons.filter(coupon => coupon.discountType !== 'percentage');
+    const remainingCoupons = coupons.filter(
+      coupon => coupon.discountType !== COUPON_DISCOUNT_TYPE.PERCENTAGE,
+    );
     remainingCoupons.forEach(coupon => {
       discountedAmount -= calculateDiscountAmount(coupon, discountedAmount);
     });
