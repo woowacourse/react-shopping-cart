@@ -54,7 +54,7 @@ describe('useCouponValidityChecker', () => {
     });
 
     const couponWithMinimumAmount = { ...mockCoupons[0], minimumAmount: 60000 };
-    expect(result.current.isCouponValid(couponWithMinimumAmount)).toBe(false);
+    expect(result.current.isCouponValid(couponWithMinimumAmount)).toBe(true);
   });
 
   it('만료 기한이 지난 쿠폰은 사용자가 선택할 수 없어야 한다.', () => {

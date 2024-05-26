@@ -26,7 +26,7 @@ const mockProduct = {
   category: 'fashion',
 };
 const mockOnDelete = vi.fn();
-// const mockOnUpdateQuantity = vi.fn();
+const mockOnUpdateQuantity = vi.fn();
 
 const cartItemSetupWithQuantity = (quantity: number) => {
   return render(
@@ -34,7 +34,7 @@ const cartItemSetupWithQuantity = (quantity: number) => {
       <CartItem
         cartItemId={mockProduct.id}
         product={mockProduct}
-        quantity={quantity}
+        onUpdateQuantity={mockOnUpdateQuantity}
         onDelete={mockOnDelete}
       />
     </RecoilRoot>,
