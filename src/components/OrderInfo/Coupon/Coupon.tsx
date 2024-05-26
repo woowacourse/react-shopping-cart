@@ -1,11 +1,9 @@
 import { Modal } from 'cookie-nice-modal';
 import { useReducer } from 'react';
-import { useSetRecoilState } from 'recoil';
 import * as S from './styled';
 import EachCoupon from './EachCoupon/EachCoupon';
 
 import { useLoadCoupon, useApplyCoupons, useDiscount } from '@hooks/coupon/index';
-import { discountAmountStore } from '@recoil/atoms';
 
 interface CouponProps {
   isolatedRegion: boolean;
@@ -18,11 +16,10 @@ const Coupon = ({ isolatedRegion }: CouponProps) => {
   const { applyingCoupons, changeApplying, isSelected, isAlreadyApplyingMaximumCoupons } =
     useApplyCoupons();
 
-  const { discountAmount } = useDiscount(applyingCoupons, isolatedRegion);
-  const setDiscountAmountStore = useSetRecoilState(discountAmountStore);
+  const { discountAmount, handleDiscountAmount } = useDiscount(applyingCoupons, isolatedRegion);
 
   const applyCouponAndCloseModal = () => {
-    setDiscountAmountStore(discountAmount);
+    handleDiscountAmount(discountAmount);
     toggleCouponModalOpen();
   };
 

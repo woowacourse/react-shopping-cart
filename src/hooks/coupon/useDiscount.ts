@@ -1,5 +1,5 @@
-import { useRecoilValue } from 'recoil';
-import { selectedCartItems } from '@recoil/atoms';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { discountAmountStore, selectedCartItems } from '@recoil/atoms';
 import { BuyXGetYCoupon, Coupon, FixedCoupon, PercentageCoupon } from '@type/coupon';
 import { CartItem } from '@type/cartItem';
 import { useEffect, useState } from 'react';
@@ -31,6 +31,8 @@ const discountByPercentage = (cartItemsPrice: number, coupon: PercentageCoupon) 
 
 const useDiscount = (applyingCoupons: Coupon[], isolatedRegion: boolean) => {
   const [discount, setDiscount] = useState(0);
+  const setDiscountAmount = useSetRecoilState(discountAmountStore);
+
   const selectedItems = useRecoilValue(selectedCartItems);
   const priceInfo = usePriceInfo(isolatedRegion);
 
@@ -49,32 +51,44 @@ const useDiscount = (applyingCoupons: Coupon[], isolatedRegion: boolean) => {
     return 0;
   };
 
-  useEffect(() => {
+  const calculateMaximumDiscountAmount = () => {
     // 할인율이 큰 퍼센트를 먼저 적용시키기 위해서
     const percentageApply = applyingCoupons.find(coupon => coupon.discountType === 'percentage');
-
-    let percentageDiscount = 0;
-    if (percentageApply) {
-      percentageDiscount = discountByPercentage(
-        priceInfo.order,
-        percentageApply as PercentageCoupon,
-      );
-    }
+    const percentageDiscount = calculatePercentageCoupon(percentageApply);
 
     // 퍼센트를 제외한 나머지 할인 적용
-    const newDiscount = applyingCoupons.reduce((acc, cur) => {
+    const newDiscount = calculateRestCoupon(applyingCoupons);
+
+    // 할인율과 나머지 할인을 계산
+    setDiscount(newDiscount + percentageDiscount);
+  };
+
+  const calculatePercentageCoupon = (coupon: Coupon | undefined) => {
+    if (coupon?.discountType === 'percentage')
+      return discountByPercentage(priceInfo.order, coupon as PercentageCoupon);
+    else return 0;
+  };
+
+  const calculateRestCoupon = (coupons: Coupon[]) => {
+    return coupons.reduce((acc, cur) => {
       if (cur.discountType !== 'percentage') {
         return acc + discountByCoupon(selectedItems, cur);
       }
       return acc;
     }, 0);
+  };
 
-    // 할인율과 나머지 할인을 계산
-    setDiscount(newDiscount + percentageDiscount);
+  useEffect(() => {
+    calculateMaximumDiscountAmount();
   }, [applyingCoupons]);
+
+  const handleDiscountAmount = (discount: number) => {
+    setDiscountAmount(discount);
+  };
 
   return {
     discountAmount: discount,
+    handleDiscountAmount,
   };
 };
 
