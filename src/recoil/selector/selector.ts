@@ -85,6 +85,7 @@ export const totalDiscountAmountState = selector<number>({
   get: ({ get }) => {
     const previewSelectedCoupons = get(previewSelectedCouponsState);
     const orderPrice = get(orderPriceState);
+    const selectedItems = get(selectedItemsState);
     const { getCouponDiscountValueByType } = calculateDiscountAmount();
 
     const percentageCoupons = previewSelectedCoupons.filter(
@@ -99,7 +100,7 @@ export const totalDiscountAmountState = selector<number>({
 
     const totalDiscountAmount = sortedSelectedCoupons.reduce(
       (total, coupon) =>
-        total + getCouponDiscountValueByType(coupon, orderPrice),
+        total + getCouponDiscountValueByType(coupon, selectedItems, orderPrice),
       0,
     );
 

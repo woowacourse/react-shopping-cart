@@ -1,4 +1,4 @@
-import { CouponProps } from '../types';
+import { CartItemProps, CouponProps } from '../types';
 
 export const calculateDiscountAmount = () => {
   const calculateFixedDiscount = (coupon: CouponProps) => {
@@ -13,8 +13,24 @@ export const calculateDiscountAmount = () => {
     return 0;
   };
 
+  const calculateBuyXgetYDiscount = (
+    coupon: CouponProps,
+    selectedItems: CartItemProps[],
+  ) => {
+    if (selectedItems.length > 0 && coupon.buyQuantity && coupon.getQuantity) {
+      return selectedItems.reduce((total, item) => {
+        if (item.quantity === coupon.buyQuantity && coupon.getQuantity) {
+          return total + item.product.price * coupon.getQuantity;
+        }
+        return total;
+      }, 0);
+    }
+    return 0;
+  };
+
   const getCouponDiscountValueByType = (
     coupon: CouponProps,
+    selectedItems: CartItemProps[],
     orderPrice: number,
   ) => {
     switch (coupon.discountType) {
@@ -22,6 +38,8 @@ export const calculateDiscountAmount = () => {
         return calculateFixedDiscount(coupon);
       case 'percentage':
         return calculatePercentageDiscount(coupon, orderPrice);
+      case 'buyXgetY':
+        return calculateBuyXgetYDiscount(coupon, selectedItems);
       default:
         return 0;
     }
