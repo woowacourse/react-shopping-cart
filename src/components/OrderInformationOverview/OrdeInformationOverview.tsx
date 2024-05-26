@@ -1,3 +1,5 @@
+import { ROUTER_URL } from '../../constants/constants';
+
 import WideButton from '../WideButton/WideButton';
 import OrderConfirmationInfo from '../OrderConfirmationInfo/OrderConfirmationInfo';
 import OrderInformationList from '../OrderInformationList/OrderInformationList';
@@ -6,26 +8,34 @@ import FloatingButton from '../FloatingButton/FloatingButton';
 import PaymentTotal from '../PaymentTotal/PaymentTotal';
 import CouponModal from '../CouponModal/CouponModal';
 
-import { IOrderInfo } from '../../recoil/selectors';
+import createOrder from '../../api/post/createOrder';
+import { orderInfoStore } from '../../recoil/selectors';
 import { selectedCartItems } from '../../recoil/atoms';
 
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as S from './styled';
 
 const OrderInformationOverview = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const selectedItems = useRecoilValue(selectedCartItems);
   const selectItemsLength = useRecoilValue(selectedCartItems).length;
-  const location = useLocation();
+  const orderInfo = useRecoilValue(orderInfoStore);
+  const navigate = useNavigate();
+
+  const onOrderButtonClick = async () => {
+    const orderItemIds = selectedItems.map(selectedItem => {
+      return selectedItem.cartItemId;
+    });
+
+    await createOrder(orderItemIds);
+    navigate(ROUTER_URL.PAYMENT_INFO, { state: orderInfo });
+  };
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
-
-  const orderInfo = location.state as IOrderInfo | null;
-
   return (
     <>
       <CouponModal isOpen={isModalOpen} toggleModal={toggleModal} />
@@ -36,7 +46,11 @@ const OrderInformationOverview = () => {
         <ShippingInfo />
         <PaymentTotal isUseDiscount={true} />
       </S.OrderInformationOverviewContainer>
-      <FloatingButton label={'주문 확인'} disabled={selectItemsLength <= 0} />
+      <FloatingButton
+        label={'결제하기'}
+        onClick={onOrderButtonClick}
+        disabled={selectItemsLength <= 0}
+      />
     </>
   );
 };
