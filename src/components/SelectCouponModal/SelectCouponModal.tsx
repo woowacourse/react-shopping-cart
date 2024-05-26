@@ -6,6 +6,7 @@ import { CustomModal } from 'woowacourse-todari-components';
 import useDiscount from '../../hooks/price/useDiscount';
 import ErrorFallback from '../ErrorFallback/ErrorFallback';
 import LoadingFallback from '../LoadingFallback/LoadingFallback';
+import useSelectedCouponList from '../../hooks/coupon/useSelectedCouponList';
 
 const SelectCouponModalSection = lazy(
   () => import('../SelectCouponModalSection/SelectCouponModalSection'),
@@ -20,6 +21,7 @@ const SelectCouponModal = ({
   modalOpened,
   onClose,
 }: SelectCouponModalProps) => {
+  const { selectedCouponAmount } = useSelectedCouponList();
   const { totalDiscountAmount } = useDiscount();
 
   return (
@@ -29,7 +31,10 @@ const SelectCouponModal = ({
       isOpened={modalOpened}
       onClose={onClose}
       primaryButton={{
-        text: `총 ${totalDiscountAmount.toLocaleString('ko-kr')}원 할인 쿠폰 사용하기`,
+        text:
+          selectedCouponAmount !== 0
+            ? `총 ${totalDiscountAmount.toLocaleString('ko-kr')}원 할인 쿠폰 사용하기`
+            : '쿠폰 선택하기',
         onClick: onClose,
       }}
       showCloseButton={true}
