@@ -5,15 +5,14 @@ import BottomButton from '../../components/common/BottomButton';
 import Layout from '../../layout';
 
 import { useNavigate } from 'react-router-dom';
-import { BackButton } from '../../components/Header/HeaderButton';
 
-import * as S from './styles';
 import * as C from '../../components/commonStyles';
+import * as S from './styles';
 
 import {
+  numberOfTypesSelector,
   totalPriceSelector,
   totalQuantitySelector,
-  numberOfTypesSelector,
 } from '../../recoil';
 import { priceFormatter } from '../../utils/stringFormatter';
 
@@ -28,7 +27,7 @@ export default function ConfirmOrderPage() {
 
   return (
     <Layout
-      header={<Header homeButton={<BackButton />} />}
+      header={<Header />}
       bottom={
         <BottomButton onClick={() => navigate('/')} active={true}>
           장바구니로 돌아가기

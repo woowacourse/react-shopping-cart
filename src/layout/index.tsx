@@ -1,5 +1,5 @@
-import React, { PropsWithChildren } from "react";
-import { BottomWrapper, Content, HeaderWrapper, LayoutWrapper } from "./styles";
+import React, { PropsWithChildren } from 'react';
+import { BottomWrapper, Content, HeaderWrapper, LayoutWrapper } from './styles';
 
 interface LayoutProps {
   header: React.ReactNode;
