@@ -6,7 +6,7 @@ import { RecoilRoot, useRecoilValue, useSetRecoilState } from "recoil";
 import { cartListState, filteredCartItemState } from "@/store/atoms/atoms";
 
 import MOCK_CART_LIST from "@/constants/_mock/mockCartList";
-import { allSelectedState } from "@/store/selectors/allSelectedSelector/allSelectedSelector";
+import { allSelectedState } from "@/store/selectors/selectedSelector/allSelectedSelector";
 import { renderHook } from "@testing-library/react";
 
 jest.mock("../../../api/config", () => ({
