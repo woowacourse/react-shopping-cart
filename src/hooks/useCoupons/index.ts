@@ -6,14 +6,14 @@ import { rawCouponsSelector } from "../../recoil/rawCoupons";
 import { cartAmountState } from "../../recoil/cartAmount";
 import { Coupon } from "../../types/coupon";
 
-interface UseCouponReturn {
+interface UseCouponsReturn {
   coupons: Coupon[];
   toggleSelection: (couponId: number) => void;
   discountAmount: number;
   totalPayAmount: number;
 }
 
-export const useCoupons = (): UseCouponReturn => {
+export const useCoupons = (): UseCouponsReturn => {
   const rawCoupons = useRecoilValue(rawCouponsSelector);
   const [selectedCouponIds, toggleSelection] = useToggleList<number>();
   const { totalOrderAmount } = useRecoilValue(cartAmountState);
