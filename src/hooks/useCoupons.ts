@@ -1,9 +1,9 @@
 import { useRecoilValue } from "recoil";
-import { fetchCouponsState } from "../store/selector/fetchCouponsState";
 import { useDiscountCalculator } from "./useDiscountCalculator";
+import { couponsState } from "../store/atom/atoms";
 
 export const useCoupons = () => {
-  const coupons = useRecoilValue<Coupon[]>(fetchCouponsState);
+  const coupons = useRecoilValue<Coupon[]>(couponsState);
   const { calculateTotalDiscountAmount } = useDiscountCalculator();
 
   return {
