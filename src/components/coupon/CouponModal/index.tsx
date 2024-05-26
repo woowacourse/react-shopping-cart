@@ -17,8 +17,7 @@ interface CouponModalProps {
 
 const CouponModal = ({ isModalOpen, closeModal }: CouponModalProps) => {
   const { resetSelectedCoupons } = useCouponSelections();
-  const { calculateTotalDiscount } = useDiscountCalculator();
-  const totalDiscountPrice = calculateTotalDiscount();
+  const { totalDiscountPrice } = useDiscountCalculator();
 
   if (!isModalOpen) return null;
 

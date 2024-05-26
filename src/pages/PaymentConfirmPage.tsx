@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 
 import useCartItems from "@/hooks/carts/useCartItems";
+import useCouponSelections from "@/hooks/coupons/useCouponSelections";
+import useShippingArea from "@/hooks/carts/useShippingArea";
 
 import PurchaseLayout from "@/layouts/PurchaseLayout";
 
@@ -11,9 +13,6 @@ import { NavigationButton, BackButton } from "@/components/button";
 import { Header, OrderConfirm, Loading } from "@/components/index";
 
 import { ROUTE_PATH } from "@/constants/route";
-import useCouponSelections from "@/hooks/coupons/useCouponSelections";
-import { selectedCouponsState } from "@/stores/coupons";
-import useShippingArea from "@/hooks/carts/useShippingArea";
 
 const PaymentConfirmPage = () => {
   const navigate = useNavigate();

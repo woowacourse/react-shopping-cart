@@ -3,11 +3,13 @@ import { cartItemsState, totalCartQuantityState } from "@/stores/cartItems";
 import { cartPriceState } from "@/stores/cartPrice";
 
 import * as S from "./styled";
+import useDiscountCalculator from "@/hooks/coupons/useDiscountCalculator";
 
 const OrderConfirm = () => {
   const cartItemCount = useRecoilValue(cartItemsState).length;
   const totalCartQuantity = useRecoilValue(totalCartQuantityState);
   const { totalPrice } = useRecoilValue(cartPriceState);
+  const { totalDiscountPrice } = useDiscountCalculator();
 
   return (
     <S.Container>
@@ -20,7 +22,9 @@ const OrderConfirm = () => {
       </S.Info>
       <S.PriceWrapper>
         <S.PriceText>총 결제 금액</S.PriceText>
-        <S.Price>{totalPrice.toLocaleString("ko-KR")}원</S.Price>
+        <S.Price>
+          {(totalPrice - totalDiscountPrice).toLocaleString("ko-KR")}원
+        </S.Price>
       </S.PriceWrapper>
     </S.Container>
   );

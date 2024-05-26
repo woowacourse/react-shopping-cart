@@ -3,12 +3,12 @@ import { useRecoilValue } from "recoil";
 import { cartItemsState } from "@/stores/cartItems";
 import { selectedCouponsState } from "@/stores/coupons";
 import { cartPriceState, shippingAreaState } from "@/stores/cartPrice";
+import { selectedCartItemsState } from "@/stores/cartItemSelections";
 
 import getPermutations from "@/utils/getPermutations";
 import { CART_PRICE } from "@/constants/cart";
 import { COUPON_SELECTION_RULES } from "@/constants/coupon";
 import { Coupon } from "@/types/coupon";
-import { selectedCartItemsState } from "@/stores/cartItemSelections";
 
 const useDiscountCalculator = () => {
   const cartItems = useRecoilValue(cartItemsState);
@@ -97,6 +97,7 @@ const useDiscountCalculator = () => {
   };
 
   return {
+    totalDiscountPrice: calculateTotalDiscount(),
     calculateDiscountPrice,
     calculateTotalDiscount,
   };

@@ -7,8 +7,7 @@ import useDiscountCalculator from "@/hooks/coupons/useDiscountCalculator";
 const OrderPrice = () => {
   const { orderPrice, shippingFee, totalPrice } =
     useRecoilValue(cartPriceState);
-  const { calculateTotalDiscount } = useDiscountCalculator();
-  const totalDiscountPrice = calculateTotalDiscount();
+  const { totalDiscountPrice } = useDiscountCalculator();
 
   return (
     <>
