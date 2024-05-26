@@ -21,5 +21,12 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    priceList: {
+      0: ['주문 금액', 100000],
+      1: ['쿠폰 할인 금액', 20000],
+      2: ['배송비', 0],
+    },
+    totalPrice: 80000,
+  },
 };
