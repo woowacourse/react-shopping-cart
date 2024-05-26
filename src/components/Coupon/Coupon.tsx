@@ -2,13 +2,55 @@ import CheckBox from '../CheckBox/CheckBox';
 
 import Caution from '../../assets/caution.svg';
 import * as C from './Coupon.style';
+import { useRecoilState } from 'recoil';
+import { finalTotalPriceListState } from '../../recoil/atoms';
 
 interface Props {
   coupons: Coupon[];
-  applicableCoupons: number[];
 }
 
-export default function Coupon({ coupons, applicableCoupons }: Props) {
+export default function Coupon({ coupons }: Props) {
+  const [finalTotalPriceList, setFinalTotalPriceList] = useRecoilState(
+    finalTotalPriceListState,
+  );
+
+  const applicableCouponIds = finalTotalPriceList.applicableCouponList.map(
+    (coupon) => {
+      return coupon.id;
+    },
+  );
+
+  const applyCouponIds = finalTotalPriceList.applyCoupons.map((coupon) => {
+    return coupon.id;
+  });
+
+  const handleClickCheckBox = (coupon: Coupon) => {
+    if (
+      applyCouponIds.length < 2 ||
+      finalTotalPriceList.applyCoupons.includes(coupon)
+    ) {
+      setFinalTotalPriceList((prevState) => {
+        const isCouponApplied = prevState.applyCoupons.some(
+          (appliedCoupon) => appliedCoupon.id === coupon.id,
+        );
+
+        const updatedApplyCoupons = isCouponApplied
+          ? prevState.applyCoupons.filter(
+              (appliedCoupon) => appliedCoupon.id !== coupon.id,
+            )
+          : [...prevState.applyCoupons, coupon];
+
+        return {
+          ...prevState,
+          applyCoupons: updatedApplyCoupons,
+        };
+      });
+    }
+    return;
+  };
+
+  console.log(finalTotalPriceList);
+
   return (
     <C.CouponStyle>
       <C.Notification>
@@ -24,10 +66,13 @@ export default function Coupon({ coupons, applicableCoupons }: Props) {
           return (
             <C.Item
               key={coupon.code}
-              disabled={!applicableCoupons.includes(coupon.id)}
+              disabled={!applicableCouponIds.includes(coupon.id)}
             >
               <div className="coupon_checkbox-group">
-                <CheckBox isCheck={false} onClick={() => {}} />
+                <CheckBox
+                  isCheck={applyCouponIds.includes(coupon.id)}
+                  onClick={() => handleClickCheckBox(coupon)}
+                />
                 <span className="coupon_name">{coupon.description}</span>
               </div>
               <span className="coupon_expiration">
