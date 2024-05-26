@@ -33,9 +33,10 @@ const CouponItem = ({ coupon }: Props) => {
 
   const handleClick = () => {
     if (!clicked) {
-      selectedCoupon && setSelectedCoupon(() => [...selectedCoupon, coupon]);
-      !selectedCoupon && setSelectedCoupon([coupon]);
-      setClicked(true);
+      setSelectedCoupon(
+        selectedCoupon ? [...selectedCoupon, coupon] : [coupon]
+      );
+      setClicked((prev) => !prev);
     } else {
       setSelectedCoupon((prevSelectedCoupons) =>
         prevSelectedCoupons
