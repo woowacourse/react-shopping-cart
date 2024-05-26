@@ -10,27 +10,55 @@ import { useNavigate } from "react-router-dom";
 import { PATH } from "../../constants/path";
 import ApplyCouponModal from "./ApplyCouponModal/ApplyCouponModal";
 import { useState } from "react";
+import { orders } from "../../api/order";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { selectedCartItemIdsState } from "../../recoil/cart/selectedCartItemIds";
+import { selectedCartItemsCountState } from "../../recoil/selectedCartItemsCount";
+import {
+  is도서산간지역State,
+  totalOrderAmountState,
+} from "../../recoil/cartAmount";
+import { couponsState } from "../../recoil/coupon/coupons";
 
 export default function OrderSummary() {
   const navigate = useNavigate();
 
-  const { coupons, isLoading, isError } = useFetchCoupons();
+  const [selectedCartItemIds, setSelectedCartItemIds] = useRecoilState(
+    selectedCartItemIdsState
+  );
+  const setGlobalCouponsState = useSetRecoilState(couponsState);
+  const setIs도서산간지역State = useSetRecoilState(is도서산간지역State);
+
+  const selectedUniqueCartItemsCount = useRecoilValue(
+    selectedCartItemIdsState
+  ).length;
+  const selectedCartItemsCount = useRecoilValue(selectedCartItemsCountState);
+  const totalOrderAmount = useRecoilValue(totalOrderAmountState);
+
+  const { coupons, isLoading } = useFetchCoupons();
 
   const [isOpen, setIsOpen] = useState(false);
 
   const onClose = () => {
     setIsOpen(false);
   };
-  const onApply = () => {
-    console.log(1);
-  };
 
   const handleApplyCouponButtonClick = () => {
     setIsOpen(true);
   };
 
-  const handlePaymentButtonClick = () => {
-    navigate(PATH.checkout);
+  const handlePaymentButtonClick = async () => {
+    await orders(selectedCartItemIds);
+    navigate(PATH.checkout, {
+      state: {
+        selectedUniqueCartItemsCount,
+        selectedCartItemsCount,
+        totalOrderAmount,
+      },
+    });
+    setSelectedCartItemIds([]);
+    setGlobalCouponsState([]);
+    setIs도서산간지역State(false);
   };
 
   return (
@@ -42,12 +70,11 @@ export default function OrderSummary() {
           disabled={isLoading}
           onClick={handleApplyCouponButtonClick}
         />
-        {!isLoading && !isError && (
+        {isOpen && (
           <ApplyCouponModal
             isOpen={isOpen}
             fetchedCoupons={coupons}
             onClose={onClose}
-            onApply={onApply}
           />
         )}
         <DeliveryInfo />

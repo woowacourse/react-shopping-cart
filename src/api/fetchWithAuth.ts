@@ -11,6 +11,7 @@ interface RequestOptions {
 export const PATH = {
   cartItems: "/cart-items",
   coupons: "/coupons",
+  orders: "/orders",
 };
 
 export const fetchWithAuth = async (path: string, options: RequestOptions) => {

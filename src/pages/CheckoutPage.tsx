@@ -2,21 +2,18 @@ import { Suspense } from "react";
 import Header from "../components/Header";
 import Button from "../components/Button";
 import styled from "styled-components";
-import { useRecoilValue } from "recoil";
-import { selectedCartItemIdsState } from "../recoil/cart/selectedCartItemIds";
-import { selectedCartItemsCountState } from "../recoil/selectedCartItemsCount";
-import { totalOrderAmountState } from "../recoil/cartAmount";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { PATH } from "../constants/path";
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
-
-  const selectedUniqueCartItemsCount = useRecoilValue(
-    selectedCartItemIdsState
-  ).length;
-  const selectedCartItemsCount = useRecoilValue(selectedCartItemsCountState);
-  const totalOrderAmount = useRecoilValue(totalOrderAmountState);
+  const {
+    state: {
+      selectedUniqueCartItemsCount,
+      selectedCartItemsCount,
+      totalOrderAmount,
+    },
+  } = useLocation();
 
   const handleGoBackToCartPageButtonClick = () => {
     navigate(PATH.cart);
@@ -33,7 +30,7 @@ export default function CheckoutPage() {
               <S.OrderSummaryInfo>
                 총 {selectedUniqueCartItemsCount}종류의 상품{" "}
                 {selectedCartItemsCount}
-                개를 주문합니다.
+                개를 주문했습니다.
               </S.OrderSummaryInfo>
               <S.OrderSummaryInfo>
                 최종 결제 금액을 확인해 주세요.

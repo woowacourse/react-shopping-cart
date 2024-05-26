@@ -9,15 +9,23 @@ interface ApplyCouponModalProps {
   isOpen: boolean;
   fetchedCoupons: Coupon[];
   onClose: () => void;
-  onApply: () => void;
 }
 export default function ApplyCouponModal({
   isOpen,
   fetchedCoupons,
   onClose,
-  onApply,
 }: ApplyCouponModalProps) {
-  const { coupons } = useCouponControl(fetchedCoupons);
+  const {
+    coupons,
+    currentDiscountAmount,
+    toggleSelection,
+    applySelectedCoupons,
+  } = useCouponControl(fetchedCoupons);
+
+  const onApplyButtonClick = () => {
+    applySelectedCoupons();
+    onClose();
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="small">
@@ -31,14 +39,20 @@ export default function ApplyCouponModal({
           </S.CouponNoti>
           <S.CouponList>
             {coupons.map((coupon) => (
-              <CouponItem key={coupon.id} coupon={coupon} />
+              <CouponItem
+                key={coupon.id}
+                coupon={coupon}
+                onChange={() => toggleSelection(coupon.id)}
+              />
             ))}
           </S.CouponList>
         </S.ContentWrapper>
       </Modal.Content>
       <Modal.Footer>
-        <Modal.Footer.Button onClick={onApply}>
-          <S.Button>총123원 할인 쿠폰 사용하기</S.Button>
+        <Modal.Footer.Button onClick={onApplyButtonClick}>
+          <S.ButtonContent>
+            총{currentDiscountAmount.toLocaleString()}원 할인 쿠폰 사용하기
+          </S.ButtonContent>
         </Modal.Footer.Button>
       </Modal.Footer>
     </Modal>
@@ -76,7 +90,7 @@ const S = {
     gap: 24px;
   `,
 
-  Button: styled.span`
+  ButtonContent: styled.span`
     height: 44px;
     display: flex;
     align-items: center;

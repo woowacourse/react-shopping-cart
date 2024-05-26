@@ -3,6 +3,7 @@ import { Coupon, isFixedDiscountCoupon } from "../../../types/coupons";
 
 interface CouponItemProps {
   coupon: Coupon;
+  onChange: () => void;
 }
 
 const getCondition = (coupon: Coupon) => {
@@ -11,11 +12,16 @@ const getCondition = (coupon: Coupon) => {
   }
 };
 
-export default function CouponItem({ coupon }: CouponItemProps) {
+export default function CouponItem({ coupon, onChange }: CouponItemProps) {
   return (
     <S.Container>
       <S.CheckboxWrapper>
-        <S.Checkbox type="checkbox" id={`coupon-selection-${coupon.id}`} />
+        <S.Checkbox
+          type="checkbox"
+          checked={coupon.isSelected}
+          id={`coupon-selection-${coupon.id}`}
+          onChange={onChange}
+        />
         <S.CheckboxLabel htmlFor={`coupon-selection-${coupon.id}`}>
           {coupon.description}
         </S.CheckboxLabel>

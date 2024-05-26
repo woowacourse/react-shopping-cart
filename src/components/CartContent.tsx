@@ -5,8 +5,10 @@ import CartTitle from "./CartTitle";
 import { cartItemsState } from "../recoil/cart/cartItems";
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
+import { useFetchCartItems } from "../hooks/useFetchCartItems";
 
 function CartContent() {
+  useFetchCartItems();
   const cartItems = useRecoilValue(cartItemsState);
 
   const 내용물 =

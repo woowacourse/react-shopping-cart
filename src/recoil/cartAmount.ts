@@ -1,4 +1,4 @@
-import { selector } from "recoil";
+import { atom, selector } from "recoil";
 import { cartItemsState } from "./cart/cartItems";
 import { couponsState } from "./coupon/coupons";
 import { calculateDiscountAmountOfCoupon } from "../utils/calculateDiscountAmountOfCoupon";
@@ -38,16 +38,22 @@ export const discountAmountState = selector({
   },
 });
 
+export const is도서산간지역State = atom({
+  key: "is도서산간지역State",
+  default: false,
+});
+
 export const deliveryCostState = selector({
   key: "deliveryCostState",
   get: async ({ get }) => {
     const orderAmount = get(orderAmountState);
+    const is도서산간지역 = get(is도서산간지역State);
 
-    if (orderAmount === 0) {
-      return 0;
-    }
     if (orderAmount >= 100_000) {
       return 0;
+    }
+    if (is도서산간지역) {
+      return 6000;
     }
     return 3000;
   },
@@ -57,7 +63,8 @@ export const totalOrderAmountState = selector({
   key: "totalOrderAmountState",
   get: ({ get }) => {
     const orderAmount = get(orderAmountState);
+    const discountAmount = get(discountAmountState);
     const deliveryCost = get(deliveryCostState);
-    return orderAmount + deliveryCost;
+    return orderAmount - discountAmount + deliveryCost;
   },
 });
