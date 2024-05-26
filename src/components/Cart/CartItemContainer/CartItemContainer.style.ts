@@ -14,8 +14,9 @@ export const CartItemEmptyStyle = css({
   alignItems: "center",
 
   width: "100%",
-  height: "50vh",
-  fontSize: "25px",
+  fontSize: "20px",
   fontWeight: "700",
   textAlign: "center",
+
+  marginTop: "50%",
 });
