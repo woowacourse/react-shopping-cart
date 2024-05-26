@@ -94,8 +94,11 @@ describe('useCouponValidityChecker', () => {
 
   it('"X개 구매 시 Y개 무료" 유형의 쿠폰이고, 구매 상품들의 각 수량이 쿠폰 사용 조건인 "X개"보다 작거나 같을 때, 해당 쿠폰은 사용자가 선택할 수 없어야 한다.', () => {
     const newInitializeState = ({ set }: { set: RecoilStateSetType }) => {
-      set(cartItemsState, [{ ...mockCartItems[0], quantity: 1 }]);
-      set(checkedCartItemsState, [1]);
+      set(cartItemsState, [
+        { ...mockCartItems[0], quantity: 2 },
+        { ...mockCartItems[1], quantity: 2 },
+      ]);
+      set(checkedCartItemsState, [1, 2]);
     };
 
     const { result } = renderHook(() => useCouponValidityChecker(), {
@@ -110,8 +113,11 @@ describe('useCouponValidityChecker', () => {
 
   it('"X개 구매 시 Y개 무료" 유형의 쿠폰이고, 구매 상품들의 각 수량이 쿠폰 사용 조건인 "X개"보다 클 때, 해당 쿠폰은 사용자가 선택할 수 있어야 한다.', () => {
     const newInitializeState = ({ set }: { set: RecoilStateSetType }) => {
-      set(cartItemsState, [{ ...mockCartItems[0], quantity: 3 }]);
-      set(checkedCartItemsState, [1]);
+      set(cartItemsState, [
+        { ...mockCartItems[0], quantity: 3 },
+        { ...mockCartItems[1], quantity: 2 },
+      ]);
+      set(checkedCartItemsState, [1, 2]);
     };
 
     const { result } = renderHook(() => useCouponValidityChecker(), {
