@@ -42,8 +42,3 @@ export const finalTotalPriceListState = atom<FinalTotalPriceList>({
     totalPaymentPrice: 0,
   },
 });
-
-export const couponCheckState = atomFamily<boolean, number>({
-  key: 'couponCheckState',
-  default: false,
-});
