@@ -2,14 +2,17 @@
  * 쿠폰 적용 가능한지 확인하는 커스텀 훅
  * - 사용 가능 시간인지
  * - 최소 주문 금액을 만족하는지
+ * - 구매 개수를 만족하는지
  */
 
 import { useRecoilValue } from "recoil";
 import { cartPriceState } from "@/stores/cartPrice";
-import { AvailableTime, Coupon } from "@/types/coupon";
+import { cartItemsState } from "@/stores/cartItems";
 import useCouponValidator from "./useCouponValidator";
+import { AvailableTime, Coupon } from "@/types/coupon";
 
 const useCouponApplicabilityChecker = () => {
+  const cartItems = useRecoilValue(cartItemsState);
   const { orderPrice } = useRecoilValue(cartPriceState);
   const { filteredValidCoupons } = useCouponValidator();
 
@@ -26,19 +29,29 @@ const useCouponApplicabilityChecker = () => {
     return currentTime >= start && currentTime <= end;
   };
 
-  const isFulfillMinimumAmount = (minimumAmount?: number) => {
-    if (!minimumAmount) {
+  const isFulfillMinimumPrice = (minimumPrice?: number) => {
+    if (!minimumPrice) {
       return true;
     }
 
-    return orderPrice >= minimumAmount;
+    return orderPrice >= minimumPrice;
+  };
+
+  const isFulfillMinimumQuantity = (buyQuantity?: number) => {
+    if (!buyQuantity) {
+      return true;
+    }
+
+    return cartItems.some((cartItem) => cartItem.quantity >= buyQuantity + 1);
   };
 
   const isCouponApplicable = (coupon: Coupon) => {
-    const { availableTime, minimumAmount } = coupon;
+    const { availableTime, minimumAmount, buyQuantity } = coupon;
 
     return (
-      isAvailableTime(availableTime) && isFulfillMinimumAmount(minimumAmount)
+      isAvailableTime(availableTime) &&
+      isFulfillMinimumPrice(minimumAmount) &&
+      isFulfillMinimumQuantity(buyQuantity)
     );
   };
 
@@ -47,7 +60,8 @@ const useCouponApplicabilityChecker = () => {
 
   return {
     isAvailableTime,
-    isFulfillMinimumAmount,
+    isFulfillMinimumPrice,
+    isFulfillMinimumQuantity,
     isCouponApplicable,
     filteredApplicableCoupons,
   };
