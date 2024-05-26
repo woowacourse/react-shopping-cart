@@ -4,13 +4,19 @@ import { cartAmountState } from "../../recoil/cartAmount";
 import { RawCoupon } from "../../types/rawCoupon";
 import { isCouponSelectable } from "./isCouponSelectable";
 
-type CouponSelectabilityChecker = (coupon: RawCoupon) => boolean;
+interface UseCouponSelectabilityCheckerReturn {
+  checkCouponSelectable: (coupon: RawCoupon) => boolean;
+}
 
-export const useCouponSelectabilityChecker = (): CouponSelectabilityChecker => {
+export const useCouponSelectabilityChecker = (): UseCouponSelectabilityCheckerReturn => {
   const cartItems = useRecoilValue(cartItemsState);
   const { orderAmount, shippingCost } = useRecoilValue(cartAmountState);
 
-  return (coupon: RawCoupon) => {
+  const checkCouponSelectable = (coupon: RawCoupon) => {
     return isCouponSelectable(coupon, cartItems, { orderAmount, shippingCost });
+  };
+
+  return {
+    checkCouponSelectable,
   };
 };

@@ -3,12 +3,14 @@ import { Coupon } from "../../types/coupon";
 import { getPermutations } from "../../utils/math/getPermutations";
 import { getMaxNumberFromList } from "../../utils/math/getMaxFromNumberList";
 
-type CouponsDiscountCalculator = (coupons: Coupon[]) => number;
+interface UseCouponListDiscountCalculatorReturn {
+  calculateCouponListDiscount: (coupons: Coupon[]) => number;
+}
 
-export const useCouponsDiscountCalculator = (): CouponsDiscountCalculator => {
-  const calculateCouponDiscount = useCouponDiscountCalculator();
+export const useCouponListDiscountCalculator = (): UseCouponListDiscountCalculatorReturn => {
+  const { calculateCouponDiscount } = useCouponDiscountCalculator();
 
-  return (coupons: Coupon[]): number => {
+  const calculateCouponListDiscount = (coupons: Coupon[]): number => {
     const selectedCoupons = coupons.filter(({ isSelected }) => isSelected);
 
     const couponsPermutations = getPermutations(selectedCoupons);
@@ -17,5 +19,9 @@ export const useCouponsDiscountCalculator = (): CouponsDiscountCalculator => {
     });
 
     return getMaxNumberFromList(possibleDiscounts);
+  };
+
+  return {
+    calculateCouponListDiscount,
   };
 };

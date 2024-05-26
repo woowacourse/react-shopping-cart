@@ -12,7 +12,7 @@ export interface UseCartItemsReturn {
 
 export const useCartItemControl = (): UseCartItemsReturn => {
   const setSelectedCartItemIds = useSetRecoilState(selectedCartItemIdsState);
-  const refreshCartItems = useRefreshCartItems();
+  const { refreshCartItems } = useRefreshCartItems();
 
   const removeSelectedCartItemId = (cartItemId: CartItemId) => {
     setSelectedCartItemIds((prev) => prev.filter((id) => id !== cartItemId));

@@ -18,7 +18,7 @@ export default function PayButton({ totalPayAmount }: PayButtonProps) {
   const navigate = useNavigate();
   const [selectedCartItemIds, setSelectedCartItemIds] = useRecoilState(selectedCartItemIdsState);
   const { selectedCartItemCount, selectedUniqueCartItemCount } = useSelectedCartItemCount();
-  const refreshCartItems = useRefreshCartItems();
+  const { refreshCartItems } = useRefreshCartItems();
 
   const resetCartItemSelection = () => setSelectedCartItemIds([]);
 

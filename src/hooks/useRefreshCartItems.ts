@@ -2,9 +2,11 @@ import { useSetRecoilState } from "recoil";
 import { fetchCartItems } from "../api/cartItems";
 import { rawCartItemsState } from "../recoil/rawCartItems";
 
-type CartItemRefresher = () => Promise<void>;
+interface UseRefreshCartItemsReturn {
+  refreshCartItems: () => Promise<void>;
+}
 
-export const useRefreshCartItems = (): CartItemRefresher => {
+export const useRefreshCartItems = (): UseRefreshCartItemsReturn => {
   const setRawCartItems = useSetRecoilState(rawCartItemsState);
 
   const refreshCartItems = async () => {
@@ -12,5 +14,5 @@ export const useRefreshCartItems = (): CartItemRefresher => {
     setRawCartItems(cartItems);
   };
 
-  return refreshCartItems;
+  return { refreshCartItems };
 };
