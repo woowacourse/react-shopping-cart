@@ -110,15 +110,8 @@ describe('쿠폰 적용가능 여부 테스트', () => {
   });
 
   describe('context: percentage coupon', () => {
-    afterAll(() => {
-      jest.useRealTimers();
-    });
-
     it('시작시간보다 이를 때 쿠폰이 적용되지 않는다.', () => {
-      jest.useFakeTimers();
-      jest.setSystemTime(dayjs('2024-05-23T03:00:00').toDate());
-
-      const { result } = renderHook(() => useApplicableCoupon(), {
+      const { result } = renderHook(() => useApplicableCoupon(dayjs('2024-05-23T03:00:00')), {
         wrapper: ({ children }) => (
           <RecoilRoot initializeState={({ set }) => set(selectedCartItems, mockCartItems)}>
             {children}
@@ -129,9 +122,7 @@ describe('쿠폰 적용가능 여부 테스트', () => {
       expect(result.current.isApplicable(percentageCoupon)).not.toBeTruthy();
     });
     it('시작시간일 때 쿠폰이 적용된다.', () => {
-      jest.useFakeTimers();
-      jest.setSystemTime(dayjs('2024-05-23T04:00:00').toDate());
-      const { result } = renderHook(() => useApplicableCoupon(), {
+      const { result } = renderHook(() => useApplicableCoupon(dayjs('2024-05-23T04:00:00')), {
         wrapper: ({ children }) => (
           <RecoilRoot initializeState={({ set }) => set(selectedCartItems, mockCartItems)}>
             {children}
@@ -142,9 +133,7 @@ describe('쿠폰 적용가능 여부 테스트', () => {
       expect(result.current.isApplicable(percentageCoupon)).toBeTruthy();
     });
     it('시작시간과 끝시간 사이일 때 쿠폰이 적용된다.', () => {
-      jest.useFakeTimers();
-      jest.setSystemTime(dayjs('2024-05-23T05:00:00').toDate());
-      const { result } = renderHook(() => useApplicableCoupon(), {
+      const { result } = renderHook(() => useApplicableCoupon(dayjs('2024-05-23T05:00:00')), {
         wrapper: ({ children }) => (
           <RecoilRoot initializeState={({ set }) => set(selectedCartItems, mockCartItems)}>
             {children}
@@ -155,9 +144,7 @@ describe('쿠폰 적용가능 여부 테스트', () => {
       expect(result.current.isApplicable(percentageCoupon)).toBeTruthy();
     });
     it('끝시간일 때 쿠폰이 적용된다.', () => {
-      jest.useFakeTimers();
-      jest.setSystemTime(dayjs('2024-05-23T07:00:00').toDate());
-      const { result } = renderHook(() => useApplicableCoupon(), {
+      const { result } = renderHook(() => useApplicableCoupon(dayjs('2024-05-23T07:00:00')), {
         wrapper: ({ children }) => (
           <RecoilRoot initializeState={({ set }) => set(selectedCartItems, mockCartItems)}>
             {children}
@@ -168,9 +155,7 @@ describe('쿠폰 적용가능 여부 테스트', () => {
       expect(result.current.isApplicable(percentageCoupon)).toBeTruthy();
     });
     it('끝시간 이후일 때 쿠폰이 적용되지 않는다.', () => {
-      jest.useFakeTimers();
-      jest.setSystemTime(dayjs('2024-05-23T08:00:00').toDate());
-      const { result } = renderHook(() => useApplicableCoupon(), {
+      const { result } = renderHook(() => useApplicableCoupon(dayjs('2024-05-23T08:00:00')), {
         wrapper: ({ children }) => (
           <RecoilRoot initializeState={({ set }) => set(selectedCartItems, mockCartItems)}>
             {children}

@@ -2,6 +2,7 @@ import * as S from './styled';
 import { Coupon, FixedCoupon, FreeShippingCoupon, PercentageCoupon } from '@type/coupon';
 import Checkbox from '@components/common/Checkbox/Checkbox';
 import useApplicableCoupon from '@hooks/coupon/useApplicableCoupon';
+import dayjs from '@utils/dayjs';
 
 interface EachCouponProps {
   coupon: Coupon;
@@ -16,7 +17,7 @@ const EachCoupon = ({
   isAlreadyApplyingMaximumCoupons,
   changeApplying,
 }: EachCouponProps) => {
-  const { isApplicable } = useApplicableCoupon();
+  const { isApplicable } = useApplicableCoupon(dayjs());
   const disabled = !isApplicable(coupon) || (isAlreadyApplyingMaximumCoupons && !isSelect);
 
   const PercentageCouponAvailableTime = (coupon: Coupon) => {

@@ -23,8 +23,7 @@ const isApplicableFreeShipping = (minimumAmount: number, totalAmount: number) =>
   return totalAmount >= minimumAmount;
 };
 
-const isApplicablePercentage = (start: string, end: string) => {
-  const now = dayjs();
+const isApplicablePercentage = (start: string, end: string, now: dayjs.Dayjs) => {
   const startTime = `${now.format('YYYY-MM-DD')}T${start}`;
   const endTime = `${now.format('YYYY-MM-DD')}T${end}`;
 
@@ -42,7 +41,7 @@ const isApplicablePercentage = (start: string, end: string) => {
  * freeShipping -> totalAmount가 minimumAmount 이상일 경우
  * percentage -> 현재 시간이 start ~ end 사이일 경우
  */
-const useApplicableCoupon = () => {
+const useApplicableCoupon = (now: dayjs.Dayjs = dayjs()) => {
   const selectedItems = useRecoilValue(selectedCartItems);
   const totalAmount = usePriceInfo().order;
 
@@ -64,6 +63,7 @@ const useApplicableCoupon = () => {
       return isApplicablePercentage(
         percentageCoupon.availableTime.start ?? '',
         percentageCoupon.availableTime.end ?? '',
+        now,
       );
     }
 
