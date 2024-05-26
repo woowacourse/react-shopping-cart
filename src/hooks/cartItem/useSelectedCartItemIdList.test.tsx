@@ -11,6 +11,10 @@ import {
 } from '../../recoil/cartItem/atom';
 
 describe('useSelectedCartItemIdList', () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
   const MOCK_CART_ITEMS = [
     {
       id: 2463,
@@ -124,5 +128,49 @@ describe('useSelectedCartItemIdList', () => {
 
     act(() => result.current.unselectAll());
     expect(result.current.isSelectedAll).toBe(false);
+  });
+
+  it('selectedCartItemIdList 상태가 변경될 때 마다 localStorage에 상태를 저장해야 한다.', () => {
+    const { result } = renderHook(() => useSelectedCartItemIdList(), {
+      wrapper: ({ children }) => (
+        <RecoilRoot
+          initializeState={({ set }) => {
+            set(selectedCartItemIdListState, [MOCK_CART_ITEMS[0].id]);
+            set(cartItemListState, MOCK_CART_ITEMS);
+          }}
+        >
+          {children}
+        </RecoilRoot>
+      ),
+    });
+    act(() => {
+      result.current.selectAll();
+    });
+    const firstValue = JSON.parse(
+      localStorage.getItem('selectedCartItemIdListState') || '[]',
+    );
+    expect(firstValue).toStrictEqual(MOCK_CART_ITEMS.map(({ id }) => id));
+    act(() => {
+      result.current.unselectAll();
+    });
+    const secondValue = JSON.parse(
+      localStorage.getItem('selectedCartItemIdListState') || '[]',
+    );
+    expect(secondValue).toStrictEqual([]);
+  });
+
+  it('selectedCartItemIdList는 localStorage에서 상태를 불러와야 한다.', () => {
+    localStorage.setItem(
+      'selectedCartItemIdListState',
+      JSON.stringify([MOCK_CART_ITEMS[0].id]),
+    );
+
+    const { result } = renderHook(() => useSelectedCartItemIdList(), {
+      wrapper: RecoilRoot,
+    });
+
+    expect(result.current.selectedIdList).toStrictEqual([
+      MOCK_CART_ITEMS[0].id,
+    ]);
   });
 });
