@@ -18,7 +18,7 @@ const Coupon = () => {
   const coupons = useLoadCoupon();
   const { isExpired } = useExpirationDate();
   const notExpiredCoupon = coupons.filter(coupon => !isExpired(coupon.expirationDate));
-  const { applyingCoupons, changeApplying } = useApplyCoupons();
+  const { applyingCoupons, changeApplying, isAlreadyApplyingMaximumCoupons } = useApplyCoupons();
   const { discountAmount } = useDiscount();
 
   const setDiscountAmountStore = useSetRecoilState(discountAmountStore);
@@ -32,8 +32,6 @@ const Coupon = () => {
     toggleCouponModalOpen();
   };
 
-  const isAlreadyApplyingTwoCoupons = applyingCoupons.length >= 2;
-
   return (
     <>
       <S.ApplyCouponButton onClick={toggleCouponModalOpen}>쿠폰 적용</S.ApplyCouponButton>
@@ -45,7 +43,7 @@ const Coupon = () => {
               key={coupon.id}
               isSelect={isSelect(coupon)}
               coupon={coupon}
-              isAlreadyApplyingTwoCoupons={isAlreadyApplyingTwoCoupons}
+              isAlreadyApplyingMaximumCoupons={isAlreadyApplyingMaximumCoupons}
               changeApplying={changeApplying}
             />
           ))}

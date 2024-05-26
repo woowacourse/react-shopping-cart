@@ -6,18 +6,18 @@ import Checkbox from '@components/common/Checkbox/Checkbox';
 interface EachCouponProps {
   coupon: Coupon;
   isSelect: boolean;
-  isAlreadyApplyingTwoCoupons: boolean;
+  isAlreadyApplyingMaximumCoupons: boolean;
   changeApplying: (coupon: Coupon) => void;
 }
 
 const EachCoupon = ({
   coupon,
   isSelect,
-  isAlreadyApplyingTwoCoupons,
+  isAlreadyApplyingMaximumCoupons,
   changeApplying,
 }: EachCouponProps) => {
   const { isApplicable } = useApplicable();
-  const disabled = !isApplicable(coupon) || (isAlreadyApplyingTwoCoupons && !isSelect);
+  const disabled = !isApplicable(coupon) || (isAlreadyApplyingMaximumCoupons && !isSelect);
 
   return (
     <S.Container>

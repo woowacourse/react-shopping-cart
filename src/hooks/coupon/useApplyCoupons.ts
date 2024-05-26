@@ -4,6 +4,7 @@ import { Coupon } from '@type/coupon';
 
 const useApplyCoupons = () => {
   const [applyingCoupons, setApplyingCoupons] = useRecoilState(selectedCoupons);
+  const isAlreadyApplyingMaximumCoupons = applyingCoupons.length >= 2;
 
   const changeApplying = (coupon: Coupon) => {
     const alreadyExist = applyingCoupons.find(applying => applying.id === coupon.id) !== undefined;
@@ -18,6 +19,7 @@ const useApplyCoupons = () => {
   return {
     applyingCoupons,
     changeApplying,
+    isAlreadyApplyingMaximumCoupons,
   };
 };
 
