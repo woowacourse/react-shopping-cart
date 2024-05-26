@@ -70,7 +70,7 @@ export async function fetchCoupons(): Promise<CouponInstances[]> {
   return convertToCouponDTO(data);
 }
 
-export async function postOrders(cartItemIds: number[]) {
+export async function postOrders(cartItemIds: number[]): Promise<Pick<Response, "status">> {
   const token = generateBasicToken(SERVER_URL.userId, SERVER_URL.userPassword);
 
   const bodyData = {
