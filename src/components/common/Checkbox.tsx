@@ -5,7 +5,7 @@ import { CHECKED, UNCHECKED } from '@assets/images';
 
 interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
-  labelHidden: boolean;
+  labelHidden?: boolean;
   label: string;
   disabled?: boolean;
 }
@@ -13,7 +13,7 @@ interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
 export default function Checkbox({
   id,
   checked,
-  labelHidden,
+  labelHidden = false,
   label,
   disabled,
   onChange,

@@ -21,7 +21,6 @@ export default function ShippingCheck() {
         checked={isRemoteArea}
         id="shipping-checkbox"
         label="제주도 및 도서 산간 지역"
-        labelHidden={false}
       />
     </div>
   );

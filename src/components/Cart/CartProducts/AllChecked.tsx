@@ -15,7 +15,6 @@ export default function AllChecked() {
   return (
     <div css={allCheckedContainer}>
       <Checkbox
-        labelHidden={false}
         checked={isAllChecked}
         onChange={handleClickCheck}
         id="전체 선택"

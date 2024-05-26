@@ -45,7 +45,7 @@ export default function CouponItem({ coupon }: CouponItemProps) {
             checked={selectedCoupons.includes(coupon.code)}
             id={coupon.id.toString()}
             label={coupon.description + '체크박스'}
-            labelHidden={true}
+            labelHidden
             disabled={!isCouponApplicable}
           />
           <h2 css={checkboxTitle}>{coupon.description}</h2>
