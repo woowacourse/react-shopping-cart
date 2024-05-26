@@ -17,7 +17,7 @@ const CartItemPrice = ({ cartItem }: { cartItem: CartItem }) => {
 };
 
 const CartItemImg = ({ cartItem }: { cartItem: CartItem }) => {
-  return <Styled.ItemImage src={cartItem.product.imageUrl} alt={`${cartItem.product.name} 이미지`} />;
+  return <Styled.ItemImage src={cartItem.product.imageUrl} alt="" />;
 };
 
 const CartItemQuantity = ({ cartItem }: { cartItem: CartItem }) => {
