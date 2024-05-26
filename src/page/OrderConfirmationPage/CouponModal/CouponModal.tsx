@@ -7,6 +7,7 @@ import COUPONS from '../../../constants/coupons';
 import CouponItem from '../CouponItem/CouponItem';
 import { InfoIcon } from '../../../assets';
 import { Modal } from 'le-sserafim';
+import POLICES from '../../../constants/policies';
 import checkIsAvailableCoupon from '../../../utils/checkIsAvailableCoupon';
 import convertToLocaleAmount from '../../../utils/convertToLocalePrice';
 import getCouponsAmount from '../../../utils/getCouponsAmount';
@@ -21,7 +22,7 @@ interface CouponModalProps {
 }
 export default function CouponModal({ onClose, onConfirm }: CouponModalProps) {
   // TODO: api 정상 동작 시 모킹 데이터를 api 패칭된 쿠폰으로 변환해야 함
-  const filteredCoupon = COUPONS.filter(
+  const filteredCoupons = COUPONS.filter(
     (coupon) => new Date() < getLastTimeDate(iso8601ToDate(coupon.expirationDate)),
   );
 
@@ -31,12 +32,18 @@ export default function CouponModal({ onClose, onConfirm }: CouponModalProps) {
   const checkedItems = useRecoilValue(checkedItemsState);
   const deliveryFee = useRecoilValue(deliveryFeeState);
 
+  const availableCoupons = filteredCoupons.filter((coupon) =>
+    checkIsAvailableCoupon(coupon, checkedItems, deliveryFee),
+  );
+  const unavailableCoupons = filteredCoupons.filter(
+    (coupon) => !checkIsAvailableCoupon(coupon, checkedItems, deliveryFee),
+  );
+
   const {
     coupons: checkedCoupons,
     isSelectedCoupon: isCheckedCoupon,
     addCoupon,
     deleteCoupon,
-    IS_ADDABLE: isCouponAddable,
   } = useCoupons(selectedCoupon);
 
   const checkedCouponAmount = getCouponsAmount(checkedCoupons, checkedItems, deliveryFee);
@@ -57,20 +64,32 @@ export default function CouponModal({ onClose, onConfirm }: CouponModalProps) {
     >
       <S.ContentContainer>
         <S.InfoBox>
-          <img src={InfoIcon} /> {'쿠폰은 최대 2개까지 사용할 수 있습니다.'}
+          <img src={InfoIcon} /> {`쿠폰은 최대 ${POLICES.couponCountMax}개까지 사용할 수 있습니다.`}
         </S.InfoBox>
         <S.CouponItemContainer>
-          {filteredCoupon.map((coupon) => {
-            const isAvailableTime = checkIsAvailableCoupon(coupon, checkedItems, deliveryFee);
+          {availableCoupons.map((coupon) => {
             return (
               <CouponItem
                 key={coupon.id}
                 isChecked={isCheckedCoupon(coupon)}
                 coupon={coupon}
-                isAvailable={(isCouponAddable || isCheckedCoupon(coupon)) && isAvailableTime}
+                isAvailable={
+                  checkedCoupons.length !== POLICES.couponCountMax || isCheckedCoupon(coupon)
+                }
                 isCheckedToggler={() => {
                   isCheckedCoupon(coupon) ? deleteCoupon(coupon) : addCoupon(coupon);
                 }}
+              />
+            );
+          })}
+          {unavailableCoupons.map((coupon) => {
+            return (
+              <CouponItem
+                key={coupon.id}
+                isChecked={false}
+                coupon={coupon}
+                isAvailable={false}
+                isCheckedToggler={() => {}}
               />
             );
           })}
