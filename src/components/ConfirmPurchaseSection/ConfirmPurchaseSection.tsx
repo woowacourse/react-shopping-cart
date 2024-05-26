@@ -8,30 +8,19 @@ import Button from '../common/Button/Button';
 import PriceTable from '../PriceTable/PriceTable';
 import * as S from './ConfirmPurchaseSection.style';
 import CartItemList from '../CartItemList/CartItemList';
-import useCartItemList from '../../hooks/cartItem/useCartItemList';
 import { hasExtraDeliveryFeeState } from '../../recoil/cartItem/atom';
 import CheckboxWithLabel from '../CheckboxWithLabel/CheckboxWithLabel';
 import SelectCouponModal from '../SelectCouponModal/SelectCouponModal';
-import { useSelectedCartItemIdList } from '../../hooks/cartItem/useSelectedCartItemIdList';
+import useSelectedCartItemList from '../../hooks/cartItem/useSelectedCartItemList';
 
 const ConfirmPurchaseSection = () => {
-  const { cartItemList } = useCartItemList();
-  const { selectedIdList } = useSelectedCartItemIdList();
+  const { selectedCartItemList, totalProducts, totalQuantity } =
+    useSelectedCartItemList();
   const [hasExtraDeliveryFee, setHasExtraDeliveryFee] = useRecoilState(
     hasExtraDeliveryFeeState,
   );
 
   const { modalOpened, handleModalOpen, handleModalClose } = useModal();
-
-  const selectedCartItemList = cartItemList.filter(({ id }) =>
-    selectedIdList.includes(id),
-  );
-
-  const totalProducts = selectedIdList.length;
-
-  const totalQuantity = selectedCartItemList.reduce((sum, { quantity }) => {
-    return sum + quantity;
-  }, 0);
 
   return (
     <S.ConfirmPurchaseSection>
