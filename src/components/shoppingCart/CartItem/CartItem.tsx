@@ -1,26 +1,29 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import { CheckBox, DeleteItemButton } from '../../common';
 import { QuantityController } from '../';
 import * as Styled from './CartItem.style';
 
-import { useCheckCartItem, useFetchError } from '../../../hooks';
-import { updateCartItemQuantity } from '../../../apis';
+import { useCheckCartItem } from '../../../hooks';
 import { convertToLocaleAmount } from '../../../utils';
 import { Product, QuantityControlType } from '../../../type';
 import { itemQuantityState } from '../../../recoil/atoms';
-import { ERROR_MESSAGE } from '../../../apis/constants/errorMessage';
 
 interface CartItemProps {
   cartItemId: number;
   product: Product;
+  onUpdateQuantity: (cartItemId: number, quantity: number) => void;
   onDelete: (cartItemId: number) => void;
 }
 
-export default function CartItem({ cartItemId, product, onDelete }: CartItemProps) {
-  const [itemQuantity, setItemQuantity] = useRecoilState(itemQuantityState(cartItemId));
+export default function CartItem({
+  cartItemId,
+  product,
+  onUpdateQuantity,
+  onDelete,
+}: CartItemProps) {
+  const itemQuantity = useRecoilValue(itemQuantityState(cartItemId));
   const { isChecked, onCheckCartItem } = useCheckCartItem();
-  const { throwFetchError, resetFetchError } = useFetchError();
 
   const toggleCheckBox = () => {
     onCheckCartItem(cartItemId, !isChecked(cartItemId));
@@ -28,17 +31,7 @@ export default function CartItem({ cartItemId, product, onDelete }: CartItemProp
 
   const handleChangeQuantity = async (type: QuantityControlType) => {
     const newQuantity = type === 'increase' ? itemQuantity + 1 : Math.max(1, itemQuantity - 1);
-    await updateQuantity(cartItemId, newQuantity);
-  };
-
-  const updateQuantity = async (cartItemId: number, quantity: number) => {
-    try {
-      await updateCartItemQuantity(cartItemId, quantity);
-      setItemQuantity(quantity);
-      resetFetchError();
-    } catch (error) {
-      throwFetchError(error, ERROR_MESSAGE.UPDATE_QUANTITY_FAILED);
-    }
+    onUpdateQuantity(cartItemId, newQuantity);
   };
 
   const handleClickDeleteButton = () => {
