@@ -4,7 +4,7 @@ import checkIsAvailableCoupon from './checkIsAvailableCoupon';
 
 const getBuyXgetYCouponDiscount = (buyXgetYCoupon: BuyXGetYCoupon, items: CartItem[]) => {
   const overXQuantityItems = [...items].filter(
-    (item) => item.quantity >= buyXgetYCoupon.buyQuantity,
+    (item) => item.quantity >= buyXgetYCoupon.buyQuantity + buyXgetYCoupon.getQuantity,
   );
   if (overXQuantityItems.length === 0) return 0;
   const overXQuantityItemPrices = overXQuantityItems.map((item) => item.product.price);

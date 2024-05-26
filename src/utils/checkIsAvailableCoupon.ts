@@ -16,7 +16,9 @@ const checkIsAvailableFixedCoupon = (fixedCoupon: FixedDiscountCoupon, itemAmoun
 };
 
 const checkIsAvailableBuyXgetYCoupon = (buyXgetYCoupon: BuyXGetYCoupon, items: CartItem[]) => {
-  return items.some((item) => item.quantity >= buyXgetYCoupon.buyQuantity);
+  return items.some(
+    (item) => item.quantity >= buyXgetYCoupon.buyQuantity + buyXgetYCoupon.getQuantity,
+  );
 };
 
 const checkIsAvailableFreeShippingCoupon = (
