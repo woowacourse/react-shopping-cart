@@ -1,17 +1,18 @@
-import { selector, snapshot_UNSTABLE } from "recoil";
-import { selectedCouponSetSelector } from "./couponState";
-import { validateCouponConditionSet } from "./validateCouponApplicability";
+import { Snapshot, selector, snapshot_UNSTABLE, useRecoilCallback, useRecoilSnapshot } from "recoil";
+import { isSelectedCouponAtomFamily, selectedCouponSetSelector } from "./couponState";
+import { validateCouponApplicability, validateCouponConditionSet } from "./validateCouponApplicability";
 import { orderPriceSelector } from "../cart/orderSummaryState";
 import { cartItemListAtom } from "../cart/cartItemState";
+import { checkedIdSetSelector } from "../cart/checkedState";
 
 export const validCouponSelectedSetSelector = selector({
   key: "validCouponSelectedSetSelector",
   get: ({ get }) => {
     get(cartItemListAtom);
+    get(checkedIdSetSelector);
     const selectedCouponSet = get(selectedCouponSetSelector);
-    const snapshot = snapshot_UNSTABLE();
+    const snapshot = useRecoilSnapshot();
 
-    console.log(snapshot.getLoadable(orderPriceSelector).contents);
-    return [...selectedCouponSet].map((coupon) => validateCouponConditionSet.minimumAmount(coupon, snapshot));
+    return new Set([...selectedCouponSet].filter((coupon) => validateCouponApplicability(coupon, snapshot)));
   },
 });
