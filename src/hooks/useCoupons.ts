@@ -1,9 +1,9 @@
 import { Coupon } from '../type';
 import { useState } from 'react';
 
-export default function useCoupons(defaultCoupon: Coupon[] = []) {
-  const MAX_COUPON_NUMBER = 2;
+const MAX_COUPON_NUMBER = 2;
 
+export default function useCoupons(defaultCoupon: Coupon[] = []) {
   const [coupons, setCoupons] = useState<Coupon[]>(defaultCoupon);
 
   const isSelectedCoupon = (targetCoupon: Coupon) =>
