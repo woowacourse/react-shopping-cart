@@ -65,3 +65,8 @@ export const couponsState = atom<Coupon[]>({
   key: "couponState",
   default: [],
 });
+
+export const selectedCouponState = atom<Coupon[]>({
+  key: "selectedCouponState",
+  default: [],
+});

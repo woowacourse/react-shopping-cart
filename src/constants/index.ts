@@ -75,3 +75,8 @@ export const BUTTON_COLORS = {
   LIGHT: "LIGHT",
   DARK: "DARK",
 } as const;
+
+// 쿠폰 관련 상수
+export const COUPON = {
+  MAX_SELECTABLE_COUPONS: 2,
+};
