@@ -4,13 +4,19 @@ import * as S from './SelectCouponModalSection.style';
 import useCouponList from '../../hooks/coupon/useCouponList';
 import SelectCouponItem from '../SelectCouponItem/SelectCouponItem';
 import { useEffect } from 'react';
+import useApiErrorState from '../../hooks/error/useApiErrorState';
 
 const SelectCouponModalSection = () => {
   const { couponList, fetchCouponList } = useCouponList();
+  const { apiError } = useApiErrorState();
 
   useEffect(() => {
     fetchCouponList();
   }, []);
+
+  if (apiError) {
+    throw apiError;
+  }
 
   return (
     <S.SelectCouponModalSection>
