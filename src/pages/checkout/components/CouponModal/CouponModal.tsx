@@ -1,8 +1,6 @@
-import { useRecoilState } from 'recoil';
 import { Modal } from '@jaymyong66/simple-modal';
-import { activeCouponCodesState, couponSelectedState, mockCoupons } from '../../../../store/atoms';
 import NoticeLabel from '../../../../components/common/NoticeLabel/NoticeLabel';
-import CouponItem from './CouponItem';
+import CouponList from './CouponList';
 import { COUPON_POLICY } from '../../../../constants/policy';
 import styles from './CouponModal.module.css';
 
@@ -12,33 +10,6 @@ interface Props {
 }
 
 export default function CouponModal({ isOpen, handleToggle }: Props) {
-  const [couponSelected, setCouponSelected] = useRecoilState(couponSelectedState);
-  const [activeCouponCodes, setActiveCouponCodes] = useRecoilState(activeCouponCodesState);
-
-  const handleToggleCouponCheckbox = (toggledCouponCode: string) => {
-    const newCheckedState = !couponSelected[toggledCouponCode];
-
-    if (
-      newCheckedState === true &&
-      activeCouponCodes.length >= COUPON_POLICY.max_active_coupon_amount
-    )
-      return;
-
-    const newCouponSelected = {
-      ...couponSelected,
-      [toggledCouponCode]: newCheckedState,
-    };
-    setCouponSelected(newCouponSelected);
-
-    if (newCheckedState) {
-      const newActiveCoupons = [...activeCouponCodes, toggledCouponCode];
-      setActiveCouponCodes(newActiveCoupons);
-    } else {
-      const newActiveCoupons = activeCouponCodes.filter((code) => code !== toggledCouponCode);
-      setActiveCouponCodes(newActiveCoupons);
-    }
-  };
-
   return (
     <Modal
       position="center"
@@ -55,24 +26,9 @@ export default function CouponModal({ isOpen, handleToggle }: Props) {
         <NoticeLabel>
           쿠폰은 최대 {COUPON_POLICY.max_active_coupon_amount}개까지 사용할 수 있습니다.
         </NoticeLabel>
-        {mockCoupons.map((coupon) => {
-          const isFulledActiveCoupons =
-            activeCouponCodes.length === COUPON_POLICY.max_active_coupon_amount;
-          const includeActiveCoupon = activeCouponCodes.includes(coupon.code);
-          const isDisableCoupon = isFulledActiveCoupons && !includeActiveCoupon;
-          return (
-            <CouponItem
-              key={coupon.code}
-              coupon={coupon}
-              isChecked={couponSelected[coupon.code]}
-              isDisableCoupon={isDisableCoupon}
-              onChange={() => {
-                handleToggleCouponCheckbox(coupon.code);
-              }}
-            />
-          );
-        })}
+        <CouponList />
       </Modal.ModalContent>
+
       <Modal.ModalFooter>
         <Modal.ModalButton variant="primary" style={{ width: '100%' }}>
           총 6,000원 할인 쿠폰 사용하기
