@@ -2,14 +2,12 @@ import { API_TOKEN } from "./utils";
 
 const BASE_URL = process.env.VITE_API_BASE_URL;
 
-type MethodType = "GET" | "POST";
-
-export const fetchProducts = async (method: MethodType) => {
+export const fetchProducts = async () => {
   try {
     const token = API_TOKEN;
     const url = BASE_URL + "/cart-items";
     const response = await fetch(url, {
-      method,
+      method: "GET",
       headers: { Authorization: token },
     });
 
@@ -59,4 +57,15 @@ export const fetchCoupons = async () => {
   });
   const data = await response.json();
   return data;
+};
+
+export const generateOrder = async (cartItemIds: number[]) => {
+  const response = await fetch(BASE_URL + "/orders", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
+    body: JSON.stringify({
+      cartItemIds,
+    }),
+  });
+  return response.status;
 };

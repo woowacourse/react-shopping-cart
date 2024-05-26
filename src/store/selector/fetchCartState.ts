@@ -6,7 +6,7 @@ import { fetchProducts } from "../api";
 export const fetchCartState = selector({
   key: "fetchCartState",
   get: async () => {
-    const { content }: { content: CartItemInfo[] } = await fetchProducts("GET");
+    const { content }: { content: CartItemInfo[] } = await fetchProducts();
     const localData = getStorage<CartItemCheckedStateInStorage>(ITEM_CHECKING_STATE_KEY, {});
     content.forEach((cartItem) => {
       if (localData[cartItem.id] === undefined) localData[cartItem.id] = true;
