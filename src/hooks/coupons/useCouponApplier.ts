@@ -7,7 +7,7 @@ import { useRecoilValue, useRecoilState } from 'recoil';
 import useCouponValidator from './useCouponValidator';
 
 const useCouponApplier = () => {
-  const [selectedItems, setSelectedItems] = useRecoilState(selectedCartItems);
+  const [selectedItems] = useRecoilState(selectedCartItems);
   const priceInfo = useRecoilValue(priceInfoStore);
   const { isValidCoupon } = useCouponValidator();
 
