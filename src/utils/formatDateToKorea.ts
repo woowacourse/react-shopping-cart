@@ -1,6 +1,4 @@
-const formatDateToKorea = (dateString: string) => {
-  const [year, month, day] = dateString.split('-').map(Number);
-
+const formatDateToKorea = ([year, month, day]: [number, number, number]) => {
   return `${year}년 ${month}월 ${day}일`;
 };
 
