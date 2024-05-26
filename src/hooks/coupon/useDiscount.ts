@@ -5,6 +5,7 @@ import { CartItem } from '@type/cartItem';
 import usePriceInfo from '@hooks/usePriceInfo';
 import { IPriceInfo } from '@type/priceInfo';
 import { useEffect } from 'react';
+import { DISCOUNT_TYPE } from '@constants/constants';
 
 const discountByFixed = (coupon: FixedCoupon) => {
   return coupon.discount as number;
@@ -36,12 +37,12 @@ const useDiscount = (applyingCoupons: Coupon[], isolatedRegion: boolean) => {
   const priceInfo = usePriceInfo(isolatedRegion);
 
   const discountByCoupon = (selectedItems: CartItem[], coupon: Coupon) => {
-    if (coupon.discountType === 'fixed') return discountByFixed(coupon as FixedCoupon);
-    if (coupon.discountType === 'buyXgetY')
+    if (coupon.discountType === DISCOUNT_TYPE.fixed) return discountByFixed(coupon as FixedCoupon);
+    if (coupon.discountType === DISCOUNT_TYPE.buyXgetY)
       return discountByBuyXGetY(selectedItems, coupon as BuyXGetYCoupon);
-    if (coupon.discountType === 'freeShipping')
+    if (coupon.discountType === DISCOUNT_TYPE.freeShipping)
       return discountByFreeShipping(priceInfo, isolatedRegion);
-    if (coupon.discountType === 'percentage')
+    if (coupon.discountType === DISCOUNT_TYPE.percentage)
       return discountByPercentage(
         selectedItems.reduce((acc, cur) => acc + cur.quantity * cur.product.price, 0),
         coupon as PercentageCoupon,
@@ -52,7 +53,9 @@ const useDiscount = (applyingCoupons: Coupon[], isolatedRegion: boolean) => {
 
   const calculateMaximumDiscountAmount = () => {
     // 할인율이 큰 퍼센트를 먼저 적용시키기 위해서
-    const percentageApply = applyingCoupons.find(coupon => coupon.discountType === 'percentage');
+    const percentageApply = applyingCoupons.find(
+      coupon => coupon.discountType === DISCOUNT_TYPE.percentage,
+    );
     const percentageDiscount = calculatePercentageCoupon(percentageApply);
 
     // 퍼센트를 제외한 나머지 할인 적용
@@ -63,14 +66,14 @@ const useDiscount = (applyingCoupons: Coupon[], isolatedRegion: boolean) => {
   };
 
   const calculatePercentageCoupon = (coupon: Coupon | undefined) => {
-    if (coupon?.discountType === 'percentage')
+    if (coupon?.discountType === DISCOUNT_TYPE.percentage)
       return discountByPercentage(priceInfo.order, coupon as PercentageCoupon);
     else return 0;
   };
 
   const calculateRestCoupon = (coupons: Coupon[]) => {
     return coupons.reduce((acc, cur) => {
-      if (cur.discountType !== 'percentage') {
+      if (cur.discountType !== DISCOUNT_TYPE.percentage) {
         return acc + discountByCoupon(selectedItems, cur);
       }
       return acc;

@@ -10,6 +10,7 @@ import {
 import dayjs from '@utils/dayjs';
 import { selectedCartItems } from '@recoil/atoms';
 import usePriceInfo from '@hooks/usePriceInfo';
+import { DISCOUNT_TYPE } from '@constants/constants';
 
 const isApplicableFixed = (minimumAmount: number, totalAmount: number) => {
   return totalAmount >= minimumAmount;
@@ -46,19 +47,19 @@ const useApplicableCoupon = (now: dayjs.Dayjs = dayjs()) => {
   const totalAmount = usePriceInfo().order;
 
   const isApplicable = (coupon: Coupon) => {
-    if (coupon.discountType === 'fixed')
+    if (coupon.discountType === DISCOUNT_TYPE.fixed)
       return isApplicableFixed((coupon as FixedCoupon).minimumAmount as number, totalAmount);
 
-    if (coupon.discountType === 'buyXgetY')
+    if (coupon.discountType === DISCOUNT_TYPE.buyXgetY)
       return isApplicableBuyXGetY((coupon as BuyXGetYCoupon).buyQuantity as number, selectedItems);
 
-    if (coupon.discountType === 'freeShipping')
+    if (coupon.discountType === DISCOUNT_TYPE.freeShipping)
       return isApplicableFreeShipping(
         (coupon as FreeShippingCoupon).minimumAmount as number,
         totalAmount,
       );
 
-    if (coupon.discountType === 'percentage') {
+    if (coupon.discountType === DISCOUNT_TYPE.percentage) {
       const percentageCoupon = coupon as PercentageCoupon;
       return isApplicablePercentage(
         percentageCoupon.availableTime.start ?? '',

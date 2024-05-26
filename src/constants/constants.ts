@@ -1,3 +1,5 @@
+import { DiscountType } from '@type/coupon';
+
 export const API_URLS = {
   PRODUCTS: '/products',
   ORDERS: '/orders',
@@ -29,4 +31,11 @@ export const ROUTER_URLS = {
 export const ORDER = {
   SHIPPING_FEE: 3000,
   SHIPPING_FREE_PRICE: 100000,
+};
+
+export const DISCOUNT_TYPE: Record<string, DiscountType> = {
+  fixed: 'fixed',
+  percentage: 'percentage',
+  buyXgetY: 'buyXgetY',
+  freeShipping: 'freeShipping',
 };

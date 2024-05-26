@@ -3,6 +3,7 @@ import { Coupon, FixedCoupon, FreeShippingCoupon, PercentageCoupon } from '@type
 import Checkbox from '@components/common/Checkbox/Checkbox';
 import useApplicableCoupon from '@hooks/coupon/useApplicableCoupon';
 import dayjs from '@utils/dayjs';
+import { DISCOUNT_TYPE } from '@constants/constants';
 
 interface EachCouponProps {
   coupon: Coupon;
@@ -21,7 +22,7 @@ const EachCoupon = ({
   const disabled = !isApplicable(coupon) || (isAlreadyApplyingMaximumCoupons && !isSelect);
 
   const PercentageCouponAvailableTime = (coupon: Coupon) => {
-    if (coupon.discountType !== 'percentage') return null;
+    if (coupon.discountType !== DISCOUNT_TYPE.percentage) return null;
 
     const percentageCoupon = coupon as PercentageCoupon;
     return (
@@ -33,8 +34,8 @@ const EachCoupon = ({
   };
 
   const MinimumAmount = (coupon: Coupon) => {
-    if (coupon.discountType === 'buyXgetY') return null;
-    if (coupon.discountType === 'percentage') return null;
+    if (coupon.discountType === DISCOUNT_TYPE.buyXgetY) return null;
+    if (coupon.discountType === DISCOUNT_TYPE.percentage) return null;
 
     const minimumAmountCoupon = coupon as FixedCoupon | FreeShippingCoupon;
     return (

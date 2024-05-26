@@ -1,11 +1,4 @@
-type DiscountType = 'fixed' | 'percentage' | 'buyXgetY' | 'freeShipping';
-
-export const DISCOUNT_TYPE: Record<string, DiscountType> = {
-  fixed: 'fixed',
-  percentage: 'percentage',
-  buyXgetY: 'buyXgetY',
-  freeShipping: 'freeShipping',
-};
+export type DiscountType = 'fixed' | 'percentage' | 'buyXgetY' | 'freeShipping';
 
 export interface Coupon {
   id: number;
