@@ -1,7 +1,7 @@
-import Button from "@/components/_common/Button";
-import { isAnyCartItemSelectedState } from "@/stores/cartItemSelections";
-import { cartItemsState } from "@/stores/cartItems";
 import { useRecoilValue } from "recoil";
+import { isAnyCartItemSelectedState } from "@/stores/cartItemSelections";
+import useCartItems from "@/hooks/carts/useCartItems";
+import Button from "@/components/_common/Button";
 
 interface NavigateButtonProps {
   buttonText: string;
@@ -12,7 +12,7 @@ const NavigationButton = ({
   buttonText,
   onButtonClick,
 }: NavigateButtonProps) => {
-  const cartItemCount = useRecoilValue(cartItemsState).length;
+  const { cartItemCount } = useCartItems();
   const isAnyCartItemSelected = useRecoilValue(isAnyCartItemSelectedState);
 
   const isDisabled = cartItemCount === 0 || !isAnyCartItemSelected;

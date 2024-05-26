@@ -1,9 +1,8 @@
-import { useRecoilValue } from "recoil";
-import { cartItemsState } from "@/stores/cartItems";
+import useCartItems from "@/hooks/carts/useCartItems";
 import * as S from "./styled";
 
 const CartDescription = () => {
-  const cartItemCount = useRecoilValue(cartItemsState).length;
+  const { cartItemCount } = useCartItems();
 
   return (
     <S.Container>

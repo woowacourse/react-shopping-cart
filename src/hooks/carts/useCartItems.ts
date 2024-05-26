@@ -42,7 +42,20 @@ const useCartItems = () => {
     }
   };
 
-  return { cartItems, removeCartItem, changeItemQuantity, reloadCartItems };
+  const getTotalCartItemQuantity = () => {
+    return cartItems.reduce((acc, cur) => {
+      return cur.quantity + acc;
+    }, 0);
+  };
+
+  return {
+    cartItems,
+    cartItemCount: cartItems.length,
+    totalCartItemQuantity: getTotalCartItemQuantity(),
+    removeCartItem,
+    changeItemQuantity,
+    reloadCartItems,
+  };
 };
 
 export default useCartItems;
