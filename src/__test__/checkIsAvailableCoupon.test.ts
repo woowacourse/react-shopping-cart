@@ -1,4 +1,10 @@
-import { BuyXGetYCoupon, CartItem, FixedDiscountCoupon, FreeShippingCoupon } from '../type';
+import {
+  BuyXGetYCoupon,
+  CartItem,
+  FixedDiscountCoupon,
+  FreeShippingCoupon,
+  PercentageDiscountCoupon,
+} from '../type';
 
 import checkIsAvailableCoupon from '../utils/checkIsAvailableCoupon';
 
@@ -110,11 +116,12 @@ describe('checkIsAvailableCoupon', () => {
     };
 
     const MAX_QUANTITY = Math.max(...DUMMY_ITEMS.map((item) => item.quantity));
-    it('buyQuantity가 가장 수량이 많은 물품의 수량보다 클 경우 쿠폰을 사용할 수 없다.', () => {
+    it('buyQuantity+getQuantity가 가장 수량이 많은 물품의 수량보다 클 경우 쿠폰을 사용할 수 없다.', () => {
       // given
       const coupon: BuyXGetYCoupon = {
         ...DUMMY_BUY_X_GET_Y_COUPON,
-        buyQuantity: MAX_QUANTITY + 1,
+        buyQuantity: MAX_QUANTITY - 3,
+        getQuantity: 4,
       };
 
       //when
@@ -124,11 +131,12 @@ describe('checkIsAvailableCoupon', () => {
       expect(result).toBe(false);
     });
 
-    it('buyQuantity가 가장 수량이 많은 물품의 수량보다 같을 경우 쿠폰을 사용할 수 있다.', () => {
+    it('buyQuantity+getQuantity가 가장 수량이 많은 물품의 수량과 같을 경우 쿠폰을 사용할 수 있다.', () => {
       // given
       const coupon: BuyXGetYCoupon = {
         ...DUMMY_BUY_X_GET_Y_COUPON,
-        buyQuantity: MAX_QUANTITY,
+        buyQuantity: MAX_QUANTITY - 1,
+        getQuantity: 1,
       };
 
       //when
@@ -138,11 +146,12 @@ describe('checkIsAvailableCoupon', () => {
       expect(result).toBe(true);
     });
 
-    it('buyQuantity가 가장 수량이 많은 물품의 수량보다 작을 경우 쿠폰을 사용할 수 있다.', () => {
+    it('buyQuantity+getQuantity가 가장 수량이 많은 물품의 수량보다 작을 경우 쿠폰을 사용할 수 있다.', () => {
       // given
       const coupon: BuyXGetYCoupon = {
         ...DUMMY_BUY_X_GET_Y_COUPON,
-        buyQuantity: MAX_QUANTITY - 1,
+        buyQuantity: MAX_QUANTITY - 3,
+        getQuantity: 1,
       };
 
       //when
@@ -205,5 +214,77 @@ describe('checkIsAvailableCoupon', () => {
     });
   });
 
-  // TODO: percentage 쿠폰
+  describe('PercentageCoupon의 유효성 검사', () => {
+    const DUMMY_PERCENTAGE_DISCOUNT_COUPON: PercentageDiscountCoupon = {
+      id: 14,
+      code: 'BLACKFRIDAY50',
+      description: '블랙프라이데이 50% 할인 쿠폰',
+      discount: 50,
+      discountType: 'percentage',
+      availableTime: {
+        start: '15:00:00',
+        end: '16:59:59',
+      },
+      expirationDate: '2024-11-29',
+    };
+    it('현재 시간이 availableTime.start보다 빠르면 쿠폰을 사용할 수 없다.', () => {
+      const beforeDate = new Date(2024, 5, 21, 14, 59, 59);
+
+      //when
+      const result = checkIsAvailableCoupon(
+        DUMMY_PERCENTAGE_DISCOUNT_COUPON,
+        DUMMY_ITEMS,
+        1000,
+        beforeDate,
+      );
+
+      //then
+      expect(result).toBe(false);
+    });
+
+    it('현재 시간이 availableTime.start와 같으면 쿠폰을 사용할 수 있다.', () => {
+      const startDate = new Date(2024, 5, 21, 15, 0, 0);
+
+      //when
+      const result = checkIsAvailableCoupon(
+        DUMMY_PERCENTAGE_DISCOUNT_COUPON,
+        DUMMY_ITEMS,
+        1000,
+        startDate,
+      );
+
+      //then
+      expect(result).toBe(true);
+    });
+
+    it('현재 시간이 availableTime.end와 같으면 쿠폰을 사용할 수 있다.', () => {
+      const endDate = new Date(2024, 5, 21, 16, 59, 59);
+
+      //when
+      const result = checkIsAvailableCoupon(
+        DUMMY_PERCENTAGE_DISCOUNT_COUPON,
+        DUMMY_ITEMS,
+        1000,
+        endDate,
+      );
+
+      //then
+      expect(result).toBe(true);
+    });
+
+    it('현재 시간이 availableTime.end와 느리면 쿠폰을 사용할 수 없다.', () => {
+      const afterDate = new Date(2024, 5, 21, 17, 0, 0);
+
+      //when
+      const result = checkIsAvailableCoupon(
+        DUMMY_PERCENTAGE_DISCOUNT_COUPON,
+        DUMMY_ITEMS,
+        1000,
+        afterDate,
+      );
+
+      //then
+      expect(result).toBe(false);
+    });
+  });
 });
