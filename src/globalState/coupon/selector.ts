@@ -64,6 +64,7 @@ export const applicableCouponSelector = selectorFamily<boolean, string>({
         return false;
 
       if (
+        coupon.discountType === 'buyXgetY' &&
         coupon.buyQuantity &&
         coupon.getQuantity &&
         !isOverBuyQuantity(checkedItemQuantities, coupon.buyQuantity, coupon.getQuantity)

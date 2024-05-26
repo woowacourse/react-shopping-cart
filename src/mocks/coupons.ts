@@ -1,4 +1,10 @@
-import { Coupon } from '@/types/coupon';
+import {
+  BuyXGetYCoupon,
+  Coupon,
+  FixedCoupon,
+  FreeShippingCoupon,
+  PercentageCoupon,
+} from '@/types/coupon';
 
 export const coupons: Coupon[] = [
   {
@@ -66,7 +72,7 @@ export const coupons: Coupon[] = [
   },
 ];
 
-export const EXPIRED_BOGO_COUPON: Coupon = {
+export const EXPIRED_BOGO_COUPON: BuyXGetYCoupon = {
   id: 2,
   code: 'BOGO',
   description: '2개 구매 시 1개 무료 쿠폰',
@@ -76,7 +82,7 @@ export const EXPIRED_BOGO_COUPON: Coupon = {
   discountType: 'buyXgetY',
 } as const;
 
-export const APPLICABLE_FIXED_COUPON: Coupon = {
+export const APPLICABLE_FIXED_COUPON: FixedCoupon = {
   id: 1,
   code: 'FIXED5000',
   description: '5,000원 할인 쿠폰',
@@ -86,7 +92,7 @@ export const APPLICABLE_FIXED_COUPON: Coupon = {
   discountType: 'fixed',
 } as const;
 
-export const APPLICABLE_PERCENTAGE_COUPON: Coupon = {
+export const APPLICABLE_PERCENTAGE_COUPON: PercentageCoupon = {
   id: 4,
   code: 'MIRACLESALE',
   description: '미라클모닝 30% 할인 쿠폰',
@@ -99,7 +105,7 @@ export const APPLICABLE_PERCENTAGE_COUPON: Coupon = {
   discountType: 'percentage',
 } as const;
 
-export const APPLICABLE_FREE_SHIPPING_COUPON: Coupon = {
+export const APPLICABLE_FREE_SHIPPING_COUPON: FreeShippingCoupon = {
   id: 3,
   code: 'FREESHIPPING',
   description: '5만원 이상 구매 시 무료 배송 쿠폰',
@@ -108,7 +114,7 @@ export const APPLICABLE_FREE_SHIPPING_COUPON: Coupon = {
   discountType: 'freeShipping',
 } as const;
 
-export const APPLICABLE_BuyXgetY_COUPON: Coupon = {
+export const APPLICABLE_BuyXgetY_COUPON: BuyXGetYCoupon = {
   id: 2,
   code: 'BOGO',
   description: '2개 구매 시 1개 무료 쿠폰',
@@ -118,7 +124,7 @@ export const APPLICABLE_BuyXgetY_COUPON: Coupon = {
   discountType: 'buyXgetY',
 };
 
-export const APPLICABLE_TEN_PERCENT_COUPON: Coupon = {
+export const APPLICABLE_TEN_PERCENT_COUPON: PercentageCoupon = {
   id: 6,
   code: 'TEN_PERCENTAGE_SALE',
   description: '10% 할인 쿠폰',

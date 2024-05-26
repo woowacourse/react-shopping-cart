@@ -17,6 +17,7 @@ describe('validations', () => {
       const expiredCoupon: Coupon = {
         id: 1,
         code: 'FIXED5000',
+        discount: 5000,
         description: '만료된 쿠폰',
         discountType: 'fixed',
         expirationDate: '2024-05-21',
@@ -31,6 +32,7 @@ describe('validations', () => {
         const validCoupon: Coupon = {
           id: 1,
           code: 'FIXED5000',
+          discount: 5000,
           description: '유효한 쿠폰',
           discountType: 'fixed',
           expirationDate: date,
@@ -45,6 +47,7 @@ describe('validations', () => {
     const coupon: Coupon = {
       id: 1,
       code: 'FIXED5000',
+      discount: 5000,
       description: '5000원 할인 쿠폰',
       discountType: 'fixed',
       expirationDate: '2024-05-22',

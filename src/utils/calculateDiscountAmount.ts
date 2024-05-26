@@ -1,5 +1,5 @@
 import { CartItemProps } from '@/types/cartItem';
-import { Coupon } from '@/types/coupon';
+import { BuyXGetYCoupon, Coupon } from '@/types/coupon';
 
 const calculateDiscountAmount = (
   coupon: Coupon,
@@ -23,7 +23,7 @@ const calculateDiscountAmount = (
 
 export default calculateDiscountAmount;
 
-const calculateBuyXgetYDiscount = (coupon: Coupon, checkedItems: CartItemProps[]) => {
+const calculateBuyXgetYDiscount = (coupon: BuyXGetYCoupon, checkedItems: CartItemProps[]) => {
   const filteredOverBuyQuantity = checkedItems.filter(
     ({ quantity }) => quantity >= coupon.buyQuantity!,
   );

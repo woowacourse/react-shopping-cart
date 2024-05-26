@@ -5,13 +5,13 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import Checkbox from '../common/Checkbox';
 
 import { MAX_SELECTED_COUPON_LENGTH } from '@/constants/coupon';
-import {
-  applicableCouponSelector,
-  isMaxSelectedCouponsSelector,
-} from '@/globalState/coupon/selector';
 import { Coupon } from '@/types/coupon';
 import { dateFormat, timeFormat } from '@/utils/format';
 import { selectedCouponsState } from '@globalState/coupon/atom';
+import {
+  applicableCouponSelector,
+  isMaxSelectedCouponsSelector,
+} from '@globalState/coupon/selector';
 
 interface CouponItemProps {
   coupon: Coupon;
