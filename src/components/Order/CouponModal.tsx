@@ -1,5 +1,6 @@
 import { discountAmountState, selectedCouponsState } from "@/store/atoms/atoms";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useEffect, useState } from "react";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 import { COUPON_MESSAGE } from "@/constants/message";
 import Coupon from "./Coupon";
@@ -11,7 +12,6 @@ import { Modal } from "hain-tain-components";
 import { couponState } from "@/store/selectors/dataFetchSelector/dataFetchSelector";
 import styled from "@emotion/styled";
 import useDiscountSimulator from "@/hooks/useDiscountSimulator";
-import { useState } from "react";
 
 interface Props {
   isOpened: boolean;
@@ -25,7 +25,8 @@ const CouponModal = ({ isOpened, closeModal }: Props) => {
   );
   const { calculateDiscountAmount } = useDiscountSimulator();
 
-  const setSelectedCoupons = useSetRecoilState(selectedCouponsState);
+  const [selectedCoupons, setSelectedCoupons] =
+    useRecoilState(selectedCouponsState);
   const setDiscountAmount = useSetRecoilState(discountAmountState);
 
   const tempDiscount = tempSelectedCoupons.reduce((accAmount, curCoupon) => {
@@ -38,6 +39,10 @@ const CouponModal = ({ isOpened, closeModal }: Props) => {
     setDiscountAmount(tempDiscount);
     closeModal();
   };
+
+  useEffect(() => {
+    setTempSelectedCoupons(selectedCoupons);
+  }, [isOpened]);
 
   return (
     <Modal
