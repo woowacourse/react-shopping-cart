@@ -1,32 +1,27 @@
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
+import { useRecoilValueLoadable } from 'recoil';
 
 import Layout from '../../layout';
+import Header from '../../components/Header';
+import BottomButton from '../../components/common/BottomButton';
+import { HomeButton } from '../../components/Header/HeaderButton';
+
 import BlankCart from '../../components/BlankCart';
 import CartList from '../../components/CartList';
 import CheckoutSummary from '../../components/CheckoutSummary';
-import Header from '../../components/Header';
-import { HomeButton } from '../../components/Header/HeaderButton';
-import BottomButton from '../../components/common/BottomButton';
-import RecoilSuspense from '../../components/common/RecoilSuspense';
 import Fallback from '../../components/common/Fallback';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
+import RecoilSuspense from '../../components/common/RecoilSuspense';
 
-import * as S from './styles';
 import * as C from '../../components/commonStyles';
+import * as S from './styles';
 
-import {
-  cartListSelector,
-  shippingFeeSelector,
-  totalPriceSelector,
-  totalQuantitySelector,
-} from '../../recoil';
+import { cartListSelector } from '../../recoil';
+import useOrderInformation from '../../hooks/useOrderInformation';
 
 export default function CartPage() {
   const cartList = useRecoilValueLoadable(cartListSelector);
-  const totalPrice = useRecoilValue(totalPriceSelector);
-  const shippingFee = useRecoilValue(shippingFeeSelector);
-  const totalQuantity = useRecoilValue(totalQuantitySelector);
+  const { totalPrice, totalQuantity, shippingFee } = useOrderInformation();
 
   const navigate = useNavigate();
 

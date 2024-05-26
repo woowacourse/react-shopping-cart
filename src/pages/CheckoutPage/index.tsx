@@ -1,27 +1,19 @@
-import { useRecoilValue } from 'recoil';
-
+import Layout from '../../layout';
 import Header from '../../components/Header';
 import BottomButton from '../../components/common/BottomButton';
-import Layout from '../../layout';
 
 import { useNavigate } from 'react-router-dom';
 
-import * as C from '../../components/commonStyles';
 import * as S from './styles';
+import * as C from '../../components/commonStyles';
 
-import {
-  numberOfTypesSelector,
-  totalPriceSelector,
-  totalQuantitySelector,
-} from '../../recoil';
 import { priceFormatter } from '../../utils/stringFormatter';
+import useOrderInformation from '../../hooks/useOrderInformation';
 
 export default function ConfirmOrderPage() {
   // TODO: recoil selector가 아닌 history의 state로 전달해야 할까?
   // TODO: 실제로 확인 페이지는 서버에 전달된 정보와 같은 정보를 줘야 하지 않나?
-  const totalPrice = useRecoilValue(totalPriceSelector);
-  const totalQuantity = useRecoilValue(totalQuantitySelector);
-  const numOfTypes = useRecoilValue(numberOfTypesSelector);
+  const { totalPrice, totalQuantity, numOfTypes } = useOrderInformation();
 
   const navigate = useNavigate();
 

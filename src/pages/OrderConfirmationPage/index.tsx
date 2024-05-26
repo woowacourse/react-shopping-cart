@@ -3,31 +3,23 @@ import { useNavigate } from 'react-router-dom';
 import * as C from '../../components/commonStyles';
 import * as S from './styles';
 
+import Layout from '../../layout';
 import Header from '../../components/Header';
 import { BackButton } from '../../components/Header/HeaderButton';
 import BottomButton from '../../components/common/BottomButton';
-import Layout from '../../layout';
-
+import CartList from '../../components/CartList';
 import CouponModal from '../../components/CouponModal';
 import ShippingInfo from '../../components/ShippingInfo';
 import CheckoutSummary from '../../components/CheckoutSummary';
 
 import { useRecoilValue } from 'recoil';
-import {
-  numberOfTypesSelector,
-  selectedCartItemListSelector,
-  shippingFeeSelector,
-  totalPriceSelector,
-  totalQuantitySelector,
-} from '../../recoil';
-import CartList from '../../components/CartList';
+import { selectedCartItemListSelector } from '../../recoil';
+import useOrderInformation from '../../hooks/useOrderInformation';
 
 export default function OrderConfirmationPage() {
   const selectedItems = useRecoilValue(selectedCartItemListSelector);
-  const numOfTypes = useRecoilValue(numberOfTypesSelector);
-  const totalQuantity = useRecoilValue(totalQuantitySelector);
-  const totalPrice = useRecoilValue(totalPriceSelector);
-  const shippingFee = useRecoilValue(shippingFeeSelector);
+  const { totalPrice, totalQuantity, numOfTypes, shippingFee } =
+    useOrderInformation();
 
   const navigate = useNavigate();
 
