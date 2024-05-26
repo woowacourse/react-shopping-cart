@@ -1,10 +1,14 @@
-import { renderHook } from '@testing-library/react';
-import { RecoilRoot } from 'recoil';
-import useCartItemList from './useCartItemList';
-import { cartItemListState } from '../../recoil/cartItem/atom';
 import { act } from 'react';
 
+import { RecoilRoot } from 'recoil';
+
+import { renderHook } from '@testing-library/react';
+
+import useCartItemList from './useCartItemList';
+import { cartItemListState } from '../../recoil/cartItem/atom';
+
 jest.mock('../../apis/cartItemList', () => ({
+  requestCartItemList: jest.fn(),
   requestDeleteCartItem: jest.fn(),
 }));
 
@@ -65,7 +69,20 @@ describe('useCartItemList', () => {
     },
   ];
 
-  it('cartItemList는 저장된 상태와 같은 값을 불러와야 한다.', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('fetchCartItemList는 requestCartItemList를 통하여 API를 호출해야 한다.', async () => {
+    const { result } = renderHook(() => useCartItemList(), {
+      wrapper: ({ children }) => <RecoilRoot>{children}</RecoilRoot>,
+    });
+    await act(async () => await result.current.fetchCartItemList());
+    const { requestCartItemList } = require('../../apis/cartItemList');
+    expect(requestCartItemList).toHaveBeenCalled();
+  });
+
+  it('cartItemList는 저장된 "카트 아이템 목록" 상태와 같은 값을 불러와야 한다.', () => {
     const { result } = renderHook(() => useCartItemList(), {
       wrapper: ({ children }) => (
         <RecoilRoot
@@ -80,7 +97,7 @@ describe('useCartItemList', () => {
     expect(result.current.cartItemList).toEqual(MOCK_DEFAULT_VALUE);
   });
 
-  it('setCartItemList는 저장된 cartItemList상태를 전달한 상태로 변경해야 한다.', () => {
+  it('setCartItemList는 cartItemList상태를 전달해 준 새로운 상태로 변경해야 한다.', () => {
     const { result } = renderHook(() => useCartItemList(), {
       wrapper: ({ children }) => (
         <RecoilRoot
@@ -97,7 +114,7 @@ describe('useCartItemList', () => {
     expect(result.current.cartItemList).toEqual(MOCK_SET_NEW_VALUE);
   });
 
-  it('deleteCartItem은 선택한 id를 cartItemList상태에서 제거해야 한다.', async () => {
+  it('deleteCartItem은 선택한 카트 아이템 id를 cartItemList상태에서 제거해야 한다.', async () => {
     const { result } = renderHook(() => useCartItemList(), {
       wrapper: ({ children }) => (
         <RecoilRoot
@@ -118,7 +135,7 @@ describe('useCartItemList', () => {
     );
   });
 
-  it('deleteCartItem은 requestDeleteCartItem을 호출해야 한다.', async () => {
+  it('deleteCartItem은 requestDeleteCartItem를 통하여 API를 호출해야 한다.', async () => {
     const { result } = renderHook(() => useCartItemList(), {
       wrapper: ({ children }) => (
         <RecoilRoot
