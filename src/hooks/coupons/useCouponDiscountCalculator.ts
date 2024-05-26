@@ -4,8 +4,8 @@ import { selectedCartItems, shippingFeeState } from '../../recoil/atoms';
 import { useRecoilState } from 'recoil';
 
 export const useCouponDiscountCalculator = (coupons: Coupon[]) => {
-  const [shippingFeeInfo, setShippingFeeInfo] = useRecoilState(shippingFeeState);
-  const [selectedItems, setSelectedItems] = useRecoilState(selectedCartItems);
+  const [shippingFeeInfo] = useRecoilState(shippingFeeState);
+  const [selectedItems] = useRecoilState(selectedCartItems);
 
   const calculateFixedDiscount = (coupon: Coupon) => {
     return coupon.discount ?? 0;
@@ -43,11 +43,11 @@ export const useCouponDiscountCalculator = (coupons: Coupon[]) => {
   };
 
   const applyPercentageDiscountFirst = (orderTotal: number, coupons: Coupon[]) => {
+    let discountedAmount = orderTotal;
     // NOTE: 가장 할인 금액이 큰 경우를 만들어야 하므로 퍼센테이지 할인 쿠폰을 먼저 적용
     const percentageCoupon = coupons.find(
       coupon => coupon.discountType === COUPON_DISCOUNT_TYPE.PERCENTAGE,
     );
-    let discountedAmount = orderTotal;
 
     if (percentageCoupon) {
       discountedAmount -= calculateDiscountAmount(percentageCoupon, orderTotal);
@@ -59,7 +59,6 @@ export const useCouponDiscountCalculator = (coupons: Coupon[]) => {
     remainingCoupons.forEach(coupon => {
       discountedAmount -= calculateDiscountAmount(coupon, discountedAmount);
     });
-
     return discountedAmount;
   };
 
@@ -67,7 +66,7 @@ export const useCouponDiscountCalculator = (coupons: Coupon[]) => {
     if (coupons.length === 0) return 0;
 
     const finalAmount = applyPercentageDiscountFirst(orderTotal, coupons);
-    return orderTotal - finalAmount;
+    return orderTotal - finalAmount; // 할인이 적용된 금액
   };
 
   return {
