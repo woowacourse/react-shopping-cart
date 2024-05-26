@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import { Wrapper } from "./style";
 import SmallText from "../SmallText/SmallText";
 import { selectedCartItemsState } from "../../../recoil/selectors/selectors";
-import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 
 interface FooterProps {
