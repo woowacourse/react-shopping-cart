@@ -7,13 +7,13 @@ interface CheckboxProps {
   onChange: () => void;
 }
 
-const Checkbox = ({ id, isChecked, disabled, onChange }: CheckboxProps) => {
+const Checkbox = ({ id, isChecked, disabled = false, onChange }: CheckboxProps) => {
   return (
     <S.Checkbox htmlFor={`${id}`}>
       <S.Input
         type="checkbox"
         id={`${id}`}
-        disabled={disabled ?? false}
+        disabled={disabled}
         checked={isChecked}
         onChange={onChange}
         name="checkbox"
