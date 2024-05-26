@@ -61,6 +61,7 @@ const useCouponAvailable = () => {
     }
     return condition;
   };
+
   return { isCouponAvailable };
 };
 

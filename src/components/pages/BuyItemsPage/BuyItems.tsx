@@ -10,18 +10,18 @@ import { ROUTE } from '../../../constant/route';
 import { useResetRecoilState } from 'recoil';
 import {
   applyCouponState,
-  shippingFeeDiscountState,
+  isShippingFeeDiscountState,
 } from '../../../recoil/coupons';
 import { mountainousAreaState } from '../../../recoil/cartItems';
 
 const BuyItems = () => {
   const navigator = useNavigate();
+
   const applyCouponReset = useResetRecoilState(applyCouponState);
   const shippingFeeDiscountReset = useResetRecoilState(
-    shippingFeeDiscountState,
+    isShippingFeeDiscountState,
   );
   const mountainousAreaReset = useResetRecoilState(mountainousAreaState);
-  //TODO: 이거 묶을 수 있는지 찾아보기
 
   return (
     <Styled.BuyItems>

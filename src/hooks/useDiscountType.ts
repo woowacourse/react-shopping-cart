@@ -1,19 +1,18 @@
-import { shippingFeeDiscountState } from './../recoil/coupons';
+import { isShippingFeeDiscountState } from './../recoil/coupons';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   selectedCartItemsSelector,
-  shippingFeeSelector,
   totalOrderAmountSelector,
 } from './../recoil/cartItems';
-import { useEffect, useState } from 'react';
-import { CouponType, DiscountType } from '../components/type';
+import { useState } from 'react';
+import { CouponType } from '../components/type';
 
 const useDiscountType = () => {
   const totalOrderAmount = useRecoilValue(totalOrderAmountSelector);
   const [discountAmount, setDiscountAmount] = useState(totalOrderAmount);
   const cartItemsBuyQuantity = useRecoilValue(selectedCartItemsSelector);
-  const [shippingFeeDiscount, setShippingFeeDiscount] = useRecoilState(
-    shippingFeeDiscountState,
+  const [_, setShippingFeeDiscount] = useRecoilState(
+    isShippingFeeDiscountState,
   );
 
   const discountTypePriority = {
@@ -72,7 +71,6 @@ const useDiscountType = () => {
   };
 
   const applyCoupon = (coupons: CouponType[]) => {
-    // 쿠폰 우선순위로 정렬
     coupons.sort(
       (a, b) =>
         discountTypePriority[a.discountType] -
@@ -85,8 +83,7 @@ const useDiscountType = () => {
       const applyDiscount = selectDiscountType(coupon);
       discount = applyDiscount(discount);
 
-      isFreeShipping = coupon.discountType === 'freeShipping' ? true : false;
-      //TODO: 이 부분 리팩
+      isFreeShipping = coupon.discountType === 'freeShipping';
     });
 
     setDiscountAmount(discount);
