@@ -6,26 +6,6 @@ export const Container = styled.div`
   margin: 0 auto;
 `;
 
-export const Info = styled.p`
-  display: flex;
-  align-items: center;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 16px;
-  color: ${({ theme }) => theme.colors.text};
-
-  svg {
-    margin-right: 8px;
-  }
-`;
-
-export const InfoIcon = styled.img`
-  display: block;
-  width: 16px;
-  height: 16px;
-  margin-right: 4px;
-`;
-
 export const PriceRow = styled.div`
   height: 42px;
 

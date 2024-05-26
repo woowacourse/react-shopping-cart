@@ -6,8 +6,9 @@ import Layout from '../../layout';
 
 import { useNavigate } from 'react-router-dom';
 import { BackButton } from '../../components/Header/HeaderButton';
-import * as C from '../commonStyles';
+
 import * as S from './styles';
+import * as C from '../../components/commonStyles';
 
 import {
   totalPriceSelector,

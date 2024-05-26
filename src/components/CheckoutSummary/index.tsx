@@ -15,10 +15,10 @@ export default function CheckoutSummary({
 }: CheckoutSummaryProps) {
   return (
     <S.Container>
-      <S.Info>
-        <S.InfoIcon src={InfoIconSrc} alt="Info Icon" />총 주문 금액이 100,000원
+      <C.Info>
+        <C.InfoIcon src={InfoIconSrc} alt="Info Icon" />총 주문 금액이 100,000원
         이상일 경우 무료 배송됩니다.
-      </S.Info>
+      </C.Info>
 
       <S.Divider />
 
