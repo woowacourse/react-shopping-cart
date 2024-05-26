@@ -10,47 +10,24 @@ import useCartItemList from '../../hooks/cartItem/useCartItemList';
 import ChangeQuantity from '../common/ChangeQuantity/ChangeQuantity';
 import { useCartItemQuantity } from '../../hooks/cartItem/useCartItemQuantity';
 import { useSelectedCartItemId } from '../../hooks/cartItem/useSelectedCartItemId';
+import useApiErrorState from '../../hooks/error/useApiErrorState';
 
 export type CartItemProps = {
-  type: 'cart' | 'confirm';
+  type?: 'cart' | 'confirm';
   cartItem: CartItem;
 };
 
-const CartItem = ({ type, cartItem }: CartItemProps) => {
+const CartItem = ({ type = 'cart', cartItem }: CartItemProps) => {
   const { id, name, price, imageUrl } = cartItem;
+  const { apiError } = useApiErrorState();
   const { cartItemQuantity, increaseQuantity, decreaseQuantity } =
     useCartItemQuantity();
   const { isSelectedId, selectCartItem, unselectCartItem } =
     useSelectedCartItemId();
   const { deleteCartItem } = useCartItemList();
-  const [error, setError] = useState<Error | null>(null);
 
-  const deleteCartItemWithErrorHandling = async (id: number) => {
-    try {
-      await deleteCartItem(id);
-    } catch (error) {
-      setError(error as Error);
-    }
-  };
-
-  const increaseQuantityWithErrorHandling = async () => {
-    try {
-      await increaseQuantity(id);
-    } catch (error) {
-      setError(error as Error);
-    }
-  };
-
-  const decreaseQuantityWithErrorHandling = async () => {
-    try {
-      await decreaseQuantity(id);
-    } catch (error) {
-      setError(error as Error);
-    }
-  };
-
-  if (error) {
-    throw error;
+  if (apiError) {
+    throw apiError;
   }
 
   return (
@@ -66,11 +43,7 @@ const CartItem = ({ type, cartItem }: CartItemProps) => {
                 : () => selectCartItem(id)
             }
           />
-          <Button
-            size="s"
-            radius="s"
-            onClick={() => deleteCartItemWithErrorHandling(id)}
-          >
+          <Button size="s" radius="s" onClick={() => deleteCartItem(id)}>
             삭제
           </Button>
         </S.ItemHeader>
@@ -96,8 +69,8 @@ const CartItem = ({ type, cartItem }: CartItemProps) => {
           {type === 'cart' ? (
             <ChangeQuantity
               quantity={cartItemQuantity(id)}
-              increaseQuantity={increaseQuantityWithErrorHandling}
-              decreaseQuantity={decreaseQuantityWithErrorHandling}
+              increaseQuantity={() => increaseQuantity(id)}
+              decreaseQuantity={() => decreaseQuantity(id)}
             />
           ) : (
             <Text size="s" weight="m">
