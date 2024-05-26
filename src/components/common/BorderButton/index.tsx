@@ -1,13 +1,17 @@
-import { PropsWithChildren } from "react";
-import { BorderButtonContainer, SizeType } from "./style";
+import { PropsWithChildren } from 'react';
+import * as S from './style';
 
 const BorderButton: React.FC<
-  PropsWithChildren<{ onClick: () => void; size: SizeType; className?: string }>
+  PropsWithChildren<{
+    onClick: () => void;
+    size: S.SizeType;
+    className?: string;
+  }>
 > = ({ children, onClick, size, className }) => {
   return (
-    <BorderButtonContainer className={className} onClick={onClick} size={size}>
+    <S.BorderButton className={className} onClick={onClick} size={size}>
       {children}
-    </BorderButtonContainer>
+    </S.BorderButton>
   );
 };
 

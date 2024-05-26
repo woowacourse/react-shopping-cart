@@ -18,7 +18,7 @@ export default function BottomButton({
   };
 
   return (
-    <S.Button onClick={handleClick} active>
+    <S.Button onClick={handleClick} active={active}>
       {children}
     </S.Button>
   );

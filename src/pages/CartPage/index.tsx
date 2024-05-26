@@ -19,12 +19,15 @@ import {
   cartListSelector,
   shippingFeeSelector,
   totalPriceSelector,
+  totalQuantitySelector,
 } from '../../recoil';
 
 export default function CartPage() {
   const cartList = useRecoilValueLoadable(cartListSelector);
   const totalPrice = useRecoilValue(totalPriceSelector);
   const shippingFee = useRecoilValue(shippingFeeSelector);
+  const totalQuantity = useRecoilValue(totalQuantitySelector);
+
   const navigate = useNavigate();
 
   const moveToConfirmPage = async () => {
@@ -43,7 +46,7 @@ export default function CartPage() {
         bottom={
           <BottomButton
             onClick={moveToConfirmPage}
-            active={cartList.contents.length !== 0}
+            active={cartList.contents.length !== 0 && totalQuantity !== 0}
           >
             주문 확인
           </BottomButton>
