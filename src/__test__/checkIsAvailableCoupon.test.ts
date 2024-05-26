@@ -1,10 +1,10 @@
+import { BuyXGetYCoupon, CartItem, FixedDiscountCoupon, FreeShippingCoupon } from '../type';
 import {
-  BuyXGetYCoupon,
-  CartItem,
-  FixedDiscountCoupon,
-  FreeShippingCoupon,
-  PercentageDiscountCoupon,
-} from '../type';
+  DUMMY_BUY_X_GET_Y_COUPON,
+  DUMMY_FIXED_DISCOUNT_COUPON,
+  DUMMY_FREE_SHIPPING_DISCOUNT_COUPON,
+  DUMMY_PERCENTAGE_DISCOUNT_COUPON,
+} from './dummyCoupons';
 
 import checkIsAvailableCoupon from '../utils/checkIsAvailableCoupon';
 
@@ -52,15 +52,6 @@ const DUMMY_ITEMS_AMOUNT = DUMMY_ITEMS.reduce(
 
 describe('checkIsAvailableCoupon', () => {
   describe('FixedDiscountCoupon의 유효성 검사', () => {
-    const DUMMY_FIXED_DISCOUNT_COUPON: FixedDiscountCoupon = {
-      id: 6,
-      code: 'WELCOMEBACK',
-      description: '재방문 고객 대상 10,000원 할인 쿠폰',
-      discount: 10000,
-      discountType: 'fixed',
-      minimumAmount: 10000,
-      expirationDate: '2024-12-31',
-    };
     it('minimumAmount이 총 가격보다 클 경우 쿠폰을 사용할 수 없다.', () => {
       // given
       const coupon: FixedDiscountCoupon = {
@@ -105,16 +96,6 @@ describe('checkIsAvailableCoupon', () => {
   });
 
   describe('BuyXGetYCoupon의 유효성 검사', () => {
-    const DUMMY_BUY_X_GET_Y_COUPON: BuyXGetYCoupon = {
-      id: 7,
-      code: 'BUY3GET2',
-      description: '3개 구매 시 2개 무료 쿠폰',
-      discountType: 'buyXgetY',
-      buyQuantity: 3,
-      getQuantity: 2,
-      expirationDate: '2024-06-30',
-    };
-
     const MAX_QUANTITY = Math.max(...DUMMY_ITEMS.map((item) => item.quantity));
     it('buyQuantity+getQuantity가 가장 수량이 많은 물품의 수량보다 클 경우 쿠폰을 사용할 수 없다.', () => {
       // given
@@ -163,14 +144,6 @@ describe('checkIsAvailableCoupon', () => {
   });
 
   describe('FreeShippingCoupon의 유효성 검사', () => {
-    const DUMMY_FREE_SHIPPING_DISCOUNT_COUPON: FreeShippingCoupon = {
-      id: 8,
-      code: 'NEWYEARFREESHIP',
-      description: '신년맞이 무료 배송 쿠폰',
-      discountType: 'freeShipping',
-      minimumAmount: 30000,
-      expirationDate: '2025-01-31',
-    };
     it('minimumAmount이 총 가격보다 클 경우 쿠폰을 사용할 수 없다.', () => {
       // given
       const coupon: FreeShippingCoupon = {
@@ -215,18 +188,6 @@ describe('checkIsAvailableCoupon', () => {
   });
 
   describe('PercentageCoupon의 유효성 검사', () => {
-    const DUMMY_PERCENTAGE_DISCOUNT_COUPON: PercentageDiscountCoupon = {
-      id: 14,
-      code: 'BLACKFRIDAY50',
-      description: '블랙프라이데이 50% 할인 쿠폰',
-      discount: 50,
-      discountType: 'percentage',
-      availableTime: {
-        start: '15:00:00',
-        end: '16:59:59',
-      },
-      expirationDate: '2024-11-29',
-    };
     it('현재 시간이 availableTime.start보다 빠르면 쿠폰을 사용할 수 없다.', () => {
       const beforeDate = new Date(2024, 5, 21, 14, 59, 59);
 
