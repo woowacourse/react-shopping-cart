@@ -15,9 +15,9 @@ import {
   CountButton,
   DeleteButton,
 } from "./style";
-import { SmallText, LargeText } from "../common";
+import { Text } from "../common";
 import { useLocation } from "react-router-dom";
-import { MAIN_PAGE_PATH, ORDER_PAGE_PATH, PAYMENT_PAGE_PATH } from "../../constants/path";
+import { MAIN_PAGE_PATH, ORDER_PAGE_PATH } from "../../constants/path";
 
 interface CardItemProps {
   cartItem: CartItem;
@@ -78,7 +78,7 @@ const CartItem = ({ cartItem: { id, product, quantity } }: CardItemProps) => {
             <OutlineCheckSvg onClick={handleToggleSelectItem} />
           )}
           <DeleteButton onClick={handleDeleteItem}>
-            <SmallText>삭제</SmallText>
+            <Text size="small">삭제</Text>
           </DeleteButton>
         </Header>
       )}
@@ -87,18 +87,18 @@ const CartItem = ({ cartItem: { id, product, quantity } }: CardItemProps) => {
         <ItemImg src={product.imageUrl} />
         <ItemInfoWrapper>
           <ItemInfo>
-            <SmallText>{product.name}</SmallText>
-            <LargeText>{product.price.toLocaleString("ko-KR")}</LargeText>
+            <Text size="small">{product.name}</Text>
+            <Text size="large">{product.price.toLocaleString("ko-KR")}</Text>
           </ItemInfo>
           <ItemQuantity>
             {location.pathname === MAIN_PAGE_PATH && (
               <>
                 <CountButton onClick={() => handleChangeItemQuantity(-1)}>-</CountButton>
-                <SmallText>{quantity}</SmallText>
+                <Text size="small">{quantity}</Text>
                 <CountButton onClick={() => handleChangeItemQuantity(1)}>+</CountButton>
               </>
             )}
-            {location.pathname === ORDER_PAGE_PATH && <SmallText>{quantity}개</SmallText>}
+            {location.pathname === ORDER_PAGE_PATH && <Text size="small">{quantity}개</Text>}
           </ItemQuantity>
         </ItemInfoWrapper>
       </Body>

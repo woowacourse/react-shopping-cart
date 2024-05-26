@@ -4,7 +4,7 @@ import Cart from "../Cart/Cart";
 import type { CartItem } from "../../types/cart";
 import { Wrapper, AllCheckWrapper } from "./style";
 import { FilledCheckSvg, OutlineCheckSvg } from "../../assets";
-import { SmallText } from "../common";
+import { Text } from "../common";
 import { useLocation } from "react-router-dom";
 import { selectedCartItemsState } from "../../recoil/selectors/selectors";
 
@@ -33,7 +33,7 @@ const CartList = () => {
           ) : (
             <OutlineCheckSvg onClick={() => handleSelectAllItem("turnOn")} />
           )}
-          <SmallText>전체선택</SmallText>
+          <Text size="small">전체선택</Text>
         </AllCheckWrapper>
       )}
 

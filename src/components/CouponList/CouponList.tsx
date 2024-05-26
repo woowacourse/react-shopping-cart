@@ -13,7 +13,7 @@ import {
 } from "../../recoil/selectors/selectors";
 import { OutlineCheckSvg, FilledCheckSvg, XSvg } from "../../assets";
 import { selectedCouponsState, couponsState } from "../../recoil/atoms/atoms";
-import { SmallText, MediumText, Tip } from "../common";
+import { Tip, Text } from "../common";
 import { MAX_COUPON_NUMBER } from "../../constants/coupon";
 
 interface CouponListProps {
@@ -46,7 +46,7 @@ const CouponList = ({ handleCloseModal }: CouponListProps) => {
   return (
     <Wrapper>
       <CouponListHeader>
-        <MediumText>쿠폰을 선택해 주세요</MediumText>
+        <Text size="medium">쿠폰을 선택해 주세요</Text>
         <XSvg onClick={handleCloseModal} />
       </CouponListHeader>
       <Tip>쿠폰은 최대 2개까지 사용할 수 있습니다</Tip>
@@ -59,21 +59,21 @@ const CouponList = ({ handleCloseModal }: CouponListProps) => {
           >
             <CouponHeader>
               {selectedCoupons.includes(coupon.id) ? <FilledCheckSvg /> : <OutlineCheckSvg />}
-              <MediumText>{coupon.description}</MediumText>
+              <Text size="medium">{coupon.description}</Text>
             </CouponHeader>
-            <SmallText>만료일: {coupon.expirationDate}</SmallText>
+            <Text size="small">만료일: {coupon.expirationDate}</Text>
             {coupon.minimumAmount && (
-              <SmallText>
+              <Text size="small">
                 최소 주문 금액: {coupon.minimumAmount.toLocaleString("ko-KR")}원
-              </SmallText>
+              </Text>
             )}
           </Coupon>
         ))}
       </CouponListBody>
       <CouponConfirmButton onClick={handleCloseModal}>
-        <MediumText>
+        <Text size="medium">
           총 {couponDiscountPrice.toLocaleString("ko-KR")}원 할인 쿠폰 사용하기
-        </MediumText>
+        </Text>
       </CouponConfirmButton>
     </Wrapper>
   );

@@ -2,12 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RecoilRoot } from "recoil";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import DebugObserver from "./recoil/DebugObserver.tsx";
-import { MainPage, OrderPage, PaymentPage } from "./pages/index.ts";
+import DebugObserver from "./recoil/DebugObserver";
+import { MainPage, OrderPage, PaymentPage } from "./pages";
 import GlobalStyle from "./styles/GlobalStyle.tsx";
 import { ThemeProvider } from "styled-components";
-import theme from "./styles/theme.ts";
-import { ENVIRONMENT } from "./constants/cart.ts";
+import theme from "./styles/theme";
+import { ENVIRONMENT } from "./constants/environment";
 
 const router = createBrowserRouter([
   {

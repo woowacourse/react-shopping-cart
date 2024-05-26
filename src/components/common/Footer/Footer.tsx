@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Wrapper } from "./style";
-import SmallText from "../SmallText/SmallText";
+import { Text } from "../../common";
 import { selectedCartItemsState } from "../../../recoil/selectors/selectors";
 import { useRecoilValue } from "recoil";
 
@@ -17,7 +17,7 @@ const Footer = ({ children, onClick }: FooterProps) => {
       onClick={selectedCartItemLength === 0 ? undefined : onClick}
       $disable={selectedCartItemLength === 0}
     >
-      <SmallText>{children}</SmallText>
+      <Text size="small">{children}</Text>
     </Wrapper>
   );
 };
