@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
-export const Container = styled.section`
+export const Container = styled.section<{ isUsable: boolean }>`
   display: flex;
   flex-direction: column;
   margin-top: 1.2rem;
   margin-bottom: 1.2rem;
+  color: ${({ isUsable }) =>
+    isUsable ? props => props.theme.color.black : props => props.theme.color.lightGray};
 `;
 
 export const CouponItemHeader = styled.div`
