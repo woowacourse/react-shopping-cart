@@ -2,15 +2,6 @@ import { CouponType } from '../type';
 
 export const mockCoupons: CouponType[] = [
   {
-    id: 0,
-    code: 'FIXED5000',
-    description: '5,000원 할인 쿠폰',
-    discount: 5000,
-    discountType: 'fixed',
-    minimumAmount: 100000,
-    expirationDate: '2024-04-30',
-  },
-  {
     id: 1,
     code: 'FIXED5000',
     description: '5,000원 할인 쿠폰',
