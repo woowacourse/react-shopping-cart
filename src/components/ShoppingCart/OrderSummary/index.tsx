@@ -13,7 +13,9 @@ interface OrderSummaryProps {
 const OrderSummary = ({ discountAmount }: OrderSummaryProps) => {
   const totalPrice = useRecoilValue(totalCheckedCartItemsPriceState);
   const shippingFee = useRecoilValue(shippingFeeState);
-  const totalPayments = discountAmount ? totalPrice + shippingFee - discountAmount : totalPrice + shippingFee;
+
+  const discountPrice = discountAmount ? discountAmount : 0;
+  const totalPayments = totalPrice + shippingFee - discountPrice;
 
   return (
     <OrderSummaryContainer>
