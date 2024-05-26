@@ -4,9 +4,9 @@ import { COUPON_MESSAGE } from "@/constants/message";
 import CheckBox from "../common/CheckBox";
 import { CouponType } from "@/types/coupon.type";
 import { MAX_APPLICABLE_COUPON } from "@/constants/system";
+import { cartSummaryState } from "@/store/selectors/summarySelector/cartSummarySelector";
 import { curKoreaTime } from "@/utils/date";
 import { isValidExpirationDate } from "@/utils/isValidExpirationDate";
-import { recipeState } from "@/store/selectors/recipeSelector/recipeSelector";
 import { selectedItemsState } from "@/store/selectors/selectedSelector/selectedItemsSelector";
 import styled from "@emotion/styled";
 import { useRecoilValue } from "recoil";
@@ -20,7 +20,7 @@ interface Props {
 
 const Coupon = ({ coupon, selectedCoupons, setSelectedCoupons }: Props) => {
   const [isSelected, setSelected] = useState(selectedCoupons.includes(coupon));
-  const { orderPrice } = useRecoilValue(recipeState);
+  const { orderPrice } = useRecoilValue(cartSummaryState);
   const selectedItems = useRecoilValue(selectedItemsState);
 
   const handleClick = () => {

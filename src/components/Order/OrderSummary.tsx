@@ -17,7 +17,7 @@ const OrderSummary = () => {
     useRecoilValue(orderSummaryState);
 
   return (
-    <StyledRecipeWrapper>
+    <StyledSummaryWrapper>
       <StyledInfoBox>
         <img src={Info} alt="추가정보" />
         {CART_MESSAGE.freeShipping(FREE_SHIPPING_CONDITION)}
@@ -46,12 +46,12 @@ const OrderSummary = () => {
         <StyledBoldText>총 결제 금액</StyledBoldText>
         <StyledBoldText>{totalPrice.toLocaleString("ko-KR")}원</StyledBoldText>
       </StyledBetweenBox>
-    </StyledRecipeWrapper>
+    </StyledSummaryWrapper>
   );
 };
 export default OrderSummary;
 
-const StyledRecipeWrapper = styled.div`
+const StyledSummaryWrapper = styled.div`
   ${FlexColumn}
   gap: 10px;
   background-color: white;

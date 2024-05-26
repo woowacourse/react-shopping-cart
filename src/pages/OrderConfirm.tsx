@@ -7,7 +7,7 @@ import Header from "@/components/Header";
 import { ORDER_CONFIRM_MESSAGE } from "@/constants/message";
 import OrderList from "@/components/Order/OrderList";
 import OrderSummary from "@/components/Order/OrderSummary";
-import { orderedItemState } from "@/store/selectors/recipeSelector/recipeSelector";
+import { orderedItemState } from "@/store/selectors/summarySelector/cartSummarySelector";
 import styled from "@emotion/styled";
 import { useModal } from "hain-tain-components";
 import { useNavigate } from "react-router-dom";

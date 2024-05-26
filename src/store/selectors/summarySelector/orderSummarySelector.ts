@@ -4,14 +4,14 @@ import {
 } from "@/store/atoms/atoms";
 
 import { ADDITIONAL_SHIPPING_FEE } from "@/constants/system";
-import { RecipeType } from "@/types/recipe.type";
-import { recipeState } from "../recipeSelector/recipeSelector";
+import { SummaryType } from "@/types/order.type";
+import { cartSummaryState } from "./cartSummarySelector";
 import { selector } from "recoil";
 
-export const orderSummaryState = selector<RecipeType>({
+export const orderSummaryState = selector<SummaryType>({
   key: "orderSummaryState",
   get: ({ get }) => {
-    const previous = get(recipeState);
+    const previous = get(cartSummaryState);
     const discountAmount = get(discountAmountState);
     const isAdditionalShippingFeeArea = get(additionalShippingFeeAreaState);
 

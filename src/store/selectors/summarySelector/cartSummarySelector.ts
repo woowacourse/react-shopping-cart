@@ -1,11 +1,11 @@
 import { FREE_SHIPPING_CONDITION, SHIPPING_FEE } from "@/constants/system";
-import { OrderedItemType, RecipeType } from "@/types/recipe.type";
+import { OrderedItemType, SummaryType } from "@/types/order.type";
 import { cartListState, filteredCartItemState } from "@/store/atoms/atoms";
 
 import { selector } from "recoil";
 
-export const recipeState = selector<RecipeType>({
-  key: "recipeState",
+export const cartSummaryState = selector<SummaryType>({
+  key: "cartSummaryState",
   get: ({ get }) => {
     const cartList = get(cartListState);
     const cartItemStates = cartList.map((state) =>

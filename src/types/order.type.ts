@@ -1,4 +1,4 @@
-export interface RecipeType {
+export interface SummaryType {
   orderPrice: number;
   shippingFee: number;
   totalPrice: number;

@@ -8,15 +8,16 @@ import {
 import { CART_MESSAGE } from "@/constants/message";
 import { FREE_SHIPPING_CONDITION } from "@/constants/system";
 import Info from "@/assets/Info.svg";
-import { recipeState } from "@/store/selectors/recipeSelector/recipeSelector";
+import { cartSummaryState } from "@/store/selectors/summarySelector/cartSummarySelector";
 import styled from "@emotion/styled";
 import { useRecoilValue } from "recoil";
 
-const CartRecipe = () => {
-  const { orderPrice, shippingFee, totalPrice } = useRecoilValue(recipeState);
+const CartSummary = () => {
+  const { orderPrice, shippingFee, totalPrice } =
+    useRecoilValue(cartSummaryState);
 
   return (
-    <StyledRecipeWrapper>
+    <StyledSummaryWrapper>
       <StyledInfoBox>
         <img src={Info} alt="추가정보" />
         {CART_MESSAGE.freeShipping(FREE_SHIPPING_CONDITION)}
@@ -39,12 +40,12 @@ const CartRecipe = () => {
         <StyledBoldText>총 결제 금액</StyledBoldText>
         <StyledBoldText>{totalPrice.toLocaleString("ko-KR")}원</StyledBoldText>
       </StyledBetweenBox>
-    </StyledRecipeWrapper>
+    </StyledSummaryWrapper>
   );
 };
-export default CartRecipe;
+export default CartSummary;
 
-const StyledRecipeWrapper = styled.div`
+const StyledSummaryWrapper = styled.div`
   ${FlexColumn}
   gap: 10px;
   background-color: white;

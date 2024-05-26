@@ -1,19 +1,19 @@
 import { CART_MESSAGE } from "@/constants/message";
 import CartList from "@/components/Cart/CartList";
-import CartRecipe from "@/components/Cart/CartRecipe";
+import CartSummary from "@/components/Cart/CartSummary";
 import CartTitle from "@/components/Cart/CartTitle";
 import EmptyCart from "@/components/Cart/EmptyCart";
 import FullWidthButton from "@/components/common/Button/FullWidthButton";
 import Header from "@/components/Header.tsx";
 import { cartListState } from "@/store/atoms/atoms";
-import { recipeState } from "@/store/selectors/recipeSelector/recipeSelector";
+import { cartSummaryState } from "@/store/selectors/summarySelector/cartSummarySelector";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 
 const Cart = () => {
   const navigate = useNavigate();
-  const { orderPrice } = useRecoilValue(recipeState);
+  const { orderPrice } = useRecoilValue(cartSummaryState);
 
   const cartList = useRecoilValue(cartListState);
 
@@ -32,7 +32,7 @@ const Cart = () => {
             <CartList />
           </StyledScrollBox>
           <StyledFixedBottom>
-            <CartRecipe />
+            <CartSummary />
             <FullWidthButton
               onClick={() => {
                 navigate("/order-confirm");

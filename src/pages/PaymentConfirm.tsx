@@ -7,7 +7,7 @@ import Header from "@/components/Header";
 import { ORDER_CONFIRM_MESSAGE } from "@/constants/message";
 import { getCartList } from "@/api/cartItem";
 import { orderSummaryState } from "@/store/selectors/summarySelector/orderSummarySelector";
-import { orderedItemState } from "@/store/selectors/recipeSelector/recipeSelector";
+import { orderedItemState } from "@/store/selectors/summarySelector/cartSummarySelector";
 import { postOrders } from "@/api/orders";
 import { selectedItemsState } from "@/store/selectors/selectedSelector/selectedItemsSelector";
 import styled from "@emotion/styled";
