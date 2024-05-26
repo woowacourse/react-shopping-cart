@@ -1,6 +1,5 @@
 import { atom, atomFamily } from "recoil";
 import { recoilPersist } from "recoil-persist";
-import { fetchCouponsSelector } from "../selector/apiSelector";
 import { Product } from "../../types/product";
 import { Coupon } from "../../types/coupon";
 
@@ -31,7 +30,7 @@ export const shippingCheckedAtom = atom<boolean>({
 //--쿠폰--//
 export const couponsAtom = atom<Coupon[]>({
   key: "couponsAtom",
-  default: fetchCouponsSelector,
+  default: [],
 });
 
 export const couponCheckedAtom = atom<Coupon[]>({

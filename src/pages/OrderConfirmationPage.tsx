@@ -10,6 +10,7 @@ import { CouponButton, OrderItems, PaymentSummary, ShippingInfo } from "../compo
 import { Title } from "../components/default";
 import { orderCartItems } from "../api/orderApi";
 import LeftArrow from "../assets/LeftArrow.svg?react";
+import { useFetchCoupons } from "../hooks/useFetchCoupons/useFetchCoupons";
 
 const OrderConfirmationPage = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const OrderConfirmationPage = () => {
   const cartTotalCount = useRecoilValue(totalCountSelector);
 
   useFetchCartItems();
+  useFetchCoupons();
 
   const description = `총 ${checkedIds.length}종류의 상품 ${cartTotalCount}개를 주문합니다.
   최종 결제 금액을 확인해 주세요.`;

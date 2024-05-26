@@ -1,4 +1,4 @@
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { css } from "@emotion/css";
 import { Modal } from "chlwlstlf-modal";
 
@@ -15,7 +15,7 @@ interface CouponModalProps {
 }
 
 const CouponModal = ({ isOpen, onClose, onConfirm }: CouponModalProps) => {
-  const [coupons] = useRecoilState(couponsAtom);
+  const coupons = useRecoilValue(couponsAtom);
   const { calculateCouponTotal } = useCartCalculator();
 
   return (

@@ -12,8 +12,7 @@ export const useCartActions = () => {
       patchCartItemQuantity(product.id, newQuantity);
       setCartItems((prevItems) => prevItems.map((item) => (item.id === product.id ? { ...item, quantity: newQuantity } : item)));
     } catch (error) {
-      //TODO: error 핸들러 만들기
-      console.error("Failed to update quantity:", error);
+      alert(error.message);
     }
   };
 
@@ -23,8 +22,7 @@ export const useCartActions = () => {
       setCartItems((prev) => prev.filter((cartItem) => id !== cartItem.id));
       setCheckedIds((prev) => prev.filter((itemId) => id !== itemId));
     } catch (error) {
-      //TODO: error 핸들러 만들기
-      console.error("Failed to delete cart item:", error);
+      alert(error.message);
     }
   };
 
