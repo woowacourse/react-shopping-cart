@@ -12,7 +12,7 @@ import { priceInfoStore } from '@recoil/selectors';
  * freeShipping -> totalAmount가 minimumAmount 이상일 경우
  * percentage -> 현재 시간이 start ~ end 사이일 경우
  */
-const useApplicable = () => {
+const useApplicableCoupon = () => {
   const selectedItems = useRecoilValue(selectedCartItems);
   const totalAmount = useRecoilValue(priceInfoStore).order;
 
@@ -62,4 +62,4 @@ const useApplicable = () => {
   return { isApplicable };
 };
 
-export default useApplicable;
+export default useApplicableCoupon;

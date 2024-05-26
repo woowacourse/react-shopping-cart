@@ -1,7 +1,7 @@
 import * as S from './styled';
 import { Coupon } from '@type/coupon';
-import { useApplicable } from '@hooks/coupon/index';
 import Checkbox from '@components/common/Checkbox/Checkbox';
+import useApplicableCoupon from '@hooks/coupon/useApplicableCoupon';
 
 interface EachCouponProps {
   coupon: Coupon;
@@ -16,7 +16,7 @@ const EachCoupon = ({
   isAlreadyApplyingMaximumCoupons,
   changeApplying,
 }: EachCouponProps) => {
-  const { isApplicable } = useApplicable();
+  const { isApplicable } = useApplicableCoupon();
   const disabled = !isApplicable(coupon) || (isAlreadyApplyingMaximumCoupons && !isSelect);
 
   return (
