@@ -7,7 +7,7 @@ const SelectedItemList = ({ selectedItems }: { selectedItems: CartItem[] }) => {
   return (
     <Styled.SelectedItemList>
       {selectedItems.map((cartItem) => (
-        <CartItemInfo.DetailContainer key={`selected-item-${cartItem.id}`}>
+        <CartItemInfo.DetailContainer key={cartItem.id}>
           <CartItemInfo.Img cartItem={cartItem} />
           <CartItemInfo.Description>
             <CartItemInfo.Name cartItem={cartItem} />
