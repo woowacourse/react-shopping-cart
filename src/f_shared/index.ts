@@ -1,5 +1,6 @@
+export { api } from './config/api';
 export { imgMap } from './assets/imgMap';
-export { urls } from './consts/url';
+export { urls } from './config/url';
 export { Button } from './ui/Button/Button';
 export { Checkbox } from './ui/Checkbox/Checkbox';
 export { FooterButton } from './ui/FooterButton/FooterButton';
