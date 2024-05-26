@@ -15,6 +15,7 @@ import Layout from '../../layout';
 import useOrderInformation from '../../hooks/useOrderInformation';
 import { useRecoilValue } from 'recoil';
 import { totalDiscountSelector } from '../../recoil';
+import { postOrders } from '../../api/order';
 
 export default function OrderConfirmationPage() {
   const totalDiscount = useRecoilValue(totalDiscountSelector);
@@ -23,9 +24,10 @@ export default function OrderConfirmationPage() {
 
   const navigate = useNavigate();
 
-  const makeOrder = () => {
-    // TODO: /order fetch 요청
-    navigate('/checkout');
+  const makeOrder = async () => {
+    postOrders(selectedItems.map((item) => item.id)).then(() => {
+      navigate('/checkout');
+    });
   };
 
   return (
