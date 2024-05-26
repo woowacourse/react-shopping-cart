@@ -46,6 +46,7 @@ export default function checkIsAvailableCoupon(
   coupon: Coupon,
   items: CartItem[],
   deliveryFee: number,
+  nowDate: Date = new Date(),
 ) {
   const expirationDate = getLastTimeDate(iso8601ToDate(coupon.expirationDate));
   if (expirationDate < new Date()) return false;
@@ -55,7 +56,8 @@ export default function checkIsAvailableCoupon(
   if (coupon.discountType === 'buyXgetY') return checkIsAvailableBuyXgetYCoupon(coupon, items);
   if (coupon.discountType === 'freeShipping')
     return checkIsAvailableFreeShippingCoupon(coupon, itemAmount, deliveryFee);
-  if (coupon.discountType === 'percentage') return checkIsAvailablePercentageCoupon(coupon);
+  if (coupon.discountType === 'percentage')
+    return checkIsAvailablePercentageCoupon(coupon, nowDate);
 
   return false;
 }
