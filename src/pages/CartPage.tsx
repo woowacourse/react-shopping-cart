@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import Header from "../components/Header/Header";
 import AddButton from "../components/AddButton/AddButton";
 import { Suspense } from "react";
