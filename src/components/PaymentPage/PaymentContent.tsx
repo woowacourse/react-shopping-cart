@@ -8,7 +8,7 @@ import CartAmount from "../common/domain/CartAmount";
 import CouponModal from "./CouponModal";
 
 import { useCoupons } from "../../hooks/useCoupons";
-import PaymentButton from "./PaymentButton";
+import PayButton from "./PayButton";
 
 export default function PaymentContent() {
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
@@ -32,7 +32,7 @@ export default function PaymentContent() {
           discountAmount={discountAmount}
         />
       )}
-      <PaymentButton totalPayAmount={totalPayAmount} />
+      <PayButton totalPayAmount={totalPayAmount} />
     </S.Container>
   );
 }

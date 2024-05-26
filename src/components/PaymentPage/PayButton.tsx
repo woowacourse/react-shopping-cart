@@ -10,11 +10,11 @@ import { ROUTE_PATH } from "../../constants/routePath";
 import { createOrder } from "../../api/orders";
 import { selectedCartItemIdsState } from "../../recoil/selectedCartItemIds";
 
-export interface PaymentButtonProps {
+export interface PayButtonProps {
   totalPayAmount: number;
 }
 
-export default function PaymentButton({ totalPayAmount }: PaymentButtonProps) {
+export default function PayButton({ totalPayAmount }: PayButtonProps) {
   const navigate = useNavigate();
   const [selectedCartItemIds, setSelectedCartItemIds] = useRecoilState(selectedCartItemIdsState);
   const { selectedCartItemCount, selectedUniqueCartItemCount } = useSelectedCartItemCount();
