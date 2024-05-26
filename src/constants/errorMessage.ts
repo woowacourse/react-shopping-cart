@@ -5,3 +5,5 @@ const ERRORMESSAGE = {
   fetchCouponList: '네트워크 오류로 인해 쿠폰 목록을 불러올 수 없어요.',
   order: '네트워크 오류로 인해 주문 완료에 실패했어요.',
 };
+
+export default ERRORMESSAGE;
