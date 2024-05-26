@@ -17,7 +17,7 @@ const Coupon = () => {
 
   const setDiscountAmountStore = useSetRecoilState(discountAmountStore);
 
-  const isSelect = (coupon: CouponType) => {
+  const isSelected = (coupon: CouponType) => {
     return applyingCoupons.find(applying => applying.id === coupon.id) !== undefined;
   };
 
@@ -35,7 +35,7 @@ const Coupon = () => {
           {notExpiredCoupon.map(coupon => (
             <EachCoupon
               key={coupon.id}
-              isSelect={isSelect(coupon)}
+              isSelect={isSelected(coupon)}
               coupon={coupon}
               isAlreadyApplyingMaximumCoupons={isAlreadyApplyingMaximumCoupons}
               changeApplying={changeApplying}
