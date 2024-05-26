@@ -11,7 +11,7 @@ const PaymentSummary = () => {
   const orderPrice = useRecoilValue(orderPriceSelector);
   const shippingFee = useRecoilValue(shippingFeeSelector);
   const couponUsed = useRecoilValue(couponUsedAtom);
-  const { calculateCartTotal, calculateCouponTotal, calculateTotalWithCoupon } = useCartCalculator();
+  const { calculateCouponTotal, calculateTotalWithCoupon } = useCartCalculator();
 
   return (
     <div className={PaymentSummaryCSS}>
@@ -32,7 +32,7 @@ const PaymentSummary = () => {
       <Splitter />
       <LabelValue
         label="총 결제금액"
-        value={formatCurrency(couponUsed ? calculateTotalWithCoupon() : calculateCartTotal())}
+        value={formatCurrency(calculateTotalWithCoupon())}
       />
     </div>
   );

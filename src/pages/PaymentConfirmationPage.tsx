@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import { css } from "@emotion/css";
 
 import { cartItemCheckedIdsAtom } from "../recoil/atom/atom";
@@ -10,17 +10,18 @@ import { formatCurrency } from "../utils/formatCurrency";
 
 const PaymentConfirmationPage = () => {
   const navigate = useNavigate();
-  const [checkedIds, setCheckedIds] = useRecoilState(cartItemCheckedIdsAtom);
   const cartItemCheckedIds = useRecoilValue(cartItemCheckedIdsAtom);
   const cartTotalCount = useRecoilValue(totalCountSelector);
 
   const { calculateTotalWithCoupon } = useCartCalculator();
 
+  const resetCheckedIds = useResetRecoilState(cartItemCheckedIdsAtom);
+
   const text = `총 ${cartItemCheckedIds.length}종류의 상품 ${cartTotalCount}개를 주문했습니다.
   최종 결제 금액을 확인해 주세요.`;
 
   const handleClick = () => {
-    setCheckedIds([]);
+    resetCheckedIds();
     navigate("/");
   };
 

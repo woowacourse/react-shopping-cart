@@ -13,6 +13,7 @@ export const useCartCalculator = () => {
   const { calculateDiscountAmount } = useDiscountCalculator();
 
   const calculateCartTotal = () => {
+    console.log(orderPrice + shippingFee);
     return orderPrice + shippingFee;
   };
 
@@ -31,7 +32,7 @@ export const useCartCalculator = () => {
   const calculateTotalWithCoupon = () => {
     const cartTotal = calculateCartTotal();
     const couponTotal = couponUsed ? calculateCouponTotal() : 0;
-    return cartTotal - couponTotal + shippingFee;
+    return cartTotal - couponTotal;
   };
 
   return {
