@@ -34,5 +34,3 @@ export interface Coupon {
   availableTime?: CouponAvailableTimeType;
   expirationDate: string;
 }
-
-export type CouponAvailabilityType = Record<number, boolean>;
