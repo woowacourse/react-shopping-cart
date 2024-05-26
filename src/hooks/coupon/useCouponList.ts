@@ -1,10 +1,26 @@
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
+
+import useApiErrorState from '../error/useApiErrorState';
+import { requestCouponList } from '../../apis/couponList';
 import { couponListState } from '../../recoil/coupon/atom';
+import { FailedFetchCouponListError } from '../../error/customError';
 
 const useCouponList = () => {
-  const couponList = useRecoilValue(couponListState);
+  const [couponList, setCouponList] = useRecoilState(couponListState);
+  const { setApiError, resetApiError } = useApiErrorState();
 
-  return { couponList };
+  const fetchCouponList = async () => {
+    try {
+      const result = await requestCouponList();
+      setCouponList(result);
+
+      resetApiError();
+    } catch (error) {
+      setApiError(new FailedFetchCouponListError());
+    }
+  };
+
+  return { couponList, fetchCouponList };
 };
 
 export default useCouponList;
