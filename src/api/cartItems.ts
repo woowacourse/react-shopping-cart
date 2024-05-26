@@ -33,7 +33,7 @@ export const updateCartItemQuantity = async (
 };
 
 export const deleteCartItem = async (id: CartItemType['id']) => {
-  const response = await fetch(`${CART_ITEMS_API_URL}${id}`, {
+  const response = await fetch(`${CART_ITEMS_API_URL}/${id}`, {
     method: 'DELETE',
     headers: HEADERS,
   });
