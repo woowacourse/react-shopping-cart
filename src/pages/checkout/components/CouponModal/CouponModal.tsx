@@ -34,7 +34,7 @@ export default function CouponModal({ isOpen, handleToggle }: Props) {
       </Modal.ModalContent>
 
       <Modal.ModalFooter>
-        <Modal.ModalButton variant="primary" style={{ width: '100%' }}>
+        <Modal.ModalButton variant="primary" onClick={handleToggle} style={{ width: '100%' }}>
           총 {formatKoreanCurrency(discountAmount)} 할인 쿠폰 사용하기
         </Modal.ModalButton>
       </Modal.ModalFooter>
