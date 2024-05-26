@@ -1,42 +1,27 @@
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { couponCheckState, couponDiscountAmount } from '../../../recoil/atoms/atoms';
+import { useRecoilState } from 'recoil';
+import { checkedCouponsState } from '../../../recoil/atoms/atoms';
 
 import CheckBox from '../../CheckBox/CheckBox';
 import { formatDate, formatTime } from '../../../utils/format';
 import { Coupon } from '../../../types/coupon';
 import { CouponBox, CouponDetails } from './CouponItem.style';
-import { useEffect } from 'react';
-import { useDiscountCalculator } from '../../../hooks/useDiscountCalculator/useDiscountCalculator';
-import { calculateOrderPrice } from '../../../recoil/selectors/selectors';
 
 export default function CouponItem({ coupon, isCouponApplicable }: { coupon: Coupon; isCouponApplicable: boolean }) {
-  const [isCouponChecked, setIsCouponChecked] = useRecoilState(couponCheckState(coupon.code));
-  const { totalOrderPrice } = useRecoilValue(calculateOrderPrice);
-  const [couponDiscount, setCouponDiscount] = useRecoilState(couponDiscountAmount);
-  const { calculateDiscountAmount } = useDiscountCalculator();
+  const [checkedCoupons, setCheckedCoupons] = useRecoilState(checkedCouponsState);
+  const isCouponChecked = checkedCoupons.includes(coupon);
 
-  useEffect(() => {
-    const currentCouponDiscount = calculateDiscountAmount(coupon, totalOrderPrice);
-
-    if (isCouponChecked) {
-      setCouponDiscount(couponDiscount + currentCouponDiscount);
-    } else {
-      setCouponDiscount(couponDiscount - currentCouponDiscount);
-    }
-  }, [isCouponChecked]);
+  const handleCheckboxChange = () => {
+    setCheckedCoupons((prev) =>
+      isCouponChecked ? prev.filter((item) => item.code !== coupon.code) : [...prev, coupon],
+    );
+  };
 
   return (
     <CouponBox isCouponCheck={isCouponApplicable}>
       <CheckBox
         text={coupon.description}
         isCheck={isCouponChecked}
-        onClick={
-          isCouponApplicable
-            ? () => {
-                setIsCouponChecked((prev) => !prev);
-              }
-            : () => {}
-        }
+        onClick={isCouponApplicable ? handleCheckboxChange : () => {}}
       />
 
       <CouponDetails>

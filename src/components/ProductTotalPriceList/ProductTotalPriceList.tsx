@@ -2,9 +2,15 @@ import Caution from '../../assets/caution.svg';
 import { Notification, OrderPrice, PriceGroup } from './ProductTotalPriceList.style';
 import { useRecoilValue } from 'recoil';
 import { calculateOrderPrice } from '../../recoil/selectors/selectors';
+import { couponDiscountAmount } from '../../recoil/atoms/atoms';
+import { useLocation } from 'react-router-dom';
 
-export default function ProductTotalPriceList({ couponDiscount }: { couponDiscount?: number }) {
+export default function ProductTotalPriceList() {
   const { totalOrderPrice, deliveryFee, totalPrice } = useRecoilValue(calculateOrderPrice);
+  const couponDiscount = useRecoilValue(couponDiscountAmount);
+
+  const location = useLocation();
+  const isOrderConfirmPage = location.pathname === '/order-confirm';
 
   return (
     <section className="product-total-price-list">
@@ -17,10 +23,10 @@ export default function ProductTotalPriceList({ couponDiscount }: { couponDiscou
           <span className="price-group_title">주문 금액</span>
           <span className="price-group_price">{totalOrderPrice.toLocaleString()}원</span>
         </PriceGroup>
-        {(couponDiscount || couponDiscount === 0) && (
+        {isOrderConfirmPage && (
           <PriceGroup>
             <span className="price-group_title">쿠폰 할인 금액</span>
-            <span className="price-group_price">{couponDiscount ? `-${couponDiscount.toLocaleString()}` : 0}원</span>
+            <span className="price-group_price">{couponDiscount ? `${couponDiscount.toLocaleString()}` : '0'}원</span>
           </PriceGroup>
         )}
         <PriceGroup>

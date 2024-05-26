@@ -1,5 +1,5 @@
 import { selector } from 'recoil';
-import { cartData, cartItemCheckState, specialZoneCheckState } from '../atoms/atoms';
+import { cartData, cartItemCheckState, couponDiscountAmount, specialZoneCheckState } from '../atoms/atoms';
 import { Price } from '../../types/cart';
 
 export const allCartItemsCheckState = selector<boolean>({
@@ -30,11 +30,13 @@ export const calculateOrderPrice = selector<Price>({
   get: ({ get }) => {
     const checkedCart = get(checkedCartItems);
     const isSpecialZoneCheck = get(specialZoneCheckState);
-    const specialZoneFee = isSpecialZoneCheck ? 3000 : 0;
+    const couponDiscount = get(couponDiscountAmount);
 
     const totalOrderPrice = checkedCart.reduce((acc, item) => acc + item.quantity * item.product.price, 0);
+    const specialZoneFee = isSpecialZoneCheck && totalOrderPrice < 100000 ? 3000 : 0;
     const deliveryFee = (totalOrderPrice >= 100000 || totalOrderPrice === 0 ? 0 : 3000) + specialZoneFee;
-    const totalPrice = totalOrderPrice + deliveryFee;
+
+    const totalPrice = totalOrderPrice + deliveryFee - couponDiscount;
 
     return { totalOrderPrice, deliveryFee, totalPrice };
   },

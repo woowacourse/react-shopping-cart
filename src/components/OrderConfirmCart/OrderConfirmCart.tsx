@@ -1,37 +1,47 @@
 import 'soosoo-react-modal-component/dist/style.css';
 import { Modal } from 'soosoo-react-modal-component';
 
-import { specialZoneCheckState, couponDiscountAmount } from '../../recoil/atoms/atoms';
-import { checkedCartItems } from '../../recoil/selectors/selectors';
+import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import { specialZoneCheckState, couponDiscountAmount, checkedCouponsState } from '../../recoil/atoms/atoms';
+import { calculateOrderPrice } from '../../recoil/selectors/selectors';
 
 import Button from '../Button/Button';
-import { CartHeaderStyle, SubTitle, Title } from '../CartHeader/CartHeader.style';
-import { CartStyle } from '../Cart/Cart.style';
 import CheckBox from '../CheckBox/CheckBox';
-import { CheckBoxGroup } from './OrderConfirmCart.style';
 import CouponModal from '../Modal/CouponModal/CouponModal';
 import ProductItem from '../ProductItem/ProductItem';
 import ProductTotalPriceList from '../ProductTotalPriceList/ProductTotalPriceList';
-import { ProductListStyle } from '../ProductList/ProductList.style';
-import { useState } from 'react';
+import { useDiscountCalculator } from '../../hooks/useDiscountCalculator/useDiscountCalculator';
+import { Cart } from '../../types/cart';
 
-export default function OrderConfirmCart() {
-  const cart = useRecoilValue(checkedCartItems);
+import * as S from './OrderConfirmCart.style';
 
-  const orderProduct = useRecoilValue(checkedCartItems);
-  const cartTotalCount = orderProduct.reduce((acc, cartItem) => acc + cartItem.quantity, 0);
+export default function OrderConfirmCart({ cartItems }: { cartItems: Cart[] }) {
+  const cartTotalCount = cartItems.reduce((acc, cartItem) => acc + cartItem.quantity, 0);
   const [isSpecialZoneCheck, setIsSpecialZoneCheck] = useRecoilState(specialZoneCheckState);
-  const couponDiscount = useRecoilValue(couponDiscountAmount);
-  const [couponDiscountState, setCouponDiscountState] = useState(useRecoilValue(couponDiscountAmount));
 
+  const [couponDiscount, setCouponDiscount] = useRecoilState(couponDiscountAmount);
+  const [discount, setDiscount] = useState(0);
+
+  const { totalOrderPrice } = useRecoilValue(calculateOrderPrice);
+  const { calculateDiscountAmount } = useDiscountCalculator();
+  const checkedCoupons = useRecoilValue(checkedCouponsState);
   const [isOpenModal, setIsOpenModal] = useState(false);
+
+  useEffect(() => {
+    let newDiscount = 0;
+    checkedCoupons.map((coupon) => {
+      newDiscount += calculateDiscountAmount(coupon, totalOrderPrice);
+    });
+
+    setDiscount(newDiscount);
+  }, [checkedCoupons]);
 
   const modalFooterButtons = [
     {
-      content: `총 ${couponDiscount.toLocaleString()}원 할인 쿠폰 사용하기`,
+      content: `총 ${discount.toLocaleString()}원 할인 쿠폰 사용하기`,
       onClick: () => {
-        setCouponDiscountState(couponDiscount);
+        setCouponDiscount(discount);
         setIsOpenModal(false);
       },
       className: 'confirmButton',
@@ -40,23 +50,21 @@ export default function OrderConfirmCart() {
 
   const handleToggleSpecialZoneCheck = () => {
     setIsSpecialZoneCheck(!isSpecialZoneCheck);
-    if (isSpecialZoneCheck) setCouponDiscountState(couponDiscount - 3000);
-    else setCouponDiscountState(couponDiscount + 3000);
   };
 
   return (
     <div id="orderConfirmPage">
-      <CartStyle>
-        <CartHeaderStyle>
-          <Title>주문 확인</Title>
-          <SubTitle>
-            총 {orderProduct.length} 종류의 상품 {cartTotalCount}개를 주문합니다.
-          </SubTitle>
-          <SubTitle>최종 결제 금액을 확인해 주세요.</SubTitle>
-        </CartHeaderStyle>
+      <S.Cart>
+        <S.CartHeader>
+          <S.Title>주문 확인</S.Title>
+          <S.SubTitle>
+            총 {cartItems.length} 종류의 상품 {cartTotalCount}개를 주문합니다.
+          </S.SubTitle>
+          <S.SubTitle>최종 결제 금액을 확인해 주세요.</S.SubTitle>
+        </S.CartHeader>
 
-        <ProductListStyle>
-          {cart.map((cartItem) => {
+        <S.ProductList>
+          {cartItems.map((cartItem) => {
             return <ProductItem isCheckBox={false} cartItem={cartItem} key={cartItem.id} />;
           })}
 
@@ -80,18 +88,18 @@ export default function OrderConfirmCart() {
             <CouponModal />
           </Modal>
 
-          <CheckBoxGroup>
+          <S.CheckBoxGroup>
             배송 정보
             <CheckBox
               text="제주도 및 도서 산간 지역"
               isCheck={isSpecialZoneCheck}
               onClick={handleToggleSpecialZoneCheck}
             />
-          </CheckBoxGroup>
+          </S.CheckBoxGroup>
 
-          <ProductTotalPriceList couponDiscount={couponDiscountState} />
-        </ProductListStyle>
-      </CartStyle>
+          <ProductTotalPriceList />
+        </S.ProductList>
+      </S.Cart>
     </div>
   );
 }

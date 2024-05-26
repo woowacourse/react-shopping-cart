@@ -37,9 +37,9 @@ export const specialZoneCheckState = atom<boolean>({
   default: false,
 });
 
-export const couponCheckState = atomFamily<boolean, string>({
-  key: 'couponCheckState',
-  default: false,
+export const checkedCouponsState = atom<Coupon[]>({
+  key: 'checkedCouponsState',
+  default: [],
 });
 
 export const couponDiscountAmount = atom<number>({

@@ -9,9 +9,7 @@ import { calculateOrderPrice } from '../../../recoil/selectors/selectors';
 
 export default function CouponModal() {
   const { coupons } = useCoupons();
-
   const { totalOrderPrice } = useRecoilValue(calculateOrderPrice);
-
   const couponChecker = useCouponApplicabilityChecker();
 
   return (
