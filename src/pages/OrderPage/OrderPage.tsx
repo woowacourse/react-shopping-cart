@@ -1,20 +1,11 @@
 import { Suspense, useRef } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import {
-  CartDescription,
-  CartList,
-  Header,
-  Footer,
-  CartPrice,
-  CouponButton,
-  DeliveryInfo,
-  CouponList,
-} from "../../components";
+import { CartDescription, CartList, CartPrice, CouponList } from "../../components";
+import { CouponButton, DeliveryInfo } from "./components";
 import { AppLayout, CartLayout } from "../../layouts";
 import { useNavigate } from "react-router-dom";
 import { BackArrowSvg } from "../../assets";
-import { SvgWrapper } from "./style";
-import { Tip, Dialog } from "../../components/common";
+import { Tip, Dialog, Header, Footer } from "../../components/common";
 
 const OrderPage = () => {
   const navigate = useNavigate();

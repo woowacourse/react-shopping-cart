@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { Header, Footer, PaymentConfirm } from "../../components";
+import { Header, Footer } from "../../components/common";
+import { PaymentConfirm } from "../../components";
 import { AppLayout } from "../../layouts";
 import { useNavigate } from "react-router-dom";
 

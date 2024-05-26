@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { CartDescription, CartList, Header, Footer, CartPrice } from "../../components";
+import { CartDescription, CartList, CartPrice } from "../../components";
+import { Header, Footer, Tip } from "../../components/common";
 import { AppLayout, CartLayout } from "../../layouts";
 import { Title } from "./style";
-import { Tip } from "../../components/common";
 import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {

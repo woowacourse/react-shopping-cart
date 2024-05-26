@@ -1,7 +1,7 @@
-import { paymentPriceState, cartSummaryState } from "../../recoil";
+import { paymentPriceState, cartSummaryState } from "../../../../recoil";
 import { useRecoilValue } from "recoil";
 import { Wrapper, Info, Price } from "./style";
-import { Text } from "../common";
+import { Text } from "../../../../components/common";
 
 const OrderConfirm = () => {
   const paymentPrice = useRecoilValue(paymentPriceState);
