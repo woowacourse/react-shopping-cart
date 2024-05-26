@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { isCartItemsSelectedState } from "@/stores/cartItemSelections";
+import { cartItemSelectionsState } from "@/stores/cartItemSelections";
 import useCartItems from "@/hooks/carts/useCartItems";
 
 import Button from "../../_common/Button";
@@ -17,7 +17,7 @@ const CartItemCard = ({ cartItem }: CartItemCardProps) => {
 
   const { removeCartItem, changeItemQuantity } = useCartItems();
   const [isCartItemsSelected, setIsCartItemsSelected] = useRecoilState(
-    isCartItemsSelectedState(id)
+    cartItemSelectionsState(id)
   );
 
   return (
@@ -27,7 +27,12 @@ const CartItemCard = ({ cartItem }: CartItemCardProps) => {
           isChecked={isCartItemsSelected}
           onToggle={() => setIsCartItemsSelected((prev: boolean) => !prev)}
         />
-        <Button $theme="white" $size="s" onClick={() => removeCartItem(id)}>
+        <Button
+          $theme="white"
+          $width="42px"
+          $height="24px"
+          onClick={() => removeCartItem(id)}
+        >
           삭제
         </Button>
       </S.Header>
@@ -36,7 +41,7 @@ const CartItemCard = ({ cartItem }: CartItemCardProps) => {
         <S.ItemInfoWrapper>
           <S.ItemInfo>
             <span>{product.name}</span>
-            <S.ItemPrice>{product.price.toLocaleString("ko-KR")}</S.ItemPrice>
+            <S.ItemPrice>{product.price.toLocaleString("ko-KR")}원</S.ItemPrice>
           </S.ItemInfo>
           <S.ItemQuantity>
             <MinusButton

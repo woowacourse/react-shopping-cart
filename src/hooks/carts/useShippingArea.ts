@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { shippingAreaState } from "@/stores/cartAmount";
+import { shippingAreaState } from "@/stores/cartPrice";
 
 const useShippingArea = () => {
   const [shippingArea, setShippingArea] = useRecoilState(shippingAreaState);

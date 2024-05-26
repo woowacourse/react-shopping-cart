@@ -5,12 +5,12 @@
  */
 
 import { useRecoilValue } from "recoil";
-import { cartAmountState } from "@/stores/cartAmount";
+import { cartPriceState } from "@/stores/cartPrice";
 import { AvailableTime, Coupon } from "@/types/coupon";
 import useCouponValidator from "./useCouponValidator";
 
 const useCouponApplicabilityChecker = () => {
-  const { orderAmount } = useRecoilValue(cartAmountState);
+  const { orderPrice } = useRecoilValue(cartPriceState);
   const { filteredValidCoupons } = useCouponValidator();
 
   const isAvailableTime = (availableTime?: AvailableTime) => {
@@ -31,7 +31,7 @@ const useCouponApplicabilityChecker = () => {
       return true;
     }
 
-    return orderAmount >= minimumAmount;
+    return orderPrice >= minimumAmount;
   };
 
   const isCouponApplicable = (coupon: Coupon) => {

@@ -2,7 +2,7 @@
 import { useRecoilValue } from "recoil";
 import { cartItemsState } from "@/stores/cartItems";
 import { selectedCouponsState } from "@/stores/coupons";
-import { cartAmountState, shippingAreaState } from "@/stores/cartAmount";
+import { cartPriceState, shippingAreaState } from "@/stores/cartPrice";
 
 import { CART_PRICE } from "@/constants/cart";
 import { Coupon } from "@/types/coupon";
@@ -13,7 +13,7 @@ const useDiscountCalculator = () => {
   const cartItems = useRecoilValue(cartItemsState);
   const shippingArea = useRecoilValue(shippingAreaState);
   const selectedCoupons = useRecoilValue(selectedCouponsState);
-  const { orderAmount } = useRecoilValue(cartAmountState);
+  const { orderPrice } = useRecoilValue(cartPriceState);
 
   const calculateFixedDiscount = (discount: number) => {
     return discount;
@@ -23,7 +23,7 @@ const useDiscountCalculator = () => {
     discount: number,
     currentDiscountedAmount: number
   ) => {
-    return (orderAmount - currentDiscountedAmount) * (discount / 100);
+    return (orderPrice - currentDiscountedAmount) * (discount / 100);
   };
 
   const calculateBuyXgetYDiscount = () => {
@@ -46,7 +46,7 @@ const useDiscountCalculator = () => {
     return CART_PRICE.shippingFees[shippingArea];
   };
 
-  const calculateDiscountAmount = (
+  const calculateDiscountPrice = (
     coupon: Coupon,
     currentDiscountedAmount: number = 0
   ) => {
@@ -82,17 +82,17 @@ const useDiscountCalculator = () => {
     console.log(permutations);
     const discountAmounts = permutations.map((couponsPermutation) => {
       return couponsPermutation.reduce((totalDiscount, coupon) => {
-        const discountAmount = calculateDiscountAmount(coupon, totalDiscount);
+        const discountAmount = calculateDiscountPrice(coupon, totalDiscount);
         return totalDiscount + discountAmount;
       }, 0);
     });
 
-    const maxDiscountAmount = Math.max(...discountAmounts);
-    return maxDiscountAmount;
+    const maxDiscountPrice = Math.max(...discountAmounts);
+    return maxDiscountPrice;
   };
 
   return {
-    calculateDiscountAmount,
+    calculateDiscountPrice,
     calculateTotalDiscount,
   };
 };
