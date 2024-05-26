@@ -6,6 +6,7 @@ import {
 } from './atoms';
 
 import { CartItem } from '../type';
+import POLICES from '../constants/policies';
 import getCouponsAmount from '../utils/getCouponsAmount';
 import { selector } from 'recoil';
 
@@ -34,9 +35,10 @@ export const deliveryFeeState = selector<number>({
       (acc, item) => acc + item.quantity * item.product.price,
       0,
     );
-    const defaultCouponFee = orderAmount >= 100000 ? 0 : 3000;
+    const defaultCouponFee =
+      orderAmount >= POLICES.amountForFreeShippingLowerBound ? 0 : POLICES.defaultDeliveryFee;
     if (checkedItem.length === 0) return 0;
-    if (isAdded) return defaultCouponFee + 3000;
+    if (isAdded) return defaultCouponFee + POLICES.defaultDeliveryFee;
     return defaultCouponFee;
   },
 });

@@ -3,6 +3,7 @@ import * as S from './style';
 import { checkedItemsState, deliveryFeeState } from '../../../recoil/selectors';
 
 import { InfoIcon } from '../../../assets';
+import POLICES from '../../../constants/policies';
 import convertToLocaleAmount from '../../../utils/convertToLocalePrice';
 import { useRecoilValue } from 'recoil';
 
@@ -18,7 +19,8 @@ export default function OrderAmount() {
   return (
     <div>
       <S.DeliveryFeeInfoBox>
-        <img src={InfoIcon} />총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+        <img src={InfoIcon} />
+        {`총 주문 금액이 ${POLICES.amountForFreeShippingLowerBound.toLocaleString()}원 이상일 경우 무료 배송됩니다.`}
       </S.DeliveryFeeInfoBox>
       <S.OrderAmountContainer>
         <S.AmountItem>
