@@ -1,10 +1,10 @@
 import { useRecoilValue } from 'recoil';
 import { CouponAvailableTimeType, Coupon } from '../type';
-import { orderAmountState, totalCheckedCartItemsState } from '../recoil/selectors';
+import { orderAmountState, checkedCartItemsState } from '../recoil/selectors';
 
 export default function useCouponValidityChecker() {
   const orderAmount = useRecoilValue(orderAmountState);
-  const checkedCartItems = useRecoilValue(totalCheckedCartItemsState);
+  const checkedCartItems = useRecoilValue(checkedCartItemsState);
 
   const isCouponValid = (coupon: Coupon) => {
     const { discountType, expirationDate, availableTime, minimumAmount, buyQuantity } = coupon;
@@ -14,6 +14,7 @@ export default function useCouponValidityChecker() {
     if (minimumAmount && !isCouponValidForOrderAmount(minimumAmount, orderAmount)) return false;
     if (discountType === 'buyXgetY' && buyQuantity && !isCouponValidForBuyQuantity(buyQuantity))
       return false;
+    if (discountType === 'freeShipping' && orderAmount >= 100000) return false;
 
     return true;
   };

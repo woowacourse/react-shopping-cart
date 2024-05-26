@@ -1,8 +1,9 @@
 import { renderHook } from '@testing-library/react';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { DefaultValue, RecoilRoot, RecoilState } from 'recoil';
-import { cartItemsState, checkedCartItemsState } from '../recoil/atoms';
+import { cartItemsState, checkedCartItemIdsState } from '../recoil/atoms';
 import { useCouponValidityChecker } from '../hooks';
+
 import mockCoupons from './data/mockCoupons';
 import mockCartItems from './data/mockCartItems';
 
@@ -21,7 +22,7 @@ describe('useCouponValidityChecker', () => {
 
   const initializeState = ({ set }: { set: RecoilStateSetType }) => {
     set(cartItemsState, mockCartItems);
-    set(checkedCartItemsState, [2]);
+    set(checkedCartItemIdsState, [2]);
   };
 
   it('만료 기한이 지나지 않았으며 다른 조건이 존재하지 않는 쿠폰은 사용자가 선택할 수 있어야 한다.', () => {
@@ -98,7 +99,7 @@ describe('useCouponValidityChecker', () => {
         { ...mockCartItems[0], quantity: 2 },
         { ...mockCartItems[1], quantity: 2 },
       ]);
-      set(checkedCartItemsState, [1, 2]);
+      set(checkedCartItemIdsState, [1, 2]);
     };
 
     const { result } = renderHook(() => useCouponValidityChecker(), {
@@ -117,7 +118,7 @@ describe('useCouponValidityChecker', () => {
         { ...mockCartItems[0], quantity: 3 },
         { ...mockCartItems[1], quantity: 2 },
       ]);
-      set(checkedCartItemsState, [1, 2]);
+      set(checkedCartItemIdsState, [1, 2]);
     };
 
     const { result } = renderHook(() => useCouponValidityChecker(), {
@@ -128,5 +129,24 @@ describe('useCouponValidityChecker', () => {
 
     const buyXgetYCoupon = mockCoupons[1];
     expect(result.current.isCouponValid(buyXgetYCoupon)).toBe(true);
+  });
+
+  it('"배송료 무료" 유형의 쿠폰이고, 총 주문 금액이 무료 배송 기준 금액 이상일 때, 해당 쿠폰은 사용자가 선택할 수 없어야 한다.', () => {
+    const newInitializeState = ({ set }: { set: RecoilStateSetType }) => {
+      set(cartItemsState, [
+        { ...mockCartItems[0], quantity: 3 },
+        { ...mockCartItems[1], quantity: 2 },
+      ]);
+      set(checkedCartItemIdsState, [1, 2]);
+    };
+
+    const { result } = renderHook(() => useCouponValidityChecker(), {
+      wrapper: ({ children }) => (
+        <RecoilRoot initializeState={newInitializeState}>{children}</RecoilRoot>
+      ),
+    });
+
+    const freeShippingCoupon = mockCoupons[2];
+    expect(result.current.isCouponValid(freeShippingCoupon)).toBe(false);
   });
 });
