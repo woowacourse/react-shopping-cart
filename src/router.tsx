@@ -1,7 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import ShoppingCartOverview from './components/ShoppingCartOverview/ShoppingCartOverview';
-import OrderInfo from './components/OrderInfo/OrderInfo';
+import OrderInformationOverview from './components/OrderInformationOverview/OrdeInformationOverview';
+import PaymentInfo from './components/PaymentInfo/PaymentInfo';
 import { ROUTER_URL } from './constants/constants';
 
 const router = createBrowserRouter([
@@ -16,7 +17,12 @@ const router = createBrowserRouter([
       },
       {
         path: ROUTER_URL.ORDER_INFO,
-        element: <OrderInfo />,
+        element: <OrderInformationOverview />,
+        errorElement: <div>이상해요</div>,
+      },
+      {
+        path: ROUTER_URL.PAYMENT_INFO,
+        element: <PaymentInfo />,
         errorElement: <div>이상해요</div>,
       },
     ],
