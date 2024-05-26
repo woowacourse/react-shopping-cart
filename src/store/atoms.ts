@@ -88,7 +88,7 @@ export const couponSelectedState = atom({
   default: initialCouponSelected,
 });
 
-export const activeCouponsState = atom<CouponType[]>({
-  key: 'activeCouponsState',
+export const activeCouponCodesState = atom<string[]>({
+  key: 'activeCouponCodesState',
   default: [],
 });

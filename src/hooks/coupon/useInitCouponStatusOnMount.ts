@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import { activeCouponsState, couponSelectedState } from '../../store/atoms';
+import { activeCouponCodesState, couponSelectedState } from '../../store/atoms';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 const useInitCouponStatusOnMount = () => {
   const [couponSelected, setCouponSelectedState] = useRecoilState(couponSelectedState);
-  const setActiveCoupons = useSetRecoilState(activeCouponsState);
+  const setActiveCoupons = useSetRecoilState(activeCouponCodesState);
 
   useEffect(() => {
     const newCouponSelected = Object.keys(couponSelected).reduce<Record<string, boolean>>(

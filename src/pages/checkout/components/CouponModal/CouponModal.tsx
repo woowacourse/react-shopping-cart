@@ -1,43 +1,36 @@
 import { useRecoilState } from 'recoil';
 import { Modal } from '@jaymyong66/simple-modal';
-import { activeCouponsState, couponSelectedState, mockCoupons } from '../../../../store/atoms';
+import { activeCouponCodesState, couponSelectedState, mockCoupons } from '../../../../store/atoms';
 import NoticeLabel from '../../../../components/common/NoticeLabel/NoticeLabel';
 import CouponItem from './CouponItem';
 import styles from './CouponModal.module.css';
-import { CouponType } from '../../../../types';
 
 interface Props {
   isOpen: boolean;
   handleToggle: () => void;
 }
 
-const findCouponByCode = (code: string) => {
-  return mockCoupons.find((coupon) => coupon.code === code) as CouponType;
-};
-
 export default function CouponModal({ isOpen, handleToggle }: Props) {
   const [couponSelected, setCouponSelected] = useRecoilState(couponSelectedState);
-  const [activeCoupons, setActiveCoupons] = useRecoilState(activeCouponsState);
+  const [activeCouponCodes, setActiveCouponCodes] = useRecoilState(activeCouponCodesState);
 
-  const isFulledActiveCoupons = activeCoupons.length === 2;
+  const handleToggleCouponCheckbox = (toggledCouponCode: string) => {
+    const newCheckedState = !couponSelected[toggledCouponCode];
 
-  const handleToggleCouponCheckbox = (code: string) => {
-    const newCheckedState = !couponSelected[code];
-
-    if (newCheckedState === true && activeCoupons.length >= 2) return;
+    if (newCheckedState === true && activeCouponCodes.length >= 2) return;
 
     const newCouponSelected = {
       ...couponSelected,
-      [code]: newCheckedState,
+      [toggledCouponCode]: newCheckedState,
     };
     setCouponSelected(newCouponSelected);
 
     if (newCheckedState) {
-      const newActiveCoupons = [...activeCoupons, findCouponByCode(code)];
-      setActiveCoupons(newActiveCoupons);
+      const newActiveCoupons = [...activeCouponCodes, toggledCouponCode];
+      setActiveCouponCodes(newActiveCoupons);
     } else {
-      const newActiveCoupons = activeCoupons.filter((coupon) => coupon.code !== code);
-      setActiveCoupons(newActiveCoupons);
+      const newActiveCoupons = activeCouponCodes.filter((code) => code !== toggledCouponCode);
+      setActiveCouponCodes(newActiveCoupons);
     }
   };
 
@@ -56,12 +49,15 @@ export default function CouponModal({ isOpen, handleToggle }: Props) {
       <Modal.ModalContent className={styles.couponModalContentContainer}>
         <NoticeLabel>쿠폰은 최대 2개까지 사용할 수 있습니다.</NoticeLabel>
         {mockCoupons.map((coupon) => {
+          const isFulledActiveCoupons = activeCouponCodes.length === 2;
+          const includeActiveCoupon = activeCouponCodes.includes(coupon.code);
+          const isDisableCoupon = isFulledActiveCoupons && !includeActiveCoupon;
           return (
             <CouponItem
               key={coupon.code}
               coupon={coupon}
               isChecked={couponSelected[coupon.code]}
-              isFulledActiveCoupons={isFulledActiveCoupons}
+              isDisableCoupon={isDisableCoupon}
               onChange={() => {
                 handleToggleCouponCheckbox(coupon.code);
               }}
