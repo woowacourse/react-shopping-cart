@@ -4,7 +4,7 @@ import { BASE_URL } from '.';
 import MESSAGE from '../constants/Message';
 import { CouponType } from '../type';
 
-export const fetchGetCoupons = async (): Promise<CouponType[]> => {
+export const fetchGettingCoupons = async (): Promise<CouponType[]> => {
   const response = await fetchWithoutPayload({
     url: `${BASE_URL}/coupons`,
     method: 'GET',

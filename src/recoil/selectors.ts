@@ -7,7 +7,7 @@ import {
   isCouponSelectedState,
 } from './atoms';
 
-import { fetchGetCoupons } from '../api/coupons';
+import { fetchGettingCoupons } from '../api/coupons';
 
 import { CartItemType, CouponType } from '../type';
 import CONDITION from '../constants/Condition';
@@ -166,7 +166,7 @@ export const finalTotalPaymentAmountSelector = selector<number>({
 export const couponsSelector = selector<CouponType[]>({
   key: 'coupons',
   get: async () => {
-    return await fetchGetCoupons();
+    return await fetchGettingCoupons();
   },
 });
 

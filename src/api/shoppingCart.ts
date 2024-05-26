@@ -1,10 +1,10 @@
-import { BASE_URL } from '.';
-
-import { CartItemType } from '../type';
-import MESSAGE from '../constants/Message';
 import { fetchWithPayload, fetchWithoutPayload } from './fetch';
 
-export const fetchGetCartItems = async (): Promise<CartItemType[]> => {
+import { BASE_URL } from '.';
+import { CartItemType } from '../type';
+import MESSAGE from '../constants/Message';
+
+export const fetchGettingCartItems = async (): Promise<CartItemType[]> => {
   const response = await fetchWithoutPayload({
     url: `${BASE_URL}/cart-items`,
     method: 'GET',
@@ -15,24 +15,32 @@ export const fetchGetCartItems = async (): Promise<CartItemType[]> => {
   return data.content;
 };
 
-export const fetchRemoveCartItem = async (
+export const fetchRemovingCartItem = async (
   cartItemId: number,
 ): Promise<void> => {
-  await fetchWithoutPayload({
-    url: `${BASE_URL}/cart-items/${cartItemId}`,
-    method: 'DELETE',
-    errorMessage: MESSAGE.error.cartItemRemoval,
-  });
+  try {
+    await fetchWithoutPayload({
+      url: `${BASE_URL}/cart-items/${cartItemId}`,
+      method: 'DELETE',
+      errorMessage: MESSAGE.error.cartItemRemoval,
+    });
+  } catch (error) {
+    console.error(error);
+  }
 };
 
-export const fetchAdjustCartItemQuantity = async (
+export const fetchAdjustingCartItemQuantity = async (
   cartItemId: number,
   quantity: number,
 ): Promise<void> => {
-  await fetchWithPayload({
-    url: `${BASE_URL}/cart-items/${cartItemId}`,
-    method: 'PATCH',
-    payload: { quantity },
-    errorMessage: MESSAGE.error.cartItemQuantityAdjustment,
-  });
+  try {
+    await fetchWithPayload({
+      url: `${BASE_URL}/cart-items/${cartItemId}`,
+      method: 'PATCH',
+      payload: { quantity },
+      errorMessage: MESSAGE.error.cartItemQuantityAdjustment,
+    });
+  } catch (error) {
+    console.error(error);
+  }
 };

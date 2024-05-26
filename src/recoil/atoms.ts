@@ -1,7 +1,7 @@
 import { atom, atomFamily, selector } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
-import { fetchGetCartItems } from '../api/shoppingCart';
+import { fetchGettingCartItems } from '../api/shoppingCart';
 
 const { persistAtom } = recoilPersist({
   key: 'isCartItemSelected',
@@ -19,7 +19,7 @@ export const cartItemsState = atom({
   default: selector({
     key: 'fetchedCartItems',
     get: async () => {
-      return await fetchGetCartItems();
+      return await fetchGettingCartItems();
     },
   }),
 });

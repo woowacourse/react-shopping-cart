@@ -12,8 +12,8 @@ import {
 } from '../../recoil/selectors';
 import { cartItemsState } from '../../recoil/atoms';
 
-import fetchPostOrders from '../../api/orders';
-import { fetchGetCartItems } from '../../api/shoppingCart';
+import { fetchPostingOrders } from '../../api/orders';
+import { fetchGettingCartItems } from '../../api/shoppingCart';
 import {
   generateButtonLabel,
   generateNextPageNavigatorPath,
@@ -38,24 +38,17 @@ const OrderButton = () => {
   const navigator = useNavigate();
 
   const resetShoppingCartPage = async () => {
-    setCartItems(await fetchGetCartItems());
+    setCartItems(await fetchGettingCartItems());
     setIsAllCatItemsSelected(true);
   };
 
-  const handleOnClick = async () => {
+  const handleOnClick = () => {
     if (page === CONDITION.orderConfirmationPage) {
-      try {
-        await fetchPostOrders(selectedCartItemIds);
-      } catch (error) {
-        console.error(error);
-      }
+      fetchPostingOrders(selectedCartItemIds);
     }
+
     if (page === CONDITION.paymentConfirmationPage) {
-      try {
-        await resetShoppingCartPage();
-      } catch (error) {
-        console.error(error);
-      }
+      resetShoppingCartPage();
     }
 
     navigator(generateNextPageNavigatorPath(page));

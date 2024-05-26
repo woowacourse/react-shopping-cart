@@ -1,14 +1,17 @@
-import { BASE_URL } from '.';
-import MESSAGE from '../constants/Message';
 import { fetchWithPayload } from './fetch';
 
-const fetchPostOrders = async (cartItemIds: number[]) => {
-  await fetchWithPayload({
-    url: `${BASE_URL}/orders`,
-    method: 'POST',
-    payload: { cartItemIds },
-    errorMessage: MESSAGE.error.postingOrders,
-  });
-};
+import { BASE_URL } from '.';
+import MESSAGE from '../constants/Message';
 
-export default fetchPostOrders;
+export const fetchPostingOrders = async (cartItemIds: number[]) => {
+  try {
+    await fetchWithPayload({
+      url: `${BASE_URL}/orders`,
+      method: 'POST',
+      payload: { cartItemIds },
+      errorMessage: MESSAGE.error.postingOrders,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};

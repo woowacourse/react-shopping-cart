@@ -5,8 +5,8 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { cartItemsState, isCartItemSelectedState } from '../../../recoil/atoms';
 
 import {
-  fetchAdjustCartItemQuantity,
-  fetchRemoveCartItem,
+  fetchAdjustingCartItemQuantity,
+  fetchRemovingCartItem,
 } from '../../../api/shoppingCart';
 import Divider from '../../Divider/Divider';
 import SelectButton from '../../SelectButton/SelectButton';
@@ -55,40 +55,29 @@ const ShoppingCartItem = ({ inputCartItem }: CartItemProps) => {
     );
   };
 
-  const handleCartItemRemoval = async () => {
-    try {
-      removeCartItem();
-      await fetchRemoveCartItem(inputCartItem.id);
-    } catch (error) {
-      console.error(error);
-    }
+  const handleCartItemRemoval = () => {
+    removeCartItem();
+    fetchRemovingCartItem(inputCartItem.id);
   };
 
-  const handleCartItemQuantityIncrement = async () => {
-    try {
-      adjustCartItemQuantity(inputCartItem.quantity + VALUE.adjustTerm);
-      await fetchAdjustCartItemQuantity(
-        inputCartItem.id,
-        inputCartItem.quantity + VALUE.adjustTerm,
-      );
-    } catch (error) {
-      console.error(error);
-    }
+  const handleCartItemQuantityIncrement = () => {
+    adjustCartItemQuantity(inputCartItem.quantity + VALUE.adjustTerm);
+    fetchAdjustingCartItemQuantity(
+      inputCartItem.id,
+      inputCartItem.quantity + VALUE.adjustTerm,
+    );
   };
 
-  const handleCartItemQuantityDecrement = async () => {
-    try {
-      if (inputCartItem.quantity === CONDITION.RemoveButtonAppeared)
-        return await handleCartItemRemoval();
-
-      adjustCartItemQuantity(inputCartItem.quantity - VALUE.adjustTerm);
-      await fetchAdjustCartItemQuantity(
-        inputCartItem.id,
-        inputCartItem.quantity - VALUE.adjustTerm,
-      );
-    } catch (error) {
-      console.error(error);
+  const handleCartItemQuantityDecrement = () => {
+    if (inputCartItem.quantity === CONDITION.RemoveButtonAppeared) {
+      return handleCartItemRemoval();
     }
+
+    adjustCartItemQuantity(inputCartItem.quantity - VALUE.adjustTerm);
+    fetchAdjustingCartItemQuantity(
+      inputCartItem.id,
+      inputCartItem.quantity - VALUE.adjustTerm,
+    );
   };
 
   return (
