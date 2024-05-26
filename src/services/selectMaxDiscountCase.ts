@@ -30,10 +30,9 @@ const selectMaxDiscountCase = (
     return applyDiscounts(orderAmount, coupons, allCartItems);
   };
 
-  const permute = (arr: FormattedCoupon[]) => {
-    if (arr.length === 0) return [[]];
-    const firstElem = arr[0];
-    const rest = arr.slice(1);
+  const permute = (allCoupons: FormattedCoupon[]) => {
+    if (allCoupons.length === 0) return [[]];
+    const [firstElem, ...rest] = allCoupons;
     const permsWithoutFirst = permute(rest);
     const allPermutations: FormattedCoupon[][] = [];
 
