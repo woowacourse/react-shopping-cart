@@ -1,19 +1,31 @@
-import { DISCOUNT_TYPES } from '../constants/discount';
-import { DiscountType, FormattedCoupon, CartItemData } from '@/types';
+import { DISCOUNT_TYPES } from '@/constants/discount';
+import { FormattedCoupon, CartItemData } from '@/types';
 import ORDER_CONDITION from '@/constants/order';
 
-type FixedDiscountCalculator = (coupon: FormattedCoupon) => number;
-type PercentageDiscountCalculator = (coupon: FormattedCoupon, orderAmount: number) => number;
-type BuyXGetYDiscountCalculator = (coupon: FormattedCoupon, allCartItems: CartItemData[]) => number;
-type FreeShippingDiscountCalculator = () => number;
+interface FixedDiscountCalculator {
+  (coupon: FormattedCoupon): number;
+}
 
-type DiscountCalculator =
-  | FixedDiscountCalculator
-  | PercentageDiscountCalculator
-  | BuyXGetYDiscountCalculator
-  | FreeShippingDiscountCalculator;
+interface PercentageDiscountCalculator {
+  (coupon: FormattedCoupon, orderAmount: number): number;
+}
 
-const discountCalculators: Record<DiscountType, DiscountCalculator> = {
+interface BuyXGetYDiscountCalculator {
+  (coupon: FormattedCoupon, allCartItems: CartItemData[]): number;
+}
+
+interface FreeShippingDiscountCalculator {
+  (): number;
+}
+
+interface DiscountCalculators {
+  [DISCOUNT_TYPES.FIXED]: FixedDiscountCalculator;
+  [DISCOUNT_TYPES.PERCENTAGE]: PercentageDiscountCalculator;
+  [DISCOUNT_TYPES.BUY_X_GET_Y]: BuyXGetYDiscountCalculator;
+  [DISCOUNT_TYPES.FREE_SHIPPING]: FreeShippingDiscountCalculator;
+}
+
+const discountCalculators: DiscountCalculators = {
   [DISCOUNT_TYPES.FIXED]: (coupon: FormattedCoupon): number => coupon.discount || 0,
 
   [DISCOUNT_TYPES.PERCENTAGE]: (coupon: FormattedCoupon, orderAmount: number): number =>
@@ -48,20 +60,18 @@ const calculateTotalDiscountPrice = (
     return 0;
   }
 
-  const calculator = discountCalculators[coupon.discountType];
-
-  if (calculator) {
-    if (coupon.discountType === DISCOUNT_TYPES.FIXED) {
-      return (calculator as FixedDiscountCalculator)(coupon);
-    } else if (coupon.discountType === DISCOUNT_TYPES.PERCENTAGE) {
-      return (calculator as PercentageDiscountCalculator)(coupon, orderAmount);
-    } else if (coupon.discountType === DISCOUNT_TYPES.BUY_X_GET_Y) {
-      return (calculator as BuyXGetYDiscountCalculator)(coupon, allCartItems);
-    } else if (coupon.discountType === DISCOUNT_TYPES.FREE_SHIPPING) {
-      return (calculator as FreeShippingDiscountCalculator)();
-    }
+  switch (coupon.discountType) {
+    case DISCOUNT_TYPES.FIXED:
+      return discountCalculators.fixed(coupon);
+    case DISCOUNT_TYPES.PERCENTAGE:
+      return discountCalculators.percentage(coupon, orderAmount);
+    case DISCOUNT_TYPES.BUY_X_GET_Y:
+      return discountCalculators.buyXgetY(coupon, allCartItems);
+    case DISCOUNT_TYPES.FREE_SHIPPING:
+      return discountCalculators.freeShipping();
+    default:
+      return 0;
   }
-  return 0;
 };
 
 export default calculateTotalDiscountPrice;
