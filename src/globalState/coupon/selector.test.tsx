@@ -15,7 +15,11 @@ import {
   orderTotalPriceState,
 } from '../cartItems/selectors';
 
-import { TOTAL_PRICE_OVER_100000_DATA, TOTAL_PRICE_UNDER_100000_DATA } from '@/mocks/cartItems';
+import {
+  PRODUCT_PER_QUANTITY_UNDER_THREE_ITEMS,
+  TOTAL_PRICE_OVER_100000_DATA,
+  TOTAL_PRICE_UNDER_100000_DATA,
+} from '@/mocks/cartItems';
 import {
   APPLICABLE_BuyXgetY_COUPON,
   APPLICABLE_FIXED_COUPON,
@@ -101,6 +105,46 @@ describe('coupon selector', () => {
               initializeState={({ set }) => (
                 set(cartItemsState, TOTAL_PRICE_OVER_100000_DATA),
                 set(couponsState, [APPLICABLE_FIXED_COUPON])
+              )}
+            >
+              <Suspense>{children}</Suspense>
+            </RecoilRoot>
+          ),
+        },
+      );
+
+      expect(result.current).toBeTruthy();
+    });
+
+    it(`quantity가 3 이상인 아이템이 없다면, "false"를 반환한다.`, () => {
+      const { result } = renderHook(
+        () => useRecoilValue(applicableCouponSelector(APPLICABLE_BuyXgetY_COUPON.code)),
+        {
+          wrapper: ({ children }) => (
+            <RecoilRoot
+              initializeState={({ set }) => (
+                set(cartItemsState, PRODUCT_PER_QUANTITY_UNDER_THREE_ITEMS),
+                set(couponsState, [APPLICABLE_BuyXgetY_COUPON])
+              )}
+            >
+              <Suspense>{children}</Suspense>
+            </RecoilRoot>
+          ),
+        },
+      );
+
+      expect(result.current).toBeFalsy();
+    });
+
+    it(`quantity가 3 이상인 아이템이 하나라도 존재한다면, "true"를 반환한다.`, () => {
+      const { result } = renderHook(
+        () => useRecoilValue(applicableCouponSelector(APPLICABLE_BuyXgetY_COUPON.code)),
+        {
+          wrapper: ({ children }) => (
+            <RecoilRoot
+              initializeState={({ set }) => (
+                set(cartItemsState, TOTAL_PRICE_OVER_100000_DATA),
+                set(couponsState, [APPLICABLE_BuyXgetY_COUPON])
               )}
             >
               <Suspense>{children}</Suspense>
