@@ -1,6 +1,12 @@
 import { useRecoilValue } from 'recoil';
 import { CartItem } from '@type/cartItem';
-import { Coupon } from '@type/coupon';
+import {
+  BuyXGetYCoupon,
+  Coupon,
+  FixedCoupon,
+  FreeShippingCoupon,
+  PercentageCoupon,
+} from '@type/coupon';
 import dayjs from '@utils/dayjs';
 import { selectedCartItems } from '@recoil/atoms';
 import usePriceInfo from '@hooks/usePriceInfo';
@@ -42,19 +48,24 @@ const useApplicableCoupon = () => {
 
   const isApplicable = (coupon: Coupon) => {
     if (coupon.discountType === 'fixed')
-      return isApplicableFixed(coupon.minimumAmount as number, totalAmount);
+      return isApplicableFixed((coupon as FixedCoupon).minimumAmount as number, totalAmount);
 
     if (coupon.discountType === 'buyXgetY')
-      return isApplicableBuyXGetY(coupon.buyQuantity as number, selectedItems);
+      return isApplicableBuyXGetY((coupon as BuyXGetYCoupon).buyQuantity as number, selectedItems);
 
     if (coupon.discountType === 'freeShipping')
-      return isApplicableFreeShipping(coupon.minimumAmount as number, totalAmount);
-
-    if (coupon.discountType === 'percentage')
-      return isApplicablePercentage(
-        coupon.availableTime?.start ?? '',
-        coupon.availableTime?.end ?? '',
+      return isApplicableFreeShipping(
+        (coupon as FreeShippingCoupon).minimumAmount as number,
+        totalAmount,
       );
+
+    if (coupon.discountType === 'percentage') {
+      const percentageCoupon = coupon as PercentageCoupon;
+      return isApplicablePercentage(
+        percentageCoupon.availableTime.start ?? '',
+        percentageCoupon.availableTime.end ?? '',
+      );
+    }
 
     return false;
   };
