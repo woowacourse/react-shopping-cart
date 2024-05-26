@@ -41,6 +41,8 @@ const theme: DefaultTheme = {
     lightGray3: '#333333BF',
     lightGray4: '#333333',
     black10: '#0000001A',
+    lightOrange: '#FEEFEA',
+    orange: '#FF5F1F',
   },
 };
 

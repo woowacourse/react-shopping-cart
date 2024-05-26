@@ -15,3 +15,12 @@ export const Title = styled.p`
 export const Price = styled.p`
   ${props => props.theme.typography.pageTitle};
 `;
+
+export const Accent = styled.span`
+  padding: 0.3rem 1rem;
+  border-radius: 0.2rem;
+  background-color: ${props => props.theme.color.lightOrange};
+  ${props => props.theme.typography.boldLabel};
+
+  color: ${props => props.theme.color.orange};
+`;

@@ -19,6 +19,7 @@ import useMutation from '@hooks/useMutation';
 import orderItems from '@api/post/orderItems';
 import usePriceInfo from './../../hooks/usePriceInfo';
 import useIsolatedRegion from '@hooks/useIsolatedRegion';
+import useCoupon from '@hooks/coupon/useCoupon';
 
 interface OrderInfoState {
   orderItems: CartItem[];
@@ -32,6 +33,7 @@ const OrderInfo = () => {
   const navigate = useNavigate();
   const { isolatedRegion, handleIsolatedRegion } = useIsolatedRegion();
   const priceInfo = usePriceInfo(isolatedRegion);
+  const couponLogic = useCoupon(isolatedRegion);
 
   const { mutate: orderItemsMutate, isPending } = useMutation<typeof orderItems>(orderItems, {
     onSuccess: () => {
@@ -74,12 +76,12 @@ const OrderInfo = () => {
 최종 결제 금액을 확인해 주세요.`}
         />
         {orderInfo?.orderItems.map(item => <ShoppingCartItemView key={item.id} cartItem={item} />)}
-        <Coupon isolatedRegion={isolatedRegion} />
+        <Coupon isolatedRegion={isolatedRegion} {...couponLogic} />
         <IsolatedRegionShippingFee
           isolatedRegion={isolatedRegion}
           handleIsolatedRegion={handleIsolatedRegion}
         />
-        <PaymentTotalWithDiscount priceInfo={priceInfo} />
+        <PaymentTotalWithDiscount priceInfo={priceInfo} coupons={couponLogic.couponDetail} />
       </S.Container>
       <FloatingButton label="결제하기" onClick={onOrder} disabled={isPending} />
     </>

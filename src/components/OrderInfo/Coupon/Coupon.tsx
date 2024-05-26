@@ -2,23 +2,34 @@ import { Modal } from 'cookie-nice-modal';
 import { useReducer } from 'react';
 import * as S from './styled';
 import EachCoupon from './EachCoupon/EachCoupon';
-
-import { useLoadCoupon, useApplyCoupons, useDiscount } from '@hooks/coupon/index';
+import { Coupon as CouponType } from '@type/coupon';
 
 interface CouponProps {
   isolatedRegion: boolean;
+  notExpiredCoupon: CouponType[];
+  applyingCoupons: CouponType[];
+  changeApplying: (coupon: CouponType) => void;
+  isSelected: (coupon: CouponType) => boolean;
+  isAlreadyApplyingMaximumCoupons: boolean;
+  discountAmount: number;
+  handleDiscountAmount: (discount: number) => void;
+  handleCouponDetail: (coupons: CouponType[]) => void;
 }
 
-const Coupon = ({ isolatedRegion }: CouponProps) => {
+const Coupon = ({
+  notExpiredCoupon,
+  applyingCoupons,
+  changeApplying,
+  handleCouponDetail,
+  isSelected,
+  isAlreadyApplyingMaximumCoupons,
+  discountAmount,
+  handleDiscountAmount,
+}: CouponProps) => {
   const [couponModalOpen, toggleCouponModalOpen] = useReducer(prev => !prev, false);
 
-  const notExpiredCoupon = useLoadCoupon();
-  const { applyingCoupons, changeApplying, isSelected, isAlreadyApplyingMaximumCoupons } =
-    useApplyCoupons();
-
-  const { discountAmount, handleDiscountAmount } = useDiscount(applyingCoupons, isolatedRegion);
-
   const applyCouponAndCloseModal = () => {
+    handleCouponDetail(applyingCoupons);
     handleDiscountAmount(discountAmount);
     toggleCouponModalOpen();
   };
