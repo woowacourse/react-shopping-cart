@@ -1,40 +1,50 @@
-import { FlexCenter, FlexColumn } from "@/style/common.style";
-import {
-  orderedItemState,
-  recipeState,
-} from "@/store/selectors/recipeSelector";
-
+import AdditionalShippingFeeArea from "@/components/Order/AdditionalShippingFeeArea";
+import BorderButton from "@/components/common/Button/BorderButton";
+import CartTitle from "@/components/Cart/CartTitle";
+import CouponModal from "@/components/Order/CouponModal";
 import FullWidthButton from "@/components/common/Button/FullWidthButton";
 import Header from "@/components/Header";
 import { ORDER_CONFIRM_MESSAGE } from "@/constants/message";
+import OrderList from "@/components/Order/OrderList";
+import OrderSummary from "@/components/Order/OrderSummary";
+import { orderedItemState } from "@/store/selectors/recipeSelector/recipeSelector";
 import styled from "@emotion/styled";
+import { useModal } from "hain-tain-components";
+import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 
 const OrderConfirm = () => {
-  const { totalPrice } = useRecoilValue(recipeState);
   const { itemCount, totalQuantity } = useRecoilValue(orderedItemState);
+  const navigate = useNavigate();
+  const { isOpened, handleModalOpen, handelModalClose } = useModal();
 
   return (
     <>
       <StyledFixedTop>
         <Header type="ArrowBack" />
       </StyledFixedTop>
-      <StyledCenterBox>
-        <StyledTextTitle>주문 확인</StyledTextTitle>
-
-        <StyledTextBody>
-          {ORDER_CONFIRM_MESSAGE.confirmOrder(itemCount, totalQuantity)}
-        </StyledTextBody>
-        <StyledTextBody> {ORDER_CONFIRM_MESSAGE.confirmPrice}</StyledTextBody>
-
-        <StyledTextSubTitle>총 결제 금액</StyledTextSubTitle>
-        <StyledTextPrice>
-          {totalPrice.toLocaleString("ko-KR")}원
-        </StyledTextPrice>
-      </StyledCenterBox>
-
+      <StyledScrollBox>
+        <CartTitle
+          title="주문 확인"
+          details={[
+            ORDER_CONFIRM_MESSAGE.confirmOrder(itemCount, totalQuantity),
+            ORDER_CONFIRM_MESSAGE.confirmPrice,
+          ]}
+        />
+        <OrderList />
+        <BorderButton onClick={handleModalOpen} widthType="full">
+          쿠폰 적용
+        </BorderButton>
+        <CouponModal isOpened={isOpened} closeModal={handelModalClose} />
+        <AdditionalShippingFeeArea />
+      </StyledScrollBox>
       <StyledFixedBottom>
-        <FullWidthButton onClick={() => {}} disabled>
+        <OrderSummary />
+        <FullWidthButton
+          onClick={() => {
+            navigate("/payment-confirm");
+          }}
+        >
           결제하기
         </FullWidthButton>
       </StyledFixedBottom>
@@ -50,34 +60,15 @@ const StyledFixedTop = styled.div`
   top: 0;
 `;
 
+const StyledScrollBox = styled.div`
+  margin-top: 64px;
+  overflow-y: scroll;
+  height: calc(100vh - 280px);
+  width: 430px;
+`;
+
 const StyledFixedBottom = styled.div`
   width: 430px;
   position: fixed;
   bottom: 0;
-`;
-
-const StyledCenterBox = styled.div`
-  ${FlexColumn}
-  ${FlexCenter}
-  height: 100vh;
-`;
-
-const StyledTextTitle = styled.h1`
-  font-size: 24px;
-  font-weight: 700;
-`;
-
-const StyledTextBody = styled.p`
-  font-size: 12px;
-  margin: 0;
-`;
-const StyledTextSubTitle = styled.h2`
-  font-size: 16px;
-  margin: 0;
-  margin-top: 24px;
-`;
-const StyledTextPrice = styled.p`
-  font-size: 24px;
-  font-weight: 700;
-  margin: 10px;
 `;
