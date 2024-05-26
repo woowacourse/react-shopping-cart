@@ -3,6 +3,7 @@ import { useRecoilState } from 'recoil';
 import useApiErrorState from '../error/useApiErrorState';
 import { cartItemListState } from '../../recoil/cartItem/atom';
 import { useSelectedCartItemId } from './useSelectedCartItemId';
+import { useSelectedCartItemIdList } from './useSelectedCartItemIdList';
 import {
   requestCartItemList,
   requestDeleteCartItem,
@@ -16,6 +17,7 @@ const useCartItemList = () => {
   const { setApiError } = useApiErrorState();
   const [cartItemList, setCartItemList] = useRecoilState(cartItemListState);
   const { unselectCartItem } = useSelectedCartItemId();
+  const { selectedIdList } = useSelectedCartItemIdList();
 
   const deleteCartItem = async (cartItemId: number) => {
     try {
@@ -31,6 +33,11 @@ const useCartItemList = () => {
     try {
       const result = await requestCartItemList();
       setCartItemList(result);
+      selectedIdList.forEach((id) => {
+        if (!result.map(({ id }) => id).includes(id)) {
+          unselectCartItem(id);
+        }
+      });
     } catch (error) {
       setApiError(new FailedFetchCartItemListError());
     }
