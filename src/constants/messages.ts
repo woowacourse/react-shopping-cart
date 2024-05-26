@@ -9,6 +9,7 @@ export const SHOPPING_MESSAGE = {
   sigol: "제주도 및 도서 산간 지역",
   selectAll: "전체선택",
   confirmDelete: "정말로 삭제하시겠습니까?",
+  confirmPaying: "정말로 결제하겠습니까?",
   emptyBasket: "장바구니가 비었어요 ㅠㅠ",
   orderAmount: "주문 금액",
   shippingFee: "배송비",
