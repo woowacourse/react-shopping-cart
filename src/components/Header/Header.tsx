@@ -5,6 +5,7 @@ import * as S from './styled';
 
 const Header = () => {
   const matchOrderInfo = useMatch(ROUTER_URL.ORDER_INFO);
+  const matchPaymentInfo = useMatch(ROUTER_URL.PAYMENT_INFO);
   const navigate = useNavigate();
   const goBack = () => {
     navigate(-1);
@@ -16,6 +17,8 @@ const Header = () => {
         <S.Button onClick={goBack}>
           <img src={back} alt=""></img>
         </S.Button>
+      ) : matchPaymentInfo !== null ? (
+        <></>
       ) : (
         '쇼핑하기'
       )}
