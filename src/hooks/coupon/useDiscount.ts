@@ -1,13 +1,12 @@
 import { useRecoilValue } from 'recoil';
-import { isolatedRegionStore, selectedCartItems, selectedCoupons } from '@recoil/atoms';
+import { isolatedRegionStore, selectedCartItems } from '@recoil/atoms';
 import { Coupon } from '@type/coupon';
 import { CartItem } from '@type/cartItem';
 import { priceInfoStore } from '@recoil/selectors';
 import { useEffect, useState } from 'react';
 
-const useDiscount = () => {
+const useDiscount = (applyingCoupons: Coupon[]) => {
   const [discount, setDiscount] = useState(0);
-  const applyingCoupon = useRecoilValue(selectedCoupons);
   const selectedItems = useRecoilValue(selectedCartItems);
   const priceInfo = useRecoilValue(priceInfoStore);
   const isolatedRegion = useRecoilValue(isolatedRegionStore);
@@ -52,7 +51,7 @@ const useDiscount = () => {
 
   useEffect(() => {
     // 할인율이 큰 퍼센트를 먼저 적용시키기 위해서
-    const percentageApply = applyingCoupon.find(coupon => coupon.discountType === 'percentage');
+    const percentageApply = applyingCoupons.find(coupon => coupon.discountType === 'percentage');
 
     let percentageDiscount = 0;
     if (percentageApply) {
@@ -60,7 +59,7 @@ const useDiscount = () => {
     }
 
     // 퍼센트를 제외한 나머지 할인 적용
-    const newDiscount = applyingCoupon.reduce((acc, cur) => {
+    const newDiscount = applyingCoupons.reduce((acc, cur) => {
       if (cur.discountType !== 'percentage') {
         return acc + discountByCoupon(selectedItems, cur);
       }
@@ -69,7 +68,7 @@ const useDiscount = () => {
 
     // 할인율과 나머지 할인을 계산
     setDiscount(newDiscount + percentageDiscount);
-  }, [applyingCoupon]);
+  }, [applyingCoupons]);
 
   return {
     discountAmount: discount,

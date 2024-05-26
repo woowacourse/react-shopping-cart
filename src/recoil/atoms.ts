@@ -2,17 +2,11 @@ import { atom } from 'recoil';
 import { RECOIL_KEYS } from '@constants/constants';
 import localStorageEffect from '@utils/localStorageEffect';
 import { CartItem } from '@type/cartItem';
-import { Coupon } from '@type/coupon';
 
 export const selectedCartItems = atom<CartItem[]>({
   key: RECOIL_KEYS.CART_ITEMS,
   default: [],
   effects: [localStorageEffect<CartItem[]>(RECOIL_KEYS.CART_ITEMS)],
-});
-
-export const selectedCoupons = atom<Coupon[]>({
-  key: RECOIL_KEYS.SELECTED_COUPONS,
-  default: [],
 });
 
 export const isolatedRegionStore = atom({

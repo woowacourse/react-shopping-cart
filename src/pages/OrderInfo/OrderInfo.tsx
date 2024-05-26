@@ -5,15 +5,10 @@ import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 import { CartItem } from '@type/cartItem';
 import { ROUTER_URLS } from '@constants/constants';
-import { discountAmountStore, selectedCoupons } from '@recoil/atoms';
+import { discountAmountStore } from '@recoil/atoms';
 import { priceInfoStore } from '@recoil/selectors';
 
-import {
-  ShoppingCartItemView,
-  IsolatedRegionShippingFee,
-  Coupon,
-  PaymentTotalWithDiscount,
-} from '@components/OrderInfo';
+import { ShoppingCartItemView, CouponAndPaymentInfo } from '@components/OrderInfo';
 import ShoppingCartDescription from '@components/serviceCommon/ShoppingCartDescription/ShoppingCartDescription';
 import FloatingButton from '@components/common/FloatingButton/FloatingButton';
 import useMutation from '@hooks/useMutation';
@@ -40,7 +35,6 @@ const OrderInfo = () => {
     await orderItemsMutate(cartItemIds);
   };
 
-  const resetCoupons = useResetRecoilState(selectedCoupons);
   const resetDiscount = useResetRecoilState(discountAmountStore);
   const orderInfo = location.state as OrderInfoState | null;
   const totalPrice = useRecoilValue(priceInfoStore).total;
@@ -50,9 +44,8 @@ const OrderInfo = () => {
 
     return () => {
       resetDiscount();
-      resetCoupons();
     };
-  }, [navigate, orderInfo, resetCoupons, resetDiscount]);
+  }, [navigate, orderInfo, resetDiscount]);
 
   const orderInfoNotNull = orderInfo as OrderInfoState;
   const cartItemIds = orderInfoNotNull.orderItems.map(item => item.id);
@@ -72,9 +65,7 @@ const OrderInfo = () => {
 최종 결제 금액을 확인해 주세요.`}
         />
         {orderInfo?.orderItems.map(item => <ShoppingCartItemView key={item.id} cartItem={item} />)}
-        <Coupon />
-        <IsolatedRegionShippingFee />
-        <PaymentTotalWithDiscount />
+        <CouponAndPaymentInfo />
       </S.Container>
       <FloatingButton label="결제하기" onClick={onOrder} disabled={isPending} />
     </>

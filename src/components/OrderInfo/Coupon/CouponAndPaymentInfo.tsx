@@ -3,23 +3,21 @@ import { useReducer } from 'react';
 import { useSetRecoilState } from 'recoil';
 import * as S from './styled';
 import EachCoupon from './EachCoupon/EachCoupon';
-import { Coupon as CouponType } from '@type/coupon';
 
 import { useLoadCoupon, useApplyCoupons, useDiscount } from '@hooks/coupon/index';
 import { discountAmountStore } from '@recoil/atoms';
+import IsolatedRegionShippingFee from '../IsolatedRegionShippingFee/IsolatedRegionShippingFee';
+import PaymentTotalWithDiscount from '../PaymentTotalWithDiscount/PaymentTotalWithDiscount';
 
-const Coupon = () => {
+const CouponAndPaymentInfo = () => {
   const [couponModalOpen, toggleCouponModalOpen] = useReducer(prev => !prev, false);
+
   const notExpiredCoupon = useLoadCoupon();
+  const { applyingCoupons, changeApplying, isSelected, isAlreadyApplyingMaximumCoupons } =
+    useApplyCoupons();
 
-  const { applyingCoupons, changeApplying, isAlreadyApplyingMaximumCoupons } = useApplyCoupons();
-  const { discountAmount } = useDiscount();
-
+  const { discountAmount } = useDiscount(applyingCoupons);
   const setDiscountAmountStore = useSetRecoilState(discountAmountStore);
-
-  const isSelected = (coupon: CouponType) => {
-    return applyingCoupons.find(applying => applying.id === coupon.id) !== undefined;
-  };
 
   const applyCouponAndCloseModal = () => {
     setDiscountAmountStore(discountAmount);
@@ -54,8 +52,10 @@ const Coupon = () => {
           }}
         />
       </Modal>
+      <IsolatedRegionShippingFee />
+      <PaymentTotalWithDiscount />
     </>
   );
 };
 
-export default Coupon;
+export default CouponAndPaymentInfo;
