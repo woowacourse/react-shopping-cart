@@ -4,10 +4,11 @@ import { RecoilRoot } from 'recoil';
 
 import { renderHook } from '@testing-library/react';
 
+import useApiErrorState from '../error/useApiErrorState';
 import { useCartItemQuantity } from './useCartItemQuantity';
 import { cartItemListState } from '../../recoil/cartItem/atom';
-import useApiErrorState from '../error/useApiErrorState';
 import { FailedSetCartItemQuantityError } from '../../error/customError';
+import useCartItemList from './useCartItemList';
 
 jest.mock('../../apis/cartItemList', () => ({
   requestSetCartItemQuantity: jest.fn(),
@@ -55,9 +56,10 @@ describe('useCartItemQuantity', () => {
     expect(result.current.cartItemQuantity(MOCK_DEFAULT_VALUE[1].id)).toEqual(
       MOCK_DEFAULT_VALUE[1].quantity,
     );
+    expect(result.current.cartItemQuantity(1111)).toEqual(0);
   });
 
-  it('increaseQuantity는 해당 id 카트 아이디의 수량을 증가시켜야 한다.', async () => {
+  it('increaseQuantity는 해당 id 카트 아이템의 수량을 증가시켜야 한다.', async () => {
     const { result } = renderHook(() => useCartItemQuantity(), {
       wrapper: ({ children }) => (
         <RecoilRoot
@@ -76,6 +78,28 @@ describe('useCartItemQuantity', () => {
     expect(result.current.cartItemQuantity(MOCK_DEFAULT_VALUE[0].id)).toEqual(
       MOCK_DEFAULT_VALUE[0].quantity + 1,
     );
+  });
+
+  it('increaseQuantity는 해당 id 카트 아이템이 존재하지 않는 경우 실행되지 않는다.', async () => {
+    const useCustomHook = () => {
+      return { ...useCartItemQuantity(), ...useCartItemList() };
+    };
+    const { result } = renderHook(() => useCustomHook(), {
+      wrapper: ({ children }) => (
+        <RecoilRoot
+          initializeState={({ set }) =>
+            set(cartItemListState, MOCK_DEFAULT_VALUE)
+          }
+        >
+          {children}
+        </RecoilRoot>
+      ),
+    });
+    await act(async () => await result.current.increaseQuantity(1111));
+    const { requestSetCartItemQuantity } = require('../../apis/cartItemList');
+
+    expect(result.current.cartItemList).toEqual(MOCK_DEFAULT_VALUE);
+    expect(requestSetCartItemQuantity).not.toHaveBeenCalled();
   });
 
   it('increaseQuantity는 requestSetCartItemQuantity를 호출해야 한다.', async () => {
@@ -151,7 +175,7 @@ describe('useCartItemQuantity', () => {
     expect(result.current.apiError).toBe(null);
   });
 
-  it('decreaseQuantity는 해당 id 카트 아이디의 수량을 감소시켜야 한다.', async () => {
+  it('decreaseQuantity는 해당 id 카트 아이템의 수량을 감소시켜야 한다.', async () => {
     const { result } = renderHook(() => useCartItemQuantity(), {
       wrapper: ({ children }) => (
         <RecoilRoot
@@ -172,7 +196,7 @@ describe('useCartItemQuantity', () => {
     );
   });
 
-  it('decreaseQuantity는 해당 id 카트 아이디의 수량이 1인 경우 실행되지 않는다.', async () => {
+  it('decreaseQuantity는 해당 id 카트 아이템의 수량이 1인 경우 실행되지 않는다.', async () => {
     const { result } = renderHook(() => useCartItemQuantity(), {
       wrapper: ({ children }) => (
         <RecoilRoot
@@ -193,6 +217,28 @@ describe('useCartItemQuantity', () => {
     expect(result.current.cartItemQuantity(MOCK_DEFAULT_VALUE[1].id)).toEqual(
       MOCK_DEFAULT_VALUE[1].quantity,
     );
+    expect(requestSetCartItemQuantity).not.toHaveBeenCalled();
+  });
+
+  it('decreaseQuantity는 해당 id 카트 아이템이 존재하지 않는 경우 실행되지 않는다.', async () => {
+    const useCustomHook = () => {
+      return { ...useCartItemQuantity(), ...useCartItemList() };
+    };
+    const { result } = renderHook(() => useCustomHook(), {
+      wrapper: ({ children }) => (
+        <RecoilRoot
+          initializeState={({ set }) =>
+            set(cartItemListState, MOCK_DEFAULT_VALUE)
+          }
+        >
+          {children}
+        </RecoilRoot>
+      ),
+    });
+    await act(async () => await result.current.decreaseQuantity(1111));
+    const { requestSetCartItemQuantity } = require('../../apis/cartItemList');
+
+    expect(result.current.cartItemList).toEqual(MOCK_DEFAULT_VALUE);
     expect(requestSetCartItemQuantity).not.toHaveBeenCalled();
   });
 
