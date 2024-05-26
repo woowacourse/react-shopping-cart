@@ -1,6 +1,6 @@
 const POLICES = {
   amountForFreeShippingLowerBound: 100000,
-  defaultDeliveryFee: 0,
+  defaultDeliveryFee: 3000,
   islandOrMountainFee: 3000,
 };
 
