@@ -3,7 +3,7 @@ import { ChangeEvent } from 'react';
 import { useRecoilState } from 'recoil';
 
 import Checkbox from '@components/common/Checkbox';
-import { isAllCheckedState } from '@recoil/cartItems/selectors';
+import { isAllCheckedState } from '@globalState/cartItems/selectors';
 
 export default function AllChecked() {
   const [isAllChecked, setIsAllChecked] = useRecoilState(isAllCheckedState);

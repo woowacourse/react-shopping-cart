@@ -12,8 +12,8 @@ import {
   productTypesCountState,
   purchaseTotalPriceState,
   totalQuantityState,
-} from '@recoil/cartItems/selectors';
-import { orderItemsIdSelector } from '@recoil/order/selector';
+} from '@globalState/cartItems/selectors';
+import { orderItemsIdSelector } from '@globalState/order/selector';
 
 export default function PaymentConfirm() {
   const navigate = useNavigate();

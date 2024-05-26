@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 
 import FooterButton from '../common/FooterButton';
 
-import { isAllUnCheckedState } from '@recoil/cartItems/selectors';
+import { isAllUnCheckedState } from '@globalState/cartItems/selectors';
 
 export default function OrderConfirmButton() {
   const navigate = useNavigate();

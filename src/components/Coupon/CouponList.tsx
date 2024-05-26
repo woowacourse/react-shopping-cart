@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 
 import CouponItem from './CouponItem';
 
-import { couponsState } from '@/recoil/coupon/atom';
+import { couponsState } from '@globalState/coupon/atom';
 
 export default function CouponList() {
   const coupons = useRecoilValue(couponsState);

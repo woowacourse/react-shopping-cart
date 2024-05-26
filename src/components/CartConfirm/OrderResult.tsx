@@ -10,8 +10,8 @@ import {
   deliveryPriceState,
   orderTotalPriceState,
   purchaseTotalPriceState,
-} from '@recoil/cartItems/selectors';
-import { calculateTotalDiscountAmountSelector } from '@recoil/coupon/selector';
+} from '@/globalState/cartItems/selectors';
+import { calculateTotalDiscountAmountSelector } from '@globalState/coupon/selector';
 
 export default function OrderResult() {
   const orderTotalPrice = useRecoilValue(orderTotalPriceState);

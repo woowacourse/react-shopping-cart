@@ -3,7 +3,7 @@ import { useSetRecoilState } from 'recoil';
 
 import CouponModal from '../Coupon/CouponModal';
 
-import { isCouponModalOpenState } from '@recoil/coupon/atom';
+import { isCouponModalOpenState } from '@globalState/coupon/atom';
 
 export default function ApplyCouponButton() {
   const setIsCouponModalOpen = useSetRecoilState(isCouponModalOpenState);

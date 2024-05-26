@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 
 import { orderItems } from '@/apis/order';
-import { orderItemsIdSelector } from '@recoil/order/selector';
+import { orderItemsIdSelector } from '@globalState/order/selector';
 
 const useOrder = () => {
   const cartItemIds = useRecoilValue(orderItemsIdSelector);

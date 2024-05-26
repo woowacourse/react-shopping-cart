@@ -10,8 +10,8 @@ import {
   fixedSelectedCouponsState,
   isCouponModalOpenState,
   selectedCouponsState,
-} from '@recoil/coupon/atom';
-import { calculateTotalDiscountAmountSelector } from '@recoil/coupon/selector';
+} from '@globalState/coupon/atom';
+import { calculateTotalDiscountAmountSelector } from '@globalState/coupon/selector';
 
 export default function CouponModal() {
   const [isCouponModalOpen, setIsCouponModalOpen] = useRecoilState(isCouponModalOpenState);

@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 
 import Checkbox from '../common/Checkbox';
 
-import { isRemoteAreaState } from '@recoil/cartItems/atoms';
+import { isRemoteAreaState } from '@globalState/cartItems/atoms';
 
 export default function ShippingCheck() {
   const [isRemoteArea, setIsRemoteArea] = useRecoilState(isRemoteAreaState);

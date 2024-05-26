@@ -6,7 +6,7 @@ import Receipt from './Receipt';
 import SeparateLine from '@/components/common/SeparateLine';
 import { MINIMUM_FREE_SHIPPING_AMOUNT } from '@/constants/cart';
 import InformationText from '@components/common/InformationText';
-import { orderTotalPriceState, deliveryPriceState } from '@recoil/cartItems/selectors';
+import { deliveryPriceState, orderTotalPriceState } from '@globalState/cartItems/selectors';
 
 export default function CartOrderInfo() {
   const totalPrice = useRecoilValue(orderTotalPriceState);

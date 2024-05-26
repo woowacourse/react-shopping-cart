@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 
 import useCartItems from '@/hooks/useCartItems';
 import Checkbox from '@components/common/Checkbox';
-import { checkedItemsState } from '@recoil/cartItems/atoms';
+import { checkedItemsState } from '@globalState/cartItems/atoms';
 
 interface CartItemHeaderSectionProps {
   cartId: number;

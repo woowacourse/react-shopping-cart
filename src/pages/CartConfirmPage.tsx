@@ -9,7 +9,7 @@ import CartConfirmContent from '@components/CartConfirm/CartConfirmContent';
 import Error from '@components/common/Error';
 import Header from '@components/common/Header';
 import Loading from '@components/common/Loading';
-import { fixedSelectedCouponsState } from '@recoil/coupon/atom';
+import { fixedSelectedCouponsState } from '@globalState/coupon/atom';
 
 export default function CartConfirmPage() {
   const navigate = useNavigate();

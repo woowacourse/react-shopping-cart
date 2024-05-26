@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 import AllChecked from './AllChecked';
 import CartItem from './CartItem';
 
-import { cartItemsState } from '@recoil/cartItems/atoms';
+import { cartItemsState } from '@globalState/cartItems/atoms';
 
 export default function CartProducts() {
   const cartItems = useRecoilValue(cartItemsState);

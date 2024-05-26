@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 
 import OrderItem from './OrderItem';
 
-import { checkedItemsSelector } from '@recoil/cartItems/selectors';
+import { checkedItemsSelector } from '@globalState/cartItems/selectors';
 
 export default function OrderList() {
   const orderItems = useRecoilValue(checkedItemsSelector);

@@ -13,7 +13,7 @@ import Title from '../common/Title';
 
 import useOrder from '@/hooks/useOrder';
 import FooterButton from '@components/common/FooterButton';
-import { productTypesCountState, totalQuantityState } from '@recoil/cartItems/selectors';
+import { productTypesCountState, totalQuantityState } from '@globalState/cartItems/selectors';
 
 export default function CartConfirmContent() {
   const { order } = useOrder();

@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil';
 
 import { deleteItem, updateItemQuantity } from '@apis/cartItem';
-import { cartItemsState } from '@recoil/cartItems/atoms';
+import { cartItemsState } from '@globalState/cartItems/atoms';
 
 const useCartItems = (cartId: number) => {
   const [cartItems, setCartItems] = useRecoilState(cartItemsState);

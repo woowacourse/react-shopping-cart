@@ -1,7 +1,7 @@
 import { useRecoilCallback, useRecoilState, useSetRecoilState } from 'recoil';
 
-import { cartItemsState, checkedItemsState } from '@recoil/cartItems/atoms';
-import { fixedSelectedCouponsState } from '@recoil/coupon/atom';
+import { cartItemsState, checkedItemsState } from '@globalState/cartItems/atoms';
+import { fixedSelectedCouponsState } from '@globalState/coupon/atom';
 
 const useReset = (cartItemIds: number[]) => {
   const [cartItems, setCartItems] = useRecoilState(cartItemsState);
