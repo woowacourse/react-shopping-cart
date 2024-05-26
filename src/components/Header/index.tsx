@@ -1,9 +1,9 @@
 import * as S from './style';
 
 interface HeaderProps {
-  homeButton: React.ReactNode;
+  homeButton?: React.ReactNode;
 }
 
 export default function Header({ homeButton }: HeaderProps) {
-  return <S.Header>{homeButton}</S.Header>;
+  return <S.Header>{homeButton && homeButton}</S.Header>;
 }

@@ -1,7 +1,7 @@
 import { startTransition } from 'react';
 import { useRecoilRefresher_UNSTABLE } from 'recoil';
 import { deleteCartItem } from '../api';
-import { cartListSelector } from '../recoil/cartItem';
+import { cartListSelector } from '../recoil';
 import CartItemLocalStorage, {
   CART_ITEM_SELECTED_KEY,
 } from '../services/CartItemLocalStorage';

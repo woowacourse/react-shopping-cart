@@ -1,9 +1,9 @@
 import { useRecoilState } from 'recoil';
 import { updateCartItemQuantity } from '../api';
-import { cartItemQuantity } from '../recoil/atoms';
+import { cartItemQuantityState } from '../recoil';
 
 export default function useQuantityControls(itemId: number) {
-  const [quantity, setQuantity] = useRecoilState(cartItemQuantity(itemId));
+  const [quantity, setQuantity] = useRecoilState(cartItemQuantityState(itemId));
 
   const updateQuantity = (newQuantity: number) => {
     updateCartItemQuantity(itemId, newQuantity).then(() => {
