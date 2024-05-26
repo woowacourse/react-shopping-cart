@@ -2,7 +2,7 @@ import BackButton from "@/components/button/BackButton";
 import CheckButton from "@/components/button/CheckButton";
 import HomeButton from "@/components/button/HomeButton";
 import { PlusButton, MinusButton } from "@/components/button/QuantityButton";
-import NavigateButton from "./NavigateButton";
+import NavigationButton from "./NavigationButton";
 
 export {
   BackButton,
@@ -10,5 +10,5 @@ export {
   HomeButton,
   PlusButton,
   MinusButton,
-  NavigateButton,
+  NavigationButton,
 };

@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 
 import PurchaseLayout from "@/layouts/PurchaseLayout";
-import { Header } from "@/components/index";
-import { HomeButton, NavigateButton } from "@/components/button";
-import CartContent from "@/components/shoppingCart/CartContent";
+
 import ErrorFallback from "@/components/_common/ErrorFallback";
 import Loading from "@/components/_common/Loading";
+import { Header } from "@/components/index";
+import { HomeButton, NavigationButton } from "@/components/button";
+import CartContent from "@/components/shoppingCart/CartContent";
 
 import { ROUTE_PATH } from "@/constants/route";
 
@@ -28,7 +29,7 @@ const CartPage = () => {
           <PurchaseLayout title="장바구니">
             <CartContent />
           </PurchaseLayout>
-          <NavigateButton
+          <NavigationButton
             buttonText="주문 확인"
             onButtonClick={handleButtonClick}
           />
