@@ -7,6 +7,7 @@ import {
   appliedCouponIdsState,
   discountAmountState,
   fetchErrorState,
+  remoteShippingOptionState,
 } from '../../recoil/atoms';
 
 import { NavigationBar, PageTitle, FooterButton, ErrorFallback } from '../../components/common';
@@ -18,11 +19,13 @@ import { ENDPOINT } from '../../routes/router.constants';
 export default function ShoppingCartPage() {
   const setDiscountAmount = useSetRecoilState(discountAmountState);
   const setAppliedCouponIds = useSetRecoilState(appliedCouponIdsState);
+  const setRemoteShippingOption = useSetRecoilState(remoteShippingOptionState);
 
   useEffect(() => {
     setDiscountAmount(0);
     setAppliedCouponIds([]);
-  }, [setDiscountAmount, setAppliedCouponIds]);
+    setRemoteShippingOption(false);
+  }, [setDiscountAmount, setAppliedCouponIds, setRemoteShippingOption]);
 
   const totalCheckedCartItems = useRecoilValue(checkedCartItemIdsState);
   const fetchError = useRecoilValue(fetchErrorState);
