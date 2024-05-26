@@ -63,3 +63,14 @@ export const itemsAllSelectedState = selector<boolean>({
     });
   },
 });
+
+export const selectedCartItemListSelector = selector({
+  key: 'selectedCartItemSelector',
+  get: ({ get }) => {
+    const cartList = get(cartListSelector);
+    return cartList.filter((cartItem) => {
+      const isSelected = get(cartItemSelectedState(cartItem.id));
+      return isSelected;
+    });
+  },
+});
