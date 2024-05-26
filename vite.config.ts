@@ -11,5 +11,5 @@ export default defineConfig({
   resolve: {
     alias: [{ find: "@", replacement: "/src" }],
   },
-  base: "/react-shopping-cart/dist",
+  base: "/",
 });

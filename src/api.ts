@@ -93,3 +93,11 @@ export const fetchCoupons = async () => {
   const coupons = await fetchWrapper(url, init);
   return coupons;
 };
+
+export const placeOrders = async () => {
+  const url = import.meta.env.VITE_API_BASE_URL + "/orders";
+  const init = {
+    method: MethodType.Post,
+  };
+  await fetchWrapper(url, init);
+};

@@ -12,7 +12,12 @@ const Footer = () => {
 
   return (
     <footer>
-      <CustomLink disabled={footerInfo.isButtonDisabled} style={FooterStyle} To={footerInfo.linkTo}>
+      <CustomLink
+        disabled={footerInfo.isButtonDisabled}
+        style={FooterStyle}
+        To={footerInfo.linkTo}
+        handleClick={footerInfo?.handleClick}
+      >
         {footerInfo.content}
       </CustomLink>
     </footer>

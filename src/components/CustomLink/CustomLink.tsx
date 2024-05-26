@@ -6,6 +6,7 @@ interface CustomLinkProps extends PropsWithChildren {
   disabled?: boolean;
   To: To | number;
   style?: SerializedStyles;
+  handleClick?: () => void;
 }
 
 /**
@@ -13,10 +14,11 @@ interface CustomLinkProps extends PropsWithChildren {
  * @param  style 값은 emoion CSS값 사용
  * @returns
  */
-const CustomLink = ({ disabled, To, children, style }: CustomLinkProps) => {
+const CustomLink = ({ disabled, To, children, style, handleClick }: CustomLinkProps) => {
   const navigation = useNavigate();
 
-  const handleClick = () => {
+  const handleLinkClick = () => {
+    if (handleClick) handleClick();
     if (typeof To === "number") {
       navigation(To);
     } else {
@@ -25,7 +27,7 @@ const CustomLink = ({ disabled, To, children, style }: CustomLinkProps) => {
   };
 
   return (
-    <button disabled={disabled || false} css={style} onClick={handleClick} role="link">
+    <button disabled={disabled || false} css={style} onClick={handleLinkClick} role="link">
       {children}
     </button>
   );

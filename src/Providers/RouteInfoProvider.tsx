@@ -10,6 +10,7 @@ import Order from "@/routes/Order";
 import { RiArrowLeftLine } from "react-icons/ri";
 
 import { ModalProvider } from "easy-payments-ui";
+import { placeOrders } from "@/api";
 
 export const routes = [
   {
@@ -47,6 +48,7 @@ interface FooterInfo {
   content: string;
   isButtonDisabled: boolean;
   linkTo: To | number;
+  handleClick?: () => void;
 }
 
 export const HeaderRouteInfoContext = createContext<null | RoutesObject<HeaderInfo>>(null);
@@ -89,11 +91,12 @@ const RouteInfoProvider = ({ children }: PropsWithChildren) => {
       content: "결제하기",
       isButtonDisabled: orderAmount === 0,
       linkTo: "/order",
+      handleClick: placeOrders,
     },
     "/order": {
       content: "결제하기",
       isButtonDisabled: true,
-      linkTo: 0,
+      linkTo: "/",
     },
   };
 

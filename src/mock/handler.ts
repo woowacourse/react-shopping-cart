@@ -14,4 +14,8 @@ export const handlers = [
   http.get(`${import.meta.env.VITE_API_BASE_URL}/coupons`, () => {
     return HttpResponse.json(DUMMY_COUPON_DATA);
   }),
+  http.post(`${import.meta.env.VITE_API_BASE_URL}/orders`, () => {
+    alert("place an order");
+    return HttpResponse.json({ ok: true });
+  }),
 ];
