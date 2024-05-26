@@ -11,10 +11,10 @@ export default function CartButton(attributes: CartButtonProps) {
   const selectedCartItemIds = useRecoilValue(selectedCartItemIdsState);
   const isDisabled = selectedCartItemIds.length === 0;
 
-  const handleOrderConfirmButtonClick = () => navigate(ROUTE_PATH.payment);
+  const onOrderConfirmButtonClick = () => navigate(ROUTE_PATH.payment);
 
   return (
-    <Button disabled={isDisabled} onClick={handleOrderConfirmButtonClick} {...attributes}>
+    <Button disabled={isDisabled} onClick={onOrderConfirmButtonClick} {...attributes}>
       주문 확인
     </Button>
   );
