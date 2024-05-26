@@ -6,7 +6,9 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   cartItemIdsSelector,
   cartItemsCountSelector,
+  couponIdsSelector,
   isAllCartItemSelectedSelectorFamily,
+  isAllCouponSelectedSelectorFamily,
   isSomeCartItemSelectedSelector,
   selectedCartItemIdsSelector,
 } from '../../recoil/selectors';
@@ -30,6 +32,10 @@ const OrderButton = () => {
   const setIsAllCatItemsSelected = useSetRecoilState(
     isAllCartItemSelectedSelectorFamily(cartItemIds),
   );
+  const couponIds = useRecoilValue(couponIdsSelector);
+  const setIsAllCouponSelected = useSetRecoilState(
+    isAllCouponSelectedSelectorFamily(couponIds),
+  );
 
   const hasSomeCartItem = !!cartItemsCount;
   const isOrderable = hasSomeCartItem && isSomeCartItemSelected;
@@ -40,6 +46,7 @@ const OrderButton = () => {
   const resetShoppingCartPage = async () => {
     setCartItems(await fetchGettingCartItems());
     setIsAllCatItemsSelected(true);
+    setIsAllCouponSelected(false);
   };
 
   const handleOnClick = () => {
