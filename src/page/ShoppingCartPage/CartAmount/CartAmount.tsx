@@ -1,9 +1,7 @@
-import * as S from './style';
-
 import OrderSummary, { SummaryItem } from '../../../components/OrderSummary/OrderSummary';
 import { checkedItemsState, deliveryFeeState } from '../../../recoil/selectors';
 
-import { InfoIcon } from '../../../assets';
+import InfoParagraph from '../../../components/InfoParagraph/InfoParagraph';
 import POLICES from '../../../constants/policies';
 import { useRecoilValue } from 'recoil';
 
@@ -20,12 +18,9 @@ export default function OrderAmount() {
   ];
 
   return (
-    <div>
-      <S.DeliveryFeeInfoBox>
-        <img src={InfoIcon} />
-        {`총 주문 금액이 ${POLICES.amountForFreeShippingLowerBound.toLocaleString()}원 이상일 경우 무료 배송됩니다.`}
-      </S.DeliveryFeeInfoBox>
+    <>
+      <InfoParagraph>{`총 주문 금액이 ${POLICES.amountForFreeShippingLowerBound.toLocaleString()}원 이상일 경우 무료 배송됩니다.`}</InfoParagraph>
       <OrderSummary items={items} />
-    </div>
+    </>
   );
 }

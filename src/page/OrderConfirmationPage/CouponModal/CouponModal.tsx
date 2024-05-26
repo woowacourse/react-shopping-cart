@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 
 import COUPONS from '../../../constants/coupons';
 import CouponItem from '../CouponItem/CouponItem';
-import { InfoIcon } from '../../../assets';
+import InfoParagraph from '../../../components/InfoParagraph/InfoParagraph';
 import { Modal } from 'le-sserafim';
 import POLICES from '../../../constants/policies';
 import checkIsAvailableCoupon from '../../../utils/checkIsAvailableCoupon';
@@ -64,9 +64,7 @@ export default function CouponModal({ onClose, onConfirm }: CouponModalProps) {
       size={'free'}
     >
       <S.ContentContainer>
-        <S.InfoBox>
-          <img src={InfoIcon} /> {`쿠폰은 최대 ${POLICES.couponCountMax}개까지 사용할 수 있습니다.`}
-        </S.InfoBox>
+        <InfoParagraph>{`쿠폰은 최대 ${POLICES.couponCountMax}개까지 사용할 수 있습니다.`}</InfoParagraph>
         <S.CouponItemContainer>
           {availableCoupons.map((coupon) => {
             return (
