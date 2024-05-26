@@ -9,7 +9,7 @@ import {
 import { getHHColonMMtoMinutes, iso8601ToDate } from './translateFormat';
 
 import getLastTimeDate from './getLastTimeDate';
-import getMinutes from './getNowMinutes';
+import getMinutes from './getMinutes';
 
 const checkIsAvailableFixedCoupon = (fixedCoupon: FixedDiscountCoupon, itemAmount: number) => {
   return itemAmount >= fixedCoupon.minimumAmount;
