@@ -3,6 +3,7 @@ import { Modal } from '@jaymyong66/simple-modal';
 import { activeCouponCodesState, couponSelectedState, mockCoupons } from '../../../../store/atoms';
 import NoticeLabel from '../../../../components/common/NoticeLabel/NoticeLabel';
 import CouponItem from './CouponItem';
+import { COUPON_POLICY } from '../../../../constants/policy';
 import styles from './CouponModal.module.css';
 
 interface Props {
@@ -17,7 +18,11 @@ export default function CouponModal({ isOpen, handleToggle }: Props) {
   const handleToggleCouponCheckbox = (toggledCouponCode: string) => {
     const newCheckedState = !couponSelected[toggledCouponCode];
 
-    if (newCheckedState === true && activeCouponCodes.length >= 2) return;
+    if (
+      newCheckedState === true &&
+      activeCouponCodes.length >= COUPON_POLICY.max_active_coupon_amount
+    )
+      return;
 
     const newCouponSelected = {
       ...couponSelected,
@@ -47,9 +52,12 @@ export default function CouponModal({ isOpen, handleToggle }: Props) {
       </Modal.ModalHeader>
 
       <Modal.ModalContent className={styles.couponModalContentContainer}>
-        <NoticeLabel>쿠폰은 최대 2개까지 사용할 수 있습니다.</NoticeLabel>
+        <NoticeLabel>
+          쿠폰은 최대 {COUPON_POLICY.max_active_coupon_amount}개까지 사용할 수 있습니다.
+        </NoticeLabel>
         {mockCoupons.map((coupon) => {
-          const isFulledActiveCoupons = activeCouponCodes.length === 2;
+          const isFulledActiveCoupons =
+            activeCouponCodes.length === COUPON_POLICY.max_active_coupon_amount;
           const includeActiveCoupon = activeCouponCodes.includes(coupon.code);
           const isDisableCoupon = isFulledActiveCoupons && !includeActiveCoupon;
           return (

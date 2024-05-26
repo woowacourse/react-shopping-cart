@@ -1,5 +1,5 @@
 import formatKoreanCurrency from '../utils/formatKoreanCurrency';
-import { CART_POLICY } from './cart';
+import { CART_POLICY } from './policy';
 
 export const NOTICE_MESSAGE = {
   shipping: `총 주문 금액이 ${formatKoreanCurrency(
