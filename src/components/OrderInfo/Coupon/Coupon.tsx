@@ -5,19 +5,13 @@ import * as S from './styled';
 import EachCoupon from './EachCoupon/EachCoupon';
 import { Coupon as CouponType } from '@type/coupon';
 
-import {
-  useLoadCoupon,
-  useExpirationDate,
-  useApplyCoupons,
-  useDiscount,
-} from '@hooks/coupon/index';
+import { useLoadCoupon, useApplyCoupons, useDiscount } from '@hooks/coupon/index';
 import { discountAmountStore } from '@recoil/atoms';
 
 const Coupon = () => {
   const [couponModalOpen, toggleCouponModalOpen] = useReducer(prev => !prev, false);
-  const coupons = useLoadCoupon();
-  const { isExpired } = useExpirationDate();
-  const notExpiredCoupon = coupons.filter(coupon => !isExpired(coupon.expirationDate));
+  const notExpiredCoupon = useLoadCoupon();
+
   const { applyingCoupons, changeApplying, isAlreadyApplyingMaximumCoupons } = useApplyCoupons();
   const { discountAmount } = useDiscount();
 
