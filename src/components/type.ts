@@ -1,12 +1,11 @@
 export type DiscountType = 'fixed' | 'buyXgetY' | 'freeShipping' | 'percentage';
-export type CouponCode = 'FIXED5000' | 'BOGO' | 'FREESHIPPING' | 'MIRACLESALE';
 
 export type AvailableType = {
   start: string;
   end: string;
 };
 export interface CouponType {
-  code: CouponCode;
+  code: string;
   description: string;
   discount: number;
   discountType: DiscountType;
