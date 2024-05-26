@@ -1,20 +1,21 @@
 import CartItem from './CartItem';
 import AllSelectCheckBox from './AllSelectCheckBox';
-import { useCartContext } from '../context/CartContext';
 import CheckAndDelete from './CheckAndDelete';
 import CartItemImageAndInfo from './CartItemImageAndInfo';
 import CountButton from './CountButton';
 import styles from './cartItemImageAndInfo.module.css';
 import Divider from '@/components/common/Divider';
+import { useCartManager } from '@/store/custom/useCartManager';
+import { CartItemData } from '@/types';
 
 export default function CartList() {
-  const { allCartItems } = useCartContext();
+  const { totalCartItems } = useCartManager();
 
   return (
     <>
       <AllSelectCheckBox />
       <ul>
-        {allCartItems.map((cartItem) => {
+        {totalCartItems.map((cartItem: CartItemData) => {
           return (
             <CartItem key={cartItem.id}>
               <Divider>

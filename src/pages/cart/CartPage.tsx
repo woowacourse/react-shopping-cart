@@ -1,8 +1,10 @@
 import CartPageHeader from './components/CartPageHeader';
 import OrderButton from './components/OrderButton';
-import { Cart } from './components/Cart';
 import styles from './Cart.module.css';
 import { useCartManager } from '@/store/custom/useCartManager';
+import CartTitle from './components/CartTitle';
+import CartList from './components/CartList';
+import CartTotals from './components/CartTotals';
 
 export default function CartPage() {
   const { totalCartItems } = useCartManager();
@@ -13,11 +15,9 @@ export default function CartPage() {
       <CartPageHeader />
       {isExistingCartItem ? (
         <div className={styles.page_wrapper}>
-          <Cart>
-            <Cart.Title />
-            <Cart.List />
-            <Cart.Result />
-          </Cart>
+          <CartTitle />
+          <CartList />
+          <CartTotals />
         </div>
       ) : (
         <div className={styles.noneProductContainer}>장바구니에 담은 상품이 없습니다.</div>
