@@ -1,11 +1,13 @@
 import * as Styled from './style';
 
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { isApplyingCouponModalOpenState } from '../../recoil/atoms';
+import {
+  couponsState,
+  isApplyingCouponModalOpenState,
+} from '../../recoil/atoms';
 import {
   couponDiscountAmountSelector,
   couponIdsSelector,
-  couponsSelector,
   isAllCouponSelectedSelectorFamily,
 } from '../../recoil/selectors';
 
@@ -21,7 +23,7 @@ const ApplyingCouponModal = () => {
   const [isModalOpen, setIsModalOpen] = useRecoilState(
     isApplyingCouponModalOpenState,
   );
-  const coupons = useRecoilValue(couponsSelector);
+  const coupons = useRecoilValue(couponsState);
   const couponIds = useRecoilValue(couponIdsSelector);
   const couponDiscountAmount = useRecoilValue(couponDiscountAmountSelector);
 
