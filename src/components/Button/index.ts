@@ -1,3 +1,3 @@
-export { default as Button } from './Button';
-export { default as CountButton } from './CountButton';
-export { default as FloatingButton } from './FloatingButton';
+export { default as Button } from './BaseButton/Button';
+export { default as CountButton } from './CountButton/CountButton';
+export { default as FloatingButton } from './FlotingButton/FloatingButton';

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CartHeaderStyle = styled.div`
+export const Container = styled.div`
   margin-bottom: 36px;
   line-height: 12px;
 `;

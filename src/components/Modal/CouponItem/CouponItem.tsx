@@ -4,7 +4,8 @@ import { checkedCouponsState } from '../../../recoil/atoms/atoms';
 import CheckBox from '../../CheckBox/CheckBox';
 import { formatDate, formatTime } from '../../../utils/format';
 import { Coupon } from '../../../types/coupon';
-import { CouponBox, CouponDetails } from './CouponItem.style';
+
+import * as S from './CouponItem.style';
 
 export default function CouponItem({ coupon, isCouponApplicable }: { coupon: Coupon; isCouponApplicable: boolean }) {
   const [checkedCoupons, setCheckedCoupons] = useRecoilState(checkedCouponsState);
@@ -17,14 +18,14 @@ export default function CouponItem({ coupon, isCouponApplicable }: { coupon: Cou
   };
 
   return (
-    <CouponBox isCouponCheck={isCouponApplicable}>
+    <S.CouponCard isCouponCheck={isCouponApplicable}>
       <CheckBox
         text={coupon.description}
         isCheck={isCouponChecked}
         onClick={isCouponApplicable ? handleCheckboxChange : () => {}}
       />
 
-      <CouponDetails>
+      <S.CouponDetails>
         <span>만료일: {formatDate(coupon.expirationDate)}</span>
         {coupon.minimumAmount && <span>최소 주문 금액: {`${coupon.minimumAmount.toLocaleString()}원`}</span>}
         {coupon.availableTime && (
@@ -33,7 +34,7 @@ export default function CouponItem({ coupon, isCouponApplicable }: { coupon: Cou
             {` 오전 ${formatTime(coupon.availableTime.start)}시부터 ${formatTime(coupon.availableTime.end)}시까지`}
           </span>
         )}
-      </CouponDetails>
-    </CouponBox>
+      </S.CouponDetails>
+    </S.CouponCard>
   );
 }

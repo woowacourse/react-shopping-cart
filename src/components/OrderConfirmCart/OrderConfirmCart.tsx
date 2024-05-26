@@ -6,7 +6,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { specialZoneCheckState, couponDiscountAmount, checkedCouponsState } from '../../recoil/atoms/atoms';
 import { calculateOrderPrice } from '../../recoil/selectors/selectors';
 
-import Button from '../Button/Button';
+import Button from '../Button/BaseButton/Button';
 import CheckBox from '../CheckBox/CheckBox';
 import CouponModal from '../Modal/CouponModal/CouponModal';
 import ProductItem from '../ProductItem/ProductItem';

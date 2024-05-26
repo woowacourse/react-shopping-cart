@@ -1,6 +1,7 @@
-import { CheckBoxStyle, CheckBoxLabel } from './CheckBox.style';
 import Checkbox from '../../assets/checkbox.svg';
 import CheckboxDisable from '../../assets/checkbox-disable.svg';
+
+import * as S from './CheckBox.style';
 
 interface CheckProps {
   text?: string;
@@ -10,11 +11,11 @@ interface CheckProps {
 
 export default function CheckBox({ text, isCheck, onClick }: CheckProps) {
   return (
-    <CheckBoxLabel>
-      <CheckBoxStyle onClick={onClick}>
+    <S.CheckBoxLabel>
+      <S.CheckBoxButton onClick={onClick}>
         <img src={isCheck ? Checkbox : CheckboxDisable} alt="상품 선택" />
-      </CheckBoxStyle>
+      </S.CheckBoxButton>
       {text}
-    </CheckBoxLabel>
+    </S.CheckBoxLabel>
   );
 }

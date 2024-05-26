@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CouponBox = styled.div<{ isCouponCheck: boolean }>`
+export const CouponCard = styled.div<{ isCouponCheck: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 12px;

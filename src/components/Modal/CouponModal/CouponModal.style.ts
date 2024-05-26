@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CouponContainer = styled.div`
+export const Container = styled.div`
   margin: 12px 0;
 `;
 
@@ -48,7 +48,7 @@ export const CheckBoxLabel = styled.label`
   color: rgba(10, 13, 19, 1);
 `;
 
-export const CheckBoxStyle = styled.button`
+export const CheckBoxButton = styled.button`
   img {
     width: 24px;
     height: 24px;

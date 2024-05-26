@@ -9,7 +9,7 @@ export const CheckBoxLabel = styled.label`
   color: inherit;
 `;
 
-export const CheckBoxStyle = styled.button`
+export const CheckBoxButton = styled.button`
   img {
     width: 24px;
     height: 24px;

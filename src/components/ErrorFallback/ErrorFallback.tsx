@@ -1,11 +1,11 @@
-import { ErrorMessageStyle } from './ErrorFallback.style';
+import * as S from './ErrorFallback.style';
 
 interface ErrorFallbackProps {
   error: Error;
 }
 
 function ErrorFallback({ error }: ErrorFallbackProps) {
-  return <ErrorMessageStyle>🚨 {error.message} 🚨</ErrorMessageStyle>;
+  return <S.ErrorMessage>🚨 {error.message} 🚨</S.ErrorMessage>;
 }
 
 export default ErrorFallback;
