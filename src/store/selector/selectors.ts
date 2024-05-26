@@ -1,7 +1,9 @@
-import { selector } from "recoil";
+import { RecoilEnv, selector } from "recoil";
 import { cartItemCheckedState, cartItemIdListState, remoteAreaState, selectedCouponsState } from "../atom/atoms";
 import { SHIPPING_CONSTANT } from "../../constants";
 import { cartState } from "../atom/atoms";
+
+RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 export const checkAllItemSelector = selector<boolean>({
   key: "checkAllItemState",
@@ -20,7 +22,6 @@ export const orderAmountSelector = selector<number>({
   get: ({ get }) => {
     const cartItems = get(cartState);
 
-    if (!cartItems) return 0;
     return cartItems.reduce((acc: number, cur: CartItemInfo) => {
       const isChecked = get(cartItemCheckedState(cur.id));
       if (isChecked) {
