@@ -115,6 +115,6 @@ const CartItemContents = styled.div`
 `;
 
 const CartItemCount = styled.p`
-  font-size: 12px;
+  font-size: ${FONT_SIZE.small};
   height: 24px;
 `;
