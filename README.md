@@ -1,11 +1,12 @@
 # 🎯 쇼핑 카트 2단계 기능 구현 목록
 
-step 2 : 쿠폰 적용 로직 구현
+step 2 : 쿠폰 선택 UI 구현
 
-- [x] FIXED5000 - checkout한 상품에 따른 쿠폰 적용 여부 구현
-- [x] 사용 불가능한 쿠폰의 상태를 isAvailable = false로 처리
-  - [ ] 사용 불가능한 쿠폰의 UI를 disable 상태로
+- [x] 쿠폰 선택시, 해당 쿠폰을 selected 상태로 변경 (couponSelected Atom)
+- [x] 쿠폰 선택시, 해당 쿠폰을 activeCoupons Atom에 추가
 - [x] checkout 페이지를 렌더링시, 쿠폰 상태 전역 변수 초기화
+- [x] 쿠폰 2개를 선택했으면 나머지 선택되지 않은 쿠폰 UI를 disable 상태로 변경
+- [ ] 사용 불가능한 쿠폰의 UI를 disable 상태로 변경
 
 step 1 : checkout 페이지 UI 구성
 

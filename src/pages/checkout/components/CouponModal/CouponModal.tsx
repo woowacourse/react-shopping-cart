@@ -19,6 +19,8 @@ export default function CouponModal({ isOpen, handleToggle }: Props) {
   const [couponSelected, setCouponSelected] = useRecoilState(couponSelectedState);
   const [activeCoupons, setActiveCoupons] = useRecoilState(activeCouponsState);
 
+  const isFulledActiveCoupons = activeCoupons.length === 2;
+
   const handleToggleCouponCheckbox = (code: string) => {
     const newCheckedState = !couponSelected[code];
 
@@ -59,6 +61,7 @@ export default function CouponModal({ isOpen, handleToggle }: Props) {
               key={coupon.code}
               coupon={coupon}
               isChecked={couponSelected[coupon.code]}
+              isFulledActiveCoupons={isFulledActiveCoupons}
               onChange={() => {
                 handleToggleCouponCheckbox(coupon.code);
               }}

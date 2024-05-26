@@ -27,6 +27,10 @@
   gap: 8px;
 }
 
+.disabledStyle {
+  opacity: 25%;
+}
+
 .couponItemCaptionContainer {
   display: flex;
   flex-direction: column;
