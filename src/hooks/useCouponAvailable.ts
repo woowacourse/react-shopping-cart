@@ -33,12 +33,7 @@ const useCouponAvailable = ({ coupon, date }: Props) => {
     const { buyQuantity, getQuantity } = coupon;
     if (!buyQuantity || !getQuantity) return true;
 
-    return orderedList.reduce((acc, cur) => {
-      if (cur.quantity >= buyQuantity + getQuantity) {
-        return true;
-      }
-      return acc;
-    }, false);
+    return orderedList.some((cur) => cur.quantity >= buyQuantity + getQuantity);
   };
 
   return checkMinimumAmount() && checkAvailableTime() && checkMinimumQuantity();
