@@ -7,5 +7,3 @@ jest.mock("../api/cart", () => ({
 jest.mock("../api/coupon", () => ({
   getCoupons: jest.fn().mockImplementation(() => Promise.resolve(couponsJson)),
 }));
-
-process.env.TZ = "Asia/Seoul";

@@ -1,5 +1,5 @@
 import { generateBasicToken } from "../utils/auth";
-import { API_URL, USER_ID, USER_PASSWORD } from "../constants/cart";
+import { API_URL, USER_ID, USER_PASSWORD } from "../constants/environment";
 import type { CartItem } from "../types/cart";
 
 export const getCartItems = async (): Promise<CartItem[]> => {

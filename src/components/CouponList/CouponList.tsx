@@ -14,6 +14,7 @@ import {
 import { OutlineCheckSvg, FilledCheckSvg, XSvg } from "../../assets";
 import { selectedCouponsState, couponsState } from "../../recoil/atoms/atoms";
 import { SmallText, MediumText, Tip } from "../common";
+import { MAX_COUPON_NUMBER } from "../../constants/coupon";
 
 interface CouponListProps {
   handleCloseModal?: () => void;
@@ -38,7 +39,7 @@ const CouponList = ({ handleCloseModal }: CouponListProps) => {
   const isDisableCoupon = (couponId: number) => {
     return (
       !selectedCoupons.includes(couponId) &&
-      (!possibleCouponList.includes(couponId) || selectedCoupons.length >= 2)
+      (!possibleCouponList.includes(couponId) || selectedCoupons.length >= MAX_COUPON_NUMBER)
     );
   };
 

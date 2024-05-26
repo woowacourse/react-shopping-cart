@@ -1,5 +1,5 @@
 import { generateBasicToken } from "../utils/auth";
-import { API_URL, USER_ID, USER_PASSWORD } from "../constants/cart";
+import { API_URL, USER_ID, USER_PASSWORD } from "../constants/environment";
 import { Coupon } from "../types/coupon";
 
 export const getCoupons = async (): Promise<Coupon[]> => {
