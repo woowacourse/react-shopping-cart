@@ -1,7 +1,7 @@
 import { selector, selectorFamily } from 'recoil';
 import { isCheckedState, productsState } from './atoms';
 import { CartItemType } from '../types';
-import { CART_POLICY } from '../constants/cart';
+import { CART_POLICY } from '../constants/policy';
 
 type AmountType = {
   orderAmount: number;
@@ -45,7 +45,10 @@ export const totalOrderAmountState = selector<AmountType>({
       return accumulator;
     }, 0);
 
-    const deliveryCharge = orderAmount < CART_POLICY.shipping_throughput ? 3000 : 0;
+    const deliveryCharge =
+      orderAmount < CART_POLICY.shipping_throughput
+        ? CART_POLICY.shipping_basic_fee
+        : CART_POLICY.shipping_free;
     const totalAmount = orderAmount + deliveryCharge;
 
     return {
