@@ -37,7 +37,7 @@ export const shippingFeeState = atom<HasShippingFeeType>({
   default: initialShippingFee,
 });
 
-export const mockCoupons = [
+export const mockCoupons: CouponType[] = [
   {
     id: 1,
     code: 'FIXED5000',
@@ -51,7 +51,7 @@ export const mockCoupons = [
     id: 2,
     code: 'BOGO',
     description: '2개 구매 시 1개 무료 쿠폰',
-    expirationDate: '2024-04-30',
+    expirationDate: '2024-05-30',
     buyQuantity: 2,
     getQuantity: 1,
     discountType: 'buyXgetY',
