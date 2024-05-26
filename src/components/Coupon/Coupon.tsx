@@ -2,14 +2,17 @@ import CheckBox from '../CheckBox/CheckBox';
 
 import Caution from '../../assets/caution.svg';
 import * as C from './Coupon.style';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { finalTotalPriceListState } from '../../recoil/atoms';
+import discountCalculator from '../../domain/discountCalculator';
+import { checkedCartItems } from '../../recoil/selectors';
 
 interface Props {
   coupons: Coupon[];
 }
 
 export default function Coupon({ coupons }: Props) {
+  const orderList = useRecoilValue(checkedCartItems);
   const [finalTotalPriceList, setFinalTotalPriceList] = useRecoilState(
     finalTotalPriceListState,
   );
@@ -40,16 +43,33 @@ export default function Coupon({ coupons }: Props) {
             )
           : [...prevState.applyCoupons, coupon];
 
+        const updateDiscountPrice = updatedApplyCoupons.reduce(
+          (acc, coupon) => {
+            const discount = discountCalculator({
+              coupon,
+              totalOrderPrice: finalTotalPriceList.totalOrderPrice,
+              orderList,
+              deliveryFee: finalTotalPriceList.deliveryFee,
+            }).calculateDiscountAmount();
+            console.log(coupon, discount);
+            return acc + discount!;
+          },
+          0,
+        );
+
+        const updateTotalPaymentPrice =
+          prevState.totalOrderPrice - updateDiscountPrice;
+
         return {
           ...prevState,
           applyCoupons: updatedApplyCoupons,
+          discountPrice: updateDiscountPrice,
+          totalPaymentPrice: updateTotalPaymentPrice,
         };
       });
     }
     return;
   };
-
-  console.log(finalTotalPriceList);
 
   return (
     <C.CouponStyle>

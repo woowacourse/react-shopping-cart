@@ -16,19 +16,26 @@ import * as OP from './OrderProductList.style';
 import { useState } from 'react';
 import Coupon from '../Coupon/Coupon';
 
+import useCoupon from '../../hooks/useCoupon';
+import { finalTotalPriceListState } from '../../recoil/atoms';
+
 export default function OrderProductList() {
   const order = useRecoilValue(checkedCartItems);
-  const { totalOrderPrice, deliveryFee, totalPrice } =
-    useRecoilValue(calculateOrderPrice);
+  const { totalOrderPrice } = useRecoilValue(calculateOrderPrice);
   const couponList = useRecoilValue(fetchCouponList);
+  const finalTotalPriceList = useRecoilValue(finalTotalPriceListState);
 
-  const [isCheck, setIsCheck] = useState(false);
+  const [isIsland, setIsland] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+
+  useCoupon({
+    isIsland: isIsland,
+  });
 
   const priceList: PriceList = {
     0: ['주문 금액', totalOrderPrice],
-    1: ['쿠폰 할인 금액', 6000],
-    2: ['배송비', deliveryFee],
+    1: ['쿠폰 할인 금액', finalTotalPriceList.discountPrice],
+    2: ['배송비', finalTotalPriceList.deliveryFee],
   };
 
   return (
@@ -44,24 +51,27 @@ export default function OrderProductList() {
         <div className="delivery-info_checkbox">
           <CheckBox
             onClick={() => {
-              setIsCheck(!isCheck);
+              setIsland(!isIsland);
             }}
-            isCheck={isCheck}
+            isCheck={isIsland}
           />
           <span className="delivery-info_explanation">
             제주도 및 도서 산간 지역
           </span>
         </div>
       </OP.DeliveryInfo>
-      <ProductTotalPriceList priceList={priceList} totalPrice={totalPrice} />
+      <ProductTotalPriceList
+        priceList={priceList}
+        totalPrice={finalTotalPriceList.totalPaymentPrice}
+      />
       {openModal && (
         <Modal
           position="center"
           title="쿠폰을 선택해 주세요"
           closeButton="img"
           closeModalClick={() => setOpenModal(false)}
-          buttonText="총 00원 할인 쿠폰 사용하기"
-          buttonClick={() => alert('쿠폰 적용 완료')}
+          buttonText={`총 ${finalTotalPriceList.discountPrice.toLocaleString('ko-kr')}원 할인 쿠폰 사용하기`}
+          buttonClick={() => setOpenModal(false)}
         >
           <Coupon coupons={couponList} />
         </Modal>
