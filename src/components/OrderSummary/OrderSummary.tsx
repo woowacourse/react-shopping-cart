@@ -19,7 +19,7 @@ export default function OrderSummary({ items }: Props) {
       <S.OrderAmountContainer>
         {items.map((item) => {
           return (
-            <S.AmountItem>
+            <S.AmountItem key={item.description}>
               <S.Title>{item.description}</S.Title>
               <S.Amount>{convertToLocaleAmount(item.price)}</S.Amount>
             </S.AmountItem>
