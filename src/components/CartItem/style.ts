@@ -4,6 +4,7 @@ export const CartItemWrapper = styled.li`
   list-style: none;
   width: 100%;
   height: fit-content;
+  padding: 12px 0;
   border-top: ${({ theme }) => `solid 1px ${theme.colors.semiBlack}`};
 `;
 
@@ -12,7 +13,7 @@ export const CartItemHeader = styled.div`
   display: flex;
   justify-content: space-between;
 
-  margin: 12px 0;
+  margin-bottom: 12px;
 
   .deleteBtn {
     font-size: 12px;

@@ -23,6 +23,7 @@ export default function CartList({ items, summary = false }: CartListProps) {
           label="전체 선택"
         />
       )}
+
       {items && (
         <S.CartListContainer>
           {items.map((item, index) => (
