@@ -11,6 +11,12 @@ const useCouponSelections = () => {
     useRecoilState(selectedCouponsState);
   const { filteredApplicableCoupons } = useCouponApplicabilityChecker();
 
+  const isCouponSelected = (couponId: number) => {
+    return selectedCoupons.some(
+      (selectedCoupon) => selectedCoupon.id === couponId
+    );
+  };
+
   const addSelectedCoupon = (coupon: Coupon) => {
     if (
       selectedCoupons.length < COUPON_SELECTION_RULES.maxSelectCount &&
@@ -24,6 +30,14 @@ const useCouponSelections = () => {
     setSelectedCoupons(
       selectedCoupons.filter((coupon) => coupon.id !== couponId)
     );
+  };
+
+  const toggleCoupon = (coupon: Coupon) => {
+    if (isCouponSelected(coupon.id)) {
+      removeSelectedCoupon(coupon.id);
+    } else {
+      addSelectedCoupon(coupon);
+    }
   };
 
   const clearSelectedCoupons = () => {
@@ -42,8 +56,8 @@ const useCouponSelections = () => {
 
   return {
     selectedCoupons,
-    addSelectedCoupon,
-    removeSelectedCoupon,
+    isCouponSelected,
+    toggleCoupon,
     clearSelectedCoupons,
     isCouponSelectable,
   };

@@ -79,7 +79,6 @@ const useDiscountCalculator = () => {
     }
 
     const permutations = getPermutations(selectedCoupons);
-    console.log(permutations);
     const discountAmounts = permutations.map((couponsPermutation) => {
       return couponsPermutation.reduce((totalDiscount, coupon) => {
         const discountAmount = calculateDiscountPrice(coupon, totalDiscount);
