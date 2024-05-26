@@ -5,12 +5,14 @@ import { RecoilRoot } from 'recoil';
 import { renderHook } from '@testing-library/react';
 
 import useCartItemList from './useCartItemList';
-import { cartItemListState } from '../../recoil/cartItem/atom';
 import useApiErrorState from '../error/useApiErrorState';
+import { cartItemListState } from '../../recoil/cartItem/atom';
 import {
   FailedDeleteCartItemError,
   FailedFetchCartItemListError,
 } from '../../error/customError';
+import { useSelectedCartItemIdList } from './useSelectedCartItemIdList';
+import { useSelectedCartItemId } from './useSelectedCartItemId';
 
 jest.mock('../../apis/cartItemList', () => ({
   requestCartItemList: jest.fn(),
@@ -85,6 +87,47 @@ describe('useCartItemList', () => {
     await act(async () => await result.current.fetchCartItemList());
     const { requestCartItemList } = require('../../apis/cartItemList');
     expect(requestCartItemList).toHaveBeenCalled();
+  });
+
+  it('fetchCartItemList이 실행되고 나서, cartItem에 없는 id가 selectedIdList에 있다면, 그 값을 제거해야 한다.', async () => {
+    const useCustomHook = () => {
+      return {
+        ...useCartItemList(),
+        ...useSelectedCartItemId(),
+        ...useSelectedCartItemIdList(),
+      };
+    };
+    const { result } = renderHook(() => useCustomHook(), {
+      wrapper: ({ children }) => (
+        <RecoilRoot
+          initializeState={({ set }) =>
+            set(cartItemListState, [
+              ...MOCK_DEFAULT_VALUE,
+              {
+                id: 999,
+                quantity: 9,
+                price: 9999,
+                name: '구구',
+                imageUrl: '999',
+              },
+            ])
+          }
+        >
+          {children}
+        </RecoilRoot>
+      ),
+    });
+
+    await act(() => result.current.selectCartItem(999));
+    await act(() => result.current.selectCartItem(MOCK_DEFAULT_VALUE[0].id));
+
+    const { requestCartItemList } = require('../../apis/cartItemList');
+    requestCartItemList.mockResolvedValue([{ id: MOCK_DEFAULT_VALUE[0].id }]);
+
+    await act(async () => await result.current.fetchCartItemList());
+    expect(result.current.selectedIdList).toStrictEqual([
+      MOCK_DEFAULT_VALUE[0].id,
+    ]);
   });
 
   it('fetchCartItemList가 실패할 경우 apiError 상태를 FailedFetchCartItemListError로 설정해야 한다.', async () => {
