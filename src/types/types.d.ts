@@ -38,3 +38,8 @@ interface Coupon {
   availableTime?: AvailableTime;
   discountType: DiscountType;
 }
+
+interface TEST_ITEM_PROP<T> {
+  input: T;
+  expected: T;
+}
