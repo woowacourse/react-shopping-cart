@@ -7,7 +7,6 @@ import { CartItem } from '@type/cartItem';
 import { ROUTER_URLS } from '@constants/constants';
 import { discountAmountStore, selectedCoupons } from '@recoil/atoms';
 import { priceInfoStore } from '@recoil/selectors';
-import useOrderItems from '@api/post/orderItems';
 
 import {
   ShoppingCartItemView,
@@ -17,6 +16,8 @@ import {
 } from '@components/OrderInfo';
 import ShoppingCartDescription from '@components/serviceCommon/ShoppingCartDescription/ShoppingCartDescription';
 import FloatingButton from '@components/common/FloatingButton/FloatingButton';
+import useMutation from '@hooks/useMutation';
+import orderItems from '@api/post/orderItems';
 
 interface OrderInfoState {
   orderItems: CartItem[];
@@ -28,7 +29,17 @@ interface OrderInfoState {
 const OrderInfo = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { orderItems, isPending } = useOrderItems();
+  const { mutate: orderItemsMutate, isPending } = useMutation<typeof orderItems>(orderItems, {
+    onSuccess: () => {
+      navigate(ROUTER_URLS.PAYMENT_INFO, { state: paymentInfo });
+    },
+    onError: () => alert('결제 실패! 관리자에게 문의하세요.'),
+  });
+
+  const onOrder = async () => {
+    await orderItemsMutate(cartItemIds);
+  };
+
   const resetCoupons = useResetRecoilState(selectedCoupons);
   const resetDiscount = useResetRecoilState(discountAmountStore);
   const orderInfo = location.state as OrderInfoState | null;
@@ -65,11 +76,7 @@ const OrderInfo = () => {
         <IsolatedRegionShippingFee />
         <PaymentTotalWithDiscount />
       </S.Container>
-      <FloatingButton
-        label="결제하기"
-        onClick={() => orderItems(cartItemIds, paymentInfo)}
-        disabled={isPending}
-      />
+      <FloatingButton label="결제하기" onClick={onOrder} disabled={isPending} />
     </>
   );
 };

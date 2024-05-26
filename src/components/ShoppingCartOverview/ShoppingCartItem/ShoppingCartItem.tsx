@@ -1,9 +1,10 @@
 import * as S from './styled';
 import { CartItem } from '@type/cartItem';
-import useDeleteCartItem from '@api/delete/deleteCartItem';
-import useChangeCartItemQuantity from '@api/patch/changeCartItemQuantity';
 import Checkbox from '@components/common/Checkbox/Checkbox';
 import Stepper from '@components/common/Stepper/Stepper';
+import useMutation from '@hooks/useMutation';
+import deleteCartItem from '@api/delete/deleteCartItem';
+import changeCartItemQuantity from '@api/patch/changeCartItemQuantity';
 
 interface ShoppingCartItemProps {
   cartItem: CartItem;
@@ -18,21 +19,29 @@ const ShoppingCartItem = ({
   isSelected,
   onCheckboxClick,
 }: ShoppingCartItemProps) => {
-  const { changeCartItemQuantity } = useChangeCartItemQuantity(refetch);
-  const { deleteCartItem } = useDeleteCartItem(refetch);
+  const { mutate: deleteMutate } = useMutation<typeof deleteCartItem>(deleteCartItem, {
+    onSuccess: refetch,
+  });
+
+  const { mutate: changeQuantityMutate } = useMutation<typeof changeCartItemQuantity>(
+    changeCartItemQuantity,
+    {
+      onSuccess: refetch,
+    },
+  );
 
   const onDelete = async () => {
-    if (window.confirm('정말 상품을 삭제하시겠습니까?')) await deleteCartItem(cartItem.id);
+    if (window.confirm('정말 상품을 삭제하시겠습니까?')) await deleteMutate(cartItem.id);
   };
 
   const handleIncrement = async () => {
     const newQuantity = cartItem.quantity + 1;
-    await changeCartItemQuantity({ id: cartItem.id, quantity: newQuantity });
+    await changeQuantityMutate({ id: cartItem.id, quantity: newQuantity });
   };
 
   const handleDecrement = async () => {
-    const newQuantity = Math.max(cartItem.quantity - 1, 0);
-    await changeCartItemQuantity({ id: cartItem.id, quantity: newQuantity });
+    const newQuantity = Math.max(cartItem.quantity - 1, 1);
+    await changeQuantityMutate({ id: cartItem.id, quantity: newQuantity });
   };
 
   return (
