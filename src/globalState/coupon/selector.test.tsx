@@ -50,7 +50,7 @@ describe('coupon selector', () => {
           ),
         });
 
-        expect(result.current).toBeDefined();
+        expect(result.current?.code).toBe(couponCode);
       },
     );
 
