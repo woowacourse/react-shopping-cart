@@ -27,7 +27,7 @@ const ConfirmPurchasePage = () => {
         style={{ position: 'fixed', maxWidth: '768px', bottom: '0' }}
         onClick={async () => {
           await orderSelectedCartItems();
-          navigate('/complete-purchse');
+          navigate('/complete-purchase');
         }}
       >
         결제하기
