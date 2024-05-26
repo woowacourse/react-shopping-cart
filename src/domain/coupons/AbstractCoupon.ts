@@ -14,7 +14,11 @@ abstract class Coupon {
     this.data = coupon;
   }
 
-  public abstract discountAmount(amount: number, shippingFee?: number, itemInfo?: CartItemQuantityAndPrice[]): number;
+  public abstract discountAmount(param: {
+    amount: number;
+    shippingFee: number;
+    itemInfo: CartItemQuantityAndPrice[];
+  }): number;
 
   public get discountType() {
     return this.data.discountType;

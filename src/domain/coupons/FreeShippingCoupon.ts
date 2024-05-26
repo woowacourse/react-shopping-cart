@@ -6,7 +6,7 @@ class FreeShippingCoupon extends Coupon {
     super(coupon);
   }
 
-  public discountAmount(_amount: number, shippingFee: number) {
+  public discountAmount({ shippingFee }: { shippingFee: number }) {
     return shippingFee;
   }
 }
