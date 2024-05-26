@@ -8,17 +8,30 @@ import PaymentInfo from "./PaymentInfo";
 import Button from "../../components/Button";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "../../constants/path";
+import ApplyCouponModal from "./ApplyCouponModal/ApplyCouponModal";
+import { useState } from "react";
 
 export default function OrderSummary() {
   const navigate = useNavigate();
 
-  const { coupons } = useFetchCoupons();
+  const { coupons, isLoading, isError } = useFetchCoupons();
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onClose = () => {
+    setIsOpen(false);
+  };
+  const onApply = () => {
+    console.log(1);
+  };
+
+  const handleApplyCouponButtonClick = () => {
+    setIsOpen(true);
+  };
 
   const handlePaymentButtonClick = () => {
     navigate(PATH.checkout);
   };
-
-  const handleApplyCouponButtonClick = () => {};
 
   return (
     <>
@@ -26,9 +39,17 @@ export default function OrderSummary() {
         <Title />
         <OrderItemList />
         <ApplyCouponButton
-          disabled={coupons.length === 0}
+          disabled={isLoading}
           onClick={handleApplyCouponButtonClick}
         />
+        {!isLoading && !isError && (
+          <ApplyCouponModal
+            isOpen={isOpen}
+            fetchedCoupons={coupons}
+            onClose={onClose}
+            onApply={onApply}
+          />
+        )}
         <DeliveryInfo />
         <PaymentInfo />
       </S.Content>

@@ -68,3 +68,19 @@ export const isFixedDiscountCoupon = (
 ): coupon is FixedDiscountCoupon => {
   return coupon.discountType === "fixed";
 };
+
+export const isPercentageDiscountCoupon = (
+  coupon: Coupon
+): coupon is PercentageDiscountCoupon => {
+  return coupon.discountType === "percentage";
+};
+
+export const isBOGOCoupon = (coupon: Coupon): coupon is BOGOCoupon => {
+  return coupon.discountType === "buyXgetY";
+};
+
+export const isFreeShippingCoupon = (
+  coupon: Coupon
+): coupon is FreeShippingCoupon => {
+  return coupon.discountType === "freeShipping";
+};
