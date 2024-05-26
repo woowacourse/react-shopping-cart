@@ -9,7 +9,7 @@ import MOCK_CART_LIST from '@/constants/_mock/mockCartList';
 import { allSelectedState } from '@/store/selectors/allSelectedSelector';
 import { renderHook } from '@testing-library/react';
 
-jest.mock('../../api/config', () => ({
+jest.mock('@/api/config', () => ({
   config: {
     apiUrl: 'http://localhost:mock',
   },
@@ -109,37 +109,4 @@ describe('allSelectedState Test', () => {
 
     expect(clicked.current.isAllSelected).toBe(true);
   });
-
-  //TODO: Test 실패, 원인 불명
-  //   it('전체선택 클릭시 모든 아이템이 `선택됨`으로 변경', () => {
-  //     const { result } = renderHook(
-  //       () => {
-  //         const setCartList = useSetRecoilState(cartListState);
-  //         setCartList(MOCK_CART_LIST);
-
-  //         MOCK_FILTERED_CART_LIST_PARTLY_SELECTED.forEach((item) => {
-  //           const setFilteredCartList = useSetRecoilState(
-  //             filteredCartItemState(item.id)
-  //           );
-  //           setFilteredCartList(item);
-  //         });
-
-  //         const [isAllSelected, setIsAllSelected] =
-  //           useRecoilState(allSelectedState);
-
-  //         return { isAllSelected, setIsAllSelected };
-  //       },
-  //       {
-  //         wrapper: RecoilRoot,
-  //       }
-  //     );
-
-  //     expect(result.current.isAllSelected).toBe(false);
-
-  //     act(() => {
-  //       result.current.setIsAllSelected(true);
-  //     });
-
-  //     expect(result.current.isAllSelected).toBe(true);
-  //   });
 });

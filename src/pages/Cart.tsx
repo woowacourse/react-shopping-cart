@@ -1,25 +1,36 @@
+import {
+  StyledFixedBottom,
+  StyledFixedTop,
+  StyledScrollBox,
+} from '@/style/styledBox.style';
+import { cartListState, shippingAreaState } from '@/store/atoms';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+
 import CartList from '@/components/Cart/CartList';
 import CartRecipe from '@/components/Cart/CartRecipe';
 import CartTitle from '@/components/Cart/CartTitle';
 import EmptyCart from '@/components/EmptyCart';
 import FullWidthButton from '@/components/Button/FullWidthButton';
 import Header from '@/components/Header.tsx';
-import { cartListState } from '@/store/atoms';
-import { recipeState } from '@/store/selectors/recipeSelector';
-import styled from '@emotion/styled';
+import { ROUTE_PATH } from '@/constants/routePath';
+import { orderRecipeState } from '@/store/selectors/orderRecipeSelector';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
 
 const Cart = () => {
   const navigate = useNavigate();
-  const { orderPrice } = useRecoilValue(recipeState);
-
+  const { orderPrice } = useRecoilValue(orderRecipeState);
   const cartList = useRecoilValue(cartListState);
+
+  const setShippingState = useSetRecoilState(shippingAreaState);
+  useEffect(() => {
+    setShippingState('normal');
+  }, []);
 
   return (
     <>
       <StyledFixedTop>
-        <Header />
+        <Header navigatePath={ROUTE_PATH.cart} />
       </StyledFixedTop>
       {cartList.length ? (
         <>
@@ -31,7 +42,7 @@ const Cart = () => {
             <CartRecipe />
             <FullWidthButton
               onClick={() => {
-                navigate('/order-confirm');
+                navigate(ROUTE_PATH.order);
               }}
               disable={orderPrice === 0 ? true : false}
             >
@@ -46,22 +57,3 @@ const Cart = () => {
   );
 };
 export default Cart;
-
-const StyledFixedTop = styled.div`
-  width: 430px;
-  position: fixed;
-  top: 0;
-`;
-
-const StyledScrollBox = styled.div`
-  margin-top: 64px;
-  overflow-y: scroll;
-  height: calc(100vh - 230px);
-  width: 430px;
-`;
-
-const StyledFixedBottom = styled.div`
-  width: 430px;
-  position: fixed;
-  bottom: 0;
-`;

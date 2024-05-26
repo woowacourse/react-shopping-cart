@@ -1,23 +1,35 @@
 import { FlexCenter, FlexColumn } from '@/style/common.style';
-import {
-  orderedItemState,
-  recipeState,
-} from '@/store/selectors/recipeSelector';
 
 import FullWidthButton from '@/components/Button/FullWidthButton';
 import Header from '@/components/Header';
 import { ORDER_CONFIRM_MESSAGE } from '@/constants/message';
+import { ROUTE_PATH } from '@/constants/routePath';
+import { StyledFixedBottom } from '@/style/styledBox.style';
+import { StyledFixedTop } from '@/style/styledBox.style';
+import { orderRecipeState } from '@/store/selectors/orderRecipeSelector';
+import { orderedItemQuantityState } from '@/store/selectors/orderItemSelector';
+import { selectedCouponListState } from '@/store/atoms';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
+import useTotalCouponDiscount from '@/hooks/useTotalCouponDiscount';
 
 const OrderConfirm = () => {
-  const { totalPrice } = useRecoilValue(recipeState);
-  const { itemCount, totalQuantity } = useRecoilValue(orderedItemState);
+  const navigator = useNavigate();
+
+  const { totalPrice } = useRecoilValue(orderRecipeState);
+
+  const selectedCoupon = useRecoilValue(selectedCouponListState);
+  const totalDiscountPrice = useTotalCouponDiscount({
+    coupons: selectedCoupon,
+  });
+
+  const { itemCount, totalQuantity } = useRecoilValue(orderedItemQuantityState);
 
   return (
     <>
       <StyledFixedTop>
-        <Header type="ArrowBack" />
+        <Header type="nothing" navigatePath={ROUTE_PATH.cart} />
       </StyledFixedTop>
       <StyledCenterBox>
         <StyledTextTitle>주문 확인</StyledTextTitle>
@@ -29,13 +41,17 @@ const OrderConfirm = () => {
 
         <StyledTextSubTitle>총 결제 금액</StyledTextSubTitle>
         <StyledTextPrice>
-          {totalPrice.toLocaleString('ko-KR')}원
+          {(totalPrice - totalDiscountPrice).toLocaleString('ko-KR')}원
         </StyledTextPrice>
       </StyledCenterBox>
 
       <StyledFixedBottom>
-        <FullWidthButton onClick={() => {}} disable>
-          결제하기
+        <FullWidthButton
+          onClick={() => {
+            navigator(ROUTE_PATH.cart);
+          }}
+        >
+          장바구니로 돌아가기
         </FullWidthButton>
       </StyledFixedBottom>
     </>
@@ -43,18 +59,6 @@ const OrderConfirm = () => {
 };
 
 export default OrderConfirm;
-
-const StyledFixedTop = styled.div`
-  width: 430px;
-  position: fixed;
-  top: 0;
-`;
-
-const StyledFixedBottom = styled.div`
-  width: 430px;
-  position: fixed;
-  bottom: 0;
-`;
 
 const StyledCenterBox = styled.div`
   ${FlexColumn}

@@ -1,4 +1,4 @@
-import { CartItemType } from '@/types/cart.type';
+import type { CartItemType } from '@/types/cart.type';
 import { ENDPOINT } from '@/api/config';
 import { ERROR_MESSAGE } from '@/constants/error';
 import apiFetch from '@/api/apiFetch';

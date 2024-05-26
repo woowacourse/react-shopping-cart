@@ -5,7 +5,6 @@ export const allSelectedState = selector<boolean>({
   key: 'allSelectedState',
   get: ({ get }) => {
     const cartList = get(cartListState);
-
     const cartItemStates = cartList.map((state) =>
       get(filteredCartItemState(state.id))
     );

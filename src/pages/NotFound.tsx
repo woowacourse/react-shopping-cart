@@ -2,13 +2,15 @@ import { FlexCenter, FlexColumn } from '@/style/common.style';
 
 import Header from '@/components/Header';
 import NotFound404 from '@/assets/NotFound404.avif';
+import { ROUTE_PATH } from '@/constants/routePath';
+import { StyledFixedTop } from '@/style/styledBox.style';
 import styled from '@emotion/styled';
 
 const NotFound = () => {
   return (
     <>
       <StyledFixedTop>
-        <Header />
+        <Header navigatePath={ROUTE_PATH.cart} />
       </StyledFixedTop>
       <StyledCenterBox>
         <Img src={NotFound404} alt="Not Found" />
@@ -19,12 +21,6 @@ const NotFound = () => {
   );
 };
 export default NotFound;
-
-const StyledFixedTop = styled.div`
-  width: 430px;
-  position: fixed;
-  top: 0;
-`;
 
 const StyledCenterBox = styled.div`
   ${FlexColumn}

@@ -1,24 +1,24 @@
-import ArrowBack from '@/assets/Arrow-Back.svg';
+import ArrowBack from '@/assets/Arrow-Back.svg?react';
 import { Link } from 'react-router-dom';
-import Logo from '@/assets/Logo.svg';
-import { THEME } from '@/style/theme';
+import Logo from '@/assets/Logo.svg?react';
 import styled from '@emotion/styled';
+import { theme } from '@/style/theme.style';
 
-type HeaderType = 'Logo' | 'ArrowBack';
+type HeaderType = 'Logo' | 'ArrowBack' | 'nothing';
 
 interface Props {
   type?: HeaderType;
+  navigatePath: string;
 }
 
-const Header = ({ type = 'Logo' }: Props) => {
+const Header = ({ type = 'Logo', navigatePath }: Props) => {
   return (
     <StyledHeader>
-      <Link to="/">
-        <img
-          src={type === 'Logo' ? Logo : ArrowBack}
-          alt={type === 'Logo' ? 'Logo' : 'return'}
-        />
-      </Link>
+      {type !== 'nothing' && (
+        <Link to={navigatePath}>
+          {type === 'Logo' ? <Logo /> : <ArrowBack />}
+        </Link>
+      )}
     </StyledHeader>
   );
 };
@@ -27,7 +27,7 @@ export default Header;
 const StyledHeader = styled.header`
   width: 100%;
   height: 64px;
-  background-color: ${THEME.color.black};
+  background-color: ${theme.color.black};
   box-sizing: border-box;
   padding: 24px;
 `;

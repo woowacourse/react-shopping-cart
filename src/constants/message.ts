@@ -14,4 +14,9 @@ export const ORDER_CONFIRM_MESSAGE = {
   confirmOrder: (itemCount: number, totalQuantity: number) =>
     `총 ${itemCount}종류의 상품 ${totalQuantity}개를 주문합니다.`,
   confirmPrice: `최종 결제 금액을 확인해 주세요.`,
+  specialShippingArea: `제주도 및 도서 산간 지역`,
+};
+
+export const COUPON_MESSAGE = {
+  maxCouponInfo: `쿠폰은 최대 2개까지 사용할 수 있습니다.`,
 };

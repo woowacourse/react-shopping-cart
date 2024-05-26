@@ -1,2 +1,5 @@
-export const SHIPPING_FEE = 3000;
-export const FREE_SHIPPING_CONDITION = 100000;
+export const DEFAULT_SHIPPING_FEE = 3_000;
+export const EXTRA_SHIPPING_FEE = 6_000;
+
+export const FREE_SHIPPING_CONDITION = 100_000;
+export const MAXIMUM_SELECT_COUPON_COUNT = 2;

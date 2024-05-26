@@ -8,3 +8,5 @@ export interface OrderedItem {
   itemCount: number;
   totalQuantity: number;
 }
+
+export type ShippingArea = 'normal' | 'island';

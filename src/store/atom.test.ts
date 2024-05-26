@@ -1,15 +1,15 @@
-import { RecoilRoot, useRecoilState } from 'recoil';
+import {
+  RecoilRoot,
+  useRecoilState,
+  useRecoilValue,
+  useSetRecoilState,
+} from 'recoil';
+import { couponListState, filteredCartItemState } from '@/store/atoms';
 
 import { INIT_CART_ITEM_STATE } from '@/constants/defaultStateValue';
+import { MOCK_COUPON_LIST } from '@/constants/_mock/mockCouponList';
 import { act } from 'react';
-import { filteredCartItemState } from '@/store/atoms';
 import { renderHook } from '@testing-library/react';
-
-jest.mock('../api/config', () => ({
-  config: {
-    apiUrl: 'http://localhost:mock',
-  },
-}));
 
 describe('filteredCartItemState test', () => {
   const mockId = 1;
@@ -46,5 +46,25 @@ describe('filteredCartItemState test', () => {
       result.current[1](changeIsSelected);
     });
     expect(result.current[0]).toBe(changeIsSelected);
+  });
+});
+
+describe('couponListState test', () => {
+  it('쿠폰 목록을 받아올 수 있다.', () => {
+    const { result } = renderHook(
+      () => {
+        const setCouponList = useSetRecoilState(couponListState);
+        setCouponList(MOCK_COUPON_LIST);
+
+        const couponList = useRecoilValue(couponListState);
+
+        return couponList;
+      },
+      {
+        wrapper: RecoilRoot,
+      }
+    );
+
+    expect(result.current.length).not.toBe(null);
   });
 });

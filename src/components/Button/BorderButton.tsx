@@ -1,5 +1,5 @@
-import { THEME } from '../../style/theme';
 import styled from '@emotion/styled';
+import { theme } from '@/style/theme.style';
 
 interface Props {
   onClick: () => void;
@@ -18,8 +18,8 @@ const StyledButton = styled.button`
   width: fit-content;
   padding: 6px 8px;
   border-radius: 4px;
-  border: 1px solid ${THEME.color.blackWithOpacity};
-  background-color: ${THEME.color.white};
-  font-size: ${THEME.fontSize.small};
+  border: 1px solid ${theme.color.blackWithOpacity};
+  background-color: ${theme.color.white};
+  font-size: ${theme.fontSize.small};
   cursor: pointer;
 `;

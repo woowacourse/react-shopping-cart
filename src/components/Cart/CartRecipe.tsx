@@ -7,19 +7,36 @@ import {
 
 import { CART_MESSAGE } from '@/constants/message';
 import { FREE_SHIPPING_CONDITION } from '@/constants/system';
-import Info from '@/assets/Info.svg';
-import { THEME } from '@/style/theme';
-import { recipeState } from '@/store/selectors/recipeSelector';
+import Info from '@/assets/Info.svg?react';
+import { orderRecipeState } from '@/store/selectors/orderRecipeSelector';
+import { selectedCouponListState } from '@/store/atoms';
 import styled from '@emotion/styled';
+import { theme } from '@/style/theme.style';
 import { useRecoilValue } from 'recoil';
+import useTotalCouponDiscount from '@/hooks/useTotalCouponDiscount';
 
-const CartRecipe = () => {
-  const { orderPrice, shippingFee, totalPrice } = useRecoilValue(recipeState);
+interface Props {
+  isCoupon?: boolean;
+}
+
+const CartRecipe = ({ isCoupon = false }: Props) => {
+  const { orderPrice, shippingFee, totalPrice } =
+    useRecoilValue(orderRecipeState);
+
+  const selectedCoupon = useRecoilValue(selectedCouponListState);
+
+  const totalDiscountPrice = useTotalCouponDiscount({
+    coupons: selectedCoupon,
+  });
+
+  const displayTotalPrice = isCoupon
+    ? totalPrice - totalDiscountPrice
+    : totalPrice;
 
   return (
     <StyledRecipeWrapper>
       <StyledInfoBox>
-        <img src={Info} alt="추가정보" />
+        <Info />
         {CART_MESSAGE.freeShipping(FREE_SHIPPING_CONDITION)}
       </StyledInfoBox>
       <StyledBox>
@@ -29,6 +46,14 @@ const CartRecipe = () => {
             {orderPrice.toLocaleString('ko-KR')}원
           </StyledBoldText>
         </StyledBetweenBox>
+        {isCoupon && (
+          <StyledBetweenBox>
+            <StyledBoldText>쿠폰 할인 금액</StyledBoldText>
+            <StyledBoldText>
+              -{totalDiscountPrice.toLocaleString('ko-KR')}원
+            </StyledBoldText>
+          </StyledBetweenBox>
+        )}
         <StyledBetweenBox>
           <StyledBoldText>배송비</StyledBoldText>
           <StyledBoldText>
@@ -38,7 +63,9 @@ const CartRecipe = () => {
       </StyledBox>
       <StyledBetweenBox>
         <StyledBoldText>총 결제 금액</StyledBoldText>
-        <StyledBoldText>{totalPrice.toLocaleString('ko-KR')}원</StyledBoldText>
+        <StyledBoldText>
+          {displayTotalPrice.toLocaleString('ko-KR')}원
+        </StyledBoldText>
       </StyledBetweenBox>
     </StyledRecipeWrapper>
   );
@@ -48,7 +75,7 @@ export default CartRecipe;
 const StyledRecipeWrapper = styled.div`
   ${FlexColumn}
   gap: 10px;
-  background-color: ${THEME.color.white};
+  background-color: ${theme.color.white};
   padding: 16px 0;
   ${WhiteSpace}
 `;
@@ -56,21 +83,21 @@ const StyledRecipeWrapper = styled.div`
 const StyledInfoBox = styled.div`
   ${FlexRow}
   align-items: flex-start;
-  font-size: ${THEME.fontSize.xsmall};
+  font-size: ${theme.fontSize.xsmall};
   gap: 5px;
 `;
 
 const StyledBox = styled.div`
-  border-top: 1px solid ${THEME.color.blackWithOpacity};
-  border-bottom: 1px solid ${THEME.color.blackWithOpacity};
+  border-top: 1px solid ${theme.color.blackWithOpacity};
+  border-bottom: 1px solid ${theme.color.blackWithOpacity};
 `;
 
 const StyledBetweenBox = styled.div`
   ${FlexSpaceBetween}
-  margin: 12px 0;
+  margin: 20px 0;
 `;
 
 const StyledBoldText = styled.span`
-  font-size: ${THEME.fontSize.medium};
-  font-weight: ${THEME.fontWeight.bold};
+  font-size: ${theme.fontSize.medium};
+  font-weight: ${theme.fontWeight.bold};
 `;

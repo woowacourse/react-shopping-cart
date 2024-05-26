@@ -1,8 +1,10 @@
 import { CartItemType, FilteredCartItemStateType } from '@/types/cart.type';
 import { atom, atomFamily } from 'recoil';
+import { cartState, couponState } from '@/store/selectors/dataFetchSelector';
 
+import { Coupon } from '@/types/coupon.type';
 import { INIT_CART_ITEM_STATE } from '@/constants/defaultStateValue';
-import { cartState } from '@/store/selectors/dataFetchSelector';
+import { ShippingArea } from '@/types/recipe.type';
 import localStorageEffect from '@/store/localStorageEffect';
 
 export const filteredCartItemState = atomFamily<
@@ -17,4 +19,19 @@ export const filteredCartItemState = atomFamily<
 export const cartListState = atom<CartItemType[]>({
   key: 'cartListState',
   default: cartState,
+});
+
+export const shippingAreaState = atom<ShippingArea>({
+  key: 'shippingAreaState',
+  default: 'normal',
+});
+
+export const couponListState = atom<Coupon[]>({
+  key: 'couponListState',
+  default: couponState,
+});
+
+export const selectedCouponListState = atom<Coupon[]>({
+  key: 'selectedCouponListState',
+  default: [],
 });
