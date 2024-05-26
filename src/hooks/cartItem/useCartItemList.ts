@@ -7,6 +7,10 @@ import {
   requestCartItemList,
   requestDeleteCartItem,
 } from '../../apis/cartItemList';
+import {
+  FailedDeleteCartItemError,
+  FailedFetchCartItemListError,
+} from '../../error/customError';
 
 const useCartItemList = () => {
   const { setApiError, resetApiError } = useApiErrorState();
@@ -21,7 +25,7 @@ const useCartItemList = () => {
 
       resetApiError();
     } catch (error) {
-      setApiError(new Error('네트워크 오류로 인해 삭제에 실패했어요.'));
+      setApiError(new FailedDeleteCartItemError());
     }
   };
 
@@ -29,10 +33,10 @@ const useCartItemList = () => {
     try {
       const result = await requestCartItemList();
       setCartItemList(result);
+
+      resetApiError();
     } catch (error) {
-      setApiError(
-        new Error('네트워크 오류로 인해 장바구니를 불러올 수 없어요.'),
-      );
+      setApiError(new FailedFetchCartItemListError());
     }
   };
 

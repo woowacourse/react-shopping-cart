@@ -2,8 +2,11 @@ import { useRecoilState } from 'recoil';
 
 import { cartItemListState } from '../../recoil/cartItem/atom';
 import { requestSetCartItemQuantity } from '../../apis/cartItemList';
+import { FailedSetCartItemQuantityError } from '../../error/customError';
+import useApiErrorState from '../error/useApiErrorState';
 
 export const useCartItemQuantity = () => {
+  const { setApiError, resetApiError } = useApiErrorState();
   const [cartItemList, setCartItemList] = useRecoilState(cartItemListState);
 
   const cartItemQuantity = (cartItemId: number) => {
@@ -28,8 +31,10 @@ export const useCartItemQuantity = () => {
     try {
       await requestSetCartItemQuantity(cartItemId, increasedQuantity);
       setCartItemList(newCartItemList);
+
+      resetApiError();
     } catch (error) {
-      throw error;
+      setApiError(new FailedSetCartItemQuantityError());
     }
   };
 
@@ -49,8 +54,10 @@ export const useCartItemQuantity = () => {
     try {
       await requestSetCartItemQuantity(cartItemId, decreasedQuantity);
       setCartItemList(newCartItemList);
+
+      resetApiError();
     } catch (error) {
-      throw error;
+      setApiError(new FailedSetCartItemQuantityError());
     }
   };
 
