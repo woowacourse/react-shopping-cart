@@ -1,4 +1,6 @@
-export const mockCoupons = [
+import { Coupon } from '../../type';
+
+export const mockCoupons: Coupon[] = [
   {
     id: 1,
     code: 'FIXED5000',
@@ -37,6 +39,6 @@ export const mockCoupons = [
     },
     discountType: 'percentage',
   },
-] as const;
+];
 
 export default mockCoupons;

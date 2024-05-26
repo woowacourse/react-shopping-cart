@@ -22,8 +22,13 @@ export function calculateDiscountAmountByCoupon({
   };
 
   const getFreeItemDiscountAmount = (coupon: Coupon) => {
-    if (!coupon.getQuantity) return 0;
-    const mostExpensiveProductPrice = Math.max(...cartItems.map((item) => item.product.price));
+    if (!coupon.getQuantity || !coupon.buyQuantity) return 0;
+
+    const mostExpensiveProductPrice = Math.max(
+      ...cartItems
+        .filter((item) => coupon.buyQuantity && item.quantity > coupon.buyQuantity)
+        .map((item) => item.product.price),
+    );
     return mostExpensiveProductPrice * coupon.getQuantity;
   };
 
