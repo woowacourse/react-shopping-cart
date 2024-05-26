@@ -28,13 +28,13 @@ export default function CartItem({ cartItemId, product, onDelete }: CartItemProp
 
   const handleChangeQuantity = async (type: QuantityControlType) => {
     const newQuantity = type === 'increase' ? itemQuantity + 1 : Math.max(1, itemQuantity - 1);
-    setItemQuantity(newQuantity);
     await updateQuantity(cartItemId, newQuantity);
   };
 
   const updateQuantity = async (cartItemId: number, quantity: number) => {
     try {
       await updateCartItemQuantity(cartItemId, quantity);
+      setItemQuantity(quantity);
       resetFetchError();
     } catch (error) {
       throwFetchError(error, ERROR_MESSAGE.UPDATE_QUANTITY_FAILED);
