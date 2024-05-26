@@ -81,7 +81,7 @@ describe("isCouponSelectable", () => {
     const TIME_RANGE_OUT_OF_NOW = {
       start: "11:00:00",
       end: "12:00:00",
-    };
+    } as const;
 
     const coupon: FixedDiscountRawCoupon = {
       id: 3,

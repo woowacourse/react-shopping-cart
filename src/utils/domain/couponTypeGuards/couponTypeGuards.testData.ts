@@ -1,5 +1,6 @@
-import { COUPON_DISCOUNT_TYPE, CouponDiscountType } from "./../../../constants/couponDiscountType";
-import {
+import { COUPON_DISCOUNT_TYPE } from "../../../constants/couponDiscountType";
+import type { CouponDiscountType } from "../../../types/couponDiscountType";
+import type {
   BuyXGetYRawCoupon,
   FixedDiscountRawCoupon,
   FreeShippingRawCoupon,

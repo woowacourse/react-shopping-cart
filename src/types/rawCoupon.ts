@@ -4,7 +4,7 @@ import type {
   FixedDiscount,
   FreeShipping,
   PercentageDiscount,
-} from "../constants/couponDiscountType";
+} from "./couponDiscountType";
 import type { TimeString, DateString } from "./date";
 
 export type RawCoupon =

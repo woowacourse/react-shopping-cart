@@ -50,10 +50,11 @@ describe("cartAmountState selector", () => {
   const EXPECTED_CART_AMOUNT = {
     orderAmount: 65_000,
     shippingCost: SHIPPING_COST,
-    shippingCostForRemote: SHIPPING_COST_FOR_REMOTE,
     totalOrderAmount: 65_000 + SHIPPING_COST,
-    totalOrderAmountForRemote: 65_000 + SHIPPING_COST_FOR_REMOTE,
   };
+
+  const shippingCostForRemote = SHIPPING_COST_FOR_REMOTE;
+  const totalOrderAmountForRemote = 65_000 + SHIPPING_COST_FOR_REMOTE;
 
   it("장바구니 목록의 금액 합계를 올바르게 계산한다.", async () => {
     const { result, rerender } = renderHook(() => useRecoilValue(cartAmountState), {
@@ -97,8 +98,8 @@ describe("cartAmountState selector", () => {
     await waitFor(() => {
       expect(result.current).toEqual({
         ...EXPECTED_CART_AMOUNT,
-        shippingCost: EXPECTED_CART_AMOUNT.shippingCostForRemote,
-        totalOrderAmount: EXPECTED_CART_AMOUNT.totalOrderAmountForRemote,
+        shippingCost: shippingCostForRemote,
+        totalOrderAmount: totalOrderAmountForRemote,
       });
     });
   });
