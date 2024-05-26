@@ -38,7 +38,7 @@ export default function CouponModal() {
   return (
     <Modal position="center" isOpen={isCouponModalOpen} onClose={onClose}>
       <Modal.Backdrop onClick={onClose} />
-      <Modal.Content size="small">
+      <Modal.Content size={382}>
         <Modal.Header>
           <Modal.Title>쿠폰을 선택해주세요</Modal.Title>
           <Modal.CloseButton onClick={onClose} />
