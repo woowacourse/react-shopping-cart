@@ -3,7 +3,7 @@ import { cartItemsState } from "../../recoil/cartItems";
 import { useRecoilValue } from "recoil";
 import CartTitle from "./CartTitle";
 import CartItemList from "./CartItemList";
-import CartAmount from "../common/domain/CartAmount";
+import CartAmount from "../common/cart/CartAmount";
 import CartButton from "./CartButton";
 
 export default function CartContent() {

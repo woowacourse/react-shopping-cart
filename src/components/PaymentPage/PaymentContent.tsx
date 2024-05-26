@@ -4,7 +4,7 @@ import styled from "styled-components";
 import PaymentTitle from "./PaymentTitle";
 import ShippingDetail from "./ShippingDetail";
 import ReadOnlyCartItemList from "./ReadOnlyCartItemList";
-import CartAmount from "../common/domain/CartAmount";
+import CartAmount from "../common/cart/CartAmount";
 import CouponModal from "./CouponModal";
 
 import { useCoupons } from "../../hooks/useCoupons";
