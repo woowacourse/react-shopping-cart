@@ -12,12 +12,14 @@ import { useRecoilValue } from "recoil";
 import { orderAmountSelector, shippingFeeSelector } from "../../../store/selector/selectors";
 import { useDiscountCalculator } from "../../../hooks/useDiscountCalculator";
 import { selectedCouponsState } from "../../../store/atom/atoms";
+import { useCartCalculator } from "../../../hooks/useCartCalculator";
 
 const OrderResults = () => {
   const orderAmount = useRecoilValue(orderAmountSelector);
   const selectedCouponList = useRecoilValue(selectedCouponsState);
   const shippingFee = useRecoilValue(shippingFeeSelector);
 
+  const { calculateTotalWithCoupon } = useCartCalculator();
   const { calculateTotalDiscountAmount } = useDiscountCalculator();
   const totalDiscountAmount = calculateTotalDiscountAmount(selectedCouponList);
 
@@ -38,7 +40,7 @@ const OrderResults = () => {
         amount={selectedCouponList.some((coupon) => coupon.discountType === "freeShipping") ? "무료배송" : shippingFee}
       />
       <Divider />
-      <PaymentDetail title="총 결제 금액" amount={orderAmount - totalDiscountAmount + shippingFee} />
+      <PaymentDetail title="총 결제 금액" amount={calculateTotalWithCoupon()} />
     </div>
   );
 };
