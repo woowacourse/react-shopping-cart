@@ -13,6 +13,7 @@ export interface CouponModalProps {
   coupons: Coupon[];
   discountAmount: number;
   toggleCouponSelection: (couponId: number) => void;
+  hasReachedCouponMaxCount: boolean;
 }
 
 export default function CouponModal({
@@ -21,6 +22,7 @@ export default function CouponModal({
   coupons,
   discountAmount,
   toggleCouponSelection,
+  hasReachedCouponMaxCount,
 }: CouponModalProps) {
   const onClose = () => setIsOpen(false);
 
@@ -38,7 +40,11 @@ export default function CouponModal({
               <S.InfoIcon />
               쿠폰은 최대 2개까지 사용할 수 있습니다.
             </S.Info>
-            <CouponList coupons={coupons} toggleCouponSelection={toggleCouponSelection} />
+            <CouponList
+              coupons={coupons}
+              toggleCouponSelection={toggleCouponSelection}
+              hasReachedCouponMaxCount={hasReachedCouponMaxCount}
+            />
           </div>
           <Modal.Button disabled={isButtonDisabled} fullWidth onClick={onClose}>
             총 {formatToKRW(discountAmount)} 할인 쿠폰 사용하기

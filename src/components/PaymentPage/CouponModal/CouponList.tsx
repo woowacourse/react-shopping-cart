@@ -1,19 +1,18 @@
 import styled from "styled-components";
-
 import CouponView from "./CouponView";
-
-import { MAX_SELECTABLE_COUPON_COUNT } from "../../../hooks/useCoupons/ruleConstants";
 import { Coupon } from "../../../types/coupon";
 
 export interface CouponListProps {
   coupons: Coupon[];
   toggleCouponSelection: (couponId: number) => void;
+  hasReachedCouponMaxCount: boolean;
 }
 
-export default function CouponList({ coupons, toggleCouponSelection }: CouponListProps) {
-  const isMaxCouponsSelected =
-    coupons.filter(({ isSelected }) => isSelected).length >= MAX_SELECTABLE_COUPON_COUNT;
-
+export default function CouponList({
+  coupons,
+  toggleCouponSelection,
+  hasReachedCouponMaxCount,
+}: CouponListProps) {
   return (
     <S.CouponList>
       {coupons.map((coupon) => (
@@ -21,7 +20,7 @@ export default function CouponList({ coupons, toggleCouponSelection }: CouponLis
           key={coupon.id}
           coupon={coupon}
           toggleSelection={() => toggleCouponSelection(coupon.id)}
-          hasReachedMaxCount={isMaxCouponsSelected}
+          hasReachedCouponMaxCount={hasReachedCouponMaxCount}
         />
       ))}
     </S.CouponList>

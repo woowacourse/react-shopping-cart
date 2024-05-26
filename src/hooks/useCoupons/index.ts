@@ -5,12 +5,14 @@ import { useCouponSelectabilityChecker } from "../useCouponSelectabilityChecker"
 import { rawCouponsSelector } from "../../recoil/rawCoupons";
 import { cartAmountState } from "../../recoil/cartAmount";
 import { Coupon } from "../../types/coupon";
+import { MAX_SELECTABLE_COUPON_COUNT } from "./ruleConstants";
 
 interface UseCouponsReturn {
   coupons: Coupon[];
   toggleSelection: (couponId: number) => void;
   discountAmount: number;
   totalPayAmount: number;
+  hasReachedCouponMaxCount: boolean;
 }
 
 export const useCoupons = (): UseCouponsReturn => {
@@ -30,10 +32,13 @@ export const useCoupons = (): UseCouponsReturn => {
   const discountAmount = calculateCouponsDiscount(coupons);
   const totalPayAmount = totalOrderAmount - discountAmount;
 
+  const hasReachedCouponMaxCount = selectedCouponIds.length >= MAX_SELECTABLE_COUPON_COUNT;
+
   return {
     coupons,
     toggleSelection,
     discountAmount,
     totalPayAmount,
+    hasReachedCouponMaxCount,
   };
 };

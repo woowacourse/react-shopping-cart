@@ -5,7 +5,7 @@ import { formatToKRW } from "../../../utils/domain/formatToKRW";
 export interface CouponProps {
   coupon: Coupon;
   toggleSelection: () => void;
-  hasReachedMaxCount: boolean;
+  hasReachedCouponMaxCount: boolean;
 }
 
 export default function CouponView({
@@ -19,9 +19,9 @@ export default function CouponView({
     isSelectable,
   },
   toggleSelection,
-  hasReachedMaxCount,
+  hasReachedCouponMaxCount,
 }: CouponProps) {
-  const isNoLongerSelectable = !isSelected && hasReachedMaxCount;
+  const isNoLongerSelectable = !isSelected && hasReachedCouponMaxCount;
   const couponId = `coupon-${id}`;
 
   return (

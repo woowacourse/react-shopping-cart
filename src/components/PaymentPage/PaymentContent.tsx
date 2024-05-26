@@ -14,7 +14,8 @@ export default function PaymentContent() {
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const toggleCouponModal = () => setIsCouponModalOpen((prev) => !prev);
 
-  const { coupons, toggleSelection, discountAmount, totalPayAmount } = useCoupons();
+  const { coupons, toggleSelection, discountAmount, totalPayAmount, hasReachedCouponMaxCount } =
+    useCoupons();
 
   return (
     <S.Container>
@@ -30,6 +31,7 @@ export default function PaymentContent() {
           coupons={coupons}
           toggleCouponSelection={toggleSelection}
           discountAmount={discountAmount}
+          hasReachedCouponMaxCount={hasReachedCouponMaxCount}
         />
       )}
       <PayButton totalPayAmount={totalPayAmount} />
