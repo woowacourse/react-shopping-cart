@@ -1,20 +1,24 @@
 import { useRecoilValue } from 'recoil';
 import { CouponType } from '../components/type';
 import { isDatePassed } from './util/isDatePassed';
-import { totalOrderAmountSelector } from '../recoil/cartItems';
+import {
+  selectedCartItemsSelector,
+  shippingFeeSelector,
+  totalOrderAmountSelector,
+} from '../recoil/cartItems';
 
 const useCouponAvailable = () => {
   const totalOrderAmount = useRecoilValue(totalOrderAmountSelector);
-  // const shippingFee = useRecoilValue(shippingFeeSelector);
-  // const cartItemsBuyQuantity = useRecoilValue(selectedCartItemsSelector);
+  const shippingFee = useRecoilValue(shippingFeeSelector);
+  const cartItemsBuyQuantity = useRecoilValue(selectedCartItemsSelector);
 
   const isOverMinimumAmount = (minimumAmount: number) => {
     return totalOrderAmount > minimumAmount;
   };
 
-  // const isShippingFee = () => {
-  //   return shippingFee !== 0;
-  // };
+  const isShippingFee = () => {
+    return shippingFee !== 0;
+  };
 
   const isAvailableTime = (start: string, end: string) => {
     const now = new Date();
@@ -26,14 +30,14 @@ const useCouponAvailable = () => {
     return now >= startTime && now < endTime;
   };
 
-  // const isOverCertainQuantity = (minQuantity: number) => {
-  //   const bulkCartItems = cartItemsBuyQuantity.filter((cartItem) => {
-  //     const quantity = cartItem.quantity;
-  //     return quantity >= minQuantity;
-  //   });
+  const isOverCertainQuantity = (minQuantity: number) => {
+    const bulkCartItems = cartItemsBuyQuantity.filter((cartItem) => {
+      const quantity = cartItem.quantity;
+      return quantity >= minQuantity;
+    });
 
-  //   return bulkCartItems.length > 0;
-  // };
+    return bulkCartItems.length > 0;
+  };
 
   const isCouponAvailable = (coupon: CouponType) => {
     let condition = false;
@@ -47,14 +51,14 @@ const useCouponAvailable = () => {
         coupon.availableTime.end,
       );
     }
-    // if (coupon.buyQuantity && coupon.getQuantity) {
-    //   condition = isOverCertainQuantity(
-    //     coupon.buyQuantity + coupon.getQuantity,
-    //   );
-    // }
-    // if (coupon.discountType === 'freeShipping') {
-    //   condition = isShippingFee();
-    // }
+    if (coupon.buyQuantity && coupon.getQuantity) {
+      condition = isOverCertainQuantity(
+        coupon.buyQuantity + coupon.getQuantity,
+      );
+    }
+    if (coupon.discountType === 'freeShipping') {
+      condition = isShippingFee();
+    }
     return condition;
   };
 

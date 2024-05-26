@@ -1,25 +1,39 @@
 import { renderHook } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
-import useCouponAvailable from '../useCouponAvailable';
 import { mockCoupons } from './coupons.testData';
-import { cartItemsState } from '../../recoil/cartItems';
-import { fetchedCouponsSelector } from '../../recoil/fetch';
+import { cartItemQuantityState, cartItemsState } from '../../recoil/cartItems';
 import useDiscountType from '../useDiscountType';
+import mockCartItems from './mockCartItems.testData';
+import mockIsCartItemSelecteds from './selectedCartItems.testData';
+import { selectedCartItemsState } from '../../recoil/selectedCardItems';
+import cartQuantity from './cartQuantity.testData';
 
 describe('useDiscountType', () => {
   it('할인 타입이 fixed 인 경우', () => {
     const { result } = renderHook(() => useDiscountType(), {
       wrapper: ({ children }) => (
         <RecoilRoot
-          initializeState={({ set }) =>
-            set(fetchedCouponsSelector, mockCoupons)
-          }
+          initializeState={({ set }) => {
+            set(cartItemsState, mockCartItems);
+            mockIsCartItemSelecteds.forEach((isCartItemSelected) =>
+              set(
+                selectedCartItemsState(isCartItemSelected.id),
+                isCartItemSelected.boolean,
+              ),
+            );
+            cartQuantity.forEach((isCartItemSelected) =>
+              set(
+                cartItemQuantityState(isCartItemSelected.id),
+                isCartItemSelected.quantity,
+              ),
+            );
+          }}
         >
           {children}
         </RecoilRoot>
       ),
     });
-    expect(result.current.isCouponAvailable(mockCoupons[0])).toBe(false);
+    expect(result.current.applyCoupon(mockCoupons)).toBe(false);
   });
 
   //   it('주문 금액이 최소 주문 금액 이상이면 쿠폰 적용 가능', () => {

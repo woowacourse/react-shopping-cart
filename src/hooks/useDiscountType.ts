@@ -13,11 +13,11 @@ import {
 
 const useDiscountType = () => {
   const totalOrderAmount = useRecoilValue(totalOrderAmountSelector);
-  const [discountAmount, setDiscountAmount] = useState(totalOrderAmount);
-  const cartItemsBuyQuantity = useRecoilValue(selectedCartItemsSelector);
+  const selectedCartItems = useRecoilValue(selectedCartItemsSelector);
   const [_, setShippingFeeDiscount] = useRecoilState(
     isShippingFeeDiscountState,
   );
+  const [discountAmount, setDiscountAmount] = useState(totalOrderAmount);
 
   const fixedCouponApply = (discount: number) => {
     return (orderAmount: number) => orderAmount - discount;
@@ -34,7 +34,7 @@ const useDiscountType = () => {
    * 만약 buyQuantity+getQuantity 개 구매한 제품이 있다면 그 중 가장 비싼 제품의 * getQuantity 만큼 할인받는다.
    */
   const buyXgetYCouponApply = (buyQuantity: number, getQuantity: number) => {
-    const bulkCartItems = cartItemsBuyQuantity.filter((cartItem) => {
+    const bulkCartItems = selectedCartItems.filter((cartItem) => {
       const quantity = cartItem.quantity;
       return quantity >= buyQuantity + getQuantity;
     });
