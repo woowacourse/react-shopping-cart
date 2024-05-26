@@ -8,14 +8,13 @@ import PaymentInfo from '../common/TotalPaymentInfo/PaymentInfo';
 import ReadOnlyCartItemList from '../CartItemList/ReadOnlyCartItemList';
 import CouponApplication from '../CouponApplication/CouponApplication';
 import { useRecoilValue } from 'recoil';
-import { totaltotalSelector } from '../../recoil/coupons';
+import { finalCouponDiscountSelector } from '../../recoil/coupons';
 import { koMoneyFormat } from '../util/koMoneyFormat';
 import DeliveryInfo from '../DeliveryInfo/DeliveryInfo';
 
 const OrderConfirmationContainer = () => {
   const navigator = useNavigate();
-  const discount = useRecoilValue(totaltotalSelector);
-  //TODO: 네이밍 변경
+  const finalCouponDiscount = useRecoilValue(finalCouponDiscountSelector);
 
   return (
     <>
@@ -32,7 +31,7 @@ const OrderConfirmationContainer = () => {
           {
             <PaymentInfo
               label="쿠폰 할인 금액"
-              price={`${discount === 0 ? '' : '-'}${koMoneyFormat(discount)}`}
+              price={`${finalCouponDiscount === 0 ? '' : '-'}${koMoneyFormat(finalCouponDiscount)}`}
             />
           }
         </TotalPaymentInfo>

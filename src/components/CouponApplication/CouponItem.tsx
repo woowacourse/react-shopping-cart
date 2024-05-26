@@ -11,7 +11,7 @@ interface CouponItemProp {
   expirationDate: string;
   description: string;
   selectCoupon: (coupon: CouponCode) => void;
-  disable: boolean;
+  available: boolean;
   minimumAmount?: number;
   availableTime?: AvailableType;
 }
@@ -21,7 +21,7 @@ const CouponItem = ({
   couponCode,
   description,
   expirationDate,
-  disable,
+  available,
   minimumAmount,
   availableTime,
 }: CouponItemProp) => {
@@ -32,7 +32,7 @@ const CouponItem = ({
     selectCoupon(couponCode);
   };
   return (
-    <Styled.CouponItem disabled={disable}>
+    <Styled.CouponItem disabled={!available}>
       <Styled.CouponItemTitle>
         <CheckButton
           isSelected={couponApply}
