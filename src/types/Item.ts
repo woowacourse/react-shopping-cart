@@ -11,3 +11,9 @@ export interface Items {
   quantity: number;
   product: Item;
 }
+
+export interface ItemDetailsStateType {
+  quantity: number;
+  price: number;
+  isChecked: boolean;
+}

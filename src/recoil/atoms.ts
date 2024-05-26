@@ -1,12 +1,6 @@
 import { atom, atomFamily } from 'recoil';
-import { Items } from '../types/Item';
+import { ItemDetailsStateType, Items } from '../types/Item';
 import { Coupon } from '../types/Coupon';
-
-interface ItemDetailsStateType {
-  quantity: number;
-  price: number;
-  isChecked: boolean;
-}
 
 export const itemsState = atom<Items[]>({
   key: 'itemsState',
