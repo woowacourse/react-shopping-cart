@@ -34,7 +34,7 @@ function ItemList({ type }: ItemListProps) {
         />
       )}
       <S.CartItemListContainer>
-        {items &&
+        {items.length > 0 &&
           items.map((item: Items) => {
             return <ItemCard key={item.id} item={item} type={type} />;
           })}

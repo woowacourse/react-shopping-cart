@@ -45,8 +45,9 @@ function ItemCard({ item, type }: ItemProps) {
         setError(error as Error);
       }
     };
-
-    fetchData();
+    if (type === 'cart') {
+      fetchData();
+    }
   }, [details, item.id]);
 
   const handleDecreasedQuantity = () => {

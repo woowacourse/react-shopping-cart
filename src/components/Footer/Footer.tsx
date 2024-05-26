@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MESSAGES } from '../../constants/Messages';
 import * as S from './Footer.styled';
 
 interface FooterProps {

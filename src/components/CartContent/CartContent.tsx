@@ -1,27 +1,42 @@
-import React, { useEffect } from 'react';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import React, { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import TotalAmount from '../TotalAmount/TotalAmount';
 import ItemList from '../ItemList/ItemList';
 import Title from '../Title/Title';
-import { fetchItemsSelector } from '../../recoil/selectors';
 import { itemsState } from '../../recoil/atoms';
 import { MESSAGES, MESSAGES_PROPS } from '../../constants/Messages';
 import * as S from './CartContent.styled';
 import { getLocalStorage, updateLocalStorage } from '../../utils/LocalStorage';
+import { fetchItems } from '../../api';
 
 function CartContent() {
-  const fetchedItems = useRecoilValue(fetchItemsSelector);
   const [items, setItems] = useRecoilState(itemsState);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    setItems(fetchedItems);
+    const fetchData = async () => {
+      setError(null);
+
+      try {
+        const data = await fetchItems();
+        setItems(data);
+      } catch (error) {
+        setError(error as Error);
+      }
+    };
+    fetchData();
+
     const localStorageItems = getLocalStorage();
     if (!localStorageItems.length) {
-      fetchedItems.forEach((item) =>
+      items.forEach((item) =>
         updateLocalStorage({ id: item.id, isChecked: true }),
       );
     }
-  }, [fetchedItems]);
+  }, []);
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <S.CartContentContainer>
