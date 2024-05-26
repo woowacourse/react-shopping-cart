@@ -52,14 +52,14 @@ abstract class Coupon {
   }
 
   public isAvailable(amount: number): boolean {
-    if (this.checkIsExpired()) return false;
-    if (!this.checkIsAvailableTime()) return false;
-    if (!this.checkIsAboveMinimumAmount(amount)) return false;
+    if (this.isExpired()) return false;
+    if (!this.isAvailableTime()) return false;
+    if (!this.isAboveMinimumAmount(amount)) return false;
 
     return true;
   }
 
-  private checkIsExpired() {
+  private isExpired() {
     const today = new Date();
     const expiration = new Date(this.data.expirationDate);
 
@@ -68,7 +68,7 @@ abstract class Coupon {
     return today > expiration;
   }
 
-  private checkIsAvailableTime() {
+  private isAvailableTime() {
     const availableTime = this.data.availableTime;
     if (availableTime === undefined) return true;
 
@@ -83,7 +83,7 @@ abstract class Coupon {
     return false;
   }
 
-  private checkIsAboveMinimumAmount(amount: number) {
+  private isAboveMinimumAmount(amount: number) {
     const minimumAmount = this.data.minimumAmount;
     if (minimumAmount === undefined) return true;
     if (minimumAmount <= amount) return true;
