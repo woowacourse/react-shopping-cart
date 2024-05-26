@@ -73,9 +73,9 @@ abstract class Coupon {
     if (availableTime === undefined) return true;
 
     const now = new Date();
-    const hour = now.getHours();
-    const minute = now.getMinutes();
-    const second = now.getSeconds();
+    const hour = String(now.getHours()).padStart(2, "0");
+    const minute = String(now.getMinutes()).padStart(2, "0");
+    const second = String(now.getSeconds()).padStart(2, "0");
     const currentTime = [hour, minute, second].join(":");
 
     if (availableTime.start <= currentTime && currentTime <= availableTime.end) return true;
