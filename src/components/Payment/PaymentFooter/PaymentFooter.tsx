@@ -3,17 +3,19 @@
 import { useNavigate } from "react-router-dom";
 import { PaymentFooterStyle } from "./PaymentFooter.style";
 import { useSetRecoilState } from "recoil";
-import { cartState } from "../../../store/atom/atoms";
+import { cartState, remoteAreaState } from "../../../store/atom/atoms";
 import { fetchProducts } from "../../../store/api";
 
 const PaymentFooter = () => {
   const navigate = useNavigate();
 
   const setCartState = useSetRecoilState(cartState);
+  const setRemoteAreaState = useSetRecoilState(remoteAreaState);
 
   const handleClickReturnCart = async () => {
     const { content }: { content: CartItemInfo[] } = await fetchProducts();
     setCartState(content);
+    setRemoteAreaState(false);
 
     navigate("/");
   };
