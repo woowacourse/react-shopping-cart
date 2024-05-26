@@ -14,6 +14,8 @@ const basedMockedCoupon: CouponType = {
   discountType: "fixed",
 };
 
+const totalAmount = 0;
+
 describe("쿠폰 사용가능 여부 테스트", () => {
   beforeAll(() => {
     jest.useFakeTimers();
@@ -26,7 +28,7 @@ describe("쿠폰 사용가능 여부 테스트", () => {
 
     const coupon = new FixedCoupon(mockedCoupon);
 
-    expect(coupon.isAvailable(0)).toBe(false);
+    expect(coupon.isAvailable(totalAmount)).toBe(false);
   });
 
   it("특정 시간대에만 사용할 수 있는 쿠폰은 해당 시간대에만 사용할 수 있다", () => {
@@ -43,7 +45,7 @@ describe("쿠폰 사용가능 여부 테스트", () => {
 
     const coupon = new FixedCoupon(mockedCoupon);
 
-    expect(coupon.isAvailable(0)).toBe(true);
+    expect(coupon.isAvailable(totalAmount)).toBe(true);
     jest.restoreAllMocks();
   });
 
@@ -61,7 +63,7 @@ describe("쿠폰 사용가능 여부 테스트", () => {
 
     const coupon = new FixedCoupon(mockedCoupon);
 
-    expect(coupon.isAvailable(0)).toBe(false);
+    expect(coupon.isAvailable(totalAmount)).toBe(false);
     jest.restoreAllMocks();
   });
 
