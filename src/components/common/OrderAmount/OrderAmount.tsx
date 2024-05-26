@@ -1,9 +1,10 @@
 import { useRecoilValue } from 'recoil';
-import { shippingCostState, orderAmountState, totalAmountState } from '../../../recoil/selectors';
-import { InfoIcon } from '../../../assets';
-import { convertToLocaleAmount } from '../../../utils';
-import * as Styled from './OrderAmount.styled';
 import { discountAmountState } from '../../../recoil/atoms';
+import { shippingCostState, orderAmountState, totalAmountState } from '../../../recoil/selectors';
+import { convertToLocaleAmount } from '../../../utils';
+
+import * as Styled from './OrderAmount.styled';
+import InfoBox from '../InfoBox/InfoBox';
 
 interface OrderAmountProps {
   pageRoute: 'shoppingCart' | 'confirmOrder';
@@ -17,10 +18,10 @@ export default function OrderAmount({ pageRoute }: OrderAmountProps) {
 
   return (
     <div>
-      <Styled.ShippingInfoBox>
-        <img src={InfoIcon} alt="무료 배송 기준 메시지 아이콘" />총 주문 금액이 100,000원 이상일
-        경우 무료 배송됩니다.
-      </Styled.ShippingInfoBox>
+      <InfoBox
+        alt="무료 배송 기준 메시지 아이콘"
+        text="총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다."
+      />
 
       <Styled.OrderAmountContainer>
         <Styled.AmountItem>
