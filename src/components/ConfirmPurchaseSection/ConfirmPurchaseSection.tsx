@@ -2,7 +2,7 @@ import { useRecoilState } from 'recoil';
 
 import Text from '../common/Text/Text';
 import Title from '../common/Title/Title';
-import useModal from '../../hooks/useModal';
+import useModal from '../../hooks/components/useModal';
 import Spacer from '../common/Spacer/Spacer';
 import Button from '../common/Button/Button';
 import PriceTable from '../PriceTable/PriceTable';
