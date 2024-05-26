@@ -7,15 +7,13 @@ import { FailedFetchCouponListError } from '../../error/customError';
 
 const useCouponList = () => {
   const [couponList, setCouponList] = useRecoilState(couponListState);
-  const { setApiError, resetApiError } = useApiErrorState();
+  const { setApiError } = useApiErrorState();
 
   const fetchCouponList = async () => {
     if (couponList.length !== 0) return;
     try {
       const result = await requestCouponList();
       setCouponList(result);
-
-      resetApiError();
     } catch (error) {
       setApiError(new FailedFetchCouponListError());
     }

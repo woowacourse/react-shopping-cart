@@ -13,7 +13,7 @@ import {
 } from '../../error/customError';
 
 const useCartItemList = () => {
-  const { setApiError, resetApiError } = useApiErrorState();
+  const { setApiError } = useApiErrorState();
   const [cartItemList, setCartItemList] = useRecoilState(cartItemListState);
   const { unselectCartItem } = useSelectedCartItemId();
 
@@ -22,8 +22,6 @@ const useCartItemList = () => {
       await requestDeleteCartItem(cartItemId);
       setCartItemList(cartItemList.filter((item) => item.id !== cartItemId));
       unselectCartItem(cartItemId);
-
-      resetApiError();
     } catch (error) {
       setApiError(new FailedDeleteCartItemError());
     }
@@ -33,8 +31,6 @@ const useCartItemList = () => {
     try {
       const result = await requestCartItemList();
       setCartItemList(result);
-
-      resetApiError();
     } catch (error) {
       setApiError(new FailedFetchCartItemListError());
     }

@@ -6,7 +6,7 @@ import { FailedSetCartItemQuantityError } from '../../error/customError';
 import useApiErrorState from '../error/useApiErrorState';
 
 export const useCartItemQuantity = () => {
-  const { setApiError, resetApiError } = useApiErrorState();
+  const { setApiError } = useApiErrorState();
   const [cartItemList, setCartItemList] = useRecoilState(cartItemListState);
 
   const cartItemQuantity = (cartItemId: number) => {
@@ -31,8 +31,6 @@ export const useCartItemQuantity = () => {
     try {
       await requestSetCartItemQuantity(cartItemId, increasedQuantity);
       setCartItemList(newCartItemList);
-
-      resetApiError();
     } catch (error) {
       setApiError(new FailedSetCartItemQuantityError());
     }
@@ -54,8 +52,6 @@ export const useCartItemQuantity = () => {
     try {
       await requestSetCartItemQuantity(cartItemId, decreasedQuantity);
       setCartItemList(newCartItemList);
-
-      resetApiError();
     } catch (error) {
       setApiError(new FailedSetCartItemQuantityError());
     }
