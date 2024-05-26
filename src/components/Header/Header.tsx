@@ -3,7 +3,7 @@ import { SerializedStyles } from "@emotion/react";
 
 import { BackButtonStyle, HeaderStyle, ShopButtonStyle } from "./Header.style";
 
-import { HeaderRouteInfoContext, RoutePaths, RoutesObject } from "@/Providers/RouteInfoProvider";
+import { HeaderRouteInfoContext, RoutePaths, RoutesObject } from "@/Providers/RouteInfoProvider/RouteInfoProvider";
 import useCustomContext from "@/hooks/useCustomContext";
 
 import CustomLink from "../CustomLink/CustomLink";

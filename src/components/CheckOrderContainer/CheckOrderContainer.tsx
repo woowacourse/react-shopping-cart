@@ -2,7 +2,7 @@ import { useModalAction } from "easy-payments-ui";
 import { useLocation } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 
-import { MainRouteInfoContext, RoutePaths } from "@/Providers/RouteInfoProvider";
+import { MainRouteInfoContext, RoutePaths } from "@/Providers/RouteInfoProvider/RouteInfoProvider";
 import { SHIPPING_CONSTANT } from "@/constants";
 import useCouponCalculate from "@/hooks/useCouponCalculate";
 import useCustomContext from "@/hooks/useCustomContext";

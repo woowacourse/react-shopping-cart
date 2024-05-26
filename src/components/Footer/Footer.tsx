@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 
 import { FooterStyle } from "./Footer.style";
-import { FooterRouteInfoContext, RoutePaths } from "@/Providers/RouteInfoProvider";
+import { FooterRouteInfoContext, RoutePaths } from "@/Providers/RouteInfoProvider/RouteInfoProvider";
 import useCustomContext from "@/hooks/useCustomContext";
 import CustomLink from "../CustomLink/CustomLink";
 
