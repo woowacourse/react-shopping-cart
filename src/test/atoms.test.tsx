@@ -5,6 +5,7 @@ import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil';
 import mockCartItems from '../mocks/cartItems';
 import {
   cartItemsState,
+  couponsState,
   isApplyingCouponModalOpenState,
   isCartItemSelectedState,
   isCountrysideSelectedState,
@@ -12,21 +13,24 @@ import {
   isCouponSelectedState,
 } from '../recoil/atoms';
 import { act } from 'react';
-import mockIsCartItemsSelected from '../mocks/isCartItemsSelected';
+import mockIsCartItemSelecteds from '../mocks/isCartItemSelecteds';
+import { mockCoupons } from '../mocks/coupons';
 
 describe('atoms', () => {
-  it('테스트를 위한 cartItems 값은 mock 데이터로 설정한다.', () => {
-    const { result } = renderHook(() => useRecoilState(cartItemsState), {
-      wrapper: ({ children }) => (
-        <RecoilRoot
-          initializeState={({ set }) => set(cartItemsState, mockCartItems)}
-        >
-          {children}
-        </RecoilRoot>
-      ),
-    });
+  describe('cartItemsState', () => {
+    it('테스트를 위해 mock 데이터로 값을 설정한다.', () => {
+      const { result } = renderHook(() => useRecoilState(cartItemsState), {
+        wrapper: ({ children }) => (
+          <RecoilRoot
+            initializeState={({ set }) => set(cartItemsState, mockCartItems)}
+          >
+            {children}
+          </RecoilRoot>
+        ),
+      });
 
-    expect(result.current[0]).toEqual(mockCartItems);
+      expect(result.current[0]).toEqual(mockCartItems);
+    });
   });
 
   describe('isCartItemSelectedState', () => {
@@ -51,7 +55,7 @@ describe('atoms', () => {
           wrapper: ({ children }) => (
             <RecoilRoot
               initializeState={({ set }) => {
-                mockIsCartItemsSelected.forEach((mockIsCartItemsSelected) =>
+                mockIsCartItemSelecteds.forEach((mockIsCartItemsSelected) =>
                   set(
                     isCartItemSelectedState(mockIsCartItemsSelected.id),
                     mockIsCartItemsSelected.boolean,
@@ -67,7 +71,7 @@ describe('atoms', () => {
       expect(result.current.id1IsSelected).toBeTruthy();
       expect(result.current.id2IsSelected).toBeTruthy();
       expect(result.current.id3IsSelected).toBeTruthy();
-      expect(result.current.id4IsSelected).toBeFalsy();
+      expect(result.current.id4IsSelected).toBeTruthy();
       expect(result.current.id5IsSelected).toBeFalsy();
     });
 
@@ -129,6 +133,22 @@ describe('atoms', () => {
         result.current[1]((prevBoolean) => !prevBoolean);
       });
       expect(result.current[0]).toBe(false);
+    });
+  });
+
+  describe('couponsState', () => {
+    it('테스트를 위해 mock 데이터로 값을 설정한다.', () => {
+      const { result } = renderHook(() => useRecoilState(couponsState), {
+        wrapper: ({ children }) => (
+          <RecoilRoot
+            initializeState={({ set }) => set(couponsState, mockCoupons)}
+          >
+            {children}
+          </RecoilRoot>
+        ),
+      });
+
+      expect(result.current[0]).toEqual(mockCoupons);
     });
   });
 
