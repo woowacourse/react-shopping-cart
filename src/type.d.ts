@@ -20,10 +20,17 @@ interface CouponBase {
   discountType: string;
 }
 
-export interface FixedDiscountCoupon extends CouponBase {
+interface MinimumAmountCoupon extends CouponBase {
+  minimumAmount: number;
+}
+
+interface TimeCoupon extends CouponBase {
+  availableTime: { start: string; end: string };
+}
+
+export interface FixedDiscountCoupon extends MinimumAmountCoupon {
   discountType: 'fixed';
   discount: number;
-  minimumAmount: number;
 }
 
 export interface BuyXGetYCoupon extends CouponBase {
@@ -32,15 +39,13 @@ export interface BuyXGetYCoupon extends CouponBase {
   getQuantity: number;
 }
 
-export interface FreeShippingCoupon extends CouponBase {
+export interface FreeShippingCoupon extends MinimumAmountCoupon {
   discountType: 'freeShipping';
-  minimumAmount: number;
 }
 
-export interface PercentageDiscountCoupon extends CouponBase {
+export interface PercentageDiscountCoupon extends TimeCoupon {
   discountType: 'percentage';
   discount: number;
-  availableTime: { start: string; end: string };
 }
 
 export type Coupon =
