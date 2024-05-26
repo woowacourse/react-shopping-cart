@@ -2,8 +2,6 @@ import Layout from '../../layout';
 import Header from '../../components/Header';
 import BottomButton from '../../components/common/BottomButton';
 
-import { useNavigate } from 'react-router-dom';
-
 import * as S from './styles';
 import * as C from '../../components/commonStyles';
 
@@ -15,13 +13,14 @@ export default function ConfirmOrderPage() {
   // TODO: 실제로 확인 페이지는 서버에 전달된 정보와 같은 정보를 줘야 하지 않나?
   const { totalPrice, totalQuantity, numOfTypes } = useOrderInformation();
 
-  const navigate = useNavigate();
-
   return (
     <Layout
       header={<Header />}
       bottom={
-        <BottomButton onClick={() => navigate('/')} active={true}>
+        <BottomButton
+          onClick={() => (window.location.href = '/')}
+          active={true}
+        >
           장바구니로 돌아가기
         </BottomButton>
       }
