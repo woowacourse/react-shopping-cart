@@ -1,4 +1,4 @@
-import { cartListState, filteredCartItemState } from "@/store/atoms";
+import { cartListState, filteredCartItemState } from "@/store/atoms/atoms";
 import { deleteCartItem, patchCartItem } from "@/api/cartItem";
 
 import { useRecoilState } from "recoil";

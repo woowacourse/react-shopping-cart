@@ -1,4 +1,4 @@
-import { allSelectedState } from "@/store/selectors/allSelectedSelector";
+import { allSelectedState } from "@/store/selectors/selectedSelector/allSelectedSelector";
 import { useRecoilState } from "recoil";
 
 const useAllSelected = () => {

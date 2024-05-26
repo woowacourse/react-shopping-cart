@@ -2,7 +2,7 @@ import { FlexRow, WhiteSpace } from "@/style/common.style";
 
 import CartItem from "@/components/Cart/CartItem";
 import CheckBox from "@/components/common/CheckBox";
-import { cartListState } from "@/store/atoms";
+import { cartListState } from "@/store/atoms/atoms";
 import styled from "@emotion/styled";
 import useAllSelected from "@/hooks/useAllSelected";
 import { useRecoilValue } from "recoil";
