@@ -6,6 +6,11 @@ import { renderHook } from '@testing-library/react';
 
 import useCartItemList from './useCartItemList';
 import { cartItemListState } from '../../recoil/cartItem/atom';
+import useApiErrorState from '../error/useApiErrorState';
+import {
+  FailedDeleteCartItemError,
+  FailedFetchCartItemListError,
+} from '../../error/customError';
 
 jest.mock('../../apis/cartItemList', () => ({
   requestCartItemList: jest.fn(),
@@ -82,6 +87,41 @@ describe('useCartItemList', () => {
     expect(requestCartItemList).toHaveBeenCalled();
   });
 
+  it('fetchCartItemList가 실패할 경우 apiError 상태를 FailedFetchCartItemListError로 설정해야 한다.', async () => {
+    const useCustomHook = () => {
+      return { ...useCartItemList(), ...useApiErrorState() };
+    };
+    const { result } = renderHook(() => useCustomHook(), {
+      wrapper: ({ children }) => <RecoilRoot>{children}</RecoilRoot>,
+    });
+
+    const { requestCartItemList } = require('../../apis/cartItemList');
+    requestCartItemList.mockRejectedValueOnce(new Error('API Error'));
+
+    await act(async () => {
+      await result.current.fetchCartItemList();
+    });
+
+    expect(result.current.apiError).toBeInstanceOf(
+      FailedFetchCartItemListError,
+    );
+  });
+
+  it('fetchCartItemList가 성공할 경우 apiError 상태는 null로 유지되어야 한다.', async () => {
+    const useCustomHook = () => {
+      return { ...useCartItemList(), ...useApiErrorState() };
+    };
+    const { result } = renderHook(() => useCustomHook(), {
+      wrapper: ({ children }) => <RecoilRoot>{children}</RecoilRoot>,
+    });
+
+    await act(async () => {
+      await result.current.fetchCartItemList();
+    });
+
+    expect(result.current.apiError).toBe(null);
+  });
+
   it('cartItemList는 저장된 "카트 아이템 목록" 상태와 같은 값을 불러와야 한다.', () => {
     const { result } = renderHook(() => useCartItemList(), {
       wrapper: ({ children }) => (
@@ -154,5 +194,54 @@ describe('useCartItemList', () => {
     expect(requestDeleteCartItem).toHaveBeenCalledWith(
       MOCK_DEFAULT_VALUE[0].id,
     );
+  });
+
+  it('deleteCartItem이 실패할 경우 apiError 상태를 FailedDeleteCartItemError 설정해야 한다.', async () => {
+    const useCustomHook = () => {
+      return { ...useCartItemList(), ...useApiErrorState() };
+    };
+    const { result } = renderHook(() => useCustomHook(), {
+      wrapper: ({ children }) => (
+        <RecoilRoot
+          initializeState={({ set }) =>
+            set(cartItemListState, MOCK_DEFAULT_VALUE)
+          }
+        >
+          {children}
+        </RecoilRoot>
+      ),
+    });
+
+    const { requestDeleteCartItem } = require('../../apis/cartItemList');
+    requestDeleteCartItem.mockRejectedValueOnce(new Error('API Error'));
+
+    await act(async () => {
+      await result.current.deleteCartItem(MOCK_DEFAULT_VALUE[0].id);
+    });
+
+    expect(result.current.apiError).toBeInstanceOf(FailedDeleteCartItemError);
+  });
+
+  it('deleteCartItem가 성공할 경우 apiError 상태는 null로 유지되어야 한다.', async () => {
+    const useCustomHook = () => {
+      return { ...useCartItemList(), ...useApiErrorState() };
+    };
+    const { result } = renderHook(() => useCustomHook(), {
+      wrapper: ({ children }) => (
+        <RecoilRoot
+          initializeState={({ set }) =>
+            set(cartItemListState, MOCK_DEFAULT_VALUE)
+          }
+        >
+          {children}
+        </RecoilRoot>
+      ),
+    });
+
+    await act(async () => {
+      await result.current.deleteCartItem(MOCK_DEFAULT_VALUE[0].id);
+    });
+
+    expect(result.current.apiError).toBe(null);
   });
 });
