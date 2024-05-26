@@ -11,5 +11,7 @@ export const SubTitle = styled.h2`
 `;
 
 export const Description = styled.p`
+  font-weight: 500;
   font-size: 12px;
+  line-height: 18px;
 `;

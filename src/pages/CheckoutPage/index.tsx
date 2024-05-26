@@ -8,7 +8,7 @@ import {
   cartListNumberOfTypes,
   cartListTotalPrice,
   cartListTotalQuantity,
-} from '../../recoil/selectors';
+} from '../../recoil/cartItem';
 
 import { useNavigate } from 'react-router-dom';
 import { BackButton } from '../../components/Header/HeaderButton';

@@ -1,15 +1,17 @@
-import InfoIconSrc from '../../../assets/infoIcon.png';
+import InfoIconSrc from '../../assets/infoIcon.png';
 import * as S from './style';
-import * as C from '../../commonStyles';
+import * as C from '../commonStyles';
 
 interface CheckoutSummaryProps {
   totalPrice: number;
   shippingFee: number;
+  coupon?: number;
 }
 
 export default function CheckoutSummary({
   totalPrice,
   shippingFee,
+  coupon,
 }: CheckoutSummaryProps) {
   return (
     <S.Container>
@@ -25,6 +27,14 @@ export default function CheckoutSummary({
           <S.Label>주문 금액</S.Label>
           <C.Price>{totalPrice.toLocaleString()}원</C.Price>
         </S.PriceRow>
+
+        {coupon && (
+          <S.PriceRow>
+            <S.Label>쿠폰 할인 금액</S.Label>
+            <C.Price>{coupon}원</C.Price>
+          </S.PriceRow>
+        )}
+
         <S.PriceRow>
           <S.Label>배송비</S.Label>
           <C.Price>{shippingFee.toLocaleString()}원</C.Price>
@@ -35,7 +45,9 @@ export default function CheckoutSummary({
 
       <S.PriceRow>
         <S.Label>총 결제 금액</S.Label>
-        <C.Price>{(totalPrice + shippingFee).toLocaleString()}원</C.Price>
+        <C.Price>
+          {(totalPrice + shippingFee - (coupon ?? 0)).toLocaleString()}원
+        </C.Price>
       </S.PriceRow>
     </S.Container>
   );

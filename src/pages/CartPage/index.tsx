@@ -1,16 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
-import {
-  cartListState,
-  cartListTotalPrice,
-  shippingFee,
-} from '../../recoil/selectors';
 
 import Layout from '../../layout';
 import BlankCart from '../../components/BlankCart';
 import CartList from '../../components/CartList';
-import CheckoutSummary from '../../components/CartList/CheckoutSummary';
+import CheckoutSummary from '../../components/CheckoutSummary';
 import Header from '../../components/Header';
+import { HomeButton } from '../../components/Header/HeaderButton';
 import BottomButton from '../../components/common/BottomButton';
 import RecoilSuspense from '../../components/common/RecoilSuspense';
 import Fallback from '../../components/common/Fallback';
@@ -18,12 +14,17 @@ import LoadingSpinner from '../../components/common/LoadingSpinner';
 
 import * as C from '../commonStyles';
 import * as S from './styles';
-import { HomeButton } from '../../components/Header/HeaderButton';
+
+import {
+  cartListSelector,
+  shippingFeeSelector,
+  totalPriceSelector,
+} from '../../recoil';
 
 export default function CartPage() {
-  const cartList = useRecoilValueLoadable(cartListState);
-  const totalPrice = useRecoilValue(cartListTotalPrice);
-  const shipping = useRecoilValue(shippingFee);
+  const cartList = useRecoilValueLoadable(cartListSelector);
+  const totalPrice = useRecoilValue(totalPriceSelector);
+  const shippingFee = useRecoilValue(shippingFeeSelector);
   const navigate = useNavigate();
 
   const moveToConfirmPage = async () => {
@@ -60,7 +61,10 @@ export default function CartPage() {
             <S.CartListWrapper>
               <CartList items={cartList.contents} />
             </S.CartListWrapper>
-            <CheckoutSummary totalPrice={totalPrice} shippingFee={shipping} />
+            <CheckoutSummary
+              totalPrice={totalPrice}
+              shippingFee={shippingFee}
+            />
           </S.Wrapper>
         ) : (
           <BlankCart />
