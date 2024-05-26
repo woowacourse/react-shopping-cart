@@ -16,10 +16,7 @@ export const useDiscountCalculator = () => {
    * 고정값을 할인하는 쿠폰의 할인 금액 반환
    * @returns { number }
    */
-  const calculateFixedDiscount = (coupon: Coupon, totalAmount: number) => {
-    if (!isCouponApplicable(coupon, totalAmount)) {
-      return 0;
-    }
+  const calculateFixedDiscount = (coupon: Coupon) => {
     return coupon.discount ?? 0;
   };
 
@@ -28,9 +25,6 @@ export const useDiscountCalculator = () => {
    * @returns { number }
    */
   const calculatePercentageDiscount = (coupon: Coupon, totalAmount: number) => {
-    if (!isCouponApplicable(coupon, totalAmount)) {
-      return 0;
-    }
     return Math.floor((totalAmount * (coupon.discount ?? 0)) / 100);
   };
 
@@ -39,10 +33,7 @@ export const useDiscountCalculator = () => {
    * 여러 개 구매하는 상품 종류가 다수일 경우, 가장 큰 금액의 상품을 선택하여 계산
    * @returns { number }
    */
-  const calculateBuyXGetYDiscount = (coupon: Coupon, totalAmount: number) => {
-    if (!isCouponApplicable(coupon, totalAmount)) {
-      return 0;
-    }
+  const calculateBuyXGetYDiscount = (coupon: Coupon) => {
     const foundCoupon = findCouponByCode(coupon.code);
     if (!foundCoupon || foundCoupon.getQuantity === undefined) return 0;
     const getQuantity = foundCoupon.getQuantity;
@@ -61,13 +52,7 @@ export const useDiscountCalculator = () => {
    * remoteAreaState atom을 확인한 뒤 배송비 계산
    * @returns { number }
    */
-  const calculateDeliveryFeeDiscount = (
-    coupon: Coupon,
-    totalAmount: number,
-  ) => {
-    if (!isCouponApplicable(coupon, totalAmount)) {
-      return 0;
-    }
+  const calculateDeliveryFeeDiscount = (totalAmount: number) => {
     if (totalAmount >= DELIVERY.noDeliveryFeeStandard) {
       return 0;
     }
@@ -94,11 +79,11 @@ export const useDiscountCalculator = () => {
       case 'percentage':
         return calculatePercentageDiscount(coupon, totalAmount);
       case 'fixed':
-        return calculateFixedDiscount(coupon, totalAmount);
+        return calculateFixedDiscount(coupon);
       case 'buyXgetY':
-        return calculateBuyXGetYDiscount(coupon, totalAmount);
+        return calculateBuyXGetYDiscount(coupon);
       case 'freeShipping':
-        return calculateDeliveryFeeDiscount(coupon, totalAmount);
+        return calculateDeliveryFeeDiscount(totalAmount);
       default:
         return 0;
     }
