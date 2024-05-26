@@ -46,7 +46,6 @@ export default function CartItemContainer() {
               key={item.id}
               cartItemId={item.id}
               product={item.product}
-              quantity={item.quantity}
               onDelete={(cartItemId: number) => handleDeleteItem(cartItemId)}
             />
           );

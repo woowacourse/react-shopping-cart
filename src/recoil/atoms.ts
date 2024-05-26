@@ -1,4 +1,4 @@
-import { atom, atomFamily } from 'recoil';
+import { atom, atomFamily, selectorFamily } from 'recoil';
 import { CartItem, Coupon } from '../type';
 import { fetchCartItems } from '../apis';
 
@@ -13,7 +13,16 @@ export const cartItemsState = atom<CartItem[]>({
 
 export const itemQuantityState = atomFamily<number, number>({
   key: 'itemQuantityState',
-  default: 1,
+  default: selectorFamily({
+    key: 'itemQuantityState/Default',
+    get:
+      (params) =>
+      ({ get }) => {
+        const cartItems = get(cartItemsState);
+        const item = cartItems.find((cartItem: CartItem) => cartItem.id === params);
+        return item?.quantity ?? 1;
+      },
+  }),
 });
 
 export const checkedCartItemsState = atom<number[]>({

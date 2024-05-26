@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { CheckBox, DeleteItemButton } from '../../common';
@@ -15,18 +14,13 @@ import { ERROR_MESSAGE } from '../../../apis/constants/errorMessage';
 interface CartItemProps {
   cartItemId: number;
   product: Product;
-  quantity: number;
   onDelete: (cartItemId: number) => void;
 }
 
-export default function CartItem({ cartItemId, product, quantity, onDelete }: CartItemProps) {
+export default function CartItem({ cartItemId, product, onDelete }: CartItemProps) {
   const [itemQuantity, setItemQuantity] = useRecoilState(itemQuantityState(cartItemId));
   const { isChecked, onCheckCartItem } = useCheckCartItem();
   const { throwFetchError, resetFetchError } = useFetchError();
-
-  useEffect(() => {
-    setItemQuantity(quantity);
-  }, [quantity, setItemQuantity]);
 
   const toggleCheckBox = () => {
     onCheckCartItem(cartItemId, !isChecked(cartItemId));
