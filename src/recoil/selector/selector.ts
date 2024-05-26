@@ -1,6 +1,11 @@
 import { selector } from 'recoil';
-import { cartItemsState, selectedItemsState } from '../atoms/atoms';
+import {
+  cartItemsState,
+  previewSelectedCouponsState,
+  selectedItemsState,
+} from '../atoms/atoms';
 import { DELIVERY_INFO } from '../../constants/cart';
+import { calculateDiscountAmount } from '../../utils/calculateDiscountAmount';
 
 export const categoryCountState = selector<number>({
   key: 'categoryCountState',
@@ -72,5 +77,30 @@ export const totalPriceState = selector<number>({
     const orderPrice = get(orderPriceState);
     const deliveryPrice = get(deliveryPriceState);
     return orderPrice + deliveryPrice;
+  },
+});
+
+export const totalDiscountAmountState = selector<number>({
+  key: 'totalDiscountAmountState',
+  get: ({ get }) => {
+    const previewSelectedCoupons = get(previewSelectedCouponsState);
+    const { getCouponDiscountValueByType } = calculateDiscountAmount();
+
+    const percentageCoupons = previewSelectedCoupons.filter(
+      (coupon) => coupon.discountType === 'percentage',
+    );
+    const otherCoupons = previewSelectedCoupons.filter(
+      (coupon) => coupon.discountType !== 'percentage',
+    );
+    percentageCoupons.sort((a, b) => (b.discount || 0) - (a.discount || 0));
+
+    const sortedSelectedCoupons = [...percentageCoupons, ...otherCoupons];
+
+    const totalDiscountAmount = sortedSelectedCoupons.reduce(
+      (total, coupon) => total + getCouponDiscountValueByType(coupon),
+      0,
+    );
+
+    return totalDiscountAmount;
   },
 });
