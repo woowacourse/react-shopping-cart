@@ -10,12 +10,12 @@ export const useDiscountCalculator = () => {
     return coupon.discount ?? 0;
   };
 
-  const calculatePercentageDiscount = (coupon: Coupon, currentPrice: number) => {
-    return Math.floor((currentPrice * (coupon.discount ?? 0)) / 100);
-  };
-
   const calculateBuyXgetYDiscount = (coupon: Coupon) => {
     return Math.max(...checkedCartItems.map((item) => item.product.price)) * coupon.getQuantity;
+  };
+
+  const calculatePercentageDiscount = (coupon: Coupon, currentPrice: number) => {
+    return Math.floor((currentPrice * (coupon.discount ?? 0)) / 100);
   };
 
   const calculateFreeShippingDiscount = () => {
