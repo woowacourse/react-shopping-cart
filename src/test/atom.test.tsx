@@ -7,33 +7,9 @@ import {
   cartItemQuantityState,
   cartQuantity,
 } from '../recoil/atoms';
+import { MOCK_CART_ITEM } from '../constants/mock';
 
-export const mockCartItem = [
-  {
-    id: 111,
-    quantity: 1,
-    product: {
-      id: 1,
-      name: 'Product 1',
-      price: 100000,
-      imageUrl: '',
-      category: 'fashion',
-    },
-  },
-  {
-    id: 222,
-    quantity: 2,
-    product: {
-      id: 2,
-      name: 'Product 2',
-      price: 20000,
-      imageUrl: '',
-      category: 'fashion',
-    },
-  },
-];
-
-const mockCartQuantity = mockCartItem.reduce(
+const mockCartQuantity = MOCK_CART_ITEM.reduce(
   (acc, cur) => acc + cur.quantity,
   0,
 );
@@ -42,7 +18,9 @@ describe('cartData', () => {
   it('fetchCartItem API 호출을 통해 초기 장바구니 데이터를 정상적으로 불러온다.', () => {
     const { result } = renderHook(() => useRecoilValue(cartData), {
       wrapper: ({ children }) => (
-        <RecoilRoot initializeState={({ set }) => set(cartData, mockCartItem)}>
+        <RecoilRoot
+          initializeState={({ set }) => set(cartData, MOCK_CART_ITEM)}
+        >
           {children}
         </RecoilRoot>
       ),
@@ -72,7 +50,9 @@ describe('cartItemQuantityState', () => {
   it('개별 cartItem의 수량을 변경하면, 정상적으로 값이 업데이트 된다.', () => {
     const { result } = renderHook(() => useRecoilState(cartItemQuantityState), {
       wrapper: ({ children }) => (
-        <RecoilRoot initializeState={({ set }) => set(cartData, mockCartItem)}>
+        <RecoilRoot
+          initializeState={({ set }) => set(cartData, MOCK_CART_ITEM)}
+        >
           {children}
         </RecoilRoot>
       ),

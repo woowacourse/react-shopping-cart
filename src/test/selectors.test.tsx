@@ -5,7 +5,7 @@ import {
   calculateOrderPrice,
   checkedCartItems,
 } from '../recoil/selectors';
-import { mockCartItem } from './atom.test';
+import { MOCK_CART_ITEM } from '../constants/mock';
 import { cartData, cartItemCheckState } from '../recoil/atoms';
 
 describe('allCartItemsCheckState', () => {
@@ -16,7 +16,7 @@ describe('allCartItemsCheckState', () => {
         wrapper: ({ children }) => (
           <RecoilRoot
             initializeState={({ set }) => {
-              set(cartData, mockCartItem);
+              set(cartData, MOCK_CART_ITEM);
             }}
           >
             {children}
@@ -43,7 +43,7 @@ describe('checkedCartItems', () => {
       wrapper: ({ children }) => (
         <RecoilRoot
           initializeState={({ set }) => {
-            set(cartData, mockCartItem);
+            set(cartData, MOCK_CART_ITEM);
             set(cartItemCheckState(itemId), true);
           }}
         >
@@ -64,7 +64,7 @@ describe('calculateOrderPrice', () => {
       wrapper: ({ children }) => (
         <RecoilRoot
           initializeState={({ set }) => {
-            set(cartData, mockCartItem);
+            set(cartData, MOCK_CART_ITEM);
             set(cartItemCheckState(checkedItemId), true);
           }}
         >
@@ -88,7 +88,7 @@ describe('calculateOrderPrice', () => {
       wrapper: ({ children }) => (
         <RecoilRoot
           initializeState={({ set }) => {
-            set(cartData, mockCartItem);
+            set(cartData, MOCK_CART_ITEM);
             set(cartItemCheckState(checkedItemId), true);
           }}
         >
