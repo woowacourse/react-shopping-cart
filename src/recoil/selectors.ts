@@ -3,6 +3,7 @@ import { cartItemQuantityStates, cartItemPriceStates, checkedCartItemsState, use
 import { CartItemResponse } from "../types/ShoppingCart";
 import { fetchCartItems, fetchCoupons } from "../api/cartItem";
 import ORDER from "../constants/order";
+import convertToCouponDTO from "../utils/convertToCouponDTO";
 
 export const checkedCartItemsQuantityState = selector({
   key: "checkedCartItemsQuantityState",
@@ -96,6 +97,6 @@ export const getCoupons = selector({
   get: async () => {
     const coupons = await fetchCoupons();
 
-    return coupons;
+    return convertToCouponDTO(coupons);
   },
 });

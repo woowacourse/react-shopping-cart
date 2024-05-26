@@ -1,8 +1,7 @@
 import SERVER_URL from "../config/serverUrl";
-import { CouponInstances } from "../domain/coupons/AbstractCoupon";
+import { CouponType } from "../types/Coupon";
 import { CartItemResponse } from "../types/ShoppingCart";
 import { generateBasicToken } from "../utils/auth";
-import convertToCouponDTO from "../utils/convertToCouponDTO";
 
 export async function fetchCartItems(): Promise<CartItemResponse[]> {
   const token = generateBasicToken(SERVER_URL.userId, SERVER_URL.userPassword);
@@ -54,7 +53,7 @@ export async function deleteCartItem(itemId: number): Promise<void> {
   }
 }
 
-export async function fetchCoupons(): Promise<CouponInstances[]> {
+export async function fetchCoupons(): Promise<CouponType[]> {
   const token = generateBasicToken(SERVER_URL.userId, SERVER_URL.userPassword);
 
   const response = await fetch(`${SERVER_URL.apiUrl}/coupons`, {
@@ -67,7 +66,7 @@ export async function fetchCoupons(): Promise<CouponInstances[]> {
   }
 
   const data = await response.json();
-  return convertToCouponDTO(data);
+  return data;
 }
 
 export async function postOrders(cartItemIds: number[]): Promise<Pick<Response, "status">> {
