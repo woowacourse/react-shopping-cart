@@ -40,7 +40,5 @@ export const isCouponUsableTime = (coupon: Coupon, now: Date = getKoreanTime()) 
     endSeconds,
   );
 
-  if (now > endTime || now < startTime) return false;
-
-  return true;
+  return now <= endTime && now >= startTime;
 };
