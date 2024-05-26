@@ -9,7 +9,7 @@ import {
 import { getHHColonMMtoMinutes, iso8601ToDate } from './translateFormat';
 
 import getLastTimeDate from './getLastTimeDate';
-import getNowMinutes from './getNowMinutes';
+import getMinutes from './getNowMinutes';
 
 const checkIsAvailableFixedCoupon = (fixedCoupon: FixedDiscountCoupon, itemAmount: number) => {
   return itemAmount >= fixedCoupon.minimumAmount;
@@ -30,13 +30,16 @@ const checkIsAvailableFreeShippingCoupon = (
   return itemAmount >= freeShippingCoupon.minimumAmount;
 };
 
-const checkIsAvailablePercentageCoupon = (percentageCoupon: PercentageDiscountCoupon) => {
-  const nowMinutes = getNowMinutes();
+const checkIsAvailablePercentageCoupon = (
+  percentageCoupon: PercentageDiscountCoupon,
+  targetDate: Date = new Date(),
+) => {
+  const targetMinutes = getMinutes(targetDate);
   const couponStartMinutes = getHHColonMMtoMinutes(
     percentageCoupon.availableTime.start.slice(0, 5),
   );
   const couponEndMinutes = getHHColonMMtoMinutes(percentageCoupon.availableTime.end.slice(0, 5));
-  return couponStartMinutes <= nowMinutes && nowMinutes <= couponEndMinutes;
+  return couponStartMinutes <= targetMinutes && targetMinutes <= couponEndMinutes;
 };
 
 export default function checkIsAvailableCoupon(
