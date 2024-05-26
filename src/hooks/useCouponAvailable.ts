@@ -23,18 +23,8 @@ const useCouponAvailable = ({ coupon, date }: Props) => {
     const { availableTime } = coupon;
     if (!availableTime) return true;
 
-    const [startHour, startMinute, startSecond] = availableTime.start
-      .split(':')
-      .map(Number);
-    const [endHour, endMinute, endSecond] = availableTime.end
-      .split(':')
-      .map(Number);
-
-    const start = new Date(date);
-    start.setHours(startHour, startMinute, startSecond, 0);
-
-    const end = new Date(date);
-    end.setHours(endHour, endMinute, endSecond, 0);
+    const start = new Date(`${date.toDateString()} ${availableTime.start}`);
+    const end = new Date(`${date.toDateString()} ${availableTime.end}`);
 
     return date >= start && date <= end;
   };
