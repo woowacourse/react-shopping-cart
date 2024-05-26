@@ -1,11 +1,12 @@
+import { CART_MESSAGE } from "@/constants/message";
 import CartList from "@/components/Cart/CartList";
 import CartRecipe from "@/components/Cart/CartRecipe";
 import CartTitle from "@/components/Cart/CartTitle";
 import EmptyCart from "@/components/EmptyCart";
 import FullWidthButton from "@/components/common/Button/FullWidthButton";
 import Header from "@/components/Header.tsx";
-import { cartListState } from "@/store/atoms";
-import { recipeState } from "@/store/selectors/recipeSelector";
+import { cartListState } from "@/store/atoms/atoms";
+import { recipeState } from "@/store/selectors/recipeSelector/recipeSelector";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
@@ -24,7 +25,10 @@ const Cart = () => {
       {cartList.length ? (
         <>
           <StyledScrollBox>
-            <CartTitle />
+            <CartTitle
+              title="장바구니"
+              details={[CART_MESSAGE.totalProducts(cartList.length)]}
+            />
             <CartList />
           </StyledScrollBox>
           <StyledFixedBottom>
