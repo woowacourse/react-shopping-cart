@@ -26,6 +26,14 @@ export default function ConfirmOrderPage() {
     navigate(ENDPOINT.shoppingCart);
   };
 
+  const handleClickPaymentButton = () => {
+    navigate(ENDPOINT.confirmPayment, {
+      state: {
+        isFromOrderPage: true,
+      },
+    });
+  };
+
   return (
     <>
       <NavigationBar>
@@ -37,7 +45,7 @@ export default function ConfirmOrderPage() {
         <OrderContainer />
       </Styled.OrderContent>
 
-      <FooterButton type="button" buttonText="결제하기" disabled />
+      <FooterButton type="button" buttonText="결제하기" onClick={handleClickPaymentButton} />
     </>
   );
 }
