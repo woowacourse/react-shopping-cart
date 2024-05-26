@@ -4,9 +4,9 @@ import './reset.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import ENDPOINTS from './constants/endpoints';
-import OrderConfirmationPage from './page/OrderConfirmationPage/OrderConfirmationPage';
-import PaymentPage from './page/PaymentPage/PaymentPage';
-import ShoppingCartPage from './page/ShoppingCartPage/ShoppingCartPage';
+import OrderConfirmationPage from './components/page/OrderConfirmationPage/OrderConfirmationPage';
+import PaymentPage from './components/page/PaymentPage/PaymentPage';
+import ShoppingCartPage from './components/page/ShoppingCartPage/ShoppingCartPage';
 import { Suspense } from 'react';
 
 const router = createBrowserRouter([
