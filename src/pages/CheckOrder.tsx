@@ -1,54 +1,27 @@
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { cartItemsStates, checkedCartItemsState, userLiveInSigolStates } from "../recoil/atoms";
-import { checkedCartItemsQuantityState, getCartItems, getCoupons } from "../recoil/selectors";
+import { userLiveInSigolStates } from "../recoil/atoms";
 import Header from "../components/common/Header/index";
 import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../constants/styles";
 import PageTitle from "../components/common/PageTitle";
-import { useNavigate } from "react-router-dom";
 import CartItem from "../components/ShoppingCart/CartItem";
 import BasicButton from "../components/common/Button/BasicButton";
 import OrderSummary from "../components/ShoppingCart/OrderSummary";
 import CheckboxButton from "../components/common/Button/CheckboxButton";
 import { useState } from "react";
 import { Modal } from "darr-modal-components";
-import { ERROR_MESSAGE, SHOPPING_MESSAGE } from "../constants/messages";
+import { SHOPPING_MESSAGE } from "../constants/messages";
 import CouponList from "../components/Coupon/CouponList";
 import useCouponDiscount from "../hooks/useCouponDiscount";
 import FooterButton from "../components/common/FooterButton";
-import { postOrders } from "../api/cartItem";
-import PAGE_URL from "../constants/pageURL";
+import useCheckOrder from "../hooks/useCheckOrder";
 
 const CheckOrder = () => {
-  const fetchedCartItems = useRecoilValue(getCartItems);
-  const fetchedCoupons = useRecoilValue(getCoupons);
-  const checkedCartItems = useRecoilValue(checkedCartItemsState);
-  const checkedCartItemsQuantity = useRecoilValue(checkedCartItemsQuantityState);
-
+  const { couponLists, checkedCartItemList, totalOrderingDescription, postShoppingOrders } = useCheckOrder();
+  const { selectedCoupons, handleSelectCoupons, discountAmount } = useCouponDiscount();
   const [isSigol, setIsSigol] = useRecoilState(userLiveInSigolStates);
 
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
-  const { selectedCoupons, handleSelectCoupons, discountAmount } = useCouponDiscount();
-  const setCartItems = useSetRecoilState(cartItemsStates);
-  const router = useNavigate();
-
-  const postShoppingOrders = async () => {
-    if (!confirm("정말로 결제하겠습니까?")) return;
-
-    const res = await postOrders(checkedCartItems);
-    if (res.status === 201) {
-      router(PAGE_URL.CompleteOrder);
-      setCartItems((prevCartItems) => prevCartItems.filter((item) => !checkedCartItems.includes(item.id)));
-      return;
-    }
-
-    alert(ERROR_MESSAGE.paymentError);
-  };
-
-  const checkedCartItemList = fetchedCartItems.filter((item) => checkedCartItems.includes(item.id));
-  if (checkedCartItemList.length === 0) router(-1);
-
-  const description = SHOPPING_MESSAGE.orderDescription(checkedCartItems.length, checkedCartItemsQuantity);
 
   return (
     <>
@@ -59,7 +32,7 @@ const CheckOrder = () => {
           closeModal={() => setIsCouponModalOpen(false)}
           hasCloseButton={true}
         >
-          <CouponList selectedCoupons={selectedCoupons} coupons={fetchedCoupons} onClickCoupon={handleSelectCoupons} />
+          <CouponList selectedCoupons={selectedCoupons} coupons={couponLists} onClickCoupon={handleSelectCoupons} />
           <Modal.button
             size="large"
             buttonText={SHOPPING_MESSAGE.couponDiscountAmount(discountAmount)}
@@ -69,7 +42,7 @@ const CheckOrder = () => {
       )}
       <Header type="goBack" />
       <PageContainer>
-        <PageTitle title={SHOPPING_MESSAGE.confirmOrder} subTitle={description} />
+        <PageTitle title={SHOPPING_MESSAGE.confirmOrder} subTitle={totalOrderingDescription} />
         {checkedCartItemList.map((cartItem) => (
           <CartItem key={cartItem.id} id={cartItem.id} product={cartItem.product} cartItemType="readonly" />
         ))}
