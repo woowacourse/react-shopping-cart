@@ -7,7 +7,7 @@ export type AvailableType = {
 export interface CouponType {
   code: string;
   description: string;
-  discount: number;
+  discount?: number;
   discountType: DiscountType;
   expirationDate: string;
   id: number;
