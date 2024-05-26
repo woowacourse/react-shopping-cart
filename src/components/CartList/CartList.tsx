@@ -13,19 +13,14 @@ const CartList = () => {
   const selectedCartItems = useRecoilValue(selectedCartItemsState);
   const location = useLocation();
 
-  const [selectedList, setSelectedListState] =
-    useRecoilState(selectedListState);
-  const isAllSelected = cartItems.every((cartItem) =>
-    selectedList.includes(cartItem.id)
-  );
+  const [selectedList, setSelectedListState] = useRecoilState(selectedListState);
+  const isAllSelected = cartItems.every((cartItem) => selectedList.includes(cartItem.id));
 
   const handleSelectAllItem = (type: "turnOn" | "turnOff") => {
     if (type === "turnOn") {
       setSelectedListState(cartItems.map((cartItem) => cartItem.id));
     } else if (type === "turnOff") {
       setSelectedListState([]);
-    } else {
-      throw new Error("전체선택 버튼의 타입이 올바르지 않습니다.");
     }
   };
 
@@ -43,9 +38,7 @@ const CartList = () => {
       )}
 
       {location.pathname === "/" &&
-        cartItems.map((cartItem: CartItem) => (
-          <Cart key={cartItem.id} cartItem={cartItem} />
-        ))}
+        cartItems.map((cartItem: CartItem) => <Cart key={cartItem.id} cartItem={cartItem} />)}
       {location.pathname === "/order" &&
         selectedCartItems.map((cartItem: CartItem) => (
           <Cart key={cartItem.id} cartItem={cartItem} />

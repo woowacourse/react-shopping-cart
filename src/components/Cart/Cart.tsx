@@ -17,6 +17,7 @@ import {
 } from "./style";
 import { SmallText, LargeText } from "../common";
 import { useLocation } from "react-router-dom";
+import { MAIN_PAGE_PATH, ORDER_PAGE_PATH, PAYMENT_PAGE_PATH } from "../../constants/path";
 
 interface CardItemProps {
   cartItem: CartItem;
@@ -69,7 +70,7 @@ const CartItem = ({ cartItem: { id, product, quantity } }: CardItemProps) => {
 
   return (
     <Wrapper>
-      {location.pathname === "/" && (
+      {location.pathname === MAIN_PAGE_PATH && (
         <Header>
           {selectedList.includes(id) ? (
             <FilledCheckSvg onClick={handleToggleSelectItem} />
@@ -90,20 +91,14 @@ const CartItem = ({ cartItem: { id, product, quantity } }: CardItemProps) => {
             <LargeText>{product.price.toLocaleString("ko-KR")}</LargeText>
           </ItemInfo>
           <ItemQuantity>
-            {location.pathname === "/" && (
+            {location.pathname === MAIN_PAGE_PATH && (
               <>
-                <CountButton onClick={() => handleChangeItemQuantity(-1)}>
-                  -
-                </CountButton>
+                <CountButton onClick={() => handleChangeItemQuantity(-1)}>-</CountButton>
                 <SmallText>{quantity}</SmallText>
-                <CountButton onClick={() => handleChangeItemQuantity(1)}>
-                  +
-                </CountButton>
+                <CountButton onClick={() => handleChangeItemQuantity(1)}>+</CountButton>
               </>
             )}
-            {location.pathname === "/order" && (
-              <SmallText>{quantity}개</SmallText>
-            )}
+            {location.pathname === ORDER_PAGE_PATH && <SmallText>{quantity}개</SmallText>}
           </ItemQuantity>
         </ItemInfoWrapper>
       </Body>
