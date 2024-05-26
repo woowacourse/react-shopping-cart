@@ -6,7 +6,7 @@ export const AlertModalContentsText = styled.p<{ $textAlign: TextAlign }>`
   font-size: 16px;
   text-align: ${({ $textAlign }) => $textAlign};
   margin-top: 12px;
-  width: 90%;
+  width: 100%;
 `;
 
 export const AlertModalButton = styled.button`
