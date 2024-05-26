@@ -24,7 +24,6 @@ describe("상품 배송비 테스트", () => {
     });
 
     await waitFor(() => {
-      console.log(result.current);
       expect(result.current).toBe("basic");
     });
   });
@@ -45,7 +44,6 @@ describe("상품 배송비 테스트", () => {
     });
 
     await waitFor(() => {
-      console.log(result.current);
       expect(result.current).toBe("free");
     });
   });

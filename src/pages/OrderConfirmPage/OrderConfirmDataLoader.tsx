@@ -8,6 +8,8 @@ import BackButton from "@/components/_common/BackButton/BackButton";
 import { useNavigate } from "react-router-dom";
 import { CART_PAGE_MESSAGES } from "@/constants/cart";
 import { CartItem } from "@/types/cart";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorPage from "../Error/ErrorPage";
 
 const OrderConfirmDataLoader = () => {
   const cartItems = useRecoilValue(cartItemSelector);
@@ -38,11 +40,13 @@ const OrderConfirmDataLoader = () => {
       <MainLayout.Header>
         <BackButton onClick={onMoveCartPage} />
       </MainLayout.Header>
-      <MainLayout.Body fallback={<CartPageSkeleton />}>
-        {cartItem.length > 0 && (
-          <OrderConfirmPage selectedCartItems={selectedItems} />
-        )}
-      </MainLayout.Body>
+      <ErrorBoundary FallbackComponent={ErrorPage}>
+        <MainLayout.Body fallback={<CartPageSkeleton />}>
+          {cartItem.length > 0 && (
+            <OrderConfirmPage selectedCartItems={selectedItems} />
+          )}
+        </MainLayout.Body>
+      </ErrorBoundary>
     </MainLayout>
   );
 };

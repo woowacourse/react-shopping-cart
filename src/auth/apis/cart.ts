@@ -18,6 +18,27 @@ export async function getCartItems(): Promise<CartItem[]> {
   return data.content;
 }
 
+export async function postCartItem({
+  productId,
+  quantity,
+}: {
+  productId: number;
+  quantity: number;
+}) {
+  const response = await fetch(`${API_URL.cartItems}`, {
+    method: "POST",
+    headers: { Authorization: basicToken, "Content-Type": "application/json" },
+    body: JSON.stringify({ productId, quantity }),
+  });
+
+  if (!response.ok) {
+    throw new Error(ErrorMessage.failGetCartList);
+  }
+  const data = await response.json();
+
+  return data;
+}
+
 export async function patchCartItemQuantity(
   cartItemId: number,
   quantity: number

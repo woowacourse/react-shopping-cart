@@ -4,6 +4,7 @@ import { FlexCenter } from "@/styles/common";
 import { PAGE_URL } from "@/constants/url";
 import { useNavigate } from "react-router-dom";
 import TextBox from "@/components/_common/TextBox/TextBox";
+import MainLayout from "@/components/layout/MainLayout";
 
 const ErrorPage = ({ error }: { error: Error }) => {
   const navigate = useNavigate();
@@ -17,19 +18,24 @@ const ErrorPage = ({ error }: { error: Error }) => {
   };
 
   return (
-    <Wrapper>
-      <ErrorMessageBox> {error.message}</ErrorMessageBox>
+    <MainLayout>
+      <MainLayout.Header></MainLayout.Header>
+      <MainLayout.Body>
+        <Wrapper>
+          <ErrorMessageBox> {error.message}</ErrorMessageBox>
 
-      <Button
-        width="fit"
-        theme="dark"
-        radiusVariant="rounded"
-        size="large"
-        onClick={handleReload}
-      >
-        <TextBox type="xLarge" text="home" />
-      </Button>
-    </Wrapper>
+          <Button
+            width="fit"
+            theme="dark"
+            radiusVariant="rounded"
+            size="large"
+            onClick={handleReload}
+          >
+            <TextBox type="xLarge" text="home" />
+          </Button>
+        </Wrapper>
+      </MainLayout.Body>
+    </MainLayout>
   );
 };
 

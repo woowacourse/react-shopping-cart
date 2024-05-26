@@ -1,4 +1,4 @@
-import { useRecoilValue, useResetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { totalItemOrderCountSelector } from "@/recoil/orderInformation";
 
 import TitleSet from "@/components/_common/TitleSet/TitleSet";
@@ -16,21 +16,9 @@ import { PAGE_URL } from "@/constants/url";
 import MoreInfo from "@/components/_common/MoreInfo/MoreInfo";
 import { CAPTION, HEADER_TITLES } from "@/constants/titleAndCaption.ts";
 import { SHIPPING_MESSSAGES } from "@/constants/shippingInfo.ts";
-import useGetCartItems from "@/hooks/cart/useGetCartItems";
-import { couponsState } from "@/recoil/coupons";
-import { shippingFeeState } from "@/recoil/shippingFeeType";
-import { useEffect } from "react";
 import AllSelectCheckBox from "@/components/cart/AllSelectCheckBox/AllSelectCheckBox";
 
 const CartPage = () => {
-  const resetCoupons = useResetRecoilState(couponsState);
-  const resetShippingFee = useResetRecoilState(shippingFeeState);
-
-  useEffect(() => {
-    resetCoupons();
-    resetShippingFee();
-  }, []);
-
   const selectedItems = useRecoilValue(totalItemOrderCountSelector);
   const cartItemList = useRecoilValue(cartItemsState);
   const navigate = useNavigate();
@@ -38,9 +26,6 @@ const CartPage = () => {
   const onMoveOrderConfirmPage = () => {
     navigate(PAGE_URL.orderConfirm);
   };
-
-  const { getCartItems } = useGetCartItems();
-  getCartItems();
 
   return (
     <>
