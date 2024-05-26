@@ -5,8 +5,6 @@ import {
   cartItemsState,
   remoteShippingOptionState,
   discountAmountState,
-  appliedCouponIdsState,
-  couponsState,
 } from './atoms';
 import { CartItem } from '../type';
 
@@ -28,20 +26,6 @@ export const totalCheckedQuantityState = selector<number>({
       const quantity = get(itemQuantityState(item.id));
       return acc + quantity;
     }, 0);
-  },
-});
-
-export const freeShippingAppliedState = selector<boolean>({
-  key: 'freeShippingAppliedState',
-  get: ({ get }) => {
-    const coupons = get(couponsState);
-    const appliedCouponIds = get(appliedCouponIdsState);
-    const freeShippingCoupon = coupons.find((coupon) => coupon.discountType === 'freeShipping');
-
-    if (freeShippingCoupon) {
-      return appliedCouponIds.some((appliedCouponId) => appliedCouponId === freeShippingCoupon.id);
-    }
-    return false;
   },
 });
 
