@@ -10,8 +10,12 @@ const useCoupons = () => {
   const coupons = useRecoilValue(fetchedCouponsSelector);
   const { applyCoupon, getDiscountAmount } = useDiscountType();
 
-  const { selectCoupon, couponSelected, isDoubleCouponApplied } =
-    useSelectCoupon();
+  const {
+    selectCoupon,
+    couponSelected,
+    isDoubleCouponApplied,
+    resetSelectCoupon,
+  } = useSelectCoupon();
 
   const { isCouponAvailable } = useCouponAvailable();
 
@@ -40,6 +44,7 @@ const useCoupons = () => {
   });
 
   return {
+    resetSelectCoupon,
     getDiscountAmount,
     selectCoupon,
     isDoubleCouponApplied,

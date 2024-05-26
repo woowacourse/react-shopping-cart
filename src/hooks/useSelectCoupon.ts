@@ -29,7 +29,21 @@ const useSelectCoupon = () => {
     });
   };
 
-  return { selectCoupon, couponSelected, isDoubleCouponApplied };
+  const resetSelectCoupon = () => {
+    setCouponSelected({
+      FIXED5000: false,
+      BOGO: false,
+      FREESHIPPING: false,
+      MIRACLESALE: false,
+    });
+  };
+
+  return {
+    selectCoupon,
+    couponSelected,
+    isDoubleCouponApplied,
+    resetSelectCoupon,
+  };
 };
 
 export default useSelectCoupon;

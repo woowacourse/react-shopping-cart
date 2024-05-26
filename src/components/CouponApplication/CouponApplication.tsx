@@ -13,7 +13,7 @@ import useCoupons from '../../hooks/useCoupons';
 const CouponApplication = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const { getDiscountAmount, ...couponProps } = useCoupons();
+  const { getDiscountAmount, resetSelectCoupon, ...couponProps } = useCoupons();
 
   const shippingFee = useRecoilValue(shippingFeeSelector);
   const [shippingFeeDiscount, setShippingFeeDiscount] = useRecoilState(
@@ -25,6 +25,7 @@ const CouponApplication = () => {
 
   const modalClose = () => {
     setModalOpen(false);
+    resetSelectCoupon();
   };
 
   const clickConfirm = () => {
@@ -35,7 +36,7 @@ const CouponApplication = () => {
   return (
     <>
       {modalOpen && (
-        <Modal modalSize="S" setModalClose={modalClose}>
+        <Modal modalSize="S" setModalClose={clickConfirm}>
           <Modal.Header
             setModalClose={modalClose}
             title="쿠폰을 선택해 주세요"
