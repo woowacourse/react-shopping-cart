@@ -25,6 +25,23 @@ const isOverMinQuantityCoupon = (
   return checkoutProducts.some((product) => product.quantity >= minQuantity);
 };
 
+const isWithinAvailableTime = (coupon: CouponType): boolean => {
+  if (validateExpiration(coupon.expirationDate) === false) return false;
+  if (!coupon.availableTime) return false;
+  const { start, end } = coupon.availableTime;
+
+  const now = new Date();
+  const nowTime = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+
+  const [startHours, startMinutes, startSeconds] = start.split(':').map(Number);
+  const startTime = startHours * 3600 + startMinutes * 60 + startSeconds;
+
+  const [endHours, endMinutes, endSeconds] = end.split(':').map(Number);
+  const endTime = endHours * 3600 + endMinutes * 60 + endSeconds;
+
+  return nowTime >= startTime && nowTime <= endTime;
+};
+
 const useAvailableCouponList = () => {
   const { orderAmount } = useRecoilValue(totalOrderAmountState);
   const coupons = mockCoupons;
@@ -33,10 +50,10 @@ const useAvailableCouponList = () => {
   const checkoutProducts = products.filter((product) => isCheckedMap[product.id] === true);
 
   const availableCoupons = coupons.filter((coupon) => {
-    switch (coupon.discountType) {
-      case 'fixed':
+    switch (coupon.code) {
+      case 'FIXED5000':
         return isOverMinOrderAmountCoupon(orderAmount, coupon);
-      case 'buyXgetY':
+      case 'BOGO':
         if (coupon.buyQuantity !== undefined && coupon.getQuantity !== undefined) {
           return isOverMinQuantityCoupon(
             coupon,
@@ -45,7 +62,10 @@ const useAvailableCouponList = () => {
           );
         }
         return false;
-
+      case 'FREESHIPPING':
+        return isOverMinOrderAmountCoupon(orderAmount, coupon);
+      case 'MIRACLESALE':
+        return isWithinAvailableTime(coupon);
       default:
         return false;
     }
