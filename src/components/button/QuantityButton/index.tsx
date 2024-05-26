@@ -21,7 +21,8 @@ export const PlusButton = ({ max, quantity, onClick }: PlusButtonProps) => {
       onClick={onClick}
       disabled={isDisabled}
       $theme={isDisabled ? "disabled" : "white"}
-      $size="xs"
+      $width="24px"
+      $height="24px"
     >
       +
     </Button>
@@ -40,7 +41,8 @@ export const MinusButton = ({
       onClick={onClick}
       disabled={isDisabled}
       $theme={isDisabled ? "disabled" : "white"}
-      $size="xs"
+      $width="24px"
+      $height="24px"
     >
       -
     </Button>

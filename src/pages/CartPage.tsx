@@ -1,20 +1,23 @@
 import { Suspense } from "react";
+import { useNavigate } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 
-import {
-  CartDescription,
-  CartItemList,
-  Header,
-  Footer,
-  CartAmount,
-  Loading,
-} from "@/components/index";
-
-import CartLayout from "@/layouts/Cart";
-import HomeButton from "@/components/button/HomeButton";
+import PurchaseLayout from "@/layouts/PurchaseLayout";
+import { Header } from "@/components/index";
+import { HomeButton, NavigateButton } from "@/components/button";
+import CartContent from "@/components/shoppingCart/CartContent";
 import ErrorFallback from "@/components/_common/ErrorFallback";
+import Loading from "@/components/_common/Loading";
+
+import { ROUTE_PATH } from "@/constants/route";
 
 const CartPage = () => {
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    navigate(ROUTE_PATH.orderConfirm);
+  };
+
   return (
     <>
       <Header>
@@ -22,12 +25,13 @@ const CartPage = () => {
       </Header>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Suspense fallback={<Loading />}>
-          <CartLayout>
-            <CartDescription />
-            <CartItemList />
-            <CartAmount />
-          </CartLayout>
-          <Footer />
+          <PurchaseLayout title="장바구니">
+            <CartContent />
+          </PurchaseLayout>
+          <NavigateButton
+            buttonText="주문 확인"
+            onButtonClick={handleButtonClick}
+          />
         </Suspense>
       </ErrorBoundary>
     </>
