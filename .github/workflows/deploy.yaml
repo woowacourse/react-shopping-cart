@@ -2,7 +2,7 @@ name: 'react-shopping-cart 미션 배포'
 
 on:
   push:
-    branches: ['step1']
+    branches: ['step1', 'step2']
   workflow_dispatch:
 
 permissions:
