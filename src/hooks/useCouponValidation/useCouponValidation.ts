@@ -2,6 +2,7 @@ import { useRecoilValue } from "recoil";
 import { couponCheckedAtom } from "../../recoil/atom/atom";
 import { checkedCartItemsSelector, orderPriceSelector, shippingFeeSelector } from "../../recoil/selector/selector";
 import { Coupon } from "../../types/coupon";
+import { CHECKED_COUPONS_LENGTH } from "../../constants/setting";
 
 const useCouponValidation = () => {
   const checkedCartItems = useRecoilValue(checkedCartItemsSelector);
@@ -10,8 +11,7 @@ const useCouponValidation = () => {
   const checkedCoupons = useRecoilValue(couponCheckedAtom);
 
   const isCouponValid = (coupon: Coupon) => {
-    //TODO: 날짜 시간 다시 변경
-    if (new Date("2024-03-09 05:00:00") > new Date(coupon.expirationDate)) {
+    if (new Date() > new Date(coupon.expirationDate)) {
       return false;
     }
 
@@ -28,8 +28,7 @@ const useCouponValidation = () => {
     }
 
     if (coupon.availableTime) {
-      //TODO: 날짜 시간 다시 변경
-      const now = new Date("2024-03-09 05:00:00");
+      const now = new Date();
 
       const [startHour, startMinute, startSecond] = coupon.availableTime.start.split(":").map(Number);
       const [endHour, endMinute, endSecond] = coupon.availableTime.end.split(":").map(Number);
@@ -48,8 +47,7 @@ const useCouponValidation = () => {
       }
     }
 
-    // TODO: 2 상수화
-    if (checkedCoupons.length === 2) {
+    if (checkedCoupons.length === CHECKED_COUPONS_LENGTH) {
       if (!checkedCoupons.includes(coupon)) {
         return false;
       }
