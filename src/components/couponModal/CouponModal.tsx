@@ -2,11 +2,12 @@ import { Modal } from '@roqkftjs/react-payments-module';
 import CloseIcon from '../../assets/CloseIcon.png';
 import { Info } from '../common/info/Info';
 import { CouponItemList } from '../couponItemList/CouponItemList';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   finalSelectedCouponsState,
   previewSelectedCouponsState,
 } from '../../recoil/atoms/atoms';
+import { totalDiscountAmountState } from '../../recoil/selector/selector';
 export interface CouponModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -22,6 +23,8 @@ export const CouponModal: React.FC<CouponModalProps> = ({
   const [previewSelectedCoupons, setPreviewSelectedCoupons] = useRecoilState(
     previewSelectedCouponsState,
   );
+  const totalDiscountAmount = useRecoilValue(totalDiscountAmountState);
+
   if (!isOpen) return null;
 
   const handleCouponApply = () => {
@@ -56,7 +59,7 @@ export const CouponModal: React.FC<CouponModalProps> = ({
           style={{ fontWeight: 700 }}
           onClick={handleCouponApply}
         >
-          총 6,000원 할인 쿠폰 사용하기
+          총 {totalDiscountAmount.toLocaleString()}원 할인 쿠폰 사용하기
         </Modal.TextButton>
       </Modal.Footer>
     </Modal>
