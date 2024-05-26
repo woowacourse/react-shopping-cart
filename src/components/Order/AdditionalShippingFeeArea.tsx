@@ -1,39 +1,11 @@
 import { FlexColumn, FlexRow } from "@/style/common.style";
-import {
-  additionalShippingFeeAreaState,
-  discountAmountState,
-  selectedCouponsState,
-} from "@/store/atoms/atoms";
-import { useRecoilState, useRecoilValue } from "recoil";
 
-import { ADDITIONAL_SHIPPING_FEE } from "@/constants/system";
 import CheckBox from "../common/CheckBox";
 import styled from "@emotion/styled";
+import useAdditionalShippingFeeArea from "@/hooks/useAdditionalShippingFeeArea";
 
 const AdditionalShippingFeeArea = () => {
-  const [isSelected, setSelected] = useRecoilState(
-    additionalShippingFeeAreaState
-  );
-
-  const [discountAmount, setDiscountAmount] =
-    useRecoilState(discountAmountState);
-  const selectedCoupons = useRecoilValue(selectedCouponsState);
-
-  const handleClick = () => {
-    setSelected(!isSelected);
-
-    if (
-      !selectedCoupons.some((coupon) => coupon.discountType === "freeShipping")
-    ) {
-      return;
-    }
-
-    if (!isSelected) {
-      setDiscountAmount(discountAmount + ADDITIONAL_SHIPPING_FEE);
-    } else {
-      setDiscountAmount(discountAmount - ADDITIONAL_SHIPPING_FEE);
-    }
-  };
+  const { isSelected, handleSelect } = useAdditionalShippingFeeArea();
 
   return (
     <StyledWrapper>
@@ -42,7 +14,7 @@ const AdditionalShippingFeeArea = () => {
         <CheckBox
           id="AdditionalShippingFeeArea"
           isSelected={isSelected}
-          onClick={handleClick}
+          onClick={handleSelect}
         />
         <StyledCaption>{"제주도 및 도서 산간 지역"}</StyledCaption>
       </StyledCheckBoxWrapper>
