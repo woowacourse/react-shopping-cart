@@ -38,12 +38,14 @@ const CouponList = () => {
               <div>만료일: {coupon.expirationDate}</div>
             )}
             {coupon.minimumAmount && (
-              <div>최소 주문 금액: {coupon.minimumAmount}</div>
+              <div>
+                최소 주문 금액: {coupon.minimumAmount.toLocaleString("ko-KR")}원
+              </div>
             )}
             {coupon.availableTime && (
               <div>
-                사용 가능 시간: 오전{coupon.availableTime.start}부터
-                {coupon.availableTime.end}까지
+                {`사용 가능 시간: ${coupon.availableTime.start}부터 
+                ${coupon.availableTime.end}까지`}
               </div>
             )}
           </S.CouponBody>
