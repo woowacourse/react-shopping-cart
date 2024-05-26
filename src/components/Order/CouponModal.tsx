@@ -1,17 +1,13 @@
-import { discountAmountState, selectedCouponsState } from "@/store/atoms/atoms";
-import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-
 import { COUPON_MESSAGE } from "@/constants/message";
 import Coupon from "./Coupon";
-import { CouponType } from "@/types/coupon.type";
 import { FlexRow } from "@/style/common.style";
 import Info from "@/assets/Info.svg";
 import { MAX_APPLICABLE_COUPON } from "@/constants/system";
 import { Modal } from "hain-tain-components";
 import { couponState } from "@/store/selectors/dataFetchSelector/dataFetchSelector";
 import styled from "@emotion/styled";
-import useDiscountSimulator from "@/hooks/useDiscountSimulator";
+import useCouponModal from "@/hooks/useCouponModal";
+import { useRecoilValue } from "recoil";
 
 interface Props {
   isOpened: boolean;
@@ -20,29 +16,12 @@ interface Props {
 
 const CouponModal = ({ isOpened, closeModal }: Props) => {
   const coupons = useRecoilValue(couponState);
-  const [tempSelectedCoupons, setTempSelectedCoupons] = useState<CouponType[]>(
-    []
-  );
-  const { calculateDiscountAmount } = useDiscountSimulator();
-
-  const [selectedCoupons, setSelectedCoupons] =
-    useRecoilState(selectedCouponsState);
-  const setDiscountAmount = useSetRecoilState(discountAmountState);
-
-  const tempDiscount = tempSelectedCoupons.reduce((accAmount, curCoupon) => {
-    accAmount = accAmount + calculateDiscountAmount(curCoupon);
-    return accAmount;
-  }, 0);
-
-  const handleClick = () => {
-    setSelectedCoupons(tempSelectedCoupons);
-    setDiscountAmount(tempDiscount);
-    closeModal();
-  };
-
-  useEffect(() => {
-    setTempSelectedCoupons(selectedCoupons);
-  }, [isOpened]);
+  const {
+    tempSelectedCoupons,
+    setTempSelectedCoupons,
+    tempDiscount,
+    handleClick,
+  } = useCouponModal({ isOpened, closeModal });
 
   return (
     <Modal
