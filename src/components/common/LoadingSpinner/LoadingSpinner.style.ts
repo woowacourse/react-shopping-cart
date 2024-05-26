@@ -38,8 +38,7 @@ export const LoadingPageStyle = css({
   justifyContent: "center",
   alignItems: "center",
 
-  width: "100vw",
-  height: "100vh",
+  height: "100%",
   backgroundColor: "inherit",
 
   margin: "64px 0",

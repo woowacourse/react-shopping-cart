@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
-import { LoadingPageStyle, LoadingSpinnerContainerStyle } from "./LoadingPage.style";
+import { LoadingPageStyle, LoadingSpinnerContainerStyle } from "./LoadingSpinner.style";
 
-const LoadingPage = () => {
+const LoadingSpinner = () => {
   return (
     <div css={LoadingPageStyle}>
       <svg css={LoadingSpinnerContainerStyle} viewBox="25 25 50 50">
@@ -12,4 +12,4 @@ const LoadingPage = () => {
   );
 };
 
-export default LoadingPage;
+export default LoadingSpinner;
