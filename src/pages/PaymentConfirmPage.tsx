@@ -18,6 +18,11 @@ export default function PaymentConfirmPage() {
   const cartCount = orderProduct.length;
   const { totalPrice } = useRecoilValue(calculateOrderPrice);
 
+  const goToCartPage = () => {
+    navigate(PATH.CartPage);
+    window.location.reload();
+  };
+
   return (
     <div id="payment-confirm-page">
       <Header />
@@ -32,7 +37,7 @@ export default function PaymentConfirmPage() {
       </PC.PaymentConfirmPageStyle>
       <FloatingButton
         text="장바구니로 돌아가기"
-        onClick={() => navigate(PATH.CartPage)}
+        onClick={() => goToCartPage()}
       />
     </div>
   );
