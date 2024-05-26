@@ -9,7 +9,7 @@ export const mockCoupons: Coupon[] = [
     discountType: 'fixed',
     minimumAmount: 100000,
     expirationDate: '2024-11-30',
-    isChecked: true,
+    isChecked: false,
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ export const mockCoupons: Coupon[] = [
     buyQuantity: 2,
     getQuantity: 1,
     expirationDate: '2024-04-30',
-    isChecked: true,
+    isChecked: false,
   },
   {
     id: 3,
