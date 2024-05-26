@@ -2,59 +2,72 @@ import * as Styled from './style';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useRecoilValue } from 'recoil';
-
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import {
+  cartItemIdsSelector,
   cartItemsCountSelector,
+  isAllCartItemSelectedSelectorFamily,
   isSomeCartItemSelectedSelector,
+  selectedCartItemIdsSelector,
 } from '../../recoil/selectors';
+import { cartItemsState } from '../../recoil/atoms';
 
-import MESSAGE from '../../constants/Message';
+import fetchPostOrders from '../../api/orders';
+import { fetchGetCartItems } from '../../api/shoppingCart';
+import {
+  generateButtonLabel,
+  generateNextPageNavigatorPath,
+} from '../../utils/utils';
+
 import CONDITION from '../../constants/Condition';
 
 const OrderButton = () => {
+  const setCartItems = useSetRecoilState(cartItemsState);
+  const cartItemIds = useRecoilValue(cartItemIdsSelector);
   const cartItemsCount = useRecoilValue(cartItemsCountSelector);
   const isSomeCartItemSelected = useRecoilValue(isSomeCartItemSelectedSelector);
+  const selectedCartItemIds = useRecoilValue(selectedCartItemIdsSelector);
+  const setIsAllCatItemsSelected = useSetRecoilState(
+    isAllCartItemSelectedSelectorFamily(cartItemIds),
+  );
 
   const hasSomeCartItem = !!cartItemsCount;
   const isOrderable = hasSomeCartItem && isSomeCartItemSelected;
 
-  const location = useLocation();
+  const page = useLocation().pathname;
   const navigator = useNavigate();
 
-  const label = () => {
-    switch (location.pathname) {
-      case CONDITION.shoppingCartPage:
-        return MESSAGE.orderConfirmation;
-      case CONDITION.orderConfirmationPage:
-        return MESSAGE.pay;
-      case CONDITION.paymentConfirmationPage:
-        return MESSAGE.returningToShoppingCart;
-      default:
-        return '';
-    }
+  const resetShoppingCartPage = async () => {
+    setCartItems(await fetchGetCartItems());
+    setIsAllCatItemsSelected(true);
   };
 
-  const navigatorPath = () => {
-    switch (location.pathname) {
-      case CONDITION.shoppingCartPage:
-        return CONDITION.orderConfirmationPage;
-      case CONDITION.orderConfirmationPage:
-        return CONDITION.paymentConfirmationPage;
-      case CONDITION.paymentConfirmationPage:
-        return CONDITION.shoppingCartPage;
-      default:
-        return CONDITION.shoppingCartPage;
+  const handleOnClick = async () => {
+    if (page === CONDITION.orderConfirmationPage) {
+      try {
+        await fetchPostOrders(selectedCartItemIds);
+      } catch (error) {
+        console.error(error);
+      }
     }
+    if (page === CONDITION.paymentConfirmationPage) {
+      try {
+        await resetShoppingCartPage();
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    navigator(generateNextPageNavigatorPath(page));
   };
 
   return (
     <Styled.OrderButton
-      onClick={() => navigator(navigatorPath())}
+      onClick={handleOnClick}
       $isOrderable={isOrderable}
       disabled={!isOrderable}
     >
-      {label()}
+      {generateButtonLabel(page)}
     </Styled.OrderButton>
   );
 };
