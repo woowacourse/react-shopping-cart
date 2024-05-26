@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from 'react';
+import { lazy, Suspense } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -7,23 +7,20 @@ import Header from '../components/Header/Header';
 import Button from '../components/common/Button/Button';
 import useCartItemList from '../hooks/cartItem/useCartItemList';
 import ErrorFallback from '../components/ErrorFallback/ErrorFallback';
-import LoadingFallback from '../components/LoadingFallback/LoadingFallback';
-import CartItemListSection from '../components/CartItemListSection/CartItemListSection';
-import { useSelectedCartItemIdList } from '../hooks/cartItem/useSelectedCartItemIdList';
 import useAddCartItemsForTest from '../hooks/test/useAddCartItemsForTest';
+import LoadingFallback from '../components/LoadingFallback/LoadingFallback';
+import { useSelectedCartItemIdList } from '../hooks/cartItem/useSelectedCartItemIdList';
+
+const CartItemListSection = lazy(
+  () => import('../components/CartItemListSection/CartItemListSection'),
+);
 
 const CartPage = () => {
-  const { cartItemList, fetchCartItemList } = useCartItemList();
+  const { cartItemList } = useCartItemList();
   const { selectedIdList } = useSelectedCartItemIdList();
   const { addCartItemsForTest } = useAddCartItemsForTest();
-  const { unselectAll } = useSelectedCartItemIdList();
+
   const navigate = useNavigate();
-
-  useEffect(() => {
-    fetchCartItemList();
-    unselectAll();
-  }, []);
-
   return (
     <>
       <Header />

@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 
 import { ErrorBoundary } from 'react-error-boundary';
 import { CustomModal } from 'woowacourse-todari-components';
@@ -6,7 +6,10 @@ import { CustomModal } from 'woowacourse-todari-components';
 import useDiscount from '../../hooks/price/useDiscount';
 import ErrorFallback from '../ErrorFallback/ErrorFallback';
 import LoadingFallback from '../LoadingFallback/LoadingFallback';
-import SelectCouponModalSection from '../SelectCouponModalSection/SelectCouponModalSection';
+
+const SelectCouponModalSection = lazy(
+  () => import('../SelectCouponModalSection/SelectCouponModalSection'),
+);
 
 interface SelectCouponModalProps {
   modalOpened: boolean;

@@ -4,9 +4,17 @@ import * as S from './CartItemListSection.style';
 import PriceTable from '../PriceTable/PriceTable';
 import CartItemList from '../CartItemList/CartItemList';
 import useCartItemList from '../../hooks/cartItem/useCartItemList';
+import { useEffect } from 'react';
+import { useSelectedCartItemIdList } from '../../hooks/cartItem/useSelectedCartItemIdList';
 
 const CartItemListSection = () => {
-  const { cartItemList } = useCartItemList();
+  const { cartItemList, fetchCartItemList } = useCartItemList();
+  const { unselectAll } = useSelectedCartItemIdList();
+
+  useEffect(() => {
+    fetchCartItemList();
+    unselectAll();
+  }, []);
 
   return (
     <S.CartItemListSection>
