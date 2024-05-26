@@ -1,27 +1,42 @@
 import { useRecoilState } from 'recoil';
 import { Modal } from '@jaymyong66/simple-modal';
-import { couponStatusState, mockCoupons } from '../../../../store/atoms';
+import { activeCouponsState, couponSelectedState, mockCoupons } from '../../../../store/atoms';
 import NoticeLabel from '../../../../components/common/NoticeLabel/NoticeLabel';
 import CouponItem from './CouponItem';
 import styles from './CouponModal.module.css';
+import { CouponType } from '../../../../types';
 
 interface Props {
   isOpen: boolean;
   handleToggle: () => void;
 }
 
+const findCouponByCode = (code: string) => {
+  return mockCoupons.find((coupon) => coupon.code === code) as CouponType;
+};
+
 export default function CouponModal({ isOpen, handleToggle }: Props) {
-  const [couponChecked, setCouponChecked] = useRecoilState(couponStatusState);
+  const [couponSelected, setCouponSelected] = useRecoilState(couponSelectedState);
+  const [activeCoupons, setActiveCoupons] = useRecoilState(activeCouponsState);
 
   const handleToggleCouponCheckbox = (code: string) => {
-    const newCheckCoupon = {
-      ...couponChecked,
-      [code]: {
-        checked: !couponChecked[code].checked,
-        isAvailable: couponChecked[code].isAvailable,
-      },
+    const newCheckedState = !couponSelected[code];
+
+    if (newCheckedState === true && activeCoupons.length >= 2) return;
+
+    const newCouponSelected = {
+      ...couponSelected,
+      [code]: newCheckedState,
     };
-    setCouponChecked(newCheckCoupon);
+    setCouponSelected(newCouponSelected);
+
+    if (newCheckedState) {
+      const newActiveCoupons = [...activeCoupons, findCouponByCode(code)];
+      setActiveCoupons(newActiveCoupons);
+    } else {
+      const newActiveCoupons = activeCoupons.filter((coupon) => coupon.code !== code);
+      setActiveCoupons(newActiveCoupons);
+    }
   };
 
   return (
@@ -38,18 +53,16 @@ export default function CouponModal({ isOpen, handleToggle }: Props) {
 
       <Modal.ModalContent className={styles.couponModalContentContainer}>
         <NoticeLabel>쿠폰은 최대 2개까지 사용할 수 있습니다.</NoticeLabel>
-        {mockCoupons.map((coupon, idx) => {
+        {mockCoupons.map((coupon) => {
           return (
-            <>
-              <CouponItem
-                key={`coupon-${idx}`}
-                coupon={coupon}
-                isChecked={couponChecked[coupon.code].checked}
-                onChange={() => {
-                  handleToggleCouponCheckbox(coupon.code);
-                }}
-              />
-            </>
+            <CouponItem
+              key={coupon.code}
+              coupon={coupon}
+              isChecked={couponSelected[coupon.code]}
+              onChange={() => {
+                handleToggleCouponCheckbox(coupon.code);
+              }}
+            />
           );
         })}
       </Modal.ModalContent>
