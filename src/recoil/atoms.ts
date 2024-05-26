@@ -1,5 +1,6 @@
 import { atom } from 'recoil';
 import { KEY, ORDER } from '../constants/constants';
+import { Coupon } from '../api/get/getCoupons';
 import syncWithLocalStorage from '../utils/syncWithLocalStorage';
 
 export interface SelectedCartItem {
@@ -37,4 +38,24 @@ export const shippingFeeState = atom<ShippingFee>({
     isFree: false,
     shipping: ORDER.BASIC_SHIPPING_FEE,
   },
+});
+
+export const selectedCoupons = atom<Coupon[]>({
+  key: KEY.SELECTED_COUPONS,
+  default: [],
+});
+
+export const modalDiscountState = atom<number>({
+  key: KEY.MODAL_DISCOUNT,
+  default: 0,
+});
+
+export const orderDiscountState = atom<number>({
+  key: KEY.ORDER_DISCOUNT,
+  default: 0,
+});
+
+export const specialAreaState = atom<boolean>({
+  key: KEY.SPECIAL_AREA_STATE,
+  default: false,
 });
