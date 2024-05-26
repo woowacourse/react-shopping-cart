@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { MESSAGES } from '../../constants/Messages';
 import CouponModalCard from '../CouponModalCard/CouponModalCard';
@@ -7,12 +7,23 @@ import { useOrderCalculator } from '../../hooks/useOrderCalculator';
 import { useCouponChecker } from '../../hooks/useCouponChecker';
 import { useUpdateSelectedCoupons } from '../../hooks/useUpdateSelectedCoupons';
 import { useCouponApplicabilityChecker } from '../../hooks/useCouponApplicabilityChecker';
+import { fetchCouponsSelector } from '../../recoil/selectors';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { couponsState } from '../../recoil/atoms';
 
 interface CouponModalContentProps {
   toggleModal: () => void;
 }
 
 function CouponModalContent({ toggleModal }: CouponModalContentProps) {
+  const fetchedCoupons = useRecoilValue(fetchCouponsSelector);
+  const setCoupons = useSetRecoilState(couponsState);
+  useEffect(() => {
+    setCoupons(
+      fetchedCoupons.map((coupon) => ({ ...coupon, isChecked: false })),
+    );
+  }, [fetchedCoupons]);
+
   const { coupons, toggleCouponCheck, getCheckedCount } = useCouponChecker();
   const { calculateDiscountWithCoupon } = useOrderCalculator();
   const { updateSelectedCoupons } = useUpdateSelectedCoupons();

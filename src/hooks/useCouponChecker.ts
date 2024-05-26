@@ -1,17 +1,8 @@
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { fetchCouponsSelector } from '../recoil/selectors';
+import { useRecoilState } from 'recoil';
 import { couponsState } from '../recoil/atoms';
-import { useEffect } from 'react';
 
 export const useCouponChecker = () => {
-  const fetchedCoupons = useRecoilValue(fetchCouponsSelector);
   const [coupons, setCoupons] = useRecoilState(couponsState);
-
-  useEffect(() => {
-    setCoupons(
-      fetchedCoupons.map((coupon) => ({ ...coupon, isChecked: false })),
-    );
-  }, [fetchedCoupons]);
 
   /**
    *  isChecked 상태를 토글
