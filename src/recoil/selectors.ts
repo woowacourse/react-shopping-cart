@@ -1,17 +1,20 @@
 import { selector } from 'recoil';
 import {
-  checkedCartItemsState,
+  checkedCartItemIdsState,
   itemQuantityState,
   cartItemsState,
   remoteShippingOptionState,
+  discountAmountState,
+  appliedCouponIdsState,
+  couponsState,
 } from './atoms';
 import { CartItem } from '../type';
 
-export const totalCheckedCartItemsState = selector<CartItem[]>({
-  key: 'totalCheckedCartItemsState',
+export const checkedCartItemsState = selector<CartItem[]>({
+  key: 'checkedCartItemsState',
   get: ({ get }) => {
     const cartItems = get(cartItemsState);
-    const checkedItemIds = get(checkedCartItemsState);
+    const checkedItemIds = get(checkedCartItemIdsState);
 
     return cartItems.filter((item) => checkedItemIds.includes(item.id));
   },
@@ -20,37 +23,43 @@ export const totalCheckedCartItemsState = selector<CartItem[]>({
 export const totalCheckedQuantityState = selector<number>({
   key: 'totalCheckedQuantityState',
   get: ({ get }) => {
-    const cartItems = get(cartItemsState);
-    const checkedItemIds = get(checkedCartItemsState);
+    const checkedCartItems = get(checkedCartItemsState);
+    return checkedCartItems.reduce((acc, item) => {
+      const quantity = get(itemQuantityState(item.id));
+      return acc + quantity;
+    }, 0);
+  },
+});
 
-    return cartItems
-      .filter((item) => checkedItemIds.includes(item.id))
-      .reduce((acc, item) => {
-        const quantity = get(itemQuantityState(item.id));
-        return acc + quantity;
-      }, 0);
+export const freeShippingAppliedState = selector<boolean>({
+  key: 'freeShippingAppliedState',
+  get: ({ get }) => {
+    const coupons = get(couponsState);
+    const appliedCouponIds = get(appliedCouponIdsState);
+    const freeShippingCoupon = coupons.find((coupon) => coupon.discountType === 'freeShipping');
+
+    if (freeShippingCoupon) {
+      return appliedCouponIds.some((appliedCouponId) => appliedCouponId === freeShippingCoupon.id);
+    }
+    return false;
   },
 });
 
 export const orderAmountState = selector<number>({
   key: 'orderAmountState',
   get: ({ get }) => {
-    const cartItems = get(cartItemsState);
-    const checkedItemIds = get(checkedCartItemsState);
-
-    return cartItems
-      .filter((item) => checkedItemIds.includes(item.id))
-      .reduce((acc, item) => {
-        const quantity = get(itemQuantityState(item.id));
-        return acc + item.product.price * quantity;
-      }, 0);
+    const checkedCartItems = get(checkedCartItemsState);
+    return checkedCartItems.reduce((acc, item) => {
+      const quantity = get(itemQuantityState(item.id));
+      return acc + item.product.price * quantity;
+    }, 0);
   },
 });
 
 export const shippingCostState = selector<number>({
   key: 'shippingCostState',
   get: ({ get }) => {
-    const checkedItemIds = get(checkedCartItemsState);
+    const checkedItemIds = get(checkedCartItemIdsState);
     const orderAmount = get(orderAmountState);
     const isRemoteShipping = get(remoteShippingOptionState);
 
@@ -65,8 +74,9 @@ export const totalAmountState = selector<number>({
   key: 'totalAmountState',
   get: ({ get }) => {
     const orderAmount = get(orderAmountState);
+    const discountAmount = get(discountAmountState);
     const shippingCost = get(shippingCostState);
 
-    return orderAmount + shippingCost;
+    return orderAmount + shippingCost - discountAmount;
   },
 });

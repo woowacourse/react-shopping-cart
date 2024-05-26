@@ -1,6 +1,7 @@
 import { renderHook, act } from '@testing-library/react';
 import { DefaultValue, RecoilRoot, RecoilState } from 'recoil';
-import { cartItemsState, checkedCartItemsState } from '../recoil/atoms';
+import { cartItemsState, checkedCartItemIdsState } from '../recoil/atoms';
+
 import useCheckCartItem from '../hooks/useCheckCartItem';
 import mockCartItems from './data/mockCartItems';
 
@@ -9,7 +10,7 @@ type RecoilStateSetType = <T>(atom: RecoilState<T>, value: T | DefaultValue) => 
 describe('useCheckCartItem', () => {
   const initializeState = ({ set }: { set: RecoilStateSetType }) => {
     set(cartItemsState, mockCartItems);
-    set(checkedCartItemsState, []);
+    set(checkedCartItemIdsState, []);
   };
 
   it('만약 장바구니에 처음 진입한 상태이며 localStorage에 어떠한 정보도 남아있지 않다면, 장바구니의 모든 상품들은 체크가 해제된 상태여야 한다.', () => {

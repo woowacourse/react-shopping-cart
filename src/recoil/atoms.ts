@@ -25,8 +25,8 @@ export const itemQuantityState = atomFamily<number, number>({
   }),
 });
 
-export const checkedCartItemsState = atom<number[]>({
-  key: 'checkedCartItemsState',
+export const checkedCartItemIdsState = atom<number[]>({
+  key: 'checkedCartItemIdsState',
   default: JSON.parse(localStorage.getItem(STORAGE.checkedCartItems) ?? '[]') ?? [],
   effects: [localStorageEffect(STORAGE.checkedCartItems)],
 });
@@ -54,8 +54,8 @@ export const couponsState = atom<Coupon[]>({
   default: fetchCoupons(),
 });
 
-export const checkedCouponIdsState = atom<number[]>({
-  key: 'checkedCouponIdsState',
+export const appliedCouponIdsState = atom<number[]>({
+  key: 'appliedCouponIdsState',
   default: [],
 });
 

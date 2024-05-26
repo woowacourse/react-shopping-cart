@@ -1,15 +1,15 @@
 import { useRecoilValue } from 'recoil';
-import { totalCheckedCartItemsState, totalCheckedQuantityState } from '../../../recoil/selectors';
+import { checkedCartItemsState, totalCheckedQuantityState } from '../../../recoil/selectors';
 
 import * as Styled from './OrderItemContainer.style';
 import OrderItem from '../OrderItem/OrderItem';
 
-export default function ConfirmOrderContainer() {
-  const orderItems = useRecoilValue(totalCheckedCartItemsState);
+export default function OrderItemContainer() {
+  const orderItems = useRecoilValue(checkedCartItemsState);
   const totalItemsQuantity = useRecoilValue(totalCheckedQuantityState);
 
   if (orderItems.length === 0) {
-    return <div>장바구니에 담은 상품이 없습니다.</div>;
+    return <div>주문된 상품 목록이 없습니다.</div>;
   }
 
   return (

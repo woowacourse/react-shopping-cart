@@ -12,9 +12,9 @@ interface OrderAmountProps {
 
 export default function OrderAmount({ pageRoute }: OrderAmountProps) {
   const orderAmount = useRecoilValue(orderAmountState);
-  const discountAmount = useRecoilValue(discountAmountState);
   const shippingCost = useRecoilValue(shippingCostState);
   const totalAmount = useRecoilValue(totalAmountState);
+  const discountAmount = useRecoilValue(discountAmountState);
 
   return (
     <div>

@@ -1,5 +1,5 @@
 import { CheckBox } from '../../common';
-import { useCheckCoupon, useCouponValidityChecker } from '../../../hooks';
+import { useCouponValidityChecker } from '../../../hooks';
 import {
   getAvailableTimeString,
   getExpirationDateString,
@@ -8,21 +8,30 @@ import {
 
 import { Coupon } from '../../../type';
 import * as Styled from './CouponItem.style';
+import { useState } from 'react';
 
 interface CouponItemProps {
   coupon: Coupon;
+  isReachedApplicableLimit: boolean;
+  isCheckedCoupon: boolean;
+  onCheck: (id: number, isChecked: boolean) => void;
 }
 
-export default function CouponItem({ coupon }: CouponItemProps) {
-  const { isCheckedCoupon, isReachedCouponsLimit, onCheckCoupon } = useCheckCoupon();
+export default function CouponItem({
+  coupon,
+  isReachedApplicableLimit,
+  isCheckedCoupon,
+  onCheck,
+}: CouponItemProps) {
+  const [isChecked, setIsChecked] = useState(isCheckedCoupon);
   const { isCouponValid } = useCouponValidityChecker();
 
-  const isCouponApplicable = isReachedCouponsLimit ? false : isCouponValid(coupon);
-  const isCouponChecked = isCheckedCoupon(coupon.id);
-  const isCouponCheckable = isCouponChecked || isCouponApplicable;
+  const isCouponApplicable = isReachedApplicableLimit ? false : isCouponValid(coupon);
+  const isCouponCheckable = isChecked || isCouponApplicable;
 
   const toggleCheckBox = () => {
-    onCheckCoupon(coupon.id, !isCheckedCoupon(coupon.id));
+    setIsChecked((prevState) => !prevState);
+    onCheck(coupon.id, !isChecked);
   };
 
   return (
@@ -30,7 +39,7 @@ export default function CouponItem({ coupon }: CouponItemProps) {
       <Styled.CouponItemHeader isCheckable={isCouponCheckable}>
         <CheckBox
           itemId={coupon.id}
-          isChecked={isCouponChecked}
+          isChecked={isChecked}
           onChange={toggleCheckBox}
           data-testid="coupon-item-checkbox"
           disabled={!isCouponCheckable}
