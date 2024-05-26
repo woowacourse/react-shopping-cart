@@ -1,4 +1,4 @@
-import { useRecoilTransaction_UNSTABLE, useRecoilValue, snapshot_UNSTABLE } from "recoil";
+import { snapshot_UNSTABLE, RecoilValue } from "recoil";
 import { Coupon } from "../../types/Coupon";
 import { checkedIdSetSelector } from "../cart/checkedState";
 import { mockCartItems } from "../mocks";
@@ -24,19 +24,18 @@ describe("Coupon 적용가능 여부 테스트", () => {
       const snapshot = snapshot_UNSTABLE(({ set }) => {
         set(checkedIdSetSelector, new Set(CHECKED_IDS_FOR_LOW_ORDER_PRICE));
       });
-      
-      // const get = useRecoilTransaction(({get})=>get)
-      
+      const get = <T>(recoilState: RecoilValue<T>) => snapshot.getLoadable(recoilState).getValue();
 
-      expect(validateCouponApplicability(COUPON_MIN_AMOUNT, snapshot)).toBe(false);
+      expect(validateCouponApplicability(COUPON_MIN_AMOUNT, get)).toBe(false);
     });
     it("주문금액이 minimumAmount보다 클 때, 적용 가능하다.", () => {
       const CHECKED_IDS_FOR_HIGH_ORDER_PRICE = [1, 2];
       const snapshot = snapshot_UNSTABLE(({ set }) => {
         set(checkedIdSetSelector, new Set(CHECKED_IDS_FOR_HIGH_ORDER_PRICE));
       });
+      const get = <T>(recoilState: RecoilValue<T>) => snapshot.getLoadable(recoilState).getValue();
 
-      expect(validateCouponApplicability(COUPON_MIN_AMOUNT, snapshot)).toBe(true);
+      expect(validateCouponApplicability(COUPON_MIN_AMOUNT, get)).toBe(true);
     });
   });
 });
