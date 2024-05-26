@@ -48,16 +48,16 @@ export default function CouponItem({ coupon }: CouponItemProps) {
           <h2 css={checkboxTitle}>{coupon.description}</h2>
         </div>
         <div css={checkBoxInfoWrapper}>
-          <span css={checkboxInfoText}>만료일 : {dateFormat(new Date(coupon.expirationDate))}</span>
+          <span css={checkboxInfoText}>만료일: {dateFormat(new Date(coupon.expirationDate))}</span>
           {coupon.minimumAmount && (
             <span css={checkboxInfoText}>
-              최소 주문 금액 : {coupon.minimumAmount.toLocaleString('ko-KR')}원
+              최소 주문 금액: {coupon.minimumAmount.toLocaleString('ko-KR')}원
             </span>
           )}
 
           {coupon.availableTime && (
             <span css={checkboxInfoText}>
-              사용 가능 기간 : {timeFormat(coupon.availableTime.start, true)}부터{' '}
+              사용 가능 기간: {timeFormat(coupon.availableTime.start, true)}부터{' '}
               {timeFormat(coupon.availableTime.end, false)}까지
             </span>
           )}
