@@ -55,7 +55,6 @@ export default function CouponModal() {
   );
 }
 
-// TODO: 분리?
 interface OpenModalButtonProps {
   openModal: () => void;
 }
