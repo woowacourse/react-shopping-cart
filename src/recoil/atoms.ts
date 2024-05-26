@@ -4,7 +4,7 @@ import { fetchCartItems } from '../apis';
 
 import { AtomEffect } from 'recoil';
 import { STORAGE } from '../constants';
-import { fetchCoupons } from '../apis/coupon/coupon';
+import { fetchCoupons } from '../apis';
 
 export const cartItemsState = atom<CartItem[]>({
   key: 'cartItemsState',

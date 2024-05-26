@@ -8,4 +8,5 @@ export const ERROR_MESSAGE = {
   REMOVE_FROM_CART_FAILED: '장바구니에서 상품을 삭제하지 못했습니다.\n잠시 후 다시 시도해 주세요.',
   UPDATE_QUANTITY_FAILED:
     '장바구니에서 상품 수량을 변경하지 못했습니다.\n잠시 후 다시 시도해 주세요.',
+  SUBMIT_ORDER_FAILED: '주문을 전송하지 못했습니다.\n잠시 후 다시 시도해 주세요.',
 } as const;

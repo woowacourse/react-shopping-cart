@@ -1,19 +1,23 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-
-import { NavigationBar, FooterButton } from '../../components/common';
-import * as Styled from './ConfirmPaymentPage.style';
-
-import { convertToLocaleAmount } from '../../utils';
-import { ENDPOINT } from '../../routes/router.constants';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { cartItemsState, checkedCartItemIdsState } from '../../recoil/atoms';
 import {
   checkedCartItemsState,
   totalAmountState,
   totalCheckedQuantityState,
 } from '../../recoil/selectors';
 
+import { NavigationBar, FooterButton } from '../../components/common';
+import * as Styled from './ConfirmPaymentPage.style';
+
+import { convertToLocaleAmount } from '../../utils';
+import { ENDPOINT } from '../../routes/router.constants';
+
 export default function ConfirmPaymentPage() {
+  const [checkedCartItemIds, setCheckedCartItemIds] = useRecoilState(checkedCartItemIdsState);
+  const setCartItemsState = useSetRecoilState(cartItemsState);
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -28,6 +32,10 @@ export default function ConfirmPaymentPage() {
   const totalAmount = useRecoilValue(totalAmountState);
 
   const handleClickFooterButton = () => {
+    setCartItemsState((prevCartItems) =>
+      [...prevCartItems].filter((item) => !checkedCartItemIds.includes(item.id)),
+    );
+    setCheckedCartItemIds([]);
     navigate(ENDPOINT.shoppingCart);
   };
 

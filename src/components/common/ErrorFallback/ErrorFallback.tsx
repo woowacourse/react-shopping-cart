@@ -1,4 +1,5 @@
 import { ErrorResponse, isRouteErrorResponse, useNavigate } from 'react-router-dom';
+import { ENDPOINT } from '../../../routes/router.constants';
 import * as Styled from './ErrorFallback.style';
 
 interface ErrorFallbackProps {
@@ -18,7 +19,9 @@ export default function ErrorFallback({ error }: ErrorFallbackProps) {
         서둘러 복구하겠습니다. 🙇‍♂️
       </Styled.ErrorDescription>
       <Styled.ErrorMessage>{errorMessage}</Styled.ErrorMessage>
-      <Styled.RefreshButton onClick={() => navigate(0)}>화면 새로고침하기</Styled.RefreshButton>
+      <Styled.Button onClick={() => navigate(ENDPOINT.shoppingCart)}>
+        장바구니 화면으로 돌아가기
+      </Styled.Button>
     </Styled.ErrorContainer>
   );
 }

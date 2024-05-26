@@ -34,7 +34,7 @@ export const ErrorMessage = styled.p`
   text-align: center;
 `;
 
-export const RefreshButton = styled.button`
+export const Button = styled.button`
   background: #000000;
   padding: 8px 16px;
   border-radius: 5px;

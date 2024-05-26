@@ -5,3 +5,5 @@ export {
   removeCartItem,
   updateCartItemQuantity,
 } from './shoppingCart/shoppingCart';
+export { fetchCoupons } from './coupon/coupon';
+export { submitOrder } from './confirmOrder/confirmOrder';
