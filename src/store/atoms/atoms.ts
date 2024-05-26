@@ -38,7 +38,17 @@ export const filteredCartItemState = atomFamily<
   effects: (id) => [localStorageEffect(`cartItemState_${id}`)],
 });
 
-export const couponsState = atom<CouponType[]>({
-  key: "couponsState",
+export const selectedCouponsState = atom<CouponType[]>({
+  key: "selectedCouponsState",
   default: [],
+});
+
+export const discountAmountState = atom<number>({
+  key: "discountAmountState",
+  default: 0,
+});
+
+export const additionalShippingFeeAreaState = atom<boolean>({
+  key: "additionalShippingFeeAreaState",
+  default: false,
 });
