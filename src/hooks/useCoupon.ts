@@ -1,4 +1,4 @@
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   calculateOrderPrice,
   checkedCartItems,
@@ -8,8 +8,14 @@ import findCouponValidator from '../domain/findCouponValidator';
 import findApplicableCoupons from '../domain/findApplicableCoupons';
 import discountCalculator from '../domain/discountCalculator';
 import { RULE } from '../constants/rule';
+import { finalTotalPriceListState } from '../recoil/atoms';
+import { useEffect } from 'react';
 
 const useCoupon = ({ isIsland }: { isIsland: boolean }) => {
+  const [finalTotalPriceList, setFinalTotalPriceList] = useRecoilState(
+    finalTotalPriceListState,
+  );
+
   const couponList = useRecoilValue(fetchCouponList);
   const orderList = useRecoilValue(checkedCartItems);
   const { totalOrderPrice, deliveryFee, totalPrice } =
@@ -86,15 +92,27 @@ const useCoupon = ({ isIsland }: { isIsland: boolean }) => {
     return bestCombination;
   };
 
-  const finalTotalPriceList = {
-    applicableCouponList,
-    totalOrderPrice: finalTotalPrice,
-    discountPrice: findBestCouponCombination().totalDiscount,
-    applyCoupons: findBestCouponCombination().coupons,
-    deliveryFee: finalDeliveryFee,
-    totalPaymentPrice:
-      finalTotalPrice - findBestCouponCombination().totalDiscount,
-  };
+  useEffect(() => {
+    const bestCombination = findBestCouponCombination();
+    const updatedFinalTotalPriceList = {
+      applicableCouponList,
+      totalOrderPrice: finalTotalPrice,
+      discountPrice: bestCombination.totalDiscount,
+      applyCoupons: bestCombination.coupons,
+      deliveryFee: finalDeliveryFee,
+      totalPaymentPrice: finalTotalPrice - bestCombination.totalDiscount,
+    };
+
+    setFinalTotalPriceList(updatedFinalTotalPriceList);
+  }, [
+    isIsland,
+    couponList,
+    orderList,
+    totalOrderPrice,
+    deliveryFee,
+    totalPrice,
+    finalTotalPriceListState,
+  ]);
 
   return { finalTotalPriceList };
 };
