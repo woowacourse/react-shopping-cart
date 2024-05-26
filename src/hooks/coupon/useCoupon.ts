@@ -18,8 +18,9 @@ export default function useCoupon(code: string) {
     if (!isSelected && selectedCoupons.length >= 2) return false;
 
     if (isAvailableCoupon({ orderInformation, coupon: getCoupon(code) }))
-      // TODO: 여기서 적용 가능 여부 검사
       return true;
+
+    return false;
   };
 
   return {
