@@ -12,7 +12,7 @@ import Header from '../../components/Header/Header';
 import convertToLocaleAmount from '../../utils/convertToLocalePrice';
 import { useEffect } from 'react';
 
-export default function OrderLastPage() {
+export default function PaymentPage() {
   const navigate = useNavigate();
   const location = useLocation();
 

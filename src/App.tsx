@@ -5,7 +5,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import ENDPOINTS from './constants/endpoints';
 import OrderConfirmationPage from './page/OrderConfirmationPage/OrderConfirmationPage';
-import OrderLastPage from './page/OrderLastPage/OrderLastPage';
+import PaymentPage from './page/PaymentPage/PaymentPage';
 import ShoppingCartPage from './page/ShoppingCartPage/ShoppingCartPage';
 import { Suspense } from 'react';
 
@@ -23,10 +23,10 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: ENDPOINTS.lastPage,
+    path: ENDPOINTS.paymentPage,
     element: (
       <Suspense>
-        <OrderLastPage />
+        <PaymentPage />
       </Suspense>
     ),
   },

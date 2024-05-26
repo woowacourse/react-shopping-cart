@@ -22,7 +22,7 @@ export default function OrderConfirmationPage() {
 
   const handleClickConfirmButton = () => {
     setSelectedCoupon([]);
-    navigate(ENDPOINTS.lastPage, { state: { lastPage: ENDPOINTS.orderConfirmation } });
+    navigate(ENDPOINTS.paymentPage, { state: { lastPage: ENDPOINTS.orderConfirmation } });
   };
 
   return (
