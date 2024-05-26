@@ -1,5 +1,5 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { checkedCartItemsQuantityState, getCartItems, getCoupons } from "../recoil/selectors";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { checkedCartItemsQuantityState, getCoupons } from "../recoil/selectors";
 import { cartItemsStates, checkedCartItemsState } from "../recoil/atoms";
 import { postOrders } from "../api/cartItem";
 import { useNavigate } from "react-router-dom";
@@ -7,15 +7,14 @@ import PAGE_URL from "../constants/pageURL";
 import { ERROR_MESSAGE, SHOPPING_MESSAGE } from "../constants/messages";
 
 const useCheckOrder = () => {
-  const fetchedCartItems = useRecoilValue(getCartItems);
+  const [cartItems, setCartItems] = useRecoilState(cartItemsStates);
   const couponLists = useRecoilValue(getCoupons);
   const checkedCartItems = useRecoilValue(checkedCartItemsState);
   const checkedCartItemsQuantity = useRecoilValue(checkedCartItemsQuantityState);
-  const setCartItems = useSetRecoilState(cartItemsStates);
 
   const router = useNavigate();
 
-  const checkedCartItemList = fetchedCartItems.filter((item) => checkedCartItems.includes(item.id));
+  const checkedCartItemList = cartItems.filter((item) => checkedCartItems.includes(item.id));
   if (checkedCartItemList.length === 0) router(-1);
 
   const totalOrderingDescription = SHOPPING_MESSAGE.orderDescription(checkedCartItems.length, checkedCartItemsQuantity);
