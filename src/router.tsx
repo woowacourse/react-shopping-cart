@@ -1,11 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import ShoppingCart from "./pages/ShoppingCart";
 import CheckOrder from "./pages/CheckOrder";
-import { ErrorBoundary } from "react-error-boundary";
-import NetworkError from "./components/Error/NetworkError";
 import CompleteOrder from "./pages/CompleteOrder";
-import { Suspense } from "react";
-import LoadingSpinner from "./components/common/LoadingSpinner";
+import ErrorAndSuspense from "./components/common/ErrorAndSuspense";
 
 const router = createBrowserRouter([
   {
@@ -14,31 +11,25 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <ErrorBoundary FallbackComponent={NetworkError}>
-            <Suspense fallback={<LoadingSpinner />}>
-              <ShoppingCart />
-            </Suspense>
-          </ErrorBoundary>
+          <ErrorAndSuspense>
+            <ShoppingCart />
+          </ErrorAndSuspense>
         ),
       },
       {
         path: "/check-order",
         element: (
-          <ErrorBoundary FallbackComponent={NetworkError}>
-            <Suspense fallback={<LoadingSpinner />}>
-              <CheckOrder />
-            </Suspense>
-          </ErrorBoundary>
+          <ErrorAndSuspense>
+            <CheckOrder />
+          </ErrorAndSuspense>
         ),
       },
       {
         path: "/complete-order",
         element: (
-          <ErrorBoundary FallbackComponent={NetworkError}>
-            <Suspense fallback={<LoadingSpinner />}>
-              <CompleteOrder />
-            </Suspense>
-          </ErrorBoundary>
+          <ErrorAndSuspense>
+            <CompleteOrder />
+          </ErrorAndSuspense>
         ),
       },
     ],
