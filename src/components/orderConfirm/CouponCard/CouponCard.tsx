@@ -1,6 +1,6 @@
 import { Coupon, CouponCode } from '@appTypes/shoppingCart';
 import { Checkbox } from '@components/common';
-import { formatDateToString, formatKoreanCurrency } from '@utils/index';
+import { formatDateToString, formatKoreanCurrency, getHoursFromServerData } from '@utils/index';
 import { ChangeEvent } from 'react';
 
 import * as Styled from './CouponCard.styled';
@@ -26,7 +26,8 @@ const CouponCard = ({ coupon, isChecked, handleChangeChecked, isDisabled }: Coup
         )}
         {coupon.availableTime && (
           <Styled.CouponInfo>
-            사용 가능 시간: 오전 {coupon.availableTime.start}시 ~ 오전 {coupon.availableTime.end}시
+            사용 가능 시간: 오전 {getHoursFromServerData(coupon.availableTime.start)}시부터 오전
+            {getHoursFromServerData(coupon.availableTime.end)}시까지
           </Styled.CouponInfo>
         )}
       </div>
