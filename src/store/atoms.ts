@@ -1,5 +1,6 @@
 import { atom, selector } from 'recoil';
 import { fetchCartItems } from '../api';
+import { CouponType } from '../types';
 
 export const productsState = atom({
   key: 'productsState',
@@ -77,20 +78,17 @@ export const mockCoupons = [
   },
 ];
 
-type CouponStateType = {
-  checked: boolean;
-  isAvailable: boolean;
-};
-
-const initialCoupon = mockCoupons.reduce<Record<string, CouponStateType>>((acc, coupon) => {
-  acc[coupon.code] = {
-    checked: false,
-    isAvailable: true,
-  };
+const initialCouponSelected = mockCoupons.reduce<Record<string, boolean>>((acc, coupon) => {
+  acc[coupon.code] = false;
   return acc;
 }, {});
 
-export const couponStatusState = atom({
-  key: 'couponStatusState',
-  default: initialCoupon,
+export const couponSelectedState = atom({
+  key: 'couponSelectedState',
+  default: initialCouponSelected,
+});
+
+export const activeCouponsState = atom<CouponType[]>({
+  key: 'activeCouponsState',
+  default: [],
 });
