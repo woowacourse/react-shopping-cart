@@ -2,12 +2,11 @@ import { selector, selectorFamily } from 'recoil';
 
 import {
   cartItemsState,
+  couponsState,
   isCartItemSelectedState,
   isCountrysideSelectedState,
   isCouponSelectedState,
 } from './atoms';
-
-import { fetchGettingCoupons } from '../api/coupons';
 
 import { CartItemType, CouponType } from '../type';
 import CONDITION from '../constants/Condition';
@@ -36,6 +35,13 @@ export const selectedCartItemsSelector = selector<CartItemType[]>({
   },
 });
 
+export const selectedCartItemsCountSelector = selector<number>({
+  key: 'selectedCartItemCount',
+  get: ({ get }) => {
+    return get(selectedCartItemsSelector).length;
+  },
+});
+
 export const selectedCartItemIdsSelector = selector<number[]>({
   key: 'selectedCartItemIds',
   get: ({ get }) => {
@@ -51,13 +57,6 @@ export const applicableBOGOCartItemsSelector = selector<CartItemType[]>({
     return get(selectedCartItemsSelector).filter(
       (cartItem) => cartItem.quantity >= 3,
     );
-  },
-});
-
-export const selectedCartItemsCountSelector = selector<number>({
-  key: 'selectedCartItemCount',
-  get: ({ get }) => {
-    return get(selectedCartItemsSelector).length;
   },
 });
 
@@ -163,48 +162,20 @@ export const finalTotalPaymentAmountSelector = selector<number>({
   },
 });
 
-export const couponsSelector = selector<CouponType[]>({
-  key: 'coupons',
-  get: async () => {
-    return await fetchGettingCoupons();
-  },
-});
-
 export const couponIdsSelector = selector<number[]>({
   key: 'selectedCouponIds',
   get: ({ get }) => {
-    return get(couponsSelector).map((coupon) => coupon.id);
+    return get(couponsState).map((coupon) => coupon.id);
   },
 });
 
 export const selectedCouponsSelector = selector<CouponType[]>({
   key: 'selectedCoupons',
   get: ({ get }) => {
-    return get(couponsSelector).filter((coupon) =>
+    return get(couponsState).filter((coupon) =>
       get(isCouponSelectedState(coupon.id)),
     );
   },
-});
-
-export const isAllCouponSelectedSelectorFamily = selectorFamily<
-  boolean,
-  number[]
->({
-  key: 'selectedAllCoupon',
-  get:
-    (couponIds) =>
-    ({ get }) => {
-      return couponIds.every((couponId) =>
-        get(isCouponSelectedState(couponId)),
-      );
-    },
-  set:
-    (couponIds) =>
-    ({ set }, newValue) => {
-      couponIds.forEach((couponId) => {
-        set(isCouponSelectedState(couponId), newValue);
-      });
-    },
 });
 
 export const fixedDiscountSelector = selector<number>({
@@ -273,4 +244,25 @@ export const couponDiscountAmountSelector = selector<number>({
       );
     }, 0);
   },
+});
+
+export const isAllCouponSelectedSelectorFamily = selectorFamily<
+  boolean,
+  number[]
+>({
+  key: 'selectedAllCoupon',
+  get:
+    (couponIds) =>
+    ({ get }) => {
+      return couponIds.every((couponId) =>
+        get(isCouponSelectedState(couponId)),
+      );
+    },
+  set:
+    (couponIds) =>
+    ({ set }, newValue) => {
+      couponIds.forEach((couponId) => {
+        set(isCouponSelectedState(couponId), newValue);
+      });
+    },
 });
