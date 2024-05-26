@@ -14,7 +14,7 @@ const useDiscount = () => {
     selectedCouponList
       .filter((coupon) => coupon.discountType == 'percentage')
       .reduce((result, { discount }) => {
-        return (result * (1 - (discount ?? 0))) / 100;
+        return result - (result * (discount ?? 0)) / 100;
       }, orderedPrice);
 
   const bogoCoupon = selectedCouponList.find(
