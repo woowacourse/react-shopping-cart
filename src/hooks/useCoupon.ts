@@ -96,7 +96,7 @@ const useCoupon = ({ isIsland }: { isIsland: boolean }) => {
       finalTotalPrice - findBestCouponCombination().totalDiscount,
   };
 
-  return { applicableCouponList, finalTotalPriceList };
+  return { finalTotalPriceList };
 };
 
 export default useCoupon;

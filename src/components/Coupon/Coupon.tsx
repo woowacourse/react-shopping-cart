@@ -3,7 +3,12 @@ import CheckBox from '../CheckBox/CheckBox';
 import Caution from '../../assets/caution.svg';
 import * as C from './Coupon.style';
 
-export default function Coupon({ coupons }: { coupons: Coupon[] }) {
+interface Props {
+  coupons: Coupon[];
+  applicableCoupons: number[];
+}
+
+export default function Coupon({ coupons, applicableCoupons }: Props) {
   return (
     <C.CouponStyle>
       <C.Notification>
@@ -17,10 +22,11 @@ export default function Coupon({ coupons }: { coupons: Coupon[] }) {
           const expiration = coupon.expirationDate.split('-');
 
           return (
-            // TODO: 쿠폰 사용이 불가능할 때 disabled 추가
-            <C.Item key={coupon.code}>
+            <C.Item
+              key={coupon.code}
+              disabled={!applicableCoupons.includes(coupon.id)}
+            >
               <div className="coupon_checkbox-group">
-                {/* TODO: selector에 couponCheckbox 만들기 */}
                 <CheckBox isCheck={false} onClick={() => {}} />
                 <span className="coupon_name">{coupon.description}</span>
               </div>
