@@ -1,4 +1,4 @@
-export default function getPermutations<T>(array: T[]): T[][] {
+export function getPermutations<T>(array: T[]): T[][] {
   return array.reduce<T[][]>((result, _, index) => {
     if (index === 0) {
       return array.map((item) => [item]);

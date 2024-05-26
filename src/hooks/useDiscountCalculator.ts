@@ -1,44 +1,52 @@
 import { useRecoilValue } from 'recoil';
-import { cartItemsState } from '../recoil/atoms';
+import { orderAmountState, shippingCostState, checkedCartItemsState } from '../recoil/selectors';
 import { Coupon } from '../type';
 import useCouponValidityChecker from './useCouponValidityChecker';
+import { calculateDiscountAmountByCoupon, getPermutations } from '../utils';
+import { couponsState } from '../recoil/atoms';
 
 export default function useDiscountCalculator() {
-  const cartItems = useRecoilValue(cartItemsState);
+  const coupons = useRecoilValue(couponsState);
+  const checkedCartItems = useRecoilValue(checkedCartItemsState);
+  const orderAmount = useRecoilValue(orderAmountState);
+  const shippingCost = useRecoilValue(shippingCostState);
   const { isCouponValid } = useCouponValidityChecker();
-
-  const getFixedDiscountAmount = (coupon: Coupon) => {
-    return coupon.discount ?? 0;
-  };
-
-  const getPercentageDiscountAmount = (coupon: Coupon, currentTotalAmount: number) => {
-    return Math.floor((currentTotalAmount * (coupon.discount ?? 0)) / 100);
-  };
-
-  const getFreeItemDiscountAmount = (coupon: Coupon) => {
-    if (!coupon.getQuantity) return 0;
-    const mostExpensiveProductPrice = Math.max(...cartItems.map((item) => item.product.price));
-    return mostExpensiveProductPrice * coupon.getQuantity;
-  };
 
   const getDiscountAmountByCoupon = (coupon: Coupon, currentTotalAmount: number) => {
     if (!isCouponValid(coupon)) {
       return 0;
     }
 
-    switch (coupon.discountType) {
-      case 'fixed':
-        return getFixedDiscountAmount(coupon);
-      case 'percentage':
-        return getPercentageDiscountAmount(coupon, currentTotalAmount);
-      case 'buyXgetY':
-        return getFreeItemDiscountAmount(coupon);
-      default:
-        return 0;
-    }
+    return calculateDiscountAmountByCoupon({
+      coupon,
+      cartItems: checkedCartItems,
+      shippingCost,
+      currentTotalAmount,
+    });
+  };
+
+  const getDiscountAmount = (couponIds: number[]) => {
+    if (couponIds.length === 0) return 0;
+
+    const couponIdsPermutations = getPermutations(couponIds);
+    return Math.max(
+      ...couponIdsPermutations.map((couponIds) => getDiscountAmountForPermutation(couponIds)),
+    );
+  };
+
+  const getDiscountAmountForPermutation = (couponIds: number[]) => {
+    return couponIds.reduce((discountAmount, couponId) => {
+      const coupon = coupons.find((currentCoupon) => currentCoupon.id === couponId);
+
+      if (!coupon) return discountAmount;
+
+      const currentTotalAmount = orderAmount - discountAmount;
+      return discountAmount + getDiscountAmountByCoupon(coupon, currentTotalAmount);
+    }, 0);
   };
 
   return {
+    getDiscountAmount,
     getDiscountAmountByCoupon,
   };
 }
