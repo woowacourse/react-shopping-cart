@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import * as S from './CartItem.style';
 import Text from '../common/Text/Text';
 import Button from '../common/Button/Button';
