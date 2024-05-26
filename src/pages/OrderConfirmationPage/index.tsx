@@ -13,8 +13,11 @@ import BottomButton from '../../components/common/BottomButton';
 import Layout from '../../layout';
 
 import useOrderInformation from '../../hooks/useOrderInformation';
+import { useRecoilValue } from 'recoil';
+import { totalDiscountSelector } from '../../recoil';
 
 export default function OrderConfirmationPage() {
+  const totalDiscount = useRecoilValue(totalDiscountSelector);
   const { selectedItems, totalPrice, totalQuantity, numOfTypes, shippingFee } =
     useOrderInformation();
 
@@ -57,7 +60,7 @@ export default function OrderConfirmationPage() {
         {/* 주문 요약 */}
         <CheckoutSummary
           totalPrice={totalPrice}
-          coupon={0}
+          coupon={totalDiscount}
           shippingFee={shippingFee}
         />
       </S.Wrapper>

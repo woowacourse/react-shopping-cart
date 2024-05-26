@@ -7,19 +7,22 @@ import BorderButton from '../common/BorderButton';
 import CouponList from '../common/CouponList';
 import * as C from '../commonStyles';
 import RecoilSuspense from '../common/RecoilSuspense';
-import { useRecoilValueLoadable } from 'recoil';
-import { couponListSelector } from '../../recoil';
+import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
+import { couponListSelector, totalDiscountSelector } from '../../recoil';
 import Fallback from '../common/Fallback';
 import LoadingSpinner from '../common/LoadingSpinner';
 
 export default function CouponModal() {
-  const coupons = useRecoilValueLoadable(couponListSelector);
   const { isModalOpen, openModal, closeModal } = useModal(false);
+
+  const coupons = useRecoilValueLoadable(couponListSelector);
 
   const applyCoupon = () => {
     window.alert('변경사항을 저장합니다.');
     closeModal();
   };
+
+  const totalDiscount = useRecoilValue(totalDiscountSelector);
 
   return (
     <>
@@ -45,7 +48,7 @@ export default function CouponModal() {
             type="button"
             variant="primary"
             onClick={applyCoupon}
-          >{`총 ${priceFormatter(0)} 할인 쿠폰 사용하기`}</Modal.Button>
+          >{`총 ${priceFormatter(totalDiscount)} 할인 쿠폰 사용하기`}</Modal.Button>
         </Modal>
       </RecoilSuspense>
     </>

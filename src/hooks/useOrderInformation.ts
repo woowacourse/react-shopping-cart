@@ -1,6 +1,7 @@
 import { CartItemType } from '../types';
 
 import {
+  freeShippingSelector,
   numberOfTypesSelector,
   selectedCartItemListSelector,
   shippingFeeSelector,

@@ -17,7 +17,8 @@ export const isAvailableCoupon = ({ coupon, orderInformation }: Args) => {
 
     case 'BOGO':
       return orderInformation.selectedItems.some(
-        (cartItem) => cartItem.quantity >= coupon.buyQuantity
+        (cartItem) =>
+          cartItem.quantity >= coupon.buyQuantity + coupon.getQuantity
       );
 
     case 'FREESHIPPING':
