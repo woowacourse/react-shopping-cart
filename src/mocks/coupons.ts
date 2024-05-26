@@ -1,6 +1,8 @@
-import { Coupon } from '@type/coupon';
+import { BuyXGetYCoupon, FixedCoupon, FreeShippingCoupon, PercentageCoupon } from '@type/coupon';
 
-export const mockCoupons: Coupon[] = [
+export const mockCoupons: Array<
+  FixedCoupon | BuyXGetYCoupon | FreeShippingCoupon | PercentageCoupon
+> = [
   {
     id: 1,
     code: 'FIXED5000',
