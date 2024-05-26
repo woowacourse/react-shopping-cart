@@ -55,7 +55,7 @@ function CartItemHeader({ id }: Pick<CartItemType, 'id'>) {
 
   return (
     <>
-      <CheckBox isSelected={isSelected} toggleSelected={toggleSelected} />
+      <CheckBox isSelected={isSelected} handleChange={toggleSelected} />
       <BorderButton className="deleteBtn" onClick={handleDelete} size="large">
         삭제
       </BorderButton>

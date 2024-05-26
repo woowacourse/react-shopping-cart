@@ -10,7 +10,6 @@ export const HeaderWrapper = styled.header`
   position: fixed;
   top: 0;
   width: 430px;
-  z-index: 1000;
   background-color: white;
 `;
 

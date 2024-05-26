@@ -1,8 +1,30 @@
 import { useRecoilValue } from 'recoil';
-import { couponListSelector } from '../../recoil';
+import { getCouponWithCode, selectedCouponListSelector } from '../../recoil';
+import useSelectCoupon from './useSelectCoupon';
+import { isAvailableCoupon } from '../../domain/isAvailableCoupon';
+import useOrderInformation from '../useOrderInformation';
 
-export default function useCoupon() {
-  const coupons = useRecoilValue(couponListSelector);
+export default function useCoupon(code: string) {
+  const orderInformation = useOrderInformation();
+  const selectedCoupons = useRecoilValue(selectedCouponListSelector);
+  const getCoupon = useRecoilValue(getCouponWithCode);
 
-  return { coupons, discountAmount: 0 };
+  const { isSelected, toggleSelected } = useSelectCoupon(code);
+  const toggleCouponSelection = () => {
+    toggleSelected();
+  };
+
+  const checkAvailability = () => {
+    if (!isSelected && selectedCoupons.length >= 2) return false;
+
+    if (isAvailableCoupon({ orderInformation, coupon: getCoupon(code) }))
+      // TODO: 여기서 적용 가능 여부 검사
+      return true;
+  };
+
+  return {
+    disabled: !checkAvailability(),
+    toggleCouponSelection,
+    isSelected,
+  };
 }

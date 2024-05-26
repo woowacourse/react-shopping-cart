@@ -11,15 +11,15 @@ import {
 interface CheckBoxProps {
   label?: string | React.ReactNode;
   isSelected: boolean;
-  toggleSelected: () => void;
+  handleChange: () => void;
   disabled?: boolean;
 }
 
 export default function CheckBox({
   label,
   isSelected,
-  toggleSelected,
-  disabled,
+  handleChange: toggleSelected,
+  disabled = false,
 }: CheckBoxProps) {
   return (
     <CheckboxContainer>

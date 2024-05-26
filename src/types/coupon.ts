@@ -1,11 +1,12 @@
 type ExpirationDate = string;
 type MinimumAmount = number;
 type AvailableTime = { start: string; end: string };
+export type CouponCode = 'FIXED5000' | 'BOGO' | 'FREESHIPPING' | 'MIRACLESALE';
 export type DiscountType = 'percentage' | 'freeShipping' | 'buyXgetY' | 'fixed';
 
 interface Coupon {
   id: number;
-  code: string;
+  code: CouponCode;
   description: string;
   expirationDate: ExpirationDate;
   discountType: DiscountType;

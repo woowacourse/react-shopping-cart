@@ -19,7 +19,7 @@ export default function CartList({ items, summary = false }: CartListProps) {
       {!summary && (
         <CheckBox
           isSelected={isAllSelected}
-          toggleSelected={toggleAllSelected}
+          handleChange={toggleAllSelected}
           label="전체 선택"
         />
       )}

@@ -1,15 +1,13 @@
-import useCoupon from '../../../hooks/coupon/useCoupon';
 import CouponItem from '../../CouponItem';
 
+import { CouponType } from '../../../types';
 import * as S from './style';
 
-export default function CouponList() {
-  const { coupons } = useCoupon();
-
+export default function CouponList({ coupons }: { coupons: CouponType[] }) {
   return (
     <S.Wrapper>
       {coupons.map((coupon) => (
-        <CouponItem coupon={coupon} disabled={false} />
+        <CouponItem coupon={coupon} key={coupon.code} />
       ))}
     </S.Wrapper>
   );

@@ -1,13 +1,20 @@
 import styled from '@emotion/styled';
-import { CouponItemProps } from '.';
 
-export const Wrapper = styled.div<Pick<CouponItemProps, 'disabled'>>`
+export const Wrapper = styled.div`
   width: 318px;
   height: 82px;
-  opacity: ${({ disabled }) => (disabled ? '25%' : 1)};
+`;
 
-  border-top: 1px solid ${({ theme }) => theme.colors.border};
+export const Divider = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: ${({ theme }) => theme.colors.divider};
+`;
+
+export const Container = styled.div<{ disabled: boolean }>`
   padding: 12px 0;
+
+  opacity: ${({ disabled }) => (disabled ? '25%' : 1)};
 `;
 
 export const Header = styled.div`

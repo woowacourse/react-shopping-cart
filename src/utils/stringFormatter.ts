@@ -19,7 +19,6 @@ export const timeFormatter = (timeStr: string) => {
 
   const options: Intl.DateTimeFormatOptions = {
     hour: 'numeric',
-    minute: 'numeric',
     hour12: false,
   };
 

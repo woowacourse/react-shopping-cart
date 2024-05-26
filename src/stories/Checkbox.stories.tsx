@@ -20,7 +20,7 @@ const meta: Meta<typeof CheckBox> = {
     isSelected: {
       description: '체크박스의 체크 여부를 조작할 수 있습니다.',
     },
-    toggleSelected: {
+    handleChange: {
       table: {
         disable: true,
       },

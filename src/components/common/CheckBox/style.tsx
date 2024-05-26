@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const CheckboxContainer = styled.div`
   display: flex;
@@ -19,11 +19,15 @@ export const HiddenCheckbox = styled.input`
   white-space: nowrap;
 `;
 
-export const StyledCheckbox = styled.button`
+export const StyledCheckbox = styled.button<{ disabled: boolean }>`
   border: none;
   transition: all 150ms;
   cursor: pointer;
   background: transparent;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 
   img {
     display: block;

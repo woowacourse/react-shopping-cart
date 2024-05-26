@@ -3,22 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import * as C from '../../components/commonStyles';
 import * as S from './styles';
 
-import Layout from '../../layout';
+import CartList from '../../components/CartList';
+import CheckoutSummary from '../../components/CheckoutSummary';
+import CouponModal from '../../components/CouponModal';
 import Header from '../../components/Header';
 import { BackButton } from '../../components/Header/HeaderButton';
-import BottomButton from '../../components/common/BottomButton';
-import CartList from '../../components/CartList';
-import CouponModal from '../../components/CouponModal';
 import ShippingInfo from '../../components/ShippingInfo';
-import CheckoutSummary from '../../components/CheckoutSummary';
+import BottomButton from '../../components/common/BottomButton';
+import Layout from '../../layout';
 
-import { useRecoilValue } from 'recoil';
-import { selectedCartItemListSelector } from '../../recoil';
 import useOrderInformation from '../../hooks/useOrderInformation';
 
 export default function OrderConfirmationPage() {
-  const selectedItems = useRecoilValue(selectedCartItemListSelector);
-  const { totalPrice, totalQuantity, numOfTypes, shippingFee } =
+  const { selectedItems, totalPrice, totalQuantity, numOfTypes, shippingFee } =
     useOrderInformation();
 
   const navigate = useNavigate();
