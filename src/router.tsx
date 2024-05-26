@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import GeneralLayout from './layouts/GeneralLayout';
+import GlobalLayout from './layouts/GlobalLayout';
 import CartConfirmPage from './pages/CartConfirmPage';
 import CartPage from './pages/CartPage';
 import PaymentConfirmPage from './pages/PaymentConfirmPage';
@@ -9,7 +9,7 @@ export const router = createBrowserRouter(
   [
     {
       path: '/',
-      element: <GeneralLayout />,
+      element: <GlobalLayout />,
       children: [
         {
           index: true,

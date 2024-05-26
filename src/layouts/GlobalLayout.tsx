@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 import { addCartItem } from '@apis/cartItem';
 
-export default function GeneralLayout() {
+export default function GlobalLayout() {
   const onClick = async () => {
     const productIds = [2, 3, 12, 34];
 
