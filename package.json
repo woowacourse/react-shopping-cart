@@ -18,7 +18,8 @@
     "recoil": "^0.7.7",
     "recoil-persist": "^5.1.0",
     "styled-components": "^6.1.11",
-    "styled-reset": "^4.5.2"
+    "styled-reset": "^4.5.2",
+    "woowacourse-6th-react-modal-component": "^0.0.24"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.5",
