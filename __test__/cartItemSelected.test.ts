@@ -1,15 +1,18 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { RecoilRoot, useRecoilState } from 'recoil';
 import cartListMockData from '../src/mocks/cartListMockData';
-import { cartItemSelected } from '../src/recoil/atoms';
+import { cartItemSelectedState } from '../src/recoil';
 
-describe('cartItemSelected', () => {
+describe('cartItemSelectedState', () => {
   const [TEST_ITEM] = cartListMockData.content;
 
   test('장바구니 아이템이 local storage에 존재하지 않으면 기본 값은 false다.', async () => {
-    const { result } = renderHook(() => useRecoilState(cartItemSelected(1)), {
-      wrapper: RecoilRoot,
-    });
+    const { result } = renderHook(
+      () => useRecoilState(cartItemSelectedState(1)),
+      {
+        wrapper: RecoilRoot,
+      }
+    );
 
     await waitFor(() => {
       expect(result.current[0]).toBe(false);
@@ -20,7 +23,7 @@ describe('cartItemSelected', () => {
     const { result } = renderHook(
       () => {
         const [isSelected, setSelected] = useRecoilState(
-          cartItemSelected(TEST_ITEM.id)
+          cartItemSelectedState(TEST_ITEM.id)
         );
         setSelected(true);
 

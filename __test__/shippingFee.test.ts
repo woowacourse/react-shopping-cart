@@ -1,12 +1,11 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil';
 import cartListMockData from '../src/mocks/cartListMockData';
-import { cartItemSelected } from '../src/recoil/atoms';
-import { shippingFee } from '../src/recoil/selectors';
+import { cartItemSelectedState, shippingFeeSelector } from '../src/recoil';
 
-describe('shippingFee', () => {
+describe('shippingFeeSelector', () => {
   it('아무것도 선택하지 않았을 때 배송비는 3000원이다.', async () => {
-    const { result } = renderHook(() => useRecoilValue(shippingFee), {
+    const { result } = renderHook(() => useRecoilValue(shippingFeeSelector), {
       wrapper: RecoilRoot,
     });
 
@@ -21,16 +20,16 @@ describe('shippingFee', () => {
     const { result } = renderHook(
       () => {
         const [, setItemASelected] = useRecoilState(
-          cartItemSelected(ITEM_A.id)
+          cartItemSelectedState(ITEM_A.id)
         );
         const [, setItemBSelected] = useRecoilState(
-          cartItemSelected(ITEM_B.id)
+          cartItemSelectedState(ITEM_B.id)
         );
 
         setItemASelected(true);
         setItemBSelected(true);
 
-        return useRecoilValue(shippingFee);
+        return useRecoilValue(shippingFeeSelector);
       },
       { wrapper: RecoilRoot }
     );
@@ -46,20 +45,20 @@ describe('shippingFee', () => {
     const { result } = renderHook(
       () => {
         const [, setItemASelected] = useRecoilState(
-          cartItemSelected(ITEM_A.id)
+          cartItemSelectedState(ITEM_A.id)
         );
         const [, setItemBSelected] = useRecoilState(
-          cartItemSelected(ITEM_B.id)
+          cartItemSelectedState(ITEM_B.id)
         );
         const [, setItemCSelected] = useRecoilState(
-          cartItemSelected(ITEM_C.id)
+          cartItemSelectedState(ITEM_C.id)
         );
 
         setItemASelected(true);
         setItemBSelected(true);
         setItemCSelected(true);
 
-        return useRecoilValue(shippingFee);
+        return useRecoilValue(shippingFeeSelector);
       },
       { wrapper: RecoilRoot }
     );
