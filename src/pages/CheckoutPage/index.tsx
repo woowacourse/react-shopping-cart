@@ -15,6 +15,7 @@ import {
   totalQuantitySelector,
   numberOfTypesSelector,
 } from '../../recoil';
+import { priceFormatter } from '../../utils/stringFormatter';
 
 export default function ConfirmOrderPage() {
   // TODO: recoil selector가 아닌 history의 state로 전달해야 할까?
@@ -43,7 +44,7 @@ export default function ConfirmOrderPage() {
 
         <S.TotalPrice>
           <C.SubTitle>총 결제 금액</C.SubTitle>
-          <C.Title>{`${totalPrice.toLocaleString()}원`}</C.Title>
+          <C.Title>{priceFormatter(totalPrice)}</C.Title>
         </S.TotalPrice>
       </S.Wrapper>
     </Layout>

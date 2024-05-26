@@ -1,6 +1,7 @@
 import InfoIconSrc from '../../assets/infoIcon.png';
 import * as S from './style';
 import * as C from '../commonStyles';
+import { priceFormatter } from '../../utils/stringFormatter';
 
 interface CheckoutSummaryProps {
   totalPrice: number;
@@ -25,19 +26,19 @@ export default function CheckoutSummary({
       <S.PriceRowContainer>
         <S.PriceRow>
           <S.Label>주문 금액</S.Label>
-          <C.Price>{totalPrice.toLocaleString()}원</C.Price>
+          <C.Price>{priceFormatter(totalPrice)}</C.Price>
         </S.PriceRow>
 
-        {coupon && (
+        {(coupon || coupon === 0) && (
           <S.PriceRow>
             <S.Label>쿠폰 할인 금액</S.Label>
-            <C.Price>{coupon}원</C.Price>
+            <C.Price>-{priceFormatter(coupon)}</C.Price>
           </S.PriceRow>
         )}
 
         <S.PriceRow>
           <S.Label>배송비</S.Label>
-          <C.Price>{shippingFee.toLocaleString()}원</C.Price>
+          <C.Price>{priceFormatter(shippingFee)}</C.Price>
         </S.PriceRow>
       </S.PriceRowContainer>
 
@@ -46,7 +47,7 @@ export default function CheckoutSummary({
       <S.PriceRow>
         <S.Label>총 결제 금액</S.Label>
         <C.Price>
-          {(totalPrice + shippingFee - (coupon ?? 0)).toLocaleString()}원
+          {priceFormatter(totalPrice + shippingFee - (coupon ?? 0))}
         </C.Price>
       </S.PriceRow>
     </S.Container>

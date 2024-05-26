@@ -11,6 +11,7 @@ import CheckBox from '../common/CheckBox';
 import useDeleteCartItem from '../../hooks/useDeleteCartItem';
 import useSelectCartItem from '../../hooks/useSelectCartItem';
 import useQuantityControls from '../../hooks/useQuantityControls';
+import { priceFormatter } from '../../utils/stringFormatter';
 
 interface CartItemProps {
   cartItem: CartItemType;
@@ -73,7 +74,7 @@ function CartItemDetails({ name, price }: Pick<ProductType, 'name' | 'price'>) {
   return (
     <>
       <S.ProductName>{name}</S.ProductName>
-      <C.Price>{price.toLocaleString()}원</C.Price>
+      <C.Price>{priceFormatter(price)}</C.Price>
     </>
   );
 }
