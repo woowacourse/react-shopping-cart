@@ -1,24 +1,20 @@
 import { act } from "react";
-import { RecoilRoot, useRecoilState } from "recoil";
-import { renderHook, waitFor } from "@testing-library/react";
+import { RecoilRoot, useRecoilState, useSetRecoilState } from "recoil";
+import { renderHook } from "@testing-library/react";
 
 import { cartItemsAtom } from "../atom/atom";
-import { quantitySelector } from "./selector";
+import { quantitySelectorFamily } from "./selector";
 import { mockCartItems } from "../../mocks/cartItems";
 
-jest.mock("../../api/cartItemApi", () => ({
-  fetchCartItems: jest.fn().mockImplementation(async () => mockCartItems),
-}));
-
-describe("quantitySelector 테스트", () => {
+describe("quantitySelectorFamily 테스트", () => {
   let result;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     const hook = renderHook(
       () => {
-        const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
-        const [quantities, setQuantity] = useRecoilState(quantitySelector);
-        return { cartItems, setCartItems, quantities, setQuantity };
+        const setCartItems = useSetRecoilState(cartItemsAtom);
+        const [quantity, setQuantity] = useRecoilState(quantitySelectorFamily(1));
+        return { quantity, setCartItems, setQuantity };
       },
       {
         wrapper: RecoilRoot,
@@ -26,26 +22,32 @@ describe("quantitySelector 테스트", () => {
     );
 
     result = hook.result;
-    await waitFor(() => {
-      expect(result.current.setCartItems).toBeDefined();
-    });
   });
 
-  it("quantities의 상태를 확인했을 때, cartItems의 quantity들이 얻어진다.", () => {
+  it("quantitySelectorFamily가 올바르게 초기 상태를 가져오는지 확인한다.", () => {
     act(() => {
       result.current.setCartItems(mockCartItems);
+      result.current.setQuantity(mockCartItems.find((item) => item.id === 1).quantity);
     });
 
-    expect(result.current.quantities).toEqual({ 1: 2, 2: 3, 3: 1 });
+    expect(result.current.quantity).toEqual(mockCartItems.find((item) => item.id === 1).quantity);
   });
 
-  it("cartItems의 quantity를 변경하고 quantities 상태를 확인했을때, 변경된 cartItems의 quantity들이 얻어진다.", () => {
+  it("quantitySelectorFamily의 상태를 업데이트하고, cartItemsAtom에도 반영되는지 확인한다.", () => {
+    const newQuantity = 5;
+
     act(() => {
       result.current.setCartItems(mockCartItems);
+      result.current.setQuantity(mockCartItems.find((item) => item.id === 1).quantity);
     });
 
-    act(() => result.current.setQuantity({ 3: 5 }));
+    act(() => {
+      result.current.setQuantity(newQuantity);
+    });
 
-    expect(result.current.quantities).toEqual({ 1: 2, 2: 3, 3: 5 });
+    expect(result.current.quantity).toEqual(newQuantity);
+
+    const updatedCartItems = mockCartItems.map((item) => (item.id === 1 ? { ...item, quantity: newQuantity } : item));
+    expect(updatedCartItems.find((item) => item.id === 1).quantity).toEqual(newQuantity);
   });
 });
