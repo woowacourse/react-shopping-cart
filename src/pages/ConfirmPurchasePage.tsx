@@ -4,10 +4,16 @@ import useOrder from '../hooks/order/useOrders';
 import Header from '../components/Header/Header';
 import { Button } from '../components/common/Button/Button.style';
 import ConfirmPurchaseSection from '../components/ConfirmPurchaseSection/ConfirmPurchaseSection';
+import useApiErrorState from '../hooks/error/useApiErrorState';
 
 const ConfirmPurchasePage = () => {
   const navigate = useNavigate();
   const { orderSelectedCartItems } = useOrder();
+  const { apiError } = useApiErrorState();
+
+  if (apiError?.name === 'FailedOrderError') {
+    throw apiError;
+  }
 
   return (
     <>
