@@ -44,6 +44,15 @@ export const checkedItemsSelector = selector<CartItemProps[]>({
   },
 });
 
+export const checkedItemQuantitiesSelector = selector<number[]>({
+  key: 'checkedItemQuantitiesSelector',
+  get: ({ get }) => {
+    const checkedItems = get(checkedItemsSelector);
+
+    return checkedItems.map(({ quantity }) => quantity);
+  },
+});
+
 export const orderTotalPriceState = selector<number>({
   key: 'orderTotalPriceState',
   get: ({ get }) => {

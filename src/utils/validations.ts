@@ -15,6 +15,19 @@ export const isOverMinimumOrderAmount = (coupon: Coupon, amount: number) => {
   return coupon.minimumAmount <= amount;
 };
 
+export const isOverBuyQuantity = (
+  quantities: number[],
+  buyQuantity: number,
+  getQuantity: number,
+) => {
+  if (buyQuantity === undefined) return true;
+  if (getQuantity === undefined) return true;
+
+  console.log(quantities, buyQuantity);
+
+  return quantities.some((quantity) => buyQuantity + getQuantity <= quantity);
+};
+
 export const isCouponUsableTime = (coupon: Coupon, now: Date = getKoreanTime()) => {
   if (coupon.availableTime === undefined) return true;
 
