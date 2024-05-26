@@ -8,7 +8,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function CheckBox({ id, checked, onChange, ...rest }: Props) {
+export default function CheckBox({ id, checked = false, onChange, ...rest }: Props) {
   const checkBoxLabelStyle = checked ? 'checkboxLabel' : 'unCheckboxLabel';
   return (
     <>
