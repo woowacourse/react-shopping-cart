@@ -10,9 +10,9 @@ import MOCK_CART_LIST from '@/constants/_mock/mockCartList';
 import { renderHook } from '@testing-library/react';
 import useCouponAvailable from './useCouponAvailable';
 
-describe('useCouponAvailable test', () => {
+describe('useCouponAvailable test (쿠폰 적용 가능 조건을 확인한 후 사용 가능 여부를 알려준다.)', () => {
   const today = new Date();
-  it('[최소 주문 금액 이상] 쿠폰 적용 가능 조건을 확인한 후 사용 가능 여부를 알려준다. (최소 주문 금액)', () => {
+  it('쿠폰의 최소 주문 금액 이상 일시 쿠폰을 사용할 수 있다. (가능)', () => {
     const { result } = renderHook(
       () => {
         const setCartList = useSetRecoilState(cartListState);
@@ -49,7 +49,7 @@ describe('useCouponAvailable test', () => {
     expect(result.current).toBe(true);
   });
 
-  it('[최소 주문 금액 미만] 쿠폰 적용 가능 조건을 확인한 후 사용 가능 여부를 알려준다. (최소 주문 금액)', () => {
+  it('쿠폰의 최소 주문 금액 미만 일시 쿠폰을 사용할 수 없다. (불가능)', () => {
     const { result } = renderHook(
       () => {
         const setCartList = useSetRecoilState(cartListState);
@@ -86,7 +86,7 @@ describe('useCouponAvailable test', () => {
     expect(result.current).toBe(false);
   });
 
-  it('[사용 가능 시간] 쿠폰 적용 가능 조건을 확인한 후 사용 가능 여부를 알려준다. (사용 가능 시간)', () => {
+  it('쿠폰의 사용 가능 시간이라면 쿠폰을 사용할 수 있다. (가능)', () => {
     const { result } = renderHook(
       () => {
         const setCartList = useSetRecoilState(cartListState);
@@ -137,7 +137,7 @@ describe('useCouponAvailable test', () => {
     expect(result.current).toBe(true);
   });
 
-  it('[사용 불가능 시간] 쿠폰 적용 가능 조건을 확인한 후 사용 가능 여부를 알려준다. (사용 가능 시간)', () => {
+  it('쿠폰의 사용 가능 시간이 아니라면 쿠폰을 사용할 수 없다. (불가능)', () => {
     const { result } = renderHook(
       () => {
         const setCartList = useSetRecoilState(cartListState);
@@ -188,7 +188,7 @@ describe('useCouponAvailable test', () => {
     expect(result.current).toBe(false);
   });
 
-  it('[최소 주문 수량(2+1) 이상] 쿠폰 적용 가능 조건을 확인한 후 사용 가능 여부를 알려준다. (최소 주문 수량)', () => {
+  it('쿠폰의 최소 주문 수량(2+1 = 3) 이상 구매시 쿠폰을 사용할 수 있다. (가능)', () => {
     const { result } = renderHook(
       () => {
         const setCartList = useSetRecoilState(cartListState);
@@ -235,7 +235,7 @@ describe('useCouponAvailable test', () => {
     expect(result.current).toBe(true);
   });
 
-  it('[최소 주문 수량(2+1) 미만] 쿠폰 적용 가능 조건을 확인한 후 사용 가능 여부를 알려준다. (최소 주문 수량)', () => {
+  it('쿠폰의 최소 주문 수량(2+1) 미만 구매시 쿠폰을 사용할 수 없다. (불가능)', () => {
     const { result } = renderHook(
       () => {
         const setCartList = useSetRecoilState(cartListState);
