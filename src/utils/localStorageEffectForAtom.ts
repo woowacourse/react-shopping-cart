@@ -8,9 +8,7 @@ export const localStorageEffectForAtom =
       setSelf(JSON.parse(savedValue));
     }
 
-    onSet((newValue: T, _: T | DefaultValue, isReset: boolean) => {
-      isReset
-        ? localStorage.removeItem(key)
-        : localStorage.setItem(key, JSON.stringify(newValue));
+    onSet((newValue: T, _: T | DefaultValue) => {
+      localStorage.setItem(key, JSON.stringify(newValue));
     });
   };
