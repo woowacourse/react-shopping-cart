@@ -6,7 +6,7 @@ import { cartItemCheckedIdsAtom } from "../recoil/atom/atom";
 import { totalCountSelector } from "../recoil/selector/selector";
 import { useFetchCartItems } from "../hooks/useFetchCartItems/useFetchCartItems";
 import { CartLayout, Header, Content, Footer } from "../components/layout";
-import { CouponButton, OrderItems, PaymentSummary, ShippingInfo } from "../components/orderConfirmationPage";
+import { CouponButton, OrderItems, PaymentSummary, ShippingInfo } from "../components/orderConfirmation";
 import { Title } from "../components/default";
 import { orderCartItems } from "../api/orderApi";
 import LeftArrow from "../assets/LeftArrow.svg?react";
