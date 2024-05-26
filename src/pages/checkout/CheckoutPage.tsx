@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { couponStatusState, isCheckedState, productsState } from '../../store/atoms';
+import { useRecoilValue } from 'recoil';
+import { isCheckedState, productsState } from '../../store/atoms';
 import { totalProductQuantityState } from '../../store/selectors';
+import useInitCouponStatusOnMount from '../../hooks/coupon/useInitCouponStatusOnMount';
 import Button from '../../components/common/Button';
 import Header from '../../components/Header/Header';
 import CheckoutItem from './components/CheckoutItem';
@@ -12,7 +13,6 @@ import CheckoutTotals from './components/CheckoutTotals';
 import CheckoutTitle from './components/CheckoutTitle';
 import ROUTES from '../../constants/routes';
 import BackIcon from '../../asset/back.png';
-import useUpdateCouponStatus from '../../hooks/useUpdateCouponStatus';
 import common from '../../styles/common.module.css';
 import styles from './Checkout.module.css';
 
@@ -33,12 +33,7 @@ export default function CheckoutPage() {
     setModalOpen(!modalOpen);
   };
 
-  /* 쿠폰 상태 업데이트 */
-  const setCouponStatus = useSetRecoilState(couponStatusState);
-  const { updateCouponStatus } = useUpdateCouponStatus();
-  useEffect(() => {
-    setCouponStatus(updateCouponStatus());
-  }, []);
+  useInitCouponStatusOnMount();
 
   return (
     <>
