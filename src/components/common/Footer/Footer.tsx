@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Wrapper } from "./style";
 import { Text } from "../../common";
-import { selectedCartItemsState } from "../../../recoil/selectors/selectors";
+import { selectedCartItemsState } from "../../../recoil";
 import { useRecoilValue } from "recoil";
 
 interface FooterProps {

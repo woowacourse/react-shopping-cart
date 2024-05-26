@@ -2,7 +2,7 @@ import { Wrapper, Info } from "./style";
 import { Text } from "../common";
 import { FilledCheckSvg, OutlineCheckSvg } from "../../assets";
 import { useRecoilState } from "recoil";
-import { extremeDeliveryState } from "../../recoil/atoms/atoms";
+import { extremeDeliveryState } from "../../recoil";
 
 const DeliveryInfo = () => {
   const handleToggle = () => {

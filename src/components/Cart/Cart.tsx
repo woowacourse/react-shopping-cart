@@ -1,9 +1,8 @@
 import { useRecoilState } from "recoil";
-import { selectedListState } from "../../recoil/atoms/atoms";
+import { selectedListState, cartItemsState } from "../../recoil";
 import { deleteCartItem, patchCartItemQuantity } from "../../api/cart";
 import type { CartItem } from "../../types/cart";
 import { OutlineCheckSvg, FilledCheckSvg } from "../../assets";
-import { cartItemsState } from "../../recoil/atoms/atoms";
 import {
   Wrapper,
   ItemImg,

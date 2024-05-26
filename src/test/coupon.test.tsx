@@ -1,6 +1,5 @@
 import { RecoilRoot, useRecoilValue } from "recoil";
-import { possibleCouponListState } from "../recoil/selectors/selectors";
-import { cartItemsState, selectedListState } from "../recoil/atoms/atoms";
+import { possibleCouponListState, cartItemsState, selectedListState } from "../recoil";
 import { renderHook, waitFor } from "@testing-library/react";
 import { Suspense } from "react";
 

@@ -1,12 +1,11 @@
 import { useRecoilState, useRecoilValue } from "recoil";
-import { selectedListState, cartItemsState } from "../../recoil/atoms/atoms";
+import { selectedListState, cartItemsState, selectedCartItemsState } from "../../recoil";
 import Cart from "../Cart/Cart";
 import type { CartItem } from "../../types/cart";
 import { Wrapper, AllCheckWrapper } from "./style";
 import { FilledCheckSvg, OutlineCheckSvg } from "../../assets";
 import { Text } from "../common";
 import { useLocation } from "react-router-dom";
-import { selectedCartItemsState } from "../../recoil/selectors/selectors";
 
 const CartList = () => {
   const cartItems = useRecoilValue(cartItemsState);

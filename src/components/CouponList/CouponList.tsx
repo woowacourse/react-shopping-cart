@@ -10,9 +10,10 @@ import {
 import {
   couponDiscountPriceState,
   possibleCouponListState,
-} from "../../recoil/selectors/selectors";
+  selectedCouponsState,
+  couponsState,
+} from "../../recoil";
 import { OutlineCheckSvg, FilledCheckSvg, XSvg } from "../../assets";
-import { selectedCouponsState, couponsState } from "../../recoil/atoms/atoms";
 import { Tip, Text } from "../common";
 import { MAX_COUPON_NUMBER } from "../../constants/coupon";
 
@@ -31,9 +32,9 @@ const CouponList = ({ handleCloseModal }: CouponListProps) => {
 
     if (selectedCoupons.includes(couponId)) {
       setSelectedCoupons(selectedCoupons.filter((coupon) => coupon !== couponId));
-    } else {
-      setSelectedCoupons([...selectedCoupons, couponId]);
+      return;
     }
+    setSelectedCoupons([...selectedCoupons, couponId]);
   };
 
   const isDisableCoupon = (couponId: number) => {

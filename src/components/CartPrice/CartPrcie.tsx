@@ -1,10 +1,10 @@
 import { useRecoilValue } from "recoil";
 import {
   orderPriceState,
-  deliveryFeeState,
+  deliveryPriceState,
   couponDiscountPriceState,
   paymentPriceState,
-} from "../../recoil/selectors/selectors";
+} from "../../recoil";
 import { Wrapper, Price } from "./style";
 import { Text } from "../common";
 import { useLocation } from "react-router-dom";
@@ -16,7 +16,7 @@ export interface PriceStyleProps {
 const CartPrice = () => {
   const location = useLocation();
   const orderPrice = useRecoilValue(orderPriceState);
-  const deliveryFee = useRecoilValue(deliveryFeeState);
+  const deliveryPrice = useRecoilValue(deliveryPriceState);
   const couponDiscountPrice = useRecoilValue(couponDiscountPriceState);
   const paymentPrice = useRecoilValue(paymentPriceState);
 
@@ -36,7 +36,7 @@ const CartPrice = () => {
       )}
       <Price>
         <Text size="medium">배송비</Text>
-        <Text size="large">{deliveryFee.toLocaleString("ko-KR")}원</Text>
+        <Text size="large">{deliveryPrice.toLocaleString("ko-KR")}원</Text>
       </Price>
       <Price>
         <Text size="medium">총 결제 금액</Text>
