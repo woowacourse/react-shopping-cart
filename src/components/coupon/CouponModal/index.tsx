@@ -16,14 +16,14 @@ interface CouponModalProps {
 }
 
 const CouponModal = ({ isModalOpen, closeModal }: CouponModalProps) => {
-  const { clearSelectedCoupons } = useCouponSelections();
+  const { resetSelectedCoupons } = useCouponSelections();
   const { calculateTotalDiscount } = useDiscountCalculator();
   const totalDiscountPrice = calculateTotalDiscount();
 
   if (!isModalOpen) return null;
 
   const handleCloseModal = () => {
-    clearSelectedCoupons();
+    resetSelectedCoupons();
     closeModal();
   };
 

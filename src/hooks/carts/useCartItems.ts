@@ -1,5 +1,9 @@
 import { useRecoilState } from "recoil";
-import { deleteCartItem, patchCartItemQuantity } from "@/apis/cartItem";
+import {
+  deleteCartItem,
+  patchCartItemQuantity,
+  getCartItems,
+} from "@/apis/cartItem";
 import { cartItemsState } from "@/stores/cartItems";
 
 const useCartItems = () => {
@@ -29,7 +33,16 @@ const useCartItems = () => {
     }
   };
 
-  return { cartItems, removeCartItem, changeItemQuantity };
+  const reloadCartItems = async () => {
+    try {
+      const updatedCartItems = await getCartItems();
+      setCartItems(updatedCartItems);
+    } catch (error) {
+      console.error("Failed to reload cart items:", error);
+    }
+  };
+
+  return { cartItems, removeCartItem, changeItemQuantity, reloadCartItems };
 };
 
 export default useCartItems;

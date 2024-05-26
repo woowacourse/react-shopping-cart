@@ -4,15 +4,17 @@ import { cartItemsState } from "@/stores/cartItems";
 import { selectedCouponsState } from "@/stores/coupons";
 import { cartPriceState, shippingAreaState } from "@/stores/cartPrice";
 
-import { CART_PRICE } from "@/constants/cart";
-import { Coupon } from "@/types/coupon";
-import { COUPON_SELECTION_RULES } from "@/constants/coupon";
 import getPermutations from "@/utils/getPermutations";
+import { CART_PRICE } from "@/constants/cart";
+import { COUPON_SELECTION_RULES } from "@/constants/coupon";
+import { Coupon } from "@/types/coupon";
+import { selectedCartItemsState } from "@/stores/cartItemSelections";
 
 const useDiscountCalculator = () => {
   const cartItems = useRecoilValue(cartItemsState);
   const shippingArea = useRecoilValue(shippingAreaState);
   const selectedCoupons = useRecoilValue(selectedCouponsState);
+  const selectedCartItems = useRecoilValue(selectedCartItemsState);
   const { orderPrice } = useRecoilValue(cartPriceState);
 
   const calculateFixedDiscount = (discount: number) => {
@@ -28,7 +30,10 @@ const useDiscountCalculator = () => {
 
   const calculateBuyXgetYDiscount = () => {
     const filteredItemsByQuantity = cartItems.filter(
-      (cartItem) => cartItem.quantity >= COUPON_SELECTION_RULES.minXgetYCount
+      (cartItem) =>
+        selectedCartItems.findIndex(
+          (selectedItem) => selectedItem.id === cartItem.id
+        ) !== -1 && cartItem.quantity >= COUPON_SELECTION_RULES.minXgetYCount
     );
 
     if (filteredItemsByQuantity.length === 0) {
@@ -79,6 +84,7 @@ const useDiscountCalculator = () => {
     }
 
     const permutations = getPermutations(selectedCoupons);
+
     const discountAmounts = permutations.map((couponsPermutation) => {
       return couponsPermutation.reduce((totalDiscount, coupon) => {
         const discountAmount = calculateDiscountPrice(coupon, totalDiscount);

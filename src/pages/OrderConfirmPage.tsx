@@ -10,11 +10,21 @@ import { NavigationButton, BackButton } from "@/components/button";
 import OrderContent from "@/components/order/OrderContent";
 
 import { ROUTE_PATH } from "@/constants/route";
+import { selectedCartItemsState } from "@/stores/cartItemSelections";
+import { useRecoilValue } from "recoil";
+import { postOrders } from "@/apis/order";
 
 const OrderConfirmPage = () => {
   const navigate = useNavigate();
+  const selectedCartItems = useRecoilValue(selectedCartItemsState);
+  const selectedCartItemIds = selectedCartItems.map((item) => item.id);
 
-  const handleButtonClick = () => {
+  const handlePaymentButtonClick = async () => {
+    try {
+      await postOrders(selectedCartItemIds);
+    } catch (error) {
+      console.error("Failed to post orders:", error);
+    }
     navigate(ROUTE_PATH.paymentConfirm);
   };
 
@@ -30,7 +40,7 @@ const OrderConfirmPage = () => {
           </PurchaseLayout>
           <NavigationButton
             buttonText="결제하기"
-            onButtonClick={handleButtonClick}
+            onButtonClick={handlePaymentButtonClick}
           />
         </Suspense>
       </ErrorBoundary>

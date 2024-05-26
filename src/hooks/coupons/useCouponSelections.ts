@@ -1,5 +1,5 @@
 // 쿠폰 선택을 관리하는 커스텀 훅
-import { useRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState } from "recoil";
 import { selectedCouponsState } from "@/stores/coupons";
 import useCouponApplicabilityChecker from "./useCouponApplicabilityChecker";
 
@@ -9,6 +9,8 @@ import { COUPON_SELECTION_RULES } from "@/constants/coupon";
 const useCouponSelections = () => {
   const [selectedCoupons, setSelectedCoupons] =
     useRecoilState(selectedCouponsState);
+  const resetSelectedCoupons = useResetRecoilState(selectedCouponsState);
+
   const { filteredApplicableCoupons } = useCouponApplicabilityChecker();
 
   const isCouponSelected = (couponId: number) => {
@@ -40,10 +42,6 @@ const useCouponSelections = () => {
     }
   };
 
-  const clearSelectedCoupons = () => {
-    setSelectedCoupons([]);
-  };
-
   const isCouponSelectable = (coupon: Coupon) => {
     if (!filteredApplicableCoupons.includes(coupon)) {
       return false;
@@ -58,7 +56,7 @@ const useCouponSelections = () => {
     selectedCoupons,
     isCouponSelected,
     toggleCoupon,
-    clearSelectedCoupons,
+    resetSelectedCoupons,
     isCouponSelectable,
   };
 };
