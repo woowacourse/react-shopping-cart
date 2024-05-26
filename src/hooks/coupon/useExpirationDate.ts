@@ -1,11 +1,11 @@
 import dayjs from '@utils/dayjs';
 
 const useExpirationDate = () => {
-  const isExpired = (dateString: string) => {
-    const targetTime = dayjs(dateString);
-    const now = dayjs();
+  const isExpired = (target: string, now: string) => {
+    const targetTime = dayjs(target);
+    const realTime = dayjs(now);
 
-    return now.isAfter(targetTime);
+    return realTime.isAfter(targetTime);
   };
 
   return { isExpired };
