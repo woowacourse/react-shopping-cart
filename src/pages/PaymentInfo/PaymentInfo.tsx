@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as S from './styled';
 
-import { IPaymentInfo } from '@recoil/selectors';
+import { IPaymentInfo } from '@type/paymentInfo';
 import { ROUTER_URLS } from '@constants/constants';
 import FloatingButton from '@components/common/FloatingButton/FloatingButton';
 

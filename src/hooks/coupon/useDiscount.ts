@@ -1,15 +1,14 @@
 import { useRecoilValue } from 'recoil';
-import { isolatedRegionStore, selectedCartItems } from '@recoil/atoms';
+import { selectedCartItems } from '@recoil/atoms';
 import { Coupon } from '@type/coupon';
 import { CartItem } from '@type/cartItem';
-import { priceInfoStore } from '@recoil/selectors';
 import { useEffect, useState } from 'react';
+import usePriceInfo from '@hooks/usePriceInfo';
 
-const useDiscount = (applyingCoupons: Coupon[]) => {
+const useDiscount = (applyingCoupons: Coupon[], isolatedRegion: boolean) => {
   const [discount, setDiscount] = useState(0);
   const selectedItems = useRecoilValue(selectedCartItems);
-  const priceInfo = useRecoilValue(priceInfoStore);
-  const isolatedRegion = useRecoilValue(isolatedRegionStore);
+  const priceInfo = usePriceInfo(isolatedRegion);
 
   const discountByFixed = (coupon: Coupon) => {
     return coupon.discount as number;

@@ -1,18 +1,24 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as S from './styled';
-import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { useResetRecoilState } from 'recoil';
 
 import { CartItem } from '@type/cartItem';
 import { ROUTER_URLS } from '@constants/constants';
 import { discountAmountStore } from '@recoil/atoms';
-import { priceInfoStore } from '@recoil/selectors';
 
-import { ShoppingCartItemView, CouponAndPaymentInfo } from '@components/OrderInfo';
+import {
+  ShoppingCartItemView,
+  Coupon,
+  IsolatedRegionShippingFee,
+  PaymentTotalWithDiscount,
+} from '@components/OrderInfo';
 import ShoppingCartDescription from '@components/serviceCommon/ShoppingCartDescription/ShoppingCartDescription';
 import FloatingButton from '@components/common/FloatingButton/FloatingButton';
 import useMutation from '@hooks/useMutation';
 import orderItems from '@api/post/orderItems';
+import usePriceInfo from './../../hooks/usePriceInfo';
+import useIsolatedRegion from '@hooks/useIsolatedRegion';
 
 interface OrderInfoState {
   orderItems: CartItem[];
@@ -24,6 +30,9 @@ interface OrderInfoState {
 const OrderInfo = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { isolatedRegion, handleIsolatedRegion } = useIsolatedRegion();
+  const priceInfo = usePriceInfo(isolatedRegion);
+
   const { mutate: orderItemsMutate, isPending } = useMutation<typeof orderItems>(orderItems, {
     onSuccess: () => {
       navigate(ROUTER_URLS.PAYMENT_INFO, { state: paymentInfo });
@@ -37,7 +46,7 @@ const OrderInfo = () => {
 
   const resetDiscount = useResetRecoilState(discountAmountStore);
   const orderInfo = location.state as OrderInfoState | null;
-  const totalPrice = useRecoilValue(priceInfoStore).total;
+  const totalPrice = priceInfo.total;
 
   useEffect(() => {
     if (orderInfo === undefined) navigate(ROUTER_URLS.ERROR);
@@ -65,7 +74,12 @@ const OrderInfo = () => {
 최종 결제 금액을 확인해 주세요.`}
         />
         {orderInfo?.orderItems.map(item => <ShoppingCartItemView key={item.id} cartItem={item} />)}
-        <CouponAndPaymentInfo />
+        <Coupon isolatedRegion={isolatedRegion} />
+        <IsolatedRegionShippingFee
+          isolatedRegion={isolatedRegion}
+          handleIsolatedRegion={handleIsolatedRegion}
+        />
+        <PaymentTotalWithDiscount priceInfo={priceInfo} />
       </S.Container>
       <FloatingButton label="결제하기" onClick={onOrder} disabled={isPending} />
     </>

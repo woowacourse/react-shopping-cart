@@ -3,7 +3,7 @@ import { CartItem } from '@type/cartItem';
 import { Coupon } from '@type/coupon';
 import dayjs from '@utils/dayjs';
 import { selectedCartItems } from '@recoil/atoms';
-import { priceInfoStore } from '@recoil/selectors';
+import usePriceInfo from '@hooks/usePriceInfo';
 
 const isApplicableFixed = (minimumAmount: number, totalAmount: number) => {
   return totalAmount >= minimumAmount;
@@ -38,7 +38,7 @@ const isApplicablePercentage = (start: string, end: string) => {
  */
 const useApplicableCoupon = () => {
   const selectedItems = useRecoilValue(selectedCartItems);
-  const totalAmount = useRecoilValue(priceInfoStore).order;
+  const totalAmount = usePriceInfo().order;
 
   const isApplicable = (coupon: Coupon) => {
     if (coupon.discountType === 'fixed')
