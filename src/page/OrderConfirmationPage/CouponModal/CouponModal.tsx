@@ -45,6 +45,7 @@ export default function CouponModal({ onClose, onConfirm }: CouponModalProps) {
     addCoupon,
     deleteCoupon,
   } = useCoupons(selectedCoupon);
+  if (unavailableCoupons.some((coupon) => isCheckedCoupon(coupon))) setSelectedCoupon([]);
 
   const checkedCouponAmount = getCouponsAmount(checkedCoupons, checkedItems, deliveryFee);
 
