@@ -35,6 +35,15 @@ export const selectedCartItemsSelector = selector<CartItemType[]>({
   },
 });
 
+export const selectedCartItemIdsSelector = selector<number[]>({
+  key: 'selectedCartItemIds',
+  get: ({ get }) => {
+    return get(selectedCartItemsSelector).map(
+      (selectedCartItem) => selectedCartItem.id,
+    );
+  },
+});
+
 export const applicableBOGOCartItemsSelector = selector<CartItemType[]>({
   key: 'applicableBOGOCartItems',
   get: ({ get }) => {
