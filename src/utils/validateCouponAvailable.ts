@@ -1,4 +1,3 @@
-import useCartItemList from '../hooks/cartItem/useCartItemList';
 import useSelectedCartItemList from '../hooks/cartItem/useSelectedCartItemList';
 import usePrice from '../hooks/price/usePrice';
 
