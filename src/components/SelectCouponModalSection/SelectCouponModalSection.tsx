@@ -1,20 +1,20 @@
 import Text from '../common/Text/Text';
 import NOTICE from '../../assets/notice.svg?react';
 import * as S from './SelectCouponModalSection.style';
-import useCouponList from '../../hooks/coupon/useCouponList';
-import SelectCouponItem from '../SelectCouponItem/SelectCouponItem';
-import { useEffect } from 'react';
+import SelectCouponItemList from '../SelectCouponItemList/SelectCouponItemList';
 import useApiErrorState from '../../hooks/error/useApiErrorState';
+import useCouponList from '../../hooks/coupon/useCouponList';
+import { useEffect } from 'react';
 
 const SelectCouponModalSection = () => {
-  const { couponList, fetchCouponList } = useCouponList();
   const { apiError } = useApiErrorState();
+  const { couponList, fetchCouponList } = useCouponList();
 
   useEffect(() => {
     fetchCouponList();
   }, []);
 
-  if (apiError) {
+  if (apiError?.name === 'FailedFetchCouponListError') {
     throw apiError;
   }
 
@@ -26,11 +26,7 @@ const SelectCouponModalSection = () => {
           쿠폰은 최대 2개까지 사용할 수 있습니다.
         </Text>
       </S.NoticeContainer>
-      <S.SelectCouponItemContainer>
-        {couponList.map((coupon) => (
-          <SelectCouponItem coupon={coupon} />
-        ))}
-      </S.SelectCouponItemContainer>
+      <SelectCouponItemList couponList={couponList} />
     </S.SelectCouponModalSection>
   );
 };
