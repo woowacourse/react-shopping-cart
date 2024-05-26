@@ -3,16 +3,39 @@ import { selector, selectorFamily, atom } from 'recoil';
 import { deliveryFeeSelector } from './ShippingStates';
 import { fetchCartItems } from '@/api';
 import formatCartItems from '@/services/formatCartItem';
+import { CartItemData } from '@/types';
 
-export const allCartItemStates = atom({
+export const allCartItemStates = atom<CartItemData[]>({
   key: 'allCartItemStates',
   default: selector({
     key: 'cartItemsSelector',
     get: async () => {
       const cartItems = await fetchCartItems();
-      return formatCartItems(cartItems);
+      const formattedCartItems = formatCartItems(cartItems);
+      const checkedProductIds = CheckedCartItemStorage.getCheckedProductIds();
+      return formattedCartItems.map((item) => ({
+        ...item,
+        product: {
+          ...item.product,
+          isChecked: checkedProductIds.includes(item.id),
+        },
+      }));
     },
   }),
+  effects: [
+    ({ setSelf, onSet }) => {
+      onSet((newValue, _, isReset) => {
+        if (isReset) {
+          CheckedCartItemStorage.clearCheckedProductIds();
+        } else {
+          const checkedProductIds = newValue
+            .filter((item) => item.product.isChecked)
+            .map((item) => item.id);
+          CheckedCartItemStorage.setCheckedProductIds(checkedProductIds);
+        }
+      });
+    },
+  ],
 });
 
 export const totalCartItemsSelector = selector({
@@ -41,15 +64,6 @@ export const isAllCheckedCartItemsSelector = selector({
     }));
 
     set(allCartItemStates, updatedCartItems);
-
-    if (!allChecked) {
-      const checkedProductIds = updatedCartItems
-        .filter((cartItem) => cartItem.product.isChecked)
-        .map((cartItem) => cartItem.id);
-      CheckedCartItemStorage.setCheckedProductIds(checkedProductIds);
-    } else {
-      CheckedCartItemStorage.clearCheckedProductIds();
-    }
   },
 });
 
@@ -72,11 +86,6 @@ export const isCheckedIndividualCartItemSelector = selectorFamily<boolean, numbe
           : item,
       );
       set(allCartItemStates, updatedCartItems);
-
-      const checkedProductIds = updatedCartItems
-        .filter((item) => item.product.isChecked)
-        .map((item) => item.id);
-      CheckedCartItemStorage.setCheckedProductIds(checkedProductIds);
     },
 });
 
