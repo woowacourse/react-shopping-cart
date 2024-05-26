@@ -33,6 +33,15 @@ export const orderPriceState = selector({
 export const couponDiscountPriceState = selector({
   key: "couponDiscountPriceState",
   get: ({ get }) => {
+    /*
+      타입별 쿠폰 가격 측정 기준
+      fixed: 고정 금액 할인 
+      buyXgetY: buyQuantity개 구입시 getQuantity개 만큼 증정, 복수개인 경우 가격이 가장 큰 품목
+      freeShipping: 배송비 무료 
+      percentage: percentage만큼 할인
+
+    */
+
     const selectedCoupons = get(selectedCouponsState);
     const coupons = get(couponsState);
     const deliveryPrice = get(deliveryPriceState);
@@ -40,28 +49,49 @@ export const couponDiscountPriceState = selector({
     const selectedCartItems = get(selectedCartItemsState);
 
     let couponDiscountPrice = 0;
+
     coupons
       .filter((coupon) => selectedCoupons.includes(coupon.id))
       .forEach((coupon) => {
-        if (coupon.discountType === "fixed" && coupon.discount) {
-          couponDiscountPrice += coupon.discount;
-        } else if (coupon.discountType === "buyXgetY") {
-          couponDiscountPrice += Math.max(
-            ...selectedCartItems
-              .filter((item) => item.quantity >= 3)
-              .map((item) => item.product.price)
-          );
-        } else if (coupon.discountType === "freeShipping") {
-          couponDiscountPrice += deliveryPrice;
-        } else if (coupon.discountType === "percentage" && coupon.discount) {
-          couponDiscountPrice += orderPrice * (coupon.discount / 100);
-        } else {
-          throw new Error("존재하지 않는 쿠폰 타입입니다");
+        switch (coupon.discountType) {
+          case "fixed":
+            if (coupon.discount) {
+              couponDiscountPrice += coupon.discount;
+            }
+            break;
+
+          case "buyXgetY":
+            couponDiscountPrice += Math.max(
+              ...selectedCartItems
+                .filter(
+                  (item) =>
+                    coupon.buyQuantity &&
+                    coupon.getQuantity &&
+                    item.quantity >= coupon.buyQuantity + coupon.getQuantity
+                )
+                .map((item) => item.product.price)
+            );
+            break;
+
+          case "freeShipping":
+            couponDiscountPrice += deliveryPrice;
+            break;
+
+          case "percentage":
+            if (coupon.discount) {
+              couponDiscountPrice += orderPrice * (coupon.discount / 100);
+            }
+            break;
+
+          default:
+            throw new Error("존재하지 않는 쿠폰 타입입니다");
         }
       });
+
     return Math.min(orderPrice, couponDiscountPrice);
   },
 });
+
 export const paymentPriceState = selector({
   key: "paymentPriceState",
   get: ({ get }) => {
