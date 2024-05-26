@@ -94,9 +94,6 @@ export const calculateTotalDiscountAmountSelector = selectorFamily<number, boole
 
         const discountAmounts = couponCodes.map((code) => {
           const coupon = get(couponSelector(code)) as Coupon;
-          const isCouponApplicable = get(applicableCouponSelector(code));
-
-          if (!isCouponApplicable) return 0;
 
           const discountAmount = calculateDiscountAmount(
             coupon,
