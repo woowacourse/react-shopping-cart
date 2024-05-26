@@ -40,9 +40,13 @@ export const useCartItemQuantity = () => {
     const currentItem = cartItemList.find(
       (cartItem) => cartItem.id === cartItemId,
     );
-    if (!currentItem) return;
+    if (
+      !currentItem ||
+      cartItemList.find(({ id }) => id === cartItemId)?.quantity === 1
+    )
+      return;
 
-    const decreasedQuantity = Math.max(currentItem.quantity - 1, 1);
+    const decreasedQuantity = currentItem.quantity - 1;
     const newCartItemList = cartItemList.map((cartItem) =>
       cartItem.id === cartItemId
         ? { ...cartItem, quantity: decreasedQuantity }
