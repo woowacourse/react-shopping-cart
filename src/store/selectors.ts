@@ -1,6 +1,6 @@
 import { selector, selectorFamily } from 'recoil';
-import { isCheckedState, productsState } from './atoms';
-import { CartItemType } from '../types';
+import { activeCouponCodesState, isCheckedState, mockCoupons, productsState } from './atoms';
+import { CartItemType, CouponType } from '../types';
 import { CART_POLICY } from '../constants/policy';
 
 type AmountType = {
@@ -49,7 +49,9 @@ export const totalOrderAmountState = selector<AmountType>({
       orderAmount < CART_POLICY.shipping_throughput
         ? CART_POLICY.shipping_basic_fee
         : CART_POLICY.shipping_free;
-    const totalAmount = orderAmount + deliveryCharge;
+
+    const discountAmount = get(discountAmountState);
+    const totalAmount = orderAmount + deliveryCharge - discountAmount;
 
     return {
       orderAmount,
@@ -81,5 +83,60 @@ export const totalProductQuantityState = selector({
       totalCount,
       totalQuantity,
     };
+  },
+});
+
+const applyCoupon = (coupon: CouponType, product: CartItemType): number => {
+  switch (coupon.discountType) {
+    case 'fixed':
+      return coupon.discount ?? 0;
+    case 'buyXgetY':
+      if (product.quantity >= (coupon.buyQuantity ?? 0)) {
+        return product.product.price * (coupon.getQuantity ?? 0);
+      }
+      return 0;
+    case 'freeShipping':
+      return 3000;
+    case 'percentage':
+      if (coupon.discount)
+        return product.product.price * product.quantity * (coupon.discount / 100);
+      return 0;
+    default:
+      return 0;
+  }
+};
+
+const calculator = (activeCoupons: CouponType[], products: CartItemType[]): number => {
+  let maxDiscount = 0;
+
+  activeCoupons.forEach((coupon) => {
+    let bestDiscount = 0;
+
+    products.forEach((product) => {
+      const discount = applyCoupon(coupon, product);
+      if (discount > bestDiscount) {
+        bestDiscount = discount;
+      }
+    });
+
+    maxDiscount += bestDiscount;
+  });
+
+  return maxDiscount;
+};
+
+export const discountAmountState = selector({
+  key: 'discountAmountState',
+  get: ({ get }) => {
+    const coupons = mockCoupons;
+    const activeCouponCodes = get(activeCouponCodesState);
+    const activeCoupons = coupons.filter((coupon) => activeCouponCodes.includes(coupon.code));
+
+    const isCheckedMap = get(isCheckedState);
+    const checkoutProducts = get(productsState).filter(
+      (product) => isCheckedMap[product.id] === true,
+    );
+
+    return calculator(activeCoupons, checkoutProducts);
   },
 });

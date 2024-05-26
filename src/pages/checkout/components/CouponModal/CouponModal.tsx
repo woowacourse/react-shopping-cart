@@ -3,6 +3,9 @@ import NoticeLabel from '../../../../components/common/NoticeLabel/NoticeLabel';
 import CouponList from './CouponList';
 import { COUPON_POLICY } from '../../../../constants/policy';
 import styles from './CouponModal.module.css';
+import { useRecoilValue } from 'recoil';
+import { discountAmountState } from '../../../../store/selectors';
+import formatKoreanCurrency from '../../../../utils/formatKoreanCurrency';
 
 interface Props {
   isOpen: boolean;
@@ -10,6 +13,7 @@ interface Props {
 }
 
 export default function CouponModal({ isOpen, handleToggle }: Props) {
+  const discountAmount = useRecoilValue(discountAmountState);
   return (
     <Modal
       position="center"
@@ -31,7 +35,7 @@ export default function CouponModal({ isOpen, handleToggle }: Props) {
 
       <Modal.ModalFooter>
         <Modal.ModalButton variant="primary" style={{ width: '100%' }}>
-          총 6,000원 할인 쿠폰 사용하기
+          총 {formatKoreanCurrency(discountAmount)} 할인 쿠폰 사용하기
         </Modal.ModalButton>
       </Modal.ModalFooter>
     </Modal>
