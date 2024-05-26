@@ -1,15 +1,18 @@
 import { Modal, useModal } from 'llqqssttyy-react-modules-components';
 import BorderButton from '../common/BorderButton';
 
-import * as C from '../commonStyles';
 import InfoIconSrc from '../../assets/infoIcon.png';
-import useCoupon from '../../hooks/coupon/useCoupon';
-import CouponItem from '../CouponItem';
 import { priceFormatter } from '../../utils/stringFormatter';
 import CouponList from '../common/CouponList';
+import * as C from '../commonStyles';
 
 export default function CouponModal() {
   const { isModalOpen, openModal, closeModal } = useModal(false);
+
+  const applyCoupon = () => {
+    const confirm = window.confirm('쿠폰을 적용하시겠습니까?');
+    if (confirm) closeModal();
+  };
 
   return (
     <>
@@ -28,10 +31,7 @@ export default function CouponModal() {
         <Modal.Button
           type="button"
           variant="primary"
-          onClick={() => {
-            const confirm = window.confirm('쿠폰을 적용하시겠습니까?');
-            if (confirm) closeModal();
-          }}
+          onClick={applyCoupon}
         >{`총 ${priceFormatter(0)} 할인 쿠폰 사용하기`}</Modal.Button>
       </Modal>
     </>
