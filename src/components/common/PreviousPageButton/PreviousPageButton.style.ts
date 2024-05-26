@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
-import { BackArrowIcon } from '../../../assets';
 
 export const PreviousPageButton = styled.button`
   width: 32px;
   height: 32px;
-  background: url('${BackArrowIcon}') no-repeat center;
-  background-size: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
 
   &:hover {
