@@ -4,7 +4,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { cartItemCheckedIdsAtom, cartItemsAtom } from "../recoil/atom/atom";
 import { useFetchCartItems } from "../hooks/useFetchCartItems/useFetchCartItems";
 import { CartLayout, Header, Content, Footer } from "../components/layout";
-import { CartItems, EmptyCart, OrderSummary } from "../components/cartPage";
+import { CartItems, EmptyCart, OrderSummary } from "../components/cart";
 import { Title } from "../components/default";
 
 const CartPage = () => {
