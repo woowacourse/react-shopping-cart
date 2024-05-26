@@ -5,18 +5,21 @@ import * as Styled from './style';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   applyCouponState,
-  shippingFeeDiscountState,
+  isShippingFeeDiscountState,
 } from '../../recoil/coupons';
-import useDiscountType from '../../hooks/useDiscountType';
 import { shippingFeeSelector } from '../../recoil/cartItems';
+import useCoupons from '../../hooks/useCoupons';
 
 const CouponApplication = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const { applyCoupon, getDiscountAmount } = useDiscountType();
+
+  const { getDiscountAmount, ...couponProps } = useCoupons();
+
   const shippingFee = useRecoilValue(shippingFeeSelector);
   const [shippingFeeDiscount, setShippingFeeDiscount] = useRecoilState(
-    shippingFeeDiscountState,
+    isShippingFeeDiscountState,
   );
+
   const [couponDiscount, updateCouponDiscount] =
     useRecoilState(applyCouponState);
 
@@ -38,7 +41,7 @@ const CouponApplication = () => {
             title="쿠폰을 선택해 주세요"
           ></Modal.Header>
           <Modal.Content>
-            <Coupons applyCoupon={applyCoupon}></Coupons>
+            <Coupons {...couponProps}></Coupons>
           </Modal.Content>
           <Modal.Button
             onClick={clickConfirm}
