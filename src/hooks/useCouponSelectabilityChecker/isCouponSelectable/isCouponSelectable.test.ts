@@ -25,13 +25,13 @@ describe("isCouponSelectable", () => {
   ];
 
   const cartAmount: Omit<CartAmount, "totalOrderAmount"> = {
-    orderAmount: 5000,
+    orderAmount: 7000,
     shippingCost: 3000,
   };
 
   const now = new Date("2024-05-23T12:00:00");
 
-  it("모든 조건을 충족했을 때 선택 가능으로 판정한다.", () => {
+  it("모든 조건(만료일, 가능 시간, 최소 금액, 최소 수량)을 충족했을 때 선택 가능으로 판정한다.", () => {
     const coupon: BuyXGetYRawCoupon = {
       id: 6,
       code: "BUY2GET1",
@@ -39,6 +39,7 @@ describe("isCouponSelectable", () => {
       expirationDate: "2024-12-31",
       availableTime: { start: "11:59:59", end: "12:00:01" },
       discountType: COUPON_DISCOUNT_TYPE.buyXgetY,
+      minimumAmount: 7000,
       buyQuantity: 2,
       getQuantity: 1,
     };
