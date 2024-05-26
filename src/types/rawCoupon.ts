@@ -1,25 +1,17 @@
-import {
+import type {
   BuyXGetY,
   CouponDiscountType,
   FixedDiscount,
   FreeShipping,
   PercentageDiscount,
 } from "../constants/couponDiscountType";
+import type { TimeString, DateString } from "./date";
 
 export type RawCoupon =
   | FixedDiscountRawCoupon
   | PercentageDiscountRawCoupon
   | BuyXGetYRawCoupon
   | FreeShippingRawCoupon;
-
-/**
- * @example "2024-05-21"
- */
-type DateString = string;
-/**
- * @example "07:00:00"
- */
-type TimeString = string;
 
 interface BaseCoupon {
   id: number;
