@@ -2,7 +2,7 @@ import getKoreanTime from './getKoreanTime';
 
 import { Coupon } from '@/types/coupon';
 
-export const isCouponValid = (coupon: Coupon) => {
+export const isCouponActive = (coupon: Coupon) => {
   const couponExpirationDate = new Date(coupon.expirationDate);
   const now = getKoreanTime();
 

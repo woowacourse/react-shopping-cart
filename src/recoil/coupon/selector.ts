@@ -12,7 +12,7 @@ import { MAX_SELECTED_COUPON_LENGTH } from '@/constants/coupon';
 import { Coupon } from '@/types/coupon';
 import calculateDiscountAmount from '@/utils/calculateDiscountAmount';
 import permute from '@/utils/permute';
-import { isCouponUsableTime, isCouponValid, isOverMinimumOrderAmount } from '@/utils/validations';
+import { isCouponActive, isCouponUsableTime, isOverMinimumOrderAmount } from '@/utils/validations';
 
 export const couponListSelector = selector({
   key: 'couponListSelector',
@@ -51,7 +51,7 @@ export const applicableCouponSelector = selectorFamily<boolean, string>({
       const coupon = get(couponSelector(couponCode));
       const totalAmount = get(orderTotalPriceState);
 
-      if (!coupon || !isCouponValid(coupon)) return false;
+      if (!coupon || !isCouponActive(coupon)) return false;
 
       if (coupon.discountType === 'freeShipping' && totalAmount >= MINIMUM_FREE_SHIPPING_AMOUNT)
         return false;

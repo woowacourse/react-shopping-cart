@@ -1,9 +1,9 @@
-import { isCouponUsableTime, isCouponValid, isOverMinimumOrderAmount } from './validations';
+import { isCouponUsableTime, isCouponActive, isOverMinimumOrderAmount } from './validations';
 
 import { Coupon } from '@/types/coupon';
 
 describe('validations', () => {
-  describe('isCouponValid', () => {
+  describe('isCouponActive', () => {
     beforeAll(() => {
       jest.useFakeTimers();
       jest.setSystemTime(new Date('2024-05-22'));
@@ -22,7 +22,7 @@ describe('validations', () => {
         expirationDate: '2024-05-21',
       };
 
-      expect(isCouponValid(expiredCoupon)).toBeFalsy();
+      expect(isCouponActive(expiredCoupon)).toBeFalsy();
     });
 
     it.each([['2024-05-22'], ['2024-05-23']])(
@@ -36,7 +36,7 @@ describe('validations', () => {
           expirationDate: date,
         };
 
-        expect(isCouponValid(validCoupon)).toBeTruthy();
+        expect(isCouponActive(validCoupon)).toBeTruthy();
       },
     );
   });
