@@ -1,8 +1,13 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { checkedCartItemsState, fetchErrorState } from '../../recoil/atoms';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import {
+  checkedCartItemIdsState,
+  appliedCouponIdsState,
+  discountAmountState,
+  fetchErrorState,
+} from '../../recoil/atoms';
 
 import { NavigationBar, PageTitle, FooterButton, ErrorFallback } from '../../components/common';
 import { CartContainer } from '../../components/shoppingCart';
@@ -11,10 +16,17 @@ import * as Styled from './ShoppingCartPage.style';
 import { ENDPOINT } from '../../routes/router.constants';
 
 export default function ShoppingCartPage() {
-  const navigate = useNavigate();
+  const setDiscountAmount = useSetRecoilState(discountAmountState);
+  const setAppliedCouponIds = useSetRecoilState(appliedCouponIdsState);
 
-  const totalCheckedCartItems = useRecoilValue(checkedCartItemsState);
+  useEffect(() => {
+    setDiscountAmount(0);
+    setAppliedCouponIds([]);
+  }, [setDiscountAmount, setAppliedCouponIds]);
+
+  const totalCheckedCartItems = useRecoilValue(checkedCartItemIdsState);
   const fetchError = useRecoilValue(fetchErrorState);
+  const navigate = useNavigate();
 
   const isConfirmButtonDisabled = fetchError !== null || totalCheckedCartItems.length === 0;
 
