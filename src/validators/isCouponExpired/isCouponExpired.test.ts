@@ -1,7 +1,7 @@
 import { CouponProps } from '../../types';
-import { CouponValidator } from './CouponValidator';
+import { isCouponExpired } from '../isCouponExpired/isCouponExpired';
 
-describe('CouponValidator', () => {
+describe('isCouponExpired', () => {
   beforeAll(() => {
     jest.useFakeTimers();
     jest.setSystemTime(new Date('2024-05-31'));
@@ -19,8 +19,7 @@ describe('CouponValidator', () => {
       discountType: 'fixed',
       expirationDate: '2024-05-30',
     };
-    const { isCouponValid } = CouponValidator();
-    expect(isCouponValid(expiredCoupon)).toBe(false);
+    expect(isCouponExpired(expiredCoupon)).toBe(false);
   });
 
   it('만료일이 지나지 않은 쿠폰은 유효한 쿠폰이다', () => {
@@ -31,7 +30,6 @@ describe('CouponValidator', () => {
       discountType: 'fixed',
       expirationDate: '2024-06-01',
     };
-    const { isCouponValid } = CouponValidator();
-    expect(isCouponValid(validCoupon)).toBe(true);
+    expect(isCouponExpired(validCoupon)).toBe(true);
   });
 });

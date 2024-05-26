@@ -9,7 +9,7 @@ import { CouponItem } from '../couponItem/CouponItem';
 import { useEffect } from 'react';
 import { ErrorAlertModal } from '../errorAlertModal/ErrorAlertModal';
 import { CouponProps } from '../../types';
-import { CouponValidator } from '../../validators/couponValidtator/CouponValidator';
+import { isCouponExpired } from '../../validators/isCouponExpired/isCouponExpired';
 
 export const CouponItemList: React.FC = () => {
   const [couponItems, setCouponItems] = useRecoilState(couponItemsState);
@@ -56,7 +56,7 @@ export const CouponItemList: React.FC = () => {
   return (
     <>
       {couponItems.map((item) => {
-        const isValidCoupon = CouponValidator().isCouponValid(item);
+        const isValidCoupon = isCouponExpired(item);
         return (
           <CouponItem
             key={item.code}
