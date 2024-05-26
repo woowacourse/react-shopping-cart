@@ -13,6 +13,7 @@ const MESSAGE = {
     gettingCoupons: '쿠폰 불러오기를 실패하였습니다.',
     cartItemRemoval: '장바구니 아이템 삭제를 실패하였습니다.',
     cartItemQuantityAdjustment: '장바구니 아이템 수령 변경을 실패하였습니다.',
+    postingOrders: '주문하기에 실패하였습니다.',
   },
   allSelected: '전체 선택',
   notAllSelected: '전체 선택 해제',
