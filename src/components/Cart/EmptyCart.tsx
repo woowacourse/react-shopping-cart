@@ -2,7 +2,7 @@ import { FlexCenter, FlexColumn, WhiteSpace } from "@/style/common.style";
 import { getCartList, postCartItem } from "@/api/cartItem";
 
 import { ALL_PRODUCTS_IDS } from "@/constants/system";
-import BorderButton from "./common/Button/BorderButton";
+import BorderButton from "../common/Button/BorderButton";
 import { CART_MESSAGE } from "@/constants/message";
 import FullWidthButton from "@/components/common/Button/FullWidthButton";
 import { cartListState } from "@/store/atoms/atoms";

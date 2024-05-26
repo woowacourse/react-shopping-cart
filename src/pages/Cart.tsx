@@ -2,7 +2,7 @@ import { CART_MESSAGE } from "@/constants/message";
 import CartList from "@/components/Cart/CartList";
 import CartRecipe from "@/components/Cart/CartRecipe";
 import CartTitle from "@/components/Cart/CartTitle";
-import EmptyCart from "@/components/EmptyCart";
+import EmptyCart from "@/components/Cart/EmptyCart";
 import FullWidthButton from "@/components/common/Button/FullWidthButton";
 import Header from "@/components/Header.tsx";
 import { cartListState } from "@/store/atoms/atoms";
