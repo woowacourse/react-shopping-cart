@@ -17,7 +17,7 @@ function OrderConfirm() {
   return (
     <CartContainer>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Header headerIconType="home" />
+        <Header headerIconType="back" />
         <Suspense
           fallback={<NoCartItemContainer>Loading...</NoCartItemContainer>}
         >
