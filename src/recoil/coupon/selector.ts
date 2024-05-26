@@ -7,6 +7,7 @@ import {
   orderTotalPriceState,
 } from '../cartItems/selectors';
 
+import { MINIMUM_FREE_SHIPPING_AMOUNT } from '@/constants/cart';
 import { MAX_SELECTED_COUPON_LENGTH } from '@/constants/coupon';
 import { Coupon } from '@/types/coupon';
 import calculateDiscountAmount from '@/utils/calculateDiscountAmount';
@@ -51,6 +52,9 @@ export const applicableCouponSelector = selectorFamily<boolean, string>({
       const totalAmount = get(orderTotalPriceState);
 
       if (!coupon || !isCouponValid(coupon)) return false;
+
+      if (coupon.discountType === 'freeShipping' && totalAmount >= MINIMUM_FREE_SHIPPING_AMOUNT)
+        return false;
 
       if (coupon.minimumAmount && !isOverMinimumOrderAmount(coupon, totalAmount)) return false;
 
