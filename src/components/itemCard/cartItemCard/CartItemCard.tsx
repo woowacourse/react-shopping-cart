@@ -3,6 +3,7 @@ import { deleteCartItem, patchCartItemQuantityChange } from '../../../api';
 import {
   cartErrorMessageState,
   cartItemsState,
+  selectedItemsState,
 } from '../../../recoil/atoms/atoms';
 import { CartItemProps } from '../../../types';
 import { Button } from '../../common/button/Button';
@@ -37,6 +38,7 @@ export const CartItemCard: React.FC<CartItemCardProps> = ({
   const { name, price, imageUrl } = product;
   const setCartItems = useSetRecoilState(cartItemsState);
   const setCartErrorMessage = useSetRecoilState(cartErrorMessageState);
+  const setSelectedItems = useSetRecoilState(selectedItemsState);
 
   const handleItemDelete = async (id: number) => {
     try {
@@ -59,6 +61,11 @@ export const CartItemCard: React.FC<CartItemCardProps> = ({
           item.id === id ? { ...item, quantity: newQuantity } : item,
         ),
       );
+      setSelectedItems((prevItems) =>
+        prevItems.map((item) =>
+          item.id === id ? { ...item, quantity: newQuantity } : item,
+        ),
+      );
     } catch (error) {
       if (error instanceof Error) {
         setCartErrorMessage(CART_MESSAGES.INCREASE_QUANTITY_FAIL);
@@ -73,6 +80,11 @@ export const CartItemCard: React.FC<CartItemCardProps> = ({
         const newQuantity = quantity - 1;
         await patchCartItemQuantityChange(id, newQuantity);
         setCartItems((prevItems) =>
+          prevItems.map((item) =>
+            item.id === id ? { ...item, quantity: newQuantity } : item,
+          ),
+        );
+        setSelectedItems((prevItems) =>
           prevItems.map((item) =>
             item.id === id ? { ...item, quantity: newQuantity } : item,
           ),
