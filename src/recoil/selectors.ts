@@ -164,7 +164,7 @@ export const allCheckedCouponsSelector = selector({
 });
 
 /**
- * 선택된 모든 쿠폰을 배열로 반환하는 함수
+ * 무료 배송 쿠폰을 선택했는지 확인 선택했으면 true
  */
 export const checkShippingFreeSelector = selector({
   key: 'checkShippingFreeSelector',
@@ -179,7 +179,6 @@ export const checkShippingFreeSelector = selector({
 /**
  * 전체 할인 금액을 반환하는 함수
  */
-
 export const totalDiscountSelector = selector({
   key: 'totalDiscountSelector',
   get: ({ get }) => {
@@ -198,10 +197,17 @@ export const totalDiscountSelector = selector({
               calculatePercentageDiscount(checkedCoupon, totalAmount)
             );
           case 'buyXgetY':
-            return (
-              prevTotalDiscount +
-              calculateBuyXgetYDiscount(itemPriceAndQuantity)
-            );
+            if (checkedCoupon.buyQuantity && checkedCoupon.getQuantity) {
+              return (
+                (prevTotalDiscount +
+                  calculateBuyXgetYDiscount(
+                    checkedCoupon.buyQuantity,
+                    itemPriceAndQuantity,
+                  )) *
+                checkedCoupon.getQuantity
+              );
+            }
+            return prevTotalDiscount;
           case 'freeShipping':
             isFreeShipping = true;
             return prevTotalDiscount + 0;
