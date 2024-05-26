@@ -1,41 +1,48 @@
-import { useState } from 'react';
 import CheckButton from '../common/CheckButton/CheckButton';
 import * as Styled from './style';
-import { CouponCode, AvailableType } from '../type';
+import { AvailableType } from '../type';
 import { convertToTimeFormat } from '../util/convertToTimeFormat';
 import { koMoneyFormat } from '../util/koMoneyFormat';
 import { convertToDateFormat } from '../util/convertToDateFormat';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import {
+  couponSelectedState,
+  isDoubleCouponAppliedSelector,
+} from '../../recoil/coupons';
 
 interface CouponItemProp {
-  couponCode: CouponCode;
   expirationDate: string;
   description: string;
-  selectCoupon: (coupon: CouponCode) => void;
   available: boolean;
   minimumAmount?: number;
   availableTime?: AvailableType;
+  couponId: number;
 }
 
 const CouponItem = ({
-  selectCoupon,
-  couponCode,
   description,
   expirationDate,
   available,
   minimumAmount,
   availableTime,
+  couponId,
 }: CouponItemProp) => {
-  const [couponApply, setCouponApply] = useState(false);
+  const [couponSelected, setCouponSelected] = useRecoilState(
+    couponSelectedState(couponId),
+  );
+  const isDoubleCouponApplied = useRecoilValue(
+    isDoubleCouponAppliedSelector(couponId),
+  );
 
   const handleClickCoupon = () => {
-    setCouponApply((prop) => !prop);
-    selectCoupon(couponCode);
+    setCouponSelected((prop) => !prop);
   };
+
   return (
-    <Styled.CouponItem disabled={!available}>
+    <Styled.CouponItem disabled={!available || isDoubleCouponApplied}>
       <Styled.CouponItemTitle>
         <CheckButton
-          isSelected={couponApply}
+          isSelected={couponSelected}
           setIsSelected={handleClickCoupon}
         />
         <p>{description}</p>

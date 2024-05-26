@@ -24,8 +24,9 @@ const CouponApplication = () => {
     useRecoilState(applyCouponState);
 
   const modalClose = () => {
-    setModalOpen(false);
     resetSelectCoupon();
+    setShippingFeeDiscount(false);
+    setModalOpen(false);
   };
 
   const clickConfirm = () => {
@@ -36,9 +37,11 @@ const CouponApplication = () => {
   return (
     <>
       {modalOpen && (
-        <Modal modalSize="S" setModalClose={clickConfirm}>
+        <Modal modalSize="S" setModalClose={modalClose}>
           <Modal.Header
-            setModalClose={modalClose}
+            setModalClose={() => {
+              modalClose();
+            }}
             title="쿠폰을 선택해 주세요"
           ></Modal.Header>
           <Modal.Content>
@@ -58,8 +61,9 @@ const CouponApplication = () => {
       ) : (
         <Styled.CouponDeleteButton
           onClick={() => {
-            updateCouponDiscount(0);
+            resetSelectCoupon();
             setShippingFeeDiscount(false);
+            updateCouponDiscount(0);
           }}
         >
           쿠폰 적용 취소

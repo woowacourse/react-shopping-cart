@@ -1,33 +1,39 @@
-import { useRecoilValue } from 'recoil';
+import { useRecoilCallback, useRecoilValue } from 'recoil';
 import { fetchedCouponsSelector } from '../recoil/fetch';
-import useSelectCoupon from './useSelectCoupon';
 import { useEffect } from 'react';
-import { CouponType } from '../components/type';
 import useDiscountType from './useDiscountType';
 import useCouponAvailable from './useCouponAvailable';
+import {
+  couponIds,
+  couponSelectedState,
+  selectedCouponsSelector,
+} from '../recoil/coupons';
 
 const useCoupons = () => {
   const coupons = useRecoilValue(fetchedCouponsSelector);
   const { applyCoupon, getDiscountAmount } = useDiscountType();
+  const couponIdList = useRecoilValue(couponIds);
 
-  const {
-    selectCoupon,
-    couponSelected,
-    isDoubleCouponApplied,
-    resetSelectCoupon,
-  } = useSelectCoupon();
+  const selectedCoupons = useRecoilValue(selectedCouponsSelector);
 
   const { isCouponAvailable } = useCouponAvailable();
+
+  const resetSelectCoupon = useRecoilCallback(
+    ({ reset }) =>
+      () => {
+        couponIdList.forEach((id) => {
+          reset(couponSelectedState(id));
+        });
+      },
+    [selectedCoupons],
+  );
 
   /**
    * 선택된 쿠폰 적용
    */
   useEffect(() => {
-    const selectedCouponApply = coupons.filter((coupon: CouponType) => {
-      return couponSelected[coupon.code];
-    });
-    applyCoupon(selectedCouponApply);
-  }, [couponSelected]);
+    applyCoupon(selectedCoupons);
+  }, [selectedCoupons]);
 
   /**
    * 사용 가능한 쿠폰 목록
@@ -44,12 +50,10 @@ const useCoupons = () => {
   });
 
   return {
-    resetSelectCoupon,
     getDiscountAmount,
-    selectCoupon,
-    isDoubleCouponApplied,
     availableCouponsFiltered,
     disableCouponsFiltered,
+    resetSelectCoupon,
   };
 };
 

@@ -6,7 +6,10 @@ import {
 } from './../recoil/cartItems';
 import { useState } from 'react';
 import { CouponType } from '../components/type';
-import { COUPON_DISCOUNT_TYPE } from './constants/coupon';
+import {
+  COUPON_DISCOUNT_TYPE_NAME,
+  COUPON_DISCOUNT_TYPE_PRIORITY,
+} from './constants/coupon';
 
 const useDiscountType = () => {
   const totalOrderAmount = useRecoilValue(totalOrderAmountSelector);
@@ -53,27 +56,28 @@ const useDiscountType = () => {
 
   const selectDiscountType = (coupon: CouponType) => {
     switch (coupon.discountType) {
-      case COUPON_DISCOUNT_TYPE.percentage.name:
+      case COUPON_DISCOUNT_TYPE_NAME.percentage:
         return percentageCouponApply(coupon.discount!);
-      case COUPON_DISCOUNT_TYPE.buyXgetY.name:
+      case COUPON_DISCOUNT_TYPE_NAME.buyXgetY:
         return buyXgetYCouponApply(coupon.buyQuantity!, coupon.getQuantity!);
-      case COUPON_DISCOUNT_TYPE.fixed.name:
+      case COUPON_DISCOUNT_TYPE_NAME.fixed:
         return fixedCouponApply(coupon.discount!);
-      case COUPON_DISCOUNT_TYPE.freeShipping.name:
+      case COUPON_DISCOUNT_TYPE_NAME.freeShipping:
         return freeShipping();
     }
   };
 
   const applyCoupon = (coupons: CouponType[]) => {
-    coupons.sort(
+    const couponsCopy = [...coupons];
+    couponsCopy.sort(
       (a, b) =>
-        COUPON_DISCOUNT_TYPE[a.discountType].priority -
-        COUPON_DISCOUNT_TYPE[b.discountType].priority,
+        COUPON_DISCOUNT_TYPE_PRIORITY[a.discountType] -
+        COUPON_DISCOUNT_TYPE_PRIORITY[b.discountType],
     );
     let discount = totalOrderAmount;
     let isFreeShipping = false;
 
-    coupons.forEach((coupon) => {
+    couponsCopy.forEach((coupon) => {
       const applyDiscount = selectDiscountType(coupon);
       discount = applyDiscount(discount);
 
