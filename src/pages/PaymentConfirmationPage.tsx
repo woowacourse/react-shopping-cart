@@ -7,7 +7,6 @@ import { totalCountSelector } from "../recoil/selector/selector";
 import { useCartCalculator } from "../hooks/useCartCalculator/useCartCalculator";
 import { CartLayout, Header, Content, Footer } from "../components/layout";
 import { formatCurrency } from "../utils/formatCurrency";
-import LeftArrow from "../assets/LeftArrow.svg?react";
 
 const PaymentConfirmationPage = () => {
   const navigate = useNavigate();

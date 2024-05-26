@@ -1,19 +1,19 @@
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { css } from "@emotion/css";
 
-import { cartItemCheckedIdsAtom, couponUsedAtom } from "../recoil/atom/atom";
+import { cartItemCheckedIdsAtom } from "../recoil/atom/atom";
 import { totalCountSelector } from "../recoil/selector/selector";
 import { useFetchCartItems } from "../hooks/useFetchCartItems/useFetchCartItems";
 import { CartLayout, Header, Content, Footer } from "../components/layout";
-import { CouponButton, CouponModal, OrderItems, PaymentSummary, ShippingInfo } from "../components/orderConfirmationPage";
+import { CouponButton, OrderItems, PaymentSummary, ShippingInfo } from "../components/orderConfirmationPage";
 import { Title } from "../components/default";
-import LeftArrow from "../assets/LeftArrow.svg?react";
 import { orderCartItems } from "../api/orderApi";
+import LeftArrow from "../assets/LeftArrow.svg?react";
 
 const OrderConfirmationPage = () => {
   const navigate = useNavigate();
-  const [checkedIds, setCheckedIds] = useRecoilState(cartItemCheckedIdsAtom);
+  const checkedIds = useRecoilValue(cartItemCheckedIdsAtom);
   const cartTotalCount = useRecoilValue(totalCountSelector);
 
   useFetchCartItems();

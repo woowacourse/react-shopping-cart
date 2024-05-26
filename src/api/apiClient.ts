@@ -1,8 +1,8 @@
 import { generateBasicToken } from "../utils/auth";
 
-const API_URL = import.meta.env.VITE_API_URL as string;
-const USER_ID = import.meta.env.VITE_USER_ID as string;
-const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD as string;
+const API_URL = process.env.VITE_API_URL as string;
+const USER_ID = process.env.VITE_USER_ID as string;
+const USER_PASSWORD = process.env.VITE_USER_PASSWORD as string;
 
 type Method = "GET" | "POST" | "PATCH" | "DELETE";
 

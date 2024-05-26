@@ -24,6 +24,6 @@
     "types": ["jest", "node"],
     "esModuleInterop": true
   },
-  "include": ["src", "src/svg.d.ts"],
+  "include": ["src/**/*", "svg.d.ts", "types"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
