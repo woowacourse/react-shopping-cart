@@ -1,4 +1,4 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { getCouponList } from '../../api';
 import {
   cartErrorMessageState,
@@ -10,6 +10,9 @@ import { useEffect } from 'react';
 import { ErrorAlertModal } from '../errorAlertModal/ErrorAlertModal';
 import { CouponProps } from '../../types';
 import { isCouponExpired } from '../../validators/isCouponExpired/isCouponExpired';
+import { isCouponAvailableTime } from '../../validators/isCouponAvailableTime/isCouponAvailableTime';
+import { isOrderMinimumAmount } from '../../validators/isOrderMinimumAmount/isOrderMinimumAmount';
+import { orderPriceState } from '../../recoil/selector/selector';
 
 export const CouponItemList: React.FC = () => {
   const [couponItems, setCouponItems] = useRecoilState(couponItemsState);
@@ -19,6 +22,7 @@ export const CouponItemList: React.FC = () => {
   const [cartErrorMessage, setCartErrorMessage] = useRecoilState(
     cartErrorMessageState,
   );
+  const orderPrice = useRecoilValue(orderPriceState);
 
   useEffect(() => {
     const fetchCouponItems = async () => {
@@ -56,7 +60,10 @@ export const CouponItemList: React.FC = () => {
   return (
     <>
       {couponItems.map((item) => {
-        const isValidCoupon = isCouponExpired(item);
+        const isValidCoupon =
+          isCouponExpired(item) &&
+          isCouponAvailableTime(item) &&
+          isOrderMinimumAmount(item, orderPrice);
         return (
           <CouponItem
             key={item.code}
