@@ -17,9 +17,7 @@ describe('쿠폰 유효기간 테스트', () => {
       id: 1,
       code: 'FIXED5000',
       description: '5,000원 할인 쿠폰',
-      discount: 5000,
       discountType: 'fixed',
-      minimumAmount: 100000,
       expirationDate: '2024-05-19',
     };
     const { isExpired } = useExpirationDate();
@@ -31,9 +29,7 @@ describe('쿠폰 유효기간 테스트', () => {
       id: 1,
       code: 'FIXED5000',
       description: '5,000원 할인 쿠폰',
-      discount: 5000,
       discountType: 'fixed',
-      minimumAmount: 100000,
       expirationDate: '2024-05-21',
     };
     const { isExpired } = useExpirationDate();

@@ -9,11 +9,6 @@ export const selectedCartItems = atom<CartItem[]>({
   effects: [localStorageEffect<CartItem[]>(RECOIL_KEYS.CART_ITEMS)],
 });
 
-export const isolatedRegionStore = atom({
-  key: RECOIL_KEYS.ISOLATED_REGION,
-  default: false,
-});
-
 export const discountAmountStore = atom({
   key: RECOIL_KEYS.DISCOUNT_AMOUNT,
   default: 0,

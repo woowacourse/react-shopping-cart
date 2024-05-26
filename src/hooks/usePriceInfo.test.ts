@@ -1,9 +1,9 @@
-import { RecoilRoot, useRecoilValue, useSetRecoilState } from 'recoil';
+import { RecoilRoot, useSetRecoilState } from 'recoil';
 import { act, renderHook } from '@testing-library/react';
-import { selectedCartItems } from './atoms';
-import { priceInfoStore } from './selectors';
+import { selectedCartItems } from '@recoil/atoms';
 import { ORDER } from '@constants/constants';
 import { CartItem } from '@type/cartItem';
+import usePriceInfo from './usePriceInfo';
 
 /*
 결제 금액 계산: 선택된 상품들의 가격 합계가 결제 금액으로 정상 반영되는지 테스트한다.
@@ -46,7 +46,7 @@ describe('결제 금액 계산', () => {
 
     const { result } = renderHook(
       () => {
-        const priceInfo = useRecoilValue(priceInfoStore);
+        const priceInfo = usePriceInfo();
         const setSelectedItems = useSetRecoilState(selectedCartItems);
         return { priceInfo, setSelectedItems };
       },
@@ -74,7 +74,7 @@ describe('결제 금액 계산', () => {
 
     const { result } = renderHook(
       () => {
-        const priceInfo = useRecoilValue(priceInfoStore);
+        const priceInfo = usePriceInfo();
         const setSelectedItems = useSetRecoilState(selectedCartItems);
         return { priceInfo, setSelectedItems };
       },
@@ -110,7 +110,7 @@ describe('결제 금액 계산', () => {
     ];
     const { result } = renderHook(
       () => {
-        const priceInfo = useRecoilValue(priceInfoStore);
+        const priceInfo = usePriceInfo();
         const setSelectedItems = useSetRecoilState(selectedCartItems);
         return { priceInfo, setSelectedItems };
       },
@@ -146,7 +146,7 @@ describe('결제 금액 계산', () => {
     ];
     const { result } = renderHook(
       () => {
-        const priceInfo = useRecoilValue(priceInfoStore);
+        const priceInfo = usePriceInfo();
         const setSelectedItems = useSetRecoilState(selectedCartItems);
         return { priceInfo, setSelectedItems };
       },
@@ -182,7 +182,7 @@ describe('결제 금액 계산', () => {
     ];
     const { result } = renderHook(
       () => {
-        const priceInfo = useRecoilValue(priceInfoStore);
+        const priceInfo = usePriceInfo();
         const setSelectedItems = useSetRecoilState(selectedCartItems);
         return { priceInfo, setSelectedItems };
       },
