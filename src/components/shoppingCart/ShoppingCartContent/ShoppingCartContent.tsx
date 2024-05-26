@@ -1,5 +1,5 @@
-import { UpsideDownExclamation } from '@assets/index';
-import { CartItemCount, CartList, OrderPrice } from '@components/shoppingCart';
+import { InfoBanner, PageExplanation } from '@components/common';
+import { AmountsList, CartList } from '@components/shoppingCart';
 import { PRICE } from '@constants/shippingCart';
 import { cartItemsAtom } from '@recoil/shoppingCart';
 import { formatKoreanCurrency } from '@utils/currency';
@@ -16,17 +16,16 @@ const ShoppingCartContent = () => {
         <Styled.EmptyCart>장바구니에 담은 상품이 없습니다.</Styled.EmptyCart>
       ) : (
         <>
-          <CartItemCount count={cartItems.length} />
+          <PageExplanation>
+            <PageExplanation.Row>현재 {cartItems.length}종류의 상품이 담겨 있습니다.</PageExplanation.Row>
+          </PageExplanation>
           <Styled.CartItemContainer>
             <CartList cartItems={cartItems} />
           </Styled.CartItemContainer>
-          <Styled.CartInfoBanner>
-            <UpsideDownExclamation />
-            <Styled.ShippingFeeInfo>
-              총 주문 금액이 {formatKoreanCurrency(PRICE.freeShippingMinAmount)} 이상일 경우 무료 배송됩니다.
-            </Styled.ShippingFeeInfo>
-          </Styled.CartInfoBanner>
-          <OrderPrice />
+          <InfoBanner>
+            총 주문 금액이 {formatKoreanCurrency(PRICE.freeShippingMinAmount)} 이상일 경우 무료 배송됩니다.
+          </InfoBanner>
+          <AmountsList />
         </>
       )}
     </>

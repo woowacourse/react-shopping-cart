@@ -1,6 +1,5 @@
 import AppLayout from '@components/layout/AppLayout/AppLayout';
-import ErrorPage from '@pages/ErrorPage/ErrorPage';
-import { OrderConfirmPage, OrderPage } from '@pages/index';
+import { ErrorPage, OrderConfirmPage, OrderPage, PurchaseConfirmPage } from '@pages/index';
 import { createBrowserRouter } from 'react-router-dom';
 
 const router = createBrowserRouter(
@@ -14,8 +13,12 @@ const router = createBrowserRouter(
           element: <OrderPage />,
         },
         {
-          path: 'confirm',
+          path: 'order-confirm',
           element: <OrderConfirmPage />,
+        },
+        {
+          path: 'purchase-confirm',
+          element: <PurchaseConfirmPage />,
         },
       ],
       errorElement: <ErrorPage />,

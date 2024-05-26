@@ -11,11 +11,8 @@ const Navigation: React.FC = () => {
 
   return (
     <Styled.Navigation>
-      {location.pathname === ROUTE_PATHS.root ? (
-        <button onClick={() => navigate(ROUTE_PATHS.root)}>SHOP</button>
-      ) : (
-        <BackButton onClick={() => navigate(-1)} />
-      )}
+      {location.pathname === ROUTE_PATHS.root && <button onClick={() => navigate(ROUTE_PATHS.root)}>SHOP</button>}
+      {location.pathname === ROUTE_PATHS.orderConfirm && <BackButton onClick={() => navigate(-1)} />}
     </Styled.Navigation>
   );
 };

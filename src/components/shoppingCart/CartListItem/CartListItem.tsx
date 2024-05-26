@@ -1,5 +1,5 @@
 import { CartItem } from '@appTypes/shoppingCart';
-import { Checkbox, DeleteButton } from '@components/common';
+import { CartItemInfo, Checkbox, DeleteButton } from '@components/common';
 import { CartListDescription } from '@components/shoppingCart';
 import { useCheckCartItem, useDeleteCartItem, useFetchErrorBoundary } from '@hooks/index';
 
@@ -13,6 +13,7 @@ const CartListItem: React.FC<CartListItemProps> = ({ cartItem }) => {
   const { onDeleteItem, fetchError } = useDeleteCartItem(cartItem.id);
   const { isChecked, onCheckCartItem } = useCheckCartItem();
   useFetchErrorBoundary(fetchError);
+
   return (
     <Styled.CartListContainer>
       <Styled.CartItemSelectionGroup>
@@ -22,10 +23,10 @@ const CartListItem: React.FC<CartListItemProps> = ({ cartItem }) => {
         />
         <DeleteButton onClick={onDeleteItem}>삭제</DeleteButton>
       </Styled.CartItemSelectionGroup>
-      <Styled.CartItemDetailContainer>
-        <Styled.CartItemImage src={cartItem.product.imageUrl} />
+      <CartItemInfo.DetailContainer>
+        <CartItemInfo.Img cartItem={cartItem} />
         <CartListDescription cartItem={cartItem} />
-      </Styled.CartItemDetailContainer>
+      </CartItemInfo.DetailContainer>
     </Styled.CartListContainer>
   );
 };

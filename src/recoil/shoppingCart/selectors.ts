@@ -1,5 +1,5 @@
 import { PRICE } from '@constants/shippingCart';
-import { cartItemsAtom, selectedIdsAtom } from '@recoil/shoppingCart/atoms';
+import { cartItemsAtom, maxDiscountAtom, selectedIdsAtom, surchargeShippingFeeAtom } from '@recoil/shoppingCart/atoms';
 import { selector } from 'recoil';
 
 export const orderPriceSelector = selector({
@@ -16,10 +16,13 @@ export const orderPriceSelector = selector({
 export const shippingFeeSelector = selector({
   key: 'shippingFeeSelector',
   get: ({ get }) => {
-    const orderPrice = get(orderPriceSelector);
     const { freeShippingMinAmount, shippingFee } = PRICE;
+    const orderPrice = get(orderPriceSelector);
+    if (orderPrice === 0 || orderPrice >= freeShippingMinAmount) return shippingFee.free;
 
-    return orderPrice === 0 || orderPrice >= freeShippingMinAmount ? shippingFee.free : shippingFee.basic;
+    const surchargeShippingFee = get(surchargeShippingFeeAtom);
+
+    return shippingFee.basic + surchargeShippingFee;
   },
 });
 
@@ -28,6 +31,18 @@ export const totalPriceSelector = selector({
   get: ({ get }) => {
     const orderPrice = get(orderPriceSelector);
     const shippingFee = get(shippingFeeSelector);
-    return orderPrice + shippingFee;
+    const maxDiscount = get(maxDiscountAtom);
+
+    return orderPrice + shippingFee - maxDiscount;
+  },
+});
+
+export const selectedItemsSelector = selector({
+  key: 'selectedItemsSelector',
+  get: ({ get }) => {
+    const selectedIds = get(selectedIdsAtom);
+    const cartItems = get(cartItemsAtom);
+
+    return cartItems.filter((item) => selectedIds.includes(item.id));
   },
 });

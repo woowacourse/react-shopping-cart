@@ -1,3 +1,7 @@
+export { default as InfoBanner } from './InfoBanner/InfoBanner';
+export { default as PageExplanation } from './PageExplanation/PageExplanation';
+export { default as OrderPriceInfo } from './OrderPriceInfo/OrderPriceInfo';
+export { default as CartItemInfo } from './CartItemInfo/CartItemInfo';
 export { default as BasicButton } from './BasicButton/BasicButton';
 export { default as BackButton } from './BackButton/BackButton';
 export { default as BottomButton } from './BottomButton/BottomButton';

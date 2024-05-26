@@ -136,12 +136,29 @@ const GlobalStyle = createGlobalStyle`
     color:inherit;
     font-size:inherit;
     font-weight: inherit ;
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
   input[type="text"]{
     padding: 0;
     padding-inline: 0;
     padding-block: 0;
   }
+  /* 스크롤바 */
+::-webkit-scrollbar {
+  width: 8px; 
+}
+::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
+  
+}
+::-webkit-scrollbar-thumb {
+  background-color: #555555; 
+  border-radius:10px ;
+  padding: 0 1px;
+}
+
 `;
 
 export default GlobalStyle;

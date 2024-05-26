@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 interface UseOpenModalByErrorMessageProps {
   errorMessage: string;
 }
-function useOpenModalByErrorMessage({ errorMessage }: UseOpenModalByErrorMessageProps) {
+const useOpenModalByErrorMessage = ({ errorMessage }: UseOpenModalByErrorMessageProps) => {
   const [openModal, setOpenModal] = useState(errorMessage !== '');
 
   useEffect(() => {
@@ -11,6 +11,6 @@ function useOpenModalByErrorMessage({ errorMessage }: UseOpenModalByErrorMessage
   }, [errorMessage]);
 
   return { openModal, setOpenModal };
-}
+};
 
 export default useOpenModalByErrorMessage;

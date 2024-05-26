@@ -15,6 +15,7 @@ export const AlertModalButton = styled.button`
   background-color: ${COLOR.white};
   border: 1px solid ${COLOR.black};
   padding: 10px 14px;
+  width: 100px;
   margin-top: 16px;
   &:hover {
     background-color: ${COLOR.black};

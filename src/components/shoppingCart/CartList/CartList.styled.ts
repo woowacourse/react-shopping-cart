@@ -1,3 +1,4 @@
+import { SIZE } from '@styles/style.constant';
 import styled from 'styled-components';
 
 export const CartItemSelectionGroup = styled.div`
@@ -17,6 +18,14 @@ export const CartListButtonGroup = styled.div`
 export const CartItemContainer = styled.section`
   margin-top: 20px;
   width: 100%;
+  // 200px : navigation애서 CartItemContainer 까지의 거리;
+  // 161PX: 금액 관련 height
+  // 81px : 배송 관련 배너 height
+  max-height: calc(
+    100vh - ${SIZE.navigationHeight} - ${SIZE.bottomButtonHeight} - ${SIZE.layoutPadding} - 200px - 161px - 81px
+  );
+  min-height: 163px;
+  overflow-y: auto;
 `;
 
 export const CartListContainer = styled.li`
