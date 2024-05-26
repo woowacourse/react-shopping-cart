@@ -17,13 +17,13 @@ import {
 
 import { TOTAL_PRICE_OVER_100000_DATA, TOTAL_PRICE_UNDER_100000_DATA } from '@/mocks/cartItems';
 import {
-  INVALID_BOGO_COUPON,
-  VALID_FIXED_COUPON,
-  VALID_FREE_SHIPPING_COUPON,
-  VALID_PERCENTAGE_COUPON,
-  VALID_BuyXgetY_COUPON,
+  APPLICABLE_BuyXgetY_COUPON,
+  APPLICABLE_FIXED_COUPON,
+  APPLICABLE_FREE_SHIPPING_COUPON,
+  APPLICABLE_PERCENTAGE_COUPON,
+  APPLICABLE_TEN_PERCENT_COUPON,
+  EXPIRED_BOGO_COUPON,
   coupons,
-  VALID_TEN_PERCENT_COUPON,
 } from '@/mocks/coupons';
 
 jest.mock('@apis/cartItem', () => ({
@@ -55,9 +55,9 @@ describe('coupon selector', () => {
     );
 
     it('쿠폰이 존재하지 않으면 undefined를 반환한다.', () => {
-      const INVALID_BOGO_COUPON_CODE = 'INVALID_BOGO_COUPON';
+      const EXPIRED_BOGO_COUPON_CODE = 'EXPIRED_BOGO_COUPON';
       const { result } = renderHook(
-        () => useRecoilValue(couponSelector(INVALID_BOGO_COUPON_CODE)),
+        () => useRecoilValue(couponSelector(EXPIRED_BOGO_COUPON_CODE)),
         {
           wrapper: ({ children }) => (
             <RecoilRoot initializeState={({ set }) => set(couponsState, coupons)}>
@@ -74,13 +74,13 @@ describe('coupon selector', () => {
   describe('applicableCouponSelector', () => {
     it('쿠폰이 유효하지 않다면, "false"를 반환한다.', () => {
       const { result } = renderHook(
-        () => useRecoilValue(applicableCouponSelector(INVALID_BOGO_COUPON.code)),
+        () => useRecoilValue(applicableCouponSelector(EXPIRED_BOGO_COUPON.code)),
         {
           wrapper: ({ children }) => (
             <RecoilRoot
               initializeState={({ set }) => (
                 set(cartItemsState, TOTAL_PRICE_OVER_100000_DATA),
-                set(couponsState, [INVALID_BOGO_COUPON])
+                set(couponsState, [EXPIRED_BOGO_COUPON])
               )}
             >
               <Suspense>{children}</Suspense>
@@ -94,13 +94,13 @@ describe('coupon selector', () => {
 
     it('쿠폰이 유효하다면, "true"를 반환한다.', () => {
       const { result } = renderHook(
-        () => useRecoilValue(applicableCouponSelector(VALID_FIXED_COUPON.code)),
+        () => useRecoilValue(applicableCouponSelector(APPLICABLE_FIXED_COUPON.code)),
         {
           wrapper: ({ children }) => (
             <RecoilRoot
               initializeState={({ set }) => (
                 set(cartItemsState, TOTAL_PRICE_OVER_100000_DATA),
-                set(couponsState, [VALID_FIXED_COUPON])
+                set(couponsState, [APPLICABLE_FIXED_COUPON])
               )}
             >
               <Suspense>{children}</Suspense>
@@ -136,7 +136,7 @@ describe('coupon selector', () => {
             <RecoilRoot
               initializeState={({ set }) => (
                 set(cartItemsState, TOTAL_PRICE_OVER_100000_DATA),
-                set(couponsState, [VALID_FIXED_COUPON])
+                set(couponsState, [APPLICABLE_FIXED_COUPON])
               )}
             >
               <Suspense>{children}</Suspense>
@@ -146,10 +146,10 @@ describe('coupon selector', () => {
       );
 
       act(() => {
-        result.current.setFixedSelectedCoupons([VALID_FIXED_COUPON.code]);
+        result.current.setFixedSelectedCoupons([APPLICABLE_FIXED_COUPON.code]);
       });
 
-      expect(result.current.discountAmount).toBe(VALID_FIXED_COUPON.discount);
+      expect(result.current.discountAmount).toBe(APPLICABLE_FIXED_COUPON.discount);
     });
 
     it('유효한 "percentage"타입의 쿠폰을 적용하면 해당 금액만큼 할인된다.', () => {
@@ -166,7 +166,7 @@ describe('coupon selector', () => {
             <RecoilRoot
               initializeState={({ set }) => (
                 set(cartItemsState, TOTAL_PRICE_OVER_100000_DATA),
-                set(couponsState, [VALID_PERCENTAGE_COUPON])
+                set(couponsState, [APPLICABLE_PERCENTAGE_COUPON])
               )}
             >
               <Suspense>{children}</Suspense>
@@ -176,11 +176,11 @@ describe('coupon selector', () => {
       );
 
       act(() => {
-        result.current.setFixedSelectedCoupons([VALID_PERCENTAGE_COUPON.code]);
+        result.current.setFixedSelectedCoupons([APPLICABLE_PERCENTAGE_COUPON.code]);
       });
 
       const discountedFromTotalAmount = Math.floor(
-        (result.current.orderTotalAmount * VALID_PERCENTAGE_COUPON.discount!) / 100,
+        (result.current.orderTotalAmount * APPLICABLE_PERCENTAGE_COUPON.discount!) / 100,
       );
 
       expect(result.current.discountAmount).toBe(discountedFromTotalAmount);
@@ -200,7 +200,7 @@ describe('coupon selector', () => {
             <RecoilRoot
               initializeState={({ set }) => (
                 set(cartItemsState, TOTAL_PRICE_UNDER_100000_DATA),
-                set(couponsState, [VALID_FREE_SHIPPING_COUPON])
+                set(couponsState, [APPLICABLE_FREE_SHIPPING_COUPON])
               )}
             >
               <Suspense>{children}</Suspense>
@@ -210,7 +210,7 @@ describe('coupon selector', () => {
       );
 
       act(() => {
-        result.current.setFixedSelectedCoupons([VALID_FREE_SHIPPING_COUPON.code]);
+        result.current.setFixedSelectedCoupons([APPLICABLE_FREE_SHIPPING_COUPON.code]);
       });
 
       expect(result.current.discountAmount).toBe(result.current.deliveryPrice);
@@ -231,7 +231,7 @@ describe('coupon selector', () => {
           <RecoilRoot
             initializeState={({ set }) => (
               set(cartItemsState, TOTAL_PRICE_UNDER_100000_DATA),
-              set(couponsState, [VALID_BuyXgetY_COUPON])
+              set(couponsState, [APPLICABLE_BuyXgetY_COUPON])
             )}
           >
             <Suspense>{children}</Suspense>
@@ -241,7 +241,7 @@ describe('coupon selector', () => {
     );
 
     act(() => {
-      result.current.setFixedSelectedCoupons([VALID_BuyXgetY_COUPON.code]);
+      result.current.setFixedSelectedCoupons([APPLICABLE_BuyXgetY_COUPON.code]);
     });
 
     const maxAmountPerItemPrice = Math.max(
@@ -264,7 +264,7 @@ describe('coupon selector', () => {
           <RecoilRoot
             initializeState={({ set }) => (
               set(cartItemsState, TOTAL_PRICE_OVER_100000_DATA),
-              set(couponsState, [VALID_FIXED_COUPON, VALID_TEN_PERCENT_COUPON])
+              set(couponsState, [APPLICABLE_FIXED_COUPON, APPLICABLE_TEN_PERCENT_COUPON])
             )}
           >
             <Suspense>{children}</Suspense>
@@ -275,8 +275,8 @@ describe('coupon selector', () => {
 
     act(() => {
       result.current.setFixedSelectedCoupons([
-        VALID_FIXED_COUPON.code,
-        VALID_TEN_PERCENT_COUPON.code,
+        APPLICABLE_FIXED_COUPON.code,
+        APPLICABLE_TEN_PERCENT_COUPON.code,
       ]);
     });
 
