@@ -2,10 +2,11 @@ import * as Styled from '../style';
 
 import { useRecoilValue } from 'recoil';
 
+import { selectedCartItemsSelector } from '../../../recoil/selectors';
+
 import OrderConfirmationCartItem from './OrderConfirmationCartItem';
 
 import { CartItemType } from '../../../type';
-import { selectedCartItemsSelector } from '../../../recoil/selectors';
 
 const OrderConfirmationCartItems = () => {
   const cartItems = useRecoilValue(selectedCartItemsSelector);

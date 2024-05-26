@@ -8,7 +8,6 @@ import {
   fetchAdjustCartItemQuantity,
   fetchRemoveCartItem,
 } from '../../../api/shoppingCart';
-
 import Divider from '../../Divider/Divider';
 import SelectButton from '../../SelectButton/SelectButton';
 import SelectButtonContainer from '../../SelectButtonContainer/SelectButtonContainer';

@@ -1,5 +1,6 @@
-import { useSetRecoilState } from 'recoil';
 import * as Styled from './style';
+
+import { useSetRecoilState } from 'recoil';
 import { isApplyingCouponModalOpenState } from '../../recoil/atoms';
 
 const ApplyingCouponButton = () => {

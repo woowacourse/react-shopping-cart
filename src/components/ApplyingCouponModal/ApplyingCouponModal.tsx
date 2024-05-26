@@ -30,7 +30,7 @@ const ApplyingCouponModal = () => {
   );
 
   const closeModal = () => {
-    setIsAllCouponSelected(() => false);
+    setIsAllCouponSelected(false);
     setIsModalOpen(false);
   };
 

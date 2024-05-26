@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   applicableBOGOCartItemsSelector,
@@ -9,7 +11,6 @@ import { isCouponApplicableState } from '../recoil/atoms';
 import couponApplicabilityValidator from '../validators/couponApplicabilityValidator';
 
 import { CouponType } from '../type';
-import { useEffect } from 'react';
 
 const useCouponApplicability = (coupon: CouponType) => {
   const [isCouponApplicable, setIsCouponApplicable] = useRecoilState(

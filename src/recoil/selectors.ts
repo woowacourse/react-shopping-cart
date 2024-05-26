@@ -7,10 +7,11 @@ import {
   isCouponSelectedState,
 } from './atoms';
 
+import { fetchGetCoupons } from '../api/coupons';
+
 import { CartItemType, CouponType } from '../type';
 import CONDITION from '../constants/Condition';
 import VALUE from '../constants/Value';
-import { fetchGetCoupons } from '../api/coupons';
 
 export const cartItemsCountSelector = selector<number>({
   key: 'cartItemsCount',

@@ -26,14 +26,12 @@ const ShoppingCartItems = () => {
     isAllCartItemSelectedSelectorFamily(cartItemIds),
   );
 
-  const handleSelectedAll = () => {
-    setIsAllSelected((isSelectedAll) => !isSelectedAll);
-  };
-
   return (
     <Styled.CartItems>
       <SelectButtonContainer gap="narrow">
-        <SelectButton onClick={handleSelectedAll}>
+        <SelectButton
+          onClick={() => setIsAllSelected((isSelectedAll) => !isSelectedAll)}
+        >
           <img
             src={isAllSelected ? SelectedBox : UnSelectedBox}
             alt={isAllSelected ? MESSAGE.allSelected : MESSAGE.notAllSelected}

@@ -1,5 +1,6 @@
-import { ReactNode } from 'react';
 import * as Styled from './style';
+
+import { ReactNode } from 'react';
 
 export type GapType = 'narrow' | 'wide';
 

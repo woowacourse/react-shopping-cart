@@ -9,9 +9,10 @@ import {
 } from '../../recoil/selectors';
 
 import PaymentInfo from './PaymentInfo';
-import CaptionEmoji from '../../assets/CaptionEmoji.svg';
 import Caption from '../Caption/Caption';
 import Divider from '../Divider/Divider';
+
+import CaptionEmoji from '../../assets/CaptionEmoji.svg';
 
 import MESSAGE from '../../constants/Message';
 
