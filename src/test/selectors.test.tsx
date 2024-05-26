@@ -4,9 +4,9 @@ import {
   allCartItemsCheckState,
   calculateOrderPrice,
   checkedCartItems,
-} from './selectors';
+} from '../recoil/selectors';
 import { mockCartItem } from './atom.test';
-import { cartData, cartItemCheckState } from './atoms';
+import { cartData, cartItemCheckState } from '../recoil/atoms';
 
 describe('allCartItemsCheckState', () => {
   it('모든 체크 박스를 활성화 시킨다.', () => {

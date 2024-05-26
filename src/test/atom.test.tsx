@@ -6,7 +6,7 @@ import {
   cartItemCheckState,
   cartItemQuantityState,
   cartQuantity,
-} from './atoms';
+} from '../recoil/atoms';
 
 export const mockCartItem = [
   {
