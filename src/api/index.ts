@@ -3,10 +3,10 @@ import { Items } from '../types/Item';
 import { FetchResponseType } from '../types/api';
 import { generateBasicToken } from '../utils/Auth';
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = process.env.VITE_API_URL ?? 'undefined';
 
-const USER_ID = import.meta.env.VITE_USER_ID;
-const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
+const USER_ID = process.env.VITE_USER_ID ?? 'undefined';
+const USER_PASSWORD = process.env.VITE_USER_PASSWORD ?? 'undefined';
 
 const token = generateBasicToken(USER_ID, USER_PASSWORD);
 const fetchResponse = async ({
