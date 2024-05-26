@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 
 import { imgMap, Button } from '@/f_shared';
 
-import { LeftSlotType } from '../../model/types';
+import { LeftSlotType } from '../../consts/types';
 
 import css from './LeftSlot.module.css';
 

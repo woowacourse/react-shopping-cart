@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import { ReactNode } from 'react';
 
-import { LeftSlotType, MiddleSlotType } from '../../model/types';
+import { LeftSlotType, MiddleSlotType } from '../../consts/types';
 import { LeftSlot } from '../LeftSlot/LeftSlot';
 import { MiddleSlot } from '../MiddleSlot/MiddleSlot';
 
