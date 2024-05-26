@@ -1,5 +1,5 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { couponCheckState, totalDiscountAmount } from '../../../recoil/atoms/atoms';
+import { couponCheckState, couponDiscountAmount } from '../../../recoil/atoms/atoms';
 
 import CheckBox from '../../CheckBox/CheckBox';
 import { formatDate, formatTime } from '../../../utils/format';
@@ -12,16 +12,16 @@ import { calculateOrderPrice } from '../../../recoil/selectors/selectors';
 export default function CouponItem({ coupon, isCouponApplicable }: { coupon: Coupon; isCouponApplicable: boolean }) {
   const [isCouponChecked, setIsCouponChecked] = useRecoilState(couponCheckState(coupon.code));
   const { totalOrderPrice } = useRecoilValue(calculateOrderPrice);
-  const [totalDiscount, setToatalDiscount] = useRecoilState(totalDiscountAmount);
+  const [couponDiscount, setCouponDiscount] = useRecoilState(couponDiscountAmount);
   const { calculateDiscountAmount } = useDiscountCalculator();
 
   useEffect(() => {
     const currentCouponDiscount = calculateDiscountAmount(coupon, totalOrderPrice);
 
     if (isCouponChecked) {
-      setToatalDiscount(totalDiscount + currentCouponDiscount);
+      setCouponDiscount(couponDiscount + currentCouponDiscount);
     } else {
-      setToatalDiscount(totalDiscount - currentCouponDiscount);
+      setCouponDiscount(couponDiscount - currentCouponDiscount);
     }
   }, [isCouponChecked]);
 

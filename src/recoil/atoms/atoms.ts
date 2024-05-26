@@ -42,7 +42,7 @@ export const couponCheckState = atomFamily<boolean, string>({
   default: false,
 });
 
-export const totalDiscountAmount = atom<number>({
-  key: 'totalDiscountState',
+export const couponDiscountAmount = atom<number>({
+  key: 'couponDiscountAmount',
   default: 0,
 });

@@ -1,7 +1,7 @@
 import 'soosoo-react-modal-component/dist/style.css';
 import { Modal } from 'soosoo-react-modal-component';
 
-import { specialZoneCheckState, totalDiscountAmount } from '../../recoil/atoms/atoms';
+import { specialZoneCheckState, couponDiscountAmount } from '../../recoil/atoms/atoms';
 import { checkedCartItems } from '../../recoil/selectors/selectors';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
@@ -22,20 +22,26 @@ export default function OrderConfirmCart() {
   const orderProduct = useRecoilValue(checkedCartItems);
   const cartTotalCount = orderProduct.reduce((acc, cartItem) => acc + cartItem.quantity, 0);
   const [isSpecialZoneCheck, setIsSpecialZoneCheck] = useRecoilState(specialZoneCheckState);
-  const totalDiscount = useRecoilValue(totalDiscountAmount);
+  const couponDiscount = useRecoilValue(couponDiscountAmount);
+  const [couponDiscountState, setCouponDiscountState] = useState(useRecoilValue(couponDiscountAmount));
 
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const modalFooterButtons = [
     {
-      content: `총 ${totalDiscount.toLocaleString()}원 할인 쿠폰 사용하기`,
-      onClick: () => setIsOpenModal(false),
+      content: `총 ${couponDiscount.toLocaleString()}원 할인 쿠폰 사용하기`,
+      onClick: () => {
+        setCouponDiscountState(couponDiscount);
+        setIsOpenModal(false);
+      },
       className: 'confirmButton',
     },
   ];
 
   const handleToggleSpecialZoneCheck = () => {
     setIsSpecialZoneCheck(!isSpecialZoneCheck);
+    if (isSpecialZoneCheck) setCouponDiscountState(couponDiscount - 3000);
+    else setCouponDiscountState(couponDiscount + 3000);
   };
 
   return (
@@ -83,7 +89,7 @@ export default function OrderConfirmCart() {
             />
           </CheckBoxGroup>
 
-          <ProductTotalPriceList />
+          <ProductTotalPriceList couponDiscount={couponDiscountState} />
         </ProductListStyle>
       </CartStyle>
     </div>
