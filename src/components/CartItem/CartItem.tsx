@@ -26,7 +26,10 @@ const CartItem = ({ type = 'cart', cartItem }: CartItemProps) => {
     useSelectedCartItemId();
   const { deleteCartItem } = useCartItemList();
 
-  if (apiError) {
+  if (
+    apiError?.name === 'FailedDeleteCartItemError' ||
+    apiError?.name === 'FailedSetCartItemQuantityError'
+  ) {
     throw apiError;
   }
 

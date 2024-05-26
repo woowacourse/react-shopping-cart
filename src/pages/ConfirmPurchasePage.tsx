@@ -2,18 +2,12 @@ import { useNavigate } from 'react-router-dom';
 
 import useOrder from '../hooks/order/useOrders';
 import Header from '../components/Header/Header';
-import useApiErrorState from '../hooks/error/useApiErrorState';
 import { Button } from '../components/common/Button/Button.style';
 import ConfirmPurchaseSection from '../components/ConfirmPurchaseSection/ConfirmPurchaseSection';
 
 const ConfirmPurchasePage = () => {
   const navigate = useNavigate();
   const { orderSelectedCartItems } = useOrder();
-  const { apiError } = useApiErrorState();
-
-  if (apiError) {
-    throw apiError;
-  }
 
   return (
     <>

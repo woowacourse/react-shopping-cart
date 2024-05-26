@@ -6,12 +6,11 @@ import CompletePurchaseSection from '../components/CompletePurchaseSection/Compl
 
 const CompletePurchasePage = () => {
   const navigate = useNavigate();
+
   return (
     <>
       <Header />
-
       <CompletePurchaseSection />
-
       <Button
         color="primary"
         width="full"

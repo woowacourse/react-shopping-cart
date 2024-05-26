@@ -6,15 +6,21 @@ import CartItemList from '../CartItemList/CartItemList';
 import useCartItemList from '../../hooks/cartItem/useCartItemList';
 import { useEffect } from 'react';
 import { useSelectedCartItemIdList } from '../../hooks/cartItem/useSelectedCartItemIdList';
+import useApiErrorState from '../../hooks/error/useApiErrorState';
 
 const CartItemListSection = () => {
   const { cartItemList, fetchCartItemList } = useCartItemList();
   const { unselectAll } = useSelectedCartItemIdList();
+  const { apiError } = useApiErrorState();
 
   useEffect(() => {
     fetchCartItemList();
     unselectAll();
   }, []);
+
+  if (apiError?.name === 'FailedFetchCartItemlistError') {
+    throw apiError;
+  }
 
   return (
     <S.CartItemListSection>
