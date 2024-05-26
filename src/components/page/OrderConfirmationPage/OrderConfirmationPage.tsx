@@ -5,7 +5,6 @@ import ENDPOINTS from '../../../constants/endpoints';
 import FooterButton from '../../common/FooterButton/FooterButton';
 import Header from '../../common/Header/Header';
 import PreviousPageButton from '../../common/PreviousPageButton/PreviousPageButton';
-import { Suspense } from 'react';
 import TitleContainer from '../../common/TitleContainer/TitleContainer';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
@@ -32,9 +31,7 @@ export default function OrderConfirmationPage() {
       </Header>
       <Content>
         <TitleContainer title="주문확인" />
-        <Suspense>
-          <ConfirmationContainer />
-        </Suspense>
+        <ConfirmationContainer />
       </Content>
       <FooterButton onClick={handleClickConfirmButton} buttonText="결제하기" />
     </>

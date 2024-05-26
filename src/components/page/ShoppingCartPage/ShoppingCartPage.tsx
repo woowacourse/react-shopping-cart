@@ -1,5 +1,6 @@
 import CartContainer from './CartContainer/CartContainer';
 import ConfirmButton from './ConfirmButton/ConfirmButton';
+import ErrorBoundary from '../ErrorBoundary';
 import Header from '../../common/Header/Header';
 import { Suspense } from 'react';
 import TitleContainer from '../../common/TitleContainer/TitleContainer';
@@ -7,18 +8,17 @@ import styled from '@emotion/styled';
 
 export default function ShoppingCartPage() {
   return (
-    <>
-      <Header>SHOP</Header>
-      <Content>
-        <TitleContainer title="장바구니" />
-        <Suspense>
-          <CartContainer />
-        </Suspense>
-      </Content>
+    <ErrorBoundary>
       <Suspense>
+        <Header>SHOP</Header>
+        <Content>
+          <TitleContainer title="장바구니" />
+          <CartContainer />
+        </Content>
+
         <ConfirmButton />
       </Suspense>
-    </>
+    </ErrorBoundary>
   );
 }
 

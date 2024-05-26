@@ -4,6 +4,7 @@ import './reset.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import ENDPOINTS from './constants/endpoints';
+import ErrorBoundary from './components/page/ErrorBoundary';
 import OrderConfirmationPage from './components/page/OrderConfirmationPage/OrderConfirmationPage';
 import PaymentPage from './components/page/PaymentPage/PaymentPage';
 import ShoppingCartPage from './components/page/ShoppingCartPage/ShoppingCartPage';
@@ -16,18 +17,16 @@ const router = createBrowserRouter([
   },
   {
     path: ENDPOINTS.orderConfirmation,
-    element: (
-      <Suspense>
-        <OrderConfirmationPage />
-      </Suspense>
-    ),
+    element: <OrderConfirmationPage />,
   },
   {
     path: ENDPOINTS.paymentPage,
     element: (
-      <Suspense>
-        <PaymentPage />
-      </Suspense>
+      <ErrorBoundary>
+        <Suspense>
+          <PaymentPage />
+        </Suspense>
+      </ErrorBoundary>
     ),
   },
 ]);
