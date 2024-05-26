@@ -1,4 +1,4 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { checkedCartItemsState } from "../recoil/atoms";
 import { checkedCartItemsQuantityState, totalCheckedCartItemsPriceState } from "../recoil/selectors";
@@ -10,10 +10,9 @@ import { useNavigate } from "react-router-dom";
 import PAGE_URL from "../constants/pageURL";
 
 const CompleteOrder = () => {
+  const [checkedCartItems, setCheckedCartItem] = useRecoilState(checkedCartItemsState);
   const totalCheckedCartItemsPrice = useRecoilValue(totalCheckedCartItemsPriceState);
-  const checkedCartItems = useRecoilValue(checkedCartItemsState);
   const checkedCartItemsQuantity = useRecoilValue(checkedCartItemsQuantityState);
-  const setCheckedCartItem = useSetRecoilState(checkedCartItemsState);
   const router = useNavigate();
 
   const description = SHOPPING_MESSAGE.orderDescription(checkedCartItems.length, checkedCartItemsQuantity);
