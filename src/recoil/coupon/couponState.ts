@@ -21,7 +21,7 @@ export const couponSelectorFamily = selectorFamily<Coupon, number>({
 });
 
 export const isSelectedCouponAtomFamily = atomFamily<boolean, number>({
-  key: "isSelectedAtomFamily",
+  key: "isSelectedCouponAtomFamily",
   default: false,
 });
 export const selectedCouponSetSelector = selector<Set<Coupon>>({

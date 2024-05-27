@@ -31,13 +31,15 @@ export const isCheckedSelectorFamily = selectorFamily<boolean, number>({
     (id: number) =>
     ({ get, set }, newValue) => {
       const checkedIdSet = get(checkedIdSetSelector);
+
       if (newValue instanceof DefaultValue || !newValue) {
         checkedIdSet.delete(id);
         set(checkedIdSetSelector, checkedIdSet);
         return;
       }
-
+      console.log(checkedIdSet, newValue);
       checkedIdSet.add(id);
+      console.log(checkedIdSet);
       set(checkedIdSetSelector, checkedIdSet);
     },
 });

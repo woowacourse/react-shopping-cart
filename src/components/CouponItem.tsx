@@ -1,13 +1,13 @@
 import React from "react";
 import { css } from "@emotion/css";
-import { couponSelectorFamily } from "../recoil/coupon/couponState";
+import { couponSelectorFamily, isSelectedCouponAtomFamily } from "../recoil/coupon/couponState";
 import CheckIcon from "../assets/CheckIcon.svg?react";
 import { isCheckedSelectorFamily } from "../recoil/cart/checkedState";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 const CouponItem = ({ couponId }: { couponId: number }) => {
   const coupon = useRecoilValue(couponSelectorFamily(couponId));
-  const [isChecked, setIsChecked] = useRecoilState(isCheckedSelectorFamily(couponId));
+  const [isChecked, setIsChecked] = useRecoilState(isSelectedCouponAtomFamily(couponId));
 
   const expDate = new Date(coupon.expirationDate);
   const handleButtonClick = () => setIsChecked(!isChecked);
