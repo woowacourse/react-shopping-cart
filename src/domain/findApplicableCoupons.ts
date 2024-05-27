@@ -1,16 +1,16 @@
 interface Props {
   validCouponList: Coupon[];
-  totalPrice: number;
+  totalOrderPrice: number;
   orderList: Cart[];
 }
 
 const findApplicableCoupons = ({
   validCouponList,
-  totalPrice,
+  totalOrderPrice,
   orderList,
 }: Props) => {
   const checkOrderAmountCoupons = (minimumAmount: number) => {
-    return totalPrice >= minimumAmount;
+    return totalOrderPrice >= minimumAmount;
   };
 
   const checkMiracleMorningCoupon = (availableTime: Time) => {

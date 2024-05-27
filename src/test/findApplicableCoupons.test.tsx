@@ -13,7 +13,7 @@ describe('findApplicableCoupons', () => {
       const { result } = renderHook(() =>
         findApplicableCoupons({
           validCouponList: MOCK_COUPON_LIST,
-          totalPrice: MOCK_ORDER_TOTAL_PRICE,
+          totalOrderPrice: MOCK_ORDER_TOTAL_PRICE,
           orderList: MOCK_ORDER_LIST,
         }).checkOrderAmountCoupons(MOCK_COUPON_LIST[0].minimumAmount!),
       );
@@ -26,7 +26,7 @@ describe('findApplicableCoupons', () => {
       const { result } = renderHook(() =>
         findApplicableCoupons({
           validCouponList: MOCK_COUPON_LIST,
-          totalPrice: invalidTotalPrice,
+          totalOrderPrice: invalidTotalPrice,
           orderList: MOCK_ORDER_LIST,
         }).checkOrderAmountCoupons(MOCK_COUPON_LIST[0].minimumAmount!),
       );
@@ -46,7 +46,7 @@ describe('findApplicableCoupons', () => {
       const { result } = renderHook(() =>
         findApplicableCoupons({
           validCouponList: MOCK_COUPON_LIST,
-          totalPrice: MOCK_ORDER_TOTAL_PRICE,
+          totalOrderPrice: MOCK_ORDER_TOTAL_PRICE,
           orderList: MOCK_ORDER_LIST,
         }).checkMiracleMorningCoupon(MOCK_COUPON_LIST[3].availableTime!),
       );
@@ -63,7 +63,7 @@ describe('findApplicableCoupons', () => {
       const { result } = renderHook(() =>
         findApplicableCoupons({
           validCouponList: MOCK_COUPON_LIST,
-          totalPrice: MOCK_ORDER_TOTAL_PRICE,
+          totalOrderPrice: MOCK_ORDER_TOTAL_PRICE,
           orderList: MOCK_ORDER_LIST,
         }).checkMiracleMorningCoupon(MOCK_COUPON_LIST[3].availableTime!),
       );
@@ -79,7 +79,7 @@ describe('findApplicableCoupons', () => {
       const { result } = renderHook(() =>
         findApplicableCoupons({
           validCouponList: MOCK_COUPON_LIST,
-          totalPrice: MOCK_ORDER_TOTAL_PRICE,
+          totalOrderPrice: MOCK_ORDER_TOTAL_PRICE,
           orderList: MOCK_ORDER_LIST,
         }).checkBulkPurchaseCoupon(),
       );
@@ -92,7 +92,7 @@ describe('findApplicableCoupons', () => {
       const { result } = renderHook(() =>
         findApplicableCoupons({
           validCouponList: MOCK_COUPON_LIST,
-          totalPrice: MOCK_ORDER_TOTAL_PRICE,
+          totalOrderPrice: MOCK_ORDER_TOTAL_PRICE,
           orderList: invalidOrderList,
         }).checkBulkPurchaseCoupon(),
       );
@@ -118,7 +118,7 @@ describe('findApplicableCoupons', () => {
       const { result } = renderHook(() =>
         findApplicableCoupons({
           validCouponList: MOCK_COUPON_LIST,
-          totalPrice: MOCK_ORDER_TOTAL_PRICE,
+          totalOrderPrice: MOCK_ORDER_TOTAL_PRICE,
           orderList: MOCK_ORDER_LIST,
         }).applicableCoupons(),
       );
@@ -137,7 +137,7 @@ describe('findApplicableCoupons', () => {
       const { result } = renderHook(() =>
         findApplicableCoupons({
           validCouponList: MOCK_COUPON_LIST,
-          totalPrice: testTotalPrice,
+          totalOrderPrice: testTotalPrice,
           orderList: testOrderList,
         }).applicableCoupons(),
       );
@@ -154,7 +154,7 @@ describe('findApplicableCoupons', () => {
       const { result } = renderHook(() =>
         findApplicableCoupons({
           validCouponList: MOCK_COUPON_LIST,
-          totalPrice: testTotalPrice,
+          totalOrderPrice: testTotalPrice,
           orderList: testOrderList,
         }).applicableCoupons(),
       );
@@ -166,7 +166,7 @@ describe('findApplicableCoupons', () => {
       const { result } = renderHook(() =>
         findApplicableCoupons({
           validCouponList: MOCK_COUPON_LIST,
-          totalPrice: MOCK_ORDER_TOTAL_PRICE,
+          totalOrderPrice: MOCK_ORDER_TOTAL_PRICE,
           orderList: MOCK_ORDER_LIST,
         }).applicableCoupons(),
       );

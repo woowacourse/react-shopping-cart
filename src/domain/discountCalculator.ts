@@ -1,22 +1,22 @@
 interface Props {
   coupon: Coupon;
-  totalOrderPrice: number;
+  totalPrice: number;
   orderList: Cart[];
   deliveryFee: number;
 }
 
 export const discountCalculator = ({
   coupon,
-  totalOrderPrice,
+  totalPrice,
   orderList,
   deliveryFee,
 }: Props) => {
   const calculateFixedDiscount = () => {
-    return totalOrderPrice >= coupon.minimumAmount! ? coupon.discount : 0;
+    return totalPrice >= coupon.minimumAmount! ? coupon.discount : 0;
   };
 
   const calculatePercentageDiscount = () => {
-    return Math.floor((coupon.discount! / 100) * totalOrderPrice);
+    return Math.floor((coupon.discount! / 100) * totalPrice);
   };
 
   const calculateBuyXgetYDiscount = () => {
@@ -35,7 +35,7 @@ export const discountCalculator = ({
   };
 
   const calculateFreeShippingDiscount = () => {
-    return totalOrderPrice >= coupon.minimumAmount! ? deliveryFee : 0;
+    return totalPrice >= coupon.minimumAmount! ? deliveryFee : 0;
   };
 
   const calculateDiscountAmount = () => {

@@ -15,7 +15,7 @@ describe('discountCalculator 테스트', () => {
       const { result } = renderHook(() =>
         discountCalculator({
           coupon: MOCK_COUPON_LIST[0],
-          totalOrderPrice: validTotalOrderPrice,
+          totalPrice: validTotalOrderPrice,
           orderList: MOCK_ORDER_LIST,
           deliveryFee: mockDeliveryFee,
         }).calculateDiscountAmount(),
@@ -30,7 +30,7 @@ describe('discountCalculator 테스트', () => {
       const { result } = renderHook(() =>
         discountCalculator({
           coupon: MOCK_COUPON_LIST[0],
-          totalOrderPrice: inValidTotalOrderPrice,
+          totalPrice: inValidTotalOrderPrice,
           orderList: MOCK_ORDER_LIST,
           deliveryFee: mockDeliveryFee,
         }).calculateDiscountAmount(),
@@ -47,7 +47,7 @@ describe('discountCalculator 테스트', () => {
       const { result } = renderHook(() =>
         discountCalculator({
           coupon: MOCK_COUPON_LIST[3],
-          totalOrderPrice: testTotalOrderPrice,
+          totalPrice: testTotalOrderPrice,
           orderList: MOCK_ORDER_LIST,
           deliveryFee: mockDeliveryFee,
         }).calculateDiscountAmount(),
@@ -87,7 +87,7 @@ describe('discountCalculator 테스트', () => {
       const { result } = renderHook(() =>
         discountCalculator({
           coupon: MOCK_COUPON_LIST[1],
-          totalOrderPrice: MOCK_ORDER_TOTAL_PRICE,
+          totalPrice: MOCK_ORDER_TOTAL_PRICE,
           orderList: testOrderList,
           deliveryFee: mockDeliveryFee,
         }).calculateDiscountAmount(),
@@ -136,7 +136,7 @@ describe('discountCalculator 테스트', () => {
       const { result } = renderHook(() =>
         discountCalculator({
           coupon: MOCK_COUPON_LIST[1],
-          totalOrderPrice: MOCK_ORDER_TOTAL_PRICE,
+          totalPrice: MOCK_ORDER_TOTAL_PRICE,
           orderList: testOrderList,
           deliveryFee: mockDeliveryFee,
         }).calculateDiscountAmount(),
@@ -173,7 +173,7 @@ describe('discountCalculator 테스트', () => {
       const { result } = renderHook(() =>
         discountCalculator({
           coupon: MOCK_COUPON_LIST[1],
-          totalOrderPrice: MOCK_ORDER_TOTAL_PRICE,
+          totalPrice: MOCK_ORDER_TOTAL_PRICE,
           orderList: testOrderList,
           deliveryFee: mockDeliveryFee,
         }).calculateDiscountAmount(),
@@ -191,7 +191,7 @@ describe('discountCalculator 테스트', () => {
       const { result } = renderHook(() =>
         discountCalculator({
           coupon: MOCK_COUPON_LIST[2],
-          totalOrderPrice: validTotalOrderPrice,
+          totalPrice: validTotalOrderPrice,
           orderList: MOCK_ORDER_LIST,
           deliveryFee: testDeliveryFee,
         }).calculateDiscountAmount(),
@@ -207,7 +207,7 @@ describe('discountCalculator 테스트', () => {
       const { result } = renderHook(() =>
         discountCalculator({
           coupon: MOCK_COUPON_LIST[2],
-          totalOrderPrice: validTotalOrderPrice,
+          totalPrice: validTotalOrderPrice,
           orderList: MOCK_ORDER_LIST,
           deliveryFee: testDeliveryFee,
         }).calculateDiscountAmount(),
