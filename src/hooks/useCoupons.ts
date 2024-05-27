@@ -17,7 +17,7 @@ export default function useCoupons() {
       return couponCount;
     }, 0);
 
-    return useableCouponCount ? true : false;
+    return !!useableCouponCount;
   };
 
   const calculateDiscountAmount = (couponIds?: number[]) => {
