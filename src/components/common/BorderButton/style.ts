@@ -40,14 +40,14 @@ interface BorderButtonContainerProps {
   size?: SizeType;
   bgColor?: string;
   color: string;
+  borderColor: string
 }
 
 export const BorderButtonContainer = styled.button<BorderButtonContainerProps>(
-  ({ theme, size = "large", bgColor = "none", color }) => ({
+  ({ theme, size = "large", bgColor = "none", color,borderColor}) => ({
     background: `${bgColor}`,
-    border: bgColor !== "none" ? `1px solid ${theme.colors.border}` : "none",
+    border: `1px solid ${borderColor}`,
     borderRadius: `${theme.borderRadius.medium}`,
-
     color: color,
     width: getWidthSize(size),
     height: size === "small" ? "24px" : "",

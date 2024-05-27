@@ -8,13 +8,15 @@ const BorderButton: React.FC<
     bgColor?: string;
     color?: string;
     className?: string;
+    borderColor?: string;
   }>
-> = ({ children, onClick, size, bgColor, color = "#fff", className }) => {
+> = ({ children, onClick, size, bgColor, color = "#fff", className, borderColor="#33333340" }) => {
   return (
     <BorderButtonContainer
       className={className}
       type="button"
       bgColor={bgColor}
+      borderColor={borderColor}
       color={color}
       onClick={onClick}
       size={size}

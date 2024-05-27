@@ -74,7 +74,7 @@ const OrderConfirmPage: React.FC = () => {
         </CartListWrapper>
 
         <Modal.Trigger>
-          <BorderButton size="full">쿠폰 적용</BorderButton>
+          <BorderButton size="full" color="#333333BF" bgColor="none">쿠폰 적용</BorderButton>
         </Modal.Trigger>
 
         <h1 css={[title, { textAlign: "left" }]}>배송 정보</h1>
