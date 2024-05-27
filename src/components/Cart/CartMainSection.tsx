@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import { ChangeEvent } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-import CartItem from '@common/CartItem';
+import CartItem from '@/components/CartItem/CartItem';
 import Checkbox from '@common/Checkbox';
 import HeaderTitleContainer from '@common/HeaderTitleContainer';
 import OrderInfo from '@common/OrderInfo';
@@ -42,7 +42,7 @@ export default function CartMainSection() {
         </div>
         <ul>
           {cartItems.map((cartItem) => (
-            <CartItem key={cartItem.id} item={cartItem} type="CART" />
+            <CartItem key={cartItem.id} item={cartItem} />
           ))}
         </ul>
       </section>
