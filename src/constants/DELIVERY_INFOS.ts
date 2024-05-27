@@ -1,5 +1,6 @@
 import type { DeliveryInfo } from '../types/DeliveryInfo';
 
+export const DEFAULT_DELIVERY_FEE = 3000;
 export const DELIVERY_FEE_DISCOUNT_THRESHOLD = 100000;
 
 export const DELIVERY_INFOS = {

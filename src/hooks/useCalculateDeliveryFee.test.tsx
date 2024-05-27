@@ -2,7 +2,7 @@ import { RecoilRoot } from 'recoil';
 
 import { act, renderHook } from '@testing-library/react';
 
-import { DELIVERY_FEE_DISCOUNT_THRESHOLD } from '../constants/DELIVERY_INFOS';
+import { DEFAULT_DELIVERY_FEE, DELIVERY_FEE_DISCOUNT_THRESHOLD } from '../constants/DELIVERY_INFOS';
 import { selectedDeliveryInfoListMockData } from '../mockData/selectedDeliveryListMockData';
 import { selectedCartItemListState } from '../recoil/CartItem/atoms/selectedCartItemListState';
 import { deliveryFeeState } from '../recoil/DeliveryFee/atoms/deliveryFeeState';
@@ -43,7 +43,7 @@ describe('useCalculateDeliveryFee', () => {
       result.current.calculateDeliveryFee();
     });
 
-    expect(result.current.deliveryFee).toBe(3000);
+    expect(result.current.deliveryFee).toBe(DEFAULT_DELIVERY_FEE);
   });
 
   it(`총 결제 금액이 ${DELIVERY_FEE_DISCOUNT_THRESHOLD}를 넘을 경우 배송비는 0이 되어야 한다.`, () => {
