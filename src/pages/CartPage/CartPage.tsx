@@ -17,6 +17,7 @@ import MoreInfo from "@/components/_common/MoreInfo/MoreInfo";
 import { CAPTION, HEADER_TITLES } from "@/constants/titleAndCaption.ts";
 import { SHIPPING_MESSSAGES } from "@/constants/shippingInfo.ts";
 import AllSelectCheckBox from "@/components/cart/AllSelectCheckBox/AllSelectCheckBox";
+import AddMockItemButton from "@/mocks/AddMockItemButton";
 
 const CartPage = () => {
   const selectedItems = useRecoilValue(totalItemOrderCountSelector);
@@ -30,6 +31,7 @@ const CartPage = () => {
   return (
     <>
       <S.CartItemListWrapper>
+        <AddMockItemButton />
         {cartItemList.length ? (
           <>
             <TitleSet

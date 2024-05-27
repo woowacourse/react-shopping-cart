@@ -1,4 +1,3 @@
-import { totalItemsPriceSelector } from "@/recoil/orderInformation";
 import { Coupon } from "@/types/coupon";
 import { useRecoilValue } from "recoil";
 import useCouponApplicabilityChecker from "./useCouponApplicabilityChecker";
@@ -10,24 +9,23 @@ import {
 
 const useDiscountCalculator = () => {
   const { isCouponApplicable } = useCouponApplicabilityChecker();
-  const totalItemsPrice = useRecoilValue(totalItemsPriceSelector);
   const maxBuyXgetYItem = useRecoilValue(maxBuyXgetYItemSelector);
   const couponsByDiscountType = useRecoilValue(couponsByDiscountTypeSelector);
 
-  const calculateFixedDiscount = (coupon: Coupon) => {
-    if (!isCouponApplicable({ coupon, price: totalItemsPrice })) return 0;
+  const calculateFixedDiscount = (coupon: Coupon, totalAmount: number) => {
+    if (!isCouponApplicable({ coupon, price: totalAmount })) return 0;
     return coupon.discount ?? 0;
   };
 
   const calculatePercentageDiscount = (coupon: Coupon, totalAmount: number) => {
-    if (!isCouponApplicable({ coupon, price: totalItemsPrice })) return 0;
+    if (!isCouponApplicable({ coupon, price: totalAmount })) return 0;
     return Math.floor((totalAmount * (coupon.discount ?? 0)) / 100);
   };
 
   const calculateDiscountAmount = (coupon: Coupon, totalAmount: number) => {
     switch (coupon.discountType) {
       case "fixed":
-        return calculateFixedDiscount(coupon);
+        return calculateFixedDiscount(coupon, totalAmount);
       case "percentage":
         return calculatePercentageDiscount(coupon, totalAmount);
       default:

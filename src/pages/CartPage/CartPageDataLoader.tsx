@@ -6,21 +6,19 @@ import CartPage from "@/pages/CartPage/CartPage.tsx";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorPage from "../Error/ErrorPage";
 import { useSetRecoilState } from "recoil";
-import { cartItemsState } from "@/recoil/cartItems";
 import { useEffect } from "react";
 import { getCartItems } from "@/auth/apis/cart";
-import AddMockItemButton from "@/mocks/AddMockItemButton.tsx";
+import { cartItemsState } from "@/recoil/cartItems";
 
 const CartPageDataLoader = () => {
   const setCartItems = useSetRecoilState(cartItemsState);
 
   useEffect(() => {
-    const updateCartItems = async () => {
-      const newCartItems = await getCartItems();
-      setCartItems(newCartItems);
+    const fetchNewData = async () => {
+      const newData = await getCartItems();
+      setCartItems(newData);
     };
-
-    updateCartItems();
+    fetchNewData();
   }, [setCartItems]);
 
   return (
@@ -29,7 +27,6 @@ const CartPageDataLoader = () => {
         <MainLayout.TitleHeader text={HEADER_TITLES.shop} />
         <MainLayout.Body fallback={<CartPageSkeleton />}>
           <CartPage />
-          <AddMockItemButton />
         </MainLayout.Body>
       </MainLayout>
     </ErrorBoundary>

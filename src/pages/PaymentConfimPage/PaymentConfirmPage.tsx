@@ -37,7 +37,7 @@ const PaymentConfirmPage = () => {
   useEffect(() => {
     resetCoupons();
     resetShippingFee();
-  });
+  }, []);
 
   const onMoveCartPage = () => {
     navigate(PAGE_URL.home);

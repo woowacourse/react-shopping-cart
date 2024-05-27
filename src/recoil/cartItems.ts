@@ -8,10 +8,6 @@ export const cartItemSelector = selector<CartItem[]>({
     const cartItems = await getCartItems();
     return cartItems;
   },
-  cachePolicy_UNSTABLE: {
-    eviction: "lru",
-    maxSize: 0,
-  },
 });
 
 export const cartItemsState = atom<CartItem[]>({

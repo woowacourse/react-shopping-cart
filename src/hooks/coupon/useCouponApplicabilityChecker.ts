@@ -22,7 +22,7 @@ const useCouponApplicabilityChecker = () => {
     }
 
     if (coupon.buyQuantity && coupon.getQuantity) {
-      if (!checkBuyXgetY(coupon.id)) return false;
+      if (!checkBuyXgetY(coupon.id).length) return false;
     }
 
     if (coupon.expirationDate && time) {
