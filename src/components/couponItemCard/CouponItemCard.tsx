@@ -16,7 +16,11 @@ import {
   StyledCouponItemCardTitle,
 } from "./CouponItemCard.styled";
 
-export const CouponItemCard: React.FC<Coupon> = ({
+export interface CouponItemCardProps extends Coupon {
+  onApplyButtonClick: () => void;
+}
+
+export const CouponItemCard: React.FC<CouponItemCardProps> = ({
   id,
   code,
   description,
@@ -26,6 +30,7 @@ export const CouponItemCard: React.FC<Coupon> = ({
   buyQuantity,
   getQuantity,
   availableTime,
+  onApplyButtonClick,
 }) => {
   const { isCouponValid } = couponValidator();
   const { isCouponApplicable } = useCouponApplicabilityChecker();
@@ -57,6 +62,7 @@ export const CouponItemCard: React.FC<Coupon> = ({
       if (isChecked) {
         return prevSelectedCoupons.filter((coupon) => coupon.id !== id);
       } else if (prevSelectedCoupons.length < COUPON.MAX_SELECTABLE_COUPONS) {
+        onApplyButtonClick();
         return [...prevSelectedCoupons, { id, code, description, expirationDate, discountType }];
       }
       return prevSelectedCoupons;

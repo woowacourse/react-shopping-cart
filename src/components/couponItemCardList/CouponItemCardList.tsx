@@ -2,25 +2,17 @@ import { useFetchCoupons } from "../../hooks/useFetchCoupons";
 import { CouponItemCard } from "../couponItemCard/CouponItemCard";
 import { StyledCouponItemCardList } from "./CouponItemCardList.styled";
 
-export const CouponItemCardList = () => {
+export interface CouponItemCardListProps {
+  onApplyButtonClick: () => void;
+}
+
+export const CouponItemCardList: React.FC<CouponItemCardListProps> = ({ onApplyButtonClick }) => {
   const coupons = useFetchCoupons();
 
   return (
     <StyledCouponItemCardList>
       {coupons.map((coupon) => (
-        <CouponItemCard
-          key={coupon.id}
-          id={coupon.id}
-          code={coupon.code}
-          description={coupon.description}
-          expirationDate={coupon.expirationDate}
-          discount={coupon.discount}
-          discountType={coupon.discountType}
-          minimumAmount={coupon.minimumAmount}
-          buyQuantity={coupon.buyQuantity}
-          getQuantity={coupon.getQuantity}
-          availableTime={coupon.availableTime}
-        />
+        <CouponItemCard key={coupon.id} {...coupon} onApplyButtonClick={onApplyButtonClick} />
       ))}
     </StyledCouponItemCardList>
   );
