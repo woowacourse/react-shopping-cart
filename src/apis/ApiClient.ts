@@ -1,12 +1,18 @@
+import HTTPError from '@errors/HTTPError';
 import { generateBasicToken } from '@utils/auth';
 
-const API_URL = process.env.VITE_API_URL as string;
-const USER_ID = process.env.VITE_USER_ID as string;
-const USER_PASSWORD = process.env.VITE_USER_PASSWORD as string;
-
-const token = generateBasicToken(USER_ID, USER_PASSWORD);
-
 export default class ApiClient {
+  private static API_URL = process.env.VITE_API_URL as string;
+  private static USER_ID = process.env.VITE_USER_ID as string;
+  private static USER_PASSWORD = process.env.VITE_USER_PASSWORD as string;
+  private static TOKEN = generateBasicToken(this.USER_ID, this.USER_PASSWORD);
+
+  static validateResponse(response: Response, errorMessage: string) {
+    if (!response.ok) {
+      throw new HTTPError(response.status, errorMessage);
+    }
+  }
+
   static get(endpoint: string, headers: Record<string, string> = {}) {
     return this.request('GET', endpoint, null, headers);
   }
@@ -29,11 +35,11 @@ export default class ApiClient {
     body: T | null,
     headers: Record<string, string> = {},
   ): Promise<Response> {
-    const url = `${API_URL}/${endpoint}`;
+    const url = `${this.API_URL}/${endpoint}`;
     const options = {
       method,
       headers: {
-        Authorization: token,
+        Authorization: this.TOKEN,
         'Content-Type': 'application/json',
         ...headers,
       },
