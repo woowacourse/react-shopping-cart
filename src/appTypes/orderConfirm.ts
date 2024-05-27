@@ -1,15 +1,34 @@
-export interface Coupon {
+interface BaseCoupon {
   id: number;
   code: string;
   description: string;
-  discount?: number;
-  discountType: 'fixed' | 'percentage' | 'buyXgetY' | 'freeShipping';
-  minimumAmount?: number;
-  buyQuantity?: number;
-  getQuantity?: number;
-  availableTime?: {
+  expirationDate: string;
+}
+
+interface FixedDiscountCoupon extends BaseCoupon {
+  discountType: 'fixed';
+  discount: number;
+  minimumAmount: number;
+}
+
+interface PercentageDiscountCoupon extends BaseCoupon {
+  discountType: 'percentage';
+  discount: number;
+  availableTime: {
     start: string;
     end: string;
   };
-  expirationDate: string;
 }
+
+interface BuyXGetYCoupon extends BaseCoupon {
+  discountType: 'buyXgetY';
+  buyQuantity: number;
+  getQuantity: number;
+}
+
+interface FreeShippingCoupon extends BaseCoupon {
+  discountType: 'freeShipping';
+  minimumAmount: number;
+}
+
+export type Coupon = FixedDiscountCoupon | PercentageDiscountCoupon | BuyXGetYCoupon | FreeShippingCoupon;

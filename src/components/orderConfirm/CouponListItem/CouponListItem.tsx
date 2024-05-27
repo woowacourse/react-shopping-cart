@@ -31,12 +31,12 @@ const CouponListItem: React.FC<CouponListItemProps> = ({
       </Styled.CouponListItemHeader>
       <Styled.CouponDescriptionWrapper>
         <Styled.CouponDescription $isActive={isActive}>만료일:{coupon.expirationDate}</Styled.CouponDescription>
-        {coupon?.minimumAmount && (
+        {(coupon.discountType === 'freeShipping' || coupon.discountType === 'fixed') && (
           <Styled.CouponDescription $isActive={isActive}>
             최소 주문 금액:{coupon.minimumAmount}
           </Styled.CouponDescription>
         )}
-        {coupon?.availableTime && (
+        {coupon.discountType === 'percentage' && (
           <Styled.CouponDescription $isActive={isActive}>
             사용 가능 시간: 오전 {convertTime(coupon.availableTime.start)}시부터 {convertTime(coupon.availableTime.end)}
             시까지
