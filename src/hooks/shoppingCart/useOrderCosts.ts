@@ -1,4 +1,4 @@
-import { totalDiscountPriceSelector } from '@recoil/orderConfirm/selectors';
+import { totalDiscountPriceSelector } from '@recoil/orderConfirm';
 import {
   afterDiscountTotalPriceSelector,
   beforeDiscountTotalPriceSelector,

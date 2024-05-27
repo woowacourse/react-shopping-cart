@@ -1,27 +1,8 @@
-import ShoppingCartFetcher from '@apis/shoppingCart';
-import { CartItem } from '@appTypes/shoppingCart';
 import { PRICE } from '@constants/shippingCart';
 import { isInaccessibleAreaAtom, totalDiscountPriceSelector } from '@recoil/orderConfirm';
-import { cartItemsAtom, quantityAtomFamily, selectedIdsAtom } from '@recoil/shoppingCart/atoms';
-import { selector, selectorFamily } from 'recoil';
-
-export const cartItemsSelector = selector<CartItem[]>({
-  key: 'cartItemsSelector',
-  get: async () => {
-    const cartItems = await ShoppingCartFetcher.getCartItems();
-    return cartItems;
-  },
-});
-
-export const quantitySelectorFamily = selectorFamily<number, number>({
-  key: 'quantitySelectorFamily',
-  get:
-    (id) =>
-    ({ get }) => {
-      const cartItems = get(cartItemsAtom);
-      return cartItems.find((item) => item.id === id)?.quantity ?? 1;
-    },
-});
+import { selectedItemsSelector } from '@recoil/shoppingCart/cartItems';
+import { quantityAtomFamily } from '@recoil/shoppingCart/quantity';
+import { selector } from 'recoil';
 
 export const orderPriceSelector = selector({
   key: 'orderPriceSelector',
@@ -50,19 +31,6 @@ export const shippingPriceSelector = selector({
       return shippingPrice + PRICE.shippingFee.inaccessibleAreas;
 
     return shippingPrice;
-  },
-});
-
-export const selectedItemsSelector = selector({
-  key: 'selectedItemsSelector',
-  get: ({ get }) => {
-    const cartItems = get(cartItemsAtom);
-
-    const selectedItems = cartItems
-      .filter((cartItem) => get(selectedIdsAtom).has(cartItem.id))
-      .map((item) => ({ ...item, quantity: get(quantityAtomFamily(item.id)) }));
-
-    return selectedItems;
   },
 });
 
