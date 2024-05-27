@@ -44,11 +44,11 @@ describe("useCouponSimulator", () => {
           return { couponSimulator, coupons };
         }, [TEST_COUPONS.usableFixedDiscountCoupon]);
 
-        const { handleAddCoupon } = result.current.couponSimulator;
+        const { handleAddTemporaryCoupon } = result.current.couponSimulator;
         const { coupons } = result.current;
 
         act(() => {
-          handleAddCoupon(coupons[0]);
+          handleAddTemporaryCoupon(coupons[0]);
         });
 
         await waitFor(() => {
@@ -72,11 +72,11 @@ describe("useCouponSimulator", () => {
           return { couponSimulator, coupons, totalOrderPrice };
         }, [TEST_COUPONS.usablePercentageDiscountCoupon]);
 
-        const { handleAddCoupon } = result.current.couponSimulator;
+        const { handleAddTemporaryCoupon } = result.current.couponSimulator;
         const { coupons } = result.current;
 
         act(() => {
-          handleAddCoupon(coupons[0]);
+          handleAddTemporaryCoupon(coupons[0]);
         });
 
         await waitFor(() => {
@@ -107,12 +107,12 @@ describe("useCouponSimulator", () => {
           return { setCartItemCount, couponSimulator, coupons };
         }, [TEST_COUPONS.usableBuyXGetYCoupon]);
 
-        const { handleAddCoupon } = result.current.couponSimulator;
+        const { handleAddTemporaryCoupon } = result.current.couponSimulator;
         const { coupons } = result.current;
 
         act(() => {
           result.current.setCartItemCount(3);
-          handleAddCoupon(coupons[0]);
+          handleAddTemporaryCoupon(coupons[0]);
         });
 
         await waitFor(() => {
@@ -139,11 +139,11 @@ describe("useCouponSimulator", () => {
           return { couponSimulator, coupons, shippingFee };
         }, [TEST_COUPONS.usableFreeShippingCoupon]);
 
-        const { handleAddCoupon } = result.current.couponSimulator;
+        const { handleAddTemporaryCoupon } = result.current.couponSimulator;
         const { coupons } = result.current;
 
         act(() => {
-          handleAddCoupon(coupons[0]);
+          handleAddTemporaryCoupon(coupons[0]);
         });
 
         await waitFor(() => {
@@ -168,12 +168,12 @@ describe("useCouponSimulator", () => {
           return { couponSimulator, coupons, shippingFee, setIsRemoteArea };
         }, [TEST_COUPONS.usableFreeShippingCoupon]);
 
-        const { handleAddCoupon } = result.current.couponSimulator;
+        const { handleAddTemporaryCoupon } = result.current.couponSimulator;
         const { coupons, setIsRemoteArea } = result.current;
 
         act(() => {
           setIsRemoteArea(true);
-          handleAddCoupon(coupons[0]);
+          handleAddTemporaryCoupon(coupons[0]);
         });
 
         await waitFor(() => {
@@ -206,12 +206,12 @@ describe("useCouponSimulator", () => {
         TEST_COUPONS.usablePercentageDiscountCoupon,
       ]);
 
-      const { handleAddCoupon } = result.current.couponSimulator;
+      const { handleAddTemporaryCoupon } = result.current.couponSimulator;
       const { coupons } = result.current;
 
       act(() => {
-        handleAddCoupon(coupons[0]);
-        handleAddCoupon(coupons[1]);
+        handleAddTemporaryCoupon(coupons[0]);
+        handleAddTemporaryCoupon(coupons[1]);
       });
 
       await waitFor(() => {
@@ -236,19 +236,19 @@ describe("useCouponSimulator", () => {
         TEST_COUPONS.usableBuyXGetYCoupon,
       ]);
 
-      const { handleAddCoupon, checkSelectedCoupon } =
+      const { handleAddTemporaryCoupon, checkSelectedCoupon } =
         result.current.couponSimulator;
       const { coupons } = result.current;
 
       act(() => {
-        handleAddCoupon(coupons[0]);
-        handleAddCoupon(coupons[1]);
+        handleAddTemporaryCoupon(coupons[0]);
+        handleAddTemporaryCoupon(coupons[1]);
       });
 
       await act(async () => {
-        const { handleAddCoupon } = result.current.couponSimulator;
+        const { handleAddTemporaryCoupon } = result.current.couponSimulator;
 
-        handleAddCoupon(coupons[2]);
+        handleAddTemporaryCoupon(coupons[2]);
 
         await waitFor(() => {
           expect(alertMock).toHaveBeenCalledWith(
@@ -273,11 +273,11 @@ describe("useCouponSimulator", () => {
         return { couponSimulator, coupons, selectedCoupons };
       }, [TEST_COUPONS.usableFixedDiscountCoupon]);
 
-      const { handleAddCoupon } = result.current.couponSimulator;
+      const { handleAddTemporaryCoupon } = result.current.couponSimulator;
       const { coupons } = result.current;
 
       act(() => {
-        handleAddCoupon(coupons[0]);
+        handleAddTemporaryCoupon(coupons[0]);
       });
 
       act(() => {
