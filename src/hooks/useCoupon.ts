@@ -113,8 +113,6 @@ const useCoupon = ({ isIsland }: { isIsland: boolean }) => {
     totalPrice,
     finalTotalPriceListState,
   ]);
-
-  return { finalTotalPriceList };
 };
 
 export default useCoupon;
