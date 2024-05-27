@@ -5,29 +5,32 @@ import { CHECKED, UNCHECKED } from '@assets/images';
 
 interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
-  labelHidden: boolean;
-  description: string;
+  labelHidden?: boolean;
+  label: string;
+  disabled?: boolean;
 }
 
 export default function Checkbox({
   id,
   checked,
-  labelHidden,
-  description,
+  labelHidden = false,
+  label,
+  disabled,
   onChange,
 }: CheckboxProps) {
   return (
     <>
-      <input id={id} type="checkbox" checked={checked} css={screenReaderOnly} onChange={onChange} />
-      <label css={label} htmlFor={id}>
-        <img
-          src={checked ? CHECKED : UNCHECKED}
-          width={24}
-          height={24}
-          css={checkIcon}
-          alt="check icon"
-        />
-        <span css={[labelText, labelHidden && screenReaderOnly]}>{description}</span>
+      <input
+        disabled={disabled}
+        id={id}
+        type="checkbox"
+        checked={checked}
+        css={screenReaderOnly}
+        onChange={onChange}
+      />
+      <label css={labelStyle(Boolean(disabled))} htmlFor={id}>
+        <img src={checked ? CHECKED : UNCHECKED} css={checkIcon} alt="" />
+        <span css={[labelText, labelHidden && screenReaderOnly]}>{label}</span>
       </label>
     </>
   );
@@ -47,16 +50,19 @@ const screenReaderOnly = css`
   clip: rect(0 0 0 0);
 `;
 
-const label = css`
+const labelStyle = (disabled: boolean) => css`
   display: flex;
   align-items: center;
   gap: 8px;
 
   height: 24px;
+
+  cursor: ${disabled ? 'default' : 'pointer'};
 `;
 
 const checkIcon = css`
-  cursor: pointer;
+  width: 24px;
+  height: 24px;
 `;
 
 const labelText = css`

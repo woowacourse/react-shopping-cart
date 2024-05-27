@@ -1,42 +1,37 @@
 import { css } from '@emotion/react';
 import { useRecoilValue } from 'recoil';
 
+import Main from '../common/Main';
+
 import CartEmpty from '@components/Cart/CartEmpty';
 import CartOrderInfo from '@components/Cart/CartOrderInfo';
 import CartProducts from '@components/Cart/CartProducts';
 import CartTitle from '@components/Cart/CartTitle';
 import OrderConfirmButton from '@components/Cart/OrderConfirmButton';
-import { cartItemsState } from '@recoil/cartItems/atoms';
+import { cartItemsState } from '@globalState/cartItems/atoms';
 
 export default function Cart() {
   const cartItems = useRecoilValue(cartItemsState);
 
+  const CartItems = () => (
+    <>
+      <CartProducts />
+      <CartOrderInfo />
+    </>
+  );
+
   return (
     <>
-      <main css={main}>
+      <Main>
         <section css={cartSection}>
           <CartTitle cartItemLength={cartItems.length} />
-          {cartItems.length ? (
-            <>
-              <CartProducts />
-              <CartOrderInfo />
-            </>
-          ) : (
-            <CartEmpty />
-          )}
+          {cartItems.length ? <CartItems /> : <CartEmpty />}
         </section>
-      </main>
+      </Main>
       <OrderConfirmButton />
     </>
   );
 }
-
-const main = css`
-  flex: 1;
-  padding: 36px 24px;
-
-  overflow-y: scroll;
-`;
 
 const cartSection = css`
   display: flex;

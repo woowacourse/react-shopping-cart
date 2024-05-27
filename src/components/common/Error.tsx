@@ -12,7 +12,7 @@ export default function Error({ errorMessage }: ErrorProps) {
     <>
       <main css={errorMain}>
         <div css={errorWrapper}>
-          <img alt="warning" src={WARNING} />
+          <img alt="오류 이미지" src={WARNING} />
           <span>오류가 발생했습니다.</span>
           <span css={errorInfoText}>
             페이지를 새로고침하거나

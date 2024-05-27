@@ -13,7 +13,7 @@ export default function Loading() {
         </div>
         <span>Loading</span>
       </main>
-      <FooterButton id="loading" isDisabled={true} />
+      <FooterButton isDisabled={true} />
     </>
   );
 }

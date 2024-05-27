@@ -5,7 +5,7 @@ import { EMPTY_CART } from '@assets/images';
 export default function CartEmpty() {
   return (
     <div css={cartEmptyContainer}>
-      <img alt="empty cart" src={EMPTY_CART} />
+      <img alt="빈 장바구니" src={EMPTY_CART} />
       <span css={cartEmptyText}>장바구니에 담은 상품이 없습니다.</span>
     </div>
   );

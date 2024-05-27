@@ -2,24 +2,30 @@ import { css } from '@emotion/react';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 
 import { BACK_ARROW } from '@assets/images';
 import CartConfirmContent from '@components/CartConfirm/CartConfirmContent';
-import Button from '@components/common/Button';
 import Error from '@components/common/Error';
+import Header from '@components/common/Header';
 import Loading from '@components/common/Loading';
-
-import Header from '@components/Header';
+import { fixedSelectedCouponsState } from '@globalState/coupon/atom';
 
 export default function CartConfirmPage() {
   const navigate = useNavigate();
+  const setFixedSelectedCoupons = useSetRecoilState(fixedSelectedCouponsState);
+
+  const onBackButtonClickHandler = () => {
+    navigate('/');
+    setFixedSelectedCoupons([]);
+  };
 
   return (
     <>
       <Header>
-        <Button id="back-button" css={backButton} onClick={() => navigate('/')}>
-          <img src={BACK_ARROW} alt="back arrow icon" />
-        </Button>
+        <button css={backButton} onClick={onBackButtonClickHandler}>
+          <img src={BACK_ARROW} alt="뒤로가기 버튼" />
+        </button>
       </Header>
 
       <ErrorBoundary fallbackRender={({ error }) => <Error errorMessage={error.message} />}>

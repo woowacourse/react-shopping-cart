@@ -30,7 +30,7 @@ export default {
     '@pages/(.*)': '<rootDir>/src/pages/$1',
     '@hooks/(.*)': '<rootDir>/src/hooks/$1',
     '@apis/(.*)': '<rootDir>/src/apis/$1',
-    '@recoil/(.*)': '<rootDir>/src/recoil/$1',
+    '@globalState/(.*)': '<rootDir>/src/globalState/$1',
     '@assets/(.*)': '<rootDir>/src/assets/$1',
   },
 };

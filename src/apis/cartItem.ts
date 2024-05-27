@@ -1,13 +1,12 @@
+import { CART_ITEM_URL, USER_ID, USER_PASSWORD } from '@/constants/api';
 import { CartItemProps } from '@/types/cartItem';
 import { generateBasicToken } from '@/utils/auth';
 
-const BASE_URL = import.meta.env.VITE_BASE_URL;
-const USER_ID = import.meta.env.VITE_USER_ID;
-const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
+const cartItemURLWithCartId = (cartId: number) => CART_ITEM_URL + '/' + cartId;
 
 export const fetchCartItems = async (): Promise<CartItemProps[]> => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
-  const response = await fetch(`${BASE_URL}/cart-items`, {
+  const response = await fetch(CART_ITEM_URL, {
     method: 'GET',
     headers: { Authorization: token },
   });
@@ -21,9 +20,25 @@ export const fetchCartItems = async (): Promise<CartItemProps[]> => {
   return data.content;
 };
 
+export const addCartItem = async (productId: number): Promise<void> => {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+  const response = await fetch(CART_ITEM_URL, {
+    method: 'POST',
+    headers: { Authorization: token, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      productId: productId,
+      quantity: 1,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to add cart item');
+  }
+};
+
 export const updateItemQuantity = async (cartId: number, quantity: number) => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
-  const response = await fetch(`${BASE_URL}/cart-items/${cartId}`, {
+  const response = await fetch(cartItemURLWithCartId(cartId), {
     method: 'PATCH',
     headers: { Authorization: token, 'Content-Type': 'application/json' },
     body: JSON.stringify({ quantity }),
@@ -36,7 +51,7 @@ export const updateItemQuantity = async (cartId: number, quantity: number) => {
 
 export const deleteItem = async (cartId: number) => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
-  const response = await fetch(`${BASE_URL}/cart-items/${cartId}`, {
+  const response = await fetch(cartItemURLWithCartId(cartId), {
     method: 'DELETE',
     headers: { Authorization: token },
   });

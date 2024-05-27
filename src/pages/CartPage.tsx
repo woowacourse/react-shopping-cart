@@ -3,12 +3,11 @@ import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useNavigate } from 'react-router-dom';
 
+import { LOGO } from '@assets/images';
 import Cart from '@components/Cart/Cart';
-import Button from '@components/common/Button';
 import Error from '@components/common/Error';
+import Header from '@components/common/Header';
 import Loading from '@components/common/Loading';
-
-import Header from '@components/Header';
 
 function CartPage() {
   const navigate = useNavigate();
@@ -20,9 +19,9 @@ function CartPage() {
   return (
     <>
       <Header>
-        <Button id="home-button" onClick={goHome} css={homeButton}>
-          <h1>SHOP</h1>
-        </Button>
+        <button onClick={goHome} css={homeButton}>
+          <img src={LOGO} alt="SHOP LOGO" />
+        </button>
       </Header>
 
       <ErrorBoundary fallbackRender={({ error }) => <Error errorMessage={error.message} />}>
