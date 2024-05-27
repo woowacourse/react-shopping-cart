@@ -48,7 +48,10 @@ describe('5000원 할인 쿠폰', () => {
           () => {
             const { isCouponApplicable } = couponApplicabilityChecker(MOCK_COUPON_CHECK_LIST);
 
-            return isCouponApplicable(MOCK_COUPON_CHECK_LIST[0], TOTAL_PRICE);
+            return isCouponApplicable({
+              coupon: MOCK_COUPON_CHECK_LIST[0],
+              totalOrderPrice: TOTAL_PRICE,
+            });
           },
           {
             wrapper: ({ children }) => (

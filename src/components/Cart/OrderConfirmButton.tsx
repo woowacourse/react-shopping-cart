@@ -23,7 +23,7 @@ const OrderConfirmButton = () => {
     setCouponSavedCheckList((prev) =>
       prev.map((coupon) => ({
         ...coupon,
-        isChecked: isCouponApplicable(coupon, totalOrderPrice) ? coupon.isChecked : false,
+        isChecked: isCouponApplicable({ coupon, totalOrderPrice }) ? coupon.isChecked : false,
       })),
     );
 

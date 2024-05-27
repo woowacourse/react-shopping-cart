@@ -33,7 +33,7 @@ describe('미라클 모닝 30% 할인 쿠폰', () => {
         () => {
           const { isCouponApplicable } = couponApplicabilityChecker(MOCK_COUPON_CHECK_LIST);
 
-          return isCouponApplicable(MOCK_COUPON_CHECK_LIST[3], 100000);
+          return isCouponApplicable({ coupon: MOCK_COUPON_CHECK_LIST[3], totalOrderPrice: 100000 });
         },
         {
           wrapper: RecoilRoot,
@@ -49,7 +49,7 @@ describe('미라클 모닝 30% 할인 쿠폰', () => {
         () => {
           const { isCouponApplicable } = couponApplicabilityChecker(MOCK_COUPON_CHECK_LIST);
 
-          return isCouponApplicable(MOCK_COUPON_CHECK_LIST[3], 100000);
+          return isCouponApplicable({ coupon: MOCK_COUPON_CHECK_LIST[3], totalOrderPrice: 100000 });
         },
         {
           wrapper: RecoilRoot,
@@ -65,7 +65,7 @@ describe('미라클 모닝 30% 할인 쿠폰', () => {
         () => {
           const { isCouponApplicable } = couponApplicabilityChecker(MOCK_COUPON_CHECK_LIST);
 
-          return isCouponApplicable(MOCK_COUPON_CHECK_LIST[3], 100000);
+          return isCouponApplicable({ coupon: MOCK_COUPON_CHECK_LIST[3], totalOrderPrice: 100000 });
         },
         {
           wrapper: RecoilRoot,
@@ -89,7 +89,7 @@ describe('미라클 모닝 30% 할인 쿠폰', () => {
         () => {
           const { isCouponApplicable } = couponApplicabilityChecker(MOCK_COUPON_CHECK_LIST);
 
-          return isCouponApplicable(MOCK_COUPON_CHECK_LIST[3], 100000);
+          return isCouponApplicable({ coupon: MOCK_COUPON_CHECK_LIST[3], totalOrderPrice: 100000 });
         },
         {
           wrapper: RecoilRoot,

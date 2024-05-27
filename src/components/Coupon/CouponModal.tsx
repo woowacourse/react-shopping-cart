@@ -6,7 +6,7 @@ import CouponItem from './CouponItem';
 import { isCheckedCoupon } from './utils/isCheckedCoupon';
 
 import { couponApplicabilityChecker } from '@/components/Coupon/utils/couponApplicabilityChecker';
-import { orderResultState } from '@/recoil/cartItems/selectors';
+import { checkedCartItemsState, orderResultState } from '@/recoil/cartItems/selectors';
 import { couponSavedCheckListState } from '@/recoil/coupons/atoms';
 import { Coupon } from '@/types/coupon';
 import GuideText from '@common/GuideText';
@@ -23,6 +23,7 @@ const CouponModal = ({ isOpen, onClose, couponList }: CouponModalProps) => {
   const { couponCheckList, handleChangeChecked, isValidCouponCount, localDiscountPrice } =
     useCoupon(couponList);
   const { isCouponApplicable } = couponApplicabilityChecker(couponList);
+  const checkedCartItems = useRecoilValue(checkedCartItemsState);
 
   const { totalOrderPrice } = useRecoilValue(orderResultState);
   const setCouponSavedCheckList = useSetRecoilState(couponSavedCheckListState);
@@ -52,7 +53,11 @@ const CouponModal = ({ isOpen, onClose, couponList }: CouponModalProps) => {
               discountType={coupon.discountType}
               isCouponValid={
                 isValidCouponCount
-                  ? isCouponApplicable(coupon, totalOrderPrice)
+                  ? isCouponApplicable({
+                      coupon,
+                      totalOrderPrice: totalOrderPrice,
+                      checkedCartItems,
+                    })
                   : couponCheckList[idx].isChecked
               }
               isChecked={couponCheckList[idx].isChecked}

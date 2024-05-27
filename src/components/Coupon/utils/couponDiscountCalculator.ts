@@ -7,8 +7,8 @@ const couponDiscountCalculator = (couponList: Coupon[]) => {
   const { isCouponApplicable } = couponApplicabilityChecker(couponList);
 
   // 고정 할인
-  const calculateFixedDiscount = (coupon: Coupon, totalAmount: number) => {
-    if (!isCouponApplicable(coupon, totalAmount)) {
+  const calculateFixedDiscount = (coupon: Coupon, totalOrderPrice: number) => {
+    if (!isCouponApplicable({ coupon, totalOrderPrice })) {
       return 0;
     }
 
@@ -16,27 +16,27 @@ const couponDiscountCalculator = (couponList: Coupon[]) => {
   };
 
   // 비율 할인
-  const calculatePercentageDiscount = (coupon: Coupon, totalAmount: number) => {
-    if (!isCouponApplicable(coupon, totalAmount)) {
+  const calculatePercentageDiscount = (coupon: Coupon, totalOrderPrice: number) => {
+    if (!isCouponApplicable({ coupon, totalOrderPrice })) {
       return 0;
     }
 
-    return Math.floor((totalAmount * (coupon.discount ?? 0)) / 100);
+    return Math.floor((totalOrderPrice * (coupon.discount ?? 0)) / 100);
   };
 
   // 2 + 1 할인
   const calculateTwoPlusOneDiscount = (
     coupon: Coupon,
-    totalAmount: number,
+    totalOrderPrice: number,
     checkedCartItems?: CartItemProps[],
   ) => {
-    if (!isCouponApplicable(coupon, totalAmount) || !checkedCartItems) {
+    if (!isCouponApplicable({ coupon, totalOrderPrice }) || !checkedCartItems) {
       return 0;
     }
 
     const overThreeQuantityItems = checkedCartItems.filter((cartItem) => cartItem.quantity >= 3);
 
-    if (!overThreeQuantityItems) {
+    if (overThreeQuantityItems.length === 0) {
       return 0;
     }
 
@@ -46,21 +46,21 @@ const couponDiscountCalculator = (couponList: Coupon[]) => {
   // coupon 타입에 따라 반환값 분기처리
   const calculateDiscountAmount = (
     coupon: Coupon,
-    totalAmount: number,
+    totalOrderPrice: number,
     checkedCartItems?: CartItemProps[],
     now: Date = new Date(),
   ) => {
-    if (!isCouponApplicable(coupon, totalAmount, now)) {
+    if (!isCouponApplicable({ coupon, totalOrderPrice, now })) {
       return 0;
     }
 
     switch (coupon.discountType) {
       case 'fixed':
-        return calculateFixedDiscount(coupon, totalAmount);
+        return calculateFixedDiscount(coupon, totalOrderPrice);
       case 'percentage':
-        return calculatePercentageDiscount(coupon, totalAmount);
+        return calculatePercentageDiscount(coupon, totalOrderPrice);
       case 'buyXgetY':
-        return calculateTwoPlusOneDiscount(coupon, totalAmount, checkedCartItems);
+        return calculateTwoPlusOneDiscount(coupon, totalOrderPrice, checkedCartItems);
       default:
         return 0;
     }

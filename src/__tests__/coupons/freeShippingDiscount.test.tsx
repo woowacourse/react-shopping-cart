@@ -25,7 +25,7 @@ describe('2개 구매 시 1개 무료 쿠폰', () => {
       () => {
         const { isCouponApplicable } = couponApplicabilityChecker(MOCK_COUPON_CHECK_LIST);
 
-        return isCouponApplicable(MOCK_COUPON_CHECK_LIST[2], 50000);
+        return isCouponApplicable({ coupon: MOCK_COUPON_CHECK_LIST[2], totalOrderPrice: 50000 });
       },
       {
         wrapper: ({ children }) => (
