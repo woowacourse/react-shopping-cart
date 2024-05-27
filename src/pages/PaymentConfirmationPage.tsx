@@ -13,11 +13,11 @@ const PaymentConfirmationPage = () => {
   const cartTotalPrice = useRecoilValue(totalPriceSelector);
   const cartTotalCount = useRecoilValue(totalCountSelector);
 
-  const text = `총 ${cartItemCheckedIds.size}종류의 상품 ${cartTotalCount}개를 주문합니다.
+  const text = `총 ${cartItemCheckedIds.size}종류의 상품 ${cartTotalCount}개를 주문했습니다.
   최종 결제 금액을 확인해 주세요.`;
 
   const handleClick = () => {
-    navigate(-1);
+    navigate("/");
   };
 
   return (
@@ -33,7 +33,7 @@ const PaymentConfirmationPage = () => {
           <div className={totalPriceCSS}> {formatCurrency(cartTotalPrice)}</div>
         </div>
       </CartLayout.Content>
-      <CartLayout.Footer text="결제하기" isActive={false} />
+      <CartLayout.Footer text="장바구니로 돌아가기" isActive={true} onClick={handleClick} />
     </CartLayout>
   );
 };

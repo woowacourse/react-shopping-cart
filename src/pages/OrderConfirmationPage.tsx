@@ -13,6 +13,7 @@ import { cartItemCountSelector } from "../recoil/cart/cartItemState";
 import { isRuralAtom, totalCountSelector } from "../recoil/cart/orderSummaryState";
 import Button from "../components/default/Button";
 import CheckIcon from "../assets/CheckIcon.svg?react";
+import { Orders, postOrders } from "../api/orders";
 
 const OrderConfirmationPage = () => {
   const navigate = useNavigate();
@@ -21,6 +22,8 @@ const OrderConfirmationPage = () => {
   const totalCount = useRecoilValue(totalCountSelector);
 
   const handleClick = () => {
+    const orders: Orders = { cartItemIds: [...cartItemCheckedIds] };
+    postOrders(orders);
     navigate("/paymentConfirmation");
   };
 

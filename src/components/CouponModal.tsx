@@ -3,6 +3,7 @@ import { Modal } from "lv2-modal-component";
 import CouponList from "./CouponList";
 import { selectedCouponDiscountPriceSelector } from "../recoil/coupon/couponState";
 import { useRecoilValue } from "recoil";
+import { formatCurrency } from "../utils/formatCurrency";
 interface CouponModalProps {
   isOpen: boolean;
   closeModal: () => void;
@@ -19,7 +20,7 @@ const CouponModal = ({ isOpen, closeModal, confirmModal }: CouponModalProps) => 
           <CouponList />
         </Modal.Content>
         <Modal.Footer
-          confirmLabel={`총 ${discountPrice}원 할인 쿠폰 사용하기`}
+          confirmLabel={`총 ${formatCurrency(discountPrice)} 할인 쿠폰 사용하기`}
           onConfirm={confirmModal}
           align="vertical"
         ></Modal.Footer>
