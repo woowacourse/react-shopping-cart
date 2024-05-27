@@ -88,9 +88,9 @@ export const shippingFeeSelector = selector({
 
     if (totalPrice >= FREE_SHIPPING_THRESHOLD)
       return islandMountainRegionCheck
-        ? FREE_SHIPPING_FEE + 3_000
+        ? FREE_SHIPPING_FEE + SHIPPING_FEE
         : FREE_SHIPPING_FEE;
-    return islandMountainRegionCheck ? SHIPPING_FEE + 3_000 : SHIPPING_FEE;
+    return islandMountainRegionCheck ? SHIPPING_FEE + SHIPPING_FEE : SHIPPING_FEE;
   },
 });
 
