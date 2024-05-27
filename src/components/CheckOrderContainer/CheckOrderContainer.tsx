@@ -2,7 +2,7 @@ import { useModalAction } from "easy-payments-ui";
 import { useLocation } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 
-import { MainRouteInfoContext, RoutePaths } from "@/Providers/RouteInfoProvider/RouteInfoProvider";
+import { MainRouteInfoContext } from "@/Providers/RouteInfoProvider/RouteInfoProvider";
 import { SHIPPING_CONSTANT } from "@/constants";
 import useCouponCalculate from "@/hooks/useCouponCalculate";
 import useCustomContext from "@/hooks/useCustomContext";
@@ -18,6 +18,7 @@ import ToolBar from "../ToolBar/ToolBar";
 import CartResults from "../Cart/CartResults/CartResults";
 import PaymentDetail from "../PaymentDetail/PaymentDetail";
 import Divider from "../Divider/Divider";
+import { RoutePaths } from "@/Providers/RouteInfoProvider/RouteInfo";
 
 const CheckOrderContainer = () => {
   const itemCount = useRecoilValue(cartState).length;

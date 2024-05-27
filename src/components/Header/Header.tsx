@@ -3,10 +3,11 @@ import { SerializedStyles } from "@emotion/react";
 
 import { BackButtonStyle, HeaderStyle, ShopButtonStyle } from "./Header.style";
 
-import { HeaderRouteInfoContext, RoutePaths, RoutesObject } from "@/Providers/RouteInfoProvider/RouteInfoProvider";
+import { HeaderRouteInfoContext } from "@/Providers/RouteInfoProvider/RouteInfoProvider";
 import useCustomContext from "@/hooks/useCustomContext";
 
 import CustomLink from "../CustomLink/CustomLink";
+import { RoutePaths, RoutesObject } from "@/Providers/RouteInfoProvider/RouteInfo";
 
 const Header = () => {
   const location = useLocation();
