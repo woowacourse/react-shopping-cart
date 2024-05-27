@@ -26,9 +26,9 @@ const CheckOrderContainer = () => {
   const orderAmount = useRecoilValue(orderAmountState);
   const totalAmount = useRecoilValue(totalAmountState);
   const { discountAmount } = useCouponCalculate(checkedCoupons);
-  const isExtraShippingFee = useRecoilValue(isExtraShippingFeeState);
+  const [isExtraShipFee, setIsExtraShipFee] = useRecoilState(isExtraShippingFeeState);
 
-  const SHIPPING_FEE = isExtraShippingFee ? SHIPPING_CONSTANT.EXTRA_FEE : SHIPPING_CONSTANT.FEE;
+  const SHIPPING_FEE = SHIPPING_CONSTANT.FEE + (isExtraShipFee ? SHIPPING_CONSTANT.EXTRA_FEE : 0);
 
   const location = useLocation();
   const pathname = location.pathname as RoutePaths;
@@ -36,9 +36,8 @@ const CheckOrderContainer = () => {
   const MainInfo = useCustomContext(MainRouteInfoContext)[pathname];
   const action = useModalAction();
 
-  const [isDoSeoSanGan, setIsDoSeoSanGan] = useRecoilState(isExtraShippingFeeState);
   const handleToolbarCheck = () => {
-    setIsDoSeoSanGan((prev) => !prev);
+    setIsExtraShipFee((prev) => !prev);
   };
 
   const handleCouponButtonClick = () => {
@@ -57,7 +56,7 @@ const CheckOrderContainer = () => {
       <Button width="100%" height="48px" fontSize="15px" onClick={handleCouponButtonClick}>
         쿠폰 적용
       </Button>
-      <ToolBar handleCheck={handleToolbarCheck} isCheck={isDoSeoSanGan}>
+      <ToolBar handleCheck={handleToolbarCheck} isCheck={isExtraShipFee}>
         제주도 및 도서 산간 지역
       </ToolBar>
       <CartResults>
