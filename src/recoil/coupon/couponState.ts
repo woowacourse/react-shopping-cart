@@ -1,6 +1,8 @@
-import { DefaultValue, atomFamily, selector, selectorFamily } from "recoil";
+import { atomFamily, selector, selectorFamily } from "recoil";
 import { fetchCouponList } from "../../api/coupon";
 import { Coupon } from "../../types/Coupon";
+import { getDiscountForCoupon } from "./discountCoupon";
+import { validateCouponApplicability } from "./validateCouponApplicability";
 
 export const fetchCouponListSelector = selector({
   key: "fetchCouponListSelector",
@@ -28,4 +30,22 @@ export const selectedCouponSetSelector = selector<Set<Coupon>>({
   key: "selectedCouponSetSelector",
   get: ({ get }) =>
     new Set(get(fetchCouponListSelector).filter((coupon) => get(isSelectedCouponAtomFamily(coupon.id)))),
+});
+
+export const couponDiscountPriceSelectorFamily = selectorFamily({
+  key: "couponDiscountPriceSelectorFamily",
+  get:
+    (id: number) =>
+    ({ get }) =>
+      getDiscountForCoupon(get(couponSelectorFamily(id)), get),
+});
+
+export const maxDiscountCouponIdListSelector = selector({
+  key: "maxDiscountCouponSetSelector",
+  get: ({ get }) =>
+    [...get(couponIdSetSelector)]
+      .filter((id) => validateCouponApplicability(get(couponSelectorFamily(id)), get))
+      .toSorted(
+        (id1, id2) => get(couponDiscountPriceSelectorFamily(id1)) - get(couponDiscountPriceSelectorFamily(id2))
+      ),
 });

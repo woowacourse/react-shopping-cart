@@ -16,6 +16,8 @@ export interface FixedDiscount {
 
 export interface BuyXGetYDiscount {
   discountType: "buyXgetY";
+  buyQuantity: number;
+  getQuantity: number;
 }
 export interface freeShippingDiscount {
   discountType: "freeShipping";
