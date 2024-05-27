@@ -4,8 +4,9 @@ import { couponByIdSelector, couponExpirationSelector } from "@/recoil/coupon";
 import { totalOrderPriceSelector } from "@/recoil/orderInformation";
 import { selectedCartItemSelector } from "@/recoil/selectedCardItems";
 
+import { CART_FEE, COUPON_VALIDATION_MESSAGES } from "@/constants/cart";
+import { SECONDS } from "@/constants/times";
 import { AvailableTime } from "@/types/cart";
-import { CART_FEE } from "@/constants/cart";
 
 const useCouponAvailability = (id: number) => {
   const coupon = useRecoilValue(couponByIdSelector(id));
@@ -26,9 +27,18 @@ const useCouponAvailability = (id: number) => {
     const [startHour, startMinute, startSecond] = start.split(":").map(Number);
     const [endHour, endMinute, endSecond] = end.split(":").map(Number);
 
-    const nowInSeconds = nowHours * 3600 + nowMinutes * 60 + nowSeconds;
-    const startInSeconds = startHour * 3600 + startMinute * 60 + startSecond;
-    const endInSeconds = endHour * 3600 + endMinute * 60 + endSecond;
+    const nowInSeconds =
+      nowHours * SECONDS.secondInHour +
+      nowMinutes * SECONDS.secondInMinute +
+      nowSeconds;
+    const startInSeconds =
+      startHour * SECONDS.secondInHour +
+      startMinute * SECONDS.secondInMinute +
+      startSecond;
+    const endInSeconds =
+      endHour * SECONDS.secondInHour +
+      endMinute * SECONDS.secondInMinute +
+      endSecond;
 
     return nowInSeconds >= startInSeconds && nowInSeconds <= endInSeconds;
   };
@@ -41,28 +51,37 @@ const useCouponAvailability = (id: number) => {
 
   const checkCouponUsable = () => {
     if (!coupon || !isCouponExpired || !selectedCartItemsQuantity.length)
-      return false;
+      return COUPON_VALIDATION_MESSAGES.unusableCoupon;
 
     if (coupon.minimumAmount && totalOrderPrice < coupon.minimumAmount) {
-      return false;
+      return COUPON_VALIDATION_MESSAGES.invalidMinimumAmountCoupon(
+        coupon.minimumAmount
+      );
     }
 
     if (
       coupon.discountType === "freeShipping" &&
       totalOrderPrice >= CART_FEE.shippingFeeThreshold
     ) {
-      return false;
+      return COUPON_VALIDATION_MESSAGES.invalidMinimumAmountCoupon(
+        coupon.minimumAmount ?? 0
+      );
     }
 
-    if (coupon.availableTime) {
-      return validateCouponAvailableTime(coupon.availableTime);
+    if (
+      coupon.availableTime &&
+      !validateCouponAvailableTime(coupon.availableTime)
+    ) {
+      return COUPON_VALIDATION_MESSAGES.invalidTimeCoupon(coupon.availableTime);
     }
 
-    if (coupon.buyQuantity) {
-      return validateBuyQuantity(coupon.buyQuantity);
+    if (coupon.buyQuantity && !validateBuyQuantity(coupon.buyQuantity)) {
+      return COUPON_VALIDATION_MESSAGES.invalidQuantityCoupon(
+        coupon.buyQuantity
+      );
     }
 
-    return true;
+    return "";
   };
 
   return {
