@@ -33,13 +33,13 @@ const CouponListItem: React.FC<CouponListItemProps> = ({
         <Styled.CouponDescription $isActive={isActive}>만료일:{coupon.expirationDate}</Styled.CouponDescription>
         {coupon?.minimumAmount && (
           <Styled.CouponDescription $isActive={isActive}>
-            최소 주문 금액:{coupon?.minimumAmount}
+            최소 주문 금액:{coupon.minimumAmount}
           </Styled.CouponDescription>
         )}
         {coupon?.availableTime && (
           <Styled.CouponDescription $isActive={isActive}>
-            사용 가능 시간: 오전 {convertTime(coupon?.availableTime.start)}시부터{' '}
-            {convertTime(coupon?.availableTime.end)}시까지
+            사용 가능 시간: 오전 {convertTime(coupon.availableTime.start)}시부터 {convertTime(coupon.availableTime.end)}
+            시까지
           </Styled.CouponDescription>
         )}
       </Styled.CouponDescriptionWrapper>
