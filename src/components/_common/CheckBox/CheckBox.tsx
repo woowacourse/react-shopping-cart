@@ -21,7 +21,7 @@ const CheckBox = ({ isChecked, disabled, onClick }: CheckBoxProps) => {
       width="fit"
       theme="transparent"
     >
-      {disabled && <DisabledCheckbox />}
+      {disabled && (isChecked ? <DisabledCheckedBox /> : <NotChecked />)}
       {!disabled && (isChecked ? <Checked /> : <NotChecked />)}
     </Button>
   );
@@ -29,9 +29,9 @@ const CheckBox = ({ isChecked, disabled, onClick }: CheckBoxProps) => {
 
 export default CheckBox;
 
-export const DisabledCheckbox = styled(Checked)`
+export const DisabledCheckedBox = styled(Checked)`
+  height: 25px;
   width: 25px;
 
-  height: 25px;
   ${disabledClickStyles}
 `;
