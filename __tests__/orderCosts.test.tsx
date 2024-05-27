@@ -14,7 +14,7 @@ describe('주문 비용(주문 금액, 배송비, 총 결제 금액) 테스트',
     );
 
     // then
-    expect(result.current.orderPrice + result.current.shippingPrice).toBe(result.current.beforeDiscountTotalPrice);
+    expect(result.current.orderPrice + result.current.shippingPrice).toBe(result.current.totalPrice);
   });
 
   it('주문 금액이 100,000원이 넘지 않을 때 배송비가 3,000원을 포함한다.', () => {
