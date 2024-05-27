@@ -1,6 +1,4 @@
-import { useRecoilState } from 'recoil';
-
-import { selectedCartItemListSelector } from '../../../recoil/CartItem/selectors/selectedCartItemListSelector';
+import { useSelectedCartItemList } from '../../../hooks/useIsSelectedCartItem';
 import CheckButton from '../../Button/CheckButton/CheckButton';
 import QuantityContainer from '../QuantityContainer/QuantityContainer';
 import * as S from './CartItemContainer.style';
@@ -14,11 +12,11 @@ interface CartItemProps {
 
 function CartItemContainer({ item, onRemoveItem, onUpdateQuantity }: CartItemProps) {
   const { id, quantity, product } = item;
-
-  const [isSelected, setIsSelected] = useRecoilState(selectedCartItemListSelector(item));
+  const { isSelected, toggleSelection } = useSelectedCartItemList();
+  // const [isSelected, setIsSelected] = useRecoilState(selectedCartItemListSelector(item));
 
   const handleIsSelected = () => {
-    setIsSelected(isSelected);
+    toggleSelection(item);
   };
 
   const renderQuantityContainer = () => {
@@ -36,7 +34,7 @@ function CartItemContainer({ item, onRemoveItem, onUpdateQuantity }: CartItemPro
   return (
     <S.Layout>
       <S.Header>
-        {onRemoveItem && <CheckButton isChecked={isSelected} onClick={handleIsSelected} />}
+        {onRemoveItem && <CheckButton isChecked={isSelected(item)} onClick={handleIsSelected} />}
         {onRemoveItem && (
           <S.DeleteButton className="DeleteButton" onClick={() => onRemoveItem(id)}>
             삭제
