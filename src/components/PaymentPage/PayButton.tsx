@@ -1,11 +1,11 @@
 import { useRecoilState } from "recoil";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import Button from "../common/Button";
 
 import { useSelectedCartItemCount } from "../../hooks/useSelectedCartItemCount";
 import { useRefreshCartItems } from "../../hooks/useRefreshCartItems";
+import { useNavigateWithQuery } from "../../hooks/useNavigateWithQuery";
 import { ROUTE_PATH } from "../../constants/routePath";
 import { createOrder } from "../../api/orders";
 import { selectedCartItemIdsState } from "../../recoil/selectedCartItemIds";
@@ -15,7 +15,7 @@ export interface PayButtonProps {
 }
 
 export default function PayButton({ totalPayAmount }: PayButtonProps) {
-  const navigate = useNavigate();
+  const { navigateWithQuery } = useNavigateWithQuery();
   const [selectedCartItemIds, setSelectedCartItemIds] = useRecoilState(selectedCartItemIdsState);
   const { selectedCartItemCount, selectedUniqueCartItemCount } = useSelectedCartItemCount();
   const { refreshCartItems } = useRefreshCartItems();
@@ -23,12 +23,10 @@ export default function PayButton({ totalPayAmount }: PayButtonProps) {
   const resetCartItemSelection = () => setSelectedCartItemIds([]);
 
   const routeToCheckout = () => {
-    navigate(ROUTE_PATH.checkout, {
-      state: {
-        boughtItemCount: selectedCartItemCount,
-        uniqueBoughtItemCount: selectedUniqueCartItemCount,
-        totalPayAmount,
-      },
+    navigateWithQuery(ROUTE_PATH.checkout, {
+      boughtItemCount: selectedCartItemCount.toString(),
+      uniqueBoughtItemCount: selectedUniqueCartItemCount.toString(),
+      totalPayAmount: totalPayAmount.toString(),
     });
   };
 

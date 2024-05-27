@@ -1,19 +1,14 @@
 import styled from "styled-components";
 import { formatToKRW } from "../../utils/domain/formatToKRW";
-import { useLocation } from "react-router-dom";
-
-interface CheckoutPageState {
-  boughtItemCount: number;
-  uniqueBoughtItemCount: number;
-  totalPayAmount: number;
-}
+import { useQueryParams } from "../../hooks/useQueryParams";
+import { getQueryParamAsNumber } from "../../utils/getQueryParamAsNumber";
 
 export default function Checkout() {
-  const location = useLocation() as { state: CheckoutPageState };
+  const query = useQueryParams();
 
-  const boughtItemCount = location.state?.boughtItemCount;
-  const uniqueBoughtItemCount = location.state?.uniqueBoughtItemCount;
-  const totalOrderAmount = location.state?.totalPayAmount;
+  const boughtItemCount = getQueryParamAsNumber(query, "boughtItemCount");
+  const uniqueBoughtItemCount = getQueryParamAsNumber(query, "uniqueBoughtItemCount");
+  const totalOrderAmount = getQueryParamAsNumber(query, "totalPayAmount");
 
   if (!boughtItemCount || !uniqueBoughtItemCount || !totalOrderAmount) {
     return <div>잘못된 접근입니다.</div>;
