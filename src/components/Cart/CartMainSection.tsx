@@ -3,19 +3,15 @@ import { ChangeEvent } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import CartItem from '@/components/CartItem/CartItem';
-import Checkbox from '@common/Checkbox';
+import Checkbox from '@/components/common/Checkbox/Checkbox';
+import OrderInfo from '@/components/common/PriceSection/PriceSection';
 import HeaderTitleContainer from '@common/HeaderTitleContainer';
-import OrderInfo from '@common/OrderInfo';
 import { cartItemsState } from '@recoil/cartItems/atoms';
 import { allCheckedState } from '@recoil/cartItems/selectors';
 
 export default function CartMainSection() {
   const cartItems = useRecoilValue(cartItemsState);
   const [allChecked, setAllChecked] = useRecoilState(allCheckedState);
-
-  const handleChangeChecked = (e: ChangeEvent<HTMLInputElement>) => {
-    setAllChecked(e.target.checked);
-  };
 
   if (cartItems.length === 0) {
     return (
@@ -35,7 +31,7 @@ export default function CartMainSection() {
         <div css={allCheckboxWrapper}>
           <Checkbox
             checked={allChecked}
-            onChange={handleChangeChecked}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setAllChecked(e.target.checked)}
             htmlFor="allChecked"
             label="전체 선택"
           />

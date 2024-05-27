@@ -3,8 +3,8 @@ import { useRecoilState } from 'recoil';
 
 import { cartItemHeader, deleteButton } from './CartItemHeader.styled';
 
+import Checkbox from '@/components/common/Checkbox/Checkbox';
 import useDeleteCartItem from '@/hooks/useDeleteCartItem';
-import Checkbox from '@common/Checkbox';
 import { checkedItemsState } from '@recoil/cartItems/atoms';
 
 interface CartItemHeaderProps {

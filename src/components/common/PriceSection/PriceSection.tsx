@@ -1,16 +1,15 @@
-import { css } from '@emotion/react';
+import { borderTopWrapper, cartFooterSection } from './PriceSection.styled';
+import GuideText from '../GuideText';
 
-import GuideText from './GuideText';
-import Receipt from '../Cart/Receipt';
-
+import Receipt from '@/components/Cart/Receipt';
 import useOrderInfo from '@/hooks/useOrderInfo';
 import { CONFIG } from '@constants/config';
 
-interface CartFooterProps {
+interface PriceSectionProps {
   type: 'CART' | 'ORDER';
 }
 
-const OrderInfo = ({ type }: CartFooterProps) => {
+const PriceSection = ({ type }: PriceSectionProps) => {
   const { totalOrderPrice, totalDiscountPrice, shippingPrice, totalPurchasePrice } =
     useOrderInfo(type);
 
@@ -33,19 +32,4 @@ const OrderInfo = ({ type }: CartFooterProps) => {
   );
 };
 
-export default OrderInfo;
-
-const cartFooterSection = css`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-`;
-
-const borderTopWrapper = css`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
-  border-top: 1px solid #0000001a;
-  padding: 10px 0;
-`;
+export default PriceSection;

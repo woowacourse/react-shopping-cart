@@ -5,13 +5,13 @@ import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { orderProductList } from '@/apis/order';
 import { THEME } from '@/constants/theme';
 import { checkedCartItemsState, totalPurchasePriceState } from '@/recoil/cartItems/selectors';
-import { couponCheckListSelector } from '@/recoil/coupons/selectors';
+import { couponChecklistSelector } from '@/recoil/coupons/selectors';
 
 const PurchaseButton = () => {
   const navigate = useNavigate();
 
   const totalPurchasePrice = useRecoilValue(totalPurchasePriceState);
-  const resetCouponCheckList = useResetRecoilState(couponCheckListSelector);
+  const resetCouponCheckList = useResetRecoilState(couponChecklistSelector);
   const checkedCartItems = useRecoilValue(checkedCartItemsState);
   const cartItemIds = checkedCartItems.map((cartItem) => cartItem.id);
 

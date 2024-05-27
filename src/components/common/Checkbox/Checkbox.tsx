@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 import { ChangeEvent } from 'react';
 
+import { checkIcon, labelTag, labelText, screenReaderOnly } from './Checkbox.styled';
+
 import { CHECKED, UNCHECKED } from '@assets/images';
 
 interface CheckboxProps {
@@ -32,35 +34,3 @@ const Checkbox = ({ checked, onChange, htmlFor, label, labelCSS, isDisabled }: C
 };
 
 export default Checkbox;
-
-const screenReaderOnly = css`
-  position: absolute;
-
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  border: 0;
-
-  overflow: hidden;
-  clip-path: inset(50%);
-  clip: rect(0 0 0 0);
-`;
-
-const labelTag = css`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;
-
-const labelText = css`
-  font-size: 12px;
-  font-weight: 400;
-`;
-
-const checkIcon = css`
-  width: 24px;
-  height: 24px;
-
-  cursor: pointer;
-`;
