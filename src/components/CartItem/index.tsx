@@ -24,14 +24,14 @@ import formatPriceToKoreanWon from "../../util/formatPriceToKoreanWon";
 
 interface CartItemProps {
   cartItem: CartItemType;
-  widthHeader?: boolean;
-  widthCounter?: boolean;
+  withHeader?: boolean;
+  withCounter?: boolean;
 }
 
 export default function CartItem({
   cartItem: { id, product },
-  widthHeader = false,
-  widthCounter = false,
+  withHeader: widthHeader = false,
+  withCounter: widthCounter = false,
 }: CartItemProps) {
   const { handleDelete } = useDeleteCartItem(id);
   const { isSelected, toggleSelected } = useSelectCartItem(id);

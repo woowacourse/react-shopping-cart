@@ -21,7 +21,7 @@ export default function CartList({ items }: { items: CartItemType[] }) {
       {items && (
         <StyledUl>
           {items.map((item, index) => (
-            <CartItem key={index} cartItem={item} widthCounter widthHeader />
+            <CartItem key={index} cartItem={item} withCounter withHeader />
           ))}
         </StyledUl>
       )}
