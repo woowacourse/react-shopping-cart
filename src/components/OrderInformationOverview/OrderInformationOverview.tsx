@@ -1,6 +1,6 @@
 import { ROUTER_URL } from '../../constants/constants';
 
-import WideButton from '../WideButton/WideButton';
+import Button from '../Button/Button';
 import OrderConfirmationInfo from '../OrderConfirmationInfo/OrderConfirmationInfo';
 import OrderInformationList from '../OrderInformationList/OrderInformationList';
 import ShippingInfo from '../ShippingInfo/ShippingInfo';
@@ -42,7 +42,7 @@ const OrderInformationOverview = () => {
       <S.OrderInformationOverviewContainer>
         <OrderConfirmationInfo orderInfo={orderInfo} />
         <OrderInformationList selectedItems={selectedItems} />
-        <WideButton onClick={toggleModal}>쿠폰 적용</WideButton>
+        <Button onClick={toggleModal}>쿠폰 적용</Button>
         <ShippingInfo />
         <PaymentTotal isUseDiscount={true} />
       </S.OrderInformationOverviewContainer>
