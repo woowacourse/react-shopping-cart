@@ -14,6 +14,7 @@ export default function ProductTotalPriceList({
   priceList,
   totalPrice,
 }: Props) {
+  const DISCOUNT_ZERO = 0;
   return (
     <section className="product-total-price-list">
       <Notification>
@@ -28,7 +29,11 @@ export default function ProductTotalPriceList({
             <PriceGroup>
               <span className="price-group_title">{item[0]}</span>
               <span className="price-group_price">
-                {item[1].toLocaleString('ko-kr')}원
+                {item[0] === '쿠폰 할인 금액' && item[1] !== DISCOUNT_ZERO ? (
+                  <>-{item[1].toLocaleString('ko-kr')}원</>
+                ) : (
+                  <>{item[1].toLocaleString('ko-kr')}원</>
+                )}
               </span>
             </PriceGroup>
           );
