@@ -3,10 +3,12 @@ import { useRecoilValue } from "recoil";
 import { Coupon, RawCoupon } from "../types/coupons";
 import { fetchCoupons } from "../api/coupons";
 import { isValidCoupon } from "../utils/validateCoupon";
-import { isMetMinimumAmount } from "../utils/checkApplicableCoupon";
+import { checkApplicableCoupon } from "../utils/checkApplicableCoupon";
 import { orderAmountState } from "../recoil/cartAmount";
+import { cartItemsState } from "../recoil/cart/cartItems";
 
 export const useFetchCoupons = () => {
+  const cartItems = useRecoilValue(cartItemsState);
   const orderAmount = useRecoilValue(orderAmountState);
 
   const [coupons, setCoupons] = useState<Coupon[]>([]);
@@ -23,7 +25,10 @@ export const useFetchCoupons = () => {
           isSelected: false,
           isValidCoupon: isValidCoupon(rawCoupon),
           // TODO: 다른 조건 검사 로직 완성 후 isApplicableCoupon으로 통일할 것
-          isApplicableCoupon: isMetMinimumAmount(rawCoupon, orderAmount),
+          isApplicableCoupon: checkApplicableCoupon(rawCoupon, {
+            orderAmount,
+            cartItems,
+          }),
         }));
         setCoupons(coupons);
       } catch (error) {

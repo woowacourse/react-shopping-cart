@@ -64,23 +64,25 @@ export type Coupon =
   | FreeShippingCoupon;
 
 export const isFixedDiscountCoupon = (
-  coupon: Coupon
+  coupon: Coupon | RawCoupon
 ): coupon is FixedDiscountCoupon => {
   return coupon.discountType === "fixed";
 };
 
 export const isPercentageDiscountCoupon = (
-  coupon: Coupon
+  coupon: Coupon | RawCoupon
 ): coupon is PercentageDiscountCoupon => {
   return coupon.discountType === "percentage";
 };
 
-export const isBOGOCoupon = (coupon: Coupon): coupon is BOGOCoupon => {
+export const isBOGOCoupon = (
+  coupon: Coupon | RawCoupon
+): coupon is BOGOCoupon => {
   return coupon.discountType === "buyXgetY";
 };
 
 export const isFreeShippingCoupon = (
-  coupon: Coupon
+  coupon: Coupon | RawCoupon
 ): coupon is FreeShippingCoupon => {
   return coupon.discountType === "freeShipping";
 };

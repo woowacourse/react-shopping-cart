@@ -7,13 +7,14 @@ import { rawCartItemsState } from "../recoil/cart/rawCartItems";
 import { selectedCartItemIdsState } from "../recoil/cart/selectedCartItemIds";
 import { Suspense } from "react";
 import { isValidCoupon } from "../utils/validateCoupon";
-import { isMetMinimumAmount } from "../utils/checkApplicableCoupon";
+import { checkApplicableCoupon } from "../utils/checkApplicableCoupon";
+import { CartItem } from "../types/cartItems";
 
 jest.mock("../api/coupons");
 
 describe("useFetchCoupons", () => {
-  it.only("fetchCoupons 요청이 완료되면 coupons에는 쿠폰 목록(Coupon[])이 저장된다.", async () => {
-    const mockCartItems = [
+  it("fetchCoupons 요청이 완료되면 coupons에는 쿠폰 목록(Coupon[])이 저장된다.", async () => {
+    const mockCartItems: CartItem[] = [
       {
         id: 1,
         quantity: 1,
@@ -24,6 +25,7 @@ describe("useFetchCoupons", () => {
           imageUrl: "www.naver.com",
           category: "스포츠",
         },
+        isSelected: true,
       },
       {
         id: 2,
@@ -35,6 +37,7 @@ describe("useFetchCoupons", () => {
           imageUrl: "www.naver.com",
           category: "스포츠",
         },
+        isSelected: true,
       },
     ];
     const orderAmount = mockCartItems.reduce(
@@ -63,7 +66,10 @@ describe("useFetchCoupons", () => {
           ...rawCoupon,
           isSelected: false,
           isValidCoupon: isValidCoupon(rawCoupon),
-          isApplicableCoupon: isMetMinimumAmount(rawCoupon, orderAmount),
+          isApplicableCoupon: checkApplicableCoupon(rawCoupon, {
+            orderAmount,
+            cartItems: mockCartItems,
+          }),
         }))
       );
     });
