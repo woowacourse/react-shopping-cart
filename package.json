@@ -14,9 +14,9 @@
   },
   "dependencies": {
     "axios": "^1.6.8",
-    "ollie-modal-components": "^0.0.8",
+    "ollie-modal-components": "^0.0.11",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react-dom": "^18.3.1",
     "react-error-boundary": "^4.0.13",
     "react-router-dom": "^6.23.1",
     "recoil": "^0.7.7",
