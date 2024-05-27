@@ -1,10 +1,9 @@
 import { remoteAreaState } from "@/recoil/shippingFee";
-import { useRecoilState } from "recoil";
+import useToggleRecoilState from "./useToggleRecoilState";
 
 const useRemoteArea = () => {
-  const [isRemoteArea, setIsRemoteArea] = useRecoilState(remoteAreaState);
-
-  const toggleRemoteArea = () => setIsRemoteArea((prev) => !prev);
+  const { isActive: isRemoteArea, toggleActiveState: toggleRemoteArea } =
+    useToggleRecoilState(remoteAreaState);
 
   return {
     isRemoteArea,
