@@ -117,7 +117,7 @@ export async function getCouponList(): Promise<CouponProps[]> {
 }
 
 // POST : /orders 주문 생성
-export async function postOrders(cardItemIds: number[]): Promise<void> {
+export async function postOrders(cartItemIds: number[]): Promise<void> {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const response = await fetch(`${API_URL}/orders`, {
     method: 'POST',
@@ -125,7 +125,7 @@ export async function postOrders(cardItemIds: number[]): Promise<void> {
       'Content-Type': 'application/json',
       Authorization: token,
     },
-    body: JSON.stringify({ cardItemIds }),
+    body: JSON.stringify({ cartItemIds }),
   });
 
   if (!response.ok) {
