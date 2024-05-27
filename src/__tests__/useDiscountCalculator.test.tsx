@@ -23,6 +23,15 @@ jest.mock("../apis/index", () => ({
 }));
 
 describe("useDiscountCalculator", () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+    jest.setSystemTime(new Date("2024-05-20T05:30:00")); // 쿠폰이 적용 가능한 시간으로 모킹 시간을 설정한다.
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
   describe("고정 할인 금액", () => {
     it("할인을 적용할 수 있는 경우, 고정 금액을 반환한다.", () => {
       const { result } = renderTestHook(() => {
@@ -39,15 +48,6 @@ describe("useDiscountCalculator", () => {
   });
 
   describe("percentage 할인 금액", () => {
-    beforeEach(() => {
-      jest.useFakeTimers();
-      jest.setSystemTime(new Date("2024-05-20T05:30:00")); // 쿠폰이 적용 가능한 시간으로 모킹 시간을 설정한다.
-    });
-
-    afterEach(() => {
-      jest.useRealTimers();
-    });
-
     it("쿠폰의 percentage에 해당하는 할인 금액을 반환한다.", () => {
       const { result } = renderTestHook(() => {
         const { getDiscountAmount } = useDiscountCalculator();
