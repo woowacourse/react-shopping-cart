@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { isCheckedState, productsState } from '../../store/atoms';
 import { totalProductQuantityState } from '../../store/selectors';
-import useInitCouponStatusOnMount from '../../hooks/coupon/useInitCouponStatusOnMount';
+import useCleanUpCouponStatusOnUnMount from '../../hooks/coupon/useCleanUpCouponStatusOnUnMount';
 import Button from '../../components/common/Button';
 import Header from '../../components/Header/Header';
 import CheckoutItem from './components/CheckoutItem';
@@ -33,7 +33,7 @@ export default function CheckoutPage() {
     setModalOpen(!modalOpen);
   };
 
-  useInitCouponStatusOnMount();
+  useCleanUpCouponStatusOnUnMount();
 
   return (
     <>
