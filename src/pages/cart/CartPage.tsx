@@ -6,10 +6,10 @@ import CartTitle from './components/CartTitle';
 import CartTotals from './components/CartTotals';
 
 import styles from './Cart.module.css';
-import { productsState } from '../../store/atoms';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import useNavigatePage from '../../hooks/useNavigatePage';
 import ROUTES from '../../constants/routes';
+import { productsState } from '../../store/productStore';
 
 export default function CartPage() {
   const products = useRecoilValue(productsState);
@@ -17,7 +17,6 @@ export default function CartPage() {
   const navigateCheckoutPage = useNavigatePage(ROUTES.CHECKOUT);
 
   useLocalStorage();
-
   return (
     <>
       <Header>

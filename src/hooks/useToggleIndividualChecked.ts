@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { isCheckedState } from '../store/atoms';
+import { isCheckedState } from '../store/productStore';
 import areAllItemsChecked from '../utils/areAllItemsChecked';
 
 type HookProps = {

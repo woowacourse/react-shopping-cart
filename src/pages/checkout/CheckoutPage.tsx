@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
-import { productsIdState } from '../../store/selectors';
 import { addOrders } from '../../api';
+import { productsIdState } from '../../store/productStore';
 import useSetAndCleanUpCoupons from '../../hooks/coupon/useSetAndCleanUpCoupons';
 import useNavigatePage from '../../hooks/useNavigatePage';
 import useModalControl from '../../hooks/useModalControl';

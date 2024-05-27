@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { additionalShippingFeeStatusState } from '../../../store/atoms';
+import { additionalShippingFeeStatusState } from '../../../store/orderStore';
 import CheckBox from '../../../components/common/CheckBox/CheckBox';
 import common from '../../../styles/common.module.css';
 import styles from '../Checkout.module.css';

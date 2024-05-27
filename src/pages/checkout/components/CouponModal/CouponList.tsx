@@ -1,8 +1,8 @@
 import { useRecoilState } from 'recoil';
-import { activeCouponCodesState, couponSelectedState } from '../../../../store/atoms';
-import { COUPON_POLICY } from '../../../../constants/policy';
+import { activeCouponCodesState, couponSelectedState } from '../../../../store/couponStore';
 import CouponItem from './CouponItem';
 import useAvailableCouponList from '../../../../hooks/coupon/useAvailableCouponList';
+import { COUPON_POLICY } from '../../../../constants/policy';
 
 export default function CouponList() {
   const [couponSelected, setCouponSelected] = useRecoilState(couponSelectedState);

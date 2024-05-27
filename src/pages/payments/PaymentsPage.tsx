@@ -1,11 +1,11 @@
-import ROUTES from '../../constants/routes';
+import { useRecoilValue } from 'recoil';
+import { totalAmountState, totalProductQuantityState } from '../../store/orderStore';
+import useNavigatePage from '../../hooks/useNavigatePage';
 import Button from '../../components/common/Button';
 import Header from '../../components/Header/Header';
+import ROUTES from '../../constants/routes';
 import formatKoreanCurrency from '../../utils/formatKoreanCurrency';
 import styles from './PaymentsPage.module.css';
-import { useRecoilValue } from 'recoil';
-import { totalAmountState, totalProductQuantityState } from '../../store/selectors';
-import useNavigatePage from '../../hooks/useNavigatePage';
 
 export default function PaymentsPage() {
   const { totalCount, totalQuantity } = useRecoilValue(totalProductQuantityState);

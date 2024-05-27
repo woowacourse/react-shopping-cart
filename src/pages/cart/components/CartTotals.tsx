@@ -3,13 +3,13 @@ import {
   orderAmountState,
   totalAmountState,
   totalShippingFeeState,
-} from '../../../store/selectors';
+} from '../../../store/orderStore';
 import NoticeLabel from '../../../components/common/NoticeLabel/NoticeLabel';
 import SubtitleSpaceBetween from '../../../components/common/SubtitleSpaceBetween/SubtitleSpaceBetween';
 import Divider from '../../../components/common/Divider/Divider';
 
-import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
 import { NOTICE_MESSAGE } from '../../../constants/messages';
+import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
 import styles from '../Cart.module.css';
 
 export default function CartTotals() {

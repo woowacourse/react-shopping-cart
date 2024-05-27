@@ -1,6 +1,6 @@
-import { deleteCartItem } from '../api/index';
 import { useRecoilState } from 'recoil';
-import { productsState } from '../store/atoms';
+import { productsState } from '../store/productStore';
+import { deleteCartItem } from '../api/index';
 
 const useDeleteProduct = ({ id }: { id: number }) => {
   const [, setProducts] = useRecoilState(productsState);

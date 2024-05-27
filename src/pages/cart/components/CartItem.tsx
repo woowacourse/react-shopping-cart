@@ -1,13 +1,13 @@
-import Button from '../../../components/common/Button';
 import { useRecoilValue } from 'recoil';
-import { productQuantityState } from '../../../store/selectors';
+import { productQuantityState } from '../../../store/productStore';
+import { ProductType } from '../../../types';
 import useQuantityCount from '../../../hooks/useQuantityCount';
 import useToggleIndividualChecked from '../../../hooks/useToggleIndividualChecked';
 import useDeleteProduct from '../../../hooks/useDeleteProduct';
-import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
+import Button from '../../../components/common/Button';
 import CheckBox from '../../../components/common/CheckBox/CheckBox';
 import CaptionText from '../../../components/common/CaptionText/CaptionText';
-import { ProductType } from '../../../types';
+import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
 import common from '../../../styles/common.module.css';
 import styles from '../Cart.module.css';
 

@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { isCheckedState } from '../store/atoms';
+import { useRecoilState } from 'recoil';
 import areAllItemsChecked from '../utils/areAllItemsChecked';
+import { isCheckedState } from '../store/productStore';
 
 const useToggleAllChecked = () => {
-  const isCheckedMap = useRecoilValue(isCheckedState);
-  const setIsCheckedMap = useSetRecoilState(isCheckedState);
+  const [isCheckedMap, setIsCheckedMap] = useRecoilState(isCheckedState);
   const [allChecked, setAllChecked] = useState(areAllItemsChecked(isCheckedMap));
 
   const handleToggleAll = () => {

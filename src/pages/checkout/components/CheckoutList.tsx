@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
-import { isCheckedState, productsState } from '../../../store/atoms';
 import CheckoutItem from './CheckoutItem';
+import { isCheckedState, productsState } from '../../../store/productStore';
 
 export default function CheckoutList() {
   const products = useRecoilValue(productsState);

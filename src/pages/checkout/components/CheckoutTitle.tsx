@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
+import { totalProductQuantityState } from '../../../store/orderStore';
 import CaptionText from '../../../components/common/CaptionText/CaptionText';
 import TitleWithCaption from '../../../components/common/TitleWithCaption/TitleWithCaption';
-import { totalProductQuantityState } from '../../../store/selectors';
 
 export default function CheckoutTitle() {
   const { totalCount, totalQuantity } = useRecoilValue(totalProductQuantityState);
