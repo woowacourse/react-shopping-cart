@@ -8,7 +8,6 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    // errorElement: <ErrorBoundary />,
     children: [
       {
         index: true,
@@ -24,11 +23,10 @@ const router = createBrowserRouter([
     path: "/paymentConfirm",
     element: <PaymentConfirmationPage />,
   },
-  {
-    path: "*",
-    // element: <NotFoundPage />,
-  },
-]);
+], {
+  basename: "/react-shopping-cart/dist",
+}
+);
 
 const AppRouter = () => {
   return <RouterProvider router={router} />;
