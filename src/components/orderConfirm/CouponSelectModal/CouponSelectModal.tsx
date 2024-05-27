@@ -9,15 +9,24 @@ import * as Styled from './CouponSelectModal.styled';
 
 interface CouponSelectModalProps {
   isOpen: boolean;
+  isInaccessibleArea: boolean;
   onToggle: () => void;
 }
 
 const CouponSelectModalHeaderStyle = { display: 'flex', alignItems: 'center' };
 const CouponSelectModalContentStyle = { height: 'auto', padding: '16px 0px' };
 
-const CouponSelectModal: React.FC<CouponSelectModalProps> = ({ isOpen, onToggle }) => {
-  const { temporaryTotalDiscountAmount, isActiveCoupon, isCheckedCoupon, onAddTemporarySelectedCoupon, onApplyCoupon } =
-    useCouponSimulator();
+const CouponSelectModal: React.FC<CouponSelectModalProps> = ({ isOpen, onToggle, isInaccessibleArea }) => {
+  const {
+    temporarySelectedCouponList,
+    temporaryTotalDiscountAmount,
+    isActiveCoupon,
+    isCheckedCoupon,
+    onAddTemporarySelectedCoupon,
+    onApplyCoupon,
+  } = useCouponSimulator();
+
+  const discountAmount = isInaccessibleArea ? temporaryTotalDiscountAmount + 3000 : temporaryTotalDiscountAmount;
 
   return (
     <Modal position="center" isOpen={isOpen} onToggle={onToggle}>
@@ -37,9 +46,9 @@ const CouponSelectModal: React.FC<CouponSelectModalProps> = ({ isOpen, onToggle 
       </Modal.ModalContent>
       <Modal.ModalFooter direction="row">
         <Modal.ModalButton onClick={() => onApplyCoupon(onToggle)} color="primary">
-          {temporaryTotalDiscountAmount === 0
+          {temporarySelectedCouponList.length === 0
             ? '쿠폰 선택하기'
-            : `총 ${formatKoreanCurrency(temporaryTotalDiscountAmount)} 할인 쿠폰 사용하기`}
+            : `총 ${formatKoreanCurrency(discountAmount)} 할인 쿠폰 사용하기`}
         </Modal.ModalButton>
       </Modal.ModalFooter>
     </Modal>

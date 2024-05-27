@@ -19,6 +19,7 @@ const useCouponSimulator = () => {
   };
 
   return {
+    temporarySelectedCouponList,
     temporaryTotalDiscountAmount,
     isActiveCoupon,
     isCheckedCoupon,

@@ -8,7 +8,7 @@ import { OrderPrice } from '@components/shoppingCart';
 import { PRICE } from '@constants/shippingCart';
 import { useCheckInaccessibleArea } from '@hooks/orderConfirm';
 import { useOrderCosts, useSelectedCartItems } from '@hooks/shoppingCart';
-import { isInaccessibleAreaAtom, selectedCouponListAtom } from '@recoil/orderConfirm';
+import { selectedCouponListAtom } from '@recoil/orderConfirm';
 import { selectedIdsAtom } from '@recoil/shoppingCart';
 import { ROUTE_PATHS } from '@routes/route.constant';
 import { formatKoreanCurrency } from '@utils/currency';
@@ -21,23 +21,40 @@ import * as Styled from './OrderConfirmPage.styled';
 const itemCouponButtonStyle = { margin: '32px 0px' };
 
 const OrderConfirmPage = () => {
-  const { selectedItems, totalSelectedItemLength, selectedTotalQuantity } = useSelectedCartItems();
+  const selectedCouponList = useRecoilValue(selectedCouponListAtom);
 
-  const { orderPrice, shippingPrice, totalPrice, totalDiscountPrice } = useOrderCosts();
+  const { selectedItems, totalSelectedItemLength, selectedTotalQuantity } = useSelectedCartItems();
 
   const { isInaccessibleArea, handleChangeInaccessibleAreaCheckBox, isDisabledInaccessibleAreaCheckBox } =
     useCheckInaccessibleArea();
+
+  const {
+    orderPrice,
+    shippingPrice: prevShippingPrice,
+    totalPrice: prevTotalPrice,
+    totalDiscountPrice: prevTotalDiscountPrice,
+  } = useOrderCosts();
+
+  const shippingPrice = isInaccessibleArea
+    ? prevShippingPrice + PRICE.shippingFee.inaccessibleAreas
+    : prevShippingPrice;
+
+  const totalDiscountPrice =
+    selectedCouponList.find((coupon) => coupon.discountType === 'freeShipping') && isInaccessibleArea
+      ? prevTotalDiscountPrice + PRICE.shippingFee.inaccessibleAreas
+      : prevTotalDiscountPrice;
+
+  const totalPrice =
+    (isInaccessibleArea ? prevTotalPrice + PRICE.shippingFee.inaccessibleAreas : prevTotalPrice) - totalDiscountPrice;
 
   const [isOpen, setIsOpen] = useState(false);
 
   /* reset page */
   const resetSelectedCouponList = useResetRecoilState(selectedCouponListAtom);
-  const resetIsInaccessibleArea = useResetRecoilState(isInaccessibleAreaAtom);
 
   useEffect(() => {
     resetSelectedCouponList();
-    resetIsInaccessibleArea();
-  }, [resetSelectedCouponList, resetIsInaccessibleArea]);
+  }, [resetSelectedCouponList]);
 
   /* button click */
   const selectedIds = useRecoilValue(selectedIdsAtom);
@@ -63,7 +80,13 @@ const OrderConfirmPage = () => {
           <ItemCouponButton onClick={() => setIsOpen((prev) => !prev)} style={itemCouponButtonStyle}>
             쿠폰 적용
           </ItemCouponButton>
-          {isOpen && <CouponSelectModal isOpen={isOpen} onToggle={() => setIsOpen((prev) => !prev)} />}
+          {isOpen && (
+            <CouponSelectModal
+              isInaccessibleArea={isInaccessibleArea}
+              isOpen={isOpen}
+              onToggle={() => setIsOpen((prev) => !prev)}
+            />
+          )}
         </Suspense>
       </APIErrorBoundary>
       <Styled.HeadingText>배송 정보</Styled.HeadingText>
@@ -85,7 +108,7 @@ const OrderConfirmPage = () => {
         orderPrice={orderPrice}
         shippingPrice={shippingPrice}
         discountPrice={totalDiscountPrice}
-        totalPrice={totalPrice - totalDiscountPrice}
+        totalPrice={totalPrice}
       />
       <BottomButton onClick={handlePaymentConfirm}>결제 확인</BottomButton>
     </>

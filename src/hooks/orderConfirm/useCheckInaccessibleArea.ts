@@ -1,12 +1,11 @@
 import { PRICE } from '@constants/shippingCart';
 import { useOrderCosts } from '@hooks/shoppingCart';
-import { isInaccessibleAreaAtom } from '@recoil/orderConfirm';
-import { useRecoilState } from 'recoil';
+import { useState } from 'react';
 
 const useCheckInaccessibleArea = () => {
   const { orderPrice } = useOrderCosts();
 
-  const [isInaccessibleArea, setIsInaccessibleArea] = useRecoilState(isInaccessibleAreaAtom);
+  const [isInaccessibleArea, setIsInaccessibleArea] = useState(false);
 
   const handleChangeInaccessibleAreaCheckBox = () => setIsInaccessibleArea((prev) => !prev);
 
