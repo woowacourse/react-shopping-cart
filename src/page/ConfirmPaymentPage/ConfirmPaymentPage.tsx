@@ -22,7 +22,7 @@ export default function ConfirmPaymentPage() {
   const location = useLocation();
 
   useEffect(() => {
-    if (!location.state || !location.state.isFromOrderPage) {
+    if (!location.state?.isFromOrderPage) {
       navigate(ENDPOINT.shoppingCart);
     }
   }, [location.state, navigate]);
