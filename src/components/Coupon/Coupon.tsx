@@ -6,6 +6,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { finalTotalPriceListState } from '../../recoil/atoms';
 import discountCalculator from '../../domain/discountCalculator';
 import { checkedCartItems } from '../../recoil/selectors';
+import { useEffect } from 'react';
 
 interface Props {
   coupons: Coupon[];
@@ -43,32 +44,40 @@ export default function Coupon({ coupons }: Props) {
             )
           : [...prevState.applyCoupons, coupon];
 
-        const updateDiscountPrice = updatedApplyCoupons.reduce(
-          (acc, coupon) => {
-            const discount = discountCalculator({
-              coupon,
-              totalOrderPrice: finalTotalPriceList.totalOrderPrice,
-              orderList,
-              deliveryFee: finalTotalPriceList.deliveryFee,
-            }).calculateDiscountAmount();
-            return acc + discount!;
-          },
-          0,
-        );
-
-        const updateTotalPaymentPrice =
-          prevState.totalOrderPrice - updateDiscountPrice;
-
         return {
           ...prevState,
           applyCoupons: updatedApplyCoupons,
-          discountPrice: updateDiscountPrice,
-          totalPaymentPrice: updateTotalPaymentPrice,
         };
       });
     }
     return;
   };
+
+  useEffect(() => {
+    setFinalTotalPriceList((prevState) => {
+      const updateDiscountPrice = finalTotalPriceList.applyCoupons.reduce(
+        (acc, coupon) => {
+          const discount = discountCalculator({
+            coupon,
+            totalOrderPrice: finalTotalPriceList.totalOrderPrice,
+            orderList,
+            deliveryFee: finalTotalPriceList.deliveryFee,
+          }).calculateDiscountAmount();
+          return acc + discount!;
+        },
+        0,
+      );
+
+      const updateTotalPaymentPrice =
+        prevState.totalOrderPrice - updateDiscountPrice;
+
+      return {
+        ...prevState,
+        discountPrice: updateDiscountPrice,
+        totalPaymentPrice: updateTotalPaymentPrice,
+      };
+    });
+  }, [finalTotalPriceList.applyCoupons]);
 
   return (
     <C.CouponStyle>
