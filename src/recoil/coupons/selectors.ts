@@ -5,8 +5,9 @@ import { fetchCouponSelector } from './fetchCouponSelector';
 import { checkedCartItemsState, orderResultState } from '../cartItems/selectors';
 
 import couponDiscountCalculator from '@/components/Coupon/utils/couponDiscountCalculator';
+import { CouponClient } from '@/types/coupon';
 
-export const couponCheckListSelector = selector({
+export const couponCheckListSelector = selector<CouponClient[]>({
   key: 'couponCheckListSelector',
   get: ({ get }) => {
     const couponList = get(fetchCouponSelector);

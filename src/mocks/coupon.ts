@@ -1,6 +1,6 @@
-import { CouponClint } from '@/types/coupon';
+import { CouponClient } from '@/types/coupon';
 
-export const MOCK_COUPON_CHECK_LIST: CouponClint[] = [
+export const MOCK_COUPON_CHECK_LIST: CouponClient[] = [
   {
     id: 1,
     code: 'FIXED5000',
@@ -45,21 +45,21 @@ export const MOCK_COUPON_CHECK_LIST: CouponClint[] = [
   },
 ];
 
-export const CHECKED_BOGO_COUPON: CouponClint[] = [
+export const CHECKED_BOGO_COUPON: CouponClient[] = [
   {
     ...MOCK_COUPON_CHECK_LIST[1],
     isChecked: true,
   },
 ];
 
-export const CHECKED_FREE_SHIPPING_COUPON: CouponClint[] = [
+export const CHECKED_FREE_SHIPPING_COUPON: CouponClient[] = [
   {
     ...MOCK_COUPON_CHECK_LIST[2],
     isChecked: true,
   },
 ];
 
-export const CHECKED_MIRACLE_MORNING_COUPON: CouponClint[] = [
+export const CHECKED_MIRACLE_MORNING_COUPON: CouponClient[] = [
   {
     ...MOCK_COUPON_CHECK_LIST[3],
     isChecked: true,
