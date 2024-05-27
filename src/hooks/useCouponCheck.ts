@@ -1,13 +1,14 @@
 import { useRecoilValue } from 'recoil';
 
+import { selectedCartItemListState } from '../recoil/CartItem/atoms/selectedCartItemListState';
 import { selectedCouponListState } from '../recoil/Coupon/atoms/selectedCouponListState';
 import { useCalculateDeliveryFee } from './useCalculateDeliveryFee';
 
 import type { Coupon } from '../types/Coupon';
-
 export const useCouponCheck = () => {
   const { deliveryFee } = useCalculateDeliveryFee();
   const selectedCouponList = useRecoilValue(selectedCouponListState);
+  const selectedCartItemList = useRecoilValue(selectedCartItemListState);
 
   const isCouponExpired = (expirationDate: string) => {
     const today = new Date();
@@ -41,6 +42,15 @@ export const useCouponCheck = () => {
 
     if (coupon.discountType === 'freeShipping') {
       if (deliveryFee === 0) return false;
+    }
+
+    if (coupon.discountType === 'buyXgetY') {
+      const x = coupon.buyQuantity!;
+      const y = coupon.getQuantity!;
+      const eligibleItems = selectedCartItemList.filter((item) => item.quantity >= x + y);
+      if (eligibleItems.length === 0) {
+        return false;
+      }
     }
 
     return true;
