@@ -47,7 +47,7 @@ export const selectedCouponDiscountPriceSelector = selector({
     const discounts = [...selectedCouponSet]
       .filter((coupon) => validateCouponApplicability(coupon, get))
       .map((coupon) => get(couponDiscountPriceSelectorFamily(coupon.id)));
-    return discounts.reduce((acc, val) => acc + val, 0).toFixed(0);
+    return discounts.reduce((acc, val) => acc + val, 0);
   },
 });
 

@@ -1,5 +1,6 @@
 import { atom, selector } from "recoil";
 import { cartItemSelectedSelector } from "./cartItemState";
+import { selectedCouponDiscountPriceSelector } from "../coupon/couponState";
 
 export const orderPriceSelector = selector({
   key: "orderPriceSelector",
@@ -19,7 +20,7 @@ export const shippingFeeSelector = selector({
 
 export const totalPriceSelector = selector({
   key: "totalPriceSelector",
-  get: ({ get }) => get(orderPriceSelector) + get(shippingFeeSelector),
+  get: ({ get }) => get(orderPriceSelector) + get(shippingFeeSelector) - get(selectedCouponDiscountPriceSelector),
 });
 
 export const totalCountSelector = selector({
