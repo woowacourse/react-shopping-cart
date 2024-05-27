@@ -3,6 +3,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useRecoilValue } from 'recoil';
 import { checkedCartItemIdsState } from '../../recoil/atoms';
+import {
+  checkedCartItemsState,
+  totalAmountState,
+  totalCheckedQuantityState,
+} from '../../recoil/selectors';
 
 import {
   NavigationBar,
@@ -13,15 +18,26 @@ import {
 } from '../../components/common';
 import * as Styled from './ConfirmOrderPage.style';
 
-import { ENDPOINT } from '../../routes/router.constants';
-import { OrderContainer } from '../../components/confirmOrder';
 import { submitOrder } from '../../apis';
 import { ERROR_MESSAGE } from '../../apis/constants/errorMessage';
-import { useFetchError } from '../../hooks';
+import { useClearOrderedItems, useFetchError } from '../../hooks';
+import { ENDPOINT } from '../../routes/router.constants';
+import { OrderContainer } from '../../components/confirmOrder';
 
 export default function ConfirmOrderPage() {
   const { throwFetchError, resetFetchError } = useFetchError();
+  const clearOrderedItems = useClearOrderedItems();
+
   const checkedCartItemIds = useRecoilValue(checkedCartItemIdsState);
+  const totalCheckedCartItems = useRecoilValue(checkedCartItemsState);
+  const totalProductsCount = useRecoilValue(totalCheckedQuantityState);
+  const totalAmount = useRecoilValue(totalAmountState);
+
+  const orderedItemsInfo = {
+    orderedCartItemsCount: totalCheckedCartItems.length,
+    totalProductsCount: totalProductsCount,
+    totalAmount: totalAmount,
+  } as const;
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -40,9 +56,11 @@ export default function ConfirmOrderPage() {
     try {
       await submitOrder(checkedCartItemIds);
       resetFetchError();
+      clearOrderedItems(checkedCartItemIds);
       navigate(ENDPOINT.confirmPayment, {
         state: {
           isFromOrderPage: true,
+          ...orderedItemsInfo,
         },
       });
     } catch (error) {

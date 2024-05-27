@@ -1,12 +1,5 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { cartItemsState, checkedCartItemIdsState } from '../../recoil/atoms';
-import {
-  checkedCartItemsState,
-  totalAmountState,
-  totalCheckedQuantityState,
-} from '../../recoil/selectors';
 
 import { NavigationBar, FooterButton } from '../../components/common';
 import * as Styled from './ConfirmPaymentPage.style';
@@ -15,9 +8,6 @@ import { convertToLocaleAmount } from '../../utils';
 import { ENDPOINT } from '../../routes/router.constants';
 
 export default function ConfirmPaymentPage() {
-  const [checkedCartItemIds, setCheckedCartItemIds] = useRecoilState(checkedCartItemIdsState);
-  const setCartItemsState = useSetRecoilState(cartItemsState);
-
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -27,15 +17,11 @@ export default function ConfirmPaymentPage() {
     }
   }, [location.state, navigate]);
 
-  const totalCheckedCartItems = useRecoilValue(checkedCartItemsState);
-  const totalProductsCount = useRecoilValue(totalCheckedQuantityState);
-  const totalAmount = useRecoilValue(totalAmountState);
+  const orderedCartItemsCount = location.state?.orderedCartItemsCount;
+  const totalProductsCount = location.state?.totalProductsCount;
+  const totalAmount = location.state?.totalAmount;
 
   const handleClickFooterButton = () => {
-    setCartItemsState((prevCartItems) =>
-      [...prevCartItems].filter((item) => !checkedCartItemIds.includes(item.id)),
-    );
-    setCheckedCartItemIds([]);
     navigate(ENDPOINT.shoppingCart);
   };
 
@@ -47,7 +33,7 @@ export default function ConfirmPaymentPage() {
         <Styled.ConfirmPaymentContainer>
           <Styled.Title>결제 확인</Styled.Title>
           <Styled.Description>
-            총 {totalCheckedCartItems.length}종류의 상품 {totalProductsCount}개를 주문했습니다.
+            총 {orderedCartItemsCount}종류의 상품 {totalProductsCount}개를 주문했습니다.
             <br />
             최종 결제 금액을 확인해 주세요.
           </Styled.Description>

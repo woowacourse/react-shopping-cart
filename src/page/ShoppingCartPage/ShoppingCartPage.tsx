@@ -1,14 +1,8 @@
-import { Suspense, useEffect } from 'react';
+import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import {
-  checkedCartItemIdsState,
-  appliedCouponIdsState,
-  discountAmountState,
-  fetchErrorState,
-  remoteShippingOptionState,
-} from '../../recoil/atoms';
+import { useRecoilValue } from 'recoil';
+import { checkedCartItemIdsState, fetchErrorState } from '../../recoil/atoms';
 
 import { NavigationBar, PageTitle, FooterButton, ErrorFallback } from '../../components/common';
 import { CartContainer } from '../../components/shoppingCart';
@@ -17,16 +11,6 @@ import * as Styled from './ShoppingCartPage.style';
 import { ENDPOINT } from '../../routes/router.constants';
 
 export default function ShoppingCartPage() {
-  const setDiscountAmount = useSetRecoilState(discountAmountState);
-  const setAppliedCouponIds = useSetRecoilState(appliedCouponIdsState);
-  const setRemoteShippingOption = useSetRecoilState(remoteShippingOptionState);
-
-  useEffect(() => {
-    setDiscountAmount(0);
-    setAppliedCouponIds([]);
-    setRemoteShippingOption(false);
-  }, [setDiscountAmount, setAppliedCouponIds, setRemoteShippingOption]);
-
   const totalCheckedCartItems = useRecoilValue(checkedCartItemIdsState);
   const fetchError = useRecoilValue(fetchErrorState);
   const navigate = useNavigate();
