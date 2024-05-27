@@ -1,6 +1,6 @@
 import { getCartList } from "@/api/cartItem";
 import { getCouponList } from "@/api/coupons";
-import { isValidExpirationDate } from "@/utils/isValidExpirationDate";
+import { isValidExpirationDate } from "@/utils/isValidCoupon";
 import { selector } from "recoil";
 
 export const cartState = selector({
