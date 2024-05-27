@@ -4,6 +4,9 @@ interface OpenCouponModalButtonProps extends React.ButtonHTMLAttributes<HTMLButt
   buttonText: string;
 }
 
-export default function FooterButton({ buttonText, ...props }: OpenCouponModalButtonProps) {
+export default function OpenCouponModalButton({
+  buttonText,
+  ...props
+}: OpenCouponModalButtonProps) {
   return <Styled.OpenCouponModalButton {...props}>{buttonText}</Styled.OpenCouponModalButton>;
 }
