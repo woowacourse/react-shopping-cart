@@ -115,3 +115,20 @@ export async function getCouponList(): Promise<CouponProps[]> {
   const data = await response.json();
   return data;
 }
+
+// POST : /orders 주문 생성
+export async function postOrders(cardItemIds: number[]): Promise<void> {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+  const response = await fetch(`${API_URL}/orders`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
+    body: JSON.stringify({ cardItemIds }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to order');
+  }
+}
