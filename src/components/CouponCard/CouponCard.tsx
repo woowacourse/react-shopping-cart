@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Coupon } from '../../types/coupon';
 import CheckBox from '../CheckBox/CheckBox';
-import Title from '../Title/Title';
 import { useRecoilState } from 'recoil';
 import { couponDetailState } from '../../recoil/atoms';
 import { formatAvailableTime, formatDate } from '../../utils/Time';
@@ -22,11 +21,21 @@ const CardHeader = styled.div`
   display: flex;
   gap: 5px;
 `;
+const CardName = styled.h3`
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 3.475rem;
+  text-align: left;
+`;
 
 const CardDetail = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+  text-align: left;
 `;
 interface CouponCardProps {
   coupon: Coupon;
@@ -49,7 +58,7 @@ function CouponCard({ coupon }: CouponCardProps) {
           onClick={handleCheckedItem}
           disabled={disabled}
         />
-        <Title title={coupon.description}></Title>
+        <CardName>{coupon.description}</CardName>
       </CardHeader>
       <CardDetail>
         <span>{formatDate(coupon.expirationDate)}</span>
