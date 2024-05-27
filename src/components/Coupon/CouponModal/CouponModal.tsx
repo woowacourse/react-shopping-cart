@@ -2,8 +2,8 @@ import { Modal } from 'maru-nice-modal';
 import { useSetRecoilState } from 'recoil';
 
 import { confirmButton, contentWrapper, couponListWrapper } from './CouponModal.styled';
+import { isCheckedCoupon } from '../../../utils/coupons/isCheckedCoupon';
 import CouponItem from '../CouponItem/CouponItem';
-import { isCheckedCoupon } from '../utils/isCheckedCoupon';
 
 import GuideText from '@/components/common/GuideText/GuideText';
 import { couponChecklistState } from '@/recoil/coupons/atoms';

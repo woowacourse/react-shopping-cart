@@ -1,11 +1,18 @@
-import { css } from '@emotion/react';
 import { ChangeEvent } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
+
+import {
+  allCheckboxWrapper,
+  cartEmptyContainer,
+  cartEmptyText,
+  cartMainSection,
+  main,
+} from './CartMainSection.styled';
 
 import CartItem from '@/components/CartItem/CartItem';
 import Checkbox from '@/components/common/Checkbox/Checkbox';
 import HeaderTitleContainer from '@/components/common/HeaderTitleContainer/HeaderTitleContainer';
-import OrderInfo from '@/components/common/PriceSection/PriceSection';
+import PriceSection from '@/components/common/PriceSection/PriceSection';
 import { cartItemsState } from '@recoil/cartItems/atoms';
 import { allCheckedState } from '@recoil/cartItems/selectors';
 
@@ -42,42 +49,7 @@ export default function CartMainSection() {
           ))}
         </ul>
       </section>
-      <OrderInfo type="CART" />
+      <PriceSection type="CART" />
     </main>
   );
 }
-
-const main = css`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  gap: 10px;
-
-  padding: 0 24px;
-
-  overflow-y: scroll;
-`;
-
-const cartMainSection = css`
-  padding-bottom: 42px;
-`;
-
-const allCheckboxWrapper = css`
-  margin-bottom: 10px;
-`;
-
-const cartEmptyContainer = css`
-  display: flex;
-  justify-content: center;
-  flex: 1;
-  align-items: center;
-
-  width: 100%;
-  height: 100%;
-`;
-
-const cartEmptyText = css`
-  font-size: 16px;
-  font-weight: 400;
-`;

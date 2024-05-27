@@ -1,9 +1,9 @@
 import { couponFinder } from './couponFinder';
 
-import { couponValidator } from '@/components/Coupon/utils/couponValidator';
 import { PRICE } from '@/constants/config';
 import { CartItemProps } from '@/types/cartItem';
 import { Coupon } from '@/types/coupon';
+import { couponValidator } from '@/utils/coupons/couponValidator';
 
 interface IsCouponApplicableProps {
   coupon: Coupon;

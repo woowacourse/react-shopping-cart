@@ -4,8 +4,8 @@ import { couponChecklistState } from './atoms';
 import { fetchCouponSelector } from './fetchCouponSelector';
 import { checkedCartItemsState, orderResultState } from '../cartItems/selectors';
 
-import couponDiscountCalculator from '@/components/Coupon/utils/couponDiscountCalculator';
 import { CouponClient } from '@/types/coupon';
+import couponDiscountCalculator from '@/utils/coupons/couponDiscountCalculator';
 
 export const couponChecklistSelector = selector<CouponClient[]>({
   key: 'couponChecklistSelector',

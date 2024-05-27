@@ -7,7 +7,7 @@ import PurchaseButton from '@/components/common/Button/PurchaseButton';
 import ErrorComponent from '@/components/common/ErrorFallback/ErrorFallback';
 import Header from '@/components/common/Header/Header';
 import LoadingComponent from '@/components/common/LoadingFallback/LoadingFallback';
-import CartConfirmMainSection from '@/components/Order/OrderConfirmMainSection';
+import CartConfirmMainSection from '@/components/Order/OrderConfirmMainSection/OrderConfirmMainSection';
 import { BACK_ARROW } from '@assets/images';
 
 export default function OrderConfirmPage() {

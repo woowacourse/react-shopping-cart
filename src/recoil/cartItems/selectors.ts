@@ -4,9 +4,9 @@ import { cartItemsState, checkedItemsState } from './atoms';
 import { couponChecklistState, isAdditionalShippingState } from '../coupons/atoms';
 import { totalDiscountPriceState } from '../coupons/selectors';
 
-import { calculateShippingPrice } from '@/components/Cart/utils';
-import { isCheckedCoupon } from '@/components/Coupon/utils/isCheckedCoupon';
 import { CartItemProps } from '@/types/cartItem';
+import { calculateShippingPrice } from '@/utils/cartItems/utils';
+import { isCheckedCoupon } from '@/utils/coupons/isCheckedCoupon';
 import { PRICE } from '@constants/config';
 
 export const checkedCartItemsState = selector<CartItemProps[]>({

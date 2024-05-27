@@ -3,12 +3,12 @@ import { Suspense } from 'react';
 import { RecoilRoot, useRecoilValue } from 'recoil';
 
 import { fetchCouponList } from '@/apis/coupon';
-import { couponApplicabilityChecker } from '@/components/Coupon/utils/couponApplicabilityChecker';
 import { TOTAL_PRICE_OVER_100000_DATA } from '@/mocks/cart';
 import { CHECKED_MIRACLE_MORNING_COUPON, MOCK_COUPON_CHECK_LIST } from '@/mocks/coupon';
 import { cartItemsState } from '@/recoil/cartItems/atoms';
 import { totalPurchasePriceState } from '@/recoil/cartItems/selectors';
 import { couponChecklistState } from '@/recoil/coupons/atoms';
+import { couponApplicabilityChecker } from '@/utils/coupons/couponApplicabilityChecker';
 
 jest.mock('@apis/cartItem', () => ({
   fetchCartItems: jest.fn(),

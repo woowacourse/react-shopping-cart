@@ -3,9 +3,9 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 import { fetchCouponList } from '@/apis/coupon';
+import CartMainSection from '@/components/Cart/CartMainSection/CartMainSection';
 import { MOCK_COUPON_CHECK_LIST } from '@/mocks/coupon';
 import { fetchCartItems } from '@apis/cartItem';
-import CartMainSection from '@components/Cart/CartMainSection';
 import AsyncRecoilWrapper from '@mocks/AsyncRecoilWrapper';
 import { TOTAL_PRICE_UNDER_100000_DATA } from '@mocks/cart';
 

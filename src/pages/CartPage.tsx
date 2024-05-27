@@ -3,13 +3,13 @@ import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useNavigate } from 'react-router-dom';
 
+import CartMainSection from '@/components/Cart/CartMainSection/CartMainSection';
+import OrderConfirmButton from '@/components/Cart/OrderConfirmButton/OrderConfirmButton';
 import RandomAddButton from '@/components/common/Button/RandomAddButton';
 import ErrorComponent from '@/components/common/ErrorFallback/ErrorFallback';
 import Header from '@/components/common/Header/Header';
 import LoadingComponent from '@/components/common/LoadingFallback/LoadingFallback';
 import { THEME } from '@/constants/theme';
-import CartMainSection from '@components/Cart/CartMainSection';
-import OrderConfirmButton from '@components/Cart/OrderConfirmButton';
 
 function CartPage() {
   const navigate = useNavigate();

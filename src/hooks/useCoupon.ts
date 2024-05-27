@@ -1,12 +1,12 @@
 import { ChangeEvent, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
-import { couponApplicabilityChecker } from '@/components/Coupon/utils/couponApplicabilityChecker';
 import { checkedCartItemsState, orderResultState } from '@/recoil/cartItems/selectors';
 import { couponChecklistState } from '@/recoil/coupons/atoms';
 import { totalDiscountPriceState } from '@/recoil/coupons/selectors';
 import { Coupon, CouponClient } from '@/types/coupon';
-import couponDiscountCalculator from '@components/Coupon/utils/couponDiscountCalculator';
+import { couponApplicabilityChecker } from '@/utils/coupons/couponApplicabilityChecker';
+import couponDiscountCalculator from '@/utils/coupons/couponDiscountCalculator';
 
 const useCoupon = (couponList: Coupon[]) => {
   const { isCouponApplicable } = couponApplicabilityChecker(couponList);

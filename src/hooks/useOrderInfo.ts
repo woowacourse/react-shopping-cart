@@ -1,12 +1,12 @@
 import { useRecoilValue } from 'recoil';
 
-import { calculateShippingPrice } from '@/components/Cart/utils';
 import {
   orderResultState,
   shippingPriceState,
   totalPurchasePriceState,
 } from '@/recoil/cartItems/selectors';
 import { totalDiscountPriceState } from '@/recoil/coupons/selectors';
+import { calculateShippingPrice } from '@/utils/cartItems/utils';
 
 const useOrderInfo = (type: 'CART' | 'ORDER') => {
   const { totalOrderPrice } = useRecoilValue(orderResultState);

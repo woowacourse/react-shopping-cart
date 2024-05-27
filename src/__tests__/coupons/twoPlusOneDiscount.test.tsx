@@ -1,13 +1,13 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
 
-import couponDiscountCalculator from '@/components/Coupon/utils/couponDiscountCalculator';
-import { couponValidator } from '@/components/Coupon/utils/couponValidator';
 import { OVER_THREE_COUNT_DATA } from '@/mocks/cart';
 import { CHECKED_BOGO_COUPON, MOCK_COUPON_CHECK_LIST } from '@/mocks/coupon';
 import { cartItemsState } from '@/recoil/cartItems/atoms';
 import { couponChecklistState } from '@/recoil/coupons/atoms';
 import { Coupon } from '@/types/coupon';
+import couponDiscountCalculator from '@/utils/coupons/couponDiscountCalculator';
+import { couponValidator } from '@/utils/coupons/couponValidator';
 
 const EXPIRED_COUPON: Coupon = {
   id: 1,

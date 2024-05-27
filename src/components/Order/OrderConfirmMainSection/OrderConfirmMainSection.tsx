@@ -1,17 +1,21 @@
-import { css } from '@emotion/react';
 import { ChangeEvent } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-import OrderItem from './OrderItem';
-import HeaderTitleContainer from '../common/HeaderTitleContainer/HeaderTitleContainer';
-import CouponModal from '../Coupon/CouponModal/CouponModal';
+import {
+  additionalDeliveryText,
+  additionalDeliveryWrapper,
+  container,
+  couponButton,
+} from './OrderConfirmMainSection.styled';
+import HeaderTitleContainer from '../../common/HeaderTitleContainer/HeaderTitleContainer';
+import CouponModal from '../../Coupon/CouponModal/CouponModal';
+import OrderItem from '../OrderItem';
 
 import Checkbox from '@/components/common/Checkbox/Checkbox';
-import OrderInfo from '@/components/common/PriceSection/PriceSection';
+import PriceSection from '@/components/common/PriceSection/PriceSection';
 import useModal from '@/hooks/useModal';
 import { isAdditionalShippingState } from '@/recoil/coupons/atoms';
 import { fetchCouponSelector } from '@/recoil/coupons/fetchCouponSelector';
-import { THEME } from '@constants/theme';
 import {
   checkedCartItemsState,
   orderResultState,
@@ -54,45 +58,10 @@ const OrderConfirmMainSection = () => {
           label="제주도 및 도서 산간 지역 (+3000원)"
         />
       </div>
-      <OrderInfo type="ORDER" />
+      <PriceSection type="ORDER" />
       {isOpen && <CouponModal isOpen={isOpen} onClose={handleCloseModal} couponList={couponList} />}
     </div>
   );
 };
 
 export default OrderConfirmMainSection;
-
-const container = css`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  gap: 12px;
-
-  padding: 0 24px;
-
-  overflow-y: scroll;
-`;
-
-const additionalDeliveryWrapper = css`
-  display: flex;
-  flex-direction: column;
-  margin: 16px 0;
-  gap: 12px;
-`;
-
-const additionalDeliveryText = css`
-  font-weight: 700;
-  font-size: 16px;
-`;
-
-const couponButton = css`
-  border: 1px solid #33333340;
-  border-radius: 10px;
-  padding: 16px 0;
-
-  background-color: ${THEME.WHITE};
-
-  font-weight: 700;
-  font-size: 15px;
-  color: #333333bf;
-`;
