@@ -1,10 +1,9 @@
 import { useRecoilValue } from 'recoil';
-
-import * as Styled from './OrderItem.style';
+import { itemQuantityState } from '../../../recoil/atoms';
 
 import { convertToLocaleAmount } from '../../../utils';
 import { CartItem } from '../../../type';
-import { itemQuantityState } from '../../../recoil/atoms';
+import * as Styled from './OrderItem.style';
 
 interface OrderItemProps {
   item: CartItem;

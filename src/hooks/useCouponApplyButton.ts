@@ -1,4 +1,4 @@
-import { useCoupons } from '.';
+import { useCoupons } from './';
 import { ButtonInterface } from '@seongjinme/react-modal';
 
 interface UseCouponApplyButtonProps {

@@ -1,9 +1,10 @@
 import { useRecoilValue } from 'recoil';
-import { orderAmountState, shippingCostState, checkedCartItemsState } from '../recoil/selectors';
-import { Coupon } from '../type';
-import useCouponValidityChecker from './useCouponValidityChecker';
-import { calculateDiscountAmountByCoupon, getPermutations } from '../utils';
 import { couponsState } from '../recoil/atoms';
+import { orderAmountState, shippingCostState, checkedCartItemsState } from '../recoil/selectors';
+
+import { Coupon } from '../type';
+import { useCouponValidityChecker } from './';
+import { calculateDiscountAmountByCoupon, getPermutations } from '../utils';
 
 export default function useDiscountCalculator() {
   const coupons = useRecoilValue(couponsState);

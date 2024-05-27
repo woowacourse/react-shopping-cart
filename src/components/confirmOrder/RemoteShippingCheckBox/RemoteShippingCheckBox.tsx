@@ -1,7 +1,8 @@
 import { useRecoilState } from 'recoil';
+import { remoteShippingOptionState } from '../../../recoil/atoms';
+
 import { CheckBox } from '../../common';
 import * as Styled from './RemoteShippingCheckBox.style';
-import { remoteShippingOptionState } from '../../../recoil/atoms';
 
 export default function RemoteShippingCheckBox() {
   const [remoteShippingOption, setRemoteShippingOption] = useRecoilState(remoteShippingOptionState);

@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-
-import { CouponItem, OpenCouponModalButton } from '..';
-import { Modal } from '@seongjinme/react-modal';
-import { InfoBox } from '../../common';
-import { useApplyCoupons, useCouponApplyButton, useCoupons } from '../../../hooks';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { discountAmountState, remoteShippingOptionState } from '../../../recoil/atoms';
+import { Modal } from '@seongjinme/react-modal';
+
+import { InfoBox } from '../../common';
+import { CouponItem, OpenCouponModalButton } from '../';
+import { useApplyCoupons, useCouponApplyButton, useCoupons } from '../../../hooks';
 
 export default function CouponContainer() {
   const [isCouponModalOpened, setIsCouponModalOpened] = useState(false);

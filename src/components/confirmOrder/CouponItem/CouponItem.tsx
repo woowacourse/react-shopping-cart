@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { CheckBox } from '../../common';
 import { useCouponValidityChecker } from '../../../hooks';
 import {
@@ -8,7 +10,6 @@ import {
 
 import { Coupon } from '../../../type';
 import * as Styled from './CouponItem.style';
-import { useState } from 'react';
 
 interface CouponItemProps {
   coupon: Coupon;

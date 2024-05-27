@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
-import { CouponAvailableTimeType, Coupon } from '../type';
 import { orderAmountState, checkedCartItemsState } from '../recoil/selectors';
+import { CouponAvailableTimeType, Coupon } from '../type';
 
 export default function useCouponValidityChecker() {
   const orderAmount = useRecoilValue(orderAmountState);

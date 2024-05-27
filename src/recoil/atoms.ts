@@ -1,10 +1,8 @@
-import { atom, atomFamily, selectorFamily } from 'recoil';
-import { CartItem, Coupon } from '../type';
-import { fetchCartItems } from '../apis';
+import { atom, atomFamily, selectorFamily, AtomEffect } from 'recoil';
 
-import { AtomEffect } from 'recoil';
+import { CartItem, Coupon } from '../type';
+import { fetchCartItems, fetchCoupons } from '../apis';
 import { STORAGE } from '../constants';
-import { fetchCoupons } from '../apis';
 
 export const cartItemsState = atom<CartItem[]>({
   key: 'cartItemsState',

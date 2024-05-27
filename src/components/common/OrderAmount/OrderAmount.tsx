@@ -1,10 +1,10 @@
 import { useRecoilValue } from 'recoil';
 import { discountAmountState } from '../../../recoil/atoms';
 import { shippingCostState, orderAmountState, totalAmountState } from '../../../recoil/selectors';
-import { convertToLocaleAmount } from '../../../utils';
 
+import { InfoBox } from '../';
+import { convertToLocaleAmount } from '../../../utils';
 import * as Styled from './OrderAmount.styled';
-import InfoBox from '../InfoBox/InfoBox';
 
 interface OrderAmountProps {
   pageRoute: 'shoppingCart' | 'confirmOrder';
