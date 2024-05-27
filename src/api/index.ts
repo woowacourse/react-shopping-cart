@@ -74,9 +74,10 @@ export async function deleteCartItem(id: number) {
  * @returns {boolean} - fetch의 성공 여부입니다.
  */
 export async function addOrders(ids: number[]) {
+  console.log('ids', ids);
   const response = await makeRequest('/orders', {
     method: 'POST',
-    body: JSON.stringify({ cartItemIds: ids.join(',') }),
+    body: JSON.stringify({ cartItemIds: ids }),
   });
 
   return { success: response.ok };
