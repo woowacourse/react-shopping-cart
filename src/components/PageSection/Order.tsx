@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import OrderHeader from '../PageHeader/OrderHeader';
-import OrderProductList from '../ProductList/OrderProductList';
+import OrderProductList from '../ListManagement/OrderProductList';
 import ErrorFallback from '../ErrorFallback/ErrorFallback';
 
 import * as O from './PageSection.style';

@@ -6,7 +6,7 @@ import {
 } from '../../recoil/selectors';
 
 import CheckBox from '../CheckBox/CheckBox';
-import ProductItem from '../ProductItem/ProductItem';
+import ProductItem from '../ItemManagement/ProductItem';
 import ProductTotalPriceList from '../ProductTotalPriceList/ProductTotalPriceList';
 
 import * as PL from './ProductList.style';

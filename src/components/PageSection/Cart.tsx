@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import CartHeader from '../PageHeader/CartHeader';
-import ProductList from '../ProductList/ProductList';
+import ProductList from '../ListManagement/ProductList';
 import ErrorFallback from '../ErrorFallback/ErrorFallback';
 import * as C from './PageSection.style';
 

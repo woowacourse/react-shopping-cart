@@ -8,7 +8,7 @@ import {
 import { Modal } from 'soha-components';
 
 import CheckBox from '../CheckBox/CheckBox';
-import OrderProductItem from '../ProductItem/OrderProductItem';
+import OrderProductItem from '../ItemManagement/OrderProductItem';
 import ProductTotalPriceList from '../ProductTotalPriceList/ProductTotalPriceList';
 
 import * as P from './ProductList.style';
