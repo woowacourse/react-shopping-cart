@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react';
 import { Await, Link, useLoaderData } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
-import { fetchCartItemList } from '../../apis';
 import { EmptyCart } from '../../assets';
 import SubmitButton from '../../components/Button/SubmitButton/SubmitButton';
 import TitleContainer from '../../components/Container/TitleContainer/TitleContainer';
@@ -14,36 +12,17 @@ import { selectedCartItemListState } from '../../recoil/CartItem/atoms/selectedC
 import * as S from './ShoppingCartPage.style';
 
 import type { CartItem } from '../../types/CartItem';
-
 function ShoppingCartPage() {
-  const initialValue = useLoaderData() as CartItem[];
+  const cartItemList = useLoaderData() as CartItem[];
 
-  const [cartItemList, setCartItemList] = useState<CartItem[]>(initialValue);
-  const [selectedItemList, setSelectedItemList] = useRecoilState(selectedCartItemListState);
-
-  const updateCartItemList = async () => {
-    const newCartItemList = await fetchCartItemList();
-    setCartItemList(newCartItemList);
-
-    const newSelectedItemList = newCartItemList.filter((el) => selectedItemList.some((item) => el.id === item.id));
-    setSelectedItemList(newSelectedItemList);
-  };
-
-  useEffect(() => {
-    const filteredSelectedItemList = selectedItemList.filter((selectedItem) =>
-      cartItemList.some((cartItem) => selectedItem.id === cartItem.id),
-    );
-    if (filteredSelectedItemList.length !== selectedItemList.length) {
-      setSelectedItemList(filteredSelectedItemList);
-    }
-  }, [cartItemList, selectedItemList, setSelectedItemList]);
+  const selectedItemList = useRecoilValue(selectedCartItemListState);
 
   const hasCartItemList = cartItemList.length !== 0;
   const hasSelectedCartItemList = selectedItemList.length !== 0;
 
   const renderCartItemListSection = () => (
     <>
-      <CartItemList cartItemList={cartItemList} updateCartItemList={updateCartItemList} />
+      <CartItemList cartItemList={cartItemList} />
 
       <TotalPriceContainer />
     </>

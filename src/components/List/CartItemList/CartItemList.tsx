@@ -11,10 +11,9 @@ import type { CartItem } from '../../../types/CartItem';
 
 interface CartItemListProps {
   cartItemList: CartItem[];
-  updateCartItemList: () => void;
 }
 
-function CartItemList({ cartItemList, updateCartItemList }: CartItemListProps) {
+function CartItemList({ cartItemList }: CartItemListProps) {
   const [selectedItemList, setSelectedItemList] = useRecoilState(selectedCartItemListState);
 
   const isAllSelected = selectedItemList.length === cartItemList.length;
@@ -28,7 +27,6 @@ function CartItemList({ cartItemList, updateCartItemList }: CartItemListProps) {
   const handleUpdateQuantity = async (cartItemId: number, quantity: number) => {
     try {
       await updateCartItemQuantity(cartItemId, quantity);
-      updateCartItemList();
     } catch (error) {
       navigate('/error', { state: { errorType: 'UPDATE' } });
     }
@@ -37,7 +35,6 @@ function CartItemList({ cartItemList, updateCartItemList }: CartItemListProps) {
   const handleRemoveItem = async (cartItemId: number) => {
     try {
       await removeCartItem(cartItemId);
-      updateCartItemList();
     } catch (error) {
       navigate('/error', { state: { errorType: 'REMOVE' } });
     }

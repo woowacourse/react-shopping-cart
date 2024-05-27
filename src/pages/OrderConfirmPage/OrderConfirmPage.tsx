@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link, Navigate, useLoaderData, useNavigate } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { createOrder } from '../../apis';
 import ShowModalButton from '../../components/Button/ShowModalButton/ShowModalButton';
@@ -11,24 +11,34 @@ import TotalPriceContainer from '../../components/Container/TotalPriceContainer/
 import Header from '../../components/Header/Header';
 import DeliveryInfoContainer from '../../components/List/DeliveryInfoList/DeliveryInfoList';
 import { PATHS } from '../../constants/PATHS';
+import { useCalculateTotalCouponDiscount } from '../../hooks/useCalculateCouponDiscount';
+import { useCalculateDeliveryFee } from '../../hooks/useCalculateDeliveryFee';
 import { useToggleModal } from '../../hooks/useToggleModal';
 import ApplyCouponModal from '../../modals/ApplyCouponModal/ApplyCouponModal';
 import { selectedCartItemListState } from '../../recoil/CartItem/atoms/selectedCartItemListState';
 import { selectedCartItemListTotalCountSelector } from '../../recoil/CartItem/selectors/selectedCartItemListTotalCountSelector';
+import { selectedCartItemListTotalPriceSelector } from '../../recoil/CartItem/selectors/selectedCartItemListTotalPriceSelector';
 import { selectedCouponListState } from '../../recoil/Coupon/atoms/selectedCouponListState';
 import { isCouponSelectedState } from '../../recoil/isCouponSelectedState/atoms/isCouponSelectedState';
 import * as S from './OrderConfirmPage.style';
 
 import type { Coupon } from '../../types/Coupon';
-
 function OrderConfirmPage() {
   const couponList = useLoaderData() as Coupon[];
 
-  const selectedItemList = useRecoilValue(selectedCartItemListState);
+  // const selectedItemList = useRecoilValue(selectedCartItemListState);
+  const [selectedItemList, setSelectedItemList] = useRecoilState(selectedCartItemListState);
 
   const setSelectedCouponList = useSetRecoilState(selectedCouponListState);
 
   const selectedCartItemTotalCount = useRecoilValue(selectedCartItemListTotalCountSelector);
+  const selectedCartItemTotalPrice = useRecoilValue(selectedCartItemListTotalPriceSelector);
+
+  const { selectedCouponTotalDiscount } = useCalculateTotalCouponDiscount();
+
+  const { deliveryFee } = useCalculateDeliveryFee();
+
+  const totalPrice = selectedCartItemTotalPrice + deliveryFee - selectedCouponTotalDiscount;
 
   const isOpen = useRecoilValue(isCouponSelectedState);
   const { openModal } = useToggleModal();
@@ -58,6 +68,9 @@ function OrderConfirmPage() {
     } catch (error) {
       navigate('/error', { state: { errorType: 'CREATE_ORDER' } });
     }
+
+    setSelectedItemList([]);
+
     window.localStorage.removeItem('selectedCartItemListState');
   };
 
@@ -72,7 +85,14 @@ function OrderConfirmPage() {
         />
         {renderSelectedItemListSection()}
       </S.Layout>
-      <Link to={PATHS.PAYMENT_CONFIRM}>
+      <Link
+        to={PATHS.PAYMENT_CONFIRM}
+        state={{
+          typeCount: selectedItemList.length,
+          quantityCount: selectedCartItemTotalCount,
+          totalPrice: totalPrice,
+        }}
+      >
         <SubmitButton isActive={true} content="결제하기" onClick={handleSubmitClick} />
       </Link>
     </>
