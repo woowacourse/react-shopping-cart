@@ -26,7 +26,7 @@ export default function ProductTotalPriceList({
       <OrderPrice>
         {Object.values(priceList).map((item) => {
           return (
-            <PriceGroup>
+            <PriceGroup key={item[0]}>
               <span className="price-group_title">{item[0]}</span>
               <span className="price-group_price">
                 {item[0] === '쿠폰 할인 금액' && item[1] !== DISCOUNT_ZERO ? (
