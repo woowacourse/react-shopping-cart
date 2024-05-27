@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { getCartItemCounts } from '../../api';
+import { getCartItemCounts, postOrders } from '../../api';
 import { ConfirmButton } from '../../components/confirmButton/ConfirmButton';
 import {
   cartErrorMessageState,
@@ -26,6 +26,7 @@ import { OrderItemCard } from '../../components/itemCard/orderItemCard/OrderItem
 import { IslandAndMountainAreaCheckSection } from '../../components/islandAndMountainAreaCheckSection/IslandAndMountainAreaCheckSection';
 import { OrderSummary } from '../../components/summary/orderSummary/OrderSummary';
 import { CouponModal } from '../../components/couponModal/CouponModal';
+import { useNavigate } from 'react-router-dom';
 
 export const OrderConfirmationPage: React.FC = () => {
   const selectedItemsCount = useRecoilValue(selectedItemsCountState);
@@ -38,6 +39,7 @@ export const OrderConfirmationPage: React.FC = () => {
   );
   const selectedItems = useRecoilValue(selectedItemsState);
   const [couponModalOpen, setCouponModalOpen] = useState(false);
+  const navigete = useNavigate();
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -52,6 +54,15 @@ export const OrderConfirmationPage: React.FC = () => {
 
     fetchCartItems();
   }, [setCartErrorMessage, setCartItemsCount]);
+
+  const handleOrderButtonClick = async () => {
+    await postOrders(
+      selectedItems.map((item) => {
+        return item.id;
+      }),
+    );
+    navigete('/payments-confirmation');
+  };
 
   return (
     <>
@@ -87,7 +98,11 @@ export const OrderConfirmationPage: React.FC = () => {
           <ErrorAlertModal errorMessage={cartErrorMessage} />
         )}
       </StyledConfirmationPage>
-      <ConfirmButton text='결제하기' disabled={true} />
+      <ConfirmButton
+        text='결제하기'
+        disabled={false}
+        onClick={handleOrderButtonClick}
+      />
     </>
   );
 };
