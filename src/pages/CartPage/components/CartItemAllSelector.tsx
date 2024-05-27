@@ -1,4 +1,4 @@
-import useSelectAll from "@/hooks/useSelectAll";
+import useSelectAllCartItem from "@/hooks/useSelectAllCartItem";
 
 import CheckBox from "@/components/_common/CheckBox/CheckBox";
 import Caption from "@/components/_common/Caption/Caption";
@@ -6,7 +6,8 @@ import Caption from "@/components/_common/Caption/Caption";
 import Styled from "../CartPage.style";
 
 const CartItemAllSelector = () => {
-  const { isAllItemSelected, selectAllItem, unselectAllItem } = useSelectAll();
+  const { isAllItemSelected, selectAllItem, unselectAllItem } =
+    useSelectAllCartItem();
   return (
     <Styled.CheckBoxWrapper>
       <CheckBox

@@ -8,7 +8,7 @@ import {
 } from "@/recoil/selectedCardItems";
 import { totalPaymentAmountSelector } from "@/recoil/orderInformation";
 
-import useSelectAll from "@/hooks/useSelectAll";
+import useSelectAllCartItem from "@/hooks/useSelectAllCartItem";
 
 import { getCartItems } from "@/apis";
 
@@ -32,7 +32,7 @@ const PaymentConfirmPage = () => {
   );
   const totalPaymentAmount = useRecoilValue(totalPaymentAmountSelector);
 
-  const { unselectAllItem } = useSelectAll();
+  const { unselectAllItem } = useSelectAllCartItem();
 
   const routerToCartItemPage = async () => {
     setCartItems(await getCartItems());
