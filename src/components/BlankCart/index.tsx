@@ -6,6 +6,7 @@ const BlankCart: React.FC = () => {
     [2, 3, 10, 11, 12].forEach(async (id) => {
       await addCartItem(id);
     });
+    window.location.reload();
   };
 
   return (
