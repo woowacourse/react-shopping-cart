@@ -16,9 +16,13 @@ export interface CouponClient extends Coupon {
 }
 
 export interface AvailableTime {
-  start: string;
-  end: string;
+  start: AvailableTimeFormat;
+  end: AvailableTimeFormat;
 }
 
 export type CouponCode = 'FIXED5000' | 'BOGO' | 'FREESHIPPING' | 'MIRACLESALE';
 export type CouponDiscountType = 'fixed' | 'buyXgetY' | 'freeShipping' | 'percentage';
+
+type Hour = '04' | '07';
+
+export type AvailableTimeFormat = `${Hour}:00:00`;
