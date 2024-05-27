@@ -4,8 +4,8 @@ import { useMatch, useNavigate } from 'react-router-dom';
 import * as S from './styled';
 
 const Header = () => {
-  const matchOrderInfo = useMatch(ROUTER_URL.ORDER_INFO);
-  const matchPaymentInfo = useMatch(ROUTER_URL.PAYMENT_INFO);
+  const isMatchOrderInfo = useMatch(ROUTER_URL.ORDER_INFO);
+  const isMatchPaymentInfo = useMatch(ROUTER_URL.PAYMENT_INFO);
   const navigate = useNavigate();
   const goBack = () => {
     navigate(-1);
@@ -13,12 +13,12 @@ const Header = () => {
 
   return (
     <S.Header>
-      {matchOrderInfo !== null ? (
+      {isMatchOrderInfo ? (
         <S.Button onClick={goBack}>
-          <img src={back} alt=""></img>
+          <img src={back} alt="GoToBack"></img>
         </S.Button>
-      ) : matchPaymentInfo !== null ? (
-        <></>
+      ) : isMatchPaymentInfo ? (
+        ''
       ) : (
         '쇼핑하기'
       )}
