@@ -8,12 +8,10 @@ import { RouterProvider } from 'react-router-dom';
 import router from './router.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <>
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <RecoilRoot>
-        <RouterProvider router={router} />
-      </RecoilRoot>
-    </ThemeProvider>
-  </>,
+  <ThemeProvider theme={theme}>
+    <GlobalStyle />
+    <RecoilRoot>
+      <RouterProvider router={router} />
+    </RecoilRoot>
+  </ThemeProvider>,
 );
