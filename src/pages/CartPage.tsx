@@ -10,6 +10,7 @@ import { isVacantCartSelector } from "../recoil/cart/cartItemState";
 import { checkedIdSetSelector } from "../recoil/cart/checkedState";
 import CouponModal from "../components/CouponModal";
 import { useModalState } from "lv2-modal-component";
+import { addCartItem } from "../api/cartItem";
 
 const CartPage = () => {
   const navigate = useNavigate();
@@ -24,6 +25,12 @@ const CartPage = () => {
     onOpen: () => {},
     onConfirm: () => {},
   });
+
+  // addCartItem(2);
+  // addCartItem(3);
+  // addCartItem(10);
+  // addCartItem(11);
+  // addCartItem(12);
 
   return (
     <>
@@ -41,17 +48,9 @@ const CartPage = () => {
             <EmptyCart />
           )}
         </CartLayout.Content>
-        <CartLayout.Footer
-          text="주문 확인"
-          isActive={cartItemCheckedIds.size > 0}
-          onClick={handleClick}
-        />
+        <CartLayout.Footer text="주문 확인" isActive={cartItemCheckedIds.size > 0} onClick={handleClick} />
       </CartLayout>
-      <CouponModal
-        isOpen={isOpen}
-        closeModal={closeModal}
-        confirmModal={confirmModal}
-      />
+      <CouponModal isOpen={isOpen} closeModal={closeModal} confirmModal={confirmModal} />
     </>
   );
 };

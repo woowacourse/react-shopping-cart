@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, useModalState } from "lv2-modal-component";
+import { Modal } from "lv2-modal-component";
 import CouponList from "./CouponList";
 interface CouponModalProps {
   isOpen: boolean;
@@ -9,19 +9,9 @@ interface CouponModalProps {
 
 const CouponModal = ({ isOpen, closeModal, confirmModal }: CouponModalProps) => {
   return (
-    <Modal
-      isOpen={isOpen}
-      closeModal={closeModal}
-    >
-      <Modal.Positioner
-        position="center"
-        size="medium"
-      >
-        <Modal.Header
-          title="쿠폰을 선택해 주세요"
-          closeButton={true}
-          onClose={closeModal}
-        />
+    <Modal isOpen={isOpen} closeModal={closeModal}>
+      <Modal.Positioner position="center">
+        <Modal.Header title="쿠폰을 선택해 주세요" closeButton={true} onClose={closeModal} />
         <Modal.Content>
           <CouponList />
         </Modal.Content>

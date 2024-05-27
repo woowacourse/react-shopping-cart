@@ -1,84 +1,51 @@
 import { useNavigate } from "react-router-dom";
-import { css } from "@emotion/css";
 import { useRecoilValue } from "recoil";
-import { formatCurrency } from "../utils/formatCurrency";
-import LeftArrow from "../assets/LeftArrow.svg?react";
+import CartTitle from "../components/CartPage/CartTitle";
+import CartItems from "../components/CartPage/CartItems";
+import OrderSummary from "../components/CartPage/OrderSummary";
+import EmptyCart from "../components/CartPage/EmptyCart";
 import CartLayout from "../components/layout";
+
+import { isVacantCartSelector } from "../recoil/cart/cartItemState";
 import { checkedIdSetSelector } from "../recoil/cart/checkedState";
-import { totalCountSelector, totalPriceSelector } from "../recoil/cart/orderSummaryState";
+import CouponModal from "../components/CouponModal";
+import { useModalState } from "lv2-modal-component";
 
-const OrderConfirmationPage = () => {
+const CartPage = () => {
   const navigate = useNavigate();
+  const isCartVacant = useRecoilValue(isVacantCartSelector);
   const cartItemCheckedIds = useRecoilValue(checkedIdSetSelector);
-  const cartTotalPrice = useRecoilValue(totalPriceSelector);
-  const cartTotalCount = useRecoilValue(totalCountSelector);
-
-  const text = `총 ${cartItemCheckedIds.size}종류의 상품 ${cartTotalCount}개를 주문합니다.
-  최종 결제 금액을 확인해 주세요.`;
 
   const handleClick = () => {
-    navigate(-1);
+    navigate("/orderConfirmation");
   };
 
+  const { isOpen, closeModal, openModal, confirmModal } = useModalState(false, {
+    onOpen: () => {},
+    onConfirm: () => {},
+  });
+
   return (
-    <CartLayout>
-      <CartLayout.Header>
-        <LeftArrow className={leftArrowBtnCSS} onClick={handleClick} />
-      </CartLayout.Header>
-      <CartLayout.Content>
-        <div className={confirmTextCSS}>
-          <div className={headerCSS}>주문 확인</div>
-          <div className={textCSS}>{text}</div>
-          <div className={totalPriceTitleCSS}> 총 결제 금액</div>
-          <div className={totalPriceCSS}> {formatCurrency(cartTotalPrice)}</div>
-        </div>
-      </CartLayout.Content>
-      <CartLayout.Footer text="결제하기" isActive={false} />
-    </CartLayout>
+    <>
+      <CartLayout>
+        <CartLayout.Header>SHOP</CartLayout.Header>
+        <CartLayout.Content>
+          <CartTitle />
+          {!isCartVacant ? (
+            <>
+              <CartItems />
+              <button onClick={openModal}>쿠폰 적용</button>
+              <OrderSummary />
+            </>
+          ) : (
+            <EmptyCart />
+          )}
+        </CartLayout.Content>
+        <CartLayout.Footer text="주문 확인" isActive={cartItemCheckedIds.size > 0} onClick={handleClick} />
+      </CartLayout>
+      <CouponModal isOpen={isOpen} closeModal={closeModal} confirmModal={confirmModal} />
+    </>
   );
 };
 
-export default OrderConfirmationPage;
-
-const leftArrowBtnCSS = css`
-  cursor: pointer;
-`;
-
-const confirmTextCSS = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  row-gap: 24px;
-  height: 100%;
-`;
-
-const headerCSS = css`
-  font-family: Noto Sans KR;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 34.75px;
-`;
-
-const textCSS = css`
-  white-space: pre-line;
-  font-family: Noto Sans;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 18px;
-  text-align: center;
-`;
-
-const totalPriceTitleCSS = css`
-  font-family: Noto Sans;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 16px;
-`;
-
-const totalPriceCSS = css`
-  font-family: Noto Sans KR;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 34.75px;
-`;
+export default CartPage;
