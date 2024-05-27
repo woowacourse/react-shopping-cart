@@ -41,6 +41,19 @@ export async function fetchCartItems(): Promise<CartItemType[]> {
 }
 
 /**
+ * addCartItem - 카트에 상품을 추가합니다.
+ * @returns
+ */
+export async function addCartItem(id: number) {
+  const response = await makeRequest('/cart-items', {
+    method: 'POST',
+    body: JSON.stringify({ cartItemIds: id }),
+  });
+
+  return { success: response.ok };
+}
+
+/**
  * updateCartItemQuantity - API에 카트 상품의 quantity를 업데이트 요청하는 함수입니다.
  * @param {number} id - quantity를 업데이트할 상품의 Id
  * @param {number} newQuantity - 업데이트할 상품의 quantity
@@ -82,12 +95,15 @@ export async function addOrders(ids: number[]) {
   return { success: response.ok };
 }
 
+/**
+ * fetchCoupons - API에서 쿠폰 목록을 가져옵니다.
+ * @returns {Promise<CartItemType[]>}
+ */
 export async function fetchCoupons() {
   const response = await makeRequest('/coupons', {
     method: 'GET',
   });
   const data = await response.json();
 
-  console.log('data : ', data);
   return data;
 }
