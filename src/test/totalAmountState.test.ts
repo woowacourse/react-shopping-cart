@@ -4,7 +4,7 @@ import { describe, it, expect } from "vitest";
 import { cartState } from "@/store/atom/atoms";
 import { totalAmountState } from "@/store/selector/selectors";
 
-import { chargeShippingDummy, freeShippingDummy } from "@/mock/dummy";
+import { chargeShippingDummy, freeShippingDummy } from "@/mock/testMockData";
 
 describe("totalAmountState", () => {
   it("상품 개수에 따른 총 가격 계산", async () => {
@@ -29,7 +29,7 @@ describe("totalAmountState", () => {
     expect(testSnapshot.getLoadable(cartState).valueOrThrow()).toBe(chargeShippingDummy.content);
 
     //Assert
-    const AMOUNT_EXPECTED = 40_000;
+    const AMOUNT_EXPECTED = 50_000;
     const SHIPPING_FEE = 3_000;
     expect(testSnapshot.getLoadable(totalAmountState).valueOrThrow()).toBe(AMOUNT_EXPECTED + SHIPPING_FEE);
   });

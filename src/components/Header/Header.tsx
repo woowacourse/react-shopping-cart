@@ -1,40 +1,32 @@
+import { useLocation } from "react-router-dom";
+import { SerializedStyles } from "@emotion/react";
+
 import { BackButtonStyle, HeaderStyle, ShopButtonStyle } from "./Header.style";
-import { useLocation, useNavigate } from "react-router-dom";
-import { RiArrowLeftLine } from "react-icons/ri";
-import { RoutePaths, RoutesObject } from "@/App";
 
-const BackButton = () => {
-  const navigate = useNavigate();
+import { HeaderRouteInfoContext } from "@/Providers/RouteInfoProvider/RouteInfoProvider";
+import useCustomContext from "@/hooks/useCustomContext";
 
-  return (
-    <button css={BackButtonStyle} onClick={() => navigate(-1)}>
-      <RiArrowLeftLine size={30} />
-    </button>
-  );
-};
-
-const ShopButton = () => {
-  const navigate = useNavigate();
-
-  return (
-    <button css={ShopButtonStyle} onClick={() => navigate(0)}>
-      SHOP
-    </button>
-  );
-};
+import CustomLink from "../CustomLink/CustomLink";
+import { RoutePaths, RoutesObject } from "@/Providers/RouteInfoProvider/useRouteInfo";
 
 const Header = () => {
   const location = useLocation();
   const pathname = location.pathname as RoutePaths;
+  const headerInfo = useCustomContext(HeaderRouteInfoContext)[pathname];
 
-  const navButton: RoutesObject<React.ReactElement> = {
-    "/": <ShopButton />,
-    "/order": <BackButton />,
+  const routesStyle: RoutesObject<SerializedStyles> = {
+    "/": ShopButtonStyle,
+    "/check-order": BackButtonStyle,
+    "/order": BackButtonStyle,
   };
 
   return (
     <header>
-      <div css={HeaderStyle}>{navButton[pathname]}</div>
+      <div css={HeaderStyle}>
+        <CustomLink style={routesStyle[pathname]} To={headerInfo.linkTo}>
+          {headerInfo.leftButtonContent}
+        </CustomLink>
+      </div>
     </header>
   );
 };

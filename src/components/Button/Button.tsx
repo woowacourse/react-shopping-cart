@@ -5,6 +5,7 @@ interface ButtonProps {
   height?: string;
   fontSize?: string;
   isHighlight?: boolean;
+  disabled?: boolean;
   onClick?: () => void;
 }
 
@@ -14,10 +15,11 @@ const Button = ({
   height = "24px",
   fontSize = "12px",
   isHighlight = false,
+  disabled,
   onClick,
 }: React.PropsWithChildren<ButtonProps>) => {
   return (
-    <button css={ButtonStyle(width, height, fontSize, isHighlight)} onClick={onClick}>
+    <button css={ButtonStyle(width, height, fontSize, isHighlight)} disabled={disabled} onClick={onClick}>
       {children}
     </button>
   );

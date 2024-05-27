@@ -84,3 +84,20 @@ export const AddItem = async ({ productId }: { productId: number }) => {
   };
   await fetchWrapper(url, init);
 };
+
+export const fetchCoupons = async () => {
+  const url = import.meta.env.VITE_API_BASE_URL + "/coupons";
+  const init = {
+    method: MethodType.Get,
+  };
+  const coupons = await fetchWrapper(url, init);
+  return coupons;
+};
+
+export const placeOrders = async () => {
+  const url = import.meta.env.VITE_API_BASE_URL + "/orders";
+  const init = {
+    method: MethodType.Post,
+  };
+  await fetchWrapper(url, init);
+};

@@ -4,7 +4,8 @@ import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
 import Main from "@/components/Main/Main";
 import Loading from "@/components/Fallbacks/Loading";
-const OrderContainer = React.lazy(() => import("@/components/Main/Order/OrderContainer"));
+
+const OrderContainer = React.lazy(() => import("@/components/Order/OrderContainer"));
 
 const Order = () => {
   return (
