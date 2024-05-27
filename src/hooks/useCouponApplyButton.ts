@@ -1,7 +1,7 @@
 import { useCoupons } from '.';
 import { ButtonInterface } from '@seongjinme/react-modal';
 
-interface useCouponApplyButtonProps {
+interface UseCouponApplyButtonProps {
   discountAmount: number;
   onClick: () => void;
 }
@@ -9,7 +9,7 @@ interface useCouponApplyButtonProps {
 export default function useCouponApplyButton({
   discountAmount,
   onClick,
-}: useCouponApplyButtonProps): ButtonInterface {
+}: UseCouponApplyButtonProps): ButtonInterface {
   const { hasUsableCoupon } = useCoupons();
 
   const getButtontext = () => {

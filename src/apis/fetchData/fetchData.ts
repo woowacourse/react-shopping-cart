@@ -1,6 +1,6 @@
 import { ERROR_MESSAGE } from '../constants/errorMessage';
 
-export interface fetchDataParams {
+export interface FetchDataParams {
   url: string;
   method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
   body?: object;
@@ -14,7 +14,7 @@ export default async function fetchData({
   body,
   token,
   defaultErrorMessage,
-}: fetchDataParams) {
+}: FetchDataParams) {
   const headers = getHeaders(token);
   const requestData: RequestInit = { method, headers };
 
