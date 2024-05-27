@@ -6,10 +6,6 @@ export default function useApplyCoupons() {
   const [appliedCouponIds, setAppliedCouponIds] = useRecoilState(appliedCouponIdsState);
   const [checkedCouponIds, setCheckedCouponIds] = useState(appliedCouponIds);
 
-  const isCheckedCoupon = (id: number) => appliedCouponIds.includes(id);
-
-  const isReachedApplicableLimit = checkedCouponIds.length >= 2;
-
   const updateAppliedCoupons = () => {
     setAppliedCouponIds([...checkedCouponIds]);
   };
@@ -26,11 +22,9 @@ export default function useApplyCoupons() {
   };
 
   return {
-    isCheckedCoupon,
     checkedCouponIds,
     resetCheckedCouponIds,
     onCheckCoupon,
     updateAppliedCoupons,
-    isReachedApplicableLimit,
   };
 }

@@ -11,18 +11,15 @@ import { useApplyCoupons, useCouponApplyButton, useCoupons } from '../../../hook
 export default function CouponContainer() {
   const [isCouponModalOpened, setIsCouponModalOpened] = useState(false);
   const { coupons, calculateDiscountAmount } = useCoupons();
-  const {
-    isCheckedCoupon,
-    checkedCouponIds,
-    resetCheckedCouponIds,
-    isReachedApplicableLimit,
-    onCheckCoupon,
-    updateAppliedCoupons,
-  } = useApplyCoupons();
+  const { checkedCouponIds, resetCheckedCouponIds, onCheckCoupon, updateAppliedCoupons } =
+    useApplyCoupons();
 
   const setDiscountAmount = useSetRecoilState(discountAmountState);
   const discountAmount = calculateDiscountAmount(checkedCouponIds);
   const isRemoteShipping = useRecoilValue(remoteShippingOptionState);
+
+  const isCheckedCoupon = (id: number) => checkedCouponIds.includes(id);
+  const isReachedApplicableLimit = checkedCouponIds.length >= 2;
 
   useEffect(() => {
     setDiscountAmount(calculateDiscountAmount(checkedCouponIds));
