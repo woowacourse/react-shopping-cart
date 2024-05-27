@@ -2,43 +2,33 @@ import PageTitle from "../components/common/PageTitle";
 import styled from "styled-components";
 import CartItemList from "../components/ShoppingCart/CartItemList/index";
 import OrderSummary from "../components/ShoppingCart/OrderSummary";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { checkedCartItemsQuantityState, getCartItems, setCartPriceAndQuantitySelector } from "../recoil/selectors";
+import { useRecoilValue } from "recoil";
+import { checkedCartItemsQuantityState } from "../recoil/selectors";
 import FooterButton from "../components/common/FooterButton/index";
 import CartEmptyScreen from "../components/ShoppingCart/CartEmptyScreen/index";
 import { useNavigate } from "react-router-dom";
 import PAGE_URL from "../constants/pageURL";
 import Header from "../components/common/Header/index";
 import { COLOR } from "../constants/styles";
-import { useState } from "react";
+import { SHOPPING_MESSAGE } from "../constants/messages";
+import useFetchCartItems from "../hooks/useFetchCartItems";
 
 const ShoppingCart = () => {
-  const fetchedCartItems = useRecoilValue(getCartItems);
-  const [cartItems, setCartItems] = useState(fetchedCartItems);
-
+  const { cartItems, removeCartItem } = useFetchCartItems();
   const checkedCartItemsQuantity = useRecoilValue(checkedCartItemsQuantityState);
-  const setCartPrice = useSetRecoilState(setCartPriceAndQuantitySelector);
+
   const router = useNavigate();
 
-  setCartPrice(cartItems);
-
   const cartItemsLength = cartItems.length;
-
-  const removeCartItem = (itemId: number) => {
-    setCartItems((prevItems) => prevItems?.filter((item) => item.id !== itemId));
-  };
-
   const isCartEmpty = cartItemsLength === 0;
 
-  const subTitle = isCartEmpty
-    ? "장바구니에 상품을 추가해주세요"
-    : `현재 ${cartItemsLength}종류의 상품이 담겨있습니다.`;
+  const subTitle = isCartEmpty ? SHOPPING_MESSAGE.cartAdd : SHOPPING_MESSAGE.currentBasket(cartItemsLength);
 
   return (
     <>
       <Header type="logo" />
       <PageContainer>
-        <PageTitle title="장바구니" subTitle={subTitle} />
+        <PageTitle title={SHOPPING_MESSAGE.basket} subTitle={subTitle} />
         {isCartEmpty ? (
           <CartEmptyScreen />
         ) : (
@@ -49,7 +39,7 @@ const ShoppingCart = () => {
         )}
         <FooterButton
           disabled={checkedCartItemsQuantity === 0}
-          buttonText="주문 확인"
+          buttonText={SHOPPING_MESSAGE.confirmOrder}
           onClick={() => router(PAGE_URL.CheckOrder)}
         />
       </PageContainer>

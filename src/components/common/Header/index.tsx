@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import IMAGES from "../../../assets/images/Images";
 import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../../constants/styles";
+import { SHOPPING_MESSAGE } from "../../../constants/messages";
 
 type HeaderType = "logo" | "goBack";
 
@@ -11,7 +12,7 @@ const Header = ({ type = "logo" }: { type?: HeaderType }) => {
   if (type === "logo") {
     return (
       <HeaderContainer>
-        <HeaderTitle>SHOP</HeaderTitle>
+        <HeaderTitle>{SHOPPING_MESSAGE.shop}</HeaderTitle>
       </HeaderContainer>
     );
   }

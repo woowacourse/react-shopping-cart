@@ -1,16 +1,17 @@
 import styled from "styled-components";
 import IMAGES from "../../../assets/images/Images";
 import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../../constants/styles";
+import { ERROR_MESSAGE } from "../../../constants/messages";
 
 const NetworkError = () => {
   return (
     <NetworkErrorContainer>
-      <Title>페이지 접속 실패</Title>
+      <Title>{ERROR_MESSAGE.failAccess}</Title>
       <video muted autoPlay loop>
         <source src={IMAGES.seaOtter} type="video/mp4" />
       </video>
-      <Content>네트워크 에러가 발생했어요.. </Content>
-      <Button onClick={() => window.location.reload()}>다시 시도</Button>
+      <Content>{ERROR_MESSAGE.networkError}</Content>
+      <Button onClick={() => window.location.reload()}>{ERROR_MESSAGE.retry}</Button>
     </NetworkErrorContainer>
   );
 };

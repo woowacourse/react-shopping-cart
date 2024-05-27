@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import IMAGES from "../../../assets/images/Images";
 import { COLOR, FONT_SIZE } from "../../../constants/styles";
+import { SHOPPING_MESSAGE } from "../../../constants/messages";
 
 const CartEmptyScreen = () => {
   return (
     <CartEmptyScreenContainer>
       <Img src={IMAGES.thunk} />
-      <CartEmptyMessage>장바구니가 비었어요 ㅠㅠ</CartEmptyMessage>
+      <CartEmptyMessage>{SHOPPING_MESSAGE.emptyBasket}</CartEmptyMessage>
     </CartEmptyScreenContainer>
   );
 };

@@ -11,3 +11,9 @@ export interface CartItemResponse {
   product: Product;
   quantity: number;
 }
+
+export interface CartItemQuantityAndPrice {
+  id: number;
+  quantity: number;
+  price: number;
+}

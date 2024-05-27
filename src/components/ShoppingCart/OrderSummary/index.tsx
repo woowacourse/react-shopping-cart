@@ -1,38 +1,49 @@
 import styled from "styled-components";
 import ORDER from "../../../constants/order";
-import { totalCheckedCartItemsPriceState } from "../../../recoil/selectors";
+import { shippingFeeState, totalCheckedCartItemsPriceState } from "../../../recoil/selectors";
 import { useRecoilValue } from "recoil";
-import IMAGES from "../../../assets/images/Images";
 import { COLOR, FONT_SIZE, FONT_WEIGHT } from "../../../constants/styles";
+import { SHOPPING_MESSAGE } from "../../../constants/messages";
+import InfoText from "../../common/InfoText";
 
-const OrderSummary = () => {
+interface OrderSummaryProps {
+  discountAmount?: number;
+}
+
+const OrderSummary = ({ discountAmount }: OrderSummaryProps) => {
   const totalPrice = useRecoilValue(totalCheckedCartItemsPriceState);
-  const shippingFee = totalPrice && totalPrice < ORDER.shippingFreeThreshold ? ORDER.shippingFee : 0;
-  const totalPayments = totalPrice + shippingFee;
+  const shippingFee = useRecoilValue(shippingFeeState);
+
+  const discountPrice = discountAmount ? discountAmount : 0;
+  const totalPayments = totalPrice + shippingFee - discountPrice;
 
   return (
     <OrderSummaryContainer>
-      <OrderInfo>
-        <InfoImg src={IMAGES.infoOutline} />총 주문 금액이 {ORDER.shippingFreeThreshold.toLocaleString()} 원 이상일 경우
-        무료 배송됩니다.
-      </OrderInfo>
+      <InfoText text={SHOPPING_MESSAGE.freeShippingFeeInfo(ORDER.shippingFreeThreshold.toLocaleString())} />
 
       <HorizontalLine />
 
       <SummaryWrapper>
-        <SummaryTitle>주문 금액</SummaryTitle>
+        <SummaryTitle>{SHOPPING_MESSAGE.orderAmount}</SummaryTitle>
         <SummaryPrice>{totalPrice.toLocaleString()}</SummaryPrice>
       </SummaryWrapper>
 
+      {discountAmount !== undefined && (
+        <SummaryWrapper>
+          <SummaryTitle>할인 금액</SummaryTitle>
+          <SummaryPrice>{discountAmount.toLocaleString()}</SummaryPrice>
+        </SummaryWrapper>
+      )}
+
       <SummaryWrapper>
-        <SummaryTitle>배송비</SummaryTitle>
+        <SummaryTitle>{SHOPPING_MESSAGE.shippingFee}</SummaryTitle>
         <SummaryPrice>{shippingFee.toLocaleString()}</SummaryPrice>
       </SummaryWrapper>
 
       <HorizontalLine />
 
       <SummaryWrapper>
-        <SummaryTitle>총 결제 금액</SummaryTitle>
+        <SummaryTitle>{SHOPPING_MESSAGE.totalPayAmount}</SummaryTitle>
         <SummaryPrice>{totalPayments.toLocaleString()}</SummaryPrice>
       </SummaryWrapper>
     </OrderSummaryContainer>
@@ -46,20 +57,6 @@ const OrderSummaryContainer = styled.div`
   flex-direction: column;
   gap: 12px;
   margin-top: 52px;
-`;
-
-const OrderInfo = styled.p`
-  display: flex;
-  align-items: center;
-  font-size: ${FONT_SIZE.small};
-  font-weight: ${FONT_WEIGHT.medium};
-  line-height: 15px;
-  text-align: left;
-  color: ${COLOR.black};
-`;
-
-const InfoImg = styled.img`
-  padding-right: 4px;
 `;
 
 const SummaryWrapper = styled.div`

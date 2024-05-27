@@ -27,4 +27,8 @@ const Button = styled.button`
   padding: 0;
   background: ${COLOR.white};
   color: ${COLOR.black};
+
+  &:hover {
+    border-color: ${COLOR.grey.smoky};
+  }
 `;
