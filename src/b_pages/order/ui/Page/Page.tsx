@@ -13,7 +13,7 @@ import css from './Page.module.css';
 
 // TODO: Connect to state/
 export const OrderPage = () => {
-  const carts = mockCarts.slice(0, 3); // temp
+  const cartItems = mockCarts.slice(0, 3); // temp
 
   return (
     <Layout
@@ -27,7 +27,7 @@ export const OrderPage = () => {
       contentBodySlot={
         <div className={css.contentBodySlot}>
           <BaseProductList
-            carts={carts}
+            cartItems={cartItems}
             cardCounterSlot={(quantity: number) => <OrderItemCardCounter quantity={quantity} />}
           />
           <ApplyCouponButton />

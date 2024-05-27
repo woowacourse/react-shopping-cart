@@ -15,7 +15,7 @@ const meta: Meta<typeof BaseProductList> = {
     ),
   ],
   args: {
-    carts: mockCarts.slice(0, 5),
+    cartItems: mockCarts.slice(0, 5),
   },
 };
 

@@ -32,12 +32,12 @@ interface PageableObject {
 }
 
 export interface CartItem {
-  id: number;
+  id: CartItemId;
   quantity: number;
   product: Product;
 }
 
-interface Product {
+export interface Product {
   id: number;
   name: string;
   price: number;

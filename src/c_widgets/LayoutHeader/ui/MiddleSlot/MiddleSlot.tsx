@@ -1,8 +1,9 @@
 import classNames from 'classnames/bind';
+import { useNavigate } from 'react-router';
 
-import { imgMap, Button } from '@/f_shared';
+import { imgMap, Button, urls } from '@/f_shared';
 
-import { MiddleSlotType } from '../../consts/types';
+import { MiddleSlotType } from '../types';
 
 import css from './MiddleSlot.module.css';
 
@@ -12,15 +13,20 @@ interface MiddleSlotProps {
   type: MiddleSlotType;
 }
 
-// TODO: Add Router Link
 export const MiddleSlot = ({ type }: MiddleSlotProps) => {
+  const navigate = useNavigate();
+
+  const handleLogoButtonClick = () => {
+    navigate(urls.root);
+  };
+
   switch (type) {
     case 'none':
       return null;
 
     case 'logo':
       return (
-        <Button className={cn('button')}>
+        <Button className={cn('button')} onClick={handleLogoButtonClick}>
           <img src={imgMap.logo_dark} alt={type} className={cn('image')} />
         </Button>
       );

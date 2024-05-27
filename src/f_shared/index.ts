@@ -1,13 +1,20 @@
-export { fetchCartItems } from './api/cartItems/cartItems';
-export { fetchCartTotalQuantity } from './api/cartItems/cartItems';
-export { fetchDeleteCartItem } from './api/cartItems/cartItems';
-export { fetchPatchCartItemsQuantity } from './api/cartItems/cartItems';
+export {
+  fetchCartItems,
+  fetchCartTotalQuantity,
+  fetchDeleteCartItem,
+  fetchChangeCartItemsQuantity,
+} from './api/cartItems/cartItems';
 export { fetchCoupons } from './api/coupon/coupons';
 export { fetchCreateOrder } from './api/order/orders';
+
+export type { CartItem, Product } from './api/cartItems/types';
+export type { Coupon } from './api/coupon/types';
 
 export { api } from './config/api';
 export { imgMap } from './assets/imgMap';
 export { urls } from './config/url';
+
+export { localStorageEffect } from './lib/localStorage';
 
 export { Button } from './ui/Button/Button';
 export { Checkbox } from './ui/Checkbox/Checkbox';

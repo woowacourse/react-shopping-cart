@@ -1,17 +1,30 @@
+// CartPage.tsx
+import { useRecoilValueLoadable } from 'recoil';
+
 import { ContentHeader } from '@/c_widgets/ContentHeader';
 import { LayoutHeader } from '@/c_widgets/LayoutHeader';
 import { PaymentSummary } from '@/c_widgets/PaymentSummary';
-import { OrderCartButton } from '@/d_features/cart';
+import { OrderCartItemButton } from '@/d_features/cart';
+import { cartItemCountState, cartItemsState } from '@/e_entities/cart';
 import { Layout } from '@/f_shared';
 
-import { mockCarts } from '../../../../../mocks';
-import { CartProductList } from '../CartProductList/CartProductList';
+import { CartItemList } from '../CartProductList/CartProductList';
+import { EmptyCartMessage } from '../EmptyCartMessage/EmptyCartMessage';
 
 export const CartPage = () => {
-  // TODO: Connect to state
-  const cartItemCount = 2;
-  // const cartItemCount = useRecoilValue(CartItemCountState);
-  const carts = mockCarts;
+  const cartItemsLoadable = useRecoilValueLoadable(cartItemsState);
+  const cartItemCountLoadable = useRecoilValueLoadable(cartItemCountState);
+
+  if (cartItemsLoadable.state === 'loading' || cartItemCountLoadable.state === 'loading') {
+    return <div>Loading...</div>;
+  }
+
+  if (cartItemsLoadable.state === 'hasError' || cartItemCountLoadable.state === 'hasError') {
+    return <div>Error loading cart data</div>;
+  }
+
+  const cartItems = cartItemsLoadable.contents;
+  const cartItemCount = cartItemCountLoadable.contents;
 
   return (
     <Layout
@@ -19,9 +32,9 @@ export const CartPage = () => {
       contentHeaderSlot={
         <ContentHeader title={'장바구니'} desc={`현재 ${cartItemCount}종류의 상품이 담겨있습니다.`}></ContentHeader>
       }
-      contentBodySlot={<CartProductList carts={carts} />}
+      contentBodySlot={cartItems.length === 0 ? <EmptyCartMessage /> : <CartItemList cartItems={cartItems} />}
       contentFooterSlot={<PaymentSummary />}
-      footerSlot={<OrderCartButton />}
+      footerSlot={<OrderCartItemButton />}
       gap={{ top: 36, bottom: 52 }}
     />
   );

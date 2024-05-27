@@ -1,4 +1,4 @@
-import { Product, ProductId } from '../../src/e_entities/cart/index';
+import { Product } from '../../src/f_shared/index';
 
 import mockImage from './mock_product.png';
 

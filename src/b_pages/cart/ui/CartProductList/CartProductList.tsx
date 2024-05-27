@@ -1,23 +1,25 @@
 import { BaseProductList } from '@/c_widgets/BaseProductList';
-import { CheckCartButton, DeleteCartButton, CartQuantityAdjuster } from '@/d_features/cart';
-import { CheckAllCartButton } from '@/d_features/cart/ui/CheckAllCartButton/CheckAllCartButton';
-import { Cart } from '@/e_entities/cart';
+import { CheckCartItemButton, DeleteCartItemButton, CartItemQuantityAdjuster } from '@/d_features/cart';
+import { CheckAllCartItemsButton } from '@/d_features/cart/ui/CheckAllCartItemsButton/CheckAllCartItemsButton';
+import { CartItem } from '@/f_shared';
 
 import css from './CartProductList.module.css';
 
-interface CartProductListProps {
-  carts: Cart[];
+interface CartItemListProps {
+  cartItems: CartItem[];
 }
 
-export const CartProductList = ({ carts }: CartProductListProps) => {
+export const CartItemList = ({ cartItems }: CartItemListProps) => {
   return (
     <div className={css.root}>
-      <CheckAllCartButton />
+      <CheckAllCartItemsButton />
       <BaseProductList
-        carts={carts}
-        cardLeftActionSlot={(cartId) => <CheckCartButton cartId={cartId} />}
-        cardRightActionSlot={(cartId) => <DeleteCartButton cartId={cartId} />}
-        cardCounterSlot={(cartId, quantity) => <CartQuantityAdjuster cartId={cartId} quantity={quantity} />}
+        cartItems={cartItems}
+        cardLeftActionSlot={(cartItemId) => <CheckCartItemButton cartItemId={cartItemId} />}
+        cardRightActionSlot={(cartItemId) => <DeleteCartItemButton cartItemId={cartItemId} />}
+        cardCounterSlot={(cartItemId, quantity) => (
+          <CartItemQuantityAdjuster cartItemId={cartItemId} quantity={quantity} />
+        )}
       />
     </div>
   );

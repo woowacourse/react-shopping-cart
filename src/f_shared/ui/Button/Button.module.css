@@ -18,7 +18,10 @@
   color: var(--primary-inverse-color);
 }
 
+.theme_primary.disabled {
+  background-color: var(--primary-disabled-color);
+}
+
 .disabled {
   cursor: default;
-  opacity: 0.5;
 }

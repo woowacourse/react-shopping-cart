@@ -17,21 +17,13 @@ declare global {
   /**
    * Type aliases
    */
-  export type Phone = string;
-
-  export type Email = string;
-
-  export type Id = number;
-
-  export type DateIso = string;
-
-  export type Timestamp = number;
-
   export type KRW = number;
 
   export type Url = string;
 
-  export type Color = string;
+  export type CartItemId = Brand<number, 'CartItemId'>;
+
+  export type ProductId = Brand<number, 'ProductId'>;
 }
 
 export {};

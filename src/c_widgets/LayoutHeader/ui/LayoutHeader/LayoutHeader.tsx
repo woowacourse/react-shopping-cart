@@ -1,9 +1,9 @@
 import classNames from 'classnames/bind';
 import { ReactNode } from 'react';
 
-import { LeftSlotType, MiddleSlotType } from '../../consts/types';
 import { LeftSlot } from '../LeftSlot/LeftSlot';
 import { MiddleSlot } from '../MiddleSlot/MiddleSlot';
+import { LeftSlotType, MiddleSlotType } from '../types';
 
 import css from './LayoutHeader.module.css';
 

@@ -1,4 +1,4 @@
-import { Text } from '../../../../f_shared/index';
+import { Text } from '@/f_shared';
 
 import css from './OrderItemCardCounter.module.css';
 

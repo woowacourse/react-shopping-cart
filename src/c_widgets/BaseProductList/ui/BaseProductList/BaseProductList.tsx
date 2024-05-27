@@ -1,23 +1,23 @@
 import classNames from 'classnames/bind';
 import { Fragment, ReactNode } from 'react';
 
-import { Cart, CartItemCard, CartId } from '@/e_entities/cart';
-import { HorizontalLine } from '@/f_shared/index';
+import { CartItemCard } from '@/e_entities/cart';
+import { CartItem, HorizontalLine } from '@/f_shared';
 
 import css from './BaseProductList.module.css';
 
 const cn = classNames.bind(css);
 
 interface BaseProductListProps {
-  carts: Cart[];
-  cardLeftActionSlot?: (cartId: CartId) => ReactNode;
-  cardRightActionSlot?: (cartId: CartId) => ReactNode;
-  cardCounterSlot?: (cartId: CartId, quantity: number) => ReactNode;
+  cartItems: CartItem[];
+  cardLeftActionSlot?: (cartItemId: CartItemId) => ReactNode;
+  cardRightActionSlot?: (cartItemId: CartItemId) => ReactNode;
+  cardCounterSlot?: (cartItemId: CartItemId, quantity: number) => ReactNode;
   isFetching?: boolean;
 }
 
 export function BaseProductList({
-  carts,
+  cartItems,
   cardLeftActionSlot,
   cardRightActionSlot,
   cardCounterSlot,
@@ -25,7 +25,7 @@ export function BaseProductList({
 }: BaseProductListProps) {
   return (
     <div className={cn('root', { rootIsFetching: isFetching })}>
-      {carts.map((cart) => (
+      {cartItems.map((cart) => (
         <Fragment key={`fr-${cart.id}`}>
           <HorizontalLine key={`hr-${cart.id}`} opacity={0.1} />
 

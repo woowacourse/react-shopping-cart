@@ -1,9 +1,7 @@
 import classNames from 'classnames/bind';
 import { ReactNode } from 'react';
 
-import { Text } from '@/f_shared';
-
-import { Product } from '../../model/types';
+import { Product, Text } from '@/f_shared';
 
 import css from './CartItemCard.module.css';
 

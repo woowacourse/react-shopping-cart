@@ -1,5 +1,6 @@
 :root {
   --primary-color: #2ac1bc;
+  --primary-disabled-color: #93dfdd;
   --primary-inverse-color: white;
   --gray-100: #e5e5e5;
   --gray-200: #cccccc;
