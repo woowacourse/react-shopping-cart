@@ -49,13 +49,11 @@ const Cart = () => {
             </Suspense>
           </CartItemContainer>
           <CartResults>
-            {/* {isShowCouponDiscount && <PaymentDetail title="쿠폰 할인 금액" amount={discountAmount} />} */}
             <PaymentDetail
               title="배송비"
               amount={orderAmount >= SHIPPING_CONSTANT.FREE_CRITERIA ? 0 : SHIPPING_CONSTANT.FEE}
             />
             <Divider />
-            {/* <PaymentDetail title="총 결제 금액" amount={totalAmount - (isShowCouponDiscount ? discountAmount : 0)} /> */}
             <PaymentDetail title="총 결제 금액" amount={totalAmount} />
           </CartResults>
         </Main>

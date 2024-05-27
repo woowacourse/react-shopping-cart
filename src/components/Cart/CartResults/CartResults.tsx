@@ -20,7 +20,7 @@ const CartResults = ({ children }: PropsWithChildren) => {
       {itemCount !== 0 && (
         <>
           <InformationCircleDescription>
-            총 주문 금액이 {SHIPPING_CONSTANT.FREE_CRITERIA.toLocaleString() + "원"} 이상일 경우 무료 배송됩니다.
+            총 주문 금액이 {SHIPPING_CONSTANT.FREE_CRITERIA.toLocaleString()} 원 이상일 경우 무료 배송됩니다.
           </InformationCircleDescription>
           <Divider />
           <PaymentDetail title="주문 금액" amount={orderAmount} />

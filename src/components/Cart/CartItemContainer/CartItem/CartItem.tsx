@@ -20,18 +20,22 @@ import useCartItemModifier from "@/hooks/useCartItemModifier";
 
 interface CartItemProps {
   CartItemInfo: CartItemInfo;
-  isItemToolbar?: boolean;
-  isQuantityButton?: boolean;
+  showItemToolbar?: boolean;
+  showQuantityButton?: boolean;
 }
 
-const CartItem = ({ CartItemInfo: { id, product }, isItemToolbar = true, isQuantityButton = true }: CartItemProps) => {
+const CartItem = ({
+  CartItemInfo: { id, product },
+  showItemToolbar = true,
+  showQuantityButton = true,
+}: CartItemProps) => {
   const [isCheck, setIsCheck] = useRecoilState(itemEachCheckState(id));
   const { quantity, increaseQuantity, decreaseQuantity, deleteProduct } = useCartItemModifier(id);
 
   return (
     <div css={CartItemContainerStyle}>
       <Divider />
-      {isItemToolbar && (
+      {showItemToolbar && (
         <div css={CartItemDetailControlsStyle}>
           <Checkbox isCheck={isCheck} onClick={() => setIsCheck(!isCheck)} />
           <Button width="40px" onClick={deleteProduct}>
@@ -46,7 +50,7 @@ const CartItem = ({ CartItemInfo: { id, product }, isItemToolbar = true, isQuant
         <div>
           <div css={CartItemNameStyle}>{product.name}</div>
           <div css={CartItemPriceStyle}>{product.price.toLocaleString() + "원"}</div>
-          {isQuantityButton ? (
+          {showQuantityButton ? (
             <div css={CartItemQuantityContainerStyle}>
               <QuantityButton onClick={decreaseQuantity} type={"minus"} />
               <div css={CartItemQuantityStyle("center")}>{quantity}</div>

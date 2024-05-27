@@ -8,7 +8,7 @@ const CartItemCheckedList = () => {
   return (
     <div>
       {checkedItems.map((item) => (
-        <CartItem CartItemInfo={item} key={item.id} isItemToolbar={false} isQuantityButton={false} />
+        <CartItem CartItemInfo={item} key={item.id} showItemToolbar={false} showQuantityButton={false} />
       ))}
     </div>
   );
