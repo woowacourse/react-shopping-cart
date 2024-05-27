@@ -35,7 +35,7 @@ function CartItem({ item, onRemoveItem, onUpdateQuantity }: CartItemProps) {
             <S.ItemPriceText>{product.price.toLocaleString()}원</S.ItemPriceText>
           </S.ItemInfoContainer>
           <QuantityContainer
-            quantity={quantity}
+            quantity={quantity.toString()}
             onMinusButtonClick={() => onUpdateQuantity(id, quantity - 1)}
             onPlusButtonClick={() => onUpdateQuantity(id, quantity + 1)}
           />

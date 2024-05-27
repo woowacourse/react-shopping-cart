@@ -1,5 +1,6 @@
 import { useRecoilValue } from 'recoil';
 
+import { DiscountTypes } from '../constants/DiscountType';
 import { selectedCartItemListState } from '../recoil/CartItem/atoms/selectedCartItemListState';
 import { selectedCouponListState } from '../recoil/Coupon/atoms/selectedCouponListState';
 import { useCalculateDeliveryFee } from './useCalculateDeliveryFee';
@@ -40,11 +41,11 @@ export const useCouponCheck = () => {
       }
     }
 
-    if (coupon.discountType === 'freeShipping') {
+    if (coupon.discountType === DiscountTypes.freeShipping) {
       if (deliveryFee === 0) return false;
     }
 
-    if (coupon.discountType === 'buyXgetY') {
+    if (coupon.discountType === DiscountTypes.buyXgetY) {
       const x = coupon.buyQuantity!;
       const y = coupon.getQuantity!;
       const eligibleItems = selectedCartItemList.filter((item) => item.quantity >= x + y);
