@@ -1,7 +1,10 @@
+import { isApplicabilityCoupon } from '@domain/coupon';
 import { calculateDiscountAmount } from '@domain/discount';
-import { useCheckInaccessibleArea, useConfirmCouponApplication } from '@hooks/orderConfirm';
+import { useCheckInaccessibleArea } from '@hooks/orderConfirm';
 import { useOrderCosts } from '@hooks/shoppingCart';
+import { selectedItemsSelector } from '@recoil/shoppingCart';
 import { act } from 'react';
+import { useRecoilValue } from 'recoil';
 
 import { FREE_SHIPPING_ITEMS } from './constants/cartItems';
 import { createFreeShippingCoupon } from './utils/coupon';
@@ -16,15 +19,16 @@ describe('제주도 & 도서 산간 지역 체크 테스트', () => {
 
     const { result } = executeCartItemRenderHook(
       () => {
-        const { shippingPrice } = useOrderCosts();
-        const isApplicabilityCoupon = useConfirmCouponApplication();
+        const { shippingPrice, totalPrice } = useOrderCosts();
+        const selectedItems = useRecoilValue(selectedItemsSelector);
         const { isInaccessibleArea, handleChangeInaccessibleAreaCheckBox } = useCheckInaccessibleArea();
 
         return {
           isInaccessibleArea,
+          selectedItems,
+          totalPrice,
           shippingPrice,
           handleChangeInaccessibleAreaCheckBox,
-          isApplicabilityCoupon,
         };
       },
       FREE_SHIPPING_ITEMS,
@@ -37,7 +41,14 @@ describe('제주도 & 도서 산간 지역 체크 테스트', () => {
     });
 
     act(() => {
-      if (result.current.isApplicabilityCoupon(coupon))
+      if (
+        isApplicabilityCoupon({
+          coupon,
+          totalPrice: result.current.totalPrice,
+          shippingPrice: result.current.shippingPrice,
+          selectedCartItems: result.current.selectedItems,
+        })
+      )
         discountAmount = calculateDiscountAmount({ coupon, shippingPrice: result.current.shippingPrice });
 
       discountAmount = result.current.isInaccessibleArea ? discountAmount + 3000 : discountAmount;
@@ -55,15 +66,16 @@ describe('제주도 & 도서 산간 지역 체크 테스트', () => {
 
     const { result } = executeCartItemRenderHook(
       () => {
-        const { shippingPrice } = useOrderCosts();
-        const isApplicabilityCoupon = useConfirmCouponApplication();
+        const { shippingPrice, totalPrice } = useOrderCosts();
         const { isInaccessibleArea, handleChangeInaccessibleAreaCheckBox } = useCheckInaccessibleArea();
+        const selectedItems = useRecoilValue(selectedItemsSelector);
 
         return {
           isInaccessibleArea,
+          selectedItems,
+          totalPrice,
           shippingPrice,
           handleChangeInaccessibleAreaCheckBox,
-          isApplicabilityCoupon,
         };
       },
       FREE_SHIPPING_ITEMS,
@@ -80,7 +92,14 @@ describe('제주도 & 도서 산간 지역 체크 테스트', () => {
     });
 
     act(() => {
-      if (result.current.isApplicabilityCoupon(coupon))
+      if (
+        isApplicabilityCoupon({
+          coupon,
+          totalPrice: result.current.totalPrice,
+          shippingPrice: result.current.shippingPrice,
+          selectedCartItems: result.current.selectedItems,
+        })
+      )
         discountAmount = calculateDiscountAmount({ coupon, shippingPrice: result.current.shippingPrice });
 
       discountAmount = result.current.isInaccessibleArea ? discountAmount + 3000 : discountAmount;
