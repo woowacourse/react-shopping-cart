@@ -98,7 +98,6 @@ describe("percent 할인 쿠폰과 fixed 할인 쿠폰 계산 테스트", () => 
                 CART_STATE_DUMMY.forEach((cartItem: CartItemInfo) => {
                   obj[cartItem.id] = cartItem.quantity;
                 });
-                console.log(obj);
                 set(itemQuantityState, obj);
               }}
             >
