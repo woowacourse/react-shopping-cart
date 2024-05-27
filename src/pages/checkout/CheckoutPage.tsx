@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { isCheckedState, productsState } from '../../store/atoms';
-import { totalProductQuantityState } from '../../store/selectors';
+import { productsIdState, totalProductQuantityState } from '../../store/selectors';
 import useCleanUpCouponStatusOnUnMount from '../../hooks/coupon/useCleanUpCouponStatusOnUnMount';
 import useNavigatePage from '../../hooks/useNavigatePage';
 import Button from '../../components/common/Button';
@@ -15,10 +15,23 @@ import ROUTES from '../../constants/routes';
 import BackIcon from '../../asset/back.png';
 import common from '../../styles/common.module.css';
 import styles from './Checkout.module.css';
+import { addOrders } from '../../api';
 
 export default function CheckoutPage() {
   const navigateCartPage = useNavigatePage(ROUTES.CART);
   const navigatePaymentsPage = useNavigatePage(ROUTES.PAYMENTS);
+  const productIds = useRecoilValue(productsIdState);
+
+  useCleanUpCouponStatusOnUnMount();
+
+  const handlePaymentsButtonClick = async () => {
+    try {
+      await addOrders(productIds);
+      navigatePaymentsPage();
+    } catch (error) {
+      alert(error);
+    }
+  };
 
   const { totalCount, totalQuantity } = useRecoilValue(totalProductQuantityState);
 
@@ -31,8 +44,6 @@ export default function CheckoutPage() {
   const handleButtonClick = () => {
     setModalOpen(!modalOpen);
   };
-
-  useCleanUpCouponStatusOnUnMount();
 
   return (
     <>
@@ -58,7 +69,7 @@ export default function CheckoutPage() {
         <CheckoutTotals />
       </div>
 
-      <Button variant="footer" onClick={navigatePaymentsPage}>
+      <Button variant="footer" onClick={handlePaymentsButtonClick}>
         결제하기
       </Button>
       <CouponModal isOpen={modalOpen} handleToggle={handleButtonClick} />

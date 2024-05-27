@@ -44,7 +44,7 @@ export async function updateCartItemQuantity(id: number, newQuantity: number) {
   });
 
   if (!response.ok) {
-    throw new Error('Failed to fetch cart items');
+    throw new Error('Failed to update cart item Quantity');
   }
 
   return { success: response.ok };
@@ -64,8 +64,24 @@ export async function deleteCartItem(id: number) {
   });
 
   if (!response.ok) {
-    throw new Error('Failed to fetch cart items');
+    throw new Error('Failed to delete cart items');
   }
 
   return { success: response.ok };
+}
+
+export async function addOrders(ids: number[]) {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+
+  const response = await fetch(`${API_URL}/orders`, {
+    method: 'POST',
+    headers: { Authorization: token, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      cartItemIds: ids.join(','),
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to add orders');
+  }
 }

@@ -1,10 +1,15 @@
 import { useEffect } from 'react';
-import { activeCouponCodesState, couponSelectedState } from '../../store/atoms';
+import {
+  activeCouponCodesState,
+  additionalShippingFeeStatusState,
+  couponSelectedState,
+} from '../../store/atoms';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 const useCleanUpCouponStatusOnUnMount = () => {
   const [couponSelected, setCouponSelectedState] = useRecoilState(couponSelectedState);
   const setActiveCoupons = useSetRecoilState(activeCouponCodesState);
+  const setAdditionalShippingFeeStatus = useSetRecoilState(additionalShippingFeeStatusState);
 
   useEffect(() => {
     return () => {
@@ -16,6 +21,7 @@ const useCleanUpCouponStatusOnUnMount = () => {
         {},
       );
       setCouponSelectedState(newCouponSelected);
+      setAdditionalShippingFeeStatus(false);
       setActiveCoupons([]);
     };
   }, []);
