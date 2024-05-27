@@ -12,21 +12,21 @@ interface CouponCommon {
 
 type DiscountType = 'fixed' | 'buyXGetY' | 'freeShipping' | 'percentage';
 
-interface FixedDiscountCoupon extends CouponCommon {
+export interface FixedDiscountCoupon extends CouponCommon {
   pattern: Date;
   discount: number;
   minimumAmount: number;
 }
-interface BuyXGetYCoupon extends CouponCommon {
+export interface BuyXGetYCoupon extends CouponCommon {
   pattern: Date;
   buyQuantity: number;
   getQuantity: number;
 }
-interface FreeShippingCoupon extends CouponCommon {
+export interface FreeShippingCoupon extends CouponCommon {
   pattern: Date;
   minimumAmount: number;
 }
-interface PercentageDiscountCoupon extends CouponCommon {
+export interface PercentageDiscountCoupon extends CouponCommon {
   pattern: Date;
   discount: number;
   availableTime: AvailableTime;
