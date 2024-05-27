@@ -5,9 +5,9 @@ import CheckButton from '../Button/CheckButton/CheckButton';
 import QuantityContainer from '../Container/QuantityContainer/QuantityContainer';
 import * as S from './CartItem.style';
 
-import type { TCartItem } from '../../types/CartItem';
+import type { CartItem } from '../../types/CartItem';
 interface CartItemProps {
-  item: TCartItem;
+  item: CartItem;
   onRemoveItem: (cartItemId: number) => void;
   onUpdateQuantity: (cartItemId: number, quantity: number) => void;
 }

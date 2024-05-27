@@ -7,9 +7,9 @@ import CheckButton from '../Button/CheckButton/CheckButton';
 import CartItem from '../CartItem/CartItem';
 import * as S from './CartItemList.style';
 
-import type { TCartItem } from '../../types/CartItem';
+import type { CartItem } from '../../types/CartItem';
 interface CartItemListProps {
-  cartItemList: TCartItem[];
+  cartItemList: CartItem[];
   updateCartItemList: () => void;
 }
 

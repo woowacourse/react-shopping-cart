@@ -2,11 +2,11 @@ import { RecoilRoot, useRecoilState } from 'recoil';
 
 import { act, renderHook } from '@testing-library/react';
 
-import { applyCouponModalState } from './applyCouponModalState';
+import { isCouponSelectedState } from './isCouponSelectedState';
 
-describe('applyCouponModalState', () => {
+describe('isCouponSelectedState', () => {
   it('초기값이 제대로 설정되어야 한다.', () => {
-    const { result } = renderHook(() => useRecoilState(applyCouponModalState), {
+    const { result } = renderHook(() => useRecoilState(isCouponSelectedState), {
       wrapper: RecoilRoot,
     });
 
@@ -15,7 +15,7 @@ describe('applyCouponModalState', () => {
   });
 
   it('값을 설정할 수 있어야 한다.', () => {
-    const { result } = renderHook(() => useRecoilState(applyCouponModalState), {
+    const { result } = renderHook(() => useRecoilState(isCouponSelectedState), {
       wrapper: RecoilRoot,
     });
 

@@ -13,10 +13,10 @@ import DeliveryInfoContainer from '../../components/List/DeliveryInfoList/Delive
 import { PATHS } from '../../constants/PATHS';
 import { useToggleModal } from '../../hooks/useToggleModal';
 import ApplyCouponModal from '../../modals/ApplyCouponModal/ApplyCouponModal';
-import { applyCouponModalState } from '../../recoil/ApplyCouponModal/atoms/applyCouponModalState';
 import { selectedCartItemListState } from '../../recoil/CartItem/atoms/selectedCartItemListState';
 import { selectedCartItemListTotalCountSelector } from '../../recoil/CartItem/selectors/selectedCartItemListTotalCountSelector';
 import { selectedCouponListState } from '../../recoil/Coupon/atoms/selectedCouponListState';
+import { isCouponSelectedState } from '../../recoil/isCouponSelectedState/atoms/isCouponSelectedState';
 import * as S from './OrderConfirmPage.style';
 
 import type { Coupon } from '../../types/Coupon';
@@ -30,7 +30,7 @@ function OrderConfirmPage() {
 
   const selectedCartItemTotalCount = useRecoilValue(selectedCartItemListTotalCountSelector);
 
-  const isOpen = useRecoilValue(applyCouponModalState);
+  const isOpen = useRecoilValue(isCouponSelectedState);
   const { openModal } = useToggleModal();
   const navigate = useNavigate();
 
