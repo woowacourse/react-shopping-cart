@@ -30,7 +30,7 @@ const PaymentInfo = () => {
           <S.Price>{orderInfo?.totalPrice.toLocaleString()}원</S.Price>
         </S.PriceInfo>
       </S.Container>
-      <FloatingButton label={'장바구니로 돌아가기'} onClick={onReturnToShoppingCartButtonClick} />
+      <FloatingButton label="장바구니로 돌아가기" onClick={onReturnToShoppingCartButtonClick} />
     </>
   );
 };

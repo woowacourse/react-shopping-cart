@@ -38,7 +38,7 @@ const ShoppingCartOverview = () => {
             <PaymentTotal isUseDiscount={false} />
           </S.Container>
           <FloatingButton
-            label={'주문 확인'}
+            label="주문 확인"
             onClick={goOrderInfo}
             disabled={selectItemsLength <= 0}
           />
@@ -49,7 +49,7 @@ const ShoppingCartOverview = () => {
             <ShoppingCartDescription kindCount={0} />
             <Fallback />
           </S.Container>
-          <FloatingButton label={'주문 확인'} disabled />
+          <FloatingButton label="주문 확인" disabled />
         </>
       )}
     </>

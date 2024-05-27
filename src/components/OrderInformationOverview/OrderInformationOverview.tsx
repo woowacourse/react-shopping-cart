@@ -47,7 +47,7 @@ const OrderInformationOverview = () => {
         <PaymentTotal isUseDiscount={true} />
       </S.OrderInformationOverviewContainer>
       <FloatingButton
-        label={'결제하기'}
+        label="결제하기"
         onClick={onOrderButtonClick}
         disabled={selectItemsLength <= 0}
       />

@@ -47,9 +47,9 @@ const CouponModal = ({ isOpen, toggleModal }: CouponModalProps) => {
         <CouponList></CouponList>
       </Modal.ModalContent>
 
-      <Modal.ModalFooter align={'center'} style={{ margin: '0' }}>
+      <Modal.ModalFooter align="center" style={{ margin: '0' }}>
         <Modal.ModalButton
-          size={'L'}
+          size="L"
           onClick={onClickModalButton}
           style={{
             borderRadius: '5px',
