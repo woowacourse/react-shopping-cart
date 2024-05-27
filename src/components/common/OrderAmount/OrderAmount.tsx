@@ -5,6 +5,7 @@ import { shippingCostState, orderAmountState, totalAmountState } from '../../../
 import { InfoBox } from '../';
 import { convertToLocaleAmount } from '../../../utils';
 import * as Styled from './OrderAmount.styled';
+import { SHIPPING_COST } from '../../../constants';
 
 interface OrderAmountProps {
   pageRoute: 'shoppingCart' | 'confirmOrder';
@@ -20,7 +21,7 @@ export default function OrderAmount({ pageRoute }: OrderAmountProps) {
     <div>
       <InfoBox
         alt="무료 배송 기준 메시지 아이콘"
-        text="총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다."
+        text={`총 주문 금액이 ${convertToLocaleAmount(SHIPPING_COST.freeShippingMinimumAmount)} 이상일 경우 무료 배송됩니다.`}
       />
 
       <Styled.OrderAmountContainer>

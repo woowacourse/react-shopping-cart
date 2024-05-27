@@ -7,6 +7,7 @@ import { Modal } from '@seongjinme/react-modal';
 import { InfoBox } from '../../common';
 import { CouponItem, OpenCouponModalButton } from '../';
 import { useApplyCoupons, useCouponApplyButton, useCoupons } from '../../../hooks';
+import { COUPON_APPLICABLE_LIMIT } from '../../../constants';
 
 export default function CouponContainer() {
   const [isCouponModalOpened, setIsCouponModalOpened] = useState(false);
@@ -19,7 +20,7 @@ export default function CouponContainer() {
   const isRemoteShipping = useRecoilValue(remoteShippingOptionState);
 
   const isCheckedCoupon = (id: number) => checkedCouponIds.includes(id);
-  const isReachedApplicableLimit = checkedCouponIds.length >= 2;
+  const isReachedApplicableLimit = checkedCouponIds.length >= COUPON_APPLICABLE_LIMIT;
 
   useEffect(() => {
     setDiscountAmount(calculateDiscountAmount(checkedCouponIds));
@@ -56,7 +57,7 @@ export default function CouponContainer() {
         >
           <InfoBox
             alt="쿠폰 적용 기준 메시지 아이콘"
-            text="쿠폰은 최대 2개까지 사용할 수 있습니다."
+            text={`쿠폰은 최대 ${COUPON_APPLICABLE_LIMIT}개까지 사용할 수 있습니다.`}
             style={{ marginTop: '16px' }}
           />
           {coupons.map((coupon) => {

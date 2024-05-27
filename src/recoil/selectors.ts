@@ -7,6 +7,7 @@ import {
   discountAmountState,
 } from './atoms';
 import { CartItem } from '../type';
+import { SHIPPING_COST } from '../constants';
 
 export const checkedCartItemsState = selector<CartItem[]>({
   key: 'checkedCartItemsState',
@@ -47,10 +48,10 @@ export const shippingCostState = selector<number>({
     const orderAmount = get(orderAmountState);
     const isRemoteShipping = get(remoteShippingOptionState);
 
-    if (orderAmount >= 100000 || checkedCartItems.length < 1) {
+    if (orderAmount >= SHIPPING_COST.freeShippingMinimumAmount || checkedCartItems.length < 1) {
       return 0;
     }
-    return isRemoteShipping ? 6000 : 3000;
+    return isRemoteShipping ? SHIPPING_COST.remote : SHIPPING_COST.basic;
   },
 });
 
