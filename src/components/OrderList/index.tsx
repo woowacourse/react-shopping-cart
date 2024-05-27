@@ -3,7 +3,7 @@ import CartItem from "../CartItem";
 import { StyledUl } from "../CartList/styles";
 
 export default function OrderList({ items }: { items: CartItemType[] }) {
-  if (items)
+  if (items) {
     return (
       <StyledUl>
         {items.map((item, index) => (
@@ -11,4 +11,5 @@ export default function OrderList({ items }: { items: CartItemType[] }) {
         ))}
       </StyledUl>
     );
+  }
 }
