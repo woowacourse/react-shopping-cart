@@ -1,18 +1,16 @@
 import { Coupon } from '@appTypes/orderConfirm';
 import { COUPON } from '@constants/orderConfirm';
+import { isApplicabilityCoupon } from '@domain/coupon';
 import { calculateDiscountAmount } from '@domain/discount';
-import { useConfirmCouponApplication } from '@hooks/orderConfirm';
 import { useOrderCosts } from '@hooks/shoppingCart';
 import { selectedItemsSelector } from '@recoil/shoppingCart';
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 const useSimulateCouponCheck = (selectedCouponList: Coupon[]) => {
-  const { shippingPrice, orderPrice } = useOrderCosts();
+  const { shippingPrice, orderPrice, totalPrice } = useOrderCosts();
 
   const selectedCartItems = useRecoilValue(selectedItemsSelector);
-
-  const isApplicabilityCoupon = useConfirmCouponApplication();
 
   const [temporarySelectedCouponList, setTemporarySelectedCouponList] = useState<Coupon[]>(selectedCouponList);
 
@@ -45,7 +43,7 @@ const useSimulateCouponCheck = (selectedCouponList: Coupon[]) => {
   const isActiveCoupon = (coupon: Coupon) =>
     (selectedCount < COUPON.selectLength.max ||
       temporarySelectedCouponList.some((tempCoupon) => tempCoupon.id === coupon.id)) &&
-    isApplicabilityCoupon(coupon);
+    isApplicabilityCoupon({ coupon, selectedCartItems, totalPrice, shippingPrice });
 
   return {
     temporarySelectedCouponList,
