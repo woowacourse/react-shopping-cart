@@ -7,6 +7,7 @@ import ShippingInfo from '../ShippingInfo/ShippingInfo';
 import FloatingButton from '../FloatingButton/FloatingButton';
 import PaymentTotal from '../PaymentTotal/PaymentTotal';
 import CouponModal from '../CouponModal/CouponModal';
+import ModalPortal from '../../Portal';
 
 import createOrder from '../../api/post/createOrder';
 import { orderInfoStore } from '../../recoil/selectors';
@@ -38,7 +39,10 @@ const OrderInformationOverview = () => {
   };
   return (
     <>
-      <CouponModal isOpen={isModalOpen} toggleModal={toggleModal} />
+      <ModalPortal>
+        <CouponModal isOpen={isModalOpen} toggleModal={toggleModal} />
+      </ModalPortal>
+
       <S.OrderInformationOverviewContainer>
         <OrderConfirmationInfo orderInfo={orderInfo} />
         <OrderInformationList selectedItems={selectedItems} />
