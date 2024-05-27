@@ -7,20 +7,24 @@ import * as C from '../../components/commonStyles';
 
 import { priceFormatter } from '../../utils/stringFormatter';
 import useOrderInformation from '../../hooks/useOrderInformation';
+import { useNavigate } from 'react-router-dom';
 
 export default function ConfirmOrderPage() {
   // TODO: recoil selector가 아닌 history의 state로 전달해야 할까?
   // TODO: 실제로 확인 페이지는 서버에 전달된 정보와 같은 정보를 줘야 하지 않나?
   const { totalPrice, totalQuantity, numOfTypes } = useOrderInformation();
 
+  const navigate = useNavigate();
+  const moveToHome = () => {
+    navigate('/');
+    window.location.reload();
+  };
+
   return (
     <Layout
       header={<Header />}
       bottom={
-        <BottomButton
-          onClick={() => (window.location.href = '/')}
-          active={true}
-        >
+        <BottomButton onClick={moveToHome} active={true}>
           장바구니로 돌아가기
         </BottomButton>
       }
