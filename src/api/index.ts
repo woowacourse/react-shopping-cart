@@ -93,3 +93,39 @@ export async function fetchOrder(orderItems: Items[]): Promise<void> {
     throw new Error('주문 생성에 실패하였습니다. 다시 시도해 주세요.');
   }
 }
+
+export async function addNike(): Promise<void> {
+  const response = await fetchResponse({
+    url: '/cart-items',
+    method: 'POST',
+    body: JSON.stringify({ productId: 2, quantity: 1 }),
+  });
+
+  if (!response.ok) {
+    throw new Error('상품 추가에 실패하였습니다. 다시 시도해 주세요.');
+  }
+}
+
+export async function addAdidas(): Promise<void> {
+  const response = await fetchResponse({
+    url: '/cart-items',
+    method: 'POST',
+    body: JSON.stringify({ productId: 3, quantity: 1 }),
+  });
+
+  if (!response.ok) {
+    throw new Error('상품 추가에 실패하였습니다. 다시 시도해 주세요.');
+  }
+}
+
+export async function addCoke(): Promise<void> {
+  const response = await fetchResponse({
+    url: '/cart-items',
+    method: 'POST',
+    body: JSON.stringify({ productId: 34, quantity: 1 }),
+  });
+
+  if (!response.ok) {
+    throw new Error('상품 추가에 실패하였습니다. 다시 시도해 주세요.');
+  }
+}

@@ -7,7 +7,7 @@ import { itemsState } from '../../recoil/atoms';
 import { MESSAGES, MESSAGES_PROPS } from '../../constants/Messages';
 import * as S from './CartContent.styled';
 import { getLocalStorage, updateLocalStorage } from '../../utils/LocalStorage';
-import { fetchItems } from '../../api';
+import { addAdidas, addCoke, addNike, fetchItems } from '../../api';
 
 function CartContent() {
   const [items, setItems] = useRecoilState(itemsState);
@@ -40,6 +40,11 @@ function CartContent() {
 
   return (
     <S.CartContentContainer>
+      <div>
+        <S.SampleButton onClick={() => addNike()}>나이키</S.SampleButton>
+        <S.SampleButton onClick={() => addAdidas()}>아디다스</S.SampleButton>
+        <S.SampleButton onClick={() => addCoke()}>코카콜라</S.SampleButton>
+      </div>
       {items.length !== 0 ? (
         <>
           <Title

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Button } from '../ItemCard/ItemCard.styled';
 
 export const CartContentContainer = styled.div`
   display: flex;
@@ -21,3 +22,5 @@ export const NoCartItemContainer = styled.p`
   line-height: 1.6rem;
   text-align: center;
 `;
+
+export const SampleButton = styled(Button)``;
