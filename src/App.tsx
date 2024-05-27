@@ -1,14 +1,14 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
-import OrderConfirmPage from './pages/OrderConfirmPage/OrderConfirmPage';
-import PaymentConfirmPage from './pages/PaymentConfirmPage/PaymentConfirmPage';
-import ErrorPage from './pages/ErrorPage/ErrorPage';
-import { fetchCartItemList, fetchCoupons } from './apis';
-import { PATHS } from './constants/PATHS';
+import ShoppingCartPage from 'pages/ShoppingCartPage/ShoppingCartPage';
+import OrderConfirmPage from 'pages/OrderConfirmPage/OrderConfirmPage';
+import PaymentConfirmPage from 'pages/PaymentConfirmPage/PaymentConfirmPage';
+import ErrorPage from 'pages/ErrorPage/ErrorPage';
+import { fetchCartItemList, fetchCoupons } from 'apis';
+import { PATHS } from 'constants/PATHS';
 
 import { ThemeProvider } from 'styled-components';
-import GlobalStyles from './styles/Global.style';
-import theme from './styles/theme';
+import GlobalStyles from 'styles/Global.style';
+import theme from 'styles/theme';
 
 function App() {
   const router = createBrowserRouter(

@@ -1,4 +1,4 @@
-import { MinusIcon, PlusIcon } from '../../../assets';
+import { MinusIcon, PlusIcon } from 'assets';
 import * as S from './QuantityStepper.style';
 
 interface QuantityStepperProps {

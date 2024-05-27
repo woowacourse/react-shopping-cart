@@ -1,7 +1,7 @@
 import { selector, selectorFamily } from 'recoil';
 import { selectedCartItemListState, isSigolState } from '../atoms/atoms';
-import { calculateDeliveryFee } from '../../../utils/calculateDeliveryFee';
-import { TCartItem } from '../../../types/CartItem.type';
+import { calculateDeliveryFee } from 'utils/calculateDeliveryFee';
+import { TCartItem } from 'types/CartItem.type';
 
 export const selectedCartItemListSelector = selectorFamily<boolean, TCartItem>({
   key: 'selectedCartItemListSelector',

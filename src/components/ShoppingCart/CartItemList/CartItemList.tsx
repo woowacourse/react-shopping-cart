@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import CheckBox from '../../common/CheckBox/CheckBox';
+import CheckBox from 'components/common/CheckBox/CheckBox';
 import CartItem from '../CartItem/CartItem';
-import type { TCartItem } from '../../../types/CartItem.type';
-import { selectedCartItemListState } from '../../../recoil/CartItem/atoms/atoms';
-import { removeCartItem, updateCartItemQuantity } from '../../../apis';
+import { TCartItem } from 'types/CartItem.type';
+import { selectedCartItemListState } from 'recoil/CartItem/atoms/atoms';
+import { removeCartItem, updateCartItemQuantity } from 'apis';
 import * as S from './CartItemList.style';
 
 interface CartItemListProps {

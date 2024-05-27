@@ -7,12 +7,7 @@ import {
   totalOrderPriceSelector,
   deliveryFeeSelector,
 } from './selectors';
-import {
-  mockCartItems,
-  newYujoCartItemData,
-  newKyleCartItemData,
-  newParselyCartItemData,
-} from '../../../mocks/cartItems';
+import { mockCartItems, newYujoCartItemData, newKyleCartItemData, newParselyCartItemData } from 'mocks/cartItems';
 
 describe('selectedCartItemListSelector', () => {
   it('개별 상품을 선택할 시 선택된 상품이 배열에 삽입된다.', () => {

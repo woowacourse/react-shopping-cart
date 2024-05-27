@@ -1,16 +1,16 @@
 import { Link } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
-import Header from '../../components/Header/Header';
-import TitleContainer from '../../components/common/TitleContainer/TitleContainer';
-import SubmitButton from '../../components/common/SubmitButton/SubmitButton';
-import { selectedCartItemListState } from '../../recoil/CartItem/atoms/atoms';
+import Header from 'components/Header/Header';
+import TitleContainer from 'components/common/TitleContainer/TitleContainer';
+import SubmitButton from 'components/common/SubmitButton/SubmitButton';
+import { selectedCartItemListState } from 'recoil/CartItem/atoms/atoms';
 import {
   totalOrderPriceSelector,
   totalOrderCountSelector,
   deliveryFeeSelector,
-} from '../../recoil/CartItem/selectors/selectors';
-import { totalDiscountPriceState } from '../../recoil/Coupon/selectors/selectors';
-import { PATHS } from '../../constants/PATHS';
+} from 'recoil/CartItem/selectors/selectors';
+import { totalDiscountPriceState } from 'recoil/Coupon/selectors/selectors';
+import { PATHS } from 'constants/PATHS';
 import * as S from './PaymentConfirmPage.style';
 
 function PaymentConfirmPage() {

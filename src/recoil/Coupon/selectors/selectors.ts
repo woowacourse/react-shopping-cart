@@ -1,9 +1,9 @@
 import { selector } from 'recoil';
 import { selectedCouponListState } from '../atoms/atoms';
-import { selectedCartItemListState } from '../../CartItem/atoms/atoms';
-import { totalOrderPriceSelector, deliveryFeeSelector } from '../../CartItem/selectors/selectors';
-import { calculateDiscountPrice } from '../../../utils/coupon/couponCalculator/couponCalculator';
-import { sortCouponsByDiscountRate } from '../../../utils/coupon/couponSorter/couponSorter';
+import { selectedCartItemListState } from 'recoil/CartItem/atoms/atoms';
+import { totalOrderPriceSelector, deliveryFeeSelector } from 'recoil/CartItem/selectors/selectors';
+import { calculateDiscountPrice } from 'utils/coupon/couponCalculator/couponCalculator';
+import { sortCouponsByDiscountRate } from 'utils/coupon/couponSorter/couponSorter';
 
 export const totalDiscountPriceState = selector({
   key: 'totalDiscountPriceState',

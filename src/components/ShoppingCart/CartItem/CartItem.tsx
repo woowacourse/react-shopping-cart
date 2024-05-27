@@ -1,9 +1,9 @@
 import { useRecoilState } from 'recoil';
-import Button from '../../common/Button/Button';
-import CheckBox from '../../common/CheckBox/CheckBox';
+import Button from 'components/common/Button/Button';
+import CheckBox from 'components/common/CheckBox/CheckBox';
 import QuantityStepper from '../QuantityStepper/QuantityStepper';
-import type { TCartItem } from '../../../types/CartItem.type';
-import { selectedCartItemListSelector } from '../../../recoil/CartItem/selectors/selectors';
+import { TCartItem } from 'types/CartItem.type';
+import { selectedCartItemListSelector } from 'recoil/CartItem/selectors/selectors';
 
 import * as S from './CartItem.style';
 

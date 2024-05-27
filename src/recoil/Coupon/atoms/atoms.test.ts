@@ -1,7 +1,7 @@
 import { renderHook, act } from '@testing-library/react';
 import { RecoilRoot, useRecoilState } from 'recoil';
 import { selectedCouponListState } from './atoms';
-import { mockCoupons } from '../../../mocks/coupons';
+import { mockCoupons } from 'mocks/coupons';
 
 describe('selectedCouponListState', () => {
   it('초기 배열은 빈 배열이다.', () => {

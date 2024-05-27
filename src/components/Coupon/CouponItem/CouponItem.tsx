@@ -1,7 +1,7 @@
-import useCouponApplicable from '../../../hooks/useCouponApplicable';
-import CheckBox from '../../common/CheckBox/CheckBox';
-import type { Coupon } from '../../../types/Coupon.type';
-import { formatExpirationDate, formatAvailableTime } from '../../../utils/format';
+import useCouponApplicable from 'hooks/useCouponApplicable';
+import CheckBox from 'components/common/CheckBox/CheckBox';
+import { Coupon } from 'types/Coupon.type';
+import { formatAvailableTime, formatExpirationDate } from 'utils/format';
 import * as S from './CouponItems.style';
 
 interface CouponItemProps {

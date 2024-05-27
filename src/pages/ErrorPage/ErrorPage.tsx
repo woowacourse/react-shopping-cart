@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import Header from '../../components/Header/Header';
-import { PATHS } from '../../constants/PATHS';
+import Header from 'components/Header/Header';
+import { PATHS } from 'constants/PATHS';
 import * as S from './ErrorPage.style';
 
 const ErrorPage = () => {

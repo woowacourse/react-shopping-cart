@@ -1,6 +1,6 @@
 import { calculateFixedDiscount, calculateBogoDiscount, calculatePercentageDiscount } from './couponCalculator';
-import { fixedCoupon, percentageCoupon } from '../../../mocks/coupons';
-import { newParselyCartItemData } from '../../../mocks/cartItems';
+import { fixedCoupon, percentageCoupon } from 'mocks/coupons';
+import { newParselyCartItemData } from 'mocks/cartItems';
 
 describe('couponCalculator', () => {
   it('고정 금액 할인 쿠폰의 할인 금액을 계산할 수 있다.', () => {

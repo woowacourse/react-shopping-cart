@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes } from 'react';
 import { Link } from 'react-router-dom';
-import { LeftArrow, MainLogo } from '../../assets';
-import { PATHS } from '../../constants/PATHS';
+import { LeftArrow, MainLogo } from 'assets';
+import { PATHS } from 'constants/PATHS';
 import * as S from './Header.style';
 
 export function MainLogoButton() {

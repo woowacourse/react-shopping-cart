@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import useCouponCalculator from './useCouponCalculator';
-import { Coupon } from '../types/Coupon.type';
+import { Coupon } from 'types/Coupon.type';
 
 const useSelectedCoupons = (initialCouponList: Coupon[]) => {
   const [selectedCoupons, setSelectedCoupons] = useState(initialCouponList);

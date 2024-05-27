@@ -1,9 +1,9 @@
 import { useRecoilValue } from 'recoil';
-import { selectedCartItemListState } from '../recoil/CartItem/atoms/atoms';
-import { totalOrderPriceSelector, deliveryFeeSelector } from '../recoil/CartItem/selectors/selectors';
-import { sortCouponsByDiscountRate } from '../utils/coupon/couponSorter/couponSorter';
-import { calculateDiscountPrice } from '../utils/coupon/couponCalculator/couponCalculator';
-import { Coupon } from '../types/Coupon.type';
+import { selectedCartItemListState } from 'recoil/CartItem/atoms/atoms';
+import { totalOrderPriceSelector, deliveryFeeSelector } from 'recoil/CartItem/selectors/selectors';
+import { sortCouponsByDiscountRate } from 'utils/coupon/couponSorter/couponSorter';
+import { calculateDiscountPrice } from 'utils/coupon/couponCalculator/couponCalculator';
+import { Coupon } from 'types/Coupon.type';
 
 const useCouponCalculator = () => {
   const selectedCartItemList = useRecoilValue(selectedCartItemListState);

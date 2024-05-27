@@ -1,14 +1,14 @@
 import { useRecoilValue } from 'recoil';
-import { selectedCartItemListState } from '../recoil/CartItem/atoms/atoms';
-import { totalOrderPriceSelector } from '../recoil/CartItem/selectors/selectors';
+import { selectedCartItemListState } from 'recoil/CartItem/atoms/atoms';
+import { totalOrderPriceSelector } from 'recoil/CartItem/selectors/selectors';
 import {
   isCouponValid,
   isCouponAvailableAmount,
   isCouponAvailableTime,
   isCouponAvailableQuantity,
-} from '../utils/coupon/couponValidator/couponValidator';
-import { getKoreanTime } from '../utils/time';
-import { Coupon } from '../types/Coupon.type';
+} from 'utils/coupon/couponValidator/couponValidator';
+import { getKoreanTime } from 'utils/time';
+import { Coupon } from 'types/Coupon.type';
 
 const useCouponApplicable = () => {
   const selectedCartItemList = useRecoilValue(selectedCartItemListState);

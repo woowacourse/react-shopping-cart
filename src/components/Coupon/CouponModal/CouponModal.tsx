@@ -1,10 +1,10 @@
 import { useRecoilState } from 'recoil';
 import { Modal } from '@hanuuny/react-modal';
 import CouponItem from '../CouponItem/CouponItem';
-import NotificationLabel from '../../common/NotificationLabel/NotificationLabel';
-import useSelectedCoupons from '../../../hooks/useSelectedCoupons';
-import { selectedCouponListState } from '../../../recoil/Coupon/atoms/atoms';
-import { Coupon } from '../../../types/Coupon.type';
+import NotificationLabel from 'components/common/NotificationLabel/NotificationLabel';
+import useSelectedCoupons from 'hooks/useSelectedCoupons';
+import { selectedCouponListState } from 'recoil/Coupon/atoms/atoms';
+import { Coupon } from 'types/Coupon.type';
 import * as S from './CouponModal.style';
 
 interface CouponModalProps {

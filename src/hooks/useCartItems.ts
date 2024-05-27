@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { selectedCartItemListState } from '../recoil/CartItem/atoms/atoms';
-import { TCartItem } from '../types/CartItem.type';
-import { fetchCartItemList } from '../apis';
+import { selectedCartItemListState } from 'recoil/CartItem/atoms/atoms';
+import { TCartItem } from 'types/CartItem.type';
+import { fetchCartItemList } from 'apis';
 
 const useCartItems = (initialCartItems: TCartItem[] = []) => {
   const [cartItemList, setCartItemList] = useState<TCartItem[]>(initialCartItems);

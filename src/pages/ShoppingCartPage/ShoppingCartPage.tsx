@@ -1,14 +1,14 @@
 import { useLoaderData, Await, Link } from 'react-router-dom';
-import Header, { MainLogoButton } from '../../components/Header/Header';
-import TitleContainer from '../../components/common/TitleContainer/TitleContainer';
-import SubmitButton from '../../components/common/SubmitButton/SubmitButton';
-import CartItemList from '../../components/ShoppingCart/CartItemList/CartItemList';
-import TotalPriceContainer from '../../components/ShoppingCart/TotalPriceContainer/TotalPriceContainer';
-import type { TCartItem } from '../../types/CartItem.type';
-import { EmptyCart } from '../../assets';
-import { PATHS } from '../../constants/PATHS';
+import Header, { MainLogoButton } from 'components/Header/Header';
+import TitleContainer from 'components/common/TitleContainer/TitleContainer';
+import SubmitButton from 'components/common/SubmitButton/SubmitButton';
+import CartItemList from 'components/ShoppingCart/CartItemList/CartItemList';
+import TotalPriceContainer from 'components/ShoppingCart/TotalPriceContainer/TotalPriceContainer';
+import type { TCartItem } from 'types/CartItem.type';
+import { EmptyCart } from 'assets';
+import { PATHS } from 'constants/PATHS';
+import useCartItems from 'hooks/useCartItems';
 import * as S from './ShoppingCartPage.style';
-import useCartItems from '../../hooks/useCartItems';
 
 function ShoppingCartPage() {
   const initialCartItemList = useLoaderData() as TCartItem[];

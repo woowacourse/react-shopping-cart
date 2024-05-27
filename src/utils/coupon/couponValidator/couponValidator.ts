@@ -1,4 +1,4 @@
-import { TCartItem } from '../../../types/CartItem.type';
+import { TCartItem } from 'types/CartItem.type';
 
 export const isCouponValid = (expirationDate: string, now: Date) => {
   const expiration = new Date(expirationDate);

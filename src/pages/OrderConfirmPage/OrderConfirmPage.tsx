@@ -1,20 +1,20 @@
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { Navigate, useLoaderData, useNavigate } from 'react-router-dom';
-import Header, { GoBackButton } from '../../components/Header/Header';
-import TitleContainer, { SubTitle } from '../../components/common/TitleContainer/TitleContainer';
-import Button from '../../components/common/Button/Button';
-import SubmitButton from '../../components/common/SubmitButton/SubmitButton';
-import CheckBox from '../../components/common/CheckBox/CheckBox';
-import CartItem from '../../components/ShoppingCart/CartItem/CartItem';
-import CouponModal from '../../components/Coupon/CouponModal/CouponModal';
-import TotalPriceContainer from '../../components/ShoppingCart/TotalPriceContainer/TotalPriceContainer';
-import type { Coupon } from '../../types/Coupon.type';
-import { selectedCartItemListState, isSigolState } from '../../recoil/CartItem/atoms/atoms';
-import { totalOrderCountSelector } from '../../recoil/CartItem/selectors/selectors';
-import { selectedCouponListState } from '../../recoil/Coupon/atoms/atoms';
-import useCouponModal from '../../hooks/useCouponModal';
-import { addOrder } from '../../apis';
-import { PATHS } from '../../constants/PATHS';
+import Header, { GoBackButton } from 'components/Header/Header';
+import TitleContainer, { SubTitle } from 'components/common/TitleContainer/TitleContainer';
+import Button from 'components/common/Button/Button';
+import SubmitButton from 'components/common/SubmitButton/SubmitButton';
+import CheckBox from 'components/common/CheckBox/CheckBox';
+import CartItem from 'components/ShoppingCart/CartItem/CartItem';
+import CouponModal from 'components/Coupon/CouponModal/CouponModal';
+import TotalPriceContainer from 'components/ShoppingCart/TotalPriceContainer/TotalPriceContainer';
+import type { Coupon } from 'types/Coupon.type';
+import { selectedCartItemListState, isSigolState } from 'recoil/CartItem/atoms/atoms';
+import { totalOrderCountSelector } from 'recoil/CartItem/selectors/selectors';
+import { selectedCouponListState } from 'recoil/Coupon/atoms/atoms';
+import useCouponModal from 'hooks/useCouponModal';
+import { addOrder } from 'apis';
+import { PATHS } from 'constants/PATHS';
 import * as S from './OrderConfirmPage.style';
 
 function OrderConfirmPage() {

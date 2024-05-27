@@ -1,4 +1,4 @@
-import { Coupon } from '../types/Coupon.type';
+import { Coupon } from 'types/Coupon.type';
 
 export const fixedCoupon: Coupon = {
   id: 1,

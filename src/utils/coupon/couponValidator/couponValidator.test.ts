@@ -4,7 +4,7 @@ import {
   isCouponAvailableTime,
   isCouponAvailableQuantity,
 } from './couponValidator';
-import { newYujoCartItemData, newParselyCartItemData } from '../../../mocks/cartItems';
+import { newYujoCartItemData, newParselyCartItemData } from 'mocks/cartItems';
 
 describe('couponValidator', () => {
   it('현재 날짜가 쿠폰 만료 기간보다 앞이면 true 를 반환한다.', () => {

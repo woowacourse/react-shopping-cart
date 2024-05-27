@@ -1,5 +1,5 @@
-import { TCartItem } from '../../../types/CartItem.type';
-import { Coupon } from '../../../types/Coupon.type';
+import { TCartItem } from 'types/CartItem.type';
+import { Coupon } from 'types/Coupon.type';
 
 export const calculateFixedDiscount = (coupon: Coupon) => {
   return coupon.discount ?? 0;
