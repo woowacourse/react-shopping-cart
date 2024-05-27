@@ -7,13 +7,22 @@ import PriceTable from '../PriceTable/PriceTable';
 import CartItemList from '../CartItemList/CartItemList';
 import useApiErrorState from '../../hooks/error/useApiErrorState';
 import useCartItemList from '../../hooks/cartItem/useCartItemList';
+import useSelectedCouponList from '../../hooks/coupon/useSelectedCouponList';
+import useSelectedCoupon from '../../hooks/coupon/useSelectedCoupon';
 
 const CartItemListSection = () => {
   const { cartItemList, fetchCartItemList } = useCartItemList();
+  const { toggleSelectedCoupon } = useSelectedCoupon();
+  const { selectedCouponList } = useSelectedCouponList();
   const { apiError } = useApiErrorState();
+
+  const unselectAllCoupon = () => {
+    selectedCouponList.forEach((coupon) => toggleSelectedCoupon(coupon));
+  };
 
   useEffect(() => {
     fetchCartItemList();
+    unselectAllCoupon();
   }, []);
 
   if (apiError?.name === 'FailedFetchCartItemlistError') {
