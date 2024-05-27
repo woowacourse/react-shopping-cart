@@ -1,13 +1,13 @@
 import { CartAmount } from "../../../recoil/cartAmount";
 import { CartItem } from "../../../types/cartItems";
 import { BuyXGetYCoupon } from "../../../types/coupon";
-import { RawCoupon } from "../../../types/rawCoupon";
+import { CouponResponse } from "../../../types/couponResponses";
 import { isBuyXGetYCoupon, isFreeShippingCoupon } from "../../../utils/domain/couponTypeGuards";
 import { isNowInTimeRange } from "../../../utils/time/isNowInTimeRange";
 import { isPastDate } from "../../../utils/time/isPastDate";
 
 export const isCouponSelectable = (
-  coupon: RawCoupon,
+  coupon: CouponResponse,
   cartItems: CartItem[],
   { orderAmount, shippingCost }: Omit<CartAmount, "totalOrderAmount">,
   now: Date = new Date()

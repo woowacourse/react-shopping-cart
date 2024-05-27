@@ -1,19 +1,19 @@
 import { CartItem } from "../../../types/cartItems";
 import {
-  BuyXGetYRawCoupon,
-  FixedDiscountRawCoupon,
-  PercentageDiscountRawCoupon,
-} from "../../../types/rawCoupon";
+  BuyXGetYCouponResponse,
+  FixedDiscountCouponResponse,
+  PercentageDiscountCouponResponse,
+} from "../../../types/couponResponses";
 import { calculateProportionalAmount } from "../../../utils/math/calculateProportionalAmount";
 import { getMaxNumberFromList } from "../../../utils/math/getMaxFromNumberList";
 import { roundDownToTens } from "../../../utils/math/roundDownToTens";
 
-export const calculateFixedDiscountAmount = (coupon: FixedDiscountRawCoupon): number => {
+export const calculateFixedDiscountAmount = (coupon: FixedDiscountCouponResponse): number => {
   return coupon.discount;
 };
 
 export const calculatePercentageDiscountAmount = (
-  coupon: PercentageDiscountRawCoupon,
+  coupon: PercentageDiscountCouponResponse,
   totalAmount: number
 ): number => {
   const discountAmount = calculateProportionalAmount(coupon.discount, totalAmount);
@@ -23,7 +23,7 @@ export const calculatePercentageDiscountAmount = (
 };
 
 export const calculateBuyXGetYDiscountAmount = (
-  coupon: BuyXGetYRawCoupon,
+  coupon: BuyXGetYCouponResponse,
   cartItems: CartItem[]
 ): number => {
   const { buyQuantity, getQuantity } = coupon;

@@ -1,9 +1,9 @@
 import { selector } from "recoil";
 import { fetchCoupons } from "../api/coupons";
-import { RawCoupon } from "../types/rawCoupon";
+import { CouponResponse } from "../types/couponResponses";
 
-export const rawCouponsSelector = selector<RawCoupon[]>({
-  key: "rawCouponsSelector",
+export const couponResponsesSelector = selector<CouponResponse[]>({
+  key: "couponResponsesSelector",
   get: async () => {
     const coupons = await fetchCoupons();
     return coupons;

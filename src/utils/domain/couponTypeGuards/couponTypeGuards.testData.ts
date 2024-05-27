@@ -1,14 +1,14 @@
 import { COUPON_DISCOUNT_TYPE } from "../../../constants/couponDiscountType";
 import type { CouponDiscountType } from "../../../types/couponDiscountType";
 import type {
-  BuyXGetYRawCoupon,
-  FixedDiscountRawCoupon,
-  FreeShippingRawCoupon,
-  PercentageDiscountRawCoupon,
-  RawCoupon,
-} from "../../../types/rawCoupon";
+  BuyXGetYCouponResponse,
+  FixedDiscountCouponResponse,
+  FreeShippingCouponResponse,
+  PercentageDiscountCouponResponse,
+  CouponResponse,
+} from "../../../types/couponResponses";
 
-const fixed: FixedDiscountRawCoupon = {
+const fixed: FixedDiscountCouponResponse = {
   id: 1,
   code: "FIXED100",
   description: "Get $100 off",
@@ -17,7 +17,7 @@ const fixed: FixedDiscountRawCoupon = {
   discount: 100,
 };
 
-const percentage: PercentageDiscountRawCoupon = {
+const percentage: PercentageDiscountCouponResponse = {
   id: 2,
   code: "PERCENT10",
   description: "Get 10% off",
@@ -26,7 +26,7 @@ const percentage: PercentageDiscountRawCoupon = {
   discount: 10,
 };
 
-const buyXgetY: BuyXGetYRawCoupon = {
+const buyXgetY: BuyXGetYCouponResponse = {
   id: 3,
   code: "BUY2GET1",
   description: "Buy 2 get 1 free",
@@ -36,7 +36,7 @@ const buyXgetY: BuyXGetYRawCoupon = {
   getQuantity: 1,
 };
 
-const freeShipping: FreeShippingRawCoupon = {
+const freeShipping: FreeShippingCouponResponse = {
   id: 4,
   code: "FREESHIPPING",
   description: "Free shipping",
@@ -45,7 +45,7 @@ const freeShipping: FreeShippingRawCoupon = {
 };
 
 export const TEST_COUPON: {
-  [type in CouponDiscountType]: RawCoupon;
+  [type in CouponDiscountType]: CouponResponse;
 } = {
   fixed,
   percentage,

@@ -2,10 +2,11 @@ import { useRecoilValue } from "recoil";
 import { useToggleSet } from "../useToggleSet";
 import { useCouponListDiscountCalculator } from "../useCouponListDiscountCalculator";
 import { useCouponSelectabilityChecker } from "../useCouponSelectabilityChecker";
-import { rawCouponsSelector } from "../../recoil/rawCoupons";
+import { couponResponsesSelector } from "../../recoil/couponResponses";
 import { cartAmountState } from "../../recoil/cartAmount";
 import { Coupon } from "../../types/coupon";
 import { MAX_SELECTABLE_COUPON_COUNT } from "./ruleConstants";
+import { CouponResponse } from "../../types/couponResponses";
 
 interface UseCouponsReturn {
   coupons: Coupon[];
@@ -16,14 +17,14 @@ interface UseCouponsReturn {
 }
 
 export const useCoupons = (): UseCouponsReturn => {
-  const rawCoupons = useRecoilValue(rawCouponsSelector);
+  const couponResponses = useRecoilValue(couponResponsesSelector);
   const [selectedCouponIds, toggleSelection] = useToggleSet<number>();
   const { totalOrderAmount } = useRecoilValue(cartAmountState);
 
   const { checkCouponSelectable } = useCouponSelectabilityChecker();
   const { calculateCouponListDiscount } = useCouponListDiscountCalculator();
 
-  const coupons: Coupon[] = rawCoupons.map((coupon) => ({
+  const coupons: Coupon[] = couponResponses.map((coupon: CouponResponse) => ({
     ...coupon,
     isSelected: selectedCouponIds.has(coupon.id),
     isSelectable: checkCouponSelectable(coupon),

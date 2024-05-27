@@ -5,22 +5,22 @@ import {
   FreeShippingCoupon,
   PercentageDiscountCoupon,
 } from "../../../types/coupon";
-import { RawCoupon } from "../../../types/rawCoupon";
+import { CouponResponse } from "../../../types/couponResponses";
 
-export const isFixedDiscountCoupon = (coupon: RawCoupon): coupon is FixedDiscountCoupon => {
+export const isFixedDiscountCoupon = (coupon: CouponResponse): coupon is FixedDiscountCoupon => {
   return coupon.discountType === COUPON_DISCOUNT_TYPE.fixed;
 };
 
 export const isPercentageDiscountCoupon = (
-  coupon: RawCoupon
+  coupon: CouponResponse
 ): coupon is PercentageDiscountCoupon => {
   return coupon.discountType === COUPON_DISCOUNT_TYPE.percentage;
 };
 
-export const isBuyXGetYCoupon = (coupon: RawCoupon): coupon is BuyXGetYCoupon => {
+export const isBuyXGetYCoupon = (coupon: CouponResponse): coupon is BuyXGetYCoupon => {
   return coupon.discountType === COUPON_DISCOUNT_TYPE.buyXgetY;
 };
 
-export const isFreeShippingCoupon = (coupon: RawCoupon): coupon is FreeShippingCoupon => {
+export const isFreeShippingCoupon = (coupon: CouponResponse): coupon is FreeShippingCoupon => {
   return coupon.discountType === COUPON_DISCOUNT_TYPE.freeShipping;
 };

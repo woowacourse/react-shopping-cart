@@ -7,11 +7,11 @@ import type {
 } from "./couponDiscountType";
 import type { TimeString, DateString } from "./date";
 
-export type RawCoupon =
-  | FixedDiscountRawCoupon
-  | PercentageDiscountRawCoupon
-  | BuyXGetYRawCoupon
-  | FreeShippingRawCoupon;
+export type CouponResponse =
+  | FixedDiscountCouponResponse
+  | PercentageDiscountCouponResponse
+  | BuyXGetYCouponResponse
+  | FreeShippingCouponResponse;
 
 interface BaseCoupon {
   id: number;
@@ -26,22 +26,22 @@ interface BaseCoupon {
   };
 }
 
-export interface FixedDiscountRawCoupon extends BaseCoupon {
+export interface FixedDiscountCouponResponse extends BaseCoupon {
   discountType: FixedDiscount;
   discount: number;
 }
 
-export interface PercentageDiscountRawCoupon extends BaseCoupon {
+export interface PercentageDiscountCouponResponse extends BaseCoupon {
   discountType: PercentageDiscount;
   discount: number;
 }
 
-export interface BuyXGetYRawCoupon extends BaseCoupon {
+export interface BuyXGetYCouponResponse extends BaseCoupon {
   discountType: BuyXGetY;
   buyQuantity: number;
   getQuantity: number;
 }
 
-export interface FreeShippingRawCoupon extends BaseCoupon {
+export interface FreeShippingCouponResponse extends BaseCoupon {
   discountType: FreeShipping;
 }

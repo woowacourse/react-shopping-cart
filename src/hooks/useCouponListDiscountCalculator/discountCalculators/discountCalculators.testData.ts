@@ -1,12 +1,12 @@
 import { COUPON_DISCOUNT_TYPE } from "../../../constants/couponDiscountType";
 import {
-  BuyXGetYRawCoupon,
-  FixedDiscountRawCoupon,
-  FreeShippingRawCoupon,
-  PercentageDiscountRawCoupon,
-} from "../../../types/rawCoupon";
+  BuyXGetYCouponResponse,
+  FixedDiscountCouponResponse,
+  FreeShippingCouponResponse,
+  PercentageDiscountCouponResponse,
+} from "../../../types/couponResponses";
 
-const fixed5000: FixedDiscountRawCoupon = {
+const fixed5000: FixedDiscountCouponResponse = {
   id: 1,
   code: "FIXED5000",
   description: "5,000원 할인 테스트 쿠폰",
@@ -15,7 +15,7 @@ const fixed5000: FixedDiscountRawCoupon = {
   discount: 5000,
 };
 
-const percentage10: PercentageDiscountRawCoupon = {
+const percentage10: PercentageDiscountCouponResponse = {
   id: 2,
   code: "PERCENT10",
   description: "10% 할인 테스트 쿠폰",
@@ -24,7 +24,7 @@ const percentage10: PercentageDiscountRawCoupon = {
   discount: 10,
 };
 
-const buy2Get1: BuyXGetYRawCoupon = {
+const buy2Get1: BuyXGetYCouponResponse = {
   id: 3,
   code: "2개 구매 시 1개 무료 테스트 쿠폰",
   description: "Buy 2 get 1 free",
@@ -34,7 +34,7 @@ const buy2Get1: BuyXGetYRawCoupon = {
   getQuantity: 1,
 };
 
-const freeShipping: FreeShippingRawCoupon = {
+const freeShipping: FreeShippingCouponResponse = {
   id: 4,
   code: "무료 배송 테스트 쿠폰",
   description: "Free shipping on your order",

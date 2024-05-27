@@ -1,9 +1,9 @@
 import { CartItem } from "../../../types/cartItems";
 import {
-  BuyXGetYRawCoupon,
-  FixedDiscountRawCoupon,
-  FreeShippingRawCoupon,
-} from "../../../types/rawCoupon";
+  BuyXGetYCouponResponse,
+  FixedDiscountCouponResponse,
+  FreeShippingCouponResponse,
+} from "../../../types/couponResponses";
 import { COUPON_DISCOUNT_TYPE } from "../../../constants/couponDiscountType";
 import { CartAmount } from "../../../recoil/cartAmount";
 import { isCouponSelectable } from ".";
@@ -32,7 +32,7 @@ describe("isCouponSelectable", () => {
   const now = new Date("2024-05-23T12:00:00");
 
   it("모든 조건(만료일, 가능 시간, 최소 금액, 최소 수량)을 충족했을 때 선택 가능으로 판정한다.", () => {
-    const coupon: BuyXGetYRawCoupon = {
+    const coupon: BuyXGetYCouponResponse = {
       id: 6,
       code: "BUY2GET1",
       description: "BUY2GET1 테스트 쿠폰",
@@ -50,7 +50,7 @@ describe("isCouponSelectable", () => {
   it("주문 금액이 minimumAmount 미만일 경우 선택 불가능으로 판정한다.", () => {
     const AMOUNT_OVER_ORDER_AMOUNT = cartAmount.orderAmount + 1;
 
-    const coupon: FixedDiscountRawCoupon = {
+    const coupon: FixedDiscountCouponResponse = {
       id: 1,
       code: "FIXED1000",
       description: "FIXED1000 테스트 쿠폰",
@@ -66,7 +66,7 @@ describe("isCouponSelectable", () => {
   it("오늘 날짜가 expirationDate을 지났을 경우 선택 불가능으로 판정한다.", () => {
     const YESTERDAY = "2024-05-22";
 
-    const coupon: FixedDiscountRawCoupon = {
+    const coupon: FixedDiscountCouponResponse = {
       id: 2,
       code: "FIXED1000",
       description: "FIXED1000 테스트 쿠폰",
@@ -84,7 +84,7 @@ describe("isCouponSelectable", () => {
       end: "12:00:00",
     } as const;
 
-    const coupon: FixedDiscountRawCoupon = {
+    const coupon: FixedDiscountCouponResponse = {
       id: 3,
       code: "FIXED1000",
       description: "FIXED1000 테스트 쿠폰",
@@ -98,7 +98,7 @@ describe("isCouponSelectable", () => {
   });
 
   it("무료 배송 쿠폰이면서 배송 금액이 0인 경우 선택 불가능으로 판정한다.", () => {
-    const coupon: FreeShippingRawCoupon = {
+    const coupon: FreeShippingCouponResponse = {
       id: 4,
       code: "FREESHIP",
       description: "FREESHIP 테스트 쿠폰",
@@ -112,7 +112,7 @@ describe("isCouponSelectable", () => {
   });
 
   it("증정 쿠폰이면서 증정 수량 조건을 충족하지 못한 경우 선택 불가능으로 판정한다.", () => {
-    const coupon: BuyXGetYRawCoupon = {
+    const coupon: BuyXGetYCouponResponse = {
       id: 5,
       code: "BUY2GET1",
       description: "BUY2GET1 테스트 쿠폰",
