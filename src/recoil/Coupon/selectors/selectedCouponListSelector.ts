@@ -1,6 +1,6 @@
 import { selectorFamily } from 'recoil';
 
-import { Coupon } from '../../../types/Coupon.type';
+import { Coupon } from '../../../types/Coupon';
 import { selectedCouponListState } from '../atoms/selectedCouponListState';
 
 export const selectedCouponListSelector = selectorFamily<boolean, Coupon>({

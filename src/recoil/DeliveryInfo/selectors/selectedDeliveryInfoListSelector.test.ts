@@ -4,7 +4,7 @@ import { RecoilRoot, useRecoilCallback, useRecoilValue } from 'recoil';
 import { renderHook } from '@testing-library/react';
 
 import { selectedDeliveryInfoListMockData } from '../../../mockData/selectedDeliveryListMockData';
-import { DeliveryInfo } from '../../../types/DeliveryInfo.type';
+import { DeliveryInfo } from '../../../types/DeliveryInfo';
 import { selectedDeliveryInfoListState } from '../atoms/selectedDeliveryInfoListState';
 import { selectedDeliveryInfoListSelector } from './selectedDeliveryInfoListSelector';
 

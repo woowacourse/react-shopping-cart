@@ -1,4 +1,4 @@
-import type { DeliveryInfo } from '../types/DeliveryInfo.type';
+import type { DeliveryInfo } from '../types/DeliveryInfo';
 
 export const DELIVERY_FEE_DISCOUNT_THRESHOLD = 100000;
 

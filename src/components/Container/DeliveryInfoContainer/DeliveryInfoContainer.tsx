@@ -4,7 +4,7 @@ import { selectedDeliveryInfoListSelector } from '../../../recoil/DeliveryInfo/s
 import CheckButton from '../../Button/CheckButton/CheckButton';
 import * as S from './DeliveryInfoContainer.style';
 
-import type { DeliveryInfo } from '../../../types/DeliveryInfo.type';
+import type { DeliveryInfo } from '../../../types/DeliveryInfo';
 
 interface DeliveryInfoContainerProps {
   item: DeliveryInfo;

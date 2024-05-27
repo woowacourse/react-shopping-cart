@@ -19,7 +19,7 @@ import { selectedCartItemListTotalCountSelector } from '../../recoil/CartItem/se
 import { selectedCouponListState } from '../../recoil/Coupon/atoms/selectedCouponListState';
 import * as S from './OrderConfirmPage.style';
 
-import type { Coupon } from '../../types/Coupon.type';
+import type { Coupon } from '../../types/Coupon';
 
 function OrderConfirmPage() {
   const couponList = useLoaderData() as Coupon[];

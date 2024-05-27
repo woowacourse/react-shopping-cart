@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { selectedCouponListState } from '../recoil/Coupon/atoms/selectedCouponListState';
 import { useCalculateDeliveryFee } from './useCalculateDeliveryFee';
 
-import type { Coupon } from '../types/Coupon.type';
+import type { Coupon } from '../types/Coupon';
 
 export const useCouponCheck = () => {
   const { deliveryFee } = useCalculateDeliveryFee();

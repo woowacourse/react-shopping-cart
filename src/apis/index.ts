@@ -1,8 +1,8 @@
-import type { CartItem } from '../types/CartItem.type';
+import type { CartItem } from '../types/CartItem.ts';
 import { CART_ITEM_ERROR_MESSAGE } from '../constants/MESSAGES';
 import generateBasicToken from '../utils/auth';
 
-import type { Coupon } from '../types/Coupon.type.ts';
+import type { Coupon } from '../types/Coupon.ts';
 
 const API_URL = import.meta.env.VITE_API_URL;
 const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;

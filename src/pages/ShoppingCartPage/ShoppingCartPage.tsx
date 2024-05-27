@@ -13,7 +13,7 @@ import { PATHS } from '../../constants/PATHS';
 import { selectedCartItemListState } from '../../recoil/CartItem/atoms/selectedCartItemListState';
 import * as S from './ShoppingCartPage.style';
 
-import type { CartItem } from '../../types/CartItem.type';
+import type { CartItem } from '../../types/CartItem';
 
 function ShoppingCartPage() {
   const initialValue = useLoaderData() as CartItem[];

@@ -7,7 +7,7 @@ import CheckButton from '../../Button/CheckButton/CheckButton';
 import CartItemContainer from '../../Container/CartItemContainer/CartItemContainer';
 import * as S from './CartItemList.style';
 
-import type { CartItem } from '../../../types/CartItem.type';
+import type { CartItem } from '../../../types/CartItem';
 
 interface CartItemListProps {
   cartItemList: CartItem[];

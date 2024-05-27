@@ -5,7 +5,7 @@ import { CART_ITEM_ERROR_MESSAGE } from '../../constants/MESSAGES';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './ErrorPage.style';
 
-import type { ErrorType } from '../../types/Error.type';
+import type { ErrorType } from '../../types/Error';
 
 interface ErrorPageProps {
   error?: string;

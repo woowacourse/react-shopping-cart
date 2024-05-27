@@ -2,7 +2,7 @@ import { selectorFamily } from 'recoil';
 
 import { selectedDeliveryInfoListState } from '../atoms/selectedDeliveryInfoListState';
 
-import type { DeliveryInfo } from '../../../types/DeliveryInfo.type';
+import type { DeliveryInfo } from '../../../types/DeliveryInfo';
 
 export const selectedDeliveryInfoListSelector = selectorFamily<boolean, DeliveryInfo>({
   key: 'selectedDeliveryInfoListSelector',

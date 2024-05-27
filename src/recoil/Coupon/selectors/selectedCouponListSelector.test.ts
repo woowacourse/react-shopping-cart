@@ -4,7 +4,7 @@ import { RecoilRoot, useRecoilCallback, useRecoilValue } from 'recoil';
 import { renderHook } from '@testing-library/react';
 
 import { couponListMockData } from '../../../mockData/couponListMockData';
-import { Coupon } from '../../../types/Coupon.type';
+import { Coupon } from '../../../types/Coupon';
 import { selectedCouponListState } from '../atoms/selectedCouponListState';
 import { selectedCouponListSelector } from './selectedCouponListSelector';
 

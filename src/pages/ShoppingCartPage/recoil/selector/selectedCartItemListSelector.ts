@@ -1,7 +1,8 @@
 import { selectorFamily } from 'recoil';
-import type { TCartItem } from '../../../../types/CartItem.type';
+
 import { selectedCartItemListState } from '../atom/selectedCartItemListState';
 
+import type { TCartItem } from '../../../../types/CartItem';
 export const selectedCartItemListSelector = selectorFamily<boolean, TCartItem>({
   key: 'selectedCartItemListSelector',
   get:

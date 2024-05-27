@@ -1,4 +1,4 @@
-import type { AvailableTime } from '../types/Coupon.type';
+import type { AvailableTime } from '../types/Coupon';
 
 export const formatExpirationDate = (input: string): string => {
   const date = new Date(input);

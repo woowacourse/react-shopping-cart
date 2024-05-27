@@ -7,7 +7,7 @@ import { selectedDeliveryInfoListMockData } from '../mockData/selectedDeliveryLi
 import { selectedCartItemListState } from '../recoil/CartItem/atoms/selectedCartItemListState';
 import { deliveryFeeState } from '../recoil/DeliveryFee/atoms/deliveryFeeState';
 import { selectedDeliveryInfoListState } from '../recoil/DeliveryInfo/atoms/selectedDeliveryInfoListState';
-import { CartItem } from '../types/CartItem.type';
+import { CartItem } from '../types/CartItem';
 import { useCalculateDeliveryFee } from './useCalculateDeliveryFee';
 
 describe('useCalculateDeliveryFee', () => {

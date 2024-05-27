@@ -5,7 +5,7 @@ import CheckButton from '../../Button/CheckButton/CheckButton';
 import QuantityContainer from '../QuantityContainer/QuantityContainer';
 import * as S from './CartItemContainer.style';
 
-import type { CartItem } from '../../../types/CartItem.type';
+import type { CartItem } from '../../../types/CartItem';
 interface CartItemProps {
   item: CartItem;
   onRemoveItem?: (cartItemId: number) => void;

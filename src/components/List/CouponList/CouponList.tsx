@@ -5,7 +5,7 @@ import { selectedCartItemListTotalPriceSelector } from '../../../recoil/CartItem
 import CouponContainer from '../../Container/CouponContainer/CouponContainer';
 import * as S from './CouponList.style';
 
-import type { Coupon } from '../../../types/Coupon.type';
+import type { Coupon } from '../../../types/Coupon';
 
 interface CouponListProps {
   couponList: Coupon[];

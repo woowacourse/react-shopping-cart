@@ -6,7 +6,7 @@ import { useCalculateTotalCouponDiscount } from '../../hooks/useCalculateCouponD
 import { useToggleModal } from '../../hooks/useToggleModal';
 import * as S from './ApplyCouponModal.style';
 
-import type { Coupon } from '../../types/Coupon.type';
+import type { Coupon } from '../../types/Coupon';
 
 interface ApplyCouponModalProps {
   couponList: Coupon[];

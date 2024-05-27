@@ -5,7 +5,7 @@ import { formatExpirationDate, formatMinimumAmount, formatTimeRange } from '../.
 import CheckButton from '../../Button/CheckButton/CheckButton';
 import * as S from './CouponContainer.style';
 
-import type { Coupon } from '../../../types/Coupon.type';
+import type { Coupon } from '../../../types/Coupon';
 
 interface CouponContainerProps {
   coupon: Coupon;
