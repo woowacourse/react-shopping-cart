@@ -14,11 +14,12 @@ const useCouponModal = ({ isOpened, closeModal }: Props) => {
   const [tempSelectedCoupons, setTempSelectedCoupons] = useState<CouponType[]>(
     []
   );
-  const { calculateDiscountAmount } = useDiscountSimulator();
-
   const [selectedCoupons, setSelectedCoupons] =
     useRecoilState(selectedCouponsState);
+
   const setDiscountAmount = useSetRecoilState(discountAmountState);
+
+  const { calculateDiscountAmount } = useDiscountSimulator();
 
   const tempDiscount = tempSelectedCoupons.reduce((accAmount, curCoupon) => {
     accAmount = accAmount + calculateDiscountAmount(curCoupon);
