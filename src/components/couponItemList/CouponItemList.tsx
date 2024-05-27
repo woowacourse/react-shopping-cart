@@ -1,20 +1,23 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { getCouponList } from '../../api';
 import {
+  isValidCouponSelectionState,
+  orderPriceState,
+} from '../../recoil/selector/selector';
+import { CouponProps } from '../../types';
+import { isCouponAvailableQuantity } from '../../validators/isCouponAvailableQuantity/isCouponAvailableQuantity';
+import { isCouponAvailableTime } from '../../validators/isCouponAvailableTime/isCouponAvailableTime';
+import { isCouponExpired } from '../../validators/isCouponExpired/isCouponExpired';
+import { isOrderMinimumAmount } from '../../validators/isOrderMinimumAmount/isOrderMinimumAmount';
+import { CouponItem } from '../couponItem/CouponItem';
+import { ErrorAlertModal } from '../errorAlertModal/ErrorAlertModal';
+import {
   cartErrorMessageState,
   couponItemsState,
   previewSelectedCouponsState,
   selectedItemsState,
 } from '../../recoil/atoms/atoms';
-import { CouponItem } from '../couponItem/CouponItem';
 import { useEffect } from 'react';
-import { ErrorAlertModal } from '../errorAlertModal/ErrorAlertModal';
-import { CouponProps } from '../../types';
-import { isCouponExpired } from '../../validators/isCouponExpired/isCouponExpired';
-import { isCouponAvailableTime } from '../../validators/isCouponAvailableTime/isCouponAvailableTime';
-import { isOrderMinimumAmount } from '../../validators/isOrderMinimumAmount/isOrderMinimumAmount';
-import { orderPriceState } from '../../recoil/selector/selector';
-import { isCouponAvailableQuantity } from '../../validators/isCouponAvailableQuantity/isCouponAvailableQuantity';
 
 export const CouponItemList: React.FC = () => {
   const selectedItems = useRecoilValue(selectedItemsState);
@@ -26,6 +29,7 @@ export const CouponItemList: React.FC = () => {
     cartErrorMessageState,
   );
   const orderPrice = useRecoilValue(orderPriceState);
+  const isValidCouponSelection = useRecoilValue(isValidCouponSelectionState);
 
   useEffect(() => {
     const fetchCouponItems = async () => {
@@ -53,7 +57,7 @@ export const CouponItemList: React.FC = () => {
     if (isSelected(item)) {
       setPreviewSelectedCoupons((prev) =>
         prev.filter(
-          (previewSelectedCoupons) => previewSelectedCoupons.id !== item.id,
+          (previewSelectedCoupon) => previewSelectedCoupon.id !== item.id,
         ),
       );
     } else {
@@ -85,19 +89,25 @@ export const CouponItemList: React.FC = () => {
     }
   };
 
+  const isValidItem = (item: CouponProps) => {
+    if (!isValidCouponSelection) {
+      return isSelected(item) ? isValidCoupon(item) : false;
+    } else {
+      return isValidCoupon(item);
+    }
+  };
+
   return (
     <>
-      {couponItems.map((item) => {
-        return (
-          <CouponItem
-            key={item.code}
-            item={item}
-            onSelect={() => handleSelectCoupon(item)}
-            selected={isSelected(item)}
-            isValid={isValidCoupon(item)}
-          />
-        );
-      })}
+      {couponItems.map((item) => (
+        <CouponItem
+          key={item.id}
+          item={item}
+          onSelect={() => handleSelectCoupon(item)}
+          selected={isSelected(item)}
+          isValid={isValidItem(item)}
+        />
+      ))}
       {cartErrorMessage.length > 0 && (
         <ErrorAlertModal errorMessage={cartErrorMessage} />
       )}

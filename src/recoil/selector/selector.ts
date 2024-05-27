@@ -123,3 +123,14 @@ export const totalDiscountAmountState = selector<number>({
     return totalDiscountAmount;
   },
 });
+
+export const isValidCouponSelectionState = selector<boolean>({
+  key: 'isValidCouponSelectionState',
+  get: ({ get }) => {
+    const previewSelectedCoupons = get(previewSelectedCouponsState);
+    if (previewSelectedCoupons.length < 2) {
+      return true;
+    }
+    return false;
+  },
+});
