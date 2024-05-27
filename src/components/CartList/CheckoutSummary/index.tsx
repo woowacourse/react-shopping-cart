@@ -18,7 +18,11 @@ import {
   PriceRowContainer,
 } from "./style";
 
-export default function CheckoutSummary() {
+interface CheckoutSummaryProps {
+  includesCouponDiscount?: boolean
+}
+
+export default function CheckoutSummary({includesCouponDiscount= false}:CheckoutSummaryProps) {
   const totalPrice = useRecoilValue(cartListTotalPrice);
   const { totalDiscountAmount } = useCoupons();
   const shippingFee = useRecoilValue(shippingFeeSelector);
@@ -37,13 +41,15 @@ export default function CheckoutSummary() {
           <Label>주문 금액</Label>
           <Price>{formatPriceToKoreanWon(totalPrice)}</Price>
         </PriceRow>
-        <PriceRow>
-          <Label>쿠폰 할인 금액</Label>
-          <Price>
-            {totalDiscountAmount > 0 && "-"}
-            {formatPriceToKoreanWon(totalDiscountAmount)}
-          </Price>
-        </PriceRow>
+        {includesCouponDiscount && (
+            <PriceRow>
+              <Label>쿠폰 할인 금액</Label>
+              <Price>
+                {totalDiscountAmount > 0 && "-"}
+                {formatPriceToKoreanWon(totalDiscountAmount)}
+              </Price>
+            </PriceRow>
+        )}
         <PriceRow>
           <Label>배송비</Label>
           <Price>{formatPriceToKoreanWon(shippingFee)}</Price>

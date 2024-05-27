@@ -85,7 +85,7 @@ const OrderConfirmPage: React.FC = () => {
           isSelected={islandMountainRegionCheck}
           toggleSelected={() => handleIslandMountainRegionToggle()}
         />
-        <CheckoutSummary />
+        <CheckoutSummary includesCouponDiscount/>
       </Layout>
     </Modal.Provider>
   );
