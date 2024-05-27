@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import { ChangeEvent } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
+import OrderItem from './OrderItem';
 import HeaderTitleContainer from '../common/HeaderTitleContainer';
 import CouponModal from '../Coupon/CouponModal';
 
@@ -9,7 +10,6 @@ import OrderInfo from '@/components/common/OrderInfo';
 import useModal from '@/hooks/useModal';
 import { isAdditionalShippingState } from '@/recoil/coupons/atoms';
 import { fetchCouponSelector } from '@/recoil/coupons/fetchCouponSelector';
-import CartItem from '@common/CartItem';
 import Checkbox from '@common/Checkbox';
 import { THEME } from '@constants/theme';
 import {
@@ -39,7 +39,7 @@ const OrderConfirmMainSection = () => {
       />
       <div>
         {checkedCartItems.map((checkedCartItem) => (
-          <CartItem key={checkedCartItem.id} item={checkedCartItem} type="ORDER" />
+          <OrderItem key={checkedCartItem.id} item={checkedCartItem} />
         ))}
       </div>
       <button css={couponButton} onClick={handleOpenModal}>
