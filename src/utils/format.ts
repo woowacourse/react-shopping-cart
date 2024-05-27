@@ -8,6 +8,8 @@ export const dateFormat = (targetDate: Date) => {
   return year + '년 ' + month + '월 ' + date + '일';
 };
 
+/** @returns 시간을 '오전 11시 12분 13초'의 형태로 포맷 */
+
 export const timeFormat = (targetTime: string, isPrefix: boolean) => {
   let formatTime = '';
   const [targetHours, targetMinutes, targetSeconds] = targetTime.split(':');
