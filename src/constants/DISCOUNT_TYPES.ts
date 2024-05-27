@@ -1,4 +1,4 @@
-export const DiscountTypes = {
+export const DISCOUNT_TYPES = {
   fixed: 'fixed',
   buyXgetY: 'buyXgetY',
   freeShipping: 'freeShipping',

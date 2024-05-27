@@ -1,6 +1,6 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-import { DiscountTypes } from '../constants/DiscountType';
+import { DISCOUNT_TYPES } from '../constants/DISCOUNT_TYPES';
 import { selectedCartItemListState } from '../recoil/CartItem/atoms/selectedCartItemListState';
 import { selectedCartItemListTotalPriceSelector } from '../recoil/CartItem/selectors/selectedCartItemListTotalPriceSelector';
 import { selectedCouponListState } from '../recoil/Coupon/atoms/selectedCouponListState';
@@ -14,10 +14,10 @@ export function useCalculateCouponDiscount() {
 
   const calculateCouponDiscount = (currentTotalPrice: number, coupon: Coupon) => {
     switch (coupon.discountType) {
-      case DiscountTypes.fixed: {
+      case DISCOUNT_TYPES.fixed: {
         return coupon.discount!;
       }
-      case DiscountTypes.buyXgetY: {
+      case DISCOUNT_TYPES.buyXgetY: {
         const x = coupon.buyQuantity!;
         const y = coupon.getQuantity!;
         const eligibleItems = selectedCartItemList.filter((item) => item.quantity >= x + y);
@@ -27,10 +27,10 @@ export function useCalculateCouponDiscount() {
         );
         return mostExpensiveItem.product.price * y;
       }
-      case DiscountTypes.freeShipping: {
+      case DISCOUNT_TYPES.freeShipping: {
         return deliveryFee;
       }
-      case DiscountTypes.percentage: {
+      case DISCOUNT_TYPES.percentage: {
         return Math.round(currentTotalPrice * (coupon.discount! * 0.01));
       }
       default: {
@@ -51,19 +51,19 @@ export function useCalculateTotalCouponDiscount() {
   const selectedCouponList = useRecoilValue(selectedCouponListState);
 
   const calculateTotalCouponDiscount = () => {
-    const bogoCoupons = selectedCouponList.filter((coupon) => coupon.discountType === DiscountTypes.buyXgetY);
+    const bogoCoupons = selectedCouponList.filter((coupon) => coupon.discountType === DISCOUNT_TYPES.buyXgetY);
     const bogoDiscountedPrice = bogoCoupons.reduce((acc, cur) => {
       return acc - calculateCouponDiscount(acc, cur);
     }, selectedCartItemTotalPrice);
 
-    const percentageCoupons = selectedCouponList.filter((coupon) => coupon.discountType === DiscountTypes.percentage);
+    const percentageCoupons = selectedCouponList.filter((coupon) => coupon.discountType === DISCOUNT_TYPES.percentage);
     percentageCoupons.sort((a, b) => b.discount! - a.discount!);
     const percentageDiscountedPrice = percentageCoupons.reduce((acc, cur) => {
       return acc - calculateCouponDiscount(acc, cur);
     }, bogoDiscountedPrice);
 
     const fixedCoupons = selectedCouponList.filter(
-      (coupon) => coupon.discountType !== DiscountTypes.percentage && coupon.discountType !== DiscountTypes.buyXgetY,
+      (coupon) => coupon.discountType !== DISCOUNT_TYPES.percentage && coupon.discountType !== DISCOUNT_TYPES.buyXgetY,
     );
     const totalDiscountedPrice = fixedCoupons.reduce((acc, cur) => {
       return acc - calculateCouponDiscount(acc, cur);
