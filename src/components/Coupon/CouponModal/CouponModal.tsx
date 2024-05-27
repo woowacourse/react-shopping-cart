@@ -6,6 +6,7 @@ import { isCheckedCoupon } from '../../../utils/coupons/isCheckedCoupon';
 import CouponItem from '../CouponItem/CouponItem';
 
 import GuideText from '@/components/common/GuideText/GuideText';
+import { CouponCode } from '@/constants/coupon';
 import { couponChecklistState } from '@/recoil/coupons/atoms';
 import { Coupon } from '@/types/coupon';
 
@@ -28,7 +29,7 @@ const CouponModal = ({ isOpen, onClose, couponList }: CouponModalProps) => {
   };
 
   const convertDiscountLabel = () => {
-    const isFreeShipping = isCheckedCoupon(localCouponChecklist, 'FREESHIPPING');
+    const isFreeShipping = isCheckedCoupon(localCouponChecklist, CouponCode.FREESHIPPING);
     const displayDiscountLabel = `총 ${localDiscountPrice.toLocaleString('ko-KR')}원 할인 쿠폰 사용하기`;
 
     return isFreeShipping ? `${displayDiscountLabel} + 무료 배송` : `${displayDiscountLabel}`;

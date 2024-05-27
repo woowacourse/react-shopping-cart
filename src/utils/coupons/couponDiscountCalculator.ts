@@ -1,5 +1,6 @@
 import { couponApplicabilityChecker } from './couponApplicabilityChecker';
 
+import { DiscountType } from '@/constants/coupon';
 import { CartItemProps } from '@/types/cartItem';
 import { Coupon } from '@/types/coupon';
 
@@ -55,11 +56,11 @@ const couponDiscountCalculator = (couponList: Coupon[]) => {
     }
 
     switch (coupon.discountType) {
-      case 'fixed':
+      case DiscountType.fixed:
         return calculateFixedDiscount(coupon, totalOrderPrice);
-      case 'percentage':
+      case DiscountType.percentage:
         return calculatePercentageDiscount(coupon, totalOrderPrice);
-      case 'buyXgetY':
+      case DiscountType.buyXgetY:
         return calculateTwoPlusOneDiscount(coupon, totalOrderPrice, checkedCartItems);
       default:
         return 0;

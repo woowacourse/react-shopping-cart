@@ -1,6 +1,8 @@
+import { CouponCode, DiscountType } from '@/constants/coupon';
+
 export interface Coupon {
   id: number;
-  code: CouponCode;
+  code: CouponCodeType;
   description: string;
   expirationDate: string;
   discount?: number;
@@ -20,8 +22,9 @@ export interface AvailableTime {
   end: AvailableTimeFormat;
 }
 
-export type CouponCode = 'FIXED5000' | 'BOGO' | 'FREESHIPPING' | 'MIRACLESALE';
-export type CouponDiscountType = 'fixed' | 'buyXgetY' | 'freeShipping' | 'percentage';
+export type CouponCodeType = keyof typeof CouponCode;
+
+export type CouponDiscountType = keyof typeof DiscountType;
 
 type Hour = '04' | '07';
 

@@ -4,6 +4,7 @@ import { cartItemsState, checkedItemsState } from './atoms';
 import { couponChecklistState, isAdditionalShippingState } from '../coupons/atoms';
 import { totalDiscountPriceState } from '../coupons/selectors';
 
+import { CouponCode } from '@/constants/coupon';
 import { CartItemProps } from '@/types/cartItem';
 import { calculateShippingPrice } from '@/utils/cartItems/utils';
 import { isCheckedCoupon } from '@/utils/coupons/isCheckedCoupon';
@@ -79,7 +80,7 @@ export const shippingPriceState = selector<number>({
     const isAdditionalShipping = get(isAdditionalShippingState);
     const additionalShipping = isAdditionalShipping ? PRICE.DELIVERY_PRICE : PRICE.FREE;
 
-    const isFreeShipping = isCheckedCoupon(couponCheckList, 'FREESHIPPING');
+    const isFreeShipping = isCheckedCoupon(couponCheckList, CouponCode.FREESHIPPING);
 
     if (isFreeShipping) {
       return PRICE.FREE;

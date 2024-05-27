@@ -1,6 +1,7 @@
 import { couponFinder } from './couponFinder';
 
 import { PRICE } from '@/constants/config';
+import { CouponCode } from '@/constants/coupon';
 import { CartItemProps } from '@/types/cartItem';
 import { Coupon } from '@/types/coupon';
 import { couponValidator } from '@/utils/coupons/couponValidator';
@@ -33,12 +34,15 @@ export const couponApplicabilityChecker = (couponList: Coupon[]) => {
     }
 
     // 총 주문 금액이 100000원 이상일 경우 무료 배송 쿠폰 사용 막기 유효성 검사
-    if (coupon.code === 'FREESHIPPING' && totalOrderPrice >= PRICE.FREE_SHIPPING_CONDITION) {
+    if (
+      coupon.code === CouponCode.FREESHIPPING &&
+      totalOrderPrice >= PRICE.FREE_SHIPPING_CONDITION
+    ) {
       return false;
     }
 
     // BOGO 쿠폰일 경우 3개 이상인 제품을 카운팅하여 쿠폰 유효성 검사
-    if (coupon.code === 'BOGO' && checkedCartItems) {
+    if (coupon.code === CouponCode.BOGO && checkedCartItems) {
       const overThreeQuantityItems = checkedCartItems.filter((cartItem) => cartItem.quantity >= 3);
       return overThreeQuantityItems.length > 0;
     }
