@@ -89,6 +89,7 @@ const applyCoupon = (
   coupon: CouponType,
   product: CartItemType,
   totalShippingFee: number,
+  orderAmount: number,
 ): number => {
   switch (coupon.discountType) {
     case 'fixed':
@@ -101,8 +102,7 @@ const applyCoupon = (
     case 'freeShipping':
       return totalShippingFee;
     case 'percentage':
-      if (coupon.discount)
-        return product.product.price * product.quantity * (coupon.discount / 100);
+      if (coupon.discount) return orderAmount * (coupon.discount / 100);
       return 0;
     default:
       return 0;
@@ -112,6 +112,7 @@ const applyCoupon = (
 const calculator = (
   activeCoupons: CouponType[],
   products: CartItemType[],
+  orderAmount: number,
   totalShippingFee: number,
 ): number => {
   let maxDiscount = 0;
@@ -120,7 +121,7 @@ const calculator = (
     let bestDiscount = 0;
 
     products.forEach((product) => {
-      const discount = applyCoupon(coupon, product, totalShippingFee);
+      const discount = applyCoupon(coupon, product, totalShippingFee, orderAmount);
       if (discount > bestDiscount) {
         bestDiscount = discount;
       }
@@ -162,8 +163,9 @@ export const discountAmountState = selector({
       (product) => isCheckedMap[product.id] === true,
     );
 
+    const orderAmount = get(orderAmountState);
     const { totalShippingFee } = get(totalShippingFeeState);
 
-    return calculator(activeCoupons, checkoutProducts, totalShippingFee);
+    return calculator(activeCoupons, checkoutProducts, orderAmount, totalShippingFee);
   },
 });
