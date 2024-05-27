@@ -6,7 +6,7 @@ import {
   checkedCartItems,
 } from '../recoil/selectors';
 import { MOCK_CART_ITEM } from '../constants/mock';
-import { cartData, cartItemCheckState } from '../recoil/atoms';
+import { cartData, cartItemCheckState, isIslandState } from '../recoil/atoms';
 
 describe('allCartItemsCheckState', () => {
   it('모든 체크 박스를 활성화 시킨다.', () => {
@@ -66,6 +66,7 @@ describe('calculateOrderPrice', () => {
           initializeState={({ set }) => {
             set(cartData, MOCK_CART_ITEM);
             set(cartItemCheckState(checkedItemId), true);
+            set(isIslandState, false);
           }}
         >
           {children}

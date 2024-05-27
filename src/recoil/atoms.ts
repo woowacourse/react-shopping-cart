@@ -42,3 +42,8 @@ export const finalTotalPriceListState = atom<FinalTotalPriceList>({
     totalPaymentPrice: 0,
   },
 });
+
+export const isIslandState = atom({
+  key: 'isIslandState',
+  default: false,
+});

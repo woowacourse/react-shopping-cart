@@ -1,6 +1,7 @@
 import { selector } from 'recoil';
-import { cartData, cartItemCheckState } from './atoms';
+import { cartData, cartItemCheckState, isIslandState } from './atoms';
 import { fetchCartItem, fetchCoupon } from '../api';
+import { RULE } from '../constants/rule';
 
 export const fetchCartData = selector<Cart[]>({
   key: 'fetchCartData',
@@ -39,12 +40,21 @@ export const calculateOrderPrice = selector<Price>({
   key: 'calculateOrderPrice',
   get: ({ get }) => {
     const checkedCart = get(checkedCartItems);
+    const isIsland = get(isIslandState);
+
     const totalOrderPrice = checkedCart.reduce(
       (acc, item) => acc + item.quantity * item.product.price,
       0,
     );
+
     const deliveryFee =
-      totalOrderPrice >= 100000 || totalOrderPrice === 0 ? 0 : 3000;
+      totalOrderPrice >= RULE.minimumFreeShippingOrderPrice ||
+      totalOrderPrice === 0
+        ? RULE.freeShipping
+        : isIsland
+          ? RULE.isLandDeliveryFee
+          : RULE.defaultDeliveryFee;
+
     const totalPrice = totalOrderPrice + deliveryFee;
 
     return { totalOrderPrice, deliveryFee, totalPrice };

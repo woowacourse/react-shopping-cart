@@ -1,7 +1,9 @@
 export const RULE = {
   CheckedLocalStorageName: 'checkedCart',
-  freeShipping: 3000,
-  isLandSurcharge: 3000,
+  minimumFreeShippingOrderPrice: 100000,
+  freeShipping: 0,
+  defaultDeliveryFee: 3000,
+  isLandDeliveryFee: 6000,
 };
 
 export const PATH = {

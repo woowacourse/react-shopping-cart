@@ -1,4 +1,4 @@
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   calculateOrderPrice,
   checkedCartItems,
@@ -17,20 +17,18 @@ import { useState } from 'react';
 import Coupon from '../Coupon/Coupon';
 
 import useCoupon from '../../hooks/useCoupon';
-import { finalTotalPriceListState } from '../../recoil/atoms';
+import { finalTotalPriceListState, isIslandState } from '../../recoil/atoms';
 
 export default function OrderProductList() {
   const order = useRecoilValue(checkedCartItems);
   const { totalOrderPrice } = useRecoilValue(calculateOrderPrice);
   const couponList = useRecoilValue(fetchCouponList);
   const finalTotalPriceList = useRecoilValue(finalTotalPriceListState);
+  const [isIsland, setIsland] = useRecoilState(isIslandState);
 
-  const [isIsland, setIsland] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
-  useCoupon({
-    isIsland: isIsland,
-  });
+  useCoupon();
 
   const priceList: PriceList = {
     0: ['주문 금액', totalOrderPrice],

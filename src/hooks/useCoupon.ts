@@ -11,7 +11,7 @@ import { RULE } from '../constants/rule';
 import { finalTotalPriceListState } from '../recoil/atoms';
 import { useEffect } from 'react';
 
-const useCoupon = ({ isIsland }: { isIsland: boolean }) => {
+const useCoupon = () => {
   const [finalTotalPriceList, setFinalTotalPriceList] = useRecoilState(
     finalTotalPriceListState,
   );
@@ -29,17 +29,6 @@ const useCoupon = ({ isIsland }: { isIsland: boolean }) => {
     orderList,
   }).applicableCoupons();
 
-  const finalDeliveryFee =
-    deliveryFee === 0
-      ? deliveryFee
-      : isIsland
-        ? deliveryFee + RULE.isLandSurcharge
-        : deliveryFee;
-
-  const finalTotalPrice = isIsland
-    ? totalPrice + RULE.isLandSurcharge
-    : totalPrice;
-
   const findBestCouponCombination = () => {
     let bestCombination: { coupons: Coupon[]; totalDiscount: number } = {
       coupons: [],
@@ -53,16 +42,16 @@ const useCoupon = ({ isIsland }: { isIsland: boolean }) => {
 
         const discount1 = discountCalculator({
           coupon: firstCoupon,
-          totalOrderPrice: finalTotalPrice,
+          totalOrderPrice: totalPrice,
           orderList,
-          deliveryFee: finalDeliveryFee,
+          deliveryFee,
         }).calculateDiscountAmount();
 
         const discount2 = discountCalculator({
           coupon: secondCoupon,
-          totalOrderPrice: finalTotalPrice,
+          totalOrderPrice: totalPrice,
           orderList,
-          deliveryFee: finalDeliveryFee,
+          deliveryFee,
         }).calculateDiscountAmount();
 
         const totalDiscount =
@@ -96,16 +85,15 @@ const useCoupon = ({ isIsland }: { isIsland: boolean }) => {
     const bestCombination = findBestCouponCombination();
     const updatedFinalTotalPriceList = {
       applicableCouponList,
-      totalOrderPrice: finalTotalPrice,
+      totalOrderPrice: totalPrice,
       discountPrice: bestCombination.totalDiscount,
       applyCoupons: bestCombination.coupons,
-      deliveryFee: finalDeliveryFee,
-      totalPaymentPrice: finalTotalPrice - bestCombination.totalDiscount,
+      deliveryFee,
+      totalPaymentPrice: totalPrice - bestCombination.totalDiscount,
     };
 
     setFinalTotalPriceList(updatedFinalTotalPriceList);
   }, [
-    isIsland,
     couponList,
     orderList,
     totalOrderPrice,
