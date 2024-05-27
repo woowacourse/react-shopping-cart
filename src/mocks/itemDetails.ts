@@ -1,15 +1,25 @@
 import { ItemDetailsStateType } from '../types/Item';
-import { mockOrderItems } from './orderItems';
+import {
+  mockOrderItemsWithDeliveryFee,
+  mockOrderItemsWithOutDeliveryFee,
+} from './orderItems';
 
 interface mockItemDetailsType extends ItemDetailsStateType {
   id: number;
 }
 
-export const mockItemDetails: mockItemDetailsType[] = mockOrderItems.map(
-  (item) => ({
+export const mockItemDetailsWithDeliveryFee: mockItemDetailsType[] =
+  mockOrderItemsWithDeliveryFee.map((item) => ({
     id: item.id,
     quantity: item.quantity,
     price: item.product.price,
     isChecked: true,
-  }),
-);
+  }));
+
+export const mockItemDetailsWithOutDeliveryFee: mockItemDetailsType[] =
+  mockOrderItemsWithOutDeliveryFee.map((item) => ({
+    id: item.id,
+    quantity: item.quantity,
+    price: item.product.price,
+    isChecked: true,
+  }));

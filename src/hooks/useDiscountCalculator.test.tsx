@@ -3,14 +3,14 @@ import { MutableSnapshot, RecoilRoot } from 'recoil';
 import { useDiscountCalculator } from './useDiscountCalculator';
 import { couponsState, itemDetailsState, itemsState } from '../recoil/atoms';
 import { mockCoupons } from '../mocks/coupons';
-import { mockOrderItems } from '../mocks/orderItems';
-import { mockItemDetails } from '../mocks/itemDetails';
+import { mockOrderItemsWithDeliveryFee } from '../mocks/orderItems';
+import { mockItemDetailsWithDeliveryFee } from '../mocks/itemDetails';
 
 describe('useDiscountCalculator', () => {
   const initializeRecoilState = ({ set }: MutableSnapshot) => {
     set(couponsState, mockCoupons);
-    set(itemsState, mockOrderItems);
-    mockItemDetails.forEach((itemDetail) => {
+    set(itemsState, mockOrderItemsWithDeliveryFee);
+    mockItemDetailsWithDeliveryFee.forEach((itemDetail) => {
       set(itemDetailsState(itemDetail.id), {
         quantity: itemDetail.quantity,
         price: itemDetail.price,
@@ -65,20 +65,19 @@ describe('useDiscountCalculator', () => {
           ),
         });
 
-        const totalAmount = mockOrderItems.reduce(
+        const totalAmount = mockOrderItemsWithDeliveryFee.reduce(
           (acc, item) => acc + item.quantity * item.product.price,
           0,
         );
         const maxPrice = Math.max(
-          ...mockOrderItems.map((item) => item.product.price),
+          ...mockOrderItemsWithDeliveryFee.map((item) =>
+            item.quantity > 1 ? item.product.price : 0,
+          ),
         );
-        const maxAmount = mockOrderItems.find(
-          (item) => item.product.price === maxPrice,
-        )?.product.price;
 
         expect(
           result.current.calculateDiscountAmount(mockCoupons[1], totalAmount),
-        ).toBe(maxAmount);
+        ).toBe(maxPrice);
       });
     });
 
