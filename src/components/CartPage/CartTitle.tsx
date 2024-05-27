@@ -2,15 +2,15 @@ import { css } from "@emotion/css";
 import { useRecoilValue } from "recoil";
 import { cartItemListAtom } from "../../recoil/cart/cartItemState";
 
-const CartTitle = () => {
+const CartTitle = ({ mainText, subText }: { mainText: string; subText: string }) => {
   const cartItems = useRecoilValue(cartItemListAtom);
 
   return (
     <div className={cartTitleCSS}>
-      <div className={cartTitleTextCSS}>장바구니</div>
+      <div className={cartTitleTextCSS}>{mainText}</div>
       {cartItems.length > 0 && (
         <div className={cartTitleSubTextCSS}>
-          <p>현재 {cartItems.length}종류의 상품이 담겨있습니다.</p>
+          <p>{subText}</p>
         </div>
       )}
     </div>

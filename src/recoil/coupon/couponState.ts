@@ -40,6 +40,17 @@ export const couponDiscountPriceSelectorFamily = selectorFamily({
       getDiscountForCoupon(get(couponSelectorFamily(id)), get),
 });
 
+export const selectedCouponDiscountPriceSelector = selector({
+  key: "couponDiscountPriceSelector",
+  get: ({ get }) => {
+    const selectedCouponSet = get(selectedCouponSetSelector);
+    const discounts = [...selectedCouponSet]
+      .filter((coupon) => validateCouponApplicability(coupon, get))
+      .map((coupon) => get(couponDiscountPriceSelectorFamily(coupon.id)));
+    return discounts.reduce((acc, val) => acc + val, 0).toFixed(0);
+  },
+});
+
 export const maxDiscountCouponIdListSelector = selector({
   key: "maxDiscountCouponSetSelector",
   get: ({ get }) =>

@@ -6,25 +6,17 @@ import OrderSummary from "../components/CartPage/OrderSummary";
 import EmptyCart from "../components/CartPage/EmptyCart";
 import CartLayout from "../components/layout";
 
-import { isVacantCartSelector } from "../recoil/cart/cartItemState";
+import { cartItemListAtom, isVacantCartSelector } from "../recoil/cart/cartItemState";
 import { checkedIdSetSelector } from "../recoil/cart/checkedState";
-import CouponModal from "../components/CouponModal";
-import { useModalState } from "lv2-modal-component";
-import { addCartItem } from "../api/cartItem";
 
 const CartPage = () => {
   const navigate = useNavigate();
   const isCartVacant = useRecoilValue(isVacantCartSelector);
   const cartItemCheckedIds = useRecoilValue(checkedIdSetSelector);
-
+  const cartItemList = useRecoilValue(cartItemListAtom);
   const handleClick = () => {
     navigate("/orderConfirmation");
   };
-
-  const { isOpen, closeModal, openModal, confirmModal } = useModalState(false, {
-    onOpen: () => {},
-    onConfirm: () => {},
-  });
 
   // addCartItem(2);
   // addCartItem(3);
@@ -37,11 +29,11 @@ const CartPage = () => {
       <CartLayout>
         <CartLayout.Header>SHOP</CartLayout.Header>
         <CartLayout.Content>
-          <CartTitle />
+          <CartTitle mainText={`장바구니`} subText={`현재 ${cartItemList.length}종류의 상품이 담겨있습니다.`} />
           {!isCartVacant ? (
             <>
               <CartItems />
-              <button onClick={openModal}>쿠폰 적용</button>
+
               <OrderSummary />
             </>
           ) : (
@@ -50,7 +42,6 @@ const CartPage = () => {
         </CartLayout.Content>
         <CartLayout.Footer text="주문 확인" isActive={cartItemCheckedIds.size > 0} onClick={handleClick} />
       </CartLayout>
-      <CouponModal isOpen={isOpen} closeModal={closeModal} confirmModal={confirmModal} />
     </>
   );
 };

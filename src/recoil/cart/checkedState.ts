@@ -37,9 +37,7 @@ export const isCheckedSelectorFamily = selectorFamily<boolean, number>({
         set(checkedIdSetSelector, checkedIdSet);
         return;
       }
-      console.log(checkedIdSet, newValue);
       checkedIdSet.add(id);
-      console.log(checkedIdSet);
       set(checkedIdSetSelector, checkedIdSet);
     },
 });

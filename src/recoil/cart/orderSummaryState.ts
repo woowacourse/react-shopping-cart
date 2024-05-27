@@ -1,4 +1,4 @@
-import { selector } from "recoil";
+import { atom, selector } from "recoil";
 import { cartItemSelectedSelector } from "./cartItemState";
 
 export const orderPriceSelector = selector({
@@ -6,9 +6,15 @@ export const orderPriceSelector = selector({
   get: ({ get }) => get(cartItemSelectedSelector).reduce((acc, item) => acc + item.quantity * item.product.price, 0),
 });
 
+export const isRuralAtom = atom<boolean>({ key: "isRuralAtom", default: false });
+
 export const shippingFeeSelector = selector({
   key: "shippingFeeSelector",
-  get: ({ get }) => (get(orderPriceSelector) >= 100000 ? 0 : 3000),
+  get: ({ get }) => {
+    if (get(orderPriceSelector) >= 100000) return 0;
+    if (get(isRuralAtom)) return 6000;
+    return 3000;
+  },
 });
 
 export const totalPriceSelector = selector({

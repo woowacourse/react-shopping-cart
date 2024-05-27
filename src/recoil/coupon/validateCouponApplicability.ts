@@ -6,6 +6,7 @@ import { GetRecoilValue } from "recoil";
 
 type ValidateCoupon = (coupon: Coupon, snapshot: GetRecoilValue) => boolean;
 export const validateCouponConditionSet: Record<string, ValidateCoupon> = {
+  expirationDate: (coupon, get) => new Date(coupon.expirationDate) >= new Date(),
   minimumAmount: (coupon, get) => {
     if (!("minimumAmount" in coupon)) return true;
     return coupon.minimumAmount < get(orderPriceSelector);

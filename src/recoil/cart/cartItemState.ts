@@ -34,7 +34,11 @@ export const quantitySelectorFamily = selectorFamily<number, number>({
     },
 });
 
+export const cartItemCountSelector = selector<number>({
+  key: "cartItemCountSelector",
+  get: ({ get }) => get(cartItemListAtom).length,
+});
 export const isVacantCartSelector = selector<boolean>({
   key: "isVacantCartSelector",
-  get: ({ get }) => get(cartItemListAtom).length === 0,
+  get: ({ get }) => get(cartItemCountSelector) === 0,
 });

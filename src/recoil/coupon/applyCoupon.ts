@@ -1,16 +1,20 @@
 import { GetRecoilValue } from "recoil";
 import { BuyXGetYDiscount, Coupon, FixedDiscount, PercentageDiscount, freeShippingDiscount } from "src/types/Coupon";
-import { orderPriceSelector } from "../cart/orderSummaryState";
+import { orderPriceSelector, shippingFeeSelector } from "../cart/orderSummaryState";
 import { cartItemListAtom } from "../cart/cartItemState";
+import { isCheckedSelectorFamily } from "../cart/checkedState";
 
 type discountFunc = (coupon: Coupon, get: GetRecoilValue) => number;
 export const discountCouponOptions: Record<Coupon["discountType"], discountFunc> = {
   fixed: (coupon: Coupon & FixedDiscount, get) => coupon.discount,
   percentage: (coupon: Coupon & PercentageDiscount, get) => coupon.discount * 0.01 * get(orderPriceSelector),
-  freeShipping: (coupon: Coupon & freeShippingDiscount, get) => 3000,
+  freeShipping: (coupon: Coupon & freeShippingDiscount, get) => get(shippingFeeSelector),
   buyXgetY: (coupon: Coupon & BuyXGetYDiscount, get) => {
-    const cartItemList = get(cartItemListAtom);
-    const discounts = cartItemList.map(
+    const cartItemValidList = get(cartItemListAtom).filter(
+      (item) => item.quantity >= 3 && isCheckedSelectorFamily(item.id)
+    );
+
+    const discounts = cartItemValidList.map(
       (item) =>
         Number(item.quantity / (coupon.getQuantity + coupon.buyQuantity)) * coupon.getQuantity * item.product.price
     );
@@ -18,6 +22,6 @@ export const discountCouponOptions: Record<Coupon["discountType"], discountFunc>
   },
 };
 
-export const getDiscountForCoupon = (coupon, get) => {
+export const getDiscountForCoupon = (coupon: Coupon, get: GetRecoilValue) => {
   return discountCouponOptions[coupon.discountType](coupon, get);
 };
