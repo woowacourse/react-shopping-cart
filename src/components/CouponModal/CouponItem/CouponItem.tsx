@@ -10,7 +10,6 @@ import { useEffect, useState } from 'react';
 import * as S from './styled';
 
 export interface CouponItem {
-  key: number;
   coupon: Coupon;
 }
 
@@ -67,8 +66,8 @@ const CouponItem = ({ coupon }: CouponItem) => {
         <S.CouponName>{coupon.description}</S.CouponName>
       </S.CouponItemHeader>
       <S.CouponItemContent>
-        {couponDetail.map(detail => (
-          <S.CouponDescription>{detail}</S.CouponDescription>
+        {couponDetail.map((detail, index) => (
+          <S.CouponDescription key={index}>{detail}</S.CouponDescription>
         ))}
       </S.CouponItemContent>
     </S.Container>
