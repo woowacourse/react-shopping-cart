@@ -17,17 +17,18 @@ function App() {
       path: PATHS.ROOT,
       element: <ShoppingCartPage />,
       loader: () => fetchCartItemList(),
-      errorElement: <ErrorPage error={ERROR_MESSAGE.FETCH_CART_ITEMS} />,
+      errorElement: <ErrorPage error={ERROR_MESSAGE.SHOPPING_CART_PAGE} />,
     },
     {
       path: PATHS.ORDER_CONFIRM,
       element: <OrderConfirmPage />,
       loader: () => fetchCouponList(),
-      errorElement: <ErrorPage error={ERROR_MESSAGE.FETCH_COUPONS} />,
+      errorElement: <ErrorPage error={ERROR_MESSAGE.ORDER_CONFIRM_PAGE} />,
     },
     {
       path: PATHS.PAYMENT_CONFIRM,
       element: <PaymentConfirmPage />,
+      errorElement: <ErrorPage error={ERROR_MESSAGE.PAYMENT_CONFIRM_PAGE} />,
     },
     {
       path: PATHS.ERROR,
