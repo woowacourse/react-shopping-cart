@@ -1,8 +1,8 @@
 import classNames from 'classnames/bind';
 import { useRecoilValue } from 'recoil';
 
-import { cartTotalAmountState, deliveryFeeState, finalPaymentAmountState } from '@/e_entities/cart';
-import { HorizontalLine, Text, imgMap } from '@/f_shared';
+import { cartTotalAmountState, deliveryFeeState, finalPaymentAmountState } from '@/e_entities/order';
+import { HorizontalLine, Text, Information } from '@/f_shared';
 
 import css from './PaymentSummary.module.css';
 
@@ -26,12 +26,7 @@ export const PaymentSummary = ({ showCouponDiscountAmount = false }: PaymentSumm
 
   return (
     <div className={cn('root')}>
-      <div className={cn('informationWrapper')}>
-        <img src={imgMap.information} alt={'img'} className={cn('img')} />
-        <Text tag={'span'} type={'b2'}>
-          총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
-        </Text>
-      </div>
+      <Information>총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</Information>
 
       <HorizontalLine opacity={0.1} />
 

@@ -6,11 +6,6 @@
   width: 100%;
 }
 
-.informationWrapper {
-  display: flex;
-  gap: 4px;
-}
-
 .rowWrapper {
   gap: 8px;
 }
@@ -20,9 +15,4 @@
   align-items: center;
   justify-content: space-between;
   height: 42px;
-}
-
-.img {
-  width: 16px;
-  height: 16px;
 }
