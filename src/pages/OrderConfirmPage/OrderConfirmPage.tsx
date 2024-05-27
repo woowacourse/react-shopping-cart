@@ -77,7 +77,7 @@ function OrderConfirmPage() {
         </S.CartInfoContainer>
         <TotalPriceContainer showDiscountPrice={true} />
       </S.Main>
-      <SubmitButton isActive={true} content="결제하기" onClick={handleSubmitButtonClick} />
+      <SubmitButton content="결제하기" onClick={handleSubmitButtonClick} />
       {isCouponModalOpen && <CouponModal couponList={couponList} isOpen={isCouponModalOpen} close={closeModal} />}
     </div>
   );

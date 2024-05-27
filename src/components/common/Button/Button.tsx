@@ -3,13 +3,12 @@ import * as S from './Button.style';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   content: string;
-  isActive?: boolean;
   customStyle?: string;
 }
 
-function Button({ isActive = true, customStyle = '', content, ...rest }: ButtonProps) {
+function Button({ customStyle = '', content, ...rest }: ButtonProps) {
   return (
-    <S.Layout $isActive={isActive} $customStyle={customStyle} {...rest}>
+    <S.Layout $isActive={!rest.disabled} $customStyle={customStyle} {...rest}>
       {content}
     </S.Layout>
   );
