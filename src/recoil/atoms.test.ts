@@ -1,6 +1,12 @@
 import { renderHook } from '@testing-library/react';
 import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil';
-import { itemDetailsState, itemsState } from './atoms';
+import {
+  couponsState,
+  itemDetailsState,
+  itemsState,
+  remoteAreaState,
+  selectedCouponsState,
+} from './atoms';
 import { act } from 'react';
 
 describe('itemsState', () => {
@@ -87,5 +93,32 @@ describe('itemsState', () => {
       });
       expect(result.current[0]).toMatchObject(newData);
     });
+  });
+});
+
+describe('couponsState', () => {
+  it('couponsState의 초기값은 빈 배열이어야 한다.', () => {
+    const { result } = renderHook(() => useRecoilValue(couponsState), {
+      wrapper: RecoilRoot,
+    });
+    expect(result.current.length).toBe(0);
+  });
+});
+
+describe('selectedCouponsState', () => {
+  it('selectedCouponsState의 초기값은 빈 배열이어야 한다.', () => {
+    const { result } = renderHook(() => useRecoilValue(selectedCouponsState), {
+      wrapper: RecoilRoot,
+    });
+    expect(result.current.length).toBe(0);
+  });
+});
+
+describe('remoteAreaState', () => {
+  it('remoteAreaState의 초기값은 false이어야 한다.', () => {
+    const { result } = renderHook(() => useRecoilValue(remoteAreaState), {
+      wrapper: RecoilRoot,
+    });
+    expect(result.current).toBe(false);
   });
 });
