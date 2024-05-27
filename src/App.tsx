@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import { fetchCartItemList, fetchCouponList } from './apis/index';
-import { CART_ITEM_ERROR_MESSAGE } from './constants/MESSAGES';
+import { ERROR_MESSAGE } from './constants/MESSAGES';
 import { PATHS } from './constants/PATHS';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
 import OrderConfirmPage from './pages/OrderConfirmPage/OrderConfirmPage';
@@ -17,13 +17,13 @@ function App() {
       path: PATHS.ROOT,
       element: <ShoppingCartPage />,
       loader: () => fetchCartItemList(),
-      errorElement: <ErrorPage error={CART_ITEM_ERROR_MESSAGE.FETCH_CART_ITEMS} />,
+      errorElement: <ErrorPage error={ERROR_MESSAGE.FETCH_CART_ITEMS} />,
     },
     {
       path: PATHS.ORDER_CONFIRM,
       element: <OrderConfirmPage />,
       loader: () => fetchCouponList(),
-      errorElement: <ErrorPage error={CART_ITEM_ERROR_MESSAGE.FETCH_COUPONS} />,
+      errorElement: <ErrorPage error={ERROR_MESSAGE.FETCH_COUPONS} />,
     },
     {
       path: PATHS.PAYMENT_CONFIRM,

@@ -1,5 +1,5 @@
 import type { CartItem } from '../types/CartItem.ts';
-import { CART_ITEM_ERROR_MESSAGE } from '../constants/MESSAGES';
+import { ERROR_MESSAGE } from '../constants/MESSAGES';
 import generateBasicToken from '../utils/auth';
 
 import type { Coupon } from '../types/Coupon.ts';
@@ -17,8 +17,8 @@ const fetchCartItemList = async (): Promise<CartItem[]> => {
   });
 
   if (!response.ok) {
-    alert(CART_ITEM_ERROR_MESSAGE.FETCH_CART_ITEMS);
-    throw new Error(CART_ITEM_ERROR_MESSAGE.FETCH_CART_ITEMS);
+    alert(ERROR_MESSAGE.FETCH_CART_ITEMS);
+    throw new Error(ERROR_MESSAGE.FETCH_CART_ITEMS);
   }
 
   const data = await response.json();
@@ -39,8 +39,8 @@ const addCartItem = async (cartItemId: number): Promise<void> => {
   });
 
   if (!response.ok) {
-    alert(CART_ITEM_ERROR_MESSAGE.ADD_CART_ITEMS);
-    throw new Error(CART_ITEM_ERROR_MESSAGE.ADD_CART_ITEMS);
+    alert(ERROR_MESSAGE.ADD_CART_ITEMS);
+    throw new Error(ERROR_MESSAGE.ADD_CART_ITEMS);
   }
 };
 const removeCartItem = async (cartItemId: number): Promise<void> => {
@@ -52,8 +52,8 @@ const removeCartItem = async (cartItemId: number): Promise<void> => {
   });
 
   if (!response.ok) {
-    alert(CART_ITEM_ERROR_MESSAGE.REMOVE_CART_ITEMS);
-    throw new Error(CART_ITEM_ERROR_MESSAGE.REMOVE_CART_ITEMS);
+    alert(ERROR_MESSAGE.REMOVE_CART_ITEMS);
+    throw new Error(ERROR_MESSAGE.REMOVE_CART_ITEMS);
   }
 };
 
@@ -70,8 +70,8 @@ const updateCartItemQuantity = async (cartItemId: number, quantity: number): Pro
   });
 
   if (!response.ok) {
-    alert(CART_ITEM_ERROR_MESSAGE.UPDATE_PRODUCT_QUANTITY);
-    throw new Error(CART_ITEM_ERROR_MESSAGE.UPDATE_PRODUCT_QUANTITY);
+    alert(ERROR_MESSAGE.UPDATE_PRODUCT_QUANTITY);
+    throw new Error(ERROR_MESSAGE.UPDATE_PRODUCT_QUANTITY);
   }
 };
 
@@ -84,8 +84,8 @@ const fetchCouponList = async (): Promise<Coupon[]> => {
   });
 
   if (!response.ok) {
-    alert(CART_ITEM_ERROR_MESSAGE.FETCH_COUPONS);
-    throw new Error(CART_ITEM_ERROR_MESSAGE.FETCH_COUPONS);
+    alert(ERROR_MESSAGE.FETCH_COUPONS);
+    throw new Error(ERROR_MESSAGE.FETCH_COUPONS);
   }
 
   const data = await response.json();
@@ -106,8 +106,8 @@ const createOrder = async (cartItemIds: number[]): Promise<void> => {
   });
 
   if (!response.ok) {
-    alert(CART_ITEM_ERROR_MESSAGE.CREATE_ORDER);
-    throw new Error(CART_ITEM_ERROR_MESSAGE.CREATE_ORDER);
+    alert(ERROR_MESSAGE.CREATE_ORDER);
+    throw new Error(ERROR_MESSAGE.CREATE_ORDER);
   }
 };
 

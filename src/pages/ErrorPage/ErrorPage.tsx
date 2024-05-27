@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 
 import Header from '../../components/Header/Header';
-import { CART_ITEM_ERROR_MESSAGE } from '../../constants/MESSAGES';
+import { ERROR_MESSAGE } from '../../constants/MESSAGES';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './ErrorPage.style';
 
@@ -15,7 +15,7 @@ function ErrorPage({ error }: ErrorPageProps) {
   const location = useLocation();
   const errorType = location.state?.errorType as ErrorType;
 
-  const errorMessage = CART_ITEM_ERROR_MESSAGE[errorType];
+  const errorMessage = ERROR_MESSAGE[errorType];
   return (
     <>
       <Header />

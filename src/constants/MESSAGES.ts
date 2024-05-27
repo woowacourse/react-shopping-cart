@@ -1,4 +1,4 @@
-export const CART_ITEM_ERROR_MESSAGE = {
+export const ERROR_MESSAGE = {
   FETCH_CART_ITEMS: '장바구니 상품을 불러오는 중 문제가 발생했습니다.',
   FETCH_COUPONS: '쿠폰 목록을 불러오는 중 문제가 발생했습니다.',
   ADD_CART_ITEMS: '상품을 장바구니에 추가하는 중 문제가 발생했습니다.',
