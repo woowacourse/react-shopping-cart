@@ -3,7 +3,6 @@ import { SelectedCartItem } from '../../recoil/atoms';
 import * as S from './styled';
 
 interface OrderedItemProps {
-  key: number;
   selectedItem: SelectedCartItem;
 }
 
