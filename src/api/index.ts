@@ -6,46 +6,51 @@ const USER_ID = process.env.USER_ID;
 const USER_PASSWORD = process.env.USER_PASSWORD;
 
 /**
- * fetchCartItems - API에서 카트의 상품들을 fetch하는 비동기 함수입니다.
- * @returns
+ * 공통 요청을 처리하는 함수
+ * @param {string} endpoint - API endpoint
+ * @param {RequestInit} options - fetch options
+ * @returns {Response} - fetch response
  */
-export async function fetchCartItems(): Promise<CartItemType[]> {
+async function makeRequest(endpoint: string, options: RequestInit): Promise<Response> {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
-  const response = await fetch(`${API_URL}/cart-items`, {
-    method: 'GET',
-    headers: { Authorization: token },
+  const response = await fetch(`${API_URL}${endpoint}`, {
+    ...options,
+    headers: {
+      ...options.headers,
+      Authorization: token,
+      'Content-Type': 'application/json',
+    },
   });
 
   if (!response.ok) {
-    throw new Error('Failed to fetch cart items');
+    throw new Error(`Failed to ${options.method?.toLowerCase()} ${endpoint}`);
   }
 
-  const data = await response.json();
+  return response;
+}
 
+/**
+ * fetchCartItems - API에서 카트의 상품들을 fetch하는 비동기 함수입니다.
+ * @returns {Promise<CartItemType[]>}
+ */
+export async function fetchCartItems(): Promise<CartItemType[]> {
+  const response = await makeRequest('/cart-items', { method: 'GET' });
+  const data = await response.json();
   return data.content;
 }
 
 /**
  * updateCartItemQuantity - API에 카트 상품의 quantity를 업데이트 요청하는 함수입니다.
  * @param {number} id - quantity를 업데이트할 상품의 Id
- * @param {number} newQuantity  - 업데이트할 상품의 quantity
+ * @param {number} newQuantity - 업데이트할 상품의 quantity
  * @returns {boolean} - fetch의 성공 여부입니다.
  */
 export async function updateCartItemQuantity(id: number, newQuantity: number) {
-  const token = generateBasicToken(USER_ID, USER_PASSWORD);
-
-  const response = await fetch(`${API_URL}/cart-items/${id}`, {
+  const response = await makeRequest(`/cart-items/${id}`, {
     method: 'PATCH',
-    headers: { Authorization: token, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      quantity: newQuantity,
-    }),
+    body: JSON.stringify({ quantity: newQuantity }),
   });
-
-  if (!response.ok) {
-    throw new Error('Failed to update cart item Quantity');
-  }
 
   return { success: response.ok };
 }
@@ -56,32 +61,23 @@ export async function updateCartItemQuantity(id: number, newQuantity: number) {
  * @returns {boolean} - fetch의 성공 여부입니다.
  */
 export async function deleteCartItem(id: number) {
-  const token = generateBasicToken(USER_ID, USER_PASSWORD);
-
-  const response = await fetch(`${API_URL}/cart-items/${id}`, {
+  const response = await makeRequest(`/cart-items/${id}`, {
     method: 'DELETE',
-    headers: { Authorization: token, 'Content-Type': 'application/json' },
   });
-
-  if (!response.ok) {
-    throw new Error('Failed to delete cart items');
-  }
 
   return { success: response.ok };
 }
 
+/**
+ * addOrders - API에 주문을 추가하는 함수입니다.
+ * @param {number[]} ids - 주문할 상품들의 id 배열
+ * @returns {boolean} - fetch의 성공 여부입니다.
+ */
 export async function addOrders(ids: number[]) {
-  const token = generateBasicToken(USER_ID, USER_PASSWORD);
-
-  const response = await fetch(`${API_URL}/orders`, {
+  const response = await makeRequest('/orders', {
     method: 'POST',
-    headers: { Authorization: token, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      cartItemIds: ids.join(','),
-    }),
+    body: JSON.stringify({ cartItemIds: ids.join(',') }),
   });
 
-  if (!response.ok) {
-    throw new Error('Failed to add orders');
-  }
+  return { success: response.ok };
 }
