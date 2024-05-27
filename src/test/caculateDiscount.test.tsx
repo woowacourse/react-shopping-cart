@@ -1,9 +1,9 @@
 import useCouponCalculate from "@/hooks/useCouponCalculate";
-import { cartItemDummy } from "@/mock/testMockData";
 import { cartState, itemQuantityState } from "@/store/atom/atoms";
 import { renderHook } from "@testing-library/react";
 import { RecoilRoot } from "recoil";
 import { describe, it, vi, beforeAll, afterAll, expect } from "vitest";
+import { makeCartStateDummy } from "./testUtils";
 
 const COUPONS: Coupon[] = [
   {
@@ -38,48 +38,37 @@ describe("percent 할인 쿠폰과 fixed 할인 쿠폰 계산 테스트", () => 
   afterAll(() => {
     vi.useRealTimers();
   });
+
+  const CART_STATE_COMPARE_PERCENT_FIXED_1 = makeCartStateDummy([
+    { product: { id: 100, price: 20000 }, quantity: 2 },
+    { product: { id: 102, price: 40000 }, quantity: 2 },
+  ]);
+
+  const CART_STATE_COMPARE_PERCENT_FIXED_2 = makeCartStateDummy([
+    { product: { id: 100, price: 40000 }, quantity: 2 },
+    { product: { id: 102, price: 40000 }, quantity: 7 },
+    { product: { id: 105, price: 10000 }, quantity: 1 },
+  ]);
+
+  const CART_STATE_COMPARE_PERCENT_FIXED_3 = makeCartStateDummy([{ product: { id: 100, price: 20000 }, quantity: 1 }]);
+
+  const CART_STATE_COMPARE_PERCENT_FIXED_4 = makeCartStateDummy([{ product: { id: 100, price: 10000 }, quantity: 1 }]);
+
   it.each([
     {
-      CART_STATE_DUMMY: [
-        { product: { id: 100, price: 20000 }, quantity: 2 },
-        { product: { id: 102, price: 40000 }, quantity: 2 },
-      ].map(({ product, quantity }, index) => ({
-        ...cartItemDummy,
-        id: index,
-        product: { ...cartItemDummy.product, ...product },
-        quantity,
-      })),
+      CART_STATE_DUMMY: CART_STATE_COMPARE_PERCENT_FIXED_1,
       DISCOUNT_AMOUNT_EXPECTED: 41_000,
     },
     {
-      CART_STATE_DUMMY: [
-        { product: { id: 100, price: 40000 }, quantity: 2 },
-        { product: { id: 102, price: 40000 }, quantity: 7 },
-        { product: { id: 105, price: 10000 }, quantity: 1 },
-      ].map(({ product, quantity }, index) => ({
-        ...cartItemDummy,
-        id: index,
-        product: { ...cartItemDummy.product, ...product },
-        quantity,
-      })),
+      CART_STATE_DUMMY: CART_STATE_COMPARE_PERCENT_FIXED_2,
       DISCOUNT_AMOUNT_EXPECTED: 116_000,
     },
     {
-      CART_STATE_DUMMY: [{ product: { id: 100, price: 20000 }, quantity: 1 }].map(({ product, quantity }, index) => ({
-        ...cartItemDummy,
-        id: index,
-        product: { ...cartItemDummy.product, ...product },
-        quantity,
-      })),
+      CART_STATE_DUMMY: CART_STATE_COMPARE_PERCENT_FIXED_3,
       DISCOUNT_AMOUNT_EXPECTED: 11_000,
     },
     {
-      CART_STATE_DUMMY: [{ product: { id: 100, price: 10000 }, quantity: 1 }].map(({ product, quantity }, index) => ({
-        ...cartItemDummy,
-        id: index,
-        product: { ...cartItemDummy.product, ...product },
-        quantity,
-      })),
+      CART_STATE_DUMMY: CART_STATE_COMPARE_PERCENT_FIXED_4,
       DISCOUNT_AMOUNT_EXPECTED: 3_000,
     },
   ])(
