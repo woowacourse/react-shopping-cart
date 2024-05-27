@@ -26,7 +26,7 @@ export const OrderSummary: React.FC = () => {
       <StyledSummaryTotalContainer>
         <StyledSummaryDetailPrice>
           <SummaryItem title='주문 금액' price={orderPrice} />
-          <SummaryItem title='쿠폰 할인 금액' price={totalDiscountAmount} />
+          <SummaryItem title='쿠폰 할인 금액' price={-totalDiscountAmount} />
           <SummaryItem title='배송비' price={deliveryPrice} />
         </StyledSummaryDetailPrice>
         <StyledSummaryTotalPrice>
