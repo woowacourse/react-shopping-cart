@@ -8,7 +8,7 @@ import { cartPriceState } from "../stores/cartPrice";
 import { CART_PRICE } from "../constants/cart";
 import { MOCK_CART_LIST } from "./__mocks__/cart";
 
-jest.mock("../apis/cartItem", () => ({
+jest.mock("@/apis/cartItem", () => ({
   getCartItems: jest.fn(),
 }));
 

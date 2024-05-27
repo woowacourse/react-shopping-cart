@@ -59,9 +59,6 @@ const useCouponApplicabilityChecker = () => {
     filteredValidCoupons.filter(isCouponApplicable);
 
   return {
-    isAvailableTime,
-    isFulfillMinimumPrice,
-    isFulfillMinimumQuantity,
     isCouponApplicable,
     filteredApplicableCoupons,
   };
