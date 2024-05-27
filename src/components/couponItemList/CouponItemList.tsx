@@ -4,6 +4,7 @@ import {
   cartErrorMessageState,
   couponItemsState,
   previewSelectedCouponsState,
+  selectedItemsState,
 } from '../../recoil/atoms/atoms';
 import { CouponItem } from '../couponItem/CouponItem';
 import { useEffect } from 'react';
@@ -13,8 +14,10 @@ import { isCouponExpired } from '../../validators/isCouponExpired/isCouponExpire
 import { isCouponAvailableTime } from '../../validators/isCouponAvailableTime/isCouponAvailableTime';
 import { isOrderMinimumAmount } from '../../validators/isOrderMinimumAmount/isOrderMinimumAmount';
 import { orderPriceState } from '../../recoil/selector/selector';
+import { isCouponAvailableQuantity } from '../../validators/isCouponAvailableQuantity/isCouponAvailableQuantity';
 
 export const CouponItemList: React.FC = () => {
+  const selectedItems = useRecoilValue(selectedItemsState);
   const [couponItems, setCouponItems] = useRecoilState(couponItemsState);
   const [previewSelectedCoupons, setPreviewSelectedCoupons] = useRecoilState(
     previewSelectedCouponsState,
@@ -57,13 +60,15 @@ export const CouponItemList: React.FC = () => {
       setPreviewSelectedCoupons((prev) => [...prev, item]);
     }
   };
+
   return (
     <>
       {couponItems.map((item) => {
         const isValidCoupon =
           isCouponExpired(item) &&
           isCouponAvailableTime(item) &&
-          isOrderMinimumAmount(item, orderPrice);
+          isOrderMinimumAmount(item, orderPrice) &&
+          isCouponAvailableQuantity(item, selectedItems);
         return (
           <CouponItem
             key={item.code}
