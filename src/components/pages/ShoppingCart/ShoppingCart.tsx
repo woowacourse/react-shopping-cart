@@ -4,7 +4,7 @@ import { LoadingMessage } from '../../LoadingFallback/style';
 import { Suspense } from 'react';
 
 import Header from '../../Header/Header';
-import OrderButton from '../../OrderButton/OrderButton';
+import FooterButton from '../../FooterButton/FooterButton';
 import ShoppingCartContent from '../../Content/ShoppingCartContent/ShoppingCartContent';
 
 const ShoppingCart = () => {
@@ -13,7 +13,7 @@ const ShoppingCart = () => {
       <Header />
       <Suspense fallback={<LoadingMessage>Loading...</LoadingMessage>}>
         <ShoppingCartContent />
-        <OrderButton />
+        <FooterButton />
       </Suspense>
     </Styled.Page>
   );

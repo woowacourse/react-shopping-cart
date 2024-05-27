@@ -23,7 +23,7 @@ import {
 
 import CONDITION from '../../constants/Condition';
 
-const OrderButton = () => {
+const FooterButton = () => {
   const setCartItems = useSetRecoilState(cartItemsState);
   const cartItemIds = useRecoilValue(cartItemIdsSelector);
   const cartItemsCount = useRecoilValue(cartItemsCountSelector);
@@ -62,14 +62,14 @@ const OrderButton = () => {
   };
 
   return (
-    <Styled.OrderButton
+    <Styled.FooterButton
       onClick={handleOnClick}
       $isOrderable={isOrderable}
       disabled={!isOrderable}
     >
       {generateButtonLabel(page)}
-    </Styled.OrderButton>
+    </Styled.FooterButton>
   );
 };
 
-export default OrderButton;
+export default FooterButton;

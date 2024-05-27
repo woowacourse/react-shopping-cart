@@ -4,7 +4,7 @@ import { LoadingMessage } from '../../LoadingFallback/style';
 import { Suspense } from 'react';
 
 import Header from '../../Header/Header';
-import OrderButton from '../../OrderButton/OrderButton';
+import FooterButton from '../../FooterButton/FooterButton';
 import OrderConfirmationContent from '../../Content/OrderConfirmationContent/OrderConfirmationContent';
 import ApplyingCouponModal from '../../ApplyingCouponModal/ApplyingCouponModal';
 
@@ -14,7 +14,7 @@ const OrderConfirmation = () => {
       <Header />
       <Suspense fallback={<LoadingMessage>Loading...</LoadingMessage>}>
         <OrderConfirmationContent />
-        <OrderButton />
+        <FooterButton />
         <ApplyingCouponModal />
       </Suspense>
     </Styled.Page>

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const OrderButton = styled.button<{ $isOrderable: boolean }>`
+export const FooterButton = styled.button<{ $isOrderable: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;

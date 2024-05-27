@@ -5,7 +5,7 @@ import { Suspense } from 'react';
 
 import Header from '../../Header/Header';
 import PaymentConfirmationContent from '../../Content/PaymentConfirmationContent/PaymentConfirmationContent';
-import OrderButton from '../../OrderButton/OrderButton';
+import FooterButton from '../../FooterButton/FooterButton';
 
 const PaymentConfirmation = () => {
   return (
@@ -13,7 +13,7 @@ const PaymentConfirmation = () => {
       <Header />
       <Suspense fallback={<LoadingMessage>Loading...</LoadingMessage>}>
         <PaymentConfirmationContent />
-        <OrderButton />
+        <FooterButton />
       </Suspense>
     </Styled.Page>
   );
