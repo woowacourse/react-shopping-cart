@@ -1,7 +1,7 @@
-import { atom, atomFamily, selector, selectorFamily } from "recoil";
+import { atom, selector, selectorFamily } from "recoil";
 import { fetchCartItems } from "../api/cartItem";
 import { checkedIdSetSelector } from "./checkedState";
-import { CartItem } from "../types";
+import { CartItem } from "../types/types";
 
 export const fetchCartItemsSelector = selector({ key: "fetchCartItemsSelector", get: fetchCartItems });
 export const cartItemListAtom = atom({ key: "cartItemListAtom", default: fetchCartItemsSelector });

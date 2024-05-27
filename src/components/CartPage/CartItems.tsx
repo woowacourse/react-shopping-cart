@@ -1,5 +1,5 @@
 import { css } from "@emotion/css";
-import CartItem from "./CartItem";
+import CartItemComponent from "./CartItem";
 import Button from "../default/Button";
 import Splitter from "../default/Splitter";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
@@ -25,10 +25,7 @@ const CartItems = () => {
   return (
     <div className={cardItemCSS}>
       <div className={allCheckContainerCSS}>
-        <Button
-          variant={isAllChecked ? "primary" : "secondary"}
-          onClick={handleAllChecked}
-        >
+        <Button variant={isAllChecked ? "primary" : "secondary"} onClick={handleAllChecked}>
           <CheckIcon fill={isAllChecked ? "#ffffff" : "#0000001A"} />
         </Button>
         <span>전체 선택</span>
@@ -37,10 +34,7 @@ const CartItems = () => {
         {cartItems.map((item) => (
           <div key={item.id}>
             <Splitter />
-            <CartItem
-              product={item}
-              handleDelete={() => handleDelete(item.id)}
-            />
+            <CartItemComponent product={item} handleDelete={() => handleDelete(item.id)} />
           </div>
         ))}
       </div>

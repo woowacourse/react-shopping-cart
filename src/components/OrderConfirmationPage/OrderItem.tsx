@@ -1,12 +1,12 @@
 import { css } from "@emotion/css";
 import { useRecoilValue } from "recoil";
-import { CartItem as OrderItem } from "../../types/types";
+import { CartItem } from "../../types/types";
 
 import { formatCurrency } from "../../utils/formatCurrency";
 import { quantitySelectorFamily } from "../../recoil/cart/cartItemState";
 
 interface CardItemProps {
-  product: OrderItem;
+  product: CartItem;
 }
 
 const OrderItem = ({ product }: CardItemProps) => {

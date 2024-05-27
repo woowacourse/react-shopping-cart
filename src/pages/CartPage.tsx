@@ -18,12 +18,6 @@ const CartPage = () => {
     navigate("/orderConfirmation");
   };
 
-  // addCartItem(2);
-  // addCartItem(3);
-  // addCartItem(10);
-  // addCartItem(11);
-  // addCartItem(12);
-
   return (
     <>
       <CartLayout>
