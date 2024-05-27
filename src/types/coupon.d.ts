@@ -28,8 +28,6 @@ declare global {
     discountType: typeof COUPON_DISCOUNT_TYPE.FreeShipping;
   };
   type Coupon = DiscountCoupon | BOGOCoupon | FreeShippingCoupon;
-
-  declare module "easy-payments-ui"
 }
 
 export {};
