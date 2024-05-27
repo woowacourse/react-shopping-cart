@@ -1,20 +1,24 @@
+import { Modal, useModal } from "choco-modal-component";
+import { useTotalDiscount } from "../../../hooks/useTotalDiscount";
 import { CouponContentSection } from "../../couponContentSection/CouponContentSection";
 import BaseButton from "../baseButton/baseButton";
 import { StyledSelectCouponButton } from "./SelectCouponButton.styled";
-import { useModal, Modal } from "choco-modal-component";
 
-export interface SelectCouponButtonProps {
-  onClick: () => void;
-}
-
-export const SelectCouponButton: React.FC<SelectCouponButtonProps> = ({ onClick = () => {} }) => {
+export const SelectCouponButton: React.FC = () => {
   const { isOpen, openModal, closeModal } = useModal();
 
   const handleButtonClick = () => {
     openModal();
-    if (onClick) {
-      onClick();
-    }
+  };
+
+  const totalDiscountPrice = useTotalDiscount();
+  const formattedTotalDiscountPrice = isNaN(totalDiscountPrice)
+    ? "0"
+    : totalDiscountPrice.toLocaleString();
+  const buttonText = `총 ${formattedTotalDiscountPrice}원 할인 쿠폰 사용하기`;
+
+  const handleApplyButtonClick = () => {
+    closeModal;
   };
 
   return (
@@ -26,13 +30,14 @@ export const SelectCouponButton: React.FC<SelectCouponButtonProps> = ({ onClick 
       <Modal
         modalPosition="center"
         title="쿠폰을 선택해 주세요"
-        closeButtonPosition="top"
+        closeButtonPosition="bottom"
         isOpen={isOpen}
         onClose={closeModal}
         onConfirm={() => {}}
         size="small"
+        buttonText={buttonText}
       >
-        <CouponContentSection />
+        <CouponContentSection onApplyButtonClick={handleApplyButtonClick} />
       </Modal>
     </>
   );
