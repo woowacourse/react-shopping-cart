@@ -1,7 +1,7 @@
 import { atomFamily, selector, selectorFamily } from "recoil";
 import { fetchCouponList } from "../../api/coupon";
 import { Coupon } from "../../types/Coupon";
-import { getDiscountForCoupon } from "./discountCoupon";
+import { getDiscountForCoupon } from "./applyCoupon";
 import { validateCouponApplicability } from "./validateCouponApplicability";
 
 export const fetchCouponListSelector = selector({

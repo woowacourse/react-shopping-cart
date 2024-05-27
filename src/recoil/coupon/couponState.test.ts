@@ -68,7 +68,7 @@ describe("couponState 테스트", () => {
 
         expect(snapshot.getLoadable(couponDiscountPriceSelectorFamily(coupon.id)).getValue()).toBe(coupon.discount);
       });
-      it("BuyXGetY 할인쿠폰이 인자로 들어왔을 때, 해당 하는 할인 금액을 반환한다", () => {
+      it("BuyXGetY 할인쿠폰이 인자로 들어왔을 때, 가장 비싼 X+Y 할인 금액을 반환한다", () => {
         const snapshot = snapshot_UNSTABLE();
         const BOGO_COUPON_INDEX = 1;
         const EXPECTED_DISCOUNT = 25000;
@@ -76,7 +76,7 @@ describe("couponState 테스트", () => {
 
         expect(snapshot.getLoadable(couponDiscountPriceSelectorFamily(coupon.id)).getValue()).toBe(EXPECTED_DISCOUNT);
       });
-      it("무료배송 할인쿠폰이 인자로 들어왔을 때, 해당 고정금액 5000원을 반환한다", () => {
+      it("무료배송 할인쿠폰이 인자로 들어왔을 때, 배송비 3000원 할인금액을 반환한다", () => {
         const snapshot = snapshot_UNSTABLE();
         const BOGO_COUPON_INDEX = 2;
         const EXPECTED_DISCOUNT = 3000;
@@ -84,7 +84,7 @@ describe("couponState 테스트", () => {
 
         expect(snapshot.getLoadable(couponDiscountPriceSelectorFamily(coupon.id)).getValue()).toBe(EXPECTED_DISCOUNT);
       });
-      it("MIRACLESALE 할인쿠폰이 인자로 들어왔을 때, 해당 고정금액 5000원을 반환한다", () => {
+      it("MIRACLESALE 할인쿠폰이 인자로 들어왔을 때, 주문금액 * 할인비율에 해당하는 할인금액을 반환한다", () => {
         const snapshot = snapshot_UNSTABLE(({ set }) => {
           set(checkedIdSetSelector, new Set([1, 2]));
         });
