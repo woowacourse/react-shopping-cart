@@ -2,9 +2,9 @@ import { hasExtraDeliveryFeeState } from '../../recoil/cartItem/atom';
 import useSelectedCartItemList from '../cartItem/useSelectedCartItemList';
 import { useRecoilValue } from 'recoil';
 
-const DELIVERY_FEE_THRESHOLD = 100_000;
-const DELIVERY_FEE = 3_000;
-const EXTRA_DELIVERY_FEE = 3_000;
+export const DELIVERY_FEE_THRESHOLD = 100_000;
+export const DELIVERY_FEE = 3_000;
+export const EXTRA_DELIVERY_FEE = 3_000;
 
 const usePrice = () => {
   const { selectedCartItemList } = useSelectedCartItemList();
