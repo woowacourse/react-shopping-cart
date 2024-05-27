@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { isCheckedState, productsState } from '../../store/atoms';
 import { totalProductQuantityState } from '../../store/selectors';
 import useCleanUpCouponStatusOnUnMount from '../../hooks/coupon/useCleanUpCouponStatusOnUnMount';
+import useNavigatePage from '../../hooks/useNavigatePage';
 import Button from '../../components/common/Button';
 import Header from '../../components/Header/Header';
 import CheckoutItem from './components/CheckoutItem';
@@ -17,10 +17,9 @@ import common from '../../styles/common.module.css';
 import styles from './Checkout.module.css';
 
 export default function CheckoutPage() {
-  const navigate = useNavigate();
-  const handleBackButtonClick = () => {
-    navigate(ROUTES.CART);
-  };
+  const navigateCartPage = useNavigatePage(ROUTES.CART);
+  const navigatePaymentsPage = useNavigatePage(ROUTES.PAYMENTS);
+
   const { totalCount, totalQuantity } = useRecoilValue(totalProductQuantityState);
 
   const products = useRecoilValue(productsState);
@@ -38,7 +37,7 @@ export default function CheckoutPage() {
   return (
     <>
       <Header>
-        <Button variant="image" onClick={handleBackButtonClick}>
+        <Button variant="image" onClick={navigateCartPage}>
           <img src={BackIcon} width={32} height={32} alt="back-icon" />
         </Button>
       </Header>
@@ -59,7 +58,9 @@ export default function CheckoutPage() {
         <CheckoutTotals />
       </div>
 
-      <Button variant="footer">결제하기</Button>
+      <Button variant="footer" onClick={navigatePaymentsPage}>
+        결제하기
+      </Button>
       <CouponModal isOpen={modalOpen} handleToggle={handleButtonClick} />
     </>
   );
