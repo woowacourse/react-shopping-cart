@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import CheckoutSummary from '../components/CartList/CheckoutSummary';
+import CheckoutSummary from '../components/CheckoutSummary';
 import { StoryContainer } from './styles';
 
 const meta: Meta<typeof CheckoutSummary> = {
