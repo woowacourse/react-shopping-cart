@@ -1,3 +1,4 @@
+import { MINIMUM_AMOUNT_FOR_FREE_DELIVERY } from "../constants/servicePolicy";
 import { CartItem } from "../types/cartItems";
 import {
   BOGOCoupon,
@@ -71,32 +72,20 @@ export const checkApplicableCoupon = (
   { orderAmount, cartItems }: { orderAmount: number; cartItems: CartItem[] }
 ) => {
   if (isFixedDiscountCoupon(coupon)) {
-    return (
-      coupon.isSelected &&
-      isMetMinimumAmount(coupon, orderAmount) &&
-      isAvailableTime(coupon)
-    );
+    return isMetMinimumAmount(coupon, orderAmount) && isAvailableTime(coupon);
   }
   if (isPercentageDiscountCoupon(coupon)) {
-    return (
-      coupon.isSelected &&
-      isMetMinimumAmount(coupon, orderAmount) &&
-      isAvailableTime(coupon)
-    );
+    return isMetMinimumAmount(coupon, orderAmount) && isAvailableTime(coupon);
   }
   if (isFreeShippingCoupon(coupon)) {
     return (
-      coupon.isSelected &&
       isMetMinimumAmount(coupon, orderAmount) &&
-      isAvailableTime(coupon)
+      isAvailableTime(coupon) &&
+      orderAmount < MINIMUM_AMOUNT_FOR_FREE_DELIVERY
     );
   }
   if (isBOGOCoupon(coupon)) {
-    return (
-      coupon.isSelected &&
-      checkBuyQuantity(coupon, cartItems) &&
-      isAvailableTime(coupon)
-    );
+    return checkBuyQuantity(coupon, cartItems) && isAvailableTime(coupon);
   }
   return true;
 };

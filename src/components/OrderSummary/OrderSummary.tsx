@@ -9,7 +9,7 @@ import Button from "../../components/Button";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "../../constants/path";
 import ApplyCouponModal from "./ApplyCouponModal/ApplyCouponModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { orders } from "../../api/order";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { selectedCartItemIdsState } from "../../recoil/cart/selectedCartItemIds";
@@ -57,9 +57,14 @@ export default function OrderSummary() {
       },
     });
     setSelectedCartItemIds([]);
-    setGlobalCouponsState([]);
-    setIs도서산간지역State(false);
   };
+
+  useEffect(() => {
+    return () => {
+      setGlobalCouponsState([]);
+      setIs도서산간지역State(false);
+    };
+  }, []);
 
   return (
     <>

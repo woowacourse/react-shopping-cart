@@ -24,7 +24,6 @@ export const useFetchCoupons = () => {
           ...rawCoupon,
           isSelected: false,
           isValidCoupon: isValidCoupon(rawCoupon),
-          // TODO: 다른 조건 검사 로직 완성 후 isApplicableCoupon으로 통일할 것
           isApplicableCoupon: checkApplicableCoupon(rawCoupon, {
             orderAmount,
             cartItems,

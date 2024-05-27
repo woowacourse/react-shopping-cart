@@ -38,7 +38,7 @@ describe("useCouponControl", () => {
     },
   ];
 
-  it("초기 currentDiscountAmount 값은 0이다.", async () => {
+  it("초기 discountAmount 값은 0이다.", async () => {
     (fetchCartItems as jest.Mock).mockResolvedValueOnce(mockCartItems);
 
     const { result } = renderHook(() => useCouponControl(mockCoupons), {
@@ -54,11 +54,11 @@ describe("useCouponControl", () => {
     });
 
     await waitFor(() => {
-      expect(result.current.currentDiscountAmount).toBe(0);
+      expect(result.current.discountAmount).toBe(0);
     });
   });
 
-  it("toggleSelection이 실행되면, 지역 상태 coupons의 isSelected 속성이 토글되고, currentDisCountAmount가 재계산된다.", async () => {
+  it("toggleSelection이 실행되면, 지역 상태 coupons의 isSelected 속성이 토글되고, discountAmount 재계산된다.", async () => {
     (fetchCartItems as jest.Mock).mockResolvedValueOnce(mockCartItems);
 
     const mockCoupons: Coupon[] = [
@@ -102,7 +102,7 @@ describe("useCouponControl", () => {
     await waitFor(() => {
       expect(result.current.coupons[0].isSelected).toBe(false);
       expect(result.current.coupons[1].isSelected).toBe(false);
-      expect(result.current.currentDiscountAmount).toBe(0);
+      expect(result.current.discountAmount).toBe(0);
     });
 
     act(() => {
@@ -110,14 +110,14 @@ describe("useCouponControl", () => {
     });
 
     expect(result.current.coupons[0].isSelected).toBe(true);
-    expect(result.current.currentDiscountAmount).toBe(2000);
+    expect(result.current.discountAmount).toBe(2000);
 
     act(() => {
       result.current.toggleSelection(result.current.coupons[1].id);
     });
 
     expect(result.current.coupons[1].isSelected).toBe(true);
-    expect(result.current.currentDiscountAmount).toBe(3000);
+    expect(result.current.discountAmount).toBe(3000);
   });
 
   it("applySelectedCoupons가 실행되면, 전역 상태 couponsState(atom)이 지역 상태 coupons의 값으로 업데이트되고, 전역 상태 discountAmountState(selector)도 재계산된다.", async () => {

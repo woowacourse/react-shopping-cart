@@ -17,7 +17,8 @@ export default function ApplyCouponModal({
 }: ApplyCouponModalProps) {
   const {
     coupons,
-    currentDiscountAmount,
+    discountAmount,
+    isCheckableCouponsYet,
     toggleSelection,
     applySelectedCoupons,
   } = useCouponControl(fetchedCoupons);
@@ -42,6 +43,7 @@ export default function ApplyCouponModal({
               <CouponItem
                 key={coupon.id}
                 coupon={coupon}
+                isCheckableCouponsYet={isCheckableCouponsYet}
                 onChange={() => toggleSelection(coupon.id)}
               />
             ))}
@@ -51,7 +53,7 @@ export default function ApplyCouponModal({
       <Modal.Footer>
         <Modal.Footer.Button onClick={onApplyButtonClick}>
           <S.ButtonContent>
-            총{currentDiscountAmount.toLocaleString()}원 할인 쿠폰 사용하기
+            총{discountAmount.toLocaleString()}원 할인 쿠폰 사용하기
           </S.ButtonContent>
         </Modal.Footer.Button>
       </Modal.Footer>

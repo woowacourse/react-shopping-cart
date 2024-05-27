@@ -33,6 +33,10 @@ export const useCouponControl = (initCoupons: Coupon[]) => {
     );
   }, [orderAmount, coupons]);
 
+  const isCheckableCouponsYet = useMemo(() => {
+    return coupons.filter((coupon) => coupon.isSelected).length < 2;
+  }, [coupons]);
+
   const toggleSelection = (couponId: number) => {
     setCoupons((prev) => {
       return prev.map((coupon) => {
@@ -50,7 +54,8 @@ export const useCouponControl = (initCoupons: Coupon[]) => {
 
   return {
     coupons,
-    currentDiscountAmount: discountAmount,
+    discountAmount,
+    isCheckableCouponsYet,
     toggleSelection,
     applySelectedCoupons,
   };
