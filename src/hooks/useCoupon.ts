@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 const useCoupon = (id: number) => {
-  const [isDisabled, setIsDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(true);
 
   const isOver2CouponsChecked = useRecoilValue(isOver2CouponsCheckedState);
   const [isCouponChecked, setIsCouponChecked] = useRecoilState(couponEachCheckState(id));
@@ -56,13 +56,13 @@ const useCoupon = (id: number) => {
       isValidTime() &&
       isFreeShipCouponValid
     ) {
-      setIsDisabled(false);
+      setDisabled(false);
     } else {
-      setIsDisabled(true);
+      setDisabled(true);
     }
   }, [isOver2CouponsChecked, isCouponChecked, coupon, orderAmount, cartItems]);
 
-  return { isDisabled, isChecked: isCouponChecked, handleCheckClick };
+  return { disabled, isChecked: isCouponChecked, handleCheckClick };
 };
 
 export default useCoupon;

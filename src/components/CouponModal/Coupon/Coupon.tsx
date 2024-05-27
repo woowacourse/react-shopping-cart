@@ -11,13 +11,13 @@ interface CouponProps extends PropsWithChildren {
 }
 
 const Coupon = ({ couponInfo }: CouponProps) => {
-  const { isDisabled, isChecked, handleCheckClick } = useCoupon(couponInfo.id);
+  const { disabled, isChecked, handleCheckClick } = useCoupon(couponInfo.id);
   const [year, month, day] = couponInfo.expirationDate.split("-");
 
   return (
     <div css={couponContainerStyle}>
       <Divider />
-      <ToolBar handleCheck={handleCheckClick} isCheck={isChecked} isDisabled={isDisabled}>
+      <ToolBar handleCheck={handleCheckClick} isCheck={isChecked} disabled={disabled}>
         <div css={strongTextStyle}>{couponInfo.description}</div>
       </ToolBar>
       <div css={couponDescriptionStyle}>

@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-export const ControlStyle = (isDisabled: boolean) =>
+export const ControlStyle = (disabled: boolean) =>
   css({
     display: "flex",
     justifyContent: "flex-start",
@@ -8,5 +8,5 @@ export const ControlStyle = (isDisabled: boolean) =>
 
     gap: "8px",
 
-    opacity: isDisabled ? 0.5 : 1,
+    opacity: disabled ? 0.5 : 1,
   });

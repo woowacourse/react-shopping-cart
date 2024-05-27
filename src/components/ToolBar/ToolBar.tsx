@@ -6,13 +6,13 @@ import { ControlStyle } from "./ToolBar.style";
 interface Toolbar extends PropsWithChildren {
   handleCheck: () => void;
   isCheck: boolean;
-  isDisabled?: boolean;
+  disabled?: boolean;
 }
 
-const ToolBar = ({ handleCheck, isCheck, isDisabled = false, children }: Toolbar) => {
+const ToolBar = ({ handleCheck, isCheck, disabled = false, children }: Toolbar) => {
   return (
-    <div css={ControlStyle(isDisabled)}>
-      <Checkbox isCheck={isCheck} onClick={handleCheck} isDisabled={isDisabled} />
+    <div css={ControlStyle(disabled)}>
+      <Checkbox isCheck={isCheck} onClick={handleCheck} disabled={disabled} />
       <div>{children}</div>
     </div>
   );

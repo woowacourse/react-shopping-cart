@@ -59,8 +59,8 @@ describe("coupon disable 테스트", () => {
     const { result } = renderHook(
       () => {
         const id = 5;
-        const { isDisabled } = useCoupon(id);
-        return { isDisabled };
+        const { disabled } = useCoupon(id);
+        return { disabled };
       },
       {
         wrapper: ({ children }) => (
@@ -71,15 +71,15 @@ describe("coupon disable 테스트", () => {
       }
     );
 
-    expect(result.current.isDisabled).toBeTruthy();
+    expect(result.current.disabled).toBeTruthy();
   });
 
   it("모든 기준을 충족하는 활성화여야 한다.", () => {
     const { result } = renderHook(
       () => {
         const id = 3;
-        const { isDisabled } = useCoupon(id);
-        return { isDisabled };
+        const { disabled } = useCoupon(id);
+        return { disabled };
       },
       {
         wrapper: ({ children }) => (
@@ -89,15 +89,15 @@ describe("coupon disable 테스트", () => {
         ),
       }
     );
-    expect(result.current.isDisabled).toBeFalsy();
+    expect(result.current.disabled).toBeFalsy();
   });
 
   it("'2개 구매 시 1개 무료 쿠폰'의 경우, 장바구니에 2개 이상의 상품이 담겨 있다면 활성화 된다.", () => {
     const { result } = renderHook(
       () => {
         const ID = 5;
-        const { isDisabled } = useCoupon(ID);
-        return { isDisabled };
+        const { disabled } = useCoupon(ID);
+        return { disabled };
       },
       {
         wrapper: ({ children }) => (
@@ -107,15 +107,15 @@ describe("coupon disable 테스트", () => {
         ),
       }
     );
-    expect(result.current.isDisabled).toBeFalsy();
+    expect(result.current.disabled).toBeFalsy();
   });
 
   it("유효기간을 넘으면 비활성화 된다.", () => {
     const { result } = renderHook(
       () => {
         const OVERDUE_ID = 2;
-        const { isDisabled } = useCoupon(OVERDUE_ID);
-        return { isDisabled };
+        const { disabled } = useCoupon(OVERDUE_ID);
+        return { disabled };
       },
       {
         wrapper: ({ children }) => (
@@ -125,15 +125,15 @@ describe("coupon disable 테스트", () => {
         ),
       }
     );
-    expect(result.current.isDisabled).toBeTruthy();
+    expect(result.current.disabled).toBeTruthy();
   });
 
   it("최소 주문 금액이 넘으면 활성화된다.", () => {
     const { result } = renderHook(
       () => {
         const id = 6;
-        const { isDisabled } = useCoupon(id);
-        return { isDisabled };
+        const { disabled } = useCoupon(id);
+        return { disabled };
       },
       {
         wrapper: ({ children }) => (
@@ -143,15 +143,15 @@ describe("coupon disable 테스트", () => {
         ),
       }
     );
-    expect(result.current.isDisabled).toBeFalsy();
+    expect(result.current.disabled).toBeFalsy();
   });
 
   it("사용 시간에 해당하면 활성화 된다.", () => {
     const { result } = renderHook(
       () => {
         const id = 4;
-        const { isDisabled } = useCoupon(id);
-        return { isDisabled };
+        const { disabled } = useCoupon(id);
+        return { disabled };
       },
       {
         wrapper: ({ children }) => (
@@ -161,15 +161,15 @@ describe("coupon disable 테스트", () => {
         ),
       }
     );
-    expect(result.current.isDisabled).toBeFalsy();
+    expect(result.current.disabled).toBeFalsy();
   });
 
   it("결제 금액이 10만원이 넘는 경우(배송비가 청구되는 않는 경우), 배송비 무료 쿠폰이 비활성화 된다.", () => {
     const { result } = renderHook(
       () => {
         const id = 3;
-        const { isDisabled } = useCoupon(id);
-        return { isDisabled };
+        const { disabled } = useCoupon(id);
+        return { disabled };
       },
       {
         wrapper: ({ children }) => (
@@ -179,15 +179,15 @@ describe("coupon disable 테스트", () => {
         ),
       }
     );
-    expect(result.current.isDisabled).toBeTruthy();
+    expect(result.current.disabled).toBeTruthy();
   });
 
   it("결제 금액이 최소금액을 넘지 않는 경우, 배송비 무료 쿠폰이 비활성화 된다.", () => {
     const { result } = renderHook(
       () => {
         const id = 3;
-        const { isDisabled } = useCoupon(id);
-        return { isDisabled };
+        const { disabled } = useCoupon(id);
+        return { disabled };
       },
       {
         wrapper: ({ children }) => (
@@ -197,6 +197,6 @@ describe("coupon disable 테스트", () => {
         ),
       }
     );
-    expect(result.current.isDisabled).toBeFalsy();
+    expect(result.current.disabled).toBeFalsy();
   });
 });

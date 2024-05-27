@@ -9,7 +9,7 @@ interface CheckImageProps {
 
 interface CheckboxProps {
   isCheck: boolean;
-  isDisabled?: boolean;
+  disabled?: boolean;
   onClick?: () => void;
 }
 
@@ -35,9 +35,9 @@ const CheckImage = ({ width, height, isCheck }: CheckImageProps) => {
   );
 };
 
-const Checkbox = ({ isCheck, onClick, isDisabled }: CheckboxProps) => {
+const Checkbox = ({ isCheck, onClick, disabled }: CheckboxProps) => {
   return (
-    <Button onClick={onClick} isHighlight={isCheck} isDisabled={isDisabled}>
+    <Button onClick={onClick} isHighlight={isCheck} disabled={disabled}>
       <CheckImage width={14} height={14} isCheck={isCheck} />
     </Button>
   );
