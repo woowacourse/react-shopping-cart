@@ -11,7 +11,8 @@ import {
 } from "./PaymentsSummary.styled";
 
 export const PaymentsSummary: React.FC = () => {
-  const { totalPrice, uniqueItemCount, totalItemCount } = useRecoilValue(cartSummarySelectorState);
+  const { orderTotalPrice, uniqueItemCount, totalItemCount } =
+    useRecoilValue(cartSummarySelectorState);
 
   return (
     <StyledConfirmationPage>
@@ -24,7 +25,9 @@ export const PaymentsSummary: React.FC = () => {
       </StyledConfirmationPageDescription>
       <StyledConfirmationPagePriceContainer>
         <StyledConfirmationPageSubTitle>총 결제 금액</StyledConfirmationPageSubTitle>
-        <StyledConfirmationPagePrice>{totalPrice.toLocaleString()}원</StyledConfirmationPagePrice>
+        <StyledConfirmationPagePrice>
+          {orderTotalPrice.toLocaleString()}원
+        </StyledConfirmationPagePrice>
       </StyledConfirmationPagePriceContainer>
     </StyledConfirmationPage>
   );
