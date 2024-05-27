@@ -32,7 +32,7 @@ const useDiscount = () => {
     }, 0);
 
   const maximumPriceInCart = bogoCoupon
-    ? selectedCartItemList.reduce((max, { id, price, quantity }) => {
+    ? selectedCartItemList.reduce((max, { price, quantity }) => {
         return quantity >= (bogoCoupon?.buyQuantity ?? 0)
           ? Math.max(max, price)
           : max;
