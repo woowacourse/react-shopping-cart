@@ -70,7 +70,7 @@ function OrderConfirmPage() {
             <CartItem key={item.id} item={item} isReadonly={true} />
           ))}
         </S.SelectedCartItemContainer>
-        <Button type="button" text="쿠폰 적용" onClick={openModal} />
+        <Button text="쿠폰 적용" onClick={openModal} />
         <S.CartInfoContainer>
           <S.CartInfoTitle>배송 정보</S.CartInfoTitle>
           <CheckBox id="배송 정보" text="제주도 및 도서 산간 지역" isChecked={isSigol} onChange={handleIsSigol} />

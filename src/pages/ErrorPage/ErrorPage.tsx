@@ -18,7 +18,7 @@ const ErrorPage = () => {
           </p>
         </S.ErrorTextContainer>
         <Link to={PATHS.ROOT}>
-          <S.ConfirmButton>메인으로</S.ConfirmButton>
+          <S.ConfirmButton type="button">메인으로</S.ConfirmButton>
         </Link>
       </S.Main>
     </>

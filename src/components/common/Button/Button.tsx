@@ -8,7 +8,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 function Button({ customStyle = '', text, ...rest }: ButtonProps) {
   return (
-    <S.Layout $isActive={!rest.disabled} $customStyle={customStyle} {...rest}>
+    <S.Layout $isActive={!rest.disabled} $customStyle={customStyle} type="button" {...rest}>
       {text}
     </S.Layout>
   );

@@ -7,7 +7,7 @@ interface SubmitButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 function SubmitButton({ text, ...rest }: SubmitButtonProps) {
   return (
-    <S.ButtonWrapper $isActive={!rest.disabled} {...rest}>
+    <S.ButtonWrapper $isActive={!rest.disabled} type="button" {...rest}>
       {text}
     </S.ButtonWrapper>
   );

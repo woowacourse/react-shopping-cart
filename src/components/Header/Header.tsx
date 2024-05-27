@@ -14,7 +14,7 @@ export function MainLogoButton() {
 
 export function GoBackButton({ ...rest }: ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
-    <S.GoBackButton {...rest}>
+    <S.GoBackButton type="button" {...rest}>
       <img src={LeftArrow} alt="뒤로 가기" />
     </S.GoBackButton>
   );
