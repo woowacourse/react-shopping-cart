@@ -19,6 +19,7 @@ export default function CheckoutTotals() {
   const { totalShippingFee } = useRecoilValue(totalShippingFeeState);
   const totalAmount = useRecoilValue(totalAmountState);
 
+  const formattedDiscountAmount = formatKoreanCurrency(discountAmount);
   return (
     <div className={styles.checkoutTotalsContainer}>
       <NoticeLabel>{NOTICE_MESSAGE.shipping}</NoticeLabel>
@@ -26,7 +27,11 @@ export default function CheckoutTotals() {
       <SubtitleSpaceBetween subtitle="주문 금액" content={formatKoreanCurrency(orderAmount)} />
       <SubtitleSpaceBetween
         subtitle="쿠폰 할인 금액"
-        content={`-${formatKoreanCurrency(discountAmount)}`}
+        content={
+          formattedDiscountAmount === '0원'
+            ? formattedDiscountAmount
+            : `-${formattedDiscountAmount}`
+        }
       />
       <SubtitleSpaceBetween subtitle="배송비" content={formatKoreanCurrency(totalShippingFee)} />
       <Divider />
