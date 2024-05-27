@@ -1,24 +1,19 @@
-// import { getCartItems } from "@/auth/apis/cart";
-// import { cartItemSelector, cartItemsState } from "@/recoil/cartItems";
-// import { useEffect } from "react";
-// import { useRecoilState, useRecoilValueLoadable } from "recoil";
+import { getCartItems } from "@/auth/apis/cart";
+import { cartItemsState } from "@/recoil/cartItems";
+import { useSetRecoilState } from "recoil";
 
-// const useUpdateCartItems = () => {
-//   const [cartItems, setCartItems] = useRecoilState(cartItemsState);
-//   const cartItemsLoadable = useRecoilValueLoadable(cartItemSelector);
+const useUpdateCartItems = () => {
+  const setCartItems = useSetRecoilState(cartItemsState);
 
-//   useEffect(() => {
-//     if (cartItemsLoadable.state === "hasValue") {
-//       setCartItems(cartItemsLoadable.contents);
-//     }
-//   }, [cartItemsLoadable, setCartItems]);
+  const updateNewCartItems = () => {
+    const fetchNewData = async () => {
+      const newData = await getCartItems();
+      setCartItems(newData);
+    };
+    fetchNewData();
+  };
 
-//   const updateFreshCartItems = async () => {
-//     const newCartItems = await getCartItems();
-//     setCartItems(newCartItems);
-//   };
+  return { updateNewCartItems };
+};
 
-//   return { cartItems, updateFreshCartItems };
-// };
-
-// export default useUpdateCartItems;
+export default useUpdateCartItems;

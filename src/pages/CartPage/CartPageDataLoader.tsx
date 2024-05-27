@@ -5,21 +5,15 @@ import CartPage from "@/pages/CartPage/CartPage.tsx";
 
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorPage from "../Error/ErrorPage";
-import { useSetRecoilState } from "recoil";
 import { useEffect } from "react";
-import { getCartItems } from "@/auth/apis/cart";
-import { cartItemsState } from "@/recoil/cartItems";
+import useUpdateCartItems from "@/hooks/cart/useUpdateCartItems";
 
 const CartPageDataLoader = () => {
-  const setCartItems = useSetRecoilState(cartItemsState);
+  const { updateNewCartItems } = useUpdateCartItems();
 
   useEffect(() => {
-    const fetchNewData = async () => {
-      const newData = await getCartItems();
-      setCartItems(newData);
-    };
-    fetchNewData();
-  }, [setCartItems]);
+    updateNewCartItems();
+  }, []);
 
   return (
     <ErrorBoundary FallbackComponent={ErrorPage}>

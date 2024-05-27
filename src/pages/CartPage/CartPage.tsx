@@ -22,6 +22,7 @@ import AddMockItemButton from "@/mocks/AddMockItemButton";
 const CartPage = () => {
   const selectedItems = useRecoilValue(totalItemOrderCountSelector);
   const cartItemList = useRecoilValue(cartItemsState);
+
   const navigate = useNavigate();
 
   const onMoveOrderConfirmPage = () => {

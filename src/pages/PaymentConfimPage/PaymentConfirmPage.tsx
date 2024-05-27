@@ -1,5 +1,5 @@
 import * as S from "./PaymentConfirmPage.style";
-import { useRecoilValue, useResetRecoilState } from "recoil";
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
 
 import Button from "@/components/_common/Button/Button";
 
@@ -33,10 +33,12 @@ const PaymentConfirmPage = () => {
 
   const resetCoupons = useResetRecoilState(couponsState);
   const resetShippingFee = useResetRecoilState(shippingFeeSelector);
+  const setSelectedIds = useSetRecoilState(selectedCartItemsIdState);
 
   useEffect(() => {
     resetCoupons();
     resetShippingFee();
+    setSelectedIds([]);
   }, []);
 
   const onMoveCartPage = () => {
