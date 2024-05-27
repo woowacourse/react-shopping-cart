@@ -1,4 +1,5 @@
-import CartPage from "./CartPage";
-import OrderConfirmPage from "./OrderConfirmPage";
+import MainPage from "./MainPage/MainPage";
+import OrderPage from "./OrderPage/OrderPage";
+import PaymentPage from "./PaymentPage/PaymentPage";
 
-export { CartPage, OrderConfirmPage };
+export { MainPage, OrderPage, PaymentPage };

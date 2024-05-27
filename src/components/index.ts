@@ -1,15 +1,7 @@
 import CartDescription from "./CartDescription/CartDescription";
-import CartItemList from "./CartItemList/CartItemList";
-import Header from "./Header/Header";
-import Footer from "./Footer/Footer";
+import CartList from "./CartList/CartList";
 import CartPrice from "./CartPrice/CartPrcie";
-import OrderConfirm from "./OrderConfirm/OrderConfirm";
+import PaymentConfirm from "../pages/PaymentPage/components/PaymentConfirm/PaymentConfirm";
+import CouponList from "./CouponList/CouponList";
 
-export {
-  CartDescription,
-  CartItemList,
-  Header,
-  Footer,
-  CartPrice,
-  OrderConfirm,
-};
+export { CartDescription, CartList, CartPrice, PaymentConfirm, CouponList };

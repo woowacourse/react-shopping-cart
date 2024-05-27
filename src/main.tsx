@@ -2,21 +2,25 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RecoilRoot } from "recoil";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import DebugObserver from "./recoil/DebugObserver.tsx";
-import { CartPage, OrderConfirmPage } from "./pages/index.ts";
+import DebugObserver from "./recoil/DebugObserver";
+import { MainPage, OrderPage, PaymentPage } from "./pages";
 import GlobalStyle from "./styles/GlobalStyle.tsx";
-import { ENVIRONMENT } from "./constants/cart.ts";
 import { ThemeProvider } from "styled-components";
-import theme from "./styles/theme.ts";
+import theme from "./styles/theme";
+import { ENVIRONMENT } from "./constants/environment";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <CartPage />,
+    element: <MainPage />,
   },
   {
-    path: "/cart-confirm",
-    element: <OrderConfirmPage />,
+    path: "/order",
+    element: <OrderPage />,
+  },
+  {
+    path: "/payment/",
+    element: <PaymentPage />,
   },
 ]);
 

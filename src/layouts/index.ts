@@ -1,3 +1,4 @@
+import AppLayout from "./AppLayout/AppLayout";
 import CartLayout from "./CartLayout/CartLayout";
 
-export { CartLayout };
+export { AppLayout, CartLayout };

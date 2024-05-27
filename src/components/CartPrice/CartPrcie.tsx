@@ -1,29 +1,46 @@
-import React from "react";
 import { useRecoilValue } from "recoil";
-import { cartPriceState } from "../../recoil/selectors/selectors";
-import { Wrapper, PriceKind, PriceNumber, Price } from "./style";
+import {
+  orderPriceState,
+  deliveryPriceState,
+  couponDiscountPriceState,
+  paymentPriceState,
+} from "../../recoil";
+import { Wrapper, Price } from "./style";
+import { Text } from "../common";
+import { useLocation } from "react-router-dom";
 
 export interface PriceStyleProps {
   $borderTop?: string;
 }
 
 const CartPrice = () => {
-  const { orderPrice, deliveryFee, totalPrice } =
-    useRecoilValue(cartPriceState);
+  const location = useLocation();
+  const orderPrice = useRecoilValue(orderPriceState);
+  const deliveryPrice = useRecoilValue(deliveryPriceState);
+  const couponDiscountPrice = useRecoilValue(couponDiscountPriceState);
+  const paymentPrice = useRecoilValue(paymentPriceState);
 
   return (
     <Wrapper>
       <Price>
-        <PriceKind>주문 금액</PriceKind>
-        <PriceNumber>{orderPrice.toLocaleString("ko-KR")}원</PriceNumber>
+        <Text size="medium">주문 금액</Text>
+        <Text size="large">{orderPrice.toLocaleString("ko-KR")}원</Text>
+      </Price>
+      {location.pathname === "/order" && (
+        <Price>
+          <Text size="medium">쿠폰 할인 금액</Text>
+          <Text size="large">
+            {(-couponDiscountPrice || couponDiscountPrice).toLocaleString("ko-KR")}원
+          </Text>
+        </Price>
+      )}
+      <Price>
+        <Text size="medium">배송비</Text>
+        <Text size="large">{deliveryPrice.toLocaleString("ko-KR")}원</Text>
       </Price>
       <Price>
-        <PriceKind>배송비</PriceKind>
-        <PriceNumber>{deliveryFee.toLocaleString("ko-KR")}원</PriceNumber>
-      </Price>
-      <Price $borderTop="1px solid rgba(0, 0, 0, 0.1)">
-        <PriceKind>총 결제 금액</PriceKind>
-        <PriceNumber>{totalPrice.toLocaleString("ko-KR")}원</PriceNumber>
+        <Text size="medium">총 결제 금액</Text>
+        <Text size="large">{paymentPrice.toLocaleString("ko-KR")}원</Text>
       </Price>
     </Wrapper>
   );
