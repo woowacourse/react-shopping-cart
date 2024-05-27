@@ -46,6 +46,7 @@ export const StyledOrderContent = styled.section`
   display: flex;
   flex-direction: column;
   gap: 32px;
+  overflow-y: scroll;
 `;
 
 export const StyledConfirmationPagePriceContainer = styled.div`
