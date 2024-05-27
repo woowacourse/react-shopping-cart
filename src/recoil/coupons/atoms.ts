@@ -1,10 +1,10 @@
 import { atom } from 'recoil';
 
-import { couponCheckListSelector } from './selectors';
+import { couponChecklistSelector } from './selectors';
 
-export const couponSavedCheckListState = atom({
+export const couponChecklistState = atom({
   key: 'couponCheckList',
-  default: couponCheckListSelector,
+  default: couponChecklistSelector,
 });
 
 export const isAdditionalShippingState = atom({

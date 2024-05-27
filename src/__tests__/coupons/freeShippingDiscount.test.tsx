@@ -9,7 +9,7 @@ import { TOTAL_PRICE_OVER_50000_DATA } from '@/mocks/cart';
 import { CHECKED_FREE_SHIPPING_COUPON, MOCK_COUPON_CHECK_LIST } from '@/mocks/coupon';
 import { cartItemsState } from '@/recoil/cartItems/atoms';
 import { totalPurchasePriceState } from '@/recoil/cartItems/selectors';
-import { couponSavedCheckListState } from '@/recoil/coupons/atoms';
+import { couponChecklistState } from '@/recoil/coupons/atoms';
 
 jest.mock('@apis/cartItem', () => ({
   fetchCartItems: jest.fn(),
@@ -32,7 +32,7 @@ describe('2개 구매 시 1개 무료 쿠폰', () => {
           <RecoilRoot
             initializeState={({ set }) => {
               set(cartItemsState, TOTAL_PRICE_OVER_50000_DATA);
-              set(couponSavedCheckListState, MOCK_COUPON_CHECK_LIST);
+              set(couponChecklistState, MOCK_COUPON_CHECK_LIST);
             }}
           >
             {children}
@@ -94,7 +94,7 @@ describe('2개 구매 시 1개 무료 쿠폰', () => {
             <RecoilRoot
               initializeState={({ set }) => {
                 set(cartItemsState, TOTAL_PRICE_OVER_50000_DATA);
-                set(couponSavedCheckListState, CHECKED_FREE_SHIPPING_COUPON);
+                set(couponChecklistState, CHECKED_FREE_SHIPPING_COUPON);
               }}
             >
               <Suspense>{children}</Suspense>

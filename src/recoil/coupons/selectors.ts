@@ -1,14 +1,14 @@
 import { selector } from 'recoil';
 
-import { couponSavedCheckListState } from './atoms';
+import { couponChecklistState } from './atoms';
 import { fetchCouponSelector } from './fetchCouponSelector';
 import { checkedCartItemsState, orderResultState } from '../cartItems/selectors';
 
 import couponDiscountCalculator from '@/components/Coupon/utils/couponDiscountCalculator';
 import { CouponClient } from '@/types/coupon';
 
-export const couponCheckListSelector = selector<CouponClient[]>({
-  key: 'couponCheckListSelector',
+export const couponChecklistSelector = selector<CouponClient[]>({
+  key: 'couponChecklistSelector',
   get: ({ get }) => {
     const couponList = get(fetchCouponSelector);
     return couponList.map((coupon) => ({
@@ -17,7 +17,7 @@ export const couponCheckListSelector = selector<CouponClient[]>({
     }));
   },
   set: ({ reset }) => {
-    reset(couponSavedCheckListState);
+    reset(couponChecklistState);
   },
 });
 
@@ -27,7 +27,7 @@ export const totalDiscountPriceState = selector({
     const couponList = get(fetchCouponSelector);
     const checkedCartItems = get(checkedCartItemsState);
     const { totalOrderPrice } = get(orderResultState);
-    const couponSavedCheckList = get(couponSavedCheckListState);
+    const couponSavedCheckList = get(couponChecklistState);
 
     if (!couponSavedCheckList) return 0;
 

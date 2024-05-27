@@ -4,23 +4,24 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { couponApplicabilityChecker } from '@/components/Coupon/utils/couponApplicabilityChecker';
 import { THEME } from '@/constants/theme';
-import { couponSavedCheckListState } from '@/recoil/coupons/atoms';
+import { couponChecklistState } from '@/recoil/coupons/atoms';
 import { fetchCouponSelector } from '@/recoil/coupons/fetchCouponSelector';
 import { isAllUnCheckedState, orderResultState } from '@recoil/cartItems/selectors';
 
 const OrderConfirmButton = () => {
   const navigate = useNavigate();
+
   const isAllUnChecked = useRecoilValue(isAllUnCheckedState);
   const { totalOrderPrice } = useRecoilValue(orderResultState);
   const couponList = useRecoilValue(fetchCouponSelector);
-  const setCouponSavedCheckList = useSetRecoilState(couponSavedCheckListState);
+  const setCouponCheckList = useSetRecoilState(couponChecklistState);
 
   const { isCouponApplicable } = couponApplicabilityChecker(couponList);
 
   const handleClickOrderConfirm = () => {
     if (isAllUnChecked) return;
 
-    setCouponSavedCheckList((prev) =>
+    setCouponCheckList((prev) =>
       prev.map((coupon) => ({
         ...coupon,
         isChecked: isCouponApplicable({ coupon, totalOrderPrice }) ? coupon.isChecked : false,

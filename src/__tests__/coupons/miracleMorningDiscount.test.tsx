@@ -8,7 +8,7 @@ import { TOTAL_PRICE_OVER_100000_DATA } from '@/mocks/cart';
 import { CHECKED_MIRACLE_MORNING_COUPON, MOCK_COUPON_CHECK_LIST } from '@/mocks/coupon';
 import { cartItemsState } from '@/recoil/cartItems/atoms';
 import { totalPurchasePriceState } from '@/recoil/cartItems/selectors';
-import { couponSavedCheckListState } from '@/recoil/coupons/atoms';
+import { couponChecklistState } from '@/recoil/coupons/atoms';
 
 jest.mock('@apis/cartItem', () => ({
   fetchCartItems: jest.fn(),
@@ -122,7 +122,7 @@ describe('미라클 모닝 30% 할인 쿠폰', () => {
             <RecoilRoot
               initializeState={({ set }) => {
                 set(cartItemsState, TOTAL_PRICE_OVER_100000_DATA);
-                set(couponSavedCheckListState, CHECKED_MIRACLE_MORNING_COUPON);
+                set(couponChecklistState, CHECKED_MIRACLE_MORNING_COUPON);
               }}
             >
               <Suspense>{children}</Suspense>

@@ -4,13 +4,13 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 
 import OrderItem from './OrderItem';
 import HeaderTitleContainer from '../common/HeaderTitleContainer';
-import CouponModal from '../Coupon/CouponModal';
+import CouponModal from '../Coupon/CouponModal/CouponModal';
 
-import OrderInfo from '@/components/common/OrderInfo';
+import Checkbox from '@/components/common/Checkbox/Checkbox';
+import OrderInfo from '@/components/common/PriceSection/PriceSection';
 import useModal from '@/hooks/useModal';
 import { isAdditionalShippingState } from '@/recoil/coupons/atoms';
 import { fetchCouponSelector } from '@/recoil/coupons/fetchCouponSelector';
-import Checkbox from '@common/Checkbox';
 import { THEME } from '@constants/theme';
 import {
   checkedCartItemsState,

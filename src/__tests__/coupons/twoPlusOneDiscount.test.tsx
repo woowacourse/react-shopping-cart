@@ -6,7 +6,7 @@ import { couponValidator } from '@/components/Coupon/utils/couponValidator';
 import { OVER_THREE_COUNT_DATA } from '@/mocks/cart';
 import { CHECKED_BOGO_COUPON, MOCK_COUPON_CHECK_LIST } from '@/mocks/coupon';
 import { cartItemsState } from '@/recoil/cartItems/atoms';
-import { couponSavedCheckListState } from '@/recoil/coupons/atoms';
+import { couponChecklistState } from '@/recoil/coupons/atoms';
 import { Coupon } from '@/types/coupon';
 
 const EXPIRED_COUPON: Coupon = {
@@ -80,7 +80,7 @@ describe('2개 구매 시 1개 무료 쿠폰', () => {
             <RecoilRoot
               initializeState={({ set }) => {
                 set(cartItemsState, OVER_THREE_COUNT_DATA);
-                set(couponSavedCheckListState, CHECKED_BOGO_COUPON);
+                set(couponChecklistState, CHECKED_BOGO_COUPON);
               }}
             >
               {children}
@@ -105,7 +105,7 @@ describe('2개 구매 시 1개 무료 쿠폰', () => {
             <RecoilRoot
               initializeState={({ set }) => {
                 set(cartItemsState, OVER_THREE_COUNT_DATA);
-                set(couponSavedCheckListState, CHECKED_BOGO_COUPON);
+                set(couponChecklistState, CHECKED_BOGO_COUPON);
               }}
             >
               {children}

@@ -8,7 +8,7 @@ import { CONFIG } from '@/constants/config';
 import { TOTAL_PRICE_OVER_100000_DATA, TOTAL_PRICE_UNDER_100000_DATA } from '@/mocks/cart';
 import { MOCK_COUPON_CHECK_LIST } from '@/mocks/coupon';
 import { cartItemsState } from '@/recoil/cartItems/atoms';
-import { couponSavedCheckListState } from '@/recoil/coupons/atoms';
+import { couponChecklistState } from '@/recoil/coupons/atoms';
 import { Coupon } from '@/types/coupon';
 
 const EXPIRED_COUPON: Coupon = {
@@ -58,7 +58,7 @@ describe('5000원 할인 쿠폰', () => {
               <RecoilRoot
                 initializeState={({ set }) => {
                   set(cartItemsState, data);
-                  set(couponSavedCheckListState, MOCK_COUPON_CHECK_LIST);
+                  set(couponChecklistState, MOCK_COUPON_CHECK_LIST);
                 }}
               >
                 {children}
@@ -125,7 +125,7 @@ describe('5000원 할인 쿠폰', () => {
               <RecoilRoot
                 initializeState={({ set }) => {
                   set(cartItemsState, data);
-                  set(couponSavedCheckListState, MOCK_COUPON_CHECK_LIST);
+                  set(couponChecklistState, MOCK_COUPON_CHECK_LIST);
                 }}
               >
                 {children}

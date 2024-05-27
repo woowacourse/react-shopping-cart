@@ -12,7 +12,7 @@ import {
   productTypesCountState,
   totalPurchasePriceState,
 } from '@recoil/cartItems/selectors';
-import { couponSavedCheckListState } from '@recoil/coupons/atoms';
+import { couponChecklistState } from '@recoil/coupons/atoms';
 
 jest.mock('@apis/cartItem', () => ({
   fetchCartItems: jest.fn(),
@@ -36,7 +36,7 @@ describe('selectors', () => {
             <RecoilRoot
               initializeState={({ set }) => {
                 set(cartItemsState, TOTAL_PRICE_UNDER_100000_DATA);
-                set(couponSavedCheckListState, MOCK_COUPON_CHECK_LIST);
+                set(couponChecklistState, MOCK_COUPON_CHECK_LIST);
               }}
             >
               <Suspense fallback={null}>{children}</Suspense>
@@ -67,7 +67,7 @@ describe('selectors', () => {
             <RecoilRoot
               initializeState={({ set }) => {
                 set(cartItemsState, data);
-                set(couponSavedCheckListState, MOCK_COUPON_CHECK_LIST);
+                set(couponChecklistState, MOCK_COUPON_CHECK_LIST);
               }}
             >
               <Suspense fallback={null}>{children}</Suspense>
@@ -99,7 +99,7 @@ describe('selectors', () => {
             <RecoilRoot
               initializeState={({ set }) => {
                 set(cartItemsState, data);
-                set(couponSavedCheckListState, MOCK_COUPON_CHECK_LIST);
+                set(couponChecklistState, MOCK_COUPON_CHECK_LIST);
               }}
             >
               <Suspense fallback={null}>{children}</Suspense>
@@ -129,7 +129,7 @@ describe('selectors', () => {
             <RecoilRoot
               initializeState={({ set }) => {
                 set(cartItemsState, data);
-                set(couponSavedCheckListState, MOCK_COUPON_CHECK_LIST);
+                set(couponChecklistState, MOCK_COUPON_CHECK_LIST);
               }}
             >
               <Suspense fallback={null}>{children}</Suspense>
@@ -158,7 +158,7 @@ describe('selectors', () => {
             <RecoilRoot
               initializeState={({ set }) => {
                 set(cartItemsState, data);
-                set(couponSavedCheckListState, MOCK_COUPON_CHECK_LIST);
+                set(couponChecklistState, MOCK_COUPON_CHECK_LIST);
               }}
             >
               <Suspense fallback={null}>{children}</Suspense>
