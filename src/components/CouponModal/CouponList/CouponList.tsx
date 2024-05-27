@@ -25,8 +25,8 @@ const CouponList = () => {
   useEffect(() => {
     if (isAppliedFreeShipping()) {
       setShippingFeeInfo({
+        ...shippingFeeInfo,
         isFree: true,
-        shipping: 0,
       });
     } else {
       setShippingFeeInfo({
