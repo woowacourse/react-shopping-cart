@@ -18,11 +18,24 @@ const useDiscountSimulator = () => {
     return Math.floor((totalAmount * (coupon.discount ?? 0)) / 100);
   };
 
-  const calculateBuyXgetYDiscount = () => {
-    return selectedItems.reduce(
-      (accMaxAmount, curItem) => Math.max(accMaxAmount, curItem.product.price),
-      0
-    );
+  const calculateBuyXgetYDiscount = (coupon: CouponType) => {
+    const minimumQuantity =
+      coupon.buyQuantity &&
+      coupon.getQuantity &&
+      coupon.buyQuantity + coupon.getQuantity;
+
+    if (!minimumQuantity) {
+      return 0;
+    }
+
+    const mostExpensiveItem = selectedItems.reduce((accMaxAmount, curItem) => {
+      if (minimumQuantity <= curItem.quantity) {
+        return Math.max(accMaxAmount, curItem.product.price);
+      }
+      return accMaxAmount;
+    }, 0);
+
+    return mostExpensiveItem * (coupon.getQuantity ?? 0);
   };
 
   const calculateFreeShippingDiscount = () => {
@@ -36,7 +49,7 @@ const useDiscountSimulator = () => {
       case "percentage":
         return calculatePercentageDiscount(coupon, orderPrice);
       case "buyXgetY":
-        return calculateBuyXgetYDiscount();
+        return calculateBuyXgetYDiscount(coupon);
       case "freeShipping":
         return calculateFreeShippingDiscount();
       default:
