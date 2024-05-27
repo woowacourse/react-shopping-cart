@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import ShoppingCartOverview from './components/ShoppingCartOverview/ShoppingCartOverview';
-import OrderInformationOverview from './components/OrderInformationOverview/OrdeInformationOverview';
+import OrderInformationOverview from './components/OrderInformationOverview/OrderInformationOverview';
 import PaymentInfo from './components/PaymentInfo/PaymentInfo';
 import { ROUTER_URL } from './constants/constants';
 
