@@ -62,9 +62,7 @@ export const maxBuyXgetYItemSelector = selector({
   get: ({ get }) => {
     const selectedItemsId = get(selectedCartItemsIdState);
     const couponsInfo = get(couponListSelector);
-    // const buyXgetYCoupon = get(couponsByDiscountTypeSelector).buyXgetY;
 
-    // if (buyXgetYCoupon) {
     const targetCouponInfo = couponsInfo.find(
       (coupon) => coupon.discountType === "buyXgetY"
     )!;
@@ -76,9 +74,6 @@ export const maxBuyXgetYItemSelector = selector({
     const filteredItemsId = selectedItemsId.filter((id: number) => {
       return get(cartItemQuantityState(id)) >= buyQuantity! + getQuantity!;
     });
-    //const couponsInfo = get(couponListSelector);
-
-    // const { buyQuantity, getQuantity } = targetCouponInfo;
 
     filteredItemsId.forEach((id) => {
       const cartItems = get(cartItemsState);
