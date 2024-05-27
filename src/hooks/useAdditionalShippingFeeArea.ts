@@ -11,9 +11,9 @@ const useAdditionalShippingFeeArea = () => {
   const [isSelected, setSelected] = useRecoilState(
     additionalShippingFeeAreaState
   );
-
   const [discountAmount, setDiscountAmount] =
     useRecoilState(discountAmountState);
+
   const selectedCoupons = useRecoilValue(selectedCouponsState);
 
   const handleSelect = () => {
@@ -27,9 +27,10 @@ const useAdditionalShippingFeeArea = () => {
 
     if (!isSelected) {
       setDiscountAmount(discountAmount + ADDITIONAL_SHIPPING_FEE);
-    } else {
-      setDiscountAmount(discountAmount - ADDITIONAL_SHIPPING_FEE);
+      return;
     }
+
+    setDiscountAmount(discountAmount - ADDITIONAL_SHIPPING_FEE);
   };
 
   return { isSelected, handleSelect };
