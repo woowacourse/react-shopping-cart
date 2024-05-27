@@ -1,4 +1,5 @@
 import { Coupon } from '@appTypes/orderConfirm';
+import { COUPON } from '@constants/orderConfirm';
 import { calculateDiscountAmount } from '@domain/discount';
 import { useConfirmCouponApplication } from '@hooks/orderConfirm';
 import { useOrderCosts } from '@hooks/shoppingCart';
@@ -28,7 +29,7 @@ const useSimulateCouponCheck = (selectedCouponList: Coupon[]) => {
         return prevItemList.filter((item) => item.id !== coupon.id);
       }
 
-      if (checked && !isAlreadySelected && prevItemList.length < 2) {
+      if (checked && !isAlreadySelected && prevItemList.length < COUPON.selectLength.max) {
         return [...prevItemList, coupon];
       }
 
@@ -42,7 +43,8 @@ const useSimulateCouponCheck = (selectedCouponList: Coupon[]) => {
   const selectedCount = temporarySelectedCouponList.length;
 
   const isActiveCoupon = (coupon: Coupon) =>
-    (selectedCount < 2 || temporarySelectedCouponList.some((tempCoupon) => tempCoupon.id === coupon.id)) &&
+    (selectedCount < COUPON.selectLength.max ||
+      temporarySelectedCouponList.some((tempCoupon) => tempCoupon.id === coupon.id)) &&
     isApplicabilityCoupon(coupon);
 
   return {

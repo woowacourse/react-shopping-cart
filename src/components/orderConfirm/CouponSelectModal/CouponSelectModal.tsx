@@ -1,5 +1,6 @@
 import { UpsideDownExclamation } from '@assets/index';
 import CouponList from '@components/orderConfirm/CouponList/CouponList';
+import { COUPON } from '@constants/orderConfirm';
 import useCouponSimulator from '@hooks/orderConfirm/useCouponSimulator';
 import { Modal } from '@jinyyy/simple-modal';
 import { formatKoreanCurrency } from '@utils/currency';
@@ -26,7 +27,7 @@ const CouponSelectModal: React.FC<CouponSelectModalProps> = ({ isOpen, onToggle 
       <Modal.ModalContent style={CouponSelectModalContentStyle}>
         <Styled.Banner>
           <UpsideDownExclamation />
-          <Styled.BannerText>쿠폰은 최대 2개까지 사용할 수 있습니다.</Styled.BannerText>
+          <Styled.BannerText>쿠폰은 최대 {COUPON.selectLength.max}개까지 사용할 수 있습니다.</Styled.BannerText>
         </Styled.Banner>
         <CouponList
           isActiveCoupon={isActiveCoupon}
