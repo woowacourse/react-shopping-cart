@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 
-import { DISCOUNT_TYPES } from '../constants/DISCOUNT_TYPES';
+import { DISCOUNT_TYPES, MAX_COUPON_COUNT } from '../constants/COUPON_INFO';
 import { selectedCartItemListState } from '../recoil/CartItem/atoms/selectedCartItemListState';
 import { selectedCouponListState } from '../recoil/Coupon/atoms/selectedCouponListState';
 import { useCalculateDeliveryFee } from './useCalculateDeliveryFee';
@@ -22,7 +22,8 @@ export const useCouponCheck = () => {
   };
 
   const isCouponApplicable = (coupon: Coupon, totalAmount: number, now: Date = new Date()) => {
-    if (selectedCouponList.length === 2 && !selectedCouponList.find((item) => item.id === coupon.id)) return false;
+    if (selectedCouponList.length === MAX_COUPON_COUNT && !selectedCouponList.find((item) => item.id === coupon.id))
+      return false;
     if (!coupon || !isCouponValid(coupon)) return false;
 
     if (coupon.minimumAmount && totalAmount < coupon.minimumAmount) {

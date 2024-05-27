@@ -2,12 +2,12 @@ import { Modal } from 'paran-simple-modal';
 
 import NotificationContainer from '../../components/Container/NotificationContainer/NotificationContainer';
 import CouponList from '../../components/List/CouponList/CouponList';
+import { MAX_COUPON_COUNT } from '../../constants/COUPON_INFO';
 import { useCalculateTotalCouponDiscount } from '../../hooks/useCalculateCouponDiscount';
 import { useToggleModal } from '../../hooks/useToggleModal';
 import * as S from './ApplyCouponModal.style';
 
 import type { Coupon } from '../../types/Coupon';
-
 interface ApplyCouponModalProps {
   couponList: Coupon[];
 }
@@ -24,7 +24,7 @@ function ApplyCouponModal({ couponList }: ApplyCouponModalProps) {
       <Modal.CloseButton onClick={openModal} style={{ top: '34px', right: '20px' }} />
       <Modal.Title title="쿠폰을 선택해 주세요" style={{ marginTop: '14px' }} />
       <S.CouponListContainer>
-        <NotificationContainer content={`쿠폰은 최대 2개까지 사용할 수 있습니다.`} />
+        <NotificationContainer content={`쿠폰은 최대 ${MAX_COUPON_COUNT}개까지 사용할 수 있습니다.`} />
         <CouponList couponList={couponList} />
       </S.CouponListContainer>
       {selectedCouponTotalDiscount === 0 ? (

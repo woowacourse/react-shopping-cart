@@ -1,3 +1,5 @@
+export const MAX_COUPON_COUNT = 2;
+
 export const DISCOUNT_TYPES = {
   fixed: 'fixed',
   buyXgetY: 'buyXgetY',

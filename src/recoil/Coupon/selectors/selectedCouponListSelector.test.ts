@@ -3,6 +3,7 @@ import { RecoilRoot, useRecoilCallback, useRecoilValue } from 'recoil';
 
 import { renderHook } from '@testing-library/react';
 
+import { MAX_COUPON_COUNT } from '../../../constants/COUPON_INFO';
 import { couponListMockData } from '../../../mockData/couponListMockData';
 import { Coupon } from '../../../types/Coupon';
 import { selectedCouponListState } from '../atoms/selectedCouponListState';
@@ -57,7 +58,7 @@ describe('selectedCouponListSelector', () => {
     expect(result.current.selectedCouponList).toHaveLength(0);
   });
 
-  it('최대 2개의 쿠폰만 선택 가능하다.', () => {
+  it(`최대 ${MAX_COUPON_COUNT}개의 쿠폰만 선택 가능하다.`, () => {
     const { result } = renderHook(
       () => {
         const selectedCouponList = useRecoilValue(selectedCouponListState);
@@ -73,14 +74,16 @@ describe('selectedCouponListSelector', () => {
     );
 
     act(() => {
-      result.current.setSelectedCoupon(couponListMockData[1]);
-      result.current.setSelectedCoupon(couponListMockData[2]);
+      couponListMockData.forEach((coupon, idx) => {
+        if (idx < MAX_COUPON_COUNT) {
+          result.current.setSelectedCoupon(coupon);
+        }
+      });
+      result.current.setSelectedCoupon(couponListMockData[couponListMockData.length - 1]);
     });
 
-    act(() => {
-      result.current.setSelectedCoupon(couponListMockData[3]);
-    });
+    act(() => {});
 
-    expect(result.current.selectedCouponList).toHaveLength(2);
+    expect(result.current.selectedCouponList).toHaveLength(MAX_COUPON_COUNT);
   });
 });

@@ -1,6 +1,6 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-import { DISCOUNT_TYPES } from '../constants/DISCOUNT_TYPES';
+import { DISCOUNT_TYPES } from '../constants/COUPON_INFO';
 import { selectedCartItemListState } from '../recoil/CartItem/atoms/selectedCartItemListState';
 import { selectedCartItemListTotalPriceSelector } from '../recoil/CartItem/selectors/selectedCartItemListTotalPriceSelector';
 import { selectedCouponListState } from '../recoil/Coupon/atoms/selectedCouponListState';
