@@ -13,12 +13,8 @@ import { CouponProps } from '../../types';
 import { isCouponExpired } from '../../validators/isCouponExpired/isCouponExpired';
 import { isCouponAvailableTime } from '../../validators/isCouponAvailableTime/isCouponAvailableTime';
 import { isOrderMinimumAmount } from '../../validators/isOrderMinimumAmount/isOrderMinimumAmount';
-import {
-  deliveryPriceState,
-  orderPriceState,
-} from '../../recoil/selector/selector';
+import { orderPriceState } from '../../recoil/selector/selector';
 import { isCouponAvailableQuantity } from '../../validators/isCouponAvailableQuantity/isCouponAvailableQuantity';
-import { isDeliveryFree } from '../../validators/isDeliveryFree/isDeliveryFree';
 
 export const CouponItemList: React.FC = () => {
   const selectedItems = useRecoilValue(selectedItemsState);
@@ -30,7 +26,6 @@ export const CouponItemList: React.FC = () => {
     cartErrorMessageState,
   );
   const orderPrice = useRecoilValue(orderPriceState);
-  const deliveryPrice = useRecoilValue(deliveryPriceState);
 
   useEffect(() => {
     const fetchCouponItems = async () => {
@@ -66,22 +61,40 @@ export const CouponItemList: React.FC = () => {
     }
   };
 
+  const isValidCoupon = (coupon: CouponProps) => {
+    switch (coupon.discountType) {
+      case 'fixed':
+        return (
+          isCouponExpired(coupon) && isOrderMinimumAmount(coupon, orderPrice)
+        );
+      case 'percentage':
+        return (
+          isCouponExpired(coupon) && isCouponAvailableTime(coupon, new Date())
+        );
+      case 'buyXgetY':
+        return (
+          isCouponExpired(coupon) &&
+          isCouponAvailableQuantity(coupon, selectedItems)
+        );
+      case 'freeShipping':
+        return (
+          isCouponExpired(coupon) && isOrderMinimumAmount(coupon, orderPrice)
+        );
+      default:
+        return false;
+    }
+  };
+
   return (
     <>
       {couponItems.map((item) => {
-        const isValidCoupon =
-          isCouponExpired(item) &&
-          isCouponAvailableTime(item) &&
-          isOrderMinimumAmount(item, orderPrice) &&
-          isCouponAvailableQuantity(item, selectedItems) &&
-          isDeliveryFree(deliveryPrice);
         return (
           <CouponItem
             key={item.code}
             item={item}
             onSelect={() => handleSelectCoupon(item)}
             selected={isSelected(item)}
-            isValid={isValidCoupon}
+            isValid={isValidCoupon(item)}
           />
         );
       })}
