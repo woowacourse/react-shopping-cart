@@ -43,11 +43,11 @@ export const orderAmountState = selector<number>({
 export const shippingCostState = selector<number>({
   key: 'shippingCostState',
   get: ({ get }) => {
-    const checkedItemIds = get(checkedCartItemIdsState);
+    const checkedCartItems = get(checkedCartItemsState);
     const orderAmount = get(orderAmountState);
     const isRemoteShipping = get(remoteShippingOptionState);
 
-    if (orderAmount >= 100000 || checkedItemIds.length < 1) {
+    if (orderAmount >= 100000 || checkedCartItems.length < 1) {
       return 0;
     }
     return isRemoteShipping ? 6000 : 3000;
