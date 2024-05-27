@@ -51,7 +51,6 @@ export default function Coupon({ coupons }: Props) {
               orderList,
               deliveryFee: finalTotalPriceList.deliveryFee,
             }).calculateDiscountAmount();
-            console.log(coupon, discount);
             return acc + discount!;
           },
           0,
