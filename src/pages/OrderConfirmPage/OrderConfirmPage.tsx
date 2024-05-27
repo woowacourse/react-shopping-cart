@@ -64,7 +64,11 @@ const OrderConfirmPage = () => {
   const handlePaymentConfirm = async () => {
     await OrderConfirmFetcher.postNewOrders([...selectedIds]);
 
-    navigate(ROUTE_PATHS.paymentConfirm);
+    navigate(ROUTE_PATHS.paymentConfirm, {
+      state: {
+        totalPrice,
+      },
+    });
   };
 
   return (
