@@ -23,7 +23,7 @@ const useCouponApplier = () => {
     }
 
     if (coupon.discountType === COUPON_DISCOUNT_TYPE.FREE_SHIPPING) {
-      return !(priceInfo.order >= ORDER.SHIPPING_FREE_PRICE);
+      return priceInfo.order < ORDER.SHIPPING_FREE_PRICE;
     }
 
     if (coupon.availableTime) {
