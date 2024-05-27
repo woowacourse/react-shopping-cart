@@ -11,6 +11,10 @@ import Title from "../_common/Title/Title";
 import LoadingSpinner from "@/assets/loading-spinner.svg?react";
 import Styled from "./Item.style";
 
+const ItemMain = ({ children }: React.PropsWithChildren) => {
+  return <Styled.ItemWrapper>{children}</Styled.ItemWrapper>;
+};
+
 const ItemHeader = ({ children }: React.PropsWithChildren) => {
   return <Styled.ItemHeader>{children}</Styled.ItemHeader>;
 };
@@ -19,12 +23,12 @@ const ItemBody = ({ children }: React.PropsWithChildren) => {
   return <Styled.ItemBody>{children}</Styled.ItemBody>;
 };
 
-const ItemImage: React.FC<{ path: string }> = ({ path }) => {
-  return <Styled.ItemImageBox $path={path} />;
-};
-
 const ItemDetail = ({ children }: React.PropsWithChildren) => {
   return <Styled.ItemDetailWrapper>{children}</Styled.ItemDetailWrapper>;
+};
+
+const ItemImage: React.FC<{ path: string }> = ({ path }) => {
+  return <Styled.ItemImageBox $path={path} />;
 };
 
 const ItemPriceTag: React.FC<{ itemName: string; price: number }> = ({
@@ -58,15 +62,13 @@ const ItemQuantityWithButton: React.FC<{
   );
 };
 
-const Item = ({ children }: React.PropsWithChildren) => {
-  return <Styled.ItemWrapper>{children}</Styled.ItemWrapper>;
-};
-
-Item.ItemHeader = ItemHeader;
-Item.ItemBody = ItemBody;
-Item.ItemImage = ItemImage;
-Item.ItemPriceTag = ItemPriceTag;
-Item.ItemDetail = ItemDetail;
-Item.ItemQuantityWithButton = ItemQuantityWithButton;
+const Item = Object.assign(ItemMain, {
+  ItemHeader,
+  ItemBody,
+  ItemDetail,
+  ItemImage,
+  ItemPriceTag,
+  ItemQuantityWithButton,
+});
 
 export default Item;
