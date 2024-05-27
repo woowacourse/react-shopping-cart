@@ -7,24 +7,28 @@ import useDiscountCalculator from "./useDiscountCalculator";
 
 import { Coupon } from "@/types/cart";
 
+import { COUPONS } from "@/constants/cart";
+
 const useCouponSimulator = () => {
-  const setSelectedCoupons = useSetRecoilState(selectedCouponState);
   const [temporaryCoupons, setTemporaryCoupons] = useState<Coupon[]>(
     useRecoilValue(selectedCouponState)
   );
+  const setSelectedCoupons = useSetRecoilState(selectedCouponState);
 
   const { getDiscountAmount } = useDiscountCalculator();
 
-  const handleAddCoupon = (coupon: Coupon) => {
-    if (temporaryCoupons.length >= 2) {
-      alert("최대 2장의 쿠폰을 사용할 수 있습니다.");
+  const handleAddTemporaryCoupon = (coupon: Coupon) => {
+    if (temporaryCoupons.length >= COUPONS.maxCouponLengthThreshold) {
+      alert(
+        `최대 ${COUPONS.maxCouponLengthThreshold}장의 쿠폰을 사용할 수 있습니다.`
+      );
       return;
     }
 
     setTemporaryCoupons((prevCoupons) => [...prevCoupons, coupon]);
   };
 
-  const handleRemoveCoupon = (coupon: Coupon) => {
+  const handleRemoveTemporaryCoupon = (coupon: Coupon) => {
     setTemporaryCoupons((prevCoupons) => {
       return prevCoupons.filter((c) => c.id !== coupon.id);
     });
@@ -48,8 +52,8 @@ const useCouponSimulator = () => {
 
   return {
     checkSelectedCoupon,
-    handleAddCoupon,
-    handleRemoveCoupon,
+    handleAddTemporaryCoupon,
+    handleRemoveTemporaryCoupon,
     onTemporaryCouponsSubmit,
     hasTemporaryCoupons,
     discountAmount,

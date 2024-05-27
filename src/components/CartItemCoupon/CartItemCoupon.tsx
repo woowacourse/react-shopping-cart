@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 import useCouponAvailability from "@/hooks/useCouponAvailability";
 
 import CheckBox from "../_common/CheckBox/CheckBox";
@@ -13,40 +11,35 @@ import Styled from "./CartItemCoupon.style";
 interface CouponProps {
   coupon: Coupon;
   checkSelectedCoupon: (id: number) => boolean;
-  handleAddCoupon: (coupon: Coupon) => void;
-  handleRemoveCoupon: (coupon: Coupon) => void;
+  handleAddTemporaryCoupon: (coupon: Coupon) => void;
+  handleRemoveTemporaryCoupon: (coupon: Coupon) => void;
 }
 
 const CartItemCoupon = ({
   coupon,
   checkSelectedCoupon,
-  handleAddCoupon,
-  handleRemoveCoupon,
+  handleAddTemporaryCoupon,
+  handleRemoveTemporaryCoupon,
 }: CouponProps) => {
   const { checkCouponUsable } = useCouponAvailability(coupon.id);
   const isSelectedCoupon = checkSelectedCoupon(coupon.id);
 
-  const isCouponUsable = checkCouponUsable();
-
-  useEffect(() => {
-    if (isSelectedCoupon && !isCouponUsable) {
-      handleRemoveCoupon(coupon);
-    }
-  }, [coupon, isSelectedCoupon, isCouponUsable, handleRemoveCoupon]);
+  const couponValidationMessage = checkCouponUsable();
+  const isCouponUsable = couponValidationMessage === "";
 
   return (
     <>
       <Styled.CouponSeparator />
-      <Styled.CouponInfoWrapper isCouponUsable={isCouponUsable}>
+      <Styled.CouponInfoWrapper $isCouponUsable={isCouponUsable}>
         <Styled.CouponHeader>
           <CheckBox
             disabled={!isCouponUsable}
             isChecked={isSelectedCoupon}
-            onClick={
+            onClick={() => {
               !isSelectedCoupon
-                ? () => handleAddCoupon(coupon)
-                : () => handleRemoveCoupon(coupon)
-            }
+                ? handleAddTemporaryCoupon(coupon)
+                : handleRemoveTemporaryCoupon(coupon);
+            }}
           />
           <Styled.CouponText>{coupon.description}</Styled.CouponText>
         </Styled.CouponHeader>
@@ -67,6 +60,10 @@ const CartItemCoupon = ({
           )}
         </Styled.CouponBody>
       </Styled.CouponInfoWrapper>
+
+      {couponValidationMessage && (
+        <Caption text={couponValidationMessage} theme="warning" />
+      )}
     </>
   );
 };

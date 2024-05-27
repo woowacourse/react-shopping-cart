@@ -1,10 +1,10 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const CouponSeparator = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
-const CouponInfoWrapper = styled.section<{ isCouponUsable: boolean }>`
+const CouponInfoWrapper = styled.section<{ $isCouponUsable: boolean }>`
   height: 70px;
   width: 100%;
   display: flex;
@@ -12,7 +12,9 @@ const CouponInfoWrapper = styled.section<{ isCouponUsable: boolean }>`
 
   row-gap: 12px;
 
-  color: ${({ isCouponUsable }) => (isCouponUsable ? "#000000" : "#9e9e9e")};
+  ${({ $isCouponUsable }) => css`
+    opacity: ${$isCouponUsable ? 1 : 0.3};
+  `}
 `;
 
 const CouponHeader = styled.div`
@@ -31,6 +33,8 @@ const CouponBody = styled.div`
   height: 34px;
   display: flex;
   flex-direction: column;
+
+  row-gap: 10px;
 
   justify-content: space-between;
 `;

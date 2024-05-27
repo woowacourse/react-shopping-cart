@@ -22,8 +22,8 @@ const CartItemCouponModal = ({
 
   const {
     checkSelectedCoupon,
-    handleAddCoupon,
-    handleRemoveCoupon,
+    handleAddTemporaryCoupon,
+    handleRemoveTemporaryCoupon,
     onTemporaryCouponsSubmit,
     discountAmount,
     hasTemporaryCoupons,
@@ -41,18 +41,18 @@ const CartItemCouponModal = ({
           <Modal.ModalTitle text="쿠폰을 선택해 주세요" />
           <Modal.ModalCloseButton onCloseButtonClick={closeModal} />
         </Modal.ModalHeader>
-
         <Caption
           asset={() => <MoreInfo />}
           text="쿠폰은 최대 2개까지 사용할 수 있습니다."
         />
+
         {coupons.map((coupon) => (
           <CartItemCoupon
             key={coupon.id}
             coupon={coupon}
             checkSelectedCoupon={checkSelectedCoupon}
-            handleAddCoupon={handleAddCoupon}
-            handleRemoveCoupon={handleRemoveCoupon}
+            handleAddTemporaryCoupon={handleAddTemporaryCoupon}
+            handleRemoveTemporaryCoupon={handleRemoveTemporaryCoupon}
           />
         ))}
 
