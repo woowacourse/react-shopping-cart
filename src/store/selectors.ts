@@ -1,5 +1,11 @@
 import { selector, selectorFamily } from 'recoil';
-import { activeCouponCodesState, isCheckedState, mockCoupons, productsState } from './atoms';
+import {
+  activeCouponCodesState,
+  additionalShippingFeeStatusState,
+  isCheckedState,
+  mockCoupons,
+  productsState,
+} from './atoms';
 import { CartItemType, CouponType } from '../types';
 import { CART_POLICY } from '../constants/policy';
 
@@ -124,6 +130,24 @@ const calculator = (activeCoupons: CouponType[], products: CartItemType[]): numb
 
   return maxDiscount;
 };
+
+export const totalShippingFeeState = selector({
+  key: 'totalShippingFeeState',
+  get: ({ get }) => {
+    const { orderAmount } = get(totalOrderAmountState);
+    const additionalShippingFeeStatus = get(additionalShippingFeeStatusState);
+
+    const baseShippingFee =
+      orderAmount >= CART_POLICY.shipping_throughput
+        ? CART_POLICY.shipping_free
+        : CART_POLICY.shipping_basic_fee;
+    const totalShippingFee = additionalShippingFeeStatus
+      ? CART_POLICY.shipping_additional_fee + baseShippingFee
+      : baseShippingFee;
+
+    return { baseShippingFee, totalShippingFee };
+  },
+});
 
 export const discountAmountState = selector({
   key: 'discountAmountState',

@@ -25,16 +25,9 @@ export const isCheckedState = atom<Record<number, boolean>>({
   ],
 });
 
-type HasShippingFeeType = {
-  hasBasicFee: boolean;
-  hasAdditionalFee: boolean;
-};
-
-const initialShippingFee: HasShippingFeeType = { hasBasicFee: false, hasAdditionalFee: false };
-
-export const shippingFeeState = atom<HasShippingFeeType>({
-  key: 'shippingFeeState',
-  default: initialShippingFee,
+export const additionalShippingFeeStatusState = atom({
+  key: 'additionalShippingFeeStatusState',
+  default: false,
 });
 
 export const mockCoupons: CouponType[] = [

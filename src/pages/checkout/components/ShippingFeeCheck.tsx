@@ -1,17 +1,16 @@
 import { useRecoilState } from 'recoil';
-import { shippingFeeState } from '../../../store/atoms';
+import { additionalShippingFeeStatusState } from '../../../store/atoms';
 import CheckBox from '../../../components/common/CheckBox/CheckBox';
 import common from '../../../styles/common.module.css';
 import styles from '../Checkout.module.css';
 
 export default function ShippingFeeCheck() {
-  const [shippingFee, setShippingFee] = useRecoilState(shippingFeeState);
-  const { hasAdditionalFee } = shippingFee;
+  const [additionalShippingFeeStatus, setAdditionalShippingFeeStatus] = useRecoilState(
+    additionalShippingFeeStatusState,
+  );
 
   const handleToggleShippingFeeSelect = () => {
-    const newShippingFee = { ...shippingFee, hasAdditionalFee: !hasAdditionalFee };
-
-    setShippingFee(newShippingFee);
+    setAdditionalShippingFeeStatus(!additionalShippingFeeStatus);
   };
 
   return (
@@ -20,7 +19,7 @@ export default function ShippingFeeCheck() {
       <div className={styles.checkboxContainer}>
         <CheckBox
           id="shippingFeeCheckbox"
-          checked={hasAdditionalFee}
+          checked={additionalShippingFeeStatus}
           onChange={handleToggleShippingFeeSelect}
         />
         <span className={common.labelText}>제주도 및 도서 산간 지역</span>

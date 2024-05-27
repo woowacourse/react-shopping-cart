@@ -5,12 +5,17 @@ import SubtitleSpaceBetween from '../../../components/common/SubtitleSpaceBetwee
 import { NOTICE_MESSAGE } from '../../../constants/messages';
 
 import styles from '../Checkout.module.css';
-import { discountAmountState, totalOrderAmountState } from '../../../store/selectors';
+import {
+  discountAmountState,
+  totalOrderAmountState,
+  totalShippingFeeState,
+} from '../../../store/selectors';
 import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
 
 export default function CheckoutTotals() {
-  const { orderAmount, deliveryCharge, totalAmount } = useRecoilValue(totalOrderAmountState);
+  const { orderAmount, totalAmount } = useRecoilValue(totalOrderAmountState);
   const discountAmount = useRecoilValue(discountAmountState);
+  const { totalShippingFee } = useRecoilValue(totalShippingFeeState);
 
   return (
     <div className={styles.checkoutTotalsContainer}>
@@ -21,7 +26,7 @@ export default function CheckoutTotals() {
         subtitle="쿠폰 할인 금액"
         content={`-${formatKoreanCurrency(discountAmount)}`}
       />
-      <SubtitleSpaceBetween subtitle="배송비" content={formatKoreanCurrency(deliveryCharge)} />
+      <SubtitleSpaceBetween subtitle="배송비" content={formatKoreanCurrency(totalShippingFee)} />
       <Divider />
       <SubtitleSpaceBetween subtitle="총 결제 금액" content={formatKoreanCurrency(totalAmount)} />
     </div>
