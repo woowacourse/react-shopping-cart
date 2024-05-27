@@ -26,7 +26,7 @@ function CartItem({ item, isReadonly = false, onRemoveItem, onUpdateQuantity }: 
       {!isReadonly && onRemoveItem && (
         <S.Header>
           <CheckBox id={product.name} isChecked={isSelected} onChange={handleIsSelected} />
-          <Button customStyle={S.DeleteButton} content="삭제" onClick={() => onRemoveItem(id)} />
+          <Button customStyle={S.DeleteButton} text="삭제" onClick={() => onRemoveItem(id)} />
         </S.Header>
       )}
       <S.Body>

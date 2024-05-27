@@ -44,10 +44,10 @@ function ShoppingCartPage() {
       </Await>
       {hasSelectedCartItemList ? (
         <Link to={PATHS.ORDER_CONFIRM}>
-          <SubmitButton content="주문 확인" />
+          <SubmitButton text="주문 확인" />
         </Link>
       ) : (
-        <SubmitButton content="주문 확인" disabled={true} />
+        <SubmitButton text="주문 확인" disabled={true} />
       )}
     </div>
   );

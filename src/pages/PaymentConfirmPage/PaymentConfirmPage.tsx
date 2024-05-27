@@ -42,7 +42,7 @@ function PaymentConfirmPage() {
         </S.TotalPriceContainer>
       </S.Main>
       <Link to={PATHS.ROOT} onClick={clearStorage}>
-        <SubmitButton content="장바구니로 돌아가기" />
+        <SubmitButton text="장바구니로 돌아가기" />
       </Link>
     </div>
   );

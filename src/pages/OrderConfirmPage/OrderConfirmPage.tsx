@@ -70,14 +70,14 @@ function OrderConfirmPage() {
             <CartItem key={item.id} item={item} isReadonly={true} />
           ))}
         </S.SelectedCartItemContainer>
-        <Button type="button" content="쿠폰 적용" onClick={openModal} />
+        <Button type="button" text="쿠폰 적용" onClick={openModal} />
         <S.CartInfoContainer>
           <S.CartInfoTitle>배송 정보</S.CartInfoTitle>
           <CheckBox id="배송 정보" text="제주도 및 도서 산간 지역" isChecked={isSigol} onChange={handleIsSigol} />
         </S.CartInfoContainer>
         <TotalPriceContainer showDiscountPrice={true} />
       </S.Main>
-      <SubmitButton content="결제하기" onClick={handleSubmitButtonClick} />
+      <SubmitButton text="결제하기" onClick={handleSubmitButtonClick} />
       {isCouponModalOpen && <CouponModal couponList={couponList} isOpen={isCouponModalOpen} close={closeModal} />}
     </div>
   );
