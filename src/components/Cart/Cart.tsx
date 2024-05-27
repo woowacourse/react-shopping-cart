@@ -16,7 +16,7 @@ export default function Cart() {
   const cartTotalCount = useRecoilValue(cartQuantity);
   const cartCount = useRecoilValue(cartData).length;
 
-  // addCartItem(21); // NOTE: 장바구니 상품 추가
+  // addCartItem(3); // NOTE: 장바구니 상품 추가
 
   return (
     <S.Container>

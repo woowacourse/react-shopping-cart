@@ -1,9 +1,12 @@
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { checkedCartItems } from '../../recoil/selectors/selectors';
 import Header from '../../components/Header/Header';
 import { FloatingButton } from '../../components/Button';
+
+import { fetchCartItem } from '../../api';
+import { cartData } from '../../recoil/atoms/atoms';
 
 import * as S from './PaymentConfirmPage.style';
 
@@ -15,6 +18,8 @@ export default function PaymentConfirmPage() {
   const orderProduct = useRecoilValue(checkedCartItems);
   const cartTotalCount = orderProduct.reduce((acc, cartItem) => acc + cartItem.quantity, 0);
   const cartCount = orderProduct.length;
+
+  const [fetchCartData, setFetchCartData] = useRecoilState(cartData);
 
   return (
     <div id="orderConfirmPage">
@@ -28,7 +33,14 @@ export default function PaymentConfirmPage() {
         <S.TotalPriceLabel>총 결제 금액</S.TotalPriceLabel>
         <S.TotalPrice>{totalPrice.toLocaleString()}원</S.TotalPrice>
       </S.PaymentConfirm>
-      <FloatingButton text="장바구니로 돌아가기" isDisable={false} onClick={() => navigate('/')} />
+      <FloatingButton
+        text="장바구니로 돌아가기"
+        isDisable={false}
+        onClick={async () => {
+          navigate('/');
+          setFetchCartData(await fetchCartItem());
+        }}
+      />
     </div>
   );
 }

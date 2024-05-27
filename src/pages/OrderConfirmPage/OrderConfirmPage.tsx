@@ -5,6 +5,8 @@ import { FloatingButton } from '../../components/Button';
 import OrderConfirmCart from '../../components/OrderConfirmCart/OrderConfirmCart';
 import { useRecoilValue } from 'recoil';
 import { calculateOrderPrice } from '../../recoil/selectors/selectors';
+import { orderCartItems } from '../../api';
+import { Cart } from '../../types/cart';
 
 export default function OrderConfirmPage() {
   const navigate = useNavigate();
@@ -26,6 +28,7 @@ export default function OrderConfirmPage() {
         isDisable={false}
         onClick={() => {
           navigate('/payment-confirm', { state: { totalPrice } });
+          orderCartItems(cartItems.map((item: Cart) => item.id));
         }}
       />
     </div>
