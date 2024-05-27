@@ -11,7 +11,6 @@ import { allCheckedState } from '@recoil/cartItems/selectors';
 
 export default function CartMainSection() {
   const cartItems = useRecoilValue(cartItemsState);
-
   const [allChecked, setAllChecked] = useRecoilState(allCheckedState);
 
   const handleChangeChecked = (e: ChangeEvent<HTMLInputElement>) => {

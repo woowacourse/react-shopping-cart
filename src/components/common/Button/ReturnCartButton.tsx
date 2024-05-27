@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 
@@ -8,14 +9,20 @@ import { cartItemsState } from '@/recoil/cartItems/atoms';
 
 const ReturnCartButton = () => {
   const navigate = useNavigate();
-
   const setCartItems = useSetRecoilState(cartItemsState);
 
   const handleClickReturnCart = async () => {
-    const cartItems = await fetchCartItems();
-    setCartItems(cartItems);
     navigate('/');
   };
+
+  useEffect(() => {
+    const getCartItems = async () => {
+      const newCartItems = await fetchCartItems();
+      setCartItems(newCartItems);
+    };
+
+    getCartItems();
+  }, [setCartItems]);
 
   return (
     <button css={returnCartButton} onClick={handleClickReturnCart}>
