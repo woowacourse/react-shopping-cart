@@ -52,42 +52,62 @@ describe("cartItemState", () => {
   });
 
   describe("상품 총 가격", () => {
-    it("초기 총 가격은 모킹 데이터의 가격 총합인 80,000원이다.", () => {
-      const EXPECTED_TOTAL_PRICE = 80_000;
+    const MOCK_DATA_TOTAL_ORDER_PRICE = MOCK_CART_ITEMS.reduce(
+      (accPrice, currItem) =>
+        accPrice + currItem.product.price * currItem.quantity,
+      0
+    );
 
+    it(`초기 총 가격은 모킹 데이터의 가격 총합인 ${MOCK_DATA_TOTAL_ORDER_PRICE.toLocaleString()}원 이다.`, () => {
       const { result } = renderTestHook(() =>
         useRecoilValue(totalOrderPriceSelector)
       );
 
-      expect(result.current).toBe(EXPECTED_TOTAL_PRICE);
+      expect(result.current).toBe(MOCK_DATA_TOTAL_ORDER_PRICE);
     });
 
-    it("상품 개수가 변경되면 총 가격도 따라서 변경되어야 한다.", () => {
+    it("상품 갯수가 변경되면, 총 주문 가격도 해당 상품의 가격 x 변경한 상품 갯수만큼 변경되어야 한다.", async () => {
       const { result } = renderTestHook(() => {
         const totalPrice = useRecoilValue(totalOrderPriceSelector);
-        const setCartItemCount = useSetRecoilState(
+        const [cartItemCount, setCartItemCount] = useRecoilState(
           cartItemQuantity(MOCK_CART_ITEMS[0].id)
         );
 
-        return { totalPrice, setCartItemCount };
+        return { totalPrice, cartItemCount, setCartItemCount };
       });
 
       act(() => {
-        result.current.setCartItemCount(2);
+        const { cartItemCount, setCartItemCount } = result.current;
+
+        setCartItemCount(cartItemCount + 1);
       });
 
-      expect(result.current.totalPrice).toBe(90_000);
+      await waitFor(() => {
+        const { totalPrice } = result.current;
+
+        expect(totalPrice).toBe(
+          MOCK_DATA_TOTAL_ORDER_PRICE + MOCK_CART_ITEMS[0].product.price
+        );
+      });
 
       act(() => {
-        result.current.setCartItemCount(5);
+        const { cartItemCount, setCartItemCount } = result.current;
+
+        setCartItemCount(cartItemCount + 2);
       });
 
-      expect(result.current.totalPrice).toBe(120_000);
+      await waitFor(() => {
+        const { totalPrice } = result.current;
+
+        expect(totalPrice).toBe(
+          MOCK_DATA_TOTAL_ORDER_PRICE + MOCK_CART_ITEMS[0].product.price * 3 // 1 + 2
+        );
+      });
     });
   });
 
   describe("배송비", () => {
-    it("주문 금액이 100,000원 이하일 경우 배송비는 3,000원이다.", () => {
+    it(`주문 금액이 ${CART_FEE.shippingFeeThreshold}원 이하일 경우 배송비는 ${CART_FEE.shippingFee}원이다.`, () => {
       const EXPECTED_TOTAL_PRICE = 80_000;
 
       const { result } = renderTestHook(() => {
@@ -102,7 +122,7 @@ describe("cartItemState", () => {
       expect(shippingFee).toBe(CART_FEE.shippingFee);
     });
 
-    it("주문 금액이 100,000원 이상일 경우 배송비는 0원이다.", () => {
+    it(`주문 금액이 ${CART_FEE.shippingFee}원 이상일 경우 배송비는 0원이다.`, () => {
       const EXPECTED_SHIPPING_FEE = 0;
 
       const { result } = renderTestHook(() => {
@@ -124,7 +144,11 @@ describe("cartItemState", () => {
     });
 
     describe("제주도 및 도서 산간 지역", () => {
-      it("주문 금액이 100,000원 이하이고, 제주도 및 도서 산간 지역에 거주하는 사용자의 배송비는 6,000원이어야 한다,", async () => {
+      it(`주문 금액이 ${
+        CART_FEE.shippingFeeThreshold
+      }원 이하이고, 제주도 및 도서 산간 지역에 거주하는 사용자의 배송비는 ${
+        CART_FEE.shippingFee + CART_FEE.remoteAreaShippingFee
+      }원이어야 한다,`, async () => {
         const { result } = renderTestHook(() => {
           const shippingFee = useRecoilValue(shippingFeeSelector);
           const setIsRemoteArea = useSetRecoilState(remoteAreaState);
@@ -145,7 +169,7 @@ describe("cartItemState", () => {
         });
       });
 
-      it("주문 금액이 100,000원 이상인, 제주도 및 도서 산간 지역에 거주하는 사용자의 배송비는 0원이어야 한다,", async () => {
+      it(`주문 금액이 ${CART_FEE.shippingFeeThreshold}원 이상인, 제주도 및 도서 산간 지역에 거주하는 사용자의 배송비는 0원이어야 한다,`, async () => {
         const { result } = renderTestHook(() => {
           const shippingFee = useRecoilValue(shippingFeeSelector);
           const setCartItemCount = useSetRecoilState(
