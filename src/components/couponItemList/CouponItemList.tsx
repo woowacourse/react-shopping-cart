@@ -13,8 +13,12 @@ import { CouponProps } from '../../types';
 import { isCouponExpired } from '../../validators/isCouponExpired/isCouponExpired';
 import { isCouponAvailableTime } from '../../validators/isCouponAvailableTime/isCouponAvailableTime';
 import { isOrderMinimumAmount } from '../../validators/isOrderMinimumAmount/isOrderMinimumAmount';
-import { orderPriceState } from '../../recoil/selector/selector';
+import {
+  deliveryPriceState,
+  orderPriceState,
+} from '../../recoil/selector/selector';
 import { isCouponAvailableQuantity } from '../../validators/isCouponAvailableQuantity/isCouponAvailableQuantity';
+import { isDeliveryFree } from '../../validators/isDeliveryFree/isDeliveryFree';
 
 export const CouponItemList: React.FC = () => {
   const selectedItems = useRecoilValue(selectedItemsState);
@@ -26,6 +30,7 @@ export const CouponItemList: React.FC = () => {
     cartErrorMessageState,
   );
   const orderPrice = useRecoilValue(orderPriceState);
+  const deliveryPrice = useRecoilValue(deliveryPriceState);
 
   useEffect(() => {
     const fetchCouponItems = async () => {
@@ -68,7 +73,8 @@ export const CouponItemList: React.FC = () => {
           isCouponExpired(item) &&
           isCouponAvailableTime(item) &&
           isOrderMinimumAmount(item, orderPrice) &&
-          isCouponAvailableQuantity(item, selectedItems);
+          isCouponAvailableQuantity(item, selectedItems) &&
+          isDeliveryFree(deliveryPrice);
         return (
           <CouponItem
             key={item.code}
