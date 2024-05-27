@@ -32,6 +32,7 @@ const OrderSummary = () => {
         <StyledBetweenBox>
           <StyledBoldText>쿠폰 할인 금액</StyledBoldText>
           <StyledBoldText>
+            {discount ? "-" : ""}
             {discount?.toLocaleString("ko-KR") || 0}원
           </StyledBoldText>
         </StyledBetweenBox>
