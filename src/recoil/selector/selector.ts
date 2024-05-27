@@ -1,6 +1,8 @@
 import { selector } from 'recoil';
 import {
   cartItemsState,
+  finalSelectedCouponsState,
+  isLandAndMoutainAreaCheckedState,
   previewSelectedCouponsState,
   selectedItemsState,
 } from '../atoms/atoms';
@@ -63,10 +65,24 @@ export const deliveryPriceState = selector<number>({
   key: 'deliveryPriceState',
   get: ({ get }) => {
     const orderPrice = get(orderPriceState);
+    const finalSelectedCoupons = get(finalSelectedCouponsState);
+    const isLandAndMoutainAreaChecked = get(isLandAndMoutainAreaCheckedState);
+
+    if (orderPrice === 0) return 0;
+
+    if (orderPrice >= DELIVERY_INFO.FREE_DELIVERY_THRESHOLD) return 0;
+
+    if (
+      finalSelectedCoupons.some(
+        (coupon) => coupon.discountType === 'freeShipping',
+      )
+    ) {
+      return 0;
+    }
+
     const deliveryPrice =
-      orderPrice > DELIVERY_INFO.FREE_DELIVERY_THRESHOLD || orderPrice === 0
-        ? 0
-        : DELIVERY_INFO.DELIVERY_AMOUT;
+      DELIVERY_INFO.DELIVERY_AMOUT + (isLandAndMoutainAreaChecked ? 3000 : 0);
+
     return deliveryPrice;
   },
 });
