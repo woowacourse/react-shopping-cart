@@ -5,8 +5,8 @@ export const Main = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 36px;
-  min-height: calc(100vh - ${({ theme }) => theme.boxHeight} * 3);
-  margin-bottom: ${({ theme }) => theme.boxHeight};
+  min-height: calc(100vh - ${theme.boxHeight} * 3);
+  margin-bottom: ${theme.boxHeight};
   padding: 36px 24px;
 `;
 
