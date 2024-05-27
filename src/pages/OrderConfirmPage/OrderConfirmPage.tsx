@@ -67,7 +67,7 @@ function OrderConfirmPage() {
         </TitleContainer>
         <S.SelectedCartItemContainer>
           {selectedItemList.map((item) => (
-            <CartItem key={item.id} item={item} isConfirm={true} />
+            <CartItem key={item.id} item={item} isReadonly={true} />
           ))}
         </S.SelectedCartItemContainer>
         <Button type="button" content="쿠폰 적용" onClick={openModal} />
@@ -75,7 +75,7 @@ function OrderConfirmPage() {
           <S.CartInfoTitle>배송 정보</S.CartInfoTitle>
           <CheckBox id="배송 정보" text="제주도 및 도서 산간 지역" isChecked={isSigol} onChange={handleIsSigol} />
         </S.CartInfoContainer>
-        <TotalPriceContainer isConfirm={true} />
+        <TotalPriceContainer showDiscountPrice={true} />
       </S.Main>
       <SubmitButton isActive={true} content="결제하기" onClick={handleSubmitButtonClick} />
       {isCouponModalOpen && <CouponModal couponList={couponList} isOpen={isCouponModalOpen} close={closeModal} />}

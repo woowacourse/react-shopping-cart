@@ -9,12 +9,12 @@ import * as S from './CartItem.style';
 
 interface CartItemProps {
   item: TCartItem;
-  isConfirm?: boolean;
+  isReadonly?: boolean;
   onRemoveItem?: (cartItemId: number) => void;
   onUpdateQuantity?: (cartItemId: number, quantity: number) => void;
 }
 
-function CartItem({ item, isConfirm = false, onRemoveItem, onUpdateQuantity }: CartItemProps) {
+function CartItem({ item, isReadonly = false, onRemoveItem, onUpdateQuantity }: CartItemProps) {
   const { id, quantity, product } = item;
 
   const [isSelected, setIsSelected] = useRecoilState(selectedCartItemListSelector(item));
@@ -23,7 +23,7 @@ function CartItem({ item, isConfirm = false, onRemoveItem, onUpdateQuantity }: C
 
   return (
     <S.Layout>
-      {!isConfirm && onRemoveItem && (
+      {!isReadonly && onRemoveItem && (
         <S.Header>
           <CheckBox id={product.name} isChecked={isSelected} onChange={handleIsSelected} />
           <Button customStyle={S.DeleteButton} content="삭제" onClick={() => onRemoveItem(id)} />
@@ -36,7 +36,7 @@ function CartItem({ item, isConfirm = false, onRemoveItem, onUpdateQuantity }: C
             <S.ItemText>{product.name}</S.ItemText>
             <S.ItemPriceText>{product.price.toLocaleString()}원</S.ItemPriceText>
           </S.ItemInfoContainer>
-          {!isConfirm && onUpdateQuantity ? (
+          {!isReadonly && onUpdateQuantity ? (
             <QuantityStepper
               quantity={quantity}
               onMinusButtonClick={() => onUpdateQuantity(id, quantity - 1)}

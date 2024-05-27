@@ -1,15 +1,15 @@
 import { TCartItem } from '../../../types/CartItem.type';
 
-export const isCouponExpired = (expirationDate: string, now: Date) => {
+export const isCouponValid = (expirationDate: string, now: Date) => {
   const expiration = new Date(expirationDate);
-  return now > expiration;
+  return now <= expiration;
 };
 
-export const isCouponMinimumAmount = (minimumAmount: number, totalPrice: number) => {
+export const isCouponAvailableAmount = (minimumAmount: number, totalPrice: number) => {
   return totalPrice >= minimumAmount;
 };
 
-export const isCouponAvaliableTime = (availableTime: { start: string; end: string }, now: Date) => {
+export const isCouponAvailableTime = (availableTime: { start: string; end: string }, now: Date) => {
   const [startHour, startMinute, startSecond] = availableTime.start.split(':').map(Number);
   const [endHour, endMinute, endSecond] = availableTime.end.split(':').map(Number);
 
@@ -19,6 +19,6 @@ export const isCouponAvaliableTime = (availableTime: { start: string; end: strin
   return now >= startTime && now <= endTime;
 };
 
-export const isCouponAvaliableQuantity = (items: TCartItem[], buyQuantity: number, getQuantity: number) => {
+export const isCouponAvailableQuantity = (items: TCartItem[], buyQuantity: number, getQuantity: number) => {
   return items.some((item) => item.quantity >= buyQuantity + getQuantity);
 };

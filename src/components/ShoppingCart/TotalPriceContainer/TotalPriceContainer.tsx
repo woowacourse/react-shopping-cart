@@ -7,10 +7,10 @@ import { DELIVERY_FEE_DISCOUNT_THRESHOLD } from '../../../utils/calculateDeliver
 import * as S from './TotalPriceContainer.style';
 
 interface TotalPriceContainerProps {
-  isConfirm?: boolean;
+  showDiscountPrice?: boolean;
 }
 
-function TotalPriceContainer({ isConfirm = false }: TotalPriceContainerProps) {
+function TotalPriceContainer({ showDiscountPrice = false }: TotalPriceContainerProps) {
   const totalOrderPrice = useRecoilValue(totalOrderPriceSelector);
   const totalDiscountPrice = useRecoilValue(totalDiscountPriceState);
   const deliveryFee = useRecoilValue(deliveryFeeSelector);
@@ -24,7 +24,7 @@ function TotalPriceContainer({ isConfirm = false }: TotalPriceContainerProps) {
       />
       <S.PriceDetailContainer>
         <PriceContainer title="주문 금액" value={totalOrderPrice} />
-        {isConfirm && (
+        {showDiscountPrice && (
           <PriceContainer title="쿠폰 할인 금액" value={totalDiscountPrice === 0 ? 0 : -totalDiscountPrice} />
         )}
         <PriceContainer title="배송비" value={deliveryFee} />
