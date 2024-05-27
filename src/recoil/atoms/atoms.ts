@@ -33,7 +33,7 @@ export const couponList = atom<Coupon[]>({
 });
 
 export const specialZoneCheckState = atom<boolean>({
-  key: 'remoteAreaCheckboxState',
+  key: 'specialZoneCheckState',
   default: false,
 });
 
