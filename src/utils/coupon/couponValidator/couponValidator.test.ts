@@ -16,14 +16,14 @@ describe('couponValidator', () => {
   });
 
   it.each([
-    [100000, 100000],
-    [100000, 100001],
+    [100_000, 100_000],
+    [100_000, 100_001],
   ])('전체 상품 가격이 %d원 이상이면 true 를 반환한다.', (minimumAmount, totalPrice) => {
     expect(isCouponAvailableAmount(minimumAmount, totalPrice)).toBe(true);
   });
 
   it('전체 상품 가격이 쿠폰 최소 금액보다 작으면 false 를 반환한다.', () => {
-    expect(isCouponAvailableAmount(100000, 99999)).toBe(false);
+    expect(isCouponAvailableAmount(100_000, 99_999)).toBe(false);
   });
 
   it.each([

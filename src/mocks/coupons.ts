@@ -4,9 +4,9 @@ export const fixedCoupon: Coupon = {
   id: 1,
   code: 'FIXED5000',
   description: '5,000원 할인 쿠폰',
-  discount: 5000,
+  discount: 5_000,
   discountType: 'fixed',
-  minimumAmount: 100000,
+  minimumAmount: 100_000,
   expirationDate: '2024-11-30',
 };
 
@@ -25,7 +25,7 @@ export const freeShippingCoupon: Coupon = {
   code: 'FREESHIPPING',
   description: '5만원 이상 구매 시 무료 배송 쿠폰',
   discountType: 'freeShipping',
-  minimumAmount: 50000,
+  minimumAmount: 50_000,
   expirationDate: '2024-08-31',
 };
 
