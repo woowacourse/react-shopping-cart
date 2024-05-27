@@ -9,12 +9,6 @@ import {
 import { CartItemType, CouponType } from '../types';
 import { CART_POLICY } from '../constants/policy';
 
-type AmountType = {
-  orderAmount: number;
-  deliveryCharge: number;
-  totalAmount: number;
-};
-
 export const productsIdState = selector({
   key: 'productsIdState',
   get: ({ get }) => {
@@ -37,8 +31,8 @@ export const productQuantityState = selectorFamily<number, number>({
     },
 });
 
-export const totalOrderAmountState = selector<AmountType>({
-  key: 'totalOrderAmountState',
+export const orderAmountState = selector({
+  key: 'orderAmountState',
   get: ({ get }) => {
     const products = get(productsState);
     const isCheckedMap = get(isCheckedState);
@@ -51,19 +45,18 @@ export const totalOrderAmountState = selector<AmountType>({
       return accumulator;
     }, 0);
 
-    const deliveryCharge =
-      orderAmount < CART_POLICY.shipping_throughput
-        ? CART_POLICY.shipping_basic_fee
-        : CART_POLICY.shipping_free;
+    return orderAmount;
+  },
+});
 
+export const totalAmountState = selector({
+  key: 'totalAmountState',
+  get: ({ get }) => {
+    const orderAmount = get(orderAmountState);
     const discountAmount = get(discountAmountState);
-    const totalAmount = orderAmount + deliveryCharge - discountAmount;
+    const { totalShippingFee } = get(totalShippingFeeState);
 
-    return {
-      orderAmount,
-      deliveryCharge,
-      totalAmount,
-    };
+    return orderAmount + totalShippingFee - discountAmount;
   },
 });
 
@@ -92,7 +85,11 @@ export const totalProductQuantityState = selector({
   },
 });
 
-const applyCoupon = (coupon: CouponType, product: CartItemType): number => {
+const applyCoupon = (
+  coupon: CouponType,
+  product: CartItemType,
+  totalShippingFee: number,
+): number => {
   switch (coupon.discountType) {
     case 'fixed':
       return coupon.discount ?? 0;
@@ -102,7 +99,7 @@ const applyCoupon = (coupon: CouponType, product: CartItemType): number => {
       }
       return 0;
     case 'freeShipping':
-      return 3000;
+      return totalShippingFee;
     case 'percentage':
       if (coupon.discount)
         return product.product.price * product.quantity * (coupon.discount / 100);
@@ -112,14 +109,18 @@ const applyCoupon = (coupon: CouponType, product: CartItemType): number => {
   }
 };
 
-const calculator = (activeCoupons: CouponType[], products: CartItemType[]): number => {
+const calculator = (
+  activeCoupons: CouponType[],
+  products: CartItemType[],
+  totalShippingFee: number,
+): number => {
   let maxDiscount = 0;
 
   activeCoupons.forEach((coupon) => {
     let bestDiscount = 0;
 
     products.forEach((product) => {
-      const discount = applyCoupon(coupon, product);
+      const discount = applyCoupon(coupon, product, totalShippingFee);
       if (discount > bestDiscount) {
         bestDiscount = discount;
       }
@@ -134,7 +135,7 @@ const calculator = (activeCoupons: CouponType[], products: CartItemType[]): numb
 export const totalShippingFeeState = selector({
   key: 'totalShippingFeeState',
   get: ({ get }) => {
-    const { orderAmount } = get(totalOrderAmountState);
+    const orderAmount = get(orderAmountState);
     const additionalShippingFeeStatus = get(additionalShippingFeeStatusState);
 
     const baseShippingFee =
@@ -161,6 +162,8 @@ export const discountAmountState = selector({
       (product) => isCheckedMap[product.id] === true,
     );
 
-    return calculator(activeCoupons, checkoutProducts);
+    const { totalShippingFee } = get(totalShippingFeeState);
+
+    return calculator(activeCoupons, checkoutProducts, totalShippingFee);
   },
 });

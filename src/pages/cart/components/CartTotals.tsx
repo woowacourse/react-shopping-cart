@@ -1,5 +1,9 @@
 import { useRecoilValue } from 'recoil';
-import { totalOrderAmountState, totalShippingFeeState } from '../../../store/selectors';
+import {
+  orderAmountState,
+  totalAmountState,
+  totalShippingFeeState,
+} from '../../../store/selectors';
 import NoticeLabel from '../../../components/common/NoticeLabel/NoticeLabel';
 import SubtitleSpaceBetween from '../../../components/common/SubtitleSpaceBetween/SubtitleSpaceBetween';
 import Divider from '../../../components/common/Divider/Divider';
@@ -9,8 +13,9 @@ import { NOTICE_MESSAGE } from '../../../constants/messages';
 import styles from '../Cart.module.css';
 
 export default function CartTotals() {
-  const { orderAmount, totalAmount } = useRecoilValue(totalOrderAmountState);
+  const orderAmount = useRecoilValue(orderAmountState);
   const { baseShippingFee } = useRecoilValue(totalShippingFeeState);
+  const totalAmount = useRecoilValue(totalAmountState);
   return (
     <div className={styles.cartTotalsContainer}>
       <NoticeLabel>{NOTICE_MESSAGE.shipping}</NoticeLabel>

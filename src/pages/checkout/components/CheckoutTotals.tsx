@@ -7,15 +7,17 @@ import { NOTICE_MESSAGE } from '../../../constants/messages';
 import styles from '../Checkout.module.css';
 import {
   discountAmountState,
-  totalOrderAmountState,
+  orderAmountState,
+  totalAmountState,
   totalShippingFeeState,
 } from '../../../store/selectors';
 import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
 
 export default function CheckoutTotals() {
-  const { orderAmount, totalAmount } = useRecoilValue(totalOrderAmountState);
+  const orderAmount = useRecoilValue(orderAmountState);
   const discountAmount = useRecoilValue(discountAmountState);
   const { totalShippingFee } = useRecoilValue(totalShippingFeeState);
+  const totalAmount = useRecoilValue(totalAmountState);
 
   return (
     <div className={styles.checkoutTotalsContainer}>

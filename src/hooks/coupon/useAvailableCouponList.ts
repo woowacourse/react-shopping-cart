@@ -1,15 +1,16 @@
 import { useRecoilValue } from 'recoil';
 import { isCheckedState, mockCoupons, productsState } from './../../store/atoms';
-import { totalOrderAmountState } from '../../store/selectors';
+
 import {
   isOverMinOrderAmountCoupon,
   isOverMinQuantityCoupon,
   isWithinAvailableTime,
   validateExpiration,
 } from './useAvailableCouponList.util';
+import { orderAmountState } from '../../store/selectors';
 
 const useAvailableCouponList = () => {
-  const { orderAmount } = useRecoilValue(totalOrderAmountState);
+  const orderAmount = useRecoilValue(orderAmountState);
   const coupons = mockCoupons;
   const products = useRecoilValue(productsState);
   const isCheckedMap = useRecoilValue(isCheckedState);
