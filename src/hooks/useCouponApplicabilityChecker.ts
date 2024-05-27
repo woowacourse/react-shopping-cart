@@ -1,10 +1,10 @@
 import { Coupon } from "../types";
+import { couponValidator } from "../utils/couponValidator";
 import { useCouponFinder } from "./useCouponFinder";
-import { useCouponValidator } from "./useCouponValidator";
 
 export const useCouponApplicabilityChecker = () => {
   const { findCouponByCode } = useCouponFinder();
-  const { isCouponValid } = useCouponValidator();
+  const { isCouponValid } = couponValidator();
 
   const isCouponApplicable = (coupon: Coupon, totalAmount: number, now: Date = new Date()) => {
     const targetCoupon = findCouponByCode(coupon.code);
