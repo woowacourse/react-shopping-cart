@@ -1,13 +1,14 @@
 import { snapshot_UNSTABLE, RecoilValue } from "recoil";
 import { Coupon } from "../../types/Coupon";
 import { checkedIdSetSelector } from "../cart/checkedState";
-import { mockCartItems } from "../mocks";
+import { mockCartItems, mockCouponList } from "../mocks";
 import { validateCouponApplicability } from "./validateCouponApplicability";
 
 // 가능여부 : 동적 판단 (덕타이핑).
 // 할인 : 정적 검사. DiscountType
 
 jest.mock("../../api/cartItem", () => ({ fetchCartItems: () => mockCartItems }));
+jest.mock("../../api/coupon", () => ({ fetchCouponList: () => mockCouponList }));
 const COUPON_MIN_AMOUNT: Coupon = {
   id: 1,
   code: "FIXED5000",

@@ -3,7 +3,7 @@ import { Coupon } from "../../types/Coupon";
 import { orderPriceSelector } from "../cart/orderSummaryState";
 import { checkedIdSetSelector } from "../cart/checkedState";
 import { quantitySelectorFamily } from "../cart/cartItemState";
-import { mockCartItems } from "../mocks";
+import { mockCartItems, mockCouponList } from "../mocks";
 
 type DateType = `${number}-${number}-${number}`;
 
@@ -34,6 +34,7 @@ const validateCouponCondition = (coupon: Coupon, snapshot: Snapshot) => {
 };
 
 jest.mock("../../api/cartItem", () => ({ fetchCartItems: () => mockCartItems }));
+jest.mock("../../api/coupon", () => ({ fetchCouponList: () => mockCouponList }));
 const COUPON_MIN_AMOUNT: Coupon = {
   id: 1,
   code: "FIXED5000",
