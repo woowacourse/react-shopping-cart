@@ -1,17 +1,15 @@
 import { Suspense, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { useRecoilValue, useResetRecoilState } from "recoil";
 
-import { selectedCouponState } from "@/recoil/coupon";
 import {
-  selectedCartItemIdsSelector,
   selectedCartItemLengthSelector,
   selectedCartItemTotalQuantitySelector,
 } from "@/recoil/selectedCardItems";
+import { selectedCouponState } from "@/recoil/coupon";
 
 import useModal from "@/hooks/useModal";
-import { requestOrders } from "@/apis";
+import useRequestOrder from "@/hooks/useRequestOrder";
 
 import Header from "@/components/_common/Header/Header";
 import Caption from "@/components/_common/Caption/Caption";
@@ -26,32 +24,17 @@ import PriceSection from "./components/PriceSection";
 import SelectedCartItemList from "./components/SelectedCartItemList";
 
 import Styled from "./OrderConfirmPage.styles";
-import CLIENT_PATH from "@/constants/path";
 
 const OrderConfirmPage = () => {
-  const navigate = useNavigate();
   const resetCoupons = useResetRecoilState(selectedCouponState);
-
   const selectedCartItemLength = useRecoilValue(selectedCartItemLengthSelector);
   const selectedCartItemTotalQuantity = useRecoilValue(
     selectedCartItemTotalQuantitySelector
   );
-  const selectedCartItemIds = useRecoilValue(selectedCartItemIdsSelector);
+
+  const { handleRequestOrders } = useRequestOrder();
 
   const { isModalOpen, openModal, closeModal } = useModal();
-
-  const routerToPaymentConfirmPage = () => navigate(CLIENT_PATH.paymentConfirm);
-
-  const handleRequestOrders = async () => {
-    try {
-      await requestOrders(selectedCartItemIds);
-      routerToPaymentConfirmPage();
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message);
-      }
-    }
-  };
 
   useEffect(() => {
     resetCoupons();
