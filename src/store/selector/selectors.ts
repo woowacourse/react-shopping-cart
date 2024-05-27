@@ -33,8 +33,8 @@ export const totalAmountState = selector({
     const orderAmount = get(orderAmountState);
     const isExtraShippingFee = get(isExtraShippingFeeState);
 
-    const shippingFee = isExtraShippingFee ? SHIPPING_CONSTANT.EXTRA_FEE : SHIPPING_CONSTANT.FEE;
-    const totalAmount = orderAmount >= SHIPPING_CONSTANT.FREE_CRITERIA ? orderAmount : orderAmount + shippingFee;
+    const totalShipFee = SHIPPING_CONSTANT.FEE + (isExtraShippingFee ? SHIPPING_CONSTANT.EXTRA_FEE : 0);
+    const totalAmount = orderAmount >= SHIPPING_CONSTANT.FREE_CRITERIA ? orderAmount : orderAmount + totalShipFee;
     return totalAmount;
   },
 });

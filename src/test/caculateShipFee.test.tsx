@@ -71,7 +71,7 @@ describe("무료 배송 쿠폰 계산 테스트", () => {
         product: { ...cartItemDummy.product, ...product },
         quantity,
       })),
-      DISCOUNT_AMOUNT_EXPECTED: 40_000 + SHIPPING_CONSTANT.EXTRA_FEE,
+      DISCOUNT_AMOUNT_EXPECTED: 40_000 + SHIPPING_CONSTANT.FEE + SHIPPING_CONSTANT.EXTRA_FEE,
       isExtraFee: true,
     },
   ])(`$DESCRIPTION`, ({ CART_STATE_DUMMY, DISCOUNT_AMOUNT_EXPECTED, isExtraFee }) => {

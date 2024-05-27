@@ -54,7 +54,7 @@ const useCalculateFreeShipping = (coupons: Coupon[]) => {
     orderAmount < SHIPPING_CONSTANT.FREE_CRITERIA &&
     (!freeShippingCoupon.minimumAmount || orderAmount >= freeShippingCoupon.minimumAmount)
   ) {
-    const discountShipFee = isExtraShippingFee ? SHIPPING_CONSTANT.EXTRA_FEE : SHIPPING_CONSTANT.FEE;
+    const discountShipFee = SHIPPING_CONSTANT.FEE + (isExtraShippingFee ? SHIPPING_CONSTANT.EXTRA_FEE : 0);
     return discountShipFee;
   }
   return 0;
