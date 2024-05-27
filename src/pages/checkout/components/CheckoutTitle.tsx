@@ -1,12 +1,10 @@
+import { useRecoilValue } from 'recoil';
 import CaptionText from '../../../components/common/CaptionText/CaptionText';
 import TitleWithCaption from '../../../components/common/TitleWithCaption/TitleWithCaption';
+import { totalProductQuantityState } from '../../../store/selectors';
 
-interface Props {
-  totalCount: number;
-  totalQuantity: number;
-}
-
-export default function CheckoutTitle({ totalCount, totalQuantity }: Props) {
+export default function CheckoutTitle() {
+  const { totalCount, totalQuantity } = useRecoilValue(totalProductQuantityState);
   return (
     <TitleWithCaption title="주문 확인">
       <CaptionText>

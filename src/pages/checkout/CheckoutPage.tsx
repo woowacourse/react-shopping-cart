@@ -1,26 +1,26 @@
-import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { isCheckedState, productsState } from '../../store/atoms';
-import { productsIdState, totalProductQuantityState } from '../../store/selectors';
+import { productsIdState } from '../../store/selectors';
+import { addOrders } from '../../api';
 import useCleanUpCouponStatusOnUnMount from '../../hooks/coupon/useCleanUpCouponStatusOnUnMount';
 import useNavigatePage from '../../hooks/useNavigatePage';
+import useModalControl from '../../hooks/useModalControl';
 import Button from '../../components/common/Button';
 import Header from '../../components/Header/Header';
-import CheckoutItem from './components/CheckoutItem';
 import CouponModal from './components/CouponModal/CouponModal';
 import ShippingFeeCheck from './components/ShippingFeeCheck';
 import CheckoutTotals from './components/CheckoutTotals';
 import CheckoutTitle from './components/CheckoutTitle';
 import ROUTES from '../../constants/routes';
+import CheckoutList from './components/CheckoutList';
 import BackIcon from '../../asset/back.png';
 import common from '../../styles/common.module.css';
 import styles from './Checkout.module.css';
-import { addOrders } from '../../api';
 
 export default function CheckoutPage() {
   const navigateCartPage = useNavigatePage(ROUTES.CART);
   const navigatePaymentsPage = useNavigatePage(ROUTES.PAYMENTS);
   const productIds = useRecoilValue(productsIdState);
+  const { isModalOpen, handleModalOpen } = useModalControl();
 
   useCleanUpCouponStatusOnUnMount();
 
@@ -33,18 +33,6 @@ export default function CheckoutPage() {
     }
   };
 
-  const { totalCount, totalQuantity } = useRecoilValue(totalProductQuantityState);
-
-  const products = useRecoilValue(productsState);
-  const isCheckedMap = useRecoilValue(isCheckedState);
-  const checkoutProducts = products.filter((product) => isCheckedMap[product.id] === true);
-
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const handleButtonClick = () => {
-    setModalOpen(!modalOpen);
-  };
-
   return (
     <>
       <Header>
@@ -53,15 +41,11 @@ export default function CheckoutPage() {
         </Button>
       </Header>
       <div className={styles.bodyContainer}>
-        <CheckoutTitle totalCount={totalCount} totalQuantity={totalQuantity} />
-        <div>
-          {checkoutProducts.map((cartItem) => {
-            return <CheckoutItem key={`checkout-${cartItem.id}`} cartItem={cartItem} />;
-          })}
-        </div>
+        <CheckoutTitle />
+        <CheckoutList />
         <button
           className={`${styles.checkoutModalButton} ${common.subtitleText}`}
-          onClick={handleButtonClick}
+          onClick={handleModalOpen}
         >
           쿠폰 적용
         </button>
@@ -72,7 +56,7 @@ export default function CheckoutPage() {
       <Button variant="footer" onClick={handlePaymentsButtonClick}>
         결제하기
       </Button>
-      <CouponModal isOpen={modalOpen} handleToggle={handleButtonClick} />
+      <CouponModal isOpen={isModalOpen} handleToggle={handleModalOpen} />
     </>
   );
 }
