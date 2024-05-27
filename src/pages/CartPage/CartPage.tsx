@@ -9,8 +9,7 @@ export default function CartPage() {
   const navigate = useNavigate();
 
   const cartItems = useRecoilValue(checkedCartItems);
-  // const { totalOrderPrice, deliveryFee, totalPrice } = useRecoilValue(calculateOrderPrice);
-  // console.log('dd', totalOrderPrice);
+
   return (
     <div id="app">
       <Header
@@ -24,7 +23,6 @@ export default function CartPage() {
         text="주문 확인"
         isDisable={cartItems.length ? false : true}
         onClick={() => {
-          // orderProduct.length && navigate('/order-confirm');
           cartItems.length && navigate('/order-confirm', { state: { cartItems } });
         }}
       />
