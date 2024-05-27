@@ -1,4 +1,3 @@
-// useClearOrderedItems.ts
 import { useSetRecoilState } from 'recoil';
 import {
   appliedCouponIdsState,
