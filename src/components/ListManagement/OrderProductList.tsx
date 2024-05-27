@@ -21,7 +21,7 @@ import { finalTotalPriceListState, isIslandState } from '../../recoil/atoms';
 
 export default function OrderProductList() {
   const order = useRecoilValue(checkedCartItems);
-  const { totalOrderPrice } = useRecoilValue(calculateOrderPrice);
+  const { totalOrderPrice, deliveryFee } = useRecoilValue(calculateOrderPrice);
   const couponList = useRecoilValue(fetchCouponList);
   const finalTotalPriceList = useRecoilValue(finalTotalPriceListState);
   const [isIsland, setIsland] = useRecoilState(isIslandState);
@@ -33,7 +33,7 @@ export default function OrderProductList() {
   const priceList: PriceList = {
     0: ['주문 금액', totalOrderPrice],
     1: ['쿠폰 할인 금액', finalTotalPriceList.discountPrice],
-    2: ['배송비', finalTotalPriceList.deliveryFee],
+    2: ['배송비', deliveryFee],
   };
 
   return (

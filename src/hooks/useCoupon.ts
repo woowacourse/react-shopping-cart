@@ -7,7 +7,6 @@ import {
 import findCouponValidator from '../domain/findCouponValidator';
 import findApplicableCoupons from '../domain/findApplicableCoupons';
 import discountCalculator from '../domain/discountCalculator';
-import { RULE } from '../constants/rule';
 import { finalTotalPriceListState } from '../recoil/atoms';
 import { useEffect } from 'react';
 
@@ -25,7 +24,7 @@ const useCoupon = () => {
 
   const applicableCouponList = findApplicableCoupons({
     validCouponList: validCoupon(),
-    totalPrice: totalOrderPrice,
+    totalOrderPrice,
     orderList,
   }).applicableCoupons();
 
@@ -42,14 +41,14 @@ const useCoupon = () => {
 
         const discount1 = discountCalculator({
           coupon: firstCoupon,
-          totalOrderPrice: totalPrice,
+          totalPrice,
           orderList,
           deliveryFee,
         }).calculateDiscountAmount();
 
         const discount2 = discountCalculator({
           coupon: secondCoupon,
-          totalOrderPrice: totalPrice,
+          totalPrice,
           orderList,
           deliveryFee,
         }).calculateDiscountAmount();
@@ -85,22 +84,13 @@ const useCoupon = () => {
     const bestCombination = findBestCouponCombination();
     const updatedFinalTotalPriceList = {
       applicableCouponList,
-      totalOrderPrice: totalPrice,
       discountPrice: bestCombination.totalDiscount,
       applyCoupons: bestCombination.coupons,
-      deliveryFee,
       totalPaymentPrice: totalPrice - bestCombination.totalDiscount,
     };
 
     setFinalTotalPriceList(updatedFinalTotalPriceList);
-  }, [
-    couponList,
-    orderList,
-    totalOrderPrice,
-    deliveryFee,
-    totalPrice,
-    finalTotalPriceListState,
-  ]);
+  }, [finalTotalPriceListState]);
 };
 
 export default useCoupon;

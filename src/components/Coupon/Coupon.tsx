@@ -5,7 +5,7 @@ import * as C from './Coupon.style';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { finalTotalPriceListState } from '../../recoil/atoms';
 import discountCalculator from '../../domain/discountCalculator';
-import { checkedCartItems } from '../../recoil/selectors';
+import { calculateOrderPrice, checkedCartItems } from '../../recoil/selectors';
 import { useEffect } from 'react';
 
 interface Props {
@@ -17,6 +17,7 @@ export default function Coupon({ coupons }: Props) {
   const [finalTotalPriceList, setFinalTotalPriceList] = useRecoilState(
     finalTotalPriceListState,
   );
+  const { totalPrice, deliveryFee } = useRecoilValue(calculateOrderPrice);
 
   const applicableCouponIds = finalTotalPriceList.applicableCouponList.map(
     (coupon) => {
@@ -59,17 +60,16 @@ export default function Coupon({ coupons }: Props) {
         (acc, coupon) => {
           const discount = discountCalculator({
             coupon,
-            totalOrderPrice: finalTotalPriceList.totalOrderPrice,
+            totalPrice,
             orderList,
-            deliveryFee: finalTotalPriceList.deliveryFee,
+            deliveryFee,
           }).calculateDiscountAmount();
           return acc + discount!;
         },
         0,
       );
 
-      const updateTotalPaymentPrice =
-        prevState.totalOrderPrice - updateDiscountPrice;
+      const updateTotalPaymentPrice = totalPrice - updateDiscountPrice;
 
       return {
         ...prevState,
