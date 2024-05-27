@@ -12,12 +12,12 @@ import { useEffect } from 'react';
 import * as S from './styled';
 
 const PaymentTotal = ({ isUseDiscount }) => {
-  const [orderDiscountAmount, _] = useRecoilState(orderDiscountState);
+  const orderDiscountAmount = useRecoilValue(orderDiscountState);
   const [shippingFeeInfo, setShippingFeeInfo] = useRecoilState(shippingFeeState);
   const priceInfo = useRecoilValue(priceInfoStore);
 
   const orderTotal = useRecoilValue(orderTotalStore);
-  const [isSpecialArea, setIsSpecialArea] = useRecoilState(specialAreaState);
+  const isSpecialArea = useRecoilValue(specialAreaState);
   const isOverShippingFeeFree = useRecoilValue(isOverShippingFeeFreeStore);
 
   useEffect(() => {

@@ -5,13 +5,13 @@ import useFetch from '../../../hooks/useFetch';
 import { selectedCoupons, modalDiscountState, shippingFeeState } from '../../../recoil/atoms';
 import { priceInfoStore } from '../../../recoil/selectors';
 import useCouponDiscountCalculator from '../../../hooks/coupons/useCouponDiscountCalculator';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useEffect } from 'react';
 
 const CouponList = () => {
   const { data } = useFetch(getCoupons);
-  const [selected, setSelected] = useRecoilState(selectedCoupons);
-  const [modalDiscountAmount, setModalDiscountAmount] = useRecoilState(modalDiscountState);
+  const selected = useRecoilValue(selectedCoupons);
+  const setModalDiscountAmount = useSetRecoilState(modalDiscountState);
   const [shippingFeeInfo, setShippingFeeInfo] = useRecoilState(shippingFeeState);
   const { calculateBestDiscount } = useCouponDiscountCalculator(selected);
   const priceInfo = useRecoilValue(priceInfoStore);

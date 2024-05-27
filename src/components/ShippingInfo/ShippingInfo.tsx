@@ -4,14 +4,14 @@ import Checkbox from '../Checkbox/Checkbox';
 import { shippingFeeState, orderDiscountState, specialAreaState } from '../../recoil/atoms';
 
 import { isOverShippingFeeFreeStore } from '../../recoil/selectors';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useState } from 'react';
 import * as S from './styled';
 
 const ShippingInfo = () => {
   const [isSpecialAreaChecked, setIsSpecialAreaChecked] = useState(false);
   const [orderDiscountAmount, setOrderDiscountAmount] = useRecoilState(orderDiscountState);
-  const [isSpecialArea, setIsSpecialArea] = useRecoilState(specialAreaState);
+  const setIsSpecialArea = useSetRecoilState(specialAreaState);
   const [shippingFeeInfo, setShippingFeeInfo] = useRecoilState(shippingFeeState);
   const isOverShippingFeeFree = useRecoilValue(isOverShippingFeeFreeStore);
 

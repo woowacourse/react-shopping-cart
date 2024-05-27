@@ -4,7 +4,7 @@ import close from '../../assets/close.svg';
 import CouponList from './CouponList/CouponList';
 import { Modal } from 'ollie-modal-components';
 
-import { useRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { modalDiscountState, orderDiscountState } from './../../recoil/atoms';
 import * as S from './styled';
 
@@ -14,8 +14,8 @@ export interface CouponModalProps {
 }
 
 const CouponModal = ({ isOpen, toggleModal }: CouponModalProps) => {
-  const [modalDiscountAmount, setModalDiscountAmount] = useRecoilState(modalDiscountState);
-  const [orderDiscountAmount, setOrderDiscountAmount] = useRecoilState(orderDiscountState);
+  const modalDiscountAmount = useRecoilValue(modalDiscountState);
+  const setOrderDiscountAmount = useSetRecoilState(orderDiscountState);
 
   const onClickModalButton = () => {
     setOrderDiscountAmount(modalDiscountAmount);

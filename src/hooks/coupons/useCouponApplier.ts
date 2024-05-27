@@ -3,11 +3,11 @@ import { Coupon } from '../../api/get/getCoupons';
 import { ORDER } from '../../constants/constants';
 import { selectedCartItems } from '../../recoil/atoms';
 import { priceInfoStore } from '../../recoil/selectors';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import useCouponValidator from './useCouponValidator';
 
 const useCouponApplier = () => {
-  const [selectedItems] = useRecoilState(selectedCartItems);
+  const selectedItems = useRecoilValue(selectedCartItems);
   const priceInfo = useRecoilValue(priceInfoStore);
   const { isValidCoupon } = useCouponValidator();
 

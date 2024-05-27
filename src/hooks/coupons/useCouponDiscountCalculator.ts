@@ -1,11 +1,11 @@
 import { COUPON_DISCOUNT_TYPE } from '../../constants/constants';
 import { Coupon } from '../../api/get/getCoupons';
 import { selectedCartItems, shippingFeeState } from '../../recoil/atoms';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 export const useCouponDiscountCalculator = (coupons: Coupon[]) => {
-  const [shippingFeeInfo] = useRecoilState(shippingFeeState);
-  const [selectedItems] = useRecoilState(selectedCartItems);
+  const shippingFeeInfo = useRecoilValue(shippingFeeState);
+  const selectedItems = useRecoilValue(selectedCartItems);
 
   const calculateFixedDiscount = (coupon: Coupon) => {
     return coupon.discount ?? 0;
