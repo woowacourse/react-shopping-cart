@@ -18,7 +18,7 @@ import ToolBar from "../ToolBar/ToolBar";
 import CartResults from "../Cart/CartResults/CartResults";
 import PaymentDetail from "../PaymentDetail/PaymentDetail";
 import Divider from "../Divider/Divider";
-import { RoutePaths } from "@/Providers/RouteInfoProvider/RouteInfo";
+import { RoutePaths } from "@/Providers/RouteInfoProvider/useRouteInfo";
 
 const CheckOrderContainer = () => {
   const itemCount = useRecoilValue(cartState).length;

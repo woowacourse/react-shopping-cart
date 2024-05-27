@@ -7,7 +7,7 @@ import { HeaderRouteInfoContext } from "@/Providers/RouteInfoProvider/RouteInfoP
 import useCustomContext from "@/hooks/useCustomContext";
 
 import CustomLink from "../CustomLink/CustomLink";
-import { RoutePaths, RoutesObject } from "@/Providers/RouteInfoProvider/RouteInfo";
+import { RoutePaths, RoutesObject } from "@/Providers/RouteInfoProvider/useRouteInfo";
 
 const Header = () => {
   const location = useLocation();

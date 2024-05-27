@@ -4,7 +4,7 @@ import { FooterStyle } from "./Footer.style";
 import { FooterRouteInfoContext } from "@/Providers/RouteInfoProvider/RouteInfoProvider";
 import useCustomContext from "@/hooks/useCustomContext";
 import CustomLink from "../CustomLink/CustomLink";
-import { RoutePaths } from "@/Providers/RouteInfoProvider/RouteInfo";
+import { RoutePaths } from "@/Providers/RouteInfoProvider/useRouteInfo";
 
 const Footer = () => {
   const location = useLocation();
