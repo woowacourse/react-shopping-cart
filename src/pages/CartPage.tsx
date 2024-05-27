@@ -8,33 +8,51 @@ import CartLayout from "../components/layout";
 
 import { isVacantCartSelector } from "../recoil/cart/cartItemState";
 import { checkedIdSetSelector } from "../recoil/cart/checkedState";
+import CouponModal from "../components/CouponModal";
+import { useModalState } from "lv2-modal-component";
 
 const CartPage = () => {
   const navigate = useNavigate();
   const isCartVacant = useRecoilValue(isVacantCartSelector);
   const cartItemCheckedIds = useRecoilValue(checkedIdSetSelector);
-  // addCartItem(2);
 
   const handleClick = () => {
     navigate("/orderConfirmation");
   };
 
+  const { isOpen, closeModal, openModal, confirmModal } = useModalState(false, {
+    onOpen: () => {},
+    onConfirm: () => {},
+  });
+
   return (
-    <CartLayout>
-      <CartLayout.Header>SHOP</CartLayout.Header>
-      <CartLayout.Content>
-        <CartTitle />
-        {!isCartVacant ? (
-          <>
-            <CartItems />
-            <OrderSummary />
-          </>
-        ) : (
-          <EmptyCart />
-        )}
-      </CartLayout.Content>
-      <CartLayout.Footer text="주문 확인" isActive={cartItemCheckedIds.size > 0} onClick={handleClick} />
-    </CartLayout>
+    <>
+      <CartLayout>
+        <CartLayout.Header>SHOP</CartLayout.Header>
+        <CartLayout.Content>
+          <CartTitle />
+          {!isCartVacant ? (
+            <>
+              <CartItems />
+              <button onClick={openModal}>쿠폰 적용</button>
+              <OrderSummary />
+            </>
+          ) : (
+            <EmptyCart />
+          )}
+        </CartLayout.Content>
+        <CartLayout.Footer
+          text="주문 확인"
+          isActive={cartItemCheckedIds.size > 0}
+          onClick={handleClick}
+        />
+      </CartLayout>
+      <CouponModal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        confirmModal={confirmModal}
+      />
+    </>
   );
 };
 
