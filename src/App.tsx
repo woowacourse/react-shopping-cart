@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CartPage from "./pages/CartPage";
 import "./App.css";
 import { Suspense } from "react";
+import PaymentConfirmationPage from "./pages/PaymentConfirmationPage";
 import OrderConfirmationPage from "./pages/OrderConfirmationPage";
 
 function App() {
@@ -22,6 +23,14 @@ function App() {
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <OrderConfirmationPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/paymentConfirmation"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <PaymentConfirmationPage />
               </Suspense>
             }
           />

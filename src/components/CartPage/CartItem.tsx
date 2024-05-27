@@ -4,12 +4,12 @@ import CheckIcon from "../../assets/CheckIcon.svg?react";
 import MinusIcon from "../../assets/MinusIcon.svg?react";
 import PlusIcon from "../../assets/PlusIcon.svg?react";
 import { useRecoilState } from "recoil";
-import { CartItem } from "../../types";
+import { CartItem } from "../../types/types";
 
 import { patchCartItemQuantity } from "../../api/cartItem";
 import { formatCurrency } from "../../utils/formatCurrency";
-import { checkedIdSetSelector, isCheckedSelectorFamily } from "../../recoil/checkedState";
-import { quantitySelectorFamily } from "../../recoil/cartItemState";
+import { isCheckedSelectorFamily } from "../../recoil/cart/checkedState";
+import { quantitySelectorFamily } from "../../recoil/cart/cartItemState";
 
 interface CardItemProps {
   product: CartItem;
@@ -40,24 +40,36 @@ const CartItem = ({ product, handleDelete }: CardItemProps) => {
   return (
     <div className={ItemCSS}>
       <div className={ItemHeaderCSS}>
-        <Button variant={isChecked ? "primary" : "secondary"} onClick={handleChecked}>
+        <Button
+          variant={isChecked ? "primary" : "secondary"}
+          onClick={handleChecked}
+        >
           <CheckIcon fill={isChecked ? "#ffffff" : "#0000001A"} />
         </Button>
         <Button onClick={handleDelete}>삭제</Button>
       </div>
       <div className={ItemContentCSS}>
-        <img src={product.product.imageUrl} className={ItemImageCSS} />
+        <img
+          src={product.product.imageUrl}
+          className={ItemImageCSS}
+        />
         <div className={ItemInfoWithCountCSS}>
           <div className={ItemInfoCSS}>
             <div className={ItemNameCSS}>{product.product.name}</div>
             <div className={ItemPriceCSS}>{formatCurrency(product.product.price)}</div>
           </div>
           <div className={ItemCountCSS}>
-            <Button variant="secondary" onClick={handleDecrement}>
+            <Button
+              variant="secondary"
+              onClick={handleDecrement}
+            >
               <MinusIcon />
             </Button>
             <p>{quantity}</p>
-            <Button variant="secondary" onClick={handleIncrement}>
+            <Button
+              variant="secondary"
+              onClick={handleIncrement}
+            >
               <PlusIcon />
             </Button>
           </div>

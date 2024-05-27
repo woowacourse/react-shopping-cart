@@ -5,13 +5,12 @@ import Splitter from "../default/Splitter";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
 
 import { deleteCartItem as deleteRequestCartItem } from "../../api/cartItem";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { cartItemListAtom } from "../../recoil/cartItemState";
-import { checkedIdSetSelector, isAllCheckedSelector } from "../../recoil/checkedState";
+import { useRecoilState } from "recoil";
+import { cartItemListAtom } from "../../recoil/cart/cartItemState";
+import { isAllCheckedSelector } from "../../recoil/cart/checkedState";
 
 const CartItems = () => {
   const [cartItems, setCartItems] = useRecoilState(cartItemListAtom);
-  // const [checkedIdSet, setCheckedIdSet] = useRecoilState(checkedIdSetSelector);
   const [isAllChecked, setIsAllChecked] = useRecoilState(isAllCheckedSelector);
 
   const handleAllChecked = () => {
@@ -26,7 +25,10 @@ const CartItems = () => {
   return (
     <div className={cardItemCSS}>
       <div className={allCheckContainerCSS}>
-        <Button variant={isAllChecked ? "primary" : "secondary"} onClick={handleAllChecked}>
+        <Button
+          variant={isAllChecked ? "primary" : "secondary"}
+          onClick={handleAllChecked}
+        >
           <CheckIcon fill={isAllChecked ? "#ffffff" : "#0000001A"} />
         </Button>
         <span>전체 선택</span>
@@ -35,7 +37,10 @@ const CartItems = () => {
         {cartItems.map((item) => (
           <div key={item.id}>
             <Splitter />
-            <CartItem product={item} handleDelete={() => handleDelete(item.id)} />
+            <CartItem
+              product={item}
+              handleDelete={() => handleDelete(item.id)}
+            />
           </div>
         ))}
       </div>

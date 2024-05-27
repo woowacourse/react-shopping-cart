@@ -5,11 +5,11 @@ interface CartLayoutProps {
   children: ReactNode;
 }
 
-const CartLayout = ({ children }: CartLayoutProps) => {
+const CartLayoutWrapper = ({ children }: CartLayoutProps) => {
   return <div className={cartPageCSS}>{children}</div>;
 };
 
-export default CartLayout;
+export default CartLayoutWrapper;
 
 const cartPageCSS = css`
   display: flex;
