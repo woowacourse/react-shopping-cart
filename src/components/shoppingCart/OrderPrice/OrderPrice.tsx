@@ -20,7 +20,7 @@ const OrderPrice: React.FC<OrderPriceProps> = ({ orderPrice, shippingPrice, disc
         {discountPrice !== undefined && (
           <Styled.PriceRow>
             <span>쿠폰 할인 금액</span>
-            <span>{formatKoreanCurrency(discountPrice)}</span>
+            <span>- {formatKoreanCurrency(discountPrice)}</span>
           </Styled.PriceRow>
         )}
         <Styled.PriceRow>

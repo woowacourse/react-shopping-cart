@@ -9,7 +9,7 @@ import { PRICE } from '@constants/shippingCart';
 import { useCheckInaccessibleArea } from '@hooks/orderConfirm';
 import { useOrderCosts, useSelectedCartItems } from '@hooks/shoppingCart';
 import { isInaccessibleAreaAtom, selectedCouponListAtom } from '@recoil/orderConfirm';
-import { cartItemsAtom, selectedIdsAtom } from '@recoil/shoppingCart';
+import { selectedIdsAtom } from '@recoil/shoppingCart';
 import { ROUTE_PATHS } from '@routes/route.constant';
 import { formatKoreanCurrency } from '@utils/currency';
 import { Suspense, useEffect, useState } from 'react';
@@ -23,7 +23,7 @@ const itemCouponButtonStyle = { margin: '32px 0px' };
 const OrderConfirmPage = () => {
   const { selectedItems, totalSelectedItemLength, selectedTotalQuantity } = useSelectedCartItems();
 
-  const { orderPrice, shippingPrice, afterDiscountTotalPrice, totalDiscountPrice } = useOrderCosts();
+  const { orderPrice, shippingPrice, totalPrice, totalDiscountPrice } = useOrderCosts();
 
   const { isInaccessibleArea, handleChangeInaccessibleAreaCheckBox, isDisabledInaccessibleAreaCheckBox } =
     useCheckInaccessibleArea();
@@ -32,14 +32,12 @@ const OrderConfirmPage = () => {
 
   /* reset page */
   const resetSelectedCouponList = useResetRecoilState(selectedCouponListAtom);
-  const resetCartItems = useResetRecoilState(cartItemsAtom);
   const resetIsInaccessibleArea = useResetRecoilState(isInaccessibleAreaAtom);
 
   useEffect(() => {
     resetSelectedCouponList();
-    resetCartItems();
     resetIsInaccessibleArea();
-  }, [resetSelectedCouponList, resetCartItems, resetIsInaccessibleArea]);
+  }, [resetSelectedCouponList, resetIsInaccessibleArea]);
 
   /* button click */
   const selectedIds = useRecoilValue(selectedIdsAtom);
@@ -87,7 +85,7 @@ const OrderConfirmPage = () => {
         orderPrice={orderPrice}
         shippingPrice={shippingPrice}
         discountPrice={totalDiscountPrice}
-        totalPrice={afterDiscountTotalPrice}
+        totalPrice={totalPrice - totalDiscountPrice}
       />
       <BottomButton onClick={handlePaymentConfirm}>결제 확인</BottomButton>
     </>

@@ -6,7 +6,7 @@ import { COUPON_VALIDATION_MAP } from '@validation/coupon/coupon';
 import { useRecoilValue } from 'recoil';
 
 const useConfirmCouponApplication = () => {
-  const { beforeDiscountTotalPrice: totalPrice, shippingPrice } = useOrderCosts();
+  const { totalPrice, shippingPrice } = useOrderCosts();
 
   const selectedCartItems = useRecoilValue(selectedItemsSelector);
 

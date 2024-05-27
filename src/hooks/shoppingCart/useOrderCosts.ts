@@ -1,20 +1,15 @@
 import { totalDiscountPriceSelector } from '@recoil/orderConfirm';
-import {
-  afterDiscountTotalPriceSelector,
-  beforeDiscountTotalPriceSelector,
-  orderPriceSelector,
-  shippingPriceSelector,
-} from '@recoil/shoppingCart';
+import { orderPriceSelector, shippingPriceSelector, totalPriceSelector } from '@recoil/shoppingCart';
 import { useRecoilValue } from 'recoil';
 
 const useOrderCosts = () => {
   const orderPrice = useRecoilValue(orderPriceSelector);
   const shippingPrice = useRecoilValue(shippingPriceSelector);
-  const beforeDiscountTotalPrice = useRecoilValue(beforeDiscountTotalPriceSelector);
-  const afterDiscountTotalPrice = useRecoilValue(afterDiscountTotalPriceSelector);
+  const totalPrice = useRecoilValue(totalPriceSelector);
+
   const totalDiscountPrice = useRecoilValue(totalDiscountPriceSelector);
 
-  return { orderPrice, shippingPrice, beforeDiscountTotalPrice, afterDiscountTotalPrice, totalDiscountPrice };
+  return { orderPrice, shippingPrice, totalPrice, totalDiscountPrice };
 };
 
 export default useOrderCosts;

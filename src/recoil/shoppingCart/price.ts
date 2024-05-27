@@ -1,5 +1,5 @@
 import { PRICE } from '@constants/shippingCart';
-import { isInaccessibleAreaAtom, totalDiscountPriceSelector } from '@recoil/orderConfirm';
+import { isInaccessibleAreaAtom } from '@recoil/orderConfirm';
 import { selectedItemsSelector } from '@recoil/shoppingCart/cartItems';
 import { quantityAtomFamily } from '@recoil/shoppingCart/quantity';
 import { selector } from 'recoil';
@@ -34,22 +34,12 @@ export const shippingPriceSelector = selector({
   },
 });
 
-export const beforeDiscountTotalPriceSelector = selector({
-  key: 'beforeDiscountTotalPriceSelector',
+export const totalPriceSelector = selector({
+  key: 'totalPriceSelector',
   get: ({ get }) => {
     const orderPrice = get(orderPriceSelector);
     const shippingPrice = get(shippingPriceSelector);
 
     return orderPrice + shippingPrice;
-  },
-});
-
-export const afterDiscountTotalPriceSelector = selector({
-  key: 'afterDiscountTotalPriceSelector',
-  get: ({ get }) => {
-    const beforeDiscountTotalPrice = get(beforeDiscountTotalPriceSelector);
-    const totalDiscountPrice = get(totalDiscountPriceSelector);
-
-    return beforeDiscountTotalPrice - totalDiscountPrice;
   },
 });

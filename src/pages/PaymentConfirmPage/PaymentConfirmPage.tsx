@@ -1,4 +1,4 @@
-import ShoppingCartFetcher, { fetchCartItems } from '@apis/shoppingCart';
+import ShoppingCartFetcher from '@apis/shoppingCart';
 import { BottomButton } from '@components/common';
 import { useSelectedCartItems } from '@hooks/shoppingCart';
 import useOrderCosts from '@hooks/shoppingCart/useOrderCosts';
@@ -11,7 +11,7 @@ import { useSetRecoilState } from 'recoil';
 import * as Styled from './PaymentConfirmPage.styled';
 
 const PaymentConfirmPage: React.FC = () => {
-  const { afterDiscountTotalPrice } = useOrderCosts();
+  const { totalPrice, totalDiscountPrice } = useOrderCosts();
 
   const { totalSelectedItemLength, selectedTotalQuantity } = useSelectedCartItems();
 
@@ -37,7 +37,7 @@ const PaymentConfirmPage: React.FC = () => {
       </Styled.GuidText>
       <Styled.GuidText>최종 결제 금액을 확인해 주세요.</Styled.GuidText>
       <Styled.TotalPriceTitle>총 결제 금액 </Styled.TotalPriceTitle>
-      <Styled.TotalPrice>{formatKoreanCurrency(afterDiscountTotalPrice)}</Styled.TotalPrice>
+      <Styled.TotalPrice>{formatKoreanCurrency(totalPrice - totalDiscountPrice)}</Styled.TotalPrice>
       <BottomButton onClick={handleBackToShoppingCartPage}>장바구니로 돌아가기</BottomButton>
     </Styled.OrderConfirmPageContainer>
   );
