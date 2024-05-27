@@ -1,8 +1,8 @@
 import { PropsWithChildren, Suspense } from 'react';
 import { RecoilRoot, RecoilState } from 'recoil';
 
+import LoadingComponent from '@/components/common/LoadingFallback/LoadingFallback';
 import { CartItemProps } from '@/types/cartItem';
-import LoadingComponent from '@components/common/LoadingComponent';
 
 interface AsyncRecoilWrapperProps {
   atom?: RecoilState<CartItemProps[]>;

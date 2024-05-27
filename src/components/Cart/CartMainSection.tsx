@@ -4,8 +4,8 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 
 import CartItem from '@/components/CartItem/CartItem';
 import Checkbox from '@/components/common/Checkbox/Checkbox';
+import HeaderTitleContainer from '@/components/common/HeaderTitleContainer/HeaderTitleContainer';
 import OrderInfo from '@/components/common/PriceSection/PriceSection';
-import HeaderTitleContainer from '@common/HeaderTitleContainer';
 import { cartItemsState } from '@recoil/cartItems/atoms';
 import { allCheckedState } from '@recoil/cartItems/selectors';
 

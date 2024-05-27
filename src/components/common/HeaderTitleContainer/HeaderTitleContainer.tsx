@@ -1,5 +1,12 @@
-import { css } from '@emotion/react';
 import { Fragment } from 'react';
+
+import {
+  descriptionText,
+  descriptionWrapper,
+  headerWrapper,
+  titleText,
+  titleWrapper,
+} from './HeaderTitleContainer.styled';
 
 interface HeaderTitleProps {
   title: string;
@@ -25,38 +32,3 @@ export default function HeaderTitleContainer({ title, description }: HeaderTitle
     </section>
   );
 }
-
-const headerWrapper = css`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-  width: 100%;
-
-  padding: 36px 0;
-`;
-
-const titleWrapper = css`
-  display: flex;
-  align-items: center;
-
-  height: 35px;
-`;
-
-const titleText = css`
-  font-size: 24px;
-  font-weight: 700;
-`;
-
-const descriptionWrapper = css`
-  display: flex;
-  align-items: center;
-  width: 100%;
-`;
-
-const descriptionText = css`
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 18px;
-  color: #0a0d13;
-`;

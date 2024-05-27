@@ -1,7 +1,7 @@
 import { borderTopWrapper, cartFooterSection } from './PriceSection.styled';
-import GuideText from '../GuideText';
+import GuideText from '../GuideText/GuideText';
 
-import Receipt from '@/components/Cart/Receipt';
+import Receipt from '@/components/Cart/Receipt/Receipt';
 import useOrderInfo from '@/hooks/useOrderInfo';
 import { CONFIG } from '@constants/config';
 

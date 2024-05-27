@@ -3,7 +3,7 @@ import { ChangeEvent } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import OrderItem from './OrderItem';
-import HeaderTitleContainer from '../common/HeaderTitleContainer';
+import HeaderTitleContainer from '../common/HeaderTitleContainer/HeaderTitleContainer';
 import CouponModal from '../Coupon/CouponModal/CouponModal';
 
 import Checkbox from '@/components/common/Checkbox/Checkbox';

@@ -5,9 +5,9 @@ import { confirmButton, contentWrapper, couponListWrapper } from './CouponModal.
 import CouponItem from '../CouponItem/CouponItem';
 import { isCheckedCoupon } from '../utils/isCheckedCoupon';
 
+import GuideText from '@/components/common/GuideText/GuideText';
 import { couponChecklistState } from '@/recoil/coupons/atoms';
 import { Coupon } from '@/types/coupon';
-import GuideText from '@common/GuideText';
 
 import useCoupon from '@hooks/useCoupon';
 
