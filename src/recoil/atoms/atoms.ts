@@ -1,11 +1,17 @@
+<<<<<<< HEAD
 import { atom, selector } from "recoil";
 import { getCartItems } from "../../api";
 import { ERROR_MESSAGES } from "../../constants";
 import { CartItem, Coupon } from "../../types";
+=======
+import { atom } from "recoil";
+import { CartItem } from "../../types";
+>>>>>>> 00kang
 import { getLocalStorageState } from "../../utils/getLocalStorageStore";
 
 export const cartItemsState = atom<CartItem[]>({
   key: "cartItemsState",
+<<<<<<< HEAD
   default: selector({
     key: "cartItemsDefault",
     get: async () => {
@@ -18,6 +24,9 @@ export const cartItemsState = atom<CartItem[]>({
       }
     },
   }),
+=======
+  default: [],
+>>>>>>> 00kang
 });
 
 export const checkedItemState = atom<Record<number, boolean>>({
@@ -40,6 +49,7 @@ export const cartSummaryState = atom({
     totalItemCount: 0,
   },
 });
+<<<<<<< HEAD
 
 export const selectedCartItemsState = atom<CartItem[]>({
   key: "selectedCartItemsState",
@@ -70,3 +80,5 @@ export const selectedCouponState = atom<Coupon[]>({
   key: "selectedCouponState",
   default: [],
 });
+=======
+>>>>>>> 00kang

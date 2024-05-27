@@ -17,6 +17,7 @@ export interface CartItemCounts {
 
 export interface CartSummary {
   orderPrice: number;
+<<<<<<< HEAD
   cartDeliveryPrice: number;
   orderDeliveryPrice: number;
   cartTotalPrice: number;
@@ -39,3 +40,10 @@ export interface Coupon {
     end: string;
   };
 }
+=======
+  deliveryPrice: number;
+  totalPrice: number;
+  uniqueItemCount: number;
+  totalItemCount: number;
+}
+>>>>>>> 00kang

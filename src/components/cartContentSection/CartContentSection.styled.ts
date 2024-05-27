@@ -4,7 +4,11 @@ export const StyledCartContentSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+<<<<<<< HEAD
   height: 680px;
+=======
+  height: 710px;
+>>>>>>> 00kang
 `;
 
 export const StyledContentContainer = styled.div`

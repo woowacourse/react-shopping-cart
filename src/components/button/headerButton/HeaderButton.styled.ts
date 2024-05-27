@@ -1,5 +1,18 @@
 import styled from "styled-components";
 
+<<<<<<< HEAD
+=======
+export const StyledHeaderButtonContainer = styled.button`
+  background-color: transparent;
+  border: none;
+
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+`;
+
+>>>>>>> 00kang
 export const StyledHeaderButtonContent = styled.span`
   font-family: Noto Sans;
   font-size: 20px;

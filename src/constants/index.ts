@@ -11,9 +11,13 @@ export const PATHS = {
   SHOPPING_CART: "/react-shopping-cart/",
   CART_ITEMS: "/cart-items",
   ORDER_CONFIRMATION: "/order-confirmation",
+<<<<<<< HEAD
   PAYMENTS_CONFIRMATION: "/payments-confirmation",
   COUNTS: "/counts",
   COUPONS: "/coupons",
+=======
+  COUNTS: "/counts",
+>>>>>>> 00kang
 };
 
 // 페이징 상수
@@ -30,9 +34,14 @@ export const COUNTER_BUTTON_TYPES = {
 
 // 헤더 타입 상수
 export const HEADER_TYPES = {
+<<<<<<< HEAD
   SHOP: "SHOP",
   BACK: "BACK",
   NONE: "NONE",
+=======
+  SHOP: "shop",
+  BACK: "back",
+>>>>>>> 00kang
 } as const;
 
 // 에러 메시지 상수
@@ -44,7 +53,10 @@ export const ERROR_MESSAGES = {
   FETCH_CART_ITEM_QUANTITY: "Failed to fetch cart item quantity",
   ADD_CART_ITEM: "Failed to add cart item",
   DELETE_CART_ITEM: "Failed to delete cart item",
+<<<<<<< HEAD
   FETCH_COUPONS: "Failed to fetch coupons",
+=======
+>>>>>>> 00kang
 };
 
 // 정보 메시지 상수
@@ -52,7 +64,10 @@ export const INFO_MESSAGES = {
   EMPTY_CART: "장바구니에 담은 상품이 없습니다.",
   FREE_DELIVERY: "총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.",
   CHECK_TOTAL_PRICE: "최종 결제 금액을 확인해 주세요.",
+<<<<<<< HEAD
   COUPON_USAGE_LIMIT: "쿠폰은 최대 2개까지 사용할 수 있습니다.",
+=======
+>>>>>>> 00kang
 };
 
 // 배송비 관련 상수
@@ -60,7 +75,10 @@ export const DELIVERY = {
   FREE_THRESHOLD: 100000,
   FREE: 0,
   STANDARD: 3000,
+<<<<<<< HEAD
   REGION_SPECIFIC: 6000,
+=======
+>>>>>>> 00kang
 };
 
 // 카트 관련 상수
@@ -75,8 +93,11 @@ export const BUTTON_COLORS = {
   LIGHT: "LIGHT",
   DARK: "DARK",
 } as const;
+<<<<<<< HEAD
 
 // 쿠폰 관련 상수
 export const COUPON = {
   MAX_SELECTABLE_COUPONS: 2,
 };
+=======
+>>>>>>> 00kang

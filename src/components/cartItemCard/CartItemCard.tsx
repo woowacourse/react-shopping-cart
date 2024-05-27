@@ -1,6 +1,12 @@
 import { COUNTER_BUTTON_TYPES } from "../../constants";
+<<<<<<< HEAD
 import { useChangeCartItemQquntity } from "../../hooks/useChangeCartItemQuantity";
 import { useDeleteCartItem } from "../../hooks/useDeleteCartItem";
+=======
+import { useDecreaseCartItemQuantity } from "../../hooks/useDecreaseCartItemQuantity";
+import { useDeleteCartItem } from "../../hooks/useDeleteCartItem";
+import { useIncreaseCartItemQuantity } from "../../hooks/useIncreaseCartItemQuantity";
+>>>>>>> 00kang
 import { CartItem } from "../../types";
 import { CheckboxButton, CounterButton, DeleteButton } from "../button";
 import {
@@ -28,7 +34,12 @@ export const CartItemCard: React.FC<CartItemProps> = ({
   const { name, price, imageUrl } = product;
 
   const handleItemDelete = useDeleteCartItem();
+<<<<<<< HEAD
   const handleItemCountChange = useChangeCartItemQquntity();
+=======
+  const handleItemCountPlus = useIncreaseCartItemQuantity();
+  const handleItemCountMinus = useDecreaseCartItemQuantity();
+>>>>>>> 00kang
 
   return (
     <StyledCartItemCard>
@@ -44,16 +55,24 @@ export const CartItemCard: React.FC<CartItemProps> = ({
           <StyledProductQuantityContainer>
             <CounterButton
               type={COUNTER_BUTTON_TYPES.DECREMENT}
+<<<<<<< HEAD
               onClick={() =>
                 handleItemCountChange({ id, quantity }, COUNTER_BUTTON_TYPES.DECREMENT)
               }
+=======
+              onClick={() => handleItemCountMinus({ id, quantity })}
+>>>>>>> 00kang
             />
             <StyledProductQuantityText>{quantity}</StyledProductQuantityText>
             <CounterButton
               type={COUNTER_BUTTON_TYPES.INCREMENT}
+<<<<<<< HEAD
               onClick={() =>
                 handleItemCountChange({ id, quantity }, COUNTER_BUTTON_TYPES.INCREMENT)
               }
+=======
+              onClick={() => handleItemCountPlus({ id, quantity })}
+>>>>>>> 00kang
             />
           </StyledProductQuantityContainer>
         </StyledProductInfo>

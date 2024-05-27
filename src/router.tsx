@@ -2,7 +2,10 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import { PATHS } from "./constants";
 import { CartPage } from "./pages/cartPage/CartPage";
+<<<<<<< HEAD
 import { PaymentsConfirmationPage } from "./pages/paymentsConfirmationPage/PaymentsConfirmationPage";
+=======
+>>>>>>> 00kang
 import { OrderConfirmationPage } from "./pages/orderConfirmationPage/OrderConfirmationPage";
 
 const router = createBrowserRouter(
@@ -19,10 +22,13 @@ const router = createBrowserRouter(
           path: PATHS.ORDER_CONFIRMATION,
           element: <OrderConfirmationPage />,
         },
+<<<<<<< HEAD
         {
           path: PATHS.PAYMENTS_CONFIRMATION,
           element: <PaymentsConfirmationPage />,
         },
+=======
+>>>>>>> 00kang
       ],
     },
   ],
