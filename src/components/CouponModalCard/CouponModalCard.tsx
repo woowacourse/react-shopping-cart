@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import * as S from './CouponModalCard.styled';
 import CheckBox from '../CheckBox/CheckBox';
 import { AvailableTime } from '../../types/Coupon';
+import formatTime from '../../utils/FormatTime';
 
 interface CouponModalCardProps {
   isAvailable: boolean;
@@ -42,11 +43,18 @@ function CouponModalCard({
             최소 주문 금액 : {minimumAmount.toLocaleString()}원
           </S.CouponCondition>
         )}
-        {/* TODO: 시간 오전/오후 유틸 함수 */}
+
         {availableTime && (
           <S.CouponCondition>
-            사용 가능 시간 : {availableTime.start}부터
-            {availableTime.end}까지
+            사용 가능 시간 :{' '}
+            {`${formatTime(availableTime.start).amOrPm} ${
+              formatTime(availableTime.start).hourOfTime12
+            }`}
+            시부터
+            {`${formatTime(availableTime.end).amOrPm} ${
+              formatTime(availableTime.end).hourOfTime12
+            }`}
+            시까지
           </S.CouponCondition>
         )}
       </S.CouponDetails>
