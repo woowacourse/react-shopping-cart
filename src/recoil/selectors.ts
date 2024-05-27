@@ -16,8 +16,6 @@ import {
 } from "./atoms";
 
 export const initializeCartItemStorage = (items: CartItemType[]) => {
-  const storageState = CartItemLocalStorage.get("cartItemSelected");
-  if (!storageState) {
     const newStorageState = items.reduce(
       (acc, item): Record<number, boolean> => {
         return { ...acc, [item.id]: false };
@@ -25,7 +23,6 @@ export const initializeCartItemStorage = (items: CartItemType[]) => {
       {}
     );
     CartItemLocalStorage.set("cartItemSelected", newStorageState);
-  }
 };
 
 export const cartListTotalPrice = selector({
