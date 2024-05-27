@@ -1,46 +1,44 @@
+import { CartItem } from "../types/cartItems";
 import {
   Coupon,
-  FixedDiscountCoupon,
+  isBOGOCoupon,
   isFixedDiscountCoupon,
+  isFreeShippingCoupon,
+  isPercentageDiscountCoupon,
 } from "../types/coupons";
-import { isMetMinimumAmount } from "./checkApplicableCoupon";
-
-const calculateDiscountAmountOfFixedDiscountCoupon = (
-  coupon: FixedDiscountCoupon,
-  orderAmount: number
-) => {
-  // 아무 조건도 없는 경우
-  if (!coupon.minimumAmount && !coupon.availableTime) {
-    return coupon.discount;
-  }
-
-  // TODO: 모든 조건이 있는 경우
-  // if (coupon.minimumAmount && coupon.availableTime) {
-  //   isMetMinimumAmount(coupon, orderAmount) &&
-  // }
-
-  // TODO: 사용 가능 시간 조건만 있는 경우
-
-  // 최소 주문 금액 조건만 있는 경우
-  return isMetMinimumAmount(coupon, orderAmount) ? coupon.discount : 0;
-};
+import { checkApplicableCoupon } from "./checkApplicableCoupon";
 
 export const calculateDiscountAmountOfCoupon = (
   coupon: Coupon,
-  orderAmount: number
+  {
+    orderAmount,
+    cartItems,
+    deliveryCost,
+  }: { orderAmount: number; cartItems: CartItem[]; deliveryCost: number }
 ) => {
-  switch (coupon.discountType) {
-    case "fixed":
-      if (isFixedDiscountCoupon(coupon)) {
-        return calculateDiscountAmountOfFixedDiscountCoupon(
-          coupon,
-          orderAmount
-        );
-      }
-      return 0;
-    case "percentage":
-      return orderAmount;
-    default:
-      return 0;
+  if (!checkApplicableCoupon(coupon, { orderAmount, cartItems })) {
+    return 0;
   }
+  if (isFixedDiscountCoupon(coupon)) {
+    return coupon.discount;
+  }
+  if (isPercentageDiscountCoupon(coupon)) {
+    return (orderAmount * coupon.discount) / 100;
+  }
+  if (isFreeShippingCoupon(coupon)) {
+    return deliveryCost;
+  }
+  if (isBOGOCoupon(coupon)) {
+    const filteredCatItems = cartItems.filter(
+      (cartItem) =>
+        cartItem.isSelected &&
+        cartItem.quantity >= coupon.buyQuantity + coupon.getQuantity
+    );
+    return filteredCatItems.reduce(
+      (max, cartItem) =>
+        Math.max(max, cartItem.product.price * coupon.getQuantity),
+      0
+    );
+  }
+  return 0;
 };

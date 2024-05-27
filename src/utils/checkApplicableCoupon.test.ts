@@ -132,7 +132,7 @@ describe("checkApplicableCoupon: 쿠폰 적용 조건 검사", () => {
       const cartItems: CartItem[] = [
         {
           id: 1,
-          quantity: 2,
+          quantity: 3,
           product: {
             id: 1,
             name: "리복",
@@ -175,7 +175,7 @@ describe("checkApplicableCoupon: 쿠폰 적용 조건 검사", () => {
       const cartItems: CartItem[] = [
         {
           id: 1,
-          quantity: 1,
+          quantity: 2,
           product: {
             id: 1,
             name: "리복",

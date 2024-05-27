@@ -1,11 +1,15 @@
 import { useMemo, useState } from "react";
 import { calculateDiscountAmountOfCoupon } from "../utils/calculateDiscountAmountOfCoupon";
-import { orderAmountState } from "../recoil/cartAmount";
+import { deliveryCostState, orderAmountState } from "../recoil/cartAmount";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { couponsState } from "../recoil/coupon/coupons";
 import { Coupon } from "../types/coupons";
+import { cartItemsState } from "../recoil/cart/cartItems";
 
 export const useCouponControl = (initCoupons: Coupon[]) => {
+  const deliveryCost = useRecoilValue(deliveryCostState);
+  const cartItems = useRecoilValue(cartItemsState);
+
   const [globalCouponsState, setGlobalCouponsState] =
     useRecoilState(couponsState);
 
@@ -19,7 +23,12 @@ export const useCouponControl = (initCoupons: Coupon[]) => {
     const selectedCoupons = coupons.filter(({ isSelected }) => isSelected);
     return selectedCoupons.reduce(
       (discountAmount, coupon) =>
-        discountAmount + calculateDiscountAmountOfCoupon(coupon, orderAmount),
+        discountAmount +
+        calculateDiscountAmountOfCoupon(coupon, {
+          orderAmount,
+          cartItems,
+          deliveryCost,
+        }),
       0
     );
   }, [orderAmount, coupons]);

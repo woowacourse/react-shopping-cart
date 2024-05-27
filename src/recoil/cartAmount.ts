@@ -3,6 +3,7 @@ import { cartItemsState } from "./cart/cartItems";
 import { couponsState } from "./coupon/coupons";
 import { calculateDiscountAmountOfCoupon } from "../utils/calculateDiscountAmountOfCoupon";
 
+// 주문 금액
 export const orderAmountState = selector({
   key: "orderAmountState",
   get: async ({ get }) => {
@@ -16,33 +17,39 @@ export const orderAmountState = selector({
   },
 });
 
+// 할인 금액
 export const discountAmountState = selector({
   key: "discountAmountState",
   get: ({ get }) => {
-    // TODO: BOGO 쿠폰에 필요할 것으로 예상
-    // const selectedCartItems = get(cartItemsState).filter(
-    //   ({ isSelected }) => isSelected
-    // );
     const selectedCoupons = get(couponsState).filter(
       ({ isSelected }) => isSelected
     );
     const orderAmount = get(orderAmountState);
+    const cartItems = get(cartItemsState).filter(
+      ({ isSelected }) => isSelected
+    );
+    const deliveryCost = get(deliveryCostState);
 
-    // 일단 고정 할인만
-    // TODO: 다른 쿠폰 케이스도 적용해야함
     return selectedCoupons.reduce(
       (discountAmount, coupon) =>
-        discountAmount + calculateDiscountAmountOfCoupon(coupon, orderAmount),
+        discountAmount +
+        calculateDiscountAmountOfCoupon(coupon, {
+          orderAmount,
+          cartItems,
+          deliveryCost,
+        }),
       0
     );
   },
 });
 
+// 도서산간지역 선택 여부
 export const is도서산간지역State = atom({
   key: "is도서산간지역State",
   default: false,
 });
 
+// 배송비
 export const deliveryCostState = selector({
   key: "deliveryCostState",
   get: async ({ get }) => {
@@ -59,6 +66,7 @@ export const deliveryCostState = selector({
   },
 });
 
+// 총 결제 금액
 export const totalOrderAmountState = selector({
   key: "totalOrderAmountState",
   get: ({ get }) => {

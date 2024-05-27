@@ -60,7 +60,8 @@ export const checkBuyQuantity = (coupon: BOGOCoupon, cartItems: CartItem[]) => {
   return (
     cartItems.filter(
       (cartItem) =>
-        cartItem.isSelected && cartItem.quantity >= coupon.buyQuantity
+        cartItem.isSelected &&
+        cartItem.quantity >= coupon.buyQuantity + coupon.getQuantity
     ).length > 0
   );
 };
@@ -70,16 +71,32 @@ export const checkApplicableCoupon = (
   { orderAmount, cartItems }: { orderAmount: number; cartItems: CartItem[] }
 ) => {
   if (isFixedDiscountCoupon(coupon)) {
-    return isMetMinimumAmount(coupon, orderAmount) && isAvailableTime(coupon);
+    return (
+      coupon.isSelected &&
+      isMetMinimumAmount(coupon, orderAmount) &&
+      isAvailableTime(coupon)
+    );
   }
   if (isPercentageDiscountCoupon(coupon)) {
-    return isMetMinimumAmount(coupon, orderAmount) && isAvailableTime(coupon);
+    return (
+      coupon.isSelected &&
+      isMetMinimumAmount(coupon, orderAmount) &&
+      isAvailableTime(coupon)
+    );
   }
   if (isFreeShippingCoupon(coupon)) {
-    return isMetMinimumAmount(coupon, orderAmount) && isAvailableTime(coupon);
+    return (
+      coupon.isSelected &&
+      isMetMinimumAmount(coupon, orderAmount) &&
+      isAvailableTime(coupon)
+    );
   }
   if (isBOGOCoupon(coupon)) {
-    return checkBuyQuantity(coupon, cartItems) && isAvailableTime(coupon);
+    return (
+      coupon.isSelected &&
+      checkBuyQuantity(coupon, cartItems) &&
+      isAvailableTime(coupon)
+    );
   }
   return true;
 };
