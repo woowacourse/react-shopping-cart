@@ -9,23 +9,18 @@ const useQuantityCount = ({ id }: { id: number }) => {
   const [products, setProducts] = useRecoilState(productsState);
   const productQuantity = useRecoilValue(productQuantityState(id));
 
-  const handleIncrementButton = async () => {
-    const newQuantity = productQuantity + 1;
+  const updateProductQuantity = async (newQuantity: number) => {
     const { success } = await updateCartItemQuantity(id, newQuantity);
-
     if (success) {
-      const newProducts = products.map((product: CartItemType) => {
-        if (product.id === id) {
-          return {
-            ...product,
-            quantity: newQuantity,
-          };
-        }
-        return product;
-      });
-
+      const newProducts = products.map((product: CartItemType) =>
+        product.id === id ? { ...product, quantity: newQuantity } : product,
+      );
       setProducts(newProducts);
     }
+  };
+
+  const handleIncrementButton = async () => {
+    await updateProductQuantity(productQuantity + 1);
   };
 
   const handleDecrementButton = async () => {
@@ -34,21 +29,7 @@ const useQuantityCount = ({ id }: { id: number }) => {
       alert(NOTICE_MESSAGE.min_quantity);
       return;
     }
-    const { success } = await updateCartItemQuantity(id, newQuantity);
-
-    if (success) {
-      const newProducts = products.map((product: CartItemType) => {
-        if (product.id === id) {
-          return {
-            ...product,
-            quantity: newQuantity,
-          };
-        }
-        return product;
-      });
-
-      setProducts(newProducts);
-    }
+    await updateProductQuantity(newQuantity);
   };
 
   return {
