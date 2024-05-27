@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { RecoilRoot } from 'recoil';
 import OrderConfirmCart from './OrderConfirmCart';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const meta = {
   title: 'OrderConfirmCart',
@@ -9,7 +10,9 @@ const meta = {
     (Story) => {
       return (
         <RecoilRoot>
-          <Story />
+          <Router>
+            <Story />
+          </Router>
         </RecoilRoot>
       );
     },
