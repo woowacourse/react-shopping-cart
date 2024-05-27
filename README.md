@@ -4,7 +4,8 @@ step 4 : Payments 페이지
 
 - [x] 총 주문 금액, 총 주문 상품 수, 종류 UI 렌더링
 - [x] 해당 페이지에서 결제하기 버튼을 누르면 /order 요청을 보냄
-- [ ] 결제 요청 후 성공 시, 장바구니 reset
+- [x] 결제 요청 후 성공 시, 장바구니 reset
+- [x] mockCoupons -> api의 "/coupons" GET 요청 데이터로 교체
 
 step 3 : 적용된 쿠폰 계산 로직 구현
 

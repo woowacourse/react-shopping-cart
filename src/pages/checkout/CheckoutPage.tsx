@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import { productsIdState } from '../../store/selectors';
 import { addOrders } from '../../api';
-import useCleanUpCouponStatusOnUnMount from '../../hooks/coupon/useCleanUpCouponStatusOnUnMount';
+import useSetAndCleanUpCoupons from '../../hooks/coupon/useSetAndCleanUpCoupons';
 import useNavigatePage from '../../hooks/useNavigatePage';
 import useModalControl from '../../hooks/useModalControl';
 import Button from '../../components/common/Button';
@@ -22,7 +22,7 @@ export default function CheckoutPage() {
   const productIds = useRecoilValue(productsIdState);
   const { isModalOpen, handleModalOpen } = useModalControl();
 
-  useCleanUpCouponStatusOnUnMount();
+  useSetAndCleanUpCoupons();
 
   const handlePaymentsButtonClick = async () => {
     try {

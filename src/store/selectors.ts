@@ -2,8 +2,8 @@ import { selector, selectorFamily } from 'recoil';
 import {
   activeCouponCodesState,
   additionalShippingFeeStatusState,
+  couponsState,
   isCheckedState,
-  mockCoupons,
   productsState,
 } from './atoms';
 import { CartItemType, CouponType } from '../types';
@@ -154,7 +154,7 @@ export const totalShippingFeeState = selector({
 export const discountAmountState = selector({
   key: 'discountAmountState',
   get: ({ get }) => {
-    const coupons = mockCoupons;
+    const coupons = get(couponsState);
     const activeCouponCodes = get(activeCouponCodesState);
     const activeCoupons = coupons.filter((coupon) => activeCouponCodes.includes(coupon.code));
 
