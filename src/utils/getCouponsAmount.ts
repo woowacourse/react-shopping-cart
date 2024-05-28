@@ -19,8 +19,13 @@ const getPercentageCouponDiscount = (
   return Math.floor((itemsAmount * percentageCoupon.discount) / 100);
 };
 
-const getCouponDiscount = (coupon: Coupon, items: CartItem[], deliveryFee: number) => {
-  if (!checkIsAvailableCoupon(coupon, items, deliveryFee)) return 0;
+const getCouponDiscount = (
+  coupon: Coupon,
+  items: CartItem[],
+  deliveryFee: number,
+  nowDate: Date = new Date(),
+) => {
+  if (!checkIsAvailableCoupon(coupon, items, deliveryFee, nowDate)) return 0;
 
   const itemsAmount = items.reduce((acc, item) => acc + item.quantity * item.product.price, 0);
   if (coupon.discountType === 'fixed') return coupon.discount;
@@ -29,8 +34,16 @@ const getCouponDiscount = (coupon: Coupon, items: CartItem[], deliveryFee: numbe
   if (coupon.discountType === 'percentage') return getPercentageCouponDiscount(coupon, itemsAmount);
   return 0;
 };
-const getCouponsAmount = (coupons: Coupon[], items: CartItem[], deliveryFee: number) => {
-  return coupons.reduce((acc, coupon) => acc + getCouponDiscount(coupon, items, deliveryFee), 0);
+const getCouponsAmount = (
+  coupons: Coupon[],
+  items: CartItem[],
+  deliveryFee: number,
+  nowDate: Date = new Date(),
+) => {
+  return coupons.reduce(
+    (acc, coupon) => acc + getCouponDiscount(coupon, items, deliveryFee, nowDate),
+    0,
+  );
 };
 
 export default getCouponsAmount;

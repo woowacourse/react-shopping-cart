@@ -2,8 +2,9 @@ import {
   DUMMY_BUY_X_GET_Y_COUPON,
   DUMMY_FIXED_DISCOUNT_COUPON,
   DUMMY_FREE_SHIPPING_DISCOUNT_COUPON,
+  DUMMY_PERCENTAGE_DISCOUNT_COUPON,
 } from './dummyCoupons';
-import { FixedDiscountCoupon, FreeShippingCoupon } from '../type';
+import { FixedDiscountCoupon, FreeShippingCoupon, PercentageDiscountCoupon } from '../type';
 
 import DUMMY_ITEMS from './dummyItems';
 import getCouponsAmount from '../utils/getCouponsAmount';
@@ -144,6 +145,57 @@ describe('getCouponsAmount', () => {
 
         //then
         expect(couponsAmount).toBe(shippingFee);
+      });
+    });
+
+    describe('PercentageDiscountCoupon', () => {
+      it.each([
+        {
+          ...DUMMY_PERCENTAGE_DISCOUNT_COUPON,
+          expirationDate: '2001-05-17',
+        },
+        {
+          ...DUMMY_PERCENTAGE_DISCOUNT_COUPON,
+          availableTime: { start: '00:00:00', end: '00:01:00' },
+        },
+      ])('유효하지 않은 쿠폰이 입력되면 할인 금액은 0원이다.', (invalidCoupon) => {
+        // given
+        const items = [DUMMY_ITEMS[0]];
+        // when
+        const couponsAmount = getCouponsAmount(
+          [invalidCoupon],
+          items,
+          0,
+          new Date(2001, 3, 12, 12, 2, 2),
+        );
+
+        //then
+        expect(couponsAmount).toBe(0);
+      });
+
+      it('유효한 경우 discount%만큼 할인해준다', () => {
+        // given
+        const items = [DUMMY_ITEMS[0]];
+        const validCoupon: PercentageDiscountCoupon = {
+          ...DUMMY_PERCENTAGE_DISCOUNT_COUPON,
+          expirationDate: '2050-05-17',
+          availableTime: { start: '00:00:00', end: '23:59:00' },
+        };
+        const itemAmount = items.reduce(
+          (acc, items) => acc + items.quantity * items.product.price,
+          0,
+        );
+
+        // when
+        const couponsAmount = getCouponsAmount(
+          [validCoupon],
+          items,
+          0,
+          new Date(2001, 5, 17, 12, 0, 0),
+        );
+
+        //then
+        expect(couponsAmount).toBe((itemAmount * validCoupon.discount) / 100);
       });
     });
   });
