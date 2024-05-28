@@ -30,12 +30,17 @@ const useSelectedCouponList = () => {
     return selectedCouponList.some(({ id }) => id === couponId);
   };
 
+  const clearSelectedCouponList = () => {
+    setSelectedCouponList([]);
+  };
+
   return {
     selectedCouponList,
     isSelectedCoupon,
     toggleSelectedCoupon,
     selectCoupon,
     unselectCoupon,
+    clearSelectedCouponList,
   };
 };
 
