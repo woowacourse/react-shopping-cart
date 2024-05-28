@@ -25,18 +25,5 @@ export interface CouponWithApplicablity extends Coupon {
 }
 
 export interface CouponWithPriority extends Coupon {
-  id: number;
-  code: string;
-  description: string;
-  discount?: number;
-  discountType: CouponDiscountType;
-  minimumAmount?: number;
-  buyQuantity?: number;
-  getQuantity?: number;
-  availableTime?: {
-    start: string;
-    end: string;
-  };
-  expirationDate: string;
   priority: number;
 }

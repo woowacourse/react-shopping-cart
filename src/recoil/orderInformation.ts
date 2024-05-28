@@ -1,6 +1,6 @@
 import { atom, selector } from "recoil";
 
-import { cartItemSelector } from "./cartItems";
+import { cartItemsState } from "./cartItems";
 
 import { cartItemQuantityState } from "./cartItemQuantity";
 import { selectedCartItemsIdState } from "./selectedCardItems";
@@ -8,7 +8,7 @@ import { selectedCartItemsIdState } from "./selectedCardItems";
 export const totalItemsPriceSelector = selector({
   key: "totalItemsPriceSelector",
   get: ({ get }) => {
-    const cartItemList = get(cartItemSelector);
+    const cartItemList = get(cartItemsState);
     const selectedItemsId = get(selectedCartItemsIdState);
     if (!selectedItemsId.length) return 0;
 

@@ -5,7 +5,7 @@ import CartPage from "@/pages/CartPage/CartPage.tsx";
 
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorPage from "../Error/ErrorPage";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import useUpdateCartItems from "@/hooks/cart/useUpdateCartItems";
 
 const CartPageDataLoader = () => {
@@ -16,14 +16,16 @@ const CartPageDataLoader = () => {
   }, []);
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorPage}>
-      <MainLayout>
-        <MainLayout.TitleHeader text={HEADER_TITLES.shop} />
-        <MainLayout.Body fallback={<CartPageSkeleton />}>
-          <CartPage />
-        </MainLayout.Body>
-      </MainLayout>
-    </ErrorBoundary>
+    <Suspense>
+      <ErrorBoundary FallbackComponent={ErrorPage}>
+        <MainLayout>
+          <MainLayout.TitleHeader text={HEADER_TITLES.shop} />
+          <MainLayout.Body fallback={<CartPageSkeleton />}>
+            <CartPage />
+          </MainLayout.Body>
+        </MainLayout>
+      </ErrorBoundary>
+    </Suspense>
   );
 };
 
