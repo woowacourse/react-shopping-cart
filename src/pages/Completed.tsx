@@ -49,12 +49,12 @@ function Completed() {
       totalItemTypeCount,
       totalCount,
       calculatedTotalAmount,
-      checkedItemId,
+      checkedItemIds,
     },
   } = useLocation();
 
   const updateOrder = async () => {
-    await fetchOrder(checkedItemId);
+    await fetchOrder(checkedItemIds);
   };
 
   const navigate = useNavigate();

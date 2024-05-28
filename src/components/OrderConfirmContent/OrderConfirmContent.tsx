@@ -38,8 +38,8 @@ const ContentWrapper = styled.section`
 `;
 
 function OrderConfirmContent() {
-  const checkedItem = useRecoilValue(checkedItemsSelector);
-  const checkedItemId = checkedItem.map((item) => item.id);
+  const checkedItems = useRecoilValue(checkedItemsSelector);
+  const checkedItemIds = checkedItems.map((item) => item.id);
   const { totalItemTypeCount, totalCount } = useRecoilValue(totalCountSelector);
   const { calculatedTotalAmount } = useRecoilValue(
     totalPriceSelector('Discount'),
@@ -51,7 +51,7 @@ function OrderConfirmContent() {
         totalItemTypeCount,
         totalCount,
         calculatedTotalAmount,
-        checkedItemId,
+        checkedItemIds,
       },
     });
   };
@@ -62,7 +62,7 @@ function OrderConfirmContent() {
           title={MESSAGES.confirm}
           subTitle={`총 ${totalItemTypeCount}종류의 상품 ${totalCount}개를 주문합니다.\n 최종 결제 금액을 확인해 주세요.`}
         />
-        {checkedItem.map((product: CartItems) => {
+        {checkedItems.map((product: CartItems) => {
           return <ConfirmItemCard key={product.id} item={product} />;
         })}
         <CouponButton />
