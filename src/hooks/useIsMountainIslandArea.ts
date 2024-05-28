@@ -8,7 +8,11 @@ const useIsMountainIslandArea = () => {
     setIsMountainIslandArea((prev) => !prev);
   };
 
-  return { handleIsMountainIslandArea, isMountainIslandArea };
+  const clearIsMountainIslandArea = () => {
+    setIsMountainIslandArea(false);
+  };
+
+  return { handleIsMountainIslandArea, isMountainIslandArea, clearIsMountainIslandArea };
 };
 
 export default useIsMountainIslandArea;
