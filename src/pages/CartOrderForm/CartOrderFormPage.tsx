@@ -22,6 +22,8 @@ import ShippingAreaForm from '../../components/ShippingAreaForm/ShippingAreaForm
 import { requestOrders } from '../../apis/requests/order';
 import { useErrorBoundary } from 'react-error-boundary';
 import { useSelectedCartItemIdList } from '../../hooks/useSelectedCartItemIdList';
+import useSelectedCouponList from '../../hooks/useSelectedCouponList';
+import useIsMountainIslandArea from '../../hooks/useIsMountainIslandArea';
 
 // TODO: cartOrders 의 컴포넌트와 동일. 복붙으로 재사용하니 수정요망
 const CartPageContainer = styled.main`
@@ -58,10 +60,15 @@ const CartOrderFormPage = () => {
 
   const { clearSelectedCartItemIdList } = useSelectedCartItemIdList();
   const { showBoundary } = useErrorBoundary();
+  const { clearSelectedCouponList } = useSelectedCouponList();
+  const { clearIsMountainIslandArea } = useIsMountainIslandArea();
+
   const completeOrder = async () => {
     try {
       await requestOrders(selectedCartItemList.map(({ cartItemId }) => cartItemId));
       clearSelectedCartItemIdList();
+      clearSelectedCouponList();
+      clearIsMountainIslandArea();
 
       navigate(ROUTES.CART_ORDER_COMPLETE, {
         state: {
