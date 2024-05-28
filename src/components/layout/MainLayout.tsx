@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import * as S from "./MainLayout.style";
 
 interface HeaderProps {
@@ -21,18 +21,8 @@ export const TitleHeader = ({ text }: { text: string }) => {
   );
 };
 
-export const Body = ({
-  fallback,
-  children,
-}: {
-  fallback?: React.ReactNode;
-  children: React.ReactNode;
-}) => {
-  return (
-    <S.LayoutWrapper>
-      <Suspense fallback={fallback}>{children}</Suspense>
-    </S.LayoutWrapper>
-  );
+export const Body = ({ children }: { children: React.ReactNode }) => {
+  return <S.LayoutWrapper>{children}</S.LayoutWrapper>;
 };
 const MainLayout = Object.assign(MainLayoutWrapper, {
   Header,

@@ -13,13 +13,10 @@ import ProductList from "@/components/cart/ProductList/ProductList";
 import Button from "@/components/_common/Button/Button";
 import TextBox from "@/components/_common/TextBox/TextBox";
 import CheckBox from "@/components/_common/CheckBox/CheckBox";
-
 import * as S from "./OrderConfirmPage.style";
-
 import PriceSection from "@/components/cart/PriceSection/PriceSection";
 import { useNavigate } from "react-router-dom";
 import { PAGE_URL } from "@/constants/url";
-
 import MoreInfo from "@/components/_common/MoreInfo/MoreInfo";
 import {
   shippingFeeSelector,
@@ -41,21 +38,22 @@ const OrderConfirmPage = ({
   selectedCartItems: CartItem[];
 }) => {
   const totalOrderPrice = useRecoilValue(totalItemsPriceSelector);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const onCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  const totalItemsCount = useRecoilValue(totalItemOrderCountSelector);
+  const shippingFeeType = useRecoilValue(shippingFeeSelector);
+  const setShippingFeeType = useSetRecoilState(shippingFeeState);
   const resetShippingFee = useResetRecoilState(shippingFeeSelector);
+
   const { resetCouponList } = useCoupons();
   const { resetSelectedItems } = useSelectedItems();
 
-  const totalItemsCount = useRecoilValue(totalItemOrderCountSelector);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const selectedItemsId = getLocalStorage("selectedItems");
 
-  const setShippingFeeType = useSetRecoilState(shippingFeeState);
-  const shippingFeeType = useRecoilValue(shippingFeeSelector);
-
   const navigate = useNavigate();
+
+  const onCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   const onClickDoubleShippingFee = () => {
     shippingFeeType === "remoteAreaShippingFee"

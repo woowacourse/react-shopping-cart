@@ -18,10 +18,15 @@ import { CAPTION, HEADER_TITLES } from "@/constants/titleAndCaption.ts";
 import { SHIPPING_MESSSAGES } from "@/constants/shippingInfo.ts";
 import AllSelectCheckBox from "@/components/cart/AllSelectCheckBox/AllSelectCheckBox";
 import AddMockItemButton from "@/mocks/AddMockItemButton";
+import useCartItems from "@/hooks/cart/useCartItems";
+import { useEffect } from "react";
+import MainLayout from "@/components/layout/MainLayout";
 
 const CartPage = () => {
   const selectedItems = useRecoilValue(totalItemOrderCountSelector);
   const cartItemList = useRecoilValue(cartItemsState);
+
+  const { updateNewCartItems } = useCartItems();
 
   const navigate = useNavigate();
 
@@ -29,38 +34,45 @@ const CartPage = () => {
     navigate(PAGE_URL.orderConfirm);
   };
 
+  useEffect(() => {
+    updateNewCartItems();
+  }, [updateNewCartItems]);
+
   return (
-    <>
-      <S.CartItemListWrapper>
-        <AddMockItemButton />
-        {cartItemList.length ? (
-          <>
-            <TitleSet
-              title={HEADER_TITLES.cart}
-              subTitle={CART_PAGE_MESSAGES.itemCount(cartItemList.length)}
-            />
-            <AllSelectCheckBox />
-            <ProductList productList={cartItemList} />
-            <MoreInfo text={SHIPPING_MESSSAGES.freeShippingInfo} />
-            <PriceSection isApplyCoupon={false} />
-          </>
-        ) : (
-          <>
-            <CartEmpty />
-          </>
-        )}
-      </S.CartItemListWrapper>
-      <Button
-        size="large"
-        position="bottom"
-        width="full"
-        theme="dark"
-        disabled={!selectedItems}
-        onClick={onMoveOrderConfirmPage}
-      >
-        {CAPTION.orderConfirm}
-      </Button>
-    </>
+    <MainLayout>
+      <MainLayout.TitleHeader text={HEADER_TITLES.shop} />
+      <MainLayout.Body>
+        <S.CartItemListWrapper>
+          <AddMockItemButton />
+          {cartItemList.length ? (
+            <>
+              <TitleSet
+                title={HEADER_TITLES.cart}
+                subTitle={CART_PAGE_MESSAGES.itemCount(cartItemList.length)}
+              />
+              <AllSelectCheckBox />
+              <ProductList productList={cartItemList} />
+              <MoreInfo text={SHIPPING_MESSSAGES.freeShippingInfo} />
+              <PriceSection isApplyCoupon={false} />
+            </>
+          ) : (
+            <>
+              <CartEmpty />
+            </>
+          )}
+        </S.CartItemListWrapper>
+        <Button
+          size="large"
+          position="bottom"
+          width="full"
+          theme="dark"
+          disabled={!selectedItems}
+          onClick={onMoveOrderConfirmPage}
+        >
+          {CAPTION.orderConfirm}
+        </Button>
+      </MainLayout.Body>
+    </MainLayout>
   );
 };
 
