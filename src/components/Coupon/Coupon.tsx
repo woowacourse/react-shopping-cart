@@ -62,7 +62,7 @@ export default function Coupon({ coupons }: Props) {
       }, 0);
       return updateDiscountPrice;
     });
-  }, [applyCoupons]);
+  }, [applyCoupons, finalDiscountPrice]);
 
   return (
     <C.CouponStyle>
