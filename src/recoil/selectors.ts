@@ -107,22 +107,30 @@ export const toggleAllSelector = selector<boolean>({
 });
 
 /**
- * 모든 itemDetailsState를 순회하며 총 수량 계산
+ * 모든 itemDetailsState를 순회하며 체크된 상품의 종루의 개수와 총 수량 계산
  */
 export const totalCountSelector = selector({
   key: 'totalCountSelector',
   get: ({ get }) => {
     const productIds = get(itemsState);
-    const totalItemTypeCount = productIds.length;
 
-    const totalCount = productIds.reduce((prevTotalCount, itemsState) => {
-      const { quantity, isChecked } = get(itemDetailsState(itemsState.id));
-      if (isChecked) {
-        return prevTotalCount + quantity;
-      }
-      return prevTotalCount;
-    }, 0);
-    return { totalItemTypeCount, totalCount };
+    const totalResult = productIds.reduce(
+      (prevCheckedCount, itemsState) => {
+        const { quantity, isChecked } = get(itemDetailsState(itemsState.id));
+        if (isChecked) {
+          return {
+            checkedTypeCount: prevCheckedCount.checkedTypeCount + 1,
+            totalCount: prevCheckedCount.totalCount + quantity,
+          };
+        }
+        return prevCheckedCount;
+      },
+      { checkedTypeCount: 0, totalCount: 0 },
+    );
+    return {
+      totalItemTypeCount: totalResult.checkedTypeCount,
+      totalCount: totalResult.totalCount,
+    };
   },
 });
 
