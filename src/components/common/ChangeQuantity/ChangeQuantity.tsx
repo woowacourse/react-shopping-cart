@@ -16,13 +16,13 @@ const ChangeQuantity = ({ quantity, decreaseQuantity, increaseQuantity }: Change
   return (
     <S.ChangeQuantity>
       <Button size="s" onClick={decreaseQuantity} isSquare={true} disabled={quantity === 1} aria-label="수량 감소">
-        <img src={MINUS} />
+        <img src={MINUS} alt="" />
       </Button>
       <S.Quantity>
         <Text weight="m">{quantity}</Text>
       </S.Quantity>
       <Button size="s" onClick={increaseQuantity} isSquare={true} aria-label="수량 증가">
-        <img src={PLUS} />
+        <img src={PLUS} alt="" />
       </Button>
     </S.ChangeQuantity>
   );
