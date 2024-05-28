@@ -1,36 +1,38 @@
 import { renderHook } from '@testing-library/react';
 import { RecoilRoot, useRecoilValue, useSetRecoilState } from 'recoil';
 import { couponDetailState, couponsState } from '../atoms';
-import { allCheckedCouponsSelector } from '../selectors';
+import { checkShippingFreeSelector } from '../selectors';
 import { act } from 'react';
 import { mockCoupons } from '../../mocks/coupons';
 
-describe('checkedItemsSelector', () => {
-  it('mockCoupons[0] mockCoupons[2] 선택되었다고 가정할 때 길이가 2인 배열을 반환하다.', () => {
+describe('checkShippingFreeSelector', () => {
+  it('5,000원 할인 쿠폰과 5만원 이상 구매 시 무료 배송 쿠폰이 선택되었다고 가정할 때 길이가 2인 배열을 반환하다.', () => {
     const { result } = renderHook(
       () => {
         const setCoupons = useSetRecoilState(couponsState);
-        const setCouponsDetails0 = useSetRecoilState(
+        const setCouponsDetailsFixed5000 = useSetRecoilState(
           couponDetailState(mockCoupons[0].id),
         );
-        const setCouponsDetails1 = useSetRecoilState(
+        const setCouponsDetailsBuyXgetY = useSetRecoilState(
           couponDetailState(mockCoupons[1].id),
         );
-        const setCouponsDetails2 = useSetRecoilState(
+        const setCouponsDetailsFreeShipping = useSetRecoilState(
           couponDetailState(mockCoupons[2].id),
         );
-        const setCouponsDetails3 = useSetRecoilState(
+        const setCouponsDetailsMiracleSale = useSetRecoilState(
           couponDetailState(mockCoupons[3].id),
         );
-        const checkedCoupons = useRecoilValue(allCheckedCouponsSelector);
+        const isSelectedShippingFree = useRecoilValue(
+          checkShippingFreeSelector,
+        );
 
         return {
           setCoupons,
-          setCouponsDetails0,
-          setCouponsDetails1,
-          setCouponsDetails2,
-          setCouponsDetails3,
-          checkedCoupons,
+          setCouponsDetailsFixed5000,
+          setCouponsDetailsBuyXgetY,
+          setCouponsDetailsFreeShipping,
+          setCouponsDetailsMiracleSale,
+          isSelectedShippingFree,
         };
       },
       { wrapper: RecoilRoot },
@@ -41,12 +43,12 @@ describe('checkedItemsSelector', () => {
     });
 
     act(() => {
-      result.current.setCouponsDetails0(true);
-      result.current.setCouponsDetails1(false);
-      result.current.setCouponsDetails2(true);
-      result.current.setCouponsDetails3(false);
+      result.current.setCouponsDetailsFixed5000(true);
+      result.current.setCouponsDetailsBuyXgetY(false);
+      result.current.setCouponsDetailsFreeShipping(true);
+      result.current.setCouponsDetailsMiracleSale(false);
     });
 
-    expect(result.current.checkedCoupons.length).toBe(2);
+    expect(result.current.isSelectedShippingFree).toBe(true);
   });
 });

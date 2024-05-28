@@ -6,7 +6,7 @@ import { act } from 'react';
 import { mockCoupons } from '../../mocks/coupons';
 
 describe('checkShippingFreeSelector', () => {
-  it('5,000원 할인 쿠폰과 5만원 이상 구매 시 무료 배송 쿠폰이 선택되었다고 가정할 때 길이가 2인 배열을 반환하다.', () => {
+  it('5,000원 할인 쿠폰과 5만원 이상 구매 시 무료 배송 쿠폰이 선택되었다고 가정할 때 true를 반환한다.', () => {
     const { result } = renderHook(
       () => {
         const setCoupons = useSetRecoilState(couponsState);
