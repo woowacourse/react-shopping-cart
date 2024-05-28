@@ -10,6 +10,8 @@ import { CART_PAGE_MESSAGES } from "@/constants/cart";
 import { CartItem } from "@/types/cart";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorPage from "../Error/ErrorPage";
+import { getLocalStorage } from "@/utils/localStorage";
+import { PAGE_URL } from "@/constants/url";
 
 const OrderConfirmDataLoader = () => {
   const cartItems = useRecoilValue(cartItemSelector);
@@ -20,19 +22,22 @@ const OrderConfirmDataLoader = () => {
 
   const onMoveCartPage = () => {
     if (confirm(CART_PAGE_MESSAGES.askMoveToCartPage)) {
-      navigate(-1);
+      navigate(PAGE_URL.home);
     }
   };
 
   useEffect(() => {
-    const selectedItemsId = JSON.parse(
-      localStorage.getItem("selectedItems") || "[]"
-    );
+    const selectedItemsId = getLocalStorage("selectedItems");
     const selectedCartItems = cartItems.filter((item) =>
       selectedItemsId.includes(item.id)
     );
 
     setSelectedItems(selectedCartItems);
+
+    if (!selectedItemsId.length) {
+      alert("주문 정보가 존재하지 않아서 장바구니 페이지로 이동합니다.");
+      navigate(PAGE_URL.home);
+    }
   }, []);
 
   return (

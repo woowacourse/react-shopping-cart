@@ -33,6 +33,7 @@ import { SHIPPING_FEE, SHIPPING_MESSSAGES } from "@/constants/shippingInfo.ts";
 import { postOrder } from "@/apis/order";
 import useCoupons from "@/hooks/coupon/useCoupons";
 import useSelectedItems from "@/hooks/cart/useSelectedItems";
+import { getLocalStorage } from "@/utils/localStorage";
 
 const OrderConfirmPage = ({
   selectedCartItems,
@@ -49,9 +50,7 @@ const OrderConfirmPage = ({
   const { resetSelectedItems } = useSelectedItems();
 
   const totalItemsCount = useRecoilValue(totalItemOrderCountSelector);
-  const selectedItemsId = JSON.parse(
-    localStorage.getItem("selectedItems") || "[]"
-  );
+  const selectedItemsId = getLocalStorage("selectedItems");
 
   const setShippingFeeType = useSetRecoilState(shippingFeeState);
   const shippingFeeType = useRecoilValue(shippingFeeSelector);
