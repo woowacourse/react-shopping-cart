@@ -2,7 +2,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { checkedCartItems } from '../recoil/selectors';
 import { useEffect } from 'react';
 import { cartItemCheckState } from '../recoil/atoms';
-import RULE from '../constants/rule';
+import { RULE } from '../constants/rule';
 
 export default function useLocalStorageCheckedCart({
   cartId,

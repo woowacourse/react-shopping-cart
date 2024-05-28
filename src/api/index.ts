@@ -85,3 +85,34 @@ export async function getCartCounts(): Promise<number> {
   const data = await response.json();
   return data.quantity;
 }
+
+export async function fetchCoupon(): Promise<Coupon[]> {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+  const response = await fetch(`${API_URL}/coupons`, {
+    method: 'GET',
+    headers: { Authorization: token },
+  });
+
+  if (!response.ok) {
+    throw new Error('쿠폰을 불러오는데 실패했습니다.');
+  }
+
+  const data = await response.json();
+  return data;
+}
+
+export async function postOrder(cartItemIds: number[]): Promise<void> {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+  const response = await fetch(`${API_URL}/orders`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
+    body: JSON.stringify({ cartItemIds }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to post order');
+  }
+}

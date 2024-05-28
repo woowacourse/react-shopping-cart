@@ -44,10 +44,10 @@
     - ProductList 컴포넌트 출력
     - FloatingButton 활성화
   - 장바구니에 상품이 존재하지 않을 때
-    - EmptyCart 컴포너틑 출력
+    - Empty 컴포너틑 출력
     - FloatingButton 비활성화
 
-- 주문 확인 페이지 (OrderConfirmPage)
+- 주문 확인 페이지 (PaymentConfirmPage)
 
   - 구매 종류, 상품 갯수, 총 결제 금액 출력
   - FloatingButton 비활성화

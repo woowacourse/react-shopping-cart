@@ -1,5 +1,8 @@
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import { PATH } from '../../constants/rule';
+
 import Header from './Header';
 
 interface HeaderStoryArgs {
@@ -29,12 +32,12 @@ type Story = StoryObj<HeaderStoryArgs>;
 
 export const Default: Story = {
   args: {
-    path: '/',
+    path: PATH.CartPage,
   },
 };
 
 export const OrderConfirm: Story = {
   args: {
-    path: '/order-confirm',
+    path: PATH.OrderConfirmPage,
   },
 };

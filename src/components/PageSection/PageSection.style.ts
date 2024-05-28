@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CartStyle = styled.section`
+export const PageSectionStyle = styled.section`
   padding: 36px 24px;
   height: 100%;
   position: relative;
@@ -9,7 +9,7 @@ export const CartStyle = styled.section`
   position: relative;
 `;
 
-export const EmptyCart = styled.p`
+export const Empty = styled.p`
   color: #0a0d13;
   font-size: 16px;
   line-height: 16px;

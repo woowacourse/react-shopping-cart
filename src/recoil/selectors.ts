@@ -1,6 +1,12 @@
 import { selector } from 'recoil';
-import { cartData, cartItemCheckState } from './atoms';
-import { fetchCartItem } from '../api';
+import {
+  cartData,
+  cartItemCheckState,
+  discountPrice,
+  isIslandState,
+} from './atoms';
+import { fetchCartItem, fetchCoupon } from '../api';
+import { RULE } from '../constants/rule';
 
 export const fetchCartData = selector<Cart[]>({
   key: 'fetchCartData',
@@ -39,14 +45,40 @@ export const calculateOrderPrice = selector<Price>({
   key: 'calculateOrderPrice',
   get: ({ get }) => {
     const checkedCart = get(checkedCartItems);
+    const isIsland = get(isIslandState);
+
     const totalOrderPrice = checkedCart.reduce(
       (acc, item) => acc + item.quantity * item.product.price,
       0,
     );
+
     const deliveryFee =
-      totalOrderPrice >= 100000 || totalOrderPrice === 0 ? 0 : 3000;
+      totalOrderPrice >= RULE.minimumFreeShippingOrderPrice ||
+      totalOrderPrice === 0
+        ? RULE.freeShipping
+        : isIsland
+          ? RULE.isLandDeliveryFee
+          : RULE.defaultDeliveryFee;
+
     const totalPrice = totalOrderPrice + deliveryFee;
 
     return { totalOrderPrice, deliveryFee, totalPrice };
+  },
+});
+
+export const fetchCouponList = selector<Coupon[]>({
+  key: 'fetchCouponList',
+  get: async () => {
+    const couponData = await fetchCoupon();
+    return couponData;
+  },
+});
+
+export const totalPaymentPrice = selector<number>({
+  key: 'totalPaymentPrice',
+  get: ({ get }) => {
+    const { totalPrice } = get(calculateOrderPrice);
+    const totalDiscount = get(discountPrice);
+    return totalPrice - totalDiscount;
   },
 });
