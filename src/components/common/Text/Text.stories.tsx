@@ -11,11 +11,6 @@ const meta = {
       control: { type: 'radio' },
       options: ['s', 'm', 'l', 'custom'],
     },
-    // customSize: {
-    //   if: { arg: 'size', eq: 'custom' },
-    //   description: '',
-    //   control: { type: 'number' },
-    // },
     weight: {
       description: '',
       control: { type: 'radio' },

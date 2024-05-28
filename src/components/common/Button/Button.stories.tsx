@@ -18,24 +18,12 @@ const meta = {
       control: { type: 'radio' },
       options: ['fit', 'full', 'custom'],
     },
-    // customWidth: {
-    //   if: { arg: 'width', eq: 'custom' },
-    //   description:
-    //     '(optional) Determines the width setting for the button\'s CSS. "fixed" maintains a constant width, "fit" adjusts to the text size, and "full" expands to the full width of its container.',
-    //   control: { type: 'number' },
-    // },
     radius: {
       description:
         '(optional) Determines the width setting for the button\'s CSS. "fixed" maintains a constant width, "fit" adjusts to the text size, and "full" expands to the full width of its container.',
       control: { type: 'radio' },
       options: ['s', 'm', 'l', 'custom'],
     },
-    // customRadius: {
-    //   if: { arg: 'radius', eq: 'custom' },
-    //   description:
-    //     '(optional) Determines the width setting for the button\'s CSS. "fixed" maintains a constant width, "fit" adjusts to the text size, and "full" expands to the full width of its container.',
-    //   control: { type: 'number' },
-    // },
     color: {
       description:
         '(optional) Determines the width setting for the button\'s CSS. "fixed" maintains a constant width, "fit" adjusts to the text size, and "full" expands to the full width of its container.',
@@ -65,9 +53,7 @@ const meta = {
   args: {
     size: 's',
     width: 'fit',
-    // customWidth: 0,
     radius: 'm',
-    // customRadius: 0,
     color: 'default',
     isSquare: false,
     disabled: false,
@@ -81,12 +67,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
   render: ({ ...args }) => {
-    // if (args.customWidth) {
-    //   args.width = args.customWidth;
-    // }
-    // if (args.customRadius) {
-    //   args.radius = args.customRadius;
-    // }
     return <Button {...args}>{args.children}</Button>;
   },
 };
