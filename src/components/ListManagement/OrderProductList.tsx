@@ -3,6 +3,7 @@ import {
   calculateOrderPrice,
   checkedCartItems,
   fetchCouponList,
+  totalPaymentPrice,
 } from '../../recoil/selectors';
 
 import { Modal } from 'soha-components';
@@ -17,13 +18,15 @@ import { useState } from 'react';
 import Coupon from '../Coupon/Coupon';
 
 import useCoupon from '../../hooks/useCoupon';
-import { finalTotalPriceListState, isIslandState } from '../../recoil/atoms';
+import { discountPrice, isIslandState } from '../../recoil/atoms';
 
 export default function OrderProductList() {
   const order = useRecoilValue(checkedCartItems);
   const { totalOrderPrice, deliveryFee } = useRecoilValue(calculateOrderPrice);
   const couponList = useRecoilValue(fetchCouponList);
-  const finalTotalPriceList = useRecoilValue(finalTotalPriceListState);
+  const finalDiscountPrice = useRecoilValue(discountPrice);
+  const finalTotalPaymentPrice = useRecoilValue(totalPaymentPrice);
+
   const [isIsland, setIsland] = useRecoilState(isIslandState);
 
   const [openModal, setOpenModal] = useState(false);
@@ -32,7 +35,7 @@ export default function OrderProductList() {
 
   const priceList: PriceList = {
     0: ['주문 금액', totalOrderPrice],
-    1: ['쿠폰 할인 금액', finalTotalPriceList.discountPrice],
+    1: ['쿠폰 할인 금액', finalDiscountPrice],
     2: ['배송비', deliveryFee],
   };
 
@@ -60,7 +63,7 @@ export default function OrderProductList() {
       </OP.DeliveryInfo>
       <ProductTotalPriceList
         priceList={priceList}
-        totalPrice={finalTotalPriceList.totalPaymentPrice}
+        totalPrice={finalTotalPaymentPrice}
       />
       {openModal && (
         <Modal
@@ -68,7 +71,7 @@ export default function OrderProductList() {
           title="쿠폰을 선택해 주세요"
           closeButton="img"
           closeModalClick={() => setOpenModal(false)}
-          buttonText={`총 ${finalTotalPriceList.discountPrice.toLocaleString('ko-kr')}원 할인 쿠폰 사용하기`}
+          buttonText={`총 ${finalDiscountPrice.toLocaleString('ko-kr')}원 할인 쿠폰 사용하기`}
           buttonClick={() => setOpenModal(false)}
         >
           <Coupon coupons={couponList} />

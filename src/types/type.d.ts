@@ -39,10 +39,3 @@ interface Coupon {
   getQuantity?: number;
   availableTime?: Time;
 }
-
-type FinalTotalPriceList = {
-  applicableCouponList: Coupon[];
-  discountPrice: number;
-  applyCoupons: Coupon[];
-  totalPaymentPrice: number;
-};

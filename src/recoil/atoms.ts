@@ -31,14 +31,19 @@ export const cartItemCheckState = atomFamily<boolean, number>({
   default: false,
 });
 
-export const finalTotalPriceListState = atom<FinalTotalPriceList>({
-  key: 'finalTotalPriceListState',
-  default: {
-    applicableCouponList: [],
-    discountPrice: 0,
-    applyCoupons: [],
-    totalPaymentPrice: 0,
-  },
+export const applicableCouponList = atom<Coupon[]>({
+  key: 'applicableCouponList',
+  default: [],
+});
+
+export const applyCouponList = atom<Coupon[]>({
+  key: 'applyCouponList',
+  default: [],
+});
+
+export const discountPrice = atom<number>({
+  key: 'discountPrice',
+  default: 0,
 });
 
 export const isIslandState = atom({

@@ -1,5 +1,10 @@
 import { selector } from 'recoil';
-import { cartData, cartItemCheckState, isIslandState } from './atoms';
+import {
+  cartData,
+  cartItemCheckState,
+  discountPrice,
+  isIslandState,
+} from './atoms';
 import { fetchCartItem, fetchCoupon } from '../api';
 import { RULE } from '../constants/rule';
 
@@ -66,5 +71,14 @@ export const fetchCouponList = selector<Coupon[]>({
   get: async () => {
     const couponData = await fetchCoupon();
     return couponData;
+  },
+});
+
+export const totalPaymentPrice = selector<number>({
+  key: 'totalPaymentPrice',
+  get: ({ get }) => {
+    const { totalPrice } = get(calculateOrderPrice);
+    const totalDiscount = get(discountPrice);
+    return totalPrice - totalDiscount;
   },
 });
