@@ -1,4 +1,5 @@
 import type { TCartItem } from '../types/CartItem.type';
+import type { Coupon } from '../types/Coupon.type';
 import { generateBasicToken } from '../utils/auth';
 import { CART_ITEM_ERROR_MESSAGE } from '../constants/MESSAGES';
 
@@ -23,7 +24,43 @@ export const fetchCartItemList = async (): Promise<TCartItem[]> => {
   return data.content;
 };
 
-export const addCartItem = async (cartItemId: number): Promise<void> => {
+export const fetchCoupons = async (): Promise<Coupon[]> => {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+
+  const response = await fetch(`${API_URL}/coupons`, {
+    method: 'GET',
+    headers: { Authorization: token },
+  });
+
+  if (!response.ok) {
+    throw new Error('쿠폰을 불러오던 중 문제가 발생했습니다.');
+  }
+
+  const data = await response.json();
+
+  return data;
+};
+
+export const addOrder = async (cartItems: TCartItem[]) => {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+
+  const response = await fetch(`${API_URL}/orders`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
+    body: JSON.stringify({ cartItemIds: cartItems.map((item) => item.id) }),
+  });
+
+  if (!response.ok) {
+    throw new Error('주문을 생성하던 중 문제가 발생했습니다.');
+  }
+
+  return response;
+};
+
+export const addCartItem = async (cartItemId: number) => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
   const response = await fetch(`${API_URL}/cart-items`, {
@@ -38,9 +75,11 @@ export const addCartItem = async (cartItemId: number): Promise<void> => {
   if (!response.ok) {
     throw new Error(CART_ITEM_ERROR_MESSAGE.ADD);
   }
+
+  return response;
 };
 
-export const removeCartItem = async (cartItemId: number): Promise<void> => {
+export const removeCartItem = async (cartItemId: number) => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
   const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
@@ -51,9 +90,11 @@ export const removeCartItem = async (cartItemId: number): Promise<void> => {
   if (!response.ok) {
     throw new Error(CART_ITEM_ERROR_MESSAGE.REMOVE);
   }
+
+  return response;
 };
 
-export const updateCartItemQuantity = async (cartItemId: number, quantity: number): Promise<void> => {
+export const updateCartItemQuantity = async (cartItemId: number, quantity: number) => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
   const response = await fetch(`${API_URL}/cart-items/${cartItemId}`, {
@@ -68,4 +109,6 @@ export const updateCartItemQuantity = async (cartItemId: number, quantity: numbe
   if (!response.ok) {
     throw new Error(CART_ITEM_ERROR_MESSAGE.UPDATE);
   }
+
+  return response;
 };

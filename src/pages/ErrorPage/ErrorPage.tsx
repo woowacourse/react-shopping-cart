@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import Header from '../../components/Header/Header';
-import { PATHS } from '../../constants/PATHS';
+import Header from 'components/Header/Header';
+import { PATHS } from 'constants/PATHS';
 import * as S from './ErrorPage.style';
 
 const ErrorPage = () => {
@@ -18,7 +18,7 @@ const ErrorPage = () => {
           </p>
         </S.ErrorTextContainer>
         <Link to={PATHS.ROOT}>
-          <S.ConfirmButton>메인으로</S.ConfirmButton>
+          <S.ConfirmButton type="button">메인으로</S.ConfirmButton>
         </Link>
       </S.Main>
     </>

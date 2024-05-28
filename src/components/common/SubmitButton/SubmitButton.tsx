@@ -2,14 +2,13 @@ import { ButtonHTMLAttributes } from 'react';
 import * as S from './SubmitButton.style';
 
 interface SubmitButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  isActive: boolean;
-  content: string;
+  text: string;
 }
 
-function SubmitButton({ isActive, content, ...rest }: SubmitButtonProps) {
+function SubmitButton({ text, ...rest }: SubmitButtonProps) {
   return (
-    <S.ButtonWrapper $isActive={isActive} {...rest}>
-      {content}
+    <S.ButtonWrapper $isActive={!rest.disabled} type="button" {...rest}>
+      {text}
     </S.ButtonWrapper>
   );
 }

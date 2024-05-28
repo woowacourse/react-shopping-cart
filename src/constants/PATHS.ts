@@ -1,6 +1,7 @@
 export const PATHS = {
   BASE: '/react-shopping-cart/',
   ROOT: '/',
-  CONFIRM: '/confirm',
+  ORDER_CONFIRM: '/order',
+  PAYMENT_CONFIRM: '/payment',
   ERROR: '/error',
 } as const;

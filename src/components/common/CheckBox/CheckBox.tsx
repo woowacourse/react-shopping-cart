@@ -1,5 +1,5 @@
 import { InputHTMLAttributes } from 'react';
-import { CheckedIcon, UncheckedIcon } from '../../../assets';
+import { CheckedIcon, UncheckedIcon } from 'assets';
 import * as S from './CheckBox.style';
 
 interface CheckBoxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'id'> {

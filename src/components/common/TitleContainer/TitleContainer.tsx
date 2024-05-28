@@ -5,11 +5,16 @@ interface TitleContainerProps {
   subTitle?: string;
 }
 
-const TitleContainer = ({ title, subTitle }: TitleContainerProps) => {
+export const SubTitle = ({ children }: React.PropsWithChildren) => {
+  return <S.SubTitle>{children}</S.SubTitle>;
+};
+
+const TitleContainer = ({ title, subTitle, children }: React.PropsWithChildren<TitleContainerProps>) => {
   return (
     <S.TitleContainer>
       <S.Title>{title}</S.Title>
       {subTitle && <S.SubTitle>{subTitle}</S.SubTitle>}
+      {children}
     </S.TitleContainer>
   );
 };
