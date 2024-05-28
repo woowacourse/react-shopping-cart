@@ -17,7 +17,7 @@ import CouponListModal from '../../components/CouponListModal/CouponListModal';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes';
 import useCouponList from '../../hooks/useCouponList';
-import ListContainer from '../../components/common/ListContainer/ListContainer';
+import Flex from '../../components/common/Flex/Flex';
 import ShippingAreaForm from '../../components/ShippingAreaForm/ShippingAreaForm';
 import { requestOrders } from '../../apis/requests/order';
 import { useErrorBoundary } from 'react-error-boundary';
@@ -85,11 +85,11 @@ const CartOrderFormPage = () => {
           title="주문 확인"
           description={`총 ${selectedCartItemList.length}종류의 상품 ${totalQuantity}개를 주문합니다. \n최종 결제 금액을 확인해주세요.`}
         />
-        <ListContainer direction="column" gap="20px">
+        <Flex direction="column" gap="20px">
           {selectedCartItemList.map((cartItem) => (
             <CartItem {...cartItem} />
           ))}
-        </ListContainer>
+        </Flex>
         <Button
           width="full"
           onClick={openModal}

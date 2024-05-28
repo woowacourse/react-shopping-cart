@@ -8,7 +8,7 @@ type ListContainerWIthDirectionProps = {
   gap?: string;
 };
 
-const ListContainerWIthDirection = styled.div<ListContainerWIthDirectionProps>`
+const FlexContainer = styled.div<ListContainerWIthDirectionProps>`
   display: flex;
 
   ${({ direction, gap }) => {
@@ -31,12 +31,12 @@ type ContainerProps = HTMLAttributes<HTMLDivElement> &
     children: ReactNode;
   };
 
-const ListContainer = ({ direction = 'column', gap = '0px', children, ...rest }: ContainerProps) => {
+const Flex = ({ direction = 'column', gap = '0px', children, ...rest }: ContainerProps) => {
   return (
-    <ListContainerWIthDirection direction={direction} gap={gap} {...rest}>
+    <FlexContainer direction={direction} gap={gap} {...rest}>
       {children}
-    </ListContainerWIthDirection>
+    </FlexContainer>
   );
 };
 
-export default ListContainer;
+export default Flex;

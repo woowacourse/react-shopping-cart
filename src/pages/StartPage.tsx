@@ -3,7 +3,7 @@ import Button from '../components/common/Button/Button';
 import { ROUTES } from '../constants/routes';
 import { requestAddCartItem } from '../apis/requests/cartItemList';
 import Text from '../components/common/Text/Text';
-import ListContainer from '../components/common/ListContainer/ListContainer';
+import Flex from '../components/common/Flex/Flex';
 import CenterBox from '../components/common/CenterBox/CenterBox';
 import { useState } from 'react';
 
@@ -23,7 +23,7 @@ const StartPage = () => {
   };
 
   return (
-    <ListContainer
+    <Flex
       gap="20px;"
       style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}
     >
@@ -32,10 +32,10 @@ const StartPage = () => {
       </Button>
       <Button onClick={addCartItemPresetList}>3개의 테스트 상품 추가하기</Button>
 
-      <ListContainer>
+      <Flex>
         <CenterBox>
           <Text>직접 추가하기</Text>
-          <ListContainer>
+          <Flex>
             <label>
               productId
               <input
@@ -50,11 +50,11 @@ const StartPage = () => {
                 onChange={(e) => setInputList({ ...inputList, quantity: e.target.value })}
               />
             </label>
-          </ListContainer>
+          </Flex>
           <Button onClick={addCartItem}>직접 테스트 상품 추가하기</Button>
         </CenterBox>
-      </ListContainer>
-    </ListContainer>
+      </Flex>
+    </Flex>
   );
 };
 
