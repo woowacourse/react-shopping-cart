@@ -1,10 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
-import ShoppingCartOverview from './components/ShoppingCartOverview/ShoppingCartOverview';
-import OrderInfo from './components/OrderInfo/OrderInfo';
 import { ROUTER_URLS } from './constants/constants';
-import ProductList from './components/Admin/ProductList/ProductList';
-import InvalidAccessFallback from './components/InvalidAccessFallback/InvalidAccessFallback';
+
+import { ShoppingCartOverview, OrderInfo, PaymentInfo, ProductList } from '@pages/index.ts';
+import InvalidAccessFallback from '@components/fallback/InvalidAccessFallback/InvalidAccessFallback.tsx';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +18,11 @@ const router = createBrowserRouter([
       {
         path: ROUTER_URLS.ORDER_INFO,
         element: <OrderInfo />,
+        errorElement: <InvalidAccessFallback />,
+      },
+      {
+        path: ROUTER_URLS.PAYMENT_INFO,
+        element: <PaymentInfo />,
         errorElement: <InvalidAccessFallback />,
       },
       {

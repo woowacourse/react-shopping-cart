@@ -1,14 +1,20 @@
-import addToCart from '../../../api/post/addToCart';
-import { Product } from '../../../types/cartItem';
+import { Product } from '@type/cartItem';
 import * as S from './styled';
+import addToCart from '@api/post/addToCart';
+import useMutation from '@hooks/useMutation';
 
 interface ProductItemProps {
   product: Product;
 }
 
 const ProductItem = ({ product }: ProductItemProps) => {
+  const { mutate: addCartMutate } = useMutation<typeof addToCart>(addToCart, {
+    onSuccess: () => alert(`${product.id} 등록완료`),
+    onError: () => alert('장바구니 등록 실패'),
+  });
+
   const onAdd = async () => {
-    await addToCart(product.id);
+    await addCartMutate(product.id);
   };
 
   return (

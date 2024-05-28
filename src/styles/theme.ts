@@ -37,7 +37,12 @@ const theme: DefaultTheme = {
     black: '#000000',
     white: '#ffffff',
     lightGray: '#BEBEBE',
+    lightGray2: '#33333340',
+    lightGray3: '#333333BF',
+    lightGray4: '#333333',
     black10: '#0000001A',
+    lightOrange: '#FEEFEA',
+    orange: '#FF5F1F',
   },
 };
 

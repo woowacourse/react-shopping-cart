@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { selectedCartItems } from '../recoil/atoms';
-import { CartItem } from '../types/cartItem';
+import { selectedCartItems } from '@recoil/atoms';
+import { CartItem } from '@type/cartItem';
 
 const useSelectAll = (data: CartItem[]) => {
   const [selectedItems, setSelectedItems] = useRecoilState(selectedCartItems);
@@ -13,13 +13,7 @@ const useSelectAll = (data: CartItem[]) => {
 
   const onSelectAllClick = () => {
     if (!all) {
-      setSelectedItems(
-        data.map(item => ({
-          cartItemId: item.id,
-          quantity: item.quantity,
-          price: item.product.price,
-        })),
-      );
+      setSelectedItems(data);
       setAll(true);
     } else {
       setSelectedItems([]);
