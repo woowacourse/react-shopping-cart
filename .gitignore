@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+# for jest coverage
+coverage
 
 # Editor directories and files
 .vscode/*

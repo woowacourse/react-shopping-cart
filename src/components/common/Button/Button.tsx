@@ -1,4 +1,5 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react';
+
 import * as S from './Button.style';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -22,7 +23,15 @@ const Button = ({
   ...rest
 }: ButtonProps) => {
   return (
-    <S.Button disabled={isDisabled} size={size} width={width} radius={radius} color={color} square={square} {...rest}>
+    <S.Button
+      disabled={isDisabled}
+      size={size}
+      width={width}
+      radius={radius}
+      color={color}
+      square={square}
+      {...rest}
+    >
       {children}
     </S.Button>
   );

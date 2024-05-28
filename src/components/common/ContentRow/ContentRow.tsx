@@ -1,6 +1,5 @@
-import * as S from './ContentRow.style';
-
 import Text from '../Text/Text';
+import * as S from './ContentRow.style';
 
 interface ContentRowProps {
   title: string;

@@ -80,6 +80,19 @@ module.exports = {
     'import/no-cycle': 'error',
     'import/no-useless-path-segments': 'error',
     'import/no-relative-parent-imports': 'error',
+    'import/prefer-default-export': 'off',
+    'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
+    'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
+  },
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: './tsconfig.json',
+    tsconfigRootDir: __dirname,
+    ecmaVersion: 2020,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
   },
   settings: {
     react: {

@@ -92,9 +92,9 @@ export const Button = styled.button<ButtonProps>`
     cursor: default;
     background-color: ${({ color }) => {
       if (color === 'default') {
-        return '#ddddddd';
+        return '#dddddd';
       }
-      return '#aaaaaaa';
+      return '#aaaaaa';
     }};
   }
 `;

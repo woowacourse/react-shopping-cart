@@ -1,36 +1,32 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import CartItem from './CartItem';
 import { RecoilRoot } from 'recoil';
+import { cartItemListState } from '../../recoil/cartItem/atom';
 
+const MOCK_DATA = {
+  id: 11,
+  name: '리복',
+  price: 23000,
+  quantity: 4,
+  imageUrl:
+    'https://image.msscdn.net/images/goods_img/20221031/2909092/2909092_6_500.jpg',
+};
 const meta = {
   title: 'Components/CartItem',
   component: CartItem,
   tags: ['autodocs'],
   argTypes: {
-    product: {
+    type: {
+      description: '',
+      control: { type: 'radio' },
+      options: ['cart', 'confirm'],
+    },
+    cartItem: {
       description: '',
       control: { type: 'object' },
     },
-    quantity: {
-      description: '',
-      control: { type: 'number', min: 1 },
-    },
-    id: {
-      description: '',
-    },
   },
-  args: {
-    product: {
-      id: 3,
-      name: '아디다스',
-      price: 2000,
-      imageUrl:
-        'https://sitem.ssgcdn.com/74/25/04/item/1000373042574_i1_750.jpg',
-      category: 'fashion',
-    },
-    quantity: 1,
-    id: 1,
-  },
+  args: { type: 'cart', cartItem: MOCK_DATA },
 } satisfies Meta<typeof CartItem>;
 
 export default meta;
@@ -38,11 +34,13 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
-  render: ({ ...args }: CartItem) => {
+  render: ({ type, cartItem }) => {
     return (
-      <RecoilRoot>
+      <RecoilRoot
+        initializeState={({ set }) => set(cartItemListState, [MOCK_DATA])}
+      >
         <div style={{ width: '430px' }}>
-          <CartItem {...args} />
+          <CartItem type={type} cartItem={cartItem} />
         </div>
       </RecoilRoot>
     );

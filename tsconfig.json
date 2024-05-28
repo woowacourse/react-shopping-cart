@@ -35,5 +35,6 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": ["src"],
+  "exclude": ["**/*.stories.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -22,7 +22,14 @@ export const Playground: Story = {
   decorators: [
     () => {
       const [isChecked, setIsChecked] = useState(false);
-      return <Checkbox state={isChecked} handleClick={() => setIsChecked(!isChecked)} />;
+      return (
+        <div style={{ height: '24px', width: '24px' }}>
+          <Checkbox
+            state={isChecked}
+            handleClick={() => setIsChecked(!isChecked)}
+          />
+        </div>
+      );
     },
   ],
 };
