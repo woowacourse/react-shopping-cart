@@ -1,4 +1,4 @@
-import { determineShippingCost } from ".";
+import { determineShippingCost } from "../determineShippingCost";
 import {
   FREE_SHIPPING_THRESHOLD,
   SHIPPING_COST,

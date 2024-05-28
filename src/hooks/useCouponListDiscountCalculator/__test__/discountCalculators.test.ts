@@ -3,7 +3,7 @@ import {
   calculateFixedDiscountAmount,
   calculateFreeShippingDiscountAmount,
   calculatePercentageDiscountAmount,
-} from ".";
+} from "../discountCalculators";
 import { CartItem } from "../../../types/cartItems";
 import { TEST_COUPON } from "./discountCalculators.testData";
 

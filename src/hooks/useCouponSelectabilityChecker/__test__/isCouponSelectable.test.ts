@@ -6,7 +6,7 @@ import {
 } from "../../../types/couponResponses";
 import { COUPON_DISCOUNT_TYPE } from "../../../constants/couponDiscountType";
 import { CartAmount } from "../../../recoil/cartAmount";
-import { isCouponSelectable } from ".";
+import { isCouponSelectable } from "../isCouponSelectable";
 
 describe("isCouponSelectable", () => {
   const cartItems: CartItem[] = [

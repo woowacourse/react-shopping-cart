@@ -2,7 +2,7 @@ import {
   FREE_SHIPPING_THRESHOLD,
   SHIPPING_COST,
   SHIPPING_COST_FOR_REMOTE,
-} from "../../../constants/pricing";
+} from "../../constants/pricing";
 
 type ShippingCost = number;
 export const determineShippingCost = (

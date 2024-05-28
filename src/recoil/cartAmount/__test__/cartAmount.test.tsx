@@ -1,12 +1,12 @@
 import { renderHook, waitFor } from "@testing-library/react";
-import { cartAmountState } from ".";
+import { cartAmountState } from "../index";
 import { RecoilRoot, useRecoilValue } from "recoil";
-import { rawCartItemsState } from "../rawCartItems";
-import { selectedCartItemIdsState } from "../selectedCartItemIds";
+import { rawCartItemsState } from "../../rawCartItems";
+import { selectedCartItemIdsState } from "../../selectedCartItemIds";
 import { Suspense } from "react";
-import { CartItemId, RawCartItem } from "../../types/cartItems";
-import { isRemoteDeliveryAreaState } from "../isRemoteDeliveryArea";
-import { SHIPPING_COST, SHIPPING_COST_FOR_REMOTE } from "../../constants/pricing";
+import { CartItemId, RawCartItem } from "../../../types/cartItems";
+import { isRemoteDeliveryAreaState } from "../../isRemoteDeliveryArea";
+import { SHIPPING_COST, SHIPPING_COST_FOR_REMOTE } from "../../../constants/pricing";
 
 describe("cartAmountState selector", () => {
   const TEST_RAW_CART_ITEMS: RawCartItem[] = [

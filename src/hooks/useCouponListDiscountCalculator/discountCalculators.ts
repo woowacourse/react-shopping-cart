@@ -1,12 +1,12 @@
-import { CartItem } from "../../../types/cartItems";
+import { CartItem } from "../../types/cartItems";
 import {
   BuyXGetYCouponResponse,
   FixedDiscountCouponResponse,
   PercentageDiscountCouponResponse,
-} from "../../../types/couponResponses";
-import { calculateProportionalAmount } from "../../../utils/math/calculateProportionalAmount";
-import { getMaxNumberFromList } from "../../../utils/math/getMaxFromNumberList";
-import { roundDownToTens } from "../../../utils/math/roundDownToTens";
+} from "../../types/couponResponses";
+import { calculateProportionalAmount } from "../../utils/math/calculateProportionalAmount";
+import { getMaxNumberFromList } from "../../utils/math/getMaxFromNumberList";
+import { roundDownToTens } from "../../utils/math/roundDownToTens";
 
 export const calculateFixedDiscountAmount = (coupon: FixedDiscountCouponResponse): number => {
   // 고정 할인 쿠폰 - 쿠폰의 할인 금액을 반환

@@ -1,4 +1,4 @@
-import { sumCartOrderAmount } from ".";
+import { sumCartOrderAmount } from "../sumCartOrderAmount";
 import { CartItem, Product } from "../../../types/cartItems";
 
 const MOCK_PRODUCT_BASE: Omit<Product, "price"> = {

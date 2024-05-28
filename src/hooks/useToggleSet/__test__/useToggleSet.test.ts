@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react";
-import { useToggleSet } from ".";
 import { act } from "react";
+import { useToggleSet } from "..";
 
 describe("useToggleSet", () => {
   it("인자로 제공된 초기 리스트로 set을 초기화된다", () => {
