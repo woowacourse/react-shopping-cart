@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { ReactComponent as InfoIcon } from "../../../assets/info-icon.svg";
 import { FREE_SHIPPING_THRESHOLD } from "../../../constants/pricing";
-import { formatToKRW } from "../../../utils/domain/formatToKRW";
+import { formatToKRW } from "../../../utils/formatToKRW";
 import { cartAmountState } from "../../../recoil/cartAmount";
 import { useRecoilValue } from "recoil";
 

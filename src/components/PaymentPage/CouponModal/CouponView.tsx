@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Coupon } from "../../../types/coupon";
-import { formatToKRW } from "../../../utils/domain/formatToKRW";
+import { formatToKRW } from "../../../utils/formatToKRW";
 
 export interface CouponProps {
   coupon: Coupon;

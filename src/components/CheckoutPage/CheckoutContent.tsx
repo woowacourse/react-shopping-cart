@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { formatToKRW } from "../../utils/domain/formatToKRW";
+import { formatToKRW } from "../../utils/formatToKRW";
 import { useQueryParams } from "../../hooks/useQueryParams";
 import { getQueryParamAsNumber } from "../../utils/getQueryParamAsNumber";
 

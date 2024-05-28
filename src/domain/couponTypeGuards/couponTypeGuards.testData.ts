@@ -1,12 +1,12 @@
-import { COUPON_DISCOUNT_TYPE } from "../../../constants/couponDiscountType";
-import type { CouponDiscountType } from "../../../types/couponDiscountType";
+import { COUPON_DISCOUNT_TYPE } from "../../constants/couponDiscountType";
+import type { CouponDiscountType } from "../../types/couponDiscountType";
 import type {
   BuyXGetYCouponResponse,
   FixedDiscountCouponResponse,
   FreeShippingCouponResponse,
   PercentageDiscountCouponResponse,
   CouponResponse,
-} from "../../../types/couponResponses";
+} from "../../types/couponResponses";
 
 const fixed: FixedDiscountCouponResponse = {
   id: 1,

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import CouponList from "./CouponList";
 
 import { Coupon } from "../../../types/coupon";
-import { formatToKRW } from "../../../utils/domain/formatToKRW";
+import { formatToKRW } from "../../../utils/formatToKRW";
 import { ReactComponent as InfoIcon } from "../../../assets/info-icon.svg";
 
 export interface CouponModalProps {

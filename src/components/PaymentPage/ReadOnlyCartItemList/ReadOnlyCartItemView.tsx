@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { formatToKRW } from "../../../utils/domain/formatToKRW";
+import { formatToKRW } from "../../../utils/formatToKRW";
 import { CartItem } from "../../../types/cartItems";
 
 export interface ReadOnlyCartItemViewProps {

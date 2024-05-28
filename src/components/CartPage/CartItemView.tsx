@@ -2,7 +2,7 @@ import { CartItem } from "../../types/cartItems";
 import styled from "styled-components";
 import { UseCartItemsReturn } from "../../hooks/useCartItemControl";
 import Counter from "../common/Counter";
-import { formatToKRW } from "../../utils/domain/formatToKRW";
+import { formatToKRW } from "../../utils/formatToKRW";
 
 export interface CartItemViewProps {
   cartItem: CartItem;

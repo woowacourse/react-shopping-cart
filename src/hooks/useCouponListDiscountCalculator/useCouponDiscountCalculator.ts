@@ -6,7 +6,7 @@ import {
   isFixedDiscountCoupon,
   isFreeShippingCoupon,
   isPercentageDiscountCoupon,
-} from "../../utils/domain/couponTypeGuards";
+} from "../../domain/couponTypeGuards";
 import { cartItemsState } from "../../recoil/cartItems";
 import {
   calculateBuyXGetYDiscountAmount,

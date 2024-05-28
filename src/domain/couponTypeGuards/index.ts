@@ -1,11 +1,11 @@
-import { COUPON_DISCOUNT_TYPE } from "../../../constants/couponDiscountType";
+import { COUPON_DISCOUNT_TYPE } from "../../constants/couponDiscountType";
 import {
   BuyXGetYCoupon,
   FixedDiscountCoupon,
   FreeShippingCoupon,
   PercentageDiscountCoupon,
-} from "../../../types/coupon";
-import { CouponResponse } from "../../../types/couponResponses";
+} from "../../types/coupon";
+import { CouponResponse } from "../../types/couponResponses";
 
 export const isFixedDiscountCoupon = (coupon: CouponResponse): coupon is FixedDiscountCoupon => {
   return coupon.discountType === COUPON_DISCOUNT_TYPE.fixed;

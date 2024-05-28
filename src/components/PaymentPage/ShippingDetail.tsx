@@ -2,7 +2,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 import { isRemoteDeliveryAreaState } from "../../recoil/isRemoteDeliveryArea";
-import { formatToKRW } from "../../utils/domain/formatToKRW";
+import { formatToKRW } from "../../utils/formatToKRW";
 import { SHIPPING_COST_FOR_REMOTE } from "../../constants/pricing";
 import { cartAmountState } from "../../recoil/cartAmount";
 
