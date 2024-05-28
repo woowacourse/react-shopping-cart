@@ -1,162 +1,113 @@
-import { useUpdateCartItemCount } from '@hooks/shoppingCart';
-import { cartItemsSelector, selectedIdsAtom } from '@recoil/shoppingCart';
-import { renderHook, waitFor } from '@testing-library/react';
-import { RecoilRoot, useRecoilValue } from 'recoil';
+import { useCartItemQuantity } from '@hooks/shoppingCart';
+import { cartItemsAtom } from '@recoil/shoppingCart';
+import { act } from 'react';
+import { useRecoilValue } from 'recoil';
 
 import { INITIAL_ITEMS, QUANTITY_TEST_ITEMS } from './constants/cartItems';
+import executeCartItemRenderHook from './utils/executeRenderHook';
 
 describe('수량 변경 테스트', () => {
-  it('- 버튼을 누를 경우, 수량이 1 감소한다.', async () => {
+  it('- 버튼을 누를 경우, 수량이 1 감소한다.', () => {
+    // given
     const QUANTITY = INITIAL_ITEMS[0].quantity;
 
-    const { result } = renderHook(
+    // when
+    const { result } = executeCartItemRenderHook(
       () => {
-        const cartItems = useRecoilValue(cartItemsSelector);
-        const { updateCartItems, getDecreasedQuantity, getIncreasedQuantity } = useUpdateCartItemCount(cartItems[0]);
+        const cartItems = useRecoilValue(cartItemsAtom);
+        const { quantity, updateCartItemQuantity } = useCartItemQuantity(cartItems[0].id);
 
-        return { cartItems, updateCartItems, getDecreasedQuantity, getIncreasedQuantity };
+        return { cartItems, updateCartItemQuantity, quantity };
       },
-      {
-        wrapper: ({ children }) => (
-          <RecoilRoot
-            initializeState={({ set }) => {
-              set(cartItemsSelector, INITIAL_ITEMS);
-              set(selectedIdsAtom, new Set(INITIAL_ITEMS.map((item) => item.id)));
-            }}
-          >
-            {children}
-          </RecoilRoot>
-        ),
-      },
+      INITIAL_ITEMS,
+      new Set(INITIAL_ITEMS.map((item) => item.id)),
     );
 
-    await waitFor(() => {
-      return result.current !== undefined;
+    act(() => {
+      result.current.updateCartItemQuantity(result.current.quantity - 1);
     });
 
-    const newQuantity = result.current.getDecreasedQuantity();
-
-    await waitFor(() => {
-      result.current.updateCartItems(newQuantity);
-    });
-
-    expect(newQuantity).toBe(QUANTITY - 1);
-    expect(result.current.cartItems[0].quantity).toBe(newQuantity);
+    // then
+    expect(result.current.quantity).toBe(QUANTITY - 1);
   });
 
-  it('+ 버튼을 누를 경우, 수량이 1 증가한다.', async () => {
+  it('+ 버튼을 누를 경우, 수량이 1 증가한다.', () => {
+    // given
     const QUANTITY = INITIAL_ITEMS[0].quantity;
 
-    const { result } = renderHook(
+    // when
+    const { result } = executeCartItemRenderHook(
       () => {
-        const cartItems = useRecoilValue(cartItemsSelector);
-        const { updateCartItems, getIncreasedQuantity } = useUpdateCartItemCount(cartItems[0]);
+        const cartItems = useRecoilValue(cartItemsAtom);
+        const { quantity, updateCartItemQuantity } = useCartItemQuantity(cartItems[0].id);
 
-        return { cartItems, updateCartItems, getIncreasedQuantity };
+        return { cartItems, updateCartItemQuantity, quantity };
       },
-      {
-        wrapper: ({ children }) => (
-          <RecoilRoot
-            initializeState={({ set }) => {
-              set(cartItemsSelector, INITIAL_ITEMS);
-              set(selectedIdsAtom, new Set(INITIAL_ITEMS.map((item) => item.id)));
-            }}
-          >
-            {children}
-          </RecoilRoot>
-        ),
-      },
+      INITIAL_ITEMS,
+      new Set(INITIAL_ITEMS.map((item) => item.id)),
     );
 
-    await waitFor(() => {
-      return result.current !== undefined;
+    act(() => {
+      result.current.updateCartItemQuantity(result.current.quantity + 1);
     });
 
-    const newQuantity = result.current.getIncreasedQuantity();
-
-    await waitFor(() => {
-      result.current.updateCartItems(newQuantity);
-    });
-
-    expect(newQuantity).toBe(QUANTITY + 1);
-    expect(result.current.cartItems[0].quantity).toBe(newQuantity);
+    // then
+    expect(result.current.quantity).toBe(QUANTITY + 1);
   });
 
   describe('최저 수량, 최대 수량 테스트', () => {
-    it('수량이 1일때 - 버튼을 누를 경우, 수량이 변경되지 않는다.', async () => {
+    it('수량이 1일때 - 버튼을 누를 경우, 수량이 변경되지 않는다.', () => {
+      // given
       const QUANTITY = INITIAL_ITEMS[1].quantity;
 
-      const { result } = renderHook(
+      // when
+      const { result } = executeCartItemRenderHook(
         () => {
-          const cartItems = useRecoilValue(cartItemsSelector);
+          const cartItems = useRecoilValue(cartItemsAtom);
 
-          const { updateCartItems, getDecreasedQuantity } = useUpdateCartItemCount(cartItems[1]);
+          const { quantity, updateCartItemQuantity, getDecreasedQuantity } = useCartItemQuantity(cartItems[1].id);
 
-          return { cartItems, updateCartItems, getDecreasedQuantity };
+          return { quantity, cartItems, updateCartItemQuantity, getDecreasedQuantity };
         },
-        {
-          wrapper: ({ children }) => (
-            <RecoilRoot
-              initializeState={({ set }) => {
-                set(cartItemsSelector, INITIAL_ITEMS);
-                set(selectedIdsAtom, new Set(INITIAL_ITEMS.map((item) => item.id)));
-              }}
-            >
-              {children}
-            </RecoilRoot>
-          ),
-        },
+        INITIAL_ITEMS,
+        new Set(INITIAL_ITEMS.map((item) => item.id)),
       );
-
-      await waitFor(() => {
-        return result.current !== undefined;
-      });
 
       const newQuantity = result.current.getDecreasedQuantity();
 
-      await waitFor(() => {
-        result.current.updateCartItems(newQuantity);
+      act(() => {
+        result.current.updateCartItemQuantity(newQuantity);
       });
 
+      // then
       expect(newQuantity).toBe(QUANTITY);
-      expect(result.current.cartItems[1].quantity).toBe(newQuantity);
+      expect(result.current.quantity).toBe(newQuantity);
     });
 
-    it('수량이 100개 일때 + 버튼을 누를 경우, 수량이 변경되지 않는다.', async () => {
+    it('수량이 100개 일때 + 버튼을 누를 경우, 수량이 변경되지 않는다.', () => {
+      // given
       const QUANTITY = QUANTITY_TEST_ITEMS[0].quantity;
 
-      const { result } = renderHook(
+      // when
+      const { result } = executeCartItemRenderHook(
         () => {
-          const cartItems = useRecoilValue(cartItemsSelector);
+          const cartItems = useRecoilValue(cartItemsAtom);
 
-          const { updateCartItems, getIncreasedQuantity } = useUpdateCartItemCount(cartItems[0]);
+          const { updateCartItemQuantity, getIncreasedQuantity } = useCartItemQuantity(cartItems[0].id);
 
-          return { cartItems, updateCartItems, getIncreasedQuantity };
+          return { cartItems, updateCartItemQuantity, getIncreasedQuantity };
         },
-        {
-          wrapper: ({ children }) => (
-            <RecoilRoot
-              initializeState={({ set }) => {
-                set(cartItemsSelector, QUANTITY_TEST_ITEMS);
-                set(selectedIdsAtom, new Set(INITIAL_ITEMS.map((item) => item.id)));
-              }}
-            >
-              {children}
-            </RecoilRoot>
-          ),
-        },
+        QUANTITY_TEST_ITEMS,
+        new Set(QUANTITY_TEST_ITEMS.map((item) => item.id)),
       );
-
-      await waitFor(() => {
-        return result.current !== undefined;
-      });
 
       const newQuantity = result.current.getIncreasedQuantity();
 
-      await waitFor(() => {
-        result.current.updateCartItems(newQuantity);
+      act(() => {
+        result.current.updateCartItemQuantity(newQuantity);
       });
 
+      // then
       expect(newQuantity).toBe(QUANTITY);
       expect(result.current.cartItems[0].quantity).toBe(newQuantity);
     });

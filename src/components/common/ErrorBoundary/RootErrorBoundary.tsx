@@ -1,8 +1,8 @@
 import React from 'react';
 
-import * as Styled from './ErrorFallback/ErrorFallback.styled';
-
-interface ErrorBoundaryProps extends React.PropsWithChildren {}
+interface ErrorBoundaryProps extends React.PropsWithChildren {
+  fallback: React.ReactNode;
+}
 
 interface ErrorBoundaryType {
   hasError: boolean;
@@ -32,16 +32,8 @@ class RootErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundar
   }
 
   render() {
-    if (this.state.hasError) {
-      return (
-        <Styled.ErrorFallbackWrapper>
-          <Styled.ErrorFallbackTitle>에러가 발생했습니다.</Styled.ErrorFallbackTitle>
-          <Styled.ErrorFallbackButton onClick={() => window.location.reload()}>
-            다시 시도하기
-          </Styled.ErrorFallbackButton>
-        </Styled.ErrorFallbackWrapper>
-      );
-    }
+    if (this.state.hasError) return this.props.fallback;
+
     return this.props.children;
   }
 }

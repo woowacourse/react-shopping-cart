@@ -37,7 +37,8 @@
       "@apis/*": ["apis/*"],
       "@errors/*": ["errors/*"],
       "@appTypes/*": ["appTypes/*"],
-      "@recoil/*": ["recoil/*"]
+      "@recoil/*": ["recoil/*"],
+      "@validation/*": ["validation/*"]
     }
   },
 

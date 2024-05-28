@@ -1,8 +1,8 @@
-import { cartItemsSelector, selectedIdsAtom } from '@recoil/shoppingCart';
+import { cartItemsAtom, selectedIdsAtom } from '@recoil/shoppingCart';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 const useCheckCartItem = () => {
-  const cartItems = useRecoilValue(cartItemsSelector);
+  const cartItems = useRecoilValue(cartItemsAtom);
 
   const [selectedCartItemIds, setSelectedCartItemIds] = useRecoilState(selectedIdsAtom);
 
@@ -13,7 +13,7 @@ const useCheckCartItem = () => {
   const onCheckAllCartItems = () => {
     const newCheckState = !isAllChecked ? new Set(cartItems.map((item) => item.id)) : new Set();
 
-    setSelectedCartItemIds(newCheckState);
+    setSelectedCartItemIds(newCheckState as Set<number>);
   };
 
   const onCheckCartItem = (id: number) => {

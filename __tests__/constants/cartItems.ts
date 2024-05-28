@@ -88,3 +88,18 @@ export const QUANTITY_TEST_ITEMS = [
     },
   },
 ];
+
+export const FREE_SHIPPING_ITEMS = [
+  {
+    id: 634,
+    quantity: 3,
+    product: {
+      id: 21,
+      name: '나이키',
+      price: 20000,
+      imageUrl:
+        'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/a28864e3-de02-48bb-b861-9c592bc9a68b/%EB%B6%81-1-ep-%EB%86%8D%EA%B5%AC%ED%99%94-UOp6QQvg.png',
+      category: 'fashion',
+    },
+  },
+];

@@ -1,11 +1,10 @@
-import { fetchCartItemCount } from '@apis/shoppingCart';
-import { CartItem } from '@appTypes/shoppingCart';
+import ShoppingCartFetcher from '@apis/shoppingCart';
 import { QUANTITY } from '@constants/shippingCart';
-import { cartItemsSelector } from '@recoil/shoppingCart';
-import { useSetRecoilState } from 'recoil';
+import { quantityAtomFamily } from '@recoil/shoppingCart';
+import { useRecoilState } from 'recoil';
 
-const useUpdateCartItemCount = ({ id, quantity }: CartItem) => {
-  const setCartItems = useSetRecoilState(cartItemsSelector);
+const useCartItemQuantity = (id: number) => {
+  const [quantity, setQuantity] = useRecoilState(quantityAtomFamily(id));
 
   const getIncreasedQuantity = () => {
     const newQuantity = quantity + 1;
@@ -34,23 +33,19 @@ const useUpdateCartItemCount = ({ id, quantity }: CartItem) => {
     plus: getIncreasedQuantity,
   } as const;
 
-  const updateCartItems = (newQuantity: number) => {
-    setCartItems((prevCartItems) =>
-      prevCartItems.map((prevCartItem) =>
-        prevCartItem.id === id ? { ...prevCartItem, quantity: newQuantity } : { ...prevCartItem },
-      ),
-    );
+  const updateCartItemQuantity = (newQuantity: number) => {
+    setQuantity(newQuantity);
   };
 
   const onUpdateCartItemCount = async (sign: 'minus' | 'plus') => {
     const newQuantity = NEW_QUANTITY_FUNCTION_MAP[sign]();
 
-    await fetchCartItemCount(id, newQuantity);
+    await ShoppingCartFetcher.patchCartItemCount(id, newQuantity);
 
-    updateCartItems(newQuantity);
+    updateCartItemQuantity(newQuantity);
   };
 
-  return { updateCartItems, getIncreasedQuantity, getDecreasedQuantity, onUpdateCartItemCount };
+  return { quantity, updateCartItemQuantity, getIncreasedQuantity, getDecreasedQuantity, onUpdateCartItemCount };
 };
 
-export default useUpdateCartItemCount;
+export default useCartItemQuantity;

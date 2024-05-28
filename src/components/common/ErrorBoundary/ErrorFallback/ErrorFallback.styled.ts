@@ -11,7 +11,7 @@ export const ErrorFallbackWrapper = styled.div`
 `;
 
 export const ErrorFallbackTitle = styled.h1`
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 700;
   margin-bottom: 12px;
 `;

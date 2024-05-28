@@ -2,7 +2,7 @@ import { CartItem } from '@appTypes/shoppingCart';
 import { Checkbox } from '@components/common';
 import { CartListItem } from '@components/shoppingCart';
 import { useCheckCartItem } from '@hooks/shoppingCart';
-import { cartItemsSelector } from '@recoil/shoppingCart';
+import { cartItemsAtom } from '@recoil/shoppingCart';
 import { useRecoilValue } from 'recoil';
 
 import * as Styled from './CartList.styled';
@@ -13,10 +13,10 @@ interface CartListProps {
 
 const CartList: React.FC<CartListProps> = () => {
   const { isAllChecked, onCheckAllCartItems } = useCheckCartItem();
-  const cartItems = useRecoilValue(cartItemsSelector);
+  const cartItems = useRecoilValue(cartItemsAtom);
 
   return (
-    <div>
+    <>
       <Styled.CartListButtonGroup>
         <Checkbox checked={isAllChecked} onChange={onCheckAllCartItems} />
         <Styled.CartItemSelectionText>전체 선택</Styled.CartItemSelectionText>
@@ -26,7 +26,7 @@ const CartList: React.FC<CartListProps> = () => {
           <CartListItem key={cartItem.id} cartItem={cartItem} />
         ))}
       </Styled.CartItemContainer>
-    </div>
+    </>
   );
 };
 

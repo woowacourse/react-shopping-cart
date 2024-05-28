@@ -2,6 +2,7 @@ import { COLOR } from '@styles/style.constant';
 import styled from 'styled-components';
 
 export const CartListContainer = styled.li`
+  width: 100%;
   border-top: 1px solid ${COLOR.borderColor};
   padding-top: 12px;
   margin-top: 12px;
@@ -24,4 +25,10 @@ export const CartItemSelectionGroup = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
+
+export const CartItemContentWrapper = styled.div`
+  display: flex;
+  gap: 24px;
+  margin-bottom: 12px;
 `;

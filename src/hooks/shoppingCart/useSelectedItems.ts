@@ -1,11 +1,8 @@
-import { cartItemsSelector, selectedIdsAtom } from '@recoil/shoppingCart';
+import { selectedItemsSelector } from '@recoil/shoppingCart';
 import { useRecoilValue } from 'recoil';
 
 const useSelectedCartItems = () => {
-  const cartItems = useRecoilValue(cartItemsSelector);
-  const selectedIds = useRecoilValue(selectedIdsAtom);
-
-  const selectedItems = cartItems.filter((cartItem) => selectedIds.has(cartItem.id));
+  const selectedItems = useRecoilValue(selectedItemsSelector);
 
   const selectedTotalQuantity = selectedItems.reduce((acc, cur) => acc + cur.quantity, 0);
   const totalSelectedItemLength = selectedItems.length;

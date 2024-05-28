@@ -1,4 +1,5 @@
 export const ROUTE_PATHS = {
   root: '/',
-  confirm: '/confirm',
+  orderConfirm: '/order-confirm',
+  paymentConfirm: '/payment-confirm',
 } as const;
