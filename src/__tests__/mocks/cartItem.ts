@@ -1,6 +1,6 @@
 import { CartItem } from "@/types/cart";
 
-const mockedCartItemList: CartItem[] = [
+const MOCK_CART_ITEMS: CartItem[] = [
   {
     id: 1,
     quantity: 1,
@@ -14,7 +14,7 @@ const mockedCartItemList: CartItem[] = [
   },
   {
     id: 2,
-    quantity: 1,
+    quantity: 2,
     product: {
       id: 2,
       name: "퓨마",
@@ -36,4 +36,4 @@ const mockedCartItemList: CartItem[] = [
   },
 ];
 
-export default mockedCartItemList;
+export default MOCK_CART_ITEMS;

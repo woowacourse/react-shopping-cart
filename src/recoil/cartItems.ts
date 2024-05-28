@@ -1,7 +1,8 @@
+import { atom, selector } from "recoil";
+
 import { getCartItems } from "@/apis";
 
 import { CartItem } from "@/types/cart";
-import { atom, selector } from "recoil";
 
 export const cartItemSelector = selector<CartItem[]>({
   key: "cartItemSelector",

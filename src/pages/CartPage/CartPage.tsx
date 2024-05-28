@@ -3,37 +3,37 @@ import { useNavigate } from "react-router-dom";
 
 import { useRecoilValue } from "recoil";
 import { totalItemLengthSelector } from "@/recoil/orderInformation";
-
-import useSelectAll from "@/hooks/useSelectAll";
+import { selectedCartItemLengthSelector } from "@/recoil/selectedCardItems";
 
 import Header from "@/components/_common/Header/Header";
 import Caption from "@/components/_common/Caption/Caption";
-import CheckBox from "@/components/_common/CheckBox/CheckBox";
+
 import TitleSet from "@/components/_common/TitleSet/TitleSet";
 
-import OrderConfirmButton from "@/components/OrderConfirmButton/OrderConfirmButton";
-import PriceSection from "@/components/PriceSection/PriceSection";
+import BottomFixedButton from "@/components/BottomFixedButton/BottomFixedButton";
+import PriceSection from "./components/PriceSection";
+import CartItemAllSelector from "./components/CartItemAllSelector";
 
 import MoreInfo from "@/assets/more-info.svg?react";
 
-import { PAGE_URL } from "@/constants/url";
-
 import Styled from "./CartPage.style";
+import CLIENT_PATH from "@/constants/path";
 
 const ProductList = React.lazy(
   () => import("../../components/ProductList/ProductList")
 );
 
 const CartPage = () => {
+  const totalItemLength = useRecoilValue(totalItemLengthSelector);
+  const selectedCartItemLength = useRecoilValue(selectedCartItemLengthSelector);
+
   const navigate = useNavigate();
   const routerToOrderConfirmPage = () => {
-    navigate(PAGE_URL.orderConfirm);
+    navigate(CLIENT_PATH.orderConfirm);
   };
 
-  const totalItemLength = useRecoilValue(totalItemLengthSelector);
-  const { isAllItemSelected, selectAllItem, unselectAllItem } = useSelectAll();
-
   const isEmptyCart = totalItemLength === 0;
+  const hasSelectedCartItem = selectedCartItemLength === 0;
 
   return (
     <>
@@ -48,14 +48,7 @@ const CartPage = () => {
               title="장바구니"
               subTitle={`현재 ${totalItemLength}종류의 상품이 담겨있습니다.`}
             />
-
-            <Styled.CheckBoxWrapper>
-              <CheckBox
-                isChecked={isAllItemSelected}
-                onClick={isAllItemSelected ? unselectAllItem : selectAllItem}
-              />
-              <Caption text="전체선택" />
-            </Styled.CheckBoxWrapper>
+            <CartItemAllSelector />
 
             <Suspense fallback={<div>loading....</div>}>
               <ProductList />
@@ -77,9 +70,10 @@ const CartPage = () => {
         )}
       </Styled.CartPageLayout>
 
-      <OrderConfirmButton
+      <BottomFixedButton
+        buttonText="주문 확인"
         onClick={routerToOrderConfirmPage}
-        disabled={isEmptyCart}
+        disabled={hasSelectedCartItem}
       />
     </>
   );

@@ -1,4 +1,3 @@
-// jest.config.js
 module.exports = {
   testEnvironment: "jsdom",
   transform: {
@@ -20,5 +19,5 @@ module.exports = {
     "^@/utils/(.*)$": "<rootDir>/src/utils/$1",
     "^@/constants/(.*)$": "<rootDir>/src/constants/$1",
   },
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"], // 추가된 부분
+  testMatch: ["**/__tests__/*.tsx"],
 };

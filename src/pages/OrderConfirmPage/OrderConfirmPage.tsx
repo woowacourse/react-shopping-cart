@@ -1,45 +1,74 @@
-import { useRecoilValue } from "recoil";
+import { Suspense, useEffect } from "react";
+
+import { useRecoilValue, useResetRecoilState } from "recoil";
+
 import {
-  finalOrderItemCountSelector,
-  shippingFeeSelector,
-  totalOrderPriceSelector,
-} from "@/recoil/orderInformation";
+  selectedCartItemLengthSelector,
+  selectedCartItemTotalQuantitySelector,
+} from "@/recoil/selectedCardItems";
+import { selectedCouponState } from "@/recoil/coupon";
+
+import useModal from "@/hooks/useModal";
+import useRequestOrder from "@/hooks/useRequestOrder";
 
 import Header from "@/components/_common/Header/Header";
-import Title from "@/components/_common/Title/Title";
 import Caption from "@/components/_common/Caption/Caption";
 import BackButton from "@/components/_common/BackButton/BackButton";
+import TitleSet from "@/components/_common/TitleSet/TitleSet";
+import Button from "@/components/_common/Button/Button";
 
-import OrderConfirmButton from "@/components/OrderConfirmButton/OrderConfirmButton";
+import ShippingInfoCheckBox from "./components/ShippingInfoCheckBox";
+import CartItemCouponModal from "../../components/CartItemCouponModal/CartItemCouponModal";
+import BottomFixedButton from "@/components/BottomFixedButton/BottomFixedButton";
+import PriceSection from "./components/PriceSection";
+import SelectedCartItemList from "./components/SelectedCartItemList";
 
 import Styled from "./OrderConfirmPage.styles";
 
 const OrderConfirmPage = () => {
-  const totalPrice =
-    useRecoilValue(totalOrderPriceSelector) +
-    useRecoilValue(shippingFeeSelector);
-
-  const { typeLength, totalCount } = useRecoilValue(
-    finalOrderItemCountSelector
+  const resetCoupons = useResetRecoilState(selectedCouponState);
+  const selectedCartItemLength = useRecoilValue(selectedCartItemLengthSelector);
+  const selectedCartItemTotalQuantity = useRecoilValue(
+    selectedCartItemTotalQuantitySelector
   );
 
+  const { handleRequestOrders } = useRequestOrder();
+
+  const { isModalOpen, openModal, closeModal } = useModal();
+
+  useEffect(() => {
+    resetCoupons();
+  }, [resetCoupons]);
+
   return (
-    <Styled.Wrapper>
+    <>
+      <Suspense fallback={<div>loading...</div>}>
+        <CartItemCouponModal
+          isModalOpen={isModalOpen}
+          closeModal={closeModal}
+        />
+      </Suspense>
+
       <Header>
         <BackButton />
       </Header>
-      <Title text="주문 확인" />
 
-      <Caption
-        text={`총 ${typeLength}종류의 상품 ${totalCount}개를 주문합니다.`}
-      />
-      <Caption text="최종 결제 금액을 확인해 주세요." />
+      <Styled.ConfirmPageLayout>
+        <TitleSet
+          title="주문 확인"
+          subTitle={`총 ${selectedCartItemLength}종류의 상품 ${selectedCartItemTotalQuantity}개를 주문합니다.`}
+        />
+        <Caption text="최종 결제 금액을 확인해 주세요." />
+        <SelectedCartItemList />
+        <Button radiusVariant="rounded" onClick={openModal}>
+          쿠폰 적용
+        </Button>
+        <ShippingInfoCheckBox />
+        <PriceSection />
+      </Styled.ConfirmPageLayout>
 
-      <Styled.ButtonText>총 결제 금액</Styled.ButtonText>
-      <Title text={`${totalPrice.toLocaleString()}원`} />
-
-      <OrderConfirmButton disabled={true} />
-    </Styled.Wrapper>
+      <BottomFixedButton onClick={handleRequestOrders} buttonText="결제하기" />
+    </>
   );
 };
 

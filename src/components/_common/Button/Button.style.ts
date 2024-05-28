@@ -96,6 +96,7 @@ const Button = styled.button<{
   justify-content: center;
   align-items: center;
   border: 0.5px solid #8b95a1;
+  font-weight: 700;
 
   ${({ $size, $theme, $width, $radiusVariant }) => css`
     ${BUTTON_SIZE[$size]};
@@ -107,7 +108,7 @@ const Button = styled.button<{
       cursor: not-allowed;
       border: none;
     }
-  `}
+  `};
 `;
 
 const Styled = {

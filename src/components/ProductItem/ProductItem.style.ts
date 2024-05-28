@@ -17,6 +17,7 @@ export const ItemFlexBox = styled.div`
 export const ItemButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   height: 24px;
   margin-top: 12px;
 `;

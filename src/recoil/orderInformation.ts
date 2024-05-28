@@ -1,35 +1,30 @@
 import { selector } from "recoil";
-import { cartItems } from "./cartItems";
-import { cartItemQuantity } from "./cartItemQuantity";
-import { selectedCartItems } from "./selectedCardItems";
 
-import { CART_FEE } from "@/constants/cart";
+import { cartItems } from "./cartItems";
+import {
+  selectedCartItemSelector,
+  selectedCartItemsQuantitySelector,
+} from "./selectedCardItems";
+import { cartItemQuantity } from "./cartItemQuantity";
+import { shippingFeeSelector } from "./shippingFee";
+import { selectedCouponState } from "./coupon";
+
+import calculateDiscountAmount from "@/domains/calculateDiscountAmount";
 
 export const totalOrderPriceSelector = selector({
   key: "totalOrderPriceSelector",
   get: ({ get }) => {
-    const cartItemList = get(cartItems);
+    const selectedCartItems = get(selectedCartItemSelector);
 
-    const totalPrice = [...cartItemList].reduce((accPrice, currItem) => {
+    const totalPrice = [...selectedCartItems].reduce((accPrice, currItem) => {
       const currentQuantity = get(cartItemQuantity(currItem.id));
-      const isSelected = get(selectedCartItems(currItem.id));
 
-      accPrice += isSelected ? currentQuantity * currItem.product.price : 0;
+      accPrice += currentQuantity * currItem.product.price;
 
       return accPrice;
     }, 0);
 
     return totalPrice;
-  },
-});
-
-export const shippingFeeSelector = selector({
-  key: "shippingFeeSelector",
-  get: ({ get }) => {
-    const totalOrderPrice = get(totalOrderPriceSelector);
-    return totalOrderPrice >= CART_FEE.shippingFeeThreshold
-      ? 0
-      : CART_FEE.shippingFee;
   },
 });
 
@@ -42,30 +37,43 @@ export const totalItemLengthSelector = selector({
   },
 });
 
-export const finalOrderItemCountSelector = selector({
-  key: "finalOrderItemCountSelector",
-
+export const discountAmountSelector = selector<number>({
+  key: "discountAmountSelector",
   get: ({ get }) => {
-    const cardItemList = get(cartItems);
+    const cartItemsState = get(cartItems);
+    const selectedCoupons = get(selectedCouponState);
 
-    const finalOrderItemCount = cardItemList.reduce(
-      (acc, cur) => {
-        const itemQuantity = get(cartItemQuantity(cur.id));
-        const isSelected = get(selectedCartItems(cur.id));
+    const totalOrderPrice = get(totalOrderPriceSelector);
+    const selectedCartItemsQuantity = get(selectedCartItemsQuantitySelector);
+    const shippingFee = get(shippingFeeSelector);
 
-        return {
-          typeLength: isSelected ? (acc.typeLength += 1) : acc.typeLength,
-          totalCount: isSelected
-            ? (acc.totalCount += itemQuantity)
-            : acc.totalCount,
-        };
+    const discountAmount = selectedCoupons.reduce(
+      (accDiscountAmount, coupon) => {
+        return (
+          accDiscountAmount +
+          calculateDiscountAmount(
+            coupon,
+            totalOrderPrice,
+            cartItemsState,
+            selectedCartItemsQuantity,
+            shippingFee
+          )
+        );
       },
-      {
-        typeLength: 0,
-        totalCount: 0,
-      }
+      0
     );
 
-    return finalOrderItemCount;
+    return discountAmount;
+  },
+});
+
+export const totalPaymentAmountSelector = selector({
+  key: "totalPaymentAmountSelector",
+  get: ({ get }) => {
+    const orderPrice = get(totalOrderPriceSelector);
+    const shippingFee = get(shippingFeeSelector);
+    const totalDiscountAmount = get(discountAmountSelector);
+
+    return orderPrice + shippingFee - totalDiscountAmount;
   },
 });

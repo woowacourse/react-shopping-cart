@@ -6,7 +6,7 @@ const ButtonText = styled.span`
   font-weight: 700;
 `;
 
-const OrderConfirmButton = styled.div`
+const BottomFixedButton = styled.div`
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -16,7 +16,7 @@ const OrderConfirmButton = styled.div`
 
 const Styled = {
   ButtonText,
-  OrderConfirmButton,
+  BottomFixedButton,
 };
 
 export default Styled;
