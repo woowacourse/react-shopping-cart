@@ -29,7 +29,6 @@ const CartItemWithControl = ({ product, cartItemId }: CartItemWithControl) => {
               ? () => deleteSelectedItemId(cartItemId)
               : () => addSelectedItemId(cartItemId)
           }
-          alt="Checkbox"
         />
         <Button size="s" radius="s" onClick={() => deleteCartItem(cartItemId)}>
           삭제

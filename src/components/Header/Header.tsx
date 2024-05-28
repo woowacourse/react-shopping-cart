@@ -16,7 +16,7 @@ const Header = ({ type = 'logo' }: HeaderProps) => {
   return (
     <S.Header>
       <S.PrefixButton onClick={() => navigate(ROUTES.CART_ORDERS)}>
-        {type === 'logo' ? <S.Logo>SHOP</S.Logo> : <S.SvgContainer src={BACK} alt="go back" />}
+        {type === 'logo' ? <S.Logo>SHOP</S.Logo> : <S.SvgContainer src={BACK} alt="뒤로 가기" />}
       </S.PrefixButton>
       <S.Suffix></S.Suffix>
     </S.Header>
