@@ -21,7 +21,8 @@ const CouponListModalMain = ({ close }: { close: () => void }) => {
       </Modal.Body>
       <Modal.Footer>
         <Modal.Button
-          text={`총 ${totalDiscount.price}원 ${shippingNotiMessage} 할인 쿠폰 사용하기`}
+          style={{ height: '44px', fontSize: '15px' }}
+          text={`총 ${totalDiscount.price.toLocaleString('ko-KR')}원 ${shippingNotiMessage} 할인 쿠폰 사용하기`}
           fullWidth
           variants="normal"
           color="default"
