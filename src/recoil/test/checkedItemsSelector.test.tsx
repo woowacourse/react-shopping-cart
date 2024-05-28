@@ -6,7 +6,7 @@ import { checkedItemsSelector } from '../selectors';
 import { act } from 'react';
 
 describe('checkedItemsSelector', () => {
-  it('mockCoupons[0] mockCoupons[2] 선택되었다고 가정할 때 discountType이 freeShipping있어 true을 반환한다..', () => {
+  it('dataA와 dataB가 선택되었다고 가정할 때 discountType이 freeShipping있어 true을 반환한다..', () => {
     const { result } = renderHook(
       () => {
         const setItems = useSetRecoilState(itemsState);
