@@ -11,7 +11,7 @@ const calculatePercentageDiscount = (coupon: Coupon, totalAmount: number) => {
 
 const calculateBuyXgetYDiscount = (buyQuantity: number, items: CartItems[]) => {
   const exceedsThresholdCountItems = items.filter((item) => {
-    return item.quantity >= buyQuantity;
+    return item.quantity > buyQuantity;
   });
   if (exceedsThresholdCountItems.length === 0) {
     return 0;

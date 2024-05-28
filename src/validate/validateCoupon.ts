@@ -9,6 +9,7 @@ const isCouponExpired = (expirationDate: string) => {
 
 const isCouponApplicable = (
   coupon: Coupon,
+  isAvailableBuyXgetY: boolean,
   totalAmount: number,
   now = new Date(),
 ) => {
@@ -22,6 +23,10 @@ const isCouponApplicable = (
     coupon.discountType === 'freeShipping' &&
     totalAmount > FREE_DELIVERY_THRESHOLD
   ) {
+    return false;
+  }
+  console.log(isAvailableBuyXgetY);
+  if (coupon.discountType === 'buyXgetY' && !isAvailableBuyXgetY) {
     return false;
   }
 
