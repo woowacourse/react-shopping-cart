@@ -1,9 +1,8 @@
 import * as S from '../CouponModal/style';
 
-import { checkedItemsState, deliveryFeeState } from '../../../../recoil/selectors';
+import { checkedItemsState, couponState, deliveryFeeState } from '../../../../recoil/selectors';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-import COUPONS from '../../../../constants/coupons';
 import CouponItem from '../CouponItem/CouponItem';
 import InfoParagraph from '../../../../components/common/InfoParagraph/InfoParagraph';
 import { Modal } from 'le-sserafim';
@@ -21,8 +20,8 @@ interface CouponModalProps {
   onConfirm: () => void;
 }
 export default function CouponModal({ onClose, onConfirm }: CouponModalProps) {
-  // TODO: api 정상 동작 시 모킹 데이터를 api 패칭된 쿠폰으로 변환해야 함
-  const filteredCoupons = COUPONS.filter(
+  const coupon = useRecoilValue(couponState);
+  const filteredCoupons = coupon.filter(
     (coupon) => new Date() < getLastTimeDate(iso8601ToDate(coupon.expirationDate)),
   );
 

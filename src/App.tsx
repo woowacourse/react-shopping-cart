@@ -17,7 +17,13 @@ const router = createBrowserRouter([
   },
   {
     path: ENDPOINTS.orderConfirmation,
-    element: <OrderConfirmationPage />,
+    element: (
+      <ErrorBoundary>
+        <Suspense>
+          <OrderConfirmationPage />,
+        </Suspense>
+      </ErrorBoundary>
+    ),
   },
   {
     path: ENDPOINTS.paymentPage,

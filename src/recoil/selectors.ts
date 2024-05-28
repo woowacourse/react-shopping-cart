@@ -1,3 +1,4 @@
+import { CartItem, Coupon } from '../type';
 import {
   cartItemsState,
   isIslandOrMountainState,
@@ -5,10 +6,17 @@ import {
   uncheckedItemIdsState,
 } from './atoms';
 
-import { CartItem } from '../type';
 import POLICES from '../constants/policies';
+import { fetchCoupon } from '../apis';
 import getCouponsAmount from '../utils/getCouponsAmount';
 import { selector } from 'recoil';
+
+export const couponState = selector<Coupon[]>({
+  key: 'couponState',
+  get: async () => {
+    return await fetchCoupon();
+  },
+});
 
 export const checkedItemsState = selector<CartItem[]>({
   key: 'checkedItemState',
