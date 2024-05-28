@@ -1,4 +1,4 @@
-import { getCoupons } from "@/auth/apis/coupon";
+import { getCoupons } from "@/apis/coupon";
 import { Coupon, CouponDiscountType } from "@/types/coupon";
 import { atom, selector } from "recoil";
 import { selectedCartItemsIdState } from "./selectedCardItems";
@@ -67,22 +67,19 @@ export const maxBuyXgetYItemSelector = selector({
       (coupon) => coupon.discountType === "buyXgetY"
     )!;
 
-    let maxDiscount = 0;
-
     const { buyQuantity, getQuantity } = targetCouponInfo;
 
     const filteredItemsId = selectedItemsId.filter((id: number) => {
       return get(cartItemQuantityState(id)) >= buyQuantity! + getQuantity!;
     });
 
-    filteredItemsId.forEach((id) => {
+    const maxDiscount = filteredItemsId.reduce((acc, id) => {
       const cartItems = get(cartItemsState);
       const targetItem = cartItems.find((item) => item.id === id);
-      const discount = targetItem!.product.price!;
-      if (maxDiscount < discount) {
-        maxDiscount = discount;
-      }
-    });
+      const itemPrice = targetItem!.product.price!;
+      acc = Math.max(acc, itemPrice);
+      return acc;
+    }, 0);
     return maxDiscount;
   },
 });

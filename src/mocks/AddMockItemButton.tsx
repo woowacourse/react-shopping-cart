@@ -1,4 +1,4 @@
-import { postCartItem } from "@/auth/apis/cart";
+import { postCartItem } from "@/apis/cart";
 import Button from "@/components/_common/Button/Button";
 import { cartItemSelector, cartItemsState } from "@/recoil/cartItems";
 import { useRecoilValue, useSetRecoilState } from "recoil";

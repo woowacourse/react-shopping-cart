@@ -1,12 +1,12 @@
 import { useRecoilState } from "recoil";
 
 import { cartItemQuantityState } from "@/recoil/cartItemQuantity";
-import { patchCartItemQuantity } from "@/auth/apis/cart";
+import { patchCartItemQuantity } from "@/apis/cart";
 
 const useUpdateItemQuantity = (id: number) => {
   const [quantity, setQuantity] = useRecoilState(cartItemQuantityState(id));
 
-  const handleIncreaseQuantity = async () => {
+  const increaseQuantity = async () => {
     const canUpdateCardItemQuantity = await patchCartItemQuantity(
       id,
       quantity + 1
@@ -17,7 +17,7 @@ const useUpdateItemQuantity = (id: number) => {
     }
   };
 
-  const handleDecreaseQuantity = async () => {
+  const decreaseQuantity = async () => {
     const canUpdateCardItemQuantity = await patchCartItemQuantity(
       id,
       quantity - 1
@@ -30,8 +30,8 @@ const useUpdateItemQuantity = (id: number) => {
 
   return {
     quantity,
-    handleIncreaseQuantity,
-    handleDecreaseQuantity,
+    increaseQuantity,
+    decreaseQuantity,
   };
 };
 

@@ -1,6 +1,6 @@
 import { Coupon } from "@/types/coupon";
 import { API_URL } from "@/apis/url";
-import { basicToken } from "@/apis";
+import { basicToken } from "@/auth";
 import { ErrorMessage } from "@/constants/error";
 
 export async function getCoupons(): Promise<Coupon[]> {

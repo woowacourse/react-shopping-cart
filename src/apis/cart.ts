@@ -1,5 +1,5 @@
 import { CartItem } from "@/types/cart";
-import { basicToken } from "@/apis";
+import { basicToken } from "@/auth";
 import { ErrorMessage } from "@/constants/error";
 import { API_URL } from "@/apis/url";
 
@@ -32,7 +32,7 @@ export async function postCartItem({
   });
 
   if (!response.ok) {
-    throw new Error(ErrorMessage.failGetCartList);
+    throw new Error(ErrorMessage.failPostCartItem);
   }
   const data = await response.json();
 

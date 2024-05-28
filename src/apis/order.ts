@@ -1,5 +1,5 @@
-import { API_URL } from "@/auth/utils/url.ts";
-import { basicToken } from "@/auth/utils";
+import { API_URL } from "@/apis/url";
+import { basicToken } from "@/auth";
 import { ErrorMessage } from "@/constants/error.ts";
 
 export async function postOrder(cartItemIds: number[]) {

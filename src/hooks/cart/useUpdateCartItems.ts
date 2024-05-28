@@ -1,4 +1,4 @@
-import { getCartItems } from "@/auth/apis/cart";
+import { getCartItems } from "@/apis/cart";
 import { cartItemsState } from "@/recoil/cartItems";
 import { useSetRecoilState } from "recoil";
 

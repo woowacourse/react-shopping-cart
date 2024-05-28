@@ -1,21 +1,16 @@
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import useUpdateItemQuantity from "@/hooks/cart/useUpdateItemQuantity.ts";
-
 import Button from "../../_common/Button/Button.tsx";
 import CheckBox from "../../_common/CheckBox/CheckBox.tsx";
-
 import MinusButton from "@/assets/minus-button.svg?react";
 import PlusButton from "@/assets/plus-button.svg?react";
-
 import { CartItem } from "@/types/cart.ts";
-
 import * as S from "./ProductItem.style.ts";
-
 import { cartItemsState } from "@/recoil/cartItems.ts";
 import { formatToWon } from "@/utils/stringHelper.ts";
-import { selectedCartItemsIdState } from "@/recoil/selectedCardItems.ts";
-import { removeCartItem } from "@/auth/apis/cart.ts";
+import { removeCartItem } from "@/apis/cart.ts";
 import TextBox from "../../_common/TextBox/TextBox.tsx";
+import useSelectedItems from "@/hooks/cart/useSelectedItems.ts";
 
 export type CartItemShowType = "readonly" | "edit";
 
@@ -29,13 +24,12 @@ const ProductItem = ({
   const { product, id } = item;
   const { name, imageUrl, price } = product;
 
-  const { quantity, handleIncreaseQuantity, handleDecreaseQuantity } =
+  const { quantity, increaseQuantity, decreaseQuantity } =
     useUpdateItemQuantity(id);
-  const [selectItems, setSelectItems] = useRecoilState(
-    selectedCartItemsIdState
-  );
 
-  const isItemSelected = selectItems.includes(id);
+  const { isItemSelected, onDeleteFromSelectedItems, onAddToSelectedItems } =
+    useSelectedItems();
+
   const setCartItemList = useSetRecoilState(cartItemsState);
 
   const onClickRemoveItem = async () => {
@@ -49,17 +43,9 @@ const ProductItem = ({
   };
 
   const onClickCheckBox = () => {
-    isItemSelected ? onDeleteFromSelectedItems(id) : onAddToSelectedItems(id);
-  };
-
-  const onDeleteFromSelectedItems = (targetId: number) => {
-    const newItems = selectItems.filter((id) => id !== targetId);
-    setSelectItems(newItems);
-  };
-
-  const onAddToSelectedItems = (targetId: number) => {
-    const newItems = [...selectItems, targetId];
-    setSelectItems(newItems);
+    isItemSelected(id)
+      ? onDeleteFromSelectedItems(id)
+      : onAddToSelectedItems(id);
   };
 
   return (
@@ -68,7 +54,7 @@ const ProductItem = ({
         <S.ItemButtonWrapper>
           <CheckBox
             id={`check-box-${id}`}
-            isChecked={isItemSelected}
+            isChecked={isItemSelected(id)}
             onClick={onClickCheckBox}
           />
           <Button
@@ -92,9 +78,9 @@ const ProductItem = ({
           </S.FlexBox>
           {type === "edit" && (
             <S.UpdateButtonWrapper>
-              <MinusButton onClick={handleDecreaseQuantity} />
+              <MinusButton onClick={decreaseQuantity} />
               <S.ProductQuantity>{quantity}</S.ProductQuantity>
-              <PlusButton onClick={handleIncreaseQuantity} />
+              <PlusButton onClick={increaseQuantity} />
             </S.UpdateButtonWrapper>
           )}
           {type === "readonly" && (

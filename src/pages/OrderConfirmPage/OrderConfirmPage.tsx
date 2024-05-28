@@ -27,7 +27,7 @@ import { CartItem } from "@/types/cart";
 import { CAPTION } from "@/constants/titleAndCaption.ts";
 import { COUPON_ORDER_MESSAGE } from "@/constants/couponAndOrder.ts";
 import { SHIPPING_MESSSAGES } from "@/constants/shippingInfo.ts";
-import { postOrder } from "@/auth/apis/order.ts";
+import { postOrder } from "@/apis/order";
 
 const OrderConfirmPage = ({
   selectedCartItems,
