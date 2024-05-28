@@ -1,49 +1,23 @@
 import * as S from "./PaymentConfirmPage.style";
-import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
-
 import Button from "@/components/_common/Button/Button";
-
-import {
-  totalItemOrderCountSelector,
-  totalItemsPriceSelector,
-} from "@/recoil/orderInformation";
 import { CART_PAGE_MESSAGES } from "@/constants/cart";
 import { formatToWon } from "@/utils/stringHelper";
-import { selectedCartItemsIdState } from "@/recoil/selectedCardItems";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { PAGE_URL } from "@/constants/url";
 import TextBox from "@/components/_common/TextBox/TextBox";
-import { shippingFeeSelector } from "@/recoil/shippingFeeType";
-import { SHIPPING_FEE } from "@/constants/shippingInfo.ts";
 import { COUPON_ORDER_MESSAGE } from "@/constants/couponAndOrder.ts";
 import { CAPTION } from "@/constants/titleAndCaption.ts";
 import MainLayout from "@/components/layout/MainLayout.tsx";
-import { couponsState } from "@/recoil/coupons";
-import { useEffect } from "react";
 
 const PaymentConfirmPage = () => {
   const navigate = useNavigate();
-  const shippingFeeType = useRecoilValue(shippingFeeSelector);
-  const totalOrderPrice = useRecoilValue(totalItemsPriceSelector);
-
-  const totalPrice = SHIPPING_FEE[shippingFeeType] + totalOrderPrice;
-
-  const totalItemsCount = useRecoilValue(totalItemOrderCountSelector);
-  const selectedItemsId = useRecoilValue(selectedCartItemsIdState);
-
-  const resetCoupons = useResetRecoilState(couponsState);
-  const resetShippingFee = useResetRecoilState(shippingFeeSelector);
-  const setSelectedIds = useSetRecoilState(selectedCartItemsIdState);
-
-  useEffect(() => {
-    resetCoupons();
-    resetShippingFee();
-    setSelectedIds([]);
-  }, []);
+  const orderData = useLocation();
 
   const onMoveCartPage = () => {
     navigate(PAGE_URL.home);
   };
+
+  const { selectedItemsCount, totalItemsCount, totalPrice } = orderData.state;
 
   return (
     <MainLayout>
@@ -55,7 +29,7 @@ const PaymentConfirmPage = () => {
             <TextBox
               type="xSmall"
               text={CART_PAGE_MESSAGES.orderInfo(
-                selectedItemsId.length,
+                selectedItemsCount,
                 totalItemsCount
               )}
             />

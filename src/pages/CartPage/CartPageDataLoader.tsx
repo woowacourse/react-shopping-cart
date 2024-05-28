@@ -6,10 +6,10 @@ import CartPage from "@/pages/CartPage/CartPage.tsx";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorPage from "../Error/ErrorPage";
 import { Suspense, useEffect } from "react";
-import useUpdateCartItems from "@/hooks/cart/useUpdateCartItems";
+import useCartItems from "@/hooks/cart/useCartItems";
 
 const CartPageDataLoader = () => {
-  const { updateNewCartItems } = useUpdateCartItems();
+  const { updateNewCartItems } = useCartItems();
 
   useEffect(() => {
     updateNewCartItems();

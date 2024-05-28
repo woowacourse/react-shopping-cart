@@ -32,12 +32,17 @@ const useSelectedItems = () => {
     setSelectedItemsId([]);
   };
 
+  const resetSelectedItems = () => {
+    setSelectedItemsId([]);
+  };
+
   return {
     onDeleteFromSelectedItems,
     onAddToSelectedItems,
     selectAllItem,
     unselectAllItem,
     isItemSelected,
+    resetSelectedItems,
     isAllItemSelected,
   };
 };

@@ -2,8 +2,11 @@ import { useState } from "react";
 
 import { CART_PAGE_MESSAGES } from "@/constants/cart";
 
-import { totalItemOrderCountSelector } from "@/recoil/orderInformation";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  totalItemOrderCountSelector,
+  totalItemsPriceSelector,
+} from "@/recoil/orderInformation";
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
 
 import TitleSet from "@/components/_common/TitleSet/TitleSet";
 import ProductList from "@/components/cart/ProductList/ProductList";
@@ -26,18 +29,24 @@ import CouponModal from "../CouponModal/CouponModal";
 import { CartItem } from "@/types/cart";
 import { CAPTION } from "@/constants/titleAndCaption.ts";
 import { COUPON_ORDER_MESSAGE } from "@/constants/couponAndOrder.ts";
-import { SHIPPING_MESSSAGES } from "@/constants/shippingInfo.ts";
+import { SHIPPING_FEE, SHIPPING_MESSSAGES } from "@/constants/shippingInfo.ts";
 import { postOrder } from "@/apis/order";
+import useCoupons from "@/hooks/coupon/useCoupons";
+import useSelectedItems from "@/hooks/cart/useSelectedItems";
 
 const OrderConfirmPage = ({
   selectedCartItems,
 }: {
   selectedCartItems: CartItem[];
 }) => {
+  const totalOrderPrice = useRecoilValue(totalItemsPriceSelector);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const onCloseModal = () => {
     setIsModalOpen(false);
   };
+  const resetShippingFee = useResetRecoilState(shippingFeeSelector);
+  const { resetCouponList } = useCoupons();
+  const { resetSelectedItems } = useSelectedItems();
 
   const totalItemsCount = useRecoilValue(totalItemOrderCountSelector);
   const selectedItemsId = JSON.parse(
@@ -57,7 +66,18 @@ const OrderConfirmPage = ({
 
   const onMovePaymentConfirmPage = async () => {
     await postOrder(selectedItemsId);
-    navigate(PAGE_URL.paymentConfirm);
+
+    navigate(PAGE_URL.paymentConfirm, {
+      state: {
+        totalPrice: SHIPPING_FEE[shippingFeeType] + totalOrderPrice,
+        selectedItemsCount: selectedItemsId.length,
+        totalItemsCount: totalItemsCount,
+      },
+    });
+
+    resetCouponList();
+    resetShippingFee();
+    resetSelectedItems();
   };
 
   return (

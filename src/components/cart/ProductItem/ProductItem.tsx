@@ -1,4 +1,3 @@
-import { useSetRecoilState } from "recoil";
 import useUpdateItemQuantity from "@/hooks/cart/useUpdateItemQuantity.ts";
 import Button from "../../_common/Button/Button.tsx";
 import CheckBox from "../../_common/CheckBox/CheckBox.tsx";
@@ -6,11 +5,10 @@ import MinusButton from "@/assets/minus-button.svg?react";
 import PlusButton from "@/assets/plus-button.svg?react";
 import { CartItem } from "@/types/cart.ts";
 import * as S from "./ProductItem.style.ts";
-import { cartItemsState } from "@/recoil/cartItems.ts";
 import { formatToWon } from "@/utils/stringHelper.ts";
-import { removeCartItem } from "@/apis/cart.ts";
 import TextBox from "../../_common/TextBox/TextBox.tsx";
 import useSelectedItems from "@/hooks/cart/useSelectedItems.ts";
+import useCartItems from "@/hooks/cart/useCartItems.ts";
 
 export type CartItemShowType = "readonly" | "edit";
 
@@ -30,16 +28,10 @@ const ProductItem = ({
   const { isItemSelected, onDeleteFromSelectedItems, onAddToSelectedItems } =
     useSelectedItems();
 
-  const setCartItemList = useSetRecoilState(cartItemsState);
+  const { deleteCartItem } = useCartItems();
 
   const onClickRemoveItem = async () => {
-    const canRemoveItem = await removeCartItem(id);
-
-    if (canRemoveItem) {
-      setCartItemList((prevCartItems) => {
-        return prevCartItems.filter((item) => item.id !== id);
-      });
-    }
+    deleteCartItem(id);
   };
 
   const onClickCheckBox = () => {
