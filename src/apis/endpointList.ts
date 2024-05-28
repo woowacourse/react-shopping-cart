@@ -1,6 +1,6 @@
-export const ENDPOINT_LIST = {
+export const ENDPOINT = {
   CART_LIST: '/cart-items',
-  CART_ITEM: (cartItemId: number) => `/cart-items/${cartItemId}`,
+  cartItem: (cartItemId: number) => `/cart-items/${cartItemId}`,
   COUPON_LIST: '/coupons',
   ORDERS: '/orders',
 };
