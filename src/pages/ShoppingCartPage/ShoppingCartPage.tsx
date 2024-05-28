@@ -1,39 +1,29 @@
-import { useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { useLoaderData, Await, Link } from 'react-router-dom';
-import Header from '../../components/Header/Header';
-import TitleContainer from '../../components/Container/TitleContainer/TitleContainer';
-import SubmitButton from '../../components/Button/SubmitButton/SubmitButton';
-import CartItemList from '../../components/CartItemList/CartItemList';
-import TotalPriceContainer from '../../components/Container/TotalPriceContainer/TotalPriceContainer';
-import type { TCartItem } from '../../types/CartItem.type';
-import { selectedCartItemListState } from './recoil/atom/selectedCartItemListState';
-import { fetchCartItemList } from '../../apis';
+import { Await, Link, useLoaderData } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+
 import { EmptyCart } from '../../assets';
+import SubmitButton from '../../components/Button/SubmitButton/SubmitButton';
+import TitleContainer from '../../components/Container/TitleContainer/TitleContainer';
+import TotalPriceContainer from '../../components/Container/TotalPriceContainer/TotalPriceContainer';
+import Header from '../../components/Header/Header';
+import CartItemList from '../../components/List/CartItemList/CartItemList';
 import { PATHS } from '../../constants/PATHS';
+import { selectedCartItemListState } from '../../recoil/CartItem/atoms/selectedCartItemListState';
 import * as S from './ShoppingCartPage.style';
 
+import type { CartItem } from '../../types/CartItem';
 function ShoppingCartPage() {
-  const initialValue = useLoaderData() as TCartItem[];
+  const cartItemList = useLoaderData() as CartItem[];
 
-  const [cartItemList, setCartItemList] = useState<TCartItem[]>(initialValue);
-
-  const [selectedItemList, setSelectedItemList] = useRecoilState(selectedCartItemListState);
-
-  const updateCartItemList = async () => {
-    const newCartItemList = await fetchCartItemList();
-    setCartItemList(newCartItemList);
-
-    const newSelectedItemList = newCartItemList.filter((el) => selectedItemList.some((item) => el.id === item.id));
-    setSelectedItemList(newSelectedItemList);
-  };
+  const selectedItemList = useRecoilValue(selectedCartItemListState);
 
   const hasCartItemList = cartItemList.length !== 0;
   const hasSelectedCartItemList = selectedItemList.length !== 0;
 
   const renderCartItemListSection = () => (
     <>
-      <CartItemList cartItemList={cartItemList} updateCartItemList={updateCartItemList} />
+      <CartItemList cartItemList={cartItemList} />
+
       <TotalPriceContainer />
     </>
   );
@@ -58,7 +48,7 @@ function ShoppingCartPage() {
         </S.Main>
       </Await>
       {hasSelectedCartItemList ? (
-        <Link to={PATHS.CONFIRM}>
+        <Link to={PATHS.ORDER_CONFIRM}>
           <SubmitButton isActive={true} content="주문 확인" />
         </Link>
       ) : (

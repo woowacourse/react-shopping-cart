@@ -19,9 +19,9 @@ const fontWeight = {
 };
 
 const boxHeight = {
-  sm: '40px',
+  sm: '48px',
   md: '64px',
-  lg: '88px',
+  lg: '80px',
 };
 
 const theme = {

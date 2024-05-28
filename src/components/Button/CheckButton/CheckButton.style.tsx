@@ -9,8 +9,17 @@ export const ButtonWrapper = styled.button<{ $isChecked: boolean }>`
   border: 1px solid ${(props) => (props.$isChecked ? 'black' : 'lightgrey')};
   border-radius: 8px;
   background-color: ${(props) => (props.$isChecked ? 'black' : 'white')};
+  cursor: pointer;
 
   img {
-    filter: ${(props) => (props.$isChecked ? 'brightness(95%)' : 'brightness(95%)')};
+    transition: 0.3s;
+    &:hover {
+      width: 20px;
+      height: 20px;
+    }
+    &:active {
+      width: 10px;
+      height: 10px;
+    }
   }
 `;

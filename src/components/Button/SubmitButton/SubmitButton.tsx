@@ -1,4 +1,5 @@
 import { ButtonHTMLAttributes } from 'react';
+
 import * as S from './SubmitButton.style';
 
 interface SubmitButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -9,7 +10,7 @@ interface SubmitButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 function SubmitButton({ isActive, content, ...rest }: SubmitButtonProps) {
   return (
     <S.ButtonWrapper $isActive={isActive} {...rest}>
-      {content}
+      <p>{content}</p>
     </S.ButtonWrapper>
   );
 }

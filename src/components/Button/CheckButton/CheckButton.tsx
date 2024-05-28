@@ -1,4 +1,5 @@
 import { ButtonHTMLAttributes } from 'react';
+
 import { CheckedIcon, UncheckedIcon } from '../../../assets';
 import * as S from './CheckButton.style';
 

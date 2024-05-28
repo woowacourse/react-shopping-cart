@@ -1,12 +1,14 @@
-import type { TCartItem } from '../types/CartItem.type';
+import type { CartItem } from '../types/CartItem.ts';
+import { ERROR_MESSAGE } from '../constants/MESSAGES';
 import generateBasicToken from '../utils/auth';
-import { CART_ITEM_ERROR_MESSAGE } from '../constants/MESSAGES';
+
+import type { Coupon } from '../types/Coupon.ts';
 
 const API_URL = import.meta.env.VITE_API_URL;
 const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD;
 const USER_ID = import.meta.env.VITE_USER_ID;
 
-const fetchCartItemList = async (): Promise<TCartItem[]> => {
+const fetchCartItemList = async (): Promise<CartItem[]> => {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
 
   const response = await fetch(`${API_URL}/cart-items`, {
@@ -15,8 +17,8 @@ const fetchCartItemList = async (): Promise<TCartItem[]> => {
   });
 
   if (!response.ok) {
-    alert(CART_ITEM_ERROR_MESSAGE.FETCH);
-    throw new Error(CART_ITEM_ERROR_MESSAGE.FETCH);
+    alert(ERROR_MESSAGE.FETCH_CART_ITEMS);
+    throw new Error(ERROR_MESSAGE.FETCH_CART_ITEMS);
   }
 
   const data = await response.json();
@@ -37,8 +39,8 @@ const addCartItem = async (cartItemId: number): Promise<void> => {
   });
 
   if (!response.ok) {
-    alert(CART_ITEM_ERROR_MESSAGE.ADD);
-    throw new Error(CART_ITEM_ERROR_MESSAGE.ADD);
+    alert(ERROR_MESSAGE.ADD_CART_ITEMS);
+    throw new Error(ERROR_MESSAGE.ADD_CART_ITEMS);
   }
 };
 const removeCartItem = async (cartItemId: number): Promise<void> => {
@@ -50,8 +52,8 @@ const removeCartItem = async (cartItemId: number): Promise<void> => {
   });
 
   if (!response.ok) {
-    alert(CART_ITEM_ERROR_MESSAGE.REMOVE);
-    throw new Error(CART_ITEM_ERROR_MESSAGE.REMOVE);
+    alert(ERROR_MESSAGE.REMOVE_CART_ITEMS);
+    throw new Error(ERROR_MESSAGE.REMOVE_CART_ITEMS);
   }
 };
 
@@ -68,9 +70,45 @@ const updateCartItemQuantity = async (cartItemId: number, quantity: number): Pro
   });
 
   if (!response.ok) {
-    alert(CART_ITEM_ERROR_MESSAGE.UPDATE);
-    throw new Error(CART_ITEM_ERROR_MESSAGE.UPDATE);
+    alert(ERROR_MESSAGE.UPDATE_PRODUCT_QUANTITY);
+    throw new Error(ERROR_MESSAGE.UPDATE_PRODUCT_QUANTITY);
   }
 };
 
-export { fetchCartItemList, addCartItem, removeCartItem, updateCartItemQuantity };
+const fetchCouponList = async (): Promise<Coupon[]> => {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+
+  const response = await fetch(`${API_URL}/coupons`, {
+    method: 'GET',
+    headers: { Authorization: token },
+  });
+
+  if (!response.ok) {
+    alert(ERROR_MESSAGE.FETCH_COUPONS);
+    throw new Error(ERROR_MESSAGE.FETCH_COUPONS);
+  }
+
+  const data = await response.json();
+
+  return data;
+};
+
+const createOrder = async (cartItemIds: number[]): Promise<void> => {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+
+  const response = await fetch(`${API_URL}/orders`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
+    body: JSON.stringify({ cartItemIds: cartItemIds }),
+  });
+
+  if (!response.ok) {
+    alert(ERROR_MESSAGE.CREATE_ORDER);
+    throw new Error(ERROR_MESSAGE.CREATE_ORDER);
+  }
+};
+
+export { fetchCartItemList, addCartItem, removeCartItem, updateCartItemQuantity, fetchCouponList, createOrder };

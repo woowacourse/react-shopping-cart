@@ -1,14 +1,15 @@
-import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+
+import { removeCartItem, updateCartItemQuantity } from '../../apis';
+import { selectedCartItemListState } from '../../pages/ShoppingCartPage/recoil/atom/selectedCartItemListState';
 import CheckButton from '../Button/CheckButton/CheckButton';
 import CartItem from '../CartItem/CartItem';
-import type { TCartItem } from '../../types/CartItem.type';
-import { selectedCartItemListState } from '../../pages/ShoppingCartPage/recoil/atom/selectedCartItemListState';
-import { removeCartItem, updateCartItemQuantity } from '../../apis';
 import * as S from './CartItemList.style';
 
+import type { CartItem } from '../../types/CartItem';
 interface CartItemListProps {
-  cartItemList: TCartItem[];
+  cartItemList: CartItem[];
   updateCartItemList: () => void;
 }
 

@@ -1,22 +1,28 @@
 import { Link, useLocation } from 'react-router-dom';
+
 import Header from '../../components/Header/Header';
+import { ERROR_MESSAGE } from '../../constants/MESSAGES';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './ErrorPage.style';
-import { CART_ITEM_ERROR_MESSAGE } from '../../constants/MESSAGES';
-import { TErrorType } from './Error.type';
 
-const ErrorPage = () => {
+import type { ErrorType } from '../../types/Error';
+
+interface ErrorPageProps {
+  error?: string;
+}
+
+function ErrorPage({ error }: ErrorPageProps) {
   const location = useLocation();
-  const errorType = (location.state?.errorType as TErrorType) || 'UNKNOWN';
+  const errorType = location.state?.errorType as ErrorType;
 
-  const errorMessage = CART_ITEM_ERROR_MESSAGE[errorType];
+  const errorMessage = ERROR_MESSAGE[errorType];
   return (
     <>
       <Header />
       <S.Main>
         <S.ErrorTextContainer>
           <h1>ERROR</h1>
-          <h2>{errorMessage}</h2>
+          <h2>{error || errorMessage}</h2>
           <p>
             페이지의 주소가 잘못 입력되었거나,
             <br />
@@ -31,6 +37,6 @@ const ErrorPage = () => {
       </S.Main>
     </>
   );
-};
+}
 
 export default ErrorPage;

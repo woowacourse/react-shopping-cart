@@ -1,4 +1,5 @@
-import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+
 import { LeftArrow, MainLogo } from '../../assets';
 import { PATHS } from '../../constants/PATHS';
 import * as S from './Header.style';
