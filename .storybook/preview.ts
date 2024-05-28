@@ -1,6 +1,6 @@
-import type { Preview } from '@storybook/react';
-import '@/f_shared/styles/reset.css';
-import '@/f_shared/styles/color.css';
+import type { Preview } from "@storybook/react";
+import "@/f_shared/styles/reset.css";
+import "@/f_shared/styles/color.css";
 
 const preview: Preview = {
   parameters: {
@@ -10,7 +10,7 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
