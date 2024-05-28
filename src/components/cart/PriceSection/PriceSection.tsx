@@ -22,8 +22,9 @@ const PriceSection = ({ isApplyCoupon }: Props) => {
   const shippingFeeType = useRecoilValue(shippingFeeSelector);
   const totalDiscountAmount = calculateTotalDiscount(coupons, orderPrice);
 
-  const finalOrderPrice =
-    orderPrice - totalDiscountAmount + SHIPPING_FEE[shippingFeeType];
+  const finalOrderPrice = isApplyCoupon
+    ? orderPrice - totalDiscountAmount + SHIPPING_FEE[shippingFeeType]
+    : orderPrice + SHIPPING_FEE[shippingFeeType];
 
   return (
     <S.Wrapper>

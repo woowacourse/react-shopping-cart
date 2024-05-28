@@ -12,6 +12,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import ErrorPage from "../Error/ErrorPage";
 import { getLocalStorage } from "@/utils/localStorage";
 import { PAGE_URL } from "@/constants/url";
+import { ErrorMessage } from "@/constants/error";
 
 const OrderConfirmDataLoader = () => {
   const cartItems = useRecoilValue(cartItemSelector);
@@ -35,10 +36,10 @@ const OrderConfirmDataLoader = () => {
     setSelectedItems(selectedCartItems);
 
     if (!selectedItemsId.length) {
-      alert("주문 정보가 존재하지 않아서 장바구니 페이지로 이동합니다.");
+      alert(ErrorMessage.noOrderInfo);
       navigate(PAGE_URL.home);
     }
-  }, []);
+  }, [cartItems, navigate]);
 
   return (
     <MainLayout>
