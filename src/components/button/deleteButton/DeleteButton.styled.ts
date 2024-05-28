@@ -1,20 +1,5 @@
 import styled from "styled-components";
 
-<<<<<<< HEAD
-=======
-export const StyledDeleteButton = styled.button`
-  background-color: transparent;
-  border: none;
-  padding: 0;
-
-  cursor: pointer;
-
-  &:focus {
-    outline: none;
-  }
-`;
-
->>>>>>> 00kang
 export const StyledDeleteButtonText = styled.span`
   width: 40px;
   height: 24px;

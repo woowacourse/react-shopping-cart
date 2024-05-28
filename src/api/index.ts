@@ -23,13 +23,6 @@ export async function getCartItems(
     headers: getAuthHeaders(false),
   });
 
-<<<<<<< HEAD
-=======
-  if (!response.ok) {
-    throw new Error(ERROR_MESSAGES.FETCH_CART_ITEMS);
-  }
-
->>>>>>> 00kang
   const data = await handleResponse(response, ERROR_MESSAGES.FETCH_CART_ITEMS);
   return data.content;
 }
@@ -67,7 +60,6 @@ export async function deleteCartItem(cartItemId: number): Promise<void> {
 
   await handleResponse(response, ERROR_MESSAGES.DELETE_CART_ITEM, false);
 }
-<<<<<<< HEAD
 
 // GET : /coupons 쿠폰 목록 조회
 export async function getCoupons() {
@@ -77,5 +69,3 @@ export async function getCoupons() {
   });
   return await handleResponse(response, ERROR_MESSAGES.FETCH_COUPONS);
 }
-=======
->>>>>>> 00kang

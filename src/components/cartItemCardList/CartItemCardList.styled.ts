@@ -5,11 +5,7 @@ export const StyledCartItemCardList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-<<<<<<< HEAD
   margin-top: 20px;
-=======
-  margin-top: 36px;
->>>>>>> 00kang
   margin-bottom: 52px;
 `;
 
