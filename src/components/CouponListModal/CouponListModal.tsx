@@ -12,7 +12,7 @@ type CouponListModalProps = {
 const CouponListModal = ({ isOpen, close }: CouponListModalProps) => {
   return (
     <>
-      <Modal isOpen={isOpen} close={close} size="md" style={{ margin: '20px' }}>
+      <Modal isOpen={isOpen} close={close} size="md" style={{ margin: '20px', padding: '24px 32px' }}>
         <Modal.Header>
           <Modal.Title>쿠폰을 선택해 주세요</Modal.Title>
           <Modal.CloseButton close={close} />
