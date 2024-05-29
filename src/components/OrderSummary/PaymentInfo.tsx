@@ -8,6 +8,7 @@ import {
 } from "../../recoil/cartAmount";
 import { MINIMUM_AMOUNT_FOR_FREE_DELIVERY } from "../../constants/servicePolicy";
 import { ReactComponent as InfoIcon } from "../../assets/info-icon.svg";
+import { COLORS } from "../../styles";
 
 export default function PaymentInfo() {
   const orderAmount = useRecoilValue(orderAmountState);
@@ -97,6 +98,6 @@ const S = {
     font-size: 12px;
     font-weight: 500;
     line-height: 15px;
-    color: rgba(10, 13, 19, 1);
+    color: ${COLORS.PRIMARY_TEXT};
   `,
 };

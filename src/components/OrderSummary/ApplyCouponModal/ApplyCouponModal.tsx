@@ -4,6 +4,7 @@ import { useCouponControl } from "../../../hooks/useCouponControl";
 import styled from "styled-components";
 import { ReactComponent as InfoIcon } from "../../../assets/info-icon.svg";
 import CouponItem from "./CouponItem";
+import { COLORS } from "../../../styles";
 
 interface ApplyCouponModalProps {
   isOpen: boolean;
@@ -83,7 +84,7 @@ const S = {
     font-size: 12px;
     font-weight: 500;
     line-height: 15px;
-    color: rgba(10, 13, 19, 1);
+    color: ${COLORS.PRIMARY_TEXT};
   `,
 
   CouponList: styled.div`

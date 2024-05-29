@@ -2,6 +2,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { selectedCartItemIdsState } from "../../recoil/cart/selectedCartItemIds";
 import { selectedCartItemsCountState } from "../../recoil/selectedCartItemsCount";
+import { COLORS } from "../../styles";
 
 function Title() {
   const selectedUniqueCartItemsCount = useRecoilValue(
@@ -49,7 +50,7 @@ const S = {
     font-size: 12px;
     line-height: 15px;
     font-weight: 500;
-    color: rgba(10, 13, 19, 1);
+    color: ${COLORS.PRIMARY_TEXT};
   `,
 
   InfoSkeleton: styled.div`

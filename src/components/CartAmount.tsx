@@ -8,7 +8,7 @@ import { ReactComponent as InfoIcon } from "../assets/info-icon.svg";
 import { MINIMUM_AMOUNT_FOR_FREE_DELIVERY } from "../constants/servicePolicy";
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
-
+import { COLORS } from "../styles";
 export interface ICartAmountProps {}
 
 function CartAmount() {
@@ -124,6 +124,6 @@ const S = {
     font-size: 12px;
     font-weight: 500;
     line-height: 15px;
-    color: rgba(10, 13, 19, 1);
+    color: ${COLORS.PRIMARY_TEXT};
   `,
 };

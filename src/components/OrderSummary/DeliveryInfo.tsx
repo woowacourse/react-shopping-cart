@@ -1,6 +1,7 @@
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { isIslandOrMountainRegionState } from "../../recoil/cartAmount";
+import { COLORS } from "../../styles";
 
 export default function DeliveryInfo() {
   const [isIslandOrMountainRegion, setIsIslandOrMountainRegion] =
@@ -39,7 +40,7 @@ const S = {
   Title: styled.div`
     font-weight: 700;
     size: 16px;
-    color: rgba(10, 13, 19, 1);
+    color: ${COLORS.PRIMARY_TEXT};
   `,
 
   CheckboxWrapper: styled.div`
