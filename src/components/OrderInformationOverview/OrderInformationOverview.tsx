@@ -34,19 +34,19 @@ const OrderInformationOverview = () => {
     navigate(ROUTER_URL.PAYMENT_INFO, { state: orderInfo });
   };
 
-  const toggleModal = () => {
+  const onCloseModal = () => {
     setIsModalOpen(!isModalOpen);
   };
   return (
     <>
       <ModalPortal>
-        <CouponModal isOpen={isModalOpen} toggleModal={toggleModal} />
+        <CouponModal isOpen={isModalOpen} onClose={onCloseModal} />
       </ModalPortal>
 
       <S.OrderInformationOverviewContainer>
         <OrderConfirmationInfo orderInfo={orderInfo} />
         <OrderInformationList selectedItems={selectedItems} />
-        <Button onClick={toggleModal}>쿠폰 적용</Button>
+        <Button onClick={onCloseModal}>쿠폰 적용</Button>
         <ShippingInfo />
         <PaymentTotal isUseDiscount={true} />
       </S.OrderInformationOverviewContainer>

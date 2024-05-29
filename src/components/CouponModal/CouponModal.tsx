@@ -10,20 +10,20 @@ import * as S from './styled';
 
 export interface CouponModalProps {
   isOpen: boolean;
-  toggleModal: () => void;
+  onClose: () => void;
 }
 
-const CouponModal = ({ isOpen, toggleModal }: CouponModalProps) => {
+const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
   const modalDiscountAmount = useRecoilValue(modalDiscountState);
   const setOrderDiscountAmount = useSetRecoilState(orderDiscountState);
 
   const onClickModalButton = () => {
     setOrderDiscountAmount(modalDiscountAmount);
-    toggleModal();
+    onClose();
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={toggleModal} style={{ borderRadius: '8px' }}>
+    <Modal isOpen={isOpen} onClose={onClose} style={{ borderRadius: '8px' }}>
       <Modal.ModalHeader style={{ margin: '3.2rem' }}>
         <Modal.ModalTitle
           style={{
@@ -35,7 +35,7 @@ const CouponModal = ({ isOpen, toggleModal }: CouponModalProps) => {
         >
           쿠폰을 선택해 주세요
         </Modal.ModalTitle>
-        <Modal.ModalCloseButton onClick={toggleModal} style={{ cursor: 'pointer' }}>
+        <Modal.ModalCloseButton onClick={onClose} style={{ cursor: 'pointer' }}>
           <img src={close} alt="" />
         </Modal.ModalCloseButton>
       </Modal.ModalHeader>
