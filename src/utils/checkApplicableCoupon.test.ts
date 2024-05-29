@@ -89,7 +89,7 @@ describe("checkApplicableCoupon: 쿠폰 적용 조건 검사", () => {
         isApplicableCoupon: true,
       };
 
-      expect(isAvailableTime(coupon)).toBe(true);
+      expect(isAvailableTime(coupon.availableTime)).toBe(true);
     });
 
     it("현재 시간이 사용 가능 시간 범위 외에 있으면 false를 반환한다", () => {
@@ -111,7 +111,7 @@ describe("checkApplicableCoupon: 쿠폰 적용 조건 검사", () => {
         isApplicableCoupon: true,
       };
 
-      expect(isAvailableTime(coupon)).toBe(false);
+      expect(isAvailableTime(coupon.availableTime)).toBe(false);
     });
   });
 

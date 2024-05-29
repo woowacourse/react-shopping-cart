@@ -1,6 +1,7 @@
 import { MINIMUM_AMOUNT_FOR_FREE_DELIVERY } from "../constants/servicePolicy";
 import { CartItem } from "../types/cartItems";
 import {
+  AvailableTime,
   BOGOCoupon,
   Coupon,
   RawCoupon,
@@ -20,41 +21,40 @@ export const isMetMinimumAmount = (
   return true;
 };
 
-export const isAvailableTime = (coupon: Coupon | RawCoupon) => {
-  if ("availableTime" in coupon && coupon.availableTime) {
-    const now = new Date();
-
-    const [startHour, startMinute, startSecond] = coupon.availableTime.start
-      .split(":")
-      .map(Number);
-
-    const [endHour, endMinute, endSecond] = coupon.availableTime.end
-      .split(":")
-      .map(Number);
-
-    const startTime = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-      startHour,
-      startMinute,
-      startSecond
-    );
-
-    const endTime = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-      endHour,
-      endMinute,
-      endSecond
-    );
-
-    if (now < startTime || now > endTime) {
-      return false;
-    }
+export const isAvailableTime = (availableTime: AvailableTime | undefined) => {
+  if (!availableTime) {
+    return true;
   }
-  return true;
+
+  const now = new Date();
+
+  const [startHour, startMinute, startSecond] = availableTime.start
+    .split(":")
+    .map(Number);
+
+  const [endHour, endMinute, endSecond] = availableTime.end
+    .split(":")
+    .map(Number);
+
+  const startTime = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate(),
+    startHour,
+    startMinute,
+    startSecond
+  );
+
+  const endTime = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate(),
+    endHour,
+    endMinute,
+    endSecond
+  );
+
+  return startTime <= now && now <= endTime;
 };
 
 export const checkBuyQuantity = (coupon: BOGOCoupon, cartItems: CartItem[]) => {
@@ -70,20 +70,29 @@ export const checkApplicableCoupon = (
   { orderAmount, cartItems }: { orderAmount: number; cartItems: CartItem[] }
 ) => {
   if (isFixedDiscountCoupon(coupon)) {
-    return isMetMinimumAmount(coupon, orderAmount) && isAvailableTime(coupon);
+    return (
+      isMetMinimumAmount(coupon, orderAmount) &&
+      isAvailableTime(coupon.availableTime)
+    );
   }
   if (isPercentageDiscountCoupon(coupon)) {
-    return isMetMinimumAmount(coupon, orderAmount) && isAvailableTime(coupon);
+    return (
+      isMetMinimumAmount(coupon, orderAmount) &&
+      isAvailableTime(coupon.availableTime)
+    );
   }
   if (isFreeShippingCoupon(coupon)) {
     return (
       isMetMinimumAmount(coupon, orderAmount) &&
-      isAvailableTime(coupon) &&
+      isAvailableTime(coupon.availableTime) &&
       orderAmount < MINIMUM_AMOUNT_FOR_FREE_DELIVERY
     );
   }
   if (isBOGOCoupon(coupon)) {
-    return checkBuyQuantity(coupon, cartItems) && isAvailableTime(coupon);
+    return (
+      checkBuyQuantity(coupon, cartItems) &&
+      isAvailableTime(coupon.availableTime)
+    );
   }
   return true;
 };
