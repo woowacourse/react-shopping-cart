@@ -2,14 +2,12 @@ import { Coupon } from "@/types/coupon";
 import { useRecoilValue } from "recoil";
 import useCouponApplicabilityChecker from "./useCouponApplicabilityChecker";
 import { SHIPPING_FEE } from "@/constants/shippingInfo.ts";
-import {
-  couponsByDiscountTypeSelector,
-  maxBuyXgetYItemSelector,
-} from "@/recoil/coupons";
+import { couponsByDiscountTypeSelector } from "@/recoil/coupons";
+import useBuyXgetYCoupon from "@/hooks/coupon/useBuyXgetYCoupon";
 
 const useDiscountCalculator = () => {
   const { isCouponApplicable } = useCouponApplicabilityChecker();
-  const maxBuyXgetYItem = useRecoilValue(maxBuyXgetYItemSelector);
+  const { getMaxPriceItem } = useBuyXgetYCoupon();
   const couponsByDiscountType = useRecoilValue(couponsByDiscountTypeSelector);
 
   const calculateFixedDiscount = (coupon: Coupon, totalAmount: number) => {
@@ -33,10 +31,6 @@ const useDiscountCalculator = () => {
     }
   };
 
-  const calculateBogoDiscount = () => {
-    return maxBuyXgetYItem;
-  };
-
   const calculateTotalDiscount = (coupons: Coupon[], totalPrice: number) => {
     let totalDiscount = 0;
 
@@ -44,7 +38,7 @@ const useDiscountCalculator = () => {
       const { buyXgetY, percentage, fixed } = couponsByDiscountType;
 
       if (buyXgetY) {
-        totalDiscount += calculateBogoDiscount();
+        totalDiscount += getMaxPriceItem();
       }
 
       if (percentage) {
@@ -69,7 +63,6 @@ const useDiscountCalculator = () => {
 
   return {
     calculateDiscountAmount,
-    calculateBogoDiscount,
     calculateTotalDiscount,
   };
 };

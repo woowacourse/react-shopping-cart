@@ -1,12 +1,12 @@
 import { isFreeShipping } from "./../../recoil/shippingFeeType";
 import { useRecoilValue } from "recoil";
-import { checkBuyXgetYSelector } from "@/recoil/coupons";
 import { Coupon } from "@/types/coupon";
 import { formatHourToDate } from "@/utils/timeHelper";
+import useBuyXgetYCoupon from "@/hooks/coupon/useBuyXgetYCoupon";
 
 const useCouponApplicabilityChecker = () => {
-  const checkBuyXgetY = useRecoilValue(checkBuyXgetYSelector);
   const getFreeShipping = useRecoilValue(isFreeShipping);
+  const { checkBuyXgetY } = useBuyXgetYCoupon();
 
   const isCouponApplicable = ({
     coupon,
@@ -22,7 +22,8 @@ const useCouponApplicabilityChecker = () => {
     }
 
     if (coupon.buyQuantity && coupon.getQuantity) {
-      if (!checkBuyXgetY(coupon.id).length) return false;
+      const result = checkBuyXgetY();
+      if (!result.length) return false;
     }
 
     if (coupon.expirationDate && time) {

@@ -1,10 +1,7 @@
 import { useRecoilValue } from "recoil";
 import { totalItemOrderCountSelector } from "@/recoil/orderInformation";
-
 import TitleSet from "@/components/_common/TitleSet/TitleSet";
-
 import PriceSection from "@/components/cart/PriceSection/PriceSection";
-
 import * as S from "./CartPage.style";
 import { CART_PAGE_MESSAGES } from "@/constants/cart";
 import ProductList from "@/components/cart/ProductList/ProductList";
@@ -21,10 +18,12 @@ import AddMockItemButton from "@/mocks/AddMockItemButton";
 import useCartItems from "@/hooks/cart/useCartItems";
 import { useEffect } from "react";
 import MainLayout from "@/components/layout/MainLayout";
+import useCoupons from "@/hooks/coupon/useCoupons";
 
 const CartPage = () => {
   const selectedItems = useRecoilValue(totalItemOrderCountSelector);
   const cartItemList = useRecoilValue(cartItemsState);
+  const { resetCouponList } = useCoupons();
 
   const { updateNewCartItems } = useCartItems();
 
@@ -36,6 +35,7 @@ const CartPage = () => {
 
   useEffect(() => {
     updateNewCartItems();
+    resetCouponList();
   }, [updateNewCartItems]);
 
   return (
