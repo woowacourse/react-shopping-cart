@@ -6,7 +6,7 @@ import { checkedCartItemsSelector, orderPriceSelector, shippingFeeSelector } fro
 import { mockCartItems } from "../../mocks/cartItems";
 import { mockCoupons } from "../../mocks/coupons";
 import { Coupon } from "../../types/coupon";
-import { CHECKED_COUPONS_LENGTH } from "../../constants/setting";
+import { MAX_CHECKED_COUPONS_LENGTH } from "../../constants/setting";
 
 jest.mock("recoil", () => ({
   ...jest.requireActual("recoil"),
@@ -167,7 +167,7 @@ describe("useCouponValidation 훅 테스트", () => {
   });
 
   describe("쿠폰 최대 사용 개수 테스트", () => {
-    it(`사용 중인 쿠폰이 ${CHECKED_COUPONS_LENGTH}개일 때 추가 쿠폰은 유효하지 않다`, () => {
+    it(`사용 중인 쿠폰이 ${MAX_CHECKED_COUPONS_LENGTH}개일 때 추가 쿠폰은 유효하지 않다`, () => {
       mockUseRecoilValue.mockImplementation((selector) => {
         if (selector === checkedCartItemsSelector) return mockCartItems;
         if (selector === orderPriceSelector) return 130000;
@@ -180,7 +180,7 @@ describe("useCouponValidation 훅 테스트", () => {
       expect(isCouponValid(additionalCoupon)).toBe(false);
     });
 
-    it(`사용 중인 쿠폰이 ${CHECKED_COUPONS_LENGTH}개 이하일 때 추가 쿠폰은 유효하다`, () => {
+    it(`사용 중인 쿠폰이 ${MAX_CHECKED_COUPONS_LENGTH}개 이하일 때 추가 쿠폰은 유효하다`, () => {
       mockUseRecoilValue.mockImplementationOnce((selector) => {
         if (selector === checkedCartItemsSelector) return mockCartItems;
         if (selector === orderPriceSelector) return 130000;

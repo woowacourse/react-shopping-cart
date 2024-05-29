@@ -2,7 +2,7 @@ import { useRecoilValue } from "recoil";
 import { couponCheckedAtom } from "../../recoil/atom/atom";
 import { checkedCartItemsSelector, orderPriceSelector, shippingFeeSelector } from "../../recoil/selector/selector";
 import { Coupon } from "../../types/coupon";
-import { CHECKED_COUPONS_LENGTH } from "../../constants/setting";
+import { MAX_CHECKED_COUPONS_LENGTH } from "../../constants/setting";
 
 const useCouponValidation = () => {
   const checkedCartItems = useRecoilValue(checkedCartItemsSelector);
@@ -47,7 +47,7 @@ const useCouponValidation = () => {
       }
     }
 
-    if (checkedCoupons.length === CHECKED_COUPONS_LENGTH) {
+    if (checkedCoupons.length === MAX_CHECKED_COUPONS_LENGTH) {
       if (!checkedCoupons.includes(coupon)) {
         return false;
       }
