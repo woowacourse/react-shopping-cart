@@ -13,16 +13,17 @@ const localStorageEffectForItem =
 
 export const selectedCartItemsIdState = atom<number[]>({
   key: "selectedCartItems",
-  default: [],
+  default: getLocalStorage("selectedItems"),
   effects: [localStorageEffectForItem()],
 });
 
-export const selectedCartItemList = selector<CartItem[]>({
+export const selectedCartListSelector = selector<CartItem[]>({
   key: "selectedCartItemList",
   get: ({ get }) => {
-    const selectedItemsId = getLocalStorage("selectedItems");
+    // const selectedItemsIds = getLocalStorage("selectedItems");
+    const selectedItemsIds = get(selectedCartItemsIdState);
     const selectedCartItems = get(cartItemsState).filter((item) =>
-      selectedItemsId.includes(item.id)
+      selectedItemsIds.includes(item.id)
     );
     return selectedCartItems;
   },

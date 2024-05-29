@@ -1,12 +1,12 @@
 import CheckBox from "@/components/_common/CheckBox/CheckBox";
 import TextBox from "@/components/_common/TextBox/TextBox";
 import { CAPTION } from "@/constants/titleAndCaption";
-import useCartItemsSelectAll from "@/hooks/cart/useCartItemsSelectAll";
 import * as S from "./AllSelectCheckBox.style";
+import useSelectedItems from "@/hooks/cart/useSelectedItems";
 
 const AllSelectCheckBox = () => {
   const { isAllItemSelected, selectAllItem, unselectAllItem } =
-    useCartItemsSelectAll();
+    useSelectedItems();
 
   return (
     <S.CheckBoxWrapper>

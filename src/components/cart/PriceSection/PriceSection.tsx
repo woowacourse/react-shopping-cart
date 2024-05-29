@@ -1,13 +1,9 @@
 import { useRecoilValue } from "recoil";
-
 import PriceInfoBox from "../PriceInfoBox/PriceInfoBox.tsx";
-
 import * as S from "./PriceSection.styles.ts";
-
 import { totalItemsPriceSelector } from "@/recoil/orderInformation.ts";
 import { SHIPPING_FEE } from "@/constants/shippingInfo.ts";
 import { shippingFeeSelector } from "@/recoil/shippingFeeType.ts";
-import { couponsState } from "@/recoil/coupons.ts";
 import useDiscountCalculator from "@/hooks/coupon/useDiscountCalculator.ts";
 import useCoupons from "@/hooks/coupon/useCoupons.ts";
 
@@ -16,13 +12,11 @@ interface Props {
 }
 
 const PriceSection = ({ isApplyCoupon }: Props) => {
-  const { calculateTotalDiscount } = useDiscountCalculator();
-
-  const coupons = useRecoilValue(couponsState);
   const orderPrice = useRecoilValue(totalItemsPriceSelector);
   const shippingFeeType = useRecoilValue(shippingFeeSelector);
-  // const totalDiscountAmount = calculateTotalDiscount(coupons);
+
   const { getCouponByType } = useCoupons();
+  const { calculateTotalDiscount } = useDiscountCalculator();
 
   const totalDiscountAmount = calculateTotalDiscount(
     getCouponByType(),

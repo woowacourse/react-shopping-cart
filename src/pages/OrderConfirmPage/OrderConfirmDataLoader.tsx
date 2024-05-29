@@ -1,5 +1,5 @@
 import { cartItemsState } from "@/recoil/cartItems";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import OrderConfirmPage from "./OrderConfirmPage";
 import { useEffect, useState } from "react";
 import MainLayout from "@/components/layout/MainLayout";
@@ -11,12 +11,19 @@ import { ErrorBoundary } from "react-error-boundary";
 import ErrorPage from "../Error/ErrorPage";
 import { PAGE_URL } from "@/constants/url";
 import { ErrorMessage } from "@/constants/error";
-import { selectedCartItemList } from "@/recoil/selectedCardItems";
+import {
+  selectedCartItemsIdState,
+  selectedCartListSelector,
+} from "@/recoil/selectedCardItems";
+import { getLocalStorage } from "@/utils/localStorage";
 
 const OrderConfirmDataLoader = () => {
   const cartItem = useRecoilValue(cartItemsState);
   const [selectedItems, setSelectedItems] = useState<CartItem[]>([]);
-  const selectedCartItems = useRecoilValue(selectedCartItemList);
+  const selectedCartItems = useRecoilValue(selectedCartListSelector);
+  const [selectedCartItemsId, setselectedCartItemsIds] = useRecoilState(
+    selectedCartItemsIdState
+  );
   const navigate = useNavigate();
 
   const onMoveCartPage = () => {
@@ -26,13 +33,14 @@ const OrderConfirmDataLoader = () => {
   };
 
   useEffect(() => {
+    setselectedCartItemsIds(getLocalStorage("selectedItems"));
     setSelectedItems(selectedCartItems);
 
-    if (!selectedCartItems.length) {
+    if (!selectedCartItemsId.length) {
       alert(ErrorMessage.noOrderInfo);
       navigate(PAGE_URL.home);
     }
-  }, [selectedCartItems, navigate]);
+  }, [navigate]);
 
   return (
     <MainLayout>

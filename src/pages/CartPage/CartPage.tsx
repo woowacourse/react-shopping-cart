@@ -19,12 +19,16 @@ import useCartItems from "@/hooks/cart/useCartItems";
 import { useEffect } from "react";
 import MainLayout from "@/components/layout/MainLayout";
 import useCoupons from "@/hooks/coupon/useCoupons";
+// import {
+//   shippingFeeSelector,
+//   shippingFeeState,
+// } from "@/recoil/shippingFeeType";
 
 const CartPage = () => {
   const selectedItems = useRecoilValue(totalItemOrderCountSelector);
   const cartItemList = useRecoilValue(cartItemsState);
-  const { resetCouponList } = useCoupons();
 
+  const { resetCouponList } = useCoupons();
   const { updateNewCartItems } = useCartItems();
 
   const navigate = useNavigate();
@@ -36,7 +40,8 @@ const CartPage = () => {
   useEffect(() => {
     updateNewCartItems();
     resetCouponList();
-  }, [updateNewCartItems]);
+    // setShippingFee(shippingFee);
+  }, []);
 
   return (
     <MainLayout>

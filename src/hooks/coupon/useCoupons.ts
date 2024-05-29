@@ -1,29 +1,28 @@
 import { couponsState } from "@/recoil/coupons";
-import { freeShippingCouponState } from "@/recoil/shippingFeeType";
 import { Coupon, CouponDiscountType } from "@/types/coupon";
-import { useRecoilState, useResetRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState } from "recoil";
 import { COUPON_ORDER_LIMIT } from "@/constants/couponAndOrder.ts";
 
 const useCoupons = () => {
   const [couponList, setCouponList] = useRecoilState(couponsState);
-  const setFreeShippingCouponState = useSetRecoilState(freeShippingCouponState);
+
   const resetCoupons = useResetRecoilState(couponsState);
 
   const applyCoupon = (newCoupon: Coupon) => {
     if (isOverMaxCouponCount()) {
       replaceOldToNewCoupon();
     }
-    if (newCoupon.discountType === "freeShipping") {
-      setFreeShippingCouponState(true);
-    }
+    // if (newCoupon.discountType === "freeShipping") {
+    //   setFreeShippingCouponState(true);
+    // }
     setCouponList((prev) => [...prev, newCoupon]);
   };
 
   const unapplyCoupon = (couponId: number) => {
-    const targetCoupon = couponList.find((coupon) => coupon.id === couponId)!;
-    if (targetCoupon.discountType === "freeShipping") {
-      setFreeShippingCouponState(false);
-    }
+    // const targetCoupon = couponList.find((coupon) => coupon.id === couponId)!;
+    // if (targetCoupon.discountType === "freeShipping") {
+    //   setFreeShippingCouponState(false);
+    // }
     const newCouponList = couponList.filter((coupon) => coupon.id !== couponId);
     setCouponList(newCouponList);
   };

@@ -13,7 +13,7 @@ const ProductList = ({
   return (
     <S.ListWrapper>
       {productList.map((item) => (
-        <ProductItem key={item.product.id} item={item} type={type} />
+        <ProductItem key={item.id} item={item} type={type} />
       ))}
     </S.ListWrapper>
   );

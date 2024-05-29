@@ -10,16 +10,8 @@ const CouponList = ({ couponList }: { couponList: Coupon[] }) => {
 
   const applicableCoupons: CouponWithApplicablity[] = [];
   const nonApplicableCoupons: CouponWithApplicablity[] = [];
-  //TODO: 2+1
+
   couponList.forEach((coupon) => {
-    console.log(
-      coupon.description,
-      isCouponApplicable({
-        coupon: coupon,
-        price: totalItemsPrice,
-        time: new Date(),
-      })
-    );
     if (
       isCouponApplicable({
         coupon: coupon,

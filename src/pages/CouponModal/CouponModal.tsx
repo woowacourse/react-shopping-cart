@@ -6,17 +6,13 @@ import Button from "@/components/_common/Button/Button";
 import { theme } from "@/styles/theme";
 import CouponList from "./components/CouponList";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  couponListSelector,
-  // couponsState,
-  discountCouponPriceState,
-} from "@/recoil/coupons";
+import { couponListSelector, discountCouponPriceState } from "@/recoil/coupons";
 import useDiscountCalculator from "@/hooks/coupon/useDiscountCalculator";
 import {
   finalOrderAmountState,
   totalItemsPriceSelector,
 } from "@/recoil/orderInformation";
-import { freeShippingCouponState } from "@/recoil/shippingFeeType";
+import { freeShippingCouponSelector } from "@/recoil/shippingFeeType";
 import {
   COUPON_ORDER_MESSAGE,
   couponApplyText,
@@ -32,15 +28,13 @@ const CouponModalInner = ({
   onCloseModal: () => void;
 }) => {
   const couponList = useRecoilValue(couponListSelector);
-  // const coupons = useRecoilValue(couponsState);
-
   const totalPrice = useRecoilValue(totalItemsPriceSelector);
 
   const setFinalOrderAmount = useSetRecoilState(finalOrderAmountState);
   const setDiscountCouponPrice = useSetRecoilState(discountCouponPriceState);
 
   const { calculateTotalDiscount } = useDiscountCalculator();
-  const isFreeShipping = useRecoilValue(freeShippingCouponState);
+  const isFreeShipping = useRecoilValue(freeShippingCouponSelector);
   const { getCouponByType } = useCoupons();
   const totalDiscountAmount = calculateTotalDiscount(
     getCouponByType(),

@@ -19,11 +19,11 @@ const ProductItem = ({
   item: CartItem;
   type: CartItemShowType;
 }) => {
-  const { product, id } = item;
+  const { product } = item;
   const { name, imageUrl, price } = product;
 
   const { quantity, increaseQuantity, decreaseQuantity } =
-    useUpdateItemQuantity(id);
+    useUpdateItemQuantity(item.id);
 
   const { isItemSelected, onDeleteFromSelectedItems, onAddToSelectedItems } =
     useSelectedItems();
@@ -31,13 +31,13 @@ const ProductItem = ({
   const { deleteCartItem } = useCartItems();
 
   const onClickRemoveItem = async () => {
-    deleteCartItem(id);
+    deleteCartItem(item.id);
   };
 
   const onClickCheckBox = () => {
-    isItemSelected(id)
-      ? onDeleteFromSelectedItems(id)
-      : onAddToSelectedItems(id);
+    isItemSelected(item.id)
+      ? onDeleteFromSelectedItems(item.id)
+      : onAddToSelectedItems(item.id);
   };
 
   return (
@@ -45,8 +45,8 @@ const ProductItem = ({
       {type === "edit" && (
         <S.ItemButtonWrapper>
           <CheckBox
-            id={`check-box-${id}`}
-            isChecked={isItemSelected(id)}
+            id={`check-box-${item.id}`}
+            isChecked={isItemSelected(item.id)}
             onClick={onClickCheckBox}
           />
           <Button

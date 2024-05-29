@@ -33,7 +33,7 @@ describe("상품 배송비 테스트", () => {
       set(cartItemsState, mockCartItemList);
 
       mockCartItemList.forEach((item) => {
-        set(selectedCartItemsIdState, (prev) => [...prev, item.id]);
+        set(selectedCartItemsIdState, (prev) => [...prev, item.product.id]);
       });
     };
 
