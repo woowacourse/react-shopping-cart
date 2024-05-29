@@ -2,6 +2,10 @@ import { atom, selector } from "recoil";
 import { cartItemsState } from "./cart/cartItems";
 import { couponsState } from "./coupon/coupons";
 import { calculateDiscountAmountOfCoupon } from "../utils/calculateDiscountAmountOfCoupon";
+import {
+  DELIVERY_COST,
+  MINIMUM_AMOUNT_FOR_FREE_DELIVERY,
+} from "../constants/servicePolicy";
 
 // 주문 금액
 export const orderAmountState = selector({
@@ -44,8 +48,8 @@ export const discountAmountState = selector({
 });
 
 // 도서산간지역 선택 여부
-export const is도서산간지역State = atom({
-  key: "is도서산간지역State",
+export const isIslandOrMountainRegionState = atom({
+  key: "isIslandOrMountainRegionState",
   default: false,
 });
 
@@ -54,15 +58,15 @@ export const deliveryCostState = selector({
   key: "deliveryCostState",
   get: async ({ get }) => {
     const orderAmount = get(orderAmountState);
-    const is도서산간지역 = get(is도서산간지역State);
+    const isIslandOrMountainRegion = get(isIslandOrMountainRegionState);
 
-    if (orderAmount >= 100_000) {
-      return 0;
+    if (orderAmount >= MINIMUM_AMOUNT_FOR_FREE_DELIVERY) {
+      return DELIVERY_COST.free;
     }
-    if (is도서산간지역) {
-      return 6000;
+    if (isIslandOrMountainRegion) {
+      return DELIVERY_COST.islandOrMountainRegionState;
     }
-    return 3000;
+    return DELIVERY_COST.regular;
   },
 });
 

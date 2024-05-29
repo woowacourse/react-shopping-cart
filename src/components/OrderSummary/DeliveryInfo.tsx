@@ -1,13 +1,13 @@
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { is도서산간지역State } from "../../recoil/cartAmount";
+import { isIslandOrMountainRegionState } from "../../recoil/cartAmount";
 
 export default function DeliveryInfo() {
-  const [is도서산간지역, setIs도서산간지역] =
-    useRecoilState(is도서산간지역State);
+  const [isIslandOrMountainRegion, setIsIslandOrMountainRegion] =
+    useRecoilState(isIslandOrMountainRegionState);
 
   const handleCheckboxChange = () => {
-    setIs도서산간지역((prev) => !prev);
+    setIsIslandOrMountainRegion((prev) => !prev);
   };
 
   return (
@@ -18,7 +18,7 @@ export default function DeliveryInfo() {
         <S.Checkbox
           id="select-all-checkbox"
           type="checkbox"
-          checked={is도서산간지역}
+          checked={isIslandOrMountainRegion}
           onChange={handleCheckboxChange}
         />
         <S.CheckboxLabel htmlFor="select-all-checkbox">

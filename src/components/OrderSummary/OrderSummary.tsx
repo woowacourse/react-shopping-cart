@@ -15,7 +15,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { selectedCartItemIdsState } from "../../recoil/cart/selectedCartItemIds";
 import { selectedCartItemsCountState } from "../../recoil/selectedCartItemsCount";
 import {
-  is도서산간지역State,
+  isIslandOrMountainRegionState,
   totalOrderAmountState,
 } from "../../recoil/cartAmount";
 import { couponsState } from "../../recoil/coupon/coupons";
@@ -27,7 +27,9 @@ export default function OrderSummary() {
     selectedCartItemIdsState
   );
   const setGlobalCouponsState = useSetRecoilState(couponsState);
-  const setIs도서산간지역State = useSetRecoilState(is도서산간지역State);
+  const setIsIslandOrMountainRegionState = useSetRecoilState(
+    isIslandOrMountainRegionState
+  );
 
   const selectedUniqueCartItemsCount = useRecoilValue(
     selectedCartItemIdsState
@@ -62,7 +64,7 @@ export default function OrderSummary() {
   useEffect(() => {
     return () => {
       setGlobalCouponsState([]);
-      setIs도서산간지역State(false);
+      setIsIslandOrMountainRegionState(false);
     };
   }, []);
 
