@@ -58,12 +58,10 @@ export const isAvailableTime = (coupon: Coupon | RawCoupon) => {
 };
 
 export const checkBuyQuantity = (coupon: BOGOCoupon, cartItems: CartItem[]) => {
-  return (
-    cartItems.filter(
-      (cartItem) =>
-        cartItem.isSelected &&
-        cartItem.quantity >= coupon.buyQuantity + coupon.getQuantity
-    ).length > 0
+  return cartItems.some(
+    (cartItem) =>
+      cartItem.isSelected &&
+      cartItem.quantity >= coupon.buyQuantity + coupon.getQuantity
   );
 };
 
