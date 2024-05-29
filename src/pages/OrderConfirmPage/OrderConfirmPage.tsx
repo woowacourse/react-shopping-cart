@@ -31,6 +31,7 @@ import { postOrder } from "@/apis/order";
 import useCoupons from "@/hooks/coupon/useCoupons";
 import useSelectedItems from "@/hooks/cart/useSelectedItems";
 import { getLocalStorage } from "@/utils/localStorage";
+import { discountCouponPriceState } from "@/recoil/coupons";
 
 const OrderConfirmPage = ({
   selectedCartItems,
@@ -40,6 +41,7 @@ const OrderConfirmPage = ({
   const totalOrderPrice = useRecoilValue(totalItemsPriceSelector);
   const totalItemsCount = useRecoilValue(totalItemOrderCountSelector);
   const shippingFeeType = useRecoilValue(shippingFeeSelector);
+  const totalDiscountAmount = useRecoilValue(discountCouponPriceState);
   const setShippingFeeType = useSetRecoilState(shippingFeeState);
   const resetShippingFee = useResetRecoilState(shippingFeeSelector);
 
@@ -66,7 +68,8 @@ const OrderConfirmPage = ({
 
     navigate(PAGE_URL.paymentConfirm, {
       state: {
-        totalPrice: SHIPPING_FEE[shippingFeeType] + totalOrderPrice,
+        totalPrice:
+          SHIPPING_FEE[shippingFeeType] + totalOrderPrice - totalDiscountAmount,
         selectedItemsCount: selectedItemsId.length,
         totalItemsCount: totalItemsCount,
       },

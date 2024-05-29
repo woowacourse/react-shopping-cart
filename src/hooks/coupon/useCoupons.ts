@@ -1,6 +1,6 @@
 import { couponsState } from "@/recoil/coupons";
 import { freeShippingCouponState } from "@/recoil/shippingFeeType";
-import { Coupon } from "@/types/coupon";
+import { Coupon, CouponDiscountType } from "@/types/coupon";
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from "recoil";
 import { COUPON_ORDER_LIMIT } from "@/constants/couponAndOrder.ts";
 
@@ -49,12 +49,22 @@ const useCoupons = () => {
     resetCoupons();
   };
 
+  const getCouponByType = () => {
+    return [...couponList].reduce((acc, cur) => {
+      acc[cur.discountType] = acc[cur.discountType]
+        ? [...acc[cur.discountType], cur]
+        : [cur];
+      return acc;
+    }, {} as Record<CouponDiscountType, Coupon[]>);
+  };
+
   return {
     applyCoupon,
     unapplyCoupon,
     isCouponApplied,
     resetCouponList,
     couponList,
+    getCouponByType,
   };
 };
 

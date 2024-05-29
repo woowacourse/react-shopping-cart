@@ -1,5 +1,6 @@
 import { atom, selector } from "recoil";
 import { selectedCartItemList } from "./selectedCardItems";
+import { cartListQuantitySelector } from "@/recoil/cartItemQuantity";
 
 export const totalItemsPriceSelector = selector({
   key: "totalItemsPriceSelector",
@@ -21,14 +22,18 @@ export const totalItemOrderCountSelector = selector({
 
   get: ({ get }) => {
     const selectedItems = get(selectedCartItemList);
+    const itemListQuantity = get(cartListQuantitySelector);
     if (!selectedItems.length) return 0;
 
-    const totalItemOrderCount = selectedItems.reduce((acc, item) => {
-      acc += item.product.price;
+    const totalItemOrder = selectedItems.reduce((acc, selectedItem) => {
+      const targetItem = itemListQuantity.find(
+        (item) => item.item.id === selectedItem.id
+      );
+      acc += targetItem!.quantity;
       return acc;
     }, 0);
 
-    return totalItemOrderCount;
+    return totalItemOrder;
   },
 });
 

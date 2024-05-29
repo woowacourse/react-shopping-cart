@@ -8,7 +8,7 @@ import CouponList from "./components/CouponList";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   couponListSelector,
-  couponsState,
+  // couponsState,
   discountCouponPriceState,
 } from "@/recoil/coupons";
 import useDiscountCalculator from "@/hooks/coupon/useDiscountCalculator";
@@ -22,6 +22,7 @@ import {
   couponApplyText,
 } from "@/constants/couponAndOrder.ts";
 import React from "react";
+import useCoupons from "@/hooks/coupon/useCoupons";
 
 const CouponModalInner = ({
   isOpen,
@@ -31,7 +32,7 @@ const CouponModalInner = ({
   onCloseModal: () => void;
 }) => {
   const couponList = useRecoilValue(couponListSelector);
-  const coupons = useRecoilValue(couponsState);
+  // const coupons = useRecoilValue(couponsState);
 
   const totalPrice = useRecoilValue(totalItemsPriceSelector);
 
@@ -40,7 +41,11 @@ const CouponModalInner = ({
 
   const { calculateTotalDiscount } = useDiscountCalculator();
   const isFreeShipping = useRecoilValue(freeShippingCouponState);
-  const totalDiscountAmount = calculateTotalDiscount(coupons, totalPrice);
+  const { getCouponByType } = useCoupons();
+  const totalDiscountAmount = calculateTotalDiscount(
+    getCouponByType(),
+    totalPrice
+  );
 
   const onApplyCoupon = () => {
     const finalOrderPrice = totalPrice - totalDiscountAmount;

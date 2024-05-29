@@ -1,14 +1,13 @@
-import { Coupon } from "@/types/coupon";
-import { useRecoilValue } from "recoil";
+import { Coupon, CouponDiscountType } from "@/types/coupon";
+// import { useRecoilValue } from "recoil";
 import useCouponApplicabilityChecker from "./useCouponApplicabilityChecker";
-import { SHIPPING_FEE } from "@/constants/shippingInfo.ts";
-import { couponsByDiscountTypeSelector } from "@/recoil/coupons";
+// import { couponsByDiscountTypeSelector } from "@/recoil/coupons";
 import useBuyXgetYCoupon from "@/hooks/coupon/useBuyXgetYCoupon";
 
 const useDiscountCalculator = () => {
   const { isCouponApplicable } = useCouponApplicabilityChecker();
   const { getMaxPriceItem } = useBuyXgetYCoupon();
-  const couponsByDiscountType = useRecoilValue(couponsByDiscountTypeSelector);
+  // const couponsByDiscountType = useRecoilValue(couponsByDiscountTypeSelector);
 
   const calculateFixedDiscount = (coupon: Coupon, totalAmount: number) => {
     if (!isCouponApplicable({ coupon, price: totalAmount })) return 0;
@@ -20,49 +19,35 @@ const useDiscountCalculator = () => {
     return Math.floor((totalAmount * (coupon.discount ?? 0)) / 100);
   };
 
-  const calculateDiscountAmount = (coupon: Coupon, totalAmount: number) => {
-    switch (coupon.discountType) {
-      case "fixed":
-        return calculateFixedDiscount(coupon, totalAmount);
-      case "percentage":
-        return calculatePercentageDiscount(coupon, totalAmount);
-      default:
-        return SHIPPING_FEE.basic;
-    }
-  };
+  const calculateTotalDiscount = (
+    couponsByDiscountType: Record<CouponDiscountType, Coupon[]>,
+    totalPrice: number
+  ) => {
+    const { buyXgetY, percentage, fixed } = couponsByDiscountType;
 
-  const calculateTotalDiscount = (coupons: Coupon[], totalPrice: number) => {
-    let totalDiscount = 0;
+    const buyXgetYDiscount = buyXgetY ? getMaxPriceItem() : 0;
 
-    if (coupons) {
-      const { buyXgetY, percentage, fixed } = couponsByDiscountType;
+    const percentageDiscount = percentage
+      ? percentage
+          .sort((a, b) => a.discount! - b.discount!)
+          .reduce(
+            (acc, cur) =>
+              acc + calculatePercentageDiscount(cur, totalPrice - acc),
+            0
+          )
+      : 0;
 
-      if (buyXgetY) {
-        totalDiscount += getMaxPriceItem();
-      }
+    const fixedDiscount = fixed
+      ? fixed.reduce(
+          (acc, cur) => acc + calculateFixedDiscount(cur, totalPrice - acc),
+          0
+        )
+      : 0;
 
-      if (percentage) {
-        const sortedCoupons = [
-          ...percentage.sort((a, b) => a.discount! - b.discount!),
-        ];
-        totalDiscount += sortedCoupons.reduce((acc, cur) => {
-          acc += calculateDiscountAmount(cur, totalPrice - totalDiscount);
-          return acc;
-        }, 0);
-      }
-
-      if (fixed) {
-        totalDiscount += fixed.reduce((acc, cur) => {
-          acc += calculateDiscountAmount(cur, totalPrice - totalDiscount);
-          return acc;
-        }, 0);
-      }
-    }
-    return totalDiscount;
+    return buyXgetYDiscount + percentageDiscount + fixedDiscount;
   };
 
   return {
-    calculateDiscountAmount,
     calculateTotalDiscount,
   };
 };
