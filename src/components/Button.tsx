@@ -27,5 +27,6 @@ const S = {
     &:disabled {
       background-color: rgba(190, 190, 190, 1);
     }
+    border-radius: 0;
   `,
 };

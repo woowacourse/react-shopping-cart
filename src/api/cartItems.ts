@@ -1,9 +1,6 @@
-import { CartItem } from "../types/cartItems";
-import { fetchWithAuth } from "./fetchWithAuth";
+import { PATH, fetchWithAuth } from "./fetchWithAuth";
 
-const PATH = {
-  cartItems: "/cart-items",
-};
+import { CartItem } from "../types/cartItems";
 
 export const fetchCartItems = async (): Promise<CartItem[]> => {
   const response = await fetchWithAuth(PATH.cartItems, {

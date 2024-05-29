@@ -1,10 +1,10 @@
 import { renderHook, waitFor } from "@testing-library/react";
-import { fetchCartItems } from "../api/cartItems";
+import { fetchCartItems } from "../../api/cartItems";
 import { RecoilRoot, useRecoilValue } from "recoil";
 import { rawCartItemsState } from "./rawCartItems";
 import { Suspense } from "react";
 
-jest.mock("../api/cartItems");
+jest.mock("../../api/cartItems");
 
 const mockFetchCartItems = fetchCartItems as jest.Mock;
 

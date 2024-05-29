@@ -2,11 +2,14 @@ import CartAmount from "./CartAmount";
 import CartButton from "./CartButton";
 import CartItemList from "./CartItemList";
 import CartTitle from "./CartTitle";
-import { cartItemsState } from "../recoil/cartItems";
+import { cartItemsState } from "../recoil/cart/cartItems";
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
+import { useFetchCartItems } from "../hooks/useFetchCartItems";
+import { COLORS } from "../styles";
 
 function CartContent() {
+  useFetchCartItems();
   const cartItems = useRecoilValue(cartItemsState);
 
   const 내용물 =
@@ -51,7 +54,7 @@ const S = {
     font-size: 16px;
     font-weight: 400;
     line-height: 16px;
-    color: rgba(10, 13, 19, 1);
+    color: ${COLORS.PRIMARY_TEXT};
     width: fit-content;
     margin: 0 auto;
   `,

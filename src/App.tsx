@@ -6,6 +6,7 @@ import CartPage from "./pages/CartPage";
 import { PATH } from "./constants/path";
 import OrderSummaryPage from "./pages/OrderSummaryPage";
 import { ErrorBoundary } from "react-error-boundary";
+import CheckoutPage from "./pages/CheckoutPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Routes>
             <Route path={PATH.cart} element={<CartPage />} />
             <Route path={PATH.orderSummary} element={<OrderSummaryPage />} />
+            <Route path={PATH.checkout} element={<CheckoutPage />} />
           </Routes>
         </ErrorBoundary>
       </RecoilRoot>

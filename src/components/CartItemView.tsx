@@ -1,6 +1,7 @@
 import { CartItem } from "../types/cartItems";
 import { UseCartItemsReturn } from "../hooks/useCartItemControl";
 import styled from "styled-components";
+import { COLORS } from "../styles";
 
 export interface CartItemViewProps {
   cartItem: CartItem;
@@ -122,7 +123,7 @@ const S = {
     font-size: 12px;
     font-weight: 500;
     line-height: 15px;
-    color: rgba(10, 13, 19, 1);
+    color: ${COLORS.PRIMARY_TEXT};
   `,
 
   ProductOuterWrapper: styled.div`

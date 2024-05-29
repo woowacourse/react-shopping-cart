@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { PATH } from "../constants/path";
 import Button from "./Button";
 import { useRecoilValue } from "recoil";
-import { selectedCartItemIdsState } from "../recoil/selectedCartItemIds";
+import { selectedCartItemIdsState } from "../recoil/cart/selectedCartItemIds";
 
 export default function CartButton() {
   const navigate = useNavigate();
