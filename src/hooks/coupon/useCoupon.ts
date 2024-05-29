@@ -9,10 +9,8 @@ export default function useCoupon(code: string) {
   const selectedCoupons = useRecoilValue(selectedCouponListSelector);
   const getCoupon = useRecoilValue(getCouponWithCode);
 
-  const { isSelected, toggleSelected } = useSelectCoupon(code);
-  const toggleCouponSelection = () => {
-    toggleSelected();
-  };
+  const { isSelected, toggleSelected: toggleCouponSelection } =
+    useSelectCoupon(code);
 
   const checkAvailability = () => {
     if (!isSelected && selectedCoupons.length >= 2) return false;
