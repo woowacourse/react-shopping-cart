@@ -34,7 +34,6 @@ export const ResetAllState = () => {
     ({ snapshot, set }) =>
       async () => {
         const items = await snapshot.getPromise(fetchItemsSelector);
-        console.log(items);
         items.forEach((item) => {
           set(itemDetailsState(item.id), {
             quantity: item ? item.quantity : 1,
