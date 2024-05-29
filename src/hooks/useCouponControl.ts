@@ -31,7 +31,7 @@ export const useCouponControl = (initCoupons: Coupon[]) => {
         }),
       0
     );
-  }, [orderAmount, coupons]);
+  }, [coupons, cartItems, orderAmount, deliveryCost]);
 
   const isCheckableCouponsYet = useMemo(() => {
     return coupons.filter((coupon) => coupon.isSelected).length < 2;
