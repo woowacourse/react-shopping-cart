@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { Coupon, RawCoupon } from "../types/coupons";
+import { Coupon } from "../types/coupons";
 import { fetchCoupons } from "../api/coupons";
 import { isValidCoupon } from "../utils/validateCoupon";
 import { checkApplicableCoupon } from "../utils/checkApplicableCoupon";
@@ -19,7 +19,7 @@ export const useFetchCoupons = () => {
     (async () => {
       setIsLoading(true);
       try {
-        const rawCoupons: RawCoupon[] = await fetchCoupons();
+        const rawCoupons = await fetchCoupons();
         const coupons: Coupon[] = rawCoupons.map((rawCoupon) => ({
           ...rawCoupon,
           isSelected: false,
@@ -36,7 +36,7 @@ export const useFetchCoupons = () => {
 
       setIsLoading(false);
     })();
-  }, [orderAmount]);
+  }, [cartItems, orderAmount]);
 
   return { coupons, isLoading, isError };
 };
