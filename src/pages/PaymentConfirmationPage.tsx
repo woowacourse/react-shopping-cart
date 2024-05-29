@@ -49,10 +49,6 @@ const PaymentConfirmationPage = () => {
 
 export default PaymentConfirmationPage;
 
-const leftArrowBtnCSS = css`
-  cursor: pointer;
-`;
-
 const confirmTextCSS = css`
   display: flex;
   flex-direction: column;

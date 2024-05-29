@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { couponsAtom } from "../../recoil/atom/atom";
-import { fetchCoupons } from "../../api/couponApi";
+import { fetchCoupons } from "../../api/coupon";
 
 export const useFetchCoupons = () => {
   const setCoupons = useSetRecoilState(couponsAtom);

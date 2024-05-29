@@ -8,7 +8,7 @@ import { useFetchCartItems } from "../hooks/useFetchCartItems/useFetchCartItems"
 import { CartLayout, Header, Content, Footer } from "../components/layout";
 import { CouponButton, OrderItems, PaymentSummary, ShippingInfo } from "../components/orderConfirmation";
 import { Title } from "../components/default";
-import { orderCartItems } from "../api/orderApi";
+import { orderCartItems } from "../api/order";
 import LeftArrow from "../assets/LeftArrow.svg?react";
 import { useFetchCoupons } from "../hooks/useFetchCoupons/useFetchCoupons";
 

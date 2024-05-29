@@ -1,6 +1,6 @@
 import { useSetRecoilState } from "recoil";
 import { cartItemsAtom, cartItemCheckedIdsAtom } from "../../recoil/atom/atom";
-import { patchCartItemQuantity, deleteCartItem } from "../../api/cartItemApi";
+import { patchCartItemQuantity, deleteCartItem } from "../../api/cartItem";
 import { Product } from "../../types/product";
 
 export const useCartActions = () => {

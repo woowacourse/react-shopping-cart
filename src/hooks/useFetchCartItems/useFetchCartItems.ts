@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { cartItemsAtom, couponCheckedAtom } from "../../recoil/atom/atom";
-import { fetchCartItems } from "../../api/cartItemApi";
+import { fetchCartItems } from "../../api/cartItem";
 
 export const useFetchCartItems = () => {
   const setCartItems = useSetRecoilState(cartItemsAtom);
