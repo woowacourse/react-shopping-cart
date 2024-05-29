@@ -10,7 +10,7 @@ interface Request {
   requestUrl: string;
   method: HTTPMethod;
   headers?: Record<string, string>;
-  body?: Record<string, string | number>;
+  body?: Record<string, string | number | number[]>;
 }
 
 const fetcher = {

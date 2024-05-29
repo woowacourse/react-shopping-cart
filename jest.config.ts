@@ -15,5 +15,6 @@ export default {
     '@assets/(.*)': '<rootDir>/src/assets/$1',
     '@constants/(.*)': '<rootDir>/src/constants/$1',
     '@mocks/(.*)': '<rootDir>/src/mocks/$1',
+    '@common/(.*)': '<rootDir>/src/components/common/$1',
   },
 };
