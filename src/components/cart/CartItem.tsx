@@ -1,14 +1,12 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { css } from "@emotion/css";
-
 import { cartItemCheckedIdsAtom } from "../../recoil/atom/atom";
 import { quantitySelectorFamily } from "../../recoil/selector/selector";
 import { useCartItemChecked } from "../../hooks/useCartItemChecked/useCartItemChecked";
 import { useCartActions } from "../../hooks/useCartActions/useCartActions";
 import { Product } from "../../types/product";
-import { Button, Splitter } from "../default";
-import { formatCurrency } from "../../utils/formatCurrency";
+import { Button, ProductInfo, Splitter } from "../default";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
 import MinusIcon from "../../assets/MinusIcon.svg?react";
 import PlusIcon from "../../assets/PlusIcon.svg?react";
@@ -28,10 +26,9 @@ const CartItem = ({ product }: CartItemProps) => {
   }, [product.quantity, setQuantity]);
 
   return (
-    <div className={ItemCSS}>
+    <div className={CartItemCSS}>
       <Splitter />
-
-      <div className={ItemHeaderCSS}>
+      <div className={CartItemHeaderCSS}>
         <Button
           variant={checkedIds.includes(product.id) ? "primary" : "secondary"}
           size="small"
@@ -48,17 +45,10 @@ const CartItem = ({ product }: CartItemProps) => {
         </Button>
       </div>
 
-      <div className={ItemContentCSS}>
-        <img
-          src={product.product.imageUrl}
-          className={ItemImageCSS}
-        />
-        <div className={ItemInfoWithCountCSS}>
-          <div className={ItemInfoCSS}>
-            <div className={ItemNameCSS}>{product.product.name}</div>
-            <div className={ItemPriceCSS}>{formatCurrency(product.product.price)}</div>
-          </div>
-          <div className={ItemCountCSS}>
+      <ProductInfo
+        product={product}
+        quantityNode={
+          <div className={CartItemQuantityControlsCSS}>
             <Button
               variant="secondary"
               size="small"
@@ -75,58 +65,27 @@ const CartItem = ({ product }: CartItemProps) => {
               <PlusIcon />
             </Button>
           </div>
-        </div>
-      </div>
+        }
+      />
     </div>
   );
 };
 
 export default CartItem;
 
-const ItemCSS = css`
+const CartItemCSS = css`
   display: flex;
   flex-direction: column;
   gap: 12px;
 `;
 
-const ItemHeaderCSS = css`
+const CartItemHeaderCSS = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
-const ItemContentCSS = css`
-  display: flex;
-  align-items: center;
-  gap: 24px;
-`;
-
-const ItemImageCSS = css`
-  width: 112px;
-  height: 112px;
-  border-radius: 8px;
-`;
-
-const ItemInfoWithCountCSS = css`
-  display: flex;
-  flex-direction: column;
-  gap: 19px;
-`;
-
-const ItemInfoCSS = css`
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-`;
-const ItemNameCSS = css`
-  font: var(--cart-label);
-  color: var(--grey-400);
-`;
-const ItemPriceCSS = css`
-  font: var(--cart-title);
-`;
-
-const ItemCountCSS = css`
+const CartItemQuantityControlsCSS = css`
   display: flex;
   align-items: center;
   gap: 8px;

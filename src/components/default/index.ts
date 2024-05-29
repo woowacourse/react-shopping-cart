@@ -3,3 +3,4 @@ export { default as LabelValue } from "./LabelValue";
 export { default as Splitter } from "./Splitter";
 export { default as Title } from "./Title";
 export { default as Information } from "./Information";
+export { default as ProductInfo } from "./ProductInfo";
