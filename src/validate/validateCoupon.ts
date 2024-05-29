@@ -25,7 +25,6 @@ const isCouponApplicable = (
   ) {
     return false;
   }
-  console.log(isAvailableBuyXgetY);
   if (coupon.discountType === 'buyXgetY' && !isAvailableBuyXgetY) {
     return false;
   }
