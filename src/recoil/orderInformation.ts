@@ -3,7 +3,10 @@ import {
   selectedCartItemsIdState,
   selectedCartListSelector,
 } from "./selectedCardItems";
-import { cartListQuantitySelector } from "@/recoil/cartItemQuantity";
+import {
+  cartItemQuantityState,
+  cartListQuantitySelector,
+} from "@/recoil/cartItemQuantity";
 import { cartItemsState } from "@/recoil/cartItems";
 
 export const totalItemsPriceSelector = selector({
@@ -14,8 +17,9 @@ export const totalItemsPriceSelector = selector({
 
     const totalPrice = selectedItemsIds.reduce((acc, id) => {
       const targetItem = get(cartItemsState).find((item) => item.id === id);
+      const quantity = get(cartItemQuantityState(id));
       if (targetItem) {
-        acc += targetItem.product.price * targetItem.quantity;
+        acc += targetItem.product.price * quantity;
         return acc;
       }
       return acc;
