@@ -6,7 +6,7 @@ import {
   shippingInformationState,
 } from './atoms';
 import isCouponApplicable from '../validate/validateCoupon';
-import { totalAmountSelector } from './selectors';
+import { checkedItemsSelector, totalAmountSelector } from './selectors';
 import { removeLocalStorage } from '../utils/LocalStorage';
 import { fetchCouponsSelector, fetchItemsSelector } from './fetchSelectors';
 
@@ -66,9 +66,14 @@ export const useValidateCoupons = () => {
           const couponDetail = await snapshot.getPromise(
             couponDetailState(coupon.id),
           );
+          const checkedItems = await snapshot.getPromise(checkedItemsSelector);
+          const isAvailableBuyXgetY = checkedItems.some(
+            (value) => value.quantity > coupon.buyQuantity!,
+          );
           set(
             couponDetailState(coupon.id),
-            couponDetail && isCouponApplicable(coupon, totalAmount),
+            couponDetail &&
+              isCouponApplicable(coupon, isAvailableBuyXgetY, totalAmount),
           );
         });
       },
