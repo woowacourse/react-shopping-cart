@@ -17,7 +17,7 @@ const CouponList = () => {
   const priceInfo = useRecoilValue(priceInfoStore);
 
   const isAppliedFreeShipping = () => {
-    return selected.find(selectedItem => {
+    return selected.some(selectedItem => {
       return selectedItem.discountType === COUPON_DISCOUNT_TYPE.FREE_SHIPPING;
     });
   };
