@@ -3,12 +3,12 @@ import {
   couponDetailState,
   couponsState,
   itemDetailsState,
+  itemsState,
   shippingInformationState,
 } from './atoms';
 import isCouponApplicable from '../validate/validateCoupon';
 import { checkedItemsSelector, totalAmountSelector } from './selectors';
 import { removeLocalStorage } from '../utils/LocalStorage';
-import { fetchCouponsSelector, fetchItemsSelector } from './fetchSelectors';
 
 /**
  * 전체 쿠폰의 선택 여부를 초기 상태(false)로 만드는 함수
@@ -33,7 +33,7 @@ export const ResetAllState = () => {
   return useRecoilCallback(
     ({ snapshot, set }) =>
       async () => {
-        const items = await snapshot.getPromise(fetchItemsSelector);
+        const items = await snapshot.getPromise(itemsState);
         items.forEach((item) => {
           set(itemDetailsState(item.id), {
             quantity: item ? item.quantity : 1,
@@ -41,7 +41,7 @@ export const ResetAllState = () => {
           });
         });
 
-        const coupons = await snapshot.getPromise(fetchCouponsSelector);
+        const coupons = await snapshot.getPromise(couponsState);
         coupons.forEach((coupon) => {
           set(couponDetailState(coupon.id), false);
         });
