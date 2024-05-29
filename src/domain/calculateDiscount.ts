@@ -19,15 +19,14 @@ export const calculateDiscount = ({
     case 'FIXED5000':
       return coupon.discount;
 
-    case 'BOGO':
-      return (() => {
-        const availableItems = items.filter(
-          (item) => item.quantity >= coupon.buyQuantity
-        );
-        return availableItems.reduce((maxPrice, item) => {
-          return item.product.price > maxPrice ? item.product.price : maxPrice;
-        }, 0);
-      })();
+    case 'BOGO': {
+      const availableItems = items.filter(
+        (item) => item.quantity >= coupon.buyQuantity
+      );
+      return availableItems.reduce((maxPrice, item) => {
+        return item.product.price > maxPrice ? item.product.price : maxPrice;
+      }, 0);
+    }
 
     case 'FREESHIPPING':
       return shippingFee;
