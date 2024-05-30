@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
-import CartItem from "../../../common/CartItem/CartItem";
 import { checkedCartItemsSelector } from "../../../../store/selector/selectors";
+import OrderItem from "../../../common/BasicCartItem/OrderItem";
 
 const OrderItemList = () => {
   const checkedCartItems = useRecoilValue(checkedCartItemsSelector);
@@ -8,7 +8,7 @@ const OrderItemList = () => {
   return (
     <div>
       {checkedCartItems.map((item) => (
-        <CartItem CartItemInfo={item} key={item.id} type="order" />
+        <OrderItem CartItemInfo={item} key={item.id} />
       ))}
     </div>
   );

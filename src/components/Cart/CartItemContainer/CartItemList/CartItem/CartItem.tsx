@@ -2,30 +2,25 @@
 import {
   CartItemContainerStyle,
   CartItemDetailControlsStyle,
-  CartItemImageStyle,
-  CartItemInfoStyle,
-  CartItemNameStyle,
-  CartItemPriceStyle,
   CartItemQuantityContainerStyle,
   CartItemQuantityStyle,
-  OrderItemQuantityStyle,
 } from "./CartItem.style";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useCallback } from "react";
 import { cartState, cartItemCheckedState, cartItemIdListState } from "../../../store/atom/atoms";
 import { changeProductAmount, deleteProduct } from "../../../store/api";
 import { deleteCartItemCheckedStateInStorage } from "../../../store/utils";
-import Divider from "../../common/Divider/Divider";
-import Checkbox from "../../common/Buttons/Checkbox/Checkbox";
-import DeleteButton from "../../common/Buttons/DeleteButton/DeleteButton";
-import QuantityButton from "../../common/Buttons/QuantityButton/QuantityButton";
+import Divider from "../Divider/Divider";
+import Checkbox from "../Buttons/Checkbox/Checkbox";
+import DeleteButton from "../Buttons/DeleteButton/DeleteButton";
+import QuantityButton from "../Buttons/QuantityButton/QuantityButton";
+import BasicCartItem from "./BasicCartItem";
 
 interface CartItemProps {
   CartItemInfo: CartItemInfo;
-  type: "cart" | "order";
 }
 
-const CartItem = ({ CartItemInfo, type }: CartItemProps) => {
+const CartItem = ({ CartItemInfo }: CartItemProps) => {
   const { id } = CartItemInfo;
   const [isCheck, setIsCheck] = useRecoilState(cartItemCheckedState(id));
   const setItemIdList = useSetRecoilState(cartItemIdListState);
@@ -83,34 +78,18 @@ const CartItem = ({ CartItemInfo, type }: CartItemProps) => {
   return (
     <div css={CartItemContainerStyle}>
       <Divider />
-      {type === "cart" && (
-        <div css={CartItemDetailControlsStyle}>
-          <Checkbox isCheck={isCheck} onClick={handleCheckBoxClick} />
-          <DeleteButton onClick={handleDeleteButtonClick} />
-        </div>
-      )}
-
-      <div css={CartItemInfoStyle}>
-        <div>
-          <img src={CartItemInfo.product.imageUrl} css={CartItemImageStyle} />
-        </div>
-        <div>
-          <div css={CartItemNameStyle}>{CartItemInfo.product.name}</div>
-          <div css={CartItemPriceStyle}>{CartItemInfo.product.price.toLocaleString() + "원"}</div>
-          {type === "cart" ? (
-            <div css={CartItemQuantityContainerStyle}>
-              <QuantityButton
-                onClick={handleMinusButtonClick}
-                type={CartItemInfo.quantity === 1 ? "canDelete" : "minus"}
-              />
-              <div css={CartItemQuantityStyle}>{CartItemInfo.quantity}</div>
-              <QuantityButton onClick={handlePlusButtonClick} type={"plus"} />
-            </div>
-          ) : (
-            <div css={OrderItemQuantityStyle}>{CartItemInfo.quantity + "개"}</div>
-          )}
-        </div>
+      <div css={CartItemDetailControlsStyle}>
+        <Checkbox isCheck={isCheck} onClick={handleCheckBoxClick} />
+        <DeleteButton onClick={handleDeleteButtonClick} />
       </div>
+
+      <BasicCartItem CartItemInfo={CartItemInfo}>
+        <div css={CartItemQuantityContainerStyle}>
+          <QuantityButton onClick={handleMinusButtonClick} type={CartItemInfo.quantity === 1 ? "canDelete" : "minus"} />
+          <div css={CartItemQuantityStyle}>{CartItemInfo.quantity}</div>
+          <QuantityButton onClick={handlePlusButtonClick} type={"plus"} />
+        </div>
+      </BasicCartItem>
     </div>
   );
 };
