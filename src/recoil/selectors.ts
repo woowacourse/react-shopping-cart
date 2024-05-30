@@ -163,7 +163,7 @@ export const finalTotalPaymentAmountSelector = selector<number>({
 });
 
 export const couponIdsSelector = selector<number[]>({
-  key: 'selectedCouponIds',
+  key: 'couponIds',
   get: ({ get }) => {
     return get(couponsState).map((coupon) => coupon.id);
   },
