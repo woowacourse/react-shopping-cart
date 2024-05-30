@@ -1,12 +1,12 @@
 import * as Styled from './CheckBox.style';
 
 export interface CheckBoxProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  cartItemId?: number;
+  itemId?: number;
   isChecked: boolean;
 }
 
-export default function CheckBox({ cartItemId, isChecked, ...props }: CheckBoxProps) {
-  const checkBoxId = cartItemId ? `cart-item-${cartItemId}` : 'cart-select-all';
+export default function CheckBox({ itemId, isChecked, ...props }: CheckBoxProps) {
+  const checkBoxId = itemId ? `item-${itemId}` : 'select-all';
 
   return (
     <>

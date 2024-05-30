@@ -8,14 +8,14 @@ export const CartItemContainer = styled.li({
   gap: '12px',
 });
 
-export const CardItemHeader = styled.div({
+export const CartItemHeader = styled.div({
   height: '24px',
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
 });
 
-export const CardItemContent = styled.div({
+export const CartItemContent = styled.div({
   display: 'flex',
   flexDirection: 'row',
   gap: '24px',

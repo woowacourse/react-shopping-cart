@@ -1,8 +1,8 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { cartItemsState, checkedCartItemsState } from '../recoil/atoms';
+import { cartItemsState, checkedCartItemIdsState } from '../recoil/atoms';
 
 export default function useCheckCartItem() {
-  const [checkedCartItemIds, setCheckedCartItemIds] = useRecoilState(checkedCartItemsState);
+  const [checkedCartItemIds, setCheckedCartItemIds] = useRecoilState(checkedCartItemIdsState);
   const cartItems = useRecoilValue(cartItemsState);
 
   const isChecked = (id: number) => checkedCartItemIds.includes(id);

@@ -5,9 +5,9 @@ import { CheckBox } from '../../common';
 import * as Styled from './CartItemContainer.style';
 
 import { cartItemsState } from '../../../recoil/atoms';
-import { removeCartItem } from '../../../apis';
+import { removeCartItem, updateCartItemQuantity } from '../../../apis';
 import { useCheckCartItem, useFetchError } from '../../../hooks';
-import { ERROR_MESSAGE } from '../../../apis/fetchData/errorMessage';
+import { ERROR_MESSAGE } from '../../../apis/constants/errorMessage';
 
 export default function CartItemContainer() {
   const [items, setItems] = useRecoilState(cartItemsState);
@@ -16,6 +16,21 @@ export default function CartItemContainer() {
 
   const toggleAllCheck = () => {
     onCheckAllCartItem(!isAllChecked);
+  };
+
+  const handleUpdateQuantityItem = async (cartItemId: number, quantity: number) => {
+    try {
+      await updateCartItemQuantity(cartItemId, quantity);
+      setItems((prevItems) =>
+        prevItems.map((item) => {
+          if (item.id === cartItemId) return { ...item, quantity };
+          return item;
+        }),
+      );
+      resetFetchError();
+    } catch (error) {
+      throwFetchError(error, ERROR_MESSAGE.UPDATE_QUANTITY_FAILED);
+    }
   };
 
   const handleDeleteItem = async (cartItemId: number) => {
@@ -46,8 +61,8 @@ export default function CartItemContainer() {
               key={item.id}
               cartItemId={item.id}
               product={item.product}
-              quantity={item.quantity}
-              onDelete={(cartItemId: number) => handleDeleteItem(cartItemId)}
+              onUpdateQuantity={handleUpdateQuantityItem}
+              onDelete={handleDeleteItem}
             />
           );
         })}

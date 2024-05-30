@@ -1,4 +1,5 @@
 import { QuantityControlType } from '../../../type';
+import { ORDER_QUANTITY_PER_ITEM } from '../../../constants';
 import { QuantityControlButton, QuantityControllerContainer } from './QuantityController.style';
 
 interface QuantityControllerProps {
@@ -11,8 +12,8 @@ interface QuantityControllerProps {
 export default function QuantityController({
   quantity,
   onChangeQuantity,
-  minQuantity = 1,
-  maxQuantity = 100,
+  minQuantity = ORDER_QUANTITY_PER_ITEM.min,
+  maxQuantity = ORDER_QUANTITY_PER_ITEM.max,
 }: QuantityControllerProps) {
   return (
     <QuantityControllerContainer>

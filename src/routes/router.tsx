@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { ENDPOINT } from './router.constants';
-import { ShoppingCartPage, ConfirmOrderPage, ErrorPage } from '../page';
+import { ShoppingCartPage, ConfirmOrderPage, ConfirmPaymentPage, ErrorPage } from '../page';
 
 export const router = createBrowserRouter(
   [
@@ -16,6 +16,10 @@ export const router = createBrowserRouter(
         {
           path: ENDPOINT.confirmOrder,
           element: <ConfirmOrderPage />,
+        },
+        {
+          path: ENDPOINT.confirmPayment,
+          element: <ConfirmPaymentPage />,
         },
       ],
     },

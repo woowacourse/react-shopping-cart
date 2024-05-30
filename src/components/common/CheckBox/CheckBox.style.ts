@@ -5,10 +5,15 @@ export const CheckBoxInput = styled.input`
   display: none;
 `;
 
-export const CheckBox = styled.label<{ isChecked: boolean }>`
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  background: url('${(props) => (props.isChecked ? CheckedIcon : UncheckedIcon)}') center no-repeat;
-  cursor: pointer;
-`;
+export interface CheckBoxProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  isChecked: boolean;
+}
+
+export const CheckBox = styled.label<CheckBoxProps>(({ isChecked }) => ({
+  display: 'inline-block',
+  width: '24px',
+  height: '24px',
+  background: `url("${isChecked ? CheckedIcon : UncheckedIcon}") center no-repeat`,
+  backgroundSize: 'contain',
+  cursor: 'pointer',
+}));

@@ -1,32 +1,29 @@
-import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import { CheckBox, DeleteItemButton } from '../../common';
 import { QuantityController } from '../';
 import * as Styled from './CartItem.style';
 
-import { useCheckCartItem, useFetchError } from '../../../hooks';
-import { updateCartItemQuantity } from '../../../apis';
+import { useCheckCartItem } from '../../../hooks';
 import { convertToLocaleAmount } from '../../../utils';
 import { Product, QuantityControlType } from '../../../type';
 import { itemQuantityState } from '../../../recoil/atoms';
-import { ERROR_MESSAGE } from '../../../apis/fetchData/errorMessage';
 
 interface CartItemProps {
   cartItemId: number;
   product: Product;
-  quantity: number;
+  onUpdateQuantity: (cartItemId: number, quantity: number) => void;
   onDelete: (cartItemId: number) => void;
 }
 
-export default function CartItem({ cartItemId, product, quantity, onDelete }: CartItemProps) {
-  const [itemQuantity, setItemQuantity] = useRecoilState(itemQuantityState(cartItemId));
+export default function CartItem({
+  cartItemId,
+  product,
+  onUpdateQuantity,
+  onDelete,
+}: CartItemProps) {
+  const itemQuantity = useRecoilValue(itemQuantityState(cartItemId));
   const { isChecked, onCheckCartItem } = useCheckCartItem();
-  const { throwFetchError, resetFetchError } = useFetchError();
-
-  useEffect(() => {
-    setItemQuantity(quantity);
-  }, [quantity, setItemQuantity]);
 
   const toggleCheckBox = () => {
     onCheckCartItem(cartItemId, !isChecked(cartItemId));
@@ -34,17 +31,7 @@ export default function CartItem({ cartItemId, product, quantity, onDelete }: Ca
 
   const handleChangeQuantity = async (type: QuantityControlType) => {
     const newQuantity = type === 'increase' ? itemQuantity + 1 : Math.max(1, itemQuantity - 1);
-    setItemQuantity(newQuantity);
-    await updateQuantity(cartItemId, newQuantity);
-  };
-
-  const updateQuantity = async (cartItemId: number, quantity: number) => {
-    try {
-      await updateCartItemQuantity(cartItemId, quantity);
-      resetFetchError();
-    } catch (error) {
-      throwFetchError(error, ERROR_MESSAGE.UPDATE_QUANTITY_FAILED);
-    }
+    onUpdateQuantity(cartItemId, newQuantity);
   };
 
   const handleClickDeleteButton = () => {
@@ -53,16 +40,16 @@ export default function CartItem({ cartItemId, product, quantity, onDelete }: Ca
 
   return (
     <Styled.CartItemContainer>
-      <Styled.CardItemHeader>
+      <Styled.CartItemHeader>
         <CheckBox
-          cartItemId={cartItemId}
+          itemId={cartItemId}
           isChecked={isChecked(cartItemId)}
           onChange={toggleCheckBox}
           data-testid="cart-item-checkbox"
         />
         <DeleteItemButton type="button" buttonText="삭제" onClick={handleClickDeleteButton} />
-      </Styled.CardItemHeader>
-      <Styled.CardItemContent>
+      </Styled.CartItemHeader>
+      <Styled.CartItemContent>
         <Styled.ProductImageBox src={product.imageUrl} alt={product.name} />
         <Styled.ProductInfoBox>
           <div>
@@ -76,7 +63,7 @@ export default function CartItem({ cartItemId, product, quantity, onDelete }: Ca
             onChangeQuantity={(type: QuantityControlType) => handleChangeQuantity(type)}
           />
         </Styled.ProductInfoBox>
-      </Styled.CardItemContent>
+      </Styled.CartItemContent>
     </Styled.CartItemContainer>
   );
 }

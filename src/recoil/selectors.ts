@@ -1,43 +1,57 @@
 import { selector } from 'recoil';
-import { checkedCartItemsState, itemQuantityState, cartItemsState } from './atoms';
+import {
+  checkedCartItemIdsState,
+  itemQuantityState,
+  cartItemsState,
+  remoteShippingOptionState,
+  discountAmountState,
+} from './atoms';
+import { CartItem } from '../type';
+import { SHIPPING_COST } from '../constants';
+
+export const checkedCartItemsState = selector<CartItem[]>({
+  key: 'checkedCartItemsState',
+  get: ({ get }) => {
+    const cartItems = get(cartItemsState);
+    const checkedItemIds = get(checkedCartItemIdsState);
+
+    return cartItems.filter((item) => checkedItemIds.includes(item.id));
+  },
+});
 
 export const totalCheckedQuantityState = selector<number>({
   key: 'totalCheckedQuantityState',
   get: ({ get }) => {
-    const cartItems = get(cartItemsState);
-    const checkedItemIds = get(checkedCartItemsState);
-
-    return cartItems
-      .filter((item) => checkedItemIds.includes(item.id))
-      .reduce((acc, item) => {
-        const quantity = get(itemQuantityState(item.id));
-        return acc + quantity;
-      }, 0);
+    const checkedCartItems = get(checkedCartItemsState);
+    return checkedCartItems.reduce((acc, item) => {
+      const quantity = get(itemQuantityState(item.id));
+      return acc + quantity;
+    }, 0);
   },
 });
 
 export const orderAmountState = selector<number>({
   key: 'orderAmountState',
   get: ({ get }) => {
-    const cartItems = get(cartItemsState);
-    const checkedItemIds = get(checkedCartItemsState);
-
-    return cartItems
-      .filter((item) => checkedItemIds.includes(item.id))
-      .reduce((acc, item) => {
-        const quantity = get(itemQuantityState(item.id));
-        return acc + item.product.price * quantity;
-      }, 0);
+    const checkedCartItems = get(checkedCartItemsState);
+    return checkedCartItems.reduce((acc, item) => {
+      const quantity = get(itemQuantityState(item.id));
+      return acc + item.product.price * quantity;
+    }, 0);
   },
 });
 
-export const deliveryFeeState = selector<number>({
-  key: 'deliveryFeeState',
+export const shippingCostState = selector<number>({
+  key: 'shippingCostState',
   get: ({ get }) => {
-    const checkedItemIds = get(checkedCartItemsState);
+    const checkedCartItems = get(checkedCartItemsState);
     const orderAmount = get(orderAmountState);
+    const isRemoteShipping = get(remoteShippingOptionState);
 
-    return orderAmount >= 100000 || checkedItemIds.length < 1 ? 0 : 3000;
+    if (orderAmount >= SHIPPING_COST.freeShippingMinimumAmount || checkedCartItems.length < 1) {
+      return 0;
+    }
+    return isRemoteShipping ? SHIPPING_COST.remote : SHIPPING_COST.basic;
   },
 });
 
@@ -45,8 +59,9 @@ export const totalAmountState = selector<number>({
   key: 'totalAmountState',
   get: ({ get }) => {
     const orderAmount = get(orderAmountState);
-    const deliveryFee = get(deliveryFeeState);
+    const discountAmount = get(discountAmountState);
+    const shippingCost = get(shippingCostState);
 
-    return orderAmount + deliveryFee;
+    return orderAmount + shippingCost - discountAmount;
   },
 });
