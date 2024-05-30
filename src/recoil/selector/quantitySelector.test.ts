@@ -24,7 +24,7 @@ describe("quantitySelectorFamily 테스트", () => {
     result = hook.result;
   });
 
-  it("quantitySelectorFamily가 올바르게 초기 상태를 가져오는지 확인한다.", () => {
+  it("quantitySelectorFamily가 해당 id에 대한 quantity를 잘 반환하는지 확인한다.", () => {
     act(() => {
       result.current.setCartItems(mockCartItems);
       result.current.setQuantity(mockCartItems.find((item) => item.id === 1).quantity);
