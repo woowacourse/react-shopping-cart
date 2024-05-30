@@ -17,26 +17,20 @@ const useCouponApplicabilityChecker = () => {
     price?: number;
     time?: Date;
   }) => {
-    if (coupon.minimumAmount && price) {
-      if (coupon.minimumAmount > price) return false;
-    }
+    if (coupon.minimumAmount && price && coupon.minimumAmount > price)
+      return false;
 
-    if (coupon.buyQuantity && coupon.getQuantity) {
-      const result = checkBuyXgetY();
-      if (!result.length) return false;
-    }
+    if (coupon.buyQuantity && coupon.getQuantity && checkBuyXgetY().length)
+      return false;
 
-    if (coupon.expirationDate && time) {
-      if (!checkExpiration(coupon, time)) return false;
-    }
+    if (coupon.expirationDate && time && !checkExpiration(coupon, time))
+      return false;
 
-    if (coupon.availableTime && time) {
-      if (!checkAvailableTime(coupon, time)) return false;
-    }
+    if (coupon.availableTime && time && !checkAvailableTime(coupon, time))
+      return false;
 
-    if (coupon.discountType === "freeShipping") {
-      if (checkAlreadyFreeShipping()) return false;
-    }
+    if (coupon.discountType === "freeShipping" && checkAlreadyFreeShipping())
+      return false;
 
     return true;
   };
