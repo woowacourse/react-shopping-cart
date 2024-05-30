@@ -1,9 +1,15 @@
 import { getHeadersWithPayload, getHeadersWithoutPayload } from './headers';
 
-interface FetchProps {
+interface FetchWithPayloadProps {
   url: string;
   method: string;
-  payload?: object;
+  payload: object;
+  errorMessage: string;
+}
+
+interface FetchWithoutPayloadProps {
+  url: string;
+  method: string;
   errorMessage: string;
 }
 
@@ -12,7 +18,7 @@ export const fetchWithPayload = async ({
   method,
   payload,
   errorMessage,
-}: FetchProps) => {
+}: FetchWithPayloadProps) => {
   const response = await fetch(url, {
     method: method,
     headers: getHeadersWithPayload(),
@@ -30,7 +36,7 @@ export const fetchWithoutPayload = async ({
   url,
   method,
   errorMessage,
-}: FetchProps) => {
+}: FetchWithoutPayloadProps) => {
   const response = await fetch(url, {
     method: method,
     headers: getHeadersWithoutPayload(),
