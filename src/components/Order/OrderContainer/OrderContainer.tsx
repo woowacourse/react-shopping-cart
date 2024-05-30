@@ -13,11 +13,11 @@ import OrderItemList from "./OrderItemList/OrderItemList";
 
 import CouponModal from "../../common/CouponModal/CouponModal";
 import { useRecoilState } from "recoil";
-import { remoteAreaState } from "../../../store/atom/atoms";
+import { isRemoteAreaState } from "../../../store/atom/atoms";
 
 const OrderContainer = () => {
   const [modalOpened, setModalOpened] = useState(false);
-  const [isRemoteArea, setIsRemoteArea] = useRecoilState(remoteAreaState);
+  const [isRemoteArea, setIsRemoteArea] = useRecoilState(isRemoteAreaState);
 
   const handleModalOpen = () => {
     setModalOpened(true);

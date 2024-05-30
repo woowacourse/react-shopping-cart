@@ -1,5 +1,5 @@
 import { RecoilEnv, selector } from "recoil";
-import { cartItemCheckedState, cartItemIdListState, remoteAreaState, selectedCouponsState } from "../atom/atoms";
+import { cartItemCheckedState, cartItemIdListState, isRemoteAreaState, selectedCouponsState } from "../atom/atoms";
 import { SHIPPING_CONSTANT } from "../../constants";
 import { cartState } from "../atom/atoms";
 
@@ -37,7 +37,7 @@ export const shippingFeeSelector = selector<number>({
   key: "shippingFee",
   get: ({ get }) => {
     const orderAmount = get(orderAmountSelector);
-    const isRemoteArea = get(remoteAreaState);
+    const isRemoteArea = get(isRemoteAreaState);
     const couponList = get(selectedCouponsState);
 
     if (couponList.some((coupon) => coupon.discountType === "freeShipping")) {
