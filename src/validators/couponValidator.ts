@@ -8,8 +8,18 @@ const couponValidator = () => {
     return expiration < today;
   };
 
+  const isCouponIncluded = (code: string) => {
+    const validCoupons = ['FIXED5000', 'BOGO', 'FREESHIPPING', 'MIRACLESALE'];
+
+    return validCoupons.includes(code);
+  };
+
   const validateCoupon = (coupon: CouponType) => {
-    return !isCouponExpired(coupon.expirationDate);
+    if (isCouponExpired(coupon.expirationDate)) return false;
+
+    if (!isCouponIncluded(coupon.code)) return false;
+
+    return true;
   };
 
   return { validateCoupon };
