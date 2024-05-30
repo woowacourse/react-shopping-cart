@@ -3,7 +3,12 @@ import ReactDOM from "react-dom/client";
 import { RecoilRoot } from "recoil";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { CartPage, OrderConfirmPage } from "./pages/index.ts";
+import {
+  CartPage,
+  OrderConfirmPage,
+  PaymentConfirmPage,
+} from "@/pages/index.ts";
+
 import GlobalStyle from "./GlobalStyle.tsx";
 import { ROUTE_PATH } from "./constants/route.ts";
 
@@ -14,8 +19,12 @@ const router = createBrowserRouter(
       element: <CartPage />,
     },
     {
-      path: ROUTE_PATH.cartConfirm,
+      path: ROUTE_PATH.orderConfirm,
       element: <OrderConfirmPage />,
+    },
+    {
+      path: ROUTE_PATH.paymentConfirm,
+      element: <PaymentConfirmPage />,
     },
   ],
   { basename: "/react-shopping-cart" }

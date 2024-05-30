@@ -1,5 +1,5 @@
 import * as S from "./styled";
-import loading from "../../../assets/images/loading.png";
+import loading from "@/assets/images/loading.png";
 
 const Loading = () => {
   return (

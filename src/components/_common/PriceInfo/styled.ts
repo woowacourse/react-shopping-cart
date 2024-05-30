@@ -1,16 +1,22 @@
 import styled from "styled-components";
 
-export const Container = styled.section`
-  & > :nth-child(3) {
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-  }
+export const Container = styled.div`
+  width: 100%;
 `;
 
-export const PriceWrapper = styled.div`
+export const PriceGroup = styled.div`
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+export const PriceRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 60px;
+  width: 100%;
 `;
 
 export const PriceTitle = styled.div`

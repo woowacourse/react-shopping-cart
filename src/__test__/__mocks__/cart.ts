@@ -1,4 +1,4 @@
-import { CartItem } from "../../types";
+import { CartItem } from "@/types/cartItem";
 
 export const MOCK_CART_LIST: CartItem[] = [
   {
@@ -27,7 +27,7 @@ export const MOCK_CART_LIST: CartItem[] = [
   },
   {
     id: 1335,
-    quantity: 1,
+    quantity: 12,
     product: {
       id: 3,
       name: "아디다스",
@@ -39,7 +39,7 @@ export const MOCK_CART_LIST: CartItem[] = [
   },
   {
     id: 1336,
-    quantity: 1,
+    quantity: 2,
     product: {
       id: 21,
       name: "나이키",
@@ -51,7 +51,7 @@ export const MOCK_CART_LIST: CartItem[] = [
   },
   {
     id: 1337,
-    quantity: 1,
+    quantity: 2,
     product: {
       id: 11,
       name: "리복",
@@ -68,7 +68,5 @@ export const MOCK_CART_ITEM_SELECTIONS: { [key: string]: boolean } = {
   1334: false,
   1335: true,
   1336: true,
-  1337: false,
+  1337: true,
 };
-
-export default MOCK_CART_ITEM_SELECTIONS;

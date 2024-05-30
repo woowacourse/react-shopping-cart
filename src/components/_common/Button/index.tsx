@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 type ButtonThemeType = "black" | "white" | "disabled";
-type ButtonSizeType = "xs" | "s" | "m" | "full";
 
 const BUTTON_THEME = {
   black: {
@@ -19,29 +18,11 @@ const BUTTON_THEME = {
   },
 };
 
-const BUTTON_SIZE = {
-  xs: {
-    width: "24px",
-    height: "24px",
-  },
-  s: {
-    width: "40px",
-    height: "24px",
-  },
-  m: {
-    width: "56px",
-    height: "32px",
-  },
-  full: {
-    width: "100%",
-    height: "100%",
-  },
-};
-
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
   $theme?: ButtonThemeType;
-  $size?: ButtonSizeType;
+  $width?: string;
+  $height?: string;
   $borderRadius?: string;
 }
 
@@ -61,8 +42,8 @@ const StyledButton = styled.button<ButtonProps>`
   border: ${({ $theme }) => ($theme ? "1px solid rgba(0, 0, 0, 0.1)" : "none")};
   padding: 0;
   cursor: pointer;
-  width: ${({ $size }) => ($size ? BUTTON_SIZE[$size].width : "fit-content")};
-  height: ${({ $size }) => ($size ? BUTTON_SIZE[$size].height : "fit-content")};
+  width: ${({ $width }) => ($width ? $width : "fit-content")};
+  height: ${({ $height }) => ($height ? $height : "fit-content")};
   border-radius: ${({ $borderRadius }) =>
     $borderRadius ? $borderRadius : "4px"};
 `;

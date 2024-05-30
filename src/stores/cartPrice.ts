@@ -1,27 +1,41 @@
-import { selector } from "recoil";
+import { atom, selector } from "recoil";
 import { cartItemsState } from "./cartItems";
-import { isCartItemsSelectedState } from "./cartItemSelections";
+import { cartItemSelectionsState } from "./cartItemSelections";
 
-import { CART_PRICE } from "../constants/cart";
+import { CART_PRICE } from "@/constants/cart";
 
-const calculateDeliveryFee = (orderPrice: number) => {
+type ShippingArea = "standard" | "remote";
+
+export const shippingAreaState = atom<ShippingArea>({
+  key: "shoppingAreaState",
+  default: "standard",
+});
+
+const calculateShippingFee = (
+  orderPrice: number,
+  shippingArea: ShippingArea
+) => {
   if (orderPrice === 0) return 0;
-  return orderPrice >= CART_PRICE.minOrderPrice ? 0 : CART_PRICE.deliveryFee;
+
+  const shippingFee = CART_PRICE.shippingFees[shippingArea];
+
+  return orderPrice >= CART_PRICE.minOrderPrice ? 0 : shippingFee;
 };
 
 export const cartPriceState = selector({
   key: "cartPriceState",
   get: ({ get }) => {
     const cartItems = get(cartItemsState);
+    const shippingArea = get(shippingAreaState);
 
     const orderPrice = cartItems.reduce((acc, item) => {
-      const isSelected = get(isCartItemsSelectedState(item.id));
+      const isSelected = get(cartItemSelectionsState(item.id));
       return isSelected ? acc + item.product.price * item.quantity : acc;
     }, 0);
 
-    const deliveryFee = calculateDeliveryFee(orderPrice);
-    const totalPrice = orderPrice + deliveryFee;
+    const shippingFee = calculateShippingFee(orderPrice, shippingArea);
+    const totalPrice = orderPrice + shippingFee;
 
-    return { orderPrice, deliveryFee, totalPrice };
+    return { orderPrice, shippingFee, totalPrice };
   },
 });

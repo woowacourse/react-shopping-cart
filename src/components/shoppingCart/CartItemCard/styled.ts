@@ -20,7 +20,7 @@ export const Header = styled.div`
 
 export const Body = styled.div`
   display: flex;
-  gap: 24px;
+  gap: 8px;
 `;
 
 export const ItemInfoWrapper = styled.div`

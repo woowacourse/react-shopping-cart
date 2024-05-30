@@ -1,4 +1,5 @@
 export const ROUTE_PATH = {
   base: "/",
-  cartConfirm: "/cart-confirm",
+  orderConfirm: "/order-confirm",
+  paymentConfirm: "/payment-confirm",
 };

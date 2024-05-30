@@ -5,6 +5,21 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/__test__": ["src/__test__/*"],
+      "@/apis": ["src/apis/*"],
+      "@/assets": ["src/assets/*"],
+      "@/constants": ["src/constants/*"],
+      "@/components": ["src/components/*"],
+      "@/hooks": ["src/hooks/*"],
+      "@/layouts": ["src/layouts/*"],
+      "@/pages": ["src/pages/*"],
+      "@/stores": ["src/stores/*"],
+      "@/types": ["src/types/*"],
+      "@/utils": ["src/utils/*"]
+    },
 
     /* Bundler mode */
     "moduleResolution": "bundler",

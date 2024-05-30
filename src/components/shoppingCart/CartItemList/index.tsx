@@ -1,18 +1,19 @@
-import { useRecoilState, useRecoilValue } from "recoil";
-import { cartItemsState } from "../../../stores/cartItems";
-import { isAllCartItemSelectedState } from "../../../stores/cartItemSelections";
+import { useRecoilState } from "recoil";
+import { isAllCartItemSelectedState } from "@/stores/cartItemSelections";
 
-import CartItemCard from "../CartItemCard";
-import { CheckButton } from "../../button";
+import useCartItems from "@/hooks/carts/useCartItems";
 
-import { CartItem } from "../../../types";
-import { CART_PRICE } from "../../../constants/cart";
+import CartItemCard from "@/components/shoppingCart/CartItemCard";
+import { CheckButton } from "@/components/button";
+import NotificationText from "@/components/_common/NotificationText";
 
-import infoOutline from "../../../assets/images/infoOutline.png";
+import { CartItem } from "@/types/cartItem";
+import { CART_PRICE } from "@/constants/cart";
+
 import * as S from "./styled";
 
 const CartItemList = () => {
-  const cartItemList = useRecoilValue(cartItemsState);
+  const { cartItems } = useCartItems();
   const [isAllCartItemSelected, setIsAllCartItemSelected] = useRecoilState(
     isAllCartItemSelectedState
   );
@@ -26,15 +27,15 @@ const CartItemList = () => {
         />
         <span>전체선택</span>
       </S.AllCheckWrapper>
-      {cartItemList.map((cartItem: CartItem) => (
+      {cartItems.map((cartItem: CartItem) => (
         <CartItemCard key={cartItem.id} cartItem={cartItem} />
       ))}
-      <S.Footer>
-        <img src={infoOutline} />
-        <div>
-          총 주문 금액이 {CART_PRICE.minOrderPrice} 이상일 경우 무료 배송됩니다.
-        </div>
-      </S.Footer>
+      <NotificationText
+        text={`총 주문 금액이 ${CART_PRICE.minOrderPrice.toLocaleString(
+          "ko-KR"
+        )}원 이상일 경우 무료
+  배송됩니다.`}
+      />
     </S.Container>
   );
 };
