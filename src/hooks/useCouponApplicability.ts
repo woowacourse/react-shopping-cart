@@ -26,17 +26,16 @@ const useCouponApplicability = (coupon: CouponType) => {
   const { validateCouponApplicability } = couponApplicabilityValidator();
 
   useEffect(() => {
-    setIsCouponApplicable(
-      validateCouponApplicability(coupon, totalOrderAmount),
-    );
+    let isApplicable = validateCouponApplicability(coupon, totalOrderAmount);
 
     const inapplicableBogo =
       applicableBOGOCartItems.length === CONDITION.noneApplicableBOGO;
+    if (coupon.code === 'BOGO' && inapplicableBogo) isApplicable = false;
 
-    if (coupon.code === 'BOGO' && inapplicableBogo) {
-      setIsCouponApplicable(() => false);
-    }
+    setIsCouponApplicable(isApplicable);
+  }, []);
 
+  useEffect(() => {
     if (
       selectedCoupons.length === CONDITION.maxSelectedCoupons &&
       !selectedCoupons.includes(coupon)
