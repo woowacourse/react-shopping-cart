@@ -3,7 +3,7 @@ import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from "r
 import { renderHook } from "@testing-library/react";
 
 import { cartItemCheckedIdsAtom, cartItemsAtom, shippingCheckedAtom } from "../atom/atom";
-import { orderPriceSelector, shippingFeeSelector } from "./selector";
+import { orderPriceSelector, shippingFeeSelector } from "../selector/selector";
 import { EXTRA_SHIPPING_FEE, ORDER_PRICE_THRESHOLD, SHIPPING_FEE } from "../../constants/setting";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { mockCartItems, mockCheckedIds } from "../../mocks/cartItems";

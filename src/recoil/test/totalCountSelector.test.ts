@@ -3,7 +3,7 @@ import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
 import { renderHook } from "@testing-library/react";
 
 import { cartItemCheckedIdsAtom, cartItemsAtom } from "../atom/atom";
-import { totalCountSelector } from "./selector";
+import { totalCountSelector } from "../selector/selector";
 import { mockCartItems, mockCheckedIds } from "../../mocks/cartItems";
 
 describe("quantitySelector 테스트", () => {
