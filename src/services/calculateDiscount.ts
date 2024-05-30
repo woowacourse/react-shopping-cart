@@ -26,15 +26,12 @@ interface DiscountCalculators {
 }
 
 const discountCalculators: DiscountCalculators = {
-  [DISCOUNT_TYPES.FIXED]: (coupon: FormattedCoupon): number => coupon.discount || 0,
+  [DISCOUNT_TYPES.FIXED]: (coupon) => coupon.discount || 0,
 
-  [DISCOUNT_TYPES.PERCENTAGE]: (coupon: FormattedCoupon, orderAmount: number): number =>
+  [DISCOUNT_TYPES.PERCENTAGE]: (coupon, orderAmount) =>
     ((coupon.discount || 0) / 100) * orderAmount,
 
-  [DISCOUNT_TYPES.BUY_X_GET_Y]: (
-    _coupon: FormattedCoupon,
-    allCartItems: CartItemData[],
-  ): number => {
+  [DISCOUNT_TYPES.BUY_X_GET_Y]: (_coupon, allCartItems): number => {
     const MIN_QUANTITY = 3;
     const mostExpensiveItemWithMinQuantity = allCartItems
       .filter((cartItem) => cartItem.quantity >= MIN_QUANTITY)
@@ -46,7 +43,7 @@ const discountCalculators: DiscountCalculators = {
     return 0;
   },
 
-  [DISCOUNT_TYPES.FREE_SHIPPING]: (): number => {
+  [DISCOUNT_TYPES.FREE_SHIPPING]: () => {
     return ORDER_CONDITION.SHIPPING_FEE;
   },
 };

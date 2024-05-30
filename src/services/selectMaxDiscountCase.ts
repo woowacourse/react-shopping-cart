@@ -1,18 +1,6 @@
 import { FormattedCoupon, CartItemData } from '@/types';
 import calculateTotalDiscountPrice from './calculateDiscount';
 
-const applyDiscounts = (
-  orderAmount: number,
-  coupons: FormattedCoupon[],
-  allCartItems: CartItemData[],
-): number => {
-  return coupons.reduce((acc, coupon) => {
-    const discount = calculateTotalDiscountPrice(coupon, orderAmount, allCartItems);
-    orderAmount -= discount;
-    return acc + discount;
-  }, 0);
-};
-
 const selectMaxDiscountCase = (
   checkedCoupons: FormattedCoupon[],
   orderAmount: number,
@@ -27,7 +15,11 @@ const selectMaxDiscountCase = (
     coupons: FormattedCoupon[],
     allCartItems: CartItemData[],
   ) => {
-    return applyDiscounts(orderAmount, coupons, allCartItems);
+    return coupons.reduce((acc, coupon) => {
+      const discount = calculateTotalDiscountPrice(coupon, orderAmount, allCartItems);
+      orderAmount -= discount;
+      return acc + discount;
+    }, 0);
   };
 
   const permute = (allCoupons: FormattedCoupon[]) => {

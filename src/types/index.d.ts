@@ -36,7 +36,7 @@ export interface CouponData {
   expirationDate: string;
 }
 
-export interface isFarShippingLocationData {
+export interface isFarShippingLocationMetaData {
   isAvailable: boolean;
   isChecked: boolean;
 }

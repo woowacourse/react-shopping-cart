@@ -23,7 +23,7 @@ export const allCartItemStates = atom<CartItemData[]>({
     },
   }),
   effects: [
-    ({ setSelf, onSet }) => {
+    ({ onSet }) => {
       onSet((newValue, _, isReset) => {
         if (isReset) {
           CheckedCartItemStorage.clearCheckedProductIds();

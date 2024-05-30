@@ -1,12 +1,12 @@
 import { useShippingManager } from '@/store/custom/useShippingManager';
-import { isFarShippingLocationData } from '@/types';
+import { isFarShippingLocationMetaData } from '@/types';
 
 const useFarShippingLocation = () => {
   const { isFarShippingLocation } = useShippingManager();
   const [isFarShipping, setIsFarShipping] = isFarShippingLocation;
 
   const handleFarShippingLocation = () => {
-    setIsFarShipping((prev: isFarShippingLocationData) => ({
+    setIsFarShipping((prev: isFarShippingLocationMetaData) => ({
       ...prev,
       isChecked: !prev.isChecked,
     }));
