@@ -10,35 +10,28 @@ interface RequestProps {
 }
 
 export const request = async ({ endpoint, method, headers = {}, body }: RequestProps) => {
-  try {
-    const url = `${BASE_URL}${endpoint}`;
-    const options: RequestInit = {
-      method,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: API_TOKEN,
-        ...headers,
-      },
-    };
+  const url = `${BASE_URL}${endpoint}`;
+  const options: RequestInit = {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: API_TOKEN,
+      ...headers,
+    },
+  };
 
-    if (body) {
-      options.body = JSON.stringify(body);
-    }
-
-    const response = await fetch(url, options);
-    if (!response.ok) {
-      throw new Error(`Failed to request, status code: ${response.status}`);
-    }
-
-    if (method === "GET") {
-      return await response.json();
-    }
-
-    return response;
-  } catch (error) {
-    console.error("Failed to request", error);
-    throw error;
+  if (body) {
+    options.body = JSON.stringify(body);
   }
+
+  const response = await fetch(url, options);
+  if (!response) return;
+
+  if (method === "GET") {
+    return await response.json();
+  }
+
+  return response;
 };
 
 export const fetchProducts = async () => {

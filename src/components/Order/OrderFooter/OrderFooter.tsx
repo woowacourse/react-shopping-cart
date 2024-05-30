@@ -16,7 +16,8 @@ const OrderFooter = () => {
     if (response === 201) {
       localStorage.clear();
     } else {
-      console.error("Failed to generate orders", response);
+      alert("주문 실패했습니다. 잠시 후 다시 시도해 주세요.");
+      return;
     }
 
     navigate("/payment");
