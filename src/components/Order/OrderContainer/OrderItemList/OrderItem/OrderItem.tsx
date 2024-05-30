@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import BasicCartItem from "./BasicCartItem";
-import Divider from "../Divider/Divider";
+
+import BasicCartItem from "../../../../common/BasicCartItem/BasicCartItem";
+import Divider from "../../../../common/Divider/Divider";
 import { OrderCartItemContainerStyle, OrderItemQuantityStyle } from "./OrderItem.style";
 
 interface CartItemProps {
