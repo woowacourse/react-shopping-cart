@@ -1,8 +1,8 @@
 import { renderHook, waitFor } from "@testing-library/react";
 import { RecoilRoot, useRecoilValue, useSetRecoilState } from "recoil";
 import { describe, expect, it, vi } from "vitest";
-import fixtures from "../fixtures";
 import { fetchCartItems } from "../src/api";
+import { mockCartItems as mockCartItemsList } from "../src/mocks";
 import {
   cartItemQuantity,
   cartItemSelected,
@@ -16,7 +16,7 @@ vi.mock("../src/api", () => ({
   initializeCartItemStorage: vi.fn(),
 }));
 
-const mockCartItems: CartItemType[] = fixtures.content;
+const mockCartItems: CartItemType[] = mockCartItemsList.content;
 
 describe("cartListState 테스트", () => {
   beforeAll(() => {

@@ -10,7 +10,7 @@ export const CartListWrapper = styled.div`
   flex: 1;
 `;
 
-export const CartHeaderContainer = styled.div`
+export const PageHeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacer.spacing2};

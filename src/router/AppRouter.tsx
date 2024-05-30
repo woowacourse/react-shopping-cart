@@ -1,13 +1,13 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import CartPage from "../pages/CartPage";
-import ConfirmOrderPage from "../pages/ConfirmOrderPage";
+import OrderConfirmPage from "../pages/OrderConfirmPage";
+import PaymentConfirmationPage from "../pages/PaymentConfirmationPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    // errorElement: <ErrorBoundary />,
     children: [
       {
         index: true,
@@ -16,14 +16,17 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/confirm",
-    element: <ConfirmOrderPage />,
+    path: "/orderConfirm",
+    element: <OrderConfirmPage />,
   },
   {
-    path: "*",
-    // element: <NotFoundPage />,
+    path: "/paymentConfirm",
+    element: <PaymentConfirmationPage />,
   },
-]);
+], {
+  basename: "/react-shopping-cart/dist",
+}
+);
 
 const AppRouter = () => {
   return <RouterProvider router={router} />;

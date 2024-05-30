@@ -1,8 +1,12 @@
 import { useRecoilValue } from "recoil";
 import InfoIconSrc from "../../../assets/infoIcon.png";
-import { cartListTotalPrice } from "../../../recoil/selectors";
+import { FREE_SHIPPING_THRESHOLD } from "../../../constants";
+import { useCoupons } from "../../../hooks/coupons";
+import {
+  cartListTotalPrice,
+  shippingFeeSelector,
+} from "../../../recoil/selectors";
 import formatPriceToKoreanWon from "../../../util/formatPriceToKoreanWon";
-import getShippingFee from "../../../util/getShippingFee";
 import {
   Container,
   Divider,
@@ -14,15 +18,20 @@ import {
   PriceRowContainer,
 } from "./style";
 
-export default function CheckoutSummary() {
+interface CheckoutSummaryProps {
+  includesCouponDiscount?: boolean
+}
+
+export default function CheckoutSummary({includesCouponDiscount= false}:CheckoutSummaryProps) {
   const totalPrice = useRecoilValue(cartListTotalPrice);
-  const shippingFee = getShippingFee(totalPrice);
+  const { totalDiscountAmount } = useCoupons();
+  const shippingFee = useRecoilValue(shippingFeeSelector);
 
   return (
     <Container>
       <Info>
-        <InfoIcon src={InfoIconSrc} alt="Info Icon" />총 주문 금액이 100,000원
-        이상일 경우 무료 배송됩니다.
+        <InfoIcon src={InfoIconSrc} alt="Info Icon" />
+        {`총 주문 금액이 ${formatPriceToKoreanWon(FREE_SHIPPING_THRESHOLD)} 이상일 경우 무료 배송됩니다.`}
       </Info>
 
       <Divider />
@@ -32,6 +41,15 @@ export default function CheckoutSummary() {
           <Label>주문 금액</Label>
           <Price>{formatPriceToKoreanWon(totalPrice)}</Price>
         </PriceRow>
+        {includesCouponDiscount && (
+            <PriceRow>
+              <Label>쿠폰 할인 금액</Label>
+              <Price>
+                {totalDiscountAmount > 0 && "-"}
+                {formatPriceToKoreanWon(totalDiscountAmount)}
+              </Price>
+            </PriceRow>
+        )}
         <PriceRow>
           <Label>배송비</Label>
           <Price>{formatPriceToKoreanWon(shippingFee)}</Price>
@@ -42,7 +60,11 @@ export default function CheckoutSummary() {
 
       <PriceRow>
         <Label>총 결제 금액</Label>
-        <Price>{formatPriceToKoreanWon(totalPrice + shippingFee)}</Price>
+        <Price>
+          {formatPriceToKoreanWon(
+            totalPrice + shippingFee - totalDiscountAmount
+          )}
+        </Price>
       </PriceRow>
     </Container>
   );

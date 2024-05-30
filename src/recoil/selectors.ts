@@ -5,12 +5,17 @@ import {
   SHIPPING_FEE,
 } from "../constants";
 import CartItemLocalStorage, { KEY } from "../services/CartItemLocalStorage";
-import { CartItemType } from "../types";
-import { cartItemQuantity, cartItemSelected, cartListState } from "./atoms";
+import { CartItemType, Coupon } from "../types";
+import {
+  cartItemQuantity,
+  cartItemSelected,
+  cartListState,
+  couponSelectedState,
+  couponsState,
+  islandMountainRegionCheckState,
+} from "./atoms";
 
 export const initializeCartItemStorage = (items: CartItemType[]) => {
-  const storageState = CartItemLocalStorage.get("cartItemSelected");
-  if (!storageState) {
     const newStorageState = items.reduce(
       (acc, item): Record<number, boolean> => {
         return { ...acc, [item.id]: false };
@@ -18,7 +23,6 @@ export const initializeCartItemStorage = (items: CartItemType[]) => {
       {}
     );
     CartItemLocalStorage.set("cartItemSelected", newStorageState);
-  }
 };
 
 export const cartListTotalPrice = selector({
@@ -37,6 +41,19 @@ export const cartListTotalPrice = selector({
   },
 });
 
+export const selectedCartItems = selector<CartItemType[]>({
+  key: "selectedCartItems",
+  get: ({ get }) => {
+    const cartList = get(cartListState);
+
+    const isSelectedItems = cartList.filter((cartItem) =>
+      get(cartItemSelected(cartItem.id))
+    );
+
+    return isSelectedItems;
+  },
+});
+
 export const cartListTotalQuantity = selector({
   key: "cartListTotalQuantity",
   get: ({ get }) => {
@@ -50,13 +67,30 @@ export const cartListTotalQuantity = selector({
   },
 });
 
-export const shippingFee = selector({
-  key: "shippingFee",
+export const orderListTotalQuantitySelector = selector({
+  key: "orderListTotalQuantitySelector",
+  get: ({ get }) => {
+    const selectedCartItem = get(selectedCartItems);
+    const orderListTotalQuantity = selectedCartItem.reduce((acc, cartItem) => {
+      const quantity = get(cartItemQuantity(cartItem.id));
+      return acc + quantity;
+    }, 0);
+
+    return orderListTotalQuantity;
+  },
+});
+
+export const shippingFeeSelector = selector({
+  key: "shippingFeeSelector",
   get: ({ get }) => {
     const totalPrice = get(cartListTotalPrice);
+    const islandMountainRegionCheck = get(islandMountainRegionCheckState);
 
-    if (totalPrice >= FREE_SHIPPING_THRESHOLD) return FREE_SHIPPING_FEE;
-    return SHIPPING_FEE;
+    if (totalPrice >= FREE_SHIPPING_THRESHOLD)
+      return islandMountainRegionCheck
+        ? FREE_SHIPPING_FEE + SHIPPING_FEE
+        : FREE_SHIPPING_FEE;
+    return islandMountainRegionCheck ? SHIPPING_FEE + SHIPPING_FEE : SHIPPING_FEE;
   },
 });
 
@@ -81,5 +115,18 @@ export const cartItemAllSelected = selector<boolean>({
         set(cartItemSelected(parseInt(id)), newValue);
       });
     }
+  },
+});
+
+export const selectedCouponSelector = selector<Coupon[]>({
+  key: "selectedCouponSelector",
+  get: ({ get }) => {
+    const coupons: Coupon[] = get(couponsState);
+
+    const selectedCoupons = coupons.filter((coupon: Coupon) =>
+      get(couponSelectedState(coupon.id))
+    );
+
+    return selectedCoupons;
   },
 });

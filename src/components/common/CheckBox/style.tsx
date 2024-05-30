@@ -26,6 +26,11 @@ export const StyledCheckbox = styled.button`
   cursor: pointer;
   background: transparent;
 
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
   img {
     display: block;
     width: 24px;
@@ -38,4 +43,5 @@ export const StyledLabel = styled.label`
   font-weight: 500;
   line-height: 15px;
   text-align: left;
+  cursor: pointer;
 `;

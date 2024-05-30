@@ -14,13 +14,14 @@ export default function CartList({ items }: { items: CartItemType[] }) {
       <CheckBox
         id="totalCheck"
         isSelected={isAllSelected}
+        isApplicable
         toggleSelected={toggleAllSelected}
         label="전체 선택"
       />
       {items && (
         <StyledUl>
           {items.map((item, index) => (
-            <CartItem key={index} cartItem={item} />
+            <CartItem key={index} cartItem={item} withCounter withHeader />
           ))}
         </StyledUl>
       )}

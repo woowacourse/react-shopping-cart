@@ -1,4 +1,5 @@
 import { PropsWithChildren } from "react";
+import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useRecoilValueLoadable } from "recoil";
 import Header from "../../components/Header";
 import BottomButton from "../../components/common/BottomButton";
@@ -18,22 +19,30 @@ import {
   TotalPrice,
 } from "./styles";
 
-const ConfirmOrderPage: React.FC<PropsWithChildren> = () => {
+const PaymentConfirmationPage: React.FC<PropsWithChildren> = () => {
   const cartList = useRecoilValueLoadable(cartListState);
   const totalPrice = useRecoilValue(cartListTotalPrice);
   const totalQuantity = useRecoilValue(cartListTotalQuantity);
+  const navigation = useNavigate();
+
+  const handleClick = () => {
+    navigation("/");
+  };
 
   return (
     <Layout
       header={<Header isShowLogo={false} />}
-      bottom={<BottomButton isDisabled={true}>결제하기</BottomButton>}
+      bottom={
+        <BottomButton onClick={handleClick}>장바구니로 돌아가기</BottomButton>
+      }
     >
       <RecoilSuspense loadable={cartList} fallback={<div>안쪽 로딩 중...</div>}>
         <ConfirmOrderContainer>
-          <Title>주문 확인</Title>
+          <Title>결제 확인</Title>
+
           <OrderSummary>
-            <p>{`총 ${cartList.contents.length}종류의 상품 ${totalQuantity}개를 주문합니다.`}</p>
-            <p>최종 결제 금액을 확인해주세요.</p>
+            <span>{`총 ${cartList.contents.length}종류의 상품 ${totalQuantity}개를 주문했습니다.`}</span>
+            <span>최종 결제 금액을 확인해주세요.</span>
           </OrderSummary>
 
           <TotalPrice>
@@ -46,4 +55,4 @@ const ConfirmOrderPage: React.FC<PropsWithChildren> = () => {
   );
 };
 
-export default ConfirmOrderPage;
+export default PaymentConfirmationPage;
