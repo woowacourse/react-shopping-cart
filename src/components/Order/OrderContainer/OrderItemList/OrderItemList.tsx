@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
 import { checkedCartItemsSelector } from "../../../../store/selector/selectors";
-import OrderItem from "../../../common/BasicCartItem/OrderItem";
+import OrderItem from "./OrderItem/OrderItem";
 
 const OrderItemList = () => {
   const checkedCartItems = useRecoilValue(checkedCartItemsSelector);
