@@ -17,7 +17,7 @@ export const mockCoupons: CouponType[] = [
     discountType: 'buyXgetY',
     buyQuantity: 2,
     getQuantity: 1,
-    expirationDate: '2024-05-30',
+    expirationDate: '2024-06-30',
   },
   {
     id: 3,
