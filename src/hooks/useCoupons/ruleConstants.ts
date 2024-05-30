@@ -1,0 +1,1 @@
+export const MAX_SELECTABLE_COUPON_COUNT = 2;

@@ -1,12 +1,21 @@
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { cartAmountState } from "../../recoil/cartAmount";
-import { ReactComponent as InfoIcon } from "../../assets/info-icon.svg";
-import { FREE_SHIPPING_THRESHOLD } from "../../constants/pricing";
-import { formatToKRW } from "../../utils/formatToKRW";
 
-export default function CartAmount() {
+import { ReactComponent as InfoIcon } from "../../../assets/info-icon.svg";
+import { FREE_SHIPPING_THRESHOLD } from "../../../constants/pricing";
+import { formatToKRW } from "../../../utils/formatToKRW";
+import { cartAmountState } from "../../../recoil/cartAmount";
+import { useRecoilValue } from "recoil";
+
+interface CartAmountProps {
+  discountAmount?: number;
+}
+
+export default function CartAmount({ discountAmount }: CartAmountProps) {
   const { orderAmount, shippingCost, totalOrderAmount } = useRecoilValue(cartAmountState);
+
+  const totalPayAmount = totalOrderAmount - (discountAmount || 0);
+
+  const hasCouponDiscount = !!discountAmount && discountAmount > 0;
 
   return (
     <S.CartAmountContainer>
@@ -21,6 +30,12 @@ export default function CartAmount() {
         <S.CartAmountInfo>
           <S.AmountText>주문 금액</S.AmountText> <S.Amount>{formatToKRW(orderAmount)}</S.Amount>
         </S.CartAmountInfo>
+        {hasCouponDiscount && (
+          <S.CartAmountInfo>
+            <S.AmountText>쿠폰 할인 금액</S.AmountText>{" "}
+            <S.Amount>-{formatToKRW(discountAmount)}</S.Amount>
+          </S.CartAmountInfo>
+        )}
         <S.CartAmountInfo>
           <S.AmountText>배송비</S.AmountText> <S.Amount>{formatToKRW(shippingCost)}</S.Amount>
         </S.CartAmountInfo>
@@ -28,7 +43,7 @@ export default function CartAmount() {
       <S.LowerCartAmountInfoWrapper>
         <S.CartAmountInfo>
           <S.AmountText>총 주문 금액</S.AmountText>{" "}
-          <S.Amount>{formatToKRW(totalOrderAmount)}</S.Amount>
+          <S.Amount>{formatToKRW(totalPayAmount)}</S.Amount>
         </S.CartAmountInfo>
       </S.LowerCartAmountInfoWrapper>
     </S.CartAmountContainer>

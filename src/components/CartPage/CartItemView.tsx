@@ -13,8 +13,8 @@ export default function CartItemView({ cartItem, cartItemControl }: CartItemView
   const { remove, updateQuantity, toggleSelection } = cartItemControl;
   const cartItemId = cartItem.id;
 
-  const handleCheckboxChange = () => toggleSelection(cartItemId);
-  const handleRemoveButtonClick = () => remove(cartItemId);
+  const onCartItemSelectionCheckboxChange = () => toggleSelection(cartItemId);
+  const onRemoveButtonClick = () => remove(cartItemId);
 
   const increaseQuantity = () => updateQuantity(cartItemId, cartItem.quantity + 1);
   const decreaseQuantity = () => updateQuantity(cartItemId, cartItem.quantity - 1);
@@ -24,8 +24,12 @@ export default function CartItemView({ cartItem, cartItemControl }: CartItemView
   return (
     <S.CartItemContainer>
       <S.TopWrapper>
-        <S.Checkbox type="checkbox" checked={cartItem.isSelected} onChange={handleCheckboxChange} />
-        <S.RemoveButton onClick={handleRemoveButtonClick}>삭제</S.RemoveButton>
+        <S.Checkbox
+          type="checkbox"
+          checked={cartItem.isSelected}
+          onChange={onCartItemSelectionCheckboxChange}
+        />
+        <S.RemoveButton onClick={onRemoveButtonClick}>삭제</S.RemoveButton>
       </S.TopWrapper>
 
       <S.ProductOuterWrapper>
@@ -67,6 +71,7 @@ const S = {
     margin: 0;
     width: 24px;
     height: 24px;
+    cursor: pointer;
   `,
 
   RemoveButton: styled.button`

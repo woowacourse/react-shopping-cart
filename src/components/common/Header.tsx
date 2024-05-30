@@ -10,15 +10,11 @@ export interface HeaderProps {
 export default function Header({ hasBackButton, title }: HeaderProps) {
   const navigate = useNavigate();
 
-  const handleBackButtonClick = () => navigate(-1);
+  const onBackButtonClick = () => navigate(-1);
 
   return (
     <S.HeaderContainer>
-      {hasBackButton ? (
-        <S.BackButton onClick={handleBackButtonClick} />
-      ) : (
-        <S.Title>{title}</S.Title>
-      )}
+      {hasBackButton ? <S.BackButton onClick={onBackButtonClick} /> : <S.Title>{title}</S.Title>}
     </S.HeaderContainer>
   );
 }

@@ -1,4 +1,4 @@
-import { CartItem } from "../../../types/cartItems";
+import { CartItem } from "../../types/cartItems";
 
 type OrderAmount = number;
 export const sumCartOrderAmount = (cartItems: CartItem[]): OrderAmount =>

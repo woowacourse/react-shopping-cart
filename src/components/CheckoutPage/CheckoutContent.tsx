@@ -1,26 +1,25 @@
-import { useRecoilValue } from "recoil";
-import { cartAmountState } from "../../recoil/cartAmount";
 import styled from "styled-components";
-import { selectedCartItemIdsState } from "../../recoil/selectedCartItemIds";
-import { cartItemsState } from "../../recoil/cartItems";
-import { calculateSelectedCartItemsCount } from "../../utils/domain/calculateSelectedCartItemsCount";
 import { formatToKRW } from "../../utils/formatToKRW";
+import { useQueryParams } from "../../hooks/useQueryParams";
+import { getQueryParamAsNumber } from "../../utils/getQueryParamAsNumber";
 
 export default function Checkout() {
-  const selectedCartItemIds = useRecoilValue(selectedCartItemIdsState);
-  const selectedUniqueCartItemsCount = selectedCartItemIds.length;
+  const query = useQueryParams();
 
-  const cartItems = useRecoilValue(cartItemsState);
-  const selectedCartItemsCount = calculateSelectedCartItemsCount(cartItems);
+  const boughtItemCount = getQueryParamAsNumber(query, "boughtItemCount");
+  const uniqueBoughtItemCount = getQueryParamAsNumber(query, "uniqueBoughtItemCount");
+  const totalOrderAmount = getQueryParamAsNumber(query, "totalPayAmount");
 
-  const { totalOrderAmount } = useRecoilValue(cartAmountState);
+  if (!boughtItemCount || !uniqueBoughtItemCount || !totalOrderAmount) {
+    return <div>잘못된 접근입니다.</div>;
+  }
 
   return (
     <S.Container>
       <S.Title>주문 확인</S.Title>
       <S.CheckoutInfoWrapper>
         <S.CheckoutInfo>
-          총 {selectedUniqueCartItemsCount}종류의 상품 {selectedCartItemsCount}개를 주문합니다.
+          총 {uniqueBoughtItemCount}종류의 상품 {boughtItemCount}개를 주문했습니다.
         </S.CheckoutInfo>
         <S.CheckoutInfo>최종 결제 금액을 확인해 주세요.</S.CheckoutInfo>
       </S.CheckoutInfoWrapper>

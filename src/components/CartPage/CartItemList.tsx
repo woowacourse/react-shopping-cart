@@ -14,7 +14,7 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
   const setSelectedCartItemIds = useSetRecoilState(selectedCartItemIdsState);
   const isAllSelected = cartItems.every(({ isSelected }) => isSelected);
 
-  const handleSelectAllChange = () => {
+  const onSelectAllCheckboxChange = () => {
     if (isAllSelected) {
       setSelectedCartItemIds([]);
     } else {
@@ -29,7 +29,7 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
           id="select-all-checkbox"
           type="checkbox"
           checked={isAllSelected}
-          onChange={handleSelectAllChange}
+          onChange={onSelectAllCheckboxChange}
         />
         <S.SelectAllLabel htmlFor="select-all-checkbox">전체선택</S.SelectAllLabel>
       </S.SelectAll>

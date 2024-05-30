@@ -2,8 +2,8 @@ import { atom, selector } from "recoil";
 import { fetchCartItems } from "../api/cartItems";
 import { RawCartItem } from "../types/cartItems";
 
-const cartItemsSelector = selector({
-  key: "cartItemsSelector",
+const rawCartItemsSelector = selector({
+  key: "rawCartItemsSelector",
   get: async () => {
     const cartItems = await fetchCartItems();
     return cartItems;
@@ -12,5 +12,5 @@ const cartItemsSelector = selector({
 
 export const rawCartItemsState = atom<RawCartItem[]>({
   key: "rawCartItemsState",
-  default: cartItemsSelector,
+  default: rawCartItemsSelector,
 });

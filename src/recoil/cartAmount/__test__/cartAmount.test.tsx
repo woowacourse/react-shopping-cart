@@ -1,10 +1,12 @@
 import { renderHook, waitFor } from "@testing-library/react";
-import { cartAmountState } from ".";
+import { cartAmountState } from "../index";
 import { RecoilRoot, useRecoilValue } from "recoil";
-import { rawCartItemsState } from "../rawCartItems";
-import { selectedCartItemIdsState } from "../selectedCartItemIds";
+import { rawCartItemsState } from "../../rawCartItems";
+import { selectedCartItemIdsState } from "../../selectedCartItemIds";
 import { Suspense } from "react";
-import { CartItemId, RawCartItem } from "../../types/cartItems";
+import { CartItemId, RawCartItem } from "../../../types/cartItems";
+import { isRemoteDeliveryAreaState } from "../../isRemoteDeliveryArea";
+import { SHIPPING_COST, SHIPPING_COST_FOR_REMOTE } from "../../../constants/pricing";
 
 describe("cartAmountState selector", () => {
   const TEST_RAW_CART_ITEMS: RawCartItem[] = [
@@ -47,9 +49,12 @@ describe("cartAmountState selector", () => {
 
   const EXPECTED_CART_AMOUNT = {
     orderAmount: 65_000,
-    shippingCost: 3_000,
-    totalOrderAmount: 68_000,
+    shippingCost: SHIPPING_COST,
+    totalOrderAmount: 65_000 + SHIPPING_COST,
   };
+
+  const shippingCostForRemote = SHIPPING_COST_FOR_REMOTE;
+  const totalOrderAmountForRemote = 65_000 + SHIPPING_COST_FOR_REMOTE;
 
   it("장바구니 목록의 금액 합계를 올바르게 계산한다.", async () => {
     const { result, rerender } = renderHook(() => useRecoilValue(cartAmountState), {
@@ -58,6 +63,7 @@ describe("cartAmountState selector", () => {
           initializeState={({ set }) => {
             set(rawCartItemsState, TEST_RAW_CART_ITEMS);
             set(selectedCartItemIdsState, TEST_SELECTED_CART_ITEM_IDS);
+            set(isRemoteDeliveryAreaState, false);
           }}
         >
           <Suspense>{children}</Suspense>
@@ -69,6 +75,32 @@ describe("cartAmountState selector", () => {
 
     await waitFor(() => {
       expect(result.current).toEqual(EXPECTED_CART_AMOUNT);
+    });
+  });
+
+  it("배송 산간 지역일 경우 배송 금액 및 산간 지역 배송 금액을 반환한다.", async () => {
+    const { result, rerender } = renderHook(() => useRecoilValue(cartAmountState), {
+      wrapper: ({ children }) => (
+        <RecoilRoot
+          initializeState={({ set }) => {
+            set(rawCartItemsState, TEST_RAW_CART_ITEMS);
+            set(selectedCartItemIdsState, TEST_SELECTED_CART_ITEM_IDS);
+            set(isRemoteDeliveryAreaState, true);
+          }}
+        >
+          <Suspense>{children}</Suspense>
+        </RecoilRoot>
+      ),
+    });
+
+    rerender();
+
+    await waitFor(() => {
+      expect(result.current).toEqual({
+        ...EXPECTED_CART_AMOUNT,
+        shippingCost: shippingCostForRemote,
+        totalOrderAmount: totalOrderAmountForRemote,
+      });
     });
   });
 });

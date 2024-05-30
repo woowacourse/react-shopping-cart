@@ -1,9 +1,9 @@
 import { API_PATH } from "../constants/apiPath";
-import { CartItem } from "../types/cartItems";
+import { RawCartItem } from "../types/cartItems";
 import { cartApiClient } from "./cartApiClient";
 
-export const fetchCartItems = async (): Promise<CartItem[]> => {
-  const res = await cartApiClient.get<{ content: CartItem[] }>(API_PATH.cartItems);
+export const fetchCartItems = async (): Promise<RawCartItem[]> => {
+  const res = await cartApiClient.get<{ content: RawCartItem[] }>(API_PATH.cartItems);
   return res.data.content;
 };
 

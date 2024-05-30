@@ -1,5 +1,9 @@
-import { determineShippingCost } from ".";
-import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST } from "../../../constants/pricing";
+import { determineShippingCost } from "../determineShippingCost";
+import {
+  FREE_SHIPPING_THRESHOLD,
+  SHIPPING_COST,
+  SHIPPING_COST_FOR_REMOTE,
+} from "../../../constants/pricing";
 
 describe("determineShippingCost", () => {
   test("주문 금액이 0인 경우 0을 반환한다.", () => {
@@ -18,5 +22,10 @@ describe("determineShippingCost", () => {
 
     expect(shippingCost1).toBe(0);
     expect(shippingCost2).toBe(0);
+  });
+
+  test(`산간 지역일 경우 산간 지역 배송 금액을 반환한다.`, () => {
+    const shippingCost = determineShippingCost(FREE_SHIPPING_THRESHOLD - 1, true);
+    expect(shippingCost).toBe(SHIPPING_COST_FOR_REMOTE);
   });
 });

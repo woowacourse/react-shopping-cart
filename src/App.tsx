@@ -1,11 +1,13 @@
 import "./App.css";
 import { RecoilRoot } from "recoil";
+import { ErrorBoundary } from "react-error-boundary";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import CartPage from "./pages/CartPage";
-import { ROUTE_PATH } from "./constants/routePath";
 import CheckoutPage from "./pages/CheckoutPage";
-import { ErrorBoundary } from "react-error-boundary";
+import PaymentPage from "./pages/PaymentPage";
+
+import { ROUTE_PATH } from "./constants/routePath";
 
 function App() {
   return (
@@ -14,6 +16,7 @@ function App() {
         <ErrorBoundary fallbackRender={({ error }) => error.message}>
           <Routes>
             <Route path={ROUTE_PATH.cart} element={<CartPage />} />
+            <Route path={ROUTE_PATH.payment} element={<PaymentPage />} />
             <Route path={ROUTE_PATH.checkout} element={<CheckoutPage />} />
           </Routes>
         </ErrorBoundary>
