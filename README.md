@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+
+# react-shopping-cart
+
+=======
+
 # Mission 3. Requirements
 
 ## 앱 구조 디자인
@@ -67,3 +73,5 @@ Recoil 상태를 LocalStorage와 동기화 할 수 있는 라이브러리
 ### patch → /cart-items/[id]
 
 ### delete → /cart-items/[id]
+
+> > > > > > > main

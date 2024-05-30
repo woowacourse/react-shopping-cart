@@ -1,0 +1,19 @@
+:root {
+  --primary-color: #2ac1bc;
+  --primary-disabled-color: #93dfdd;
+  --primary-inverse-color: white;
+  --gray-100: #e5e5e5;
+  --gray-200: #cccccc;
+  --gray-500: #666666;
+  --gray-900: #0a0d13;
+
+  /* Common: Text */
+  --text-title1-color: black;
+  --text-title2-color: black;
+  --text-body1-color: var(--gray-900);
+  --text-body2-color: var(--gray-900);
+  --text-caption1-color: var(--primary-inverse-color);
+  --text-caption2-color: var(--primary-inverse-color);
+  --text-caption3-color: var(--gray-500);
+  --text-caption4-color: var(--gray-900);
+}

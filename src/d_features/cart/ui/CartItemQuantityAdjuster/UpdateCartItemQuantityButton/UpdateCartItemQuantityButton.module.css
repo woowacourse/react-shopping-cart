@@ -1,0 +1,13 @@
+.root {
+  border: 1px solid var(--gray-100);
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.text {
+  font-size: 30px;
+  line-height: 15px;
+  font-weight: 100;
+}

@@ -22,8 +22,15 @@
 
     /* Testing */
     "types": ["jest"],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"]
+    },
+
+    "typeRoots": ["node_modules/@types", "types/"]
   },
-  "include": ["src"],
+  "include": ["src", "types/", "mocks/"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

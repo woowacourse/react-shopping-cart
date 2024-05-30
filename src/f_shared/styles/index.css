@@ -1,0 +1,13 @@
+/* Bg-color outside of the page */
+body,
+#root {
+  background-color: black;
+}
+
+/* Hide Scrollbar */
+body {
+  -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+  display: none;
+}

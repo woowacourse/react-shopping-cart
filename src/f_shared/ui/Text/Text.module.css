@@ -1,0 +1,42 @@
+.h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-title1-color);
+}
+.h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-title2-color);
+}
+
+.b1 {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-body1-color);
+}
+.b2 {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-body2-color);
+}
+
+.c1 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-caption1-color);
+}
+.c2 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-caption2-color);
+}
+.c3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-caption3-color);
+}
+.c4 {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-caption4-color);
+}

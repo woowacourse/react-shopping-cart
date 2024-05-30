@@ -1,0 +1,29 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.content {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  padding: 36px 24px 24px 40px;
+}
+
+.contentBody {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+}
+
+.footer {
+  position: sticky;
+  bottom: 0;
+}

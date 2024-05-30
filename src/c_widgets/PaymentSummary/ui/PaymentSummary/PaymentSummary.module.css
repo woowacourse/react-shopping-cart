@@ -1,0 +1,18 @@
+.root,
+.detailWrapper {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+  width: 100%;
+}
+
+.rowWrapper {
+  gap: 8px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 42px;
+}
