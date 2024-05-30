@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-export const StyledCartItemCard = styled.div`
+export const StyledItemCard = styled.div`
   width: 100%;
-  height: 160px;
+  /* height: 160px; */
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -10,14 +10,14 @@ export const StyledCartItemCard = styled.div`
   padding-top: 12px;
 `;
 
-export const StyledCartItemCardHeader = styled.div`
+export const StyledItemCardHeader = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
-export const StyledCartItemCardProductContents = styled.div`
+export const StyledItemCardProductContents = styled.div`
   display: flex;
   align-items: center;
   gap: 24px;

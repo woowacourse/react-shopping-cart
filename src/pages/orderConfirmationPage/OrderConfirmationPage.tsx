@@ -1,38 +1,45 @@
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { getCartItemCounts } from '../../api';
+import { getCartItemCounts, postOrders } from '../../api';
 import { ConfirmButton } from '../../components/confirmButton/ConfirmButton';
 import {
   cartErrorMessageState,
   cartItemsCountState,
+  selectedItemsState,
 } from '../../recoil/atoms/atoms';
 import {
   selectedItemsCountState,
   selectedItemsTotalQuantityState,
-  totalPriceState,
 } from '../../recoil/selector/selector';
 import {
-  StyledConfirmationPagePriceContainer,
   StyledConfirmationPage,
   StyledConfirmationPageDescription,
-  StyledConfirmationPagePrice,
-  StyledConfirmationPageSubTitle,
   StyledConfirmationPageTitle,
+  StyledCouponRedeemButton,
+  StyledOrderContent,
+  StyledOrderSummaryContainer,
 } from './OrderConfirmationPage.styled';
 import { ErrorAlertModal } from '../../components/errorAlertModal/ErrorAlertModal';
 import { CART_MESSAGES, ORDER_MESSAGES } from '../../constants/cart';
 import Header from '../../components/header/Header';
+import { OrderItemCard } from '../../components/itemCard/orderItemCard/OrderItemCard';
+import { IslandAndMountainAreaCheckSection } from '../../components/islandAndMountainAreaCheckSection/IslandAndMountainAreaCheckSection';
+import { OrderSummary } from '../../components/summary/orderSummary/OrderSummary';
+import { CouponModal } from '../../components/couponModal/CouponModal';
+import { useNavigate } from 'react-router-dom';
 
 export const OrderConfirmationPage: React.FC = () => {
-  const totalPrice = useRecoilValue(totalPriceState);
+  const selectedItemsCount = useRecoilValue(selectedItemsCountState);
   const selectedItemsTotalQuantity = useRecoilValue(
     selectedItemsTotalQuantityState,
   );
-  const selectedItemsCount = useRecoilValue(selectedItemsCountState);
   const setCartItemsCount = useSetRecoilState(cartItemsCountState);
   const [cartErrorMessage, setCartErrorMessage] = useRecoilState(
     cartErrorMessageState,
   );
+  const selectedItems = useRecoilValue(selectedItemsState);
+  const [couponModalOpen, setCouponModalOpen] = useState(false);
+  const navigete = useNavigate();
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -46,35 +53,56 @@ export const OrderConfirmationPage: React.FC = () => {
     };
 
     fetchCartItems();
-  }, []);
+  }, [setCartErrorMessage, setCartItemsCount]);
+
+  const handleOrderButtonClick = async () => {
+    await postOrders(
+      selectedItems.map((item) => {
+        return item.id;
+      }),
+    );
+    navigete('/payments-confirmation');
+  };
 
   return (
     <>
       <Header type='back' />
       <StyledConfirmationPage>
-        <StyledConfirmationPageTitle>주문확인</StyledConfirmationPageTitle>
-        <StyledConfirmationPageDescription>
-          <span>
-            {ORDER_MESSAGES.ORDER_SUMMARY(
-              selectedItemsCount,
-              selectedItemsTotalQuantity,
-            )}
-          </span>
-          <span>{ORDER_MESSAGES.FINAL_AMOUNT_CONFIRM}</span>
-        </StyledConfirmationPageDescription>
-        <StyledConfirmationPagePriceContainer>
-          <StyledConfirmationPageSubTitle>
-            {ORDER_MESSAGES.FINAL_AMOUNT}
-          </StyledConfirmationPageSubTitle>
-          <StyledConfirmationPagePrice>
-            {totalPrice.toLocaleString()}원
-          </StyledConfirmationPagePrice>
-        </StyledConfirmationPagePriceContainer>
+        <StyledOrderSummaryContainer>
+          <StyledConfirmationPageTitle>주문 확인</StyledConfirmationPageTitle>
+          <StyledConfirmationPageDescription>
+            <span>
+              {ORDER_MESSAGES.ORDER_SUMMARY(
+                selectedItemsCount,
+                selectedItemsTotalQuantity,
+              )}
+            </span>
+            <span>{ORDER_MESSAGES.FINAL_AMOUNT_CONFIRM}</span>
+          </StyledConfirmationPageDescription>
+        </StyledOrderSummaryContainer>
+        <StyledOrderContent>
+          {selectedItems.map((item) => (
+            <OrderItemCard item={item} />
+          ))}
+          <StyledCouponRedeemButton onClick={() => setCouponModalOpen(true)}>
+            쿠폰 적용
+          </StyledCouponRedeemButton>
+          <IslandAndMountainAreaCheckSection />
+          <OrderSummary />
+        </StyledOrderContent>
+        <CouponModal
+          isOpen={couponModalOpen}
+          onClose={() => setCouponModalOpen(false)}
+        />
         {cartErrorMessage.length > 0 && (
           <ErrorAlertModal errorMessage={cartErrorMessage} />
         )}
       </StyledConfirmationPage>
-      <ConfirmButton text='결제하기' disabled={true} />
+      <ConfirmButton
+        text='결제하기'
+        disabled={false}
+        onClick={handleOrderButtonClick}
+      />
     </>
   );
 };

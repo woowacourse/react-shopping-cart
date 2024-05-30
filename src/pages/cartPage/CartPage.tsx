@@ -15,6 +15,7 @@ import {
 } from '../../recoil/selector/selector';
 import { StyledCartPage } from './CartPage.styled';
 import { ErrorAlertModal } from '../../components/errorAlertModal/ErrorAlertModal';
+import { useNavigate } from 'react-router-dom';
 
 export const CartPage: React.FC = () => {
   const setCartItems = useSetRecoilState(cartItemsState);
@@ -23,6 +24,7 @@ export const CartPage: React.FC = () => {
   const [cartErrorMessage, setCartErrorMessage] = useRecoilState(
     cartErrorMessageState,
   );
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -38,7 +40,11 @@ export const CartPage: React.FC = () => {
     };
 
     fetchCartItems();
-  }, [selectedItemsCount, categoryCount]);
+  }, [setCartItems, setCartErrorMessage]);
+
+  const handleCartButtonClick = () => {
+    navigate('/order-confirmation');
+  };
 
   return (
     <>
@@ -50,7 +56,11 @@ export const CartPage: React.FC = () => {
           <ErrorAlertModal errorMessage={cartErrorMessage} />
         )}
       </StyledCartPage>
-      <ConfirmButton text='주문 확인' disabled={selectedItemsCount < 1} />
+      <ConfirmButton
+        text='주문 확인'
+        disabled={selectedItemsCount < 1}
+        onClick={handleCartButtonClick}
+      />
     </>
   );
 };

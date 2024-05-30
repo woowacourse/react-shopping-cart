@@ -1,5 +1,5 @@
 import { CartItemCardList } from '../cartItemCardList/CartItemCardList';
-import { CartSummary } from '../cartSummary/cartSummary/CartSummary';
+import { CartSummary } from '../summary/cartSummary/CartSummary';
 import {
   StyledCartContentSection,
   StyledContentContainer,

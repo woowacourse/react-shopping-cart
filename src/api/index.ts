@@ -1,4 +1,4 @@
-import { CartItem, CartItemCounts } from '../types';
+import { CartItemProps, CartItemCountsProps, CouponProps } from '../types';
 import { generateBasicToken } from '../utils/auth';
 
 const API_URL = import.meta.env.VITE_BASE_URL;
@@ -26,7 +26,7 @@ export async function postAddCartItem(productId: number): Promise<void> {
 export async function getCartItems(
   page: number = 0,
   size: number = 20,
-): Promise<CartItem[]> {
+): Promise<CartItemProps[]> {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const response = await fetch(
     `${API_URL}/cart-items?page=${page}&size=${size}`,
@@ -45,7 +45,7 @@ export async function getCartItems(
 }
 
 // GET : /cart-items/counts 장바구니 아이템 수량 조회
-export async function getCartItemCounts(): Promise<CartItemCounts> {
+export async function getCartItemCounts(): Promise<CartItemCountsProps> {
   const token = generateBasicToken(USER_ID, USER_PASSWORD);
   const response = await fetch(`${API_URL}/cart-items/counts`, {
     method: 'GET',
@@ -94,5 +94,41 @@ export async function deleteCartItem(cartItemId: number): Promise<void> {
 
   if (!response.ok) {
     throw new Error('Failed to remove cart item');
+  }
+}
+
+// GET : /coupons 쿠폰 목록 조회
+export async function getCouponList(): Promise<CouponProps[]> {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+  const response = await fetch(`${API_URL}/coupons`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch coupon list');
+  }
+
+  const data = await response.json();
+  return data;
+}
+
+// POST : /orders 주문 생성
+export async function postOrders(cartItemIds: number[]): Promise<void> {
+  const token = generateBasicToken(USER_ID, USER_PASSWORD);
+  const response = await fetch(`${API_URL}/orders`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
+    body: JSON.stringify({ cartItemIds }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to order');
   }
 }

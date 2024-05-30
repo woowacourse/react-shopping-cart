@@ -1,6 +1,13 @@
 import { selector } from 'recoil';
-import { cartItemsState, selectedItemsState } from '../atoms/atoms';
+import {
+  cartItemsState,
+  finalSelectedCouponsState,
+  isLandAndMoutainAreaCheckedState,
+  previewSelectedCouponsState,
+  selectedItemsState,
+} from '../atoms/atoms';
 import { DELIVERY_INFO } from '../../constants/cart';
+import { calculateDiscountAmount } from '../../utils/calculateDiscountAmount';
 
 export const categoryCountState = selector<number>({
   key: 'categoryCountState',
@@ -14,7 +21,7 @@ export const selectedItemsCountState = selector<number>({
   key: 'selectedItemsCountState',
   get: ({ get }) => {
     const selectedItems = get(selectedItemsState);
-    return Object.values(selectedItems).filter((item) => item === true).length;
+    return selectedItems.length;
   },
 });
 
@@ -24,7 +31,10 @@ export const selectedItemsTotalQuantityState = selector<number>({
     const cartItems = get(cartItemsState);
     const selectedItems = get(selectedItemsState);
     const selectedItemsTotalQuantity = cartItems.reduce((total, item) => {
-      if (selectedItems[item.id]) {
+      const isSelected = selectedItems.some(
+        (selectedItem) => selectedItem.id === item.id,
+      );
+      if (isSelected) {
         return total + item.quantity;
       }
       return total;
@@ -39,7 +49,10 @@ export const orderPriceState = selector<number>({
     const cartItems = get(cartItemsState);
     const selectedItems = get(selectedItemsState);
     const orderPrice = cartItems.reduce((total, item) => {
-      if (selectedItems[item.id]) {
+      const isSelected = selectedItems.some(
+        (selectedItem) => selectedItem.id === item.id,
+      );
+      if (isSelected) {
         return total + item.product.price * item.quantity;
       }
       return total;
@@ -52,10 +65,24 @@ export const deliveryPriceState = selector<number>({
   key: 'deliveryPriceState',
   get: ({ get }) => {
     const orderPrice = get(orderPriceState);
+    const finalSelectedCoupons = get(finalSelectedCouponsState);
+    const isLandAndMoutainAreaChecked = get(isLandAndMoutainAreaCheckedState);
+
+    if (orderPrice === 0) return 0;
+
+    if (orderPrice >= DELIVERY_INFO.FREE_DELIVERY_THRESHOLD) return 0;
+
+    if (
+      finalSelectedCoupons.some(
+        (coupon) => coupon.discountType === 'freeShipping',
+      )
+    ) {
+      return 0;
+    }
+
     const deliveryPrice =
-      orderPrice > DELIVERY_INFO.FREE_DELIVERY_THRESHOLD || orderPrice === 0
-        ? 0
-        : DELIVERY_INFO.DELIVERY_AMOUT;
+      DELIVERY_INFO.DELIVERY_AMOUT + (isLandAndMoutainAreaChecked ? 3000 : 0);
+
     return deliveryPrice;
   },
 });
@@ -66,5 +93,44 @@ export const totalPriceState = selector<number>({
     const orderPrice = get(orderPriceState);
     const deliveryPrice = get(deliveryPriceState);
     return orderPrice + deliveryPrice;
+  },
+});
+
+export const totalDiscountAmountState = selector<number>({
+  key: 'totalDiscountAmountState',
+  get: ({ get }) => {
+    const previewSelectedCoupons = get(previewSelectedCouponsState);
+    const orderPrice = get(orderPriceState);
+    const selectedItems = get(selectedItemsState);
+    const { getCouponDiscountValueByType } = calculateDiscountAmount();
+
+    const percentageCoupons = previewSelectedCoupons.filter(
+      (coupon) => coupon.discountType === 'percentage',
+    );
+    const otherCoupons = previewSelectedCoupons.filter(
+      (coupon) => coupon.discountType !== 'percentage',
+    );
+    percentageCoupons.sort((a, b) => (b.discount || 0) - (a.discount || 0));
+
+    const sortedSelectedCoupons = [...percentageCoupons, ...otherCoupons];
+
+    const totalDiscountAmount = sortedSelectedCoupons.reduce(
+      (total, coupon) =>
+        total + getCouponDiscountValueByType(coupon, selectedItems, orderPrice),
+      0,
+    );
+
+    return totalDiscountAmount;
+  },
+});
+
+export const isValidCouponSelectionState = selector<boolean>({
+  key: 'isValidCouponSelectionState',
+  get: ({ get }) => {
+    const previewSelectedCoupons = get(previewSelectedCouponsState);
+    if (previewSelectedCoupons.length < 2) {
+      return true;
+    }
+    return false;
   },
 });

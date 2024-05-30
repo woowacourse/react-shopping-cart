@@ -1,11 +1,6 @@
-import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import {
-  cartItemsState,
-  isAllSelectedState,
-  selectedItemsState,
-} from '../../recoil/atoms/atoms';
-import { CartItemCard } from '../cartItemCard/CartItemCard';
+import { cartItemsState, selectedItemsState } from '../../recoil/atoms/atoms';
+import { CartItemCard } from '../itemCard/cartItemCard/CartItemCard';
 import { Button } from '../common/button/Button';
 import CheckedButtonIcon from '../../assets/CheckedButtonIcon.png';
 import UnCheckedButtonIcon from '../../assets/UncheckedButtonIcon.png';
@@ -14,37 +9,35 @@ import {
   StyledCartItemSelectContainer,
   StyledCartItemSelectText,
 } from './CartItemCardList.styled';
+import { CartItemProps } from '../../types';
 
 export const CartItemCardList: React.FC = () => {
   const cartItems = useRecoilValue(cartItemsState);
   const [selectedItems, setSelectedItems] = useRecoilState(selectedItemsState);
-  const [isAllSelected, setIsAllSelected] = useRecoilState(isAllSelectedState);
-
-  useEffect(() => {
-    const allSelected = cartItems.every((item) => selectedItems[item.id]);
-    setIsAllSelected(allSelected);
-  }, [cartItems, selectedItems]);
-
-  useEffect(() => {
-    localStorage.setItem('selectedItemsState', JSON.stringify(selectedItems));
-    localStorage.setItem('isAllSelectedState', JSON.stringify(isAllSelected));
-  }, [selectedItems, isAllSelected]);
 
   const handleSelectAll = () => {
-    const newSelectedItems: Record<number, boolean> = {};
-    const newIsAllSelected = !isAllSelected;
-    cartItems.forEach((item) => {
-      newSelectedItems[item.id] = newIsAllSelected;
-    });
-    setSelectedItems(newSelectedItems);
-    setIsAllSelected(!isAllSelected);
+    if (selectedItems.length === cartItems.length) {
+      setSelectedItems([]);
+    } else {
+      setSelectedItems(cartItems.map((item) => item));
+    }
   };
 
-  const handleSelectItem = (id: number) => {
-    setSelectedItems((prev) => {
-      const newSelectedItems = { ...prev, [id]: !prev[id] };
-      return newSelectedItems;
-    });
+  const isSelected = (item: CartItemProps) => {
+    return (
+      selectedItems.find((selectedItem) => selectedItem.id === item.id) !==
+      undefined
+    );
+  };
+
+  const handleSelectItem = (item: CartItemProps) => {
+    if (isSelected(item)) {
+      setSelectedItems((prev) =>
+        prev.filter((selectedItem) => selectedItem.id !== item.id),
+      );
+    } else {
+      setSelectedItems((prev) => [...prev, item]);
+    }
   };
 
   return (
@@ -52,7 +45,11 @@ export const CartItemCardList: React.FC = () => {
       <StyledCartItemSelectContainer>
         <Button
           onClick={handleSelectAll}
-          iconSrc={isAllSelected ? CheckedButtonIcon : UnCheckedButtonIcon}
+          iconSrc={
+            selectedItems.length === cartItems.length
+              ? CheckedButtonIcon
+              : UnCheckedButtonIcon
+          }
         />
         <StyledCartItemSelectText>전체선택</StyledCartItemSelectText>
       </StyledCartItemSelectContainer>
@@ -60,8 +57,8 @@ export const CartItemCardList: React.FC = () => {
         <CartItemCard
           key={item.id}
           {...item}
-          selected={!!selectedItems[item.id]}
-          onSelect={() => handleSelectItem(item.id)}
+          selected={isSelected(item)}
+          onSelect={() => handleSelectItem(item)}
         />
       ))}
     </StyledCartItemCardList>

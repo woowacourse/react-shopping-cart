@@ -1,33 +1,34 @@
 import { useSetRecoilState } from 'recoil';
-import { deleteCartItem, patchCartItemQuantityChange } from '../../api';
+import { deleteCartItem, patchCartItemQuantityChange } from '../../../api';
 import {
   cartErrorMessageState,
   cartItemsState,
-} from '../../recoil/atoms/atoms';
-import { CartItem } from '../../types';
-import { Button } from '../../components/common/button/Button';
-import CheckedButtonIcon from '../../assets/CheckedButtonIcon.png';
-import UnCheckedButtonIcon from '../../assets/UncheckedButtonIcon.png';
-import MinusButtonIcon from '../../assets/MinusButtonIcon.png';
-import PlusButtonIcon from '../../assets/PlusButtonIcon.png';
-
+  selectedItemsState,
+} from '../../../recoil/atoms/atoms';
+import { CartItemProps } from '../../../types';
+import { Button } from '../../common/button/Button';
+import CheckedButtonIcon from '../../../assets/CheckedButtonIcon.png';
+import UnCheckedButtonIcon from '../../../assets/UncheckedButtonIcon.png';
+import MinusButtonIcon from '../../../assets/MinusButtonIcon.png';
+import PlusButtonIcon from '../../../assets/PlusButtonIcon.png';
+import { CART_MESSAGES } from '../../../constants/cart';
 import {
-  StyledCartItemCard,
-  StyledCartItemCardHeader,
-  StyledCartItemCardProductContents,
+  StyledItemCard,
+  StyledItemCardHeader,
+  StyledItemCardProductContents,
   StyledProductImg,
   StyledProductInfo,
   StyledProductName,
   StyledProductPrice,
   StyledProductQuantityContainer,
   StyledProductQuantityText,
-} from './CartItemCard.styled';
-import { CART_MESSAGES } from '../../constants/cart';
-interface CartItemProps extends CartItem {
+} from '../ItemCard.styled';
+
+interface CartItemCardProps extends CartItemProps {
   selected: boolean;
   onSelect: () => void;
 }
-export const CartItemCard: React.FC<CartItemProps> = ({
+export const CartItemCard: React.FC<CartItemCardProps> = ({
   id,
   product,
   quantity,
@@ -37,6 +38,7 @@ export const CartItemCard: React.FC<CartItemProps> = ({
   const { name, price, imageUrl } = product;
   const setCartItems = useSetRecoilState(cartItemsState);
   const setCartErrorMessage = useSetRecoilState(cartErrorMessageState);
+  const setSelectedItems = useSetRecoilState(selectedItemsState);
 
   const handleItemDelete = async (id: number) => {
     try {
@@ -59,6 +61,11 @@ export const CartItemCard: React.FC<CartItemProps> = ({
           item.id === id ? { ...item, quantity: newQuantity } : item,
         ),
       );
+      setSelectedItems((prevItems) =>
+        prevItems.map((item) =>
+          item.id === id ? { ...item, quantity: newQuantity } : item,
+        ),
+      );
     } catch (error) {
       if (error instanceof Error) {
         setCartErrorMessage(CART_MESSAGES.INCREASE_QUANTITY_FAIL);
@@ -77,6 +84,11 @@ export const CartItemCard: React.FC<CartItemProps> = ({
             item.id === id ? { ...item, quantity: newQuantity } : item,
           ),
         );
+        setSelectedItems((prevItems) =>
+          prevItems.map((item) =>
+            item.id === id ? { ...item, quantity: newQuantity } : item,
+          ),
+        );
       } catch (error) {
         if (error instanceof Error) {
           console.error('Failed to decrease item quantity', error.message);
@@ -87,8 +99,8 @@ export const CartItemCard: React.FC<CartItemProps> = ({
   };
 
   return (
-    <StyledCartItemCard>
-      <StyledCartItemCardHeader>
+    <StyledItemCard>
+      <StyledItemCardHeader>
         <Button
           onClick={onSelect}
           clicked={selected}
@@ -99,8 +111,8 @@ export const CartItemCard: React.FC<CartItemProps> = ({
           disabled={selected}
           text='삭제'
         />
-      </StyledCartItemCardHeader>
-      <StyledCartItemCardProductContents>
+      </StyledItemCardHeader>
+      <StyledItemCardProductContents>
         <StyledProductImg src={imageUrl} alt='' />
         <StyledProductInfo>
           <StyledProductName>{name}</StyledProductName>
@@ -117,7 +129,7 @@ export const CartItemCard: React.FC<CartItemProps> = ({
             />
           </StyledProductQuantityContainer>
         </StyledProductInfo>
-      </StyledCartItemCardProductContents>
-    </StyledCartItemCard>
+      </StyledItemCardProductContents>
+    </StyledItemCard>
   );
 };
