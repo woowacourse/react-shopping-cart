@@ -6,18 +6,25 @@ interface CheckboxProps {
   id: string;
   isChecked: boolean;
   onClick: () => void;
+  disabled?: boolean;
 }
 
-const Checkbox = ({ id, isChecked, onClick }: CheckboxProps) => {
+const Checkbox = ({ id, isChecked, onClick, disabled }: CheckboxProps) => {
   return (
-    <S.CheckboxContainer onClick={onClick}>
-      <input id={id} type="checkbox" checked={isChecked} readOnly />
+    <S.CheckboxContainer>
+      <input
+        id={id}
+        type="checkbox"
+        checked={isChecked}
+        onClick={onClick}
+        readOnly
+        disabled={disabled}
+      />
       <S.CheckboxLabel htmlFor={id}>
         <img src={isChecked ? checked : unchecked} alt="checkbox" />
       </S.CheckboxLabel>
     </S.CheckboxContainer>
   );
 };
-// };
 
 export default Checkbox;

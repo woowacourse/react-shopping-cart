@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { reactRouterParameters, withRouter } from 'storybook-addon-react-router-v6';
-import OrderInfo from './OrderInfo';
+import PaymentInfo from './PaymentInfo';
 
 const meta = {
-  title: 'OrderInfo',
-  component: OrderInfo,
+  title: 'PaymentInfo',
+  component: PaymentInfo,
   decorators: [withRouter],
   parameters: {
     reactRouter: reactRouterParameters({
@@ -15,10 +15,10 @@ const meta = {
           totalPrice: 15000,
         },
       },
-      routing: { path: '/order-info' },
+      routing: { path: '/payment-info' },
     }),
   },
-} satisfies Meta<typeof OrderInfo>;
+} satisfies Meta<typeof PaymentInfo>;
 
 export default meta;
 

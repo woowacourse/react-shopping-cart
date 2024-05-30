@@ -8,6 +8,7 @@ declare module 'styled-components' {
       label: string;
       price: string;
       boldLabel: string;
+      labelTitle: string;
     };
     color: {
       black: string;

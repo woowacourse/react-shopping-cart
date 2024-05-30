@@ -4,6 +4,7 @@ export const Container = styled.section`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-bottom: 6rem;
 `;
 
 export const Info = styled.article`

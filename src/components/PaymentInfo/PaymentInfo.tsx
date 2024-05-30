@@ -1,15 +1,19 @@
-import { useEffect } from 'react';
 import { IOrderInfo } from '../../recoil/selectors';
-import * as S from './styled';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { ROUTER_URL } from '../../constants/constants';
 import FloatingButton from '../FloatingButton/FloatingButton';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import * as S from './styled';
 
-const OrderInfo = () => {
+const PaymentInfo = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const orderInfo = location.state as IOrderInfo | null;
+
+  const onReturnToShoppingCartButtonClick = () => {
+    navigate(ROUTER_URL.MAIN);
+  };
 
   useEffect(() => {
     if (orderInfo === null) navigate(ROUTER_URL.ERROR);
@@ -26,9 +30,9 @@ const OrderInfo = () => {
           <S.Price>{orderInfo?.totalPrice.toLocaleString()}원</S.Price>
         </S.PriceInfo>
       </S.Container>
-      <FloatingButton label={'결제하기'} disabled></FloatingButton>
+      <FloatingButton label="장바구니로 돌아가기" onClick={onReturnToShoppingCartButtonClick} />
     </>
   );
 };
 
-export default OrderInfo;
+export default PaymentInfo;

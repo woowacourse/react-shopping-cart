@@ -12,6 +12,7 @@ type Story = StoryObj<typeof meta>;
 
 export const 기본_체크박스: Story = {
   args: {
+    id: 'default-checkbox',
     isChecked: false,
     onClick: () => console.log('sdf'),
   },
@@ -19,6 +20,7 @@ export const 기본_체크박스: Story = {
 
 export const 선택된_체크박스: Story = {
   args: {
+    id: 'selected-checkbox',
     isChecked: true,
     onClick: () => console.log('sdf'),
   },

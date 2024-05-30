@@ -15,6 +15,8 @@ import { useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import * as S from './styled';
 
+// import AddItem from '../AddItem/AddItem'; // NOTE: 테스트용
+
 const ShoppingCartOverview = () => {
   const { data, refetch } = useFetch(getItems);
   const orderInfo = useRecoilValue(orderInfoStore);
@@ -27,15 +29,16 @@ const ShoppingCartOverview = () => {
 
   return (
     <>
+      {/* <AddItem>아이템 추가</AddItem> */}
       {data?.length !== 0 ? (
         <>
           <S.Container>
             <ShoppingCartDescription kindCount={data?.length ?? 0} />
             <ShoppingCartList cartItems={data ?? []} refetch={refetch} />
-            <PaymentTotal />
+            <PaymentTotal isUseDiscount={false} />
           </S.Container>
           <FloatingButton
-            label={'주문 확인'}
+            label="주문 확인"
             onClick={goOrderInfo}
             disabled={selectItemsLength <= 0}
           />
@@ -46,7 +49,7 @@ const ShoppingCartOverview = () => {
             <ShoppingCartDescription kindCount={0} />
             <Fallback />
           </S.Container>
-          <FloatingButton label={'주문 확인'} disabled />
+          <FloatingButton label="주문 확인" disabled />
         </>
       )}
     </>

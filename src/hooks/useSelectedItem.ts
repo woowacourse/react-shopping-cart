@@ -20,6 +20,8 @@ const useSelectedItem = (getOneItemQuantity: (id: number) => number | undefined)
           cartItemId: cartItem.id,
           price: cartItem.product.price,
           quantity: getOneItemQuantity(cartItem.id) ?? cartItem.quantity,
+          name: cartItem.product.name,
+          imageUrl: cartItem.product.imageUrl,
         },
       ]);
     }

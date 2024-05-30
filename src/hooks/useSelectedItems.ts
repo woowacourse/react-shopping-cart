@@ -37,6 +37,8 @@ const useSelectedItems = (data: CartItem[]) => {
           cartItemId: item.id,
           quantity: getOneItemQuantity(item.id) ?? item.quantity,
           price: item.product.price,
+          name: item.product.name,
+          imageUrl: item.product.imageUrl,
         })),
       );
     } else {
