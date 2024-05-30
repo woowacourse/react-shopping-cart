@@ -11,6 +11,7 @@ import { isCouponApplicableState } from '../recoil/atoms';
 import couponApplicabilityValidator from '../validators/couponApplicabilityValidator';
 
 import { CouponType } from '../type';
+import CONDITION from '../constants/Condition';
 
 const useCouponApplicability = (coupon: CouponType) => {
   const [isCouponApplicable, setIsCouponApplicable] = useRecoilState(
@@ -29,11 +30,17 @@ const useCouponApplicability = (coupon: CouponType) => {
       validateCouponApplicability(coupon, totalOrderAmount),
     );
 
-    if (coupon.code === 'BOGO' && applicableBOGOCartItems.length === 0) {
+    const inapplicableBogo =
+      applicableBOGOCartItems.length === CONDITION.noneApplicableBOGO;
+
+    if (coupon.code === 'BOGO' && inapplicableBogo) {
       setIsCouponApplicable(() => false);
     }
 
-    if (selectedCoupons.length === 2 && !selectedCoupons.includes(coupon)) {
+    if (
+      selectedCoupons.length === CONDITION.maxSelectedCoupons &&
+      !selectedCoupons.includes(coupon)
+    ) {
       setIsCouponApplicable(() => false);
     }
   }, [selectedCoupons]);

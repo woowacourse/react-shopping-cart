@@ -5,6 +5,8 @@ const CONDITION = {
   shoppingCartPage: '/',
   orderConfirmationPage: '/orderConfirmation',
   paymentConfirmationPage: '/paymentConfirmation',
+  maxSelectedCoupons: 2,
+  noneApplicableBOGO: 0,
 };
 
 export default CONDITION;
