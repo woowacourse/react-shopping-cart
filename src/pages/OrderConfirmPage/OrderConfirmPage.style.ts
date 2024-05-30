@@ -1,23 +1,25 @@
-import { FlexCenter } from "@/styles/common";
 import styled from "styled-components";
 
-export const FlexWrapper = styled.div`
-  ${FlexCenter};
-  flex-direction: column;
-  height: calc(100vh - 128px);
-  gap: 20px;
-`;
-
-export const OrderConfirmButton = styled.div`
-  position: fixed;
-  bottom: 0;
+export const Wrapper = styled.div`
+  padding: 36px 24px 0px 24px;
   width: 100%;
-  max-width: 430px;
-  margin: 0;
+  padding-bottom: 64px;
 `;
 
-export const ButtonText = styled.span`
-  font-size: 16px;
-  line-height: 16px;
-  font-weight: 700;
+export const CartItemListWrapper = styled.div`
+  height: 160px;
+  overflow-y: scroll;
+`;
+
+export const FlexBox = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+export const ShippingInfoBox = styled.div`
+  display: flex;
+  gap: 10px;
+  height: 56px;
+  flex-direction: column;
+  margin: 30px 0;
 `;

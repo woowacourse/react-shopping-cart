@@ -1,21 +1,27 @@
-import { selector } from "recoil";
+import { atom, selector } from "recoil";
+import {
+  selectedCartItemsIdState,
+  selectedCartListSelector,
+} from "./selectedCardItems";
+import {
+  cartItemQuantityState,
+  cartListQuantitySelector,
+} from "@/recoil/cartItemQuantity";
+import { cartItemsState } from "@/recoil/cartItems";
 
-import { cartItems } from "./cartItems";
-
-import { cartItemQuantity } from "./cartItemQuantity";
-import { selectedCartItemsIdState } from "./selectedCardItems";
-import { SHIPPING_INFO } from "@/constants/cart";
-
-export const totalOrderPriceSelector = selector({
-  key: "totalOrderPriceSelector",
+export const totalItemsPriceSelector = selector({
+  key: "totalItemsPriceSelector",
   get: ({ get }) => {
-    const cartItemList = get(cartItems);
-    const selectedItemsId = get(selectedCartItemsIdState);
+    const selectedItemsIds = get(selectedCartItemsIdState);
+    if (!selectedItemsIds.length) return 0;
 
-    const totalPrice = selectedItemsId.reduce((acc, productId) => {
-      const productInfo = cartItemList.find((item) => item.id == productId)!;
-      const quantity = get(cartItemQuantity(productId));
-      acc += productInfo.product.price * quantity;
+    const totalPrice = selectedItemsIds.reduce((acc, id) => {
+      const targetItem = get(cartItemsState).find((item) => item.id === id);
+      const quantity = get(cartItemQuantityState(id));
+      if (targetItem) {
+        acc += targetItem.product.price * quantity;
+        return acc;
+      }
       return acc;
     }, 0);
 
@@ -23,29 +29,29 @@ export const totalOrderPriceSelector = selector({
   },
 });
 
-export const shippingFeeSelector = selector({
-  key: "shippingFeeSelector",
-  get: ({ get }) => {
-    const totalOrderPrice = get(totalOrderPriceSelector);
-    const hasSelectedItems = get(selectedCartItemsIdState).length;
-    return hasSelectedItems &&
-      totalOrderPrice < SHIPPING_INFO.FREE_SHIPPING_THRESHOLD
-      ? SHIPPING_INFO.SHIPPING_FEE
-      : 0;
-  },
-});
-
 export const totalItemOrderCountSelector = selector({
   key: "totalItemOrderCountSelector",
 
   get: ({ get }) => {
-    const selectedItemsId = get(selectedCartItemsIdState);
-    const totalItemOrderCount = selectedItemsId.reduce((acc, id) => {
-      const itemQuantity = get(cartItemQuantity(id));
-      acc += itemQuantity;
+    const selectedItems = get(selectedCartListSelector);
+    const itemListQuantity = get(cartListQuantitySelector);
+    if (!selectedItems.length) return 0;
+
+    const totalItemOrder = selectedItems.reduce((acc, selectedItem) => {
+      const targetItem = itemListQuantity.find(
+        (item) => item.item.id === selectedItem.id
+      );
+      if (targetItem) {
+        acc += targetItem.quantity;
+      }
       return acc;
     }, 0);
 
-    return totalItemOrderCount;
+    return totalItemOrder;
   },
+});
+
+export const finalOrderAmountState = atom({
+  key: "finalOrderAmountState",
+  default: 0,
 });

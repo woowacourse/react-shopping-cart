@@ -1,11 +1,9 @@
 export const API_BASE_URL = import.meta.env.VITE_API_URL;
 
-/**
- * 각 URL은 다음 요청에서 사용합니다.
- * cartItems: getCartItems
- * cartItemsWithId : patchCartItemQuantity, removeCartItem
- */
 export const API_URL = {
   cartItems: API_BASE_URL + "/cart-items",
+  orders: API_BASE_URL + "/orders",
+  product: API_BASE_URL + "/products",
+  coupons: API_BASE_URL + "/coupons",
   cartItemsWithId: (cartItemId: number) => API_URL.cartItems + `/${cartItemId}`,
 };

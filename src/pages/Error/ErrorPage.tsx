@@ -1,11 +1,12 @@
 import Button from "@/components/_common/Button/Button";
-import Title from "@/components/_common/Title/Title";
 import styled from "styled-components";
 import { FlexCenter } from "@/styles/common";
 import { PAGE_URL } from "@/constants/url";
 import { useNavigate } from "react-router-dom";
+import TextBox from "@/components/_common/TextBox/TextBox";
+import MainLayout from "@/components/layout/MainLayout";
 
-const ErrorFallback = ({ error }: { error: Error }) => {
+const ErrorPage = ({ error }: { error: Error }) => {
   const navigate = useNavigate();
 
   const handleReload = () => {
@@ -17,23 +18,28 @@ const ErrorFallback = ({ error }: { error: Error }) => {
   };
 
   return (
-    <Wrapper>
-      <ErrorMessageBox> {error.message}</ErrorMessageBox>
+    <MainLayout>
+      <MainLayout.Header></MainLayout.Header>
+      <MainLayout.Body>
+        <Wrapper>
+          <ErrorMessageBox> {error.message}</ErrorMessageBox>
 
-      <Button
-        width="fit"
-        theme="dark"
-        radiusVariant="rounded"
-        size="large"
-        onClick={handleReload}
-      >
-        <Title text="home" />
-      </Button>
-    </Wrapper>
+          <Button
+            width="fit"
+            theme="dark"
+            radiusVariant="rounded"
+            size="large"
+            onClick={handleReload}
+          >
+            <TextBox type="xLarge" text="home" />
+          </Button>
+        </Wrapper>
+      </MainLayout.Body>
+    </MainLayout>
   );
 };
 
-export default ErrorFallback;
+export default ErrorPage;
 
 const Wrapper = styled.div`
   ${FlexCenter}

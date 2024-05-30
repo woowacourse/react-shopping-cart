@@ -5,11 +5,12 @@ interface CheckBoxProps {
   isChecked: boolean;
   onClick: () => void;
   id?: string;
+  disabled?: boolean;
 }
 
-const CheckBox = ({ isChecked, onClick, id }: CheckBoxProps) => {
+const CheckBox = ({ isChecked, onClick, id, disabled }: CheckBoxProps) => {
   return (
-    <button onClick={onClick} role="checkbox" id={id}>
+    <button onClick={onClick} role="checkbox" id={id} disabled={disabled}>
       {isChecked ? <Checked /> : <NotChecked />}
     </button>
   );
