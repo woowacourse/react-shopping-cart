@@ -59,11 +59,12 @@ describe("useSortedCheckedCoupons 훅 테스트", () => {
     });
 
     const sortedCoupons = result.current.sortedCoupons;
+    const expectedOrder = ["PERCENT20", "PERCENT10", "FIXED5000", "FREESHIP"];
+
     expect(sortedCoupons).toHaveLength(mockCheckedCoupons.length);
-    expect(sortedCoupons[0].code).toBe("PERCENT20");
-    expect(sortedCoupons[1].code).toBe("PERCENT10");
-    expect(sortedCoupons[2].code).toBe("FIXED5000");
-    expect(sortedCoupons[3].code).toBe("FREESHIP");
+    expectedOrder.forEach((code, index) => {
+      expect(sortedCoupons[index].code).toBe(code);
+    });
   });
 
   it("퍼센트 할인 쿠폰이 없는 경우 순서가 변경되지 않는다.", () => {
