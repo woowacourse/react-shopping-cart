@@ -31,14 +31,24 @@ function Header({ headerIconType }: HeaderProps) {
   const handleHeaderIcon = ({ headerIconType }: HeaderProps) => {
     switch (headerIconType) {
       case 'back':
-        return { icon: BackArrowIcon, width: '2.1rem', url: -1 };
+        return {
+          icon: BackArrowIcon,
+          label: '뒤로가기',
+          width: '2.1rem',
+          url: -1,
+        };
 
       default:
-        return { icon: LogoIcon, width: '5.6rem', url: '/cart' };
+        return {
+          icon: LogoIcon,
+          label: '메인으로 가기',
+          width: '5.6rem',
+          url: '/',
+        };
     }
   };
 
-  const { icon, width, url } = handleHeaderIcon({ headerIconType });
+  const { icon, label, width, url } = handleHeaderIcon({ headerIconType });
   const navigate = useNavigate();
 
   const handleNavigate = (url: string | number) => {
@@ -57,6 +67,7 @@ function Header({ headerIconType }: HeaderProps) {
         onClick={() => {
           handleNavigate(url);
         }}
+        alt={label}
       />
     </HeaderContainer>
   );

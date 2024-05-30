@@ -1,5 +1,5 @@
 import { CartItems } from '../../types/Item';
-import ItemCard from '../ItemCard/ItemCard';
+import CartItemCard from '../ItemCard/CartItemCard';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { itemsState } from '../../recoil/atoms';
 import styled from 'styled-components';
@@ -33,7 +33,6 @@ const CartItemListContainer = styled.ul`
 
 function ItemList() {
   const items = useRecoilValue(itemsState);
-
   const isAllChecked = useRecoilValue(toggleAllSelector);
   const setAllChecked = useSetRecoilState(toggleAllSelector);
 
@@ -54,7 +53,7 @@ function ItemList() {
 
       <CartItemListContainer>
         {items.map((product: CartItems) => {
-          return <ItemCard key={product.id} item={product} />;
+          return <CartItemCard key={product.id} item={product} />;
         })}
       </CartItemListContainer>
     </ProductListContainer>

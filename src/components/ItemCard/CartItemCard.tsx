@@ -1,14 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { removeCartItem } from '../../api';
 import { itemDetailsState, itemsState } from '../../recoil/atoms';
 import { CartItems } from '../../types/Item';
 import { fetchCartItemQuantity } from '../../api';
 import CheckBox from '../CheckBox/CheckBox';
-import {
-  updateLocalStorage,
-  getLocalStorage,
-} from '../../utils/UpdateLocalStorage';
+import { updateLocalStorage } from '../../utils/LocalStorage';
 import styled from 'styled-components';
 import { MESSAGES } from '../../constants/Messages';
 
@@ -99,53 +96,46 @@ interface ProductProps {
   item: CartItems;
 }
 
-function ItemCard({ item }: ProductProps) {
+function CartItemCard({ item }: ProductProps) {
   const [details, setDetails] = useRecoilState(itemDetailsState(item.id));
   const setItems = useSetRecoilState(itemsState);
-  const [error, setError] = useState<Error | null>(null);
+  const [error, setError] = useState(false);
 
-  useEffect(() => {
-    const localStorageList = getLocalStorage();
-    const localStorageProduct = localStorageList.find(
-      (value) => value.id === item.id,
-    );
-    setDetails({
-      quantity: item.quantity,
-      isChecked: localStorageProduct ? localStorageProduct.isChecked : true,
-    });
-  }, [item.quantity, item.product.price, setDetails, item.id]);
+  if (error) {
+    throw new Error('error');
+  }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setError(null);
-
-      try {
-        await fetchCartItemQuantity(item.id, details.quantity);
-      } catch (error) {
-        setError(error as Error);
-      }
-    };
-
-    fetchData();
-  }, [details, item.id]);
-
-  const handleDecreasedQuantity = () => {
+  const handleDecreasedQuantity = async () => {
     setDetails((prevQuantity) => ({
       ...prevQuantity,
       quantity: Math.max(prevQuantity.quantity - 1, 1),
     }));
+    try {
+      await fetchCartItemQuantity(item.id, Math.max(details.quantity - 1, 1));
+    } catch (error) {
+      setError(true);
+    }
   };
 
-  const handleIncreasedQuantity = () => {
+  const handleIncreasedQuantity = async () => {
     setDetails((prevQuantity) => ({
       ...prevQuantity,
       quantity: prevQuantity.quantity + 1,
     }));
+    try {
+      await fetchCartItemQuantity(item.id, details.quantity + 1);
+    } catch (error) {
+      setError(true);
+    }
   };
 
   const handleRemoveItem = async (id: number) => {
-    await removeCartItem(id);
-    setItems((prevState) => prevState.filter((item) => item.id !== id));
+    try {
+      await removeCartItem(id);
+      setItems((prevState) => prevState.filter((item) => item.id !== id));
+    } catch (error) {
+      setError(true);
+    }
   };
 
   const handleCheckedItem = () => {
@@ -156,10 +146,6 @@ function ItemCard({ item }: ProductProps) {
 
     updateLocalStorage({ id: item.id, isChecked: !details.isChecked });
   };
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
 
   return (
     <CardContainer>
@@ -188,4 +174,4 @@ function ItemCard({ item }: ProductProps) {
   );
 }
 
-export default ItemCard;
+export default CartItemCard;

@@ -23,3 +23,7 @@ export const getLocalStorage = (): LocalShoppingCartType[] => {
   );
   return shoppingCarts;
 };
+
+export const removeLocalStorage = () => {
+  localStorage.removeItem('shopping-cart');
+};

@@ -3,9 +3,8 @@ import Header from '../components/Header/Header';
 import styled from 'styled-components';
 import ErrorFallback from '../components/ErrorFallback';
 import { ErrorBoundary } from 'react-error-boundary';
-import CartContent, {
-  NoCartItemContainer,
-} from '../components/CartContent/CartContent';
+import OrderConfirmContent from '../components/OrderConfirmContent/OrderConfirmContent';
+import { NoCartItemContainer } from '../components/CartContent/CartContent';
 
 const CartContainer = styled.div`
   display: flex;
@@ -14,19 +13,18 @@ const CartContainer = styled.div`
   height: 100%;
 `;
 
-function Cart() {
+function OrderConfirm() {
   return (
     <CartContainer>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Header headerIconType="home" />
-
+        <Header headerIconType="back" />
         <Suspense
           fallback={<NoCartItemContainer>Loading...</NoCartItemContainer>}
         >
-          <CartContent />
+          <OrderConfirmContent />
         </Suspense>
       </ErrorBoundary>
     </CartContainer>
   );
 }
-export default Cart;
+export default OrderConfirm;

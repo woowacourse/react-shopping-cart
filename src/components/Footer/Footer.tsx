@@ -1,7 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import { MESSAGES } from '../../constants/Messages';
 
 interface FooterContainerProps {
   $backgroundColor: string;
@@ -30,27 +28,26 @@ const FooterContainer = styled.footer<FooterContainerProps>`
 `;
 
 interface FooterProps {
-  url: string;
+  value: string;
   isDisabled: boolean;
+
+  onClick: (e: React.MouseEvent) => void;
 }
 
-function Footer({ url, isDisabled = false }: FooterProps) {
-  const navigate = useNavigate();
-  const handleClick = (event: React.MouseEvent) => {
-    if (isDisabled) {
-      event.preventDefault();
-    } else {
-      navigate(url);
-    }
-  };
-
+function Footer({ value, isDisabled = false, onClick }: FooterProps) {
   return (
-    <FooterContainer
-      onClick={(e) => handleClick(e)}
-      $backgroundColor={isDisabled ? '#BEBEBE' : '#000000'}
-    >
-      {MESSAGES.confirm}
-    </FooterContainer>
+    <>
+      {isDisabled ? (
+        <FooterContainer $backgroundColor="#BEBEBE">{value}</FooterContainer>
+      ) : (
+        <FooterContainer
+          onClick={onClick} // 이벤트 핸들러 직접 연결
+          $backgroundColor="#000000"
+        >
+          {value}
+        </FooterContainer>
+      )}
+    </>
   );
 }
 

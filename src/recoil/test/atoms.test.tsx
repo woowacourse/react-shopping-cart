@@ -1,7 +1,9 @@
 import { renderHook } from '@testing-library/react';
 import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil';
-import { itemDetailsState, itemsState } from './atoms';
+import { couponsState, itemDetailsState, itemsState } from '../atoms';
 import { act } from 'react';
+
+import { mockCoupons } from '../../mocks/coupons';
 
 describe('itemsState', () => {
   it('초기값은 빈 배열이어야 한다.', () => {
@@ -86,5 +88,19 @@ describe('itemsState', () => {
       });
       expect(result.current[0]).toMatchObject(newData);
     });
+  });
+});
+
+describe('couponsState', () => {
+  it('', async () => {
+    const { result } = renderHook(() => useRecoilState(couponsState), {
+      wrapper: ({ children }) => <RecoilRoot>{children}</RecoilRoot>,
+    });
+
+    act(() => {
+      result.current[1](mockCoupons);
+    });
+
+    expect(result.current[0]).toMatchObject(mockCoupons);
   });
 });

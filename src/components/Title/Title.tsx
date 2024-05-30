@@ -1,3 +1,4 @@
+import { Fragment } from 'react/jsx-runtime';
 import styled from 'styled-components';
 
 const TitleContainer = styled.div`
@@ -6,7 +7,7 @@ const TitleContainer = styled.div`
   gap: 1.2rem;
 `;
 
-const TitleStyle = styled.div`
+const TitleStyle = styled.h1`
   font-size: 2.4rem;
   font-weight: 700;
   line-height: 3.475rem;
@@ -28,7 +29,16 @@ function Title({ title, subTitle }: TitleProps) {
   return (
     <TitleContainer>
       <TitleStyle>{title}</TitleStyle>
-      <SubTitleStyle>{subTitle}</SubTitleStyle>
+      {subTitle && (
+        <SubTitleStyle>
+          {subTitle.split('\n').map((line, index) => (
+            <Fragment key={index}>
+              {line}
+              <br />
+            </Fragment>
+          ))}
+        </SubTitleStyle>
+      )}
     </TitleContainer>
   );
 }
