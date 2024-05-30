@@ -34,6 +34,36 @@ describe('couponValidator', () => {
 
       expect(validateCoupon(VALID_COUPON)).toBe(true);
     });
+
+    it('쿠폰 목록에 포함되어 있는 쿠폰이면 유효하다', () => {
+      const VALID_COUPON = {
+        id: 0,
+        code: 'FIXED5000',
+        description: '5,000원 할인 쿠폰',
+        discount: 5000,
+        discountType: 'fixed' as 'fixed',
+        minimumAmount: 100000,
+        expirationDate: '2024-06-30',
+      };
+      const { validateCoupon } = couponValidator();
+
+      expect(validateCoupon(VALID_COUPON)).toBe(true);
+    });
+
+    it('쿠폰 목록에 포함되지 않은 쿠폰이면 유효하지않다', () => {
+      const VALID_COUPON = {
+        id: 0,
+        code: 'SIMO',
+        description: '5,000원 할인 쿠폰',
+        discount: 5000,
+        discountType: 'fixed' as 'fixed',
+        minimumAmount: 100000,
+        expirationDate: '2024-06-30',
+      };
+      const { validateCoupon } = couponValidator();
+
+      expect(validateCoupon(VALID_COUPON)).toBe(false);
+    });
   });
 
   describe('couponApplicabilityValidator', () => {
