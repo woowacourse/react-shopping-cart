@@ -1,17 +1,8 @@
 import { renderHook, act } from "@testing-library/react";
 import { RecoilRoot } from "recoil";
 import useCoupons from "@/hooks/coupon/useCoupons";
-import { mockCartItemList } from "@/mocks/cartItemList";
 import { mockCoupons } from "@/mocks/coupons";
 import { couponsState } from "@/recoil/coupons";
-
-jest.mock("../auth/apis/cart", () => ({
-  getCartItems: jest.fn().mockImplementation(() => mockCartItemList),
-}));
-
-jest.mock("../auth/apis/coupon", () => ({
-  getCoupons: jest.fn().mockImplementation(() => mockCoupons),
-}));
 
 describe("쿠폰 적용 테스트", () => {
   it("쿠폰이 잘 적용된다.", () => {

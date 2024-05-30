@@ -5,8 +5,11 @@ import { shippingFeeSelector } from "@/recoil/shippingFeeType";
 import { cartItemsState } from "@/recoil/cartItems";
 import { selectedCartItemsIdState } from "@/recoil/selectedCardItems";
 
-jest.mock("../auth/apis/cart", () => ({
+jest.mock("../apis/cart", () => ({
   getCartItems: jest.fn().mockImplementation(() => mockCartItemList),
+  postCartItem: jest.fn().mockImplementation(() => {}),
+  patchCartItemQuantity: jest.fn().mockImplementation(() => {}),
+  removeCartItem: jest.fn().mockImplementation(() => {}),
 }));
 
 describe("상품 배송비 테스트", () => {

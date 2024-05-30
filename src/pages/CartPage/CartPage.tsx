@@ -19,10 +19,6 @@ import useCartItems from "@/hooks/cart/useCartItems";
 import { useEffect } from "react";
 import MainLayout from "@/components/layout/MainLayout";
 import useCoupons from "@/hooks/coupon/useCoupons";
-// import {
-//   shippingFeeSelector,
-//   shippingFeeState,
-// } from "@/recoil/shippingFeeType";
 
 const CartPage = () => {
   const selectedItems = useRecoilValue(totalItemOrderCountSelector);
@@ -40,7 +36,6 @@ const CartPage = () => {
   useEffect(() => {
     updateNewCartItems();
     resetCouponList();
-    // setShippingFee(shippingFee);
   }, []);
 
   return (

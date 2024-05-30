@@ -13,7 +13,7 @@ import { totalItemsPriceSelector } from "@/recoil/orderInformation";
 import { act, renderHook, waitFor } from "@testing-library/react";
 import { selectedCartItemsIdState } from "@/recoil/selectedCardItems";
 
-jest.mock("../auth/apis/cart", () => ({
+jest.mock("../apis/cart", () => ({
   getCartItems: jest.fn().mockImplementation(() => mockCartItemList),
 }));
 

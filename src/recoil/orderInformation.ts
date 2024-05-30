@@ -41,7 +41,9 @@ export const totalItemOrderCountSelector = selector({
       const targetItem = itemListQuantity.find(
         (item) => item.item.id === selectedItem.id
       );
-      acc += targetItem!.quantity;
+      if (targetItem) {
+        acc += targetItem.quantity;
+      }
       return acc;
     }, 0);
 
