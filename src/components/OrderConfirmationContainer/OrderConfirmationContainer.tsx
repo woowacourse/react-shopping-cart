@@ -3,18 +3,24 @@ import TotalPaymentInfo from '../common/TotalPaymentInfo/TotalPaymentInfo';
 import * as Styled from './style';
 import OrderButton from '../common/OrderButton/OrderButton';
 import { useNavigate } from 'react-router-dom';
-import { ROUTE } from '../../constant/route';
+import { ROUTE } from '../constants/route';
 import PaymentInfo from '../common/TotalPaymentInfo/PaymentInfo';
 import ReadOnlyCartItemList from '../CartItemList/ReadOnlyCartItemList';
-import CouponApplication from '../CouponApplication/CouponApplication';
+import CouponApplicationModal from '../CouponApplicationModal/CouponApplicationModal';
 import { useRecoilValue } from 'recoil';
-import { finalCouponDiscountSelector } from '../../recoil/coupons';
-import { koMoneyFormat } from '../util/koMoneyFormat';
+import { koMoneyFormat } from '../../util/common/koMoneyFormat';
 import DeliveryInfo from '../DeliveryInfo/DeliveryInfo';
+import { selectedCartItemsSelector } from '../../recoil/cartItems';
+import { orderCartItem } from '../../api/shoppingCart';
+import useTotalDiscount from '../../hooks/useTotalDiscount';
 
 const OrderConfirmationContainer = () => {
   const navigator = useNavigate();
-  const finalCouponDiscount = useRecoilValue(finalCouponDiscountSelector);
+  const finalCouponDiscount = useTotalDiscount();
+
+  const orderCartItemIds = useRecoilValue(selectedCartItemsSelector).map(
+    (orderCartItem) => orderCartItem.id,
+  );
 
   return (
     <>
@@ -25,7 +31,7 @@ const OrderConfirmationContainer = () => {
               최종 결제 금액을 확인해 주세요.`}
         />
         <ReadOnlyCartItemList />
-        <CouponApplication />
+        <CouponApplicationModal />
         <DeliveryInfo />
         <TotalPaymentInfo>
           {
@@ -38,6 +44,7 @@ const OrderConfirmationContainer = () => {
       </Styled.Container>
       <OrderButton
         onClick={() => {
+          orderCartItem(orderCartItemIds);
           navigator(ROUTE.buyItem.path);
         }}
         isOrderable={true}

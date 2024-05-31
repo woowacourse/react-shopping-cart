@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import useDiscountType from './useDiscountType';
 import useCouponAvailable from './useCouponAvailable';
 import {
-  couponIds,
   couponSelectedState,
   selectedCouponsSelector,
 } from '../recoil/coupons';
@@ -12,9 +11,11 @@ import {
 const useCoupons = () => {
   const coupons = useRecoilValue(fetchedCouponsSelector);
   const { applyCoupon, getDiscountAmount } = useDiscountType();
-  const couponIdList = useRecoilValue(couponIds);
 
   const selectedCoupons = useRecoilValue(selectedCouponsSelector);
+  const couponIdList = selectedCoupons.map((coupon) => {
+    return coupon.id;
+  });
 
   const { isCouponAvailable } = useCouponAvailable();
 

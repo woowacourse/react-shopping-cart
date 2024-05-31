@@ -6,10 +6,10 @@ import * as Styled from './style';
 import { LoadingMessage } from '../../common/LoadingFallback/style';
 import BuyItemsContents from './BuyItemsContents';
 import { useNavigate } from 'react-router-dom';
-import { ROUTE } from '../../../constant/route';
+import { ROUTE } from '../../constants/route';
 import { useResetRecoilState } from 'recoil';
 import {
-  applyCouponState,
+  discountedPriceState,
   isShippingFeeDiscountState,
 } from '../../../recoil/coupons';
 import { mountainousAreaState } from '../../../recoil/cartItems';
@@ -17,12 +17,17 @@ import { mountainousAreaState } from '../../../recoil/cartItems';
 const BuyItems = () => {
   const navigator = useNavigate();
 
-  const applyCouponReset = useResetRecoilState(applyCouponState);
+  const applyCouponReset = useResetRecoilState(discountedPriceState);
   const shippingFeeDiscountReset = useResetRecoilState(
     isShippingFeeDiscountState,
   );
   const mountainousAreaReset = useResetRecoilState(mountainousAreaState);
 
+  const resetAllCouponState = () => {
+    applyCouponReset();
+    shippingFeeDiscountReset();
+    mountainousAreaReset();
+  };
   return (
     <Styled.BuyItems>
       <Header />
@@ -35,9 +40,7 @@ const BuyItems = () => {
       <OrderButton
         onClick={() => {
           navigator(ROUTE.cart.path);
-          applyCouponReset();
-          shippingFeeDiscountReset();
-          mountainousAreaReset();
+          resetAllCouponState();
         }}
         isOrderable={true}
       >
