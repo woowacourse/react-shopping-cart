@@ -1,3 +1,5 @@
+import { TimeStamp } from '../types';
+
 export const dateFormatter = (dateStr: string) => {
   const date = new Date(dateStr);
 
@@ -12,8 +14,8 @@ export const priceFormatter = (priceNum: number) => {
   return `${priceNum.toLocaleString()}원`;
 };
 
-export const timeFormatter = (timeStr: string) => {
-  const [hour, minute, second] = timeStr.split(':').map(Number);
+export const timeFormatter = (timeStamp: TimeStamp) => {
+  const [hour, minute, second] = timeStamp.split(':').map(Number);
   const date = new Date();
   date.setHours(hour, minute, second, 0);
 
