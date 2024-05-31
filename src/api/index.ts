@@ -50,7 +50,7 @@ export async function addCartItem(id: number) {
     body: JSON.stringify({ cartItemIds: id }),
   });
 
-  return { success: response.ok };
+  return response;
 }
 
 /**
@@ -64,8 +64,7 @@ export async function updateCartItemQuantity(id: number, newQuantity: number) {
     method: 'PATCH',
     body: JSON.stringify({ quantity: newQuantity }),
   });
-
-  return { success: response.ok };
+  return response;
 }
 
 /**
@@ -78,7 +77,7 @@ export async function deleteCartItem(id: number) {
     method: 'DELETE',
   });
 
-  return { success: response.ok };
+  return response;
 }
 
 /**
@@ -92,7 +91,7 @@ export async function addOrders(ids: number[]) {
     body: JSON.stringify({ cartItemIds: ids }),
   });
 
-  return { success: response.ok };
+  return response;
 }
 
 /**

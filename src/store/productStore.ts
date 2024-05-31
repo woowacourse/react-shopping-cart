@@ -7,8 +7,13 @@ export const productsState = atom({
   default: selector({
     key: 'productsState/Default',
     get: async () => {
-      const products = await fetchCartItems();
-      return products;
+      try {
+        const products = await fetchCartItems();
+        return products;
+      } catch (error) {
+        console.error(error);
+        return [];
+      }
     },
   }),
 });
@@ -18,8 +23,10 @@ export const isCheckedState = atom<Record<number, boolean>>({
   default: {},
   effects: [
     ({ onSet }) => {
-      onSet((state: Record<number, boolean>) => {
-        window.localStorage.setItem('isChecked', JSON.stringify(state));
+      onSet((newState: Record<number, boolean>, oldState, isReset) => {
+        console.log('oldState', oldState);
+        console.log('isReset', isReset);
+        window.localStorage.setItem('isChecked', JSON.stringify(newState));
       });
     },
   ],

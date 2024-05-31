@@ -10,8 +10,12 @@ export const couponsState = atom<CouponType[]>({
   default: selector({
     key: 'couponsState/Default',
     get: async () => {
-      const coupons = await fetchCoupons();
-      return coupons;
+      try {
+        const coupons = await fetchCoupons();
+        return coupons;
+      } catch (error) {
+        console.error(error);
+      }
     },
   }),
 });

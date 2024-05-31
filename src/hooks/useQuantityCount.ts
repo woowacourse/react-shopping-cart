@@ -9,17 +9,21 @@ const useQuantityCount = ({ id }: { id: number }) => {
   const productQuantity = useRecoilValue(productQuantityState(id));
 
   const updateProductQuantity = async (newQuantity: number) => {
-    const { success } = await updateCartItemQuantity(id, newQuantity);
-    if (success) {
+    try {
+      await updateCartItemQuantity(id, newQuantity);
+
       const newProducts = products.map((product: CartItemType) =>
         product.id === id ? { ...product, quantity: newQuantity } : product,
       );
       setProducts(newProducts);
+    } catch (error) {
+      console.error(error);
     }
   };
 
   const handleIncrementButton = async () => {
-    await updateProductQuantity(productQuantity + 1);
+    const newQuantity = productQuantity + 1;
+    await updateProductQuantity(newQuantity);
   };
 
   const handleDecrementButton = async () => {

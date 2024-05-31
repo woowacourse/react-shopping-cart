@@ -29,7 +29,7 @@ export default function CheckoutPage() {
       await addOrders(productIds);
       navigatePaymentsPage();
     } catch (error) {
-      alert(error);
+      console.error(error);
     }
   };
 
