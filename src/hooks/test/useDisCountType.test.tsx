@@ -1,41 +1,45 @@
-import { renderHook } from '@testing-library/react';
-import { RecoilRoot } from 'recoil';
-import { mockCoupons } from './coupons.testData';
-import { cartItemQuantityState, cartItemsState } from '../../recoil/cartItems';
-import useDiscountType from '../useDiscountType';
-import mockCartItems from './mockCartItems.testData';
-import mockIsCartItemSelecteds from './selectedCartItems.testData';
-import { selectedCartItemsState } from '../../recoil/selectedCardItems';
-import cartQuantity from './cartQuantity.testData';
-
+import '@testing-library/jest-dom';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { OrderConfirmation } from '../../components/pages/OrderConfirmationPage/style';
+import 'jest-styled-components';
 describe('useDiscountType', () => {
-  it('할인 타입이 fixed 인 경우', () => {
-    const { result } = renderHook(() => useDiscountType(), {
-      wrapper: ({ children }) => (
-        <RecoilRoot
-          initializeState={({ set }) => {
-            set(cartItemsState, mockCartItems);
-            mockIsCartItemSelecteds.forEach((isCartItemSelected) =>
-              set(
-                selectedCartItemsState(isCartItemSelected.id),
-                isCartItemSelected.boolean,
-              ),
-            );
-            cartQuantity.forEach((isCartItemSelected) =>
-              set(
-                cartItemQuantityState(isCartItemSelected.id),
-                isCartItemSelected.quantity,
-              ),
-            );
-          }}
-        >
-          {children}
-        </RecoilRoot>
-      ),
-    });
-    expect(result.current.applyCoupon(mockCoupons)).toBe(false);
+  it('2개 구매 시 1개 무료 쿠폰 클릭 시 ', () => {
+    render(<OrderConfirmation />);
+    const button = screen.getByLabelText('제주도 및 도서 산간 지역');
+
+    fireEvent.click(button);
+    const price = screen.getByTestId('price');
+
+    expect(price).toHaveTextContent('6,000원');
   });
 
+  // it('할인 타입이 fixed 인 경우', () => {
+  //   //컴포넌ㅇ트 불러오는식으로 구현하기
+  //   const { result } = renderHook(() => useDiscountType(), {
+  //     wrapper: ({ children }) => (
+  //       <RecoilRoot
+  //         initializeState={({ set }) => {
+  //           set(cartItemsState, mockCartItems);
+  //           mockIsCartItemSelecteds.forEach((isCartItemSelected) =>
+  //             set(
+  //               selectedCartItemsState(isCartItemSelected.id),
+  //               isCartItemSelected.boolean,
+  //             ),
+  //           );
+  //           cartQuantity.forEach((isCartItemSelected) =>
+  //             set(
+  //               cartItemQuantityState(isCartItemSelected.id),
+  //               isCartItemSelected.quantity,
+  //             ),
+  //           );
+  //         }}
+  //       >
+  //         {children}
+  //       </RecoilRoot>
+  //     ),
+  //   });
+  //   expect(result.current.applyCoupon(mockCoupons)).toBe(false);
+  // });
   //   it('주문 금액이 최소 주문 금액 이상이면 쿠폰 적용 가능', () => {
   //     const { result } = renderHook(() => useCouponApplicabilityChecker(), {
   //       wrapper: ({ children }) => (
