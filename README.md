@@ -10,6 +10,7 @@
 - [x] 상대경로 -> 절대경로 import로 변경
 - [x] numeric separator 적용
 - [x] discountAmount으로 쿠폰 할인 금액 비교 로직 변경
+- [x] 함수의 파라미터가 많다면 객체 형태로
 
 # 🎯 쇼핑 카트 2단계 기능 구현 목록
 

@@ -45,6 +45,6 @@ export const discountAmountState = selector({
     const orderAmount = get(orderAmountState);
     const { totalShippingFee } = get(totalShippingFeeState);
 
-    return couponCalculator(activeCoupons, checkoutProducts, orderAmount, totalShippingFee);
+    return couponCalculator({ activeCoupons, checkoutProducts, orderAmount, totalShippingFee });
   },
 });

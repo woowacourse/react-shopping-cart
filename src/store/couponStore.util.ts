@@ -24,18 +24,25 @@ const applyCoupon = (
   }
 };
 
-export const couponCalculator = (
-  activeCoupons: CouponType[],
-  products: CartItemType[],
-  orderAmount: number,
-  totalShippingFee: number,
-): number => {
+interface CouponCalculatorProps {
+  activeCoupons: CouponType[];
+  checkoutProducts: CartItemType[];
+  orderAmount: number;
+  totalShippingFee: number;
+}
+
+export const couponCalculator = ({
+  activeCoupons,
+  checkoutProducts,
+  orderAmount,
+  totalShippingFee,
+}: CouponCalculatorProps): number => {
   let maxDiscount = 0;
 
   activeCoupons.forEach((coupon) => {
     let bestDiscount = 0;
 
-    products.forEach((product) => {
+    checkoutProducts.forEach((product) => {
       const discount = applyCoupon(coupon, product, totalShippingFee, orderAmount);
       if (discount > bestDiscount) {
         bestDiscount = discount;
