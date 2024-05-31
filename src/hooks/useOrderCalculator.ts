@@ -31,10 +31,8 @@ export const useOrderCalculator = () => {
    * @returns { number }
    */
   const calculateDiscountWithCoupon = (type: 'modal' | null = null) => {
-    const checkedCoupons =
-      type === 'modal'
-        ? coupons.filter((coupon) => coupon.isChecked)
-        : selectedCoupons.filter((coupon) => coupon.isChecked);
+    const relevantCoupons = type === 'modal' ? coupons : selectedCoupons;
+    const checkedCoupons = relevantCoupons.filter((coupon) => coupon.isChecked);
 
     const orderTotal = calculateOrderTotal();
     const discountAmount = checkedCoupons.reduce(
@@ -61,15 +59,13 @@ export const useOrderCalculator = () => {
    */
   const calculateDeliveryFee = () => {
     const orderTotal = calculateOrderTotal();
-    const standardDeliveryFee = DELIVERY.deliveryFee;
 
     if (orderTotal > DELIVERY.noDeliveryFeeStandard) {
       return DELIVERY.noDeliveryFee;
     }
-    if (isRemoteArea) {
-      return standardDeliveryFee + DELIVERY.remoteArea;
-    }
-    return standardDeliveryFee;
+    return isRemoteArea
+      ? DELIVERY.deliveryFee + DELIVERY.remoteArea
+      : DELIVERY.deliveryFee;
   };
 
   return {
