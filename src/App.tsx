@@ -3,9 +3,11 @@ import './reset.css';
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import ConfirmOrderPage from './page/ConfirmOrderPage/ConfirmOrderPage';
 import ENDPOINTS from './constants/endpoints';
-import ShoppingCartPage from './page/ShoppingCartPage';
+import ErrorBoundary from './components/page/ErrorBoundary';
+import OrderConfirmationPage from './components/page/OrderConfirmationPage/OrderConfirmationPage';
+import PaymentPage from './components/page/PaymentPage/PaymentPage';
+import ShoppingCartPage from './components/page/ShoppingCartPage/ShoppingCartPage';
 import { Suspense } from 'react';
 
 const router = createBrowserRouter([
@@ -14,11 +16,23 @@ const router = createBrowserRouter([
     element: <ShoppingCartPage />,
   },
   {
-    path: ENDPOINTS.confirmOrder,
+    path: ENDPOINTS.orderConfirmation,
     element: (
-      <Suspense>
-        <ConfirmOrderPage />
-      </Suspense>
+      <ErrorBoundary>
+        <Suspense>
+          <OrderConfirmationPage />,
+        </Suspense>
+      </ErrorBoundary>
+    ),
+  },
+  {
+    path: ENDPOINTS.paymentPage,
+    element: (
+      <ErrorBoundary>
+        <Suspense>
+          <PaymentPage />
+        </Suspense>
+      </ErrorBoundary>
     ),
   },
 ]);

@@ -1,6 +1,7 @@
 const ENDPOINTS = {
   shoppingCart: '/react-shopping-cart',
-  confirmOrder: '/react-shopping-cart/confirm-order',
+  orderConfirmation: '/react-shopping-cart/order-confirmation',
+  paymentPage: '/react-shopping-cart/payment',
 } as const;
 
 export default ENDPOINTS;

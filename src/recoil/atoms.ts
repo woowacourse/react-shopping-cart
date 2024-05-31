@@ -1,6 +1,6 @@
+import { CartItem, Coupon } from '../type';
 import { atom, selector } from 'recoil';
 
-import { CartItem } from '../type';
 import { fetchCartItems } from '../apis';
 import parseJsonSafely from '../utils/parseJsonSafely';
 
@@ -34,4 +34,11 @@ export const uncheckedItemIdsState = atom<number[]>({
       });
     },
   ],
+});
+
+export const selectedCouponsState = atom<Coupon[]>({ key: 'selectedCouponIdsState', default: [] });
+
+export const isIslandOrMountainState = atom<boolean>({
+  key: 'isIslandOrMountainState',
+  default: false,
 });

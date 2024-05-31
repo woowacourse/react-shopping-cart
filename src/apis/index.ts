@@ -1,5 +1,6 @@
+import { CartItem, Coupon } from '../type';
+
 import API_CONFIG from './config';
-import { CartItem } from '../type';
 import { generateBasicToken } from '../utils/auth';
 
 const API_URL = API_CONFIG.API_URL;
@@ -7,6 +8,8 @@ const USER_ID = API_CONFIG.USER_ID;
 const USER_PASSWORD = API_CONFIG.USER_PASSWORD;
 
 const CART_ITEMS = 'cart-items';
+const ORDERS = 'orders';
+const COUPONS = 'coupons';
 
 const AUTH_HEADER = {
   'Content-Type': 'application/json',
@@ -60,4 +63,30 @@ export async function updateCartItemQuantity(cartItemId: number, quantity: numbe
   if (!response.ok) {
     throw new Error('Failed to add cart item');
   }
+}
+
+export async function orderItems(itemIds: number[]): Promise<void> {
+  const response = await fetch(`${API_URL}/${ORDERS}`, {
+    method: 'POST',
+    headers: AUTH_HEADER,
+    body: JSON.stringify({ cartItemIds: itemIds }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to add cart item');
+  }
+}
+
+export async function fetchCoupon(): Promise<Coupon[]> {
+  const response = await fetch(`${API_URL}/${COUPONS}`, {
+    method: 'GET',
+    headers: AUTH_HEADER,
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to add cart item');
+  }
+
+  const data = await response.json();
+  return data;
 }

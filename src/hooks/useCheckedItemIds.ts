@@ -8,7 +8,7 @@ const useCheckedItemIds = () => {
     return !uncheckedItemIds.includes(id);
   };
 
-  const checkId = (...ids: number[]) => {
+  const checkIds = (...ids: number[]) => {
     const nextCheckedItemIds = ids.reduce(
       (arr, cur) => {
         const indexInUncheckedIds = arr.indexOf(cur);
@@ -22,7 +22,7 @@ const useCheckedItemIds = () => {
     setRecoilCheckedItemIds(nextCheckedItemIds);
   };
 
-  const uncheckId = (...ids: number[]) => {
+  const uncheckIds = (...ids: number[]) => {
     const nextUncheckedIds = ids.reduce(
       (arr, cur) => {
         if (uncheckedItemIds.includes(cur)) return arr;
@@ -34,7 +34,7 @@ const useCheckedItemIds = () => {
     setRecoilCheckedItemIds(nextUncheckedIds);
   };
 
-  return { getIsChecked, checkId, uncheckId };
+  return { getIsChecked, checkIds, uncheckIds };
 };
 
 export default useCheckedItemIds;
