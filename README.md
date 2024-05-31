@@ -11,6 +11,7 @@
 - [x] numeric separator 적용
 - [x] discountAmount으로 쿠폰 할인 금액 비교 로직 변경
 - [x] 함수의 파라미터가 많다면 객체 형태로
+- [x] CouponList 컴포넌트에서 useCouponSelected 도메인 로직 분리
 
 # 🎯 쇼핑 카트 2단계 기능 구현 목록
 
