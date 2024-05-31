@@ -39,15 +39,17 @@ function CouponModalContent({ toggleModal }: CouponModalContentProps) {
     updateSelectedCoupons();
   };
 
+  const orderTotal = calculateOrderTotal();
+
   return (
     <>
       <S.CouponModalContentWrapper>
         <NotificationMessage message={MESSAGES.couponModalNotification} />
         <S.CouponModalCardWrapper>
-          {coupons.map((coupon, i) => (
+          {coupons.map((coupon) => (
             <CouponModalCard
-              key={i}
-              isAvailable={isCouponApplicable(coupon, calculateOrderTotal())}
+              key={coupon.id}
+              isAvailable={isCouponApplicable(coupon, orderTotal)}
               name={coupon.description}
               expirationDate={coupon.expirationDate}
               minimumAmount={coupon.minimumAmount}
