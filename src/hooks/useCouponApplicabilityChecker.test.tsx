@@ -6,13 +6,15 @@ import { mockCoupons } from '../mocks/coupons';
 import { DELIVERY } from '../constants/Delivery';
 
 describe('useCouponApplicabilityChecker', () => {
+  const createMockCoupon = (expirationDate: string) => ({
+    ...mockCoupons[0],
+    expirationDate,
+  });
+
   it('쿠폰이 만료되지 않았으면 적용 가능하다.', () => {
-    const availableCoupon = {
-      ...mockCoupons[0],
-      expirationDate: new Date(
-        new Date().setDate(new Date().getDate() + 1),
-      ).toISOString(),
-    };
+    const availableCoupon = createMockCoupon(
+      new Date(new Date().setDate(new Date().getDate() + 1)).toISOString(),
+    );
 
     const { result } = renderHook(() => useCouponApplicabilityChecker(), {
       wrapper: ({ children }) => (
@@ -32,12 +34,9 @@ describe('useCouponApplicabilityChecker', () => {
   });
 
   it('쿠폰이 만료되었으면 적용 불가능하다.', () => {
-    const expiredCoupon = {
-      ...mockCoupons[0],
-      expirationDate: new Date(
-        new Date().setDate(new Date().getDate() - 1),
-      ).toISOString(),
-    };
+    const expiredCoupon = createMockCoupon(
+      new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
+    );
 
     const { result } = renderHook(() => useCouponApplicabilityChecker(), {
       wrapper: ({ children }) => (
