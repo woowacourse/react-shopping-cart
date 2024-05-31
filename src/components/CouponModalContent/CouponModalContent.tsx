@@ -25,9 +25,9 @@ function CouponModalContent({ toggleModal }: CouponModalContentProps) {
   }, [fetchedCoupons]);
 
   const { coupons, toggleCouponCheck, getCheckedCount } = useCouponChecker();
-  const { calculateDiscountWithCoupon } = useOrderCalculator();
+  const { calculateDiscountWithCoupon, calculateOrderTotal } =
+    useOrderCalculator();
   const { updateSelectedCoupons } = useUpdateSelectedCoupons();
-  const { calculateOrderTotal } = useOrderCalculator();
   const { isCouponApplicable } = useCouponApplicabilityChecker();
 
   const handleCouponChecked = (id: number) => () => {
@@ -60,9 +60,7 @@ function CouponModalContent({ toggleModal }: CouponModalContentProps) {
       </S.CouponModalContentWrapper>
 
       <S.CouponModalButton onClick={handleModalButton}>
-        <S.CouponModalButtonText>
-          총 {calculateDiscountWithCoupon('modal')}원 할인 쿠폰 사용하기
-        </S.CouponModalButtonText>
+        <p>총 {calculateDiscountWithCoupon('modal')}원 할인 쿠폰 사용하기</p>
       </S.CouponModalButton>
     </>
   );

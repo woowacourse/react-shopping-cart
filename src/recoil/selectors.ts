@@ -2,7 +2,7 @@ import { DefaultValue, selector } from 'recoil';
 import { couponsState, itemDetailsState, itemsState } from './atoms';
 import { Items } from '../types/Item';
 import { updateLocalStorage } from '../utils/LocalStorage';
-import { fetchCoupons, fetchItems } from '../api';
+import { fetchCoupons } from '../api';
 
 /**
  * get: () => boolean
@@ -50,19 +50,19 @@ export const totalCountSelector = selector({
   },
 });
 
-/**
- * 장바구니 초기 데이터 API 호출
- */
-export const fetchItemsSelector = selector({
-  key: 'fetchItemsSelector',
-  get: async () => {
-    const data = await fetchItems();
-    return data;
-  },
-  set: ({ set }, newValue) => {
-    set(itemsState, newValue);
-  },
-});
+// /**
+//  * 장바구니 초기 데이터 API 호출
+//  */
+// export const fetchItemsSelector = selector({
+//   key: 'fetchItemsSelector',
+//   get: async () => {
+//     const data = await fetchItems();
+//     return data;
+//   },
+//   set: ({ set }, newValue) => {
+//     set(itemsState, newValue);
+//   },
+// });
 
 /**
  * 쿠폰 리스트 API 호출
@@ -85,13 +85,7 @@ export const orderItemsSelector = selector({
     const orderItems = items
       .map((item) => {
         const { quantity, isChecked } = get(itemDetailsState(item.id));
-        if (isChecked) {
-          return {
-            ...item,
-            quantity: quantity,
-          };
-        }
-        return null;
+        return isChecked ? { ...item, quantity } : null;
       })
       .filter((item): item is Items => item !== null);
     return orderItems;

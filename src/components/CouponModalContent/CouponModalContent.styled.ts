@@ -19,7 +19,6 @@ export const CouponModalCardWrapper = styled.div`
   gap: 2.4rem;
 `;
 
-export const CouponModalButtonText = styled.p``;
 
 export const CouponModalContentWrapper = styled.div`
   display: flex;
