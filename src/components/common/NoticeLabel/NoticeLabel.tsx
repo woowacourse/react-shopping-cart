@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
+import Text from '../Text/Text';
 import noticeIcon from '../../../asset/noticeIcon.png';
-import common from '../../../styles/common.module.css';
 import styles from './NoticeLabel.module.css';
 
 interface Props {
@@ -11,7 +11,7 @@ export default function NoticeLabel({ children }: Props) {
   return (
     <div className={styles.noticeLabelWrapper}>
       <img src={noticeIcon} width={13} height={13} />
-      <span className={common.labelText}>{children}</span>
+      <Text.Label>{children}</Text.Label>
     </div>
   );
 }

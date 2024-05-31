@@ -1,5 +1,4 @@
-import TitleWithCaption from '../../../components/common/TitleWithCaption/TitleWithCaption';
-import CaptionText from '../../../components/common/CaptionText/CaptionText';
+import Text from '../../../components/common/Text/Text';
 
 interface Props {
   productsCount: number;
@@ -7,8 +6,8 @@ interface Props {
 
 export default function CartTitle({ productsCount }: Props) {
   return (
-    <TitleWithCaption title="장바구니">
-      <CaptionText>현재 {productsCount}종류의 상품이 담겨있습니다.</CaptionText>
-    </TitleWithCaption>
+    <Text.TitleWithCaption title="장바구니">
+      <Text.Caption>현재 {productsCount}종류의 상품이 담겨있습니다.</Text.Caption>
+    </Text.TitleWithCaption>
   );
 }

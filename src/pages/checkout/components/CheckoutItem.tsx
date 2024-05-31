@@ -1,7 +1,6 @@
-import CaptionText from '../../../components/common/CaptionText/CaptionText';
+import Text from '../../../components/common/Text/Text';
 import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
 import { CartItemType } from '../../../types';
-import common from '../../../styles/common.module.css';
 import styles from '../Checkout.module.css';
 
 interface Props {
@@ -23,10 +22,10 @@ export default function CheckoutItem({ cartItem }: Props) {
 
       <div className={styles.itemInfoContainer}>
         <div className={styles.itemNameAndPriceContainer}>
-          <CaptionText>{cartItem.product.name}</CaptionText>
-          <span className={common.titleText}> {formatKoreanCurrency(cartItem.product.price)}</span>
+          <Text.Caption>{cartItem.product.name}</Text.Caption>
+          <Text.Title> {formatKoreanCurrency(cartItem.product.price)}</Text.Title>
         </div>
-        <CaptionText>{cartItem.quantity}개</CaptionText>
+        <Text.Caption>{cartItem.quantity}개</Text.Caption>
       </div>
     </div>
   );

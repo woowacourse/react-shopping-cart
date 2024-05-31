@@ -5,6 +5,8 @@
 
 - [x] API 요청 endpoint 상수화
 
+- [x] Text 합성컴포넌트 패턴으로 리팩토링, common.module.css 제거
+
 # 🎯 쇼핑 카트 2단계 기능 구현 목록
 
 step 4 : Payments 페이지

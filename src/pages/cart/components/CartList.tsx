@@ -4,8 +4,8 @@ import { CartItemType } from '../../../types';
 import useToggleAllChecked from '../../../hooks/useToggleAllChecked';
 import CartItem from './CartItem';
 import CheckBox from '../../../components/common/CheckBox/CheckBox';
-import common from '../../../styles/common.module.css';
 import styles from '../Cart.module.css';
+import Text from '../../../components/common/Text/Text';
 
 interface Props {
   products: CartItemType[];
@@ -19,7 +19,9 @@ export default function CartList({ products }: Props) {
     <>
       <div className={styles.allCheckContainer}>
         <CheckBox id="checkAll" checked={allChecked} onChange={handleToggleAll} />
-        <div className={`${styles.allCheckText} ${common.captionText}`}>전체 선택</div>
+        <div className={`${styles.allCheckText}`}>
+          <Text.Caption>전체 선택</Text.Caption>
+        </div>
       </div>
 
       <ul>

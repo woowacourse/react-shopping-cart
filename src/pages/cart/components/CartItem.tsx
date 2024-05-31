@@ -6,9 +6,8 @@ import useToggleIndividualChecked from '../../../hooks/useToggleIndividualChecke
 import useDeleteProduct from '../../../hooks/useDeleteProduct';
 import Button from '../../../components/common/Button';
 import CheckBox from '../../../components/common/CheckBox/CheckBox';
-import CaptionText from '../../../components/common/CaptionText/CaptionText';
+import Text from '../../../components/common/Text/Text';
 import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
-import common from '../../../styles/common.module.css';
 import styles from '../Cart.module.css';
 
 interface Props extends ProductType {
@@ -27,12 +26,8 @@ export default function CartItem({ id, price, imageUrl, name, isChecked, setAllC
     <li className={styles.cartItemContainer}>
       <div className={styles.cartItemInputButtonContainer}>
         <CheckBox id={`item-${id}`} checked={isChecked} onChange={() => handleToggleSelect(id)} />
-        <Button
-          variant="image"
-          className={`${styles.deleteButton} ${common.captionText}`}
-          onClick={handleDeleteButton}
-        >
-          삭제
+        <Button variant="image" className={`${styles.deleteButton}`} onClick={handleDeleteButton}>
+          <Text.Caption>삭제</Text.Caption>
         </Button>
       </div>
       <div className={styles.itemImageAndInfoContainer}>
@@ -41,8 +36,8 @@ export default function CartItem({ id, price, imageUrl, name, isChecked, setAllC
         </div>
 
         <div className={styles.itemInfoContainer}>
-          <CaptionText>{name}</CaptionText>
-          <span className={common.titleText}> {formatKoreanCurrency(price)}</span>
+          <Text.Caption>{name}</Text.Caption>
+          <Text.Title>{formatKoreanCurrency(price)}</Text.Title>
           <div className={styles.plusMinusButtonContainer}>
             <Button
               className={styles.plusMinusButton}

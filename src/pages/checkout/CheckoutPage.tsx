@@ -13,7 +13,7 @@ import CheckoutTitle from './components/CheckoutTitle';
 import ROUTES from '../../constants/routes';
 import CheckoutList from './components/CheckoutList';
 import BackIcon from '../../asset/back.png';
-import common from '../../styles/common.module.css';
+import Text from '../../components/common/Text/Text';
 import styles from './Checkout.module.css';
 
 export default function CheckoutPage() {
@@ -43,11 +43,8 @@ export default function CheckoutPage() {
       <div className={styles.bodyContainer}>
         <CheckoutTitle />
         <CheckoutList />
-        <button
-          className={`${styles.checkoutModalButton} ${common.subtitleText}`}
-          onClick={handleModalOpen}
-        >
-          쿠폰 적용
+        <button className={`${styles.checkoutModalButton}`} onClick={handleModalOpen}>
+          <Text.Subtitle>쿠폰 적용</Text.Subtitle>
         </button>
         <ShippingFeeCheck />
         <CheckoutTotals />

@@ -1,7 +1,6 @@
-import CaptionText from '../../../../components/common/CaptionText/CaptionText';
 import CheckBox from '../../../../components/common/CheckBox/CheckBox';
 import Divider from '../../../../components/common/Divider/Divider';
-import SubtitleText from '../../../../components/common/SubtitleText/SubtitleText';
+import Text from '../../../../components/common/Text/Text';
 import { CouponType } from '../../../../types';
 import formatCouponCaption from '../../../../utils/formatCouponCaption';
 import styles from './CouponModal.module.css';
@@ -26,23 +25,23 @@ export default function CouponItem({ coupon, isChecked, isDisableCoupon, onChang
             disabled={isDisableCoupon}
             onChange={onChange}
           />
-          <SubtitleText>{coupon.description}</SubtitleText>
+          <Text.Subtitle>{coupon.description}</Text.Subtitle>
         </div>
         <div className={`${styles.couponItemCaptionContainer} ${styles[disabledStyle]}`}>
           {coupon.expirationDate && (
-            <CaptionText>
+            <Text.Caption>
               {formatCouponCaption.formatCouponExpirationDate(coupon.expirationDate)}
-            </CaptionText>
+            </Text.Caption>
           )}
           {coupon.minimumAmount && (
-            <CaptionText>
+            <Text.Caption>
               {formatCouponCaption.formatCouponMinimumAmount(coupon.minimumAmount)}
-            </CaptionText>
+            </Text.Caption>
           )}
           {coupon.availableTime && (
-            <CaptionText>
+            <Text.Caption>
               {formatCouponCaption.formatCouponAvailableTime(coupon.availableTime)}
-            </CaptionText>
+            </Text.Caption>
           )}
         </div>
       </div>
