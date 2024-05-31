@@ -18,10 +18,10 @@ function ItemList({ type }: ItemListProps) {
     type === 'cart' ? itemsState : orderItemsSelector,
   );
 
-  const [isAllChecked, setAllChecked] = useRecoilState(toggleAllSelector);
+  const [isAllChecked, setIsAllChecked] = useRecoilState(toggleAllSelector);
 
   const handleToggleAll = () => {
-    setAllChecked(!isAllChecked);
+    setIsAllChecked(!isAllChecked);
   };
 
   return (
