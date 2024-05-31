@@ -1,5 +1,5 @@
 export const CART_POLICY = {
-  shipping_throughput: 100000,
+  shipping_throughput: 100_000,
   shipping_basic_fee: 3000,
   shipping_additional_fee: 3000,
   shipping_free: 0,
