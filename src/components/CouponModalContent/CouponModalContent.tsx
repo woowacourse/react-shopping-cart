@@ -7,9 +7,14 @@ import { useOrderCalculator } from '../../hooks/useOrderCalculator';
 import { useCouponChecker } from '../../hooks/useCouponChecker';
 import { useUpdateSelectedCoupons } from '../../hooks/useUpdateSelectedCoupons';
 import { useCouponApplicabilityChecker } from '../../hooks/useCouponApplicabilityChecker';
-import { fetchCouponsSelector } from '../../recoil/selectors';
+import {
+  fetchCouponsSelector,
+  orderItemsSelector,
+} from '../../recoil/selectors';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { couponsState } from '../../recoil/atoms';
+import { Coupon } from '../../types/Coupon';
+import { ORDER } from '../../constants/Order';
 
 interface CouponModalContentProps {
   toggleModal: () => void;
@@ -24,22 +29,38 @@ function CouponModalContent({ toggleModal }: CouponModalContentProps) {
     );
   }, [fetchedCoupons]);
 
-  const { coupons, toggleCouponCheck, getCheckedCount } = useCouponChecker();
+  const {
+    coupons,
+    toggleCouponCheck,
+    getCheckedCount,
+    isOrderItemCountUpperBuyQuantity,
+  } = useCouponChecker();
   const { calculateDiscountWithCoupon, calculateOrderTotal } =
     useOrderCalculator();
   const { updateSelectedCoupons } = useUpdateSelectedCoupons();
   const { isCouponApplicable } = useCouponApplicabilityChecker();
 
-  const handleCouponChecked = (id: number) => () => {
-    toggleCouponCheck(id);
-  };
+  const orderItems = useRecoilValue(orderItemsSelector);
+  const orderTotal = calculateOrderTotal();
 
   const handleModalButton = () => {
     toggleModal();
     updateSelectedCoupons();
   };
 
-  const orderTotal = calculateOrderTotal();
+  const handleIsAvailable = (coupon: Coupon): boolean => {
+    if (getCheckedCount() >= ORDER.availableCouponCount && !coupon.isChecked)
+      return false;
+    return coupon.buyQuantity
+      ? isOrderItemCountUpperBuyQuantity(orderItems) &&
+          isCouponApplicable(coupon, orderTotal)
+      : isCouponApplicable(coupon, orderTotal);
+  };
+
+  const handleCouponChecked = (id: number, coupon: Coupon) => () => {
+    if (!handleIsAvailable(coupon)) return;
+    toggleCouponCheck(id);
+  };
 
   return (
     <>
@@ -49,13 +70,13 @@ function CouponModalContent({ toggleModal }: CouponModalContentProps) {
           {coupons.map((coupon) => (
             <CouponModalCard
               key={coupon.id}
-              isAvailable={isCouponApplicable(coupon, orderTotal)}
+              isAvailable={handleIsAvailable(coupon)}
               name={coupon.description}
               expirationDate={coupon.expirationDate}
               minimumAmount={coupon.minimumAmount}
               availableTime={coupon.availableTime}
               isChecked={coupon.isChecked}
-              handleCouponChecked={handleCouponChecked(coupon.id)}
+              handleCouponChecked={handleCouponChecked(coupon.id, coupon)}
             />
           ))}
         </S.CouponModalCardWrapper>
