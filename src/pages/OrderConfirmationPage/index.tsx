@@ -40,7 +40,6 @@ export default function OrderConfirmationPage() {
       }
     >
       <S.Wrapper>
-        {/* Header */}
         <S.HeaderContainer>
           <C.Title>주문 확인</C.Title>
 
@@ -53,13 +52,10 @@ export default function OrderConfirmationPage() {
 
         <CartList summary items={selectedItems} />
 
-        {/* 쿠폰 선택 모달 */}
         <CouponModal />
 
-        {/* 배송 정보 */}
         <ShippingInfo />
 
-        {/* 주문 요약 */}
         <CheckoutSummary
           totalPrice={totalPrice}
           coupon={totalDiscount}
