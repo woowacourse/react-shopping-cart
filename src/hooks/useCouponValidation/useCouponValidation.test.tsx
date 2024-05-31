@@ -141,20 +141,20 @@ describe("useCouponValidation 훅 테스트", () => {
   });
 
   describe("무료 배송 테스트", () => {
-    // it("배송비가 0원인 경우 쿠폰은 유효하지 않다", () => {
-    //   mockUseRecoilValue.mockImplementationOnce((selector) => {
-    //     if (selector === checkedCartItemsSelector) return mockCartItems;
-    //     if (selector === orderPriceSelector) return 130000;
-    //     if (selector === shippingFeeSelector) return 0;
-    //     if (selector === couponCheckedAtom) return [];
-    //   });
+    it("배송비가 0원인 경우 쿠폰은 유효하지 않다", () => {
+      mockUseRecoilValue.mockImplementation((selector) => {
+        if (selector === checkedCartItemsSelector) return mockCartItems;
+        if (selector === orderPriceSelector) return 130000;
+        if (selector === shippingFeeSelector) return 0;
+        if (selector === couponCheckedAtom) return [];
+      });
 
-    //   const { isCouponValid } = useCouponValidation();
-    //   expect(isCouponValid(mockCoupons[2])).toBe(false);
-    // });
+      const { isCouponValid } = useCouponValidation();
+      expect(isCouponValid(mockCoupons[2])).toBe(false);
+    });
 
     it("배송비가 0원이 아닌 경우 유효하다", () => {
-      mockUseRecoilValue.mockImplementationOnce((selector) => {
+      mockUseRecoilValue.mockImplementation((selector) => {
         if (selector === checkedCartItemsSelector) return mockCartItems;
         if (selector === orderPriceSelector) return 70000;
         if (selector === shippingFeeSelector) return 3000;
