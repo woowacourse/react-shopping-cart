@@ -22,13 +22,20 @@
 
     /* Testing */
     "types": ["jest", "node"],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "baseUrl": "src",
+    "paths": {
+      "@api/*": ["api/*"],
+      "@asset/*": ["asset/*"],
+      "@components/*": ["components/*"],
+      "@constants/*": ["constants/*"],
+      "@hooks/*": ["hooks/*"],
+      "@pages/*": ["pages/*"],
+      "@store/*": ["store/*"],
+      "@utils/*": ["utils/*"]
+    }
   },
   "include": ["src"],
-  "baseUrl": "./",
-  "paths": {
-    "@/*": ["src/*"],
-    "@types/*": ["@types/*"]
-  },
+
   "references": [{ "path": "./tsconfig.node.json" }]
 }

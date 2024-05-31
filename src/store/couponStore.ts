@@ -1,9 +1,9 @@
 import { atom, selector } from 'recoil';
-import { CouponType } from '../types';
-import { fetchCoupons } from '../api';
+import { fetchCoupons } from '@api/index';
 import { isCheckedState, productsState } from './productStore';
 import { orderAmountState, totalShippingFeeState } from './orderStore';
 import { couponCalculator } from './couponStore.util';
+import { CouponType } from '../types';
 
 export const couponsState = atom<CouponType[]>({
   key: 'couponsState',

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { isCheckedState, productsIdState } from '../store/productStore';
+import { isCheckedState, productsIdState } from '@store/productStore';
 
 const useLocalStorage = () => {
   const keys = useRecoilValue(productsIdState);

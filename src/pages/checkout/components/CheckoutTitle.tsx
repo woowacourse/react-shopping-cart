@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
-import { totalProductQuantityState } from '../../../store/orderStore';
-import Text from '../../../components/common/Text/Text';
+import { totalProductQuantityState } from '@store/orderStore';
+import Text from '@components/common/Text/Text';
 
 export default function CheckoutTitle() {
   const { totalCount, totalQuantity } = useRecoilValue(totalProductQuantityState);

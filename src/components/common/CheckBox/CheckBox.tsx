@@ -1,6 +1,6 @@
 import React from 'react';
-import checkedImg from '../../../asset/checked.png';
-import uncheckedImg from '../../../asset/unchecked.png';
+import checkedImg from '@asset/checked.png';
+import uncheckedImg from '@asset/unchecked.png';
 import styles from './CheckBox.module.css';
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {

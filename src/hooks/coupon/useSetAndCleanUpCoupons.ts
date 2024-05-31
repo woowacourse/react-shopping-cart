@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { activeCouponCodesState, couponSelectedState, couponsState } from '../../store/couponStore';
-import { additionalShippingFeeStatusState } from '../../store/orderStore';
+import { activeCouponCodesState, couponSelectedState, couponsState } from '@store/couponStore';
+import { additionalShippingFeeStatusState } from '@store/orderStore';
 
 const useSetAndCleanUpCoupons = () => {
   const coupons = useRecoilValue(couponsState);

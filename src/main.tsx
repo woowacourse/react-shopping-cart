@@ -1,14 +1,15 @@
 import React from 'react';
+import { RecoilRoot } from 'recoil';
 import ReactDOM from 'react-dom/client';
-import CartPage from './pages/cart/CartPage.tsx';
-import PaymentsPage from './pages/payments/PaymentsPage.tsx';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import NotFoundPage from './pages/notfound/NotFoundPage.tsx';
+import CartPage from '@pages/cart/CartPage.tsx';
+import PaymentsPage from '@pages/payments/PaymentsPage.tsx';
+import NotFoundPage from '@pages/notfound/NotFoundPage.tsx';
+import Layout from '@components/common/Layout.tsx';
+import CheckoutPage from '@pages/checkout/CheckoutPage.tsx';
+
 import './styles/reset.css';
 import './styles/index.css';
-import { RecoilRoot } from 'recoil';
-import Layout from './components/common/Layout.tsx';
-import CheckoutPage from './pages/checkout/CheckoutPage.tsx';
 
 const router = createBrowserRouter([
   {

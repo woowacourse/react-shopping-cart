@@ -7,6 +7,8 @@
 
 - [x] Text 합성컴포넌트 패턴으로 리팩토링, common.module.css 제거
 
+- [x] 상대경로 -> 절대경로 import로 변경
+
 # 🎯 쇼핑 카트 2단계 기능 구현 목록
 
 step 4 : Payments 페이지

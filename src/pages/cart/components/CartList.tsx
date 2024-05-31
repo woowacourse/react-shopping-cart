@@ -1,11 +1,11 @@
 import { useRecoilValue } from 'recoil';
-import { isCheckedState } from '../../../store/productStore';
-import { CartItemType } from '../../../types';
-import useToggleAllChecked from '../../../hooks/useToggleAllChecked';
+import { isCheckedState } from '@store/productStore';
+import useToggleAllChecked from '@hooks/useToggleAllChecked';
+import CheckBox from '@components/common/CheckBox/CheckBox';
+import Text from '@components/common/Text/Text';
 import CartItem from './CartItem';
-import CheckBox from '../../../components/common/CheckBox/CheckBox';
+import { CartItemType } from '../../../types';
 import styles from '../Cart.module.css';
-import Text from '../../../components/common/Text/Text';
 
 interface Props {
   products: CartItemType[];

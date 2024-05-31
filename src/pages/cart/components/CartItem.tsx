@@ -1,13 +1,13 @@
 import { useRecoilValue } from 'recoil';
-import { productQuantityState } from '../../../store/productStore';
+import { productQuantityState } from '@store/productStore';
+import useQuantityCount from '@hooks/useQuantityCount';
+import useToggleIndividualChecked from '@hooks/useToggleIndividualChecked';
+import useDeleteProduct from '@hooks/useDeleteProduct';
+import Button from '@components/common/Button';
+import CheckBox from '@components/common/CheckBox/CheckBox';
+import Text from '@components/common/Text/Text';
+import formatKoreanCurrency from '@utils/formatKoreanCurrency';
 import { ProductType } from '../../../types';
-import useQuantityCount from '../../../hooks/useQuantityCount';
-import useToggleIndividualChecked from '../../../hooks/useToggleIndividualChecked';
-import useDeleteProduct from '../../../hooks/useDeleteProduct';
-import Button from '../../../components/common/Button';
-import CheckBox from '../../../components/common/CheckBox/CheckBox';
-import Text from '../../../components/common/Text/Text';
-import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
 import styles from '../Cart.module.css';
 
 interface Props extends ProductType {

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import ROUTES from '../../constants/routes';
-import Button from '../../components/common/Button';
+import ROUTES from '@constants/routes';
+import Button from '@components/common/Button';
 
 export default function NotFoundPage() {
   const navigate = useNavigate();

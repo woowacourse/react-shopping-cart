@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import Text from '../Text/Text';
-import noticeIcon from '../../../asset/noticeIcon.png';
+import noticeIcon from '@asset/noticeIcon.png';
 import styles from './NoticeLabel.module.css';
 
 interface Props {

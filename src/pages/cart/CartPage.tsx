@@ -1,15 +1,14 @@
-import Header from '../../components/Header/Header';
-import Button from '../../components/common/Button';
 import { useRecoilValue } from 'recoil';
+import useLocalStorage from '@hooks/useLocalStorage';
+import useNavigatePage from '@hooks/useNavigatePage';
+import { productsState } from '@store/productStore';
+import Header from '@components/Header/Header';
+import Button from '@components/common/Button';
 import CartList from './components/CartList';
 import CartTitle from './components/CartTitle';
 import CartTotals from './components/CartTotals';
-
+import ROUTES from '@constants/routes';
 import styles from './Cart.module.css';
-import useLocalStorage from '../../hooks/useLocalStorage';
-import useNavigatePage from '../../hooks/useNavigatePage';
-import ROUTES from '../../constants/routes';
-import { productsState } from '../../store/productStore';
 
 export default function CartPage() {
   const products = useRecoilValue(productsState);

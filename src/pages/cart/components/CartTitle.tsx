@@ -1,4 +1,4 @@
-import Text from '../../../components/common/Text/Text';
+import Text from '@components/common/Text/Text';
 
 interface Props {
   productsCount: number;

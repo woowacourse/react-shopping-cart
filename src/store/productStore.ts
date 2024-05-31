@@ -1,5 +1,5 @@
 import { atom, selector, selectorFamily } from 'recoil';
-import { fetchCartItems } from '../api';
+import { fetchCartItems } from '@api/index';
 import { CartItemType } from '../types';
 
 export const productsState = atom({

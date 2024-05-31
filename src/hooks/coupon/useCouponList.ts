@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
-import { couponsState } from '../../store/couponStore';
-import { orderAmountState } from '../../store/orderStore';
-import { isCheckedState, productsState } from '../../store/productStore';
+import { couponsState } from '@store/couponStore';
+import { orderAmountState } from '@store/orderStore';
+import { isCheckedState, productsState } from '@store/productStore';
 import {
   isOverMinOrderAmountCoupon,
   isOverMinQuantityCoupon,

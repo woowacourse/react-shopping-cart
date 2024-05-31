@@ -1,4 +1,5 @@
 import { atom, selector } from 'recoil';
+import { CART_POLICY } from '@constants/policy';
 import {
   isCheckedState,
   productQuantityState,
@@ -6,7 +7,6 @@ import {
   productsState,
 } from './productStore';
 import { discountAmountState } from './couponStore';
-import { CART_POLICY } from '../constants/policy';
 
 export const additionalShippingFeeStatusState = atom({
   key: 'additionalShippingFeeStatusState',

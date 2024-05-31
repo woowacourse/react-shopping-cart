@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
-import areAllItemsChecked from '../utils/areAllItemsChecked';
-import { isCheckedState } from '../store/productStore';
+import areAllItemsChecked from '@utils/areAllItemsChecked';
+import { isCheckedState } from '@store/productStore';
 
 const useToggleAllChecked = () => {
   const [isCheckedMap, setIsCheckedMap] = useRecoilState(isCheckedState);

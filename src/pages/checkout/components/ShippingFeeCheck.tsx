@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil';
-import { additionalShippingFeeStatusState } from '../../../store/orderStore';
-import CheckBox from '../../../components/common/CheckBox/CheckBox';
-import Text from '../../../components/common/Text/Text';
+import { additionalShippingFeeStatusState } from '@store/orderStore';
+import CheckBox from '@components/common/CheckBox/CheckBox';
+import Text from '@components/common/Text/Text';
 import styles from '../Checkout.module.css';
 
 export default function ShippingFeeCheck() {

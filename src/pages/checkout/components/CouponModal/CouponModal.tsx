@@ -1,10 +1,10 @@
 import { useRecoilValue } from 'recoil';
 import { Modal } from '@jaymyong66/simple-modal';
-import { discountAmountState } from '../../../../store/couponStore';
-import NoticeLabel from '../../../../components/common/NoticeLabel/NoticeLabel';
+import { discountAmountState } from '@store/couponStore';
+import NoticeLabel from '@components/common/NoticeLabel/NoticeLabel';
+import { COUPON_POLICY } from '@constants/policy';
+import formatKoreanCurrency from '@utils/formatKoreanCurrency';
 import CouponList from './CouponList';
-import { COUPON_POLICY } from '../../../../constants/policy';
-import formatKoreanCurrency from '../../../../utils/formatKoreanCurrency';
 import styles from './CouponModal.module.css';
 
 interface Props {

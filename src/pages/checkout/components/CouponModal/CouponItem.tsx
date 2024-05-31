@@ -1,8 +1,8 @@
-import CheckBox from '../../../../components/common/CheckBox/CheckBox';
-import Divider from '../../../../components/common/Divider/Divider';
-import Text from '../../../../components/common/Text/Text';
+import CheckBox from '@components/common/CheckBox/CheckBox';
+import Divider from '@components/common/Divider/Divider';
+import Text from '@components/common/Text/Text';
+import formatCouponCaption from '@utils/formatCouponCaption';
 import { CouponType } from '../../../../types';
-import formatCouponCaption from '../../../../utils/formatCouponCaption';
 import styles from './CouponModal.module.css';
 
 interface Props {

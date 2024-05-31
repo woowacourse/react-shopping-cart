@@ -1,15 +1,11 @@
 import { useRecoilValue } from 'recoil';
-import {
-  orderAmountState,
-  totalAmountState,
-  totalShippingFeeState,
-} from '../../../store/orderStore';
-import { discountAmountState } from '../../../store/couponStore';
-import Divider from '../../../components/common/Divider/Divider';
-import NoticeLabel from '../../../components/common/NoticeLabel/NoticeLabel';
-import { NOTICE_MESSAGE } from '../../../constants/messages';
-import Text from '../../../components/common/Text/Text';
-import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
+import { orderAmountState, totalAmountState, totalShippingFeeState } from '@store/orderStore';
+import { discountAmountState } from '@store/couponStore';
+import Divider from '@components/common/Divider/Divider';
+import NoticeLabel from '@components/common/NoticeLabel/NoticeLabel';
+import { NOTICE_MESSAGE } from '@constants/messages';
+import Text from '@components/common/Text/Text';
+import formatKoreanCurrency from '@utils/formatKoreanCurrency';
 import styles from '../Checkout.module.css';
 
 export default function CheckoutTotals() {

@@ -1,19 +1,19 @@
 import { useRecoilValue } from 'recoil';
-import { addOrders } from '../../api';
-import { productsIdState } from '../../store/productStore';
-import useSetAndCleanUpCoupons from '../../hooks/coupon/useSetAndCleanUpCoupons';
-import useNavigatePage from '../../hooks/useNavigatePage';
-import useModalControl from '../../hooks/useModalControl';
-import Button from '../../components/common/Button';
-import Header from '../../components/Header/Header';
+import { addOrders } from '@api/index';
+import { productsIdState } from '@store/productStore';
+import useSetAndCleanUpCoupons from '@hooks/coupon/useSetAndCleanUpCoupons';
+import useNavigatePage from '@hooks/useNavigatePage';
+import useModalControl from '@hooks/useModalControl';
+import Button from '@components/common/Button';
+import Header from '@components/Header/Header';
 import CouponModal from './components/CouponModal/CouponModal';
 import ShippingFeeCheck from './components/ShippingFeeCheck';
 import CheckoutTotals from './components/CheckoutTotals';
 import CheckoutTitle from './components/CheckoutTitle';
-import ROUTES from '../../constants/routes';
+import ROUTES from '@constants/routes';
 import CheckoutList from './components/CheckoutList';
-import BackIcon from '../../asset/back.png';
-import Text from '../../components/common/Text/Text';
+import BackIcon from '@asset/back.png';
+import Text from '@components/common/Text/Text';
 import styles from './Checkout.module.css';
 
 export default function CheckoutPage() {

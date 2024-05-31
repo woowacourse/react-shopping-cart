@@ -1,6 +1,6 @@
 import { useRecoilState } from 'recoil';
-import { isCheckedState } from '../store/productStore';
-import areAllItemsChecked from '../utils/areAllItemsChecked';
+import { isCheckedState } from '@store/productStore';
+import areAllItemsChecked from '@utils/areAllItemsChecked';
 
 type HookProps = {
   id: number;

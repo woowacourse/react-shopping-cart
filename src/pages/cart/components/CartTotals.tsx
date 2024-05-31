@@ -1,14 +1,10 @@
 import { useRecoilValue } from 'recoil';
-import {
-  orderAmountState,
-  totalAmountState,
-  totalShippingFeeState,
-} from '../../../store/orderStore';
-import NoticeLabel from '../../../components/common/NoticeLabel/NoticeLabel';
-import Divider from '../../../components/common/Divider/Divider';
-import Text from '../../../components/common/Text/Text';
-import { NOTICE_MESSAGE } from '../../../constants/messages';
-import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
+import { orderAmountState, totalAmountState, totalShippingFeeState } from '@store/orderStore';
+import NoticeLabel from '@components/common/NoticeLabel/NoticeLabel';
+import Divider from '@components/common/Divider/Divider';
+import Text from '@components/common/Text/Text';
+import { NOTICE_MESSAGE } from '@constants/messages';
+import formatKoreanCurrency from '@utils/formatKoreanCurrency';
 import styles from '../Cart.module.css';
 
 export default function CartTotals() {
