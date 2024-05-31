@@ -158,18 +158,6 @@ describe('totalCountSelector', () => {
 
 describe('orderItemsSelector', () => {
   it('itemDetailsState에 isChecked된 atom의 개수와 orderItemsSelector의 반환값이 같아야 한다.', () => {
-    const { result } = renderHook(
-      () => {
-        const setItemsState = useSetRecoilState(itemsState);
-        return { setItemsState };
-      },
-      { wrapper: RecoilRoot },
-    );
-
-    act(() => {
-      result.current.setItemsState(mockOrderItemsWithDeliveryFee);
-    });
-
     mockOrderItemsWithDeliveryFee.forEach((item, index) => {
       const { result: itemResult } = renderHook(
         () => {
