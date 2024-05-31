@@ -1,7 +1,11 @@
 import { atom, atomFamily, selector, selectorFamily } from 'recoil';
 import { selectedCartItemsState } from './selectedCardItems';
 import { fetchedCartItemsSelector } from './fetch';
-import { applyCouponState } from './coupons';
+import { discountedPriceState } from './coupons';
+import {
+  DELIVERY_FEE,
+  FREE_DELIVERY_FEE_LIMIT,
+} from '../components/constants/cartItem';
 
 export const cartItemsState = atom({
   key: 'cartItemsState',
@@ -93,8 +97,11 @@ export const shippingFeeSelector = selector({
   key: 'shippingFeeSelector',
   get: ({ get }) => {
     const totalOrderAmount = get(totalOrderAmountSelector);
-    if (totalOrderAmount >= 100000 || totalOrderAmount === 0) return 0;
-    return get(mountainousAreaState) ? 6000 : 3000;
+    if (totalOrderAmount >= FREE_DELIVERY_FEE_LIMIT || totalOrderAmount === 0)
+      return 0;
+    return get(mountainousAreaState)
+      ? DELIVERY_FEE.default + DELIVERY_FEE.mountainousArea
+      : DELIVERY_FEE.default;
   },
 });
 
@@ -106,7 +113,7 @@ export const totalPaymentAmountSelector = selector({
   get: ({ get }) => {
     const totalOrderAmount = get(totalOrderAmountSelector);
     const shippingFee = get(shippingFeeSelector);
-    const applyCoupon = get(applyCouponState);
+    const applyCoupon = get(discountedPriceState);
 
     return totalOrderAmount + shippingFee - applyCoupon;
   },

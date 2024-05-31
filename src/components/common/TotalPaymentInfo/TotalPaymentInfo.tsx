@@ -8,7 +8,7 @@ import {
 } from '../../../recoil/cartItems';
 import { ReactNode } from 'react';
 import Caption from '../Caption/Caption';
-import { koMoneyFormat } from '../../util/koMoneyFormat';
+import { koMoneyFormat } from '../../../util/common/koMoneyFormat';
 
 interface TotalPaymentInfoProp {
   children?: ReactNode;

@@ -37,7 +37,6 @@ export const DeleteButton = styled.button`
   color: ${(props) => props.theme.color.captionBlack};
 
   background-color: ${(props) => props.theme.color.white};
-
   cursor: pointer;
 `;
 

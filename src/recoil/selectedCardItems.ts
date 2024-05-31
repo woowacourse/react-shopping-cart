@@ -1,6 +1,6 @@
 import { atomFamily, selector } from 'recoil';
 
-import { localStorageEffect } from '../util/localStorage';
+import { localStorageEffect } from '../util/common/localStorage';
 import { cartItemsIdState } from './cartItems';
 
 export const selectedCartItemsState = atomFamily<boolean, number>({
