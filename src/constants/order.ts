@@ -1,0 +1,6 @@
+const ORDER_CONDITION = {
+  FREE_SHIPPING_PRICE: 100_000,
+  SHIPPING_FEE: 3000,
+} as const;
+
+export default ORDER_CONDITION;

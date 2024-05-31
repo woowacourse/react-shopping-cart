@@ -1,0 +1,9 @@
+.close_button_container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close_button {
+  cursor: pointer;
+}

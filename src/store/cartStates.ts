@@ -1,12 +1,55 @@
-import LocalStorage from '@/services/LocalStorage';
-import { selector, selectorFamily } from 'recoil';
-import { allCartItemStates } from './atoms';
+import CheckedCartItemStorage from '@/services/CheckedProductStorage';
+import { selector, selectorFamily, atom } from 'recoil';
+import { deliveryFeeSelector } from './ShippingStates';
+import { fetchCartItems } from '@/api';
+import formatCartItems from '@/services/formatCartItem';
+import { CartItemData } from '@/types';
 
-export const isAllCheckedCartItems = selector({
+export const allCartItemStates = atom<CartItemData[]>({
+  key: 'allCartItemStates',
+  default: selector({
+    key: 'cartItemsSelector',
+    get: async () => {
+      const cartItems = await fetchCartItems();
+      const formattedCartItems = formatCartItems(cartItems);
+      const checkedProductIds = CheckedCartItemStorage.getCheckedProductIds();
+      return formattedCartItems.map((item) => ({
+        ...item,
+        product: {
+          ...item.product,
+          isChecked: checkedProductIds.includes(item.id),
+        },
+      }));
+    },
+  }),
+  effects: [
+    ({ onSet }) => {
+      onSet((newValue, _, isReset) => {
+        if (isReset) {
+          CheckedCartItemStorage.clearCheckedProductIds();
+        } else {
+          const checkedProductIds = newValue
+            .filter((item) => item.product.isChecked)
+            .map((item) => item.id);
+          CheckedCartItemStorage.setCheckedProductIds(checkedProductIds);
+        }
+      });
+    },
+  ],
+});
+
+export const totalCartItemsSelector = selector({
+  key: 'totalCartItems',
+  get: ({ get }) => {
+    return get(allCartItemStates);
+  },
+});
+
+export const isAllCheckedCartItemsSelector = selector({
   key: 'allCheckedCartItems',
   get: ({ get }) => {
-    const isAllChecked = get(allCartItemStates).every((cartItem) => cartItem.product.isChecked);
-    return isAllChecked;
+    const allCartItems = get(allCartItemStates);
+    return allCartItems.every((cartItem) => cartItem.product.isChecked);
   },
   set: ({ get, set }) => {
     const allCartItems = get(allCartItemStates);
@@ -20,17 +63,11 @@ export const isAllCheckedCartItems = selector({
       },
     }));
 
-    if (!allChecked) {
-      const checkedProductIds = updatedCartItems.map((cartItem) => cartItem.id);
-      LocalStorage.setCheckedProductIds(checkedProductIds);
-    } else {
-      LocalStorage.clearCheckedProductIds();
-    }
     set(allCartItemStates, updatedCartItems);
   },
 });
 
-export const isCheckedIndividualCartItem = selectorFamily<boolean, number>({
+export const isCheckedIndividualCartItemSelector = selectorFamily<boolean, number>({
   key: 'isCheckedIndividualCartItem',
   get:
     (id: number) =>
@@ -43,21 +80,16 @@ export const isCheckedIndividualCartItem = selectorFamily<boolean, number>({
     (id: number) =>
     ({ get, set }) => {
       const allCartItems = get(allCartItemStates);
-      const updatedCartItem = allCartItems.map((item) =>
+      const updatedCartItems = allCartItems.map((item) =>
         item.id === id
           ? { ...item, product: { ...item.product, isChecked: !item.product.isChecked } }
           : item,
       );
-      set(allCartItemStates, updatedCartItem);
-
-      const checkedProductIds = updatedCartItem
-        .filter((item) => item.product.isChecked)
-        .map((item) => item.id);
-      LocalStorage.setCheckedProductIds(checkedProductIds);
+      set(allCartItemStates, updatedCartItems);
     },
 });
 
-export const individualCartItemQuantity = selectorFamily<number, number>({
+export const individualCartItemQuantitySelector = selectorFamily<number, number>({
   key: 'individualCartItemQuantity',
   get:
     (id: number) =>
@@ -79,7 +111,7 @@ export const individualCartItemQuantity = selectorFamily<number, number>({
     },
 });
 
-export const orderAmount = selector({
+export const orderAmountSelector = selector({
   key: 'orderAmount',
   get: ({ get }) => {
     const allCartItems = get(allCartItemStates);
@@ -94,25 +126,14 @@ export const orderAmount = selector({
   },
 });
 
-export const deliveryFee = selector({
-  key: 'deliveryFee',
-  get: ({ get }) => {
-    const FREE_SHIPPING_CONDITION = 100_000;
-    const SHIPPING_FEE = 3000;
-    const totalAmount = get(orderAmount);
-
-    return totalAmount >= FREE_SHIPPING_CONDITION ? 0 : SHIPPING_FEE;
-  },
-});
-
-export const totalOrderAmount = selector({
+export const totalOrderAmountSelector = selector({
   key: 'totalOrderAmount',
   get: ({ get }) => {
-    return get(orderAmount) + get(deliveryFee);
+    return get(orderAmountSelector) + get(deliveryFeeSelector);
   },
 });
 
-export const totalCategoryCount = selector({
+export const totalCategoryCountSelector = selector({
   key: 'totalCategoryCount',
   get: ({ get }) => {
     const allCartItems = get(allCartItemStates);
@@ -128,7 +149,7 @@ export const totalCategoryCount = selector({
   },
 });
 
-export const totalOrderQuantity = selector({
+export const totalOrderQuantitySelector = selector({
   key: 'totalOrderQuantity',
   get: ({ get }) => {
     const allCartItems = get(allCartItemStates);

@@ -1,23 +1,32 @@
-import { useRecoilState } from 'recoil';
-import { individualCartItemQuantity } from '../store/selectors';
 import { updateCartItemQuantity } from '../api/index';
+import { useCartManager } from '@/store/custom/useCartManager';
 
 const useQuantityCount = (id: number) => {
-  const [productQuantity, setProductQuantity] = useRecoilState(individualCartItemQuantity(id));
+  const { individualCartItemQuantity } = useCartManager();
+  const [productQuantity, setProductQuantity] = individualCartItemQuantity(id);
 
   const handleIncrementQuantity = async () => {
-    const { success } = await updateCartItemQuantity(id, productQuantity + 1);
-    success && setProductQuantity(productQuantity + 1);
+    try {
+      await updateCartItemQuantity(id, productQuantity + 1);
+      setProductQuantity((prevQuantity: number) => prevQuantity + 1);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
+    }
   };
 
   const handleDecrementQuantity = async () => {
-    const newQuantity = Math.max(productQuantity - 1, 1);
+    try {
+      const newQuantity = Math.max(productQuantity - 1, 1);
 
-    if (newQuantity < productQuantity) {
-      const { success } = await updateCartItemQuantity(id, newQuantity);
-
-      if (success) {
-        setProductQuantity(newQuantity);
+      if (newQuantity < productQuantity) {
+        await updateCartItemQuantity(id, newQuantity);
+        setProductQuantity((prevQuantity: number) => Math.max(prevQuantity - 1, 1));
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
       }
     }
   };

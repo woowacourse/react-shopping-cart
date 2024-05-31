@@ -1,0 +1,32 @@
+.itemImageAndInfoContainer {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.itemImage {
+  width: 112px;
+  height: 112px;
+  border-radius: 8px;
+  margin-right: 24px;
+}
+
+.itemInfoContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-family: Noto Sans;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+  text-align: left;
+}
+
+.titleText {
+  font-family: Noto Sans KR;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 34.75px;
+  text-align: left;
+}

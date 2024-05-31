@@ -1,0 +1,15 @@
+.mainText {
+  font-family: Noto Sans KR;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 34.75px;
+}
+
+.orderInfoContainer {
+  font-family: Noto Sans;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  text-align: center;
+  margin-top: 24px;
+}

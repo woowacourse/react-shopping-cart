@@ -1,6 +1,10 @@
-const ROUTES = {
-  CART: '/cart',
+export const PAGE_ROUTES = {
+  CART: '/',
+  ORDER_CONFIRM: '/confirm',
   CHECK_OUT: '/checkout',
 } as const;
 
-export default ROUTES;
+export const API_ROUTES = {
+  CART: '/cart-items',
+  COUPON: '/coupon',
+} as const;
