@@ -12,7 +12,7 @@ import { finalCartPriceState } from '../../recoil/price/finalCartPriceState';
 import { discountPriceByCouponListState } from '../../recoil/price/discountPriceByCouponListState';
 import { totalCartItemQuantityState } from '../../recoil/cartItem/totalCartItemQuantityState';
 import CartItem from '../../components/CartItem/CartItem';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CouponListModal from '../../components/CouponListModal/CouponListModal';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes';
@@ -62,6 +62,13 @@ const CartOrderFormPage = () => {
   const { showBoundary } = useErrorBoundary();
   const { clearSelectedCouponList } = useSelectedCouponList();
   const { clearIsMountainIslandArea } = useIsMountainIslandArea();
+
+  useEffect(() => {
+    return () => {
+      clearIsMountainIslandArea();
+      clearSelectedCouponList();
+    };
+  }, []);
 
   const completeOrder = async () => {
     try {
