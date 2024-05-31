@@ -7,9 +7,9 @@ import {
   isOverMinQuantityCoupon,
   isWithinAvailableTime,
   validateExpiration,
-} from './useAvailableCouponList.util';
+} from './useCouponList.util';
 
-const useAvailableCouponList = () => {
+const useCouponList = () => {
   const orderAmount = useRecoilValue(orderAmountState);
   const coupons = useRecoilValue(couponsState);
   const products = useRecoilValue(productsState);
@@ -34,4 +34,4 @@ const useAvailableCouponList = () => {
   return { availableCoupons, unAvailableCoupons };
 };
 
-export default useAvailableCouponList;
+export default useCouponList;

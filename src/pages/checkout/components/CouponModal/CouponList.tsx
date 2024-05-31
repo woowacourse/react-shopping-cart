@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil';
 import { activeCouponCodesState, couponSelectedState } from '../../../../store/couponStore';
 import CouponItem from './CouponItem';
-import useAvailableCouponList from '../../../../hooks/coupon/useAvailableCouponList';
+import useCouponList from '../../../../hooks/coupon/useCouponList';
 import { COUPON_POLICY } from '../../../../constants/policy';
 
 export default function CouponList() {
@@ -10,7 +10,7 @@ export default function CouponList() {
 
   const isFulledActiveCoupons = activeCouponCodes.length === COUPON_POLICY.max_active_coupon_amount;
 
-  const { availableCoupons, unAvailableCoupons } = useAvailableCouponList();
+  const { availableCoupons, unAvailableCoupons } = useCouponList();
 
   const handleToggleCouponCheckbox = (toggledCouponCode: string) => {
     const newCheckedState = !couponSelected[toggledCouponCode];
