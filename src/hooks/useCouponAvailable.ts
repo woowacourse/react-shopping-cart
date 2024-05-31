@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 import { CouponType } from '../components/type';
-import { isDatePassed } from './util/isDatePassed';
+import { isDatePassed } from '../util/coupon/isDatePassed';
 import {
   selectedCartItemsSelector,
   shippingFeeSelector,
