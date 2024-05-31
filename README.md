@@ -3,6 +3,8 @@
 - [x] fetch 요청 함수의 반환값을 response를 반환하여 사용하는 곳에서 활용하도록 변경
 - [x] fetch 요청하는 부분에서 error catch하여 핸들링하는 로직 추가
 
+- [x] API 요청 endpoint 상수화
+
 # 🎯 쇼핑 카트 2단계 기능 구현 목록
 
 step 4 : Payments 페이지

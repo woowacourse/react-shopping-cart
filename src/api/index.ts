@@ -1,5 +1,6 @@
 import { generateBasicToken } from './utils/auth';
 import { CartItemType } from '../types';
+import { ENDPOINT } from './endpoint';
 
 const API_URL = process.env.API_URL;
 const USER_ID = process.env.USER_ID;
@@ -35,7 +36,7 @@ async function makeRequest(endpoint: string, options: RequestInit): Promise<Resp
  * @returns {Promise<CartItemType[]>}
  */
 export async function fetchCartItems(): Promise<CartItemType[]> {
-  const response = await makeRequest('/cart-items', { method: 'GET' });
+  const response = await makeRequest(`${ENDPOINT.cart_items}`, { method: 'GET' });
   const data = await response.json();
   return data.content;
 }
@@ -45,7 +46,7 @@ export async function fetchCartItems(): Promise<CartItemType[]> {
  * @returns
  */
 export async function addCartItem(id: number) {
-  const response = await makeRequest('/cart-items', {
+  const response = await makeRequest(`${ENDPOINT.cart_items}`, {
     method: 'POST',
     body: JSON.stringify({ cartItemIds: id }),
   });
@@ -60,7 +61,7 @@ export async function addCartItem(id: number) {
  * @returns {boolean} - fetch의 성공 여부입니다.
  */
 export async function updateCartItemQuantity(id: number, newQuantity: number) {
-  const response = await makeRequest(`/cart-items/${id}`, {
+  const response = await makeRequest(`${ENDPOINT.cart_items}/${id}`, {
     method: 'PATCH',
     body: JSON.stringify({ quantity: newQuantity }),
   });
@@ -73,7 +74,7 @@ export async function updateCartItemQuantity(id: number, newQuantity: number) {
  * @returns {boolean} - fetch의 성공 여부입니다.
  */
 export async function deleteCartItem(id: number) {
-  const response = await makeRequest(`/cart-items/${id}`, {
+  const response = await makeRequest(`${ENDPOINT.cart_items}/${id}`, {
     method: 'DELETE',
   });
 
@@ -86,7 +87,7 @@ export async function deleteCartItem(id: number) {
  * @returns {boolean} - fetch의 성공 여부입니다.
  */
 export async function addOrders(ids: number[]) {
-  const response = await makeRequest('/orders', {
+  const response = await makeRequest(`${ENDPOINT.orders}`, {
     method: 'POST',
     body: JSON.stringify({ cartItemIds: ids }),
   });
@@ -99,7 +100,7 @@ export async function addOrders(ids: number[]) {
  * @returns {Promise<CartItemType[]>}
  */
 export async function fetchCoupons() {
-  const response = await makeRequest('/coupons', {
+  const response = await makeRequest(`${ENDPOINT.coupons}`, {
     method: 'GET',
   });
   const data = await response.json();
