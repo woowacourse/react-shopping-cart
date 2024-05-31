@@ -25,7 +25,7 @@ export default function CartPage() {
 
   const navigate = useNavigate();
 
-  const moveToConfirmPage = async () => {
+  const moveToConfirmPage = () => {
     navigate('/confirm');
   };
 

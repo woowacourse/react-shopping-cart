@@ -25,7 +25,7 @@ export default function OrderConfirmationPage() {
   const navigate = useNavigate();
 
   const makeOrder = async () => {
-    postOrders(selectedItems.map((item) => item.id)).then(() => {
+    await postOrders(selectedItems.map((item) => item.id)).then(() => {
       navigate('/checkout');
     });
   };
