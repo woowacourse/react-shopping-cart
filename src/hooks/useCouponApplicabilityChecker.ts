@@ -1,4 +1,4 @@
-import { Coupon } from '../types/Coupon';
+import { AvailableTime, Coupon } from '../types/Coupon';
 import isCouponExpired from '../utils/IsCouponExpired';
 import { useCouponFinder } from './useCouponFinder';
 
@@ -29,37 +29,43 @@ export const useCouponApplicabilityChecker = () => {
     }
 
     if (targetCoupon.availableTime) {
-      const [startHour, startMinute, startSecond] =
-        targetCoupon.availableTime.start.split(':').map(Number);
-
-      const [endHour, endMinute, endSecond] = targetCoupon.availableTime.end
-        .split(':')
-        .map(Number);
-
-      const startTime = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate(),
-        startHour,
-        startMinute,
-        startSecond,
-      );
-
-      const endTime = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate(),
-        endHour,
-        endMinute,
-        endSecond,
-      );
-
-      if (now < startTime || now > endTime) {
-        return false;
-      }
+      return isWithinAvailableTime(targetCoupon.availableTime, now);
     }
 
     return true;
+  };
+
+  /**
+   * 인자로 받은 쿠폰 시간을 현재 시간과 비교하여 사용 가능한지 확인하는 함수
+   * @returns { boolean }
+   */
+  const isWithinAvailableTime = (couponTime: AvailableTime, now: Date) => {
+    const [startHour, startMinute, startSecond] = couponTime.start
+      .split(':')
+      .map(Number);
+    const [endHour, endMinute, endSecond] = couponTime.end
+      .split(':')
+      .map(Number);
+
+    const startTime = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      startHour,
+      startMinute,
+      startSecond,
+    );
+
+    const endTime = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      endHour,
+      endMinute,
+      endSecond,
+    );
+
+    return now >= startTime && now <= endTime;
   };
 
   return {
