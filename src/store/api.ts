@@ -1,4 +1,4 @@
-import { API_TOKEN } from "./utils";
+import { API_TOKEN } from "../utils/storage";
 
 const BASE_URL = process.env.VITE_API_BASE_URL;
 

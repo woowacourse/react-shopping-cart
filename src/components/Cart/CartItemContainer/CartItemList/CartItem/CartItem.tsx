@@ -4,7 +4,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { cartItemCheckedState, cartItemIdListState, cartState } from "../../../../../store/atom/atoms";
 import { useCallback } from "react";
 import { changeProductAmount, deleteProduct } from "../../../../../store/api";
-import { deleteCartItemCheckedStateInStorage } from "../../../../../store/utils";
+import { deleteCartItemCheckedStateInStorage } from "../../../../../utils/storage";
 import {
   CartItemContainerStyle,
   CartItemDetailControlsStyle,

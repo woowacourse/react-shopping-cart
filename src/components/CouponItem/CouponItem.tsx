@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { getCouponAvailableTimeString } from "../../store/utils";
+import { getCouponAvailableTimeString } from "../../utils/couponTimeString";
 import Checkbox from "../common/Buttons/Checkbox/Checkbox";
 import Divider from "../common/Divider/Divider";
 import {
