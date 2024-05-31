@@ -9,19 +9,19 @@ import {
   OrderResultsContainerStyle,
 } from "./OrderResults.style";
 import { useRecoilValue } from "recoil";
-import { orderAmountSelector, shippingFeeSelector } from "../../../store/selector/selectors";
-import { useDiscountCalculator } from "../../../hooks/useDiscountCalculator";
+import { checkedCartItemsSelector, orderAmountSelector, shippingFeeSelector } from "../../../store/selector/selectors";
 import { selectedCouponsState } from "../../../store/atom/atoms";
 import { useCartCalculator } from "../../../hooks/useCartCalculator";
+import { calculateTotalDiscountAmount } from "../../../utils/couponDiscount";
 
 const OrderResults = () => {
   const orderAmount = useRecoilValue(orderAmountSelector);
   const selectedCouponList = useRecoilValue(selectedCouponsState);
   const shippingFee = useRecoilValue(shippingFeeSelector);
+  const checkedCartItems = useRecoilValue(checkedCartItemsSelector);
 
   const { calculateTotalWithCoupon } = useCartCalculator();
-  const { calculateTotalDiscountAmount } = useDiscountCalculator();
-  const totalDiscountAmount = calculateTotalDiscountAmount(selectedCouponList);
+  const totalDiscountAmount = calculateTotalDiscountAmount(selectedCouponList, orderAmount, checkedCartItems);
 
   return (
     <div css={OrderResultsContainerStyle}>

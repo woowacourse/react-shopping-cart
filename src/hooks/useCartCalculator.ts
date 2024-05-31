@@ -1,13 +1,12 @@
 import { useRecoilValue } from "recoil";
-import { useDiscountCalculator } from "./useDiscountCalculator";
 import { selectedCouponsState } from "../store/atom/atoms";
 import { checkedCartItemsSelector, shippingFeeSelector } from "../store/selector/selectors";
+import { calculateTotalDiscountAmount } from "../utils/couponDiscount";
 
 export const useCartCalculator = () => {
   const checkedCartItems = useRecoilValue(checkedCartItemsSelector);
   const selectedCoupon = useRecoilValue(selectedCouponsState);
   const shippingFee = useRecoilValue(shippingFeeSelector);
-  const { calculateTotalDiscountAmount } = useDiscountCalculator();
 
   const calculateCartTotal = () => {
     return checkedCartItems.reduce((total, item) => total + item.product.price * item.quantity, 0);
@@ -16,7 +15,7 @@ export const useCartCalculator = () => {
   const calculateTotalWithCoupon = () => {
     const cartTotal = calculateCartTotal();
 
-    const discountAmount = calculateTotalDiscountAmount(selectedCoupon);
+    const discountAmount = calculateTotalDiscountAmount(selectedCoupon, cartTotal, checkedCartItems);
     return cartTotal + shippingFee - discountAmount;
   };
 

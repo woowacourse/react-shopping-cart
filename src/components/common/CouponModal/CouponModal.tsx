@@ -2,13 +2,13 @@
 import { Modal } from "fe-custom-modal";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import CouponItem from "../../CouponItem/CouponItem";
-import { useCoupons } from "../../../hooks/useCoupons";
 import { CouponGuideContainerStyle, CouponGuideStyle, CouponModalContainerStyle } from "./CouponModal.style";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { selectedCouponsState } from "../../../store/atom/atoms";
+import { couponsState, selectedCouponsState } from "../../../store/atom/atoms";
 import { useEffect, useState } from "react";
-import { orderAmountSelector } from "../../../store/selector/selectors";
-import { useCouponApplicabilityChecker } from "../../../hooks/useCouponApplicabilityChecker";
+import { checkedCartItemsSelector, orderAmountSelector } from "../../../store/selector/selectors";
+import { isCouponApplicable } from "../../../utils/couponValidator";
+import { calculateTotalDiscountAmount } from "../../../utils/couponDiscount";
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -16,8 +16,8 @@ interface CouponModalProps {
 }
 
 const CouponModal = ({ isOpen, modalClose }: CouponModalProps) => {
-  const { coupons, calculateTotalDiscountAmount } = useCoupons();
-  const { isCouponApplicable } = useCouponApplicabilityChecker();
+  const coupons = useRecoilValue(couponsState);
+  const checkedCartItems = useRecoilValue(checkedCartItemsSelector);
 
   const totalAmount = useRecoilValue(orderAmountSelector);
   const [selectedCoupons, setSelectedCoupons] = useRecoilState(selectedCouponsState);
@@ -33,11 +33,11 @@ const CouponModal = ({ isOpen, modalClose }: CouponModalProps) => {
 
   // totalAmount가 바뀔 때(아이템 수량 변경), 페이지에 돌아왔을 때 유효하지 않은 쿠폰 적용 해제
   useEffect(() => {
-    const validCoupons = selectedCoupons.filter((coupon) => isCouponApplicable(coupon, totalAmount));
+    const validCoupons = selectedCoupons.filter((coupon) => isCouponApplicable(coupon, totalAmount, checkedCartItems));
     if (validCoupons.length !== selectedCoupons.length) {
       setSelectedCoupons(validCoupons);
     }
-  }, [totalAmount, isCouponApplicable, selectedCoupons, setSelectedCoupons]);
+  }, [totalAmount, selectedCoupons, setSelectedCoupons, checkedCartItems]);
 
   const updateSelectedCoupons = () => {
     setSelectedCoupons(tempSelectedCoupons);
@@ -53,7 +53,11 @@ const CouponModal = ({ isOpen, modalClose }: CouponModalProps) => {
     });
   };
 
-  const confirmButtonContent = `총 ${calculateTotalDiscountAmount(tempSelectedCoupons)}원 할인 
+  const confirmButtonContent = `총 ${calculateTotalDiscountAmount(
+    tempSelectedCoupons,
+    totalAmount,
+    checkedCartItems
+  )}원 할인 
   ${tempSelectedCoupons.some((selected) => selected.discountType === "freeShipping") ? "+ 무료 배송 " : ""}
   쿠폰 사용하기`;
 
@@ -96,7 +100,7 @@ const CouponModal = ({ isOpen, modalClose }: CouponModalProps) => {
                 isCheck={tempSelectedCoupons.some((selected) => selected.id === coupon.id)}
                 isDisabled={
                   // 유효하지 않거나, 쿠폰 2개를 선택했을 때 해당 쿠폰이 선택되지 않은 상태라면 disabled
-                  !isCouponApplicable(coupon, totalAmount) ||
+                  !isCouponApplicable(coupon, totalAmount, checkedCartItems) ||
                   (tempSelectedCoupons.every((selected) => selected.id !== coupon.id) &&
                     tempSelectedCoupons.length === 2)
                 }
