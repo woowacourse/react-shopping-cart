@@ -4,13 +4,13 @@ import Coupons from './Coupons';
 import * as Styled from './style';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
-  applyCouponState,
+  discountedPriceState,
   isShippingFeeDiscountState,
 } from '../../recoil/coupons';
 import { shippingFeeSelector } from '../../recoil/cartItems';
 import useCoupons from '../../hooks/useCoupons';
 
-const CouponApplication = () => {
+const CouponApplicationModal = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const { getDiscountAmount, resetSelectCoupon, ...couponProps } = useCoupons();
@@ -21,7 +21,7 @@ const CouponApplication = () => {
   );
 
   const [couponDiscount, updateCouponDiscount] =
-    useRecoilState(applyCouponState);
+    useRecoilState(discountedPriceState);
 
   const modalClose = () => {
     resetSelectCoupon();
@@ -72,4 +72,4 @@ const CouponApplication = () => {
     </>
   );
 };
-export default CouponApplication;
+export default CouponApplicationModal;

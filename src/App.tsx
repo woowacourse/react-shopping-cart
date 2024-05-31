@@ -3,7 +3,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 
 import { Route, Routes } from 'react-router-dom';
 import OrderConfirmation from './components/pages/OrderConfirmationPage/OrderConfirmation';
-import { ROUTE } from './constant/route';
+import { ROUTE } from './components/constants/route';
 import BuyItems from './components/pages/BuyItemsPage/BuyItems';
 import ErrorFallback from './components/pages/ErrorFallbackPage/ErrorFallback';
 

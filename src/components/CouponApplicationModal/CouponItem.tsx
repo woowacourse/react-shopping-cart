@@ -1,14 +1,14 @@
 import CheckButton from '../common/CheckButton/CheckButton';
 import * as Styled from './style';
 import { AvailableType } from '../type';
-import { convertToTimeFormat } from '../util/convertToTimeFormat';
-import { koMoneyFormat } from '../util/koMoneyFormat';
-import { convertToDateFormat } from '../util/convertToDateFormat';
+import { convertToTimeFormat } from '../../util/coupon/convertToTimeFormat';
+import { convertToDateFormat } from '../../util/coupon/convertToDateFormat';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   couponSelectedState,
-  isDoubleCouponAppliedSelector,
+  selectedCouponsSelector,
 } from '../../recoil/coupons';
+import { koMoneyFormat } from '../../util/common/koMoneyFormat';
 
 interface CouponItemProp {
   expirationDate: string;
@@ -30,9 +30,15 @@ const CouponItem = ({
   const [couponSelected, setCouponSelected] = useRecoilState(
     couponSelectedState(couponId),
   );
-  const isDoubleCouponApplied = useRecoilValue(
-    isDoubleCouponAppliedSelector(couponId),
-  );
+
+  /**
+   *
+   * 두개의 쿠폰을 모두 선택했는지의 여부.
+   * 총 2개의 쿠폰이 선택되고, 해당 쿠폰이 선택되지 않았다면 true return
+   */
+
+  const isDoubleCouponApplied =
+    useRecoilValue(selectedCouponsSelector).length >= 2 && !couponSelected;
 
   const handleClickCoupon = () => {
     setCouponSelected((prop) => !prop);
