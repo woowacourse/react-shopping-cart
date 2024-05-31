@@ -22,11 +22,7 @@ export default function CheckoutTotals() {
       <Text.SubtitleSpaceBetween subtitle="주문 금액" content={formatKoreanCurrency(orderAmount)} />
       <Text.SubtitleSpaceBetween
         subtitle="쿠폰 할인 금액"
-        content={
-          formattedDiscountAmount === '0원'
-            ? formattedDiscountAmount
-            : `-${formattedDiscountAmount}`
-        }
+        content={discountAmount === 0 ? formattedDiscountAmount : `-${formattedDiscountAmount}`}
       />
       <Text.SubtitleSpaceBetween
         subtitle="배송비"
