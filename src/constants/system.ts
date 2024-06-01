@@ -5,3 +5,10 @@ export const FREE_SHIPPING_CONDITION = 100000;
 export const MAX_APPLICABLE_COUPON = 2;
 
 export const ALL_PRODUCTS_IDS = [2, 3, 10, 11, 12, 21, 34];
+
+export const COUPON_DISCOUNT_TYPE = {
+  fixed: "fixed",
+  percentage: "percentage",
+  buyXgetY: "buyXgetY",
+  freeShipping: "freeShipping",
+};

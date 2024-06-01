@@ -1,11 +1,13 @@
 import {
+  ADDITIONAL_SHIPPING_FEE,
+  COUPON_DISCOUNT_TYPE,
+} from "@/constants/system";
+import {
   additionalShippingFeeAreaState,
   discountAmountState,
   selectedCouponsState,
 } from "@/store/atoms/atoms";
 import { useRecoilState, useRecoilValue } from "recoil";
-
-import { ADDITIONAL_SHIPPING_FEE } from "@/constants/system";
 
 const useAdditionalShippingFeeArea = () => {
   const [isSelected, setSelected] = useRecoilState(
@@ -20,7 +22,9 @@ const useAdditionalShippingFeeArea = () => {
     setSelected(!isSelected);
 
     if (
-      !selectedCoupons.some((coupon) => coupon.discountType === "freeShipping")
+      !selectedCoupons.some(
+        (coupon) => coupon.discountType === COUPON_DISCOUNT_TYPE.freeShipping
+      )
     ) {
       return;
     }

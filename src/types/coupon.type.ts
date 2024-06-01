@@ -1,8 +1,6 @@
-export type CouponDiscountType =
-  | "fixed"
-  | "percentage"
-  | "buyXgetY"
-  | "freeShipping";
+import { COUPON_DISCOUNT_TYPE } from "@/constants/system";
+
+export type CouponDiscountType = keyof typeof COUPON_DISCOUNT_TYPE;
 
 export interface CouponType {
   id: number;

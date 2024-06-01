@@ -1,3 +1,4 @@
+import { COUPON_DISCOUNT_TYPE } from "@/constants/system";
 import { CouponType } from "@/types/coupon.type";
 import { orderSummaryState } from "@/store/selectors/summarySelector/orderSummarySelector";
 import { selectedItemsState } from "@/store/selectors/selectedSelector/selectedItemsSelector";
@@ -44,13 +45,13 @@ const useDiscountSimulator = () => {
 
   const calculateDiscountAmount = (coupon: CouponType) => {
     switch (coupon.discountType) {
-      case "fixed":
+      case COUPON_DISCOUNT_TYPE.fixed:
         return calculateFixedDiscount(coupon);
-      case "percentage":
+      case COUPON_DISCOUNT_TYPE.percentage:
         return calculatePercentageDiscount(coupon, orderPrice);
-      case "buyXgetY":
+      case COUPON_DISCOUNT_TYPE.buyXgetY:
         return calculateBuyXgetYDiscount(coupon);
-      case "freeShipping":
+      case COUPON_DISCOUNT_TYPE.freeShipping:
         return calculateFreeShippingDiscount();
       default:
         return 0;
