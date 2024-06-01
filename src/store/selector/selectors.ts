@@ -56,14 +56,6 @@ export const shippingFeeSelector = selector<number>({
   },
 });
 
-export const totalAmountSelector = selector<number>({
-  key: "totalAmount",
-  get: ({ get }) => {
-    const tempAmount = get(orderAmountSelector);
-    return tempAmount >= SHIPPING_CONSTANT.FREE_CRITERIA ? tempAmount : tempAmount + SHIPPING_CONSTANT.DEFAULT;
-  },
-});
-
 export const checkedCartItemsSelector = selector<CartItemInfo[]>({
   key: "checkedCartItems",
   get: ({ get }) => {
