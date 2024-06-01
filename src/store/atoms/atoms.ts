@@ -49,11 +49,6 @@ export const selectedCouponsState = atom<CouponType[]>({
   default: [],
 });
 
-export const discountAmountState = atom<number>({
-  key: "discountAmountState",
-  default: 0,
-});
-
 export const additionalShippingFeeAreaState = atom<boolean>({
   key: "additionalShippingFeeAreaState",
   default: false,

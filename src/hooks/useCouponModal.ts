@@ -1,9 +1,11 @@
-import { discountAmountState, selectedCouponsState } from "@/store/atoms/atoms";
 import { useEffect, useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 import { CouponType } from "@/types/coupon.type";
-import useDiscountSimulator from "./useDiscountSimulator";
+import { calculateDiscountAmount } from "@/utils/calculateDiscountAmount";
+import { orderSummaryState } from "@/store/selectors/summarySelector/orderSummarySelector";
+import { selectedCouponsState } from "@/store/atoms/atoms";
+import { selectedItemsState } from "@/store/selectors/selectedSelector/selectedItemsSelector";
 
 interface Props {
   isOpened: boolean;
@@ -17,18 +19,23 @@ const useCouponModal = ({ isOpened, closeModal }: Props) => {
   const [selectedCoupons, setSelectedCoupons] =
     useRecoilState(selectedCouponsState);
 
-  const setDiscountAmount = useSetRecoilState(discountAmountState);
-
-  const { calculateDiscountAmount } = useDiscountSimulator();
+  const { orderPrice, shippingFee } = useRecoilValue(orderSummaryState);
+  const selectedItems = useRecoilValue(selectedItemsState);
 
   const tempDiscount = tempSelectedCoupons.reduce((accAmount, curCoupon) => {
-    accAmount = accAmount + calculateDiscountAmount(curCoupon);
+    accAmount =
+      accAmount +
+      calculateDiscountAmount({
+        coupon: curCoupon,
+        orderPrice,
+        selectedItems,
+        shippingFee,
+      });
     return accAmount;
   }, 0);
 
   const handleClick = () => {
     setSelectedCoupons(tempSelectedCoupons);
-    setDiscountAmount(tempDiscount);
     closeModal();
   };
 
