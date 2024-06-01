@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { checkedCouponsState } from '../../../recoil/atoms/atoms';
 
@@ -9,6 +10,7 @@ import * as S from './CouponItem.style';
 
 export default function CouponItem({ coupon, isCouponApplicable }: { coupon: Coupon; isCouponApplicable: boolean }) {
   const [checkedCoupons, setCheckedCoupons] = useRecoilState(checkedCouponsState);
+  const [isCurrentCouponApplicable, setIsCurrentCouponApplicable] = useState(isCouponApplicable);
   const isCouponChecked = checkedCoupons.includes(coupon);
 
   const handleCheckboxChange = () => {
@@ -17,12 +19,20 @@ export default function CouponItem({ coupon, isCouponApplicable }: { coupon: Cou
     );
   };
 
+  useEffect(() => {
+    if (checkedCoupons.length === 2 && !checkedCoupons.some((checkCoupon) => checkCoupon.code === coupon.code)) {
+      setIsCurrentCouponApplicable(true);
+    } else {
+      setIsCurrentCouponApplicable(false);
+    }
+  }, [checkedCoupons]);
+
   return (
-    <S.CouponCard isCouponCheck={isCouponApplicable}>
+    <S.CouponCard isCouponCheck={isCouponApplicable && !isCurrentCouponApplicable}>
       <CheckBox
         text={coupon.description}
         isCheck={isCouponChecked}
-        onClick={isCouponApplicable ? handleCheckboxChange : () => {}}
+        onClick={isCouponApplicable && !isCurrentCouponApplicable ? handleCheckboxChange : () => {}}
       />
 
       <S.CouponDetails>
