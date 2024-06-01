@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const CartPageContainer = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 36px;

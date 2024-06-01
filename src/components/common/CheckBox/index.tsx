@@ -1,33 +1,36 @@
-import CheckedIcon from "../../../assets/checkedIcon.png";
-import UncheckedIcon from "../../../assets/uncheckedIcon.png";
+import CheckedIcon from '../../../assets/checkedIcon.png';
+import UncheckedIcon from '../../../assets/uncheckedIcon.png';
 
 import {
   CheckboxContainer,
   HiddenCheckbox,
   StyledCheckbox,
   StyledLabel,
-} from "./style";
+} from './style';
 
 interface CheckBoxProps {
+  label?: string | React.ReactNode;
   isSelected: boolean;
-  toggleSelected: () => void;
-  label?: string;
+  handleChange: () => void;
+  disabled?: boolean;
 }
 
 export default function CheckBox({
-  isSelected,
-  toggleSelected,
   label,
+  isSelected,
+  handleChange: toggleSelected,
+  disabled = false,
 }: CheckBoxProps) {
   return (
     <CheckboxContainer>
       <HiddenCheckbox
         type="checkbox"
         defaultChecked={isSelected}
+        disabled={disabled}
         onChange={toggleSelected}
       />
 
-      <StyledCheckbox onClick={toggleSelected}>
+      <StyledCheckbox onClick={toggleSelected} disabled={disabled}>
         {isSelected ? (
           <img src={CheckedIcon} alt="checked icon" />
         ) : (

@@ -1,35 +1,31 @@
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
-import {
-  cartListState,
-  cartListTotalPrice,
-  shippingFee,
-} from '../../recoil/selectors';
+import { useRecoilValueLoadable } from 'recoil';
 
 import Layout from '../../layout';
-import BlankCart from '../../components/BlankCart';
-import CartList from '../../components/CartList';
-import CheckoutSummary from '../../components/CartList/CheckoutSummary';
 import Header from '../../components/Header';
 import BottomButton from '../../components/common/BottomButton';
-import RecoilSuspense from '../../components/common/RecoilSuspense';
+import { HomeButton } from '../../components/Header/HeaderButton';
+
+import BlankCart from '../../components/BlankCart';
+import CartList from '../../components/CartList';
+import CheckoutSummary from '../../components/CheckoutSummary';
 import Fallback from '../../components/common/Fallback';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
+import RecoilSuspense from '../../components/common/RecoilSuspense';
 
-import { Description, Title } from '../ConfirmOrderPage/styles';
-import {
-  CartHeaderContainer,
-  CartListWrapper,
-  CartPageContainer,
-} from './styles';
+import * as C from '../../components/common/commonStyles';
+import * as S from './styles';
+
+import { cartListSelector } from '../../recoil';
+import useOrderInformation from '../../hooks/useOrderInformation';
 
 export default function CartPage() {
-  const cartList = useRecoilValueLoadable(cartListState);
-  const totalPrice = useRecoilValue(cartListTotalPrice);
-  const shipping = useRecoilValue(shippingFee);
+  const cartList = useRecoilValueLoadable(cartListSelector);
+  const { totalPrice, totalQuantity, shippingFee } = useOrderInformation();
+
   const navigate = useNavigate();
 
-  const handleConfirmOrder = async () => {
+  const moveToConfirmPage = () => {
     navigate('/confirm');
   };
 
@@ -41,30 +37,33 @@ export default function CartPage() {
       }
     >
       <Layout
-        header={<Header isShowLogo={true} />}
+        header={<Header homeButton={<HomeButton />} />}
         bottom={
           <BottomButton
-            onClick={handleConfirmOrder}
-            isDisabled={cartList.contents.length === 0}
+            onClick={moveToConfirmPage}
+            active={cartList.contents.length !== 0 && totalQuantity !== 0}
           >
             주문 확인
           </BottomButton>
         }
       >
         {cartList.contents.length !== 0 ? (
-          <CartPageContainer>
-            <CartHeaderContainer>
-              <Title>장바구니</Title>
-              <Description>
+          <S.Wrapper>
+            <S.CartHeaderContainer>
+              <C.Title>장바구니</C.Title>
+              <C.Description>
                 현재 {cartList.contents.length}종류의 아이템이 담겨져있습니다.
-              </Description>
-            </CartHeaderContainer>
+              </C.Description>
+            </S.CartHeaderContainer>
 
-            <CartListWrapper>
+            <S.CartListWrapper>
               <CartList items={cartList.contents} />
-            </CartListWrapper>
-            <CheckoutSummary totalPrice={totalPrice} shippingFee={shipping} />
-          </CartPageContainer>
+            </S.CartListWrapper>
+            <CheckoutSummary
+              totalPrice={totalPrice}
+              shippingFee={shippingFee}
+            />
+          </S.Wrapper>
         ) : (
           <BlankCart />
         )}

@@ -1,12 +1,11 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil';
 import cartListMockData from '../src/mocks/cartListMockData';
-import { cartItemSelected } from '../src/recoil/atoms';
-import { cartListTotalPrice } from '../src/recoil/selectors';
+import { cartItemSelectedState, totalPriceSelector } from '../src/recoil';
 
-describe('cartListTotalPrice', () => {
+describe('totalPriceSelector', () => {
   it('아무것도 선택하지 않았을 때 주문 금액의 합계는 0원이다.', async () => {
-    const { result } = renderHook(() => useRecoilValue(cartListTotalPrice), {
+    const { result } = renderHook(() => useRecoilValue(totalPriceSelector), {
       wrapper: RecoilRoot,
     });
 
@@ -21,16 +20,16 @@ describe('cartListTotalPrice', () => {
     const { result } = renderHook(
       () => {
         const [, setItemASelected] = useRecoilState(
-          cartItemSelected(ITEM_A.id)
+          cartItemSelectedState(ITEM_A.id)
         );
         const [, setItemBSelected] = useRecoilState(
-          cartItemSelected(ITEM_B.id)
+          cartItemSelectedState(ITEM_B.id)
         );
 
         setItemASelected(true);
         setItemBSelected(true);
 
-        const totalPrice = useRecoilValue(cartListTotalPrice);
+        const totalPrice = useRecoilValue(totalPriceSelector);
         return totalPrice;
       },
       { wrapper: RecoilRoot }

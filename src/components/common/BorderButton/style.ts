@@ -1,28 +1,28 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
-export type SizeType = "small" | "large";
+export type SizeType = 'small' | 'large' | 'full';
 
-interface BorderButtonContainerProps {
+interface BorderButtonProps {
   size?: SizeType;
 }
 
-export const BorderButtonContainer = styled.button<BorderButtonContainerProps>(
-  ({ theme, size = "large" }) => ({
-    background: "none",
+export const BorderButton = styled.button<BorderButtonProps>(
+  ({ theme, size = 'large' }) => ({
+    background: 'none',
     border: `1px solid ${theme.colors.border}`,
     borderRadius: `${theme.borderRadius.medium}`,
 
-    width: size === "small" ? "24px" : "40px",
-    height: size === "small" ? "24px" : "",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    cursor: "pointer",
-    fontSize: "12px",
-    padding: 0,
+    width: size === 'small' ? '24px' : size === 'large' ? '40px' : '100%',
+    height: size === 'small' ? '24px' : 'auto',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
+    fontSize: '12px',
+    padding: size === 'full' ? '12px' : 0,
 
     img: {
-      width: size === "small" ? "12px" : "16px",
+      width: size === 'small' ? '12px' : size === 'large' ? '16px' : 'auto',
     },
   })
 );

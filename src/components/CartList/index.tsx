@@ -1,28 +1,36 @@
-import useSelectAllCartItem from "../../hooks/useSelectAllCartItem";
+import useSelectAllCartItem from '../../hooks/useSelectAllCartItem';
 
-import type { CartItemType } from "../../types";
-import CartItem from "../CartItem";
-import CheckBox from "../common/CheckBox";
+import type { CartItemType } from '../../types';
+import CartItem from '../CartItem';
+import CheckBox from '../common/CheckBox';
 
-import { CartListContainer, StyledUl } from "./styles";
+import * as S from './styles';
 
-export default function CartList({ items }: { items: CartItemType[] }) {
+interface CartListProps {
+  items: CartItemType[];
+  summary?: boolean;
+}
+
+export default function CartList({ items, summary = false }: CartListProps) {
   const { isAllSelected, toggleAllSelected } = useSelectAllCartItem();
 
   return (
-    <CartListContainer>
-      <CheckBox
-        isSelected={isAllSelected}
-        toggleSelected={toggleAllSelected}
-        label="전체 선택"
-      />
-      {items && (
-        <StyledUl>
-          {items.map((item, index) => (
-            <CartItem key={index} cartItem={item} />
-          ))}
-        </StyledUl>
+    <S.Wrapper>
+      {!summary && (
+        <CheckBox
+          isSelected={isAllSelected}
+          handleChange={toggleAllSelected}
+          label="전체 선택"
+        />
       )}
-    </CartListContainer>
+
+      {items && (
+        <S.CartListContainer>
+          {items.map((item, index) => (
+            <CartItem key={index} cartItem={item} summary={summary} />
+          ))}
+        </S.CartListContainer>
+      )}
+    </S.Wrapper>
   );
 }

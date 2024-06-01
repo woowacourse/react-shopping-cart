@@ -1,29 +1,9 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const Container = styled.div`
   max-width: 382px;
   width: 100%;
   margin: 0 auto;
-`;
-
-export const Info = styled.p`
-  display: flex;
-  align-items: center;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 16px;
-  color: ${({ theme }) => theme.colors.text};
-
-  svg {
-    margin-right: 8px;
-  }
-`;
-
-export const InfoIcon = styled.img`
-  display: block;
-  width: 16px;
-  height: 16px;
-  margin-right: 4px;
 `;
 
 export const PriceRow = styled.div`
@@ -56,13 +36,4 @@ export const Label = styled.span`
   font-size: 16px;
   font-weight: 700;
   line-height: 16px;
-`;
-
-export const Price = styled.span`
-  display: block;
-
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 34.75px;
-  text-align: right;
 `;

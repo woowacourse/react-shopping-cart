@@ -1,24 +1,27 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const LayoutWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
   overflow: hidden;
 `;
 
 export const HeaderWrapper = styled.header`
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 1000;
+  width: 430px;
   background-color: white;
 `;
 
 export const Content = styled.main`
-  flex: 1;
-  padding: ${({ theme }) => theme.spacer.spacing4};
-  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 36px 24px 40px;
+  margin: 64px 0;
   overflow-y: auto;
+  min-height: calc(100vh - 128px);
 `;
 
 export const BottomWrapper = styled.footer`
