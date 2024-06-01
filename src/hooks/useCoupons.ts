@@ -1,12 +1,12 @@
 import { useRecoilCallback, useRecoilValue } from 'recoil';
-import { fetchedCouponsSelector } from '../recoil/fetch';
 import { useEffect } from 'react';
 import useDiscountType from './useDiscountType';
-import useCouponAvailable from './useCouponAvailable';
 import {
   couponSelectedState,
   selectedCouponsSelector,
 } from '../recoil/coupons';
+import useCouponAvailable from './useCouponAvailable';
+import { fetchedCouponsSelector } from '../recoil/fetch';
 
 const useCoupons = () => {
   const coupons = useRecoilValue(fetchedCouponsSelector);
