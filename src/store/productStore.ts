@@ -12,7 +12,7 @@ export const productsState = atom({
         return products;
       } catch (error) {
         console.error(error);
-        return [];
+        throw new Error(String(error));
       }
     },
   }),
@@ -23,9 +23,7 @@ export const isCheckedState = atom<Record<number, boolean>>({
   default: {},
   effects: [
     ({ onSet }) => {
-      onSet((newState: Record<number, boolean>, oldState, isReset) => {
-        console.log('oldState', oldState);
-        console.log('isReset', isReset);
+      onSet((newState: Record<number, boolean>) => {
         window.localStorage.setItem('isChecked', JSON.stringify(newState));
       });
     },
