@@ -6,12 +6,14 @@
 
 - [x] Text 합성컴포넌트 패턴으로 리팩토링, common.module.css 제거
 - [x] 사용자에게 에러메시지 alert -> ErrorToast 메시지 추가
+- [x] ErrorBoundary 비동기 요청 관련
 
 - [x] 상대경로 -> 절대경로 import로 변경
 - [x] numeric separator 적용
 - [x] discountAmount으로 쿠폰 할인 금액 비교 로직 변경
 - [x] 함수의 파라미터가 많다면 객체 형태로
 - [x] CouponList 컴포넌트에서 useCouponSelected 도메인 로직 분리
+- [x] let 변수 사용 로직을 reduce 로직을 변경
 
 # 🎯 쇼핑 카트 2단계 기능 구현 목록
 

@@ -37,20 +37,12 @@ export const couponCalculator = ({
   orderAmount,
   totalShippingFee,
 }: CouponCalculatorProps): number => {
-  let maxDiscount = 0;
-
-  activeCoupons.forEach((coupon) => {
-    let bestDiscount = 0;
-
-    checkoutProducts.forEach((product) => {
+  return activeCoupons.reduce((maxDiscount, coupon) => {
+    const bestDiscount = checkoutProducts.reduce((bestDiscount, product) => {
       const discount = applyCoupon(coupon, product, totalShippingFee, orderAmount);
-      if (discount > bestDiscount) {
-        bestDiscount = discount;
-      }
-    });
+      return discount > bestDiscount ? discount : bestDiscount;
+    }, 0);
 
-    maxDiscount += bestDiscount;
-  });
-
-  return maxDiscount;
+    return maxDiscount + bestDiscount;
+  }, 0);
 };
