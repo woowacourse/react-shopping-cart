@@ -26,7 +26,7 @@ export default function ProductTotalPriceList() {
         {isOrderConfirmPage && (
           <PriceGroup>
             <span className="price-group_title">쿠폰 할인 금액</span>
-            <span className="price-group_price">{couponDiscount ? `${couponDiscount.toLocaleString()}` : '0'}원</span>
+            <span className="price-group_price">{couponDiscount ? `-${couponDiscount.toLocaleString()}` : '0'}원</span>
           </PriceGroup>
         )}
         <PriceGroup>

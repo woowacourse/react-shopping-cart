@@ -8,7 +8,7 @@ export const useCartCalculator = () => {
   const coupons = useRecoilValue(couponList);
   const { calculateDiscountAmount } = useDiscountCalculator();
 
-  const calculateTotalWithCoupon = (couponCode: string) => {
+  const getTotalPriceAfterDiscount = (couponCode: string) => {
     const coupon = coupons.find((coupon) => coupon.code === couponCode);
     if (!coupon) {
       return totalOrderPrice;
@@ -19,6 +19,6 @@ export const useCartCalculator = () => {
   };
 
   return {
-    calculateTotalWithCoupon,
+    getTotalPriceAfterDiscount,
   };
 };

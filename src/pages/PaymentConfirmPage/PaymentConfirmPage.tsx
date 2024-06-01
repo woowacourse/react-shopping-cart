@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { checkedCartItems } from '../../recoil/selectors/selectors';
@@ -19,7 +19,7 @@ export default function PaymentConfirmPage() {
   const cartTotalCount = orderProduct.reduce((acc, cartItem) => acc + cartItem.quantity, 0);
   const cartCount = orderProduct.length;
 
-  const [fetchCartData, setFetchCartData] = useRecoilState(cartData);
+  const setFetchCartData = useSetRecoilState(cartData);
 
   return (
     <div id="orderConfirmPage">
