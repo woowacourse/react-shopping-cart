@@ -3,7 +3,6 @@ import Button from '../../components/common/Button/Button';
 import { useRecoilValue } from 'recoil';
 import { cartItemListState } from '../../recoil/cartItemList/cartItemListState';
 import { selectedCartItemIdListState } from '../../recoil/selectedCartItemList/selectedCartItemIdListState';
-import styled from 'styled-components';
 import Title from '../../components/common/Title/Title';
 import { PriceTable } from '../../components/PriceTable/PriceTable';
 import { totalCartPriceState } from '../../recoil/price/totalCartPriceState';
@@ -24,16 +23,7 @@ import { useErrorBoundary } from 'react-error-boundary';
 import { useSelectedCartItemIdList } from '../../hooks/useSelectedCartItemIdList';
 import useSelectedCouponList from '../../hooks/useSelectedCouponList';
 import useIsMountainIslandArea from '../../hooks/useIsMountainIslandArea';
-
-// TODO: cartOrders 의 컴포넌트와 동일. 복붙으로 재사용하니 수정요망
-const CartPageContainer = styled.main`
-  width: 100%;
-  height: 100%;
-  padding: 50px 20px 80px 20px;
-  display: flex;
-  flex-direction: column;
-  row-gap: 25px;
-`;
+import theme from '../../theme';
 
 const CartOrderFormPage = () => {
   const cartItemList = useRecoilValue(cartItemListState);
@@ -94,7 +84,7 @@ const CartOrderFormPage = () => {
   return (
     <>
       <Header type="back" />
-      <CartPageContainer>
+      <Flex style={theme.pageContainer}>
         <Title
           title="주문 확인"
           description={`총 ${selectedCartItemList.length}종류의 상품 ${totalQuantity}개를 주문합니다. \n최종 결제 금액을 확인해주세요.`}
@@ -119,7 +109,7 @@ const CartOrderFormPage = () => {
           <PriceTable.Row name="배송비" price={discountPrice.shippingFee === 'free' ? '무료 배송' : shippingFee} />
           <PriceTable.Row name="총 결제 금액" price={finalCartPrice} upperDivider />
         </PriceTable>
-      </CartPageContainer>
+      </Flex>
 
       <Button
         color="primary"

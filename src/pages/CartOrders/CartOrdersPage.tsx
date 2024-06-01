@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import Header from '../../components/Header/Header';
 import Title from '../../components/common/Title/Title';
 import CartItemList from '../../components/CartItemList/CartItemList';
@@ -14,12 +13,8 @@ import { cartShippingFeeState } from '../../recoil/price/cartShippingFeeState';
 import { finalCartPriceState } from '../../recoil/price/finalCartPriceState';
 import { ROUTES } from '../../constants/routes';
 import CenterBox from '../../components/common/CenterBox/CenterBox';
-
-const CartOrdersPageContainer = styled.main`
-  width: 100%;
-  height: 100%;
-  padding: 50px 20px 80px 20px;
-`;
+import Flex from '../../components/common/Flex/Flex';
+import theme from '../../theme';
 
 const CartOrdersPage = () => {
   const cartItemList = useRecoilValue(cartItemListState);
@@ -38,7 +33,7 @@ const CartOrdersPage = () => {
   return (
     <>
       <Header />
-      <CartOrdersPageContainer>
+      <Flex style={theme.pageContainer}>
         <Title
           title="장바구니"
           description={cartItemList.length !== 0 ? `현재 ${cartItemList.length}종류의 상품이 담겨있습니다.` : ''}
@@ -57,7 +52,7 @@ const CartOrdersPage = () => {
             </PriceTable>
           </>
         )}
-      </CartOrdersPageContainer>
+      </Flex>
       <Button
         color="primary"
         width="full"
