@@ -3,10 +3,12 @@ import { productQuantityState, productsState } from '@store/productStore';
 import { CartItemType } from '../types';
 import { updateCartItemQuantity } from '@api/index';
 import { NOTICE_MESSAGE } from '@constants/messages';
+import { useToast } from '@hooks/useToast';
 
 const useQuantityCount = ({ id }: { id: number }) => {
   const [products, setProducts] = useRecoilState(productsState);
   const productQuantity = useRecoilValue(productQuantityState(id));
+  const { showToast } = useToast();
 
   const updateProductQuantity = async (newQuantity: number) => {
     try {
@@ -17,6 +19,7 @@ const useQuantityCount = ({ id }: { id: number }) => {
       );
       setProducts(newProducts);
     } catch (error) {
+      showToast('상품 수량 업데이트에 실패했습니다. 잠시 후 다시 시도해주세요.');
       console.error(error);
     }
   };
@@ -29,7 +32,7 @@ const useQuantityCount = ({ id }: { id: number }) => {
   const handleDecrementButton = async () => {
     const newQuantity = productQuantity - 1;
     if (newQuantity < 1) {
-      alert(NOTICE_MESSAGE.min_quantity);
+      showToast(NOTICE_MESSAGE.min_quantity);
       return;
     }
     await updateProductQuantity(newQuantity);

@@ -2,10 +2,10 @@
 
 - [x] fetch 요청 함수의 반환값을 response를 반환하여 사용하는 곳에서 활용하도록 변경
 - [x] fetch 요청하는 부분에서 error catch하여 핸들링하는 로직 추가
-
 - [x] API 요청 endpoint 상수화
 
 - [x] Text 합성컴포넌트 패턴으로 리팩토링, common.module.css 제거
+- [x] 사용자에게 에러메시지 alert -> ErrorToast 메시지 추가
 
 - [x] 상대경로 -> 절대경로 import로 변경
 - [x] numeric separator 적용
