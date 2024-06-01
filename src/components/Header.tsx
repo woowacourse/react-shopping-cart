@@ -3,7 +3,7 @@ import Logo from "@/assets/Logo.svg";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 
-type HeaderType = "Logo" | "ArrowBack" | "none";
+type HeaderType = "Logo" | "ArrowBack" | "None";
 
 interface Props {
   type?: HeaderType;
@@ -22,7 +22,7 @@ const Header = ({ type = "Logo" }: Props) => {
 
   return (
     <StyledHeader>
-      {type !== "none" && (
+      {type !== "None" && (
         <img src={getHeaderButtonImg(type)} alt="" onClick={handleClick} />
       )}
     </StyledHeader>
