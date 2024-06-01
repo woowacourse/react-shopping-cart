@@ -26,7 +26,7 @@ const useCoupon = ({ coupon, selectedCoupons, setSelectedCoupons }: Props) => {
   const handleSelect = () => {
     setSelected((isSelected) => !isSelected);
 
-    if (isSelected && !selectedCoupons.includes(coupon)) {
+    if (!isSelected && !selectedCoupons.includes(coupon)) {
       const newList = [...selectedCoupons, coupon];
       setSelectedCoupons(newList);
       return;
