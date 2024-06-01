@@ -15,6 +15,9 @@ export default function CouponModal() {
   const { totalOrderPrice } = useRecoilValue(calculateOrderPrice);
   const couponChecker = useCouponApplicabilityChecker();
 
+  const applicableCoupons = coupons.filter((coupon) => couponChecker.isCouponApplicable(coupon, totalOrderPrice));
+  const nonApplicableCoupons = coupons.filter((coupon) => !couponChecker.isCouponApplicable(coupon, totalOrderPrice));
+
   return (
     <S.Container>
       <S.Notification>
@@ -23,15 +26,12 @@ export default function CouponModal() {
       </S.Notification>
 
       <S.CouponList>
-        {coupons.map((coupon: Coupon) => {
-          return (
-            <CouponItem
-              key={coupon.code}
-              coupon={coupon}
-              isCouponApplicable={couponChecker.isCouponApplicable(coupon, totalOrderPrice)}
-            />
-          );
-        })}
+        {applicableCoupons.map((coupon: Coupon) => (
+          <CouponItem key={coupon.code} coupon={coupon} isCouponApplicable={true} />
+        ))}
+        {nonApplicableCoupons.map((coupon: Coupon) => (
+          <CouponItem key={coupon.code} coupon={coupon} isCouponApplicable={false} />
+        ))}
       </S.CouponList>
     </S.Container>
   );
