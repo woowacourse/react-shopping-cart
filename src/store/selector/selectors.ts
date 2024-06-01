@@ -33,7 +33,7 @@ export const orderAmountSelector = selector<number>({
   },
 });
 
-export const shippingFeeSelector = selector<number>({
+export const OrdershippingFeeSelector = selector<number>({
   key: "shippingFee",
   get: ({ get }) => {
     const orderAmount = get(orderAmountSelector);
