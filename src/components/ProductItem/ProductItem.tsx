@@ -31,6 +31,8 @@ export default function ProductItem({ isCheckBox, cartItem }: { isCheckBox: bool
 
   const handleDecrement = async () => {
     try {
+      if (quantity === 1) return;
+
       const newQuantity = Math.max(quantity - 1, 1);
       await patchCartItem(cartItem.id, newQuantity);
       setQuantity(newQuantity);
