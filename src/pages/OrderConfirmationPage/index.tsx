@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import * as C from '../../components/commonStyles';
+import * as C from '../../components/common/commonStyles';
 import * as S from './styles';
 
 import CartList from '../../components/CartList';

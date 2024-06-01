@@ -13,7 +13,7 @@ import Fallback from '../../components/common/Fallback';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import RecoilSuspense from '../../components/common/RecoilSuspense';
 
-import * as C from '../../components/commonStyles';
+import * as C from '../../components/common/commonStyles';
 import * as S from './styles';
 
 import { cartListSelector } from '../../recoil';

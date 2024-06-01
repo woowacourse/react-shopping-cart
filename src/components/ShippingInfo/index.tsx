@@ -1,7 +1,7 @@
 import useRemoteAreaShipping from '../../hooks/useRemoteAreaShipping';
 import CheckBox from '../common/CheckBox';
 
-import * as C from '../commonStyles';
+import * as C from '../common/commonStyles';
 import * as S from './style';
 
 export default function ShippingInfo() {

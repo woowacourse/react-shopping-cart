@@ -3,7 +3,7 @@ import Header from '../../components/Header';
 import BottomButton from '../../components/common/BottomButton';
 
 import * as S from './styles';
-import * as C from '../../components/commonStyles';
+import * as C from '../../components/common/commonStyles';
 
 import { priceFormatter } from '../../utils/stringFormatter';
 import useOrderInformation from '../../hooks/useOrderInformation';

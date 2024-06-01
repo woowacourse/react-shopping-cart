@@ -1,6 +1,6 @@
 import InfoIconSrc from '../../assets/infoIcon.png';
 import * as S from './style';
-import * as C from '../commonStyles';
+import * as C from '../common/commonStyles';
 import { priceFormatter } from '../../utils/stringFormatter';
 
 interface CheckoutSummaryProps {

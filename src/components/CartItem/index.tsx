@@ -3,7 +3,7 @@ import type { CartItemType, ProductType } from '../../types';
 import MinusIcon from '../../assets/minusIcon.png';
 import PlusIcon from '../../assets/plusIcon.png';
 import * as S from './style';
-import * as C from '../commonStyles';
+import * as C from '../common/commonStyles';
 
 import BorderButton from '../common/BorderButton';
 import CheckBox from '../common/CheckBox';

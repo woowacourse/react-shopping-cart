@@ -5,7 +5,7 @@ import { priceFormatter } from '../../utils/stringFormatter';
 
 import BorderButton from '../common/BorderButton';
 import CouponList from '../common/CouponList';
-import * as C from '../commonStyles';
+import * as C from '../common/commonStyles';
 import RecoilSuspense from '../common/RecoilSuspense';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import { couponListSelector, totalDiscountSelector } from '../../recoil';
