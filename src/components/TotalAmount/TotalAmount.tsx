@@ -1,20 +1,25 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
-import { totalPriceSelector } from '../../recoil/selectors';
-import { NotificationIcon } from '../../asset';
 import { MESSAGES } from '../../constants/Messages';
 import * as S from './TotalAmount.styled';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import { PageType } from '../../types/Page';
+import { useOrderCalculator } from '../../hooks/useOrderCalculator';
 
-function TotalAmount() {
-  const { totalAmount, deliveryFee, calculatedTotalAmount } =
-    useRecoilValue(totalPriceSelector);
+interface TotalAmountProps {
+  type: PageType;
+}
+
+function TotalAmount({ type }: TotalAmountProps) {
+  const {
+    calculateOrderTotal,
+    calculateDiscountWithCoupon,
+    calculateDeliveryFee,
+    calculateTotalWithCoupon,
+  } = useOrderCalculator();
 
   return (
     <S.TotalAmountContainer>
-      <S.InformationMsg>
-        <S.NotificationIconImg src={NotificationIcon} />
-        {MESSAGES.cartNotification}
-      </S.InformationMsg>
+      <NotificationMessage message={MESSAGES.cartNotification} />
       <S.TotalContent>
         <S.Border />
 
@@ -22,14 +27,23 @@ function TotalAmount() {
           <S.TotalInfoBox>
             <S.TotalInfoLabel>{MESSAGES.totalInfoLabel}</S.TotalInfoLabel>
             <S.TotalInfoAmount>
-              {totalAmount.toLocaleString()}원
+              {calculateOrderTotal().toLocaleString()}원
             </S.TotalInfoAmount>
           </S.TotalInfoBox>
+
+          {type === 'order' && (
+            <S.TotalInfoBox>
+              <S.TotalInfoLabel>{MESSAGES.discountAmount}</S.TotalInfoLabel>
+              <S.TotalInfoAmount>
+                -{calculateDiscountWithCoupon().toLocaleString()}원
+              </S.TotalInfoAmount>
+            </S.TotalInfoBox>
+          )}
 
           <S.TotalInfoBox>
             <S.TotalInfoLabel>{MESSAGES.deliveryFee}</S.TotalInfoLabel>
             <S.TotalInfoAmount>
-              {deliveryFee.toLocaleString()}원
+              {calculateDeliveryFee().toLocaleString()}원
             </S.TotalInfoAmount>
           </S.TotalInfoBox>
         </S.TotalInfoWrapper>
@@ -39,7 +53,7 @@ function TotalAmount() {
       <S.TotalInfoBox>
         <S.TotalInfoLabel>{MESSAGES.totalAmountLabel}</S.TotalInfoLabel>
         <S.TotalInfoAmount>
-          {calculatedTotalAmount.toLocaleString()}원
+          {calculateTotalWithCoupon().toLocaleString()}원
         </S.TotalInfoAmount>
       </S.TotalInfoBox>
     </S.TotalAmountContainer>

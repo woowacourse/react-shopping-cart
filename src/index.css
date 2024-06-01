@@ -1,9 +1,19 @@
 :root {
-  font-family: Noto Sans;
-  font-weight: 500;
-  line-height: 1.5rem;
+  --font-Noto-Sans: Noto Sans;
+  --font-Noto-Sans-KR: Noto Sans KR;
+
+  --black-color-1: #000000;
+  --black-color-2: #0a0d13;
+  --black-color-3: #333333;
+  --black-color-3-opacity-25: rgba(51, 51, 51, 0.25);
+  --black-color-3-opacity-75: rgba(51, 51, 51, 0.75);
+
+  --white-color-1: #ffffff;
 }
 
 html {
   font-size: 62.5%;
+  font-family: var(--font-Noto-Sans);
+  font-weight: 500;
+  line-height: 1.5rem;
 }

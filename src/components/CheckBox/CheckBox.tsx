@@ -4,12 +4,13 @@ import * as S from './CheckBox.styled';
 
 interface CheckBoxProps {
   isChecked: boolean;
+  isAvailable?: boolean;
   onClick: (e: React.MouseEvent) => void;
 }
-function CheckBox({ isChecked, onClick }: CheckBoxProps) {
+function CheckBox({ isChecked, isAvailable = true, onClick }: CheckBoxProps) {
   return (
     <S.CheckBoxImg
-      src={isChecked ? CheckedBox : NoneCheckedBox}
+      src={isChecked && isAvailable ? CheckedBox : NoneCheckedBox}
       onClick={onClick}
     />
   );

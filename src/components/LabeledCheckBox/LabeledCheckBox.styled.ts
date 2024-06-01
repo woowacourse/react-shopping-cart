@@ -1,11 +1,16 @@
 import styled from 'styled-components';
 
-export const ProductListContainer = styled.div`
-  margin-top: 3.6rem;
-  margin-bottom: 5.2rem;
+export const LabeledCheckBoxContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.6rem;
+`;
+
+export const Title = styled.p`
+  font-weight: bold;
+  font-size: 1.6rem;
+  line-height: 1.6rem;
+  color: var(--black-color-2);
 `;
 
 export const CheckBoxContainer = styled.div`
@@ -15,11 +20,4 @@ export const CheckBoxContainer = styled.div`
   font-size: 1.2rem;
   font-weight: 500;
   line-height: 1.5rem;
-`;
-
-export const CartItemListContainer = styled.ul`
-  margin: 1rem 0;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
 `;

@@ -1,30 +1,8 @@
 import { DefaultValue, selector } from 'recoil';
-import { itemDetailsState, itemsState } from './atoms';
-import { Products } from '../types/Product';
-import { updateLocalStorage } from '../utils/UpdateLocalStorage';
-import { fetchProducts } from '../api';
-
-/**
- * 전체 금액, 배송비 계산, 총 결제 금액 계산
- */
-export const totalPriceSelector = selector({
-  key: 'totalPriceSelector',
-  get: ({ get }) => {
-    const productIds = get(itemsState);
-    let totalAmount = 0;
-    productIds.forEach((itemsState) => {
-      const { quantity, price, isChecked } = get(
-        itemDetailsState(itemsState.id),
-      );
-      if (isChecked) {
-        totalAmount += quantity * price;
-      }
-    });
-    const deliveryFee = totalAmount >= 100000 ? 0 : 3000;
-    const calculatedTotalAmount = totalAmount + deliveryFee;
-    return { totalAmount, deliveryFee, calculatedTotalAmount };
-  },
-});
+import { couponsState, itemDetailsState, itemsState } from './atoms';
+import { Items } from '../types/Item';
+import { updateLocalStorage } from '../utils/LocalStorage';
+import { fetchCoupons } from '../api';
 
 /**
  * get: () => boolean
@@ -35,14 +13,14 @@ export const totalPriceSelector = selector({
 export const toggleAllSelector = selector<boolean>({
   key: 'toggleAllSelector',
   get: ({ get }): boolean => {
-    const items: Products[] = get(itemsState);
+    const items: Items[] = get(itemsState);
     return items.every((item) => get(itemDetailsState(item.id)).isChecked);
   },
   set: ({ get, set }, newValue: boolean | DefaultValue) => {
     if (newValue instanceof DefaultValue) {
       return;
     }
-    const items: Products[] = get(itemsState);
+    const items: Items[] = get(itemsState);
     items.forEach((item) => {
       set(itemDetailsState(item.id), (prev) => ({
         ...prev,
@@ -59,10 +37,10 @@ export const toggleAllSelector = selector<boolean>({
 export const totalCountSelector = selector({
   key: 'totalCountSelector',
   get: ({ get }) => {
-    const productIds = get(itemsState);
-    const totalItemTypeCount = productIds.length;
+    const items = get(itemsState);
+    const totalItemTypeCount = items.length;
     let totalCount = 0;
-    productIds.forEach((itemsState) => {
+    items.forEach((itemsState) => {
       const { quantity, isChecked } = get(itemDetailsState(itemsState.id));
       if (isChecked) {
         totalCount += quantity;
@@ -72,16 +50,69 @@ export const totalCountSelector = selector({
   },
 });
 
+// /**
+//  * 장바구니 초기 데이터 API 호출
+//  */
+// export const fetchItemsSelector = selector({
+//   key: 'fetchItemsSelector',
+//   get: async () => {
+//     const data = await fetchItems();
+//     return data;
+//   },
+//   set: ({ set }, newValue) => {
+//     set(itemsState, newValue);
+//   },
+// });
+
 /**
- * 장바구니 초기 데이터 API 호출
+ * 쿠폰 리스트 API 호출
  */
-export const fetchProductsSelector = selector({
-  key: 'fetchProductsSelector',
+export const fetchCouponsSelector = selector({
+  key: 'fetchCouponsSelector',
   get: async () => {
-    const data = await fetchProducts();
+    const data = await fetchCoupons();
     return data;
   },
-  set: ({ set }, newValue) => {
-    set(itemsState, newValue);
+});
+
+/**
+ * 주문할 상품 목록
+ */
+export const orderItemsSelector = selector({
+  key: 'orderItemsSelector',
+  get: ({ get }) => {
+    const items = get(itemsState);
+    const orderItems = items
+      .map((item) => {
+        const { quantity, isChecked } = get(itemDetailsState(item.id));
+        return isChecked ? { ...item, quantity } : null;
+      })
+      .filter((item): item is Items => item !== null);
+    return orderItems;
+  },
+});
+
+/**
+ * coupon isChecked 상태 변경
+ * get: isChecked 쿠폰 개수 반환
+ * set: isChecked 상태 변경
+ */
+export const couponCheckedSelector = selector<number>({
+  key: 'couponCheckedSelector',
+  get: ({ get }): number => {
+    const coupons = get(couponsState);
+    return coupons.filter((coupon) => coupon.isChecked).length;
+  },
+  set: ({ set, get }, newValue: number | DefaultValue) => {
+    if (newValue instanceof DefaultValue) {
+      return;
+    }
+    const coupons = get(couponsState);
+    const updatedCoupons = coupons.map((coupon) =>
+      coupon.id === newValue
+        ? { ...coupon, isChecked: !coupon.isChecked }
+        : coupon,
+    );
+    set(couponsState, updatedCoupons);
   },
 });
