@@ -33,7 +33,7 @@ export const calculateOrderPrice = selector<Price>({
     const couponDiscount = get(couponDiscountAmount);
 
     const totalOrderPrice = checkedCart.reduce((acc, item) => acc + item.quantity * item.product.price, 0);
-    const specialZoneFee = isSpecialZoneCheck && totalOrderPrice < 100000 ? 3000 : 0;
+    const specialZoneFee = checkedCart.length && isSpecialZoneCheck && totalOrderPrice < 100000 ? 3000 : 0;
     const deliveryFee = (totalOrderPrice >= 100000 || totalOrderPrice === 0 ? 0 : 3000) + specialZoneFee;
 
     const totalPrice = totalOrderPrice + deliveryFee - couponDiscount;
