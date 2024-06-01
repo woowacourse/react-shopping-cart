@@ -1,8 +1,9 @@
+import { cartItemQuantityState } from '../recoil/cartItems';
 import { useRecoilValue } from 'recoil';
 import { CouponType } from '../components/type';
 import { isDatePassed } from '../util/coupon/isDatePassed';
 import {
-  selectedCartItemsSelector,
+  cartItemsIdState,
   shippingFeeSelector,
   totalOrderAmountSelector,
 } from '../recoil/cartItems';
@@ -10,7 +11,10 @@ import {
 const useCouponAvailable = () => {
   const totalOrderAmount = useRecoilValue(totalOrderAmountSelector);
   const shippingFee = useRecoilValue(shippingFeeSelector);
-  const cartItemsBuyQuantity = useRecoilValue(selectedCartItemsSelector);
+  const cartId = useRecoilValue(cartItemsIdState);
+  const cartItemsBuyQuantity = cartId.map((id) => {
+    return useRecoilValue(cartItemQuantityState(id));
+  });
 
   const isOverMinimumAmount = (minimumAmount: number) => {
     return totalOrderAmount > minimumAmount;
@@ -22,18 +26,16 @@ const useCouponAvailable = () => {
 
   const isAvailableTime = (start: string, end: string) => {
     const now = new Date();
-    const currentDate = now.toISOString().slice(0, 10);
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const currentTimeStr = `${hours}:${minutes}`;
 
-    const startTime = new Date(`${currentDate}T${start}`);
-    const endTime = new Date(`${currentDate}T${end}`);
-
-    return now >= startTime && now < endTime;
+    return currentTimeStr >= start && currentTimeStr < end;
   };
 
   const isOverCertainQuantity = (minQuantity: number) => {
-    const bulkCartItems = cartItemsBuyQuantity.filter((cartItem) => {
-      const quantity = cartItem.quantity;
-      return quantity >= minQuantity;
+    const bulkCartItems = cartItemsBuyQuantity.filter((cartItemQuantity) => {
+      return cartItemQuantity >= minQuantity;
     });
 
     return bulkCartItems.length > 0;
@@ -41,7 +43,8 @@ const useCouponAvailable = () => {
 
   const isCouponAvailable = (coupon: CouponType) => {
     let condition = false;
-    if (isDatePassed(coupon.expirationDate)) false;
+    if (isDatePassed(coupon.expirationDate)) return false;
+
     if (coupon.minimumAmount) {
       condition = isOverMinimumAmount(coupon.minimumAmount);
     }
@@ -59,6 +62,7 @@ const useCouponAvailable = () => {
     if (coupon.discountType === 'freeShipping') {
       condition = isShippingFee();
     }
+
     return condition;
   };
 
