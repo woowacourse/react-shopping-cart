@@ -21,7 +21,13 @@ export const filteredCartItemState = atomFamily<
       (id) =>
       ({ get }) => {
         const cartList = get(cartListState);
-        const item = cartList.find((item) => item.id === id);
+        const itemMap: Record<CartItemType["id"], CartItemType> =
+          cartList.reduce((accItemMap, curItem) => {
+            const key = String([curItem.id]);
+            return { ...accItemMap, [key]: curItem };
+          }, {});
+
+        const item = itemMap[id];
 
         if (!item) {
           throw new Error("item does not exist in cartList");
