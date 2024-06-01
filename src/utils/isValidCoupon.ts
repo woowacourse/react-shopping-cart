@@ -1,8 +1,8 @@
 import { CartItemType } from "@/types/cart.type";
-import { curKoreaTime } from "./date";
+import { currentKoreaTime } from "./date";
 
 export const isValidExpirationDate = (expirationDate: string) => {
-  const today = curKoreaTime;
+  const today = currentKoreaTime;
   const expiration = new Date(expirationDate);
   return today <= expiration;
 };
@@ -18,7 +18,7 @@ export const isValidAvailableTime = (
   if (availableTime) {
     const startTime = Number(availableTime.start.slice(0, 2));
     const endTime = Number(availableTime.end.slice(0, 2));
-    const curTime = curKoreaTime.getHours();
+    const curTime = currentKoreaTime.getHours();
 
     if (curTime < startTime || curTime >= endTime) {
       return false;
