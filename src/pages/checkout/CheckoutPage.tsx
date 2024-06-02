@@ -17,8 +17,8 @@ import Text from '@components/common/Text/Text';
 import styles from './Checkout.module.css';
 
 export default function CheckoutPage() {
-  const navigateCartPage = useNavigatePage(ROUTES.CART);
-  const navigatePaymentsPage = useNavigatePage(ROUTES.PAYMENTS);
+  const navigateCartPage = useNavigatePage(ROUTES.cart);
+  const navigatePaymentsPage = useNavigatePage(ROUTES.payments);
   const productIds = useRecoilValue(productsIdState);
   const { isModalOpen, handleModalOpen } = useModalControl();
 

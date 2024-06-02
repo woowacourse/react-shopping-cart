@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import useLocalStorage from '@hooks/useLocalStorage';
 import useNavigatePage from '@hooks/useNavigatePage';
-import { productsState } from '@store/productStore';
+import { fetchCartItemState } from '@store/productStore';
 import Header from '@components/Header/Header';
 import Button from '@components/common/Button';
 import CartList from './components/CartList';
@@ -11,9 +11,9 @@ import ROUTES from '@constants/routes';
 import styles from './Cart.module.css';
 
 export default function CartPage() {
-  const products = useRecoilValue(productsState);
-  const navigateCartPage = useNavigatePage(ROUTES.CART);
-  const navigateCheckoutPage = useNavigatePage(ROUTES.CHECKOUT);
+  const products = useRecoilValue(fetchCartItemState);
+  const navigateCartPage = useNavigatePage(ROUTES.cart);
+  const navigateCheckoutPage = useNavigatePage(ROUTES.checkout);
 
   useLocalStorage();
   return (

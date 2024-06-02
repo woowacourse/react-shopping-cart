@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function ErrorPage({ errorMessage }: Props) {
-  const navigateCartPage = useNavigatePage(ROUTES.CART);
+  const navigateCartPage = useNavigatePage(ROUTES.cart);
 
   return (
     <>

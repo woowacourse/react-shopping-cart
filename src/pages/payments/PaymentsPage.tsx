@@ -12,7 +12,7 @@ export default function PaymentsPage() {
   const { totalCount, totalQuantity } = useRecoilValue(totalProductQuantityState);
   const totalAmount = useRecoilValue(totalAmountState);
 
-  const navigateCartPage = useNavigatePage(ROUTES.CART);
+  const navigateCartPage = useNavigatePage(ROUTES.cart);
   const { removeCheckedProducts } = useRemoveCheckedProducts();
 
   return (
