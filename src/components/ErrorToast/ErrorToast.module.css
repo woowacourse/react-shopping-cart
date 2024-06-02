@@ -1,13 +1,16 @@
 .toast {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   top: 64px;
   left: 50%;
-  width: 276px;
-  height: 12px;
+  width: 430px;
+  height: 30px;
   transform: translateX(-50%);
   background-color: #ffc9c9;
   color: #0a0d13;
-  padding: 12px 77px;
+  padding: 10px;
   z-index: 1000;
   transition: opacity 0.5s ease;
   font-size: 12px;
