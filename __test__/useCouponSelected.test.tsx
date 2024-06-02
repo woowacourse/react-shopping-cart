@@ -1,9 +1,9 @@
 import { act } from '@testing-library/react';
-import { renderHook_useCouponSelected_activeCoupon } from './renderHook.util';
+import { renderHookUseCouponSelected } from './renderHook.util';
 
 describe('useCouponSelected hook 테스트', () => {
   it('activeCoupon이 2개인 상황에서 하나의 쿠폰을 더 선택할 수 없다.', () => {
-    const { result } = renderHook_useCouponSelected_activeCoupon({
+    const { result } = renderHookUseCouponSelected({
       couponSelected: { BOGO: true, FIXED5000: true },
       activeCoupons: ['BOGO', 'FIXED5000'],
     });
@@ -17,7 +17,7 @@ describe('useCouponSelected hook 테스트', () => {
   });
 
   it('activeCoupon이 0개인 상황에서 두개의 쿠폰을 선택하면, 두개의 쿠폰이 active 상태가 된다.', () => {
-    const { result } = renderHook_useCouponSelected_activeCoupon({
+    const { result } = renderHookUseCouponSelected({
       couponSelected: {
         FIXED5000: false,
         BOGO: false,
