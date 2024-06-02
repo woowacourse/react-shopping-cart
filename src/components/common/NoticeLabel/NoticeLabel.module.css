@@ -1,0 +1,5 @@
+.noticeLabelWrapper {
+  display: flex;
+  justify-content: flex-start;
+  gap: 4px;
+}

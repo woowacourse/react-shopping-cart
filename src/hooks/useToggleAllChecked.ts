@@ -1,27 +1,22 @@
-import { useRecoilValue, useRecoilCallback } from 'recoil';
 import { useState } from 'react';
-import { productsIds } from '../store/selectors';
-import { isCheckedState } from '../store/atoms';
-import areAllItemsChecked from '../utils/areAllItemsChecked';
-import { CartItemType } from '../types';
+import { useRecoilState } from 'recoil';
+import areAllItemsChecked from '@utils/areAllItemsChecked';
+import { cartItemsCheckedState } from '@store/productStore';
 
-const useToggleAllChecked = ({ products }: { products: CartItemType[] }) => {
-  const productIds = useRecoilValue(productsIds);
-  const [allChecked, setAllChecked] = useState(areAllItemsChecked(productIds));
+const useToggleAllChecked = () => {
+  const [isCheckedMap, setIsCheckedMap] = useRecoilState(cartItemsCheckedState);
+  const [allChecked, setAllChecked] = useState(areAllItemsChecked(isCheckedMap));
 
-  const handleToggleAll = useRecoilCallback(
-    ({ set }) =>
-      () => {
-        const newAllChecked = !allChecked;
-        setAllChecked(newAllChecked);
+  const handleToggleAll = () => {
+    const newAllChecked = !allChecked;
+    const newIsCheckedMap = { ...isCheckedMap };
 
-        products.forEach((product) => {
-          set(isCheckedState(product.id), newAllChecked);
-          window.localStorage.setItem(JSON.stringify(product.id), JSON.stringify(newAllChecked));
-        });
-      },
-    [allChecked, products],
-  );
+    Object.keys(newIsCheckedMap).forEach((key) => {
+      newIsCheckedMap[Number(key)] = newAllChecked;
+    });
+    setAllChecked(newAllChecked);
+    setIsCheckedMap(newIsCheckedMap);
+  };
 
   return {
     handleToggleAll,

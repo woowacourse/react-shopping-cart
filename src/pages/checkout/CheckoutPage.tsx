@@ -1,47 +1,59 @@
-import { useNavigate, useLocation } from 'react-router-dom';
-import ROUTES from '../../constants/routes';
-import Button from '../../components/common/Button';
-import Header from '../../components/Header/Header';
-import BackIcon from '../../asset/back.png';
-import formatKoreanCurrency from '../../utils/formatKoreanCurrency';
-import styles from './CheckoutPage.module.css';
+import { useRecoilValue } from 'recoil';
+import { addOrders } from '@api/index';
+import { productsIdState } from '@store/productStore';
+import useSetAndCleanUpCoupons from '@hooks/coupon/useSetAndCleanUpCoupons';
+import useNavigatePage from '@hooks/useNavigatePage';
+import useModalControl from '@hooks/useModalControl';
+import Button from '@components/common/Button';
+import Header from '@components/Header/Header';
+import CouponModal from './components/CouponModal/CouponModal';
+import ShippingFeeCheck from './components/ShippingFeeCheck';
+import CheckoutTotals from './components/CheckoutTotals';
+import CheckoutTitle from './components/CheckoutTitle';
+import ROUTES from '@constants/routes';
+import CheckoutList from './components/CheckoutList';
+import BackIcon from '@asset/back.png';
+import Text from '@components/common/Text/Text';
+import styles from './Checkout.module.css';
 
 export default function CheckoutPage() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const {
-    state: { totalCount, totalQuantity, totalAmount },
-  } = location;
+  const navigateCartPage = useNavigatePage(ROUTES.cart);
+  const navigatePaymentsPage = useNavigatePage(ROUTES.payments);
+  const productIds = useRecoilValue(productsIdState);
+  const { isModalOpen, handleModalOpen } = useModalControl();
 
-  const handleBackButtonClick = () => {
-    navigate(ROUTES.CART);
+  useSetAndCleanUpCoupons();
+
+  const handlePaymentsButtonClick = async () => {
+    try {
+      await addOrders(productIds);
+      navigatePaymentsPage();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <>
       <Header>
-        <Button variant="image" onClick={handleBackButtonClick}>
+        <Button variant="image" onClick={navigateCartPage}>
           <img src={BackIcon} width={32} height={32} alt="back-icon" />
         </Button>
       </Header>
-      <div className={styles.container}>
-        <h2 className={styles.mainText}>주문 확인</h2>
-        <div className={styles.orderInfoContainer}>
-          <p>
-            총 {totalCount}종류의 상품 {totalQuantity}개를 주문합니다.
-          </p>
-          <p>최종 결제 금액을 확인해 주세요.</p>
-        </div>
-        <div className={styles.totalAmount}>
-          <h2 className={styles.totalAmountText}>총 결제 금액</h2>
-          <h2 className={styles.totalAmountNumber}>{formatKoreanCurrency(totalAmount)}원</h2>
-        </div>
+      <div className={styles.bodyContainer}>
+        <CheckoutTitle />
+        <CheckoutList />
+        <button className={`${styles.checkoutModalButton}`} onClick={handleModalOpen}>
+          <Text.Subtitle>쿠폰 적용</Text.Subtitle>
+        </button>
+        <ShippingFeeCheck />
+        <CheckoutTotals />
       </div>
 
-      {/* 다음 미션에서 기능 추가 예정 */}
-      <Button variant="footer" disabled={true}>
+      <Button variant="footer" onClick={handlePaymentsButtonClick}>
         결제하기
       </Button>
+      <CouponModal isOpen={isModalOpen} handleToggle={handleModalOpen} />
     </>
   );
 }

@@ -1,54 +1,41 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { productsState } from '../store/atoms';
-import { productQuantityState } from '../store/selectors';
-import { updateCartItemQuantity } from '../api/index';
+import { productQuantityState, fetchCartItemState } from '@store/productStore';
 import { CartItemType } from '../types';
-import { NOTICE_MESSAGE } from '../constants/messages';
+import { updateCartItemQuantity } from '@api/index';
+import { NOTICE_MESSAGE } from '@constants/messages';
+import { useToast } from '@hooks/useToast';
 
 const useQuantityCount = ({ id }: { id: number }) => {
-  const [products, setProducts] = useRecoilState(productsState);
+  const [products, setProducts] = useRecoilState(fetchCartItemState);
   const productQuantity = useRecoilValue(productQuantityState(id));
+  const { showToast } = useToast();
+
+  const updateProductQuantity = async (newQuantity: number) => {
+    try {
+      await updateCartItemQuantity(id, newQuantity);
+
+      const newProducts = products.map((product: CartItemType) =>
+        product.id === id ? { ...product, quantity: newQuantity } : product,
+      );
+      setProducts(newProducts);
+    } catch (error) {
+      showToast('상품 수량 업데이트에 실패했습니다. 잠시 후 다시 시도해주세요.');
+      console.error(error);
+    }
+  };
 
   const handleIncrementButton = async () => {
     const newQuantity = productQuantity + 1;
-    const { success } = await updateCartItemQuantity(id, newQuantity);
-
-    if (success) {
-      const newProducts = products.map((product: CartItemType) => {
-        if (product.id === id) {
-          return {
-            ...product,
-            quantity: newQuantity,
-          };
-        }
-        return product;
-      });
-
-      setProducts(newProducts);
-    }
+    await updateProductQuantity(newQuantity);
   };
 
   const handleDecrementButton = async () => {
     const newQuantity = productQuantity - 1;
     if (newQuantity < 1) {
-      alert(NOTICE_MESSAGE.min_quantity);
+      showToast(NOTICE_MESSAGE.min_quantity);
       return;
     }
-    const { success } = await updateCartItemQuantity(id, newQuantity);
-
-    if (success) {
-      const newProducts = products.map((product: CartItemType) => {
-        if (product.id === id) {
-          return {
-            ...product,
-            quantity: newQuantity,
-          };
-        }
-        return product;
-      });
-
-      setProducts(newProducts);
-    }
+    await updateProductQuantity(newQuantity);
   };
 
   return {

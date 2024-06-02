@@ -1,28 +1,27 @@
-import { CartItemType } from '../../../types';
+import { useRecoilValue } from 'recoil';
+import { cartItemsCheckedState } from '@store/productStore';
+import useToggleAllChecked from '@hooks/useToggleAllChecked';
+import CheckBox from '@components/common/CheckBox/CheckBox';
+import Text from '@components/common/Text/Text';
 import CartItem from './CartItem';
-import useToggleAllChecked from '../../../hooks/useToggleAllChecked';
+import { CartItemType } from '../../../types';
 import styles from '../Cart.module.css';
-import common from '../../../styles/common.module.css';
 
 interface Props {
   products: CartItemType[];
 }
 
 export default function CartList({ products }: Props) {
-  const { handleToggleAll, allChecked, setAllChecked } = useToggleAllChecked({ products });
+  const { handleToggleAll, allChecked, setAllChecked } = useToggleAllChecked();
+  const isCheckedMap = useRecoilValue(cartItemsCheckedState);
 
   return (
     <>
       <div className={styles.allCheckContainer}>
-        <input
-          type="checkbox"
-          id={'checkAll'}
-          className={styles.customCheckbox}
-          checked={allChecked}
-          onChange={handleToggleAll}
-        />
-        <label htmlFor={'checkAll'} className={styles.customCheckboxLabel} />
-        <div className={`${styles.allCheckText} ${common.captionText}`}>전체 선택</div>
+        <CheckBox id="checkAll" checked={allChecked} onChange={handleToggleAll} />
+        <div className={`${styles.allCheckText}`}>
+          <Text.Caption>전체 선택</Text.Caption>
+        </div>
       </div>
 
       <ul>
@@ -36,6 +35,7 @@ export default function CartList({ products }: Props) {
               price={product.product.price}
               category={product.product.category}
               imageUrl={product.product.imageUrl}
+              isChecked={isCheckedMap[product.id]}
               setAllChecked={setAllChecked}
             />
           );

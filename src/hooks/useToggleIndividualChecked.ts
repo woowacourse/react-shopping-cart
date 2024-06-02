@@ -1,8 +1,6 @@
-import { isCheckedState } from '../store/atoms';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import areAllItemsChecked from '../utils/areAllItemsChecked';
-import { productsIds } from '../store/selectors';
-import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { cartItemsCheckedState } from '@store/productStore';
+import areAllItemsChecked from '@utils/areAllItemsChecked';
 
 type HookProps = {
   id: number;
@@ -10,25 +8,22 @@ type HookProps = {
 };
 
 const useToggleIndividualChecked = ({ id, setAllChecked }: HookProps) => {
-  const [isChecked, setIsChecked] = useRecoilState(isCheckedState(id));
-  const productIds = useRecoilValue(productsIds);
-
-  useEffect(() => {
-    window.localStorage.setItem(JSON.stringify(id), JSON.stringify(isChecked));
-  }, []);
+  const [isCheckedMap, setIsCheckedMap] = useRecoilState(cartItemsCheckedState);
+  const isChecked = isCheckedMap[id];
 
   const handleToggleSelect = (id: number) => {
     const newIsChecked = !isChecked;
+    const newAtom = {
+      ...isCheckedMap,
+      [id]: newIsChecked,
+    };
+    const isAllChecked = areAllItemsChecked(newAtom);
 
-    setIsChecked(newIsChecked);
-    window.localStorage.setItem(JSON.stringify(id), JSON.stringify(newIsChecked));
-
-    const isAllChecked = areAllItemsChecked(productIds);
-
+    setIsCheckedMap(newAtom);
     setAllChecked(isAllChecked);
   };
 
-  return { handleToggleSelect, isChecked };
+  return { handleToggleSelect };
 };
 
 export default useToggleIndividualChecked;

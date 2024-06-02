@@ -1,16 +1,18 @@
-import { deleteCartItem } from '../api/index';
-import { useRecoilState } from 'recoil';
-import { productsState } from '../store/atoms';
+import { useSetRecoilState } from 'recoil';
+import { fetchCartItemState } from '@store/productStore';
+import { deleteCartItem } from '@api/index';
 
 const useDeleteProduct = ({ id }: { id: number }) => {
-  const [, setProducts] = useRecoilState(productsState);
+  const setProducts = useSetRecoilState(fetchCartItemState);
 
   const handleDeleteButton = async () => {
-    const { success } = await deleteCartItem(id);
+    try {
+      await deleteCartItem(id);
 
-    if (success) {
       setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
       localStorage.removeItem(JSON.stringify(id));
+    } catch (error) {
+      console.error(error);
     }
   };
 

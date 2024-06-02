@@ -13,3 +13,20 @@ export type CartItemType = {
   quantity: number;
   product: ProductType;
 };
+
+export interface CouponType {
+  id: number;
+  code: string;
+  description: string;
+  expirationDate: string;
+  discount?: number;
+  discountType?: string;
+  minimumAmount?: number;
+  buyQuantity?: number;
+  getQuantity?: number;
+  minimumAmount?: number;
+  availableTime?: {
+    start: string;
+    end: string;
+  };
+}

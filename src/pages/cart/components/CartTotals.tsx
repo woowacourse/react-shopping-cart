@@ -1,35 +1,33 @@
 import { useRecoilValue } from 'recoil';
-import noticeIcon from '../../../asset/noticeIcon.png';
-import { totalOrderAmountState } from '../../../store/selectors';
+import { orderAmountState, totalAmountState, totalShippingFeeState } from '@store/orderStore';
+import NoticeLabel from '@components/common/NoticeLabel/NoticeLabel';
+import Divider from '@components/common/Divider/Divider';
+import Text from '@components/common/Text/Text';
+import { NOTICE_MESSAGE } from '@constants/messages';
+import formatKoreanCurrency from '@utils/formatKoreanCurrency';
 import styles from '../Cart.module.css';
-import formatKoreanCurrency from '../../../utils/formatKoreanCurrency';
-import common from '../../../styles/common.module.css';
-import { NOTICE_MESSAGE } from '../../../constants/messages';
 
 export default function CartTotals() {
-  const { orderAmount, deliveryCharge, totalAmount } = useRecoilValue(totalOrderAmountState);
+  const orderAmount = useRecoilValue(orderAmountState);
+  const { baseShippingFee } = useRecoilValue(totalShippingFeeState);
+  const totalAmount = useRecoilValue(totalAmountState);
   return (
-    <div className={styles.cartContentWrapper}>
-      <div className={styles.cartTotalsNoticeWrapper}>
-        <img src={noticeIcon} width={13} height={13} />
-        <span className={common.labelText}>{NOTICE_MESSAGE.shipping}</span>
-      </div>
-      <div className={styles.cartTotalsWrapper}>
-        <div className={styles.cartToTalsTextWrapper}>
-          <span className={common.subtitleText}>주문 금액</span>
-          <span className={common.titleText}>{formatKoreanCurrency(orderAmount)}원</span>
-        </div>
-        <div className={styles.cartToTalsTextWrapper}>
-          <span className={common.subtitleText}>배송비</span>
-          <span className={common.titleText}>{formatKoreanCurrency(deliveryCharge)}원</span>
-        </div>
-      </div>
-      <div className={styles.cartTotalsWrapper}>
-        <div className={styles.cartToTalsTextWrapper}>
-          <span className={common.subtitleText}>총 결제 금액</span>
-          <span className={common.titleText}>{formatKoreanCurrency(totalAmount)}원</span>
-        </div>
-      </div>
+    <div className={styles.cartTotalsContainer}>
+      <NoticeLabel>{NOTICE_MESSAGE.shipping}</NoticeLabel>
+      <Divider />
+      <Text.SubtitleSpaceBetween
+        subtitle="주문 금액"
+        content={`${formatKoreanCurrency(orderAmount)}`}
+      />
+      <Text.SubtitleSpaceBetween
+        subtitle="배송비"
+        content={`${formatKoreanCurrency(baseShippingFee)}`}
+      />
+      <Divider />
+      <Text.SubtitleSpaceBetween
+        subtitle="총 결제 금액"
+        content={`${formatKoreanCurrency(totalAmount)}`}
+      />
     </div>
   );
 }
