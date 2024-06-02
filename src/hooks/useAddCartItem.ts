@@ -11,7 +11,7 @@ const useAddCartItem = () => {
       window.location.reload();
     } catch (error) {
       if (error instanceof Error) {
-        showToast(error.message);
+        showToast('장바구니가 비었는지 확인 후 다시 시도해주세요.');
       }
     }
   };
