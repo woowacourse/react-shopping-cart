@@ -1,6 +1,5 @@
 import { useRecoilState } from 'recoil';
 import { selectedCouponIdListState } from '../recoil/couponList/selectedCouponIdListState';
-import { Coupon } from '../types/coupon.type';
 import { MAX_COUPON_COUNT } from '../constants/coupon';
 
 const useSelectedCouponIdList = () => {
