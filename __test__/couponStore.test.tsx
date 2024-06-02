@@ -1,74 +1,14 @@
 import { renderHook, waitFor } from '@testing-library/react';
-import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil';
-import {
-  mockChecked,
-  mockCoupons,
-  mockProductAmount160_000,
-  mockProductAmount10_000,
-} from './mock';
-import { activeCouponCodesState, couponsState, discountAmountState } from '@store/couponStore';
-import { isCheckedState, productsState } from '@store/productStore';
-import { additionalShippingFeeStatusState, orderAmountState } from '@store/orderStore';
+import { RecoilRoot, useRecoilState } from 'recoil';
+import { mockCoupons, mockProductAmount160_000, mockProductAmount10_000 } from './mock';
+import { couponsState } from '@store/couponStore';
+
 import { CART_POLICY } from '@constants/policy';
-import { CartItemType } from 'types';
 
-interface renderHookProps {
-  products: CartItemType[];
-  hasAdditionalShippingFee: boolean;
-  activeCoupons: string[];
-}
-
-const renderHook_discountAmountState = ({
-  products,
-  hasAdditionalShippingFee,
-  activeCoupons,
-}: renderHookProps) => {
-  return renderHook(() => useRecoilValue(discountAmountState), {
-    wrapper: ({ children }) => (
-      <RecoilRoot
-        initializeState={({ set }) => {
-          set(productsState, products);
-          set(additionalShippingFeeStatusState, hasAdditionalShippingFee);
-          set(isCheckedState, mockChecked);
-          set(couponsState, mockCoupons);
-          set(activeCouponCodesState, activeCoupons);
-        }}
-      >
-        {children}
-      </RecoilRoot>
-    ),
-  });
-};
-
-const renderHook_disCountAmount_orderAmount = ({
-  products,
-  hasAdditionalShippingFee,
-  activeCoupons,
-}: renderHookProps) => {
-  return renderHook(
-    () => {
-      const discountAmount = useRecoilValue(discountAmountState);
-      const orderAmount = useRecoilValue(orderAmountState);
-
-      return { discountAmount, orderAmount };
-    },
-    {
-      wrapper: ({ children }) => (
-        <RecoilRoot
-          initializeState={({ set }) => {
-            set(productsState, products);
-            set(additionalShippingFeeStatusState, hasAdditionalShippingFee);
-            set(isCheckedState, mockChecked);
-            set(couponsState, mockCoupons);
-            set(activeCouponCodesState, activeCoupons);
-          }}
-        >
-          {children}
-        </RecoilRoot>
-      ),
-    },
-  );
-};
+import {
+  renderHook_disCountAmount_orderAmount,
+  renderHook_discountAmountState,
+} from './renderHook.util';
 
 describe('couponStore Recoil 테스트', () => {
   describe('couponsState atom 테스트', () => {

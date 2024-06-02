@@ -1,10 +1,5 @@
-import { renderHook, waitFor } from '@testing-library/react';
-import { RecoilRoot } from 'recoil';
-import { activeCouponCodesState, couponsState } from '../src/store/couponStore';
-import { isCheckedState, productsState } from '../src/store/productStore';
-import useCouponList from '../src/hooks/coupon/useCouponList';
+import { waitFor } from '@testing-library/react';
 import {
-  mockChecked,
   mockCoupons,
   mockFIXED5000,
   mockBOGO,
@@ -15,32 +10,11 @@ import {
   mockProductQuantity1,
   mockProductQuantity3,
 } from './mock';
-import { CartItemType } from 'types';
+import { renderHook_useCouponList } from './renderHook.util';
 
 const setFakeTimer = (date: string) => {
   jest.useFakeTimers();
   jest.setSystemTime(new Date(date));
-};
-
-interface renderHookProps {
-  products: CartItemType[];
-}
-
-const renderHook_useCouponList = ({ products }: renderHookProps) => {
-  return renderHook(() => useCouponList(), {
-    wrapper: ({ children }) => (
-      <RecoilRoot
-        initializeState={({ set }) => {
-          set(productsState, products);
-          set(isCheckedState, mockChecked);
-          set(couponsState, mockCoupons);
-          set(activeCouponCodesState, []);
-        }}
-      >
-        {children}
-      </RecoilRoot>
-    ),
-  });
 };
 
 describe('useCouponList hook 테스트', () => {
