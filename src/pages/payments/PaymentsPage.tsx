@@ -6,12 +6,14 @@ import Header from '@components/Header/Header';
 import ROUTES from '@constants/routes';
 import formatKoreanCurrency from '@utils/formatKoreanCurrency';
 import styles from './PaymentsPage.module.css';
+import useRemoveCheckedProducts from '@hooks/useRemoveCheckedProducts';
 
 export default function PaymentsPage() {
   const { totalCount, totalQuantity } = useRecoilValue(totalProductQuantityState);
   const totalAmount = useRecoilValue(totalAmountState);
 
   const navigateCartPage = useNavigatePage(ROUTES.CART);
+  const { removeCheckedProducts } = useRemoveCheckedProducts();
 
   return (
     <>
@@ -30,7 +32,13 @@ export default function PaymentsPage() {
         </div>
       </div>
 
-      <Button variant="footer" onClick={navigateCartPage}>
+      <Button
+        variant="footer"
+        onClick={() => {
+          navigateCartPage();
+          removeCheckedProducts();
+        }}
+      >
         장바구니로 돌아가기
       </Button>
     </>
