@@ -9,6 +9,7 @@ import CartTitle from './components/CartTitle';
 import CartTotals from './components/CartTotals';
 import ROUTES from '@constants/routes';
 import styles from './Cart.module.css';
+import useAddCartItem from '@hooks/useAddCartItem';
 
 export default function CartPage() {
   const products = useRecoilValue(fetchCartItemState);
@@ -16,8 +17,18 @@ export default function CartPage() {
   const navigateCheckoutPage = useNavigatePage(ROUTES.checkout);
 
   useLocalStorage();
+
+  const { handleAddProductButtonClick } = useAddCartItem();
+
   return (
     <>
+      <Button
+        className={styles.addProductButton}
+        variant="image"
+        onClick={handleAddProductButtonClick}
+      >
+        <div>! 상품 추가하기 !</div> 장바구니가 비었을 때만 사용하세요!
+      </Button>
       <Header>
         <Button variant="header" onClick={navigateCartPage}>
           SHOP

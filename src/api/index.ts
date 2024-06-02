@@ -48,7 +48,7 @@ export async function fetchCartItems(): Promise<CartItemType[]> {
 export async function addCartItem(id: number) {
   const response = await makeRequest(`${ENDPOINT.cart_items}`, {
     method: 'POST',
-    body: JSON.stringify({ cartItemIds: id }),
+    body: JSON.stringify({ productId: id }),
   });
 
   return response;
