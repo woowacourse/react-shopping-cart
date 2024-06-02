@@ -15,10 +15,32 @@ import {
   mockProductQuantity1,
   mockProductQuantity3,
 } from './mock';
+import { CartItemType } from 'types';
 
 const setFakeTimer = (date: string) => {
   jest.useFakeTimers();
   jest.setSystemTime(new Date(date));
+};
+
+interface renderHookProps {
+  products: CartItemType[];
+}
+
+const renderHook_useCouponList = ({ products }: renderHookProps) => {
+  return renderHook(() => useCouponList(), {
+    wrapper: ({ children }) => (
+      <RecoilRoot
+        initializeState={({ set }) => {
+          set(productsState, products);
+          set(isCheckedState, mockChecked);
+          set(couponsState, mockCoupons);
+          set(activeCouponCodesState, []);
+        }}
+      >
+        {children}
+      </RecoilRoot>
+    ),
+  });
 };
 
 describe('useCouponList hook 테스트', () => {
@@ -30,20 +52,7 @@ describe('useCouponList hook 테스트', () => {
     it('쿠폰 사용일이 2024년 12월 1일이라면, 만료일이 2024년 11월 30일인 FIXED5000 쿠폰은 availableCoupons에 들어가지 않는다.', async () => {
       setFakeTimer('2024-12-01');
 
-      const { result } = renderHook(() => useCouponList(), {
-        wrapper: ({ children }) => (
-          <RecoilRoot
-            initializeState={({ set }) => {
-              set(productsState, mockProductAmount100_000);
-              set(isCheckedState, mockChecked);
-              set(couponsState, mockCoupons);
-              set(activeCouponCodesState, []);
-            }}
-          >
-            {children}
-          </RecoilRoot>
-        ),
-      });
+      const { result } = renderHook_useCouponList({ products: mockProductAmount100_000 });
 
       await waitFor(() => {
         expect(result.current.availableCoupons).not.toContainEqual(mockFIXED5000);
@@ -54,20 +63,7 @@ describe('useCouponList hook 테스트', () => {
     it('쿠폰 사용일이 2024년 6월 1일이라면, 만료일이 2024년 5월 30일인 BOGO 쿠폰은 availableCoupons에 들어가지 않는다.', async () => {
       setFakeTimer('2024-06-01');
 
-      const { result } = renderHook(() => useCouponList(), {
-        wrapper: ({ children }) => (
-          <RecoilRoot
-            initializeState={({ set }) => {
-              set(productsState, mockProductAmount100_000);
-              set(isCheckedState, mockChecked);
-              set(couponsState, mockCoupons);
-              set(activeCouponCodesState, []);
-            }}
-          >
-            {children}
-          </RecoilRoot>
-        ),
-      });
+      const { result } = renderHook_useCouponList({ products: mockProductAmount100_000 });
 
       await waitFor(() => {
         expect(result.current.availableCoupons).not.toContainEqual(mockBOGO);
@@ -78,20 +74,7 @@ describe('useCouponList hook 테스트', () => {
     it('쿠폰 사용일이 2024년 9월 1일이라면, 만료일이 2024년 8월 31일인 FREESHIPPING 쿠폰은 availableCoupons에 들어가지 않는다.', async () => {
       setFakeTimer('2024-09-01');
 
-      const { result } = renderHook(() => useCouponList(), {
-        wrapper: ({ children }) => (
-          <RecoilRoot
-            initializeState={({ set }) => {
-              set(productsState, mockProductAmount100_000);
-              set(isCheckedState, mockChecked);
-              set(couponsState, mockCoupons);
-              set(activeCouponCodesState, []);
-            }}
-          >
-            {children}
-          </RecoilRoot>
-        ),
-      });
+      const { result } = renderHook_useCouponList({ products: mockProductAmount100_000 });
 
       await waitFor(() => {
         expect(result.current.availableCoupons).not.toContainEqual(mockFREESHIPPING);
@@ -102,20 +85,7 @@ describe('useCouponList hook 테스트', () => {
     it('쿠폰 사용일이 2024년 8월 1일이라면, 만료일이 2024년 7월 31일인 MIRACLESALE 쿠폰은 availableCoupons에 들어가지 않는다.', async () => {
       setFakeTimer('2024-08-01');
 
-      const { result } = renderHook(() => useCouponList(), {
-        wrapper: ({ children }) => (
-          <RecoilRoot
-            initializeState={({ set }) => {
-              set(productsState, mockProductAmount100_000);
-              set(isCheckedState, mockChecked);
-              set(couponsState, mockCoupons);
-              set(activeCouponCodesState, []);
-            }}
-          >
-            {children}
-          </RecoilRoot>
-        ),
-      });
+      const { result } = renderHook_useCouponList({ products: mockProductAmount100_000 });
 
       await waitFor(() => {
         expect(result.current.availableCoupons).not.toContainEqual(mockMIRACLESALE);
@@ -134,20 +104,7 @@ describe('useCouponList hook 테스트', () => {
     });
 
     it('만료일 이내지만 주문 금액이 10만원 이하라면, FIXED5000 쿠폰은 availableCoupons에 들어가지 않고 unAvailableCoupons에 들어간다..', async () => {
-      const { result } = renderHook(() => useCouponList(), {
-        wrapper: ({ children }) => (
-          <RecoilRoot
-            initializeState={({ set }) => {
-              set(productsState, mockProductAmount10_000);
-              set(isCheckedState, mockChecked);
-              set(couponsState, mockCoupons);
-              set(activeCouponCodesState, []);
-            }}
-          >
-            {children}
-          </RecoilRoot>
-        ),
-      });
+      const { result } = renderHook_useCouponList({ products: mockProductAmount10_000 });
 
       await waitFor(() => {
         expect(result.current.availableCoupons).not.toContainEqual(mockFIXED5000);
@@ -156,20 +113,7 @@ describe('useCouponList hook 테스트', () => {
     });
 
     it('만료일 이내이고 주문 금액이 10만원 이상이라면, FIXED5000 쿠폰은 availableCoupons에 들어간다', async () => {
-      const { result } = renderHook(() => useCouponList(), {
-        wrapper: ({ children }) => (
-          <RecoilRoot
-            initializeState={({ set }) => {
-              set(productsState, mockProductAmount100_000);
-              set(isCheckedState, mockChecked);
-              set(couponsState, mockCoupons);
-              set(activeCouponCodesState, []);
-            }}
-          >
-            {children}
-          </RecoilRoot>
-        ),
-      });
+      const { result } = renderHook_useCouponList({ products: mockProductAmount100_000 });
 
       await waitFor(() => {
         expect(result.current.availableCoupons).toContainEqual(mockFIXED5000);
@@ -188,20 +132,7 @@ describe('useCouponList hook 테스트', () => {
     });
 
     it('만료일 이내지만 상품 구매 수량이 3개 미만이라면, BOGO 쿠폰은 availableCoupons에 들어가지 않고 unAvailableCoupons에 들어간다..', async () => {
-      const { result } = renderHook(() => useCouponList(), {
-        wrapper: ({ children }) => (
-          <RecoilRoot
-            initializeState={({ set }) => {
-              set(productsState, mockProductQuantity1);
-              set(isCheckedState, mockChecked);
-              set(couponsState, mockCoupons);
-              set(activeCouponCodesState, []);
-            }}
-          >
-            {children}
-          </RecoilRoot>
-        ),
-      });
+      const { result } = renderHook_useCouponList({ products: mockProductQuantity1 });
 
       await waitFor(() => {
         expect(result.current.availableCoupons).not.toContainEqual(mockBOGO);
@@ -210,20 +141,7 @@ describe('useCouponList hook 테스트', () => {
     });
 
     it('만료일 이내이고 상품 구매 수량이 3개 이상이라면, BOGO 쿠폰은 availableCoupons에 들어간다', async () => {
-      const { result } = renderHook(() => useCouponList(), {
-        wrapper: ({ children }) => (
-          <RecoilRoot
-            initializeState={({ set }) => {
-              set(productsState, mockProductQuantity3);
-              set(isCheckedState, mockChecked);
-              set(couponsState, mockCoupons);
-              set(activeCouponCodesState, []);
-            }}
-          >
-            {children}
-          </RecoilRoot>
-        ),
-      });
+      const { result } = renderHook_useCouponList({ products: mockProductQuantity3 });
 
       await waitFor(() => {
         expect(result.current.availableCoupons).toContainEqual(mockBOGO);
@@ -242,20 +160,7 @@ describe('useCouponList hook 테스트', () => {
     });
 
     it('만료일 이내지만 주문 금액이 5만원 미만이라면, FREESHIPPING 쿠폰은 availableCoupons에 들어가지 않고 unAvailableCoupons에 들어간다..', async () => {
-      const { result } = renderHook(() => useCouponList(), {
-        wrapper: ({ children }) => (
-          <RecoilRoot
-            initializeState={({ set }) => {
-              set(productsState, mockProductAmount10_000);
-              set(isCheckedState, mockChecked);
-              set(couponsState, mockCoupons);
-              set(activeCouponCodesState, []);
-            }}
-          >
-            {children}
-          </RecoilRoot>
-        ),
-      });
+      const { result } = renderHook_useCouponList({ products: mockProductAmount10_000 });
 
       await waitFor(() => {
         expect(result.current.availableCoupons).not.toContainEqual(mockFREESHIPPING);
@@ -264,20 +169,7 @@ describe('useCouponList hook 테스트', () => {
     });
 
     it('만료일 이내이고 주문 금액이 5만원 이상이라면, FREESHIPPING 쿠폰은 availableCoupons에 들어간다', async () => {
-      const { result } = renderHook(() => useCouponList(), {
-        wrapper: ({ children }) => (
-          <RecoilRoot
-            initializeState={({ set }) => {
-              set(productsState, mockProductAmount100_000);
-              set(isCheckedState, mockChecked);
-              set(couponsState, mockCoupons);
-              set(activeCouponCodesState, []);
-            }}
-          >
-            {children}
-          </RecoilRoot>
-        ),
-      });
+      const { result } = renderHook_useCouponList({ products: mockProductAmount100_000 });
 
       await waitFor(() => {
         expect(result.current.availableCoupons).toContainEqual(mockFREESHIPPING);
@@ -294,20 +186,7 @@ describe('useCouponList hook 테스트', () => {
     it('만료일 이내이고 사용 시간이 오전 4시부터 7시라면, MIRACLESALE 쿠폰은 availableCoupons에 들어간다', async () => {
       setFakeTimer('2024-07-01T06:00:00');
 
-      const { result } = renderHook(() => useCouponList(), {
-        wrapper: ({ children }) => (
-          <RecoilRoot
-            initializeState={({ set }) => {
-              set(productsState, mockProductAmount10_000);
-              set(isCheckedState, mockChecked);
-              set(couponsState, mockCoupons);
-              set(activeCouponCodesState, []);
-            }}
-          >
-            {children}
-          </RecoilRoot>
-        ),
-      });
+      const { result } = renderHook_useCouponList({ products: mockProductAmount10_000 });
 
       await waitFor(() => {
         expect(result.current.availableCoupons).toContainEqual(mockMIRACLESALE);
@@ -318,20 +197,7 @@ describe('useCouponList hook 테스트', () => {
     it('만료일 이내지만 사용 시간이 오전 4시부터 7시가 아니라면, MIRACLESALE 쿠폰은 availableCoupons에 들어가지 않고 unAvailableCoupons에 들어간다.', async () => {
       setFakeTimer('2024-07-01T07:00:01');
 
-      const { result } = renderHook(() => useCouponList(), {
-        wrapper: ({ children }) => (
-          <RecoilRoot
-            initializeState={({ set }) => {
-              set(productsState, mockProductAmount10_000);
-              set(isCheckedState, mockChecked);
-              set(couponsState, mockCoupons);
-              set(activeCouponCodesState, []);
-            }}
-          >
-            {children}
-          </RecoilRoot>
-        ),
-      });
+      const { result } = renderHook_useCouponList({ products: mockProductAmount10_000 });
 
       await waitFor(() => {
         expect(result.current.availableCoupons).not.toContainEqual(mockMIRACLESALE);
@@ -348,20 +214,7 @@ describe('useCouponList hook 테스트', () => {
     it('만료일 이내, 주문금액 10만원 이상, 한 상품을 3개 구매, 사용 시간 오전 4시~7시라면, FIXED5000, BOGO, FREESHIPPING, MIRACLESALE 쿠폰은 availableCoupons에 들어간다', async () => {
       setFakeTimer('2024-01-01T06:00:00');
 
-      const { result } = renderHook(() => useCouponList(), {
-        wrapper: ({ children }) => (
-          <RecoilRoot
-            initializeState={({ set }) => {
-              set(productsState, mockProductAmount100_000);
-              set(isCheckedState, mockChecked);
-              set(couponsState, mockCoupons);
-              set(activeCouponCodesState, []);
-            }}
-          >
-            {children}
-          </RecoilRoot>
-        ),
-      });
+      const { result } = renderHook_useCouponList({ products: mockProductAmount100_000 });
 
       await waitFor(() => {
         expect(result.current.availableCoupons).toEqual(mockCoupons);
@@ -378,20 +231,7 @@ describe('useCouponList hook 테스트', () => {
     it('만료일 이내, 주문금액 10,000원,  한 상품을 1개 구매, 사용 시간 오전 8시라면, 모든 쿠폰은 사용 불가능하다', async () => {
       setFakeTimer('2024-01-01T08:00:00');
 
-      const { result } = renderHook(() => useCouponList(), {
-        wrapper: ({ children }) => (
-          <RecoilRoot
-            initializeState={({ set }) => {
-              set(productsState, mockProductAmount10_000);
-              set(isCheckedState, mockChecked);
-              set(couponsState, mockCoupons);
-              set(activeCouponCodesState, []);
-            }}
-          >
-            {children}
-          </RecoilRoot>
-        ),
-      });
+      const { result } = renderHook_useCouponList({ products: mockProductAmount10_000 });
 
       await waitFor(() => {
         expect(result.current.availableCoupons).toEqual([]);

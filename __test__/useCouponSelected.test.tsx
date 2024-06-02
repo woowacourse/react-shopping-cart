@@ -3,28 +3,43 @@ import { RecoilRoot, useRecoilValue } from 'recoil';
 import { act, renderHook } from '@testing-library/react';
 import useCouponSelected from '@hooks/coupon/useCouponSelected';
 
+interface renderHookProps {
+  couponSelected: Record<string, boolean>;
+  activeCoupons: string[];
+}
+
+const renderHook_useCouponSelected_activeCoupon = ({
+  couponSelected,
+  activeCoupons,
+}: renderHookProps) => {
+  return renderHook(
+    () => {
+      const { handleToggleCouponCheckbox, couponSelected } = useCouponSelected();
+      const activeCouponCodes = useRecoilValue(activeCouponCodesState);
+
+      return { handleToggleCouponCheckbox, couponSelected, activeCouponCodes };
+    },
+    {
+      wrapper: ({ children }) => (
+        <RecoilRoot
+          initializeState={({ set }) => {
+            set(couponSelectedState, couponSelected);
+            set(activeCouponCodesState, activeCoupons);
+          }}
+        >
+          {children}
+        </RecoilRoot>
+      ),
+    },
+  );
+};
+
 describe('useCouponSelected hook 테스트', () => {
   it('activeCoupon이 2개인 상황에서 하나의 쿠폰을 더 선택할 수 없다.', () => {
-    const { result } = renderHook(
-      () => {
-        const { handleToggleCouponCheckbox, couponSelected } = useCouponSelected();
-        const activeCouponCodes = useRecoilValue(activeCouponCodesState);
-
-        return { handleToggleCouponCheckbox, couponSelected, activeCouponCodes };
-      },
-      {
-        wrapper: ({ children }) => (
-          <RecoilRoot
-            initializeState={({ set }) => {
-              set(couponSelectedState, { BOGO: true, FIXED5000: true });
-              set(activeCouponCodesState, ['BOGO', 'FIXED5000']);
-            }}
-          >
-            {children}
-          </RecoilRoot>
-        ),
-      },
-    );
+    const { result } = renderHook_useCouponSelected_activeCoupon({
+      couponSelected: { BOGO: true, FIXED5000: true },
+      activeCoupons: ['BOGO', 'FIXED5000'],
+    });
 
     act(() => {
       result.current.handleToggleCouponCheckbox('FREESHIPPING');
@@ -35,29 +50,13 @@ describe('useCouponSelected hook 테스트', () => {
   });
 
   it('activeCoupon이 0개인 상황에서 두개의 쿠폰을 선택하면, 두개의 쿠폰이 active 상태가 된다.', () => {
-    const { result } = renderHook(
-      () => {
-        const { handleToggleCouponCheckbox, couponSelected } = useCouponSelected();
-        const activeCouponCodes = useRecoilValue(activeCouponCodesState);
-
-        return { handleToggleCouponCheckbox, couponSelected, activeCouponCodes };
+    const { result } = renderHook_useCouponSelected_activeCoupon({
+      couponSelected: {
+        FIXED5000: false,
+        BOGO: false,
       },
-      {
-        wrapper: ({ children }) => (
-          <RecoilRoot
-            initializeState={({ set }) => {
-              set(couponSelectedState, {
-                FIXED5000: false,
-                BOGO: false,
-              });
-              set(activeCouponCodesState, []);
-            }}
-          >
-            {children}
-          </RecoilRoot>
-        ),
-      },
-    );
+      activeCoupons: [],
+    });
 
     act(() => {
       result.current.handleToggleCouponCheckbox('BOGO');
