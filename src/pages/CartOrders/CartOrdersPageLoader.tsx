@@ -1,25 +1,35 @@
-import { useRecoilValueLoadable } from 'recoil';
-import { cartItemListStateQuery } from '../../recoil/cartItemList/cartItemListState';
-import { ReactNode, useEffect } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 import LoadingFallback from '../../components/LoadingFallback/LoadingFallback';
 import { useCartItemList } from '../../hooks/useCartItemList';
 
-const CartOrdersPageLoader = ({ children }: { children: ReactNode }) => {
-  const cartItemListLoadable = useRecoilValueLoadable(cartItemListStateQuery);
+type CartOrderPageLoaderProps = PropsWithChildren & {
+  retryKey?: number;
+};
+
+const CartOrdersPageLoader = ({ children }: PropsWithChildren<CartOrderPageLoaderProps>) => {
   const { updateCartItemList } = useCartItemList();
+  const [error, setError] = useState<null | Error>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    updateCartItemList();
+    const fetchData = async () => {
+      try {
+        setError(null);
+        setLoading(true);
+        await updateCartItemList();
+      } catch (error) {
+        setError(error as Error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  switch (cartItemListLoadable.state) {
-    case 'hasValue':
-      return children;
-    case 'hasError':
-      throw cartItemListLoadable.contents;
-    case 'loading':
-      return <LoadingFallback />;
-  }
+  if (loading) return <LoadingFallback />;
+  else if (error !== null) throw error;
+  else return children;
 };
 
 export default CartOrdersPageLoader;

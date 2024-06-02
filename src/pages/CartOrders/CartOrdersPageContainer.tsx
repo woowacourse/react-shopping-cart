@@ -1,19 +1,15 @@
-import { ErrorBoundary } from 'react-error-boundary';
-import ErrorComponent from '../../components/ErrorComponent/ErrorComponent';
 import CartOrdersPageLoader from './CartOrdersPageLoader';
 import CartOrdersPage from './CartOrdersPage';
+import ErrorBoundaryForRerenderChildren from '../ErrorBoundaryForRerenderChildren';
+import ErrorComponent from '../../components/ErrorComponent/ErrorComponent';
 
 const CartOrdersPageContainer = () => {
-  const onReset = () => {
-    window.location.reload();
-  };
-
   return (
-    <ErrorBoundary onReset={onReset} FallbackComponent={({ error }) => ErrorComponent({ error, onReset: onReset })}>
+    <ErrorBoundaryForRerenderChildren FallbackComponent={ErrorComponent}>
       <CartOrdersPageLoader>
         <CartOrdersPage />
       </CartOrdersPageLoader>
-    </ErrorBoundary>
+    </ErrorBoundaryForRerenderChildren>
   );
 };
 

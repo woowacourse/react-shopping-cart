@@ -1,23 +1,35 @@
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useCartItemList } from '../../hooks/useCartItemList';
-import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
-import { cartItemListStateQuery } from '../../recoil/cartItemList/cartItemListState';
+import { useRecoilValue } from 'recoil';
 import { selectedCartItemIdListState } from '../../recoil/selectedCartItemList/selectedCartItemIdListState';
+import LoadingFallback from '../../components/LoadingFallback/LoadingFallback';
 
 const CartOrderFormPageLoader = ({ children }: { children: ReactNode }) => {
   const { updateCartItemList } = useCartItemList();
-  const cartItemListLoadable = useRecoilValueLoadable(cartItemListStateQuery);
   const selectedCartItemIdList = useRecoilValue(selectedCartItemIdListState);
+  const [error, setError] = useState<null | Error>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    updateCartItemList();
+    const fetchData = async () => {
+      try {
+        setError(null);
+        setLoading(true);
+        await updateCartItemList();
+      } catch (error) {
+        setError(error as Error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  if (selectedCartItemIdList.length === 0) return <div>잘못된 접근입니다.</div>;
-
-  if (cartItemListLoadable.state === 'hasValue') {
-    return children;
-  }
+  if (loading) return <LoadingFallback />;
+  else if (error !== null) throw error;
+  else if (selectedCartItemIdList.length === 0) throw new Error('잘못된 접근입니다.');
+  else return children;
 };
 
 export default CartOrderFormPageLoader;
