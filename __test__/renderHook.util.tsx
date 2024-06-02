@@ -4,7 +4,13 @@ import {
   couponsState,
   discountAmountState,
 } from '@store/couponStore';
-import { additionalShippingFeeStatusState, orderAmountState } from '@store/orderStore';
+import {
+  additionalShippingFeeStatusState,
+  orderAmountState,
+  totalAmountState,
+  totalProductQuantityState,
+  totalShippingFeeState,
+} from '@store/orderStore';
 import { isCheckedState, productsState } from '@store/productStore';
 import { renderHook } from '@testing-library/react';
 import { useRecoilValue, RecoilRoot } from 'recoil';
@@ -52,6 +58,38 @@ export const renderHook_disCountAmount_orderAmount = ({
       const orderAmount = useRecoilValue(orderAmountState);
 
       return { discountAmount, orderAmount };
+    },
+    {
+      wrapper: ({ children }) => (
+        <RecoilRoot
+          initializeState={({ set }) => {
+            set(productsState, products);
+            set(additionalShippingFeeStatusState, hasAdditionalShippingFee);
+            set(isCheckedState, mockChecked);
+            set(couponsState, mockCoupons);
+            set(activeCouponCodesState, activeCoupons);
+          }}
+        >
+          {children}
+        </RecoilRoot>
+      ),
+    },
+  );
+};
+
+export const renderHook_totalAmount = ({
+  products,
+  hasAdditionalShippingFee,
+  activeCoupons,
+}: renderHook_discountAmountProps) => {
+  return renderHook(
+    () => {
+      const totalAmount = useRecoilValue(totalAmountState);
+      const orderAmount = useRecoilValue(orderAmountState);
+      const discountAmount = useRecoilValue(discountAmountState);
+      const totalShippingFee = useRecoilValue(totalShippingFeeState);
+
+      return { totalAmount, orderAmount, discountAmount, totalShippingFee };
     },
     {
       wrapper: ({ children }) => (
@@ -138,6 +176,50 @@ export const renderHook_orderAmountState = ({
         initializeState={({ set }) => {
           set(productsState, products);
           set(isCheckedState, isChecked);
+        }}
+      >
+        {children}
+      </RecoilRoot>
+    ),
+  });
+};
+
+export const renderHook_totalProductQuantityState = ({
+  products,
+  isChecked,
+}: renderHook_orderAmountStateProps) => {
+  return renderHook(() => useRecoilValue(totalProductQuantityState), {
+    wrapper: ({ children }) => (
+      <RecoilRoot
+        initializeState={({ set }) => {
+          set(productsState, products);
+          set(isCheckedState, isChecked);
+        }}
+      >
+        {children}
+      </RecoilRoot>
+    ),
+  });
+};
+
+interface renderHook_totalShippingFeeState {
+  products: CartItemType[];
+  isChecked: Record<string, boolean>;
+  hasAdditionalShippingFee: boolean;
+}
+
+export const renderHook_totalShippingFeeState = ({
+  products,
+  isChecked,
+  hasAdditionalShippingFee,
+}: renderHook_totalShippingFeeState) => {
+  return renderHook(() => useRecoilValue(totalShippingFeeState), {
+    wrapper: ({ children }) => (
+      <RecoilRoot
+        initializeState={({ set }) => {
+          set(productsState, products);
+          set(isCheckedState, isChecked);
+          set(additionalShippingFeeStatusState, hasAdditionalShippingFee);
         }}
       >
         {children}
