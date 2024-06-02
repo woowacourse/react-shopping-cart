@@ -21,7 +21,7 @@ import ShippingAreaForm from '../../components/ShippingAreaForm/ShippingAreaForm
 import { requestOrders } from '../../apis/requests/order';
 import { useErrorBoundary } from 'react-error-boundary';
 import { useSelectedCartItemIdList } from '../../hooks/useSelectedCartItemIdList';
-import useSelectedCouponList from '../../hooks/useSelectedCouponList';
+import useSelectedCouponIdList from '../../hooks/useSelectedCouponIdList';
 import useIsMountainIslandArea from '../../hooks/useIsMountainIslandArea';
 import theme from '../../theme';
 
@@ -50,13 +50,13 @@ const CartOrderFormPage = () => {
 
   const { clearSelectedCartItemIdList } = useSelectedCartItemIdList();
   const { showBoundary } = useErrorBoundary();
-  const { clearSelectedCouponList } = useSelectedCouponList();
+  const { clearSelectedCouponIdList } = useSelectedCouponIdList();
   const { clearIsMountainIslandArea } = useIsMountainIslandArea();
 
   useEffect(() => {
     return () => {
       clearIsMountainIslandArea();
-      clearSelectedCouponList();
+      clearSelectedCouponIdList();
     };
   }, []);
 
@@ -64,7 +64,7 @@ const CartOrderFormPage = () => {
     try {
       await requestOrders(selectedCartItemList.map(({ cartItemId }) => cartItemId));
       clearSelectedCartItemIdList();
-      clearSelectedCouponList();
+      clearSelectedCouponIdList();
       clearIsMountainIslandArea();
 
       navigate(ROUTES.CART_ORDER_COMPLETE, {

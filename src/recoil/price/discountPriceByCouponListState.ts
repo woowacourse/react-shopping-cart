@@ -1,6 +1,6 @@
 import { selector } from 'recoil';
 import { totalCartPriceState } from './totalCartPriceState';
-import { selectedCouponListState } from '../couponList/selectedCouponListState';
+import { selectedCouponIdListState } from '../couponList/selectedCouponIdListState';
 import { selectedCartItemListState } from '../selectedCartItemList/selectedCartItemList';
 import {
   calcBuyXGetYDiscountAmount,
@@ -8,6 +8,7 @@ import {
   calcPercentageDiscountAmount,
   calcShippingFeeDiscountAmount,
 } from '../../utils/coupon/calcDiscountPriceByCoupon';
+import { couponListState } from '../couponList/couponListState';
 
 export type ShippingDiscountType = 'free' | number;
 
@@ -21,7 +22,10 @@ export const discountPriceByCouponListState = selector({
   key: 'discountPriceByCouponListState',
   get: ({ get }) => {
     let totalCartPrice = get(totalCartPriceState);
-    const selectedCouponList = get(selectedCouponListState);
+    const selectedCouponIdList = get(selectedCouponIdListState);
+    const couponList = get(couponListState);
+    const selectedCouponList = couponList.filter(({ id }) => selectedCouponIdList.includes(id));
+
     const selectedCartItemList = get(selectedCartItemListState);
 
     const selectedCouponListSortByPriorityDesc = [...selectedCouponList].sort((a, b) => b.priority - a.priority);

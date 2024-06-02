@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react';
 import { RecoilRoot, useRecoilValue } from 'recoil';
 import { discountPriceByCouponListState } from './discountPriceByCouponListState';
 import { mockCartItemList } from '../../mocks/cartItemList';
-import { selectedCouponListState } from '../couponList/selectedCouponListState';
+import { selectedCouponIdListState } from '../couponList/selectedCouponIdListState';
 import { selectedCartItemIdListState } from '../selectedCartItemList/selectedCartItemIdListState';
 import { Coupon } from '../../types/coupon.type';
 import { useCartItemList } from '../../hooks/useCartItemList';
@@ -76,7 +76,10 @@ describe('discountPriceByCouponListState 테스트', () => {
           <RecoilRoot
             initializeState={({ set }) => {
               set(selectedCartItemIdListState, [1]);
-              set(selectedCouponListState, couponList);
+              set(
+                selectedCouponIdListState,
+                couponList.map(({ id }) => id),
+              );
             }}
           >
             {children}

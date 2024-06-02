@@ -1,4 +1,4 @@
-import useSelectedCouponList from '../../hooks/useSelectedCouponList';
+import useSelectedCouponIdList from '../../hooks/useSelectedCouponIdList';
 import { Coupon } from '../../types/coupon.type';
 import formatAvailableTime from '../../utils/format/formatAvailableTime';
 import formatExpirationDate from '../../utils/format/formatExpirationDate';
@@ -9,13 +9,13 @@ import * as S from './CouponItem.style';
 
 const CouponItem = (coupon: Coupon) => {
   const { description, expirationDate, availableTime, minimumAmount, isApplicable } = coupon;
-  const { toggleSelectedCoupon, isSelectedCoupon } = useSelectedCouponList();
+  const { toggleSelectedCoupon, isSelectedCoupon } = useSelectedCouponIdList();
 
   return (
     <S.CouponItemWrapper disabled={!isApplicable}>
       <Divider />
       <Checkbox
-        handleClick={() => toggleSelectedCoupon(coupon)}
+        handleClick={() => toggleSelectedCoupon(coupon.id)}
         checked={isSelectedCoupon(coupon.id)}
         disabled={!isApplicable}
         description={
