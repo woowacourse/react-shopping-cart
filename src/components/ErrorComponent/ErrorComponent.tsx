@@ -13,12 +13,12 @@ const ErrorComponentContainer = styled.div`
   row-gap: 14px;
 `;
 
-type ErrorComponentProps = {
+export type ErrorComponentProps = {
   error: Error;
-  onReset?: () => void;
+  onRetry?: () => void;
 };
 
-const ErrorComponent = ({ error, onReset }: ErrorComponentProps) => {
+const ErrorComponent = ({ error, onRetry }: ErrorComponentProps) => {
   return (
     <ErrorComponentContainer>
       <Text size="l" weight="l">
@@ -27,7 +27,7 @@ const ErrorComponent = ({ error, onReset }: ErrorComponentProps) => {
       <Text size="s" weight="s">
         {error.message}
       </Text>
-      <Button onClick={onReset} color="primary">
+      <Button onClick={onRetry} color="primary">
         다시 시도
       </Button>
     </ErrorComponentContainer>
