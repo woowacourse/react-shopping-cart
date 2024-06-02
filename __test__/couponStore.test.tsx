@@ -3,7 +3,7 @@ import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil';
 import {
   mockChecked,
   mockCoupons,
-  mockProductAmount100_000,
+  mockProductAmount160_000,
   mockProductAmount10_000,
 } from './mock';
 import { activeCouponCodesState, couponsState, discountAmountState } from '@store/couponStore';
@@ -18,7 +18,7 @@ interface renderHookProps {
   activeCoupons: string[];
 }
 
-const renderHookDiscountAmountState = ({
+const renderHook_discountAmountState = ({
   products,
   hasAdditionalShippingFee,
   activeCoupons,
@@ -40,7 +40,7 @@ const renderHookDiscountAmountState = ({
   });
 };
 
-const renderHookDisCountAmountWithOrderAmount = ({
+const renderHook_disCountAmount_orderAmount = ({
   products,
   hasAdditionalShippingFee,
   activeCoupons,
@@ -88,8 +88,8 @@ describe('couponStore Recoil 테스트', () => {
   describe('discountAmountState selector 테스트', () => {
     describe('개별 쿠폰 적용 테스트', () => {
       it('FIXED5000 쿠폰이 active 상태라면, discountAmountState는 5000이다', async () => {
-        const { result } = renderHookDiscountAmountState({
-          products: mockProductAmount100_000,
+        const { result } = renderHook_discountAmountState({
+          products: mockProductAmount160_000,
           hasAdditionalShippingFee: true,
           activeCoupons: ['FIXED5000'],
         });
@@ -100,13 +100,13 @@ describe('couponStore Recoil 테스트', () => {
       });
 
       it('BOGO 쿠폰이 active 상태라면, 상품 하나의 값을 할인한다.', async () => {
-        const { result } = renderHookDiscountAmountState({
-          products: mockProductAmount100_000,
+        const { result } = renderHook_discountAmountState({
+          products: mockProductAmount160_000,
           hasAdditionalShippingFee: true,
           activeCoupons: ['BOGO'],
         });
 
-        const discountAmount = mockProductAmount100_000[0].product.price;
+        const discountAmount = mockProductAmount160_000[0].product.price;
 
         await waitFor(() => {
           expect(result.current).toEqual(discountAmount);
@@ -114,7 +114,7 @@ describe('couponStore Recoil 테스트', () => {
       });
 
       it('FREESHIPPING 쿠폰이 active 상태라면, 기본 배송비와 추가 배송비 모두 할인한다.', async () => {
-        const { result } = renderHookDiscountAmountState({
+        const { result } = renderHook_discountAmountState({
           products: mockProductAmount10_000,
           hasAdditionalShippingFee: true,
           activeCoupons: ['FREESHIPPING'],
@@ -128,7 +128,7 @@ describe('couponStore Recoil 테스트', () => {
       });
 
       it('FREESHIPPING 쿠폰이 active 상태이고 추가 배송비가 없다면, 기본 배송비를 할인한다.', async () => {
-        const { result } = renderHookDiscountAmountState({
+        const { result } = renderHook_discountAmountState({
           products: mockProductAmount10_000,
           hasAdditionalShippingFee: false,
           activeCoupons: ['FREESHIPPING'],
@@ -142,8 +142,8 @@ describe('couponStore Recoil 테스트', () => {
       });
 
       it('FREESHIPPING 쿠폰이 active 상태이고 100_000원 이상 구매로 기본 배송비가 없고 추가 배송비가 있다면, 추가 배송비를 할인한다.', async () => {
-        const { result } = renderHookDiscountAmountState({
-          products: mockProductAmount100_000,
+        const { result } = renderHook_discountAmountState({
+          products: mockProductAmount160_000,
           hasAdditionalShippingFee: true,
           activeCoupons: ['FREESHIPPING'],
         });
@@ -156,8 +156,8 @@ describe('couponStore Recoil 테스트', () => {
       });
 
       it('MIRACLESALE 쿠폰이 active 상태라면, 전체 주문금액의 30%를 할인한다.', async () => {
-        const { result } = renderHookDisCountAmountWithOrderAmount({
-          products: mockProductAmount100_000,
+        const { result } = renderHook_disCountAmount_orderAmount({
+          products: mockProductAmount160_000,
           hasAdditionalShippingFee: true,
           activeCoupons: ['MIRACLESALE'],
         });
@@ -171,8 +171,8 @@ describe('couponStore Recoil 테스트', () => {
 
       describe('두개 쿠폰 적용 테스트', () => {
         it('MIRACLESALE 쿠폰과 FIXED5000 쿠폰이 active라면, 두가지 쿠폰 적용 경우의 수 중 최대 할인액이 적용된다.', async () => {
-          const { result } = renderHookDisCountAmountWithOrderAmount({
-            products: mockProductAmount100_000,
+          const { result } = renderHook_disCountAmount_orderAmount({
+            products: mockProductAmount160_000,
             hasAdditionalShippingFee: true,
             activeCoupons: ['MIRACLESALE', 'FIXED5000'],
           });
@@ -187,7 +187,7 @@ describe('couponStore Recoil 테스트', () => {
         });
 
         it('MIRACLESALE 쿠폰과 FREESHIPPING 쿠폰이 active라면, 전체 주문 금액의 30%와 모든 배송비가 할인된다.', async () => {
-          const { result } = renderHookDisCountAmountWithOrderAmount({
+          const { result } = renderHook_disCountAmount_orderAmount({
             products: mockProductAmount10_000,
             hasAdditionalShippingFee: true,
             activeCoupons: ['MIRACLESALE', 'FREESHIPPING'],
@@ -204,14 +204,14 @@ describe('couponStore Recoil 테스트', () => {
         });
 
         it('MIRACLESALE 쿠폰과 BOGO 쿠폰이 active라면, 전체 주문 금액의 30%와 상품 1개 값을 할인한다.', async () => {
-          const { result } = renderHookDisCountAmountWithOrderAmount({
-            products: mockProductAmount100_000,
+          const { result } = renderHook_disCountAmount_orderAmount({
+            products: mockProductAmount160_000,
             hasAdditionalShippingFee: true,
             activeCoupons: ['MIRACLESALE', 'BOGO'],
           });
 
           const discountAmount =
-            result.current.orderAmount * 0.3 + mockProductAmount100_000[0].product.price;
+            result.current.orderAmount * 0.3 + mockProductAmount160_000[0].product.price;
 
           await waitFor(() => {
             expect(result.current.discountAmount).toEqual(discountAmount);
@@ -219,13 +219,13 @@ describe('couponStore Recoil 테스트', () => {
         });
 
         it('BOGO 쿠폰과 FIXED5000 쿠폰이 active라면, 상품 1개 값과 5000원을 할인한다.', async () => {
-          const { result } = renderHookDisCountAmountWithOrderAmount({
-            products: mockProductAmount100_000,
+          const { result } = renderHook_disCountAmount_orderAmount({
+            products: mockProductAmount160_000,
             hasAdditionalShippingFee: true,
             activeCoupons: ['FIXED5000', 'BOGO'],
           });
 
-          const discountAmount = mockProductAmount100_000[0].product.price + 5000;
+          const discountAmount = mockProductAmount160_000[0].product.price + 5000;
 
           await waitFor(() => {
             expect(result.current.discountAmount).toEqual(discountAmount);
@@ -233,8 +233,8 @@ describe('couponStore Recoil 테스트', () => {
         });
 
         it('FREESHIPPING 쿠폰과 FIXED5000 쿠폰이 active라면, 전체 배송비와 5000원을 할인한다.', async () => {
-          const { result } = renderHookDisCountAmountWithOrderAmount({
-            products: mockProductAmount100_000,
+          const { result } = renderHook_disCountAmount_orderAmount({
+            products: mockProductAmount160_000,
             hasAdditionalShippingFee: true,
             activeCoupons: ['FIXED5000', 'FREESHIPPING'],
           });

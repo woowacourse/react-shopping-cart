@@ -2,7 +2,7 @@ import { CartItemType } from 'types';
 
 export const mockChecked = { 9084: true };
 
-export const mockProductAmount100_000: CartItemType[] = [
+export const mockProductAmount160_000: CartItemType[] = [
   {
     id: 9084,
     quantity: 8,
@@ -24,6 +24,31 @@ export const mockProductAmount10_000 = [
       id: 11,
       name: '리복',
       price: 10000,
+      imageUrl: 'https://image.msscdn.net/images/goods_img/20221031/2909092/2909092_6_500.jpg',
+      category: 'fashion',
+    },
+  },
+];
+
+export const mockProduct_two = [
+  {
+    id: 9084,
+    quantity: 1,
+    product: {
+      id: 11,
+      name: '리복',
+      price: 10000,
+      imageUrl: 'https://image.msscdn.net/images/goods_img/20221031/2909092/2909092_6_500.jpg',
+      category: 'fashion',
+    },
+  },
+  {
+    id: 1000,
+    quantity: 1,
+    product: {
+      id: 12,
+      name: '아디다스',
+      price: 20000,
       imageUrl: 'https://image.msscdn.net/images/goods_img/20221031/2909092/2909092_6_500.jpg',
       category: 'fashion',
     },
