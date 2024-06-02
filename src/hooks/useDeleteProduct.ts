@@ -1,9 +1,9 @@
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { fetchCartItemState } from '@store/productStore';
 import { deleteCartItem } from '@api/index';
 
 const useDeleteProduct = ({ id }: { id: number }) => {
-  const [, setProducts] = useRecoilState(fetchCartItemState);
+  const setProducts = useSetRecoilState(fetchCartItemState);
 
   const handleDeleteButton = async () => {
     try {
