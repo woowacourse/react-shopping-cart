@@ -1,4 +1,4 @@
-// src/setupTests.ts
+// __test__/setupTests.ts
 import fetchMock from 'jest-fetch-mock';
 
 fetchMock.enableMocks();
