@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Text from '../common/Text/Text';
 import Button from '../common/Button/Button';
+import { FallbackProps } from 'react-error-boundary';
 
 const ErrorComponentContainer = styled.div`
   height: 100%;
@@ -13,12 +14,7 @@ const ErrorComponentContainer = styled.div`
   row-gap: 14px;
 `;
 
-export type ErrorComponentProps = {
-  error: Error;
-  onRetry?: () => void;
-};
-
-const ErrorComponent = ({ error, onRetry }: ErrorComponentProps) => {
+const ErrorComponent = ({ error, resetErrorBoundary }: FallbackProps) => {
   return (
     <ErrorComponentContainer>
       <Text size="l" weight="l">
@@ -27,7 +23,7 @@ const ErrorComponent = ({ error, onRetry }: ErrorComponentProps) => {
       <Text size="s" weight="s">
         {error.message}
       </Text>
-      <Button onClick={onRetry} color="primary">
+      <Button onClick={resetErrorBoundary} color="primary">
         다시 시도
       </Button>
     </ErrorComponentContainer>
