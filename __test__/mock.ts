@@ -1,6 +1,8 @@
+import { CartItemType } from 'types';
+
 export const mockChecked = { 9084: true };
 
-export const mockProductAmount100_000 = [
+export const mockProductAmount100_000: CartItemType[] = [
   {
     id: 9084,
     quantity: 8,
