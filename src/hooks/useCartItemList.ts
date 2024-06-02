@@ -1,5 +1,5 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { requestCartItemList, requestDeleteCartItem } from '../apis/requests/cartItemList';
+import { requestCartItemList, requestDeleteCartItem } from '../apis/requests/cartItem';
 import { cartItemListState, cartItemListStateQuery } from '../recoil/cartItemList/cartItemListState';
 import { selectedCartItemIdListState } from '../recoil/selectedCartItemList/selectedCartItemIdListState';
 

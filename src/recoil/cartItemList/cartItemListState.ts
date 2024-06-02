@@ -1,5 +1,5 @@
 import { DefaultValue, atom, selector } from 'recoil';
-import { requestCartItemList } from '../../apis/requests/cartItemList';
+import { requestCartItemList } from '../../apis/requests/cartItem';
 import { CartItem } from '../../types/cartItem.type';
 import { cartItemQuantityState } from '../cartItem/cartItemQuantityState';
 
