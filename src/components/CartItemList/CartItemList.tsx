@@ -17,7 +17,7 @@ const CartItemList = () => {
     <S.CartItemList>
       <S.SelectAllContainer>
         <Checkbox
-          alt="상품 선택"
+          areaLabel=""
           checked={isSelectedAll}
           handleClick={isSelectedAll ? clearSelectedCartItemIdList : selectAllCartItem}
         />
