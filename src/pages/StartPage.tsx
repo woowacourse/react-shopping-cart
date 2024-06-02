@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/common/Button/Button';
 import { ROUTES } from '../constants/routes';
-import { requestAddCartItem } from '../apis/requests/cartItemList';
+import { requestAddCartItem } from '../apis/requests/cartItem';
 import Text from '../components/common/Text/Text';
 import Flex from '../components/common/Flex/Flex';
 import CenterBox from '../components/common/CenterBox/CenterBox';
