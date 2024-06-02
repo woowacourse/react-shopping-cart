@@ -20,13 +20,13 @@ export const fetchCartItemState = atom({
   }),
 });
 
-export const isCheckedState = atom<Record<number, boolean>>({
-  key: 'isCheckedState',
+export const cartItemsCheckedState = atom<Record<number, boolean>>({
+  key: 'cartItemsCheckedState',
   default: {},
   effects: [
     ({ onSet }) => {
       onSet((newState: Record<number, boolean>) => {
-        window.localStorage.setItem('isChecked', JSON.stringify(newState));
+        window.localStorage.setItem('cartItemsChecked', JSON.stringify(newState));
       });
     },
   ],

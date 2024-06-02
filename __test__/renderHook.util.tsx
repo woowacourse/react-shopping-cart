@@ -11,7 +11,7 @@ import {
   totalProductQuantityState,
   totalShippingFeeState,
 } from '@store/orderStore';
-import { isCheckedState, fetchCartItemState } from '@store/productStore';
+import { cartItemsCheckedState, fetchCartItemState } from '@store/productStore';
 import { renderHook } from '@testing-library/react';
 import { useRecoilValue, RecoilRoot } from 'recoil';
 import { CartItemType } from 'types';
@@ -49,7 +49,7 @@ export const renderHookAtOrder = ({
           initializeState={({ set }) => {
             set(fetchCartItemState, products ?? mockProductAmount160_000);
             set(additionalShippingFeeStatusState, hasAdditionalShippingFee ?? false);
-            set(isCheckedState, isChecked ?? mockChecked);
+            set(cartItemsCheckedState, isChecked ?? mockChecked);
             set(couponsState, mockCoupons);
             set(activeCouponCodesState, activeCoupons ?? []);
           }}
@@ -67,7 +67,7 @@ export const renderHookWithUseCouponList = ({ products }: renderHookProps) => {
       <RecoilRoot
         initializeState={({ set }) => {
           set(fetchCartItemState, products as CartItemType[]);
-          set(isCheckedState, mockChecked);
+          set(cartItemsCheckedState, mockChecked);
           set(couponsState, mockCoupons);
           set(activeCouponCodesState, []);
         }}

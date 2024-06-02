@@ -1,7 +1,7 @@
 import { atom, selector } from 'recoil';
 import { CART_POLICY } from '@constants/policy';
 import {
-  isCheckedState,
+  cartItemsCheckedState,
   productQuantityState,
   productsIdState,
   fetchCartItemState,
@@ -17,7 +17,7 @@ export const orderAmountState = selector({
   key: 'orderAmountState',
   get: ({ get }) => {
     const products = get(fetchCartItemState);
-    const isCheckedMap = get(isCheckedState);
+    const isCheckedMap = get(cartItemsCheckedState);
     const orderAmount = products.reduce((accumulator, product) => {
       const isChecked = isCheckedMap[product.id];
       if (isChecked) {
@@ -49,7 +49,7 @@ export const totalProductQuantityState = selector({
     let totalQuantity = 0;
 
     const keys = get(productsIdState);
-    const isAllCheckedMap = get(isCheckedState);
+    const isAllCheckedMap = get(cartItemsCheckedState);
     keys.forEach((key) => {
       const isChecked = isAllCheckedMap[key];
 

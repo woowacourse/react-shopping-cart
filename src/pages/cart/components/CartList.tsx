@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import { isCheckedState } from '@store/productStore';
+import { cartItemsCheckedState } from '@store/productStore';
 import useToggleAllChecked from '@hooks/useToggleAllChecked';
 import CheckBox from '@components/common/CheckBox/CheckBox';
 import Text from '@components/common/Text/Text';
@@ -13,7 +13,7 @@ interface Props {
 
 export default function CartList({ products }: Props) {
   const { handleToggleAll, allChecked, setAllChecked } = useToggleAllChecked();
-  const isCheckedMap = useRecoilValue(isCheckedState);
+  const isCheckedMap = useRecoilValue(cartItemsCheckedState);
 
   return (
     <>

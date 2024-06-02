@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { isCheckedState, productsIdState } from '@store/productStore';
+import { cartItemsCheckedState, productsIdState } from '@store/productStore';
 
 const useLocalStorage = () => {
   const keys = useRecoilValue(productsIdState);
-  const setIsCheckedMap = useSetRecoilState(isCheckedState);
+  const setIsCheckedMap = useSetRecoilState(cartItemsCheckedState);
 
   useEffect(() => {
-    const localStorageState = window.localStorage.getItem('isChecked');
+    const localStorageState = window.localStorage.getItem('cartItemsChecked');
     const isCheckedMap: Record<number, boolean> = {};
 
     if (localStorageState) {
