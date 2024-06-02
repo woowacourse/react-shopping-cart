@@ -1,15 +1,15 @@
 import CartOrdersPageLoader from './CartOrdersPageLoader';
 import CartOrdersPage from './CartOrdersPage';
-import ErrorBoundaryForRerenderChildren from '../ErrorBoundaryForRerenderChildren';
 import ErrorComponent from '../../components/ErrorComponent/ErrorComponent';
+import { ErrorBoundary } from 'react-error-boundary';
 
 const CartOrdersPageContainer = () => {
   return (
-    <ErrorBoundaryForRerenderChildren FallbackComponent={ErrorComponent}>
+    <ErrorBoundary FallbackComponent={ErrorComponent}>
       <CartOrdersPageLoader>
         <CartOrdersPage />
       </CartOrdersPageLoader>
-    </ErrorBoundaryForRerenderChildren>
+    </ErrorBoundary>
   );
 };
 
