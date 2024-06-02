@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import { couponsState } from '@store/couponStore';
 import { orderAmountState } from '@store/orderStore';
-import { isCheckedState, productsState } from '@store/productStore';
+import { isCheckedState, fetchCartItemState } from '@store/productStore';
 import {
   isOverMinOrderAmountCoupon,
   isOverMinQuantityCoupon,
@@ -12,7 +12,7 @@ import {
 const useCouponList = () => {
   const orderAmount = useRecoilValue(orderAmountState);
   const coupons = useRecoilValue(couponsState);
-  const products = useRecoilValue(productsState);
+  const products = useRecoilValue(fetchCartItemState);
   const isCheckedMap = useRecoilValue(isCheckedState);
   const checkoutProducts = products.filter((product) => isCheckedMap[product.id] === true);
 

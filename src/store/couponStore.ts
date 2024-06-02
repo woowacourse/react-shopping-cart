@@ -1,6 +1,6 @@
 import { atom, selector } from 'recoil';
 import { fetchCoupons } from '@api/index';
-import { isCheckedState, productsState } from './productStore';
+import { isCheckedState, fetchCartItemState } from './productStore';
 import { orderAmountState, totalShippingFeeState } from './orderStore';
 import { couponCalculator } from './couponStore.util';
 import { CouponType } from '../types';
@@ -40,7 +40,7 @@ export const discountAmountState = selector({
     const activeCoupons = coupons.filter((coupon) => activeCouponCodes.includes(coupon.code));
 
     const isCheckedMap = get(isCheckedState);
-    const checkoutProducts = get(productsState).filter(
+    const checkoutProducts = get(fetchCartItemState).filter(
       (product) => isCheckedMap[product.id] === true,
     );
 

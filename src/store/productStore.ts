@@ -2,10 +2,10 @@ import { atom, selector, selectorFamily } from 'recoil';
 import { fetchCartItems } from '@api/index';
 import { CartItemType } from '../types';
 
-export const productsState = atom({
-  key: 'productsState',
+export const fetchCartItemState = atom({
+  key: 'fetchCartItemState',
   default: selector({
-    key: 'productsState/Default',
+    key: 'fetchCartItemState/Default',
     get: async () => {
       try {
         const products = await fetchCartItems();
@@ -35,7 +35,7 @@ export const isCheckedState = atom<Record<number, boolean>>({
 export const productsIdState = selector({
   key: 'productsIdState',
   get: ({ get }) => {
-    const keys = get(productsState).map((product: CartItemType) => {
+    const keys = get(fetchCartItemState).map((product: CartItemType) => {
       return product.id;
     });
 
@@ -48,7 +48,7 @@ export const productQuantityState = selectorFamily<number, number>({
   get:
     (id: number) =>
     ({ get }) => {
-      const products = get(productsState);
+      const products = get(fetchCartItemState);
       const product = products.find((item) => item.id === id);
       return product ? product.quantity : 0;
     },

@@ -4,7 +4,7 @@ import {
   isCheckedState,
   productQuantityState,
   productsIdState,
-  productsState,
+  fetchCartItemState,
 } from './productStore';
 import { discountAmountState } from './couponStore';
 
@@ -16,7 +16,7 @@ export const additionalShippingFeeStatusState = atom({
 export const orderAmountState = selector({
   key: 'orderAmountState',
   get: ({ get }) => {
-    const products = get(productsState);
+    const products = get(fetchCartItemState);
     const isCheckedMap = get(isCheckedState);
     const orderAmount = products.reduce((accumulator, product) => {
       const isChecked = isCheckedMap[product.id];

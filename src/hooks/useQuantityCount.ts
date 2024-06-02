@@ -1,12 +1,12 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { productQuantityState, productsState } from '@store/productStore';
+import { productQuantityState, fetchCartItemState } from '@store/productStore';
 import { CartItemType } from '../types';
 import { updateCartItemQuantity } from '@api/index';
 import { NOTICE_MESSAGE } from '@constants/messages';
 import { useToast } from '@hooks/useToast';
 
 const useQuantityCount = ({ id }: { id: number }) => {
-  const [products, setProducts] = useRecoilState(productsState);
+  const [products, setProducts] = useRecoilState(fetchCartItemState);
   const productQuantity = useRecoilValue(productQuantityState(id));
   const { showToast } = useToast();
 

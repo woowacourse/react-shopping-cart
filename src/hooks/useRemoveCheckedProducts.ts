@@ -1,9 +1,9 @@
 import { useRecoilState } from 'recoil';
-import { productsState, isCheckedState } from '@store/productStore';
+import { fetchCartItemState, isCheckedState } from '@store/productStore';
 import { CartItemType } from '../types';
 
 const useRemoveCheckedProducts = () => {
-  const [products, setProducts] = useRecoilState<CartItemType[]>(productsState);
+  const [products, setProducts] = useRecoilState<CartItemType[]>(fetchCartItemState);
   const [isCheckedMap, setIsCheckedMap] = useRecoilState<Record<number, boolean>>(isCheckedState);
 
   const removeCheckedProducts = () => {
