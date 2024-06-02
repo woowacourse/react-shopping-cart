@@ -45,20 +45,23 @@ export const totalAmountState = selector({
 export const totalProductQuantityState = selector({
   key: 'totalProductQuantityState',
   get: ({ get }) => {
-    let totalCount = 0;
-    let totalQuantity = 0;
-
     const keys = get(productsIdState);
     const isAllCheckedMap = get(cartItemsCheckedState);
-    keys.forEach((key) => {
-      const isChecked = isAllCheckedMap[key];
 
-      if (isChecked === true) {
-        const quantity = get(productQuantityState(key));
-        totalCount++;
-        totalQuantity += quantity;
-      }
-    });
+    const { totalCount, totalQuantity } = keys.reduce(
+      (acc, key) => {
+        const isChecked = isAllCheckedMap[key];
+
+        if (isChecked === true) {
+          const quantity = get(productQuantityState(key));
+          acc.totalCount++;
+          acc.totalQuantity += quantity;
+        }
+
+        return acc;
+      },
+      { totalCount: 0, totalQuantity: 0 },
+    );
 
     return {
       totalCount,
