@@ -14,7 +14,9 @@ export const couponsState = atom<CouponType[]>({
         const coupons = await fetchCoupons();
         return coupons;
       } catch (error) {
-        console.error(error);
+        if (error instanceof Error) {
+          throw new Error(error.message);
+        }
       }
     },
   }),

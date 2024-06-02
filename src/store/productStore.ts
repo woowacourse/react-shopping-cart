@@ -11,9 +11,11 @@ export const productsState = atom({
         const products = await fetchCartItems();
         return products;
       } catch (error) {
-        console.error(error);
-        throw new Error(String(error));
+        if (error instanceof Error) {
+          throw new Error(error.message);
+        }
       }
+      return [];
     },
   }),
 });
