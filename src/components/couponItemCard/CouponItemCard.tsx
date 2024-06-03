@@ -29,11 +29,9 @@ export const CouponItemCard: React.FC<CouponItemCardProps> = ({ coupon, onApplyB
   const [selectedCoupons, setSelectedCoupons] = useRecoilState(selectedCouponState);
 
   const isValid = isCouponValid(coupon);
-
   const isApplicable = isCouponApplicable(coupon, orderPrice);
-
   const isChecked = selectedCoupons.some((coupon) => coupon.id === id);
-  const onCheck = () => {
+  const onChangeCouponCheck = () => {
     if (!isApplicable) return;
 
     setSelectedCoupons((prevSelectedCoupons) => {
@@ -50,7 +48,7 @@ export const CouponItemCard: React.FC<CouponItemCardProps> = ({ coupon, onApplyB
   return (
     <StyledCouponItemCard disabled={!isValid || !isApplicable}>
       <StyledCouponItemCardHeader>
-        <CheckboxButton isChecked={isChecked} onCheck={onCheck} />
+        <CheckboxButton isChecked={isChecked} onCheck={onChangeCouponCheck} />
         <StyledCouponItemCardTitle>{description}</StyledCouponItemCardTitle>
       </StyledCouponItemCardHeader>
       <StyledCouponItemCardContentsWrapper>
