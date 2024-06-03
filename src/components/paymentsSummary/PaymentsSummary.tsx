@@ -1,6 +1,7 @@
 import { useRecoilValue } from "recoil";
 import { INFO_MESSAGES } from "../../constants";
 import { cartSummarySelectorState } from "../../recoil/selector/selector";
+import { formatPrice } from "../../utils/formatPrice";
 import {
   StyledConfirmationPage,
   StyledConfirmationPageDescription,
@@ -25,9 +26,7 @@ export const PaymentsSummary: React.FC = () => {
       </StyledConfirmationPageDescription>
       <StyledConfirmationPagePriceContainer>
         <StyledConfirmationPageSubTitle>총 결제 금액</StyledConfirmationPageSubTitle>
-        <StyledConfirmationPagePrice>
-          {orderTotalPrice.toLocaleString()}원
-        </StyledConfirmationPagePrice>
+        <StyledConfirmationPagePrice>{formatPrice(orderTotalPrice)}원</StyledConfirmationPagePrice>
       </StyledConfirmationPagePriceContainer>
     </StyledConfirmationPage>
   );

@@ -1,5 +1,6 @@
 import { Modal, useModal } from "choco-modal-component";
 import { useTotalDiscount } from "../../../hooks/useTotalDiscount";
+import { formatPriceWithZero } from "../../../utils/formatPrice";
 import { CouponContentSection } from "../../couponContentSection/CouponContentSection";
 import BaseButton from "../baseButton/baseButton";
 import { StyledSelectCouponButton } from "./SelectCouponButton.styled";
@@ -12,13 +13,11 @@ export const SelectCouponButton: React.FC = () => {
   };
 
   const totalDiscountPrice = useTotalDiscount();
-  const formattedTotalDiscountPrice = isNaN(totalDiscountPrice)
-    ? "0"
-    : totalDiscountPrice.toLocaleString();
+  const formattedTotalDiscountPrice = formatPriceWithZero(totalDiscountPrice);
   const buttonText = `총 ${formattedTotalDiscountPrice}원 할인 쿠폰 사용하기`;
 
   const handleApplyButtonClick = () => {
-    closeModal;
+    closeModal();
   };
 
   return (

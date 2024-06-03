@@ -1,3 +1,4 @@
+import { formatPrice } from "../../../utils/formatPrice";
 import {
   StyledBaseSummaryItem,
   StyledBaseSummaryItemPrice,
@@ -13,7 +14,7 @@ export const BaseSummaryItem: React.FC<BaseSummaryItemProps> = ({ title, price }
   return (
     <StyledBaseSummaryItem>
       <StyledBaseSummaryItemTitle>{title}</StyledBaseSummaryItemTitle>
-      <StyledBaseSummaryItemPrice>{price.toLocaleString()}원</StyledBaseSummaryItemPrice>
+      <StyledBaseSummaryItemPrice>{formatPrice(price)}원</StyledBaseSummaryItemPrice>
     </StyledBaseSummaryItem>
   );
 };

@@ -1,16 +1,14 @@
 import { useRecoilValue } from "recoil";
-import { cartSummarySelectorState } from "../../../recoil/selector/selector";
-import BaseSummary from "../baseSummary/BaseSummary";
 import { useTotalDiscount } from "../../../hooks/useTotalDiscount";
+import { cartSummarySelectorState } from "../../../recoil/selector/selector";
+import { formatPriceWithZero } from "../../../utils/formatPrice";
+import BaseSummary from "../baseSummary/BaseSummary";
 
 export const OrderSummary: React.FC = () => {
   const { orderPrice, orderDeliveryPrice, orderTotalPrice } =
     useRecoilValue(cartSummarySelectorState);
-
   const totalDiscountPrice = useTotalDiscount();
-  const formattedTotalDiscountPrice = isNaN(totalDiscountPrice)
-    ? "0"
-    : totalDiscountPrice.toLocaleString();
+  const formattedTotalDiscountPrice = formatPriceWithZero(totalDiscountPrice);
 
   return (
     <div style={{ width: "100%" }}>

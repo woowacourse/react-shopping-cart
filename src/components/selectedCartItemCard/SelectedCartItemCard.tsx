@@ -1,4 +1,5 @@
 import { CartItem } from "../../types";
+import { formatPrice } from "../../utils/formatPrice";
 import {
   StyledCartItemCard,
   StyledProductImg,
@@ -16,7 +17,7 @@ export const SelectedCartItemCard: React.FC<CartItem> = ({ product, quantity }) 
       <StyledProductImg src={imageUrl} alt="" />
       <StyledProductInfo>
         <StyledProductName>{name}</StyledProductName>
-        <StyledProductPrice>{price.toLocaleString()}원</StyledProductPrice>
+        <StyledProductPrice>{formatPrice(price)}원</StyledProductPrice>
         <StyledProductQuantity>{quantity}개</StyledProductQuantity>
       </StyledProductInfo>
     </StyledCartItemCard>
