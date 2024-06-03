@@ -1,8 +1,8 @@
 import { generateBasicToken } from "../utils/auth";
 
-const API_URL = import.meta.env.VITE_API_URL as string;
-const USER_ID = import.meta.env.VITE_USER_ID as string;
-const USER_PASSWORD = import.meta.env.VITE_USER_PASSWORD as string;
+const API_URL = process.env.VITE_API_URL as string;
+const USER_ID = process.env.VITE_USER_ID as string;
+const USER_PASSWORD = process.env.VITE_USER_PASSWORD as string;
 
 type Method = "GET" | "POST" | "PATCH" | "DELETE";
 
@@ -31,6 +31,11 @@ const apiClient = {
   },
 
   request({ method, endpoint, headers = {}, body = null }: RequestProps) {
+    // 오프라인 확인
+    if (!navigator.onLine) {
+      throw new Error("오프라인 상태입니다. 네트워크를 확인해주세요.");
+    }
+
     const token = generateBasicToken(USER_ID, USER_PASSWORD);
     const requestInit = {
       method,
@@ -46,7 +51,7 @@ const apiClient = {
       const response = await fetch(`${API_URL}${endpoint}`, requestInit);
 
       if (!response.ok) {
-        throw new Error(`Failed to ${endpoint}`);
+        throw new Error(response.statusText);
       }
 
       const text = await response.text();
@@ -57,7 +62,7 @@ const apiClient = {
       const data = await JSON.parse(text);
       return data;
     } catch (error) {
-      console.error(`Failed to fetch ${endpoint}:`, error);
+      alert(error.message);
       return error;
     }
   },

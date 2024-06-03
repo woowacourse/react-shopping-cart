@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { css } from "@emotion/css";
 
 interface ContentProps {
@@ -14,10 +14,10 @@ const contentCSS = css`
   padding: 36px 0;
   height: calc(100vh - 138px);
   display: flex;
-
   flex-direction: column;
   gap: 36px;
   overflow-x: hidden;
+
   &::-webkit-scrollbar {
     display: none;
   }

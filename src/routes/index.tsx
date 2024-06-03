@@ -1,9 +1,29 @@
-import React from "react";
+import { createBrowserRouter } from "react-router-dom";
+import CartPage from "../pages/CartPage";
+import OrderConfirmationPage from "../pages/OrderConfirmationPage";
+import PaymentConfirmationPage from "../pages/PaymentConfirmationPage";
+import ErrorPage from "../pages/ErrorPage";
 
-const CartPage = React.lazy(() => import("../pages/CartPage"));
-const OrderConfirmationPage = React.lazy(() => import("../pages/OrderConfirmationPage"));
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <CartPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/orderConfirmation",
+    element: <OrderConfirmationPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/paymentConfirmation",
+    element: <PaymentConfirmationPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/error",
+    element: <ErrorPage />,
+  },
+]);
 
-export const routes = [
-  { path: "/", element: <CartPage /> },
-  { path: "/orderConfirmation", element: <OrderConfirmationPage /> },
-];
+export default router;

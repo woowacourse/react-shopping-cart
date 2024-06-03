@@ -1,24 +1,18 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Suspense } from "react";
-import { routes } from "./routes";
+import { RouterProvider } from "react-router-dom";
+import router from "./routes";
 import "./App.css";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Routes>
-            {routes.map(({ path, element }) => (
-              <Route
-                key={path}
-                path={path}
-                element={element}
-              />
-            ))}
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
+      <Suspense fallback={<div>Loading...</div>}>
+        <RouterProvider
+          router={router}
+          fallbackElement={<ErrorPage />}
+        />
+      </Suspense>
     </>
   );
 }

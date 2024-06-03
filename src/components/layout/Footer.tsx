@@ -27,7 +27,7 @@ const footerCSS = (isActive: boolean) => css`
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  width: 429px;
+  width: 100%;
   height: 64px;
   padding: 0 24px;
   cursor: ${isActive ? "pointer" : "not-allowed"};
