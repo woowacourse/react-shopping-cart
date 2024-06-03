@@ -18,10 +18,9 @@ export const validateCouponConditionSet: Record<string, ValidateCoupon> = {
     const maxQuantityInCart = Math.max(...quantities);
     return maxQuantityInCart >= coupon.buyQuantity;
   },
-  availableTime: (coupon, get) => {
+  availableTime: (coupon, get, currentDate) => {
     if (!("availableTime" in coupon)) return true;
-    const now = new Date();
-    return new Date(coupon.availableTime.start) <= now && now <= new Date(coupon.availableTime.end);
+    return new Date(coupon.availableTime.start) <= currentDate && currentDate <= new Date(coupon.availableTime.end);
   },
 };
 
