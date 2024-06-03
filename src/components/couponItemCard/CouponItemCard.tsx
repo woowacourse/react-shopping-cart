@@ -18,7 +18,7 @@ import {
 
 export interface CouponItemCardProps {
   coupon: Coupon;
-  onApplyButtonClick: () => void;
+  onApplyButtonClick: (id: number) => void;
 }
 
 export const CouponItemCard: React.FC<CouponItemCardProps> = ({ coupon, onApplyButtonClick }) => {
