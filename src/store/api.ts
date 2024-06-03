@@ -1,31 +1,45 @@
-import { API_TOKEN } from "./utils";
+import { API_TOKEN } from "../utils/storage";
 
 const BASE_URL = process.env.VITE_API_BASE_URL;
 
-type MethodType = "GET" | "POST";
+interface RequestProps {
+  endpoint: string;
+  method: "GET" | "POST" | "PATCH" | "DELETE";
+  headers?: HeadersInit;
+  body?: object;
+}
 
-export const fetchProducts = async (method: MethodType) => {
-  try {
-    const token = API_TOKEN;
-    const url = BASE_URL + "/cart-items";
-    const response = await fetch(url, {
-      method,
-      headers: { Authorization: token },
-    });
+export const request = async ({ endpoint, method, headers = {}, body }: RequestProps) => {
+  const url = `${BASE_URL}${endpoint}`;
+  const options: RequestInit = {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: API_TOKEN,
+      ...headers,
+    },
+  };
 
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Failed to fetch products:", error);
-    return error;
+  if (body) {
+    options.body = JSON.stringify(body);
   }
+
+  const response = await fetch(url, options);
+  if (!response) return;
+
+  if (method === "GET") {
+    return await response.json();
+  }
+
+  return response;
+};
+
+export const fetchProducts = async () => {
+  return await request({ endpoint: "/cart-items", method: "GET" });
 };
 
 export const deleteProduct = async (cartId: number) => {
-  await fetch(BASE_URL + `/cart-items/${cartId}`, {
-    method: "DELETE",
-    headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
-  });
+  return await request({ endpoint: `/cart-items/${cartId}`, method: "DELETE" });
 };
 
 interface ChangeProductAmountProps {
@@ -34,20 +48,19 @@ interface ChangeProductAmountProps {
 }
 
 export const changeProductAmount = async ({ quantity, id }: ChangeProductAmountProps) => {
-  await fetch(BASE_URL + `/cart-items/${id}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
-    body: JSON.stringify({
-      quantity,
-    }),
-  });
+  return request({ endpoint: `/cart-items/${id}`, method: "PATCH", body: { quantity } });
 };
 
 export const fetchCartItemsCounts = async () => {
-  const response = await fetch(BASE_URL + "/cart-items/counts", {
-    method: "GET",
-    headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
-  });
-  const data = await response.json();
+  const data: { quantity: number } = await request({ endpoint: "/cart-items/counts", method: "GET" });
   return data.quantity;
+};
+
+export const fetchCoupons = async () => {
+  return await request({ endpoint: "/coupons", method: "GET" });
+};
+
+export const generateOrder = async (cartItemIds: number[]) => {
+  const response: Response = await request({ endpoint: "/orders", method: "POST", body: { cartItemIds } });
+  return response.status;
 };

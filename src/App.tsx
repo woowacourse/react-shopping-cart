@@ -1,7 +1,8 @@
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import CartPage from "./pages/CartPage";
-import OrderConfirmPage from "./pages/OrderConfirmPage";
+import OrderPage from "./pages/OrderPage";
+import PaymentPage from "./pages/PaymentPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -11,7 +12,11 @@ function App() {
     },
     {
       path: "/order",
-      element: <OrderConfirmPage />,
+      element: <OrderPage />,
+    },
+    {
+      path: "/payment",
+      element: <PaymentPage />,
     },
   ]);
   return (

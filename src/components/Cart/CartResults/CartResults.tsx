@@ -2,16 +2,18 @@
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import { CartResultGuideStyle, CartResultGuideContainerStyle, CartResultsContainerStyle } from "./CartResults.style";
 import { useRecoilValue } from "recoil";
-import { orderAmountState, totalAmountState } from "../../../store/selector/selectors";
-import { CartItemIdListState } from "../../../store/atom/atoms";
+import { orderAmountSelector } from "../../../store/selector/selectors";
+import { cartItemIdListState } from "../../../store/atom/atoms";
 import { SHIPPING_CONSTANT } from "../../../constants";
-import Divider from "../../Divider/Divider";
-import PaymentDetail from "../../PaymentDetail/PaymentDetail";
+import PaymentDetail from "../../common/PaymentDetail/PaymentDetail";
+import Divider from "../../common/Divider/Divider";
 
 const CartResults = () => {
-  const orderAmount = useRecoilValue(orderAmountState);
-  const totalAmount = useRecoilValue(totalAmountState);
-  const ids = useRecoilValue(CartItemIdListState);
+  const orderAmount = useRecoilValue(orderAmountSelector);
+  const ids = useRecoilValue(cartItemIdListState);
+
+  const cartShippingFee = orderAmount >= SHIPPING_CONSTANT.FREE_CRITERIA ? 0 : SHIPPING_CONSTANT.DEFAULT;
+  const totalAmount = orderAmount + cartShippingFee;
 
   return (
     <div css={CartResultsContainerStyle}>
@@ -26,10 +28,7 @@ const CartResults = () => {
 
           <Divider />
           <PaymentDetail title="주문 금액" amount={orderAmount} />
-          <PaymentDetail
-            title="배송비"
-            amount={orderAmount >= SHIPPING_CONSTANT.FREE_CRITERIA ? 0 : SHIPPING_CONSTANT.FEE}
-          />
+          <PaymentDetail title="배송비" amount={cartShippingFee} />
           <Divider />
           <PaymentDetail title="총 결제 금액" amount={totalAmount} />
         </>

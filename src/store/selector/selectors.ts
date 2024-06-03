@@ -1,44 +1,65 @@
-import { selector } from "recoil";
-import { CartItemCheckedState, CartItemIdListState, itemQuantityState } from "../atom/atoms";
-// import { fetchProducts } from "../api";
+import { RecoilEnv, selector } from "recoil";
+import { cartItemCheckedState, cartItemIdListState, isRemoteAreaState, selectedCouponsState } from "../atom/atoms";
 import { SHIPPING_CONSTANT } from "../../constants";
 import { cartState } from "../atom/atoms";
-// import { LOCAL_STORAGE_KEY } from "../../constants";
 
-export const checkAllItemState = selector({
+RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
+
+export const checkAllItemSelector = selector<boolean>({
   key: "checkAllItemState",
   get: ({ get }) => {
-    const itemIds = get(CartItemIdListState);
-    return itemIds.every((itemId) => get(CartItemCheckedState(itemId)));
+    const itemIds = get(cartItemIdListState);
+    return itemIds.every((itemId) => get(cartItemCheckedState(itemId)));
   },
   set: ({ set, get }, newValue) => {
-    const itemIds = get(CartItemIdListState);
-    itemIds.forEach((itemId) => set(CartItemCheckedState(itemId), newValue));
+    const itemIds = get(cartItemIdListState);
+    itemIds.forEach((itemId) => set(cartItemCheckedState(itemId), newValue));
   },
 });
 
-export const orderAmountState = selector({
+export const orderAmountSelector = selector<number>({
   key: "orderAmount",
   get: ({ get }) => {
     const cartItems = get(cartState);
 
-    if (!cartItems) return 0;
     return cartItems.reduce((acc: number, cur: CartItemInfo) => {
-      const isChecked = get(CartItemCheckedState(cur.id));
+      const isChecked = get(cartItemCheckedState(cur.id));
       if (isChecked) {
         const price = cur.product.price;
-        const quantity = get(itemQuantityState);
-        return acc + price * quantity[cur.id];
+        return acc + price * cur.quantity;
       }
       return acc;
     }, 0);
   },
 });
 
-export const totalAmountState = selector({
-  key: "totalAmount",
+export const OrdershippingFeeSelector = selector<number>({
+  key: "shippingFee",
   get: ({ get }) => {
-    const tempAmount = get(orderAmountState);
-    return tempAmount >= SHIPPING_CONSTANT.FREE_CRITERIA ? tempAmount : tempAmount + SHIPPING_CONSTANT.FEE;
+    const orderAmount = get(orderAmountSelector);
+    const isRemoteArea = get(isRemoteAreaState);
+    const couponList = get(selectedCouponsState);
+
+    if (couponList.some((coupon) => coupon.discountType === "freeShipping")) {
+      return 0;
+    }
+
+    if (orderAmount > SHIPPING_CONSTANT.FREE_CRITERIA) {
+      return 0;
+    }
+
+    if (isRemoteArea) {
+      return SHIPPING_CONSTANT.DEFAULT + SHIPPING_CONSTANT.ADDITIONAL;
+    }
+
+    return SHIPPING_CONSTANT.DEFAULT;
+  },
+});
+
+export const checkedCartItemsSelector = selector<CartItemInfo[]>({
+  key: "checkedCartItems",
+  get: ({ get }) => {
+    const cartItems = get(cartState);
+    return cartItems.filter((item) => get(cartItemCheckedState(item.id)));
   },
 });
