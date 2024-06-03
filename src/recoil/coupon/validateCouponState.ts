@@ -6,6 +6,6 @@ export const validCouponSelectedSetSelector = selector({
   key: "validCouponSelectedSetSelector",
   get: ({ get }) => {
     const selectedCouponSet = get(fetchCouponListSelector);
-    return new Set([...selectedCouponSet].filter((coupon) => validateCouponApplicability(coupon, get)));
+    return new Set([...selectedCouponSet].filter((coupon) => validateCouponApplicability(coupon, get, new Date())));
   },
 });

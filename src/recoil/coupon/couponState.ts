@@ -45,7 +45,7 @@ export const selectedCouponDiscountPriceSelector = selector({
   get: ({ get }) => {
     const selectedCouponSet = get(selectedCouponSetSelector);
     const discounts = [...selectedCouponSet]
-      .filter((coupon) => validateCouponApplicability(coupon, get))
+      .filter((coupon) => validateCouponApplicability(coupon, get, new Date()))
       .map((coupon) => get(couponDiscountPriceSelectorFamily(coupon.id)));
     return discounts.reduce((acc, val) => acc + val, 0);
   },
@@ -55,7 +55,7 @@ export const maxDiscountCouponIdListSelector = selector({
   key: "maxDiscountCouponSetSelector",
   get: ({ get }) =>
     [...get(couponIdSetSelector)]
-      .filter((id) => validateCouponApplicability(get(couponSelectorFamily(id)), get))
+      .filter((id) => validateCouponApplicability(get(couponSelectorFamily(id)), get, new Date()))
       .toSorted(
         (id1, id2) => get(couponDiscountPriceSelectorFamily(id1)) - get(couponDiscountPriceSelectorFamily(id2))
       ),

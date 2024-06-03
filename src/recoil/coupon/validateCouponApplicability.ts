@@ -1,12 +1,12 @@
+import { GetRecoilValue } from "recoil";
 import { Coupon } from "../../types/Coupon";
+import { quantitySelectorFamily } from "../cart/cartItemState";
 import { checkedIdSetSelector } from "../cart/checkedState";
 import { orderPriceSelector } from "../cart/orderSummaryState";
-import { quantitySelectorFamily } from "../cart/cartItemState";
-import { GetRecoilValue } from "recoil";
 
-type ValidateCoupon = (coupon: Coupon, snapshot: GetRecoilValue) => boolean;
+type ValidateCoupon = (coupon: Coupon, get: GetRecoilValue, currentDate: Date) => boolean;
 export const validateCouponConditionSet: Record<string, ValidateCoupon> = {
-  expirationDate: (coupon, get) => new Date(coupon.expirationDate) >= new Date(),
+  expirationDate: (coupon, get, currentDate) => new Date(coupon.expirationDate) >= currentDate,
   minimumAmount: (coupon, get) => {
     if (!("minimumAmount" in coupon)) return true;
     return coupon.minimumAmount < get(orderPriceSelector);
@@ -25,6 +25,6 @@ export const validateCouponConditionSet: Record<string, ValidateCoupon> = {
   },
 };
 
-export const validateCouponApplicability = (coupon: Coupon, get: GetRecoilValue) => {
-  return Object.values(validateCouponConditionSet).every((validate) => validate(coupon, get));
+export const validateCouponApplicability = (coupon: Coupon, get: GetRecoilValue, date: Date) => {
+  return Object.values(validateCouponConditionSet).every((validate) => validate(coupon, get, date));
 };
