@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import ProductList from './ProductList';
 import { RecoilRoot } from 'recoil';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const meta = {
   title: 'ProductList',
@@ -9,7 +10,9 @@ const meta = {
     (Story) => {
       return (
         <RecoilRoot>
-          <Story />
+          <Router>
+            <Story />
+          </Router>
         </RecoilRoot>
       );
     },

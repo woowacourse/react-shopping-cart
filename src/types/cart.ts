@@ -1,4 +1,4 @@
-interface Product {
+export interface Product {
   id: number;
   name: string;
   price: number;
@@ -6,13 +6,13 @@ interface Product {
   category: string;
 }
 
-interface Cart {
+export interface Cart {
   id: number;
   quantity: number;
   product: Product;
 }
 
-interface Price {
+export interface Price {
   totalOrderPrice: number;
   deliveryFee: number;
   totalPrice: number;

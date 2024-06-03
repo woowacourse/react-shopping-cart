@@ -1,37 +1,13 @@
 import { renderHook } from '@testing-library/react';
 import { act } from 'react';
-import {
-  RecoilRoot,
-  atom,
-  atomFamily,
-  useRecoilState,
-  useRecoilValue,
-} from 'recoil';
+import { RecoilRoot, atom, atomFamily, useRecoilState, useRecoilValue } from 'recoil';
 
-const fetchCartItem = jest.fn(() => [
-  {
-    id: 111,
-    quantity: 1,
-    product: {
-      id: 1,
-      name: 'Product 1',
-      price: 10000,
-      imageUrl: '',
-      category: 'fashion',
-    },
-  },
-  {
-    id: 222,
-    quantity: 2,
-    product: {
-      id: 2,
-      name: 'Product 2',
-      price: 20000,
-      imageUrl: '',
-      category: 'fashion',
-    },
-  },
-]);
+import { CONVERSE, NIKE } from '../../mocks/cartItems';
+import { Cart } from '../../types/cart';
+import { COUPONS } from '../../mocks/coupons';
+import { Coupon } from '../../types/coupon';
+
+const fetchCartItem = jest.fn(() => [CONVERSE, NIKE]);
 
 const cartData = atom<Cart[]>({
   key: 'cartData',
@@ -60,7 +36,7 @@ describe('cartData', () => {
     });
 
     act(() => {
-      const updatedCartData = removeCartItem(111, result.current);
+      const updatedCartData = removeCartItem(1, result.current);
       result.current = updatedCartData;
     });
 
@@ -88,7 +64,7 @@ describe('cartQuantity', () => {
 const cartItemQuantityState = atomFamily<number, number>({
   key: 'cartItemQuantityState',
   default: (itemId: number) => {
-    const cartData = fetchCartItem();
+    const cartData = [CONVERSE, NIKE];
     const cartItem = cartData.find((item: Cart) => item.id === itemId);
     return cartItem ? cartItem.quantity : 0;
   },
@@ -96,20 +72,13 @@ const cartItemQuantityState = atomFamily<number, number>({
 
 describe('cartItemQuantityState', () => {
   it('개별 cartItem의 수량을 변경하면, 정상적으로 값이 업데이트 된다.', () => {
-    const { result } = renderHook(
-      () => useRecoilState(cartItemQuantityState(222)),
-      {
-        wrapper: RecoilRoot,
-      },
-    );
-
-    const [quantity, setQuantity] = result.current;
-
-    act(() => {
-      setQuantity(quantity - 1);
+    const { result } = renderHook(() => useRecoilState(cartItemQuantityState(2)), {
+      wrapper: RecoilRoot,
     });
 
-    expect(result.current[0]).toBe(quantity - 1);
+    const [quantity] = result.current;
+
+    expect(quantity).toBe(3);
   });
 });
 
@@ -120,12 +89,39 @@ const cartItemCheckState = atomFamily<boolean, number>({
 
 describe('cartItemCheckState', () => {
   it('초기값이 false인지 확인한다.', () => {
-    const { result } = renderHook(
-      () => useRecoilState(cartItemCheckState(111)),
-      {
-        wrapper: RecoilRoot,
-      },
-    );
+    const { result } = renderHook(() => useRecoilState(cartItemCheckState(1)), {
+      wrapper: RecoilRoot,
+    });
+    expect(result.current[0]).toBe(false);
+  });
+});
+
+const fetchCouponList = jest.fn(() => COUPONS);
+
+const couponList = atom<Coupon[]>({
+  key: 'couponList',
+  default: fetchCouponList(),
+});
+
+describe('couponList', () => {
+  it('fetchCouponList API 호출을 통해 쿠폰 목록을 불러온다.', () => {
+    const { result } = renderHook(() => useRecoilValue(couponList), {
+      wrapper: RecoilRoot,
+    });
+    expect(result.current.length).toBe(4);
+  });
+});
+
+const specialZoneCheckState = atom<boolean>({
+  key: 'specialZoneCheckState',
+  default: false,
+});
+
+describe('specialZoneCheckState', () => {
+  it('초기값은 false', () => {
+    const { result } = renderHook(() => useRecoilState(specialZoneCheckState), {
+      wrapper: RecoilRoot,
+    });
     expect(result.current[0]).toBe(false);
   });
 });

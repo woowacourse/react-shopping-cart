@@ -22,6 +22,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    isCheckBox: true,
     cartItem: {
       id: 1,
       quantity: 1,

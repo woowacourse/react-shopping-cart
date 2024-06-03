@@ -1,13 +1,7 @@
 import { renderHook } from '@testing-library/react';
 import { act } from 'react';
-import {
-  RecoilRoot,
-  atom,
-  atomFamily,
-  selector,
-  useRecoilState,
-  useRecoilValue,
-} from 'recoil';
+import { RecoilRoot, atom, atomFamily, selector, useRecoilState, useRecoilValue } from 'recoil';
+import { Cart, Price } from '../../types/cart';
 
 const fetchCartItem = jest.fn(() => [
   {
@@ -60,12 +54,9 @@ const allCartItemsCheckState = selector<boolean>({
 
 describe('allCartItemsCheckState', () => {
   it('모든 체크 박스를 활성화 시킨다.', () => {
-    const { result } = renderHook(
-      () => useRecoilState(allCartItemsCheckState),
-      {
-        wrapper: RecoilRoot,
-      },
-    );
+    const { result } = renderHook(() => useRecoilState(allCartItemsCheckState), {
+      wrapper: RecoilRoot,
+    });
 
     const [isAllCheck, setIsAllCheck] = result.current;
 
@@ -81,9 +72,7 @@ const checkedCartItems = selector({
   key: 'checkedCartItems',
   get: ({ get }) => {
     const cart = get(cartData);
-    const isCheckedCartItems = cart.filter((cartItem) =>
-      get(cartItemCheckState(cartItem.id)),
-    );
+    const isCheckedCartItems = cart.filter((cartItem) => get(cartItemCheckState(cartItem.id)));
     return isCheckedCartItems;
   },
 });
@@ -97,12 +86,9 @@ describe('checkedCartItems', () => {
       default: (id) => id === itemId,
     });
 
-    const { result: checked } = renderHook(
-      () => useRecoilState(mockCartItemCheckStateAtom(itemId)),
-      {
-        wrapper: RecoilRoot,
-      },
-    );
+    const { result: checked } = renderHook(() => useRecoilState(mockCartItemCheckStateAtom(itemId)), {
+      wrapper: RecoilRoot,
+    });
 
     act(() => {
       const [, setIsChecked] = checked.current;
@@ -122,12 +108,8 @@ const calculateOrderPrice = selector<Price>({
   key: 'calculateOrderPrice',
   get: ({ get }) => {
     const checkedCart = get(checkedCartItems);
-    const totalOrderPrice = checkedCart.reduce(
-      (acc, item) => acc + item.quantity * item.product.price,
-      0,
-    );
-    const deliveryFee =
-      totalOrderPrice >= 100000 || totalOrderPrice === 0 ? 0 : 3000;
+    const totalOrderPrice = checkedCart.reduce((acc, item) => acc + item.quantity * item.product.price, 0);
+    const deliveryFee = totalOrderPrice >= 100000 || totalOrderPrice === 0 ? 0 : 3000;
     const totalPrice = totalOrderPrice + deliveryFee;
 
     return { totalOrderPrice, deliveryFee, totalPrice };
@@ -140,12 +122,9 @@ const checkingCartItem = (itemId: number) => {
     default: (id) => id === itemId,
   });
 
-  const { result: checked } = renderHook(
-    () => useRecoilState(mockCartItemCheckStateAtom(itemId)),
-    {
-      wrapper: RecoilRoot,
-    },
-  );
+  const { result: checked } = renderHook(() => useRecoilState(mockCartItemCheckStateAtom(itemId)), {
+    wrapper: RecoilRoot,
+  });
 
   act(() => {
     const [, setIsChecked] = checked.current;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ProductItemStyle = styled.div`
+export const Container = styled.div`
   padding: 12px 0 20px 0;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 `;

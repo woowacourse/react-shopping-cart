@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const HeaderStyle = styled.section`
+export const Section = styled.section`
   display: flex;
   background-color: #000000;
   width: 100%;

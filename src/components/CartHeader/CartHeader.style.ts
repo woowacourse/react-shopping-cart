@@ -1,17 +1,19 @@
 import styled from 'styled-components';
 
-export const CartHeaderStyle = styled.div`
+export const Container = styled.div`
   margin-bottom: 36px;
+  line-height: 12px;
 `;
 
 export const Title = styled.span`
   font-size: 24px;
   font-weight: 700;
-  line-height: 34px;
+  line-height: 50px;
 `;
 
 export const SubTitle = styled.p`
   font-size: 12px;
   font-weight: 500;
-  line-height: 15px;
+  line-height: 18px;
+  margin-top: 0;
 `;

@@ -1,14 +1,14 @@
-import Header from '../components/Header/Header';
-import Cart from '../components/Cart/Cart';
-import { FloatingButton } from '../components/Button';
+import Header from '../../components/Header/Header';
+import Cart from '../../components/Cart/Cart';
+import { FloatingButton } from '../../components/Button';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { checkedCartItems } from '../recoil/selectors/selectors';
+import { checkedCartItems } from '../../recoil/selectors/selectors';
 
 export default function CartPage() {
   const navigate = useNavigate();
 
-  const orderProduct = useRecoilValue(checkedCartItems);
+  const cartItems = useRecoilValue(checkedCartItems);
 
   return (
     <div id="app">
@@ -21,9 +21,9 @@ export default function CartPage() {
       <Cart />
       <FloatingButton
         text="주문 확인"
-        isDisable={orderProduct.length ? false : true}
+        isDisable={cartItems.length ? false : true}
         onClick={() => {
-          orderProduct.length && navigate('/order-confirm');
+          cartItems.length && navigate('/order-confirm', { state: { cartItems } });
         }}
       />
     </div>

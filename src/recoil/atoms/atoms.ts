@@ -1,5 +1,7 @@
 import { atom, atomFamily } from 'recoil';
-import { fetchCartItem, getCartCounts } from '../../api';
+import { fetchCartItem, fetchCouponList, getCartCounts } from '../../api';
+import { Coupon } from '../../types/coupon';
+import { Cart } from '../../types/cart';
 
 export const cartData = atom<Cart[]>({
   key: 'cartData',
@@ -23,4 +25,24 @@ export const cartItemQuantityState = atomFamily<number, number>({
 export const cartItemCheckState = atomFamily<boolean, number>({
   key: 'cartItemCheckState',
   default: false,
+});
+
+export const couponList = atom<Coupon[]>({
+  key: 'couponList',
+  default: fetchCouponList(),
+});
+
+export const specialZoneCheckState = atom<boolean>({
+  key: 'specialZoneCheckState',
+  default: false,
+});
+
+export const checkedCouponsState = atom<Coupon[]>({
+  key: 'checkedCouponsState',
+  default: [],
+});
+
+export const couponDiscountAmount = atom<number>({
+  key: 'couponDiscountAmount',
+  default: 0,
 });

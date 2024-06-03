@@ -1,31 +1,20 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import {
-  cartItemQuantityState,
-  cartData,
-  cartItemCheckState,
-  cartQuantity,
-} from '../../recoil/atoms/atoms';
+import { cartItemQuantityState, cartData, cartItemCheckState, cartQuantity } from '../../recoil/atoms/atoms';
 import { patchCartItem, removeCartItem } from '../../api';
 
 import CheckBox from '../CheckBox/CheckBox';
 import { Button, CountButton } from '../Button';
-import {
-  Img,
-  ProductItemStyle,
-  ProductItemTop,
-  ProductItemBundle,
-} from './ProductItem.style';
+import { Cart } from '../../types/cart';
 
 import useLocalStorageCheckedCart from '../../hooks/useLocalStorageCheckedCart';
 
-export default function ProductItem({ cartItem }: { cartItem: Cart }) {
+import * as S from './ProductItem.style';
+
+export default function ProductItem({ isCheckBox, cartItem }: { isCheckBox: boolean; cartItem: Cart }) {
   useLocalStorageCheckedCart({ cartId: cartItem.id });
 
-  const [quantity, setQuantity] = useRecoilState(
-    cartItemQuantityState(cartItem.id),
-  );
-  const [totalProductCount, setTotalProductCount] =
-    useRecoilState(cartQuantity);
+  const [quantity, setQuantity] = useRecoilState(cartItemQuantityState(cartItem.id));
+  const [totalProductCount, setTotalProductCount] = useRecoilState(cartQuantity);
   const [isCheck, setIsCheck] = useRecoilState(cartItemCheckState(cartItem.id));
   const setCart = useSetRecoilState(cartData);
 
@@ -42,6 +31,8 @@ export default function ProductItem({ cartItem }: { cartItem: Cart }) {
 
   const handleDecrement = async () => {
     try {
+      if (quantity === 1) return;
+
       const newQuantity = Math.max(quantity - 1, 1);
       await patchCartItem(cartItem.id, newQuantity);
       setQuantity(newQuantity);
@@ -53,10 +44,7 @@ export default function ProductItem({ cartItem }: { cartItem: Cart }) {
 
   const handleRemoveCartItem = async () => {
     try {
-      const newTotalProductCount = Math.max(
-        totalProductCount - cartItem.quantity,
-        0,
-      );
+      const newTotalProductCount = Math.max(totalProductCount - cartItem.quantity, 0);
       await removeCartItem(cartItem.id);
       setTotalProductCount(newTotalProductCount);
       setCart((prevCart) => prevCart.filter((item) => item.id !== cartItem.id));
@@ -71,38 +59,36 @@ export default function ProductItem({ cartItem }: { cartItem: Cart }) {
 
   const updateCart = (newQuantity: number) => {
     setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.id === cartItem.id ? { ...item, quantity: newQuantity } : item,
-      ),
+      prevCart.map((item) => (item.id === cartItem.id ? { ...item, quantity: newQuantity } : item)),
     );
   };
 
   return (
-    <ProductItemStyle>
-      <ProductItemTop>
-        <CheckBox isCheck={isCheck} onClick={handleCheckCartItem} />
-        <Button text="삭제" onClick={handleRemoveCartItem} />
-      </ProductItemTop>
-      <ProductItemBundle>
-        <Img
+    <S.Container>
+      <S.ProductItemTop>
+        {isCheckBox && (
+          <>
+            <CheckBox isCheck={isCheck} onClick={handleCheckCartItem} />
+            <Button text="삭제" onClick={handleRemoveCartItem} className="deleteButton" />
+          </>
+        )}
+      </S.ProductItemTop>
+      <S.ProductItemBundle>
+        <S.Img
           src={cartItem.product.imageUrl}
           alt={`${cartItem.product.name}의 상품 사진`}
           className="product-item_img"
         />
         <div className="product-item_content">
-          <span className="product-item_content_name">
-            {cartItem.product.name}
-          </span>
-          <span className="product-item_content_price">
-            {cartItem.product.price.toLocaleString('ko-kr')}원
-          </span>
+          <span className="product-item_content_name">{cartItem.product.name}</span>
+          <span className="product-item_content_price">{cartItem.product.price.toLocaleString('ko-kr')}원</span>
           <div className="product-item_content_amount-bundle">
-            <CountButton type="minus" onClick={handleDecrement} />
-            <span className="product-item_content_amount">{quantity}</span>
-            <CountButton type="plus" onClick={handleIncrement} />
+            {isCheckBox && <CountButton type="minus" onClick={handleDecrement} />}
+            <span className="product-item_content_amount">{isCheckBox ? quantity : `${quantity}개`}</span>
+            {isCheckBox && <CountButton type="plus" onClick={handleIncrement} />}
           </div>
         </div>
-      </ProductItemBundle>
-    </ProductItemStyle>
+      </S.ProductItemBundle>
+    </S.Container>
   );
 }
