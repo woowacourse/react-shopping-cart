@@ -1,14 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import CartTitle from "../components/CartPage/CartTitle";
 import CartItems from "../components/CartPage/CartItems";
-import OrderSummary from "../components/CartPage/OrderSummary";
+import CartTitle from "../components/CartPage/CartTitle";
 import EmptyCart from "../components/CartPage/EmptyCart";
+import OrderSummary from "../components/CartPage/OrderSummary";
 import CartLayout from "../components/layout";
 
 import { cartItemListAtom, isVacantCartSelector } from "../recoil/cart/cartItemState";
 import { checkedIdSetSelector } from "../recoil/cart/checkedState";
-import { addCartItem } from "../api/cartItem";
 
 const CartPage = () => {
   const navigate = useNavigate();
@@ -18,11 +17,7 @@ const CartPage = () => {
   const handleClick = () => {
     navigate("/orderConfirmation");
   };
-  addCartItem(10);
-  addCartItem(11);
-  addCartItem(12);
-  addCartItem(21);
-  addCartItem(34);
+
   return (
     <>
       <CartLayout>
