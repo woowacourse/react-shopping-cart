@@ -8,12 +8,10 @@ import { StyledOrderContentSection } from "./OrderContentSection.styled";
 export const OrderContentSection: React.FC<{ selectedCartItems: CartItem[] }> = ({
   selectedCartItems,
 }) => {
-  const onClick = () => {};
-
   return (
     <StyledOrderContentSection>
       <SelectedCartItemCardList selectedCartItems={selectedCartItems} />
-      <SelectCouponButton onClick={onClick}></SelectCouponButton>
+      <SelectCouponButton />
       <ShippingRegionInfo />
       <OrderSummary />
     </StyledOrderContentSection>
