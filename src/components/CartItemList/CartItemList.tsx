@@ -3,31 +3,18 @@ import CartItem from './CartItem';
 import * as Styled from './style';
 import CheckedBox from '../assets/CheckedBox.svg';
 import UnCheckedBox from '../assets/UnCheckedBox.svg';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedAllCartItemSelector } from '../../recoil/selectedCardItems';
-import { removeCartItem } from '../../api/shoppingCart';
-import { refreshCartItemsState } from '../../recoil/cartItems';
-import { fetchedCartItemsSelector } from '../../recoil/fetch';
+import { cartItemsState } from '../../recoil/cartItems';
 
 const CartItemList = () => {
-  const cartItems = useRecoilValue(fetchedCartItemsSelector);
+  const cartItems = useRecoilValue(cartItemsState);
 
   const [selectedAll, setSelectedAll] = useRecoilState(
     selectedAllCartItemSelector,
   );
   const handleSelectedAll = () => {
     setSelectedAll((isSelectedAll) => !isSelectedAll);
-  };
-
-  const updateCartItem = useSetRecoilState(refreshCartItemsState);
-
-  const handleDeleteCartItem = async (cartItemId: number) => {
-    try {
-      await removeCartItem(cartItemId);
-      updateCartItem([]);
-    } catch (error) {
-      if (error instanceof Error) alert(error.message);
-    }
   };
 
   return (
@@ -47,7 +34,7 @@ const CartItemList = () => {
             key={cartItem.id}
             id={cartItem.id}
             cartItemProduct={cartItem.product}
-            onRemoveItem={handleDeleteCartItem}
+            readonly={false}
           />
         );
       })}

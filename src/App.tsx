@@ -1,10 +1,11 @@
-import ShoppingCart from './components/pages/ShoppingCart/ShoppingCart';
+import ShoppingCart from './components/pages/ShoppingCartPage/ShoppingCart';
 import { ErrorBoundary } from 'react-error-boundary';
-import ErrorFallback from './components/pages/ErrorFallback/ErrorFallback';
 
 import { Route, Routes } from 'react-router-dom';
-import OrderConfirmation from './components/pages/OrderConfirmation/OrderConfirmation';
-import { ROUTE } from './constant/route';
+import OrderConfirmation from './components/pages/OrderConfirmationPage/OrderConfirmation';
+import { ROUTE } from './components/constants/route';
+import BuyItems from './components/pages/BuyItemsPage/BuyItems';
+import ErrorFallback from './components/pages/ErrorFallbackPage/ErrorFallback';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           path={ROUTE.orderConfirmation.path}
           element={<OrderConfirmation />}
         />
+        <Route path={ROUTE.buyItem.path} element={<BuyItems />} />
       </Routes>
     </ErrorBoundary>
   );

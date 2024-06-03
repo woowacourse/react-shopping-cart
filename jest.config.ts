@@ -8,4 +8,5 @@ export default {
     '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
   },
   setupFilesAfterEnv: ['./jest.setup.ts'],
+  fakeTimers: { enableGlobally: true },
 };

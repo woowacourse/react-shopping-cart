@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { CommonButton, Divider } from '../../commonStyle';
 
 export const ItemList = styled.ul`
   display: flex;
@@ -19,23 +20,10 @@ export const Item = styled.li`
   gap: 0.75rem;
 `;
 
-export const Divider = styled.div`
-  border: 0.5px solid ${(props) => props.theme.color.borderGray};
-`;
-
+export const CartItemDivider = Divider;
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
-`;
-
-export const Button = styled.button`
-  width: 1.5rem;
-  height: 1.5rem;
-  padding: 0;
-  border: none;
-  border-radius: 8px;
-
-  cursor: pointer;
 `;
 
 export const DeleteButton = styled.button`
@@ -49,7 +37,6 @@ export const DeleteButton = styled.button`
   color: ${(props) => props.theme.color.captionBlack};
 
   background-color: ${(props) => props.theme.color.white};
-
   cursor: pointer;
 `;
 
@@ -96,3 +83,5 @@ export const ItemQuantity = styled.p`
   ${(props) => props.theme.typography.caption};
   color: ${(props) => props.theme.color.captionBlack};
 `;
+
+export const Button = CommonButton;
